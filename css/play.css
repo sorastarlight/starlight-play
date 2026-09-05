@@ -51,6 +51,7 @@ h1 { font-size: clamp(32px, 5vw, 48px); letter-spacing: -1.2px; margin: 14px 0 8
   box-shadow: 0 0 0 3px #e8c44a, 0 8px 16px #c48a2240;
 }
 h2 { margin: 0 0 10px; font-size: 20px; color: #5d5b87; }
+.lede, .muted, footer { color: var(--muted); line-height: 1.55; }
 .lede { margin-top: 14px; }
 header {
   display: grid;

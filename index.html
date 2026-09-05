@@ -21,37 +21,21 @@
     </div>
   </header>
 
-  <p id="twitch-setup" class="notice" hidden>
-    Twitch login still needs the Play Twitch app connected in Supabase.
-    Create an app at the Twitch Developer Console, set the OAuth redirect to
-    <code>https://dtflmlbjhttoewqgkujf.supabase.co/auth/v1/callback</code>,
-    then enable the Twitch provider in the Starlight Play Supabase project.
-  </p>
-
-  <div class="layout">
-    <section class="card">
-      <div class="hero">
-        <div class="eyebrow">Live stream</div>
-        <iframe id="stream-frame" title="Twitch stream" allowfullscreen></iframe>
-        <p id="stream-note" class="muted">Loading the stream player…</p>
-      </div>
-      <div class="body">
-        <h2>Current encounter</h2>
-        <p id="round-status">Checking for a live community round…</p>
-        <p id="bag-status" class="muted">Your bag appears after you sign in.</p>
-      </div>
-    </section>
-    <aside class="card body">
-      <h2>GoDaddy DNS</h2>
-      <p>Add the same kind of record as <code>cards</code>:</p>
-      <p><code>CNAME play → sorastarlight.github.io.</code></p>
-      <div class="links">
-        <a class="button secondary" href="https://cards.sorastarlight.net">Card binder</a>
-      </div>
-    </aside>
-  </div>
-  <footer>Play is a separate site from the card binder. Paid items stay off. The local Streamlabs overlay remains the stream fallback.</footer>
+  <section class="card">
+    <div class="hero">
+      <div class="eyebrow">Live stream</div>
+      <iframe id="stream-frame" title="Twitch stream" allowfullscreen></iframe>
+      <p id="stream-note" class="muted">Loading the stream player…</p>
+    </div>
+    <div class="body">
+      <h2>Current encounter</h2>
+      <p id="round-status">Checking for a live community round…</p>
+      <p id="bag-status" class="muted">Your bag appears after you sign in.</p>
+    </div>
+  </section>
+  <footer>Play is a separate site from the card binder. Paid items stay off.</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/play.js"></script>

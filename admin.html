@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Starlight Play · Staff hub</title>
+<link rel="stylesheet" href="css/play.css">
+<div class="wrap">
+  <header>
+    <div>
+      <span class="tag">STAFF ONLY</span>
+      <h1>Play hub</h1>
+      <p class="lede">Streamer tools for Starlight Play. Viewers use the public page. This hub stays separate.</p>
+    </div>
+    <div class="auth">
+      <p id="auth-status" role="status">Checking Twitch sign-in…</p>
+      <div class="links">
+        <button id="sign-in" type="button">Sign in with Twitch</button>
+        <button id="sign-out" class="secondary" type="button" hidden>Sign out</button>
+        <a class="button secondary" href="./">Public Play page</a>
+      </div>
+    </div>
+  </header>
+
+  <p id="gate" class="notice">Sign in with the stream Twitch account to open staff tools.</p>
+
+  <div id="staff" hidden>
+    <div class="layout">
+      <section class="card">
+        <div class="hero">
+          <div class="eyebrow">Stream preview</div>
+          <iframe id="stream-frame" title="Twitch stream preview" allowfullscreen></iframe>
+          <p id="stream-note" class="muted">Loading preview…</p>
+        </div>
+        <div class="body">
+          <h2>Current encounter</h2>
+          <p id="round-status">Checking rounds…</p>
+          <p id="trainer-count" class="muted">Trainer count appears after sign-in.</p>
+        </div>
+      </section>
+      <aside class="card body">
+        <h2>Stream channel</h2>
+        <p class="muted">This is the Twitch login the public player follows. It must match the account you sign in with to keep staff access.</p>
+        <label class="field" for="channel">Twitch login
+          <input id="channel" type="text" autocomplete="off" spellcheck="false">
+        </label>
+        <div class="links">
+          <button id="save-channel" type="button">Save channel</button>
+        </div>
+        <p id="save-status" class="muted" role="status"></p>
+      </aside>
+    </div>
+
+    <div id="twitch-setup" class="notice">
+      <strong>Enable Twitch login for Play</strong>
+      Keep this app separate from the card binder.
+      <ol>
+        <li>Open the <a href="https://dev.twitch.tv/console/apps" target="_blank" rel="noreferrer">Twitch Developer Console</a> and register <code>Starlight Play</code>.</li>
+        <li>Category: Website Integration. OAuth Redirect URL:<br><code>https://dtflmlbjhttoewqgkujf.supabase.co/auth/v1/callback</code></li>
+        <li>Copy the Client ID and create a Client Secret. Do not paste those into chat.</li>
+        <li>In the <a href="https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/auth/providers" target="_blank" rel="noreferrer">starlight-play Supabase providers</a>, enable Twitch and paste those two values.</li>
+        <li>Under Authentication → URL Configuration, add:<br>
+          <code>https://play.sorastarlight.net/</code><br>
+          <code>https://play.sorastarlight.net/admin.html</code>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <footer>Bookmark this page. It is not linked from the public Play site.</footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>

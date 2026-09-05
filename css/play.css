@@ -50,6 +50,14 @@ header {
 }
 .auth { padding: 18px; }
 .layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(260px, .9fr); gap: 18px; }
+.field { display: grid; gap: 8px; margin: 14px 0; font-weight: 650; color: #5d5b87; }
+.field input {
+  font: inherit;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #b9cbe7;
+  color: #4e5c7d;
+}
 .hero {
   background: linear-gradient(135deg, #fce3f0 0%, #f6f2ff 44%, #dceeff 100%);
   border-bottom: 2px solid #d2dff3;
@@ -96,7 +104,10 @@ button.secondary, a.button.secondary {
   border: 1px solid #d4dcf0;
   border-left: 4px solid #e9b4d1;
   color: #656383;
+  margin: 0 0 18px;
 }
+.notice ol { margin: 10px 0 0; padding-left: 20px; }
+.notice li { margin: 8px 0; }
 code { font-size: 13px; }
 footer { margin-top: 24px; font-size: 13px; }
 @media (max-width: 800px) {

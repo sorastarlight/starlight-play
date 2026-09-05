@@ -1,31 +1,14 @@
 (() => {
-  const { supabaseUrl, supabaseKey } = window.PLAY_CONFIG;
-  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey, {
-    auth: {
-      persistSession: true,
-      detectSessionInUrl: true,
-      flowType: "pkce"
-    }
-  });
-
+  const supabase = window.playSupabase;
   const els = {
     status: document.getElementById("auth-status"),
     signIn: document.getElementById("sign-in"),
     signOut: document.getElementById("sign-out"),
-    setup: document.getElementById("twitch-setup"),
     stream: document.getElementById("stream-frame"),
     streamNote: document.getElementById("stream-note"),
     round: document.getElementById("round-status"),
     bag: document.getElementById("bag-status")
   };
-
-  function redirectTo() {
-    return new URL(".", window.location.href).href;
-  }
-
-  function twitchParent() {
-    return window.location.hostname;
-  }
 
   function setAuthUi(session, profile) {
     const signedIn = Boolean(session);
@@ -45,7 +28,7 @@
     const session = sessionData.session;
     if (!session) {
       setAuthUi(null);
-      return null;
+      return;
     }
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     setAuthUi(session, profile);
@@ -53,20 +36,19 @@
     if (bag) {
       els.bag.textContent = `Berry ${bag.berry} · Bait ${bag.bait} · Poké Ball ${bag.pokeball} · Great ${bag.greatball} · Ultra ${bag.ultraball}`;
     }
-    return { session, profile };
   }
 
   async function loadStream() {
     const { data: config } = await supabase.from("site_config").select("broadcaster_twitch_login").eq("id", 1).maybeSingle();
     const login = (config?.broadcaster_twitch_login || "").trim();
     if (!login) {
-      els.streamNote.textContent = "Set the stream channel in Play site config to show the live player.";
+      els.streamNote.textContent = "The stream channel is not set yet.";
       els.stream.removeAttribute("src");
       return;
     }
-    const parent = encodeURIComponent(twitchParent());
+    const parent = encodeURIComponent(window.playTwitchParent());
     els.stream.src = `https://player.twitch.tv/?channel=${encodeURIComponent(login)}&parent=${parent}&muted=true`;
-    els.streamNote.textContent = `Watching ${login} · this player follows the live Twitch channel.`;
+    els.streamNote.textContent = `Watching ${login}.`;
   }
 
   function describeRound(round) {
@@ -83,27 +65,15 @@
   }
 
   async function signIn() {
-    els.setup.hidden = true;
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "twitch",
-      options: {
-        redirectTo: redirectTo(),
-        scopes: "user:read:email"
-      }
-    });
-    if (error) {
-      els.setup.hidden = false;
-      els.status.textContent = error.message || "Twitch sign-in is not enabled yet.";
-    }
-  }
-
-  async function signOut() {
-    await supabase.auth.signOut();
-    setAuthUi(null);
+    const result = await window.playSignInWithTwitch();
+    if (result && !result.ok) els.status.textContent = result.message;
   }
 
   els.signIn.addEventListener("click", signIn);
-  els.signOut.addEventListener("click", signOut);
+  els.signOut.addEventListener("click", async () => {
+    await window.playSignOut();
+    setAuthUi(null);
+  });
   supabase.auth.onAuthStateChange(() => { loadProfile(); });
 
   supabase.channel("play-live")

@@ -20,6 +20,14 @@ Copy the existing `cards` record and change only the name:
 | --- | --- | --- | --- |
 | CNAME | `play` | `sorastarlight.github.io.` | 1 hour |
 
+## Staff hub
+
+Streamer tools live at `admin.html` and are not linked from the public page:
+
+https://play.sorastarlight.net/admin.html
+
+Only the Twitch account matching `site_config.broadcaster_twitch_login` can open it.
+
 ## Twitch login
 
 Play uses its own Supabase project. Do not put card-binder secrets here.
@@ -36,7 +44,9 @@ Play uses its own Supabase project. Do not put card-binder secrets here.
 7. Add these Redirect URLs in Authentication → URL Configuration:
 
    - `https://play.sorastarlight.net/`
+   - `https://play.sorastarlight.net/admin.html`
    - `https://sorastarlight.github.io/starlight-play/`
+   - `https://sorastarlight.github.io/starlight-play/admin.html`
 
 The live player follows the Twitch channel in `site_config.broadcaster_twitch_login` (currently `sorastarlight`). Encounter actions stay server-side; paid items stay off.
 

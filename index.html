@@ -4,121 +4,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Starlight Play</title>
-<style>
-  :root {
-    color-scheme: light;
-    --ink: #3e4262;
-    --muted: #6b6c84;
-    --pink: #e9b4d1;
-    --blue: #abc9ef;
-    --pearl: #f7faff;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; min-height: 100%; }
-  body {
-    font-family: "Segoe UI", system-ui, sans-serif;
-    color: var(--ink);
-    background:
-      radial-gradient(ellipse at 7% 0%, #fce5f1 0, transparent 45%),
-      radial-gradient(ellipse at 100% 38%, #dfeeff 0, transparent 52%),
-      var(--pearl);
-  }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 56px 24px 72px; }
-  .sparkle { color: #fff; text-shadow: 0 0 12px #a1bde399; }
-  .tag {
-    display: inline-block;
-    border: 1px solid #d6cce5;
-    background: #fffaff;
-    color: #775a83;
-    border-radius: 999px;
-    padding: 6px 12px;
-    font-size: 12px;
-    font-weight: 650;
-    letter-spacing: .07em;
-  }
-  h1 {
-    font-size: clamp(36px, 6vw, 52px);
-    letter-spacing: -1.2px;
-    margin: 18px 0 10px;
-    color: #47486c;
-  }
-  h1::first-letter { color: #af5488; }
-  .lede { font-size: 18px; line-height: 1.55; color: var(--muted); max-width: 38em; }
-  .card {
-    margin-top: 32px;
-    background: #fff;
-    border: 1px solid #ccd8ed;
-    border-radius: 26px;
-    box-shadow: 0 10px 30px #687bae12, inset 0 1px 0 #fff;
-    overflow: hidden;
-  }
-  .hero {
-    position: relative;
-    isolation: isolate;
-    padding: 36px 28px 28px;
-    background:
-      radial-gradient(ellipse at 50% 80%, #fff9 0, transparent 50%),
-      linear-gradient(135deg, #fce3f0 0%, #f6f2ff 44%, #dceeff 100%);
-    border-bottom: 2px solid #d2dff3;
-  }
-  .hero::before, .hero::after {
-    position: absolute;
-    z-index: -1;
-    pointer-events: none;
-    color: #fff;
-  }
-  .hero::before { content: "✧"; left: 8%; top: 22%; font-size: 42px; text-shadow: 0 0 12px #a1bde399; }
-  .hero::after { content: "✦"; right: 10%; bottom: 18%; font-size: 26px; text-shadow: 0 0 12px #dc9fc299; }
-  .body { padding: 28px; }
-  .steps { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
-  .steps li {
-    background: #f1f6ff;
-    border: 1px solid #cbd9ef;
-    border-radius: 14px;
-    padding: 14px 16px;
-    color: #4d628a;
-  }
-  .steps strong { display: block; color: #793f67; margin-bottom: 4px; }
-  .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-  a.button {
-    display: inline-block;
-    text-decoration: none;
-    font-weight: 650;
-    border-radius: 12px;
-    padding: 12px 18px;
-    border: 1px solid #dca8c9;
-    background: linear-gradient(110deg, #f6cde4, #efd5f0);
-    color: #723d65;
-    box-shadow: 0 4px 14px #c478a525;
-  }
-  a.button.secondary {
-    background: #edf4ff;
-    color: #4d6188;
-    border-color: #b9cde9;
-    box-shadow: none;
-  }
-  footer { margin-top: 28px; color: var(--muted); font-size: 13px; line-height: 1.6; }
-</style>
+<link rel="stylesheet" href="css/play.css">
 <div class="wrap">
-  <span class="tag">PRIVATE TEST · FREE PLAY</span>
-  <h1>Starlight Play</h1>
-  <p class="lede">A community catching companion for stream. Viewers will join, prepare, and throw from this page instead of flooding chat. Twitch login and shared rounds are next.</p>
-  <section class="card">
-    <div class="hero">
-      <div class="eyebrow" style="text-transform:uppercase;font-size:12px;letter-spacing:.16em;color:#88557c;font-weight:650">play.sorastarlight.net</div>
-      <p class="lede" style="margin:12px 0 0">This uses the same GitHub Pages setup as the card binder. After the GoDaddy record is added, this becomes the Play site — separate from the cards site.</p>
+  <header>
+    <div>
+      <span class="tag">PRIVATE TEST · FREE PLAY</span>
+      <h1>Starlight Play</h1>
+      <p class="lede">Sign in with Twitch, watch the stream, and take encounter actions here instead of flooding chat.</p>
     </div>
-    <div class="body">
-      <ol class="steps">
-        <li><strong>Now</strong> In GoDaddy DNS, add a CNAME named <code>play</code> pointing to <code>sorastarlight.github.io</code> — the same target as <code>cards</code>.</li>
-        <li><strong>Next</strong> Twitch sign-in, hosted sprites, and a private two-account multiplayer test.</li>
-        <li><strong>Not yet</strong> Paid items stay off. The live stream overlay and card binder are unchanged.</li>
-      </ol>
+    <div class="auth">
+      <p id="auth-status" role="status">Checking Twitch sign-in…</p>
       <div class="links">
-        <a class="button" href="https://cards.sorastarlight.net">Open the card binder</a>
-        <a class="button secondary" href="https://sorastarlight.github.io/starlight-play/">GitHub preview</a>
+        <button id="sign-in" type="button">Sign in with Twitch</button>
+        <button id="sign-out" class="secondary" type="button" hidden>Sign out</button>
       </div>
     </div>
-  </section>
-  <footer>Starlight Play is a private online test. Local stream tools stay on this PC as the fallback.</footer>
+  </header>
+
+  <p id="twitch-setup" class="notice" hidden>
+    Twitch login still needs the Play Twitch app connected in Supabase.
+    Create an app at the Twitch Developer Console, set the OAuth redirect to
+    <code>https://dtflmlbjhttoewqgkujf.supabase.co/auth/v1/callback</code>,
+    then enable the Twitch provider in the Starlight Play Supabase project.
+  </p>
+
+  <div class="layout">
+    <section class="card">
+      <div class="hero">
+        <div class="eyebrow">Live stream</div>
+        <iframe id="stream-frame" title="Twitch stream" allowfullscreen></iframe>
+        <p id="stream-note" class="muted">Loading the stream player…</p>
+      </div>
+      <div class="body">
+        <h2>Current encounter</h2>
+        <p id="round-status">Checking for a live community round…</p>
+        <p id="bag-status" class="muted">Your bag appears after you sign in.</p>
+      </div>
+    </section>
+    <aside class="card body">
+      <h2>GoDaddy DNS</h2>
+      <p>Add the same kind of record as <code>cards</code>:</p>
+      <p><code>CNAME play → sorastarlight.github.io.</code></p>
+      <div class="links">
+        <a class="button secondary" href="https://cards.sorastarlight.net">Card binder</a>
+      </div>
+    </aside>
+  </div>
+  <footer>Play is a separate site from the card binder. Paid items stay off. The local Streamlabs overlay remains the stream fallback.</footer>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/play.js"></script>

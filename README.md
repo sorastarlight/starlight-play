@@ -1,33 +1,26 @@
 # Starlight Play
 
-Private companion site for `play.sorastarlight.net`.
+Companion site for `play.sorastarlight.net`.
 
 This repo is separate from the local stream overlay, Mix It Up commands, and the card binder.
 
 ## Hosting
 
-- GitHub: `sorastarlight/starlight-play` (private)
-- Cloudflare Pages: `starlight-play`
-- Preview: https://starlight-play.pages.dev
+Same pattern as the card binder:
+
+- GitHub Pages from the `main` branch
 - Custom domain: `play.sorastarlight.net`
+- Preview: https://sorastarlight.github.io/starlight-play/
 
 ## GoDaddy DNS
 
-Add this record, then wait for it to propagate:
+Copy the existing `cards` record and change only the name:
 
 | Type | Name | Value | TTL |
 | --- | --- | --- | --- |
-| CNAME | `play` | `starlight-play.pages.dev` | 1 hour / 600 seconds |
+| CNAME | `play` | `sorastarlight.github.io.` | 1 hour |
 
-Do not point this hostname at GitHub Pages. The live host is Cloudflare Pages, same pattern as `cards.sorastarlight.net`.
-
-## Deploy
-
-From this folder:
-
-```powershell
-wrangler pages deploy . --project-name starlight-play --commit-dirty=true
-```
+Keep the trailing dot if GoDaddy shows it on `cards`.
 
 ## Notes
 

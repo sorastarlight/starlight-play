@@ -12,6 +12,17 @@ Same pattern as the card binder:
 - Custom domain: `play.sorastarlight.net`
 - Preview: https://sorastarlight.github.io/starlight-play/
 
+## Pages
+
+| Page | URL | Who |
+| --- | --- | --- |
+| Play | `/` | Viewers watch the stream and take encounter turns |
+| Bag | `/bag.html` | Trainer items and caught Pokémon |
+| Store | `/store.html` | Starlight Pass (Twitch sub) and a locked Bits shelf |
+| Staff | `/admin.html` | Encounter commands, timings, channel, pass grants |
+
+Public nav is Play · Bag · Store. Staff appears only after the stream Twitch account signs in.
+
 ## GoDaddy DNS
 
 Copy the existing `cards` record and change only the name:
@@ -20,13 +31,21 @@ Copy the existing `cards` record and change only the name:
 | --- | --- | --- | --- |
 | CNAME | `play` | `sorastarlight.github.io.` | 1 hour |
 
-## Staff hub
+## Encounter commands
 
-Streamer tools live at `admin.html` and are not linked from the public page:
+Staff controls on `/admin.html` write Play rounds in Supabase. Viewers join, prepare, and throw on the Play page.
 
-https://play.sorastarlight.net/admin.html
+This does **not** drive the local Mix It Up overlay yet. Stream overlay commands stay in Mix It Up until a bridge exists.
 
-Only the Twitch account matching `site_config.broadcaster_twitch_login` can open it.
+Odds match the free prototype: Poké 45% / Great 60% / Ultra 75%, berry +10pp, shared bait up to +15pp, cap 90%.
+
+## Starlight Pass
+
+The pass is channel-subscription status, not a paid catch chance.
+
+- Viewers: Store → Check my subscription (needs Twitch login plus `user:read:subscriptions`)
+- Staff can grant or remove a pass by Twitch login
+- Bits cannot buy balls, berries, bait, or odds
 
 ## Twitch login
 
@@ -41,9 +60,12 @@ Play uses its own Supabase project. Do not put card-binder secrets here.
 4. Copy the Client ID and create a Client Secret.
 5. In the **starlight-play** Supabase project: Authentication → Sign In / Providers → Twitch.
 6. Enable Twitch, paste the Client ID and Client Secret, and save.
-7. Add these Redirect URLs in Authentication → URL Configuration:
+7. Paste the same Client ID into Staff → Stream channel.
+8. Add these Redirect URLs in Authentication → URL Configuration:
 
    - `https://play.sorastarlight.net/`
+   - `https://play.sorastarlight.net/bag.html`
+   - `https://play.sorastarlight.net/store.html`
    - `https://play.sorastarlight.net/admin.html`
    - `https://sorastarlight.github.io/starlight-play/`
    - `https://sorastarlight.github.io/starlight-play/admin.html`

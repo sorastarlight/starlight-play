@@ -21,7 +21,7 @@
       provider: "twitch",
       options: {
         redirectTo: window.playRedirectTo(),
-        scopes: "user:read:email",
+        scopes: "user:read:email user:read:subscriptions",
         skipBrowserRedirect: true
       }
     });

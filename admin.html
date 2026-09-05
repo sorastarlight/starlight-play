@@ -3,16 +3,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>THE STARLIGHT PLAY HUB · Staff</title>
+<title>Staff · THE STARLIGHT PLAY HUB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/play.css">
+<body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./admin.html">
       <img src="images/sora-starlight-logo.png" alt="">
-      <span>THE STARLIGHT PLAY HUB</span>
+      <span>STARLIGHT PLAY</span>
     </a>
+    <div id="topnav-links" class="topnav-links"></div>
     <div class="topnav-actions">
-      <a class="topnav-link" href="./">Public page</a>
       <p id="auth-status" class="visually-hidden" role="status">Checking Twitch sign-in…</p>
       <button id="sign-in" type="button">Sign in with Twitch</button>
       <div id="account" class="account" hidden>
@@ -23,6 +27,7 @@
         </button>
         <div id="account-menu" class="account-menu" hidden role="menu">
           <p id="account-handle" class="account-handle"></p>
+          <a id="account-staff" class="button secondary" href="./admin.html" hidden role="menuitem">Staff hub</a>
           <button id="sign-out" type="button" role="menuitem">Sign out</button>
         </div>
       </div>
@@ -30,13 +35,11 @@
   </div>
 </nav>
 <div class="wrap">
-  <div class="hero-brand">
-    <span class="tag">STAFF ONLY</span>
-    <p class="lede">Streamer tools for Starlight Play. Viewers use the public page. This hub stays separate.</p>
+  <div class="page-kicker">
+    <span class="tag">Staff only</span>
+    <p class="lede">Command center for Play encounters. This does not drive the local Mix It Up overlay yet. Bookmark this page; it is not advertised in the public nav.</p>
   </div>
-
   <p id="gate" class="notice">Sign in with the stream Twitch account to open staff tools.</p>
-
   <div id="staff" hidden>
     <div class="layout">
       <section class="card">
@@ -45,44 +48,137 @@
           <iframe id="stream-frame" title="Twitch stream preview" allowfullscreen></iframe>
           <p id="stream-note" class="muted">Loading preview…</p>
         </div>
-        <div class="body">
-          <h2>Current encounter</h2>
-          <p id="round-status">Checking rounds…</p>
-          <p id="trainer-count" class="muted">Trainer count appears after sign-in.</p>
-        </div>
       </section>
-      <aside class="card body">
+      <aside class="card dex-card">
+        <div class="body">
+          <div class="eyebrow">Live round</div>
+          <div id="encounter"></div>
+          <p id="trainer-count" class="muted"></p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="layout stack-2" style="margin-top:18px">
+      <section class="card body">
+        <h2>Encounter commands</h2>
+        <p class="muted">Same beats as Mix It Up: start, cancel, hide, refill. Viewers use the Play page instead of chat.</p>
+        <div class="command-grid">
+          <button id="start-random" class="gold" type="button">Random encounter</button>
+          <button id="start-pikachu" type="button">Test Pikachu</button>
+          <button id="cancel-round" class="danger" type="button">Cancel / refund</button>
+          <button id="toggle-hidden" class="secondary" type="button">Hide from viewers</button>
+          <button id="sync-clock" class="secondary" type="button">Resume clock</button>
+          <button id="refill" class="secondary" type="button">Refill test bags</button>
+        </div>
+        <label class="field" for="dex-pick">Or choose a Pokédex number
+          <input id="dex-pick" list="dex-list" type="text" placeholder="25 or Pikachu">
+        </label>
+        <datalist id="dex-list"></datalist>
+        <div class="links">
+          <button id="start-dex" type="button">Start this species</button>
+        </div>
+        <p id="command-status" class="muted" role="status"></p>
+      </section>
+      <section class="card body">
+        <h2>Timings &amp; odds</h2>
+        <p class="muted">Seconds per phase, then catch chances. Bits purchases cannot be turned on from here.</p>
+        <div class="settings-grid">
+          <label class="field" for="join-seconds">Join
+            <input id="join-seconds" type="number" min="5" max="180">
+          </label>
+          <label class="field" for="prepare-seconds">Prepare
+            <input id="prepare-seconds" type="number" min="5" max="180">
+          </label>
+          <label class="field" for="throw-seconds">Throw
+            <input id="throw-seconds" type="number" min="5" max="180">
+          </label>
+          <label class="field" for="reveal-seconds">Reveal
+            <input id="reveal-seconds" type="number" min="5" max="180">
+          </label>
+          <label class="field" for="poke-chance">Poké Ball
+            <input id="poke-chance" type="number" min="0" max="1" step="0.01">
+          </label>
+          <label class="field" for="great-chance">Great Ball
+            <input id="great-chance" type="number" min="0" max="1" step="0.01">
+          </label>
+          <label class="field" for="ultra-chance">Ultra Ball
+            <input id="ultra-chance" type="number" min="0" max="1" step="0.01">
+          </label>
+          <label class="field" for="berry-bonus">Berry bonus
+            <input id="berry-bonus" type="number" min="0" max="1" step="0.01">
+          </label>
+          <label class="field" for="bait-bonus">Max bait bonus
+            <input id="bait-bonus" type="number" min="0" max="1" step="0.01">
+          </label>
+          <label class="field" for="max-chance">Catch cap
+            <input id="max-chance" type="number" min="0" max="1" step="0.01">
+          </label>
+        </div>
+        <div class="links">
+          <button id="save-settings" type="button">Save encounter rules</button>
+        </div>
+        <p id="settings-status" class="muted" role="status"></p>
+      </section>
+    </div>
+
+    <div class="layout stack-2" style="margin-top:18px">
+      <section class="card body">
         <h2>Stream channel</h2>
-        <p class="muted">This is the Twitch login the public player follows. It must match the account you sign in with to keep staff access.</p>
+        <p class="muted">Public player follows this Twitch login. Staff access also matches it unless a staff role is assigned.</p>
         <label class="field" for="channel">Twitch login
           <input id="channel" type="text" autocomplete="off" spellcheck="false">
+        </label>
+        <label class="field" for="twitch-client">Twitch Client ID <span class="muted">(Play app, not the binder)</span>
+          <input id="twitch-client" type="text" autocomplete="off" spellcheck="false">
+        </label>
+        <label class="field" for="twitch-broadcaster">Broadcaster ID <span class="muted">(numeric Helix id)</span>
+          <input id="twitch-broadcaster" type="text" autocomplete="off" spellcheck="false">
         </label>
         <div class="links">
           <button id="save-channel" type="button">Save channel</button>
         </div>
         <p id="save-status" class="muted" role="status"></p>
-      </aside>
+      </section>
+      <section class="card body">
+        <h2>Starlight Pass</h2>
+        <p class="muted">Grant or remove the pass by Twitch login after someone has signed into Play. Automatic sub checks need the Client ID above.</p>
+        <p id="pass-count" class="muted"></p>
+        <label class="field" for="pass-login">Twitch login
+          <input id="pass-login" type="text" autocomplete="off" spellcheck="false">
+        </label>
+        <div class="links">
+          <button id="grant-pass" type="button">Grant pass</button>
+          <button id="revoke-pass" class="secondary" type="button">Remove pass</button>
+        </div>
+        <p id="pass-admin-status" class="muted" role="status"></p>
+      </section>
     </div>
 
-    <div id="twitch-setup" class="notice">
+    <div id="twitch-setup" class="notice" style="margin-top:18px">
       <strong>Enable Twitch login for Play</strong>
       Keep this app separate from the card binder.
       <ol>
         <li>Open the <a href="https://dev.twitch.tv/console/apps" target="_blank" rel="noreferrer">Twitch Developer Console</a> and register <code>Starlight Play</code>.</li>
         <li>Category: Website Integration. OAuth Redirect URL:<br><code>https://dtflmlbjhttoewqgkujf.supabase.co/auth/v1/callback</code></li>
-        <li>Copy the Client ID and create a Client Secret. Do not paste those into chat.</li>
+        <li>Copy the Client ID and create a Client Secret. Do not paste the secret into chat. Paste the Client ID into the field above.</li>
         <li>In the <a href="https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/auth/providers" target="_blank" rel="noreferrer">starlight-play Supabase providers</a>, enable Twitch and paste those two values.</li>
         <li>Under Authentication → URL Configuration, add:<br>
           <code>https://play.sorastarlight.net/</code><br>
+          <code>https://play.sorastarlight.net/bag.html</code><br>
+          <code>https://play.sorastarlight.net/store.html</code><br>
           <code>https://play.sorastarlight.net/admin.html</code>
         </li>
       </ol>
     </div>
   </div>
-  <footer>Bookmark this page. It is not linked from the public Play site.</footer>
+  <footer>Local Mix It Up commands still control the stream overlay until a bridge is built.</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/species.js"></script>
+<script src="js/game.js"></script>
+<script src="js/hud.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/admin.js"></script>
+</body>

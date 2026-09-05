@@ -7,7 +7,9 @@ window.playAccountAvatar = function playAccountAvatar(session, profile) {
 };
 
 window.playBindAccountNav = function playBindAccountNav(options) {
+  const page = document.body?.dataset?.page || "";
   const els = {
+    links: document.getElementById("topnav-links"),
     signIn: document.getElementById("sign-in"),
     account: document.getElementById("account"),
     button: document.getElementById("account-button"),
@@ -16,9 +18,26 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     fallback: document.getElementById("account-fallback"),
     name: document.getElementById("account-name"),
     handle: document.getElementById("account-handle"),
+    staff: document.getElementById("account-staff"),
     signOut: document.getElementById("sign-out"),
     status: document.getElementById("auth-status")
   };
+
+  const links = [
+    { href: "./", id: "play", label: "Play" },
+    { href: "./bag.html", id: "bag", label: "Bag" },
+    { href: "./store.html", id: "store", label: "Store" }
+  ];
+
+  function renderLinks(isAdmin) {
+    if (!els.links) return;
+    const items = links.slice();
+    if (isAdmin) items.push({ href: "./admin.html", id: "admin", label: "Staff" });
+    els.links.innerHTML = items.map((item) => {
+      const current = item.id === page ? " aria-current=\"page\"" : "";
+      return `<a class="topnav-link" href="${item.href}"${current}>${item.label}</a>`;
+    }).join("");
+  }
 
   function closeMenu() {
     if (!els.menu || !els.button) return;
@@ -33,10 +52,15 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     els.button.setAttribute("aria-expanded", open ? "true" : "false");
   }
 
-  window.playSetAccountNav = function playSetAccountNav(session, profile) {
+  renderLinks(false);
+
+  window.playSetAccountNav = function playSetAccountNav(session, profile, extras) {
     const signedIn = Boolean(session);
+    const isAdmin = Boolean(extras?.isAdmin);
+    renderLinks(isAdmin);
     if (els.signIn) els.signIn.hidden = signedIn;
     if (els.account) els.account.hidden = !signedIn;
+    if (els.staff) els.staff.hidden = !isAdmin;
     closeMenu();
     if (!signedIn) {
       if (els.status) els.status.textContent = "Not signed in.";

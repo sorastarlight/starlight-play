@@ -29,6 +29,7 @@
     const seconds = window.playSecondsLeft(round.endsAt);
     const sprite = window.playSpriteUrl(round.dex, round.variant);
     const hidden = round.hidden ? `<span class="chip warn">Hidden</span>` : "";
+    const mix = round.source === "mixitup" ? `<span class="chip pass">Mix It Up</span>` : "";
     const shiny = String(round.variant || "").includes("shiny") ? `<span class="chip shiny">Shiny</span>` : "";
     const results = round.resolved && round.results
       ? `<p class="result-line">Caught ${round.results.caught || 0} · Escaped ${round.results.escaped || 0} · No throw ${round.results.noThrow || 0}</p>`
@@ -36,7 +37,7 @@
     return `
       <div class="dex-head">
         <span class="dex-no">No. ${String(round.dex || 0).padStart(3, "0")}</span>
-        ${hidden}${shiny}
+        ${hidden}${mix}${shiny}
       </div>
       <div class="dex-stage">
         ${sprite ? `<img src="${sprite}" alt="${name}">` : ""}

@@ -37,7 +37,7 @@
 <div class="wrap">
   <div class="page-kicker">
     <span class="tag">Staff only</span>
-    <p class="lede">Command center for Play encounters. This does not drive the local Mix It Up overlay yet. Bookmark this page; it is not advertised in the public nav.</p>
+    <p class="lede">Command center for Mix It Up on the stream PC. Bookmark this page; it is not advertised in the public nav.</p>
   </div>
   <p id="gate" class="notice">Sign in with the stream Twitch account to open staff tools.</p>
   <div id="staff" hidden>
@@ -61,12 +61,13 @@
     <div class="layout stack-2" style="margin-top:18px">
       <section class="card body">
         <h2>Encounter commands</h2>
-        <p class="muted">Same beats as Mix It Up: start, cancel, hide, refill. Viewers use the Play page instead of chat.</p>
+        <p id="bridge-status" class="muted">Checking Mix It Up link…</p>
+        <p class="muted">These buttons queue the same Mix It Up actions as Community Start / Cancel / Resume / Hide / Refill. The stream PC must be running the Play bridge.</p>
         <div class="command-grid">
           <button id="start-random" class="gold" type="button">Random encounter</button>
           <button id="start-pikachu" type="button">Test Pikachu</button>
           <button id="cancel-round" class="danger" type="button">Cancel / refund</button>
-          <button id="toggle-hidden" class="secondary" type="button">Hide from viewers</button>
+          <button id="toggle-hidden" class="secondary" type="button">Hide overlay</button>
           <button id="sync-clock" class="secondary" type="button">Resume clock</button>
           <button id="refill" class="secondary" type="button">Refill test bags</button>
         </div>
@@ -81,7 +82,7 @@
       </section>
       <section class="card body">
         <h2>Timings &amp; odds</h2>
-        <p class="muted">Seconds per phase, then catch chances. Bits purchases cannot be turned on from here.</p>
+        <p class="muted">Seconds per phase, then catch chances. Saving also updates Mix It Up on the stream PC. Bits purchases cannot be turned on from here.</p>
         <div class="settings-grid">
           <label class="field" for="join-seconds">Join
             <input id="join-seconds" type="number" min="5" max="180">
@@ -154,6 +155,23 @@
       </section>
     </div>
 
+    <section class="card body" style="margin-top:18px">
+      <h2>Mix It Up link</h2>
+      <p class="muted">This hub does not replace Mix It Up. A small bridge on the stream PC runs the same Python Mix It Up already uses, then publishes the overlay encounter to Play.</p>
+      <ol class="muted">
+        <li>Click create token once, then copy it.</li>
+        <li>Copy <code>Data/play-bridge.example.json</code> to <code>Data/play-bridge.json</code> and paste the token.</li>
+        <li>Run <code>MixItUp/Start-Play-Bridge.bat</code> (or the Mix It Up action group <code>Play - Start Stream Bridge</code>) and leave it running while you stream.</li>
+      </ol>
+      <label class="field" for="bridge-token">Bridge token
+        <input id="bridge-token" type="text" readonly placeholder="Create a token to copy it here">
+      </label>
+      <div class="links">
+        <button id="issue-token" type="button">Create Mix It Up token</button>
+      </div>
+      <p id="bridge-token-status" class="muted" role="status"></p>
+    </section>
+
     <div id="twitch-setup" class="notice" style="margin-top:18px">
       <strong>Enable Twitch login for Play</strong>
       Keep this app separate from the card binder.
@@ -171,7 +189,7 @@
       </ol>
     </div>
   </div>
-  <footer>Local Mix It Up commands still control the stream overlay until a bridge is built.</footer>
+  <footer>Staff buttons run Mix It Up on the stream PC. Chat commands still work while the bridge is running.</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>

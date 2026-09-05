@@ -33,11 +33,15 @@ Copy the existing `cards` record and change only the name:
 
 ## Encounter commands
 
-Staff controls on `/admin.html` write Play rounds in Supabase. Viewers join, prepare, and throw on the Play page.
+Staff controls on `/admin.html` queue Mix It Up commands. A small bridge on the stream PC runs the same `community.py` engine Mix It Up already uses, writes `Data/encounter-state.js` for the overlay, and publishes that encounter to Play.
 
-This does **not** drive the local Mix It Up overlay yet. Stream overlay commands stay in Mix It Up until a bridge exists.
+1. In Staff → Mix It Up link, create a token.
+2. Copy `Data/play-bridge.example.json` to `Data/play-bridge.json` and paste the token.
+3. Run `MixItUp/Start-Play-Bridge.bat` (or the Mix It Up action group `Play - Start Stream Bridge`) and leave it running.
 
-Odds match the free prototype: Poké 45% / Great 60% / Ultra 75%, berry +10pp, shared bait up to +15pp, cap 90%.
+Chat commands still work. Do not commit `Data/play-bridge.json`.
+
+This does **not** replace Mix It Up. The overlay still reads local files. Play buttons follow the live Mix It Up round while the bridge is online.
 
 ## Starlight Pass
 

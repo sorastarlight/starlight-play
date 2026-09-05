@@ -20,6 +20,10 @@
     passCount: document.getElementById("pass-count"),
     passStatus: document.getElementById("pass-admin-status"),
     hide: document.getElementById("toggle-hidden"),
+    bridgeStatus: document.getElementById("bridge-status"),
+    issueToken: document.getElementById("issue-token"),
+    bridgeToken: document.getElementById("bridge-token"),
+    bridgeTokenStatus: document.getElementById("bridge-token-status"),
     join: document.getElementById("join-seconds"),
     prepare: document.getElementById("prepare-seconds"),
     throw: document.getElementById("throw-seconds"),
@@ -89,9 +93,9 @@
 
   function renderRound(round) {
     els.encounter.innerHTML = window.playRenderEncounter(round, {
-      emptyNote: "Start a random encounter or Test Pikachu."
+          emptyNote: "Start a random encounter. Mix It Up on the stream PC should pick it up."
     });
-    els.hide.textContent = round?.hidden ? "Show to viewers" : "Hide from viewers";
+    els.hide.textContent = "Hide overlay";
   }
 
   function applyOverview(data, fillForms) {
@@ -106,6 +110,17 @@
     renderRound(data.round);
     els.trainers.textContent = `${data.trainers} trainer${data.trainers === 1 ? "" : "s"} on Play.`;
     els.passCount.textContent = `${data.passes || 0} Starlight Pass${data.passes === 1 ? "" : "es"} active.`;
+    const bridge = data.bridge || {};
+    if (els.bridgeStatus) {
+      if (!bridge.configured) {
+        els.bridgeStatus.innerHTML = `<span class="status-bad">Mix It Up is not linked yet.</span> Create a token below, then start the bridge on the stream PC.`;
+      } else if (bridge.online) {
+        els.bridgeStatus.innerHTML = `<span class="status-ok">Mix It Up bridge online.</span> ${bridge.pending ? `${bridge.pending} command${bridge.pending === 1 ? "" : "s"} in flight.` : "Ready for staff commands."}`;
+      } else {
+        els.bridgeStatus.innerHTML = `<span class="status-bad">Mix It Up bridge offline.</span> Commands will wait until Start-Play-Bridge.bat is running.`;
+      }
+      if (bridge.lastError) els.bridgeStatus.innerHTML += ` Last Mix It Up note: ${bridge.lastError}`;
+    }
   }
 
   async function refreshOverview(fillForms) {
@@ -150,27 +165,52 @@
     }
   }
 
-  document.getElementById("start-random").addEventListener("click", () => run("admin_start_round", { p_dex: null }));
-  document.getElementById("start-pikachu").addEventListener("click", () => run("admin_start_round", { p_dex: 25 }));
+  function mixPayload(dex) {
+    return dex ? { dex } : {};
+  }
+
+  async function queueMix(action, payload) {
+    els.commandStatus.textContent = "Working…";
+    try {
+      const data = await window.playCall("admin_queue_stream_command", { p_action: action, p_payload: payload || {} });
+      els.commandStatus.textContent = data?.message || "Queued for Mix It Up.";
+      await refreshOverview(false);
+    } catch (error) {
+      const message = window.playRpcError(error);
+      if (!/could not find|schema cache|does not exist|admin_queue_stream_command/i.test(message)) {
+        els.commandStatus.textContent = message;
+        return;
+      }
+      if (action === "start") return run("admin_start_round", { p_dex: payload?.dex ?? null });
+      if (action === "cancel") return run("admin_cancel_round");
+      if (action === "hide") return run("admin_hide_round", { p_hidden: true });
+      if (action === "resume") return run("play_sync");
+      if (action === "refill") return run("admin_refill_test");
+      els.commandStatus.textContent = message;
+    }
+  }
+
+  document.getElementById("start-random").addEventListener("click", () => queueMix("start", mixPayload(null)));
+  document.getElementById("start-pikachu").addEventListener("click", () => queueMix("start", mixPayload(25)));
   document.getElementById("start-dex").addEventListener("click", () => {
     const dex = parseDex(els.dexPick.value);
     if (!dex) {
       els.commandStatus.textContent = "Pick a Pokédex number from 1 to 151.";
       return;
     }
-    run("admin_start_round", { p_dex: dex });
+    queueMix("start", mixPayload(dex));
   });
-  document.getElementById("cancel-round").addEventListener("click", () => run("admin_cancel_round"));
-  document.getElementById("sync-clock").addEventListener("click", () => run("play_sync"));
-  document.getElementById("refill").addEventListener("click", () => run("admin_refill_test"));
-  els.hide.addEventListener("click", () => run("admin_hide_round", { p_hidden: !overview?.round?.hidden }));
+  document.getElementById("cancel-round").addEventListener("click", () => queueMix("cancel"));
+  document.getElementById("sync-clock").addEventListener("click", () => queueMix("resume"));
+  document.getElementById("refill").addEventListener("click", () => queueMix("refill"));
+  els.hide.addEventListener("click", () => queueMix("hide"));
   els.save.addEventListener("click", () => run("admin_save_channel", {
     p_login: els.channel.value.trim().replace(/^@/, ""),
     p_client_id: els.client.value.trim(),
     p_broadcaster_id: els.broadcaster.value.trim()
   }, els.saveStatus));
-  document.getElementById("save-settings").addEventListener("click", () => run("admin_save_game_settings", {
-    p_settings: {
+  document.getElementById("save-settings").addEventListener("click", async () => {
+    const settings = {
       joinSeconds: Number(els.join.value),
       prepareSeconds: Number(els.prepare.value),
       throwSeconds: Number(els.throw.value),
@@ -183,8 +223,21 @@
       berryBonus: Number(els.berry.value),
       maxBaitBonus: Number(els.bait.value),
       maxCatchChance: Number(els.maxChance.value)
+    };
+    els.settingsStatus.textContent = "Saving…";
+    try {
+      const saved = await window.playCall("admin_save_game_settings", { p_settings: settings });
+      try {
+        const queued = await window.playCall("admin_queue_stream_command", { p_action: "settings", p_payload: settings });
+        els.settingsStatus.textContent = queued?.message || saved?.message || "Saved.";
+      } catch (_) {
+        els.settingsStatus.textContent = saved?.message || "Saved on Play. Mix It Up will follow once the bridge is linked.";
+      }
+      await refreshOverview(false);
+    } catch (error) {
+      els.settingsStatus.textContent = window.playRpcError(error);
     }
-  }, els.settingsStatus));
+  });
   document.getElementById("grant-pass").addEventListener("click", () => run("admin_set_pass", {
     p_login: els.passLogin.value,
     p_active: true
@@ -193,6 +246,18 @@
     p_login: els.passLogin.value,
     p_active: false
   }, els.passStatus));
+  els.issueToken.addEventListener("click", async () => {
+    els.bridgeTokenStatus.textContent = "Creating token…";
+    try {
+      const data = await window.playCall("admin_issue_bridge_token");
+      els.bridgeToken.value = data.token || "";
+      els.bridgeTokenStatus.textContent = data.message || "Copy this token into Data/play-bridge.json.";
+      els.bridgeToken.select();
+      await refreshOverview(false);
+    } catch (error) {
+      els.bridgeTokenStatus.textContent = window.playRpcError(error);
+    }
+  });
 
   supabase.auth.onAuthStateChange(() => { loadHub(); });
   supabase.channel("play-staff")

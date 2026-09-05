@@ -5,24 +5,38 @@
 <meta name="robots" content="noindex,nofollow">
 <title>THE STARLIGHT PLAY HUB</title>
 <link rel="stylesheet" href="css/play.css">
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="./">
+      <img src="images/sora-starlight-logo.png" alt="">
+      <span>THE STARLIGHT PLAY HUB</span>
+    </a>
+    <div class="topnav-actions">
+      <p id="auth-status" class="visually-hidden" role="status">Checking Twitch sign-in…</p>
+      <button id="sign-in" type="button">Sign in with Twitch</button>
+      <div id="account" class="account" hidden>
+        <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+          <img id="account-avatar" class="avatar" alt="" hidden>
+          <span id="account-fallback" class="avatar-fallback" hidden></span>
+          <span id="account-name" class="account-name">Trainer</span>
+        </button>
+        <div id="account-menu" class="account-menu" hidden role="menu">
+          <p id="account-handle" class="account-handle"></p>
+          <button id="sign-out" type="button" role="menuitem">Sign out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 <div class="wrap">
-  <header>
-    <div>
-      <div class="brand">
-        <img class="brand-logo" src="images/sora-starlight-logo.png" alt="Sora Starlight">
-        <h1 class="brand-banner">THE STARLIGHT PLAY HUB</h1>
-      </div>
-      <span class="tag">PRIVATE TEST · FREE PLAY</span>
-      <p class="lede">Sign in with Twitch, watch the stream, and take encounter actions here instead of flooding chat.</p>
+  <div class="hero-brand">
+    <div class="brand">
+      <img class="brand-logo" src="images/sora-starlight-logo.png" alt="Sora Starlight">
+      <h1 class="brand-banner">THE STARLIGHT PLAY HUB</h1>
     </div>
-    <div class="auth">
-      <p id="auth-status" role="status">Checking Twitch sign-in…</p>
-      <div class="links">
-        <button id="sign-in" type="button">Sign in with Twitch</button>
-        <button id="sign-out" class="secondary" type="button" hidden>Sign out</button>
-      </div>
-    </div>
-  </header>
+    <span class="tag">PRIVATE TEST · FREE PLAY</span>
+    <p class="lede">Watch the stream and take encounter actions here instead of flooding chat.</p>
+  </div>
 
   <section class="card">
     <div class="hero">
@@ -41,4 +55,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
 <script src="js/play.js"></script>

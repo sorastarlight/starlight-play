@@ -1,37 +1,28 @@
 (() => {
   const supabase = window.playSupabase;
   const els = {
-    status: document.getElementById("auth-status"),
-    signIn: document.getElementById("sign-in"),
-    signOut: document.getElementById("sign-out"),
     stream: document.getElementById("stream-frame"),
     streamNote: document.getElementById("stream-note"),
     round: document.getElementById("round-status"),
     bag: document.getElementById("bag-status")
   };
 
-  function setAuthUi(session, profile) {
-    const signedIn = Boolean(session);
-    els.signIn.hidden = signedIn;
-    els.signOut.hidden = !signedIn;
-    if (!signedIn) {
-      els.status.textContent = "Sign in with Twitch to join encounters from this page.";
+  window.playBindAccountNav({
+    onSignOut() {
       els.bag.textContent = "Your bag appears after you sign in.";
-      return;
     }
-    const name = profile?.display_name || session.user.user_metadata?.preferred_username || "Trainer";
-    els.status.textContent = `Signed in as ${name}.`;
-  }
+  });
 
   async function loadProfile() {
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
     if (!session) {
-      setAuthUi(null);
+      window.playSetAccountNav(null);
+      els.bag.textContent = "Your bag appears after you sign in.";
       return;
     }
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
-    setAuthUi(session, profile);
+    window.playSetAccountNav(session, profile);
     const { data: bag } = await supabase.from("inventories").select("berry, bait, pokeball, greatball, ultraball").eq("user_id", session.user.id).maybeSingle();
     if (bag) {
       els.bag.textContent = `Berry ${bag.berry} · Bait ${bag.bait} · Poké Ball ${bag.pokeball} · Great ${bag.greatball} · Ultra ${bag.ultraball}`;
@@ -64,18 +55,7 @@
     els.round.textContent = describeRound(data && data[0]);
   }
 
-  async function signIn() {
-    const result = await window.playSignInWithTwitch();
-    if (result && !result.ok) els.status.textContent = result.message;
-  }
-
-  els.signIn.addEventListener("click", signIn);
-  els.signOut.addEventListener("click", async () => {
-    await window.playSignOut();
-    setAuthUi(null);
-  });
   supabase.auth.onAuthStateChange(() => { loadProfile(); });
-
   supabase.channel("play-live")
     .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, loadStream)
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, loadRound)

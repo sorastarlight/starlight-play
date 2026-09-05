@@ -14,7 +14,103 @@ body {
     radial-gradient(ellipse at 100% 38%, #dfeeff 0, transparent 52%),
     var(--pearl);
 }
-.wrap { max-width: 1100px; margin: 0 auto; padding: 36px 20px 64px; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 64px; }
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, .86);
+  border-bottom: 1px solid #d7dcf0;
+  backdrop-filter: blur(12px);
+}
+.topnav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.topnav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  text-decoration: none;
+  color: #50527c;
+  font-weight: 800;
+  letter-spacing: .04em;
+  font-size: 13px;
+}
+.topnav-brand img { width: 42px; height: 42px; object-fit: contain; }
+.topnav-actions { display: flex; align-items: center; gap: 10px; }
+.topnav button { padding: 8px 14px; font-size: 14px; }
+.topnav-link {
+  color: #4d6188;
+  text-decoration: none;
+  font-weight: 650;
+  font-size: 14px;
+}
+.account { position: relative; }
+.account-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 4px;
+  background: #fff;
+  border: 1px solid #c9d4ec;
+  box-shadow: none;
+}
+.account-name { max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.avatar, .avatar-fallback {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: linear-gradient(180deg, #f6cde4, #abc9ef);
+}
+.avatar-fallback {
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #723d65;
+}
+.account-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 180px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ccd8ed;
+  border-radius: 16px;
+  box-shadow: 0 14px 30px #687bae22;
+}
+.account-handle {
+  margin: 0 0 8px;
+  padding: 0 6px;
+  color: #6b6c84;
+  font-size: 13px;
+}
+.account-menu button {
+  width: 100%;
+  background: #edf4ff;
+  color: #4d6188;
+  border-color: #b9cde9;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.hero-brand { margin-bottom: 18px; }
+.hero-brand .brand { margin-bottom: 12px; }
 .tag {
   display: inline-block;
   border: 1px solid #d6cce5;
@@ -51,20 +147,12 @@ h1 { font-size: clamp(32px, 5vw, 48px); letter-spacing: -1.2px; margin: 14px 0 8
 h2 { margin: 0 0 10px; font-size: 20px; color: #5d5b87; }
 .lede, .muted, footer { color: var(--muted); line-height: 1.55; }
 .lede { margin-top: 14px; }
-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(220px, .8fr);
-  gap: 20px;
-  align-items: start;
-  margin-bottom: 18px;
-}
-.auth, .card {
+.card {
   background: #fff;
   border: 1px solid #ccd8ed;
   border-radius: 26px;
   box-shadow: 0 10px 30px #687bae12, inset 0 1px 0 #fff;
 }
-.auth { padding: 18px; }
 .layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(260px, .9fr); gap: 18px; }
 .field { display: grid; gap: 8px; margin: 14px 0; font-weight: 650; color: #5d5b87; }
 .field input {
@@ -127,5 +215,7 @@ button.secondary, a.button.secondary {
 code { font-size: 13px; }
 footer { margin-top: 24px; font-size: 13px; }
 @media (max-width: 800px) {
-  header, .layout { grid-template-columns: 1fr; }
+  .layout { grid-template-columns: 1fr; }
+  .topnav-brand span { display: none; }
+  .account-name { display: none; }
 }

@@ -5,25 +5,35 @@
 <meta name="robots" content="noindex,nofollow">
 <title>THE STARLIGHT PLAY HUB · Staff</title>
 <link rel="stylesheet" href="css/play.css">
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="./admin.html">
+      <img src="images/sora-starlight-logo.png" alt="">
+      <span>THE STARLIGHT PLAY HUB</span>
+    </a>
+    <div class="topnav-actions">
+      <a class="topnav-link" href="./">Public page</a>
+      <p id="auth-status" class="visually-hidden" role="status">Checking Twitch sign-in…</p>
+      <button id="sign-in" type="button">Sign in with Twitch</button>
+      <div id="account" class="account" hidden>
+        <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+          <img id="account-avatar" class="avatar" alt="" hidden>
+          <span id="account-fallback" class="avatar-fallback" hidden></span>
+          <span id="account-name" class="account-name">Trainer</span>
+        </button>
+        <div id="account-menu" class="account-menu" hidden role="menu">
+          <p id="account-handle" class="account-handle"></p>
+          <button id="sign-out" type="button" role="menuitem">Sign out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 <div class="wrap">
-  <header>
-    <div>
-      <div class="brand">
-        <img class="brand-logo" src="images/sora-starlight-logo.png" alt="Sora Starlight">
-        <h1 class="brand-banner">THE STARLIGHT PLAY HUB</h1>
-      </div>
-      <span class="tag">STAFF ONLY</span>
-      <p class="lede">Streamer tools for Starlight Play. Viewers use the public page. This hub stays separate.</p>
-    </div>
-    <div class="auth">
-      <p id="auth-status" role="status">Checking Twitch sign-in…</p>
-      <div class="links">
-        <button id="sign-in" type="button">Sign in with Twitch</button>
-        <button id="sign-out" class="secondary" type="button" hidden>Sign out</button>
-        <a class="button secondary" href="./">Public Play page</a>
-      </div>
-    </div>
-  </header>
+  <div class="hero-brand">
+    <span class="tag">STAFF ONLY</span>
+    <p class="lede">Streamer tools for Starlight Play. Viewers use the public page. This hub stays separate.</p>
+  </div>
 
   <p id="gate" class="notice">Sign in with the stream Twitch account to open staff tools.</p>
 
@@ -74,4 +84,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
 <script src="js/admin.js"></script>

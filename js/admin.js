@@ -1,9 +1,6 @@
 (() => {
   const supabase = window.playSupabase;
   const els = {
-    status: document.getElementById("auth-status"),
-    signIn: document.getElementById("sign-in"),
-    signOut: document.getElementById("sign-out"),
     gate: document.getElementById("gate"),
     staff: document.getElementById("staff"),
     stream: document.getElementById("stream-frame"),
@@ -16,13 +13,13 @@
   };
 
   function setSignedOut() {
-    els.signIn.hidden = false;
-    els.signOut.hidden = true;
     els.staff.hidden = true;
     els.gate.hidden = false;
     els.gate.textContent = "Sign in with the stream Twitch account to open staff tools.";
-    els.status.textContent = "Staff hub · not signed in.";
+    window.playSetAccountNav(null);
   }
+
+  window.playBindAccountNav({ onSignOut: setSignedOut });
 
   function describeRound(round) {
     if (!round) return "No encounter has been published yet.";
@@ -63,19 +60,17 @@
       setSignedOut();
       return;
     }
-    els.signIn.hidden = true;
-    els.signOut.hidden = false;
+    const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
+    window.playSetAccountNav(session, profile);
     const { data: isAdmin, error } = await supabase.rpc("is_play_admin");
     if (error || !isAdmin) {
       els.staff.hidden = true;
       els.gate.hidden = false;
       els.gate.textContent = "This hub is limited to the stream Twitch account. Viewer logins cannot open staff tools.";
-      els.status.textContent = "Signed in, but this is not the staff account.";
       return;
     }
     els.gate.hidden = true;
     els.staff.hidden = false;
-    els.status.textContent = "Staff access confirmed.";
     await refreshOverview();
   }
 
@@ -91,14 +86,6 @@
     loadStream(login);
   }
 
-  els.signIn.addEventListener("click", async () => {
-    const result = await window.playSignInWithTwitch();
-    if (result && !result.ok) els.status.textContent = result.message;
-  });
-  els.signOut.addEventListener("click", async () => {
-    await window.playSignOut();
-    setSignedOut();
-  });
   els.save.addEventListener("click", saveChannel);
   supabase.auth.onAuthStateChange(() => { loadHub(); });
   loadHub();

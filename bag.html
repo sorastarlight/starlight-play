@@ -2,65 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Bag · THE STARLIGHT PLAY HUB</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css">
-<body data-page="bag">
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a class="topnav-brand" href="./">
-      <img src="images/sora-starlight-logo.png" alt="">
-      <span>STARLIGHT PLAY</span>
-    </a>
-    <div id="topnav-links" class="topnav-links"></div>
-    <div class="topnav-actions">
-      <p id="auth-status" class="visually-hidden" role="status">Checking Twitch sign-in…</p>
-      <button id="sign-in" type="button">Sign in with Twitch</button>
-      <div id="account" class="account" hidden>
-        <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
-          <img id="account-avatar" class="avatar" alt="" hidden>
-          <span id="account-fallback" class="avatar-fallback" hidden></span>
-          <span id="account-name" class="account-name">Trainer</span>
-        </button>
-        <div id="account-menu" class="account-menu" hidden role="menu">
-          <p id="account-handle" class="account-handle"></p>
-          <a id="account-staff" class="button secondary" href="./admin.html" hidden role="menuitem">Staff hub</a>
-          <button id="sign-out" type="button" role="menuitem">Sign out</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-<div class="wrap">
-  <div class="page-kicker">
-    <span class="tag">Trainer bag</span>
-    <div>
-      <h1>Bag &amp; collection</h1>
-      <p class="lede">Free test items for community encounters. Caught Pokémon stay on this Play account.</p>
-    </div>
-  </div>
-  <p id="gate" class="notice">Sign in with Twitch to open your bag.</p>
-  <div id="trainer" hidden>
-    <section class="card body">
-      <h2>Items</h2>
-      <div id="bag-grid" class="bag-grid"></div>
-    </section>
-    <section class="card body" style="margin-top:18px">
-      <h2>Caught</h2>
-      <p id="caught-note" class="muted"></p>
-      <div id="caught-grid" class="caught-grid"></div>
-    </section>
-  </div>
-  <footer>These are Play test records, not the card binder.</footer>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/game.js"></script>
-<script src="js/hud.js"></script>
-<script src="js/nav.js"></script>
-<script src="js/bag.js"></script>
-</body>
+<meta http-equiv="refresh" content="0;url=./inventory.html">
+<title>Bag moved</title>
+<script>location.replace("./inventory.html" + location.search + location.hash);</script>
+<p><a href="./inventory.html">Inventory moved here.</a></p>

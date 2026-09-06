@@ -16,6 +16,12 @@
     settingsStatus: document.getElementById("settings-status"),
     dexPick: document.getElementById("dex-pick"),
     dexList: document.getElementById("dex-list"),
+    variantRow: document.getElementById("variant-row"),
+    formPreview: document.getElementById("form-preview"),
+    formCopy: document.getElementById("form-copy"),
+    packLogin: document.getElementById("pack-login"),
+    packSku: document.getElementById("pack-sku"),
+    packStatus: document.getElementById("pack-status"),
     passLogin: document.getElementById("pass-login"),
     passCount: document.getElementById("pass-count"),
     passStatus: document.getElementById("pass-admin-status"),
@@ -166,7 +172,37 @@
   }
 
   function mixPayload(dex) {
-    return dex ? { dex } : {};
+    const payload = {};
+    if (dex) payload.dex = dex;
+    const variant = els.variantRow?.querySelector("button[aria-pressed='true']")?.dataset.variant;
+    if (variant && ["normal", "female", "shiny"].includes(variant)) payload.variant = variant;
+    return payload;
+  }
+
+  function selectedVariant() {
+    return els.variantRow?.querySelector("button[aria-pressed='true']")?.dataset.variant || "normal";
+  }
+
+  function renderVariants(dex) {
+    if (!els.variantRow) return;
+    if (!dex) {
+      els.variantRow.innerHTML = "";
+      if (els.formCopy) els.formCopy.textContent = "Pick a species to preview.";
+      if (els.formPreview) els.formPreview.removeAttribute("src");
+      return;
+    }
+    const options = window.playAllowedVariants(dex);
+    const current = options.includes(selectedVariant()) ? selectedVariant() : options[0];
+    els.variantRow.innerHTML = options.map((name) => (
+      `<button type="button" data-variant="${name}" aria-pressed="${name === current}">${window.playVariantLabel(name)}</button>`
+    )).join("");
+    if (els.formPreview) {
+      els.formPreview.src = window.playSpriteUrl(dex, current);
+      els.formPreview.alt = `${window.playSpeciesName(dex)} ${current}`;
+    }
+    if (els.formCopy) {
+      els.formCopy.textContent = `${window.playSpeciesName(dex)} · ${window.playVariantLabel(current)}`;
+    }
   }
 
   async function queueMix(action, payload) {
@@ -199,6 +235,14 @@
       return;
     }
     queueMix("start", mixPayload(dex));
+  });
+  els.dexPick.addEventListener("input", () => renderVariants(parseDex(els.dexPick.value)));
+  els.variantRow?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-variant]");
+    if (!button) return;
+    els.variantRow.querySelectorAll("button").forEach((node) => node.setAttribute("aria-pressed", "false"));
+    button.setAttribute("aria-pressed", "true");
+    renderVariants(parseDex(els.dexPick.value));
   });
   document.getElementById("cancel-round").addEventListener("click", () => queueMix("cancel"));
   document.getElementById("sync-clock").addEventListener("click", () => queueMix("resume"));
@@ -238,6 +282,10 @@
       els.settingsStatus.textContent = window.playRpcError(error);
     }
   });
+  document.getElementById("grant-pack")?.addEventListener("click", () => run("admin_grant_bits_pack", {
+    p_login: els.packLogin.value,
+    p_sku: els.packSku.value
+  }, els.packStatus));
   document.getElementById("grant-pass").addEventListener("click", () => run("admin_set_pass", {
     p_login: els.passLogin.value,
     p_active: true

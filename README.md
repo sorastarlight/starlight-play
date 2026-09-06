@@ -17,11 +17,13 @@ Same pattern as the card binder:
 | Page | URL | Who |
 | --- | --- | --- |
 | Play | `/` | Viewers watch the stream and take encounter turns |
-| Bag | `/bag.html` | Trainer items and caught Pokémon |
-| Store | `/store.html` | Starlight Pass (Twitch sub) and a locked Bits shelf |
-| Staff | `/admin.html` | Encounter commands, timings, channel, pass grants |
+| Inventory | `/inventory.html` | Trainer items, space, Lure arming, and caught Pokémon |
+| Rankings | `/rankings.html` | Trainer level, catches, and hours watched |
+| Trainer card | `/trainer.html?u=login` | Public profile |
+| Store | `/store.html` | Starlight Pass, PokéCoin shelf, Bits pack catalog |
+| Staff | `/admin.html` | Encounter commands, variants, channel, pass grants, Bits pack credit |
 
-Public nav is Play · Bag · Store. Staff appears only after the stream Twitch account signs in.
+Public nav is Play · Inventory · Rankings · Store. Staff appears only after the stream Twitch account signs in. `/bag.html` redirects to Inventory.
 
 ## GoDaddy DNS
 
@@ -43,9 +45,23 @@ Chat commands still work.
 
 The pass is channel-subscription status, not a paid catch chance.
 
+- +25 inventory space while active
+- Daily gift (20h): 2 Berries, 1 Bait, 20 PokéCoins
+- Weekly crate (6d): 5 Poké Balls, 3 Berries, 1 Lure, 150 PokéCoins
+- Pass ribbon on the trainer card
 - Viewers: Store → Check my subscription (needs Twitch login plus `user:read:subscriptions`)
 - Staff can grant or remove a pass by Twitch login
-- Bits cannot buy balls, berries, bait, or odds
+
+Automatic sub checks need the **Play** Twitch Client ID saved on the staff hub (same app as OAuth, not the card binder).
+
+## Shop policy
+
+Play never charges Bits. Rule: **BITS → guaranteed items → normal gameplay**.
+
+- PokéCoins are earned (join +5, catch +20, Pass gifts). No cash value, no trading, no Bits conversion.
+- Coin shelf and Bits Power-Up packs only grant known quantities (balls, berries, bait, Lure, inventory space).
+- Bits packs are Custom Power-Ups on Twitch while live; staff credits the matching SKU afterward.
+- Off the shelf: mystery balls, paid catch/shiny odds, buying a Pokémon, wagering.
 
 ## Twitch login
 
@@ -64,13 +80,16 @@ Play uses its own Supabase project. Do not put card-binder secrets here.
 8. Add these Redirect URLs in Authentication → URL Configuration:
 
    - `https://play.sorastarlight.net/`
-   - `https://play.sorastarlight.net/bag.html`
+   - `https://play.sorastarlight.net/inventory.html`
+   - `https://play.sorastarlight.net/rankings.html`
+   - `https://play.sorastarlight.net/trainer.html`
    - `https://play.sorastarlight.net/store.html`
    - `https://play.sorastarlight.net/admin.html`
+   - `https://play.sorastarlight.net/bag.html`
    - `https://sorastarlight.github.io/starlight-play/`
    - `https://sorastarlight.github.io/starlight-play/admin.html`
 
-The live player follows the Twitch channel in `site_config.broadcaster_twitch_login` (currently `sorastarlight`). Encounter actions stay server-side; paid items stay off.
+The live player follows the Twitch channel in `site_config.broadcaster_twitch_login` (currently `sorastarlight`). Encounter actions stay server-side. Bits stay on Twitch.
 
 ## Notes
 

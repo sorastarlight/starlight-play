@@ -17,7 +17,10 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     avatar: document.getElementById("account-avatar"),
     fallback: document.getElementById("account-fallback"),
     name: document.getElementById("account-name"),
+    level: document.getElementById("account-level"),
+    trainer: document.getElementById("account-trainer"),
     handle: document.getElementById("account-handle"),
+    card: document.getElementById("account-card"),
     staff: document.getElementById("account-staff"),
     signOut: document.getElementById("sign-out"),
     status: document.getElementById("auth-status")
@@ -25,7 +28,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
 
   const links = [
     { href: "./", id: "play", label: "Play" },
-    { href: "./bag.html", id: "bag", label: "Bag" },
+    { href: "./inventory.html", id: "inventory", label: "Inventory" },
+    { href: "./rankings.html", id: "rankings", label: "Rankings" },
     { href: "./store.html", id: "store", label: "Store" }
   ];
 
@@ -52,11 +56,13 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     els.button.setAttribute("aria-expanded", open ? "true" : "false");
   }
 
+  if (els.signIn) els.signIn.hidden = true;
   renderLinks(false);
 
   window.playSetAccountNav = function playSetAccountNav(session, profile, extras) {
     const signedIn = Boolean(session);
     const isAdmin = Boolean(extras?.isAdmin);
+    const trainer = extras?.trainer;
     renderLinks(isAdmin);
     if (els.signIn) els.signIn.hidden = signedIn;
     if (els.account) els.account.hidden = !signedIn;
@@ -69,6 +75,14 @@ window.playBindAccountNav = function playBindAccountNav(options) {
         els.avatar.hidden = true;
       }
       if (els.fallback) els.fallback.hidden = true;
+      if (els.level) {
+        els.level.hidden = true;
+        els.level.textContent = "";
+      }
+      if (els.trainer) {
+        els.trainer.hidden = true;
+        els.trainer.innerHTML = "";
+      }
       return;
     }
     const name = window.playAccountName(session, profile);
@@ -76,7 +90,28 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     const handle = profile?.twitch_login || session.user.user_metadata?.preferred_username || "";
     if (els.name) els.name.textContent = name;
     if (els.handle) els.handle.textContent = handle ? `@${handle}` : name;
+    if (els.card) els.card.href = handle ? `./trainer.html?u=${encodeURIComponent(handle)}` : "./trainer.html";
     if (els.status) els.status.textContent = `Signed in as ${name}.`;
+    if (els.level) {
+      if (trainer?.level) {
+        els.level.hidden = false;
+        els.level.textContent = `Lv. ${trainer.level}`;
+      } else {
+        els.level.hidden = true;
+      }
+    }
+    if (els.trainer) {
+      if (trainer) {
+        const pct = Math.max(0, Math.min(100, Math.round((trainer.xpInto / Math.max(1, trainer.xpNeed)) * 100)));
+        els.trainer.hidden = false;
+        els.trainer.innerHTML = `
+          <strong>Trainer Lv. ${trainer.level}</strong>
+          <div>${trainer.caught || 0} caught · ${window.playWatchHours(trainer.watchSeconds)} watched</div>
+          <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>`;
+      } else {
+        els.trainer.hidden = true;
+      }
+    }
     if (avatar && els.avatar) {
       els.avatar.hidden = false;
       els.avatar.src = avatar;

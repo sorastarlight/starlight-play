@@ -18,15 +18,20 @@
     <div id="topnav-links" class="topnav-links"></div>
     <div class="topnav-actions">
       <p id="auth-status" class="visually-hidden" role="status">Checking Twitch sign-in…</p>
-      <button id="sign-in" type="button">Sign in with Twitch</button>
+      <button id="sign-in" class="signin-btn" type="button" hidden>Sign in with Twitch</button>
       <div id="account" class="account" hidden>
         <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
           <img id="account-avatar" class="avatar" alt="" hidden>
           <span id="account-fallback" class="avatar-fallback" hidden></span>
-          <span id="account-name" class="account-name">Trainer</span>
+          <span class="account-meta">
+            <span id="account-name" class="account-name">Trainer</span>
+            <span id="account-level" class="account-level" hidden></span>
+          </span>
         </button>
         <div id="account-menu" class="account-menu" hidden role="menu">
           <p id="account-handle" class="account-handle"></p>
+          <div id="account-trainer" class="account-trainer" hidden></div>
+          <a id="account-card" href="./trainer.html" role="menuitem">Trainer card</a>
           <a id="account-staff" class="button secondary" href="./admin.html" hidden role="menuitem">Staff hub</a>
           <button id="sign-out" type="button" role="menuitem">Sign out</button>
         </div>
@@ -69,14 +74,20 @@
           <button id="cancel-round" class="danger" type="button">Cancel / refund</button>
           <button id="toggle-hidden" class="secondary" type="button">Hide overlay</button>
           <button id="sync-clock" class="secondary" type="button">Resume clock</button>
-          <button id="refill" class="secondary" type="button">Refill test bags</button>
+          <button id="refill" class="secondary" type="button">Refill test inventories</button>
         </div>
-        <label class="field" for="dex-pick">Or choose a Pokédex number
+        <label class="field" for="dex-pick">Choose a Pokédex number
           <input id="dex-pick" list="dex-list" type="text" placeholder="25 or Pikachu">
         </label>
         <datalist id="dex-list"></datalist>
+        <p class="muted">Appearance. Only Normal, Female, and Shiny sprites that exist for that species.</p>
+        <div id="variant-row" class="variant-row"></div>
+        <div class="form-preview">
+          <img id="form-preview" alt="">
+          <p id="form-copy" class="muted">Pick a species to preview.</p>
+        </div>
         <div class="links">
-          <button id="start-dex" type="button">Start this species</button>
+          <button id="start-dex" type="button">Start this form</button>
         </div>
         <p id="command-status" class="muted" role="status"></p>
       </section>
@@ -153,6 +164,26 @@
         </div>
         <p id="pass-admin-status" class="muted" role="status"></p>
       </section>
+      <section class="card body">
+        <h2>Credit a Bits pack</h2>
+        <p class="muted">Use this after a viewer unlocks the matching Custom Power-Up on Twitch. Play credits the listed items only.</p>
+        <label class="field" for="pack-login">Twitch login
+          <input id="pack-login" type="text" autocomplete="off" spellcheck="false">
+        </label>
+        <label class="field" for="pack-sku">Pack
+          <select id="pack-sku">
+            <option value="bits-starter">Starter Pack (100 Bits)</option>
+            <option value="bits-great">Great Pack (200 Bits)</option>
+            <option value="bits-ultra">Ultra Pack (300 Bits)</option>
+            <option value="bits-pantry">Pantry Pack (150 Bits)</option>
+            <option value="bits-pouch">Pouch Pack (250 Bits)</option>
+          </select>
+        </label>
+        <div class="links">
+          <button id="grant-pack" type="button">Credit pack</button>
+        </div>
+        <p id="pack-status" class="muted" role="status"></p>
+      </section>
     </div>
 
     <section class="card body" style="margin-top:18px">
@@ -191,6 +222,7 @@
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
+<script src="js/variants.js"></script>
 <script src="js/game.js"></script>
 <script src="js/hud.js"></script>
 <script src="js/nav.js"></script>

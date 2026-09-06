@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Play · THE STARLIGHT PLAY HUB</title>
+<title>Trainer · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/play.css">
-<body data-page="play">
+<body data-page="trainer">
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./">
@@ -41,35 +41,26 @@
 </nav>
 <div class="wrap">
   <div class="page-kicker">
-    <span class="tag">Community encounter</span>
-    <p class="lede">Watch the stream, then take your turn here. Chat stays clear of <code>!join</code> spam.</p>
+    <span class="tag">Trainer card</span>
+    <div>
+      <h1 id="page-title">Trainer</h1>
+      <p class="lede">Public Play profile: level, watch time, and recent catches.</p>
+    </div>
   </div>
-  <div class="layout">
-    <section class="card">
-      <div class="hero">
-        <div class="eyebrow">Live stream</div>
-        <iframe id="stream-frame" title="Twitch stream" allowfullscreen></iframe>
-        <p id="stream-note" class="muted">Loading the stream player…</p>
-      </div>
+  <p id="gate" class="notice">Loading trainer card…</p>
+  <div id="profile" hidden>
+    <section id="hero" class="trainer-hero card"></section>
+    <section class="card body" style="margin-top:18px">
+      <h2>Recent catches</h2>
+      <div id="caught-grid" class="caught-grid"></div>
     </section>
-    <aside class="card dex-card">
-      <div class="body">
-        <div class="eyebrow">Wild encounter</div>
-        <div id="encounter"></div>
-        <p id="action-status" class="muted" role="status"></p>
-        <div id="actions" class="action-grid"></div>
-        <h3>Inventory</h3>
-        <div id="bag-status"></div>
-      </div>
-    </aside>
   </div>
-  <footer>Play is separate from the card binder. Bits stay on Twitch. Catch chance is never for sale.</footer>
+  <footer>Play keeps trainer cards in the cloud. Mix It Up chat inventories stay on the stream PC.</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/game.js"></script>
-<script src="js/hud.js"></script>
 <script src="js/nav.js"></script>
-<script src="js/play.js"></script>
+<script src="js/trainer.js"></script>
 </body>

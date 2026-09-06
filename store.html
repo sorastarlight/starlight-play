@@ -18,15 +18,20 @@
     <div id="topnav-links" class="topnav-links"></div>
     <div class="topnav-actions">
       <p id="auth-status" class="visually-hidden" role="status">Checking Twitch sign-in…</p>
-      <button id="sign-in" type="button">Sign in with Twitch</button>
+      <button id="sign-in" class="signin-btn" type="button" hidden>Sign in with Twitch</button>
       <div id="account" class="account" hidden>
         <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
           <img id="account-avatar" class="avatar" alt="" hidden>
           <span id="account-fallback" class="avatar-fallback" hidden></span>
-          <span id="account-name" class="account-name">Trainer</span>
+          <span class="account-meta">
+            <span id="account-name" class="account-name">Trainer</span>
+            <span id="account-level" class="account-level" hidden></span>
+          </span>
         </button>
         <div id="account-menu" class="account-menu" hidden role="menu">
           <p id="account-handle" class="account-handle"></p>
+          <div id="account-trainer" class="account-trainer" hidden></div>
+          <a id="account-card" href="./trainer.html" role="menuitem">Trainer card</a>
           <a id="account-staff" class="button secondary" href="./admin.html" hidden role="menuitem">Staff hub</a>
           <button id="sign-out" type="button" role="menuitem">Sign out</button>
         </div>
@@ -39,29 +44,44 @@
     <span class="tag">Starlight mart</span>
     <div>
       <h1>Store</h1>
-      <p class="lede">The Starlight Pass follows a Twitch subscription to this channel. Catch items are not for sale.</p>
+      <p class="lede">Starlight Pass is a Twitch subscription. PokéCoins are earned in play. Bits packs are unlocked on Twitch, never on this site, and never change catch chance.</p>
     </div>
   </div>
   <div class="store-grid">
     <section class="store-card card">
-      <span class="chip pass">Twitch linked</span>
-      <h2>Starlight Pass</h2>
-      <p>Unlocks when you are subscribed to Sora on Twitch. It is a membership badge for Play, not a loot box and not a paid catch chance.</p>
+      <span class="chip pass">Starlight Pass</span>
+      <h2>Subscriber perks</h2>
+      <ul class="muted">
+        <li>+25 inventory space while the pass is active</li>
+        <li>Daily gift: 2 Berries, 1 Bait, 20 PokéCoins</li>
+        <li>Weekly crate: 5 Poké Balls, 3 Berries, 1 Lure, 150 PokéCoins</li>
+        <li>Pass ribbon on your trainer card</li>
+      </ul>
       <p id="pass-status" class="muted">Sign in to check your pass.</p>
       <div class="links">
         <button id="check-pass" type="button">Check my subscription</button>
+        <button id="claim-daily" class="secondary" type="button">Claim daily gift</button>
+        <button id="claim-weekly" class="gold" type="button">Claim weekly crate</button>
         <a class="button secondary" href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Twitch subscribe</a>
       </div>
     </section>
-    <section class="store-card card locked">
-      <span class="chip warn">Locked</span>
-      <h2>Bits shelf</h2>
-      <p>Cheering is always welcome as support. Bits cannot buy balls, berries, bait, or catch odds on Play. That stay-off rule is intentional until Twitch gives written clearance for this exact model.</p>
-      <p class="muted">Poké Ball · Great Ball · Ultra Ball — not for sale.</p>
-      <button type="button" disabled>Unavailable</button>
+    <section class="store-card card">
+      <span class="chip">PokéCoins</span>
+      <h2>Coin shelf</h2>
+      <p>PokéCoins have no cash value, cannot be traded, and cannot be bought with Bits. Every SKU is a known quantity.</p>
+      <p id="coin-wallet" class="muted">Sign in to see your balance.</p>
+      <p id="coin-status" class="muted" role="status"></p>
+      <div id="coin-shelf" class="bag-grid"></div>
     </section>
   </div>
-  <footer>Paid catch chance stays off. The pass is subscription status, not a gacha.</footer>
+  <section class="store-card card" style="margin-top:18px">
+    <span class="chip">Twitch Bits</span>
+    <h2>Power-Up packs</h2>
+    <p>Bits stay on Twitch. Play never charges Bits here. Create matching Custom Power-Ups on your channel; staff then credits the exact pack. No mystery balls, no paid odds, no buying Pokémon.</p>
+    <p id="bits-status" class="muted" role="status"></p>
+    <div id="bits-shelf" class="bag-grid"></div>
+  </section>
+  <footer>BITS → guaranteed items → normal gameplay. Paid catch chance stays off.</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>

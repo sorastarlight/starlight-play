@@ -4,20 +4,42 @@
     bait: "Bait",
     pokeball: "Poké Ball",
     greatball: "Great Ball",
-    ultraball: "Ultra Ball"
+    ultraball: "Ultra Ball",
+    lure: "Lure",
+    coins: "PokéCoins",
+    bag_bonus: "inventory space"
+  };
+  const VARIANT_LABELS = {
+    normal: "Normal",
+    female: "Female",
+    shiny: "Shiny"
   };
 
   window.playItemLabel = function playItemLabel(item) {
     return ITEM_LABELS[item] || item;
   };
 
+  window.playVariantLabel = function playVariantLabel(variant) {
+    return VARIANT_LABELS[String(variant || "normal")] || variant;
+  };
+
+  window.playAllowedVariants = function playAllowedVariants(dex) {
+    const all = window.PLAY_VARIANTS || {};
+    const list = all[Number(dex)] || ["normal", "shiny"];
+    return list.filter((name) => name === "normal" || name === "female" || name === "shiny");
+  };
+
   window.playSpriteUrl = function playSpriteUrl(dex, variant) {
     const id = Number(dex);
     if (!id) return "";
-    const shiny = String(variant || "").includes("shiny");
-    return shiny
-      ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`
-      : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+    const kind = String(variant || "normal");
+    if (kind === "female") {
+      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/female/${id}.png`;
+    }
+    if (kind.includes("shiny")) {
+      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`;
+    }
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
   };
 
   window.playSpeciesName = function playSpeciesName(dex) {
@@ -49,6 +71,12 @@
     if (!round?.name) return "a wild Pokémon";
     if (String(round.variant || "").includes("shiny")) return `Shiny ${round.name}`;
     return round.name;
+  };
+
+  window.playWatchHours = function playWatchHours(seconds) {
+    const hours = Math.max(0, Number(seconds || 0) / 3600);
+    if (hours < 10) return `${hours.toFixed(1)}h`;
+    return `${Math.round(hours)}h`;
   };
 
   window.playCall = async function playCall(name, args) {

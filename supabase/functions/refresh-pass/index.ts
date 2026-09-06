@@ -31,7 +31,10 @@ Deno.serve(async (req) => {
   const body = await req.json().catch(() => ({}));
   const accessToken = typeof body.accessToken === "string" ? body.accessToken : "";
   if (!accessToken) {
-    return json({ active: false, message: "Twitch session is missing. Sign out and sign in again." }, 400);
+    return json({
+      active: false,
+      message: "Twitch did not keep a session token. Sign out, sign in with Twitch again, then check immediately."
+    });
   }
 
   const admin = createClient(supabaseUrl, service);
@@ -42,7 +45,11 @@ Deno.serve(async (req) => {
     .maybeSingle();
   const clientId = (config?.twitch_client_id || "").trim();
   if (!clientId) {
-    return json({ active: false, message: "Staff still needs to save the Play Twitch Client ID." }, 400);
+    return json({
+      active: false,
+      needsStaffSetup: true,
+      message: "Staff still needs to save the Play Twitch Client ID on the staff hub. Until then, staff can grant Starlight Pass by login."
+    });
   }
 
   const twitchUserId =
@@ -59,7 +66,7 @@ Deno.serve(async (req) => {
     broadcasterId = usersJson.data?.[0]?.id || "";
   }
   if (!broadcasterId || !twitchUserId) {
-    return json({ active: false, message: "Could not match Twitch user IDs." }, 400);
+    return json({ active: false, message: "Could not match Twitch user IDs. Sign in again, or save the broadcaster ID in the staff hub." });
   }
 
   const subRes = await fetch(
@@ -75,7 +82,7 @@ Deno.serve(async (req) => {
     return json({ active: false, message: "Twitch says you are not subscribed right now." });
   }
   if (!subRes.ok) {
-    return json({ active: false, message: "Twitch could not check the subscription. Try signing in again." }, 400);
+    return json({ active: false, message: "Twitch could not check the subscription. Try signing in again." });
   }
 
   await admin.from("profiles").update({

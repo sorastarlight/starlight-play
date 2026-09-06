@@ -50,9 +50,10 @@ The pass is channel-subscription status, not a paid catch chance.
 - Weekly crate (6d): 5 Poké Balls, 3 Berries, 1 Lure, 150 PokéCoins
 - Pass ribbon on the trainer card
 - Viewers: Store → Check my subscription (needs Twitch login plus `user:read:subscriptions`)
+- The channel account is treated as Pass. Twitch does not list the broadcaster as a subscriber.
 - Staff can grant or remove a pass by Twitch login
 
-Automatic sub checks need the **Play** Twitch Client ID saved on the staff hub (same app as OAuth, not the card binder).
+Automatic sub checks for viewers need the **Play** Twitch Client ID saved on the staff hub (same app as OAuth, not the card binder).
 
 ## Shop policy
 
@@ -60,7 +61,7 @@ Play never charges Bits. Rule: **BITS → guaranteed items → normal gameplay**
 
 - PokéCoins are earned (join +5, catch +20, Pass gifts). No cash value, no trading, no Bits conversion.
 - Coin shelf and Bits Power-Up packs only grant known quantities (balls, berries, bait, Lure, inventory space).
-- Bits packs are Custom Power-Ups on Twitch while live; staff credits the matching SKU afterward.
+- Bits packs are Custom Power-Ups on Twitch while live. Mix It Up runs `play_bits_grant.py` to credit the matching SKU. Staff hub can still credit a pack by hand.
 - Off the shelf: mystery balls, paid catch/shiny odds, buying a Pokémon, wagering.
 
 ## Twitch login

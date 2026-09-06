@@ -125,17 +125,27 @@
       } else {
         els.bridgeStatus.innerHTML = `<span class="status-bad">Mix It Up bridge offline.</span> Commands wait until Mix It Up is open (Application Launch starts the bridge).`;
       }
-      if (bridge.lastError) els.bridgeStatus.innerHTML += ` Last Mix It Up note: ${bridge.lastError}`;
+      if (bridge.lastError && !/must join this encounter/i.test(bridge.lastError)) {
+        els.bridgeStatus.innerHTML += ` Last Mix It Up note: ${bridge.lastError}`;
+      }
     }
   }
 
+  let overviewTimer = 0;
   async function refreshOverview(fillForms) {
-    const { data, error } = await supabase.rpc("admin_overview");
-    if (error) {
-      els.commandStatus.textContent = window.playRpcError(error, "Could not load staff overview.");
-      return;
+    try {
+      const data = await window.playCall("admin_overview");
+      applyOverview(data, fillForms);
+    } catch (error) {
+      const message = window.playRpcError(error, "Could not load staff overview.");
+      if (els.bridgeStatus && !/failed to fetch|networkerror|load failed/i.test(message)) {
+        els.bridgeStatus.innerHTML = `<span class="status-bad">${message}</span>`;
+      }
     }
-    applyOverview(data, fillForms);
+  }
+  function scheduleOverview() {
+    clearTimeout(overviewTimer);
+    overviewTimer = setTimeout(() => refreshOverview(false), 600);
   }
 
   async function loadHub() {
@@ -309,10 +319,10 @@
 
   supabase.auth.onAuthStateChange(() => { loadHub(); });
   supabase.channel("play-staff")
-    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, () => refreshOverview(false))
+    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, scheduleOverview)
     .subscribe();
   setInterval(() => {
     if (!els.staff.hidden) refreshOverview(false);
-  }, 2000);
+  }, 4000);
   loadHub();
 })();

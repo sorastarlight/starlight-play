@@ -30,12 +30,6 @@ Deno.serve(async (req) => {
 
   const body = await req.json().catch(() => ({}));
   const accessToken = typeof body.accessToken === "string" ? body.accessToken : "";
-  if (!accessToken) {
-    return json({
-      active: false,
-      message: "Twitch did not keep a session token. Sign out, sign in with Twitch again, then check immediately."
-    });
-  }
 
   const admin = createClient(supabaseUrl, service);
   const { data: config } = await admin
@@ -43,7 +37,48 @@ Deno.serve(async (req) => {
     .select("broadcaster_twitch_login, twitch_client_id, twitch_broadcaster_id")
     .eq("id", 1)
     .maybeSingle();
+  const { data: profile } = await admin
+    .from("profiles")
+    .select("twitch_login")
+    .eq("id", userData.user.id)
+    .maybeSingle();
   const clientId = (config?.twitch_client_id || "").trim();
+  const twitchUserId =
+    userData.user.identities?.find((identity) => identity.provider === "twitch")?.id ||
+    userData.user.user_metadata?.provider_id ||
+    userData.user.user_metadata?.sub;
+  const userLogin = String(
+    profile?.twitch_login ||
+    userData.user.user_metadata?.preferred_username ||
+    userData.user.user_metadata?.login ||
+    ""
+  ).trim().toLowerCase();
+  const channelLogin = (config?.broadcaster_twitch_login || "").trim().toLowerCase();
+  let broadcasterId = (config?.twitch_broadcaster_id || "").trim();
+
+  async function grantOwner() {
+    await admin.from("profiles").update({
+      starlight_pass: true,
+      pass_source: "broadcaster",
+      pass_checked_at: new Date().toISOString()
+    }).eq("id", userData.user.id);
+    return json({
+      active: true,
+      message: "Starlight Pass is active because this is the channel account. Twitch does not list the broadcaster as a subscriber."
+    });
+  }
+
+  if (channelLogin && userLogin && channelLogin === userLogin) {
+    return await grantOwner();
+  }
+
+  if (!accessToken) {
+    return json({
+      active: false,
+      message: "Twitch did not keep a session token. Sign out, sign in with Twitch again, then check immediately."
+    });
+  }
+
   if (!clientId) {
     return json({
       active: false,
@@ -52,18 +87,16 @@ Deno.serve(async (req) => {
     });
   }
 
-  const twitchUserId =
-    userData.user.identities?.find((identity) => identity.provider === "twitch")?.id ||
-    userData.user.user_metadata?.provider_id ||
-    userData.user.user_metadata?.sub;
-  let broadcasterId = (config?.twitch_broadcaster_id || "").trim();
-  if (!broadcasterId) {
+  if (!broadcasterId && accessToken) {
     const login = (config?.broadcaster_twitch_login || "").trim();
     const usersRes = await fetch(`https://api.twitch.tv/helix/users?login=${encodeURIComponent(login)}`, {
       headers: { "Client-Id": clientId, Authorization: `Bearer ${accessToken}` }
     });
     const usersJson = await usersRes.json();
     broadcasterId = usersJson.data?.[0]?.id || "";
+  }
+  if (broadcasterId && twitchUserId && broadcasterId === twitchUserId) {
+    return await grantOwner();
   }
   if (!broadcasterId || !twitchUserId) {
     return json({ active: false, message: "Could not match Twitch user IDs. Sign in again, or save the broadcaster ID in the staff hub." });

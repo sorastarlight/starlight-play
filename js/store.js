@@ -22,8 +22,9 @@
   function describePass(pass) {
     if (!pass) return "Sign in to check your pass.";
     if (pass.active) {
-      const source = pass.source === "twitch-sub" ? "Twitch subscription" : pass.source === "admin" ? "staff grant" : "Play";
-      return `Starlight Pass is active (${source}).`;
+    if (pass.source === "twitch-sub") return "Starlight Pass is active (Twitch subscription).";
+    if (pass.source === "admin") return "Starlight Pass is active (staff grant).";
+    if (pass.source === "broadcaster") return "Starlight Pass is active because this is the channel account. Twitch does not list the broadcaster as a subscriber.";
     }
     return "No Starlight Pass yet. Subscribe on Twitch, then check again.";
   }

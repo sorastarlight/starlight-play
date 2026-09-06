@@ -54,7 +54,7 @@
       return { key: "signin", buttons: [], status: "Sign in with Twitch to join this encounter." };
     }
     const buttons = [];
-    if (round.phase === "join" && !me) {
+    if ((round.phase === "join" && !me) || (round.phase === "prepare" && !me)) {
       if (bag.lureArmed && lureJoinRound !== round.id) {
         lureJoinRound = round.id;
         act("join", "");
@@ -63,7 +63,7 @@
         kind: "join",
         item: "",
         label: "Join encounter",
-        hint: bag.lureArmed ? "Lure joining…" : "Take this turn"
+        hint: round.phase === "prepare" ? "Still needed for berries" : (bag.lureArmed ? "Lure joining…" : "Take this turn")
       });
     }
     if (round.phase === "prepare" && me && !me.prep) {
@@ -81,6 +81,7 @@
       else if (round.phase === "prepare" && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for throws.`;
       else if (round.phase === "throw" && me?.ball) status = `${window.playItemLabel(me.ball)} locked in.`;
       else if (round.phase === "reveal") status = me?.result || "Results incoming.";
+      else if (round.phase === "prepare" && !me) status = "Join this encounter to use a Berry or Bait.";
       else if (round.phase !== "join") status = "You needed to join during the join window.";
       return { key: `wait:${round.phase}:${me?.prep || ""}:${me?.ball || ""}`, buttons, status };
     }
@@ -137,13 +138,22 @@
     els.streamNote.textContent = `Watching ${channel}.`;
   }
 
+  let refreshQueued = false;
   async function refresh() {
+    if (acting) {
+      refreshQueued = true;
+      return;
+    }
+    refreshQueued = false;
     try {
       const data = await window.playCall("play_sync");
       if (data?.channel !== undefined) loadStream(data.channel);
       render(data);
     } catch (error) {
-      els.actionStatus.textContent = window.playRpcError(error, "Could not load the encounter.");
+      const message = window.playRpcError(error, "Could not load the encounter.");
+      if (!/failed to fetch|networkerror|load failed/i.test(message)) {
+        els.actionStatus.textContent = message;
+      }
     }
   }
 
@@ -163,6 +173,7 @@
       els.actionStatus.textContent = window.playRpcError(error);
     } finally {
       acting = false;
+      if (refreshQueued) refresh();
     }
   }
 
@@ -202,12 +213,20 @@
     }
   }
 
+  let liveRefreshTimer = 0;
+  function scheduleRefresh() {
+    clearTimeout(liveRefreshTimer);
+    liveRefreshTimer = setTimeout(refresh, 500);
+  }
+
   supabase.auth.onAuthStateChange(() => { loadProfile(); });
   supabase.channel("play-live")
-    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, refresh)
-    .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, refresh)
+    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, scheduleRefresh)
+    .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, scheduleRefresh)
     .subscribe();
-  setInterval(refresh, 1000);
+  setInterval(() => {
+    if (document.visibilityState === "visible") refresh();
+  }, 3000);
   setInterval(heartbeat, 20000);
   loadProfile();
 })();

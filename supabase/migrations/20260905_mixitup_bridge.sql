@@ -109,7 +109,7 @@ begin
     'message', case
       when seen is not null and seen > now() - interval '8 seconds'
         then 'Sent to Mix It Up on the stream PC.'
-      else 'Queued. Start the Mix It Up bridge on the stream PC to run it.'
+      else 'Queued. Open Mix It Up so Application Launch can start the bridge.'
     end
   );
 end;
@@ -146,36 +146,37 @@ language plpgsql
 security definer
 set search_path to 'public'
 as $$
+declare
+  cmds jsonb;
 begin
   if not private.bridge_ok(p_token) then
     raise exception 'not allowed' using errcode = '42501';
   end if;
   update private.stream_bridge set seen_at = now() where id = 1;
-  return jsonb_build_object(
-    'ok', true,
-    'commands', coalesce((
-      with next as (
-        select id from public.stream_commands
-        where status = 'pending'
-        order by created_at
-        limit 8
-        for update skip locked
-      ),
-      claimed as (
-        update public.stream_commands c
-          set status = 'running', claimed_at = now()
-          from next
-          where c.id = next.id
-          returning c.id, c.action, c.payload, c.created_at
-      )
-      select jsonb_agg(jsonb_build_object(
-        'id', claimed.id,
-        'action', claimed.action,
-        'payload', claimed.payload
-      ) order by claimed.created_at)
-      from claimed
-    ), '[]'::jsonb)
-  );
+
+  with next as (
+    select id from public.stream_commands
+    where status = 'pending'
+    order by created_at
+    limit 8
+    for update skip locked
+  ),
+  claimed as (
+    update public.stream_commands c
+      set status = 'running', claimed_at = now()
+      from next
+      where c.id = next.id
+      returning c.id, c.action, c.payload, c.created_at
+  )
+  select coalesce(jsonb_agg(jsonb_build_object(
+    'id', claimed.id,
+    'action', claimed.action,
+    'payload', claimed.payload
+  ) order by claimed.created_at), '[]'::jsonb)
+  into cmds
+  from claimed;
+
+  return jsonb_build_object('ok', true, 'commands', coalesce(cmds, '[]'::jsonb));
 end;
 $$;
 

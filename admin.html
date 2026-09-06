@@ -157,12 +157,8 @@
 
     <section class="card body" style="margin-top:18px">
       <h2>Mix It Up link</h2>
-      <p class="muted">This hub does not replace Mix It Up. A small bridge on the stream PC runs the same Python Mix It Up already uses, then publishes the overlay encounter to Play.</p>
-      <ol class="muted">
-        <li>Click create token once, then copy it.</li>
-        <li>Copy <code>Data/play-bridge.example.json</code> to <code>Data/play-bridge.json</code> and paste the token.</li>
-        <li>Run <code>MixItUp/Start-Play-Bridge.bat</code> (or the Mix It Up action group <code>Play - Start Stream Bridge</code>) and leave it running while you stream.</li>
-      </ol>
+      <p class="muted">This hub does not replace Mix It Up. This stream PC already has the token and starts the bridge in the background. You do not need to leave a window open.</p>
+      <p class="muted">Optional extra: import Action Group <code>Play - Start Stream Bridge</code> and attach it to Mix It Up Events → Application Launch. A second start does nothing if the bridge is already running. Only create a new token if <code>Data/play-bridge.json</code> is missing.</p>
       <label class="field" for="bridge-token">Bridge token
         <input id="bridge-token" type="text" readonly placeholder="Create a token to copy it here">
       </label>

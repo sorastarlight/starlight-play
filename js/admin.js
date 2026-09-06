@@ -113,11 +113,11 @@
     const bridge = data.bridge || {};
     if (els.bridgeStatus) {
       if (!bridge.configured) {
-        els.bridgeStatus.innerHTML = `<span class="status-bad">Mix It Up is not linked yet.</span> Create a token below, then start the bridge on the stream PC.`;
+        els.bridgeStatus.innerHTML = `<span class="status-bad">Mix It Up is not linked yet.</span> A token should already be on this stream PC. Only create a new one if Data/play-bridge.json is missing.`;
       } else if (bridge.online) {
         els.bridgeStatus.innerHTML = `<span class="status-ok">Mix It Up bridge online.</span> ${bridge.pending ? `${bridge.pending} command${bridge.pending === 1 ? "" : "s"} in flight.` : "Ready for staff commands."}`;
       } else {
-        els.bridgeStatus.innerHTML = `<span class="status-bad">Mix It Up bridge offline.</span> Commands will wait until Start-Play-Bridge.bat is running.`;
+        els.bridgeStatus.innerHTML = `<span class="status-bad">Mix It Up bridge offline.</span> Commands wait until Mix It Up is open (Application Launch starts the bridge).`;
       }
       if (bridge.lastError) els.bridgeStatus.innerHTML += ` Last Mix It Up note: ${bridge.lastError}`;
     }

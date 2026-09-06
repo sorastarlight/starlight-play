@@ -21,6 +21,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     trainer: document.getElementById("account-trainer"),
     handle: document.getElementById("account-handle"),
     card: document.getElementById("account-card"),
+    settings: document.getElementById("account-settings"),
     staff: document.getElementById("account-staff"),
     signOut: document.getElementById("sign-out"),
     status: document.getElementById("auth-status")
@@ -69,7 +70,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (els.signIn) els.signIn.hidden = signedIn;
     if (els.account) els.account.hidden = !signedIn;
     if (els.staff) els.staff.hidden = !isAdmin;
-    closeMenu();
+    if (!signedIn) closeMenu();
     if (!signedIn) {
       if (els.status) els.status.textContent = "Not signed in.";
       if (els.avatar) {
@@ -92,7 +93,13 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     const handle = profile?.twitch_login || session.user.user_metadata?.preferred_username || "";
     if (els.name) els.name.textContent = name;
     if (els.handle) els.handle.textContent = handle ? `@${handle}` : name;
-    if (els.card) els.card.href = handle ? `./trainer.html?u=${encodeURIComponent(handle)}` : "./trainer.html";
+    if (els.card) {
+      els.card.href = handle ? `./trainer.html?u=${encodeURIComponent(handle)}` : "./trainer.html";
+      els.card.setAttribute("aria-current", page === "trainer" ? "page" : "false");
+    }
+    if (els.settings) {
+      els.settings.setAttribute("aria-current", page === "settings" ? "page" : "false");
+    }
     if (els.status) els.status.textContent = `Signed in as ${name}.`;
     if (els.level) {
       if (trainer?.level) {

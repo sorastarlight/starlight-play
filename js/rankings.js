@@ -47,7 +47,7 @@
     }
   }
 
-  supabase.auth.onAuthStateChange(() => { loadNav(); });
+  supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadNav(); });
   loadNav();
   loadRanks();
 })();

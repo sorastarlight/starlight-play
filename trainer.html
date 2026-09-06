@@ -31,8 +31,9 @@
         <div id="account-menu" class="account-menu" hidden role="menu">
           <p id="account-handle" class="account-handle"></p>
           <div id="account-trainer" class="account-trainer" hidden></div>
-          <a id="account-card" href="./trainer.html" role="menuitem">Trainer card</a>
-          <a id="account-staff" class="button secondary" href="./admin.html" hidden role="menuitem">Staff hub</a>
+          <a id="account-card" href="./trainer.html" role="menuitem">My Trainer ID</a>
+          <a id="account-settings" href="./settings.html" role="menuitem">Settings</a>
+          <a id="account-staff" href="./admin.html" hidden role="menuitem">Staff hub</a>
           <button id="sign-out" type="button" role="menuitem">Sign out</button>
         </div>
       </div>
@@ -46,20 +47,6 @@
   <p id="gate" class="notice">Loading trainer card…</p>
   <div id="profile" hidden>
     <section id="hero" class="trainer-hero card"></section>
-    <section id="profile-edit" class="card body" hidden style="margin-top:18px">
-      <h2>Customize your card</h2>
-      <p class="muted">Display name is what other trainers see. Favorite Pokémon must be one you caught on Play.</p>
-      <label class="field" for="display-name">Display name
-        <input id="display-name" type="text" maxlength="24" placeholder="Sora">
-      </label>
-      <label class="field" for="favorite-mon">Favorite Pokémon
-        <select id="favorite-mon"></select>
-      </label>
-      <div class="links">
-        <button id="save-profile" type="button">Save card</button>
-      </div>
-      <p id="edit-status" class="muted" role="status"></p>
-    </section>
     <section class="card body" style="margin-top:18px">
       <h2>Recent catches</h2>
       <div id="caught-grid" class="caught-grid"></div>

@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Starlight Mart · THE STARLIGHT PLAY HUB</title>
+<title>Settings · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/play.css">
-<body data-page="store">
+<body data-page="settings">
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./">
@@ -40,62 +40,43 @@
     </div>
   </div>
 </nav>
-<div class="wrap mart-wrap">
+<div class="wrap">
   <div class="page-kicker">
-    <h1>Welcome! May I help you?</h1>
+    <h1>Settings</h1>
   </div>
-
-  <section id="pass-hero" class="pass-showcase">
-    <img class="pass-sprite" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rainbow-pass.png" alt="">
-    <div>
-      <p class="eyebrow">Twitch subscriber perk</p>
-      <h2 data-pass-title>Starlight Pass</h2>
-      <ul>
-        <li>+25 inventory space while active</li>
-        <li>Daily gift: 2 Berries, 1 Bait, 20 PokéCoins</li>
-        <li>Weekly crate: 5 Poké Balls, 3 Berries, 1 Lure, 150 PokéCoins</li>
-        <li>Pass ribbon on your trainer card</li>
-      </ul>
-      <p id="pass-status" class="muted">Sign in to check your pass.</p>
+  <p id="gate" class="notice">Sign in with Twitch to edit your Trainer ID.</p>
+  <div id="settings" hidden>
+    <section class="card body">
+      <h2>Trainer ID</h2>
+      <p class="muted">This is what other trainers see. Your Twitch login stays <span id="twitch-login"></span>.</p>
+      <label class="field" for="display-name">Display name
+        <input id="display-name" type="text" maxlength="24" placeholder="Sora">
+      </label>
+      <label class="field" for="favorite-mon">Favorite Pokémon
+        <select id="favorite-mon"></select>
+      </label>
+      <p class="muted">Favorite Pokémon must be one you have caught on Play.</p>
+      <div class="links">
+        <button id="save-profile" type="button">Save Trainer ID</button>
+        <a id="view-id" class="button secondary" href="./trainer.html">View public ID</a>
+      </div>
+      <p id="edit-status" class="muted" role="status"></p>
+    </section>
+    <section class="card body" style="margin-top:18px">
+      <h2>Starlight Pass</h2>
+      <p id="pass-status" class="muted">Checking pass…</p>
       <div class="links">
         <button id="check-pass" type="button">Check my subscription</button>
-        <button id="claim-daily" class="secondary" type="button">Claim daily gift</button>
-        <button id="claim-weekly" class="gold" type="button">Claim weekly crate</button>
         <a class="button secondary" href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Twitch subscribe</a>
       </div>
-    </div>
-  </section>
-
-  <section class="mart-floor">
-    <header class="mart-sign">
-      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/nugget.png" alt="">
-      <div>
-        <h2>Coin shelves</h2>
-        <p id="coin-wallet" class="muted">Sign in to see your balance.</p>
-      </div>
-    </header>
-    <p id="coin-status" class="muted" role="status"></p>
-    <div id="coin-shelf" class="mart-shelf"></div>
-  </section>
-
-  <section class="mart-floor bits-floor">
-    <header class="mart-sign">
-      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" alt="">
-      <div>
-        <h2>Twitch Power-Ups</h2>
-        <p class="muted">Unlock on Twitch while Sora is live. Play never charges Bits here. No mystery balls, no paid odds, no buying Pokémon.</p>
-      </div>
-    </header>
-    <p id="bits-status" class="muted" role="status"></p>
-    <div id="bits-shelf" class="mart-shelf"></div>
-  </section>
-  <footer>BITS → guaranteed items → normal gameplay. Paid catch chance stays off.</footer>
+    </section>
+  </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/species.js"></script>
 <script src="js/game.js"></script>
-<script src="js/hud.js"></script>
 <script src="js/nav.js"></script>
-<script src="js/store.js"></script>
+<script src="js/settings.js"></script>
 </body>

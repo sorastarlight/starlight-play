@@ -5,7 +5,6 @@
   const hero = document.getElementById("hero");
   const caught = document.getElementById("caught-grid");
   const title = document.getElementById("page-title");
-  const editor = document.getElementById("profile-edit");
 
   window.playBindAccountNav();
 
@@ -31,7 +30,7 @@
     return `<img class="fav-sprite" src="${window.playSpriteUrl(card.favoriteDex, card.favoriteVariant)}" alt="">`;
   }
 
-  function render(card, recent, mine, options) {
+  function render(card, recent) {
     const pct = Math.max(0, Math.min(100, Math.round((card.xpInto / Math.max(1, card.xpNeed)) * 100)));
     const avatar = card.avatar
       ? `<img src="${card.avatar}" alt="">`
@@ -55,23 +54,6 @@
         <strong>${String(row.variant || "").includes("shiny") ? `Shiny ${row.name}` : row.name}</strong>
         <span>${window.playItemLabel(row.ball) || ""} · ${row.gender || ""}</span>
       </article>`).join("") || `<p class="muted">No catches yet.</p>`;
-
-    if (!editor) return;
-    if (!mine) {
-      editor.hidden = true;
-      return;
-    }
-    editor.hidden = false;
-    const nameInput = document.getElementById("display-name");
-    const favSelect = document.getElementById("favorite-mon");
-    nameInput.value = card.displayName || "";
-    const opts = options || [];
-    favSelect.innerHTML = `<option value="">No favorite yet</option>` + opts.map((row) => {
-      const value = `${row.dex}:${row.variant || "normal"}`;
-      const label = `${window.playPadDex(row.dex)} ${String(row.variant || "").includes("shiny") ? "Shiny " : ""}${row.name}`;
-      const selected = card.favoriteDex === row.dex && (card.favoriteVariant || "normal") === (row.variant || "normal");
-      return `<option value="${value}"${selected ? " selected" : ""}>${label}</option>`;
-    }).join("");
   }
 
   async function load() {
@@ -85,7 +67,7 @@
     }
     try {
       const data = await window.playCall("play_trainer", { p_login: login });
-      render(data.trainer, data.recent, data.mine, data.caughtOptions);
+      render(data.trainer, data.recent);
       gate.hidden = true;
       profileBox.hidden = false;
     } catch (error) {
@@ -93,25 +75,9 @@
     }
   }
 
-  document.getElementById("save-profile")?.addEventListener("click", async () => {
-    const status = document.getElementById("edit-status");
-    const name = document.getElementById("display-name").value;
-    const fav = document.getElementById("favorite-mon").value;
-    const [dex, variant] = fav ? fav.split(":") : [null, "normal"];
-    status.textContent = "Saving…";
-    try {
-      const data = await window.playCall("play_update_profile", {
-        p_display_name: name,
-        p_favorite_dex: dex ? Number(dex) : null,
-        p_favorite_variant: variant || "normal"
-      });
-      status.textContent = data.message || "Saved.";
-      await load();
-    } catch (error) {
-      status.textContent = window.playRpcError(error);
-    }
+  supabase.auth.onAuthStateChange((event) => {
+    if (window.playAuthNoise(event)) return;
+    load();
   });
-
-  supabase.auth.onAuthStateChange(() => { load(); });
   load();
 })();

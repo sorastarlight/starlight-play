@@ -44,4 +44,8 @@
   window.playSignOut = function playSignOut() {
     return window.playSupabase.auth.signOut();
   };
+
+  window.playAuthNoise = function playAuthNoise(event) {
+    return event === "TOKEN_REFRESHED" || event === "USER_UPDATED";
+  };
 })();

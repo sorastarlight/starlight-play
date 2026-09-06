@@ -153,6 +153,6 @@
     }
   });
 
-  supabase.auth.onAuthStateChange(() => { load(); });
+  supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });
   load();
 })();

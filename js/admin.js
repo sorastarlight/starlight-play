@@ -350,7 +350,7 @@
     }
   });
 
-  supabase.auth.onAuthStateChange(() => { loadHub(); });
+  supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadHub(); });
   supabase.channel("play-staff")
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, scheduleOverview)
     .subscribe();

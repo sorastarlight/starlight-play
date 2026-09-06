@@ -219,7 +219,7 @@
     liveRefreshTimer = setTimeout(refresh, 500);
   }
 
-  supabase.auth.onAuthStateChange(() => { loadProfile(); });
+  supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadProfile(); });
   supabase.channel("play-live")
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, scheduleRefresh)
     .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, scheduleRefresh)

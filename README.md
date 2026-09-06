@@ -20,7 +20,8 @@ Same pattern as the card binder:
 | My Inventory | `/inventory.html` | Trainer items, space, Lure arming, and caught Pokémon |
 | My Pokédex | `/pokedex.html` | Caught, seen, and unseen Kanto species |
 | Rankings | `/rankings.html` | Trainer level, catches, and hours watched |
-| Trainer card | `/trainer.html?u=login` | Public profile with display name and favorite Pokémon |
+| Trainer ID | `/trainer.html?u=login` | Public profile as other trainers see it |
+| Settings | `/settings.html` | Display name, favorite Pokémon, Starlight Pass |
 | Store | `/store.html` | Starlight Pass, item-sprite mart, Bits pack catalog |
 | Events | `/events.html` | Upcoming Play calendar |
 | Staff | `/admin.html` | Encounter commands, variants, channel, pass grants, Bits pack credit |
@@ -86,6 +87,7 @@ Play uses its own Supabase project. Do not put card-binder secrets here.
    - `https://play.sorastarlight.net/inventory.html`
    - `https://play.sorastarlight.net/rankings.html`
    - `https://play.sorastarlight.net/trainer.html`
+   - `https://play.sorastarlight.net/settings.html`
    - `https://play.sorastarlight.net/store.html`
    - `https://play.sorastarlight.net/pokedex.html`
    - `https://play.sorastarlight.net/events.html`

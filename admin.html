@@ -42,7 +42,7 @@
 <div class="wrap">
   <div class="page-kicker">
     <span class="tag">Staff only</span>
-    <p class="lede">Command center for Mix It Up on the stream PC. Bookmark this page; it is not advertised in the public nav.</p>
+    <p class="lede">Command center for the stream PC. Bookmark this page; it is not advertised in the public nav.</p>
   </div>
   <p id="gate" class="notice">Sign in with the stream Twitch account to open staff tools.</p>
   <div id="staff" hidden>
@@ -66,8 +66,8 @@
     <div class="layout stack-2" style="margin-top:18px">
       <section class="card body">
         <h2>Encounter commands</h2>
-        <p id="bridge-status" class="muted">Checking Mix It Up link…</p>
-        <p class="muted">These buttons queue the same Mix It Up actions as Community Start / Cancel / Resume / Hide / Refill. The stream PC must be running the Play bridge.</p>
+        <p id="bridge-status" class="muted">Checking stream link…</p>
+        <p class="muted">These buttons start, cancel, hide, resume, or refill encounters on the stream PC. Encounter beats also post to Twitch chat so viewers hear the phases and results.</p>
         <div class="command-grid">
           <button id="start-random" class="gold" type="button">Random encounter</button>
           <button id="start-pikachu" type="button">Test Pikachu</button>
@@ -76,10 +76,10 @@
           <button id="sync-clock" class="secondary" type="button">Resume clock</button>
           <button id="refill" class="secondary" type="button">Refill test inventories</button>
         </div>
-        <label class="field" for="dex-pick">Choose a Pokédex number
-          <input id="dex-pick" list="dex-list" type="text" placeholder="25 or Pikachu">
+        <label class="field" for="dex-pick">Choose a Pokémon
+          <input id="dex-pick" type="text" placeholder="6, 006, 0006, or Charizard" autocomplete="off">
         </label>
-        <datalist id="dex-list"></datalist>
+        <ul id="dex-suggest" class="dex-suggest" hidden></ul>
         <p class="muted">Appearance. Only Normal, Female, and Shiny sprites that exist for that species.</p>
         <div id="variant-row" class="variant-row"></div>
         <div class="form-preview">
@@ -93,7 +93,7 @@
       </section>
       <section class="card body">
         <h2>Timings &amp; odds</h2>
-        <p class="muted">Seconds per phase, then catch chances. Saving also updates Mix It Up on the stream PC. Bits purchases cannot be turned on from here.</p>
+        <p class="muted">Seconds per phase, then catch chances. Saving also updates the stream PC. Bits purchases cannot be turned on from here.</p>
         <div class="settings-grid">
           <label class="field" for="join-seconds">Join
             <input id="join-seconds" type="number" min="5" max="180">
@@ -187,14 +187,14 @@
     </div>
 
     <section class="card body" style="margin-top:18px">
-      <h2>Mix It Up link</h2>
-      <p class="muted">This hub does not replace Mix It Up. This stream PC already has the token and starts the bridge in the background. You do not need to leave a window open.</p>
-      <p class="muted">Optional extra: import Action Group <code>Play - Start Stream Bridge</code> and attach it to Mix It Up Events → Application Launch. A second start does nothing if the bridge is already running. Only create a new token if <code>Data/play-bridge.json</code> is missing.</p>
+      <h2>Stream link</h2>
+      <p class="muted">The stream PC already has the token and starts the Play bridge in the background. You do not need to leave a window open.</p>
+      <p class="muted">A second start does nothing if the bridge is already running. Only create a new token if <code>Data/play-bridge.json</code> is missing.</p>
       <label class="field" for="bridge-token">Bridge token
         <input id="bridge-token" type="text" readonly placeholder="Create a token to copy it here">
       </label>
       <div class="links">
-        <button id="issue-token" type="button">Create Mix It Up token</button>
+        <button id="issue-token" type="button">Create stream token</button>
       </div>
       <p id="bridge-token-status" class="muted" role="status"></p>
     </section>
@@ -216,7 +216,7 @@
       </ol>
     </div>
   </div>
-  <footer>Staff buttons run Mix It Up on the stream PC. Chat commands still work while the bridge is running.</footer>
+  <footer>Staff buttons run on the stream PC. Chat beats post phase and result lines only.</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>

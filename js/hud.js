@@ -13,7 +13,7 @@
       return `<p class="muted">Sign in to see your inventory.</p>`;
     }
     return `<ul class="bag-strip inv-strip">${items.map(([key, label]) => (
-      `<li><span>${label}</span><strong>${bag[key] ?? 0}</strong></li>`
+      `<li><img src="${window.playItemSprite(key)}" alt=""><span>${label}</span><strong>${bag[key] ?? 0}</strong></li>`
     )).join("")}</ul>`;
   };
 
@@ -31,7 +31,7 @@
     const seconds = window.playSecondsLeft(round.endsAt);
     const sprite = window.playSpriteUrl(round.dex, round.variant);
     const hidden = round.hidden ? `<span class="chip warn">Hidden</span>` : "";
-    const mix = round.source === "mixitup" ? `<span class="chip mix">Mix It Up</span>` : "";
+    const live = round.source === "mixitup" ? `<span class="chip">Live</span>` : "";
     const shiny = String(round.variant || "").includes("shiny") ? `<span class="chip shiny">Shiny</span>` : "";
     const female = String(round.variant || "") === "female" ? `<span class="chip">Female</span>` : "";
     const results = round.resolved && round.results
@@ -40,7 +40,7 @@
     return `
       <div class="dex-head">
         <span class="dex-no">No. ${String(round.dex || 0).padStart(3, "0")}</span>
-        ${hidden}${mix}${shiny}${female}
+        ${hidden}${live}${shiny}${female}
       </div>
       <div class="dex-stage">
         ${sprite ? `<img src="${sprite}" alt="${name}" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${Number(round.dex)}.png'">` : ""}

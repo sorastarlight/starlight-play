@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Store · THE STARLIGHT PLAY HUB</title>
+<title>Starlight Mart · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
@@ -39,20 +39,22 @@
     </div>
   </div>
 </nav>
-<div class="wrap">
+<div class="wrap mart-wrap">
   <div class="page-kicker">
-    <span class="tag">Starlight mart</span>
+    <span class="tag">Starlight Mart</span>
     <div>
-      <h1>Store</h1>
-      <p class="lede">Starlight Pass follows a Twitch subscription. The channel account is treated as Pass because Twitch does not list the broadcaster as a subscriber. PokéCoins are earned in play. Bits packs unlock on Twitch, never on this site, and never change catch chance.</p>
+      <h1>Welcome! May I help you?</h1>
+      <p class="lede">A living shop: item sprites on the shelves, Starlight Pass perks up front, PokéCoins earned in play. Bits stay on Twitch.</p>
     </div>
   </div>
-  <div class="store-grid">
-    <section class="store-card card">
-      <span class="chip pass">Starlight Pass</span>
-      <h2>Subscriber perks</h2>
-      <ul class="muted">
-        <li>+25 inventory space while the pass is active</li>
+
+  <section id="pass-hero" class="pass-showcase">
+    <img class="pass-sprite" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rainbow-pass.png" alt="">
+    <div>
+      <p class="eyebrow">Twitch subscriber perk</p>
+      <h2 data-pass-title>Starlight Pass</h2>
+      <ul>
+        <li>+25 inventory space while active</li>
         <li>Daily gift: 2 Berries, 1 Bait, 20 PokéCoins</li>
         <li>Weekly crate: 5 Poké Balls, 3 Berries, 1 Lure, 150 PokéCoins</li>
         <li>Pass ribbon on your trainer card</li>
@@ -64,22 +66,31 @@
         <button id="claim-weekly" class="gold" type="button">Claim weekly crate</button>
         <a class="button secondary" href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Twitch subscribe</a>
       </div>
-    </section>
-    <section class="store-card card">
-      <span class="chip">PokéCoins</span>
-      <h2>Coin shelf</h2>
-      <p>PokéCoins have no cash value, cannot be traded, and cannot be bought with Bits. Every SKU is a known quantity.</p>
-      <p id="coin-wallet" class="muted">Sign in to see your balance.</p>
-      <p id="coin-status" class="muted" role="status"></p>
-      <div id="coin-shelf" class="bag-grid"></div>
-    </section>
-  </div>
-  <section class="store-card card" style="margin-top:18px">
-    <span class="chip">Twitch Bits</span>
-    <h2>Power-Up packs</h2>
-    <p>Bits stay on Twitch as Custom Power-Ups while you are live. Mix It Up grants the matching pack automatically. Play never charges Bits here. No mystery balls, no paid odds, no buying Pokémon.</p>
+    </div>
+  </section>
+
+  <section class="mart-floor">
+    <header class="mart-sign">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/nugget.png" alt="">
+      <div>
+        <h2>Coin shelves</h2>
+        <p id="coin-wallet" class="muted">Sign in to see your balance.</p>
+      </div>
+    </header>
+    <p id="coin-status" class="muted" role="status"></p>
+    <div id="coin-shelf" class="mart-shelf"></div>
+  </section>
+
+  <section class="mart-floor bits-floor">
+    <header class="mart-sign">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/amulet-coin.png" alt="">
+      <div>
+        <h2>Twitch Power-Ups</h2>
+        <p class="muted">Unlock on Twitch while Sora is live. Play never charges Bits here. No mystery balls, no paid odds, no buying Pokémon.</p>
+      </div>
+    </header>
     <p id="bits-status" class="muted" role="status"></p>
-    <div id="bits-shelf" class="bag-grid"></div>
+    <div id="bits-shelf" class="mart-shelf"></div>
   </section>
   <footer>BITS → guaranteed items → normal gameplay. Paid catch chance stays off.</footer>
 </div>

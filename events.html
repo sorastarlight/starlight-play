@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Play · THE STARLIGHT PLAY HUB</title>
+<title>Upcoming Events · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/play.css">
-<body data-page="play">
+<body data-page="events">
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./">
@@ -41,35 +41,62 @@
 </nav>
 <div class="wrap">
   <div class="page-kicker">
-    <span class="tag">Community encounter</span>
-    <p class="lede">Watch the stream, then take your turn here. Chat stays clear of <code>!join</code> spam.</p>
+    <span class="tag">Community calendar</span>
+    <div>
+      <h1>Upcoming Events</h1>
+      <p class="lede">Community hunts, shiny nights, and other Play dates on the calendar.</p>
+    </div>
   </div>
-  <div class="layout">
-    <section class="card">
-      <div class="hero">
-        <div class="eyebrow">Live stream</div>
-        <iframe id="stream-frame" title="Twitch stream" allowfullscreen></iframe>
-        <p id="stream-note" class="muted">Loading the stream player…</p>
+  <div class="layout stack-2">
+    <section class="card body">
+      <div class="cal-nav">
+        <button id="cal-prev" class="secondary" type="button">Previous</button>
+        <h2 id="cal-title">Calendar</h2>
+        <button id="cal-next" class="secondary" type="button">Next</button>
       </div>
+      <div id="calendar" class="calendar"></div>
     </section>
-    <aside class="card dex-card">
-      <div class="body">
-        <div class="eyebrow">Wild encounter</div>
-        <div id="encounter"></div>
-        <p id="action-status" class="muted" role="status"></p>
-        <div id="actions" class="action-grid"></div>
-        <h3>My Inventory</h3>
-        <div id="bag-status"></div>
-      </div>
-    </aside>
+    <section class="card body">
+      <h2>Listed events</h2>
+      <p id="event-status" class="muted">Loading events…</p>
+      <div id="event-list" class="event-list"></div>
+    </section>
   </div>
-  <footer>Play is separate from the card binder. Bits stay on Twitch. Catch chance is never for sale.</footer>
+  <section id="event-staff" class="card body" hidden style="margin-top:18px">
+    <h2>Add an event</h2>
+    <p class="muted">Staff only. These show on the public calendar.</p>
+    <label class="field" for="event-title">Title
+      <input id="event-title" type="text" maxlength="80" placeholder="Shiny hunt night">
+    </label>
+    <label class="field" for="event-kind">Kind
+      <select id="event-kind">
+        <option value="community">Community encounter</option>
+        <option value="shiny">Shiny hunt</option>
+        <option value="raid">Raid / boss</option>
+        <option value="stream">Stream special</option>
+        <option value="other">Other</option>
+      </select>
+    </label>
+    <label class="field" for="event-start">Starts
+      <input id="event-start" type="datetime-local">
+    </label>
+    <label class="field" for="event-end">Ends (optional)
+      <input id="event-end" type="datetime-local">
+    </label>
+    <label class="field" for="event-blurb">Blurb
+      <input id="event-blurb" type="text" maxlength="200" placeholder="What trainers should expect">
+    </label>
+    <div class="links">
+      <button id="event-save" type="button">Save event</button>
+    </div>
+    <p id="event-save-status" class="muted" role="status"></p>
+  </section>
+  <footer>Times follow your local clock.</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/game.js"></script>
-<script src="js/hud.js"></script>
 <script src="js/nav.js"></script>
-<script src="js/play.js"></script>
+<script src="js/events.js"></script>
 </body>

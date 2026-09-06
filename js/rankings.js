@@ -28,15 +28,20 @@
       const data = await window.playCall("play_rankings");
       const rows = data?.trainers || [];
       status.textContent = rows.length ? `${rows.length} trainers` : "No trainers ranked yet.";
-      body.innerHTML = rows.map((row, index) => `
+      body.innerHTML = rows.map((row, index) => {
+        const fav = row.favoriteDex
+          ? `<img class="rank-fav" src="${window.playSpriteUrl(row.favoriteDex, row.favoriteVariant)}" alt="">`
+          : "";
+        return `
         <tr>
           <td class="num">${index + 1}</td>
-          <td><a href="./trainer.html?u=${encodeURIComponent(row.login)}">${row.displayName}</a>${row.pass ? ' <span class="chip pass">Pass</span>' : ""}</td>
+          <td class="rank-trainer">${fav}<a href="./trainer.html?u=${encodeURIComponent(row.login)}">${row.displayName}</a>${row.pass ? ' <span class="chip pass">Pass</span>' : ""}<div class="muted">@${row.login}</div></td>
           <td class="num">${row.level}</td>
           <td class="num">${row.caught}</td>
           <td class="num">${window.playWatchHours(row.watchSeconds)}</td>
           <td>${row.online ? "Online" : "Away"}</td>
-        </tr>`).join("");
+        </tr>`;
+      }).join("");
     } catch (error) {
       status.textContent = window.playRpcError(error, "Rankings are not live yet.");
     }

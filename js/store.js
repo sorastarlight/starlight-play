@@ -9,7 +9,8 @@
     coins: document.getElementById("coin-shelf"),
     coinStatus: document.getElementById("coin-status"),
     bits: document.getElementById("bits-shelf"),
-    bitsStatus: document.getElementById("bits-status")
+    bitsStatus: document.getElementById("bits-status"),
+    passHero: document.getElementById("pass-hero")
   };
 
   window.playBindAccountNav({
@@ -19,31 +20,58 @@
     }
   });
 
-  function describePass(pass) {
-    if (!pass) return "Sign in to check your pass.";
+  function describePass(pass, wallet) {
+    if (!pass) return { title: "Starlight Pass", note: "Sign in to check your Twitch subscription.", active: false };
     if (pass.active) {
-    if (pass.source === "twitch-sub") return "Starlight Pass is active (Twitch subscription).";
-    if (pass.source === "admin") return "Starlight Pass is active (staff grant).";
-    if (pass.source === "broadcaster") return "Starlight Pass is active because this is the channel account. Twitch does not list the broadcaster as a subscriber.";
+      const source = pass.source === "twitch-sub"
+        ? "Twitch subscription"
+        : pass.source === "admin"
+          ? "staff grant"
+          : pass.source === "broadcaster"
+            ? "channel account"
+            : "active";
+      const gifts = [];
+      if (wallet?.dailyReady) gifts.push("daily gift ready");
+      if (wallet?.weeklyReady) gifts.push("weekly crate ready");
+      return {
+        title: "Starlight Pass · Active",
+        note: `Perk status: ${source}. ${gifts.length ? gifts.join(" · ") : "Daily and weekly gifts on cooldown."}`,
+        active: true
+      };
     }
-    return "No Starlight Pass yet. Subscribe on Twitch, then check again.";
+    return { title: "Starlight Pass", note: "Subscribe on Twitch, then check again. Pass is required for daily and weekly gifts.", active: false };
   }
 
   function grantLine(grants) {
     return Object.entries(grants || {}).map(([key, amount]) => `${amount} ${window.playItemLabel(key) || key}`).join(" · ");
   }
 
+  function shelfCard(item, mode) {
+    const sprite = window.playItemSprite(item.sku) || window.playItemSprite(Object.keys(item.grants || {})[0]);
+    const price = mode === "bits" ? `${item.bits} Bits` : `${item.cost}`;
+    const priceLabel = mode === "bits" ? "Twitch Power-Up" : "PokéCoins";
+    const action = mode === "coins"
+      ? `<button type="button" data-sku="${item.sku}">Get</button>`
+      : `<p class="muted">Unlock on Twitch while live</p>`;
+    return `
+      <article class="mart-item">
+        <div class="mart-sprite"><img src="${sprite}" alt=""></div>
+        <div class="mart-copy">
+          <strong>${item.name}</strong>
+          <p>${item.blurb}</p>
+          <p class="muted">${grantLine(item.grants)}</p>
+        </div>
+        <div class="mart-price">
+          <img src="${window.playItemSprite(mode === "bits" ? item.sku : "coins")}" alt="">
+          <span>${price}</span>
+          <em>${priceLabel}</em>
+          ${action}
+        </div>
+      </article>`;
+  }
+
   function renderShelf(target, items, mode) {
-    target.innerHTML = (items || []).map((item) => `
-      <article class="bag-card">
-        <span>${mode === "bits" ? `${item.bits} Bits` : `${item.cost} coins`}</span>
-        <strong>${item.name}</strong>
-        <p class="muted">${item.blurb}</p>
-        <p class="muted">${grantLine(item.grants)}</p>
-        ${mode === "coins"
-          ? `<button type="button" data-sku="${item.sku}">Get</button>`
-          : `<p class="muted">Unlock on Twitch</p>`}
-      </article>`).join("");
+    target.innerHTML = (items || []).map((item) => shelfCard(item, mode)).join("");
   }
 
   async function functionMessage(error, fallback) {
@@ -60,6 +88,19 @@
     return error?.message || fallback;
   }
 
+  function renderPass(pass, wallet) {
+    const info = describePass(pass, wallet);
+    els.status.textContent = info.note;
+    if (els.passHero) {
+      els.passHero.classList.toggle("active", Boolean(info.active));
+      els.passHero.querySelector("[data-pass-title]").textContent = info.title;
+      els.daily.disabled = !info.active || !wallet?.dailyReady;
+      els.weekly.disabled = !info.active || !wallet?.weeklyReady;
+      els.daily.textContent = wallet?.dailyReady ? "Claim daily gift" : "Daily claimed";
+      els.weekly.textContent = wallet?.weeklyReady ? "Claim weekly crate" : "Weekly claimed";
+    }
+  }
+
   async function refreshStore() {
     try {
       const data = await window.playCall("play_store");
@@ -67,6 +108,7 @@
       if (wallet) {
         els.wallet.textContent = `${wallet.coins} PokéCoins · ${wallet.used}/${wallet.capacity} item space`;
       }
+      renderPass(data.pass, wallet);
       renderShelf(els.coins, data.catalog?.coins, "coins");
       renderShelf(els.bits, data.catalog?.bits, "bits");
       return data;
@@ -88,10 +130,6 @@
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, starlight_pass, pass_source").eq("id", session.user.id).maybeSingle();
     const store = await refreshStore();
     window.playSetAccountNav(session, profile, { isAdmin: Boolean(store?.isAdmin), trainer: store?.trainer });
-    els.status.textContent = describePass(store?.pass || {
-      active: profile?.starlight_pass,
-      source: profile?.pass_source
-    });
   }
 
   els.check.addEventListener("click", async () => {

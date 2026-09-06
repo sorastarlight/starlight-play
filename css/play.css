@@ -465,6 +465,124 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .status-ok { color: #1f6a48; font-weight: 800; }
 .status-bad { color: #8a3a3a; font-weight: 800; }
+.bag-strip li img, .item-sprite, .mart-sprite img, .mart-price img {
+  width: 40px;
+  height: 40px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+.pass-showcase {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 18px;
+  align-items: start;
+  padding: 22px;
+  margin-bottom: 22px;
+  border-radius: 24px;
+  border: 3px solid #f2d27a;
+  background:
+    linear-gradient(180deg, #fff7d6, #ffe9b8 40%, #fff),
+    repeating-linear-gradient(90deg, transparent 0 18px, #fff6 18px 19px);
+  box-shadow: 0 10px 0 #e8c36a;
+}
+.pass-showcase.active {
+  border-color: #7ad3a0;
+  box-shadow: 0 10px 0 #4ea876;
+}
+.pass-sprite { width: 96px; height: 96px; image-rendering: pixelated; }
+.mart-floor {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f4e2c4, #e8d0a8);
+  border: 3px solid #c9a36a;
+  box-shadow: inset 0 0 0 6px #f8edd8;
+}
+.bits-floor { background: linear-gradient(180deg, #e4ecff, #cfd9f4); border-color: #8ea4d8; box-shadow: inset 0 0 0 6px #eef3ff; }
+.mart-sign { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+.mart-sign img { width: 48px; height: 48px; image-rendering: pixelated; }
+.mart-shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.mart-item {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  background: #fffdf6;
+  border: 2px solid #d7c39a;
+  border-radius: 16px;
+  padding: 10px;
+}
+.mart-copy { text-align: left; }
+.mart-copy p { margin: 4px 0 0; font-size: 13px; }
+.mart-price { text-align: center; min-width: 84px; }
+.mart-price span { display: block; font-weight: 800; }
+.mart-price em { display: block; font-style: normal; font-size: 11px; color: #7a7b93; }
+.pokedex-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+.dex-cell {
+  background: #fff;
+  border: 2px solid #d7e0f2;
+  border-radius: 16px;
+  padding: 8px;
+  text-align: center;
+}
+.dex-cell img { width: 72px; height: 72px; image-rendering: pixelated; }
+.dex-cell .silhouette { filter: brightness(0); opacity: .55; }
+.dex-cell.unseen { background: #eef1f8; }
+.dex-cell.seen { background: #fff8e8; }
+.dex-cell.caught { background: #f3fff6; }
+.dex-filters, .dex-toolbar { display: grid; gap: 12px; }
+.dex-filters {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+.dex-filters label { display: grid; gap: 6px; font-weight: 800; color: #5d5b87; font-size: 13px; }
+.dex-filters select {
+  font: inherit;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 2px solid #b9cbe7;
+}
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+.cal-nav { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.cal-dow, .cal-day {
+  min-height: 64px;
+  border-radius: 12px;
+  padding: 6px;
+  background: #fff;
+  border: 2px solid #d7e0f2;
+}
+.cal-dow { min-height: 0; background: transparent; border: 0; font-weight: 800; font-size: 12px; }
+.cal-day.empty { background: transparent; border-color: transparent; }
+.cal-day.has-event { border-color: #f2d27a; background: #fff8e0; }
+.cal-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #8a3d72; margin-right: 3px; }
+.cal-dot.shiny { background: #f2d27a; }
+.cal-dot.raid { background: #c45c5c; }
+.event-list { display: grid; gap: 12px; }
+.event-card { background: #fff; border: 2px solid #d7e0f2; border-radius: 16px; padding: 12px; }
+.dex-suggest {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  border: 2px solid #b9cbe7;
+  border-radius: 12px;
+  background: #fff;
+  max-height: 220px;
+  overflow: auto;
+}
+.dex-suggest button { width: 100%; text-align: left; border: 0; background: transparent; padding: 8px 12px; }
+.dex-suggest button:hover { background: #f7faff; }
+.rank-trainer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.rank-fav, .fav-sprite { width: 40px; height: 40px; image-rendering: pixelated; }
+.fav-line { display: flex; align-items: center; gap: 8px; font-weight: 800; }
+.trainer-title { color: #8a3d72; font-weight: 800; }
 @media (max-width: 900px) {
   .layout, .layout.stack-2 { grid-template-columns: 1fr; }
   .topnav-inner { grid-template-columns: auto auto; }
@@ -476,4 +594,6 @@ footer { margin-top: 24px; font-size: 13px; }
   .trainer-hero { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .dex-stage { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .store-grid, .command-grid, .settings-grid { grid-template-columns: 1fr; }
+  .pass-showcase, .mart-item { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .mart-copy { text-align: center; }
 }

@@ -15,7 +15,7 @@
     commandStatus: document.getElementById("command-status"),
     settingsStatus: document.getElementById("settings-status"),
     dexPick: document.getElementById("dex-pick"),
-    dexList: document.getElementById("dex-list"),
+    dexSuggest: document.getElementById("dex-suggest"),
     variantRow: document.getElementById("variant-row"),
     formPreview: document.getElementById("form-preview"),
     formCopy: document.getElementById("form-copy"),
@@ -52,11 +52,34 @@
 
   window.playBindAccountNav({ onSignOut: setSignedOut });
 
-  (window.PLAY_SPECIES || []).forEach((name, index) => {
-    const option = document.createElement("option");
-    option.value = `${index + 1} ${name}`;
-    els.dexList.append(option);
-  });
+  function selectedDex() {
+    const matches = window.playParseSpeciesQuery(els.dexPick.value);
+    return matches.length === 1 ? matches[0].dex : (matches[0]?.dex || null);
+  }
+
+  function renderSuggest() {
+    if (!els.dexSuggest) return;
+    const matches = window.playParseSpeciesQuery(els.dexPick.value);
+    if (!els.dexPick.value.trim() || matches.length === 0) {
+      els.dexSuggest.hidden = true;
+      els.dexSuggest.innerHTML = "";
+      return;
+    }
+    els.dexSuggest.hidden = false;
+    els.dexSuggest.innerHTML = matches.slice(0, 12).map((row) => (
+      `<li><button type="button" data-dex="${row.dex}">${window.playPadDex(row.dex)} ${row.name}</button></li>`
+    )).join("");
+  }
+
+  function pickSpecies(dex) {
+    if (!dex) return;
+    els.dexPick.value = `${window.playPadDex(dex)} ${window.playSpeciesName(dex)}`;
+    if (els.dexSuggest) {
+      els.dexSuggest.hidden = true;
+      els.dexSuggest.innerHTML = "";
+    }
+    renderVariants(dex);
+  }
 
   let lastChannel = "";
   function loadStream(login) {
@@ -88,18 +111,13 @@
   }
 
   function parseDex(value) {
-    const text = (value || "").trim();
-    if (!text) return null;
-    const numbered = text.match(/^(\d{1,3})\b/);
-    if (numbered) return Number(numbered[1]);
-    const names = window.PLAY_SPECIES || [];
-    const index = names.findIndex((name) => name.toLowerCase() === text.toLowerCase());
-    return index >= 0 ? index + 1 : null;
+    const matches = window.playParseSpeciesQuery(value);
+    return matches.length ? matches[0].dex : null;
   }
 
   function renderRound(round) {
     els.encounter.innerHTML = window.playRenderEncounter(round, {
-          emptyNote: "Start a random encounter. Mix It Up on the stream PC should pick it up."
+          emptyNote: "Start a random encounter. The stream PC should pick it up."
     });
     els.hide.textContent = "Hide overlay";
   }
@@ -119,14 +137,14 @@
     const bridge = data.bridge || {};
     if (els.bridgeStatus) {
       if (!bridge.configured) {
-        els.bridgeStatus.innerHTML = `<span class="status-bad">Mix It Up is not linked yet.</span> A token should already be on this stream PC. Only create a new one if Data/play-bridge.json is missing.`;
+        els.bridgeStatus.innerHTML = `<span class="status-bad">Stream bridge is not linked yet.</span> A token should already be on this stream PC. Only create a new one if Data/play-bridge.json is missing.`;
       } else if (bridge.online) {
-        els.bridgeStatus.innerHTML = `<span class="status-ok">Mix It Up bridge online.</span> ${bridge.pending ? `${bridge.pending} command${bridge.pending === 1 ? "" : "s"} in flight.` : "Ready for staff commands."}`;
+        els.bridgeStatus.innerHTML = `<span class="status-ok">Stream bridge online.</span> ${bridge.pending ? `${bridge.pending} command${bridge.pending === 1 ? "" : "s"} in flight.` : "Ready for staff commands."}`;
       } else {
-        els.bridgeStatus.innerHTML = `<span class="status-bad">Mix It Up bridge offline.</span> Commands wait until Mix It Up is open (Application Launch starts the bridge).`;
+        els.bridgeStatus.innerHTML = `<span class="status-bad">Stream bridge offline.</span> Commands wait until the Play bridge is running.`;
       }
       if (bridge.lastError && !/must join this encounter/i.test(bridge.lastError)) {
-        els.bridgeStatus.innerHTML += ` Last Mix It Up note: ${bridge.lastError}`;
+        els.bridgeStatus.innerHTML += ` Last stream note: ${bridge.lastError}`;
       }
     }
   }
@@ -174,7 +192,7 @@
     target.textContent = "Working…";
     try {
       const data = await window.playCall(name, args);
-      target.textContent = data?.message || "Done.";
+      target.textContent = String(data?.message || "Done.").replace(/Mix It Up/gi, "the stream");
       await refreshOverview(false);
     } catch (error) {
       target.textContent = window.playRpcError(error);
@@ -219,7 +237,7 @@
     els.commandStatus.textContent = "Working…";
     try {
       const data = await window.playCall("admin_queue_stream_command", { p_action: action, p_payload: payload || {} });
-      els.commandStatus.textContent = data?.message || "Queued for Mix It Up.";
+      els.commandStatus.textContent = String(data?.message || "Queued for the stream.").replace(/Mix It Up/gi, "the stream");
       await refreshOverview(false);
     } catch (error) {
       const message = window.playRpcError(error);
@@ -246,7 +264,22 @@
     }
     queueMix("start", mixPayload(dex));
   });
-  els.dexPick.addEventListener("input", () => renderVariants(parseDex(els.dexPick.value)));
+  els.dexPick.addEventListener("input", () => {
+    renderSuggest();
+    const matches = window.playParseSpeciesQuery(els.dexPick.value);
+    renderVariants(matches.length === 1 ? matches[0].dex : parseDex(els.dexPick.value));
+  });
+  els.dexSuggest?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-dex]");
+    if (!button) return;
+    pickSpecies(Number(button.dataset.dex));
+  });
+  els.dexPick.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    const matches = window.playParseSpeciesQuery(els.dexPick.value);
+    if (matches[0]) pickSpecies(matches[0].dex);
+  });
   els.variantRow?.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-variant]");
     if (!button) return;
@@ -283,9 +316,9 @@
       const saved = await window.playCall("admin_save_game_settings", { p_settings: settings });
       try {
         const queued = await window.playCall("admin_queue_stream_command", { p_action: "settings", p_payload: settings });
-        els.settingsStatus.textContent = queued?.message || saved?.message || "Saved.";
+        els.settingsStatus.textContent = String(queued?.message || saved?.message || "Saved.").replace(/Mix It Up/gi, "the stream");
       } catch (_) {
-        els.settingsStatus.textContent = saved?.message || "Saved on Play. Mix It Up will follow once the bridge is linked.";
+        els.settingsStatus.textContent = saved?.message || "Saved on Play. The stream PC will follow once the bridge is linked.";
       }
       await refreshOverview(false);
     } catch (error) {

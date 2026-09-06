@@ -51,8 +51,13 @@
     els.capacity.textContent = bag
       ? `${bag.used || 0} / ${bag.capacity || 50} item space${bag.lureArmed ? " · Lure armed" : ""}`
       : "";
-    els.bag.innerHTML = items.map(([key, label, hint]) => (
-      `<article class="bag-card"><span>${label}</span><strong>${bag?.[key] ?? 0}</strong><p class="muted">${hint}</p></article>`
+      els.bag.innerHTML = items.map(([key, label, hint]) => (
+      `<article class="bag-card">
+        <img class="item-sprite" src="${window.playItemSprite(key)}" alt="">
+        <span>${label}</span>
+        <strong>${bag?.[key] ?? 0}</strong>
+        <p class="muted">${hint}</p>
+      </article>`
     )).join("");
   }
 

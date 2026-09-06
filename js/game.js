@@ -42,6 +42,66 @@
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
   };
 
+  const ITEM_SPRITES = {
+    pokeball: "poke-ball",
+    greatball: "great-ball",
+    ultraball: "ultra-ball",
+    berry: "oran-berry",
+    bait: "honey",
+    lure: "max-lure",
+    coins: "nugget",
+    bag_bonus: "explorer-kit",
+    pass: "rainbow-pass",
+    poke5: "poke-ball",
+    great3: "great-ball",
+    ultra1: "ultra-ball",
+    berry5: "oran-berry",
+    bait5: "honey",
+    lure1: "max-lure",
+    pouch10: "explorer-kit",
+    "bits-starter": "poke-ball",
+    "bits-great": "great-ball",
+    "bits-ultra": "ultra-ball",
+    "bits-pantry": "oran-berry",
+    "bits-pouch": "explorer-kit"
+  };
+
+  window.playItemSprite = function playItemSprite(key) {
+    const slug = ITEM_SPRITES[key] || "poke-ball";
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${slug}.png`;
+  };
+
+  window.playPadDex = function playPadDex(dex) {
+    return String(Number(dex) || 0).padStart(3, "0");
+  };
+
+  window.playParseSpeciesQuery = function playParseSpeciesQuery(text) {
+    const raw = String(text || "").trim();
+    if (!raw) return [];
+    const names = window.PLAY_SPECIES || [];
+    const numbered = raw.match(/^0*(\d{1,3})(?:\s+(.+))?$/);
+    if (numbered) {
+      const n = Number(numbered[1]);
+      if (n >= 1 && n <= names.length) {
+        const name = names[n - 1];
+        const rest = (numbered[2] || "").trim().toLowerCase();
+        if (!rest || name.toLowerCase() === rest || name.toLowerCase().startsWith(rest)) {
+          return [{ dex: n, name }];
+        }
+      }
+      return [];
+    }
+    const q = raw.toLowerCase();
+    const exact = [];
+    const prefix = [];
+    names.forEach((name, index) => {
+      const lower = name.toLowerCase();
+      if (lower === q) exact.push({ dex: index + 1, name });
+      else if (lower.startsWith(q)) prefix.push({ dex: index + 1, name });
+    });
+    return exact.concat(prefix);
+  };
+
   window.playSpeciesName = function playSpeciesName(dex) {
     const names = window.PLAY_SPECIES || [];
     return names[Number(dex) - 1] || `No. ${dex}`;
@@ -59,7 +119,10 @@
 
   window.playRpcError = function playRpcError(error, fallback) {
     const message = error?.message || fallback || "That action did not work.";
-    return message.replace(/^.*error:\s*/i, "").replace(/\s+CONTEXT:[\s\S]*$/, "");
+    return message
+      .replace(/^.*error:\s*/i, "")
+      .replace(/\s+CONTEXT:[\s\S]*$/, "")
+      .replace(/Mix It Up/gi, "the stream");
   };
 
   window.playSecondsLeft = function playSecondsLeft(iso) {

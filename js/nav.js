@@ -28,9 +28,11 @@ window.playBindAccountNav = function playBindAccountNav(options) {
 
   const links = [
     { href: "./", id: "play", label: "Play" },
-    { href: "./inventory.html", id: "inventory", label: "Inventory" },
+    { href: "./inventory.html", id: "inventory", label: "My Inventory" },
+    { href: "./pokedex.html", id: "pokedex", label: "My Pokédex" },
     { href: "./rankings.html", id: "rankings", label: "Rankings" },
-    { href: "./store.html", id: "store", label: "Store" }
+    { href: "./store.html", id: "store", label: "Store" },
+    { href: "./events.html", id: "events", label: "Events" }
   ];
 
   function renderLinks(isAdmin) {

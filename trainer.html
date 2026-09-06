@@ -44,22 +44,37 @@
     <span class="tag">Trainer card</span>
     <div>
       <h1 id="page-title">Trainer</h1>
-      <p class="lede">Public Play profile: level, watch time, and recent catches.</p>
+      <p class="lede">Public Play profile: display name, favorite catch, level, and recent Pokémon.</p>
     </div>
   </div>
   <p id="gate" class="notice">Loading trainer card…</p>
   <div id="profile" hidden>
     <section id="hero" class="trainer-hero card"></section>
+    <section id="profile-edit" class="card body" hidden style="margin-top:18px">
+      <h2>Customize your card</h2>
+      <p class="muted">Display name is what other trainers see. Favorite Pokémon must be one you caught on Play.</p>
+      <label class="field" for="display-name">Display name
+        <input id="display-name" type="text" maxlength="24" placeholder="Sora">
+      </label>
+      <label class="field" for="favorite-mon">Favorite Pokémon
+        <select id="favorite-mon"></select>
+      </label>
+      <div class="links">
+        <button id="save-profile" type="button">Save card</button>
+      </div>
+      <p id="edit-status" class="muted" role="status"></p>
+    </section>
     <section class="card body" style="margin-top:18px">
       <h2>Recent catches</h2>
       <div id="caught-grid" class="caught-grid"></div>
     </section>
   </div>
-  <footer>Play keeps trainer cards in the cloud. Mix It Up chat inventories stay on the stream PC.</footer>
+  <footer>Play keeps trainer cards in the cloud.</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/species.js"></script>
 <script src="js/game.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/trainer.js"></script>

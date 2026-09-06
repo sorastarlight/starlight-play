@@ -2,7 +2,7 @@
 
 Companion site for `play.sorastarlight.net`.
 
-This repo is separate from the local stream overlay, Mix It Up commands, and the card binder.
+This repo is separate from the local stream overlay, stream-PC encounter tools, and the card binder.
 
 ## Hosting
 
@@ -17,13 +17,15 @@ Same pattern as the card binder:
 | Page | URL | Who |
 | --- | --- | --- |
 | Play | `/` | Viewers watch the stream and take encounter turns |
-| Inventory | `/inventory.html` | Trainer items, space, Lure arming, and caught Pokémon |
+| My Inventory | `/inventory.html` | Trainer items, space, Lure arming, and caught Pokémon |
+| My Pokédex | `/pokedex.html` | Caught, seen, and unseen Kanto species |
 | Rankings | `/rankings.html` | Trainer level, catches, and hours watched |
-| Trainer card | `/trainer.html?u=login` | Public profile |
-| Store | `/store.html` | Starlight Pass, PokéCoin shelf, Bits pack catalog |
+| Trainer card | `/trainer.html?u=login` | Public profile with display name and favorite Pokémon |
+| Store | `/store.html` | Starlight Pass, item-sprite mart, Bits pack catalog |
+| Events | `/events.html` | Upcoming Play calendar |
 | Staff | `/admin.html` | Encounter commands, variants, channel, pass grants, Bits pack credit |
 
-Public nav is Play · Inventory · Rankings · Store. Staff appears only after the stream Twitch account signs in. `/bag.html` redirects to Inventory.
+Public nav is Play · My Inventory · My Pokédex · Rankings · Store · Events. Staff appears only after the stream Twitch account signs in. `/bag.html` redirects to My Inventory.
 
 ## GoDaddy DNS
 
@@ -35,9 +37,9 @@ Copy the existing `cards` record and change only the name:
 
 ## Encounter commands
 
-Staff controls on `/admin.html` queue Mix It Up commands. A background bridge on the stream PC runs the same `community.py` engine Mix It Up already uses, writes `Data/encounter-state.js` for the overlay, and publishes that encounter to Play.
+Staff controls on `/admin.html` queue commands for the stream PC. A background bridge runs the community encounter engine, writes `Data/encounter-state.js` for the overlay, publishes that encounter to Play, and posts phase/result beats to Twitch chat.
 
-The stream PC already has `Data/play-bridge.json` and starts the bridge at login. Do not commit that file. Optional: import `Play - Start Stream Bridge` and attach it to Mix It Up **Application Launch**.
+The stream PC already has `Data/play-bridge.json` and starts the bridge at login. Do not commit that file.
 
 Chat commands still work.
 
@@ -61,7 +63,7 @@ Play never charges Bits. Rule: **BITS → guaranteed items → normal gameplay**
 
 - PokéCoins are earned (join +5, catch +20, Pass gifts). No cash value, no trading, no Bits conversion.
 - Coin shelf and Bits Power-Up packs only grant known quantities (balls, berries, bait, Lure, inventory space).
-- Bits packs are Custom Power-Ups on Twitch while live. Mix It Up runs `play_bits_grant.py` to credit the matching SKU. Staff hub can still credit a pack by hand.
+- Bits packs are Custom Power-Ups on Twitch while live. The stream PC credits the matching SKU. Staff hub can still credit a pack by hand.
 - Off the shelf: mystery balls, paid catch/shiny odds, buying a Pokémon, wagering.
 
 ## Twitch login
@@ -85,6 +87,8 @@ Play uses its own Supabase project. Do not put card-binder secrets here.
    - `https://play.sorastarlight.net/rankings.html`
    - `https://play.sorastarlight.net/trainer.html`
    - `https://play.sorastarlight.net/store.html`
+   - `https://play.sorastarlight.net/pokedex.html`
+   - `https://play.sorastarlight.net/events.html`
    - `https://play.sorastarlight.net/admin.html`
    - `https://play.sorastarlight.net/bag.html`
    - `https://sorastarlight.github.io/starlight-play/`

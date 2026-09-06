@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Play · THE STARLIGHT PLAY HUB</title>
+<title>My Pokédex · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/play.css">
-<body data-page="play">
+<body data-page="pokedex">
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./">
@@ -41,35 +41,64 @@
 </nav>
 <div class="wrap">
   <div class="page-kicker">
-    <span class="tag">Community encounter</span>
-    <p class="lede">Watch the stream, then take your turn here. Chat stays clear of <code>!join</code> spam.</p>
+    <span class="tag">National dex · Kanto</span>
+    <div>
+      <h1>My Pokédex</h1>
+      <p class="lede">Caught, seen in an encounter you were around for, or still unknown. Unknown species stay as silhouettes until they appear while you are on Play.</p>
+    </div>
   </div>
-  <div class="layout">
-    <section class="card">
-      <div class="hero">
-        <div class="eyebrow">Live stream</div>
-        <iframe id="stream-frame" title="Twitch stream" allowfullscreen></iframe>
-        <p id="stream-note" class="muted">Loading the stream player…</p>
+  <p id="gate" class="notice">Sign in with Twitch to open your Pokédex.</p>
+  <div id="dex-app" hidden>
+    <section class="card body dex-toolbar">
+      <p id="dex-summary" class="muted"></p>
+      <div class="dex-filters">
+        <label>Region
+          <select id="filter-region">
+            <option value="kanto">Kanto</option>
+          </select>
+        </label>
+        <label>Gen
+          <select id="filter-gen">
+            <option value="1">Gen 1</option>
+          </select>
+        </label>
+        <label>Form
+          <select id="filter-form">
+            <option value="all">All</option>
+            <option value="normal">Normal</option>
+            <option value="female">Female</option>
+            <option value="shiny">Shiny</option>
+          </select>
+        </label>
+        <label>Gender
+          <select id="filter-gender">
+            <option value="all">All</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Genderless">Genderless</option>
+          </select>
+        </label>
+        <label>Status
+          <select id="filter-status">
+            <option value="all">All</option>
+            <option value="caught">Caught</option>
+            <option value="owned-normal">Caught · normal</option>
+            <option value="owned-shiny">Caught · shiny</option>
+            <option value="not-caught">Not caught</option>
+            <option value="unseen">Not seen yet</option>
+          </select>
+        </label>
       </div>
     </section>
-    <aside class="card dex-card">
-      <div class="body">
-        <div class="eyebrow">Wild encounter</div>
-        <div id="encounter"></div>
-        <p id="action-status" class="muted" role="status"></p>
-        <div id="actions" class="action-grid"></div>
-        <h3>My Inventory</h3>
-        <div id="bag-status"></div>
-      </div>
-    </aside>
+    <div id="dex-grid" class="pokedex-grid"></div>
   </div>
-  <footer>Play is separate from the card binder. Bits stay on Twitch. Catch chance is never for sale.</footer>
+  <footer>Seen means you were on Play while that wild Pokémon was out.</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/species.js"></script>
 <script src="js/game.js"></script>
-<script src="js/hud.js"></script>
 <script src="js/nav.js"></script>
-<script src="js/play.js"></script>
+<script src="js/pokedex.js"></script>
 </body>

@@ -34,12 +34,12 @@
     if (!id) return "";
     const kind = String(variant || "normal");
     if (kind === "female") {
-      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/female/${id}.png`;
+      return `images/pokemon/female/${id}.png`;
     }
     if (kind.includes("shiny")) {
-      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`;
+      return `images/pokemon/shiny/${id}.png`;
     }
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+    return `images/pokemon/${id}.png`;
   };
 
   const ITEM_SPRITES = {
@@ -68,7 +68,7 @@
 
   window.playItemSprite = function playItemSprite(key) {
     const slug = ITEM_SPRITES[key] || "poke-ball";
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${slug}.png`;
+    return `images/items/${slug}.png`;
   };
 
   window.playPadDex = function playPadDex(dex) {

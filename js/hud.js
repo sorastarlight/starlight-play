@@ -43,7 +43,7 @@
         ${hidden}${live}${shiny}${female}
       </div>
       <div class="dex-stage">
-        ${sprite ? `<img src="${sprite}" alt="${name}" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${Number(round.dex)}.png'">` : ""}
+        ${sprite ? `<img src="${sprite}" alt="${name}" onerror="this.onerror=null;this.src='images/pokemon/${Number(round.dex)}.png'">` : ""}
         <div class="dex-copy">
           <p class="wild-label">A wild</p>
           <h2>${name}</h2>

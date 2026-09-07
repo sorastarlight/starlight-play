@@ -149,25 +149,75 @@
         els.bridgeStatus.innerHTML += ` Last stream note: ${bridge.lastError}`;
       }
     }
-    const bits = data.bitsAuto || {};
-    if (els.bitsAutoStatus) {
-      if (bits.connected) {
-        els.bitsAutoStatus.innerHTML = `<span class="status-ok">Auto-credit is on.</span> Power-Ups used while live credit Play bags.`;
-      } else if (bits.status) {
-        els.bitsAutoStatus.innerHTML = `<span class="status-bad">Twitch status: ${bits.status}.</span> Click the button to connect again.`;
-      } else {
-        els.bitsAutoStatus.innerHTML = `<span class="status-bad">Auto-credit is off.</span> Connect once after the Power-Ups exist on Twitch.`;
-      }
-      if (bits.lastDetail) {
-        els.bitsAutoStatus.innerHTML += ` Last grant: ${bits.lastDetail}`;
-      }
-      if (bits.pending) {
-        els.bitsAutoStatus.innerHTML += ` ${bits.pending} pack${bits.pending === 1 ? "" : "s"} waiting for a Play sign-in.`;
-      }
-    }
+    renderBitsStatus(data.bitsAuto || {});
   }
 
   let overviewTimer = 0;
+  let bitsSticky = "";
+
+  function renderBitsStatus(bits) {
+    if (!els.bitsAutoStatus) return;
+    if (bitsSticky) {
+      els.bitsAutoStatus.innerHTML = bitsSticky;
+      return;
+    }
+    const info = bits || {};
+    if (info.connected) {
+      els.bitsAutoStatus.innerHTML = `<span class="status-ok">Auto-credit is on.</span> Power-Ups used while live credit Play bags.`;
+    } else if (info.status) {
+      els.bitsAutoStatus.innerHTML = `<span class="status-bad">Twitch status: ${info.status}.</span> Click the button to connect again.`;
+    } else {
+      els.bitsAutoStatus.innerHTML = `<span class="status-bad">Auto-credit is off.</span> Connect once after the Power-Ups exist on Twitch.`;
+    }
+    if (info.lastDetail) {
+      els.bitsAutoStatus.innerHTML += ` Last grant: ${info.lastDetail}`;
+    }
+    if (info.pending) {
+      els.bitsAutoStatus.innerHTML += ` ${info.pending} pack${info.pending === 1 ? "" : "s"} waiting for a Play sign-in.`;
+    }
+  }
+
+  async function functionMessage(error, fallback) {
+    try {
+      const ctx = error?.context;
+      if (ctx && typeof ctx.json === "function") {
+        const body = await ctx.json();
+        if (body?.message) return body.message;
+      }
+    } catch (_) {}
+    if (String(error?.message || "").includes("non-2xx")) return fallback;
+    return error?.message || fallback;
+  }
+
+  async function finishBitsConnect(accessToken) {
+    if (finishBitsConnect.busy) return;
+    finishBitsConnect.busy = true;
+    bitsSticky = `<span class="status-ok">Connecting Bits auto-credit…</span>`;
+    renderBitsStatus({});
+    try {
+      const { data, error } = await supabase.functions.invoke("bits-connect", {
+        body: { accessToken }
+      });
+      if (error) {
+        bitsSticky = `<span class="status-bad">${await functionMessage(error, "Twitch would not enable Bits auto-credit.")}</span>`;
+        renderBitsStatus({});
+        return;
+      }
+      bitsSticky = data?.ok
+        ? `<span class="status-ok">${data.message || "Bits auto-credit is on."}</span>`
+        : `<span class="status-bad">${data?.message || "Twitch would not enable Bits auto-credit."}</span>`;
+      renderBitsStatus({});
+      if (data?.ok) {
+        bitsSticky = "";
+        await refreshOverview(false);
+      }
+    } catch (error) {
+      bitsSticky = `<span class="status-bad">${error?.message || "Could not connect Bits auto-credit."}</span>`;
+      renderBitsStatus({});
+    } finally {
+      finishBitsConnect.busy = false;
+    }
+  }
   async function refreshOverview(fillForms) {
     try {
       const data = await window.playCall("admin_overview");
@@ -203,7 +253,17 @@
     els.gate.hidden = true;
     els.staff.hidden = false;
     await refreshOverview(true);
-  }
+    const wantBits = new URLSearchParams(window.location.search).get("bits") === "connect";
+    if (wantBits) {
+      history.replaceState(null, "", window.location.pathname);
+      const token = session.provider_token;
+      if (!token) {
+        bitsSticky = `<span class="status-bad">Twitch did not keep a Bits token. Click Turn on Bits auto-credit again and approve Bits permission.</span>`;
+        renderBitsStatus({});
+      } else {
+        await finishBitsConnect(token);
+      }
+    }
 
   async function run(name, args, statusEl) {
     const target = statusEl || els.commandStatus;
@@ -347,20 +407,21 @@
     p_login: els.packLogin.value,
     p_sku: els.packSku.value
   }, els.packStatus));
-  els.bitsConnect?.addEventListener("click", () => {
-    const clientId = (els.client.value || "").trim();
-    if (!clientId) {
-      if (els.bitsAutoStatus) els.bitsAutoStatus.textContent = "Save the Play Twitch Client ID above first.";
-      return;
+  els.bitsConnect?.addEventListener("click", async () => {
+    bitsSticky = `<span class="status-ok">Opening Twitch for Bits permission…</span>`;
+    renderBitsStatus({});
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "twitch",
+      options: {
+        redirectTo: `${window.location.origin}${window.location.pathname}?bits=connect`,
+        scopes: "user:read:email user:read:subscriptions bits:read",
+        queryParams: { force_verify: "true" }
+      }
+    });
+    if (error) {
+      bitsSticky = `<span class="status-bad">${error.message || "Twitch sign-in is not enabled yet."}</span>`;
+      renderBitsStatus({});
     }
-    const redirect = `${window.location.origin}/bits-connect.html`;
-    const url = new URL("https://id.twitch.tv/oauth2/authorize");
-    url.searchParams.set("response_type", "token");
-    url.searchParams.set("client_id", clientId);
-    url.searchParams.set("redirect_uri", redirect);
-    url.searchParams.set("scope", "bits:read");
-    url.searchParams.set("force_verify", "true");
-    window.location.assign(url.toString());
   });
   document.getElementById("grant-pass").addEventListener("click", () => run("admin_set_pass", {
     p_login: els.passLogin.value,

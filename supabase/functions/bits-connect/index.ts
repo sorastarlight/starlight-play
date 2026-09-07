@@ -15,6 +15,11 @@ function json(body: Record<string, unknown>, status = 200) {
   });
 }
 
+function twitchMessage(body: Record<string, unknown>, fallback: string) {
+  if (typeof body.message === "string" && body.message.trim()) return body.message;
+  return fallback;
+}
+
 async function helix(
   path: string,
   accessToken: string,
@@ -57,14 +62,40 @@ Deno.serve(async (req) => {
     return json({ ok: false, message: "Staff only." }, 403);
   }
 
-  const body = await req.json().catch(() => ({}));
-  const accessToken = typeof body.accessToken === "string" ? body.accessToken.trim() : "";
+  const reqBody = await req.json().catch(() => ({}));
+  const accessToken = typeof reqBody.accessToken === "string" ? reqBody.accessToken.trim() : "";
   if (!accessToken) {
     return json({
       ok: false,
       needsScope: true,
-      message: "Twitch Bits permission is missing. Approve it on the next screen."
+      message: "Twitch Bits permission is missing. Click Turn on Bits auto-credit again."
     }, 400);
+  }
+
+  const validateRes = await fetch("https://id.twitch.tv/oauth2/validate", {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  });
+  const validate = await validateRes.json().catch(() => ({}));
+  if (!validateRes.ok) {
+    return json({
+      ok: false,
+      needsScope: true,
+      message: "That Twitch session expired. Click Turn on Bits auto-credit again."
+    }, 401);
+  }
+  const clientId = String(validate.client_id || "").trim();
+  const tokenLogin = String(validate.login || "").trim().toLowerCase();
+  const tokenUserId = String(validate.user_id || "").trim();
+  const scopes = Array.isArray(validate.scopes) ? validate.scopes.map((scope: string) => String(scope)) : [];
+  if (!clientId || !tokenUserId) {
+    return json({ ok: false, message: "Twitch did not recognize that Bits session. Click the button again." }, 400);
+  }
+  if (!scopes.includes("bits:read")) {
+    return json({
+      ok: false,
+      needsScope: true,
+      message: "Twitch did not grant Bits permission. Click Turn on Bits auto-credit and approve Bits on the next screen."
+    }, 403);
   }
 
   const admin = createClient(supabaseUrl, service);
@@ -73,36 +104,20 @@ Deno.serve(async (req) => {
     .select("broadcaster_twitch_login, twitch_client_id, twitch_broadcaster_id")
     .eq("id", 1)
     .maybeSingle();
-  const clientId = (config?.twitch_client_id || "").trim();
-  const channelLogin = (config?.broadcaster_twitch_login || "").trim();
-  if (!clientId) {
+  const channelLogin = (config?.broadcaster_twitch_login || "").trim().toLowerCase();
+  if (channelLogin && tokenLogin && channelLogin !== tokenLogin) {
     return json({
       ok: false,
-      message: "Save the Play Twitch Client ID on the staff hub first."
-    }, 400);
+      message: `Sign in with the stream account (${channelLogin}). This Twitch login is ${tokenLogin}.`
+    }, 403);
   }
 
-  let broadcasterId = (config?.twitch_broadcaster_id || "").trim();
-  if (!broadcasterId && channelLogin) {
-    const users = await helix(`users?login=${encodeURIComponent(channelLogin)}`, accessToken, clientId);
-    if (users.res.status === 401 || users.res.status === 403) {
-      return json({
-        ok: false,
-        needsScope: true,
-        message: "Twitch needs Bits permission from the channel account. Approve it on the next screen — this is not added to viewer logins."
-      }, 403);
-    }
-    const rows = Array.isArray(users.body.data) ? users.body.data as { id?: string }[] : [];
-    broadcasterId = rows[0]?.id || "";
-    if (broadcasterId) {
-      await admin.from("site_config").update({ twitch_broadcaster_id: broadcasterId }).eq("id", 1);
-    }
-  }
-  if (!broadcasterId) {
-    return json({
-      ok: false,
-      message: "Could not find the channel Twitch ID. Save it on the staff hub, then try again."
-    }, 400);
+  let broadcasterId = (config?.twitch_broadcaster_id || "").trim() || tokenUserId;
+  const patch: Record<string, string> = {};
+  if (!(config?.twitch_client_id || "").trim()) patch.twitch_client_id = clientId;
+  if (!(config?.twitch_broadcaster_id || "").trim() && broadcasterId) patch.twitch_broadcaster_id = broadcasterId;
+  if (Object.keys(patch).length) {
+    await admin.from("site_config").update(patch).eq("id", 1);
   }
 
   const { data: prepared, error: prepError } = await admin.rpc("bits_eventsub_prepare");
@@ -117,14 +132,14 @@ Deno.serve(async (req) => {
     return json({
       ok: false,
       needsScope: true,
-      message: "Twitch needs Bits permission from the channel account. Approve it on the next screen — this is not added to viewer logins."
+      message: twitchMessage(existing.body, "Twitch needs Bits permission from the channel account. Click the button and approve it.")
     }, 403);
   }
   if (!existing.res.ok) {
-    const message = typeof existing.body.message === "string"
-      ? existing.body.message
-      : "Twitch would not list EventSub subscriptions.";
-    return json({ ok: false, message }, 400);
+    return json({
+      ok: false,
+      message: twitchMessage(existing.body, "Twitch would not list EventSub subscriptions.")
+    }, 400);
   }
 
   const rows = Array.isArray(existing.body.data) ? existing.body.data as {
@@ -157,13 +172,11 @@ Deno.serve(async (req) => {
     return json({
       ok: false,
       needsScope: true,
-      message: "Twitch needs Bits permission from the channel account. Approve it on the next screen — this is not added to viewer logins."
+      message: twitchMessage(created.body, "Twitch needs Bits permission from the channel account. Click the button and approve it.")
     }, 403);
   }
   if (!created.res.ok) {
-    const message = typeof created.body.message === "string"
-      ? created.body.message
-      : "Twitch would not enable Bits auto-credit.";
+    const message = twitchMessage(created.body, "Twitch would not enable Bits auto-credit.");
     await admin.rpc("bits_eventsub_mark", {
       p_subscription_id: "",
       p_status: "error",
@@ -189,6 +202,6 @@ Deno.serve(async (req) => {
     status: sub.status || "enabled",
     message: enabled
       ? "Bits Power-Ups will credit Play bags automatically while you are live."
-      : `Twitch accepted the webhook (${sub.status || "pending"}). Try a Power-Up while live, or click again if it stays pending.`
+      : `Twitch accepted the webhook (${sub.status || "pending"}). Click again if it stays pending.`
   });
 });

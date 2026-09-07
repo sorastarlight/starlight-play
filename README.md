@@ -64,7 +64,7 @@ Play never charges Bits. Rule: **BITS → guaranteed items → normal gameplay**
 
 - PokéCoins are earned (join +5, catch +20, Pass gifts). No cash value, no trading, no Bits conversion.
 - Coin shelf and Bits Power-Up packs only grant known quantities (balls, berries, bait, Lure, inventory space).
-- Bits packs are Custom Power-Ups on Twitch while live. Twitch EventSub credits the matching SKU on Play. Staff hub can still credit a pack by hand.
+- Bits packs are Custom Power-Ups on Twitch while live. Staff hub → Turn on Bits auto-credit once. Twitch EventSub then credits the matching SKU on Play. Staff can still credit a pack by hand.
 - Off the shelf: mystery balls, paid catch/shiny odds, buying a Pokémon, wagering.
 
 ## Twitch login

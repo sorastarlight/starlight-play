@@ -600,26 +600,43 @@ footer { margin-top: 24px; font-size: 13px; }
 .mart-copy { text-align: left; min-width: 0; }
 .mart-copy strong { display: block; line-height: 1.2; }
 .mart-copy p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
-.mart-item-bits { align-items: start; }
+.bits-floor .mart-shelf { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.mart-item-bits {
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  grid-template-areas:
+    "sprite copy price"
+    "grants grants grants";
+  align-items: center;
+  gap: 10px 12px;
+}
+.mart-item-bits .mart-sprite { grid-area: sprite; }
+.mart-item-bits .mart-copy { grid-area: copy; }
+.mart-item-bits .mart-price { grid-area: price; }
 .mart-grants {
+  grid-area: grants;
   list-style: none;
-  margin: 8px 0 0;
+  margin: 0;
   padding: 0;
-  display: grid;
-  gap: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 .mart-grants li {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
+  gap: 6px;
+  padding: 6px 10px 6px 7px;
+  border-radius: 999px;
+  background: #edf2ff;
+  border: 1px solid #c5d2f0;
+  font-size: 14px;
   font-weight: 800;
-  color: #3d3a6b;
+  color: #2f2c5c;
   line-height: 1.2;
 }
 .mart-grants img {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   image-rendering: pixelated;
   flex: none;
 }
@@ -716,8 +733,16 @@ footer { margin-top: 24px; font-size: 13px; }
   .dex-stage { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .store-grid, .command-grid, .settings-grid { grid-template-columns: 1fr; }
   .pass-showcase, .mart-item { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .mart-item-bits {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "sprite"
+      "copy"
+      "price"
+      "grants";
+  }
   .mart-copy { text-align: center; }
-  .mart-grants { justify-items: center; }
-  .mart-grants li { justify-content: center; }
+  .mart-item-bits { justify-items: center; }
+  .mart-grants { justify-content: center; }
   .mart-price { justify-items: center; }
 }

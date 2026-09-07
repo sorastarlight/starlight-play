@@ -51,20 +51,22 @@
       ? `<button type="button" data-sku="${item.sku}">Get</button>`
       : "";
     const grants = typeof window.playGrantLines === "function" ? window.playGrantLines(item.grants) : [];
-    const details = mode === "bits" && grants.length
-      ? `<ul class="mart-grants">${grants.map((row) => `<li><img src="${row.sprite}" alt="">${row.label}</li>`).join("")}</ul>`
-      : (item.blurb ? `<p>${item.blurb}</p>` : "");
+    const grantList = mode === "bits" && grants.length
+      ? `<ul class="mart-grants">${grants.map((row) => `<li><img src="${row.sprite}" alt=""><span>${row.label}</span></li>`).join("")}</ul>`
+      : "";
+    const blurb = mode !== "bits" && item.blurb ? `<p>${item.blurb}</p>` : "";
     return `
       <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}">
         <div class="mart-sprite"><img src="${sprite}" alt=""></div>
         <div class="mart-copy">
           <strong>${item.name}</strong>
-          ${details}
+          ${blurb}
         </div>
         <div class="mart-price">
           ${cost}
           ${action}
         </div>
+        ${grantList}
       </article>`;
   }
 

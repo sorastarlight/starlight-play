@@ -182,15 +182,16 @@
       const ctx = error?.context;
       if (ctx && typeof ctx.json === "function") {
         const body = await ctx.json();
-        if (body?.message) return body.message;
+        if (body?.message) return { message: body.message, needsScope: Boolean(body.needsScope), ok: Boolean(body.ok) };
       }
     } catch (_) {}
-    if (String(error?.message || "").includes("non-2xx")) return fallback;
-    return error?.message || fallback;
+    if (String(error?.message || "").includes("non-2xx")) return { message: fallback, needsScope: false, ok: false };
+    return { message: error?.message || fallback, needsScope: false, ok: false };
   }
 
   async function finishBitsConnect(accessToken) {
-    if (finishBitsConnect.busy) return;
+    if (!accessToken) return { ok: false, needsScope: true, message: "Twitch did not keep a Bits token." };
+    if (finishBitsConnect.busy) return { ok: false, needsScope: false, message: "Connecting Bits auto-credit…" };
     finishBitsConnect.busy = true;
     bitsSticky = `<span class="status-ok">Connecting Bits auto-credit…</span>`;
     renderBitsStatus({});
@@ -199,24 +200,38 @@
         body: { accessToken }
       });
       if (error) {
-        bitsSticky = `<span class="status-bad">${await functionMessage(error, "Twitch would not enable Bits auto-credit.")}</span>`;
+        const info = await functionMessage(error, "Twitch would not enable Bits auto-credit.");
+        bitsSticky = `<span class="status-bad">${info.message}</span>`;
         renderBitsStatus({});
-        return;
+        return info;
       }
-      bitsSticky = data?.ok
+      const ok = Boolean(data?.ok);
+      bitsSticky = ok
         ? `<span class="status-ok">${data.message || "Bits auto-credit is on."}</span>`
         : `<span class="status-bad">${data?.message || "Twitch would not enable Bits auto-credit."}</span>`;
       renderBitsStatus({});
-      if (data?.ok) {
+      if (ok) {
+        sessionStorage.removeItem("playBitsConnect");
         bitsSticky = "";
         await refreshOverview(false);
       }
+      return { ok, needsScope: Boolean(data?.needsScope), message: data?.message || "" };
     } catch (error) {
       bitsSticky = `<span class="status-bad">${error?.message || "Could not connect Bits auto-credit."}</span>`;
       renderBitsStatus({});
+      return { ok: false, needsScope: false, message: error?.message || "Could not connect Bits auto-credit." };
     } finally {
       finishBitsConnect.busy = false;
     }
+  }
+
+  async function maybeFinishBits(session) {
+    if (sessionStorage.getItem("playBitsConnect") !== "1") return false;
+    const token = session?.provider_token;
+    if (!token) return false;
+    sessionStorage.removeItem("playBitsConnect");
+    await finishBitsConnect(token);
+    return true;
   }
   async function refreshOverview(fillForms) {
     try {
@@ -234,9 +249,8 @@
     overviewTimer = setTimeout(() => refreshOverview(false), 600);
   }
 
-  async function loadHub() {
-    const { data: sessionData } = await supabase.auth.getSession();
-    const session = sessionData.session;
+  async function loadHub(passedSession) {
+    const session = passedSession || (await supabase.auth.getSession()).data.session;
     if (!session) {
       setSignedOut();
       return;
@@ -253,17 +267,7 @@
     els.gate.hidden = true;
     els.staff.hidden = false;
     await refreshOverview(true);
-    const wantBits = new URLSearchParams(window.location.search).get("bits") === "connect";
-    if (wantBits) {
-      history.replaceState(null, "", window.location.pathname);
-      const token = session.provider_token;
-      if (!token) {
-        bitsSticky = `<span class="status-bad">Twitch did not keep a Bits token. Click Turn on Bits auto-credit again and approve Bits permission.</span>`;
-        renderBitsStatus({});
-      } else {
-        await finishBitsConnect(token);
-      }
-    }
+    await maybeFinishBits(session);
   }
 
   async function run(name, args, statusEl) {
@@ -409,17 +413,28 @@
     p_sku: els.packSku.value
   }, els.packStatus));
   els.bitsConnect?.addEventListener("click", async () => {
+    bitsSticky = `<span class="status-ok">Connecting Bits auto-credit…</span>`;
+    renderBitsStatus({});
+    const { data: sessionData } = await supabase.auth.getSession();
+    const existing = sessionData.session?.provider_token;
+    if (existing) {
+      const result = await finishBitsConnect(existing);
+      if (result?.ok) return;
+      if (!result?.needsScope) return;
+    }
+    sessionStorage.setItem("playBitsConnect", "1");
     bitsSticky = `<span class="status-ok">Opening Twitch for Bits permission…</span>`;
     renderBitsStatus({});
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "twitch",
       options: {
-        redirectTo: `${window.location.origin}${window.location.pathname}?bits=connect`,
+        redirectTo: `${window.location.origin}${window.location.pathname}`,
         scopes: "user:read:email user:read:subscriptions bits:read",
         queryParams: { force_verify: "true" }
       }
     });
     if (error) {
+      sessionStorage.removeItem("playBitsConnect");
       bitsSticky = `<span class="status-bad">${error.message || "Twitch sign-in is not enabled yet."}</span>`;
       renderBitsStatus({});
     }
@@ -445,7 +460,18 @@
     }
   });
 
-  supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadHub(); });
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (sessionStorage.getItem("playBitsConnect") === "1") {
+      if (session?.provider_token) {
+        maybeFinishBits(session);
+      } else if (event === "SIGNED_IN") {
+        bitsSticky = `<span class="status-bad">Twitch signed you back in, but did not keep a Bits token. Click Turn on Bits auto-credit once more and approve Bits permission.</span>`;
+        renderBitsStatus({});
+      }
+    }
+    if (window.playAuthNoise(event)) return;
+    loadHub(session);
+  });
   supabase.channel("play-staff")
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, scheduleOverview)
     .subscribe();

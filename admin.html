@@ -166,8 +166,17 @@
         <p id="pass-admin-status" class="muted" role="status"></p>
       </section>
       <section class="card body">
+        <h2>Bits auto-credit</h2>
+        <p class="muted">Custom Power-Ups on Twitch fill Play bags automatically. Viewers must have signed into Play once. Play never charges Bits.</p>
+        <p id="bits-auto-status" class="muted" role="status"></p>
+        <div class="links">
+          <button id="bits-connect" type="button">Turn on Bits auto-credit</button>
+        </div>
+        <p class="muted">One extra Twitch app redirect is required: <code>https://play.sorastarlight.net/bits-connect.html</code> on the Starlight Play app in the Developer Console. That Bits permission is only for this connect click, not every viewer login.</p>
+      </section>
+      <section class="card body">
         <h2>Credit a Bits pack</h2>
-        <p class="muted">Use this after a viewer unlocks the matching Custom Power-Up on Twitch. Play credits the listed items only.</p>
+        <p class="muted">Backup if auto-credit is off, or if someone used a Power-Up before signing into Play.</p>
         <label class="field" for="pack-login">Twitch login
           <input id="pack-login" type="text" autocomplete="off" spellcheck="false">
         </label>

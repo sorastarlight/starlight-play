@@ -1,0 +1,8 @@
+[functions.refresh-pass]
+verify_jwt = true
+
+[functions.bits-connect]
+verify_jwt = true
+
+[functions.twitch-eventsub]
+verify_jwt = false

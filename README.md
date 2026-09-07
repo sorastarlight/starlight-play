@@ -64,7 +64,7 @@ Play never charges Bits. Rule: **BITS → guaranteed items → normal gameplay**
 
 - PokéCoins are earned (join +5, catch +20, Pass gifts). No cash value, no trading, no Bits conversion.
 - Coin shelf and Bits Power-Up packs only grant known quantities (balls, berries, bait, Lure, inventory space).
-- Bits packs are Custom Power-Ups on Twitch while live. The stream PC credits the matching SKU. Staff hub can still credit a pack by hand.
+- Bits packs are Custom Power-Ups on Twitch while live. Twitch EventSub credits the matching SKU on Play. Staff hub can still credit a pack by hand.
 - Off the shelf: mystery balls, paid catch/shiny odds, buying a Pokémon, wagering.
 
 ## Twitch login
@@ -73,9 +73,13 @@ Play uses its own Supabase project. Do not put card-binder secrets here.
 
 1. Open the [Twitch Developer Console](https://dev.twitch.tv/console) and register an application named `Starlight Play`.
 2. Set Category to Website Integration.
-3. Set OAuth Redirect URL to:
+3. Set OAuth Redirect URLs to:
 
    `https://dtflmlbjhttoewqgkujf.supabase.co/auth/v1/callback`
+
+   `https://play.sorastarlight.net/bits-connect.html`
+
+   The second URL is only for Staff → Turn on Bits auto-credit. It is not used for viewer logins.
 
 4. Copy the Client ID and create a Client Secret.
 5. In the **starlight-play** Supabase project: Authentication → Sign In / Providers → Twitch.
@@ -92,6 +96,7 @@ Play uses its own Supabase project. Do not put card-binder secrets here.
    - `https://play.sorastarlight.net/pokedex.html`
    - `https://play.sorastarlight.net/events.html`
    - `https://play.sorastarlight.net/admin.html`
+   - `https://play.sorastarlight.net/bits-connect.html`
    - `https://play.sorastarlight.net/bag.html`
    - `https://sorastarlight.github.io/starlight-play/`
    - `https://sorastarlight.github.io/starlight-play/admin.html`

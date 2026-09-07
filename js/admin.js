@@ -22,6 +22,8 @@
     packLogin: document.getElementById("pack-login"),
     packSku: document.getElementById("pack-sku"),
     packStatus: document.getElementById("pack-status"),
+    bitsAutoStatus: document.getElementById("bits-auto-status"),
+    bitsConnect: document.getElementById("bits-connect"),
     passLogin: document.getElementById("pass-login"),
     passCount: document.getElementById("pass-count"),
     passStatus: document.getElementById("pass-admin-status"),
@@ -145,6 +147,22 @@
       }
       if (bridge.lastError && !/must join this encounter/i.test(bridge.lastError)) {
         els.bridgeStatus.innerHTML += ` Last stream note: ${bridge.lastError}`;
+      }
+    }
+    const bits = data.bitsAuto || {};
+    if (els.bitsAutoStatus) {
+      if (bits.connected) {
+        els.bitsAutoStatus.innerHTML = `<span class="status-ok">Auto-credit is on.</span> Power-Ups used while live credit Play bags.`;
+      } else if (bits.status) {
+        els.bitsAutoStatus.innerHTML = `<span class="status-bad">Twitch status: ${bits.status}.</span> Click the button to connect again.`;
+      } else {
+        els.bitsAutoStatus.innerHTML = `<span class="status-bad">Auto-credit is off.</span> Connect once after the Power-Ups exist on Twitch.`;
+      }
+      if (bits.lastDetail) {
+        els.bitsAutoStatus.innerHTML += ` Last grant: ${bits.lastDetail}`;
+      }
+      if (bits.pending) {
+        els.bitsAutoStatus.innerHTML += ` ${bits.pending} pack${bits.pending === 1 ? "" : "s"} waiting for a Play sign-in.`;
       }
     }
   }
@@ -329,6 +347,21 @@
     p_login: els.packLogin.value,
     p_sku: els.packSku.value
   }, els.packStatus));
+  els.bitsConnect?.addEventListener("click", () => {
+    const clientId = (els.client.value || "").trim();
+    if (!clientId) {
+      if (els.bitsAutoStatus) els.bitsAutoStatus.textContent = "Save the Play Twitch Client ID above first.";
+      return;
+    }
+    const redirect = `${window.location.origin}/bits-connect.html`;
+    const url = new URL("https://id.twitch.tv/oauth2/authorize");
+    url.searchParams.set("response_type", "token");
+    url.searchParams.set("client_id", clientId);
+    url.searchParams.set("redirect_uri", redirect);
+    url.searchParams.set("scope", "bits:read");
+    url.searchParams.set("force_verify", "true");
+    window.location.assign(url.toString());
+  });
   document.getElementById("grant-pass").addEventListener("click", () => run("admin_set_pass", {
     p_login: els.passLogin.value,
     p_active: true

@@ -126,14 +126,42 @@ Deno.serve(async (req) => {
     return json({ ok: false, message: "Could not create the Twitch webhook secret." }, 500);
   }
 
+  const { data: storedAppSecret } = await admin.rpc("bits_twitch_client_secret");
+  const appSecret = (Deno.env.get("TWITCH_CLIENT_SECRET") || storedAppSecret || "").trim();
+  if (!appSecret) {
+    return json({
+      ok: false,
+      message: "Save the Play Twitch Client Secret under Stream channel first. Use the Starlight Play app secret already used for Play login. If you generate a new secret, update Supabase Auth → Twitch too."
+    }, 400);
+  }
+
+  const appTokenRes = await fetch("https://id.twitch.tv/oauth2/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      client_id: clientId,
+      client_secret: appSecret,
+      grant_type: "client_credentials"
+    })
+  });
+  const appTokenJson = await appTokenRes.json().catch(() => ({}));
+  const appToken = typeof appTokenJson.access_token === "string" ? appTokenJson.access_token : "";
+  if (!appTokenRes.ok || !appToken) {
+    return json({
+      ok: false,
+      message: typeof appTokenJson.message === "string" && appTokenJson.message
+        ? appTokenJson.message
+        : "Twitch rejected the Client Secret. Paste the Starlight Play Client Secret under Stream channel. If you made a new secret, also put it in Supabase Auth → Twitch."
+    }, 400);
+  }
+
   const callback = `${supabaseUrl.replace(/\/$/, "")}/functions/v1/twitch-eventsub`;
-  const existing = await helix("eventsub/subscriptions", accessToken, clientId);
+  const existing = await helix("eventsub/subscriptions", appToken, clientId);
   if (existing.res.status === 401 || existing.res.status === 403) {
     return json({
       ok: false,
-      needsScope: true,
-      message: twitchMessage(existing.body, "Twitch needs Bits permission from the channel account. Click the button and approve it.")
-    }, 403);
+      message: twitchMessage(existing.body, "Twitch would not list EventSub subscriptions with the app token.")
+    }, 400);
   }
   if (!existing.res.ok) {
     return json({
@@ -149,13 +177,13 @@ Deno.serve(async (req) => {
   }[] : [];
   for (const row of rows) {
     if (row.type === EVENT_TYPE && row.transport?.callback === callback && row.id) {
-      await helix(`eventsub/subscriptions?id=${encodeURIComponent(row.id)}`, accessToken, clientId, {
+      await helix(`eventsub/subscriptions?id=${encodeURIComponent(row.id)}`, appToken, clientId, {
         method: "DELETE"
       });
     }
   }
 
-  const created = await helix("eventsub/subscriptions", accessToken, clientId, {
+  const created = await helix("eventsub/subscriptions", appToken, clientId, {
     method: "POST",
     body: JSON.stringify({
       type: EVENT_TYPE,

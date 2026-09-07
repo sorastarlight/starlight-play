@@ -144,6 +144,9 @@
         <label class="field" for="twitch-client">Twitch Client ID <span class="muted">(Play app, not the binder)</span>
           <input id="twitch-client" type="text" autocomplete="off" spellcheck="false">
         </label>
+        <label class="field" for="twitch-secret">Twitch Client Secret <span class="muted">(needed for Bits webhooks)</span>
+          <input id="twitch-secret" type="password" autocomplete="new-password" spellcheck="false" placeholder="Paste once. Play will not show it again.">
+        </label>
         <label class="field" for="twitch-broadcaster">Broadcaster ID <span class="muted">(numeric Helix id)</span>
           <input id="twitch-broadcaster" type="text" autocomplete="off" spellcheck="false">
         </label>
@@ -172,7 +175,7 @@
         <div class="links">
           <button id="bits-connect" type="button">Turn on Bits auto-credit</button>
         </div>
-        <p class="muted">Twitch will ask for Bits permission once. Approve it on the stream account. That is not added to viewer logins.</p>
+        <p class="muted">Paste the Play Twitch Client Secret under Stream channel and save first (same secret already used for Play login). Then click Turn on. Twitch may not open an authorize page if Bits permission was already granted. If you make a new secret, update it in Supabase Auth too.</p>
       </section>
       <section class="card body">
         <h2>Credit a Bits pack</h2>
@@ -237,5 +240,5 @@
 <script src="js/game.js"></script>
 <script src="js/hud.js"></script>
 <script src="js/nav.js"></script>
-<script src="js/admin.js?v=bits4"></script>
+<script src="js/admin.js?v=bits6"></script>
 </body>

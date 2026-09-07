@@ -9,6 +9,7 @@
     trainers: document.getElementById("trainer-count"),
     channel: document.getElementById("channel"),
     client: document.getElementById("twitch-client"),
+    clientSecret: document.getElementById("twitch-secret"),
     broadcaster: document.getElementById("twitch-broadcaster"),
     save: document.getElementById("save-channel"),
     saveStatus: document.getElementById("save-status"),
@@ -130,6 +131,11 @@
       els.channel.value = data.channel || "";
       els.client.value = data.twitchClientId || "";
       els.broadcaster.value = data.twitchBroadcasterId || "";
+      if (els.clientSecret && !els.clientSecret.value) {
+        els.clientSecret.placeholder = data.twitchClientSecretSaved
+          ? "Saved on Play. Paste again only to replace it."
+          : "Paste once. Play will not show it again.";
+      }
       fillSettings(data.settings);
     }
     loadStream(data.channel);
@@ -164,6 +170,8 @@
     const info = bits || {};
     if (info.connected) {
       els.bitsAutoStatus.innerHTML = `<span class="status-ok">Auto-credit is on.</span> Power-Ups used while live credit Play bags.`;
+    } else if (info.needsAppSecret) {
+      els.bitsAutoStatus.innerHTML = `<span class="status-bad">Save the Play Twitch Client Secret under Stream channel first.</span> It is the same secret already used for Play login.`;
     } else if (info.status) {
       els.bitsAutoStatus.innerHTML = `<span class="status-bad">Twitch status: ${info.status}.</span> Click the button to connect again.`;
     } else {
@@ -374,11 +382,23 @@
   document.getElementById("sync-clock").addEventListener("click", () => queueMix("resume"));
   document.getElementById("refill").addEventListener("click", () => queueMix("refill"));
   els.hide.addEventListener("click", () => queueMix("hide"));
-  els.save.addEventListener("click", () => run("admin_save_channel", {
-    p_login: els.channel.value.trim().replace(/^@/, ""),
-    p_client_id: els.client.value.trim(),
-    p_broadcaster_id: els.broadcaster.value.trim()
-  }, els.saveStatus));
+  els.save.addEventListener("click", async () => {
+    const secret = (els.clientSecret?.value || "").trim();
+    await run("admin_save_channel", {
+      p_login: els.channel.value.trim().replace(/^@/, ""),
+      p_client_id: els.client.value.trim(),
+      p_broadcaster_id: els.broadcaster.value.trim()
+    }, els.saveStatus);
+    if (!secret) return;
+    try {
+      const saved = await window.playCall("admin_save_twitch_client_secret", { p_secret: secret });
+      els.clientSecret.value = "";
+      els.saveStatus.textContent = saved?.message || "Play Twitch Client Secret saved.";
+      await refreshOverview(false);
+    } catch (error) {
+      els.saveStatus.textContent = window.playRpcError(error);
+    }
+  });
   document.getElementById("save-settings").addEventListener("click", async () => {
     const settings = {
       joinSeconds: Number(els.join.value),

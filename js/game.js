@@ -19,6 +19,32 @@
     return ITEM_LABELS[item] || item;
   };
 
+  const GRANT_ORDER = ["bag_bonus", "ultraball", "greatball", "pokeball", "lure", "berry", "bait"];
+  const GRANT_WORDS = {
+    berry: ["Berry", "Berries"],
+    bait: ["Bait", "Bait"],
+    pokeball: ["Poké Ball", "Poké Balls"],
+    greatball: ["Great Ball", "Great Balls"],
+    ultraball: ["Ultra Ball", "Ultra Balls"],
+    lure: ["Lure", "Lures"]
+  };
+
+  window.playGrantLines = function playGrantLines(grants) {
+    const qty = grants || {};
+    const keys = GRANT_ORDER.filter((key) => Number(qty[key]) > 0);
+    Object.keys(qty).forEach((key) => {
+      if (!keys.includes(key) && Number(qty[key]) > 0) keys.push(key);
+    });
+    return keys.map((key) => {
+      const n = Number(qty[key]) || 0;
+      const words = GRANT_WORDS[key];
+      const label = key === "bag_bonus"
+        ? `+${n} bag space`
+        : `${n} ${words ? (n === 1 ? words[0] : words[1]) : window.playItemLabel(key)}`;
+      return { key, n, label, sprite: window.playItemSprite(key) };
+    });
+  };
+
   window.playVariantLabel = function playVariantLabel(variant) {
     return VARIANT_LABELS[String(variant || "normal")] || variant;
   };

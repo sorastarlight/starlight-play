@@ -542,6 +542,38 @@ footer { margin-top: 24px; font-size: 13px; }
   border-color: #7ad3a0;
   box-shadow: 0 10px 0 #4ea876;
 }
+.pass-state {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.pass-state.on { color: #1f6a48; background: #d4f3e2; }
+.pass-state.off { color: #9a3030; background: #ffd6d6; }
+.pass-actions { align-items: center; }
+.pass-subscribe {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 10px;
+  margin: -6px 0 22px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  background: #fff;
+  border: 2px solid #f3c6e2;
+  color: #5d5b87;
+  font-weight: 800;
+  text-align: center;
+}
+.pass-subscribe a {
+  color: #8a3d72;
+  text-underline-offset: 3px;
+}
 .pass-sprite { width: 96px; height: 96px; image-rendering: pixelated; }
 .mart-floor {
   margin-top: 22px;

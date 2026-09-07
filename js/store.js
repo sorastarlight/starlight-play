@@ -15,31 +15,31 @@
 
   window.playBindAccountNav({
     onSignOut() {
-      els.status.textContent = "Sign in to check your pass.";
+      els.status.textContent = "Sign in to check your Pass.";
       els.wallet.textContent = "Sign in to see your balance.";
+      renderPass(null, null);
     }
   });
 
   function describePass(pass, wallet) {
-    if (!pass) return { title: "Starlight Pass", note: "Sign in to check your Twitch subscription.", active: false };
+    if (!pass) return { note: "Sign in to check your Pass.", active: false };
     if (pass.active) {
       const source = pass.source === "twitch-sub"
-        ? "Twitch sub"
+        ? "Your Twitch sub is on"
         : pass.source === "admin"
-          ? "staff grant"
+          ? "Staff granted your Pass"
           : pass.source === "broadcaster"
-            ? "channel account"
-            : "active";
+            ? "You're the channel, so the Pass is on"
+            : "Your Pass is on";
       const gifts = [];
       if (wallet?.dailyReady) gifts.push("daily gift ready");
       if (wallet?.weeklyReady) gifts.push("weekly crate ready");
       return {
-        title: "Starlight Pass · Active",
         note: gifts.length ? `${source}. ${gifts.join(" · ")}.` : `${source}. Gifts on cooldown.`,
         active: true
       };
     }
-    return { title: "Starlight Pass", note: "Subscribe on Twitch, then check again.", active: false };
+    return { note: "No Pass on this account yet.", active: false };
   }
 
   function shelfCard(item, mode) {
@@ -84,14 +84,19 @@
 
   function renderPass(pass, wallet) {
     const info = describePass(pass, wallet);
+    const state = els.passHero?.querySelector("[data-pass-state]");
     els.status.textContent = info.note;
     if (els.passHero) {
       els.passHero.classList.toggle("active", Boolean(info.active));
-      els.passHero.querySelector("[data-pass-title]").textContent = info.title;
+      if (state) {
+        state.textContent = info.active ? "Active" : "Inactive";
+        state.classList.toggle("on", Boolean(info.active));
+        state.classList.toggle("off", !info.active);
+      }
       els.daily.disabled = !info.active || !wallet?.dailyReady;
       els.weekly.disabled = !info.active || !wallet?.weeklyReady;
-      els.daily.textContent = wallet?.dailyReady ? "Claim daily gift" : "Daily claimed";
-      els.weekly.textContent = wallet?.weeklyReady ? "Claim weekly crate" : "Weekly claimed";
+      els.daily.textContent = info.active && !wallet?.dailyReady ? "Daily claimed" : "Claim daily gift";
+      els.weekly.textContent = info.active && !wallet?.weeklyReady ? "Weekly claimed" : "Claim weekly crate";
     }
   }
 
@@ -117,7 +122,7 @@
     const session = sessionData.session;
     if (!session) {
       window.playSetAccountNav(null);
-      els.status.textContent = "Sign in to check your pass.";
+      els.status.textContent = "Sign in to check your Pass.";
       await refreshStore();
       return;
     }

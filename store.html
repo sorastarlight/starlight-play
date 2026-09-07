@@ -50,22 +50,25 @@
     <img class="pass-sprite" src="images/items/rainbow-pass.png" alt="">
     <div>
       <p class="eyebrow">Twitch subscriber perk</p>
-      <h2 data-pass-title>Starlight Pass</h2>
+      <h2>Starlight Pass <span data-pass-state class="pass-state off">Inactive</span></h2>
       <ul>
         <li>+25 bag space while active</li>
         <li>Daily: 2 Berries, 1 Bait, 20 PokéCoins</li>
         <li>Weekly: 5 Poké Balls, 3 Berries, 1 Lure, 150 PokéCoins</li>
         <li>Pass ribbon on your trainer card</li>
       </ul>
-      <p id="pass-status" class="muted">Sign in to check your pass.</p>
-      <div class="links">
-        <button id="check-pass" type="button">Check my subscription</button>
-        <button id="claim-daily" class="secondary" type="button">Claim daily gift</button>
+      <p id="pass-status" class="muted">Sign in to check your Pass.</p>
+      <div class="links pass-actions">
+        <button id="claim-daily" type="button">Claim daily gift</button>
         <button id="claim-weekly" class="gold" type="button">Claim weekly crate</button>
-        <a class="button secondary" href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Twitch subscribe</a>
+        <button id="check-pass" class="secondary" type="button">Check my subscription</button>
       </div>
     </div>
   </section>
+  <p class="pass-subscribe">
+    Want the Starlight Pass?
+    <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch now</a>
+  </p>
 
   <section class="mart-floor">
     <header class="mart-sign">

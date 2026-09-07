@@ -172,12 +172,14 @@
       els.bitsAutoStatus.innerHTML = `<span class="status-ok">Auto-credit is on.</span> Power-Ups used while live credit Play bags.`;
     } else if (info.needsAppSecret) {
       els.bitsAutoStatus.innerHTML = `<span class="status-bad">Save the Play Twitch Client Secret under Stream channel first.</span> It is the same secret already used for Play login.`;
+    } else if ((info.status || "").includes("pending")) {
+      els.bitsAutoStatus.innerHTML = `Twitch is confirming the webhook. Wait a few seconds. Do not click Turn on again yet.`;
     } else if (info.status) {
       els.bitsAutoStatus.innerHTML = `<span class="status-bad">Twitch status: ${info.status}.</span> Click the button to connect again.`;
     } else {
       els.bitsAutoStatus.innerHTML = `<span class="status-bad">Auto-credit is off.</span> Connect once after the Power-Ups exist on Twitch.`;
     }
-    if (info.lastDetail) {
+    if (info.lastDetail && !(info.status || "").includes("pending")) {
       els.bitsAutoStatus.innerHTML += ` Last grant: ${info.lastDetail}`;
     }
     if (info.pending) {

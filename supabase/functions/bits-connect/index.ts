@@ -43,6 +43,94 @@ async function helix(
   return { res, body };
 }
 
+type SubRow = {
+  id?: string;
+  type?: string;
+  status?: string;
+  condition?: { broadcaster_user_id?: string };
+  transport?: { callback?: string };
+};
+
+function subRows(body: Record<string, unknown>): SubRow[] {
+  return Array.isArray(body.data) ? body.data as SubRow[] : [];
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isMatch(row: SubRow, callback: string, broadcasterId: string) {
+  if (row.type !== EVENT_TYPE || row.transport?.callback !== callback || !row.id) return false;
+  const owner = row.condition?.broadcaster_user_id || "";
+  return !owner || owner === broadcasterId;
+}
+
+async function listSubs(appToken: string, clientId: string, status: string) {
+  return helix(`eventsub/subscriptions?status=${encodeURIComponent(status)}`, appToken, clientId);
+}
+
+async function loadKnownSubs(appToken: string, clientId: string) {
+  const [enabled, pending, failed] = await Promise.all([
+    listSubs(appToken, clientId, "enabled"),
+    listSubs(appToken, clientId, "webhook_callback_verification_pending"),
+    listSubs(appToken, clientId, "webhook_callback_verification_failed")
+  ]);
+  const firstFail = [enabled, pending, failed].find((item) => !item.res.ok);
+  return {
+    ok: !firstFail || [enabled, pending, failed].some((item) => item.res.ok),
+    unauthorized: [enabled, pending, failed].some((item) => item.res.status === 401 || item.res.status === 403),
+    body: firstFail && ![enabled, pending, failed].some((item) => item.res.ok) ? firstFail.body : {},
+    rows: [
+      ...subRows(enabled.body),
+      ...subRows(pending.body),
+      ...subRows(failed.body)
+    ]
+  };
+}
+
+async function pollStatus(id: string, appToken: string, clientId: string) {
+  let found: SubRow | null = null;
+  for (let i = 0; i < 12; i++) {
+    await sleep(1000);
+    const listed = await loadKnownSubs(appToken, clientId);
+    found = listed.rows.find((row) => row.id === id) || null;
+    const status = found?.status || "";
+    if (
+      status === "enabled"
+      || status.includes("failed")
+      || status === "authorization_revoked"
+      || status === "user_removed"
+    ) {
+      return found;
+    }
+  }
+  return found;
+}
+
+async function markBits(
+  admin: ReturnType<typeof createClient>,
+  sub: { id?: string; status?: string }
+) {
+  const status = sub.status || "webhook_callback_verification_pending";
+  const failed = status.includes("failed") || status === "authorization_revoked" || status === "user_removed";
+  await admin.rpc("bits_eventsub_mark", {
+    p_subscription_id: sub.id || "",
+    p_status: status,
+    p_error: failed ? status : ""
+  });
+  const enabled = status === "enabled";
+  return json({
+    ok: !failed,
+    connected: enabled,
+    status,
+    message: enabled
+      ? "Bits Power-Ups will credit Play bags automatically while you are live."
+      : failed
+        ? `Twitch could not confirm the webhook (${status}). Click Turn on Bits auto-credit again.`
+        : "Twitch is confirming the webhook. Wait a few seconds; you do not need to click again yet."
+  }, failed ? 400 : 200);
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
 
@@ -156,27 +244,32 @@ Deno.serve(async (req) => {
   }
 
   const callback = `${supabaseUrl.replace(/\/$/, "")}/functions/v1/twitch-eventsub`;
-  const existing = await helix("eventsub/subscriptions", appToken, clientId);
-  if (existing.res.status === 401 || existing.res.status === 403) {
+  const existing = await loadKnownSubs(appToken, clientId);
+  if (existing.unauthorized) {
     return json({
       ok: false,
       message: twitchMessage(existing.body, "Twitch would not list EventSub subscriptions with the app token.")
     }, 400);
   }
-  if (!existing.res.ok) {
+  if (!existing.ok) {
     return json({
       ok: false,
       message: twitchMessage(existing.body, "Twitch would not list EventSub subscriptions.")
     }, 400);
   }
 
-  const rows = Array.isArray(existing.body.data) ? existing.body.data as {
-    id?: string;
-    type?: string;
-    transport?: { callback?: string };
-  }[] : [];
-  for (const row of rows) {
-    if (row.type === EVENT_TYPE && row.transport?.callback === callback && row.id) {
+  const matches = existing.rows.filter((row) => isMatch(row, callback, broadcasterId));
+  const enabledSub = matches.find((row) => row.status === "enabled");
+  if (enabledSub) {
+    return await markBits(admin, enabledSub);
+  }
+  const pendingSub = matches.find((row) => (row.status || "").includes("pending"));
+  if (pendingSub?.id) {
+    const polled = await pollStatus(pendingSub.id, appToken, clientId);
+    return await markBits(admin, polled || pendingSub);
+  }
+  for (const row of matches) {
+    if (row.id) {
       await helix(`eventsub/subscriptions?id=${encodeURIComponent(row.id)}`, appToken, clientId, {
         method: "DELETE"
       });
@@ -213,23 +306,11 @@ Deno.serve(async (req) => {
     return json({ ok: false, message }, 400);
   }
 
-  const createdRows = Array.isArray(created.body.data) ? created.body.data as {
-    id?: string;
-    status?: string;
-  }[] : [];
+  const createdRows = subRows(created.body);
   const sub = createdRows[0] || {};
-  await admin.rpc("bits_eventsub_mark", {
-    p_subscription_id: sub.id || "",
-    p_status: sub.status || "enabled",
-    p_error: ""
-  });
-  const enabled = (sub.status || "enabled") === "enabled";
-  return json({
-    ok: true,
-    connected: enabled,
-    status: sub.status || "enabled",
-    message: enabled
-      ? "Bits Power-Ups will credit Play bags automatically while you are live."
-      : `Twitch accepted the webhook (${sub.status || "pending"}). Click again if it stays pending.`
-  });
+  if (sub.id) {
+    const polled = await pollStatus(sub.id, appToken, clientId);
+    return await markBits(admin, polled || sub);
+  }
+  return await markBits(admin, sub);
 });

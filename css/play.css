@@ -600,7 +600,7 @@ footer { margin-top: 24px; font-size: 13px; }
 .mart-copy { text-align: left; min-width: 0; }
 .mart-copy strong { display: block; line-height: 1.2; }
 .mart-copy p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
-.bits-floor .mart-shelf { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.bits-floor .mart-shelf { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
 .mart-item-bits {
   grid-template-columns: 48px minmax(0, 1fr) auto;
   grid-template-areas:
@@ -617,19 +617,18 @@ footer { margin-top: 24px; font-size: 13px; }
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: grid;
+  gap: 6px;
 }
 .mart-grants li {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 10px 6px 7px;
-  border-radius: 999px;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
   background: #edf2ff;
   border: 1px solid #c5d2f0;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
   color: #2f2c5c;
   line-height: 1.2;
@@ -742,7 +741,8 @@ footer { margin-top: 24px; font-size: 13px; }
       "grants";
   }
   .mart-copy { text-align: center; }
-  .mart-item-bits { justify-items: center; }
-  .mart-grants { justify-content: center; }
+  .mart-item-bits { justify-items: stretch; }
+  .mart-grants { justify-content: stretch; }
+  .mart-grants li { justify-content: flex-start; }
   .mart-price { justify-items: center; }
 }

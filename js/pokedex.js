@@ -44,10 +44,8 @@
     const gender = els.gender.value;
     const status = els.status.value;
     if (status === "caught" && !entry.caught) return false;
-    if (status === "not-caught" && entry.caught) return false;
-    if (status === "unseen" && entry.seen) return false;
-    if (status === "owned-normal" && !entry.forms.normal) return false;
-    if (status === "owned-shiny" && !entry.forms.shiny) return false;
+    if (status === "seen" && (!entry.seen || entry.caught)) return false;
+    if (status === "unknown" && entry.seen) return false;
     if (form === "normal" && entry.caught && !entry.forms.normal && !entry.forms.female) return false;
     if (form === "female" && !entry.forms.female) return false;
     if (form === "shiny" && !entry.forms.shiny) return false;
@@ -81,11 +79,17 @@
         entry.forms.shiny ? `<span class="chip shiny">Shiny</span>` : "",
         entry.forms.female ? `<span class="chip">♀</span>` : ""
       ].join("");
+      const mark = entry.caught
+        ? `<img class="dex-caught-mark" src="${window.playItemSprite("pokeball")}" alt="Caught">`
+        : "";
+      const spriteClass = state === "unseen" ? "silhouette" : state === "seen" ? "seen-sprite" : "";
+      const note = badges || (state === "unseen" ? "Not seen" : "");
       return `<article class="dex-cell ${state}" title="${entry.caught || entry.seen ? entry.name : "Not seen yet"}">
+        ${mark}
         <span class="dex-no">No. ${window.playPadDex(entry.dex)}</span>
-        <img src="${spriteFor(entry)}" alt="" class="${state === "unseen" ? "silhouette" : ""}">
+        <img src="${spriteFor(entry)}" alt="" class="${spriteClass}">
         <strong>${label}</strong>
-        <span>${badges || (state === "unseen" ? "Not seen" : state === "seen" ? "Seen" : "Caught")}</span>
+        ${note ? `<span>${note}</span>` : ""}
       </article>`;
     }).join("");
   }

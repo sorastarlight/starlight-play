@@ -663,6 +663,7 @@ footer { margin-top: 24px; font-size: 13px; }
   margin-top: 16px;
 }
 .dex-cell {
+  position: relative;
   background: #fff;
   border: 2px solid #d7e0f2;
   border-radius: 16px;
@@ -671,6 +672,16 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .dex-cell img { width: 72px; height: 72px; image-rendering: pixelated; }
 .dex-cell .silhouette { filter: brightness(0); opacity: .55; }
+.dex-cell .seen-sprite { filter: grayscale(1); opacity: .58; }
+.dex-cell img.dex-caught-mark {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 22px;
+  height: 22px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 1px 1px #0003);
+}
 .dex-cell.unseen { background: #eef1f8; }
 .dex-cell.seen { background: #fff8e8; }
 .dex-cell.caught { background: #f3fff6; }

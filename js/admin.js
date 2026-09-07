@@ -264,6 +264,7 @@
         await finishBitsConnect(token);
       }
     }
+  }
 
   async function run(name, args, statusEl) {
     const target = statusEl || els.commandStatus;

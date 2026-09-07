@@ -554,22 +554,35 @@ footer { margin-top: 24px; font-size: 13px; }
 .bits-floor { background: linear-gradient(180deg, #e4ecff, #cfd9f4); border-color: #8ea4d8; box-shadow: inset 0 0 0 6px #eef3ff; }
 .mart-sign { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
 .mart-sign img { width: 48px; height: 48px; image-rendering: pixelated; }
-.mart-shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.mart-shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
 .mart-item {
   display: grid;
-  grid-template-columns: 56px 1fr auto;
-  gap: 10px;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  gap: 10px 12px;
   align-items: center;
   background: #fffdf6;
   border: 2px solid #d7c39a;
   border-radius: 16px;
-  padding: 10px;
+  padding: 12px;
 }
-.mart-copy { text-align: left; }
-.mart-copy p { margin: 4px 0 0; font-size: 13px; }
-.mart-price { text-align: center; min-width: 84px; }
-.mart-price span { display: block; font-weight: 800; }
-.mart-price em { display: block; font-style: normal; font-size: 11px; color: #7a7b93; }
+.mart-copy { text-align: left; min-width: 0; }
+.mart-copy strong { display: block; line-height: 1.2; }
+.mart-copy p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.mart-price {
+  display: grid;
+  justify-items: end;
+  align-content: center;
+  gap: 6px;
+}
+.mart-cost {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.mart-cost img { width: 22px; height: 22px; }
+.mart-price button { padding: 6px 14px; font-size: 13px; min-width: 64px; }
 .pokedex-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -649,4 +662,5 @@ footer { margin-top: 24px; font-size: 13px; }
   .store-grid, .command-grid, .settings-grid { grid-template-columns: 1fr; }
   .pass-showcase, .mart-item { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .mart-copy { text-align: center; }
+  .mart-price { justify-items: center; }
 }

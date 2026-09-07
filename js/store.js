@@ -24,7 +24,7 @@
     if (!pass) return { title: "Starlight Pass", note: "Sign in to check your Twitch subscription.", active: false };
     if (pass.active) {
       const source = pass.source === "twitch-sub"
-        ? "Twitch subscription"
+        ? "Twitch sub"
         : pass.source === "admin"
           ? "staff grant"
           : pass.source === "broadcaster"
@@ -35,36 +35,30 @@
       if (wallet?.weeklyReady) gifts.push("weekly crate ready");
       return {
         title: "Starlight Pass · Active",
-        note: `Perk status: ${source}. ${gifts.length ? gifts.join(" · ") : "Daily and weekly gifts on cooldown."}`,
+        note: gifts.length ? `${source}. ${gifts.join(" · ")}.` : `${source}. Gifts on cooldown.`,
         active: true
       };
     }
-    return { title: "Starlight Pass", note: "Subscribe on Twitch, then check again. Pass is required for daily and weekly gifts.", active: false };
-  }
-
-  function grantLine(grants) {
-    return Object.entries(grants || {}).map(([key, amount]) => `${amount} ${window.playItemLabel(key) || key}`).join(" · ");
+    return { title: "Starlight Pass", note: "Subscribe on Twitch, then check again.", active: false };
   }
 
   function shelfCard(item, mode) {
     const sprite = window.playItemSprite(item.sku) || window.playItemSprite(Object.keys(item.grants || {})[0]);
-    const price = mode === "bits" ? `${item.bits} Bits` : `${item.cost}`;
-    const priceLabel = mode === "bits" ? "Twitch Power-Up" : "PokéCoins";
+    const cost = mode === "bits"
+      ? `<span class="mart-cost">${item.bits} Bits</span>`
+      : `<span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${item.cost}</span>`;
     const action = mode === "coins"
       ? `<button type="button" data-sku="${item.sku}">Get</button>`
-      : `<p class="muted">Unlock on Twitch while live</p>`;
+      : "";
     return `
       <article class="mart-item">
         <div class="mart-sprite"><img src="${sprite}" alt=""></div>
         <div class="mart-copy">
           <strong>${item.name}</strong>
-          <p>${item.blurb}</p>
-          <p class="muted">${grantLine(item.grants)}</p>
+          ${item.blurb ? `<p>${item.blurb}</p>` : ""}
         </div>
         <div class="mart-price">
-          <img src="${window.playItemSprite(mode === "bits" ? item.sku : "coins")}" alt="">
-          <span>${price}</span>
-          <em>${priceLabel}</em>
+          ${cost}
           ${action}
         </div>
       </article>`;
@@ -106,7 +100,7 @@
       const data = await window.playCall("play_store");
       const wallet = data.wallet;
       if (wallet) {
-        els.wallet.textContent = `${wallet.coins} PokéCoins · ${wallet.used}/${wallet.capacity} item space`;
+        els.wallet.textContent = `${wallet.coins} PokéCoins · ${wallet.used}/${wallet.capacity} space`;
       }
       renderPass(data.pass, wallet);
       renderShelf(els.coins, data.catalog?.coins, "coins");

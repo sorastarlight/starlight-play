@@ -84,11 +84,24 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   gap: 8px;
-  max-width: min(240px, 42vw);
+  max-width: min(260px, 48vw);
   padding: 3px 10px 3px 3px;
   background: #fff;
   border: 2px solid #c9d4ec;
   box-shadow: 0 3px 0 #d7e0f2;
+}
+.account-caret {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  margin-right: 4px;
+  border-right: 2px solid #8a3d72;
+  border-bottom: 2px solid #8a3d72;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform .15s ease;
+}
+.account-button[aria-expanded="true"] .account-caret {
+  transform: rotate(225deg) translateY(-2px);
 }
 .account-meta {
   display: grid;

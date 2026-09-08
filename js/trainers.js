@@ -142,7 +142,7 @@
       { id: "nurse", name: "Nurse Joy" },
       { id: "officer-gen2", name: "Officer Jenny" }
     ] },
-    { key: "sonic", label: "Sonic the Hedgehog", games: "Sonic Battle", looks: [
+    { key: "sonic", label: "Sonic the Hedgehog", games: "Sonic Advance", looks: [
       { id: "sonic-sonic", name: "Sonic" },
       { id: "sonic-tails", name: "Tails" },
       { id: "sonic-knuckles", name: "Knuckles" },
@@ -170,26 +170,26 @@
 
   window.playTrainerSpriteUrl = function playTrainerSpriteUrl(id) {
     const key = window.playTrainerSpriteOk(id) ? window.playTrainerSpriteKey(id) : "red-gen1";
-    return `images/trainers/${key}.png?v=card4`;
+    return `images/trainers/${key}.png?v=card6`;
   };
 
   window.PLAY_CARD_BGS = [
     { id: "kanto", name: "Kanto", group: "region", tone: "dark", chip: "#8c2020e8", ink: "#fff8f0", head: "#fff8e8", shadow: "0 2px 0 #5a1010", slot: "#ffe8d0", slotInk: "#6a2018" },
-    { id: "johto", name: "Johto", group: "region", tone: "light", chip: "#5a4010e8", ink: "#fff6d8", head: "#4a3010", shadow: "0 1px 0 #ffe8a0", slot: "#fff0c0", slotInk: "#4a3010" },
+    { id: "johto", name: "Johto", group: "region", tone: "dark", chip: "#5a4010e8", ink: "#fff6d8", head: "#fff8e0", shadow: "0 2px 0 #1a2810", slot: "#fff0c0", slotInk: "#4a3010" },
     { id: "hoenn", name: "Hoenn", group: "region", tone: "dark", chip: "#2d5a88e8", ink: "#f4fbff", head: "#fff", shadow: "0 2px 0 #1a3a58", slot: "#dceeff", slotInk: "#1e4060" },
     { id: "sinnoh", name: "Sinnoh", group: "region", tone: "light", chip: "#3d6aa0e8", ink: "#f4fbff", head: "#1e4068", shadow: "0 1px 0 #e8f4ff", slot: "#e8f4ff", slotInk: "#234868" },
     { id: "unova", name: "Unova", group: "region", tone: "dark", chip: "#d8d8e6ee", ink: "#222230", head: "#f4f4fa", shadow: "0 2px 0 #111118", slot: "#ececf4", slotInk: "#222230" },
     { id: "kalos", name: "Kalos", group: "region", tone: "dark", chip: "#f5e48ae8", ink: "#1e4a88", head: "#fff", shadow: "0 2px 0 #1e4a88", slot: "#fff6c8", slotInk: "#1e4a88" },
     { id: "alola", name: "Alola", group: "region", tone: "light", chip: "#3a6a96e8", ink: "#fff8ee", head: "#3a4a68", shadow: "0 1px 0 #fff8e8", slot: "#fff4dc", slotInk: "#3a4a68" },
     { id: "galar", name: "Galar", group: "region", tone: "dark", chip: "#e8c44ae8", ink: "#1e2a4a", head: "#f4e8b0", shadow: "0 2px 0 #12182c", slot: "#ffe8a0", slotInk: "#1e2a4a" },
-    { id: "hisui", name: "Hisui", group: "region", tone: "light", chip: "#784830e8", ink: "#fff8e8", head: "#4a3018", shadow: "0 1px 0 #fff4e0", slot: "#f4ead4", slotInk: "#4a3018" },
+    { id: "hisui", name: "Hisui", group: "region", tone: "dark", chip: "#784830e8", ink: "#fff8e8", head: "#fff4e0", shadow: "0 2px 0 #2a1408", slot: "#f4ead4", slotInk: "#4a3018" },
     { id: "paldea", name: "Paldea", group: "region", tone: "light", chip: "#c44858e8", ink: "#fff8f4", head: "#6a2838", shadow: "0 1px 0 #ffe8e8", slot: "#ffe4e4", slotInk: "#6a2838" },
     { id: "starlight", name: "Starlight", group: "cute", tone: "dark", chip: "#b44a8ce8", ink: "#fff8fc", head: "#fff4d8", shadow: "0 2px 0 #2a1048", slot: "#ffe0f0", slotInk: "#6a2858" },
     { id: "candy", name: "Candy", group: "cute", tone: "light", chip: "#d44890e8", ink: "#fff8fc", head: "#8a2860", shadow: "0 1px 0 #ffe8f4", slot: "#ffd8ec", slotInk: "#8a2860" },
-    { id: "peach", name: "Peach", group: "cute", tone: "light", chip: "#e07080e8", ink: "#fff8f4", head: "#8a3840", shadow: "0 1px 0 #ffe8e0", slot: "#ffe0d4", slotInk: "#8a3840" },
-    { id: "lilac", name: "Lilac", group: "cute", tone: "light", chip: "#7a58b8e8", ink: "#f8f0ff", head: "#4a3080", shadow: "0 1px 0 #f0e8ff", slot: "#eee0ff", slotInk: "#4a3080" },
-    { id: "sakura", name: "Sakura", group: "cute", tone: "light", chip: "#d46088e8", ink: "#fff8fa", head: "#8a3058", shadow: "0 1px 0 #ffe8f0", slot: "#ffdce8", slotInk: "#8a3058" },
-    { id: "cotton", name: "Cotton", group: "cute", tone: "light", chip: "#6a8ad0e8", ink: "#f8fbff", head: "#3a5088", shadow: "0 1px 0 #e8f4ff", slot: "#e0f0ff", slotInk: "#3a5088" },
+    { id: "peach", name: "Peach", group: "cute", tone: "dark", chip: "#e07080e8", ink: "#fff8f4", head: "#fff", shadow: "0 2px 0 #3a1028", slot: "#ffe0d4", slotInk: "#8a3840" },
+    { id: "lilac", name: "Lilac", group: "cute", tone: "dark", chip: "#7a58b8e8", ink: "#f8f0ff", head: "#f4eeff", shadow: "0 2px 0 #1a1038", slot: "#eee0ff", slotInk: "#4a3080" },
+    { id: "sakura", name: "Sakura", group: "cute", tone: "dark", chip: "#d46088e8", ink: "#fff8fa", head: "#fff", shadow: "0 2px 0 #3a1028", slot: "#ffdce8", slotInk: "#8a3058" },
+    { id: "cotton", name: "Cotton", group: "cute", tone: "dark", chip: "#6a8ad0e8", ink: "#f8fbff", head: "#fff", shadow: "0 2px 0 #1a2038", slot: "#e0f0ff", slotInk: "#3a5088" },
     { id: "ribbon", name: "Ribbon", group: "cute", tone: "light", chip: "#c03870e8", ink: "#fff8fc", head: "#7a2048", shadow: "0 1px 0 #ffe0ec", slot: "#ffd0e0", slotInk: "#7a2048" },
     { id: "aurora", name: "Aurora", group: "cute", tone: "dark", chip: "#6858c0e8", ink: "#f8f4ff", head: "#f4eeff", shadow: "0 2px 0 #2a2060", slot: "#e4dcff", slotInk: "#3a3088" },
     { id: "pride-trans", name: "Trans", group: "pride", tone: "light", chip: "#5a3a78e8", ink: "#fff8fc", head: "#3a3068", shadow: "0 1px 0 #fff", slot: "#ffe0ec", slotInk: "#3a3068" },
@@ -209,7 +209,7 @@
   };
 
   window.playCardBgUrl = function playCardBgUrl(id) {
-    return `images/cards/${window.playCardBg(id).id}.png`;
+    return `images/cards/${window.playCardBg(id).id}.png?v=card7`;
   };
 
   window.playTrainerLook = function playTrainerLook(id) {
@@ -253,11 +253,11 @@
     const bg = window.playCardBg(card?.cardBg);
     const slots = Array.from({ length: 6 }, (_, i) => team[i] || null);
     return `
-      <article class="id-card id-card-${bg.tone}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk};background-image:url('${window.playCardBgUrl(bg.id)}')">
+      <article class="id-card id-card-${bg.tone} id-card-${bg.group}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk};background-image:url('${window.playCardBgUrl(bg.id)}')">
         <header class="id-card-head">
-          <i class="id-ball" aria-hidden="true"></i>
+          <img class="id-ball" src="images/items/poke-ball.png" alt="" width="40" height="40">
           <h2>Trainer ID</h2>
-          <i class="id-ball" aria-hidden="true"></i>
+          <img class="id-ball" src="images/items/poke-ball.png" alt="" width="40" height="40">
         </header>
         <div class="id-card-body">
           <dl class="id-stats">

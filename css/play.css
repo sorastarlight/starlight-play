@@ -1076,8 +1076,10 @@ footer { margin-top: 24px; font-size: 13px; }
   min-width: 128px;
 }
 .look-preview img {
-  width: 128px;
-  height: 128px;
+  width: 168px;
+  height: 168px;
+  padding: 12px;
+  box-sizing: border-box;
   object-fit: contain;
   image-rendering: pixelated;
 }
@@ -1106,6 +1108,10 @@ footer { margin-top: 24px; font-size: 13px; }
   transform: perspective(1400px) rotateX(1.6deg);
   padding: 20px 24px 18px;
 }
+.id-card-pride {
+  background-size: 100% 100%;
+  background-position: center;
+}
 .id-card::before {
   content: "";
   position: absolute;
@@ -1120,23 +1126,31 @@ footer { margin-top: 24px; font-size: 13px; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 16px;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto 14px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: var(--id-chip, #5d90c8e8);
+  border: 1px solid rgba(255,255,255,.3);
+  box-shadow: 0 5px 0 rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.32);
 }
 .id-card-head h2 {
   margin: 0;
   font-family: "Press Start 2P", "Nunito", sans-serif;
-  font-size: 13px;
-  letter-spacing: .08em;
-  color: var(--id-head, #fff);
-  text-shadow: var(--id-shadow, 0 2px 0 #3a5a88);
+  font-size: 20px;
+  letter-spacing: .1em;
+  color: var(--id-ink, #fff);
+  text-shadow: none;
 }
 .id-ball {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: linear-gradient(180deg, #ff6a6a 0 46%, #fff 54% 100%);
-  box-shadow: inset 0 0 0 2px #22324a, 0 3px 0 rgba(0,0,0,.22);
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 2px 0 rgba(0,0,0,.28));
+  flex: 0 0 auto;
 }
 .id-card-body {
   display: grid;
@@ -1187,10 +1201,13 @@ footer { margin-top: 24px; font-size: 13px; }
   display: grid;
   place-items: center;
   min-height: 248px;
+  padding: 8px 4px 12px;
 }
 .id-sprite-well img {
-  width: 248px;
-  height: 248px;
+  width: 220px;
+  height: 220px;
+  padding: 10px;
+  box-sizing: border-box;
   object-fit: contain;
   image-rendering: pixelated;
   filter: drop-shadow(0 10px 0 rgba(0,0,0,.16)) drop-shadow(0 18px 16px rgba(0,0,0,.22));
@@ -1321,8 +1338,10 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .picker-mon:hover, .trainer-opt:hover { border-color: #f3c6e2; }
 .picker-mon img, .trainer-opt img {
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
+  padding: 6px;
+  box-sizing: border-box;
   object-fit: contain;
   image-rendering: pixelated;
 }
@@ -1417,6 +1436,6 @@ footer { margin-top: 24px; font-size: 13px; }
   .signin-btn { padding: 8px 10px; font-size: 13px; }
   .team-slots, .id-team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .id-sprite-well { min-height: 188px; }
-  .id-sprite-well img { width: 188px; height: 188px; }
+  .id-sprite-well img { width: 168px; height: 168px; }
   .card { border-radius: 18px; }
 }

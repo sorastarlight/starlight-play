@@ -9,7 +9,8 @@
     note: document.getElementById("caught-note"),
     capacity: document.getElementById("capacity-note"),
     status: document.getElementById("inv-status"),
-    lure: document.getElementById("use-lure")
+    lure: document.getElementById("use-lure"),
+    lureHelp: document.getElementById("lure-help")
   };
 
   window.playBindAccountNav({
@@ -49,8 +50,17 @@
       ["lure", "Lure", "Auto-join the next encounter."]
     ];
     els.capacity.textContent = bag
-      ? `${bag.used || 0} / ${bag.capacity || 50} item space${bag.lureArmed ? " · Lure armed" : ""}`
+      ? `${bag.used || 0} / ${bag.capacity || 50} item space${bag.lureArmed ? " · Lure will auto-join the next encounter" : ""}`
       : "";
+    if (els.lure) {
+      els.lure.disabled = Boolean(bag?.lureArmed) || !(bag?.lure > 0);
+      els.lure.textContent = bag?.lureArmed ? "Lure Active" : "Activate Lure Now";
+    }
+    if (els.lureHelp) {
+      els.lureHelp.textContent = bag?.lureArmed
+        ? "Your Lure is on. You’ll automatically join the next encounter when it starts."
+        : "Uses 1 Lure. You’ll automatically join the next encounter when it starts.";
+    }
       els.bag.innerHTML = items.map(([key, label, hint]) => (
       `<article class="bag-card">
         <img class="item-sprite" src="${window.playItemSprite(key)}" alt="">
@@ -105,10 +115,10 @@
   }
 
   els.lure.addEventListener("click", async () => {
-    els.status.textContent = "Arming Lure…";
+    els.status.textContent = "Activating Lure…";
     try {
       const data = await window.playCall("play_use_lure");
-      els.status.textContent = data.message || "Lure armed.";
+      els.status.textContent = data.message || "Lure is on. You’ll automatically join the next encounter.";
       renderBag(data.bag);
     } catch (error) {
       els.status.textContent = window.playRpcError(error);

@@ -27,10 +27,10 @@ body.nav-open { overflow: hidden; }
 }
 [hidden] { display: none !important; }
 .topnav-inner {
-  max-width: 1180px;
+  max-width: none;
   width: 100%;
-  margin: 0 auto;
-  padding: 8px 14px;
+  margin: 0;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1311,7 +1311,8 @@ footer { margin-top: 24px; font-size: 13px; }
   box-shadow: 0 0 0 3px #fff, 0 0 0 6px #f2d27a;
 }
 @media (max-width: 1040px) {
-  .nav-toggle { display: grid; place-items: center; }
+  .nav-toggle { display: grid; place-items: center; order: 2; }
+  .topnav-actions { order: 1; }
   .topnav-panel {
     display: none;
     position: absolute;
@@ -1331,8 +1332,8 @@ footer { margin-top: 24px; font-size: 13px; }
   }
   .topnav-link { padding: 12px 14px; text-align: left; }
   .topnav-brand img {
-    height: 34px;
-    max-width: min(220px, 50vw);
+    height: 32px;
+    max-width: min(180px, 42vw);
   }
   .account-meta { display: none; }
   .account-button { max-width: none; padding: 3px; }
@@ -1381,7 +1382,7 @@ footer { margin-top: 24px; font-size: 13px; }
   h1 { font-size: clamp(22px, 8vw, 32px); }
   .topnav-brand img {
     height: 28px;
-    max-width: min(168px, 46vw);
+    max-width: min(140px, 36vw);
   }
   .signin-btn { padding: 8px 10px; font-size: 13px; }
   .team-slots, .id-team { grid-template-columns: repeat(2, minmax(0, 1fr)); }

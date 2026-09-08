@@ -25,34 +25,14 @@
     return { session, profile };
   }
 
-  function favoriteSprite(card) {
-    if (!card.favoriteDex) return "";
-    return `<img class="fav-sprite" src="${window.playSpriteUrl(card.favoriteDex, card.favoriteVariant)}" alt="">`;
-  }
-
   function render(card, recent) {
-    const pct = Math.max(0, Math.min(100, Math.round((card.xpInto / Math.max(1, card.xpNeed)) * 100)));
-    const avatar = card.avatar
-      ? `<img src="${card.avatar}" alt="">`
-      : `<span class="avatar-fallback">${(card.displayName || "T").slice(0, 1)}</span>`;
-    const favName = card.favoriteDex ? window.playSpeciesName(card.favoriteDex) : "";
     title.textContent = card.displayName;
-    hero.innerHTML = `
-      ${avatar}
-      <div>
-        <h2>${card.displayName} ${card.pass ? '<span class="chip pass">Starlight Pass</span>' : ""}</h2>
-        <p class="muted">@${card.login} · ${card.online ? "Online on Play" : "Away"}</p>
-        ${card.title ? `<p class="trainer-title">${card.title}</p>` : ""}
-        <p><strong>Trainer Lv. ${card.level}</strong> · ${card.xp} XP</p>
-        <p>${card.caught} caught · ${card.species}/151 in the Pokédex · ${window.playWatchHours(card.watchSeconds)} live watch time</p>
-        ${favName ? `<p class="fav-line">${favoriteSprite(card)} Favorite: ${String(card.favoriteVariant || "").includes("shiny") ? "Shiny " : ""}${favName}</p>` : `<p class="muted">No favorite Pokémon set yet.</p>`}
-        <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
-      </div>`;
+    hero.innerHTML = window.playRenderIdCard(card);
     caught.innerHTML = (recent || []).map((row) => `
       <article class="caught-card">
         <img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="">
-        <strong>${String(row.variant || "").includes("shiny") ? `Shiny ${row.name}` : row.name}</strong>
-        <span>${window.playItemLabel(row.ball) || ""} · ${row.gender || ""}</span>
+        <strong>${window.playCaughtName(row)}</strong>
+        <span>${window.playCaughtBlurb(row)}</span>
       </article>`).join("") || `<p class="muted">No catches yet.</p>`;
   }
 

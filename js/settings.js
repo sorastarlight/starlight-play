@@ -10,8 +10,17 @@
     status: document.getElementById("edit-status"),
     view: document.getElementById("view-id"),
     pass: document.getElementById("pass-status"),
-    check: document.getElementById("check-pass")
+    check: document.getElementById("check-pass"),
+    lookImg: document.getElementById("trainer-look-img"),
+    lookLabel: document.getElementById("trainer-look-label"),
+    chooseLook: document.getElementById("choose-look"),
+    lookStatus: document.getElementById("look-status"),
+    team: document.getElementById("team-slots"),
+    teamStatus: document.getElementById("team-status"),
+    preview: document.getElementById("id-preview")
   };
+  let card = null;
+  let catches = [];
 
   window.playBindAccountNav({
     onSignOut() {
@@ -20,14 +29,28 @@
     }
   });
 
-  function fillFavorite(card, options) {
+  function fillFavorite(nextCard, options) {
     const opts = options || [];
     els.favorite.innerHTML = `<option value="">No favorite yet</option>` + opts.map((row) => {
       const value = `${row.dex}:${row.variant || "normal"}`;
       const label = `${window.playPadDex(row.dex)} ${String(row.variant || "").includes("shiny") ? "Shiny " : ""}${row.name}`;
-      const selected = card.favoriteDex === row.dex && (card.favoriteVariant || "normal") === (row.variant || "normal");
+      const selected = nextCard.favoriteDex === row.dex && (nextCard.favoriteVariant || "normal") === (row.variant || "normal");
       return `<option value="${value}"${selected ? " selected" : ""}>${label}</option>`;
     }).join("");
+  }
+
+  function fillLook(nextCard) {
+    const look = window.playTrainerLook(nextCard?.trainerSprite);
+    if (els.lookImg) els.lookImg.src = window.playTrainerSpriteUrl(look.trainer.id);
+    if (els.lookLabel) els.lookLabel.textContent = `${look.trainer.name} · Gen ${look.gen} ${look.gender}`;
+  }
+
+  function fillPreview(nextCard) {
+    if (els.preview) els.preview.innerHTML = nextCard ? window.playRenderIdCard(nextCard) : "";
+  }
+
+  function fillTeam(nextCard) {
+    window.playRenderTeamSlots(els.team, nextCard?.team, { mine: true });
   }
 
   function describePass(pass) {
@@ -65,7 +88,6 @@
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     const login = profile?.twitch_login || "";
     let extras = {};
-    let card = null;
     let options = [];
     try {
       const snapshot = await window.playCall("play_state");
@@ -85,6 +107,7 @@
       const data = await window.playCall("play_trainer", { p_login: login });
       card = data.trainer;
       options = data.caughtOptions || [];
+      catches = data.catches || [];
     } catch (error) {
       els.gate.textContent = window.playRpcError(error, "Could not load your Trainer ID.");
       els.box.hidden = true;
@@ -95,9 +118,41 @@
     els.view.href = `./trainer.html?u=${encodeURIComponent(login)}`;
     els.name.value = card.displayName || "";
     fillFavorite(card, options);
+    fillLook(card);
+    fillTeam(card);
+    fillPreview(card);
     els.gate.hidden = true;
     els.box.hidden = false;
   }
+
+  window.playBindTeamSlots(
+    els.team,
+    () => ({ team: card?.team || [], caught: catches }),
+    async (ids) => {
+      const data = await window.playCall("play_set_team", { p_catch_ids: ids });
+      if (data?.trainer) card = data.trainer;
+      else if (data?.team && card) card.team = data.team;
+      fillTeam(card);
+      fillPreview(card);
+      return data;
+    },
+    els.teamStatus
+  );
+
+  els.chooseLook?.addEventListener("click", () => {
+    window.playOpenTrainerPicker(card?.trainerSprite, async (id) => {
+      els.lookStatus.textContent = "Saving look…";
+      try {
+        const data = await window.playCall("play_set_trainer_sprite", { p_sprite: id });
+        if (data?.trainer) card = data.trainer;
+        fillLook(card);
+        fillPreview(card);
+        els.lookStatus.textContent = data.message || "Trainer look saved.";
+      } catch (error) {
+        els.lookStatus.textContent = window.playRpcError(error);
+      }
+    });
+  });
 
   els.save.addEventListener("click", async () => {
     const fav = els.favorite.value;

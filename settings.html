@@ -6,8 +6,8 @@
 <title>Settings · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/play.css?v=team2">
 <body data-page="settings">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -48,6 +48,26 @@
   <p id="gate" class="notice">Sign in with Twitch to edit your Trainer ID.</p>
   <div id="settings" hidden>
     <section class="card body">
+      <h2>Trainer look</h2>
+      <p class="muted">This sprite is what other trainers see on your Trainer ID. Pick a male or female look from each generation.</p>
+      <div class="look-row">
+        <div class="look-preview">
+          <img id="trainer-look-img" src="images/trainers/red-gen1.png" alt="">
+          <p id="trainer-look-label">Red · Gen 1</p>
+        </div>
+        <div>
+          <button id="choose-look" type="button">Choose trainer sprite</button>
+          <p id="look-status" class="muted" role="status"></p>
+        </div>
+      </div>
+    </section>
+    <section class="card body" style="margin-top:18px">
+      <h2>My Team</h2>
+      <p class="muted">Organize six Pokémon from ones you’ve caught. This is the same team shown on My Pokédex and your Trainer ID.</p>
+      <div id="team-slots" class="team-slots"></div>
+      <p id="team-status" class="muted" role="status"></p>
+    </section>
+    <section class="card body" style="margin-top:18px">
       <h2>Trainer ID</h2>
       <p class="muted">This is what other trainers see. Your Twitch login stays <span id="twitch-login"></span>.</p>
       <label class="field" for="display-name">Display name
@@ -57,6 +77,7 @@
         <select id="favorite-mon"></select>
       </label>
       <p class="muted">Favorite Pokémon must be one you have caught on Play.</p>
+      <div id="id-preview"></div>
       <div class="links">
         <button id="save-profile" type="button">Save Trainer ID</button>
         <a id="view-id" class="button secondary" href="./trainer.html">View public ID</a>
@@ -78,6 +99,8 @@
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
 <script src="js/game.js"></script>
+<script src="js/trainers.js"></script>
+<script src="js/team.js"></script>
 <script src="js/nav.js"></script>
-<script src="js/settings.js"></script>
+<script src="js/settings.js?v=team1"></script>
 </body>

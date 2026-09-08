@@ -9,7 +9,9 @@
     gen: document.getElementById("filter-gen"),
     form: document.getElementById("filter-form"),
     gender: document.getElementById("filter-gender"),
-    status: document.getElementById("filter-status")
+    status: document.getElementById("filter-status"),
+    team: document.getElementById("team-slots"),
+    teamStatus: document.getElementById("team-status")
   };
   let dexData = null;
 
@@ -64,8 +66,13 @@
     return window.playSpriteUrl(entry.dex, "normal");
   }
 
+  function renderTeam() {
+    window.playRenderTeamSlots(els.team, dexData?.team, { mine: Boolean(dexData?.mine) });
+  }
+
   function render() {
     if (!dexData) return;
+    renderTeam();
     const names = window.PLAY_SPECIES || [];
     const entries = names.map((_, index) => entryFor(index + 1, dexData));
     const visible = entries.filter(matches);
@@ -129,6 +136,18 @@
       els.gate.textContent = window.playRpcError(error, "Pokédex is not live yet.");
     }
   }
+
+  window.playBindTeamSlots(
+    els.team,
+    () => ({ team: dexData?.team || [], caught: dexData?.caught || [] }),
+    async (ids) => {
+      const data = await window.playCall("play_set_team", { p_catch_ids: ids });
+      if (dexData) dexData.team = data.team || [];
+      renderTeam();
+      return data;
+    },
+    els.teamStatus
+  );
 
   ["region", "gen", "form", "gender", "status"].forEach((key) => {
     els[key].addEventListener("change", render);

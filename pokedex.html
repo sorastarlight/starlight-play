@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=dex1">
+<link rel="stylesheet" href="css/play.css?v=team2">
 <body data-page="pokedex">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -47,6 +47,17 @@
   </div>
   <p id="gate" class="notice">Sign in with Twitch to open your Pokédex.</p>
   <div id="dex-app" hidden>
+    <section class="card body team-floor">
+      <div class="team-head">
+        <div>
+          <h2>My Team</h2>
+          <p class="muted">Choose up to six Pokémon you’ve caught. Your team also appears on your Trainer ID.</p>
+        </div>
+        <a class="button secondary" href="./settings.html">Edit in Settings</a>
+      </div>
+      <div id="team-slots" class="team-slots"></div>
+      <p id="team-status" class="muted" role="status"></p>
+    </section>
     <section class="card body dex-toolbar">
       <p id="dex-summary" class="muted"></p>
       <div class="dex-filters">
@@ -95,6 +106,8 @@
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
 <script src="js/game.js"></script>
+<script src="js/trainers.js"></script>
+<script src="js/team.js"></script>
 <script src="js/nav.js"></script>
-<script src="js/pokedex.js?v=dex1"></script>
+<script src="js/pokedex.js?v=team1"></script>
 </body>

@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>My Inventory · THE STARLIGHT PLAY HUB</title>
+<title>Storage · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/play.css?v=box1">
-<body data-page="inventory">
+<body data-page="storage" class="box-page">
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./">
@@ -48,52 +48,47 @@
     </div>
   </div>
 </nav>
-<div class="wrap">
+<div class="wrap box-wrap">
   <div class="page-kicker">
-    <h1>My Inventory</h1>
+    <h1>Pokémon Storage</h1>
   </div>
-  <p id="gate" class="notice">Sign in with Twitch to open your inventory.</p>
-  <div id="trainer" hidden>
-    <section id="trainer-card" class="trainer-hero card"></section>
-    <section class="card body bag-floor">
-      <div class="bag-head">
-        <div>
-          <h2>Items</h2>
-          <p id="capacity-note" class="muted"></p>
+  <p id="gate" class="notice">Sign in with Twitch to open your Let’s Go-style box.</p>
+  <div id="box-app" hidden>
+    <section class="lgpe-shell">
+      <div class="lgpe-box">
+        <p id="box-head" class="lgpe-head">Select a Pokémon</p>
+        <div id="box-grid" class="lgpe-grid" role="listbox" aria-label="Caught Pokémon" tabindex="0"></div>
+        <div class="lgpe-foot">
+          <p id="box-count" class="lgpe-count">0 of 0</p>
+          <nav class="lgpe-prompts" aria-label="Box actions">
+            <a href="./pokedex.html"><span class="lgpe-key lgpe-key-plus">+</span> In Party</a>
+            <button id="focus-search" type="button"><span class="lgpe-key lgpe-key-y">Y</span> Sort/Search</button>
+            <a href="./trade.html"><span class="lgpe-key lgpe-key-r">R</span> Trade</a>
+            <a href="./"><span class="lgpe-key lgpe-key-b">B</span> Back</a>
+          </nav>
         </div>
-        <div class="bag-space" aria-hidden="true"><i id="capacity-bar"></i></div>
+        <label class="lgpe-search">Search
+          <input id="box-search" type="search" placeholder="Name, ID, shiny…" autocomplete="off">
+        </label>
       </div>
-      <div id="bag-grid" class="bag-overview"></div>
-      <aside id="lure-panel" class="lure-panel">
-        <img class="item-sprite" src="images/items/poke-radar.png" alt="">
-        <div class="lure-copy">
-          <p class="eyebrow" id="lure-eyebrow">Next encounter</p>
-          <h3 id="lure-title">Activate a Lure</h3>
-          <p id="lure-help">Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Honey, then throw a ball.</p>
-          <button id="use-lure" class="lure-activate" type="button" disabled>Sign in to activate</button>
-        </div>
-        <p class="lure-qty"><strong id="lure-count">0</strong><span id="lure-qty-label">ready</span></p>
+      <aside class="lgpe-detail card body" id="box-detail">
+        <p class="muted">Tap a Pokémon in the box to see its Let’s Go stats, moves, and nickname.</p>
       </aside>
-      <div class="links bag-store">
-        <a class="button secondary" href="./store.html">Open Store</a>
-      </div>
-      <p id="inv-status" class="muted" role="status"></p>
     </section>
-    <section class="lgpe-box lgpe-mini" style="margin-top:18px">
-      <p class="lgpe-head">Caught Pokémon</p>
-      <p id="caught-note" class="muted"></p>
-      <div id="caught-grid" class="lgpe-grid"></div>
-      <div class="lgpe-foot">
-        <a class="button" href="./storage.html">Open Storage</a>
-      </div>
+    <section class="lgpe-candy card body" style="margin-top:18px">
+      <h2>Candy</h2>
+      <p class="muted">Transfer a Pokémon to Professor Oak for species Candy. Every 50 of the same species grants a bonus Candy.</p>
+      <div id="candy-grid" class="candy-grid"></div>
     </section>
+    <p id="box-status" class="muted" role="status"></p>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/game.js"></script>
-<script src="js/hud.js?v=lure1"></script>
-<script src="js/nav.js?v=nav1"></script>
-<script src="js/inventory.js?v=box1"></script>
+<script src="js/species.js"></script>
+<script src="js/game.js?v=hub1"></script>
+<script src="js/trainers.js?v=blank1"></script>
+<script src="js/nav.js?v=hub1"></script>
+<script src="js/storage.js?v=box1"></script>
 </body>

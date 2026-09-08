@@ -6,7 +6,8 @@
     encounter: document.getElementById("encounter"),
     actions: document.getElementById("actions"),
     actionStatus: document.getElementById("action-status"),
-    bag: document.getElementById("bag-status")
+    bag: document.getElementById("bag-status"),
+    live: document.getElementById("live-feed")
   };
   let state = null;
   let profile = null;
@@ -68,7 +69,7 @@
     }
     if (round.phase === "prepare" && me && !me.prep) {
       buttons.push({ kind: "prepare", item: "berry", label: "Berry", hint: `${bag.berry ?? 0} left · +catch` });
-      buttons.push({ kind: "prepare", item: "bait", label: "Bait", hint: `${bag.bait ?? 0} left · team bonus` });
+      buttons.push({ kind: "prepare", item: "bait", label: "Honey", hint: `${bag.bait ?? 0} left · team bonus` });
     }
     if (round.phase === "throw" && me && me.prep && !me.ball) {
       buttons.push({ kind: "throw", item: "pokeball", label: "Poké Ball", hint: `${bag.pokeball ?? 0} left` });
@@ -81,7 +82,7 @@
       else if (round.phase === "prepare" && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for throws.`;
       else if (round.phase === "throw" && me?.ball) status = `${window.playItemLabel(me.ball)} locked in.`;
       else if (round.phase === "reveal") status = me?.result || "Results incoming.";
-      else if (round.phase === "prepare" && !me) status = "Join this encounter to use a Berry or Bait.";
+      else if (round.phase === "prepare" && !me) status = "Join this encounter to use a Berry or Honey.";
       else if (round.phase !== "join") status = "You needed to join during the join window.";
       return { key: `wait:${round.phase}:${me?.prep || ""}:${me?.ball || ""}`, buttons, status };
     }
@@ -118,6 +119,7 @@
     }
     els.bag.innerHTML = window.playRenderBagStrip(data?.bag);
     window.playFillLurePanel(data?.bag);
+    window.playRenderLiveFeed(round);
     renderActions(data);
     window.playSetAccountNav(window._playSession || null, profile, {
       isAdmin: Boolean(data?.isAdmin),
@@ -223,6 +225,8 @@
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadProfile(); });
   supabase.channel("play-live")
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, scheduleRefresh)
+    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_activity" }, scheduleRefresh)
+    .on("postgres_changes", { event: "*", schema: "public", table: "inventories" }, scheduleRefresh)
     .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, scheduleRefresh)
     .subscribe();
   setInterval(() => {

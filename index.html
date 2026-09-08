@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=lure1">
+<link rel="stylesheet" href="css/play.css?v=hub1">
 <body data-page="play">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -40,7 +40,7 @@
           <div id="account-trainer" class="account-trainer" hidden></div>
           <a id="account-card" href="./trainer.html" role="menuitem">My Trainer ID</a>
           <a id="account-settings" href="./settings.html" role="menuitem">Settings</a>
-          <a id="account-staff" href="./admin.html" hidden role="menuitem">Staff hub</a>
+          <a id="account-staff" href="./admin.html" hidden role="menuitem">Admin Hub</a>
           <button id="sign-out" type="button" role="menuitem">Sign out</button>
         </div>
       </div>
@@ -58,6 +58,10 @@
         <div class="eyebrow">Live stream</div>
         <iframe id="stream-frame" title="Twitch stream" allowfullscreen></iframe>
         <p id="stream-note" class="muted">Loading the stream player…</p>
+        <section class="live-feed" aria-live="polite">
+          <h3>LIVE</h3>
+          <ol id="live-feed"></ol>
+        </section>
       </div>
     </section>
     <aside class="card dex-card">
@@ -74,7 +78,7 @@
           <div class="lure-copy">
             <p class="eyebrow" id="lure-eyebrow">Next encounter</p>
             <h3 id="lure-title">Activate a Lure</h3>
-            <p id="lure-help">Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Bait, then throw a ball.</p>
+            <p id="lure-help">Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Honey, then throw a ball.</p>
             <button id="use-lure" class="lure-activate" type="button" disabled>Sign in to activate</button>
           </div>
         </aside>
@@ -90,7 +94,7 @@
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/game.js"></script>
-<script src="js/hud.js?v=lure1"></script>
-<script src="js/nav.js?v=nav1"></script>
-<script src="js/play.js?v=lure1"></script>
+<script src="js/hud.js?v=hub1"></script>
+<script src="js/nav.js?v=hub1"></script>
+<script src="js/play.js?v=hub1"></script>
 </body>

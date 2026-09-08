@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>My Inventory · THE STARLIGHT PLAY HUB</title>
+<title>Trade · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=box1">
-<body data-page="inventory">
+<link rel="stylesheet" href="css/play.css?v=hub1">
+<body data-page="trade">
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./">
@@ -50,50 +50,54 @@
 </nav>
 <div class="wrap">
   <div class="page-kicker">
-    <h1>My Inventory</h1>
+    <h1>Trade</h1>
   </div>
-  <p id="gate" class="notice">Sign in with Twitch to open your inventory.</p>
-  <div id="trainer" hidden>
-    <section id="trainer-card" class="trainer-hero card"></section>
-    <section class="card body bag-floor">
-      <div class="bag-head">
-        <div>
-          <h2>Items</h2>
-          <p id="capacity-note" class="muted"></p>
-        </div>
-        <div class="bag-space" aria-hidden="true"><i id="capacity-bar"></i></div>
+  <p id="gate" class="notice">Sign in with Twitch to browse and list Pokémon for trade.</p>
+  <div id="trade-app" hidden>
+    <section class="card body">
+      <h2>Browse</h2>
+      <p class="muted">Search by Pokémon, nickname, Trainer, or Let’s Go ID.</p>
+      <div class="dex-filters">
+        <label>Search
+          <input id="trade-q" type="search" placeholder="Pikachu, trainer, LG00000001">
+        </label>
+        <label>I want
+          <input id="trade-want" type="text" placeholder="Any species" autocomplete="off">
+        </label>
+        <label>Trainer
+          <input id="trade-login" type="text" placeholder="Twitch login" autocomplete="off">
+        </label>
       </div>
-      <div id="bag-grid" class="bag-overview"></div>
-      <aside id="lure-panel" class="lure-panel">
-        <img class="item-sprite" src="images/items/poke-radar.png" alt="">
-        <div class="lure-copy">
-          <p class="eyebrow" id="lure-eyebrow">Next encounter</p>
-          <h3 id="lure-title">Activate a Lure</h3>
-          <p id="lure-help">Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Honey, then throw a ball.</p>
-          <button id="use-lure" class="lure-activate" type="button" disabled>Sign in to activate</button>
-        </div>
-        <p class="lure-qty"><strong id="lure-count">0</strong><span id="lure-qty-label">ready</span></p>
-      </aside>
-      <div class="links bag-store">
-        <a class="button secondary" href="./store.html">Open Store</a>
+      <div class="links">
+        <button id="trade-search" type="button">Search</button>
+        <a class="button secondary" href="./storage.html">Open Storage</a>
       </div>
-      <p id="inv-status" class="muted" role="status"></p>
+      <p id="trade-status" class="muted" role="status"></p>
+      <div id="trade-board" class="caught-grid"></div>
     </section>
-    <section class="lgpe-box lgpe-mini" style="margin-top:18px">
-      <p class="lgpe-head">Caught Pokémon</p>
-      <p id="caught-note" class="muted"></p>
-      <div id="caught-grid" class="lgpe-grid"></div>
-      <div class="lgpe-foot">
-        <a class="button" href="./storage.html">Open Storage</a>
+    <section id="list-panel" class="card body" style="margin-top:18px" hidden>
+      <h2>List from Storage</h2>
+      <p class="muted">Put one of your Pokémon up. You can ask for a species, or wait for any offer.</p>
+      <div id="list-mon"></div>
+      <label class="field" for="list-want">I want this Pokémon (optional)
+        <input id="list-want" type="text" placeholder="ex: Pikachu">
+      </label>
+      <label class="field" for="list-note">Note
+        <input id="list-note" type="text" maxlength="80" placeholder="Looking for a shiny, or open to offers">
+      </label>
+      <div class="links">
+        <button id="list-submit" type="button">Put up for trade</button>
       </div>
     </section>
+    <section id="listing-detail" class="card body" style="margin-top:18px" hidden></section>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/game.js"></script>
-<script src="js/hud.js?v=lure1"></script>
-<script src="js/nav.js?v=nav1"></script>
-<script src="js/inventory.js?v=box1"></script>
+<script src="js/species.js"></script>
+<script src="js/game.js?v=hub1"></script>
+<script src="js/trainers.js?v=blank1"></script>
+<script src="js/nav.js?v=hub1"></script>
+<script src="js/trade.js?v=hub1"></script>
 </body>

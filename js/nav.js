@@ -54,6 +54,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     { href: "./", id: "play", label: "Play" },
     { href: "./inventory.html", id: "inventory", label: "My Inventory" },
     { href: "./pokedex.html", id: "pokedex", label: "My Pokédex" },
+    { href: "./storage.html", id: "storage", label: "Storage" },
+    { href: "./trade.html", id: "trade", label: "Trade" },
     { href: "./rankings.html", id: "rankings", label: "Rankings" },
     { href: "./store.html", id: "store", label: "Store" },
     { href: "./events.html", id: "events", label: "Events" }
@@ -62,7 +64,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
   function renderLinks(isAdmin) {
     if (!els.links) return;
     const items = links.slice();
-    if (isAdmin) items.push({ href: "./admin.html", id: "admin", label: "Staff" });
+    if (isAdmin) items.push({ href: "./admin.html", id: "admin", label: "Admin Hub" });
     els.links.innerHTML = items.map((item) => {
       const current = item.id === page ? " aria-current=\"page\"" : "";
       return `<a class="topnav-link" href="${item.href}"${current}>${item.label}</a>`;

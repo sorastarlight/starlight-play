@@ -1,7 +1,7 @@
 (() => {
   const ITEM_LABELS = {
     berry: "Berry",
-    bait: "Bait",
+    bait: "Honey",
     pokeball: "Poké Ball",
     greatball: "Great Ball",
     ultraball: "Ultra Ball",
@@ -22,7 +22,7 @@
   const GRANT_ORDER = ["bag_bonus", "ultraball", "greatball", "pokeball", "lure", "berry", "bait"];
   const GRANT_WORDS = {
     berry: ["Berry", "Berries"],
-    bait: ["Bait", "Bait"],
+    bait: ["Honey", "Honey"],
     pokeball: ["Poké Ball", "Poké Balls"],
     greatball: ["Great Ball", "Great Balls"],
     ultraball: ["Ultra Ball", "Ultra Balls"],
@@ -93,8 +93,24 @@
   };
 
   window.playItemSprite = function playItemSprite(key) {
+    const raw = String(key || "");
+    if (raw.startsWith("species-") && raw.endsWith("-xl")) return "images/items/lgpe-candy-xl.png";
+    if (raw.startsWith("species-") && raw.endsWith("-l")) return "images/items/lgpe-candy-l.png";
+    if (raw.startsWith("species-")) return "images/items/lgpe-candy.png";
     const slug = ITEM_SPRITES[key] || "poke-ball";
     return `images/items/${slug}.png`;
+  };
+
+  window.playCandyLabel = function playCandyLabel(key) {
+    const raw = String(key || "");
+    const species = raw.match(/^species-(\d+)(-l|-xl)?$/);
+    if (species) {
+      const name = window.playSpeciesName(Number(species[1]));
+      if (species[2] === "-xl") return `${name} Candy XL`;
+      if (species[2] === "-l") return `${name} Candy L`;
+      return `${name} Candy`;
+    }
+    return window.playItemLabel(raw) || raw;
   };
 
   window.playPadDex = function playPadDex(dex) {
@@ -166,6 +182,17 @@
     const hours = Math.max(0, Number(seconds || 0) / 3600);
     if (hours < 10) return `${hours.toFixed(1)}h`;
     return `${Math.round(hours)}h`;
+  };
+
+  window.playMonCp = function playMonCp(mon) {
+    if (Number(mon?.cp) > 0) return Number(mon.cp);
+    const stats = mon?.stats || {};
+    const atk = Math.max(1, Number(stats.atk || 10));
+    const def = Math.max(1, Number(stats.def || 10));
+    const hp = Math.max(1, Number(stats.hp || 10));
+    const level = Math.max(1, Number(mon?.level || 1));
+    const cpm = 0.094 + 0.0176 * Math.min(level, 40);
+    return Math.max(10, Math.floor((atk * Math.sqrt(def) * Math.sqrt(hp) * cpm * cpm) / 10));
   };
 
   window.playCall = async function playCall(name, args) {

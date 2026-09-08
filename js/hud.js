@@ -3,7 +3,7 @@
     const items = [
       ["coins", "Coins"],
       ["berry", "Berry"],
-      ["bait", "Bait"],
+      ["bait", "Honey"],
       ["pokeball", "Poké Ball"],
       ["greatball", "Great"],
       ["ultraball", "Ultra"],
@@ -47,10 +47,10 @@
       help.textContent = !signedIn
         ? "Sign in with Twitch to arm a Lure from this screen."
         : on
-          ? "Your Lure is on. You’ll automatically join the next encounter when it starts. You still use a Berry or Bait, then throw a ball."
+          ? "Your Lure is on. You’ll automatically join the next encounter when it starts. You still use a Berry or Honey, then throw a ball."
           : count < 1
             ? "You don’t have a Lure yet. Get one from a Power-Up, a Pass crate, or the Store."
-            : "Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Bait, then throw a ball.";
+            : "Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Honey, then throw a ball.";
     }
   };
 
@@ -115,7 +115,7 @@
         <div><dt>Trainers</dt><dd data-stat="participants">${round.participants || 0}</dd></div>
         <div><dt>Prepared</dt><dd data-stat="prepared">${round.prepared || 0}</dd></div>
         <div><dt>Throws</dt><dd data-stat="thrown">${round.thrown || 0}</dd></div>
-        <div><dt>Bait bonus</dt><dd data-stat="bait">+${round.baitBonusPercent || 0}%</dd></div>
+        <div><dt>Honey bonus</dt><dd data-stat="bait">+${round.baitBonusPercent || 0}%</dd></div>
       </dl>
       ${round.lastAction ? `<p class="last-action" data-last>${round.lastAction}</p>` : `<p class="last-action" data-last hidden></p>`}
       ${results}`;
@@ -149,5 +149,22 @@
       last.textContent = round.lastAction || "";
     }
     return true;
+  };
+
+  window.playRenderLiveFeed = function playRenderLiveFeed(round) {
+    const list = document.getElementById("live-feed");
+    if (!list) return;
+    const rows = Array.isArray(round?.activity) ? round.activity : [];
+    if (!rows.length) {
+      list.innerHTML = `<li class="muted">Waiting for trainers to join, use Honey or a Berry, and throw a ball.</li>`;
+      return;
+    }
+    list.innerHTML = rows.slice(0, 24).map((row) => {
+      const name = row.name || "A trainer";
+      if (row.kind === "joined") return `<li><strong>${name}</strong> joined</li>`;
+      if (row.kind === "prepared") return `<li><strong>${name}</strong> used ${window.playItemLabel(row.item)}</li>`;
+      if (row.kind === "threw") return `<li><strong>${name}</strong> threw a ${window.playItemLabel(row.item)}</li>`;
+      return `<li><strong>${name}</strong></li>`;
+    }).join("");
   };
 })();

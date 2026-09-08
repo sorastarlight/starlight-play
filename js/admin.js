@@ -33,6 +33,10 @@
     issueToken: document.getElementById("issue-token"),
     bridgeToken: document.getElementById("bridge-token"),
     bridgeTokenStatus: document.getElementById("bridge-token-status"),
+    userQ: document.getElementById("user-q"),
+    userList: document.getElementById("user-list"),
+    userStatus: document.getElementById("user-status"),
+    userSearch: document.getElementById("user-search"),
     join: document.getElementById("join-seconds"),
     prepare: document.getElementById("prepare-seconds"),
     throw: document.getElementById("throw-seconds"),
@@ -49,7 +53,7 @@
   function setSignedOut() {
     els.staff.hidden = true;
     els.gate.hidden = false;
-    els.gate.textContent = "Sign in with the stream Twitch account to open staff tools.";
+    els.gate.textContent = "Sign in with Twitch to open the Admin Hub.";
     window.playSetAccountNav(null);
   }
 
@@ -156,6 +160,50 @@
       }
     }
     renderBitsStatus(data.bitsAuto || {});
+    document.querySelectorAll(".owner-only").forEach((node) => {
+      node.hidden = data.canManageSecrets === false;
+    });
+  }
+
+  async function loadUsers() {
+    if (!els.userList) return;
+    els.userStatus.textContent = "Loading…";
+    try {
+      const data = await window.playCall("admin_list_users", {
+        p_query: els.userQ?.value || "",
+        p_offset: 0
+      });
+      const users = data?.users || [];
+      const actor = data?.staffRole || "moderator";
+      const canEdit = actor === "owner" || actor === "admin";
+      els.userStatus.textContent = `${data?.total || 0} trainer${Number(data?.total) === 1 ? "" : "s"}`;
+      els.userList.innerHTML = users.map((row) => {
+        const role = row.role || "player";
+        const name = window.playEscapeAttr(row.displayName || row.login || "Trainer");
+        const login = window.playEscapeAttr(row.login || "");
+        const buttons = [];
+        if (canEdit && role !== "owner") {
+          if (actor === "owner" && role !== "admin") {
+            buttons.push(`<button type="button" data-user="${row.id}" data-role="admin">Admin</button>`);
+          }
+          if (role !== "moderator") {
+            buttons.push(`<button type="button" data-user="${row.id}" data-role="moderator">Moderator</button>`);
+          }
+          if (role !== "player") {
+            buttons.push(`<button type="button" class="secondary" data-user="${row.id}" data-role="player">Player</button>`);
+          }
+        }
+        return `<article class="staff-user">
+          <div>
+            <strong>${name}</strong>
+            <p class="muted">@${login} · ${role}${row.pass ? " · Pass" : ""}</p>
+          </div>
+          <div class="links">${buttons.join("")}</div>
+        </article>`;
+      }).join("") || `<p class="muted">No trainers match.</p>`;
+    } catch (error) {
+      els.userStatus.textContent = window.playRpcError(error);
+    }
   }
 
   let overviewTimer = 0;
@@ -271,13 +319,14 @@
     if (error || !isAdmin) {
       els.staff.hidden = true;
       els.gate.hidden = false;
-      els.gate.textContent = "This hub is limited to the stream Twitch account. Viewer logins cannot open staff tools.";
+      els.gate.textContent = "This hub is for moderators and admins. Viewer logins cannot open it.";
       return;
     }
     els.gate.hidden = true;
     els.staff.hidden = false;
     await refreshOverview(true);
     await maybeFinishBits(session);
+    await loadUsers();
   }
 
   async function run(name, args, statusEl) {
@@ -382,7 +431,7 @@
   });
   document.getElementById("cancel-round").addEventListener("click", () => queueMix("cancel"));
   document.getElementById("sync-clock").addEventListener("click", () => queueMix("resume"));
-  document.getElementById("refill").addEventListener("click", () => queueMix("refill"));
+  document.getElementById("refill").addEventListener("click", () => run("admin_refill_test"));
   els.hide.addEventListener("click", () => queueMix("hide"));
   els.save.addEventListener("click", async () => {
     const secret = (els.clientSecret?.value || "").trim();
@@ -469,6 +518,34 @@
     p_login: els.passLogin.value,
     p_active: false
   }, els.passStatus));
+  document.getElementById("user-search")?.addEventListener("click", () => loadUsers());
+  els.userQ?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      loadUsers();
+    }
+  });
+  els.userList?.addEventListener("click", async (event) => {
+    const button = event.target.closest("button[data-user][data-role]");
+    if (!button) return;
+    els.userStatus.textContent = "Updating role…";
+    try {
+      const data = await window.playCall("admin_set_role", {
+        p_user: button.dataset.user,
+        p_role: button.dataset.role
+      });
+      els.userStatus.textContent = data?.message || "Role updated.";
+      const users = data?.users;
+      if (users) {
+        overview = { ...(overview || {}), staffRole: data.staffRole };
+        await loadUsers();
+      } else {
+        await loadUsers();
+      }
+    } catch (error) {
+      els.userStatus.textContent = window.playRpcError(error);
+    }
+  });
   els.issueToken.addEventListener("click", async () => {
     els.bridgeTokenStatus.textContent = "Creating token…";
     try {

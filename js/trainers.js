@@ -209,7 +209,7 @@
   };
 
   window.playCardBgUrl = function playCardBgUrl(id) {
-    return `images/cards/${window.playCardBg(id).id}.png?v=card8`;
+    return `images/cards/${window.playCardBg(id).id}.png?v=blank1`;
   };
 
   window.playTrainerLook = function playTrainerLook(id) {

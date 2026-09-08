@@ -47,8 +47,9 @@
     if (!els.bgs) return;
     const current = window.playCardBg(nextCard?.cardBg).id;
     const groups = [
-      { title: "Regions", items: window.PLAY_CARD_BGS.filter((row) => row.group !== "cute") },
-      { title: "Cute", items: window.PLAY_CARD_BGS.filter((row) => row.group === "cute") }
+      { title: "Regions", items: window.PLAY_CARD_BGS.filter((row) => row.group === "region") },
+      { title: "Cute", items: window.PLAY_CARD_BGS.filter((row) => row.group === "cute") },
+      { title: "Pride", items: window.PLAY_CARD_BGS.filter((row) => row.group === "pride") }
     ];
     els.bgs.innerHTML = groups.map((group) => `
       <div class="card-bg-group">

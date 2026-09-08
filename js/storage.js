@@ -10,11 +10,15 @@
     candy: document.getElementById("candy-grid"),
     search: document.getElementById("box-search"),
     focusSearch: document.getElementById("focus-search"),
-    status: document.getElementById("box-status")
+    status: document.getElementById("box-status"),
+    oakModal: document.getElementById("oak-modal"),
+    oakSprite: document.getElementById("oak-sprite"),
+    oakCopy: document.getElementById("oak-copy")
   };
   let data = null;
   let selectedId = "";
   let filtered = [];
+  let pendingOakId = "";
 
   window.playBindAccountNav({
     onSignOut() {
@@ -135,13 +139,24 @@
       p_catch_id: mon.id,
       p_name: document.getElementById("nick-input")?.value || ""
     }));
-    document.getElementById("send-oak")?.addEventListener("click", () => {
-      if (!window.confirm(`Transfer ${displayName(mon)} to Professor Oak for Candy? This cannot be undone.`)) return;
-      act("play_transfer_oak", { p_catch_id: mon.id });
-    });
+    document.getElementById("send-oak")?.addEventListener("click", () => openOakModal(mon));
     document.getElementById("list-trade")?.addEventListener("click", () => {
       window.location.href = `./trade.html?list=${encodeURIComponent(mon.id)}`;
     });
+  }
+
+  function openOakModal(mon) {
+    if (!els.oakModal || !mon) return;
+    pendingOakId = String(mon.id);
+    if (els.oakSprite) {
+      els.oakSprite.src = window.playSpriteUrl(mon.dex, mon.variant);
+      els.oakSprite.alt = displayName(mon);
+    }
+    if (els.oakCopy) {
+      els.oakCopy.textContent = `Send ${displayName(mon)} to Professor Oak for Candy?`;
+    }
+    if (typeof els.oakModal.showModal === "function") els.oakModal.showModal();
+    else els.oakModal.setAttribute("open", "");
   }
 
   function renderCandy() {
@@ -234,6 +249,18 @@
   els.focusSearch?.addEventListener("click", () => {
     els.search?.focus();
     els.search?.select?.();
+  });
+  els.oakModal?.addEventListener("click", (event) => {
+    if (event.target === els.oakModal) els.oakModal.close("cancel");
+  });
+  els.oakModal?.addEventListener("close", () => {
+    if (els.oakModal.returnValue !== "transfer" || !pendingOakId) {
+      pendingOakId = "";
+      return;
+    }
+    const id = pendingOakId;
+    pendingOakId = "";
+    act("play_transfer_oak", { p_catch_id: id });
   });
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });
   load();

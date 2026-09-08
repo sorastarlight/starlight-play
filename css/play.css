@@ -1382,6 +1382,24 @@ footer { margin-top: 24px; font-size: 13px; }
   margin-bottom: 12px;
 }
 .play-modal-head h3 { margin: 0; }
+.play-modal-confirm {
+  max-width: min(420px, calc(100vw - 24px));
+  width: min(420px, calc(100vw - 24px));
+}
+.oak-modal-body {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.oak-modal-body img {
+  width: 96px;
+  height: 96px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+.oak-modal-body p { margin: 0; }
 .picker-grid, .trainer-pick-list { display: grid; gap: 12px; }
 .picker-grid {
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));

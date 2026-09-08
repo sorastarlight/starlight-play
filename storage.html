@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=box2">
+<link rel="stylesheet" href="css/play.css?v=box3">
 <body data-page="storage" class="box-page">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -83,6 +83,22 @@
     <p id="box-status" class="muted" role="status"></p>
   </div>
 </div>
+<dialog id="oak-modal" class="play-modal play-modal-confirm" aria-labelledby="oak-title">
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="oak-title">Transfer to Professor Oak?</h3>
+    </header>
+    <div class="oak-modal-body">
+      <img id="oak-sprite" alt="">
+      <p id="oak-copy"></p>
+      <p class="muted">This cannot be undone. Oak gives species Candy for the transfer.</p>
+    </div>
+    <div class="links">
+      <button value="cancel" class="secondary" type="submit">Keep in box</button>
+      <button id="oak-confirm" class="danger" value="transfer" type="submit">Transfer to Oak</button>
+    </div>
+  </form>
+</dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
@@ -90,5 +106,5 @@
 <script src="js/game.js?v=hub1"></script>
 <script src="js/trainers.js?v=blank1"></script>
 <script src="js/nav.js?v=hub1"></script>
-<script src="js/storage.js?v=box1"></script>
+<script src="js/storage.js?v=box3"></script>
 </body>

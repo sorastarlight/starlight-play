@@ -1509,17 +1509,6 @@ footer { margin-top: 24px; font-size: 13px; }
   .card { border-radius: 18px; }
 }
 
-body.box-page {
-  background-color: #ffe56a;
-  background-image: url("../images/lgpe-box-bg.svg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
-body.box-page .page-kicker h1 {
-  color: #5a4830;
-  text-shadow: 0 1px 0 #fff8dc;
-}
 .box-wrap { position: relative; z-index: 1; max-width: 1280px; }
 .lgpe-shell {
   display: grid;
@@ -1528,14 +1517,18 @@ body.box-page .page-kicker h1 {
   align-items: start;
 }
 .lgpe-box,
-.lgpe-detail.card,
-.lgpe-candy.card {
+.lgpe-detail.card {
   position: relative;
-  background: rgba(255, 248, 220, .78);
+  overflow: hidden;
+  background-color: #ffe56a;
+  background-image:
+    linear-gradient(rgba(255, 250, 230, .55), rgba(255, 246, 214, .6)),
+    url("../images/lgpe-box-bg.svg");
+  background-size: cover;
+  background-position: center;
   border: 3px solid rgba(240, 196, 100, .88);
   border-radius: 36px;
   box-shadow: 0 14px 0 rgba(232, 180, 80, .32), 0 24px 40px rgba(80, 60, 20, .16);
-  backdrop-filter: blur(8px);
 }
 .lgpe-box {
   padding: 16px 16px 12px;

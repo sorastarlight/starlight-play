@@ -34,7 +34,7 @@
     const look = window.playTrainerLook(nextCard?.trainerSprite);
     if (els.lookImg) els.lookImg.src = window.playTrainerSpriteUrl(look.trainer.id);
     if (els.lookLabel) {
-      const bits = [look.trainer.name, look.label, look.gender].filter(Boolean);
+      const bits = [look.trainer.name, look.trainer.outfit, look.label, look.gender].filter(Boolean);
       els.lookLabel.textContent = bits.join(" · ");
     }
   }
@@ -46,11 +46,21 @@
   function fillBgs(nextCard) {
     if (!els.bgs) return;
     const current = window.playCardBg(nextCard?.cardBg).id;
-    els.bgs.innerHTML = window.PLAY_CARD_BGS.map((row) => `
-      <button type="button" class="card-bg-opt" data-bg="${row.id}" aria-pressed="${row.id === current ? "true" : "false"}">
-        <img src="${window.playCardBgUrl(row.id)}" alt="">
-        <span>${row.name}</span>
-      </button>`).join("");
+    const groups = [
+      { title: "Regions", items: window.PLAY_CARD_BGS.filter((row) => row.group !== "cute") },
+      { title: "Cute", items: window.PLAY_CARD_BGS.filter((row) => row.group === "cute") }
+    ];
+    els.bgs.innerHTML = groups.map((group) => `
+      <div class="card-bg-group">
+        <h3>${group.title}</h3>
+        <div class="card-bg-picks">
+          ${group.items.map((row) => `
+            <button type="button" class="card-bg-opt" data-bg="${row.id}" aria-pressed="${row.id === current ? "true" : "false"}">
+              <img src="${window.playCardBgUrl(row.id)}" alt="">
+              <span>${row.name}</span>
+            </button>`).join("")}
+        </div>
+      </div>`).join("");
   }
 
   function fillTeam(nextCard) {

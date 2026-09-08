@@ -58,10 +58,11 @@
         <div class="trainer-gen-row">
           ${window.playTrainerLooks(row).map((look) => {
             const pressed = look.id === current ? "true" : "false";
+            const meta = [look.gender, look.outfit].filter(Boolean).join(" · ");
             return `<button type="button" class="trainer-opt" data-id="${look.id}" aria-pressed="${pressed}">
               <img src="${window.playTrainerSpriteUrl(look.id)}" alt="">
               <strong>${look.name}</strong>
-              ${look.gender ? `<span>${look.gender}</span>` : ""}
+              ${meta ? `<span>${meta}</span>` : ""}
             </button>`;
           }).join("")}
         </div>

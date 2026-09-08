@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css">
+<link rel="stylesheet" href="css/play.css?v=bag2">
 <body data-page="inventory">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -48,15 +48,28 @@
   <p id="gate" class="notice">Sign in with Twitch to open your inventory.</p>
   <div id="trainer" hidden>
     <section id="trainer-card" class="trainer-hero card"></section>
-    <section class="card body" style="margin-top:18px">
-      <h2>Items</h2>
-      <p id="capacity-note" class="muted"></p>
-      <div id="bag-grid" class="bag-grid"></div>
-      <div class="links">
-        <button id="use-lure" type="button">Activate Lure Now</button>
+    <section class="card body bag-floor">
+      <div class="bag-head">
+        <div>
+          <h2>Items</h2>
+          <p id="capacity-note" class="muted"></p>
+        </div>
+        <div class="bag-space" aria-hidden="true"><i id="capacity-bar"></i></div>
+      </div>
+      <div id="bag-grid" class="bag-overview"></div>
+      <aside id="lure-panel" class="lure-panel">
+        <img class="item-sprite" src="images/items/poke-radar.png" alt="">
+        <div class="lure-copy">
+          <p class="eyebrow" id="lure-eyebrow">Next encounter</p>
+          <h3 id="lure-title">Activate a Lure</h3>
+          <p id="lure-help">Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Bait, then throw a ball.</p>
+          <button id="use-lure" class="lure-activate" type="button">Activate Lure Now</button>
+        </div>
+        <p class="lure-qty"><strong id="lure-count">0</strong><span id="lure-qty-label">ready</span></p>
+      </aside>
+      <div class="links bag-store">
         <a class="button secondary" href="./store.html">Open Store</a>
       </div>
-      <p id="lure-help" class="muted">Uses 1 Lure. You’ll automatically join the next encounter when it starts.</p>
       <p id="inv-status" class="muted" role="status"></p>
     </section>
     <section class="card body" style="margin-top:18px">
@@ -73,5 +86,5 @@
 <script src="js/game.js"></script>
 <script src="js/hud.js"></script>
 <script src="js/nav.js"></script>
-<script src="js/inventory.js?v=lure1"></script>
+<script src="js/inventory.js?v=bag2"></script>
 </body>

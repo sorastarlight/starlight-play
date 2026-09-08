@@ -8,9 +8,15 @@
     caught: document.getElementById("caught-grid"),
     note: document.getElementById("caught-note"),
     capacity: document.getElementById("capacity-note"),
+    capacityBar: document.getElementById("capacity-bar"),
     status: document.getElementById("inv-status"),
     lure: document.getElementById("use-lure"),
-    lureHelp: document.getElementById("lure-help")
+    lureHelp: document.getElementById("lure-help"),
+    lureCount: document.getElementById("lure-count"),
+    lureQtyLabel: document.getElementById("lure-qty-label"),
+    lureEyebrow: document.getElementById("lure-eyebrow"),
+    lureTitle: document.getElementById("lure-title"),
+    lurePanel: document.getElementById("lure-panel")
   };
 
   window.playBindAccountNav({
@@ -40,35 +46,70 @@
   }
 
   function renderBag(bag) {
-    const items = [
-      ["coins", "PokéCoins", "Earned in play. No cash value."],
-      ["berry", "Berry", "Personal catch boost during prepare."],
-      ["bait", "Bait", "Shared bonus during prepare."],
-      ["pokeball", "Poké Ball", "Normal throw."],
-      ["greatball", "Great Ball", "Better ball, still a normal throw."],
-      ["ultraball", "Ultra Ball", "Best ball, still a normal throw."],
-      ["lure", "Lure", "Auto-join the next encounter."]
+    const groups = [
+      {
+        title: "Wallet",
+        items: [
+          ["coins", "PokéCoins", "Earned by joining and catching. Spend them on the Store. No cash value, no trading."]
+        ]
+      },
+      {
+        title: "Prepare",
+        items: [
+          ["berry", "Berry", "Use one during Prepare. Adds 10 percentage points to your catch chance this encounter."],
+          ["bait", "Bait", "Use one during Prepare. Helps everyone’s catch chance, up to +15% based on how many people bait."]
+        ]
+      },
+      {
+        title: "Throw",
+        items: [
+          ["pokeball", "Poké Ball", "Throw during the catch phase. 45% base chance. Berry and bait can still raise it."],
+          ["greatball", "Great Ball", "Throw during the catch phase. 60% base chance. A steadier throw than a Poké Ball."],
+          ["ultraball", "Ultra Ball", "Throw during the catch phase. 75% base chance. The best ball in Play."]
+        ]
+      }
     ];
-    els.capacity.textContent = bag
-      ? `${bag.used || 0} / ${bag.capacity || 50} item space${bag.lureArmed ? " · Lure will auto-join the next encounter" : ""}`
-      : "";
+    const used = bag?.used || 0;
+    const cap = bag?.capacity || 50;
+    const pct = Math.round((used / Math.max(1, cap)) * 100);
+    els.capacity.textContent = `${used} / ${cap} item space`;
+    if (els.capacityBar) els.capacityBar.style.width = `${Math.min(100, pct)}%`;
+    const lureCount = Number(bag?.lure || 0);
+    const lureOn = Boolean(bag?.lureArmed);
+    if (els.lureCount) els.lureCount.textContent = String(lureCount);
+    if (els.lureQtyLabel) els.lureQtyLabel.textContent = lureOn ? "armed" : lureCount < 1 ? "none" : "ready";
+    if (els.lureEyebrow) els.lureEyebrow.textContent = lureOn ? "Armed" : lureCount < 1 ? "Need a Lure" : "Next encounter";
+    if (els.lureTitle) els.lureTitle.textContent = lureOn ? "Lure is on" : lureCount < 1 ? "No Lure yet" : "Activate a Lure";
+    if (els.lurePanel) {
+      els.lurePanel.classList.toggle("is-active", lureOn);
+      els.lurePanel.classList.toggle("is-empty", !lureOn && lureCount < 1);
+    }
     if (els.lure) {
-      els.lure.disabled = Boolean(bag?.lureArmed) || !(bag?.lure > 0);
-      els.lure.textContent = bag?.lureArmed ? "Lure Active" : "Activate Lure Now";
+      els.lure.disabled = lureOn || lureCount < 1;
+      els.lure.textContent = lureOn ? "Lure Active" : lureCount < 1 ? "Need a Lure" : "Activate Lure Now";
     }
     if (els.lureHelp) {
-      els.lureHelp.textContent = bag?.lureArmed
-        ? "Your Lure is on. You’ll automatically join the next encounter when it starts."
-        : "Uses 1 Lure. You’ll automatically join the next encounter when it starts.";
+      els.lureHelp.textContent = lureOn
+        ? "Your Lure is on. You’ll automatically join the next encounter when it starts. You still use a Berry or Bait, then throw a ball."
+        : lureCount < 1
+          ? "You don’t have a Lure yet. Get one from a Power-Up, a Pass crate, or the Store."
+          : "Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Bait, then throw a ball.";
     }
-      els.bag.innerHTML = items.map(([key, label, hint]) => (
-      `<article class="bag-card">
-        <img class="item-sprite" src="${window.playItemSprite(key)}" alt="">
-        <span>${label}</span>
-        <strong>${bag?.[key] ?? 0}</strong>
-        <p class="muted">${hint}</p>
-      </article>`
-    )).join("");
+    els.bag.innerHTML = groups.map((group) => `
+      <section class="bag-group">
+        <h3>${group.title}</h3>
+        <div class="bag-rows">
+          ${group.items.map(([key, label, hint]) => `
+            <article class="bag-row${key === "coins" ? " coins" : ""}">
+              <img class="item-sprite" src="${window.playItemSprite(key)}" alt="">
+              <div class="bag-copy">
+                <h3>${label}</h3>
+                <p>${hint}</p>
+              </div>
+              <strong class="bag-qty">${bag?.[key] ?? 0}</strong>
+            </article>`).join("")}
+        </div>
+      </section>`).join("");
   }
 
   function renderCaught(rows) {
@@ -114,7 +155,7 @@
     els.trainer.hidden = false;
   }
 
-  els.lure.addEventListener("click", async () => {
+  els.lure?.addEventListener("click", async () => {
     els.status.textContent = "Activating Lure…";
     try {
       const data = await window.playCall("play_use_lure");

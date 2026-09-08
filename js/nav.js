@@ -6,6 +6,26 @@ window.playAccountAvatar = function playAccountAvatar(session, profile) {
   return profile?.avatar_url || session?.user?.user_metadata?.avatar_url || session?.user?.user_metadata?.picture || "";
 };
 
+window.playEscapeAttr = function playEscapeAttr(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;");
+};
+
+window.playTwitchFaceInner = function playTwitchFaceInner(url, name) {
+  const label = String(name || "Trainer").slice(0, 1).toUpperCase() || "T";
+  const inner = url
+    ? `<img class="avatar" src="${window.playEscapeAttr(url)}" alt="">`
+    : `<span class="avatar-fallback">${window.playEscapeAttr(label)}</span>`;
+  return `${inner}<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>`;
+};
+
+window.playTwitchFaceHtml = function playTwitchFaceHtml(url, name, extraClass) {
+  const cls = extraClass ? ` twitch-face ${extraClass}` : " twitch-face";
+  return `<span class="${cls.trim()}">${window.playTwitchFaceInner(url, name)}</span>`;
+};
+
 window.playBindAccountNav = function playBindAccountNav(options) {
   const page = document.body?.dataset?.page || "";
   const els = {
@@ -59,7 +79,24 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     els.button.setAttribute("aria-expanded", open ? "true" : "false");
   }
 
+  function ensureNavTwitchFace() {
+    if (!els.avatar) return;
+    const parent = els.avatar.parentElement;
+    if (parent && parent.classList.contains("twitch-face")) return;
+    const wrap = document.createElement("span");
+    wrap.className = "twitch-face twitch-face-nav";
+    els.avatar.before(wrap);
+    wrap.append(els.avatar);
+    if (els.fallback) wrap.append(els.fallback);
+    const badge = document.createElement("i");
+    badge.className = "twitch-badge";
+    badge.title = "Twitch linked";
+    badge.setAttribute("aria-hidden", "true");
+    wrap.append(badge);
+  }
+
   if (els.signIn) els.signIn.hidden = true;
+  ensureNavTwitchFace();
   renderLinks(false);
 
   window.playSetAccountNav = function playSetAccountNav(session, profile, extras) {

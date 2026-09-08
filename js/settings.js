@@ -5,7 +5,6 @@
     box: document.getElementById("settings"),
     login: document.getElementById("twitch-login"),
     name: document.getElementById("display-name"),
-    favorite: document.getElementById("favorite-mon"),
     save: document.getElementById("save-profile"),
     status: document.getElementById("edit-status"),
     view: document.getElementById("view-id"),
@@ -29,20 +28,13 @@
     }
   });
 
-  function fillFavorite(nextCard, options) {
-    const opts = options || [];
-    els.favorite.innerHTML = `<option value="">No favorite yet</option>` + opts.map((row) => {
-      const value = `${row.dex}:${row.variant || "normal"}`;
-      const label = `${window.playPadDex(row.dex)} ${String(row.variant || "").includes("shiny") ? "Shiny " : ""}${row.name}`;
-      const selected = nextCard.favoriteDex === row.dex && (nextCard.favoriteVariant || "normal") === (row.variant || "normal");
-      return `<option value="${value}"${selected ? " selected" : ""}>${label}</option>`;
-    }).join("");
-  }
-
   function fillLook(nextCard) {
     const look = window.playTrainerLook(nextCard?.trainerSprite);
     if (els.lookImg) els.lookImg.src = window.playTrainerSpriteUrl(look.trainer.id);
-    if (els.lookLabel) els.lookLabel.textContent = `${look.trainer.name} · Gen ${look.gen} ${look.gender}`;
+    if (els.lookLabel) {
+      const bits = [look.trainer.name, look.label, look.gender].filter(Boolean);
+      els.lookLabel.textContent = bits.join(" · ");
+    }
   }
 
   function fillPreview(nextCard) {
@@ -88,7 +80,6 @@
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     const login = profile?.twitch_login || "";
     let extras = {};
-    let options = [];
     try {
       const snapshot = await window.playCall("play_state");
       extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer };
@@ -106,7 +97,6 @@
     try {
       const data = await window.playCall("play_trainer", { p_login: login });
       card = data.trainer;
-      options = data.caughtOptions || [];
       catches = data.catches || [];
     } catch (error) {
       els.gate.textContent = window.playRpcError(error, "Could not load your Trainer ID.");
@@ -117,7 +107,6 @@
     els.login.textContent = `@${login}`;
     els.view.href = `./trainer.html?u=${encodeURIComponent(login)}`;
     els.name.value = card.displayName || "";
-    fillFavorite(card, options);
     fillLook(card);
     fillTeam(card);
     fillPreview(card);
@@ -155,14 +144,12 @@
   });
 
   els.save.addEventListener("click", async () => {
-    const fav = els.favorite.value;
-    const [dex, variant] = fav ? fav.split(":") : [null, "normal"];
     els.status.textContent = "Saving…";
     try {
       const data = await window.playCall("play_update_profile", {
         p_display_name: els.name.value,
-        p_favorite_dex: dex ? Number(dex) : null,
-        p_favorite_variant: variant || "normal"
+        p_favorite_dex: card?.favoriteDex || null,
+        p_favorite_variant: card?.favoriteVariant || "normal"
       });
       els.status.textContent = data.message || "Saved.";
       await load();

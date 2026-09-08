@@ -52,16 +52,15 @@
   window.playOpenTrainerPicker = function playOpenTrainerPicker(current, onPick) {
     const html = `<div class="trainer-pick-list">${window.PLAY_TRAINERS.map((row) => `
       <section class="trainer-gen">
-        <h4>Gen ${row.gen} · ${row.region}</h4>
+        <h4>${row.label}</h4>
         <p class="muted">${row.games}</p>
         <div class="trainer-gen-row">
-          ${["male", "female"].map((gender) => {
-            const look = row[gender];
+          ${window.playTrainerLooks(row).map((look) => {
             const pressed = look.id === current ? "true" : "false";
             return `<button type="button" class="trainer-opt" data-id="${look.id}" aria-pressed="${pressed}">
               <img src="${window.playTrainerSpriteUrl(look.id)}" alt="">
               <strong>${look.name}</strong>
-              <span>${gender === "male" ? "Male" : "Female"}</span>
+              ${look.gender ? `<span>${look.gender}</span>` : ""}
             </button>`;
           }).join("")}
         </div>

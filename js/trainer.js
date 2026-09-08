@@ -5,6 +5,7 @@
   const hero = document.getElementById("hero");
   const caught = document.getElementById("caught-grid");
   const title = document.getElementById("page-title");
+  const face = document.getElementById("profile-face");
 
   window.playBindAccountNav();
 
@@ -27,6 +28,11 @@
 
   function render(card, recent) {
     title.textContent = card.displayName;
+    if (face) {
+      face.hidden = false;
+      face.className = "twitch-face twitch-face-lg";
+      face.innerHTML = window.playTwitchFaceInner(card.avatar, card.displayName);
+    }
     hero.innerHTML = window.playRenderIdCard(card);
     caught.innerHTML = (recent || []).map((row) => `
       <article class="caught-card">
@@ -51,7 +57,7 @@
       gate.hidden = true;
       profileBox.hidden = false;
     } catch (error) {
-      gate.textContent = window.playRpcError(error, "No trainer card for that login yet.");
+      gate.textContent = window.playRpcError(error, "No Trainer ID for that login yet.");
     }
   }
 

@@ -29,13 +29,11 @@
       const rows = data?.trainers || [];
       status.textContent = rows.length ? `${rows.length} trainers` : "No trainers ranked yet.";
       body.innerHTML = rows.map((row, index) => {
-        const fav = row.favoriteDex
-          ? `<img class="rank-fav" src="${window.playSpriteUrl(row.favoriteDex, row.favoriteVariant)}" alt="">`
-          : "";
+        const face = window.playTwitchFaceHtml(row.avatar, row.displayName, "twitch-face-sm");
         return `
         <tr>
           <td class="num">${index + 1}</td>
-          <td class="rank-trainer">${fav}<a href="./trainer.html?u=${encodeURIComponent(row.login)}">${row.displayName}</a>${row.pass ? ' <span class="chip pass">Pass</span>' : ""}<div class="muted">@${row.login}</div></td>
+          <td class="rank-trainer">${face}<div><a href="./trainer.html?u=${encodeURIComponent(row.login)}">${row.displayName}</a><div class="muted">@${row.login}</div></div></td>
           <td class="num">${row.level}</td>
           <td class="num">${row.caught}</td>
           <td class="num">${window.playWatchHours(row.watchSeconds)}</td>

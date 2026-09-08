@@ -32,13 +32,10 @@
       return;
     }
     const pct = Math.max(0, Math.min(100, Math.round((trainer.xpInto / Math.max(1, trainer.xpNeed)) * 100)));
-    const avatar = trainer.avatar
-      ? `<img src="${trainer.avatar}" alt="">`
-      : `<span class="avatar-fallback">${(trainer.displayName || "T").slice(0, 1)}</span>`;
     els.card.innerHTML = `
-      ${avatar}
+      ${window.playTwitchFaceHtml(trainer.avatar, trainer.displayName, "twitch-face-hero")}
       <div>
-        <h2>${trainer.displayName} ${trainer.pass ? '<span class="chip pass">Pass</span>' : ""}</h2>
+        <h2>${trainer.displayName}</h2>
         <p class="muted">@${trainer.login || "trainer"} · ${trainer.online ? "Online on Play" : "Away"}</p>
         <p><strong>Lv. ${trainer.level}</strong> · ${trainer.caught} caught · ${trainer.species}/151 · ${window.playWatchHours(trainer.watchSeconds)} watched</p>
         <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>

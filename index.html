@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=card7">
+<link rel="stylesheet" href="css/play.css?v=lure1">
 <body data-page="play">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -68,6 +68,20 @@
         <div id="actions" class="action-grid"></div>
         <h3>My Inventory</h3>
         <div id="bag-status"></div>
+        <aside id="lure-panel" class="lure-panel lure-panel-play">
+          <img class="item-sprite" src="images/items/poke-radar.png" alt="">
+          <p class="lure-qty"><strong id="lure-count">0</strong><span id="lure-qty-label">ready</span></p>
+          <div class="lure-copy">
+            <p class="eyebrow" id="lure-eyebrow">Next encounter</p>
+            <h3 id="lure-title">Activate a Lure</h3>
+            <p id="lure-help">Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Bait, then throw a ball.</p>
+            <button id="use-lure" class="lure-activate" type="button" disabled>Sign in to activate</button>
+          </div>
+        </aside>
+        <div class="links bag-store">
+          <a class="button secondary" href="./store.html">Open Store</a>
+        </div>
+        <p id="lure-status" class="muted" role="status"></p>
       </div>
     </aside>
   </div>
@@ -76,7 +90,7 @@
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/game.js"></script>
-<script src="js/hud.js"></script>
+<script src="js/hud.js?v=lure1"></script>
 <script src="js/nav.js?v=nav1"></script>
-<script src="js/play.js"></script>
+<script src="js/play.js?v=lure1"></script>
 </body>

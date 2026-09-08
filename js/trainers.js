@@ -174,24 +174,24 @@
   };
 
   window.PLAY_CARD_BGS = [
-    { id: "kanto", name: "Kanto", group: "region", tone: "dark", chip: "#8c2020e8", ink: "#fff8f0", head: "#fff8e8", shadow: "0 2px 0 #5a1010", slot: "#ffe8d0", slotInk: "#6a2018" },
-    { id: "johto", name: "Johto", group: "region", tone: "dark", chip: "#5a4010e8", ink: "#fff6d8", head: "#fff8e0", shadow: "0 2px 0 #1a2810", slot: "#fff0c0", slotInk: "#4a3010" },
-    { id: "hoenn", name: "Hoenn", group: "region", tone: "dark", chip: "#2d5a88e8", ink: "#f4fbff", head: "#fff", shadow: "0 2px 0 #1a3a58", slot: "#dceeff", slotInk: "#1e4060" },
-    { id: "sinnoh", name: "Sinnoh", group: "region", tone: "light", chip: "#3d6aa0e8", ink: "#f4fbff", head: "#1e4068", shadow: "0 1px 0 #e8f4ff", slot: "#e8f4ff", slotInk: "#234868" },
-    { id: "unova", name: "Unova", group: "region", tone: "dark", chip: "#d8d8e6ee", ink: "#222230", head: "#f4f4fa", shadow: "0 2px 0 #111118", slot: "#ececf4", slotInk: "#222230" },
-    { id: "kalos", name: "Kalos", group: "region", tone: "dark", chip: "#f5e48ae8", ink: "#1e4a88", head: "#fff", shadow: "0 2px 0 #1e4a88", slot: "#fff6c8", slotInk: "#1e4a88" },
-    { id: "alola", name: "Alola", group: "region", tone: "light", chip: "#3a6a96e8", ink: "#fff8ee", head: "#3a4a68", shadow: "0 1px 0 #fff8e8", slot: "#fff4dc", slotInk: "#3a4a68" },
-    { id: "galar", name: "Galar", group: "region", tone: "dark", chip: "#e8c44ae8", ink: "#1e2a4a", head: "#f4e8b0", shadow: "0 2px 0 #12182c", slot: "#ffe8a0", slotInk: "#1e2a4a" },
-    { id: "hisui", name: "Hisui", group: "region", tone: "dark", chip: "#784830e8", ink: "#fff8e8", head: "#fff4e0", shadow: "0 2px 0 #2a1408", slot: "#f4ead4", slotInk: "#4a3018" },
-    { id: "paldea", name: "Paldea", group: "region", tone: "light", chip: "#c44858e8", ink: "#fff8f4", head: "#6a2838", shadow: "0 1px 0 #ffe8e8", slot: "#ffe4e4", slotInk: "#6a2838" },
-    { id: "starlight", name: "Starlight", group: "cute", tone: "dark", chip: "#b44a8ce8", ink: "#fff8fc", head: "#fff4d8", shadow: "0 2px 0 #2a1048", slot: "#ffe0f0", slotInk: "#6a2858" },
-    { id: "candy", name: "Candy", group: "cute", tone: "light", chip: "#d44890e8", ink: "#fff8fc", head: "#8a2860", shadow: "0 1px 0 #ffe8f4", slot: "#ffd8ec", slotInk: "#8a2860" },
-    { id: "peach", name: "Peach", group: "cute", tone: "dark", chip: "#e07080e8", ink: "#fff8f4", head: "#fff", shadow: "0 2px 0 #3a1028", slot: "#ffe0d4", slotInk: "#8a3840" },
-    { id: "lilac", name: "Lilac", group: "cute", tone: "dark", chip: "#7a58b8e8", ink: "#f8f0ff", head: "#f4eeff", shadow: "0 2px 0 #1a1038", slot: "#eee0ff", slotInk: "#4a3080" },
-    { id: "sakura", name: "Sakura", group: "cute", tone: "dark", chip: "#d46088e8", ink: "#fff8fa", head: "#fff", shadow: "0 2px 0 #3a1028", slot: "#ffdce8", slotInk: "#8a3058" },
-    { id: "cotton", name: "Cotton", group: "cute", tone: "dark", chip: "#6a8ad0e8", ink: "#f8fbff", head: "#fff", shadow: "0 2px 0 #1a2038", slot: "#e0f0ff", slotInk: "#3a5088" },
-    { id: "ribbon", name: "Ribbon", group: "cute", tone: "light", chip: "#c03870e8", ink: "#fff8fc", head: "#7a2048", shadow: "0 1px 0 #ffe0ec", slot: "#ffd0e0", slotInk: "#7a2048" },
-    { id: "aurora", name: "Aurora", group: "cute", tone: "dark", chip: "#6858c0e8", ink: "#f8f4ff", head: "#f4eeff", shadow: "0 2px 0 #2a2060", slot: "#e4dcff", slotInk: "#3a3088" },
+    { id: "kanto", name: "Kanto", group: "region", tone: "light", chip: "#6aa4dee6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#d6ebf8", slotInk: "#2a3048" },
+    { id: "johto", name: "Johto", group: "region", tone: "light", chip: "#f6cd08e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#fff4b8", slotInk: "#2a3048" },
+    { id: "hoenn", name: "Hoenn", group: "region", tone: "light", chip: "#83b4ace6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#d8f0ea", slotInk: "#2a3048" },
+    { id: "sinnoh", name: "Sinnoh", group: "region", tone: "light", chip: "#9aa4aee6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#e8ecec", slotInk: "#2a3048" },
+    { id: "unova", name: "Unova", group: "region", tone: "light", chip: "#909aade6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#e4e6ec", slotInk: "#2a3048" },
+    { id: "kalos", name: "Kalos", group: "region", tone: "light", chip: "#e265a8e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#fde0ef", slotInk: "#2a3048" },
+    { id: "alola", name: "Alola", group: "region", tone: "light", chip: "#e79f60e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#ffe6cc", slotInk: "#2a3048" },
+    { id: "galar", name: "Galar", group: "region", tone: "light", chip: "#9957c8e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#ead6f8", slotInk: "#2a3048" },
+    { id: "hisui", name: "Hisui", group: "region", tone: "light", chip: "#d5bd8be6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#f4ead4", slotInk: "#2a3048" },
+    { id: "paldea", name: "Paldea", group: "region", tone: "light", chip: "#da5365e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#ffdce2", slotInk: "#2a3048" },
+    { id: "starlight", name: "Starlight", group: "cute", tone: "light", chip: "#664fc3e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#e0d8fa", slotInk: "#2a3048" },
+    { id: "candy", name: "Candy", group: "cute", tone: "light", chip: "#f059bee6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#ffd8f2", slotInk: "#2a3048" },
+    { id: "peach", name: "Peach", group: "cute", tone: "light", chip: "#f49b89e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#ffe4dc", slotInk: "#2a3048" },
+    { id: "lilac", name: "Lilac", group: "cute", tone: "light", chip: "#c278e7e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#f0dcff", slotInk: "#2a3048" },
+    { id: "sakura", name: "Sakura", group: "cute", tone: "light", chip: "#f998bce6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#ffe0ec", slotInk: "#2a3048" },
+    { id: "cotton", name: "Cotton", group: "cute", tone: "light", chip: "#7eb8dce6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#e4f2ff", slotInk: "#2a3048" },
+    { id: "ribbon", name: "Ribbon", group: "cute", tone: "light", chip: "#de5777e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#ffd4de", slotInk: "#2a3048" },
+    { id: "aurora", name: "Aurora", group: "cute", tone: "light", chip: "#63e2d6e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#d8faf6", slotInk: "#2a3048" },
     { id: "pride-trans", name: "Trans", group: "pride", tone: "light", chip: "#5a3a78e8", ink: "#fff8fc", head: "#3a3068", shadow: "0 1px 0 #fff", slot: "#ffe0ec", slotInk: "#3a3068" },
     { id: "pride-rainbow", name: "Pride", group: "pride", tone: "dark", chip: "#1e1038e8", ink: "#fff8e8", head: "#fff", shadow: "0 2px 0 #3a0860", slot: "#ffe8a0", slotInk: "#3a0860" },
     { id: "pride-lesbian", name: "Lesbian", group: "pride", tone: "dark", chip: "#6a1028e8", ink: "#fff8f4", head: "#fff", shadow: "0 2px 0 #5a0818", slot: "#ffd8c8", slotInk: "#6a1028" },
@@ -209,7 +209,7 @@
   };
 
   window.playCardBgUrl = function playCardBgUrl(id) {
-    return `images/cards/${window.playCardBg(id).id}.png?v=card7`;
+    return `images/cards/${window.playCardBg(id).id}.png?v=card8`;
   };
 
   window.playTrainerLook = function playTrainerLook(id) {
@@ -256,7 +256,8 @@
       <article class="id-card id-card-${bg.tone} id-card-${bg.group}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk};background-image:url('${window.playCardBgUrl(bg.id)}')">
         <header class="id-card-head">
           <img class="id-ball" src="images/items/poke-ball.png" alt="" width="40" height="40">
-          <h2>Trainer ID</h2>
+          <h2>TRAINER CARD</h2>
+          <p class="id-no">IDNo. ${String(card.idNo || "00000").padStart(5, "0")}</p>
           <img class="id-ball" src="images/items/poke-ball.png" alt="" width="40" height="40">
         </header>
         <div class="id-card-body">
@@ -269,7 +270,6 @@
             <div class="id-stat-wide"><dt>Started</dt><dd>${window.playCardDate(card.startedAt)}</dd></div>
           </dl>
           <div class="id-right">
-            <p class="id-no">ID No. ${String(card.idNo || "00000").padStart(5, "0")}</p>
             <div class="id-sprite-well">
               <img src="${window.playTrainerSpriteUrl(card.trainerSprite)}" alt="${look.trainer.name}">
             </div>

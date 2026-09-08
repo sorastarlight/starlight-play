@@ -117,6 +117,7 @@
       window.playPatchEncounter(els.encounter, round, bar);
     }
     els.bag.innerHTML = window.playRenderBagStrip(data?.bag);
+    window.playFillLurePanel(data?.bag);
     renderActions(data);
     window.playSetAccountNav(window._playSession || null, profile, {
       isAdmin: Boolean(data?.isAdmin),
@@ -229,4 +230,8 @@
   }, 3000);
   setInterval(heartbeat, 20000);
   loadProfile();
+  window.playBindLureButton((data) => {
+    lastActionKey = "";
+    render(data);
+  });
 })();

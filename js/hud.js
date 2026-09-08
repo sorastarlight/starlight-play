@@ -17,6 +17,63 @@
     )).join("")}</ul>`;
   };
 
+  window.playFillLurePanel = function playFillLurePanel(bag) {
+    const panel = document.getElementById("lure-panel");
+    if (!panel) return;
+    const button = document.getElementById("use-lure");
+    const help = document.getElementById("lure-help");
+    const countEl = document.getElementById("lure-count");
+    const qtyLabel = document.getElementById("lure-qty-label");
+    const eyebrow = document.getElementById("lure-eyebrow");
+    const title = document.getElementById("lure-title");
+    const count = Number(bag?.lure || 0);
+    const on = Boolean(bag?.lureArmed);
+    const signedIn = Boolean(bag);
+
+    panel.classList.toggle("is-active", on);
+    panel.classList.toggle("is-empty", !on && (!signedIn || count < 1));
+    window._playBag = bag || null;
+    if (countEl) countEl.textContent = signedIn ? String(count) : "0";
+    if (qtyLabel) qtyLabel.textContent = !signedIn ? "sign in" : on ? "armed" : count < 1 ? "none" : "ready";
+    if (eyebrow) eyebrow.textContent = !signedIn ? "Next encounter" : on ? "Armed" : count < 1 ? "Need a Lure" : "Next encounter";
+    if (title) title.textContent = !signedIn ? "Activate a Lure" : on ? "Lure is on" : count < 1 ? "No Lure yet" : "Activate a Lure";
+    if (button) {
+      button.disabled = !signedIn || on || count < 1;
+      button.textContent = !signedIn
+        ? "Sign in to activate"
+        : on ? "Lure Active" : count < 1 ? "Need a Lure" : "Activate Lure Now";
+    }
+    if (help) {
+      help.textContent = !signedIn
+        ? "Sign in with Twitch to arm a Lure from this screen."
+        : on
+          ? "Your Lure is on. You’ll automatically join the next encounter when it starts. You still use a Berry or Bait, then throw a ball."
+          : count < 1
+            ? "You don’t have a Lure yet. Get one from a Power-Up, a Pass crate, or the Store."
+            : "Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Bait, then throw a ball.";
+    }
+  };
+
+  window.playBindLureButton = function playBindLureButton(onDone) {
+    const button = document.getElementById("use-lure");
+    if (!button || button.dataset.bound === "1") return;
+    button.dataset.bound = "1";
+    button.addEventListener("click", async () => {
+      const status = document.getElementById("lure-status") || document.getElementById("inv-status") || document.getElementById("action-status");
+      if (status) status.textContent = "Activating Lure…";
+      button.disabled = true;
+      try {
+        const data = await window.playCall("play_use_lure");
+        window.playFillLurePanel(data.bag);
+        if (status) status.textContent = data.message || "Lure is on. You’ll automatically join the next encounter.";
+        onDone?.(data);
+      } catch (error) {
+        if (status) status.textContent = window.playRpcError(error);
+        window.playFillLurePanel(window._playBag || null);
+      }
+    });
+  };
+
   window.playRenderEncounter = function playRenderEncounter(round, options) {
     const opts = options || {};
     if (!round) {

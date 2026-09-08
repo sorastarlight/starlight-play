@@ -30,6 +30,9 @@ window.playBindAccountNav = function playBindAccountNav(options) {
   const page = document.body?.dataset?.page || "";
   const els = {
     links: document.getElementById("topnav-links"),
+    nav: document.querySelector(".topnav"),
+    toggle: document.getElementById("nav-toggle"),
+    panel: document.getElementById("topnav-panel"),
     signIn: document.getElementById("sign-in"),
     account: document.getElementById("account"),
     button: document.getElementById("account-button"),
@@ -64,6 +67,9 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       const current = item.id === page ? " aria-current=\"page\"" : "";
       return `<a class="topnav-link" href="${item.href}"${current}>${item.label}</a>`;
     }).join("");
+    els.links.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeNavPanel);
+    });
   }
 
   function closeMenu() {
@@ -72,11 +78,28 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     els.button.setAttribute("aria-expanded", "false");
   }
 
+  function closeNavPanel() {
+    if (!els.nav) return;
+    els.nav.classList.remove("is-open");
+    if (els.toggle) els.toggle.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-open");
+  }
+
+  function toggleNavPanel() {
+    if (!els.nav || !els.toggle) return;
+    const open = !els.nav.classList.contains("is-open");
+    els.nav.classList.toggle("is-open", open);
+    els.toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    document.body.classList.toggle("nav-open", open);
+    if (open) closeMenu();
+  }
+
   function toggleMenu() {
     if (!els.menu || !els.button) return;
     const open = els.menu.hidden;
     els.menu.hidden = !open;
     els.button.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) closeNavPanel();
   }
 
   function ensureNavTwitchFace() {
@@ -98,6 +121,15 @@ window.playBindAccountNav = function playBindAccountNav(options) {
   if (els.signIn) els.signIn.hidden = true;
   ensureNavTwitchFace();
   renderLinks(false);
+  if (els.toggle) {
+    els.toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleNavPanel();
+    });
+  }
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 1040) closeNavPanel();
+  });
 
   window.playSetAccountNav = function playSetAccountNav(session, profile, extras) {
     const signedIn = Boolean(session);
@@ -192,10 +224,14 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     });
   }
   document.addEventListener("click", (event) => {
+    if (els.nav && els.nav.classList.contains("is-open") && !els.nav.contains(event.target)) closeNavPanel();
     if (!els.account || els.account.hidden) return;
     if (!els.account.contains(event.target)) closeMenu();
   });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeMenu();
+    if (event.key === "Escape") {
+      closeMenu();
+      closeNavPanel();
+    }
   });
 };

@@ -39,6 +39,27 @@
     return `images/trainers/${key}.png`;
   };
 
+  window.PLAY_CARD_BGS = [
+    { id: "kanto", name: "Kanto", games: "Red / Blue / Yellow", tone: "dark" },
+    { id: "johto", name: "Johto", games: "Gold / Silver / Crystal", tone: "light" },
+    { id: "hoenn", name: "Hoenn", games: "Ruby / Sapphire / Emerald", tone: "dark" },
+    { id: "sinnoh", name: "Sinnoh", games: "Diamond / Pearl / Platinum", tone: "light" },
+    { id: "unova", name: "Unova", games: "Black / White", tone: "dark" },
+    { id: "kalos", name: "Kalos", games: "X / Y", tone: "dark" },
+    { id: "alola", name: "Alola", games: "Sun / Moon", tone: "light" },
+    { id: "galar", name: "Galar", games: "Sword / Shield", tone: "dark" },
+    { id: "hisui", name: "Hisui", games: "Legends: Arceus", tone: "light" },
+    { id: "paldea", name: "Paldea", games: "Scarlet / Violet", tone: "light" }
+  ];
+
+  window.playCardBg = function playCardBg(id) {
+    return window.PLAY_CARD_BGS.find((row) => row.id === id) || window.PLAY_CARD_BGS.find((row) => row.id === "hoenn");
+  };
+
+  window.playCardBgUrl = function playCardBgUrl(id) {
+    return `images/cards/${window.playCardBg(id).id}.png`;
+  };
+
   window.playTrainerLook = function playTrainerLook(id) {
     for (const row of window.PLAY_TRAINERS) {
       for (const trainer of window.playTrainerLooks(row)) {
@@ -76,9 +97,10 @@
   window.playRenderIdCard = function playRenderIdCard(card) {
     const team = Array.isArray(card?.team) ? card.team : [];
     const look = window.playTrainerLook(card?.trainerSprite);
+    const bg = window.playCardBg(card?.cardBg);
     const slots = Array.from({ length: 6 }, (_, i) => team[i] || null);
     return `
-      <article class="id-card">
+      <article class="id-card id-card-${bg.tone}" style="background-image:url('${window.playCardBgUrl(bg.id)}')">
         <header class="id-card-head">
           <i class="id-ball" aria-hidden="true"></i>
           <h2>Trainer ID</h2>
@@ -86,12 +108,12 @@
         </header>
         <div class="id-card-body">
           <dl class="id-stats">
-            <div><dt>Name</dt><dd>${card.displayName || "Trainer"}</dd></div>
+            <div class="id-stat-wide"><dt>Name</dt><dd>${card.displayName || "Trainer"}</dd></div>
             <div><dt>Lv.</dt><dd>${card.level || 1}</dd></div>
             <div><dt>PokéCoins</dt><dd>${Number(card.coins || 0)}</dd></div>
             <div><dt>Pokédex</dt><dd>${card.species || 0}/151</dd></div>
             <div><dt>Time</dt><dd>${window.playCardTime(card.watchSeconds)}</dd></div>
-            <div><dt>Started</dt><dd>${window.playCardDate(card.startedAt)}</dd></div>
+            <div class="id-stat-wide"><dt>Started</dt><dd>${window.playCardDate(card.startedAt)}</dd></div>
           </dl>
           <div class="id-right">
             <p class="id-no">ID No. ${String(card.idNo || "00000").padStart(5, "0")}</p>

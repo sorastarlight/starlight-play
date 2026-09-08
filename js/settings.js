@@ -16,7 +16,9 @@
     lookStatus: document.getElementById("look-status"),
     team: document.getElementById("team-slots"),
     teamStatus: document.getElementById("team-status"),
-    preview: document.getElementById("id-preview")
+    preview: document.getElementById("id-preview"),
+    bgs: document.getElementById("card-bg-picks"),
+    bgStatus: document.getElementById("bg-status")
   };
   let card = null;
   let catches = [];
@@ -39,6 +41,16 @@
 
   function fillPreview(nextCard) {
     if (els.preview) els.preview.innerHTML = nextCard ? window.playRenderIdCard(nextCard) : "";
+  }
+
+  function fillBgs(nextCard) {
+    if (!els.bgs) return;
+    const current = window.playCardBg(nextCard?.cardBg).id;
+    els.bgs.innerHTML = window.PLAY_CARD_BGS.map((row) => `
+      <button type="button" class="card-bg-opt" data-bg="${row.id}" aria-pressed="${row.id === current ? "true" : "false"}">
+        <img src="${window.playCardBgUrl(row.id)}" alt="">
+        <span>${row.name}</span>
+      </button>`).join("");
   }
 
   function fillTeam(nextCard) {
@@ -109,6 +121,7 @@
     els.name.value = card.displayName || "";
     fillLook(card);
     fillTeam(card);
+    fillBgs(card);
     fillPreview(card);
     els.gate.hidden = true;
     els.box.hidden = false;
@@ -127,6 +140,21 @@
     },
     els.teamStatus
   );
+
+  els.bgs?.addEventListener("click", async (event) => {
+    const button = event.target.closest("[data-bg]");
+    if (!button) return;
+    els.bgStatus.textContent = "Saving background…";
+    try {
+      const data = await window.playCall("play_set_card_bg", { p_bg: button.dataset.bg });
+      if (data?.trainer) card = data.trainer;
+      fillBgs(card);
+      fillPreview(card);
+      els.bgStatus.textContent = data.message || "Card background saved.";
+    } catch (error) {
+      els.bgStatus.textContent = window.playRpcError(error);
+    }
+  });
 
   els.chooseLook?.addEventListener("click", () => {
     window.playOpenTrainerPicker(card?.trainerSprite, async (id) => {

@@ -19,8 +19,9 @@
     return dialog;
   }
 
-  function openPicker(title, html) {
+  function openPicker(title, html, extraClass) {
     const dialog = ensureModals();
+    dialog.className = extraClass ? `play-modal ${extraClass}` : "play-modal";
     document.getElementById("play-picker-title").textContent = title;
     document.getElementById("play-picker-body").innerHTML = html;
     if (typeof dialog.showModal === "function") dialog.showModal();
@@ -65,7 +66,7 @@
           }).join("")}
         </div>
       </section>`).join("")}</div>`;
-    const dialog = openPicker("Choose a trainer look", html);
+    const dialog = openPicker("Choose a trainer look", html, "play-modal-wide");
     dialog.querySelectorAll(".trainer-opt").forEach((button) => {
       button.addEventListener("click", () => {
         dialog.close();

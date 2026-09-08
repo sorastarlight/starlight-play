@@ -7,16 +7,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=id3">
+<link rel="stylesheet" href="css/play.css?v=nav1">
 <body data-page="events">
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./">
-      <img src="images/sora-starlight-logo.png" alt="">
-      <span>STARLIGHT PLAY</span>
+      <img src="images/sora-starlight-logo.png" alt="Sora Starlight">
     </a>
-    <div id="topnav-links" class="topnav-links"></div>
-    <div class="topnav-actions">
+    <div class="topnav-end">
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav-panel">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="visually-hidden">Open menu</span>
+      </button>
+      <div id="topnav-panel" class="topnav-panel">
+        <div id="topnav-links" class="topnav-links"></div>
+      </div>
+      <div class="topnav-actions">
       <p id="auth-status" class="visually-hidden" role="status">Checking Twitch sign-in…</p>
       <button id="sign-in" class="signin-btn" type="button" hidden>Sign in with Twitch</button>
       <div id="account" class="account" hidden>
@@ -38,6 +44,7 @@
           <button id="sign-out" type="button" role="menuitem">Sign out</button>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </nav>
@@ -94,6 +101,6 @@
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/game.js"></script>
-<script src="js/nav.js?v=id3"></script>
+<script src="js/nav.js?v=nav1"></script>
 <script src="js/events.js"></script>
 </body>

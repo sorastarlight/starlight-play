@@ -119,7 +119,7 @@
       { id: "ash-unova", name: "Ash", outfit: "Unova" },
       { id: "ash-kalos", name: "Ash", outfit: "Kalos" },
       { id: "ash-alola", name: "Ash", outfit: "Alola" },
-      { id: "ash-ashley", name: "Ashley", outfit: "Ash Gray" },
+      { id: "ashley", name: "Ashley" },
       { id: "misty", name: "Misty" },
       { id: "misty-gen1", name: "Misty", outfit: "Gen 1" },
       { id: "misty-lgpe", name: "Misty", outfit: "Let's Go" },
@@ -142,7 +142,7 @@
       { id: "nurse", name: "Nurse Joy" },
       { id: "officer-gen2", name: "Officer Jenny" }
     ] },
-    { key: "sonic", label: "Sonic the Hedgehog", games: "Sonic Advance series", looks: [
+    { key: "sonic", label: "Sonic the Hedgehog", games: "Sonic Battle", looks: [
       { id: "sonic-sonic", name: "Sonic" },
       { id: "sonic-tails", name: "Tails" },
       { id: "sonic-knuckles", name: "Knuckles" },
@@ -159,13 +159,18 @@
     return looks;
   };
 
+  window.playTrainerSpriteKey = function playTrainerSpriteKey(id) {
+    return id === "ash-ashley" ? "ashley" : id;
+  };
+
   window.playTrainerSpriteOk = function playTrainerSpriteOk(id) {
-    return window.PLAY_TRAINERS.some((row) => window.playTrainerLooks(row).some((look) => look.id === id));
+    const key = window.playTrainerSpriteKey(id);
+    return window.PLAY_TRAINERS.some((row) => window.playTrainerLooks(row).some((look) => look.id === key));
   };
 
   window.playTrainerSpriteUrl = function playTrainerSpriteUrl(id) {
-    const key = window.playTrainerSpriteOk(id) ? id : "red-gen1";
-    return `images/trainers/${key}.png`;
+    const key = window.playTrainerSpriteOk(id) ? window.playTrainerSpriteKey(id) : "red-gen1";
+    return `images/trainers/${key}.png?v=card4`;
   };
 
   window.PLAY_CARD_BGS = [
@@ -208,9 +213,10 @@
   };
 
   window.playTrainerLook = function playTrainerLook(id) {
+    const key = window.playTrainerSpriteKey(id);
     for (const row of window.PLAY_TRAINERS) {
       for (const trainer of window.playTrainerLooks(row)) {
-        if (trainer.id === id) return { ...row, gender: trainer.gender, trainer };
+        if (trainer.id === key) return { ...row, gender: trainer.gender, trainer };
       }
     }
     return window.playTrainerLook("red-gen1");

@@ -41,23 +41,26 @@
     const groups = [
       {
         title: "Wallet",
+        note: "Spend these on the Store.",
         items: [
           ["coins", "PokéCoins", "Earned by joining and catching. Spend them on the Store. No cash value, no trading."]
         ]
       },
       {
-        title: "Prepare",
+        title: "Catch Boosts",
+        note: "Use these after you join, before anyone throws a ball.",
         items: [
-          ["berry", "Berry", "Use one during Prepare. Adds 10 percentage points to your catch chance this encounter."],
-          ["bait", "Honey", "Use one during Prepare. Helps everyone’s catch chance, up to +15% based on how many people use Honey."]
+          ["berry", "Berry", "Adds 10 percentage points to your catch chance this encounter."],
+          ["bait", "Honey", "Helps everyone’s catch chance, up to +15% based on how many people use Honey."]
         ]
       },
       {
-        title: "Throw",
+        title: "Poké Balls",
+        note: "Use these when the encounter is ready to catch.",
         items: [
-          ["pokeball", "Poké Ball", "Throw during the catch phase. 45% base chance. Berry and Honey can still raise it."],
-          ["greatball", "Great Ball", "Throw during the catch phase. 60% base chance. A steadier throw than a Poké Ball."],
-          ["ultraball", "Ultra Ball", "Throw during the catch phase. 75% base chance. The best catch rate in Play."],
+          ["pokeball", "Poké Ball", "45% catch. Berry and Honey can still raise it."],
+          ["greatball", "Great Ball", "60% catch. A steadier throw than a Poké Ball."],
+          ["ultraball", "Ultra Ball", "75% catch. The best catch rate in Play."],
           ...((window.PLAY_BALLS || [])
             .filter((row) => row.extra && Number(bag?.[row.key] || 0) > 0)
             .map((row) => [
@@ -77,6 +80,7 @@
     els.bag.innerHTML = groups.map((group) => `
       <section class="bag-group">
         <h3>${group.title}</h3>
+        ${group.note ? `<p class="muted bag-group-note">${group.note}</p>` : ""}
         <div class="bag-rows">
           ${group.items.map(([key, label, hint]) => `
             <article class="bag-row${key === "coins" ? " coins" : ""}">

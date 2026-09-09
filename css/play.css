@@ -607,11 +607,15 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .bag-overview { display: grid; gap: 18px; }
 .bag-group > h3 {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
   font-size: 12px;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: #88557c;
+}
+.bag-group-note {
+  margin: 0 0 8px;
+  font-size: 13px;
 }
 .bag-rows { display: grid; gap: 8px; }
 .bag-row {

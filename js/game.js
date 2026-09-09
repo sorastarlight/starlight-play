@@ -262,7 +262,7 @@
     berry: "oran-berry",
     bait: "honey",
     lure: "poke-radar",
-    coins: "nugget",
+    coins: "relic-gold",
     bag_bonus: "explorer-kit",
     pass: "rainbow-pass",
     poke5: "poke-ball",

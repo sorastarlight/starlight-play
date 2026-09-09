@@ -298,7 +298,7 @@
   };
 
   window.playRoundIdleAt = function playRoundIdleAt(round) {
-    if (!round || round.cancelled) return 0;
+    if (!round) return 0;
     const from = Date.parse(round.deadlines?.reveal || round.endsAt || round.startedAt || "");
     if (!Number.isFinite(from)) return 0;
     return from + (window.PLAY_ROUND_IDLE_AFTER_MS || 180000);
@@ -306,8 +306,9 @@
 
   window.playApplyLocalRound = function playApplyLocalRound(round) {
     if (!round) return round;
-    if (round.cancelled) return null;
-    const phase = window.playLocalPhase(round);
+    const hasCatch = Number(round.results?.caught || 0) > 0 || (Array.isArray(round.catchers) && round.catchers.length > 0);
+    if (round.cancelled && !hasCatch) return null;
+    const phase = round.cancelled ? "closed" : window.playLocalPhase(round);
     const ends = round.deadlines?.[phase] || round.endsAt;
     const next = { ...round, phase, endsAt: ends || round.endsAt };
     if (phase === "closed") {
@@ -327,6 +328,20 @@
     if (female) return `images/pokemon/female/${id}.png`;
     if (shiny) return `images/pokemon/shiny/${id}.png`;
     return `images/pokemon/${id}.png`;
+  };
+
+  window.playSpriteOnError = function playSpriteOnError(img) {
+    const src = String(img?.getAttribute("src") || "");
+    const match = src.match(/(\d+)\.png(?:\?.*)?$/i);
+    if (!img || !match) {
+      if (img) img.onerror = null;
+      return;
+    }
+    const id = match[1];
+    if (src.includes("/shiny/female/")) img.src = `images/pokemon/shiny/${id}.png`;
+    else if (src.includes("/female/")) img.src = `images/pokemon/${id}.png`;
+    else if (src.includes("/shiny/")) img.src = `images/pokemon/${id}.png`;
+    else img.onerror = null;
   };
 
   const ITEM_SPRITES = {

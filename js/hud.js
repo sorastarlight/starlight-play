@@ -146,7 +146,7 @@
     const location = window.playHabitat(round.dex, round.location);
     const hidden = round.hidden ? `<span class="chip warn">Hidden</span>` : "";
     const live = round.phase && round.phase !== "closed";
-    const honey = window.playHoneyCrewHtml(round);
+    const honey = opts.showHoney === false ? "" : window.playHoneyCrewHtml(round);
     const fanfare = window.playCatchFanfareHtml(round);
     const header = live
       ? `<div class="dex-head dex-live-fanfare">
@@ -158,7 +158,7 @@
     return `
       ${header}
       <div class="dex-stage">
-        ${sprite ? `<img src="${sprite}" alt="${fullName}" onerror="this.onerror=null;this.src='images/pokemon/${Number(round.dex)}.png'">` : ""}
+        ${sprite ? `<img src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
         <div class="dex-copy">
           <p class="wild-label">A wild</p>
           <h2>${name}</h2>
@@ -199,10 +199,14 @@
   };
 
   window.playCatchFanfareHtml = function playCatchFanfareHtml(round) {
-    const show = Boolean(round?.resolved || round?.phase === "reveal" || (round?.phase === "closed" && round?.results));
-    if (!show || !round?.results) return "";
-    const catchers = Array.isArray(round.catchers) ? round.catchers : (round.results.catchers || []);
-    const got = catchers.length || Number(round.results.caught || 0);
+    const results = round?.results;
+    const catchers = Array.isArray(round?.catchers) ? round.catchers : (results?.catchers || []);
+    const caughtN = Number(results?.caught || 0);
+    const escapedN = Number(results?.escaped || 0);
+    const noThrowN = Number(results?.noThrow || 0);
+    const settled = Boolean(results) && (caughtN + escapedN + noThrowN > 0 || catchers.length > 0);
+    if (!settled) return "";
+    const got = catchers.length || caughtN;
     const species = window.playDisplayName(round);
     const headline = got
       ? (got === 1 ? `1 trainer caught ${species}!` : `${got} trainers caught ${species}!`)
@@ -220,7 +224,7 @@
       <h3>${window.playEscapeAttr(headline)}</h3>
       ${got ? `<p class="fanfare-sub">Everyone who caught it:</p>` : ""}
       ${list}
-      <p class="result-line">Caught ${round.results.caught || 0} · Escaped ${round.results.escaped || 0} · No throw ${round.results.noThrow || 0}</p>
+      <p class="result-line">Caught ${caughtN} · Escaped ${escapedN} · No throw ${noThrowN}</p>
     </section>`;
   };
 

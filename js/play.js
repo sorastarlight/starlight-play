@@ -21,6 +21,7 @@
   let lastKitKey = "";
   let lureJoinRound = "";
   let acting = false;
+  let pointerHeld = false;
   let lastLocalPhase = "";
   let throwViewOnly = false;
 
@@ -69,10 +70,6 @@
     }
     const buttons = [];
     if ((round.phase === "join" && !me) || (round.phase === "prepare" && !me)) {
-      if (window.playRadarOn?.(bag) && lureJoinRound !== round.id) {
-        lureJoinRound = round.id;
-        act("join", "");
-      }
       buttons.push({
         kind: "join",
         item: "",
@@ -102,11 +99,20 @@
 
   function renderActions(data) {
     const plan = actionPlan(data);
-    if (plan.key === lastActionKey && els.actions.children.length === plan.buttons.length) {
+    const key = plan.buttons.map((row) => `${row.kind}:${row.item}`).join("|") + `::${plan.status || ""}`;
+    if (pointerHeld && els.actions.querySelector("button[data-kind]")) {
       if (plan.status) els.actionStatus.textContent = plan.status;
       return;
     }
-    lastActionKey = plan.key;
+    if (key === lastActionKey && els.actions.children.length === plan.buttons.length) {
+      plan.buttons.forEach((row, index) => {
+        const hint = els.actions.children[index]?.querySelector("em");
+        if (hint && row.hint) hint.textContent = row.hint;
+      });
+      if (plan.status) els.actionStatus.textContent = plan.status;
+      return;
+    }
+    lastActionKey = key;
     els.actionStatus.textContent = plan.status;
     els.actions.classList.toggle("single", plan.buttons.length === 1);
     els.actions.innerHTML = plan.buttons.map((row) => {
@@ -146,16 +152,29 @@
     else els.throwModal.setAttribute("open", "");
   }
 
+  function maybeRadarJoin(data) {
+    const round = liveRound(data);
+    const bag = data?.bag || {};
+    if (!round || data?.me) return;
+    if (round.phase !== "join" && round.phase !== "prepare") return;
+    if (!window.playRadarOn?.(bag) || lureJoinRound === round.id) return;
+    lureJoinRound = round.id;
+    act("join", "");
+  }
+
   function render(data) {
     state = data;
     const round = liveRound(data);
     const view = { ...data, round };
-    const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${(round?.honeyTrainers || []).length}:${(round?.catchers || []).length}`;
+    const results = round?.results;
+    const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${results?.caught || 0}:${(round?.catchers || []).length}`;
     const bar = phaseBar(round);
     lastLocalPhase = round?.phase || "";
-    if (key !== lastEncounterKey) {
+    if (pointerHeld) {
+      window.playPatchEncounter(els.encounter, round, bar);
+    } else if (key !== lastEncounterKey) {
       lastEncounterKey = key;
-      els.encounter.innerHTML = window.playRenderEncounter(round, { bar });
+      els.encounter.innerHTML = window.playRenderEncounter(round, { bar, showHoney: false });
     } else {
       window.playPatchEncounter(els.encounter, round, bar);
     }
@@ -168,6 +187,7 @@
     window.playFillLurePanel(bag);
     window.playRenderLiveFeed(data?.console || round);
     renderActions(view);
+    maybeRadarJoin(view);
     window.playSetAccountNav(window._playSession || null, profile, {
       isAdmin: Boolean(data?.isAdmin),
       trainer: data?.trainer
@@ -190,7 +210,7 @@
 
   let refreshQueued = false;
   async function refresh() {
-    if (acting) {
+    if (acting || pointerHeld) {
       refreshQueued = true;
       return;
     }
@@ -227,8 +247,7 @@
     }
   }
 
-  els.actions.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-kind]");
+  function pressAction(button) {
     if (!button || button.disabled) return;
     if (button.dataset.kind === "open-balls") {
       openThrowBalls(state?.bag || {}, "throw");
@@ -238,15 +257,53 @@
     act(button.dataset.kind, button.dataset.item || "").finally(() => {
       if (button.isConnected) button.disabled = false;
     });
+  }
+
+  els.actions.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    const button = event.target.closest("button[data-kind]");
+    if (!button) return;
+    pointerHeld = true;
+    pressAction(button);
+  });
+  els.actions.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-kind]");
+    if (!button || button.disabled || acting) {
+      event.preventDefault();
+      return;
+    }
+    pressAction(button);
+  });
+  window.addEventListener("pointerup", () => {
+    pointerHeld = false;
+    if (refreshQueued) refresh();
+  });
+  window.addEventListener("pointercancel", () => {
+    pointerHeld = false;
+    if (refreshQueued) refresh();
   });
 
   els.throwModal?.addEventListener("click", (event) => {
     if (event.target === els.throwModal) els.throwModal.close("cancel");
   });
 
-  els.throwGrid?.addEventListener("click", (event) => {
+  els.throwGrid?.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
     const button = event.target.closest("button[data-throw]");
     if (!button || button.disabled || throwViewOnly) return;
+    pointerHeld = true;
+    button.disabled = true;
+    els.throwModal?.close?.();
+    act("throw", button.dataset.throw).finally(() => {
+      if (button.isConnected) button.disabled = false;
+    });
+  });
+  els.throwGrid?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-throw]");
+    if (!button || button.disabled || throwViewOnly || acting) {
+      event.preventDefault();
+      return;
+    }
     button.disabled = true;
     els.throwModal?.close?.();
     act("throw", button.dataset.throw).finally(() => {
@@ -284,7 +341,13 @@
   let liveRefreshTimer = 0;
   function scheduleRefresh() {
     clearTimeout(liveRefreshTimer);
-    liveRefreshTimer = setTimeout(refresh, 50);
+    liveRefreshTimer = setTimeout(() => {
+      if (pointerHeld || acting) {
+        refreshQueued = true;
+        return;
+      }
+      refresh();
+    }, 200);
   }
 
   function secondsToNextPhase(round) {
@@ -308,6 +371,7 @@
     }
     const bar = phaseBar(round);
     window.playPatchEncounter(els.encounter, round, bar);
+    if (pointerHeld) return;
     if (round.phase && round.phase !== lastLocalPhase) {
       lastLocalPhase = round.phase;
       lastEncounterKey = "";
@@ -332,7 +396,7 @@
     .subscribe();
   setInterval(tickLive, 200);
   setInterval(() => {
-    if (document.visibilityState !== "visible") return;
+    if (document.visibilityState !== "visible" || pointerHeld || acting) return;
     const round = liveRound(state);
     const left = secondsToNextPhase(round);
     if (round && round.phase && round.phase !== "closed" && left <= 2) refresh();

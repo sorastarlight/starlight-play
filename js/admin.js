@@ -540,6 +540,9 @@
       return;
     }
     if (els.formPreview) {
+      els.formPreview.onerror = function onPreviewError() {
+        window.playSpriteOnError(els.formPreview);
+      };
       els.formPreview.src = window.playSpriteUrl(dex, variant);
       els.formPreview.alt = `${window.playSpeciesName(dex)} ${gender}${pickShiny ? " Shiny" : ""}`;
     }

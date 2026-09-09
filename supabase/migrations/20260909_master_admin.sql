@@ -185,20 +185,25 @@ declare
   bait_count int;
   player_count int;
   shared numeric;
-  odds numeric;
-  roll numeric;
-  caught boolean;
+  v_odds numeric;
+  v_roll numeric;
+  v_caught boolean;
+  pending boolean;
 begin
-  if r is null or r.cancelled then
+  if r is null then
     return r;
   end if;
-  if r.deadlines is null or now() < (r.deadlines->>'throw')::timestamptz then
-    return r;
-  end if;
-  if r.resolved and not exists (
+  select exists (
     select 1 from public.encounter_players ep
     where ep.round_id = r.id and ep.result is null
-  ) then
+  ) into pending;
+  if r.cancelled and not pending then
+    return r;
+  end if;
+  if not r.cancelled and (r.deadlines is null or now() < (r.deadlines->>'throw')::timestamptz) then
+    return r;
+  end if;
+  if r.resolved and not pending then
     return r;
   end if;
 
@@ -214,30 +219,30 @@ begin
     where round_id = r.id and result is null
   loop
     if rec.ball is null then
-      update public.encounter_players
+      update public.encounter_players ep
         set result = 'No throw', caught = false
-        where round_id = rec.round_id and user_id = rec.user_id;
+        where ep.round_id = rec.round_id and ep.user_id = rec.user_id;
       continue;
     end if;
     if rec.ball = 'masterball' then
-      odds := 1;
-      caught := true;
-      roll := 0;
+      v_odds := 1;
+      v_caught := true;
+      v_roll := 0;
     else
-      odds := least(
+      v_odds := least(
         coalesce((rules->>'maxCatchChance')::numeric, 0.9),
         private.ball_catch_chance(rules, rec.ball)
           + shared
           + case when rec.prep = 'berry' then coalesce((rules->>'berryBonus')::numeric, 0) else 0 end
       );
-      roll := random();
-      caught := roll < odds;
+      v_roll := random();
+      v_caught := v_roll < v_odds;
     end if;
-    update public.encounter_players
-      set chance = odds, roll = roll, caught = caught,
-          result = case when caught then 'Caught' else 'Escaped' end
-      where round_id = rec.round_id and user_id = rec.user_id;
-    if caught and not exists (
+    update public.encounter_players ep
+      set chance = v_odds, roll = v_roll, caught = v_caught,
+          result = case when v_caught then 'Caught' else 'Escaped' end
+      where ep.round_id = rec.round_id and ep.user_id = rec.user_id;
+    if v_caught and not exists (
       select 1 from public.catches c
       where c.round_id = rec.round_id and c.user_id = rec.user_id
     ) then

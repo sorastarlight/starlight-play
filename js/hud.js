@@ -123,9 +123,18 @@
     const opts = options || {};
     if (!round) {
       return `
-        <div class="dex-empty">
-          <p>No wild Pokémon right now.</p>
-          <p class="muted">${opts.emptyNote || "When Sora starts a community encounter, it will appear here."}</p>
+        <div class="dex-idle">
+          <div class="dex-idle-field" aria-hidden="true">
+            <span class="dex-idle-cloud"></span>
+            <span class="dex-idle-cloud is-two"></span>
+            <i></i><i></i><i></i><i></i>
+          </div>
+          <div class="dex-idle-copy">
+            <span class="dex-idle-mark">?</span>
+            <p class="wild-label">Searching</p>
+            <h2>The tall grass is quiet</h2>
+            <p class="muted">${opts.emptyNote || "A wild Pokémon will appear here when Sora starts an encounter."}</p>
+          </div>
         </div>`;
     }
     const name = window.playDisplayName(round, { plain: true });

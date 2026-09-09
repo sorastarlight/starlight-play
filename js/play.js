@@ -61,7 +61,7 @@
         buttons: [],
         status: round?.resolved && me?.result
           ? (me.caught ? `You caught it! (${Math.round((me.chance || 0) * 100)}%)` : `Your result: ${me.result}.`)
-          : "Waiting for the next wild Pokémon."
+          : ""
       };
     }
     if (!signedIn) {

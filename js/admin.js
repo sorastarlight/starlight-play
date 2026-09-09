@@ -127,7 +127,8 @@
   }
 
   function renderRound(round) {
-    els.encounter.innerHTML = window.playRenderEncounter(round, {
+    const shown = round && !round.cancelled ? round : null;
+    els.encounter.innerHTML = window.playRenderEncounter(shown, {
           emptyNote: "Start a random encounter. The stream PC should pick it up."
     });
     els.hide.textContent = "Hide overlay";
@@ -470,7 +471,19 @@
     pickShiny = !pickShiny;
     renderAppearance(parseDex(els.dexPick.value));
   });
-  document.getElementById("cancel-round").addEventListener("click", () => queueMix("cancel"));
+  document.getElementById("cancel-round").addEventListener("click", async () => {
+    els.commandStatus.textContent = "Working…";
+    try {
+      const data = await window.playCall("admin_cancel_round");
+      try {
+        await window.playCall("admin_queue_stream_command", { p_action: "cancel", p_payload: {} });
+      } catch (_) {}
+      els.commandStatus.textContent = String(data?.message || "Encounter cancelled.").replace(/Mix It Up/gi, "the stream");
+      await refreshOverview(false);
+    } catch (error) {
+      els.commandStatus.textContent = window.playRpcError(error);
+    }
+  });
   document.getElementById("sync-clock").addEventListener("click", () => queueMix("resume"));
   document.getElementById("refill").addEventListener("click", () => run("admin_refill_test"));
   els.hide.addEventListener("click", () => queueMix("hide"));

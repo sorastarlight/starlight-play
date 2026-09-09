@@ -162,7 +162,7 @@
       { id: "mimi", name: "Mimi" },
       { id: "koushiro", name: "Koushiro" }
     ] },
-    { key: "genderbend", premium: true, label: "Anime Genderbending Pack", games: "Pokémon the Series", looks: [
+    { key: "genderbend", premium: true, label: "Pokémon Genderbending Sprite Pack", games: "Pokémon the Series", looks: [
       { id: "ashley", name: "Ashley Crossdress Kanto" },
       { id: "ashley-crossdress-alola", name: "Ashley Crossdress Alola" },
       { id: "ashley-crossdress-unova", name: "Ashley Crossdress Unova" },
@@ -192,7 +192,7 @@
     {
       sku: "avatar-genderbend",
       pack: "genderbend",
-      name: "Anime Genderbending Pack",
+      name: "Pokémon Genderbending Sprite Pack",
       games: "Pokémon the Series",
       cost: 200,
       blurb: "Unlock Ashley Crossdress Kanto, Alola, and Unova, plus Serena Crossdress, for your Trainer ID.",
@@ -227,7 +227,7 @@
         break;
       }
     }
-    return `images/trainers/${key}.${ext}?v=av6`;
+    return `images/trainers/${key}.${ext}?v=av7`;
   };
 
   window.PLAY_CARD_BGS = [

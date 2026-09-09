@@ -1989,8 +1989,72 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
 }
 .live-feed h3 { margin: 0 0 8px; font-size: 14px; letter-spacing: .08em; }
 .live-feed ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-.live-feed li { font-size: 14px; font-weight: 700; }
-.live-feed .muted { color: #c8d0e4; }
+.live-feed li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: baseline;
+  font-size: 14px;
+  font-weight: 700;
+}
+.live-feed time {
+  color: #8ea0c4;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.live-feed .muted { color: #c8d0e4; display: block; }
+body[data-page="play"] {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+body[data-page="play"] .wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+body[data-page="play"] .play-stage,
+body[data-page="admin"] .play-stage {
+  flex: 1;
+  align-items: stretch;
+}
+.play-stream-col {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.play-stream-col .hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  border-bottom: 0;
+  border-radius: 26px;
+}
+.play-stream-col .live-feed {
+  flex: 1 1 auto;
+  min-height: 220px;
+  max-height: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.play-stream-col .live-feed ol {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+  align-content: start;
+}
+body[data-page="admin"] #staff {
+  display: flex;
+  flex-direction: column;
+}
+body[data-page="admin"] .play-stage {
+  min-height: min(72vh, 860px);
+}
 .staff-users { display: grid; gap: 8px; }
 .staff-user {
   display: grid;

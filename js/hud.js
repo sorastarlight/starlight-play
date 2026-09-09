@@ -154,20 +154,27 @@
     return true;
   };
 
-  window.playRenderLiveFeed = function playRenderLiveFeed(round) {
-    const list = document.getElementById("live-feed");
+  window.playConsoleLine = function playConsoleLine(row) {
+    const name = window.playEscapeAttr(row?.name || "A trainer");
+    const stamp = row?.at ? new Date(row.at) : null;
+    const time = stamp && !Number.isNaN(stamp.getTime())
+      ? `<time datetime="${stamp.toISOString()}">${stamp.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", second: "2-digit" })}</time>`
+      : `<time></time>`;
+    if (row?.kind === "joined") return `<li>${time}<span><strong>${name}</strong> joined</span></li>`;
+    if (row?.kind === "prepared") return `<li>${time}<span><strong>${name}</strong> used ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
+    if (row?.kind === "threw") return `<li>${time}<span><strong>${name}</strong> threw a ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
+    if (row?.message) return `<li>${time}<span>${window.playEscapeAttr(row.message)}</span></li>`;
+    return `<li>${time}<span><strong>${name}</strong></span></li>`;
+  };
+
+  window.playRenderLiveFeed = function playRenderLiveFeed(source, targetId) {
+    const list = document.getElementById(targetId || "live-feed");
     if (!list) return;
-    const rows = Array.isArray(round?.activity) ? round.activity : [];
+    const rows = Array.isArray(source) ? source : (Array.isArray(source?.activity) ? source.activity : []);
     if (!rows.length) {
       list.innerHTML = `<li class="muted">Waiting for trainers to join, use Honey or a Berry, and throw a ball.</li>`;
       return;
     }
-    list.innerHTML = rows.slice(0, 24).map((row) => {
-      const name = row.name || "A trainer";
-      if (row.kind === "joined") return `<li><strong>${name}</strong> joined</li>`;
-      if (row.kind === "prepared") return `<li><strong>${name}</strong> used ${window.playItemLabel(row.item)}</li>`;
-      if (row.kind === "threw") return `<li><strong>${name}</strong> threw a ${window.playItemLabel(row.item)}</li>`;
-      return `<li><strong>${name}</strong></li>`;
-    }).join("");
+    list.innerHTML = rows.map((row) => window.playConsoleLine(row)).join("");
   };
 })();

@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=card8">
+<link rel="stylesheet" href="css/play.css?v=live1">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -54,12 +54,16 @@
   </div>
   <p id="gate" class="notice">Sign in with Twitch to open the Admin Hub.</p>
   <div id="staff" hidden>
-    <div class="layout">
-      <section class="card">
+    <div class="layout play-stage">
+      <section class="card play-stream-col">
         <div class="hero">
           <div class="eyebrow">Stream preview</div>
           <iframe id="stream-frame" title="Twitch stream preview" allowfullscreen></iframe>
           <p id="stream-note" class="muted">Loading preview…</p>
+          <section class="live-feed" aria-live="polite">
+            <h3>PLAY CONSOLE</h3>
+            <ol id="admin-console"></ol>
+          </section>
         </div>
       </section>
       <aside class="card dex-card">
@@ -264,7 +268,7 @@
 <script src="js/species.js"></script>
 <script src="js/variants.js"></script>
 <script src="js/game.js"></script>
-<script src="js/hud.js"></script>
+<script src="js/hud.js?v=live1"></script>
 <script src="js/nav.js?v=nav1"></script>
-<script src="js/admin.js?v=hub2"></script>
+<script src="js/admin.js?v=live1"></script>
 </body>

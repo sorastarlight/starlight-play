@@ -137,7 +137,7 @@
     }
     els.bag.innerHTML = window.playRenderBagStrip(data?.bag);
     window.playFillLurePanel(data?.bag);
-    window.playRenderLiveFeed(round);
+    window.playRenderLiveFeed(data?.console || round);
     renderActions(data);
     window.playSetAccountNav(window._playSession || null, profile, {
       isAdmin: Boolean(data?.isAdmin),
@@ -262,6 +262,7 @@
   supabase.channel("play-live")
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, scheduleRefresh)
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_activity" }, scheduleRefresh)
+    .on("postgres_changes", { event: "*", schema: "public", table: "play_console_log" }, scheduleRefresh)
     .on("postgres_changes", { event: "*", schema: "public", table: "inventories" }, scheduleRefresh)
     .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, scheduleRefresh)
     .subscribe();

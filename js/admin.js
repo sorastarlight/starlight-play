@@ -29,6 +29,7 @@
     passCount: document.getElementById("pass-count"),
     passStatus: document.getElementById("pass-admin-status"),
     hide: document.getElementById("toggle-hidden"),
+    console: document.getElementById("admin-console"),
     bridgeStatus: document.getElementById("bridge-status"),
     issueToken: document.getElementById("issue-token"),
     bridgeToken: document.getElementById("bridge-token"),
@@ -144,6 +145,9 @@
     }
     loadStream(data.channel);
     renderRound(data.round);
+    if (typeof window.playRenderLiveFeed === "function") {
+      window.playRenderLiveFeed(data.console || data.round, "admin-console");
+    }
     els.trainers.textContent = `${data.trainers} trainer${data.trainers === 1 ? "" : "s"} on Play.`;
     els.passCount.textContent = `${data.passes || 0} Starlight Pass${data.passes === 1 ? "" : "es"} active.`;
     const bridge = data.bridge || {};
@@ -573,6 +577,8 @@
   });
   supabase.channel("play-staff")
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, scheduleOverview)
+    .on("postgres_changes", { event: "*", schema: "public", table: "play_console_log" }, scheduleOverview)
+    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_activity" }, scheduleOverview)
     .subscribe();
   setInterval(() => {
     if (!els.staff.hidden) refreshOverview(false);

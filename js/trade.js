@@ -66,14 +66,6 @@
     return matches[0]?.dex || null;
   }
 
-  function genderChip(gender) {
-    const key = String(gender || "");
-    if (key === "Male") return `<span class="type-chip gender-chip is-male">♂</span>`;
-    if (key === "Female") return `<span class="type-chip gender-chip is-female">♀</span>`;
-    if (key === "Genderless") return `<span class="type-chip gender-chip is-none">—</span>`;
-    return "";
-  }
-
   function monName(mon) {
     if (!mon) return "Pokémon";
     const shiny = String(mon.variant || "").includes("shiny") ? "Shiny " : "";
@@ -147,7 +139,7 @@
             ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
           </div>
           <strong>${window.playEscapeAttr(monName(mon))}</strong>
-          <span class="gts-meta">Lv. ${mon.level || 1} ${genderChip(mon.gender)}</span>
+          <span class="gts-meta">Lv. ${mon.level || 1}</span>
         </div>
         <span class="gts-arrow" aria-hidden="true">⇄</span>
         <div class="gts-slot is-want">
@@ -470,7 +462,7 @@
                 ${offeredShiny ? `<span class="lgpe-spark">✦</span>` : ""}
               </div>
               <strong>${window.playEscapeAttr(monName(mon))}</strong>
-              <span class="gts-meta">Lv. ${mon.level || 1} ${genderChip(mon.gender)}</span>
+              <span class="gts-meta">Lv. ${mon.level || 1}</span>
             </div>
             <span class="gts-arrow" aria-hidden="true">⇄</span>
             <div class="gts-slot is-want">

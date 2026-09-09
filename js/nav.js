@@ -63,8 +63,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
   function renderLinks(isAdmin) {
     if (!els.links) return;
     const items = links.slice();
-    if (isAdmin) items.push({ href: "./admin.html", id: "admin", label: "Admin Hub" });
     items.push({ href: "./store.html", id: "store", label: "Store" });
+    if (isAdmin) items.push({ href: "./admin.html", id: "admin", label: "Admin Hub" });
     els.links.innerHTML = items.map((item, index) => {
       const current = item.id === page ? " aria-current=\"page\"" : "";
       const extra = item.id === "store" ? " topnav-link-store" : "";

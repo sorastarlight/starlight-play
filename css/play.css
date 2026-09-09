@@ -1814,16 +1814,31 @@ footer { margin-top: 24px; font-size: 13px; }
 .lgpe-box,
 .lgpe-detail.card {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   background-color: #ffe56a;
-  background-image:
-    linear-gradient(rgba(255, 250, 230, .55), rgba(255, 246, 214, .6)),
-    url("../images/lgpe-box-bg.svg");
-  background-size: cover;
-  background-position: center;
+  background-image: none;
   border: 3px solid rgba(240, 196, 100, .88);
   border-radius: 36px;
   box-shadow: 0 14px 0 rgba(232, 180, 80, .32), 0 24px 40px rgba(80, 60, 20, .16);
+}
+.lgpe-box::before,
+.lgpe-detail.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../images/lgpe-box-bg.svg?v=pc5");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .92;
+}
+.lgpe-box > *,
+.lgpe-detail.card > * {
+  position: relative;
+  z-index: 1;
 }
 .lgpe-box {
   padding: 16px 16px 12px;

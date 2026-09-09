@@ -10,7 +10,7 @@
   <circle cx="120" cy="870" r="130" fill="#7ec8ff" opacity=".22"/>
   <circle cx="880" cy="850" r="140" fill="#ff8a8a" opacity=".2"/>
 
-  <g transform="translate(500,500)">
+  <g transform="translate(500,500)" opacity=".3">
     <g clip-path="url(#hero)">
       <rect x="-220" y="-220" width="440" height="220" fill="#ffb000"/>
       <rect x="-220" y="0" width="440" height="220" fill="#fffdf6"/>

@@ -5,28 +5,66 @@
     app: document.getElementById("trade-app"),
     q: document.getElementById("trade-q"),
     want: document.getElementById("trade-want"),
-    login: document.getElementById("trade-login"),
+    filter: document.getElementById("trade-filter"),
     board: document.getElementById("trade-board"),
+    myBoard: document.getElementById("my-board"),
+    myTrades: document.getElementById("my-trades"),
     status: document.getElementById("trade-status"),
-    listPanel: document.getElementById("list-panel"),
-    listMon: document.getElementById("list-mon"),
+    count: document.getElementById("trade-count"),
+    ticker: document.getElementById("gts-ticker"),
+    listOpen: document.getElementById("list-open"),
+    listModal: document.getElementById("list-modal"),
+    listTitle: document.getElementById("list-title"),
+    listStepNote: document.getElementById("list-step-note"),
+    listStepPc: document.getElementById("list-step-pc"),
+    listStepWant: document.getElementById("list-step-want"),
+    listPcSearch: document.getElementById("list-pc-search"),
+    listPcGrid: document.getElementById("list-pc-grid"),
+    listPicked: document.getElementById("list-picked"),
     listWant: document.getElementById("list-want"),
+    listAccept: document.getElementById("list-accept"),
     listNote: document.getElementById("list-note"),
-    detail: document.getElementById("listing-detail")
+    listBack: document.getElementById("list-back"),
+    listNext: document.getElementById("list-next"),
+    listStatus: document.getElementById("list-status"),
+    detailModal: document.getElementById("detail-modal"),
+    detailTitle: document.getElementById("detail-title"),
+    detail: document.getElementById("listing-detail"),
+    species: document.getElementById("gts-species")
   };
-  let storage = null;
+
+  let session = null;
+  let storage = { mons: [] };
+  let listings = [];
   let listingMon = null;
+  let listStep = 1;
+  let offerPick = null;
+  let gtsChannel = null;
+  let pollTimer = 0;
+  let filterTimer = 0;
 
   window.playBindAccountNav({
     onSignOut() {
-      els.app.hidden = true;
-      els.gate.hidden = false;
+      session = null;
+      storage = { mons: [] };
+      listingMon = null;
+      if (els.gate) els.gate.hidden = false;
+      if (els.myTrades) els.myTrades.hidden = true;
+      renderBoard();
     }
   });
 
   function wantDex(value) {
     const matches = window.playParseSpeciesQuery(value);
     return matches[0]?.dex || null;
+  }
+
+  function genderChip(gender) {
+    const key = String(gender || "");
+    if (key === "Male") return `<span class="type-chip gender-chip is-male">♂</span>`;
+    if (key === "Female") return `<span class="type-chip gender-chip is-female">♀</span>`;
+    if (key === "Genderless") return `<span class="type-chip gender-chip is-none">—</span>`;
+    return "";
   }
 
   function monName(mon) {
@@ -41,42 +79,276 @@
     return trainer?.avatar || "";
   }
 
-  function card(listing) {
+  function wantArt(dex) {
+    return dex ? window.playSpriteUrl(dex) : "images/items/poke-ball.png";
+  }
+
+  function timeAgo(iso) {
+    const ms = Date.now() - new Date(iso).getTime();
+    if (!Number.isFinite(ms) || ms < 0) return "just now";
+    const m = Math.floor(ms / 60000);
+    if (m < 1) return "just now";
+    if (m < 60) return `${m}m ago`;
+    const h = Math.floor(m / 60);
+    if (h < 24) return `${h}h ago`;
+    return `${Math.floor(h / 24)}d ago`;
+  }
+
+  function wantCopy(listing) {
+    if (!listing.wantDex) return "Open to any offer";
+    const name = window.playSpeciesName(listing.wantDex);
+    return listing.acceptAny === false ? `Looking for ${name}` : `Looking for ${name}, or other offers`;
+  }
+
+  function fillSpeciesList() {
+    if (!els.species) return;
+    const names = window.PLAY_SPECIES || [];
+    els.species.innerHTML = names.map((name, index) =>
+      `<option value="${window.playEscapeAttr(name)}">No. ${String(index + 1).padStart(3, "0")}</option>`
+    ).join("");
+  }
+
+  function availableMons() {
+    return (storage?.mons || []).filter((row) => !row.listed);
+  }
+
+  function card(listing, index) {
     const mon = listing.mon || {};
-    const want = listing.wantDex ? window.playSpeciesName(listing.wantDex) : "Open to offers";
     const trainer = listing.trainer || {};
     const shiny = String(mon.variant || "").includes("shiny");
-    return `<article class="trade-pad" data-listing="${listing.id}">
-      <div class="trade-pad-trainer">
-        <img src="${trainerSprite(trainer)}" alt="">
-        <strong>${window.playEscapeAttr(trainer.displayName || "Trainer")}</strong>
-        ${listing.mine ? `<span class="trade-mine">Your listing</span>` : ""}
+    const delay = ((index % 8) * 0.18).toFixed(2);
+    const offers = Number(listing.offers) || 0;
+    return `<article class="gts-card${listing.mine ? " is-mine" : ""}${shiny ? " is-shiny" : ""}" data-listing="${listing.id}" role="button" tabindex="0" style="--gts-delay:${delay}s">
+      <header class="gts-card-trainer">
+        <img src="${window.playEscapeAttr(trainerSprite(trainer))}" alt="">
+        <div>
+          <strong>${window.playEscapeAttr(trainer.displayName || "Trainer")}</strong>
+          <span>${timeAgo(listing.createdAt)}${listing.mine ? " · Your deposit" : ""}</span>
+        </div>
+      </header>
+      <div class="gts-swap">
+        <div class="gts-slot">
+          <div class="gts-sprite">
+            <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+            ${shiny ? `<span class="lgpe-spark">✦</span>` : ""}
+            ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
+          </div>
+          <strong>${window.playEscapeAttr(monName(mon))}</strong>
+          <span class="gts-meta">Lv. ${mon.level || 1} ${genderChip(mon.gender)}</span>
+        </div>
+        <span class="gts-arrow" aria-hidden="true">⇄</span>
+        <div class="gts-slot is-want">
+          <div class="gts-sprite">
+            <img src="${window.playEscapeAttr(wantArt(listing.wantDex))}" alt="">
+          </div>
+          <strong>${listing.wantDex ? window.playEscapeAttr(window.playSpeciesName(listing.wantDex)) : "Any Pokémon"}</strong>
+          <span class="gts-meta">${listing.acceptAny === false ? "That species only" : "Takes offers"}</span>
+        </div>
       </div>
-      <div class="trade-pad-mon">
-        <img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
-        ${shiny ? `<span class="lgpe-spark">✦</span>` : ""}
-        ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
-        <strong>${window.playEscapeAttr(monName(mon))}</strong>
-        <span>Lv. ${mon.level || 1}</span>
-      </div>
-      <p class="trade-pad-want">Wants ${window.playEscapeAttr(want)}</p>
+      <p class="gts-want">${window.playEscapeAttr(wantCopy(listing))}</p>
+      ${listing.note ? `<p class="gts-note">“${window.playEscapeAttr(listing.note)}”</p>` : ""}
+      <footer class="gts-card-foot">
+        <span>${offers} offer${offers === 1 ? "" : "s"}</span>
+        <span>View trade</span>
+      </footer>
     </article>`;
   }
 
-  async function loadBoard() {
-    els.status.textContent = "Searching…";
+  function filteredListings() {
+    const q = String(els.q?.value || "").trim().toLowerCase();
+    const want = wantDex(els.want?.value);
+    const mode = els.filter?.value || "all";
+    return listings.filter((listing) => {
+      const mon = listing.mon || {};
+      const trainer = listing.trainer || {};
+      const shiny = String(mon.variant || "").includes("shiny");
+      const hay = [
+        mon.name,
+        mon.nickname,
+        trainer.displayName,
+        trainer.login
+      ].join(" ").toLowerCase();
+      if (q && !hay.includes(q)) return false;
+      if (want && listing.wantDex !== want) return false;
+      if (mode === "seeking" && !listing.wantDex) return false;
+      if (mode === "open" && listing.acceptAny === false) return false;
+      if (mode === "shiny" && !shiny) return false;
+      if (mode === "mine" && !listing.mine) return false;
+      return true;
+    });
+  }
+
+  function renderTicker() {
+    if (!els.ticker) return;
+    const recent = listings.slice(0, 8);
+    if (!recent.length) {
+      els.ticker.hidden = true;
+      els.ticker.innerHTML = "";
+      return;
+    }
+    const bits = recent.map((listing) => {
+      const mon = listing.mon || {};
+      const trainer = listing.trainer?.displayName || "A trainer";
+      const want = listing.wantDex ? window.playSpeciesName(listing.wantDex) : "any Pokémon";
+      return `<span>${window.playEscapeAttr(trainer)} deposited ${window.playEscapeAttr(monName(mon))} · seeking ${window.playEscapeAttr(want)}</span>`;
+    });
+    els.ticker.hidden = false;
+    els.ticker.innerHTML = `<div class="gts-ticker-track">${bits.join("")}${bits.join("")}</div>`;
+  }
+
+  function renderBoard() {
+    const rows = filteredListings();
+    const mine = listings.filter((row) => row.mine);
+    if (els.count) {
+      els.count.textContent = listings.length
+        ? `${listings.length} open trade${listings.length === 1 ? "" : "s"} on the GTS`
+        : "The GTS is quiet. Be the first to list a Pokémon.";
+    }
+    if (els.board) {
+      els.board.innerHTML = rows.length
+        ? rows.map(card).join("")
+        : `<p class="gts-empty">No open trades match that. Try a different search, or list one of yours.</p>`;
+    }
+    if (els.myTrades) els.myTrades.hidden = !session || !mine.length;
+    if (els.myBoard && session) {
+      els.myBoard.innerHTML = mine.map((row, index) => card(row, index)).join("");
+    }
+    renderTicker();
+  }
+
+  async function loadBoard(options) {
+    const quiet = Boolean(options?.quiet);
+    if (!quiet && els.status) els.status.textContent = "Scanning the GTS…";
     try {
       const data = await window.playCall("play_trade_board", {
-        p_query: els.q.value.trim(),
-        p_dex: wantDex(els.want.value),
-        p_login: els.login.value.trim() || null
+        p_query: "",
+        p_dex: null,
+        p_login: null
       });
-      const rows = data.listings || [];
-      els.board.innerHTML = rows.length ? rows.map(card).join("") : `<p class="muted">Nothing on the board matches that.</p>`;
-      els.status.textContent = `${rows.length} listing${rows.length === 1 ? "" : "s"}`;
+      listings = data.listings || [];
+      renderBoard();
+      if (els.status) els.status.textContent = "";
     } catch (error) {
-      els.status.textContent = window.playRpcError(error);
+      if (els.status) els.status.textContent = window.playRpcError(error);
     }
+  }
+
+  function pcTile(mon, selectedId) {
+    const shiny = String(mon.variant || "").includes("shiny");
+    const selected = String(mon.id) === String(selectedId);
+    return `<button class="gts-pc-tile${selected ? " is-selected" : ""}" type="button" role="option" aria-selected="${selected ? "true" : "false"}" data-catch="${mon.id}">
+      <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+      ${shiny ? `<span class="lgpe-spark">✦</span>` : ""}
+      ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
+      <strong>${window.playEscapeAttr(monName(mon))}</strong>
+      <span>Lv. ${mon.level || 1} ${genderChip(mon.gender)}</span>
+    </button>`;
+  }
+
+  function renderListPc() {
+    const q = String(els.listPcSearch?.value || "").trim().toLowerCase();
+    const rows = availableMons().filter((mon) => {
+      if (!q) return true;
+      const hay = [mon.name, mon.nickname, mon.gender, shinyLabel(mon)].join(" ").toLowerCase();
+      return hay.includes(q);
+    });
+    if (!els.listPcGrid) return;
+    if (!rows.length) {
+      els.listPcGrid.innerHTML = `<p class="muted">No Pokémon in your PC match that. Catch more on Play, or take one down from the GTS first.</p>`;
+      return;
+    }
+    els.listPcGrid.innerHTML = rows.map((mon) => pcTile(mon, listingMon?.id)).join("");
+  }
+
+  function shinyLabel(mon) {
+    return String(mon?.variant || "").includes("shiny") ? "shiny" : "";
+  }
+
+  function pickedHtml(mon) {
+    if (!mon) return "";
+    return `<div class="gts-picked-card">
+      <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+      <div>
+        <strong>${window.playEscapeAttr(monName(mon))}</strong>
+        <p>Lv. ${mon.level || 1} ${genderChip(mon.gender)}</p>
+      </div>
+    </div>`;
+  }
+
+  function setListStep(step) {
+    listStep = step;
+    const onPc = step === 1;
+    if (els.listStepPc) els.listStepPc.hidden = !onPc;
+    if (els.listStepWant) els.listStepWant.hidden = onPc;
+    if (els.listBack) els.listBack.hidden = onPc;
+    if (els.listTitle) els.listTitle.textContent = onPc ? "List a Pokémon for trade" : "What are you looking for?";
+    if (els.listStepNote) {
+      els.listStepNote.textContent = onPc
+        ? "Choose a Pokémon from your PC, then tap Trade."
+        : "Ask for a species, take other offers, and add a comment if you want.";
+    }
+    if (els.listNext) els.listNext.textContent = onPc ? "Trade" : "List on the GTS";
+    if (els.listPicked) els.listPicked.innerHTML = pickedHtml(listingMon);
+    if (els.listStatus) els.listStatus.textContent = "";
+  }
+
+  async function openListWizard(preselectId) {
+    if (!session) {
+      if (els.gate) els.gate.hidden = false;
+      els.gate?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    try { storage = await window.playCall("play_storage"); } catch (_) { storage = { mons: [] }; }
+    listingMon = preselectId
+      ? availableMons().find((row) => String(row.id) === String(preselectId)) || null
+      : null;
+    if (els.listWant) els.listWant.value = "";
+    if (els.listNote) els.listNote.value = "";
+    if (els.listAccept) els.listAccept.checked = true;
+    if (els.listPcSearch) els.listPcSearch.value = "";
+    renderListPc();
+    setListStep(listingMon ? 2 : 1);
+    els.listModal?.showModal();
+  }
+
+  async function submitListing() {
+    if (!listingMon) {
+      if (els.listStatus) els.listStatus.textContent = "Pick a Pokémon first.";
+      return;
+    }
+    const dex = wantDex(els.listWant?.value);
+    const acceptAny = Boolean(els.listAccept?.checked);
+    if (!dex && !acceptAny) {
+      if (els.listStatus) els.listStatus.textContent = "Choose a Pokémon you want, or take other offers.";
+      return;
+    }
+    if (els.listWant?.value.trim() && !dex) {
+      if (els.listStatus) els.listStatus.textContent = "Type a Kanto Pokédex name for what you want.";
+      return;
+    }
+    if (els.listStatus) els.listStatus.textContent = "Listing…";
+    try {
+      const result = await window.playCall("play_trade_create", {
+        p_catch_id: listingMon.id,
+        p_want_dex: dex,
+        p_note: els.listNote?.value || "",
+        p_accept_any: dex ? acceptAny : true
+      });
+      if (els.listStatus) els.listStatus.textContent = result.message || "Listed.";
+      els.listModal?.close();
+      history.replaceState(null, "", "./trade.html");
+      await loadBoard();
+    } catch (error) {
+      if (els.listStatus) els.listStatus.textContent = window.playRpcError(error);
+    }
+  }
+
+  function offerPool(listing) {
+    const rows = availableMons();
+    if (listing?.wantDex && listing.acceptAny === false) {
+      return rows.filter((row) => Number(row.dex) === Number(listing.wantDex));
+    }
+    return rows;
   }
 
   async function openListing(id) {
@@ -86,60 +358,109 @@
       const mon = listing.mon || {};
       const offers = listing.offerRows || [];
       const mine = listing.mine;
-      els.detail.hidden = false;
-      els.detail.innerHTML = `
-        <div class="trade-detail-hero">
-          <img class="trade-detail-trainer" src="${trainerSprite(listing.trainer)}" alt="">
-          <div>
-            <h2>${window.playEscapeAttr(monName(mon))}</h2>
-            <p class="muted">${window.playEscapeAttr(listing.trainer?.displayName || "Trainer")} · ${listing.wantDex ? `wants ${window.playSpeciesName(listing.wantDex)}` : "open to offers"}</p>
+      offerPick = null;
+      if (els.detailTitle) els.detailTitle.textContent = mine ? "Your GTS deposit" : "Trade details";
+      const hero = `
+        <div class="gts-detail-hero">
+          <div class="gts-card-trainer">
+            <img src="${window.playEscapeAttr(trainerSprite(listing.trainer))}" alt="">
+            <div>
+              <strong>${window.playEscapeAttr(listing.trainer?.displayName || "Trainer")}</strong>
+              <span>Deposited ${timeAgo(listing.createdAt)}</span>
+            </div>
           </div>
-          <img class="trade-detail-mon" src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
-        </div>
-        ${listing.note ? `<p>${listing.note}</p>` : ""}
-        ${mine ? `<div class="links"><button id="cancel-listing" class="secondary" type="button">Take down</button></div>
+          <div class="gts-swap">
+            <div class="gts-slot">
+              <div class="gts-sprite">
+                <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+              </div>
+              <strong>${window.playEscapeAttr(monName(mon))}</strong>
+              <span class="gts-meta">Lv. ${mon.level || 1} ${genderChip(mon.gender)}</span>
+            </div>
+            <span class="gts-arrow" aria-hidden="true">⇄</span>
+            <div class="gts-slot is-want">
+              <div class="gts-sprite">
+                <img src="${window.playEscapeAttr(wantArt(listing.wantDex))}" alt="">
+              </div>
+              <strong>${listing.wantDex ? window.playEscapeAttr(window.playSpeciesName(listing.wantDex)) : "Any Pokémon"}</strong>
+              <span class="gts-meta">${listing.acceptAny === false ? "That species only" : "Takes offers"}</span>
+            </div>
+          </div>
+          ${listing.note ? `<p class="gts-note">“${window.playEscapeAttr(listing.note)}”</p>` : ""}
+        </div>`;
+      if (mine) {
+        els.detail.innerHTML = `${hero}
+          <div class="links"><button id="cancel-listing" class="secondary" type="button">Take down</button></div>
           <h3>Offers</h3>
-          <div id="offer-list">${offers.length ? offers.map((row) => `
-            <article class="caught-card">
-              <img src="${window.playSpriteUrl(row.mon.dex, row.mon.variant)}" alt="">
-              <strong>${monName(row.mon)}</strong>
-              <span>${row.trainer?.displayName || "Trainer"}</span>
+          <div id="offer-list" class="gts-offer-list">${offers.length ? offers.map((row) => `
+            <article class="gts-offer">
+              <img src="${window.playEscapeAttr(window.playSpriteUrl(row.mon.dex, row.mon.variant))}" alt="">
+              <div>
+                <strong>${window.playEscapeAttr(monName(row.mon))}</strong>
+                <span>Lv. ${row.mon.level || 1} · ${window.playEscapeAttr(row.trainer?.displayName || "Trainer")}</span>
+              </div>
               <div class="links">
                 <button type="button" data-accept="${row.id}">Accept</button>
                 <button type="button" class="secondary" data-decline="${row.id}">Decline</button>
               </div>
-            </article>`).join("") : "<p class=\"muted\">No offers yet.</p>"}</div>`
-          : `<label class="field" for="offer-pick">Offer one of yours
-              <select id="offer-pick">${(storage?.mons || []).filter((row) => !row.listed && !row.onTeam).map((row) =>
-                `<option value="${row.id}">${monName(row)} · ${row.publicId || ""}</option>`).join("")}</select>
-            </label>
-            <div class="links"><button id="send-offer" type="button">Send offer</button></div>`}`;
+            </article>`).join("") : "<p class=\"muted\">No offers yet. Leave this deposit up and wait for a trainer.</p>"}</div>`;
+      } else if (!session) {
+        els.detail.innerHTML = `${hero}<p class="notice">Sign in with Twitch to send an offer.</p>`;
+      } else {
+        const pool = offerPool(listing);
+        const hint = listing.wantDex && listing.acceptAny === false
+          ? `This trainer only wants ${window.playSpeciesName(listing.wantDex)}.`
+          : listing.wantDex
+            ? `They asked for ${window.playSpeciesName(listing.wantDex)}, but other offers are OK.`
+            : "This trainer will look at any offer.";
+        els.detail.innerHTML = `${hero}
+          <p class="muted">${window.playEscapeAttr(hint)}</p>
+          <h3>Offer one of yours</h3>
+          <div id="offer-pc" class="gts-pc-grid">${pool.length
+            ? pool.map((row) => pcTile(row, null)).join("")
+            : "<p class=\"muted\">You do not have a matching Pokémon to offer.</p>"}</div>
+          <div class="links"><button id="send-offer" type="button" disabled>Send offer</button></div>
+          <p id="offer-status" class="muted" role="status"></p>`;
+      }
+      els.detailModal?.showModal();
+
       document.getElementById("cancel-listing")?.addEventListener("click", async () => {
         await window.playCall("play_trade_cancel", { p_listing_id: listing.id });
-        els.detail.hidden = true;
+        els.detailModal?.close();
         loadBoard();
       });
+      document.getElementById("offer-pc")?.addEventListener("click", (event) => {
+        const tile = event.target.closest("[data-catch]");
+        if (!tile) return;
+        offerPick = tile.dataset.catch;
+        document.getElementById("offer-pc")?.querySelectorAll(".gts-pc-tile").forEach((el) => {
+          el.classList.toggle("is-selected", el.dataset.catch === offerPick);
+        });
+        const send = document.getElementById("send-offer");
+        if (send) send.disabled = !offerPick;
+      });
       document.getElementById("send-offer")?.addEventListener("click", async () => {
-        const catchId = document.getElementById("offer-pick")?.value;
-        if (!catchId) return;
-        els.status.textContent = "Sending…";
+        if (!offerPick) return;
+        const status = document.getElementById("offer-status");
+        if (status) status.textContent = "Sending…";
         try {
-          const result = await window.playCall("play_trade_offer", { p_listing_id: listing.id, p_catch_id: catchId });
-          els.status.textContent = result.message || "Offer sent.";
+          const result = await window.playCall("play_trade_offer", { p_listing_id: listing.id, p_catch_id: offerPick });
+          if (status) status.textContent = result.message || "Offer sent.";
+          els.detailModal?.close();
           loadBoard();
         } catch (error) {
-          els.status.textContent = window.playRpcError(error);
+          if (status) status.textContent = window.playRpcError(error);
         }
       });
       els.detail.querySelectorAll("[data-accept]").forEach((button) => {
         button.addEventListener("click", async () => {
           try {
             const result = await window.playCall("play_trade_accept", { p_offer_id: button.dataset.accept });
-            els.status.textContent = result.message || "Trade complete.";
-            els.detail.hidden = true;
+            if (els.status) els.status.textContent = result.message || "Trade complete.";
+            els.detailModal?.close();
             loadBoard();
           } catch (error) {
-            els.status.textContent = window.playRpcError(error);
+            if (els.status) els.status.textContent = window.playRpcError(error);
           }
         });
       });
@@ -150,59 +471,101 @@
         });
       });
     } catch (error) {
-      els.status.textContent = window.playRpcError(error);
+      if (els.status) els.status.textContent = window.playRpcError(error);
     }
   }
 
+  function bindLive() {
+    if (gtsChannel) supabase.removeChannel(gtsChannel);
+    gtsChannel = supabase.channel("play-gts")
+      .on("postgres_changes", { event: "*", schema: "public", table: "trade_listings" }, () => loadBoard({ quiet: true }))
+      .on("postgres_changes", { event: "*", schema: "public", table: "trade_offers" }, () => loadBoard({ quiet: true }))
+      .subscribe();
+    clearInterval(pollTimer);
+    pollTimer = setInterval(() => {
+      if (document.visibilityState !== "visible") return;
+      loadBoard({ quiet: true });
+    }, 15000);
+  }
+
   async function load() {
+    fillSpeciesList();
     const { data: sessionData } = await supabase.auth.getSession();
-    const session = sessionData.session;
+    session = sessionData.session;
     if (!session) {
-      els.app.hidden = true;
-      els.gate.hidden = false;
       window.playSetAccountNav(null);
+      if (els.gate) els.gate.hidden = false;
+      if (els.myTrades) els.myTrades.hidden = true;
+      storage = { mons: [] };
+      await loadBoard();
+      bindLive();
       return;
     }
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     let snapshot = null;
     try { snapshot = await window.playCall("play_state"); } catch (_) {}
     window.playSetAccountNav(session, profile, { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer });
-    els.gate.hidden = true;
-    els.app.hidden = false;
+    if (els.gate) els.gate.hidden = true;
     try { storage = await window.playCall("play_storage"); } catch (_) { storage = { mons: [] }; }
-    const listId = new URLSearchParams(location.search).get("list");
-    if (listId) {
-      listingMon = (storage.mons || []).find((row) => String(row.id) === listId);
-      if (listingMon) {
-        els.listPanel.hidden = false;
-        els.listMon.innerHTML = `<p><strong>${monName(listingMon)}</strong> · ${listingMon.publicId || ""} · Lv. ${listingMon.level || 1}</p>`;
-      }
-    }
     await loadBoard();
+    bindLive();
+    const listId = new URLSearchParams(location.search).get("list");
+    if (listId) openListWizard(listId);
   }
 
-  document.getElementById("trade-search").addEventListener("click", loadBoard);
-  els.board.addEventListener("click", (event) => {
+  els.listModal?.querySelector("form")?.addEventListener("submit", (event) => {
+    if (event.submitter?.value === "cancel") return;
+    event.preventDefault();
+  });
+  els.detailModal?.querySelector("form")?.addEventListener("submit", (event) => {
+    if (event.submitter?.value === "cancel") return;
+    event.preventDefault();
+  });
+  els.listOpen?.addEventListener("click", () => openListWizard());
+  els.listPcGrid?.addEventListener("click", (event) => {
+    const tile = event.target.closest("[data-catch]");
+    if (!tile) return;
+    listingMon = availableMons().find((row) => String(row.id) === tile.dataset.catch) || null;
+    renderListPc();
+  });
+  els.listPcSearch?.addEventListener("input", renderListPc);
+  els.listBack?.addEventListener("click", () => setListStep(1));
+  els.listNext?.addEventListener("click", () => {
+    if (listStep === 1) {
+      if (!listingMon) {
+        if (els.listStatus) els.listStatus.textContent = "Select a Pokémon, then tap Trade.";
+        return;
+      }
+      setListStep(2);
+      return;
+    }
+    submitListing();
+  });
+  els.listWant?.addEventListener("input", () => {
+    if (!els.listWant.value.trim() && els.listAccept) els.listAccept.checked = true;
+  });
+  ["trade-q", "trade-want"].forEach((id) => {
+    document.getElementById(id)?.addEventListener("input", () => {
+      clearTimeout(filterTimer);
+      filterTimer = setTimeout(renderBoard, 120);
+    });
+  });
+  els.filter?.addEventListener("change", renderBoard);
+  function listingFromEvent(event) {
     const cardEl = event.target.closest("[data-listing]");
     if (cardEl) openListing(cardEl.dataset.listing);
-  });
-  document.getElementById("list-submit")?.addEventListener("click", async () => {
-    if (!listingMon) return;
-    els.status.textContent = "Listing…";
-    try {
-      const result = await window.playCall("play_trade_create", {
-        p_catch_id: listingMon.id,
-        p_want_dex: wantDex(els.listWant.value),
-        p_note: els.listNote.value
-      });
-      els.status.textContent = result.message || "Listed.";
-      els.listPanel.hidden = true;
-      history.replaceState(null, "", "./trade.html");
-      loadBoard();
-    } catch (error) {
-      els.status.textContent = window.playRpcError(error);
-    }
-  });
+  }
+  function listingKey(event) {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const cardEl = event.target.closest("[data-listing]");
+    if (!cardEl) return;
+    event.preventDefault();
+    openListing(cardEl.dataset.listing);
+  }
+  els.board?.addEventListener("click", listingFromEvent);
+  els.board?.addEventListener("keydown", listingKey);
+  els.myBoard?.addEventListener("click", listingFromEvent);
+  els.myBoard?.addEventListener("keydown", listingKey);
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });
   load();
 })();

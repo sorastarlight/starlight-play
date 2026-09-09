@@ -170,7 +170,7 @@
 
   window.playTrainerSpriteUrl = function playTrainerSpriteUrl(id) {
     const key = window.playTrainerSpriteOk(id) ? window.playTrainerSpriteKey(id) : "red-gen1";
-    return `images/trainers/${key}.png?v=card6`;
+    return `images/trainers/${key}.png?v=sonic1`;
   };
 
   window.PLAY_CARD_BGS = [

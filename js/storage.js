@@ -22,6 +22,7 @@
   const BOX_SLOTS = 30;
   let saveTimer = 0;
   let pendingOakId = "";
+  let renamingBox = -1;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -120,7 +121,7 @@
   }
 
   function renderTabs() {
-    if (!els.tabs) return;
+    if (!els.tabs || renamingBox >= 0) return;
     const boxes = normalizeBoxes();
     els.tabs.innerHTML = boxes.map((box, i) => (
       `<button type="button" class="pc-tab${i === boxIndex ? " is-on" : ""}" data-box="${i}">${window.playEscapeAttr(box.name)}</button>`
@@ -345,7 +346,48 @@
     renderGrid();
   }
 
+  function startRename(index) {
+    const boxes = normalizeBoxes();
+    const box = boxes[index];
+    const tab = els.tabs?.querySelector(`[data-box="${index}"]`);
+    if (!box || !tab || tab.querySelector("input")) return;
+    renamingBox = index;
+    boxIndex = index;
+    const input = document.createElement("input");
+    input.type = "text";
+    input.maxLength = 12;
+    input.value = box.name;
+    input.setAttribute("aria-label", "Box name");
+    tab.replaceChildren(input);
+    input.focus();
+    input.select();
+    const finish = (save) => {
+      if (renamingBox < 0) return;
+      renamingBox = -1;
+      if (save) {
+        box.name = String(input.value).trim().slice(0, 12) || box.name;
+        data.layout = { boxes };
+        saveLayout();
+      }
+      renderGrid();
+    };
+    input.addEventListener("click", (event) => event.stopPropagation());
+    input.addEventListener("dblclick", (event) => event.stopPropagation());
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        finish(true);
+      }
+      if (event.key === "Escape") {
+        event.preventDefault();
+        finish(false);
+      }
+    });
+    input.addEventListener("blur", () => finish(true));
+  }
+
   els.tabs?.addEventListener("click", (event) => {
+    if (event.detail > 1 || event.target.closest("input")) return;
     if (event.target.closest("[data-add-box]")) {
       const boxes = normalizeBoxes();
       if (boxes.length >= 20) return;
@@ -358,21 +400,16 @@
     }
     const tab = event.target.closest("[data-box]");
     if (!tab) return;
-    boxIndex = Number(tab.dataset.box) || 0;
+    const next = Number(tab.dataset.box) || 0;
+    if (next === boxIndex) return;
+    boxIndex = next;
     renderGrid();
   });
   els.tabs?.addEventListener("dblclick", (event) => {
     const tab = event.target.closest("[data-box]");
-    if (!tab) return;
-    const boxes = normalizeBoxes();
-    const box = boxes[Number(tab.dataset.box)];
-    if (!box) return;
-    const next = window.prompt("Box name", box.name);
-    if (next == null) return;
-    box.name = String(next).trim().slice(0, 12) || box.name;
-    data.layout = { boxes };
-    saveLayout();
-    renderGrid();
+    if (!tab || event.target.closest("input")) return;
+    event.preventDefault();
+    startRename(Number(tab.dataset.box) || 0);
   });
   els.grid.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-id]");

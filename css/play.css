@@ -1827,11 +1827,11 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .lgpe-box {
   padding: 16px 16px 12px;
-  height: 620px;
-  min-height: 620px;
-  max-height: 620px;
+  min-height: 760px;
+  height: auto;
+  max-height: none;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto auto minmax(430px, 1fr) auto;
 }
 .lgpe-head {
   display: inline-block;
@@ -1852,11 +1852,10 @@ footer { margin-top: 24px; font-size: 13px; }
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 6px 4px;
-  max-height: calc(5 * 74px);
-  overflow: auto;
+  min-height: 430px;
+  max-height: none;
+  overflow: visible;
   padding: 4px 10px 8px 2px;
-  scrollbar-width: thin;
-  scrollbar-color: #fff #e8d7a4;
 }
 .pc-box-tabs {
   display: flex;
@@ -1880,6 +1879,22 @@ footer { margin-top: 24px; font-size: 13px; }
   background: #fff4c8;
   border-color: #c98a28;
   color: #3a3018;
+}
+.pc-tab-add {
+  min-width: 36px;
+  font-size: 18px;
+  line-height: 1;
+}
+.pc-tab input {
+  width: 7.5em;
+  margin: 0;
+  border: 0;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  font-weight: 800;
+  text-align: center;
+  padding: 0;
 }
 .pc-box-hint { margin: 0 0 8px; font-size: 12px; }
 .lgpe-grid::-webkit-scrollbar { width: 8px; }
@@ -2045,11 +2060,11 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
 .lgpe-detail.card.body,
 .lgpe-candy.card.body { padding: 16px 18px; }
 .lgpe-detail.card {
-  height: 620px;
-  min-height: 620px;
-  max-height: 620px;
+  min-height: 760px;
+  height: auto;
+  max-height: none;
   display: flex;
-  overflow: hidden;
+  overflow: visible;
 }
 .lgpe-detail-inner {
   display: grid;
@@ -2383,10 +2398,10 @@ body[data-page="admin"] .play-stage {
 }
 @media (max-width: 1040px) {
   .lgpe-shell { grid-template-columns: 1fr; }
-  .lgpe-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .lgpe-box, .lgpe-detail.card { height: auto; max-height: none; min-height: 480px; }
+  .lgpe-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); min-height: 0; }
+  .lgpe-box, .lgpe-detail.card { height: auto; max-height: none; min-height: 0; }
 }
 @media (max-width: 640px) {
-  .lgpe-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: calc(5 * 70px); }
+  .lgpe-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: none; }
   .lgpe-box { border-radius: 24px; }
 }

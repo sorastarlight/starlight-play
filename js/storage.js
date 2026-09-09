@@ -10,6 +10,7 @@
     candy: document.getElementById("candy-grid"),
     search: document.getElementById("box-search"),
     status: document.getElementById("box-status"),
+    tabs: document.getElementById("box-tabs"),
     oakModal: document.getElementById("oak-modal"),
     oakSprite: document.getElementById("oak-sprite"),
     oakCopy: document.getElementById("oak-copy")
@@ -17,6 +18,9 @@
   let data = null;
   let selectedId = "";
   let filtered = [];
+  let boxIndex = 0;
+  const BOX_SLOTS = 30;
+  let saveTimer = 0;
   let pendingOakId = "";
 
   window.playBindAccountNav({
@@ -44,6 +48,60 @@
     return index >= 0 ? index + 1 : 0;
   }
 
+  function monById(id) {
+    return (data?.mons || []).find((row) => String(row.id) === String(id)) || null;
+  }
+
+  function normalizeBoxes() {
+    const allMons = data?.mons || [];
+    const known = new Set(allMons.map((row) => String(row.id)));
+    let dirty = false;
+    let boxes = Array.isArray(data?.layout?.boxes) ? data.layout.boxes.map((box) => ({
+      name: String(box.name || "BOX").slice(0, 12) || "BOX",
+      slots: Array.from({ length: BOX_SLOTS }, (_, i) => {
+        const id = box.slots?.[i];
+        return id && known.has(String(id)) ? String(id) : null;
+      })
+    })) : [];
+    if (!boxes.length) {
+      boxes = [{ name: "BOX 1", slots: Array(BOX_SLOTS).fill(null) }];
+      dirty = true;
+    }
+    const placed = new Set(boxes.flatMap((box) => box.slots.filter(Boolean)));
+    allMons.forEach((mon) => {
+      const id = String(mon.id);
+      if (placed.has(id)) return;
+      let target = boxes.find((box) => box.slots.includes(null));
+      if (!target) {
+        boxes.push({ name: `BOX ${boxes.length + 1}`, slots: Array(BOX_SLOTS).fill(null) });
+        target = boxes[boxes.length - 1];
+      }
+      target.slots[target.slots.indexOf(null)] = id;
+      placed.add(id);
+      dirty = true;
+    });
+    if (boxIndex >= boxes.length) boxIndex = boxes.length - 1;
+    if (dirty) data._layoutDirty = true;
+    data.layout = { boxes };
+    return boxes;
+  }
+
+  function monsMatching() {
+    return (data?.mons || []).filter(matches);
+  }
+
+  function saveLayout() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(async () => {
+      try {
+        const next = await window.playCall("play_save_pc", { p_layout: data.layout });
+        if (next?.layout) data.layout = next.layout;
+      } catch (error) {
+        if (els.status) els.status.textContent = window.playRpcError(error);
+      }
+    }, 350);
+  }
+
   function matches(mon) {
     const q = (els.search?.value || "").trim().toLowerCase();
     if (!q) return true;
@@ -59,31 +117,57 @@
       return;
     }
     els.head.innerHTML = `${window.playEscapeAttr(displayName(mon))} <span>Lv. ${mon.level || 1}</span>`;
-    els.count.textContent = `${index + 1} of ${filtered.length}`;
+  }
+
+  function renderTabs() {
+    if (!els.tabs) return;
+    const boxes = normalizeBoxes();
+    els.tabs.innerHTML = boxes.map((box, i) => (
+      `<button type="button" class="pc-tab${i === boxIndex ? " is-on" : ""}" data-box="${i}">${window.playEscapeAttr(box.name)}</button>`
+    )).join("") + `<button type="button" class="pc-tab pc-tab-add" data-add-box="1">+</button>`;
   }
 
   function renderGrid() {
-    const mons = (data?.mons || []).filter(matches);
-    filtered = mons;
-    if (!mons.length) {
+    const boxes = normalizeBoxes();
+    const searching = Boolean((els.search?.value || "").trim());
+    const ids = searching ? monsMatching().map((row) => String(row.id)) : (boxes[boxIndex]?.slots || []);
+    const slots = searching ? ids : Array.from({ length: BOX_SLOTS }, (_, i) => ids[i] || null);
+    filtered = slots.map(monById).filter(Boolean);
+    if (!searching && !(data?.mons || []).length) {
       els.grid.innerHTML = `<p class="lgpe-empty">Catch Pokémon on Play to fill this box.</p>`;
+      els.count.textContent = "0 / 30";
       renderHead(null, 0);
+      renderDetail(null);
+      renderTabs();
       return;
     }
-    if (!mons.some((row) => String(row.id) === selectedId)) selectedId = String(mons[0].id);
-    els.grid.innerHTML = mons.map((mon) => {
-      const slot = teamSlot(mon);
+    if (selectedId && !slots.some((id) => String(id) === selectedId)) {
+      selectedId = String(filtered[0]?.id || "");
+    }
+    els.grid.innerHTML = slots.map((id, slot) => {
+      const mon = monById(id);
+      if (!mon) {
+        return `<div class="lgpe-mon is-empty" data-slot="${slot}"></div>`;
+      }
       const selected = String(mon.id) === selectedId;
-      return `<button type="button" class="lgpe-mon${selected ? " is-selected" : ""}" data-id="${mon.id}" role="option" aria-selected="${selected}">
-        ${slot ? `<span class="lgpe-party">${slot}</span>` : ""}
-        ${slot === 1 ? `<span class="lgpe-heart" aria-hidden="true">♥</span>` : ""}
+      return `<button type="button" class="lgpe-mon${selected ? " is-selected" : ""}" draggable="true" data-id="${mon.id}" data-slot="${slot}" role="option" aria-selected="${selected}">
+        ${teamSlot(mon) === 1 ? `<span class="lgpe-heart" aria-hidden="true">♥</span>` : ""}
         ${String(mon.variant || "").includes("shiny") ? `<span class="lgpe-spark">✦</span>` : ""}
+        ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
         <span class="lgpe-sprite"><img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt=""></span>
       </button>`;
     }).join("");
-    const index = mons.findIndex((row) => String(row.id) === selectedId);
-    renderHead(mons[index], index);
-    renderDetail(mons[index]);
+    const index = filtered.findIndex((row) => String(row.id) === selectedId);
+    renderHead(filtered[index] || filtered[0], Math.max(0, index));
+    renderDetail(filtered[index] || filtered[0] || null);
+    renderTabs();
+    els.count.textContent = searching
+      ? `${filtered.length} match${filtered.length === 1 ? "" : "es"}`
+      : `${filtered.length} / ${BOX_SLOTS}`;
+    if (data?._layoutDirty) {
+      data._layoutDirty = false;
+      saveLayout();
+    }
   }
 
   function statRows(mon) {
@@ -108,7 +192,6 @@
     }
     const shiny = String(mon.variant || "").includes("shiny");
     const types = window.playSpeciesTypes(mon.dex, mon.types);
-    const size = window.playSizeMeta(mon.size);
     const ballName = window.playItemLabel(mon.ball) || "Poké Ball";
     const metLevel = mon.metLevel || mon.level || 1;
     const metPlace = mon.metLocation || "the wild";
@@ -120,16 +203,12 @@
           <img class="lgpe-hero-sprite" src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
           <div>
             <h2>${window.playEscapeAttr(displayName(mon))}</h2>
-            <p class="lgpe-species">${window.playEscapeAttr(mon.name)} · Lv. ${mon.level || 1}</p>
+            <p class="lgpe-species">Lv. ${mon.level || 1}</p>
             <div class="type-row">
               ${window.playTypeChipHtml(types)}
               ${genderChip(mon.gender)}
               ${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}
-            </div>
-            <div class="lgpe-size">
-              <span>Size</span>
-              <strong>${size.label}</strong>
-              <span class="lgpe-size-pips" aria-hidden="true">${size.pips}</span>
+              ${mon.isAlpha ? `<span class="type-chip gender-chip is-alpha">Alpha</span>` : ""}
             </div>
           </div>
         </div>
@@ -250,11 +329,90 @@
     els.grid.querySelector(".is-selected")?.scrollIntoView({ block: "nearest" });
   }
 
+  function searching() {
+    return Boolean((els.search?.value || "").trim());
+  }
+
+  function swapSlots(fromBox, fromSlot, toBox, toSlot) {
+    const boxes = normalizeBoxes();
+    if (!boxes[fromBox] || !boxes[toBox]) return;
+    const a = boxes[fromBox].slots[fromSlot];
+    const b = boxes[toBox].slots[toSlot];
+    boxes[fromBox].slots[fromSlot] = b;
+    boxes[toBox].slots[toSlot] = a;
+    data.layout = { boxes };
+    saveLayout();
+    renderGrid();
+  }
+
+  els.tabs?.addEventListener("click", (event) => {
+    if (event.target.closest("[data-add-box]")) {
+      const boxes = normalizeBoxes();
+      if (boxes.length >= 20) return;
+      boxes.push({ name: `BOX ${boxes.length + 1}`, slots: Array(BOX_SLOTS).fill(null) });
+      boxIndex = boxes.length - 1;
+      data.layout = { boxes };
+      saveLayout();
+      renderGrid();
+      return;
+    }
+    const tab = event.target.closest("[data-box]");
+    if (!tab) return;
+    boxIndex = Number(tab.dataset.box) || 0;
+    renderGrid();
+  });
+  els.tabs?.addEventListener("dblclick", (event) => {
+    const tab = event.target.closest("[data-box]");
+    if (!tab) return;
+    const boxes = normalizeBoxes();
+    const box = boxes[Number(tab.dataset.box)];
+    if (!box) return;
+    const next = window.prompt("Box name", box.name);
+    if (next == null) return;
+    box.name = String(next).trim().slice(0, 12) || box.name;
+    data.layout = { boxes };
+    saveLayout();
+    renderGrid();
+  });
   els.grid.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-id]");
     if (!button) return;
     selectedId = button.dataset.id;
     renderGrid();
+  });
+  els.grid.addEventListener("dragstart", (event) => {
+    const button = event.target.closest("button[data-id]");
+    if (!button || searching()) {
+      event.preventDefault();
+      return;
+    }
+    event.dataTransfer.setData("text/plain", JSON.stringify({
+      id: button.dataset.id,
+      box: boxIndex,
+      slot: Number(button.dataset.slot)
+    }));
+    event.dataTransfer.effectAllowed = "move";
+    button.classList.add("is-dragging");
+  });
+  els.grid.addEventListener("dragend", (event) => {
+    event.target.closest(".lgpe-mon")?.classList.remove("is-dragging");
+  });
+  els.grid.addEventListener("dragover", (event) => {
+    if (searching()) return;
+    const slot = event.target.closest("[data-slot]");
+    if (!slot) return;
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  });
+  els.grid.addEventListener("drop", (event) => {
+    if (searching()) return;
+    const slot = event.target.closest("[data-slot]");
+    if (!slot) return;
+    event.preventDefault();
+    let payload = null;
+    try { payload = JSON.parse(event.dataTransfer.getData("text/plain") || ""); } catch (_) {}
+    if (!payload || payload.slot == null) return;
+    swapSlots(Number(payload.box), Number(payload.slot), boxIndex, Number(slot.dataset.slot));
   });
   els.grid.addEventListener("keydown", (event) => {
     const keys = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };

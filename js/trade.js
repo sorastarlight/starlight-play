@@ -35,14 +35,31 @@
     return mon.nickname || `${shiny}${mon.name}`;
   }
 
+  function trainerSprite(trainer) {
+    const id = trainer?.sprite;
+    if (typeof window.playTrainerSpriteUrl === "function") return window.playTrainerSpriteUrl(id);
+    return trainer?.avatar || "";
+  }
+
   function card(listing) {
     const mon = listing.mon || {};
     const want = listing.wantDex ? window.playSpeciesName(listing.wantDex) : "Open to offers";
-    return `<article class="caught-card" data-listing="${listing.id}">
-      <img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
-      <strong>${monName(mon)}</strong>
-      <span>${listing.trainer?.displayName || "Trainer"} · wants ${want}</span>
-      ${listing.mine ? "<span>Your listing</span>" : ""}
+    const trainer = listing.trainer || {};
+    const shiny = String(mon.variant || "").includes("shiny");
+    return `<article class="trade-pad" data-listing="${listing.id}">
+      <div class="trade-pad-trainer">
+        <img src="${trainerSprite(trainer)}" alt="">
+        <strong>${window.playEscapeAttr(trainer.displayName || "Trainer")}</strong>
+        ${listing.mine ? `<span class="trade-mine">Your listing</span>` : ""}
+      </div>
+      <div class="trade-pad-mon">
+        <img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
+        ${shiny ? `<span class="lgpe-spark">✦</span>` : ""}
+        ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
+        <strong>${window.playEscapeAttr(monName(mon))}</strong>
+        <span>Lv. ${mon.level || 1}</span>
+      </div>
+      <p class="trade-pad-want">Wants ${window.playEscapeAttr(want)}</p>
     </article>`;
   }
 
@@ -71,8 +88,14 @@
       const mine = listing.mine;
       els.detail.hidden = false;
       els.detail.innerHTML = `
-        <h2>${monName(mon)}</h2>
-        <p class="muted">${listing.trainer?.displayName || "Trainer"} · ${listing.wantDex ? `wants ${window.playSpeciesName(listing.wantDex)}` : "open to offers"}</p>
+        <div class="trade-detail-hero">
+          <img class="trade-detail-trainer" src="${trainerSprite(listing.trainer)}" alt="">
+          <div>
+            <h2>${window.playEscapeAttr(monName(mon))}</h2>
+            <p class="muted">${window.playEscapeAttr(listing.trainer?.displayName || "Trainer")} · ${listing.wantDex ? `wants ${window.playSpeciesName(listing.wantDex)}` : "open to offers"}</p>
+          </div>
+          <img class="trade-detail-mon" src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
+        </div>
         ${listing.note ? `<p>${listing.note}</p>` : ""}
         ${mine ? `<div class="links"><button id="cancel-listing" class="secondary" type="button">Take down</button></div>
           <h3>Offers</h3>

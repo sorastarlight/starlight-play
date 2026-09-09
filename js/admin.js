@@ -17,7 +17,8 @@
     settingsStatus: document.getElementById("settings-status"),
     dexPick: document.getElementById("dex-pick"),
     dexSuggest: document.getElementById("dex-suggest"),
-    variantRow: document.getElementById("variant-row"),
+    genderRow: document.getElementById("gender-row"),
+    shinyRow: document.getElementById("shiny-row"),
     formPreview: document.getElementById("form-preview"),
     formCopy: document.getElementById("form-copy"),
     packLogin: document.getElementById("pack-login"),
@@ -50,6 +51,8 @@
     maxChance: document.getElementById("max-chance")
   };
   let overview = null;
+  let pickGender = "";
+  let pickShiny = false;
 
   function setSignedOut() {
     els.staff.hidden = true;
@@ -86,7 +89,7 @@
       els.dexSuggest.hidden = true;
       els.dexSuggest.innerHTML = "";
     }
-    renderVariants(dex);
+    renderAppearance(dex);
   }
 
   let lastChannel = "";
@@ -348,34 +351,57 @@
   function mixPayload(dex) {
     const payload = {};
     if (dex) payload.dex = dex;
-    const variant = els.variantRow?.querySelector("button[aria-pressed='true']")?.dataset.variant;
-    if (variant && ["normal", "female", "shiny"].includes(variant)) payload.variant = variant;
+    const gender = selectedGender(dex);
+    const shiny = pickShiny;
+    if (gender) payload.gender = gender;
+    if (dex || shiny) payload.shiny = shiny;
+    const variant = window.playSpriteVariant(dex, gender, shiny);
+    if (dex || shiny) payload.variant = variant;
     return payload;
   }
 
-  function selectedVariant() {
-    return els.variantRow?.querySelector("button[aria-pressed='true']")?.dataset.variant || "normal";
+  function selectedGender(dex) {
+    const options = window.playGenderOptions(dex);
+    if (options.length === 1) return options[0];
+    if (pickGender && options.includes(pickGender)) return pickGender;
+    return dex ? (options[0] || "") : pickGender;
   }
 
-  function renderVariants(dex) {
-    if (!els.variantRow) return;
+  function renderAppearance(dex) {
+    const genderEl = els.genderRow;
+    const shinyEl = els.shinyRow;
+    if (!genderEl || !shinyEl) return;
+    const options = window.playGenderOptions(dex);
     if (!dex) {
-      els.variantRow.innerHTML = "";
-      if (els.formCopy) els.formCopy.textContent = "Pick a species to preview.";
+      genderEl.innerHTML = ["Male", "Female"].map((name) => (
+        `<button type="button" data-gender="${name}" aria-pressed="${pickGender === name}">${name}</button>`
+      )).join("");
+    } else if (options.length === 1) {
+      pickGender = options[0];
+      genderEl.innerHTML = `<span class="chip">${options[0]}</span>`;
+    } else {
+      if (!options.includes(pickGender)) pickGender = options[0];
+      genderEl.innerHTML = options.map((name) => (
+        `<button type="button" data-gender="${name}" aria-pressed="${pickGender === name}">${name}</button>`
+      )).join("");
+    }
+    shinyEl.innerHTML = `<button type="button" data-shiny="1" aria-pressed="${pickShiny}">Shiny</button>`;
+    const gender = selectedGender(dex);
+    const variant = window.playSpriteVariant(dex, gender, pickShiny);
+    if (!dex) {
+      if (els.formCopy) els.formCopy.textContent = pickShiny || pickGender
+        ? `${pickGender || "Any gender"}${pickShiny ? " · Shiny" : ""} · random species`
+        : "Pick a species to preview, or start a random encounter.";
       if (els.formPreview) els.formPreview.removeAttribute("src");
       return;
     }
-    const options = window.playAllowedVariants(dex);
-    const current = options.includes(selectedVariant()) ? selectedVariant() : options[0];
-    els.variantRow.innerHTML = options.map((name) => (
-      `<button type="button" data-variant="${name}" aria-pressed="${name === current}">${window.playVariantLabel(name)}</button>`
-    )).join("");
     if (els.formPreview) {
-      els.formPreview.src = window.playSpriteUrl(dex, current);
-      els.formPreview.alt = `${window.playSpeciesName(dex)} ${current}`;
+      els.formPreview.src = window.playSpriteUrl(dex, variant);
+      els.formPreview.alt = `${window.playSpeciesName(dex)} ${gender}${pickShiny ? " Shiny" : ""}`;
     }
     if (els.formCopy) {
-      els.formCopy.textContent = `${window.playSpeciesName(dex)} · ${window.playVariantLabel(current)}`;
+      const place = window.playHabitat(dex);
+      els.formCopy.textContent = `${window.playSpeciesName(dex)} · ${gender}${pickShiny ? " · Shiny" : ""} · ${place}`;
     }
   }
 
@@ -391,7 +417,11 @@
         els.commandStatus.textContent = message;
         return;
       }
-      if (action === "start") return run("admin_start_round", { p_dex: payload?.dex ?? null });
+      if (action === "start") return run("admin_start_round", {
+        p_dex: payload?.dex ?? null,
+        p_gender: payload?.gender ?? null,
+        p_shiny: payload?.shiny ?? null
+      });
       if (action === "cancel") return run("admin_cancel_round");
       if (action === "hide") return run("admin_hide_round", { p_hidden: true });
       if (action === "resume") return run("play_sync");
@@ -413,7 +443,7 @@
   els.dexPick.addEventListener("input", () => {
     renderSuggest();
     const matches = window.playParseSpeciesQuery(els.dexPick.value);
-    renderVariants(matches.length === 1 ? matches[0].dex : parseDex(els.dexPick.value));
+    renderAppearance(matches.length === 1 ? matches[0].dex : parseDex(els.dexPick.value));
   });
   els.dexSuggest?.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-dex]");
@@ -426,12 +456,19 @@
     const matches = window.playParseSpeciesQuery(els.dexPick.value);
     if (matches[0]) pickSpecies(matches[0].dex);
   });
-  els.variantRow?.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-variant]");
+  els.genderRow?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-gender]");
     if (!button) return;
-    els.variantRow.querySelectorAll("button").forEach((node) => node.setAttribute("aria-pressed", "false"));
-    button.setAttribute("aria-pressed", "true");
-    renderVariants(parseDex(els.dexPick.value));
+    pickGender = pickGender === button.dataset.gender && !parseDex(els.dexPick.value)
+      ? ""
+      : button.dataset.gender;
+    renderAppearance(parseDex(els.dexPick.value));
+  });
+  els.shinyRow?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-shiny]");
+    if (!button) return;
+    pickShiny = !pickShiny;
+    renderAppearance(parseDex(els.dexPick.value));
   });
   document.getElementById("cancel-round").addEventListener("click", () => queueMix("cancel"));
   document.getElementById("sync-clock").addEventListener("click", () => queueMix("resume"));

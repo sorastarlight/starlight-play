@@ -141,7 +141,7 @@
       { id: "nurse", name: "Nurse Joy" },
       { id: "officer-gen2", name: "Officer Jenny" }
     ] },
-    { key: "sonic", premium: true, label: "Sonic the Hedgehog Series", games: "Sonic Advance / Sonic Origins", looks: [
+    { key: "sonic", premium: true, label: "Sonic The Hedgehog Advance Trainer Sprite Pack", games: "Sonic Advance / Sonic Origins", looks: [
       { id: "sonic-sonic", name: "Sonic" },
       { id: "sonic-origins-sonic", name: "Sonic Origins" },
       { id: "sonic-tails", name: "Tails" },
@@ -152,7 +152,7 @@
       { id: "sonic-origins-amy", name: "Amy Origins" },
       { id: "sonic-cream", name: "Cream" }
     ] },
-    { key: "digimon", premium: true, label: "Digimon Adventure", games: "Digimon Adventure", looks: [
+    { key: "digimon", premium: true, label: "Digimon Adventure Trainer Sprite Pack", games: "Digimon Adventure", looks: [
       { id: "taichi", name: "Taichi" },
       { id: "yamato", name: "Yamato" },
       { id: "sora", name: "Sora" },
@@ -174,7 +174,7 @@
     {
       sku: "avatar-sonic",
       pack: "sonic",
-      name: "Sonic the Hedgehog Series",
+      name: "Sonic The Hedgehog Advance Trainer Sprite Pack",
       games: "Sonic Advance / Sonic Origins",
       cost: 200,
       blurb: "Unlock Sonic Advance and Sonic Origins looks for your Trainer ID.",
@@ -183,7 +183,7 @@
     {
       sku: "avatar-digimon",
       pack: "digimon",
-      name: "Digimon Adventure",
+      name: "Digimon Adventure Trainer Sprite Pack",
       games: "Digimon Adventure",
       cost: 250,
       blurb: "Unlock Taichi, Yamato, Sora, Hikari, Takeru, Joe, Mimi, and Koushiro for your Trainer ID.",

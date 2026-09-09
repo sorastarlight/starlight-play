@@ -96,6 +96,29 @@
     });
   };
 
+  window.playRenderPlayKit = function playRenderPlayKit(bag) {
+    if (!bag) {
+      return `<p class="muted">Sign in to see Berries, Honey, and Poké Radar.</p>`;
+    }
+    const items = [
+      ["berry", "Berry"],
+      ["bait", "Honey"],
+      ["lure", "Radar"]
+    ];
+    return `<ul class="bag-strip play-kit">${items.map(([key, label]) => (
+      `<li><img src="${window.playItemSprite(key)}" alt=""><span>${label}</span><strong>${bag[key] ?? 0}</strong></li>`
+    )).join("")}</ul>
+      <button type="button" id="view-balls" class="secondary view-balls">View Poké Balls</button>`;
+  };
+
+  window.playGenderChipHtml = function playGenderChipHtml(gender) {
+    const key = String(gender || "");
+    if (key === "Male") return `<span class="type-chip gender-chip is-male">Male ♂</span>`;
+    if (key === "Female") return `<span class="type-chip gender-chip is-female">Female ♀</span>`;
+    if (key === "Genderless") return `<span class="type-chip gender-chip is-none">Genderless</span>`;
+    return `<span class="type-chip gender-chip is-none">${window.playEscapeAttr(key || "Unknown")}</span>`;
+  };
+
   window.playRenderEncounter = function playRenderEncounter(round, options) {
     const opts = options || {};
     if (!round) {
@@ -105,27 +128,36 @@
           <p class="muted">${opts.emptyNote || "When Sora starts a community encounter, it will appear here."}</p>
         </div>`;
     }
-    const name = window.playDisplayName(round);
+    const name = window.playDisplayName(round, { plain: true });
+    const fullName = window.playDisplayName(round);
     const phase = window.playPhaseLabel(round.phase);
     const seconds = window.playSecondsLeft(round.endsAt);
     const sprite = window.playSpriteUrl(round.dex, round.variant);
+    const shiny = String(round.variant || "").includes("shiny");
+    const location = window.playHabitat(round.dex, round.location);
     const hidden = round.hidden ? `<span class="chip warn">Hidden</span>` : "";
-    const live = round.source === "mixitup" ? `<span class="chip">Live</span>` : "";
-    const shiny = String(round.variant || "").includes("shiny") ? `<span class="chip shiny">Shiny</span>` : "";
-    const female = String(round.variant || "") === "female" ? `<span class="chip">Female</span>` : "";
+    const live = round.phase && round.phase !== "closed";
     const honey = window.playHoneyCrewHtml(round);
     const fanfare = window.playCatchFanfareHtml(round);
+    const header = live
+      ? `<div class="dex-head dex-live-fanfare">
+          <span class="live-burst">LIVE</span>
+          <strong>A wild Pokémon appeared!</strong>
+          ${hidden}
+        </div>`
+      : `<div class="dex-head"><span class="dex-ended">Encounter ended</span>${hidden}</div>`;
     return `
-      <div class="dex-head">
-        <span class="dex-no">No. ${String(round.dex || 0).padStart(3, "0")}</span>
-        ${hidden}${live}${shiny}${female}
-      </div>
+      ${header}
       <div class="dex-stage">
-        ${sprite ? `<img src="${sprite}" alt="${name}" onerror="this.onerror=null;this.src='images/pokemon/${Number(round.dex)}.png'">` : ""}
+        ${sprite ? `<img src="${sprite}" alt="${fullName}" onerror="this.onerror=null;this.src='images/pokemon/${Number(round.dex)}.png'">` : ""}
         <div class="dex-copy">
           <p class="wild-label">A wild</p>
           <h2>${name}</h2>
-          <p class="muted">${round.gender || "Unknown"} · <span data-phase>${phase}</span>${round.phase !== "closed" ? ` · <span data-time>${seconds || 0}s</span>` : ""}</p>
+          <div class="wild-meta">
+            ${window.playGenderChipHtml(round.gender)}
+            ${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}
+            <span class="type-chip location-chip">${window.playEscapeAttr(location)}</span>
+          </div>
         </div>
       </div>
       <div class="phase-wrap">

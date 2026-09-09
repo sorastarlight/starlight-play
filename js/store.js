@@ -124,7 +124,7 @@
         <div class="avatar-pack-foot">
           <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${item.cost}</span>
           ${have
-            ? `<a class="button secondary" href="./settings.html">Choose look</a>`
+            ? `<span class="owned-mark">Owned</span>`
             : `<button type="button" data-avatar-sku="${item.sku}">Get</button>`}
         </div>
       </article>`;

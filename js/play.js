@@ -9,15 +9,20 @@
     bag: document.getElementById("bag-status"),
     live: document.getElementById("live-feed"),
     throwModal: document.getElementById("throw-modal"),
-    throwGrid: document.getElementById("throw-ball-grid")
+    throwGrid: document.getElementById("throw-ball-grid"),
+    throwTitle: document.getElementById("throw-title"),
+    throwHint: document.getElementById("throw-hint")
   };
   let state = null;
   let profile = null;
   let lastChannel = "";
   let lastEncounterKey = "";
   let lastActionKey = "";
+  let lastKitKey = "";
   let lureJoinRound = "";
   let acting = false;
+  let lastLocalPhase = "";
+  let throwViewOnly = false;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -26,6 +31,12 @@
       refresh();
     }
   });
+
+  function liveRound(data) {
+    const round = data?.round;
+    if (!round) return null;
+    return typeof window.playApplyLocalRound === "function" ? window.playApplyLocalRound(round) : round;
+  }
 
   function phaseBar(round) {
     if (!round?.deadlines || !round.phase || round.phase === "closed") return 0;
@@ -40,7 +51,7 @@
   }
 
   function actionPlan(data) {
-    const round = data?.round;
+    const round = liveRound(data);
     const me = data?.me;
     const bag = data?.bag || {};
     const signedIn = Boolean(data?.bag);
@@ -110,13 +121,20 @@
     }).join("");
   }
 
-  function openThrowBalls(bag) {
+  function openThrowBalls(bag, mode) {
     if (!els.throwModal || !els.throwGrid) return;
+    throwViewOnly = mode === "view";
+    if (els.throwTitle) els.throwTitle.textContent = throwViewOnly ? "Your Poké Balls" : "Choose a Poké Ball";
+    if (els.throwHint) {
+      els.throwHint.textContent = throwViewOnly
+        ? "A quick look at the balls in your bag. Catch rates are the Play throw chances."
+        : "Catch rates are the Play throw chances. Extra balls look different; they do not add special catch effects.";
+    }
     const rows = window.PLAY_BALLS || [];
     els.throwGrid.innerHTML = rows.map((row) => {
       const qty = Number(bag?.[row.key] || 0);
       const pct = Math.round((row.rate || 0) * 100);
-      const disabled = qty < 1 ? "disabled" : "";
+      const disabled = throwViewOnly || qty < 1 ? "disabled" : "";
       return `<button type="button" class="ball-tile" data-throw="${row.key}" ${disabled}>
         <img src="${window.playItemSprite(row.key)}" alt="">
         <strong>${row.name}</strong>
@@ -130,19 +148,26 @@
 
   function render(data) {
     state = data;
-    const round = data?.round;
+    const round = liveRound(data);
+    const view = { ...data, round };
     const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${(round?.honeyTrainers || []).length}:${(round?.catchers || []).length}`;
     const bar = phaseBar(round);
+    lastLocalPhase = round?.phase || "";
     if (key !== lastEncounterKey) {
       lastEncounterKey = key;
       els.encounter.innerHTML = window.playRenderEncounter(round, { bar });
     } else {
       window.playPatchEncounter(els.encounter, round, bar);
     }
-    els.bag.innerHTML = window.playRenderBagStrip(data?.bag);
-    window.playFillLurePanel(data?.bag);
+    const bag = data?.bag;
+    const kitKey = bag ? `in:${bag.berry}:${bag.bait}:${bag.lure}` : "out";
+    if (kitKey !== lastKitKey) {
+      lastKitKey = kitKey;
+      els.bag.innerHTML = window.playRenderPlayKit(bag);
+    }
+    window.playFillLurePanel(bag);
     window.playRenderLiveFeed(data?.console || round);
-    renderActions(data);
+    renderActions(view);
     window.playSetAccountNav(window._playSession || null, profile, {
       isAdmin: Boolean(data?.isAdmin),
       trainer: data?.trainer
@@ -206,7 +231,7 @@
     const button = event.target.closest("button[data-kind]");
     if (!button || button.disabled) return;
     if (button.dataset.kind === "open-balls") {
-      openThrowBalls(state?.bag || {});
+      openThrowBalls(state?.bag || {}, "throw");
       return;
     }
     button.disabled = true;
@@ -221,7 +246,7 @@
 
   els.throwGrid?.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-throw]");
-    if (!button || button.disabled) return;
+    if (!button || button.disabled || throwViewOnly) return;
     button.disabled = true;
     els.throwModal?.close?.();
     act("throw", button.dataset.throw).finally(() => {
@@ -259,8 +284,35 @@
   let liveRefreshTimer = 0;
   function scheduleRefresh() {
     clearTimeout(liveRefreshTimer);
-    liveRefreshTimer = setTimeout(refresh, 500);
+    liveRefreshTimer = setTimeout(refresh, 50);
   }
+
+  function secondsToNextPhase(round) {
+    const phase = round?.phase;
+    const end = Date.parse(round?.deadlines?.[phase] || round?.endsAt || "");
+    if (!Number.isFinite(end)) return 99;
+    return (end - Date.now()) / 1000;
+  }
+
+  function tickLive() {
+    if (document.visibilityState !== "visible" || !state) return;
+    const round = liveRound(state);
+    if (!round) return;
+    const bar = phaseBar(round);
+    window.playPatchEncounter(els.encounter, round, bar);
+    if (round.phase && round.phase !== lastLocalPhase) {
+      lastLocalPhase = round.phase;
+      lastEncounterKey = "";
+      lastActionKey = "";
+      render({ ...state, round });
+      refresh();
+    }
+  }
+
+  els.bag.addEventListener("click", (event) => {
+    if (!event.target.closest("#view-balls")) return;
+    openThrowBalls(state?.bag || {}, "view");
+  });
 
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadProfile(); });
   supabase.channel("play-live")
@@ -270,9 +322,22 @@
     .on("postgres_changes", { event: "*", schema: "public", table: "inventories" }, scheduleRefresh)
     .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, scheduleRefresh)
     .subscribe();
+  setInterval(tickLive, 200);
   setInterval(() => {
-    if (document.visibilityState === "visible") refresh();
-  }, 3000);
+    if (document.visibilityState !== "visible") return;
+    const round = liveRound(state);
+    const left = secondsToNextPhase(round);
+    if (round && round.phase && round.phase !== "closed" && left <= 2) refresh();
+    else if (round && round.phase && round.phase !== "closed") {
+      if (!tickLive._n) tickLive._n = 0;
+      tickLive._n += 1;
+      if (tickLive._n % 5 === 0) refresh();
+    else {
+      if (!tickLive._idle) tickLive._idle = 0;
+      tickLive._idle += 1;
+      if (tickLive._idle % 3 === 0) refresh();
+    }
+  }, 1000);
   setInterval(heartbeat, 20000);
   loadProfile();
   window.playBindLureButton((data) => {

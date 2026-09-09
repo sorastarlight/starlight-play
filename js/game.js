@@ -48,7 +48,45 @@
   const VARIANT_LABELS = {
     normal: "Normal",
     female: "Female",
-    shiny: "Shiny"
+    shiny: "Shiny",
+    "shiny-female": "Shiny Female"
+  };
+
+  const GENDER_RATES = [null,
+    1,1,1,1,1,1,1,1,1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,8,8,0,0,0,6,6,6,6,6,6,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,2,2,2,2,2,2,4,4,4,4,4,4,4,4,4,4,4,4,-1,-1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,-1,-1,4,4,4,4,0,0,4,4,4,4,4,8,4,8,4,4,4,4,-1,-1,4,4,8,2,2,4,0,4,4,4,-1,1,1,1,1,-1,1,1,1,1,1,1,-1,-1,-1,4,4,4,-1,-1
+  ];
+
+  const HABITATS = {
+    1: "Pallet Town", 2: "Pallet Town", 3: "Pallet Town", 4: "Pallet Town", 5: "Pallet Town",
+    6: "Pallet Town", 7: "Pallet Town", 8: "Pallet Town", 9: "Pallet Town",
+    10: "Viridian Forest", 11: "Viridian Forest", 12: "Viridian Forest", 13: "Viridian Forest",
+    14: "Viridian Forest", 15: "Viridian Forest", 16: "Route 1", 17: "Route 1", 18: "Route 1",
+    19: "Route 1", 20: "Route 1", 21: "Route 3", 22: "Route 3", 23: "Route 4", 24: "Route 4",
+    25: "Viridian Forest", 26: "Viridian Forest", 27: "Route 4", 28: "Route 4",
+    29: "Route 22", 30: "Route 22", 31: "Route 22", 32: "Route 22", 33: "Route 22", 34: "Route 22",
+    35: "Mt. Moon", 36: "Mt. Moon", 37: "Route 7", 38: "Route 7", 39: "Route 3", 40: "Route 3",
+    41: "Mt. Moon", 42: "Mt. Moon", 43: "Route 2", 44: "Route 2", 45: "Route 2",
+    46: "Mt. Moon", 47: "Mt. Moon", 48: "Route 2", 49: "Route 2", 50: "Diglett's Cave", 51: "Diglett's Cave",
+    52: "Route 8", 53: "Route 8", 54: "Route 6", 55: "Route 6", 56: "Route 22", 57: "Route 22",
+    58: "Route 7", 59: "Route 7", 60: "Route 6", 61: "Route 6", 62: "Route 6",
+    63: "Route 11", 64: "Route 11", 65: "Route 11", 66: "Rock Tunnel", 67: "Rock Tunnel", 68: "Rock Tunnel",
+    69: "Route 2", 70: "Route 2", 71: "Route 2", 72: "Route 19", 73: "Route 19",
+    74: "Mt. Moon", 75: "Mt. Moon", 76: "Mt. Moon", 77: "Route 17", 78: "Route 17",
+    79: "Seafoam Islands", 80: "Seafoam Islands", 81: "Power Plant", 82: "Power Plant",
+    83: "Route 12", 84: "Route 12", 85: "Route 12", 86: "Seafoam Islands", 87: "Seafoam Islands",
+    88: "Pokémon Mansion", 89: "Pokémon Mansion", 90: "Route 19", 91: "Route 19",
+    92: "Pokémon Tower", 93: "Pokémon Tower", 94: "Pokémon Tower", 95: "Victory Road",
+    96: "Route 11", 97: "Route 11", 98: "Route 19", 99: "Route 19", 100: "Power Plant", 101: "Power Plant",
+    102: "Safari Zone", 103: "Safari Zone", 104: "Rock Tunnel", 105: "Rock Tunnel",
+    106: "Saffron City", 107: "Saffron City", 108: "Route 18", 109: "Pokémon Mansion", 110: "Pokémon Mansion",
+    111: "Victory Road", 112: "Victory Road", 113: "Route 10", 114: "Route 18", 115: "Rock Tunnel",
+    116: "Route 19", 117: "Route 19", 118: "Route 6", 119: "Route 6", 120: "Route 19", 121: "Route 19",
+    122: "Route 2", 123: "Route 12", 124: "Route 10", 125: "Power Plant", 126: "Victory Road",
+    127: "Route 18", 128: "Route 18", 129: "Route 6", 130: "Route 6", 131: "Seafoam Islands",
+    132: "Route 13", 133: "Route 17", 134: "Route 17", 135: "Power Plant", 136: "Victory Road",
+    137: "Silph Co.", 138: "Cinnabar Lab", 139: "Cinnabar Lab", 140: "Cinnabar Lab", 141: "Cinnabar Lab",
+    142: "Cinnabar Lab", 143: "Route 12", 144: "Seafoam Islands", 145: "Power Plant", 146: "Victory Road",
+    147: "Safari Zone", 148: "Safari Zone", 149: "Safari Zone", 150: "Cerulean Cave", 151: "Faraway place"
   };
 
   const TYPE_COLORS = {
@@ -203,19 +241,73 @@
   window.playAllowedVariants = function playAllowedVariants(dex) {
     const all = window.PLAY_VARIANTS || {};
     const list = all[Number(dex)] || ["normal", "shiny"];
-    return list.filter((name) => name === "normal" || name === "female" || name === "shiny");
+    return list.filter((name) => name === "normal" || name === "female" || name === "shiny" || name === "shiny-female");
+  };
+
+  window.playGenderRate = function playGenderRate(dex) {
+    return GENDER_RATES[Number(dex)] ?? 4;
+  };
+
+  window.playGenderOptions = function playGenderOptions(dex) {
+    if (!dex) return ["Male", "Female"];
+    const rate = window.playGenderRate(dex);
+    if (rate === -1) return ["Genderless"];
+    if (rate === 0) return ["Male"];
+    if (rate === 8) return ["Female"];
+    return ["Male", "Female"];
+  };
+
+  window.playHabitat = function playHabitat(dex, fallback) {
+    const named = String(fallback || "").trim();
+    if (named) return named;
+    return HABITATS[Number(dex)] || "Kanto";
+  };
+
+  window.playSpriteVariant = function playSpriteVariant(dex, gender, shiny) {
+    const allowed = new Set(window.playAllowedVariants(dex));
+    const female = String(gender || "") === "Female";
+    if (shiny && female && (allowed.has("shiny-female") || allowed.has("female"))) return "shiny-female";
+    if (shiny) return "shiny";
+    if (female && allowed.has("female")) return "female";
+    return "normal";
+  };
+
+  window.playLocalPhase = function playLocalPhase(round) {
+    if (!round || round.cancelled) return "closed";
+    const d = round.deadlines || {};
+    const now = Date.now();
+    const at = (key) => {
+      const t = Date.parse(d[key] || "");
+      return Number.isFinite(t) ? t : 0;
+    };
+    const join = at("join");
+    const prepare = at("prepare");
+    const throwAt = at("throw");
+    const reveal = at("reveal");
+    if (join && now < join) return "join";
+    if (prepare && now < prepare) return "prepare";
+    if (throwAt && now < throwAt) return "throw";
+    if (reveal && now < reveal) return "reveal";
+    if (join || prepare || throwAt || reveal) return "closed";
+    return round.phase || "closed";
+  };
+
+  window.playApplyLocalRound = function playApplyLocalRound(round) {
+    if (!round) return round;
+    const phase = window.playLocalPhase(round);
+    const ends = round.deadlines?.[phase] || round.endsAt;
+    return { ...round, phase, endsAt: ends || round.endsAt };
   };
 
   window.playSpriteUrl = function playSpriteUrl(dex, variant) {
     const id = Number(dex);
     if (!id) return "";
     const kind = String(variant || "normal");
-    if (kind === "female") {
-      return `images/pokemon/female/${id}.png`;
-    }
-    if (kind.includes("shiny")) {
-      return `images/pokemon/shiny/${id}.png`;
-    }
+    const shiny = kind.includes("shiny");
+    const female = kind.includes("female");
+    if (shiny && female) return `images/pokemon/shiny/female/${id}.png`;
+    if (female) return `images/pokemon/female/${id}.png`;
+    if (shiny) return `images/pokemon/shiny/${id}.png`;
     return `images/pokemon/${id}.png`;
   };
 
@@ -395,9 +487,11 @@
     return Math.max(0, Math.ceil((new Date(iso).getTime() - Date.now()) / 1000));
   };
 
-  window.playDisplayName = function playDisplayName(round) {
+  window.playDisplayName = function playDisplayName(round, options) {
     if (!round?.name) return "a wild Pokémon";
-    if (String(round.variant || "").includes("shiny")) return `Shiny ${round.name}`;
+    const shiny = String(round.variant || "").includes("shiny");
+    if (options?.plain) return round.name;
+    if (shiny) return `Shiny ${round.name}`;
     return round.name;
   };
 

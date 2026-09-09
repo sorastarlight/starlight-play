@@ -142,13 +142,25 @@
       { id: "nurse", name: "Nurse Joy" },
       { id: "officer-gen2", name: "Officer Jenny" }
     ] },
-    { key: "sonic", label: "Sonic the Hedgehog", games: "Sonic Advance", looks: [
+    { key: "sonic", premium: true, label: "Sonic the Hedgehog Series", games: "Sonic Advance", looks: [
       { id: "sonic-sonic", name: "Sonic" },
       { id: "sonic-tails", name: "Tails" },
       { id: "sonic-knuckles", name: "Knuckles" },
       { id: "sonic-amy", name: "Amy" },
       { id: "sonic-cream", name: "Cream" }
     ] }
+  ];
+
+  window.PLAY_AVATAR_PACKS = [
+    {
+      sku: "avatar-sonic",
+      pack: "sonic",
+      name: "Sonic the Hedgehog Series",
+      games: "Sonic Advance",
+      cost: 200,
+      blurb: "Unlock Sonic, Tails, Knuckles, Amy, and Cream for your Trainer ID.",
+      looks: ["sonic-sonic", "sonic-tails", "sonic-knuckles", "sonic-amy", "sonic-cream"]
+    }
   ];
 
   window.playTrainerLooks = function playTrainerLooks(row) {

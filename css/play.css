@@ -870,6 +870,64 @@ footer { margin-top: 24px; font-size: 13px; }
   box-shadow: inset 0 0 0 6px #f8edd8;
 }
 .bits-floor { background: linear-gradient(180deg, #e4ecff, #cfd9f4); border-color: #8ea4d8; box-shadow: inset 0 0 0 6px #eef3ff; }
+.avatar-floor { background: linear-gradient(180deg, #efe4ff, #dccaf4); border-color: #a888d8; box-shadow: inset 0 0 0 6px #f4ecff; }
+#premium-avatars { scroll-margin-top: 88px; }
+.avatar-floor .mart-sign img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+.avatar-shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+}
+.avatar-pack {
+  display: grid;
+  gap: 10px;
+  background: #fffdf8;
+  border: 2px solid #c9b4e8;
+  border-radius: 18px;
+  padding: 14px;
+}
+.avatar-pack-looks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: end;
+}
+.avatar-pack-looks figure {
+  margin: 0;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+.avatar-pack-looks img {
+  width: 52px;
+  height: 52px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+.avatar-pack-looks figcaption {
+  font-size: 11px;
+  font-weight: 800;
+  color: #5a4a78;
+}
+.avatar-pack-copy strong { display: block; font-size: 18px; }
+.avatar-pack-copy p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+.avatar-pack-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.avatar-pack.is-owned button { pointer-events: none; opacity: .7; }
+.trainer-gen.is-locked {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #f4ecff;
+  border: 2px dashed #c9b4e8;
+}
 .mart-sign { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
 .mart-sign img { width: 48px; height: 48px; image-rendering: pixelated; }
 .mart-shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
@@ -1556,9 +1614,9 @@ footer { margin-top: 24px; font-size: 13px; }
 .box-wrap { position: relative; z-index: 1; max-width: 1280px; }
 .lgpe-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(280px, .85fr);
+  grid-template-columns: minmax(0, 1.55fr) minmax(320px, .9fr);
   gap: 18px;
-  align-items: start;
+  align-items: stretch;
 }
 .lgpe-box,
 .lgpe-detail.card {
@@ -1576,9 +1634,11 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .lgpe-box {
   padding: 16px 16px 12px;
-  min-height: 560px;
+  height: 620px;
+  min-height: 620px;
+  max-height: 620px;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
 }
 .lgpe-head {
   display: inline-block;
@@ -1618,10 +1678,10 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 2px;
   min-height: 70px;
-  padding: 4px 2px 4px 30px;
+  padding: 4px 8px 4px 28px;
   border: 0;
   background: transparent;
   box-shadow: none;
@@ -1716,58 +1776,14 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
 .lgpe-foot {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
   gap: 12px;
   margin-top: 8px;
-  flex-wrap: wrap;
 }
 .lgpe-count {
   margin: 0;
   font-weight: 800;
   color: #5a5040;
-}
-.lgpe-prompts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  align-items: center;
-}
-.lgpe-prompts a,
-.lgpe-prompts button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  padding: 0;
-  color: #4a4030;
-  font: inherit;
-  font-weight: 800;
-  text-decoration: none;
-  cursor: pointer;
-  border-radius: 0;
-  filter: none;
-}
-.lgpe-key {
-  display: grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 800;
-}
-.lgpe-key-plus { background: #5c6b80; border-radius: 6px; }
-.lgpe-key-y { background: #3db54a; }
-.lgpe-key-r { background: #8a93a6; border-radius: 6px; width: 28px; }
-.lgpe-key-b { background: #e85d5d; }
-.lgpe-actions {
-  display: flex;
-  gap: 8px;
-  align-items: end;
-  flex-wrap: wrap;
 }
 .lgpe-search {
   display: grid;
@@ -1775,9 +1791,10 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
   font-size: 12px;
   font-weight: 800;
   color: #5a5040;
+  margin: 0;
 }
 .lgpe-search input {
-  min-width: 180px;
+  width: min(220px, 42vw);
   border-radius: 999px;
   border: 2px solid #e8b84a;
   background: rgba(255,255,255,.82);
@@ -1786,6 +1803,32 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
 .lgpe-empty { grid-column: 1 / -1; color: #6b6c84; padding: 24px 8px; }
 .lgpe-detail.card.body,
 .lgpe-candy.card.body { padding: 16px 18px; }
+.lgpe-detail.card {
+  height: 620px;
+  min-height: 620px;
+  max-height: 620px;
+  display: flex;
+  overflow: hidden;
+}
+.lgpe-detail-inner {
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+  gap: 10px;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+}
+.lgpe-detail-inner.is-empty {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.lgpe-detail-inner h2 { margin: 0 0 2px; }
+.lgpe-species {
+  margin: 0 0 8px;
+  font-weight: 800;
+  color: #6b5a3a;
+}
 .lgpe-mini {
   min-height: 0;
   padding: 14px;
@@ -1804,13 +1847,7 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
   image-rendering: pixelated;
   object-fit: contain;
 }
-.lgpe-id {
-  margin: 0 0 8px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .08em;
-  color: #8a6a40;
-}
+.lgpe-id { display: none; }
 .lgpe-meta-row {
   display: flex;
   flex-wrap: wrap;
@@ -1818,8 +1855,7 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
   margin: 0 0 8px;
   font-weight: 800;
 }
-.lgpe-shiny { color: #c9a227; }
-.type-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.type-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; min-height: 32px; }
 .type-chip {
   display: inline-flex;
   align-items: center;
@@ -1840,6 +1876,10 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
     inset 0 -2px 0 rgba(0,0,0,.18);
   text-shadow: 0 1px 0 rgba(0,0,0,.35);
 }
+.gender-chip.is-male { --type: #3a7bd9; }
+.gender-chip.is-female { --type: #e05a9a; }
+.gender-chip.is-none { --type: #7a7e8c; }
+.gender-chip.is-shiny { --type: #d4a017; }
 .lgpe-size {
   display: flex;
   flex-wrap: wrap;
@@ -1868,8 +1908,9 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
   grid-template-columns: 40px minmax(0, 1fr);
   gap: 10px;
   align-items: center;
-  margin: 12px 0 14px;
+  margin: 0;
   padding: 10px 12px;
+  min-height: 64px;
   border-radius: 16px;
   background: rgba(255,255,255,.55);
   border: 2px solid #e8b84a;
@@ -1881,8 +1922,18 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
   object-fit: contain;
 }
 .lgpe-caught p { margin: 0; color: #6b6c84; font-weight: 700; }
-.lgpe-cp-line { font-weight: 800; color: #2f9a3a; }
-.lgpe-stats { display: grid; gap: 6px; margin: 10px 0 14px; }
+.lgpe-ot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-weight: 800;
+}
+.lgpe-ot span { color: #6b5a3a; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.lgpe-ot em { font-style: normal; color: #6b6c84; }
+.lgpe-cp, .lgpe-cp-line { display: none; }
+.lgpe-stats { display: grid; gap: 6px; margin: 0; min-height: 132px; }
 .lgpe-stat {
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr) 40px;
@@ -1906,20 +1957,8 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
   background: #3db54a;
 }
 .lgpe-stat em { display: none; }
-.lgpe-moves {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  list-style: none;
-  margin: 0 0 14px;
-  padding: 0;
-}
-.lgpe-moves li {
-  background: #fff7e8;
-  border-radius: 10px;
-  padding: 8px 10px;
-  font-weight: 800;
-}
+.lgpe-detail-actions .field { margin: 0 0 8px; }
+.lgpe-moves { display: none; }
 .candy-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -1961,9 +2000,9 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
 @media (max-width: 1040px) {
   .lgpe-shell { grid-template-columns: 1fr; }
   .lgpe-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .lgpe-box, .lgpe-detail.card { height: auto; max-height: none; min-height: 480px; }
 }
 @media (max-width: 640px) {
   .lgpe-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: calc(5 * 70px); }
-  .lgpe-box { min-height: 0; border-radius: 24px; }
-  .lgpe-cp { font-size: 13px; }
+  .lgpe-box { border-radius: 24px; }
 }

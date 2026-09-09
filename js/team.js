@@ -50,9 +50,17 @@
     });
   };
 
-  window.playOpenTrainerPicker = function playOpenTrainerPicker(current, onPick) {
-    const html = `<div class="trainer-pick-list">${window.PLAY_TRAINERS.map((row) => `
-      <section class="trainer-gen">
+  window.playOpenTrainerPicker = function playOpenTrainerPicker(current, onPick, options) {
+    const owned = new Set(options?.ownedPacks || window._playOwnedAvatarPacks || []);
+    const html = `<div class="trainer-pick-list">${window.PLAY_TRAINERS.map((row) => {
+      const locked = Boolean(row.premium) && !owned.has(row.key);
+      if (locked) {
+        return `<section class="trainer-gen is-locked">
+          <h4>${row.label}</h4>
+          <p class="muted">${row.games} · Unlock in <a href="./store.html#premium-avatars">Premium Avatars</a></p>
+        </section>`;
+      }
+      return `<section class="trainer-gen">
         <h4>${row.label}</h4>
         <p class="muted">${row.games}</p>
         <div class="trainer-gen-row">
@@ -66,7 +74,8 @@
             </button>`;
           }).join("")}
         </div>
-      </section>`).join("")}</div>`;
+      </section>`;
+    }).join("")}</div>`;
     const dialog = openPicker("Choose a trainer look", html, "play-modal-wide");
     dialog.querySelectorAll(".trainer-opt").forEach((button) => {
       button.addEventListener("click", () => {

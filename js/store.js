@@ -14,7 +14,9 @@
     openBalls: document.getElementById("open-balls"),
     ballModal: document.getElementById("ball-modal"),
     ballGrid: document.getElementById("ball-grid"),
-    ballStatus: document.getElementById("ball-status")
+    ballStatus: document.getElementById("ball-status"),
+    avatars: document.getElementById("avatar-shelf"),
+    avatarStatus: document.getElementById("avatar-status")
   };
   const CORE_BALL_SKUS = new Set(["poke5", "great3", "ultra1"]);
 
@@ -97,6 +99,38 @@
     }).join("");
   }
 
+  function renderAvatars(catalog, ownedPacks) {
+    if (!els.avatars) return;
+    const owned = new Set(ownedPacks || []);
+    const rows = catalog?.avatars?.length ? catalog.avatars : (window.PLAY_AVATAR_PACKS || []);
+    els.avatars.innerHTML = rows.map((item) => {
+      const have = owned.has(item.pack);
+      const looks = item.looks || [];
+      return `<article class="avatar-pack${have ? " is-owned" : ""}">
+        <div class="avatar-pack-looks">
+          ${looks.map((id) => {
+            const look = typeof window.playTrainerLook === "function" ? window.playTrainerLook(id) : null;
+            const name = look?.trainer?.name || id;
+            return `<figure>
+              <img src="${window.playTrainerSpriteUrl(id)}" alt="">
+              <figcaption>${name}</figcaption>
+            </figure>`;
+          }).join("")}
+        </div>
+        <div class="avatar-pack-copy">
+          <strong>${item.name}</strong>
+          <p>${item.blurb || ""}</p>
+        </div>
+        <div class="avatar-pack-foot">
+          <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${item.cost}</span>
+          ${have
+            ? `<a class="button secondary" href="./settings.html">Choose look</a>`
+            : `<button type="button" data-avatar-sku="${item.sku}">Get</button>`}
+        </div>
+      </article>`;
+    }).join("");
+  }
+
   async function functionMessage(error, fallback) {
     try {
       const ctx = error?.context;
@@ -140,9 +174,13 @@
       renderShelf(els.coins, data.catalog?.coins, "coins");
       renderShelf(els.bits, data.catalog?.bits, "bits");
       renderBallCase();
+      window._playOwnedAvatarPacks = data.ownedAvatarPacks || [];
+      renderAvatars(data.catalog, data.ownedAvatarPacks);
       return data;
     } catch (error) {
       els.coinStatus.textContent = window.playRpcError(error, "Mart catalog is not live yet.");
+      renderBallCase();
+      renderAvatars(null, []);
       return null;
     }
   }
@@ -219,6 +257,23 @@
     renderBallCase();
     if (typeof els.ballModal?.showModal === "function") els.ballModal.showModal();
     else els.ballModal?.setAttribute("open", "");
+  });
+
+  els.ballModal?.addEventListener("click", (event) => {
+    if (event.target === els.ballModal) els.ballModal.close("cancel");
+  });
+
+  els.avatars?.addEventListener("click", async (event) => {
+    const button = event.target.closest("button[data-avatar-sku]");
+    if (!button) return;
+    els.avatarStatus.textContent = "Working…";
+    try {
+      const data = await window.playCall("play_buy_sku", { p_sku: button.dataset.avatarSku });
+      els.avatarStatus.textContent = data.message || "Series unlocked.";
+      await refreshStore();
+    } catch (error) {
+      els.avatarStatus.textContent = window.playRpcError(error);
+    }
   });
 
   els.ballGrid?.addEventListener("click", async (event) => {

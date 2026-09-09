@@ -106,6 +106,7 @@
     try {
       const snapshot = await window.playCall("play_state");
       extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer };
+      window._playOwnedAvatarPacks = snapshot?.ownedAvatarPacks || [];
       els.pass.textContent = describePass(snapshot?.pass);
     } catch (_) {
       els.pass.textContent = "Pass status is not available right now.";
@@ -179,7 +180,7 @@
       } catch (error) {
         els.lookStatus.textContent = window.playRpcError(error);
       }
-    });
+    }, { ownedPacks: window._playOwnedAvatarPacks || [] });
   });
 
   els.save.addEventListener("click", async () => {

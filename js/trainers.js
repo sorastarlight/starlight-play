@@ -119,7 +119,9 @@
       { id: "ash-unova", name: "Ash", outfit: "Unova" },
       { id: "ash-kalos", name: "Ash", outfit: "Kalos" },
       { id: "ash-alola", name: "Ash", outfit: "Alola" },
-      { id: "ashley", name: "Ashley" },
+      { id: "ashley", name: "Ashley (Kanto)" },
+      { id: "ashley-crossdress-alola", name: "Ashley Crossdress Alola" },
+      { id: "ashley-crossdress-unova", name: "Ashley Crossdress Unova" },
       { id: "misty", name: "Misty" },
       { id: "misty-gen1", name: "Misty", outfit: "Gen 1" },
       { id: "misty-lgpe", name: "Misty", outfit: "Let's Go" },
@@ -209,7 +211,7 @@
         break;
       }
     }
-    return `images/trainers/${key}.${ext}?v=av3`;
+    return `images/trainers/${key}.${ext}?v=av4`;
   };
 
   window.PLAY_CARD_BGS = [

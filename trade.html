@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=gts1">
+<link rel="stylesheet" href="css/play.css?v=gts2">
 <body data-page="trade" class="gts-page">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -56,14 +56,6 @@
     </div>
     <button id="list-open" class="gold" type="button">List a Pokémon for trade</button>
   </div>
-  <section class="gts-hero" aria-hidden="true">
-    <span class="gts-orb"></span>
-    <span class="gts-orb is-two"></span>
-    <span class="gts-orb is-three"></span>
-    <i class="gts-ball"></i>
-    <i class="gts-ball is-two"></i>
-    <i class="gts-ball is-three"></i>
-  </section>
   <p id="gts-ticker" class="gts-ticker" hidden></p>
   <p id="gate" class="notice" hidden>Sign in with Twitch to list a Pokémon or send an offer. You can still browse open trades.</p>
   <div id="trade-app">
@@ -99,7 +91,7 @@
       <header class="mart-sign">
         <img src="images/items/great-ball.png" alt="">
         <div>
-          <h2>Your deposits</h2>
+          <h2>Your Open Trades</h2>
           <p class="muted">Listings you put up. Take one down any time, or accept an offer.</p>
         </div>
       </header>
@@ -122,15 +114,32 @@
     </div>
     <div id="list-step-want" hidden>
       <div id="list-picked" class="gts-picked"></div>
-      <label class="field" for="list-want">I want this Pokémon
-        <input id="list-want" type="text" list="gts-species" placeholder="Pikachu, or leave blank for any" autocomplete="off">
+      <label class="field gts-want-field" for="list-want">I want this Pokémon
+        <div class="gts-species-wrap">
+          <input id="list-want" type="text" placeholder="Pikachu, or leave blank for any" autocomplete="off" aria-autocomplete="list" aria-controls="list-want-menu">
+          <ul id="list-want-menu" class="gts-species-menu" hidden role="listbox"></ul>
+        </div>
       </label>
+      <div id="list-want-traits" class="gts-want-traits" hidden>
+        <label class="gts-check" id="list-want-male-wrap" for="list-want-male">
+          <input id="list-want-male" type="checkbox">
+          <span>Male</span>
+        </label>
+        <label class="gts-check" id="list-want-female-wrap" for="list-want-female">
+          <input id="list-want-female" type="checkbox">
+          <span>Female</span>
+        </label>
+        <label class="gts-check" for="list-want-shiny">
+          <input id="list-want-shiny" type="checkbox">
+          <span>Shiny</span>
+        </label>
+      </div>
       <label class="gts-check" for="list-accept">
         <input id="list-accept" type="checkbox" checked>
         <span>I’ll take other offers too</span>
       </label>
-      <label class="field" for="list-note">Comment <em>(optional)</em>
-        <input id="list-note" type="text" maxlength="80" placeholder="Looking for a shiny, or nicknamed only…">
+      <label class="field" for="list-note"><span class="gts-comment-label">Comment <em>(optional)</em></span>
+        <input id="list-note" type="text" maxlength="80" placeholder="">
       </label>
     </div>
     <div class="links">
@@ -156,6 +165,6 @@
 <script src="js/species.js"></script>
 <script src="js/game.js?v=pc1"></script>
 <script src="js/trainers.js?v=sonic2"></script>
-<script src="js/nav.js?v=pc1"></script>
-<script src="js/trade.js?v=gts1"></script>
+<script src="js/nav.js?v=gts2"></script>
+<script src="js/trade.js?v=gts2"></script>
 </body>

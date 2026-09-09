@@ -55,9 +55,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     { href: "./inventory.html", id: "inventory", label: "My Inventory" },
     { href: "./pokedex.html", id: "pokedex", label: "My Pokédex" },
     { href: "./storage.html", id: "storage", label: "My PC" },
-    { href: "./trade.html", id: "trade", label: "Trade" },
+    { href: "./trade.html", id: "trade", label: "Global Trade System" },
     { href: "./rankings.html", id: "rankings", label: "Rankings" },
-    { href: "./store.html", id: "store", label: "Store" },
     { href: "./events.html", id: "events", label: "Events" }
   ];
 
@@ -65,9 +64,12 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (!els.links) return;
     const items = links.slice();
     if (isAdmin) items.push({ href: "./admin.html", id: "admin", label: "Admin Hub" });
-    els.links.innerHTML = items.map((item) => {
+    items.push({ href: "./store.html", id: "store", label: "Store" });
+    els.links.innerHTML = items.map((item, index) => {
       const current = item.id === page ? " aria-current=\"page\"" : "";
-      return `<a class="topnav-link" href="${item.href}"${current}>${item.label}</a>`;
+      const extra = item.id === "store" ? " topnav-link-store" : "";
+      const divider = index < items.length - 1 ? `<span class="topnav-div" aria-hidden="true">|</span>` : "";
+      return `<a class="topnav-link${extra}" href="${item.href}"${current}>${item.label}</a>${divider}`;
     }).join("");
     els.links.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeNavPanel);

@@ -22,6 +22,13 @@
     listPcGrid: document.getElementById("list-pc-grid"),
     listPicked: document.getElementById("list-picked"),
     listWant: document.getElementById("list-want"),
+    listWantMenu: document.getElementById("list-want-menu"),
+    listWantTraits: document.getElementById("list-want-traits"),
+    listWantMale: document.getElementById("list-want-male"),
+    listWantFemale: document.getElementById("list-want-female"),
+    listWantMaleWrap: document.getElementById("list-want-male-wrap"),
+    listWantFemaleWrap: document.getElementById("list-want-female-wrap"),
+    listWantShiny: document.getElementById("list-want-shiny"),
     listAccept: document.getElementById("list-accept"),
     listNote: document.getElementById("list-note"),
     listBack: document.getElementById("list-back"),
@@ -79,8 +86,10 @@
     return trainer?.avatar || "";
   }
 
-  function wantArt(dex) {
-    return dex ? window.playSpriteUrl(dex) : "images/items/poke-ball.png";
+  function wantArt(listingOrDex, shiny) {
+    const dex = listingOrDex && typeof listingOrDex === "object" ? listingOrDex.wantDex : listingOrDex;
+    const isShiny = listingOrDex && typeof listingOrDex === "object" ? listingOrDex.wantShiny : shiny;
+    return dex ? window.playSpriteUrl(dex, isShiny ? "shiny" : "normal") : "images/items/poke-ball.png";
   }
 
   function timeAgo(iso) {
@@ -96,7 +105,11 @@
 
   function wantCopy(listing) {
     if (!listing.wantDex) return "Open to any offer";
-    const name = window.playSpeciesName(listing.wantDex);
+    const bits = [];
+    if (listing.wantGender === "Male" || listing.wantGender === "Female") bits.push(listing.wantGender);
+    if (listing.wantShiny) bits.push("Shiny");
+    bits.push(window.playSpeciesName(listing.wantDex));
+    const name = bits.join(" ");
     return listing.acceptAny === false ? `Looking for ${name}` : `Looking for ${name}, or other offers`;
   }
 
@@ -123,7 +136,7 @@
         <img src="${window.playEscapeAttr(trainerSprite(trainer))}" alt="">
         <div>
           <strong>${window.playEscapeAttr(trainer.displayName || "Trainer")}</strong>
-          <span>${timeAgo(listing.createdAt)}${listing.mine ? " · Your deposit" : ""}</span>
+          <span>${timeAgo(listing.createdAt)}${listing.mine ? " · Your Open Trades" : ""}</span>
         </div>
       </header>
       <div class="gts-swap">
@@ -139,7 +152,7 @@
         <span class="gts-arrow" aria-hidden="true">⇄</span>
         <div class="gts-slot is-want">
           <div class="gts-sprite">
-            <img src="${window.playEscapeAttr(wantArt(listing.wantDex))}" alt="">
+            <img src="${window.playEscapeAttr(wantArt(listing))}" alt="">
           </div>
           <strong>${listing.wantDex ? window.playEscapeAttr(window.playSpeciesName(listing.wantDex)) : "Any Pokémon"}</strong>
           <span class="gts-meta">${listing.acceptAny === false ? "That species only" : "Takes offers"}</span>
@@ -241,7 +254,7 @@
       ${shiny ? `<span class="lgpe-spark">✦</span>` : ""}
       ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
       <strong>${window.playEscapeAttr(monName(mon))}</strong>
-      <span>Lv. ${mon.level || 1} ${genderChip(mon.gender)}</span>
+      <span>Lv. ${mon.level || 1}</span>
     </button>`;
   }
 
@@ -266,11 +279,15 @@
 
   function pickedHtml(mon) {
     if (!mon) return "";
+    const shiny = String(mon.variant || "").includes("shiny");
     return `<div class="gts-picked-card">
-      <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+      <div class="gts-sprite">
+        <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+        ${shiny ? `<span class="lgpe-spark">✦</span>` : ""}
+      </div>
       <div>
         <strong>${window.playEscapeAttr(monName(mon))}</strong>
-        <p>Lv. ${mon.level || 1} ${genderChip(mon.gender)}</p>
+        <p>Lv. ${mon.level || 1}</p>
       </div>
     </div>`;
   }
@@ -290,6 +307,69 @@
     if (els.listNext) els.listNext.textContent = onPc ? "Trade" : "List on the GTS";
     if (els.listPicked) els.listPicked.innerHTML = pickedHtml(listingMon);
     if (els.listStatus) els.listStatus.textContent = "";
+    if (onPc) hideWantMenu();
+  }
+
+  function chosenWantGender() {
+    const options = window.playGenderOptions(wantDex(els.listWant?.value));
+    const showGender = options.length === 2 && options.includes("Male") && options.includes("Female");
+    if (!showGender) return null;
+    const male = Boolean(els.listWantMale?.checked);
+    const female = Boolean(els.listWantFemale?.checked);
+    if (male && !female) return "Male";
+    if (female && !male) return "Female";
+    return null;
+  }
+
+  function updateWantTraits() {
+    const dex = wantDex(els.listWant?.value);
+    if (els.listWantTraits) els.listWantTraits.hidden = !dex;
+    if (!dex) {
+      if (els.listWantMale) els.listWantMale.checked = false;
+      if (els.listWantFemale) els.listWantFemale.checked = false;
+      if (els.listWantShiny) els.listWantShiny.checked = false;
+      return;
+    }
+    const options = window.playGenderOptions(dex);
+    const showGender = options.length === 2 && options.includes("Male") && options.includes("Female");
+    if (els.listWantMaleWrap) els.listWantMaleWrap.hidden = !showGender;
+    if (els.listWantFemaleWrap) els.listWantFemaleWrap.hidden = !showGender;
+    if (!showGender) {
+      if (els.listWantMale) els.listWantMale.checked = false;
+      if (els.listWantFemale) els.listWantFemale.checked = false;
+    }
+  }
+
+  function speciesMatches(query) {
+    const q = String(query || "").trim().toLowerCase();
+    const names = window.PLAY_SPECIES || [];
+    const rows = names.map((name, index) => ({ dex: index + 1, name }));
+    if (!q) return rows.slice(0, 12);
+    return rows.filter((row) => row.name.toLowerCase().includes(q)).slice(0, 12);
+  }
+
+  function hideWantMenu() {
+    if (els.listWantMenu) els.listWantMenu.hidden = true;
+  }
+
+  function renderWantMenu() {
+    if (!els.listWantMenu || !els.listWant) return;
+    const rows = speciesMatches(els.listWant.value);
+    if (!rows.length) {
+      hideWantMenu();
+      return;
+    }
+    els.listWantMenu.hidden = false;
+    els.listWantMenu.innerHTML = rows.map((row) =>
+      `<li><button type="button" role="option" data-name="${window.playEscapeAttr(row.name)}">${window.playEscapeAttr(row.name)}</button></li>`
+    ).join("");
+  }
+
+  function pickWantSpecies(name) {
+    if (els.listWant) els.listWant.value = name;
+    hideWantMenu();
+    updateWantTraits();
+    if (!name.trim() && els.listAccept) els.listAccept.checked = true;
   }
 
   async function openListWizard(preselectId) {
@@ -306,6 +386,11 @@
     if (els.listNote) els.listNote.value = "";
     if (els.listAccept) els.listAccept.checked = true;
     if (els.listPcSearch) els.listPcSearch.value = "";
+    if (els.listWantMale) els.listWantMale.checked = false;
+    if (els.listWantFemale) els.listWantFemale.checked = false;
+    if (els.listWantShiny) els.listWantShiny.checked = false;
+    hideWantMenu();
+    updateWantTraits();
     renderListPc();
     setListStep(listingMon ? 2 : 1);
     els.listModal?.showModal();
@@ -332,7 +417,9 @@
         p_catch_id: listingMon.id,
         p_want_dex: dex,
         p_note: els.listNote?.value || "",
-        p_accept_any: dex ? acceptAny : true
+        p_accept_any: dex ? acceptAny : true,
+        p_want_gender: dex ? chosenWantGender() : null,
+        p_want_shiny: Boolean(dex && els.listWantShiny?.checked)
       });
       if (els.listStatus) els.listStatus.textContent = result.message || "Listed.";
       els.listModal?.close();
@@ -344,9 +431,15 @@
   }
 
   function offerPool(listing) {
-    const rows = availableMons();
+    let rows = availableMons();
     if (listing?.wantDex && listing.acceptAny === false) {
-      return rows.filter((row) => Number(row.dex) === Number(listing.wantDex));
+      rows = rows.filter((row) => Number(row.dex) === Number(listing.wantDex));
+      if (listing.wantGender === "Male" || listing.wantGender === "Female") {
+        rows = rows.filter((row) => row.gender === listing.wantGender);
+      }
+      if (listing.wantShiny) {
+        rows = rows.filter((row) => String(row.variant || "").includes("shiny"));
+      }
     }
     return rows;
   }
@@ -359,7 +452,8 @@
       const offers = listing.offerRows || [];
       const mine = listing.mine;
       offerPick = null;
-      if (els.detailTitle) els.detailTitle.textContent = mine ? "Your GTS deposit" : "Trade details";
+      if (els.detailTitle) els.detailTitle.textContent = mine ? "Your Open Trades" : "Trade details";
+      const offeredShiny = String(mon.variant || "").includes("shiny");
       const hero = `
         <div class="gts-detail-hero">
           <div class="gts-card-trainer">
@@ -373,6 +467,7 @@
             <div class="gts-slot">
               <div class="gts-sprite">
                 <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+                ${offeredShiny ? `<span class="lgpe-spark">✦</span>` : ""}
               </div>
               <strong>${window.playEscapeAttr(monName(mon))}</strong>
               <span class="gts-meta">Lv. ${mon.level || 1} ${genderChip(mon.gender)}</span>
@@ -380,7 +475,8 @@
             <span class="gts-arrow" aria-hidden="true">⇄</span>
             <div class="gts-slot is-want">
               <div class="gts-sprite">
-                <img src="${window.playEscapeAttr(wantArt(listing.wantDex))}" alt="">
+                <img src="${window.playEscapeAttr(wantArt(listing))}" alt="">
+                ${listing.wantShiny ? `<span class="lgpe-spark">✦</span>` : ""}
               </div>
               <strong>${listing.wantDex ? window.playEscapeAttr(window.playSpeciesName(listing.wantDex)) : "Any Pokémon"}</strong>
               <span class="gts-meta">${listing.acceptAny === false ? "That species only" : "Takes offers"}</span>
@@ -521,6 +617,13 @@
     if (event.submitter?.value === "cancel") return;
     event.preventDefault();
   });
+  function dismissDialog(dialog, event) {
+    if (!dialog || event.target !== dialog) return;
+    hideWantMenu();
+    dialog.close();
+  }
+  els.listModal?.addEventListener("click", (event) => dismissDialog(els.listModal, event));
+  els.detailModal?.addEventListener("click", (event) => dismissDialog(els.detailModal, event));
   els.listOpen?.addEventListener("click", () => openListWizard());
   els.listPcGrid?.addEventListener("click", (event) => {
     const tile = event.target.closest("[data-catch]");
@@ -543,6 +646,28 @@
   });
   els.listWant?.addEventListener("input", () => {
     if (!els.listWant.value.trim() && els.listAccept) els.listAccept.checked = true;
+    renderWantMenu();
+    updateWantTraits();
+  });
+  els.listWant?.addEventListener("focus", renderWantMenu);
+  els.listWant?.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") hideWantMenu();
+    if (event.key === "Enter") {
+      const first = els.listWantMenu?.querySelector("button");
+      if (first && !els.listWantMenu.hidden) {
+        event.preventDefault();
+        pickWantSpecies(first.dataset.name);
+      }
+    }
+  });
+  els.listWantMenu?.addEventListener("mousedown", (event) => {
+    const button = event.target.closest("button[data-name]");
+    if (!button) return;
+    event.preventDefault();
+    pickWantSpecies(button.dataset.name);
+  });
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".gts-species-wrap")) hideWantMenu();
   });
   ["trade-q", "trade-want"].forEach((id) => {
     document.getElementById(id)?.addEventListener("input", () => {

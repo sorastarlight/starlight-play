@@ -148,6 +148,16 @@
       { id: "sonic-knuckles", name: "Knuckles" },
       { id: "sonic-amy", name: "Amy" },
       { id: "sonic-cream", name: "Cream" }
+    ] },
+    { key: "digimon", premium: true, label: "Digimon Adventure", games: "Digimon Adventure", looks: [
+      { id: "taichi", name: "Taichi", ext: "gif" },
+      { id: "yamato", name: "Yamato", ext: "gif" },
+      { id: "sora", name: "Sora", ext: "gif" },
+      { id: "hikari", name: "Hikari", ext: "gif" },
+      { id: "takeru", name: "Takeru", ext: "gif" },
+      { id: "joe", name: "Joe", ext: "gif" },
+      { id: "mimi", name: "Mimi", ext: "gif" },
+      { id: "koushiro", name: "Koushiro", ext: "gif" }
     ] }
   ];
 
@@ -160,6 +170,15 @@
       cost: 200,
       blurb: "Unlock Sonic, Tails, Knuckles, Amy, and Cream for your Trainer ID.",
       looks: ["sonic-sonic", "sonic-tails", "sonic-knuckles", "sonic-amy", "sonic-cream"]
+    },
+    {
+      sku: "avatar-digimon",
+      pack: "digimon",
+      name: "Digimon Adventure",
+      games: "Digimon Adventure",
+      cost: 250,
+      blurb: "Unlock Taichi, Yamato, Sora, Hikari, Takeru, Joe, Mimi, and Koushiro for your Trainer ID.",
+      looks: ["taichi", "yamato", "sora", "hikari", "takeru", "joe", "mimi", "koushiro"]
     }
   ];
 
@@ -182,7 +201,15 @@
 
   window.playTrainerSpriteUrl = function playTrainerSpriteUrl(id) {
     const key = window.playTrainerSpriteOk(id) ? window.playTrainerSpriteKey(id) : "red-gen1";
-    return `images/trainers/${key}.png?v=sonic1`;
+    let ext = "png";
+    for (const row of window.PLAY_TRAINERS) {
+      const look = window.playTrainerLooks(row).find((item) => item.id === key);
+      if (look) {
+        ext = look.ext || "png";
+        break;
+      }
+    }
+    return `images/trainers/${key}.${ext}?v=av2`;
   };
 
   window.PLAY_CARD_BGS = [

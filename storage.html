@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=box4">
+<link rel="stylesheet" href="css/play.css?v=box5">
 <body data-page="storage" class="box-page">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -60,19 +60,13 @@
         <div id="box-grid" class="lgpe-grid" role="listbox" aria-label="Caught Pokémon" tabindex="0"></div>
         <div class="lgpe-foot">
           <p id="box-count" class="lgpe-count">0 of 0</p>
-          <nav class="lgpe-prompts" aria-label="Box actions">
-            <a href="./pokedex.html"><span class="lgpe-key lgpe-key-plus">+</span> In Party</a>
-            <button id="focus-search" type="button"><span class="lgpe-key lgpe-key-y">Y</span> Sort/Search</button>
-            <a href="./trade.html"><span class="lgpe-key lgpe-key-r">R</span> Trade</a>
-            <a href="./"><span class="lgpe-key lgpe-key-b">B</span> Back</a>
-          </nav>
+          <label class="lgpe-search">Search
+            <input id="box-search" type="search" placeholder="Name, shiny, OT…" autocomplete="off">
+          </label>
         </div>
-        <label class="lgpe-search">Search
-          <input id="box-search" type="search" placeholder="Name, ID, shiny…" autocomplete="off">
-        </label>
       </div>
       <aside class="lgpe-detail card body" id="box-detail">
-        <p class="muted">Tap a Pokémon in the box to see its Let’s Go stats, moves, and nickname.</p>
+        <p class="muted">Tap a Pokémon in the box to see its Let’s Go stats, OT, and nickname.</p>
       </aside>
     </section>
     <section class="lgpe-candy card body" style="margin-top:18px">
@@ -103,9 +97,9 @@
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
-<script src="js/types.js?v=box4"></script>
-<script src="js/game.js?v=box4"></script>
-<script src="js/trainers.js?v=sonic1"></script>
+<script src="js/types.js?v=box5"></script>
+<script src="js/game.js?v=box5"></script>
+<script src="js/trainers.js?v=av2"></script>
 <script src="js/nav.js?v=hub1"></script>
-<script src="js/storage.js?v=box4"></script>
+<script src="js/storage.js?v=box5"></script>
 </body>

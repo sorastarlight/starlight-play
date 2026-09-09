@@ -9,6 +9,9 @@
       ["ultraball", "Ultra"],
       ["lure", "Lure"]
     ];
+    (window.PLAY_BALLS || []).forEach((row) => {
+      if (row.extra && Number(bag?.[row.key] || 0) > 0) items.splice(items.length - 1, 0, [row.key, row.name]);
+    });
     if (!bag) {
       return `<p class="muted">Sign in to see your inventory.</p>`;
     }

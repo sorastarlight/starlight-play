@@ -99,10 +99,8 @@
     ];
     return labels.map(([key, label]) => {
       const value = Number(mon.stats?.[key] || 0);
-      const iv = Number(mon.ivs?.[key] || 0);
-      const av = Number(mon.avs?.[key] || 0);
       const pct = Math.max(8, Math.min(100, Math.round((value / 250) * 100)));
-      return `<div class="lgpe-stat"><span>${label}</span><i style="--pct:${pct}%"></i><strong>${value}</strong><em>IV ${iv} · AV ${av}</em></div>`;
+      return `<div class="lgpe-stat"><span>${label}</span><i style="--pct:${pct}%"></i><strong>${value}</strong></div>`;
     }).join("");
   }
 
@@ -113,14 +111,33 @@
     }
     const shiny = String(mon.variant || "").includes("shiny");
     const caught = mon.caughtAt ? new Date(mon.caughtAt).toLocaleDateString(undefined, { dateStyle: "medium" }) : "—";
+    const types = window.playSpeciesTypes(mon.dex, mon.types);
+    const size = window.playSizeMeta(mon.size);
+    const ballName = window.playItemLabel(mon.ball) || "Poké Ball";
     els.detail.innerHTML = `
+      <p class="lgpe-id">${window.playEscapeAttr(mon.publicId || "LG--------")}</p>
       <div class="lgpe-detail-hero">
-        <img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
+        <img class="lgpe-hero-sprite" src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
         <div>
-          <p class="eyebrow">${mon.publicId || "LG--------"}</p>
-          <h2>${displayName(mon)}</h2>
-          <p>${window.playSpeciesName(mon.dex)} · Lv. ${mon.level || 1} · ${mon.gender || "Unknown"}${shiny ? " · Shiny" : ""} · ${mon.size || "M"}</p>
-          <p class="muted">Caught ${caught} · ${window.playItemLabel(mon.ball) || "Ball"}</p>
+          <h2>${window.playEscapeAttr(displayName(mon))}</h2>
+          <p class="lgpe-meta-row">
+            <span>Lv. ${mon.level || 1}</span>
+            <span>${genderMark(mon.gender)}</span>
+            ${shiny ? `<span class="lgpe-shiny">Shiny</span>` : ""}
+          </p>
+          <div class="type-row">${window.playTypeChipHtml(types)}</div>
+          <div class="lgpe-size">
+            <span>Size</span>
+            <strong>${size.label}</strong>
+            <span class="lgpe-size-pips" aria-hidden="true">${size.pips}</span>
+          </div>
+        </div>
+      </div>
+      <div class="lgpe-caught">
+        <img src="${window.playItemSprite(mon.ball)}" alt="">
+        <div>
+          <strong>Caught in ${window.playEscapeAttr(ballName)}</strong>
+          <p>${caught}</p>
         </div>
       </div>
       <p class="lgpe-cp-line">CP <strong>${cpOf(mon)}</strong></p>

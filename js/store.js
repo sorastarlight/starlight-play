@@ -10,8 +10,13 @@
     coinStatus: document.getElementById("coin-status"),
     bits: document.getElementById("bits-shelf"),
     bitsStatus: document.getElementById("bits-status"),
-    passHero: document.getElementById("pass-hero")
+    passHero: document.getElementById("pass-hero"),
+    openBalls: document.getElementById("open-balls"),
+    ballModal: document.getElementById("ball-modal"),
+    ballGrid: document.getElementById("ball-grid"),
+    ballStatus: document.getElementById("ball-status")
   };
+  const CORE_BALL_SKUS = new Set(["poke5", "great3", "ultra1"]);
 
   window.playBindAccountNav({
     onSignOut() {
@@ -71,7 +76,25 @@
   }
 
   function renderShelf(target, items, mode) {
-    target.innerHTML = (items || []).map((item) => shelfCard(item, mode)).join("");
+    const rows = mode === "coins"
+      ? (items || []).filter((item) => !CORE_BALL_SKUS.has(item.sku))
+      : items;
+    target.innerHTML = (rows || []).map((item) => shelfCard(item, mode)).join("");
+  }
+
+  function renderBallCase() {
+    if (!els.ballGrid) return;
+    els.ballGrid.innerHTML = (window.PLAY_BALLS || []).map((row) => {
+      const pct = Math.round((row.rate || 0) * 100);
+      const pack = row.qty > 1 ? ` ×${row.qty}` : "";
+      return `<article class="ball-tile">
+        <img src="${window.playItemSprite(row.key)}" alt="">
+        <strong>${row.name}${pack}</strong>
+        <span class="ball-rate">${row.multiplier} · ${pct}% catch</span>
+        <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${row.cost}</span>
+        <button type="button" data-sku="${row.sku}">Get</button>
+      </article>`;
+    }).join("");
   }
 
   async function functionMessage(error, fallback) {
@@ -116,6 +139,7 @@
       renderPass(data.pass, wallet);
       renderShelf(els.coins, data.catalog?.coins, "coins");
       renderShelf(els.bits, data.catalog?.bits, "bits");
+      renderBallCase();
       return data;
     } catch (error) {
       els.coinStatus.textContent = window.playRpcError(error, "Mart catalog is not live yet.");
@@ -188,6 +212,27 @@
       await refreshStore();
     } catch (error) {
       els.coinStatus.textContent = window.playRpcError(error);
+    }
+  });
+
+  els.openBalls?.addEventListener("click", () => {
+    renderBallCase();
+    if (typeof els.ballModal?.showModal === "function") els.ballModal.showModal();
+    else els.ballModal?.setAttribute("open", "");
+  });
+
+  els.ballGrid?.addEventListener("click", async (event) => {
+    const button = event.target.closest("button[data-sku]");
+    if (!button) return;
+    const note = els.ballStatus || els.coinStatus;
+    note.textContent = "Working…";
+    try {
+      const data = await window.playCall("play_buy_sku", { p_sku: button.dataset.sku });
+      note.textContent = data.message || "Added to inventory.";
+      await refreshStore();
+      renderBallCase();
+    } catch (error) {
+      note.textContent = window.playRpcError(error);
     }
   });
 

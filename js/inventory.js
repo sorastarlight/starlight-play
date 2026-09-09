@@ -57,7 +57,14 @@
         items: [
           ["pokeball", "Poké Ball", "Throw during the catch phase. 45% base chance. Berry and Honey can still raise it."],
           ["greatball", "Great Ball", "Throw during the catch phase. 60% base chance. A steadier throw than a Poké Ball."],
-          ["ultraball", "Ultra Ball", "Throw during the catch phase. 75% base chance. The best ball in Play."]
+          ["ultraball", "Ultra Ball", "Throw during the catch phase. 75% base chance. The best catch rate in Play."],
+          ...((window.PLAY_BALLS || [])
+            .filter((row) => row.extra && Number(bag?.[row.key] || 0) > 0)
+            .map((row) => [
+              row.key,
+              row.name,
+              `${Math.round(row.rate * 100)}% catch. Looks different; no extra catch effects.`
+            ]))
         ]
       }
     ];

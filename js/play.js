@@ -7,7 +7,9 @@
     actions: document.getElementById("actions"),
     actionStatus: document.getElementById("action-status"),
     bag: document.getElementById("bag-status"),
-    live: document.getElementById("live-feed")
+    live: document.getElementById("live-feed"),
+    throwModal: document.getElementById("throw-modal"),
+    throwGrid: document.getElementById("throw-ball-grid")
   };
   let state = null;
   let profile = null;
@@ -72,9 +74,7 @@
       buttons.push({ kind: "prepare", item: "bait", label: "Honey", hint: `${bag.bait ?? 0} left · team bonus` });
     }
     if (round.phase === "throw" && me && me.prep && !me.ball) {
-      buttons.push({ kind: "throw", item: "pokeball", label: "Poké Ball", hint: `${bag.pokeball ?? 0} left` });
-      buttons.push({ kind: "throw", item: "greatball", label: "Great Ball", hint: `${bag.greatball ?? 0} left` });
-      buttons.push({ kind: "throw", item: "ultraball", label: "Ultra Ball", hint: `${bag.ultraball ?? 0} left` });
+      buttons.push({ kind: "open-balls", item: "", label: "Choose a Poké Ball", hint: "See catch rates in your bag" });
     }
     if (!buttons.length) {
       let status = "";
@@ -104,6 +104,24 @@
         <span class="item-copy"><strong>${row.label}</strong><em>${row.hint}</em></span>
       </button>`
     )).join("");
+  }
+
+  function openThrowBalls(bag) {
+    if (!els.throwModal || !els.throwGrid) return;
+    const rows = window.PLAY_BALLS || [];
+    els.throwGrid.innerHTML = rows.map((row) => {
+      const qty = Number(bag?.[row.key] || 0);
+      const pct = Math.round((row.rate || 0) * 100);
+      const disabled = qty < 1 ? "disabled" : "";
+      return `<button type="button" class="ball-tile" data-throw="${row.key}" ${disabled}>
+        <img src="${window.playItemSprite(row.key)}" alt="">
+        <strong>${row.name}</strong>
+        <span class="ball-rate">${row.multiplier} · ${pct}% catch</span>
+        <span class="muted">${qty} in bag</span>
+      </button>`;
+    }).join("");
+    if (typeof els.throwModal.showModal === "function") els.throwModal.showModal();
+    else els.throwModal.setAttribute("open", "");
   }
 
   function render(data) {
@@ -183,8 +201,22 @@
   els.actions.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-kind]");
     if (!button || button.disabled) return;
+    if (button.dataset.kind === "open-balls") {
+      openThrowBalls(state?.bag || {});
+      return;
+    }
     button.disabled = true;
     act(button.dataset.kind, button.dataset.item || "").finally(() => {
+      if (button.isConnected) button.disabled = false;
+    });
+  });
+
+  els.throwGrid?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-throw]");
+    if (!button || button.disabled) return;
+    button.disabled = true;
+    els.throwModal?.close?.();
+    act("throw", button.dataset.throw).finally(() => {
       if (button.isConnected) button.disabled = false;
     });
   });

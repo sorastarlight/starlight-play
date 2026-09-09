@@ -144,11 +144,15 @@
       { id: "nurse", name: "Nurse Joy" },
       { id: "officer-gen2", name: "Officer Jenny" }
     ] },
-    { key: "sonic", premium: true, label: "Sonic the Hedgehog Series", games: "Sonic Advance", looks: [
+    { key: "sonic", premium: true, label: "Sonic the Hedgehog Series", games: "Sonic Advance / Sonic Origins", looks: [
       { id: "sonic-sonic", name: "Sonic" },
+      { id: "sonic-origins-sonic", name: "Sonic Origins" },
       { id: "sonic-tails", name: "Tails" },
+      { id: "sonic-origins-tails", name: "Tails Origins" },
       { id: "sonic-knuckles", name: "Knuckles" },
+      { id: "sonic-origins-knuckles", name: "Knuckles Origins" },
       { id: "sonic-amy", name: "Amy" },
+      { id: "sonic-origins-amy", name: "Amy Origins" },
       { id: "sonic-cream", name: "Cream" }
     ] },
     { key: "digimon", premium: true, label: "Digimon Adventure", games: "Digimon Adventure", looks: [
@@ -168,10 +172,10 @@
       sku: "avatar-sonic",
       pack: "sonic",
       name: "Sonic the Hedgehog Series",
-      games: "Sonic Advance",
+      games: "Sonic Advance / Sonic Origins",
       cost: 200,
-      blurb: "Unlock Sonic, Tails, Knuckles, Amy, and Cream for your Trainer ID.",
-      looks: ["sonic-sonic", "sonic-tails", "sonic-knuckles", "sonic-amy", "sonic-cream"]
+      blurb: "Unlock Sonic Advance and Sonic Origins looks for your Trainer ID.",
+      looks: ["sonic-sonic", "sonic-origins-sonic", "sonic-tails", "sonic-origins-tails", "sonic-knuckles", "sonic-origins-knuckles", "sonic-amy", "sonic-origins-amy", "sonic-cream"]
     },
     {
       sku: "avatar-digimon",
@@ -211,7 +215,7 @@
         break;
       }
     }
-    return `images/trainers/${key}.${ext}?v=av4`;
+    return `images/trainers/${key}.${ext}?v=av5`;
   };
 
   window.PLAY_CARD_BGS = [

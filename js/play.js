@@ -332,7 +332,7 @@
       if (!tickLive._n) tickLive._n = 0;
       tickLive._n += 1;
       if (tickLive._n % 5 === 0) refresh();
-    else {
+    } else {
       if (!tickLive._idle) tickLive._idle = 0;
       tickLive._idle += 1;
       if (tickLive._idle % 3 === 0) refresh();

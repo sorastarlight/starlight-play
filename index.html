@@ -69,11 +69,18 @@
     <aside class="card dex-card">
       <div class="body">
         <div class="eyebrow">Wild encounter</div>
-        <div id="encounter"></div>
+        <div id="encounter">
+          <div class="dex-empty">
+            <p>No wild Pokémon right now.</p>
+            <p class="muted">When Sora starts a community encounter, it will appear here.</p>
+          </div>
+        </div>
         <p id="action-status" class="muted" role="status"></p>
         <div id="actions" class="action-grid"></div>
         <h3>My Inventory</h3>
-        <div id="bag-status"></div>
+        <div id="bag-status">
+          <p class="muted">Sign in to see Berries, Honey, and Poké Radar.</p>
+        </div>
         <aside id="lure-panel" class="lure-panel lure-panel-play">
           <img class="item-sprite" src="images/items/poke-radar.png" alt="">
           <p class="lure-qty"><strong id="lure-count">0</strong><span id="lure-qty-label">ready</span></p>
@@ -108,5 +115,5 @@
 <script src="js/game.js?v=pc1"></script>
 <script src="js/hud.js?v=pc1"></script>
 <script src="js/nav.js?v=pc1"></script>
-<script src="js/play.js?v=pc1"></script>
+<script src="js/play.js?v=pc2"></script>
 </body>

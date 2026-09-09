@@ -297,7 +297,15 @@
   function tickLive() {
     if (document.visibilityState !== "visible" || !state) return;
     const round = liveRound(state);
-    if (!round) return;
+    if (!round) {
+      if (lastLocalPhase || (lastEncounterKey && !lastEncounterKey.startsWith("none:idle"))) {
+        lastLocalPhase = "";
+        lastEncounterKey = "";
+        lastActionKey = "";
+        render(state);
+      }
+      return;
+    }
     const bar = phaseBar(round);
     window.playPatchEncounter(els.encounter, round, bar);
     if (round.phase && round.phase !== lastLocalPhase) {

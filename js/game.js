@@ -272,6 +272,8 @@
     return "normal";
   };
 
+  window.PLAY_ROUND_IDLE_AFTER_MS = 3 * 60 * 1000;
+
   window.playLocalPhase = function playLocalPhase(round) {
     if (!round || round.cancelled) return "closed";
     const d = round.deadlines || {};
@@ -292,11 +294,24 @@
     return round.phase || "closed";
   };
 
+  window.playRoundIdleAt = function playRoundIdleAt(round) {
+    if (!round || round.cancelled) return 0;
+    const from = Date.parse(round.deadlines?.reveal || round.endsAt || round.startedAt || "");
+    if (!Number.isFinite(from)) return 0;
+    return from + (window.PLAY_ROUND_IDLE_AFTER_MS || 180000);
+  };
+
   window.playApplyLocalRound = function playApplyLocalRound(round) {
     if (!round) return round;
+    if (round.cancelled) return null;
     const phase = window.playLocalPhase(round);
     const ends = round.deadlines?.[phase] || round.endsAt;
-    return { ...round, phase, endsAt: ends || round.endsAt };
+    const next = { ...round, phase, endsAt: ends || round.endsAt };
+    if (phase === "closed") {
+      const idleAt = window.playRoundIdleAt(round);
+      if (!idleAt || Date.now() >= idleAt) return null;
+    }
+    return next;
   };
 
   window.playSpriteUrl = function playSpriteUrl(dex, variant) {

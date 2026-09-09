@@ -1987,7 +1987,20 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
   max-height: 240px;
   overflow: auto;
 }
-.live-feed h3 { margin: 0 0 8px; font-size: 14px; letter-spacing: .08em; }
+.live-feed h3 { margin: 0; font-size: 14px; letter-spacing: .08em; }
+.live-feed-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin: 0 0 8px;
+}
+.live-feed-head .muted {
+  margin: 0;
+  color: #8ea0c4;
+  font-size: 12px;
+}
 .live-feed ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .live-feed li {
   display: grid;
@@ -2035,9 +2048,10 @@ body[data-page="admin"] .play-stage {
   border-radius: 26px;
 }
 .play-stream-col .live-feed {
-  flex: 1 1 auto;
+  flex: 1 1 0;
   min-height: 220px;
   max-height: none;
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
   overflow: hidden;

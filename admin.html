@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=live1">
+<link rel="stylesheet" href="css/play.css?v=live2">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -59,9 +59,11 @@
         <div class="hero">
           <div class="eyebrow">Stream preview</div>
           <iframe id="stream-frame" title="Twitch stream preview" allowfullscreen></iframe>
-          <p id="stream-note" class="muted">Loading preview…</p>
           <section class="live-feed" aria-live="polite">
-            <h3>PLAY CONSOLE</h3>
+            <div class="live-feed-head">
+              <h3>PLAY CONSOLE</h3>
+              <p id="stream-note" class="muted">Loading preview…</p>
+            </div>
             <ol id="admin-console"></ol>
           </section>
         </div>

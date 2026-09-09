@@ -141,16 +141,18 @@
       { id: "nurse", name: "Nurse Joy" },
       { id: "officer-gen2", name: "Officer Jenny" }
     ] },
-    { key: "sonic", premium: true, label: "Sonic The Hedgehog Advance Trainer Sprite Pack", games: "Sonic Advance / Sonic Origins", looks: [
+    { key: "sonic", premium: true, label: "Sonic The Hedgehog Advance Trainer Sprite Pack", games: "Sonic Advance", looks: [
       { id: "sonic-sonic", name: "Sonic" },
-      { id: "sonic-origins-sonic", name: "Sonic Origins" },
       { id: "sonic-tails", name: "Tails" },
-      { id: "sonic-origins-tails", name: "Tails Origins" },
       { id: "sonic-knuckles", name: "Knuckles" },
-      { id: "sonic-origins-knuckles", name: "Knuckles Origins" },
       { id: "sonic-amy", name: "Amy" },
-      { id: "sonic-origins-amy", name: "Amy Origins" },
       { id: "sonic-cream", name: "Cream" }
+    ] },
+    { key: "sonic-classic", premium: true, label: "Sonic The Hedgehog Classic Trainer Sprite Pack", games: "Sonic Origins", looks: [
+      { id: "sonic-origins-sonic", name: "Sonic" },
+      { id: "sonic-origins-tails", name: "Tails" },
+      { id: "sonic-origins-knuckles", name: "Knuckles" },
+      { id: "sonic-origins-amy", name: "Amy" }
     ] },
     { key: "digimon", premium: true, label: "Digimon Adventure Trainer Sprite Pack", games: "Digimon Adventure", looks: [
       { id: "taichi", name: "Taichi" },
@@ -175,10 +177,19 @@
       sku: "avatar-sonic",
       pack: "sonic",
       name: "Sonic The Hedgehog Advance Trainer Sprite Pack",
-      games: "Sonic Advance / Sonic Origins",
+      games: "Sonic Advance",
       cost: 200,
-      blurb: "Unlock Sonic Advance and Sonic Origins looks for your Trainer ID.",
-      looks: ["sonic-sonic", "sonic-origins-sonic", "sonic-tails", "sonic-origins-tails", "sonic-knuckles", "sonic-origins-knuckles", "sonic-amy", "sonic-origins-amy", "sonic-cream"]
+      blurb: "Unlock Sonic, Tails, Knuckles, Amy, and Cream from Sonic Advance for your Trainer ID.",
+      looks: ["sonic-sonic", "sonic-tails", "sonic-knuckles", "sonic-amy", "sonic-cream"]
+    },
+    {
+      sku: "avatar-sonic-classic",
+      pack: "sonic-classic",
+      name: "Sonic The Hedgehog Classic Trainer Sprite Pack",
+      games: "Sonic Origins",
+      cost: 150,
+      blurb: "Unlock classic Sonic Origins looks for Sonic, Tails, Knuckles, and Amy.",
+      looks: ["sonic-origins-sonic", "sonic-origins-tails", "sonic-origins-knuckles", "sonic-origins-amy"]
     },
     {
       sku: "avatar-digimon",

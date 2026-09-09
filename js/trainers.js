@@ -119,9 +119,6 @@
       { id: "ash-unova", name: "Ash", outfit: "Unova" },
       { id: "ash-kalos", name: "Ash", outfit: "Kalos" },
       { id: "ash-alola", name: "Ash", outfit: "Alola" },
-      { id: "ashley", name: "Ashley (Kanto)" },
-      { id: "ashley-crossdress-alola", name: "Ashley Crossdress Alola" },
-      { id: "ashley-crossdress-unova", name: "Ashley Crossdress Unova" },
       { id: "misty", name: "Misty" },
       { id: "misty-gen1", name: "Misty", outfit: "Gen 1" },
       { id: "misty-lgpe", name: "Misty", outfit: "Let's Go" },
@@ -164,6 +161,12 @@
       { id: "joe", name: "Joe" },
       { id: "mimi", name: "Mimi" },
       { id: "koushiro", name: "Koushiro" }
+    ] },
+    { key: "genderbend", premium: true, label: "Anime Genderbending Pack", games: "Pokémon the Series", looks: [
+      { id: "ashley", name: "Ashley Crossdress Kanto" },
+      { id: "ashley-crossdress-alola", name: "Ashley Crossdress Alola" },
+      { id: "ashley-crossdress-unova", name: "Ashley Crossdress Unova" },
+      { id: "serena-crossdress", name: "Serena Crossdress" }
     ] }
   ];
 
@@ -185,6 +188,15 @@
       cost: 250,
       blurb: "Unlock Taichi, Yamato, Sora, Hikari, Takeru, Joe, Mimi, and Koushiro for your Trainer ID.",
       looks: ["taichi", "yamato", "sora", "hikari", "takeru", "joe", "mimi", "koushiro"]
+    },
+    {
+      sku: "avatar-genderbend",
+      pack: "genderbend",
+      name: "Anime Genderbending Pack",
+      games: "Pokémon the Series",
+      cost: 200,
+      blurb: "Unlock Ashley Crossdress Kanto, Alola, and Unova, plus Serena Crossdress, for your Trainer ID.",
+      looks: ["ashley", "ashley-crossdress-alola", "ashley-crossdress-unova", "serena-crossdress"]
     }
   ];
 
@@ -215,7 +227,7 @@
         break;
       }
     }
-    return `images/trainers/${key}.${ext}?v=av5`;
+    return `images/trainers/${key}.${ext}?v=av6`;
   };
 
   window.PLAY_CARD_BGS = [

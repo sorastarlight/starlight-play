@@ -9,7 +9,6 @@
     detail: document.getElementById("box-detail"),
     candy: document.getElementById("candy-grid"),
     search: document.getElementById("box-search"),
-    focusSearch: document.getElementById("focus-search"),
     status: document.getElementById("box-status"),
     oakModal: document.getElementById("oak-modal"),
     oakSprite: document.getElementById("oak-sprite"),
@@ -28,19 +27,15 @@
     }
   });
 
-  function genderMark(gender) {
-    if (gender === "Male") return `<span class="lgpe-sex-m">♂</span>`;
-    if (gender === "Female") return `<span class="lgpe-sex-f">♀</span>`;
-    return "–";
+  function genderChip(gender) {
+    const key = String(gender || "");
+    if (key === "Male") return `<span class="type-chip gender-chip is-male">Male ♂</span>`;
+    if (key === "Female") return `<span class="type-chip gender-chip is-female">Female ♀</span>`;
+    return `<span class="type-chip gender-chip is-none">Genderless</span>`;
   }
 
   function displayName(mon) {
-    const shiny = String(mon.variant || "").includes("shiny") ? "Shiny " : "";
-    return mon.nickname ? `${mon.nickname}` : `${shiny}${mon.name}`;
-  }
-
-  function cpOf(mon) {
-    return Number(mon.cp) || window.playMonCp?.(mon) || 10;
+    return mon.nickname ? `${mon.nickname}` : `${mon.name}`;
   }
 
   function teamSlot(mon) {
@@ -52,7 +47,7 @@
   function matches(mon) {
     const q = (els.search?.value || "").trim().toLowerCase();
     if (!q) return true;
-    return [mon.name, mon.nickname, mon.publicId, mon.gender, mon.variant, String(mon.dex)]
+    return [mon.name, mon.nickname, mon.gender, mon.variant, mon.otName, mon.metLocation, String(mon.dex)]
       .join(" ")
       .toLowerCase()
       .includes(q);
@@ -63,7 +58,7 @@
       els.head.textContent = filtered.length ? "Select a Pokémon" : "No Pokémon in this box yet";
       return;
     }
-    els.head.innerHTML = `${window.playEscapeAttr(displayName(mon))} (Lv. ${mon.level || 1} / ${genderMark(mon.gender)})`;
+    els.head.innerHTML = `${window.playEscapeAttr(displayName(mon))} <span>Lv. ${mon.level || 1}</span>`;
     els.count.textContent = `${index + 1} of ${filtered.length}`;
   }
 
@@ -84,7 +79,6 @@
         ${slot === 1 ? `<span class="lgpe-heart" aria-hidden="true">♥</span>` : ""}
         ${String(mon.variant || "").includes("shiny") ? `<span class="lgpe-spark">✦</span>` : ""}
         <span class="lgpe-sprite"><img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt=""></span>
-        <strong class="lgpe-cp">${cpOf(mon)}</strong>
       </button>`;
     }).join("");
     const index = mons.findIndex((row) => String(row.id) === selectedId);
@@ -106,51 +100,58 @@
 
   function renderDetail(mon) {
     if (!mon) {
-      els.detail.innerHTML = `<p class="muted">Tap a Pokémon in the box to see its Let’s Go stats, moves, and nickname.</p>`;
+      els.detail.innerHTML = `
+        <div class="lgpe-detail-inner is-empty">
+          <p class="muted">Tap a Pokémon in the box to see its Let’s Go stats, OT, and nickname.</p>
+        </div>`;
       return;
     }
     const shiny = String(mon.variant || "").includes("shiny");
-    const caught = mon.caughtAt ? new Date(mon.caughtAt).toLocaleDateString(undefined, { dateStyle: "medium" }) : "—";
     const types = window.playSpeciesTypes(mon.dex, mon.types);
     const size = window.playSizeMeta(mon.size);
     const ballName = window.playItemLabel(mon.ball) || "Poké Ball";
+    const metLevel = mon.metLevel || mon.level || 1;
+    const metPlace = mon.metLocation || "the wild";
+    const otName = mon.otName || "Unknown Trainer";
+    const otNo = mon.otNumber ? String(mon.otNumber).padStart(5, "0") : "-----";
     els.detail.innerHTML = `
-      <p class="lgpe-id">${window.playEscapeAttr(mon.publicId || "LG--------")}</p>
-      <div class="lgpe-detail-hero">
-        <img class="lgpe-hero-sprite" src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
-        <div>
-          <h2>${window.playEscapeAttr(displayName(mon))}</h2>
-          <p class="lgpe-meta-row">
-            <span>Lv. ${mon.level || 1}</span>
-            <span>${genderMark(mon.gender)}</span>
-            ${shiny ? `<span class="lgpe-shiny">Shiny</span>` : ""}
-          </p>
-          <div class="type-row">${window.playTypeChipHtml(types)}</div>
-          <div class="lgpe-size">
-            <span>Size</span>
-            <strong>${size.label}</strong>
-            <span class="lgpe-size-pips" aria-hidden="true">${size.pips}</span>
+      <div class="lgpe-detail-inner">
+        <div class="lgpe-detail-hero">
+          <img class="lgpe-hero-sprite" src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
+          <div>
+            <h2>${window.playEscapeAttr(displayName(mon))}</h2>
+            <p class="lgpe-species">${window.playEscapeAttr(mon.name)} · Lv. ${mon.level || 1}</p>
+            <div class="type-row">
+              ${window.playTypeChipHtml(types)}
+              ${genderChip(mon.gender)}
+              ${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}
+            </div>
+            <div class="lgpe-size">
+              <span>Size</span>
+              <strong>${size.label}</strong>
+              <span class="lgpe-size-pips" aria-hidden="true">${size.pips}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="lgpe-caught">
-        <img src="${window.playItemSprite(mon.ball)}" alt="">
-        <div>
-          <strong>Caught in ${window.playEscapeAttr(ballName)}</strong>
-          <p>${caught}</p>
+        <div class="lgpe-caught">
+          <img src="${window.playItemSprite(mon.ball)}" alt="">
+          <div>
+            <strong>Caught in ${window.playEscapeAttr(ballName)}</strong>
+            <p>Met at Lv. ${metLevel} in ${window.playEscapeAttr(metPlace)}.</p>
+          </div>
         </div>
-      </div>
-      <p class="lgpe-cp-line">CP <strong>${cpOf(mon)}</strong></p>
-      <div class="lgpe-stats">${statRows(mon)}</div>
-      <h3>Moves</h3>
-      <ul class="lgpe-moves">${(mon.moves || []).map((move) => `<li>${move}</li>`).join("") || "<li>Tackle</li>"}</ul>
-      <label class="field" for="nick-input">Nickname
-        <input id="nick-input" type="text" maxlength="12" value="${mon.nickname || ""}" placeholder="${mon.name}">
-      </label>
-      <div class="links">
-        <button id="save-nick" type="button">Save nickname</button>
-        <button id="list-trade" class="secondary" type="button">${mon.listed ? "Already listed" : "Put up for trade"}</button>
-        <button id="send-oak" class="danger" type="button" ${mon.onTeam || mon.listed ? "disabled" : ""}>Transfer to Oak</button>
+        <p class="lgpe-ot"><span>OT</span> <strong>${window.playEscapeAttr(otName)}</strong> <em>No. ${otNo}</em></p>
+        <div class="lgpe-stats">${statRows(mon)}</div>
+        <div class="lgpe-detail-actions">
+          <label class="field" for="nick-input">Nickname
+            <input id="nick-input" type="text" maxlength="12" value="${window.playEscapeAttr(mon.nickname || "")}" placeholder="${window.playEscapeAttr(mon.name)}">
+          </label>
+          <div class="links">
+            <button id="save-nick" type="button">Save nickname</button>
+            <button id="list-trade" class="secondary" type="button">${mon.listed ? "Already listed" : "Put up for trade"}</button>
+            <button id="send-oak" class="danger" type="button" ${mon.onTeam || mon.listed ? "disabled" : ""}>Transfer to Oak</button>
+          </div>
+        </div>
       </div>`;
     document.getElementById("save-nick")?.addEventListener("click", () => act("play_set_nickname", {
       p_catch_id: mon.id,
@@ -263,10 +264,6 @@
     moveSelection(move[0], move[1]);
   });
   els.search?.addEventListener("input", renderGrid);
-  els.focusSearch?.addEventListener("click", () => {
-    els.search?.focus();
-    els.search?.select?.();
-  });
   els.oakModal?.addEventListener("click", (event) => {
     if (event.target === els.oakModal) els.oakModal.close("cancel");
   });

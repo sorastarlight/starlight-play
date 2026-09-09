@@ -211,6 +211,10 @@
     });
   });
 
+  els.throwModal?.addEventListener("click", (event) => {
+    if (event.target === els.throwModal) els.throwModal.close("cancel");
+  });
+
   els.throwGrid?.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-throw]");
     if (!button || button.disabled) return;

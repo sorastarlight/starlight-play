@@ -101,12 +101,10 @@
     els.note.textContent = `${rows.length} caught · ${species} species · open Storage for stats, nicknames, and Oak`;
     els.caught.innerHTML = rows.slice(0, 18).map((row) => {
       const slot = (teamIds || []).findIndex((id) => String(id) === String(row.id)) + 1;
-      const cp = Number(row.cp) || window.playMonCp?.(row) || "";
       return `<a class="lgpe-mon" href="./storage.html">
         ${slot ? `<span class="lgpe-party">${slot}</span>` : ""}
         ${slot === 1 ? `<span class="lgpe-heart" aria-hidden="true">♥</span>` : ""}
         <span class="lgpe-sprite"><img src="${window.playSpriteUrl(row.dex, row.variant)}" alt=""></span>
-        ${cp ? `<strong class="lgpe-cp">${cp}</strong>` : ""}
       </a>`;
     }).join("");
   }

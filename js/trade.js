@@ -507,7 +507,7 @@
         </div>`;
       if (mine) {
         els.detail.innerHTML = `${hero}
-          <div class="links"><button id="cancel-listing" class="secondary" type="button">Take down</button></div>
+          <div class="links"><button id="cancel-listing" class="secondary" type="button">Cancel Trade</button></div>
           <h3>Offers</h3>
           <div id="offer-list" class="gts-offer-list">${offers.length ? offers.map((row) => `
             <article class="gts-offer">

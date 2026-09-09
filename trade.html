@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=gts2">
+<link rel="stylesheet" href="css/play.css?v=gts5">
 <body data-page="trade" class="gts-page">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -114,30 +114,35 @@
     </div>
     <div id="list-step-want" hidden>
       <div id="list-picked" class="gts-picked"></div>
-      <label class="field gts-want-field" for="list-want">I want this Pokémon
-        <div class="gts-species-wrap">
-          <input id="list-want" type="text" placeholder="Pikachu, or leave blank for any" autocomplete="off" aria-autocomplete="list" aria-controls="list-want-menu">
-          <ul id="list-want-menu" class="gts-species-menu" hidden role="listbox"></ul>
-        </div>
-      </label>
-      <div id="list-want-traits" class="gts-want-traits" hidden>
-        <label class="gts-check" id="list-want-male-wrap" for="list-want-male">
+      <div class="field gts-want-field">
+        <span>I want this Pokémon</span>
+        <input id="list-want" type="hidden" value="">
+        <button id="want-open" class="gts-want-pick" type="button">
+          <span id="want-pick-preview" class="gts-want-preview">
+            <img src="images/items/poke-ball.png" alt="">
+            <strong>Any Pokémon</strong>
+          </span>
+          <span>Choose</span>
+        </button>
+      </div>
+      <div id="list-want-traits" class="gts-want-traits">
+        <label class="gts-check" id="list-want-male-wrap" for="list-want-male" hidden>
           <input id="list-want-male" type="checkbox">
           <span>Male</span>
         </label>
-        <label class="gts-check" id="list-want-female-wrap" for="list-want-female">
+        <label class="gts-check" id="list-want-female-wrap" for="list-want-female" hidden>
           <input id="list-want-female" type="checkbox">
           <span>Female</span>
         </label>
-        <label class="gts-check" for="list-want-shiny">
+        <label class="gts-check" id="list-want-shiny-wrap" for="list-want-shiny" hidden>
           <input id="list-want-shiny" type="checkbox">
           <span>Shiny</span>
         </label>
+        <label class="gts-check" for="list-accept">
+          <input id="list-accept" type="checkbox" checked>
+          <span>I’ll take other offers</span>
+        </label>
       </div>
-      <label class="gts-check" for="list-accept">
-        <input id="list-accept" type="checkbox" checked>
-        <span>I’ll take other offers too</span>
-      </label>
       <label class="field" for="list-note"><span class="gts-comment-label">Comment <em>(optional)</em></span>
         <input id="list-note" type="text" maxlength="80" placeholder="">
       </label>
@@ -147,6 +152,22 @@
       <button id="list-next" type="button">Trade</button>
     </div>
     <p id="list-status" class="muted" role="status"></p>
+  </form>
+</dialog>
+<dialog id="want-modal" class="play-modal play-modal-wide" aria-labelledby="want-title">
+  <form class="play-modal-card gts-want-browser" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="want-title">What are you looking for?</h3>
+      <button class="secondary" value="cancel" type="submit">Close</button>
+    </header>
+    <div class="gts-want-toolbar">
+      <label class="lgpe-search">Search
+        <input id="want-search" type="search" placeholder="Name or number" autocomplete="off">
+      </label>
+      <button id="want-any" class="secondary" type="button">Any Pokémon</button>
+    </div>
+    <p id="want-count" class="muted">Kanto Pokédex</p>
+    <div id="want-grid" class="gts-dex-grid" role="listbox" aria-label="Pokédex"></div>
   </form>
 </dialog>
 <dialog id="detail-modal" class="play-modal play-modal-wide" aria-labelledby="detail-title">
@@ -166,5 +187,5 @@
 <script src="js/game.js?v=pc1"></script>
 <script src="js/trainers.js?v=sonic2"></script>
 <script src="js/nav.js?v=gts3"></script>
-<script src="js/trade.js?v=gts4"></script>
+<script src="js/trade.js?v=gts5"></script>
 </body>

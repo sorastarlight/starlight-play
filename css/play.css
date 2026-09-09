@@ -2695,43 +2695,81 @@ body[data-page="admin"] .play-stage {
   background: radial-gradient(circle, #fff 0 40%, rgba(255,255,255,.35) 62%, transparent 70%);
 }
 .gts-pc-tile.is-selected { box-shadow: 0 0 0 3px #4aa3e8; }
-.gts-species-wrap { position: relative; }
-.gts-species-menu {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(100% + 4px);
-  z-index: 8;
-  max-height: 220px;
-  overflow: auto;
-  margin: 0;
-  padding: 4px;
-  list-style: none;
-  background: #fffdf8;
-  border: 2px solid #c9a36a;
-  border-radius: 12px;
-  box-shadow: 0 10px 24px #1a223833;
-}
-.gts-species-menu button {
-  display: block;
+.gts-want-pick {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   width: 100%;
-  text-align: left;
-  padding: 8px 10px;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
+  padding: 8px 12px;
+  border: 2px solid #c9a36a;
+  border-radius: 14px;
+  background: #fffdf8;
   font: inherit;
-  font-weight: 800;
   color: inherit;
   cursor: pointer;
+  text-align: left;
 }
-.gts-species-menu button:hover,
-.gts-species-menu button.is-active {
-  background: #fff3b0;
+.gts-want-pick:hover { background: #fff8e8; }
+.gts-want-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.gts-want-preview img {
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+.gts-want-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 10px;
+}
+.gts-dex-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: 8px;
+  max-height: min(52vh, 520px);
+  overflow: auto;
+  padding: 8px;
+  background: #f4e2c4;
+  border: 3px solid #c9a36a;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 5px #f8edd8;
+}
+.gts-dex-tile {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 8px 6px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+}
+.gts-dex-tile img {
+  width: 56px;
+  height: 56px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+.gts-dex-tile strong { font-size: 12px; line-height: 1.15; }
+.gts-dex-tile span { font-size: 11px; font-weight: 800; color: #6b5a3c; }
+.gts-dex-tile:hover {
+  background: radial-gradient(circle, #fff 0 40%, rgba(255,255,255,.35) 62%, transparent 70%);
 }
 .gts-want-traits {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px 16px;
   margin: 4px 0 10px;
 }

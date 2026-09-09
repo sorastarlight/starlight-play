@@ -22,13 +22,20 @@
     listPcGrid: document.getElementById("list-pc-grid"),
     listPicked: document.getElementById("list-picked"),
     listWant: document.getElementById("list-want"),
-    listWantMenu: document.getElementById("list-want-menu"),
+    wantOpen: document.getElementById("want-open"),
+    wantPreview: document.getElementById("want-pick-preview"),
+    wantModal: document.getElementById("want-modal"),
+    wantSearch: document.getElementById("want-search"),
+    wantGrid: document.getElementById("want-grid"),
+    wantCount: document.getElementById("want-count"),
+    wantAny: document.getElementById("want-any"),
     listWantTraits: document.getElementById("list-want-traits"),
     listWantMale: document.getElementById("list-want-male"),
     listWantFemale: document.getElementById("list-want-female"),
     listWantMaleWrap: document.getElementById("list-want-male-wrap"),
     listWantFemaleWrap: document.getElementById("list-want-female-wrap"),
     listWantShiny: document.getElementById("list-want-shiny"),
+    listWantShinyWrap: document.getElementById("list-want-shiny-wrap"),
     listAccept: document.getElementById("list-accept"),
     listNote: document.getElementById("list-note"),
     listBack: document.getElementById("list-back"),
@@ -299,7 +306,6 @@
     if (els.listNext) els.listNext.textContent = onPc ? "Trade" : "List on the GTS";
     if (els.listPicked) els.listPicked.innerHTML = pickedHtml(listingMon);
     if (els.listStatus) els.listStatus.textContent = "";
-    if (onPc) hideWantMenu();
   }
 
   function chosenWantGender() {
@@ -315,53 +321,76 @@
 
   function updateWantTraits() {
     const dex = wantDex(els.listWant?.value);
-    if (els.listWantTraits) els.listWantTraits.hidden = !dex;
     if (!dex) {
       if (els.listWantMale) els.listWantMale.checked = false;
       if (els.listWantFemale) els.listWantFemale.checked = false;
       if (els.listWantShiny) els.listWantShiny.checked = false;
+      if (els.listWantMaleWrap) els.listWantMaleWrap.hidden = true;
+      if (els.listWantFemaleWrap) els.listWantFemaleWrap.hidden = true;
+      if (els.listWantShinyWrap) els.listWantShinyWrap.hidden = true;
       return;
     }
     const options = window.playGenderOptions(dex);
     const showGender = options.length === 2 && options.includes("Male") && options.includes("Female");
     if (els.listWantMaleWrap) els.listWantMaleWrap.hidden = !showGender;
     if (els.listWantFemaleWrap) els.listWantFemaleWrap.hidden = !showGender;
+    if (els.listWantShinyWrap) els.listWantShinyWrap.hidden = false;
     if (!showGender) {
       if (els.listWantMale) els.listWantMale.checked = false;
       if (els.listWantFemale) els.listWantFemale.checked = false;
     }
   }
 
-  function speciesMatches(query) {
-    const q = String(query || "").trim().toLowerCase();
-    const names = window.PLAY_SPECIES || [];
-    const rows = names.map((name, index) => ({ dex: index + 1, name }));
-    if (!q) return rows.slice(0, 12);
-    return rows.filter((row) => row.name.toLowerCase().includes(q)).slice(0, 12);
-  }
-
-  function hideWantMenu() {
-    if (els.listWantMenu) els.listWantMenu.hidden = true;
-  }
-
-  function renderWantMenu() {
-    if (!els.listWantMenu || !els.listWant) return;
-    const rows = speciesMatches(els.listWant.value);
-    if (!rows.length) {
-      hideWantMenu();
+  function renderWantPreview() {
+    const dex = wantDex(els.listWant?.value);
+    if (!els.wantPreview) return;
+    if (!dex) {
+      els.wantPreview.innerHTML = `<img src="images/items/poke-ball.png" alt=""><strong>Any Pokémon</strong>`;
       return;
     }
-    els.listWantMenu.hidden = false;
-    els.listWantMenu.innerHTML = rows.map((row) =>
-      `<li><button type="button" role="option" data-name="${window.playEscapeAttr(row.name)}">${window.playEscapeAttr(row.name)}</button></li>`
+    els.wantPreview.innerHTML = `<img src="${window.playEscapeAttr(window.playSpriteUrl(dex))}" alt=""><strong>${window.playEscapeAttr(window.playSpeciesName(dex))}</strong>`;
+  }
+
+  function speciesRows(query) {
+    const q = String(query || "").trim().toLowerCase();
+    const names = window.PLAY_SPECIES || [];
+    return names.map((name, index) => ({ dex: index + 1, name })).filter((row) => {
+      if (!q) return true;
+      const num = String(row.dex).padStart(3, "0");
+      return row.name.toLowerCase().includes(q) || num.includes(q) || String(row.dex) === q;
+    });
+  }
+
+  function renderWantGrid() {
+    if (!els.wantGrid) return;
+    const rows = speciesRows(els.wantSearch?.value);
+    if (els.wantCount) {
+      els.wantCount.textContent = rows.length
+        ? `${rows.length} Pokémon`
+        : "No Pokémon match that search.";
+    }
+    els.wantGrid.innerHTML = rows.map((row) =>
+      `<button class="gts-dex-tile" type="button" role="option" data-name="${window.playEscapeAttr(row.name)}">
+        <img src="${window.playEscapeAttr(window.playSpriteUrl(row.dex))}" alt="">
+        <strong>${window.playEscapeAttr(row.name)}</strong>
+        <span>No. ${String(row.dex).padStart(3, "0")}</span>
+      </button>`
     ).join("");
   }
 
   function pickWantSpecies(name) {
-    if (els.listWant) els.listWant.value = name;
-    hideWantMenu();
+    if (els.listWant) els.listWant.value = name || "";
+    if (!name && els.listAccept) els.listAccept.checked = true;
+    renderWantPreview();
     updateWantTraits();
-    if (!name.trim() && els.listAccept) els.listAccept.checked = true;
+    els.wantModal?.close();
+  }
+
+  function openWantBrowser() {
+    if (els.wantSearch) els.wantSearch.value = "";
+    renderWantGrid();
+    els.wantModal?.showModal();
+    els.wantSearch?.focus();
   }
 
   async function openListWizard(preselectId) {
@@ -381,7 +410,7 @@
     if (els.listWantMale) els.listWantMale.checked = false;
     if (els.listWantFemale) els.listWantFemale.checked = false;
     if (els.listWantShiny) els.listWantShiny.checked = false;
-    hideWantMenu();
+    renderWantPreview();
     updateWantTraits();
     renderListPc();
     setListStep(listingMon ? 2 : 1);
@@ -609,13 +638,17 @@
     if (event.submitter?.value === "cancel") return;
     event.preventDefault();
   });
+  els.wantModal?.querySelector("form")?.addEventListener("submit", (event) => {
+    if (event.submitter?.value === "cancel") return;
+    event.preventDefault();
+  });
   function dismissDialog(dialog, event) {
     if (!dialog || event.target !== dialog) return;
-    hideWantMenu();
     dialog.close();
   }
   els.listModal?.addEventListener("click", (event) => dismissDialog(els.listModal, event));
   els.detailModal?.addEventListener("click", (event) => dismissDialog(els.detailModal, event));
+  els.wantModal?.addEventListener("click", (event) => dismissDialog(els.wantModal, event));
   els.listOpen?.addEventListener("click", () => openListWizard());
   els.listPcGrid?.addEventListener("click", (event) => {
     const tile = event.target.closest("[data-catch]");
@@ -636,30 +669,13 @@
     }
     submitListing();
   });
-  els.listWant?.addEventListener("input", () => {
-    if (!els.listWant.value.trim() && els.listAccept) els.listAccept.checked = true;
-    renderWantMenu();
-    updateWantTraits();
-  });
-  els.listWant?.addEventListener("focus", renderWantMenu);
-  els.listWant?.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") hideWantMenu();
-    if (event.key === "Enter") {
-      const first = els.listWantMenu?.querySelector("button");
-      if (first && !els.listWantMenu.hidden) {
-        event.preventDefault();
-        pickWantSpecies(first.dataset.name);
-      }
-    }
-  });
-  els.listWantMenu?.addEventListener("mousedown", (event) => {
-    const button = event.target.closest("button[data-name]");
-    if (!button) return;
-    event.preventDefault();
-    pickWantSpecies(button.dataset.name);
-  });
-  document.addEventListener("click", (event) => {
-    if (!event.target.closest(".gts-species-wrap")) hideWantMenu();
+  els.wantOpen?.addEventListener("click", openWantBrowser);
+  els.wantAny?.addEventListener("click", () => pickWantSpecies(""));
+  els.wantSearch?.addEventListener("input", renderWantGrid);
+  els.wantGrid?.addEventListener("click", (event) => {
+    const tile = event.target.closest("[data-name]");
+    if (!tile) return;
+    pickWantSpecies(tile.dataset.name);
   });
   ["trade-q", "trade-want"].forEach((id) => {
     document.getElementById(id)?.addEventListener("input", () => {

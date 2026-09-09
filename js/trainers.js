@@ -150,14 +150,14 @@
       { id: "sonic-cream", name: "Cream" }
     ] },
     { key: "digimon", premium: true, label: "Digimon Adventure", games: "Digimon Adventure", looks: [
-      { id: "taichi", name: "Taichi", ext: "gif" },
-      { id: "yamato", name: "Yamato", ext: "gif" },
-      { id: "sora", name: "Sora", ext: "gif" },
-      { id: "hikari", name: "Hikari", ext: "gif" },
-      { id: "takeru", name: "Takeru", ext: "gif" },
-      { id: "joe", name: "Joe", ext: "gif" },
-      { id: "mimi", name: "Mimi", ext: "gif" },
-      { id: "koushiro", name: "Koushiro", ext: "gif" }
+      { id: "taichi", name: "Taichi" },
+      { id: "yamato", name: "Yamato" },
+      { id: "sora", name: "Sora" },
+      { id: "hikari", name: "Hikari" },
+      { id: "takeru", name: "Takeru" },
+      { id: "joe", name: "Joe" },
+      { id: "mimi", name: "Mimi" },
+      { id: "koushiro", name: "Koushiro" }
     ] }
   ];
 
@@ -209,7 +209,7 @@
         break;
       }
     }
-    return `images/trainers/${key}.${ext}?v=av2`;
+    return `images/trainers/${key}.${ext}?v=av3`;
   };
 
   window.PLAY_CARD_BGS = [

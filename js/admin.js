@@ -38,6 +38,12 @@
     userQ: document.getElementById("user-q"),
     userList: document.getElementById("user-list"),
     userStatus: document.getElementById("user-status"),
+    userListStatus: document.getElementById("user-list-status"),
+    userModal: document.getElementById("user-modal"),
+    userDetail: document.getElementById("user-detail"),
+    openUsers: document.getElementById("open-users"),
+    userPrev: document.getElementById("user-prev"),
+    userNext: document.getElementById("user-next"),
     userSearch: document.getElementById("user-search"),
     join: document.getElementById("join-seconds"),
     prepare: document.getElementById("prepare-seconds"),
@@ -53,6 +59,10 @@
   let overview = null;
   let pickGender = "";
   let pickShiny = false;
+  let userOffset = 0;
+  let userTotal = 0;
+  let selectedUserId = "";
+  let accountState = null;
 
   function setSignedOut() {
     els.staff.hidden = true;
@@ -173,45 +183,178 @@
     });
   }
 
+  function bagEditKeys() {
+    const keys = [
+      ["coins", "PokéCoins"],
+      ["berry", "Berry"],
+      ["bait", "Honey"],
+      ["pokeball", "Poké Ball"],
+      ["greatball", "Great Ball"],
+      ["ultraball", "Ultra Ball"],
+      ["lure", "Poké Radar"],
+      ["bag_bonus", "Bag space"]
+    ];
+    (window.PLAY_BALLS || []).forEach((row) => {
+      if (row.extra && !keys.some((pair) => pair[0] === row.key)) keys.push([row.key, row.name]);
+    });
+    return keys;
+  }
+
+  function openUserModal() {
+    if (!els.userModal) return;
+    if (typeof els.userModal.showModal === "function") els.userModal.showModal();
+    else els.userModal.setAttribute("open", "");
+    loadUsers();
+  }
+
   async function loadUsers() {
     if (!els.userList) return;
-    els.userStatus.textContent = "Loading…";
+    const status = els.userListStatus || els.userStatus;
+    if (status) status.textContent = "Loading…";
     try {
       const data = await window.playCall("admin_list_users", {
         p_query: els.userQ?.value || "",
-        p_offset: 0
+        p_offset: userOffset
       });
       const users = data?.users || [];
-      const actor = data?.staffRole || "moderator";
-      const canEdit = actor === "owner" || actor === "admin";
-      els.userStatus.textContent = `${data?.total || 0} trainer${Number(data?.total) === 1 ? "" : "s"}`;
+      userTotal = Number(data?.total || 0);
+      userOffset = Number(data?.offset || userOffset || 0);
+      if (els.userStatus) els.userStatus.textContent = `${userTotal} trainer${userTotal === 1 ? "" : "s"}`;
+      if (status) {
+        status.textContent = userTotal
+          ? `Showing ${userOffset + 1}–${Math.min(userOffset + users.length, userTotal)} of ${userTotal}`
+          : "No trainers match.";
+      }
+      if (els.userPrev) els.userPrev.disabled = userOffset < 1;
+      if (els.userNext) els.userNext.disabled = userOffset + users.length >= userTotal;
       els.userList.innerHTML = users.map((row) => {
-        const role = row.role || "player";
         const name = window.playEscapeAttr(row.displayName || row.login || "Trainer");
         const login = window.playEscapeAttr(row.login || "");
-        const buttons = [];
-        if (canEdit && role !== "owner") {
-          if (actor === "owner" && role !== "admin") {
-            buttons.push(`<button type="button" data-user="${row.id}" data-role="admin">Admin</button>`);
-          }
-          if (role !== "moderator") {
-            buttons.push(`<button type="button" data-user="${row.id}" data-role="moderator">Moderator</button>`);
-          }
-          if (role !== "player") {
-            buttons.push(`<button type="button" class="secondary" data-user="${row.id}" data-role="player">Player</button>`);
-          }
-        }
-        return `<article class="staff-user">
+        const on = row.id === selectedUserId ? " is-on" : "";
+        return `<button type="button" class="staff-user staff-user-pick${on}" data-open-user="${row.id}">
           <div>
             <strong>${name}</strong>
-            <p class="muted">@${login} · ${role}${row.pass ? " · Pass" : ""}</p>
+            <p class="muted">@${login} · ${row.role || "player"}${row.pass ? " · Pass" : ""} · ${row.coins || 0} coins · ${row.caught || 0} Pokémon</p>
           </div>
-          <div class="links">${buttons.join("")}</div>
-        </article>`;
+        </button>`;
       }).join("") || `<p class="muted">No trainers match.</p>`;
+      if (selectedUserId) await loadAccount(selectedUserId);
     } catch (error) {
-      els.userStatus.textContent = window.playRpcError(error);
+      if (status) status.textContent = window.playRpcError(error);
+      if (els.userStatus) els.userStatus.textContent = window.playRpcError(error);
     }
+  }
+
+  async function loadAccount(userId) {
+    if (!els.userDetail || !userId) return;
+    selectedUserId = userId;
+    els.userDetail.innerHTML = `<p class="muted">Loading account…</p>`;
+    try {
+      const data = await window.playCall("admin_user_account", { p_user: userId });
+      renderAccount(data);
+    } catch (error) {
+      els.userDetail.innerHTML = `<p class="muted">${window.playEscapeAttr(window.playRpcError(error))}</p>`;
+    }
+  }
+
+  function renderAccount(data) {
+    accountState = data;
+    const user = data?.user || {};
+    const bag = data?.bag || {};
+    const mons = data?.mons || [];
+    const actor = data?.staffRole || overview?.staffRole || "moderator";
+    const canEdit = Boolean(data?.canEdit);
+    const role = user.role || "player";
+    const name = window.playEscapeAttr(user.displayName || user.login || "Trainer");
+    const login = window.playEscapeAttr(user.login || "");
+    const roleBtns = [];
+    if (canEdit && role !== "owner") {
+      if (actor === "owner" && role !== "admin") {
+        roleBtns.push(`<button type="button" data-user="${user.id}" data-role="admin">Admin</button>`);
+      }
+      if (role !== "moderator") {
+        roleBtns.push(`<button type="button" data-user="${user.id}" data-role="moderator">Moderator</button>`);
+      }
+      if (role !== "player") {
+        roleBtns.push(`<button type="button" class="secondary" data-user="${user.id}" data-role="player">Player</button>`);
+      }
+    }
+    const itemRows = bagEditKeys().map(([key, label]) => {
+      const qty = Number(bag[key] || 0);
+      return `<label class="user-item">
+        <img src="${window.playItemSprite(key)}" alt="">
+        <span>${window.playEscapeAttr(label)}</span>
+        <strong>${qty}</strong>
+        <input data-grant="${key}" type="number" step="1" placeholder="±">
+      </label>`;
+    }).join("");
+    const balls = (window.PLAY_BALLS || []).map((row) => (
+      `<option value="${row.key}">${row.name}</option>`
+    )).join("");
+    const monRows = mons.map((mon) => {
+      const title = window.playEscapeAttr(mon.nickname || mon.name || "Pokémon");
+      return `<article class="user-mon">
+        <img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
+        <div>
+          <strong>${title}</strong>
+          <p class="muted">No. ${window.playPadDex(mon.dex)} · Lv. ${mon.level || 1} · ${window.playEscapeAttr(mon.gender || "")} · ${window.playEscapeAttr(window.playItemLabel(mon.ball))}</p>
+        </div>
+        ${canEdit ? `<button type="button" class="danger secondary" data-remove-mon="${mon.id}">Remove</button>` : ""}
+      </article>`;
+    }).join("") || `<p class="muted">No Pokémon in this PC.</p>`;
+    els.userDetail.innerHTML = `
+      <header class="user-account-head">
+        ${user.avatar ? `<img class="avatar" src="${window.playEscapeAttr(user.avatar)}" alt="">` : `<span class="avatar-fallback">${name.slice(0, 1)}</span>`}
+        <div>
+          <h3>${name}</h3>
+          <p class="muted">@${login} · ${role}${user.pass ? " · Pass" : ""}</p>
+        </div>
+      </header>
+      ${roleBtns.length ? `<div class="links">${roleBtns.join("")}</div>` : ""}
+      <p id="user-edit-status" class="muted" role="status"></p>
+      <h4>Bag &amp; PokéCoins</h4>
+      <p class="muted">Positive numbers add. Negative numbers take away. Coins can also be set to an exact amount.</p>
+      <div class="user-item-grid">${itemRows}</div>
+      <div class="links">
+        <button type="button" id="grant-bag" ${canEdit ? "" : "disabled"}>Apply item changes</button>
+        <button type="button" id="set-coins" class="secondary" ${canEdit ? "" : "disabled"}>Set PokéCoins</button>
+      </div>
+      <h4>Give a Pokémon</h4>
+      <label class="field" for="grant-dex">Species
+        <input id="grant-dex" type="text" placeholder="ex: Eevee" autocomplete="off">
+      </label>
+      <div class="user-grant-row">
+        <label class="field">Gender
+          <select id="grant-gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Genderless">Genderless</option>
+          </select>
+        </label>
+        <label class="field">Ball
+          <select id="grant-ball">${balls}</select>
+        </label>
+        <label class="check-row"><input id="grant-shiny" type="checkbox"> Shiny</label>
+      </div>
+      <div class="links">
+        <button type="button" id="grant-mon" ${canEdit ? "" : "disabled"}>Add to PC</button>
+      </div>
+      <h4>PC</h4>
+      <div class="user-mon-list">${monRows}</div>`;
+  }
+
+  function grantInputs() {
+    const grants = {};
+    els.userDetail?.querySelectorAll("input[data-grant]").forEach((input) => {
+      const n = Number(input.value);
+      if (Number.isFinite(n) && n !== 0) grants[input.dataset.grant] = n;
+    });
+    return grants;
+  }
+
+  function accountStatus(text) {
+    const node = document.getElementById("user-edit-status") || els.userStatus;
+    if (node) node.textContent = text;
   }
 
   let overviewTimer = 0;
@@ -572,32 +715,135 @@
     p_login: els.passLogin.value,
     p_active: false
   }, els.passStatus));
-  document.getElementById("user-search")?.addEventListener("click", () => loadUsers());
+  els.openUsers?.addEventListener("click", () => openUserModal());
+  document.getElementById("user-search")?.addEventListener("click", () => {
+    userOffset = 0;
+    loadUsers();
+  });
   els.userQ?.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      loadUsers();
-    }
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    userOffset = 0;
+    loadUsers();
+  });
+  els.userPrev?.addEventListener("click", () => {
+    userOffset = Math.max(0, userOffset - 50);
+    loadUsers();
+  });
+  els.userNext?.addEventListener("click", () => {
+    userOffset += 50;
+    loadUsers();
+  });
+  els.userModal?.addEventListener("click", (event) => {
+    if (event.target === els.userModal) els.userModal.close("cancel");
   });
   els.userList?.addEventListener("click", async (event) => {
-    const button = event.target.closest("button[data-user][data-role]");
-    if (!button) return;
-    els.userStatus.textContent = "Updating role…";
-    try {
-      const data = await window.playCall("admin_set_role", {
-        p_user: button.dataset.user,
-        p_role: button.dataset.role
+    const pick = event.target.closest("[data-open-user]");
+    if (pick) {
+      await loadAccount(pick.dataset.openUser);
+      els.userList.querySelectorAll(".staff-user-pick").forEach((node) => {
+        node.classList.toggle("is-on", node.dataset.openUser === selectedUserId);
       });
-      els.userStatus.textContent = data?.message || "Role updated.";
-      const users = data?.users;
-      if (users) {
-        overview = { ...(overview || {}), staffRole: data.staffRole };
+    }
+  });
+  els.userDetail?.addEventListener("click", async (event) => {
+    const roleBtn = event.target.closest("button[data-user][data-role]");
+    if (roleBtn) {
+      accountStatus("Updating role…");
+      try {
+        const data = await window.playCall("admin_set_role", {
+          p_user: roleBtn.dataset.user,
+          p_role: roleBtn.dataset.role
+        });
+        accountStatus(data?.message || "Role updated.");
+        await loadAccount(roleBtn.dataset.user);
         await loadUsers();
-      } else {
-        await loadUsers();
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
       }
-    } catch (error) {
-      els.userStatus.textContent = window.playRpcError(error);
+      return;
+    }
+    if (event.target.closest("#grant-bag")) {
+      const grants = grantInputs();
+      if (!Object.keys(grants).length) {
+        accountStatus("Enter how many to add or remove.");
+        return;
+      }
+      accountStatus("Updating bag…");
+      try {
+        const data = await window.playCall("admin_grant_bag", {
+          p_user: selectedUserId,
+          p_grants: grants
+        });
+        renderAccount(data);
+        accountStatus(data?.message || "Bag updated.");
+        await loadUsers();
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
+      }
+      return;
+    }
+    if (event.target.closest("#set-coins")) {
+      const input = els.userDetail.querySelector('input[data-grant="coins"]');
+      const coins = Number(input?.value);
+      if (input?.value === "" || !Number.isFinite(coins) || coins < 0) {
+        accountStatus("Type the new PokéCoin total, then Set PokéCoins.");
+        return;
+      }
+      accountStatus("Setting PokéCoins…");
+      try {
+        const data = await window.playCall("admin_set_coins", {
+          p_user: selectedUserId,
+          p_coins: Math.floor(coins)
+        });
+        renderAccount(data);
+        accountStatus(data?.message || "PokéCoins set.");
+        await loadUsers();
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
+      }
+      return;
+    }
+    if (event.target.closest("#grant-mon")) {
+      const raw = document.getElementById("grant-dex")?.value || "";
+      const match = window.playParseSpeciesQuery(raw)[0];
+      const dex = match?.dex || Number(raw);
+      if (!dex || dex < 1 || dex > 151) {
+        accountStatus("Pick a species from 1 to 151.");
+        return;
+      }
+      accountStatus("Adding Pokémon…");
+      try {
+        const data = await window.playCall("admin_grant_pokemon", {
+          p_user: selectedUserId,
+          p_dex: dex,
+          p_name: match?.name || window.playSpeciesName(dex),
+          p_gender: document.getElementById("grant-gender")?.value || "Unknown",
+          p_shiny: Boolean(document.getElementById("grant-shiny")?.checked),
+          p_ball: document.getElementById("grant-ball")?.value || "pokeball"
+        });
+        renderAccount(data);
+        accountStatus(data?.message || "Pokémon added.");
+        await loadUsers();
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
+      }
+      return;
+    }
+    const remove = event.target.closest("[data-remove-mon]");
+    if (remove) {
+      accountStatus("Removing Pokémon…");
+      try {
+        const data = await window.playCall("admin_remove_pokemon", {
+          p_user: selectedUserId,
+          p_catch_id: remove.dataset.removeMon
+        });
+        renderAccount(data);
+        accountStatus(data?.message || "Pokémon removed.");
+        await loadUsers();
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
+      }
     }
   });
   els.issueToken.addEventListener("click", async () => {

@@ -15,6 +15,7 @@
     ballModal: document.getElementById("ball-modal"),
     ballGrid: document.getElementById("ball-grid"),
     ballStatus: document.getElementById("ball-status"),
+    masterShelf: document.getElementById("master-shelf"),
     avatars: document.getElementById("avatar-shelf"),
     avatarStatus: document.getElementById("avatar-status")
   };
@@ -82,6 +83,18 @@
       ? (items || []).filter((item) => !CORE_BALL_SKUS.has(item.sku))
       : items;
     target.innerHTML = (rows || []).map((item) => shelfCard(item, mode)).join("");
+  }
+
+  function renderMasterShelf() {
+    const row = (window.PLAY_BALLS || []).find((item) => item.key === "masterball");
+    if (!els.masterShelf || !row) return;
+    els.masterShelf.innerHTML = shelfCard({
+      sku: row.sku,
+      name: row.name,
+      cost: row.cost,
+      grants: { [row.key]: row.qty },
+      blurb: "Always catches. The catch cap does not apply."
+    }, "coins");
   }
 
   function renderBallCase() {
@@ -173,12 +186,14 @@
       renderPass(data.pass, wallet);
       renderShelf(els.coins, data.catalog?.coins, "coins");
       renderShelf(els.bits, data.catalog?.bits, "bits");
+      renderMasterShelf();
       renderBallCase();
       window._playOwnedAvatarPacks = data.ownedAvatarPacks || [];
       renderAvatars(data.catalog, data.ownedAvatarPacks);
       return data;
     } catch (error) {
       els.coinStatus.textContent = window.playRpcError(error, "Mart catalog is not live yet.");
+      renderMasterShelf();
       renderBallCase();
       renderAvatars(null, []);
       return null;
@@ -240,17 +255,24 @@
       els.status.textContent = window.playRpcError(error);
     }
   });
-  els.coins.addEventListener("click", async (event) => {
-    const button = event.target.closest("button[data-sku]");
+  async function buySku(button, note) {
     if (!button) return;
-    els.coinStatus.textContent = "Working…";
+    note.textContent = "Working…";
     try {
       const data = await window.playCall("play_buy_sku", { p_sku: button.dataset.sku });
-      els.coinStatus.textContent = data.message || "Added to inventory.";
+      note.textContent = data.message || "Added to inventory.";
       await refreshStore();
+      renderBallCase();
     } catch (error) {
-      els.coinStatus.textContent = window.playRpcError(error);
+      note.textContent = window.playRpcError(error);
     }
+  }
+
+  els.coins.addEventListener("click", async (event) => {
+    await buySku(event.target.closest("button[data-sku]"), els.coinStatus);
+  });
+  els.masterShelf?.addEventListener("click", async (event) => {
+    await buySku(event.target.closest("button[data-sku]"), els.ballStatus || els.coinStatus);
   });
 
   els.openBalls?.addEventListener("click", () => {

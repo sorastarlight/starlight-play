@@ -61,13 +61,15 @@
         items: [
           ["pokeball", "Poké Ball", "45% catch. Berry and Honey can still raise it."],
           ["greatball", "Great Ball", "60% catch. A steadier throw than a Poké Ball."],
-          ["ultraball", "Ultra Ball", "75% catch. The best catch rate in Play."],
+          ["ultraball", "Ultra Ball", "75% catch. The strongest regular ball in Play."],
           ...((window.PLAY_BALLS || [])
             .filter((row) => row.extra && Number(bag?.[row.key] || 0) > 0)
             .map((row) => [
               row.key,
               row.name,
-              `${Math.round(row.rate * 100)}% catch. Looks different; no extra catch effects.`
+              row.key === "masterball"
+                ? "Always catches. The catch cap does not apply."
+                : `${Math.round(row.rate * 100)}% catch. Looks different; no extra catch effects.`
             ]))
         ]
       }

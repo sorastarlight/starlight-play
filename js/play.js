@@ -128,7 +128,7 @@
     if (els.throwHint) {
       els.throwHint.textContent = throwViewOnly
         ? "A quick look at the balls in your bag. Catch rates are the Play throw chances."
-        : "Catch rates are the Play throw chances. Extra balls look different; they do not add special catch effects.";
+        : "Catch rates are the Play throw chances. Master Ball always catches. Other extra balls look different.";
     }
     const rows = window.PLAY_BALLS || [];
     els.throwGrid.innerHTML = rows.map((row) => {

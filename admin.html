@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=gts2">
+<link rel="stylesheet" href="css/play.css?v=master1">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -219,17 +219,39 @@
     </div>
 
     <section class="card body" style="margin-top:18px">
-      <h2>Trainers</h2>
-      <p class="muted">Search Play trainers and set moderator or admin. Admins cannot see stream tokens or broadcaster/channel secrets.</p>
-      <label class="field" for="user-q">Search
-        <input id="user-q" type="search" placeholder="Twitch login or name" autocomplete="off">
-      </label>
+      <h2>Trainer accounts</h2>
+      <p class="muted">Open the account window to search every Play trainer, then grant items, Pokémon, and PokéCoins, or set staff roles.</p>
       <div class="links">
-        <button id="user-search" type="button">Find trainers</button>
+        <button id="open-users" type="button">Open trainer accounts</button>
       </div>
       <p id="user-status" class="muted" role="status"></p>
-      <div id="user-list" class="staff-users"></div>
     </section>
+
+    <dialog id="user-modal" class="play-modal play-modal-wide" aria-labelledby="user-desk-title">
+      <form class="play-modal-card user-desk" method="dialog">
+        <header class="play-modal-head">
+          <h3 id="user-desk-title">Trainer accounts</h3>
+          <button class="secondary" value="cancel" type="submit">Close</button>
+        </header>
+        <div class="user-desk-grid">
+          <div class="user-desk-list">
+            <label class="field" for="user-q">Search
+              <input id="user-q" type="search" placeholder="Twitch login or name" autocomplete="off">
+            </label>
+            <div class="links">
+              <button id="user-search" type="button">Find trainers</button>
+              <button id="user-prev" class="secondary" type="button">Previous</button>
+              <button id="user-next" class="secondary" type="button">Next</button>
+            </div>
+            <p id="user-list-status" class="muted" role="status"></p>
+            <div id="user-list" class="staff-users"></div>
+          </div>
+          <div id="user-detail" class="user-desk-detail">
+            <p class="muted">Pick a trainer to view their bag, PC, and staff role.</p>
+          </div>
+        </div>
+      </form>
+    </dialog>
 
     <div id="owner-stream" class="owner-only">
     <section class="card body" style="margin-top:18px">
@@ -270,8 +292,8 @@
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
 <script src="js/variants.js"></script>
-<script src="js/game.js?v=pc1"></script>
+<script src="js/game.js?v=master1"></script>
 <script src="js/hud.js?v=wait1"></script>
 <script src="js/nav.js?v=gts3"></script>
-<script src="js/admin.js?v=cancel1"></script>
+<script src="js/admin.js?v=master1"></script>
 </body>

@@ -2910,3 +2910,97 @@ body[data-page="admin"] .play-stage {
   .lgpe-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: none; }
   .lgpe-box { border-radius: 24px; }
 }
+.play-modal-wide .user-desk {
+  width: min(1180px, calc(100vw - 16px));
+  max-height: min(90vh, 900px);
+}
+.user-desk-grid {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.4fr);
+  gap: 16px;
+  align-items: start;
+}
+.user-desk-list, .user-desk-detail {
+  min-width: 0;
+}
+.staff-user-pick {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  background: #f7f9ff;
+  border: 2px solid #d7e0f2;
+  box-shadow: none;
+  padding: 10px 12px;
+}
+.staff-user-pick.is-on {
+  border-color: #f3c6e2;
+  background: #fff7fb;
+}
+.user-account-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.user-account-head h3 { margin: 0; }
+.user-desk-detail h4 { margin: 16px 0 6px; }
+.user-item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+.user-item {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto 72px;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+  padding: 8px;
+  border-radius: 12px;
+  background: #f7f9ff;
+  border: 1px solid #d7e0f2;
+  font-size: 13px;
+  font-weight: 800;
+}
+.user-item img {
+  width: 28px;
+  height: 28px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+.user-item input { width: 72px; }
+.user-grant-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 800;
+  padding-bottom: 8px;
+}
+.user-mon-list { display: grid; gap: 8px; }
+.user-mon {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 12px;
+  background: #f7f9ff;
+  border: 1px solid #d7e0f2;
+}
+.user-mon img {
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+.user-mon p { margin: 2px 0 0; }
+@media (max-width: 900px) {
+  .user-desk-grid, .user-grant-row { grid-template-columns: 1fr; }
+}

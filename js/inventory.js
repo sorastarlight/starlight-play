@@ -51,7 +51,8 @@
         note: "Use these after you join, before anyone throws a ball.",
         items: [
           ["berry", "Berry", "Adds 10 percentage points to your catch chance this encounter."],
-          ["bait", "Honey", "Helps everyone’s catch chance, up to +15% based on how many people use Honey."]
+          ["bait", "Honey", "Helps everyone’s catch chance, up to +15% based on how many people use Honey."],
+          ["lure", "Poké Radar", "Automatically detects nearby Pokémon and joins you to any encounter that appears. Lasts 30 minutes."]
         ]
       },
       {

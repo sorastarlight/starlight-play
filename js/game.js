@@ -41,7 +41,7 @@
     gigatonball: "Gigaton Ball",
     originball: "Origin Ball",
     strangeball: "Strange Ball",
-    lure: "Lure",
+    lure: "Poké Radar",
     coins: "PokéCoins",
     bag_bonus: "inventory space"
   };
@@ -177,7 +177,7 @@
     gigatonball: ["Gigaton Ball", "Gigaton Balls"],
     originball: ["Origin Ball", "Origin Balls"],
     strangeball: ["Strange Ball", "Strange Balls"],
-    lure: ["Lure", "Lures"]
+    lure: ["Poké Radar", "Poké Radars"]
   };
 
   window.playGrantLines = function playGrantLines(grants) {

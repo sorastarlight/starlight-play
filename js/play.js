@@ -58,7 +58,7 @@
     }
     const buttons = [];
     if ((round.phase === "join" && !me) || (round.phase === "prepare" && !me)) {
-      if (bag.lureArmed && lureJoinRound !== round.id) {
+      if (window.playRadarOn?.(bag) && lureJoinRound !== round.id) {
         lureJoinRound = round.id;
         act("join", "");
       }
@@ -66,15 +66,15 @@
         kind: "join",
         item: "",
         label: "Join encounter",
-        hint: round.phase === "prepare" ? "Still needed for berries" : (bag.lureArmed ? "Lure joining…" : "Take this turn")
+        hint: round.phase === "prepare" ? "Still needed for berries" : (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "Take this turn")
       });
     }
     if (round.phase === "prepare" && me && !me.prep) {
-      buttons.push({ kind: "prepare", item: "berry", label: "Berry", hint: `${bag.berry ?? 0} left · +catch` });
-      buttons.push({ kind: "prepare", item: "bait", label: "Honey", hint: `${bag.bait ?? 0} left · team bonus` });
+      buttons.push({ kind: "prepare", item: "berry", label: "Berry", hint: `${bag.berry ?? 0} left · +catch`, sprite: "berry" });
+      buttons.push({ kind: "prepare", item: "bait", label: "Honey", hint: `${bag.bait ?? 0} left · team bonus`, sprite: "bait" });
     }
     if (round.phase === "throw" && me && me.prep && !me.ball) {
-      buttons.push({ kind: "open-balls", item: "", label: "Choose a Poké Ball", hint: "See catch rates in your bag" });
+      buttons.push({ kind: "open-balls", item: "pokeball", label: "Choose a Poké Ball", hint: "See catch rates in your bag", sprite: "pokeball" });
     }
     if (!buttons.length) {
       let status = "";
@@ -98,12 +98,16 @@
     lastActionKey = plan.key;
     els.actionStatus.textContent = plan.status;
     els.actions.classList.toggle("single", plan.buttons.length === 1);
-    els.actions.innerHTML = plan.buttons.map((row) => (
-      `<button type="button" class="item-btn" data-kind="${row.kind}" data-item="${row.item}">
-        <span class="item-icon" aria-hidden="true"></span>
+    els.actions.innerHTML = plan.buttons.map((row) => {
+      const sprite = row.sprite || (row.kind === "open-balls" ? "pokeball" : "");
+      const icon = sprite
+        ? `<span class="item-icon item-icon-img"><img src="${window.playItemSprite(sprite)}" alt=""></span>`
+        : `<span class="item-icon" aria-hidden="true"></span>`;
+      return `<button type="button" class="item-btn" data-kind="${row.kind}" data-item="${row.item}">
+        ${icon}
         <span class="item-copy"><strong>${row.label}</strong><em>${row.hint}</em></span>
-      </button>`
-    )).join("");
+      </button>`;
+    }).join("");
   }
 
   function openThrowBalls(bag) {
@@ -127,7 +131,7 @@
   function render(data) {
     state = data;
     const round = data?.round;
-    const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.variant || ""}:${round?.hidden || false}`;
+    const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${(round?.honeyTrainers || []).length}:${(round?.catchers || []).length}`;
     const bar = phaseBar(round);
     if (key !== lastEncounterKey) {
       lastEncounterKey = key;

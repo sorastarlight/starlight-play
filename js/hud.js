@@ -7,7 +7,7 @@
       ["pokeball", "Poké Ball"],
       ["greatball", "Great"],
       ["ultraball", "Ultra"],
-      ["lure", "Lure"]
+      ["lure", "Poké Radar"]
     ];
     (window.PLAY_BALLS || []).forEach((row) => {
       if (row.extra && Number(bag?.[row.key] || 0) > 0) items.splice(items.length - 1, 0, [row.key, row.name]);
@@ -20,6 +20,19 @@
     )).join("")}</ul>`;
   };
 
+  window.playRadarOn = function playRadarOn(bag) {
+    return Boolean(bag?.lureArmed) && Boolean(window.playRadarLeft(bag?.lureUntil) || (bag?.lureArmed && !bag?.lureUntil));
+  };
+
+  window.playRadarLeft = function playRadarLeft(until) {
+    const ms = new Date(until || 0).getTime() - Date.now();
+    if (!(ms > 0)) return "";
+    const total = Math.max(0, Math.ceil(ms / 1000));
+    const minutes = Math.floor(total / 60);
+    const seconds = total % 60;
+    return `${minutes}:${String(seconds).padStart(2, "0")} left`;
+  };
+
   window.playFillLurePanel = function playFillLurePanel(bag) {
     const panel = document.getElementById("lure-panel");
     if (!panel) return;
@@ -30,45 +43,51 @@
     const eyebrow = document.getElementById("lure-eyebrow");
     const title = document.getElementById("lure-title");
     const count = Number(bag?.lure || 0);
-    const on = Boolean(bag?.lureArmed);
+    const left = window.playRadarLeft(bag?.lureUntil);
+    const on = typeof window.playRadarOn === "function" ? window.playRadarOn(bag) : Boolean(bag?.lureArmed);
     const signedIn = Boolean(bag);
 
     panel.classList.toggle("is-active", on);
     panel.classList.toggle("is-empty", !on && (!signedIn || count < 1));
     window._playBag = bag || null;
     if (countEl) countEl.textContent = signedIn ? String(count) : "0";
-    if (qtyLabel) qtyLabel.textContent = !signedIn ? "sign in" : on ? "armed" : count < 1 ? "none" : "ready";
-    if (eyebrow) eyebrow.textContent = !signedIn ? "Next encounter" : on ? "Armed" : count < 1 ? "Need a Lure" : "Next encounter";
-    if (title) title.textContent = !signedIn ? "Activate a Lure" : on ? "Lure is on" : count < 1 ? "No Lure yet" : "Activate a Lure";
+    if (qtyLabel) qtyLabel.textContent = !signedIn ? "sign in" : on ? left : count < 1 ? "none" : "ready";
+    if (eyebrow) eyebrow.textContent = !signedIn ? "Nearby Pokémon" : on ? "Scanning" : count < 1 ? "Need a Poké Radar" : "Nearby Pokémon";
+    if (title) title.textContent = !signedIn ? "Activate a Poké Radar" : on ? "Poké Radar is on" : count < 1 ? "No Poké Radar yet" : "Activate a Poké Radar";
     if (button) {
       button.disabled = !signedIn || on || count < 1;
       button.textContent = !signedIn
         ? "Sign in to activate"
-        : on ? "Lure Active" : count < 1 ? "Need a Lure" : "Activate Lure Now";
+        : on ? `Scanning · ${left}` : count < 1 ? "Need a Poké Radar" : "Activate Poké Radar";
     }
     if (help) {
       help.textContent = !signedIn
-        ? "Sign in with Twitch to arm a Lure from this screen."
+        ? "Sign in with Twitch to turn on a Poké Radar from this screen."
         : on
-          ? "Your Lure is on. You’ll automatically join the next encounter when it starts. You still use a Berry or Honey, then throw a ball."
+          ? `Automatically detects nearby Pokémon and joins you to any encounter that appears. ${left}.`
           : count < 1
-            ? "You don’t have a Lure yet. Get one from a Power-Up, a Pass crate, or the Store."
-            : "Uses 1 Lure. You’ll automatically join the next encounter when it starts. You still use a Berry or Honey, then throw a ball.";
+            ? "You don’t have a Poké Radar yet. Get one from a Power-Up, a Pass crate, or the Store."
+            : "Automatically detects nearby Pokémon and joins you to any encounter that appears. Lasts 30 minutes.";
     }
   };
 
   window.playBindLureButton = function playBindLureButton(onDone) {
+    if (!window._playRadarTick) {
+      window._playRadarTick = setInterval(() => {
+        if (window._playBag) window.playFillLurePanel(window._playBag);
+      }, 1000);
+    }
     const button = document.getElementById("use-lure");
     if (!button || button.dataset.bound === "1") return;
     button.dataset.bound = "1";
     button.addEventListener("click", async () => {
       const status = document.getElementById("lure-status") || document.getElementById("inv-status") || document.getElementById("action-status");
-      if (status) status.textContent = "Activating Lure…";
+      if (status) status.textContent = "Turning on Poké Radar…";
       button.disabled = true;
       try {
         const data = await window.playCall("play_use_lure");
         window.playFillLurePanel(data.bag);
-        if (status) status.textContent = data.message || "Lure is on. You’ll automatically join the next encounter.";
+        if (status) status.textContent = data.message || "Poké Radar is on for 30 minutes.";
         onDone?.(data);
       } catch (error) {
         if (status) status.textContent = window.playRpcError(error);
@@ -94,9 +113,8 @@
     const live = round.source === "mixitup" ? `<span class="chip">Live</span>` : "";
     const shiny = String(round.variant || "").includes("shiny") ? `<span class="chip shiny">Shiny</span>` : "";
     const female = String(round.variant || "") === "female" ? `<span class="chip">Female</span>` : "";
-    const results = round.resolved && round.results
-      ? `<p class="result-line" data-results>Caught ${round.results.caught || 0} · Escaped ${round.results.escaped || 0} · No throw ${round.results.noThrow || 0}</p>`
-      : "";
+    const honey = window.playHoneyCrewHtml(round);
+    const fanfare = window.playCatchFanfareHtml(round);
     return `
       <div class="dex-head">
         <span class="dex-no">No. ${String(round.dex || 0).padStart(3, "0")}</span>
@@ -121,7 +139,48 @@
         <div><dt>Honey bonus</dt><dd data-stat="bait">+${round.baitBonusPercent || 0}%</dd></div>
       </dl>
       ${round.lastAction ? `<p class="last-action" data-last>${round.lastAction}</p>` : `<p class="last-action" data-last hidden></p>`}
-      ${results}`;
+      ${honey}
+      ${fanfare}`;
+  };
+
+  window.playHoneyCrewHtml = function playHoneyCrewHtml(round) {
+    const rows = Array.isArray(round?.honeyTrainers) ? round.honeyTrainers : [];
+    if (!rows.length) return "";
+    const bonus = round.baitBonusPercent || 0;
+    return `<aside class="honey-crew">
+      <img src="${window.playItemSprite("bait")}" alt="">
+      <div>
+        <strong>Honey team-up</strong>
+        <p>These trainers used Honey so the whole community had a better catch rate. Shared bonus <em>+${bonus}%</em>.</p>
+        <ul>${rows.map((row) => `<li>${window.playEscapeAttr(row.name || "Trainer")}</li>`).join("")}</ul>
+      </div>
+    </aside>`;
+  };
+
+  window.playCatchFanfareHtml = function playCatchFanfareHtml(round) {
+    const show = Boolean(round?.resolved || round?.phase === "reveal" || (round?.phase === "closed" && round?.results));
+    if (!show || !round?.results) return "";
+    const catchers = Array.isArray(round.catchers) ? round.catchers : (round.results.catchers || []);
+    const got = catchers.length || Number(round.results.caught || 0);
+    const species = window.playDisplayName(round);
+    const headline = got
+      ? (got === 1 ? `1 trainer caught ${species}!` : `${got} trainers caught ${species}!`)
+      : `${species} got away!`;
+    const list = catchers.length
+      ? `<ul class="catcher-list">${catchers.map((row) => `
+          <li>
+            <img src="${window.playItemSprite(row.ball || "pokeball")}" alt="">
+            <span>${window.playEscapeAttr(row.name || "Trainer")}</span>
+            <em>${window.playEscapeAttr(window.playItemLabel(row.ball || "pokeball"))}</em>
+          </li>`).join("")}</ul>`
+      : `<p class="fanfare-empty">Nobody landed a catch this time.</p>`;
+    return `<section class="catch-fanfare${got ? " is-win" : ""}">
+      <p class="fanfare-kicker">${got ? "Gotcha!" : "Encounter results"}</p>
+      <h3>${window.playEscapeAttr(headline)}</h3>
+      ${got ? `<p class="fanfare-sub">Everyone who caught it:</p>` : ""}
+      ${list}
+      <p class="result-line">Caught ${round.results.caught || 0} · Escaped ${round.results.escaped || 0} · No throw ${round.results.noThrow || 0}</p>
+    </section>`;
   };
 
   window.playPatchEncounter = function playPatchEncounter(root, round, bar) {
@@ -161,6 +220,9 @@
       ? `<time datetime="${stamp.toISOString()}">${stamp.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", second: "2-digit" })}</time>`
       : `<time></time>`;
     if (row?.kind === "joined") return `<li>${time}<span><strong>${name}</strong> joined</span></li>`;
+    if (row?.kind === "prepared" && row.item === "bait") {
+      return `<li class="is-honey">${time}<span><strong>${name}</strong> used Honey to help everyone’s catch rate</span></li>`;
+    }
     if (row?.kind === "prepared") return `<li>${time}<span><strong>${name}</strong> used ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
     if (row?.kind === "threw") return `<li>${time}<span><strong>${name}</strong> threw a ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
     if (row?.message) return `<li>${time}<span>${window.playEscapeAttr(row.message)}</span></li>`;

@@ -1,4 +1,4 @@
--- Master Ball (1000 coins, always catches) and Admin Hub trainer account editor.
+-- Master Ball (10000 coins, always catches) and Admin Hub trainer account editor.
 
 create or replace function private.extra_ball_keys()
 returns text[]
@@ -100,14 +100,14 @@ as $$
     'coins', jsonb_build_array(
       jsonb_build_object('sku','berry5','name','Berry ×5','cost',25,'grants',jsonb_build_object('berry',5),'blurb','Helps your throw.'),
       jsonb_build_object('sku','bait5','name','Honey ×5','cost',30,'grants',jsonb_build_object('bait',5),'blurb','Helps the whole team.'),
-      jsonb_build_object('sku','lure1','name','Poké Radar ×1','cost',80,'grants',jsonb_build_object('lure',1),'blurb','Automatically detects nearby Pokémon and joins you to any encounter that appears. Lasts 30 minutes.'),
+      jsonb_build_object('sku','lure1','name','Poké Radar ×1','cost',80,'grants',jsonb_build_object('lure',1),'blurb','Detects nearby Pokémon & joins you to an encounter automatically. Lasts 30 mins.'),
       jsonb_build_object('sku','pouch10','name','Pouch +10','cost',120,'grants',jsonb_build_object('bag_bonus',10),'blurb','+10 bag space, forever.')
     ),
     'balls', jsonb_build_array(
       jsonb_build_object('sku','poke5','name','Poké Ball ×5','cost',40,'grants',jsonb_build_object('pokeball',5),'blurb','45% catch.'),
       jsonb_build_object('sku','great3','name','Great Ball ×3','cost',55,'grants',jsonb_build_object('greatball',3),'blurb','60% catch.'),
       jsonb_build_object('sku','ultra1','name','Ultra Ball ×1','cost',50,'grants',jsonb_build_object('ultraball',1),'blurb','75% catch.'),
-      jsonb_build_object('sku','master1','name','Master Ball','cost',1000,'grants',jsonb_build_object('masterball',1),'blurb','100% catch.'),
+      jsonb_build_object('sku','master1','name','Master Ball','cost',10000,'grants',jsonb_build_object('masterball',1),'blurb','100% catch.'),
       jsonb_build_object('sku','premier1','name','Premier Ball','cost',8,'grants',jsonb_build_object('premierball',1),'blurb','45% catch.'),
       jsonb_build_object('sku','luxury1','name','Luxury Ball','cost',12,'grants',jsonb_build_object('luxuryball',1),'blurb','45% catch.'),
       jsonb_build_object('sku','heal1','name','Heal Ball','cost',10,'grants',jsonb_build_object('healball',1),'blurb','45% catch.'),

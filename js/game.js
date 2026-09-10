@@ -102,7 +102,7 @@
     { key: "pokeball", sku: "poke5", name: "Poké Ball", qty: 5, cost: 40, rate: 0.45, multiplier: "1×", sprite: "poke-ball", extra: false },
     { key: "greatball", sku: "great3", name: "Great Ball", qty: 3, cost: 55, rate: 0.6, multiplier: "1.5×", sprite: "great-ball", extra: false },
     { key: "ultraball", sku: "ultra1", name: "Ultra Ball", qty: 1, cost: 50, rate: 0.75, multiplier: "2×", sprite: "ultra-ball", extra: false },
-    { key: "masterball", sku: "master1", name: "Master Ball", qty: 1, cost: 1000, rate: 1, multiplier: "Always", sprite: "master-ball", extra: true },
+    { key: "masterball", sku: "master1", name: "Master Ball", qty: 1, cost: 10000, rate: 1, multiplier: "Always", sprite: "master-ball", extra: true },
     { key: "premierball", sku: "premier1", name: "Premier Ball", qty: 1, cost: 8, rate: 0.45, multiplier: "1×", sprite: "premier-ball", extra: true },
     { key: "luxuryball", sku: "luxury1", name: "Luxury Ball", qty: 1, cost: 12, rate: 0.45, multiplier: "1×", sprite: "luxury-ball", extra: true },
     { key: "healball", sku: "heal1", name: "Heal Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "heal-ball", extra: true },

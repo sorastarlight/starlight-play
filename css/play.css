@@ -1249,15 +1249,24 @@ footer { margin-top: 24px; font-size: 13px; }
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr) auto;
   gap: 10px 12px;
-  align-items: center;
+  align-items: start;
   background: #fffdf6;
   border: 2px solid #d7c39a;
   border-radius: 16px;
   padding: 12px;
 }
+.mart-sprite { padding-top: 2px; }
 .mart-copy { text-align: left; min-width: 0; }
 .mart-copy strong { display: block; line-height: 1.2; }
-.mart-copy p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.mart-copy p { margin: 4px 0 0; font-size: 13px; line-height: 1.35; color: var(--muted); }
+.mart-item-radar .mart-copy p { max-width: 34ch; }
+.mart-price {
+  display: grid;
+  justify-items: end;
+  align-content: start;
+  gap: 6px;
+  padding-top: 2px;
+}
 .bits-floor .mart-shelf {
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   align-items: start;
@@ -1298,12 +1307,6 @@ footer { margin-top: 24px; font-size: 13px; }
   height: 22px;
   image-rendering: pixelated;
   flex: none;
-}
-.mart-price {
-  display: grid;
-  justify-items: end;
-  align-content: center;
-  gap: 6px;
 }
 .mart-cost {
   display: inline-flex;

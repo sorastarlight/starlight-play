@@ -65,7 +65,7 @@
       : "";
     const blurb = mode !== "bits" && item.blurb ? `<p>${item.blurb}</p>` : "";
     return `
-      <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}">
+      <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${item.sku === "lure1" ? " mart-item-radar" : ""}">
         <div class="mart-sprite"><img src="${sprite}" alt=""></div>
         <div class="mart-copy">
           <strong>${item.name}</strong>
@@ -81,7 +81,11 @@
 
   function renderShelf(target, items, mode) {
     const rows = mode === "coins"
-      ? (items || []).filter((item) => !CORE_BALL_SKUS.has(item.sku))
+      ? (items || []).filter((item) => !CORE_BALL_SKUS.has(item.sku)).map((item) => (
+        item.sku === "lure1"
+          ? { ...item, blurb: "Detects nearby Pokémon & joins you to an encounter automatically. Lasts 30 mins." }
+          : item
+      ))
       : items;
     target.innerHTML = (rows || []).map((item) => shelfCard(item, mode)).join("");
   }

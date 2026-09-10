@@ -15,11 +15,12 @@
     ballModal: document.getElementById("ball-modal"),
     ballGrid: document.getElementById("ball-grid"),
     ballStatus: document.getElementById("ball-status"),
-    masterShelf: document.getElementById("master-shelf"),
+    featuredBalls: document.getElementById("featured-balls"),
     avatars: document.getElementById("avatar-shelf"),
     avatarStatus: document.getElementById("avatar-status")
   };
-  const CORE_BALL_SKUS = new Set(["poke5", "great3", "ultra1"]);
+  const CORE_BALL_SKUS = new Set(["poke5", "great3", "ultra1", "master1", "premier1"]);
+  const FEATURED_BALL_KEYS = ["pokeball", "greatball", "ultraball", "masterball", "premierball"];
 
   window.playBindAccountNav({
     onSignOut() {
@@ -85,31 +86,38 @@
     target.innerHTML = (rows || []).map((item) => shelfCard(item, mode)).join("");
   }
 
-  function renderMasterShelf() {
-    const row = (window.PLAY_BALLS || []).find((item) => item.key === "masterball");
-    if (!els.masterShelf || !row) return;
-    els.masterShelf.innerHTML = shelfCard({
-      sku: row.sku,
-      name: row.name,
-      cost: row.cost,
-      grants: { [row.key]: row.qty },
-      blurb: "Always catches. The catch cap does not apply."
-    }, "coins");
+  function ballTile(row) {
+    const pct = Math.round((row.rate || 0) * 100);
+    const pack = row.qty > 1 ? ` ×${row.qty}` : "";
+    const rate = row.key === "masterball" ? "Always · 100% catch" : `${row.multiplier} · ${pct}% catch`;
+    return `<article class="ball-tile">
+      <img src="${window.playItemSprite(row.key)}" alt="">
+      <strong>${row.name}${pack}</strong>
+      <span class="ball-rate">${rate}</span>
+      <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${row.cost}</span>
+      <button type="button" data-sku="${row.sku}">Get</button>
+    </article>`;
+  }
+
+  function featuredBalls() {
+    const order = new Map(FEATURED_BALL_KEYS.map((key, index) => [key, index]));
+    return (window.PLAY_BALLS || [])
+      .filter((row) => order.has(row.key))
+      .sort((a, b) => order.get(a.key) - order.get(b.key));
+  }
+
+  function renderFeaturedBalls() {
+    if (!els.featuredBalls) return;
+    els.featuredBalls.innerHTML = featuredBalls().map(ballTile).join("");
   }
 
   function renderBallCase() {
     if (!els.ballGrid) return;
-    els.ballGrid.innerHTML = (window.PLAY_BALLS || []).map((row) => {
-      const pct = Math.round((row.rate || 0) * 100);
-      const pack = row.qty > 1 ? ` ×${row.qty}` : "";
-      return `<article class="ball-tile">
-        <img src="${window.playItemSprite(row.key)}" alt="">
-        <strong>${row.name}${pack}</strong>
-        <span class="ball-rate">${row.multiplier} · ${pct}% catch</span>
-        <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${row.cost}</span>
-        <button type="button" data-sku="${row.sku}">Get</button>
-      </article>`;
-    }).join("");
+    const featured = new Set(FEATURED_BALL_KEYS);
+    els.ballGrid.innerHTML = (window.PLAY_BALLS || [])
+      .filter((row) => !featured.has(row.key))
+      .map(ballTile)
+      .join("");
   }
 
   function renderAvatars(catalog, ownedPacks) {
@@ -186,14 +194,14 @@
       renderPass(data.pass, wallet);
       renderShelf(els.coins, data.catalog?.coins, "coins");
       renderShelf(els.bits, data.catalog?.bits, "bits");
-      renderMasterShelf();
+      renderFeaturedBalls();
       renderBallCase();
       window._playOwnedAvatarPacks = data.ownedAvatarPacks || [];
       renderAvatars(data.catalog, data.ownedAvatarPacks);
       return data;
     } catch (error) {
       els.coinStatus.textContent = window.playRpcError(error, "Mart catalog is not live yet.");
-      renderMasterShelf();
+      renderFeaturedBalls();
       renderBallCase();
       renderAvatars(null, []);
       return null;
@@ -271,7 +279,7 @@
   els.coins.addEventListener("click", async (event) => {
     await buySku(event.target.closest("button[data-sku]"), els.coinStatus);
   });
-  els.masterShelf?.addEventListener("click", async (event) => {
+  els.featuredBalls?.addEventListener("click", async (event) => {
     await buySku(event.target.closest("button[data-sku]"), els.ballStatus || els.coinStatus);
   });
 

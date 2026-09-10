@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=store1">
+<link rel="stylesheet" href="css/play.css?v=store2">
 <body data-page="store">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -51,9 +51,31 @@
 <div class="wrap mart-wrap">
   <div class="page-kicker">
     <h1>Welcome! May I help you?</h1>
-    <p id="bag-full-warn" class="bag-full-warn" hidden role="status"></p>
   </div>
   <p id="mart-status" class="muted" role="status"></p>
+  <section id="mart-wallet" class="mart-wallet" aria-label="Your trainer funds">
+    <p class="eyebrow">Your trainer funds</p>
+    <div class="mart-wallet-grid">
+      <article class="mart-wallet-card">
+        <img src="images/items/relic-gold.png" alt="">
+        <div>
+          <p class="eyebrow">PokéCoins</p>
+          <p id="coin-wallet" class="mart-wallet-value">—</p>
+          <p class="muted">Ready to spend on the shelves below</p>
+        </div>
+      </article>
+      <article class="mart-wallet-card">
+        <img src="images/items/explorer-kit.png" alt="">
+        <div>
+          <p class="eyebrow">Bag space</p>
+          <p id="capacity-note" class="mart-wallet-value">—</p>
+          <div class="bag-space" aria-hidden="true"><i id="capacity-bar"></i></div>
+        </div>
+      </article>
+    </div>
+    <p id="mart-wallet-hint" class="mart-wallet-hint">Sign in with Twitch to see what you can spend and how much bag room you have.</p>
+    <p id="bag-full-warn" class="bag-full-warn" hidden role="status"></p>
+  </section>
   <div id="mart-floors"></div>
 </div>
 <dialog id="ball-modal" class="play-modal play-modal-balls" aria-labelledby="ball-title">
@@ -69,9 +91,9 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/game.js?v=store1"></script>
+<script src="js/game.js?v=store2"></script>
 <script src="js/trainers.js?v=sonic2"></script>
-<script src="js/hud.js?v=store1"></script>
+<script src="js/hud.js?v=store2"></script>
 <script src="js/nav.js?v=gts3"></script>
-<script src="js/store.js?v=store1"></script>
+<script src="js/store.js?v=store2"></script>
 </body>

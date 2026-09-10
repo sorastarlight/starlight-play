@@ -4,6 +4,9 @@
     floors: document.getElementById("mart-floors"),
     status: document.getElementById("mart-status"),
     wallet: document.getElementById("coin-wallet"),
+    coins: document.getElementById("capacity-note"),
+    hint: document.getElementById("mart-wallet-hint"),
+    banner: document.getElementById("mart-wallet"),
     ballModal: document.getElementById("ball-modal"),
     ballGrid: document.getElementById("ball-grid")
   };
@@ -14,12 +17,7 @@
 
   window.playBindAccountNav({
     onSignOut() {
-      els.wallet = document.getElementById("coin-wallet");
-      if (els.wallet) {
-        els.wallet.textContent = "Sign in to see your balance.";
-        els.wallet.classList.remove("bag-warn");
-      }
-      window.playFillBagMeter(null);
+      fillWallet(null);
       lastPass = null;
       lastWallet = null;
       lastOwned = [];
@@ -35,6 +33,48 @@
     return typeof window.playMartArt === "function"
       ? window.playMartArt(item, fallback)
       : window.playItemSprite((item && (item.thumb || item.sprite)) || fallback || item?.sku);
+  }
+
+  function fillWallet(wallet) {
+    const coinsEl = document.getElementById("coin-wallet");
+    const note = document.getElementById("capacity-note");
+    const bar = document.getElementById("capacity-bar");
+    const meter = bar?.parentElement;
+    const hint = document.getElementById("mart-wallet-hint");
+    const banner = document.getElementById("mart-wallet");
+    els.wallet = coinsEl;
+    if (!wallet) {
+      banner?.classList.remove("is-full");
+      if (coinsEl) {
+        coinsEl.textContent = "—";
+        coinsEl.classList.remove("bag-warn");
+      }
+      if (note) {
+        note.textContent = "—";
+        note.classList.remove("bag-warn");
+      }
+      if (bar) bar.style.width = "0%";
+      meter?.classList.remove("is-full");
+      if (hint) hint.textContent = "Sign in with Twitch to see what you can spend and how much bag room you have.";
+      const warn = document.getElementById("bag-full-warn");
+      if (warn) {
+        warn.hidden = true;
+        warn.textContent = "";
+      }
+      return;
+    }
+    const coins = Number(wallet.coins || 0);
+    const used = Number(wallet.used || 0);
+    const cap = Number(wallet.capacity || 0);
+    if (coinsEl) coinsEl.textContent = coins.toLocaleString();
+    window.playFillBagMeter(wallet);
+    if (note) note.textContent = `${used.toLocaleString()} / ${cap.toLocaleString()}`;
+    banner?.classList.toggle("is-full", typeof window.playBagIsFull === "function" && window.playBagIsFull(wallet));
+    if (hint) {
+      hint.textContent = cap
+        ? `${cap - used > 0 ? `${(cap - used).toLocaleString()} item slot${cap - used === 1 ? "" : "s"} free` : "No item slots free"}. Avatar packs do not use bag space.`
+        : "Spend PokéCoins on the shelves below.";
+    }
   }
 
   function describePass(pass, wallet) {
@@ -228,17 +268,13 @@
       </p>`;
   }
 
-  function coinsFloor(floor, wallet) {
+  function coinsFloor(floor) {
     const items = (floor.items || []).map(withLureBlurb);
-    const walletCopy = wallet
-      ? `${wallet.coins} PokéCoins · ${wallet.used}/${wallet.capacity} space`
-      : "Sign in to see your balance.";
     return `<section class="mart-floor">
       <header class="mart-sign">
         <img src="${esc(window.playItemSprite(floor.icon || "relic-gold.png"))}" alt="">
         <div>
           <h2>${esc(floor.name || "Field Kit")}</h2>
-          <p id="coin-wallet" class="muted">${esc(walletCopy)}</p>
           ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
         </div>
       </header>
@@ -322,7 +358,7 @@
     const floors = catalog?.floors?.length ? catalog.floors : fallbackFloors(catalog);
     els.floors.innerHTML = floors.map((floor) => {
       if (floor.kind === "pass") return passFloor(floor, pass, wallet);
-      if (floor.kind === "coins") return coinsFloor(floor, wallet);
+      if (floor.kind === "coins") return coinsFloor(floor);
       if (floor.kind === "balls") return ballsFloor(floor);
       if (floor.kind === "avatars") return avatarsFloor(floor, ownedPacks);
       if (floor.kind === "bits") return bitsFloor(floor);
@@ -359,14 +395,8 @@
       lastPass = data.pass;
       lastOwned = data.ownedAvatarPacks || [];
       window._playOwnedAvatarPacks = lastOwned;
+      fillWallet(wallet);
       renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
-      els.wallet = document.getElementById("coin-wallet");
-      if (wallet) {
-        if (els.wallet) els.wallet.textContent = `${wallet.coins} PokéCoins · ${wallet.used}/${wallet.capacity} space`;
-        window.playFillBagMeter(wallet);
-      } else {
-        window.playFillBagMeter(null);
-      }
       return data;
     } catch (error) {
       if (els.status) els.status.textContent = window.playRpcError(error, "Mart catalog is not live yet.");
@@ -380,7 +410,7 @@
     const session = sessionData.session;
     if (!session) {
       window.playSetAccountNav(null);
-      if (els.wallet) els.wallet.textContent = "Sign in to see your balance.";
+      fillWallet(null);
       await refreshStore();
       return;
     }

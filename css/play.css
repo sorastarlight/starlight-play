@@ -1254,6 +1254,57 @@ footer { margin-top: 24px; font-size: 13px; }
   border: 3px solid #c9a36a;
   box-shadow: inset 0 0 0 6px #f8edd8;
 }
+.mart-wallet {
+  margin: 0 0 8px;
+  padding: 16px 18px 14px;
+  border-radius: 24px;
+  border: 3px solid #e8c36a;
+  background:
+    radial-gradient(circle at 12% 0, #fff8d0 0 28%, transparent 58%),
+    linear-gradient(180deg, #fff6d8, #ffd98a 42%, #fff9ea);
+  box-shadow: 0 8px 0 #d7a84a;
+}
+.mart-wallet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+.mart-wallet-card {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  background: #fffdf8;
+  border: 2px solid #f0d48a;
+  border-radius: 18px;
+}
+.mart-wallet-card img {
+  width: 56px;
+  height: 56px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+.mart-wallet-card .muted { margin: 2px 0 0; }
+.mart-wallet-value {
+  margin: 0;
+  font-family: Fredoka, Nunito, sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #5a3d12;
+}
+.mart-wallet-card .bag-space { margin-top: 8px; }
+.mart-wallet-hint {
+  margin: 10px 0 0;
+  font-weight: 800;
+  color: #6d5a32;
+}
+.mart-wallet.is-full {
+  border-color: #e08a8a;
+  box-shadow: 0 8px 0 #c96a6a;
+}
 .bits-floor { background: linear-gradient(180deg, #e4ecff, #cfd9f4); border-color: #8ea4d8; box-shadow: inset 0 0 0 6px #eef3ff; }
 .avatar-floor { background: linear-gradient(180deg, #efe4ff, #dccaf4); border-color: #a888d8; box-shadow: inset 0 0 0 6px #f4ecff; }
 #premium-avatars { scroll-margin-top: 88px; }
@@ -1997,6 +2048,7 @@ footer { margin-top: 24px; font-size: 13px; }
   .id-no { font-size: 7px; padding: 6px 8px; }
   .id-right { justify-self: center; }
   .pass-showcase, .mart-item { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .mart-wallet-grid { grid-template-columns: 1fr; }
   .mart-item-bits {
     grid-template-columns: 1fr;
     grid-template-areas:

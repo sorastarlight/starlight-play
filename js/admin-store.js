@@ -124,11 +124,28 @@
     localPreviews[key] = url;
   }
 
+  function stockCatIcon() {
+    const kind = selectedCat()?.kind || els.catKind.value;
+    if (kind === "avatars") return "images/trainers/premium-avatars.png";
+    if (kind === "pass") return "rainbow-pass.png";
+    if (kind === "bits") return "amulet-coin.png";
+    return "poke-ball.png";
+  }
+
+  function stockSprite() {
+    return isAvatarsFloor() ? PACK_THUMB : "poke-ball.png";
+  }
+
+  function stockThumb() {
+    return isAvatarsFloor() ? PACK_THUMB : "";
+  }
+
   function setIconButton(preview, label, path, emptyCopy) {
     const value = path || "";
     const src = art(value || "poke-ball.png");
     preview.dataset.playRawTried = "";
     preview.onerror = null;
+    if (preview.getAttribute("src") === src) preview.removeAttribute("src");
     preview.src = src;
     label.textContent = value || emptyCopy || "pick a sprite";
   }
@@ -401,6 +418,14 @@
       itemSprite = filename;
       setIconButton(els.itemSpritePreview, els.itemSpriteLabel, itemSprite);
     }
+    const item = selectedItem();
+    if (item && pickerTarget === "item-thumb") item.thumb = filename;
+    if (item && pickerTarget === "item-sprite") item.sprite = filename;
+    if (item && isAvatarsFloor() && pickerTarget === "item-thumb") item.sprite = filename;
+    const cat = selectedCat();
+    if (cat && pickerTarget === "cat-icon") cat.icon = filename;
+    if (pickerTarget === "cat-icon") renderCats();
+    else renderItems();
     if (closeModal && els.spriteModal?.open) els.spriteModal.close("ok");
   }
 
@@ -573,6 +598,25 @@
   document.getElementById("cat-icon-pick").addEventListener("click", () => openPicker("cat-icon"));
   document.getElementById("item-sprite-pick").addEventListener("click", () => openPicker("item-sprite"));
   document.getElementById("item-thumb-pick").addEventListener("click", () => openPicker("item-thumb"));
+  document.getElementById("cat-icon-default").addEventListener("click", () => {
+    pickerTarget = "cat-icon";
+    applyPick(stockCatIcon());
+  });
+  document.getElementById("item-sprite-default").addEventListener("click", () => {
+    pickerTarget = "item-sprite";
+    applyPick(stockSprite());
+  });
+  document.getElementById("item-thumb-default").addEventListener("click", () => {
+    pickerTarget = "item-thumb";
+    applyPick(stockThumb() || (isAvatarsFloor() ? PACK_THUMB : "poke-ball.png"), "", false);
+    if (!isAvatarsFloor()) {
+      itemThumb = "";
+      const item = selectedItem();
+      if (item) item.thumb = "";
+      setIconButton(els.itemThumbPreview, els.itemThumbLabel, "", thumbEmptyCopy());
+      renderItems();
+    }
+  });
 
   els.spriteFilter.addEventListener("input", renderSpriteGrid);
   els.spriteGrid.addEventListener("click", (event) => {
@@ -582,6 +626,17 @@
   els.spriteModal?.addEventListener("click", (event) => {
     if (event.target === els.spriteModal) els.spriteModal.close("cancel");
   });
+
+  async function persistUpload() {
+    if (pickerTarget === "cat-icon") {
+      if (!selectedCat()?.id) return;
+      await saveCategory();
+      return;
+    }
+    if (els.itemForm.hidden) return;
+    if (!selectedItem() && !els.itemSku.value.trim()) return;
+    await saveItem();
+  }
 
   async function prepareStoreImage(file) {
     await decodeImage(file);
@@ -639,11 +694,12 @@
       }
       if (data?.assets) catalog.assets = data.assets;
       const saved = data?.filename || filename;
-      let liveUrl = data?.downloadUrl || (typeof window.playItemRawUrl === "function" ? window.playItemRawUrl(saved) : "") || blobUrl;
-      if (/^https?:/i.test(liveUrl)) liveUrl += (liveUrl.includes("?") ? "&" : "?") + "t=" + Date.now();
-      applyPick(saved, liveUrl, true);
-      statusEl.textContent = data?.message || "Uploaded. The editor preview is live; the public mart may take a minute.";
+      rememberPreview(saved, blobUrl);
+      if (saved !== filename) rememberPreview(filename, blobUrl);
+      applyPick(saved, blobUrl, true);
+      statusEl.textContent = data?.message || "Uploaded.";
       renderSpriteGrid();
+      await persistUpload();
     } catch (error) {
       statusEl.textContent = window.playRpcError(error, "Upload failed.");
     }

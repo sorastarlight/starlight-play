@@ -223,7 +223,7 @@
     const owned = new Set(ownedPacks || []);
     const have = owned.has(item.pack);
     return `<article class="avatar-pack${have ? " is-owned" : ""}">
-      <img class="avatar-pack-art" src="${esc(window.playItemSprite(packThumb(item)))}" alt="" onerror="this.onerror=null;this.src='images/items/pack-thumb.png'">
+      <img class="avatar-pack-art" src="${esc(window.playItemSprite(packThumb(item)))}" alt="">
       <div class="avatar-pack-copy">
         <strong>${esc(item.name)}</strong>
         <p>${esc(item.blurb || "")}</p>

@@ -948,6 +948,10 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .sprite-pick.is-on { border-color: #7ad0ff; }
 .store-editor-form .field { margin-top: 10px; }
+.store-editor-form .field > .secondary {
+  justify-self: start;
+  width: auto;
+}
 .store-thumb-pick {
   grid-template-columns: 120px minmax(0, 1fr);
   align-items: center;

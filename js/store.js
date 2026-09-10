@@ -5,7 +5,7 @@
     status: document.getElementById("mart-status"),
     wallet: document.getElementById("coin-wallet"),
     coins: document.getElementById("capacity-note"),
-    hint: document.getElementById("mart-wallet-hint"),
+    hint: document.getElementById("mart-wallet-slots"),
     banner: document.getElementById("mart-wallet"),
     ballModal: document.getElementById("ball-modal"),
     ballGrid: document.getElementById("ball-grid")
@@ -40,7 +40,7 @@
     const note = document.getElementById("capacity-note");
     const bar = document.getElementById("capacity-bar");
     const meter = bar?.parentElement;
-    const hint = document.getElementById("mart-wallet-hint");
+    const slots = document.getElementById("mart-wallet-slots");
     const banner = document.getElementById("mart-wallet");
     els.wallet = coinsEl;
     if (!wallet) {
@@ -55,7 +55,7 @@
       }
       if (bar) bar.style.width = "0%";
       meter?.classList.remove("is-full");
-      if (hint) hint.textContent = "Sign in with Twitch to see what you can spend and how much bag room you have.";
+      if (slots) slots.textContent = "Sign in to see bag space.";
       const warn = document.getElementById("bag-full-warn");
       if (warn) {
         warn.hidden = true;
@@ -70,10 +70,11 @@
     window.playFillBagMeter(wallet);
     if (note) note.textContent = `${used.toLocaleString()} / ${cap.toLocaleString()}`;
     banner?.classList.toggle("is-full", typeof window.playBagIsFull === "function" && window.playBagIsFull(wallet));
-    if (hint) {
-      hint.textContent = cap
-        ? `${cap - used > 0 ? `${(cap - used).toLocaleString()} item slot${cap - used === 1 ? "" : "s"} free` : "No item slots free"}. Avatar packs do not use bag space.`
-        : "Spend PokéCoins on the shelves below.";
+    if (slots) {
+      const free = cap - used;
+      slots.textContent = cap
+        ? (free > 0 ? `${free.toLocaleString()} slot${free === 1 ? "" : "s"} free` : "No slots free")
+        : "Sign in to see bag space.";
     }
   }
 
@@ -353,8 +354,20 @@
     els.ballGrid.innerHTML = rest.map(ballTile).join("");
   }
 
+  function placeWallet() {
+    const wallet = document.getElementById("mart-wallet");
+    if (!wallet || !els.floors) return;
+    const subscribe = els.floors.querySelector(".pass-subscribe");
+    const pass = els.floors.querySelector("[data-pass-hero], .pass-showcase");
+    const after = subscribe || pass;
+    if (after) after.after(wallet);
+    else els.floors.prepend(wallet);
+  }
+
   function renderFloors(catalog, wallet, pass, ownedPacks) {
     if (!els.floors) return;
+    const funds = document.getElementById("mart-wallet");
+    if (funds && els.floors.parentElement) els.floors.parentElement.insertBefore(funds, els.floors);
     const floors = catalog?.floors?.length ? catalog.floors : fallbackFloors(catalog);
     els.floors.innerHTML = floors.map((floor) => {
       if (floor.kind === "pass") return passFloor(floor, pass, wallet);
@@ -364,6 +377,7 @@
       if (floor.kind === "bits") return bitsFloor(floor);
       return genericFloor(floor);
     }).join("");
+    placeWallet();
     renderBallCase(catalog);
   }
 

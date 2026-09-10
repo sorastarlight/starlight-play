@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=catch2">
+<link rel="stylesheet" href="css/play.css?v=hub1">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -54,6 +54,10 @@
   </div>
   <p id="gate" class="notice">Sign in with Twitch to open the Admin Hub.</p>
   <div id="staff" hidden>
+    <div class="staff-bar">
+      <a class="button" href="./admin-tools.html">Staff tools</a>
+      <a class="button gold" href="./admin-store.html">Store</a>
+    </div>
     <div class="layout play-stage">
       <section class="card play-stream-col">
         <div class="hero">
@@ -147,144 +151,6 @@
         <p id="settings-status" class="muted" role="status"></p>
       </section>
     </div>
-
-    <div id="owner-secrets" class="owner-only">
-    <div class="layout stack-2" style="margin-top:18px">
-      <section class="card body">
-        <h2>Stream channel</h2>
-        <p class="muted">Public player follows this Twitch login. Staff access also matches it unless a staff role is assigned.</p>
-        <label class="field" for="channel">Twitch login
-          <input id="channel" type="text" autocomplete="off" spellcheck="false">
-        </label>
-        <label class="field" for="twitch-client">Twitch Client ID <span class="muted">(Play app, not the binder)</span>
-          <input id="twitch-client" type="text" autocomplete="off" spellcheck="false">
-        </label>
-        <label class="field" for="twitch-secret">Twitch Client Secret <span class="muted">(needed for Bits webhooks)</span>
-          <input id="twitch-secret" type="password" autocomplete="new-password" spellcheck="false" placeholder="Paste once. Play will not show it again.">
-        </label>
-        <label class="field" for="twitch-broadcaster">Broadcaster ID <span class="muted">(numeric Helix id)</span>
-          <input id="twitch-broadcaster" type="text" autocomplete="off" spellcheck="false">
-        </label>
-        <div class="links">
-          <button id="save-channel" type="button">Save channel</button>
-        </div>
-        <p id="save-status" class="muted" role="status"></p>
-      </section>
-    </div>
-    </div>
-
-    <div class="layout stack-2" style="margin-top:18px">
-      <section class="card body">
-        <h2>Starlight Pass</h2>
-        <p class="muted">Grant or remove the pass by Twitch login after someone has signed into Play. Automatic sub checks need the Client ID above.</p>
-        <p id="pass-count" class="muted"></p>
-        <label class="field" for="pass-login">Twitch login
-          <input id="pass-login" type="text" autocomplete="off" spellcheck="false">
-        </label>
-        <div class="links">
-          <button id="grant-pass" type="button">Grant pass</button>
-          <button id="revoke-pass" class="secondary" type="button">Remove pass</button>
-        </div>
-        <p id="pass-admin-status" class="muted" role="status"></p>
-      </section>
-      <section class="card body">
-        <h2>Bits auto-credit</h2>
-        <p class="muted">Custom Power-Ups on Twitch fill Play bags automatically. Viewers must have signed into Play once. Play never charges Bits.</p>
-        <p id="bits-auto-status" class="muted" role="status"></p>
-        <div class="links">
-          <button id="bits-connect" type="button">Turn on Bits auto-credit</button>
-        </div>
-        <p class="muted">Paste the Play Twitch Client Secret under Stream channel and save first (same secret already used for Play login). Then click Turn on once and wait for Auto-credit is on. Twitch may not open an authorize page if Bits permission was already granted.</p>
-      </section>
-      <section class="card body">
-        <h2>Credit a Bits pack</h2>
-        <p class="muted">Backup if auto-credit is off, or if someone used a Power-Up before signing into Play.</p>
-        <label class="field" for="pack-login">Twitch login
-          <input id="pack-login" type="text" autocomplete="off" spellcheck="false">
-        </label>
-        <label class="field" for="pack-sku">Pack
-          <select id="pack-sku">
-            <option value="bits-starter">Starter Pack (100 Bits)</option>
-            <option value="bits-pantry">Picnic Pack (150 Bits)</option>
-            <option value="bits-great">Adventure Pack (200 Bits)</option>
-            <option value="bits-pouch">Explorer Pack (250 Bits)</option>
-            <option value="bits-ultra">Ultra Pack (300 Bits)</option>
-          </select>
-        </label>
-        <div class="links">
-          <button id="grant-pack" type="button">Credit pack</button>
-        </div>
-        <p id="pack-status" class="muted" role="status"></p>
-      </section>
-    </div>
-
-    <section class="card body" style="margin-top:18px">
-      <h2>Trainer accounts</h2>
-      <p class="muted">Open the account window to search every Play trainer, then grant items, Pokémon, and PokéCoins, or set staff roles.</p>
-      <div class="links">
-        <button id="open-users" type="button">Open trainer accounts</button>
-      </div>
-      <p id="user-status" class="muted" role="status"></p>
-    </section>
-
-    <dialog id="user-modal" class="play-modal play-modal-wide" aria-labelledby="user-desk-title">
-      <form class="play-modal-card user-desk" method="dialog">
-        <header class="play-modal-head">
-          <h3 id="user-desk-title">Trainer accounts</h3>
-          <button class="secondary" value="cancel" type="submit">Close</button>
-        </header>
-        <div class="user-desk-grid">
-          <div class="user-desk-list">
-            <label class="field" for="user-q">Search
-              <input id="user-q" type="search" placeholder="Twitch login or name" autocomplete="off">
-            </label>
-            <div class="links">
-              <button id="user-search" type="button">Find trainers</button>
-              <button id="user-prev" class="secondary" type="button">Previous</button>
-              <button id="user-next" class="secondary" type="button">Next</button>
-            </div>
-            <p id="user-list-status" class="muted" role="status"></p>
-            <div id="user-list" class="staff-users"></div>
-          </div>
-          <div id="user-detail" class="user-desk-detail">
-            <p class="muted">Pick a trainer to view their bag, PC, and staff role.</p>
-          </div>
-        </div>
-      </form>
-    </dialog>
-
-    <div id="owner-stream" class="owner-only">
-    <section class="card body" style="margin-top:18px">
-      <h2>Stream link</h2>
-      <p class="muted">The stream PC already has the token and starts the Play bridge in the background. You do not need to leave a window open.</p>
-      <p class="muted">A second start does nothing if the bridge is already running. Only create a new token if <code>Data/play-bridge.json</code> is missing.</p>
-      <label class="field" for="bridge-token">Bridge token
-        <input id="bridge-token" type="text" readonly placeholder="Create a token to copy it here">
-      </label>
-      <div class="links">
-        <button id="issue-token" type="button">Create stream token</button>
-      </div>
-      <p id="bridge-token-status" class="muted" role="status"></p>
-    </section>
-
-    <div id="twitch-setup" class="notice" style="margin-top:18px">
-      <strong>Enable Twitch login for Play</strong>
-      Keep this app separate from the card binder.
-      <ol>
-        <li>Open the <a href="https://dev.twitch.tv/console/apps" target="_blank" rel="noreferrer">Twitch Developer Console</a> and register <code>Starlight Play</code>.</li>
-        <li>Category: Website Integration. OAuth Redirect URL:<br><code>https://dtflmlbjhttoewqgkujf.supabase.co/auth/v1/callback</code></li>
-        <li>Copy the Client ID and create a Client Secret. Do not paste the secret into chat. Paste the Client ID into the field above.</li>
-        <li>In the <a href="https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/auth/providers" target="_blank" rel="noreferrer">starlight-play Supabase providers</a>, enable Twitch and paste those two values.</li>
-        <li>Under Authentication → URL Configuration, add:<br>
-          <code>https://play.sorastarlight.net/</code><br>
-          <code>https://play.sorastarlight.net/bag.html</code><br>
-          <code>https://play.sorastarlight.net/settings.html</code><br>
-          <code>https://play.sorastarlight.net/store.html</code><br>
-          <code>https://play.sorastarlight.net/admin.html</code>
-        </li>
-      </ol>
-    </div>
-    </div>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -292,8 +158,8 @@
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
 <script src="js/variants.js"></script>
-<script src="js/game.js?v=radar3"></script>
-<script src="js/hud.js?v=catch2"></script>
-<script src="js/nav.js?v=gts3"></script>
-<script src="js/admin.js?v=live2"></script>
+<script src="js/game.js?v=hub1"></script>
+<script src="js/hud.js?v=hub1"></script>
+<script src="js/nav.js?v=hub1"></script>
+<script src="js/admin.js?v=hub1"></script>
 </body>

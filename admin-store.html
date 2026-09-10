@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Store editor · THE STARLIGHT PLAY HUB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/play.css?v=store1">
+<body data-page="admin">
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="./admin.html">
+      <img src="images/sora-starlight-logo.png" alt="Sora Starlight">
+    </a>
+    <div class="topnav-end">
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav-panel">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="visually-hidden">Open menu</span>
+      </button>
+      <div id="topnav-panel" class="topnav-panel">
+        <div id="topnav-links" class="topnav-links"></div>
+      </div>
+      <div class="topnav-actions">
+      <p id="auth-status" class="visually-hidden" role="status">Checking Twitch sign-in…</p>
+      <button id="sign-in" class="signin-btn" type="button" hidden title="Sign in with Twitch">Sign in</button>
+      <div id="account" class="account" hidden>
+        <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+          <img id="account-avatar" class="avatar" alt="" hidden>
+          <span id="account-fallback" class="avatar-fallback" hidden></span>
+          <span class="account-meta">
+            <span id="account-name" class="account-name">Trainer</span>
+            <span id="account-level" class="account-level" hidden></span>
+          </span>
+          <span class="account-caret" aria-hidden="true"></span>
+        </button>
+        <div id="account-menu" class="account-menu" hidden role="menu">
+          <p id="account-handle" class="account-handle"></p>
+          <div id="account-trainer" class="account-trainer" hidden></div>
+          <a id="account-card" href="./trainer.html" role="menuitem">My Trainer ID</a>
+          <a id="account-settings" href="./settings.html" role="menuitem">Settings</a>
+          <a id="account-staff" href="./admin.html" hidden role="menuitem">Admin Hub</a>
+          <button id="sign-out" type="button" role="menuitem">Sign out</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="page-kicker">
+    <h1>Store editor</h1>
+  </div>
+  <p id="gate" class="notice">Sign in with Twitch to open the Store editor.</p>
+  <div id="staff" hidden>
+    <div class="staff-bar">
+      <a class="button secondary" href="./admin.html">Back to Admin Hub</a>
+      <a class="button" href="./admin-tools.html">Staff tools</a>
+      <a class="button" href="./store.html" target="_blank" rel="noreferrer">View mart</a>
+    </div>
+    <p id="store-status" class="muted" role="status"></p>
+    <div class="store-desk">
+      <section class="card body">
+        <h2>Floors</h2>
+        <p class="muted">Order is how they appear on the mart. Pass cannot be deleted.</p>
+        <div id="cat-list" class="store-cat-list"></div>
+        <div class="links">
+          <button id="cat-add" type="button">Add floor</button>
+          <button id="cat-up" class="secondary" type="button">Up</button>
+          <button id="cat-down" class="secondary" type="button">Down</button>
+        </div>
+        <form id="cat-form" class="store-editor-form">
+          <label class="field" for="cat-name">Name
+            <input id="cat-name" type="text" required>
+          </label>
+          <label class="field" for="cat-blurb">Blurb
+            <textarea id="cat-blurb" rows="2"></textarea>
+          </label>
+          <label class="field" for="cat-kind">Kind
+            <select id="cat-kind">
+              <option value="coins">Coins / Field Kit</option>
+              <option value="balls">Poké Balls</option>
+              <option value="avatars">Avatars</option>
+              <option value="bits">Bits Power-Ups</option>
+              <option value="pass">Starlight Pass</option>
+            </select>
+          </label>
+          <label class="field">Icon
+            <button id="cat-icon-pick" class="store-sku" type="button">
+              <img id="cat-icon-preview" src="images/items/poke-ball.png" alt="">
+              <span id="cat-icon-label">poke-ball.png</span>
+            </button>
+          </label>
+          <label class="field" for="cat-perks">Pass perks <span class="muted">(one per line)</span>
+            <textarea id="cat-perks" rows="3"></textarea>
+          </label>
+          <label class="field"><input id="cat-visible" type="checkbox" checked> Visible on mart</label>
+          <div class="links">
+            <button id="cat-save" type="submit">Save floor</button>
+            <button id="cat-hide" class="secondary" type="button">Hide</button>
+            <button id="cat-delete" class="danger" type="button">Delete floor</button>
+          </div>
+        </form>
+      </section>
+      <section class="card body">
+        <h2>Items</h2>
+        <p class="muted">Sprite and thumbnail can be a filename in <code>images/items/</code>, or a path like <code>images/trainers/premium-avatars.png</code>.</p>
+        <div id="item-list" class="store-item-list"></div>
+        <div class="links">
+          <button id="item-add" type="button">Add item</button>
+          <button id="item-up" class="secondary" type="button">Up</button>
+          <button id="item-down" class="secondary" type="button">Down</button>
+        </div>
+        <form id="item-form" class="store-editor-form">
+          <label class="field" for="item-sku">SKU
+            <input id="item-sku" type="text" spellcheck="false" autocomplete="off">
+          </label>
+          <label class="field" for="item-name">Name
+            <input id="item-name" type="text">
+          </label>
+          <label class="field" for="item-blurb">Blurb
+            <textarea id="item-blurb" rows="2"></textarea>
+          </label>
+          <label class="field" for="item-cost">PokéCoins
+            <input id="item-cost" type="number" min="0" step="1" value="0">
+          </label>
+          <label class="field" for="item-bits">Bits
+            <input id="item-bits" type="number" min="0" step="1" value="0">
+          </label>
+          <label class="field">Sprite
+            <button id="item-sprite-pick" class="store-sku" type="button">
+              <img id="item-sprite-preview" src="images/items/poke-ball.png" alt="">
+              <span id="item-sprite-label">poke-ball.png</span>
+            </button>
+          </label>
+          <label class="field">Thumbnail
+            <button id="item-thumb-pick" class="store-sku" type="button">
+              <img id="item-thumb-preview" src="images/items/poke-ball.png" alt="">
+              <span id="item-thumb-label">(same as sprite)</span>
+            </button>
+          </label>
+          <label class="field"><input id="item-featured" type="checkbox"> Featured on the shelf</label>
+          <label class="field"><input id="item-visible" type="checkbox" checked> Visible</label>
+          <p class="muted">Grants added to the bag</p>
+          <div id="grant-grid" class="store-grant-grid"></div>
+          <label class="field" for="item-ball-key">Ball grant key
+            <input id="item-ball-key" type="text" spellcheck="false" placeholder="masterball">
+          </label>
+          <label class="field" for="item-pack">Avatar pack id
+            <input id="item-pack" type="text" spellcheck="false" placeholder="sonic">
+          </label>
+          <label class="field" for="item-looks">Avatar looks <span class="muted">(one id per line)</span>
+            <textarea id="item-looks" rows="3"></textarea>
+          </label>
+          <label class="field" for="item-bits-titles">Power-Up title aliases <span class="muted">(one per line)</span>
+            <textarea id="item-bits-titles" rows="3"></textarea>
+          </label>
+          <div class="links">
+            <button id="item-save" type="submit">Save item</button>
+            <button id="item-delete" class="danger" type="button">Remove item</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+<dialog id="sprite-modal" class="play-modal" aria-labelledby="sprite-title">
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="sprite-title">Pick a sprite</h3>
+      <button class="secondary" value="cancel" type="submit">Close</button>
+    </header>
+    <label class="field" for="sprite-filter">Search
+      <input id="sprite-filter" type="search" placeholder="poke-ball">
+    </label>
+    <div id="sprite-grid" class="sprite-grid"></div>
+    <p class="muted">Upload a PNG, WebP, or GIF. It commits to <code>images/items/</code> on GitHub Pages. Preview can use the file immediately.</p>
+    <label class="field" for="sprite-upload">Upload
+      <input id="sprite-upload" type="file" accept="image/png,image/webp,image/gif">
+    </label>
+    <p id="sprite-upload-status" class="muted" role="status"></p>
+  </form>
+</dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/game.js?v=store1"></script>
+<script src="js/hud.js?v=store1"></script>
+<script src="js/nav.js?v=store1"></script>
+<script src="js/admin-store.js?v=store1"></script>
+</body>

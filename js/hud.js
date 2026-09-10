@@ -1,4 +1,44 @@
 (() => {
+  window.playBagIsFull = function playBagIsFull(bag) {
+    const used = Number(bag?.used || 0);
+    const cap = Number(bag?.capacity || 0);
+    return cap > 0 && used >= cap;
+  };
+
+  window.playBagFullCopy = function playBagFullCopy(bag) {
+    const cap = Number(bag?.capacity || 0);
+    const max = window.PLAY_BAG_MAX || 10000;
+    if (cap >= max) {
+      return "Your bag is full. That’s the 10,000 item maximum — use some items to make space.";
+    }
+    return "Your bag is full. Buy a Pouch on the Store for more space, or use some items first.";
+  };
+
+  window.playFillBagMeter = function playFillBagMeter(bag) {
+    const note = document.getElementById("capacity-note");
+    const bar = document.getElementById("capacity-bar");
+    const meter = bar?.parentElement;
+    const warn = document.getElementById("bag-full-warn");
+    const wallet = document.getElementById("coin-wallet");
+    const used = Number(bag?.used || 0);
+    const cap = Number(bag?.capacity || 50);
+    const pct = Math.round((used / Math.max(1, cap)) * 100);
+    const full = window.playBagIsFull(bag);
+    if (note) {
+      note.textContent = `${used} / ${cap} item space`;
+      note.classList.toggle("bag-warn", full);
+    }
+    if (bar) bar.style.width = `${Math.min(100, pct)}%`;
+    if (meter) meter.classList.toggle("is-full", full);
+    if (wallet && bag && Number.isFinite(Number(bag.used))) {
+      wallet.classList.toggle("bag-warn", full);
+    }
+    if (warn) {
+      warn.hidden = !full;
+      warn.textContent = full ? window.playBagFullCopy(bag) : "";
+    }
+  };
+
   window.playRenderBagStrip = function playRenderBagStrip(bag) {
     const items = [
       ["coins", "Coins"],

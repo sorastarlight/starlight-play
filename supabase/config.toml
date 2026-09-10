@@ -6,3 +6,6 @@ verify_jwt = true
 
 [functions.twitch-eventsub]
 verify_jwt = false
+
+[functions.store-asset]
+verify_jwt = true

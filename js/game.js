@@ -98,6 +98,7 @@
     Steel: "#B8B8D0", Fairy: "#EE99AC"
   };
 
+  window.PLAY_BAG_MAX = 10000;
   window.PLAY_BALLS = [
     { key: "pokeball", sku: "poke5", name: "Poké Ball", qty: 5, cost: 40, rate: 0.45, multiplier: "1×", sprite: "poke-ball", extra: false },
     { key: "greatball", sku: "great3", name: "Great Ball", qty: 3, cost: 55, rate: 0.6, multiplier: "1.5×", sprite: "great-ball", extra: false },
@@ -443,12 +444,21 @@
   };
 
   window.playItemSprite = function playItemSprite(key) {
-    const raw = String(key || "");
+    const raw = String(key || "").trim();
+    if (!raw) return "images/items/poke-ball.png";
     if (raw.startsWith("species-") && raw.endsWith("-xl")) return "images/items/lgpe-candy-xl.png";
     if (raw.startsWith("species-") && raw.endsWith("-l")) return "images/items/lgpe-candy-l.png";
     if (raw.startsWith("species-")) return "images/items/lgpe-candy.png";
-    const slug = ITEM_SPRITES[key] || "poke-ball";
+    if (/^(https?:|data:|blob:)/i.test(raw)) return raw;
+    if (raw.includes("/")) return raw;
+    if (/\.(png|webp|gif|jpe?g)$/i.test(raw)) return `images/items/${raw}`;
+    const slug = ITEM_SPRITES[key] || ITEM_SPRITES[raw] || "poke-ball";
     return `images/items/${slug}.png`;
+  };
+
+  window.playMartArt = function playMartArt(item, fallback) {
+    const src = (item && (item.thumb || item.sprite)) || fallback || item?.sku || item?.ballKey;
+    return window.playItemSprite(src);
   };
 
   window.playCandyLabel = function playCandyLabel(key) {

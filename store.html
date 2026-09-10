@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=radar3">
+<link rel="stylesheet" href="css/play.css?v=store1">
 <body data-page="store">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -51,81 +51,10 @@
 <div class="wrap mart-wrap">
   <div class="page-kicker">
     <h1>Welcome! May I help you?</h1>
+    <p id="bag-full-warn" class="bag-full-warn" hidden role="status"></p>
   </div>
-
-  <section id="pass-hero" class="pass-showcase">
-    <img class="pass-sprite" src="images/items/rainbow-pass.png" alt="">
-    <div>
-      <p class="eyebrow">Twitch subscriber perk</p>
-      <h2>Starlight Pass <span data-pass-state class="pass-state off">Inactive</span></h2>
-      <ul>
-        <li>+25 bag space while active</li>
-        <li>Daily: 2 Berries, 1 Honey, 20 PokéCoins</li>
-        <li>Weekly: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins</li>
-      </ul>
-      <p id="pass-status" class="muted">Sign in to check your Pass.</p>
-      <div class="links pass-actions">
-        <button id="claim-daily" type="button">Claim daily gift</button>
-        <button id="claim-weekly" class="gold" type="button">Claim weekly crate</button>
-        <button id="check-pass" class="secondary" type="button">Check my subscription</button>
-      </div>
-    </div>
-  </section>
-  <p class="pass-subscribe">
-    Want the Starlight Pass?
-    <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch now</a>
-  </p>
-
-  <section class="mart-floor">
-    <header class="mart-sign">
-      <img src="images/items/relic-gold.png" alt="">
-      <div>
-        <h2>Field Kit</h2>
-        <p id="coin-wallet" class="muted">Sign in to see your balance.</p>
-      </div>
-    </header>
-    <p id="coin-status" class="muted" role="status"></p>
-    <div id="coin-shelf" class="mart-shelf"></div>
-  </section>
-
-  <section class="mart-floor">
-    <header class="mart-sign">
-      <img src="images/items/poke-ball.png" alt="">
-      <div>
-        <h2>Poké Balls</h2>
-        <p class="muted">Poké Ball, Great Ball, Ultra Ball, Master Ball, and Premier Ball are on the shelf. Master Ball always catches.</p>
-      </div>
-    </header>
-    <p id="ball-status" class="muted" role="status"></p>
-    <div id="featured-balls" class="ball-grid"></div>
-    <div class="links">
-      <button id="open-balls" type="button">Browse Other Poké Balls</button>
-    </div>
-  </section>
-
-  <section id="premium-avatars" class="mart-floor avatar-floor">
-    <header class="mart-sign">
-      <img src="images/trainers/premium-avatars.png" alt="">
-      <div>
-        <h2>Premium Avatars</h2>
-        <p class="muted">Sprite series for your Trainer ID. Buy once, then pick a look in Settings. These do not use bag space.</p>
-      </div>
-    </header>
-    <p id="avatar-status" class="muted" role="status"></p>
-    <div id="avatar-shelf" class="avatar-shelf"></div>
-  </section>
-
-  <section class="mart-floor bits-floor">
-    <header class="mart-sign">
-      <img src="images/items/amulet-coin.png" alt="">
-      <div>
-        <h2>Twitch Power-Ups</h2>
-        <p class="muted">Use the matching Custom Power-Up on Twitch while Sora is live. Sign into Play once so the pack can find your bag. You get what's listed — nothing random.</p>
-      </div>
-    </header>
-    <p id="bits-status" class="muted" role="status"></p>
-    <div id="bits-shelf" class="mart-shelf">    </div>
-  </section>
+  <p id="mart-status" class="muted" role="status"></p>
+  <div id="mart-floors"></div>
 </div>
 <dialog id="ball-modal" class="play-modal play-modal-balls" aria-labelledby="ball-title">
   <form class="play-modal-card" method="dialog">
@@ -140,9 +69,9 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/game.js?v=radar3"></script>
+<script src="js/game.js?v=store1"></script>
 <script src="js/trainers.js?v=sonic2"></script>
-<script src="js/hud.js?v=pc1"></script>
+<script src="js/hud.js?v=store1"></script>
 <script src="js/nav.js?v=gts3"></script>
-<script src="js/store.js?v=radar3"></script>
+<script src="js/store.js?v=store1"></script>
 </body>

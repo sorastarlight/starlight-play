@@ -28,7 +28,7 @@
     }
     status.textContent = data?.message || "Bits auto-credit is on.";
     if (data?.ok) {
-      window.setTimeout(() => { window.location.replace("./admin.html"); }, 1200);
+      window.setTimeout(() => { window.location.replace("./admin-tools.html"); }, 1200);
     }
   }
 

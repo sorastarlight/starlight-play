@@ -1,34 +1,41 @@
 (() => {
   const supabase = window.playSupabase;
   const els = {
-    status: document.getElementById("pass-status"),
-    check: document.getElementById("check-pass"),
-    daily: document.getElementById("claim-daily"),
-    weekly: document.getElementById("claim-weekly"),
+    floors: document.getElementById("mart-floors"),
+    status: document.getElementById("mart-status"),
     wallet: document.getElementById("coin-wallet"),
-    coins: document.getElementById("coin-shelf"),
-    coinStatus: document.getElementById("coin-status"),
-    bits: document.getElementById("bits-shelf"),
-    bitsStatus: document.getElementById("bits-status"),
-    passHero: document.getElementById("pass-hero"),
-    openBalls: document.getElementById("open-balls"),
     ballModal: document.getElementById("ball-modal"),
-    ballGrid: document.getElementById("ball-grid"),
-    ballStatus: document.getElementById("ball-status"),
-    featuredBalls: document.getElementById("featured-balls"),
-    avatars: document.getElementById("avatar-shelf"),
-    avatarStatus: document.getElementById("avatar-status")
+    ballGrid: document.getElementById("ball-grid")
   };
-  const CORE_BALL_SKUS = new Set(["poke5", "great3", "ultra1", "master1", "premier1"]);
-  const FEATURED_BALL_KEYS = ["pokeball", "greatball", "ultraball", "masterball", "premierball"];
+  let lastCatalog = null;
+  let lastWallet = null;
+  let lastPass = null;
+  let lastOwned = [];
 
   window.playBindAccountNav({
     onSignOut() {
-      els.status.textContent = "Sign in to check your Pass.";
-      els.wallet.textContent = "Sign in to see your balance.";
-      renderPass(null, null);
+      els.wallet = document.getElementById("coin-wallet");
+      if (els.wallet) {
+        els.wallet.textContent = "Sign in to see your balance.";
+        els.wallet.classList.remove("bag-warn");
+      }
+      window.playFillBagMeter(null);
+      lastPass = null;
+      lastWallet = null;
+      lastOwned = [];
+      renderFloors(lastCatalog, null, null, []);
     }
   });
+
+  function esc(value) {
+    return window.playEscapeAttr(value);
+  }
+
+  function art(item, fallback) {
+    return typeof window.playMartArt === "function"
+      ? window.playMartArt(item, fallback)
+      : window.playItemSprite((item && (item.thumb || item.sprite)) || fallback || item?.sku);
+  }
 
   function describePass(pass, wallet) {
     if (!pass) return { note: "Sign in to check your Pass.", active: false };
@@ -51,24 +58,94 @@
     return { note: "No Pass on this account yet.", active: false };
   }
 
+  function withLureBlurb(item) {
+    if (item?.sku !== "lure1") return item;
+    return { ...item, blurb: "Detects nearby Pokémon & joins you to an encounter automatically. Lasts 30 mins." };
+  }
+
+  function ballView(item) {
+    const key = item.ballKey || Object.keys(item.grants || {})[0] || "";
+    const info = (typeof window.playBallInfo === "function" ? window.playBallInfo(key) : null) || {};
+    const qty = Number(item.qty || item.grants?.[key] || 1);
+    return {
+      ...item,
+      key,
+      qty,
+      rate: info.rate ?? 0.45,
+      multiplier: info.multiplier || (key === "masterball" ? "Always" : "1×"),
+      name: item.name || info.name || key
+    };
+  }
+
+  function fallbackFloors(catalog) {
+    return [
+      {
+        key: "pass",
+        kind: "pass",
+        name: "Starlight Pass",
+        blurb: "Twitch subscriber perk",
+        icon: "rainbow-pass.png",
+        extra: {
+          perks: [
+            "+25 bag space while active",
+            "Daily: 2 Berries, 1 Honey, 20 PokéCoins",
+            "Weekly: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins"
+          ]
+        },
+        items: []
+      },
+      {
+        key: "field-kit",
+        kind: "coins",
+        name: "Field Kit",
+        blurb: "",
+        icon: "relic-gold.png",
+        items: catalog?.coins || []
+      },
+      {
+        key: "balls",
+        kind: "balls",
+        name: "Poké Balls",
+        blurb: "Poké Ball, Great Ball, Ultra Ball, Master Ball, and Premier Ball are on the shelf. Master Ball always catches.",
+        icon: "poke-ball.png",
+        items: catalog?.balls || []
+      },
+      {
+        key: "avatars",
+        kind: "avatars",
+        name: "Premium Avatars",
+        blurb: "Sprite series for your Trainer ID. Buy once, then pick a look in Settings. These do not use bag space.",
+        icon: "images/trainers/premium-avatars.png",
+        items: catalog?.avatars || window.PLAY_AVATAR_PACKS || []
+      },
+      {
+        key: "bits",
+        kind: "bits",
+        name: "Twitch Power-Ups",
+        blurb: "Use the matching Custom Power-Up on Twitch while Sora is live. Sign into Play once so the pack can find your bag. You get what's listed — nothing random.",
+        icon: "amulet-coin.png",
+        items: catalog?.bits || []
+      }
+    ];
+  }
+
   function shelfCard(item, mode) {
-    const sprite = window.playItemSprite(item.sku) || window.playItemSprite(Object.keys(item.grants || {})[0]);
+    const row = withLureBlurb(item);
+    const sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
     const cost = mode === "bits"
-      ? `<span class="mart-cost">${item.bits} Bits</span>`
-      : `<span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${item.cost}</span>`;
-    const action = mode === "coins"
-      ? `<button type="button" data-sku="${item.sku}">Get</button>`
-      : "";
-    const grants = typeof window.playGrantLines === "function" ? window.playGrantLines(item.grants) : [];
+      ? `<span class="mart-cost">${row.bits || 0} Bits</span>`
+      : `<span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${row.cost || 0}</span>`;
+    const action = mode === "bits" ? "" : `<button type="button" data-sku="${esc(row.sku)}">Get</button>`;
+    const grants = typeof window.playGrantLines === "function" ? window.playGrantLines(row.grants) : [];
     const grantList = mode === "bits" && grants.length
-      ? `<ul class="mart-grants">${grants.map((row) => `<li><img src="${row.sprite}" alt=""><span>${row.label}</span></li>`).join("")}</ul>`
+      ? `<ul class="mart-grants">${grants.map((line) => `<li><img src="${line.sprite}" alt=""><span>${esc(line.label)}</span></li>`).join("")}</ul>`
       : "";
-    const blurb = mode !== "bits" && item.blurb ? `<p>${item.blurb}</p>` : "";
+    const blurb = mode !== "bits" && row.blurb ? `<p>${esc(row.blurb)}</p>` : "";
     return `
-      <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${item.sku === "lure1" ? " mart-item-radar" : ""}">
-        <div class="mart-sprite"><img src="${sprite}" alt=""></div>
+      <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${row.sku === "lure1" ? " mart-item-radar" : ""}">
+        <div class="mart-sprite"><img src="${esc(sprite)}" alt=""></div>
         <div class="mart-copy">
-          <strong>${item.name}</strong>
+          <strong>${esc(row.name)}</strong>
           ${blurb}
         </div>
         <div class="mart-price">
@@ -79,81 +156,179 @@
       </article>`;
   }
 
-  function renderShelf(target, items, mode) {
-    const rows = mode === "coins"
-      ? (items || []).filter((item) => !CORE_BALL_SKUS.has(item.sku)).map((item) => (
-        item.sku === "lure1"
-          ? { ...item, blurb: "Detects nearby Pokémon & joins you to an encounter automatically. Lasts 30 mins." }
-          : item
-      ))
-      : items;
-    target.innerHTML = (rows || []).map((item) => shelfCard(item, mode)).join("");
-  }
-
-  function ballTile(row) {
+  function ballTile(item) {
+    const row = ballView(item);
     const pct = Math.round((row.rate || 0) * 100);
     const pack = row.qty > 1 ? ` ×${row.qty}` : "";
-    const rate = row.key === "masterball" ? "Always · 100% catch" : `${row.multiplier} · ${pct}% catch`;
+    const rate = row.key === "masterball" ? "Always · 100% catch" : `${esc(row.multiplier)} · ${pct}% catch`;
     return `<article class="ball-tile">
-      <img src="${window.playItemSprite(row.key)}" alt="">
-      <strong>${row.name}${pack}</strong>
+      <img src="${esc(art(row, row.key))}" alt="">
+      <strong>${esc(row.name)}${pack}</strong>
       <span class="ball-rate">${rate}</span>
-      <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${row.cost}</span>
-      <button type="button" data-sku="${row.sku}">Get</button>
+      <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${row.cost || 0}</span>
+      <button type="button" data-sku="${esc(row.sku)}">Get</button>
     </article>`;
   }
 
-  function featuredBalls() {
-    const order = new Map(FEATURED_BALL_KEYS.map((key, index) => [key, index]));
-    return (window.PLAY_BALLS || [])
-      .filter((row) => order.has(row.key))
-      .sort((a, b) => order.get(a.key) - order.get(b.key));
-  }
-
-  function renderFeaturedBalls() {
-    if (!els.featuredBalls) return;
-    els.featuredBalls.innerHTML = featuredBalls().map(ballTile).join("");
-  }
-
-  function renderBallCase() {
-    if (!els.ballGrid) return;
-    const featured = new Set(FEATURED_BALL_KEYS);
-    els.ballGrid.innerHTML = (window.PLAY_BALLS || [])
-      .filter((row) => !featured.has(row.key))
-      .map(ballTile)
-      .join("");
-  }
-
-  function renderAvatars(catalog, ownedPacks) {
-    if (!els.avatars) return;
+  function avatarCard(item, ownedPacks) {
     const owned = new Set(ownedPacks || []);
-    const rows = catalog?.avatars?.length ? catalog.avatars : (window.PLAY_AVATAR_PACKS || []);
-    els.avatars.innerHTML = rows.map((item) => {
-      const have = owned.has(item.pack);
-      const looks = item.looks || [];
-      return `<article class="avatar-pack${have ? " is-owned" : ""}">
+    const have = owned.has(item.pack);
+    const looks = item.looks || [];
+    const thumb = item.thumb || item.sprite || "images/trainers/premium-avatars.png";
+    return `<article class="avatar-pack${have ? " is-owned" : ""}">
+      <div class="avatar-pack-head">
+        <img class="avatar-pack-thumb" src="${esc(window.playItemSprite(thumb))}" alt="">
         <div class="avatar-pack-looks">
           ${looks.map((id) => {
             const look = typeof window.playTrainerLook === "function" ? window.playTrainerLook(id) : null;
             const name = look?.trainer?.name || id;
             return `<figure>
-              <img src="${window.playTrainerSpriteUrl(id)}" alt="">
-              <figcaption>${name}</figcaption>
+              <img src="${esc(window.playTrainerSpriteUrl(id))}" alt="">
+              <figcaption>${esc(name)}</figcaption>
             </figure>`;
           }).join("")}
         </div>
-        <div class="avatar-pack-copy">
-          <strong>${item.name}</strong>
-          <p>${item.blurb || ""}</p>
+      </div>
+      <div class="avatar-pack-copy">
+        <strong>${esc(item.name)}</strong>
+        <p>${esc(item.blurb || "")}</p>
+      </div>
+      <div class="avatar-pack-foot">
+        <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${item.cost || 0}</span>
+        ${have
+          ? `<span class="owned-mark">Owned</span>`
+          : `<button type="button" data-avatar-sku="${esc(item.sku)}">Get</button>`}
+      </div>
+    </article>`;
+  }
+
+  function passFloor(floor, pass, wallet) {
+    const info = describePass(pass, wallet);
+    const perks = Array.isArray(floor.extra?.perks) && floor.extra.perks.length
+      ? floor.extra.perks
+      : ["+25 bag space while active", "Daily: 2 Berries, 1 Honey, 20 PokéCoins", "Weekly: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins"];
+    return `
+      <section class="pass-showcase${info.active ? " active" : ""}" data-pass-hero>
+        <img class="pass-sprite" src="${esc(window.playItemSprite(floor.icon || "rainbow-pass.png"))}" alt="">
+        <div>
+          <p class="eyebrow">${esc(floor.blurb || "Twitch subscriber perk")}</p>
+          <h2>${esc(floor.name || "Starlight Pass")} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h2>
+          <ul>${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
+          <p data-pass-status class="muted">${esc(info.note)}</p>
+          <div class="links pass-actions">
+            <button id="claim-daily" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "Daily claimed" : "Claim daily gift"}</button>
+            <button id="claim-weekly" class="gold" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "Weekly claimed" : "Claim weekly crate"}</button>
+            <button id="check-pass" class="secondary" type="button">Check my subscription</button>
+          </div>
         </div>
-        <div class="avatar-pack-foot">
-          <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${item.cost}</span>
-          ${have
-            ? `<span class="owned-mark">Owned</span>`
-            : `<button type="button" data-avatar-sku="${item.sku}">Get</button>`}
+      </section>
+      <p class="pass-subscribe">
+        Want the Starlight Pass?
+        <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch now</a>
+      </p>`;
+  }
+
+  function coinsFloor(floor, wallet) {
+    const items = (floor.items || []).map(withLureBlurb);
+    const walletCopy = wallet
+      ? `${wallet.coins} PokéCoins · ${wallet.used}/${wallet.capacity} space`
+      : "Sign in to see your balance.";
+    return `<section class="mart-floor">
+      <header class="mart-sign">
+        <img src="${esc(window.playItemSprite(floor.icon || "relic-gold.png"))}" alt="">
+        <div>
+          <h2>${esc(floor.name || "Field Kit")}</h2>
+          <p id="coin-wallet" class="muted">${esc(walletCopy)}</p>
+          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
         </div>
-      </article>`;
+      </header>
+      <p class="muted" data-floor-status></p>
+      <div class="mart-shelf" data-shelf="coins">${items.map((item) => shelfCard(item, "coins")).join("")}</div>
+    </section>`;
+  }
+
+  function ballsFloor(floor) {
+    const items = (floor.items || []).map(ballView);
+    const featured = items.filter((row) => row.featured);
+    const rest = items.filter((row) => !row.featured);
+    return `<section class="mart-floor">
+      <header class="mart-sign">
+        <img src="${esc(window.playItemSprite(floor.icon || "poke-ball.png"))}" alt="">
+        <div>
+          <h2>${esc(floor.name || "Poké Balls")}</h2>
+          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
+        </div>
+      </header>
+      <p class="muted" data-floor-status data-ball-status></p>
+      <div class="ball-grid" data-featured-balls>${featured.map(ballTile).join("")}</div>
+      ${rest.length ? `<div class="links"><button type="button" data-open-balls>Browse Other Poké Balls</button></div>` : ""}
+    </section>`;
+  }
+
+  function avatarsFloor(floor, ownedPacks) {
+    const items = floor.items?.length ? floor.items : (window.PLAY_AVATAR_PACKS || []);
+    return `<section class="mart-floor avatar-floor">
+      <header class="mart-sign">
+        <img src="${esc(window.playItemSprite(floor.icon || "images/trainers/premium-avatars.png"))}" alt="">
+        <div>
+          <h2>${esc(floor.name || "Premium Avatars")}</h2>
+          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
+        </div>
+      </header>
+      <p class="muted" data-floor-status data-avatar-status></p>
+      <div class="avatar-shelf">${items.map((item) => avatarCard(item, ownedPacks)).join("")}</div>
+    </section>`;
+  }
+
+  function bitsFloor(floor) {
+    return `<section class="mart-floor bits-floor">
+      <header class="mart-sign">
+        <img src="${esc(window.playItemSprite(floor.icon || "amulet-coin.png"))}" alt="">
+        <div>
+          <h2>${esc(floor.name || "Twitch Power-Ups")}</h2>
+          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
+        </div>
+      </header>
+      <p class="muted" data-floor-status></p>
+      <div class="mart-shelf">${(floor.items || []).map((item) => shelfCard(item, "bits")).join("")}</div>
+    </section>`;
+  }
+
+  function genericFloor(floor) {
+    const mode = floor.kind === "bits" ? "bits" : "coins";
+    return `<section class="mart-floor">
+      <header class="mart-sign">
+        <img src="${esc(window.playItemSprite(floor.icon || "poke-ball.png"))}" alt="">
+        <div>
+          <h2>${esc(floor.name || "Shelf")}</h2>
+          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
+        </div>
+      </header>
+      <p class="muted" data-floor-status></p>
+      <div class="mart-shelf">${(floor.items || []).map((item) => shelfCard(item, mode)).join("")}</div>
+    </section>`;
+  }
+
+  function renderBallCase(catalog) {
+    if (!els.ballGrid) return;
+    const floors = catalog?.floors?.length ? catalog.floors : fallbackFloors(catalog);
+    const balls = floors.find((floor) => floor.kind === "balls");
+    const rest = (balls?.items || []).map(ballView).filter((row) => !row.featured);
+    els.ballGrid.innerHTML = rest.map(ballTile).join("");
+  }
+
+  function renderFloors(catalog, wallet, pass, ownedPacks) {
+    if (!els.floors) return;
+    const floors = catalog?.floors?.length ? catalog.floors : fallbackFloors(catalog);
+    els.floors.innerHTML = floors.map((floor) => {
+      if (floor.kind === "pass") return passFloor(floor, pass, wallet);
+      if (floor.kind === "coins") return coinsFloor(floor, wallet);
+      if (floor.kind === "balls") return ballsFloor(floor);
+      if (floor.kind === "avatars") return avatarsFloor(floor, ownedPacks);
+      if (floor.kind === "bits") return bitsFloor(floor);
+      return genericFloor(floor);
     }).join("");
+    renderBallCase(catalog);
   }
 
   async function functionMessage(error, fallback) {
@@ -164,50 +339,38 @@
         if (body?.message) return body.message;
       }
     } catch (_) {}
-    if (String(error?.message || "").includes("non-2xx")) {
-      return fallback;
-    }
+    if (String(error?.message || "").includes("non-2xx")) return fallback;
     return error?.message || fallback;
   }
 
-  function renderPass(pass, wallet) {
-    const info = describePass(pass, wallet);
-    const state = els.passHero?.querySelector("[data-pass-state]");
-    els.status.textContent = info.note;
-    if (els.passHero) {
-      els.passHero.classList.toggle("active", Boolean(info.active));
-      if (state) {
-        state.textContent = info.active ? "Active" : "Inactive";
-        state.classList.toggle("on", Boolean(info.active));
-        state.classList.toggle("off", !info.active);
-      }
-      els.daily.disabled = !info.active || !wallet?.dailyReady;
-      els.weekly.disabled = !info.active || !wallet?.weeklyReady;
-      els.daily.textContent = info.active && !wallet?.dailyReady ? "Daily claimed" : "Claim daily gift";
-      els.weekly.textContent = info.active && !wallet?.weeklyReady ? "Weekly claimed" : "Claim weekly crate";
-    }
+  function noteEl(from) {
+    return from?.closest("section")?.querySelector("[data-floor-status]")
+      || document.querySelector("[data-ball-status]")
+      || document.querySelector("[data-pass-status]")
+      || els.status;
   }
 
   async function refreshStore() {
     try {
       const data = await window.playCall("play_store");
       const wallet = data.wallet;
+      lastCatalog = data.catalog;
+      lastWallet = wallet;
+      lastPass = data.pass;
+      lastOwned = data.ownedAvatarPacks || [];
+      window._playOwnedAvatarPacks = lastOwned;
+      renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
+      els.wallet = document.getElementById("coin-wallet");
       if (wallet) {
-        els.wallet.textContent = `${wallet.coins} PokéCoins · ${wallet.used}/${wallet.capacity} space`;
+        if (els.wallet) els.wallet.textContent = `${wallet.coins} PokéCoins · ${wallet.used}/${wallet.capacity} space`;
+        window.playFillBagMeter(wallet);
+      } else {
+        window.playFillBagMeter(null);
       }
-      renderPass(data.pass, wallet);
-      renderShelf(els.coins, data.catalog?.coins, "coins");
-      renderShelf(els.bits, data.catalog?.bits, "bits");
-      renderFeaturedBalls();
-      renderBallCase();
-      window._playOwnedAvatarPacks = data.ownedAvatarPacks || [];
-      renderAvatars(data.catalog, data.ownedAvatarPacks);
       return data;
     } catch (error) {
-      els.coinStatus.textContent = window.playRpcError(error, "Mart catalog is not live yet.");
-      renderFeaturedBalls();
-      renderBallCase();
-      renderAvatars(null, []);
+      if (els.status) els.status.textContent = window.playRpcError(error, "Mart catalog is not live yet.");
+      renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
       return null;
     }
   }
@@ -217,7 +380,7 @@
     const session = sessionData.session;
     if (!session) {
       window.playSetAccountNav(null);
-      els.status.textContent = "Sign in to check your Pass.";
+      if (els.wallet) els.wallet.textContent = "Sign in to see your balance.";
       await refreshStore();
       return;
     }
@@ -226,103 +389,84 @@
     window.playSetAccountNav(session, profile, { isAdmin: Boolean(store?.isAdmin), trainer: store?.trainer });
   }
 
-  els.check.addEventListener("click", async () => {
-    const { data: sessionData } = await supabase.auth.getSession();
-    const session = sessionData.session;
-    if (!session) {
-      els.status.textContent = "Sign in with Twitch first.";
-      return;
-    }
-    if (!session.provider_token) {
-      els.status.textContent = "Twitch did not keep a session token. Sign out, sign in again, then check immediately.";
-      return;
-    }
-    els.status.textContent = "Checking Twitch…";
-    const { data, error } = await supabase.functions.invoke("refresh-pass", {
-      body: { accessToken: session.provider_token }
-    });
-    if (error) {
-      els.status.textContent = await functionMessage(error, "Staff still needs to save the Play Twitch Client ID, or grant the pass by login.");
-      return;
-    }
-    els.status.textContent = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
-    await load();
-  });
-
-  els.daily.addEventListener("click", async () => {
-    try {
-      const data = await window.playCall("play_claim_pass", { p_kind: "daily" });
-      els.status.textContent = data.message;
-      await refreshStore();
-    } catch (error) {
-      els.status.textContent = window.playRpcError(error);
-    }
-  });
-  els.weekly.addEventListener("click", async () => {
-    try {
-      const data = await window.playCall("play_claim_pass", { p_kind: "weekly" });
-      els.status.textContent = data.message;
-      await refreshStore();
-    } catch (error) {
-      els.status.textContent = window.playRpcError(error);
-    }
-  });
-  async function buySku(button, note) {
+  async function buySku(button) {
     if (!button) return;
-    note.textContent = "Working…";
+    const note = noteEl(button);
+    if (note) note.textContent = "Working…";
     try {
-      const data = await window.playCall("play_buy_sku", { p_sku: button.dataset.sku });
-      note.textContent = data.message || "Added to inventory.";
+      const sku = button.dataset.sku || button.dataset.avatarSku;
+      const data = await window.playCall("play_buy_sku", { p_sku: sku });
+      if (note) note.textContent = data.message || "Added to inventory.";
       await refreshStore();
-      renderBallCase();
     } catch (error) {
-      note.textContent = window.playRpcError(error);
+      if (note) note.textContent = window.playRpcError(error);
     }
   }
 
-  els.coins.addEventListener("click", async (event) => {
-    await buySku(event.target.closest("button[data-sku]"), els.coinStatus);
-  });
-  els.featuredBalls?.addEventListener("click", async (event) => {
-    await buySku(event.target.closest("button[data-sku]"), els.ballStatus || els.coinStatus);
-  });
-
-  els.openBalls?.addEventListener("click", () => {
-    renderBallCase();
-    if (typeof els.ballModal?.showModal === "function") els.ballModal.showModal();
-    else els.ballModal?.setAttribute("open", "");
+  els.floors?.addEventListener("click", async (event) => {
+    const buy = event.target.closest("button[data-sku], button[data-avatar-sku]");
+    if (buy) {
+      await buySku(buy);
+      return;
+    }
+    if (event.target.closest("[data-open-balls]")) {
+      renderBallCase(lastCatalog);
+      if (typeof els.ballModal?.showModal === "function") els.ballModal.showModal();
+      else els.ballModal?.setAttribute("open", "");
+      return;
+    }
+    if (event.target.closest("#check-pass")) {
+      const note = document.querySelector("[data-pass-status]") || els.status;
+      const { data: sessionData } = await supabase.auth.getSession();
+      const session = sessionData.session;
+      if (!session) {
+        if (note) note.textContent = "Sign in with Twitch first.";
+        return;
+      }
+      if (!session.provider_token) {
+        if (note) note.textContent = "Twitch did not keep a session token. Sign out, sign in again, then check immediately.";
+        return;
+      }
+      if (note) note.textContent = "Checking Twitch…";
+      const { data, error } = await supabase.functions.invoke("refresh-pass", {
+        body: { accessToken: session.provider_token }
+      });
+      if (error) {
+        if (note) note.textContent = await functionMessage(error, "Staff still needs to save the Play Twitch Client ID, or grant the pass by login.");
+        return;
+      }
+      if (note) note.textContent = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
+      await load();
+      return;
+    }
+    if (event.target.closest("#claim-daily")) {
+      const note = document.querySelector("[data-pass-status]") || els.status;
+      try {
+        const data = await window.playCall("play_claim_pass", { p_kind: "daily" });
+        if (note) note.textContent = data.message;
+        await refreshStore();
+      } catch (error) {
+        if (note) note.textContent = window.playRpcError(error);
+      }
+      return;
+    }
+    if (event.target.closest("#claim-weekly")) {
+      const note = document.querySelector("[data-pass-status]") || els.status;
+      try {
+        const data = await window.playCall("play_claim_pass", { p_kind: "weekly" });
+        if (note) note.textContent = data.message;
+        await refreshStore();
+      } catch (error) {
+        if (note) note.textContent = window.playRpcError(error);
+      }
+    }
   });
 
   els.ballModal?.addEventListener("click", (event) => {
     if (event.target === els.ballModal) els.ballModal.close("cancel");
   });
-
-  els.avatars?.addEventListener("click", async (event) => {
-    const button = event.target.closest("button[data-avatar-sku]");
-    if (!button) return;
-    els.avatarStatus.textContent = "Working…";
-    try {
-      const data = await window.playCall("play_buy_sku", { p_sku: button.dataset.avatarSku });
-      els.avatarStatus.textContent = data.message || "Series unlocked.";
-      await refreshStore();
-    } catch (error) {
-      els.avatarStatus.textContent = window.playRpcError(error);
-    }
-  });
-
   els.ballGrid?.addEventListener("click", async (event) => {
-    const button = event.target.closest("button[data-sku]");
-    if (!button) return;
-    const note = els.ballStatus || els.coinStatus;
-    note.textContent = "Working…";
-    try {
-      const data = await window.playCall("play_buy_sku", { p_sku: button.dataset.sku });
-      note.textContent = data.message || "Added to inventory.";
-      await refreshStore();
-      renderBallCase();
-    } catch (error) {
-      note.textContent = window.playRpcError(error);
-    }
+    await buySku(event.target.closest("button[data-sku]"));
   });
 
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });

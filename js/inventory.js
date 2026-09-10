@@ -72,11 +72,7 @@
         ]
       }
     ];
-    const used = bag?.used || 0;
-    const cap = bag?.capacity || 50;
-    const pct = Math.round((used / Math.max(1, cap)) * 100);
-    els.capacity.textContent = `${used} / ${cap} item space`;
-    if (els.capacityBar) els.capacityBar.style.width = `${Math.min(100, pct)}%`;
+    window.playFillBagMeter(bag);
     window.playFillLurePanel(bag);
     els.bag.innerHTML = groups.map((group) => `
       <section class="bag-group">

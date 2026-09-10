@@ -434,6 +434,7 @@
     strange1: "strange-ball",
     berry5: "oran-berry",
     bait5: "honey",
+    radar1: "poke-radar",
     lure1: "poke-radar",
     pouch10: "explorer-kit",
     "bits-starter": "poke-ball",

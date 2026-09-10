@@ -99,7 +99,7 @@
   }
 
   function withLureBlurb(item) {
-    if (item?.sku !== "lure1") return item;
+    if (item?.sku !== "radar1" && item?.sku !== "lure1") return item;
     return { ...item, blurb: "Detects nearby Pokémon & joins you to an encounter automatically. Lasts 30 mins." };
   }
 
@@ -182,7 +182,7 @@
       : "";
     const blurb = mode !== "bits" && row.blurb ? `<p>${esc(row.blurb)}</p>` : "";
     return `
-      <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${row.sku === "lure1" ? " mart-item-radar" : ""}">
+      <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${row.sku === "radar1" || row.sku === "lure1" ? " mart-item-radar" : ""}">
         <div class="mart-sprite"><img src="${esc(sprite)}" alt=""></div>
         <div class="mart-copy">
           <strong>${esc(row.name)}</strong>

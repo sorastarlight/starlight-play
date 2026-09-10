@@ -70,6 +70,7 @@ begin
     v_sprite := case v_sku
       when 'berry5' then 'oran-berry.png'
       when 'bait5' then 'honey.png'
+      when 'radar1' then 'poke-radar.png'
       when 'lure1' then 'poke-radar.png'
       when 'pouch10' then 'explorer-kit.png'
       else 'poke-ball.png'

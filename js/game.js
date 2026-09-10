@@ -444,6 +444,8 @@
     "bits-pouch": "explorer-kit"
   };
 
+  const ITEM_RAW_BASE = "https://raw.githubusercontent.com/sorastarlight/starlight-play/main/images/items/";
+
   window.playItemSprite = function playItemSprite(key) {
     const raw = String(key || "").trim();
     if (!raw) return "images/items/poke-ball.png";
@@ -457,6 +459,25 @@
     const slug = ITEM_SPRITES[key] || ITEM_SPRITES[raw] || "poke-ball";
     return `images/items/${slug}.png`;
   };
+
+  window.playItemRawUrl = function playItemRawUrl(key) {
+    const raw = String(key || "").trim();
+    if (!raw || /^(data:|blob:)/i.test(raw)) return "";
+    const name = raw.replace(/\\/g, "/").split("/").pop() || "";
+    if (!/\.(png|webp|gif|jpe?g)$/i.test(name)) return "";
+    return ITEM_RAW_BASE + encodeURIComponent(name);
+  };
+
+  document.addEventListener("error", (event) => {
+    const img = event.target;
+    if (!(img instanceof HTMLImageElement) || img.dataset.playRawTried) return;
+    const src = img.currentSrc || img.getAttribute("src") || "";
+    if (!/images\/items\//.test(src) || src.includes("raw.githubusercontent.com")) return;
+    const raw = window.playItemRawUrl(src);
+    if (!raw) return;
+    img.dataset.playRawTried = "1";
+    img.src = raw;
+  }, true);
 
   window.playMartArt = function playMartArt(item, fallback) {
     const src = (item && (item.thumb || item.sprite)) || fallback || item?.sku || item?.ballKey;

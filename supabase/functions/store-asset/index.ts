@@ -18,8 +18,8 @@ function json(body: Record<string, unknown>, status = 200) {
 function sanitizeFilename(name: string, mime: string) {
   let base = String(name || "sprite").toLowerCase().replace(/\\/g, "/").split("/").pop() || "sprite";
   base = base.replace(/[^a-z0-9._-]+/g, "-").replace(/-+/g, "-").replace(/^-+|-+$/g, "");
-  if (!/\.(png|webp|gif)$/.test(base)) {
-    const ext = mime.includes("webp") ? ".webp" : mime.includes("gif") ? ".gif" : ".png";
+  if (!/\.(png|webp|gif|jpe?g)$/.test(base)) {
+    const ext = mime.includes("webp") ? ".webp" : mime.includes("gif") ? ".gif" : mime.includes("jpeg") || mime.includes("jpg") ? ".jpg" : ".png";
     base = `${base.replace(/\.[^.]+$/, "") || "sprite"}${ext}`;
   }
   return base.slice(0, 80);
@@ -108,15 +108,22 @@ Deno.serve(async (req) => {
       ok: true,
       filename,
       path,
+      downloadUrl: typeof putBody?.content?.download_url === "string" ? putBody.content.download_url : "",
       message: "Uploaded to GitHub, but the picker list did not update. Save the item with this filename anyway."
     });
   }
+
+  const downloadUrl = typeof putBody?.content?.download_url === "string" ? putBody.content.download_url : "";
+  const assets = registered && typeof registered === "object" && Array.isArray(registered.assets)
+    ? registered.assets
+    : undefined;
 
   return json({
     ok: true,
     filename,
     path,
-    message: "Uploaded. GitHub Pages may take a minute to show the sprite.",
-    ...(registered && typeof registered === "object" ? registered : {})
+    downloadUrl,
+    assets,
+    message: "Uploaded. The editor preview is live; the public mart may take a minute."
   });
 });

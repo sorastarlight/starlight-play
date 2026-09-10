@@ -116,14 +116,48 @@
     return catItems(selectedCatId).find((row) => row.sku === selectedSku) || null;
   }
 
+  function rememberPreview(filename, url) {
+    const key = String(filename || "").trim();
+    if (!key || !url) return;
+    const prev = localPreviews[key];
+    if (prev && prev !== url && String(prev).startsWith("blob:")) URL.revokeObjectURL(prev);
+    localPreviews[key] = url;
+  }
+
   function setIconButton(preview, label, path, emptyCopy) {
     const value = path || "";
-    preview.onerror = () => {
-      preview.onerror = null;
-      preview.src = art(PACK_THUMB);
-    };
-    preview.src = art(value || "poke-ball.png");
+    const src = art(value || "poke-ball.png");
+    preview.dataset.playRawTried = "";
+    preview.onerror = null;
+    preview.src = src;
     label.textContent = value || emptyCopy || "pick a sprite";
+  }
+
+  function sanitizeFilename(name, mime) {
+    let base = String(name || "sprite").toLowerCase().replace(/\\/g, "/").split("/").pop() || "sprite";
+    base = base.replace(/[^a-z0-9._-]+/g, "-").replace(/-+/g, "-").replace(/^-+|-+$/g, "");
+    if (!/\.(png|webp|gif|jpe?g)$/.test(base)) {
+      const type = String(mime || "");
+      const ext = type.includes("webp") ? ".webp" : type.includes("gif") ? ".gif" : type.includes("jpeg") || type.includes("jpg") ? ".jpg" : ".png";
+      base = `${base.replace(/\.[^.]+$/, "") || "sprite"}${ext}`;
+    }
+    return base.slice(0, 80);
+  }
+
+  function decodeImage(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        resolve();
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error("That file could not be read as an image. Use PNG, WebP, GIF, or JPEG."));
+      };
+      img.src = url;
+    });
   }
 
   function fillGrants(grants) {
@@ -354,8 +388,8 @@
     else els.spriteModal?.setAttribute("open", "");
   }
 
-  function applyPick(filename, previewUrl) {
-    if (previewUrl) localPreviews[filename] = previewUrl;
+  function applyPick(filename, previewUrl, closeModal = true) {
+    if (previewUrl) rememberPreview(filename, previewUrl);
     if (pickerTarget === "cat-icon") {
       catIcon = filename;
       setIconButton(els.catIconPreview, els.catIconLabel, catIcon);
@@ -367,7 +401,7 @@
       itemSprite = filename;
       setIconButton(els.itemSpritePreview, els.itemSpriteLabel, itemSprite);
     }
-    if (els.spriteModal?.open) els.spriteModal.close("ok");
+    if (closeModal && els.spriteModal?.open) els.spriteModal.close("ok");
   }
 
   function fileToBase64(file) {
@@ -549,6 +583,28 @@
     if (event.target === els.spriteModal) els.spriteModal.close("cancel");
   });
 
+  async function prepareStoreImage(file) {
+    await decodeImage(file);
+    const name = file.name || "sprite.png";
+    const type = file.type || "";
+    const keep = type === "image/png" || type === "image/webp" || type === "image/gif"
+      || /\.(png|webp|gif)$/i.test(name);
+    if (keep) return file;
+    const bitmap = await createImageBitmap(file);
+    const canvas = document.createElement("canvas");
+    canvas.width = bitmap.width;
+    canvas.height = bitmap.height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Could not convert that image.");
+    ctx.drawImage(bitmap, 0, 0);
+    bitmap.close?.();
+    const blob = await new Promise((resolve, reject) => {
+      canvas.toBlob((next) => next ? resolve(next) : reject(new Error("Could not convert that image to PNG.")), "image/png");
+    });
+    const filename = sanitizeFilename(name, "image/png").replace(/\.[^.]+$/, ".png");
+    return new File([blob], filename, { type: "image/png" });
+  }
+
   async function uploadStoreAsset(file, statusEl) {
     if (!file) return;
     if (file.size > 900000) {
@@ -557,24 +613,36 @@
     }
     statusEl.textContent = "Uploading…";
     try {
-      const { dataUrl, base64 } = await fileToBase64(file);
+      const prepared = await prepareStoreImage(file);
+      const filename = sanitizeFilename(prepared.name, prepared.type);
+      const blobUrl = URL.createObjectURL(prepared);
+      applyPick(filename, blobUrl, false);
+      const { base64 } = await fileToBase64(prepared);
       const { data, error } = await supabase.functions.invoke("store-asset", {
         body: {
-          filename: file.name,
+          filename,
+          mime: prepared.type || "image/png",
           contentBase64: base64,
-          label: file.name.replace(/\.[^.]+$/, ""),
+          label: filename.replace(/\.[^.]+$/, ""),
           kind: "item"
         }
       });
       if (error) {
         statusEl.textContent = error.message || "Upload failed.";
-        applyPick(file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, "-"), dataUrl);
+        renderSpriteGrid();
+        return;
+      }
+      if (data?.ok === false) {
+        statusEl.textContent = data.message || "Upload failed.";
+        renderSpriteGrid();
         return;
       }
       if (data?.assets) catalog.assets = data.assets;
-      const filename = data?.filename || file.name;
-      applyPick(filename, dataUrl);
-      statusEl.textContent = data?.message || "Uploaded. GitHub Pages may take a minute.";
+      const saved = data?.filename || filename;
+      let liveUrl = data?.downloadUrl || (typeof window.playItemRawUrl === "function" ? window.playItemRawUrl(saved) : "") || blobUrl;
+      if (/^https?:/i.test(liveUrl)) liveUrl += (liveUrl.includes("?") ? "&" : "?") + "t=" + Date.now();
+      applyPick(saved, liveUrl, true);
+      statusEl.textContent = data?.message || "Uploaded. The editor preview is live; the public mart may take a minute.";
       renderSpriteGrid();
     } catch (error) {
       statusEl.textContent = window.playRpcError(error, "Upload failed.");

@@ -211,25 +211,19 @@
     </article>`;
   }
 
+  function packThumb(item) {
+    const raw = item?.thumb || item?.sprite || "pack-thumb.png";
+    if (!raw || raw === "premium-avatars.png" || raw === "images/trainers/premium-avatars.png" || raw === "poke-ball.png") {
+      return "pack-thumb.png";
+    }
+    return raw;
+  }
+
   function avatarCard(item, ownedPacks) {
     const owned = new Set(ownedPacks || []);
     const have = owned.has(item.pack);
-    const looks = item.looks || [];
-    const thumb = item.thumb || item.sprite || "images/trainers/premium-avatars.png";
     return `<article class="avatar-pack${have ? " is-owned" : ""}">
-      <div class="avatar-pack-head">
-        <img class="avatar-pack-thumb" src="${esc(window.playItemSprite(thumb))}" alt="">
-        <div class="avatar-pack-looks">
-          ${looks.map((id) => {
-            const look = typeof window.playTrainerLook === "function" ? window.playTrainerLook(id) : null;
-            const name = look?.trainer?.name || id;
-            return `<figure>
-              <img src="${esc(window.playTrainerSpriteUrl(id))}" alt="">
-              <figcaption>${esc(name)}</figcaption>
-            </figure>`;
-          }).join("")}
-        </div>
-      </div>
+      <img class="avatar-pack-art" src="${esc(window.playItemSprite(packThumb(item)))}" alt="" onerror="this.onerror=null;this.src='images/items/pack-thumb.png'">
       <div class="avatar-pack-copy">
         <strong>${esc(item.name)}</strong>
         <p>${esc(item.blurb || "")}</p>
@@ -304,7 +298,7 @@
 
   function avatarsFloor(floor, ownedPacks) {
     const items = floor.items?.length ? floor.items : (window.PLAY_AVATAR_PACKS || []);
-    return `<section class="mart-floor avatar-floor">
+    return `<section class="mart-floor avatar-floor" id="premium-avatars">
       <header class="mart-sign">
         <img src="${esc(window.playItemSprite(floor.icon || "images/trainers/premium-avatars.png"))}" alt="">
         <div>

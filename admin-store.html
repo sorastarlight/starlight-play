@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=store1">
+<link rel="stylesheet" href="css/play.css?v=store5">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -95,7 +95,7 @@
           <label class="field" for="cat-perks">Pass perks <span class="muted">(one per line)</span>
             <textarea id="cat-perks" rows="3"></textarea>
           </label>
-          <label class="field"><input id="cat-visible" type="checkbox" checked> Visible on mart</label>
+          <label class="field field-check"><input id="cat-visible" type="checkbox" checked> Visible on mart</label>
           <div class="links">
             <button id="cat-save" type="submit">Save floor</button>
             <button id="cat-hide" class="secondary" type="button">Hide</button>
@@ -105,7 +105,7 @@
       </section>
       <section class="card body">
         <h2>Items</h2>
-        <p class="muted">Sprite and thumbnail can be a filename in <code>images/items/</code>, or a path like <code>images/trainers/premium-avatars.png</code>.</p>
+        <p class="muted">Shelf sprites live in <code>images/items/</code>. Avatar packs use one thumbnail on the mart — upload a replacement below. Looks still unlock in Settings; they are not shown on the card.</p>
         <div id="item-list" class="store-item-list"></div>
         <div class="links">
           <button id="item-add" type="button">Add item</button>
@@ -128,20 +128,25 @@
           <label class="field" for="item-bits">Bits
             <input id="item-bits" type="number" min="0" step="1" value="0">
           </label>
-          <label class="field">Sprite
+          <label class="field" id="item-sprite-field">Sprite
             <button id="item-sprite-pick" class="store-sku" type="button">
               <img id="item-sprite-preview" src="images/items/poke-ball.png" alt="">
               <span id="item-sprite-label">poke-ball.png</span>
             </button>
           </label>
-          <label class="field">Thumbnail
-            <button id="item-thumb-pick" class="store-sku" type="button">
-              <img id="item-thumb-preview" src="images/items/poke-ball.png" alt="">
-              <span id="item-thumb-label">(same as sprite)</span>
+          <div class="field" id="item-thumb-field">
+            <span>Thumbnail</span>
+            <button id="item-thumb-pick" class="store-sku store-thumb-pick" type="button">
+              <img id="item-thumb-preview" src="images/items/pack-thumb.png" alt="">
+              <span id="item-thumb-label">pack-thumb.png</span>
             </button>
-          </label>
-          <label class="field"><input id="item-featured" type="checkbox"> Featured on the shelf</label>
-          <label class="field"><input id="item-visible" type="checkbox" checked> Visible</label>
+            <label class="store-upload-file" for="item-thumb-upload">Upload replacement
+              <input id="item-thumb-upload" type="file" accept="image/png,image/webp,image/gif">
+            </label>
+            <p id="item-thumb-status" class="muted" role="status"></p>
+          </div>
+          <label class="field field-check"><input id="item-featured" type="checkbox"> Featured on the shelf</label>
+          <label class="field field-check"><input id="item-visible" type="checkbox" checked> Visible</label>
           <p class="muted">Grants added to the bag</p>
           <div id="grant-grid" class="store-grant-grid"></div>
           <label class="field" for="item-ball-key">Ball grant key
@@ -185,8 +190,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/game.js?v=store1"></script>
+<script src="js/game.js?v=store5"></script>
 <script src="js/hud.js?v=store1"></script>
 <script src="js/nav.js?v=store1"></script>
-<script src="js/admin-store.js?v=store1"></script>
+<script src="js/admin-store.js?v=store5"></script>
 </body>

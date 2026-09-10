@@ -30,6 +30,8 @@
     itemSpriteLabel: document.getElementById("item-sprite-label"),
     itemThumbPreview: document.getElementById("item-thumb-preview"),
     itemThumbLabel: document.getElementById("item-thumb-label"),
+    itemThumbUpload: document.getElementById("item-thumb-upload"),
+    itemThumbStatus: document.getElementById("item-thumb-status"),
     grantGrid: document.getElementById("grant-grid"),
     spriteModal: document.getElementById("sprite-modal"),
     spriteGrid: document.getElementById("sprite-grid"),
@@ -53,6 +55,7 @@
   let selectedCatId = "";
   let selectedSku = "";
   let catIcon = "poke-ball.png";
+  const PACK_THUMB = "pack-thumb.png";
   let itemSprite = "poke-ball.png";
   let itemThumb = "";
   let pickerTarget = "item-sprite";
@@ -72,8 +75,23 @@
     return window.playEscapeAttr(value);
   }
 
+  function isSharedPackArt(path) {
+    const raw = String(path || "").trim();
+    return !raw || raw === "premium-avatars.png" || raw === "images/trainers/premium-avatars.png" || raw === "poke-ball.png";
+  }
+
   function art(path) {
-    return localPreviews[path] || window.playItemSprite(path || "poke-ball.png");
+    const raw = String(path || "").trim();
+    if (localPreviews[raw]) return localPreviews[raw];
+    return window.playItemSprite(raw || "poke-ball.png");
+  }
+
+  function isAvatarsFloor() {
+    return selectedCat()?.kind === "avatars";
+  }
+
+  function thumbEmptyCopy() {
+    return isAvatarsFloor() ? PACK_THUMB : "(same as sprite)";
   }
 
   function grantFields() {
@@ -100,6 +118,10 @@
 
   function setIconButton(preview, label, path, emptyCopy) {
     const value = path || "";
+    preview.onerror = () => {
+      preview.onerror = null;
+      preview.src = art(PACK_THUMB);
+    };
     preview.src = art(value || "poke-ball.png");
     label.textContent = value || emptyCopy || "pick a sprite";
   }
@@ -192,21 +214,27 @@
     els.itemBits.value = item?.bits || 0;
     els.itemFeatured.checked = Boolean(item?.featured);
     els.itemVisible.checked = item ? item.visible !== false : true;
-    itemSprite = item?.sprite || "poke-ball.png";
-    itemThumb = item?.thumb || "";
+    const kind = cat?.kind || "coins";
+    const avatars = kind === "avatars";
+    itemThumb = avatars
+      ? (isSharedPackArt(item?.thumb) ? PACK_THUMB : item.thumb)
+      : (item?.thumb || "");
+    itemSprite = avatars
+      ? (itemThumb || PACK_THUMB)
+      : (item?.sprite || "poke-ball.png");
     setIconButton(els.itemSpritePreview, els.itemSpriteLabel, itemSprite);
-    setIconButton(els.itemThumbPreview, els.itemThumbLabel, itemThumb, "(same as sprite)");
+    setIconButton(els.itemThumbPreview, els.itemThumbLabel, itemThumb, thumbEmptyCopy());
     fillGrants(item?.grants || {});
     els.itemBallKey.value = item?.extra?.ballKey || "";
     els.itemPack.value = item?.extra?.pack || "";
     els.itemLooks.value = Array.isArray(item?.extra?.looks) ? item.extra.looks.join("\n") : "";
     els.itemBitsTitles.value = Array.isArray(item?.extra?.bitsTitles) ? item.extra.bitsTitles.join("\n") : "";
-    const kind = cat?.kind || "coins";
+    document.getElementById("item-sprite-field").hidden = avatars;
     els.itemBits.closest(".field").hidden = kind !== "bits";
     els.itemCost.closest(".field").hidden = kind === "bits" || kind === "pass";
     els.itemFeatured.closest(".field").hidden = kind !== "balls";
-    els.itemPack.closest(".field").hidden = kind !== "avatars";
-    els.itemLooks.closest(".field").hidden = kind !== "avatars";
+    els.itemPack.closest(".field").hidden = !avatars;
+    els.itemLooks.closest(".field").hidden = !avatars;
     els.itemBitsTitles.closest(".field").hidden = kind !== "bits";
     els.itemBallKey.closest(".field").hidden = kind !== "balls";
     els.itemForm.hidden = kind === "pass";
@@ -274,8 +302,8 @@
         cost: Number(els.itemCost.value || 0),
         bits: Number(els.itemBits.value || 0),
         grants: readGrants(),
-        sprite: itemSprite,
-        thumb: itemThumb,
+        sprite: isAvatarsFloor() ? (itemThumb || PACK_THUMB) : itemSprite,
+        thumb: isAvatarsFloor() ? (itemThumb || PACK_THUMB) : itemThumb,
         featured: els.itemFeatured.checked,
         visible: els.itemVisible.checked,
         sort: selectedItem()?.sort ?? 100,
@@ -333,12 +361,13 @@
       setIconButton(els.catIconPreview, els.catIconLabel, catIcon);
     } else if (pickerTarget === "item-thumb") {
       itemThumb = filename;
-      setIconButton(els.itemThumbPreview, els.itemThumbLabel, itemThumb, "(same as sprite)");
+      if (isAvatarsFloor()) itemSprite = filename;
+      setIconButton(els.itemThumbPreview, els.itemThumbLabel, itemThumb, thumbEmptyCopy());
     } else {
       itemSprite = filename;
       setIconButton(els.itemSpritePreview, els.itemSpriteLabel, itemSprite);
     }
-    els.spriteModal?.close?.("ok");
+    if (els.spriteModal?.open) els.spriteModal.close("ok");
   }
 
   function fileToBase64(file) {
@@ -467,10 +496,12 @@
     els.itemBits.value = 0;
     els.itemFeatured.checked = false;
     els.itemVisible.checked = true;
-    itemSprite = "poke-ball.png";
-    itemThumb = "";
+    const avatars = isAvatarsFloor();
+    itemSprite = avatars ? PACK_THUMB : "poke-ball.png";
+    itemThumb = avatars ? PACK_THUMB : "";
     setIconButton(els.itemSpritePreview, els.itemSpriteLabel, itemSprite);
-    setIconButton(els.itemThumbPreview, els.itemThumbLabel, "", "(same as sprite)");
+    setIconButton(els.itemThumbPreview, els.itemThumbLabel, itemThumb, thumbEmptyCopy());
+    document.getElementById("item-sprite-field").hidden = avatars;
     fillGrants({});
     els.itemBallKey.value = "";
     els.itemPack.value = "";
@@ -518,15 +549,13 @@
     if (event.target === els.spriteModal) els.spriteModal.close("cancel");
   });
 
-  els.spriteUpload.addEventListener("change", async () => {
-    const file = els.spriteUpload.files?.[0];
-    els.spriteUpload.value = "";
+  async function uploadStoreAsset(file, statusEl) {
     if (!file) return;
     if (file.size > 900000) {
-      els.spriteUploadStatus.textContent = "Keep sprites under 900 KB.";
+      statusEl.textContent = "Keep images under 900 KB.";
       return;
     }
-    els.spriteUploadStatus.textContent = "Uploading…";
+    statusEl.textContent = "Uploading…";
     try {
       const { dataUrl, base64 } = await fileToBase64(file);
       const { data, error } = await supabase.functions.invoke("store-asset", {
@@ -534,22 +563,35 @@
           filename: file.name,
           contentBase64: base64,
           label: file.name.replace(/\.[^.]+$/, ""),
-          kind: pickerTarget === "cat-icon" ? "item" : "item"
+          kind: "item"
         }
       });
       if (error) {
-        els.spriteUploadStatus.textContent = error.message || "Upload failed.";
+        statusEl.textContent = error.message || "Upload failed.";
         applyPick(file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, "-"), dataUrl);
         return;
       }
       if (data?.assets) catalog.assets = data.assets;
       const filename = data?.filename || file.name;
       applyPick(filename, dataUrl);
-      els.spriteUploadStatus.textContent = data?.message || "Uploaded. GitHub Pages may take a minute.";
+      statusEl.textContent = data?.message || "Uploaded. GitHub Pages may take a minute.";
       renderSpriteGrid();
     } catch (error) {
-      els.spriteUploadStatus.textContent = window.playRpcError(error, "Upload failed.");
+      statusEl.textContent = window.playRpcError(error, "Upload failed.");
     }
+  }
+
+  els.spriteUpload.addEventListener("change", async () => {
+    const file = els.spriteUpload.files?.[0];
+    els.spriteUpload.value = "";
+    await uploadStoreAsset(file, els.spriteUploadStatus);
+  });
+
+  els.itemThumbUpload?.addEventListener("change", async () => {
+    const file = els.itemThumbUpload.files?.[0];
+    els.itemThumbUpload.value = "";
+    pickerTarget = "item-thumb";
+    await uploadStoreAsset(file, els.itemThumbStatus);
   });
 
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadHub(); });

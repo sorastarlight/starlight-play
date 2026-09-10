@@ -948,6 +948,23 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .sprite-pick.is-on { border-color: #7ad0ff; }
 .store-editor-form .field { margin-top: 10px; }
+.store-thumb-pick {
+  grid-template-columns: 120px minmax(0, 1fr);
+  align-items: center;
+}
+.store-thumb-pick img {
+  width: 120px;
+  height: 90px;
+  image-rendering: auto;
+  object-fit: cover;
+  background: #f4ecff;
+  border-radius: 10px;
+}
+.store-upload-file {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
 .store-grant-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -1176,6 +1193,22 @@ footer { margin-top: 24px; font-size: 13px; }
   color: #4e5c7d;
   background: #fff;
 }
+.field.field-check,
+.field:has(> input[type="checkbox"]) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.field > input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  min-width: 1.15rem;
+  padding: 0;
+  margin: 0;
+  flex: 0 0 auto;
+  accent-color: #d46a9a;
+}
 .command-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1322,46 +1355,19 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .avatar-pack {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   background: #fffdf8;
   border: 2px solid #c9b4e8;
   border-radius: 18px;
   padding: 14px;
 }
-.avatar-pack-head {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-.avatar-pack-thumb {
-  width: 72px;
-  height: 72px;
-  flex: 0 0 auto;
-  image-rendering: pixelated;
-  object-fit: contain;
-  background: #f4ecff;
-  border-radius: 12px;
-}
-.avatar-pack-looks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: end;
-}
-.avatar-pack-looks figure {
-  margin: 0;
-  display: grid;
-  justify-items: center;
-  gap: 4px;
-}
-.avatar-pack-looks img {
-  width: 88px;
-  height: 88px;
-  image-rendering: pixelated;
+.avatar-pack-art {
+  width: 100%;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
-  object-position: center 12%;
+  object-position: center;
   background: #f4ecff;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 .owned-mark {
   display: inline-flex;
@@ -1372,11 +1378,6 @@ footer { margin-top: 24px; font-size: 13px; }
   color: #2f6a18;
   font-weight: 800;
   font-size: 13px;
-}
-.avatar-pack-looks figcaption {
-  font-size: 11px;
-  font-weight: 800;
-  color: #5a4a78;
 }
 .avatar-pack-copy strong { display: block; font-size: 18px; }
 .avatar-pack-copy p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }

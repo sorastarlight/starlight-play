@@ -452,6 +452,7 @@
     if (raw.startsWith("species-")) return "images/items/lgpe-candy.png";
     if (/^(https?:|data:|blob:)/i.test(raw)) return raw;
     if (raw.includes("/")) return raw;
+    if (raw === "premium-avatars.png") return "images/trainers/premium-avatars.png";
     if (/\.(png|webp|gif|jpe?g)$/i.test(raw)) return `images/items/${raw}`;
     const slug = ITEM_SPRITES[key] || ITEM_SPRITES[raw] || "poke-ball";
     return `images/items/${slug}.png`;

@@ -2231,12 +2231,6 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
   font-weight: 800;
   color: #6b5a3a;
 }
-.lgpe-mini {
-  min-height: 0;
-  padding: 14px;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-}
-.lgpe-mini .lgpe-grid { max-height: calc(3 * 74px); }
 .lgpe-detail-hero {
   display: grid;
   grid-template-columns: 96px minmax(0, 1fr);

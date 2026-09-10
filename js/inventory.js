@@ -5,8 +5,6 @@
     trainer: document.getElementById("trainer"),
     card: document.getElementById("trainer-card"),
     bag: document.getElementById("bag-grid"),
-    caught: document.getElementById("caught-grid"),
-    note: document.getElementById("caught-note"),
     capacity: document.getElementById("capacity-note"),
     capacityBar: document.getElementById("capacity-bar"),
     status: document.getElementById("inv-status"),
@@ -98,24 +96,6 @@
       </section>`).join("");
   }
 
-  function renderCaught(rows, teamIds) {
-    if (!rows?.length) {
-      els.note.textContent = "Nothing caught yet. Join a Play encounter when one is live.";
-      els.caught.innerHTML = "";
-      return;
-    }
-    const species = new Set(rows.map((row) => row.dex)).size;
-    els.note.textContent = `${rows.length} caught · ${species} species · open Storage for stats, nicknames, and Oak`;
-    els.caught.innerHTML = rows.slice(0, 18).map((row) => {
-      const slot = (teamIds || []).findIndex((id) => String(id) === String(row.id)) + 1;
-      return `<a class="lgpe-mon" href="./storage.html">
-        ${slot ? `<span class="lgpe-party">${slot}</span>` : ""}
-        ${slot === 1 ? `<span class="lgpe-heart" aria-hidden="true">♥</span>` : ""}
-        <span class="lgpe-sprite"><img src="${window.playSpriteUrl(row.dex, row.variant)}" alt=""></span>
-      </a>`;
-    }).join("");
-  }
-
   async function load() {
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
@@ -135,13 +115,6 @@
     window.playSetAccountNav(session, profile, { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer });
     renderCard(snapshot?.trainer);
     renderBag(snapshot?.bag);
-    try {
-      const storage = await window.playCall("play_storage");
-      renderCaught(storage?.mons || [], storage?.teamIds || []);
-    } catch (_) {
-      const { data: catches } = await supabase.from("catches").select("id, dex, name, variant, gender, ball, caught_at").order("caught_at", { ascending: false });
-      renderCaught(catches || [], snapshot?.trainer?.teamIds || []);
-    }
     els.gate.hidden = true;
     els.trainer.hidden = false;
     if (invChannel) supabase.removeChannel(invChannel);

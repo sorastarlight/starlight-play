@@ -627,6 +627,21 @@
     if (event.target === els.spriteModal) els.spriteModal.close("cancel");
   });
 
+  async function uploadErrorMessage(error, data) {
+    if (data?.message) return data.message;
+    try {
+      const res = error?.context;
+      if (res && typeof res.json === "function") {
+        const body = await (typeof res.clone === "function" ? res.clone().json() : res.json());
+        if (body?.message) return body.message;
+      }
+    } catch (_) { /* use fallback */ }
+    if (String(error?.message || "").includes("non-2xx")) {
+      return "Save a GitHub token on Staff tools (Store image hosting) first, then try again.";
+    }
+    return window.playRpcError(error, "Upload failed.");
+  }
+
   async function persistUpload() {
     if (pickerTarget === "cat-icon") {
       if (!selectedCat()?.id) return;
@@ -683,7 +698,7 @@
         }
       });
       if (error) {
-        statusEl.textContent = error.message || "Upload failed.";
+        statusEl.textContent = await uploadErrorMessage(error, data);
         renderSpriteGrid();
         return;
       }
@@ -701,7 +716,7 @@
       renderSpriteGrid();
       await persistUpload();
     } catch (error) {
-      statusEl.textContent = window.playRpcError(error, "Upload failed.");
+      statusEl.textContent = await uploadErrorMessage(error);
     }
   }
 

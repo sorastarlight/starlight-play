@@ -315,7 +315,6 @@
     const mark = item.featured ? "Featured" : "Special";
     return `<article class="mart-featured">
       <div class="mart-featured-art${artClass}" aria-hidden="true">
-        <span class="mart-featured-ring"></span>
         <img src="${esc(sprite)}" alt="">
       </div>
       <div class="mart-copy">

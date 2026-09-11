@@ -38,9 +38,10 @@
     const round = data?.round;
     if (!round) return null;
     const hasCatch = Number(round.results?.caught || 0) > 0 || (Array.isArray(round.catchers) && round.catchers.length > 0);
-    if (round.cancelled && !hasCatch) return null;
+    const threw = Number(round.thrown || 0) > 0 || Boolean(round.resolved);
+    if (round.cancelled && !hasCatch && !threw) return null;
     const local = typeof window.playApplyLocalRound === "function" ? window.playApplyLocalRound(round) : round;
-    return local || round;
+    return local;
   }
 
   function phaseBar(round) {

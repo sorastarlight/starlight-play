@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=store7">
+<link rel="stylesheet" href="css/play.css?v=store9">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -124,10 +124,10 @@
             <textarea id="item-blurb" rows="2"></textarea>
           </label>
           <label class="field" for="item-cost">PokéCoins
-            <input id="item-cost" type="number" min="0" step="1" value="0">
+            <input id="item-cost" class="money" type="text" inputmode="decimal" autocomplete="off" value="0">
           </label>
           <label class="field" for="item-bits">Bits
-            <input id="item-bits" type="number" min="0" step="1" value="0">
+            <input id="item-bits" class="money" type="text" inputmode="decimal" autocomplete="off" value="0">
           </label>
           <label class="field" id="item-sprite-field">Sprite
             <button id="item-sprite-pick" class="store-sku" type="button">
@@ -148,7 +148,7 @@
             </label>
             <p id="item-thumb-status" class="muted" role="status"></p>
           </div>
-          <label class="field field-check"><input id="item-featured" type="checkbox"> Featured on the shelf</label>
+          <label class="field field-check"><input id="item-featured" type="checkbox"> Featured special on this floor</label>
           <label class="field field-check"><input id="item-visible" type="checkbox" checked> Visible</label>
           <p class="muted">Grants added to the bag</p>
           <div id="grant-grid" class="store-grant-grid"></div>
@@ -193,8 +193,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/game.js?v=store7"></script>
+<script src="js/game.js?v=store9"></script>
 <script src="js/hud.js?v=store1"></script>
 <script src="js/nav.js?v=store1"></script>
-<script src="js/admin-store.js?v=store8"></script>
+<script src="js/admin-store.js?v=store9"></script>
 </body>

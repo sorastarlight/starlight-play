@@ -170,17 +170,32 @@
     ];
   }
 
+  function money(n) {
+    return typeof window.playFormatCoins === "function" ? window.playFormatCoins(n) : String(n || 0);
+  }
+
+  function costHtml(item, mode) {
+    if (mode === "bits") return `<span class="mart-cost">${money(item.bits || 0)} Bits</span>`;
+    return `<span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(item.cost || 0)}</span>`;
+  }
+
+  function grantListHtml(item) {
+    const grants = typeof window.playGrantLines === "function" ? window.playGrantLines(item.grants) : [];
+    if (!grants.length) return "";
+    return `<ul class="mart-grants">${grants.map((line) => `<li><img src="${line.sprite}" alt=""><span>${esc(line.label)}</span></li>`).join("")}</ul>`;
+  }
+
+  function splitFeatured(items) {
+    const list = Array.isArray(items) ? items.slice() : [];
+    const index = list.findIndex((row) => row.featured);
+    const featured = (index >= 0 ? list.splice(index, 1)[0] : list.shift()) || null;
+    return { featured, rest: list };
+  }
+
   function shelfCard(item, mode) {
     const row = withLureBlurb(item);
     const sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
-    const cost = mode === "bits"
-      ? `<span class="mart-cost">${row.bits || 0} Bits</span>`
-      : `<span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${row.cost || 0}</span>`;
     const action = mode === "bits" ? "" : `<button type="button" data-sku="${esc(row.sku)}">Get</button>`;
-    const grants = typeof window.playGrantLines === "function" ? window.playGrantLines(row.grants) : [];
-    const grantList = mode === "bits" && grants.length
-      ? `<ul class="mart-grants">${grants.map((line) => `<li><img src="${line.sprite}" alt=""><span>${esc(line.label)}</span></li>`).join("")}</ul>`
-      : "";
     const blurb = mode !== "bits" && row.blurb ? `<p>${esc(row.blurb)}</p>` : "";
     return `
       <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${row.sku === "radar1" || row.sku === "lure1" ? " mart-item-radar" : ""}">
@@ -190,10 +205,10 @@
           ${blurb}
         </div>
         <div class="mart-price">
-          ${cost}
+          ${costHtml(row, mode)}
           ${action}
         </div>
-        ${grantList}
+        ${mode === "bits" ? grantListHtml(row) : ""}
       </article>`;
   }
 
@@ -206,7 +221,7 @@
       <img src="${esc(art(row, row.key))}" alt="">
       <strong>${esc(row.name)}${pack}</strong>
       <span class="ball-rate">${rate}</span>
-      <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${row.cost || 0}</span>
+      ${costHtml(row, "coins")}
       <button type="button" data-sku="${esc(row.sku)}">Get</button>
     </article>`;
   }
@@ -229,7 +244,7 @@
         <p>${esc(item.blurb || "")}</p>
       </div>
       <div class="avatar-pack-foot">
-        <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${item.cost || 0}</span>
+        ${costHtml(item, "coins")}
         ${have
           ? `<span class="owned-mark">Owned</span>`
           : `<button type="button" data-avatar-sku="${esc(item.sku)}">Get</button>`}
@@ -263,88 +278,132 @@
       </p>`;
   }
 
-  function coinsFloor(floor) {
-    const items = (floor.items || []).map(withLureBlurb);
-    return `<section class="mart-floor">
-      <header class="mart-sign">
-        <img src="${esc(window.playItemSprite(floor.icon || "relic-gold.png"))}" alt="">
-        <div>
-          <h2>${esc(floor.name || "Field Kit")}</h2>
-          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
-        </div>
-      </header>
-      <p class="muted" data-floor-status></p>
-      <div class="mart-shelf" data-shelf="coins">${items.map((item) => shelfCard(item, "coins")).join("")}</div>
-    </section>`;
+  function featuredCard(item, mode, ownedPacks) {
+    if (!item) return "";
+    const owned = new Set(ownedPacks || []);
+    let row = item;
+    let sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
+    let extra = "";
+    let action = mode === "bits" ? "" : `<button type="button" data-sku="${esc(row.sku)}">Get</button>`;
+    let blurb = row.blurb || "";
+    let artClass = "";
+    if (mode === "balls") {
+      row = ballView(item);
+      sprite = art(row, row.key);
+      blurb = "";
+      const pct = Math.round((row.rate || 0) * 100);
+      extra = `<p class="ball-rate">${row.key === "masterball" ? "Always · 100% catch" : `${esc(row.multiplier)} · ${pct}% catch`}</p>`;
+    } else if (mode === "avatars") {
+      const have = owned.has(item.pack);
+      sprite = window.playItemSprite(packThumb(item));
+      artClass = " is-wide";
+      action = have
+        ? `<span class="owned-mark">Owned</span>`
+        : `<button type="button" data-avatar-sku="${esc(item.sku)}">Get</button>`;
+    } else {
+      row = withLureBlurb(item);
+      sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
+      if (mode === "bits") {
+        blurb = "";
+        extra = grantListHtml(row);
+      }
+    }
+    const mark = item.featured ? "Featured" : "Special";
+    return `<article class="mart-featured">
+      <div class="mart-featured-art${artClass}" aria-hidden="true">
+        <span class="mart-featured-ring"></span>
+        <img src="${esc(sprite)}" alt="">
+      </div>
+      <div class="mart-copy">
+        <p class="mart-featured-mark">${mark}</p>
+        <strong>${esc(row.name)}</strong>
+        ${blurb ? `<p>${esc(blurb)}</p>` : ""}
+        ${extra}
+      </div>
+      <div class="mart-price">
+        ${costHtml(row, mode === "avatars" ? "coins" : mode)}
+        ${action}
+      </div>
+    </article>`;
   }
 
-  function ballsFloor(floor) {
-    const items = (floor.items || []).map(ballView);
-    const featured = items.filter((row) => row.featured);
-    const rest = items.filter((row) => !row.featured);
-    return `<section class="mart-floor">
+  function floorShell(floor, icon, body, extraStatus = "") {
+    const bits = floor.kind === "bits";
+    const avatars = floor.kind === "avatars";
+    return `<section class="mart-floor${bits ? " bits-floor" : ""}${avatars ? " avatar-floor" : ""}"${avatars ? ' id="premium-avatars"' : ""}>
       <header class="mart-sign">
-        <img src="${esc(window.playItemSprite(floor.icon || "poke-ball.png"))}" alt="">
-        <div>
-          <h2>${esc(floor.name || "Poké Balls")}</h2>
-          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
-        </div>
-      </header>
-      <p class="muted" data-floor-status data-ball-status></p>
-      <div class="ball-grid" data-featured-balls>${featured.map(ballTile).join("")}</div>
-      ${rest.length ? `<div class="links"><button type="button" data-open-balls>Browse Other Poké Balls</button></div>` : ""}
-    </section>`;
-  }
-
-  function avatarsFloor(floor, ownedPacks) {
-    const items = floor.items?.length ? floor.items : (window.PLAY_AVATAR_PACKS || []);
-    return `<section class="mart-floor avatar-floor" id="premium-avatars">
-      <header class="mart-sign">
-        <img src="${esc(window.playItemSprite(floor.icon || "images/trainers/premium-avatars.png"))}" alt="">
-        <div>
-          <h2>${esc(floor.name || "Premium Avatars")}</h2>
-          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
-        </div>
-      </header>
-      <p class="muted" data-floor-status data-avatar-status></p>
-      <div class="avatar-shelf">${items.map((item) => avatarCard(item, ownedPacks)).join("")}</div>
-    </section>`;
-  }
-
-  function bitsFloor(floor) {
-    return `<section class="mart-floor bits-floor">
-      <header class="mart-sign">
-        <img src="${esc(window.playItemSprite(floor.icon || "amulet-coin.png"))}" alt="">
-        <div>
-          <h2>${esc(floor.name || "Twitch Power-Ups")}</h2>
-          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
-        </div>
-      </header>
-      <p class="muted" data-floor-status></p>
-      <div class="mart-shelf">${(floor.items || []).map((item) => shelfCard(item, "bits")).join("")}</div>
-    </section>`;
-  }
-
-  function genericFloor(floor) {
-    const mode = floor.kind === "bits" ? "bits" : "coins";
-    return `<section class="mart-floor">
-      <header class="mart-sign">
-        <img src="${esc(window.playItemSprite(floor.icon || "poke-ball.png"))}" alt="">
+        <img src="${esc(window.playItemSprite(icon))}" alt="">
         <div>
           <h2>${esc(floor.name || "Shelf")}</h2>
           ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
         </div>
       </header>
-      <p class="muted" data-floor-status></p>
-      <div class="mart-shelf">${(floor.items || []).map((item) => shelfCard(item, mode)).join("")}</div>
+      <p class="muted" data-floor-status${extraStatus}></p>
+      ${body}
     </section>`;
+  }
+
+  function stageHtml(featuredHtml, restHtml, restClass) {
+    return `<div class="mart-stage">
+      ${featuredHtml || ""}
+      ${restHtml ? `<div class="${restClass}">${restHtml}</div>` : ""}
+    </div>`;
+  }
+
+  function coinsFloor(floor) {
+    const { featured, rest } = splitFeatured((floor.items || []).map(withLureBlurb));
+    return floorShell(
+      floor,
+      floor.icon || "relic-gold.png",
+      stageHtml(featuredCard(featured, "coins"), rest.map((item) => shelfCard(item, "coins")).join(""), "mart-shelf")
+    );
+  }
+
+  function ballsFloor(floor) {
+    const { featured, rest } = splitFeatured((floor.items || []).map(ballView));
+    return floorShell(
+      floor,
+      floor.icon || "poke-ball.png",
+      stageHtml(featuredCard(featured, "balls"), rest.map(ballTile).join(""), "ball-grid ball-grid-compact"),
+      " data-ball-status"
+    );
+  }
+
+  function avatarsFloor(floor, ownedPacks) {
+    const items = floor.items?.length ? floor.items : (window.PLAY_AVATAR_PACKS || []);
+    const { featured, rest } = splitFeatured(items);
+    return floorShell(
+      floor,
+      floor.icon || "images/trainers/premium-avatars.png",
+      stageHtml(featuredCard(featured, "avatars", ownedPacks), rest.map((item) => avatarCard(item, ownedPacks)).join(""), "avatar-shelf"),
+      " data-avatar-status"
+    );
+  }
+
+  function bitsFloor(floor) {
+    const { featured, rest } = splitFeatured(floor.items || []);
+    return floorShell(
+      floor,
+      floor.icon || "amulet-coin.png",
+      stageHtml(featuredCard(featured, "bits"), rest.map((item) => shelfCard(item, "bits")).join(""), "mart-shelf")
+    );
+  }
+
+  function genericFloor(floor) {
+    const mode = floor.kind === "bits" ? "bits" : "coins";
+    const { featured, rest } = splitFeatured(floor.items || []);
+    return floorShell(
+      floor,
+      floor.icon || "poke-ball.png",
+      stageHtml(featuredCard(featured, mode), rest.map((item) => shelfCard(item, mode)).join(""), "mart-shelf")
+    );
   }
 
   function renderBallCase(catalog) {
     if (!els.ballGrid) return;
     const floors = catalog?.floors?.length ? catalog.floors : fallbackFloors(catalog);
     const balls = floors.find((floor) => floor.kind === "balls");
-    const rest = (balls?.items || []).map(ballView).filter((row) => !row.featured);
+    const { rest } = splitFeatured((balls?.items || []).map(ballView));
     els.ballGrid.innerHTML = rest.map(ballTile).join("");
   }
 

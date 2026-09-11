@@ -75,6 +75,54 @@
     return window.playEscapeAttr(value);
   }
 
+  function formatMoney(n) {
+    return typeof window.playFormatCoins === "function" ? window.playFormatCoins(n) : String(n ?? 0);
+  }
+
+  function parseMoney(raw) {
+    const n = typeof window.playParseCoins === "function"
+      ? window.playParseCoins(raw)
+      : Number(String(raw || "").replace(/,/g, ""));
+    if (!Number.isFinite(n) || n < 0) return 0;
+    return Math.round(n);
+  }
+
+  function bindMoneyInput(el) {
+    if (!el || el.dataset.moneyBound) return;
+    el.dataset.moneyBound = "1";
+    const apply = (live) => {
+      const start = el.selectionStart;
+      const before = el.value.slice(0, start);
+      const digitGoal = (before.match(/\d/g) || []).length;
+      const stripped = el.value.replace(/,/g, "");
+      const keepDot = live && /\.\d*$/.test(stripped);
+      const parsed = typeof window.playParseCoins === "function" ? window.playParseCoins(el.value) : parseMoney(el.value);
+      let text = formatMoney(live ? parsed : parseMoney(el.value));
+      if (text === "—") text = "";
+      if (keepDot) {
+        const frac = (stripped.split(".")[1] || "").replace(/\D/g, "").slice(0, 2);
+        const whole = formatMoney(Math.trunc(parsed));
+        text = (whole === "—" ? "0" : whole) + "." + frac;
+      }
+      el.value = text;
+      if (document.activeElement !== el) return;
+      let seen = 0;
+      let pos = text.length;
+      for (let i = 0; i < text.length; i += 1) {
+        if (/\d/.test(text[i])) {
+          seen += 1;
+          if (seen >= digitGoal) {
+            pos = i + 1;
+            break;
+          }
+        }
+      }
+      try { el.setSelectionRange(pos, pos); } catch (_) {}
+    };
+    el.addEventListener("input", () => apply(true));
+    el.addEventListener("blur", () => apply(false));
+  }
+
   function isSharedPackArt(path) {
     const raw = String(path || "").trim();
     return !raw || raw === "premium-avatars.png" || raw === "images/trainers/premium-avatars.png" || raw === "poke-ball.png";
@@ -232,7 +280,7 @@
       ? rows.map((row) => `
         <button class="store-sku${row.sku === selectedSku ? " is-on" : ""}" type="button" data-sku="${esc(row.sku)}">
           <img src="${esc(art(row.thumb || row.sprite))}" alt="">
-          <span><strong>${esc(row.name)}</strong><br><em class="muted">${esc(row.sku)}${row.visible ? "" : " · hidden"}</em></span>
+          <span><strong>${esc(row.name)}</strong><br><em class="muted">${esc(row.sku)}${row.featured ? " · featured" : ""}${row.visible ? "" : " · hidden"} · ${formatMoney((selectedCat()?.kind === "bits" ? row.bits : row.cost) || 0)}${selectedCat()?.kind === "bits" ? " Bits" : ""}</em></span>
         </button>`).join("")
       : `<p class="muted">No items on this floor yet.</p>`;
   }
@@ -261,8 +309,8 @@
     els.itemSku.readOnly = skuLocked;
     els.itemName.value = item?.name || "";
     els.itemBlurb.value = item?.blurb || "";
-    els.itemCost.value = item?.cost || 0;
-    els.itemBits.value = item?.bits || 0;
+    els.itemCost.value = formatMoney(item?.cost || 0);
+    els.itemBits.value = formatMoney(item?.bits || 0);
     els.itemFeatured.checked = Boolean(item?.featured);
     els.itemVisible.checked = item ? item.visible !== false : true;
     const kind = cat?.kind || "coins";
@@ -283,7 +331,7 @@
     document.getElementById("item-sprite-field").hidden = avatars;
     els.itemBits.closest(".field").hidden = kind !== "bits";
     els.itemCost.closest(".field").hidden = kind === "bits" || kind === "pass";
-    els.itemFeatured.closest(".field").hidden = kind !== "balls";
+    els.itemFeatured.closest(".field").hidden = kind === "pass";
     els.itemPack.closest(".field").hidden = !avatars;
     els.itemLooks.closest(".field").hidden = !avatars;
     els.itemBitsTitles.closest(".field").hidden = kind !== "bits";
@@ -350,8 +398,8 @@
         categoryId: cat.id,
         name: els.itemName.value.trim() || sku,
         blurb: els.itemBlurb.value,
-        cost: Number(els.itemCost.value || 0),
-        bits: Number(els.itemBits.value || 0),
+        cost: parseMoney(els.itemCost.value),
+        bits: parseMoney(els.itemBits.value),
         grants: readGrants(),
         sprite: isAvatarsFloor() ? (itemThumb || PACK_THUMB) : itemSprite,
         thumb: isAvatarsFloor() ? (itemThumb || PACK_THUMB) : itemThumb,
@@ -551,8 +599,8 @@
     els.itemSku.value = "";
     els.itemName.value = "New item";
     els.itemBlurb.value = "";
-    els.itemCost.value = 10;
-    els.itemBits.value = 0;
+    els.itemCost.value = formatMoney(10);
+    els.itemBits.value = formatMoney(0);
     els.itemFeatured.checked = false;
     els.itemVisible.checked = true;
     const avatars = isAvatarsFloor();
@@ -732,6 +780,9 @@
     pickerTarget = "item-thumb";
     await uploadStoreAsset(file, els.itemThumbStatus);
   });
+
+  bindMoneyInput(els.itemCost);
+  bindMoneyInput(els.itemBits);
 
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadHub(); });
   loadHub();

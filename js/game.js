@@ -484,10 +484,24 @@
     return window.playItemSprite(src);
   };
 
+  window.playParseCoins = function playParseCoins(raw) {
+    const text = String(raw ?? "").replace(/[^0-9.]/g, "");
+    if (!text || text === ".") return 0;
+    const value = Number(text);
+    if (!Number.isFinite(value) || value < 0) return 0;
+    return value;
+  };
+
   window.playFormatCoins = function playFormatCoins(n) {
+    if (n == null || n === "") return "—";
     const value = Number(n);
     if (!Number.isFinite(value)) return "—";
-    return value.toLocaleString();
+    const rounded = Math.round(value * 100) / 100;
+    const frac = Math.abs(rounded - Math.round(rounded)) > 1e-9;
+    return rounded.toLocaleString("en-US", {
+      minimumFractionDigits: frac ? 2 : 0,
+      maximumFractionDigits: 2
+    });
   };
 
   window.playCoinsHtml = function playCoinsHtml(n) {

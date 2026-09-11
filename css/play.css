@@ -1515,7 +1515,7 @@ footer { margin-top: 24px; font-size: 13px; }
 .mart-stage { display: grid; gap: 14px; }
 .mart-featured {
   display: grid;
-  grid-template-columns: 148px minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 14px 18px;
   align-items: center;
   padding: 16px 18px;
@@ -1528,23 +1528,28 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .mart-featured-art {
   position: relative;
-  width: 132px;
-  height: 132px;
+  width: 88px;
+  height: 88px;
   display: grid;
   place-items: center;
+  overflow: visible;
+}
+.mart-featured-art.is-wide {
+  width: 96px;
+  height: 96px;
 }
 .mart-featured-ring {
   position: absolute;
-  inset: 4px;
+  inset: 0;
   border-radius: 50%;
   background: conic-gradient(#fff6c8, #f2c14e, #ffe08a, #c99212, #fff1a8, #e8b84a, #fff6c8);
   animation: mart-aura-spin 3.6s linear infinite;
-  filter: drop-shadow(0 0 8px #f2d27a);
+  filter: drop-shadow(0 0 4px #f2d27a);
 }
 .mart-featured-ring::after {
   content: "";
   position: absolute;
-  inset: 10px;
+  inset: 5px;
   border-radius: 50%;
   background:
     radial-gradient(circle at 12% 0, #fff8d0 0 26%, transparent 58%),
@@ -1553,18 +1558,18 @@ footer { margin-top: 24px; font-size: 13px; }
 .mart-featured-art img {
   position: relative;
   z-index: 1;
-  width: 84px;
-  height: 84px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
   image-rendering: pixelated;
   animation: mart-sprite-bob 2.2s ease-in-out infinite;
-  filter: drop-shadow(0 8px 0 rgba(140, 96, 16, .18));
+  filter: drop-shadow(0 4px 0 rgba(140, 96, 16, .16));
 }
 .mart-featured-art.is-wide img {
-  width: 92px;
-  height: 92px;
+  width: 72px;
+  height: 72px;
   object-fit: cover;
-  border-radius: 18px;
+  border-radius: 16px;
   image-rendering: auto;
 }
 .mart-featured-mark {
@@ -1590,8 +1595,8 @@ footer { margin-top: 24px; font-size: 13px; }
 .mart-featured .mart-grants { margin-top: 8px; }
 @keyframes mart-aura-spin { to { transform: rotate(360deg); } }
 @keyframes mart-sprite-bob {
-  0%, 100% { transform: translateY(2px); }
-  50% { transform: translateY(-8px); }
+  0%, 100% { transform: translateY(1px); }
+  50% { transform: translateY(-5px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .mart-featured-ring, .mart-featured-art img { animation: none; }

@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=hub3">
+<link rel="stylesheet" href="css/play.css?v=hub4">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -89,10 +89,12 @@
         <p class="muted">Start, pause, cancel, or hide the live encounter. Special events can send +1 of a supply or Poké Ball to every trainer who joined.</p>
         <div class="command-grid">
           <button id="start-random" class="gold" type="button">Random encounter</button>
-          <button id="pause-round" class="secondary" type="button">Pause encounter</button>
           <button id="cancel-round" class="danger" type="button">Cancel Encounter</button>
+          <div class="command-pair">
+            <button id="pause-round" class="secondary" type="button">Pause encounter</button>
+            <button id="sync-clock" class="secondary" type="button">Resume Encounter</button>
+          </div>
           <button id="toggle-hidden" class="secondary" type="button">Hide overlay</button>
-          <button id="sync-clock" class="secondary" type="button">Resume Encounter</button>
           <button id="gift-item" class="secondary" type="button">Give +1 item</button>
         </div>
         <label class="field" for="dex-pick">Type name or Dex number
@@ -107,7 +109,7 @@
           <p id="form-copy" class="muted">Pick a species to preview.</p>
         </div>
         <div class="links">
-          <button id="start-dex" type="button">Start This Encounter</button>
+          <button id="start-dex" type="button">Start Encounter</button>
         </div>
         <p id="command-status" class="muted" role="status"></p>
       </section>
@@ -176,5 +178,5 @@
 <script src="js/game.js?v=hub3"></script>
 <script src="js/hud.js?v=hub3"></script>
 <script src="js/nav.js?v=hub1"></script>
-<script src="js/admin.js?v=hub3"></script>
+<script src="js/admin.js?v=hub4"></script>
 </body>

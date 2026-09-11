@@ -331,7 +331,22 @@
   });
   document.getElementById("sync-clock").addEventListener("click", () => run("admin_resume_round"));
   els.pause?.addEventListener("click", () => run("admin_pause_round"));
-  els.clearLog?.addEventListener("click", () => run("admin_clear_console"));
+  els.clearLog?.addEventListener("click", async () => {
+    els.commandStatus.textContent = "Working…";
+    if (els.console) {
+      els.console.innerHTML = `<li class="muted">Clearing…</li>`;
+    }
+    try {
+      const data = await window.playCall("admin_clear_console");
+      els.commandStatus.textContent = data?.message || "Public encounter log cleared.";
+      if (typeof window.playRenderLiveFeed === "function") {
+        window.playRenderLiveFeed(data?.console || [], "admin-console");
+      }
+      await refreshOverview(false);
+    } catch (error) {
+      els.commandStatus.textContent = window.playRpcError(error);
+    }
+  });
 
   function esc(value) {
     return window.playEscapeAttr ? window.playEscapeAttr(value) : String(value || "")

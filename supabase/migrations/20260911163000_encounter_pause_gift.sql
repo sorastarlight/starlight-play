@@ -483,9 +483,13 @@ set search_path to 'public'
 as $$
 begin
   perform private.require_hub();
-  delete from public.play_console_log;
-  delete from public.encounter_activity;
-  return private.admin_overview() || jsonb_build_object('ok', true, 'message', 'Public encounter log cleared.');
+  delete from public.play_console_log where id is not null;
+  delete from public.encounter_activity where id is not null;
+  return private.admin_overview() || jsonb_build_object(
+    'ok', true,
+    'message', 'Public encounter log cleared.',
+    'console', private.play_console_json(250)
+  );
 end;
 $$;
 

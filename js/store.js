@@ -253,21 +253,19 @@
     </article>`;
   }
 
-  function passFloor(floor, pass, wallet, index = 0) {
-    const id = floorTabId(floor, index);
+  function passFloor(floor, pass, wallet) {
     const info = describePass(pass, wallet);
     const perks = Array.isArray(floor.extra?.perks) && floor.extra.perks.length
       ? floor.extra.perks
       : ["+25 bag space while active", "Daily: 2 Berries, 1 Honey, 20 PokéCoins", "Weekly: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins"];
     const title = floor.name || "Starlight Pass";
     return `
-      <section class="mart-floor pass-floor" id="${esc(id)}" role="tabpanel" aria-labelledby="mart-tab-${esc(id)}" data-mart-panel="${esc(id)}" hidden>
-        <h2 class="visually-hidden">${esc(title)}</h2>
+      <div class="mart-pass">
         <section class="pass-showcase${info.active ? " active" : ""}" data-pass-hero>
           <img class="pass-sprite" src="${esc(window.playItemSprite(floor.icon || "rainbow-pass.png"))}" alt="">
           <div>
             <p class="eyebrow">${esc(floor.blurb || "Twitch subscriber perk")}</p>
-            <h3>${esc(title)} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h3>
+            <h2>${esc(title)} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h2>
             <ul>${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
             <p data-pass-status class="muted">${esc(info.note)}</p>
             <div class="links pass-actions">
@@ -281,7 +279,7 @@
           Want the Starlight Pass?
           <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch now</a>
         </p>
-      </section>`;
+      </div>`;
   }
 
   function featuredCard(item, mode, ownedPacks) {
@@ -430,14 +428,13 @@
   }
 
   function tabButtons(floors) {
-    return `<div class="mart-tabs" role="tablist" aria-label="Store floors">${floors.map((floor, index) => {
+    return `<div class="mart-tabs" role="tablist" aria-label="Store shelves">${floors.map((floor, index) => {
       const id = floorTabId(floor, index);
       return `<button class="mart-tab" type="button" role="tab" id="mart-tab-${esc(id)}" data-mart-tab="${esc(id)}" aria-controls="${esc(id)}" aria-selected="false" tabindex="-1">${esc(floor.name || "Shelf")}</button>`;
     }).join("")}</div>`;
   }
 
-  function floorHtml(floor, index, wallet, pass, ownedPacks) {
-    if (floor.kind === "pass") return passFloor(floor, pass, wallet, index);
+  function floorHtml(floor, index, ownedPacks) {
     if (floor.kind === "coins") return coinsFloor(floor, index);
     if (floor.kind === "balls") return ballsFloor(floor, index);
     if (floor.kind === "avatars") return avatarsFloor(floor, ownedPacks, index);
@@ -445,16 +442,22 @@
     return genericFloor(floor, index);
   }
 
+  function shopFloors(floors) {
+    return (floors || []).filter((floor) => floor.kind !== "pass");
+  }
+
   function resolveTab(floors, wanted) {
-    const ids = floors.map((floor, index) => floorTabId(floor, index));
+    const shop = shopFloors(floors);
+    const ids = shop.map((floor) => floorTabId(floor, floors.indexOf(floor)));
     const raw = String(wanted || "").replace(/^#/, "");
+    if (raw === "pass") return ids[0] || "";
     if (raw && ids.includes(raw)) return raw;
     if (raw === "avatars" || raw === "premium-avatars") {
-      const match = floors.find((floor) => floor.kind === "avatars");
+      const match = shop.find((floor) => floor.kind === "avatars");
       if (match) return floorTabId(match, floors.indexOf(match));
     }
-    if (raw && floors.some((floor) => floor.kind === raw)) {
-      const match = floors.find((floor) => floor.kind === raw);
+    if (raw && shop.some((floor) => floor.kind === raw)) {
+      const match = shop.find((floor) => floor.kind === raw);
       return floorTabId(match, floors.indexOf(match));
     }
     if (lastTab && ids.includes(lastTab)) return lastTab;
@@ -475,17 +478,44 @@
     panels.forEach((panel) => {
       panel.hidden = panel.dataset.martPanel !== id;
     });
+    const folder = els.floors.querySelector(".mart-folder");
+    folder?.classList.toggle("is-first", tabs[0]?.dataset.martTab === id);
     if (updateHash && location.hash.replace(/^#/, "") !== id) {
       history.replaceState(null, "", `#${id}`);
     }
   }
 
+  function parkWallet() {
+    const wallet = document.getElementById("mart-wallet");
+    if (wallet && els.floors?.contains(wallet)) els.floors.before(wallet);
+  }
+
+  function placeWallet() {
+    const wallet = document.getElementById("mart-wallet");
+    const folder = els.floors?.querySelector(".mart-folder");
+    if (!wallet || !folder) return;
+    folder.before(wallet);
+  }
+
   function renderFloors(catalog, wallet, pass, ownedPacks) {
     if (!els.floors) return;
+    parkWallet();
     const floors = catalog?.floors?.length ? catalog.floors : fallbackFloors(catalog);
+    const shop = shopFloors(floors);
+    const passRow = floors.find((floor) => floor.kind === "pass");
     const tab = resolveTab(floors, location.hash);
-    els.floors.innerHTML = `${tabButtons(floors)}${floors.map((floor, index) => floorHtml(floor, index, wallet, pass, ownedPacks)).join("")}`;
-    showTab(tab, { updateHash: Boolean(location.hash) });
+    const passHtml = passRow ? passFloor(passRow, pass, wallet) : "";
+    const folderHtml = shop.length
+      ? `<div class="mart-folder">
+          ${tabButtons(shop)}
+          <div class="mart-folder-body">
+            ${shop.map((floor) => floorHtml(floor, floors.indexOf(floor), ownedPacks)).join("")}
+          </div>
+        </div>`
+      : "";
+    els.floors.innerHTML = `${passHtml}${folderHtml}`;
+    placeWallet();
+    showTab(tab, { updateHash: Boolean(location.hash) && location.hash.replace(/^#/, "") !== "pass" });
     renderBallCase(catalog);
   }
 

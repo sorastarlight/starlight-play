@@ -80,7 +80,7 @@
         kind: "join",
         item: "",
         label: "Join encounter",
-        hint: round.phase === "prepare" ? "Still needed for berries" : (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "Take this turn")
+        hint: round.phase === "prepare" ? "Still needed for berries" : (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "")
       });
     }
     if (round.phase === "prepare" && me && !me.prep) {
@@ -128,7 +128,7 @@
         : `<span class="item-icon" aria-hidden="true"></span>`;
       return `<button type="button" class="item-btn" data-kind="${row.kind}" data-item="${row.item}">
         ${icon}
-        <span class="item-copy"><strong>${row.label}</strong><em>${row.hint}</em></span>
+        <span class="item-copy"><strong>${row.label}</strong>${row.hint ? `<em>${row.hint}</em>` : ""}</span>
       </button>`;
     }).join("");
   }

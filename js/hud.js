@@ -56,7 +56,7 @@
       return `<p class="muted">Sign in to see your inventory.</p>`;
     }
     return `<ul class="bag-strip inv-strip">${items.map(([key, label]) => (
-      `<li><img src="${window.playItemSprite(key)}" alt=""><span>${label}</span><strong>${bag[key] ?? 0}</strong></li>`
+      `<li><img src="${window.playItemSprite(key)}" alt=""><span>${label}</span><strong>${key === "coins" && typeof window.playCoinsHtml === "function" ? window.playCoinsHtml(bag[key] ?? 0) : (bag[key] ?? 0)}</strong></li>`
     )).join("")}</ul>`;
   };
 

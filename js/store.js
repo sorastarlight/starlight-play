@@ -46,7 +46,7 @@
     if (!wallet) {
       banner?.classList.remove("is-full");
       if (coinsEl) {
-        coinsEl.textContent = "—";
+        coinsEl.innerHTML = window.playCoinsHtml(null);
         coinsEl.classList.remove("bag-warn");
       }
       if (note) {
@@ -66,7 +66,7 @@
     const coins = Number(wallet.coins || 0);
     const used = Number(wallet.used || 0);
     const cap = Number(wallet.capacity || 0);
-    if (coinsEl) coinsEl.textContent = coins.toLocaleString();
+    if (coinsEl) coinsEl.innerHTML = window.playCoinsHtml(coins);
     window.playFillBagMeter(wallet);
     if (note) note.textContent = `${used.toLocaleString()} / ${cap.toLocaleString()}`;
     banner?.classList.toggle("is-full", typeof window.playBagIsFull === "function" && window.playBagIsFull(wallet));

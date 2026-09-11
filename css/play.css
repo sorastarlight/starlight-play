@@ -1056,6 +1056,29 @@ footer { margin-top: 24px; font-size: 13px; }
   text-align: right;
   color: #3a3f63;
 }
+.poke-cash {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 2px;
+  font-family: Fredoka, Nunito, sans-serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: #b5790a;
+  line-height: 1;
+}
+.poke-cash-mark {
+  font-size: 0.72em;
+  font-weight: 800;
+  color: #e0a31a;
+  text-shadow: 0 1px 0 #fff3c4;
+}
+.bag-row.coins .poke-cash { font-size: 28px; }
+.mart-wallet-value.poke-cash {
+  font-size: 26px;
+  color: #b5790a;
+}
 .bag-row .item-sprite { width: 44px; height: 44px; }
 .lure-panel {
   display: grid;

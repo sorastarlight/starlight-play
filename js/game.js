@@ -484,6 +484,16 @@
     return window.playItemSprite(src);
   };
 
+  window.playFormatCoins = function playFormatCoins(n) {
+    const value = Number(n);
+    if (!Number.isFinite(value)) return "—";
+    return value.toLocaleString();
+  };
+
+  window.playCoinsHtml = function playCoinsHtml(n) {
+    return `<span class="poke-cash"><span class="poke-cash-mark" aria-hidden="true">₽</span><span>${window.playFormatCoins(n)}</span></span>`;
+  };
+
   window.playCandyLabel = function playCandyLabel(key) {
     const raw = String(key || "");
     const species = raw.match(/^species-(\d+)(-l|-xl)?$/);

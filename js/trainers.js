@@ -168,6 +168,7 @@
       { id: "ashley", name: "Ashley Crossdress Kanto" },
       { id: "ashley-crossdress-alola", name: "Ashley Crossdress Alola" },
       { id: "ashley-crossdress-unova", name: "Ashley Crossdress Unova" },
+      { id: "ashley-crossdress-sinnoh", name: "Ashley Crossdress Sinnoh" },
       { id: "serena-crossdress", name: "Serena Crossdress" }
     ] }
   ];
@@ -206,8 +207,8 @@
       name: "Pokémon Genderbending Sprite Pack",
       games: "Pokémon the Series",
       cost: 200,
-      blurb: "Unlock Ashley Crossdress Kanto, Alola, and Unova, plus Serena Crossdress, for your Trainer ID.",
-      looks: ["ashley", "ashley-crossdress-alola", "ashley-crossdress-unova", "serena-crossdress"]
+      blurb: "Unlock Ashley Crossdress Kanto, Alola, Unova, and Sinnoh, plus Serena Crossdress, for your Trainer ID.",
+      looks: ["ashley", "ashley-crossdress-alola", "ashley-crossdress-unova", "ashley-crossdress-sinnoh", "serena-crossdress"]
     }
   ];
 
@@ -238,7 +239,7 @@
         break;
       }
     }
-    return `images/trainers/${key}.${ext}?v=av7`;
+    return `images/trainers/${key}.${ext}?v=av8`;
   };
 
   window.PLAY_CARD_BGS = [
@@ -332,7 +333,7 @@
           <dl class="id-stats">
             <div class="id-stat-wide"><dt>Name</dt><dd>${card.displayName || "Trainer"}</dd></div>
             <div><dt>Lv.</dt><dd>${card.level || 1}</dd></div>
-            <div><dt>PokéCoins</dt><dd>${Number(card.coins || 0)}</dd></div>
+            <div><dt>PokéCoins</dt><dd>${window.playCoinsHtml(card.coins || 0)}</dd></div>
             <div><dt>Pokédex</dt><dd>${card.species || 0}/151</dd></div>
             <div><dt>Time</dt><dd>${window.playCardTime(card.watchSeconds)}</dd></div>
             <div class="id-stat-wide"><dt>Started</dt><dd>${window.playCardDate(card.startedAt)}</dd></div>

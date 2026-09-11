@@ -86,7 +86,9 @@
                 <h3>${label}</h3>
                 <p>${hint}</p>
               </div>
-              <strong class="bag-qty">${bag?.[key] ?? 0}</strong>
+              ${key === "coins"
+                ? `<strong class="bag-qty">${window.playCoinsHtml(bag?.[key] ?? 0)}</strong>`
+                : `<strong class="bag-qty">${bag?.[key] ?? 0}</strong>`}
             </article>`).join("")}
         </div>
       </section>`).join("");

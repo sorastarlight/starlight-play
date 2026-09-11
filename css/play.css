@@ -1528,15 +1528,15 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .mart-featured-art {
   position: relative;
-  width: 88px;
-  height: 88px;
+  width: 100px;
+  height: 100px;
   display: grid;
   place-items: center;
   overflow: visible;
 }
 .mart-featured-art.is-wide {
-  width: 96px;
-  height: 96px;
+  width: 108px;
+  height: 108px;
 }
 .mart-featured-ring {
   position: absolute;
@@ -1558,18 +1558,18 @@ footer { margin-top: 24px; font-size: 13px; }
 .mart-featured-art img {
   position: relative;
   z-index: 1;
-  width: 64px;
-  height: 64px;
+  width: 84px;
+  height: 84px;
   object-fit: contain;
   image-rendering: pixelated;
   animation: mart-sprite-bob 2.2s ease-in-out infinite;
-  filter: drop-shadow(0 4px 0 rgba(140, 96, 16, .16));
+  filter: drop-shadow(0 8px 0 rgba(140, 96, 16, .18));
 }
 .mart-featured-art.is-wide img {
-  width: 72px;
-  height: 72px;
+  width: 92px;
+  height: 92px;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: 18px;
   image-rendering: auto;
 }
 .mart-featured-mark {
@@ -1595,8 +1595,8 @@ footer { margin-top: 24px; font-size: 13px; }
 .mart-featured .mart-grants { margin-top: 8px; }
 @keyframes mart-aura-spin { to { transform: rotate(360deg); } }
 @keyframes mart-sprite-bob {
-  0%, 100% { transform: translateY(1px); }
-  50% { transform: translateY(-5px); }
+  0%, 100% { transform: translateY(2px); }
+  50% { transform: translateY(-8px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .mart-featured-ring, .mart-featured-art img { animation: none; }

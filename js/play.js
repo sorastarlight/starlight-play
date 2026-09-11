@@ -24,6 +24,7 @@
   let pointerHeld = false;
   let lastLocalPhase = "";
   let throwViewOnly = false;
+  const joinedMe = new Map();
 
   window.playBindAccountNav({
     onSignOut() {
@@ -52,6 +53,15 @@
     const now = round.pausedAt ? new Date(round.pausedAt).getTime() : Date.now();
     if (end <= start) return 0;
     return Math.max(0, Math.min(100, ((end - now) / (end - start)) * 100));
+  }
+
+  function attachMe(data) {
+    if (!data) return data;
+    const id = data.round?.id;
+    const incoming = data.me && data.me.joined !== false ? data.me : (data.youJoined ? { joined: true } : null);
+    if (id && incoming) joinedMe.set(id, { ...(joinedMe.get(id) || {}), ...incoming });
+    const mine = incoming || (id ? joinedMe.get(id) : null) || null;
+    return { ...data, me: mine };
   }
 
   function actionPlan(data) {
@@ -106,7 +116,10 @@
   function renderActions(data) {
     const plan = actionPlan(data);
     const key = plan.buttons.map((row) => `${row.kind}:${row.item}`).join("|") + `::${plan.status || ""}`;
-    if (pointerHeld && els.actions.querySelector("button[data-kind]")) {
+    const heldBtn = pointerHeld ? els.actions.querySelector("button[data-kind]") : null;
+    const heldKind = heldBtn?.dataset.kind;
+    const nextKinds = plan.buttons.map((row) => row.kind).join("|");
+    if (heldBtn && nextKinds && nextKinds.split("|").every((kind) => kind === heldKind)) {
       if (plan.status) els.actionStatus.textContent = plan.status;
       return;
     }
@@ -170,9 +183,9 @@
   }
 
   function render(data) {
-    state = data;
-    const round = liveRound(data);
-    const view = { ...data, round };
+    state = attachMe(data);
+    const round = liveRound(state);
+    const view = { ...state, round };
     const results = round?.results;
     if (round?.paused && els.throwModal?.open) {
       try { els.throwModal.close(); } catch (_) {}
@@ -192,7 +205,7 @@
     } else if (hasLiveDom) {
       window.playPatchEncounter(els.encounter, round, bar);
     }
-    const bag = data?.bag;
+    const bag = state?.bag;
     const kitKey = bag ? `in:${bag.berry}:${bag.bait}:${bag.lure}` : "out";
     if (kitKey !== lastKitKey) {
       lastKitKey = kitKey;
@@ -230,7 +243,7 @@
     }
     refreshQueued = false;
     try {
-      const data = await window.playCall("play_sync");
+      const data = await window.playCall("play_sync", { p_round_id: liveRound(state)?.id || null });
       if (data?.channel !== undefined) loadStream(data.channel);
       render(data);
     } catch (error) {
@@ -256,6 +269,8 @@
           ? await window.playCall("play_prepare", { p_item: item, p_round_id: roundId })
           : await window.playCall("play_throw", { p_item: item, p_round_id: roundId });
       lastActionKey = "";
+      if (kind === "join" && roundId) joinedMe.set(roundId, data?.me || { joined: true });
+      if ((kind === "prepare" || kind === "throw") && roundId && data?.me) joinedMe.set(roundId, data.me);
       render(data);
       els.actionStatus.textContent = data.message || "";
     } catch (error) {

@@ -120,13 +120,16 @@
   function applyOverview(data, fillForms) {
     if (fillForms) fillSettings(data.settings);
     loadStream(data.channel);
-    renderRound(data.round);
+    const shown = data.round && typeof window.playApplyLocalRound === "function"
+      ? window.playApplyLocalRound(data.round)
+      : data.round;
+    renderRound(shown || data.round);
     if (typeof window.playRenderLiveFeed === "function") {
       window.playRenderLiveFeed(data.console || data.round, "admin-console");
     }
     els.trainers.textContent = `${data.trainers} trainer${data.trainers === 1 ? "" : "s"} on Play.`;
-    const live = Boolean(data.round && data.round.phase && data.round.phase !== "closed" && !data.round.cancelled);
-    const paused = Boolean(data.round?.paused);
+    const live = Boolean(shown && shown.phase && shown.phase !== "closed" && !shown.cancelled);
+    const paused = Boolean(shown?.paused);
     if (els.pause) els.pause.disabled = !live || paused;
     if (els.resume) els.resume.disabled = !paused;
     if (els.gift) els.gift.disabled = !live;

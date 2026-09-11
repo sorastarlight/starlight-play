@@ -251,7 +251,7 @@
         break;
       }
     }
-    return `images/trainers/${key}.${ext}?v=av8`;
+    return `images/trainers/${key}.${ext}?v=av10`;
   };
 
   window.PLAY_CARD_BGS = [

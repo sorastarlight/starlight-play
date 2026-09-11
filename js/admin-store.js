@@ -451,7 +451,7 @@
   function lookArt(look) {
     const id = look?.id || "";
     const ext = look?.ext || "png";
-    return `images/trainers/${id}.${ext}?v=av9`;
+    return `images/trainers/${id}.${ext}?v=av10`;
   }
 
   function renderLookGrid() {

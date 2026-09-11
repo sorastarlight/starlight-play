@@ -1261,22 +1261,27 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .pass-showcase {
   display: grid;
-  grid-template-columns: 96px 1fr;
-  gap: 18px;
+  grid-template-columns: 80px 1fr;
+  gap: 10px 16px;
   align-items: start;
-  padding: 22px;
-  margin-bottom: 12px;
+  padding: 14px 18px 12px;
+  margin-bottom: 0;
   border-radius: 24px;
   border: 3px solid #f2d27a;
   background:
     linear-gradient(180deg, #fff7d6, #ffe9b8 40%, #fff),
     repeating-linear-gradient(90deg, transparent 0 18px, #fff6 18px 19px);
-  box-shadow: 0 10px 0 #e8c36a;
+  box-shadow: 0 7px 0 #e8c36a;
 }
 .pass-showcase.active {
   border-color: #7ad3a0;
-  box-shadow: 0 10px 0 #4ea876;
+  box-shadow: 0 7px 0 #4ea876;
 }
+.pass-showcase .eyebrow { margin-bottom: 4px; }
+.pass-showcase h2 { margin: 0 0 6px; }
+.pass-showcase ul { margin: 0 0 6px; padding-left: 1.2em; }
+.pass-showcase .muted { margin: 0; }
+.pass-showcase .links { margin-top: 10px; }
 .pass-state {
   display: inline-block;
   margin-left: 8px;
@@ -1291,16 +1296,18 @@ footer { margin-top: 24px; font-size: 13px; }
 .pass-state.off { color: #9a3030; background: #ffd6d6; }
 .pass-actions { align-items: center; }
 .pass-subscribe {
+  grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 8px 10px;
-  margin: 0 0 14px;
-  padding: 12px 16px;
-  border-radius: 18px;
-  background: #fff;
-  border: 2px solid #f3c6e2;
+  gap: 4px 8px;
+  margin: 2px 0 0;
+  padding: 8px 4px 2px;
+  border: 0;
+  border-top: 2px solid #f3c6e2;
+  border-radius: 0;
+  background: transparent;
   color: #5d5b87;
   font-weight: 800;
   text-align: center;
@@ -1309,7 +1316,7 @@ footer { margin-top: 24px; font-size: 13px; }
   color: #8a3d72;
   text-underline-offset: 3px;
 }
-.pass-sprite { width: 96px; height: 96px; image-rendering: pixelated; }
+.pass-sprite { width: 80px; height: 80px; image-rendering: pixelated; }
 .mart-floor {
   margin-top: 0;
   padding: 16px;
@@ -2256,6 +2263,7 @@ footer { margin-top: 24px; font-size: 13px; }
   .id-no { font-size: 7px; padding: 6px 8px; }
   .id-right { justify-self: center; }
   .pass-showcase, .mart-item, .mart-featured { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .pass-subscribe { width: 100%; }
   .mart-featured .mart-copy { text-align: center; }
   .mart-featured .mart-copy p { max-width: none; }
   .mart-featured .mart-price { justify-items: center; min-width: 0; }

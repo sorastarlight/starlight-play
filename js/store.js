@@ -274,11 +274,11 @@
               <button id="check-pass" class="secondary" type="button">Check my subscription</button>
             </div>
           </div>
+          <p class="pass-subscribe">
+            Want the Starlight Pass?
+            <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch now</a>
+          </p>
         </section>
-        <p class="pass-subscribe">
-          Want the Starlight Pass?
-          <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch now</a>
-        </p>
       </div>`;
   }
 

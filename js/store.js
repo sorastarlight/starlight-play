@@ -14,6 +14,7 @@
   let lastWallet = null;
   let lastPass = null;
   let lastOwned = [];
+  let lastTab = "";
 
   window.playBindAccountNav({
     onSignOut() {
@@ -252,30 +253,35 @@
     </article>`;
   }
 
-  function passFloor(floor, pass, wallet) {
+  function passFloor(floor, pass, wallet, index = 0) {
+    const id = floorTabId(floor, index);
     const info = describePass(pass, wallet);
     const perks = Array.isArray(floor.extra?.perks) && floor.extra.perks.length
       ? floor.extra.perks
       : ["+25 bag space while active", "Daily: 2 Berries, 1 Honey, 20 PokéCoins", "Weekly: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins"];
+    const title = floor.name || "Starlight Pass";
     return `
-      <section class="pass-showcase${info.active ? " active" : ""}" data-pass-hero>
-        <img class="pass-sprite" src="${esc(window.playItemSprite(floor.icon || "rainbow-pass.png"))}" alt="">
-        <div>
-          <p class="eyebrow">${esc(floor.blurb || "Twitch subscriber perk")}</p>
-          <h2>${esc(floor.name || "Starlight Pass")} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h2>
-          <ul>${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
-          <p data-pass-status class="muted">${esc(info.note)}</p>
-          <div class="links pass-actions">
-            <button id="claim-daily" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "Daily claimed" : "Claim daily gift"}</button>
-            <button id="claim-weekly" class="gold" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "Weekly claimed" : "Claim weekly crate"}</button>
-            <button id="check-pass" class="secondary" type="button">Check my subscription</button>
+      <section class="mart-floor pass-floor" id="${esc(id)}" role="tabpanel" aria-labelledby="mart-tab-${esc(id)}" data-mart-panel="${esc(id)}" hidden>
+        <h2 class="visually-hidden">${esc(title)}</h2>
+        <section class="pass-showcase${info.active ? " active" : ""}" data-pass-hero>
+          <img class="pass-sprite" src="${esc(window.playItemSprite(floor.icon || "rainbow-pass.png"))}" alt="">
+          <div>
+            <p class="eyebrow">${esc(floor.blurb || "Twitch subscriber perk")}</p>
+            <h3>${esc(title)} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h3>
+            <ul>${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
+            <p data-pass-status class="muted">${esc(info.note)}</p>
+            <div class="links pass-actions">
+              <button id="claim-daily" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "Daily claimed" : "Claim daily gift"}</button>
+              <button id="claim-weekly" class="gold" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "Weekly claimed" : "Claim weekly crate"}</button>
+              <button id="check-pass" class="secondary" type="button">Check my subscription</button>
+            </div>
           </div>
-        </div>
-      </section>
-      <p class="pass-subscribe">
-        Want the Starlight Pass?
-        <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch now</a>
-      </p>`;
+        </section>
+        <p class="pass-subscribe">
+          Want the Starlight Pass?
+          <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch now</a>
+        </p>
+      </section>`;
   }
 
   function featuredCard(item, mode, ownedPacks) {
@@ -327,15 +333,23 @@
     </article>`;
   }
 
-  function floorShell(floor, icon, body, extraStatus = "") {
+  function floorTabId(floor, index) {
+    if (floor?.kind === "avatars") return "premium-avatars";
+    const raw = String(floor?.key || floor?.kind || floor?.name || `floor-${index}`);
+    return raw.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || `floor-${index}`;
+  }
+
+  function floorShell(floor, icon, body, extraStatus = "", index = 0) {
+    const id = floorTabId(floor, index);
     const bits = floor.kind === "bits";
     const avatars = floor.kind === "avatars";
-    return `<section class="mart-floor${bits ? " bits-floor" : ""}${avatars ? " avatar-floor" : ""}"${avatars ? ' id="premium-avatars"' : ""}>
+    const title = floor.name || "Shelf";
+    return `<section class="mart-floor${bits ? " bits-floor" : ""}${avatars ? " avatar-floor" : ""}" id="${esc(id)}" role="tabpanel" aria-labelledby="mart-tab-${esc(id)}" data-mart-panel="${esc(id)}" hidden>
       <header class="mart-sign">
         <img src="${esc(window.playItemSprite(icon))}" alt="">
         <div>
-          <h2>${esc(floor.name || "Shelf")}</h2>
-          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : ""}
+          <h2 class="visually-hidden">${esc(title)}</h2>
+          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : `<p class="mart-sign-title">${esc(title)}</p>`}
         </div>
       </header>
       <p class="muted" data-floor-status${extraStatus}></p>
@@ -350,52 +364,60 @@
     </div>`;
   }
 
-  function coinsFloor(floor) {
+  function coinsFloor(floor, index) {
     const { featured, rest } = splitFeatured((floor.items || []).map(withLureBlurb));
     return floorShell(
       floor,
       floor.icon || "relic-gold.png",
-      stageHtml(featuredCard(featured, "coins"), rest.map((item) => shelfCard(item, "coins")).join(""), "mart-shelf")
+      stageHtml(featuredCard(featured, "coins"), rest.map((item) => shelfCard(item, "coins")).join(""), "mart-shelf"),
+      "",
+      index
     );
   }
 
-  function ballsFloor(floor) {
+  function ballsFloor(floor, index) {
     const { featured, rest } = splitFeatured((floor.items || []).map(ballView));
     return floorShell(
       floor,
       floor.icon || "poke-ball.png",
       stageHtml(featuredCard(featured, "balls"), rest.map(ballTile).join(""), "ball-grid ball-grid-compact"),
-      " data-ball-status"
+      " data-ball-status",
+      index
     );
   }
 
-  function avatarsFloor(floor, ownedPacks) {
+  function avatarsFloor(floor, ownedPacks, index) {
     const items = floor.items?.length ? floor.items : (window.PLAY_AVATAR_PACKS || []);
     const { featured, rest } = splitFeatured(items);
     return floorShell(
       floor,
       floor.icon || "images/trainers/premium-avatars.png",
       stageHtml(featuredCard(featured, "avatars", ownedPacks), rest.map((item) => avatarCard(item, ownedPacks)).join(""), "avatar-shelf"),
-      " data-avatar-status"
+      " data-avatar-status",
+      index
     );
   }
 
-  function bitsFloor(floor) {
+  function bitsFloor(floor, index) {
     const { featured, rest } = splitFeatured(floor.items || []);
     return floorShell(
       floor,
       floor.icon || "amulet-coin.png",
-      stageHtml(featuredCard(featured, "bits"), rest.map((item) => shelfCard(item, "bits")).join(""), "mart-shelf")
+      stageHtml(featuredCard(featured, "bits"), rest.map((item) => shelfCard(item, "bits")).join(""), "mart-shelf"),
+      "",
+      index
     );
   }
 
-  function genericFloor(floor) {
+  function genericFloor(floor, index) {
     const mode = floor.kind === "bits" ? "bits" : "coins";
     const { featured, rest } = splitFeatured(floor.items || []);
     return floorShell(
       floor,
       floor.icon || "poke-ball.png",
-      stageHtml(featuredCard(featured, mode), rest.map((item) => shelfCard(item, mode)).join(""), "mart-shelf")
+      stageHtml(featuredCard(featured, mode), rest.map((item) => shelfCard(item, mode)).join(""), "mart-shelf"),
+      "",
+      index
     );
   }
 
@@ -407,30 +429,63 @@
     els.ballGrid.innerHTML = rest.map(ballTile).join("");
   }
 
-  function placeWallet() {
-    const wallet = document.getElementById("mart-wallet");
-    if (!wallet || !els.floors) return;
-    const subscribe = els.floors.querySelector(".pass-subscribe");
-    const pass = els.floors.querySelector("[data-pass-hero], .pass-showcase");
-    const after = subscribe || pass;
-    if (after) after.after(wallet);
-    else els.floors.prepend(wallet);
+  function tabButtons(floors) {
+    return `<div class="mart-tabs" role="tablist" aria-label="Store floors">${floors.map((floor, index) => {
+      const id = floorTabId(floor, index);
+      return `<button class="mart-tab" type="button" role="tab" id="mart-tab-${esc(id)}" data-mart-tab="${esc(id)}" aria-controls="${esc(id)}" aria-selected="false" tabindex="-1">${esc(floor.name || "Shelf")}</button>`;
+    }).join("")}</div>`;
+  }
+
+  function floorHtml(floor, index, wallet, pass, ownedPacks) {
+    if (floor.kind === "pass") return passFloor(floor, pass, wallet, index);
+    if (floor.kind === "coins") return coinsFloor(floor, index);
+    if (floor.kind === "balls") return ballsFloor(floor, index);
+    if (floor.kind === "avatars") return avatarsFloor(floor, ownedPacks, index);
+    if (floor.kind === "bits") return bitsFloor(floor, index);
+    return genericFloor(floor, index);
+  }
+
+  function resolveTab(floors, wanted) {
+    const ids = floors.map((floor, index) => floorTabId(floor, index));
+    const raw = String(wanted || "").replace(/^#/, "");
+    if (raw && ids.includes(raw)) return raw;
+    if (raw === "avatars" || raw === "premium-avatars") {
+      const match = floors.find((floor) => floor.kind === "avatars");
+      if (match) return floorTabId(match, floors.indexOf(match));
+    }
+    if (raw && floors.some((floor) => floor.kind === raw)) {
+      const match = floors.find((floor) => floor.kind === raw);
+      return floorTabId(match, floors.indexOf(match));
+    }
+    if (lastTab && ids.includes(lastTab)) return lastTab;
+    return ids[0] || "";
+  }
+
+  function showTab(id, { updateHash = true } = {}) {
+    if (!els.floors || !id) return;
+    lastTab = id;
+    const tabs = [...els.floors.querySelectorAll(".mart-tab")];
+    const panels = [...els.floors.querySelectorAll("[data-mart-panel]")];
+    tabs.forEach((tab) => {
+      const on = tab.dataset.martTab === id;
+      tab.classList.toggle("is-on", on);
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+      tab.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach((panel) => {
+      panel.hidden = panel.dataset.martPanel !== id;
+    });
+    if (updateHash && location.hash.replace(/^#/, "") !== id) {
+      history.replaceState(null, "", `#${id}`);
+    }
   }
 
   function renderFloors(catalog, wallet, pass, ownedPacks) {
     if (!els.floors) return;
-    const funds = document.getElementById("mart-wallet");
-    if (funds && els.floors.parentElement) els.floors.parentElement.insertBefore(funds, els.floors);
     const floors = catalog?.floors?.length ? catalog.floors : fallbackFloors(catalog);
-    els.floors.innerHTML = floors.map((floor) => {
-      if (floor.kind === "pass") return passFloor(floor, pass, wallet);
-      if (floor.kind === "coins") return coinsFloor(floor);
-      if (floor.kind === "balls") return ballsFloor(floor);
-      if (floor.kind === "avatars") return avatarsFloor(floor, ownedPacks);
-      if (floor.kind === "bits") return bitsFloor(floor);
-      return genericFloor(floor);
-    }).join("");
-    placeWallet();
+    const tab = resolveTab(floors, location.hash);
+    els.floors.innerHTML = `${tabButtons(floors)}${floors.map((floor, index) => floorHtml(floor, index, wallet, pass, ownedPacks)).join("")}`;
+    showTab(tab, { updateHash: Boolean(location.hash) });
     renderBallCase(catalog);
   }
 
@@ -501,6 +556,11 @@
   }
 
   els.floors?.addEventListener("click", async (event) => {
+    const tab = event.target.closest(".mart-tab[data-mart-tab]");
+    if (tab) {
+      showTab(tab.dataset.martTab);
+      return;
+    }
     const buy = event.target.closest("button[data-sku], button[data-avatar-sku]");
     if (buy) {
       await buySku(buy);
@@ -557,6 +617,28 @@
         if (note) note.textContent = window.playRpcError(error);
       }
     }
+  });
+
+  els.floors?.addEventListener("keydown", (event) => {
+    if (!event.target.closest(".mart-tab")) return;
+    if (event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "Home" && event.key !== "End") return;
+    const tabs = [...els.floors.querySelectorAll(".mart-tab")];
+    const index = tabs.indexOf(event.target.closest(".mart-tab"));
+    if (index < 0) return;
+    event.preventDefault();
+    let next = index;
+    if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+    if (event.key === "ArrowLeft") next = (index - 1 + tabs.length) % tabs.length;
+    if (event.key === "Home") next = 0;
+    if (event.key === "End") next = tabs.length - 1;
+    const tab = tabs[next];
+    tab?.focus();
+    if (tab) showTab(tab.dataset.martTab);
+  });
+
+  window.addEventListener("hashchange", () => {
+    const floors = lastCatalog?.floors?.length ? lastCatalog.floors : fallbackFloors(lastCatalog);
+    showTab(resolveTab(floors, location.hash));
   });
 
   els.ballModal?.addEventListener("click", (event) => {

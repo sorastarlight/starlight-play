@@ -249,11 +249,12 @@
     }
     acting = true;
     try {
+      const roundId = liveRound(state)?.id || null;
       const data = kind === "join"
-        ? await window.playCall("play_join")
+        ? await window.playCall("play_join", { p_round_id: roundId })
         : kind === "prepare"
-          ? await window.playCall("play_prepare", { p_item: item })
-          : await window.playCall("play_throw", { p_item: item });
+          ? await window.playCall("play_prepare", { p_item: item, p_round_id: roundId })
+          : await window.playCall("play_throw", { p_item: item, p_round_id: roundId });
       lastActionKey = "";
       render(data);
       els.actionStatus.textContent = data.message || "";

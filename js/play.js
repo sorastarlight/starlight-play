@@ -180,8 +180,12 @@
     if (pointerHeld) {
       window.playPatchEncounter(els.encounter, round, bar);
     } else if (key !== lastEncounterKey) {
-      lastEncounterKey = key;
-      els.encounter.innerHTML = window.playRenderEncounter(round, { bar, showHoney: false });
+      try {
+        els.encounter.innerHTML = window.playRenderEncounter(round, { bar, showHoney: false });
+        lastEncounterKey = key;
+      } catch (_) {
+        lastEncounterKey = "";
+      }
     } else {
       window.playPatchEncounter(els.encounter, round, bar);
     }

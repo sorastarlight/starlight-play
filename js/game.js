@@ -281,7 +281,8 @@
   window.playLocalPhase = function playLocalPhase(round) {
     if (!round || round.cancelled) return "closed";
     const d = round.deadlines || {};
-    const now = Date.now();
+    const pause = Date.parse(round.pausedAt || "");
+    const now = round.paused && Number.isFinite(pause) ? pause : Date.now();
     const at = (key) => {
       const t = Date.parse(d[key] || "");
       return Number.isFinite(t) ? t : 0;
@@ -309,10 +310,12 @@
     if (!round) return round;
     const hasCatch = Number(round.results?.caught || 0) > 0 || (Array.isArray(round.catchers) && round.catchers.length > 0);
     if (round.cancelled && !hasCatch) return null;
+    const serverLive = Boolean(round.phase && round.phase !== "closed");
     const phase = round.cancelled ? "closed" : window.playLocalPhase(round);
-    const ends = round.deadlines?.[phase] || round.endsAt;
-    const next = { ...round, phase, endsAt: ends || round.endsAt };
-    if (phase === "closed") {
+    const shownPhase = serverLive && phase === "closed" ? round.phase : phase;
+    const ends = round.deadlines?.[shownPhase] || round.endsAt;
+    const next = { ...round, phase: shownPhase, endsAt: ends || round.endsAt };
+    if (shownPhase === "closed") {
       const idleAt = window.playRoundIdleAt(round);
       if (!idleAt || Date.now() >= idleAt) return null;
     }

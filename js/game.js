@@ -314,12 +314,7 @@
     const phase = round.cancelled ? "closed" : window.playLocalPhase(round);
     const shownPhase = serverLive && phase === "closed" ? round.phase : phase;
     const ends = round.deadlines?.[shownPhase] || round.endsAt;
-    const next = { ...round, phase: shownPhase, endsAt: ends || round.endsAt };
-    if (shownPhase === "closed") {
-      const idleAt = window.playRoundIdleAt(round);
-      if (!idleAt || Date.now() >= idleAt) return null;
-    }
-    return next;
+    return { ...round, phase: shownPhase, endsAt: ends || round.endsAt };
   };
 
   window.playSpriteUrl = function playSpriteUrl(dex, variant) {

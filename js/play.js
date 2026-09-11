@@ -36,7 +36,10 @@
   function liveRound(data) {
     const round = data?.round;
     if (!round) return null;
-    return typeof window.playApplyLocalRound === "function" ? window.playApplyLocalRound(round) : round;
+    const hasCatch = Number(round.results?.caught || 0) > 0 || (Array.isArray(round.catchers) && round.catchers.length > 0);
+    if (round.cancelled && !hasCatch) return null;
+    const local = typeof window.playApplyLocalRound === "function" ? window.playApplyLocalRound(round) : round;
+    return local || round;
   }
 
   function phaseBar(round) {
@@ -177,16 +180,16 @@
     const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${results?.caught || 0}:${(round?.catchers || []).length}`;
     const bar = phaseBar(round);
     lastLocalPhase = round?.phase || "";
-    if (pointerHeld) {
+    const hasLiveDom = Boolean(els.encounter?.querySelector(".dex-stage"));
+    const paintFull = () => {
+      els.encounter.innerHTML = window.playRenderEncounter(round, { bar, showHoney: false });
+      lastEncounterKey = key;
+    };
+    if (pointerHeld && hasLiveDom) {
       window.playPatchEncounter(els.encounter, round, bar);
-    } else if (key !== lastEncounterKey) {
-      try {
-        els.encounter.innerHTML = window.playRenderEncounter(round, { bar, showHoney: false });
-        lastEncounterKey = key;
-      } catch (_) {
-        lastEncounterKey = "";
-      }
-    } else {
+    } else if (key !== lastEncounterKey || Boolean(round) !== hasLiveDom) {
+      paintFull();
+    } else if (hasLiveDom) {
       window.playPatchEncounter(els.encounter, round, bar);
     }
     const bag = data?.bag;
@@ -385,7 +388,11 @@
       return;
     }
     const bar = phaseBar(round);
-    window.playPatchEncounter(els.encounter, round, bar);
+    if (!window.playPatchEncounter(els.encounter, round, bar)) {
+      lastEncounterKey = "";
+      if (!pointerHeld) render({ ...state, round });
+      return;
+    }
     if (pointerHeld) return;
     if (round.phase && round.phase !== lastLocalPhase) {
       lastLocalPhase = round.phase;

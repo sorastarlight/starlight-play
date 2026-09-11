@@ -273,6 +273,7 @@
 
   window.playPatchEncounter = function playPatchEncounter(root, round, bar) {
     if (!root || !round) return false;
+    if (!root.querySelector(".dex-stage")) return false;
     const seconds = window.playEncounterSecondsLeft(round);
     const phase = window.playPhaseLabel(round.phase);
     const timeText = round.paused ? "Paused" : (seconds ? `${seconds}s left` : "Waiting");

@@ -196,6 +196,34 @@
     }
   ];
 
+  function applyTrainerGroups(groups) {
+    if (!Array.isArray(groups) || !groups.length) return;
+    window.PLAY_TRAINERS = groups.map((row) => ({
+      key: row.key,
+      label: row.label,
+      games: row.games || "",
+      premium: Boolean(row.premium),
+      looks: (row.looks || []).map((look) => ({
+        id: look.id,
+        name: look.name || look.id,
+        gender: look.gender || "",
+        outfit: look.outfit || "",
+        ext: look.ext || "png"
+      }))
+    }));
+  }
+
+  window.playApplyTrainerCatalog = applyTrainerGroups;
+
+  window.playTrainerCatalogReady = (async () => {
+    if (typeof window.playCall !== "function") return window.PLAY_TRAINERS;
+    try {
+      const data = await window.playCall("play_trainer_catalog");
+      applyTrainerGroups(data?.groups);
+    } catch (_) {}
+    return window.PLAY_TRAINERS;
+  })();
+
   window.playTrainerLooks = function playTrainerLooks(row) {
     if (Array.isArray(row?.looks) && row.looks.length) return row.looks;
     const looks = [];

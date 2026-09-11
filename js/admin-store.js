@@ -24,7 +24,12 @@
     itemVisible: document.getElementById("item-visible"),
     itemBallKey: document.getElementById("item-ball-key"),
     itemPack: document.getElementById("item-pack"),
+    itemGames: document.getElementById("item-games"),
     itemLooks: document.getElementById("item-looks"),
+    lookGrid: document.getElementById("look-grid"),
+    lookFilter: document.getElementById("look-filter"),
+    lookUpload: document.getElementById("look-upload"),
+    lookUploadStatus: document.getElementById("look-upload-status"),
     itemBitsTitles: document.getElementById("item-bits-titles"),
     itemSpritePreview: document.getElementById("item-sprite-preview"),
     itemSpriteLabel: document.getElementById("item-sprite-label"),
@@ -60,6 +65,7 @@
   let itemThumb = "";
   let pickerTarget = "item-sprite";
   let localPreviews = {};
+  let selectedLooks = [];
   let skuLocked = false;
 
   function setSignedOut() {
@@ -251,7 +257,8 @@
     catalog = {
       categories: data.categories || [],
       items: data.items || [],
-      assets: data.assets || []
+      assets: data.assets || [],
+      looks: data.looks || []
     };
     if (!catalog.categories.some((row) => row.id === selectedCatId)) {
       selectedCatId = catalog.categories[0]?.id || "";
@@ -326,19 +333,24 @@
     fillGrants(item?.grants || {});
     els.itemBallKey.value = item?.extra?.ballKey || "";
     els.itemPack.value = item?.extra?.pack || "";
-    els.itemLooks.value = Array.isArray(item?.extra?.looks) ? item.extra.looks.join("\n") : "";
+    if (els.itemGames) els.itemGames.value = item?.extra?.games || "";
+    selectedLooks = Array.isArray(item?.extra?.looks) ? item.extra.looks.slice() : [];
+    if (els.itemLooks) els.itemLooks.value = selectedLooks.join("\n");
     els.itemBitsTitles.value = Array.isArray(item?.extra?.bitsTitles) ? item.extra.bitsTitles.join("\n") : "";
     document.getElementById("item-sprite-field").hidden = avatars;
     els.itemBits.closest(".field").hidden = kind !== "bits";
     els.itemCost.closest(".field").hidden = kind === "bits" || kind === "pass";
     els.itemFeatured.closest(".field").hidden = kind === "pass";
     els.itemPack.closest(".field").hidden = !avatars;
-    els.itemLooks.closest(".field").hidden = !avatars;
+    if (els.itemGames) els.itemGames.closest(".field").hidden = !avatars;
+    const looksField = document.getElementById("item-looks-field");
+    if (looksField) looksField.hidden = !avatars;
     els.itemBitsTitles.closest(".field").hidden = kind !== "bits";
     els.itemBallKey.closest(".field").hidden = kind !== "balls";
     els.itemForm.hidden = kind === "pass";
     document.getElementById("item-up").disabled = kind === "pass";
     document.getElementById("item-down").disabled = kind === "pass";
+    renderLookGrid();
   }
 
   function note(message) {
@@ -388,7 +400,8 @@
     const extra = {
       ballKey: els.itemBallKey.value.trim(),
       pack: els.itemPack.value.trim(),
-      looks: lines(els.itemLooks.value),
+      games: els.itemGames?.value.trim() || "",
+      looks: selectedLooks.slice(),
       bitsTitles: lines(els.itemBitsTitles.value)
     };
     note("Saving item…");
@@ -429,6 +442,46 @@
     const [row] = copy.splice(index, 1);
     copy.splice(next, 0, row);
     return copy;
+  }
+
+  function currentPackId() {
+    return els.itemPack.value.trim() || slug(els.itemSku.value || els.itemName.value);
+  }
+
+  function lookArt(look) {
+    const id = look?.id || "";
+    const ext = look?.ext || "png";
+    return `images/trainers/${id}.${ext}?v=av9`;
+  }
+
+  function renderLookGrid() {
+    if (!els.lookGrid) return;
+    const q = String(els.lookFilter?.value || "").toLowerCase();
+    const pack = currentPackId();
+    const rows = (catalog.looks || []).filter((look) => {
+      const hay = `${look.id} ${look.name} ${look.pack || ""} ${look.groupLabel || ""}`.toLowerCase();
+      return !q || hay.includes(q);
+    });
+    els.lookGrid.innerHTML = rows.length
+      ? rows.map((look) => {
+        const on = selectedLooks.includes(look.id);
+        const taken = look.pack && look.pack !== pack;
+        return `<button class="look-pick${on ? " is-on" : ""}${taken && !on ? " is-taken" : ""}" type="button" data-look="${esc(look.id)}">
+          <img src="${esc(lookArt(look))}" alt="">
+          <strong>${esc(look.name || look.id)}</strong>
+          <span>${esc(taken && !on ? `In ${look.pack}` : look.id)}</span>
+        </button>`;
+      }).join("")
+      : `<p class="muted">No looks match. Upload a trainer sprite to add one.</p>`;
+  }
+
+  function toggleLook(id) {
+    if (!id) return;
+    const at = selectedLooks.indexOf(id);
+    if (at >= 0) selectedLooks.splice(at, 1);
+    else selectedLooks.push(id);
+    if (els.itemLooks) els.itemLooks.value = selectedLooks.join("\n");
+    renderLookGrid();
   }
 
   function renderSpriteGrid() {
@@ -612,9 +665,12 @@
     fillGrants({});
     els.itemBallKey.value = "";
     els.itemPack.value = "";
-    els.itemLooks.value = "";
+    if (els.itemGames) els.itemGames.value = "";
+    selectedLooks = [];
+    if (els.itemLooks) els.itemLooks.value = "";
     els.itemBitsTitles.value = "";
     renderItems();
+    renderLookGrid();
   });
 
   document.getElementById("item-delete").addEventListener("click", async () => {
@@ -723,7 +779,7 @@
     return new File([blob], filename, { type: "image/png" });
   }
 
-  async function uploadStoreAsset(file, statusEl) {
+  async function uploadStoreAsset(file, statusEl, kind = "item") {
     if (!file) return;
     if (file.size > 900000) {
       statusEl.textContent = "Keep images under 900 KB.";
@@ -734,7 +790,7 @@
       const prepared = await prepareStoreImage(file);
       const filename = sanitizeFilename(prepared.name, prepared.type);
       const blobUrl = URL.createObjectURL(prepared);
-      applyPick(filename, blobUrl, false);
+      if (kind !== "trainer") applyPick(filename, blobUrl, false);
       const { base64 } = await fileToBase64(prepared);
       const { data, error } = await supabase.functions.invoke("store-asset", {
         body: {
@@ -742,7 +798,7 @@
           mime: prepared.type || "image/png",
           contentBase64: base64,
           label: filename.replace(/\.[^.]+$/, ""),
-          kind: "item"
+          kind
         }
       });
       if (error) {
@@ -759,6 +815,27 @@
       const saved = data?.filename || filename;
       rememberPreview(saved, blobUrl);
       if (saved !== filename) rememberPreview(filename, blobUrl);
+      if (kind === "trainer") {
+        const lookId = saved.replace(/\.[^.]+$/, "");
+        const savedLooks = await window.playCall("admin_store_save_look", {
+          p_row: {
+            id: lookId,
+            name: lookId.replace(/[-_]+/g, " ").replace(/\b\w/g, (ch) => ch.toUpperCase()),
+            pack: currentPackId(),
+            groupKey: currentPackId() || "custom",
+            groupLabel: els.itemName.value.trim() || currentPackId() || "Custom",
+            games: els.itemGames?.value.trim() || ""
+          }
+        });
+        if (savedLooks?.looks) catalog.looks = savedLooks.looks;
+        if (!selectedLooks.includes(lookId)) selectedLooks.push(lookId);
+        if (els.itemLooks) els.itemLooks.value = selectedLooks.join("\n");
+        rememberPreview(`images/trainers/${saved}`, blobUrl);
+        renderLookGrid();
+        statusEl.textContent = savedLooks?.message || "Trainer look uploaded.";
+        await persistUpload();
+        return;
+      }
       applyPick(saved, blobUrl, true);
       statusEl.textContent = data?.message || "Uploaded.";
       renderSpriteGrid();
@@ -767,6 +844,18 @@
       statusEl.textContent = await uploadErrorMessage(error);
     }
   }
+
+  els.lookFilter?.addEventListener("input", renderLookGrid);
+  els.lookGrid?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-look]");
+    if (button) toggleLook(button.dataset.look);
+  });
+  els.lookUpload?.addEventListener("change", async () => {
+    const file = els.lookUpload.files?.[0];
+    els.lookUpload.value = "";
+    await uploadStoreAsset(file, els.lookUploadStatus, "trainer");
+  });
+  els.itemPack?.addEventListener("input", renderLookGrid);
 
   els.spriteUpload.addEventListener("change", async () => {
     const file = els.spriteUpload.files?.[0];

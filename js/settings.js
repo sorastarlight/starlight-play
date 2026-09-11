@@ -100,6 +100,7 @@
       els.gate.hidden = false;
       return;
     }
+    if (window.playTrainerCatalogReady) await window.playTrainerCatalogReady;
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     const login = profile?.twitch_login || "";
     let extras = {};

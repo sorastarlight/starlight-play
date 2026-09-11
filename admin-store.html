@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=store9">
+<link rel="stylesheet" href="css/play.css?v=store17">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -106,7 +106,7 @@
       </section>
       <section class="card body">
         <h2>Items</h2>
-        <p class="muted">Shelf sprites live in <code>images/items/</code>. Avatar packs use one thumbnail on the mart — upload a replacement below. Looks still unlock in Settings; they are not shown on the card.</p>
+        <p class="muted">Shelf sprites live in <code>images/items/</code>. Avatar packs: set cost, pick a mart thumbnail, then select trainer looks from the library (or upload new ones into <code>images/trainers/</code>). Saving the pack unlocks those looks in Settings — no code deploy.</p>
         <div id="item-list" class="store-item-list"></div>
         <div class="links">
           <button id="item-add" type="button">Add item</button>
@@ -158,9 +158,20 @@
           <label class="field" for="item-pack">Avatar pack id
             <input id="item-pack" type="text" spellcheck="false" placeholder="sonic">
           </label>
-          <label class="field" for="item-looks">Avatar looks <span class="muted">(one id per line)</span>
-            <textarea id="item-looks" rows="3"></textarea>
+          <label class="field" for="item-games">Pack games / source
+            <input id="item-games" type="text" placeholder="Pokémon Masters EX">
           </label>
+          <div class="field" id="item-looks-field">
+            <span>Avatar looks</span>
+            <p class="muted">Select sprites for this pack. Upload a portrait to add it to the library. Looks already in another pack stay locked until you uncheck them there.</p>
+            <input id="look-filter" type="search" placeholder="Search looks">
+            <div id="look-grid" class="look-pick-grid"></div>
+            <label class="store-upload-file" for="look-upload">Upload trainer sprite
+              <input id="look-upload" type="file" accept="image/png,image/webp,image/gif,image/jpeg">
+            </label>
+            <p id="look-upload-status" class="muted" role="status"></p>
+            <textarea id="item-looks" hidden rows="3"></textarea>
+          </div>
           <label class="field" for="item-bits-titles">Power-Up title aliases <span class="muted">(one per line)</span>
             <textarea id="item-bits-titles" rows="3"></textarea>
           </label>
@@ -196,5 +207,5 @@
 <script src="js/game.js?v=store9"></script>
 <script src="js/hud.js?v=store1"></script>
 <script src="js/nav.js?v=store1"></script>
-<script src="js/admin-store.js?v=store9"></script>
+<script src="js/admin-store.js?v=store17"></script>
 </body>

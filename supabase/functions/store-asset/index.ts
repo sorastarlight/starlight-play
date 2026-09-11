@@ -67,7 +67,8 @@ Deno.serve(async (req) => {
       });
     }
 
-    const path = `images/items/${filename}`;
+    const trainer = kind === "trainer";
+    const path = trainer ? `images/trainers/${filename}` : `images/items/${filename}`;
     const api = `https://api.github.com/repos/${REPO}/contents/${path}`;
     const headers = {
       Accept: "application/vnd.github+json",
@@ -84,7 +85,9 @@ Deno.serve(async (req) => {
     }
 
     const payload: Record<string, string> = {
-      message: sha ? `Update store sprite ${filename}` : `Add store sprite ${filename}`,
+      message: sha
+        ? `Update ${trainer ? "trainer look" : "store sprite"} ${filename}`
+        : `Add ${trainer ? "trainer look" : "store sprite"} ${filename}`,
       content: contentBase64,
       branch: BRANCH
     };

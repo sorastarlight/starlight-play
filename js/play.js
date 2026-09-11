@@ -85,6 +85,7 @@
       return { key: `paused:${round.id}`, buttons: [], status: "This encounter is paused." };
     }
     const buttons = [];
+    const canPrep = (round.phase === "join" || round.phase === "prepare") && me && !me.prep;
     if ((round.phase === "join" && !me) || (round.phase === "prepare" && !me)) {
       buttons.push({
         kind: "join",
@@ -93,7 +94,7 @@
         hint: round.phase === "prepare" ? "Still needed for berries" : (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "")
       });
     }
-    if (round.phase === "prepare" && me && !me.prep) {
+    if (canPrep) {
       buttons.push({ kind: "prepare", item: "berry", label: "Berry", hint: `${bag.berry ?? 0} left · +catch`, sprite: "berry" });
       buttons.push({ kind: "prepare", item: "bait", label: "Honey", hint: `${bag.bait ?? 0} left · team bonus`, sprite: "bait" });
     }
@@ -102,7 +103,8 @@
     }
     if (!buttons.length) {
       let status = "";
-      if (round.phase === "join" && me) status = "You joined. Wait for preparation.";
+      if (round.phase === "join" && me && me.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for throws.`;
+      else if (round.phase === "join" && me) status = "You joined. Use a Berry or Honey, then wait for throws.";
       else if (round.phase === "prepare" && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for throws.`;
       else if (round.phase === "throw" && me?.ball) status = `${window.playItemLabel(me.ball)} locked in.`;
       else if (round.phase === "reveal") status = me?.result || "Results incoming.";

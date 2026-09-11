@@ -579,6 +579,17 @@
     return Math.max(0, Math.ceil((new Date(iso).getTime() - Date.now()) / 1000));
   };
 
+  window.playEncounterSecondsLeft = function playEncounterSecondsLeft(round) {
+    if (round?.paused && round.deadlines && round.phase && round.pausedAt) {
+      const end = Date.parse(round.deadlines[round.phase]);
+      const pause = Date.parse(round.pausedAt);
+      if (Number.isFinite(end) && Number.isFinite(pause)) {
+        return Math.max(0, Math.ceil((end - pause) / 1000));
+      }
+    }
+    return window.playSecondsLeft(round?.endsAt);
+  };
+
   window.playDisplayName = function playDisplayName(round, options) {
     if (!round?.name) return "a wild Pokémon";
     const shiny = String(round.variant || "").includes("shiny");

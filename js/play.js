@@ -46,7 +46,7 @@
     const startKey = keys[index - 1];
     const start = startKey ? new Date(round.deadlines[startKey]).getTime() : new Date(round.startedAt).getTime();
     const end = new Date(round.deadlines[round.phase]).getTime();
-    const now = Date.now();
+    const now = round.pausedAt ? new Date(round.pausedAt).getTime() : Date.now();
     if (end <= start) return 0;
     return Math.max(0, Math.min(100, ((end - now) / (end - start)) * 100));
   }
@@ -67,6 +67,9 @@
     }
     if (!signedIn) {
       return { key: "signin", buttons: [], status: "Sign in with Twitch to join this encounter." };
+    }
+    if (round.paused) {
+      return { key: `paused:${round.id}`, buttons: [], status: "This encounter is paused." };
     }
     const buttons = [];
     if ((round.phase === "join" && !me) || (round.phase === "prepare" && !me)) {
@@ -156,6 +159,7 @@
     const round = liveRound(data);
     const bag = data?.bag || {};
     if (!round || data?.me) return;
+    if (round.paused) return;
     if (round.phase !== "join" && round.phase !== "prepare") return;
     if (!window.playRadarOn?.(bag) || lureJoinRound === round.id) return;
     lureJoinRound = round.id;
@@ -167,7 +171,10 @@
     const round = liveRound(data);
     const view = { ...data, round };
     const results = round?.results;
-    const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${results?.caught || 0}:${(round?.catchers || []).length}`;
+    if (round?.paused && els.throwModal?.open) {
+      try { els.throwModal.close(); } catch (_) {}
+    }
+    const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${results?.caught || 0}:${(round?.catchers || []).length}`;
     const bar = phaseBar(round);
     lastLocalPhase = round?.phase || "";
     if (pointerHeld) {
@@ -229,6 +236,10 @@
 
   async function act(kind, item) {
     if (acting) return;
+    if (liveRound(state)?.paused) {
+      els.actionStatus.textContent = "This encounter is paused.";
+      return;
+    }
     acting = true;
     try {
       const data = kind === "join"
@@ -399,7 +410,11 @@
     if (document.visibilityState !== "visible" || pointerHeld || acting) return;
     const round = liveRound(state);
     const left = secondsToNextPhase(round);
-    if (round && round.phase && round.phase !== "closed" && left <= 2) refresh();
+    if (round?.paused) {
+      if (!tickLive._n) tickLive._n = 0;
+      tickLive._n += 1;
+      if (tickLive._n % 8 === 0) refresh();
+    } else if (round && round.phase && round.phase !== "closed" && left <= 2) refresh();
     else if (round && round.phase && round.phase !== "closed") {
       if (!tickLive._n) tickLive._n = 0;
       tickLive._n += 1;

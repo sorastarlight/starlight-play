@@ -16,6 +16,14 @@
     formPreview: document.getElementById("form-preview"),
     formCopy: document.getElementById("form-copy"),
     hide: document.getElementById("toggle-hidden"),
+    pause: document.getElementById("pause-round"),
+    resume: document.getElementById("sync-clock"),
+    gift: document.getElementById("gift-item"),
+    giftModal: document.getElementById("gift-modal"),
+    giftGrid: document.getElementById("gift-grid"),
+    giftFilter: document.getElementById("gift-filter"),
+    giftStatus: document.getElementById("gift-status"),
+    clearLog: document.getElementById("clear-log"),
     console: document.getElementById("admin-console"),
     bridgeStatus: document.getElementById("bridge-status"),
     join: document.getElementById("join-seconds"),
@@ -33,6 +41,7 @@
   let pickShiny = false;
   let overviewTimer = 0;
   let lastChannel = "";
+  let giftItems = [];
 
   function setSignedOut() {
     els.staff.hidden = true;
@@ -116,6 +125,11 @@
       window.playRenderLiveFeed(data.console || data.round, "admin-console");
     }
     els.trainers.textContent = `${data.trainers} trainer${data.trainers === 1 ? "" : "s"} on Play.`;
+    const live = Boolean(data.round && data.round.phase && data.round.phase !== "closed" && !data.round.cancelled);
+    const paused = Boolean(data.round?.paused);
+    if (els.pause) els.pause.disabled = !live || paused;
+    if (els.resume) els.resume.disabled = !paused;
+    if (els.gift) els.gift.disabled = !live;
     const bridge = data.bridge || {};
     if (els.bridgeStatus) {
       if (!bridge.configured) {
@@ -259,14 +273,11 @@
       });
       if (action === "cancel") return run("admin_cancel_round");
       if (action === "hide") return run("admin_hide_round", { p_hidden: true });
-      if (action === "resume") return run("play_sync");
-      if (action === "refill") return run("admin_refill_test");
       els.commandStatus.textContent = message;
     }
   }
 
   document.getElementById("start-random").addEventListener("click", () => queueMix("start", mixPayload(null)));
-  document.getElementById("start-pikachu").addEventListener("click", () => queueMix("start", mixPayload(25)));
   document.getElementById("start-dex").addEventListener("click", () => {
     const dex = parseDex(els.dexPick.value);
     if (!dex) {
@@ -318,8 +329,67 @@
       els.commandStatus.textContent = window.playRpcError(error);
     }
   });
-  document.getElementById("sync-clock").addEventListener("click", () => queueMix("resume"));
-  document.getElementById("refill").addEventListener("click", () => run("admin_refill_test"));
+  document.getElementById("sync-clock").addEventListener("click", () => run("admin_resume_round"));
+  els.pause?.addEventListener("click", () => run("admin_pause_round"));
+  els.clearLog?.addEventListener("click", () => run("admin_clear_console"));
+
+  function esc(value) {
+    return window.playEscapeAttr ? window.playEscapeAttr(value) : String(value || "")
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+  }
+
+  function renderGiftGrid() {
+    if (!els.giftGrid) return;
+    const q = String(els.giftFilter?.value || "").toLowerCase();
+    const rows = giftItems.filter((item) => {
+      const hay = `${item.name || ""} ${item.key || ""} ${item.floor || ""}`.toLowerCase();
+      return !q || hay.includes(q);
+    });
+    els.giftGrid.innerHTML = rows.length
+      ? rows.map((item) => `
+          <button class="gift-pick" type="button" data-gift="${esc(item.key)}">
+            <img src="${esc(window.playItemSprite(item.sprite || item.key))}" alt="">
+            <strong>${esc(item.name || item.key)}</strong>
+            <span>${esc(item.floor || "")}</span>
+          </button>`).join("")
+      : `<p class="muted">No supplies or Poké Balls match.</p>`;
+  }
+
+  async function openGiftModal() {
+    if (!els.giftModal) return;
+    if (els.giftStatus) els.giftStatus.textContent = "Loading items…";
+    try {
+      const data = await window.playCall("admin_gift_catalog");
+      giftItems = (data?.items || []).filter((item) => item.key);
+      renderGiftGrid();
+      if (els.giftStatus) els.giftStatus.textContent = "Tap an item to send +1 to every trainer who joined.";
+    } catch (error) {
+      giftItems = [];
+      renderGiftGrid();
+      if (els.giftStatus) els.giftStatus.textContent = window.playRpcError(error);
+    }
+    if (typeof els.giftModal.showModal === "function") els.giftModal.showModal();
+    else els.giftModal.setAttribute("open", "");
+  }
+
+  els.gift?.addEventListener("click", () => openGiftModal());
+  els.giftFilter?.addEventListener("input", renderGiftGrid);
+  els.giftGrid?.addEventListener("click", async (event) => {
+    const button = event.target.closest("[data-gift]");
+    if (!button) return;
+    const key = button.dataset.gift;
+    if (els.giftStatus) els.giftStatus.textContent = "Sending…";
+    try {
+      const data = await window.playCall("admin_gift_joined", { p_key: key });
+      if (els.giftStatus) els.giftStatus.textContent = data?.message || "Sent.";
+      els.commandStatus.textContent = data?.message || "Sent.";
+      await refreshOverview(false);
+    } catch (error) {
+      const message = window.playRpcError(error);
+      if (els.giftStatus) els.giftStatus.textContent = message;
+      els.commandStatus.textContent = message;
+    }
+  });
   els.hide.addEventListener("click", () => queueMix("hide"));
   document.getElementById("save-settings").addEventListener("click", async () => {
     const settings = {

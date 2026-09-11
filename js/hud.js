@@ -179,12 +179,14 @@
     }
     const name = window.playDisplayName(round, { plain: true });
     const fullName = window.playDisplayName(round);
+    const seconds = window.playEncounterSecondsLeft(round);
     const phase = window.playPhaseLabel(round.phase);
-    const seconds = window.playSecondsLeft(round.endsAt);
+    const timeText = round.paused ? "Paused" : (seconds ? `${seconds}s left` : "Waiting");
     const sprite = window.playSpriteUrl(round.dex, round.variant);
     const shiny = String(round.variant || "").includes("shiny");
     const location = window.playHabitat(round.dex, round.location);
     const hidden = round.hidden ? `<span class="chip warn">Hidden</span>` : "";
+    const paused = round.paused ? `<span class="chip pause">Paused</span>` : "";
     const live = round.phase && round.phase !== "closed";
     const honey = opts.showHoney === false ? "" : window.playHoneyCrewHtml(round);
     const fanfare = window.playCatchFanfareHtml(round);
@@ -193,8 +195,9 @@
           <span class="live-burst">LIVE</span>
           <strong>A wild Pokémon appeared!</strong>
           ${hidden}
+          ${paused}
         </div>`
-      : `<div class="dex-head"><span class="dex-ended">Encounter ended</span>${hidden}</div>`;
+      : `<div class="dex-head"><span class="dex-ended">Encounter ended</span>${hidden}${paused}</div>`;
     return `
       ${header}
       <div class="dex-stage">
@@ -210,7 +213,7 @@
         </div>
       </div>
       <div class="phase-wrap">
-        <div class="phase-label"><span data-phase-name>${phase}</span><span data-time-copy>${seconds ? `${seconds}s left` : "Waiting"}</span></div>
+        <div class="phase-label"><span data-phase-name>${phase}</span><span data-time-copy>${timeText}</span></div>
         <div class="phase-bar" aria-hidden="true"><i data-bar style="width:${opts.bar || 0}%"></i></div>
       </div>
       <dl class="dex-stats">
@@ -270,16 +273,17 @@
 
   window.playPatchEncounter = function playPatchEncounter(root, round, bar) {
     if (!root || !round) return false;
-    const seconds = window.playSecondsLeft(round.endsAt);
+    const seconds = window.playEncounterSecondsLeft(round);
     const phase = window.playPhaseLabel(round.phase);
+    const timeText = round.paused ? "Paused" : (seconds ? `${seconds}s left` : "Waiting");
     const time = root.querySelector("[data-time]");
     const timeCopy = root.querySelector("[data-time-copy]");
     const phaseEl = root.querySelector("[data-phase]");
     const phaseName = root.querySelector("[data-phase-name]");
     const barEl = root.querySelector("[data-bar]");
     const last = root.querySelector("[data-last]");
-    if (time) time.textContent = `${seconds || 0}s`;
-    if (timeCopy) timeCopy.textContent = seconds ? `${seconds}s left` : "Waiting";
+    if (time) time.textContent = round.paused ? "Paused" : `${seconds || 0}s`;
+    if (timeCopy) timeCopy.textContent = timeText;
     if (phaseEl) phaseEl.textContent = phase;
     if (phaseName) phaseName.textContent = phase;
     if (barEl) barEl.style.width = `${bar || 0}%`;
@@ -310,6 +314,11 @@
     }
     if (row?.kind === "prepared") return `<li>${time}<span><strong>${name}</strong> used ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
     if (row?.kind === "threw") return `<li>${time}<span><strong>${name}</strong> threw a ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
+    if (row?.kind === "pause") return `<li>${time}<span>Encounter paused</span></li>`;
+    if (row?.kind === "resume") return `<li>${time}<span>Encounter resumed</span></li>`;
+    if (row?.kind === "gift") {
+      return `<li>${time}<span>${row.message ? window.playEscapeAttr(row.message) : `Staff sent +1 ${window.playEscapeAttr(window.playItemLabel(row.item))}`}</span></li>`;
+    }
     if (row?.message) return `<li>${time}<span>${window.playEscapeAttr(row.message)}</span></li>`;
     return `<li>${time}<span><strong>${name}</strong></span></li>`;
   };

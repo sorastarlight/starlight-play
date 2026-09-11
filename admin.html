@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=hub1">
+<link rel="stylesheet" href="css/play.css?v=hub3">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -66,8 +66,9 @@
           <section class="live-feed" aria-live="polite">
             <div class="live-feed-head">
               <h3>PLAY CONSOLE</h3>
-              <p id="stream-note" class="muted">Loading preview…</p>
+              <button id="clear-log" class="secondary" type="button">Clear Log</button>
             </div>
+            <p id="stream-note" class="muted">Loading preview…</p>
             <ol id="admin-console"></ol>
           </section>
         </div>
@@ -85,14 +86,14 @@
       <section class="card body">
         <h2>Encounter commands</h2>
         <p id="bridge-status" class="muted">Checking stream link…</p>
-        <p class="muted">These buttons start, cancel, hide, resume, or refill encounters on the stream PC. Encounter beats also post to Twitch chat so viewers hear the phases and results.</p>
+        <p class="muted">Start, pause, cancel, or hide the live encounter. Special events can send +1 of a supply or Poké Ball to every trainer who joined.</p>
         <div class="command-grid">
           <button id="start-random" class="gold" type="button">Random encounter</button>
-          <button id="start-pikachu" type="button">Test Pikachu</button>
+          <button id="pause-round" class="secondary" type="button">Pause encounter</button>
           <button id="cancel-round" class="danger" type="button">Cancel Encounter</button>
           <button id="toggle-hidden" class="secondary" type="button">Hide overlay</button>
-          <button id="sync-clock" class="secondary" type="button">Resume clock</button>
-          <button id="refill" class="secondary" type="button">Refill test inventories</button>
+          <button id="sync-clock" class="secondary" type="button">Resume Encounter</button>
+          <button id="gift-item" class="secondary" type="button">Give +1 item</button>
         </div>
         <label class="field" for="dex-pick">Type name or Dex number
           <input id="dex-pick" type="text" placeholder="ex: Pikachu" autocomplete="off">
@@ -106,7 +107,7 @@
           <p id="form-copy" class="muted">Pick a species to preview.</p>
         </div>
         <div class="links">
-          <button id="start-dex" type="button">Start this form</button>
+          <button id="start-dex" type="button">Start This Encounter</button>
         </div>
         <p id="command-status" class="muted" role="status"></p>
       </section>
@@ -153,13 +154,27 @@
     </div>
   </div>
 </div>
+<dialog id="gift-modal" class="play-modal play-modal-wide" aria-labelledby="gift-title">
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="gift-title">Give +1 item</h3>
+      <button class="secondary" value="cancel" type="submit">Close</button>
+    </header>
+    <p class="muted">Sends one of the chosen supply or Poké Ball to every trainer who joined the live encounter, right now.</p>
+    <label class="field" for="gift-filter">Search
+      <input id="gift-filter" type="search" placeholder="Berry, Master Ball">
+    </label>
+    <div id="gift-grid" class="gift-pick-grid"></div>
+    <p id="gift-status" class="muted" role="status"></p>
+  </form>
+</dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
 <script src="js/variants.js"></script>
-<script src="js/game.js?v=hub1"></script>
-<script src="js/hud.js?v=hub1"></script>
+<script src="js/game.js?v=hub3"></script>
+<script src="js/hud.js?v=hub3"></script>
 <script src="js/nav.js?v=hub1"></script>
-<script src="js/admin.js?v=hub1"></script>
+<script src="js/admin.js?v=hub3"></script>
 </body>

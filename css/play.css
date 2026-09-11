@@ -2782,6 +2782,46 @@ a.lgpe-mon { text-decoration: none; color: inherit; }
   color: #8ea0c4;
   font-size: 12px;
 }
+.live-feed-head button {
+  width: auto;
+  min-width: 0;
+  padding: 4px 10px;
+  font-size: 12px;
+}
+.gift-pick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 8px;
+  max-height: 360px;
+  overflow: auto;
+  margin-top: 8px;
+  padding: 8px;
+  background: #fffdf6;
+  border: 2px solid #d7c39a;
+  border-radius: 14px;
+}
+.gift-pick {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  padding: 8px 4px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 11px;
+}
+.gift-pick img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.gift-pick span { color: #6b6c84; font-size: 10px; }
+.chip.pause {
+  background: #ffe3a8;
+  color: #6a4a12;
+}
 .live-feed ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .live-feed li {
   display: grid;

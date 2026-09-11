@@ -163,13 +163,6 @@
       { id: "joe", name: "Joe" },
       { id: "mimi", name: "Mimi" },
       { id: "koushiro", name: "Koushiro" }
-    ] },
-    { key: "genderbend", premium: true, label: "Pokémon Genderbending Sprite Pack", games: "Pokémon the Series", looks: [
-      { id: "ashley", name: "Ashley Crossdress Kanto" },
-      { id: "ashley-crossdress-alola", name: "Ashley Crossdress Alola" },
-      { id: "ashley-crossdress-unova", name: "Ashley Crossdress Unova" },
-      { id: "ashley-crossdress-sinnoh", name: "Ashley Crossdress Sinnoh" },
-      { id: "serena-crossdress", name: "Serena Crossdress" }
     ] }
   ];
 
@@ -200,15 +193,6 @@
       cost: 250,
       blurb: "Unlock Taichi, Yamato, Sora, Hikari, Takeru, Joe, Mimi, and Koushiro for your Trainer ID.",
       looks: ["taichi", "yamato", "sora", "hikari", "takeru", "joe", "mimi", "koushiro"]
-    },
-    {
-      sku: "avatar-genderbend",
-      pack: "genderbend",
-      name: "Pokémon Genderbending Sprite Pack",
-      games: "Pokémon the Series",
-      cost: 200,
-      blurb: "Unlock Ashley Crossdress Kanto, Alola, Unova, and Sinnoh, plus Serena Crossdress, for your Trainer ID.",
-      looks: ["ashley", "ashley-crossdress-alola", "ashley-crossdress-unova", "ashley-crossdress-sinnoh", "serena-crossdress"]
     }
   ];
 
@@ -221,7 +205,7 @@
   };
 
   window.playTrainerSpriteKey = function playTrainerSpriteKey(id) {
-    return id === "ash-ashley" ? "ashley" : id;
+    return id;
   };
 
   window.playTrainerSpriteOk = function playTrainerSpriteOk(id) {

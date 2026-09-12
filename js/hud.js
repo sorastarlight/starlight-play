@@ -266,7 +266,15 @@
     return st;
   }
 
-  function catchSeqCopy(st, round, species) {
+  function throwOutcome(me) {
+    if (!me?.ball) return "";
+    if (me.ball === "masterball") return "caught";
+    if (me.result === "Caught" || me.caught === true) return "caught";
+    if (me.result) return "broke";
+    return "";
+  }
+
+  function catchSeqCopy(st, round, species, me) {
     if (st.scene === "results") {
       return Number(round.results?.caught || 0) > 0 ? "Gotcha!" : "It got away!";
     }
@@ -276,7 +284,7 @@
         : "Oh no! The Pokémon broke free!";
     }
     const pct = window.playRevealSeqProgress(round);
-    if (pct >= 100 && !round.resolved) return "Waiting for the result…";
+    if (pct >= 100 && !round.resolved && !throwOutcome(me)) return "Waiting for the result…";
     return "The Poké Ball is wobbling…";
   }
 
@@ -286,17 +294,20 @@
     if (round.paused && !round.resolved) return st;
     const pct = window.playRevealSeqProgress(round);
     const countdownDone = pct >= 99.5 || round.phase === "closed";
+    const outcome = throwOutcome(me);
+    const ready = countdownDone && (me?.ball ? Boolean(outcome) : Boolean(round.resolved));
     const now = Date.now();
-    if (fresh && round.resolved && countdownDone) {
+    if (st.outcome !== "caught" && outcome === "caught") st.outcome = "caught";
+    if (fresh && ready) {
       st.scene = "results";
-      st.outcome = me?.ball ? (me.caught ? "caught" : "broke") : "";
+      st.outcome = outcome;
       return st;
     }
-    if (st.scene === "wobble" && round.resolved && countdownDone) {
+    if (st.scene === "wobble" && ready) {
       if (me?.ball) {
         st.scene = "personal";
         st.personalAt = now;
-        st.outcome = me.caught ? "caught" : "broke";
+        st.outcome = outcome;
       } else {
         st.scene = "results";
         st.outcome = "";
@@ -319,7 +330,7 @@
     const results = round.results || {};
     const caughtN = Number(results.caught || 0);
     const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
-    const copy = catchSeqCopy(st, round, species);
+    const copy = catchSeqCopy(st, round, species, me);
     const win = caughtN > 0;
     const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" && win ? " is-win" : ""}`;
     return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}">
@@ -333,7 +344,6 @@
       <p class="catch-seq-copy" data-seq-copy>${window.playEscapeAttr(copy)}</p>
       <div class="catch-seq-bar" aria-hidden="true"><i data-throw-bar style="width:${pct}%"></i></div>
       <div class="catch-seq-counts" data-seq-results>
-        <p class="fanfare-kicker">Encounter results</p>
         <h3 data-seq-species>${window.playEscapeAttr(species)}</h3>
         <div class="catch-seq-score">
           <p class="catch-seq-score-win"><strong data-seq-caught>${caughtN}</strong><span>caught</span></p>
@@ -348,7 +358,7 @@
     if (!box || !round) return false;
     const st = window.playAdvanceCatchSeqState(round, me);
     const species = window.playDisplayName(round, { plain: true });
-    const copy = catchSeqCopy(st, round, species);
+    const copy = catchSeqCopy(st, round, species, me);
     const copyEl = box.querySelector("[data-seq-copy]");
     if (copyEl && copyEl.textContent !== copy) copyEl.textContent = copy;
     const bar = box.querySelector("[data-throw-bar]");
@@ -384,7 +394,7 @@
     const rows = Array.isArray(round?.honeyTrainers) ? round.honeyTrainers : [];
     if (!rows.length) return "";
     const bonus = round.baitBonusPercent || 0;
-    return `<aside class="honey-crew">
+    return `<aside class="honey-crew" data-honey="${rows.length}:${bonus}">
       <img src="${window.playItemSprite("bait")}" alt="">
       <div>
         <strong>Honey team-up</strong>
@@ -429,6 +439,26 @@
     const hasSeq = Boolean(root.querySelector("[data-catch-seq]"));
     if (wantsSeq !== hasSeq) return false;
     if (wantsSeq) window.playAdvanceCatchSeq(root, round, extra?.me || null);
+    if (extra?.showHoney !== false) {
+      const honeyHtml = window.playHoneyCrewHtml(round);
+      const honeyEl = root.querySelector(".honey-crew");
+      const honeyKey = `${(round.honeyTrainers || []).length}:${round.baitBonusPercent || 0}`;
+      if (!honeyHtml) honeyEl?.remove();
+      else if (honeyEl?.dataset.honey === honeyKey) { /* already current */ }
+      else if (honeyEl) honeyEl.outerHTML = honeyHtml;
+      else {
+        const mount = document.createElement("div");
+        mount.innerHTML = honeyHtml;
+        const node = mount.firstElementChild;
+        const seq = root.querySelector("[data-catch-seq]");
+        const lastLine = root.querySelector("[data-last]");
+        const stats = root.querySelector(".dex-stats");
+        if (seq) seq.before(node);
+        else if (lastLine) lastLine.after(node);
+        else if (stats) stats.after(node);
+        else root.append(node);
+      }
+    }
     const setStat = (key, value) => {
       const el = root.querySelector(`[data-stat="${key}"]`);
       if (el) el.textContent = value;

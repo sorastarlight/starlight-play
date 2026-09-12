@@ -855,9 +855,7 @@ footer { margin-top: 24px; font-size: 13px; }
 .catch-seq.is-results.is-broke,
 .catch-seq.is-results.is-caught {
   border-color: #e8b01a;
-  background:
-    radial-gradient(circle at 50% 12%, #fff 0 16%, transparent 46%),
-    linear-gradient(180deg, #fff7c2, #ffd24a 48%, #ffb11f);
+  background: linear-gradient(180deg, #fff7c2, #ffd24a 52%, #ffb11f);
   box-shadow: 0 6px 0 #c48418, 0 0 0 4px #fff3 inset;
 }
 .catch-seq.is-results.is-win {
@@ -906,9 +904,11 @@ footer { margin-top: 24px; font-size: 13px; }
 .catch-seq.is-results.is-caught .catch-seq-ball,
 .catch-seq.is-results .catch-seq-ball {
   animation: none;
-  width: 34px;
-  height: 34px;
-  margin: 22px 0 0 36px;
+  width: 28px;
+  height: 28px;
+  top: auto;
+  bottom: 4px;
+  margin: 0 0 0 -14px;
   opacity: 1;
   filter: drop-shadow(0 2px 0 #0002);
 }
@@ -939,9 +939,11 @@ footer { margin-top: 24px; font-size: 13px; }
 .catch-seq.is-results .catch-seq-mon {
   animation: catch-result-mon .55s ease-out both;
   opacity: 1;
-  width: 96px;
-  height: 96px;
-  margin: -48px 0 0 -48px;
+  width: 104px;
+  height: 104px;
+  left: 50%;
+  top: 46%;
+  margin: -52px 0 0 -52px;
   z-index: 2;
 }
 .dex-stage.is-revealed > img {
@@ -964,10 +966,11 @@ footer { margin-top: 24px; font-size: 13px; }
 .catch-seq.is-caught .catch-seq-copy,
 .catch-seq.is-results .catch-seq-copy { color: #5a3a08; }
 .catch-seq.is-results .catch-seq-copy {
-  min-height: 1.2em;
-  margin: 2px 0 6px;
-  font-size: 28px;
-  letter-spacing: .04em;
+  min-height: 0;
+  margin: 2px 0 0;
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: .06em;
   text-transform: uppercase;
   text-shadow: 0 2px 0 #fff6;
 }
@@ -989,6 +992,7 @@ footer { margin-top: 24px; font-size: 13px; }
 .catch-seq.is-personal .catch-seq-bar,
 .catch-seq.is-results .catch-seq-bar {
   visibility: hidden;
+  height: 0;
 }
 .catch-seq-counts {
   min-height: 7.2em;
@@ -999,11 +1003,15 @@ footer { margin-top: 24px; font-size: 13px; }
   flex-direction: column;
   justify-content: center;
 }
-.catch-seq.is-results .catch-seq-counts { visibility: visible; }
+.catch-seq.is-results .catch-seq-counts {
+  visibility: visible;
+  justify-content: flex-start;
+  padding-top: 4px;
+}
 .catch-seq-counts h3 {
-  margin: 0 0 8px;
-  font-size: 26px;
-  color: #5a3a08;
+  margin: 2px 0 10px;
+  font-size: 18px;
+  color: #8a5a10;
 }
 .catch-seq.is-results.is-win .catch-seq-score-win {
   background: linear-gradient(180deg, #fff, #ffe082);

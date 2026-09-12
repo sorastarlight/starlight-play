@@ -325,7 +325,6 @@
     const paintFull = () => {
       els.encounter.innerHTML = window.playRenderEncounter(round, {
         bar,
-        showHoney: false,
         showLastAction: false,
         throwBall: state?.me?.ball || "pokeball",
         me: state?.me || null

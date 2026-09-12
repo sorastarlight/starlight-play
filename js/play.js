@@ -173,22 +173,43 @@
     }
     if (throwing && me && !me.ball) pushBalls(false);
     if (throwing && me && me.ball) pushBalls(true, me.ball);
-    const chose = (item) => `You chose ${window.playItemLabel(item)}. Please wait for this phase to complete, or for other trainers to finish.`;
-    const ballReady = (item) => `You chose ${window.playItemLabel(item)}. It's ready to throw. Waiting for this phase to end, or for other trainers to lock in their choices.`;
+    const esc = (value) => window.playEscapeAttr(String(value || ""));
+    const joinWait = "You’ve joined the encounter! Please wait while the other Trainers join you.";
+    const prepWait = (item) => {
+      const label = window.playItemLabel(item);
+      return {
+        status: `You’ve selected ${label}! Please wait while the other Trainers make their choices.`,
+        statusHtml: `You’ve selected <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`
+      };
+    };
+    const throwWait = (item) => {
+      const label = window.playItemLabel(item);
+      return {
+        status: `You’ve chosen a ${label}! Please wait while the other Trainers make their choices.`,
+        statusHtml: `You’ve chosen a <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`
+      };
+    };
     let status = "";
-    if (joining && me && me.prep) status = chose(me.prep);
-    else if (joining && me) status = "You joined the encounter! Wait for the next phase, and then use either a Berry or Honey.";
-    else if (preparing && me?.prep) status = chose(me.prep);
-    else if (throwing && me?.ball) status = ballReady(me.ball);
-    else if (phase === "reveal" && me?.ball && !round.resolved) status = ballReady(me.ball);
-    else if (!buttons.length && phase === "reveal") status = me?.result || "Results incoming.";
+    let statusHtml = "";
+    if (joining && me) {
+      status = joinWait;
+    } else if (preparing && me?.prep) {
+      ({ status, statusHtml } = prepWait(me.prep));
+    } else if (throwing && me?.ball) {
+      ({ status, statusHtml } = throwWait(me.ball));
+    } else if (!buttons.length && phase === "reveal") status = me?.result || "Results incoming.";
     else if (!buttons.length && preparing && !me) status = "Join this encounter to take part.";
     else if (!buttons.length && throwing && !me) status = "You needed to join before Throw.";
     else if (!buttons.length && phase !== "join") status = "You needed to join during the join window.";
     if (!buttons.length) {
-      return { key: `wait:${phase}:${me?.prep || ""}:${me?.ball || ""}:${me?.result || ""}`, buttons, status };
+      return { key: `wait:${phase}:${me?.prep || ""}:${me?.ball || ""}:${me?.result || ""}`, buttons, status, statusHtml };
     }
-    return { key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.hint}`).join("|"), buttons, status };
+    return { key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.hint}`).join("|"), buttons, status, statusHtml };
+  }
+
+  function setActionStatus(plan) {
+    if (plan?.statusHtml) els.actionStatus.innerHTML = plan.statusHtml;
+    else els.actionStatus.textContent = plan?.status || "";
   }
 
   function renderActions(data) {
@@ -206,7 +227,7 @@
         const hint = btn.querySelector("em");
         if (hint && row.hint) hint.textContent = row.hint;
       });
-      if (plan.status) els.actionStatus.textContent = plan.status;
+      if (plan.status || plan.statusHtml) setActionStatus(plan);
       return;
     }
     if (key === lastActionKey && els.actions.children.length === plan.buttons.length) {
@@ -217,11 +238,11 @@
         const hint = btn.querySelector("em");
         if (hint && row.hint) hint.textContent = row.hint;
       });
-      if (plan.status) els.actionStatus.textContent = plan.status;
+      if (plan.status || plan.statusHtml) setActionStatus(plan);
       return;
     }
     lastActionKey = key;
-    els.actionStatus.textContent = plan.status;
+    setActionStatus(plan);
     els.actions.classList.toggle("single", plan.buttons.length === 1);
     els.actions.classList.toggle("throw-picks", plan.buttons.some((row) => row.kind === "throw"));
     els.actions.innerHTML = plan.buttons.map((row) => {
@@ -404,7 +425,6 @@
         try { els.throwModal.close(); } catch (_) {}
       }
       render(data);
-      if (kind === "join") els.actionStatus.textContent = data.message || "";
     } catch (error) {
       if (roundId && prevMe && (kind === "prepare" || kind === "throw")) joinedMe.set(roundId, prevMe);
       els.actionStatus.textContent = window.playRpcError(error);

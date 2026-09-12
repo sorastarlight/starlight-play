@@ -702,8 +702,16 @@ footer { margin-top: 24px; font-size: 13px; }
   user-select: none;
   -webkit-user-select: none;
 }
-.item-btn > * { pointer-events: none; }
-.item-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #c98ab0; }
+.item-btn:disabled,
+.item-btn:disabled:hover,
+.item-btn:disabled:active {
+  opacity: .42;
+  filter: grayscale(.4);
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+  box-shadow: 0 4px 0 #c98ab0;
+}
 .item-icon {
   width: 36px;
   height: 36px;

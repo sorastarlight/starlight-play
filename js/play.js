@@ -173,14 +173,14 @@
     }
     if (throwing && me && !me.ball) pushBalls(false);
     if (throwing && me && me.ball) pushBalls(true, me.ball);
+    const chose = (item) => `You chose ${window.playItemLabel(item)}. Please wait for this phase to complete, or for other trainers to finish.`;
+    const ballReady = (item) => `You chose ${window.playItemLabel(item)}. It's ready to throw. Waiting for this phase to end, or for other trainers to lock in their choices.`;
     let status = "";
-    if (joining && me && me.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for Prepare to finish.`;
+    if (joining && me && me.prep) status = chose(me.prep);
     else if (joining && me) status = "You joined the encounter! Wait for the next phase, and then use either a Berry or Honey.";
-    else if (preparing && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Poké Balls open in Throw.`;
-    else if (throwing && me?.ball) {
-      const who = data?.trainer?.displayName || profile?.display_name || "A trainer";
-      status = `${who} has selected their Poké Ball and is ready to throw!`;
-    }
+    else if (preparing && me?.prep) status = chose(me.prep);
+    else if (throwing && me?.ball) status = ballReady(me.ball);
+    else if (phase === "reveal" && me?.ball && !round.resolved) status = ballReady(me.ball);
     else if (!buttons.length && phase === "reveal") status = me?.result || "Results incoming.";
     else if (!buttons.length && preparing && !me) status = "Join this encounter to take part.";
     else if (!buttons.length && throwing && !me) status = "You needed to join before Throw.";
@@ -193,6 +193,7 @@
 
   function renderActions(data) {
     const plan = actionPlan(data);
+    if (acting) plan.buttons.forEach((row) => { row.disabled = true; });
     const key = plan.buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}`).join("|") + `::${plan.status || ""}`;
     const heldBtn = pointerHeld ? els.actions.querySelector("button[data-kind]") : null;
     const heldKind = heldBtn?.dataset.kind;
@@ -381,8 +382,16 @@
     acting = true;
     els.actions.querySelectorAll("button[data-kind]").forEach((btn) => { btn.disabled = true; });
     els.throwGrid?.querySelectorAll("button[data-throw]").forEach((btn) => { btn.disabled = true; });
+    const roundId = liveRound(state)?.id || null;
+    const prevMe = roundId ? { ...(joinedMe.get(roundId) || { joined: true }) } : null;
+    if (roundId && kind === "prepare") joinedMe.set(roundId, { ...prevMe, prep: item });
+    if (roundId && kind === "throw") joinedMe.set(roundId, { ...prevMe, ball: item });
+    if (kind === "prepare" || kind === "throw") {
+      lastActionKey = "";
+      const optimistic = attachMe({ ...state, me: roundId ? joinedMe.get(roundId) : state?.me });
+      renderActions({ ...optimistic, round: liveRound(optimistic) });
+    }
     try {
-      const roundId = liveRound(state)?.id || null;
       const data = kind === "join"
         ? await window.playCall("play_join", { p_round_id: roundId })
         : kind === "prepare"
@@ -395,8 +404,9 @@
         try { els.throwModal.close(); } catch (_) {}
       }
       render(data);
-      els.actionStatus.textContent = data.message || "";
+      if (kind === "join") els.actionStatus.textContent = data.message || "";
     } catch (error) {
+      if (roundId && prevMe && (kind === "prepare" || kind === "throw")) joinedMe.set(roundId, prevMe);
       els.actionStatus.textContent = window.playRpcError(error);
       lastActionKey = "";
       renderActions({ ...state, round: liveRound(state) });

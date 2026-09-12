@@ -16,6 +16,7 @@
     formPreview: document.getElementById("form-preview"),
     formCopy: document.getElementById("form-copy"),
     hide: document.getElementById("toggle-hidden"),
+    clearRound: document.getElementById("clear-round"),
     pause: document.getElementById("pause-round"),
     resume: document.getElementById("sync-clock"),
     gift: document.getElementById("gift-item"),
@@ -42,6 +43,8 @@
   let overviewTimer = 0;
   let lastChannel = "";
   let giftItems = [];
+  let lastOverview = null;
+  let lastHubKey = "";
 
   function setSignedOut() {
     els.staff.hidden = true;
@@ -109,8 +112,21 @@
     return matches.length ? matches[0].dex : null;
   }
 
+  function hubRound(round) {
+    if (!round || round.cancelled) return null;
+    if (typeof window.playApplyLocalRound === "function") return window.playApplyLocalRound(round);
+    return round;
+  }
+
   function renderRound(round) {
-    const shown = round && !round.cancelled ? round : null;
+    const shown = hubRound(round);
+    const key = shown
+      ? `${shown.id}:${shown.phase}:${shown.paused || false}:${shown.resolved || false}`
+      : "idle";
+    const live = Boolean(shown && shown.phase && shown.phase !== "closed" && !shown.cancelled && !shown.resolved);
+    if (els.clearRound) els.clearRound.disabled = !shown || live;
+    if (key === lastHubKey && els.encounter.querySelector(".dex-stage, .dex-idle")) return;
+    lastHubKey = key;
     els.encounter.innerHTML = window.playRenderEncounter(shown, {
       emptyNote: "Start a random encounter. The stream PC should pick it up."
     });
@@ -120,10 +136,9 @@
   function applyOverview(data, fillForms) {
     if (fillForms) fillSettings(data.settings);
     loadStream(data.channel);
-    const shown = data.round && typeof window.playApplyLocalRound === "function"
-      ? window.playApplyLocalRound(data.round)
-      : data.round;
-    renderRound(shown || data.round);
+    lastOverview = data;
+    const shown = hubRound(data.round);
+    renderRound(data.round);
     if (typeof window.playRenderLiveFeed === "function") {
       window.playRenderLiveFeed(data.console || data.round, "admin-console");
     }
@@ -332,6 +347,16 @@
       els.commandStatus.textContent = window.playRpcError(error);
     }
   });
+  els.clearRound?.addEventListener("click", async () => {
+    els.commandStatus.textContent = "Working…";
+    try {
+      const data = await window.playCall("admin_clear_round");
+      els.commandStatus.textContent = data?.message || "Encounter cleared.";
+      applyOverview(data, false);
+    } catch (error) {
+      els.commandStatus.textContent = window.playRpcError(error);
+    }
+  });
   document.getElementById("sync-clock").addEventListener("click", () => run("admin_resume_round"));
   els.pause?.addEventListener("click", () => run("admin_pause_round"));
   els.clearLog?.addEventListener("click", async () => {
@@ -451,5 +476,9 @@
   setInterval(() => {
     if (!els.staff.hidden) refreshOverview(false);
   }, 4000);
+  setInterval(() => {
+    if (els.staff.hidden || !lastOverview) return;
+    renderRound(lastOverview.round);
+  }, 250);
   loadHub();
 })();

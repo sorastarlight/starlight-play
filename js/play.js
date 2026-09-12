@@ -91,23 +91,29 @@
       return { key: `paused:${round.id}`, buttons: [], status: "This encounter is paused." };
     }
     const buttons = [];
-    const throwing = typeof window.playIsThrowWindow === "function"
-      ? window.playIsThrowWindow(round)
-      : round.phase === "throw";
-    const canPrep = Boolean(me) && !me.prep && (round.phase === "join" || round.phase === "prepare" || throwing);
-    if ((round.phase === "join" && !me) || (round.phase === "prepare" && !me) || (throwing && !me)) {
+    const phase = round.phase;
+    const throwing = phase === "throw";
+    const preparing = phase === "prepare";
+    const joining = phase === "join";
+    const pushPrep = (disabled) => {
       buttons.push({
-        kind: "join",
-        item: "",
-        label: "Join encounter",
-        hint: round.phase === "join" ? (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "") : "Still needed for berries"
+        kind: "prepare",
+        item: "berry",
+        label: "Berry",
+        hint: disabled ? "Opens in Prepare" : `${bag.berry ?? 0} left · +catch`,
+        sprite: "berry",
+        disabled
       });
-    }
-    if (canPrep) {
-      buttons.push({ kind: "prepare", item: "berry", label: "Berry", hint: `${bag.berry ?? 0} left · +catch`, sprite: "berry" });
-      buttons.push({ kind: "prepare", item: "bait", label: "Honey", hint: `${bag.bait ?? 0} left · team bonus`, sprite: "bait" });
-    }
-    if (throwing && me && me.prep && !me.ball) {
+      buttons.push({
+        kind: "prepare",
+        item: "bait",
+        label: "Honey",
+        hint: disabled ? "Opens in Prepare" : `${bag.bait ?? 0} left · team bonus`,
+        sprite: "bait",
+        disabled
+      });
+    };
+    const pushBalls = (disabled) => {
       const favorites = window.playFavoriteBalls(bag, prefs);
       favorites.forEach((row) => {
         const qty = Number(bag[row.key] || 0);
@@ -115,36 +121,60 @@
           kind: "throw",
           item: row.key,
           label: row.name,
-          hint: qty < 1 ? "None left" : `${qty} left · ${Math.round((row.rate || 0) * 100)}%`,
+          hint: disabled ? "Opens in Throw" : (qty < 1 ? "None left" : `${qty} left · ${Math.round((row.rate || 0) * 100)}%`),
           sprite: row.key,
-          disabled: qty < 1
+          disabled: disabled || qty < 1
         });
       });
+      if (!disabled) {
+        buttons.push({
+          kind: "open-balls",
+          item: "pokeball",
+          label: "All my Poké Balls",
+          hint: "Only balls you own",
+          sprite: "pokeball"
+        });
+      }
+    };
+    if ((joining && !me) || (preparing && !me)) {
+      buttons.push({
+        kind: "join",
+        item: "",
+        label: "Join encounter",
+        hint: joining ? (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "") : "Still needed for berries"
+      });
+    }
+    if (joining && me && !me.prep) pushPrep(true);
+    if (preparing && me && !me.prep) pushPrep(false);
+    if (preparing && me && me.prep && !me.ball) {
       buttons.push({
         kind: "open-balls",
         item: "pokeball",
-        label: "All my Poké Balls",
-        hint: "Only balls you own",
-        sprite: "pokeball"
+        label: "Poké Balls",
+        hint: "Opens in Throw",
+        sprite: "pokeball",
+        disabled: true
       });
     }
+    if (throwing && me && !me.ball) pushBalls(false);
     if (!buttons.length) {
       let status = "";
-      if (round.phase === "join" && me && me.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for throws.`;
-      else if (round.phase === "join" && me) status = "You joined. Use a Berry or Honey, then wait for throws.";
-      else if (round.phase === "prepare" && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for throws.`;
+      if (joining && me && me.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for Prepare to finish.`;
+      else if (joining && me) status = "You joined. Berry and Honey open in Prepare.";
+      else if (preparing && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Poké Balls open in Throw.`;
       else if (throwing && me?.ball) status = `${window.playItemLabel(me.ball)} locked in.`;
-      else if (round.phase === "reveal") status = me?.result || "Results incoming.";
-      else if ((round.phase === "prepare" || throwing) && !me) status = "Join this encounter to take part.";
-      else if (round.phase !== "join") status = "You needed to join during the join window.";
-      return { key: `wait:${round.phase}:${me?.prep || ""}:${me?.ball || ""}:${me?.result || ""}`, buttons, status };
+      else if (phase === "reveal") status = me?.result || "Results incoming.";
+      else if (preparing && !me) status = "Join this encounter to take part.";
+      else if (throwing && !me) status = "You needed to join before Throw.";
+      else if (phase !== "join") status = "You needed to join during the join window.";
+      return { key: `wait:${phase}:${me?.prep || ""}:${me?.ball || ""}:${me?.result || ""}`, buttons, status };
     }
-    return { key: buttons.map((row) => `${row.kind}:${row.item}:${row.hint}`).join("|"), buttons, status: "" };
+    return { key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.hint}`).join("|"), buttons, status: "" };
   }
 
   function renderActions(data) {
     const plan = actionPlan(data);
-    const key = plan.buttons.map((row) => `${row.kind}:${row.item}`).join("|") + `::${plan.status || ""}`;
+    const key = plan.buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}`).join("|") + `::${plan.status || ""}`;
     const heldBtn = pointerHeld ? els.actions.querySelector("button[data-kind]") : null;
     const heldKind = heldBtn?.dataset.kind;
     const nextKinds = plan.buttons.map((row) => row.kind).join("|");
@@ -212,17 +242,14 @@
     const bag = data?.bag || {};
     const prefs = window.playEncounterSettings(data?.encounterSettings);
     if (!round || round.paused || acting || !me) return;
-    const throwing = typeof window.playIsThrowWindow === "function"
-      ? window.playIsThrowWindow(round)
-      : round.phase === "throw";
-    if (!me.prep && prefs.autoPrep && prefs.defaultPrep !== "ask" && (round.phase === "join" || round.phase === "prepare" || throwing)) {
+    if (!me.prep && prefs.autoPrep && prefs.defaultPrep !== "ask" && round.phase === "prepare") {
       if (maybeAutoAct._prep !== round.id) {
         maybeAutoAct._prep = round.id;
         act("prepare", prefs.defaultPrep);
       }
       return;
     }
-    if (throwing && me.prep && !me.ball && prefs.autoThrow) {
+    if (round.phase === "throw" && !me.ball && prefs.autoThrow) {
       const favorite = window.playFavoriteBalls(bag, prefs).find((row) => Number(bag[row.key] || 0) > 0);
       if (favorite && maybeAutoAct._throw !== round.id) {
         maybeAutoAct._throw = round.id;
@@ -357,7 +384,7 @@
   els.actions.addEventListener("pointerdown", (event) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     const button = event.target.closest("button[data-kind]");
-    if (!button) return;
+    if (!button || button.disabled) return;
     pointerHeld = true;
     pressAction(button);
   });
@@ -470,15 +497,19 @@
       if (!pointerHeld) render({ ...state, round });
       return;
     }
-    if (pointerHeld) return;
     if (round.phase && round.phase !== lastLocalPhase) {
       lastLocalPhase = round.phase;
       lastEncounterKey = "";
       lastActionKey = "";
+      if (pointerHeld) {
+        renderActions({ ...state, round });
+        return;
+      }
       render({ ...state, round });
       refresh();
       return;
     }
+    if (pointerHeld) return;
     renderActions({ ...state, round });
   }
 

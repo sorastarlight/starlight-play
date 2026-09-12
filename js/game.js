@@ -276,7 +276,7 @@
     return "normal";
   };
 
-  window.PLAY_ROUND_IDLE_AFTER_MS = 8 * 1000;
+  window.PLAY_ROUND_IDLE_AFTER_MS = 60 * 1000;
 
   window.playPhaseRank = function playPhaseRank(phase) {
     return ({ join: 1, prepare: 2, throw: 3, reveal: 4, closed: 5 }[phase] || 0);

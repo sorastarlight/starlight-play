@@ -17,6 +17,7 @@
     formCopy: document.getElementById("form-copy"),
     hide: document.getElementById("toggle-hidden"),
     clearRound: document.getElementById("clear-round"),
+    advancePhase: document.getElementById("advance-phase"),
     pause: document.getElementById("pause-round"),
     resume: document.getElementById("sync-clock"),
     gift: document.getElementById("gift-item"),
@@ -125,6 +126,9 @@
       : "idle";
     const live = Boolean(shown && shown.phase && shown.phase !== "closed" && !shown.cancelled && !shown.resolved);
     if (els.clearRound) els.clearRound.disabled = !shown || live;
+    if (els.advancePhase) {
+      els.advancePhase.disabled = !shown || shown.phase === "closed" || shown.cancelled;
+    }
     if (key === lastHubKey && els.encounter.querySelector(".dex-stage, .dex-idle")) return;
     lastHubKey = key;
     els.encounter.innerHTML = window.playRenderEncounter(shown, {
@@ -148,6 +152,9 @@
     if (els.pause) els.pause.disabled = !live || paused;
     if (els.resume) els.resume.disabled = !paused;
     if (els.gift) els.gift.disabled = !live;
+    if (els.advancePhase) {
+      els.advancePhase.disabled = !shown || shown.phase === "closed" || shown.cancelled;
+    }
     const bridge = data.bridge || {};
     if (els.bridgeStatus) {
       if (!bridge.configured) {
@@ -357,6 +364,7 @@
       els.commandStatus.textContent = window.playRpcError(error);
     }
   });
+  els.advancePhase?.addEventListener("click", () => run("admin_advance_phase"));
   document.getElementById("sync-clock").addEventListener("click", () => run("admin_resume_round"));
   els.pause?.addEventListener("click", () => run("admin_pause_round"));
   els.clearLog?.addEventListener("click", async () => {

@@ -95,46 +95,58 @@
     const throwing = phase === "throw";
     const preparing = phase === "prepare";
     const joining = phase === "join";
-    const pushPrep = (disabled) => {
+    const pushPrep = (disabled, used) => {
+      const hintFor = (item, qtyHint) => {
+        if (used === item) return "Locked in";
+        if (used) return "Already prepared";
+        if (disabled) return "Opens in Prepare";
+        return qtyHint;
+      };
       buttons.push({
         kind: "prepare",
         item: "berry",
         label: "Berry",
-        hint: disabled ? "Opens in Prepare" : `${bag.berry ?? 0} left · +catch`,
+        hint: hintFor("berry", `${bag.berry ?? 0} left · +catch`),
         sprite: "berry",
-        disabled
+        disabled: disabled || Boolean(used)
       });
       buttons.push({
         kind: "prepare",
         item: "bait",
         label: "Honey",
-        hint: disabled ? "Opens in Prepare" : `${bag.bait ?? 0} left · team bonus`,
+        hint: hintFor("bait", `${bag.bait ?? 0} left · team bonus`),
         sprite: "bait",
-        disabled
+        disabled: disabled || Boolean(used)
       });
     };
-    const pushBalls = (disabled) => {
+    const pushBalls = (disabled, used) => {
       const favorites = window.playFavoriteBalls(bag, prefs);
       favorites.forEach((row) => {
         const qty = Number(bag[row.key] || 0);
+        const hint = used === row.key
+          ? "Locked in"
+          : used
+            ? "Already thrown"
+            : disabled
+              ? "Opens in Throw"
+              : (qty < 1 ? "None left" : `${qty} left · ${Math.round((row.rate || 0) * 100)}%`);
         buttons.push({
           kind: "throw",
           item: row.key,
           label: row.name,
-          hint: disabled ? "Opens in Throw" : (qty < 1 ? "None left" : `${qty} left · ${Math.round((row.rate || 0) * 100)}%`),
+          hint,
           sprite: row.key,
-          disabled: disabled || qty < 1
+          disabled: disabled || Boolean(used) || qty < 1
         });
       });
-      if (!disabled) {
-        buttons.push({
-          kind: "open-balls",
-          item: "pokeball",
-          label: "All my Poké Balls",
-          hint: "Only balls you own",
-          sprite: "pokeball"
-        });
-      }
+      buttons.push({
+        kind: "open-balls",
+        item: "pokeball",
+        label: "All my Poké Balls",
+        hint: used ? "Locked in" : disabled ? "Opens in Throw" : "Only balls you own",
+        sprite: "pokeball",
+        disabled: disabled || Boolean(used)
+      });
     };
     if ((joining && !me) || (preparing && !me)) {
       buttons.push({
@@ -146,30 +158,34 @@
     }
     if (joining && me && !me.prep) pushPrep(true);
     if (preparing && me && !me.prep) pushPrep(false);
-    if (preparing && me && me.prep && !me.ball) {
-      buttons.push({
-        kind: "open-balls",
-        item: "pokeball",
-        label: "Poké Balls",
-        hint: "Opens in Throw",
-        sprite: "pokeball",
-        disabled: true
-      });
+    if (preparing && me && me.prep) {
+      pushPrep(true, me.prep);
+      if (!me.ball) {
+        buttons.push({
+          kind: "open-balls",
+          item: "pokeball",
+          label: "Poké Balls",
+          hint: "Opens in Throw",
+          sprite: "pokeball",
+          disabled: true
+        });
+      }
     }
     if (throwing && me && !me.ball) pushBalls(false);
+    if (throwing && me && me.ball) pushBalls(true, me.ball);
+    let status = "";
+    if (joining && me && me.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for Prepare to finish.`;
+    else if (joining && me) status = "You joined the encounter! Wait for the next phase, and then use either a Berry or Honey.";
+    else if (preparing && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Poké Balls open in Throw.`;
+    else if (throwing && me?.ball) status = `${window.playItemLabel(me.ball)} locked in.`;
+    else if (!buttons.length && phase === "reveal") status = me?.result || "Results incoming.";
+    else if (!buttons.length && preparing && !me) status = "Join this encounter to take part.";
+    else if (!buttons.length && throwing && !me) status = "You needed to join before Throw.";
+    else if (!buttons.length && phase !== "join") status = "You needed to join during the join window.";
     if (!buttons.length) {
-      let status = "";
-      if (joining && me && me.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for Prepare to finish.`;
-      else if (joining && me) status = "You joined the encounter! Wait for the next phase, and then use either a Berry or Honey.";
-      else if (preparing && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Poké Balls open in Throw.`;
-      else if (throwing && me?.ball) status = `${window.playItemLabel(me.ball)} locked in.`;
-      else if (phase === "reveal") status = me?.result || "Results incoming.";
-      else if (preparing && !me) status = "Join this encounter to take part.";
-      else if (throwing && !me) status = "You needed to join before Throw.";
-      else if (phase !== "join") status = "You needed to join during the join window.";
       return { key: `wait:${phase}:${me?.prep || ""}:${me?.ball || ""}:${me?.result || ""}`, buttons, status };
     }
-    return { key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.hint}`).join("|"), buttons, status: "" };
+    return { key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.hint}`).join("|"), buttons, status };
   }
 
   function renderActions(data) {
@@ -179,12 +195,22 @@
     const heldKind = heldBtn?.dataset.kind;
     const nextKinds = plan.buttons.map((row) => row.kind).join("|");
     if (heldBtn && nextKinds && nextKinds.split("|").every((kind) => kind === heldKind)) {
+      plan.buttons.forEach((row, index) => {
+        const btn = els.actions.children[index];
+        if (!btn) return;
+        btn.disabled = Boolean(row.disabled);
+        const hint = btn.querySelector("em");
+        if (hint && row.hint) hint.textContent = row.hint;
+      });
       if (plan.status) els.actionStatus.textContent = plan.status;
       return;
     }
     if (key === lastActionKey && els.actions.children.length === plan.buttons.length) {
       plan.buttons.forEach((row, index) => {
-        const hint = els.actions.children[index]?.querySelector("em");
+        const btn = els.actions.children[index];
+        if (!btn) return;
+        btn.disabled = Boolean(row.disabled);
+        const hint = btn.querySelector("em");
         if (hint && row.hint) hint.textContent = row.hint;
       });
       if (plan.status) els.actionStatus.textContent = plan.status;
@@ -209,6 +235,7 @@
 
   function openThrowBalls(bag, mode) {
     if (!els.throwModal || !els.throwGrid) return;
+    if (mode === "throw" && state?.me?.ball) return;
     throwViewOnly = mode === "view";
     if (els.throwTitle) els.throwTitle.textContent = throwViewOnly ? "Your Poké Balls" : "All my Poké Balls";
     if (els.throwHint) {
@@ -274,7 +301,7 @@
     const round = liveRound(state);
     const view = { ...state, round };
     const results = round?.results;
-    if ((!round || round.paused) && els.throwModal?.open) {
+    if ((!round || round.paused || (state?.me?.ball && !throwViewOnly)) && els.throwModal?.open) {
       try { els.throwModal.close(); } catch (_) {}
     }
     const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${results?.caught || 0}:${(round?.catchers || []).length}`;
@@ -349,6 +376,8 @@
       return;
     }
     acting = true;
+    els.actions.querySelectorAll("button[data-kind]").forEach((btn) => { btn.disabled = true; });
+    els.throwGrid?.querySelectorAll("button[data-throw]").forEach((btn) => { btn.disabled = true; });
     try {
       const roundId = liveRound(state)?.id || null;
       const data = kind === "join"
@@ -359,10 +388,15 @@
       lastActionKey = "";
       if (kind === "join" && roundId) joinedMe.set(roundId, data?.me || { joined: true });
       if ((kind === "prepare" || kind === "throw") && roundId && data?.me) joinedMe.set(roundId, data.me);
+      if (kind === "throw" && els.throwModal?.open && !throwViewOnly) {
+        try { els.throwModal.close(); } catch (_) {}
+      }
       render(data);
       els.actionStatus.textContent = data.message || "";
     } catch (error) {
       els.actionStatus.textContent = window.playRpcError(error);
+      lastActionKey = "";
+      renderActions({ ...state, round: liveRound(state) });
     } finally {
       acting = false;
       if (refreshQueued) refresh();
@@ -372,13 +406,12 @@
   function pressAction(button) {
     if (!button || button.disabled) return;
     if (button.dataset.kind === "open-balls") {
+      if (state?.me?.ball) return;
       openThrowBalls(state?.bag || {}, "throw");
       return;
     }
     button.disabled = true;
-    act(button.dataset.kind, button.dataset.item || "").finally(() => {
-      if (button.isConnected) button.disabled = false;
-    });
+    act(button.dataset.kind, button.dataset.item || "");
   }
 
   els.actions.addEventListener("pointerdown", (event) => {
@@ -415,10 +448,9 @@
     if (!button || button.disabled || throwViewOnly) return;
     pointerHeld = true;
     button.disabled = true;
+    els.throwGrid.querySelectorAll("button[data-throw]").forEach((btn) => { btn.disabled = true; });
     els.throwModal?.close?.();
-    act("throw", button.dataset.throw).finally(() => {
-      if (button.isConnected) button.disabled = false;
-    });
+    act("throw", button.dataset.throw);
   });
   els.throwGrid?.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-throw]");
@@ -427,10 +459,9 @@
       return;
     }
     button.disabled = true;
+    els.throwGrid.querySelectorAll("button[data-throw]").forEach((btn) => { btn.disabled = true; });
     els.throwModal?.close?.();
-    act("throw", button.dataset.throw).finally(() => {
-      if (button.isConnected) button.disabled = false;
-    });
+    act("throw", button.dataset.throw);
   });
 
   async function loadProfile() {

@@ -20,6 +20,7 @@
   const CART_MAX_QTY = 99;
   let cart = loadCart();
   let checkoutNote = "";
+  let lastPurchase = null;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -78,6 +79,19 @@
   function addButton(sku, { avatar } = {}) {
     const attr = avatar ? `data-avatar-sku="${esc(sku)}"` : `data-sku="${esc(sku)}"`;
     return `<button type="button" class="mart-add" ${attr}>Add To Checkout</button>`;
+  }
+
+  function cartIconHtml(className) {
+    return `<svg class="${className || "mart-cart-icon"}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M3 3h2.2l.5 2h14.1l-1.7 8.2H8.4L8 15h11v2H6.2l.7-3.2L5 5H3zm5.2 16.2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m9.3 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
+    </svg>`;
+  }
+
+  function floorTabIcon(floor) {
+    if (floor?.kind === "balls") return window.playItemSprite(floor.icon || "poke-ball.png");
+    if (floor?.kind === "avatars") return window.playItemSprite(floor.icon || "images/trainers/premium-avatars.png");
+    if (floor?.kind === "bits") return window.playItemSprite(floor.icon || "amulet-coin.png");
+    return window.playItemSprite(floor?.icon || "relic-gold.png");
   }
 
   function art(item, fallback) {
@@ -476,12 +490,11 @@
   }
 
   function tabButtons(floors) {
-    const count = cartCount();
     const shelves = floors.map((floor, index) => {
       const id = floorTabId(floor, index);
-      return `<button class="mart-tab" type="button" role="tab" id="mart-tab-${esc(id)}" data-mart-tab="${esc(id)}" aria-controls="${esc(id)}" aria-selected="false" tabindex="-1">${esc(floor.name || "Shelf")}</button>`;
+      return `<button class="mart-tab" type="button" role="tab" id="mart-tab-${esc(id)}" data-mart-tab="${esc(id)}" aria-controls="${esc(id)}" aria-selected="false" tabindex="-1"><img class="mart-tab-icon" src="${esc(floorTabIcon(floor))}" alt=""><span class="mart-tab-label">${esc(floor.name || "Shelf")}</span></button>`;
     }).join("");
-    const checkout = `<button class="mart-tab mart-tab-checkout" type="button" role="tab" id="mart-tab-${CHECKOUT_TAB}" data-mart-tab="${CHECKOUT_TAB}" aria-controls="${CHECKOUT_TAB}" aria-selected="false" tabindex="-1">Checkout${count ? `<span class="mart-cart-count">${count}</span>` : ""}</button>`;
+    const checkout = `<button class="mart-tab mart-tab-checkout" type="button" role="tab" id="mart-tab-${CHECKOUT_TAB}" data-mart-tab="${CHECKOUT_TAB}" aria-controls="${CHECKOUT_TAB}" aria-selected="false" tabindex="-1">${checkoutTabLabel()}</button>`;
     return `<div class="mart-tabs" role="tablist" aria-label="Store shelves">${shelves}${checkout}</div>`;
   }
 
@@ -585,7 +598,7 @@
     const total = cart.reduce((n, row) => n + Number(findSku(row.sku)?.cost || 0) * row.qty, 0);
     const coins = Number(lastWallet?.coins || 0);
     const short = Boolean(lastWallet) && coins < total;
-    const body = count
+    const cartBody = count
       ? `<div class="mart-cart-list">${lines}</div>
          <div class="mart-cart-foot">
            <p class="mart-cart-total"><span>Total</span> <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(total)}</span></p>
@@ -593,26 +606,45 @@
            <button type="button" class="gold" data-checkout-buy${short ? " disabled" : ""}>Purchase</button>
          </div>`
       : `<div class="mart-cart-empty">
+           ${cartIconHtml("mart-cart-empty-icon")}
            <p>Your checkout is empty.</p>
            <p class="muted">Add items from the shelves, then come here to review quantities and purchase.</p>
          </div>`;
-    return `<section class="mart-floor mart-checkout-floor" id="${CHECKOUT_TAB}" role="tabpanel" aria-labelledby="mart-tab-${CHECKOUT_TAB}" data-mart-panel="${CHECKOUT_TAB}" hidden>
+    const fanfare = lastPurchase ? purchaseFanfareHtml(lastPurchase) : "";
+    return `<section class="mart-floor mart-checkout-floor${lastPurchase ? " is-fanfare" : ""}" id="${CHECKOUT_TAB}" role="tabpanel" aria-labelledby="mart-tab-${CHECKOUT_TAB}" data-mart-panel="${CHECKOUT_TAB}" hidden>
       <header class="mart-sign">
-        <img src="${esc(window.playItemSprite("relic-gold.png"))}" alt="">
+        ${cartIconHtml("mart-sign-cart")}
         <div>
           <h2 class="visually-hidden">Checkout</h2>
           <p class="mart-sign-title">Checkout</p>
-          <p class="muted">Review your items, then purchase them all at once.</p>
+          <p class="muted">${lastPurchase ? "Your items are in your bag!" : "Review your items, then purchase them all at once."}</p>
         </div>
       </header>
-      ${body}
+      ${fanfare || cartBody}
       <p class="mart-checkout-note" data-checkout-status${checkoutNote ? "" : " hidden"}>${esc(checkoutNote)}</p>
     </section>`;
   }
 
+  function purchaseFanfareHtml(receipt) {
+    const items = (receipt.lines || []).map((row) => `
+      <li>
+        <img src="${esc(row.sprite)}" alt="">
+        <strong>${esc(row.name)}</strong>
+        <span>×${row.qty}</span>
+      </li>`).join("");
+    return `<div class="mart-cart-fanfare" data-purchase-fanfare>
+      <div class="mart-cart-fanfare-burst" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="mart-cart-fanfare-kicker">Sold!</p>
+      <h3>Thank you for your purchase!</h3>
+      <ul class="mart-cart-fanfare-items">${items}</ul>
+      <p class="mart-cart-fanfare-total"><span>Paid</span> <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(receipt.total || 0)}</span></p>
+      <p class="muted">They’re in your bag now. Come back any time!</p>
+    </div>`;
+  }
+
   function checkoutTabLabel() {
     const count = cartCount();
-    return `Checkout${count ? `<span class="mart-cart-count">${count}</span>` : ""}`;
+    return `${cartIconHtml("mart-tab-icon mart-tab-cart")}<span class="mart-tab-label">Checkout</span>${count ? `<span class="mart-cart-count">${count}</span>` : ""}`;
   }
 
   function syncCheckoutUi({ bump } = {}) {
@@ -641,6 +673,7 @@
     if (!item || Number(item.bits || 0) > 0) return;
     if (item.pack && (lastOwned || []).includes(item.pack)) return;
     checkoutNote = "";
+    lastPurchase = null;
     const row = cart.find((entry) => entry.sku === sku);
     if (item.pack) {
       if (!row) cart.push({ sku, qty: 1 });
@@ -657,6 +690,7 @@
     const item = findSku(sku);
     const next = Math.trunc(Number(qty) || 0);
     checkoutNote = "";
+    lastPurchase = null;
     if (next < 1) {
       cart = cart.filter((row) => row.sku !== sku);
     } else {
@@ -746,12 +780,26 @@
     }
     if (button) button.disabled = true;
     try {
+      const receipt = {
+        total: cart.reduce((n, row) => n + Number(findSku(row.sku)?.cost || 0) * row.qty, 0),
+        lines: cart.map((row) => {
+          const item = findSku(row.sku);
+          return {
+            sku: row.sku,
+            qty: row.qty,
+            name: item?.name || row.sku,
+            sprite: cartLineSprite(item)
+          };
+        })
+      };
       const data = await window.playCall("play_buy_cart", {
         p_items: cart.map((row) => ({ sku: row.sku, qty: row.qty }))
       });
       cart = [];
       saveCart();
-      checkoutNote = data.message || "Purchased.";
+      checkoutNote = "";
+      lastPurchase = { ...receipt, message: data.message || "Purchased." };
+      lastTab = CHECKOUT_TAB;
       await refreshStore();
     } catch (error) {
       checkoutNote = window.playRpcError(error);

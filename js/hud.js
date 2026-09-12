@@ -190,6 +190,7 @@
     const live = round.phase && round.phase !== "closed";
     const honey = opts.showHoney === false ? "" : window.playHoneyCrewHtml(round);
     const catchSeq = window.playCatchSeqHtml(round, opts);
+    const seqScene = catchSeq ? window.playAdvanceCatchSeqState(round, opts.me || null).scene : "";
     const lastAction = opts.showLastAction === false
       ? ""
       : (round.lastAction ? `<p class="last-action" data-last>${round.lastAction}</p>` : `<p class="last-action" data-last hidden></p>`);
@@ -203,7 +204,7 @@
       : `<div class="dex-head"><span class="dex-ended">Encounter ended</span>${hidden}${paused}</div>`;
     return `
       ${header}
-      <div class="dex-stage${catchSeq ? " is-throwing" : ""}">
+      <div class="dex-stage${seqScene === "results" ? " is-revealed" : catchSeq ? " is-throwing" : ""}">
         ${sprite ? `<img src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
         <div class="dex-copy">
           <p class="wild-label">A wild</p>
@@ -266,7 +267,9 @@
   }
 
   function catchSeqCopy(st, round, species) {
-    if (st.scene === "results") return species;
+    if (st.scene === "results") {
+      return Number(round.results?.caught || 0) > 0 ? "Gotcha!" : "It got away!";
+    }
     if (st.scene === "personal") {
       return st.outcome === "caught"
         ? `Gotcha! ${species} was caught!`
@@ -317,9 +320,10 @@
     const caughtN = Number(results.caught || 0);
     const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
     const copy = catchSeqCopy(st, round, species);
-    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}`;
+    const win = caughtN > 0;
+    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" && win ? " is-win" : ""}`;
     return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}">
-      <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="catch-seq-stage">
         ${sprite ? `<img class="catch-seq-mon" src="${sprite}" alt="" onerror="window.playSpriteOnError(this)">` : ""}
         <img class="catch-seq-ball" src="${window.playItemSprite(ballKey)}" alt="">
@@ -329,9 +333,12 @@
       <p class="catch-seq-copy" data-seq-copy>${window.playEscapeAttr(copy)}</p>
       <div class="catch-seq-bar" aria-hidden="true"><i data-throw-bar style="width:${pct}%"></i></div>
       <div class="catch-seq-counts" data-seq-results>
-        <p class="fanfare-kicker">Results</p>
-        <p class="result-counts"><strong data-seq-caught>${caughtN}</strong> caught</p>
-        <p class="result-counts"><strong data-seq-missed>${missed}</strong> didn’t catch it</p>
+        <p class="fanfare-kicker">Encounter results</p>
+        <h3 data-seq-species>${window.playEscapeAttr(species)}</h3>
+        <div class="catch-seq-score">
+          <p class="catch-seq-score-win"><strong data-seq-caught>${caughtN}</strong><span>caught</span></p>
+          <p class="catch-seq-score-miss"><strong data-seq-missed>${missed}</strong><span>didn’t catch it</span></p>
+        </div>
       </div>
     </aside>`;
   };
@@ -347,10 +354,14 @@
     const bar = box.querySelector("[data-throw-bar]");
     if (bar && st.scene === "wobble") bar.style.width = `${window.playRevealSeqProgress(round)}%`;
     const results = round.results || {};
+    const caughtN = Number(results.caught || 0);
+    const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
     const caughtEl = box.querySelector("[data-seq-caught]");
     const missedEl = box.querySelector("[data-seq-missed]");
-    if (caughtEl) caughtEl.textContent = Number(results.caught || 0);
-    if (missedEl) missedEl.textContent = Number(results.escaped || 0) + Number(results.noThrow || 0);
+    const speciesEl = box.querySelector("[data-seq-species]");
+    if (caughtEl) caughtEl.textContent = caughtN;
+    if (missedEl) missedEl.textContent = missed;
+    if (speciesEl) speciesEl.textContent = species;
     box.dataset.seq = st.scene;
     box.dataset.outcome = st.outcome || "";
     box.classList.toggle("is-wobble", st.scene === "wobble");
@@ -358,7 +369,10 @@
     box.classList.toggle("is-results", st.scene === "results");
     box.classList.toggle("is-caught", st.outcome === "caught");
     box.classList.toggle("is-broke", st.outcome === "broke");
-    root.querySelector(".dex-stage")?.classList.add("is-throwing");
+    box.classList.toggle("is-win", st.scene === "results" && caughtN > 0);
+    const stage = root.querySelector(".dex-stage");
+    stage?.classList.toggle("is-throwing", st.scene !== "results");
+    stage?.classList.toggle("is-revealed", st.scene === "results");
     return true;
   };
 

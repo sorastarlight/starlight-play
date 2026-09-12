@@ -99,7 +99,7 @@
     els.join.value = settings.joinSeconds ?? 30;
     els.prepare.value = settings.prepareSeconds ?? 20;
     els.throw.value = settings.throwSeconds ?? 15;
-    els.reveal.value = settings.revealSeconds ?? 12;
+    els.reveal.value = settings.revealSeconds ?? 10;
     els.poke.value = settings.ballChances?.pokeball ?? 0.45;
     els.great.value = settings.ballChances?.greatball ?? 0.6;
     els.ultra.value = settings.ballChances?.ultraball ?? 0.75;
@@ -122,15 +122,20 @@
   function renderRound(round) {
     const shown = hubRound(round);
     const seqKeep = Boolean(shown && els.encounter.querySelector("[data-catch-seq]"));
+    const seqPhase = !shown
+      ? "idle"
+      : shown.phase === "closed"
+        ? (shown.resolved ? "results" : "reveal")
+        : shown.phase;
     const key = shown
-      ? `${shown.id}:${shown.phase === "closed" && shown.resolved ? "reveal" : shown.phase}:${shown.paused || false}`
+      ? `${shown.id}:${seqPhase}:${shown.resolved || false}:${shown.paused || false}`
       : "idle";
     const live = Boolean(shown && shown.phase && shown.phase !== "closed" && !shown.cancelled && !shown.resolved);
     if (els.clearRound) els.clearRound.disabled = !shown || live;
     if (els.advancePhase) {
       els.advancePhase.disabled = !shown || shown.phase === "closed" || shown.cancelled;
     }
-    if (seqKeep && shown && String(lastHubKey).startsWith(`${shown.id}:`)) {
+    if (seqKeep && shown && seqPhase !== "results" && String(lastHubKey).startsWith(`${shown.id}:`)) {
       window.playPatchEncounter(els.encounter, shown, 0, {});
       lastHubKey = key;
       return;

@@ -316,8 +316,10 @@
     if ((!round || round.paused || (state?.me?.ball && !throwViewOnly)) && els.throwModal?.open) {
       try { els.throwModal.close(); } catch (_) {}
     }
-    const seqPhase = (round?.phase === "closed" && round?.resolved) ? "reveal" : (round?.phase || "idle");
-    const key = `${round?.id || "none"}:${seqPhase}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${state?.me?.ball || ""}`;
+    const seqPhase = round?.phase === "closed"
+      ? (round.resolved ? "results" : "reveal")
+      : (round?.phase || "idle");
+    const key = `${round?.id || "none"}:${seqPhase}:${round?.resolved || false}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${state?.me?.ball || ""}:${state?.me?.result || ""}`;
     const bar = phaseBar(round);
     const patchOpts = { me: state?.me || null };
     lastLocalPhase = round?.phase || lastLocalPhase;
@@ -557,7 +559,7 @@
       return;
     }
     if (round.phase && round.phase !== lastLocalPhase) {
-      const keepSeq = lastLocalPhase === "reveal" && round.phase === "closed" && els.encounter.querySelector("[data-catch-seq]");
+      const keepSeq = lastLocalPhase === "reveal" && round.phase === "closed" && !round.resolved && els.encounter.querySelector("[data-catch-seq]");
       lastLocalPhase = round.phase;
       lastActionKey = "";
       if (keepSeq) {
@@ -600,7 +602,7 @@
       if (!tickLive._n) tickLive._n = 0;
       tickLive._n += 1;
       if (tickLive._n % 8 === 0) refresh();
-    } else if (round && round.phase && round.phase !== "closed") {
+    } else if (round) {
       refresh();
     } else {
       if (!tickLive._idle) tickLive._idle = 0;

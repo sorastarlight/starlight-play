@@ -289,33 +289,19 @@
   }
 
   window.playAdvanceCatchSeqState = function playAdvanceCatchSeqState(round, me) {
-    const fresh = !catchSeqByRound.has(round.id);
     const st = catchSeqState(round.id);
     if (round.paused && !round.resolved) return st;
     const pct = window.playRevealSeqProgress(round);
     const countdownDone = pct >= 99.5 || round.phase === "closed";
     const outcome = throwOutcome(me);
-    const ready = countdownDone && (me?.ball ? Boolean(outcome) : Boolean(round.resolved));
-    const now = Date.now();
     if (st.outcome !== "caught" && outcome === "caught") st.outcome = "caught";
-    if (fresh && ready) {
+    if (round.resolved && countdownDone) {
       st.scene = "results";
-      st.outcome = outcome;
+      st.outcome = outcome || st.outcome;
       return st;
     }
-    if (st.scene === "wobble" && ready) {
-      if (me?.ball) {
-        st.scene = "personal";
-        st.personalAt = now;
-        st.outcome = outcome;
-      } else {
-        st.scene = "results";
-        st.outcome = "";
-      }
-    }
-    if (st.scene === "personal" && st.personalAt && now - st.personalAt >= CATCH_PERSONAL_MS) {
-      st.scene = "results";
-    }
+    st.scene = "wobble";
+    st.personalAt = 0;
     return st;
   };
 

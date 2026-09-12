@@ -93,7 +93,7 @@
     const buttons = [];
     const throwing = typeof window.playIsThrowWindow === "function"
       ? window.playIsThrowWindow(round)
-      : (round.phase === "throw" || round.overlayPhase === "throw");
+      : round.phase === "throw";
     const canPrep = Boolean(me) && !me.prep && (round.phase === "join" || round.phase === "prepare" || throwing);
     if ((round.phase === "join" && !me) || (round.phase === "prepare" && !me) || (throwing && !me)) {
       buttons.push({
@@ -214,7 +214,7 @@
     if (!round || round.paused || acting || !me) return;
     const throwing = typeof window.playIsThrowWindow === "function"
       ? window.playIsThrowWindow(round)
-      : (round.phase === "throw" || round.overlayPhase === "throw");
+      : round.phase === "throw";
     if (!me.prep && prefs.autoPrep && prefs.defaultPrep !== "ask" && (round.phase === "join" || round.phase === "prepare" || throwing)) {
       if (maybeAutoAct._prep !== round.id) {
         maybeAutoAct._prep = round.id;

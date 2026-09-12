@@ -296,33 +296,19 @@
     const prepare = at("prepare");
     const throwAt = at("throw");
     const reveal = at("reveal");
-    let clock = round.phase || "closed";
-    if (join && now < join) clock = "join";
-    else if (prepare && now < prepare) clock = "prepare";
-    else if (throwAt && now < throwAt) clock = "throw";
-    else if (reveal && now < reveal) clock = "reveal";
-    else if (join || prepare || throwAt || reveal) clock = "closed";
-    if (freeze) return clock;
-    if (clock === "throw") return "throw";
-    const overlay = round.overlayPhase;
-    if (overlay === "throw" && (clock === "join" || clock === "prepare")) return "throw";
-    if (overlay && ["join", "prepare"].includes(overlay)
-        && window.playPhaseRank(overlay) > window.playPhaseRank(clock)) {
-      return overlay;
+    if (!join || !prepare || !throwAt || !reveal) {
+      return round.phase || "closed";
     }
-    return clock;
+    if (now < join) return "join";
+    if (now < prepare) return "prepare";
+    if (now < throwAt) return "throw";
+    if (now < reveal) return "reveal";
+    return "closed";
   };
 
   window.playIsThrowWindow = function playIsThrowWindow(round) {
     if (!round || round.cancelled || round.paused) return false;
-    if ((round.phase || window.playLocalPhase(round)) === "throw") return true;
-    const now = Date.now();
-    const prepare = Date.parse(round.deadlines?.prepare || "");
-    const throwAt = Date.parse(round.deadlines?.throw || "");
-    if (Number.isFinite(prepare) && Number.isFinite(throwAt)) {
-      return now >= prepare - 400 && now < throwAt + 400;
-    }
-    return round.overlayPhase === "throw";
+    return (round.phase || window.playLocalPhase(round)) === "throw";
   };
 
   window.playRoundIdleAt = function playRoundIdleAt(round) {

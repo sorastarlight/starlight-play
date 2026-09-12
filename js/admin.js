@@ -121,13 +121,19 @@
 
   function renderRound(round) {
     const shown = hubRound(round);
+    const seqKeep = Boolean(shown && els.encounter.querySelector("[data-catch-seq]"));
     const key = shown
-      ? `${shown.id}:${shown.phase}:${shown.paused || false}:${shown.resolved || false}`
+      ? `${shown.id}:${shown.phase === "closed" && shown.resolved ? "reveal" : shown.phase}:${shown.paused || false}`
       : "idle";
     const live = Boolean(shown && shown.phase && shown.phase !== "closed" && !shown.cancelled && !shown.resolved);
     if (els.clearRound) els.clearRound.disabled = !shown || live;
     if (els.advancePhase) {
       els.advancePhase.disabled = !shown || shown.phase === "closed" || shown.cancelled;
+    }
+    if (seqKeep && shown && String(lastHubKey).startsWith(`${shown.id}:`)) {
+      window.playPatchEncounter(els.encounter, shown, 0, {});
+      lastHubKey = key;
+      return;
     }
     if (key === lastHubKey && els.encounter.querySelector(".dex-stage, .dex-idle")) return;
     lastHubKey = key;

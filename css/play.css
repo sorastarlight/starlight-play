@@ -825,14 +825,215 @@ footer { margin-top: 24px; font-size: 13px; }
 .dex-stage.is-throwing > img {
   animation: throw-suck .55s ease forwards;
 }
-.throw-wait {
+.catch-seq {
+  position: relative;
   margin-top: 12px;
   padding: 12px 12px 14px;
+  min-height: 268px;
+  box-sizing: border-box;
   border-radius: 20px;
-  background: linear-gradient(180deg, #fff8fb, #ffe6f2);
   border: 3px solid #e8a0c8;
+  background: linear-gradient(180deg, #fff8fb, #ffe6f2);
   box-shadow: 0 6px 0 #d488b0;
   text-align: center;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.catch-seq.is-caught,
+.catch-seq.is-results {
+  border-color: #e8b01a;
+  background: linear-gradient(180deg, #fff8e8, #ffd24a);
+  box-shadow: 0 6px 0 #c48418;
+}
+.catch-seq.is-broke {
+  border-color: #d488b0;
+  background: linear-gradient(180deg, #fff4f8, #ffd0e0);
+  box-shadow: 0 6px 0 #d488b0;
+}
+.catch-seq-stage {
+  position: relative;
+  height: 120px;
+  width: 100%;
+  flex: none;
+}
+.catch-seq-ball {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  image-rendering: pixelated;
+  object-fit: contain;
+  transform-origin: 50% 70%;
+  z-index: 2;
+}
+.catch-seq.is-wobble .catch-seq-ball {
+  animation: throw-fly .4s ease-out both, throw-wobble .5s ease-in-out .5s infinite;
+}
+.catch-seq.is-caught .catch-seq-ball,
+.catch-seq.is-personal.is-caught .catch-seq-ball {
+  animation: catch-gotcha .85s ease-out forwards;
+}
+.catch-seq.is-broke .catch-seq-ball,
+.catch-seq.is-personal.is-broke .catch-seq-ball {
+  animation: catch-burst .7s ease-out forwards;
+}
+.catch-seq.is-results.is-caught .catch-seq-ball {
+  animation: none;
+  transform: none;
+  opacity: 1;
+}
+.catch-seq.is-results.is-broke .catch-seq-ball {
+  animation: none;
+  opacity: 0;
+}
+.catch-seq-mon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 72px;
+  height: 72px;
+  margin: -36px 0 0 -36px;
+  image-rendering: pixelated;
+  object-fit: contain;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.catch-seq.is-broke .catch-seq-mon,
+.catch-seq.is-personal.is-broke .catch-seq-mon {
+  animation: catch-flee 1.85s ease-in forwards;
+}
+.catch-seq.is-results .catch-seq-mon {
+  animation: none;
+  opacity: 0;
+}
+.catch-seq-copy {
+  min-height: 2.8em;
+  margin: 8px 0 10px;
+  font-weight: 800;
+  color: #6a3a58;
+  width: 100%;
+}
+.catch-seq.is-caught .catch-seq-copy,
+.catch-seq.is-results .catch-seq-copy { color: #5a3a08; }
+.catch-seq-bar {
+  height: 10px;
+  width: 100%;
+  flex: none;
+  border-radius: 999px;
+  background: #f3d4e6;
+  overflow: hidden;
+}
+.catch-seq-bar i {
+  display: block;
+  height: 100%;
+  width: 8%;
+  background: linear-gradient(90deg, #ff7ab0, #ffd24a);
+  border-radius: 999px;
+}
+.catch-seq.is-personal .catch-seq-bar,
+.catch-seq.is-results .catch-seq-bar {
+  visibility: hidden;
+}
+.catch-seq-counts {
+  min-height: 5.6em;
+  width: 100%;
+  visibility: hidden;
+}
+.catch-seq.is-results .catch-seq-counts { visibility: visible; }
+.catch-seq-fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.catch-seq-fx i {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: catch-seq-spark 1.15s ease-in-out infinite;
+}
+.catch-seq-fx i:nth-child(1) { left: 10%; top: 16%; }
+.catch-seq-fx i:nth-child(2) { left: 22%; top: 8%; background: #ff7ab0; animation-delay: .12s; }
+.catch-seq-fx i:nth-child(3) { right: 14%; top: 14%; animation-delay: .24s; }
+.catch-seq-fx i:nth-child(4) { right: 8%; top: 36%; background: #7ad0ff; animation-delay: .36s; }
+.catch-seq-fx i:nth-child(5) { left: 12%; bottom: 28%; background: #ffd24a; animation-delay: .18s; }
+.catch-seq-fx i:nth-child(6) { right: 18%; bottom: 22%; animation-delay: .3s; }
+.catch-seq-fx i:nth-child(7) { left: 46%; top: 6%; background: #ff8a4a; animation-delay: .08s; }
+.catch-seq-fx i:nth-child(8) { left: 58%; bottom: 14%; animation-delay: .42s; }
+.catch-seq.is-results .catch-seq-fx { opacity: .55; }
+.catch-seq-stars,
+.catch-seq-click {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+  z-index: 4;
+}
+.catch-seq-stars {
+  width: 88px;
+  height: 88px;
+  margin: -44px 0 0 -44px;
+  border-radius: 50%;
+  box-shadow:
+    -28px -8px 0 -10px #fff36a,
+    30px -6px 0 -10px #fff,
+    -4px -32px 0 -11px #ffd24a,
+    8px 30px 0 -11px #fff36a,
+    -32px 18px 0 -12px #fff,
+    34px 16px 0 -12px #ffd24a;
+  opacity: 0;
+}
+.catch-seq.is-caught .catch-seq-stars {
+  animation: catch-stars .9s ease-out forwards;
+}
+.catch-seq-click {
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border-radius: 50%;
+  border: 3px solid #fff8d0;
+  opacity: 0;
+}
+.catch-seq.is-caught .catch-seq-click {
+  animation: catch-click .7s ease-out forwards;
+}
+@keyframes catch-seq-spark {
+  0%, 100% { transform: scale(.55) rotate(0deg); opacity: .3; }
+  50% { transform: scale(1.2) rotate(16deg); opacity: 1; }
+}
+@keyframes catch-gotcha {
+  0% { transform: rotate(-16deg) scale(1); }
+  20% { transform: scale(1.24); filter: brightness(1.45); }
+  45% { transform: scale(.9); }
+  70% { transform: scale(1.08); }
+  100% { transform: scale(1); filter: none; }
+}
+@keyframes catch-burst {
+  0% { transform: rotate(0) scale(1); opacity: 1; }
+  28% { transform: rotate(-28deg) scale(1.18); }
+  100% { transform: rotate(42deg) scale(1.85); opacity: 0; }
+}
+@keyframes catch-flee {
+  0% { opacity: 0; transform: scale(.35); }
+  16% { opacity: 1; transform: scale(1); }
+  52% { opacity: 1; transform: translateX(0) scale(1); }
+  100% { opacity: 0; transform: translateX(150px) scale(.72); }
+}
+@keyframes catch-stars {
+  0% { opacity: 0; transform: scale(.4); }
+  40% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: .85; transform: scale(1); }
+}
+@keyframes catch-click {
+  0% { opacity: 1; transform: scale(.3); }
+  100% { opacity: 0; transform: scale(3.4); }
 }
 .throw-wait p {
   margin: 8px 0 10px;

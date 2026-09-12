@@ -185,7 +185,7 @@
       ({ status, statusHtml } = prepWait(me.prep));
     } else if (throwing && me?.ball) {
       ({ status, statusHtml } = throwWait(me.ball));
-    } else if (!buttons.length && phase === "reveal") status = me?.result || "Results incoming.";
+    } else if (!buttons.length && phase === "reveal") status = "";
     else if (!buttons.length && preparing && !me) status = "Join this encounter to take part.";
     else if (!buttons.length && throwing && !me) status = "You needed to join before Throw.";
     else if (!buttons.length && phase !== "join") status = "You needed to join during the join window.";
@@ -313,29 +313,31 @@
     state = attachMe(data);
     const round = liveRound(state);
     const view = { ...state, round };
-    const results = round?.results;
     if ((!round || round.paused || (state?.me?.ball && !throwViewOnly)) && els.throwModal?.open) {
       try { els.throwModal.close(); } catch (_) {}
     }
-    const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${results?.caught || 0}:${(round?.catchers || []).length}:${state?.me?.ball || ""}`;
+    const seqPhase = (round?.phase === "closed" && round?.resolved) ? "reveal" : (round?.phase || "idle");
+    const key = `${round?.id || "none"}:${seqPhase}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${state?.me?.ball || ""}`;
     const bar = phaseBar(round);
-    lastLocalPhase = round?.phase || "";
+    const patchOpts = { me: state?.me || null };
+    lastLocalPhase = round?.phase || lastLocalPhase;
     const hasLiveDom = Boolean(els.encounter?.querySelector(".dex-stage"));
     const paintFull = () => {
       els.encounter.innerHTML = window.playRenderEncounter(round, {
         bar,
         showHoney: false,
         showLastAction: false,
-        throwBall: state?.me?.ball || "pokeball"
+        throwBall: state?.me?.ball || "pokeball",
+        me: state?.me || null
       });
       lastEncounterKey = key;
     };
     if (pointerHeld && hasLiveDom) {
-      window.playPatchEncounter(els.encounter, round, bar);
+      window.playPatchEncounter(els.encounter, round, bar, patchOpts);
     } else if (key !== lastEncounterKey || Boolean(round) !== hasLiveDom) {
       paintFull();
     } else if (hasLiveDom) {
-      window.playPatchEncounter(els.encounter, round, bar);
+      window.playPatchEncounter(els.encounter, round, bar, patchOpts);
     }
     const bag = state?.bag;
     const kitKey = bag ? `in:${bag.berry}:${bag.bait}:${bag.lure}` : "out";
@@ -549,15 +551,22 @@
       return;
     }
     const bar = phaseBar(round);
-    if (!window.playPatchEncounter(els.encounter, round, bar)) {
+    const patchOpts = { me: state?.me || null };
+    if (!window.playPatchEncounter(els.encounter, round, bar, patchOpts)) {
       lastEncounterKey = "";
       if (!pointerHeld) render({ ...state, round });
       return;
     }
     if (round.phase && round.phase !== lastLocalPhase) {
+      const keepSeq = lastLocalPhase === "reveal" && round.phase === "closed" && els.encounter.querySelector("[data-catch-seq]");
       lastLocalPhase = round.phase;
-      lastEncounterKey = "";
       lastActionKey = "";
+      if (keepSeq) {
+        renderActions({ ...state, round });
+        refresh();
+        return;
+      }
+      lastEncounterKey = "";
       if (pointerHeld) {
         renderActions({ ...state, round });
         return;

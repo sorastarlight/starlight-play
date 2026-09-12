@@ -189,8 +189,7 @@
     const paused = round.paused ? `<span class="chip pause">Paused</span>` : "";
     const live = round.phase && round.phase !== "closed";
     const honey = opts.showHoney === false ? "" : window.playHoneyCrewHtml(round);
-    const fanfare = window.playCatchFanfareHtml(round);
-    const throwWait = fanfare ? "" : window.playThrowWaitHtml(round, opts.throwBall);
+    const catchSeq = window.playCatchSeqHtml(round, opts);
     const lastAction = opts.showLastAction === false
       ? ""
       : (round.lastAction ? `<p class="last-action" data-last>${round.lastAction}</p>` : `<p class="last-action" data-last hidden></p>`);
@@ -204,7 +203,7 @@
       : `<div class="dex-head"><span class="dex-ended">Encounter ended</span>${hidden}${paused}</div>`;
     return `
       ${header}
-      <div class="dex-stage${throwWait ? " is-throwing" : ""}">
+      <div class="dex-stage${catchSeq ? " is-throwing" : ""}">
         ${sprite ? `<img src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
         <div class="dex-copy">
           <p class="wild-label">A wild</p>
@@ -228,30 +227,143 @@
       </dl>
       ${lastAction}
       ${honey}
-      ${throwWait}
-      ${fanfare}`;
+      ${catchSeq}`;
+  };
+
+  const catchSeqByRound = new Map();
+  const CATCH_PERSONAL_MS = 2600;
+
+  window.playShowCatchSeq = function playShowCatchSeq(round) {
+    if (!round || round.cancelled) return false;
+    if (round.phase === "reveal" || round.phase === "closed") return true;
+    if (round.resolved) return true;
+    return false;
+  };
+
+  window.playRevealSeqProgress = function playRevealSeqProgress(round) {
+    const start = Date.parse(round?.deadlines?.throw || "");
+    const end = Date.parse(round?.deadlines?.reveal || "");
+    if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) {
+      return round?.resolved ? 100 : 8;
+    }
+    const freeze = round.paused && !round.resolved;
+    const now = freeze ? Date.parse(round.pausedAt || "") : Date.now();
+    const t = Number.isFinite(now) ? now : Date.now();
+    return Math.max(8, Math.min(100, ((t - start) / (end - start)) * 100));
   };
 
   window.playThrowWaitProgress = function playThrowWaitProgress(round) {
-    const start = Date.parse(round?.deadlines?.throw || "");
-    if (!Number.isFinite(start)) return 8;
-    const span = 3000;
-    return Math.max(8, Math.min(100, ((Date.now() - start) / span) * 100));
+    return window.playRevealSeqProgress(round);
+  };
+
+  function catchSeqState(roundId) {
+    let st = catchSeqByRound.get(roundId);
+    if (!st) {
+      st = { scene: "wobble", personalAt: 0, outcome: "" };
+      catchSeqByRound.set(roundId, st);
+    }
+    return st;
+  }
+
+  function catchSeqCopy(st, round, species) {
+    if (st.scene === "results") return species;
+    if (st.scene === "personal") {
+      return st.outcome === "caught"
+        ? `Gotcha! ${species} was caught!`
+        : "Oh no! The Pokémon broke free!";
+    }
+    const pct = window.playRevealSeqProgress(round);
+    if (pct >= 100 && !round.resolved) return "Waiting for the result…";
+    return "The Poké Ball is wobbling…";
+  }
+
+  window.playAdvanceCatchSeqState = function playAdvanceCatchSeqState(round, me) {
+    const fresh = !catchSeqByRound.has(round.id);
+    const st = catchSeqState(round.id);
+    if (round.paused && !round.resolved) return st;
+    const pct = window.playRevealSeqProgress(round);
+    const countdownDone = pct >= 99.5 || round.phase === "closed";
+    const now = Date.now();
+    if (fresh && round.resolved && countdownDone) {
+      st.scene = "results";
+      st.outcome = me?.ball ? (me.caught ? "caught" : "broke") : "";
+      return st;
+    }
+    if (st.scene === "wobble" && round.resolved && countdownDone) {
+      if (me?.ball) {
+        st.scene = "personal";
+        st.personalAt = now;
+        st.outcome = me.caught ? "caught" : "broke";
+      } else {
+        st.scene = "results";
+        st.outcome = "";
+      }
+    }
+    if (st.scene === "personal" && st.personalAt && now - st.personalAt >= CATCH_PERSONAL_MS) {
+      st.scene = "results";
+    }
+    return st;
+  };
+
+  window.playCatchSeqHtml = function playCatchSeqHtml(round, opts) {
+    if (!window.playShowCatchSeq(round)) return "";
+    const me = opts?.me || null;
+    const st = window.playAdvanceCatchSeqState(round, me);
+    const ballKey = opts?.throwBall || me?.ball || "pokeball";
+    const species = window.playDisplayName(round, { plain: true });
+    const sprite = window.playSpriteUrl(round.dex, round.variant);
+    const pct = window.playRevealSeqProgress(round);
+    const results = round.results || {};
+    const caughtN = Number(results.caught || 0);
+    const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
+    const copy = catchSeqCopy(st, round, species);
+    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}`;
+    return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}">
+      <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="catch-seq-stage">
+        ${sprite ? `<img class="catch-seq-mon" src="${sprite}" alt="" onerror="window.playSpriteOnError(this)">` : ""}
+        <img class="catch-seq-ball" src="${window.playItemSprite(ballKey)}" alt="">
+        <span class="catch-seq-stars" aria-hidden="true"></span>
+        <span class="catch-seq-click" aria-hidden="true"></span>
+      </div>
+      <p class="catch-seq-copy" data-seq-copy>${window.playEscapeAttr(copy)}</p>
+      <div class="catch-seq-bar" aria-hidden="true"><i data-throw-bar style="width:${pct}%"></i></div>
+      <div class="catch-seq-counts" data-seq-results>
+        <p class="fanfare-kicker">Results</p>
+        <p class="result-counts"><strong data-seq-caught>${caughtN}</strong> caught</p>
+        <p class="result-counts"><strong data-seq-missed>${missed}</strong> didn’t catch it</p>
+      </div>
+    </aside>`;
+  };
+
+  window.playAdvanceCatchSeq = function playAdvanceCatchSeq(root, round, me) {
+    const box = root?.querySelector("[data-catch-seq]");
+    if (!box || !round) return false;
+    const st = window.playAdvanceCatchSeqState(round, me);
+    const species = window.playDisplayName(round, { plain: true });
+    const copy = catchSeqCopy(st, round, species);
+    const copyEl = box.querySelector("[data-seq-copy]");
+    if (copyEl && copyEl.textContent !== copy) copyEl.textContent = copy;
+    const bar = box.querySelector("[data-throw-bar]");
+    if (bar && st.scene === "wobble") bar.style.width = `${window.playRevealSeqProgress(round)}%`;
+    const results = round.results || {};
+    const caughtEl = box.querySelector("[data-seq-caught]");
+    const missedEl = box.querySelector("[data-seq-missed]");
+    if (caughtEl) caughtEl.textContent = Number(results.caught || 0);
+    if (missedEl) missedEl.textContent = Number(results.escaped || 0) + Number(results.noThrow || 0);
+    box.dataset.seq = st.scene;
+    box.dataset.outcome = st.outcome || "";
+    box.classList.toggle("is-wobble", st.scene === "wobble");
+    box.classList.toggle("is-personal", st.scene === "personal");
+    box.classList.toggle("is-results", st.scene === "results");
+    box.classList.toggle("is-caught", st.outcome === "caught");
+    box.classList.toggle("is-broke", st.outcome === "broke");
+    root.querySelector(".dex-stage")?.classList.add("is-throwing");
+    return true;
   };
 
   window.playThrowWaitHtml = function playThrowWaitHtml(round, ball) {
-    if (!round || round.paused || round.cancelled) return "";
-    if (round.resolved || round.results) return "";
-    if (round.phase !== "reveal") return "";
-    const ballKey = ball || "pokeball";
-    const pct = window.playThrowWaitProgress(round);
-    return `<aside class="throw-wait" data-throw-wait>
-      <div class="throw-wait-stage">
-        <img class="throw-wait-ball" src="${window.playItemSprite(ballKey)}" alt="">
-      </div>
-      <p>The Poké Ball is wobbling…</p>
-      <div class="throw-wait-bar" aria-hidden="true"><i data-throw-bar style="width:${pct}%"></i></div>
-    </aside>`;
+    return window.playCatchSeqHtml(round, { throwBall: ball });
   };
 
   window.playHoneyCrewHtml = function playHoneyCrewHtml(round) {
@@ -282,7 +394,7 @@
     </section>`;
   };
 
-  window.playPatchEncounter = function playPatchEncounter(root, round, bar) {
+  window.playPatchEncounter = function playPatchEncounter(root, round, bar, extra) {
     if (!root || !round) return false;
     if (!root.querySelector(".dex-stage")) return false;
     const seconds = window.playEncounterSecondsLeft(round);
@@ -299,13 +411,10 @@
     if (phaseEl) phaseEl.textContent = phase;
     if (phaseName) phaseName.textContent = phase;
     if (barEl) barEl.style.width = `${bar || 0}%`;
-    const throwBar = root.querySelector("[data-throw-bar]");
-    if (throwBar) throwBar.style.width = `${window.playThrowWaitProgress(round)}%`;
-    const wantsWait = Boolean(window.playThrowWaitHtml(round, "pokeball"));
-    const hasWait = Boolean(root.querySelector("[data-throw-wait]"));
-    const wantsFanfare = Boolean(window.playCatchFanfareHtml(round));
-    const hasFanfare = Boolean(root.querySelector(".catch-fanfare"));
-    if (wantsWait !== hasWait || wantsFanfare !== hasFanfare) return false;
+    const wantsSeq = window.playShowCatchSeq(round);
+    const hasSeq = Boolean(root.querySelector("[data-catch-seq]"));
+    if (wantsSeq !== hasSeq) return false;
+    if (wantsSeq) window.playAdvanceCatchSeq(root, round, extra?.me || null);
     const setStat = (key, value) => {
       const el = root.querySelector(`[data-stat="${key}"]`);
       if (el) el.textContent = value;

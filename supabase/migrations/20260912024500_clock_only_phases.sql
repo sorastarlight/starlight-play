@@ -54,6 +54,7 @@ begin
       and coalesce(resolved, false) = false
       and paused_at is null
       and deadlines is not null
+      and coalesce(started_at, updated_at) > now() - interval '2 hours'
       and now() >= coalesce(
         (deadlines->>'throw')::timestamptz,
         (deadlines->>'reveal')::timestamptz,

@@ -158,19 +158,7 @@
     }
     if (joining && me && !me.prep) pushPrep(true);
     if (preparing && me && !me.prep) pushPrep(false);
-    if (preparing && me && me.prep) {
-      pushPrep(true, me.prep);
-      if (!me.ball) {
-        buttons.push({
-          kind: "open-balls",
-          item: "pokeball",
-          label: "Poké Balls",
-          hint: "Opens in Throw",
-          sprite: "pokeball",
-          disabled: true
-        });
-      }
-    }
+    if (preparing && me && me.prep) pushPrep(true, me.prep);
     if (throwing && me && !me.ball) pushBalls(false);
     if (throwing && me && me.ball) pushBalls(true, me.ball);
     const esc = (value) => window.playEscapeAttr(String(value || ""));
@@ -329,12 +317,17 @@
     if ((!round || round.paused || (state?.me?.ball && !throwViewOnly)) && els.throwModal?.open) {
       try { els.throwModal.close(); } catch (_) {}
     }
-    const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${results?.caught || 0}:${(round?.catchers || []).length}`;
+    const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${results?.caught || 0}:${(round?.catchers || []).length}:${state?.me?.ball || ""}`;
     const bar = phaseBar(round);
     lastLocalPhase = round?.phase || "";
     const hasLiveDom = Boolean(els.encounter?.querySelector(".dex-stage"));
     const paintFull = () => {
-      els.encounter.innerHTML = window.playRenderEncounter(round, { bar, showHoney: false });
+      els.encounter.innerHTML = window.playRenderEncounter(round, {
+        bar,
+        showHoney: false,
+        showLastAction: false,
+        throwBall: state?.me?.ball || "pokeball"
+      });
       lastEncounterKey = key;
     };
     if (pointerHeld && hasLiveDom) {

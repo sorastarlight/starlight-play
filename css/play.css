@@ -815,6 +815,70 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .fanfare-empty { margin: 0 0 8px; font-weight: 800; color: #6b5a3a; }
 .catch-fanfare .result-line { margin: 0; color: #6b4a12; }
+.result-counts {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #5a3a08;
+}
+.result-counts strong { font-size: 24px; }
+.dex-stage.is-throwing > img {
+  animation: throw-suck .55s ease forwards;
+}
+.throw-wait {
+  margin-top: 12px;
+  padding: 12px 12px 14px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fff8fb, #ffe6f2);
+  border: 3px solid #e8a0c8;
+  box-shadow: 0 6px 0 #d488b0;
+  text-align: center;
+}
+.throw-wait p {
+  margin: 8px 0 10px;
+  font-weight: 800;
+  color: #6a3a58;
+}
+.throw-wait-stage {
+  position: relative;
+  height: 84px;
+  display: grid;
+  place-items: center;
+}
+.throw-wait-ball {
+  width: 56px;
+  height: 56px;
+  image-rendering: pixelated;
+  object-fit: contain;
+  animation: throw-fly .4s ease-out both, throw-wobble .5s ease-in-out .5s infinite;
+  transform-origin: 50% 70%;
+}
+.throw-wait-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: #f3d4e6;
+  overflow: hidden;
+}
+.throw-wait-bar i {
+  display: block;
+  height: 100%;
+  width: 8%;
+  background: linear-gradient(90deg, #ff7ab0, #ffd24a);
+  border-radius: 999px;
+}
+@keyframes throw-fly {
+  from { transform: translate(70px, 48px) scale(.35) rotate(-50deg); opacity: 0; }
+  to { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
+}
+@keyframes throw-wobble {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-22deg); }
+  75% { transform: rotate(22deg); }
+}
+@keyframes throw-suck {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
 .honey-crew {
   display: grid;
   grid-template-columns: 40px minmax(0, 1fr);
@@ -858,6 +922,7 @@ footer { margin-top: 24px; font-size: 13px; }
   padding: 4px 6px;
 }
 .live-feed li.is-honey span { color: #ffe08a; }
+.live-feed li.is-catch span { color: #b8ffd0; }
 .item-copy {
   display: flex;
   flex-direction: column;

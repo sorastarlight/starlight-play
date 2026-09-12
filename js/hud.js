@@ -190,6 +190,10 @@
     const live = round.phase && round.phase !== "closed";
     const honey = opts.showHoney === false ? "" : window.playHoneyCrewHtml(round);
     const fanfare = window.playCatchFanfareHtml(round);
+    const throwWait = fanfare ? "" : window.playThrowWaitHtml(round, opts.throwBall);
+    const lastAction = opts.showLastAction === false
+      ? ""
+      : (round.lastAction ? `<p class="last-action" data-last>${round.lastAction}</p>` : `<p class="last-action" data-last hidden></p>`);
     const header = live
       ? `<div class="dex-head dex-live-fanfare">
           <span class="live-burst">LIVE</span>
@@ -200,7 +204,7 @@
       : `<div class="dex-head"><span class="dex-ended">Encounter ended</span>${hidden}${paused}</div>`;
     return `
       ${header}
-      <div class="dex-stage">
+      <div class="dex-stage${throwWait ? " is-throwing" : ""}">
         ${sprite ? `<img src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
         <div class="dex-copy">
           <p class="wild-label">A wild</p>
@@ -222,9 +226,32 @@
         <div><dt>Throws</dt><dd data-stat="thrown">${round.thrown || 0}</dd></div>
         <div><dt>Honey bonus</dt><dd data-stat="bait">+${round.baitBonusPercent || 0}%</dd></div>
       </dl>
-      ${round.lastAction ? `<p class="last-action" data-last>${round.lastAction}</p>` : `<p class="last-action" data-last hidden></p>`}
+      ${lastAction}
       ${honey}
+      ${throwWait}
       ${fanfare}`;
+  };
+
+  window.playThrowWaitProgress = function playThrowWaitProgress(round) {
+    const start = Date.parse(round?.deadlines?.throw || "");
+    if (!Number.isFinite(start)) return 8;
+    const span = 3000;
+    return Math.max(8, Math.min(100, ((Date.now() - start) / span) * 100));
+  };
+
+  window.playThrowWaitHtml = function playThrowWaitHtml(round, ball) {
+    if (!round || round.paused || round.cancelled) return "";
+    if (round.resolved || round.results) return "";
+    if (round.phase !== "reveal") return "";
+    const ballKey = ball || "pokeball";
+    const pct = window.playThrowWaitProgress(round);
+    return `<aside class="throw-wait" data-throw-wait>
+      <div class="throw-wait-stage">
+        <img class="throw-wait-ball" src="${window.playItemSprite(ballKey)}" alt="">
+      </div>
+      <p>The Poké Ball is wobbling…</p>
+      <div class="throw-wait-bar" aria-hidden="true"><i data-throw-bar style="width:${pct}%"></i></div>
+    </aside>`;
   };
 
   window.playHoneyCrewHtml = function playHoneyCrewHtml(round) {
@@ -242,32 +269,16 @@
   };
 
   window.playCatchFanfareHtml = function playCatchFanfareHtml(round) {
-    const results = round?.results;
-    const catchers = Array.isArray(round?.catchers) ? round.catchers : (results?.catchers || []);
-    const caughtN = Number(results?.caught || 0);
-    const escapedN = Number(results?.escaped || 0);
-    const noThrowN = Number(results?.noThrow || 0);
-    const settled = Boolean(results) && (caughtN + escapedN + noThrowN > 0 || catchers.length > 0);
-    if (!settled) return "";
-    const got = catchers.length || caughtN;
+    if (!round?.resolved) return "";
+    const results = round.results || {};
+    const caughtN = Number(results.caught || 0);
+    const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
     const species = window.playDisplayName(round);
-    const headline = got
-      ? (got === 1 ? `1 trainer caught ${species}!` : `${got} trainers caught ${species}!`)
-      : `${species} got away!`;
-    const list = catchers.length
-      ? `<ul class="catcher-list">${catchers.map((row) => `
-          <li>
-            <img src="${window.playItemSprite(row.ball || "pokeball")}" alt="">
-            <span>${window.playEscapeAttr(row.name || "Trainer")}</span>
-            <em>${window.playEscapeAttr(window.playItemLabel(row.ball || "pokeball"))}</em>
-          </li>`).join("")}</ul>`
-      : `<p class="fanfare-empty">Nobody landed a catch this time.</p>`;
-    return `<section class="catch-fanfare${got ? " is-win" : ""}">
-      <p class="fanfare-kicker">${got ? "Gotcha!" : "Encounter results"}</p>
-      <h3>${window.playEscapeAttr(headline)}</h3>
-      ${got ? `<p class="fanfare-sub">Everyone who caught it:</p>` : ""}
-      ${list}
-      <p class="result-line">Caught ${caughtN} · Escaped ${escapedN} · No throw ${noThrowN}</p>
+    return `<section class="catch-fanfare${caughtN ? " is-win" : ""}">
+      <p class="fanfare-kicker">Results</p>
+      <h3>${window.playEscapeAttr(species)}</h3>
+      <p class="result-counts"><strong>${caughtN}</strong> caught</p>
+      <p class="result-counts"><strong>${missed}</strong> didn’t catch it</p>
     </section>`;
   };
 
@@ -288,6 +299,13 @@
     if (phaseEl) phaseEl.textContent = phase;
     if (phaseName) phaseName.textContent = phase;
     if (barEl) barEl.style.width = `${bar || 0}%`;
+    const throwBar = root.querySelector("[data-throw-bar]");
+    if (throwBar) throwBar.style.width = `${window.playThrowWaitProgress(round)}%`;
+    const wantsWait = Boolean(window.playThrowWaitHtml(round, "pokeball"));
+    const hasWait = Boolean(root.querySelector("[data-throw-wait]"));
+    const wantsFanfare = Boolean(window.playCatchFanfareHtml(round));
+    const hasFanfare = Boolean(root.querySelector(".catch-fanfare"));
+    if (wantsWait !== hasWait || wantsFanfare !== hasFanfare) return false;
     const setStat = (key, value) => {
       const el = root.querySelector(`[data-stat="${key}"]`);
       if (el) el.textContent = value;
@@ -318,6 +336,10 @@
       return `<li>${time}<span><strong>${name}</strong> has selected their Poké Ball and is ready to throw!</span></li>`;
     }
     if (row?.kind === "threw") return `<li>${time}<span><strong>${name}</strong> threw a ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
+    if (row?.kind === "caught") {
+      const mon = window.playEscapeAttr(row.item || "the Pokémon");
+      return `<li class="is-catch">${time}<span><strong>${name}</strong> caught ${mon}</span></li>`;
+    }
     if (row?.kind === "pause") return `<li>${time}<span>Encounter paused</span></li>`;
     if (row?.kind === "resume") return `<li>${time}<span>Encounter resumed</span></li>`;
     if (row?.kind === "gift") {

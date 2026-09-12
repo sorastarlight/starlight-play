@@ -160,7 +160,7 @@
     if (!buttons.length) {
       let status = "";
       if (joining && me && me.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for Prepare to finish.`;
-      else if (joining && me) status = "You joined. Berry and Honey open in Prepare.";
+      else if (joining && me) status = "You joined the encounter! Wait for the next phase, and then use either a Berry or Honey.";
       else if (preparing && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Poké Balls open in Throw.`;
       else if (throwing && me?.ball) status = `${window.playItemLabel(me.ball)} locked in.`;
       else if (phase === "reveal") status = me?.result || "Results incoming.";

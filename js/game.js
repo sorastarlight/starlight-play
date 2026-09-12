@@ -276,7 +276,11 @@
     return "normal";
   };
 
-  window.PLAY_ROUND_IDLE_AFTER_MS = 3 * 60 * 1000;
+  window.PLAY_ROUND_IDLE_AFTER_MS = 8 * 1000;
+
+  window.playPhaseRank = function playPhaseRank(phase) {
+    return ({ join: 1, prepare: 2, throw: 3, reveal: 4, closed: 5 }[phase] || 0);
+  };
 
   window.playLocalPhase = function playLocalPhase(round) {
     if (!round || round.cancelled) return "closed";
@@ -292,33 +296,67 @@
     const prepare = at("prepare");
     const throwAt = at("throw");
     const reveal = at("reveal");
-    if (join && now < join) return "join";
-    if (prepare && now < prepare) return "prepare";
-    if (throwAt && now < throwAt) return "throw";
-    if (reveal && now < reveal) return "reveal";
-    if (join || prepare || throwAt || reveal) return "closed";
-    return round.phase || "closed";
+    let clock = round.phase || "closed";
+    if (join && now < join) clock = "join";
+    else if (prepare && now < prepare) clock = "prepare";
+    else if (throwAt && now < throwAt) clock = "throw";
+    else if (reveal && now < reveal) clock = "reveal";
+    else if (join || prepare || throwAt || reveal) clock = "closed";
+    if (freeze) return clock;
+    const overlay = round.overlayPhase;
+    if (overlay && ["join", "prepare", "throw", "reveal"].includes(overlay)
+        && window.playPhaseRank(overlay) > window.playPhaseRank(clock)) {
+      return overlay;
+    }
+    return clock;
   };
 
   window.playRoundIdleAt = function playRoundIdleAt(round) {
     if (!round) return 0;
-    const from = Date.parse(round.deadlines?.reveal || round.endsAt || round.startedAt || "");
+    const from = Date.parse(round.deadlines?.reveal || round.endsAt || "");
     if (!Number.isFinite(from)) return 0;
-    return from + (window.PLAY_ROUND_IDLE_AFTER_MS || 180000);
+    return from + (window.PLAY_ROUND_IDLE_AFTER_MS || 8000);
   };
 
   window.playApplyLocalRound = function playApplyLocalRound(round) {
-    if (!round) return round;
-    const hasCatch = Number(round.results?.caught || 0) > 0 || (Array.isArray(round.catchers) && round.catchers.length > 0);
-    const threw = Number(round.thrown || 0) > 0 || Boolean(round.resolved);
-    if (round.cancelled && !hasCatch && !threw) return null;
-    const local = round.cancelled ? "closed" : window.playLocalPhase(round);
+    if (!round || round.cancelled) return null;
+    const local = window.playLocalPhase(round);
+    const idleAt = window.playRoundIdleAt(round);
+    if (idleAt && Date.now() >= idleAt && !round.paused) return null;
     const revealAt = Date.parse(round.deadlines?.reveal || round.endsAt || "");
-    const freeze = round.paused && !round.resolved && !round.cancelled;
+    const freeze = round.paused && !round.resolved;
     const revealPassed = Number.isFinite(revealAt) && Date.now() >= revealAt && !freeze;
-    const shownPhase = revealPassed || round.cancelled ? "closed" : local;
+    const shownPhase = revealPassed ? "closed" : local;
     const ends = round.deadlines?.[shownPhase] || round.endsAt;
     return { ...round, phase: shownPhase, endsAt: ends || round.endsAt };
+  };
+
+  window.playOwnedBalls = function playOwnedBalls(bag) {
+    return (window.PLAY_BALLS || []).filter((row) => Number(bag?.[row.key] || 0) > 0);
+  };
+
+  window.playEncounterSettings = function playEncounterSettings(raw) {
+    const next = raw && typeof raw === "object" ? raw : {};
+    const balls = Array.isArray(next.favoriteBalls)
+      ? next.favoriteBalls.filter((key, index, list) => list.indexOf(key) === index && window.playBallInfo(key)).slice(0, 6)
+      : [];
+    const prep = ["berry", "bait", "ask"].includes(next.defaultPrep) ? next.defaultPrep : "ask";
+    return {
+      favoriteBalls: balls.length ? balls : ["pokeball", "greatball", "ultraball"],
+      defaultPrep: prep,
+      autoPrep: Boolean(next.autoPrep),
+      autoThrow: Boolean(next.autoThrow)
+    };
+  };
+
+  window.playFavoriteBalls = function playFavoriteBalls(bag, settings) {
+    const owned = window.playOwnedBalls(bag);
+    const prefs = window.playEncounterSettings(settings);
+    const picked = prefs.favoriteBalls
+      .map((key) => owned.find((row) => row.key === key))
+      .filter(Boolean);
+    if (picked.length) return picked;
+    return owned.slice(0, 3);
   };
 
   window.playSpriteUrl = function playSpriteUrl(dex, variant) {

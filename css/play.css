@@ -664,10 +664,23 @@ footer { margin-top: 24px; font-size: 13px; }
   50% { transform: rotate(8deg); }
 }
 #action-status:empty { display: none; }
-.action-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.action-grid.throw-picks {
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+}
+.action-grid.throw-picks.single { grid-template-columns: 1fr; }
+.check-row {
+  display: flex;
+  align-items: flex-start;
   gap: 10px;
+  margin: 12px 0;
+  font-weight: 800;
+}
+.check-row input { margin-top: 4px; }
+.encounter-fav-grid { margin: 12px 0 16px; }
+.encounter-fav-grid .ball-tile[aria-pressed="true"] {
+  border-color: #3aa0ff;
+  box-shadow: 0 0 0 2px rgba(58, 160, 255, .35);
+  background: #eef7ff;
 }
 .action-grid.single { grid-template-columns: 1fr; }
 .item-btn {

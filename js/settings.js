@@ -18,10 +18,19 @@
     teamStatus: document.getElementById("team-status"),
     preview: document.getElementById("id-preview"),
     bgs: document.getElementById("card-bg-picks"),
-    bgStatus: document.getElementById("bg-status")
+    bgStatus: document.getElementById("bg-status"),
+    favorites: document.getElementById("favorite-balls"),
+    favoriteEmpty: document.getElementById("favorite-empty"),
+    defaultPrep: document.getElementById("default-prep"),
+    autoPrep: document.getElementById("auto-prep"),
+    autoThrow: document.getElementById("auto-throw"),
+    saveEncounter: document.getElementById("save-encounter"),
+    encounterStatus: document.getElementById("encounter-status")
   };
   let card = null;
   let catches = [];
+  let bag = {};
+  let encounter = window.playEncounterSettings();
 
   window.playBindAccountNav({
     onSignOut() {
@@ -68,6 +77,31 @@
     window.playRenderTeamSlots(els.team, nextCard?.team, { mine: true });
   }
 
+  function fillEncounter(syncForm) {
+    if (syncForm !== false) {
+      encounter = window.playEncounterSettings(encounter);
+      if (els.defaultPrep) els.defaultPrep.value = encounter.defaultPrep;
+      if (els.autoPrep) els.autoPrep.checked = encounter.autoPrep;
+      if (els.autoThrow) els.autoThrow.checked = encounter.autoThrow;
+    }
+    if (!els.favorites) return;
+    const owned = window.playOwnedBalls(bag);
+    if (els.favoriteEmpty) els.favoriteEmpty.hidden = owned.length > 0;
+    if (!owned.length) {
+      els.favorites.innerHTML = "";
+      return;
+    }
+    els.favorites.innerHTML = owned.map((row) => {
+      const on = encounter.favoriteBalls.includes(row.key);
+      const qty = Number(bag[row.key] || 0);
+      return `<button type="button" class="ball-tile" data-fav="${row.key}" aria-pressed="${on ? "true" : "false"}">
+        <img src="${window.playItemSprite(row.key)}" alt="">
+        <strong>${row.name}</strong>
+        <span class="muted">${qty} owned${on ? " · favorite" : ""}</span>
+      </button>`;
+    }).join("");
+  }
+
   function describePass(pass) {
     if (!pass) return "Sign in to check your pass.";
     if (pass.active) {
@@ -108,6 +142,8 @@
       const snapshot = await window.playCall("play_state");
       extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer };
       window._playOwnedAvatarPacks = snapshot?.ownedAvatarPacks || [];
+      bag = snapshot?.bag || {};
+      encounter = window.playEncounterSettings(snapshot?.encounterSettings);
       els.pass.textContent = describePass(snapshot?.pass);
     } catch (_) {
       els.pass.textContent = "Pass status is not available right now.";
@@ -136,6 +172,7 @@
     fillTeam(card);
     fillBgs(card);
     fillPreview(card);
+    fillEncounter();
     els.gate.hidden = true;
     els.box.hidden = false;
   }
@@ -196,6 +233,37 @@
       await load();
     } catch (error) {
       els.status.textContent = window.playRpcError(error);
+    }
+  });
+
+  els.favorites?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-fav]");
+    if (!button) return;
+    const key = button.dataset.fav;
+    const on = encounter.favoriteBalls.includes(key);
+    encounter.favoriteBalls = on
+      ? encounter.favoriteBalls.filter((item) => item !== key)
+      : encounter.favoriteBalls.concat(key).slice(0, 6);
+    if (!encounter.favoriteBalls.length) encounter.favoriteBalls = [key];
+    fillEncounter(false);
+  });
+
+  els.saveEncounter?.addEventListener("click", async () => {
+    els.encounterStatus.textContent = "Saving…";
+    try {
+      const data = await window.playCall("play_set_encounter_settings", {
+        p_settings: {
+          favoriteBalls: encounter.favoriteBalls,
+          defaultPrep: els.defaultPrep?.value || "ask",
+          autoPrep: Boolean(els.autoPrep?.checked),
+          autoThrow: Boolean(els.autoThrow?.checked)
+        }
+      });
+      encounter = window.playEncounterSettings(data?.encounterSettings);
+      fillEncounter();
+      els.encounterStatus.textContent = data.message || "Encounter settings saved.";
+    } catch (error) {
+      els.encounterStatus.textContent = window.playRpcError(error);
     }
   });
 

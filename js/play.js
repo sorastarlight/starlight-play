@@ -36,10 +36,7 @@
 
   function liveRound(data) {
     const round = data?.round;
-    if (!round) return null;
-    const hasCatch = Number(round.results?.caught || 0) > 0 || (Array.isArray(round.catchers) && round.catchers.length > 0);
-    const threw = Number(round.thrown || 0) > 0 || Boolean(round.resolved);
-    if (round.cancelled && !hasCatch && !threw) return null;
+    if (!round || round.cancelled) return null;
     const local = typeof window.playApplyLocalRound === "function" ? window.playApplyLocalRound(round) : round;
     return local;
   }
@@ -70,6 +67,7 @@
     const me = data?.me;
     const bag = data?.bag || {};
     const signedIn = Boolean(data?.bag);
+    const prefs = window.playEncounterSettings(data?.encounterSettings);
     if (!round || round.phase === "closed") {
       return {
         key: `idle:${round?.id || ""}:${me?.result || ""}`,
@@ -86,32 +84,51 @@
       return { key: `paused:${round.id}`, buttons: [], status: "This encounter is paused." };
     }
     const buttons = [];
-    const canPrep = (round.phase === "join" || round.phase === "prepare") && me && !me.prep;
-    if ((round.phase === "join" && !me) || (round.phase === "prepare" && !me)) {
+    const throwing = round.phase === "throw" || round.overlayPhase === "throw";
+    const canPrep = Boolean(me) && !me.prep && (round.phase === "join" || round.phase === "prepare" || throwing);
+    if ((round.phase === "join" && !me) || (round.phase === "prepare" && !me) || (throwing && !me)) {
       buttons.push({
         kind: "join",
         item: "",
         label: "Join encounter",
-        hint: round.phase === "prepare" ? "Still needed for berries" : (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "")
+        hint: round.phase === "join" ? (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "") : "Still needed for berries"
       });
     }
     if (canPrep) {
       buttons.push({ kind: "prepare", item: "berry", label: "Berry", hint: `${bag.berry ?? 0} left · +catch`, sprite: "berry" });
       buttons.push({ kind: "prepare", item: "bait", label: "Honey", hint: `${bag.bait ?? 0} left · team bonus`, sprite: "bait" });
     }
-    if (round.phase === "throw" && me && me.prep && !me.ball) {
-      buttons.push({ kind: "open-balls", item: "pokeball", label: "Choose a Poké Ball", hint: "See catch rates in your bag", sprite: "pokeball" });
+    if (throwing && me && me.prep && !me.ball) {
+      const favorites = window.playFavoriteBalls(bag, prefs);
+      favorites.forEach((row) => {
+        const qty = Number(bag[row.key] || 0);
+        buttons.push({
+          kind: "throw",
+          item: row.key,
+          label: row.name,
+          hint: qty < 1 ? "None left" : `${qty} left · ${Math.round((row.rate || 0) * 100)}%`,
+          sprite: row.key,
+          disabled: qty < 1
+        });
+      });
+      buttons.push({
+        kind: "open-balls",
+        item: "pokeball",
+        label: "All my Poké Balls",
+        hint: "Only balls you own",
+        sprite: "pokeball"
+      });
     }
     if (!buttons.length) {
       let status = "";
       if (round.phase === "join" && me && me.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for throws.`;
       else if (round.phase === "join" && me) status = "You joined. Use a Berry or Honey, then wait for throws.";
       else if (round.phase === "prepare" && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for throws.`;
-      else if (round.phase === "throw" && me?.ball) status = `${window.playItemLabel(me.ball)} locked in.`;
+      else if (throwing && me?.ball) status = `${window.playItemLabel(me.ball)} locked in.`;
       else if (round.phase === "reveal") status = me?.result || "Results incoming.";
-      else if (round.phase === "prepare" && !me) status = "Join this encounter to use a Berry or Honey.";
+      else if ((round.phase === "prepare" || throwing) && !me) status = "Join this encounter to take part.";
       else if (round.phase !== "join") status = "You needed to join during the join window.";
-      return { key: `wait:${round.phase}:${me?.prep || ""}:${me?.ball || ""}`, buttons, status };
+      return { key: `wait:${round.phase}:${me?.prep || ""}:${me?.ball || ""}:${me?.result || ""}`, buttons, status };
     }
     return { key: buttons.map((row) => `${row.kind}:${row.item}:${row.hint}`).join("|"), buttons, status: "" };
   }
@@ -137,12 +154,14 @@
     lastActionKey = key;
     els.actionStatus.textContent = plan.status;
     els.actions.classList.toggle("single", plan.buttons.length === 1);
+    els.actions.classList.toggle("throw-picks", plan.buttons.some((row) => row.kind === "throw"));
     els.actions.innerHTML = plan.buttons.map((row) => {
       const sprite = row.sprite || (row.kind === "open-balls" ? "pokeball" : "");
       const icon = sprite
         ? `<span class="item-icon item-icon-img"><img src="${window.playItemSprite(sprite)}" alt=""></span>`
         : `<span class="item-icon" aria-hidden="true"></span>`;
-      return `<button type="button" class="item-btn" data-kind="${row.kind}" data-item="${row.item}">
+      const disabled = row.disabled ? "disabled" : "";
+      return `<button type="button" class="item-btn" data-kind="${row.kind}" data-item="${row.item}" ${disabled}>
         ${icon}
         <span class="item-copy"><strong>${row.label}</strong>${row.hint ? `<em>${row.hint}</em>` : ""}</span>
       </button>`;
@@ -152,26 +171,53 @@
   function openThrowBalls(bag, mode) {
     if (!els.throwModal || !els.throwGrid) return;
     throwViewOnly = mode === "view";
-    if (els.throwTitle) els.throwTitle.textContent = throwViewOnly ? "Your Poké Balls" : "Choose a Poké Ball";
+    if (els.throwTitle) els.throwTitle.textContent = throwViewOnly ? "Your Poké Balls" : "All my Poké Balls";
     if (els.throwHint) {
       els.throwHint.textContent = throwViewOnly
-        ? "A quick look at the balls in your bag. Catch rates are the Play throw chances."
-        : "Catch rates are the Play throw chances. Master Ball always catches. Other extra balls look different.";
+        ? "Balls you own. Catch rates are the Play throw chances."
+        : "Only balls in your bag. Catch rates are the Play throw chances. Master Ball always catches.";
     }
-    const rows = window.PLAY_BALLS || [];
-    els.throwGrid.innerHTML = rows.map((row) => {
-      const qty = Number(bag?.[row.key] || 0);
-      const pct = Math.round((row.rate || 0) * 100);
-      const disabled = throwViewOnly || qty < 1 ? "disabled" : "";
-      return `<button type="button" class="ball-tile" data-throw="${row.key}" ${disabled}>
-        <img src="${window.playItemSprite(row.key)}" alt="">
-        <strong>${row.name}</strong>
-        <span class="ball-rate">${row.multiplier} · ${pct}% catch</span>
-        <span class="muted">${qty} in bag</span>
-      </button>`;
-    }).join("");
+    const rows = window.playOwnedBalls(bag);
+    if (!rows.length) {
+      els.throwGrid.innerHTML = `<p class="muted">You don’t have any Poké Balls right now. Buy more in the Store.</p>`;
+    } else {
+      els.throwGrid.innerHTML = rows.map((row) => {
+        const qty = Number(bag?.[row.key] || 0);
+        const pct = Math.round((row.rate || 0) * 100);
+        const disabled = throwViewOnly ? "disabled" : "";
+        return `<button type="button" class="ball-tile" data-throw="${row.key}" ${disabled}>
+          <img src="${window.playItemSprite(row.key)}" alt="">
+          <strong>${row.name}</strong>
+          <span class="ball-rate">${row.multiplier} · ${pct}% catch</span>
+          <span class="muted">${qty} in bag</span>
+        </button>`;
+      }).join("");
+    }
     if (typeof els.throwModal.showModal === "function") els.throwModal.showModal();
     else els.throwModal.setAttribute("open", "");
+  }
+
+  function maybeAutoAct(data) {
+    const round = liveRound(data);
+    const me = data?.me;
+    const bag = data?.bag || {};
+    const prefs = window.playEncounterSettings(data?.encounterSettings);
+    if (!round || round.paused || acting || !me) return;
+    const throwing = round.phase === "throw" || round.overlayPhase === "throw";
+    if (!me.prep && prefs.autoPrep && prefs.defaultPrep !== "ask" && (round.phase === "join" || round.phase === "prepare" || throwing)) {
+      if (maybeAutoAct._prep !== round.id) {
+        maybeAutoAct._prep = round.id;
+        act("prepare", prefs.defaultPrep);
+      }
+      return;
+    }
+    if (throwing && me.prep && !me.ball && prefs.autoThrow) {
+      const favorite = window.playFavoriteBalls(bag, prefs).find((row) => Number(bag[row.key] || 0) > 0);
+      if (favorite && maybeAutoAct._throw !== round.id) {
+        maybeAutoAct._throw = round.id;
+        act("throw", favorite.key);
+      }
+    }
   }
 
   function maybeRadarJoin(data) {
@@ -190,7 +236,7 @@
     const round = liveRound(state);
     const view = { ...state, round };
     const results = round?.results;
-    if (round?.paused && els.throwModal?.open) {
+    if ((!round || round.paused) && els.throwModal?.open) {
       try { els.throwModal.close(); } catch (_) {}
     }
     const key = `${round?.id || "none"}:${round?.phase || "idle"}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${round?.resolved || false}:${results?.caught || 0}:${(round?.catchers || []).length}`;
@@ -218,6 +264,7 @@
     window.playRenderLiveFeed(data?.console || round);
     renderActions(view);
     maybeRadarJoin(view);
+    maybeAutoAct(view);
     window.playSetAccountNav(window._playSession || null, profile, {
       isAdmin: Boolean(data?.isAdmin),
       trainer: data?.trainer
@@ -444,15 +491,12 @@
       if (!tickLive._n) tickLive._n = 0;
       tickLive._n += 1;
       if (tickLive._n % 8 === 0) refresh();
-    } else if (round && round.phase && round.phase !== "closed" && left <= 2) refresh();
-    else if (round && round.phase && round.phase !== "closed") {
-      if (!tickLive._n) tickLive._n = 0;
-      tickLive._n += 1;
-      if (tickLive._n % 5 === 0) refresh();
+    } else if (round && round.phase && round.phase !== "closed") {
+      refresh();
     } else {
       if (!tickLive._idle) tickLive._idle = 0;
       tickLive._idle += 1;
-      if (tickLive._idle % 3 === 0) refresh();
+      if (tickLive._idle % 2 === 0) refresh();
     }
   }, 1000);
   setInterval(heartbeat, 20000);

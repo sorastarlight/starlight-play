@@ -303,12 +303,26 @@
     else if (reveal && now < reveal) clock = "reveal";
     else if (join || prepare || throwAt || reveal) clock = "closed";
     if (freeze) return clock;
+    if (clock === "throw") return "throw";
     const overlay = round.overlayPhase;
-    if (overlay && ["join", "prepare", "throw", "reveal"].includes(overlay)
+    if (overlay === "throw" && (clock === "join" || clock === "prepare")) return "throw";
+    if (overlay && ["join", "prepare"].includes(overlay)
         && window.playPhaseRank(overlay) > window.playPhaseRank(clock)) {
       return overlay;
     }
     return clock;
+  };
+
+  window.playIsThrowWindow = function playIsThrowWindow(round) {
+    if (!round || round.cancelled || round.paused) return false;
+    if ((round.phase || window.playLocalPhase(round)) === "throw") return true;
+    const now = Date.now();
+    const prepare = Date.parse(round.deadlines?.prepare || "");
+    const throwAt = Date.parse(round.deadlines?.throw || "");
+    if (Number.isFinite(prepare) && Number.isFinite(throwAt)) {
+      return now >= prepare - 400 && now < throwAt + 400;
+    }
+    return round.overlayPhase === "throw";
   };
 
   window.playRoundIdleAt = function playRoundIdleAt(round) {

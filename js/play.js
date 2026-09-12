@@ -57,8 +57,15 @@
     if (!data) return data;
     const id = data.round?.id;
     const incoming = data.me && data.me.joined !== false ? data.me : (data.youJoined ? { joined: true } : null);
-    if (id && incoming) joinedMe.set(id, { ...(joinedMe.get(id) || {}), ...incoming });
-    const mine = incoming || (id ? joinedMe.get(id) : null) || null;
+    if (id && incoming) {
+      const prev = joinedMe.get(id) || {};
+      const merged = { ...prev, ...incoming };
+      if (!merged.prep && prev.prep) merged.prep = prev.prep;
+      if (!merged.ball && prev.ball) merged.ball = prev.ball;
+      if (merged.result == null && prev.result) merged.result = prev.result;
+      joinedMe.set(id, merged);
+    }
+    const mine = (id ? joinedMe.get(id) : null) || incoming || null;
     return { ...data, me: mine };
   }
 
@@ -84,7 +91,9 @@
       return { key: `paused:${round.id}`, buttons: [], status: "This encounter is paused." };
     }
     const buttons = [];
-    const throwing = round.phase === "throw" || round.overlayPhase === "throw";
+    const throwing = typeof window.playIsThrowWindow === "function"
+      ? window.playIsThrowWindow(round)
+      : (round.phase === "throw" || round.overlayPhase === "throw");
     const canPrep = Boolean(me) && !me.prep && (round.phase === "join" || round.phase === "prepare" || throwing);
     if ((round.phase === "join" && !me) || (round.phase === "prepare" && !me) || (throwing && !me)) {
       buttons.push({
@@ -203,7 +212,9 @@
     const bag = data?.bag || {};
     const prefs = window.playEncounterSettings(data?.encounterSettings);
     if (!round || round.paused || acting || !me) return;
-    const throwing = round.phase === "throw" || round.overlayPhase === "throw";
+    const throwing = typeof window.playIsThrowWindow === "function"
+      ? window.playIsThrowWindow(round)
+      : (round.phase === "throw" || round.overlayPhase === "throw");
     if (!me.prep && prefs.autoPrep && prefs.defaultPrep !== "ask" && (round.phase === "join" || round.phase === "prepare" || throwing)) {
       if (maybeAutoAct._prep !== round.id) {
         maybeAutoAct._prep = round.id;
@@ -466,7 +477,9 @@
       lastActionKey = "";
       render({ ...state, round });
       refresh();
+      return;
     }
+    renderActions({ ...state, round });
   }
 
   els.bag.addEventListener("click", (event) => {

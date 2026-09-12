@@ -314,6 +314,9 @@
       return `<li class="is-honey">${time}<span><strong>${name}</strong> used Honey to help everyone’s catch rate</span></li>`;
     }
     if (row?.kind === "prepared") return `<li>${time}<span><strong>${name}</strong> used ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
+    if (row?.kind === "selected") {
+      return `<li>${time}<span><strong>${name}</strong> has selected their Poké Ball and is ready to throw!</span></li>`;
+    }
     if (row?.kind === "threw") return `<li>${time}<span><strong>${name}</strong> threw a ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
     if (row?.kind === "pause") return `<li>${time}<span>Encounter paused</span></li>`;
     if (row?.kind === "resume") return `<li>${time}<span>Encounter resumed</span></li>`;

@@ -177,7 +177,10 @@
     if (joining && me && me.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Wait for Prepare to finish.`;
     else if (joining && me) status = "You joined the encounter! Wait for the next phase, and then use either a Berry or Honey.";
     else if (preparing && me?.prep) status = `Prepared with ${window.playItemLabel(me.prep)}. Poké Balls open in Throw.`;
-    else if (throwing && me?.ball) status = `${window.playItemLabel(me.ball)} locked in.`;
+    else if (throwing && me?.ball) {
+      const who = data?.trainer?.displayName || profile?.display_name || "A trainer";
+      status = `${who} has selected their Poké Ball and is ready to throw!`;
+    }
     else if (!buttons.length && phase === "reveal") status = me?.result || "Results incoming.";
     else if (!buttons.length && preparing && !me) status = "Join this encounter to take part.";
     else if (!buttons.length && throwing && !me) status = "You needed to join before Throw.";

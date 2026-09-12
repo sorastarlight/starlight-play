@@ -15,6 +15,11 @@
   let lastPass = null;
   let lastOwned = [];
   let lastTab = "";
+  const CHECKOUT_TAB = "checkout";
+  const CART_KEY = "play-mart-checkout";
+  const CART_MAX_QTY = 99;
+  let cart = loadCart();
+  let checkoutNote = "";
 
   window.playBindAccountNav({
     onSignOut() {
@@ -28,6 +33,51 @@
 
   function esc(value) {
     return window.playEscapeAttr(value);
+  }
+
+  function loadCart() {
+    try {
+      const raw = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+      if (!Array.isArray(raw)) return [];
+      return raw
+        .map((row) => ({ sku: String(row?.sku || ""), qty: Math.trunc(Number(row?.qty) || 0) }))
+        .filter((row) => row.sku && row.qty > 0)
+        .slice(0, 40);
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function saveCart() {
+    try {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart.map((row) => ({ sku: row.sku, qty: row.qty }))));
+    } catch (_) {}
+  }
+
+  function cartCount() {
+    return cart.reduce((n, row) => n + Number(row.qty || 0), 0);
+  }
+
+  function catalogItems() {
+    const floors = lastCatalog?.floors?.length ? lastCatalog.floors : fallbackFloors(lastCatalog);
+    const items = [];
+    for (const floor of floors) {
+      for (const item of floor.items || []) items.push(item);
+      if (floor.kind === "avatars" && !(floor.items || []).length) {
+        items.push(...(window.PLAY_AVATAR_PACKS || []));
+      }
+    }
+    if (Array.isArray(lastCatalog?.avatars)) items.push(...lastCatalog.avatars);
+    return items;
+  }
+
+  function findSku(sku) {
+    return catalogItems().find((item) => item.sku === sku) || null;
+  }
+
+  function addButton(sku, { avatar } = {}) {
+    const attr = avatar ? `data-avatar-sku="${esc(sku)}"` : `data-sku="${esc(sku)}"`;
+    return `<button type="button" class="mart-add" ${attr}>Add To Checkout</button>`;
   }
 
   function art(item, fallback) {
@@ -196,7 +246,7 @@
   function shelfCard(item, mode) {
     const row = withLureBlurb(item);
     const sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
-    const action = mode === "bits" ? "" : `<button type="button" data-sku="${esc(row.sku)}">Get</button>`;
+    const action = mode === "bits" ? "" : addButton(row.sku);
     const blurb = mode !== "bits" && row.blurb ? `<p>${esc(row.blurb)}</p>` : "";
     return `
       <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${row.sku === "radar1" || row.sku === "lure1" ? " mart-item-radar" : ""}">
@@ -223,7 +273,7 @@
       <strong>${esc(row.name)}${pack}</strong>
       <span class="ball-rate">${rate}</span>
       ${costHtml(row, "coins")}
-      <button type="button" data-sku="${esc(row.sku)}">Get</button>
+      ${addButton(row.sku)}
     </article>`;
   }
 
@@ -248,7 +298,7 @@
         ${costHtml(item, "coins")}
         ${have
           ? `<span class="owned-mark">Owned</span>`
-          : `<button type="button" data-avatar-sku="${esc(item.sku)}">Get</button>`}
+          : addButton(item.sku, { avatar: true })}
       </div>
     </article>`;
   }
@@ -288,7 +338,7 @@
     let row = item;
     let sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
     let extra = "";
-    let action = mode === "bits" ? "" : `<button type="button" data-sku="${esc(row.sku)}">Get</button>`;
+    let action = mode === "bits" ? "" : addButton(row.sku);
     let blurb = row.blurb || "";
     let artClass = "";
     if (mode === "balls") {
@@ -303,7 +353,7 @@
       artClass = " is-wide";
       action = have
         ? `<span class="owned-mark">Owned</span>`
-        : `<button type="button" data-avatar-sku="${esc(item.sku)}">Get</button>`;
+        : addButton(item.sku, { avatar: true });
     } else {
       row = withLureBlurb(item);
       sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
@@ -349,7 +399,6 @@
           ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : `<p class="mart-sign-title">${esc(title)}</p>`}
         </div>
       </header>
-      <p class="muted" data-floor-status${extraStatus}></p>
       ${body}
     </section>`;
   }
@@ -427,10 +476,13 @@
   }
 
   function tabButtons(floors) {
-    return `<div class="mart-tabs" role="tablist" aria-label="Store shelves">${floors.map((floor, index) => {
+    const count = cartCount();
+    const shelves = floors.map((floor, index) => {
       const id = floorTabId(floor, index);
       return `<button class="mart-tab" type="button" role="tab" id="mart-tab-${esc(id)}" data-mart-tab="${esc(id)}" aria-controls="${esc(id)}" aria-selected="false" tabindex="-1">${esc(floor.name || "Shelf")}</button>`;
-    }).join("")}</div>`;
+    }).join("");
+    const checkout = `<button class="mart-tab mart-tab-checkout" type="button" role="tab" id="mart-tab-${CHECKOUT_TAB}" data-mart-tab="${CHECKOUT_TAB}" aria-controls="${CHECKOUT_TAB}" aria-selected="false" tabindex="-1">Checkout${count ? `<span class="mart-cart-count">${count}</span>` : ""}</button>`;
+    return `<div class="mart-tabs" role="tablist" aria-label="Store shelves">${shelves}${checkout}</div>`;
   }
 
   function floorHtml(floor, index, ownedPacks) {
@@ -450,6 +502,7 @@
     const ids = shop.map((floor) => floorTabId(floor, floors.indexOf(floor)));
     const raw = String(wanted || "").replace(/^#/, "");
     if (raw === "pass") return ids[0] || "";
+    if (raw === CHECKOUT_TAB) return CHECKOUT_TAB;
     if (raw && ids.includes(raw)) return raw;
     if (raw === "avatars" || raw === "premium-avatars") {
       const match = shop.find((floor) => floor.kind === "avatars");
@@ -459,6 +512,7 @@
       const match = shop.find((floor) => floor.kind === raw);
       return floorTabId(match, floors.indexOf(match));
     }
+    if (lastTab === CHECKOUT_TAB) return CHECKOUT_TAB;
     if (lastTab && ids.includes(lastTab)) return lastTab;
     return ids[0] || "";
   }
@@ -479,6 +533,7 @@
     });
     const folder = els.floors.querySelector(".mart-folder");
     folder?.classList.toggle("is-first", tabs[0]?.dataset.martTab === id);
+    folder?.classList.toggle("is-checkout", id === CHECKOUT_TAB);
     if (updateHash && location.hash.replace(/^#/, "") !== id) {
       history.replaceState(null, "", `#${id}`);
     }
@@ -496,6 +551,123 @@
     folder.before(wallet);
   }
 
+  function cartLineSprite(item) {
+    if (!item) return window.playItemSprite("poke-ball.png");
+    if (item.pack) return window.playItemSprite(packThumb(item));
+    return art(item, item.sku || Object.keys(item.grants || {})[0]);
+  }
+
+  function checkoutHtml() {
+    const count = cartCount();
+    const lines = cart.map((row) => {
+      const item = findSku(row.sku);
+      const name = item?.name || row.sku;
+      const cost = Number(item?.cost || 0);
+      const line = cost * row.qty;
+      const avatar = Boolean(item?.pack);
+      return `<article class="mart-cart-row">
+        <img src="${esc(cartLineSprite(item))}" alt="">
+        <div class="mart-cart-copy">
+          <strong>${esc(name)}</strong>
+          <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(cost)} each</span>
+        </div>
+        <div class="mart-cart-qty">
+          <button type="button" data-cart-dec="${esc(row.sku)}"${row.qty <= 1 || avatar ? " disabled" : ""} aria-label="Fewer">−</button>
+          <span>${row.qty}</span>
+          <button type="button" data-cart-inc="${esc(row.sku)}"${avatar || row.qty >= CART_MAX_QTY ? " disabled" : ""} aria-label="More">+</button>
+        </div>
+        <div class="mart-cart-line">
+          <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(line)}</span>
+          <button type="button" class="secondary" data-cart-remove="${esc(row.sku)}">Remove</button>
+        </div>
+      </article>`;
+    }).join("");
+    const total = cart.reduce((n, row) => n + Number(findSku(row.sku)?.cost || 0) * row.qty, 0);
+    const coins = Number(lastWallet?.coins || 0);
+    const short = Boolean(lastWallet) && coins < total;
+    const body = count
+      ? `<div class="mart-cart-list">${lines}</div>
+         <div class="mart-cart-foot">
+           <p class="mart-cart-total"><span>Total</span> <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(total)}</span></p>
+           ${short ? `<p class="mart-cart-warn">You need ${money(total - coins)} more PokéCoins.</p>` : ""}
+           <button type="button" class="gold" data-checkout-buy${short ? " disabled" : ""}>Purchase</button>
+         </div>`
+      : `<div class="mart-cart-empty">
+           <p>Your checkout is empty.</p>
+           <p class="muted">Add items from the shelves, then come here to review quantities and purchase.</p>
+         </div>`;
+    return `<section class="mart-floor mart-checkout-floor" id="${CHECKOUT_TAB}" role="tabpanel" aria-labelledby="mart-tab-${CHECKOUT_TAB}" data-mart-panel="${CHECKOUT_TAB}" hidden>
+      <header class="mart-sign">
+        <img src="${esc(window.playItemSprite("relic-gold.png"))}" alt="">
+        <div>
+          <h2 class="visually-hidden">Checkout</h2>
+          <p class="mart-sign-title">Checkout</p>
+          <p class="muted">Review your items, then purchase them all at once.</p>
+        </div>
+      </header>
+      ${body}
+      <p class="mart-checkout-note" data-checkout-status${checkoutNote ? "" : " hidden"}>${esc(checkoutNote)}</p>
+    </section>`;
+  }
+
+  function checkoutTabLabel() {
+    const count = cartCount();
+    return `Checkout${count ? `<span class="mart-cart-count">${count}</span>` : ""}`;
+  }
+
+  function syncCheckoutUi({ bump } = {}) {
+    const tab = els.floors?.querySelector(".mart-tab-checkout");
+    if (tab) {
+      tab.innerHTML = checkoutTabLabel();
+      if (bump) {
+        tab.classList.add("is-bump");
+        window.setTimeout(() => tab.classList.remove("is-bump"), 420);
+      }
+    }
+    const panel = els.floors?.querySelector(`[data-mart-panel="${CHECKOUT_TAB}"]`);
+    if (!panel) return;
+    const wrap = document.createElement("div");
+    wrap.innerHTML = checkoutHtml();
+    const next = wrap.firstElementChild;
+    if (!next) return;
+    const hidden = panel.hidden;
+    panel.replaceWith(next);
+    next.hidden = hidden;
+  }
+
+  function addToCheckout(sku) {
+    if (!sku) return;
+    const item = findSku(sku);
+    if (!item || Number(item.bits || 0) > 0) return;
+    if (item.pack && (lastOwned || []).includes(item.pack)) return;
+    checkoutNote = "";
+    const row = cart.find((entry) => entry.sku === sku);
+    if (item.pack) {
+      if (!row) cart.push({ sku, qty: 1 });
+    } else if (row) {
+      row.qty = Math.min(CART_MAX_QTY, row.qty + 1);
+    } else {
+      cart.push({ sku, qty: 1 });
+    }
+    saveCart();
+    syncCheckoutUi({ bump: true });
+  }
+
+  function setCartQty(sku, qty) {
+    const item = findSku(sku);
+    const next = Math.trunc(Number(qty) || 0);
+    checkoutNote = "";
+    if (next < 1) {
+      cart = cart.filter((row) => row.sku !== sku);
+    } else {
+      const row = cart.find((entry) => entry.sku === sku);
+      const cap = item?.pack ? 1 : CART_MAX_QTY;
+      if (row) row.qty = Math.min(cap, next);
+    }
+    saveCart();
+    syncCheckoutUi();
+  }
+
   function renderFloors(catalog, wallet, pass, ownedPacks) {
     if (!els.floors) return;
     parkWallet();
@@ -509,6 +681,7 @@
           ${tabButtons(shop)}
           <div class="mart-folder-body">
             ${shop.map((floor) => floorHtml(floor, floors.indexOf(floor), ownedPacks)).join("")}
+            ${checkoutHtml()}
           </div>
         </div>`
       : "";
@@ -528,13 +701,6 @@
     } catch (_) {}
     if (String(error?.message || "").includes("non-2xx")) return fallback;
     return error?.message || fallback;
-  }
-
-  function noteEl(from) {
-    return from?.closest("section")?.querySelector("[data-floor-status]")
-      || document.querySelector("[data-ball-status]")
-      || document.querySelector("[data-pass-status]")
-      || els.status;
   }
 
   async function refreshStore() {
@@ -570,17 +736,27 @@
     window.playSetAccountNav(session, profile, { isAdmin: Boolean(store?.isAdmin), trainer: store?.trainer });
   }
 
-  async function buySku(button) {
-    if (!button) return;
-    const note = noteEl(button);
-    if (note) note.textContent = "Working…";
+  async function purchaseCart(button) {
+    if (!cart.length) return;
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (!sessionData.session) {
+      checkoutNote = "Sign in with Twitch first.";
+      syncCheckoutUi();
+      return;
+    }
+    if (button) button.disabled = true;
     try {
-      const sku = button.dataset.sku || button.dataset.avatarSku;
-      const data = await window.playCall("play_buy_sku", { p_sku: sku });
-      if (note) note.textContent = data.message || "Added to inventory.";
+      const data = await window.playCall("play_buy_cart", {
+        p_items: cart.map((row) => ({ sku: row.sku, qty: row.qty }))
+      });
+      cart = [];
+      saveCart();
+      checkoutNote = data.message || "Purchased.";
       await refreshStore();
     } catch (error) {
-      if (note) note.textContent = window.playRpcError(error);
+      checkoutNote = window.playRpcError(error);
+      syncCheckoutUi();
+      if (button && button.isConnected) button.disabled = false;
     }
   }
 
@@ -590,9 +766,31 @@
       showTab(tab.dataset.martTab);
       return;
     }
-    const buy = event.target.closest("button[data-sku], button[data-avatar-sku]");
-    if (buy) {
-      await buySku(buy);
+    const add = event.target.closest("button[data-sku], button[data-avatar-sku]");
+    if (add) {
+      addToCheckout(add.dataset.sku || add.dataset.avatarSku);
+      return;
+    }
+    const inc = event.target.closest("[data-cart-inc]");
+    if (inc) {
+      const sku = inc.dataset.cartInc;
+      setCartQty(sku, (cart.find((row) => row.sku === sku)?.qty || 0) + 1);
+      return;
+    }
+    const dec = event.target.closest("[data-cart-dec]");
+    if (dec) {
+      const sku = dec.dataset.cartDec;
+      setCartQty(sku, (cart.find((row) => row.sku === sku)?.qty || 0) - 1);
+      return;
+    }
+    const remove = event.target.closest("[data-cart-remove]");
+    if (remove) {
+      setCartQty(remove.dataset.cartRemove, 0);
+      return;
+    }
+    const buyAll = event.target.closest("[data-checkout-buy]");
+    if (buyAll) {
+      await purchaseCart(buyAll);
       return;
     }
     if (event.target.closest("[data-open-balls]")) {
@@ -673,8 +871,9 @@
   els.ballModal?.addEventListener("click", (event) => {
     if (event.target === els.ballModal) els.ballModal.close("cancel");
   });
-  els.ballGrid?.addEventListener("click", async (event) => {
-    await buySku(event.target.closest("button[data-sku]"));
+  els.ballGrid?.addEventListener("click", (event) => {
+    const add = event.target.closest("button[data-sku]");
+    if (add) addToCheckout(add.dataset.sku);
   });
 
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });

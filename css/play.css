@@ -1478,7 +1478,8 @@ footer { margin-top: 24px; font-size: 13px; }
   display: flex;
   align-items: flex-end;
   gap: 4px;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 0 10px;
   margin: 0 0 -3px;
   position: relative;
@@ -1532,6 +1533,150 @@ footer { margin-top: 24px; font-size: 13px; }
   box-shadow: 0 10px 0 #d4b07a, inset 0 0 0 6px #f3e4c8;
 }
 .mart-folder:not(.is-first) .mart-folder-body { border-top-left-radius: 22px; }
+#mart-status:empty {
+  display: none;
+}
+.mart-tab-checkout {
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 8px 14px 9px;
+  border-color: #1f8f68;
+  background: linear-gradient(180deg, #7ee8c8, #2fb38a);
+  color: #064433;
+  white-space: nowrap;
+}
+.mart-tab-checkout:hover {
+  background: linear-gradient(180deg, #95f0d4, #3bc496);
+}
+.mart-tab-checkout.is-on {
+  background: #e7fbf3;
+  color: #064433;
+}
+.mart-tab-checkout.is-on::after {
+  background: #e7fbf3;
+}
+.mart-tab-checkout.is-bump {
+  transform: translateY(-3px);
+}
+.mart-cart-count {
+  display: inline-block;
+  min-width: 1.35em;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #fff;
+  color: #064433;
+  font-size: 11px;
+  line-height: 1.4;
+  vertical-align: text-top;
+}
+.mart-folder.is-checkout .mart-folder-body {
+  border-color: #2a9f78;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 22px, #fff6 22px 23px),
+    linear-gradient(180deg, #e7fbf3, #c5ebda);
+  box-shadow: 0 10px 0 #2f8f6c, inset 0 0 0 6px #d7f6ea;
+}
+.mart-checkout-floor {
+  background: linear-gradient(180deg, #f4fff9, #d7f3e6);
+  border-color: #8fd4b8;
+  box-shadow: inset 0 0 0 5px #effff7;
+}
+.mart-cart-list,
+.mart-cart-empty {
+  display: grid;
+  gap: 8px;
+}
+.mart-cart-empty {
+  justify-items: center;
+  text-align: center;
+  padding: 28px 12px;
+}
+.mart-cart-empty p { margin: 0; }
+.mart-cart-row {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto auto;
+  gap: 10px 12px;
+  align-items: center;
+  padding: 10px 12px;
+  background: #fff;
+  border: 2px solid #9ad9c0;
+  border-radius: 14px;
+}
+.mart-cart-row img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.mart-cart-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.mart-cart-copy strong { font-size: 15px; }
+.mart-cart-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.mart-cart-qty span {
+  min-width: 1.5em;
+  text-align: center;
+  font-weight: 800;
+}
+.mart-cart-qty button {
+  min-width: 32px;
+  padding: 4px 8px;
+}
+.mart-cart-line {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+.mart-cart-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-top: 4px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 2px solid #1f8f68;
+  border-radius: 14px;
+}
+.mart-cart-total {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+.mart-cart-warn {
+  margin: 0;
+  color: #a33;
+  font-weight: 800;
+}
+.mart-checkout-note {
+  margin: 10px 0 0;
+  font-weight: 800;
+}
+.mart-checkout-note[hidden] { display: none; }
+.mart-add {
+  white-space: normal;
+  line-height: 1.15;
+  min-width: 0;
+  max-width: 7.6rem;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+.ball-tile .mart-add,
+.avatar-pack-foot .mart-add,
+.mart-featured .mart-add {
+  max-width: none;
+}
 .mart-sign-title {
   margin: 0;
   font-weight: 800;
@@ -1710,10 +1855,10 @@ footer { margin-top: 24px; font-size: 13px; }
 .mart-featured .mart-copy p { max-width: 46ch; }
 .mart-featured .mart-price {
   justify-items: stretch;
-  min-width: 108px;
+  min-width: 128px;
 }
 .mart-featured .mart-cost { font-size: 18px; }
-.mart-featured .mart-price button { min-width: 88px; padding: 8px 16px; font-size: 14px; }
+.mart-featured .mart-price button { min-width: 0; max-width: none; padding: 8px 12px; font-size: 13px; }
 .mart-featured .mart-grants { margin-top: 8px; }
 @keyframes mart-sprite-bob {
   0%, 100% { transform: translateY(2px); }
@@ -1802,7 +1947,7 @@ footer { margin-top: 24px; font-size: 13px; }
   white-space: nowrap;
 }
 .mart-cost img { width: 22px; height: 22px; }
-.mart-price button { padding: 6px 14px; font-size: 13px; min-width: 64px; }
+.mart-price button { padding: 6px 10px; font-size: 12px; min-width: 0; }
 .pokedex-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -2394,6 +2539,21 @@ footer { margin-top: 24px; font-size: 13px; }
   .mart-featured .mart-copy p { max-width: none; }
   .mart-featured .mart-price { justify-items: center; min-width: 0; }
   .mart-tab { font-size: 12px; padding: 8px 6px 10px; }
+  .mart-tab-checkout { padding: 8px 10px 10px; }
+  .mart-cart-row {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+  .mart-cart-qty,
+  .mart-cart-line {
+    grid-column: 1 / -1;
+  }
+  .mart-cart-line {
+    grid-template-columns: 1fr auto;
+    justify-items: stretch;
+    align-items: center;
+  }
+  .mart-cart-foot { justify-content: stretch; }
+  .mart-cart-foot .gold { width: 100%; }
   .mart-wallet-grid { grid-template-columns: 1fr; }
   .mart-item-bits {
     grid-template-columns: 1fr;

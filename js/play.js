@@ -347,7 +347,7 @@
       els.bag.innerHTML = window.playRenderPlayKit(bag);
     }
     window.playFillLurePanel(bag);
-    window.playRenderLiveFeed(data?.console || round);
+    window.playRenderLiveFeed(data?.console || [], null, round);
     renderActions(view);
     maybeRadarJoin(view);
     maybeAutoAct(view);
@@ -560,8 +560,12 @@
     }
     if (round.phase && round.phase !== lastLocalPhase) {
       const keepSeq = lastLocalPhase === "reveal" && round.phase === "closed" && !round.resolved && els.encounter.querySelector("[data-catch-seq]");
+      const fromThrow = lastLocalPhase === "throw" && round.phase === "reveal";
       lastLocalPhase = round.phase;
       lastActionKey = "";
+      if (fromThrow) {
+        window.playRenderLiveFeed(state?.console || [], null, round);
+      }
       if (keepSeq) {
         renderActions({ ...state, round });
         refresh();

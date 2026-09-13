@@ -488,10 +488,35 @@
     return `<li>${time}<span><strong>${name}</strong></span></li>`;
   };
 
-  window.playRenderLiveFeed = function playRenderLiveFeed(source, targetId) {
+  window.playConsoleRows = function playConsoleRows(source, round) {
+    const rows = Array.isArray(source)
+      ? source.slice()
+      : (Array.isArray(source?.activity) ? source.activity.slice() : []);
+    const live = round || (source && !Array.isArray(source) && source.phase ? source : null);
+    if (!live || (live.phase !== "reveal" && live.phase !== "closed")) return rows;
+    const throwers = Array.isArray(live.throwers) ? live.throwers : [];
+    if (!throwers.length) return rows;
+    const have = new Set(
+      rows.filter((row) => row?.kind === "threw").map((row) => String(row.name || "").toLowerCase())
+    );
+    const extra = [];
+    for (const thrower of throwers) {
+      const name = thrower?.name || "A trainer";
+      if (have.has(name.toLowerCase())) continue;
+      extra.push({
+        name,
+        kind: "threw",
+        item: thrower.ball,
+        at: live.deadlines?.throw || new Date().toISOString()
+      });
+    }
+    return extra.concat(rows);
+  };
+
+  window.playRenderLiveFeed = function playRenderLiveFeed(source, targetId, round) {
     const list = document.getElementById(targetId || "live-feed");
     if (!list) return;
-    const rows = Array.isArray(source) ? source : (Array.isArray(source?.activity) ? source.activity : []);
+    const rows = window.playConsoleRows(source, round);
     if (!rows.length) {
       list.innerHTML = `<li class="muted">Waiting for trainers to join, use Honey or a Berry, and throw a ball.</li>`;
       return;

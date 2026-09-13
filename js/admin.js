@@ -135,6 +135,9 @@
     if (els.advancePhase) {
       els.advancePhase.disabled = !shown || shown.phase === "closed" || shown.cancelled;
     }
+    if (typeof window.playRenderLiveFeed === "function" && lastOverview) {
+      window.playRenderLiveFeed(lastOverview.console || [], "admin-console", shown);
+    }
     if (seqKeep && shown && seqPhase !== "results" && String(lastHubKey).startsWith(`${shown.id}:`)) {
       window.playPatchEncounter(els.encounter, shown, 0, {});
       lastHubKey = key;
@@ -155,7 +158,7 @@
     const shown = hubRound(data.round);
     renderRound(data.round);
     if (typeof window.playRenderLiveFeed === "function") {
-      window.playRenderLiveFeed(data.console || data.round, "admin-console");
+    window.playRenderLiveFeed(data.console || [], "admin-console", shown);
     }
     els.trainers.textContent = `${data.trainers} trainer${data.trainers === 1 ? "" : "s"} on Play.`;
     const live = Boolean(shown && shown.phase && shown.phase !== "closed" && !shown.cancelled);

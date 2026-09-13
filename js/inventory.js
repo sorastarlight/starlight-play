@@ -8,7 +8,8 @@
     capacity: document.getElementById("capacity-note"),
     capacityBar: document.getElementById("capacity-bar"),
     status: document.getElementById("inv-status"),
-    lurePanel: document.getElementById("lure-panel")
+    lurePanel: document.getElementById("lure-panel"),
+    ledger: document.getElementById("item-ledger")
   };
   let invChannel = null;
 
@@ -69,7 +70,7 @@
       {
         title: "Evolution Items",
         note: "Used with family Candy on the Evolution page. Candy itself is not sold.",
-        items: ["firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord"]
+        items: ["firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord", "rarecandy"]
           .filter((key) => Number(bag?.[key] || 0) > 0)
           .map((key) => [key, window.playItemLabel(key), ({
             firestone: "A peculiar stone that can trigger certain Fire-type evolutions.",
@@ -77,7 +78,8 @@
             thunderstone: "A peculiar stone that can trigger certain Electric-type evolutions.",
             leafstone: "A peculiar stone that can trigger certain plant-related evolutions.",
             moonstone: "A mysterious stone associated with certain unusual evolutions.",
-            linkingcord: "A mysterious cord that can trigger certain evolutions normally caused by trading."
+            linkingcord: "A mysterious cord that can trigger certain evolutions normally caused by trading.",
+            rarecandy: "Gives 1 family Candy. Use it on the Evolution page."
           })[key]])
       }
     ];
@@ -127,6 +129,19 @@
       bag = { ...bag, ...(collection?.items || {}) };
     } catch (_) {}
     renderBag(bag);
+    try {
+      const hist = await window.playCall("play_item_ledger", { p_limit: 20 });
+      const rows = hist?.rows || [];
+      if (els.ledger) {
+        els.ledger.innerHTML = rows.length
+          ? `<table class="report-table"><thead><tr><th>Item</th><th>Qty</th><th>Source</th></tr></thead><tbody>${
+            rows.map((row) => `<tr><td>${window.playEscapeAttr(row.item)}</td><td>${row.amount > 0 ? "+" : ""}${row.amount}</td><td>${window.playEscapeAttr(row.reason)}</td></tr>`).join("")
+          }</tbody></table>`
+          : `<p class="muted">No item history yet.</p>`;
+      }
+    } catch (_) {
+      if (els.ledger) els.ledger.innerHTML = "";
+    }
     els.gate.hidden = true;
     els.trainer.hidden = false;
     if (invChannel) supabase.removeChannel(invChannel);

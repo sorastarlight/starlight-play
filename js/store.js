@@ -348,6 +348,29 @@
     </article>`;
   }
 
+  function renderChoices(wallet) {
+    const rows = wallet?.pendingChoices || [];
+    if (!rows.length) return "";
+    return rows.map((row) => `
+      <section class="card body daily-supply-card">
+        <p class="eyebrow">Choose a reward</p>
+        <p>Pick ${Number(row.remaining || 1)} Evolution Stone${Number(row.remaining || 1) === 1 ? "" : "s"}. This cannot be changed later.</p>
+        <div class="links">
+          ${(row.options || []).map((key) => `<button type="button" data-choice-key="${esc(row.rewardKey)}" data-choice-item="${esc(key)}">${esc(window.playItemLabel(key))}</button>`).join("")}
+        </div>
+      </section>`).join("");
+  }
+
+  function dailyBonusLine(wallet) {
+    const preview = wallet?.dailyPreview || {};
+    const extras = [];
+    if (Number(preview.greatball || 0) > 0) extras.push(`${preview.greatball} Great Ball`);
+    if (Number(preview.bait || 0) > 0) extras.push(`${preview.bait} Honey`);
+    if (Number(preview.razz || 0) > 0) extras.push(`${preview.razz} Razz Berry`);
+    if (Number(preview.ultraball || 0) > 0) extras.push(`${preview.ultraball} Ultra Ball`);
+    return extras.length ? ` + ${extras.join(", ")}` : "";
+  }
+
   function passFloor(floor, pass, wallet) {
     const info = describePass(pass, wallet);
     const perks = Array.isArray(floor.extra?.perks) && floor.extra.perks.length
@@ -363,8 +386,15 @@
             <h2>${esc(title)} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h2>
             <ul>${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
             <p data-pass-status class="muted">${esc(info.note)}</p>
+            <div class="daily-supply-card">
+              <p class="eyebrow">Daily Trainer Supply</p>
+              <p>${wallet?.dailyClaimed
+                ? "Claimed. Next supply tomorrow."
+                : `Today: 3 Poké Balls, 1 ${window.playItemLabel(wallet?.dailyPreview?.berry || "berry")}, 50 PokéCoins${dailyBonusLine(wallet)}.`}</p>
+              <p class="muted">Day ${Number(wallet?.dailyStreakDay || 1)} of 7 · ${esc(wallet?.dailyTimezone || "America/New_York")}</p>
+            </div>
             <div class="links pass-actions">
-              <button id="claim-supply" class="secondary" type="button"${wallet?.dailySupplyReady === false ? " disabled" : ""}>${wallet?.dailySupplyReady === false ? "Trainer Supply claimed" : "Claim Daily Trainer Supply"}</button>
+              <button id="claim-supply" class="secondary" type="button"${wallet?.dailySupplyReady === false ? " disabled" : ""}>${wallet?.dailySupplyReady === false ? "Claimed" : "Claim"}</button>
               <button id="claim-daily" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "Daily claimed" : "Claim daily gift"}</button>
               <button id="claim-weekly" class="gold" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "Weekly claimed" : "Claim weekly crate"}</button>
               <button id="check-pass" class="secondary" type="button">Check my subscription</button>
@@ -743,6 +773,7 @@
     const passRow = floors.find((floor) => floor.kind === "pass");
     const tab = resolveTab(floors, location.hash);
     const passHtml = passRow ? passFloor(passRow, pass, wallet) : "";
+    const choiceHtml = renderChoices(wallet);
     const folderHtml = shop.length
       ? `<div class="mart-folder">
           ${tabButtons(shop)}
@@ -752,7 +783,7 @@
           </div>
         </div>`
       : "";
-    els.floors.innerHTML = `${passHtml}${folderHtml}`;
+    els.floors.innerHTML = `${choiceHtml}${passHtml}${folderHtml}`;
     placeWallet();
     showTab(tab, { updateHash: Boolean(location.hash) && location.hash.replace(/^#/, "") !== "pass" });
     renderBallCase(catalog);
@@ -910,6 +941,21 @@
       }
       if (note) note.textContent = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
       await load();
+      return;
+    }
+    const choiceBtn = event.target.closest("[data-choice-item]");
+    if (choiceBtn) {
+      const note = els.status;
+      try {
+        const data = await window.playCall("play_claim_choice", {
+          p_reward_key: choiceBtn.getAttribute("data-choice-key"),
+          p_item: choiceBtn.getAttribute("data-choice-item")
+        });
+        if (note) note.textContent = data.message;
+        await refreshStore();
+      } catch (error) {
+        if (note) note.textContent = window.playRpcError(error);
+      }
       return;
     }
     if (event.target.closest("#claim-supply")) {

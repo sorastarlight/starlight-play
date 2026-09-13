@@ -262,6 +262,28 @@
           <button id="load-ledger" type="button">Refresh ledger</button>
         </div>
         <div id="eco-ledger" class="report-out"></div>
+        <h3>Item loot</h3>
+        <p class="muted">Gameplay drops only. Bits stays guaranteed. This never writes trainer bags.</p>
+        <div id="loot-overview" class="report-out"></div>
+        <div class="settings-grid">
+          <label class="field" for="loot-part">Participation drop
+            <input id="loot-part" type="number" min="0" max="1" step="0.01" value="0.15">
+          </label>
+          <label class="field" for="loot-catch">Capture drop
+            <input id="loot-catch" type="number" min="0" max="1" step="0.01" value="0.25">
+          </label>
+          <label class="field" for="loot-event">Event multiplier
+            <input id="loot-event" type="number" min="0.1" max="3" step="0.1" value="1">
+          </label>
+        </div>
+        <div class="links">
+          <button id="save-loot" type="button">Save drop rates</button>
+          <button id="run-loot-sim" class="secondary" type="button">Simulate 10,000 encounters</button>
+          <button id="run-loot-tests" class="secondary" type="button">Run loot tests</button>
+        </div>
+        <p id="loot-status" class="muted" role="status"></p>
+        <div id="loot-tables" class="report-out"></div>
+        <div id="loot-sim-out" class="sim-out"></div>
       </section>
       <section class="card body">
         <h2>Progression</h2>
@@ -343,8 +365,8 @@
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
 <script src="js/variants.js"></script>
-<script src="js/game.js?v=eco1"></script>
+<script src="js/game.js?v=loot1"></script>
 <script src="js/hud.js?v=eco1"></script>
 <script src="js/nav.js?v=evo1"></script>
-<script src="js/admin.js?v=evo2"></script>
+<script src="js/admin.js?v=loot1"></script>
 </body>

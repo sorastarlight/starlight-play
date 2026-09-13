@@ -71,7 +71,9 @@
     thunderstone: "Thunder Stone",
     leafstone: "Leaf Stone",
     moonstone: "Moon Stone",
-    linkingcord: "Linking Cord"
+    linkingcord: "Linking Cord",
+    rarecandy: "Rare Candy",
+    choice_stone: "Evolution Stone"
   };
   const VARIANT_LABELS = {
     normal: "Normal",
@@ -656,7 +658,8 @@
     moonstone: "moon-stone",
     moonstone1: "moon-stone",
     linkingcord: "linking-cord",
-    linkingcord1: "linking-cord"
+    linkingcord1: "linking-cord",
+    rarecandy: "lgpe-candy"
   };
 
   const ITEM_RAW_BASE = "https://raw.githubusercontent.com/sorastarlight/starlight-play/main/images/items/";

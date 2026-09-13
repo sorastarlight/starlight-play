@@ -64,7 +64,14 @@
     progStatus: document.getElementById("progression-status"),
     collectionOverview: document.getElementById("collection-overview"),
     collectionStatus: document.getElementById("collection-status"),
-    candySimOut: document.getElementById("candy-sim-out")
+    candySimOut: document.getElementById("candy-sim-out"),
+    lootOverview: document.getElementById("loot-overview"),
+    lootPart: document.getElementById("loot-part"),
+    lootCatch: document.getElementById("loot-catch"),
+    lootEvent: document.getElementById("loot-event"),
+    lootStatus: document.getElementById("loot-status"),
+    lootTables: document.getElementById("loot-tables"),
+    lootSimOut: document.getElementById("loot-sim-out")
   };
   let pickGender = "";
   let pickShiny = false;
@@ -239,6 +246,7 @@
     await refreshOverview(true);
     await loadCapture();
     await loadEconomy();
+    await loadLoot();
     await loadProgression();
     await loadCollection();
   }
@@ -745,6 +753,97 @@
       </dl><p class="muted">${week.note || "Dry run only."}</p>`;
     } catch (error) {
       els.ecoSimOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+    }
+  });
+
+  async function loadLoot() {
+    if (!els.lootOverview) return;
+    try {
+      const data = await window.playCall("admin_loot_overview", {});
+      const inv = data.inventory || {};
+      const cfg = data.config || {};
+      if (els.lootPart) els.lootPart.value = cfg.participationDropChance ?? 0.15;
+      if (els.lootCatch) els.lootCatch.value = cfg.captureDropChance ?? 0.25;
+      if (els.lootEvent) els.lootEvent.value = cfg.eventDropModifier ?? 1;
+      els.lootOverview.innerHTML = `<dl class="sim-grid">
+        <div><dt>Poké Balls held</dt><dd>${money(inv.pokeball)}</dd></div>
+        <div><dt>Great / Ultra</dt><dd>${money(inv.greatball)} / ${money(inv.ultraball)}</dd></div>
+        <div><dt>Honey</dt><dd>${money(inv.honey)}</dd></div>
+        <div><dt>Master Balls held</dt><dd>${money(inv.masterball)}</dd></div>
+        <div><dt>Stones / Cords</dt><dd>${money(inv.stones)} / ${money(inv.linkingcord)}</dd></div>
+      </dl>
+      ${(data.warnings || []).map((line) => `<p class="muted">${esc(line)}</p>`).join("")}
+      <h4>Bits packs stay guaranteed</h4>
+      ${(data.bitsPacks || []).map((row) => `<p>${esc(row.name)} · ${row.bits} Bits · ${esc(JSON.stringify(row.grants || {}))}</p>`).join("")}`;
+      const tables = await window.playCall("admin_loot_tables", {});
+      els.lootTables.innerHTML = (tables.tables || []).map((table) => `
+        <h4>${esc(table.name)} <span class="muted">${esc(table.tier || "")}</span></h4>
+        <table class="report-table"><thead><tr><th>Item</th><th>Weight</th><th>Approx</th><th>Qty</th></tr></thead>
+        <tbody>${(table.entries || []).map((entry) => `<tr>
+          <td>${esc(entry.label)}</td>
+          <td><input data-loot-entry="${entry.id}" data-loot-field="weight" data-loot-min="${entry.minQty}" data-loot-max="${entry.maxQty}" type="number" min="0" value="${entry.weight}"></td>
+          <td>${entry.approx}%</td>
+          <td>${entry.minQty}–${entry.maxQty}</td>
+        </tr>`).join("")}</tbody></table>`).join("");
+    } catch (error) {
+      if (els.lootStatus) els.lootStatus.textContent = window.playRpcError(error);
+    }
+  }
+
+  document.getElementById("save-loot")?.addEventListener("click", async () => {
+    if (els.lootStatus) els.lootStatus.textContent = "Saving…";
+    try {
+      const saved = await window.playCall("admin_loot_save_config", {
+        p_balance: {
+          participationDropChance: Number(els.lootPart.value),
+          captureDropChance: Number(els.lootCatch.value),
+          eventDropModifier: Number(els.lootEvent.value)
+        }
+      });
+      const weights = [...document.querySelectorAll("[data-loot-entry][data-loot-field='weight']")];
+      for (const input of weights) {
+        await window.playCall("admin_loot_save_entry", {
+          p_id: input.getAttribute("data-loot-entry"),
+          p_weight: Number(input.value),
+          p_min: Number(input.getAttribute("data-loot-min") || 1),
+          p_max: Number(input.getAttribute("data-loot-max") || 1),
+          p_enabled: true
+        });
+      }
+      if (els.lootStatus) els.lootStatus.textContent = saved?.message || "Saved.";
+      await loadLoot();
+    } catch (error) {
+      if (els.lootStatus) els.lootStatus.textContent = window.playRpcError(error);
+    }
+  });
+
+  document.getElementById("run-loot-sim")?.addEventListener("click", async () => {
+    if (els.lootSimOut) els.lootSimOut.innerHTML = `<p class="muted">Running dry simulation…</p>`;
+    try {
+      const data = await window.playCall("admin_loot_simulate", { p_encounters: 10000, p_catch_rate: 0.35 });
+      const per = data.per100Joined || {};
+      els.lootSimOut.innerHTML = `<dl class="sim-grid">
+        <div><dt>Expected item value / encounter</dt><dd>${data.expectedValuePerEncounter} PokéCoins</dd></div>
+        <div><dt>Drops / 100 joined</dt><dd>${per.items}</dd></div>
+        <div><dt>Ultra Balls / 100 catches</dt><dd>${per.ultraBallsPer100Catches}</dd></div>
+        <div><dt>Stones / 100 catches</dt><dd>${per.stonesPer100Catches}</dd></div>
+        <div><dt>Linking Cords / 100 catches</dt><dd>${per.cordsPer100Catches}</dd></div>
+      </dl><p class="muted">${data.note || ""}</p>`;
+    } catch (error) {
+      els.lootSimOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+    }
+  });
+
+  document.getElementById("run-loot-tests")?.addEventListener("click", async () => {
+    if (els.lootStatus) els.lootStatus.textContent = "Testing…";
+    try {
+      const data = await window.playCall("admin_loot_self_test", {});
+      const rows = data.results || [];
+      const failed = rows.filter((row) => !row.passed);
+      if (els.lootStatus) els.lootStatus.textContent = failed.length ? `${failed.length} loot tests failed.` : `${rows.length} loot tests passed.`;
+      els.lootSimOut.innerHTML = rows.map((row) => `<p>${row.passed ? "✓" : "✗"} ${esc(row.name)} · ${esc(row.detail || "")}</p>`).join("");
+    } catch (error) {
+      if (els.lootStatus) els.lootStatus.textContent = window.playRpcError(error);
     }
   });
 

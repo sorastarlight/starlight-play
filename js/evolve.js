@@ -5,6 +5,10 @@
     app: document.getElementById("evo-app"),
     grid: document.getElementById("evo-grid"),
     candy: document.getElementById("candy-list"),
+    rarePanel: document.getElementById("rare-candy-panel"),
+    rareFamily: document.getElementById("rare-candy-family"),
+    rareUse: document.getElementById("rare-candy-use"),
+    rareStatus: document.getElementById("rare-candy-status"),
     families: document.getElementById("family-list"),
     mastery: document.getElementById("mastery-list"),
     filter: document.getElementById("evo-filter"),
@@ -112,9 +116,21 @@
     }).join("") || `<p class="muted">Catch a Pokémon with an enabled family to see its line here.</p>`;
   }
 
+  function renderRareCandy() {
+    const qty = Number(data?.items?.rarecandy || data?.bag?.rarecandy || 0);
+    const families = (data?.families || []).filter((fam) => (fam.next || []).length);
+    if (els.rarePanel) els.rarePanel.hidden = qty < 1 && families.length < 1;
+    if (els.rareFamily) {
+      els.rareFamily.innerHTML = families.map((fam) => `<option value="${fam.familyId}">${window.playEscapeAttr(fam.name)} · ${fam.candy || 0} Candy</option>`).join("");
+    }
+    if (els.rareUse) els.rareUse.disabled = qty < 1 || !families.length;
+    if (els.rareStatus && qty) els.rareStatus.textContent = `${qty} Rare Candy ready.`;
+  }
+
   function render() {
     renderReady();
     renderFamilies();
+    renderRareCandy();
     els.candy.innerHTML = (data?.candy || []).map((row) => `
       <article class="prog-pick">
         <img src="${window.playSpriteUrl(row.baseDex, "normal")}" alt="" width="48" height="48">
@@ -206,6 +222,18 @@
       await load();
     } catch (error) {
       els.status.textContent = window.playRpcError(error);
+    }
+  });
+  els.rareUse?.addEventListener("click", async () => {
+    const family = Number(els.rareFamily?.value || 0);
+    if (!family) return;
+    if (els.rareStatus) els.rareStatus.textContent = "Using Rare Candy…";
+    try {
+      const result = await window.playCall("play_use_rare_candy", { p_family: family });
+      if (els.rareStatus) els.rareStatus.textContent = result.message || "Rare Candy used.";
+      await load();
+    } catch (error) {
+      if (els.rareStatus) els.rareStatus.textContent = window.playRpcError(error);
     }
   });
   els.filter?.addEventListener("change", renderReady);

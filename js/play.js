@@ -171,15 +171,17 @@
     };
     const pushBalls = (disabled, used) => {
       const favorites = window.playFavoriteBalls(bag, prefs);
+      const emptyBag = !disabled && !used && window.playThrowableTotal(bag) < 1;
       favorites.forEach((row) => {
         const qty = Number(bag[row.key] || 0);
+        const advice = !disabled && !used && qty > 0 ? window.playBallAdvice(row.key, round) : "";
         const hint = used === row.key
           ? "Locked in"
           : used
             ? "Already thrown"
             : disabled
               ? "Opens in Throw"
-              : (qty < 1 ? "None left" : `${qty} left · ${row.multiplier}`);
+              : (qty < 1 ? "None left" : (advice || `${qty} left · ${row.multiplier}`));
         buttons.push({
           kind: "throw",
           item: row.key,
@@ -189,11 +191,21 @@
           disabled: disabled || Boolean(used) || qty < 1
         });
       });
+      if (emptyBag) {
+        buttons.push({
+          kind: "throw",
+          item: "standard",
+          label: "Standard throw",
+          hint: "Free Poké Ball · always available",
+          sprite: "pokeball",
+          disabled: false
+        });
+      }
       buttons.push({
         kind: "open-balls",
         item: "pokeball",
-        label: "All my Poké Balls",
-        hint: used ? "Locked in" : disabled ? "Opens in Throw" : "Only balls you own",
+        label: emptyBag ? "Standard throw" : "All my Poké Balls",
+        hint: used ? "Locked in" : disabled ? "Opens in Throw" : (emptyBag ? "Free Poké Ball" : "Only balls you own"),
         sprite: "pokeball",
         disabled: disabled || Boolean(used)
       });
@@ -311,8 +323,19 @@
         : "Only balls in your bag. Catch power is how much each ball improves your chance. Master Ball always catches.";
     }
     const rows = window.playOwnedBalls(bag);
+    const adviceFor = (key) => {
+      const note = window.playBallAdvice?.(key, state?.round || liveRound(state));
+      return note ? `<span class="muted">${note}</span>` : `<span class="muted">${Number(bag?.[key] || 0)} in bag</span>`;
+    };
     if (!rows.length) {
-      els.throwGrid.innerHTML = `<p class="muted">You don’t have any Poké Balls right now. Buy more in the Store.</p>`;
+      els.throwGrid.innerHTML = throwViewOnly
+        ? `<p class="muted">You don’t have any Poké Balls right now. Buy more in the Store.</p>`
+        : `<button type="button" class="ball-tile" data-throw="standard">
+            <img src="${window.playItemSprite("pokeball")}" alt="">
+            <strong>Standard throw</strong>
+            <span class="ball-rate">1× catch power</span>
+            <span class="muted">Free Poké Ball · always available</span>
+          </button>`;
     } else {
       els.throwGrid.innerHTML = rows.map((row) => {
         const qty = Number(bag?.[row.key] || 0);
@@ -321,7 +344,7 @@
           <img src="${window.playItemSprite(row.key)}" alt="">
           <strong>${row.name}</strong>
           <span class="ball-rate">${row.multiplier} catch power</span>
-          <span class="muted">${qty} in bag</span>
+          ${throwViewOnly ? `<span class="muted">${qty} in bag</span>` : adviceFor(row.key)}
         </button>`;
       }).join("");
     }
@@ -371,9 +394,10 @@
     }
     if (round.phase === "throw" && !me.ball && prefs.autoThrow) {
       const favorite = window.playFavoriteBalls(bag, prefs).find((row) => Number(bag[row.key] || 0) > 0);
-      if (favorite && maybeAutoAct._throw !== round.id) {
+      const item = favorite?.key || (window.playThrowableTotal(bag) < 1 ? "standard" : "");
+      if (item && maybeAutoAct._throw !== round.id) {
         maybeAutoAct._throw = round.id;
-        act("throw", favorite.key);
+        act("throw", item);
       }
     }
   }

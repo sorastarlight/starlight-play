@@ -55,7 +55,7 @@
         title: "Encounter Items",
         note: "Use these after you join, before anyone throws a ball.",
         items: [
-          ["bait", "Honey", "Helps everyone’s catch chance. The more Trainers who add Honey, the bigger the shared bonus."],
+          ["bait", "Honey", "Contribute Honey to help every Trainer in the encounter! The more Trainers who contribute, the stronger the community bonus becomes."],
           ["lure", "Poké Radar", "Automatically detects nearby Pokémon and joins you to any encounter that appears. Lasts 30 minutes."]
         ]
       },

@@ -45,7 +45,17 @@
     simBerry: document.getElementById("sim-berry"),
     simOut: document.getElementById("sim-out"),
     reportDays: document.getElementById("report-days"),
-    reportOut: document.getElementById("report-out")
+    reportOut: document.getElementById("report-out"),
+    ecoOverview: document.getElementById("eco-overview"),
+    ecoJoin: document.getElementById("eco-join"),
+    ecoCatch: document.getElementById("eco-catch"),
+    ecoDex: document.getElementById("eco-dex"),
+    ecoShiny: document.getElementById("eco-shiny"),
+    ecoLegend: document.getElementById("eco-legend"),
+    ecoStream: document.getElementById("eco-stream"),
+    ecoStatus: document.getElementById("economy-status"),
+    ecoSimOut: document.getElementById("eco-sim-out"),
+    ecoLedger: document.getElementById("eco-ledger")
   };
   let pickGender = "";
   let pickShiny = false;
@@ -219,6 +229,7 @@
     els.staff.hidden = false;
     await refreshOverview(true);
     await loadCapture();
+    await loadEconomy();
   }
 
   async function run(name, args, statusEl) {
@@ -631,6 +642,125 @@
   }
 
   document.getElementById("run-report")?.addEventListener("click", loadReport);
+
+  let economyConfig = null;
+
+  function money(value) {
+    return Number(value || 0).toLocaleString();
+  }
+
+  function fillEconomy(data) {
+    const cfg = data?.config || {};
+    economyConfig = cfg;
+    if (els.ecoJoin) els.ecoJoin.value = cfg.participationReward ?? 25;
+    if (els.ecoCatch) els.ecoCatch.value = cfg.captureReward ?? 25;
+    if (els.ecoDex) els.ecoDex.value = cfg.newDexReward ?? 100;
+    if (els.ecoShiny) els.ecoShiny.value = cfg.shinyReward ?? 250;
+    if (els.ecoLegend) els.ecoLegend.value = cfg.legendaryReward ?? 350;
+    if (els.ecoStream) els.ecoStream.value = cfg.streamAttendanceReward ?? 50;
+    const dist = data?.distribution || {};
+    const inflation = data?.inflation || {};
+    if (els.ecoOverview) {
+      els.ecoOverview.innerHTML = `<dl class="sim-grid">
+        <div><dt>In circulation</dt><dd>${money(data.circulation)}</dd></div>
+        <div><dt>Created today</dt><dd>${money(data.createdToday)}</dd></div>
+        <div><dt>Spent today</dt><dd>${money(data.spentToday)}</dd></div>
+        <div><dt>Store revenue today</dt><dd>${money(data.storeRevenueToday)}</dd></div>
+        <div><dt>Average / median</dt><dd>${money(data.averageBalance)} / ${money(data.medianBalance)}</dd></div>
+        <div><dt>Created vs spent</dt><dd>${money(inflation.created)} / ${money(inflation.destroyed)}</dd></div>
+        <div><dt>Ultra Ball usage</dt><dd>${pct(data.ultraShare)}</dd></div>
+        <div><dt>Golden Razz usage</dt><dd>${pct(data.goldenRazzShare)}</dd></div>
+        <div><dt>Honey turnout</dt><dd>${pct(data.honeyParticipation)}</dd></div>
+        <div><dt>Master Balls owned</dt><dd>${money(data.masterBallsOwned)}</dd></div>
+        <div><dt>0–499</dt><dd>${dist["0-499"] || 0}</dd></div>
+        <div><dt>500–999</dt><dd>${dist["500-999"] || 0}</dd></div>
+        <div><dt>1,000–2,499</dt><dd>${dist["1000-2499"] || 0}</dd></div>
+        <div><dt>2,500–4,999</dt><dd>${dist["2500-4999"] || 0}</dd></div>
+        <div><dt>5,000–9,999</dt><dd>${dist["5000-9999"] || 0}</dd></div>
+        <div><dt>10,000+</dt><dd>${dist["10000+"] || 0}</dd></div>
+      </dl>`;
+    }
+  }
+
+  async function loadEconomy() {
+    if (!els.ecoOverview) return;
+    try {
+      fillEconomy(await window.playCall("admin_economy_overview", {}));
+    } catch (error) {
+      if (els.ecoStatus) els.ecoStatus.textContent = window.playRpcError(error);
+    }
+  }
+
+  document.getElementById("save-economy")?.addEventListener("click", async () => {
+    if (els.ecoStatus) els.ecoStatus.textContent = "Saving…";
+    try {
+      const saved = await window.playCall("admin_economy_save", {
+        p_balance: {
+          ...(economyConfig || {}),
+          participationReward: Number(els.ecoJoin.value),
+          captureReward: Number(els.ecoCatch.value),
+          newDexReward: Number(els.ecoDex.value),
+          shinyReward: Number(els.ecoShiny.value),
+          legendaryReward: Number(els.ecoLegend.value),
+          streamAttendanceReward: Number(els.ecoStream.value)
+        }
+      });
+      economyConfig = saved?.config || economyConfig;
+      if (els.ecoStatus) els.ecoStatus.textContent = saved?.message || "Saved.";
+    } catch (error) {
+      if (els.ecoStatus) els.ecoStatus.textContent = window.playRpcError(error);
+    }
+  });
+
+  document.getElementById("run-economy-sim")?.addEventListener("click", async () => {
+    if (els.ecoSimOut) els.ecoSimOut.innerHTML = `<p class="muted">Running…</p>`;
+    try {
+      const data = await window.playCall("admin_economy_simulate", {
+        p_encounters: Number(document.getElementById("eco-encounters").value),
+        p_streams: Number(document.getElementById("eco-streams").value),
+        p_join_rate: Number(document.getElementById("eco-join-rate").value),
+        p_catch_rate: Number(document.getElementById("eco-catch-rate").value),
+        p_strategy: "regular"
+      });
+      const stream = data.perStream || {};
+      const week = data.weekly || {};
+      els.ecoSimOut.innerHTML = `<dl class="sim-grid">
+        <div><dt>Per stream</dt><dd>${money(stream.coinsEarned)} PokéCoins</dd></div>
+        <div><dt>Poké Balls</dt><dd>${stream.pokeBallsAffordable}</dd></div>
+        <div><dt>Great Balls</dt><dd>${stream.greatBallsAffordable}</dd></div>
+        <div><dt>Ultra Balls</dt><dd>${stream.ultraBallsAffordable}</dd></div>
+        <div><dt>Weekly</dt><dd>${money(week.coinsEarned)} PokéCoins</dd></div>
+        <div><dt>Weekly Ultra Balls</dt><dd>${week.ultraBallsAffordable}</dd></div>
+      </dl><p class="muted">${week.note || "Dry run only."}</p>`;
+    } catch (error) {
+      els.ecoSimOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+    }
+  });
+
+  document.getElementById("load-ledger")?.addEventListener("click", async () => {
+    if (els.ecoLedger) els.ecoLedger.innerHTML = `<p class="muted">Loading…</p>`;
+    try {
+      const data = await window.playCall("admin_coin_ledger", { p_limit: 40 });
+      const rows = data.rows || [];
+      els.ecoLedger.innerHTML = rows.length
+        ? `<table class="report-table"><thead><tr><th>When</th><th>Trainer</th><th>Type</th><th>Amount</th><th>After</th></tr></thead>
+           <tbody>${rows.map((row) => `<tr>
+             <td>${escTime(row.at)}</td><td>${row.trainer || "—"}</td><td>${row.type}</td>
+             <td>${row.amount > 0 ? "+" : ""}${money(row.amount)}</td><td>${money(row.after)}</td>
+           </tr>`).join("")}</tbody></table>`
+        : `<p class="muted">No ledger rows yet.</p>`;
+    } catch (error) {
+      els.ecoLedger.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+    }
+  });
+
+  function escTime(value) {
+    try {
+      return new Date(value).toLocaleString();
+    } catch (_) {
+      return value || "—";
+    }
+  }
 
   supabase.auth.onAuthStateChange((event, session) => {
     if (window.playAuthNoise(event)) return;

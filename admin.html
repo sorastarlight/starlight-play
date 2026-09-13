@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=cap1">
+<link rel="stylesheet" href="css/play.css?v=eco1">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -209,6 +209,61 @@
         <div id="sim-out" class="sim-out"></div>
       </section>
       <section class="card body">
+        <h2>Economy</h2>
+        <p class="muted">PokéCoin circulation, rewards, and a dry-run spending estimate. This never changes trainer bags.</p>
+        <div id="eco-overview" class="report-out"></div>
+        <h3>Encounter rewards</h3>
+        <div class="settings-grid">
+          <label class="field" for="eco-join">Join + complete
+            <input id="eco-join" type="number" min="0" max="5000" step="1">
+          </label>
+          <label class="field" for="eco-catch">Successful catch
+            <input id="eco-catch" type="number" min="0" max="5000" step="1">
+          </label>
+          <label class="field" for="eco-dex">New Pokédex entry
+            <input id="eco-dex" type="number" min="0" max="5000" step="1">
+          </label>
+          <label class="field" for="eco-shiny">Shiny bonus
+            <input id="eco-shiny" type="number" min="0" max="5000" step="1">
+          </label>
+          <label class="field" for="eco-legend">Legendary bonus
+            <input id="eco-legend" type="number" min="0" max="5000" step="1">
+          </label>
+          <label class="field" for="eco-stream">First encounter of the stream
+            <input id="eco-stream" type="number" min="0" max="5000" step="1">
+          </label>
+        </div>
+        <div class="links">
+          <button id="save-economy" type="button">Save economy rewards</button>
+        </div>
+        <p id="economy-status" class="muted" role="status"></p>
+        <h3>Economy simulator</h3>
+        <p class="muted">Dry run only. Estimates what a regular player earns, not what they should throw.</p>
+        <div class="settings-grid">
+          <label class="field" for="eco-encounters">Encounters / stream
+            <input id="eco-encounters" type="number" min="1" max="2500" value="10">
+          </label>
+          <label class="field" for="eco-streams">Streams / week
+            <input id="eco-streams" type="number" min="1" max="20" value="5">
+          </label>
+          <label class="field" for="eco-join-rate">Join rate
+            <input id="eco-join-rate" type="number" min="0" max="1" step="0.05" value="0.8">
+          </label>
+          <label class="field" for="eco-catch-rate">Catch rate
+            <input id="eco-catch-rate" type="number" min="0" max="1" step="0.05" value="0.35">
+          </label>
+        </div>
+        <div class="links">
+          <button id="run-economy-sim" type="button">Run economy estimate</button>
+        </div>
+        <div id="eco-sim-out" class="sim-out"></div>
+        <h3>Recent ledger</h3>
+        <div class="links">
+          <button id="load-ledger" type="button">Refresh ledger</button>
+        </div>
+        <div id="eco-ledger" class="report-out"></div>
+      </section>
+      <section class="card body">
         <h2>Capture analytics</h2>
         <p class="muted">Every throw is logged with its inputs, roll and result.</p>
         <div class="links">
@@ -241,8 +296,8 @@
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
 <script src="js/variants.js"></script>
-<script src="js/game.js?v=cap1"></script>
-<script src="js/hud.js?v=cap1"></script>
+<script src="js/game.js?v=eco1"></script>
+<script src="js/hud.js?v=eco1"></script>
 <script src="js/nav.js?v=hub1"></script>
-<script src="js/admin.js?v=cap1"></script>
+<script src="js/admin.js?v=eco1"></script>
 </body>

@@ -14,6 +14,7 @@
   let lastWallet = null;
   let lastPass = null;
   let lastOwned = [];
+  let lastBag = null;
   let lastTab = "";
   const CHECKOUT_TAB = "checkout";
   const CART_KEY = "play-mart-checkout";
@@ -28,6 +29,7 @@
       lastPass = null;
       lastWallet = null;
       lastOwned = [];
+      lastBag = null;
       renderFloors(lastCatalog, null, null, []);
     }
   });
@@ -74,6 +76,33 @@
 
   function findSku(sku) {
     return catalogItems().find((item) => item.sku === sku) || null;
+  }
+
+  function grantKey(item) {
+    return item?.ballKey || item?.extra?.ballKey || Object.keys(item?.grants || {})[0] || "";
+  }
+
+  function ownedQty(item) {
+    const key = grantKey(item);
+    if (!key || !lastBag) return 0;
+    if (key === "bait") return Number(lastBag.bait || 0);
+    return Number(lastBag[key] || 0);
+  }
+
+  function ownedLine(item) {
+    if (!lastBag || item?.pack || item?.bits) return "";
+    const qty = ownedQty(item);
+    return `<p class="muted">You own ${qty.toLocaleString()}</p>`;
+  }
+
+  function newOrderId() {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+      return crypto.randomUUID();
+    }
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (ch) => {
+      const n = Math.floor(Math.random() * 16);
+      return (ch === "x" ? n : (n & 0x3) | 0x8).toString(16);
+    });
   }
 
   function addButton(sku, { avatar } = {}) {
@@ -194,8 +223,9 @@
         extra: {
           perks: [
             "+25 bag space while active",
-            "Daily: 2 Berries, 1 Honey, 20 PokéCoins",
-            "Weekly: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins"
+            "Daily Trainer Supply is free for every signed-in Trainer",
+            "Daily Pass: 2 Berries, 1 Honey, 20 PokéCoins",
+            "Weekly Pass: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins"
           ]
         },
         items: []
@@ -212,7 +242,7 @@
         key: "balls",
         kind: "balls",
         name: "Poké Balls",
-        blurb: "Poké Ball, Great Ball, Ultra Ball, Master Ball, and Premier Ball are on the shelf. Master Ball always catches.",
+        blurb: "Poké Ball, Great Ball, Ultra Ball, and specialist Balls are on the shelf. Master Ball is not sold here.",
         icon: "poke-ball.png",
         items: catalog?.balls || []
       },
@@ -268,6 +298,7 @@
         <div class="mart-copy">
           <strong>${esc(row.name)}</strong>
           ${blurb}
+          ${ownedLine(row)}
         </div>
         <div class="mart-price">
           ${costHtml(row, mode)}
@@ -285,6 +316,7 @@
       <img src="${esc(art(row, row.key))}" alt="">
       <strong>${esc(row.name)}${pack}</strong>
       <span class="ball-rate">${rate}</span>
+      ${ownedLine(row)}
       ${costHtml(row, "coins")}
       ${addButton(row.sku)}
     </article>`;
@@ -332,6 +364,7 @@
             <ul>${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
             <p data-pass-status class="muted">${esc(info.note)}</p>
             <div class="links pass-actions">
+              <button id="claim-supply" class="secondary" type="button"${wallet?.dailySupplyReady === false ? " disabled" : ""}>${wallet?.dailySupplyReady === false ? "Trainer Supply claimed" : "Claim Daily Trainer Supply"}</button>
               <button id="claim-daily" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "Daily claimed" : "Claim daily gift"}</button>
               <button id="claim-weekly" class="gold" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "Weekly claimed" : "Claim weekly crate"}</button>
               <button id="check-pass" class="secondary" type="button">Check my subscription</button>
@@ -383,6 +416,7 @@
         <p class="mart-featured-mark">${mark}</p>
         <strong>${esc(row.name)}</strong>
         ${blurb ? `<p>${esc(blurb)}</p>` : ""}
+        ${ownedLine(row)}
         ${extra}
       </div>
       <div class="mart-price">
@@ -600,7 +634,7 @@
       ? `<div class="mart-cart-list">${lines}</div>
          <div class="mart-cart-foot">
            <p class="mart-cart-total"><span>Total</span> <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(total)}</span></p>
-           ${short ? `<p class="mart-cart-warn">You need ${money(total - coins)} more PokéCoins.</p>` : ""}
+           ${short ? `<p class="mart-cart-warn">You need ${money(total - coins)} more PokéCoins.</p>` : (lastWallet ? `<p class="muted">After purchase: ${money(coins - total)} PokéCoins.</p>` : "")}
            <button type="button" class="gold" data-checkout-buy${short ? " disabled" : ""}>Purchase</button>
          </div>`
       : `<div class="mart-cart-empty">
@@ -636,7 +670,8 @@
       <h3>Thank you for your purchase!</h3>
       <ul class="mart-cart-fanfare-items">${items}</ul>
       <p class="mart-cart-fanfare-total"><span>Paid</span> <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(receipt.total || 0)}</span></p>
-      <p class="muted">They’re in your bag now. Come back any time!</p>
+      ${receipt.premierBonus ? `<p class="mart-cart-fanfare-kicker">Bonus! You received a Premier Ball!</p>` : ""}
+      ${receipt.after != null ? `<p class="muted">You have ${money(receipt.after)} PokéCoins left.</p>` : `<p class="muted">They’re in your bag now. Come back any time!</p>`}
     </div>`;
   }
 
@@ -743,6 +778,7 @@
       lastWallet = wallet;
       lastPass = data.pass;
       lastOwned = data.ownedAvatarPacks || [];
+      lastBag = data.bag || null;
       window._playOwnedAvatarPacks = lastOwned;
       fillWallet(wallet);
       renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
@@ -791,12 +827,19 @@
         })
       };
       const data = await window.playCall("play_buy_cart", {
-        p_items: cart.map((row) => ({ sku: row.sku, qty: row.qty }))
+        p_items: cart.map((row) => ({ sku: row.sku, qty: row.qty })),
+        p_order_id: newOrderId()
       });
       cart = [];
       saveCart();
       checkoutNote = "";
-      lastPurchase = { ...receipt, message: data.message || "Purchased." };
+      lastPurchase = {
+        ...receipt,
+        message: data.message || "Purchased.",
+        premierBonus: Number(data.premierBonus || 0),
+        after: Number(data.bag?.coins ?? lastWallet?.coins ?? 0) - 0
+      };
+      if (data.bag?.coins != null) lastPurchase.after = Number(data.bag.coins);
       lastTab = CHECKOUT_TAB;
       await refreshStore();
     } catch (error) {
@@ -867,6 +910,17 @@
       }
       if (note) note.textContent = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
       await load();
+      return;
+    }
+    if (event.target.closest("#claim-supply")) {
+      const note = document.querySelector("[data-pass-status]") || els.status;
+      try {
+        const data = await window.playCall("play_claim_daily_supply", {});
+        if (note) note.textContent = data.message;
+        await refreshStore();
+      } catch (error) {
+        if (note) note.textContent = window.playRpcError(error);
+      }
       return;
     }
     if (event.target.closest("#claim-daily")) {

@@ -27,6 +27,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
   };
   if (!els.app || els.app.dataset.liveOpsBound === "1") return;
   els.app.dataset.liveOpsBound = "1";
+  document.documentElement.classList.toggle("is-hub-test", sessionStorage.getItem("playHubTestMode") === "1");
 
   let state = null;
   let pending = false;
@@ -119,10 +120,57 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     else await run();
   }
 
+  function testMode() {
+    return sessionStorage.getItem("playHubTestMode") === "1";
+  }
+
+  function setTestMode(on) {
+    if (on) sessionStorage.setItem("playHubTestMode", "1");
+    else sessionStorage.removeItem("playHubTestMode");
+    document.documentElement.classList.toggle("is-hub-test", on);
+  }
+
+  function autoInfo(d, s) {
+    if (testMode()) return { label: "OFF", reason: "Test Mode does not run automatic cadence" };
+    if (!s.twitchLive && !s.rpgSession) return { label: "WAITING", reason: "Stream is offline" };
+    if (s.twitchLive && !s.rpgSession) return { label: "WAITING", reason: "Live RPG is starting" };
+    if (d.manualHold || !d.autoEnabled) {
+      const mode = (s.mode || "").toUpperCase();
+      if (["REACTION", "STORY", "BRB"].includes(mode)) return { label: "PAUSED", reason: MODE_LABELS[mode] || mode };
+      return { label: "PAUSED", reason: d.holdReason || "Automatic encounters paused" };
+    }
+    const left = until(d.nextEncounterAt);
+    return { label: "ON", reason: left != null ? `Next in ~${clock(left)}` : "Scheduling" };
+  }
+
   function autoLabel(d, s) {
-    if (!s.rpgSession) return d.autoEnabled ? "WAITING" : "OFF";
-    if (d.manualHold || !d.autoEnabled) return "OFF";
-    return "ON";
+    return autoInfo(d, s).label;
+  }
+
+  function rpgFace(s) {
+    if (testMode()) return "TEST";
+    if (s.twitchLive && s.rpgSession) return "LIVE";
+    if (s.twitchLive && !s.rpgSession) return "STARTING";
+    if (s.rpgSession) return "FORCED";
+    return "INACTIVE";
+  }
+
+  function adsFace(ad, w) {
+    if (ad.adActive) return "AD ACTIVE";
+    if (ad.authorizationNeeded) return "NOT CONNECTED";
+    if (["UNSAFE", "SHORT"].includes(w.state)) return "AD SOON";
+    if (ad.connected || !ad.authorizationNeeded) return "PROTECTED";
+    return "UNKNOWN";
+  }
+
+  function directorFace(d, s) {
+    if (testMode()) return "TESTING";
+    if (d.status === "WAITING_FOR_NEXT_ENCOUNTER") return "Waiting for next encounter";
+    if (d.status === "AD_PENDING" || d.delayReason === "AD_PENDING") return "Waiting until after upcoming ad";
+    if (d.status === "POST_AD_COOLDOWN") return "Giving viewers time to return after the ad";
+    if (d.status === "MANUAL_HOLD") return "Automatic encounters paused";
+    if (d.status === "AD_ACTIVE") return "Ad in progress";
+    return directorLabel(d, s);
   }
 
   function renderBar() {
@@ -130,21 +178,25 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const s = state?.stream || {};
     const d = state?.director || {};
     const ad = state?.adState || {};
+    const w = state?.safeWindow || {};
     const live = s.twitchLive ? "LIVE" : (s.liveKnown ? "OFFLINE" : "UNKNOWN");
-    const auto = autoLabel(d, s);
+    const auto = autoInfo(d, s);
+    const enc = state?.activeEncounter;
+    const encLabel = enc ? `${enc.name}${enc.phase ? ` · ${String(enc.phase).replace(/_/g, " ")}` : ""}` : "None";
     els.bar.innerHTML = [
-      `<div><em>● Stream</em><strong>${live}</strong></div>`,
-      `<div><em>◆ RPG Session</em><strong>${s.rpgSession ? "ACTIVE" : "INACTIVE"}</strong></div>`,
-      `<div><em>▶ Director</em><strong>${esc(directorLabel(d, s))}</strong></div>`,
-      `<div><em>↻ Auto</em><strong>${auto}${auto === "WAITING" ? " · needs session" : ""}</strong></div>`,
-      `<div><em>◎ Mode</em><strong>${esc((s.mode || "NORMAL").replace("_", " "))}</strong></div>`,
-      `<div><em>■ Ads</em><strong>${esc(ad.status || "UNKNOWN")}</strong></div>`,
-      `<div><em>★ Encounter</em><strong>${state?.activeEncounter ? esc(state.activeEncounter.name) : "NONE"}</strong></div>`
+      `<button type="button" data-jump="system" data-jump-view="twitch"><em>● Stream</em><strong>${live}</strong></button>`,
+      `<button type="button" data-jump="dashboard"><em>◆ RPG</em><strong>${rpgFace(s)}</strong></button>`,
+      `<button type="button" data-jump="dashboard"><em>↻ Auto encounters</em><strong>${auto.label}</strong><span>${esc(auto.reason)}</span></button>`,
+      `<button type="button" data-jump="dashboard"><em>◎ Mode</em><strong>${esc((s.mode || "NORMAL").replace("_", " "))}</strong></button>`,
+      `<button type="button" data-jump="system" data-jump-view="ads"><em>■ Ad protection</em><strong>${adsFace(ad, w)}</strong></button>`,
+      `<button type="button" data-jump="encounter"><em>★ Encounter</em><strong>${esc(encLabel)}</strong></button>`
     ].join("");
-    const idle = !s.twitchLive && !s.rpgSession;
+    const idle = !s.twitchLive && !s.rpgSession && !testMode();
     els.app?.classList.toggle("is-offline-idle", idle);
+    els.app?.classList.toggle("is-hub-test", testMode());
     const adsEl = document.getElementById("card-timing");
     adsEl?.classList.toggle("is-alert", Boolean(ad.adActive));
+    renderGuide();
   }
 
   function renderErrors() {
@@ -156,12 +208,92 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     if (disconnected) notes.push("Live data disconnected.");
     if (!s.liveKnown) notes.push(`Twitch live status has not been checked recently. <button type="button" class="secondary" data-act="refresh_live">Refresh live status</button>`);
     if (s.liveError) notes.push(esc(s.liveError));
-    if (ad.authorizationNeeded) notes.push(`Twitch Ads not connected. <button type="button" class="secondary" data-act="connect_ads">Connect Twitch Ads</button>`);
+    if (ad.authorizationNeeded) notes.push(`Ad Protection is not connected. Automatic encounters can still run. <button type="button" class="secondary" data-act="connect_ads">Connect Ad Protection</button>`);
     if (ad.stale && ad.dataAvailable) notes.push(`Ad data may be stale. <button type="button" class="secondary" data-act="refresh_ads">Refresh ads</button>`);
     if (/not subscribed/i.test(h.eventSub || "") && (s.rpgSession || ad.connected)) notes.push("EventSub disconnected.");
     if (h.director && h.director !== "Healthy") notes.push(`Director: ${esc(h.director)}`);
     els.errors.hidden = !notes.length;
     els.errors.innerHTML = notes.join(" · ");
+  }
+
+  function renderGuide() {
+    const box = byId("dash-offline");
+    if (!box) return;
+    const s = state?.stream || {};
+    const d = state?.director || {};
+    const ad = state?.adState || {};
+    const w = state?.safeWindow || {};
+    const auto = autoInfo(d, s);
+    const left = until(d.nextEncounterAt);
+    const adLeft = ad.adActive ? until(ad.activeExpectedEndAt) : until(ad.nextAdAt);
+    box.hidden = false;
+    if (testMode()) {
+      box.innerHTML = `
+        <p class="eyebrow">Test Mode</p>
+        <h2>Offline testing</h2>
+        <p>Twitch does not need to be live. Test encounters use the existing test protection and do not run automatic stream cadence.</p>
+        <div class="links">
+          <button type="button" class="gold" data-act="start_test" ${state?.activeEncounter ? "disabled" : ""}>Start test encounter</button>
+          <button type="button" class="secondary" data-act="exit_test">Exit Test Mode</button>
+        </div>`;
+      return;
+    }
+    if (!s.twitchLive && !s.rpgSession) {
+      box.innerHTML = `
+        <p class="eyebrow">Stream offline</p>
+        <h2>Live encounters are not running</h2>
+        <p>Want to test the RPG? Enter Test Mode. Going live? Twitch will activate the Live RPG when the stream is detected.</p>
+        <div class="links">
+          <button type="button" class="secondary" data-act="refresh_live">Refresh Twitch Status</button>
+          <button type="button" class="gold" data-act="enter_test">Enter Test Mode</button>
+        </div>
+        <details class="hub-advanced">
+          <summary>Advanced / Force Live Session</summary>
+          <p class="muted">Starts the live RPG Director even if Twitch live detection is unavailable or delayed. Not the normal way to test.</p>
+          <button type="button" class="secondary" data-act="start_session">Force Start Live RPG Session</button>
+        </details>`;
+      return;
+    }
+    if (s.twitchLive && !s.rpgSession) {
+      box.innerHTML = `
+        <p class="eyebrow">Live RPG</p>
+        <h2>Live detected — initializing RPG session</h2>
+        <p>Twitch is live. The Director starts the Live RPG automatically. No Start button is required.</p>
+        <div class="links">
+          <button type="button" class="secondary" data-act="refresh_live">Refresh Twitch Status</button>
+        </div>`;
+      return;
+    }
+    if (ad.adActive) {
+      box.innerHTML = `
+        <p class="eyebrow">Ad Protection</p>
+        <h2>Twitch ad in progress</h2>
+        <p>Active encounters are automatically paused. Expected resume ${adLeft == null ? "soon" : `in ${clock(adLeft)}`}.</p>
+        <p class="muted">No action required.</p>`;
+      return;
+    }
+    if (auto.label === "PAUSED") {
+      box.innerHTML = `
+        <p class="eyebrow">Live RPG running</p>
+        <h2>Automatic encounters are paused</h2>
+        <p>${esc(auto.reason)}</p>
+        <div class="links">
+          <button type="button" data-act="return_normal">Return to Normal</button>
+          <button type="button" class="secondary" data-act="resume_auto">Resume auto</button>
+        </div>`;
+      return;
+    }
+    if (["UNSAFE", "SHORT"].includes(w.state)) {
+      box.innerHTML = `
+        <p class="eyebrow">Ad Protection</p>
+        <h2>Upcoming Twitch ad${adLeft == null ? "" : ` in ${clock(adLeft)}`}</h2>
+        <p>The next automatic encounter will wait until after the ad. No action required.</p>`;
+      return;
+    }
+    box.innerHTML = `
+      <p class="eyebrow">Live RPG running</p>
+      <h2>No action required</h2>
+      <p>Next encounter ${left == null ? "is scheduling" : `~${clock(left)}`}. Ad Protection: ${adsFace(ad, w)}.</p>`;
   }
 
   function renderEncounter() {
@@ -189,13 +321,18 @@ window.playBindLiveOps = function playBindLiveOps(options) {
   function renderSafe() {
     if (!els.safe) return;
     const w = state?.safeWindow || {};
+    const ad = state?.adState || {};
+    const headline = ad.adActive
+      ? "Twitch ad in progress"
+      : (["UNSAFE", "SHORT"].includes(w.state) ? "Wait until after the upcoming ad." : "Encounter can safely start now.");
     els.safe.innerHTML = `
-      <p class="eyebrow">Stream timing</p>
-      <h2>Safe to start: ${esc(w.state || "UNKNOWN")}</h2>
+      <p class="eyebrow">Ad Protection</p>
+      <h2>${esc(headline)}</h2>
+      <p class="muted">Prevents encounters from starting too close to Twitch ads and pauses an active encounter if an ad begins.</p>
       <p>${esc(w.reason || "Loading…")}</p>
       <div class="hub-kv">
-        <div><span>Available window</span><strong>${w.availableSeconds == null ? "—" : clock(w.availableSeconds)}</strong></div>
-        <div><span>Required window</span><strong>${clock(w.requiredSeconds || 180)}</strong></div>
+        <div><span>Encounter window</span><strong>${["UNSAFE", "SHORT"].includes(w.state) ? "Wait" : "Safe"}</strong></div>
+        <div><span>Available</span><strong>${w.availableSeconds == null ? "—" : clock(w.availableSeconds)}</strong></div>
       </div>`;
   }
 
@@ -204,26 +341,37 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const ad = state?.adState || {};
     const cfg = state?.config || {};
     const left = ad.adActive ? until(ad.activeExpectedEndAt) : until(ad.nextAdAt);
+    const connected = ad.connected || !ad.authorizationNeeded;
+    const sys = byId("sys-ads-status");
+    if (sys) {
+      sys.innerHTML = connected
+        ? `<p><strong>Connected.</strong> Next ad ${ad.nextAdAt ? when(ad.nextAdAt) : "none scheduled"}.</p>`
+        : `<p><strong>Not connected.</strong> Automatic encounters can still run, but Twitch's real ad schedule cannot be checked. Fallback Mark Ad tools are under Dashboard → Advanced.</p>`;
+    }
+    const liveNote = byId("sys-live-status");
+    if (liveNote) {
+      const s = state?.stream || {};
+      liveNote.textContent = s.twitchLive ? "Twitch reports LIVE." : (s.liveKnown ? "Twitch reports OFFLINE." : "Live status has not been checked recently.");
+    }
     els.ads.innerHTML = `
-      ${ad.adActive ? `<p><strong>AD ACTIVE</strong> · Remaining ${clock(left)} · ${state?.activeEncounter ? "Encounter paused" : "No encounter"}</p>` : `<div class="hub-kv">
-        <div><span>Next Twitch ad</span><strong>${when(ad.nextAdAt)}</strong></div>
-        <div><span>Starts in</span><strong>${left == null ? "—" : clock(left)}</strong></div>
-        <div><span>Duration</span><strong>${clock(ad.nextAdDurationSec || 0)}</strong></div>
-        <div><span>Snoozes</span><strong>${ad.snoozeCount ?? 0}</strong></div>
-      </div>`}
-      <p>Connected: ${ad.connected || !ad.authorizationNeeded ? "Yes" : "No"} · Updated ${when(ad.lastRefreshAt)}</p>
-      <div class="links">
-        ${ad.authorizationNeeded ? `<button type="button" class="secondary" data-act="connect_ads">Connect Twitch Ads</button>` : ""}
-        <button type="button" class="secondary" data-act="refresh_ads">Refresh ads</button>
-        ${ad.manageAvailable && ad.snoozeCount > 0 && !ad.adActive ? `<button type="button" class="secondary" data-act="snooze_ad">Snooze next ad</button>` : ""}
-        <button type="button" class="secondary" data-act="mark_ad_started">Mark ad started</button>
-        <button type="button" class="secondary" data-act="mark_ad_ended">Mark ad ended</button>
-      </div>
-      <label class="field">Set next estimated ad
-        <input id="next-ad-at" type="datetime-local">
-      </label>
-      <button type="button" class="secondary" data-act="set_next_ad">Save fallback ad time</button>
-      <p class="muted">Post-ad cooldown ${cfg.postAdCooldownSeconds || 30}s</p>`;
+      <p>${connected ? "Connected ✓" : "Not connected"} · ${ad.adActive ? `Ad remaining ${clock(left)}` : `Next ad ${ad.nextAdAt ? clock(left) : "none scheduled"}`}</p>
+      ${ad.authorizationNeeded ? `<div class="links"><button type="button" data-act="connect_ads">Connect Ad Protection</button></div>
+        <p class="muted">Automatic encounters can still run. Play just cannot read Twitch's real ad schedule until this is connected.</p>` : `<p class="muted">No action required when Connected and Safe.</p>`}
+      <details class="hub-advanced">
+        <summary>Advanced / manual ad override</summary>
+        <p class="muted">Manual fallback for testing or if Twitch Ads cannot be read.</p>
+        <div class="links">
+          <button type="button" class="secondary" data-act="refresh_ads">Refresh ads</button>
+          ${ad.manageAvailable && ad.snoozeCount > 0 && !ad.adActive ? `<button type="button" class="secondary" data-act="snooze_ad">Snooze next ad</button>` : ""}
+          <button type="button" class="secondary" data-act="mark_ad_started">Mark ad started</button>
+          <button type="button" class="secondary" data-act="mark_ad_ended">Mark ad ended</button>
+        </div>
+        <label class="field">Set next estimated ad
+          <input id="next-ad-at" type="datetime-local">
+        </label>
+        <button type="button" class="secondary" data-act="set_next_ad">Save fallback ad time</button>
+        <p class="muted">Post-ad cooldown ${cfg.postAdCooldownSeconds || 30}s · EventSub ${esc((state?.health || {}).eventSub || "unknown")}</p>
+      </details>`;
   }
 
   function renderNext() {
@@ -232,19 +380,19 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const d = state?.director || {};
     const left = until(d.nextEncounterAt);
     const delayed = Boolean(d.delayReason || d.delayText);
-    const auto = autoLabel(d, s);
+    const auto = autoInfo(d, s);
     els.next.innerHTML = `
-      <p class="eyebrow">Encounter Director</p>
-      <h2>${d.manualHold || !d.autoEnabled ? "Paused" : (delayed && d.nextEncounterAt ? "Delayed" : (d.nextEncounterAt ? `~${clock(left)}` : "Waiting"))}</h2>
+      <p class="eyebrow">Auto encounters</p>
+      <h2>${testMode() ? "Test Mode" : (auto.label === "PAUSED" ? "Paused" : (delayed && d.nextEncounterAt ? "Waiting until after upcoming ad" : (d.nextEncounterAt ? `~${clock(left)}` : "Waiting")))}</h2>
+      <p class="muted">Automatically schedules wild encounters while the Live RPG is active.</p>
       <div class="hub-kv">
-        <div><span>Auto</span><strong>${auto}${auto === "WAITING" ? " · waiting for RPG session" : ""}</strong></div>
+        <div><span>Auto</span><strong>${auto.label}</strong></div>
         <div><span>Next encounter</span><strong>${when(d.nextEncounterAt)}</strong></div>
       </div>
-      <p>${esc(d.delayText || "Waiting.")}</p>
-      ${d.overdueFrom || (d.nextEncounterAt && Date.parse(d.nextEncounterAt) < Date.now() - 60000)
-        ? `<p>Overdue. Reason: ${esc(d.delayText || "")}</p>` : ""}
+      <p>${esc(auto.reason)}</p>
+      <p>${esc(d.delayText || directorFace(d, s))}</p>
       <div class="links">
-        <button type="button" class="secondary" data-act="${auto === "ON" ? "pause_auto" : "resume_auto"}">${auto === "ON" ? "Pause auto" : "Resume auto"}</button>
+        ${testMode() ? "" : `<button type="button" class="secondary" data-act="${auto.label === "ON" ? "pause_auto" : "resume_auto"}">${auto.label === "ON" ? "Pause auto" : "Resume auto"}</button>`}
       </div>`;
   }
 
@@ -301,6 +449,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       <label class="field">Stream mode
         <select id="stream-mode">${modes.map((m) => `<option value="${m}"${s.mode === m ? " selected" : ""}>${MODE_LABELS[m]}</option>`).join("")}</select>
       </label>
+      <p class="muted">Changes when automatic encounters are allowed; it does not change catch odds.</p>
       <p>${esc(s.modeLabel || "")}</p>`;
   }
 
@@ -364,23 +513,18 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     ].map(([value, label]) => `<option value="${value}"${pickGender === value ? " selected" : ""}>${label}</option>`).join("");
     const dexValue = pickQuery || (pickDex ? `${window.playPadDex(pickDex)} ${window.playSpeciesName(pickDex)}` : "");
     const autoOn = autoLabel(state?.director || {}, state?.stream || {}) === "ON";
-    const sessionOn = Boolean(state?.stream?.rpgSession);
     els.controls.innerHTML = `
       <p class="eyebrow">Quick controls</p>
       <div class="command-grid">
-        <button type="button" class="gold" data-act="start_random" ${busy ? "disabled" : ""}>${busy ? "Encounter active" : "Start random"}</button>
-        <button type="button" data-act="open_specific" ${busy ? "disabled" : ""}>Start specific</button>
-        <button type="button" class="secondary" data-act="open_specific">Queue special</button>
+        <button type="button" class="gold" data-act="start_random" ${busy ? "disabled" : ""}>${busy ? "Encounter active" : (testMode() ? "Start test random" : "Start random")}</button>
+        <button type="button" data-act="open_specific" ${busy ? "disabled" : ""}>${testMode() ? "Start test specific" : "Start specific"}</button>
+        ${testMode() ? "" : `<button type="button" class="secondary" data-act="open_specific">Queue special</button>`}
       </div>
-      <div class="links">
+      ${testMode() ? `<p class="muted">Test Mode uses the existing test encounter path. Automatic cadence stays off.</p>` : `<div class="links">
         <button type="button" class="secondary" data-act="queue_random" ${busy ? "disabled" : ""}>Queue random</button>
         <button type="button" class="secondary" data-act="${autoOn ? "pause_auto" : "resume_auto"}">${autoOn ? "Pause auto" : "Resume auto"}</button>
-        ${sessionOn
-          ? `<button type="button" class="secondary" data-act="end_session">End RPG session</button>`
-          : `<button type="button" data-act="start_session">Start RPG session</button>`}
-        <button type="button" class="secondary" data-act="start_test">Start test</button>
       </div>
-      <p class="muted">${w.state === "UNSAFE" ? "Unsafe window — prefer Queue until safe." : ""}</p>`;
+      <p class="muted">${w.state === "UNSAFE" ? "Wait until after the upcoming ad, or queue until safe." : ""}</p>`}`;
     const dexEl = byId("live-dex");
     if (dexEl && !document.activeElement?.closest("#live-specific") && dexValue && dexEl.value !== dexValue) {
       dexEl.value = dexValue;
@@ -396,19 +540,21 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const s = state?.stream || {};
     const d = state?.director || {};
     const dur = s.startedAt ? clock(Math.floor((Date.now() - Date.parse(s.startedAt)) / 1000)) : "—";
-    const auto = autoLabel(d, s);
+    const auto = autoInfo(d, s);
     els.session.innerHTML = `
-      <p class="eyebrow">RPG session</p>
-      <h2>${s.rpgSession ? "Active" : "Inactive"}</h2>
-      <p>${s.rpgSession ? `Duration ${dur}${s.viewers != null ? ` · Viewers ${s.viewers}` : ""}` : "Start a session when the stream is live."}</p>
-      <p>Auto: ${auto}${auto === "WAITING" ? " · waiting for active RPG session" : ""}</p>
-      <div class="links">
-        <button type="button" class="secondary" data-act="refresh_live">Refresh live status</button>
-        ${s.rpgSession
-          ? `<button type="button" class="secondary" data-act="end_session">End session</button>`
-          : `<button type="button" data-act="start_session">Start RPG session</button>`}
-        <button type="button" class="secondary" data-act="copy">Copy status</button>
-      </div>`;
+      <p class="eyebrow">Live RPG</p>
+      <h2>${rpgFace(s)}</h2>
+      <p class="muted">Runs automatically when Twitch is live. Stream Mode changes when automatic encounters are allowed; it does not change catch odds.</p>
+      <p>${s.rpgSession && !testMode() ? `Active ${dur}${s.viewers != null ? ` · Viewers ${s.viewers}` : ""}` : (testMode() ? "Test Mode is a UI testing state. It is not a live stream session." : "Inactive until Twitch goes live.")}</p>
+      <p>Auto: ${auto.label} · ${esc(auto.reason)}</p>
+      <details class="hub-advanced">
+        <summary>Advanced</summary>
+        <div class="links">
+          <button type="button" class="secondary" data-act="refresh_live">Refresh Twitch Status</button>
+          ${s.rpgSession ? `<button type="button" class="secondary" data-act="end_session">End live RPG session</button>` : `<button type="button" class="secondary" data-act="start_session">Force Start Live RPG Session</button>`}
+          <button type="button" class="secondary" data-act="copy">Copy status</button>
+        </div>
+      </details>`;
   }
 
   function renderHistory() {
@@ -502,7 +648,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
   }
 
   function inLiveSurface(node) {
-    return Boolean(node?.closest?.("#live-app, #live-specific, #live-confirm"));
+    return Boolean(node?.closest?.("#live-app, #live-specific, #live-confirm, [data-hub-panel='system']"));
   }
 
   document.addEventListener("input", (event) => {
@@ -515,6 +661,19 @@ window.playBindLiveOps = function playBindLiveOps(options) {
   });
   document.addEventListener("click", (event) => {
     if (!inLiveSurface(event.target)) return;
+    const jump = event.target.closest("[data-jump]");
+    if (jump && typeof window.playShowHubTab === "function") {
+      if (jump.dataset.jump === "encounter") {
+        byId("dash-encounter")?.scrollIntoView({ block: "nearest" });
+        return;
+      }
+      if (jump.dataset.jump === "dashboard") {
+        window.playShowHubTab("dashboard", "", { push: true });
+        return;
+      }
+      window.playShowHubTab(jump.dataset.jump, jump.dataset.jumpView || "", { push: true });
+      return;
+    }
     const pickBtn = event.target.closest("[data-pick-dex]");
     if (pickBtn) {
       pickDex = Number(pickBtn.dataset.pickDex);
@@ -538,6 +697,22 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     }
     if (act === "open_specific") {
       openSpecific();
+      return;
+    }
+    if (act === "enter_test") {
+      setTestMode(true);
+      render();
+      if (els.status) els.status.textContent = "Test Mode on. Start a test encounter when you are ready.";
+      return;
+    }
+    if (act === "exit_test") {
+      setTestMode(false);
+      render();
+      if (els.status) els.status.textContent = "Test Mode off.";
+      return;
+    }
+    if (act === "return_normal") {
+      cmd("return_normal", {});
       return;
     }
     if (act === "copy") {
@@ -574,6 +749,10 @@ window.playBindLiveOps = function playBindLiveOps(options) {
         return;
       }
       try { byId("live-specific")?.close(); } catch (_) {}
+      if (testMode()) {
+        cmd("start_test", payload);
+        return;
+      }
       startUnsafeConfirm(act, payload);
       return;
     }
@@ -598,16 +777,32 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       return;
     }
     if (act === "start_random") {
+      if (testMode()) {
+        cmd("start_test", {});
+        return;
+      }
       startUnsafeConfirm("start_random", {});
+      return;
+    }
+    if (act === "start_test") {
+      cmd("start_test", {});
       return;
     }
     if (act === "end_session") {
       cmd("end_session", {}, {
-        confirmTitle: "End RPG session?",
+        confirmTitle: "End the live RPG session?",
         confirmBody: state?.activeEncounter
           ? "An encounter is still active. The Director will not end the session until it finishes or is cancelled."
-          : "This stops new automatic encounters.",
+          : "This stops new automatic encounters. Normal streams do not need this.",
         go: "End session"
+      });
+      return;
+    }
+    if (act === "start_session") {
+      cmd("start_session", {}, {
+        confirmTitle: "Force start the Live RPG session?",
+        confirmBody: "Starts the live RPG Director even if Twitch live detection is unavailable or delayed. This is not the normal way to test while offline.",
+        go: "Force start"
       });
       return;
     }

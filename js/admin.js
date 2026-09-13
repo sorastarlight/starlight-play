@@ -80,10 +80,11 @@
   let giftItems = [];
   let lastOverview = null;
   let lastHubKey = "";
-  const HUB_SECTIONS = ["dashboard", "encounters", "trainers", "content", "economy", "analytics", "settings"];
-  const HUB_ALIASES = { live: "dashboard", players: "trainers", store: "economy", pokemon: "content" };
+  const HUB_SECTIONS = ["dashboard", "encounters", "trainers", "content", "economy", "analytics", "system"];
+  const HUB_ALIASES = { live: "dashboard", players: "trainers", store: "economy", pokemon: "content", settings: "system" };
   const ENC_VIEWS = ["overview", "rules", "capture", "sim"];
   const ECO_VIEWS = ["catalog", "economy", "loot"];
+  const SYS_VIEWS = ["general", "twitch", "ads", "bits", "github", "pass"];
 
   function resolveHubSection(raw) {
     const key = String(raw || "").toLowerCase();
@@ -119,18 +120,28 @@
         btn.setAttribute("aria-selected", btn.dataset.ecoView === nextView ? "true" : "false");
       });
     }
+    if (next === "system") {
+      nextView = SYS_VIEWS.includes(view) ? view : "general";
+      document.querySelectorAll("[data-sys-panel]").forEach((el) => {
+        el.hidden = el.dataset.sysPanel !== nextView;
+      });
+      document.querySelectorAll("[data-sys-view]").forEach((btn) => {
+        btn.setAttribute("aria-selected", btn.dataset.sysView === nextView ? "true" : "false");
+      });
+    }
     const url = new URL(window.location.href);
     url.searchParams.delete("tab");
     url.searchParams.set("section", next);
-    if (nextView && (next === "encounters" || next === "economy")) url.searchParams.set("view", nextView);
+    if (nextView && (next === "encounters" || next === "economy" || next === "system")) url.searchParams.set("view", nextView);
     else url.searchParams.delete("view");
     const href = `${url.pathname}${url.search}${url.hash}`;
     if (push) history.pushState({ section: next, view: nextView }, "", href);
     else history.replaceState({ section: next, view: nextView }, "", href);
-    if (next === "trainers" || (next === "economy" && nextView === "catalog")) {
-      const frame = document.querySelector(`[data-hub-panel='${next}'] iframe[data-src]`);
+    if (next === "economy" && nextView === "catalog") {
+      const frame = document.querySelector("[data-hub-panel='economy'] iframe[data-src]");
       if (frame && !frame.getAttribute("src")) frame.src = frame.dataset.src;
     }
+    if (next === "trainers" && typeof window.playStaffLoadUsers === "function") window.playStaffLoadUsers();
     document.getElementById("hub-nav")?.classList.remove("is-open");
   }
   window.playShowHubTab = showHubTab;
@@ -275,6 +286,7 @@
         els.bridgeStatus.innerHTML += ` Last stream note: ${bridge.lastError}`;
       }
     }
+    if (typeof window.playApplyStaffOverview === "function") window.playApplyStaffOverview(data, fillForms);
   }
 
   async function refreshOverview(fillForms) {
@@ -1077,6 +1089,14 @@
   document.querySelector("[data-hub-panel='economy'] .hub-subnav")?.addEventListener("click", (event) => {
     const btn = event.target.closest("[data-eco-view]");
     if (btn) showHubTab("economy", btn.dataset.ecoView, { push: true });
+  });
+  document.querySelector("[data-hub-panel='system'] .hub-subnav")?.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-sys-view]");
+    if (btn) showHubTab("system", btn.dataset.sysView, { push: true });
+  });
+  document.addEventListener("click", (event) => {
+    const jump = event.target.closest("[data-hub-tab-jump]");
+    if (jump) showHubTab(jump.dataset.hubTabJump, jump.dataset.hubViewJump || "", { push: true });
   });
   window.addEventListener("popstate", () => {
     const params = new URLSearchParams(window.location.search);

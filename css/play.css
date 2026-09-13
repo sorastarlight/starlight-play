@@ -4830,8 +4830,33 @@ body[data-page="admin"] .dash-grid #stream-frame {
 }
 body[data-page="admin"] .dash-grid .play-stream-col .hero { padding: 10px; }
 #live-app.is-offline-idle .dash-advanced { opacity: .72; }
-#live-app.is-offline-idle .dash-setup { display: block; }
-.dash-setup { display: none; }
+#live-app.is-hub-test .dash-setup { border-color: #f0c36a; background: linear-gradient(180deg, #fff6d8, #fff); }
+.dash-setup { display: block; }
+.hub-debug {
+  margin-top: 22px;
+  padding: 14px 16px;
+  border: 2px dashed #e2b84d;
+  border-radius: 18px;
+  background: #fffdf4;
+}
+.hub-debug h3 { margin: 0 0 8px; }
+.hub-advanced { margin-top: 12px; }
+.hub-advanced summary { cursor: pointer; font-weight: 800; color: #7a4d72; }
+.hub-status-strip button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: 2px solid #d7e0f2;
+  box-shadow: none;
+  padding: 7px 8px;
+  border-radius: 12px;
+}
+.hub-status-strip button span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+}
 body.hub-embed .topnav,
 body.hub-embed .page-kicker,
 body.hub-embed .staff-bar { display: none !important; }

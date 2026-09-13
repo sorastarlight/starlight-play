@@ -3,6 +3,7 @@
     document.documentElement.classList.add("hub-embed");
     document.body.classList.add("hub-embed");
   }
+  const hubHosted = document.body?.dataset?.page === "admin";
   const supabase = window.playSupabase;
   const els = {
     gate: document.getElementById("gate"),
@@ -51,7 +52,9 @@
     window.playSetAccountNav(null);
   }
 
-  window.playBindAccountNav({ onSignOut: setSignedOut });
+  if (!hubHosted) window.playBindAccountNav({ onSignOut: setSignedOut });
+  window.playApplyStaffOverview = applyOverview;
+  window.playStaffLoadUsers = loadUsers;
 
   function applyOverview(data, fillForms) {
     overview = data;
@@ -364,6 +367,10 @@
 
   async function loadHub(passedSession) {
     const session = passedSession || (await supabase.auth.getSession()).data.session;
+    if (hubHosted) {
+      if (session) await maybeFinishBits(session);
+      return;
+    }
     if (!session) {
       setSignedOut();
       return;
@@ -448,7 +455,9 @@
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "twitch",
       options: {
-        redirectTo: `${window.location.origin}${window.location.pathname}`,
+        redirectTo: hubHosted
+          ? `${window.location.origin}/admin.html?section=system&view=bits`
+          : `${window.location.origin}${window.location.pathname}`,
         scopes: "user:read:email user:read:subscriptions bits:read",
         queryParams: { force_verify: "true" }
       }
@@ -623,5 +632,6 @@
     if (window.playAuthNoise(event)) return;
     loadHub(session);
   });
-  loadHub();
+  if (!hubHosted) loadHub();
+  else supabase.auth.getSession().then(({ data }) => { if (data.session) maybeFinishBits(data.session); });
 })();

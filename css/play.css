@@ -530,12 +530,24 @@ footer { margin-top: 24px; font-size: 13px; }
 .dex-copy h2 { margin: 0; font-size: 28px; color: #1e3050; }
 .phase-wrap { margin: 12px 0 8px; }
 .phase-label {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 12px;
+  align-items: end;
   font-size: 12px;
   font-weight: 800;
   color: #5d5b87;
   margin-bottom: 4px;
+}
+.phase-label [data-phase-name] {
+  min-width: 0;
+  line-height: 1.25;
+}
+.phase-label [data-time-copy] {
+  white-space: nowrap;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  justify-self: end;
 }
 .phase-bar, .xp-bar {
   height: 14px;
@@ -4403,11 +4415,7 @@ body[data-page="admin"] .play-stage {
 .family-card + .family-card { margin-top: 12px; }
 
 .phase-wrap {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  padding: 8px 0 6px;
-  background: linear-gradient(180deg, #fff 70%, #fff0);
+  padding: 2px 0 6px;
 }
 .phase-wrap.is-warn [data-time-copy] { color: #b45309; font-weight: 800; }
 .phase-wrap.is-urgent [data-time-copy] {
@@ -4415,8 +4423,8 @@ body[data-page="admin"] .play-stage {
   animation: timer-pulse 0.8s ease-in-out infinite;
 }
 @keyframes timer-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
+  0%, 100% { opacity: 1; }
+  50% { opacity: .55; }
 }
 .enc-actions { display: grid; gap: 12px; }
 .enc-split {

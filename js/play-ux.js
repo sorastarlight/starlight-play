@@ -145,13 +145,11 @@
   root.playEncounterTimeText = function playEncounterTimeText(round) {
     if (!round) return "";
     if (round.paused) return "PAUSED";
+    if (round.phase === "closed") return TIMER.closed || "ENCOUNTER ENDED";
     const seconds = typeof window !== "undefined" && root.playEncounterSecondsLeft
       ? root.playEncounterSecondsLeft(round)
       : 0;
-    const label = root.playTimerLabel(round.phase);
-    if (seconds <= 5 && seconds > 0) return `${label} ${seconds} — 5 SECONDS`;
-    if (seconds > 0) return `${label} ${String(seconds).padStart(2, "0")}`;
-    return round.phase === "closed" ? "Waiting" : `${label} 00`;
+    return seconds > 0 ? `${seconds}s left` : "0s left";
   };
 
   root.playTimerWarnClass = function playTimerWarnClass(seconds) {
@@ -182,6 +180,9 @@
     if (/http\s*409|conflict|already used that action/i.test(text)) return "That item was already used.";
     if (/inventory_validation|no .+ left|have no /i.test(text)) return "You no longer have that item available.";
     if (/42501|jwt/i.test(text)) return "Sign in with Twitch to continue.";
+    if (/does not exist|undefined_function|gen_random_bytes|syntax error/i.test(text)) {
+      return "The encounter could not finish cleanly. Please wait for the next one.";
+    }
     return text.replace(/Mix It Up/gi, "the stream");
   };
 

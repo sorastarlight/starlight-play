@@ -804,16 +804,29 @@
     if (!els.collectionOverview) return;
     try {
       const data = await window.playCall("admin_collection_overview", {});
+      const eevee = data.eevee || {};
+      const starters = data.starters || {};
+      const dratini = data.dratini || {};
+      const trade = data.tradeVsCord || {};
       els.collectionOverview.innerHTML = `<dl class="sim-grid">
+        <div><dt>Balance version</dt><dd>${data.balanceVersion || 1}</dd></div>
         <div><dt>Family Candy held</dt><dd>${data.candyTotal || 0}</dd></div>
         <div><dt>Trainers with Candy</dt><dd>${data.candyTrainers || 0}</dd></div>
         <div><dt>Evolutions logged</dt><dd>${data.evolutions || 0}</dd></div>
+        <div><dt>Players ready to evolve</dt><dd>${data.readyPlayers || 0}</dd></div>
         <div><dt>Open GTS listings</dt><dd>${data.openGts || 0}</dd></div>
         <div><dt>Direct trades</dt><dd>${data.directTrades || 0}</dd></div>
         <div><dt>Species mastered</dt><dd>${data.mastered || 0}</dd></div>
+        <div><dt>Eevee branches</dt><dd>Vaporeon ${eevee.vaporeon || 0} · Jolteon ${eevee.jolteon || 0} · Flareon ${eevee.flareon || 0}</dd></div>
+        <div><dt>Starters</dt><dd>Charizard ${starters.charizard || 0} · Venusaur ${starters.venusaur || 0} · Blastoise ${starters.blastoise || 0}</dd></div>
+        <div><dt>Dratini line</dt><dd>Dragonair ${dratini.dragonair || 0} · Dragonite ${dratini.dragonite || 0}</dd></div>
+        <div><dt>Gyarados</dt><dd>${data.magikarp || 0}</dd></div>
+        <div><dt>Trade vs Linking Cord</dt><dd>${trade.trade || 0} / ${trade.cord || 0}</dd></div>
       </dl>
       <h3>Recent evolutions</h3>
-      ${(data.recentEvo || []).map((row) => `<p>${window.playEscapeAttr(row.player || "Trainer")} · ${row.fromDex} → ${row.toDex} · ${row.candy} Candy</p>`).join("") || "<p class=\"muted\">None yet.</p>"}`;
+      ${(data.recentEvo || []).map((row) => `<p>${window.playEscapeAttr(row.player || "Trainer")} · ${row.fromDex} → ${row.toDex} · ${row.candy} Candy</p>`).join("") || "<p class=\"muted\">None yet.</p>"}
+      <h3>Most evolved</h3>
+      ${(data.mostEvolved || []).map((row) => `<p>#${row.dex} · ${row.count}</p>`).join("") || "<p class=\"muted\">None yet.</p>"}`;
     } catch (error) {
       if (els.collectionStatus) els.collectionStatus.textContent = window.playRpcError(error);
     }
@@ -832,8 +845,11 @@
         <div><dt>${window.playEscapeAttr(data.family)} Candy / catch</dt><dd>${data.candyPerCatch}</dd></div>
         <div><dt>Expected Candy</dt><dd>${data.expectedCandy}</dd></div>
         ${first ? `<div><dt>First evo</dt><dd>${first.catchesNeeded} catches · ${first.cost} Candy</dd></div>` : ""}
-        ${last ? `<div><dt>Final evo</dt><dd>${last.catchesNeeded} catches · ${last.cost} Candy</dd></div>` : ""}
-      </dl>`;
+        ${last ? `<div><dt>Final evo</dt><dd>${last.catchesNeeded} first-stage equivalent · ${last.cost} Candy</dd></div>` : ""}
+      </dl>
+      <p class="muted">${window.playEscapeAttr(data.note || "")}</p>
+      ${first?.range ? `<p class="muted">${window.playEscapeAttr(first.range)}</p>` : ""}
+      ${last?.range ? `<p class="muted">${window.playEscapeAttr(last.range)}</p>` : ""}`;
     } catch (error) {
       if (els.candySimOut) els.candySimOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
     }

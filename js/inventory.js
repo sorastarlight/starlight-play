@@ -71,7 +71,14 @@
         note: "Used with family Candy on the Evolution page. Candy itself is not sold.",
         items: ["firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord"]
           .filter((key) => Number(bag?.[key] || 0) > 0)
-          .map((key) => [key, window.playItemLabel(key), "Spend this with family Candy to evolve."])
+          .map((key) => [key, window.playItemLabel(key), ({
+            firestone: "A peculiar stone that can trigger certain Fire-type evolutions.",
+            waterstone: "A peculiar stone that can trigger certain Water-type evolutions.",
+            thunderstone: "A peculiar stone that can trigger certain Electric-type evolutions.",
+            leafstone: "A peculiar stone that can trigger certain plant-related evolutions.",
+            moonstone: "A mysterious stone associated with certain unusual evolutions.",
+            linkingcord: "A mysterious cord that can trigger certain evolutions normally caused by trading."
+          })[key]])
       }
     ];
     window.playFillBagMeter(bag);

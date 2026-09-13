@@ -221,7 +221,8 @@
           </div>
         </div>
         <p class="lgpe-ot"><span>OT</span> <strong>${window.playEscapeAttr(otName)}</strong> <em>No. ${otNo}</em></p>
-        <p class="muted">${mon.obtainedMethod || "CAPTURE"}${mon.favorite ? " · Favorite" : ""}${mon.locked ? " · Locked" : ""}</p>
+        <p class="muted">${mon.obtainedMethod || "CAPTURE"}${mon.favorite ? " · Favorite" : ""}${mon.locked ? " · Locked" : ""}${mon.tradeEvoReady ? " · Can evolve after trade" : ""}</p>
+        ${mon.tradeEvoReady ? `<p><a href="./evolve.html">Evolve ${window.playEscapeAttr(displayName(mon))} now</a> — or wait. No Candy or Linking Cord required.</p>` : ""}
         <div class="lgpe-stats">${statRows(mon)}</div>
         <div class="lgpe-detail-actions">
           <label class="field" for="nick-input">Nickname

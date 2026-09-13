@@ -4383,3 +4383,6 @@ body[data-page="admin"] .play-stage {
 .ach-card.is-done { border-color: #8ed37c; background: #f3fff0; }
 .ach-card strong, .prog-pick strong { display: block; }
 .ach-card p { margin: 6px 0; }
+.family-line { list-style: none; padding: 0; margin: 12px 0; }
+.family-line li { display: flex; gap: 10px; align-items: center; margin: 8px 0; }
+.family-card + .family-card { margin-top: 12px; }

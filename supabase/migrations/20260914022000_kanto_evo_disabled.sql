@@ -1,0 +1,51 @@
+-- Canonical later-generation and baby evolutions. Kept DISABLED while Generation 1 only is on.
+-- Reuses existing family Candy IDs. Does not insert later-gen species as obtainable.
+
+insert into public.evolution_rules (
+  id, from_dex, to_dex, family_id, candy_cost, required_item, condition_type, rpg_method,
+  canonical_trigger, canonical_min_level, canonical_item, canonical_trade_required,
+  generation_introduced, enabled, sort_order, notes
+) values
+  ('42-169',42,169,41,80,null,'CANDY_ONLY','DISABLED_GENERATION','friendship',null,null,false,2,false,2000,'Crobat — Johto'),
+  ('44-182',44,182,43,40,'sunstone','STONE','DISABLED_GENERATION','use-item',null,'sun-stone',false,2,false,2010,'Bellossom — Johto'),
+  ('61-186',61,186,60,50,'kingsrock','TRADE_OR_ITEM','DISABLED_GENERATION','trade',null,'kings-rock',true,2,false,2020,'Politoed — Johto'),
+  ('79-199',79,199,79,50,'kingsrock','TRADE_OR_ITEM','DISABLED_GENERATION','trade',null,'kings-rock',true,2,false,2030,'Slowking — Johto'),
+  ('95-208',95,208,95,50,'metalcoat','TRADE_OR_ITEM','DISABLED_GENERATION','trade',null,'metal-coat',true,2,false,2040,'Steelix — Johto'),
+  ('123-212',123,212,123,50,'metalcoat','TRADE_OR_ITEM','DISABLED_GENERATION','trade',null,'metal-coat',true,2,false,2050,'Scizor — Johto'),
+  ('117-230',117,230,116,50,'dragonscale','TRADE_OR_ITEM','DISABLED_GENERATION','trade',null,'dragon-scale',true,2,false,2060,'Kingdra — Johto'),
+  ('137-233',137,233,137,50,'upgrade','TRADE_OR_ITEM','DISABLED_GENERATION','trade',null,'up-grade',true,2,false,2070,'Porygon2 — Johto'),
+  ('233-474',233,474,137,50,'dubiousdisc','TRADE_OR_ITEM','DISABLED_GENERATION','trade',null,'dubious-disc',true,4,false,2075,'Porygon-Z — Sinnoh'),
+  ('113-242',113,242,113,80,null,'CANDY_ONLY','DISABLED_GENERATION','friendship',null,null,false,2,false,2080,'Blissey — Johto'),
+  ('112-464',112,464,111,80,'protector','TRADE_OR_ITEM','DISABLED_GENERATION','trade',null,'protector',true,4,false,2090,'Rhyperior — Sinnoh'),
+  ('114-465',114,465,114,80,null,'CANDY_ONLY','DISABLED_GENERATION','level-move',null,null,false,4,false,2100,'Tangrowth — Sinnoh'),
+  ('82-462',82,462,81,80,null,'CANDY_ONLY','DISABLED_GENERATION','level-location',null,null,false,4,false,2110,'Magnezone — Sinnoh'),
+  ('108-463',108,463,108,80,null,'CANDY_ONLY','DISABLED_GENERATION','level-move',null,null,false,4,false,2120,'Lickilicky — Sinnoh'),
+  ('125-466',125,466,125,80,'electirizer','TRADE_OR_ITEM','DISABLED_GENERATION','trade',null,'electirizer',true,4,false,2130,'Electivire — Sinnoh'),
+  ('126-467',126,467,126,80,'magmarizer','TRADE_OR_ITEM','DISABLED_GENERATION','trade',null,'magmarizer',true,4,false,2140,'Magmortar — Sinnoh'),
+  ('133-196',133,196,133,40,null,'CANDY_ONLY','DISABLED_GENERATION','friendship-day',null,null,false,2,false,2150,'Espeon — Johto'),
+  ('133-197',133,197,133,40,null,'CANDY_ONLY','DISABLED_GENERATION','friendship-night',null,null,false,2,false,2160,'Umbreon — Johto'),
+  ('133-470',133,470,133,40,'leafstone','STONE','DISABLED_GENERATION','use-item',null,'leaf-stone',false,4,false,2170,'Leafeon — Sinnoh'),
+  ('133-471',133,471,133,40,'icestone','STONE','DISABLED_GENERATION','use-item',null,'ice-stone',false,4,false,2180,'Glaceon — Sinnoh'),
+  ('133-700',133,700,133,40,null,'CANDY_ONLY','DISABLED_GENERATION','affection-fairy',null,null,false,6,false,2190,'Sylveon — Kalos'),
+  ('57-979',57,979,56,80,null,'CANDY_ONLY','DISABLED_GENERATION','level-move',null,null,false,9,false,2200,'Annihilape — Paldea'),
+  ('83-865',83,865,83,80,null,'CANDY_ONLY','DISABLED_GENERATION','critical-hits',null,null,false,8,false,2210,'Sirfetch''d — Galar'),
+  ('123-900',123,900,123,80,null,'CANDY_ONLY','DISABLED_GENERATION','black-augurite',null,null,false,8,false,2220,'Kleavor — Hisui'),
+  ('172-25',172,25,25,25,null,'CANDY_ONLY','DISABLED_GENERATION','friendship',null,null,false,2,false,2300,'Pichu — baby'),
+  ('173-35',173,35,35,25,null,'CANDY_ONLY','DISABLED_GENERATION','friendship',null,null,false,2,false,2310,'Cleffa — baby'),
+  ('174-39',174,39,39,25,null,'CANDY_ONLY','DISABLED_GENERATION','friendship',null,null,false,2,false,2320,'Igglybuff — baby'),
+  ('236-106',236,106,106,25,null,'CANDY_ONLY','DISABLED_GENERATION','level-atk',null,null,false,2,false,2330,'Tyrogue — baby'),
+  ('236-107',236,107,107,25,null,'CANDY_ONLY','DISABLED_GENERATION','level-def',null,null,false,2,false,2340,'Tyrogue — baby'),
+  ('238-124',238,124,124,25,null,'CANDY_ONLY','DISABLED_GENERATION','level',null,null,false,2,false,2350,'Smoochum — baby'),
+  ('239-125',239,125,125,25,null,'CANDY_ONLY','DISABLED_GENERATION','level',null,null,false,2,false,2360,'Elekid — baby'),
+  ('240-126',240,126,126,25,null,'CANDY_ONLY','DISABLED_GENERATION','level',null,null,false,2,false,2370,'Magby — baby'),
+  ('440-113',440,113,113,25,null,'CANDY_ONLY','DISABLED_GENERATION','friendship',null,null,false,4,false,2380,'Happiny — baby'),
+  ('439-122',439,122,122,25,null,'CANDY_ONLY','DISABLED_GENERATION','level',null,null,false,4,false,2390,'Mime Jr. — baby'),
+  ('446-143',446,143,143,25,null,'CANDY_ONLY','DISABLED_GENERATION','friendship',null,null,false,4,false,2400,'Munchlax — baby')
+on conflict (id) do update
+  set rpg_method = 'DISABLED_GENERATION',
+      enabled = false,
+      generation_introduced = excluded.generation_introduced,
+      canonical_trigger = excluded.canonical_trigger,
+      canonical_item = excluded.canonical_item,
+      canonical_trade_required = excluded.canonical_trade_required,
+      notes = excluded.notes;

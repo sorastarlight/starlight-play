@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Stream Session · THE STARLIGHT PLAY HUB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/play.css?v=dir1">
+<body data-page="admin-live">
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="./admin.html">
+      <img src="images/sora-starlight-logo.png" alt="Sora Starlight">
+    </a>
+    <div class="topnav-end">
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav-panel">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="visually-hidden">Open menu</span>
+      </button>
+      <div id="topnav-panel" class="topnav-panel">
+        <div id="topnav-links" class="topnav-links"></div>
+      </div>
+      <div class="topnav-actions">
+      <p id="auth-status" class="visually-hidden" role="status">Checking Twitch sign-in…</p>
+      <button id="sign-in" class="signin-btn" type="button" hidden title="Sign in with Twitch">Sign in</button>
+      <div id="account" class="account" hidden>
+        <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+          <img id="account-avatar" class="avatar" alt="" hidden>
+          <span id="account-fallback" class="avatar-fallback" hidden></span>
+          <span class="account-meta">
+            <span id="account-name" class="account-name">Trainer</span>
+            <span id="account-level" class="account-level" hidden></span>
+          </span>
+          <span class="account-caret" aria-hidden="true"></span>
+        </button>
+        <div id="account-menu" class="account-menu" hidden role="menu">
+          <p id="account-handle" class="account-handle"></p>
+          <div id="account-trainer" class="account-trainer" hidden></div>
+          <a id="account-card" href="./trainer.html" role="menuitem">My Trainer ID</a>
+          <a id="account-settings" href="./settings.html" role="menuitem">Settings</a>
+          <a id="account-staff" href="./admin.html" hidden role="menuitem">Admin Hub</a>
+          <button id="sign-out" type="button" role="menuitem">Sign out</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="page-kicker">
+    <h1>Stream Session</h1>
+    <p class="muted">Live control for encounters and Twitch ads. Scheduling is decided on the server.</p>
+  </div>
+  <p id="gate" class="notice">Sign in with Twitch to open Stream Session.</p>
+  <div id="live-app" hidden>
+    <p id="live-errors" class="notice" hidden></p>
+    <div id="live-bar" class="live-status-bar" aria-label="Live stream status"></div>
+    <p id="live-status" class="muted" role="status"></p>
+    <div class="live-grid">
+      <section class="card body" id="card-encounter"></section>
+      <section class="card body" id="card-safe"></section>
+      <section class="card body" id="card-ads"></section>
+      <section class="card body" id="card-next"></section>
+      <section class="card body" id="card-queue"></section>
+      <section class="card body" id="card-mode"></section>
+      <section class="card body" id="card-controls"></section>
+      <section class="card body" id="card-session"></section>
+    </div>
+    <section class="card body" style="margin-top:18px">
+      <h2>Recent encounters</h2>
+      <div id="live-history"></div>
+    </section>
+    <section class="card body" style="margin-top:18px">
+      <h2>Director activity</h2>
+      <div id="live-log"></div>
+    </section>
+  </div>
+</div>
+<dialog id="live-confirm" class="play-modal" aria-labelledby="live-confirm-title">
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="live-confirm-title">Confirm</h3>
+      <button class="secondary" value="cancel" type="submit">Cancel</button>
+    </header>
+    <p id="live-confirm-body"></p>
+    <div class="links">
+      <button id="live-confirm-go" type="button">Confirm</button>
+    </div>
+  </form>
+</dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/species.js"></script>
+<script src="js/game.js?v=dir1"></script>
+<script src="js/play-ux.js?v=dir1"></script>
+<script src="js/hud.js?v=dir1"></script>
+<script src="js/nav.js?v=dir1"></script>
+<script src="js/admin-live.js?v=dir1"></script>
+</body>

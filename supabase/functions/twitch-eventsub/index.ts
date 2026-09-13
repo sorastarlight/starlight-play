@@ -85,6 +85,31 @@ Deno.serve(async (req) => {
   }
 
   const subscription = payload.subscription as { type?: string } | undefined;
+  if (subscription?.type === "channel.ad_break.begin") {
+    const event = (payload.event || {}) as {
+      duration_seconds?: number;
+      started_at?: string;
+      is_automatic?: boolean;
+      broadcaster_user_id?: string;
+      requester_user_id?: string;
+    };
+    const { error } = await admin.rpc("service_director_ad_begin", {
+      p_event: {
+        duration_seconds: event.duration_seconds,
+        started_at: event.started_at,
+        is_automatic: event.is_automatic,
+        broadcaster_user_id: event.broadcaster_user_id,
+        requester_user_id: event.requester_user_id,
+        message_id: messageId
+      }
+    });
+    if (error) {
+      console.error("service_director_ad_begin", error);
+      return new Response("ad begin failed", { status: 500 });
+    }
+    return new Response(null, { status: 204 });
+  }
+
   if (subscription?.type && subscription.type !== "channel.custom_power_up_redemption.add") {
     return new Response(null, { status: 204 });
   }

@@ -187,7 +187,7 @@
     const phase = window.playPhaseLabel(round.phase);
     const timeText = typeof window.playEncounterTimeText === "function"
       ? window.playEncounterTimeText(round)
-      : (round.paused ? "Paused" : (seconds ? `${seconds}s left` : "Waiting"));
+      : (round.paused ? "PAUSED" : (seconds ? `${seconds}s left` : "Waiting"));
     const warnClass = typeof window.playTimerWarnClass === "function"
       ? window.playTimerWarnClass(seconds)
       : "";
@@ -195,7 +195,9 @@
     const shiny = String(round.variant || "").includes("shiny");
     const location = window.playHabitat(round.dex, round.location);
     const hidden = round.hidden ? `<span class="chip warn">Hidden</span>` : "";
-    const paused = round.paused ? `<span class="chip pause">Paused</span>` : "";
+    const paused = round.paused
+      ? `<span class="chip pause">${round.pausedForBreak ? "Ad break" : "Paused"}</span>`
+      : "";
     const live = round.phase && round.phase !== "closed";
     const honey = opts.showHoney === false
       ? ""
@@ -584,7 +586,7 @@
     const phase = window.playPhaseLabel(round.phase);
     const timeText = typeof window.playEncounterTimeText === "function"
       ? window.playEncounterTimeText(round)
-      : (round.paused ? "Paused" : (seconds ? `${seconds}s left` : "Waiting"));
+      : (round.paused ? "PAUSED" : (seconds ? `${seconds}s left` : "Waiting"));
     const warnClass = typeof window.playTimerWarnClass === "function"
       ? window.playTimerWarnClass(seconds)
       : "";
@@ -594,7 +596,7 @@
     const phaseName = root.querySelector("[data-phase-name]");
     const barEl = root.querySelector("[data-bar]");
     const last = root.querySelector("[data-last]");
-    if (time) time.textContent = round.paused ? "Paused" : `${seconds || 0}s`;
+    if (time) time.textContent = round.paused ? "PAUSED" : `${seconds || 0}s`;
     if (timeCopy) timeCopy.textContent = timeText;
     root.querySelector("[data-phase-wrap]")?.classList.toggle("is-warn", warnClass === "is-warn");
     root.querySelector("[data-phase-wrap]")?.classList.toggle("is-urgent", warnClass === "is-urgent");
@@ -691,8 +693,12 @@
     if (row?.kind === "phase") {
       return `<li class="is-phase">${time}<span>${window.playEscapeAttr(message)}</span></li>`;
     }
-    if (row?.kind === "pause") return `<li>${time}<span>Encounter paused</span></li>`;
-    if (row?.kind === "resume") return `<li>${time}<span>Encounter resumed</span></li>`;
+    if (row?.kind === "pause") {
+      return `<li>${time}<span>⏸ ${message ? window.playEscapeAttr(message) : "The encounter has been paused for a Twitch ad break."}</span></li>`;
+    }
+    if (row?.kind === "resume") {
+      return `<li>${time}<span>▶ ${message ? window.playEscapeAttr(message) : "The encounter is resuming!"}</span></li>`;
+    }
     if (row?.kind === "gift") {
       return `<li>${time}<span>${row.message ? window.playEscapeAttr(row.message) : `Staff sent +1 ${window.playEscapeAttr(window.playItemLabel(row.item))}`}</span></li>`;
     }

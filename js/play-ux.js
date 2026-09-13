@@ -13,7 +13,8 @@
     emptyBalls: "You don't have a Poké Ball available for this encounter.",
     emptyItems: "No encounter items available.",
     firstPrep: "Choose a Berry to help yourself, Honey to help everyone, or skip.",
-    firstThrow: "Choose a Poké Ball. Recommended Balls are marked."
+    firstThrow: "Choose a Poké Ball. Recommended Balls are marked.",
+    adPause: "A Twitch ad break is currently running. The encounter will resume when the stream returns."
   };
 
   const TIMER = {
@@ -139,7 +140,7 @@
 
   root.playEncounterTimeText = function playEncounterTimeText(round) {
     if (!round) return "";
-    if (round.paused) return "Paused";
+    if (round.paused) return "PAUSED";
     const seconds = typeof window !== "undefined" && root.playEncounterSecondsLeft
       ? root.playEncounterSecondsLeft(round)
       : 0;

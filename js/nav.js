@@ -66,7 +66,10 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (!els.links) return;
     const items = links.slice();
     items.push({ href: "./store.html", id: "store", label: "Store" });
-    if (isAdmin) items.push({ href: "./admin.html", id: "admin", label: "Admin Hub" });
+    if (isAdmin) {
+      items.push({ href: "./admin.html", id: "admin", label: "Admin Hub" });
+      items.push({ href: "./admin-live.html", id: "admin-live", label: "Stream Session" });
+    }
     els.links.innerHTML = items.map((item, index) => {
       const current = item.id === page ? " aria-current=\"page\"" : "";
       const extra = item.id === "store" ? " topnav-link-store" : "";

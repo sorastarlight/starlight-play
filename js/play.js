@@ -96,7 +96,13 @@
       return { key: "signin", buttons: [], status: "Sign in with Twitch to join this encounter." };
     }
     if (round.paused) {
-      return { key: `paused:${round.id}`, buttons: [], status: "This encounter is paused." };
+      return {
+        key: `paused:${round.id}:${round.pausedForBreak ? "ad" : "admin"}`,
+        buttons: [],
+        status: round.pausedForBreak
+          ? (window.PLAY_STATUS?.adPause || "A Twitch ad break is currently running. The encounter will resume when the stream returns.")
+          : "Encounter temporarily paused."
+      };
     }
     const buttons = [];
     const phase = round.phase;

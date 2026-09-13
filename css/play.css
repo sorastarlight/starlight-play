@@ -4546,3 +4546,40 @@ body[data-page="admin"] .play-stage {
   .dex-stage img,
   .dex-idle-mark { animation: none !important; }
 }
+
+body[data-page="admin-live"] .wrap { max-width: 1280px; }
+.live-status-bar {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.live-status-bar div {
+  background: #fff;
+  border: 2px solid #d7e0f2;
+  border-radius: 14px;
+  padding: 10px 12px;
+  box-shadow: 0 4px 0 #e7edf8;
+}
+.live-status-bar em {
+  display: block;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.live-status-bar strong { display: block; font-size: 16px; }
+.live-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .9fr;
+  gap: 16px;
+}
+.live-grid .card h2 { margin: 4px 0 8px; }
+.live-dir-log { list-style: none; padding: 0; margin: 0; }
+.live-dir-log li { padding: 6px 0; border-bottom: 1px solid #e6ecf8; }
+.live-dir-log time { color: var(--muted); margin-right: 8px; }
+.chip.pause { background: #fff3bf; }
+@media (max-width: 980px) {
+  .live-status-bar, .live-grid { grid-template-columns: 1fr; }
+}

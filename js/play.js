@@ -25,6 +25,8 @@
   let lastLocalPhase = "";
   let throwViewOnly = false;
   let pickerKind = "balls";
+  let joiningPending = false;
+  let reconnecting = false;
   const joinedMe = new Map();
 
   window.playBindAccountNav({
@@ -75,18 +77,18 @@
     const me = data?.me;
     const bag = data?.bag || {};
     const signedIn = Boolean(data?.bag);
-    const prefs = window.playEncounterSettings(data?.encounterSettings);
     const species = round ? window.playDisplayName(round, { plain: true }) : "the Pokémon";
     if (!round || round.phase === "closed") {
       let closedStatus = "";
       if (round?.resolved && me) {
         if (me.caught) closedStatus = `Gotcha! ${species} was caught!`;
-        else if (!me.ball) closedStatus = "You didn't choose a Poké Ball in time!";
+        else if (!me.ball) closedStatus = window.PLAY_STATUS?.noBall || "You didn't choose a Poké Ball in time!";
         else if (me.result) closedStatus = `Oh no! ${species} broke free! Better luck next encounter!`;
       }
       return {
         key: `idle:${round?.id || ""}:${me?.result || ""}`,
         buttons: [],
+        groups: [],
         status: closedStatus
       };
     }
@@ -114,150 +116,142 @@
       return {
         key: `capture:${round.id}:${me?.ball || ""}`,
         buttons: [],
-        status: me?.ball ? "The Poké Ball is shaking…" : "You didn't choose a Poké Ball in time!"
+        groups: [],
+        used: me,
+        status: me?.ball ? "The Poké Ball is shaking…" : (window.PLAY_STATUS?.noBall || "You didn't choose a Poké Ball in time!")
       };
     }
-    const pushPrep = (disabled, used) => {
-      const hintFor = (item, qtyHint) => {
-        if (used === item) return "Locked in";
-        if (used) return "Already prepared";
-        if (disabled) return "Opens in Prepare";
-        return qtyHint;
-      };
-      const owned = window.playOwnedBerries(bag, data?.captureItems);
-      // A Berry the Trainer already committed to may be their last one.
-      const shortlist = owned.slice(0, 3);
-      if (used && !shortlist.some((row) => row.key === used) && used !== "bait") {
-        shortlist.unshift({ key: used, name: window.playItemLabel(used), qty: 0 });
-      }
-      if (!shortlist.length) {
-        buttons.push({
-          kind: "prepare",
-          item: "berry",
-          label: "Berry",
-          hint: disabled ? "Opens in Prepare" : "None left",
-          sprite: "berry",
-          disabled: true
-        });
-      }
-      shortlist.slice(0, 3).forEach((row) => {
-        buttons.push({
-          kind: "prepare",
-          item: row.key,
-          label: row.name,
-          hint: hintFor(row.key, `${row.qty} left · +catch`),
-          sprite: row.key,
-          disabled: disabled || Boolean(used) || row.qty < 1
-        });
-      });
-      if (owned.length > 3) {
-        buttons.push({
-          kind: "open-berries",
-          item: "berry",
-          label: "All my Berries",
-          hint: used ? "Locked in" : disabled ? "Opens in Prepare" : "Only Berries you own",
-          sprite: "berry",
-          disabled: disabled || Boolean(used)
-        });
-      }
-      buttons.push({
-        kind: "prepare",
-        item: "bait",
-        label: "Honey",
-        hint: hintFor("bait", `${bag.bait ?? 0} left · team bonus`),
-        sprite: "bait",
-        disabled: disabled || Boolean(used) || Number(bag.bait || 0) < 1
-      });
-    };
-    const pushBalls = (disabled, used) => {
-      const favorites = window.playFavoriteBalls(bag, prefs);
-      const emptyBag = !disabled && !used && window.playThrowableTotal(bag) < 1;
-      favorites.forEach((row) => {
-        const qty = Number(bag[row.key] || 0);
-        const advice = !disabled && !used && qty > 0 ? window.playBallAdvice(row.key, round) : "";
-        const hint = used === row.key
-          ? "Locked in"
-          : used
-            ? "Already thrown"
-            : disabled
-              ? "Opens in Throw"
-              : (qty < 1 ? "None left" : (advice || `${qty} left · ${row.multiplier}`));
-        buttons.push({
-          kind: "throw",
-          item: row.key,
-          label: row.name,
-          hint,
-          sprite: row.key,
-          disabled: disabled || Boolean(used) || qty < 1
-        });
-      });
-      if (emptyBag) {
-        buttons.push({
-          kind: "throw",
-          item: "standard",
-          label: "Standard throw",
-          hint: "Free Poké Ball · always available",
-          sprite: "pokeball",
-          disabled: false
-        });
-      }
-      buttons.push({
-        kind: "open-balls",
-        item: "pokeball",
-        label: emptyBag ? "Standard throw" : "All my Poké Balls",
-        hint: used ? "Locked in" : disabled ? "Opens in Throw" : (emptyBag ? "Free Poké Ball" : "Only balls you own"),
-        sprite: "pokeball",
-        disabled: disabled || Boolean(used)
-      });
-    };
+    const lockedPrep = Boolean(me?.prep);
+    const lockedBall = Boolean(me?.ball);
+    const prepActive = preparing && me && !lockedPrep;
+    const throwActive = throwing && me && !lockedBall;
     if (joining && !me) {
+      const pending = joiningPending;
       buttons.push({
         kind: "join",
         item: "",
-        label: "Join encounter",
-        hint: window.playRadarOn?.(bag) ? "Poké Radar joining…" : "Closes when the timer ends"
+        label: pending ? (window.PLAY_STATUS?.joining || "JOINING…") : "Join encounter",
+        hint: pending ? "Please wait…" : (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "Closes when the timer ends"),
+        disabled: pending
       });
     }
-    if (joining && me && !me.prep) pushPrep(true);
-    if (preparing && me && !me.prep) pushPrep(false);
-    if (preparing && me && me.prep) pushPrep(true, me.prep);
-    if (throwing && me && !me.ball) pushBalls(false);
-    if (throwing && me && me.ball) pushBalls(true, me.ball);
+    if ((preparing || joining) && me) {
+      const owned = window.playOwnedBerries(bag, data?.captureItems);
+      const berries = owned.map((row) => ({
+        kind: "prepare",
+        item: row.key,
+        label: row.name,
+        qty: row.qty,
+        effect: row.description || "Makes this Pokémon easier to catch.",
+        selected: me.prep === row.key,
+        disabled: !prepActive || row.qty < 1,
+        reason: me.prep && me.prep !== row.key ? "ENCOUNTER LOCKED" : (row.qty < 1 ? "OUT OF STOCK" : (joining ? "Opens in item selection" : "")),
+        sprite: row.key
+      }));
+      const honeyQty = Number(bag.bait || 0);
+      const honey = {
+        kind: "prepare",
+        item: "bait",
+        label: "Honey",
+        qty: honeyQty,
+        effect: "Contribute Honey to improve the catch bonus for all Trainers.",
+        selected: me.prep === "bait",
+        disabled: !prepActive || honeyQty < 1,
+        reason: me.prep && me.prep !== "bait" ? "ENCOUNTER LOCKED" : (honeyQty < 1 ? "OUT OF STOCK" : (joining ? "Opens in item selection" : "")),
+        sprite: "bait"
+      };
+      const skip = {
+        kind: "prepare",
+        item: "none",
+        label: "No item",
+        effect: "Skip this phase. You can still throw a Poké Ball.",
+        selected: me.prep === "none",
+        disabled: !prepActive,
+        reason: lockedPrep && me.prep !== "none" ? "ENCOUNTER LOCKED" : (joining ? "Opens in item selection" : ""),
+        sprite: "berry"
+      };
+      if (prepActive || lockedPrep || joining) {
+        buttons.push(...berries, honey, skip);
+      }
+    }
+    if (throwing && me) {
+      const advice = Array.isArray(data?.ballAdvice) ? data.ballAdvice : [];
+      const owned = window.playOwnedBalls(bag);
+      const pins = typeof window.playBagPins === "function" ? window.playBagPins() : [];
+      const recent = typeof window.playRecentKeys === "function" ? window.playRecentKeys("balls") : [];
+      let rows = advice.length
+        ? advice.map((row) => ({
+          kind: "throw",
+          item: row.ballId,
+          key: row.ballId,
+          label: row.name,
+          qty: Number(bag[row.ballId] ?? row.quantity ?? 0),
+          effect: row.description,
+          effectiveness: row.effectiveness,
+          recommended: Boolean(row.recommended),
+          specialist: Boolean(row.specialist),
+          selected: me.ball === row.ballId,
+          disabled: lockedBall || Number(bag[row.ballId] ?? row.quantity ?? 0) < 1,
+          reason: lockedBall && me.ball !== row.ballId ? "ENCOUNTER LOCKED" : (Number(bag[row.ballId] ?? 0) < 1 ? "OUT OF STOCK" : ""),
+          sprite: row.ballId
+        }))
+        : owned.map((row) => ({
+          kind: "throw",
+          item: row.key,
+          key: row.key,
+          label: row.name,
+          qty: Number(bag[row.key] || 0),
+          effect: row.effect || "A Poké Ball for this encounter.",
+          selected: me.ball === row.key,
+          disabled: lockedBall || Number(bag[row.key] || 0) < 1,
+          reason: lockedBall && me.ball !== row.key ? "ENCOUNTER LOCKED" : (Number(bag[row.key] || 0) < 1 ? "OUT OF STOCK" : ""),
+          sprite: row.key
+        }));
+      if (typeof window.playSortEncounterBalls === "function") {
+        rows = window.playSortEncounterBalls(rows, pins.concat(recent));
+      }
+      if (!rows.length && throwActive) {
+        rows = [{
+          kind: "throw",
+          item: "standard",
+          label: "Poké Ball",
+          qty: 1,
+          effect: "A free standard throw is available.",
+          selected: false,
+          disabled: false,
+          sprite: "pokeball"
+        }];
+      }
+      buttons.push(...rows);
+    }
     const esc = (value) => window.playEscapeAttr(String(value || ""));
-    const joinWait = "You have joined the encounter! Please wait while other Trainers join you.";
-    const prepWait = (item) => {
-      const label = window.playItemLabel(item);
-      return {
-        status: `You have selected ${label}! Please wait while the other Trainers make their choices.`,
-        statusHtml: `You have selected <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`
-      };
-    };
-    const throwWait = (item) => {
-      const label = window.playItemLabel(item);
-      return {
-        status: `You have chosen ${label}! Please wait while the other Trainers make their choices.`,
-        statusHtml: `You have chosen <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`
-      };
-    };
     let status = "";
     let statusHtml = "";
-    if (joining && me) {
-      status = joinWait;
-    } else if (preparing && me?.prep) {
-      ({ status, statusHtml } = prepWait(me.prep));
+    if (joining && !me && joiningPending) status = window.PLAY_STATUS?.joining || "JOINING…";
+    else if (joining && me) status = window.PLAY_STATUS?.joined || "You have joined the encounter! Please wait while other Trainers join you.";
+    else if (preparing && me?.prep === "none") status = window.PLAY_STATUS?.noItem || "You chose not to use an item. Please wait while the other Trainers make their choices.";
+    else if (preparing && me?.prep === "bait") status = window.PLAY_STATUS?.honey || "You have contributed Honey! Please wait while the other Trainers make their choices.";
+    else if (preparing && me?.prep) {
+      const label = window.playItemLabel(me.prep);
+      status = `You have selected ${label}! Please wait while the other Trainers make their choices.`;
+      statusHtml = `You have selected <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`;
     } else if (throwing && me?.ball) {
-      ({ status, statusHtml } = throwWait(me.ball));
-    } else if (preparing && me) {
-      status = "Choose an item before the timer runs out.";
-    } else if (throwing && me) {
-      status = "Choose your Poké Ball before the timer runs out.";
-    } else if (joining && !me) {
-      status = `A wild ${species} appeared! Join the encounter?`;
-    }
-    if (!buttons.length) {
-      return { key: `wait:${phase}:${me?.prep || ""}:${me?.ball || ""}:${me?.result || ""}`, buttons, status, statusHtml };
-    }
-    return { key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.hint}`).join("|"), buttons, status, statusHtml };
+      const label = window.playItemLabel(me.ball);
+      status = `You have chosen ${label}! Please wait while the other Trainers make their choices.`;
+      statusHtml = `You have chosen <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`;
+    } else if (preparing && me) status = window.PLAY_STATUS?.firstPrep || "Choose a Berry to help yourself, Honey to help everyone, or skip.";
+    else if (throwing && me && !buttons.length) status = window.PLAY_STATUS?.emptyBalls || "You don't have a Poké Ball available for this encounter.";
+    else if (throwing && me) status = window.PLAY_STATUS?.firstThrow || "Choose a Poké Ball. Recommended Balls are marked.";
+    else if (joining && !me) status = `A wild ${species} appeared! Join the encounter?`;
+    if (reconnecting) status = window.PLAY_STATUS?.reconnect || "Reconnecting…";
+    return {
+      key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.selected ? "on" : ""}`).join("|") + `::${status}`,
+      buttons,
+      status,
+      statusHtml,
+      phase,
+      used: capturing ? me : null
+    };
   }
 
   function setActionStatus(plan) {
@@ -265,50 +259,73 @@
     else els.actionStatus.textContent = plan?.status || "";
   }
 
+  function renderActionCard(row) {
+    if (typeof window.playEncounterCardHtml === "function" && row.kind !== "join") {
+      return window.playEncounterCardHtml(row);
+    }
+    const sprite = row.sprite || (row.kind === "join" ? "pokeball" : "");
+    const icon = sprite
+      ? `<span class="item-icon item-icon-img"><img src="${window.playItemSprite(sprite)}" alt=""></span>`
+      : `<span class="item-icon" aria-hidden="true"></span>`;
+    const disabled = row.disabled ? "disabled" : "";
+    return `<button type="button" class="item-btn${row.selected ? " is-selected" : ""}" data-kind="${row.kind}" data-item="${row.item}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}">
+      ${icon}
+      <span class="item-copy"><strong>${row.label}</strong>${row.hint ? `<em>${row.hint}</em>` : ""}${row.selected ? `<span class="enc-selected-mark">SELECTED ✓</span>` : ""}</span>
+    </button>`;
+  }
+
   function renderActions(data) {
     const plan = actionPlan(data);
     if (acting) plan.buttons.forEach((row) => { row.disabled = true; });
-    const key = plan.buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}`).join("|") + `::${plan.status || ""}`;
-    const heldBtn = pointerHeld ? els.actions.querySelector("button[data-kind]") : null;
-    const heldKind = heldBtn?.dataset.kind;
-    const nextKinds = plan.buttons.map((row) => row.kind).join("|");
-    if (heldBtn && nextKinds && nextKinds.split("|").every((kind) => kind === heldKind)) {
-      plan.buttons.forEach((row, index) => {
-        const btn = els.actions.children[index];
+    const key = plan.key;
+    if (key === lastActionKey && els.actions.querySelector("[data-kind]")) {
+      plan.buttons.forEach((row) => {
+        const btn = els.actions.querySelector(`[data-kind="${row.kind}"][data-item="${row.item}"]`);
         if (!btn) return;
         btn.disabled = Boolean(row.disabled);
-        const hint = btn.querySelector("em");
-        if (hint && row.hint) hint.textContent = row.hint;
-      });
-      if (plan.status || plan.statusHtml) setActionStatus(plan);
-      return;
-    }
-    if (key === lastActionKey && els.actions.children.length === plan.buttons.length) {
-      plan.buttons.forEach((row, index) => {
-        const btn = els.actions.children[index];
-        if (!btn) return;
-        btn.disabled = Boolean(row.disabled);
-        const hint = btn.querySelector("em");
-        if (hint && row.hint) hint.textContent = row.hint;
       });
       if (plan.status || plan.statusHtml) setActionStatus(plan);
       return;
     }
     lastActionKey = key;
     setActionStatus(plan);
-    els.actions.classList.toggle("single", plan.buttons.length === 1);
-    els.actions.classList.toggle("throw-picks", plan.buttons.some((row) => row.kind === "throw"));
-    els.actions.innerHTML = plan.buttons.map((row) => {
-      const sprite = row.sprite || (row.kind === "open-balls" ? "pokeball" : "");
-      const icon = sprite
-        ? `<span class="item-icon item-icon-img"><img src="${window.playItemSprite(sprite)}" alt=""></span>`
-        : `<span class="item-icon" aria-hidden="true"></span>`;
-      const disabled = row.disabled ? "disabled" : "";
-      return `<button type="button" class="item-btn" data-kind="${row.kind}" data-item="${row.item}" ${disabled}>
-        ${icon}
-        <span class="item-copy"><strong>${row.label}</strong>${row.hint ? `<em>${row.hint}</em>` : ""}</span>
-      </button>`;
-    }).join("");
+    const berries = plan.buttons.filter((row) => row.kind === "prepare" && row.item !== "bait" && row.item !== "none");
+    const honey = plan.buttons.filter((row) => row.kind === "prepare" && row.item === "bait");
+    const skip = plan.buttons.filter((row) => row.kind === "prepare" && row.item === "none");
+    const balls = plan.buttons.filter((row) => row.kind === "throw");
+    const joins = plan.buttons.filter((row) => row.kind === "join");
+    const tip = plan.phase === "prepare" && !data?.me?.prep
+      ? (typeof window.playTipHtml === "function" ? window.playTipHtml("first-prep", window.PLAY_STATUS.firstPrep) : "")
+      : plan.phase === "throw" && !data?.me?.ball
+        ? (typeof window.playTipHtml === "function" ? window.playTipHtml("first-throw", window.PLAY_STATUS.firstThrow) : "")
+        : "";
+    let html = "";
+    if (joins.length) html += `<div class="enc-join">${joins.map(renderActionCard).join("")}</div>`;
+    if (berries.length || honey.length || skip.length) {
+      html += `<div class="enc-split">
+        <section class="enc-pane">
+          <h3>For you</h3>
+          <p class="muted">Berries help only your catch.</p>
+          <div class="enc-card-row">${berries.length ? berries.map(renderActionCard).join("") : `<p class="muted">${window.PLAY_STATUS?.emptyItems || "No encounter items available."}</p>`}</div>
+        </section>
+        <section class="enc-pane">
+          <h3>Help everyone</h3>
+          <p class="muted">Honey raises the community bonus.</p>
+          <div class="enc-card-row">${honey.map(renderActionCard).join("")}</div>
+        </section>
+      </div>
+      <div class="enc-skip">${skip.map(renderActionCard).join("")}</div>`;
+    }
+    if (balls.length) {
+      html += `<div class="enc-ball-scroller" role="list">${balls.map(renderActionCard).join("")}</div>`;
+    }
+    if (plan.used && typeof window.playUsedSummaryHtml === "function") {
+      html += window.playUsedSummaryHtml(plan.used, liveRound(data));
+    }
+    els.actions.classList.toggle("single", joins.length === 1 && plan.buttons.length === 1);
+    els.actions.classList.toggle("throw-picks", balls.length > 0);
+    els.actions.classList.toggle("enc-actions", true);
+    els.actions.innerHTML = `${tip}${html}`;
   }
 
   function openThrowBalls(bag, mode) {
@@ -319,13 +336,16 @@
     if (els.throwTitle) els.throwTitle.textContent = throwViewOnly ? "Your Poké Balls" : "All my Poké Balls";
     if (els.throwHint) {
       els.throwHint.textContent = throwViewOnly
-        ? "Balls you own. Catch power is how much each ball improves your chance."
-        : "Only balls in your bag. Catch power is how much each ball improves your chance. Master Ball always catches.";
+        ? "Balls you own. Recommendations come from this encounter."
+        : "Only balls in your bag. Master Ball always catches and asks for confirmation.";
     }
     const rows = window.playOwnedBalls(bag);
+    const adviceMap = new Map((state?.ballAdvice || []).map((row) => [row.ballId, row]));
     const adviceFor = (key) => {
-      const note = window.playBallAdvice?.(key, state?.round || liveRound(state));
-      return note ? `<span class="muted">${note}</span>` : `<span class="muted">${Number(bag?.[key] || 0)} in bag</span>`;
+      const rec = adviceMap.get(key);
+      if (rec?.recommended) return `<span class="muted">★ Recommended</span>`;
+      if (rec?.effectiveness) return `<span class="muted">${rec.effectiveness}</span>`;
+      return `<span class="muted">${Number(bag?.[key] || 0)} in bag</span>`;
     };
     if (!rows.length) {
       els.throwGrid.innerHTML = throwViewOnly
@@ -343,7 +363,7 @@
         return `<button type="button" class="ball-tile" data-throw="${row.key}" ${disabled}>
           <img src="${window.playItemSprite(row.key)}" alt="">
           <strong>${row.name}</strong>
-          <span class="ball-rate">${row.multiplier} catch power</span>
+          <span class="ball-rate">${adviceMap.get(row.key)?.effectiveness || row.effect || "Poké Ball"}</span>
           ${throwViewOnly ? `<span class="muted">${qty} in bag</span>` : adviceFor(row.key)}
         </button>`;
       }).join("");
@@ -457,6 +477,8 @@
       els.bag.innerHTML = window.playRenderPlayKit(bag);
     }
     window.playFillLurePanel(bag);
+    const storeLink = document.querySelector(".bag-store");
+    if (storeLink) storeLink.hidden = Boolean(round && ["prepare", "throw", "reveal"].includes(round.phase));
     window.playRenderLiveFeed(data?.console || [], null, round);
     renderActions(view);
     maybeRadarJoin(view);
@@ -490,11 +512,16 @@
     refreshQueued = false;
     try {
       const data = await window.playCall("play_sync", { p_round_id: liveRound(state)?.id || null });
+      reconnecting = false;
       if (data?.channel !== undefined) loadStream(data.channel);
       render(data);
     } catch (error) {
-      const message = window.playRpcError(error, "Could not load the encounter.");
-      if (!/failed to fetch|networkerror|load failed/i.test(message)) {
+      const message = window.playHumanRpcError
+        ? window.playHumanRpcError(error, "Could not load the encounter.")
+        : window.playRpcError(error, "Could not load the encounter.");
+      reconnecting = /reconnecting/i.test(message);
+      if (reconnecting) els.actionStatus.textContent = message;
+      else if (!/failed to fetch|networkerror|load failed/i.test(message)) {
         els.actionStatus.textContent = message;
       }
     }
@@ -507,6 +534,7 @@
       return;
     }
     acting = true;
+    if (kind === "join") joiningPending = true;
     els.actions.querySelectorAll("button[data-kind]").forEach((btn) => { btn.disabled = true; });
     els.throwGrid?.querySelectorAll("button[data-throw]").forEach((btn) => { btn.disabled = true; });
     const roundId = liveRound(state)?.id || null;
@@ -525,8 +553,12 @@
           ? await window.playCall("play_prepare", { p_item: item, p_round_id: roundId })
           : await window.playCall("play_throw", { p_item: item, p_round_id: roundId });
       lastActionKey = "";
+      reconnecting = false;
+      if (kind === "join") joiningPending = false;
       if (kind === "join" && roundId) joinedMe.set(roundId, data?.me || { joined: true });
       if ((kind === "prepare" || kind === "throw") && roundId && data?.me) joinedMe.set(roundId, data.me);
+      if (kind === "prepare" && item) window.playRememberUsed?.("berries", item);
+      if (kind === "throw" && item) window.playRememberUsed?.("balls", item);
       if (kind === "throw" && els.throwModal?.open && !throwViewOnly) {
         try { els.throwModal.close(); } catch (_) {}
       }
@@ -536,9 +568,16 @@
       }
     } catch (error) {
       if (roundId && prevMe && (kind === "prepare" || kind === "throw")) joinedMe.set(roundId, prevMe);
-      els.actionStatus.textContent = window.playRpcError(error);
+      if (kind === "join") joiningPending = false;
+      const message = window.playHumanRpcError ? window.playHumanRpcError(error) : window.playRpcError(error);
+      els.actionStatus.textContent = message;
       lastActionKey = "";
-      renderActions({ ...state, round: liveRound(state) });
+      if (/phase has ended/i.test(message)) {
+        lastEncounterKey = "";
+        refresh();
+      } else {
+        renderActions({ ...state, round: liveRound(state) });
+      }
     } finally {
       acting = false;
       if (refreshQueued) refresh();
@@ -556,6 +595,14 @@
       if (state?.me?.prep) return;
       openBerryPicker(state?.bag || {});
       return;
+    }
+    if (button.dataset.kind === "throw" && button.dataset.item === "masterball" && window.playConfirmRare?.() !== false) {
+      const modal = document.getElementById("master-modal");
+      if (modal) {
+        if (typeof modal.showModal === "function") modal.showModal();
+        else modal.setAttribute("open", "");
+        return;
+      }
     }
     button.disabled = true;
     act(button.dataset.kind, button.dataset.item || "");
@@ -592,6 +639,14 @@
   function pickFromGrid(button) {
     const kind = button.dataset.throw ? "throw" : "prepare";
     const item = button.dataset.throw || button.dataset.prep;
+    if (kind === "throw" && item === "masterball" && window.playConfirmRare?.() !== false) {
+      const modal = document.getElementById("master-modal");
+      if (modal) {
+        if (typeof modal.showModal === "function") modal.showModal();
+        else modal.setAttribute("open", "");
+        return;
+      }
+    }
     button.disabled = true;
     els.throwGrid.querySelectorAll("button[data-throw], button[data-prep]").forEach((btn) => { btn.disabled = true; });
     els.throwModal?.close?.();
@@ -709,6 +764,27 @@
     if (!event.target.closest("#view-balls")) return;
     openThrowBalls(state?.bag || {}, "view");
   });
+
+  document.getElementById("master-use")?.addEventListener("click", () => {
+    const modal = document.getElementById("master-modal");
+    try { modal?.close?.(); } catch (_) {}
+    act("throw", "masterball");
+  });
+  document.getElementById("live-feed")?.addEventListener("scroll", () => {
+    const list = document.getElementById("live-feed");
+    if (!list) return;
+    const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 28;
+    list.dataset.pinScroll = nearBottom ? "0" : "1";
+    if (nearBottom) document.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
+  });
+  document.querySelector("[data-feed-jump]")?.addEventListener("click", () => {
+    const list = document.getElementById("live-feed");
+    if (!list) return;
+    list.dataset.pinScroll = "0";
+    list.scrollTop = list.scrollHeight;
+    document.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
+  });
+  window.playBindTips?.(document.body);
 
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadProfile(); });
   supabase.channel("play-live")

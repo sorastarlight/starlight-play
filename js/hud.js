@@ -185,14 +185,23 @@
     const fullName = window.playDisplayName(round);
     const seconds = window.playEncounterSecondsLeft(round);
     const phase = window.playPhaseLabel(round.phase);
-    const timeText = round.paused ? "Paused" : (seconds ? `${seconds}s left` : "Waiting");
+    const timeText = typeof window.playEncounterTimeText === "function"
+      ? window.playEncounterTimeText(round)
+      : (round.paused ? "Paused" : (seconds ? `${seconds}s left` : "Waiting"));
+    const warnClass = typeof window.playTimerWarnClass === "function"
+      ? window.playTimerWarnClass(seconds)
+      : "";
     const sprite = window.playSpriteUrl(round.dex, round.variant);
     const shiny = String(round.variant || "").includes("shiny");
     const location = window.playHabitat(round.dex, round.location);
     const hidden = round.hidden ? `<span class="chip warn">Hidden</span>` : "";
     const paused = round.paused ? `<span class="chip pause">Paused</span>` : "";
     const live = round.phase && round.phase !== "closed";
-    const honey = opts.showHoney === false ? "" : window.playHoneyCrewHtml(round);
+    const honey = opts.showHoney === false
+      ? ""
+      : (typeof window.playHoneyMeterHtml === "function" && round.phase && round.phase !== "closed"
+        ? window.playHoneyMeterHtml(round)
+        : window.playHoneyCrewHtml(round));
     const staffPanel = opts.staff ? window.playStaffRoundHtml(round) : "";
     const catchSeq = opts.staff ? "" : window.playCatchSeqHtml(round, opts);
     const seqScene = catchSeq ? window.playAdvanceCatchSeqState(round, opts.me || null).scene : "";
@@ -221,7 +230,7 @@
           </div>
         </div>
       </div>
-      <div class="phase-wrap">
+      <div class="phase-wrap ${warnClass}" data-phase-wrap>
         <div class="phase-label"><span data-phase-name>${phase}</span><span data-time-copy>${timeText}</span></div>
         <div class="phase-bar" aria-hidden="true"><i data-bar style="width:${opts.bar || 0}%"></i></div>
       </div>
@@ -386,21 +395,21 @@
       };
     }
     if (!me.ball) {
-      return { win: false, headline: "Sorry!", sub: "You didn't choose a Poké Ball in time!", note: "" };
+      return { win: false, headline: "Oh no!", sub: "You didn't choose a Poké Ball in time!", note: "Better luck next encounter!" };
     }
     if (throwOutcome(me) === "caught") {
       return {
         win: true,
         headline: "Gotcha!",
-        sub: `You caught ${species}`,
-        note: `Caught with ${window.playItemLabel(me.ball)} · added to your collection`
+        sub: `${species} was caught!`,
+        note: `Caught with ${window.playItemLabel(me.ball)}`
       };
     }
     return {
       win: false,
-      headline: "Sorry!",
-      sub: `You didn't catch ${species}`,
-      note: `Thrown: ${window.playItemLabel(me.ball)}`
+      headline: "Oh no!",
+      sub: `${species} broke free!`,
+      note: `Better luck next encounter! · ${window.playItemLabel(me.ball)}${me.prep && me.prep !== "none" && me.prep !== "bait" ? ` · ${window.playItemLabel(me.prep)}` : ""}`
     };
   }
 
@@ -573,7 +582,12 @@
     if (!root.querySelector(".dex-stage")) return false;
     const seconds = window.playEncounterSecondsLeft(round);
     const phase = window.playPhaseLabel(round.phase);
-    const timeText = round.paused ? "Paused" : (seconds ? `${seconds}s left` : "Waiting");
+    const timeText = typeof window.playEncounterTimeText === "function"
+      ? window.playEncounterTimeText(round)
+      : (round.paused ? "Paused" : (seconds ? `${seconds}s left` : "Waiting"));
+    const warnClass = typeof window.playTimerWarnClass === "function"
+      ? window.playTimerWarnClass(seconds)
+      : "";
     const time = root.querySelector("[data-time]");
     const timeCopy = root.querySelector("[data-time-copy]");
     const phaseEl = root.querySelector("[data-phase]");
@@ -582,6 +596,8 @@
     const last = root.querySelector("[data-last]");
     if (time) time.textContent = round.paused ? "Paused" : `${seconds || 0}s`;
     if (timeCopy) timeCopy.textContent = timeText;
+    root.querySelector("[data-phase-wrap]")?.classList.toggle("is-warn", warnClass === "is-warn");
+    root.querySelector("[data-phase-wrap]")?.classList.toggle("is-urgent", warnClass === "is-urgent");
     if (phaseEl) phaseEl.textContent = phase;
     if (phaseName) phaseName.textContent = phase;
     if (barEl) barEl.style.width = `${bar || 0}%`;
@@ -597,9 +613,12 @@
       if (wantsSeq) window.playAdvanceCatchSeq(root, round, extra?.me || null);
     }
     if (extra?.showHoney !== false) {
-      const honeyHtml = window.playHoneyCrewHtml(round);
-      const honeyEl = root.querySelector(".honey-crew");
-      const honeyKey = `${(round.honeyTrainers || []).length}:${round.baitBonusPercent || 0}`;
+      const liveHoney = round.phase && round.phase !== "closed" && typeof window.playHoneyMeterHtml === "function";
+      const honeyHtml = liveHoney ? window.playHoneyMeterHtml(round) : window.playHoneyCrewHtml(round);
+      const honeyEl = root.querySelector(".honey-meter, .honey-crew");
+      const honeyKey = liveHoney
+        ? `${round.honeyContributors || 0}:${round.honeyParticipants || 0}:${round.baitBonusPercent || 0}`
+        : `${(round.honeyTrainers || []).length}:${round.baitBonusPercent || 0}`;
       if (!honeyHtml) honeyEl?.remove();
       else if (honeyEl?.dataset.honey === honeyKey) { /* already current */ }
       else if (honeyEl) honeyEl.outerHTML = honeyHtml;
@@ -641,9 +660,12 @@
     const ball = window.playEscapeAttr(window.playArticle(window.playItemLabel(row?.item)));
     if (row?.kind === "joined") return `<li>${time}<span><strong>${name}</strong> joined the encounter!</span></li>`;
     if (row?.kind === "prepared" && row.item === "bait") {
-      return `<li class="is-honey">${time}<span><strong>${name}</strong> used Honey to help everyone’s catch rate</span></li>`;
+      return `<li class="is-honey">${time}<span><strong>${name}</strong> added Honey to the encounter!</span></li>`;
     }
-    if (row?.kind === "prepared") return `<li>${time}<span><strong>${name}</strong> has prepared an item!</span></li>`;
+    if (row?.kind === "prepared" && (row.item === "none" || !row.item)) {
+      return `<li>${time}<span><strong>${name}</strong> is ready.</span></li>`;
+    }
+    if (row?.kind === "prepared") return `<li>${time}<span><strong>${name}</strong> is ready.</span></li>`;
     if (row?.kind === "selected") {
       return `<li>${time}<span><strong>${name}</strong> has chosen ${ball} and is ready to throw!</span></li>`;
     }
@@ -707,10 +729,20 @@
     const list = document.getElementById(targetId || "live-feed");
     if (!list) return;
     const rows = window.playConsoleRows(source, round);
+    const pin = list.dataset.pinScroll === "1";
+    const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 28;
     if (!rows.length) {
       list.innerHTML = `<li class="muted">Waiting for trainers to join, use Honey or a Berry, and throw a ball.</li>`;
       return;
     }
     list.innerHTML = rows.map((row) => window.playConsoleLine(row)).join("");
+    if (!pin || nearBottom) {
+      list.scrollTop = list.scrollHeight;
+      list.dataset.pinScroll = "0";
+      list.parentElement?.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
+    } else {
+      const jump = list.parentElement?.querySelector("[data-feed-jump]");
+      if (jump) jump.removeAttribute("hidden");
+    }
   };
 })();

@@ -781,13 +781,14 @@
   };
 
   window.playPhaseLabel = function playPhaseLabel(phase) {
+    if (typeof window.playPhaseTitle === "function") return window.playPhaseTitle(phase);
     return ({
-      join: "Join",
-      prepare: "Prepare",
-      throw: "Ready",
-      reveal: "Catch!",
-      closed: "Idle"
-    })[phase] || "Idle";
+      join: "JOIN",
+      prepare: "CHOOSE AN ITEM",
+      throw: "CHOOSE YOUR POKÉ BALL",
+      reveal: "CATCH ATTEMPT",
+      closed: "RESULTS"
+    })[phase] || "ENCOUNTER";
   };
 
   window.playRpcError = function playRpcError(error, fallback) {

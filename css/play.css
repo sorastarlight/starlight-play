@@ -4386,3 +4386,163 @@ body[data-page="admin"] .play-stage {
 .family-line { list-style: none; padding: 0; margin: 12px 0; }
 .family-line li { display: flex; gap: 10px; align-items: center; margin: 8px 0; }
 .family-card + .family-card { margin-top: 12px; }
+
+.phase-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 8px 0 6px;
+  background: linear-gradient(180deg, #fff 70%, #fff0);
+}
+.phase-wrap.is-warn [data-time-copy] { color: #b45309; font-weight: 800; }
+.phase-wrap.is-urgent [data-time-copy] {
+  color: #9f1239;
+  animation: timer-pulse 0.8s ease-in-out infinite;
+}
+@keyframes timer-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+.enc-actions { display: grid; gap: 12px; }
+.enc-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.enc-pane {
+  background: #f7f9ff;
+  border: 2px solid #dce6f7;
+  border-radius: 16px;
+  padding: 10px;
+}
+.enc-pane h3 { margin: 0 0 4px; font-size: 15px; }
+.enc-card-row, .enc-ball-scroller {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(148px, 1fr);
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scroll-snap-type: x mandatory;
+}
+.enc-ball-scroller {
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  grid-auto-columns: unset;
+}
+.enc-card { scroll-snap-align: start; min-height: 92px; position: relative; }
+.enc-card.is-selected, .item-btn.is-selected {
+  outline: 3px solid #2e8b57;
+  box-shadow: 0 0 0 3px #c8f0d8;
+}
+.enc-qty {
+  display: inline-block;
+  margin: 2px 6px 0 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+.enc-badge {
+  display: inline-block;
+  margin: 2px 4px 0 0;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  background: #e8eef8;
+}
+.enc-badge.is-rec, .enc-card.is-rec { box-shadow: 0 0 0 2px #f0c14a55; }
+.enc-badge.is-excellent, .enc-badge.is-guaranteed { background: #fff3bf; }
+.enc-badge.is-great { background: #dbeafe; }
+.enc-selected-mark { display: block; font-size: 11px; font-weight: 800; color: #1f6b3a; }
+.enc-why { display: block; font-size: 11px; color: #7a7b93; }
+.enc-used {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0;
+}
+.enc-used div { background: #f7f9ff; border-radius: 12px; padding: 8px; text-align: center; }
+.honey-meter, .honey-crew {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 14px;
+  background: #fff8e6;
+  border: 2px solid #f0d48a;
+}
+.honey-bar {
+  height: 12px;
+  border-radius: 999px;
+  background: #1e3050;
+  overflow: hidden;
+  margin: 6px 0;
+}
+.honey-bar i { display: block; height: 100%; background: linear-gradient(90deg, #f0c14a, #ffe978); }
+.bag-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  margin: 12px 0;
+}
+.bag-tools label { font-weight: 800; font-size: 13px; }
+.bag-row { cursor: pointer; }
+.bag-row.is-empty { opacity: .55; }
+.daily-streak {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+.daily-streak li {
+  background: #eef3ff;
+  border-radius: 10px;
+  padding: 6px 4px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+}
+.daily-streak li.is-done { background: #e4f8ea; }
+.daily-streak li.is-today { background: #fff3bf; }
+.daily-streak em { display: block; font-style: normal; font-size: 10px; }
+.play-tip {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #eef7ff;
+  border: 2px solid #b9d8f3;
+}
+.feed-jump {
+  position: sticky;
+  bottom: 8px;
+  margin: 8px auto 0;
+  display: block;
+}
+.mart-qty-adds { display: flex; gap: 4px; margin-bottom: 6px; }
+.item-uses ul { margin: 6px 0 0; padding-left: 18px; }
+@media (max-width: 800px) {
+  .enc-split { grid-template-columns: 1fr; }
+  .enc-ball-scroller { grid-template-columns: repeat(2, minmax(132px, 1fr)); }
+  .dex-stats { grid-template-columns: repeat(2, 1fr); }
+  .daily-streak { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .enc-ball-scroller {
+    display: flex;
+    overflow-x: auto;
+  }
+  .enc-ball-scroller .enc-card { min-width: 46%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phase-wrap.is-urgent [data-time-copy],
+  .dex-stage img,
+  .dex-idle-mark { animation: none !important; }
+}

@@ -107,7 +107,19 @@
 
   function addButton(sku, { avatar } = {}) {
     const attr = avatar ? `data-avatar-sku="${esc(sku)}"` : `data-sku="${esc(sku)}"`;
-    return `<button type="button" class="mart-add" ${attr}>Add To Checkout</button>`;
+    const item = findSku(sku);
+    const cost = Number(item?.cost || 0);
+    const coins = Number(lastWallet?.coins || 0);
+    const short = Boolean(lastWallet) && coins < cost;
+    const need = short ? `You need ${money(cost - coins)} more PokéCoins.` : "";
+    const qty = avatar || item?.pack
+      ? ""
+      : `<span class="mart-qty-adds">
+          <button type="button" class="secondary" ${attr} data-add-qty="1">+1</button>
+          <button type="button" class="secondary" ${attr} data-add-qty="5">+5</button>
+          <button type="button" class="secondary" ${attr} data-add-qty="10">+10</button>
+        </span>`;
+    return `${qty}<button type="button" class="mart-add" ${attr}${short ? " disabled" : ""}>${short ? "Need more PokéCoins" : "Add To Checkout"}</button>${need ? `<p class="mart-cart-warn">${need}</p>` : ""}`;
   }
 
   function cartIconHtml(className) {
@@ -389,9 +401,10 @@
             <div class="daily-supply-card">
               <p class="eyebrow">Daily Trainer Supply</p>
               <p>${wallet?.dailyClaimed
-                ? "Claimed. Next supply tomorrow."
-                : `Today: 3 Poké Balls, 1 ${window.playItemLabel(wallet?.dailyPreview?.berry || "berry")}, 50 PokéCoins${dailyBonusLine(wallet)}.`}</p>
-              <p class="muted">Day ${Number(wallet?.dailyStreakDay || 1)} of 7 · ${esc(wallet?.dailyTimezone || "America/New_York")}</p>
+                ? "Claimed. Next supply available tomorrow."
+                : `Today's Supplies: Poké Ball ×3 · ${window.playItemLabel(wallet?.dailyPreview?.berry || "berry")} ×1 · 50 PokéCoins${dailyBonusLine(wallet)}.`}</p>
+              ${typeof window.playDailyStreakHtml === "function" ? window.playDailyStreakHtml(wallet) : `<p class="muted">Day ${Number(wallet?.dailyStreakDay || 1)} of 7</p>`}
+              <p class="muted">${esc(wallet?.dailyTimezone || "America/New_York")}</p>
             </div>
             <div class="links pass-actions">
               <button id="claim-supply" class="secondary" type="button"${wallet?.dailySupplyReady === false ? " disabled" : ""}>${wallet?.dailySupplyReady === false ? "Claimed" : "Claim"}</button>
@@ -475,7 +488,7 @@
           ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : `<p class="mart-sign-title">${esc(title)}</p>`}
         </div>
       </header>
-      ${body}
+      ${body || `<p class="muted">No items are available here right now.</p>`}
     </section>`;
   }
 
@@ -664,7 +677,10 @@
       ? `<div class="mart-cart-list">${lines}</div>
          <div class="mart-cart-foot">
            <p class="mart-cart-total"><span>Total</span> <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(total)}</span></p>
-           ${short ? `<p class="mart-cart-warn">You need ${money(total - coins)} more PokéCoins.</p>` : (lastWallet ? `<p class="muted">After purchase: ${money(coins - total)} PokéCoins.</p>` : "")}
+           ${short ? `<p class="mart-cart-warn">You need ${money(total - coins)} more PokéCoins.</p>` : (lastWallet ? `<p class="muted">Cost: ${money(total)} · Balance after: ${money(coins - total)}</p>` : "")}
+           ${typeof window.playPremierPreview === "function" && window.playPremierPreview(cart, findSku) > 0
+             ? `<p class="mart-cart-fanfare-kicker">Bonus: Premier Ball ×${window.playPremierPreview(cart, findSku)}</p>`
+             : ""}
            <button type="button" class="gold" data-checkout-buy${short ? " disabled" : ""}>Purchase</button>
          </div>`
       : `<div class="mart-cart-empty">
@@ -872,9 +888,19 @@
       };
       if (data.bag?.coins != null) lastPurchase.after = Number(data.bag.coins);
       lastTab = CHECKOUT_TAB;
+      const added = receipt.lines.map((row) => `${row.name} ×${row.qty}`).join(", ");
+      if (typeof window.playToast === "function") {
+        window.playToast({
+          kind: "info",
+          title: lastPurchase.premierBonus ? "Bonus! Premier Ball ×1 added to your Bag." : "Added to your Bag!",
+          body: added
+        });
+      }
       await refreshStore();
     } catch (error) {
-      checkoutNote = window.playRpcError(error);
+      checkoutNote = window.playHumanRpcError
+        ? window.playHumanRpcError(error, "Purchase could not be completed.")
+        : window.playRpcError(error);
       syncCheckoutUi();
       if (button && button.isConnected) button.disabled = false;
     }
@@ -888,7 +914,9 @@
     }
     const add = event.target.closest("button[data-sku], button[data-avatar-sku]");
     if (add) {
-      addToCheckout(add.dataset.sku || add.dataset.avatarSku);
+      const sku = add.dataset.sku || add.dataset.avatarSku;
+      const times = Math.max(1, Number(add.dataset.addQty || 1));
+      for (let i = 0; i < times; i += 1) addToCheckout(sku);
       return;
     }
     const inc = event.target.closest("[data-cart-inc]");
@@ -910,6 +938,11 @@
     }
     const buyAll = event.target.closest("[data-checkout-buy]");
     if (buyAll) {
+      const total = cart.reduce((n, row) => n + Number(findSku(row.sku)?.cost || 0) * row.qty, 0);
+      const premium = cart.some((row) => findSku(row.sku)?.pack) || total >= 1000;
+      if (premium && !window.confirm(`Buy this checkout?\nCost: ${total} PokéCoins\nCurrent balance: ${Number(lastWallet?.coins || 0)}\nBalance after: ${Number(lastWallet?.coins || 0) - total}`)) {
+        return;
+      }
       await purchaseCart(buyAll);
       return;
     }

@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=prog1">
+<link rel="stylesheet" href="css/play.css?v=ux1">
 <body data-page="play">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -63,6 +63,7 @@
             <p id="stream-note" class="muted">Loading the stream player…</p>
           </div>
           <ol id="live-feed"></ol>
+          <button type="button" class="secondary feed-jump" data-feed-jump hidden>New messages ↓</button>
         </section>
       </div>
     </section>
@@ -118,11 +119,24 @@
     <div id="throw-ball-grid" class="ball-grid"></div>
   </form>
 </dialog>
+<dialog id="master-modal" class="play-modal" aria-labelledby="master-title">
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="master-title">Use Master Ball?</h3>
+      <button class="secondary" value="cancel" type="submit">Keep it</button>
+    </header>
+    <p>Are you sure? The Master Ball is extremely rare and guarantees this capture. It will be consumed.</p>
+    <div class="links">
+      <button id="master-use" type="button">Use Master Ball</button>
+    </div>
+  </form>
+</dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/game.js?v=loot1"></script>
-<script src="js/hud.js?v=eco1"></script>
-<script src="js/nav.js?v=evo1"></script>
-<script src="js/play.js?v=prog1"></script>
+<script src="js/game.js?v=ux1"></script>
+<script src="js/play-ux.js?v=ux1"></script>
+<script src="js/hud.js?v=ux1"></script>
+<script src="js/nav.js?v=ux1"></script>
+<script src="js/play.js?v=ux1"></script>
 </body>

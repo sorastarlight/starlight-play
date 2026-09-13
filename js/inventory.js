@@ -9,9 +9,26 @@
     capacityBar: document.getElementById("capacity-bar"),
     status: document.getElementById("inv-status"),
     lurePanel: document.getElementById("lure-panel"),
-    ledger: document.getElementById("item-ledger")
+    ledger: document.getElementById("item-ledger"),
+    tabs: document.getElementById("bag-tabs"),
+    search: document.getElementById("bag-search"),
+    sort: document.getElementById("bag-sort"),
+    unowned: document.getElementById("bag-unowned"),
+    detail: document.getElementById("item-detail"),
+    detailBody: document.getElementById("item-detail-body")
   };
   let invChannel = null;
+  let lastBag = {};
+  let lastCapture = null;
+  let lastCollection = null;
+  let tab = "balls";
+  const TABS = [
+    ["balls", "Poké Balls"],
+    ["berries", "Berries"],
+    ["community", "Community Items"],
+    ["evolution", "Evolution Items"],
+    ["special", "Special Items"]
+  ];
 
   window.playBindAccountNav({
     onSignOut() {
@@ -36,73 +53,68 @@
       </div>`;
   }
 
+  function allKeys(bag) {
+    const keys = new Set(["coins", "bait", "lure", "rarecandy", "firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord"]);
+    (window.PLAY_BALLS || []).forEach((row) => keys.add(row.key));
+    (window.playBerryCatalog?.(lastCapture) || window.PLAY_BERRIES || []).forEach((row) => keys.add(row.key));
+    Object.keys(bag || {}).forEach((key) => {
+      if (!["capacity", "used", "lureArmed", "lureUntil"].includes(key)) keys.add(key);
+    });
+    return [...keys];
+  }
+
   function renderBag(bag) {
-    const groups = [
-      {
-        title: "Wallet",
-        note: "Spend these on the Store.",
-        items: [
-          ["coins", "PokéCoins", "Earned by joining and catching. Spend them on the Store. No cash value, no trading."]
-        ]
-      },
-      {
-        title: "Berries",
-        note: "One Berry per encounter, used before anyone throws a ball.",
-        items: (window.PLAY_BERRIES || [])
-          .filter((row) => row.key === "berry" || Number(bag?.[row.key] || 0) > 0)
-          .map((row) => [row.key, row.name, row.description])
-      },
-      {
-        title: "Encounter Items",
-        note: "Use these after you join, before anyone throws a ball.",
-        items: [
-          ["bait", "Honey", "Contribute Honey to help every Trainer in the encounter! The more Trainers who contribute, the stronger the community bonus becomes."],
-          ["lure", "Poké Radar", "Automatically detects nearby Pokémon and joins you to any encounter that appears. Lasts 30 minutes."]
-        ]
-      },
-      {
-        title: "Poké Balls",
-        note: "Use these when the encounter is ready to catch.",
-        items: (window.PLAY_BALLS || [])
-          .filter((row) => !row.extra || Number(bag?.[row.key] || 0) > 0)
-          .map((row) => [row.key, row.name, row.effect])
-      },
-      {
-        title: "Evolution Items",
-        note: "Used with family Candy on the Evolution page. Candy itself is not sold.",
-        items: ["firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord", "rarecandy"]
-          .filter((key) => Number(bag?.[key] || 0) > 0)
-          .map((key) => [key, window.playItemLabel(key), ({
-            firestone: "A peculiar stone that can trigger certain Fire-type evolutions.",
-            waterstone: "A peculiar stone that can trigger certain Water-type evolutions.",
-            thunderstone: "A peculiar stone that can trigger certain Electric-type evolutions.",
-            leafstone: "A peculiar stone that can trigger certain plant-related evolutions.",
-            moonstone: "A mysterious stone associated with certain unusual evolutions.",
-            linkingcord: "A mysterious cord that can trigger certain evolutions normally caused by trading.",
-            rarecandy: "Gives 1 family Candy. Use it on the Evolution page."
-          })[key]])
-      }
-    ];
+    lastBag = bag || {};
+    const pins = window.playBagPins?.() || [];
+    const showUnowned = Boolean(els.unowned?.checked);
+    const query = String(els.search?.value || "").trim().toLowerCase();
+    const sort = els.sort?.value || "category";
     window.playFillBagMeter(bag);
     window.playFillLurePanel(bag);
-    els.bag.innerHTML = groups.map((group) => `
-      <section class="bag-group">
-        <h3>${group.title}</h3>
-        ${group.note ? `<p class="muted bag-group-note">${group.note}</p>` : ""}
-        <div class="bag-rows">
-          ${group.items.map(([key, label, hint]) => `
-            <article class="bag-row${key === "coins" ? " coins" : ""}">
-              <img class="item-sprite" src="${window.playItemSprite(key)}" alt="">
-              <div class="bag-copy">
-                <h3>${label}</h3>
-                <p>${hint}</p>
-              </div>
-              ${key === "coins"
-                ? `<strong class="bag-qty">${window.playCoinsHtml(bag?.[key] ?? 0)}</strong>`
-                : `<strong class="bag-qty">${bag?.[key] ?? 0}</strong>`}
-            </article>`).join("")}
-        </div>
-      </section>`).join("");
+    if (els.tabs) {
+      els.tabs.innerHTML = TABS.map(([id, label]) => (
+        `<button type="button" class="mart-tab${tab === id ? " is-on" : ""}" data-bag-tab="${id}" aria-pressed="${tab === id}">${label}</button>`
+      )).join("");
+    }
+    const rows = allKeys(bag)
+      .filter((key) => key !== "coins")
+      .map((key) => ({ key, qty: Number(bag[key] || 0), category: window.playItemCategory(key) }))
+      .filter((row) => row.category === tab)
+      .filter((row) => showUnowned || row.qty > 0 || pins.includes(row.key))
+      .filter((row) => !query || window.playItemLabel(row.key).toLowerCase().includes(query) || row.key.includes(query));
+    rows.sort((a, b) => {
+      if (sort === "quantity") return b.qty - a.qty || a.key.localeCompare(b.key);
+      if (sort === "name") return window.playItemLabel(a.key).localeCompare(window.playItemLabel(b.key));
+      if (pins.includes(a.key) !== pins.includes(b.key)) return pins.includes(a.key) ? -1 : 1;
+      return a.key.localeCompare(b.key);
+    });
+    const wallet = `<section class="bag-group">
+      <h3>Wallet</h3>
+      <p class="muted bag-group-note">Spend these on Starlight Mart.</p>
+      <div class="bag-rows">${window.playBagRowHtml("coins", bag.coins || 0, lastCapture, { pins })}</div>
+    </section>`;
+    const body = rows.length
+      ? `<div class="bag-rows">${rows.map((row) => window.playBagRowHtml(row.key, row.qty, lastCapture, { pins })).join("")}</div>`
+      : `<p class="muted">${showUnowned ? "No items match this filter." : "Nothing in this pocket yet. Visit Starlight Mart or join encounters to fill it."}</p>`;
+    const tip = tab === "evolution" && rows.some((row) => Number(bag[row.key] || 0) > 0 && ["firestone", "waterstone", "thunderstone", "leafstone", "moonstone"].includes(row.key))
+      ? window.playTipHtml?.("first-stone", "Evolution Items can be used with Species Candy to evolve eligible Pokémon.")
+      : tab === "community" && Number(bag.bait || 0) > 0
+        ? window.playTipHtml?.("first-honey", "Honey helps every participating Trainer during an encounter.")
+        : "";
+    els.bag.innerHTML = `${wallet}${tip || ""}<section class="bag-group"><h3>${TABS.find((row) => row[0] === tab)?.[1] || "Items"}</h3>${body}</section>`;
+  }
+
+  function openDetail(key) {
+    if (!els.detail || !els.detailBody) return;
+    window.playMarkItemSeen?.(key);
+    els.detailBody.innerHTML = `${window.playItemDetailHtml(key, lastBag[key] || 0, lastCapture)}
+      <div class="links">
+        <button type="button" class="secondary" data-pin-item="${key}">${(window.playBagPins?.() || []).includes(key) ? "Unpin" : "Pin in Bag"}</button>
+        <a class="button secondary" href="./store.html">Open Store</a>
+      </div>`;
+    if (typeof els.detail.showModal === "function") els.detail.showModal();
+    else els.detail.setAttribute("open", "");
+    renderBag(lastBag);
   }
 
   async function load() {
@@ -123,19 +135,24 @@
     }
     window.playSetAccountNav(session, profile, { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer });
     renderCard(snapshot?.trainer);
+    lastCapture = snapshot?.captureItems || null;
     let bag = snapshot?.bag || {};
     try {
-      const collection = await window.playCall("play_collection");
-      bag = { ...bag, ...(collection?.items || {}) };
+      lastCollection = await window.playCall("play_collection");
+      bag = { ...bag, ...(lastCollection?.items || {}) };
     } catch (_) {}
     renderBag(bag);
+    const candyFirst = (lastCollection?.candy || []).find((row) => Number(row.qty || 0) > 0);
+    if (candyFirst && typeof window.playTipHtml === "function" && !window.playTipDone("first-candy")) {
+      els.status.innerHTML = window.playTipHtml("first-candy", `You earned ${candyFirst.name} Candy! Catch Pokémon from the same evolutionary family to earn Candy for evolution.`);
+    }
     try {
       const hist = await window.playCall("play_item_ledger", { p_limit: 20 });
       const rows = hist?.rows || [];
       if (els.ledger) {
         els.ledger.innerHTML = rows.length
           ? `<table class="report-table"><thead><tr><th>Item</th><th>Qty</th><th>Source</th></tr></thead><tbody>${
-            rows.map((row) => `<tr><td>${window.playEscapeAttr(row.item)}</td><td>${row.amount > 0 ? "+" : ""}${row.amount}</td><td>${window.playEscapeAttr(row.reason)}</td></tr>`).join("")
+            rows.map((row) => `<tr><td>${window.playEscapeAttr(window.playItemLabel(row.item))}</td><td>${row.amount > 0 ? "+" : ""}${row.amount}</td><td>${window.playEscapeAttr(window.playLedgerLabel?.(row.reason) || row.reason)}</td></tr>`).join("")
           }</tbody></table>`
           : `<p class="muted">No item history yet.</p>`;
       }
@@ -150,6 +167,7 @@
         try {
           const snap = await window.playCall("play_state");
           renderCard(snap?.trainer);
+          lastCapture = snap?.captureItems || lastCapture;
           let nextBag = snap?.bag || {};
           try {
             const collection = await window.playCall("play_collection");
@@ -163,6 +181,27 @@
 
   window.playBindLureButton((data) => {
     renderBag(data.bag);
+  });
+  window.playBindTips?.(document.body);
+
+  els.tabs?.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-bag-tab]");
+    if (!btn) return;
+    tab = btn.dataset.bagTab;
+    renderBag(lastBag);
+  });
+  els.search?.addEventListener("input", () => renderBag(lastBag));
+  els.sort?.addEventListener("change", () => renderBag(lastBag));
+  els.unowned?.addEventListener("change", () => renderBag(lastBag));
+  els.bag?.addEventListener("click", (event) => {
+    const row = event.target.closest("[data-item]");
+    if (row) openDetail(row.dataset.item);
+  });
+  els.detail?.addEventListener("click", (event) => {
+    const pin = event.target.closest("[data-pin-item]");
+    if (!pin) return;
+    window.playToggleBagPin?.(pin.dataset.pinItem);
+    openDetail(pin.dataset.pinItem);
   });
 
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });

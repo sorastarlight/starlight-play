@@ -52,6 +52,7 @@
     if (filter === "candy") return Number(row.candyCost || 0) > Number(row.haveCandy || 0);
     if (filter === "item") return Boolean(row.item) && !row.haveItem && !row.tradeReady;
     if (filter === "shiny") return isShiny(row);
+    if (filter === "favorites") return Boolean(row.favorite);
     return true;
   }
 
@@ -61,21 +62,24 @@
     if (els.note) {
       els.note.textContent = readyCount
         ? `${readyCount} evolution${readyCount === 1 ? "" : "s"} ready.`
-        : "Keep catching family members to earn Candy.";
+        : "No Pokémon are ready to evolve yet. Catch duplicates to earn Species Candy and collect Evolution Items.";
     }
     const cards = rows.map((row) => {
       const shiny = isShiny(row);
+      const ready = canEvolve(row);
+      const need = Math.max(0, Number(row.candyCost || 0) - Number(row.haveCandy || 0));
       const cost = row.tradeReady && Number(row.candyCost) === 0
-        ? "Trade evolution — no Candy or Linking Cord"
-        : `${row.haveCandy} / ${row.candyCost} Candy${row.item ? ` · ${itemLabel(row.item)}` : ""}`;
+        ? "Trade Evolution Ready — no Candy or Linking Cord"
+        : `${row.haveCandy} / ${row.candyCost} Candy${row.item ? ` · ${itemLabel(row.item)} ${row.haveItem ? "✓" : ""}` : ""}${!ready && need ? ` · ${need} more needed` : ""}`;
       return `
-      <article class="ach-card ${canEvolve(row) ? "is-done" : ""}">
+      <article class="ach-card ${ready ? "is-done" : ""}">
         <img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="" width="72" height="72">
         <strong>${shiny ? "✨ Shiny " : ""}${window.playEscapeAttr(row.name)}</strong>
         <p>→ ${window.playEscapeAttr(row.toName)}</p>
         <span>${cost}</span>
+        ${row.tradeReady ? `<span class="chip">Trade Evolution Ready</span>` : ""}
         ${row.reasonUnavailable ? `<span class="muted">${window.playEscapeAttr(row.reasonUnavailable)}</span>` : ""}
-        <button type="button" data-evo="${row.catchId}" data-rule="${row.ruleId}" ${canEvolve(row) ? "" : "disabled"}>Evolve</button>
+        <button type="button" data-evo="${row.catchId}" data-rule="${row.ruleId}" ${ready ? "" : "disabled"}>${ready ? "Evolve" : "Not ready"}</button>
       </article>`;
     });
     if ((els.filter?.value || "ready") === "all") {
@@ -89,7 +93,12 @@
         </article>`);
       });
     }
-    els.grid.innerHTML = cards.join("") || `<p class="muted">Nothing in this filter right now.</p>`;
+    const empty = (els.filter?.value || "ready") === "ready"
+      ? `<p class="muted">No Pokémon are ready to evolve yet.</p><p class="muted">Catch duplicates to earn Species Candy and collect Evolution Items.</p>`
+      : (els.filter?.value === "item"
+        ? `<p class="muted">No trade evolutions are currently ready, and no Evolution Items are missing right now.</p>`
+        : `<p class="muted">Nothing in this filter right now.</p>`);
+    els.grid.innerHTML = cards.join("") || empty;
   }
 
   function renderFamilies() {
@@ -150,13 +159,15 @@
     const shiny = isShiny(row);
     const fromName = `${shiny ? "✨ SHINY " : ""}${row.name}`;
     const toName = `${shiny ? "✨ SHINY " : ""}${row.toName}`;
-    if (els.title) els.title.textContent = `Evolve ${row.name}?`;
+    if (els.title) els.title.textContent = `Evolve ${isShiny(row) ? "Shiny " : ""}${row.name}?`;
     const costLines = [];
     if (row.tradeReady && Number(row.candyCost) === 0) {
-      costLines.push(`<p>This Pokémon was traded. Evolution spends no Candy and no Linking Cord.</p>`);
+      costLines.push(`<p>This ${window.playEscapeAttr(row.name)} has been traded and can evolve. No Candy or Linking Cord will be used.</p>`);
     } else {
+      const afterCandy = Math.max(0, Number(row.haveCandy || 0) - Number(row.candyCost || 0));
+      const afterItem = row.item ? Math.max(0, Number(row.haveItemQty || (row.haveItem ? 1 : 0)) - 1) : null;
       costLines.push(`<p>Cost: ${row.candyCost} ${window.playEscapeAttr(row.familyName || "family Candy")}${row.item ? `<br>1 ${itemLabel(row.item)}` : ""}</p>`);
-      costLines.push(`<p>Current: ${row.haveCandy} Candy${row.item ? ` · ${row.haveItem ? "item in bag" : "item missing"}` : ""}</p>`);
+      costLines.push(`<p>After evolution: ${afterCandy} Candy${row.item ? ` · ${afterItem} ${itemLabel(row.item)}` : ""}</p>`);
     }
     els.detail.innerHTML = `
       <p><img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="${window.playEscapeAttr(fromName)}"> → <img src="${window.playSpriteUrl(row.toDex, row.variant)}" alt="${window.playEscapeAttr(toName)}"></p>

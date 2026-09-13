@@ -100,15 +100,20 @@
     els.grid.innerHTML = visible.map((entry) => {
       const state = entry.caught ? "caught" : entry.seen ? "seen" : "unseen";
       const label = entry.caught ? entry.name : entry.seen ? `${entry.name}?` : "?????";
+      const ready = (collection?.ready || []).some((row) => Number(row.dex) === entry.dex && (row.available || (row.haveCandy >= row.candyCost && row.haveItem)));
       const badges = [
         entry.forms.shiny ? `<span class="chip shiny">Shiny</span>` : "",
-        entry.forms.female ? `<span class="chip">♀</span>` : ""
+        entry.forms.female ? `<span class="chip">♀</span>` : "",
+        ready ? `<span class="chip">Ready to evolve</span>` : "",
+        entry.caught && !entry.ownedNow ? `<span class="chip">Pokédex: Caught</span>` : ""
       ].join("");
       const mark = entry.caught
         ? `<img class="dex-caught-mark" src="${window.playItemSprite("pokeball")}" alt="Caught">`
         : "";
       const spriteClass = state === "unseen" ? "silhouette" : state === "seen" ? "seen-sprite" : "";
-      const owned = entry.ownedNow ? ` · ${entry.ownedNow} owned` : "";
+      const owned = entry.caught
+        ? ` · ${entry.ownedNow || 0} owned`
+        : "";
       const candy = entry.familyCandy ? ` · ${entry.familyCandy.qty} Candy` : "";
       const stars = entry.mastery ? ` · ${"★".repeat(entry.mastery.rank || 0)}${"☆".repeat(Math.max(0, 5 - (entry.mastery.rank || 0)))}` : "";
       const note = badges || owned || candy || stars || (state === "unseen" ? "Not seen" : "");

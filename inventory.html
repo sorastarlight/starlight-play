@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=eco1">
+<link rel="stylesheet" href="css/play.css?v=ux1">
 <body data-page="inventory">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -64,6 +64,18 @@
         <div class="bag-space" aria-hidden="true"><i id="capacity-bar"></i></div>
       </div>
       <p id="bag-full-warn" class="bag-full-warn" hidden role="status"></p>
+      <div id="bag-tabs" class="mart-tabs bag-tabs" role="tablist" aria-label="Bag pockets"></div>
+      <div class="bag-tools">
+        <label>Search <input id="bag-search" type="search" placeholder="Item name"></label>
+        <label>Sort
+          <select id="bag-sort">
+            <option value="category">Category</option>
+            <option value="name">Name</option>
+            <option value="quantity">Quantity</option>
+          </select>
+        </label>
+        <label class="check-row"><input id="bag-unowned" type="checkbox"> Show unowned</label>
+      </div>
       <div id="bag-grid" class="bag-overview"></div>
       <aside id="lure-panel" class="lure-panel">
         <img class="item-sprite" src="images/items/poke-radar.png" alt="">
@@ -87,11 +99,21 @@
     </section>
   </div>
 </div>
+<dialog id="item-detail" class="play-modal" aria-labelledby="item-detail-title">
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="item-detail-title">Item</h3>
+      <button class="secondary" value="cancel" type="submit">Close</button>
+    </header>
+    <div id="item-detail-body"></div>
+  </form>
+</dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/game.js?v=loot1"></script>
-<script src="js/hud.js?v=eco1"></script>
-<script src="js/nav.js?v=evo1"></script>
-<script src="js/inventory.js?v=loot1"></script>
+<script src="js/game.js?v=ux1"></script>
+<script src="js/play-ux.js?v=ux1"></script>
+<script src="js/hud.js?v=ux1"></script>
+<script src="js/nav.js?v=ux1"></script>
+<script src="js/inventory.js?v=ux1"></script>
 </body>

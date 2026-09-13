@@ -490,7 +490,7 @@
   window.playSpriteUrl = function playSpriteUrl(dex, variant) {
     const id = Number(dex);
     if (!id) return "";
-    const kind = String(variant || "normal");
+    const kind = String(variant || "normal").toLowerCase();
     const shiny = kind.includes("shiny");
     const female = kind.includes("female");
     if (shiny && female) return `images/pokemon/shiny/female/${id}.gif`;
@@ -500,27 +500,30 @@
   };
 
   window.playSpriteOnError = function playSpriteOnError(img) {
-    if (!(img instanceof HTMLImageElement) || img.dataset.playSpriteDone) return;
+    if (!(img instanceof HTMLImageElement) || img.dataset.playSpriteDone || img.dataset.playSpriteLock) return;
     const src = String(img.getAttribute("src") || img.currentSrc || "");
     const match = src.match(/(?:(shiny)\/)?(?:(female)\/)?(\d+)\.(gif|png)(?:\?.*)?$/i);
     if (!match) {
       img.dataset.playSpriteDone = "1";
       return;
     }
+    img.dataset.playSpriteLock = "1";
     const shiny = Boolean(match[1]);
     const female = Boolean(match[2]);
     const id = match[3];
     const ext = match[4].toLowerCase();
     let next = "";
     if (ext === "gif") next = src.replace(/\.gif(?:\?.*)?$/i, ".png");
-    else if (shiny && female) next = `images/pokemon/shiny/${id}.gif`;
+    else if (shiny && female) next = `images/pokemon/female/${id}.gif`;
     else if (female) next = `images/pokemon/${id}.gif`;
     else if (shiny) next = `images/pokemon/${id}.gif`;
     if (!next || next === src) {
       img.dataset.playSpriteDone = "1";
+      delete img.dataset.playSpriteLock;
       return;
     }
     img.src = next;
+    queueMicrotask(() => { delete img.dataset.playSpriteLock; });
   };
 
   const ITEM_SPRITES = {

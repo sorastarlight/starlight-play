@@ -311,9 +311,8 @@
       return;
     }
     if (els.formPreview) {
-      els.formPreview.onerror = function onPreviewError() {
-        window.playSpriteOnError(els.formPreview);
-      };
+      delete els.formPreview.dataset.playSpriteDone;
+      delete els.formPreview.dataset.playSpriteLock;
       els.formPreview.src = window.playSpriteUrl(dex, variant);
       els.formPreview.alt = `${window.playSpeciesName(dex)} ${gender}${pickShiny ? " Shiny" : ""}`;
     }

@@ -25,6 +25,7 @@
   let pending = false;
   let confirmFn = null;
   let pickDex = null;
+  let pickQuery = "";
   let pickGender = "";
   let pickShiny = "random";
   let disconnected = false;
@@ -228,9 +229,61 @@
       </div>`;
   }
 
+  function renderDexOpts(matches) {
+    const box = document.getElementById("live-dex-opts");
+    if (!box) return;
+    if (!pickQuery.trim() || !matches.length) {
+      box.hidden = true;
+      box.innerHTML = "";
+      return;
+    }
+    box.hidden = false;
+    box.innerHTML = matches.slice(0, 12).map((row) => (
+      `<button type="button" data-pick-dex="${row.dex}">${window.playPadDex(row.dex)} ${esc(row.name)}</button>`
+    )).join("");
+  }
+
+  function rememberSpecific() {
+    const dexEl = document.getElementById("live-dex");
+    const shinyEl = document.getElementById("live-shiny");
+    const genderEl = document.getElementById("live-gender");
+    if (dexEl) {
+      pickQuery = dexEl.value || "";
+      const matches = window.playParseSpeciesQuery ? window.playParseSpeciesQuery(pickQuery) : [];
+      pickDex = matches.length === 1 ? matches[0].dex : null;
+      renderDexOpts(matches);
+    }
+    if (shinyEl) pickShiny = shinyEl.value || "random";
+    if (genderEl) pickGender = genderEl.value || "";
+  }
+
   function renderControls() {
     const busy = Boolean(state?.activeEncounter);
     const w = state?.safeWindow || {};
+    const active = document.activeElement;
+    if (els.controls.contains(active) && (active.id === "live-dex" || active.id === "live-shiny" || active.id === "live-gender")) {
+      rememberSpecific();
+      els.controls.querySelectorAll("[data-act]").forEach((btn) => {
+        if (["start_random", "queue_random", "start_specific", "queue_special"].includes(btn.dataset.act)) {
+          btn.disabled = busy;
+        }
+      });
+      const startRandom = els.controls.querySelector("[data-act='start_random']");
+      if (startRandom) startRandom.textContent = busy ? "An encounter is already active." : "Start random";
+      return;
+    }
+    const shinyOpts = [
+      ["random", "Random"],
+      ["normal", "Force normal"],
+      ["shiny", "Force shiny"]
+    ].map(([value, label]) => `<option value="${value}"${pickShiny === value ? " selected" : ""}>${label}</option>`).join("");
+    const genderOpts = [
+      ["", "Random / valid"],
+      ["Male", "Male"],
+      ["Female", "Female"],
+      ["Genderless", "Genderless"]
+    ].map(([value, label]) => `<option value="${value}"${pickGender === value ? " selected" : ""}>${label}</option>`).join("");
+    const dexValue = pickQuery || (pickDex ? `${window.playPadDex(pickDex)} ${window.playSpeciesName(pickDex)}` : "");
     els.controls.innerHTML = `
       <p class="eyebrow">Quick controls</p>
       <div class="command-grid">
@@ -239,23 +292,14 @@
         <button type="button" class="secondary" data-act="${state?.director?.autoEnabled && !state?.director?.manualHold ? "pause_auto" : "resume_auto"}">${state?.director?.manualHold || !state?.director?.autoEnabled ? "Resume auto" : "Pause auto"}</button>
       </div>
       <label class="field">Specific Pokémon
-        <input id="live-dex" type="search" placeholder="Eevee or 133">
+        <input id="live-dex" type="search" placeholder="Eevee or 133" value="${esc(dexValue)}" autocomplete="off">
       </label>
       <div id="live-dex-opts" class="dex-suggest" hidden></div>
       <label class="field">Shiny
-        <select id="live-shiny">
-          <option value="random">Random</option>
-          <option value="normal">Force normal</option>
-          <option value="shiny">Force shiny</option>
-        </select>
+        <select id="live-shiny">${shinyOpts}</select>
       </label>
       <label class="field">Gender
-        <select id="live-gender">
-          <option value="">Random / valid</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Genderless">Genderless</option>
-        </select>
+        <select id="live-gender">${genderOpts}</select>
       </label>
       <div class="links">
         <button type="button" data-act="start_specific" ${busy ? "disabled" : ""}>Start specific</button>
@@ -263,6 +307,10 @@
         <button type="button" class="secondary" data-act="start_test">Start test encounter</button>
       </div>
       <p class="muted">${w.state === "UNSAFE" ? "Unsafe window — prefer Queue until safe." : "Safe window uses Director rules, not this page."}</p>`;
+    if (pickQuery) {
+      const matches = window.playParseSpeciesQuery ? window.playParseSpeciesQuery(pickQuery) : [];
+      renderDexOpts(matches);
+    }
   }
 
   function renderSession() {
@@ -330,7 +378,8 @@
   }
 
   function specificPayload() {
-    const raw = document.getElementById("live-dex")?.value || "";
+    rememberSpecific();
+    const raw = pickQuery || document.getElementById("live-dex")?.value || "";
     const matches = window.playParseSpeciesQuery ? window.playParseSpeciesQuery(raw) : [];
     const dex = pickDex || matches[0]?.dex;
     if (!dex) return null;
@@ -348,7 +397,22 @@
     };
   }
 
+  document.body.addEventListener("input", (event) => {
+    if (event.target.id === "live-dex") rememberSpecific();
+  });
+  document.body.addEventListener("change", (event) => {
+    if (event.target.id === "live-shiny" || event.target.id === "live-gender") rememberSpecific();
+  });
   document.body.addEventListener("click", (event) => {
+    const pickBtn = event.target.closest("[data-pick-dex]");
+    if (pickBtn) {
+      pickDex = Number(pickBtn.dataset.pickDex);
+      pickQuery = `${window.playPadDex(pickDex)} ${window.playSpeciesName(pickDex)}`;
+      const dexEl = document.getElementById("live-dex");
+      if (dexEl) dexEl.value = pickQuery;
+      renderDexOpts([]);
+      return;
+    }
     const modeBtn = event.target.closest("[data-mode]");
     if (modeBtn) {
       cmd("set_mode", { mode: modeBtn.dataset.mode });

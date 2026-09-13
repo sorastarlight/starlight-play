@@ -31,9 +31,10 @@
     const catches = (data.caught || []).filter((row) => row.dex === dex);
     const caught = catches.length > 0;
     const forms = {
-      normal: catches.some((row) => !String(row.variant || "normal").includes("shiny") && row.variant !== "female"),
-      female: catches.some((row) => row.variant === "female"),
-      shiny: catches.some((row) => String(row.variant || "").includes("shiny"))
+      normal: catches.some((row) => !String(row.variant || "normal").includes("shiny") && !String(row.variant || "").includes("female")),
+      female: catches.some((row) => String(row.variant || "").includes("female")),
+      shiny: catches.some((row) => String(row.variant || "").includes("shiny")),
+      shinyFemale: catches.some((row) => String(row.variant || "").includes("shiny") && String(row.variant || "").includes("female"))
     };
     const genders = {
       Male: catches.some((row) => row.gender === "Male"),
@@ -62,10 +63,16 @@
 
   function spriteFor(entry) {
     const form = els.form.value;
-    if (form === "shiny" || (form === "all" && entry.forms.shiny && !entry.forms.normal)) {
-      return window.playSpriteUrl(entry.dex, "shiny");
+    const gender = els.gender.value;
+    const wantShiny = form === "shiny";
+    const wantFemale = form === "female" || gender === "Female";
+    if (wantShiny && wantFemale) return window.playSpriteUrl(entry.dex, "shiny-female");
+    if (wantShiny) return window.playSpriteUrl(entry.dex, entry.forms.shinyFemale && !entry.catches.some((row) => row.variant === "shiny") ? "shiny-female" : "shiny");
+    if (wantFemale) return window.playSpriteUrl(entry.dex, "female");
+    if (form === "all" && gender === "all" && entry.forms.shiny && !entry.forms.normal) {
+      return window.playSpriteUrl(entry.dex, entry.forms.shinyFemale ? "shiny-female" : "shiny");
     }
-    if (form === "female" || entry.forms.female && !entry.forms.normal) {
+    if (form === "all" && gender === "all" && entry.forms.female && !entry.forms.normal) {
       return window.playSpriteUrl(entry.dex, "female");
     }
     return window.playSpriteUrl(entry.dex, "normal");

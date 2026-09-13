@@ -191,7 +191,7 @@
       <p class="eyebrow">Next auto encounter</p>
       <h2>${d.nextEncounterAt ? `~${clock(left)}` : "Not scheduled"}</h2>
       <p>Target: ${when(d.nextEncounterAt)} · ${esc(d.delayText || "Waiting.")}</p>
-      <p>Next encounter: RANDOM</p>
+      <p>Next encounter: Weighted random (rolled when the window is safe)</p>
       ${d.overdueFrom || (d.nextEncounterAt && Date.parse(d.nextEncounterAt) < Date.now() - 60000)
         ? `<p>Overdue. Reason: ${esc(d.delayText || "")}</p>` : ""}`;
   }
@@ -201,7 +201,7 @@
     els.queue.innerHTML = `
       <p class="eyebrow">Queued special</p>
       ${q
-        ? `<h2>${q.kind === "RANDOM" ? "Random (not rolled yet)" : esc(q.name || "Special")}</h2>
+        ? `<h2>${q.kind === "RANDOM" ? "Weighted random (not rolled yet)" : esc(q.name || "Special")}</h2>
            <p>Waiting for: ${esc(state?.director?.delayText || "a safe window.")}</p>
            <p>Queued at ${when(q.queuedAt)}</p>
            <div class="links">

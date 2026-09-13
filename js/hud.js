@@ -189,7 +189,8 @@
     const paused = round.paused ? `<span class="chip pause">Paused</span>` : "";
     const live = round.phase && round.phase !== "closed";
     const honey = opts.showHoney === false ? "" : window.playHoneyCrewHtml(round);
-    const catchSeq = window.playCatchSeqHtml(round, opts);
+    const staffPanel = opts.staff ? window.playStaffRoundHtml(round) : "";
+    const catchSeq = opts.staff ? "" : window.playCatchSeqHtml(round, opts);
     const seqScene = catchSeq ? window.playAdvanceCatchSeqState(round, opts.me || null).scene : "";
     const lastAction = opts.showLastAction === false
       ? ""
@@ -228,7 +229,82 @@
       </dl>
       ${lastAction}
       ${honey}
-      ${catchSeq}`;
+      ${catchSeq}
+      ${staffPanel}`;
+  };
+
+  window.playPhaseBarPercent = function playPhaseBarPercent(round) {
+    if (!round?.deadlines || !round.phase || round.phase === "closed") return 0;
+    const keys = ["join", "prepare", "throw", "reveal"];
+    const index = keys.indexOf(round.phase);
+    if (index < 0) return 0;
+    const startKey = keys[index - 1];
+    const start = Date.parse(startKey ? round.deadlines[startKey] : round.startedAt);
+    const end = Date.parse(round.deadlines[round.phase]);
+    const now = round.pausedAt ? Date.parse(round.pausedAt) : Date.now();
+    if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) return 0;
+    return Math.max(0, Math.min(100, ((end - now) / (end - start)) * 100));
+  };
+
+  function staffRows(round, key) {
+    const rows = Array.isArray(round?.[key]) ? round[key] : [];
+    if (rows.length || key !== "catchers") return rows;
+    return Array.isArray(round?.results?.catchers) ? round.results.catchers : [];
+  }
+
+  window.playStaffRoundKey = function playStaffRoundKey(round) {
+    const results = round?.results || {};
+    return [
+      round?.id || "",
+      round?.phase || "",
+      round?.resolved ? "1" : "0",
+      staffRows(round, "throwers").length,
+      staffRows(round, "catchers").length,
+      results.caught || 0,
+      results.escaped || 0,
+      results.noThrow || 0
+    ].join(":");
+  };
+
+  window.playStaffRoundHtml = function playStaffRoundHtml(round) {
+    if (!round) return "";
+    const throwers = staffRows(round, "throwers");
+    const catchers = staffRows(round, "catchers");
+    const results = round.results || null;
+    const row = (entry) => {
+      const ball = entry?.ball || "pokeball";
+      return `<li>
+        <img src="${window.playItemSprite(ball)}" alt="">
+        <span>${window.playEscapeAttr(entry?.name || "Trainer")}</span>
+        <em>${window.playEscapeAttr(window.playItemLabel(ball))}</em>
+      </li>`;
+    };
+    const throwBlock = `<div class="staff-block">
+      <h4>Throws <span>${throwers.length}</span></h4>
+      ${throwers.length
+        ? `<ul class="staff-list">${throwers.map(row).join("")}</ul>`
+        : `<p class="muted">No Poké Balls locked in yet.</p>`}
+    </div>`;
+    const resultBlock = results
+      ? `<div class="staff-block">
+          <h4>Results <span>${Number(results.caught || 0)} caught</span></h4>
+          <dl class="staff-tiles">
+            <div><dt>Caught</dt><dd>${Number(results.caught || 0)}</dd></div>
+            <div><dt>Escaped</dt><dd>${Number(results.escaped || 0)}</dd></div>
+            <div><dt>No throw</dt><dd>${Number(results.noThrow || 0)}</dd></div>
+          </dl>
+          ${catchers.length
+            ? `<ul class="staff-list">${catchers.map(row).join("")}</ul>`
+            : `<p class="muted">Nobody caught it.</p>`}
+        </div>`
+      : `<div class="staff-block">
+          <h4>Results</h4>
+          <p class="muted">${round.resolved ? "Waiting on the server." : "Not rolled yet."}</p>
+        </div>`;
+    return `<aside class="staff-round" data-staff-round="${window.playEscapeAttr(window.playStaffRoundKey(round))}">
+      ${throwBlock}
+      ${resultBlock}
+    </aside>`;
   };
 
   const catchSeqByRound = new Map();
@@ -438,10 +514,17 @@
     if (phaseEl) phaseEl.textContent = phase;
     if (phaseName) phaseName.textContent = phase;
     if (barEl) barEl.style.width = `${bar || 0}%`;
-    const wantsSeq = window.playShowCatchSeq(round);
-    const hasSeq = Boolean(root.querySelector("[data-catch-seq]"));
-    if (wantsSeq !== hasSeq) return false;
-    if (wantsSeq) window.playAdvanceCatchSeq(root, round, extra?.me || null);
+    if (extra?.staff) {
+      const panel = root.querySelector("[data-staff-round]");
+      if (!panel) return false;
+      const key = window.playStaffRoundKey(round);
+      if (panel.dataset.staffRound !== key) panel.outerHTML = window.playStaffRoundHtml(round);
+    } else {
+      const wantsSeq = window.playShowCatchSeq(round);
+      const hasSeq = Boolean(root.querySelector("[data-catch-seq]"));
+      if (wantsSeq !== hasSeq) return false;
+      if (wantsSeq) window.playAdvanceCatchSeq(root, round, extra?.me || null);
+    }
     if (extra?.showHoney !== false) {
       const honeyHtml = window.playHoneyCrewHtml(round);
       const honeyEl = root.querySelector(".honey-crew");

@@ -121,14 +121,9 @@
 
   function renderRound(round) {
     const shown = hubRound(round);
-    const seqKeep = Boolean(shown && els.encounter.querySelector("[data-catch-seq]"));
-    const seqPhase = !shown
-      ? "idle"
-      : shown.phase === "closed"
-        ? (shown.resolved ? "results" : "reveal")
-        : shown.phase;
+    const bar = typeof window.playPhaseBarPercent === "function" ? window.playPhaseBarPercent(shown) : 0;
     const key = shown
-      ? `${shown.id}:${seqPhase}:${shown.resolved || false}:${shown.paused || false}`
+      ? `${shown.id}:${shown.phase}:${shown.resolved || false}:${shown.paused || false}:${shown.hidden || false}`
       : "idle";
     const live = Boolean(shown && shown.phase && shown.phase !== "closed" && !shown.cancelled && !shown.resolved);
     if (els.clearRound) els.clearRound.disabled = !shown || live;
@@ -138,14 +133,16 @@
     if (typeof window.playRenderLiveFeed === "function" && lastOverview) {
       window.playRenderLiveFeed(lastOverview.console || [], "admin-console", shown);
     }
-    if (seqKeep && shown && seqPhase !== "results" && String(lastHubKey).startsWith(`${shown.id}:`)) {
-      window.playPatchEncounter(els.encounter, shown, 0, {});
+    if (shown && String(lastHubKey).startsWith(`${shown.id}:`)
+      && window.playPatchEncounter(els.encounter, shown, bar, { staff: true })) {
       lastHubKey = key;
       return;
     }
     if (key === lastHubKey && els.encounter.querySelector(".dex-stage, .dex-idle")) return;
     lastHubKey = key;
     els.encounter.innerHTML = window.playRenderEncounter(shown, {
+      staff: true,
+      bar,
       emptyNote: "Start a random encounter. The stream PC should pick it up."
     });
     els.hide.textContent = "Hide overlay";

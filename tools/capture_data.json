@@ -1,0 +1,3232 @@
+{
+ "species": [
+  {
+   "dex": 1,
+   "slug": "bulbasaur",
+   "catch_rate": 45,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "base_speed": 45,
+   "weight_kg": 6.9,
+   "height_m": 0.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "bulbasaur",
+    "ivysaur",
+    "venusaur"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 2,
+   "slug": "ivysaur",
+   "catch_rate": 45,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "base_speed": 60,
+   "weight_kg": 13.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "bulbasaur",
+    "ivysaur",
+    "venusaur"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 3,
+   "slug": "venusaur",
+   "catch_rate": 45,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "base_speed": 80,
+   "weight_kg": 100.0,
+   "height_m": 2.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "bulbasaur",
+    "ivysaur",
+    "venusaur"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 4,
+   "slug": "charmander",
+   "catch_rate": 45,
+   "types": [
+    "fire"
+   ],
+   "base_speed": 65,
+   "weight_kg": 8.5,
+   "height_m": 0.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "charmander",
+    "charmeleon",
+    "charizard"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 5,
+   "slug": "charmeleon",
+   "catch_rate": 45,
+   "types": [
+    "fire"
+   ],
+   "base_speed": 80,
+   "weight_kg": 19.0,
+   "height_m": 1.1,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "charmander",
+    "charmeleon",
+    "charizard"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 6,
+   "slug": "charizard",
+   "catch_rate": 45,
+   "types": [
+    "fire",
+    "flying"
+   ],
+   "base_speed": 100,
+   "weight_kg": 90.5,
+   "height_m": 1.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "charmander",
+    "charmeleon",
+    "charizard"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 7,
+   "slug": "squirtle",
+   "catch_rate": 45,
+   "types": [
+    "water"
+   ],
+   "base_speed": 43,
+   "weight_kg": 9.0,
+   "height_m": 0.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "squirtle",
+    "wartortle",
+    "blastoise"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 8,
+   "slug": "wartortle",
+   "catch_rate": 45,
+   "types": [
+    "water"
+   ],
+   "base_speed": 58,
+   "weight_kg": 22.5,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "squirtle",
+    "wartortle",
+    "blastoise"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 9,
+   "slug": "blastoise",
+   "catch_rate": 45,
+   "types": [
+    "water"
+   ],
+   "base_speed": 78,
+   "weight_kg": 85.5,
+   "height_m": 1.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "squirtle",
+    "wartortle",
+    "blastoise"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 10,
+   "slug": "caterpie",
+   "catch_rate": 255,
+   "types": [
+    "bug"
+   ],
+   "base_speed": 45,
+   "weight_kg": 2.9,
+   "height_m": 0.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "caterpie",
+    "metapod",
+    "butterfree"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 11,
+   "slug": "metapod",
+   "catch_rate": 120,
+   "types": [
+    "bug"
+   ],
+   "base_speed": 30,
+   "weight_kg": 9.9,
+   "height_m": 0.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "caterpie",
+    "metapod",
+    "butterfree"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 12,
+   "slug": "butterfree",
+   "catch_rate": 45,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "base_speed": 70,
+   "weight_kg": 32.0,
+   "height_m": 1.1,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "caterpie",
+    "metapod",
+    "butterfree"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 13,
+   "slug": "weedle",
+   "catch_rate": 255,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "base_speed": 50,
+   "weight_kg": 3.2,
+   "height_m": 0.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "weedle",
+    "kakuna",
+    "beedrill"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 14,
+   "slug": "kakuna",
+   "catch_rate": 120,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "base_speed": 35,
+   "weight_kg": 10.0,
+   "height_m": 0.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "weedle",
+    "kakuna",
+    "beedrill"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 15,
+   "slug": "beedrill",
+   "catch_rate": 45,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "base_speed": 75,
+   "weight_kg": 29.5,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "weedle",
+    "kakuna",
+    "beedrill"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 16,
+   "slug": "pidgey",
+   "catch_rate": 255,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "base_speed": 56,
+   "weight_kg": 1.8,
+   "height_m": 0.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "pidgey",
+    "pidgeotto",
+    "pidgeot"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 17,
+   "slug": "pidgeotto",
+   "catch_rate": 120,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "base_speed": 71,
+   "weight_kg": 30.0,
+   "height_m": 1.1,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "pidgey",
+    "pidgeotto",
+    "pidgeot"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 18,
+   "slug": "pidgeot",
+   "catch_rate": 45,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "base_speed": 101,
+   "weight_kg": 39.5,
+   "height_m": 1.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "pidgey",
+    "pidgeotto",
+    "pidgeot"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 19,
+   "slug": "rattata",
+   "catch_rate": 255,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 72,
+   "weight_kg": 3.5,
+   "height_m": 0.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "rattata",
+    "raticate"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 20,
+   "slug": "raticate",
+   "catch_rate": 127,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 97,
+   "weight_kg": 18.5,
+   "height_m": 0.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "rattata",
+    "raticate"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 21,
+   "slug": "spearow",
+   "catch_rate": 255,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "base_speed": 70,
+   "weight_kg": 2.0,
+   "height_m": 0.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "spearow",
+    "fearow"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 22,
+   "slug": "fearow",
+   "catch_rate": 90,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "base_speed": 100,
+   "weight_kg": 38.0,
+   "height_m": 1.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "spearow",
+    "fearow"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 23,
+   "slug": "ekans",
+   "catch_rate": 255,
+   "types": [
+    "poison"
+   ],
+   "base_speed": 55,
+   "weight_kg": 6.9,
+   "height_m": 2.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "ekans",
+    "arbok"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 24,
+   "slug": "arbok",
+   "catch_rate": 90,
+   "types": [
+    "poison"
+   ],
+   "base_speed": 80,
+   "weight_kg": 65.0,
+   "height_m": 3.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "ekans",
+    "arbok"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 25,
+   "slug": "pikachu",
+   "catch_rate": 190,
+   "types": [
+    "electric"
+   ],
+   "base_speed": 90,
+   "weight_kg": 6.0,
+   "height_m": 0.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "pichu",
+    "pikachu",
+    "raichu"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 26,
+   "slug": "raichu",
+   "catch_rate": 75,
+   "types": [
+    "electric"
+   ],
+   "base_speed": 110,
+   "weight_kg": 30.0,
+   "height_m": 0.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "pichu",
+    "pikachu",
+    "raichu"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 27,
+   "slug": "sandshrew",
+   "catch_rate": 255,
+   "types": [
+    "ground"
+   ],
+   "base_speed": 40,
+   "weight_kg": 12.0,
+   "height_m": 0.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "sandshrew",
+    "sandslash"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 28,
+   "slug": "sandslash",
+   "catch_rate": 90,
+   "types": [
+    "ground"
+   ],
+   "base_speed": 65,
+   "weight_kg": 29.5,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "sandshrew",
+    "sandslash"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 29,
+   "slug": "nidoran-f",
+   "catch_rate": 235,
+   "types": [
+    "poison"
+   ],
+   "base_speed": 41,
+   "weight_kg": 7.0,
+   "height_m": 0.4,
+   "moon_stone_family": true,
+   "evolution_family": [
+    "nidoran-f",
+    "nidorina",
+    "nidoqueen"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 30,
+   "slug": "nidorina",
+   "catch_rate": 120,
+   "types": [
+    "poison"
+   ],
+   "base_speed": 56,
+   "weight_kg": 20.0,
+   "height_m": 0.8,
+   "moon_stone_family": true,
+   "evolution_family": [
+    "nidoran-f",
+    "nidorina",
+    "nidoqueen"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 31,
+   "slug": "nidoqueen",
+   "catch_rate": 45,
+   "types": [
+    "poison",
+    "ground"
+   ],
+   "base_speed": 76,
+   "weight_kg": 60.0,
+   "height_m": 1.3,
+   "moon_stone_family": true,
+   "evolution_family": [
+    "nidoran-f",
+    "nidorina",
+    "nidoqueen"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 32,
+   "slug": "nidoran-m",
+   "catch_rate": 235,
+   "types": [
+    "poison"
+   ],
+   "base_speed": 50,
+   "weight_kg": 9.0,
+   "height_m": 0.5,
+   "moon_stone_family": true,
+   "evolution_family": [
+    "nidoran-m",
+    "nidorino",
+    "nidoking"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 33,
+   "slug": "nidorino",
+   "catch_rate": 120,
+   "types": [
+    "poison"
+   ],
+   "base_speed": 65,
+   "weight_kg": 19.5,
+   "height_m": 0.9,
+   "moon_stone_family": true,
+   "evolution_family": [
+    "nidoran-m",
+    "nidorino",
+    "nidoking"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 34,
+   "slug": "nidoking",
+   "catch_rate": 45,
+   "types": [
+    "poison",
+    "ground"
+   ],
+   "base_speed": 85,
+   "weight_kg": 62.0,
+   "height_m": 1.4,
+   "moon_stone_family": true,
+   "evolution_family": [
+    "nidoran-m",
+    "nidorino",
+    "nidoking"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 35,
+   "slug": "clefairy",
+   "catch_rate": 150,
+   "types": [
+    "fairy"
+   ],
+   "base_speed": 35,
+   "weight_kg": 7.5,
+   "height_m": 0.6,
+   "moon_stone_family": true,
+   "evolution_family": [
+    "cleffa",
+    "clefairy",
+    "clefable"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 36,
+   "slug": "clefable",
+   "catch_rate": 25,
+   "types": [
+    "fairy"
+   ],
+   "base_speed": 60,
+   "weight_kg": 40.0,
+   "height_m": 1.3,
+   "moon_stone_family": true,
+   "evolution_family": [
+    "cleffa",
+    "clefairy",
+    "clefable"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 37,
+   "slug": "vulpix",
+   "catch_rate": 190,
+   "types": [
+    "fire"
+   ],
+   "base_speed": 65,
+   "weight_kg": 9.9,
+   "height_m": 0.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "vulpix",
+    "ninetales"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 38,
+   "slug": "ninetales",
+   "catch_rate": 75,
+   "types": [
+    "fire"
+   ],
+   "base_speed": 100,
+   "weight_kg": 19.9,
+   "height_m": 1.1,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "vulpix",
+    "ninetales"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 39,
+   "slug": "jigglypuff",
+   "catch_rate": 170,
+   "types": [
+    "normal",
+    "fairy"
+   ],
+   "base_speed": 20,
+   "weight_kg": 5.5,
+   "height_m": 0.5,
+   "moon_stone_family": true,
+   "evolution_family": [
+    "igglybuff",
+    "jigglypuff",
+    "wigglytuff"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 40,
+   "slug": "wigglytuff",
+   "catch_rate": 50,
+   "types": [
+    "normal",
+    "fairy"
+   ],
+   "base_speed": 45,
+   "weight_kg": 12.0,
+   "height_m": 1.0,
+   "moon_stone_family": true,
+   "evolution_family": [
+    "igglybuff",
+    "jigglypuff",
+    "wigglytuff"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 41,
+   "slug": "zubat",
+   "catch_rate": 255,
+   "types": [
+    "poison",
+    "flying"
+   ],
+   "base_speed": 55,
+   "weight_kg": 7.5,
+   "height_m": 0.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "zubat",
+    "golbat",
+    "crobat"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 42,
+   "slug": "golbat",
+   "catch_rate": 90,
+   "types": [
+    "poison",
+    "flying"
+   ],
+   "base_speed": 90,
+   "weight_kg": 55.0,
+   "height_m": 1.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "zubat",
+    "golbat",
+    "crobat"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 43,
+   "slug": "oddish",
+   "catch_rate": 255,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "base_speed": 30,
+   "weight_kg": 5.4,
+   "height_m": 0.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "oddish",
+    "gloom",
+    "vileplume",
+    "bellossom"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 44,
+   "slug": "gloom",
+   "catch_rate": 120,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "base_speed": 40,
+   "weight_kg": 8.6,
+   "height_m": 0.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "oddish",
+    "gloom",
+    "vileplume",
+    "bellossom"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 45,
+   "slug": "vileplume",
+   "catch_rate": 45,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "base_speed": 50,
+   "weight_kg": 18.6,
+   "height_m": 1.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "oddish",
+    "gloom",
+    "vileplume",
+    "bellossom"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 46,
+   "slug": "paras",
+   "catch_rate": 190,
+   "types": [
+    "bug",
+    "grass"
+   ],
+   "base_speed": 25,
+   "weight_kg": 5.4,
+   "height_m": 0.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "paras",
+    "parasect"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 47,
+   "slug": "parasect",
+   "catch_rate": 75,
+   "types": [
+    "bug",
+    "grass"
+   ],
+   "base_speed": 30,
+   "weight_kg": 29.5,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "paras",
+    "parasect"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 48,
+   "slug": "venonat",
+   "catch_rate": 190,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "base_speed": 45,
+   "weight_kg": 30.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "venonat",
+    "venomoth"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 49,
+   "slug": "venomoth",
+   "catch_rate": 75,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "base_speed": 90,
+   "weight_kg": 12.5,
+   "height_m": 1.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "venonat",
+    "venomoth"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 50,
+   "slug": "diglett",
+   "catch_rate": 255,
+   "types": [
+    "ground"
+   ],
+   "base_speed": 95,
+   "weight_kg": 0.8,
+   "height_m": 0.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "diglett",
+    "dugtrio"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 51,
+   "slug": "dugtrio",
+   "catch_rate": 50,
+   "types": [
+    "ground"
+   ],
+   "base_speed": 120,
+   "weight_kg": 33.3,
+   "height_m": 0.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "diglett",
+    "dugtrio"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 52,
+   "slug": "meowth",
+   "catch_rate": 255,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 90,
+   "weight_kg": 4.2,
+   "height_m": 0.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "meowth",
+    "persian",
+    "perrserker"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 53,
+   "slug": "persian",
+   "catch_rate": 90,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 115,
+   "weight_kg": 32.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "meowth",
+    "persian",
+    "perrserker"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 54,
+   "slug": "psyduck",
+   "catch_rate": 190,
+   "types": [
+    "water"
+   ],
+   "base_speed": 55,
+   "weight_kg": 19.6,
+   "height_m": 0.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "psyduck",
+    "golduck"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 55,
+   "slug": "golduck",
+   "catch_rate": 75,
+   "types": [
+    "water"
+   ],
+   "base_speed": 85,
+   "weight_kg": 76.6,
+   "height_m": 1.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "psyduck",
+    "golduck"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 56,
+   "slug": "mankey",
+   "catch_rate": 190,
+   "types": [
+    "fighting"
+   ],
+   "base_speed": 70,
+   "weight_kg": 28.0,
+   "height_m": 0.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "mankey",
+    "primeape",
+    "annihilape"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 57,
+   "slug": "primeape",
+   "catch_rate": 75,
+   "types": [
+    "fighting"
+   ],
+   "base_speed": 95,
+   "weight_kg": 32.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "mankey",
+    "primeape",
+    "annihilape"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 58,
+   "slug": "growlithe",
+   "catch_rate": 190,
+   "types": [
+    "fire"
+   ],
+   "base_speed": 60,
+   "weight_kg": 19.0,
+   "height_m": 0.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "growlithe",
+    "arcanine"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 59,
+   "slug": "arcanine",
+   "catch_rate": 75,
+   "types": [
+    "fire"
+   ],
+   "base_speed": 95,
+   "weight_kg": 155.0,
+   "height_m": 1.9,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "growlithe",
+    "arcanine"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 60,
+   "slug": "poliwag",
+   "catch_rate": 255,
+   "types": [
+    "water"
+   ],
+   "base_speed": 90,
+   "weight_kg": 12.4,
+   "height_m": 0.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "poliwag",
+    "poliwhirl",
+    "poliwrath",
+    "politoed"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 61,
+   "slug": "poliwhirl",
+   "catch_rate": 120,
+   "types": [
+    "water"
+   ],
+   "base_speed": 90,
+   "weight_kg": 20.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "poliwag",
+    "poliwhirl",
+    "poliwrath",
+    "politoed"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 62,
+   "slug": "poliwrath",
+   "catch_rate": 45,
+   "types": [
+    "water",
+    "fighting"
+   ],
+   "base_speed": 70,
+   "weight_kg": 54.0,
+   "height_m": 1.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "poliwag",
+    "poliwhirl",
+    "poliwrath",
+    "politoed"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 63,
+   "slug": "abra",
+   "catch_rate": 200,
+   "types": [
+    "psychic"
+   ],
+   "base_speed": 90,
+   "weight_kg": 19.5,
+   "height_m": 0.9,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "abra",
+    "kadabra",
+    "alakazam"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 64,
+   "slug": "kadabra",
+   "catch_rate": 100,
+   "types": [
+    "psychic"
+   ],
+   "base_speed": 105,
+   "weight_kg": 56.5,
+   "height_m": 1.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "abra",
+    "kadabra",
+    "alakazam"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 65,
+   "slug": "alakazam",
+   "catch_rate": 50,
+   "types": [
+    "psychic"
+   ],
+   "base_speed": 120,
+   "weight_kg": 48.0,
+   "height_m": 1.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "abra",
+    "kadabra",
+    "alakazam"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 66,
+   "slug": "machop",
+   "catch_rate": 180,
+   "types": [
+    "fighting"
+   ],
+   "base_speed": 35,
+   "weight_kg": 19.5,
+   "height_m": 0.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "machop",
+    "machoke",
+    "machamp"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 67,
+   "slug": "machoke",
+   "catch_rate": 90,
+   "types": [
+    "fighting"
+   ],
+   "base_speed": 45,
+   "weight_kg": 70.5,
+   "height_m": 1.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "machop",
+    "machoke",
+    "machamp"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 68,
+   "slug": "machamp",
+   "catch_rate": 45,
+   "types": [
+    "fighting"
+   ],
+   "base_speed": 55,
+   "weight_kg": 130.0,
+   "height_m": 1.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "machop",
+    "machoke",
+    "machamp"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 69,
+   "slug": "bellsprout",
+   "catch_rate": 255,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "base_speed": 40,
+   "weight_kg": 4.0,
+   "height_m": 0.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "bellsprout",
+    "weepinbell",
+    "victreebel"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 70,
+   "slug": "weepinbell",
+   "catch_rate": 120,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "base_speed": 55,
+   "weight_kg": 6.4,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "bellsprout",
+    "weepinbell",
+    "victreebel"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 71,
+   "slug": "victreebel",
+   "catch_rate": 45,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "base_speed": 70,
+   "weight_kg": 15.5,
+   "height_m": 1.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "bellsprout",
+    "weepinbell",
+    "victreebel"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 72,
+   "slug": "tentacool",
+   "catch_rate": 190,
+   "types": [
+    "water",
+    "poison"
+   ],
+   "base_speed": 70,
+   "weight_kg": 45.5,
+   "height_m": 0.9,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "tentacool",
+    "tentacruel"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 73,
+   "slug": "tentacruel",
+   "catch_rate": 60,
+   "types": [
+    "water",
+    "poison"
+   ],
+   "base_speed": 100,
+   "weight_kg": 55.0,
+   "height_m": 1.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "tentacool",
+    "tentacruel"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 74,
+   "slug": "geodude",
+   "catch_rate": 255,
+   "types": [
+    "rock",
+    "ground"
+   ],
+   "base_speed": 20,
+   "weight_kg": 20.0,
+   "height_m": 0.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "geodude",
+    "graveler",
+    "golem"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 75,
+   "slug": "graveler",
+   "catch_rate": 120,
+   "types": [
+    "rock",
+    "ground"
+   ],
+   "base_speed": 35,
+   "weight_kg": 105.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "geodude",
+    "graveler",
+    "golem"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 76,
+   "slug": "golem",
+   "catch_rate": 45,
+   "types": [
+    "rock",
+    "ground"
+   ],
+   "base_speed": 45,
+   "weight_kg": 300.0,
+   "height_m": 1.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "geodude",
+    "graveler",
+    "golem"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 77,
+   "slug": "ponyta",
+   "catch_rate": 190,
+   "types": [
+    "fire"
+   ],
+   "base_speed": 90,
+   "weight_kg": 30.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "ponyta",
+    "rapidash"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 78,
+   "slug": "rapidash",
+   "catch_rate": 60,
+   "types": [
+    "fire"
+   ],
+   "base_speed": 105,
+   "weight_kg": 95.0,
+   "height_m": 1.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "ponyta",
+    "rapidash"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 79,
+   "slug": "slowpoke",
+   "catch_rate": 190,
+   "types": [
+    "water",
+    "psychic"
+   ],
+   "base_speed": 15,
+   "weight_kg": 36.0,
+   "height_m": 1.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "slowpoke",
+    "slowbro",
+    "slowking"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 80,
+   "slug": "slowbro",
+   "catch_rate": 75,
+   "types": [
+    "water",
+    "psychic"
+   ],
+   "base_speed": 30,
+   "weight_kg": 78.5,
+   "height_m": 1.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "slowpoke",
+    "slowbro",
+    "slowking"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 81,
+   "slug": "magnemite",
+   "catch_rate": 190,
+   "types": [
+    "electric",
+    "steel"
+   ],
+   "base_speed": 45,
+   "weight_kg": 6.0,
+   "height_m": 0.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "magnemite",
+    "magneton",
+    "magnezone"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 82,
+   "slug": "magneton",
+   "catch_rate": 60,
+   "types": [
+    "electric",
+    "steel"
+   ],
+   "base_speed": 70,
+   "weight_kg": 60.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "magnemite",
+    "magneton",
+    "magnezone"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 83,
+   "slug": "farfetchd",
+   "catch_rate": 45,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "base_speed": 60,
+   "weight_kg": 15.0,
+   "height_m": 0.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "farfetchd",
+    "sirfetchd"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 84,
+   "slug": "doduo",
+   "catch_rate": 190,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "base_speed": 75,
+   "weight_kg": 39.2,
+   "height_m": 1.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "doduo",
+    "dodrio"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 85,
+   "slug": "dodrio",
+   "catch_rate": 45,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "base_speed": 110,
+   "weight_kg": 85.2,
+   "height_m": 1.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "doduo",
+    "dodrio"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 86,
+   "slug": "seel",
+   "catch_rate": 190,
+   "types": [
+    "water"
+   ],
+   "base_speed": 45,
+   "weight_kg": 90.0,
+   "height_m": 1.1,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "seel",
+    "dewgong"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 87,
+   "slug": "dewgong",
+   "catch_rate": 75,
+   "types": [
+    "water",
+    "ice"
+   ],
+   "base_speed": 70,
+   "weight_kg": 120.0,
+   "height_m": 1.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "seel",
+    "dewgong"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 88,
+   "slug": "grimer",
+   "catch_rate": 190,
+   "types": [
+    "poison"
+   ],
+   "base_speed": 25,
+   "weight_kg": 30.0,
+   "height_m": 0.9,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "grimer",
+    "muk"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 89,
+   "slug": "muk",
+   "catch_rate": 75,
+   "types": [
+    "poison"
+   ],
+   "base_speed": 50,
+   "weight_kg": 30.0,
+   "height_m": 1.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "grimer",
+    "muk"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 90,
+   "slug": "shellder",
+   "catch_rate": 190,
+   "types": [
+    "water"
+   ],
+   "base_speed": 40,
+   "weight_kg": 4.0,
+   "height_m": 0.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "shellder",
+    "cloyster"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 91,
+   "slug": "cloyster",
+   "catch_rate": 60,
+   "types": [
+    "water",
+    "ice"
+   ],
+   "base_speed": 70,
+   "weight_kg": 132.5,
+   "height_m": 1.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "shellder",
+    "cloyster"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 92,
+   "slug": "gastly",
+   "catch_rate": 190,
+   "types": [
+    "ghost",
+    "poison"
+   ],
+   "base_speed": 80,
+   "weight_kg": 0.1,
+   "height_m": 1.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "gastly",
+    "haunter",
+    "gengar"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 93,
+   "slug": "haunter",
+   "catch_rate": 90,
+   "types": [
+    "ghost",
+    "poison"
+   ],
+   "base_speed": 95,
+   "weight_kg": 0.1,
+   "height_m": 1.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "gastly",
+    "haunter",
+    "gengar"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 94,
+   "slug": "gengar",
+   "catch_rate": 45,
+   "types": [
+    "ghost",
+    "poison"
+   ],
+   "base_speed": 110,
+   "weight_kg": 40.5,
+   "height_m": 1.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "gastly",
+    "haunter",
+    "gengar"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 95,
+   "slug": "onix",
+   "catch_rate": 45,
+   "types": [
+    "rock",
+    "ground"
+   ],
+   "base_speed": 70,
+   "weight_kg": 210.0,
+   "height_m": 8.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "onix",
+    "steelix"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 96,
+   "slug": "drowzee",
+   "catch_rate": 190,
+   "types": [
+    "psychic"
+   ],
+   "base_speed": 42,
+   "weight_kg": 32.4,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "drowzee",
+    "hypno"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 97,
+   "slug": "hypno",
+   "catch_rate": 75,
+   "types": [
+    "psychic"
+   ],
+   "base_speed": 67,
+   "weight_kg": 75.6,
+   "height_m": 1.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "drowzee",
+    "hypno"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 98,
+   "slug": "krabby",
+   "catch_rate": 225,
+   "types": [
+    "water"
+   ],
+   "base_speed": 50,
+   "weight_kg": 6.5,
+   "height_m": 0.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "krabby",
+    "kingler"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 99,
+   "slug": "kingler",
+   "catch_rate": 60,
+   "types": [
+    "water"
+   ],
+   "base_speed": 75,
+   "weight_kg": 60.0,
+   "height_m": 1.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "krabby",
+    "kingler"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 100,
+   "slug": "voltorb",
+   "catch_rate": 190,
+   "types": [
+    "electric"
+   ],
+   "base_speed": 100,
+   "weight_kg": 10.4,
+   "height_m": 0.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "voltorb",
+    "electrode"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 101,
+   "slug": "electrode",
+   "catch_rate": 60,
+   "types": [
+    "electric"
+   ],
+   "base_speed": 150,
+   "weight_kg": 66.6,
+   "height_m": 1.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "voltorb",
+    "electrode"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 102,
+   "slug": "exeggcute",
+   "catch_rate": 90,
+   "types": [
+    "grass",
+    "psychic"
+   ],
+   "base_speed": 40,
+   "weight_kg": 2.5,
+   "height_m": 0.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "exeggcute",
+    "exeggutor"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 103,
+   "slug": "exeggutor",
+   "catch_rate": 45,
+   "types": [
+    "grass",
+    "psychic"
+   ],
+   "base_speed": 55,
+   "weight_kg": 120.0,
+   "height_m": 2.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "exeggcute",
+    "exeggutor"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 104,
+   "slug": "cubone",
+   "catch_rate": 190,
+   "types": [
+    "ground"
+   ],
+   "base_speed": 35,
+   "weight_kg": 6.5,
+   "height_m": 0.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "cubone",
+    "marowak"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 105,
+   "slug": "marowak",
+   "catch_rate": 75,
+   "types": [
+    "ground"
+   ],
+   "base_speed": 45,
+   "weight_kg": 45.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "cubone",
+    "marowak"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 106,
+   "slug": "hitmonlee",
+   "catch_rate": 45,
+   "types": [
+    "fighting"
+   ],
+   "base_speed": 87,
+   "weight_kg": 49.8,
+   "height_m": 1.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "tyrogue",
+    "hitmonlee",
+    "hitmonchan",
+    "hitmontop"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 107,
+   "slug": "hitmonchan",
+   "catch_rate": 45,
+   "types": [
+    "fighting"
+   ],
+   "base_speed": 76,
+   "weight_kg": 50.2,
+   "height_m": 1.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "tyrogue",
+    "hitmonlee",
+    "hitmonchan",
+    "hitmontop"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 108,
+   "slug": "lickitung",
+   "catch_rate": 45,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 30,
+   "weight_kg": 65.5,
+   "height_m": 1.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "lickitung",
+    "lickilicky"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 109,
+   "slug": "koffing",
+   "catch_rate": 190,
+   "types": [
+    "poison"
+   ],
+   "base_speed": 35,
+   "weight_kg": 1.0,
+   "height_m": 0.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "koffing",
+    "weezing"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 110,
+   "slug": "weezing",
+   "catch_rate": 60,
+   "types": [
+    "poison"
+   ],
+   "base_speed": 60,
+   "weight_kg": 9.5,
+   "height_m": 1.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "koffing",
+    "weezing"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 111,
+   "slug": "rhyhorn",
+   "catch_rate": 120,
+   "types": [
+    "ground",
+    "rock"
+   ],
+   "base_speed": 25,
+   "weight_kg": 115.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "rhyhorn",
+    "rhydon",
+    "rhyperior"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 112,
+   "slug": "rhydon",
+   "catch_rate": 60,
+   "types": [
+    "ground",
+    "rock"
+   ],
+   "base_speed": 40,
+   "weight_kg": 120.0,
+   "height_m": 1.9,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "rhyhorn",
+    "rhydon",
+    "rhyperior"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 113,
+   "slug": "chansey",
+   "catch_rate": 30,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 50,
+   "weight_kg": 34.6,
+   "height_m": 1.1,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "happiny",
+    "chansey",
+    "blissey"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 114,
+   "slug": "tangela",
+   "catch_rate": 45,
+   "types": [
+    "grass"
+   ],
+   "base_speed": 60,
+   "weight_kg": 35.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "tangela",
+    "tangrowth"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 115,
+   "slug": "kangaskhan",
+   "catch_rate": 45,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 90,
+   "weight_kg": 80.0,
+   "height_m": 2.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "kangaskhan"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 116,
+   "slug": "horsea",
+   "catch_rate": 225,
+   "types": [
+    "water"
+   ],
+   "base_speed": 60,
+   "weight_kg": 8.0,
+   "height_m": 0.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "horsea",
+    "seadra",
+    "kingdra"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 117,
+   "slug": "seadra",
+   "catch_rate": 75,
+   "types": [
+    "water"
+   ],
+   "base_speed": 85,
+   "weight_kg": 25.0,
+   "height_m": 1.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "horsea",
+    "seadra",
+    "kingdra"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 118,
+   "slug": "goldeen",
+   "catch_rate": 225,
+   "types": [
+    "water"
+   ],
+   "base_speed": 63,
+   "weight_kg": 15.0,
+   "height_m": 0.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "goldeen",
+    "seaking"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 119,
+   "slug": "seaking",
+   "catch_rate": 60,
+   "types": [
+    "water"
+   ],
+   "base_speed": 68,
+   "weight_kg": 39.0,
+   "height_m": 1.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "goldeen",
+    "seaking"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 120,
+   "slug": "staryu",
+   "catch_rate": 225,
+   "types": [
+    "water"
+   ],
+   "base_speed": 85,
+   "weight_kg": 34.5,
+   "height_m": 0.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "staryu",
+    "starmie"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 121,
+   "slug": "starmie",
+   "catch_rate": 60,
+   "types": [
+    "water",
+    "psychic"
+   ],
+   "base_speed": 115,
+   "weight_kg": 80.0,
+   "height_m": 1.1,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "staryu",
+    "starmie"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 122,
+   "slug": "mr-mime",
+   "catch_rate": 45,
+   "types": [
+    "psychic",
+    "fairy"
+   ],
+   "base_speed": 90,
+   "weight_kg": 54.5,
+   "height_m": 1.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "mime-jr",
+    "mr-mime",
+    "mr-rime"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 123,
+   "slug": "scyther",
+   "catch_rate": 45,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "base_speed": 105,
+   "weight_kg": 56.0,
+   "height_m": 1.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "scyther",
+    "scizor",
+    "kleavor"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 124,
+   "slug": "jynx",
+   "catch_rate": 45,
+   "types": [
+    "ice",
+    "psychic"
+   ],
+   "base_speed": 95,
+   "weight_kg": 40.6,
+   "height_m": 1.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "smoochum",
+    "jynx"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 125,
+   "slug": "electabuzz",
+   "catch_rate": 45,
+   "types": [
+    "electric"
+   ],
+   "base_speed": 105,
+   "weight_kg": 30.0,
+   "height_m": 1.1,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "elekid",
+    "electabuzz",
+    "electivire"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 126,
+   "slug": "magmar",
+   "catch_rate": 45,
+   "types": [
+    "fire"
+   ],
+   "base_speed": 93,
+   "weight_kg": 44.5,
+   "height_m": 1.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "magby",
+    "magmar",
+    "magmortar"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 127,
+   "slug": "pinsir",
+   "catch_rate": 45,
+   "types": [
+    "bug"
+   ],
+   "base_speed": 85,
+   "weight_kg": 55.0,
+   "height_m": 1.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "pinsir"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 128,
+   "slug": "tauros",
+   "catch_rate": 45,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 110,
+   "weight_kg": 88.4,
+   "height_m": 1.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "tauros"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 129,
+   "slug": "magikarp",
+   "catch_rate": 255,
+   "types": [
+    "water"
+   ],
+   "base_speed": 80,
+   "weight_kg": 10.0,
+   "height_m": 0.9,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "magikarp",
+    "gyarados"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 130,
+   "slug": "gyarados",
+   "catch_rate": 45,
+   "types": [
+    "water",
+    "flying"
+   ],
+   "base_speed": 81,
+   "weight_kg": 235.0,
+   "height_m": 6.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "magikarp",
+    "gyarados"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 131,
+   "slug": "lapras",
+   "catch_rate": 45,
+   "types": [
+    "water",
+    "ice"
+   ],
+   "base_speed": 60,
+   "weight_kg": 220.0,
+   "height_m": 2.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "lapras"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 132,
+   "slug": "ditto",
+   "catch_rate": 35,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 48,
+   "weight_kg": 4.0,
+   "height_m": 0.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "ditto"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 133,
+   "slug": "eevee",
+   "catch_rate": 45,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 55,
+   "weight_kg": 6.5,
+   "height_m": 0.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "eevee",
+    "vaporeon",
+    "jolteon",
+    "flareon",
+    "espeon",
+    "umbreon",
+    "leafeon",
+    "glaceon",
+    "sylveon"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 134,
+   "slug": "vaporeon",
+   "catch_rate": 45,
+   "types": [
+    "water"
+   ],
+   "base_speed": 65,
+   "weight_kg": 29.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "eevee",
+    "vaporeon",
+    "jolteon",
+    "flareon",
+    "espeon",
+    "umbreon",
+    "leafeon",
+    "glaceon",
+    "sylveon"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 135,
+   "slug": "jolteon",
+   "catch_rate": 45,
+   "types": [
+    "electric"
+   ],
+   "base_speed": 130,
+   "weight_kg": 24.5,
+   "height_m": 0.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "eevee",
+    "vaporeon",
+    "jolteon",
+    "flareon",
+    "espeon",
+    "umbreon",
+    "leafeon",
+    "glaceon",
+    "sylveon"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 136,
+   "slug": "flareon",
+   "catch_rate": 45,
+   "types": [
+    "fire"
+   ],
+   "base_speed": 65,
+   "weight_kg": 25.0,
+   "height_m": 0.9,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "eevee",
+    "vaporeon",
+    "jolteon",
+    "flareon",
+    "espeon",
+    "umbreon",
+    "leafeon",
+    "glaceon",
+    "sylveon"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 137,
+   "slug": "porygon",
+   "catch_rate": 45,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 40,
+   "weight_kg": 36.5,
+   "height_m": 0.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "porygon",
+    "porygon2",
+    "porygon-z"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 138,
+   "slug": "omanyte",
+   "catch_rate": 45,
+   "types": [
+    "rock",
+    "water"
+   ],
+   "base_speed": 35,
+   "weight_kg": 7.5,
+   "height_m": 0.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "omanyte",
+    "omastar"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 139,
+   "slug": "omastar",
+   "catch_rate": 45,
+   "types": [
+    "rock",
+    "water"
+   ],
+   "base_speed": 55,
+   "weight_kg": 35.0,
+   "height_m": 1.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "omanyte",
+    "omastar"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 140,
+   "slug": "kabuto",
+   "catch_rate": 45,
+   "types": [
+    "rock",
+    "water"
+   ],
+   "base_speed": 55,
+   "weight_kg": 11.5,
+   "height_m": 0.5,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "kabuto",
+    "kabutops"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 141,
+   "slug": "kabutops",
+   "catch_rate": 45,
+   "types": [
+    "rock",
+    "water"
+   ],
+   "base_speed": 80,
+   "weight_kg": 40.5,
+   "height_m": 1.3,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "kabuto",
+    "kabutops"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 142,
+   "slug": "aerodactyl",
+   "catch_rate": 45,
+   "types": [
+    "rock",
+    "flying"
+   ],
+   "base_speed": 130,
+   "weight_kg": 59.0,
+   "height_m": 1.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "aerodactyl"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 143,
+   "slug": "snorlax",
+   "catch_rate": 25,
+   "types": [
+    "normal"
+   ],
+   "base_speed": 30,
+   "weight_kg": 460.0,
+   "height_m": 2.1,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "munchlax",
+    "snorlax"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 144,
+   "slug": "articuno",
+   "catch_rate": 3,
+   "types": [
+    "ice",
+    "flying"
+   ],
+   "base_speed": 85,
+   "weight_kg": 55.4,
+   "height_m": 1.7,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "articuno"
+   ],
+   "is_legendary": true,
+   "is_mythical": false
+  },
+  {
+   "dex": 145,
+   "slug": "zapdos",
+   "catch_rate": 3,
+   "types": [
+    "electric",
+    "flying"
+   ],
+   "base_speed": 100,
+   "weight_kg": 52.6,
+   "height_m": 1.6,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "zapdos"
+   ],
+   "is_legendary": true,
+   "is_mythical": false
+  },
+  {
+   "dex": 146,
+   "slug": "moltres",
+   "catch_rate": 3,
+   "types": [
+    "fire",
+    "flying"
+   ],
+   "base_speed": 90,
+   "weight_kg": 60.0,
+   "height_m": 2.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "moltres"
+   ],
+   "is_legendary": true,
+   "is_mythical": false
+  },
+  {
+   "dex": 147,
+   "slug": "dratini",
+   "catch_rate": 45,
+   "types": [
+    "dragon"
+   ],
+   "base_speed": 50,
+   "weight_kg": 3.3,
+   "height_m": 1.8,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "dratini",
+    "dragonair",
+    "dragonite"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 148,
+   "slug": "dragonair",
+   "catch_rate": 45,
+   "types": [
+    "dragon"
+   ],
+   "base_speed": 70,
+   "weight_kg": 16.5,
+   "height_m": 4.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "dratini",
+    "dragonair",
+    "dragonite"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 149,
+   "slug": "dragonite",
+   "catch_rate": 45,
+   "types": [
+    "dragon",
+    "flying"
+   ],
+   "base_speed": 80,
+   "weight_kg": 210.0,
+   "height_m": 2.2,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "dratini",
+    "dragonair",
+    "dragonite"
+   ],
+   "is_legendary": false,
+   "is_mythical": false
+  },
+  {
+   "dex": 150,
+   "slug": "mewtwo",
+   "catch_rate": 3,
+   "types": [
+    "psychic"
+   ],
+   "base_speed": 130,
+   "weight_kg": 122.0,
+   "height_m": 2.0,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "mewtwo"
+   ],
+   "is_legendary": true,
+   "is_mythical": false
+  },
+  {
+   "dex": 151,
+   "slug": "mew",
+   "catch_rate": 45,
+   "types": [
+    "psychic"
+   ],
+   "base_speed": 100,
+   "weight_kg": 4.0,
+   "height_m": 0.4,
+   "moon_stone_family": false,
+   "evolution_family": [
+    "mew"
+   ],
+   "is_legendary": false,
+   "is_mythical": true
+  }
+ ],
+ "berries": [
+  {
+   "slug": "cheri",
+   "berry_id": 1,
+   "item_id": 126,
+   "item_slug": "cheri-berry",
+   "display_name": "Cheri Berry",
+   "firmness": "soft",
+   "natural_gift_type": "fire",
+   "natural_gift_power": 60,
+   "flavors": {
+    "spicy": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cheri-berry.png",
+   "effect": "Held: Consumed when paralyzed to cure paralysis.",
+   "flavor_text": "A hold item that heals paralysis in battle."
+  },
+  {
+   "slug": "chesto",
+   "berry_id": 2,
+   "item_id": 127,
+   "item_slug": "chesto-berry",
+   "display_name": "Chesto Berry",
+   "firmness": "super-hard",
+   "natural_gift_type": "water",
+   "natural_gift_power": 60,
+   "flavors": {
+    "dry": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chesto-berry.png",
+   "effect": "Held: Consumed when asleep to cure sleep.",
+   "flavor_text": "A hold item that awakens POKéMON in battle."
+  },
+  {
+   "slug": "pecha",
+   "berry_id": 3,
+   "item_id": 128,
+   "item_slug": "pecha-berry",
+   "display_name": "Pecha Berry",
+   "firmness": "very-soft",
+   "natural_gift_type": "electric",
+   "natural_gift_power": 60,
+   "flavors": {
+    "sweet": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pecha-berry.png",
+   "effect": "Held: Consumed when poisoned to cure poison.",
+   "flavor_text": "A hold item that heals poisoning in battle."
+  },
+  {
+   "slug": "rawst",
+   "berry_id": 4,
+   "item_id": 129,
+   "item_slug": "rawst-berry",
+   "display_name": "Rawst Berry",
+   "firmness": "hard",
+   "natural_gift_type": "grass",
+   "natural_gift_power": 60,
+   "flavors": {
+    "bitter": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rawst-berry.png",
+   "effect": "Held: Consumed when burned to cure a burn.",
+   "flavor_text": "A hold item that heals a burn in battle."
+  },
+  {
+   "slug": "aspear",
+   "berry_id": 5,
+   "item_id": 130,
+   "item_slug": "aspear-berry",
+   "display_name": "Aspear Berry",
+   "firmness": "super-hard",
+   "natural_gift_type": "ice",
+   "natural_gift_power": 60,
+   "flavors": {
+    "sour": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aspear-berry.png",
+   "effect": "Held: Consumed when frozen to cure frozen.",
+   "flavor_text": "A hold item that defrosts POKéMON in battle."
+  },
+  {
+   "slug": "oran",
+   "berry_id": 7,
+   "item_id": 132,
+   "item_slug": "oran-berry",
+   "display_name": "Oran Berry",
+   "firmness": "super-hard",
+   "natural_gift_type": "poison",
+   "natural_gift_power": 60,
+   "flavors": {
+    "spicy": 10,
+    "dry": 10,
+    "bitter": 10,
+    "sour": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/oran-berry.png",
+   "effect": "Held: Consumed at 1/2 max HP to recover 10 HP.",
+   "flavor_text": "A hold item that restores 10 HP in battle."
+  },
+  {
+   "slug": "persim",
+   "berry_id": 8,
+   "item_id": 133,
+   "item_slug": "persim-berry",
+   "display_name": "Persim Berry",
+   "firmness": "hard",
+   "natural_gift_type": "ground",
+   "natural_gift_power": 60,
+   "flavors": {
+    "spicy": 10,
+    "dry": 10,
+    "sweet": 10,
+    "sour": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/persim-berry.png",
+   "effect": "Held: Consumed when confused to cure confusion.",
+   "flavor_text": "A hold item that heals confusion in battle."
+  },
+  {
+   "slug": "lum",
+   "berry_id": 9,
+   "item_id": 134,
+   "item_slug": "lum-berry",
+   "display_name": "Lum Berry",
+   "firmness": "super-hard",
+   "natural_gift_type": "flying",
+   "natural_gift_power": 60,
+   "flavors": {
+    "spicy": 10,
+    "dry": 10,
+    "sweet": 10,
+    "bitter": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lum-berry.png",
+   "effect": "Held: Consumed to cure any status condition or confusion.",
+   "flavor_text": "A hold item that heals status in battle."
+  },
+  {
+   "slug": "sitrus",
+   "berry_id": 10,
+   "item_id": 135,
+   "item_slug": "sitrus-berry",
+   "display_name": "Sitrus Berry",
+   "firmness": "very-hard",
+   "natural_gift_type": "psychic",
+   "natural_gift_power": 60,
+   "flavors": {
+    "dry": 10,
+    "sweet": 10,
+    "bitter": 10,
+    "sour": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sitrus-berry.png",
+   "effect": "Held: Consumed at 1/2 max HP to recover 1/4 max HP.",
+   "flavor_text": "A hold item that restores 30 HP in battle."
+  },
+  {
+   "slug": "figy",
+   "berry_id": 11,
+   "item_id": 136,
+   "item_slug": "figy-berry",
+   "display_name": "Figy Berry",
+   "firmness": "soft",
+   "natural_gift_type": "bug",
+   "natural_gift_power": 60,
+   "flavors": {
+    "spicy": 15
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/figy-berry.png",
+   "effect": "Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pokémon that dislike spicy flavor.",
+   "flavor_text": "A hold item that restores HP but may confuse."
+  },
+  {
+   "slug": "wiki",
+   "berry_id": 12,
+   "item_id": 137,
+   "item_slug": "wiki-berry",
+   "display_name": "Wiki Berry",
+   "firmness": "hard",
+   "natural_gift_type": "rock",
+   "natural_gift_power": 60,
+   "flavors": {
+    "dry": 15
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wiki-berry.png",
+   "effect": "Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pokémon that dislike dry flavor.",
+   "flavor_text": "A hold item that restores HP but may confuse."
+  },
+  {
+   "slug": "mago",
+   "berry_id": 13,
+   "item_id": 138,
+   "item_slug": "mago-berry",
+   "display_name": "Mago Berry",
+   "firmness": "hard",
+   "natural_gift_type": "ghost",
+   "natural_gift_power": 60,
+   "flavors": {
+    "sweet": 15
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mago-berry.png",
+   "effect": "Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pokémon that dislike sweet flavor.",
+   "flavor_text": "A hold item that restores HP but may confuse."
+  },
+  {
+   "slug": "aguav",
+   "berry_id": 14,
+   "item_id": 139,
+   "item_slug": "aguav-berry",
+   "display_name": "Aguav Berry",
+   "firmness": "super-hard",
+   "natural_gift_type": "dragon",
+   "natural_gift_power": 60,
+   "flavors": {
+    "bitter": 15
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aguav-berry.png",
+   "effect": "Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pokémon that dislike bitter flavor.",
+   "flavor_text": "A hold item that restores HP but may confuse."
+  },
+  {
+   "slug": "iapapa",
+   "berry_id": 15,
+   "item_id": 140,
+   "item_slug": "iapapa-berry",
+   "display_name": "Iapapa Berry",
+   "firmness": "soft",
+   "natural_gift_type": "dark",
+   "natural_gift_power": 60,
+   "flavors": {
+    "sour": 15
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/iapapa-berry.png",
+   "effect": "Held: Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pokémon that dislike sour flavor.",
+   "flavor_text": "A hold item that restores HP but may confuse."
+  },
+  {
+   "slug": "razz",
+   "berry_id": 16,
+   "item_id": 141,
+   "item_slug": "razz-berry",
+   "display_name": "Razz Berry",
+   "firmness": "very-hard",
+   "natural_gift_type": "steel",
+   "natural_gift_power": 60,
+   "flavors": {
+    "spicy": 10,
+    "dry": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/razz-berry.png",
+   "effect": "Used for creating PokéBlocks and Poffins.",
+   "flavor_text": "POKéBLOCK ingredient. Plant in loamy soil to grow RAZZ."
+  },
+  {
+   "slug": "nanab",
+   "berry_id": 18,
+   "item_id": 143,
+   "item_slug": "nanab-berry",
+   "display_name": "Nanab Berry",
+   "firmness": "very-hard",
+   "natural_gift_type": "water",
+   "natural_gift_power": 70,
+   "flavors": {
+    "sweet": 10,
+    "bitter": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/nanab-berry.png",
+   "effect": "Used for creating PokéBlocks and Poffins.",
+   "flavor_text": "POKéBLOCK ingredient. Plant in loamy soil to grow NANAB."
+  },
+  {
+   "slug": "pinap",
+   "berry_id": 20,
+   "item_id": 145,
+   "item_slug": "pinap-berry",
+   "display_name": "Pinap Berry",
+   "firmness": "hard",
+   "natural_gift_type": "grass",
+   "natural_gift_power": 70,
+   "flavors": {
+    "spicy": 10,
+    "sour": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pinap-berry.png",
+   "effect": "Used for creating PokéBlocks and Poffins.",
+   "flavor_text": "POKéBLOCK ingredient. Plant in loamy soil to grow PINAP."
+  },
+  {
+   "slug": "bluk",
+   "berry_id": 17,
+   "item_id": 142,
+   "item_slug": "bluk-berry",
+   "display_name": "Bluk Berry",
+   "firmness": "soft",
+   "natural_gift_type": "fire",
+   "natural_gift_power": 70,
+   "flavors": {
+    "dry": 10,
+    "sweet": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/bluk-berry.png",
+   "effect": "Used for creating PokéBlocks and Poffins.",
+   "flavor_text": "POKéBLOCK ingredient. Plant in loamy soil to grow BLUK."
+  },
+  {
+   "slug": "wepear",
+   "berry_id": 19,
+   "item_id": 144,
+   "item_slug": "wepear-berry",
+   "display_name": "Wepear Berry",
+   "firmness": "super-hard",
+   "natural_gift_type": "electric",
+   "natural_gift_power": 70,
+   "flavors": {
+    "bitter": 10,
+    "sour": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wepear-berry.png",
+   "effect": "Used for creating PokéBlocks and Poffins.",
+   "flavor_text": "POKéBLOCK ingredient. Plant in loamy soil to grow WEPEAR."
+  },
+  {
+   "slug": "leppa",
+   "berry_id": 6,
+   "item_id": 131,
+   "item_slug": "leppa-berry",
+   "display_name": "Leppa Berry",
+   "firmness": "very-hard",
+   "natural_gift_type": "fighting",
+   "natural_gift_power": 60,
+   "flavors": {
+    "spicy": 10,
+    "sweet": 10,
+    "bitter": 10,
+    "sour": 10
+   },
+   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/leppa-berry.png",
+   "effect": "Held: Consumed when a move runs out of PP to restore its PP by 10.",
+   "flavor_text": "A hold item that restores 10 PP in battle."
+  }
+ ]
+}

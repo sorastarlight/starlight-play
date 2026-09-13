@@ -24,6 +24,7 @@
   let pointerHeld = false;
   let lastLocalPhase = "";
   let throwViewOnly = false;
+  let pickerKind = "balls";
   const joinedMe = new Map();
 
   window.playBindAccountNav({
@@ -123,21 +124,49 @@
         if (disabled) return "Opens in Prepare";
         return qtyHint;
       };
-      buttons.push({
-        kind: "prepare",
-        item: "berry",
-        label: "Berry",
-        hint: hintFor("berry", `${bag.berry ?? 0} left · +catch`),
-        sprite: "berry",
-        disabled: disabled || Boolean(used)
+      const owned = window.playOwnedBerries(bag, data?.captureItems);
+      // A Berry the Trainer already committed to may be their last one.
+      const shortlist = owned.slice(0, 3);
+      if (used && !shortlist.some((row) => row.key === used) && used !== "bait") {
+        shortlist.unshift({ key: used, name: window.playItemLabel(used), qty: 0 });
+      }
+      if (!shortlist.length) {
+        buttons.push({
+          kind: "prepare",
+          item: "berry",
+          label: "Berry",
+          hint: disabled ? "Opens in Prepare" : "None left",
+          sprite: "berry",
+          disabled: true
+        });
+      }
+      shortlist.slice(0, 3).forEach((row) => {
+        buttons.push({
+          kind: "prepare",
+          item: row.key,
+          label: row.name,
+          hint: hintFor(row.key, `${row.qty} left · +catch`),
+          sprite: row.key,
+          disabled: disabled || Boolean(used) || row.qty < 1
+        });
       });
+      if (owned.length > 3) {
+        buttons.push({
+          kind: "open-berries",
+          item: "berry",
+          label: "All my Berries",
+          hint: used ? "Locked in" : disabled ? "Opens in Prepare" : "Only Berries you own",
+          sprite: "berry",
+          disabled: disabled || Boolean(used)
+        });
+      }
       buttons.push({
         kind: "prepare",
         item: "bait",
         label: "Honey",
         hint: hintFor("bait", `${bag.bait ?? 0} left · team bonus`),
         sprite: "bait",
-        disabled: disabled || Boolean(used)
+        disabled: disabled || Boolean(used) || Number(bag.bait || 0) < 1
       });
     };
     const pushBalls = (disabled, used) => {
@@ -150,7 +179,7 @@
             ? "Already thrown"
             : disabled
               ? "Opens in Throw"
-              : (qty < 1 ? "None left" : `${qty} left · ${Math.round((row.rate || 0) * 100)}%`);
+              : (qty < 1 ? "None left" : `${qty} left · ${row.multiplier}`);
         buttons.push({
           kind: "throw",
           item: row.key,
@@ -274,11 +303,12 @@
     if (!els.throwModal || !els.throwGrid) return;
     if (mode === "throw" && state?.me?.ball) return;
     throwViewOnly = mode === "view";
+    pickerKind = "balls";
     if (els.throwTitle) els.throwTitle.textContent = throwViewOnly ? "Your Poké Balls" : "All my Poké Balls";
     if (els.throwHint) {
       els.throwHint.textContent = throwViewOnly
-        ? "Balls you own. Catch rates are the Play throw chances."
-        : "Only balls in your bag. Catch rates are the Play throw chances. Master Ball always catches.";
+        ? "Balls you own. Catch power is how much each ball improves your chance."
+        : "Only balls in your bag. Catch power is how much each ball improves your chance. Master Ball always catches.";
     }
     const rows = window.playOwnedBalls(bag);
     if (!rows.length) {
@@ -286,15 +316,37 @@
     } else {
       els.throwGrid.innerHTML = rows.map((row) => {
         const qty = Number(bag?.[row.key] || 0);
-        const pct = Math.round((row.rate || 0) * 100);
         const disabled = throwViewOnly ? "disabled" : "";
         return `<button type="button" class="ball-tile" data-throw="${row.key}" ${disabled}>
           <img src="${window.playItemSprite(row.key)}" alt="">
           <strong>${row.name}</strong>
-          <span class="ball-rate">${row.multiplier} · ${pct}% catch</span>
+          <span class="ball-rate">${row.multiplier} catch power</span>
           <span class="muted">${qty} in bag</span>
         </button>`;
       }).join("");
+    }
+    if (typeof els.throwModal.showModal === "function") els.throwModal.showModal();
+    else els.throwModal.setAttribute("open", "");
+  }
+
+  function openBerryPicker(bag) {
+    if (!els.throwModal || !els.throwGrid) return;
+    if (state?.me?.prep) return;
+    throwViewOnly = false;
+    pickerKind = "berries";
+    if (els.throwTitle) els.throwTitle.textContent = "All my Berries";
+    if (els.throwHint) els.throwHint.textContent = "One Berry per encounter. It is used when the timer ends.";
+    const rows = window.playOwnedBerries(bag, state?.captureItems);
+    if (!rows.length) {
+      els.throwGrid.innerHTML = `<p class="muted">You don’t have any Berries right now. Buy more in the Store.</p>`;
+    } else {
+      els.throwGrid.innerHTML = rows.map((row) => `
+        <button type="button" class="ball-tile" data-prep="${row.key}">
+          <img src="${window.playItemSprite(row.key)}" alt="">
+          <strong>${row.name}</strong>
+          <span class="ball-rate">${window.playEscapeAttr(row.description || "Helps with the catch.")}</span>
+          <span class="muted">${row.qty} in bag</span>
+        </button>`).join("");
     }
     if (typeof els.throwModal.showModal === "function") els.throwModal.showModal();
     else els.throwModal.setAttribute("open", "");
@@ -307,9 +359,13 @@
     const prefs = window.playEncounterSettings(data?.encounterSettings);
     if (!round || round.paused || acting || !me) return;
     if (!me.prep && prefs.autoPrep && prefs.defaultPrep !== "ask" && round.phase === "prepare") {
-      if (maybeAutoAct._prep !== round.id) {
+      // "Berry" means whichever plain Berry is on hand, never the rare ones.
+      const item = prefs.defaultPrep === "berry"
+        ? window.playAutoBerryKey(bag, data?.captureItems)
+        : prefs.defaultPrep;
+      if (item && maybeAutoAct._prep !== round.id) {
         maybeAutoAct._prep = round.id;
-        act("prepare", prefs.defaultPrep);
+        act("prepare", item);
       }
       return;
     }
@@ -337,7 +393,10 @@
     state = attachMe(data);
     const round = liveRound(state);
     const view = { ...state, round };
-    if ((!round || round.paused || (state?.me?.ball && !throwViewOnly)) && els.throwModal?.open) {
+    const pickerStale = pickerKind === "berries"
+      ? Boolean(state?.me?.prep) || round?.phase !== "prepare"
+      : Boolean(state?.me?.ball) && !throwViewOnly;
+    if ((!round || round.paused || pickerStale) && els.throwModal?.open) {
       try { els.throwModal.close(); } catch (_) {}
     }
     const seqPhase = round?.phase === "closed"
@@ -365,7 +424,10 @@
       window.playPatchEncounter(els.encounter, round, bar, patchOpts);
     }
     const bag = state?.bag;
-    const kitKey = bag ? `in:${bag.berry}:${bag.bait}:${bag.lure}` : "out";
+    const berryTotal = bag
+      ? window.playOwnedBerries(bag, state?.captureItems).reduce((sum, row) => sum + row.qty, 0)
+      : 0;
+    const kitKey = bag ? `in:${berryTotal}:${bag.bait}:${bag.lure}` : "out";
     if (kitKey !== lastKitKey) {
       lastKitKey = kitKey;
       els.bag.innerHTML = window.playRenderPlayKit(bag);
@@ -463,6 +525,11 @@
       openThrowBalls(state?.bag || {}, "throw");
       return;
     }
+    if (button.dataset.kind === "open-berries") {
+      if (state?.me?.prep) return;
+      openBerryPicker(state?.bag || {});
+      return;
+    }
     button.disabled = true;
     act(button.dataset.kind, button.dataset.item || "");
   }
@@ -495,26 +562,29 @@
     if (event.target === els.throwModal) els.throwModal.close("cancel");
   });
 
+  function pickFromGrid(button) {
+    const kind = button.dataset.throw ? "throw" : "prepare";
+    const item = button.dataset.throw || button.dataset.prep;
+    button.disabled = true;
+    els.throwGrid.querySelectorAll("button[data-throw], button[data-prep]").forEach((btn) => { btn.disabled = true; });
+    els.throwModal?.close?.();
+    act(kind, item);
+  }
+
   els.throwGrid?.addEventListener("pointerdown", (event) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-    const button = event.target.closest("button[data-throw]");
+    const button = event.target.closest("button[data-throw], button[data-prep]");
     if (!button || button.disabled || throwViewOnly) return;
     pointerHeld = true;
-    button.disabled = true;
-    els.throwGrid.querySelectorAll("button[data-throw]").forEach((btn) => { btn.disabled = true; });
-    els.throwModal?.close?.();
-    act("throw", button.dataset.throw);
+    pickFromGrid(button);
   });
   els.throwGrid?.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-throw]");
+    const button = event.target.closest("button[data-throw], button[data-prep]");
     if (!button || button.disabled || throwViewOnly || acting) {
       event.preventDefault();
       return;
     }
-    button.disabled = true;
-    els.throwGrid.querySelectorAll("button[data-throw]").forEach((btn) => { btn.disabled = true; });
-    els.throwModal?.close?.();
-    act("throw", button.dataset.throw);
+    pickFromGrid(button);
   });
 
   async function loadProfile() {

@@ -177,8 +177,8 @@
       ...item,
       key,
       qty,
-      rate: info.rate ?? 0.45,
       multiplier: info.multiplier || (key === "masterball" ? "Always" : "1×"),
+      effect: info.effect || "",
       name: item.name || info.name || key
     };
   }
@@ -279,9 +279,8 @@
 
   function ballTile(item) {
     const row = ballView(item);
-    const pct = Math.round((row.rate || 0) * 100);
     const pack = row.qty > 1 ? ` ×${row.qty}` : "";
-    const rate = row.key === "masterball" ? "Always · 100% catch" : `${esc(row.multiplier)} · ${pct}% catch`;
+    const rate = row.key === "masterball" ? "Always catches" : `${esc(row.multiplier)} catch power`;
     return `<article class="ball-tile">
       <img src="${esc(art(row, row.key))}" alt="">
       <strong>${esc(row.name)}${pack}</strong>
@@ -358,9 +357,8 @@
     if (mode === "balls") {
       row = ballView(item);
       sprite = art(row, row.key);
-      blurb = "";
-      const pct = Math.round((row.rate || 0) * 100);
-      extra = `<p class="ball-rate">${row.key === "masterball" ? "Always · 100% catch" : `${esc(row.multiplier)} · ${pct}% catch`}</p>`;
+      blurb = row.effect || "";
+      extra = `<p class="ball-rate">${row.key === "masterball" ? "Always catches" : `${esc(row.multiplier)} catch power`}</p>`;
     } else if (mode === "avatars") {
       const have = owned.has(item.pack);
       sprite = window.playItemSprite(packThumb(item));

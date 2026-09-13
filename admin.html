@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=hub15">
+<link rel="stylesheet" href="css/play.css?v=cap1">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -118,8 +118,8 @@
         <p id="command-status" class="muted" role="status"></p>
       </section>
       <section class="card body">
-        <h2>Timings &amp; odds</h2>
-        <p class="muted">Seconds per phase, then catch chances. Saving also updates the stream PC. Bits purchases cannot be turned on from here.</p>
+        <h2>Phase timings</h2>
+        <p class="muted">Seconds per phase. Saving also updates the stream PC. Bits purchases cannot be turned on from here.</p>
         <div class="settings-grid">
           <label class="field" for="join-seconds">Join
             <input id="join-seconds" type="number" min="5" max="180">
@@ -133,29 +133,91 @@
           <label class="field" for="reveal-seconds">Capture
             <input id="reveal-seconds" type="number" min="5" max="180">
           </label>
-          <label class="field" for="poke-chance">Poké Ball
-            <input id="poke-chance" type="number" min="0" max="1" step="0.01">
-          </label>
-          <label class="field" for="great-chance">Great Ball
-            <input id="great-chance" type="number" min="0" max="1" step="0.01">
-          </label>
-          <label class="field" for="ultra-chance">Ultra Ball
-            <input id="ultra-chance" type="number" min="0" max="1" step="0.01">
-          </label>
-          <label class="field" for="berry-bonus">Berry bonus
-            <input id="berry-bonus" type="number" min="0" max="1" step="0.01">
-          </label>
-          <label class="field" for="bait-bonus">Max Honey bonus
-            <input id="bait-bonus" type="number" min="0" max="1" step="0.01">
-          </label>
-          <label class="field" for="max-chance">Catch cap
-            <input id="max-chance" type="number" min="0" max="1" step="0.01">
-          </label>
         </div>
         <div class="links">
           <button id="save-settings" type="button">Save encounter rules</button>
         </div>
         <p id="settings-status" class="muted" role="status"></p>
+      </section>
+      <section class="card body">
+        <h2>Capture balance</h2>
+        <p class="muted">Base chance comes from the species catch rate, then Ball, Berry and Honey multiply it. Every Trainer rolls once.</p>
+        <div class="settings-grid">
+          <label class="field" for="cap-min">Floor
+            <input id="cap-min" type="number" min="0" max="1" step="0.01">
+          </label>
+          <label class="field" for="cap-max">Cap
+            <input id="cap-max" type="number" min="0" max="1" step="0.01">
+          </label>
+          <label class="field" for="cap-shiny">Shiny ×
+            <input id="cap-shiny" type="number" min="0" max="3" step="0.01">
+          </label>
+          <label class="field" for="cap-event">Event ×
+            <input id="cap-event" type="number" min="0" max="3" step="0.01">
+          </label>
+          <label class="field" for="cap-honey-bonus">Honey contributor ×
+            <input id="cap-honey-bonus" type="number" min="1" max="2" step="0.01">
+          </label>
+          <label class="field" for="cap-reward">Pinap reward coins
+            <input id="cap-reward" type="number" min="0" max="500" step="1">
+          </label>
+        </div>
+        <h3>Base chance by catch rate</h3>
+        <div id="cap-tiers" class="settings-grid"></div>
+        <h3>Community Honey curve</h3>
+        <div id="cap-honey" class="settings-grid"></div>
+        <div class="links">
+          <button id="save-balance" type="button">Save capture balance</button>
+        </div>
+        <p id="balance-status" class="muted" role="status"></p>
+      </section>
+      <section class="card body">
+        <h2>Capture simulator</h2>
+        <p class="muted">Dry run only. Nothing is spent, nothing is caught, no inventory changes.</p>
+        <div class="settings-grid">
+          <label class="field" for="sim-dex">Dex #
+            <input id="sim-dex" type="number" min="1" max="151" value="131">
+          </label>
+          <label class="field" for="sim-ball">Ball
+            <select id="sim-ball"></select>
+          </label>
+          <label class="field" for="sim-berry">Berry
+            <select id="sim-berry"></select>
+          </label>
+          <label class="field" for="sim-joined">Trainers joined
+            <input id="sim-joined" type="number" min="1" max="500" value="10">
+          </label>
+          <label class="field" for="sim-honey">Honey used
+            <input id="sim-honey" type="number" min="0" max="500" value="6">
+          </label>
+          <label class="field" for="sim-trials">Trials
+            <input id="sim-trials" type="number" min="0" max="100000" step="1000" value="10000">
+          </label>
+          <label class="field check" for="sim-contrib">Added Honey
+            <input id="sim-contrib" type="checkbox">
+          </label>
+          <label class="field check" for="sim-owns">Already owns it
+            <input id="sim-owns" type="checkbox">
+          </label>
+          <label class="field check" for="sim-shiny">Shiny
+            <input id="sim-shiny" type="checkbox">
+          </label>
+        </div>
+        <div class="links">
+          <button id="run-sim" type="button">Run simulation</button>
+        </div>
+        <div id="sim-out" class="sim-out"></div>
+      </section>
+      <section class="card body">
+        <h2>Capture analytics</h2>
+        <p class="muted">Every throw is logged with its inputs, roll and result.</p>
+        <div class="links">
+          <label class="field" for="report-days">Days
+            <input id="report-days" type="number" min="1" max="365" value="30">
+          </label>
+          <button id="run-report" type="button">Refresh report</button>
+        </div>
+        <div id="report-out" class="report-out"></div>
       </section>
     </div>
   </div>
@@ -179,8 +241,8 @@
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
 <script src="js/variants.js"></script>
-<script src="js/game.js?v=gb11"></script>
-<script src="js/hud.js?v=hub15"></script>
+<script src="js/game.js?v=cap1"></script>
+<script src="js/hud.js?v=cap1"></script>
 <script src="js/nav.js?v=hub1"></script>
-<script src="js/admin.js?v=hub12"></script>
+<script src="js/admin.js?v=cap1"></script>
 </body>

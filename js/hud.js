@@ -42,13 +42,16 @@
   window.playRenderBagStrip = function playRenderBagStrip(bag) {
     const items = [
       ["coins", "Coins"],
-      ["berry", "Berry"],
+      ["berry", "Oran Berry"],
       ["bait", "Honey"],
       ["pokeball", "Poké Ball"],
       ["greatball", "Great"],
       ["ultraball", "Ultra"],
       ["lure", "Poké Radar"]
     ];
+    (window.PLAY_BERRIES || []).forEach((row) => {
+      if (row.key !== "berry" && Number(bag?.[row.key] || 0) > 0) items.splice(2, 0, [row.key, row.name]);
+    });
     (window.PLAY_BALLS || []).forEach((row) => {
       if (row.extra && Number(bag?.[row.key] || 0) > 0) items.splice(items.length - 1, 0, [row.key, row.name]);
     });
@@ -140,13 +143,14 @@
     if (!bag) {
       return `<p class="muted">Sign in to see Berries, Honey, and Poké Radar.</p>`;
     }
+    const berries = window.playOwnedBerries(bag).reduce((sum, row) => sum + row.qty, 0);
     const items = [
-      ["berry", "Berry"],
-      ["bait", "Honey"],
-      ["lure", "Radar"]
+      ["berry", "Berries", berries],
+      ["bait", "Honey", bag.bait ?? 0],
+      ["lure", "Radar", bag.lure ?? 0]
     ];
-    return `<ul class="bag-strip play-kit">${items.map(([key, label]) => (
-      `<li><img src="${window.playItemSprite(key)}" alt=""><span>${label}</span><strong>${bag[key] ?? 0}</strong></li>`
+    return `<ul class="bag-strip play-kit">${items.map(([key, label, qty]) => (
+      `<li><img src="${window.playItemSprite(key)}" alt=""><span>${label}</span><strong>${qty}</strong></li>`
     )).join("")}</ul>
       <button type="button" id="view-balls" class="secondary view-balls">View Poké Balls</button>`;
   };
@@ -308,7 +312,8 @@
   };
 
   const catchSeqByRound = new Map();
-  const CATCH_PERSONAL_MS = 2600;
+  const SHAKE_MS = 480;
+  const CATCH_CLICK_MS = 620;
 
   window.playShowCatchSeq = function playShowCatchSeq(round) {
     if (!round || round.cancelled) return false;
@@ -336,10 +341,27 @@
   function catchSeqState(roundId) {
     let st = catchSeqByRound.get(roundId);
     if (!st) {
-      st = { scene: "wobble", personalAt: 0, outcome: "" };
+      st = { scene: "wobble", personalAt: 0, outcome: "", shakes: 3, live: false };
       catchSeqByRound.set(roundId, st);
     }
     return st;
+  }
+
+  function seqHash(text) {
+    let h = 2166136261;
+    for (let i = 0; i < text.length; i += 1) {
+      h ^= text.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return Math.abs(h);
+  }
+
+  // Drama only. The server already decided; the shake count never changes the result.
+  function seqShakes(round, me, outcome) {
+    if (outcome === "caught") return 3;
+    const chance = Number(me?.chance || 0);
+    const lean = chance >= 0.45 ? 2 : chance >= 0.22 ? 1 : 0;
+    return Math.max(0, Math.min(3, lean + (seqHash(`${round.id}:${me?.ball || ""}`) % 2)));
   }
 
   function throwOutcome(me) {
@@ -409,10 +431,22 @@
     const outcome = throwOutcome(me);
     if (st.outcome !== "caught" && outcome === "caught") st.outcome = "caught";
     if (round.resolved && countdownDone) {
-      st.scene = "results";
       st.outcome = outcome || st.outcome;
+      // Only trainers who watched their own ball fly get the shake sequence.
+      if (st.live && me?.ball) {
+        if (!st.personalAt) {
+          st.personalAt = Date.now();
+          st.shakes = seqShakes(round, me, st.outcome);
+        }
+        if (Date.now() - st.personalAt < st.shakes * SHAKE_MS + CATCH_CLICK_MS) {
+          st.scene = "personal";
+          return st;
+        }
+      }
+      st.scene = "results";
       return st;
     }
+    st.live = true;
     st.scene = "wobble";
     st.personalAt = 0;
     return st;
@@ -434,7 +468,7 @@
     const note = catchSeqNote(st, round, species, me);
     const win = st.scene === "results" && personalResult(round, me, species).win;
     const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}`;
-    return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}">
+    return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}" style="--shakes:${st.shakes}">
       <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="catch-seq-stage">
         ${sprite ? `<img class="catch-seq-mon" src="${sprite}" alt="" onerror="window.playSpriteOnError(this)">` : ""}
@@ -488,6 +522,7 @@
     if (missedEl) missedEl.textContent = missed;
     box.dataset.seq = st.scene;
     box.dataset.outcome = st.outcome || "";
+    box.style.setProperty("--shakes", String(st.shakes));
     box.classList.toggle("is-wobble", st.scene === "wobble");
     box.classList.toggle("is-personal", st.scene === "personal");
     box.classList.toggle("is-results", st.scene === "results");

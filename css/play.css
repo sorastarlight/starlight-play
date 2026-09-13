@@ -894,13 +894,21 @@ footer { margin-top: 24px; font-size: 13px; }
 .catch-seq.is-wobble .catch-seq-ball {
   animation: throw-fly .4s ease-out both, throw-wobble .5s ease-in-out .5s infinite;
 }
-.catch-seq.is-caught .catch-seq-ball,
-.catch-seq.is-personal.is-caught .catch-seq-ball {
+.catch-seq.is-caught .catch-seq-ball {
   animation: catch-gotcha .85s ease-out forwards;
 }
-.catch-seq.is-broke .catch-seq-ball,
-.catch-seq.is-personal.is-broke .catch-seq-ball {
+.catch-seq.is-broke .catch-seq-ball {
   animation: catch-burst .7s ease-out forwards;
+}
+.catch-seq.is-personal.is-caught .catch-seq-ball {
+  animation:
+    throw-wobble .48s ease-in-out var(--shakes, 3),
+    catch-gotcha .62s ease-out calc(var(--shakes, 3) * .48s) forwards;
+}
+.catch-seq.is-personal.is-broke .catch-seq-ball {
+  animation:
+    throw-wobble .48s ease-in-out var(--shakes, 0),
+    catch-burst .62s ease-out calc(var(--shakes, 0) * .48s) forwards;
 }
 .catch-seq.is-results.is-caught .catch-seq-ball,
 .catch-seq.is-results .catch-seq-ball {
@@ -1851,6 +1859,33 @@ footer { margin-top: 24px; font-size: 13px; }
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0 12px;
 }
+.sim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 4px 0 12px;
+}
+.sim-grid div {
+  background: #f4f7ff;
+  border: 2px solid #dfe7f7;
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.sim-grid dt { font-size: .78rem; font-weight: 800; color: #7b7aa5; text-transform: uppercase; }
+.sim-grid dd { margin: 2px 0 0; font-weight: 800; color: #4e5c7d; }
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 16px;
+  font-size: .92rem;
+}
+.report-table th, .report-table td {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid #e3e9f7;
+  color: #4e5c7d;
+}
+.report-table th { color: #7b7aa5; font-size: .78rem; text-transform: uppercase; }
 .status-ok { color: #1f6a48; font-weight: 800; }
 .status-bad { color: #8a3a3a; font-weight: 800; }
 .bag-strip li img, .item-sprite, .mart-sprite img, .mart-price img {

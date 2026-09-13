@@ -32,12 +32,20 @@
     prepare: document.getElementById("prepare-seconds"),
     throw: document.getElementById("throw-seconds"),
     reveal: document.getElementById("reveal-seconds"),
-    poke: document.getElementById("poke-chance"),
-    great: document.getElementById("great-chance"),
-    ultra: document.getElementById("ultra-chance"),
-    berry: document.getElementById("berry-bonus"),
-    bait: document.getElementById("bait-bonus"),
-    maxChance: document.getElementById("max-chance")
+    capMin: document.getElementById("cap-min"),
+    capMax: document.getElementById("cap-max"),
+    capShiny: document.getElementById("cap-shiny"),
+    capEvent: document.getElementById("cap-event"),
+    capHoneyBonus: document.getElementById("cap-honey-bonus"),
+    capReward: document.getElementById("cap-reward"),
+    capTiers: document.getElementById("cap-tiers"),
+    capHoney: document.getElementById("cap-honey"),
+    balanceStatus: document.getElementById("balance-status"),
+    simBall: document.getElementById("sim-ball"),
+    simBerry: document.getElementById("sim-berry"),
+    simOut: document.getElementById("sim-out"),
+    reportDays: document.getElementById("report-days"),
+    reportOut: document.getElementById("report-out")
   };
   let pickGender = "";
   let pickShiny = false;
@@ -100,12 +108,6 @@
     els.prepare.value = settings.prepareSeconds ?? 30;
     els.throw.value = settings.throwSeconds ?? 30;
     els.reveal.value = settings.revealSeconds ?? 15;
-    els.poke.value = settings.ballChances?.pokeball ?? 0.45;
-    els.great.value = settings.ballChances?.greatball ?? 0.6;
-    els.ultra.value = settings.ballChances?.ultraball ?? 0.75;
-    els.berry.value = settings.berryBonus ?? 0.1;
-    els.bait.value = settings.maxBaitBonus ?? 0.15;
-    els.maxChance.value = settings.maxCatchChance ?? 0.9;
   }
 
   function parseDex(value) {
@@ -216,6 +218,7 @@
     els.gate.hidden = true;
     els.staff.hidden = false;
     await refreshOverview(true);
+    await loadCapture();
   }
 
   async function run(name, args, statusEl) {
@@ -458,15 +461,7 @@
       joinSeconds: Number(els.join.value),
       prepareSeconds: Number(els.prepare.value),
       throwSeconds: Number(els.throw.value),
-      revealSeconds: Number(els.reveal.value),
-      ballChances: {
-        pokeball: Number(els.poke.value),
-        greatball: Number(els.great.value),
-        ultraball: Number(els.ultra.value)
-      },
-      berryBonus: Number(els.berry.value),
-      maxBaitBonus: Number(els.bait.value),
-      maxCatchChance: Number(els.maxChance.value)
+      revealSeconds: Number(els.reveal.value)
     };
     els.settingsStatus.textContent = "Saving…";
     try {
@@ -482,6 +477,160 @@
       els.settingsStatus.textContent = window.playRpcError(error);
     }
   });
+
+  let captureBalance = null;
+
+  function pct(value) {
+    return `${Math.round(Number(value || 0) * 1000) / 10}%`;
+  }
+
+  function tierRows(box, rows, valueKey, labelFor) {
+    box.innerHTML = (rows || []).map((row, index) => `
+      <label class="field" for="${box.id}-${index}">${labelFor(row)}
+        <input id="${box.id}-${index}" data-tier="${index}" type="number" min="0" max="3" step="0.01" value="${row[valueKey]}">
+      </label>`).join("");
+  }
+
+  function renderBalance(balance) {
+    captureBalance = balance || {};
+    els.capMin.value = captureBalance.minChance ?? 0.02;
+    els.capMax.value = captureBalance.maxChance ?? 0.85;
+    els.capShiny.value = captureBalance.shinyMultiplier ?? 1;
+    els.capEvent.value = captureBalance.eventMultiplier ?? 1;
+    els.capHoneyBonus.value = captureBalance.honeyContributorBonus ?? 1.03;
+    els.capReward.value = captureBalance.rewardBonusCoins ?? 10;
+    tierRows(els.capTiers, captureBalance.baseChanceTiers, "chance", (row) => `Catch rate ${row.minCatchRate}+`);
+    tierRows(els.capHoney, captureBalance.honeyTiers, "multiplier", (row) => `${Math.round(Number(row.minRate) * 100)}% took part`);
+  }
+
+  function fillSimPickers(balls, berries) {
+    if (els.simBall && !els.simBall.options.length) {
+      els.simBall.innerHTML = (balls || []).map((row) => (
+        `<option value="${row.key}"${row.key === "pokeball" ? " selected" : ""}>${row.name}</option>`
+      )).join("");
+    }
+    if (els.simBerry && !els.simBerry.options.length) {
+      const usable = (berries || []).filter((row) => row.enabled && row.capture_enabled);
+      els.simBerry.innerHTML = `<option value="">No Berry</option>${usable.map((row) => (
+        `<option value="${row.key}">${row.name}</option>`
+      )).join("")}`;
+    }
+  }
+
+  async function loadCapture() {
+    if (!els.capTiers) return;
+    try {
+      const data = await window.playCall("admin_capture_overview", {});
+      renderBalance(data?.balance);
+      fillSimPickers(data?.balls, data?.berries);
+    } catch (error) {
+      els.balanceStatus.textContent = window.playRpcError(error);
+    }
+  }
+
+  document.getElementById("save-balance")?.addEventListener("click", async () => {
+    const tiers = (captureBalance?.baseChanceTiers || []).map((row, index) => ({
+      ...row,
+      chance: Number(els.capTiers.querySelector(`[data-tier="${index}"]`)?.value ?? row.chance)
+    }));
+    const honey = (captureBalance?.honeyTiers || []).map((row, index) => ({
+      ...row,
+      multiplier: Number(els.capHoney.querySelector(`[data-tier="${index}"]`)?.value ?? row.multiplier)
+    }));
+    els.balanceStatus.textContent = "Saving…";
+    try {
+      const saved = await window.playCall("admin_capture_save_balance", {
+        p_balance: {
+          minChance: Number(els.capMin.value),
+          maxChance: Number(els.capMax.value),
+          shinyMultiplier: Number(els.capShiny.value),
+          eventMultiplier: Number(els.capEvent.value),
+          honeyContributorBonus: Number(els.capHoneyBonus.value),
+          rewardBonusCoins: Number(els.capReward.value),
+          baseChanceTiers: tiers,
+          honeyTiers: honey
+        }
+      });
+      renderBalance(saved?.balance);
+      els.balanceStatus.textContent = saved?.message || "Saved.";
+    } catch (error) {
+      els.balanceStatus.textContent = window.playRpcError(error);
+    }
+  });
+
+  document.getElementById("run-sim")?.addEventListener("click", async () => {
+    els.simOut.innerHTML = `<p class="muted">Running…</p>`;
+    try {
+      const data = await window.playCall("admin_capture_simulate", {
+        p_dex: Number(document.getElementById("sim-dex").value),
+        p_ball: els.simBall.value,
+        p_berry: els.simBerry.value || null,
+        p_joined: Number(document.getElementById("sim-joined").value),
+        p_honey: Number(document.getElementById("sim-honey").value),
+        p_contributed: document.getElementById("sim-contrib").checked,
+        p_owns: document.getElementById("sim-owns").checked,
+        p_shiny: document.getElementById("sim-shiny").checked,
+        p_trials: Number(document.getElementById("sim-trials").value)
+      });
+      const calc = data?.calc || {};
+      const ball = calc.ball || {};
+      const berry = calc.berry || {};
+      const honey = calc.honey || {};
+      els.simOut.innerHTML = `<dl class="sim-grid">
+        <div><dt>Species</dt><dd>${calc.species} · catch rate ${calc.catchRate}</dd></div>
+        <div><dt>Base</dt><dd>${pct(calc.baseChance)}</dd></div>
+        <div><dt>Ball</dt><dd>${ball.name} ×${ball.multiplier}${ball.condition === "NONE" ? "" : ball.conditionMet ? " (met)" : " (not met)"}</dd></div>
+        <div><dt>Berry</dt><dd>${berry.key ? `${berry.name} ×${berry.multiplier}` : "None"}</dd></div>
+        <div><dt>Honey</dt><dd>×${honey.multiplier} · ${honey.contributors}/${honey.participants}</dd></div>
+        <div><dt>Contributor</dt><dd>×${calc.honeyContributorMultiplier}</dd></div>
+        <div><dt>Shiny / event</dt><dd>×${calc.shinyMultiplier} / ×${calc.eventMultiplier}</dd></div>
+        <div><dt>Raw</dt><dd>${pct(calc.rawChance)}</dd></div>
+        <div><dt>Final</dt><dd><strong>${calc.guaranteed ? "Guaranteed" : pct(calc.finalChance)}</strong></dd></div>
+        <div><dt>Trials</dt><dd>${data.trials}</dd></div>
+        <div><dt>Observed</dt><dd>${data.observedRate === null || data.observedRate === undefined ? "—" : pct(data.observedRate)}</dd></div>
+      </dl>`;
+    } catch (error) {
+      els.simOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+    }
+  });
+
+  function reportTable(title, rows, labelKey) {
+    if (!rows || !rows.length) return "";
+    return `<h3>${title}</h3>
+      <table class="report-table"><thead><tr><th>${title}</th><th>Throws</th><th>Caught</th><th>Rate</th></tr></thead>
+      <tbody>${rows.map((row) => `<tr>
+        <td>${row[labelKey] ?? "—"}</td><td>${row.throws}</td><td>${row.caught}</td><td>${pct(row.rate)}</td>
+      </tr>`).join("")}</tbody></table>`;
+  }
+
+  async function loadReport() {
+    if (!els.reportOut) return;
+    els.reportOut.innerHTML = `<p class="muted">Loading…</p>`;
+    try {
+      const data = await window.playCall("admin_capture_report", { p_days: Number(els.reportDays.value) });
+      const o = data?.overall || {};
+      const honey = data?.honey || {};
+      const col = data?.collections || {};
+      els.reportOut.innerHTML = `
+        <dl class="sim-grid">
+          <div><dt>Throws</dt><dd>${o.throws || 0}</dd></div>
+          <div><dt>Caught</dt><dd>${o.caught || 0}</dd></div>
+          <div><dt>Catch rate</dt><dd><strong>${pct(o.rate)}</strong></dd></div>
+          <div><dt>Avg final chance</dt><dd>${pct(o.averageFinalChance)}</dd></div>
+          <div><dt>Avg Honey turnout</dt><dd>${pct(honey.averageParticipation)}</dd></div>
+          <div><dt>With Honey</dt><dd>${pct(honey.withHoney?.rate)} vs ${pct(honey.withoutHoney?.rate)}</dd></div>
+          <div><dt>Species owned</dt><dd>${col.averageSpecies ?? 0} avg · ${col.trainers ?? 0} trainers</dd></div>
+        </dl>
+        ${reportTable("Catch rate tier", data?.byCatchRateTier, "tier")}
+        ${reportTable("Ball", data?.byBall, "name")}
+        ${reportTable("Berry", data?.byBerry, "name")}
+        ${reportTable("Pokémon", data?.bySpecies, "name")}`;
+    } catch (error) {
+      els.reportOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+    }
+  }
+
+  document.getElementById("run-report")?.addEventListener("click", loadReport);
 
   supabase.auth.onAuthStateChange((event, session) => {
     if (window.playAuthNoise(event)) return;

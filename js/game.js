@@ -1,7 +1,28 @@
 (() => {
   const ITEM_LABELS = {
-    berry: "Berry",
+    berry: "Oran Berry",
     bait: "Honey",
+    cheri: "Cheri Berry",
+    chesto: "Chesto Berry",
+    pecha: "Pecha Berry",
+    rawst: "Rawst Berry",
+    aspear: "Aspear Berry",
+    leppa: "Leppa Berry",
+    persim: "Persim Berry",
+    lum: "Lum Berry",
+    sitrus: "Sitrus Berry",
+    figy: "Figy Berry",
+    wiki: "Wiki Berry",
+    mago: "Mago Berry",
+    aguav: "Aguav Berry",
+    iapapa: "Iapapa Berry",
+    razz: "Razz Berry",
+    bluk: "Bluk Berry",
+    nanab: "Nanab Berry",
+    wepear: "Wepear Berry",
+    pinap: "Pinap Berry",
+    goldenrazz: "Golden Razz Berry",
+    silverpinap: "Silver Pinap Berry",
     pokeball: "Poké Ball",
     greatball: "Great Ball",
     ultraball: "Ultra Ball",
@@ -99,47 +120,69 @@
   };
 
   window.PLAY_BAG_MAX = 10000;
+
+  // Catch power mirrors public.capture_balls. The server is still the only place
+  // a real chance is calculated; these strings just describe the effect.
+  const PLAIN = "Standard catch power.";
   window.PLAY_BALLS = [
-    { key: "pokeball", sku: "poke5", name: "Poké Ball", qty: 5, cost: 40, rate: 0.45, multiplier: "1×", sprite: "poke-ball", extra: false },
-    { key: "greatball", sku: "great3", name: "Great Ball", qty: 3, cost: 55, rate: 0.6, multiplier: "1.5×", sprite: "great-ball", extra: false },
-    { key: "ultraball", sku: "ultra1", name: "Ultra Ball", qty: 1, cost: 50, rate: 0.75, multiplier: "2×", sprite: "ultra-ball", extra: false },
-    { key: "masterball", sku: "master1", name: "Master Ball", qty: 1, cost: 10000, rate: 1, multiplier: "Always", sprite: "master-ball", extra: true },
-    { key: "premierball", sku: "premier1", name: "Premier Ball", qty: 1, cost: 8, rate: 0.45, multiplier: "1×", sprite: "premier-ball", extra: true },
-    { key: "luxuryball", sku: "luxury1", name: "Luxury Ball", qty: 1, cost: 12, rate: 0.45, multiplier: "1×", sprite: "luxury-ball", extra: true },
-    { key: "healball", sku: "heal1", name: "Heal Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "heal-ball", extra: true },
-    { key: "friendball", sku: "friend1", name: "Friend Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "friend-ball", extra: true },
-    { key: "loveball", sku: "love1", name: "Love Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "love-ball", extra: true },
-    { key: "nestball", sku: "nest1", name: "Nest Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "nest-ball", extra: true },
-    { key: "netball", sku: "net1", name: "Net Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "net-ball", extra: true },
-    { key: "repeatball", sku: "repeat1", name: "Repeat Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "repeat-ball", extra: true },
-    { key: "timerball", sku: "timer1", name: "Timer Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "timer-ball", extra: true },
-    { key: "diveball", sku: "dive1", name: "Dive Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "dive-ball", extra: true },
-    { key: "duskball", sku: "dusk1", name: "Dusk Ball", qty: 1, cost: 12, rate: 0.45, multiplier: "1×", sprite: "dusk-ball", extra: true },
-    { key: "quickball", sku: "quick1", name: "Quick Ball", qty: 1, cost: 12, rate: 0.45, multiplier: "1×", sprite: "quick-ball", extra: true },
-    { key: "fastball", sku: "fast1", name: "Fast Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "fast-ball", extra: true },
-    { key: "lureball", sku: "lureball1", name: "Lure Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "lure-ball", extra: true },
-    { key: "moonball", sku: "moon1", name: "Moon Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "moon-ball", extra: true },
-    { key: "heavyball", sku: "heavy1", name: "Heavy Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "heavy-ball", extra: true },
-    { key: "levelball", sku: "level1", name: "Level Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "level-ball", extra: true },
-    { key: "safariball", sku: "safari1", name: "Safari Ball", qty: 1, cost: 18, rate: 0.6, multiplier: "1.5×", sprite: "safari-ball", extra: true },
-    { key: "sportball", sku: "sport1", name: "Sport Ball", qty: 1, cost: 18, rate: 0.6, multiplier: "1.5×", sprite: "sport-ball", extra: true },
-    { key: "cherishball", sku: "cherish1", name: "Cherish Ball", qty: 1, cost: 20, rate: 0.45, multiplier: "1×", sprite: "cherish-ball", extra: true },
-    { key: "gsball", sku: "gs1", name: "GS Ball", qty: 1, cost: 25, rate: 0.45, multiplier: "1×", sprite: "gs-ball", extra: true },
-    { key: "ashball", sku: "ash1", name: "Ash's Poké Ball", qty: 1, cost: 15, rate: 0.45, multiplier: "1×", sprite: "ash-ball", extra: true },
-    { key: "cloneball", sku: "clone1", name: "Clone Ball", qty: 1, cost: 22, rate: 0.45, multiplier: "1×", sprite: "clone-ball", extra: true },
-    { key: "darkball", sku: "dark1", name: "Dark Ball", qty: 1, cost: 22, rate: 0.45, multiplier: "1×", sprite: "dark-ball", extra: true },
-    { key: "oldball", sku: "old1", name: "Old Ball", qty: 1, cost: 12, rate: 0.45, multiplier: "1×", sprite: "old-ball", extra: true },
-    { key: "hisuipokeball", sku: "hisuipoke1", name: "Hisui Poké Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "hisui-poke-ball", extra: true },
-    { key: "hisuigreatball", sku: "hisuigreat1", name: "Hisui Great Ball", qty: 1, cost: 14, rate: 0.6, multiplier: "1.5×", sprite: "hisui-great-ball", extra: true },
-    { key: "hisuiultraball", sku: "hisuiultra1", name: "Hisui Ultra Ball", qty: 1, cost: 18, rate: 0.75, multiplier: "2×", sprite: "hisui-ultra-ball", extra: true },
-    { key: "featherball", sku: "feather1", name: "Feather Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "feather-ball", extra: true },
-    { key: "wingball", sku: "wing1", name: "Wing Ball", qty: 1, cost: 14, rate: 0.6, multiplier: "1.5×", sprite: "wing-ball", extra: true },
-    { key: "jetball", sku: "jet1", name: "Jet Ball", qty: 1, cost: 18, rate: 0.75, multiplier: "2×", sprite: "jet-ball", extra: true },
-    { key: "hisuiheavyball", sku: "hisuiheavy1", name: "Hisui Heavy Ball", qty: 1, cost: 10, rate: 0.45, multiplier: "1×", sprite: "hisui-heavy-ball", extra: true },
-    { key: "leadenball", sku: "leaden1", name: "Leaden Ball", qty: 1, cost: 14, rate: 0.6, multiplier: "1.5×", sprite: "leaden-ball", extra: true },
-    { key: "gigatonball", sku: "gigaton1", name: "Gigaton Ball", qty: 1, cost: 18, rate: 0.75, multiplier: "2×", sprite: "gigaton-ball", extra: true },
-    { key: "originball", sku: "origin1", name: "Origin Ball", qty: 1, cost: 40, rate: 0.45, multiplier: "1×", sprite: "origin-ball", extra: true },
-    { key: "strangeball", sku: "strange1", name: "Strange Ball", qty: 1, cost: 12, rate: 0.45, multiplier: "1×", sprite: "strange-ball", extra: true }
+    { key: "pokeball", sku: "poke5", name: "Poké Ball", qty: 5, cost: 40, multiplier: "1×", effect: PLAIN, sprite: "poke-ball", extra: false },
+    { key: "greatball", sku: "great3", name: "Great Ball", qty: 3, cost: 55, multiplier: "1.25×", effect: "Better catch power than a Poké Ball.", sprite: "great-ball", extra: false },
+    { key: "ultraball", sku: "ultra1", name: "Ultra Ball", qty: 1, cost: 50, multiplier: "1.5×", effect: "Much better catch power than a Poké Ball.", sprite: "ultra-ball", extra: false },
+    { key: "masterball", sku: "master1", name: "Master Ball", qty: 1, cost: 10000, multiplier: "Always", effect: "Never fails to catch a wild Pokémon.", sprite: "master-ball", extra: true },
+    { key: "premierball", sku: "premier1", name: "Premier Ball", qty: 1, cost: 8, multiplier: "1×", effect: PLAIN, sprite: "premier-ball", extra: true },
+    { key: "luxuryball", sku: "luxury1", name: "Luxury Ball", qty: 1, cost: 12, multiplier: "1×", effect: PLAIN, sprite: "luxury-ball", extra: true },
+    { key: "healball", sku: "heal1", name: "Heal Ball", qty: 1, cost: 10, multiplier: "1×", effect: PLAIN, sprite: "heal-ball", extra: true },
+    { key: "friendball", sku: "friend1", name: "Friend Ball", qty: 1, cost: 10, multiplier: "1×", effect: PLAIN, sprite: "friend-ball", extra: true },
+    { key: "loveball", sku: "love1", name: "Love Ball", qty: 1, cost: 10, multiplier: "1.2×", effect: "A little better catch power than a Poké Ball.", sprite: "love-ball", extra: true },
+    { key: "nestball", sku: "nest1", name: "Nest Ball", qty: 1, cost: 10, multiplier: "up to 1.45×", effect: "Best against common, easily caught Pokémon.", sprite: "nest-ball", extra: true },
+    { key: "netball", sku: "net1", name: "Net Ball", qty: 1, cost: 10, multiplier: "up to 1.55×", effect: "Best against Water- and Bug-type Pokémon.", sprite: "net-ball", extra: true },
+    { key: "repeatball", sku: "repeat1", name: "Repeat Ball", qty: 1, cost: 10, multiplier: "up to 1.55×", effect: "Best against Pokémon you have already caught.", sprite: "repeat-ball", extra: true },
+    { key: "timerball", sku: "timer1", name: "Timer Ball", qty: 1, cost: 10, multiplier: "1.25×", effect: "Better catch power than a Poké Ball.", sprite: "timer-ball", extra: true },
+    { key: "diveball", sku: "dive1", name: "Dive Ball", qty: 1, cost: 10, multiplier: "up to 1.5×", effect: "Best against Water-type Pokémon.", sprite: "dive-ball", extra: true },
+    { key: "duskball", sku: "dusk1", name: "Dusk Ball", qty: 1, cost: 12, multiplier: "up to 1.5×", effect: "Best at night on the stream clock.", sprite: "dusk-ball", extra: true },
+    { key: "quickball", sku: "quick1", name: "Quick Ball", qty: 1, cost: 12, multiplier: "1.35×", effect: "Better catch power than a Poké Ball.", sprite: "quick-ball", extra: true },
+    { key: "fastball", sku: "fast1", name: "Fast Ball", qty: 1, cost: 10, multiplier: "up to 1.55×", effect: "Best against very fast Pokémon.", sprite: "fast-ball", extra: true },
+    { key: "lureball", sku: "lureball1", name: "Lure Ball", qty: 1, cost: 10, multiplier: "up to 1.5×", effect: "Best against Water-type Pokémon.", sprite: "lure-ball", extra: true },
+    { key: "moonball", sku: "moon1", name: "Moon Ball", qty: 1, cost: 10, multiplier: "up to 1.6×", effect: "Best against Moon Stone evolution families.", sprite: "moon-ball", extra: true },
+    { key: "heavyball", sku: "heavy1", name: "Heavy Ball", qty: 1, cost: 10, multiplier: "up to 1.55×", effect: "Best against very heavy Pokémon.", sprite: "heavy-ball", extra: true },
+    { key: "levelball", sku: "level1", name: "Level Ball", qty: 1, cost: 10, multiplier: "1.2×", effect: "A little better catch power than a Poké Ball.", sprite: "level-ball", extra: true },
+    { key: "safariball", sku: "safari1", name: "Safari Ball", qty: 1, cost: 18, multiplier: "1.1×", effect: "A small edge over a Poké Ball.", sprite: "safari-ball", extra: true },
+    { key: "sportball", sku: "sport1", name: "Sport Ball", qty: 1, cost: 18, multiplier: "1.1×", effect: "A small edge over a Poké Ball.", sprite: "sport-ball", extra: true },
+    { key: "cherishball", sku: "cherish1", name: "Cherish Ball", qty: 1, cost: 20, multiplier: "1×", effect: PLAIN, sprite: "cherish-ball", extra: true },
+    { key: "gsball", sku: "gs1", name: "GS Ball", qty: 1, cost: 25, multiplier: "1×", effect: PLAIN, sprite: "gs-ball", extra: true },
+    { key: "ashball", sku: "ash1", name: "Ash's Poké Ball", qty: 1, cost: 15, multiplier: "1×", effect: PLAIN, sprite: "ash-ball", extra: true },
+    { key: "cloneball", sku: "clone1", name: "Clone Ball", qty: 1, cost: 22, multiplier: "1×", effect: PLAIN, sprite: "clone-ball", extra: true },
+    { key: "darkball", sku: "dark1", name: "Dark Ball", qty: 1, cost: 22, multiplier: "1×", effect: PLAIN, sprite: "dark-ball", extra: true },
+    { key: "oldball", sku: "old1", name: "Old Ball", qty: 1, cost: 12, multiplier: "1×", effect: PLAIN, sprite: "old-ball", extra: true },
+    { key: "hisuipokeball", sku: "hisuipoke1", name: "Hisui Poké Ball", qty: 1, cost: 10, multiplier: "1×", effect: PLAIN, sprite: "hisui-poke-ball", extra: true },
+    { key: "hisuigreatball", sku: "hisuigreat1", name: "Hisui Great Ball", qty: 1, cost: 14, multiplier: "1.25×", effect: "Better catch power than a Poké Ball.", sprite: "hisui-great-ball", extra: true },
+    { key: "hisuiultraball", sku: "hisuiultra1", name: "Hisui Ultra Ball", qty: 1, cost: 18, multiplier: "1.5×", effect: "Much better catch power than a Poké Ball.", sprite: "hisui-ultra-ball", extra: true },
+    { key: "featherball", sku: "feather1", name: "Feather Ball", qty: 1, cost: 10, multiplier: "1×", effect: PLAIN, sprite: "feather-ball", extra: true },
+    { key: "wingball", sku: "wing1", name: "Wing Ball", qty: 1, cost: 14, multiplier: "1.25×", effect: "Better catch power than a Poké Ball.", sprite: "wing-ball", extra: true },
+    { key: "jetball", sku: "jet1", name: "Jet Ball", qty: 1, cost: 18, multiplier: "1.5×", effect: "Much better catch power than a Poké Ball.", sprite: "jet-ball", extra: true },
+    { key: "hisuiheavyball", sku: "hisuiheavy1", name: "Hisui Heavy Ball", qty: 1, cost: 10, multiplier: "1×", effect: PLAIN, sprite: "hisui-heavy-ball", extra: true },
+    { key: "leadenball", sku: "leaden1", name: "Leaden Ball", qty: 1, cost: 14, multiplier: "1.25×", effect: "Better catch power than a Poké Ball.", sprite: "leaden-ball", extra: true },
+    { key: "gigatonball", sku: "gigaton1", name: "Gigaton Ball", qty: 1, cost: 18, multiplier: "1.5×", effect: "Much better catch power than a Poké Ball.", sprite: "gigaton-ball", extra: true },
+    { key: "originball", sku: "origin1", name: "Origin Ball", qty: 1, cost: 40, multiplier: "1×", effect: PLAIN, sprite: "origin-ball", extra: true },
+    { key: "strangeball", sku: "strange1", name: "Strange Ball", qty: 1, cost: 12, multiplier: "1×", effect: PLAIN, sprite: "strange-ball", extra: true }
+  ];
+
+  // Fallback Berry shelf for pages that render before a snapshot arrives.
+  // The live list comes from the server as snapshot.captureItems.berries.
+  window.PLAY_BERRIES = [
+    { key: "berry", name: "Oran Berry", sprite: "oran-berry", tier: "common", description: "A tasty Berry that makes a wild Pokémon a little easier to catch." },
+    { key: "cheri", name: "Cheri Berry", sprite: "cheri-berry", tier: "common", description: "A tasty Berry that makes a wild Pokémon a little easier to catch." },
+    { key: "chesto", name: "Chesto Berry", sprite: "chesto-berry", tier: "common", description: "A tasty Berry that makes a wild Pokémon a little easier to catch." },
+    { key: "pecha", name: "Pecha Berry", sprite: "pecha-berry", tier: "common", description: "A tasty Berry that makes a wild Pokémon a little easier to catch." },
+    { key: "rawst", name: "Rawst Berry", sprite: "rawst-berry", tier: "common", description: "A tasty Berry that makes a wild Pokémon a little easier to catch." },
+    { key: "aspear", name: "Aspear Berry", sprite: "aspear-berry", tier: "common", description: "A tasty Berry that makes a wild Pokémon a little easier to catch." },
+    { key: "nanab", name: "Nanab Berry", sprite: "nanab-berry", tier: "common", description: "A tasty Berry that makes a wild Pokémon a little easier to catch." },
+    { key: "pinap", name: "Pinap Berry", sprite: "pinap-berry", tier: "common", description: "Helps a little with the catch and pays a small bonus when you succeed." },
+    { key: "sitrus", name: "Sitrus Berry", sprite: "sitrus-berry", tier: "better", description: "A quality Berry that makes a wild Pokémon easier to catch." },
+    { key: "lum", name: "Lum Berry", sprite: "lum-berry", tier: "better", description: "A quality Berry that makes a wild Pokémon easier to catch." },
+    { key: "razz", name: "Razz Berry", sprite: "razz-berry", tier: "specialty", description: "A rich Berry that makes a wild Pokémon noticeably easier to catch." },
+    { key: "silverpinap", name: "Silver Pinap Berry", sprite: "pinap-berry", tier: "premium", description: "Makes a wild Pokémon easier to catch and sweetens the reward if you succeed." },
+    { key: "goldenrazz", name: "Golden Razz Berry", sprite: "razz-berry", tier: "premium", description: "A rare golden Berry that makes a wild Pokémon much easier to catch." }
   ];
 
   window.playItemLabel = function playItemLabel(item) {
@@ -148,6 +191,34 @@
 
   window.playBallInfo = function playBallInfo(key) {
     return (window.PLAY_BALLS || []).find((row) => row.key === key) || null;
+  };
+
+  window.playBerryCatalog = function playBerryCatalog(captureItems) {
+    const live = captureItems?.berries;
+    return Array.isArray(live) && live.length ? live : (window.PLAY_BERRIES || []);
+  };
+
+  window.playBerryInfo = function playBerryInfo(key, captureItems) {
+    return window.playBerryCatalog(captureItems).find((row) => row.key === key) || null;
+  };
+
+  window.playOwnedBerries = function playOwnedBerries(bag, captureItems) {
+    return window.playBerryCatalog(captureItems)
+      .map((row) => ({ ...row, qty: Number(bag?.[row.key] || 0) }))
+      .filter((row) => row.qty > 0);
+  };
+
+  // Auto-prepare spends the plainest Berry on hand so nobody burns a Golden Razz
+  // on a Rattata without choosing to.
+  const BERRY_TIER_ORDER = ["common", "better", "specialty", "premium"];
+  window.playAutoBerryKey = function playAutoBerryKey(bag, captureItems) {
+    const owned = window.playOwnedBerries(bag, captureItems);
+    if (!owned.length) return null;
+    const rank = (row) => {
+      const tier = BERRY_TIER_ORDER.indexOf(String(row.tier || "common"));
+      return (tier < 0 ? 0 : tier) * 10 + (row.key === "berry" ? 0 : 1);
+    };
+    return owned.slice().sort((a, b) => rank(a) - rank(b))[0].key;
   };
 
   window.playSpeciesTypes = function playSpeciesTypes(dex, fallback) {
@@ -177,7 +248,28 @@
 
   const GRANT_ORDER = ["bag_bonus", "masterball", "ultraball", "greatball", "pokeball", "lure", "berry", "bait"];
   const GRANT_WORDS = {
-    berry: ["Berry", "Berries"],
+    berry: ["Oran Berry", "Oran Berries"],
+    cheri: ["Cheri Berry", "Cheri Berries"],
+    chesto: ["Chesto Berry", "Chesto Berries"],
+    pecha: ["Pecha Berry", "Pecha Berries"],
+    rawst: ["Rawst Berry", "Rawst Berries"],
+    aspear: ["Aspear Berry", "Aspear Berries"],
+    leppa: ["Leppa Berry", "Leppa Berries"],
+    persim: ["Persim Berry", "Persim Berries"],
+    lum: ["Lum Berry", "Lum Berries"],
+    sitrus: ["Sitrus Berry", "Sitrus Berries"],
+    figy: ["Figy Berry", "Figy Berries"],
+    wiki: ["Wiki Berry", "Wiki Berries"],
+    mago: ["Mago Berry", "Mago Berries"],
+    aguav: ["Aguav Berry", "Aguav Berries"],
+    iapapa: ["Iapapa Berry", "Iapapa Berries"],
+    razz: ["Razz Berry", "Razz Berries"],
+    bluk: ["Bluk Berry", "Bluk Berries"],
+    nanab: ["Nanab Berry", "Nanab Berries"],
+    wepear: ["Wepear Berry", "Wepear Berries"],
+    pinap: ["Pinap Berry", "Pinap Berries"],
+    goldenrazz: ["Golden Razz Berry", "Golden Razz Berries"],
+    silverpinap: ["Silver Pinap Berry", "Silver Pinap Berries"],
     bait: ["Honey", "Honey"],
     pokeball: ["Poké Ball", "Poké Balls"],
     greatball: ["Great Ball", "Great Balls"],
@@ -427,6 +519,27 @@
     originball: "origin-ball",
     strangeball: "strange-ball",
     berry: "oran-berry",
+    cheri: "cheri-berry",
+    chesto: "chesto-berry",
+    pecha: "pecha-berry",
+    rawst: "rawst-berry",
+    aspear: "aspear-berry",
+    leppa: "leppa-berry",
+    persim: "persim-berry",
+    lum: "lum-berry",
+    sitrus: "sitrus-berry",
+    figy: "figy-berry",
+    wiki: "wiki-berry",
+    mago: "mago-berry",
+    aguav: "aguav-berry",
+    iapapa: "iapapa-berry",
+    razz: "razz-berry",
+    bluk: "bluk-berry",
+    nanab: "nanab-berry",
+    wepear: "wepear-berry",
+    pinap: "pinap-berry",
+    goldenrazz: "razz-berry",
+    silverpinap: "pinap-berry",
     bait: "honey",
     lure: "poke-radar",
     coins: "relic-gold",
@@ -473,6 +586,18 @@
     origin1: "origin-ball",
     strange1: "strange-ball",
     berry5: "oran-berry",
+    cheri5: "cheri-berry",
+    chesto5: "chesto-berry",
+    pecha5: "pecha-berry",
+    rawst5: "rawst-berry",
+    aspear5: "aspear-berry",
+    nanab5: "nanab-berry",
+    pinap5: "pinap-berry",
+    sitrus3: "sitrus-berry",
+    lum3: "lum-berry",
+    razz3: "razz-berry",
+    silverpinap1: "pinap-berry",
+    goldenrazz1: "razz-berry",
     bait5: "honey",
     radar1: "poke-radar",
     lure1: "poke-radar",

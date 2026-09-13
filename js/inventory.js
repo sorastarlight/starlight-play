@@ -45,31 +45,26 @@
         ]
       },
       {
-        title: "Catch Boosts",
+        title: "Berries",
+        note: "One Berry per encounter, used before anyone throws a ball.",
+        items: (window.PLAY_BERRIES || [])
+          .filter((row) => row.key === "berry" || Number(bag?.[row.key] || 0) > 0)
+          .map((row) => [row.key, row.name, row.description])
+      },
+      {
+        title: "Encounter Items",
         note: "Use these after you join, before anyone throws a ball.",
         items: [
-          ["berry", "Berry", "Adds 10 percentage points to your catch chance this encounter."],
-          ["bait", "Honey", "Helps everyone’s catch chance, up to +15% based on how many people use Honey."],
+          ["bait", "Honey", "Helps everyone’s catch chance. The more Trainers who add Honey, the bigger the shared bonus."],
           ["lure", "Poké Radar", "Automatically detects nearby Pokémon and joins you to any encounter that appears. Lasts 30 minutes."]
         ]
       },
       {
         title: "Poké Balls",
         note: "Use these when the encounter is ready to catch.",
-        items: [
-          ["pokeball", "Poké Ball", "45% catch. Berry and Honey can still raise it."],
-          ["greatball", "Great Ball", "60% catch. A steadier throw than a Poké Ball."],
-          ["ultraball", "Ultra Ball", "75% catch. The strongest regular ball in Play."],
-          ...((window.PLAY_BALLS || [])
-            .filter((row) => row.extra && Number(bag?.[row.key] || 0) > 0)
-            .map((row) => [
-              row.key,
-              row.name,
-              row.key === "masterball"
-                ? "Always catches. The catch cap does not apply."
-                : `${Math.round(row.rate * 100)}% catch. Looks different; no extra catch effects.`
-            ]))
-        ]
+        items: (window.PLAY_BALLS || [])
+          .filter((row) => !row.extra || Number(bag?.[row.key] || 0) > 0)
+          .map((row) => [row.key, row.name, row.effect])
       }
     ];
     window.playFillBagMeter(bag);

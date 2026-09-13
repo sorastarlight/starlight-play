@@ -491,8 +491,9 @@
     const id = Number(dex);
     if (!id) return "";
     const kind = String(variant || "normal").toLowerCase();
+    const allowed = new Set(typeof window.playAllowedVariants === "function" ? window.playAllowedVariants(id) : []);
     const shiny = kind.includes("shiny");
-    const female = kind.includes("female");
+    const female = kind.includes("female") && (allowed.has("female") || allowed.has("shiny-female"));
     if (shiny && female) return `images/pokemon/shiny/female/${id}.gif`;
     if (female) return `images/pokemon/female/${id}.gif`;
     if (shiny) return `images/pokemon/shiny/${id}.gif`;
@@ -514,7 +515,7 @@
     const ext = match[4].toLowerCase();
     let next = "";
     if (ext === "gif") next = src.replace(/\.gif(?:\?.*)?$/i, ".png");
-    else if (shiny && female) next = `images/pokemon/female/${id}.gif`;
+    else if (shiny && female) next = `images/pokemon/shiny/${id}.gif`;
     else if (female) next = `images/pokemon/${id}.gif`;
     else if (shiny) next = `images/pokemon/${id}.gif`;
     if (!next || next === src) {

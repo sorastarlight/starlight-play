@@ -28,7 +28,20 @@ window.playBindLiveOps = function playBindLiveOps(options) {
   if (!els.app || els.app.dataset.liveOpsBound === "1") return;
   els.app.dataset.liveOpsBound = "1";
   document.documentElement.classList.toggle("is-hub-test", sessionStorage.getItem("playHubTestMode") === "1");
+  const consoleEl = document.querySelector("#hub-panel-live .live-ops-console");
+  if (consoleEl && consoleEl.dataset.resizeBound !== "1") {
+    consoleEl.dataset.resizeBound = "1";
+    const saved = localStorage.getItem("playHubConsoleHeight");
+    if (saved) consoleEl.style.height = saved;
+    const persist = () => {
+      const height = consoleEl.style.height || getComputedStyle(consoleEl).height;
+      if (height) localStorage.setItem("playHubConsoleHeight", height);
+    };
+    new ResizeObserver(persist).observe(consoleEl);
+  }
 
+  let forceAdvancedOpen = false;
+  let lastGuideHtml = "";
   let state = null;
   let pending = false;
   let confirmFn = null;
@@ -227,19 +240,21 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const left = until(d.nextEncounterAt);
     const adLeft = ad.adActive ? until(ad.activeExpectedEndAt) : until(ad.nextAdAt);
     box.hidden = false;
+    const openDetails = box.querySelector(".hub-advanced");
+    if (openDetails) forceAdvancedOpen = openDetails.open;
+    let html = "";
     if (testMode()) {
-      box.innerHTML = `
+      html = `
         <p class="eyebrow">Test Mode</p>
         <h2>Offline testing</h2>
         <p>Twitch does not need to be live. Test encounters use the existing test protection and do not run automatic stream cadence.</p>
         <div class="links">
           <button type="button" class="gold" data-act="start_test" ${state?.activeEncounter ? "disabled" : ""}>Start test encounter</button>
+          ${state?.activeEncounter ? `<button type="button" class="danger" data-act="stop_test">Stop test encounter</button>` : ""}
           <button type="button" class="secondary" data-act="exit_test">Exit Test Mode</button>
         </div>`;
-      return;
-    }
-    if (!s.twitchLive && !s.rpgSession) {
-      box.innerHTML = `
+    } else if (!s.twitchLive && !s.rpgSession) {
+      html = `
         <p class="eyebrow">Stream offline</p>
         <h2>Live encounters are not running</h2>
         <p>Want to test the RPG? Enter Test Mode. Going live? Twitch will activate the Live RPG when the stream is detected.</p>
@@ -247,33 +262,27 @@ window.playBindLiveOps = function playBindLiveOps(options) {
           <button type="button" class="secondary" data-act="refresh_live">Refresh Twitch Status</button>
           <button type="button" class="gold" data-act="enter_test">Enter Test Mode</button>
         </div>
-        <details class="hub-advanced">
+        <details class="hub-advanced"${forceAdvancedOpen ? " open" : ""}>
           <summary>Advanced / Force Live Session</summary>
           <p class="muted">Starts the live RPG Director even if Twitch live detection is unavailable or delayed. Not the normal way to test.</p>
           <button type="button" class="secondary" data-act="start_session">Force Start Live RPG Session</button>
         </details>`;
-      return;
-    }
-    if (s.twitchLive && !s.rpgSession) {
-      box.innerHTML = `
+    } else if (s.twitchLive && !s.rpgSession) {
+      html = `
         <p class="eyebrow">Live RPG</p>
         <h2>Live detected — initializing RPG session</h2>
         <p>Twitch is live. The Director starts the Live RPG automatically. No Start button is required.</p>
         <div class="links">
           <button type="button" class="secondary" data-act="refresh_live">Refresh Twitch Status</button>
         </div>`;
-      return;
-    }
-    if (ad.adActive) {
-      box.innerHTML = `
+    } else if (ad.adActive) {
+      html = `
         <p class="eyebrow">Ad Protection</p>
         <h2>Twitch ad in progress</h2>
         <p>Active encounters are automatically paused. Expected resume ${adLeft == null ? "soon" : `in ${clock(adLeft)}`}.</p>
         <p class="muted">No action required.</p>`;
-      return;
-    }
-    if (auto.label === "PAUSED") {
-      box.innerHTML = `
+    } else if (auto.label === "PAUSED") {
+      html = `
         <p class="eyebrow">Live RPG running</p>
         <h2>Automatic encounters are paused</h2>
         <p>${esc(auto.reason)}</p>
@@ -281,19 +290,25 @@ window.playBindLiveOps = function playBindLiveOps(options) {
           <button type="button" data-act="return_normal">Return to Normal</button>
           <button type="button" class="secondary" data-act="resume_auto">Resume auto</button>
         </div>`;
-      return;
-    }
-    if (["UNSAFE", "SHORT"].includes(w.state)) {
-      box.innerHTML = `
+    } else if (["UNSAFE", "SHORT"].includes(w.state)) {
+      html = `
         <p class="eyebrow">Ad Protection</p>
         <h2>Upcoming Twitch ad${adLeft == null ? "" : ` in ${clock(adLeft)}`}</h2>
         <p>The next automatic encounter will wait until after the ad. No action required.</p>`;
-      return;
-    }
-    box.innerHTML = `
+    } else {
+      html = `
       <p class="eyebrow">Live RPG running</p>
       <h2>No action required</h2>
       <p>Next encounter ${left == null ? "is scheduling" : `~${clock(left)}`}. Ad Protection: ${adsFace(ad, w)}.</p>`;
+    }
+    if (html === lastGuideHtml) return;
+    lastGuideHtml = html;
+    box.innerHTML = html;
+    const details = box.querySelector(".hub-advanced");
+    if (details) {
+      details.open = forceAdvancedOpen;
+      details.addEventListener("toggle", () => { forceAdvancedOpen = details.open; });
+    }
   }
 
   function renderEncounter() {
@@ -313,7 +328,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
         <button type="button" class="secondary" data-act="pause_encounter"${round.paused ? " disabled" : ""}>Pause</button>
         <button type="button" class="secondary" data-act="resume_encounter"${round.paused ? "" : " disabled"}>Resume</button>
         ${embedded ? `<button type="button" class="secondary" data-act="open_details">Details</button>` : ""}
-        <button type="button" class="danger" data-act="cancel_encounter">Cancel</button>
+        <button type="button" class="danger" data-act="${testMode() ? "stop_test" : "cancel_encounter"}">${testMode() ? "Stop test" : "Cancel"}</button>
       </div>`;
     els.encounter.dataset.busy = "1";
   }
@@ -482,10 +497,9 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const preview = byId("live-preview");
     const previewCopy = byId("live-preview-copy");
     if (preview && pickDex && typeof window.playSpriteUrl === "function") {
-      let variant = "normal";
-      if (pickShiny === "shiny" && pickGender === "Female") variant = "shiny-female";
-      else if (pickShiny === "shiny") variant = "shiny";
-      else if (pickGender === "Female") variant = "female";
+      const variant = typeof window.playSpriteVariant === "function"
+        ? window.playSpriteVariant(pickDex, pickGender, pickShiny === "shiny")
+        : (pickShiny === "shiny" ? "shiny" : "normal");
       preview.src = window.playSpriteUrl(pickDex, variant);
       preview.hidden = false;
       if (previewCopy) previewCopy.textContent = `${window.playPadDex(pickDex)} ${window.playSpeciesName(pickDex)}`;
@@ -804,6 +818,10 @@ window.playBindLiveOps = function playBindLiveOps(options) {
         confirmBody: "Starts the live RPG Director even if Twitch live detection is unavailable or delayed. This is not the normal way to test while offline.",
         go: "Force start"
       });
+      return;
+    }
+    if (act === "stop_test") {
+      cmd("cancel_encounter", { confirm: true });
       return;
     }
     if (act === "cancel_encounter") {

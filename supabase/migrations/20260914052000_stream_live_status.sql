@@ -132,8 +132,8 @@ declare
   live_state jsonb;
   mode jsonb;
   safe_win jsonb;
-  status text;
-  reason text;
+  dir_status text;
+  dir_reason text;
   queued jsonb;
   band text := 'COMMON';
 begin
@@ -196,37 +196,37 @@ begin
   end if;
 
   if not live and not d.rpg_session_active then
-    status := 'OFFLINE';
-    reason := case when coalesce((live_state->>'known')::boolean, false) then 'OFFLINE' else 'STREAM_STATUS_UNKNOWN' end;
+    dir_status := 'OFFLINE';
+    dir_reason := case when coalesce((live_state->>'known')::boolean, false) then 'OFFLINE' else 'STREAM_STATUS_UNKNOWN' end;
   elsif a.ad_active then
-    status := 'AD_ACTIVE';
-    reason := 'AD_ACTIVE';
+    dir_status := 'AD_ACTIVE';
+    dir_reason := 'AD_ACTIVE';
   elsif r is not null then
-    status := 'ENCOUNTER_ACTIVE';
-    reason := 'ACTIVE_ENCOUNTER';
+    dir_status := 'ENCOUNTER_ACTIVE';
+    dir_reason := 'ACTIVE_ENCOUNTER';
   elsif d.manual_hold then
-    status := 'MANUAL_HOLD';
-    reason := 'MANUAL_HOLD';
+    dir_status := 'MANUAL_HOLD';
+    dir_reason := 'MANUAL_HOLD';
   elsif d.post_ad_until is not null and now() < d.post_ad_until then
-    status := 'POST_AD_COOLDOWN';
-    reason := 'POST_AD_COOLDOWN';
+    dir_status := 'POST_AD_COOLDOWN';
+    dir_reason := 'POST_AD_COOLDOWN';
   elsif d.post_ad_until is not null and now() >= d.post_ad_until and d.overdue_from is not null then
     update private.stream_director set post_ad_until = null, updated_at = now() where id = 1;
     perform private.director_schedule_next('grace');
-    status := 'WAITING_FOR_NEXT_ENCOUNTER';
-    reason := 'NOT_DUE';
+    dir_status := 'WAITING_FOR_NEXT_ENCOUNTER';
+    dir_reason := 'NOT_DUE';
   elsif coalesce(mode->>'auto', 'true') <> 'true' then
-    status := 'MANUAL_HOLD';
-    reason := 'STREAM_MODE';
+    dir_status := 'MANUAL_HOLD';
+    dir_reason := 'STREAM_MODE';
   elsif not d.auto_enabled or coalesce((cfg->>'autoEncountersEnabled')::boolean, true) is not true then
-    status := 'MANUAL_HOLD';
-    reason := 'MANUAL_HOLD';
+    dir_status := 'MANUAL_HOLD';
+    dir_reason := 'MANUAL_HOLD';
   elsif d.queued is not null then
     band := case when d.queued->>'kind' = 'SPECIAL' then 'LEGENDARY_EVENT' else 'COMMON' end;
     safe_win := private.director_safe_window(band);
     if coalesce((safe_win->>'safe')::boolean, false) is not true then
-      status := 'AD_PENDING';
-      reason := case when safe_win->>'state' = 'UNSAFE' then 'UPCOMING_AD' else 'UNKNOWN_AD' end;
+      dir_status := 'AD_PENDING';
+      dir_reason := case when safe_win->>'state' = 'UNSAFE' then 'UPCOMING_AD' else 'UNKNOWN_AD' end;
       if d.overdue_from is null then
         update private.stream_director
           set overdue_from = now(),
@@ -237,7 +237,7 @@ begin
                   + private.director_interval_minutes(0.5, 1, 1.5) * 60)
         where id = 1;
       end if;
-      perform private.director_log('AUTO_ENCOUNTER_DELAYED', reason, safe_win);
+      perform private.director_log('AUTO_ENCOUNTER_DELAYED', dir_reason, safe_win);
     else
       queued := d.queued;
       if queued->>'kind' = 'SPECIAL' then
@@ -248,26 +248,26 @@ begin
           'QUEUED_SPECIAL',
           false
         );
-        status := 'ENCOUNTER_ACTIVE';
-        reason := 'QUEUED_SPECIAL';
+        dir_status := 'ENCOUNTER_ACTIVE';
+        dir_reason := 'QUEUED_SPECIAL';
       else
         r := private.director_start_now(null, null, null, 'AUTO', false);
-        status := 'ENCOUNTER_ACTIVE';
-        reason := 'QUEUED_RANDOM';
+        dir_status := 'ENCOUNTER_ACTIVE';
+        dir_reason := 'QUEUED_RANDOM';
       end if;
     end if;
   elsif d.next_encounter_at is null then
     perform private.director_schedule_next(case when d.session_started_at is null then 'first' else 'normal' end);
-    status := 'WAITING_FOR_NEXT_ENCOUNTER';
-    reason := 'NOT_DUE';
+    dir_status := 'WAITING_FOR_NEXT_ENCOUNTER';
+    dir_reason := 'NOT_DUE';
   elsif now() < d.next_encounter_at then
-    status := 'WAITING_FOR_NEXT_ENCOUNTER';
-    reason := 'NOT_DUE';
+    dir_status := 'WAITING_FOR_NEXT_ENCOUNTER';
+    dir_reason := 'NOT_DUE';
   else
     safe_win := private.director_safe_window(band);
     if coalesce((safe_win->>'safe')::boolean, false) is not true then
-      status := 'AD_PENDING';
-      reason := case when safe_win->>'state' = 'UNSAFE' then 'UPCOMING_AD' else 'UNKNOWN_AD' end;
+      dir_status := 'AD_PENDING';
+      dir_reason := case when safe_win->>'state' = 'UNSAFE' then 'UPCOMING_AD' else 'UNKNOWN_AD' end;
       if d.overdue_from is null then
         update private.stream_director
           set overdue_from = now(),
@@ -278,25 +278,25 @@ begin
                   + private.director_interval_minutes(0.5, 1, 1.5) * 60)
         where id = 1;
       end if;
-      perform private.director_log('AUTO_ENCOUNTER_DELAYED', reason, safe_win);
+      perform private.director_log('AUTO_ENCOUNTER_DELAYED', dir_reason, safe_win);
     elsif d.auto_enabled and coalesce(mode->>'auto', 'true') = 'true' then
       r := private.director_start_now(null, null, null, 'AUTO', false);
-      status := 'ENCOUNTER_ACTIVE';
-      reason := 'AUTO';
+      dir_status := 'ENCOUNTER_ACTIVE';
+      dir_reason := 'AUTO';
     else
-      status := 'WAITING_FOR_NEXT_ENCOUNTER';
-      reason := 'NOT_DUE';
+      dir_status := 'WAITING_FOR_NEXT_ENCOUNTER';
+      dir_reason := 'NOT_DUE';
     end if;
   end if;
 
   update private.stream_director
-    set status = status,
-        delay_reason = reason,
+    set status = dir_status,
+        delay_reason = dir_reason,
         last_tick_at = now(),
         updated_at = now()
     where id = 1;
 
-  return jsonb_build_object('status', status, 'reason', reason, 'roundId', r.id);
+  return jsonb_build_object('status', dir_status, 'reason', dir_reason, 'roundId', r.id);
 end;
 $$;
 

@@ -1033,6 +1033,13 @@ footer { margin-top: 24px; font-size: 13px; }
   font-size: 18px;
   color: #8a5a10;
 }
+.catch-seq-note {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #8a5a10;
+}
+.catch-seq.is-results.is-miss .catch-seq-note { color: #3d4656; }
 .catch-seq.is-results.is-miss .catch-seq-score p,
 .catch-seq.is-results.is-miss .catch-seq-score-miss {
   background: #f4f6fa;
@@ -1371,6 +1378,10 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .live-feed li.is-honey span { color: #ffe08a; }
 .live-feed li.is-catch span { color: #b8ffd0; }
+.live-feed li.is-throw span { color: #ffd9a0; }
+.live-feed li.is-escape span { color: #ffc2c2; }
+.live-feed li.is-timeout span { color: #c8c8dc; }
+.live-feed li.is-phase span { color: #cdd6ff; font-style: italic; }
 .item-copy {
   display: flex;
   flex-direction: column;

@@ -75,13 +75,18 @@
     const bag = data?.bag || {};
     const signedIn = Boolean(data?.bag);
     const prefs = window.playEncounterSettings(data?.encounterSettings);
+    const species = round ? window.playDisplayName(round, { plain: true }) : "the Pokémon";
     if (!round || round.phase === "closed") {
+      let closedStatus = "";
+      if (round?.resolved && me) {
+        if (me.caught) closedStatus = `Gotcha! ${species} was caught!`;
+        else if (!me.ball) closedStatus = "You didn't choose a Poké Ball in time!";
+        else if (me.result) closedStatus = `Oh no! ${species} broke free! Better luck next encounter!`;
+      }
       return {
         key: `idle:${round?.id || ""}:${me?.result || ""}`,
         buttons: [],
-        status: round?.resolved && me?.result
-          ? (me.caught ? `You caught it! (${Math.round((me.chance || 0) * 100)}%)` : `Your result: ${me.result}.`)
-          : ""
+        status: closedStatus
       };
     }
     if (!signedIn) {
@@ -95,6 +100,22 @@
     const throwing = phase === "throw";
     const preparing = phase === "prepare";
     const joining = phase === "join";
+    const capturing = phase === "reveal";
+    // Joining closes with Phase 1. Everyone else watches this one out.
+    if (!me && !joining) {
+      return {
+        key: `spectate:${round.id}:${phase}`,
+        buttons: [],
+        status: "You're watching this encounter. Get ready for the next one!"
+      };
+    }
+    if (capturing) {
+      return {
+        key: `capture:${round.id}:${me?.ball || ""}`,
+        buttons: [],
+        status: me?.ball ? "The Poké Ball is shaking…" : "You didn't choose a Poké Ball in time!"
+      };
+    }
     const pushPrep = (disabled, used) => {
       const hintFor = (item, qtyHint) => {
         if (used === item) return "Locked in";
@@ -148,12 +169,12 @@
         disabled: disabled || Boolean(used)
       });
     };
-    if ((joining && !me) || (preparing && !me)) {
+    if (joining && !me) {
       buttons.push({
         kind: "join",
         item: "",
         label: "Join encounter",
-        hint: joining ? (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "") : "Still needed for berries"
+        hint: window.playRadarOn?.(bag) ? "Poké Radar joining…" : "Closes when the timer ends"
       });
     }
     if (joining && me && !me.prep) pushPrep(true);
@@ -162,19 +183,19 @@
     if (throwing && me && !me.ball) pushBalls(false);
     if (throwing && me && me.ball) pushBalls(true, me.ball);
     const esc = (value) => window.playEscapeAttr(String(value || ""));
-    const joinWait = "You’ve joined the encounter! Please wait while the other Trainers join you.";
+    const joinWait = "You have joined the encounter! Please wait while other Trainers join you.";
     const prepWait = (item) => {
       const label = window.playItemLabel(item);
       return {
-        status: `You’ve selected ${label}! Please wait while the other Trainers make their choices.`,
-        statusHtml: `You’ve selected <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`
+        status: `You have selected ${label}! Please wait while the other Trainers make their choices.`,
+        statusHtml: `You have selected <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`
       };
     };
     const throwWait = (item) => {
       const label = window.playItemLabel(item);
       return {
-        status: `You’ve chosen a ${label}! Please wait while the other Trainers make their choices.`,
-        statusHtml: `You’ve chosen a <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`
+        status: `You have chosen ${label}! Please wait while the other Trainers make their choices.`,
+        statusHtml: `You have chosen <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`
       };
     };
     let status = "";
@@ -185,10 +206,13 @@
       ({ status, statusHtml } = prepWait(me.prep));
     } else if (throwing && me?.ball) {
       ({ status, statusHtml } = throwWait(me.ball));
-    } else if (!buttons.length && phase === "reveal") status = "";
-    else if (!buttons.length && preparing && !me) status = "Join this encounter to take part.";
-    else if (!buttons.length && throwing && !me) status = "You needed to join before Throw.";
-    else if (!buttons.length && phase !== "join") status = "You needed to join during the join window.";
+    } else if (preparing && me) {
+      status = "Choose an item before the timer runs out.";
+    } else if (throwing && me) {
+      status = "Choose your Poké Ball before the timer runs out.";
+    } else if (joining && !me) {
+      status = `A wild ${species} appeared! Join the encounter?`;
+    }
     if (!buttons.length) {
       return { key: `wait:${phase}:${me?.prep || ""}:${me?.ball || ""}:${me?.result || ""}`, buttons, status, statusHtml };
     }
@@ -303,7 +327,7 @@
     const bag = data?.bag || {};
     if (!round || data?.me) return;
     if (round.paused) return;
-    if (round.phase !== "join" && round.phase !== "prepare") return;
+    if (round.phase !== "join") return;
     if (!window.playRadarOn?.(bag) || lureJoinRound === round.id) return;
     lureJoinRound = round.id;
     act("join", "");

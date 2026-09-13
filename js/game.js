@@ -596,12 +596,18 @@
     return names[Number(dex) - 1] || `No. ${dex}`;
   };
 
+  window.playArticle = function playArticle(label) {
+    const text = String(label || "");
+    if (!text) return "";
+    return `${/^[aeiou]/i.test(text) ? "an" : "a"} ${text}`;
+  };
+
   window.playPhaseLabel = function playPhaseLabel(phase) {
     return ({
       join: "Join",
       prepare: "Prepare",
-      throw: "Throw",
-      reveal: "Results",
+      throw: "Ready",
+      reveal: "Catch!",
       closed: "Idle"
     })[phase] || "Idle";
   };

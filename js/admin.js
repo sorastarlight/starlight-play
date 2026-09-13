@@ -97,9 +97,9 @@
   function fillSettings(settings) {
     if (!settings) return;
     els.join.value = settings.joinSeconds ?? 30;
-    els.prepare.value = settings.prepareSeconds ?? 20;
-    els.throw.value = settings.throwSeconds ?? 15;
-    els.reveal.value = settings.revealSeconds ?? 10;
+    els.prepare.value = settings.prepareSeconds ?? 30;
+    els.throw.value = settings.throwSeconds ?? 30;
+    els.reveal.value = settings.revealSeconds ?? 15;
     els.poke.value = settings.ballChances?.pokeball ?? 0.45;
     els.great.value = settings.ballChances?.greatball ?? 0.6;
     els.ultra.value = settings.ballChances?.ultraball ?? 0.75;

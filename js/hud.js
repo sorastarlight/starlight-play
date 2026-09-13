@@ -350,27 +350,55 @@
     return "";
   }
 
-  function resultsWin(round) {
-    return Number(round?.results?.caught || 0) > 0;
+  // Every Trainer rolls separately, so the card reports the viewer's own result.
+  function personalResult(round, me, species) {
+    const caughtN = Number(round?.results?.caught || 0);
+    if (!me?.joined && !me?.ball) {
+      return {
+        win: caughtN > 0,
+        headline: caughtN > 0 ? "Gotcha!" : "Sorry!",
+        sub: caughtN > 0
+          ? `${caughtN} Trainer${caughtN === 1 ? "" : "s"} caught ${species}`
+          : `Nobody caught ${species}`,
+        note: ""
+      };
+    }
+    if (!me.ball) {
+      return { win: false, headline: "Sorry!", sub: "You didn't choose a Poké Ball in time!", note: "" };
+    }
+    if (throwOutcome(me) === "caught") {
+      return {
+        win: true,
+        headline: "Gotcha!",
+        sub: `You caught ${species}`,
+        note: `Caught with ${window.playItemLabel(me.ball)} · added to your collection`
+      };
+    }
+    return {
+      win: false,
+      headline: "Sorry!",
+      sub: `You didn't catch ${species}`,
+      note: `Thrown: ${window.playItemLabel(me.ball)}`
+    };
   }
 
   function catchSeqCopy(st, round, species, me) {
     if (st.scene === "results") {
-      return resultsWin(round) ? "Gotcha!" : "Sorry!";
-    }
-    if (st.scene === "personal") {
-      return st.outcome === "caught"
-        ? `Gotcha! ${species} was caught!`
-        : "Oh no! The Pokémon broke free!";
+      return personalResult(round, me, species).headline;
     }
     const pct = window.playRevealSeqProgress(round);
     if (pct >= 100 && !round.resolved && !throwOutcome(me)) return "Waiting for the result…";
-    return "The Poké Ball is wobbling…";
+    return "The Poké Ball is shaking…";
   }
 
-  function catchSeqSubcopy(st, round, species) {
+  function catchSeqSubcopy(st, round, species, me) {
     if (st.scene !== "results") return "";
-    return resultsWin(round) ? `You caught ${species}` : `You didn't catch ${species}`;
+    return personalResult(round, me, species).sub;
+  }
+
+  function catchSeqNote(st, round, species, me) {
+    if (st.scene !== "results") return "";
+    return personalResult(round, me, species).note;
   }
 
   window.playAdvanceCatchSeqState = function playAdvanceCatchSeqState(round, me) {
@@ -402,8 +430,9 @@
     const caughtN = Number(results.caught || 0);
     const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
     const copy = catchSeqCopy(st, round, species, me);
-    const sub = catchSeqSubcopy(st, round, species);
-    const win = caughtN > 0;
+    const sub = catchSeqSubcopy(st, round, species, me);
+    const note = catchSeqNote(st, round, species, me);
+    const win = st.scene === "results" && personalResult(round, me, species).win;
     const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}`;
     return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}">
       <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -419,6 +448,7 @@
       </p>
       <div class="catch-seq-bar" aria-hidden="true"><i data-throw-bar style="width:${pct}%"></i></div>
       <div class="catch-seq-counts" data-seq-results>
+        <p class="catch-seq-note" data-seq-note${note ? "" : " hidden"}>${window.playEscapeAttr(note)}</p>
         <div class="catch-seq-score">
           <p class="catch-seq-score-win"><strong data-seq-caught>${caughtN}</strong><span>caught</span></p>
           <p class="catch-seq-score-miss"><strong data-seq-missed>${missed}</strong><span>didn’t catch it</span></p>
@@ -433,13 +463,19 @@
     const st = window.playAdvanceCatchSeqState(round, me);
     const species = window.playDisplayName(round, { plain: true });
     const copy = catchSeqCopy(st, round, species, me);
-    const sub = catchSeqSubcopy(st, round, species);
+    const sub = catchSeqSubcopy(st, round, species, me);
+    const note = catchSeqNote(st, round, species, me);
     const headlineEl = box.querySelector("[data-seq-headline]");
     const subEl = box.querySelector("[data-seq-sub]");
+    const noteEl = box.querySelector("[data-seq-note]");
     if (headlineEl && headlineEl.textContent !== copy) headlineEl.textContent = copy;
     if (subEl) {
       if (subEl.textContent !== sub) subEl.textContent = sub;
       subEl.hidden = !sub;
+    }
+    if (noteEl) {
+      if (noteEl.textContent !== note) noteEl.textContent = note;
+      noteEl.hidden = !note;
     }
     const bar = box.querySelector("[data-throw-bar]");
     if (bar && st.scene === "wobble") bar.style.width = `${window.playRevealSeqProgress(round)}%`;
@@ -566,18 +602,37 @@
     const time = stamp && !Number.isNaN(stamp.getTime())
       ? `<time datetime="${stamp.toISOString()}">${stamp.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", second: "2-digit" })}</time>`
       : `<time></time>`;
-    if (row?.kind === "joined") return `<li>${time}<span><strong>${name}</strong> joined</span></li>`;
+    const message = String(row?.message || "").trim();
+    const ball = window.playEscapeAttr(window.playArticle(window.playItemLabel(row?.item)));
+    if (row?.kind === "joined") return `<li>${time}<span><strong>${name}</strong> joined the encounter!</span></li>`;
     if (row?.kind === "prepared" && row.item === "bait") {
       return `<li class="is-honey">${time}<span><strong>${name}</strong> used Honey to help everyone’s catch rate</span></li>`;
     }
-    if (row?.kind === "prepared") return `<li>${time}<span><strong>${name}</strong> used ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
+    if (row?.kind === "prepared") return `<li>${time}<span><strong>${name}</strong> has prepared an item!</span></li>`;
     if (row?.kind === "selected") {
-      return `<li>${time}<span><strong>${name}</strong> has selected their Poké Ball and is ready to throw!</span></li>`;
+      return `<li>${time}<span><strong>${name}</strong> has chosen ${ball} and is ready to throw!</span></li>`;
     }
-    if (row?.kind === "threw") return `<li>${time}<span><strong>${name}</strong> threw a ${window.playEscapeAttr(window.playItemLabel(row.item))}</span></li>`;
+    if (row?.kind === "threw") return `<li class="is-throw">${time}<span><strong>${name}</strong> has thrown ${ball}!</span></li>`;
     if (row?.kind === "caught") {
       const mon = window.playEscapeAttr(row.item || "the Pokémon");
-      return `<li class="is-catch">${time}<span><strong>${name}</strong> caught ${mon}</span></li>`;
+      const copy = message ? window.playEscapeAttr(message) : `⭐ <strong>${name}</strong> caught ${mon}!`;
+      return `<li class="is-catch">${time}<span>${copy}</span></li>`;
+    }
+    if (row?.kind === "escaped") {
+      const mon = window.playEscapeAttr(row.item || "the Pokémon");
+      const copy = message
+        ? window.playEscapeAttr(message)
+        : `✖ <strong>${name}</strong> was unable to catch ${mon}. Better luck next encounter!`;
+      return `<li class="is-escape">${time}<span>${copy}</span></li>`;
+    }
+    if (row?.kind === "timeout") {
+      const copy = message
+        ? window.playEscapeAttr(message)
+        : `⌛ <strong>${name}</strong> did not choose a Poké Ball in time.`;
+      return `<li class="is-timeout">${time}<span>${copy}</span></li>`;
+    }
+    if (row?.kind === "phase") {
+      return `<li class="is-phase">${time}<span>${window.playEscapeAttr(message)}</span></li>`;
     }
     if (row?.kind === "pause") return `<li>${time}<span>Encounter paused</span></li>`;
     if (row?.kind === "resume") return `<li>${time}<span>Encounter resumed</span></li>`;

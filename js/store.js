@@ -119,7 +119,7 @@
           <button type="button" class="secondary" ${attr} data-add-qty="5">+5</button>
           <button type="button" class="secondary" ${attr} data-add-qty="10">+10</button>
         </span>`;
-    return `${qty}<button type="button" class="mart-add" ${attr}${short ? " disabled" : ""}>${short ? "Need more PokéCoins" : "Add To Checkout"}</button>${need ? `<p class="mart-cart-warn">${need}</p>` : ""}`;
+    return `${qty}<button type="button" class="mart-add" ${attr}${short ? " disabled" : ""}>${short ? "Need more PokéCoins" : "Add to checkout"}</button>${need ? `<p class="mart-cart-warn">${need}</p>` : ""}`;
   }
 
   function cartIconHtml(className) {
@@ -138,7 +138,35 @@
   function art(item, fallback) {
     return typeof window.playMartArt === "function"
       ? window.playMartArt(item, fallback)
-      : window.playItemSprite((item && (item.thumb || item.sprite)) || fallback || item?.sku);
+      : window.playItemSprite((item && (item.thumb || item.sprite)) || fallback || item?.sku || grantKey(item));
+  }
+
+  function displayName(item) {
+    return String(item?.name || "").replace(/\s*[×xX]\s*\d+\s*$/u, "").trim();
+  }
+
+  function itemBlurb(item, mode) {
+    const row = mode === "balls" ? ballView(item) : withLureBlurb(item);
+    const key = row.key || grantKey(row);
+    if (mode === "balls" && typeof window.playBallShopBlurb === "function") {
+      const shop = window.playBallShopBlurb(key);
+      if (shop) return shop;
+    }
+    const raw = String(row.blurb || row.effect || "").trim();
+    if (raw && !/^\d+%\s*catch/i.test(raw)) return raw;
+    if (typeof window.playItemPlayerText === "function" && key) {
+      const text = window.playItemPlayerText(key);
+      if (text) return text;
+    }
+    return raw;
+  }
+
+  function useLinesHtml(item) {
+    const key = grantKey(item);
+    const uses = typeof window.playItemUseLines === "function" ? window.playItemUseLines(key) : [];
+    if (!uses.length) return "";
+    const list = uses.map(([from, to]) => `${from} → ${to}`).join(", ");
+    return `<p class="mart-uses">Used for ${esc(list)}.</p>`;
   }
 
   function fillWallet(wallet) {
@@ -300,16 +328,17 @@
   }
 
   function shelfCard(item, mode) {
-    const row = withLureBlurb(item);
-    const sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
+    const row = mode === "balls" ? ballView(item) : withLureBlurb(item);
+    const sprite = art(row, row.key || row.sku || grantKey(row));
     const action = mode === "bits" ? "" : addButton(row.sku);
-    const blurb = mode !== "bits" && row.blurb ? `<p>${esc(row.blurb)}</p>` : "";
+    const blurb = mode === "bits" ? "" : itemBlurb(row, mode);
     return `
       <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${row.sku === "radar1" || row.sku === "lure1" ? " mart-item-radar" : ""}">
         <div class="mart-sprite"><img src="${esc(sprite)}" alt=""></div>
         <div class="mart-copy">
-          <strong>${esc(row.name)}</strong>
-          ${blurb}
+          <strong>${esc(displayName(row))}</strong>
+          ${blurb ? `<p class="mart-blurb">${esc(blurb)}</p>` : ""}
+          ${useLinesHtml(row)}
           ${ownedLine(row)}
         </div>
         <div class="mart-price">
@@ -318,22 +347,6 @@
         </div>
         ${mode === "bits" ? grantListHtml(row) : ""}
       </article>`;
-  }
-
-  function ballTile(item) {
-    const row = ballView(item);
-    const pack = row.qty > 1 ? ` ×${row.qty}` : "";
-    const rate = typeof window.playBallShopBlurb === "function"
-      ? window.playBallShopBlurb(row.key)
-      : (row.key === "masterball" ? "Guaranteed capture" : (row.effect || "A Poké Ball for catching wild Pokémon."));
-    return `<article class="ball-tile">
-      <img src="${esc(art(row, row.key))}" alt="">
-      <strong>${esc(row.name)}${pack}</strong>
-      <span class="ball-rate">${esc(rate)}</span>
-      ${ownedLine(row)}
-      ${costHtml(row, "coins")}
-      ${addButton(row.sku)}
-    </article>`;
   }
 
   function packThumb(item) {
@@ -350,8 +363,8 @@
     return `<article class="avatar-pack${have ? " is-owned" : ""}">
       <img class="avatar-pack-art" src="${esc(window.playItemSprite(packThumb(item)))}" alt="">
       <div class="avatar-pack-copy">
-        <strong>${esc(item.name)}</strong>
-        <p>${esc(item.blurb || "")}</p>
+        <strong>${esc(displayName(item))}</strong>
+        <p class="mart-blurb">${esc(item.blurb || "")}</p>
       </div>
       <div class="avatar-pack-foot">
         ${costHtml(item, "coins")}
@@ -430,13 +443,12 @@
     let sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
     let extra = "";
     let action = mode === "bits" ? "" : addButton(row.sku);
-    let blurb = row.blurb || "";
+    let blurb = itemBlurb(row, mode);
     let artClass = "";
     if (mode === "balls") {
       row = ballView(item);
       sprite = art(row, row.key);
-      blurb = row.effect || "";
-      extra = `<p class="ball-rate">${esc(typeof window.playBallShopBlurb === "function" ? window.playBallShopBlurb(row.key) : (row.effect || "A Poké Ball for catching wild Pokémon."))}</p>`;
+      blurb = itemBlurb(row, "balls");
     } else if (mode === "avatars") {
       const have = owned.has(item.pack);
       sprite = window.playItemSprite(packThumb(item));
@@ -459,8 +471,9 @@
       </div>
       <div class="mart-copy">
         <p class="mart-featured-mark">${mark}</p>
-        <strong>${esc(row.name)}</strong>
-        ${blurb ? `<p>${esc(blurb)}</p>` : ""}
+        <strong>${esc(displayName(row))}</strong>
+        ${blurb ? `<p class="mart-blurb">${esc(blurb)}</p>` : ""}
+        ${useLinesHtml(row)}
         ${ownedLine(row)}
         ${extra}
       </div>
@@ -517,7 +530,7 @@
     return floorShell(
       floor,
       floor.icon || "poke-ball.png",
-      stageHtml(featuredCard(featured, "balls"), rest.map(ballTile).join(""), "ball-grid ball-grid-compact"),
+      stageHtml(featuredCard(featured, "balls"), rest.map((item) => shelfCard(item, "balls")).join(""), "mart-shelf"),
       " data-ball-status",
       index
     );
@@ -563,7 +576,7 @@
     const floors = catalog?.floors?.length ? catalog.floors : fallbackFloors(catalog);
     const balls = floors.find((floor) => floor.kind === "balls");
     const { rest } = splitFeatured((balls?.items || []).map(ballView));
-    els.ballGrid.innerHTML = rest.map(ballTile).join("");
+    els.ballGrid.innerHTML = rest.map((item) => shelfCard(item, "balls")).join("");
   }
 
   function tabButtons(floors) {
@@ -658,7 +671,7 @@
       return `<article class="mart-cart-row">
         <img src="${esc(cartLineSprite(item))}" alt="">
         <div class="mart-cart-copy">
-          <strong>${esc(name)}</strong>
+          <strong>${esc(displayName({ name }))}</strong>
           <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(cost)} each</span>
         </div>
         <div class="mart-cart-qty">

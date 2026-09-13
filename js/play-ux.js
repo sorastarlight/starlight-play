@@ -95,6 +95,10 @@
     return "special";
   };
 
+  root.playItemUseLines = function playItemUseLines(key) {
+    return STONE_USES[key] ? STONE_USES[key].slice() : [];
+  };
+
   root.playItemPlayerText = function playItemPlayerText(key, captureItems) {
     if (key === "bait") {
       return (captureItems?.honey?.description)

@@ -133,8 +133,8 @@
   // a real chance is calculated; these strings just describe the effect.
   const PLAIN = "Standard catch power.";
   window.PLAY_BALLS = [
-    { key: "pokeball", sku: "poke5", name: "Poké Ball", qty: 5, cost: 100, multiplier: "1×", effect: "A standard Poké Ball for catching wild Pokémon.", sprite: "poke-ball", extra: false },
-    { key: "greatball", sku: "great3", name: "Great Ball", qty: 3, cost: 225, multiplier: "1.25×", effect: "A higher-performance Poké Ball that improves your chance of a successful catch.", sprite: "great-ball", extra: false },
+    { key: "pokeball", sku: "poke5", name: "Poké Ball", qty: 1, cost: 100, multiplier: "1×", effect: "A standard Poké Ball for catching wild Pokémon.", sprite: "poke-ball", extra: false },
+    { key: "greatball", sku: "great3", name: "Great Ball", qty: 1, cost: 225, multiplier: "1.25×", effect: "A higher-performance Poké Ball that improves your chance of a successful catch.", sprite: "great-ball", extra: false },
     { key: "ultraball", sku: "ultra1", name: "Ultra Ball", qty: 1, cost: 500, multiplier: "1.5×", effect: "A powerful Poké Ball. Best saved for Pokémon you really want.", sprite: "ultra-ball", extra: false },
     { key: "masterball", sku: "master1", name: "Master Ball", qty: 1, cost: 10000, multiplier: "Always", effect: "Never fails to catch a wild Pokémon. Not sold on the ordinary shelf.", sprite: "master-ball", extra: true },
     { key: "premierball", sku: "premier1", name: "Premier Ball", qty: 1, cost: 100, multiplier: "1×", effect: "A commemorative Poké Ball. Buy 10 qualifying Balls and you get one as a bonus.", sprite: "premier-ball", extra: true },

@@ -37,6 +37,10 @@ test("Honey is a community item", () => {
 test("Thunder Stone is an evolution item", () => {
   assert(window.playItemCategory("thunderstone") === "evolution");
 });
+test("Evolution items list the Pokémon they evolve", () => {
+  const uses = window.playItemUseLines("thunderstone");
+  assert(uses.some((row) => row[0] === "Pikachu" && row[1] === "Raichu"));
+});
 test("Balls sort recommended then specialist then Ultra", () => {
   const rows = window.playSortEncounterBalls([
     { key: "pokeball", name: "Poké Ball" },

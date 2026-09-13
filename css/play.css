@@ -2307,12 +2307,12 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .mart-checkout-note[hidden] { display: none; }
 .mart-add {
-  white-space: normal;
+  white-space: nowrap;
   line-height: 1.15;
   min-width: 0;
-  max-width: 7.6rem;
-  padding: 6px 8px;
-  font-size: 12px;
+  max-width: none;
+  padding: 8px 14px;
+  font-size: 13px;
 }
 .ball-tile .mart-add,
 .avatar-pack-foot .mart-add,
@@ -2417,13 +2417,11 @@ footer { margin-top: 24px; font-size: 13px; }
 }
 .avatar-pack-copy strong { display: block; font-size: 15px; }
 .avatar-pack-copy p {
-  margin: 4px 0 0;
-  font-size: 12px;
-  color: var(--muted);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #4a4d6a;
+  white-space: normal;
 }
 .avatar-pack-foot {
   display: flex;
@@ -2494,10 +2492,11 @@ footer { margin-top: 24px; font-size: 13px; }
   text-transform: uppercase;
 }
 .mart-featured .mart-copy strong { font-size: 22px; }
-.mart-featured .mart-copy p { max-width: 46ch; }
+.mart-featured .mart-copy p { max-width: none; }
 .mart-featured .mart-price {
+  display: grid;
   justify-items: stretch;
-  min-width: 128px;
+  min-width: 168px;
 }
 .mart-featured .mart-cost { font-size: 18px; }
 .mart-featured .mart-price button { min-width: 0; max-width: none; padding: 8px 12px; font-size: 13px; }
@@ -2509,48 +2508,50 @@ footer { margin-top: 24px; font-size: 13px; }
 @media (prefers-reduced-motion: reduce) {
   .mart-featured-art img { animation: none; }
 }
-.mart-shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; }
+.mart-shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; align-items: stretch; }
 .mart-item {
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) auto;
-  gap: 8px 10px;
+  grid-template-columns: 40px minmax(0, 1fr);
+  grid-template-areas:
+    "sprite copy"
+    "price price";
+  gap: 8px 12px;
   align-items: start;
   background: #fffdf6;
   border: 2px solid #d7c39a;
-  border-radius: 14px;
-  padding: 8px 10px;
+  border-radius: 16px;
+  padding: 14px;
 }
-.mart-sprite { padding-top: 2px; }
-.mart-item .mart-sprite img { width: 32px; height: 32px; }
-.mart-copy { text-align: left; min-width: 0; }
-.mart-copy strong { display: block; line-height: 1.2; font-size: 14px; }
-.mart-copy p { margin: 4px 0 0; font-size: 12px; line-height: 1.35; color: var(--muted); }
-.mart-item .mart-copy p {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.mart-item-radar .mart-copy p { max-width: 34ch; }
+.mart-sprite { grid-area: sprite; padding-top: 2px; }
+.mart-item .mart-sprite img { width: 36px; height: 36px; }
+.mart-copy { grid-area: copy; text-align: left; min-width: 0; }
+.mart-copy strong { display: block; line-height: 1.25; font-size: 16px; }
+.mart-copy p { margin: 6px 0 0; font-size: 13px; line-height: 1.45; color: #4a4d6a; white-space: normal; }
+.mart-blurb { overflow: visible; }
+.mart-uses { color: #5a4a28; font-weight: 700; }
+.mart-item-radar .mart-copy p { max-width: none; }
 .mart-price {
-  display: grid;
-  justify-items: end;
-  align-content: start;
-  gap: 6px;
-  padding-top: 2px;
+  grid-area: price;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 12px;
+  width: 100%;
+  padding-top: 4px;
 }
 .bits-floor .mart-shelf {
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   align-items: start;
 }
 .mart-item-bits {
-  grid-template-columns: 36px minmax(0, 1fr) auto;
+  grid-template-columns: 40px minmax(0, 1fr);
   grid-template-areas:
-    "sprite copy price"
-    "grants grants grants";
+    "sprite copy"
+    "price price"
+    "grants grants";
   align-items: start;
-  gap: 8px 10px;
+  gap: 8px 12px;
 }
 .mart-item-bits .mart-sprite { grid-area: sprite; padding-top: 2px; }
 .mart-item-bits .mart-copy { grid-area: copy; }
@@ -3049,10 +3050,15 @@ footer { margin-top: 24px; font-size: 13px; }
   gap: 10px;
 }
 .ball-grid-compact {
-  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
   gap: 8px;
 }
-.mart-floor .ball-grid { margin: 0; }
+.play-modal-balls .ball-grid,
+.mart-floor .ball-grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
 .ball-tile {
   display: grid;
   justify-items: center;
@@ -3175,11 +3181,16 @@ footer { margin-top: 24px; font-size: 13px; }
   .id-card-head .id-ball:last-of-type { display: none; }
   .id-no { font-size: 7px; padding: 6px 8px; }
   .id-right { justify-self: center; }
-  .pass-showcase, .mart-item, .mart-featured { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .pass-showcase, .mart-featured { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .mart-item {
+    grid-template-columns: 40px minmax(0, 1fr);
+    justify-items: stretch;
+    text-align: left;
+  }
   .pass-subscribe { width: 100%; }
   .mart-featured .mart-copy { text-align: center; }
   .mart-featured .mart-copy p { max-width: none; }
-  .mart-featured .mart-price { justify-items: center; min-width: 0; }
+  .mart-featured .mart-price { justify-items: stretch; min-width: 0; width: 100%; }
   .mart-tab { font-size: 11px; padding: 6px 4px 8px; }
   .mart-tab-icon { width: 20px; height: 20px; }
   .mart-tab-checkout { padding: 8px 10px 10px; }
@@ -3206,11 +3217,11 @@ footer { margin-top: 24px; font-size: 13px; }
       "price"
       "grants";
   }
-  .mart-copy { text-align: center; }
+  .mart-copy { text-align: left; }
   .mart-item-bits { justify-items: stretch; }
   .mart-grants { justify-content: stretch; }
   .mart-grants li { justify-content: flex-start; }
-  .mart-price { justify-items: center; }
+  .mart-price { justify-content: space-between; }
   .links { width: 100%; }
   .links > button, .links > a.button { flex: 1 1 160px; }
   .play-modal, .play-modal-wide {
@@ -4526,7 +4537,8 @@ body[data-page="admin"] .play-stage {
   margin: 8px auto 0;
   display: block;
 }
-.mart-qty-adds { display: flex; gap: 4px; margin-bottom: 6px; }
+.mart-qty-adds { display: flex; flex-wrap: nowrap; gap: 6px; margin: 0; }
+.mart-qty-adds button { min-width: 42px; padding: 6px 10px; }
 .item-uses ul { margin: 6px 0 0; padding-left: 18px; }
 @media (max-width: 800px) {
   .enc-split { grid-template-columns: 1fr; }

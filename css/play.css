@@ -2522,23 +2522,27 @@ footer { margin-top: 24px; font-size: 13px; }
   border-radius: 16px;
   padding: 14px;
 }
-.mart-sprite { grid-area: sprite; padding-top: 2px; }
+.mart-item .mart-sprite { grid-area: sprite; padding-top: 2px; }
 .mart-item .mart-sprite img { width: 36px; height: 36px; }
-.mart-copy { grid-area: copy; text-align: left; min-width: 0; }
+.mart-copy { text-align: left; min-width: 0; }
+.mart-item .mart-copy { grid-area: copy; }
 .mart-copy strong { display: block; line-height: 1.25; font-size: 16px; }
 .mart-copy p { margin: 6px 0 0; font-size: 13px; line-height: 1.45; color: #4a4d6a; white-space: normal; }
 .mart-blurb { overflow: visible; }
 .mart-uses { color: #5a4a28; font-weight: 700; }
 .mart-item-radar .mart-copy p { max-width: none; }
 .mart-price {
-  grid-area: price;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 8px 12px;
-  width: 100%;
   padding-top: 4px;
+}
+.mart-item .mart-price {
+  grid-area: price;
+  justify-content: space-between;
+  width: 100%;
 }
 .bits-floor .mart-shelf {
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));

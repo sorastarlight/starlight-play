@@ -4563,10 +4563,108 @@ body[data-page="admin"] .play-stage {
   .dex-idle-mark { animation: none !important; }
 }
 
-body[data-page="admin-live"] .wrap { max-width: 1280px; }
+body[data-page="admin"] .wrap,
+body[data-page="admin-live"] .wrap { max-width: 1440px; }
+.hub-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.hub-tabs [data-hub-tab] {
+  min-height: 42px;
+  padding: 8px 14px;
+}
+.hub-tabs [data-hub-tab][aria-selected="true"] {
+  background: linear-gradient(180deg, #fff6d8, #f3d27a);
+  border-color: #d4a017;
+  color: #5c4300;
+}
+.hub-live-chip {
+  display: grid;
+  gap: 2px;
+  min-width: min(280px, 100%);
+  text-align: left;
+  padding: 8px 12px;
+  background: #101828;
+  color: #f4f7ff;
+  border-color: #101828;
+}
+.hub-live-chip strong,
+.hub-live-chip em {
+  display: block;
+}
+.hub-live-chip span {
+  font-size: 12px;
+  color: #c6d3ef;
+}
+.hub-live-chip em {
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #f3d27a;
+}
+.live-ops {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.8fr);
+  gap: 16px;
+  align-items: start;
+}
+.live-ops-main,
+.live-ops-side {
+  display: grid;
+  gap: 12px;
+}
+.live-ops-console {
+  min-height: 240px;
+  max-height: 36vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.live-ops-console ol {
+  flex: 1;
+  overflow: auto;
+  min-height: 160px;
+}
+.live-ops-bottom { margin-top: 16px; }
+body[data-page="admin"] .live-ops .play-stage {
+  min-height: 0;
+  margin: 0;
+}
+body[data-page="admin"] .live-ops #stream-frame {
+  max-height: 32vh;
+  aspect-ratio: 16 / 9;
+}
+.console-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.console-filters button {
+  min-width: 0;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+.console-filters button[aria-pressed="true"] {
+  background: #101828;
+  color: #fff;
+  border-color: #101828;
+}
+.live-enc-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.live-enc-sprite {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
 .live-status-bar {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 8px;
   margin: 0 0 16px;
 }
@@ -4596,8 +4694,9 @@ body[data-page="admin-live"] .wrap { max-width: 1280px; }
 .live-dir-log li { padding: 6px 0; border-bottom: 1px solid #e6ecf8; }
 .live-dir-log time { color: var(--muted); margin-right: 8px; }
 .chip.pause { background: #fff3bf; }
-@media (max-width: 980px) {
-  .live-status-bar, .live-grid { grid-template-columns: 1fr; }
+@media (max-width: 1100px) {
+  .live-ops, .live-status-bar, .live-grid { grid-template-columns: 1fr; }
+  body[data-page="admin"] .live-ops #stream-frame { max-height: 28vh; }
 }
 img[src*="images/pokemon/"] {
   image-rendering: auto;

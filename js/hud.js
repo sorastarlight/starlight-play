@@ -731,10 +731,25 @@
     return extra.concat(rows);
   };
 
+  window.playConsoleFilterMatch = function playConsoleFilterMatch(row, filter) {
+    const kind = String(row?.kind || "");
+    const text = `${row?.message || ""} ${row?.item || ""}`.toLowerCase();
+    if (!filter || filter === "all") return true;
+    if (filter === "results") return kind === "caught" || kind === "escaped" || kind === "timeout";
+    if (filter === "ads") return kind === "pause" || kind === "resume" || /ad break|twitch ad/.test(text);
+    if (filter === "system") return kind === "phase" || kind === "gift" || kind === "cancelled" || kind === "hidden" || kind === "resolved";
+    if (filter === "encounter") {
+      return kind === "joined" || kind === "prepared" || kind === "selected" || kind === "threw" || kind === "appeared"
+        || (!kind && text);
+    }
+    return true;
+  };
+
   window.playRenderLiveFeed = function playRenderLiveFeed(source, targetId, round) {
     const list = document.getElementById(targetId || "live-feed");
     if (!list) return;
-    const rows = window.playConsoleRows(source, round);
+    const filter = list.dataset.consoleFilter || "all";
+    const rows = window.playConsoleRows(source, round).filter((row) => window.playConsoleFilterMatch(row, filter));
     const pin = list.dataset.pinScroll === "1";
     const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 28;
     if (!rows.length) {

@@ -80,6 +80,35 @@
   let giftItems = [];
   let lastOverview = null;
   let lastHubKey = "";
+  const HUB_TABS = ["live", "encounters", "players", "store", "pokemon", "analytics", "settings"];
+
+  function showHubTab(tab) {
+    const next = HUB_TABS.includes(tab) ? tab : "live";
+    document.querySelectorAll("[data-hub-panel]").forEach((panel) => {
+      panel.hidden = panel.dataset.hubPanel !== next;
+    });
+    document.querySelectorAll("[data-hub-tab]").forEach((btn) => {
+      btn.setAttribute("aria-selected", btn.dataset.hubTab === next ? "true" : "false");
+    });
+    const url = new URL(window.location.href);
+    url.searchParams.set("tab", next);
+    history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+  }
+  window.playShowHubTab = showHubTab;
+
+  function updateHubChip(state) {
+    const chip = document.getElementById("hub-live-chip");
+    if (!chip) return;
+    const s = state?.stream || {};
+    const enc = state?.activeEncounter;
+    const ad = state?.adState || {};
+    const live = s.twitchLive ? "LIVE" : (s.liveKnown ? "OFFLINE" : "UNKNOWN");
+    const phase = enc?.phase ? String(enc.phase).replace(/_/g, " ") : "";
+    const adLeft = ad.nextAdAt ? Math.max(0, Math.floor((Date.parse(ad.nextAdAt) - Date.now()) / 1000)) : null;
+    const adClock = adLeft == null ? "" : (adLeft >= 60 ? `${Math.floor(adLeft / 60)}m` : `${adLeft}s`);
+    chip.hidden = false;
+    chip.innerHTML = `<strong>${live}</strong><span>${enc ? `${enc.name}${phase ? ` · ${phase}` : ""}` : "No encounter"}</span>${adClock ? `<span>Next ad ${adClock}</span>` : ""}<em>Open Live Operations</em>`;
+  }
 
   function setSignedOut() {
     els.staff.hidden = true;
@@ -990,6 +1019,43 @@
     } catch (_) {
       return value || "—";
     }
+  }
+
+  document.querySelector(".hub-tabs")?.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-hub-tab]");
+    if (btn) showHubTab(btn.dataset.hubTab);
+  });
+  document.getElementById("hub-live-chip")?.addEventListener("click", () => showHubTab("live"));
+  document.querySelector(".console-filters")?.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-console-filter]");
+    if (!btn || !els.console) return;
+    els.console.dataset.consoleFilter = btn.dataset.consoleFilter;
+    document.querySelectorAll("[data-console-filter]").forEach((item) => {
+      item.setAttribute("aria-pressed", item === btn ? "true" : "false");
+    });
+    if (lastOverview) renderRound(lastOverview.round);
+  });
+  els.console?.addEventListener("scroll", () => {
+    const list = els.console;
+    const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 28;
+    list.dataset.pinScroll = nearBottom ? "0" : "1";
+    if (nearBottom) list.parentElement?.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
+  });
+  document.querySelector("[data-feed-jump]")?.addEventListener("click", () => {
+    const list = els.console;
+    if (!list) return;
+    list.dataset.pinScroll = "0";
+    list.scrollTop = list.scrollHeight;
+    list.parentElement?.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
+  });
+  showHubTab(new URLSearchParams(window.location.search).get("tab") || "live");
+  if (typeof window.playBindLiveOps === "function") {
+    window.playBindLiveOps({
+      embedded: true,
+      root: document.getElementById("live-app") || document,
+      onState: updateHubChip,
+      onOpenDetails: () => showHubTab("encounters")
+    });
   }
 
   supabase.auth.onAuthStateChange((event, session) => {

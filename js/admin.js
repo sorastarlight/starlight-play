@@ -80,19 +80,58 @@
   let giftItems = [];
   let lastOverview = null;
   let lastHubKey = "";
-  const HUB_TABS = ["live", "encounters", "players", "store", "pokemon", "analytics", "settings"];
+  const HUB_SECTIONS = ["dashboard", "encounters", "trainers", "content", "economy", "analytics", "settings"];
+  const HUB_ALIASES = { live: "dashboard", players: "trainers", store: "economy", pokemon: "content" };
+  const ENC_VIEWS = ["overview", "rules", "capture", "sim"];
+  const ECO_VIEWS = ["catalog", "economy", "loot"];
 
-  function showHubTab(tab) {
-    const next = HUB_TABS.includes(tab) ? tab : "live";
+  function resolveHubSection(raw) {
+    const key = String(raw || "").toLowerCase();
+    if (HUB_ALIASES[key]) return HUB_ALIASES[key];
+    return HUB_SECTIONS.includes(key) ? key : "dashboard";
+  }
+
+  function showHubTab(tab, view, opts) {
+    const next = resolveHubSection(tab);
+    const push = Boolean(opts?.push);
     document.querySelectorAll("[data-hub-panel]").forEach((panel) => {
       panel.hidden = panel.dataset.hubPanel !== next;
     });
     document.querySelectorAll("[data-hub-tab]").forEach((btn) => {
       btn.setAttribute("aria-selected", btn.dataset.hubTab === next ? "true" : "false");
     });
+    let nextView = view || "";
+    if (next === "encounters") {
+      nextView = ENC_VIEWS.includes(view) ? view : "overview";
+      document.querySelectorAll("[data-enc-view]").forEach((el) => {
+        el.hidden = el.dataset.encView !== nextView;
+      });
+      document.querySelectorAll("[data-hub-view]").forEach((btn) => {
+        btn.setAttribute("aria-selected", btn.dataset.hubView === nextView ? "true" : "false");
+      });
+    }
+    if (next === "economy") {
+      nextView = ECO_VIEWS.includes(view) ? view : "catalog";
+      document.querySelectorAll("[data-eco-panel]").forEach((el) => {
+        el.hidden = el.dataset.ecoPanel !== nextView;
+      });
+      document.querySelectorAll("[data-eco-view]").forEach((btn) => {
+        btn.setAttribute("aria-selected", btn.dataset.ecoView === nextView ? "true" : "false");
+      });
+    }
     const url = new URL(window.location.href);
-    url.searchParams.set("tab", next);
-    history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+    url.searchParams.delete("tab");
+    url.searchParams.set("section", next);
+    if (nextView && (next === "encounters" || next === "economy")) url.searchParams.set("view", nextView);
+    else url.searchParams.delete("view");
+    const href = `${url.pathname}${url.search}${url.hash}`;
+    if (push) history.pushState({ section: next, view: nextView }, "", href);
+    else history.replaceState({ section: next, view: nextView }, "", href);
+    if (next === "trainers" || (next === "economy" && nextView === "catalog")) {
+      const frame = document.querySelector(`[data-hub-panel='${next}'] iframe[data-src]`);
+      if (frame && !frame.getAttribute("src")) frame.src = frame.dataset.src;
+    }
+    document.getElementById("hub-nav")?.classList.remove("is-open");
   }
   window.playShowHubTab = showHubTab;
 
@@ -107,7 +146,7 @@
     const adLeft = ad.nextAdAt ? Math.max(0, Math.floor((Date.parse(ad.nextAdAt) - Date.now()) / 1000)) : null;
     const adClock = adLeft == null ? "" : (adLeft >= 60 ? `${Math.floor(adLeft / 60)}m` : `${adLeft}s`);
     chip.hidden = false;
-    chip.innerHTML = `<strong>${live}</strong><span>${enc ? `${enc.name}${phase ? ` · ${phase}` : ""}` : "No encounter"}</span>${adClock ? `<span>Next ad ${adClock}</span>` : ""}<em>Open Live Operations</em>`;
+    chip.innerHTML = `<strong>${live}</strong><span>${enc ? `${enc.name}${phase ? ` · ${phase}` : ""}` : "No encounter"}</span>${adClock ? `<span>Next ad ${adClock}</span>` : ""}`;
   }
 
   function setSignedOut() {
@@ -200,7 +239,7 @@
     els.encounter.innerHTML = window.playRenderEncounter(shown, {
       staff: true,
       bar,
-      emptyNote: "Start a random encounter. The stream PC should pick it up."
+      emptyNote: "Waiting for the next encounter."
     });
     els.hide.textContent = "Hide overlay";
   }
@@ -1021,11 +1060,28 @@
     }
   }
 
-  document.querySelector(".hub-tabs")?.addEventListener("click", (event) => {
+  document.querySelector(".hub-nav-list")?.addEventListener("click", (event) => {
     const btn = event.target.closest("[data-hub-tab]");
-    if (btn) showHubTab(btn.dataset.hubTab);
+    if (btn) showHubTab(btn.dataset.hubTab, "", { push: true });
   });
-  document.getElementById("hub-live-chip")?.addEventListener("click", () => showHubTab("live"));
+  document.getElementById("hub-nav-toggle")?.addEventListener("click", () => {
+    const nav = document.getElementById("hub-nav");
+    const open = !nav?.classList.contains("is-open");
+    nav?.classList.toggle("is-open", open);
+    document.getElementById("hub-nav-toggle")?.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  document.querySelector("[data-hub-panel='encounters'] .hub-subnav")?.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-hub-view]");
+    if (btn) showHubTab("encounters", btn.dataset.hubView, { push: true });
+  });
+  document.querySelector("[data-hub-panel='economy'] .hub-subnav")?.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-eco-view]");
+    if (btn) showHubTab("economy", btn.dataset.ecoView, { push: true });
+  });
+  window.addEventListener("popstate", () => {
+    const params = new URLSearchParams(window.location.search);
+    showHubTab(params.get("section") || params.get("tab") || "dashboard", params.get("view") || "");
+  });
   document.querySelector(".console-filters")?.addEventListener("click", (event) => {
     const btn = event.target.closest("[data-console-filter]");
     if (!btn || !els.console) return;
@@ -1048,13 +1104,16 @@
     list.scrollTop = list.scrollHeight;
     list.parentElement?.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
   });
-  showHubTab(new URLSearchParams(window.location.search).get("tab") || "live");
+  {
+    const params = new URLSearchParams(window.location.search);
+    showHubTab(params.get("section") || params.get("tab") || "dashboard", params.get("view") || "");
+  }
   if (typeof window.playBindLiveOps === "function") {
     window.playBindLiveOps({
       embedded: true,
       root: document.getElementById("live-app") || document,
       onState: updateHubChip,
-      onOpenDetails: () => showHubTab("encounters")
+      onOpenDetails: () => showHubTab("encounters", "overview", { push: true })
     });
   }
 

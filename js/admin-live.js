@@ -80,8 +80,13 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     return d.status || "IDLE";
   }
 
-  function confirm(title, body, goLabel, fn) {
+  function confirm(title, body, goLabel, fn, extra) {
     confirmFn = fn;
+    const queueBtn = byId("live-confirm-queue");
+    if (queueBtn) {
+      queueBtn.hidden = !extra?.queueAction;
+      queueBtn.dataset.queueAction = extra?.queueAction || "";
+    }
     if (els.modalTitle) els.modalTitle.textContent = title;
     if (els.modalBody) els.modalBody.textContent = body;
     if (els.modalGo) els.modalGo.textContent = goLabel;
@@ -114,80 +119,84 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     else await run();
   }
 
+  function autoLabel(d, s) {
+    if (!s.rpgSession) return d.autoEnabled ? "WAITING" : "OFF";
+    if (d.manualHold || !d.autoEnabled) return "OFF";
+    return "ON";
+  }
+
   function renderBar() {
     if (!els.bar) return;
     const s = state?.stream || {};
     const d = state?.director || {};
     const ad = state?.adState || {};
     const live = s.twitchLive ? "LIVE" : (s.liveKnown ? "OFFLINE" : "UNKNOWN");
+    const auto = autoLabel(d, s);
     els.bar.innerHTML = [
-      `<div><em>Stream</em><strong>${live}</strong></div>`,
-      `<div><em>RPG Session</em><strong>${s.rpgSession ? "ACTIVE" : "INACTIVE"}</strong></div>`,
-      `<div><em>Director</em><strong>${esc(directorLabel(d, s))}</strong></div>`,
-      `<div><em>Auto Encounters</em><strong>${d.autoEnabled && !d.manualHold ? "ON" : "OFF"}</strong></div>`,
-      `<div><em>Stream Mode</em><strong>${esc(s.mode || "NORMAL")}</strong></div>`,
-      `<div><em>Twitch Ads</em><strong>${esc(ad.status || "UNKNOWN")}</strong></div>`,
-      `<div><em>Active Encounter</em><strong>${state?.activeEncounter ? esc(state.activeEncounter.name) : "NONE"}</strong></div>`
+      `<div><em>● Stream</em><strong>${live}</strong></div>`,
+      `<div><em>◆ RPG Session</em><strong>${s.rpgSession ? "ACTIVE" : "INACTIVE"}</strong></div>`,
+      `<div><em>▶ Director</em><strong>${esc(directorLabel(d, s))}</strong></div>`,
+      `<div><em>↻ Auto</em><strong>${auto}${auto === "WAITING" ? " · needs session" : ""}</strong></div>`,
+      `<div><em>◎ Mode</em><strong>${esc((s.mode || "NORMAL").replace("_", " "))}</strong></div>`,
+      `<div><em>■ Ads</em><strong>${esc(ad.status || "UNKNOWN")}</strong></div>`,
+      `<div><em>★ Encounter</em><strong>${state?.activeEncounter ? esc(state.activeEncounter.name) : "NONE"}</strong></div>`
     ].join("");
+    const idle = !s.twitchLive && !s.rpgSession;
+    els.app?.classList.toggle("is-offline-idle", idle);
+    const adsEl = document.getElementById("card-timing");
+    adsEl?.classList.toggle("is-alert", Boolean(ad.adActive));
   }
 
   function renderErrors() {
     if (!els.errors) return;
     const ad = state?.adState || {};
     const s = state?.stream || {};
+    const h = state?.health || {};
     const notes = [];
-    if (disconnected) notes.push("LIVE DATA DISCONNECTED");
-    if (!s.liveKnown) notes.push("TWITCH LIVE STATUS HAS NOT BEEN CHECKED RECENTLY. Refresh live status or start an RPG session.");
-    if (s.liveError) notes.push(s.liveError);
-    if (ad.authorizationNeeded) notes.push("TWITCH AD AUTHORIZATION STILL NEEDS TO BE CONNECTED. Fallback ad controls are available.");
-    if (ad.stale && ad.dataAvailable) notes.push("AD DATA MAY BE STALE");
+    if (disconnected) notes.push("Live data disconnected.");
+    if (!s.liveKnown) notes.push(`Twitch live status has not been checked recently. <button type="button" class="secondary" data-act="refresh_live">Refresh live status</button>`);
+    if (s.liveError) notes.push(esc(s.liveError));
+    if (ad.authorizationNeeded) notes.push(`Twitch Ads not connected. <button type="button" class="secondary" data-act="connect_ads">Connect Twitch Ads</button>`);
+    if (ad.stale && ad.dataAvailable) notes.push(`Ad data may be stale. <button type="button" class="secondary" data-act="refresh_ads">Refresh ads</button>`);
+    if (/not subscribed/i.test(h.eventSub || "") && (s.rpgSession || ad.connected)) notes.push("EventSub disconnected.");
+    if (h.director && h.director !== "Healthy") notes.push(`Director: ${esc(h.director)}`);
     els.errors.hidden = !notes.length;
-    els.errors.textContent = notes.join(" · ");
+    els.errors.innerHTML = notes.join(" · ");
   }
 
   function renderEncounter() {
     if (!els.encounter) return;
     const round = state?.activeEncounter;
-    const busy = Boolean(round);
+    const wrap = document.getElementById("dash-encounter");
     if (!round) {
-      els.encounter.innerHTML = `<p class="eyebrow">Current encounter</p>
-        <h2>None</h2>
-        <p>Waiting for the next encounter.</p>`;
+      els.encounter.innerHTML = "";
+      els.encounter.hidden = true;
+      wrap?.classList.add("is-compact");
       return;
     }
-    const shiny = String(round.variant || "").includes("shiny");
-    const left = until(round.endsAt);
-    const sprite = window.playSpriteUrl ? window.playSpriteUrl(round.dex, round.variant) : "";
+    wrap?.classList.remove("is-compact");
+    els.encounter.hidden = false;
     els.encounter.innerHTML = `
-      <p class="eyebrow">Current encounter</p>
-      <div class="live-enc-head">
-        ${sprite ? `<img class="live-enc-sprite" src="${sprite}" alt="" onerror="window.playSpriteOnError && window.playSpriteOnError(this)">` : ""}
-        <div>
-          <h2>${shiny ? "✨ SHINY " : ""}${esc(round.name)}${shiny ? " ✨" : ""}</h2>
-          <p>${chip(round.rarity || "—")} ${chip(round.phase || "")} ${round.paused ? chip(round.pausedForBreak ? "Paused for ad" : "Paused", "pause") : ""}</p>
-        </div>
-      </div>
-      <p>Time remaining: ${round.paused ? "PAUSED" : clock(left)}</p>
-      <p>Joined: ${round.participants || 0} · Ready: ${round.prepared || 0} / ${round.participants || 0} · Honey: ${round.honeyContributors || 0} / ${round.honeyParticipants || 0}${round.baitBonusPercent != null ? ` · +${round.baitBonusPercent}%` : ""}</p>
-      <p>Trigger: ${esc(round.triggerSource || "—")}</p>
       <div class="links">
         <button type="button" class="secondary" data-act="pause_encounter"${round.paused ? " disabled" : ""}>Pause</button>
         <button type="button" class="secondary" data-act="resume_encounter"${round.paused ? "" : " disabled"}>Resume</button>
-        ${embedded ? `<button type="button" class="secondary" data-act="open_details">Open details</button>` : ""}
+        ${embedded ? `<button type="button" class="secondary" data-act="open_details">Details</button>` : ""}
         <button type="button" class="danger" data-act="cancel_encounter">Cancel</button>
       </div>`;
-    els.encounter.dataset.busy = busy ? "1" : "0";
+    els.encounter.dataset.busy = "1";
   }
 
   function renderSafe() {
     if (!els.safe) return;
     const w = state?.safeWindow || {};
     els.safe.innerHTML = `
-      <p class="eyebrow">Safe to start encounter?</p>
-      <h2>${esc(w.state || "UNKNOWN")}</h2>
+      <p class="eyebrow">Stream timing</p>
+      <h2>Safe to start: ${esc(w.state || "UNKNOWN")}</h2>
       <p>${esc(w.reason || "Loading…")}</p>
-      <p>Available: ${w.availableSeconds == null ? "—" : clock(w.availableSeconds)} · Required: ${clock(w.requiredSeconds || 180)}</p>
-      <p class="muted">Time available before the next scheduled Twitch ad after encounter duration and safety buffer.</p>`;
+      <div class="hub-kv">
+        <div><span>Available window</span><strong>${w.availableSeconds == null ? "—" : clock(w.availableSeconds)}</strong></div>
+        <div><span>Required window</span><strong>${clock(w.requiredSeconds || 180)}</strong></div>
+      </div>`;
   }
 
   function renderAds() {
@@ -196,14 +205,15 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const cfg = state?.config || {};
     const left = ad.adActive ? until(ad.activeExpectedEndAt) : until(ad.nextAdAt);
     els.ads.innerHTML = `
-      <p class="eyebrow">Twitch Ads</p>
-      <h2>${esc(ad.status || "UNKNOWN")}</h2>
-      <p>Connected: ${ad.connected || !ad.authorizationNeeded ? "Yes" : "No"}</p>
-      ${ad.adActive ? `<p><strong>ACTIVE</strong> · Remaining ${clock(left)} · Expected end ${when(ad.activeExpectedEndAt)}</p>` : `<p>Next ad: ${when(ad.nextAdAt)} · Starts in ${left == null ? "—" : clock(left)} · Duration ${clock(ad.nextAdDurationSec || 0)}</p>`}
-      <p>Snoozes: ${ad.snoozeCount ?? 0} · Preroll-free: ${ad.prerollFreeSec == null ? "—" : clock(ad.prerollFreeSec)}</p>
-      <p class="muted">Source: ${esc(ad.source || "unknown")} · Last updated: ${when(ad.lastRefreshAt)}</p>
+      ${ad.adActive ? `<p><strong>AD ACTIVE</strong> · Remaining ${clock(left)} · ${state?.activeEncounter ? "Encounter paused" : "No encounter"}</p>` : `<div class="hub-kv">
+        <div><span>Next Twitch ad</span><strong>${when(ad.nextAdAt)}</strong></div>
+        <div><span>Starts in</span><strong>${left == null ? "—" : clock(left)}</strong></div>
+        <div><span>Duration</span><strong>${clock(ad.nextAdDurationSec || 0)}</strong></div>
+        <div><span>Snoozes</span><strong>${ad.snoozeCount ?? 0}</strong></div>
+      </div>`}
+      <p>Connected: ${ad.connected || !ad.authorizationNeeded ? "Yes" : "No"} · Updated ${when(ad.lastRefreshAt)}</p>
       <div class="links">
-        <button type="button" class="secondary" data-act="connect_ads">Connect Twitch Ads</button>
+        ${ad.authorizationNeeded ? `<button type="button" class="secondary" data-act="connect_ads">Connect Twitch Ads</button>` : ""}
         <button type="button" class="secondary" data-act="refresh_ads">Refresh ads</button>
         ${ad.manageAvailable && ad.snoozeCount > 0 && !ad.adActive ? `<button type="button" class="secondary" data-act="snooze_ad">Snooze next ad</button>` : ""}
         <button type="button" class="secondary" data-act="mark_ad_started">Mark ad started</button>
@@ -213,21 +223,29 @@ window.playBindLiveOps = function playBindLiveOps(options) {
         <input id="next-ad-at" type="datetime-local">
       </label>
       <button type="button" class="secondary" data-act="set_next_ad">Save fallback ad time</button>
-      <p class="muted">Post-ad cooldown ${cfg.postAdCooldownSeconds || 30}s · Auto snooze ${cfg.autoSnooze ? "On" : "Off"}</p>`;
+      <p class="muted">Post-ad cooldown ${cfg.postAdCooldownSeconds || 30}s</p>`;
   }
 
   function renderNext() {
     if (!els.next) return;
+    const s = state?.stream || {};
     const d = state?.director || {};
     const left = until(d.nextEncounterAt);
     const delayed = Boolean(d.delayReason || d.delayText);
+    const auto = autoLabel(d, s);
     els.next.innerHTML = `
-      <p class="eyebrow">Next auto encounter</p>
+      <p class="eyebrow">Encounter Director</p>
       <h2>${d.manualHold || !d.autoEnabled ? "Paused" : (delayed && d.nextEncounterAt ? "Delayed" : (d.nextEncounterAt ? `~${clock(left)}` : "Waiting"))}</h2>
-      <p>Auto: ${d.autoEnabled && !d.manualHold ? "ON" : "OFF"} · Target: ${when(d.nextEncounterAt)}</p>
+      <div class="hub-kv">
+        <div><span>Auto</span><strong>${auto}${auto === "WAITING" ? " · waiting for RPG session" : ""}</strong></div>
+        <div><span>Next encounter</span><strong>${when(d.nextEncounterAt)}</strong></div>
+      </div>
       <p>${esc(d.delayText || "Waiting.")}</p>
       ${d.overdueFrom || (d.nextEncounterAt && Date.parse(d.nextEncounterAt) < Date.now() - 60000)
-        ? `<p>Overdue. Reason: ${esc(d.delayText || "")}</p>` : ""}`;
+        ? `<p>Overdue. Reason: ${esc(d.delayText || "")}</p>` : ""}
+      <div class="links">
+        <button type="button" class="secondary" data-act="${auto === "ON" ? "pause_auto" : "resume_auto"}">${auto === "ON" ? "Pause auto" : "Resume auto"}</button>
+      </div>`;
   }
 
   function queuedStartSpec() {
@@ -249,38 +267,41 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     if (!els.queue) return;
     const q = state?.queuedSpecial;
     const w = state?.safeWindow || {};
-    els.queue.innerHTML = `
-      <p class="eyebrow">Queued special</p>
-      ${q
-        ? `<h2>${q.kind === "RANDOM" ? "Weighted random (not rolled yet)" : esc(q.name || "Special")}</h2>
-           <p>${q.kind === "SPECIAL" ? `Variant: ${q.shiny === true || q.shiny === "true" ? "Shiny" : (q.gender || "natural")} · ` : ""}Waiting for: ${esc(state?.director?.delayText || "a safe window.")}</p>
-           <p>Queued at ${when(q.queuedAt)} · Safe window: ${esc(w.state || "UNKNOWN")}</p>
-           <div class="links">
-             <button type="button" data-act="start_queued">Start now</button>
-             <button type="button" class="secondary" data-act="snooze_start_queued">Snooze + start</button>
-             <button type="button" class="secondary" disabled>Wait</button>
-             <button type="button" class="secondary" data-act="cancel_queue">Cancel</button>
-           </div>`
-        : `<h2>None</h2><p>Queue a specific Pokémon or a random launch for the next safe window.</p>`}`;
+    els.queue.classList.toggle("is-compact", !q);
+    els.queue.innerHTML = q
+      ? `<p class="eyebrow">Queued special</p>
+         <h2>${q.kind === "RANDOM" ? "Weighted random (not rolled yet)" : esc(q.name || "Special")}</h2>
+         <p>${q.kind === "SPECIAL" ? `Variant: ${q.shiny === true || q.shiny === "true" ? "Shiny" : (q.gender || "natural")} · ` : ""}Waiting for: ${esc(state?.director?.delayText || "a safe window.")}</p>
+         <p>Queued at ${when(q.queuedAt)} · Safe: ${esc(w.state || "UNKNOWN")}</p>
+         <div class="links">
+           <button type="button" data-act="start_queued">Start now</button>
+           <button type="button" class="secondary" data-act="snooze_start_queued">Snooze + start</button>
+           <button type="button" class="secondary" disabled>Wait</button>
+           <button type="button" class="secondary" data-act="cancel_queue">Cancel queue</button>
+         </div>`
+      : `<p class="eyebrow">Queued special</p><p><strong>None</strong></p>`;
   }
+
+  const MODE_LABELS = {
+    NORMAL: "Normal",
+    HIGH_ACTION: "High-Action Gameplay",
+    STORY: "Story / Cutscene",
+    REACTION: "Reaction / Direct",
+    COLLAB: "Collab",
+    BRB: "BRB",
+    SPECIAL_EVENT: "Special Event"
+  };
 
   function renderMode() {
     if (!els.mode) return;
     const s = state?.stream || {};
-    const modes = ["NORMAL", "HIGH_ACTION", "STORY", "REACTION", "COLLAB", "BRB", "SPECIAL_EVENT"];
+    const modes = Object.keys(MODE_LABELS);
+    if (document.activeElement?.id === "stream-mode") return;
     els.mode.innerHTML = `
-      <p class="eyebrow">Stream mode</p>
-      <label class="field">Mode
-        <select id="stream-mode">${modes.map((m) => `<option value="${m}"${s.mode === m ? " selected" : ""}>${m.replace("_", " ")}</option>`).join("")}</select>
+      <label class="field">Stream mode
+        <select id="stream-mode">${modes.map((m) => `<option value="${m}"${s.mode === m ? " selected" : ""}>${MODE_LABELS[m]}</option>`).join("")}</select>
       </label>
-      <p>${esc(s.modeLabel || "")}</p>
-      <p>Auto interval: ${s.intervalMin || "—"}–${s.intervalMax || "—"} min</p>
-      <div class="links">
-        <button type="button" data-act="set_mode">Apply mode</button>
-        <button type="button" class="secondary" data-mode="REACTION">Pause for reaction</button>
-        <button type="button" class="secondary" data-mode="BRB">BRB mode</button>
-        <button type="button" class="secondary" data-act="return_normal">Return to Normal</button>
-      </div>`;
+      <p>${esc(s.modeLabel || "")}</p>`;
   }
 
   function renderDexOpts(matches) {
@@ -309,24 +330,27 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     }
     if (shinyEl) pickShiny = shinyEl.value || "random";
     if (genderEl) pickGender = genderEl.value || "";
+    const preview = byId("live-preview");
+    const previewCopy = byId("live-preview-copy");
+    if (preview && pickDex && typeof window.playSpriteUrl === "function") {
+      let variant = "normal";
+      if (pickShiny === "shiny" && pickGender === "Female") variant = "shiny-female";
+      else if (pickShiny === "shiny") variant = "shiny";
+      else if (pickGender === "Female") variant = "female";
+      preview.src = window.playSpriteUrl(pickDex, variant);
+      preview.hidden = false;
+      if (previewCopy) previewCopy.textContent = `${window.playPadDex(pickDex)} ${window.playSpeciesName(pickDex)}`;
+    } else if (preview) {
+      preview.removeAttribute("src");
+      preview.hidden = true;
+      if (previewCopy) previewCopy.textContent = "Pick a species to preview.";
+    }
   }
 
   function renderControls() {
     if (!els.controls) return;
     const busy = Boolean(state?.activeEncounter);
     const w = state?.safeWindow || {};
-    const active = document.activeElement;
-    if (els.controls.contains(active) && (active.id === "live-dex" || active.id === "live-shiny" || active.id === "live-gender")) {
-      rememberSpecific();
-      els.controls.querySelectorAll("[data-act]").forEach((btn) => {
-        if (["start_random", "queue_random", "start_specific", "queue_special"].includes(btn.dataset.act)) {
-          btn.disabled = busy;
-        }
-      });
-      const startRandom = els.controls.querySelector("[data-act='start_random']");
-      if (startRandom) startRandom.textContent = busy ? "An encounter is already active." : "Start random";
-      return;
-    }
     const shinyOpts = [
       ["random", "Random"],
       ["normal", "Force normal"],
@@ -339,55 +363,51 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       ["Genderless", "Genderless"]
     ].map(([value, label]) => `<option value="${value}"${pickGender === value ? " selected" : ""}>${label}</option>`).join("");
     const dexValue = pickQuery || (pickDex ? `${window.playPadDex(pickDex)} ${window.playSpeciesName(pickDex)}` : "");
-    const autoOn = state?.director?.autoEnabled && !state?.director?.manualHold;
+    const autoOn = autoLabel(state?.director || {}, state?.stream || {}) === "ON";
+    const sessionOn = Boolean(state?.stream?.rpgSession);
     els.controls.innerHTML = `
       <p class="eyebrow">Quick controls</p>
       <div class="command-grid">
-        <button type="button" class="gold" data-act="start_random" ${busy ? "disabled" : ""}>${busy ? "An encounter is already active." : "Start random"}</button>
-        <button type="button" data-act="queue_random" ${busy ? "disabled" : ""}>Queue random until safe</button>
-        <button type="button" class="secondary" data-act="${autoOn ? "pause_auto" : "resume_auto"}">${autoOn ? "Pause auto" : "Resume auto"}</button>
+        <button type="button" class="gold" data-act="start_random" ${busy ? "disabled" : ""}>${busy ? "Encounter active" : "Start random"}</button>
+        <button type="button" data-act="open_specific" ${busy ? "disabled" : ""}>Start specific</button>
+        <button type="button" class="secondary" data-act="open_specific">Queue special</button>
       </div>
-      <label class="field">Specific Pokémon
-        <input id="live-dex" type="search" placeholder="Eevee or 133" value="${esc(dexValue)}" autocomplete="off">
-      </label>
-      <div id="live-dex-opts" class="dex-suggest" hidden></div>
-      <label class="field">Shiny
-        <select id="live-shiny">${shinyOpts}</select>
-      </label>
-      <label class="field">Gender
-        <select id="live-gender">${genderOpts}</select>
-      </label>
       <div class="links">
-        <button type="button" data-act="start_specific" ${busy ? "disabled" : ""}>Start now</button>
-        <button type="button" class="secondary" data-act="queue_special" ${busy ? "disabled" : ""}>Queue until safe</button>
-        <button type="button" class="secondary" data-act="start_test">Start test encounter</button>
+        <button type="button" class="secondary" data-act="queue_random" ${busy ? "disabled" : ""}>Queue random</button>
+        <button type="button" class="secondary" data-act="${autoOn ? "pause_auto" : "resume_auto"}">${autoOn ? "Pause auto" : "Resume auto"}</button>
+        ${sessionOn
+          ? `<button type="button" class="secondary" data-act="end_session">End RPG session</button>`
+          : `<button type="button" data-act="start_session">Start RPG session</button>`}
+        <button type="button" class="secondary" data-act="start_test">Start test</button>
       </div>
-      <p class="muted">${w.state === "UNSAFE" ? "Unsafe window — prefer Queue until safe." : "Safe window uses Director rules, not this page."}</p>`;
-    if (pickQuery) {
-      const matches = window.playParseSpeciesQuery ? window.playParseSpeciesQuery(pickQuery) : [];
-      renderDexOpts(matches);
+      <p class="muted">${w.state === "UNSAFE" ? "Unsafe window — prefer Queue until safe." : ""}</p>`;
+    const dexEl = byId("live-dex");
+    if (dexEl && !document.activeElement?.closest("#live-specific") && dexValue && dexEl.value !== dexValue) {
+      dexEl.value = dexValue;
     }
+    const shinyEl = byId("live-shiny");
+    const genderEl = byId("live-gender");
+    if (shinyEl && document.activeElement !== shinyEl) shinyEl.innerHTML = shinyOpts;
+    if (genderEl && document.activeElement !== genderEl) genderEl.innerHTML = genderOpts;
   }
 
   function renderSession() {
     if (!els.session) return;
     const s = state?.stream || {};
     const d = state?.director || {};
-    const h = state?.health || {};
     const dur = s.startedAt ? clock(Math.floor((Date.now() - Date.parse(s.startedAt)) / 1000)) : "—";
+    const auto = autoLabel(d, s);
     els.session.innerHTML = `
-      <p class="eyebrow">Stream session</p>
-      <p>Twitch: ${s.twitchLive ? "LIVE" : (s.liveKnown ? "OFFLINE" : "UNKNOWN")} · RPG session: ${s.rpgSession ? "ACTIVE" : "IDLE"}</p>
-      <p>Started: ${when(s.startedAt)} · Duration: ${dur}${s.viewers != null ? ` · Viewers ${s.viewers}` : ""}</p>
-      <p>Encounters: ${(d.encountersAuto || 0) + (d.encountersManual || 0) + (d.encountersEvent || 0)} · Auto ${d.encountersAuto || 0} · Manual ${d.encountersManual || 0} · Event ${d.encountersEvent || 0}</p>
-      <p>Ad delays: ${d.encountersDelayedAds || 0} · Ad pauses: ${d.encountersPausedAds || 0}</p>
-      <p class="muted">Live check: ${when(s.liveCheckedAt)} · Source: ${esc(s.liveSource || "none")} · ${s.eventSubLive ? "Live EventSub ready" : "Live EventSub not subscribed"}</p>
-      <p class="muted">Director ${esc(h.director)} · Ads ${esc(h.twitchAds)} · Live ${esc(h.twitchLive)} · ${esc(h.eventSub)}</p>
+      <p class="eyebrow">RPG session</p>
+      <h2>${s.rpgSession ? "Active" : "Inactive"}</h2>
+      <p>${s.rpgSession ? `Duration ${dur}${s.viewers != null ? ` · Viewers ${s.viewers}` : ""}` : "Start a session when the stream is live."}</p>
+      <p>Auto: ${auto}${auto === "WAITING" ? " · waiting for active RPG session" : ""}</p>
       <div class="links">
         <button type="button" class="secondary" data-act="refresh_live">Refresh live status</button>
-        <button type="button" data-act="start_session">Start RPG session</button>
-        <button type="button" class="secondary" data-act="end_session">End RPG session</button>
-        <button type="button" class="secondary" data-act="copy">Copy session status</button>
+        ${s.rpgSession
+          ? `<button type="button" class="secondary" data-act="end_session">End session</button>`
+          : `<button type="button" data-act="start_session">Start RPG session</button>`}
+        <button type="button" class="secondary" data-act="copy">Copy status</button>
       </div>`;
   }
 
@@ -457,24 +477,44 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     };
   }
 
-  function startUnsafeConfirm(action, payload) {
+  function startUnsafeConfirm(action, payload, extra) {
     const unsafe = ["UNSAFE", "SHORT"].includes(state?.safeWindow?.state);
-    cmd(action, unsafe ? { ...payload, anyway: true } : payload, unsafe
-      ? {
-        confirmTitle: "Start anyway?",
-        confirmBody: `${state.safeWindow.reason || "The safe window is short."} A full encounter needs about 3 minutes.`,
-        go: "Start anyway"
-      }
-      : undefined);
+    if (!unsafe) {
+      cmd(action, payload);
+      return;
+    }
+    const queueAction = extra?.queue === false
+      ? ""
+      : (action === "start_random" ? "queue_random" : "queue_special");
+    confirm(
+      "Start anyway?",
+      `${state.safeWindow.reason || "The safe window is short."} A full encounter needs about 3 minutes.`,
+      "Start anyway",
+      () => cmd(action, { ...payload, anyway: true }),
+      { queueAction }
+    );
   }
 
-  root.addEventListener("input", (event) => {
+  function openSpecific() {
+    const modal = byId("live-specific");
+    if (modal && typeof modal.showModal === "function") modal.showModal();
+    else if (modal) modal.setAttribute("open", "");
+  }
+
+  function inLiveSurface(node) {
+    return Boolean(node?.closest?.("#live-app, #live-specific, #live-confirm"));
+  }
+
+  document.addEventListener("input", (event) => {
     if (event.target.id === "live-dex") rememberSpecific();
   });
-  root.addEventListener("change", (event) => {
+  document.addEventListener("change", (event) => {
+    if (!inLiveSurface(event.target)) return;
     if (event.target.id === "live-shiny" || event.target.id === "live-gender") rememberSpecific();
+    if (event.target.id === "stream-mode") cmd("set_mode", { mode: event.target.value || "NORMAL" });
   });
-  root.addEventListener("click", (event) => {
+  document.addEventListener("click", (event) => {
+    if (!inLiveSurface(event.target)) return;
     const pickBtn = event.target.closest("[data-pick-dex]");
     if (pickBtn) {
       pickDex = Number(pickBtn.dataset.pickDex);
@@ -494,6 +534,10 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const act = btn.dataset.act;
     if (act === "open_details") {
       if (typeof opts.onOpenDetails === "function") opts.onOpenDetails();
+      return;
+    }
+    if (act === "open_specific") {
+      openSpecific();
       return;
     }
     if (act === "copy") {
@@ -525,16 +569,18 @@ window.playBindLiveOps = function playBindLiveOps(options) {
         return;
       }
       if (act === "queue_special") {
+        try { byId("live-specific")?.close(); } catch (_) {}
         cmd(act, payload);
         return;
       }
+      try { byId("live-specific")?.close(); } catch (_) {}
       startUnsafeConfirm(act, payload);
       return;
     }
     if (act === "start_queued") {
       const spec = queuedStartSpec();
       if (!spec) return;
-      startUnsafeConfirm(spec.action, spec.payload);
+      startUnsafeConfirm(spec.action, spec.payload, { queue: false });
       return;
     }
     if (act === "snooze_start_queued") {
@@ -546,7 +592,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
         "Snooze + start",
         async () => {
           await adsFn("snooze");
-          startUnsafeConfirm(spec.action, spec.payload);
+          startUnsafeConfirm(spec.action, spec.payload, { queue: false });
         }
       );
       return;
@@ -605,6 +651,20 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     confirmFn = null;
     try { els.modal.close(); } catch (_) {}
     fn?.();
+  });
+  byId("live-confirm-queue")?.addEventListener("click", () => {
+    const queueBtn = byId("live-confirm-queue");
+    const action = queueBtn?.dataset.queueAction;
+    const fn = confirmFn;
+    confirmFn = null;
+    try { els.modal.close(); } catch (_) {}
+    if (action === "queue_random") cmd("queue_random", {});
+    else if (action === "queue_special") {
+      const payload = specificPayload();
+      if (payload) cmd("queue_special", payload);
+    } else {
+      fn?.();
+    }
   });
 
   async function refreshLive(force) {

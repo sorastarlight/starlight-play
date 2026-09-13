@@ -68,10 +68,10 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     items.push({ href: "./store.html", id: "store", label: "Store" });
     if (isAdmin) {
       items.push({ href: "./admin.html", id: "admin", label: "Admin Hub" });
-      items.push({ href: "./admin.html?tab=live", id: "admin-live", label: "Live Operations" });
     }
+    const adminPage = page === "admin" || page === "admin-live" || page === "admin-tools" || page === "admin-store";
     els.links.innerHTML = items.map((item, index) => {
-      const current = item.id === page ? " aria-current=\"page\"" : "";
+      const current = item.id === "admin" ? (adminPage ? " aria-current=\"page\"" : "") : (item.id === page ? " aria-current=\"page\"" : "");
       const extra = item.id === "store" ? " topnav-link-store" : "";
       const divider = index < items.length - 1 ? `<span class="topnav-div" aria-hidden="true">|</span>` : "";
       return `<a class="topnav-link${extra}" href="${item.href}"${current}>${item.label}</a>${divider}`;

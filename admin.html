@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=phase1">
+<link rel="stylesheet" href="css/play.css?v=hubv2">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -54,29 +54,38 @@
   </div>
   <p id="gate" class="notice">Sign in with Twitch to open the Admin Hub.</p>
   <div id="staff" hidden>
-    <div class="staff-bar">
-      <button type="button" id="hub-live-chip" class="hub-live-chip" hidden>Open Live Operations</button>
-      <a class="button" href="./admin-tools.html">Staff tools</a>
-      <a class="button gold" href="./admin-store.html">Store</a>
-      <a class="button secondary" href="./admin-live.html">Standalone Stream Session</a>
-    </div>
-    <div class="hub-tabs" role="tablist" aria-label="Admin Hub">
-      <button type="button" role="tab" data-hub-tab="live" aria-selected="true">Live Operations</button>
-      <button type="button" role="tab" data-hub-tab="encounters">Encounters</button>
-      <button type="button" role="tab" data-hub-tab="players">Players</button>
-      <button type="button" role="tab" data-hub-tab="store">Store</button>
-      <button type="button" role="tab" data-hub-tab="pokemon">Pokémon</button>
-      <button type="button" role="tab" data-hub-tab="analytics">Analytics</button>
-      <button type="button" role="tab" data-hub-tab="settings">Settings</button>
-    </div>
+    <div class="hub-app">
+    <aside class="hub-nav" id="hub-nav">
+      <p class="hub-nav-brand">Admin Hub</p>
+      <button type="button" class="hub-nav-toggle" id="hub-nav-toggle" aria-expanded="false">Admin menu</button>
+      <div class="hub-nav-list" role="tablist" aria-label="Admin Hub">
+        <button type="button" role="tab" data-hub-tab="dashboard" aria-selected="true">Dashboard</button>
+        <button type="button" role="tab" data-hub-tab="encounters">Encounters</button>
+        <button type="button" role="tab" data-hub-tab="trainers">Trainers</button>
+        <button type="button" role="tab" data-hub-tab="content">Game Content</button>
+        <button type="button" role="tab" data-hub-tab="economy">Economy &amp; Store</button>
+        <button type="button" role="tab" data-hub-tab="analytics">Analytics</button>
+        <button type="button" role="tab" data-hub-tab="settings">Settings</button>
+      </div>
+    </aside>
+    <div class="hub-main">
 
-    <div id="hub-panel-live" data-hub-panel="live">
+    <div id="hub-panel-live" data-hub-panel="dashboard">
       <div id="live-app">
-        <p id="live-errors" class="notice" hidden></p>
-        <div id="live-bar" class="live-status-bar" aria-label="Live stream status"></div>
+        <p id="live-errors" class="notice hub-health" hidden></p>
+        <div id="live-bar" class="hub-status-strip" aria-label="Live stream status"></div>
         <p id="live-status" class="muted" role="status"></p>
-        <div class="live-ops">
-          <div class="live-ops-main">
+        <section class="hub-card dash-setup" id="dash-offline">
+          <p class="eyebrow">Stream offline</p>
+          <h2>RPG Session inactive</h2>
+          <p>Refresh live status, then start an RPG session when you go live.</p>
+          <div class="links">
+            <button type="button" class="secondary" data-act="refresh_live">Refresh live status</button>
+            <button type="button" data-act="start_session">Start RPG session</button>
+          </div>
+        </section>
+        <div class="dash-grid">
+          <div class="dash-col">
             <section class="card play-stream-col">
               <div class="hero">
                 <div class="eyebrow">Stream preview</div>
@@ -84,13 +93,6 @@
                 <p id="stream-note" class="muted">Loading preview…</p>
               </div>
             </section>
-            <aside class="card dex-card">
-              <div class="body">
-                <div class="eyebrow">Current encounter</div>
-                <div id="encounter"></div>
-                <p id="trainer-count" class="muted"></p>
-              </div>
-            </aside>
             <section class="card play-stream-col">
               <section class="live-feed live-ops-console" aria-live="polite">
                 <div class="live-feed-head">
@@ -102,37 +104,51 @@
                     <button type="button" data-console-filter="ads">Ads</button>
                     <button type="button" data-console-filter="results">Results</button>
                   </div>
-                  <button id="clear-log" class="secondary" type="button">Clear Log</button>
                 </div>
                 <ol id="admin-console"></ol>
                 <button type="button" class="secondary feed-jump" data-feed-jump hidden>New messages ↓</button>
               </section>
             </section>
           </div>
-          <aside class="live-ops-side">
-            <section class="card body" id="card-encounter"></section>
-            <section class="card body" id="card-safe"></section>
-            <section class="card body" id="card-ads"></section>
-            <section class="card body" id="card-next"></section>
-            <section class="card body" id="card-controls"></section>
-            <section class="card body" id="card-mode"></section>
-            <section class="card body" id="card-queue"></section>
-            <section class="card body" id="card-session"></section>
+          <aside class="dash-col dash-advanced">
+            <section class="hub-card" id="dash-encounter">
+              <div id="encounter"></div>
+              <p id="trainer-count" class="muted"></p>
+              <div id="card-encounter"></div>
+            </section>
+            <section class="hub-card" id="card-next"></section>
+            <section class="hub-card" id="card-timing">
+              <div id="card-safe"></div>
+              <div id="card-ads"></div>
+            </section>
+            <section class="hub-card" id="card-controls"></section>
+            <section class="hub-card is-compact" id="card-queue"></section>
+            <section class="hub-card" id="card-session-wrap">
+              <div id="card-session"></div>
+              <div id="card-mode"></div>
+            </section>
           </aside>
         </div>
-        <section class="card body live-ops-bottom">
+        <section class="card body live-ops-bottom dash-advanced">
           <h2>Recent encounters</h2>
           <div id="live-history"></div>
         </section>
-        <section class="card body live-ops-bottom">
+        <section class="card body live-ops-bottom dash-advanced">
           <h2>Director activity</h2>
           <div id="live-log"></div>
         </section>
       </div>
     </div>
 
-    <div id="hub-panel-encounters" class="layout stack-2" data-hub-panel="encounters" hidden>
-      <section class="card body">
+    <div id="hub-panel-encounters" data-hub-panel="encounters" hidden>
+      <div class="hub-subnav" role="tablist" aria-label="Encounters">
+        <button type="button" data-hub-view="overview" aria-selected="true">Overview / Test</button>
+        <button type="button" data-hub-view="rules">Rules</button>
+        <button type="button" data-hub-view="capture">Capture</button>
+        <button type="button" data-hub-view="sim">Simulator</button>
+      </div>
+      <div class="layout stack-2">
+      <section class="card body" data-enc-view="overview">
         <h2>Encounter commands</h2>
         <p id="bridge-status" class="muted">Checking stream link…</p>
         <p class="muted">Start, pause, cancel, or hide the live encounter. After results the card times out like Play. Next phase jumps the Play clock forward so you can test without waiting. Clear encounter dismisses a finished card immediately. Special events can send +1 of a supply or Poké Ball to every trainer who joined.</p>
@@ -165,8 +181,11 @@
           <button id="start-dex" type="button">Start Encounter</button>
         </div>
         <p id="command-status" class="muted" role="status"></p>
+        <div class="links">
+          <button id="clear-log" class="secondary" type="button">Clear public console</button>
+        </div>
       </section>
-      <section class="card body">
+      <section class="card body" data-enc-view="rules">
         <h2>Phase timings</h2>
         <p class="muted">Seconds per phase. Saving also updates the stream PC. Bits purchases cannot be turned on from here.</p>
         <div class="settings-grid">
@@ -188,7 +207,7 @@
         </div>
         <p id="settings-status" class="muted" role="status"></p>
       </section>
-      <section class="card body">
+      <section class="card body" data-enc-view="capture">
         <h2>Capture balance</h2>
         <p class="muted">Base chance comes from the species catch rate, then Ball, Berry and Honey multiply it. Every Trainer rolls once.</p>
         <div class="settings-grid">
@@ -220,7 +239,7 @@
         </div>
         <p id="balance-status" class="muted" role="status"></p>
       </section>
-      <section class="card body">
+      <section class="card body" data-enc-view="sim">
         <h2>Capture simulator</h2>
         <p class="muted">Dry run only. Nothing is spent, nothing is caught, no inventory changes.</p>
         <div class="settings-grid">
@@ -257,29 +276,25 @@
         </div>
         <div id="sim-out" class="sim-out"></div>
       </section>
+      </div>
     </div>
 
-    <div id="hub-panel-players" class="layout stack-2" data-hub-panel="players" hidden>
-      <section class="card body">
-        <h2>Players</h2>
-        <p class="muted">Trainer lookup, gifts, and bag tools stay on Staff tools so Live Operations does not grow a second player editor.</p>
-        <div class="links">
-          <a class="button gold" href="./admin-tools.html">Open Staff tools</a>
-        </div>
+    <div id="hub-panel-players" data-hub-panel="trainers" hidden>
+      <p class="muted">Trainer lookup, gifts, Pass, Bits, and stream secrets stay on the existing Staff tools page. This frame is that same page.</p>
+      <iframe class="hub-embed-frame" title="Trainer tools" data-src="./admin-tools.html?embed=1"></iframe>
+    </div>
+
+    <div id="hub-panel-store" data-hub-panel="economy" hidden>
+      <div class="hub-subnav" role="tablist" aria-label="Economy and Store">
+        <button type="button" data-eco-view="catalog" aria-selected="true">Catalog</button>
+        <button type="button" data-eco-view="economy">Economy</button>
+        <button type="button" data-eco-view="loot">Loot</button>
+      </div>
+      <section class="card body" data-eco-panel="catalog">
+        <p class="muted">Public trainers shop at the Mart. This is the Admin catalog editor.</p>
+        <iframe class="hub-embed-frame" title="Store editor" data-src="./admin-store.html?embed=1"></iframe>
       </section>
-    </div>
-
-    <div id="hub-panel-store" class="layout stack-2" data-hub-panel="store" hidden>
-      <section class="card body">
-        <h2>Inventory / Store</h2>
-        <p class="muted">Catalog, prices, and featured cards stay on the existing Store admin page.</p>
-        <div class="links">
-          <a class="button gold" href="./admin-store.html">Open Store admin</a>
-        </div>
-      </section>
-    </div>
-
-    <div id="hub-panel-settings" class="layout stack-2" data-hub-panel="settings" hidden>
+      <div data-eco-panel="economy" hidden>
       <section class="card body">
         <h2>Economy</h2>
         <p class="muted">PokéCoin circulation, rewards, and a dry-run spending estimate. This never changes trainer bags.</p>
@@ -334,7 +349,11 @@
           <button id="load-ledger" type="button">Refresh ledger</button>
         </div>
         <div id="eco-ledger" class="report-out"></div>
-        <h3>Item loot</h3>
+      </section>
+      </div>
+      <div data-eco-panel="loot" hidden>
+      <section class="card body">
+        <h2>Item loot</h2>
         <p class="muted">Gameplay drops only. Bits stays guaranteed. This never writes trainer bags.</p>
         <div id="loot-overview" class="report-out"></div>
         <div class="settings-grid">
@@ -356,6 +375,14 @@
         <p id="loot-status" class="muted" role="status"></p>
         <div id="loot-tables" class="report-out"></div>
         <div id="loot-sim-out" class="sim-out"></div>
+      </section>
+      </div>
+    </div>
+
+    <div id="hub-panel-settings" class="layout stack-2" data-hub-panel="settings" hidden>
+      <section class="card body">
+        <h2>Settings</h2>
+        <p class="muted">Persistent configuration. Live start/pause/gift controls stay on Dashboard and Encounters. Phase timings are under Encounters → Rules.</p>
       </section>
       <section class="card body">
         <h2>Progression</h2>
@@ -382,7 +409,7 @@
       </section>
     </div>
 
-    <div id="hub-panel-pokemon" class="layout stack-2" data-hub-panel="pokemon" hidden>
+    <div id="hub-panel-pokemon" class="layout stack-2" data-hub-panel="content" hidden>
       <section class="card body">
         <h2>Evolution &amp; trades</h2>
         <p class="muted">Family Candy, evolution history, and stuck-trade unlocks. Unlocking does not rewrite ownership.</p>
@@ -422,6 +449,8 @@
         <div id="report-out" class="report-out"></div>
       </section>
     </div>
+    </div>
+    </div>
   </div>
 </div>
 <dialog id="gift-modal" class="play-modal play-modal-wide" aria-labelledby="gift-title">
@@ -447,6 +476,43 @@
     <p id="live-confirm-body"></p>
     <div class="links">
       <button id="live-confirm-go" type="button">Confirm</button>
+      <button id="live-confirm-queue" class="secondary" type="button" hidden>Queue until safe</button>
+    </div>
+  </form>
+</dialog>
+<dialog id="live-specific" class="play-modal" aria-labelledby="live-specific-title">
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="live-specific-title">Start specific</h3>
+      <button class="secondary" value="cancel" type="submit">Close</button>
+    </header>
+    <label class="field">Pokémon
+      <input id="live-dex" type="search" placeholder="Eevee or 133" autocomplete="off">
+    </label>
+    <div id="live-dex-opts" class="dex-suggest" hidden></div>
+    <div class="form-preview">
+      <img id="live-preview" alt="" hidden onerror="window.playSpriteOnError(this)">
+      <p id="live-preview-copy" class="muted">Pick a species to preview.</p>
+    </div>
+    <label class="field">Shiny
+      <select id="live-shiny">
+        <option value="random">Random</option>
+        <option value="normal">Force normal</option>
+        <option value="shiny">Force shiny</option>
+      </select>
+    </label>
+    <label class="field">Gender
+      <select id="live-gender">
+        <option value="">Random / valid</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Genderless">Genderless</option>
+      </select>
+    </label>
+    <p class="muted">Form uses the existing species selector. No second picker.</p>
+    <div class="links">
+      <button type="button" data-act="start_specific">Start now</button>
+      <button type="button" class="secondary" data-act="queue_special">Queue until safe</button>
     </div>
   </form>
 </dialog>
@@ -456,8 +522,8 @@
 <script src="js/species.js"></script>
 <script src="js/variants.js"></script>
 <script src="js/game.js?v=anim2"></script>
-<script src="js/hud.js?v=liveops1"></script>
-<script src="js/nav.js?v=liveops1"></script>
-<script src="js/admin-live.js?v=liveops1"></script>
-<script src="js/admin.js?v=liveops1"></script>
+<script src="js/hud.js?v=hubv2"></script>
+<script src="js/nav.js?v=hubv2"></script>
+<script src="js/admin-live.js?v=hubv2"></script>
+<script src="js/admin.js?v=hubv2"></script>
 </body>

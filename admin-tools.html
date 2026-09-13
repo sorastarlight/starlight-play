@@ -7,8 +7,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=hub1">
-<body data-page="admin">
+<link rel="stylesheet" href="css/play.css?v=hubv2">
+<body data-page="admin-tools">
+<script>
+(() => {
+  const embed = new URLSearchParams(location.search).has("embed");
+  if (!embed) {
+    location.replace("./admin.html?section=trainers");
+    return;
+  }
+  document.documentElement.classList.add("hub-embed");
+  document.body.classList.add("hub-embed");
+})();
+</script>
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./admin.html">
@@ -215,6 +226,6 @@
 <script src="js/species.js"></script>
 <script src="js/game.js?v=anim2"></script>
 <script src="js/hud.js?v=cap1"></script>
-<script src="js/nav.js?v=liveops1"></script>
-<script src="js/admin-tools.js?v=hub1"></script>
+<script src="js/nav.js?v=hubv2"></script>
+<script src="js/admin-tools.js?v=hubv2"></script>
 </body>

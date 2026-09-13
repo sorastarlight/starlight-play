@@ -4710,3 +4710,144 @@ img[src*="images/pokemon/"] {
   image-rendering: auto;
   object-fit: contain;
 }
+
+body[data-page="admin"] .wrap { max-width: 1480px; }
+.hub-app {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+.hub-main { min-width: 0; }
+.hub-nav {
+  position: sticky;
+  top: 72px;
+  background: linear-gradient(180deg, #fff7fb, #eef6ff);
+  border: 3px solid #f2d27a;
+  border-radius: 22px;
+  box-shadow: 0 8px 0 #e7b8d4;
+  padding: 14px 12px;
+}
+.hub-nav-brand {
+  margin: 0 8px 10px;
+  font-family: Fredoka, Nunito, sans-serif;
+  font-weight: 700;
+  color: #8a3d72;
+}
+.hub-nav-toggle { display: none; width: 100%; margin-bottom: 8px; }
+.hub-nav-list {
+  display: grid;
+  gap: 6px;
+}
+.hub-nav-list button {
+  justify-content: flex-start;
+  background: #fff;
+  border-color: #e3d4ea;
+  box-shadow: none;
+  color: #5d4a68;
+}
+.hub-nav-list button[aria-selected="true"] {
+  background: linear-gradient(180deg, #ffe3f3, #f6cde4);
+  border-color: #dca8c9;
+  color: #723d65;
+}
+.hub-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 14px;
+}
+.hub-subnav button[aria-selected="true"] {
+  background: linear-gradient(180deg, #fff6d8, #f3d27a);
+  border-color: #d4a017;
+}
+.hub-embed-frame {
+  width: 100%;
+  min-height: 78vh;
+  border: 0;
+  border-radius: 18px;
+  background: #fff;
+}
+.dash-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, .82fr);
+  gap: 16px;
+  align-items: start;
+}
+.dash-col { display: grid; gap: 12px; }
+.hub-status-strip {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0 0 12px;
+}
+.hub-status-strip div {
+  background: #fff;
+  border: 2px solid #d7e0f2;
+  border-radius: 12px;
+  padding: 7px 8px;
+}
+.hub-status-strip em {
+  display: block;
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hub-status-strip strong { display: block; font-size: 13px; line-height: 1.2; }
+.hub-health {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+.hub-card {
+  background: #fff;
+  border: 3px solid #e7edf8;
+  border-radius: 20px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 0 #eef2fb;
+}
+.hub-card .eyebrow { margin-bottom: 6px; }
+.hub-card h2 { margin: 0 0 8px; font-size: 20px; }
+.hub-card.is-compact { padding: 10px 12px; }
+.hub-card.is-alert {
+  border-color: #f0b4c8;
+  background: linear-gradient(180deg, #fff6f8, #fff);
+}
+.hub-kv {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 12px;
+  margin: 8px 0;
+  font-size: 13px;
+}
+.hub-kv span { color: var(--muted); }
+.hub-kv strong { display: block; }
+body[data-page="admin"] .dash-grid #stream-frame {
+  max-height: 28vh;
+  aspect-ratio: 16 / 9;
+}
+body[data-page="admin"] .dash-grid .play-stream-col .hero { padding: 10px; }
+#live-app.is-offline-idle .dash-advanced { opacity: .72; }
+#live-app.is-offline-idle .dash-setup { display: block; }
+.dash-setup { display: none; }
+body.hub-embed .topnav,
+body.hub-embed .page-kicker,
+body.hub-embed .staff-bar { display: none !important; }
+body.hub-embed .wrap { padding-top: 8px; }
+html.hub-embed .topnav,
+html.hub-embed .page-kicker,
+html.hub-embed .staff-bar { display: none !important; }
+html.hub-embed .wrap { padding-top: 8px; }
+@media (max-width: 1100px) {
+  .hub-app, .dash-grid { grid-template-columns: 1fr; }
+  .hub-status-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hub-nav { position: static; }
+  .hub-nav-toggle { display: inline-flex; }
+  .hub-nav.is-open .hub-nav-list { display: grid; }
+  .hub-nav:not(.is-open) .hub-nav-list { display: none; }
+}
+@media (max-width: 640px) {
+  .hub-status-strip, .hub-kv { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

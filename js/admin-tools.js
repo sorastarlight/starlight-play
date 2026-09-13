@@ -1,4 +1,8 @@
 (() => {
+  if (new URLSearchParams(location.search).has("embed")) {
+    document.documentElement.classList.add("hub-embed");
+    document.body.classList.add("hub-embed");
+  }
   const supabase = window.playSupabase;
   const els = {
     gate: document.getElementById("gate"),

@@ -371,7 +371,7 @@ begin
       'used', private.item_total(inv),
       'dailyReady', pass and (inv.pass_daily_at is null or inv.pass_daily_at < now() - interval '20 hours'),
       'weeklyReady', pass and (inv.pass_weekly_at is null or inv.pass_weekly_at < now() - interval '6 days'),
-      'dailySupplyReady', inv.daily_supply_at is null or inv.daily_supply_at <= now() - make_interval(hours => hours),
+      'dailySupplyReady', inv.daily_supply_at is null or inv.daily_supply_at <= now() - (interval '1 hour' * hours),
       'dailySupplyAt', inv.daily_supply_at
     ) end
   );

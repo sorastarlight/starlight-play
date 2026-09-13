@@ -380,7 +380,7 @@ begin
   supply := private.economy_config()->'dailySupply';
   hours := coalesce((supply->>'cooldownHours')::numeric, 20);
   inv := private.ensure_inventory(uid);
-  if inv.daily_supply_at is not null and inv.daily_supply_at > now() - make_interval(hours => hours) then
+  if inv.daily_supply_at is not null and inv.daily_supply_at > now() - (interval '1 hour' * hours) then
     raise exception 'Daily Trainer Supply is not ready yet.';
   end if;
   select key into berry_key
@@ -394,7 +394,7 @@ begin
   update public.inventories
      set daily_supply_at = now(), updated_at = now()
    where user_id = uid
-     and (daily_supply_at is null or daily_supply_at <= now() - make_interval(hours => hours));
+     and (daily_supply_at is null or daily_supply_at <= now() - (interval '1 hour' * hours));
   if not found then
     raise exception 'Daily Trainer Supply is not ready yet.';
   end if;

@@ -274,9 +274,13 @@
     return "";
   }
 
+  function resultsWin(round) {
+    return Number(round?.results?.caught || 0) > 0;
+  }
+
   function catchSeqCopy(st, round, species, me) {
     if (st.scene === "results") {
-      return Number(round.results?.caught || 0) > 0 ? "Gotcha!" : "It got away!";
+      return resultsWin(round) ? "Gotcha!" : "Sorry!";
     }
     if (st.scene === "personal") {
       return st.outcome === "caught"
@@ -286,6 +290,11 @@
     const pct = window.playRevealSeqProgress(round);
     if (pct >= 100 && !round.resolved && !throwOutcome(me)) return "Waiting for the result…";
     return "The Poké Ball is wobbling…";
+  }
+
+  function catchSeqSubcopy(st, round, species) {
+    if (st.scene !== "results") return "";
+    return resultsWin(round) ? `You caught ${species}` : `You didn't catch ${species}`;
   }
 
   window.playAdvanceCatchSeqState = function playAdvanceCatchSeqState(round, me) {
@@ -317,8 +326,9 @@
     const caughtN = Number(results.caught || 0);
     const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
     const copy = catchSeqCopy(st, round, species, me);
+    const sub = catchSeqSubcopy(st, round, species);
     const win = caughtN > 0;
-    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" && win ? " is-win" : ""}`;
+    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}`;
     return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}">
       <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="catch-seq-stage">
@@ -327,10 +337,12 @@
         <span class="catch-seq-stars" aria-hidden="true"></span>
         <span class="catch-seq-click" aria-hidden="true"></span>
       </div>
-      <p class="catch-seq-copy" data-seq-copy>${window.playEscapeAttr(copy)}</p>
+      <p class="catch-seq-copy" data-seq-copy>
+        <span data-seq-headline>${window.playEscapeAttr(copy)}</span>
+        <span data-seq-sub${sub ? "" : " hidden"}>${window.playEscapeAttr(sub)}</span>
+      </p>
       <div class="catch-seq-bar" aria-hidden="true"><i data-throw-bar style="width:${pct}%"></i></div>
       <div class="catch-seq-counts" data-seq-results>
-        <h3 data-seq-species>${window.playEscapeAttr(species)}</h3>
         <div class="catch-seq-score">
           <p class="catch-seq-score-win"><strong data-seq-caught>${caughtN}</strong><span>caught</span></p>
           <p class="catch-seq-score-miss"><strong data-seq-missed>${missed}</strong><span>didn’t catch it</span></p>
@@ -345,8 +357,14 @@
     const st = window.playAdvanceCatchSeqState(round, me);
     const species = window.playDisplayName(round, { plain: true });
     const copy = catchSeqCopy(st, round, species, me);
-    const copyEl = box.querySelector("[data-seq-copy]");
-    if (copyEl && copyEl.textContent !== copy) copyEl.textContent = copy;
+    const sub = catchSeqSubcopy(st, round, species);
+    const headlineEl = box.querySelector("[data-seq-headline]");
+    const subEl = box.querySelector("[data-seq-sub]");
+    if (headlineEl && headlineEl.textContent !== copy) headlineEl.textContent = copy;
+    if (subEl) {
+      if (subEl.textContent !== sub) subEl.textContent = sub;
+      subEl.hidden = !sub;
+    }
     const bar = box.querySelector("[data-throw-bar]");
     if (bar && st.scene === "wobble") bar.style.width = `${window.playRevealSeqProgress(round)}%`;
     const results = round.results || {};
@@ -354,10 +372,8 @@
     const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
     const caughtEl = box.querySelector("[data-seq-caught]");
     const missedEl = box.querySelector("[data-seq-missed]");
-    const speciesEl = box.querySelector("[data-seq-species]");
     if (caughtEl) caughtEl.textContent = caughtN;
     if (missedEl) missedEl.textContent = missed;
-    if (speciesEl) speciesEl.textContent = species;
     box.dataset.seq = st.scene;
     box.dataset.outcome = st.outcome || "";
     box.classList.toggle("is-wobble", st.scene === "wobble");
@@ -366,6 +382,7 @@
     box.classList.toggle("is-caught", st.outcome === "caught");
     box.classList.toggle("is-broke", st.outcome === "broke");
     box.classList.toggle("is-win", st.scene === "results" && caughtN > 0);
+    box.classList.toggle("is-miss", st.scene === "results" && caughtN < 1);
     const stage = root.querySelector(".dex-stage");
     stage?.classList.toggle("is-throwing", st.scene !== "results");
     stage?.classList.toggle("is-revealed", st.scene === "results");

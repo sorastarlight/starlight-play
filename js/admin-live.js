@@ -28,6 +28,7 @@
   let pickGender = "";
   let pickShiny = "random";
   let disconnected = false;
+  let lastLivePoll = 0;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -99,7 +100,7 @@
     const s = state?.stream || {};
     const d = state?.director || {};
     const ad = state?.adState || {};
-    const live = s.twitchLive ? "LIVE" : (s.twitchLive === false ? "OFFLINE" : "UNKNOWN");
+    const live = s.twitchLive ? "LIVE" : (s.liveKnown ? "OFFLINE" : "UNKNOWN");
     els.bar.innerHTML = [
       `<div><em>Stream</em><strong>${live}</strong></div>`,
       `<div><em>RPG Director</em><strong>${esc(d.status || "—")}</strong></div>`,
@@ -112,8 +113,11 @@
 
   function renderErrors() {
     const ad = state?.adState || {};
+    const s = state?.stream || {};
     const notes = [];
     if (disconnected) notes.push("LIVE DATA DISCONNECTED");
+    if (!s.liveKnown) notes.push("TWITCH LIVE STATUS HAS NOT BEEN CHECKED RECENTLY. Refresh live status or start an RPG session.");
+    if (s.liveError) notes.push(s.liveError);
     if (ad.authorizationNeeded) notes.push("TWITCH AD AUTHORIZATION STILL NEEDS TO BE CONNECTED. Fallback ad controls are available.");
     if (ad.stale && ad.dataAvailable) notes.push("AD DATA MAY BE STALE");
     els.errors.hidden = !notes.length;
@@ -268,12 +272,14 @@
     const dur = s.startedAt ? clock(Math.floor((Date.now() - Date.parse(s.startedAt)) / 1000)) : "—";
     els.session.innerHTML = `
       <p class="eyebrow">Stream session</p>
-      <p>Twitch: ${s.twitchLive ? "LIVE" : "OFFLINE"} · RPG session: ${s.rpgSession ? "ACTIVE" : "IDLE"}</p>
-      <p>Started: ${when(s.startedAt)} · Duration: ${dur}</p>
+      <p>Twitch: ${s.twitchLive ? "LIVE" : (s.liveKnown ? "OFFLINE" : "UNKNOWN")} · RPG session: ${s.rpgSession ? "ACTIVE" : "IDLE"}</p>
+      <p>Started: ${when(s.startedAt)} · Duration: ${dur}${s.viewers != null ? ` · Viewers ${s.viewers}` : ""}</p>
       <p>Encounters: ${(d.encountersAuto || 0) + (d.encountersManual || 0) + (d.encountersEvent || 0)} · Auto ${d.encountersAuto || 0} · Manual ${d.encountersManual || 0} · Event ${d.encountersEvent || 0}</p>
       <p>Ad delays: ${d.encountersDelayedAds || 0} · Ad pauses: ${d.encountersPausedAds || 0}</p>
-      <p class="muted">Director ${esc(h.director)} · Ads ${esc(h.twitchAds)} · ${esc(h.eventSub)}</p>
+      <p class="muted">Live check: ${when(s.liveCheckedAt)} · Source: ${esc(s.liveSource || "none")} · ${s.eventSubLive ? "Live EventSub ready" : "Live EventSub not subscribed"}</p>
+      <p class="muted">Director ${esc(h.director)} · Ads ${esc(h.twitchAds)} · Live ${esc(h.twitchLive)} · ${esc(h.eventSub)}</p>
       <div class="links">
+        <button type="button" class="secondary" data-act="refresh_live">Refresh live status</button>
         <button type="button" data-act="start_session">Start RPG session</button>
         <button type="button" class="secondary" data-act="end_session">End RPG session</button>
         <button type="button" class="secondary" data-act="copy">Copy session status</button>
@@ -354,7 +360,8 @@
     if (act === "copy") {
       const d = state?.director || {};
       const ad = state?.adState || {};
-      const text = `Stream: ${state?.stream?.twitchLive ? "Live" : "Offline"}\nMode: ${state?.stream?.mode}\nAuto: ${d.autoEnabled ? "On" : "Off"}\nActive: ${state?.activeEncounter?.name || "None"}\nNext: ${d.nextEncounterAt || "—"}\nNext Ad: ${ad.nextAdAt || "—"}\nQueued: ${state?.queuedSpecial?.name || "None"}`;
+      const liveLabel = state?.stream?.twitchLive ? "Live" : (state?.stream?.liveKnown ? "Offline" : "Unknown");
+      const text = `Stream: ${liveLabel}\nMode: ${state?.stream?.mode}\nAuto: ${d.autoEnabled ? "On" : "Off"}\nActive: ${state?.activeEncounter?.name || "None"}\nNext: ${d.nextEncounterAt || "—"}\nNext Ad: ${ad.nextAdAt || "—"}\nQueued: ${state?.queuedSpecial?.name || "None"}`;
       navigator.clipboard?.writeText(text);
       els.status.textContent = "Session status copied.";
       return;
@@ -419,6 +426,10 @@
       adsFn("refresh");
       return;
     }
+    if (act === "refresh_live") {
+      refreshLive(true);
+      return;
+    }
     if (act === "snooze_ad") {
       confirm("Snooze the next Twitch ad by 5 minutes?", `Current: ${when(state?.adState?.nextAdAt)}. Snoozes remaining after: ${Math.max(0, (state?.adState?.snoozeCount || 1) - 1)}.`, "Snooze", () => adsFn("snooze"));
       return;
@@ -436,6 +447,22 @@
     try { els.modal.close(); } catch (_) {}
     fn?.();
   });
+
+  async function refreshLive(force) {
+    const now = Date.now();
+    if (!force && now - lastLivePoll < 60000) return;
+    lastLivePoll = now;
+    try {
+      const { data, error } = await supabase.functions.invoke("twitch-live", { body: {} });
+      if (error) throw error;
+      if (force) els.status.textContent = data?.message || "Twitch live status updated.";
+      await load(true);
+    } catch (error) {
+      if (force) {
+        els.status.textContent = error?.message || "Twitch live status unavailable. Start an RPG session to run encounters.";
+      }
+    }
+  }
 
   async function adsFn(action) {
     pending = true;
@@ -506,6 +533,7 @@
       els.gate.hidden = true;
       els.app.hidden = false;
       render();
+      if (!keepApp) refreshLive(false);
     } catch (error) {
       disconnected = true;
       if (keepApp && !els.app.hidden) {
@@ -523,6 +551,7 @@
   setInterval(() => {
     if (document.visibilityState !== "visible" || pending || els.app.hidden) return;
     load(true);
+    refreshLive(false);
   }, 4000);
   load();
 })();

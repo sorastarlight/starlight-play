@@ -85,6 +85,26 @@ Deno.serve(async (req) => {
   }
 
   const subscription = payload.subscription as { type?: string } | undefined;
+  if (subscription?.type === "stream.online" || subscription?.type === "stream.offline") {
+    const event = (payload.event || {}) as {
+      broadcaster_user_id?: string;
+      started_at?: string;
+    };
+    const { error } = await admin.rpc("service_set_stream_status", {
+      p_event: {
+        is_live: subscription.type === "stream.online",
+        started_at: event.started_at || null,
+        source: subscription.type,
+        broadcaster_user_id: event.broadcaster_user_id || null
+      }
+    });
+    if (error) {
+      console.error("service_set_stream_status", error);
+      return new Response("live status failed", { status: 500 });
+    }
+    return new Response(null, { status: 204 });
+  }
+
   if (subscription?.type === "channel.ad_break.begin") {
     const event = (payload.event || {}) as {
       duration_seconds?: number;

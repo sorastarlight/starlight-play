@@ -10,5 +10,8 @@ verify_jwt = false
 [functions.twitch-ads]
 verify_jwt = true
 
+[functions.twitch-live]
+verify_jwt = true
+
 [functions.store-asset]
 verify_jwt = true

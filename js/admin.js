@@ -55,7 +55,13 @@
     ecoStream: document.getElementById("eco-stream"),
     ecoStatus: document.getElementById("economy-status"),
     ecoSimOut: document.getElementById("eco-sim-out"),
-    ecoLedger: document.getElementById("eco-ledger")
+    ecoLedger: document.getElementById("eco-ledger"),
+    progOverview: document.getElementById("prog-overview"),
+    progXpBase: document.getElementById("prog-xp-base"),
+    progXpExp: document.getElementById("prog-xp-exp"),
+    progJoinXp: document.getElementById("prog-join-xp"),
+    progCatchXp: document.getElementById("prog-catch-xp"),
+    progStatus: document.getElementById("progression-status")
   };
   let pickGender = "";
   let pickShiny = false;
@@ -230,6 +236,7 @@
     await refreshOverview(true);
     await loadCapture();
     await loadEconomy();
+    await loadProgression();
   }
 
   async function run(name, args, statusEl) {
@@ -751,6 +758,59 @@
         : `<p class="muted">No ledger rows yet.</p>`;
     } catch (error) {
       els.ecoLedger.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+    }
+  });
+
+  function fillProgression(data) {
+    const cfg = data?.config || {};
+    if (els.progXpBase) els.progXpBase.value = cfg.xpBase ?? 100;
+    if (els.progXpExp) els.progXpExp.value = cfg.xpExponent ?? 1.35;
+    if (els.progJoinXp) els.progJoinXp.value = cfg.joinXp ?? 5;
+    if (els.progCatchXp) els.progCatchXp.value = cfg.catchXp ?? 10;
+    const dex = data?.dexDistribution || {};
+    const levels = data?.levelBuckets || {};
+    if (els.progOverview) {
+      els.progOverview.innerHTML = `<dl class="sim-grid">
+        <div><dt>Average / median level</dt><dd>${data.averageLevel || 0} / ${data.medianLevel || 0}</dd></div>
+        <div><dt>Lv 1–10</dt><dd>${levels["1-10"] || 0}</dd></div>
+        <div><dt>Lv 11–25</dt><dd>${levels["11-25"] || 0}</dd></div>
+        <div><dt>Average species</dt><dd>${data.averageSpecies || 0}</dd></div>
+        <div><dt>Dex 0–25</dt><dd>${dex["0-25"] || 0}</dd></div>
+        <div><dt>Dex 26–50</dt><dd>${dex["26-50"] || 0}</dd></div>
+        <div><dt>Dex 51–75</dt><dd>${dex["51-75"] || 0}</dd></div>
+        <div><dt>Dex 76–100</dt><dd>${dex["76-100"] || 0}</dd></div>
+        <div><dt>Dex 101–125</dt><dd>${dex["101-125"] || 0}</dd></div>
+        <div><dt>Dex 126–140</dt><dd>${dex["126-140"] || 0}</dd></div>
+        <div><dt>Dex 141–150</dt><dd>${dex["141-150"] || 0}</dd></div>
+        <div><dt>Dex 151</dt><dd>${dex["151"] || 0}</dd></div>
+      </dl>`;
+    }
+  }
+
+  async function loadProgression() {
+    if (!els.progOverview) return;
+    try {
+      fillProgression(await window.playCall("admin_progression_overview", {}));
+    } catch (error) {
+      if (els.progStatus) els.progStatus.textContent = window.playRpcError(error);
+    }
+  }
+
+  document.getElementById("save-progression")?.addEventListener("click", async () => {
+    if (els.progStatus) els.progStatus.textContent = "Saving…";
+    try {
+      const saved = await window.playCall("admin_progression_save", {
+        p_balance: {
+          xpBase: Number(els.progXpBase.value),
+          xpExponent: Number(els.progXpExp.value),
+          joinXp: Number(els.progJoinXp.value),
+          catchXp: Number(els.progCatchXp.value),
+          levelCatchBonus: false
+        }
+      });
+      if (els.progStatus) els.progStatus.textContent = saved?.message || "Saved.";
+    } catch (error) {
+      if (els.progStatus) els.progStatus.textContent = window.playRpcError(error);
     }
   });
 

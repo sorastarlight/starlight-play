@@ -531,6 +531,9 @@
         try { els.throwModal.close(); } catch (_) {}
       }
       render(data);
+      if (kind === "throw" && typeof window.playShowNotices === "function") {
+        setTimeout(() => window.playShowNotices(), 900);
+      }
     } catch (error) {
       if (roundId && prevMe && (kind === "prepare" || kind === "throw")) joinedMe.set(roundId, prevMe);
       els.actionStatus.textContent = window.playRpcError(error);

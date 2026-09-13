@@ -823,4 +823,52 @@
     if (error) throw error;
     return data;
   };
+
+  function noticeHost() {
+    let host = document.getElementById("play-notice-host");
+    if (host) return host;
+    host = document.createElement("div");
+    host.id = "play-notice-host";
+    host.className = "play-notice-host";
+    host.setAttribute("aria-live", "polite");
+    document.body.append(host);
+    return host;
+  }
+
+  window.playToast = function playToast(notice) {
+    const host = noticeHost();
+    const card = document.createElement("article");
+    card.className = `play-toast play-toast-${notice?.kind || "info"}`;
+    card.innerHTML = `<strong>${notice?.title || "Reward"}</strong><p>${notice?.body || ""}</p>`;
+    host.append(card);
+    setTimeout(() => card.classList.add("is-out"), 4200);
+    setTimeout(() => card.remove(), 5000);
+  };
+
+  let noticeBusy = false;
+  window.playShowNotices = async function playShowNotices() {
+    if (noticeBusy || !window.playSupabase) return;
+    noticeBusy = true;
+    try {
+      const data = await window.playCall("play_notices");
+      const notices = data?.notices || [];
+      if (notices.length > 3) {
+        window.playToast({
+          kind: "summary",
+          title: `${notices.length} rewards earned!`,
+          body: notices.slice(0, 4).map((row) => row.title).join(" · ")
+        });
+        notices.slice(0, 3).forEach((row, index) => {
+          setTimeout(() => window.playToast(row), 400 + index * 350);
+        });
+      } else {
+        notices.forEach((row, index) => {
+          setTimeout(() => window.playToast(row), index * 350);
+        });
+      }
+    } catch (_) {
+    } finally {
+      noticeBusy = false;
+    }
+  };
 })();

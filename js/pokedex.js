@@ -11,7 +11,8 @@
     gender: document.getElementById("filter-gender"),
     status: document.getElementById("filter-status"),
     team: document.getElementById("team-slots"),
-    teamStatus: document.getElementById("team-status")
+    teamStatus: document.getElementById("team-status"),
+    variants: document.getElementById("dex-variants")
   };
   let dexData = null;
 
@@ -78,7 +79,20 @@
     const visible = entries.filter(matches);
     const caught = entries.filter((row) => row.caught).length;
     const seen = entries.filter((row) => row.seen).length;
-    els.summary.textContent = `${caught}/151 caught · ${seen} seen · ${151 - seen} not seen yet`;
+    const pct = (caught / 151 * 100).toFixed(1);
+    const v = dexData.variants || {};
+    els.summary.textContent = `Kanto Pokédex ${caught}/151 · ${pct}% · ${seen} seen · ${151 - seen} unknown`;
+    if (els.variants) {
+      els.variants.innerHTML = `
+        <h2>Collection variants</h2>
+        <p class="muted">Variants do not count as extra National Pokédex species.</p>
+        <dl class="sim-grid">
+          <div><dt>Kanto</dt><dd>${v.kantoCaught || caught} / ${v.kantoTotal || 151}</dd></div>
+          <div><dt>Shinies</dt><dd>${v.shinySpecies || 0} / ${v.shinyEligible || 151} eligible</dd></div>
+          <div><dt>Female variants</dt><dd>${v.femaleVariants || 0} / ${v.femaleEligible || 0} eligible</dd></div>
+          <div><dt>Shiny female</dt><dd>${v.shinyFemale || 0}</dd></div>
+        </dl>`;
+    }
     els.grid.innerHTML = visible.map((entry) => {
       const state = entry.caught ? "caught" : entry.seen ? "seen" : "unseen";
       const label = entry.caught ? entry.name : entry.seen ? `${entry.name}?` : "?????";

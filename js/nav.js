@@ -54,6 +54,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     { href: "./", id: "play", label: "Play" },
     { href: "./inventory.html", id: "inventory", label: "My Inventory" },
     { href: "./pokedex.html", id: "pokedex", label: "My Pokédex" },
+    { href: "./achievements.html", id: "achievements", label: "Achievements" },
     { href: "./storage.html", id: "storage", label: "My PC" },
     { href: "./trade.html", id: "trade", label: "Global Trade System" },
     { href: "./rankings.html", id: "rankings", label: "Rankings" },
@@ -185,14 +186,18 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (els.trainer) {
       if (trainer) {
         const pct = Math.max(0, Math.min(100, Math.round((trainer.xpInto / Math.max(1, trainer.xpNeed)) * 100)));
+        const kanto = trainer.kanto?.caught != null ? `${trainer.kanto.caught}/151` : `${trainer.species || 0}/151`;
         els.trainer.hidden = false;
         els.trainer.innerHTML = `
-          <strong>Trainer Lv. ${trainer.level}</strong>
-          <div>${trainer.caught || 0} caught · ${window.playWatchHours(trainer.watchSeconds)} watched</div>
+          <strong>Trainer Lv. ${trainer.level}${trainer.title ? ` · ${trainer.title}` : ""}</strong>
+          <div>${kanto} Pokédex · ${trainer.caught || 0} caught</div>
           <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>`;
       } else {
         els.trainer.hidden = true;
       }
+    }
+    if (signedIn && typeof window.playShowNotices === "function") {
+      window.playShowNotices();
     }
     if (avatar && els.avatar) {
       els.avatar.hidden = false;

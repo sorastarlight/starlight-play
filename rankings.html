@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=gts2">
+<link rel="stylesheet" href="css/play.css?v=prog1">
 <body data-page="rankings">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -53,11 +53,25 @@
     <h1>Rankings</h1>
   </div>
   <section class="card body">
+    <div class="dex-filters" id="rank-boards">
+      <button type="button" class="button secondary" data-board="level" aria-pressed="true">Trainer Level</button>
+      <button type="button" class="button secondary" data-board="pokedex">Pokédex</button>
+      <button type="button" class="button secondary" data-board="shinies">Shinies</button>
+      <button type="button" class="button secondary" data-board="catches">Catches</button>
+      <button type="button" class="button secondary" data-board="honey">Honey</button>
+    </div>
     <p id="rank-status" class="muted">Loading rankings…</p>
     <div class="table-scroll">
     <table class="rank-table">
       <thead>
-        <tr><th>#</th><th>Trainer</th><th>Lv</th><th>Caught</th><th>Watched</th><th>Status</th></tr>
+        <tr>
+          <th>#</th>
+          <th>Trainer</th>
+          <th id="rank-col-a">Lv</th>
+          <th id="rank-col-b">Caught</th>
+          <th>Title</th>
+          <th>Status</th>
+        </tr>
       </thead>
       <tbody id="rank-body"></tbody>
     </table>
@@ -69,6 +83,6 @@
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
 <script src="js/game.js"></script>
-<script src="js/nav.js?v=gts3"></script>
-<script src="js/rankings.js?v=id3"></script>
+<script src="js/nav.js?v=prog1"></script>
+<script src="js/rankings.js?v=prog1"></script>
 </body>

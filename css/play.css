@@ -4599,3 +4599,7 @@ body[data-page="admin-live"] .wrap { max-width: 1280px; }
 @media (max-width: 980px) {
   .live-status-bar, .live-grid { grid-template-columns: 1fr; }
 }
+img[src*="images/pokemon/"] {
+  image-rendering: auto;
+  object-fit: contain;
+}

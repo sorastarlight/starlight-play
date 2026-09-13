@@ -493,24 +493,34 @@
     const kind = String(variant || "normal");
     const shiny = kind.includes("shiny");
     const female = kind.includes("female");
-    if (shiny && female) return `images/pokemon/shiny/female/${id}.png`;
-    if (female) return `images/pokemon/female/${id}.png`;
-    if (shiny) return `images/pokemon/shiny/${id}.png`;
-    return `images/pokemon/${id}.png`;
+    if (shiny && female) return `images/pokemon/shiny/female/${id}.gif`;
+    if (female) return `images/pokemon/female/${id}.gif`;
+    if (shiny) return `images/pokemon/shiny/${id}.gif`;
+    return `images/pokemon/${id}.gif`;
   };
 
   window.playSpriteOnError = function playSpriteOnError(img) {
-    const src = String(img?.getAttribute("src") || "");
-    const match = src.match(/(\d+)\.png(?:\?.*)?$/i);
-    if (!img || !match) {
-      if (img) img.onerror = null;
+    if (!(img instanceof HTMLImageElement) || img.dataset.playSpriteDone) return;
+    const src = String(img.getAttribute("src") || img.currentSrc || "");
+    const match = src.match(/(?:(shiny)\/)?(?:(female)\/)?(\d+)\.(gif|png)(?:\?.*)?$/i);
+    if (!match) {
+      img.dataset.playSpriteDone = "1";
       return;
     }
-    const id = match[1];
-    if (src.includes("/shiny/female/")) img.src = `images/pokemon/shiny/${id}.png`;
-    else if (src.includes("/female/")) img.src = `images/pokemon/${id}.png`;
-    else if (src.includes("/shiny/")) img.src = `images/pokemon/${id}.png`;
-    else img.onerror = null;
+    const shiny = Boolean(match[1]);
+    const female = Boolean(match[2]);
+    const id = match[3];
+    const ext = match[4].toLowerCase();
+    let next = "";
+    if (ext === "gif") next = src.replace(/\.gif(?:\?.*)?$/i, ".png");
+    else if (shiny && female) next = `images/pokemon/shiny/${id}.gif`;
+    else if (female) next = `images/pokemon/${id}.gif`;
+    else if (shiny) next = `images/pokemon/${id}.gif`;
+    if (!next || next === src) {
+      img.dataset.playSpriteDone = "1";
+      return;
+    }
+    img.src = next;
   };
 
   const ITEM_SPRITES = {
@@ -688,8 +698,13 @@
 
   document.addEventListener("error", (event) => {
     const img = event.target;
-    if (!(img instanceof HTMLImageElement) || img.dataset.playRawTried) return;
+    if (!(img instanceof HTMLImageElement)) return;
     const src = img.currentSrc || img.getAttribute("src") || "";
+    if (/images\/pokemon\//.test(src) && !img.dataset.playSpriteDone) {
+      window.playSpriteOnError(img);
+      return;
+    }
+    if (img.dataset.playRawTried) return;
     if (!/images\/items\//.test(src) || src.includes("raw.githubusercontent.com")) return;
     const raw = window.playItemRawUrl(src);
     if (!raw) return;

@@ -59,10 +59,17 @@
   function renderReady() {
     const rows = (data?.ready || []).filter(matches);
     const readyCount = (data?.ready || []).filter(canEvolve).length;
+    const tradeDex = new Set([64, 67, 75, 93]);
+    const tradeTip = (data?.ready || []).some((row) => row.tradeReady || tradeDex.has(Number(row.dex)))
+      ? (typeof window.playTipHtml === "function"
+        ? window.playTipHtml("first-trade-evo", "Some Pokémon can evolve after being traded. A Linking Cord can also trigger this evolution.")
+        : "")
+      : "";
     if (els.note) {
-      els.note.textContent = readyCount
+      els.note.innerHTML = (readyCount
         ? `${readyCount} evolution${readyCount === 1 ? "" : "s"} ready.`
-        : "No Pokémon are ready to evolve yet. Catch duplicates to earn Species Candy and collect Evolution Items.";
+        : "No Pokémon are ready to evolve yet. Catch duplicates to earn Species Candy and collect Evolution Items.")
+        + (tradeTip || "");
     }
     const cards = rows.map((row) => {
       const shiny = isShiny(row);
@@ -195,7 +202,9 @@
     } catch (error) {
       els.gate.hidden = false;
       els.app.hidden = true;
-      els.gate.textContent = window.playRpcError(error, "Evolution is not live yet.");
+      els.gate.textContent = window.playHumanRpcError
+        ? window.playHumanRpcError(error, "Evolution is not live yet.")
+        : window.playRpcError(error, "Evolution is not live yet.");
     }
   }
 
@@ -232,7 +241,10 @@
       els.modal.close();
       await load();
     } catch (error) {
-      els.status.textContent = window.playRpcError(error);
+      const raw = window.playHumanRpcError ? window.playHumanRpcError(error) : window.playRpcError(error);
+      els.status.textContent = /artwork|sprite|asset/i.test(String(raw || ""))
+        ? "Evolution unavailable right now. The required artwork is missing."
+        : raw;
     }
   });
   els.rareUse?.addEventListener("click", async () => {
@@ -248,6 +260,7 @@
     }
   });
   els.filter?.addEventListener("change", renderReady);
+  window.playBindTips?.(document.body);
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });
   load();
 })();

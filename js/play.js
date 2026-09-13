@@ -336,8 +336,8 @@
     if (els.throwTitle) els.throwTitle.textContent = throwViewOnly ? "Your Poké Balls" : "All my Poké Balls";
     if (els.throwHint) {
       els.throwHint.textContent = throwViewOnly
-        ? "Balls you own. Recommendations come from this encounter."
-        : "Only balls in your bag. Master Ball always catches and asks for confirmation.";
+        ? "Balls you own. Recommendations come from this encounter — not a raw multiplier."
+        : "Only balls in your bag. Recommended Balls are marked. Master Ball always catches and asks for confirmation.";
     }
     const rows = window.playOwnedBalls(bag);
     const adviceMap = new Map((state?.ballAdvice || []).map((row) => [row.ballId, row]));

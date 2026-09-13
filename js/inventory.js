@@ -21,6 +21,7 @@
   let lastBag = {};
   let lastCapture = null;
   let lastCollection = null;
+  let lastLedgerOrder = [];
   let tab = "balls";
   const TABS = [
     ["balls", "Poké Balls"],
@@ -85,6 +86,13 @@
     rows.sort((a, b) => {
       if (sort === "quantity") return b.qty - a.qty || a.key.localeCompare(b.key);
       if (sort === "name") return window.playItemLabel(a.key).localeCompare(window.playItemLabel(b.key));
+      if (sort === "recent") {
+        const idx = (key) => {
+          const i = lastLedgerOrder.indexOf(key);
+          return i < 0 ? 999 : i;
+        };
+        return idx(a.key) - idx(b.key) || b.qty - a.qty;
+      }
       if (pins.includes(a.key) !== pins.includes(b.key)) return pins.includes(a.key) ? -1 : 1;
       return a.key.localeCompare(b.key);
     });
@@ -96,11 +104,14 @@
     const body = rows.length
       ? `<div class="bag-rows">${rows.map((row) => window.playBagRowHtml(row.key, row.qty, lastCapture, { pins })).join("")}</div>`
       : `<p class="muted">${showUnowned ? "No items match this filter." : "Nothing in this pocket yet. Visit Starlight Mart or join encounters to fill it."}</p>`;
+    const specialist = ["netball", "diveball", "duskball", "lureball", "moonball", "repeatball", "nestball", "fastball", "heavyball"];
     const tip = tab === "evolution" && rows.some((row) => Number(bag[row.key] || 0) > 0 && ["firestone", "waterstone", "thunderstone", "leafstone", "moonstone"].includes(row.key))
       ? window.playTipHtml?.("first-stone", "Evolution Items can be used with Species Candy to evolve eligible Pokémon.")
       : tab === "community" && Number(bag.bait || 0) > 0
         ? window.playTipHtml?.("first-honey", "Honey helps every participating Trainer during an encounter.")
-        : "";
+        : tab === "balls" && rows.some((row) => specialist.includes(row.key) && row.qty > 0)
+          ? window.playTipHtml?.("first-specialist", "Some Poké Balls are more effective against certain Pokémon. Watch for the recommended indicator during encounters.")
+          : "";
     els.bag.innerHTML = `${wallet}${tip || ""}<section class="bag-group"><h3>${TABS.find((row) => row[0] === tab)?.[1] || "Items"}</h3>${body}</section>`;
   }
 
@@ -150,6 +161,7 @@
       const hist = await window.playCall("play_item_ledger", { p_limit: 20 });
       const rows = hist?.rows || [];
       if (els.ledger) {
+        lastLedgerOrder = [...new Set(rows.map((row) => row.item).filter(Boolean))];
         els.ledger.innerHTML = rows.length
           ? `<table class="report-table"><thead><tr><th>Item</th><th>Qty</th><th>Source</th></tr></thead><tbody>${
             rows.map((row) => `<tr><td>${window.playEscapeAttr(window.playItemLabel(row.item))}</td><td>${row.amount > 0 ? "+" : ""}${row.amount}</td><td>${window.playEscapeAttr(window.playLedgerLabel?.(row.reason) || row.reason)}</td></tr>`).join("")

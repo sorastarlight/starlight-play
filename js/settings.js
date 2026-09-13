@@ -24,6 +24,7 @@
     defaultPrep: document.getElementById("default-prep"),
     autoPrep: document.getElementById("auto-prep"),
     autoThrow: document.getElementById("auto-throw"),
+    confirmRare: document.getElementById("confirm-rare"),
     saveEncounter: document.getElementById("save-encounter"),
     encounterStatus: document.getElementById("encounter-status")
   };
@@ -83,6 +84,7 @@
       if (els.defaultPrep) els.defaultPrep.value = encounter.defaultPrep;
       if (els.autoPrep) els.autoPrep.checked = encounter.autoPrep;
       if (els.autoThrow) els.autoThrow.checked = encounter.autoThrow;
+      if (els.confirmRare) els.confirmRare.checked = window.playConfirmRare?.() !== false;
     }
     if (!els.favorites) return;
     const owned = window.playOwnedBalls(bag);
@@ -236,6 +238,10 @@
     }
   });
 
+  els.confirmRare?.addEventListener("change", () => {
+    window.playSetConfirmRare?.(Boolean(els.confirmRare.checked));
+  });
+
   els.favorites?.addEventListener("click", (event) => {
     const button = event.target.closest("[data-fav]");
     if (!button) return;
@@ -260,6 +266,7 @@
         }
       });
       encounter = window.playEncounterSettings(data?.encounterSettings);
+      window.playSetConfirmRare?.(Boolean(els.confirmRare?.checked));
       fillEncounter();
       els.encounterStatus.textContent = data.message || "Encounter settings saved.";
     } catch (error) {

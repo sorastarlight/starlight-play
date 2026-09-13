@@ -256,6 +256,17 @@
     }
   };
 
+  root.playSetConfirmRare = function playSetConfirmRare(on) {
+    try { localStorage.setItem("play-confirm-rare", on ? "1" : "0"); } catch (_) {}
+    return Boolean(on);
+  };
+
+  root.playBallShopBlurb = function playBallShopBlurb(key, captureItems) {
+    if (key === "masterball") return "Guaranteed capture. Extremely rare — not sold on the ordinary shelf.";
+    const text = root.playItemPlayerText(key, captureItems);
+    return String(text || "A Poké Ball for catching wild Pokémon.").replace(/\d+(\.\d+)?\s*×/g, "").trim();
+  };
+
   root.playTipDone = function playTipDone(key) {
     try {
       const raw = JSON.parse(localStorage.getItem("play-tips-done") || "{}") || {};
@@ -442,7 +453,8 @@
       playSortEncounterBalls: root.playSortEncounterBalls,
       playTimerWarnClass: root.playTimerWarnClass,
       playPremierPreview: root.playPremierPreview,
-      playLedgerLabel: root.playLedgerLabel
+      playLedgerLabel: root.playLedgerLabel,
+      playBallShopBlurb: root.playBallShopBlurb
     };
   }
 })();

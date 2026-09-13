@@ -323,11 +323,13 @@
   function ballTile(item) {
     const row = ballView(item);
     const pack = row.qty > 1 ? ` ×${row.qty}` : "";
-    const rate = row.key === "masterball" ? "Always catches" : `${esc(row.multiplier)} catch power`;
+    const rate = typeof window.playBallShopBlurb === "function"
+      ? window.playBallShopBlurb(row.key)
+      : (row.key === "masterball" ? "Guaranteed capture" : (row.effect || "A Poké Ball for catching wild Pokémon."));
     return `<article class="ball-tile">
       <img src="${esc(art(row, row.key))}" alt="">
       <strong>${esc(row.name)}${pack}</strong>
-      <span class="ball-rate">${rate}</span>
+      <span class="ball-rate">${esc(rate)}</span>
       ${ownedLine(row)}
       ${costHtml(row, "coins")}
       ${addButton(row.sku)}
@@ -434,7 +436,7 @@
       row = ballView(item);
       sprite = art(row, row.key);
       blurb = row.effect || "";
-      extra = `<p class="ball-rate">${row.key === "masterball" ? "Always catches" : `${esc(row.multiplier)} catch power`}</p>`;
+      extra = `<p class="ball-rate">${esc(typeof window.playBallShopBlurb === "function" ? window.playBallShopBlurb(row.key) : (row.effect || "A Poké Ball for catching wild Pokémon."))}</p>`;
     } else if (mode === "avatars") {
       const have = owned.has(item.pack);
       sprite = window.playItemSprite(packThumb(item));

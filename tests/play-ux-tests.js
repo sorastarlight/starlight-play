@@ -71,6 +71,17 @@ test("Ledger labels hide internal IDs", () => {
   assert(window.playLedgerLabel("DAILY_SUPPLY") === "Daily Trainer Supply");
   assert(window.playLedgerLabel("STORE_PURCHASE") === "Starlight Mart");
 });
+test("Mart Ball copy never shows a raw multiplier", () => {
+  window.playItemPlayerText = () => "Especially effective against Water- and Bug-type Pokémon.";
+  const text = window.playBallShopBlurb("netball");
+  assert(!/\d+(\.\d+)?\s*×/.test(text));
+  assert(/Water/.test(text));
+});
+test("Master Ball shop copy is guaranteed, not recommended", () => {
+  const text = window.playBallShopBlurb("masterball");
+  assert(/Guaranteed/i.test(text));
+  assert(!/recommended/i.test(text));
+});
 
 const failed = results.filter((row) => !row.passed);
 results.forEach((row) => {

@@ -221,6 +221,7 @@
           </div>
         </div>
         <p class="lgpe-ot"><span>OT</span> <strong>${window.playEscapeAttr(otName)}</strong> <em>No. ${otNo}</em></p>
+        <p class="muted">${mon.obtainedMethod || "CAPTURE"}${mon.favorite ? " · Favorite" : ""}${mon.locked ? " · Locked" : ""}</p>
         <div class="lgpe-stats">${statRows(mon)}</div>
         <div class="lgpe-detail-actions">
           <label class="field" for="nick-input">Nickname
@@ -228,8 +229,11 @@
           </label>
           <div class="links">
             <button id="save-nick" type="button">Save nickname</button>
-            <button id="list-trade" class="secondary" type="button">${mon.listed ? "Already listed" : "Put up for trade"}</button>
-            <button id="send-oak" class="danger" type="button" ${mon.onTeam || mon.listed ? "disabled" : ""}>Transfer to Oak</button>
+            <button id="toggle-fav" class="secondary" type="button">${mon.favorite ? "Unfavorite" : "Favorite"}</button>
+            <button id="toggle-lock" class="secondary" type="button">${mon.locked ? "Unlock" : "Lock"}</button>
+            <button id="list-trade" class="secondary" type="button" ${mon.listed || mon.locked || mon.favorite || mon.tradable === false ? "disabled" : ""}>${mon.listed ? "Already listed" : "Put up for trade"}</button>
+            <button id="send-oak" class="danger" type="button" ${mon.onTeam || mon.listed || mon.locked || mon.favorite ? "disabled" : ""}>Transfer to Oak</button>
+            <button id="release-mon" class="danger" type="button" ${mon.onTeam || mon.listed || mon.locked || mon.favorite ? "disabled" : ""}>Release duplicate</button>
           </div>
         </div>
       </div>`;
@@ -237,9 +241,51 @@
       p_catch_id: mon.id,
       p_name: document.getElementById("nick-input")?.value || ""
     }));
+    document.getElementById("toggle-fav")?.addEventListener("click", async () => {
+      try {
+        await window.playCall("play_set_mon_flags", { p_catch: mon.id, p_favorite: !mon.favorite });
+        data = await window.playCall("play_storage");
+        render();
+      } catch (error) {
+        els.status.textContent = window.playRpcError(error);
+      }
+    });
+    document.getElementById("toggle-lock")?.addEventListener("click", async () => {
+      try {
+        await window.playCall("play_set_mon_flags", { p_catch: mon.id, p_locked: !mon.locked });
+        data = await window.playCall("play_storage");
+        render();
+      } catch (error) {
+        els.status.textContent = window.playRpcError(error);
+      }
+    });
     document.getElementById("send-oak")?.addEventListener("click", () => openOakModal(mon));
     document.getElementById("list-trade")?.addEventListener("click", () => {
       window.location.href = `./trade.html?list=${encodeURIComponent(mon.id)}`;
+    });
+    document.getElementById("release-mon")?.addEventListener("click", async () => {
+      const shiny = String(mon.variant || "").includes("shiny");
+      const copies = (data?.mons || []).filter((row) => Number(row.dex) === Number(mon.dex)).length;
+      if (copies <= 1) {
+        els.status.textContent = `This is your only currently owned ${mon.name}. Keep it for your Living Dex.`;
+        return;
+      }
+      if (!window.confirm(`You are about to release ${displayName(mon)}. This cannot be undone.`)) return;
+      let confirmKey = "";
+      if (shiny) {
+        const typed = window.prompt("This is a SHINY Pokémon. Type SHINY to release it.");
+        if (typed !== "SHINY") return;
+        confirmKey = "SHINY";
+      }
+      try {
+        const result = await window.playCall("play_release", { p_catch: mon.id, p_confirm: confirmKey });
+        els.status.textContent = result.message || "Released.";
+        data = await window.playCall("play_storage");
+        selectedId = "";
+        render();
+      } catch (error) {
+        els.status.textContent = window.playRpcError(error);
+      }
     });
   }
 

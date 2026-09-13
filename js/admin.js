@@ -61,7 +61,10 @@
     progXpExp: document.getElementById("prog-xp-exp"),
     progJoinXp: document.getElementById("prog-join-xp"),
     progCatchXp: document.getElementById("prog-catch-xp"),
-    progStatus: document.getElementById("progression-status")
+    progStatus: document.getElementById("progression-status"),
+    collectionOverview: document.getElementById("collection-overview"),
+    collectionStatus: document.getElementById("collection-status"),
+    candySimOut: document.getElementById("candy-sim-out")
   };
   let pickGender = "";
   let pickShiny = false;
@@ -237,6 +240,7 @@
     await loadCapture();
     await loadEconomy();
     await loadProgression();
+    await loadCollection();
   }
 
   async function run(name, args, statusEl) {
@@ -795,6 +799,58 @@
       if (els.progStatus) els.progStatus.textContent = window.playRpcError(error);
     }
   }
+
+  async function loadCollection() {
+    if (!els.collectionOverview) return;
+    try {
+      const data = await window.playCall("admin_collection_overview", {});
+      els.collectionOverview.innerHTML = `<dl class="sim-grid">
+        <div><dt>Family Candy held</dt><dd>${data.candyTotal || 0}</dd></div>
+        <div><dt>Trainers with Candy</dt><dd>${data.candyTrainers || 0}</dd></div>
+        <div><dt>Evolutions logged</dt><dd>${data.evolutions || 0}</dd></div>
+        <div><dt>Open GTS listings</dt><dd>${data.openGts || 0}</dd></div>
+        <div><dt>Direct trades</dt><dd>${data.directTrades || 0}</dd></div>
+        <div><dt>Species mastered</dt><dd>${data.mastered || 0}</dd></div>
+      </dl>
+      <h3>Recent evolutions</h3>
+      ${(data.recentEvo || []).map((row) => `<p>${window.playEscapeAttr(row.player || "Trainer")} · ${row.fromDex} → ${row.toDex} · ${row.candy} Candy</p>`).join("") || "<p class=\"muted\">None yet.</p>"}`;
+    } catch (error) {
+      if (els.collectionStatus) els.collectionStatus.textContent = window.playRpcError(error);
+    }
+  }
+
+  document.getElementById("run-candy-sim")?.addEventListener("click", async () => {
+    if (els.candySimOut) els.candySimOut.innerHTML = `<p class="muted">Running…</p>`;
+    try {
+      const data = await window.playCall("admin_candy_simulate", {
+        p_family: Number(document.getElementById("candy-family").value),
+        p_catches: Number(document.getElementById("candy-catches").value)
+      });
+      const first = data.firstEvolution;
+      const last = data.finalEvolution;
+      els.candySimOut.innerHTML = `<dl class="sim-grid">
+        <div><dt>${window.playEscapeAttr(data.family)} Candy / catch</dt><dd>${data.candyPerCatch}</dd></div>
+        <div><dt>Expected Candy</dt><dd>${data.expectedCandy}</dd></div>
+        ${first ? `<div><dt>First evo</dt><dd>${first.catchesNeeded} catches · ${first.cost} Candy</dd></div>` : ""}
+        ${last ? `<div><dt>Final evo</dt><dd>${last.catchesNeeded} catches · ${last.cost} Candy</dd></div>` : ""}
+      </dl>`;
+    } catch (error) {
+      if (els.candySimOut) els.candySimOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+    }
+  });
+
+  document.getElementById("unlock-catch-btn")?.addEventListener("click", async () => {
+    if (els.collectionStatus) els.collectionStatus.textContent = "Working…";
+    try {
+      const result = await window.playCall("admin_unlock_catch", {
+        p_catch: document.getElementById("unlock-catch").value,
+        p_reason: "admin unlock"
+      });
+      if (els.collectionStatus) els.collectionStatus.textContent = result.message || "Unlocked.";
+    } catch (error) {
+      if (els.collectionStatus) els.collectionStatus.textContent = window.playRpcError(error);
+    }
+  });
 
   document.getElementById("save-progression")?.addEventListener("click", async () => {
     if (els.progStatus) els.progStatus.textContent = "Saving…";

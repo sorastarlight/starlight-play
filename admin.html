@@ -287,6 +287,30 @@
         <p id="progression-status" class="muted" role="status"></p>
       </section>
       <section class="card body">
+        <h2>Evolution &amp; trades</h2>
+        <p class="muted">Family Candy, evolution history, and stuck-trade unlocks. Unlocking does not rewrite ownership.</p>
+        <div id="collection-overview" class="report-out"></div>
+        <div class="settings-grid">
+          <label class="field" for="candy-family">Family dex
+            <input id="candy-family" type="number" min="1" max="151" value="4">
+          </label>
+          <label class="field" for="candy-catches">Expected catches
+            <input id="candy-catches" type="number" min="1" max="500" value="20">
+          </label>
+        </div>
+        <div class="links">
+          <button id="run-candy-sim" type="button">Estimate Candy pacing</button>
+        </div>
+        <div id="candy-sim-out" class="sim-out"></div>
+        <label class="field" for="unlock-catch">Unlock catch id
+          <input id="unlock-catch" type="text" placeholder="uuid">
+        </label>
+        <div class="links">
+          <button id="unlock-catch-btn" type="button">Clear lock</button>
+        </div>
+        <p id="collection-status" class="muted" role="status"></p>
+      </section>
+      <section class="card body">
         <h2>Capture analytics</h2>
         <p class="muted">Every throw is logged with its inputs, roll and result.</p>
         <div class="links">
@@ -321,6 +345,6 @@
 <script src="js/variants.js"></script>
 <script src="js/game.js?v=eco1"></script>
 <script src="js/hud.js?v=eco1"></script>
-<script src="js/nav.js?v=prog1"></script>
-<script src="js/admin.js?v=prog1"></script>
+<script src="js/nav.js?v=evo1"></script>
+<script src="js/admin.js?v=evo1"></script>
 </body>

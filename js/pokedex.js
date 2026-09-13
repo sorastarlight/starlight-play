@@ -15,6 +15,7 @@
     variants: document.getElementById("dex-variants")
   };
   let dexData = null;
+  let collection = null;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -39,7 +40,10 @@
       Female: catches.some((row) => row.gender === "Female"),
       Genderless: catches.some((row) => row.gender === "Genderless")
     };
-    return { dex, name, seen, caught, forms, genders, catches };
+    const mastery = (collection?.mastery || []).find((row) => Number(row.dex) === dex);
+    const familyCandy = (collection?.candy || []).find((row) => Number(row.baseDex) === dex || Number(row.familyId) === dex);
+    const ownedNow = (collection?.owned || []).filter((row) => Number(row.dex) === dex).length;
+    return { dex, name, seen, caught, forms, genders, catches, mastery, familyCandy, ownedNow };
   }
 
   function matches(entry) {
@@ -104,8 +108,11 @@
         ? `<img class="dex-caught-mark" src="${window.playItemSprite("pokeball")}" alt="Caught">`
         : "";
       const spriteClass = state === "unseen" ? "silhouette" : state === "seen" ? "seen-sprite" : "";
-      const note = badges || (state === "unseen" ? "Not seen" : "");
-      return `<article class="dex-cell ${state}" title="${entry.caught || entry.seen ? entry.name : "Not seen yet"}">
+      const owned = entry.ownedNow ? ` · ${entry.ownedNow} owned` : "";
+      const candy = entry.familyCandy ? ` · ${entry.familyCandy.qty} Candy` : "";
+      const stars = entry.mastery ? ` · ${"★".repeat(entry.mastery.rank || 0)}${"☆".repeat(Math.max(0, 5 - (entry.mastery.rank || 0)))}` : "";
+      const note = badges || owned || candy || stars || (state === "unseen" ? "Not seen" : "");
+      return `<article class="dex-cell ${state}" title="${entry.caught || entry.seen ? `${entry.name}${owned}${candy}${stars}` : "Not seen yet"}">
         ${mark}
         <span class="dex-no">No. ${window.playPadDex(entry.dex)}</span>
         <img src="${spriteFor(entry)}" alt="" class="${spriteClass}">
@@ -141,6 +148,7 @@
     }
     try {
       dexData = await window.playCall("play_pokedex", { p_login: null });
+      try { collection = await window.playCall("play_collection"); } catch (_) { collection = null; }
       els.gate.hidden = true;
       els.app.hidden = false;
       render();

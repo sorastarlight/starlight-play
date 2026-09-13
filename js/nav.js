@@ -56,6 +56,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     { href: "./pokedex.html", id: "pokedex", label: "My Pokédex" },
     { href: "./achievements.html", id: "achievements", label: "Achievements" },
     { href: "./storage.html", id: "storage", label: "My PC" },
+    { href: "./evolve.html", id: "evolve", label: "Evolution" },
     { href: "./trade.html", id: "trade", label: "Global Trade System" },
     { href: "./rankings.html", id: "rankings", label: "Rankings" },
     { href: "./events.html", id: "events", label: "Events" }

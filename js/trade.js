@@ -19,6 +19,7 @@
     listStepPc: document.getElementById("list-step-pc"),
     listStepWant: document.getElementById("list-step-want"),
     listPcSearch: document.getElementById("list-pc-search"),
+    listPcDupes: document.getElementById("list-pc-dupes"),
     listPcGrid: document.getElementById("list-pc-grid"),
     listPicked: document.getElementById("list-picked"),
     listWant: document.getElementById("list-want"),
@@ -121,7 +122,11 @@
   }
 
   function availableMons() {
-    return (storage?.mons || []).filter((row) => !row.listed);
+    return (storage?.mons || []).filter((row) => {
+      if (row.listed || row.locked || row.favorite) return false;
+      if (row.tradable === false) return false;
+      return true;
+    });
   }
 
   function card(listing, index) {
@@ -257,9 +262,15 @@
     </button>`;
   }
 
+  function ownedCount(dex) {
+    return (storage?.mons || []).filter((row) => Number(row.dex) === Number(dex) && !row.transferredAt).length;
+  }
+
   function renderListPc() {
     const q = String(els.listPcSearch?.value || "").trim().toLowerCase();
+    const dupesOnly = Boolean(els.listPcDupes?.checked);
     const rows = availableMons().filter((mon) => {
+      if (dupesOnly && ownedCount(mon.dex) <= 1) return false;
       if (!q) return true;
       const hay = [mon.name, mon.nickname, mon.gender, shinyLabel(mon)].join(" ").toLowerCase();
       return hay.includes(q);
@@ -664,11 +675,16 @@
         if (els.listStatus) els.listStatus.textContent = "Select a Pokémon, then tap Trade.";
         return;
       }
+      if (String(listingMon.variant || "").includes("shiny")) {
+        const ok = window.confirm(`You are offering a Shiny ${listingMon.name}. Continue?`);
+        if (!ok) return;
+      }
       setListStep(2);
       return;
     }
     submitListing();
   });
+  els.listPcDupes?.addEventListener("change", renderListPc);
   els.wantOpen?.addEventListener("click", openWantBrowser);
   els.wantAny?.addEventListener("click", () => pickWantSpecies(""));
   els.wantSearch?.addEventListener("input", renderWantGrid);

@@ -65,6 +65,13 @@
         items: (window.PLAY_BALLS || [])
           .filter((row) => !row.extra || Number(bag?.[row.key] || 0) > 0)
           .map((row) => [row.key, row.name, row.effect])
+      },
+      {
+        title: "Evolution Items",
+        note: "Used with family Candy on the Evolution page. Candy itself is not sold.",
+        items: ["firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord"]
+          .filter((key) => Number(bag?.[key] || 0) > 0)
+          .map((key) => [key, window.playItemLabel(key), "Spend this with family Candy to evolve."])
       }
     ];
     window.playFillBagMeter(bag);
@@ -107,7 +114,12 @@
     }
     window.playSetAccountNav(session, profile, { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer });
     renderCard(snapshot?.trainer);
-    renderBag(snapshot?.bag);
+    let bag = snapshot?.bag || {};
+    try {
+      const collection = await window.playCall("play_collection");
+      bag = { ...bag, ...(collection?.items || {}) };
+    } catch (_) {}
+    renderBag(bag);
     els.gate.hidden = true;
     els.trainer.hidden = false;
     if (invChannel) supabase.removeChannel(invChannel);
@@ -116,7 +128,12 @@
         try {
           const snap = await window.playCall("play_state");
           renderCard(snap?.trainer);
-          renderBag(snap?.bag);
+          let nextBag = snap?.bag || {};
+          try {
+            const collection = await window.playCall("play_collection");
+            nextBag = { ...nextBag, ...(collection?.items || {}) };
+          } catch (_) {}
+          renderBag(nextBag);
         } catch (_) {}
       })
       .subscribe();

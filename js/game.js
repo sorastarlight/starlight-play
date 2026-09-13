@@ -65,7 +65,13 @@
     strangeball: "Strange Ball",
     lure: "Poké Radar",
     coins: "PokéCoins",
-    bag_bonus: "inventory space"
+    bag_bonus: "inventory space",
+    firestone: "Fire Stone",
+    waterstone: "Water Stone",
+    thunderstone: "Thunder Stone",
+    leafstone: "Leaf Stone",
+    moonstone: "Moon Stone",
+    linkingcord: "Linking Cord"
   };
   const VARIANT_LABELS = {
     normal: "Normal",
@@ -638,7 +644,19 @@
     "bits-great": "great-ball",
     "bits-ultra": "ultra-ball",
     "bits-pantry": "oran-berry",
-    "bits-pouch": "explorer-kit"
+    "bits-pouch": "explorer-kit",
+    firestone: "fire-stone",
+    firestone1: "fire-stone",
+    waterstone: "water-stone",
+    waterstone1: "water-stone",
+    thunderstone: "thunder-stone",
+    thunderstone1: "thunder-stone",
+    leafstone: "leaf-stone",
+    leafstone1: "leaf-stone",
+    moonstone: "moon-stone",
+    moonstone1: "moon-stone",
+    linkingcord: "linking-cord",
+    linkingcord1: "linking-cord"
   };
 
   const ITEM_RAW_BASE = "https://raw.githubusercontent.com/sorastarlight/starlight-play/main/images/items/";

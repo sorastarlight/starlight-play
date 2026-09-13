@@ -44,6 +44,7 @@
         <p class="muted">${card.title || "Trainer"} · Lv. ${card.level || 1}</p>
         <p>Kanto Pokédex: ${kanto.caught || card.species || 0} / ${kanto.total || 151} · ${kanto.percent || 0}%</p>
         <p>Total catches: ${card.caught || 0} · Shinies: ${variants.shinySpecies || 0} · Female variants: ${variants.femaleVariants || 0}</p>
+        <p>Evolved: ${card.evolved || 0} · Trades: ${card.tradesDone || 0} · Species mastered: ${card.speciesMastered || 0}</p>
         ${badges ? `<p>Featured badges: ${badges}</p>` : ""}`;
     }
     caught.innerHTML = (recent || []).map((row) => `

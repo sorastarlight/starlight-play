@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Trainer · THE STARLIGHT PLAY HUB</title>
+<title>Evolution · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=prog1">
-<body data-page="trainer">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/play.css?v=evo1">
+<body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./">
@@ -50,25 +50,55 @@
 </nav>
 <div class="wrap">
   <div class="page-kicker">
-    <span id="profile-face" hidden></span>
-    <h1 id="page-title">Trainer</h1>
+    <h1>Evolution</h1>
   </div>
-  <p id="gate" class="notice">Loading Trainer ID…</p>
-  <div id="profile" hidden>
-    <section class="card body" id="trainer-progress"></section>
-    <section id="hero"></section>
+  <p id="gate" class="notice">Sign in with Twitch to evolve Pokémon with family Candy.</p>
+  <div id="evo-app" hidden>
+    <section class="card body">
+      <p class="muted">Duplicates earn family Candy. Evolving spends Candy — it never creates more. Stones are sold in Starlight Mart.</p>
+      <p id="evo-ready-note" class="muted"></p>
+      <div class="dex-filters">
+        <label>Show
+          <select id="evo-filter">
+            <option value="ready">Ready to evolve</option>
+            <option value="candy">Needs Candy</option>
+            <option value="item">Needs item</option>
+            <option value="all">All possible</option>
+            <option value="shiny">Shiny</option>
+          </select>
+        </label>
+      </div>
+    </section>
+    <div id="evo-grid" class="ach-grid" style="margin-top:18px"></div>
     <section class="card body" style="margin-top:18px">
-      <h2>Recent catches</h2>
-      <div id="caught-grid" class="caught-grid"></div>
+      <h2>Family Candy</h2>
+      <div id="candy-list" class="prog-pick-grid"></div>
+    </section>
+    <section class="card body" style="margin-top:18px">
+      <h2>Species Mastery</h2>
+      <p class="muted">Mastery stays even if you trade or release every copy.</p>
+      <div id="mastery-list" class="prog-pick-grid"></div>
     </section>
   </div>
 </div>
+<dialog id="evo-modal" class="play-modal" aria-labelledby="evo-title">
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="evo-title">Evolve?</h3>
+      <button class="secondary" value="cancel" type="submit">Close</button>
+    </header>
+    <div id="evo-detail"></div>
+    <div class="links">
+      <button id="evo-go" type="button">Evolve</button>
+    </div>
+    <p id="evo-status" class="muted" role="status"></p>
+  </form>
+</dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/species.js"></script>
-<script src="js/game.js"></script>
-<script src="js/trainers.js?v=prog1"></script>
+<script src="js/game.js?v=evo1"></script>
 <script src="js/nav.js?v=evo1"></script>
-<script src="js/trainer.js?v=evo1"></script>
+<script src="js/evolve.js?v=evo1"></script>
 </body>

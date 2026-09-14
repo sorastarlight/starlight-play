@@ -32,24 +32,24 @@
 
   window.PLAY_LOCATION_VISUAL_DIR = ASSET_DIR;
   window.PLAY_LOCATION_PRESENTATION_DEFAULTS = {
-    brightness: 0.88,
-    saturation: 0.92,
-    overlay: 0.22,
+    brightness: 0.96,
+    saturation: 0.98,
+    overlay: 0.08,
     overlayTint: "14, 20, 38",
-    vignette: 0.18
+    vignette: 0.1
   };
   window.PLAY_LOCATION_PRESENTATION = {
-    "viridian-forest": { brightness: 0.82, overlay: 0.26 },
-    "route-1": { brightness: 0.84, overlay: 0.2 },
-    "route-2": { brightness: 0.84, overlay: 0.2 },
-    "mt-moon": { brightness: 0.97, overlay: 0.1, vignette: 0.12 },
-    "rock-tunnel": { brightness: 0.97, overlay: 0.1, vignette: 0.12 },
-    "cerulean-cave": { brightness: 0.96, overlay: 0.12 },
-    "digletts-cave": { brightness: 0.96, overlay: 0.12 },
-    "power-plant": { brightness: 0.9, overlay: 0.18 },
-    "seafoam-islands": { brightness: 0.9, overlay: 0.2 },
-    "pokemon-mansion": { brightness: 0.95, overlay: 0.12 },
-    "pokemon-tower": { brightness: 0.94, overlay: 0.14 }
+    "viridian-forest": { brightness: 0.9, overlay: 0.12, vignette: 0.1 },
+    "route-1": { brightness: 0.95, overlay: 0.07, vignette: 0.08 },
+    "route-2": { brightness: 0.95, overlay: 0.07, vignette: 0.08 },
+    "mt-moon": { brightness: 1, overlay: 0.04, vignette: 0.07 },
+    "rock-tunnel": { brightness: 1, overlay: 0.04, vignette: 0.07 },
+    "cerulean-cave": { brightness: 1, overlay: 0.05, vignette: 0.08 },
+    "digletts-cave": { brightness: 1, overlay: 0.05, vignette: 0.08 },
+    "power-plant": { brightness: 0.96, overlay: 0.08, vignette: 0.09 },
+    "seafoam-islands": { brightness: 0.98, overlay: 0.05, vignette: 0.08 },
+    "pokemon-mansion": { brightness: 1, overlay: 0.05, vignette: 0.08 },
+    "pokemon-tower": { brightness: 0.98, overlay: 0.06, vignette: 0.08 }
   };
 
   window.playNormalizeLocationText = function playNormalizeLocationText(value) {
@@ -184,11 +184,11 @@
           asset,
           position: `${row.background_position_x ?? tuned.position_x ?? 50}% ${row.background_position_y ?? tuned.position_y ?? 42}%`,
           scale: row.background_scale || tuned.zoom || 1,
-          brightness: Number(row.brightness ?? tuned.brightness ?? preset.brightness ?? 0.88),
-          saturation: Number(row.saturation ?? tuned.saturation ?? preset.saturation ?? 0.92),
-          overlay: Number(row.overlay_opacity ?? tuned.overlay ?? preset.overlay ?? 0.22),
+          brightness: Number(row.brightness ?? tuned.brightness ?? preset.brightness ?? 0.96),
+          saturation: Number(row.saturation ?? tuned.saturation ?? preset.saturation ?? 0.98),
+          overlay: Number(row.overlay_opacity ?? tuned.overlay ?? preset.overlay ?? 0.08),
           overlayTint: row.overlay_tint || tuned.overlay_tint || preset.overlayTint || "14, 20, 38",
-          vignette: Number(row.vignette_strength ?? row.vignette ?? tuned.vignette ?? preset.vignette ?? 0.18),
+          vignette: Number(row.vignette_strength ?? row.vignette ?? tuned.vignette ?? preset.vignette ?? 0.1),
           fallback: false
         };
       }

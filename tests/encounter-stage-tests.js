@@ -7,9 +7,9 @@ window.playEscapeAttr = (value) => String(value || "")
 window.playDisplayName = (round) => round?.name || "Pikachu";
 window.playEncounterSecondsLeft = () => 6;
 window.playPhaseLabel = (phase) => ({
-  join: "WILD ENCOUNTER",
-  prepare: "CHOOSE AN ITEM",
-  throw: "CHOOSE YOUR POKÉ BALL",
+  join: "JOIN",
+  prepare: "ITEM",
+  throw: "POKÉ BALL",
   reveal: "CATCH ATTEMPT",
   closed: "RESULTS"
 })[phase] || "ENCOUNTER";
@@ -17,6 +17,7 @@ window.playSpriteUrl = () => "images/pokemon/25.gif";
 window.playHabitat = (dex, fallback) => String(fallback || "").trim() || "Kanto";
 window.playItemSprite = () => "images/items/pokeball.png";
 window.playItemLabel = (key) => key === "ultraball" ? "Ultra Ball" : key === "pokeball" ? "Poké Ball" : key;
+window.playArticle = (label) => (/^[aeiou]/i.test(String(label || "")) ? "an " : "a ") + label;
 require("../js/location-visuals.js");
 require("../js/location-visuals-data.js");
 require("../js/hud.js");
@@ -78,22 +79,23 @@ test("player stage keeps the external CATCH ATTEMPT timer", () => {
   assert(html.includes("The Poké Ball is shaking"), html);
 });
 
-test("stage HUD uses a location chip and one status plate", () => {
+test("join stage does not repeat the wild appearance line", () => {
   const html = window.playRenderEncounter(wildRound({ name: "Farfetch'd", location: "Seafoam Islands" }), { me: { joined: true } });
   assert(html.includes("encounter-map-scrim"));
-  assert(html.includes("encounter-map-vignette"));
   assert(html.includes("encounter-location-chip"));
   assert(html.includes("Seafoam Islands"));
-  assert(html.includes("encounter-stage-status"));
-  assert(html.includes("A wild Farfetch'd appeared!"));
-  assert(!html.includes("catch-seq-kicker"));
+  assert(html.includes("A wild Pokémon appeared!"));
+  assert(!html.includes("A wild Farfetch'd appeared!"));
+  assert(html.includes("data-stage-status") && html.includes(" hidden"));
+  assert(html.includes('data-stats-phase="join"'));
+  assert(html.includes('data-stat-label="thrown">Throws'));
 });
 
 test("success copy uses a cinematic banner and ball plate, not a second GOTCHA card", () => {
   const round = catchRound({ resolved: true, phase: "closed", results: { caught: 1, escaped: 0, noThrow: 0 }, thrown: 1 });
   const hud = window.playEncounterStageCopy(round, { scene: "results" }, { joined: true, ball: "ultraball", caught: true }, "Pikachu");
   assert(hud.banner === "✨ GOTCHA! ✨", hud.banner);
-  assert(/Caught with Ultra Ball/.test(hud.status), hud.status);
+  assert(/Caught with an Ultra Ball/.test(hud.status), hud.status);
   const fanfare = window.playCatchFanfareHtml(round);
   assert(fanfare.includes("Community results"));
   assert(!/GOTCHA/.test(fanfare), fanfare);

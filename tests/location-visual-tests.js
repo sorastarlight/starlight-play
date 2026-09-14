@@ -91,9 +91,9 @@ test("presentation defaults and difficult-location overrides", () => {
   const forest = window.playLocationVisual("Viridian Forest");
   const moon = window.playLocationVisual("Mt. Moon");
   const attrs = window.playLocationVisualAttrs("Viridian Forest");
-  assert(forest.brightness < 0.88, String(forest.brightness));
-  assert(moon.brightness > 0.9, String(moon.brightness));
+  assert(forest.brightness < moon.brightness, `${forest.brightness} ${moon.brightness}`);
   assert(moon.overlay < forest.overlay, `${moon.overlay} !< ${forest.overlay}`);
+  assert(forest.brightness >= 0.88, String(forest.brightness));
   assert(attrs.includes("--enc-map-brightness"));
   assert(attrs.includes("--enc-overlay"));
   assert(attrs.includes("--enc-vignette"));

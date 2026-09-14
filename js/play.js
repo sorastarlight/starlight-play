@@ -137,13 +137,15 @@
     const prepActive = preparing && me && !lockedPrep;
     const throwActive = throwing && me && !lockedBall;
     if (joining && !me) {
-      const pending = joiningPending;
+      const radar = Boolean(window.playRadarOn?.(bag));
+      const pending = joiningPending || radar;
       buttons.push({
         kind: "join",
         item: "",
         label: pending ? (window.PLAY_STATUS?.joining || "JOINING…") : "JOIN ENCOUNTER",
-        hint: pending ? "Please wait…" : (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "Join before the timer ends!"),
-        disabled: pending
+        hint: pending ? (radar ? "Poké Radar joining…" : "Please wait…") : "Join before the timer ends!",
+        disabled: pending,
+        joining: pending
       });
     }
     if ((preparing || joining) && me) {
@@ -238,8 +240,8 @@
     const esc = (value) => window.playEscapeAttr(String(value || ""));
     let status = "";
     let statusHtml = "";
-    if (joining && !me && joiningPending) status = window.PLAY_STATUS?.joining || "JOINING…";
-    else if (joining && me) status = window.PLAY_STATUS?.joined || "You have joined the encounter! Please wait while other Trainers join you.";
+    if (joining && !me && joiningPending) status = "";
+    else if (joining && me) status = "";
     else if (preparing && me?.prep === "none") status = window.PLAY_STATUS?.noItem || "You chose not to use an item. Please wait while the other Trainers make their choices.";
     else if (preparing && me?.prep === "bait") status = window.PLAY_STATUS?.honey || "You have contributed Honey! Please wait while the other Trainers make their choices.";
     else if (preparing && me?.prep) {
@@ -253,7 +255,7 @@
     } else if (preparing && me) status = window.PLAY_STATUS?.firstPrep || "Choose a Berry to help yourself, Honey to help everyone, or skip.";
     else if (throwing && me && !buttons.length) status = window.PLAY_STATUS?.emptyBalls || "You don't have a Poké Ball available for this encounter.";
     else if (throwing && me) status = window.PLAY_STATUS?.firstThrow || "Choose a Poké Ball. Recommended Balls are marked.";
-    else if (joining && !me) status = `A wild ${species} appeared! Join the encounter?`;
+    else if (joining && !me) status = "";
     if (reconnecting) status = window.PLAY_STATUS?.reconnect || "Reconnecting…";
     return {
       key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.selected ? "on" : ""}`).join("|") + `::${status}`,
@@ -268,6 +270,7 @@
   function setActionStatus(plan) {
     if (plan?.statusHtml) els.actionStatus.innerHTML = plan.statusHtml;
     else els.actionStatus.textContent = plan?.status || "";
+    if (els.actionStatus) els.actionStatus.hidden = !plan?.status && !plan?.statusHtml;
   }
 
   function renderActionCard(row) {
@@ -280,7 +283,8 @@
       : `<span class="item-icon" aria-hidden="true"></span>`;
     const disabled = row.disabled ? "disabled" : "";
     const joinClass = row.kind === "join" ? " enc-join-btn" : "";
-    return `<button type="button" class="item-btn${joinClass}${row.selected ? " is-selected" : ""}" data-kind="${row.kind}" data-item="${row.item}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}">
+    const joiningClass = row.kind === "join" && row.joining ? " is-joining" : "";
+    return `<button type="button" class="item-btn${joinClass}${joiningClass}${row.selected ? " is-selected" : ""}" data-kind="${row.kind}" data-item="${row.item}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}">
       ${icon}
       <span class="item-copy"><strong>${row.label}</strong>${row.hint ? `<em>${row.hint}</em>` : ""}${row.selected ? `<span class="enc-selected-mark">SELECTED ✓</span>` : ""}</span>
     </button>`;
@@ -314,7 +318,8 @@
     let html = "";
     if (joins.length) html += `<div class="enc-join">${joins.map(renderActionCard).join("")}</div>`;
     if (plan.phase === "join" && data?.me && !berries.length && !honey.length && !skip.length) {
-      html += `<div class="enc-joined" role="status"><strong>${window.PLAY_STATUS?.joinedShort || "JOINED ✓"}</strong><em>You're in! Waiting for other Trainers…</em></div>`;
+      const radar = Boolean(window.playRadarOn?.(data?.bag));
+      html += `<div class="enc-joined" role="status"><strong>${window.PLAY_STATUS?.joinedShort || "JOINED ✓"}</strong><em>${radar ? "Poké Radar joined this encounter for you." : "Waiting for other Trainers…"}</em></div>`;
     }
     if (berries.length || honey.length || skip.length) {
       html += `<div class="enc-split">

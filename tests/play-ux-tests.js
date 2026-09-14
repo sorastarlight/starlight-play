@@ -30,6 +30,7 @@ test("Honey copy is communal", () => {
 });
 test("Honey meter is a compact strip without trainer chips", () => {
   const html = window.playHoneyMeterHtml({
+    phase: "prepare",
     honeyContributors: 4,
     honeyParticipants: 10,
     baitBonusPercent: 6,
@@ -39,6 +40,18 @@ test("Honey meter is a compact strip without trainer chips", () => {
   assert(html.includes("4 / 10"));
   assert(html.includes("+6%"));
   assert(!html.includes("<ul"));
+  assert(!html.includes("0 / —"));
+});
+test("Honey join state does not use a broken denominator", () => {
+  const html = window.playHoneyMeterHtml({
+    phase: "join",
+    honeyContributors: 0,
+    honeyParticipants: 0,
+    baitBonusPercent: 0
+  });
+  assert(html.includes("No contributions yet"));
+  assert(html.includes("is-join-quiet"));
+  assert(!html.includes("0 / —"));
 });
 test("Used summary stays a slim row", () => {
   window.playItemLabel = (key) => key === "razz" ? "Razz Berry" : key === "netball" ? "Net Ball" : key;

@@ -27,8 +27,8 @@
 
   const PHASE = {
     join: "JOIN",
-    prepare: "CHOOSE AN ITEM",
-    throw: "CHOOSE YOUR POKÉ BALL",
+    prepare: "ITEM",
+    throw: "POKÉ BALL",
     reveal: "CATCH ATTEMPT",
     closed: "RESULTS"
   };
@@ -389,15 +389,19 @@
     const denom = Math.max(participants, 1);
     const bonus = Number(round?.baitBonusPercent || 0);
     const pct = Math.max(0, Math.min(100, Math.round((contributors / denom) * 100)));
-    return `<aside class="honey-meter honey-strip" data-honey="${contributors}:${participants}:${bonus}">
+    const joining = round?.phase === "join";
+    const copy = joining || participants < 1
+      ? "No contributions yet"
+      : `${contributors} / ${participants} Trainers`;
+    const tip = "Honey is contributed during the Item Phase. More participating Trainers using Honey increases the community catch bonus.";
+    return `<aside class="honey-meter honey-strip${joining ? " is-join-quiet" : ""}" data-honey="${contributors}:${participants}:${bonus}:${round?.phase || ""}">
       <img src="${spriteOf("bait")}" alt="">
-      <strong>Honey</strong>
-      <span>${contributors} / ${participants || "—"} Trainers</span>
+      <strong>Honey <span class="honey-info" title="${esc(tip)}" aria-label="${esc(tip)}">i</span></strong>
+      <span>${esc(copy)}</span>
       <em>+${bonus}%</em>
-      <div class="honey-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${denom}" aria-valuenow="${contributors}" aria-label="Community Honey ${contributors} of ${participants} Trainers">
-        <i style="width:${pct}%"></i>
+      <div class="honey-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${denom}" aria-valuenow="${joining ? 0 : contributors}" aria-label="Community Honey">
+        <i style="width:${joining ? 0 : pct}%"></i>
       </div>
-      <span class="honey-info" title="Honey raises the catch bonus for every Trainer in this encounter." aria-label="Honey raises the catch bonus for every Trainer.">?</span>
     </aside>`;
   };
 

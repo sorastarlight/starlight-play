@@ -803,8 +803,8 @@
     if (typeof window.playPhaseTitle === "function") return window.playPhaseTitle(phase);
     return ({
       join: "JOIN",
-      prepare: "CHOOSE AN ITEM",
-      throw: "CHOOSE YOUR POKÉ BALL",
+      prepare: "ITEM",
+      throw: "POKÉ BALL",
       reveal: "CATCH ATTEMPT",
       closed: "RESULTS"
     })[phase] || "ENCOUNTER";

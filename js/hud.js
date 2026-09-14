@@ -808,6 +808,7 @@
 
   window.playConsoleKindRank = function playConsoleKindRank(kind) {
     const key = String(kind || "");
+    if (key === "phase" || key === "appeared" || key === "pause" || key === "resume") return 120;
     if (key === "caught") return 100;
     if (key === "escaped") return 90;
     if (key === "timeout") return 80;
@@ -815,10 +816,34 @@
     if (key === "selected") return 40;
     if (key === "prepared") return 30;
     if (key === "joined") return 20;
-    if (key === "phase") return 15;
-    if (key === "appeared") return 5;
     if (key === "resolved") return 0;
     return 10;
+  };
+
+  window.playConsoleIsStatus = function playConsoleIsStatus(row) {
+    const key = String(row?.kind || "");
+    return key === "phase" || key === "appeared" || key === "pause" || key === "resume"
+      || key === "cancelled" || key === "hidden" || key === "gift";
+  };
+
+  window.playConsoleChapter = function playConsoleChapter(row) {
+    const key = String(row?.kind || "");
+    if (key === "appeared" || key === "joined") return "appeared";
+    if (key === "prepared") return "prepare";
+    if (key === "selected" || key === "threw" || key === "caught" || key === "escaped" || key === "timeout") return "throw";
+    if (key === "phase") {
+      const item = String(row?.item || "").toLowerCase();
+      if (item) return item;
+      const text = String(row?.message || "").toLowerCase();
+      if (/pok[ée] ball|choosing/.test(text)) return "throw";
+      if (/prepar|item/.test(text)) return "prepare";
+      if (/join/.test(text)) return "join";
+      return "phase";
+    }
+    if (key === "pause" || key === "resume" || key === "cancelled" || key === "hidden" || key === "gift") {
+      return `${key}:${window.playConsoleTime(row?.at)}`;
+    }
+    return "other";
   };
 
   window.playConsoleRows = function playConsoleRows(source, round) {
@@ -856,7 +881,21 @@
         });
       }
     }
+    const chapterTime = new Map();
+    for (const row of rows) {
+      if (!window.playConsoleIsStatus(row)) continue;
+      const chapter = window.playConsoleChapter(row);
+      const at = window.playConsoleTime(row?.at);
+      const prev = chapterTime.get(chapter);
+      if (prev == null || at > prev) chapterTime.set(chapter, at);
+    }
     return rows.sort((a, b) => {
+      const ca = chapterTime.get(window.playConsoleChapter(a)) ?? window.playConsoleTime(a?.at);
+      const cb = chapterTime.get(window.playConsoleChapter(b)) ?? window.playConsoleTime(b?.at);
+      if (cb !== ca) return cb - ca;
+      const sa = window.playConsoleIsStatus(a) ? 1 : 0;
+      const sb = window.playConsoleIsStatus(b) ? 1 : 0;
+      if (sb !== sa) return sb - sa;
       const ta = window.playConsoleTime(a?.at);
       const tb = window.playConsoleTime(b?.at);
       if (tb !== ta) return tb - ta;

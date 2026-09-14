@@ -209,8 +209,8 @@
         ? window.playHoneyMeterHtml(round)
         : window.playHoneyCrewHtml(round));
     const staffPanel = opts.staff ? window.playStaffRoundHtml(round) : "";
-    const catchSeq = opts.staff ? "" : window.playCatchSeqHtml(round, opts);
-    const seqScene = catchSeq ? window.playAdvanceCatchSeqState(round, opts.me || null).scene : "";
+    const catchSeq = window.playCatchSeqHtml(round, { ...opts, me: opts.staff ? null : opts.me });
+    const seqScene = catchSeq ? window.playAdvanceCatchSeqState(round, opts.staff ? null : (opts.me || null)).scene : "";
     const cinematic = Boolean(catchSeq);
     const visualMode = !cinematic ? "wild" : (seqScene === "results" ? "result" : "capture");
     const lastAction = opts.staff || opts.showLastAction === false
@@ -251,7 +251,9 @@
         <p class="encounter-stage-banner" data-stage-banner${hud.showBanner ? "" : " hidden"}>${window.playEscapeAttr(hud.banner)}</p>
         <div class="dex-stage${seqScene === "results" ? " is-revealed" : catchSeq ? " is-throwing" : ""}">
           <span class="encounter-ground-shadow" aria-hidden="true"></span>
-          ${sprite ? `<img class="encounter-stage-actor" src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
+          <div class="encounter-actor-frame" data-actor-frame>
+            ${sprite ? `<img class="encounter-stage-actor" src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
+          </div>
         </div>
         ${catchSeq}
         <p class="encounter-stage-status" data-stage-status${hud.status ? "" : " hidden"}><span data-seq-status>${window.playEscapeAttr(hud.status)}</span></p>
@@ -378,8 +380,23 @@
   };
 
   const catchSeqByRound = new Map();
-  const SHAKE_MS = 480;
-  const CATCH_CLICK_MS = 620;
+  window.PLAY_ENCOUNTER_STAGE = {
+    actorWidth: "74%",
+    actorHeight: "46%",
+    actorHeightWin: "52%",
+    ballSize: "clamp(42px, 16.5%, 58px)",
+    wobbleDurationMs: 340,
+    wobblePauseMs: 380,
+    shakeMs: 400,
+    clickMs: 400
+  };
+  window.playEncounterSpriteSizing = function playEncounterSpriteSizing(mode) {
+    const stage = window.PLAY_ENCOUNTER_STAGE;
+    if (mode === "success") return { width: stage.actorWidth, height: stage.actorHeightWin };
+    return { width: stage.actorWidth, height: stage.actorHeight };
+  };
+  const SHAKE_MS = window.PLAY_ENCOUNTER_STAGE.shakeMs;
+  const CATCH_CLICK_MS = window.PLAY_ENCOUNTER_STAGE.clickMs;
 
   window.playShowCatchSeq = function playShowCatchSeq(round) {
     if (!round || round.cancelled) return false;
@@ -527,7 +544,7 @@
       return { banner: "OH NO!", status: personal.sub || `${name} broke free!`, showBanner: true };
     }
     if (!me?.ball && me?.joined) return { banner: "", status: "No Poké Ball was thrown.", showBanner: false };
-    if (!me?.ball) return { banner: "", status: "Watching the catch…", showBanner: false };
+    if (!me?.ball) return { banner: "", status: "The Poké Ball is shaking…", showBanner: false };
     return { banner: "", status: "The Poké Ball is shaking…", showBanner: false };
   };
 
@@ -588,7 +605,10 @@
     const me = opts?.me || null;
     const st = window.playAdvanceCatchSeqState(round, me);
     const threw = Boolean(me?.ball);
-    const ballKey = opts?.throwBall || me?.ball || "pokeball";
+    const monitor = Boolean(opts?.staff);
+    const ballKey = opts?.throwBall || me?.ball
+      || (monitor && Array.isArray(round.throwers) && round.throwers[0]?.ball)
+      || "pokeball";
     const species = window.playDisplayName(round, { plain: true });
     const sprite = window.playSpriteUrl(round.dex, round.variant);
     const pct = window.playRevealSeqProgress(round);
@@ -596,13 +616,16 @@
     const personal = personalResult(round, me, species);
     const win = st.scene === "results" && personal.win;
     const shiny = String(round.variant || "").includes("shiny");
-    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}${!threw ? " is-watch" : ""}${!threw && me?.joined ? " is-nothrow" : ""}${personal.spectator ? " is-spectator" : ""}${win && shiny ? " is-shiny-win" : ""}`;
+    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}${!threw ? " is-watch" : ""}${!threw && me?.joined ? " is-nothrow" : ""}${personal.spectator ? " is-spectator" : ""}${monitor ? " is-monitor" : ""}${win && shiny ? " is-shiny-win" : ""}`;
     return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}" style="--shakes:${st.shakes};--seq-elapsed:${elapsed.toFixed(2)}s">
       <div class="catch-seq-flash" aria-hidden="true"></div>
       <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="catch-seq-stage">
         <span class="encounter-ground-shadow" aria-hidden="true"></span>
-        ${sprite ? `<img class="catch-seq-mon encounter-stage-actor" src="${sprite}" alt="" onerror="window.playSpriteOnError(this)">` : ""}
+        <div class="encounter-actor-frame is-catch-mon" data-actor-frame>
+          ${sprite ? `<img class="catch-seq-mon encounter-stage-actor" src="${sprite}" alt="" onerror="window.playSpriteOnError(this)">` : ""}
+        </div>
+        <span class="catch-seq-ball-shadow" aria-hidden="true"></span>
         <img class="catch-seq-ball" src="${window.playItemSprite(ballKey)}" alt="">
         <span class="catch-seq-stars" aria-hidden="true"></span>
         <span class="catch-seq-click" aria-hidden="true"></span>
@@ -714,12 +737,11 @@
       if (!panel) return false;
       const key = window.playStaffRoundKey(round);
       if (panel.dataset.staffRound !== key) panel.outerHTML = window.playStaffRoundHtml(round);
-    } else {
-      const wantsSeq = window.playShowCatchSeq(round);
-      const hasSeq = Boolean(root.querySelector("[data-catch-seq]"));
-      if (wantsSeq !== hasSeq) return false;
-      if (wantsSeq) window.playAdvanceCatchSeq(root, round, extra?.me || null);
     }
+    const wantsSeq = window.playShowCatchSeq(round);
+    const hasSeq = Boolean(root.querySelector("[data-catch-seq]"));
+    if (wantsSeq !== hasSeq) return false;
+    if (wantsSeq) window.playAdvanceCatchSeq(root, round, extra?.staff ? null : extra?.me || null);
     if (extra?.showHoney !== false) {
       const liveHoney = round.phase && round.phase !== "closed" && typeof window.playHoneyMeterHtml === "function";
       const honeyHtml = liveHoney ? window.playHoneyMeterHtml(round) : window.playHoneyCrewHtml(round);

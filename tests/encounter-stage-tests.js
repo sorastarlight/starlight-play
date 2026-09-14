@@ -126,6 +126,23 @@ test("live HUD patches do not remount the catch sequence", () => {
   assert(!String(window.playAdvanceCatchSeq).includes("--seq-elapsed"));
 });
 
+test("join stage uses a shared centered actor frame", () => {
+  const html = window.playRenderEncounter(wildRound({ name: "Ekans", location: "Route 4", gender: "Female" }), {});
+  assert(html.includes("encounter-actor-frame"), html.slice(html.indexOf("dex-stage"), html.indexOf("dex-stage") + 280));
+  assert(html.includes("encounter-stage-actor"), "missing actor class");
+  const sizing = window.playEncounterSpriteSizing();
+  assert(sizing.height === "46%", JSON.stringify(sizing));
+  assert(window.playEncounterSpriteSizing("success").height === "52%", "win scale");
+});
+
+test("admin/staff preview uses the same catch sequence as Play", () => {
+  const html = window.playRenderEncounter(catchRound({ throwers: [{ name: "Ash", ball: "greatball" }] }), { staff: true });
+  assert(html.includes("data-catch-seq"), "staff preview missing catch seq");
+  assert(html.includes("is-monitor"), html.match(/catch-seq[^"]*/)?.[0]);
+  assert(html.includes("staff-round"), "missing staff panel");
+  assert(!/GOTCHA/.test(html.split("staff-round")[0]), "staff visual leaked GOTCHA");
+});
+
 test("no mapped location keeps the generic stage and hides the chip", () => {
   const previous = window.playHabitat;
   window.playHabitat = () => "";

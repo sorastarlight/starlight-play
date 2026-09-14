@@ -943,6 +943,9 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   animation: throw-suck .55s ease forwards;
 }
 .catch-seq {
+  --catch-wobble-duration: .34s;
+  --catch-wobble-pause: .38s;
+  --catch-wobble-beat: .72s;
   position: relative;
   margin-top: 12px;
   padding: 12px 12px 14px;
@@ -1001,16 +1004,33 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 56px;
-  height: 56px;
-  margin: -28px 0 0 -28px;
+  width: 52px;
+  height: 52px;
+  margin: -26px 0 0 -26px;
   image-rendering: pixelated;
   object-fit: contain;
-  transform-origin: 50% 70%;
+  transform-origin: 50% 88%;
   z-index: 2;
 }
+.catch-seq-ball-shadow {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 22px);
+  width: 34px;
+  height: 10px;
+  margin-left: -17px;
+  border-radius: 50%;
+  background: rgba(15, 18, 28, .32);
+  filter: blur(3px);
+  pointer-events: none;
+  z-index: 1;
+  transform-origin: 50% 50%;
+}
 .catch-seq.is-wobble .catch-seq-ball {
-  animation: throw-fly .4s ease-out both, throw-wobble .5s ease-in-out .5s infinite;
+  animation: throw-fly .45s ease-out both, encounter-ball-wobble var(--catch-wobble-beat, .72s) ease-in-out .45s infinite;
+}
+.catch-seq.is-wobble .catch-seq-ball-shadow {
+  animation: encounter-ball-shadow var(--catch-wobble-beat, .72s) ease-in-out .45s infinite;
 }
 .catch-seq.is-caught .catch-seq-ball {
   animation: catch-gotcha .85s ease-out forwards;
@@ -1020,13 +1040,13 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
 }
 .catch-seq.is-personal.is-caught .catch-seq-ball {
   animation:
-    throw-wobble .48s ease-in-out var(--shakes, 3),
-    catch-gotcha .62s ease-out calc(var(--shakes, 3) * .48s) forwards;
+    encounter-ball-wobble var(--catch-wobble-duration, .34s) ease-in-out var(--shakes, 3),
+    catch-gotcha .5s ease-out calc(var(--shakes, 3) * var(--catch-wobble-duration, .34s) + .32s) forwards;
 }
 .catch-seq.is-personal.is-broke .catch-seq-ball {
   animation:
-    throw-wobble .48s ease-in-out var(--shakes, 0),
-    catch-burst .62s ease-out calc(var(--shakes, 0) * .48s) forwards;
+    encounter-ball-wobble var(--catch-wobble-duration, .34s) ease-in-out var(--shakes, 0),
+    catch-burst .58s ease-out calc(var(--shakes, 0) * var(--catch-wobble-duration, .34s) + .28s) forwards;
 }
 .catch-seq.is-results.is-caught .catch-seq-ball,
 .catch-seq.is-results .catch-seq-ball {
@@ -1353,12 +1373,12 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   place-items: center;
 }
 .throw-wait-ball {
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   image-rendering: pixelated;
   object-fit: contain;
-  animation: throw-fly .4s ease-out both, throw-wobble .5s ease-in-out .5s infinite;
-  transform-origin: 50% 70%;
+  animation: throw-fly .45s ease-out both, encounter-ball-wobble var(--catch-wobble-beat, .72s) ease-in-out .45s infinite;
+  transform-origin: 50% 88%;
 }
 .throw-wait-bar {
   height: 10px;
@@ -1377,23 +1397,37 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   from { transform: translate(70px, 48px) scale(.35) rotate(-50deg); opacity: 0; }
   to { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
 }
+@keyframes encounter-ball-wobble {
+  0% { transform: rotate(0) translateX(0); }
+  22% { transform: rotate(-12deg) translateX(-2px); }
+  48% { transform: rotate(11deg) translateX(2px); }
+  62% { transform: rotate(0) translateX(0); }
+  100% { transform: rotate(0) translateX(0); }
+}
+@keyframes encounter-ball-shadow {
+  0%, 62%, 100% { transform: scaleX(1); opacity: .4; }
+  22% { transform: translateX(-2px) scaleX(.9); opacity: .5; }
+  48% { transform: translateX(2px) scaleX(.9); opacity: .5; }
+}
+@keyframes encounter-ball-ambient {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1px); }
+}
 @keyframes throw-wobble {
   0%, 100% { transform: rotate(0); }
-  25% { transform: rotate(-22deg); }
-  75% { transform: rotate(22deg); }
+  25% { transform: rotate(-12deg); }
+  75% { transform: rotate(12deg); }
 }
 @keyframes throw-suck {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(0); opacity: 0; }
 }
 @keyframes throw-wobble-beats {
-  0%, 10% { transform: rotate(0); }
-  14% { transform: rotate(-20deg); }
-  20%, 34% { transform: rotate(0); }
-  38% { transform: rotate(20deg); }
-  44%, 60% { transform: rotate(0); }
-  64% { transform: rotate(-16deg); }
-  70%, 100% { transform: rotate(0); }
+  0% { transform: rotate(0); }
+  8% { transform: rotate(-12deg) translateX(-2px); }
+  16% { transform: rotate(11deg) translateX(2px); }
+  22% { transform: rotate(0); }
+  100% { transform: rotate(0); }
 }
 @keyframes catch-flash {
   0% { opacity: .9; transform: scale(.4); }
@@ -1446,6 +1480,13 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   --enc-overlay: .08;
   --enc-overlay-rgb: 14, 20, 38;
   --enc-vignette: .1;
+  --enc-actor-width: 74%;
+  --enc-actor-height: 46%;
+  --enc-actor-height-win: 52%;
+  --catch-wobble-duration: .34s;
+  --catch-wobble-pause: .38s;
+  --catch-wobble-beat: .72s;
+  --catch-ball-size: clamp(42px, 16.5%, 58px);
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -1517,25 +1558,53 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   position: absolute;
   inset: 0;
   z-index: 3;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: none;
   min-height: 0;
   margin: 0;
-  padding: 54px 12px 56px;
+  padding: 48px 12px 52px;
   background: transparent;
   border: 0;
   border-radius: 0;
   box-shadow: none;
 }
-body[data-page="play"] .encounter-visual-stage .dex-stage {
+body[data-page="play"] .encounter-visual-stage .dex-stage,
+body[data-page="admin"] .encounter-visual-stage .dex-stage {
   min-height: 0;
+  grid-template-columns: none;
 }
+.encounter-actor-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--enc-actor-width, 74%);
+  height: var(--enc-actor-height, 46%);
+  pointer-events: none;
+  z-index: 2;
+}
+.encounter-visual-stage .dex-stage .encounter-actor-frame {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  width: var(--enc-actor-width, 74%);
+  height: var(--enc-actor-height, 46%);
+  max-width: 260px;
+  transform: translate(-50%, -50%);
+}
+.encounter-visual-stage.is-win-scene .encounter-actor-frame,
+.encounter-visual-stage .catch-seq.is-results.is-win .encounter-actor-frame {
+  height: var(--enc-actor-height-win, 52%);
+}
+.encounter-visual-stage .encounter-actor-frame img.encounter-stage-actor,
+.encounter-visual-stage .dex-stage img,
 body[data-page="play"] .encounter-visual-stage .dex-stage img,
-.encounter-visual-stage .dex-stage img {
-  width: 160px;
-  height: 160px;
-  max-width: 160px;
-  max-height: 160px;
+body[data-page="admin"] .encounter-visual-stage .dex-stage img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   object-position: 50% 58%;
   image-rendering: pixelated;
@@ -1641,18 +1710,42 @@ body[data-page="play"] .encounter-visual-stage .dex-stage img,
 .encounter-visual-stage .catch-seq-fx i:nth-child(11) {
   bottom: 34%;
 }
+.encounter-visual-stage .catch-seq-stage .encounter-actor-frame.is-catch-mon {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  width: var(--enc-actor-width, 74%);
+  height: var(--enc-actor-height, 46%);
+  max-width: 260px;
+}
 .encounter-visual-stage .catch-seq-ball {
+  width: var(--catch-ball-size);
+  height: var(--catch-ball-size);
+  margin: calc(var(--catch-ball-size) / -2) 0 0 calc(var(--catch-ball-size) / -2);
+  transform-origin: 50% 88%;
   filter:
     drop-shadow(0 5px 5px rgba(0, 0, 0, .42))
     drop-shadow(0 0 8px rgba(255, 255, 255, .22));
 }
 .encounter-visual-stage .catch-seq.is-results .catch-seq-ball {
   bottom: 48px;
+  top: auto;
   filter:
     drop-shadow(0 4px 4px rgba(0, 0, 0, .4))
     drop-shadow(0 0 6px rgba(255, 255, 255, .2));
 }
 .encounter-visual-stage .catch-seq-mon {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  object-fit: contain;
+  object-position: 50% 58%;
   filter:
     drop-shadow(0 8px 6px rgba(0, 0, 0, .42))
     drop-shadow(0 0 14px rgba(255, 255, 255, .22));
@@ -1665,12 +1758,12 @@ body[data-page="play"] .encounter-visual-stage .dex-stage img,
 }
 .encounter-visual-stage .catch-seq.is-results .catch-seq-mon,
 .encounter-visual-stage .catch-seq.is-results.is-win .catch-seq-mon {
-  top: 56%;
-  width: 148px;
-  height: 148px;
-  max-width: 148px;
-  max-height: 148px;
-  margin: -74px 0 0 -74px;
+  top: auto;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
   object-fit: contain;
   object-position: 50% 58%;
 }
@@ -1772,6 +1865,7 @@ body[data-page="play"] .encounter-visual-stage .dex-stage img,
 }
 .encounter-stage-status[hidden] { display: none; }
 .encounter-visual-stage.is-paused .catch-seq-ball,
+.encounter-visual-stage.is-paused .catch-seq-ball-shadow,
 .encounter-visual-stage.is-paused .catch-seq-mon,
 .encounter-visual-stage.is-paused .catch-seq-fx i,
 .encounter-visual-stage.is-paused .dex-stage img {
@@ -1798,13 +1892,10 @@ body[data-page="play"] .encounter-visual-stage .dex-stage img,
   animation: catch-flash .45s ease-out .35s both;
 }
 .catch-seq.is-wobble .catch-seq-ball {
-  animation: throw-fly .55s ease-out both, throw-wobble-beats 11s ease-in-out .55s both;
+  animation: throw-fly .45s ease-out both, encounter-ball-wobble var(--catch-wobble-beat, .72s) ease-in-out .45s infinite;
 }
 .catch-seq.is-results.is-win .catch-seq-mon {
   animation: catch-result-mon .7s ease-out both, catch-showcase-bob 1.6s ease-in-out .7s infinite;
-  width: 148px;
-  height: 148px;
-  margin: -74px 0 0 -74px;
 }
 .catch-seq.is-shiny-win {
   box-shadow: inset 0 0 0 3px #fff6, 0 0 24px #ffd24a66;
@@ -1819,6 +1910,15 @@ body[data-page="play"] .encounter-visual-stage .dex-stage img,
 .catch-seq.is-nothrow .catch-seq-mon,
 .catch-seq.is-spectator:not(.is-results) .catch-seq-mon {
   animation: none;
+  opacity: 0;
+}
+.catch-seq.is-monitor.is-wobble .catch-seq-ball,
+.catch-seq.is-monitor.is-watch .catch-seq-ball,
+.catch-seq.is-monitor.is-spectator.is-wobble .catch-seq-ball {
+  animation: throw-fly .45s ease-out both, encounter-ball-wobble var(--catch-wobble-beat, .72s) ease-in-out .45s infinite;
+  opacity: 1;
+}
+.catch-seq.is-results .catch-seq-ball-shadow {
   opacity: 0;
 }
 .catch-seq.is-results .catch-seq-note {
@@ -5297,10 +5397,8 @@ body[data-page="admin"] .play-stage {
     padding: 7px 10px;
     font-size: 13px;
   }
-  .encounter-visual-stage .catch-seq.is-results.is-win .catch-seq-mon {
-    width: 132px;
-    height: 132px;
-    margin: -66px 0 0 -66px;
+  .encounter-visual-stage .catch-seq.is-results.is-win .encounter-actor-frame {
+    height: 50%;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -5310,6 +5408,7 @@ body[data-page="admin"] .play-stage {
   .enc-join-btn,
   .item-btn[data-kind="join"],
   .catch-seq-ball,
+  .catch-seq-ball-shadow,
   .catch-seq-mon,
   .catch-seq-flash,
   .catch-seq-fx i,

@@ -334,13 +334,15 @@
       : "";
     const qty = row.qty == null ? "" : `<span class="enc-qty">x${row.qty}</span>`;
     const disabled = row.disabled ? "disabled" : "";
-    return `<button type="button" class="enc-card item-btn${selected}${row.recommended ? " is-rec" : ""}" data-kind="${esc(row.kind)}" data-item="${esc(row.item)}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}" aria-label="${esc(row.label)}${row.qty != null ? `, ${row.qty} owned` : ""}${row.disabled && row.reason ? `, ${row.reason}` : ""}">
+    const compact = row.kind === "throw";
+    const detail = !compact && row.effect ? `<em>${esc(row.effect)}</em>` : "";
+    return `<button type="button" class="enc-card item-btn${compact ? " enc-ball-card" : ""}${selected}${row.recommended ? " is-rec" : ""}" data-kind="${esc(row.kind)}" data-item="${esc(row.item)}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}" aria-label="${esc(row.label)}${row.qty != null ? `, ${row.qty} owned` : ""}${row.disabled && row.reason ? `, ${row.reason}` : ""}">
       <span class="item-icon item-icon-img"><img src="${spriteOf(row.sprite || row.item)}" alt=""></span>
       <span class="item-copy">
         <strong>${esc(row.label)}</strong>
         ${qty}
         ${rec}${effect}${mark}
-        ${row.effect ? `<em>${esc(row.effect)}</em>` : ""}
+        ${detail}
         ${why}
       </span>
     </button>`;

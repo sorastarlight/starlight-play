@@ -375,17 +375,39 @@
     return Math.max(0, Math.min(3, lean + (seqHash(`${round.id}:${me?.ball || ""}`) % 2)));
   }
 
-  function throwOutcome(me) {
+  function isCaughtFlag(value) {
+    return value === true || value === 1 || value === "1" || /^true$/i.test(String(value ?? ""));
+  }
+
+  function resultKind(result) {
+    const text = String(result || "").trim().toLowerCase();
+    if (text === "caught") return "caught";
+    if (text === "escaped" || text === "no throw") return "broke";
+    return "";
+  }
+
+  function inferredSoloCatch(round, me) {
+    if (!round?.resolved || !me?.ball) return false;
+    const caughtN = Number(round.results?.caught || 0);
+    const escaped = Number(round.results?.escaped || 0);
+    const noThrow = Number(round.results?.noThrow || 0);
+    const thrown = Number(round.thrown || 0);
+    return caughtN === 1 && escaped === 0 && noThrow === 0 && thrown <= 1;
+  }
+
+  function throwOutcome(me, round) {
     if (!me?.ball) return "";
     if (me.ball === "masterball") return "caught";
-    if (me.result === "Caught" || me.caught === true) return "caught";
-    if (me.result) return "broke";
+    if (isCaughtFlag(me.caught) || resultKind(me.result) === "caught") return "caught";
+    if (inferredSoloCatch(round, me)) return "caught";
+    if (resultKind(me.result) === "broke" || me.result) return "broke";
     return "";
   }
 
   // Every Trainer rolls separately, so the card reports the viewer's own result.
   function personalResult(round, me, species) {
     const caughtN = Number(round?.results?.caught || 0);
+    const outcome = throwOutcome(me, round);
     if (!me?.joined && !me?.ball) {
       return {
         win: caughtN > 0,
@@ -399,7 +421,7 @@
     if (!me.ball) {
       return { win: false, headline: "Oh no!", sub: "You didn't choose a Poké Ball in time!", note: "Better luck next encounter!" };
     }
-    if (throwOutcome(me) === "caught") {
+    if (outcome === "caught") {
       return {
         win: true,
         headline: "Gotcha!",
@@ -407,11 +429,19 @@
         note: `Caught with ${window.playItemLabel(me.ball)}`
       };
     }
+    if (outcome === "broke") {
+      return {
+        win: false,
+        headline: "Oh no!",
+        sub: `${species} broke free!`,
+        note: `Better luck next encounter! · ${window.playItemLabel(me.ball)}${me.prep && me.prep !== "none" && me.prep !== "bait" ? ` · ${window.playItemLabel(me.prep)}` : ""}`
+      };
+    }
     return {
       win: false,
-      headline: "Oh no!",
-      sub: `${species} broke free!`,
-      note: `Better luck next encounter! · ${window.playItemLabel(me.ball)}${me.prep && me.prep !== "none" && me.prep !== "bait" ? ` · ${window.playItemLabel(me.prep)}` : ""}`
+      headline: "Waiting for the result…",
+      sub: "",
+      note: ""
     };
   }
 
@@ -420,7 +450,7 @@
       return personalResult(round, me, species).headline;
     }
     const pct = window.playRevealSeqProgress(round);
-    if (pct >= 100 && !round.resolved && !throwOutcome(me)) return "Waiting for the result…";
+    if (pct >= 100 && !round.resolved && !throwOutcome(me, round)) return "Waiting for the result…";
     return "The Poké Ball is shaking…";
   }
 
@@ -439,7 +469,7 @@
     if (round.paused && !round.resolved) return st;
     const pct = window.playRevealSeqProgress(round);
     const countdownDone = pct >= 99.5 || round.phase === "closed";
-    const outcome = throwOutcome(me);
+    const outcome = throwOutcome(me, round);
     if (st.outcome !== "caught" && outcome === "caught") st.outcome = "caught";
     if (round.resolved && countdownDone) {
       st.outcome = outcome || st.outcome;
@@ -537,10 +567,11 @@
     box.classList.toggle("is-wobble", st.scene === "wobble");
     box.classList.toggle("is-personal", st.scene === "personal");
     box.classList.toggle("is-results", st.scene === "results");
-    box.classList.toggle("is-caught", st.outcome === "caught");
-    box.classList.toggle("is-broke", st.outcome === "broke");
-    box.classList.toggle("is-win", st.scene === "results" && caughtN > 0);
-    box.classList.toggle("is-miss", st.scene === "results" && caughtN < 1);
+    const personal = personalResult(round, me, species);
+    box.classList.toggle("is-caught", st.outcome === "caught" || personal.win);
+    box.classList.toggle("is-broke", st.outcome === "broke" && !personal.win);
+    box.classList.toggle("is-win", st.scene === "results" && personal.win);
+    box.classList.toggle("is-miss", st.scene === "results" && throwOutcome(me, round) === "broke");
     const stage = root.querySelector(".dex-stage");
     stage?.classList.toggle("is-throwing", st.scene !== "results");
     stage?.classList.toggle("is-revealed", st.scene === "results");

@@ -66,6 +66,12 @@
       if (!merged.prep && prev.prep) merged.prep = prev.prep;
       if (!merged.ball && prev.ball) merged.ball = prev.ball;
       if (merged.result == null && prev.result) merged.result = prev.result;
+      if ((prev.caught === true || String(prev.result || "").toLowerCase() === "caught")
+        && incoming.caught !== true
+        && !incoming.result) {
+        merged.caught = true;
+        merged.result = prev.result || "Caught";
+      }
       joinedMe.set(id, merged);
     }
     const mine = (id ? joinedMe.get(id) : null) || incoming || null;
@@ -452,7 +458,7 @@
     const seqPhase = round?.phase === "closed"
       ? (round.resolved ? "results" : "reveal")
       : (round?.phase || "idle");
-    const key = `${round?.id || "none"}:${seqPhase}:${round?.resolved || false}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${state?.me?.ball || ""}:${state?.me?.result || ""}`;
+    const key = `${round?.id || "none"}:${seqPhase}:${round?.resolved || false}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${state?.me?.ball || ""}:${state?.me?.caught || ""}:${state?.me?.result || ""}`;
     const bar = phaseBar(round);
     const patchOpts = { me: state?.me || null };
     lastLocalPhase = round?.phase || lastLocalPhase;

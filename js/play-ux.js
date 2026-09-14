@@ -121,9 +121,16 @@
     }
     const berry = typeof window !== "undefined" ? root.playBerryInfo?.(key, captureItems) : null;
     if (berry?.description) return berry.description;
-    const ball = (captureItems?.balls || []).find((row) => row.key === key)
-      || (typeof window !== "undefined" ? root.playBallInfo?.(key) : null);
-    if (ball?.description || ball?.effect) return ball.description || ball.effect;
+    const info = typeof window !== "undefined" ? root.playBallInfo?.(key) : null;
+    const ball = (captureItems?.balls || []).find((row) => row.key === key) || info;
+    if (ball?.description || ball?.effect || info?.multiplier) {
+      const text = String(ball.description || ball.effect || "").replace(/\d+(\.\d+)?%\s*base catch chance\.?/i, "").trim();
+      if (/catch power|always catches/i.test(text)) return text;
+      const power = info?.multiplier
+        ? (/always/i.test(String(info.multiplier)) ? "Always catches. " : `${info.multiplier} catch power. `)
+        : "";
+      return `${power}${text}`.trim() || "A Poké Ball for catching wild Pokémon.";
+    }
     return "A useful Trainer item.";
   };
 
@@ -278,8 +285,7 @@
 
   root.playBallShopBlurb = function playBallShopBlurb(key, captureItems) {
     if (key === "masterball") return "Guaranteed capture. Extremely rare — not sold on the ordinary shelf.";
-    const text = root.playItemPlayerText(key, captureItems);
-    return String(text || "A Poké Ball for catching wild Pokémon.").replace(/\d+(\.\d+)?\s*×/g, "").trim();
+    return root.playItemPlayerText(key, captureItems) || "A Poké Ball for catching wild Pokémon.";
   };
 
   root.playTipDone = function playTipDone(key) {

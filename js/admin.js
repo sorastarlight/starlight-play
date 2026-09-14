@@ -843,6 +843,67 @@
     }
   });
 
+  const healthOut = document.getElementById("health-out");
+  const clientBuild = document.getElementById("client-build");
+  if (clientBuild && window.PLAY_BUILD) {
+    clientBuild.textContent = `Client build: ${window.PLAY_BUILD}`;
+  }
+
+  document.getElementById("run-capture-health")?.addEventListener("click", async () => {
+    if (!healthOut) return;
+    healthOut.innerHTML = `<p class="muted">Running capture health…</p>`;
+    try {
+      const data = await window.playCall("admin_capture_health");
+      const tests = Array.isArray(data?.selfTest) ? data.selfTest : [];
+      const failed = tests.filter((row) => !row.passed);
+      const recent = data?.recent || {};
+      healthOut.innerHTML = `<h3>Capture health</h3>
+        <p>Self-test: ${tests.length - failed.length}/${tests.length} passed${failed.length ? ` · FAIL ${failed.map((row) => row.name).join(", ")}` : ""}</p>
+        <p>Ultra Ball live multiplier: ${data?.ultraMultiplier ?? "—"}</p>
+        <p>Recent throws ${recent.throws || 0} · expected catches ${recent.expected ?? "—"} · actual ${recent.actual ?? "—"}</p>
+        <p>Unknown Ball logs: ${data?.unknownBalls || 0} · shiny-female not flagged shiny: ${data?.shinyFemaleUnflagged || 0}</p>
+        <p>Missing capture_log (14d committed throws): ${data?.missingLogs || 0}</p>
+        ${failed.length ? `<pre>${failed.map((row) => `${row.name}: ${row.detail || ""}`).join("\n")}</pre>` : ""}`;
+    } catch (error) {
+      healthOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+    }
+  });
+
+  document.getElementById("run-asset-health")?.addEventListener("click", async () => {
+    if (!healthOut) return;
+    healthOut.innerHTML = `<p class="muted">Checking encounter assets…</p>`;
+    const missing = [];
+    const variants = window.PLAY_VARIANTS || {};
+    if (!Object.keys(variants).length) missing.push("PLAY_VARIANTS catalog is not loaded");
+    const urls = [];
+    for (let dex = 1; dex <= 151; dex += 1) {
+      urls.push([window.playSpriteUrl(dex, "normal"), `normal ${dex}`]);
+      urls.push([window.playSpriteUrl(dex, "shiny"), `shiny ${dex}`]);
+      const list = variants[dex] || variants[String(dex)] || [];
+      if (list.includes("female")) urls.push([window.playSpriteUrl(dex, "female"), `female ${dex}`]);
+      if (list.includes("shiny-female")) urls.push([window.playSpriteUrl(dex, "shiny-female"), `shiny-female ${dex}`]);
+    }
+    const locations = window.PLAY_LOCATION_VISUALS?.locations || {};
+    Object.values(locations).forEach((row) => {
+      if (row?.enabled !== false && row.local_asset_path) {
+        urls.push([String(row.local_asset_path).replace(/^\/+/, ""), `location ${row.location_key}`]);
+      }
+    });
+    await Promise.all(urls.map(async ([url, label]) => {
+      try {
+        const res = await fetch(url, { method: "HEAD", cache: "no-store" });
+        if (!res.ok) missing.push(`${label} ${url} → ${res.status}`);
+      } catch (error) {
+        missing.push(`${label} ${url} → ${error.message || "fetch failed"}`);
+      }
+    }));
+    healthOut.innerHTML = `<h3>Encounter asset health</h3>
+      <p>Variant catalog loaded: ${Object.keys(variants).length ? "yes" : "NO"}</p>
+      <p>Client build: ${window.PLAY_BUILD || "missing"}</p>
+      <p>Checked ${urls.length} URLs</p>
+      ${missing.length ? `<p>${missing.length} missing/broken</p><pre>${missing.slice(0, 80).join("\n")}</pre>` : "<p>All checked sprite and location URLs returned OK.</p>"}`;
+  });
+
   function reportTable(title, rows, labelKey) {
     if (!rows || !rows.length) return "";
     return `<h3>${title}</h3>

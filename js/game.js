@@ -133,9 +133,9 @@
   // a real chance is calculated; these strings just describe the effect.
   const PLAIN = "Standard catch power.";
   window.PLAY_BALLS = [
-    { key: "pokeball", sku: "poke5", name: "Poké Ball", qty: 1, cost: 100, multiplier: "1×", effect: "A standard Poké Ball for catching wild Pokémon.", sprite: "poke-ball", extra: false },
-    { key: "greatball", sku: "great3", name: "Great Ball", qty: 1, cost: 225, multiplier: "1.25×", effect: "A higher-performance Poké Ball that improves your chance of a successful catch.", sprite: "great-ball", extra: false },
-    { key: "ultraball", sku: "ultra1", name: "Ultra Ball", qty: 1, cost: 500, multiplier: "1.5×", effect: "A powerful Poké Ball. Best saved for Pokémon you really want.", sprite: "ultra-ball", extra: false },
+    { key: "pokeball", sku: "poke5", name: "Poké Ball", qty: 1, cost: 100, multiplier: "1.00×", effect: "1.00× catch power. A standard Poké Ball for catching wild Pokémon.", sprite: "poke-ball", extra: false },
+    { key: "greatball", sku: "great3", name: "Great Ball", qty: 1, cost: 225, multiplier: "1.25×", effect: "1.25× catch power. A higher-performance Poké Ball.", sprite: "great-ball", extra: false },
+    { key: "ultraball", sku: "ultra1", name: "Ultra Ball", qty: 1, cost: 500, multiplier: "1.50×", effect: "1.50× catch power. Best saved for Pokémon you really want.", sprite: "ultra-ball", extra: false },
     { key: "masterball", sku: "master1", name: "Master Ball", qty: 1, cost: 10000, multiplier: "Always", effect: "Never fails to catch a wild Pokémon. Not sold on the ordinary shelf.", sprite: "master-ball", extra: true },
     { key: "premierball", sku: "premier1", name: "Premier Ball", qty: 1, cost: 100, multiplier: "1×", effect: "A commemorative Poké Ball. Buy 10 qualifying Balls and you get one as a bonus.", sprite: "premier-ball", extra: true },
     { key: "luxuryball", sku: "luxury1", name: "Luxury Ball", qty: 1, cost: 100, multiplier: "1×", effect: PLAIN, sprite: "luxury-ball", extra: true },
@@ -487,17 +487,41 @@
     return "";
   };
 
-  window.playSpriteUrl = function playSpriteUrl(dex, variant) {
+  window.playVariantIsShiny = function playVariantIsShiny(variant) {
+    return String(variant || "").toLowerCase().includes("shiny");
+  };
+
+  window.playVariantIsFemaleVisual = function playVariantIsFemaleVisual(variant) {
+    return String(variant || "").toLowerCase().includes("female");
+  };
+
+  window.playSpriteStem = function playSpriteStem(dex, variant) {
     const id = Number(dex);
     if (!id) return "";
     const kind = String(variant || "normal").toLowerCase();
+    const catalog = window.PLAY_VARIANTS;
     const allowed = new Set(typeof window.playAllowedVariants === "function" ? window.playAllowedVariants(id) : []);
     const shiny = kind.includes("shiny");
-    const female = kind.includes("female") && (allowed.has("female") || allowed.has("shiny-female"));
-    if (shiny && female) return `images/pokemon/shiny/female/${id}.gif`;
-    if (female) return `images/pokemon/female/${id}.gif`;
-    if (shiny) return `images/pokemon/shiny/${id}.gif`;
-    return `images/pokemon/${id}.gif`;
+    const wantsFemale = kind.includes("female");
+    const female = wantsFemale && (!catalog || allowed.has("female") || allowed.has("shiny-female"));
+    if (shiny && female) return `shiny/female/${id}`;
+    if (female) return `female/${id}`;
+    if (shiny) return `shiny/${id}`;
+    return String(id);
+  };
+
+  window.playSpriteUrl = function playSpriteUrl(dex, variant) {
+    const id = Number(dex);
+    if (!id) return "";
+    const stem = window.playSpriteStem(id, variant);
+    const ext = (window.PLAY_SPRITE_EXT && window.PLAY_SPRITE_EXT[stem]) || "gif";
+    const url = `images/pokemon/${stem}.${ext}`;
+    const kind = String(variant || "normal").toLowerCase();
+    const catalog = window.PLAY_VARIANTS;
+    if (typeof console !== "undefined" && catalog && kind.includes("female") && !String(stem).includes("female")) {
+      console.warn(`[play] ${id} variant ${kind} has no female visual; requesting ${url}`);
+    }
+    return url;
   };
 
   window.playSpriteOnError = function playSpriteOnError(img) {
@@ -522,6 +546,9 @@
       img.dataset.playSpriteDone = "1";
       delete img.dataset.playSpriteLock;
       return;
+    }
+    if (typeof console !== "undefined") {
+      console.warn(`[play] sprite fallback ${src} → ${next}`);
     }
     img.src = next;
     queueMicrotask(() => { delete img.dataset.playSpriteLock; });

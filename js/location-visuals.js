@@ -168,14 +168,13 @@
     const catalog = window.PLAY_LOCATION_VISUALS || {};
     const locations = catalog.locations || {};
     const seen = new Set();
-    let key = window.playLocationKey(locationName);
+    let key = window.playLocationKey(locationName) || "kanto";
     while (key && !seen.has(key)) {
       seen.add(key);
       const row = locations[key];
       if (row && row.enabled !== false && row.local_asset_path) {
-        const asset = /^https?:\/\//i.test(row.local_asset_path) || String(row.local_asset_path).startsWith("/")
-          ? row.local_asset_path
-          : `/${row.local_asset_path}`;
+        const raw = String(row.local_asset_path || "").replace(/^\/+/, "");
+        const asset = /^https?:\/\//i.test(row.local_asset_path) ? row.local_asset_path : raw;
         const preset = window.PLAY_LOCATION_PRESENTATION_DEFAULTS || {};
         const tuned = (window.PLAY_LOCATION_PRESENTATION || {})[key] || {};
         return {

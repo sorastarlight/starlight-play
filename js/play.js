@@ -17,6 +17,24 @@
   let lastChannel = "";
   let lastEncounterKey = "";
   let lastActionKey = "";
+  window.__playErrors = window.__playErrors || [];
+  window.addEventListener("error", (event) => {
+    window.__playErrors.push({
+      type: "error",
+      message: String(event.message || "error"),
+      page: location.pathname,
+      at: Date.now()
+    });
+  });
+  window.addEventListener("unhandledrejection", (event) => {
+    const reason = event.reason;
+    window.__playErrors.push({
+      type: "unhandledrejection",
+      message: String(reason && reason.message ? reason.message : reason || "rejection"),
+      page: location.pathname,
+      at: Date.now()
+    });
+  });
   let lureJoinRound = "";
   let acting = false;
   let pointerHeld = false;
@@ -543,6 +561,16 @@
       isAdmin: Boolean(data?.isAdmin),
       trainer: data?.trainer
     });
+    const required = data?.settings?.clientBuild;
+    const update = document.getElementById("play-update");
+    if (update) {
+      update.hidden = !(required && window.PLAY_BUILD && String(required) !== String(window.PLAY_BUILD));
+    }
+    const build = document.getElementById("play-build");
+    if (build && window.PLAY_BUILD) {
+      build.hidden = false;
+      build.textContent = `Client build: ${window.PLAY_BUILD}`;
+    }
   }
 
   function loadStream(login) {

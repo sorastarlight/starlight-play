@@ -199,14 +199,14 @@ test("breakout uses the shared actor frame instead of leftover catch offsets", (
   assert(html.includes("catch-seq-mon"), html);
 });
 
-test("no mapped location keeps the generic stage and hides the chip", () => {
+test("empty location falls back to the generic Kanto stage", () => {
   const previous = window.playHabitat;
   window.playHabitat = () => "";
   const html = window.playRenderEncounter(wildRound({ location: "" }), {});
   window.playHabitat = previous;
-  assert(!html.includes("has-location-bg"), html.match(/encounter-visual-stage[^>]*/)?.[0]);
-  assert(!html.includes("encounter-location-chip"));
-  assert(html.includes("encounter-stage-status"));
+  assert(html.includes("has-location-bg"), html.match(/encounter-visual-stage[^>]*/)?.[0]);
+  assert(html.includes('data-location-key="kanto"'), html.match(/encounter-visual-stage[^>]*/)?.[0]);
+  assert(html.includes("images/encounters/locations/frlg/kanto.png"), html);
 });
 
 test("no-throw results do not fabricate a personal failure banner", () => {

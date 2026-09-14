@@ -19,9 +19,9 @@
     const items = [
       ["berry", "Berry", "Raises your own catch chance."],
       ["bait", "Bait", "Shares a small bonus with everyone."],
-      ["pokeball", "Poké Ball", "45% base catch chance."],
-      ["greatball", "Great Ball", "60% base catch chance."],
-      ["ultraball", "Ultra Ball", "75% base catch chance."]
+      ["pokeball", "Poké Ball", (window.playBallInfo?.("pokeball")?.effect) || "1.00× catch power."],
+      ["greatball", "Great Ball", (window.playBallInfo?.("greatball")?.effect) || "1.25× catch power."],
+      ["ultraball", "Ultra Ball", (window.playBallInfo?.("ultraball")?.effect) || "1.50× catch power."]
     ];
     els.bag.innerHTML = items.map(([key, label, hint]) => (
       `<article class="bag-card"><span>${label}</span><strong>${bag?.[key] ?? 0}</strong><p class="muted">${hint}</p></article>`

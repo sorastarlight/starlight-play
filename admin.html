@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=hubv4">
+<link rel="stylesheet" href="css/play.css?v=hubv5">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -141,67 +141,93 @@
         <button type="button" data-hub-view="overview" aria-selected="true">Manual &amp; Test</button>
         <button type="button" data-hub-view="rules">Rules</button>
         <button type="button" data-hub-view="capture">Capture</button>
+        <button type="button" data-hub-view="spawn">Spawn</button>
         <button type="button" data-hub-view="sim">Simulator</button>
       </div>
-      <div class="layout stack-2">
+      <div class="hub-page">
       <section class="card body" data-enc-view="overview">
-        <h2>Live manual controls</h2>
+        <h2>Manual &amp; Test</h2>
+        <p class="muted">Start, pause, or cancel the current encounter. Live actions affect Play immediately.</p>
         <p id="bridge-status" class="muted">Checking stream link…</p>
-        <p class="muted">These actions affect the real current encounter on Play.</p>
-        <div class="command-grid">
-          <button id="start-random" class="gold" type="button">Start live random</button>
-          <button id="cancel-round" class="danger" type="button">Cancel Encounter</button>
-          <div class="command-pair">
-            <button id="pause-round" class="secondary" type="button">Pause encounter</button>
-            <button id="sync-clock" class="secondary" type="button">Resume Encounter</button>
-          </div>
-        </div>
-        <label class="field" for="dex-pick">Type name or Dex number
-          <input id="dex-pick" type="text" placeholder="ex: Pikachu" autocomplete="off">
-        </label>
-        <ul id="dex-suggest" class="dex-suggest" hidden></ul>
-        <p class="muted">Gender is Male, Female, or Genderless. Shiny is its own switch on top of that.</p>
-        <div id="gender-row" class="variant-row"></div>
-        <div id="shiny-row" class="variant-row shiny-row"></div>
-        <div class="form-preview">
-          <img id="form-preview" alt="">
-          <p id="form-copy" class="muted">Pick a species to preview.</p>
-        </div>
-        <div class="links">
-          <button id="start-dex" type="button">Start live specific</button>
-        </div>
-        <p id="command-status" class="muted" role="status"></p>
-        <div class="hub-debug">
-          <p class="eyebrow">Test &amp; debug tools</p>
-          <h3>Development / testing</h3>
-          <p class="muted">These controls are intended for development and testing. They can skip phases, hide the overlay, or gift items during an encounter.</p>
-          <div class="command-grid">
-            <div class="command-pair">
-              <button id="clear-round" class="secondary" type="button">Clear encounter</button>
-              <button id="advance-phase" class="secondary" type="button">Next phase</button>
+        <div class="hub-split">
+          <div>
+            <p class="eyebrow">Live manual controls</p>
+            <p class="muted">These actions affect the real current encounter on Play.</p>
+            <div class="command-grid">
+              <button id="start-random" class="gold" type="button">Start live random</button>
+              <button id="cancel-round" class="danger" type="button">Cancel Encounter</button>
+              <div class="command-pair">
+                <button id="pause-round" class="secondary" type="button">Pause encounter</button>
+                <button id="sync-clock" class="secondary" type="button">Resume Encounter</button>
+              </div>
             </div>
-            <button id="toggle-hidden" class="secondary" type="button">Hide overlay</button>
-            <button id="gift-item" class="secondary" type="button">Give +1 item</button>
-            <button id="clear-log" class="secondary" type="button">Clear public console</button>
+            <details class="hub-specific">
+              <summary>Start a specific Pokémon</summary>
+              <label class="field" for="dex-pick">Type name or Dex number
+                <input id="dex-pick" type="text" placeholder="ex: Pikachu" autocomplete="off">
+              </label>
+              <ul id="dex-suggest" class="dex-suggest" hidden></ul>
+              <p class="muted">Gender is Male, Female, or Genderless. Shiny is its own switch on top of that.</p>
+              <div id="gender-row" class="variant-row"></div>
+              <div id="shiny-row" class="variant-row shiny-row"></div>
+              <div class="form-preview">
+                <img id="form-preview" alt="">
+                <p id="form-copy" class="muted">Pick a species to preview.</p>
+              </div>
+              <div class="links">
+                <button id="start-dex" type="button">Start live specific</button>
+              </div>
+            </details>
+            <p id="command-status" class="muted" role="status"></p>
+          </div>
+          <div class="hub-debug">
+            <p class="eyebrow">Test &amp; debug tools</p>
+            <h3>Development / testing</h3>
+            <p class="muted">These controls are intended for development and testing. They can skip phases, hide the overlay, or gift items during an encounter.</p>
+            <div class="command-grid">
+              <div class="command-pair">
+                <button id="clear-round" class="secondary" type="button">Clear encounter</button>
+                <button id="advance-phase" class="secondary" type="button">Next phase</button>
+              </div>
+              <button id="toggle-hidden" class="secondary" type="button">Hide overlay</button>
+              <button id="gift-item" class="secondary" type="button">Give +1 item</button>
+              <button id="clear-log" class="secondary" type="button">Clear public console</button>
+            </div>
           </div>
         </div>
       </section>
       <section class="card body" data-enc-view="rules">
-        <h2>Phase timings</h2>
+        <h2>Encounter rules</h2>
         <p class="muted">Seconds per phase. Saving also updates the stream PC. Bits purchases cannot be turned on from here.</p>
-        <div class="settings-grid">
-          <label class="field" for="join-seconds">Join
-            <input id="join-seconds" type="number" min="5" max="180">
-          </label>
-          <label class="field" for="prepare-seconds">Prepare
-            <input id="prepare-seconds" type="number" min="5" max="180">
-          </label>
-          <label class="field" for="throw-seconds">Poké Ball
-            <input id="throw-seconds" type="number" min="5" max="180">
-          </label>
-          <label class="field" for="reveal-seconds">Capture
-            <input id="reveal-seconds" type="number" min="5" max="180">
-          </label>
+        <div class="hub-phase-grid">
+          <div class="hub-card">
+            <h3>Join Phase</h3>
+            <p class="muted">Time Trainers have to join.</p>
+            <label class="field hub-num" for="join-seconds">Seconds
+              <input id="join-seconds" type="number" min="5" max="180">
+            </label>
+          </div>
+          <div class="hub-card">
+            <h3>Item Phase</h3>
+            <p class="muted">Time joined Trainers have to choose a Berry, Honey, or No Item.</p>
+            <label class="field hub-num" for="prepare-seconds">Seconds
+              <input id="prepare-seconds" type="number" min="5" max="180">
+            </label>
+          </div>
+          <div class="hub-card">
+            <h3>Poké Ball Phase</h3>
+            <p class="muted">Time to choose a Ball.</p>
+            <label class="field hub-num" for="throw-seconds">Seconds
+              <input id="throw-seconds" type="number" min="5" max="180">
+            </label>
+          </div>
+          <div class="hub-card">
+            <h3>Capture Phase</h3>
+            <p class="muted">Throw, shake, and result presentation.</p>
+            <label class="field hub-num" for="reveal-seconds">Seconds
+              <input id="reveal-seconds" type="number" min="5" max="180">
+            </label>
+          </div>
         </div>
         <div class="links">
           <button id="save-settings" type="button">Save encounter rules</button>
@@ -209,68 +235,104 @@
         <p id="settings-status" class="muted" role="status"></p>
       </section>
       <section class="card body" data-enc-view="capture">
-        <h2>Capture balance</h2>
-        <p class="muted">Base chance comes from the species catch rate, then Ball, Berry and Honey multiply it. Every Trainer rolls once.</p>
-        <div class="settings-grid">
-          <label class="field" for="cap-min">Floor
-            <input id="cap-min" type="number" min="0" max="1" step="0.01">
-          </label>
-          <label class="field" for="cap-max">Cap
-            <input id="cap-max" type="number" min="0" max="1" step="0.01">
-          </label>
-          <label class="field" for="cap-shiny">Shiny ×
-            <input id="cap-shiny" type="number" min="0" max="3" step="0.01">
-          </label>
-          <label class="field" for="cap-event">Event ×
-            <input id="cap-event" type="number" min="0" max="3" step="0.01">
-          </label>
-          <label class="field" for="cap-honey-bonus">Honey contributor ×
-            <input id="cap-honey-bonus" type="number" min="1" max="2" step="0.01">
-          </label>
-          <label class="field" for="cap-reward">Pinap reward coins
-            <input id="cap-reward" type="number" min="0" max="500" step="1">
-          </label>
+        <h2>Capture Balance</h2>
+        <p class="muted">Controls the base catch chance and modifiers used by the authoritative Capture Service.</p>
+        <div class="hub-split">
+          <div class="hub-card">
+            <h3>Global limits</h3>
+            <div class="hub-num-row">
+              <label class="field hub-num" for="cap-min">Minimum capture chance
+                <input id="cap-min" type="number" min="0" max="1" step="0.01">
+              </label>
+              <label class="field hub-num" for="cap-max">Maximum capture chance
+                <input id="cap-max" type="number" min="0" max="1" step="0.01">
+              </label>
+            </div>
+            <h3>Global modifiers</h3>
+            <div class="hub-num-row">
+              <label class="field hub-num" for="cap-shiny">Shiny modifier
+                <input id="cap-shiny" type="number" min="0" max="3" step="0.01">
+              </label>
+              <label class="field hub-num" for="cap-event">Event modifier
+                <input id="cap-event" type="number" min="0" max="3" step="0.01">
+              </label>
+              <label class="field hub-num" for="cap-honey-bonus">Honey contributor bonus
+                <input id="cap-honey-bonus" type="number" min="1" max="2" step="0.01">
+              </label>
+            </div>
+            <h3>Reward effects</h3>
+            <label class="field hub-num" for="cap-reward">Pinap reward coins
+              <input id="cap-reward" type="number" min="0" max="500" step="1">
+            </label>
+            <p class="muted">Paid by the Capture Service when a Pinap Berry is used. Economy reward amounts live under Economy &amp; Store → Rewards.</p>
+          </div>
+          <div class="hub-card">
+            <h3>Species catch-rate curve</h3>
+            <div id="cap-tiers" class="hub-tier-grid"></div>
+          </div>
         </div>
-        <h3>Base chance by catch rate</h3>
-        <div id="cap-tiers" class="settings-grid"></div>
-        <h3>Community Honey curve</h3>
-        <div id="cap-honey" class="settings-grid"></div>
+        <div class="hub-card">
+          <h3>Community Honey</h3>
+          <div id="cap-honey" class="hub-tier-grid"></div>
+        </div>
         <div class="links">
           <button id="save-balance" type="button">Save capture balance</button>
+          <button type="button" class="secondary" data-hub-tab-jump="analytics" data-hub-view-jump="captures">View capture analytics</button>
         </div>
         <p id="balance-status" class="muted" role="status"></p>
       </section>
+      <section class="card body" data-enc-view="spawn">
+        <h2>Spawn configuration</h2>
+        <p class="muted">Weighted spawn used by automatic and Admin random launches. Specific Admin picks bypass this. Values are displayed from the current launcher rules; there is no separate spawn editor RPC.</p>
+        <div id="spawn-out" class="hub-spawn"></div>
+        <div class="links">
+          <button type="button" class="secondary" data-hub-tab-jump="analytics" data-hub-view-jump="spawns">View spawn analytics</button>
+        </div>
+      </section>
       <section class="card body" data-enc-view="sim">
         <h2>Capture simulator</h2>
-        <p class="muted">Dry run only. Nothing is spent, nothing is caught, no inventory changes.</p>
-        <div class="settings-grid">
-          <label class="field" for="sim-dex">Dex #
-            <input id="sim-dex" type="number" min="1" max="151" value="131">
-          </label>
-          <label class="field" for="sim-ball">Ball
-            <select id="sim-ball"></select>
-          </label>
-          <label class="field" for="sim-berry">Berry
-            <select id="sim-berry"></select>
-          </label>
-          <label class="field" for="sim-joined">Trainers joined
-            <input id="sim-joined" type="number" min="1" max="500" value="10">
-          </label>
-          <label class="field" for="sim-honey">Honey used
-            <input id="sim-honey" type="number" min="0" max="500" value="6">
-          </label>
-          <label class="field" for="sim-trials">Trials
-            <input id="sim-trials" type="number" min="0" max="100000" step="1000" value="10000">
-          </label>
-          <label class="field check" for="sim-contrib">Added Honey
-            <input id="sim-contrib" type="checkbox">
-          </label>
-          <label class="field check" for="sim-owns">Already owns it
-            <input id="sim-owns" type="checkbox">
-          </label>
-          <label class="field check" for="sim-shiny">Shiny
-            <input id="sim-shiny" type="checkbox">
-          </label>
+        <p class="hub-sim-banner">Simulation / dry run. No inventory, catches, or rewards are changed.</p>
+        <div class="hub-split">
+          <div>
+            <h3>Target Pokémon</h3>
+            <label class="field hub-num" for="sim-dex">Dex #
+              <input id="sim-dex" type="number" min="1" max="151" value="131">
+            </label>
+            <h3>Catch setup</h3>
+            <div class="hub-num-row">
+              <label class="field" for="sim-ball">Ball
+                <select id="sim-ball"></select>
+              </label>
+              <label class="field" for="sim-berry">Berry
+                <select id="sim-berry"></select>
+              </label>
+            </div>
+          </div>
+          <div>
+            <h3>Community</h3>
+            <div class="hub-num-row">
+              <label class="field hub-num" for="sim-joined">Trainers joined
+                <input id="sim-joined" type="number" min="1" max="500" value="10">
+              </label>
+              <label class="field hub-num" for="sim-honey">Honey contributors
+                <input id="sim-honey" type="number" min="0" max="500" value="6">
+              </label>
+            </div>
+            <label class="field check" for="sim-contrib">This Trainer used Honey
+              <input id="sim-contrib" type="checkbox">
+            </label>
+            <h3>Player state</h3>
+            <label class="field check" for="sim-owns">Already owns species
+              <input id="sim-owns" type="checkbox">
+            </label>
+            <label class="field check" for="sim-shiny">Shiny encounter
+              <input id="sim-shiny" type="checkbox">
+            </label>
+            <h3>Simulation</h3>
+            <label class="field hub-num" for="sim-trials">Trials
+              <input id="sim-trials" type="number" min="0" max="100000" step="1000" value="10000">
+            </label>
+          </div>
         </div>
         <div class="links">
           <button id="run-sim" type="button">Run simulation</button>
@@ -282,8 +344,8 @@
 
     <div id="hub-panel-players" data-hub-panel="trainers" hidden>
       <section class="card body">
-        <h2>Trainer search</h2>
-        <p class="muted">Look up a Play trainer by Twitch login or name. Twitch secrets, Bits setup, and GitHub tokens live under System &amp; Integrations.</p>
+        <h2>Trainer support</h2>
+        <p class="muted">Inspect or help a specific Trainer. Site-wide Twitch, Bits, GitHub, and Pass settings live under System &amp; Integrations.</p>
         <p id="user-status" class="muted" role="status"></p>
         <div class="user-desk-grid">
           <div class="user-desk-list">
@@ -328,137 +390,81 @@
     <div id="hub-panel-store" data-hub-panel="economy" hidden>
       <div class="hub-subnav" role="tablist" aria-label="Economy and Store">
         <button type="button" data-eco-view="catalog" aria-selected="true">Catalog</button>
-        <button type="button" data-eco-view="economy">Economy</button>
+        <button type="button" data-eco-view="rewards">Rewards</button>
         <button type="button" data-eco-view="loot">Loot</button>
       </div>
       <section class="card body" data-eco-panel="catalog">
-        <p class="muted">Public trainers shop at the Mart. This is the Admin catalog editor.</p>
+        <h2>Store catalog</h2>
+        <p class="muted">Public Trainers shop at the Mart. This is the Admin catalog editor.</p>
         <iframe class="hub-embed-frame" title="Store editor" data-src="./admin-store.html?embed=1"></iframe>
       </section>
-      <div data-eco-panel="economy" hidden>
+      <div data-eco-panel="rewards" hidden>
       <section class="card body">
-        <h2>Economy</h2>
-        <p class="muted">PokéCoin circulation, rewards, and a dry-run spending estimate. This never changes trainer bags.</p>
-        <div id="eco-overview" class="report-out"></div>
-        <h3>Encounter rewards</h3>
-        <div class="settings-grid">
-          <label class="field" for="eco-join">Join + complete
+        <h2>Encounter rewards</h2>
+        <p class="muted">PokéCoin amounts granted by encounter outcomes. Circulation and spending reports live under Analytics → Economy &amp; Loot.</p>
+        <div class="hub-num-row hub-config-grid">
+          <label class="field hub-num" for="eco-join">Join + complete
             <input id="eco-join" type="number" min="0" max="5000" step="1">
           </label>
-          <label class="field" for="eco-catch">Successful catch
+          <label class="field hub-num" for="eco-catch">Successful catch
             <input id="eco-catch" type="number" min="0" max="5000" step="1">
           </label>
-          <label class="field" for="eco-dex">New Pokédex entry
+          <label class="field hub-num" for="eco-dex">New Pokédex entry
             <input id="eco-dex" type="number" min="0" max="5000" step="1">
           </label>
-          <label class="field" for="eco-shiny">Shiny bonus
+          <label class="field hub-num" for="eco-shiny">Shiny bonus
             <input id="eco-shiny" type="number" min="0" max="5000" step="1">
           </label>
-          <label class="field" for="eco-legend">Legendary bonus
+          <label class="field hub-num" for="eco-legend">Legendary bonus
             <input id="eco-legend" type="number" min="0" max="5000" step="1">
           </label>
-          <label class="field" for="eco-stream">First encounter of the stream
+          <label class="field hub-num" for="eco-stream">First encounter of the stream
             <input id="eco-stream" type="number" min="0" max="5000" step="1">
           </label>
         </div>
         <div class="links">
           <button id="save-economy" type="button">Save economy rewards</button>
+          <button type="button" class="secondary" data-hub-tab-jump="analytics" data-hub-view-jump="economy">View economy analytics</button>
         </div>
         <p id="economy-status" class="muted" role="status"></p>
-        <h3>Economy simulator</h3>
-        <p class="muted">Dry run only. Estimates what a regular player earns, not what they should throw.</p>
-        <div class="settings-grid">
-          <label class="field" for="eco-encounters">Encounters / stream
-            <input id="eco-encounters" type="number" min="1" max="2500" value="10">
-          </label>
-          <label class="field" for="eco-streams">Streams / week
-            <input id="eco-streams" type="number" min="1" max="20" value="5">
-          </label>
-          <label class="field" for="eco-join-rate">Join rate
-            <input id="eco-join-rate" type="number" min="0" max="1" step="0.05" value="0.8">
-          </label>
-          <label class="field" for="eco-catch-rate">Catch rate
-            <input id="eco-catch-rate" type="number" min="0" max="1" step="0.05" value="0.35">
-          </label>
-        </div>
-        <div class="links">
-          <button id="run-economy-sim" type="button">Run economy estimate</button>
-        </div>
-        <div id="eco-sim-out" class="sim-out"></div>
-        <h3>Recent ledger</h3>
-        <div class="links">
-          <button id="load-ledger" type="button">Refresh ledger</button>
-        </div>
-        <div id="eco-ledger" class="report-out"></div>
       </section>
       </div>
       <div data-eco-panel="loot" hidden>
       <section class="card body">
         <h2>Item loot</h2>
-        <p class="muted">Gameplay drops only. Bits stays guaranteed. This never writes trainer bags.</p>
-        <div id="loot-overview" class="report-out"></div>
-        <div class="settings-grid">
-          <label class="field" for="loot-part">Participation drop
+        <p class="muted">Gameplay drop rates only. Bits packs stay guaranteed. This never writes Trainer bags. Inventory totals live under Analytics → Economy &amp; Loot.</p>
+        <div class="hub-num-row">
+          <label class="field hub-num" for="loot-part">Participation drop
             <input id="loot-part" type="number" min="0" max="1" step="0.01" value="0.15">
           </label>
-          <label class="field" for="loot-catch">Capture drop
+          <label class="field hub-num" for="loot-catch">Capture drop
             <input id="loot-catch" type="number" min="0" max="1" step="0.01" value="0.25">
           </label>
-          <label class="field" for="loot-event">Event multiplier
+          <label class="field hub-num" for="loot-event">Event multiplier
             <input id="loot-event" type="number" min="0.1" max="3" step="0.1" value="1">
           </label>
         </div>
         <div class="links">
           <button id="save-loot" type="button">Save drop rates</button>
-          <button id="run-loot-sim" class="secondary" type="button">Simulate 10,000 encounters</button>
-          <button id="run-loot-tests" class="secondary" type="button">Run loot tests</button>
+          <button type="button" class="secondary" data-hub-tab-jump="analytics" data-hub-view-jump="economy">View loot inventory</button>
+          <button type="button" class="secondary" data-hub-tab-jump="analytics" data-hub-view-jump="sims">Open loot simulator</button>
         </div>
         <p id="loot-status" class="muted" role="status"></p>
         <div id="loot-tables" class="report-out"></div>
-        <div id="loot-sim-out" class="sim-out"></div>
       </section>
       </div>
     </div>
 
     <div id="hub-panel-settings" data-hub-panel="system" hidden>
       <div class="hub-subnav" role="tablist" aria-label="System and Integrations">
-        <button type="button" data-sys-view="general" aria-selected="true">General</button>
-        <button type="button" data-sys-view="twitch">Twitch</button>
+        <button type="button" data-sys-view="twitch" aria-selected="true">Twitch</button>
         <button type="button" data-sys-view="ads">Twitch Ads</button>
         <button type="button" data-sys-view="bits">Bits</button>
         <button type="button" data-sys-view="github">Asset Hosting</button>
         <button type="button" data-sys-view="pass">Starlight Pass</button>
+        <button type="button" data-sys-view="system">System</button>
       </div>
-      <div class="layout stack-2" data-sys-panel="general">
-        <section class="card body">
-          <h2>General</h2>
-          <p class="muted">Site-wide RPG preferences. Live encounter controls stay on Dashboard. Phase timings are under Encounters → Rules.</p>
-        </section>
-        <section class="card body">
-          <h2>Progression</h2>
-          <p class="muted">Trainer Level, Pokédex distribution, and achievement unlocks. Trainer Level does not change catch chance.</p>
-          <div id="prog-overview" class="report-out"></div>
-          <div class="settings-grid">
-            <label class="field" for="prog-xp-base">XP base
-              <input id="prog-xp-base" type="number" min="1" max="1000" step="1">
-            </label>
-            <label class="field" for="prog-xp-exp">XP exponent
-              <input id="prog-xp-exp" type="number" min="1" max="3" step="0.01">
-            </label>
-            <label class="field" for="prog-join-xp">Join XP
-              <input id="prog-join-xp" type="number" min="0" max="100" step="1">
-            </label>
-            <label class="field" for="prog-catch-xp">Catch XP
-              <input id="prog-catch-xp" type="number" min="0" max="100" step="1">
-            </label>
-          </div>
-          <div class="links">
-            <button id="save-progression" type="button">Save XP rewards</button>
-          </div>
-          <p id="progression-status" class="muted" role="status"></p>
-        </section>
-      </div>
-      <div class="layout stack-2" data-sys-panel="twitch" hidden>
+      <div class="hub-page" data-sys-panel="twitch">
         <section class="card body owner-only" id="owner-secrets">
           <h2>Stream connection</h2>
           <p class="muted">Public Play follows this Twitch login. Staff access also matches it unless a staff role is assigned.</p>
@@ -496,7 +502,7 @@
           <p id="sys-live-status" class="muted">Live status appears after you sign in.</p>
         </section>
       </div>
-      <div class="layout stack-2" data-sys-panel="ads" hidden>
+      <div class="hub-page" data-sys-panel="ads" hidden>
         <section class="card body">
           <h2>Twitch Ads / Ad Protection</h2>
           <p class="muted">Prevents automatic encounters from starting too close to a Twitch ad, and pauses an active shared encounter if an ad begins.</p>
@@ -507,7 +513,7 @@
           </div>
         </section>
       </div>
-      <div class="layout stack-2" data-sys-panel="bits" hidden>
+      <div class="hub-page" data-sys-panel="bits" hidden>
         <section class="card body">
           <h2>Twitch Bits</h2>
           <p class="muted">Custom Power-Ups on Twitch fill Play bags automatically. Viewers must have signed into Play once. Play never charges Bits.</p>
@@ -518,7 +524,7 @@
           <p class="muted">Save the Play Twitch Client Secret under Twitch first. Then click Turn on once. Twitch may not open an authorize page if Bits permission was already granted.</p>
         </section>
       </div>
-      <div class="layout stack-2" data-sys-panel="github" hidden>
+      <div class="hub-page" data-sys-panel="github" hidden>
         <section class="card body owner-only">
           <h2>Asset hosting</h2>
           <p class="muted">Used by the Admin Store editor to upload item imagery to the site's GitHub repository.</p>
@@ -531,7 +537,7 @@
           <p id="github-status" class="muted" role="status"></p>
         </section>
       </div>
-      <div class="layout stack-2" data-sys-panel="pass" hidden>
+      <div class="hub-page" data-sys-panel="pass" hidden>
         <section class="card body">
           <h2>Starlight Pass</h2>
           <p class="muted">Grant or remove the pass by Twitch login after someone has signed into Play. Automatic sub checks need the Twitch Client ID.</p>
@@ -546,47 +552,229 @@
           <p id="pass-admin-status" class="muted" role="status"></p>
         </section>
       </div>
+      <div class="hub-page" data-sys-panel="system" hidden>
+        <section class="card body hub-recovery">
+          <h2>Maintenance &amp; recovery</h2>
+          <p class="muted">Tools for resolving stuck or inconsistent transactional state. Use only when troubleshooting.</p>
+          <h3>Clear Pokémon / trade lock</h3>
+          <p class="muted">Clears a stuck transaction lock. Ownership is not changed.</p>
+          <label class="field" for="unlock-catch">Catch / instance ID
+            <input id="unlock-catch" type="text" placeholder="uuid">
+          </label>
+          <div class="links">
+            <button id="unlock-catch-btn" class="danger" type="button">Clear Lock</button>
+          </div>
+          <p id="collection-status" class="muted" role="status"></p>
+        </section>
+      </div>
     </div>
 
-    <div id="hub-panel-pokemon" class="layout stack-2" data-hub-panel="content" hidden>
-      <section class="card body">
-        <h2>Evolution &amp; trades</h2>
-        <p class="muted">Family Candy, evolution history, and stuck-trade unlocks. Unlocking does not rewrite ownership.</p>
-        <div id="collection-overview" class="report-out"></div>
-        <div class="settings-grid">
-          <label class="field" for="candy-family">Family dex
-            <input id="candy-family" type="number" min="1" max="151" value="4">
-          </label>
-          <label class="field" for="candy-catches">Expected catches
-            <input id="candy-catches" type="number" min="1" max="500" value="20">
-          </label>
-        </div>
+    <div id="hub-panel-pokemon" data-hub-panel="content" hidden>
+      <div class="hub-subnav" role="tablist" aria-label="Game Content">
+        <button type="button" data-content-view="evolution" aria-selected="true">Evolution</button>
+        <button type="button" data-content-view="progression">Progression</button>
+      </div>
+      <div class="hub-page">
+      <section class="card body" data-content-panel="evolution">
+        <h2>Evolution rules</h2>
+        <p class="muted">How Pokémon evolve: families, Candy costs, stones, and trade / Linking Cord rules. Historical activity is under Analytics → Evolution &amp; Trading.</p>
+        <p class="hub-meta" id="evo-balance-meta"></p>
+        <div id="evo-rules-out" class="report-out"></div>
         <div class="links">
-          <button id="run-candy-sim" type="button">Estimate Candy pacing</button>
+          <button id="evo-validate-btn" class="secondary" type="button">Validate evolution rules</button>
+          <button type="button" class="secondary" data-hub-tab-jump="analytics" data-hub-view-jump="evolution">View evolution analytics</button>
         </div>
-        <div id="candy-sim-out" class="sim-out"></div>
-        <label class="field" for="unlock-catch">Unlock catch id
-          <input id="unlock-catch" type="text" placeholder="uuid">
-        </label>
-        <div class="links">
-          <button id="unlock-catch-btn" type="button">Clear lock</button>
-        </div>
-        <p id="collection-status" class="muted" role="status"></p>
+        <p id="evo-validate-status" class="muted" role="status"></p>
       </section>
+      <section class="card body" data-content-panel="progression" hidden>
+        <h2>Trainer Progression</h2>
+        <p class="muted">XP curve and action XP. Trainer Level does not change catch chance. Live Trainer distribution is under Analytics → Progression.</p>
+        <div class="hub-split">
+          <div class="hub-card">
+            <h3>Trainer level curve</h3>
+            <div class="hub-num-row">
+              <label class="field hub-num" for="prog-xp-base">XP Base
+                <input id="prog-xp-base" type="number" min="1" max="1000" step="1">
+              </label>
+              <label class="field hub-num" for="prog-xp-exp">XP Exponent
+                <input id="prog-xp-exp" type="number" min="1" max="3" step="0.01">
+              </label>
+            </div>
+            <div id="xp-preview" class="hub-preview"></div>
+          </div>
+          <div class="hub-card">
+            <h3>Action XP</h3>
+            <div class="hub-num-row">
+              <label class="field hub-num" for="prog-join-xp">Join encounter
+                <input id="prog-join-xp" type="number" min="0" max="100" step="1">
+              </label>
+              <label class="field hub-num" for="prog-catch-xp">Successful catch
+                <input id="prog-catch-xp" type="number" min="0" max="100" step="1">
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="links">
+          <button id="save-progression" type="button">Save XP rewards</button>
+          <button type="button" class="secondary" data-hub-tab-jump="analytics" data-hub-view-jump="progression">View progression analytics</button>
+        </div>
+        <p id="progression-status" class="muted" role="status"></p>
+      </section>
+      </div>
     </div>
 
-    <div id="hub-panel-analytics" class="layout stack-2" data-hub-panel="analytics" hidden>
-      <section class="card body">
+    <div id="hub-panel-analytics" data-hub-panel="analytics" hidden>
+      <div class="hub-subnav" role="tablist" aria-label="Analytics">
+        <button type="button" data-ana-view="overview" aria-selected="true">Overview</button>
+        <button type="button" data-ana-view="captures">Captures</button>
+        <button type="button" data-ana-view="spawns">Spawns</button>
+        <button type="button" data-ana-view="progression">Progression</button>
+        <button type="button" data-ana-view="evolution">Evolution &amp; Trading</button>
+        <button type="button" data-ana-view="economy">Economy &amp; Loot</button>
+        <button type="button" data-ana-view="sessions">Stream Sessions</button>
+        <button type="button" data-ana-view="sims">Simulators</button>
+      </div>
+      <div class="hub-page">
+      <section class="card body" data-ana-panel="overview">
+        <h2>Game health</h2>
+        <p class="muted">Historical reporting from existing Admin overviews. Live stream controls stay on Dashboard.</p>
+        <p id="ana-overview-meta" class="hub-meta"></p>
+        <div id="ana-overview" class="report-out"></div>
+      </section>
+      <section class="card body" data-ana-panel="captures" hidden>
         <h2>Capture analytics</h2>
-        <p class="muted">Every throw is logged with its inputs, roll and result.</p>
-        <div class="links">
-          <label class="field" for="report-days">Days
+        <p class="muted">Every throw is logged with its inputs, roll, and result.</p>
+        <div class="hub-toolbar">
+          <label class="field hub-num" for="report-days">Time range (days)
             <input id="report-days" type="number" min="1" max="365" value="30">
           </label>
-          <button id="run-report" type="button">Refresh report</button>
+          <button id="run-report" type="button">Refresh</button>
         </div>
+        <p id="report-meta" class="hub-meta"></p>
         <div id="report-out" class="report-out"></div>
+        <div class="links">
+          <button type="button" class="secondary" data-hub-tab-jump="encounters" data-hub-view-jump="capture">Edit Capture Balance</button>
+        </div>
       </section>
+      <section class="card body" data-ana-panel="spawns" hidden>
+        <h2>Spawn analytics</h2>
+        <p class="muted">What has actually appeared in recent encounters. Spawn weights are configured under Encounters → Spawn.</p>
+        <div id="ana-spawns" class="report-out"></div>
+        <div class="links">
+          <button type="button" class="secondary" data-hub-tab-jump="encounters" data-hub-view-jump="spawn">Edit Spawn Configuration</button>
+        </div>
+      </section>
+      <section class="card body" data-ana-panel="progression" hidden>
+        <h2>Progression analytics</h2>
+        <p class="muted">How Trainers have actually leveled and completed the Pokédex. XP rules are under Game Content → Progression.</p>
+        <div id="prog-overview" class="report-out"></div>
+        <div class="links">
+          <button type="button" class="secondary" data-hub-tab-jump="content" data-hub-view-jump="progression">Edit Progression Rules</button>
+        </div>
+      </section>
+      <section class="card body" data-ana-panel="evolution" hidden>
+        <h2>Evolution &amp; Trading</h2>
+        <p class="muted">Read-only evolution and trade activity. Evolution costs are under Game Content → Evolution.</p>
+        <p id="evo-version" class="hub-meta"></p>
+        <div id="collection-overview" class="report-out"></div>
+        <div class="links">
+          <button type="button" class="secondary" data-hub-tab-jump="content" data-hub-view-jump="evolution">Edit Evolution Rules</button>
+        </div>
+      </section>
+      <section class="card body" data-ana-panel="economy" hidden>
+        <h2>Economy &amp; Loot</h2>
+        <p class="muted">Currency circulation and item supply. Reward amounts and drop rates are configured under Economy &amp; Store.</p>
+        <div id="eco-overview" class="report-out"></div>
+        <div id="loot-overview" class="report-out"></div>
+        <h3>Recent ledger</h3>
+        <div class="links">
+          <button id="load-ledger" type="button">Refresh ledger</button>
+        </div>
+        <div id="eco-ledger" class="report-out"></div>
+        <div class="links">
+          <button type="button" class="secondary" data-hub-tab-jump="economy" data-hub-view-jump="rewards">Edit rewards</button>
+          <button type="button" class="secondary" data-hub-tab-jump="economy" data-hub-view-jump="loot">Edit loot rates</button>
+        </div>
+      </section>
+      <section class="card body" data-ana-panel="sessions" hidden>
+        <h2>Stream sessions</h2>
+        <p class="muted">Current and recent Director session activity. Dashboard remains the live operator view.</p>
+        <div id="ana-sessions" class="report-out"></div>
+      </section>
+      <section class="card body" data-ana-panel="sims" hidden>
+        <h2>Simulators</h2>
+        <p class="hub-sim-banner">Simulation / dry run. No items are spent, no Pokémon are caught, and no currency, XP, or database progression is changed.</p>
+        <div class="hub-split">
+          <section class="hub-card">
+            <h3>Candy / evolution pacing</h3>
+            <div class="hub-num-row">
+              <label class="field hub-num" for="candy-family">Family Dex
+                <input id="candy-family" type="number" min="1" max="151" value="4">
+              </label>
+              <label class="field hub-num" for="candy-catches">Expected catches
+                <input id="candy-catches" type="number" min="1" max="500" value="20">
+              </label>
+            </div>
+            <div class="links">
+              <button id="run-candy-sim" type="button">Estimate Candy pacing</button>
+            </div>
+            <div id="candy-sim-out" class="sim-out"></div>
+          </section>
+          <section class="hub-card">
+            <h3>Economy simulator</h3>
+            <div class="hub-num-row">
+              <label class="field hub-num" for="eco-encounters">Encounters / stream
+                <input id="eco-encounters" type="number" min="1" max="2500" value="10">
+              </label>
+              <label class="field hub-num" for="eco-streams">Streams / week
+                <input id="eco-streams" type="number" min="1" max="20" value="5">
+              </label>
+              <label class="field hub-num" for="eco-join-rate">Join rate
+                <input id="eco-join-rate" type="number" min="0" max="1" step="0.05" value="0.8">
+              </label>
+              <label class="field hub-num" for="eco-catch-rate">Catch rate
+                <input id="eco-catch-rate" type="number" min="0" max="1" step="0.05" value="0.35">
+              </label>
+            </div>
+            <div class="links">
+              <button id="run-economy-sim" type="button">Run economy estimate</button>
+            </div>
+            <div id="eco-sim-out" class="sim-out"></div>
+          </section>
+        </div>
+        <div class="hub-split">
+          <section class="hub-card">
+            <h3>Loot simulator</h3>
+            <p class="muted">Estimates drop volume from current loot tables. Does not write Trainer bags.</p>
+            <div class="links">
+              <button id="run-loot-sim" type="button">Simulate 10,000 encounters</button>
+              <button id="run-loot-tests" class="secondary" type="button">Run loot tests</button>
+            </div>
+            <div id="loot-sim-out" class="sim-out"></div>
+          </section>
+          <section class="hub-card">
+            <h3>Stream Director simulator</h3>
+            <p class="muted">Estimates encounter starts vs ad delays over a hypothetical stream. Does not start encounters.</p>
+            <div class="hub-num-row">
+              <label class="field hub-num" for="dir-hours">Hours
+                <input id="dir-hours" type="number" min="1" max="12" value="4">
+              </label>
+              <label class="field hub-num" for="dir-ad-every">Ad every (min)
+                <input id="dir-ad-every" type="number" min="5" max="180" value="60">
+              </label>
+              <label class="field hub-num" for="dir-ad-sec">Ad length (sec)
+                <input id="dir-ad-sec" type="number" min="30" max="300" value="180">
+              </label>
+            </div>
+            <div class="links">
+              <button id="run-dir-sim" type="button">Run Director estimate</button>
+            </div>
+            <div id="dir-sim-out" class="sim-out"></div>
+          </section>
+        </div>
+        <p class="muted">Capture and spawn quick simulators stay under Encounters → Simulator / Spawn.</p>
+      </section>
+      </div>
     </div>
     </div>
     </div>
@@ -665,5 +853,5 @@
 <script src="js/nav.js?v=hubv3"></script>
 <script src="js/admin-tools.js?v=hubv3"></script>
 <script src="js/admin-live.js?v=hubv6"></script>
-<script src="js/admin.js?v=hubv4"></script>
+<script src="js/admin.js?v=hubv5"></script>
 </body>

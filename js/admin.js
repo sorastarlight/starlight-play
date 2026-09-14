@@ -71,7 +71,19 @@
     lootEvent: document.getElementById("loot-event"),
     lootStatus: document.getElementById("loot-status"),
     lootTables: document.getElementById("loot-tables"),
-    lootSimOut: document.getElementById("loot-sim-out")
+    lootSimOut: document.getElementById("loot-sim-out"),
+    spawnOut: document.getElementById("spawn-out"),
+    anaOverview: document.getElementById("ana-overview"),
+    anaOverviewMeta: document.getElementById("ana-overview-meta"),
+    anaSpawns: document.getElementById("ana-spawns"),
+    anaSessions: document.getElementById("ana-sessions"),
+    reportMeta: document.getElementById("report-meta"),
+    xpPreview: document.getElementById("xp-preview"),
+    evoRulesOut: document.getElementById("evo-rules-out"),
+    evoBalanceMeta: document.getElementById("evo-balance-meta"),
+    evoValidateStatus: document.getElementById("evo-validate-status"),
+    evoVersion: document.getElementById("evo-version"),
+    dirSimOut: document.getElementById("dir-sim-out")
   };
   let pickGender = "";
   let pickShiny = false;
@@ -80,16 +92,49 @@
   let giftItems = [];
   let lastOverview = null;
   let lastHubKey = "";
+  let lastProgression = null;
+  let lastCollection = null;
+  let lastEconomy = null;
+  let lastLoot = null;
+  let lastCaptureReport = null;
+  let lastReportAt = null;
+  let lastSpeciesRows = null;
+  let spawnRowsPromise = null;
   const HUB_SECTIONS = ["dashboard", "encounters", "trainers", "content", "economy", "analytics", "system"];
   const HUB_ALIASES = { live: "dashboard", players: "trainers", store: "economy", pokemon: "content", settings: "system" };
-  const ENC_VIEWS = ["overview", "rules", "capture", "sim"];
-  const ECO_VIEWS = ["catalog", "economy", "loot"];
-  const SYS_VIEWS = ["general", "twitch", "ads", "bits", "github", "pass"];
+  const ENC_VIEWS = ["overview", "rules", "capture", "spawn", "sim"];
+  const ECO_VIEWS = ["catalog", "rewards", "loot"];
+  const SYS_VIEWS = ["twitch", "ads", "bits", "github", "pass", "system"];
+  const CONTENT_VIEWS = ["evolution", "progression"];
+  const ANA_VIEWS = ["overview", "captures", "spawns", "progression", "evolution", "economy", "sessions", "sims"];
+  const VIEW_ALIASES = {
+    encounters: { simulator: "sim", capture: "capture" },
+    economy: { economy: "rewards", currency: "rewards" },
+    system: { general: "twitch", maintenance: "system", settings: "twitch" },
+    content: { pokemon: "evolution", items: "evolution" },
+    analytics: { capture: "captures", evo: "evolution", trading: "evolution", sim: "sims", simulator: "sims" }
+  };
 
   function resolveHubSection(raw) {
     const key = String(raw || "").toLowerCase();
     if (HUB_ALIASES[key]) return HUB_ALIASES[key];
     return HUB_SECTIONS.includes(key) ? key : "dashboard";
+  }
+
+  function resolveView(section, raw) {
+    const key = String(raw || "").toLowerCase();
+    const aliased = VIEW_ALIASES[section]?.[key] || key;
+    const lists = {
+      encounters: ENC_VIEWS,
+      economy: ECO_VIEWS,
+      system: SYS_VIEWS,
+      content: CONTENT_VIEWS,
+      analytics: ANA_VIEWS
+    };
+    const allowed = lists[section];
+    if (!allowed) return "";
+    if (allowed.includes(aliased)) return aliased;
+    return allowed[0];
   }
 
   function showHubTab(tab, view, opts) {
@@ -103,7 +148,7 @@
     });
     let nextView = view || "";
     if (next === "encounters") {
-      nextView = ENC_VIEWS.includes(view) ? view : "overview";
+      nextView = resolveView("encounters", view);
       document.querySelectorAll("[data-enc-view]").forEach((el) => {
         el.hidden = el.dataset.encView !== nextView;
       });
@@ -112,7 +157,7 @@
       });
     }
     if (next === "economy") {
-      nextView = ECO_VIEWS.includes(view) ? view : "catalog";
+      nextView = resolveView("economy", view);
       document.querySelectorAll("[data-eco-panel]").forEach((el) => {
         el.hidden = el.dataset.ecoPanel !== nextView;
       });
@@ -121,7 +166,7 @@
       });
     }
     if (next === "system") {
-      nextView = SYS_VIEWS.includes(view) ? view : "general";
+      nextView = resolveView("system", view);
       document.querySelectorAll("[data-sys-panel]").forEach((el) => {
         el.hidden = el.dataset.sysPanel !== nextView;
       });
@@ -129,11 +174,30 @@
         btn.setAttribute("aria-selected", btn.dataset.sysView === nextView ? "true" : "false");
       });
     }
+    if (next === "content") {
+      nextView = resolveView("content", view);
+      document.querySelectorAll("[data-content-panel]").forEach((el) => {
+        el.hidden = el.dataset.contentPanel !== nextView;
+      });
+      document.querySelectorAll("[data-content-view]").forEach((btn) => {
+        btn.setAttribute("aria-selected", btn.dataset.contentView === nextView ? "true" : "false");
+      });
+    }
+    if (next === "analytics") {
+      nextView = resolveView("analytics", view);
+      document.querySelectorAll("[data-ana-panel]").forEach((el) => {
+        el.hidden = el.dataset.anaPanel !== nextView;
+      });
+      document.querySelectorAll("[data-ana-view]").forEach((btn) => {
+        btn.setAttribute("aria-selected", btn.dataset.anaView === nextView ? "true" : "false");
+      });
+    }
     const url = new URL(window.location.href);
     url.searchParams.delete("tab");
     url.searchParams.set("section", next);
-    if (nextView && (next === "encounters" || next === "economy" || next === "system")) url.searchParams.set("view", nextView);
-    else url.searchParams.delete("view");
+    if (nextView && ["encounters", "economy", "system", "content", "analytics"].includes(next)) {
+      url.searchParams.set("view", nextView);
+    } else url.searchParams.delete("view");
     const href = `${url.pathname}${url.search}${url.hash}`;
     if (push) history.pushState({ section: next, view: nextView }, "", href);
     else history.replaceState({ section: next, view: nextView }, "", href);
@@ -142,11 +206,25 @@
       if (frame && !frame.getAttribute("src")) frame.src = frame.dataset.src;
     }
     if (next === "trainers" && typeof window.playStaffLoadUsers === "function") window.playStaffLoadUsers();
+    if (next === "encounters" && nextView === "spawn") renderSpawnConfig();
+    if (next === "content") {
+      if (nextView === "evolution") loadEvolutionRules();
+      if (nextView === "progression") updateXpPreview();
+    }
+    if (next === "analytics") {
+      if (nextView === "overview") renderAnalyticsOverview();
+      if (nextView === "captures" && !lastCaptureReport) loadReport();
+      if (nextView === "spawns") renderSpawnAnalytics();
+      if (nextView === "sessions") renderSessionAnalytics();
+    }
     document.getElementById("hub-nav")?.classList.remove("is-open");
   }
   window.playShowHubTab = showHubTab;
 
   function updateHubChip(state) {
+    window.playHubLiveState = state;
+    renderSpawnAnalytics();
+    renderSessionAnalytics();
     const chip = document.getElementById("hub-live-chip");
     if (!chip) return;
     const s = state?.stream || {};
@@ -329,6 +407,9 @@
     await loadLoot();
     await loadProgression();
     await loadCollection();
+    await loadReport();
+    renderSpawnConfig();
+    loadEvolutionRules();
   }
 
   async function run(name, args, statusEl) {
@@ -590,12 +671,29 @@
   let captureBalance = null;
 
   function pct(value) {
+    if (value == null || Number.isNaN(Number(value))) return "—";
     return `${Math.round(Number(value || 0) * 1000) / 10}%`;
+  }
+
+  function catchRateLabel(rows, index) {
+    const min = Number(rows[index].minCatchRate);
+    const higher = rows.map((row) => Number(row.minCatchRate)).filter((n) => n > min);
+    const max = higher.length ? Math.min(...higher) - 1 : 255;
+    return `${min}–${max}`;
+  }
+
+  function honeyLabel(rows, index) {
+    const min = Math.round(Number(rows[index].minRate) * 100);
+    const higher = rows.map((row) => Math.round(Number(row.minRate) * 100)).filter((n) => n > min);
+    const max = higher.length ? Math.min(...higher) - 1 : 100;
+    if (min === 100) return "100%";
+    if (min === 0) return "0%";
+    return `${min}–${max}%`;
   }
 
   function tierRows(box, rows, valueKey, labelFor) {
     box.innerHTML = (rows || []).map((row, index) => `
-      <label class="field" for="${box.id}-${index}">${labelFor(row)}
+      <label class="field hub-num" for="${box.id}-${index}">${labelFor(row, index)}
         <input id="${box.id}-${index}" data-tier="${index}" type="number" min="0" max="3" step="0.01" value="${row[valueKey]}">
       </label>`).join("");
   }
@@ -608,8 +706,43 @@
     els.capEvent.value = captureBalance.eventMultiplier ?? 1;
     els.capHoneyBonus.value = captureBalance.honeyContributorBonus ?? 1.03;
     els.capReward.value = captureBalance.rewardBonusCoins ?? 10;
-    tierRows(els.capTiers, captureBalance.baseChanceTiers, "chance", (row) => `Catch rate ${row.minCatchRate}+`);
-    tierRows(els.capHoney, captureBalance.honeyTiers, "multiplier", (row) => `${Math.round(Number(row.minRate) * 100)}% took part`);
+    const tiers = captureBalance.baseChanceTiers || [];
+    const honey = captureBalance.honeyTiers || [];
+    tierRows(els.capTiers, tiers, "chance", (_row, index) => catchRateLabel(tiers, index));
+    tierRows(els.capHoney, honey, "multiplier", (_row, index) => honeyLabel(honey, index));
+  }
+
+  function hubEmpty(message) {
+    return `<p class="hub-empty">${message}</p>`;
+  }
+
+  function hubKpis(items) {
+    return `<div class="hub-kpi-grid">${items.map((item) => `
+      <${item.jump ? `button type="button" class="hub-metric" data-hub-tab-jump="${item.jump}" data-hub-view-jump="${item.view || ""}"` : `div class="hub-metric"`}>
+        <em>${item.label}</em>
+        <strong>${item.value}</strong>
+      ${item.jump ? "</button>" : "</div>"}`).join("")}</div>`;
+  }
+
+  function hubDist(title, rows) {
+    const list = (rows || []).filter((row) => row);
+    const max = Math.max(1, ...list.map((row) => Number(row.count || 0)));
+    if (!list.length) return "";
+    return `<div class="hub-card"><h3>${title}</h3>
+      <div class="hub-dist">${list.map((row) => `
+        <div class="hub-dist-row">
+          <span>${row.label}</span>
+          <i style="width:${Math.max(6, Math.round((Number(row.count || 0) / max) * 100))}%"></i>
+          <strong>${row.count || 0}</strong>
+        </div>`).join("")}</div></div>`;
+  }
+
+  function clockTime(value) {
+    try {
+      return new Date(value).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    } catch (_) {
+      return "—";
+    }
   }
 
   function fillSimPickers(balls, berries) {
@@ -685,18 +818,24 @@
       const ball = calc.ball || {};
       const berry = calc.berry || {};
       const honey = calc.honey || {};
-      els.simOut.innerHTML = `<dl class="sim-grid">
+      const trials = Number(data.trials || 0);
+      const observed = data.observedRate;
+      const successes = observed == null ? null : Math.round(Number(observed) * trials);
+      els.simOut.innerHTML = `<p class="hub-sim-banner">Simulation only. No inventory, catches, or rewards are changed.</p>
+        <dl class="sim-grid">
+        <div><dt>Expected catch rate</dt><dd><strong>${calc.guaranteed ? "Guaranteed" : pct(calc.finalChance)}</strong></dd></div>
+        <div><dt>Successful trials</dt><dd>${successes == null ? "—" : money(successes)}</dd></div>
+        <div><dt>Failed trials</dt><dd>${successes == null ? "—" : money(Math.max(0, trials - successes))}</dd></div>
+        <div><dt>Observed rate</dt><dd>${observed == null ? "—" : pct(observed)}</dd></div>
         <div><dt>Species</dt><dd>${calc.species} · catch rate ${calc.catchRate}</dd></div>
-        <div><dt>Base</dt><dd>${pct(calc.baseChance)}</dd></div>
+        <div><dt>Base chance</dt><dd>${pct(calc.baseChance)}</dd></div>
         <div><dt>Ball</dt><dd>${ball.name} ×${ball.multiplier}${ball.condition === "NONE" ? "" : ball.conditionMet ? " (met)" : " (not met)"}</dd></div>
         <div><dt>Berry</dt><dd>${berry.key ? `${berry.name} ×${berry.multiplier}` : "None"}</dd></div>
         <div><dt>Honey</dt><dd>×${honey.multiplier} · ${honey.contributors}/${honey.participants}</dd></div>
         <div><dt>Contributor</dt><dd>×${calc.honeyContributorMultiplier}</dd></div>
         <div><dt>Shiny / event</dt><dd>×${calc.shinyMultiplier} / ×${calc.eventMultiplier}</dd></div>
-        <div><dt>Raw</dt><dd>${pct(calc.rawChance)}</dd></div>
-        <div><dt>Final</dt><dd><strong>${calc.guaranteed ? "Guaranteed" : pct(calc.finalChance)}</strong></dd></div>
-        <div><dt>Trials</dt><dd>${data.trials}</dd></div>
-        <div><dt>Observed</dt><dd>${data.observedRate === null || data.observedRate === undefined ? "—" : pct(data.observedRate)}</dd></div>
+        <div><dt>Raw chance</dt><dd>${pct(calc.rawChance)}</dd></div>
+        <div><dt>Trials</dt><dd>${money(trials)}</dd></div>
       </dl>`;
     } catch (error) {
       els.simOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
@@ -712,30 +851,59 @@
       </tr>`).join("")}</tbody></table>`;
   }
 
+  function renderCaptureReport(data) {
+    const o = data?.overall || {};
+    const honey = data?.honey || {};
+    const col = data?.collections || {};
+    const days = Number(els.reportDays?.value || 30);
+    if (els.reportMeta) {
+      els.reportMeta.textContent = lastReportAt
+        ? `Last refreshed: ${clockTime(lastReportAt)} · Time range: ${days} days`
+        : `Time range: ${days} days`;
+    }
+    if (!els.reportOut) return;
+    if (!o.throws) {
+      els.reportOut.innerHTML = hubEmpty("No captures found for this period.");
+      return;
+    }
+    els.reportOut.innerHTML = `
+      <h3>Summary</h3>
+      ${hubKpis([
+        { label: "Throws", value: money(o.throws) },
+        { label: "Successful catches", value: money(o.caught) },
+        { label: "Success rate", value: pct(o.rate) },
+        { label: "Unique Trainers", value: money(col.trainers) }
+      ])}
+      <div class="hub-split">
+        <div class="hub-card"><h3>Honey</h3>
+          <p>Average turnout ${pct(honey.averageParticipation)}</p>
+          <p>With Honey ${pct(honey.withHoney?.rate)} · Without ${pct(honey.withoutHoney?.rate)}</p>
+        </div>
+        <div class="hub-card"><h3>Expected vs observed</h3>
+          <p>Average final chance ${pct(o.averageFinalChance)}</p>
+          <p>Average unique species ${col.averageSpecies ?? 0}</p>
+        </div>
+      </div>
+      ${reportTable("By difficulty", data?.byCatchRateTier, "tier")}
+      ${reportTable("By Poké Ball", data?.byBall, "name")}
+      ${reportTable("By Berry", data?.byBerry, "name")}
+      ${reportTable("By Pokémon", data?.bySpecies, "name")}`;
+  }
+
   async function loadReport() {
     if (!els.reportOut) return;
-    els.reportOut.innerHTML = `<p class="muted">Loading…</p>`;
+    els.reportOut.innerHTML = `<p class="muted">Refreshing…</p>`;
+    if (els.reportMeta) els.reportMeta.textContent = "Refreshing…";
     try {
       const data = await window.playCall("admin_capture_report", { p_days: Number(els.reportDays.value) });
-      const o = data?.overall || {};
-      const honey = data?.honey || {};
-      const col = data?.collections || {};
-      els.reportOut.innerHTML = `
-        <dl class="sim-grid">
-          <div><dt>Throws</dt><dd>${o.throws || 0}</dd></div>
-          <div><dt>Caught</dt><dd>${o.caught || 0}</dd></div>
-          <div><dt>Catch rate</dt><dd><strong>${pct(o.rate)}</strong></dd></div>
-          <div><dt>Avg final chance</dt><dd>${pct(o.averageFinalChance)}</dd></div>
-          <div><dt>Avg Honey turnout</dt><dd>${pct(honey.averageParticipation)}</dd></div>
-          <div><dt>With Honey</dt><dd>${pct(honey.withHoney?.rate)} vs ${pct(honey.withoutHoney?.rate)}</dd></div>
-          <div><dt>Species owned</dt><dd>${col.averageSpecies ?? 0} avg · ${col.trainers ?? 0} trainers</dd></div>
-        </dl>
-        ${reportTable("Catch rate tier", data?.byCatchRateTier, "tier")}
-        ${reportTable("Ball", data?.byBall, "name")}
-        ${reportTable("Berry", data?.byBerry, "name")}
-        ${reportTable("Pokémon", data?.bySpecies, "name")}`;
+      lastCaptureReport = data;
+      lastReportAt = new Date();
+      renderCaptureReport(data);
+      if (els.reportMeta) els.reportMeta.textContent = `Updated. Last refreshed: ${clockTime(lastReportAt)} · Time range: ${els.reportDays.value} days`;
+      renderAnalyticsOverview();
     } catch (error) {
       els.reportOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+      if (els.reportMeta) els.reportMeta.textContent = window.playRpcError(error);
     }
   }
 
@@ -758,30 +926,39 @@
     if (els.ecoStream) els.ecoStream.value = cfg.streamAttendanceReward ?? 50;
     const dist = data?.distribution || {};
     const inflation = data?.inflation || {};
+    lastEconomy = data;
     if (els.ecoOverview) {
-      els.ecoOverview.innerHTML = `<dl class="sim-grid">
-        <div><dt>In circulation</dt><dd>${money(data.circulation)}</dd></div>
-        <div><dt>Created today</dt><dd>${money(data.createdToday)}</dd></div>
-        <div><dt>Spent today</dt><dd>${money(data.spentToday)}</dd></div>
-        <div><dt>Store revenue today</dt><dd>${money(data.storeRevenueToday)}</dd></div>
-        <div><dt>Average / median</dt><dd>${money(data.averageBalance)} / ${money(data.medianBalance)}</dd></div>
-        <div><dt>Created vs spent</dt><dd>${money(inflation.created)} / ${money(inflation.destroyed)}</dd></div>
-        <div><dt>Ultra Ball usage</dt><dd>${pct(data.ultraShare)}</dd></div>
-        <div><dt>Golden Razz usage</dt><dd>${pct(data.goldenRazzShare)}</dd></div>
-        <div><dt>Honey turnout</dt><dd>${pct(data.honeyParticipation)}</dd></div>
-        <div><dt>Master Balls owned</dt><dd>${money(data.masterBallsOwned)}</dd></div>
-        <div><dt>0–499</dt><dd>${dist["0-499"] || 0}</dd></div>
-        <div><dt>500–999</dt><dd>${dist["500-999"] || 0}</dd></div>
-        <div><dt>1,000–2,499</dt><dd>${dist["1000-2499"] || 0}</dd></div>
-        <div><dt>2,500–4,999</dt><dd>${dist["2500-4999"] || 0}</dd></div>
-        <div><dt>5,000–9,999</dt><dd>${dist["5000-9999"] || 0}</dd></div>
-        <div><dt>10,000+</dt><dd>${dist["10000+"] || 0}</dd></div>
-      </dl>`;
+      els.ecoOverview.innerHTML = `
+        ${hubKpis([
+          { label: "PokéCoins in circulation", value: money(data.circulation) },
+          { label: "Created today", value: money(data.createdToday) },
+          { label: "Spent today", value: money(data.spentToday) },
+          { label: "Store revenue today", value: money(data.storeRevenueToday) },
+          { label: "Average / median balance", value: `${money(data.averageBalance)} / ${money(data.medianBalance)}` },
+          { label: "Created / spent (all-time)", value: `${money(inflation.created)} / ${money(inflation.destroyed)}` }
+        ])}
+        <div class="hub-split">
+          <div class="hub-card">
+            <h3>Item usage</h3>
+            <p>Ultra Ball ${pct(data.ultraShare)} · Golden Razz ${pct(data.goldenRazzShare)}</p>
+            <p>Honey turnout ${pct(data.honeyParticipation)}</p>
+            <p>Master Balls owned ${money(data.masterBallsOwned)}</p>
+          </div>
+          ${hubDist("Trainer balances", [
+            { label: "0–499", count: dist["0-499"] },
+            { label: "500–999", count: dist["500-999"] },
+            { label: "1,000–2,499", count: dist["1000-2499"] },
+            { label: "2,500–4,999", count: dist["2500-4999"] },
+            { label: "5,000–9,999", count: dist["5000-9999"] },
+            { label: "10,000+", count: dist["10000+"] }
+          ])}
+        </div>`;
     }
+    renderAnalyticsOverview();
   }
 
   async function loadEconomy() {
-    if (!els.ecoOverview) return;
+    if (!els.ecoJoin && !els.ecoOverview) return;
     try {
       fillEconomy(await window.playCall("admin_economy_overview", {}));
     } catch (error) {
@@ -822,7 +999,7 @@
       });
       const stream = data.perStream || {};
       const week = data.weekly || {};
-      els.ecoSimOut.innerHTML = `<dl class="sim-grid">
+      els.ecoSimOut.innerHTML = `<p class="hub-sim-banner">Simulation only. No PokéCoins or bags are changed.</p><dl class="sim-grid">
         <div><dt>Per stream</dt><dd>${money(stream.coinsEarned)} PokéCoins</dd></div>
         <div><dt>Poké Balls</dt><dd>${stream.pokeBallsAffordable}</dd></div>
         <div><dt>Great Balls</dt><dd>${stream.greatBallsAffordable}</dd></div>
@@ -844,15 +1021,17 @@
       if (els.lootPart) els.lootPart.value = cfg.participationDropChance ?? 0.15;
       if (els.lootCatch) els.lootCatch.value = cfg.captureDropChance ?? 0.25;
       if (els.lootEvent) els.lootEvent.value = cfg.eventDropModifier ?? 1;
-      els.lootOverview.innerHTML = `<dl class="sim-grid">
-        <div><dt>Poké Balls held</dt><dd>${money(inv.pokeball)}</dd></div>
-        <div><dt>Great / Ultra</dt><dd>${money(inv.greatball)} / ${money(inv.ultraball)}</dd></div>
-        <div><dt>Honey</dt><dd>${money(inv.honey)}</dd></div>
-        <div><dt>Master Balls held</dt><dd>${money(inv.masterball)}</dd></div>
-        <div><dt>Stones / Cords</dt><dd>${money(inv.stones)} / ${money(inv.linkingcord)}</dd></div>
-      </dl>
+      lastLoot = data;
+      els.lootOverview.innerHTML = `<h3>Item supply</h3>
+        ${hubKpis([
+          { label: "Poké Balls held", value: money(inv.pokeball) },
+          { label: "Great / Ultra", value: `${money(inv.greatball)} / ${money(inv.ultraball)}` },
+          { label: "Honey", value: money(inv.honey) },
+          { label: "Master Balls", value: money(inv.masterball) },
+          { label: "Stones / Linking Cords", value: `${money(inv.stones)} / ${money(inv.linkingcord)}` }
+        ])}
       ${(data.warnings || []).map((line) => `<p class="muted">${esc(line)}</p>`).join("")}
-      <h4>Bits packs stay guaranteed</h4>
+      <h3>Bits packs stay guaranteed</h3>
       ${(data.bitsPacks || []).map((row) => `<p>${esc(row.name)} · ${row.bits} Bits · ${esc(JSON.stringify(row.grants || {}))}</p>`).join("")}`;
       const tables = await window.playCall("admin_loot_tables", {});
       els.lootTables.innerHTML = (tables.tables || []).map((table) => `
@@ -901,7 +1080,7 @@
     try {
       const data = await window.playCall("admin_loot_simulate", { p_encounters: 10000, p_catch_rate: 0.35 });
       const per = data.per100Joined || {};
-      els.lootSimOut.innerHTML = `<dl class="sim-grid">
+      els.lootSimOut.innerHTML = `<p class="hub-sim-banner">Simulation only. No items are granted or removed.</p><dl class="sim-grid">
         <div><dt>Expected item value / encounter</dt><dd>${data.expectedValuePerEncounter} PokéCoins</dd></div>
         <div><dt>Drops / 100 joined</dt><dd>${per.items}</dd></div>
         <div><dt>Ultra Balls / 100 catches</dt><dd>${per.ultraBallsPer100Catches}</dd></div>
@@ -944,29 +1123,49 @@
   });
 
   function fillProgression(data) {
+    lastProgression = data;
     const cfg = data?.config || {};
     if (els.progXpBase) els.progXpBase.value = cfg.xpBase ?? 100;
     if (els.progXpExp) els.progXpExp.value = cfg.xpExponent ?? 1.35;
     if (els.progJoinXp) els.progJoinXp.value = cfg.joinXp ?? 5;
     if (els.progCatchXp) els.progCatchXp.value = cfg.catchXp ?? 10;
+    updateXpPreview();
     const dex = data?.dexDistribution || {};
     const levels = data?.levelBuckets || {};
     if (els.progOverview) {
-      els.progOverview.innerHTML = `<dl class="sim-grid">
-        <div><dt>Average / median level</dt><dd>${data.averageLevel || 0} / ${data.medianLevel || 0}</dd></div>
-        <div><dt>Lv 1–10</dt><dd>${levels["1-10"] || 0}</dd></div>
-        <div><dt>Lv 11–25</dt><dd>${levels["11-25"] || 0}</dd></div>
-        <div><dt>Average species</dt><dd>${data.averageSpecies || 0}</dd></div>
-        <div><dt>Dex 0–25</dt><dd>${dex["0-25"] || 0}</dd></div>
-        <div><dt>Dex 26–50</dt><dd>${dex["26-50"] || 0}</dd></div>
-        <div><dt>Dex 51–75</dt><dd>${dex["51-75"] || 0}</dd></div>
-        <div><dt>Dex 76–100</dt><dd>${dex["76-100"] || 0}</dd></div>
-        <div><dt>Dex 101–125</dt><dd>${dex["101-125"] || 0}</dd></div>
-        <div><dt>Dex 126–140</dt><dd>${dex["126-140"] || 0}</dd></div>
-        <div><dt>Dex 141–150</dt><dd>${dex["141-150"] || 0}</dd></div>
-        <div><dt>Dex 151</dt><dd>${dex["151"] || 0}</dd></div>
-      </dl>`;
+      const unlocks = data.achievementUnlocks || [];
+      const titles = data.activeTitles || [];
+      els.progOverview.innerHTML = `
+        ${hubKpis([
+          { label: "Active Trainers", value: money(data.trainers) },
+          { label: "Average Trainer Level", value: data.averageLevel || 0 },
+          { label: "Median Trainer Level", value: data.medianLevel || 0 },
+          { label: "Average unique species", value: data.averageSpecies || 0 }
+        ])}
+        <div class="hub-split">
+          ${hubDist("Trainer level distribution", [
+            { label: "Level 1–10", count: levels["1-10"] },
+            { label: "Level 11–25", count: levels["11-25"] },
+            { label: "Level 26–50", count: levels["26-50"] },
+            { label: "Level 51–100", count: levels["51-100"] }
+          ])}
+          ${hubDist("Pokédex completion", [
+            { label: "0–25", count: dex["0-25"] },
+            { label: "26–50", count: dex["26-50"] },
+            { label: "51–75", count: dex["51-75"] },
+            { label: "76–100", count: dex["76-100"] },
+            { label: "101–125", count: dex["101-125"] },
+            { label: "126–140", count: dex["126-140"] },
+            { label: "141–150", count: dex["141-150"] },
+            { label: "151", count: dex["151"] }
+          ])}
+        </div>
+        <div class="hub-split">
+          ${unlocks.length ? hubDist("Achievement unlocks", unlocks.map((row) => ({ label: row.id, count: row.count }))) : `<div class="hub-card"><h3>Achievement unlocks</h3>${hubEmpty("No achievement unlocks have been recorded yet.")}</div>`}
+          ${titles.length ? hubDist("Active titles", titles.map((row) => ({ label: row.title, count: row.count }))) : `<div class="hub-card"><h3>Active titles</h3>${hubEmpty("No titles recorded yet.")}</div>`}
+        </div>`;
     }
+    renderAnalyticsOverview();
   }
 
   async function loadProgression() {
@@ -982,29 +1181,60 @@
     if (!els.collectionOverview) return;
     try {
       const data = await window.playCall("admin_collection_overview", {});
+      lastCollection = data;
       const eevee = data.eevee || {};
       const starters = data.starters || {};
       const dratini = data.dratini || {};
       const trade = data.tradeVsCord || {};
-      els.collectionOverview.innerHTML = `<dl class="sim-grid">
-        <div><dt>Balance version</dt><dd>${data.balanceVersion || 1}</dd></div>
-        <div><dt>Family Candy held</dt><dd>${data.candyTotal || 0}</dd></div>
-        <div><dt>Trainers with Candy</dt><dd>${data.candyTrainers || 0}</dd></div>
-        <div><dt>Evolutions logged</dt><dd>${data.evolutions || 0}</dd></div>
-        <div><dt>Players ready to evolve</dt><dd>${data.readyPlayers || 0}</dd></div>
-        <div><dt>Open GTS listings</dt><dd>${data.openGts || 0}</dd></div>
-        <div><dt>Direct trades</dt><dd>${data.directTrades || 0}</dd></div>
-        <div><dt>Species mastered</dt><dd>${data.mastered || 0}</dd></div>
-        <div><dt>Eevee branches</dt><dd>Vaporeon ${eevee.vaporeon || 0} · Jolteon ${eevee.jolteon || 0} · Flareon ${eevee.flareon || 0}</dd></div>
-        <div><dt>Starters</dt><dd>Charizard ${starters.charizard || 0} · Venusaur ${starters.venusaur || 0} · Blastoise ${starters.blastoise || 0}</dd></div>
-        <div><dt>Dratini line</dt><dd>Dragonair ${dratini.dragonair || 0} · Dragonite ${dratini.dragonite || 0}</dd></div>
-        <div><dt>Gyarados</dt><dd>${data.magikarp || 0}</dd></div>
-        <div><dt>Trade vs Linking Cord</dt><dd>${trade.trade || 0} / ${trade.cord || 0}</dd></div>
-      </dl>
-      <h3>Recent evolutions</h3>
-      ${(data.recentEvo || []).map((row) => `<p>${window.playEscapeAttr(row.player || "Trainer")} · ${row.fromDex} → ${row.toDex} · ${row.candy} Candy</p>`).join("") || "<p class=\"muted\">None yet.</p>"}
-      <h3>Most evolved</h3>
-      ${(data.mostEvolved || []).map((row) => `<p>#${row.dex} · ${row.count}</p>`).join("") || "<p class=\"muted\">None yet.</p>"}`;
+      const recent = data.recentEvo || [];
+      const most = data.mostEvolved || [];
+      if (els.evoVersion) els.evoVersion.textContent = `Balance version: v${data.balanceVersion || 1}`;
+      if (els.evoBalanceMeta) els.evoBalanceMeta.textContent = `Balance version: v${data.balanceVersion || 1}`;
+      els.collectionOverview.innerHTML = `
+        ${hubKpis([
+          { label: "Evolutions logged", value: money(data.evolutions) },
+          { label: "Trainers ready to evolve", value: money(data.readyPlayers) },
+          { label: "Family Candy held", value: money(data.candyTotal) },
+          { label: "Trainers with Candy", value: money(data.candyTrainers) }
+        ])}
+        <div class="hub-split">
+          <div class="hub-card">
+            <h3>Evolution activity</h3>
+            <p>Species mastered ${money(data.mastered)}</p>
+          </div>
+          <div class="hub-card">
+            <h3>Trading</h3>
+            <p>Open GTS listings ${money(data.openGts)}</p>
+            <p>Direct trades ${money(data.directTrades)}</p>
+            <p>Trade evolutions ${money(trade.trade)} · Linking Cord ${money(trade.cord)}</p>
+          </div>
+        </div>
+        <div class="hub-card">
+          <h3>Notable families</h3>
+          <div class="hub-split-4">
+            <div><em>Starters</em><p>Venusaur ${starters.venusaur || 0} · Charizard ${starters.charizard || 0} · Blastoise ${starters.blastoise || 0}</p></div>
+            <div><em>Eevee</em><p>Vaporeon ${eevee.vaporeon || 0} · Jolteon ${eevee.jolteon || 0} · Flareon ${eevee.flareon || 0}</p></div>
+            <div><em>Dratini</em><p>Dragonair ${dratini.dragonair || 0} · Dragonite ${dratini.dragonite || 0}</p></div>
+            <div><em>Magikarp</em><p>Gyarados ${data.magikarp || 0}</p></div>
+          </div>
+        </div>
+        <div class="hub-split">
+          <div class="hub-card">
+            <h3>Recent activity</h3>
+            ${recent.length
+              ? `<table class="report-table"><thead><tr><th>Trainer</th><th>Evolution</th><th>Candy</th></tr></thead><tbody>${
+                recent.map((row) => `<tr><td>${window.playEscapeAttr(row.player || "Trainer")}</td><td>#${row.fromDex} → #${row.toDex}</td><td>${row.candy}</td></tr>`).join("")
+              }</tbody></table>`
+              : hubEmpty("No evolution activity has been recorded yet.")}
+          </div>
+          <div class="hub-card">
+            <h3>Most evolved</h3>
+            ${most.length
+              ? `<ol class="hub-rank">${most.map((row) => `<li>#${row.dex} · ${row.count}</li>`).join("")}</ol>`
+              : hubEmpty("No evolution activity has been recorded yet.")}
+          </div>
+        </div>`;
+      renderAnalyticsOverview();
     } catch (error) {
       if (els.collectionStatus) els.collectionStatus.textContent = window.playRpcError(error);
     }
@@ -1019,7 +1249,8 @@
       });
       const first = data.firstEvolution;
       const last = data.finalEvolution;
-      els.candySimOut.innerHTML = `<dl class="sim-grid">
+      els.candySimOut.innerHTML = `<p class="hub-sim-banner">Simulation only. No Candy, evolutions, or inventory are changed.</p>
+      <dl class="sim-grid">
         <div><dt>${window.playEscapeAttr(data.family)} Candy / catch</dt><dd>${data.candyPerCatch}</dd></div>
         <div><dt>Expected Candy</dt><dd>${data.expectedCandy}</dd></div>
         ${first ? `<div><dt>First evo</dt><dd>${first.catchesNeeded} catches · ${first.cost} Candy</dd></div>` : ""}
@@ -1034,10 +1265,17 @@
   });
 
   document.getElementById("unlock-catch-btn")?.addEventListener("click", async () => {
+    const id = String(document.getElementById("unlock-catch")?.value || "").trim();
+    if (!id) {
+      if (els.collectionStatus) els.collectionStatus.textContent = "Enter a catch / instance ID first.";
+      return;
+    }
+    const ok = window.confirm("Clear the transaction lock for this Pokémon instance?\n\nThis should only be used to recover a stuck transaction. Ownership will not be changed.");
+    if (!ok) return;
     if (els.collectionStatus) els.collectionStatus.textContent = "Working…";
     try {
       const result = await window.playCall("admin_unlock_catch", {
-        p_catch: document.getElementById("unlock-catch").value,
+        p_catch: id,
         p_reason: "admin unlock"
       });
       if (els.collectionStatus) els.collectionStatus.textContent = result.message || "Unlocked.";
@@ -1059,10 +1297,231 @@
         }
       });
       if (els.progStatus) els.progStatus.textContent = saved?.message || "Saved.";
+      updateXpPreview();
     } catch (error) {
       if (els.progStatus) els.progStatus.textContent = window.playRpcError(error);
     }
   });
+
+  function updateXpPreview() {
+    if (!els.xpPreview) return;
+    const base = Number(els.progXpBase?.value || 100);
+    const exp = Number(els.progXpExp?.value || 1.35);
+    const cost = (level) => Math.max(1, Math.round(base * Math.pow(Math.max(level, 1), exp)));
+    els.xpPreview.innerHTML = `<p>Level 1 → 2: <strong>${cost(1)}</strong> XP</p><p>Level 10 → 11: <strong>${cost(10)}</strong> XP</p>`;
+  }
+
+  function spawnDefaults() {
+    return {
+      bandWeights: {
+        COMMON: 50, UNCOMMON: 28, RARE: 15, VERY_RARE: 5, ULTRA_RARE: 2, LEGENDARY: 0, EVENT: 0
+      },
+      allowLegendaryAuto: false,
+      allowEventAuto: false,
+      recentWindow: 8,
+      sameAsLastMultiplier: 0,
+      recentSpeciesMultiplier: 0.25,
+      recentFamilyMultiplier: 0.6
+    };
+  }
+
+  function spawnConfig() {
+    const defaults = spawnDefaults();
+    const saved = lastOverview?.settings?.spawnBalance || {};
+    return {
+      ...defaults,
+      ...saved,
+      bandWeights: { ...defaults.bandWeights, ...(saved.bandWeights || {}) }
+    };
+  }
+
+  function spawnBandFor(row) {
+    if (row.is_legendary) return "LEGENDARY";
+    if (row.mythical) return "EVENT";
+    if (row.spawn_band_override) return row.spawn_band_override;
+    const rate = Number(row.catch_rate ?? 45);
+    if (rate >= 200) return "COMMON";
+    if (rate >= 90) return "UNCOMMON";
+    if (rate >= 45) return "RARE";
+    if (rate >= 15) return "VERY_RARE";
+    return "ULTRA_RARE";
+  }
+
+  async function loadSpeciesRows() {
+    if (lastSpeciesRows) return lastSpeciesRows;
+    if (spawnRowsPromise) return spawnRowsPromise;
+    spawnRowsPromise = supabase.from("species")
+      .select("dex,name,catch_rate,spawn_weight,spawn_band_override,is_legendary,mythical")
+      .gte("dex", 1).lte("dex", 151).order("dex")
+      .then(({ data, error }) => {
+        lastSpeciesRows = error ? [] : (data || []);
+        return lastSpeciesRows;
+      })
+      .catch(() => {
+        lastSpeciesRows = [];
+        return lastSpeciesRows;
+      });
+    return spawnRowsPromise;
+  }
+
+  async function renderSpawnConfig() {
+    if (!els.spawnOut) return;
+    const cfg = spawnConfig();
+    const bands = ["COMMON", "UNCOMMON", "RARE", "VERY_RARE", "ULTRA_RARE", "LEGENDARY", "EVENT"];
+    const rows = await loadSpeciesRows();
+    const counts = Object.fromEntries(bands.map((band) => [band, 0]));
+    rows.forEach((row) => {
+      if (Number(row.spawn_weight || 0) <= 0) return;
+      counts[spawnBandFor(row)] = (counts[spawnBandFor(row)] || 0) + 1;
+    });
+    const warnings = bands.filter((band) => Number(cfg.bandWeights[band] || 0) > 0 && counts[band] === 0 && rows.length);
+    els.spawnOut.innerHTML = `
+      <div class="hub-card">
+        <h3>Spawn bands</h3>
+        <table class="report-table"><thead><tr><th>Band</th><th>Weight</th><th>Eligible species</th></tr></thead>
+        <tbody>${bands.map((band) => `<tr>
+          <td>${band.replace(/_/g, " ")}</td>
+          <td>${cfg.bandWeights[band] ?? 0}</td>
+          <td>${rows.length ? counts[band] : "—"}</td>
+        </tr>`).join("")}</tbody></table>
+        ${warnings.map((band) => `<p class="hub-warn">${band.replace(/_/g, " ")} contains 0 eligible species.</p>`).join("")}
+      </div>
+      <div class="hub-card">
+        <h3>Recent-spawn suppression</h3>
+        <p>Recent window: ${cfg.recentWindow} encounters</p>
+        <p>Same as last ×${cfg.sameAsLastMultiplier} · Recent species ×${cfg.recentSpeciesMultiplier} · Recent family ×${cfg.recentFamilyMultiplier}</p>
+      </div>
+      <div class="hub-card">
+        <h3>Legendary / Event</h3>
+        <p>Ordinary auto Legendary: ${cfg.allowLegendaryAuto ? "eligible" : "not eligible"}</p>
+        <p>Ordinary auto Event: ${cfg.allowEventAuto ? "eligible" : "not eligible"}</p>
+        <p class="muted">These flags are not changed from this page.</p>
+      </div>
+      ${rows.length ? `<div class="hub-card"><h3>Species spawn weights</h3>
+        <label class="field" for="spawn-filter">Search
+          <input id="spawn-filter" type="search" placeholder="Name or Dex">
+        </label>
+        <div id="spawn-species"></div></div>` : `<div class="hub-card"><h3>Species spawn weights</h3><p class="muted">Species rows are not readable from this Admin session. Band weights above are the current launcher defaults merged with any saved spawnBalance. There is no Admin editor RPC for individual weights yet.</p></div>`}`;
+    const list = document.getElementById("spawn-species");
+    const filter = document.getElementById("spawn-filter");
+    const draw = () => {
+      if (!list) return;
+      const q = String(filter?.value || "").trim().toLowerCase();
+      const shown = rows.filter((row) => !q || String(row.dex).includes(q) || String(row.name || "").toLowerCase().includes(q)).slice(0, 151);
+      list.innerHTML = `<table class="report-table"><thead><tr><th>Dex</th><th>Pokémon</th><th>Band</th><th>Weight</th><th>Enabled</th></tr></thead>
+        <tbody>${shown.map((row) => `<tr>
+          <td>${row.dex}</td><td>${esc(row.name || window.playSpeciesName?.(row.dex) || row.dex)}</td>
+          <td>${spawnBandFor(row).replace(/_/g, " ")}</td>
+          <td>${row.spawn_weight ?? 0}</td>
+          <td>${Number(row.spawn_weight || 0) > 0 ? "Yes" : "No"}</td>
+        </tr>`).join("")}</tbody></table>`;
+    };
+    filter?.addEventListener("input", draw);
+    draw();
+  }
+
+  function renderSpawnAnalytics() {
+    if (!els.anaSpawns) return;
+    const rows = window.playHubLiveState?.recentEncounters || [];
+    if (!rows.length) {
+      els.anaSpawns.innerHTML = hubEmpty("No recent encounter rows are available yet. Historical spawn counts appear here from the current Director session.");
+      return;
+    }
+    const bands = {};
+    const species = {};
+    let shiny = 0;
+    rows.forEach((row) => {
+      const band = row.rarity || "Unknown";
+      bands[band] = (bands[band] || 0) + 1;
+      const name = row.name || `#${row.dex || "?"}`;
+      species[name] = (species[name] || 0) + 1;
+      if (String(row.variant || "").includes("shiny")) shiny += 1;
+    });
+    els.anaSpawns.innerHTML = `
+      ${hubKpis([
+        { label: "Recent encounters", value: money(rows.length) },
+        { label: "Shinies in this list", value: money(shiny) }
+      ])}
+      <div class="hub-split">
+        ${hubDist("Encounters by rarity band", Object.entries(bands).map(([label, count]) => ({ label, count })))}
+        ${hubDist("Most common in this list", Object.entries(species).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([label, count]) => ({ label, count })))}
+      </div>`;
+  }
+
+  function renderSessionAnalytics() {
+    if (!els.anaSessions) return;
+    const state = window.playHubLiveState || {};
+    const s = state.stream || {};
+    const d = state.director || {};
+    const rows = state.recentEncounters || [];
+    const auto = rows.filter((row) => /auto/i.test(row.trigger || "")).length;
+    const manual = rows.filter((row) => /manual|admin|test/i.test(row.trigger || "")).length;
+    els.anaSessions.innerHTML = `
+      ${hubKpis([
+        { label: "Session encounters (auto)", value: money(d.encountersAuto ?? d.encounters_auto ?? auto) },
+        { label: "Session encounters (manual)", value: money(d.encountersManual ?? d.encounters_manual ?? manual) },
+        { label: "Delayed by ads", value: money(d.encountersDelayedAds ?? d.encounters_delayed_ads) },
+        { label: "Interrupted by ads", value: money(d.encountersPausedAds ?? d.encounters_paused_ads) }
+      ])}
+      <div class="hub-card">
+        <h3>Current session</h3>
+        <p>Live RPG ${s.rpgSession ? "active" : "inactive"} · Mode ${esc(d.streamMode || d.stream_mode || "—")}</p>
+        <p>Recent encounter rows ${money(rows.length)}</p>
+        <p class="muted">Dashboard remains the live operator view. Long-term session archives are not exposed by a separate Admin RPC yet.</p>
+      </div>`;
+  }
+
+  function renderAnalyticsOverview() {
+    if (!els.anaOverview) return;
+    const prog = lastProgression || {};
+    const col = lastCollection || {};
+    const eco = lastEconomy || {};
+    const cap = lastCaptureReport?.overall || {};
+    const items = [
+      { label: "Active Trainers", value: money(prog.trainers), jump: "analytics", view: "progression" },
+      { label: "Average Trainer Level", value: prog.averageLevel ?? "—", jump: "analytics", view: "progression" },
+      { label: "Median Trainer Level", value: prog.medianLevel ?? "—", jump: "analytics", view: "progression" },
+      { label: "Average unique species", value: prog.averageSpecies ?? "—", jump: "analytics", view: "progression" },
+      { label: "Total captures (report)", value: cap.caught == null ? "—" : money(cap.caught), jump: "analytics", view: "captures" },
+      { label: "Capture success rate", value: cap.rate == null ? "—" : pct(cap.rate), jump: "analytics", view: "captures" },
+      { label: "Total evolutions", value: money(col.evolutions), jump: "analytics", view: "evolution" },
+      { label: "Open GTS listings", value: money(col.openGts), jump: "analytics", view: "evolution" },
+      { label: "Total trades", value: money(col.directTrades), jump: "analytics", view: "evolution" },
+      { label: "PokéCoins in circulation", value: money(eco.circulation), jump: "analytics", view: "economy" },
+      { label: "Coins created / spent", value: `${money(eco.inflation?.created ?? eco.createdToday)} / ${money(eco.inflation?.destroyed ?? eco.spentToday)}`, jump: "analytics", view: "economy" }
+    ];
+    if (els.anaOverviewMeta) {
+      els.anaOverviewMeta.textContent = lastReportAt
+        ? `Capture report last refreshed ${clockTime(lastReportAt)}.`
+        : "Capture totals appear after the Captures report is refreshed.";
+    }
+    els.anaOverview.innerHTML = hubKpis(items);
+  }
+
+  async function loadEvolutionRules() {
+    if (!els.evoRulesOut) return;
+    try {
+      const { data, error } = await supabase.from("evolution_rules")
+        .select("id,from_dex,to_dex,candy_cost,required_item,condition_type,enabled,sort_order")
+        .eq("enabled", true)
+        .order("sort_order");
+      if (error) throw error;
+      const rows = data || [];
+      if (!rows.length) {
+        els.evoRulesOut.innerHTML = hubEmpty("Enabled evolution rules could not be listed. Use Validate to check the ruleset.");
+        return;
+      }
+      els.evoRulesOut.innerHTML = `<table class="report-table"><thead><tr><th>From</th><th>To</th><th>Candy</th><th>Requirement</th></tr></thead>
+        <tbody>${rows.map((row) => `<tr>
+          <td>#${row.from_dex} ${esc(window.playSpeciesName?.(row.from_dex) || "")}</td>
+          <td>#${row.to_dex} ${esc(window.playSpeciesName?.(row.to_dex) || "")}</td>
+          <td>${row.candy_cost ?? "—"}</td>
+          <td>${[row.condition_type === "TRADE_OR_ITEM" ? "Trade or Linking Cord" : "", row.required_item || ""].filter(Boolean).join(" · ") || "Candy"}</td>
+        </tr>`).join("")}</tbody></table>`;
+    } catch (_) {
+      els.evoRulesOut.innerHTML = `<p class="muted">Evolution costs and family rules are defined in the game services. Historical activity is in Analytics → Evolution &amp; Trading.</p>`;
+    }
+  }
 
   function escTime(value) {
     try {
@@ -1093,6 +1552,49 @@
   document.querySelector("[data-hub-panel='system'] .hub-subnav")?.addEventListener("click", (event) => {
     const btn = event.target.closest("[data-sys-view]");
     if (btn) showHubTab("system", btn.dataset.sysView, { push: true });
+  });
+  document.querySelector("[data-hub-panel='content'] .hub-subnav")?.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-content-view]");
+    if (btn) showHubTab("content", btn.dataset.contentView, { push: true });
+  });
+  document.querySelector("[data-hub-panel='analytics'] .hub-subnav")?.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-ana-view]");
+    if (btn) showHubTab("analytics", btn.dataset.anaView, { push: true });
+  });
+  ["prog-xp-base", "prog-xp-exp"].forEach((id) => {
+    document.getElementById(id)?.addEventListener("input", updateXpPreview);
+  });
+  document.getElementById("evo-validate-btn")?.addEventListener("click", async () => {
+    if (els.evoValidateStatus) els.evoValidateStatus.textContent = "Checking…";
+    try {
+      const data = await window.playCall("admin_evolution_validate", {});
+      if (els.evoValidateStatus) {
+        els.evoValidateStatus.textContent = data.ok
+          ? `${data.enabledRules || 0} enabled rules look consistent.`
+          : `${(data.invalidEnabled || []).length} enabled rules need attention.`;
+      }
+    } catch (error) {
+      if (els.evoValidateStatus) els.evoValidateStatus.textContent = window.playRpcError(error);
+    }
+  });
+  document.getElementById("run-dir-sim")?.addEventListener("click", async () => {
+    if (els.dirSimOut) els.dirSimOut.innerHTML = `<p class="muted">Running…</p>`;
+    try {
+      const data = await window.playCall("admin_director_simulate", {
+        p_hours: Number(document.getElementById("dir-hours").value),
+        p_ad_every_min: Number(document.getElementById("dir-ad-every").value),
+        p_ad_sec: Number(document.getElementById("dir-ad-sec").value)
+      });
+      els.dirSimOut.innerHTML = `<p class="hub-sim-banner">Simulation only. No encounters or ads are changed.</p>
+        <dl class="sim-grid">
+          <div><dt>Estimated starts</dt><dd>${data.encounters ?? "—"}</dd></div>
+          <div><dt>Delayed by ads</dt><dd>${data.delayedByAds ?? "—"}</dd></div>
+          <div><dt>Interrupted by ads</dt><dd>${data.interrupted ?? "—"}</dd></div>
+          <div><dt>Average gap</dt><dd>${data.averageGapMinutes ?? "—"} min</dd></div>
+        </dl>`;
+    } catch (error) {
+      if (els.dirSimOut) els.dirSimOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+    }
   });
   document.addEventListener("click", (event) => {
     const jump = event.target.closest("[data-hub-tab-jump]");

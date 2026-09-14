@@ -18,7 +18,7 @@ function assert(cond, detail) {
   if (!cond) throw new Error(detail || "failed");
 }
 
-test("status banners stay first inside their own encounter", () => {
+test("newest encounter events stay in time order", () => {
   const rows = window.playConsoleRows([
     { kind: "caught", name: "Sora", item: "Diglett", at: "2026-09-14T05:03:40Z" },
     { kind: "threw", name: "Sora", item: "greatball", at: "2026-09-14T05:03:25Z" },
@@ -29,11 +29,10 @@ test("status banners stay first inside their own encounter", () => {
     { kind: "joined", name: "Sora", at: "2026-09-14T05:02:12Z" },
     { kind: "appeared", message: "Diglett appeared!", at: "2026-09-14T05:01:54Z" }
   ]);
-  assert(rows[0].kind === "phase" && /Poké Balls/.test(rows[0].message), rows[0].kind);
-  assert(rows[1].kind === "caught", rows[1].kind);
-  assert(rows[4].kind === "phase" && /prepar/.test(rows[4].message), rows[4].message);
-  assert(rows[6].kind === "appeared", rows[6].kind);
-  assert(rows[7].kind === "joined", rows[7].kind);
+  const kinds = rows.map((row) => row.kind);
+  assert(kinds.join(",") === "caught,threw,phase,selected,phase,prepared,joined,appeared", kinds.join(","));
+  assert(rows[0].kind === "caught", rows[0].kind);
+  assert(rows[2].message.includes("Poké Balls"), rows[2].message);
 });
 
 test("later encounters do not swallow earlier throws", () => {
@@ -47,9 +46,8 @@ test("later encounters do not swallow earlier throws", () => {
     { kind: "threw", name: "Ash", item: "greatball", at: "2026-09-14T05:03:25Z" }
   ]);
   const kinds = rows.map((row) => `${row.kind}:${row.name || row.message || ""}`);
-  assert(kinds[0].includes("Trainers are choosing"), kinds[0]);
-  assert(kinds[1] === "threw:Sora", kinds[1]);
-  assert(kinds[2] === "appeared:Pidgey appeared!", kinds[2]);
+  assert(kinds[0] === "threw:Sora", kinds[0]);
+  assert(kinds.some((row) => row === "appeared:Pidgey appeared!"), kinds.join(" | "));
   assert(kinds.some((row) => row === "threw:Ash"), kinds.join(" | "));
   assert(kinds.indexOf("threw:Sora") < kinds.indexOf("threw:Ash"), kinds.join(" | "));
 });
@@ -61,10 +59,23 @@ test("round_id keeps overlapping encounters separate", () => {
     { kind: "threw", name: "B", item: "greatball", at: "2026-09-14T06:00:12Z", round_id: "r1" },
     { kind: "phase", item: "throw", message: "Trainers are choosing their Poké Balls!", at: "2026-09-14T06:00:01Z", round_id: "r1" }
   ]);
-  assert(rows[0].round_id === "r2" && rows[0].kind === "phase", `${rows[0].round_id}:${rows[0].kind}`);
-  assert(rows[1].name === "A", rows[1].name);
-  assert(rows[2].round_id === "r1" && rows[2].kind === "phase", `${rows[2].round_id}:${rows[2].kind}`);
-  assert(rows[3].name === "B", rows[3].name);
+  assert(rows[0].round_id === "r2" && rows[0].kind === "threw", `${rows[0].round_id}:${rows[0].kind}`);
+  assert(rows[1].round_id === "r2" && rows[1].kind === "phase", `${rows[1].round_id}:${rows[1].kind}`);
+  assert(rows[2].round_id === "r1" && rows[2].kind === "threw" && rows[2].name === "B", `${rows[2].round_id}:${rows[2].kind}:${rows[2].name}`);
+  assert(rows[3].round_id === "r1" && rows[3].kind === "phase", `${rows[3].round_id}:${rows[3].kind}`);
+});
+
+test("catch stays above same-second throw echoes", () => {
+  const rows = window.playConsoleRows([
+    { kind: "resolved", message: "Sora Starlight has thrown a Great Ball!", at: "2026-09-14T06:43:07.819257+00" },
+    { kind: "caught", name: "Sora Starlight", item: "Weedle", message: "⭐ Sora Starlight caught Weedle!", at: "2026-09-14T06:43:07.819257+00" },
+    { kind: "threw", name: "Sora Starlight", item: "greatball", message: "Sora Starlight has thrown a Great Ball!", at: "2026-09-14T06:42:52.820748+00" },
+    { kind: "phase", item: "throw", message: "Trainers are choosing their Poké Balls!", at: "2026-09-14T06:42:25.502834+00" }
+  ]);
+  assert(rows[0].kind === "caught", rows.map((row) => row.kind).join(","));
+  assert(rows[1].kind === "threw", rows[1].kind);
+  assert(rows[2].kind === "phase", rows[2].kind);
+  assert(!rows.some((row) => row.kind === "resolved"));
 });
 
 test("console lines still name berries, honey, and throws", () => {

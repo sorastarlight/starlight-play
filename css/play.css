@@ -865,6 +865,9 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
 .catch-fanfare.is-win {
   animation: fanfare-pop .45s ease-out;
 }
+.catch-fanfare-slim.is-win {
+  animation: none;
+}
 @keyframes fanfare-pop {
   from { transform: scale(.96); filter: brightness(1.2); }
   to { transform: scale(1); filter: none; }

@@ -891,19 +891,7 @@
       _i: index
     }));
     const live = round || (source && !Array.isArray(source) && source.phase ? source : null);
-    const otherMessages = new Set(
-      rows
-        .filter((row) => row?.kind !== "resolved")
-        .map((row) => String(row?.message || "").trim().toLowerCase())
-        .filter(Boolean)
-    );
-    rows = rows.filter((row) => {
-      if (row?.kind !== "resolved") return true;
-      const msg = String(row?.message || "").trim();
-      if (!msg || /^results locked in\.?$/i.test(msg)) return false;
-      if (otherMessages.has(msg.toLowerCase())) return false;
-      return !/\bhas thrown\b|\bjoined the encounter\b|\bis ready\b|\bhas chosen\b/i.test(msg);
-    });
+    rows = rows.filter((row) => row?.kind !== "resolved");
     if (live && (live.phase === "reveal" || live.phase === "closed")) {
       const throwers = Array.isArray(live.throwers) ? live.throwers : [];
       const have = new Set(
@@ -925,16 +913,11 @@
     }
     const groups = window.playConsoleAssignGroups(rows);
     const groupTime = new Map();
-    const chapterTime = new Map();
     for (const row of rows) {
       const group = groups.get(row) || "open";
       const at = window.playConsoleTime(row?.at);
       const prevGroup = groupTime.get(group);
       if (prevGroup == null || at > prevGroup) groupTime.set(group, at);
-      if (!window.playConsoleIsStatus(row)) continue;
-      const chapter = `${group}:${window.playConsoleChapter(row)}`;
-      const prevChapter = chapterTime.get(chapter);
-      if (prevChapter == null || at > prevChapter) chapterTime.set(chapter, at);
     }
     return rows.sort((a, b) => {
       const ga = groups.get(a) || "open";
@@ -942,18 +925,12 @@
       const gta = groupTime.get(ga) ?? window.playConsoleTime(a?.at);
       const gtb = groupTime.get(gb) ?? window.playConsoleTime(b?.at);
       if (gtb !== gta) return gtb - gta;
-      const ca = chapterTime.get(`${ga}:${window.playConsoleChapter(a)}`) ?? window.playConsoleTime(a?.at);
-      const cb = chapterTime.get(`${gb}:${window.playConsoleChapter(b)}`) ?? window.playConsoleTime(b?.at);
-      if (cb !== ca) return cb - ca;
-      const sa = window.playConsoleIsStatus(a) ? 1 : 0;
-      const sb = window.playConsoleIsStatus(b) ? 1 : 0;
-      if (sb !== sa) return sb - sa;
       const ta = window.playConsoleTime(a?.at);
       const tb = window.playConsoleTime(b?.at);
       if (tb !== ta) return tb - ta;
       const kind = window.playConsoleKindRank(b?.kind) - window.playConsoleKindRank(a?.kind);
       if (kind) return kind;
-      return (Number(a?._i) || 0) - (Number(b?._i) || 0);
+      return (Number(b?._i) || 0) - (Number(a?._i) || 0);
     });
   };
 

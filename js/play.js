@@ -89,8 +89,9 @@
         else if (!me.ball) closedStatus = window.PLAY_STATUS?.noBall || "You didn't choose a Poké Ball in time!";
         else if (me.result) closedStatus = `${species} broke free. Better luck next encounter!`;
       }
+      const results = round?.results || {};
       return {
-        key: `idle:${round?.id || ""}:${me?.result || ""}`,
+        key: `idle:${round?.id || ""}:${me?.result || ""}:${Number(results.caught || 0)}:${Number(results.escaped || 0)}:${Number(results.noThrow || 0)}`,
         buttons: [],
         groups: [],
         status: closedStatus
@@ -289,7 +290,7 @@
     const plan = actionPlan(data);
     if (acting) plan.buttons.forEach((row) => { row.disabled = true; });
     const key = plan.key;
-    if (key === lastActionKey && els.actions.querySelector("[data-kind]")) {
+    if (key === lastActionKey) {
       plan.buttons.forEach((row) => {
         const btn = els.actions.querySelector(`[data-kind="${row.kind}"][data-item="${row.item}"]`);
         if (!btn) return;

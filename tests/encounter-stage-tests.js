@@ -258,6 +258,45 @@ test("level chip uses authoritative round.level and hides when missing", () => {
   assert(window.playPokemonLevel({}) === 0);
 });
 
+test("level chip sits in the upper-right metadata cluster", () => {
+  const html = window.playRenderEncounter(wildRound({
+    level: 11,
+    gender: "Male",
+    location: "Route 4"
+  }), {});
+  const beforeMeta = html.split('class="encounter-stage-meta"')[0];
+  const afterMetaOpen = html.split('class="encounter-stage-meta"')[1] || "";
+  const metaBlock = afterMetaOpen.split('class="encounter-stage-banner"')[0];
+  assert(!beforeMeta.includes("encounter-level-chip"), "level chip rendered before metadata cluster");
+  assert(metaBlock.includes("encounter-level-chip"), metaBlock);
+  assert(metaBlock.includes("encounter-meta-identity"), metaBlock);
+  assert(metaBlock.includes("Male"), metaBlock);
+  assert(metaBlock.includes("Lv. 11"), metaBlock);
+});
+
+test("female shiny stacks identity chips with level", () => {
+  const html = window.playRenderEncounter(wildRound({
+    level: 23,
+    gender: "Female",
+    variant: "shiny",
+    location: "Cerulean Cave"
+  }), {});
+  const metaBlock = (html.split('class="encounter-stage-meta"')[1] || "").split('class="encounter-stage-banner"')[0];
+  assert(metaBlock.includes("Female"), metaBlock);
+  assert(metaBlock.includes("Shiny"), metaBlock);
+  assert(metaBlock.includes("Lv. 23"), metaBlock);
+});
+
+test("GOTCHA banner stays in stage center, not with the level chip", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const css = fs.readFileSync(path.join(__dirname, "../css/play.css"), "utf8");
+  const chip = css.match(/\.encounter-level-chip \{[\s\S]*?\n\}/);
+  assert(chip, "missing level chip CSS");
+  assert(!/left:\s*50%/.test(chip[0]), chip[0]);
+  assert(/\.encounter-stage-banner \{[\s\S]*left:\s*50%/.test(css), "banner is no longer centered");
+});
+
 const failed = results.filter((row) => !row.passed);
 results.forEach((row) => {
   console.log(`${row.passed ? "PASS" : "FAIL"} ${row.name}${row.detail ? ` — ${row.detail}` : ""}`);

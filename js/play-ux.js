@@ -335,33 +335,50 @@
     return `<ol class="daily-streak" aria-label="Daily Trainer Supply streak">${cells}</ol>`;
   };
 
+  root.playBallRatingLabel = function playBallRatingLabel(raw) {
+    const v = String(raw || "").trim().toUpperCase();
+    if (!v) return "";
+    if (v === "EXCELLENT") return "BEST";
+    return v;
+  };
+
   root.playEncounterCardHtml = function playEncounterCardHtml(row) {
     const selected = row.selected ? " is-selected" : "";
-    const rec = row.recommended ? `<span class="enc-badge is-rec">★ RECOMMENDED</span>` : "";
-    const effect = row.effectiveness
-      ? `<span class="enc-badge is-${String(row.effectiveness).toLowerCase()}">${esc(row.effectiveness)}</span>`
-      : "";
     const lockedOut = row.disabled && !row.selected && row.reason === "ENCOUNTER LOCKED";
     const pending = row.pending ? " is-pending" : "";
     const lockCopy = row.reason === "ENCOUNTER LOCKED" ? "Unavailable — item already selected" : row.reason;
-    const mark = row.kind === "throw" ? "READY ✓" : "✓ SELECTED";
+    const mark = row.kind === "throw" ? "✓ READY" : "✓ SELECTED";
     const pendingMark = row.kind === "throw" ? (STATUS.readying || "READYING…") : (STATUS.selecting || "SELECTING…");
     const whyText = row.disabled && lockCopy && !row.selected
       ? lockCopy
       : "";
-    const qty = row.qty == null ? `<span class="enc-qty">&nbsp;</span>` : `<span class="enc-qty">x${row.qty}</span>`;
+    const qty = row.qty == null ? `<span class="enc-qty ball-count">&nbsp;</span>` : `<span class="enc-qty ball-count">×${row.qty}</span>`;
     const disabled = row.disabled ? "disabled" : "";
     const compact = row.kind === "throw";
-    const detail = !compact && row.effect
-      ? `<em class="enc-effect">${esc(row.effect)}</em>`
-      : `<em class="enc-effect">${whyText && !row.effect ? esc(whyText) : "&nbsp;"}</em>`;
     const title = whyText ? ` title="${esc(whyText)}"` : "";
-    return `<button type="button" class="enc-card item-btn${compact ? " enc-ball-card" : ""}${selected}${row.recommended ? " is-rec" : ""}${lockedOut ? " is-locked-out" : ""}${pending}" data-kind="${esc(row.kind)}" data-item="${esc(row.item)}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}" aria-label="${esc(row.label)}${row.qty != null ? `, ${row.qty} owned` : ""}${whyText ? `, ${whyText}` : ""}"${title}>
+    const busy = row.pending ? ` aria-busy="true"` : ` aria-busy="false"`;
+    if (compact) {
+      const rating = row.pending
+        ? pendingMark
+        : (row.selected ? mark : (root.playBallRatingLabel(row.effectiveness) || "STANDARD"));
+      const ratingKind = row.pending || row.selected
+        ? "is-state"
+        : `is-${String(rating).toLowerCase()}`;
+      return `<button type="button" class="enc-card item-btn enc-ball-card${selected}${row.recommended ? " is-rec" : ""}${lockedOut ? " is-locked-out" : ""}${pending}" data-kind="${esc(row.kind)}" data-item="${esc(row.item)}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}"${busy} aria-label="${esc(row.label)}${row.qty != null ? `, ${row.qty} owned` : ""}${whyText ? `, ${whyText}` : ""}"${title}>
+      <span class="ball-icon item-icon item-icon-img"><img src="${spriteOf(row.sprite || row.item)}" alt=""></span>
+      <span class="ball-name">${esc(row.label)}</span>
+      ${qty}
+      <span class="ball-rating enc-badge ${ratingKind}">${esc(rating)}</span>
+    </button>`;
+    }
+    const detail = row.effect
+      ? `<em class="enc-effect">${esc(row.effect)}</em>`
+      : `<em class="enc-effect">${whyText ? esc(whyText) : "&nbsp;"}</em>`;
+    return `<button type="button" class="enc-card item-btn${selected}${row.recommended ? " is-rec" : ""}${lockedOut ? " is-locked-out" : ""}${pending}" data-kind="${esc(row.kind)}" data-item="${esc(row.item)}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}"${busy} aria-label="${esc(row.label)}${row.qty != null ? `, ${row.qty} owned` : ""}${whyText ? `, ${whyText}` : ""}"${title}>
       <span class="item-icon item-icon-img"><img src="${spriteOf(row.sprite || row.item)}" alt=""></span>
       <span class="item-copy">
-        <strong>${esc(row.label)}</strong>
+        <strong class="item-name">${esc(row.label)}</strong>
         ${qty}
-        ${rec}${effect}
         <span class="enc-card-status">
           ${detail}
           <span class="enc-selected-mark">${esc(row.pending ? pendingMark : mark)}</span>

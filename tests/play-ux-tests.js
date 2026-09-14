@@ -123,11 +123,57 @@ test("Master Ball shop copy is guaranteed, not recommended", () => {
 test("item cards reserve selected-mark space before selection", () => {
   const idle = window.playEncounterCardHtml({ kind: "prepare", item: "oran", label: "Oran Berry", qty: 3, effect: "Helps with the catch.", selected: false });
   const selected = window.playEncounterCardHtml({ kind: "prepare", item: "oran", label: "Oran Berry", qty: 3, effect: "Helps with the catch.", selected: true });
+  const pending = window.playEncounterCardHtml({ kind: "prepare", item: "oran", label: "Oran Berry", qty: 3, effect: "Helps with the catch.", selected: true, pending: true });
   assert(idle.includes("enc-selected-mark"), idle);
   assert(selected.includes("enc-selected-mark"), selected);
   assert(idle.includes("enc-card-status"), idle);
   assert(selected.includes("is-selected"), selected);
   assert(!idle.includes("is-selected"), idle);
+  assert(idle.includes("aria-pressed=\"false\""), idle);
+  assert(pending.includes("SELECTING"), pending);
+  assert(pending.includes("aria-busy=\"true\""), pending);
+  assert(!idle.includes("<button") || idle.indexOf("<button") === idle.lastIndexOf("<button"), idle);
+});
+test("ball cards use fixed icon/name/count/rating regions", () => {
+  const names = ["Premier Ball", "Friend Ball", "Quick Ball", "Cherish Ball", "Luxury Ball", "Hisui Poké Ball", "Ultra Ball", "Master Ball"];
+  names.forEach((label) => {
+    const html = window.playEncounterCardHtml({
+      kind: "throw",
+      item: label.toLowerCase().replace(/[^a-z]/g, ""),
+      label,
+      qty: label === "Ultra Ball" ? 77 : 1,
+      effectiveness: label === "Master Ball" ? "GUARANTEED" : "GREAT",
+      selected: false
+    });
+    assert(html.includes("ball-icon"), html);
+    assert(html.includes("ball-name"), html);
+    assert(html.includes("ball-count"), html);
+    assert(html.includes("ball-rating"), html);
+    assert(html.includes("enc-ball-card"), html);
+    assert(!html.includes("<button") || html.indexOf("<button") === html.lastIndexOf("<button"), html);
+  });
+  const selected = window.playEncounterCardHtml({ kind: "throw", item: "ultraball", label: "Ultra Ball", qty: 77, effectiveness: "GREAT", selected: true });
+  assert(selected.includes("✓ READY"), selected);
+  assert(!selected.includes("GREAT") || selected.includes("✓ READY"), selected);
+  const idle = window.playEncounterCardHtml({ kind: "throw", item: "ultraball", label: "Ultra Ball", qty: 108, effectiveness: "GREAT", selected: false });
+  assert(idle.includes("×108"), idle);
+});
+test("excellent ball advice is shown as BEST", () => {
+  assert(window.playBallRatingLabel("EXCELLENT") === "BEST");
+  assert(window.playBallRatingLabel("GREAT") === "GREAT");
+  const html = window.playEncounterCardHtml({ kind: "throw", item: "ultraball", label: "Ultra Ball", qty: 2, effectiveness: "EXCELLENT", selected: false });
+  assert(html.includes("BEST"), html);
+  assert(!html.includes("EXCELLENT"), html);
+});
+test("play actions submit on click, not pointerdown", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const src = fs.readFileSync(path.join(__dirname, "../js/play.js"), "utf8");
+  assert(!/pointerHeld = true;\s*pressAction/.test(src), "pointerdown still submits");
+  assert(!/pointerHeld = true;\s*pickFromGrid/.test(src), "throw grid pointerdown still submits");
+  assert(src.includes("pendingAction"), "missing pendingAction");
+  assert(src.includes("markLocalPending"), "missing markLocalPending");
+  assert(src.includes("ITEM CLICK"), "missing action diagnostic log");
 });
 
 const failed = results.filter((row) => !row.passed);

@@ -231,7 +231,6 @@
     const locChip = location && !/^unknown$/i.test(location)
       ? `<p class="encounter-location-chip" data-location-chip><span aria-hidden="true">📍</span><span>${window.playEscapeAttr(location)}</span></p>`
       : "";
-    const levelChip = window.playLevelChipHtml(round);
     const catching = Boolean(catchSeq);
     const hud = window.playEncounterStageCopy(round, catching ? window.playAdvanceCatchSeqState(round, opts.me || null) : null, opts.me || null, name);
     window._playStageIntro = window._playStageIntro || new Set();
@@ -251,7 +250,8 @@
       : `<div class="dex-head" data-enc-head><span class="dex-ended" data-enc-head-copy>Encounter ended</span>${hidden}${paused}</div>`;
     const statText = (key) => window.playEncounterStatText(round, key);
     const thrownLabel = round.phase === "throw" ? "Ready" : (round.phase === "prepare" || round.phase === "join" ? "Prepared" : "Throws");
-    const meta = `${window.playGenderChipHtml(round.gender)}${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}`;
+    const identity = `${window.playGenderChipHtml(round.gender)}${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}`;
+    const meta = `<div class="encounter-meta-identity">${identity}</div>${window.playLevelChipHtml(round)}`;
     return `
       ${header}
       <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${catchSeq && /is-mid-seq/.test(catchSeq) ? " is-mid-catch" : ""}${shiny ? " is-shiny-wild" : ""}${wildIntro ? " is-wild-enter" : ""}${shinyIntro ? " is-shiny-intro" : ""}${hud.showBanner && /GOTCHA|SHINY/.test(hud.banner) ? " is-win-scene" : ""}${hud.showBanner && /BROKE FREE|OH NO/.test(hud.banner) ? " is-miss-scene" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
@@ -259,7 +259,6 @@
         <div class="encounter-map-scrim" aria-hidden="true"></div>
         <div class="encounter-map-vignette" aria-hidden="true"></div>
         ${locChip}
-        ${levelChip}
         <p class="encounter-pause-note" data-pause-note${!round.paused || round.resolved ? " hidden" : ""}>${round.pausedForBreak ? (window.PLAY_STATUS?.adPause || "Encounter paused for Twitch ad break.") : (window.PLAY_STATUS?.adminPause || "Encounter temporarily paused.")}</p>
         <div class="encounter-stage-meta">${meta}</div>
         ${shiny ? `<div class="encounter-shiny-burst" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>` : ""}

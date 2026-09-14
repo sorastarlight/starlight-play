@@ -43,7 +43,27 @@
   let pickerKind = "balls";
   let joiningPending = false;
   let reconnecting = false;
+  let pendingAction = null;
+  let actionSeq = 0;
+  let refreshGen = 0;
+  let holdReleaseTimer = 0;
   const joinedMe = new Map();
+
+  function logPlayAction(stage, extra) {
+    try {
+      console.info("[play-action]", stage, extra || {});
+    } catch (_) {}
+  }
+
+  function busyNow() {
+    return Boolean(acting || pendingAction);
+  }
+
+  function ratingLabel(raw) {
+    return typeof window.playBallRatingLabel === "function"
+      ? window.playBallRatingLabel(raw)
+      : String(raw || "").toUpperCase();
+  }
 
   window.playBindAccountNav({
     onSignOut() {
@@ -214,7 +234,7 @@
         buttons.push(...berries, honey, skip);
       }
     }
-    if (throwing && me && !lockedBall) {
+    if (throwing && me) {
       const advice = Array.isArray(data?.ballAdvice) ? data.ballAdvice : [];
       const owned = window.playOwnedBalls(bag);
       const pins = typeof window.playBagPins === "function" ? window.playBagPins() : [];
@@ -278,13 +298,85 @@
     else if (joining && !me) status = "";
     if (reconnecting) status = window.PLAY_STATUS?.reconnect || "Reconnecting…";
     return {
-      key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.selected ? "on" : ""}:${row.pending ? "pend" : ""}`).join("|") + `::${status}::${throwing && me?.ball ? me.ball : ""}::${acting ? "act" : "ok"}`,
+      key: `${phase || ""}:${buttons.map((row) => `${row.kind}:${row.item || ""}`).join("|")}`,
       buttons,
       status,
       phase,
-      readyBall: throwing && me?.ball ? me.ball : "",
+      readyBall: throwing && me?.ball && !buttons.some((row) => row.kind === "throw") ? me.ball : "",
       used: capturing ? me : null
     };
+  }
+
+  function applyPendingRows(buttons) {
+    if (!pendingAction || !Array.isArray(buttons)) return;
+    buttons.forEach((row) => {
+      const match = row.kind === pendingAction.kind && String(row.item || "") === String(pendingAction.item || "");
+      row.disabled = true;
+      if (match) {
+        row.selected = true;
+        row.pending = true;
+      }
+    });
+  }
+
+  function patchActionButtons(plan) {
+    plan.buttons.forEach((row) => {
+      const btn = els.actions.querySelector(`[data-kind="${row.kind}"][data-item="${row.item}"]`);
+      if (!btn) return;
+      const pending = Boolean(row.pending);
+      const selected = Boolean(row.selected);
+      btn.disabled = Boolean(row.disabled);
+      btn.classList.toggle("is-pending", pending);
+      btn.classList.toggle("is-selected", selected && !pending);
+      btn.classList.toggle("is-locked-out", Boolean(row.disabled && !row.selected && row.reason === "ENCOUNTER LOCKED"));
+      btn.setAttribute("aria-pressed", selected ? "true" : "false");
+      btn.setAttribute("aria-busy", pending ? "true" : "false");
+      const mark = btn.querySelector(".enc-selected-mark");
+      if (mark) {
+        mark.textContent = pending
+          ? (row.kind === "throw" ? (window.PLAY_STATUS?.readying || "READYING…") : (window.PLAY_STATUS?.selecting || "SELECTING…"))
+          : (row.kind === "throw" ? "✓ READY" : "✓ SELECTED");
+      }
+      const rating = btn.querySelector(".ball-rating");
+      if (rating) {
+        if (pending) {
+          rating.textContent = window.PLAY_STATUS?.readying || "READYING…";
+          rating.className = "ball-rating enc-badge is-state";
+        } else if (selected) {
+          rating.textContent = "✓ READY";
+          rating.className = "ball-rating enc-badge is-state";
+        } else {
+          const label = ratingLabel(row.effectiveness) || "STANDARD";
+          rating.textContent = label;
+          rating.className = `ball-rating enc-badge is-${label.toLowerCase()}`;
+        }
+      }
+    });
+    if (plan.status) setActionStatus(plan);
+  }
+
+  function markLocalPending(kind, item) {
+    const buttons = els.actions.querySelectorAll("button[data-kind]");
+    buttons.forEach((btn) => {
+      const match = btn.dataset.kind === kind && String(btn.dataset.item || "") === String(item || "");
+      btn.disabled = true;
+      btn.classList.toggle("is-pending", match);
+      btn.classList.toggle("is-selected", false);
+      btn.setAttribute("aria-pressed", match ? "true" : "false");
+      btn.setAttribute("aria-busy", match ? "true" : "false");
+      const mark = btn.querySelector(".enc-selected-mark");
+      if (mark && match) {
+        mark.textContent = kind === "throw"
+          ? (window.PLAY_STATUS?.readying || "READYING…")
+          : (window.PLAY_STATUS?.selecting || "SELECTING…");
+      }
+      const rating = btn.querySelector(".ball-rating");
+      if (rating && match) {
+        rating.textContent = window.PLAY_STATUS?.readying || "READYING…";
+        rating.className = "ball-rating enc-badge is-state";
+      }
+    });
+    els.throwGrid?.querySelectorAll("button[data-throw], button[data-prep]").forEach((btn) => { btn.disabled = true; });
   }
 
   function setActionStatus(plan) {
@@ -312,33 +404,17 @@
 
   function renderActions(data) {
     const plan = actionPlan(data);
-    if (acting) {
+    applyPendingRows(plan.buttons);
+    if (acting && !pendingAction) {
       plan.buttons.forEach((row) => {
         row.disabled = true;
         if (row.selected) row.pending = true;
       });
     }
     const key = plan.key;
-    if (key === lastActionKey) {
-      plan.buttons.forEach((row) => {
-        const btn = els.actions.querySelector(`[data-kind="${row.kind}"][data-item="${row.item}"]`);
-        if (!btn) return;
-        btn.disabled = Boolean(row.disabled);
-        btn.classList.toggle("is-pending", Boolean(row.pending));
-        btn.classList.toggle("is-selected", Boolean(row.selected));
-        btn.classList.toggle("is-locked-out", Boolean(row.disabled && !row.selected && row.reason === "ENCOUNTER LOCKED"));
-        const mark = btn.querySelector(".enc-selected-mark");
-        if (mark) {
-          if (row.pending) {
-            mark.textContent = row.kind === "throw"
-              ? (window.PLAY_STATUS?.readying || "READYING…")
-              : (window.PLAY_STATUS?.selecting || "SELECTING…");
-          } else {
-            mark.textContent = row.kind === "throw" ? "READY ✓" : "✓ SELECTED";
-          }
-        }
-      });
-      if (plan.status) setActionStatus(plan);
+    const canPatch = Boolean(els.actions.querySelector("button[data-kind]"));
+    if ((pendingAction || key === lastActionKey) && canPatch) {
+      patchActionButtons(plan);
       return;
     }
     lastActionKey = key;
@@ -374,7 +450,7 @@
       </div>
       <div class="enc-skip enc-hud-in">${skip.map(renderActionCard).join("")}</div>`;
     }
-    if (plan.readyBall) {
+    if (plan.readyBall && !balls.length) {
       const label = window.playItemLabel(plan.readyBall);
       html += `<div class="enc-ready enc-hud-in" role="status">
         <p class="enc-ready-kicker">READY TO THROW</p>
@@ -473,7 +549,7 @@
     const me = data?.me;
     const bag = data?.bag || {};
     const prefs = window.playEncounterSettings(data?.encounterSettings);
-    if (!round || round.paused || acting || !me) return;
+    if (!round || round.paused || acting || pendingAction || !me) return;
     if (!me.prep && prefs.autoPrep && prefs.defaultPrep !== "ask" && round.phase === "prepare") {
       // "Berry" means whichever plain Berry is on hand, never the rare ones.
       const item = prefs.defaultPrep === "berry"
@@ -544,7 +620,8 @@
     if (pointerHeld && hasLiveDom) {
       window.playPatchEncounter(els.encounter, round, bar, patchOpts);
     } else if (key !== lastEncounterKey || Boolean(round) !== hasLiveDom) {
-      paintFull();
+      if (!busyNow()) paintFull();
+      else window.playPatchEncounter(els.encounter, round, bar, patchOpts);
     } else if (hasLiveDom) {
       window.playPatchEncounter(els.encounter, round, bar, patchOpts);
     }
@@ -554,10 +631,28 @@
     if (storeLink) storeLink.hidden = Boolean(round && ["prepare", "throw", "reveal"].includes(round.phase));
     els.encounter?.closest(".dex-card")?.classList.toggle("is-encounter-live", Boolean(round && round.phase && round.phase !== "closed"));
     window.playRenderLiveFeed(data?.console || [], null, round);
+    if (pendingAction) {
+      const me = state?.me;
+      const confirmed = pendingAction.kind === "prepare"
+        ? me?.prep === pendingAction.item
+        : pendingAction.kind === "throw"
+          ? me?.ball === pendingAction.item
+          : pendingAction.kind === "join" && Boolean(me);
+      if (confirmed && !acting) {
+        logPlayAction("REALTIME CONFIRMATION", {
+          round_id: pendingAction.roundId,
+          item_key: pendingAction.item,
+          request_id: pendingAction.id
+        });
+        pendingAction = null;
+      }
+    }
     renderActions(view);
     maybeShowCatchNotices(round, state?.me);
-    maybeRadarJoin(view);
-    maybeAutoAct(view);
+    if (!busyNow()) {
+      maybeRadarJoin(view);
+      maybeAutoAct(view);
+    }
     window.playSetAccountNav(window._playSession || null, profile, {
       isAdmin: Boolean(data?.isAdmin),
       trainer: data?.trainer
@@ -590,13 +685,19 @@
 
   let refreshQueued = false;
   async function refresh() {
-    if (acting || pointerHeld) {
+    if (busyNow() || pointerHeld) {
       refreshQueued = true;
       return;
     }
+    const gen = ++refreshGen;
     refreshQueued = false;
     try {
       const data = await window.playCall("play_sync", { p_round_id: liveRound(state)?.id || null });
+      if (gen !== refreshGen) return;
+      if (busyNow() || pointerHeld) {
+        refreshQueued = true;
+        return;
+      }
       reconnecting = false;
       if (data?.channel !== undefined) loadStream(data.channel);
       render(data);
@@ -613,47 +714,65 @@
   }
 
   async function act(kind, item) {
-    if (acting) return;
+    if (acting || pendingAction) return;
     if (liveRound(state)?.paused) {
       els.actionStatus.textContent = "This encounter is paused.";
       return;
     }
-    acting = true;
-    if (kind === "join") joiningPending = true;
-    els.actions.querySelectorAll("button[data-kind]").forEach((btn) => { btn.disabled = true; });
-    els.throwGrid?.querySelectorAll("button[data-throw]").forEach((btn) => { btn.disabled = true; });
+    const requestId = `a${++actionSeq}`;
     const roundId = liveRound(state)?.id || null;
+    acting = true;
+    pendingAction = { id: requestId, kind, item, roundId, at: Date.now() };
+    if (kind === "join") joiningPending = true;
+    logPlayAction("ITEM CLICK", {
+      round_id: roundId,
+      item_key: item || kind,
+      request_id: requestId,
+      timestamp: pendingAction.at
+    });
+    markLocalPending(kind, item);
     const prevMe = roundId ? { ...(joinedMe.get(roundId) || { joined: true }) } : null;
     if (roundId && kind === "prepare") joinedMe.set(roundId, { ...prevMe, prep: item });
     if (roundId && kind === "throw") joinedMe.set(roundId, { ...prevMe, ball: item });
-    if (kind === "prepare" || kind === "throw") {
-      lastActionKey = "";
-      const optimistic = attachMe({ ...state, me: roundId ? joinedMe.get(roundId) : state?.me });
-      renderActions({ ...optimistic, round: liveRound(optimistic) });
-    }
     try {
       const data = kind === "join"
         ? await window.playCall("play_join", { p_round_id: roundId })
         : kind === "prepare"
           ? await window.playCall("play_prepare", { p_item: item, p_round_id: roundId })
           : await window.playCall("play_throw", { p_item: item, p_round_id: roundId });
-      lastActionKey = "";
+      logPlayAction("ITEM RPC SUCCESS", {
+        round_id: roundId,
+        item_key: item || kind,
+        request_id: requestId
+      });
+      if (pendingAction?.id !== requestId) return;
       reconnecting = false;
       if (kind === "join") joiningPending = false;
       if (kind === "join" && roundId) joinedMe.set(roundId, data?.me || { joined: true });
       if ((kind === "prepare" || kind === "throw") && roundId && data?.me) {
         const prevKeep = joinedMe.get(roundId) || prevMe || {};
-        joinedMe.set(roundId, { ...prevKeep, ...data.me });
+        const merged = { ...prevKeep, ...data.me };
+        if (!merged.prep && prevKeep.prep) merged.prep = prevKeep.prep;
+        if (!merged.ball && prevKeep.ball) merged.ball = prevKeep.ball;
+        joinedMe.set(roundId, merged);
       }
       if (kind === "prepare" && item) window.playRememberUsed?.("berries", item);
       if (kind === "throw" && item) window.playRememberUsed?.("balls", item);
       if (kind === "throw" && els.throwModal?.open && !throwViewOnly) {
         try { els.throwModal.close(); } catch (_) {}
       }
+      pendingAction = null;
       acting = false;
-      lastActionKey = "";
       render(data);
     } catch (error) {
+      logPlayAction("ITEM RPC FAILURE", {
+        round_id: roundId,
+        item_key: item || kind,
+        request_id: requestId,
+        error: String(error?.message || error || "error")
+      });
+      if (pendingAction?.id !== requestId) return;
+      pendingAction = null;
       acting = false;
       if (roundId && prevMe && (kind === "prepare" || kind === "throw")) joinedMe.set(roundId, prevMe);
       if (kind === "join") joiningPending = false;
@@ -670,13 +789,14 @@
         renderActions({ ...state, round: liveRound(state) });
       }
     } finally {
+      if (pendingAction?.id === requestId) pendingAction = null;
       acting = false;
       if (refreshQueued) refresh();
     }
   }
 
   function pressAction(button) {
-    if (!button || button.disabled) return;
+    if (!button || button.disabled || acting || pendingAction) return;
     if (button.dataset.kind === "open-balls") {
       if (state?.me?.ball) return;
       openThrowBalls(state?.bag || {}, "throw");
@@ -695,32 +815,48 @@
         return;
       }
     }
-    button.disabled = true;
     act(button.dataset.kind, button.dataset.item || "");
+  }
+
+  function armActionHold() {
+    pointerHeld = true;
+    clearTimeout(holdReleaseTimer);
+  }
+
+  function releaseActionHold() {
+    clearTimeout(holdReleaseTimer);
+    holdReleaseTimer = setTimeout(() => {
+      pointerHeld = false;
+      if (refreshQueued && !busyNow()) refresh();
+    }, 400);
   }
 
   els.actions.addEventListener("pointerdown", (event) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     const button = event.target.closest("button[data-kind]");
-    if (!button || button.disabled) return;
-    pointerHeld = true;
-    pressAction(button);
+    if (!button || button.disabled || busyNow()) return;
+    armActionHold();
   });
   els.actions.addEventListener("click", (event) => {
+    if (event.target.closest("[data-dismiss-tip]")) return;
     const button = event.target.closest("button[data-kind]");
-    if (!button || button.disabled || acting) {
+    if (!button) return;
+    if (button.disabled || busyNow()) {
       event.preventDefault();
       return;
     }
+    event.preventDefault();
+    pointerHeld = true;
+    clearTimeout(holdReleaseTimer);
     pressAction(button);
   });
   window.addEventListener("pointerup", () => {
-    pointerHeld = false;
-    if (refreshQueued) refresh();
+    if (busyNow()) return;
+    releaseActionHold();
   });
   window.addEventListener("pointercancel", () => {
-    pointerHeld = false;
-    if (refreshQueued) refresh();
+    if (busyNow()) return;
+    releaseActionHold();
   });
 
   els.throwModal?.addEventListener("click", (event) => {
@@ -738,7 +874,7 @@
         return;
       }
     }
-    button.disabled = true;
+    if (acting || pendingAction) return;
     els.throwGrid.querySelectorAll("button[data-throw], button[data-prep]").forEach((btn) => { btn.disabled = true; });
     els.throwModal?.close?.();
     act(kind, item);
@@ -747,16 +883,19 @@
   els.throwGrid?.addEventListener("pointerdown", (event) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     const button = event.target.closest("button[data-throw], button[data-prep]");
-    if (!button || button.disabled || throwViewOnly) return;
-    pointerHeld = true;
-    pickFromGrid(button);
+    if (!button || button.disabled || throwViewOnly || busyNow()) return;
+    armActionHold();
   });
   els.throwGrid?.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-throw], button[data-prep]");
-    if (!button || button.disabled || throwViewOnly || acting) {
+    if (!button) return;
+    if (button.disabled || throwViewOnly || busyNow()) {
       event.preventDefault();
       return;
     }
+    event.preventDefault();
+    pointerHeld = true;
+    clearTimeout(holdReleaseTimer);
     pickFromGrid(button);
   });
 
@@ -779,8 +918,10 @@
   async function heartbeat() {
     if (document.visibilityState !== "visible") return;
     if (!window._playSession) return;
+    if (busyNow() || pointerHeld) return;
     try {
       const data = await window.playCall("play_heartbeat", { p_seconds: 20 });
+      if (busyNow() || pointerHeld) return;
       if (data) render(data);
     } catch (_) {
       // Rankings still work if the heartbeat RPC is not live yet.
@@ -791,7 +932,7 @@
   function scheduleRefresh() {
     clearTimeout(liveRefreshTimer);
     liveRefreshTimer = setTimeout(() => {
-      if (pointerHeld || acting) {
+      if (pointerHeld || busyNow()) {
         refreshQueued = true;
         return;
       }
@@ -814,7 +955,7 @@
         lastLocalPhase = "";
         lastEncounterKey = "";
         lastActionKey = "";
-        render(state);
+        if (!busyNow()) render(state);
       }
       return;
     }
@@ -822,18 +963,22 @@
     const patchOpts = { me: state?.me || null };
     if (!window.playPatchEncounter(els.encounter, round, bar, patchOpts)) {
       lastEncounterKey = "";
-      if (!pointerHeld) render({ ...state, round });
+      if (!pointerHeld && !busyNow()) render({ ...state, round });
       return;
     }
     if (round.phase && round.phase !== lastLocalPhase) {
       lastLocalPhase = round.phase;
+      if (busyNow()) {
+        refreshQueued = true;
+        return;
+      }
       lastActionKey = "";
       renderActions({ ...state, round });
       maybeShowCatchNotices(round, state?.me);
       refresh();
       return;
     }
-    if (pointerHeld) return;
+    if (pointerHeld || busyNow()) return;
     renderActions({ ...state, round });
     maybeShowCatchNotices(round, state?.me);
   }
@@ -869,7 +1014,7 @@
     .subscribe();
   setInterval(tickLive, 200);
   setInterval(() => {
-    if (document.visibilityState !== "visible" || pointerHeld || acting) return;
+    if (document.visibilityState !== "visible" || pointerHeld || busyNow()) return;
     const round = liveRound(state);
     const left = secondsToNextPhase(round);
     if (round?.paused) {

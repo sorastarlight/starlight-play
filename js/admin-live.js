@@ -564,9 +564,10 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       <div class="command-grid">
         <button type="button" class="gold" data-act="start_random" ${busy ? "disabled" : ""}>${busy ? "Encounter active" : (testMode() ? "Start test random" : "Start random")}</button>
         <button type="button" data-act="open_specific" ${busy ? "disabled" : ""}>${testMode() ? "Start test specific" : "Start specific"}</button>
-        ${testMode() ? `<button type="button" class="danger" data-act="stop_test">Stop test encounter</button>` : `<button type="button" class="secondary" data-act="open_specific">Queue special</button>`}
+        <button type="button" class="danger" data-act="${testMode() ? "stop_test" : "cancel_encounter"}" ${busy ? "" : "disabled"}>${testMode() ? "Stop test encounter" : "Cancel encounter"}</button>
       </div>
       ${testMode() ? `<p class="muted">Use Stop test encounter to end the current test without waiting for the phase timer.</p>` : `<div class="links">
+        <button type="button" class="secondary" data-act="open_specific" ${busy ? "disabled" : ""}>Queue special</button>
         <button type="button" class="secondary" data-act="queue_random" ${busy ? "disabled" : ""}>Queue random</button>
         <button type="button" class="secondary" data-act="${autoOn ? "pause_auto" : "resume_auto"}">${autoOn ? "Pause auto" : "Resume auto"}</button>
       </div>

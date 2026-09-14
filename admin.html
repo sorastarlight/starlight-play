@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=hubv6">
+<link rel="stylesheet" href="css/play.css?v=hubv7">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -93,12 +93,15 @@
               <section class="live-feed live-ops-console" aria-live="polite">
                 <div class="live-feed-head">
                   <h3>LIVE CONSOLE</h3>
-                  <div class="console-filters" role="tablist" aria-label="Console filters">
-                    <button type="button" data-console-filter="all" aria-pressed="true">All</button>
-                    <button type="button" data-console-filter="encounter">Encounter</button>
-                    <button type="button" data-console-filter="system">System</button>
-                    <button type="button" data-console-filter="ads">Ads</button>
-                    <button type="button" data-console-filter="results">Results</button>
+                  <div class="console-head-actions">
+                    <div class="console-filters" role="tablist" aria-label="Console filters">
+                      <button type="button" data-console-filter="all" aria-pressed="true">All</button>
+                      <button type="button" data-console-filter="encounter">Encounter</button>
+                      <button type="button" data-console-filter="system">System</button>
+                      <button type="button" data-console-filter="ads">Ads</button>
+                      <button type="button" data-console-filter="results">Results</button>
+                    </div>
+                    <button id="clear-live-console" class="secondary" type="button">Clear</button>
                   </div>
                 </div>
                 <ol id="admin-console"></ol>
@@ -853,5 +856,5 @@
 <script src="js/nav.js?v=hubv3"></script>
 <script src="js/admin-tools.js?v=hubv3"></script>
 <script src="js/admin-live.js?v=hubv7"></script>
-<script src="js/admin.js?v=hubv6"></script>
+<script src="js/admin.js?v=hubv7"></script>
 </body>

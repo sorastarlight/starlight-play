@@ -4651,6 +4651,12 @@ body[data-page="admin"] .live-ops #stream-frame {
   max-height: 32vh;
   aspect-ratio: 16 / 9;
 }
+.console-head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
 .console-filters {
   display: flex;
   flex-wrap: wrap;

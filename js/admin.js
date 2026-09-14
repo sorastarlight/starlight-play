@@ -571,22 +571,22 @@
   els.advancePhase?.addEventListener("click", () => run("admin_advance_phase"));
   document.getElementById("sync-clock").addEventListener("click", () => run("admin_resume_round"));
   els.pause?.addEventListener("click", () => run("admin_pause_round"));
-  els.clearLog?.addEventListener("click", async () => {
-    els.commandStatus.textContent = "Working…";
-    if (els.console) {
-      els.console.innerHTML = `<li class="muted">Clearing…</li>`;
-    }
+  async function clearLiveConsole() {
+    if (els.commandStatus) els.commandStatus.textContent = "Working…";
+    if (els.console) els.console.innerHTML = `<li class="muted">Clearing…</li>`;
     try {
       const data = await window.playCall("admin_clear_console");
-      els.commandStatus.textContent = data?.message || "Public encounter log cleared.";
+      if (els.commandStatus) els.commandStatus.textContent = data?.message || "Live console cleared.";
       if (typeof window.playRenderLiveFeed === "function") {
         window.playRenderLiveFeed(data?.console || [], "admin-console");
       }
       await refreshOverview(false);
     } catch (error) {
-      els.commandStatus.textContent = window.playRpcError(error);
+      if (els.commandStatus) els.commandStatus.textContent = window.playRpcError(error);
     }
-  });
+  }
+  els.clearLog?.addEventListener("click", clearLiveConsole);
+  document.getElementById("clear-live-console")?.addEventListener("click", clearLiveConsole);
 
   function esc(value) {
     return window.playEscapeAttr ? window.playEscapeAttr(value) : String(value || "")

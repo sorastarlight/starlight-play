@@ -133,6 +133,37 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     else await run();
   }
 
+  async function stopTest() {
+    if (pending) return;
+    pending = true;
+    if (els.status) els.status.textContent = "Stopping test encounter…";
+    try {
+      try {
+        const data = await window.playCall("admin_director_command", {
+          p_action: "cancel_encounter",
+          p_payload: { confirm: true }
+        });
+        state = data;
+        disconnected = false;
+        render();
+        if (els.status) els.status.textContent = data?.message || "Test encounter stopped.";
+        return;
+      } catch (error) {
+        const data = await window.playCall("admin_cancel_round");
+        await load(true);
+        if (els.status) els.status.textContent = data?.message || "Test encounter stopped.";
+      }
+    } catch (error) {
+      if (els.status) {
+        els.status.textContent = window.playHumanRpcError
+          ? window.playHumanRpcError(error)
+          : window.playRpcError(error, "Could not stop the test encounter.");
+      }
+    } finally {
+      pending = false;
+    }
+  }
+
   function testMode() {
     return sessionStorage.getItem("playHubTestMode") === "1";
   }
@@ -250,7 +281,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
         <p>Twitch does not need to be live. Test encounters use the existing test protection and do not run automatic stream cadence.</p>
         <div class="links">
           <button type="button" class="gold" data-act="start_test" ${state?.activeEncounter ? "disabled" : ""}>Start test encounter</button>
-          ${state?.activeEncounter ? `<button type="button" class="danger" data-act="stop_test">Stop test encounter</button>` : ""}
+          <button type="button" class="danger" data-act="stop_test">Stop test encounter</button>
           <button type="button" class="secondary" data-act="exit_test">Exit Test Mode</button>
         </div>`;
     } else if (!s.twitchLive && !s.rpgSession) {
@@ -315,7 +346,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     if (!els.encounter) return;
     const round = state?.activeEncounter;
     const wrap = document.getElementById("dash-encounter");
-    if (!round) {
+    if (!round && !testMode()) {
       els.encounter.innerHTML = "";
       els.encounter.hidden = true;
       wrap?.classList.add("is-compact");
@@ -325,10 +356,10 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     els.encounter.hidden = false;
     els.encounter.innerHTML = `
       <div class="links">
-        <button type="button" class="secondary" data-act="pause_encounter"${round.paused ? " disabled" : ""}>Pause</button>
-        <button type="button" class="secondary" data-act="resume_encounter"${round.paused ? "" : " disabled"}>Resume</button>
+        ${round ? `<button type="button" class="secondary" data-act="pause_encounter"${round.paused ? " disabled" : ""}>Pause</button>
+        <button type="button" class="secondary" data-act="resume_encounter"${round.paused ? "" : " disabled"}>Resume</button>` : ""}
         ${embedded ? `<button type="button" class="secondary" data-act="open_details">Details</button>` : ""}
-        <button type="button" class="danger" data-act="${testMode() ? "stop_test" : "cancel_encounter"}">${testMode() ? "Stop test" : "Cancel"}</button>
+        <button type="button" class="danger" data-act="${testMode() ? "stop_test" : "cancel_encounter"}">${testMode() ? "Stop test encounter" : "Cancel"}</button>
       </div>`;
     els.encounter.dataset.busy = "1";
   }
@@ -532,9 +563,9 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       <div class="command-grid">
         <button type="button" class="gold" data-act="start_random" ${busy ? "disabled" : ""}>${busy ? "Encounter active" : (testMode() ? "Start test random" : "Start random")}</button>
         <button type="button" data-act="open_specific" ${busy ? "disabled" : ""}>${testMode() ? "Start test specific" : "Start specific"}</button>
-        ${testMode() ? "" : `<button type="button" class="secondary" data-act="open_specific">Queue special</button>`}
+        ${testMode() ? `<button type="button" class="danger" data-act="stop_test">Stop test encounter</button>` : `<button type="button" class="secondary" data-act="open_specific">Queue special</button>`}
       </div>
-      ${testMode() ? `<p class="muted">Test Mode uses the existing test encounter path. Automatic cadence stays off.</p>` : `<div class="links">
+      ${testMode() ? `<p class="muted">Use Stop test encounter to end the current test without waiting for the phase timer.</p>` : `<div class="links">
         <button type="button" class="secondary" data-act="queue_random" ${busy ? "disabled" : ""}>Queue random</button>
         <button type="button" class="secondary" data-act="${autoOn ? "pause_auto" : "resume_auto"}">${autoOn ? "Pause auto" : "Resume auto"}</button>
       </div>
@@ -821,7 +852,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       return;
     }
     if (act === "stop_test") {
-      cmd("cancel_encounter", { confirm: true });
+      stopTest();
       return;
     }
     if (act === "cancel_encounter") {

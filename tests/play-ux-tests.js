@@ -187,6 +187,28 @@ test("live sync is not blocked by pointer hold or pending selection", () => {
   assert(!/pointerHeld/.test(heartbeatFn[0]), "heartbeat still waits on pointerHeld");
   assert(/scheduleRefresh\(\) \{[\s\S]*?refresh\(\);/.test(src), "scheduleRefresh should always refresh");
 });
+test("result actions are not rebuilt when the layout key is unchanged", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const src = fs.readFileSync(path.join(__dirname, "../js/play.js"), "utf8");
+  assert(/if \(key === lastActionKey\) \{\s*if \(canPatch\) patchActionButtons/.test(src), src.match(/if \(key === lastActionKey\)[\s\S]{0,180}/)?.[0]);
+  assert(!/if \(key === lastActionKey && canPatch\)/.test(src), "result screens still require a button to skip innerHTML");
+});
+test("join pending does not use berry selected styles", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const src = fs.readFileSync(path.join(__dirname, "../js/play.js"), "utf8");
+  assert(src.includes('row.kind === "join" ? "" : (row.selected ? " is-selected" : "")'), src);
+});
+test("community result panel does not fade in on every patch", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const css = fs.readFileSync(path.join(__dirname, "../css/play.css"), "utf8");
+  const slim = css.match(/\.catch-fanfare-slim \{[\s\S]*?\n\}/);
+  const slimWin = css.match(/\.catch-fanfare-slim\.is-win \{[\s\S]*?\n\}/g);
+  assert(slim && /animation:\s*none/.test(slim[0]), slim && slim[0]);
+  assert(slimWin && slimWin.every((block) => /animation:\s*none/.test(block)), String(slimWin));
+});
 
 const failed = results.filter((row) => !row.passed);
 results.forEach((row) => {

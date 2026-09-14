@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const BUILD = "20260914-rc5";
+const BUILD = "20260914-rc6";
 const dir = path.join(__dirname, "..");
 
 for (const name of fs.readdirSync(dir)) {

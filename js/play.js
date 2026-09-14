@@ -185,7 +185,7 @@
     const throwActive = throwing && me && !lockedBall;
     if (joining && !me) {
       const radar = Boolean(window.playRadarOn?.(bag));
-      const pending = joiningPending || radar;
+      const pending = joiningPending || radar || pendingAction?.kind === "join";
       buttons.push({
         kind: "join",
         item: "",
@@ -193,6 +193,17 @@
         hint: pending ? (radar ? "Poké Radar joining…" : "Please wait…") : "Join before the timer ends!",
         disabled: pending,
         joining: pending
+      });
+    }
+    if (joining && me) {
+      const radar = Boolean(window.playRadarOn?.(bag));
+      buttons.push({
+        kind: "join",
+        item: "",
+        label: window.PLAY_STATUS?.joinedShort || "✓ JOINED!",
+        hint: radar ? "Poké Radar joined this encounter for you." : (window.PLAY_STATUS?.waitingOthers || "Waiting for other Trainers…"),
+        disabled: true,
+        joined: true
       });
     }
     if ((preparing || joining) && me) {
@@ -312,10 +323,16 @@
     buttons.forEach((row) => {
       const match = row.kind === pendingAction.kind && String(row.item || "") === String(pendingAction.item || "");
       row.disabled = true;
-      if (match) {
-        row.selected = true;
-        row.pending = true;
+      if (!match) return;
+      if (row.kind === "join") {
+        row.joining = true;
+        row.selected = false;
+        row.pending = false;
+        row.label = window.PLAY_STATUS?.joining || "JOINING…";
+        return;
       }
+      row.selected = true;
+      row.pending = true;
     });
   }
 
@@ -323,6 +340,21 @@
     plan.buttons.forEach((row) => {
       const btn = els.actions.querySelector(`[data-kind="${row.kind}"][data-item="${row.item}"]`);
       if (!btn) return;
+      if (row.kind === "join") {
+        const joining = Boolean(row.joining);
+        const joined = Boolean(row.joined);
+        btn.disabled = Boolean(row.disabled || joining || joined);
+        btn.classList.toggle("is-joining", joining && !joined);
+        btn.classList.toggle("is-joined", joined);
+        btn.classList.remove("is-pending", "is-selected");
+        btn.setAttribute("aria-pressed", joined ? "true" : "false");
+        btn.setAttribute("aria-busy", joining && !joined ? "true" : "false");
+        const strong = btn.querySelector("strong");
+        if (strong && strong.textContent !== row.label) strong.textContent = row.label;
+        const hint = btn.querySelector("em");
+        if (hint && row.hint != null) hint.textContent = row.hint;
+        return;
+      }
       const pending = Boolean(row.pending);
       const selected = Boolean(row.selected);
       btn.disabled = Boolean(row.disabled);
@@ -360,6 +392,18 @@
     buttons.forEach((btn) => {
       const match = btn.dataset.kind === kind && String(btn.dataset.item || "") === String(item || "");
       btn.disabled = true;
+      if (kind === "join") {
+        if (!match) return;
+        btn.classList.add("is-joining");
+        btn.classList.remove("is-pending", "is-selected", "is-joined");
+        btn.setAttribute("aria-pressed", "false");
+        btn.setAttribute("aria-busy", "true");
+        const strong = btn.querySelector("strong");
+        if (strong) strong.textContent = window.PLAY_STATUS?.joining || "JOINING…";
+        const hint = btn.querySelector("em");
+        if (hint) hint.textContent = "Please wait…";
+        return;
+      }
       btn.classList.toggle("is-pending", match);
       btn.classList.toggle("is-selected", false);
       btn.setAttribute("aria-pressed", match ? "true" : "false");
@@ -396,7 +440,9 @@
     const disabled = row.disabled ? "disabled" : "";
     const joinClass = row.kind === "join" ? " enc-join-btn" : "";
     const joiningClass = row.kind === "join" && row.joining ? " is-joining" : "";
-    return `<button type="button" class="item-btn${joinClass}${joiningClass}${row.selected ? " is-selected" : ""}" data-kind="${row.kind}" data-item="${row.item}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}">
+    const joinedClass = row.kind === "join" && row.joined ? " is-joined" : "";
+    const selectedClass = row.kind === "join" ? "" : (row.selected ? " is-selected" : "");
+    return `<button type="button" class="item-btn${joinClass}${joiningClass}${joinedClass}${selectedClass}" data-kind="${row.kind}" data-item="${row.item}" ${disabled} aria-pressed="${row.joined || row.selected ? "true" : "false"}" aria-busy="${row.joining ? "true" : "false"}">
       ${icon}
       <span class="item-copy"><strong>${row.label}</strong>${row.hint ? `<em>${row.hint}</em>` : ""}${row.selected ? `<span class="enc-selected-mark">SELECTED ✓</span>` : ""}</span>
     </button>`;
@@ -413,8 +459,9 @@
     }
     const key = plan.key;
     const canPatch = Boolean(els.actions.querySelector("button[data-kind]"));
-    if (key === lastActionKey && canPatch) {
-      patchActionButtons(plan);
+    if (key === lastActionKey) {
+      if (canPatch) patchActionButtons(plan);
+      if (plan.status) setActionStatus(plan);
       return;
     }
     lastActionKey = key;
@@ -430,11 +477,7 @@
         ? (typeof window.playTipHtml === "function" ? window.playTipHtml("first-throw", window.PLAY_STATUS.firstThrow) : "")
         : "";
     let html = "";
-    if (joins.length) html += `<div class="enc-join enc-hud-in">${joins.map(renderActionCard).join("")}</div>`;
-    if (plan.phase === "join" && data?.me && !berries.length && !honey.length && !skip.length) {
-      const radar = Boolean(window.playRadarOn?.(data?.bag));
-      html += `<div class="enc-joined enc-hud-in" role="status"><strong>${window.PLAY_STATUS?.joinedShort || "✓ JOINED!"}</strong><em>${radar ? "Poké Radar joined this encounter for you." : (window.PLAY_STATUS?.waitingOthers || "Waiting for other Trainers…")}</em></div>`;
-    }
+    if (joins.length) html += `<div class="enc-join">${joins.map(renderActionCard).join("")}</div>`;
     if (berries.length || honey.length || skip.length) {
       html += `<div class="enc-split enc-hud-in">
         <section class="enc-pane">
@@ -946,8 +989,10 @@
     const bar = phaseBar(round);
     const patchOpts = { me: state?.me || null };
     if (!window.playPatchEncounter(els.encounter, round, bar, patchOpts)) {
-      lastEncounterKey = "";
-      render({ ...state, round });
+      if (!els.encounter?.querySelector(".encounter-visual-stage")) {
+        lastEncounterKey = "";
+        render({ ...state, round });
+      }
       return;
     }
     if (round.phase && round.phase !== lastLocalPhase) {

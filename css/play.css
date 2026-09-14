@@ -868,6 +868,10 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   color: #5a3a08;
   box-shadow: 0 6px 0 #c48418aa, 0 0 0 4px #fff3 inset;
   pointer-events: none;
+  animation: none;
+  opacity: 1;
+  filter: none;
+  transform: none;
 }
 .enc-joined {
   display: grid;
@@ -2137,12 +2141,12 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   background: #eef1f6;
   border: 2px solid #c5ccd8;
   box-shadow: none;
-  animation: enc-settle-in .7s ease both;
+  animation: none;
 }
 .catch-fanfare-slim.is-win {
   background: #f3f6ee;
   border-color: #c5d4b0;
-  animation: enc-settle-in .7s ease both;
+  animation: none;
 }
 .catch-fanfare-slim .fanfare-kicker {
   color: #5a6578;
@@ -5528,6 +5532,37 @@ body[data-page="admin"] .play-stage {
   opacity: 1;
   filter: none;
   cursor: default;
+}
+.item-btn[data-kind="join"].is-selected,
+.item-btn[data-kind="join"].is-pending,
+.item-btn[data-kind="join"].is-selected:disabled,
+.item-btn[data-kind="join"].is-pending:disabled {
+  background: linear-gradient(180deg, #fff36a, #ffd24a 55%, #f0b01a);
+  border-color: #2e4a6e;
+  color: #5a3a08;
+  box-shadow: 0 6px 0 #c48418, 0 0 0 4px #fff3 inset;
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+.item-btn[data-kind="join"].is-joining,
+.item-btn[data-kind="join"].is-joining:disabled {
+  background: linear-gradient(180deg, #fff8c4, #f3d27a);
+  border-color: #2e4a6e;
+  color: #5a3a08;
+  box-shadow: 0 6px 0 #c48418aa, 0 0 0 4px #fff3 inset;
+  animation: none;
+}
+.item-btn[data-kind="join"].is-joined,
+.item-btn[data-kind="join"].is-joined:disabled,
+.enc-join-btn.is-joined {
+  background: linear-gradient(180deg, #e8fff3, #c8f0d8);
+  border-color: #2e8b57;
+  color: #1f6b3a;
+  box-shadow: 0 6px 0 #1f6b3a44;
+  animation: none;
+  opacity: 1;
+  filter: none;
 }
 .enc-card.is-locked-out,
 .enc-card.is-locked-out:disabled {

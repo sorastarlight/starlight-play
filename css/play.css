@@ -4434,10 +4434,25 @@ body[data-page="admin"] .play-stage {
   50% { opacity: .55; }
 }
 .enc-actions { display: grid; gap: 12px; }
+.action-grid.enc-actions {
+  grid-template-columns: 1fr;
+}
 .enc-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+  min-width: 0;
+}
+.enc-skip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.enc-join-next {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #eef3ff;
+  border: 2px solid #dce6f7;
 }
 .enc-pane {
   background: #f7f9ff;

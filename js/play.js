@@ -182,7 +182,7 @@
         reason: lockedPrep && me.prep !== "none" ? "ENCOUNTER LOCKED" : (joining ? "Opens in item selection" : ""),
         sprite: "berry"
       };
-      if (prepActive || lockedPrep || joining) {
+      if (prepActive || lockedPrep) {
         buttons.push(...berries, honey, skip);
       }
     }
@@ -313,6 +313,9 @@
         : "";
     let html = "";
     if (joins.length) html += `<div class="enc-join">${joins.map(renderActionCard).join("")}</div>`;
+    if (plan.phase === "join" && data?.me && !berries.length && !honey.length && !skip.length) {
+      html += `<p class="enc-join-next muted">Berry, Honey, and Poké Ball picks open after this join window.</p>`;
+    }
     if (berries.length || honey.length || skip.length) {
       html += `<div class="enc-split">
         <section class="enc-pane">

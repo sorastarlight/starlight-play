@@ -1342,6 +1342,12 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   52% { opacity: 1; transform: translateX(0) scale(1); }
   100% { opacity: 0; transform: translateX(150px) scale(.72); }
 }
+@keyframes catch-flee-frame {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.35); }
+  16% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  52% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(calc(-50% + 36%), -50%) scale(.72); }
+}
 @keyframes catch-stars {
   0% { opacity: 0; transform: scale(.4); }
   40% { opacity: 1; transform: scale(1.1); }
@@ -1625,7 +1631,7 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   background: radial-gradient(ellipse, rgba(255, 210, 74, .2) 0%, rgba(255, 122, 176, .12) 42%, transparent 74%);
 }
 .encounter-visual-stage .catch-seq-mon {
-  position: absolute;
+  position: relative;
 }
 .encounter-visual-stage .dex-stage::after {
   content: "";
@@ -1735,10 +1741,17 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
     drop-shadow(0 4px 4px rgba(0, 0, 0, .4))
     drop-shadow(0 0 6px rgba(255, 255, 255, .2));
 }
-.encounter-visual-stage .catch-seq-mon {
+.encounter-visual-stage .catch-seq-mon,
+.encounter-visual-stage .catch-seq.is-broke .catch-seq-mon,
+.encounter-visual-stage .catch-seq.is-personal .catch-seq-mon,
+.encounter-visual-stage .catch-seq.is-results .catch-seq-mon,
+.encounter-visual-stage .catch-seq.is-results.is-win .catch-seq-mon,
+.encounter-visual-stage .catch-seq.is-results.is-miss .catch-seq-mon {
   position: relative;
   left: auto;
   top: auto;
+  right: auto;
+  bottom: auto;
   width: 100%;
   height: 100%;
   max-width: 100%;
@@ -1746,6 +1759,7 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   margin: 0;
   object-fit: contain;
   object-position: 50% 58%;
+  transform-origin: 50% 58%;
   filter:
     drop-shadow(0 8px 6px rgba(0, 0, 0, .42))
     drop-shadow(0 0 14px rgba(255, 255, 255, .22));
@@ -1756,16 +1770,16 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
     brightness(.9)
     drop-shadow(0 8px 6px rgba(0, 0, 0, .42));
 }
-.encounter-visual-stage .catch-seq.is-results .catch-seq-mon,
-.encounter-visual-stage .catch-seq.is-results.is-win .catch-seq-mon {
-  top: auto;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  margin: 0;
-  object-fit: contain;
-  object-position: 50% 58%;
+.encounter-visual-stage .catch-seq.is-broke .catch-seq-mon,
+.encounter-visual-stage .catch-seq.is-personal.is-broke .catch-seq-mon,
+.encounter-visual-stage .catch-seq.is-results.is-miss .catch-seq-mon {
+  animation: none;
+  opacity: 1;
+}
+.encounter-visual-stage .catch-seq.is-broke .encounter-actor-frame.is-catch-mon,
+.encounter-visual-stage .catch-seq.is-personal.is-broke .encounter-actor-frame.is-catch-mon,
+.encounter-visual-stage .catch-seq.is-results.is-miss .encounter-actor-frame.is-catch-mon {
+  animation: catch-flee-frame 1.85s ease-in forwards;
 }
 .encounter-location-chip {
   position: absolute;
@@ -1867,6 +1881,7 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
 .encounter-visual-stage.is-paused .catch-seq-ball,
 .encounter-visual-stage.is-paused .catch-seq-ball-shadow,
 .encounter-visual-stage.is-paused .catch-seq-mon,
+.encounter-visual-stage.is-paused .encounter-actor-frame.is-catch-mon,
 .encounter-visual-stage.is-paused .catch-seq-fx i,
 .encounter-visual-stage.is-paused .dex-stage img {
   animation-play-state: paused !important;
@@ -5418,6 +5433,13 @@ body[data-page="admin"] .play-stage {
   .catch-seq.is-results.is-win .catch-seq-mon {
     opacity: 1;
     transform: none;
+  }
+  .encounter-visual-stage .catch-seq.is-broke .encounter-actor-frame.is-catch-mon,
+  .encounter-visual-stage .catch-seq.is-personal.is-broke .encounter-actor-frame.is-catch-mon,
+  .encounter-visual-stage .catch-seq.is-results.is-miss .encounter-actor-frame.is-catch-mon {
+    animation: none !important;
+    opacity: 1;
+    transform: translate(-50%, -50%);
   }
   .encounter-map,
   .encounter-map-scrim,

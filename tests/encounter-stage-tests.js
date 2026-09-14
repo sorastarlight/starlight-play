@@ -143,6 +143,12 @@ test("admin/staff preview uses the same catch sequence as Play", () => {
   assert(!/GOTCHA/.test(html.split("staff-round")[0]), "staff visual leaked GOTCHA");
 });
 
+test("breakout uses the shared actor frame instead of leftover catch offsets", () => {
+  const html = window.playCatchSeqHtml(catchRound({ resolved: true, phase: "closed" }), { me: { joined: true, ball: "pokeball", result: "escaped" } });
+  assert(html.includes("encounter-actor-frame is-catch-mon"), html);
+  assert(html.includes("catch-seq-mon"), html);
+});
+
 test("no mapped location keeps the generic stage and hides the chip", () => {
   const previous = window.playHabitat;
   window.playHabitat = () => "";

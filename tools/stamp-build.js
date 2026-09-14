@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const BUILD = "20260914-rc6";
+const BUILD = "20260914-rc7";
 const dir = path.join(__dirname, "..");
 
 for (const name of fs.readdirSync(dir)) {
@@ -13,6 +13,9 @@ for (const name of fs.readdirSync(dir)) {
   }
   if (/js\/game\.js/.test(html) && !/js\/variants\.js/.test(html)) {
     html = html.replace(/<script src="js\/game\.js(?:\?v=[^"]*)?"><\/script>/, (m) => `<script src="js/variants.js?v=${BUILD}"></script>\n${m}`);
+  }
+  if (/js\/game\.js/.test(html) && !/play-encounter-state/.test(html)) {
+    html = html.replace(/<script src="js\/game\.js(?:\?v=[^"]*)?"><\/script>/, (m) => `${m}\n<script src="js/play-encounter-state.js?v=${BUILD}"></script>`);
   }
   fs.writeFileSync(file, html);
 }

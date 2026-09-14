@@ -378,60 +378,81 @@
     return "normal";
   };
 
-  window.PLAY_ROUND_IDLE_AFTER_MS = 60 * 1000;
+  window.PLAY_ROUND_IDLE_AFTER_MS = 12 * 1000;
+  window.PLAY_RESULT_HOLD_MS = window.PLAY_RESULT_HOLD_MS || 12 * 1000;
+  window.PLAY_UNRESOLVED_KEEP_MS = window.PLAY_UNRESOLVED_KEEP_MS || 120 * 1000;
 
-  window.playPhaseRank = function playPhaseRank(phase) {
-    return ({ join: 1, prepare: 2, throw: 3, reveal: 4, closed: 5 }[phase] || 0);
-  };
-
-  window.playLocalPhase = function playLocalPhase(round) {
-    if (!round || round.cancelled) return "closed";
-    const d = round.deadlines || {};
-    const pause = Date.parse(round.pausedAt || "");
-    const freeze = round.paused && Number.isFinite(pause) && !round.resolved;
-    const now = freeze ? pause : Date.now();
-    const at = (key) => {
-      const t = Date.parse(d[key] || "");
-      return Number.isFinite(t) ? t : 0;
+  if (typeof window.playPhaseRank !== "function") {
+    window.playPhaseRank = function playPhaseRank(phase) {
+      return ({ join: 1, prepare: 2, throw: 3, reveal: 4, closed: 5 }[phase] || 0);
     };
-    const join = at("join");
-    const prepare = at("prepare");
-    const throwAt = at("throw");
-    const reveal = at("reveal");
-    if (!join || !prepare || !throwAt || !reveal) {
-      return round.phase || "closed";
-    }
-    if (now < join) return "join";
-    if (now < prepare) return "prepare";
-    if (now < throwAt) return "throw";
-    if (now < reveal) return "reveal";
-    return "closed";
-  };
+  }
+
+  if (typeof window.playLocalPhase !== "function") {
+    window.playLocalPhase = function playLocalPhase(round) {
+      if (!round || round.cancelled) return "closed";
+      const d = round.deadlines || {};
+      const pause = Date.parse(round.pausedAt || "");
+      const freeze = round.paused && Number.isFinite(pause) && !round.resolved;
+      const now = freeze ? pause : Date.now();
+      const at = (key) => {
+        const t = Date.parse(d[key] || "");
+        return Number.isFinite(t) ? t : 0;
+      };
+      const join = at("join");
+      const prepare = at("prepare");
+      const throwAt = at("throw");
+      const reveal = at("reveal");
+      if (!join || !prepare || !throwAt || !reveal) {
+        return round.phase || "closed";
+      }
+      if (now < join) return "join";
+      if (now < prepare) return "prepare";
+      if (now < throwAt) return "throw";
+      if (now < reveal) return "reveal";
+      return "closed";
+    };
+  }
 
   window.playIsThrowWindow = function playIsThrowWindow(round) {
     if (!round || round.cancelled || round.paused) return false;
     return (round.phase || window.playLocalPhase(round)) === "throw";
   };
 
-  window.playRoundIdleAt = function playRoundIdleAt(round) {
-    if (!round) return 0;
-    const from = Date.parse(round.deadlines?.reveal || round.endsAt || "");
-    if (!Number.isFinite(from)) return 0;
-    return from + (window.PLAY_ROUND_IDLE_AFTER_MS || 8000);
-  };
+  if (typeof window.playRoundIdleAt !== "function") {
+    window.playRoundIdleAt = function playRoundIdleAt(round) {
+      if (!round) return 0;
+      const hold = window.PLAY_RESULT_HOLD_MS || window.PLAY_ROUND_IDLE_AFTER_MS || 12000;
+      const updated = Date.parse(round.updatedAt || round.updated_at || "");
+      if (round.cancelled) {
+        return (Number.isFinite(updated) ? updated : Date.now()) + hold;
+      }
+      if (round.resolved) {
+        const from = Number.isFinite(updated) ? updated : Date.parse(round.deadlines?.reveal || round.endsAt || "");
+        if (!Number.isFinite(from)) return 0;
+        return from + hold;
+      }
+      const reveal = Date.parse(round.deadlines?.reveal || round.endsAt || "");
+      if (!Number.isFinite(reveal)) return 0;
+      return reveal + (window.PLAY_UNRESOLVED_KEEP_MS || 120000);
+    };
+  }
 
-  window.playApplyLocalRound = function playApplyLocalRound(round) {
-    if (!round || round.cancelled) return null;
-    const local = window.playLocalPhase(round);
-    const idleAt = window.playRoundIdleAt(round);
-    if (idleAt && Date.now() >= idleAt && !round.paused) return null;
-    const revealAt = Date.parse(round.deadlines?.reveal || round.endsAt || "");
-    const freeze = round.paused && !round.resolved;
-    const revealPassed = Number.isFinite(revealAt) && Date.now() >= revealAt && !freeze;
-    const shownPhase = revealPassed ? "closed" : local;
-    const ends = round.deadlines?.[shownPhase] || round.endsAt;
-    return { ...round, phase: shownPhase, endsAt: ends || round.endsAt };
-  };
+  if (typeof window.playApplyLocalRound !== "function") {
+    window.playApplyLocalRound = function playApplyLocalRound(round) {
+      if (!round) return null;
+      const local = window.playLocalPhase(round);
+      const idleAt = window.playRoundIdleAt(round);
+      if (idleAt && Date.now() >= idleAt && !round.paused) return null;
+      if (round.cancelled) return { ...round, phase: "closed" };
+      const revealAt = Date.parse(round.deadlines?.reveal || round.endsAt || "");
+      const freeze = round.paused && !round.resolved;
+      const revealPassed = Number.isFinite(revealAt) && Date.now() >= revealAt && !freeze;
+      const shownPhase = revealPassed ? "closed" : local;
+      const ends = round.deadlines?.[shownPhase] || round.endsAt;
+      return { ...round, phase: shownPhase, endsAt: ends || round.endsAt };
+    };
+  }
 
   window.playOwnedBalls = function playOwnedBalls(bag) {
     return (window.PLAY_BALLS || []).filter((row) => Number(bag?.[row.key] || 0) > 0);

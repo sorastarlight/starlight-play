@@ -47,12 +47,38 @@
   let actionSeq = 0;
   let refreshGen = 0;
   let holdReleaseTimer = 0;
+  let lastSnapshotAt = 0;
+  let lastRpcAction = "";
+  let lastRefreshReason = "";
+  let lastRoundId = "";
+  let prevServerRound = null;
+  let refreshCoordinator = null;
   const joinedMe = new Map();
 
+  function playDebugOn() {
+    try {
+      return localStorage.getItem("playDebug") === "1"
+        || /(?:\?|&)playDebug=1(?:&|$)/.test(location.search);
+    } catch (_) {
+      return false;
+    }
+  }
+
   function logPlayAction(stage, extra) {
+    if (!playDebugOn()) return;
     try {
       console.info("[play-action]", stage, extra || {});
     } catch (_) {}
+  }
+
+  function actionDomFrozen() {
+    return Boolean(pointerHeld || pendingAction);
+  }
+
+  function requestRefresh(reason) {
+    lastRefreshReason = reason || "sync";
+    if (refreshCoordinator) return refreshCoordinator.request(reason || "sync");
+    return runRefresh(reason || "sync");
   }
 
   function busyNow() {
@@ -69,13 +95,13 @@
     onSignOut() {
       profile = null;
       lastActionKey = "";
-      refresh();
+      requestRefresh("signout");
     }
   });
 
   function liveRound(data) {
     const round = data?.round;
-    if (!round || round.cancelled) return null;
+    if (!round) return null;
     const local = typeof window.playApplyLocalRound === "function" ? window.playApplyLocalRound(round) : round;
     return local;
   }
@@ -122,6 +148,16 @@
     const bag = data?.bag || {};
     const signedIn = Boolean(data?.bag);
     const species = round ? window.playDisplayName(round, { plain: true }) : "the Pokémon";
+    if (round?.cancelled) {
+      return {
+        key: `cancel:${round.id}`,
+        phase: "closed",
+        buttons: [],
+        groups: [],
+        status: (window.PLAY_STATUS?.noJoin || "No Trainers joined. The wild {pokemon} wandered away.")
+          .replace("{pokemon}", species)
+      };
+    }
     if (!round || round.phase === "closed") {
       let closedStatus = "";
       if (round?.resolved && me) {
@@ -357,9 +393,9 @@
       }
       const pending = Boolean(row.pending);
       const selected = Boolean(row.selected);
-      btn.disabled = Boolean(row.disabled);
       btn.classList.toggle("is-pending", pending);
       btn.classList.toggle("is-selected", selected && !pending);
+      btn.disabled = Boolean(row.disabled);
       btn.classList.toggle("is-locked-out", Boolean(row.disabled && !row.selected && row.reason === "ENCOUNTER LOCKED"));
       btn.setAttribute("aria-pressed", selected ? "true" : "false");
       btn.setAttribute("aria-busy", pending ? "true" : "false");
@@ -383,6 +419,11 @@
           rating.className = `ball-rating enc-badge is-${label.toLowerCase()}`;
         }
       }
+      const qty = btn.querySelector(".enc-qty, .ball-count");
+      if (qty && row.qty != null) {
+        const next = `×${row.qty}`;
+        if (qty.textContent !== next) qty.textContent = next;
+      }
     });
     if (plan.status) setActionStatus(plan);
   }
@@ -391,13 +432,13 @@
     const buttons = els.actions.querySelectorAll("button[data-kind]");
     buttons.forEach((btn) => {
       const match = btn.dataset.kind === kind && String(btn.dataset.item || "") === String(item || "");
-      btn.disabled = true;
       if (kind === "join") {
         if (!match) return;
         btn.classList.add("is-joining");
         btn.classList.remove("is-pending", "is-selected", "is-joined");
         btn.setAttribute("aria-pressed", "false");
         btn.setAttribute("aria-busy", "true");
+        btn.disabled = true;
         const strong = btn.querySelector("strong");
         if (strong) strong.textContent = window.PLAY_STATUS?.joining || "JOINING…";
         const hint = btn.querySelector("em");
@@ -406,6 +447,7 @@
       }
       btn.classList.toggle("is-pending", match);
       btn.classList.toggle("is-selected", false);
+      btn.disabled = true;
       btn.setAttribute("aria-pressed", match ? "true" : "false");
       btn.setAttribute("aria-busy", match ? "true" : "false");
       const mark = btn.querySelector(".enc-selected-mark");
@@ -457,8 +499,17 @@
         if (row.selected) row.pending = true;
       });
     }
-    const key = plan.key;
+    const key = plan.buttons?.length && typeof window.playActionStructureKey === "function"
+      ? window.playActionStructureKey({ phase: plan.phase, buttons: plan.buttons })
+      : plan.key;
     const canPatch = Boolean(els.actions.querySelector("button[data-kind]"));
+    if (actionDomFrozen() && lastActionKey) {
+      refreshQueued = true;
+      if (refreshCoordinator) refreshCoordinator.markNeeded("actions");
+      if (canPatch) patchActionButtons(plan);
+      if (plan.status) setActionStatus(plan);
+      return;
+    }
     if (key === lastActionKey) {
       if (canPatch) patchActionButtons(plan);
       if (plan.status) setActionStatus(plan);
@@ -517,6 +568,12 @@
     els.actions.classList.toggle("single", joins.length === 1 && plan.buttons.length === 1);
     els.actions.classList.toggle("throw-picks", balls.length > 0);
     els.actions.classList.toggle("enc-actions", true);
+    logPlayAction("ACTION DOM REPLACEMENT", {
+      key,
+      phase: plan.phase || "",
+      round_id: liveRound(data)?.id || null,
+      timestamp: Date.now()
+    });
     els.actions.innerHTML = `${tip}${html}`;
   }
 
@@ -634,7 +691,21 @@
   }
 
   function render(data) {
-    state = attachMe(data);
+    const incomingRound = data?.round
+      ? (typeof window.playMergeRoundSnapshot === "function"
+        ? window.playMergeRoundSnapshot(prevServerRound, data.round)
+        : data.round)
+      : data?.round;
+    if (incomingRound?.id && incomingRound.id !== lastRoundId) {
+      if (pendingAction && pendingAction.roundId !== incomingRound.id) pendingAction = null;
+      joiningPending = false;
+      lastActionKey = "";
+      lastLocalPhase = "";
+      lastRoundId = incomingRound.id;
+    }
+    if (!incomingRound) lastRoundId = "";
+    prevServerRound = incomingRound || null;
+    state = attachMe({ ...data, round: incomingRound });
     const trainer = state?.trainer || {};
     window._playTrainerName = trainer.displayName || trainer.display_name || trainer.name || profile?.display_name || "";
     window._playTrainerLogin = trainer.twitchLogin || trainer.twitch_login || profile?.twitch_login || "";
@@ -671,22 +742,6 @@
     if (storeLink) storeLink.hidden = Boolean(round && ["prepare", "throw", "reveal"].includes(round.phase));
     els.encounter?.closest(".dex-card")?.classList.toggle("is-encounter-live", Boolean(round && round.phase && round.phase !== "closed"));
     window.playRenderLiveFeed(data?.console || [], null, round);
-    if (pendingAction) {
-      const me = state?.me;
-      const confirmed = pendingAction.kind === "prepare"
-        ? me?.prep === pendingAction.item
-        : pendingAction.kind === "throw"
-          ? me?.ball === pendingAction.item
-          : pendingAction.kind === "join" && Boolean(me);
-      if (confirmed && !acting) {
-        logPlayAction("REALTIME CONFIRMATION", {
-          round_id: pendingAction.roundId,
-          item_key: pendingAction.item,
-          request_id: pendingAction.id
-        });
-        pendingAction = null;
-      }
-    }
     renderActions(view);
     maybeShowCatchNotices(round, state?.me);
     if (!busyNow()) {
@@ -724,14 +779,18 @@
   }
 
   let refreshQueued = false;
-  async function refresh() {
+  async function runRefresh(reason) {
     const gen = ++refreshGen;
     refreshQueued = false;
+    lastRefreshReason = reason || "sync";
+    logPlayAction("REFRESH START", { reason: lastRefreshReason, round_id: liveRound(state)?.id || null });
     try {
       const data = await window.playCall("play_sync", { p_round_id: liveRound(state)?.id || null });
       if (gen !== refreshGen) return;
+      lastSnapshotAt = Date.now();
       reconnecting = false;
       if (data?.channel !== undefined) loadStream(data.channel);
+      logPlayAction("REFRESH COMPLETE", { reason: lastRefreshReason, round_id: data?.round?.id || null, phase: data?.round?.phase || "" });
       render(data);
     } catch (error) {
       const message = window.playHumanRpcError
@@ -766,8 +825,13 @@
     });
     markLocalPending(kind, item);
     const prevMe = roundId ? { ...(joinedMe.get(roundId) || { joined: true }) } : null;
-    if (roundId && kind === "prepare") joinedMe.set(roundId, { ...prevMe, prep: item });
-    if (roundId && kind === "throw") joinedMe.set(roundId, { ...prevMe, ball: item });
+    lastRpcAction = `${kind}:${item || ""}`;
+    logPlayAction("RPC START", {
+      round_id: roundId,
+      item_key: item || kind,
+      request_id: requestId,
+      phase: liveRound(state)?.phase || ""
+    });
     try {
       const data = kind === "join"
         ? await window.playCall("play_join", { p_round_id: roundId })
@@ -818,7 +882,7 @@
       lastActionKey = "";
       if (/phase has ended/i.test(message)) {
         lastEncounterKey = "";
-        refresh();
+        requestRefresh("phase-ended");
       } else {
         renderActions({ ...state, round: liveRound(state) });
       }
@@ -827,7 +891,7 @@
       acting = false;
       pointerHeld = false;
       clearTimeout(holdReleaseTimer);
-      if (refreshQueued) refresh();
+      if (refreshQueued || refreshCoordinator?.snapshot?.().needed) requestRefresh("action");
     }
   }
 
@@ -863,19 +927,32 @@
     clearTimeout(holdReleaseTimer);
     holdReleaseTimer = setTimeout(() => {
       pointerHeld = false;
-    }, 400);
+      if (refreshQueued || refreshCoordinator?.snapshot?.().needed) requestRefresh("pointerup");
+    }, 0);
   }
 
   els.actions.addEventListener("pointerdown", (event) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     const button = event.target.closest("button[data-kind]");
     if (!button || button.disabled || busyNow()) return;
+    logPlayAction("pointerdown", {
+      round_id: liveRound(state)?.id || null,
+      phase: liveRound(state)?.phase || "",
+      item: button.dataset.item || button.dataset.kind,
+      timestamp: Date.now()
+    });
     armActionHold();
   });
   els.actions.addEventListener("click", (event) => {
     if (event.target.closest("[data-dismiss-tip]")) return;
     const button = event.target.closest("button[data-kind]");
     if (!button) return;
+    logPlayAction("click", {
+      round_id: liveRound(state)?.id || null,
+      phase: liveRound(state)?.phase || "",
+      item: button.dataset.item || button.dataset.kind,
+      timestamp: Date.now()
+    });
     if (button.disabled || busyNow()) {
       event.preventDefault();
       return;
@@ -886,6 +963,7 @@
     pressAction(button);
   });
   window.addEventListener("pointerup", () => {
+    logPlayAction("pointerup", { timestamp: Date.now(), round_id: liveRound(state)?.id || null });
     releaseActionHold();
   });
   window.addEventListener("pointercancel", () => {
@@ -939,13 +1017,13 @@
     if (!session) {
       profile = null;
       window.playSetAccountNav(null);
-      await refresh();
+      await requestRefresh("session");
       return;
     }
     const { data } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     profile = data;
     window.playSetAccountNav(session, profile);
-    await refresh();
+    await requestRefresh("session");
   }
 
   async function heartbeat() {
@@ -959,19 +1037,8 @@
     }
   }
 
-  let liveRefreshTimer = 0;
-  function scheduleRefresh() {
-    clearTimeout(liveRefreshTimer);
-    liveRefreshTimer = setTimeout(() => {
-      refresh();
-    }, 200);
-  }
-
-  function secondsToNextPhase(round) {
-    const phase = round?.phase;
-    const end = Date.parse(round?.deadlines?.[phase] || round?.endsAt || "");
-    if (!Number.isFinite(end)) return 99;
-    return (end - Date.now()) / 1000;
+  function scheduleRefresh(reason) {
+    requestRefresh(reason || "realtime");
   }
 
   function tickLive() {
@@ -998,12 +1065,13 @@
     if (round.phase && round.phase !== lastLocalPhase) {
       lastLocalPhase = round.phase;
       lastActionKey = "";
-      renderActions({ ...state, round });
+      if (!actionDomFrozen()) renderActions({ ...state, round });
+      else refreshQueued = true;
       maybeShowCatchNotices(round, state?.me);
-      refresh();
+      requestRefresh("phase");
       return;
     }
-    if (pointerHeld) {
+    if (actionDomFrozen()) {
       maybeShowCatchNotices(round, state?.me);
       return;
     }
@@ -1032,31 +1100,62 @@
   });
   window.playBindTips?.(document.body);
 
+  refreshCoordinator = typeof window.playCreateRefreshCoordinator === "function"
+    ? window.playCreateRefreshCoordinator({
+      frozen: () => actionDomFrozen(),
+      run: (reason) => runRefresh(reason)
+    })
+    : null;
+
+  window.__playEncounterDebug = function playEncounterDebug() {
+    const round = liveRound(state);
+    const coord = refreshCoordinator?.snapshot?.() || {};
+    return {
+      roundId: round?.id || null,
+      phase: round?.phase || "",
+      highestPhase: round?.highestPhase || prevServerRound?.highestPhase || "",
+      pendingAction,
+      syncInFlight: Boolean(coord.inFlight),
+      refreshQueued: Boolean(refreshQueued || coord.needed),
+      lastSnapshotAt,
+      lastRpcAction,
+      lastRefreshReason,
+      resultState: round?.resolved ? "resolved" : (round?.cancelled ? "cancelled" : (round ? "live" : "idle")),
+      clientBuild: window.PLAY_BUILD || "",
+      pointerHeld
+    };
+  };
+
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadProfile(); });
   supabase.channel("play-live")
-    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, scheduleRefresh)
-    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_activity" }, scheduleRefresh)
-    .on("postgres_changes", { event: "*", schema: "public", table: "play_console_log" }, scheduleRefresh)
-    .on("postgres_changes", { event: "*", schema: "public", table: "inventories" }, scheduleRefresh)
-    .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, scheduleRefresh)
+    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, () => scheduleRefresh("round"))
+    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_activity" }, () => scheduleRefresh("activity"))
+    .on("postgres_changes", { event: "*", schema: "public", table: "play_console_log" }, () => {
+      if (actionDomFrozen()) {
+        refreshQueued = true;
+        refreshCoordinator?.markNeeded("console");
+        return;
+      }
+      scheduleRefresh("console");
+    })
+    .on("postgres_changes", { event: "*", schema: "public", table: "inventories" }, () => {
+      if (actionDomFrozen()) {
+        refreshQueued = true;
+        refreshCoordinator?.markNeeded("inventory");
+        return;
+      }
+      scheduleRefresh("inventory");
+    })
+    .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, () => scheduleRefresh("stream"))
     .subscribe();
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") requestRefresh("reconnect");
+  });
   setInterval(tickLive, 200);
   setInterval(() => {
     if (document.visibilityState !== "visible") return;
-    const round = liveRound(state);
-    const left = secondsToNextPhase(round);
-    if (round?.paused) {
-      if (!tickLive._n) tickLive._n = 0;
-      tickLive._n += 1;
-      if (tickLive._n % 8 === 0) refresh();
-    } else if (round) {
-      refresh();
-    } else {
-      if (!tickLive._idle) tickLive._idle = 0;
-      tickLive._idle += 1;
-      if (tickLive._idle % 2 === 0) refresh();
-    }
-  }, 1000);
+    requestRefresh(liveRound(state) ? "safety" : "idle");
+  }, 12000);
   setInterval(heartbeat, 20000);
   loadProfile();
   window.playBindLureButton((data) => {
@@ -1064,3 +1163,4 @@
     render(data);
   });
 })();
+

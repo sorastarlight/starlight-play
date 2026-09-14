@@ -774,6 +774,16 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   transform: none;
   box-shadow: 0 4px 0 #c98ab0;
 }
+.item-btn.is-pending,
+.item-btn.is-pending:disabled,
+.item-btn.is-pending:disabled:hover,
+.item-btn.is-selected,
+.item-btn.is-selected:disabled,
+.item-btn.is-joining,
+.item-btn.is-joining:disabled {
+  opacity: 1;
+  filter: none;
+}
 .item-icon {
   width: 36px;
   height: 36px;

@@ -12,6 +12,7 @@
     noItemTimeout: "No item selected.",
     noBall: "No Poké Ball was thrown.",
     noBallTimeout: "You didn't choose a Poké Ball in time!",
+    noJoin: "No Trainers joined. The wild {pokemon} wandered away.",
     watching: "Watching the encounter…",
     reconnect: "Reconnecting…",
     phaseEnded: "The phase has already ended.",

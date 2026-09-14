@@ -175,17 +175,18 @@ test("play actions submit on click, not pointerdown", () => {
   assert(src.includes("markLocalPending"), "missing markLocalPending");
   assert(src.includes("ITEM CLICK"), "missing action diagnostic log");
 });
-test("live sync is not blocked by pointer hold or pending selection", () => {
+test("live sync coalesces and freezes action DOM, not the snapshot itself", () => {
   const fs = require("fs");
   const path = require("path");
   const src = fs.readFileSync(path.join(__dirname, "../js/play.js"), "utf8");
-  const refreshFn = src.match(/async function refresh\(\) \{[\s\S]*?\n  async function act/);
-  assert(refreshFn, "missing refresh()");
-  assert(!/if \(busyNow\(\) \|\| pointerHeld\)/.test(refreshFn[0]), "refresh still bails on pointerHeld/busyNow");
-  const heartbeatFn = src.match(/async function heartbeat\(\) \{[\s\S]*?\n  let liveRefreshTimer/);
+  assert(/async function runRefresh\(reason\)/.test(src), "missing runRefresh()");
+  assert(/playCreateRefreshCoordinator/.test(src), "missing refresh coordinator");
+  assert(/actionDomFrozen\(\)/.test(src), "missing action freeze");
+  assert(/if \(actionDomFrozen\(\) && lastActionKey\)/.test(src), "action DOM is not frozen during pointer/pending");
+  const heartbeatFn = src.match(/async function heartbeat\(\) \{[\s\S]*?\n  function scheduleRefresh/);
   assert(heartbeatFn, "missing heartbeat()");
   assert(!/pointerHeld/.test(heartbeatFn[0]), "heartbeat still waits on pointerHeld");
-  assert(/scheduleRefresh\(\) \{[\s\S]*?refresh\(\);/.test(src), "scheduleRefresh should always refresh");
+  assert(/function scheduleRefresh\(reason\) \{\s*requestRefresh/.test(src), "scheduleRefresh should request a coalesced refresh");
 });
 test("result actions are not rebuilt when the layout key is unchanged", () => {
   const fs = require("fs");

@@ -648,13 +648,14 @@
   window.playAdvanceCatchSeqState = function playAdvanceCatchSeqState(round, me) {
     const st = catchSeqState(round.id);
     if (round.paused && !round.resolved) return st;
-    const pct = window.playRevealSeqProgress(round);
-    const countdownDone = pct >= 99.5 || round.phase === "closed";
     const outcome = throwOutcome(me, round);
     if (st.outcome !== "caught" && outcome === "caught") st.outcome = "caught";
-    if (round.resolved && countdownDone) {
+    if (st.scene === "results") {
+      if (outcome) st.outcome = outcome;
+      return st;
+    }
+    if (round.resolved) {
       st.outcome = outcome || st.outcome;
-      // Only trainers who watched their own ball fly get the shake sequence.
       if (st.live && me?.ball) {
         if (!st.personalAt) {
           st.personalAt = Date.now();
@@ -670,7 +671,6 @@
     }
     st.live = true;
     st.scene = "wobble";
-    st.personalAt = 0;
     return st;
   };
 

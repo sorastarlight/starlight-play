@@ -297,6 +297,21 @@ test("GOTCHA banner stays in stage center, not with the level chip", () => {
   assert(/\.encounter-stage-banner \{[\s\S]*left:\s*50%/.test(css), "banner is no longer centered");
 });
 
+test("late load still shows the settled result scene", () => {
+  const html = window.playCatchSeqHtml(catchRound({ id: "late-load", resolved: true, phase: "closed" }), {
+    me: { joined: true, ball: "pokeball", result: "Caught" }
+  });
+  assert(html.includes("is-results"), html.match(/catch-seq [^"]*/)?.[0]);
+});
+
+test("stale unresolved snapshot cannot leave the results scene", () => {
+  const id = "keep-results";
+  const me = { joined: true, ball: "pokeball", result: "Caught" };
+  window.playAdvanceCatchSeqState(catchRound({ id, resolved: true, phase: "closed" }), me);
+  const st = window.playAdvanceCatchSeqState(catchRound({ id, resolved: false, phase: "reveal" }), me);
+  assert(st.scene === "results", st.scene);
+});
+
 const failed = results.filter((row) => !row.passed);
 results.forEach((row) => {
   console.log(`${row.passed ? "PASS" : "FAIL"} ${row.name}${row.detail ? ` — ${row.detail}` : ""}`);

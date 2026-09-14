@@ -327,6 +327,7 @@
     lastHubKey = key;
     els.encounter.innerHTML = window.playRenderEncounter(shown, {
       staff: true,
+      showLastAction: false,
       bar,
       emptyNote: "Waiting for the next encounter."
     });

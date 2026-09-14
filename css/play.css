@@ -4724,6 +4724,7 @@ img[src*="images/pokemon/"] {
   object-fit: contain;
 }
 
+body[data-page="admin"] .last-action { display: none !important; }
 body[data-page="admin"] .wrap { max-width: 1480px; }
 .hub-app {
   display: grid;

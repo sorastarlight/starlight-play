@@ -207,7 +207,7 @@
     const staffPanel = opts.staff ? window.playStaffRoundHtml(round) : "";
     const catchSeq = opts.staff ? "" : window.playCatchSeqHtml(round, opts);
     const seqScene = catchSeq ? window.playAdvanceCatchSeqState(round, opts.me || null).scene : "";
-    const lastAction = opts.showLastAction === false
+    const lastAction = opts.staff || opts.showLastAction === false
       ? ""
       : (round.lastAction ? `<p class="last-action" data-last>${round.lastAction}</p>` : `<p class="last-action" data-last hidden></p>`);
     const header = live
@@ -677,8 +677,13 @@
     setStat("thrown", round.thrown || 0);
     setStat("bait", `+${round.baitBonusPercent || 0}%`);
     if (last) {
-      last.hidden = !round.lastAction;
-      last.textContent = round.lastAction || "";
+      if (extra?.staff || extra?.showLastAction === false) {
+        last.hidden = true;
+        last.textContent = "";
+      } else {
+        last.hidden = !round.lastAction;
+        last.textContent = round.lastAction || "";
+      }
     }
     return true;
   };

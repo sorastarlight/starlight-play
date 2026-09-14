@@ -508,8 +508,7 @@ body[data-page="play"] .dex-stage img {
   width: 160px;
   height: 160px;
 }
-body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play,
-body[data-page="play"] .dex-card.is-encounter-live #bag-status {
+body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   opacity: .72;
 }
 .dex-stage {

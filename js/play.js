@@ -6,7 +6,6 @@
     encounter: document.getElementById("encounter"),
     actions: document.getElementById("actions"),
     actionStatus: document.getElementById("action-status"),
-    bag: document.getElementById("bag-status"),
     live: document.getElementById("live-feed"),
     throwModal: document.getElementById("throw-modal"),
     throwGrid: document.getElementById("throw-ball-grid"),
@@ -18,7 +17,6 @@
   let lastChannel = "";
   let lastEncounterKey = "";
   let lastActionKey = "";
-  let lastKitKey = "";
   let lureJoinRound = "";
   let acting = false;
   let pointerHeld = false;
@@ -488,14 +486,6 @@
       window.playPatchEncounter(els.encounter, round, bar, patchOpts);
     }
     const bag = state?.bag;
-    const berryTotal = bag
-      ? window.playOwnedBerries(bag, state?.captureItems).reduce((sum, row) => sum + row.qty, 0)
-      : 0;
-    const kitKey = bag ? `in:${berryTotal}:${bag.bait}:${bag.lure}` : "out";
-    if (kitKey !== lastKitKey) {
-      lastKitKey = kitKey;
-      els.bag.innerHTML = window.playRenderPlayKit(bag);
-    }
     window.playFillLurePanel(bag);
     const storeLink = document.querySelector(".bag-store");
     if (storeLink) storeLink.hidden = Boolean(round && ["prepare", "throw", "reveal"].includes(round.phase));
@@ -780,11 +770,6 @@
     if (pointerHeld) return;
     renderActions({ ...state, round });
   }
-
-  els.bag.addEventListener("click", (event) => {
-    if (!event.target.closest("#view-balls")) return;
-    openThrowBalls(state?.bag || {}, "view");
-  });
 
   document.getElementById("master-use")?.addEventListener("click", () => {
     const modal = document.getElementById("master-modal");

@@ -791,6 +791,9 @@
         : `⌛ <strong>${name}</strong> did not choose a Poké Ball in time.`;
       return `<li class="is-timeout">${time}<span>${copy}</span></li>`;
     }
+    if (row?.kind === "appeared") {
+      return `<li class="is-phase">${time}<span>${message ? window.playEscapeAttr(message) : "A wild Pokémon appeared!"}</span></li>`;
+    }
     if (row?.kind === "phase") {
       return `<li class="is-phase">${time}<span>${window.playEscapeAttr(message)}</span></li>`;
     }
@@ -841,7 +844,7 @@
       const text = String(row?.message || "").toLowerCase();
       if (/pok[ée] ball|choosing/.test(text)) return "throw";
       if (/prepar|item/.test(text)) return "prepare";
-      if (/join/.test(text)) return "join";
+      if (/join|appear/.test(text)) return "appeared";
       return "phase";
     }
     if (key === "pause" || key === "resume" || key === "cancelled" || key === "hidden" || key === "gift") {
@@ -850,10 +853,57 @@
     return "other";
   };
 
+  window.playConsoleEncounterKey = function playConsoleEncounterKey(row) {
+    const round = row?.round_id || row?.roundId;
+    if (round) return `round:${round}`;
+    return "";
+  };
+
+  window.playConsoleAssignGroups = function playConsoleAssignGroups(rows) {
+    const ordered = rows.slice().sort((a, b) => {
+      const ta = window.playConsoleTime(a?.at);
+      const tb = window.playConsoleTime(b?.at);
+      if (ta !== tb) return ta - tb;
+      return (Number(a?._i) || 0) - (Number(b?._i) || 0);
+    });
+    const keys = new Map();
+    let group = 0;
+    let lastAt = 0;
+    for (const row of ordered) {
+      const roundKey = window.playConsoleEncounterKey(row);
+      if (roundKey) {
+        keys.set(row, roundKey);
+        lastAt = window.playConsoleTime(row?.at) || lastAt;
+        continue;
+      }
+      const kind = String(row?.kind || "");
+      const item = String(row?.item || "").toLowerCase();
+      const text = String(row?.message || "").toLowerCase();
+      const at = window.playConsoleTime(row?.at);
+      const gap = lastAt && at && at - lastAt > 4 * 60 * 1000;
+      const newEncounter = kind === "appeared"
+        || (kind === "phase" && (item === "join" || /appear|join/.test(text)));
+      if (!keys.size) {
+        group = 1;
+      } else if (newEncounter || gap) {
+        group += 1;
+      }
+      keys.set(row, `g${group}`);
+      lastAt = at || lastAt;
+    }
+    return keys;
+  };
+
   window.playConsoleRows = function playConsoleRows(source, round) {
     let rows = Array.isArray(source)
       ? source.slice()
       : (Array.isArray(source?.activity) ? source.activity.slice() : []);
+    rows = rows.map((row, index) => ({
+      ...row,
+      name: row?.name || row?.display_name || "",
+      at: row?.at || row?.created_at,
+      _i: index
+    }));
     const live = round || (source && !Array.isArray(source) && source.phase ? source : null);
     const otherMessages = new Set(
       rows
@@ -881,21 +931,33 @@
           name,
           kind: "threw",
           item: thrower.ball,
-          at: live.deadlines?.throw || live.deadlines?.reveal || live.startedAt
+          at: live.deadlines?.throw || live.deadlines?.reveal || live.startedAt,
+          round_id: live.id,
+          _i: rows.length
         });
       }
     }
+    const groups = window.playConsoleAssignGroups(rows);
+    const groupTime = new Map();
     const chapterTime = new Map();
     for (const row of rows) {
-      if (!window.playConsoleIsStatus(row)) continue;
-      const chapter = window.playConsoleChapter(row);
+      const group = groups.get(row) || "open";
       const at = window.playConsoleTime(row?.at);
-      const prev = chapterTime.get(chapter);
-      if (prev == null || at > prev) chapterTime.set(chapter, at);
+      const prevGroup = groupTime.get(group);
+      if (prevGroup == null || at > prevGroup) groupTime.set(group, at);
+      if (!window.playConsoleIsStatus(row)) continue;
+      const chapter = `${group}:${window.playConsoleChapter(row)}`;
+      const prevChapter = chapterTime.get(chapter);
+      if (prevChapter == null || at > prevChapter) chapterTime.set(chapter, at);
     }
     return rows.sort((a, b) => {
-      const ca = chapterTime.get(window.playConsoleChapter(a)) ?? window.playConsoleTime(a?.at);
-      const cb = chapterTime.get(window.playConsoleChapter(b)) ?? window.playConsoleTime(b?.at);
+      const ga = groups.get(a) || "open";
+      const gb = groups.get(b) || "open";
+      const gta = groupTime.get(ga) ?? window.playConsoleTime(a?.at);
+      const gtb = groupTime.get(gb) ?? window.playConsoleTime(b?.at);
+      if (gtb !== gta) return gtb - gta;
+      const ca = chapterTime.get(`${ga}:${window.playConsoleChapter(a)}`) ?? window.playConsoleTime(a?.at);
+      const cb = chapterTime.get(`${gb}:${window.playConsoleChapter(b)}`) ?? window.playConsoleTime(b?.at);
       if (cb !== ca) return cb - ca;
       const sa = window.playConsoleIsStatus(a) ? 1 : 0;
       const sb = window.playConsoleIsStatus(b) ? 1 : 0;
@@ -903,7 +965,9 @@
       const ta = window.playConsoleTime(a?.at);
       const tb = window.playConsoleTime(b?.at);
       if (tb !== ta) return tb - ta;
-      return window.playConsoleKindRank(b?.kind) - window.playConsoleKindRank(a?.kind);
+      const kind = window.playConsoleKindRank(b?.kind) - window.playConsoleKindRank(a?.kind);
+      if (kind) return kind;
+      return (Number(a?._i) || 0) - (Number(b?._i) || 0);
     });
   };
 

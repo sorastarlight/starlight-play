@@ -43,6 +43,8 @@ window.playBindLiveOps = function playBindLiveOps(options) {
 
   let forceAdvancedOpen = false;
   let lastGuideHtml = "";
+  let adsAdvancedOpen = false;
+  let lastAdsAtInput = "";
   let state = null;
   let pending = false;
   let confirmFn = null;
@@ -389,6 +391,10 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const cfg = state?.config || {};
     const left = ad.adActive ? until(ad.activeExpectedEndAt) : until(ad.nextAdAt);
     const connected = ad.connected || !ad.authorizationNeeded;
+    const openDetails = els.ads.querySelector(".hub-advanced");
+    if (openDetails) adsAdvancedOpen = openDetails.open;
+    const nextInput = byId("next-ad-at");
+    if (nextInput) lastAdsAtInput = nextInput.value || lastAdsAtInput;
     const sys = byId("sys-ads-status");
     if (sys) {
       sys.innerHTML = connected
@@ -404,7 +410,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       <p>${connected ? "Connected ✓" : "Not connected"} · ${ad.adActive ? `Ad remaining ${clock(left)}` : `Next ad ${ad.nextAdAt ? clock(left) : "none scheduled"}`}</p>
       ${ad.authorizationNeeded ? `<div class="links"><button type="button" data-act="connect_ads">Connect Ad Protection</button></div>
         <p class="muted">Automatic encounters can still run. Play just cannot read Twitch's real ad schedule until this is connected.</p>` : `<p class="muted">No action required when Connected and Safe.</p>`}
-      <details class="hub-advanced">
+      <details class="hub-advanced"${adsAdvancedOpen ? " open" : ""}>
         <summary>Advanced / manual ad override</summary>
         <p class="muted">Manual fallback for testing or if Twitch Ads cannot be read.</p>
         <div class="links">
@@ -414,11 +420,16 @@ window.playBindLiveOps = function playBindLiveOps(options) {
           <button type="button" class="secondary" data-act="mark_ad_ended">Mark ad ended</button>
         </div>
         <label class="field">Set next estimated ad
-          <input id="next-ad-at" type="datetime-local">
+          <input id="next-ad-at" type="datetime-local" value="${esc(lastAdsAtInput)}">
         </label>
         <button type="button" class="secondary" data-act="set_next_ad">Save fallback ad time</button>
         <p class="muted">Post-ad cooldown ${cfg.postAdCooldownSeconds || 30}s · EventSub ${esc((state?.health || {}).eventSub || "unknown")}</p>
       </details>`;
+    const details = els.ads.querySelector(".hub-advanced");
+    if (details) {
+      details.open = adsAdvancedOpen;
+      details.addEventListener("toggle", () => { adsAdvancedOpen = details.open; });
+    }
   }
 
   function renderNext() {

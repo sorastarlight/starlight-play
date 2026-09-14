@@ -97,7 +97,7 @@ test("success copy uses a cinematic banner and ball plate, not a second GOTCHA c
   assert(hud.banner === "✨ GOTCHA! ✨", hud.banner);
   assert(/Caught with an Ultra Ball/.test(hud.status), hud.status);
   const fanfare = window.playCatchFanfareHtml(round);
-  assert(fanfare.includes("Community results"));
+  assert(fanfare.includes("Community result"));
   assert(!/GOTCHA/.test(fanfare), fanfare);
 });
 
@@ -108,7 +108,8 @@ test("shiny success and failure use high-contrast HUD copy", () => {
     { joined: true, ball: "pokeball", caught: true },
     "Pikachu"
   );
-  assert(shiny.banner === "✨ SHINY CAUGHT! ✨", shiny.banner);
+  assert(shiny.banner === "✨ GOTCHA! ✨", shiny.banner);
+  assert(/SHINY CAUGHT/.test(shiny.status), shiny.status);
   const miss = window.playEncounterStageCopy(
     catchRound({ resolved: true, phase: "closed" }),
     { scene: "results" },
@@ -157,6 +158,42 @@ test("no mapped location keeps the generic stage and hides the chip", () => {
   assert(!html.includes("has-location-bg"), html.match(/encounter-visual-stage[^>]*/)?.[0]);
   assert(!html.includes("encounter-location-chip"));
   assert(html.includes("encounter-stage-status"));
+});
+
+test("no-throw results do not fabricate a personal failure banner", () => {
+  const hud = window.playEncounterStageCopy(
+    catchRound({ id: "r-nothrow", resolved: true, phase: "closed" }),
+    { scene: "results" },
+    { joined: true },
+    "Ekans"
+  );
+  assert(hud.banner === "", hud.banner);
+  assert(/No Poké Ball was thrown/.test(hud.status), hud.status);
+});
+
+test("spectators watch the catch without personal GOTCHA copy", () => {
+  const hud = window.playEncounterStageCopy(
+    catchRound({ id: "r-watch", phase: "reveal" }),
+    { scene: "wobble" },
+    null,
+    "Ekans"
+  );
+  assert(hud.showBanner === false, JSON.stringify(hud));
+  assert(/Watching the encounter/.test(hud.status), hud.status);
+});
+
+test("community result waits for the personal results scene", () => {
+  const round = catchRound({ id: "r-fanfare", resolved: true, phase: "closed", results: { caught: 2, escaped: 3, noThrow: 1 } });
+  assert(window.playCommunityResultReady(round, { joined: true, ball: "pokeball", result: "escaped" }));
+  const html = window.playCatchFanfareHtml(round);
+  assert(html.includes("2"));
+  assert(html.includes("escaped"));
+  assert(!/GOTCHA/.test(html));
+});
+
+test("live patches can inject the catch sequence without remounting the map", () => {
+  assert(String(window.playPatchEncounter).includes("insertAdjacentHTML"));
+  assert(String(window.playPatchEncounter).includes("data-enc-head-copy"));
 });
 
 const failed = results.filter((row) => !row.passed);

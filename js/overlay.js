@@ -2,7 +2,8 @@
   const stage = document.getElementById("stage");
   const sprite = document.getElementById("sprite");
   const cfg = window.PLAY_CONFIG || {};
-  let lastKey = "";
+  let lastIdentity = "";
+  let lastPhase = "";
 
   async function tick() {
     try {
@@ -19,17 +20,26 @@
       const round = data && data.round;
       const isTest = String(round && round.triggerSource || "") === "TEST";
       const live = Boolean(round && !round.cancelled && round.phase && round.phase !== "closed" && (!round.hidden || isTest));
-      const key = live ? `${round.id}:${round.variant}:${round.dex}` : "idle";
-      if (key === lastKey) return;
-      lastKey = key;
-      if (!live) {
-        stage.classList.remove("shown");
-        sprite.removeAttribute("src");
-        return;
+      const identity = live ? `${round.id}:${round.variant}:${round.dex}` : "idle";
+      const phaseKey = live ? `${round.phase}:${round.paused || 0}:${round.resolved || 0}` : "idle";
+      if (identity !== lastIdentity) {
+        lastIdentity = identity;
+        lastPhase = "";
+        if (!live) {
+          stage.className = "";
+          sprite.removeAttribute("src");
+          return;
+        }
+        sprite.alt = round.name || "Pokémon";
+        sprite.src = window.playSpriteUrl(round.dex, round.variant);
+        stage.classList.add("shown");
       }
-      sprite.alt = round.name || "Pokémon";
-      sprite.src = window.playSpriteUrl(round.dex, round.variant);
-      stage.classList.add("shown");
+      if (!live || phaseKey === lastPhase) return;
+      lastPhase = phaseKey;
+      stage.classList.toggle("shown", true);
+      stage.classList.toggle("is-capture", round.phase === "reveal");
+      stage.classList.toggle("is-paused", Boolean(round.paused));
+      stage.classList.toggle("is-result", Boolean(round.resolved));
     } catch (_) {}
   }
 

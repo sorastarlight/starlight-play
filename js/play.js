@@ -86,7 +86,7 @@
       let closedStatus = "";
       if (round?.resolved && me) {
         if (me.caught) closedStatus = `Caught ${species}`;
-        else if (!me.ball) closedStatus = window.PLAY_STATUS?.noBall || "You didn't choose a Poké Ball in time!";
+        else if (!me.ball) closedStatus = window.PLAY_STATUS?.noBallTimeout || window.PLAY_STATUS?.noBall || "You didn't choose a Poké Ball in time!";
         else if (me.result) closedStatus = `${species} broke free. Better luck next encounter!`;
       }
       const results = round?.results || {};
@@ -105,8 +105,8 @@
         key: `paused:${round.id}:${round.pausedForBreak ? "ad" : "admin"}`,
         buttons: [],
         status: round.pausedForBreak
-          ? (window.PLAY_STATUS?.adPause || "A Twitch ad break is currently running. The encounter will resume when the stream returns.")
-          : "Encounter temporarily paused."
+          ? (window.PLAY_STATUS?.adPause || "Encounter paused for Twitch ad break.")
+          : (window.PLAY_STATUS?.adminPause || "Encounter temporarily paused.")
       };
     }
     const buttons = [];
@@ -120,16 +120,22 @@
       return {
         key: `spectate:${round.id}:${phase}`,
         buttons: [],
-        status: "You're watching this encounter. Get ready for the next one!"
+        status: phase === "reveal"
+          ? (window.PLAY_STATUS?.watching || "Watching the encounter…")
+          : "You're watching this encounter. Get ready for the next one!"
       };
     }
     if (capturing) {
       return {
-        key: `capture:${round.id}:${me?.ball || ""}`,
+        key: `capture:${round.id}:${me?.ball || ""}:${round.resolved || false}`,
         buttons: [],
         groups: [],
         used: me,
-        status: me?.ball ? "The Poké Ball is shaking…" : (window.PLAY_STATUS?.noBall || "You didn't choose a Poké Ball in time!")
+        status: me?.ball
+          ? "The Poké Ball is shaking…"
+          : me?.joined
+            ? (window.PLAY_STATUS?.noBall || "No Poké Ball was thrown.")
+            : (window.PLAY_STATUS?.watching || "Watching the encounter…")
       };
     }
     const lockedPrep = Boolean(me?.prep);
@@ -187,7 +193,7 @@
         buttons.push(...berries, honey, skip);
       }
     }
-    if (throwing && me) {
+    if (throwing && me && !lockedBall) {
       const advice = Array.isArray(data?.ballAdvice) ? data.ballAdvice : [];
       const owned = window.playOwnedBalls(bag);
       const pins = typeof window.playBagPins === "function" ? window.playBagPins() : [];
@@ -237,32 +243,24 @@
       }
       buttons.push(...rows);
     }
-    const esc = (value) => window.playEscapeAttr(String(value || ""));
-    let status = "";
-    let statusHtml = "";
+    const waiting = window.PLAY_STATUS?.waitingOthers || "Waiting for other Trainers…";
     if (joining && !me && joiningPending) status = "";
     else if (joining && me) status = "";
-    else if (preparing && me?.prep === "none") status = window.PLAY_STATUS?.noItem || "You chose not to use an item. Please wait while the other Trainers make their choices.";
-    else if (preparing && me?.prep === "bait") status = window.PLAY_STATUS?.honey || "You have contributed Honey! Please wait while the other Trainers make their choices.";
     else if (preparing && me?.prep) {
-      const label = window.playItemLabel(me.prep);
-      status = `You have selected ${label}! Please wait while the other Trainers make their choices.`;
-      statusHtml = `You have selected <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`;
+      status = window.playStatusItem ? window.playStatusItem(me.prep) : waiting;
     } else if (throwing && me?.ball) {
-      const label = window.playItemLabel(me.ball);
-      status = `You have chosen ${label}! Please wait while the other Trainers make their choices.`;
-      statusHtml = `You have chosen <strong>${esc(label)}</strong>! Please wait while the other Trainers make their choices.`;
-    } else if (preparing && me) status = window.PLAY_STATUS?.firstPrep || "Choose a Berry to help yourself, Honey to help everyone, or skip.";
+      status = window.playStatusBall ? window.playStatusBall(me.ball) : waiting;
+    } else if (preparing && me) status = "";
     else if (throwing && me && !buttons.length) status = window.PLAY_STATUS?.emptyBalls || "You don't have a Poké Ball available for this encounter.";
-    else if (throwing && me) status = window.PLAY_STATUS?.firstThrow || "Choose a Poké Ball. Recommended Balls are marked.";
+    else if (throwing && me) status = "";
     else if (joining && !me) status = "";
     if (reconnecting) status = window.PLAY_STATUS?.reconnect || "Reconnecting…";
     return {
-      key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.selected ? "on" : ""}`).join("|") + `::${status}`,
+      key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.selected ? "on" : ""}`).join("|") + `::${status}::${throwing && me?.ball ? me.ball : ""}`,
       buttons,
       status,
-      statusHtml,
       phase,
+      readyBall: throwing && me?.ball ? me.ball : "",
       used: capturing ? me : null
     };
   }
@@ -292,7 +290,12 @@
 
   function renderActions(data) {
     const plan = actionPlan(data);
-    if (acting) plan.buttons.forEach((row) => { row.disabled = true; });
+    if (acting) {
+      plan.buttons.forEach((row) => {
+        row.disabled = true;
+        if (row.selected) row.pending = true;
+      });
+    }
     const key = plan.key;
     if (key === lastActionKey) {
       plan.buttons.forEach((row) => {
@@ -300,7 +303,7 @@
         if (!btn) return;
         btn.disabled = Boolean(row.disabled);
       });
-      if (plan.status || plan.statusHtml) setActionStatus(plan);
+      if (plan.status) setActionStatus(plan);
       return;
     }
     lastActionKey = key;
@@ -316,13 +319,13 @@
         ? (typeof window.playTipHtml === "function" ? window.playTipHtml("first-throw", window.PLAY_STATUS.firstThrow) : "")
         : "";
     let html = "";
-    if (joins.length) html += `<div class="enc-join">${joins.map(renderActionCard).join("")}</div>`;
+    if (joins.length) html += `<div class="enc-join enc-hud-in">${joins.map(renderActionCard).join("")}</div>`;
     if (plan.phase === "join" && data?.me && !berries.length && !honey.length && !skip.length) {
       const radar = Boolean(window.playRadarOn?.(data?.bag));
-      html += `<div class="enc-joined" role="status"><strong>${window.PLAY_STATUS?.joinedShort || "✓ JOINED!"}</strong><em>${radar ? "Poké Radar joined this encounter for you." : "Waiting for other Trainers…"}</em></div>`;
+      html += `<div class="enc-joined enc-hud-in" role="status"><strong>${window.PLAY_STATUS?.joinedShort || "✓ JOINED!"}</strong><em>${radar ? "Poké Radar joined this encounter for you." : (window.PLAY_STATUS?.waitingOthers || "Waiting for other Trainers…")}</em></div>`;
     }
     if (berries.length || honey.length || skip.length) {
-      html += `<div class="enc-split">
+      html += `<div class="enc-split enc-hud-in">
         <section class="enc-pane">
           <h3>For you</h3>
           <p class="muted">Berries help only your catch.</p>
@@ -334,17 +337,28 @@
           <div class="enc-card-row">${honey.map(renderActionCard).join("")}</div>
         </section>
       </div>
-      <div class="enc-skip">${skip.map(renderActionCard).join("")}</div>`;
+      <div class="enc-skip enc-hud-in">${skip.map(renderActionCard).join("")}</div>`;
+    }
+    if (plan.readyBall) {
+      const label = window.playItemLabel(plan.readyBall);
+      html += `<div class="enc-ready enc-hud-in" role="status">
+        <p class="enc-ready-kicker">READY TO THROW</p>
+        <img src="${window.playItemSprite(plan.readyBall)}" alt="">
+        <strong>${window.playEscapeAttr(label)}</strong>
+        <em>${acting ? (window.PLAY_STATUS?.readying || "READYING…") : (window.PLAY_STATUS?.waitingOthers || "Waiting for other Trainers…")}</em>
+      </div>`;
     }
     if (balls.length) {
-      html += `<div class="enc-ball-scroller" role="list">${balls.map(renderActionCard).join("")}</div>`;
+      html += `<div class="enc-ball-scroller enc-hud-in" role="list">${balls.map(renderActionCard).join("")}</div>`;
     }
     if (plan.used && typeof window.playUsedSummaryHtml === "function") {
       html += window.playUsedSummaryHtml(plan.used, liveRound(data));
     }
     const round = liveRound(data);
-    if (round?.resolved && typeof window.playCatchFanfareHtml === "function") {
-      html += window.playCatchFanfareHtml(round);
+    if (round && typeof window.playCommunityResultReady === "function"
+      ? window.playCommunityResultReady(round, data?.me)
+      : round?.resolved) {
+      if (typeof window.playCatchFanfareHtml === "function") html += window.playCatchFanfareHtml(round);
     }
     els.actions.classList.toggle("single", joins.length === 1 && plan.buttons.length === 1);
     els.actions.classList.toggle("throw-picks", balls.length > 0);
@@ -446,6 +460,14 @@
     }
   }
 
+  let noticedRound = "";
+  function maybeShowCatchNotices(round, me) {
+    if (!round?.id || noticedRound === round.id) return;
+    if (typeof window.playCommunityResultReady !== "function" || !window.playCommunityResultReady(round, me)) return;
+    noticedRound = round.id;
+    if (typeof window.playShowNotices === "function") setTimeout(() => window.playShowNotices(), 900);
+  }
+
   function maybeRadarJoin(data) {
     const round = liveRound(data);
     const bag = data?.bag || {};
@@ -467,10 +489,7 @@
     if ((!round || round.paused || pickerStale) && els.throwModal?.open) {
       try { els.throwModal.close(); } catch (_) {}
     }
-    const seqPhase = round?.phase === "closed"
-      ? (round.resolved ? "results" : "reveal")
-      : (round?.phase || "idle");
-    const key = `${round?.id || "none"}:${seqPhase}:${round?.resolved || false}:${round?.paused || false}:${round?.variant || ""}:${round?.hidden || false}:${state?.me?.ball || ""}:${state?.me?.caught || ""}:${state?.me?.result || ""}`;
+    const key = `${round?.id || "none"}:${round ? "live" : "idle"}:${round?.variant || ""}:${round?.hidden || false}`;
     const bar = phaseBar(round);
     const patchOpts = { me: state?.me || null };
     lastLocalPhase = round?.phase || lastLocalPhase;
@@ -498,6 +517,7 @@
     els.encounter?.closest(".dex-card")?.classList.toggle("is-encounter-live", Boolean(round && round.phase && round.phase !== "closed"));
     window.playRenderLiveFeed(data?.console || [], null, round);
     renderActions(view);
+    maybeShowCatchNotices(round, state?.me);
     maybeRadarJoin(view);
     maybeAutoAct(view);
     window.playSetAccountNav(window._playSession || null, profile, {
@@ -580,14 +600,14 @@
         try { els.throwModal.close(); } catch (_) {}
       }
       render(data);
-      if (kind === "throw" && typeof window.playShowNotices === "function") {
-        setTimeout(() => window.playShowNotices(), 900);
-      }
     } catch (error) {
       if (roundId && prevMe && (kind === "prepare" || kind === "throw")) joinedMe.set(roundId, prevMe);
       if (kind === "join") joiningPending = false;
       const message = window.playHumanRpcError ? window.playHumanRpcError(error) : window.playRpcError(error);
-      els.actionStatus.textContent = message;
+      const shown = kind === "join" && /phase has already ended|joining/i.test(message)
+        ? (window.PLAY_STATUS?.joinFailed || "Unable to join this encounter.")
+        : message;
+      els.actionStatus.textContent = shown;
       lastActionKey = "";
       if (/phase has ended/i.test(message)) {
         lastEncounterKey = "";
@@ -752,29 +772,16 @@
       return;
     }
     if (round.phase && round.phase !== lastLocalPhase) {
-      const keepSeq = lastLocalPhase === "reveal" && round.phase === "closed" && !round.resolved && els.encounter.querySelector("[data-catch-seq]");
-      const fromThrow = lastLocalPhase === "throw" && round.phase === "reveal";
       lastLocalPhase = round.phase;
       lastActionKey = "";
-      if (fromThrow) {
-        window.playRenderLiveFeed(state?.console || [], null, round);
-      }
-      if (keepSeq) {
-        renderActions({ ...state, round });
-        refresh();
-        return;
-      }
-      lastEncounterKey = "";
-      if (pointerHeld) {
-        renderActions({ ...state, round });
-        return;
-      }
-      render({ ...state, round });
+      renderActions({ ...state, round });
+      maybeShowCatchNotices(round, state?.me);
       refresh();
       return;
     }
     if (pointerHeld) return;
     renderActions({ ...state, round });
+    maybeShowCatchNotices(round, state?.me);
   }
 
   document.getElementById("master-use")?.addEventListener("click", () => {

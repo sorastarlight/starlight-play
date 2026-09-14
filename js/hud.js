@@ -177,7 +177,7 @@
             <span class="dex-idle-mark">?</span>
             <p class="wild-label">Searching</p>
             <h2>The tall grass is quiet</h2>
-            <p class="muted">${opts.emptyNote || "A wild Pokémon will appear here when Sora starts an encounter."}</p>
+            <p class="muted">${opts.emptyNote || "Waiting for the next encounter."}</p>
           </div>
         </div>`;
     }
@@ -198,10 +198,10 @@
       ? window.playLocationVisualAttrs(location)
       : "";
     const locClass = locAttrs ? " has-location-bg" : "";
-    const hidden = round.hidden ? `<span class="chip warn">Hidden</span>` : "";
+    const hidden = round.hidden ? `<span class="chip warn" data-enc-hidden>Hidden</span>` : "";
     const paused = round.paused
-      ? `<span class="chip pause">${round.pausedForBreak ? "Ad break" : "Paused"}</span>`
-      : "";
+      ? `<span class="chip pause" data-enc-pause-chip>${round.pausedForBreak ? "Ad break" : "Paused"}</span>`
+      : `<span class="chip pause" data-enc-pause-chip hidden>Paused</span>`;
     const live = round.phase && round.phase !== "closed";
     const honey = opts.showHoney === false
       ? ""
@@ -229,23 +229,24 @@
     const shinyIntro = shiny && !window._playStageIntro.has(shinyKey);
     if (shinyIntro) window._playStageIntro.add(shinyKey);
     const header = live
-      ? `<div class="dex-head dex-live-fanfare">
+      ? `<div class="dex-head dex-live-fanfare" data-enc-head>
           <span class="live-burst">LIVE</span>
-          <strong>${catching ? "Catch in progress" : "A wild Pokémon appeared!"}</strong>
+          <strong data-enc-head-copy>${catching ? "Catch in progress" : "A wild Pokémon appeared!"}</strong>
           ${hidden}
           ${paused}
         </div>`
-      : `<div class="dex-head"><span class="dex-ended">Encounter ended</span>${hidden}${paused}</div>`;
+      : `<div class="dex-head" data-enc-head><span class="dex-ended" data-enc-head-copy>Encounter ended</span>${hidden}${paused}</div>`;
     const statText = (key) => window.playEncounterStatText(round, key);
     const thrownLabel = round.phase === "throw" ? "Ready" : "Throws";
     const meta = `${window.playGenderChipHtml(round.gender)}${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}`;
     return `
       ${header}
-      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${shiny ? " is-shiny-wild" : ""}${wildIntro ? " is-wild-enter" : ""}${shinyIntro ? " is-shiny-intro" : ""}${hud.showBanner && /GOTCHA|SHINY/.test(hud.banner) ? " is-win-scene" : ""}${hud.showBanner && /OH NO/.test(hud.banner) ? " is-miss-scene" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
+      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${catchSeq && /is-mid-seq/.test(catchSeq) ? " is-mid-catch" : ""}${shiny ? " is-shiny-wild" : ""}${wildIntro ? " is-wild-enter" : ""}${shinyIntro ? " is-shiny-intro" : ""}${hud.showBanner && /GOTCHA|SHINY/.test(hud.banner) ? " is-win-scene" : ""}${hud.showBanner && /OH NO/.test(hud.banner) ? " is-miss-scene" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
         <div class="encounter-map" aria-hidden="true"></div>
         <div class="encounter-map-scrim" aria-hidden="true"></div>
         <div class="encounter-map-vignette" aria-hidden="true"></div>
         ${locChip}
+        <p class="encounter-pause-note" data-pause-note${!round.paused || round.resolved ? " hidden" : ""}>${round.pausedForBreak ? (window.PLAY_STATUS?.adPause || "Encounter paused for Twitch ad break.") : (window.PLAY_STATUS?.adminPause || "Encounter temporarily paused.")}</p>
         <div class="encounter-stage-meta">${meta}</div>
         ${shiny ? `<div class="encounter-shiny-burst" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>` : ""}
         <p class="encounter-stage-banner" data-stage-banner${hud.showBanner ? "" : " hidden"}>${window.playEscapeAttr(hud.banner)}</p>
@@ -387,8 +388,8 @@
     ballSize: "clamp(42px, 16.5%, 58px)",
     wobbleDurationMs: 340,
     wobblePauseMs: 380,
-    shakeMs: 400,
-    clickMs: 400
+    shakeMs: 340,
+    clickMs: 650
   };
   window.playEncounterSpriteSizing = function playEncounterSpriteSizing(mode) {
     const stage = window.PLAY_ENCOUNTER_STAGE;
@@ -520,9 +521,16 @@
 
   window.playEncounterStageCopy = function playEncounterStageCopy(round, st, me, species) {
     const name = species || window.playDisplayName(round, { plain: true }) || "the Pokémon";
+    const waiting = window.PLAY_STATUS?.waitingOthers || "Waiting for other Trainers…";
     if (!st) {
-      if (round?.phase === "prepare") return { banner: "", status: "Choose an item!", showBanner: false };
-      if (round?.phase === "throw") return { banner: "", status: "Choose a Poké Ball!", showBanner: false };
+      if (round?.phase === "prepare") {
+        if (me?.prep) return { banner: "", status: waiting, showBanner: false };
+        return { banner: "", status: window.PLAY_STATUS?.firstPrep || "Choose a Berry, Honey, or No Item.", showBanner: false };
+      }
+      if (round?.phase === "throw") {
+        if (me?.ball) return { banner: "", status: waiting, showBanner: false };
+        return { banner: "", status: window.PLAY_STATUS?.firstThrow || "Choose a Poké Ball!", showBanner: false };
+      }
       return { banner: "", status: "", showBanner: false };
     }
     const personal = personalResult(round, me, name);
@@ -530,8 +538,10 @@
     if (st.scene === "results") {
       if (personal.win) {
         return {
-          banner: shiny ? "✨ SHINY CAUGHT! ✨" : "✨ GOTCHA! ✨",
-          status: personal.note || personal.sub || `${name} was caught!`,
+          banner: "✨ GOTCHA! ✨",
+          status: shiny
+            ? `✨ SHINY CAUGHT! ✨ · ${personal.note || personal.sub}`
+            : (personal.note || personal.sub || `${name} was caught!`),
           showBanner: true
         };
       }
@@ -539,12 +549,24 @@
         return { banner: "", status: personal.sub || "Encounter complete", showBanner: false };
       }
       if (!me?.ball) {
-        return { banner: "OH NO!", status: "No Poké Ball was thrown.", showBanner: true };
+        return { banner: "", status: window.PLAY_STATUS?.noBall || "No Poké Ball was thrown.", showBanner: false };
       }
       return { banner: "OH NO!", status: personal.sub || `${name} broke free!`, showBanner: true };
     }
-    if (!me?.ball && me?.joined) return { banner: "", status: "No Poké Ball was thrown.", showBanner: false };
-    if (!me?.ball) return { banner: "", status: "The Poké Ball is shaking…", showBanner: false };
+    if (personal.spectator) {
+      return { banner: "", status: window.PLAY_STATUS?.watching || "Watching the encounter…", showBanner: false };
+    }
+    if (!me?.ball && me?.joined) {
+      return { banner: "", status: window.PLAY_STATUS?.noBall || "No Poké Ball was thrown.", showBanner: false };
+    }
+    if (!me?.ball) {
+      return { banner: "", status: window.PLAY_STATUS?.watching || "Watching the encounter…", showBanner: false };
+    }
+    const throwEnd = Date.parse(round?.deadlines?.throw || "");
+    const sinceThrow = Number.isFinite(throwEnd) ? Date.now() - throwEnd : 9999;
+    if (st.scene === "wobble" && sinceThrow >= 0 && sinceThrow < 600) {
+      return { banner: "", status: window.PLAY_STATUS?.thrown || "Poké Balls thrown!", showBanner: false };
+    }
     return { banner: "", status: "The Poké Ball is shaking…", showBanner: false };
   };
 
@@ -568,7 +590,17 @@
     }
     visual.classList.toggle("is-win-scene", Boolean(hud.showBanner && /GOTCHA|SHINY/.test(hud.banner)));
     visual.classList.toggle("is-miss-scene", Boolean(hud.showBanner && /OH NO/.test(hud.banner)));
-    visual.classList.toggle("is-shiny-win", Boolean(hud.showBanner && /SHINY/.test(hud.banner)));
+    visual.classList.toggle("is-shiny-win", Boolean(hud.showBanner && /SHINY/.test(`${hud.banner} ${hud.status}`)));
+    const pauseNote = visual.querySelector("[data-pause-note]");
+    if (pauseNote) {
+      const paused = Boolean(round.paused && !round.resolved);
+      pauseNote.hidden = !paused;
+      if (paused) {
+        pauseNote.textContent = round.pausedForBreak
+          ? (window.PLAY_STATUS?.adPause || "Encounter paused for Twitch ad break.")
+          : (window.PLAY_STATUS?.adminPause || "Encounter temporarily paused.");
+      }
+    }
   };
 
   window.playAdvanceCatchSeqState = function playAdvanceCatchSeqState(round, me) {
@@ -616,8 +648,9 @@
     const personal = personalResult(round, me, species);
     const win = st.scene === "results" && personal.win;
     const shiny = String(round.variant || "").includes("shiny");
-    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}${!threw ? " is-watch" : ""}${!threw && me?.joined ? " is-nothrow" : ""}${personal.spectator ? " is-spectator" : ""}${monitor ? " is-monitor" : ""}${win && shiny ? " is-shiny-win" : ""}`;
-    return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}" style="--shakes:${st.shakes};--seq-elapsed:${elapsed.toFixed(2)}s">
+    const midSeq = st.scene === "wobble" && elapsed > 0.45;
+    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}${!threw ? " is-watch" : ""}${!threw && me?.joined ? " is-nothrow" : ""}${personal.spectator ? " is-spectator" : ""}${monitor ? " is-monitor" : ""}${win && shiny ? " is-shiny-win" : ""}${midSeq ? " is-mid-seq" : ""}`;
+    return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-seq-elapsed="${elapsed.toFixed(2)}" data-outcome="${st.outcome || ""}" style="--shakes:${st.shakes};--seq-elapsed:${elapsed.toFixed(2)}s">
       <div class="catch-seq-flash" aria-hidden="true"></div>
       <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="catch-seq-stage">
@@ -652,6 +685,12 @@
     box.classList.toggle("is-nothrow", Boolean(me?.joined && !me?.ball));
     box.classList.toggle("is-watch", !me?.ball);
     box.classList.toggle("is-shiny-win", st.scene === "results" && personal.win && String(round.variant || "").includes("shiny"));
+    box.classList.toggle("is-mid-seq", st.scene === "wobble" && Number(box.dataset.seqElapsed || 0) > 0.45);
+    const ball = box.querySelector(".catch-seq-ball");
+    if (ball && me?.ball) {
+      const src = window.playItemSprite(me.ball);
+      if (src && ball.getAttribute("src") !== src) ball.setAttribute("src", src);
+    }
     const stage = root.querySelector(".dex-stage");
     stage?.classList.toggle("is-throwing", st.scene !== "results");
     stage?.classList.toggle("is-revealed", st.scene === "results");
@@ -659,6 +698,7 @@
     if (visual) {
       visual.classList.toggle("is-capture", true);
       visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
+      visual.classList.toggle("is-mid-catch", box.classList.contains("is-mid-seq"));
       visual.dataset.visualMode = st.scene === "results" ? "result" : "capture";
     }
     window.playFillEncounterStageHud(root, round, me);
@@ -685,11 +725,18 @@
     if (!round?.resolved) return "";
     const results = round.results || {};
     const caughtN = Number(results.caught || 0);
-    const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
+    const escaped = Number(results.escaped || 0) + Number(results.noThrow || 0);
     return `<section class="catch-fanfare catch-fanfare-slim${caughtN ? " is-win" : ""}">
-      <p class="fanfare-kicker">Community results</p>
-      <p class="result-counts"><strong>${caughtN}</strong> caught • <strong>${missed}</strong> missed</p>
+      <p class="fanfare-kicker">Community result</p>
+      <p class="result-counts"><strong>${caughtN}</strong> Trainer${caughtN === 1 ? "" : "s"} caught it · <strong>${escaped}</strong> escaped</p>
     </section>`;
+  };
+
+  window.playCommunityResultReady = function playCommunityResultReady(round, me) {
+    if (!round?.resolved) return false;
+    if (!window.playShowCatchSeq(round)) return true;
+    const st = window.playAdvanceCatchSeqState(round, me || null);
+    return st.scene === "results";
   };
 
   window.playPatchEncounter = function playPatchEncounter(root, round, bar, extra) {
@@ -727,10 +774,31 @@
     const thrownLabel = root.querySelector("[data-stat-label=\"thrown\"]");
     if (thrownLabel) thrownLabel.textContent = round.phase === "throw" ? "Ready" : "Throws";
     const visual = root.querySelector(".encounter-visual-stage");
+    const live = Boolean(round.phase && round.phase !== "closed");
+    const head = root.querySelector("[data-enc-head]");
+    if (head) {
+      head.classList.toggle("dex-live-fanfare", live);
+      const burst = head.querySelector(".live-burst");
+      if (burst) burst.hidden = !live;
+      const copy = root.querySelector("[data-enc-head-copy]");
+      if (copy) {
+        copy.textContent = !live
+          ? "Encounter ended"
+          : (capturing ? "Catch in progress" : "A wild Pokémon appeared!");
+      }
+      const pauseChip = root.querySelector("[data-enc-pause-chip]");
+      if (pauseChip) {
+        pauseChip.hidden = !round.paused;
+        if (round.paused) pauseChip.textContent = round.pausedForBreak ? "Ad break" : "Paused";
+      }
+    }
     if (visual) {
       visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
-      if (!capturing) visual.classList.remove("is-capture");
-      window.playFillEncounterStageHud(root, round, extra?.me || null);
+      if (!capturing) {
+        visual.classList.remove("is-capture", "is-mid-catch");
+        visual.dataset.visualMode = "wild";
+      }
+      window.playFillEncounterStageHud(root, round, extra?.staff ? null : (extra?.me || null));
     }
     if (extra?.staff) {
       const panel = root.querySelector("[data-staff-round]");
@@ -738,9 +806,21 @@
       const key = window.playStaffRoundKey(round);
       if (panel.dataset.staffRound !== key) panel.outerHTML = window.playStaffRoundHtml(round);
     }
-    const wantsSeq = window.playShowCatchSeq(round);
-    const hasSeq = Boolean(root.querySelector("[data-catch-seq]"));
-    if (wantsSeq !== hasSeq) return false;
+    const wantsSeq = capturing;
+    let seqBox = root.querySelector("[data-catch-seq]");
+    if (wantsSeq && !seqBox && visual) {
+      const html = window.playCatchSeqHtml(round, extra);
+      if (html) {
+        const plate = visual.querySelector("[data-stage-status]");
+        if (plate) plate.insertAdjacentHTML("beforebegin", html);
+        else visual.insertAdjacentHTML("beforeend", html);
+        seqBox = root.querySelector("[data-catch-seq]");
+      }
+    }
+    if (!wantsSeq && seqBox) {
+      seqBox.remove();
+      visual?.classList.remove("is-capture", "is-mid-catch");
+    }
     if (wantsSeq) window.playAdvanceCatchSeq(root, round, extra?.staff ? null : extra?.me || null);
     if (extra?.showHoney !== false) {
       const liveHoney = round.phase && round.phase !== "closed" && typeof window.playHoneyMeterHtml === "function";

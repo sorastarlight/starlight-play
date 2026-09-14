@@ -3,18 +3,26 @@
   const STATUS = {
     joined: "You have joined the encounter! Please wait while other Trainers join you.",
     joining: "JOINING…",
+    selecting: "SELECTING…",
+    readying: "READYING…",
     joinedShort: "✓ JOINED!",
-    honey: "You have contributed Honey! Please wait while the other Trainers make their choices.",
-    noItem: "You chose not to use an item. Please wait while the other Trainers make their choices.",
+    waitingOthers: "Waiting for other Trainers…",
+    honey: "✓ Honey contributed. Waiting for other Trainers…",
+    noItem: "✓ No item selected. Waiting for other Trainers…",
     noItemTimeout: "No item selected.",
-    noBall: "You didn't choose a Poké Ball in time!",
+    noBall: "No Poké Ball was thrown.",
+    noBallTimeout: "You didn't choose a Poké Ball in time!",
+    watching: "Watching the encounter…",
     reconnect: "Reconnecting…",
-    phaseEnded: "That phase has ended.",
+    phaseEnded: "The phase has already ended.",
+    joinFailed: "Unable to join this encounter.",
     emptyBalls: "You don't have a Poké Ball available for this encounter.",
     emptyItems: "No encounter items available.",
-    firstPrep: "Choose a Berry to help yourself, Honey to help everyone, or skip.",
-    firstThrow: "Choose a Poké Ball. Recommended Balls are marked.",
-    adPause: "A Twitch ad break is currently running. The encounter will resume when the stream returns."
+    firstPrep: "Choose a Berry, Honey, or No Item.",
+    firstThrow: "Choose a Poké Ball!",
+    thrown: "Poké Balls thrown!",
+    adPause: "Encounter paused for Twitch ad break.",
+    adminPause: "Encounter temporarily paused."
   };
 
   const TIMER = {
@@ -161,11 +169,11 @@
   root.playStatusItem = function playStatusItem(item) {
     if (!item || item === "none") return STATUS.noItem;
     if (item === "bait") return STATUS.honey;
-    return `You have selected ${labelOf(item)}! Please wait while the other Trainers make their choices.`;
+    return `✓ ${labelOf(item)} selected. Waiting for other Trainers…`;
   };
 
   root.playStatusBall = function playStatusBall(item) {
-    return `You have chosen ${labelOf(item)}! Please wait while the other Trainers make their choices.`;
+    return `✓ ${labelOf(item)} selected. Waiting for other Trainers…`;
   };
 
   root.playHumanRpcError = function playHumanRpcError(error, fallback) {
@@ -174,11 +182,12 @@
       : (error?.message || fallback || "That action did not work.");
     const text = String(raw || "");
     if (/failed to fetch|networkerror|load failed|the network/i.test(text)) return STATUS.reconnect;
+    if (/unable to join|could not join|join this encounter/i.test(text)) return STATUS.joinFailed;
     if (/item phase|poké ball phase|joining has closed|joining is closed|items can only|poké balls can only/i.test(text)) {
       return STATUS.phaseEnded;
     }
     if (/http\s*409|conflict|already used that action/i.test(text)) return "That item was already used.";
-    if (/inventory_validation|no .+ left|have no /i.test(text)) return "You no longer have that item available.";
+    if (/inventory_validation|no .+ left|have no |no longer available/i.test(text)) return "That item is no longer available.";
     if (/42501|jwt/i.test(text)) return "Sign in with Twitch to continue.";
     if (/does not exist|undefined_function|gen_random_bytes|syntax error/i.test(text)) {
       return "The encounter could not finish cleanly. Please wait for the next one.";
@@ -326,17 +335,21 @@
     const effect = row.effectiveness
       ? `<span class="enc-badge is-${String(row.effectiveness).toLowerCase()}">${esc(row.effectiveness)}</span>`
       : "";
-    const mark = row.selected
-      ? `<span class="enc-selected-mark">SELECTED ✓</span>`
-      : "";
-    const why = row.disabled && row.reason
+    const lockedOut = row.disabled && !row.selected && row.reason === "ENCOUNTER LOCKED";
+    const pending = row.pending ? " is-pending" : "";
+    const mark = row.pending
+      ? `<span class="enc-selected-mark">${esc(row.kind === "throw" ? STATUS.readying : STATUS.selecting)}</span>`
+      : row.selected
+        ? `<span class="enc-selected-mark">${row.kind === "throw" ? "READY ✓" : "✓ SELECTED"}</span>`
+        : "";
+    const why = row.disabled && row.reason && !row.selected && !lockedOut
       ? `<span class="enc-why">${esc(row.reason)}</span>`
       : "";
     const qty = row.qty == null ? "" : `<span class="enc-qty">x${row.qty}</span>`;
     const disabled = row.disabled ? "disabled" : "";
     const compact = row.kind === "throw";
-    const detail = !compact && row.effect ? `<em>${esc(row.effect)}</em>` : "";
-    return `<button type="button" class="enc-card item-btn${compact ? " enc-ball-card" : ""}${selected}${row.recommended ? " is-rec" : ""}" data-kind="${esc(row.kind)}" data-item="${esc(row.item)}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}" aria-label="${esc(row.label)}${row.qty != null ? `, ${row.qty} owned` : ""}${row.disabled && row.reason ? `, ${row.reason}` : ""}">
+    const detail = !compact && row.effect && !row.selected ? `<em>${esc(row.effect)}</em>` : "";
+    return `<button type="button" class="enc-card item-btn${compact ? " enc-ball-card" : ""}${selected}${row.recommended ? " is-rec" : ""}${lockedOut ? " is-locked-out" : ""}${pending}" data-kind="${esc(row.kind)}" data-item="${esc(row.item)}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}" aria-label="${esc(row.label)}${row.qty != null ? `, ${row.qty} owned` : ""}${row.disabled && row.reason ? `, ${row.reason}` : ""}">
       <span class="item-icon item-icon-img"><img src="${spriteOf(row.sprite || row.item)}" alt=""></span>
       <span class="item-copy">
         <strong>${esc(row.label)}</strong>

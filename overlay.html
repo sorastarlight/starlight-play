@@ -9,12 +9,18 @@
   #stage { height: 100%; display: none; place-items: center; }
   #stage.shown { display: grid; }
   #sprite { max-width: min(70vw, 520px); max-height: min(70vh, 520px); image-rendering: pixelated; }
+  #stage.is-capture #sprite { animation: overlay-suck .55s ease forwards; }
+  #stage.is-paused #sprite { animation-play-state: paused; }
+  @keyframes overlay-suck {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(0); opacity: 0; }
+  }
 </style>
 <body>
   <main id="stage"><img id="sprite" alt="" onerror="window.playSpriteOnError && window.playSpriteOnError(this)"></main>
   <script src="js/config.js"></script>
   <script src="js/variants.js"></script>
   <script src="js/game.js?v=overlay1"></script>
-  <script src="js/overlay.js?v=overlay1"></script>
+  <script src="js/overlay.js?v=overlay2"></script>
 </body>
 </html>

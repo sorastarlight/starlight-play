@@ -21,12 +21,13 @@ test("joined state copy is centralized", () => {
 test("item lock copy names the item", () => {
   window.playItemLabel = (key) => key === "razz" ? "Razz Berry" : key;
   assert(window.playStatusItem("razz").includes("Razz Berry"));
+  assert(window.playStatusItem("razz").includes("Waiting for other Trainers"));
 });
 test("no-item selection is a valid lock", () => {
-  assert(window.playStatusItem("none").includes("chose not to use"));
+  assert(window.playStatusItem("none").includes("No item selected"));
 });
 test("Honey copy is communal", () => {
-  assert(window.playStatusItem("bait").includes("contributed Honey"));
+  assert(window.playStatusItem("bait").includes("Honey contributed"));
 });
 test("Honey meter is a compact strip without trainer chips", () => {
   const html = window.playHoneyMeterHtml({
@@ -89,13 +90,13 @@ test("Timer warning is not color-only", () => {
   assert(window.playTimerWarnClass(4) === "is-urgent");
 });
 test("Phase-closed errors become human copy", () => {
-  assert(window.playHumanRpcError({ message: "Items can only be chosen during the item phase." }) === "That phase has ended.");
+  assert(window.playHumanRpcError({ message: "Items can only be chosen during the item phase." }) === "The phase has already ended.");
 });
 test("Network errors become reconnecting", () => {
   assert(window.playHumanRpcError({ message: "Failed to fetch" }) === "Reconnecting…");
 });
 test("Insufficient-item errors stay friendly", () => {
-  assert(window.playHumanRpcError({ message: "You have no Ultra Ball left." }).includes("no longer have"));
+  assert(window.playHumanRpcError({ message: "You have no Ultra Ball left." }).includes("no longer available"));
 });
 test("Premier preview uses 10 qualifying Balls", () => {
   const n = window.playPremierPreview(

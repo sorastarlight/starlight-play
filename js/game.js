@@ -892,7 +892,19 @@
     noticeBusy = true;
     try {
       const data = await window.playCall("play_notices");
-      const notices = data?.notices || [];
+      const notices = (data?.notices || []).slice().sort((a, b) => {
+        const rank = (row) => {
+          const text = `${row?.kind || ""} ${row?.title || ""} ${row?.body || ""}`.toLowerCase();
+          if (/dex|new pokémon|new pokemon|new variant/.test(text)) return 0;
+          if (/\bxp\b|experience/.test(text)) return 1;
+          if (/coin/.test(text)) return 2;
+          if (/candy/.test(text)) return 3;
+          if (/drop|berry|ball|item/.test(text) && !/pokédex|pokedex/.test(text)) return 4;
+          if (/mastery|achievement/.test(text)) return 5;
+          return 6;
+        };
+        return rank(a) - rank(b);
+      });
       if (notices.length > 3) {
         window.playToast({
           kind: "summary",

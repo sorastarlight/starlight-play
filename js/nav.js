@@ -66,18 +66,36 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (!els.links) return;
     const items = links.slice();
     items.push({ href: "./store.html", id: "store", label: "Store" });
-    if (isAdmin) {
-      items.push({ href: "./admin.html", id: "admin", label: "Admin Hub" });
+    if (!els.links.dataset.ready) {
+      if (!els.links.childElementCount) {
+        els.links.innerHTML = items.map((item, index) => {
+          const current = item.id === page ? " aria-current=\"page\"" : "";
+          const extra = item.id === "store" ? " topnav-link-store" : "";
+          const divider = index < items.length - 1 ? `<span class="topnav-div" aria-hidden="true">|</span>` : "";
+          return `<a class="topnav-link${extra}" href="${item.href}" data-nav="${item.id}"${current}>${item.label}</a>${divider}`;
+        }).join("");
+      }
+      els.links.addEventListener("click", (event) => {
+        if (event.target.closest("a")) closeNavPanel();
+      });
+      els.links.dataset.ready = "1";
     }
     const adminPage = page === "admin" || page === "admin-live" || page === "admin-tools" || page === "admin-store";
-    els.links.innerHTML = items.map((item, index) => {
-      const current = item.id === "admin" ? (adminPage ? " aria-current=\"page\"" : "") : (item.id === page ? " aria-current=\"page\"" : "");
-      const extra = item.id === "store" ? " topnav-link-store" : "";
-      const divider = index < items.length - 1 ? `<span class="topnav-div" aria-hidden="true">|</span>` : "";
-      return `<a class="topnav-link${extra}" href="${item.href}"${current}>${item.label}</a>${divider}`;
-    }).join("");
-    els.links.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", closeNavPanel);
+    let adminLink = els.links.querySelector("[data-nav=\"admin\"]");
+    if (isAdmin && !adminLink) {
+      els.links.insertAdjacentHTML("beforeend", `<span class="topnav-div" data-nav="admin-div" aria-hidden="true">|</span><a class="topnav-link" href="./admin.html" data-nav="admin">Admin Hub</a>`);
+      adminLink = els.links.querySelector("[data-nav=\"admin\"]");
+    }
+    if (adminLink) {
+      const div = els.links.querySelector("[data-nav=\"admin-div\"]");
+      adminLink.hidden = !isAdmin;
+      if (div) div.hidden = !isAdmin;
+      if (isAdmin) adminLink.setAttribute("aria-current", adminPage ? "page" : "false");
+    }
+    els.links.querySelectorAll("a[data-nav]").forEach((link) => {
+      if (link.dataset.nav === "admin") return;
+      if (link.dataset.nav === page) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
     });
   }
 
@@ -127,7 +145,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     wrap.append(badge);
   }
 
-  if (els.signIn) els.signIn.hidden = true;
+  if (els.signIn) els.signIn.hidden = false;
   ensureNavTwitchFace();
   renderLinks(false);
   if (els.toggle) {
@@ -157,7 +175,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       }
       if (els.fallback) els.fallback.hidden = true;
       if (els.level) {
-        els.level.hidden = true;
+        els.level.hidden = false;
         els.level.textContent = "";
       }
       if (els.trainer) {
@@ -180,12 +198,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     }
     if (els.status) els.status.textContent = `Signed in as ${name}.`;
     if (els.level) {
-      if (trainer?.level) {
-        els.level.hidden = false;
-        els.level.textContent = `Lv. ${trainer.level}`;
-      } else {
-        els.level.hidden = true;
-      }
+      els.level.hidden = false;
+      els.level.textContent = trainer?.level ? `Lv. ${trainer.level}` : "";
     }
     if (els.trainer) {
       if (trainer) {

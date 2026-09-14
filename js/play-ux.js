@@ -343,26 +343,29 @@
       : "";
     const lockedOut = row.disabled && !row.selected && row.reason === "ENCOUNTER LOCKED";
     const pending = row.pending ? " is-pending" : "";
-    const mark = row.pending
-      ? `<span class="enc-selected-mark">${esc(row.kind === "throw" ? STATUS.readying : STATUS.selecting)}</span>`
-      : row.selected
-        ? `<span class="enc-selected-mark">${row.kind === "throw" ? "READY ✓" : "✓ SELECTED"}</span>`
-        : "";
-    const why = row.disabled && row.reason && !row.selected && !lockedOut
-      ? `<span class="enc-why">${esc(row.reason)}</span>`
+    const lockCopy = row.reason === "ENCOUNTER LOCKED" ? "Unavailable — item already selected" : row.reason;
+    const mark = row.kind === "throw" ? "READY ✓" : "✓ SELECTED";
+    const pendingMark = row.kind === "throw" ? (STATUS.readying || "READYING…") : (STATUS.selecting || "SELECTING…");
+    const whyText = row.disabled && lockCopy && !row.selected
+      ? lockCopy
       : "";
-    const qty = row.qty == null ? "" : `<span class="enc-qty">x${row.qty}</span>`;
+    const qty = row.qty == null ? `<span class="enc-qty">&nbsp;</span>` : `<span class="enc-qty">x${row.qty}</span>`;
     const disabled = row.disabled ? "disabled" : "";
     const compact = row.kind === "throw";
-    const detail = !compact && row.effect && !row.selected ? `<em>${esc(row.effect)}</em>` : "";
-    return `<button type="button" class="enc-card item-btn${compact ? " enc-ball-card" : ""}${selected}${row.recommended ? " is-rec" : ""}${lockedOut ? " is-locked-out" : ""}${pending}" data-kind="${esc(row.kind)}" data-item="${esc(row.item)}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}" aria-label="${esc(row.label)}${row.qty != null ? `, ${row.qty} owned` : ""}${row.disabled && row.reason ? `, ${row.reason}` : ""}">
+    const detail = !compact && row.effect
+      ? `<em class="enc-effect">${esc(row.effect)}</em>`
+      : `<em class="enc-effect">${whyText && !row.effect ? esc(whyText) : "&nbsp;"}</em>`;
+    const title = whyText ? ` title="${esc(whyText)}"` : "";
+    return `<button type="button" class="enc-card item-btn${compact ? " enc-ball-card" : ""}${selected}${row.recommended ? " is-rec" : ""}${lockedOut ? " is-locked-out" : ""}${pending}" data-kind="${esc(row.kind)}" data-item="${esc(row.item)}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}" aria-label="${esc(row.label)}${row.qty != null ? `, ${row.qty} owned` : ""}${whyText ? `, ${whyText}` : ""}"${title}>
       <span class="item-icon item-icon-img"><img src="${spriteOf(row.sprite || row.item)}" alt=""></span>
       <span class="item-copy">
         <strong>${esc(row.label)}</strong>
         ${qty}
-        ${rec}${effect}${mark}
-        ${detail}
-        ${why}
+        ${rec}${effect}
+        <span class="enc-card-status">
+          ${detail}
+          <span class="enc-selected-mark">${esc(row.pending ? pendingMark : mark)}</span>
+        </span>
       </span>
     </button>`;
   };

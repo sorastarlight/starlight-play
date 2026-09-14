@@ -32,24 +32,25 @@
 
   window.PLAY_LOCATION_VISUAL_DIR = ASSET_DIR;
   window.PLAY_LOCATION_PRESENTATION_DEFAULTS = {
-    brightness: 0.96,
-    saturation: 0.98,
-    overlay: 0.08,
-    overlayTint: "14, 20, 38",
-    vignette: 0.1
+    brightness: 1.06,
+    saturation: 0.78,
+    contrast: 0.88,
+    overlay: 0.12,
+    overlayTint: "235, 245, 255",
+    vignette: 0.05
   };
   window.PLAY_LOCATION_PRESENTATION = {
-    "viridian-forest": { brightness: 0.9, overlay: 0.12, vignette: 0.1 },
-    "route-1": { brightness: 0.95, overlay: 0.07, vignette: 0.08 },
-    "route-2": { brightness: 0.95, overlay: 0.07, vignette: 0.08 },
-    "mt-moon": { brightness: 1, overlay: 0.04, vignette: 0.07 },
-    "rock-tunnel": { brightness: 1, overlay: 0.04, vignette: 0.07 },
-    "cerulean-cave": { brightness: 1, overlay: 0.05, vignette: 0.08 },
-    "digletts-cave": { brightness: 1, overlay: 0.05, vignette: 0.08 },
-    "power-plant": { brightness: 0.96, overlay: 0.08, vignette: 0.09 },
-    "seafoam-islands": { brightness: 0.98, overlay: 0.05, vignette: 0.08 },
-    "pokemon-mansion": { brightness: 1, overlay: 0.05, vignette: 0.08 },
-    "pokemon-tower": { brightness: 0.98, overlay: 0.06, vignette: 0.08 }
+    "viridian-forest": { brightness: 1.02, saturation: 0.72, contrast: 0.86, overlay: 0.14, vignette: 0.06 },
+    "route-1": { brightness: 1.05, saturation: 0.76, contrast: 0.88, overlay: 0.11, vignette: 0.04 },
+    "route-2": { brightness: 1.05, saturation: 0.76, contrast: 0.88, overlay: 0.11, vignette: 0.04 },
+    "mt-moon": { brightness: 1.08, saturation: 0.84, contrast: 0.92, overlay: 0.08, vignette: 0.04 },
+    "rock-tunnel": { brightness: 1.08, saturation: 0.84, contrast: 0.92, overlay: 0.08, vignette: 0.04 },
+    "cerulean-cave": { brightness: 1.07, saturation: 0.82, contrast: 0.9, overlay: 0.09, vignette: 0.05 },
+    "digletts-cave": { brightness: 1.07, saturation: 0.82, contrast: 0.9, overlay: 0.09, vignette: 0.05 },
+    "power-plant": { brightness: 1.06, saturation: 0.8, contrast: 0.88, overlay: 0.12, vignette: 0.05 },
+    "seafoam-islands": { brightness: 1.07, saturation: 0.8, contrast: 0.9, overlay: 0.09, vignette: 0.04 },
+    "pokemon-mansion": { brightness: 1.08, saturation: 0.82, contrast: 0.9, overlay: 0.09, vignette: 0.04 },
+    "pokemon-tower": { brightness: 1.06, saturation: 0.8, contrast: 0.88, overlay: 0.1, vignette: 0.05 }
   };
 
   window.playNormalizeLocationText = function playNormalizeLocationText(value) {
@@ -183,11 +184,12 @@
           asset,
           position: `${row.background_position_x ?? tuned.position_x ?? 50}% ${row.background_position_y ?? tuned.position_y ?? 42}%`,
           scale: row.background_scale || tuned.zoom || 1,
-          brightness: Number(row.brightness ?? tuned.brightness ?? preset.brightness ?? 0.96),
-          saturation: Number(row.saturation ?? tuned.saturation ?? preset.saturation ?? 0.98),
-          overlay: Number(row.overlay_opacity ?? tuned.overlay ?? preset.overlay ?? 0.08),
-          overlayTint: row.overlay_tint || tuned.overlay_tint || preset.overlayTint || "14, 20, 38",
-          vignette: Number(row.vignette_strength ?? row.vignette ?? tuned.vignette ?? preset.vignette ?? 0.1),
+          brightness: Number(row.brightness ?? tuned.brightness ?? preset.brightness ?? 1.06),
+          saturation: Number(row.saturation ?? tuned.saturation ?? preset.saturation ?? 0.78),
+          contrast: Number(row.contrast ?? tuned.contrast ?? preset.contrast ?? 0.88),
+          overlay: Number(row.overlay_opacity ?? tuned.overlay ?? preset.overlay ?? 0.12),
+          overlayTint: row.overlay_tint || tuned.overlay_tint || preset.overlayTint || "235, 245, 255",
+          vignette: Number(row.vignette_strength ?? row.vignette ?? tuned.vignette ?? preset.vignette ?? 0.05),
           fallback: false
         };
       }
@@ -222,6 +224,6 @@
       ? window.playEscapeAttr
       : (value) => String(value || "").replace(/"/g, "&quot;");
     const assetUrl = window.playLocationAssetUrl(visual.asset);
-    return ` data-location-key="${escape(visual.key)}" style="--loc-bg-image:url('${escape(assetUrl)}');--loc-bg-position:${escape(visual.position)};--enc-map-brightness:${visual.brightness};--enc-map-saturate:${visual.saturation};--enc-overlay:${visual.overlay};--enc-overlay-rgb:${escape(visual.overlayTint)};--enc-vignette:${visual.vignette}"`;
+    return ` data-location-key="${escape(visual.key)}" style="--loc-bg-image:url('${escape(assetUrl)}');--loc-bg-position:${escape(visual.position)};--enc-map-brightness:${visual.brightness};--enc-map-saturate:${visual.saturation};--enc-map-contrast:${visual.contrast};--enc-overlay:${visual.overlay};--enc-overlay-rgb:${escape(visual.overlayTint)};--enc-vignette:${visual.vignette}"`;
   };
 })();

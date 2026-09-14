@@ -97,6 +97,7 @@ test("presentation defaults and difficult-location overrides", () => {
   assert(attrs.includes("--enc-map-brightness"));
   assert(attrs.includes("--enc-overlay"));
   assert(attrs.includes("--enc-vignette"));
+  assert(attrs.includes("--enc-map-contrast"));
 });
 
 

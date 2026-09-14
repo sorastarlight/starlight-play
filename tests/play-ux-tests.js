@@ -120,6 +120,15 @@ test("Master Ball shop copy is guaranteed, not recommended", () => {
   assert(/Guaranteed/i.test(text));
   assert(!/recommended/i.test(text));
 });
+test("item cards reserve selected-mark space before selection", () => {
+  const idle = window.playEncounterCardHtml({ kind: "prepare", item: "oran", label: "Oran Berry", qty: 3, effect: "Helps with the catch.", selected: false });
+  const selected = window.playEncounterCardHtml({ kind: "prepare", item: "oran", label: "Oran Berry", qty: 3, effect: "Helps with the catch.", selected: true });
+  assert(idle.includes("enc-selected-mark"), idle);
+  assert(selected.includes("enc-selected-mark"), selected);
+  assert(idle.includes("enc-card-status"), idle);
+  assert(selected.includes("is-selected"), selected);
+  assert(!idle.includes("is-selected"), idle);
+});
 
 const failed = results.filter((row) => !row.passed);
 results.forEach((row) => {

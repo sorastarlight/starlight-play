@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260914-rc2">
+<link rel="stylesheet" href="css/play.css?v=20260914-rc3">
 <body data-page="store">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -20,18 +20,21 @@
         <span class="visually-hidden">Open menu</span>
       </button>
       <div id="topnav-panel" class="topnav-panel">
-        <div id="topnav-links" class="topnav-links"></div>
+        <div id="topnav-links" class="topnav-links"><a class="topnav-link" href="./" data-nav="play">Play</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./inventory.html" data-nav="inventory">My Inventory</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./pokedex.html" data-nav="pokedex">My Pokédex</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./achievements.html" data-nav="achievements">Achievements</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./storage.html" data-nav="storage">My PC</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./evolve.html" data-nav="evolve">Evolution</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./trade.html" data-nav="trade">Global Trade System</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./rankings.html" data-nav="rankings">Rankings</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./events.html" data-nav="events">Events</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link topnav-link-store" href="./store.html" data-nav="store" aria-current="page">Store</a></div>
       </div>
       <div class="topnav-actions">
       <p id="auth-status" class="visually-hidden" role="status">Checking Twitch sign-in…</p>
-      <button id="sign-in" class="signin-btn" type="button" hidden title="Sign in with Twitch">Sign in</button>
+      <button id="sign-in" class="signin-btn" type="button" title="Sign in with Twitch">Sign in</button>
       <div id="account" class="account" hidden>
         <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+          <span class="twitch-face twitch-face-nav">
           <img id="account-avatar" class="avatar" alt="" hidden>
           <span id="account-fallback" class="avatar-fallback" hidden></span>
+          <i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>
+        </span>
           <span class="account-meta">
             <span id="account-name" class="account-name">Trainer</span>
-            <span id="account-level" class="account-level" hidden></span>
+            <span id="account-level" class="account-level"></span>
           </span>
           <span class="account-caret" aria-hidden="true"></span>
         </button>
@@ -87,14 +90,14 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260914-rc2"></script>
-<script src="js/build.js?v=20260914-rc2"></script>
-<script src="js/auth.js?v=20260914-rc2"></script>
-<script src="js/variants.js?v=20260914-rc2"></script>
-<script src="js/game.js?v=20260914-rc2"></script>
-<script src="js/play-ux.js?v=20260914-rc2"></script>
-<script src="js/trainers.js?v=20260914-rc2"></script>
-<script src="js/hud.js?v=20260914-rc2"></script>
-<script src="js/nav.js?v=20260914-rc2"></script>
-<script src="js/store.js?v=20260914-rc2"></script>
+<script src="js/config.js?v=20260914-rc3"></script>
+<script src="js/build.js?v=20260914-rc3"></script>
+<script src="js/auth.js?v=20260914-rc3"></script>
+<script src="js/variants.js?v=20260914-rc3"></script>
+<script src="js/game.js?v=20260914-rc3"></script>
+<script src="js/play-ux.js?v=20260914-rc3"></script>
+<script src="js/trainers.js?v=20260914-rc3"></script>
+<script src="js/hud.js?v=20260914-rc3"></script>
+<script src="js/nav.js?v=20260914-rc3"></script>
+<script src="js/store.js?v=20260914-rc3"></script>
 </body>

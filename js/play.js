@@ -326,15 +326,16 @@
         btn.disabled = Boolean(row.disabled);
         btn.classList.toggle("is-pending", Boolean(row.pending));
         btn.classList.toggle("is-selected", Boolean(row.selected));
+        btn.classList.toggle("is-locked-out", Boolean(row.disabled && !row.selected && row.reason === "ENCOUNTER LOCKED"));
         const mark = btn.querySelector(".enc-selected-mark");
-        if (row.pending) {
-          if (mark) mark.textContent = row.kind === "throw"
-            ? (window.PLAY_STATUS?.readying || "READYING…")
-            : (window.PLAY_STATUS?.selecting || "SELECTING…");
-        } else if (row.selected) {
-          if (mark) mark.textContent = row.kind === "throw" ? "READY ✓" : "✓ SELECTED";
-        } else if (mark) {
-          mark.remove();
+        if (mark) {
+          if (row.pending) {
+            mark.textContent = row.kind === "throw"
+              ? (window.PLAY_STATUS?.readying || "READYING…")
+              : (window.PLAY_STATUS?.selecting || "SELECTING…");
+          } else {
+            mark.textContent = row.kind === "throw" ? "READY ✓" : "✓ SELECTED";
+          }
         }
       });
       if (plan.status) setActionStatus(plan);

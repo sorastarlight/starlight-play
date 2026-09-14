@@ -88,7 +88,7 @@ test("join stage does not repeat the wild appearance line", () => {
   assert(!html.includes("A wild Farfetch'd appeared!"));
   assert(html.includes("data-stage-status") && html.includes(" hidden"));
   assert(html.includes('data-stats-phase="join"'));
-  assert(html.includes('data-stat-label="thrown">Throws'));
+  assert(html.includes('data-stat-label="progress">Prepared'));
 });
 
 test("success copy uses a cinematic banner and ball plate, not a second GOTCHA card", () => {
@@ -243,6 +243,19 @@ test("community result waits for the personal results scene", () => {
 test("live patches can inject the catch sequence without remounting the map", () => {
   assert(String(window.playPatchEncounter).includes("insertAdjacentHTML"));
   assert(String(window.playPatchEncounter).includes("data-enc-head-copy"));
+});
+
+test("level chip uses authoritative round.level and hides when missing", () => {
+  const withLevel = window.playRenderEncounter(wildRound({ level: 23 }), {});
+  const without = window.playRenderEncounter(wildRound({ level: null }), {});
+  const zero = window.playRenderEncounter(wildRound({ level: 0 }), {});
+  assert(withLevel.includes("encounter-level-chip"), withLevel);
+  assert(withLevel.includes("Lv. 23"), withLevel);
+  assert(!without.includes("encounter-level-chip"), without);
+  assert(!without.includes("Lv. 0"), without);
+  assert(!zero.includes("Lv. 0"), zero);
+  assert(window.playPokemonLevel({ level: 23 }) === 23);
+  assert(window.playPokemonLevel({}) === 0);
 });
 
 const failed = results.filter((row) => !row.passed);

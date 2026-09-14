@@ -163,6 +163,18 @@
     return `<span class="type-chip gender-chip is-none">${window.playEscapeAttr(key || "Unknown")}</span>`;
   };
 
+  window.playPokemonLevel = function playPokemonLevel(round) {
+    const n = Number(round?.level);
+    if (!Number.isFinite(n) || n < 1) return 0;
+    return Math.round(n);
+  };
+
+  window.playLevelChipHtml = function playLevelChipHtml(round) {
+    const level = window.playPokemonLevel(round);
+    if (!level) return "";
+    return `<span class="encounter-level-chip" data-level-chip>Lv. ${level}</span>`;
+  };
+
   window.playRenderEncounter = function playRenderEncounter(round, options) {
     const opts = options || {};
     if (!round) {
@@ -219,6 +231,7 @@
     const locChip = location && !/^unknown$/i.test(location)
       ? `<p class="encounter-location-chip" data-location-chip><span aria-hidden="true">📍</span><span>${window.playEscapeAttr(location)}</span></p>`
       : "";
+    const levelChip = window.playLevelChipHtml(round);
     const catching = Boolean(catchSeq);
     const hud = window.playEncounterStageCopy(round, catching ? window.playAdvanceCatchSeqState(round, opts.me || null) : null, opts.me || null, name);
     window._playStageIntro = window._playStageIntro || new Set();
@@ -237,7 +250,7 @@
         </div>`
       : `<div class="dex-head" data-enc-head><span class="dex-ended" data-enc-head-copy>Encounter ended</span>${hidden}${paused}</div>`;
     const statText = (key) => window.playEncounterStatText(round, key);
-    const thrownLabel = round.phase === "throw" ? "Ready" : "Throws";
+    const thrownLabel = round.phase === "throw" ? "Ready" : (round.phase === "prepare" || round.phase === "join" ? "Prepared" : "Throws");
     const meta = `${window.playGenderChipHtml(round.gender)}${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}`;
     return `
       ${header}
@@ -246,6 +259,7 @@
         <div class="encounter-map-scrim" aria-hidden="true"></div>
         <div class="encounter-map-vignette" aria-hidden="true"></div>
         ${locChip}
+        ${levelChip}
         <p class="encounter-pause-note" data-pause-note${!round.paused || round.resolved ? " hidden" : ""}>${round.pausedForBreak ? (window.PLAY_STATUS?.adPause || "Encounter paused for Twitch ad break.") : (window.PLAY_STATUS?.adminPause || "Encounter temporarily paused.")}</p>
         <div class="encounter-stage-meta">${meta}</div>
         ${shiny ? `<div class="encounter-shiny-burst" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>` : ""}
@@ -264,10 +278,9 @@
         <div class="phase-bar" aria-hidden="true"><i data-bar style="width:${opts.bar || 0}%"></i></div>
       </div>
       <dl class="dex-stats" data-stats-phase="${window.playEscapeAttr(round.phase || "closed")}">
-        <div data-stat-box="participants"${window.playHiddenEncounterStats(round.phase).participants ? " aria-hidden=\"true\"" : ""}><dt>Trainers</dt><dd data-stat="participants">${statText("participants")}</dd></div>
-        <div data-stat-box="prepared"${window.playHiddenEncounterStats(round.phase).prepared ? " aria-hidden=\"true\"" : ""}><dt>Prepared</dt><dd data-stat="prepared">${statText("prepared")}</dd></div>
-        <div data-stat-box="thrown"${window.playHiddenEncounterStats(round.phase).thrown ? " aria-hidden=\"true\"" : ""}><dt data-stat-label="thrown">${thrownLabel}</dt><dd data-stat="thrown">${statText("thrown")}</dd></div>
-        <div data-stat-box="bait"${window.playHiddenEncounterStats(round.phase).bait ? " aria-hidden=\"true\"" : ""}><dt>Honey</dt><dd data-stat="bait">${statText("bait")}</dd></div>
+        <div data-stat-box="participants"><dt>Trainers</dt><dd data-stat="participants">${statText("participants")}</dd></div>
+        <div data-stat-box="progress"><dt data-stat-label="progress">${thrownLabel}</dt><dd data-stat="progress">${statText("progress")}</dd></div>
+        <div data-stat-box="bait"><dt>Honey</dt><dd data-stat="bait">${statText("bait")}</dd></div>
       </dl>
       ${lastAction}
       ${honey}
@@ -275,7 +288,7 @@
   };
 
   window.playHiddenEncounterStats = function playHiddenEncounterStats(phase) {
-    if (phase === "join") return { prepared: true, thrown: true };
+    if (phase === "join") return { thrown: true };
     if (phase === "prepare") return { thrown: true };
     if (phase === "throw" || phase === "reveal" || phase === "closed") return { prepared: true };
     return {};
@@ -294,9 +307,13 @@
     const prepared = Number(round?.prepared || 0);
     const thrown = Number(round?.thrown || 0);
     if (key === "participants") return String(trainers);
-    if (key === "prepared") {
-      return round?.phase === "prepare" ? `${prepared} / ${trainers}` : String(prepared);
+    if (key === "progress") {
+      if (round?.phase === "throw" || round?.phase === "reveal" || round?.phase === "closed") {
+        return `${thrown} / ${trainers}`;
+      }
+      return `${prepared} / ${trainers}`;
     }
+    if (key === "prepared") return `${prepared} / ${trainers}`;
     if (key === "thrown") {
       return (round?.phase === "throw" || round?.phase === "reveal")
         ? `${thrown} / ${trainers}`
@@ -798,8 +815,12 @@
       statsEl.dataset.statsPhase = round.phase || "closed";
       window.playMarkEncounterStatAria(statsEl, round.phase);
     }
-    const thrownLabel = root.querySelector("[data-stat-label=\"thrown\"]");
-    if (thrownLabel) thrownLabel.textContent = round.phase === "throw" ? "Ready" : "Throws";
+    const thrownLabel = root.querySelector("[data-stat-label=\"progress\"]");
+    if (thrownLabel) {
+      thrownLabel.textContent = round.phase === "throw"
+        ? "Ready"
+        : (round.phase === "prepare" || round.phase === "join" ? "Prepared" : "Throws");
+    }
     const visual = root.querySelector(".encounter-visual-stage");
     const live = Boolean(round.phase && round.phase !== "closed");
     const head = root.querySelector("[data-enc-head]");
@@ -875,6 +896,7 @@
       if (el) el.textContent = value;
     };
     setStat("participants", window.playEncounterStatText(round, "participants"));
+    setStat("progress", window.playEncounterStatText(round, "progress"));
     setStat("prepared", window.playEncounterStatText(round, "prepared"));
     setStat("thrown", window.playEncounterStatText(round, "thrown"));
     setStat("bait", window.playEncounterStatText(round, "bait"));

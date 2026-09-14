@@ -105,6 +105,15 @@ test("unknown locations fall back to Kanto", () => {
   assert(visual && visual.key === "kanto", visual && visual.key);
 });
 
+test("CSS background urls are document-absolute so play.css does not resolve them under /css/", () => {
+  const previous = globalThis.document;
+  globalThis.document = { baseURI: "https://play.example/" };
+  const attrs = window.playLocationVisualAttrs("Route 1");
+  if (previous === undefined) delete globalThis.document;
+  else globalThis.document = previous;
+  assert(attrs.includes("https://play.example/images/encounters/locations/frlg/route-1.png"), attrs);
+});
+
 test("Kanto region map matches the FRLG Kanto file", () => {
   assert(window.playLocationMatchConfidence("Kanto", "FRLG Kanto.png") === "HIGH");
   assert(window.playLocationMatchConfidence("Kanto", "Kanto Route 1 FRLG.png") === "NONE");

@@ -196,12 +196,32 @@
     return null;
   };
 
+  // url() inside a custom property is resolved against the stylesheet that
+  // uses it (css/play.css), not the page. Relative "images/..." becomes
+  // "/css/images/..." and 404s. Absolute URLs stay put.
+  window.playLocationAssetUrl = function playLocationAssetUrl(path) {
+    const value = String(path || "").trim();
+    if (!value) return "";
+    if (/^https?:\/\//i.test(value) || /^data:/i.test(value)) return value;
+    const raw = value.replace(/^\/+/, "");
+    const base = (typeof document !== "undefined" && document.baseURI)
+      || (typeof location !== "undefined" && location.href)
+      || "";
+    if (!base) return raw;
+    try {
+      return new URL(raw, base).href;
+    } catch (_) {
+      return raw;
+    }
+  };
+
   window.playLocationVisualAttrs = function playLocationVisualAttrs(locationName) {
     const visual = window.playLocationVisual(locationName);
     if (!visual) return "";
     const escape = typeof window.playEscapeAttr === "function"
       ? window.playEscapeAttr
       : (value) => String(value || "").replace(/"/g, "&quot;");
-    return ` data-location-key="${escape(visual.key)}" style="--loc-bg-image:url('${escape(visual.asset)}');--loc-bg-position:${escape(visual.position)};--enc-map-brightness:${visual.brightness};--enc-map-saturate:${visual.saturation};--enc-overlay:${visual.overlay};--enc-overlay-rgb:${escape(visual.overlayTint)};--enc-vignette:${visual.vignette}"`;
+    const assetUrl = window.playLocationAssetUrl(visual.asset);
+    return ` data-location-key="${escape(visual.key)}" style="--loc-bg-image:url('${escape(assetUrl)}');--loc-bg-position:${escape(visual.position)};--enc-map-brightness:${visual.brightness};--enc-map-saturate:${visual.saturation};--enc-overlay:${visual.overlay};--enc-overlay-rgb:${escape(visual.overlayTint)};--enc-vignette:${visual.vignette}"`;
   };
 })();

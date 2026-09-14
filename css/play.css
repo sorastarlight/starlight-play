@@ -1528,6 +1528,7 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   content: "";
   position: absolute;
   inset: 0;
+  /* --loc-bg-image must be an absolute url(); relative paths resolve under /css/. */
   background-image: var(--loc-bg-image);
   background-size: cover;
   background-position: var(--loc-bg-position, 50% 42%);

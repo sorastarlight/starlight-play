@@ -709,12 +709,15 @@
     const ball = window.playEscapeAttr(window.playArticle(window.playItemLabel(row?.item)));
     if (row?.kind === "joined") return `<li>${time}<span><strong>${name}</strong> joined the encounter!</span></li>`;
     if (row?.kind === "prepared" && row.item === "bait") {
-      return `<li class="is-honey">${time}<span><strong>${name}</strong> added Honey to the encounter!</span></li>`;
+      return `<li class="is-honey">${time}<span><strong>${name}</strong> used a honey to help everyone's catch rate!</span></li>`;
     }
     if (row?.kind === "prepared" && (row.item === "none" || !row.item)) {
       return `<li>${time}<span><strong>${name}</strong> is ready.</span></li>`;
     }
-    if (row?.kind === "prepared") return `<li>${time}<span><strong>${name}</strong> is ready.</span></li>`;
+    if (row?.kind === "prepared") {
+      const berry = window.playEscapeAttr(window.playItemLabel(row.item));
+      return `<li>${time}<span><strong>${name}</strong> has chosen ${berry}!</span></li>`;
+    }
     if (row?.kind === "selected") {
       return `<li>${time}<span><strong>${name}</strong> has chosen ${ball} and is ready to throw!</span></li>`;
     }

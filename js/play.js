@@ -64,6 +64,8 @@
       if (!merged.prep && prev.prep) merged.prep = prev.prep;
       if (!merged.ball && prev.ball) merged.ball = prev.ball;
       if (merged.result == null && prev.result) merged.result = prev.result;
+      const resultKind = String(merged.result || "").trim().toLowerCase();
+      if (resultKind === "caught" || resultKind.startsWith("caught")) merged.caught = true;
       if ((prev.caught === true || String(prev.result || "").toLowerCase() === "caught")
         && incoming.caught !== true
         && !incoming.result) {
@@ -85,9 +87,10 @@
     if (!round || round.phase === "closed") {
       let closedStatus = "";
       if (round?.resolved && me) {
-        if (me.caught) closedStatus = `Caught ${species}`;
+        const outcome = typeof window.playThrowOutcome === "function" ? window.playThrowOutcome(me, round) : "";
+        if (outcome === "caught" || me.caught) closedStatus = `Caught ${species}`;
         else if (!me.ball) closedStatus = window.PLAY_STATUS?.noBallTimeout || window.PLAY_STATUS?.noBall || "You didn't choose a Poké Ball in time!";
-        else if (me.result) closedStatus = `${species} broke free. Better luck next encounter!`;
+        else if (outcome === "broke") closedStatus = `${species} broke free. Better luck next encounter!`;
       }
       const results = round?.results || {};
       return {
@@ -244,6 +247,7 @@
       buttons.push(...rows);
     }
     const waiting = window.PLAY_STATUS?.waitingOthers || "Waiting for other Trainers…";
+    let status = "";
     if (joining && !me && joiningPending) status = "";
     else if (joining && me) status = "";
     else if (preparing && me?.prep) {
@@ -256,7 +260,7 @@
     else if (joining && !me) status = "";
     if (reconnecting) status = window.PLAY_STATUS?.reconnect || "Reconnecting…";
     return {
-      key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.selected ? "on" : ""}`).join("|") + `::${status}::${throwing && me?.ball ? me.ball : ""}`,
+      key: buttons.map((row) => `${row.kind}:${row.item}:${row.disabled ? "off" : "on"}:${row.selected ? "on" : ""}:${row.pending ? "pend" : ""}`).join("|") + `::${status}::${throwing && me?.ball ? me.ball : ""}::${acting ? "act" : "ok"}`,
       buttons,
       status,
       phase,
@@ -302,6 +306,18 @@
         const btn = els.actions.querySelector(`[data-kind="${row.kind}"][data-item="${row.item}"]`);
         if (!btn) return;
         btn.disabled = Boolean(row.disabled);
+        btn.classList.toggle("is-pending", Boolean(row.pending));
+        btn.classList.toggle("is-selected", Boolean(row.selected));
+        const mark = btn.querySelector(".enc-selected-mark");
+        if (row.pending) {
+          if (mark) mark.textContent = row.kind === "throw"
+            ? (window.PLAY_STATUS?.readying || "READYING…")
+            : (window.PLAY_STATUS?.selecting || "SELECTING…");
+        } else if (row.selected) {
+          if (mark) mark.textContent = row.kind === "throw" ? "READY ✓" : "✓ SELECTED";
+        } else if (mark) {
+          mark.remove();
+        }
       });
       if (plan.status) setActionStatus(plan);
       return;
@@ -481,6 +497,9 @@
 
   function render(data) {
     state = attachMe(data);
+    const trainer = state?.trainer || {};
+    window._playTrainerName = trainer.displayName || trainer.display_name || trainer.name || profile?.display_name || "";
+    window._playTrainerLogin = trainer.twitchLogin || trainer.twitch_login || profile?.twitch_login || "";
     const round = liveRound(state);
     const view = { ...state, round };
     const pickerStale = pickerKind === "berries"
@@ -593,14 +612,20 @@
       reconnecting = false;
       if (kind === "join") joiningPending = false;
       if (kind === "join" && roundId) joinedMe.set(roundId, data?.me || { joined: true });
-      if ((kind === "prepare" || kind === "throw") && roundId && data?.me) joinedMe.set(roundId, data.me);
+      if ((kind === "prepare" || kind === "throw") && roundId && data?.me) {
+        const prevKeep = joinedMe.get(roundId) || prevMe || {};
+        joinedMe.set(roundId, { ...prevKeep, ...data.me });
+      }
       if (kind === "prepare" && item) window.playRememberUsed?.("berries", item);
       if (kind === "throw" && item) window.playRememberUsed?.("balls", item);
       if (kind === "throw" && els.throwModal?.open && !throwViewOnly) {
         try { els.throwModal.close(); } catch (_) {}
       }
+      acting = false;
+      lastActionKey = "";
       render(data);
     } catch (error) {
+      acting = false;
       if (roundId && prevMe && (kind === "prepare" || kind === "throw")) joinedMe.set(roundId, prevMe);
       if (kind === "join") joiningPending = false;
       const message = window.playHumanRpcError ? window.playHumanRpcError(error) : window.playRpcError(error);

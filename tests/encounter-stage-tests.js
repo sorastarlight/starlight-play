@@ -116,8 +116,57 @@ test("shiny success and failure use high-contrast HUD copy", () => {
     { joined: true, ball: "pokeball", result: "escaped" },
     "Mr. Mime"
   );
-  assert(miss.banner === "OH NO!", miss.banner);
+  assert(miss.banner === "IT BROKE FREE!", miss.banner);
   assert(miss.status === "Mr. Mime broke free!", miss.status);
+});
+
+test("personal success is not shown as a breakout", () => {
+  const caughtByResult = window.playEncounterStageCopy(
+    catchRound({ resolved: true, phase: "closed", catchers: [{ name: "Twinklephoenixstar" }] }),
+    { scene: "results" },
+    { joined: true, ball: "ultraball", result: "Caught" },
+    "Jolteon"
+  );
+  assert(caughtByResult.banner === "✨ GOTCHA! ✨", caughtByResult.banner);
+  const waiting = window.playEncounterStageCopy(
+    catchRound({ resolved: true, phase: "closed" }),
+    { scene: "results" },
+    { joined: true, ball: "ultraball" },
+    "Jolteon"
+  );
+  assert(waiting.banner === "", waiting.banner);
+  assert(/Waiting for the result/.test(waiting.status), waiting.status);
+  window._playTrainerName = "Twinklephoenixstar";
+  const listed = window.playEncounterStageCopy(
+    catchRound({ resolved: true, phase: "closed", catchers: [{ name: "Twinklephoenixstar" }] }),
+    { scene: "results" },
+    { joined: true, ball: "greatball", caught: false },
+    "Jolteon"
+  );
+  window._playTrainerName = "";
+  assert(listed.banner === "✨ GOTCHA! ✨", listed.banner);
+  const master = window.playEncounterStageCopy(
+    catchRound({ resolved: true, phase: "closed" }),
+    { scene: "results" },
+    { joined: true, ball: "masterball" },
+    "Jolteon"
+  );
+  assert(master.banner === "✨ GOTCHA! ✨", master.banner);
+});
+
+test("waiting results do not play the miss flee classes", () => {
+  const html = window.playCatchSeqHtml(catchRound({ id: "wait-1", resolved: true, phase: "closed" }), {
+    me: { joined: true, ball: "ultraball" }
+  });
+  assert(html.includes("is-results"), html.match(/catch-seq [^"]*/)?.[0]);
+  assert(!/\bis-miss\b/.test(html), html.match(/catch-seq [^"]*/)?.[0]);
+  const missHtml = window.playCatchSeqHtml(catchRound({ id: "wait-2", resolved: true, phase: "closed" }), {
+    me: { joined: true, ball: "ultraball", result: "Escaped" }
+  });
+  assert(/\bis-miss\b/.test(missHtml), missHtml.match(/catch-seq [^"]*/)?.[0]);
+  assert(/\bis-win\b/.test(window.playCatchSeqHtml(catchRound({ id: "wait-3", resolved: true, phase: "closed" }), {
+    me: { joined: true, ball: "ultraball", result: "Caught" }
+  })), "caught result should be a win");
 });
 
 test("live HUD patches do not remount the catch sequence", () => {

@@ -241,7 +241,7 @@
     const meta = `${window.playGenderChipHtml(round.gender)}${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}`;
     return `
       ${header}
-      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${catchSeq && /is-mid-seq/.test(catchSeq) ? " is-mid-catch" : ""}${shiny ? " is-shiny-wild" : ""}${wildIntro ? " is-wild-enter" : ""}${shinyIntro ? " is-shiny-intro" : ""}${hud.showBanner && /GOTCHA|SHINY/.test(hud.banner) ? " is-win-scene" : ""}${hud.showBanner && /OH NO/.test(hud.banner) ? " is-miss-scene" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
+      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${catchSeq && /is-mid-seq/.test(catchSeq) ? " is-mid-catch" : ""}${shiny ? " is-shiny-wild" : ""}${wildIntro ? " is-wild-enter" : ""}${shinyIntro ? " is-shiny-intro" : ""}${hud.showBanner && /GOTCHA|SHINY/.test(hud.banner) ? " is-win-scene" : ""}${hud.showBanner && /BROKE FREE|OH NO/.test(hud.banner) ? " is-miss-scene" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
         <div class="encounter-map" aria-hidden="true"></div>
         <div class="encounter-map-scrim" aria-hidden="true"></div>
         <div class="encounter-map-vignette" aria-hidden="true"></div>
@@ -449,14 +449,31 @@
   }
 
   function isCaughtFlag(value) {
-    return value === true || value === 1 || value === "1" || /^true$/i.test(String(value ?? ""));
+    if (value === true || value === 1 || value === "1") return true;
+    const text = String(value ?? "").trim().toLowerCase();
+    return text === "true" || text === "caught" || text === "yes";
   }
 
   function resultKind(result) {
     const text = String(result || "").trim().toLowerCase();
-    if (text === "caught") return "caught";
-    if (text === "escaped" || text === "no throw") return "broke";
+    if (!text) return "";
+    if (text === "caught" || text === "gotcha" || text === "success" || text.startsWith("caught")) return "caught";
+    if (text === "escaped" || text === "broke" || text === "broke free" || text === "no throw" || text === "failed") return "broke";
     return "";
+  }
+
+  function listedCatcher(round) {
+    const names = [window._playTrainerName, window._playTrainerLogin]
+      .map((value) => String(value || "").trim().toLowerCase())
+      .filter(Boolean);
+    if (!names.length) return false;
+    const rows = []
+      .concat(Array.isArray(round?.catchers) ? round.catchers : [])
+      .concat(Array.isArray(round?.results?.catchers) ? round.results.catchers : []);
+    return rows.some((row) => {
+      const label = typeof row === "string" ? row : (row?.name || row?.displayName || row?.login || "");
+      return names.includes(String(label).trim().toLowerCase());
+    });
   }
 
   function inferredSoloCatch(round, me) {
@@ -472,10 +489,12 @@
     if (!me?.ball) return "";
     if (me.ball === "masterball") return "caught";
     if (isCaughtFlag(me.caught) || resultKind(me.result) === "caught") return "caught";
+    if (listedCatcher(round)) return "caught";
     if (inferredSoloCatch(round, me)) return "caught";
-    if (resultKind(me.result) === "broke" || me.result) return "broke";
+    if (resultKind(me.result) === "broke") return "broke";
     return "";
   }
+  window.playThrowOutcome = throwOutcome;
 
   // Every Trainer rolls separately, so the card reports the viewer's own result.
   function personalResult(round, me, species) {
@@ -485,6 +504,7 @@
       return {
         win: false,
         spectator: true,
+        outcome: "",
         headline: "Encounter complete",
         sub: caughtN > 0
           ? `${caughtN} Trainer${caughtN === 1 ? "" : "s"} caught ${species}`
@@ -493,11 +513,12 @@
       };
     }
     if (!me.ball) {
-      return { win: false, headline: "Oh no!", sub: "You didn't choose a Poké Ball in time!", note: "Better luck next encounter!" };
+      return { win: false, outcome: "nothrow", headline: "Oh no!", sub: "You didn't choose a Poké Ball in time!", note: "Better luck next encounter!" };
     }
     if (outcome === "caught") {
       return {
         win: true,
+        outcome: "caught",
         headline: "Gotcha!",
         sub: `${species} was caught!`,
         note: `Caught with ${window.playArticle(window.playItemLabel(me.ball))}`
@@ -506,13 +527,15 @@
     if (outcome === "broke") {
       return {
         win: false,
-        headline: "Oh no!",
+        outcome: "broke",
+        headline: "It broke free!",
         sub: `${species} broke free!`,
         note: `Better luck next encounter! · ${window.playItemLabel(me.ball)}${me.prep && me.prep !== "none" && me.prep !== "bait" ? ` · ${window.playItemLabel(me.prep)}` : ""}`
       };
     }
     return {
       win: false,
+      outcome: "",
       headline: "Waiting for the result…",
       sub: "",
       note: ""
@@ -551,7 +574,10 @@
       if (!me?.ball) {
         return { banner: "", status: window.PLAY_STATUS?.noBall || "No Poké Ball was thrown.", showBanner: false };
       }
-      return { banner: "OH NO!", status: personal.sub || `${name} broke free!`, showBanner: true };
+      if (personal.outcome === "broke" || throwOutcome(me, round) === "broke") {
+        return { banner: "IT BROKE FREE!", status: personal.sub || `${name} broke free!`, showBanner: true };
+      }
+      return { banner: "", status: "Waiting for the result…", showBanner: false };
     }
     if (personal.spectator) {
       return { banner: "", status: window.PLAY_STATUS?.watching || "Watching the encounter…", showBanner: false };
@@ -589,7 +615,7 @@
       if (status.textContent !== next) status.textContent = next;
     }
     visual.classList.toggle("is-win-scene", Boolean(hud.showBanner && /GOTCHA|SHINY/.test(hud.banner)));
-    visual.classList.toggle("is-miss-scene", Boolean(hud.showBanner && /OH NO/.test(hud.banner)));
+    visual.classList.toggle("is-miss-scene", Boolean(hud.showBanner && /BROKE FREE|OH NO/.test(hud.banner)));
     visual.classList.toggle("is-shiny-win", Boolean(hud.showBanner && /SHINY/.test(`${hud.banner} ${hud.status}`)));
     const pauseNote = visual.querySelector("[data-pause-note]");
     if (pauseNote) {
@@ -647,9 +673,10 @@
     const elapsed = Math.max(0, Math.min(11, ((pct - 8) / 92) * 11));
     const personal = personalResult(round, me, species);
     const win = st.scene === "results" && personal.win;
+    const miss = st.scene === "results" && personal.outcome === "broke";
     const shiny = String(round.variant || "").includes("shiny");
     const midSeq = st.scene === "wobble" && elapsed > 0.45;
-    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}${!threw ? " is-watch" : ""}${!threw && me?.joined ? " is-nothrow" : ""}${personal.spectator ? " is-spectator" : ""}${monitor ? " is-monitor" : ""}${win && shiny ? " is-shiny-win" : ""}${midSeq ? " is-mid-seq" : ""}`;
+    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${win ? " is-win" : ""}${miss ? " is-miss" : ""}${!threw ? " is-watch" : ""}${!threw && me?.joined ? " is-nothrow" : ""}${personal.spectator ? " is-spectator" : ""}${monitor ? " is-monitor" : ""}${win && shiny ? " is-shiny-win" : ""}${midSeq ? " is-mid-seq" : ""}`;
     return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-seq-elapsed="${elapsed.toFixed(2)}" data-outcome="${st.outcome || ""}" style="--shakes:${st.shakes};--seq-elapsed:${elapsed.toFixed(2)}s">
       <div class="catch-seq-flash" aria-hidden="true"></div>
       <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -680,7 +707,7 @@
     box.classList.toggle("is-caught", st.outcome === "caught" || personal.win);
     box.classList.toggle("is-broke", st.outcome === "broke" && !personal.win);
     box.classList.toggle("is-win", st.scene === "results" && personal.win);
-    box.classList.toggle("is-miss", st.scene === "results" && !personal.win && !personal.spectator);
+    box.classList.toggle("is-miss", st.scene === "results" && personal.outcome === "broke");
     box.classList.toggle("is-spectator", Boolean(personal.spectator));
     box.classList.toggle("is-nothrow", Boolean(me?.joined && !me?.ball));
     box.classList.toggle("is-watch", !me?.ball);

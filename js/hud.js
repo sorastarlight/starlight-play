@@ -194,6 +194,10 @@
     const sprite = window.playSpriteUrl(round.dex, round.variant);
     const shiny = String(round.variant || "").includes("shiny");
     const location = window.playHabitat(round.dex, round.location);
+    const locAttrs = typeof window.playLocationVisualAttrs === "function"
+      ? window.playLocationVisualAttrs(location)
+      : "";
+    const locClass = locAttrs ? " has-location-bg" : "";
     const hidden = round.hidden ? `<span class="chip warn">Hidden</span>` : "";
     const paused = round.paused
       ? `<span class="chip pause">${round.pausedForBreak ? "Ad break" : "Paused"}</span>`
@@ -223,7 +227,7 @@
     const statText = (key) => window.playEncounterStatText(round, key);
     return `
       ${header}
-      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${shiny ? " is-shiny-wild" : ""}" data-visual-mode="${visualMode}">
+      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${shiny ? " is-shiny-wild" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
         <div class="dex-stage${seqScene === "results" ? " is-revealed" : catchSeq ? " is-throwing" : ""}">
           ${sprite ? `<img src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
           <div class="dex-copy">

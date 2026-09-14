@@ -207,6 +207,8 @@
     const staffPanel = opts.staff ? window.playStaffRoundHtml(round) : "";
     const catchSeq = opts.staff ? "" : window.playCatchSeqHtml(round, opts);
     const seqScene = catchSeq ? window.playAdvanceCatchSeqState(round, opts.me || null).scene : "";
+    const cinematic = Boolean(catchSeq);
+    const visualMode = !cinematic ? "wild" : (seqScene === "results" ? "result" : "capture");
     const lastAction = opts.staff || opts.showLastAction === false
       ? ""
       : (round.lastAction ? `<p class="last-action" data-last>${round.lastAction}</p>` : `<p class="last-action" data-last hidden></p>`);
@@ -218,34 +220,54 @@
           ${paused}
         </div>`
       : `<div class="dex-head"><span class="dex-ended">Encounter ended</span>${hidden}${paused}</div>`;
+    const statText = (key) => window.playEncounterStatText(round, key);
     return `
       ${header}
-      <div class="dex-stage${seqScene === "results" ? " is-revealed" : catchSeq ? " is-throwing" : ""}">
-        ${sprite ? `<img src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
-        <div class="dex-copy">
-          <p class="wild-label">A wild</p>
-          <h2>${name}</h2>
-          <div class="wild-meta">
-            ${window.playGenderChipHtml(round.gender)}
-            ${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}
-            <span class="type-chip location-chip">${window.playEscapeAttr(location)}</span>
+      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${shiny ? " is-shiny-wild" : ""}" data-visual-mode="${visualMode}">
+        <div class="dex-stage${seqScene === "results" ? " is-revealed" : catchSeq ? " is-throwing" : ""}">
+          ${sprite ? `<img src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
+          <div class="dex-copy">
+            <p class="wild-label">A wild</p>
+            <h2>${name}</h2>
+            <div class="wild-meta">
+              ${window.playGenderChipHtml(round.gender)}
+              ${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}
+              <span class="type-chip location-chip">${window.playEscapeAttr(location)}</span>
+            </div>
           </div>
         </div>
+        ${catchSeq}
       </div>
-      <div class="phase-wrap ${warnClass}" data-phase-wrap>
+      <div class="phase-wrap ${warnClass}${cinematic ? " is-capture" : ""}" data-phase-wrap>
         <div class="phase-label"><span data-phase-name>${phase}</span><span data-time-copy>${timeText}</span></div>
         <div class="phase-bar" aria-hidden="true"><i data-bar style="width:${opts.bar || 0}%"></i></div>
       </div>
-      <dl class="dex-stats">
-        <div><dt>Trainers</dt><dd data-stat="participants">${round.participants || 0}</dd></div>
-        <div><dt>Prepared</dt><dd data-stat="prepared">${round.prepared || 0}</dd></div>
-        <div><dt>Throws</dt><dd data-stat="thrown">${round.thrown || 0}</dd></div>
-        <div><dt>Honey bonus</dt><dd data-stat="bait">+${round.baitBonusPercent || 0}%</dd></div>
+      <dl class="dex-stats" data-stats-phase="${window.playEscapeAttr(round.phase || "closed")}">
+        <div data-stat-box="participants"><dt>Trainers</dt><dd data-stat="participants">${statText("participants")}</dd></div>
+        <div data-stat-box="prepared"><dt>Prepared</dt><dd data-stat="prepared">${statText("prepared")}</dd></div>
+        <div data-stat-box="thrown"><dt>Throws</dt><dd data-stat="thrown">${statText("thrown")}</dd></div>
+        <div data-stat-box="bait"><dt>Honey</dt><dd data-stat="bait">${statText("bait")}</dd></div>
       </dl>
       ${lastAction}
       ${honey}
-      ${catchSeq}
       ${staffPanel}`;
+  };
+
+  window.playEncounterStatText = function playEncounterStatText(round, key) {
+    const trainers = Number(round?.participants || 0);
+    const prepared = Number(round?.prepared || 0);
+    const thrown = Number(round?.thrown || 0);
+    if (key === "participants") return String(trainers);
+    if (key === "prepared") {
+      return round?.phase === "prepare" ? `${prepared} / ${trainers}` : String(prepared);
+    }
+    if (key === "thrown") {
+      return (round?.phase === "throw" || round?.phase === "reveal")
+        ? `${thrown} / ${trainers}`
+        : String(thrown);
+    }
+    if (key === "bait") return `+${Number(round?.baitBonusPercent || 0)}%`;
+    return "0";
   };
 
   window.playPhaseBarPercent = function playPhaseBarPercent(round) {
@@ -410,12 +432,13 @@
     const outcome = throwOutcome(me, round);
     if (!me?.joined && !me?.ball) {
       return {
-        win: caughtN > 0,
-        headline: caughtN > 0 ? "Gotcha!" : "Sorry!",
+        win: false,
+        spectator: true,
+        headline: "Encounter complete",
         sub: caughtN > 0
           ? `${caughtN} Trainer${caughtN === 1 ? "" : "s"} caught ${species}`
           : `Nobody caught ${species}`,
-        note: ""
+        note: "You watched this encounter."
       };
     }
     if (!me.ball) {
@@ -449,9 +472,20 @@
     if (st.scene === "results") {
       return personalResult(round, me, species).headline;
     }
+    if (!me?.ball && (me?.joined || me?.prep)) return window.PLAY_STATUS?.noBall || "You didn't choose a Poké Ball in time!";
+    if (!me?.ball) return "Watching the catch attempt…";
     const pct = window.playRevealSeqProgress(round);
     if (pct >= 100 && !round.resolved && !throwOutcome(me, round)) return "Waiting for the result…";
     return "The Poké Ball is shaking…";
+  }
+
+  function catchSeqKicker(st, round, species, me) {
+    const personal = personalResult(round, me, species);
+    if (!me?.ball && me?.joined) return "NO POKE BALL";
+    if (st.scene === "results" && personal.spectator) return "RESULTS";
+    if (st.scene === "results" && personal.win) return "CAPTURE SUCCESS";
+    if (st.scene === "results") return "CAPTURE FAILED";
+    return "CATCH ATTEMPT";
   }
 
   function catchSeqSubcopy(st, round, species, me) {
@@ -497,20 +531,25 @@
     if (!window.playShowCatchSeq(round)) return "";
     const me = opts?.me || null;
     const st = window.playAdvanceCatchSeqState(round, me);
+    const threw = Boolean(me?.ball);
     const ballKey = opts?.throwBall || me?.ball || "pokeball";
     const species = window.playDisplayName(round, { plain: true });
     const sprite = window.playSpriteUrl(round.dex, round.variant);
     const pct = window.playRevealSeqProgress(round);
-    const results = round.results || {};
-    const caughtN = Number(results.caught || 0);
-    const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
+    const elapsed = Math.max(0, Math.min(11, ((pct - 8) / 92) * 11));
+    const personal = personalResult(round, me, species);
     const copy = catchSeqCopy(st, round, species, me);
     const sub = catchSeqSubcopy(st, round, species, me);
     const note = catchSeqNote(st, round, species, me);
-    const win = st.scene === "results" && personalResult(round, me, species).win;
-    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}`;
-    return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}" style="--shakes:${st.shakes}">
+    const kicker = catchSeqKicker(st, round, species, me);
+    const win = st.scene === "results" && personal.win;
+    const shiny = String(round.variant || "").includes("shiny");
+    const shinyLine = win && shiny ? `<span class="catch-seq-shiny" data-seq-shiny>✨ SHINY CAUGHT! ✨</span>` : `<span class="catch-seq-shiny" data-seq-shiny hidden></span>`;
+    const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}${!threw ? " is-watch" : ""}${!threw && me?.joined ? " is-nothrow" : ""}${personal.spectator ? " is-spectator" : ""}${win && shiny ? " is-shiny-win" : ""}`;
+    return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}" style="--shakes:${st.shakes};--seq-elapsed:${elapsed.toFixed(2)}s">
+      <div class="catch-seq-flash" aria-hidden="true"></div>
       <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="catch-seq-kicker" data-seq-kicker>${window.playEscapeAttr(kicker)}</p>
       <div class="catch-seq-stage">
         ${sprite ? `<img class="catch-seq-mon" src="${sprite}" alt="" onerror="window.playSpriteOnError(this)">` : ""}
         <img class="catch-seq-ball" src="${window.playItemSprite(ballKey)}" alt="">
@@ -520,15 +559,9 @@
       <p class="catch-seq-copy" data-seq-copy>
         <span data-seq-headline>${window.playEscapeAttr(copy)}</span>
         <span data-seq-sub${sub ? "" : " hidden"}>${window.playEscapeAttr(sub)}</span>
+        ${shinyLine}
       </p>
-      <div class="catch-seq-bar" aria-hidden="true"><i data-throw-bar style="width:${pct}%"></i></div>
-      <div class="catch-seq-counts" data-seq-results>
-        <p class="catch-seq-note" data-seq-note${note ? "" : " hidden"}>${window.playEscapeAttr(note)}</p>
-        <div class="catch-seq-score">
-          <p class="catch-seq-score-win"><strong data-seq-caught>${caughtN}</strong><span>caught</span></p>
-          <p class="catch-seq-score-miss"><strong data-seq-missed>${missed}</strong><span>didn’t catch it</span></p>
-        </div>
-      </div>
+      <p class="catch-seq-note" data-seq-note${note ? "" : " hidden"}>${window.playEscapeAttr(note)}</p>
     </aside>`;
   };
 
@@ -540,10 +573,16 @@
     const copy = catchSeqCopy(st, round, species, me);
     const sub = catchSeqSubcopy(st, round, species, me);
     const note = catchSeqNote(st, round, species, me);
+    const kicker = catchSeqKicker(st, round, species, me);
+    const personal = personalResult(round, me, species);
+    const shiny = String(round.variant || "").includes("shiny");
     const headlineEl = box.querySelector("[data-seq-headline]");
     const subEl = box.querySelector("[data-seq-sub]");
     const noteEl = box.querySelector("[data-seq-note]");
+    const kickerEl = box.querySelector("[data-seq-kicker]");
+    const shinyEl = box.querySelector("[data-seq-shiny]");
     if (headlineEl && headlineEl.textContent !== copy) headlineEl.textContent = copy;
+    if (kickerEl && kickerEl.textContent !== kicker) kickerEl.textContent = kicker;
     if (subEl) {
       if (subEl.textContent !== sub) subEl.textContent = sub;
       subEl.hidden = !sub;
@@ -552,29 +591,34 @@
       if (noteEl.textContent !== note) noteEl.textContent = note;
       noteEl.hidden = !note;
     }
-    const bar = box.querySelector("[data-throw-bar]");
-    if (bar && st.scene === "wobble") bar.style.width = `${window.playRevealSeqProgress(round)}%`;
-    const results = round.results || {};
-    const caughtN = Number(results.caught || 0);
-    const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
-    const caughtEl = box.querySelector("[data-seq-caught]");
-    const missedEl = box.querySelector("[data-seq-missed]");
-    if (caughtEl) caughtEl.textContent = caughtN;
-    if (missedEl) missedEl.textContent = missed;
+    if (shinyEl) {
+      const showShiny = st.scene === "results" && personal.win && shiny;
+      shinyEl.hidden = !showShiny;
+      if (showShiny) shinyEl.textContent = "✨ SHINY CAUGHT! ✨";
+    }
     box.dataset.seq = st.scene;
     box.dataset.outcome = st.outcome || "";
     box.style.setProperty("--shakes", String(st.shakes));
     box.classList.toggle("is-wobble", st.scene === "wobble");
     box.classList.toggle("is-personal", st.scene === "personal");
     box.classList.toggle("is-results", st.scene === "results");
-    const personal = personalResult(round, me, species);
     box.classList.toggle("is-caught", st.outcome === "caught" || personal.win);
     box.classList.toggle("is-broke", st.outcome === "broke" && !personal.win);
     box.classList.toggle("is-win", st.scene === "results" && personal.win);
-    box.classList.toggle("is-miss", st.scene === "results" && throwOutcome(me, round) === "broke");
+    box.classList.toggle("is-miss", st.scene === "results" && !personal.win && !personal.spectator);
+    box.classList.toggle("is-spectator", Boolean(personal.spectator));
+    box.classList.toggle("is-nothrow", Boolean(me?.joined && !me?.ball));
+    box.classList.toggle("is-watch", !me?.ball);
+    box.classList.toggle("is-shiny-win", st.scene === "results" && personal.win && shiny);
     const stage = root.querySelector(".dex-stage");
     stage?.classList.toggle("is-throwing", st.scene !== "results");
     stage?.classList.toggle("is-revealed", st.scene === "results");
+    const visual = root.querySelector(".encounter-visual-stage");
+    if (visual) {
+      visual.classList.toggle("is-capture", true);
+      visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
+      visual.dataset.visualMode = st.scene === "results" ? "result" : "capture";
+    }
     return true;
   };
 
@@ -584,15 +628,13 @@
 
   window.playHoneyCrewHtml = function playHoneyCrewHtml(round) {
     const rows = Array.isArray(round?.honeyTrainers) ? round.honeyTrainers : [];
-    if (!rows.length) return "";
-    const bonus = round.baitBonusPercent || 0;
-    return `<aside class="honey-crew" data-honey="${rows.length}:${bonus}">
+    const bonus = Number(round?.baitBonusPercent || 0);
+    if (!rows.length && bonus <= 0) return "";
+    return `<aside class="honey-crew honey-strip" data-honey="${rows.length}:${bonus}">
       <img src="${window.playItemSprite("bait")}" alt="">
-      <div>
-        <strong>Honey team-up</strong>
-        <p>These trainers used Honey so the whole community had a better catch rate. Shared bonus <em>+${bonus}%</em>.</p>
-        <ul>${rows.map((row) => `<li>${window.playEscapeAttr(row.name || "Trainer")}</li>`).join("")}</ul>
-      </div>
+      <strong>Honey Team-Up</strong>
+      <span>${rows.length} Trainer${rows.length === 1 ? "" : "s"}</span>
+      <em>+${bonus}%</em>
     </aside>`;
   };
 
@@ -601,18 +643,15 @@
     const results = round.results || {};
     const caughtN = Number(results.caught || 0);
     const missed = Number(results.escaped || 0) + Number(results.noThrow || 0);
-    const species = window.playDisplayName(round);
-    return `<section class="catch-fanfare${caughtN ? " is-win" : ""}">
-      <p class="fanfare-kicker">Results</p>
-      <h3>${window.playEscapeAttr(species)}</h3>
-      <p class="result-counts"><strong>${caughtN}</strong> caught</p>
-      <p class="result-counts"><strong>${missed}</strong> didn’t catch it</p>
+    return `<section class="catch-fanfare catch-fanfare-slim${caughtN ? " is-win" : ""}">
+      <p class="fanfare-kicker">Community results</p>
+      <p class="result-counts"><strong>${caughtN}</strong> caught · <strong>${missed}</strong> didn’t</p>
     </section>`;
   };
 
   window.playPatchEncounter = function playPatchEncounter(root, round, bar, extra) {
     if (!root || !round) return false;
-    if (!root.querySelector(".dex-stage")) return false;
+    if (!root.querySelector(".dex-stage") && !root.querySelector(".encounter-visual-stage")) return false;
     const seconds = window.playEncounterSecondsLeft(round);
     const phase = window.playPhaseLabel(round.phase);
     const timeText = typeof window.playEncounterTimeText === "function"
@@ -634,6 +673,16 @@
     if (phaseEl) phaseEl.textContent = phase;
     if (phaseName) phaseName.textContent = phase;
     if (barEl) barEl.style.width = `${bar || 0}%`;
+    const phaseWrap = root.querySelector("[data-phase-wrap]");
+    const capturing = window.playShowCatchSeq(round);
+    phaseWrap?.classList.toggle("is-capture", capturing);
+    const statsEl = root.querySelector(".dex-stats");
+    if (statsEl) statsEl.dataset.statsPhase = round.phase || "closed";
+    const visual = root.querySelector(".encounter-visual-stage");
+    if (visual) {
+      visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
+      if (!capturing) visual.classList.remove("is-capture");
+    }
     if (extra?.staff) {
       const panel = root.querySelector("[data-staff-round]");
       if (!panel) return false;
@@ -659,11 +708,9 @@
         const mount = document.createElement("div");
         mount.innerHTML = honeyHtml;
         const node = mount.firstElementChild;
-        const seq = root.querySelector("[data-catch-seq]");
         const lastLine = root.querySelector("[data-last]");
         const stats = root.querySelector(".dex-stats");
-        if (seq) seq.before(node);
-        else if (lastLine) lastLine.after(node);
+        if (lastLine) lastLine.after(node);
         else if (stats) stats.after(node);
         else root.append(node);
       }
@@ -672,10 +719,10 @@
       const el = root.querySelector(`[data-stat="${key}"]`);
       if (el) el.textContent = value;
     };
-    setStat("participants", round.participants || 0);
-    setStat("prepared", round.prepared || 0);
-    setStat("thrown", round.thrown || 0);
-    setStat("bait", `+${round.baitBonusPercent || 0}%`);
+    setStat("participants", window.playEncounterStatText(round, "participants"));
+    setStat("prepared", window.playEncounterStatText(round, "prepared"));
+    setStat("thrown", window.playEncounterStatText(round, "thrown"));
+    setStat("bait", window.playEncounterStatText(round, "bait"));
     if (last) {
       if (extra?.staff || extra?.showLastAction === false) {
         last.hidden = true;

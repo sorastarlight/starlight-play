@@ -142,8 +142,8 @@
       buttons.push({
         kind: "join",
         item: "",
-        label: pending ? (window.PLAY_STATUS?.joining || "JOINING…") : "Join encounter",
-        hint: pending ? "Please wait…" : (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "Closes when the timer ends"),
+        label: pending ? (window.PLAY_STATUS?.joining || "JOINING…") : "JOIN ENCOUNTER",
+        hint: pending ? "Please wait…" : (window.playRadarOn?.(bag) ? "Poké Radar joining…" : "Join before the timer ends!"),
         disabled: pending
       });
     }
@@ -280,7 +280,8 @@
       ? `<span class="item-icon item-icon-img"><img src="${window.playItemSprite(sprite)}" alt=""></span>`
       : `<span class="item-icon" aria-hidden="true"></span>`;
     const disabled = row.disabled ? "disabled" : "";
-    return `<button type="button" class="item-btn${row.selected ? " is-selected" : ""}" data-kind="${row.kind}" data-item="${row.item}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}">
+    const joinClass = row.kind === "join" ? " enc-join-btn" : "";
+    return `<button type="button" class="item-btn${joinClass}${row.selected ? " is-selected" : ""}" data-kind="${row.kind}" data-item="${row.item}" ${disabled} aria-pressed="${row.selected ? "true" : "false"}">
       ${icon}
       <span class="item-copy"><strong>${row.label}</strong>${row.hint ? `<em>${row.hint}</em>` : ""}${row.selected ? `<span class="enc-selected-mark">SELECTED ✓</span>` : ""}</span>
     </button>`;
@@ -314,7 +315,7 @@
     let html = "";
     if (joins.length) html += `<div class="enc-join">${joins.map(renderActionCard).join("")}</div>`;
     if (plan.phase === "join" && data?.me && !berries.length && !honey.length && !skip.length) {
-      html += `<p class="enc-join-next muted">Berry, Honey, and Poké Ball picks open after this join window.</p>`;
+      html += `<div class="enc-joined" role="status"><strong>${window.PLAY_STATUS?.joinedShort || "JOINED ✓"}</strong><em>You're in! Waiting for other Trainers…</em></div>`;
     }
     if (berries.length || honey.length || skip.length) {
       html += `<div class="enc-split">
@@ -336,6 +337,10 @@
     }
     if (plan.used && typeof window.playUsedSummaryHtml === "function") {
       html += window.playUsedSummaryHtml(plan.used, liveRound(data));
+    }
+    const round = liveRound(data);
+    if (round?.resolved && typeof window.playCatchFanfareHtml === "function") {
+      html += window.playCatchFanfareHtml(round);
     }
     els.actions.classList.toggle("single", joins.length === 1 && plan.buttons.length === 1);
     els.actions.classList.toggle("throw-picks", balls.length > 0);
@@ -494,6 +499,7 @@
     window.playFillLurePanel(bag);
     const storeLink = document.querySelector(".bag-store");
     if (storeLink) storeLink.hidden = Boolean(round && ["prepare", "throw", "reveal"].includes(round.phase));
+    els.encounter?.closest(".dex-card")?.classList.toggle("is-encounter-live", Boolean(round && round.phase && round.phase !== "closed"));
     window.playRenderLiveFeed(data?.console || [], null, round);
     renderActions(view);
     maybeRadarJoin(view);

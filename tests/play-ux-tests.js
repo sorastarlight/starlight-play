@@ -28,6 +28,26 @@ test("no-item selection is a valid lock", () => {
 test("Honey copy is communal", () => {
   assert(window.playStatusItem("bait").includes("contributed Honey"));
 });
+test("Honey meter is a compact strip without trainer chips", () => {
+  const html = window.playHoneyMeterHtml({
+    honeyContributors: 4,
+    honeyParticipants: 10,
+    baitBonusPercent: 6,
+    honeyTrainers: [{ name: "A" }, { name: "B" }, { name: "C" }, { name: "D" }]
+  });
+  assert(html.includes("honey-strip"));
+  assert(html.includes("4 / 10"));
+  assert(html.includes("+6%"));
+  assert(!html.includes("<ul"));
+});
+test("Used summary stays a slim row", () => {
+  window.playItemLabel = (key) => key === "razz" ? "Razz Berry" : key === "netball" ? "Net Ball" : key;
+  const html = window.playUsedSummaryHtml({ prep: "razz", ball: "netball" }, { baitBonusPercent: 10 });
+  assert(html.includes("enc-used-slim"));
+  assert(html.includes("Razz Berry"));
+  assert(html.includes("Net Ball"));
+  assert(html.includes("Honey +10%"));
+});
 test("Master Ball is categorized as a Poké Ball", () => {
   assert(window.playItemCategory("masterball") === "balls");
 });

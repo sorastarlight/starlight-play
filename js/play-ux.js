@@ -389,15 +389,15 @@
     const denom = Math.max(participants, 1);
     const bonus = Number(round?.baitBonusPercent || 0);
     const pct = Math.max(0, Math.min(100, Math.round((contributors / denom) * 100)));
-    return `<aside class="honey-meter" data-honey="${contributors}:${participants}:${bonus}">
+    return `<aside class="honey-meter honey-strip" data-honey="${contributors}:${participants}:${bonus}">
       <img src="${spriteOf("bait")}" alt="">
-      <div>
-        <strong>Community Honey</strong>
-        <div class="honey-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${denom}" aria-valuenow="${contributors}" aria-label="Community Honey ${contributors} of ${participants} Trainers">
-          <i style="width:${pct}%"></i>
-        </div>
-        <p>${contributors} / ${participants || "—"} Trainers · Current catch bonus +${bonus}%</p>
+      <strong>Honey</strong>
+      <span>${contributors} / ${participants || "—"} Trainers</span>
+      <em>+${bonus}%</em>
+      <div class="honey-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${denom}" aria-valuenow="${contributors}" aria-label="Community Honey ${contributors} of ${participants} Trainers">
+        <i style="width:${pct}%"></i>
       </div>
+      <span class="honey-info" title="Honey raises the catch bonus for every Trainer in this encounter." aria-label="Honey raises the catch bonus for every Trainer.">?</span>
     </aside>`;
   };
 
@@ -407,11 +407,8 @@
     const honey = me.prep === "bait" || Number(round?.baitBonusPercent || 0) > 0;
     const ball = me.ball ? labelOf(me.ball) : "";
     if (!berry && !ball && !honey) return "";
-    return `<dl class="enc-used">
-      ${berry ? `<div><dt>Used</dt><dd>${esc(berry)}</dd></div>` : ""}
-      ${ball ? `<div><dt>Poké Ball</dt><dd>${esc(ball)}</dd></div>` : ""}
-      <div><dt>Honey bonus</dt><dd>+${Number(round?.baitBonusPercent || 0)}%</dd></div>
-    </dl>`;
+    const parts = [berry, ball, honey ? `Honey +${Number(round?.baitBonusPercent || 0)}%` : ""].filter(Boolean);
+    return `<p class="enc-used enc-used-slim">${parts.map((part) => `<span>${esc(part)}</span>`).join("<i>·</i>")}</p>`;
   };
 
   root.playLedgerLabel = function playLedgerLabel(reason) {

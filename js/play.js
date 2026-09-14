@@ -413,7 +413,7 @@
     }
     const key = plan.key;
     const canPatch = Boolean(els.actions.querySelector("button[data-kind]"));
-    if ((pendingAction || key === lastActionKey) && canPatch) {
+    if (key === lastActionKey && canPatch) {
       patchActionButtons(plan);
       return;
     }
@@ -617,11 +617,8 @@
       });
       lastEncounterKey = key;
     };
-    if (pointerHeld && hasLiveDom) {
-      window.playPatchEncounter(els.encounter, round, bar, patchOpts);
-    } else if (key !== lastEncounterKey || Boolean(round) !== hasLiveDom) {
-      if (!busyNow()) paintFull();
-      else window.playPatchEncounter(els.encounter, round, bar, patchOpts);
+    if (key !== lastEncounterKey || Boolean(round) !== hasLiveDom) {
+      paintFull();
     } else if (hasLiveDom) {
       window.playPatchEncounter(els.encounter, round, bar, patchOpts);
     }
@@ -685,19 +682,11 @@
 
   let refreshQueued = false;
   async function refresh() {
-    if (busyNow() || pointerHeld) {
-      refreshQueued = true;
-      return;
-    }
     const gen = ++refreshGen;
     refreshQueued = false;
     try {
       const data = await window.playCall("play_sync", { p_round_id: liveRound(state)?.id || null });
       if (gen !== refreshGen) return;
-      if (busyNow() || pointerHeld) {
-        refreshQueued = true;
-        return;
-      }
       reconnecting = false;
       if (data?.channel !== undefined) loadStream(data.channel);
       render(data);
@@ -722,6 +711,8 @@
     const requestId = `a${++actionSeq}`;
     const roundId = liveRound(state)?.id || null;
     acting = true;
+    pointerHeld = false;
+    clearTimeout(holdReleaseTimer);
     pendingAction = { id: requestId, kind, item, roundId, at: Date.now() };
     if (kind === "join") joiningPending = true;
     logPlayAction("ITEM CLICK", {
@@ -791,6 +782,8 @@
     } finally {
       if (pendingAction?.id === requestId) pendingAction = null;
       acting = false;
+      pointerHeld = false;
+      clearTimeout(holdReleaseTimer);
       if (refreshQueued) refresh();
     }
   }
@@ -827,7 +820,6 @@
     clearTimeout(holdReleaseTimer);
     holdReleaseTimer = setTimeout(() => {
       pointerHeld = false;
-      if (refreshQueued && !busyNow()) refresh();
     }, 400);
   }
 
@@ -846,16 +838,14 @@
       return;
     }
     event.preventDefault();
-    pointerHeld = true;
+    pointerHeld = false;
     clearTimeout(holdReleaseTimer);
     pressAction(button);
   });
   window.addEventListener("pointerup", () => {
-    if (busyNow()) return;
     releaseActionHold();
   });
   window.addEventListener("pointercancel", () => {
-    if (busyNow()) return;
     releaseActionHold();
   });
 
@@ -894,7 +884,7 @@
       return;
     }
     event.preventDefault();
-    pointerHeld = true;
+    pointerHeld = false;
     clearTimeout(holdReleaseTimer);
     pickFromGrid(button);
   });
@@ -918,10 +908,8 @@
   async function heartbeat() {
     if (document.visibilityState !== "visible") return;
     if (!window._playSession) return;
-    if (busyNow() || pointerHeld) return;
     try {
       const data = await window.playCall("play_heartbeat", { p_seconds: 20 });
-      if (busyNow() || pointerHeld) return;
       if (data) render(data);
     } catch (_) {
       // Rankings still work if the heartbeat RPC is not live yet.
@@ -932,10 +920,6 @@
   function scheduleRefresh() {
     clearTimeout(liveRefreshTimer);
     liveRefreshTimer = setTimeout(() => {
-      if (pointerHeld || busyNow()) {
-        refreshQueued = true;
-        return;
-      }
       refresh();
     }, 200);
   }
@@ -955,7 +939,7 @@
         lastLocalPhase = "";
         lastEncounterKey = "";
         lastActionKey = "";
-        if (!busyNow()) render(state);
+        render(state);
       }
       return;
     }
@@ -963,22 +947,21 @@
     const patchOpts = { me: state?.me || null };
     if (!window.playPatchEncounter(els.encounter, round, bar, patchOpts)) {
       lastEncounterKey = "";
-      if (!pointerHeld && !busyNow()) render({ ...state, round });
+      render({ ...state, round });
       return;
     }
     if (round.phase && round.phase !== lastLocalPhase) {
       lastLocalPhase = round.phase;
-      if (busyNow()) {
-        refreshQueued = true;
-        return;
-      }
       lastActionKey = "";
       renderActions({ ...state, round });
       maybeShowCatchNotices(round, state?.me);
       refresh();
       return;
     }
-    if (pointerHeld || busyNow()) return;
+    if (pointerHeld) {
+      maybeShowCatchNotices(round, state?.me);
+      return;
+    }
     renderActions({ ...state, round });
     maybeShowCatchNotices(round, state?.me);
   }
@@ -1014,7 +997,7 @@
     .subscribe();
   setInterval(tickLive, 200);
   setInterval(() => {
-    if (document.visibilityState !== "visible" || pointerHeld || busyNow()) return;
+    if (document.visibilityState !== "visible") return;
     const round = liveRound(state);
     const left = secondsToNextPhase(round);
     if (round?.paused) {

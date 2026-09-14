@@ -4824,6 +4824,11 @@ body[data-page="admin"] .wrap { max-width: 1480px; }
 .hub-card .eyebrow { margin-bottom: 6px; }
 .hub-card h2 { margin: 0 0 8px; font-size: 20px; }
 .hub-card.is-compact { padding: 10px 12px; }
+#card-session {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 2px solid #e7edf8;
+}
 .hub-card.is-alert {
   border-color: #f0b4c8;
   background: linear-gradient(180deg, #fff6f8, #fff);

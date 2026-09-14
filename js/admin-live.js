@@ -599,20 +599,18 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const d = state?.director || {};
     const dur = s.startedAt ? clock(Math.floor((Date.now() - Date.parse(s.startedAt)) / 1000)) : "—";
     const auto = autoInfo(d, s);
+    const liveOn = Boolean(s.rpgSession) && !testMode();
     els.session.innerHTML = `
-      <p class="eyebrow">Live RPG</p>
-      <h2>${rpgFace(s)}</h2>
-      <p class="muted">Runs automatically when Twitch is live. Stream Mode changes when automatic encounters are allowed; it does not change catch odds.</p>
-      <p>${s.rpgSession && !testMode() ? `Active ${dur}${s.viewers != null ? ` · Viewers ${s.viewers}` : ""}` : (testMode() ? "Test Mode is a UI testing state. It is not a live stream session." : "Inactive until Twitch goes live.")}</p>
-      <p>Auto: ${auto.label} · ${esc(auto.reason)}</p>
-      <details class="hub-advanced">
-        <summary>Advanced</summary>
-        <div class="links">
-          <button type="button" class="secondary" data-act="refresh_live">Refresh Twitch Status</button>
-          ${s.rpgSession ? `<button type="button" class="secondary" data-act="end_session">End live RPG session</button>` : `<button type="button" class="secondary" data-act="start_session">Force Start Live RPG Session</button>`}
-          <button type="button" class="secondary" data-act="copy">Copy status</button>
-        </div>
-      </details>`;
+      <p class="eyebrow">Live RPG session</p>
+      <p><strong>${rpgFace(s)}</strong> · ${liveOn ? `Active ${dur}${s.viewers != null ? ` · Viewers ${s.viewers}` : ""}` : (testMode() ? "Test Mode is not a live stream session." : "Inactive until Twitch goes live.")}</p>
+      <p class="muted">Auto ${auto.label} · ${esc(auto.reason)}</p>
+      <div class="links">
+        ${liveOn
+          ? `<button type="button" class="danger" data-act="end_session">End live RPG session</button>`
+          : `<button type="button" data-act="start_session">Start live RPG session</button>`}
+        <button type="button" class="secondary" data-act="refresh_live">Refresh Twitch Status</button>
+        <button type="button" class="secondary" data-act="copy">Copy status</button>
+      </div>`;
   }
 
   function renderHistory() {

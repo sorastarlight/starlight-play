@@ -1521,7 +1521,7 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   place-items: center;
   min-height: 0;
   margin: 0;
-  padding: 18% 12px 22%;
+  padding: 54px 12px 56px;
   background: transparent;
   border: 0;
   border-radius: 0;
@@ -1532,12 +1532,12 @@ body[data-page="play"] .encounter-visual-stage .dex-stage {
 }
 body[data-page="play"] .encounter-visual-stage .dex-stage img,
 .encounter-visual-stage .dex-stage img {
-  width: 140px;
-  height: 140px;
-  max-width: 48%;
-  max-height: 50%;
+  width: 160px;
+  height: 160px;
+  max-width: 160px;
+  max-height: 160px;
   object-fit: contain;
-  object-position: 50% 80%;
+  object-position: 50% 58%;
   image-rendering: pixelated;
   position: relative;
   z-index: 2;
@@ -1666,12 +1666,13 @@ body[data-page="play"] .encounter-visual-stage .dex-stage img,
 .encounter-visual-stage .catch-seq.is-results .catch-seq-mon,
 .encounter-visual-stage .catch-seq.is-results.is-win .catch-seq-mon {
   top: 56%;
-  width: 128px;
-  height: 128px;
-  max-width: 46%;
-  max-height: 46%;
-  margin: -64px 0 0 -64px;
+  width: 148px;
+  height: 148px;
+  max-width: 148px;
+  max-height: 148px;
+  margin: -74px 0 0 -74px;
   object-fit: contain;
+  object-position: 50% 58%;
 }
 .encounter-location-chip {
   position: absolute;
@@ -1801,9 +1802,9 @@ body[data-page="play"] .encounter-visual-stage .dex-stage img,
 }
 .catch-seq.is-results.is-win .catch-seq-mon {
   animation: catch-result-mon .7s ease-out both, catch-showcase-bob 1.6s ease-in-out .7s infinite;
-  width: 132px;
-  height: 132px;
-  margin: -66px 0 0 -66px;
+  width: 148px;
+  height: 148px;
+  margin: -74px 0 0 -74px;
 }
 .catch-seq.is-shiny-win {
   box-shadow: inset 0 0 0 3px #fff6, 0 0 24px #ffd24a66;
@@ -5297,9 +5298,9 @@ body[data-page="admin"] .play-stage {
     font-size: 13px;
   }
   .encounter-visual-stage .catch-seq.is-results.is-win .catch-seq-mon {
-    width: 112px;
-    height: 112px;
-    margin: -56px 0 0 -56px;
+    width: 132px;
+    height: 132px;
+    margin: -66px 0 0 -66px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

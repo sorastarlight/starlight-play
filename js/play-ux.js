@@ -3,7 +3,7 @@
   const STATUS = {
     joined: "You have joined the encounter! Please wait while other Trainers join you.",
     joining: "JOINING…",
-    joinedShort: "JOINED ✓",
+    joinedShort: "✓ JOINED!",
     honey: "You have contributed Honey! Please wait while the other Trainers make their choices.",
     noItem: "You chose not to use an item. Please wait while the other Trainers make their choices.",
     noItemTimeout: "No item selected.",
@@ -396,7 +396,7 @@
     const tip = "Honey is contributed during the Item Phase. More participating Trainers using Honey increases the community catch bonus.";
     return `<aside class="honey-meter honey-strip${joining ? " is-join-quiet" : ""}" data-honey="${contributors}:${participants}:${bonus}:${round?.phase || ""}">
       <img src="${spriteOf("bait")}" alt="">
-      <strong>Honey <span class="honey-info" title="${esc(tip)}" aria-label="${esc(tip)}">i</span></strong>
+      <strong>Honey <span class="honey-info" title="${esc(tip)}" aria-label="${esc(tip)}">ⓘ</span></strong>
       <span>${esc(copy)}</span>
       <em>+${bonus}%</em>
       <div class="honey-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${denom}" aria-valuenow="${joining ? 0 : contributors}" aria-label="Community Honey">

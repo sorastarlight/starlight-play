@@ -319,7 +319,7 @@
     if (joins.length) html += `<div class="enc-join">${joins.map(renderActionCard).join("")}</div>`;
     if (plan.phase === "join" && data?.me && !berries.length && !honey.length && !skip.length) {
       const radar = Boolean(window.playRadarOn?.(data?.bag));
-      html += `<div class="enc-joined" role="status"><strong>${window.PLAY_STATUS?.joinedShort || "JOINED ✓"}</strong><em>${radar ? "Poké Radar joined this encounter for you." : "Waiting for other Trainers…"}</em></div>`;
+      html += `<div class="enc-joined" role="status"><strong>${window.PLAY_STATUS?.joinedShort || "✓ JOINED!"}</strong><em>${radar ? "Poké Radar joined this encounter for you." : "Waiting for other Trainers…"}</em></div>`;
     }
     if (berries.length || honey.length || skip.length) {
       html += `<div class="enc-split">

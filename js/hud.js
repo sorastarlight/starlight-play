@@ -261,14 +261,29 @@
         <div class="phase-bar" aria-hidden="true"><i data-bar style="width:${opts.bar || 0}%"></i></div>
       </div>
       <dl class="dex-stats" data-stats-phase="${window.playEscapeAttr(round.phase || "closed")}">
-        <div data-stat-box="participants"><dt>Trainers</dt><dd data-stat="participants">${statText("participants")}</dd></div>
-        <div data-stat-box="prepared"><dt>Prepared</dt><dd data-stat="prepared">${statText("prepared")}</dd></div>
-        <div data-stat-box="thrown"><dt data-stat-label="thrown">${thrownLabel}</dt><dd data-stat="thrown">${statText("thrown")}</dd></div>
-        <div data-stat-box="bait"><dt>Honey</dt><dd data-stat="bait">${statText("bait")}</dd></div>
+        <div data-stat-box="participants"${window.playHiddenEncounterStats(round.phase).participants ? " aria-hidden=\"true\"" : ""}><dt>Trainers</dt><dd data-stat="participants">${statText("participants")}</dd></div>
+        <div data-stat-box="prepared"${window.playHiddenEncounterStats(round.phase).prepared ? " aria-hidden=\"true\"" : ""}><dt>Prepared</dt><dd data-stat="prepared">${statText("prepared")}</dd></div>
+        <div data-stat-box="thrown"${window.playHiddenEncounterStats(round.phase).thrown ? " aria-hidden=\"true\"" : ""}><dt data-stat-label="thrown">${thrownLabel}</dt><dd data-stat="thrown">${statText("thrown")}</dd></div>
+        <div data-stat-box="bait"${window.playHiddenEncounterStats(round.phase).bait ? " aria-hidden=\"true\"" : ""}><dt>Honey</dt><dd data-stat="bait">${statText("bait")}</dd></div>
       </dl>
       ${lastAction}
       ${honey}
       ${staffPanel}`;
+  };
+
+  window.playHiddenEncounterStats = function playHiddenEncounterStats(phase) {
+    if (phase === "join") return { prepared: true, thrown: true };
+    if (phase === "prepare") return { thrown: true };
+    if (phase === "throw" || phase === "reveal" || phase === "closed") return { prepared: true };
+    return {};
+  };
+
+  window.playMarkEncounterStatAria = function playMarkEncounterStatAria(statsEl, phase) {
+    if (!statsEl) return;
+    const hide = window.playHiddenEncounterStats(phase);
+    statsEl.querySelectorAll("[data-stat-box]").forEach((el) => {
+      el.setAttribute("aria-hidden", hide[el.dataset.statBox] ? "true" : "false");
+    });
   };
 
   window.playEncounterStatText = function playEncounterStatText(round, key) {
@@ -682,7 +697,10 @@
     const capturing = window.playShowCatchSeq(round);
     phaseWrap?.classList.toggle("is-capture", capturing);
     const statsEl = root.querySelector(".dex-stats");
-    if (statsEl) statsEl.dataset.statsPhase = round.phase || "closed";
+    if (statsEl) {
+      statsEl.dataset.statsPhase = round.phase || "closed";
+      window.playMarkEncounterStatAria(statsEl, round.phase);
+    }
     const thrownLabel = root.querySelector("[data-stat-label=\"thrown\"]");
     if (thrownLabel) thrownLabel.textContent = round.phase === "throw" ? "Ready" : "Throws";
     const visual = root.querySelector(".encounter-visual-stage");

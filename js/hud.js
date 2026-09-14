@@ -837,7 +837,7 @@
 
   window.playConsoleKindRank = function playConsoleKindRank(kind) {
     const key = String(kind || "");
-    if (key === "phase" || key === "appeared" || key === "pause" || key === "resume") return 120;
+    if (key === "pause" || key === "resume") return 120;
     if (key === "caught") return 100;
     if (key === "escaped") return 90;
     if (key === "timeout") return 80;
@@ -845,6 +845,7 @@
     if (key === "selected") return 40;
     if (key === "prepared") return 30;
     if (key === "joined") return 20;
+    if (key === "phase" || key === "appeared") return 5;
     if (key === "resolved") return 0;
     return 10;
   };
@@ -853,6 +854,11 @@
     const key = String(row?.kind || "");
     return key === "phase" || key === "appeared" || key === "pause" || key === "resume"
       || key === "cancelled" || key === "hidden" || key === "gift";
+  };
+
+  window.playConsoleIsChapterBanner = function playConsoleIsChapterBanner(row) {
+    const key = String(row?.kind || "");
+    return key === "phase" || key === "appeared";
   };
 
   window.playConsoleChapter = function playConsoleChapter(row) {
@@ -949,21 +955,39 @@
     }
     const groups = window.playConsoleAssignGroups(rows);
     const groupTime = new Map();
+    const chapterStart = new Map();
     for (const row of rows) {
       const group = groups.get(row) || "open";
       const at = window.playConsoleTime(row?.at);
       const prevGroup = groupTime.get(group);
       if (prevGroup == null || at > prevGroup) groupTime.set(group, at);
+      const chapterKey = `${group}:${window.playConsoleChapter(row)}`;
+      const prevChapter = chapterStart.get(chapterKey);
+      if (prevChapter == null || at < prevChapter) chapterStart.set(chapterKey, at);
     }
+    const bannerGraceMs = 2500;
+    const sortTime = (row) => {
+      const at = window.playConsoleTime(row?.at);
+      if (!window.playConsoleIsChapterBanner(row)) return at;
+      const group = groups.get(row) || "open";
+      const start = chapterStart.get(`${group}:${window.playConsoleChapter(row)}`);
+      if (start == null || !(at > start)) return at;
+      const sameSecond = Math.floor(at / 1000) === Math.floor(start / 1000);
+      if (sameSecond || at - start <= bannerGraceMs) return start;
+      return at;
+    };
     return rows.sort((a, b) => {
       const ga = groups.get(a) || "open";
       const gb = groups.get(b) || "open";
       const gta = groupTime.get(ga) ?? window.playConsoleTime(a?.at);
       const gtb = groupTime.get(gb) ?? window.playConsoleTime(b?.at);
       if (gtb !== gta) return gtb - gta;
-      const ta = window.playConsoleTime(a?.at);
-      const tb = window.playConsoleTime(b?.at);
+      const ta = sortTime(a);
+      const tb = sortTime(b);
       if (tb !== ta) return tb - ta;
+      const bannerA = window.playConsoleIsChapterBanner(a);
+      const bannerB = window.playConsoleIsChapterBanner(b);
+      if (bannerA !== bannerB) return bannerA ? 1 : -1;
       const kind = window.playConsoleKindRank(b?.kind) - window.playConsoleKindRank(a?.kind);
       if (kind) return kind;
       return (Number(b?._i) || 0) - (Number(a?._i) || 0);

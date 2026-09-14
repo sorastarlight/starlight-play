@@ -78,6 +78,32 @@ test("catch stays above same-second throw echoes", () => {
   assert(!rows.some((row) => row.kind === "resolved"));
 });
 
+test("a delayed Poké Ball banner stays under a faster lock-in", () => {
+  const rows = window.playConsoleRows([
+    { kind: "escaped", name: "Sora Starlight", item: "Voltorb", at: "2026-09-14T11:28:13Z" },
+    { kind: "threw", name: "Sora Starlight", item: "fastball", at: "2026-09-14T11:27:58Z" },
+    { kind: "phase", item: "throw", message: "Trainers are choosing their Poké Balls!", at: "2026-09-14T11:27:32.800Z" },
+    { kind: "selected", name: "Sora Starlight", item: "fastball", at: "2026-09-14T11:27:32.100Z" },
+    { kind: "prepared", name: "Sora Starlight", item: "berry", at: "2026-09-14T11:27:04Z" },
+    { kind: "phase", item: "prepare", message: "Trainers are preparing their items…", at: "2026-09-14T11:26:59Z" },
+    { kind: "joined", name: "Sora Starlight", at: "2026-09-14T11:26:37Z" },
+    { kind: "appeared", message: "Voltorb appeared!", at: "2026-09-14T11:26:27Z" }
+  ]);
+  const kinds = rows.map((row) => row.kind);
+  assert(kinds.join(",") === "escaped,threw,selected,phase,prepared,phase,joined,appeared", kinds.join(","));
+  assert(rows[2].kind === "selected" && /fastball/i.test(rows[2].item), `${rows[2].kind}:${rows[2].item}`);
+  assert(rows[3].message.includes("Poké Balls"), rows[3].message);
+});
+
+test("same-second status lines do not leapfrog a player action", () => {
+  const rows = window.playConsoleRows([
+    { kind: "selected", name: "Sora", item: "fastball", at: "2026-09-14T11:27:32Z" },
+    { kind: "phase", item: "throw", message: "Trainers are choosing their Poké Balls!", at: "2026-09-14T11:27:32Z" }
+  ]);
+  assert(rows[0].kind === "selected", rows.map((row) => row.kind).join(","));
+  assert(rows[1].kind === "phase", rows[1].kind);
+});
+
 test("console lines still name berries, honey, and throws", () => {
   const berry = window.playConsoleLine({ kind: "prepared", name: "Sora", item: "berry", at: "2026-09-14T06:00:00Z" });
   const honey = window.playConsoleLine({ kind: "prepared", name: "Sora", item: "bait", at: "2026-09-14T06:00:00Z" });

@@ -216,31 +216,36 @@
     const lastAction = opts.staff || opts.showLastAction === false
       ? ""
       : (round.lastAction ? `<p class="last-action" data-last>${round.lastAction}</p>` : `<p class="last-action" data-last hidden></p>`);
+    const locChip = location && !/^unknown$/i.test(location)
+      ? `<p class="encounter-location-chip" data-location-chip><span aria-hidden="true">📍</span><span>${window.playEscapeAttr(location)}</span></p>`
+      : "";
+    const catching = Boolean(catchSeq);
+    const hud = window.playEncounterStageCopy(round, catching ? window.playAdvanceCatchSeqState(round, opts.me || null) : null, opts.me || null, name);
     const header = live
       ? `<div class="dex-head dex-live-fanfare">
           <span class="live-burst">LIVE</span>
-          <strong>A wild Pokémon appeared!</strong>
+          <strong>${catching ? "Catch in progress" : "A wild Pokémon appeared!"}</strong>
           ${hidden}
           ${paused}
         </div>`
       : `<div class="dex-head"><span class="dex-ended">Encounter ended</span>${hidden}${paused}</div>`;
     const statText = (key) => window.playEncounterStatText(round, key);
+    const meta = `${window.playGenderChipHtml(round.gender)}${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}`;
     return `
       ${header}
-      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${shiny ? " is-shiny-wild" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
+      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${shiny ? " is-shiny-wild" : ""}${hud.showBanner && /GOTCHA|SHINY/.test(hud.banner) ? " is-win-scene" : ""}${hud.showBanner && /OH NO/.test(hud.banner) ? " is-miss-scene" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
+        <div class="encounter-map" aria-hidden="true"></div>
+        <div class="encounter-map-scrim" aria-hidden="true"></div>
+        <div class="encounter-map-vignette" aria-hidden="true"></div>
+        ${locChip}
+        <div class="encounter-stage-meta">${meta}</div>
+        <p class="encounter-stage-banner" data-stage-banner${hud.showBanner ? "" : " hidden"}>${window.playEscapeAttr(hud.banner)}</p>
         <div class="dex-stage${seqScene === "results" ? " is-revealed" : catchSeq ? " is-throwing" : ""}">
-          ${sprite ? `<img src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
-          <div class="dex-copy">
-            <p class="wild-label">A wild</p>
-            <h2>${name}</h2>
-            <div class="wild-meta">
-              ${window.playGenderChipHtml(round.gender)}
-              ${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}
-              <span class="type-chip location-chip">${window.playEscapeAttr(location)}</span>
-            </div>
-          </div>
+          <span class="encounter-ground-shadow" aria-hidden="true"></span>
+          ${sprite ? `<img class="encounter-stage-actor" src="${sprite}" alt="${fullName}" onerror="window.playSpriteOnError(this)">` : ""}
         </div>
         ${catchSeq}
+        <p class="encounter-stage-status" data-stage-status><span data-seq-status>${window.playEscapeAttr(hud.status)}</span></p>
       </div>
       <div class="phase-wrap ${warnClass}${cinematic ? " is-capture" : ""}" data-phase-wrap>
         <div class="phase-label"><span data-phase-name>${phase}</span><span data-time-copy>${timeText}</span></div>
@@ -472,35 +477,51 @@
     };
   }
 
-  function catchSeqCopy(st, round, species, me) {
-    if (st.scene === "results") {
-      return personalResult(round, me, species).headline;
+  window.playEncounterStageCopy = function playEncounterStageCopy(round, st, me, species) {
+    const name = species || window.playDisplayName(round, { plain: true }) || "the Pokémon";
+    if (!st) {
+      return { banner: "", status: `A wild ${name} appeared!`, showBanner: false };
     }
-    if (!me?.ball && (me?.joined || me?.prep)) return window.PLAY_STATUS?.noBall || "You didn't choose a Poké Ball in time!";
-    if (!me?.ball) return "Watching the catch attempt…";
-    const pct = window.playRevealSeqProgress(round);
-    if (pct >= 100 && !round.resolved && !throwOutcome(me, round)) return "Waiting for the result…";
-    return "The Poké Ball is shaking…";
-  }
+    const personal = personalResult(round, me, name);
+    const shiny = String(round?.variant || "").includes("shiny");
+    if (st.scene === "results") {
+      if (personal.win) {
+        return {
+          banner: shiny ? "✨ SHINY CAUGHT! ✨" : "✨ GOTCHA! ✨",
+          status: personal.note || personal.sub || `${name} was caught!`,
+          showBanner: true
+        };
+      }
+      if (personal.spectator) {
+        return { banner: "", status: personal.sub || "Encounter complete", showBanner: false };
+      }
+      if (!me?.ball) {
+        return { banner: "OH NO!", status: "No Poké Ball was thrown.", showBanner: true };
+      }
+      return { banner: "OH NO!", status: personal.sub || `${name} broke free!`, showBanner: true };
+    }
+    if (!me?.ball && me?.joined) return { banner: "", status: "No Poké Ball was thrown.", showBanner: false };
+    if (!me?.ball) return { banner: "", status: "Watching the catch…", showBanner: false };
+    return { banner: "", status: "The Poké Ball is shaking…", showBanner: false };
+  };
 
-  function catchSeqKicker(st, round, species, me) {
-    const personal = personalResult(round, me, species);
-    if (!me?.ball && me?.joined) return "NO POKE BALL";
-    if (st.scene === "results" && personal.spectator) return "RESULTS";
-    if (st.scene === "results" && personal.win) return "CAPTURE SUCCESS";
-    if (st.scene === "results") return "CAPTURE FAILED";
-    return "CATCH ATTEMPT";
-  }
-
-  function catchSeqSubcopy(st, round, species, me) {
-    if (st.scene !== "results") return "";
-    return personalResult(round, me, species).sub;
-  }
-
-  function catchSeqNote(st, round, species, me) {
-    if (st.scene !== "results") return "";
-    return personalResult(round, me, species).note;
-  }
+  window.playFillEncounterStageHud = function playFillEncounterStageHud(root, round, me) {
+    const visual = root?.querySelector?.(".encounter-visual-stage") || root;
+    if (!visual || !round) return;
+    const catching = window.playShowCatchSeq(round);
+    const st = catching ? window.playAdvanceCatchSeqState(round, me || null) : null;
+    const hud = window.playEncounterStageCopy(round, st, me || null, window.playDisplayName(round, { plain: true }));
+    const banner = visual.querySelector("[data-stage-banner]");
+    const status = visual.querySelector("[data-seq-status]");
+    if (banner) {
+      banner.hidden = !hud.showBanner;
+      if (hud.banner && banner.textContent !== hud.banner) banner.textContent = hud.banner;
+    }
+    if (status && hud.status && status.textContent !== hud.status) status.textContent = hud.status;
+    visual.classList.toggle("is-win-scene", Boolean(hud.showBanner && /GOTCHA|SHINY/.test(hud.banner)));
+    visual.classList.toggle("is-miss-scene", Boolean(hud.showBanner && /OH NO/.test(hud.banner)));
+    visual.classList.toggle("is-shiny-win", Boolean(hud.showBanner && /SHINY/.test(hud.banner)));
+  };
 
   window.playAdvanceCatchSeqState = function playAdvanceCatchSeqState(round, me) {
     const st = catchSeqState(round.id);
@@ -542,30 +563,19 @@
     const pct = window.playRevealSeqProgress(round);
     const elapsed = Math.max(0, Math.min(11, ((pct - 8) / 92) * 11));
     const personal = personalResult(round, me, species);
-    const copy = catchSeqCopy(st, round, species, me);
-    const sub = catchSeqSubcopy(st, round, species, me);
-    const note = catchSeqNote(st, round, species, me);
-    const kicker = catchSeqKicker(st, round, species, me);
     const win = st.scene === "results" && personal.win;
     const shiny = String(round.variant || "").includes("shiny");
-    const shinyLine = win && shiny ? `<span class="catch-seq-shiny" data-seq-shiny>✨ SHINY CAUGHT! ✨</span>` : `<span class="catch-seq-shiny" data-seq-shiny hidden></span>`;
     const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${st.scene === "results" ? (win ? " is-win" : " is-miss") : ""}${!threw ? " is-watch" : ""}${!threw && me?.joined ? " is-nothrow" : ""}${personal.spectator ? " is-spectator" : ""}${win && shiny ? " is-shiny-win" : ""}`;
     return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-outcome="${st.outcome || ""}" style="--shakes:${st.shakes};--seq-elapsed:${elapsed.toFixed(2)}s">
       <div class="catch-seq-flash" aria-hidden="true"></div>
       <div class="catch-seq-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="catch-seq-kicker" data-seq-kicker>${window.playEscapeAttr(kicker)}</p>
       <div class="catch-seq-stage">
-        ${sprite ? `<img class="catch-seq-mon" src="${sprite}" alt="" onerror="window.playSpriteOnError(this)">` : ""}
+        <span class="encounter-ground-shadow" aria-hidden="true"></span>
+        ${sprite ? `<img class="catch-seq-mon encounter-stage-actor" src="${sprite}" alt="" onerror="window.playSpriteOnError(this)">` : ""}
         <img class="catch-seq-ball" src="${window.playItemSprite(ballKey)}" alt="">
         <span class="catch-seq-stars" aria-hidden="true"></span>
         <span class="catch-seq-click" aria-hidden="true"></span>
       </div>
-      <p class="catch-seq-copy" data-seq-copy>
-        <span data-seq-headline>${window.playEscapeAttr(copy)}</span>
-        <span data-seq-sub${sub ? "" : " hidden"}>${window.playEscapeAttr(sub)}</span>
-        ${shinyLine}
-      </p>
-      <p class="catch-seq-note" data-seq-note${note ? "" : " hidden"}>${window.playEscapeAttr(note)}</p>
     </aside>`;
   };
 
@@ -573,33 +583,7 @@
     const box = root?.querySelector("[data-catch-seq]");
     if (!box || !round) return false;
     const st = window.playAdvanceCatchSeqState(round, me);
-    const species = window.playDisplayName(round, { plain: true });
-    const copy = catchSeqCopy(st, round, species, me);
-    const sub = catchSeqSubcopy(st, round, species, me);
-    const note = catchSeqNote(st, round, species, me);
-    const kicker = catchSeqKicker(st, round, species, me);
-    const personal = personalResult(round, me, species);
-    const shiny = String(round.variant || "").includes("shiny");
-    const headlineEl = box.querySelector("[data-seq-headline]");
-    const subEl = box.querySelector("[data-seq-sub]");
-    const noteEl = box.querySelector("[data-seq-note]");
-    const kickerEl = box.querySelector("[data-seq-kicker]");
-    const shinyEl = box.querySelector("[data-seq-shiny]");
-    if (headlineEl && headlineEl.textContent !== copy) headlineEl.textContent = copy;
-    if (kickerEl && kickerEl.textContent !== kicker) kickerEl.textContent = kicker;
-    if (subEl) {
-      if (subEl.textContent !== sub) subEl.textContent = sub;
-      subEl.hidden = !sub;
-    }
-    if (noteEl) {
-      if (noteEl.textContent !== note) noteEl.textContent = note;
-      noteEl.hidden = !note;
-    }
-    if (shinyEl) {
-      const showShiny = st.scene === "results" && personal.win && shiny;
-      shinyEl.hidden = !showShiny;
-      if (showShiny) shinyEl.textContent = "✨ SHINY CAUGHT! ✨";
-    }
+    const personal = personalResult(round, me, window.playDisplayName(round, { plain: true }));
     box.dataset.seq = st.scene;
     box.dataset.outcome = st.outcome || "";
     box.style.setProperty("--shakes", String(st.shakes));
@@ -613,7 +597,7 @@
     box.classList.toggle("is-spectator", Boolean(personal.spectator));
     box.classList.toggle("is-nothrow", Boolean(me?.joined && !me?.ball));
     box.classList.toggle("is-watch", !me?.ball);
-    box.classList.toggle("is-shiny-win", st.scene === "results" && personal.win && shiny);
+    box.classList.toggle("is-shiny-win", st.scene === "results" && personal.win && String(round.variant || "").includes("shiny"));
     const stage = root.querySelector(".dex-stage");
     stage?.classList.toggle("is-throwing", st.scene !== "results");
     stage?.classList.toggle("is-revealed", st.scene === "results");
@@ -623,6 +607,7 @@
       visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
       visual.dataset.visualMode = st.scene === "results" ? "result" : "capture";
     }
+    window.playFillEncounterStageHud(root, round, me);
     return true;
   };
 
@@ -686,6 +671,7 @@
     if (visual) {
       visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
       if (!capturing) visual.classList.remove("is-capture");
+      window.playFillEncounterStageHud(root, round, extra?.me || null);
     }
     if (extra?.staff) {
       const panel = root.querySelector("[data-staff-round]");

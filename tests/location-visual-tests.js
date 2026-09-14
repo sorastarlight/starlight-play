@@ -87,6 +87,19 @@ test("runtime lookup uses the curated local asset", () => {
   assert(/route-1\.(webp|png)$/.test(visual.asset || ""), visual && visual.asset);
 });
 
+test("presentation defaults and difficult-location overrides", () => {
+  const forest = window.playLocationVisual("Viridian Forest");
+  const moon = window.playLocationVisual("Mt. Moon");
+  const attrs = window.playLocationVisualAttrs("Viridian Forest");
+  assert(forest.brightness < 0.88, String(forest.brightness));
+  assert(moon.brightness > 0.9, String(moon.brightness));
+  assert(moon.overlay < forest.overlay, `${moon.overlay} !< ${forest.overlay}`);
+  assert(attrs.includes("--enc-map-brightness"));
+  assert(attrs.includes("--enc-overlay"));
+  assert(attrs.includes("--enc-vignette"));
+});
+
+
 test("unknown locations fall back to Kanto", () => {
   const visual = window.playLocationVisual("Not A Real Place");
   assert(visual && visual.key === "kanto", visual && visual.key);

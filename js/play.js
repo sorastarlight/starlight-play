@@ -85,9 +85,9 @@
     if (!round || round.phase === "closed") {
       let closedStatus = "";
       if (round?.resolved && me) {
-        if (me.caught) closedStatus = `Gotcha! ${species} was caught!`;
+        if (me.caught) closedStatus = `Caught ${species}`;
         else if (!me.ball) closedStatus = window.PLAY_STATUS?.noBall || "You didn't choose a Poké Ball in time!";
-        else if (me.result) closedStatus = `Oh no! ${species} broke free! Better luck next encounter!`;
+        else if (me.result) closedStatus = `${species} broke free. Better luck next encounter!`;
       }
       return {
         key: `idle:${round?.id || ""}:${me?.result || ""}`,

@@ -31,6 +31,26 @@
   };
 
   window.PLAY_LOCATION_VISUAL_DIR = ASSET_DIR;
+  window.PLAY_LOCATION_PRESENTATION_DEFAULTS = {
+    brightness: 0.88,
+    saturation: 0.92,
+    overlay: 0.22,
+    overlayTint: "14, 20, 38",
+    vignette: 0.18
+  };
+  window.PLAY_LOCATION_PRESENTATION = {
+    "viridian-forest": { brightness: 0.82, overlay: 0.26 },
+    "route-1": { brightness: 0.84, overlay: 0.2 },
+    "route-2": { brightness: 0.84, overlay: 0.2 },
+    "mt-moon": { brightness: 0.97, overlay: 0.1, vignette: 0.12 },
+    "rock-tunnel": { brightness: 0.97, overlay: 0.1, vignette: 0.12 },
+    "cerulean-cave": { brightness: 0.96, overlay: 0.12 },
+    "digletts-cave": { brightness: 0.96, overlay: 0.12 },
+    "power-plant": { brightness: 0.9, overlay: 0.18 },
+    "seafoam-islands": { brightness: 0.9, overlay: 0.2 },
+    "pokemon-mansion": { brightness: 0.95, overlay: 0.12 },
+    "pokemon-tower": { brightness: 0.94, overlay: 0.14 }
+  };
 
   window.playNormalizeLocationText = function playNormalizeLocationText(value) {
     return String(value || "")
@@ -156,12 +176,19 @@
         const asset = /^https?:\/\//i.test(row.local_asset_path) || String(row.local_asset_path).startsWith("/")
           ? row.local_asset_path
           : `/${row.local_asset_path}`;
+        const preset = window.PLAY_LOCATION_PRESENTATION_DEFAULTS || {};
+        const tuned = (window.PLAY_LOCATION_PRESENTATION || {})[key] || {};
         return {
           key,
           displayName: row.display_name || locationName,
           asset,
-          position: `${row.background_position_x || 50}% ${row.background_position_y || 42}%`,
-          scale: row.background_scale || 1,
+          position: `${row.background_position_x ?? tuned.position_x ?? 50}% ${row.background_position_y ?? tuned.position_y ?? 42}%`,
+          scale: row.background_scale || tuned.zoom || 1,
+          brightness: Number(row.brightness ?? tuned.brightness ?? preset.brightness ?? 0.88),
+          saturation: Number(row.saturation ?? tuned.saturation ?? preset.saturation ?? 0.92),
+          overlay: Number(row.overlay_opacity ?? tuned.overlay ?? preset.overlay ?? 0.22),
+          overlayTint: row.overlay_tint || tuned.overlay_tint || preset.overlayTint || "14, 20, 38",
+          vignette: Number(row.vignette_strength ?? row.vignette ?? tuned.vignette ?? preset.vignette ?? 0.18),
           fallback: false
         };
       }
@@ -176,6 +203,6 @@
     const escape = typeof window.playEscapeAttr === "function"
       ? window.playEscapeAttr
       : (value) => String(value || "").replace(/"/g, "&quot;");
-    return ` data-location-key="${escape(visual.key)}" style="--loc-bg-image:url('${escape(visual.asset)}');--loc-bg-position:${escape(visual.position)}"`;
+    return ` data-location-key="${escape(visual.key)}" style="--loc-bg-image:url('${escape(visual.asset)}');--loc-bg-position:${escape(visual.position)};--enc-map-brightness:${visual.brightness};--enc-map-saturate:${visual.saturation};--enc-overlay:${visual.overlay};--enc-overlay-rgb:${escape(visual.overlayTint)};--enc-vignette:${visual.vignette}"`;
   };
 })();

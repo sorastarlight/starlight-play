@@ -688,10 +688,21 @@
     return true;
   };
 
+  window.playConsoleTime = function playConsoleTime(at) {
+    if (!at) return 0;
+    const raw = String(at).trim();
+    const fixed = raw.replace(" ", "T").replace(/([+-]\d{2})$/, "$1:00");
+    const ms = Date.parse(fixed);
+    if (!Number.isNaN(ms)) return ms;
+    const ms2 = Date.parse(raw);
+    return Number.isNaN(ms2) ? 0 : ms2;
+  };
+
   window.playConsoleLine = function playConsoleLine(row) {
     const name = window.playEscapeAttr(row?.name || "A trainer");
-    const stamp = row?.at ? new Date(row.at) : null;
-    const time = stamp && !Number.isNaN(stamp.getTime())
+    const ms = window.playConsoleTime(row?.at);
+    const stamp = ms ? new Date(ms) : null;
+    const time = stamp
       ? `<time datetime="${stamp.toISOString()}">${stamp.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", second: "2-digit" })}</time>`
       : `<time></time>`;
     const message = String(row?.message || "").trim();
@@ -729,6 +740,9 @@
     if (row?.kind === "phase") {
       return `<li class="is-phase">${time}<span>${window.playEscapeAttr(message)}</span></li>`;
     }
+    if (row?.kind === "resolved") {
+      return "";
+    }
     if (row?.kind === "pause") {
       return `<li>${time}<span>⏸ ${message ? window.playEscapeAttr(message) : "The encounter has been paused for a Twitch ad break."}</span></li>`;
     }
@@ -742,32 +756,61 @@
     return `<li>${time}<span><strong>${name}</strong></span></li>`;
   };
 
+  window.playConsoleKindRank = function playConsoleKindRank(kind) {
+    const key = String(kind || "");
+    if (key === "caught") return 100;
+    if (key === "escaped") return 90;
+    if (key === "timeout") return 80;
+    if (key === "threw") return 50;
+    if (key === "selected") return 40;
+    if (key === "prepared") return 30;
+    if (key === "joined") return 20;
+    if (key === "phase") return 15;
+    if (key === "appeared") return 5;
+    if (key === "resolved") return 0;
+    return 10;
+  };
+
   window.playConsoleRows = function playConsoleRows(source, round) {
-    const rows = Array.isArray(source)
+    let rows = Array.isArray(source)
       ? source.slice()
       : (Array.isArray(source?.activity) ? source.activity.slice() : []);
     const live = round || (source && !Array.isArray(source) && source.phase ? source : null);
-    if (!live || (live.phase !== "reveal" && live.phase !== "closed")) return rows;
-    const throwers = Array.isArray(live.throwers) ? live.throwers : [];
-    if (!throwers.length) return rows;
-    const have = new Set(
-      rows.filter((row) => row?.kind === "threw").map((row) => String(row.name || "").toLowerCase())
+    const otherMessages = new Set(
+      rows
+        .filter((row) => row?.kind !== "resolved")
+        .map((row) => String(row?.message || "").trim().toLowerCase())
+        .filter(Boolean)
     );
-    const extra = [];
-    for (const thrower of throwers) {
-      const name = thrower?.name || "A trainer";
-      if (have.has(name.toLowerCase())) continue;
-      extra.push({
-        name,
-        kind: "threw",
-        item: thrower.ball,
-        at: live.deadlines?.throw || new Date().toISOString()
-      });
+    rows = rows.filter((row) => {
+      if (row?.kind !== "resolved") return true;
+      const msg = String(row?.message || "").trim();
+      if (!msg || /^results locked in\.?$/i.test(msg)) return false;
+      if (otherMessages.has(msg.toLowerCase())) return false;
+      return !/\bhas thrown\b|\bjoined the encounter\b|\bis ready\b|\bhas chosen\b/i.test(msg);
+    });
+    if (live && (live.phase === "reveal" || live.phase === "closed")) {
+      const throwers = Array.isArray(live.throwers) ? live.throwers : [];
+      const have = new Set(
+        rows.filter((row) => row?.kind === "threw").map((row) => String(row.name || "").toLowerCase())
+      );
+      for (const thrower of throwers) {
+        const name = thrower?.name || "A trainer";
+        if (have.has(name.toLowerCase())) continue;
+        have.add(name.toLowerCase());
+        rows.push({
+          name,
+          kind: "threw",
+          item: thrower.ball,
+          at: live.deadlines?.throw || live.deadlines?.reveal || live.startedAt
+        });
+      }
     }
-    return extra.concat(rows).sort((a, b) => {
-      const ta = Date.parse(a?.at || "") || 0;
-      const tb = Date.parse(b?.at || "") || 0;
-      return tb - ta;
+    return rows.sort((a, b) => {
+      const ta = window.playConsoleTime(a?.at);
+      const tb = window.playConsoleTime(b?.at);
+      if (tb !== ta) return tb - ta;
+      return window.playConsoleKindRank(b?.kind) - window.playConsoleKindRank(a?.kind);
     });
   };
 
@@ -796,7 +839,7 @@
       list.innerHTML = `<li class="muted">Waiting for trainers to join, use Honey or a Berry, and throw a ball.</li>`;
       return;
     }
-    list.innerHTML = rows.map((row) => window.playConsoleLine(row)).join("");
+    list.innerHTML = rows.map((row) => window.playConsoleLine(row)).filter(Boolean).join("");
     if (!pin || nearTop) {
       list.scrollTop = 0;
       list.dataset.pinScroll = "0";

@@ -278,7 +278,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       html = `
         <p class="eyebrow">Test Mode</p>
         <h2>Offline testing</h2>
-        <p>Twitch does not need to be live. Test encounters use the existing test protection and do not run automatic stream cadence.</p>
+        <p>Twitch does not need to be live. Test encounters use the existing test protection, do not run automatic stream cadence, and should appear on the stream overlay.</p>
         <div class="links">
           <button type="button" class="gold" data-act="start_test" ${state?.activeEncounter ? "disabled" : ""}>Start test encounter</button>
           <button type="button" class="danger" data-act="stop_test">Stop test encounter</button>

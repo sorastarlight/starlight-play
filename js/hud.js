@@ -728,7 +728,11 @@
         at: live.deadlines?.throw || new Date().toISOString()
       });
     }
-    return extra.concat(rows);
+    return extra.concat(rows).sort((a, b) => {
+      const ta = Date.parse(a?.at || "") || 0;
+      const tb = Date.parse(b?.at || "") || 0;
+      return tb - ta;
+    });
   };
 
   window.playConsoleFilterMatch = function playConsoleFilterMatch(row, filter) {
@@ -751,14 +755,14 @@
     const filter = list.dataset.consoleFilter || "all";
     const rows = window.playConsoleRows(source, round).filter((row) => window.playConsoleFilterMatch(row, filter));
     const pin = list.dataset.pinScroll === "1";
-    const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 28;
+    const nearTop = list.scrollTop < 28;
     if (!rows.length) {
       list.innerHTML = `<li class="muted">Waiting for trainers to join, use Honey or a Berry, and throw a ball.</li>`;
       return;
     }
     list.innerHTML = rows.map((row) => window.playConsoleLine(row)).join("");
-    if (!pin || nearBottom) {
-      list.scrollTop = list.scrollHeight;
+    if (!pin || nearTop) {
+      list.scrollTop = 0;
       list.dataset.pinScroll = "0";
       list.parentElement?.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
     } else {

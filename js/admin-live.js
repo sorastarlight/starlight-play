@@ -32,7 +32,8 @@ window.playBindLiveOps = function playBindLiveOps(options) {
   if (consoleEl && consoleEl.dataset.resizeBound !== "1") {
     consoleEl.dataset.resizeBound = "1";
     const saved = localStorage.getItem("playHubConsoleHeight");
-    if (saved) consoleEl.style.height = saved;
+    const savedPx = saved ? parseFloat(saved) : 0;
+    if (savedPx >= 640) consoleEl.style.height = saved;
     const persist = () => {
       const height = consoleEl.style.height || getComputedStyle(consoleEl).height;
       if (height) localStorage.setItem("playHubConsoleHeight", height);

@@ -1615,15 +1615,15 @@
   });
   els.console?.addEventListener("scroll", () => {
     const list = els.console;
-    const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 28;
-    list.dataset.pinScroll = nearBottom ? "0" : "1";
-    if (nearBottom) list.parentElement?.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
+    const nearTop = list.scrollTop < 28;
+    list.dataset.pinScroll = nearTop ? "0" : "1";
+    if (nearTop) list.parentElement?.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
   });
   document.querySelector("[data-feed-jump]")?.addEventListener("click", () => {
     const list = els.console;
     if (!list) return;
     list.dataset.pinScroll = "0";
-    list.scrollTop = list.scrollHeight;
+    list.scrollTop = 0;
     list.parentElement?.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
   });
   {

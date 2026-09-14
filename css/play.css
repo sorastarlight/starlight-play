@@ -3816,8 +3816,8 @@ body[data-page="admin"] .play-stage {
   overflow: hidden;
 }
 #hub-panel-live .live-ops-console {
-  min-height: 320px;
-  height: min(52vh, 640px);
+  min-height: 640px;
+  height: min(80vh, 1280px);
   max-height: none;
   resize: vertical;
 }

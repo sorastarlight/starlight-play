@@ -779,15 +779,15 @@
   document.getElementById("live-feed")?.addEventListener("scroll", () => {
     const list = document.getElementById("live-feed");
     if (!list) return;
-    const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 28;
-    list.dataset.pinScroll = nearBottom ? "0" : "1";
-    if (nearBottom) document.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
+    const nearTop = list.scrollTop < 28;
+    list.dataset.pinScroll = nearTop ? "0" : "1";
+    if (nearTop) document.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
   });
   document.querySelector("[data-feed-jump]")?.addEventListener("click", () => {
     const list = document.getElementById("live-feed");
     if (!list) return;
     list.dataset.pinScroll = "0";
-    list.scrollTop = list.scrollHeight;
+    list.scrollTop = 0;
     document.querySelector("[data-feed-jump]")?.setAttribute("hidden", "");
   });
   window.playBindTips?.(document.body);

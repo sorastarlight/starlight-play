@@ -68,6 +68,12 @@
     }
   }
 
+  function nudgeEncounterIntoView() {
+    const card = els.encounter?.closest(".dex-card") || els.actions;
+    if (!card || typeof card.scrollIntoView !== "function") return;
+    try { card.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (_) {}
+  }
+
   function logPlayAction(stage, extra) {
     if (!playDebugOn()) return;
     try {
@@ -111,15 +117,16 @@
   }
 
   function phaseBar(round) {
+    if (typeof window.playPhaseBarPercent === "function") return window.playPhaseBarPercent(round);
     if (!round?.deadlines || !round.phase || round.phase === "closed") return 0;
     const keys = ["join", "prepare", "throw", "reveal"];
     const index = keys.indexOf(round.phase);
     const startKey = keys[index - 1];
     const start = startKey ? new Date(round.deadlines[startKey]).getTime() : new Date(round.startedAt).getTime();
     const end = new Date(round.deadlines[round.phase]).getTime();
-    const now = round.pausedAt
-      ? new Date(round.pausedAt).getTime()
-      : (typeof window.playServerNowMs === "function" ? window.playServerNowMs(round) : Date.now());
+    const now = typeof window.playRoundNowMs === "function"
+      ? window.playRoundNowMs(round)
+      : (round.pausedAt ? new Date(round.pausedAt).getTime() : Date.now());
     if (end <= start) return 0;
     return Math.max(0, Math.min(100, ((end - now) / (end - start)) * 100));
   }
@@ -248,7 +255,7 @@
         joining: pending
       });
     }
-    if (me && (joining || preparing || throwing)) {
+    if (joining && me) {
       const radar = Boolean(window.playRadarOn?.(bag));
       buttons.push({
         kind: "join",
@@ -259,8 +266,7 @@
         joined: true
       });
     }
-    if ((preparing || joining || throwing) && me) {
-      const waitPrep = window.PLAY_STATUS?.waitPrep || "Opens in item selection";
+    if (preparing && me) {
       const owned = window.playOwnedBerries(bag, data?.captureItems);
       const berries = owned.map((row) => ({
         kind: "prepare",
@@ -270,7 +276,7 @@
         effect: row.description || "Makes this Pokémon easier to catch.",
         selected: me.prep === row.key,
         disabled: !prepActive || row.qty < 1,
-        reason: me.prep && me.prep !== row.key ? "ENCOUNTER LOCKED" : (row.qty < 1 ? "OUT OF STOCK" : (!prepActive ? waitPrep : "")),
+        reason: me.prep && me.prep !== row.key ? "ENCOUNTER LOCKED" : (row.qty < 1 ? "OUT OF STOCK" : ""),
         sprite: row.key
       }));
       const honeyQty = Number(bag.bait || 0);
@@ -282,7 +288,7 @@
         effect: "Contribute Honey to improve the catch bonus for all Trainers.",
         selected: me.prep === "bait",
         disabled: !prepActive || honeyQty < 1,
-        reason: me.prep && me.prep !== "bait" ? "ENCOUNTER LOCKED" : (honeyQty < 1 ? "OUT OF STOCK" : (!prepActive ? waitPrep : "")),
+        reason: me.prep && me.prep !== "bait" ? "ENCOUNTER LOCKED" : (honeyQty < 1 ? "OUT OF STOCK" : ""),
         sprite: "bait"
       };
       const skip = {
@@ -292,57 +298,45 @@
         effect: "Skip this phase. You can still throw a Poké Ball.",
         selected: me.prep === "none",
         disabled: !prepActive,
-        reason: lockedPrep && me.prep !== "none" ? "ENCOUNTER LOCKED" : (!prepActive ? waitPrep : ""),
+        reason: lockedPrep && me.prep !== "none" ? "ENCOUNTER LOCKED" : "",
         sprite: "berry"
       };
-      if (prepActive || lockedPrep || joining || throwing) {
+      if (prepActive || lockedPrep) {
         buttons.push(...berries, honey, skip);
       }
     }
-    if ((throwing || preparing || joining) && me) {
-      const waitThrow = window.PLAY_STATUS?.waitThrow || "Opens in Poké Ball selection";
+    if (throwing && me) {
+      const prefs = window.playEncounterSettings(data?.encounterSettings);
       const advice = Array.isArray(data?.ballAdvice) ? data.ballAdvice : [];
+      const adviceMap = new Map(advice.map((row) => [row.ballId, row]));
       const owned = window.playOwnedBalls(bag);
-      const pins = typeof window.playBagPins === "function" ? window.playBagPins() : [];
-      const recent = typeof window.playRecentKeys === "function" ? window.playRecentKeys("balls") : [];
-      const ballDisabled = (qty, selected) => lockedBall || !throwActive || Number(qty) < 1;
-      const ballReason = (qty, selected) => {
-        if (lockedBall && !selected) return "ENCOUNTER LOCKED";
-        if (Number(qty) < 1) return "OUT OF STOCK";
-        if (!throwActive) return waitThrow;
-        return "";
+      const ownedMap = new Map(owned.map((row) => [row.key, row]));
+      const infoOf = (key) => ownedMap.get(key) || window.playBallInfo?.(key) || { key, name: window.playItemLabel?.(key) || key };
+      let keys = Array.isArray(prefs.favoriteBalls) ? prefs.favoriteBalls.slice() : [];
+      if (me.ball && me.ball !== "standard" && !keys.includes(me.ball)) keys.push(me.ball);
+      keys = keys.filter((key, index, list) => key && list.indexOf(key) === index);
+      const ballRow = (key) => {
+        const rec = adviceMap.get(key);
+        const info = infoOf(key);
+        const qty = Number(bag[key] ?? rec?.quantity ?? 0);
+        const selected = me.ball === key;
+        return {
+          kind: "throw",
+          item: key,
+          key,
+          label: rec?.name || info.name || key,
+          qty,
+          effect: rec?.description || info.effect || "A Poké Ball for this encounter.",
+          effectiveness: rec?.effectiveness,
+          recommended: Boolean(rec?.recommended),
+          specialist: Boolean(rec?.specialist),
+          selected,
+          disabled: lockedBall || !throwActive || qty < 1,
+          reason: lockedBall && !selected ? "ENCOUNTER LOCKED" : (qty < 1 ? "OUT OF STOCK" : ""),
+          sprite: key
+        };
       };
-      let rows = advice.length
-        ? advice.map((row) => ({
-          kind: "throw",
-          item: row.ballId,
-          key: row.ballId,
-          label: row.name,
-          qty: Number(bag[row.ballId] ?? row.quantity ?? 0),
-          effect: row.description,
-          effectiveness: row.effectiveness,
-          recommended: Boolean(row.recommended),
-          specialist: Boolean(row.specialist),
-          selected: me.ball === row.ballId,
-          disabled: ballDisabled(bag[row.ballId] ?? row.quantity ?? 0, me.ball === row.ballId),
-          reason: ballReason(bag[row.ballId] ?? row.quantity ?? 0, me.ball === row.ballId),
-          sprite: row.ballId
-        }))
-        : owned.map((row) => ({
-          kind: "throw",
-          item: row.key,
-          key: row.key,
-          label: row.name,
-          qty: Number(bag[row.key] || 0),
-          effect: row.effect || "A Poké Ball for this encounter.",
-          selected: me.ball === row.key,
-          disabled: ballDisabled(bag[row.key] || 0, me.ball === row.key),
-          reason: ballReason(bag[row.key] || 0, me.ball === row.key),
-          sprite: row.key
-        }));
-      if (typeof window.playSortEncounterBalls === "function") {
-        rows = window.playSortEncounterBalls(rows, pins.concat(recent));
-      }
+      let rows = keys.map(ballRow);
       if (!rows.length && throwActive) {
         rows = [{
           kind: "throw",
@@ -355,8 +349,16 @@
           sprite: "pokeball"
         }];
       }
-      if (throwActive || lockedBall || preparing || joining) {
-        buttons.push(...rows);
+      buttons.push(...rows);
+      if (!lockedBall) {
+        buttons.push({
+          kind: "open-balls",
+          item: "more",
+          label: window.PLAY_STATUS?.otherBalls || "Other Poké Balls",
+          effect: window.PLAY_STATUS?.otherBallsHint || "Choose any Poké Ball from your bag.",
+          disabled: !throwActive,
+          sprite: "premierball"
+        });
       }
     }
     const waiting = window.PLAY_STATUS?.waitingOthers || "Waiting for other Trainers…";
@@ -550,6 +552,7 @@
     const honey = plan.buttons.filter((row) => row.kind === "prepare" && row.item === "bait");
     const skip = plan.buttons.filter((row) => row.kind === "prepare" && row.item === "none");
     const balls = plan.buttons.filter((row) => row.kind === "throw");
+    const moreBalls = plan.buttons.filter((row) => row.kind === "open-balls");
     const joins = plan.buttons.filter((row) => row.kind === "join");
     const tip = plan.phase === "prepare" && !data?.me?.prep
       ? (typeof window.playTipHtml === "function" ? window.playTipHtml("first-prep", window.PLAY_STATUS.firstPrep) : "")
@@ -584,6 +587,9 @@
     }
     if (balls.length) {
       html += `<div class="enc-ball-scroller enc-hud-in" role="list">${balls.map(renderActionCard).join("")}</div>`;
+    }
+    if (moreBalls.length) {
+      html += `<div class="enc-more-balls enc-hud-in">${moreBalls.map(renderActionCard).join("")}</div>`;
     }
     if (plan.used && typeof window.playUsedSummaryHtml === "function") {
       html += window.playUsedSummaryHtml(plan.used, liveRound(data));
@@ -756,6 +762,7 @@
     const key = `${round?.id || "none"}:${round ? "live" : "idle"}:${round?.variant || ""}:${round?.hidden || false}`;
     const bar = phaseBar(round);
     const patchOpts = { me: state?.me || null };
+    const prevPhase = lastLocalPhase;
     lastLocalPhase = round?.phase || lastLocalPhase;
     const hasLiveDom = Boolean(els.encounter?.querySelector(".dex-stage"));
     const paintFull = () => {
@@ -779,6 +786,7 @@
     els.encounter?.closest(".dex-card")?.classList.toggle("is-encounter-live", Boolean(round && round.phase && round.phase !== "closed"));
     window.playRenderLiveFeed(data?.console || [], null, round);
     renderActions(view);
+    if (round?.phase && round.phase !== prevPhase) nudgeEncounterIntoView();
     maybeShowCatchNotices(round, state?.me);
     if (!busyNow()) {
       maybeRadarJoin(view);
@@ -1133,7 +1141,10 @@
     }
     if (round.phase && round.phase !== lastLocalPhase) {
       lastLocalPhase = round.phase;
-      if (!actionDomFrozen()) renderActions({ ...state, round });
+      if (!actionDomFrozen()) {
+        renderActions({ ...state, round });
+        nudgeEncounterIntoView();
+      }
       else refreshQueued = true;
       maybeShowCatchNotices(round, state?.me);
       requestRefresh("phase");

@@ -268,6 +268,18 @@ test("successful click pins the choice even if me is missing", () => {
   assert(throwKept.prep === "none", throwKept.prep);
 });
 
+test("timer seconds follow serverNow not the browser clock", () => {
+  const snap = {
+    id: "timer",
+    phase: "join",
+    serverNow: "2026-09-14T12:00:10.000Z",
+    receivedAt: Date.now(),
+    deadlines: { join: "2026-09-14T12:00:40.000Z" }
+  };
+  const left = window.playDeadlineSecondsLeft(snap, snap.deadlines.join);
+  assert(left === 30 || left === 29, String(left));
+});
+
 test("click freeze stays true until pendingAction is set", () => {
   const src = require("fs").readFileSync(require("path").join(__dirname, "../js/play.js"), "utf8");
   assert(!/event\.preventDefault\(\);\s*pointerHeld = false;\s*clearTimeout\(holdReleaseTimer\);\s*pressAction/.test(src), "click still drops the freeze before act()");

@@ -5342,7 +5342,17 @@ body[data-page="admin"] .play-stage {
   0%, 100% { opacity: 1; }
   50% { opacity: .55; }
 }
-.enc-actions { display: grid; gap: 12px; min-height: 108px; }
+.enc-more-balls {
+  display: grid;
+}
+.enc-more-balls .enc-card,
+.enc-more-balls .item-btn {
+  width: 100%;
+  min-height: 56px;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
 .action-grid.enc-actions {
   grid-template-columns: 1fr;
 }

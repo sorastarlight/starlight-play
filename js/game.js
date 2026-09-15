@@ -866,12 +866,17 @@
       .replace(/Mix It Up/gi, "the stream");
   };
 
-  window.playSecondsLeft = function playSecondsLeft(iso) {
+  window.playSecondsLeft = function playSecondsLeft(iso, nowMs) {
     if (!iso) return 0;
-    return Math.max(0, Math.ceil((new Date(iso).getTime() - Date.now()) / 1000));
+    const now = Number.isFinite(nowMs) ? nowMs : Date.now();
+    return Math.max(0, Math.ceil((new Date(iso).getTime() - now) / 1000));
   };
 
   window.playEncounterSecondsLeft = function playEncounterSecondsLeft(round) {
+    const endAt = round?.deadlines?.[round.phase] || round?.endsAt;
+    if (typeof window.playDeadlineSecondsLeft === "function") {
+      return window.playDeadlineSecondsLeft(round, endAt);
+    }
     if (round?.paused && round.deadlines && round.phase && round.pausedAt) {
       const end = Date.parse(round.deadlines[round.phase]);
       const pause = Date.parse(round.pausedAt);
@@ -879,7 +884,8 @@
         return Math.max(0, Math.ceil((end - pause) / 1000));
       }
     }
-    return window.playSecondsLeft(round?.endsAt);
+    const now = typeof window.playRoundNowMs === "function" ? window.playRoundNowMs(round) : Date.now();
+    return window.playSecondsLeft(endAt, now);
   };
 
   window.playDisplayName = function playDisplayName(round, options) {

@@ -330,7 +330,9 @@
     const startKey = keys[index - 1];
     const start = Date.parse(startKey ? round.deadlines[startKey] : round.startedAt);
     const end = Date.parse(round.deadlines[round.phase]);
-    const now = round.pausedAt ? Date.parse(round.pausedAt) : Date.now();
+    const now = typeof window.playRoundNowMs === "function"
+      ? window.playRoundNowMs(round)
+      : (round.pausedAt ? Date.parse(round.pausedAt) : Date.now());
     if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) return 0;
     return Math.max(0, Math.min(100, ((end - now) / (end - start)) * 100));
   };
@@ -429,7 +431,9 @@
       return round?.resolved ? 100 : 8;
     }
     const freeze = round.paused && !round.resolved;
-    const now = freeze ? Date.parse(round.pausedAt || "") : Date.now();
+    const now = freeze
+      ? Date.parse(round.pausedAt || "")
+      : (typeof window.playRoundNowMs === "function" ? window.playRoundNowMs(round) : Date.now());
     const t = Number.isFinite(now) ? now : Date.now();
     return Math.max(8, Math.min(100, ((t - start) / (end - start)) * 100));
   };
@@ -605,7 +609,8 @@
       return { banner: "", status: window.PLAY_STATUS?.watching || "Watching the encounter…", showBanner: false };
     }
     const throwEnd = Date.parse(round?.deadlines?.throw || "");
-    const sinceThrow = Number.isFinite(throwEnd) ? Date.now() - throwEnd : 9999;
+    const now = typeof window.playRoundNowMs === "function" ? window.playRoundNowMs(round) : Date.now();
+    const sinceThrow = Number.isFinite(throwEnd) ? now - throwEnd : 9999;
     if (st.scene === "wobble" && sinceThrow >= 0 && sinceThrow < 600) {
       return { banner: "", status: window.PLAY_STATUS?.thrown || "Poké Balls thrown!", showBanner: false };
     }

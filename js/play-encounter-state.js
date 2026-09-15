@@ -66,6 +66,20 @@
     return Number.isFinite(fallbackMs) ? fallbackMs : Date.now();
   };
 
+  root.playRoundNowMs = function playRoundNowMs(round, fallbackMs) {
+    if (round?.paused && round.pausedAt && !round.resolved) {
+      const pause = Date.parse(round.pausedAt);
+      if (Number.isFinite(pause)) return pause;
+    }
+    return root.playServerNowMs(round, fallbackMs);
+  };
+
+  root.playDeadlineSecondsLeft = function playDeadlineSecondsLeft(round, iso) {
+    const end = Date.parse(iso || "");
+    if (!Number.isFinite(end)) return 0;
+    return Math.max(0, Math.ceil((end - root.playRoundNowMs(round)) / 1000));
+  };
+
   function deadlineMs(round, key) {
     const n = Date.parse(round?.deadlines?.[key] || "");
     return Number.isFinite(n) ? n : 0;
@@ -74,7 +88,7 @@
   // Matches private.prepare_action_ok / throw_action_ok (1s grace on each edge).
   root.playActionWindowOpen = function playActionWindowOpen(round, kind) {
     if (!round || round.cancelled || round.paused) return false;
-    const now = root.playServerNowMs(round);
+    const now = root.playRoundNowMs(round);
     const join = deadlineMs(round, "join");
     const prepare = deadlineMs(round, "prepare");
     const throwAt = deadlineMs(round, "throw");
@@ -125,10 +139,10 @@
     const freeze = round.paused && !round.resolved;
     const revealAt = ts(round.deadlines?.reveal || round.endsAt || "");
     const revealPassed = Boolean(revealAt) && now >= revealAt && !freeze;
-    let shown = revealPassed ? "closed" : local;
-    const floor = round.highestPhase || round.phase;
-    if (root.playPhaseRank(shown) < root.playPhaseRank(floor)) shown = floor;
-    const highestPhase = root.playPhaseRank(shown) >= root.playPhaseRank(floor) ? shown : floor;
+    const shown = revealPassed ? "closed" : local;
+    const highestPhase = root.playPhaseRank(shown) >= root.playPhaseRank(round.highestPhase || round.phase)
+      ? shown
+      : (round.highestPhase || round.phase);
     const ends = round.deadlines?.[shown] || round.endsAt;
     return { ...round, phase: shown, endsAt: ends || round.endsAt, highestPhase, serverPhase: snapshotPhase };
   };

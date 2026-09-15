@@ -209,6 +209,18 @@ test("join pending does not use berry selected styles", () => {
   const src = fs.readFileSync(path.join(__dirname, "../js/play.js"), "utf8");
   assert(src.includes('row.kind === "join" ? "" : (row.selected ? " is-selected" : "")'), src);
 });
+test("Other Poké Balls copy is centralized", () => {
+  assert(window.PLAY_STATUS.otherBalls.includes("Other Poké Balls"));
+  assert(window.PLAY_STATUS.otherBallsHint.toLowerCase().includes("bag"));
+});
+test("throw phase lists favorite Balls instead of the whole bag", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const src = fs.readFileSync(path.join(__dirname, "../js/play.js"), "utf8");
+  assert(src.includes("favoriteBalls"), "throw row should use favorite Balls");
+  assert(src.includes('kind: "open-balls"'), "other Balls opener missing");
+  assert(!/if \(\(throwing \|\| preparing \|\| joining\) && me\)/.test(src), "action cards still stack across phases");
+});
 test("community result panel does not fade in on every patch", () => {
   const fs = require("fs");
   const path = require("path");

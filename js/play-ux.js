@@ -22,6 +22,8 @@
     emptyItems: "No encounter items available.",
     firstPrep: "Choose a Berry, Honey, or No Item.",
     firstThrow: "Choose a Poké Ball!",
+    otherBalls: "Other Poké Balls",
+    otherBallsHint: "Choose any Poké Ball from your bag.",
     waitPrep: "Opens in item selection",
     waitThrow: "Opens in Poké Ball selection",
     thrown: "Poké Balls thrown!",

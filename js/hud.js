@@ -759,6 +759,7 @@
     const visual = root.querySelector(".encounter-visual-stage");
     if (visual) {
       visual.classList.toggle("is-capture", true);
+      visual.classList.remove("is-exit");
       visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
       visual.classList.toggle("is-mid-catch", st.scene !== "wobble" || window.playCatchSeqElapsedMs(round) >= 450);
       visual.dataset.visualMode = st.scene === "results" ? "result" : "capture";
@@ -861,8 +862,12 @@
     if (visual) {
       visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
       if (!capturing) {
-        visual.classList.remove("is-capture", "is-mid-catch");
-        visual.dataset.visualMode = "wild";
+        visual.classList.remove("is-capture", "is-mid-catch", "is-wild-enter", "is-shiny-intro");
+        visual.classList.add("is-exit");
+        visual.dataset.visualMode = round.phase === "closed" ? "result" : "wild";
+        visual.querySelector(".dex-stage")?.classList.remove("is-throwing");
+      } else {
+        visual.classList.remove("is-exit");
       }
       window.playFillEncounterStageHud(root, round, extra?.staff ? null : (extra?.me || null));
     }
@@ -885,7 +890,8 @@
     }
     if (!wantsSeq && seqBox) {
       seqBox.remove();
-      visual?.classList.remove("is-capture", "is-mid-catch");
+      visual?.classList.remove("is-capture", "is-mid-catch", "is-wild-enter");
+      visual?.classList.add("is-exit");
     }
     if (wantsSeq) window.playAdvanceCatchSeq(root, round, extra?.staff ? null : extra?.me || null);
     if (extra?.showHoney !== false) {

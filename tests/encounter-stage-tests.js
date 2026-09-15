@@ -313,6 +313,18 @@ test("GOTCHA banner stays in stage center, not with the level chip", () => {
   assert(/\.encounter-stage-banner \{[\s\S]*left:\s*50%/.test(css), "banner is no longer centered");
 });
 
+test("wild sprite has no white glow and does not bob after intro", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const css = fs.readFileSync(path.join(__dirname, "../css/play.css"), "utf8");
+  const sprite = css.match(/\.encounter-visual-stage \.encounter-actor-frame img\.encounter-stage-actor,[\s\S]*?filter:[^}]+\}/);
+  assert(sprite, "missing encounter sprite CSS");
+  assert(!/255,\s*255,\s*255/.test(sprite[0]), sprite[0]);
+  assert(/animation:\s*none/.test(sprite[0]), sprite[0]);
+  assert(css.includes(".encounter-visual-stage.is-exit"), "missing encounter exit hide");
+  assert(!/idle-bob 1\.35s ease-in-out \.7s infinite/.test(css), "intro still chains idle-bob");
+});
+
 test("late load still shows the settled result scene", () => {
   const html = window.playCatchSeqHtml(catchRound({ id: "late-load", resolved: true, phase: "closed" }), {
     me: { joined: true, ball: "pokeball", result: "Caught" }

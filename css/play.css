@@ -1702,13 +1702,11 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   image-rendering: pixelated;
   position: relative;
   z-index: 2;
-  filter:
-    drop-shadow(0 7px 6px rgba(18, 24, 40, .32))
-    drop-shadow(0 0 16px rgba(255, 255, 255, .7))
-    drop-shadow(0 0 2px rgba(255, 255, 255, .85));
+  animation: none;
+  filter: drop-shadow(0 8px 6px rgba(18, 24, 40, .38));
 }
-.encounter-visual-stage.is-wild-enter .dex-stage img {
-  animation: wild-enter .7s ease-out both, idle-bob 1.35s ease-in-out .7s infinite;
+.encounter-visual-stage.is-wild-enter:not(.is-capture):not(.is-exit) .dex-stage img {
+  animation: wild-enter .7s ease-out both;
 }
 .encounter-visual-stage.is-win-scene .dex-stage::after,
 .encounter-visual-stage.is-shiny-win .dex-stage::after {
@@ -1721,6 +1719,11 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   position: relative;
 }
 .encounter-visual-stage .dex-stage::after {
+  content: none;
+}
+.encounter-visual-stage.is-win-scene .dex-stage::after,
+.encounter-visual-stage.is-shiny-win .dex-stage::after,
+.encounter-visual-stage.is-shiny-wild .dex-stage::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -1728,7 +1731,6 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   width: 190px;
   height: 150px;
   margin: -75px 0 0 -95px;
-  background: radial-gradient(ellipse, rgba(255, 255, 255, .46) 0%, rgba(235, 245, 255, .16) 42%, transparent 74%);
   pointer-events: none;
   z-index: 1;
 }
@@ -1757,7 +1759,10 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   animation: throw-suck .55s ease forwards;
 }
 .encounter-visual-stage.is-capture.is-mid-catch .dex-stage,
-.encounter-visual-stage.is-capture.is-mid-catch .dex-stage .encounter-actor-frame {
+.encounter-visual-stage.is-capture.is-mid-catch .dex-stage .encounter-actor-frame,
+.encounter-visual-stage.is-exit .dex-stage,
+.encounter-visual-stage.is-exit .dex-stage .encounter-actor-frame,
+.encounter-visual-stage.is-exit .dex-stage img {
   opacity: 0;
   animation: none;
   transform: scale(0);
@@ -1829,15 +1834,13 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   margin: calc(var(--catch-ball-size) / -2) 0 0 calc(var(--catch-ball-size) / -2);
   transform-origin: 50% 88%;
   filter:
-    drop-shadow(0 5px 5px rgba(0, 0, 0, .42))
-    drop-shadow(0 0 8px rgba(255, 255, 255, .22));
+    drop-shadow(0 5px 5px rgba(0, 0, 0, .42));
 }
 .encounter-visual-stage .catch-seq.is-results .catch-seq-ball {
   bottom: 48px;
   top: auto;
   filter:
-    drop-shadow(0 4px 4px rgba(0, 0, 0, .4))
-    drop-shadow(0 0 6px rgba(255, 255, 255, .2));
+    drop-shadow(0 4px 4px rgba(0, 0, 0, .4));
 }
 .encounter-visual-stage .catch-seq-mon,
 .encounter-visual-stage .catch-seq.is-broke .catch-seq-mon,
@@ -1859,8 +1862,7 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   object-position: 50% 58%;
   transform-origin: 50% 58%;
   filter:
-    drop-shadow(0 8px 6px rgba(0, 0, 0, .42))
-    drop-shadow(0 0 14px rgba(255, 255, 255, .22));
+    drop-shadow(0 8px 6px rgba(0, 0, 0, .42));
 }
 .encounter-visual-stage .catch-seq.is-broke .catch-seq-mon,
 .encounter-visual-stage .catch-seq.is-personal.is-broke .catch-seq-mon,

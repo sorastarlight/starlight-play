@@ -98,6 +98,11 @@ test("Network errors become reconnecting", () => {
 test("Insufficient-item errors stay friendly", () => {
   assert(window.playHumanRpcError({ message: "You have no Ultra Ball left." }).includes("no longer available"));
 });
+test("internal bridge errors stay player-safe", () => {
+  const message = window.playHumanRpcError({ message: "Issue a Mix It Up bridge token in the staff hub, then run the bridge on the stream PC." });
+  assert(message === window.PLAY_STATUS.saveFailed, message);
+  assert(!/token/i.test(message), message);
+});
 test("Premier preview uses 10 qualifying Balls", () => {
   const n = window.playPremierPreview(
     [{ sku: "poke5", qty: 2 }],
@@ -185,8 +190,10 @@ test("live sync coalesces and freezes action DOM, not the snapshot itself", () =
   assert(/if \(actionDomFrozen\(\) && lastActionKey\)/.test(src), "action DOM is not frozen during pointer/pending");
   const heartbeatFn = src.match(/async function heartbeat\(\) \{[\s\S]*?\n  function scheduleRefresh/);
   assert(heartbeatFn, "missing heartbeat()");
-  assert(!/pointerHeld/.test(heartbeatFn[0]), "heartbeat still waits on pointerHeld");
+  assert(!/render\(data\)/.test(heartbeatFn[0]), "heartbeat still renders a competing snapshot");
+  assert(/requestRefresh\("heartbeat"\)/.test(heartbeatFn[0]), "heartbeat must signal the coordinator");
   assert(/function scheduleRefresh\(reason\) \{\s*requestRefresh/.test(src), "scheduleRefresh should request a coalesced refresh");
+  assert(!/playBindLureButton\(\(data\) => \{\s*lastActionKey = "";\s*render\(data\);/.test(src), "lure still bypasses action freeze");
 });
 test("result actions are not rebuilt when the layout key is unchanged", () => {
   const fs = require("fs");

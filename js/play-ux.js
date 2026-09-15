@@ -17,6 +17,7 @@
     reconnect: "Reconnecting…",
     phaseEnded: "The phase has already ended.",
     joinFailed: "Unable to join this encounter.",
+    saveFailed: "That choice couldn't be saved. Please try again.",
     emptyBalls: "You don't have a Poké Ball available for this encounter.",
     emptyItems: "No encounter items available.",
     firstPrep: "Choose a Berry, Honey, or No Item.",
@@ -200,7 +201,12 @@
     if (/does not exist|undefined_function|gen_random_bytes|syntax error/i.test(text)) {
       return "The encounter could not finish cleanly. Please wait for the next one.";
     }
-    return text.replace(/Mix It Up/gi, "the stream");
+    if (/bridge token|stream_commands|sqlstate|operator does not exist|column .* does not exist|enqueue/i.test(text)) {
+      return STATUS.saveFailed;
+    }
+    const cleaned = text.replace(/Mix It Up/gi, "the stream");
+    if (cleaned.length > 160) return STATUS.saveFailed;
+    return cleaned;
   };
 
   root.playSortEncounterBalls = function playSortEncounterBalls(rows, pins) {

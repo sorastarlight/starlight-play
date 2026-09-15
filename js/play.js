@@ -867,7 +867,9 @@
         round_id: roundId,
         item_key: item || kind,
         request_id: requestId,
-        error: String(error?.message || error || "error")
+        phase: liveRound(state)?.phase || "",
+        error: String(error?.message || error || "error"),
+        code: String(error?.code || error?.details || "")
       });
       if (pendingAction?.id !== requestId) return;
       pendingAction = null;
@@ -1030,11 +1032,11 @@
     if (document.visibilityState !== "visible") return;
     if (!window._playSession) return;
     try {
-      const data = await window.playCall("play_heartbeat", { p_seconds: 20 });
-      if (data) render(data);
+      await window.playCall("play_heartbeat", { p_seconds: 20 });
     } catch (_) {
       // Rankings still work if the heartbeat RPC is not live yet.
     }
+    requestRefresh("heartbeat");
   }
 
   function scheduleRefresh(reason) {
@@ -1159,6 +1161,11 @@
   setInterval(heartbeat, 20000);
   loadProfile();
   window.playBindLureButton((data) => {
+    if (actionDomFrozen()) {
+      refreshQueued = true;
+      refreshCoordinator?.markNeeded("lure");
+      return;
+    }
     lastActionKey = "";
     render(data);
   });

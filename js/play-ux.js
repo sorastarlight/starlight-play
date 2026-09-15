@@ -15,7 +15,7 @@
     noJoin: "No Trainers joined. The wild {pokemon} wandered away.",
     watching: "Watching the encounter…",
     reconnect: "Reconnecting…",
-    phaseEnded: "The phase has already ended.",
+    phaseEnded: "That phase just ended. Nothing was used.",
     joinFailed: "Unable to join this encounter.",
     saveFailed: "That choice couldn't be saved. Please try again.",
     emptyBalls: "You don't have a Poké Ball available for this encounter.",
@@ -192,7 +192,7 @@
     const text = String(raw || "");
     if (/failed to fetch|networkerror|load failed|the network/i.test(text)) return STATUS.reconnect;
     if (/unable to join|could not join|join this encounter/i.test(text)) return STATUS.joinFailed;
-    if (/item phase|poké ball phase|joining has closed|joining is closed|items can only|poké balls can only/i.test(text)) {
+    if (/that phase has ended|item phase|poké ball phase|joining has closed|joining is closed|items can only|poké balls can only/i.test(text)) {
       return STATUS.phaseEnded;
     }
     if (/http\s*409|conflict|already used that action/i.test(text)) return "That item was already used.";

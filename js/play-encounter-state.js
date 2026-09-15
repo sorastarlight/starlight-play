@@ -57,10 +57,20 @@
     return reveal + (root.PLAY_UNRESOLVED_KEEP_MS || 120000);
   };
 
+  root.playServerNowMs = function playServerNowMs(round, fallbackMs) {
+    const sent = Date.parse(round?.serverNow || "");
+    const receivedAt = Number(round?.receivedAt);
+    if (Number.isFinite(sent) && Number.isFinite(receivedAt) && receivedAt > 0) {
+      return sent + (Date.now() - receivedAt);
+    }
+    return Number.isFinite(fallbackMs) ? fallbackMs : Date.now();
+  };
+
   root.playMergeRoundSnapshot = function playMergeRoundSnapshot(prev, incoming) {
     if (!incoming) return incoming;
+    const stamped = { ...incoming, receivedAt: Date.now(), serverPhase: incoming.serverPhase || incoming.phase };
     if (!prev || prev.id !== incoming.id) {
-      return { ...incoming, highestPhase: incoming.phase || "join" };
+      return { ...stamped, highestPhase: stamped.phase || "join" };
     }
     const prevTs = ts(prev.updatedAt);
     const nextTs = ts(incoming.updatedAt);
@@ -79,16 +89,17 @@
     } else if (nextRank >= floorRank) {
       highestPhase = incoming.phase;
     }
-    return { ...incoming, phase, highestPhase };
+    return { ...stamped, phase, highestPhase, serverPhase: incoming.phase };
   };
 
   root.playApplyLocalRound = function playApplyLocalRound(round, nowMs) {
     if (!round) return null;
-    const now = Number.isFinite(nowMs) ? nowMs : Date.now();
+    const snapshotPhase = round.serverPhase || round.phase;
+    const now = Number.isFinite(nowMs) ? nowMs : root.playServerNowMs(round);
     const idleAt = root.playRoundIdleAt(round);
     if (idleAt && now >= idleAt && !round.paused) return null;
     if (round.cancelled) {
-      return { ...round, phase: "closed", endsAt: round.endsAt, highestPhase: round.highestPhase || "closed" };
+      return { ...round, phase: "closed", endsAt: round.endsAt, highestPhase: round.highestPhase || "closed", serverPhase: snapshotPhase };
     }
     const local = root.playLocalPhase(round, now);
     const freeze = round.paused && !round.resolved;
@@ -99,7 +110,7 @@
     if (root.playPhaseRank(shown) < root.playPhaseRank(floor)) shown = floor;
     const highestPhase = root.playPhaseRank(shown) >= root.playPhaseRank(floor) ? shown : floor;
     const ends = round.deadlines?.[shown] || round.endsAt;
-    return { ...round, phase: shown, endsAt: ends || round.endsAt, highestPhase };
+    return { ...round, phase: shown, endsAt: ends || round.endsAt, highestPhase, serverPhase: snapshotPhase };
   };
 
   root.playActionStructureKey = function playActionStructureKey(plan) {

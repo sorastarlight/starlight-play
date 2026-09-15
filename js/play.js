@@ -49,10 +49,14 @@
   let holdReleaseTimer = 0;
   let lastSnapshotAt = 0;
   let lastRpcAction = "";
+  let lastRpcStatus = "";
+  let lastActionError = "";
   let lastRefreshReason = "";
   let lastRoundId = "";
+  let lastRealtimeEvent = "";
   let prevServerRound = null;
   let refreshCoordinator = null;
+  let actionDomReplaces = 0;
   const joinedMe = new Map();
 
   function playDebugOn() {
@@ -344,6 +348,7 @@
     else if (throwing && me) status = "";
     else if (joining && !me) status = "";
     if (reconnecting) status = window.PLAY_STATUS?.reconnect || "Reconnecting…";
+    else if (lastActionError && !pendingAction) status = lastActionError;
     return {
       key: `${phase || ""}:${buttons.map((row) => `${row.kind}:${row.item || ""}`).join("|")}`,
       buttons,
@@ -568,10 +573,12 @@
     els.actions.classList.toggle("single", joins.length === 1 && plan.buttons.length === 1);
     els.actions.classList.toggle("throw-picks", balls.length > 0);
     els.actions.classList.toggle("enc-actions", true);
+    actionDomReplaces += 1;
     logPlayAction("ACTION DOM REPLACEMENT", {
       key,
       phase: plan.phase || "",
       round_id: liveRound(data)?.id || null,
+      replaces: actionDomReplaces,
       timestamp: Date.now()
     });
     els.actions.innerHTML = `${tip}${html}`;
@@ -826,6 +833,8 @@
     markLocalPending(kind, item);
     const prevMe = roundId ? { ...(joinedMe.get(roundId) || { joined: true }) } : null;
     lastRpcAction = `${kind}:${item || ""}`;
+    lastRpcStatus = "pending";
+    lastActionError = "";
     logPlayAction("RPC START", {
       round_id: roundId,
       item_key: item || kind,
@@ -838,10 +847,14 @@
         : kind === "prepare"
           ? await window.playCall("play_prepare", { p_item: item, p_round_id: roundId })
           : await window.playCall("play_throw", { p_item: item, p_round_id: roundId });
+      lastRpcStatus = "ok";
+      lastActionError = "";
       logPlayAction("ITEM RPC SUCCESS", {
         round_id: roundId,
         item_key: item || kind,
-        request_id: requestId
+        request_id: requestId,
+        prep: data?.me?.prep || "",
+        ball: data?.me?.ball || ""
       });
       if (pendingAction?.id !== requestId) return;
       reconnecting = false;
@@ -863,11 +876,13 @@
       acting = false;
       render(data);
     } catch (error) {
+      lastRpcStatus = "error";
       logPlayAction("ITEM RPC FAILURE", {
         round_id: roundId,
         item_key: item || kind,
         request_id: requestId,
         phase: liveRound(state)?.phase || "",
+        serverPhase: liveRound(state)?.serverPhase || "",
         error: String(error?.message || error || "error"),
         code: String(error?.code || error?.details || "")
       });
@@ -879,7 +894,14 @@
       const message = window.playHumanRpcError ? window.playHumanRpcError(error) : window.playRpcError(error);
       const shown = kind === "join" && /phase has already ended|joining/i.test(message)
         ? (window.PLAY_STATUS?.joinFailed || "Unable to join this encounter.")
-        : message;
+        : (kind === "prepare"
+          ? (/phase has already ended|phase just ended/i.test(message)
+            ? "That phase just ended. Nothing was used. Get ready to choose your Poké Ball!"
+            : (message || "Your item couldn't be selected. Nothing was used. Try again."))
+          : (kind === "throw" && /phase has already ended|phase just ended/i.test(message)
+            ? "That phase just ended. No Poké Ball was thrown."
+            : message));
+      lastActionError = shown;
       els.actionStatus.textContent = shown;
       lastActionKey = "";
       if (/phase has ended/i.test(message)) {
@@ -960,7 +982,6 @@
       return;
     }
     event.preventDefault();
-    pointerHeld = false;
     clearTimeout(holdReleaseTimer);
     pressAction(button);
   });
@@ -1007,7 +1028,6 @@
       return;
     }
     event.preventDefault();
-    pointerHeld = false;
     clearTimeout(holdReleaseTimer);
     pickFromGrid(button);
   });
@@ -1116,16 +1136,27 @@
   window.__playEncounterDebug = function playEncounterDebug() {
     const round = liveRound(state);
     const coord = refreshCoordinator?.snapshot?.() || {};
+    const me = state?.me || null;
     return {
       roundId: round?.id || null,
-      phase: round?.phase || "",
+      trainerId: window._playSession?.user?.id || null,
+      participantJoined: Boolean(me?.joined || me),
+      serverPhase: round?.serverPhase || prevServerRound?.phase || "",
+      clientPhase: round?.phase || "",
       highestPhase: round?.highestPhase || prevServerRound?.highestPhase || "",
       pendingAction,
+      selectedPrep: me?.prep || "",
+      selectedBall: me?.ball || "",
+      lastRpc: lastRpcAction,
+      lastRpcStatus,
+      lastRpcError: lastActionError,
+      lastSnapshotAt,
+      lastRealtimeEvent,
+      lastRefreshReason,
+      inventoryBag: state?.bag || null,
+      actionDomReplaces,
       syncInFlight: Boolean(coord.inFlight),
       refreshQueued: Boolean(refreshQueued || coord.needed),
-      lastSnapshotAt,
-      lastRpcAction,
-      lastRefreshReason,
       resultState: round?.resolved ? "resolved" : (round?.cancelled ? "cancelled" : (round ? "live" : "idle")),
       clientBuild: window.PLAY_BUILD || "",
       pointerHeld
@@ -1134,8 +1165,8 @@
 
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadProfile(); });
   supabase.channel("play-live")
-    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, () => scheduleRefresh("round"))
-    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_activity" }, () => scheduleRefresh("activity"))
+    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, () => { lastRealtimeEvent = "round"; scheduleRefresh("round"); })
+    .on("postgres_changes", { event: "*", schema: "public", table: "encounter_activity" }, () => { lastRealtimeEvent = "activity"; scheduleRefresh("activity"); })
     .on("postgres_changes", { event: "*", schema: "public", table: "play_console_log" }, () => {
       if (actionDomFrozen()) {
         refreshQueued = true;

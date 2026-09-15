@@ -194,6 +194,36 @@ test("cancelled no-join remains visible for the result hold", () => {
   assert(shown && shown.phase === "closed", "cancelled ending must stay");
 });
 
+test("browser clock ahead of the server cannot open Prepare buttons early", () => {
+  const joinAt = "2026-09-14T12:00:30.000Z";
+  const prepareAt = "2026-09-14T12:01:00.000Z";
+  const throwAt = "2026-09-14T12:01:30.000Z";
+  const revealAt = "2026-09-14T12:01:45.000Z";
+  const serverNow = "2026-09-14T12:00:10.000Z";
+  const snap = {
+    id: "clock-skew",
+    phase: "join",
+    serverNow,
+    receivedAt: Date.now(),
+    deadlines: { join: joinAt, prepare: prepareAt, throw: throwAt, reveal: revealAt }
+  };
+  const shown = window.playApplyLocalRound(snap);
+  assert(shown && shown.phase === "join", shown ? shown.phase : "null");
+});
+
+test("playServerNowMs adds time since the snapshot was received", () => {
+  const sent = Date.parse("2026-09-14T12:00:10.000Z");
+  const receivedAt = Date.now() - 8000;
+  const est = window.playServerNowMs({ serverNow: new Date(sent).toISOString(), receivedAt });
+  assert(Math.abs(est - (sent + 8000)) < 80, String(est));
+});
+
+test("click freeze stays true until pendingAction is set", () => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "../js/play.js"), "utf8");
+  assert(!/event\.preventDefault\(\);\s*pointerHeld = false;\s*clearTimeout\(holdReleaseTimer\);\s*pressAction/.test(src), "click still drops the freeze before act()");
+  assert(!/event\.preventDefault\(\);\s*pointerHeld = false;\s*clearTimeout\(holdReleaseTimer\);\s*pickFromGrid/.test(src), "throw grid still drops the freeze before act()");
+});
+
 const failed = results.filter((row) => !row.passed);
 console.log(results.map((row) => `${row.passed ? "ok" : "FAIL"} ${row.name}${row.detail ? ` — ${row.detail}` : ""}`).join("\n"));
 console.log(`${results.length - failed.length}/${results.length} passed`);

@@ -90,7 +90,8 @@ test("Timer warning is not color-only", () => {
   assert(window.playTimerWarnClass(4) === "is-urgent");
 });
 test("Phase-closed errors become human copy", () => {
-  assert(window.playHumanRpcError({ message: "Items can only be chosen during the item phase." }) === "The phase has already ended.");
+  assert(window.playHumanRpcError({ message: "Items can only be chosen during the item phase." }) === "That phase just ended. Nothing was used.");
+  assert(window.playHumanRpcError({ message: "That phase has ended." }) === "That phase just ended. Nothing was used.");
 });
 test("Network errors become reconnecting", () => {
   assert(window.playHumanRpcError({ message: "Failed to fetch" }) === "Reconnecting…");

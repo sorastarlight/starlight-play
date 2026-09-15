@@ -217,16 +217,20 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (els.handle) els.handle.textContent = handle ? `@${handle}` : name;
     if (els.card) {
       els.card.href = handle ? `./trainer.html?u=${encodeURIComponent(handle)}` : "./trainer.html";
-      els.card.setAttribute("aria-current", page === "trainer" ? "page" : "false");
+      if (page === "trainer") els.card.setAttribute("aria-current", "page");
+      else els.card.removeAttribute("aria-current");
     }
     if (els.home) {
-      els.home.setAttribute("aria-current", page === "account" ? "page" : "false");
+      if (page === "account") els.home.setAttribute("aria-current", "page");
+      else els.home.removeAttribute("aria-current");
     }
     if (els.connections) {
-      els.connections.setAttribute("aria-current", page === "account" ? "page" : "false");
+      if (page === "account") els.connections.setAttribute("aria-current", "page");
+      else els.connections.removeAttribute("aria-current");
     }
     if (els.settings) {
-      els.settings.setAttribute("aria-current", page === "settings" ? "page" : "false");
+      if (page === "settings") els.settings.setAttribute("aria-current", "page");
+      else els.settings.removeAttribute("aria-current");
     }
     if (els.status) els.status.textContent = `Signed in as ${name}.`;
     if (els.level) {

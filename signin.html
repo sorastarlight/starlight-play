@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Sign in · THE STARLIGHT PLAY HUB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/play.css?v=20260915-auth1">
+<body data-page="signin">
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="./"><img src="images/sora-starlight-logo.png" alt="Sora Starlight"></a>
+    <div class="topnav-end">
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav-panel">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="visually-hidden">Open menu</span>
+      </button>
+      <div id="topnav-panel" class="topnav-panel"><div id="topnav-links" class="topnav-links"></div></div>
+      <div class="topnav-actions">
+        <p id="auth-status" class="visually-hidden" role="status">Checking sign-in…</p>
+        <button id="sign-in" class="signin-btn" type="button">Sign in</button>
+        <div id="account" class="account" hidden>
+          <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+            <span class="twitch-face twitch-face-nav">
+              <img id="account-avatar" class="avatar" alt="" hidden>
+              <span id="account-fallback" class="avatar-fallback" hidden></span>
+              <i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>
+            </span>
+            <span class="account-meta">
+              <span id="account-name" class="account-name">Trainer</span>
+              <span id="account-level" class="account-level"></span>
+            </span>
+            <span class="account-caret" aria-hidden="true"></span>
+          </button>
+          <div id="account-menu" class="account-menu" hidden role="menu">
+            <p id="account-handle" class="account-handle"></p>
+            <div id="account-trainer" class="account-trainer" hidden></div>
+            <a id="account-card" href="./trainer.html" role="menuitem">My Trainer ID</a>
+            <a id="account-home" href="./account.html" role="menuitem">My Account</a>
+            <a id="account-settings" href="./settings.html" role="menuitem">Settings</a>
+            <a id="account-staff" href="./admin.html" hidden role="menuitem">Admin Hub</a>
+            <button id="sign-out" type="button" role="menuitem">Sign out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="page-kicker"><h1>Welcome back, Trainer!</h1></div>
+  <section class="card body trainer-login-card">
+    <p id="signin-banner" class="notice" hidden></p>
+    <form id="signin-form">
+      <label class="field" for="signin-id">Username or email
+        <input id="signin-id" name="username" type="text" autocomplete="username" required>
+      </label>
+      <label class="field" for="signin-password">Password
+        <input id="signin-password" name="password" type="password" autocomplete="current-password" required>
+      </label>
+      <div class="links">
+        <button type="submit">Sign in</button>
+      </div>
+      <p class="muted"><a href="./signin.html?reset=1">Forgot password?</a> · <a href="./signin.html?username=1">Forgot username?</a></p>
+      <p class="muted">Don't have an account? <a href="./register.html">Create Trainer Account</a></p>
+      <p id="signin-status" class="muted" role="status"></p>
+    </form>
+    <div class="auth-split"><span>or</span></div>
+    <button id="signin-twitch" type="button" class="secondary">Continue with Twitch</button>
+    <p class="muted">Twitch may reuse whichever account is already signed in on twitch.tv. Confirm it is the account you want before continuing.</p>
+  </section>
+  <section id="reset-box" class="card body trainer-login-card" hidden>
+    <h2>Reset password</h2>
+    <form id="reset-form">
+      <label class="field" for="reset-email">Email
+        <input id="reset-email" type="email" autocomplete="email" required>
+      </label>
+      <button type="submit">Send reset link</button>
+      <p id="reset-status" class="muted" role="status"></p>
+    </form>
+  </section>
+  <section id="username-box" class="card body trainer-login-card" hidden>
+    <h2>Forgot username</h2>
+    <form id="username-form">
+      <label class="field" for="username-email">Email
+        <input id="username-email" type="email" autocomplete="email" required>
+      </label>
+      <button type="submit">Send recovery mail</button>
+      <p id="username-status" class="muted" role="status"></p>
+    </form>
+  </section>
+</div>
+<dialog id="twitch-warn" class="modal">
+  <form method="dialog" class="modal-card">
+    <h3>Continue to Twitch</h3>
+    <p>Twitch may automatically use whichever account is currently signed in there. Make sure you are signed into the Twitch account you want before continuing.</p>
+    <div class="links">
+      <button id="twitch-warn-go" value="yes">Continue to Twitch</button>
+      <button class="secondary" value="no">Cancel</button>
+    </div>
+  </form>
+</dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js?v=20260915-auth1"></script>
+<script src="js/build.js?v=20260915-auth1"></script>
+<script src="js/auth.js?v=20260915-auth1"></script>
+<script src="js/game.js?v=20260915-auth1"></script>
+<script src="js/nav.js?v=20260915-auth1"></script>
+<script src="js/signin.js?v=20260915-auth1"></script>
+</body>

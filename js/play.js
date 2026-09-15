@@ -1022,7 +1022,11 @@
       await requestRefresh("session");
       return;
     }
-    const { data } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
+    if (typeof window.playGuardTwitchLogin === "function") {
+      const allowed = await window.playGuardTwitchLogin();
+      if (!allowed) return;
+    }
+    const { data } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, username").eq("id", session.user.id).maybeSingle();
     profile = data;
     window.playSetAccountNav(session, profile);
     await requestRefresh("session");

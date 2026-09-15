@@ -45,10 +45,28 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     handle: document.getElementById("account-handle"),
     card: document.getElementById("account-card"),
     settings: document.getElementById("account-settings"),
+    home: document.getElementById("account-home"),
+    connections: document.getElementById("account-connections"),
     staff: document.getElementById("account-staff"),
     signOut: document.getElementById("sign-out"),
     status: document.getElementById("auth-status")
   };
+
+  function ensureAccountMenuLinks() {
+    if (!els.menu) return;
+    const settings = els.settings || document.getElementById("account-settings");
+    const card = els.card || document.getElementById("account-card");
+    const anchor = settings || card;
+    if (!document.getElementById("account-home") && anchor) {
+      anchor.insertAdjacentHTML("beforebegin", `<a id="account-home" href="./account.html" role="menuitem">My Account</a>`);
+    }
+    if (!document.getElementById("account-connections") && (document.getElementById("account-home") || anchor)) {
+      const after = document.getElementById("account-home") || anchor;
+      after.insertAdjacentHTML("afterend", `<a id="account-connections" href="./account.html?tab=connections" role="menuitem">Connections</a>`);
+    }
+    els.home = document.getElementById("account-home");
+    els.connections = document.getElementById("account-connections");
+  }
 
   const links = [
     { href: "./", id: "play", label: "Play" },
@@ -145,7 +163,15 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     wrap.append(badge);
   }
 
-  if (els.signIn) els.signIn.hidden = false;
+  if (els.signIn) {
+    els.signIn.hidden = false;
+    els.signIn.removeAttribute("title");
+    els.signIn.title = "Sign in";
+  }
+  if (els.status && /Twitch/.test(els.status.textContent || "")) {
+    els.status.textContent = "Checking sign-in…";
+  }
+  ensureAccountMenuLinks();
   ensureNavTwitchFace();
   renderLinks(false);
   if (els.toggle) {
@@ -193,6 +219,12 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       els.card.href = handle ? `./trainer.html?u=${encodeURIComponent(handle)}` : "./trainer.html";
       els.card.setAttribute("aria-current", page === "trainer" ? "page" : "false");
     }
+    if (els.home) {
+      els.home.setAttribute("aria-current", page === "account" ? "page" : "false");
+    }
+    if (els.connections) {
+      els.connections.setAttribute("aria-current", page === "account" ? "page" : "false");
+    }
     if (els.settings) {
       els.settings.setAttribute("aria-current", page === "settings" ? "page" : "false");
     }
@@ -233,9 +265,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
   };
 
   if (els.signIn) {
-    els.signIn.addEventListener("click", async () => {
-      const result = await window.playSignInWithTwitch();
-      if (result && !result.ok && els.status) els.status.textContent = result.message;
+    els.signIn.addEventListener("click", () => {
+      window.location.assign(new URL("./signin.html", window.location.href).href);
     });
   }
   if (els.button) els.button.addEventListener("click", (event) => {

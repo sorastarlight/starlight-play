@@ -136,6 +136,7 @@ Deno.serve(async (req) => {
 
   const event = (payload.event || {}) as {
     id?: string;
+    user_id?: string;
     user_login?: string;
     custom_power_up?: { title?: string; bits?: number };
   };
@@ -143,7 +144,8 @@ Deno.serve(async (req) => {
     p_event_id: event.id || messageId,
     p_login: event.user_login || "",
     p_title: event.custom_power_up?.title || "",
-    p_bits: Number(event.custom_power_up?.bits || 0)
+    p_bits: Number(event.custom_power_up?.bits || 0),
+    p_twitch_user_id: event.user_id || ""
   });
   if (error) {
     console.error("credit_bits_from_twitch", error);

@@ -217,16 +217,57 @@
         ${canEdit ? `<button type="button" class="danger secondary" data-remove-mon="${mon.id}">Remove</button>` : ""}
       </article>`;
     }).join("") || `<p class="muted">No Pokémon in this PC.</p>`;
+    const health = data?.health || {};
+    const connections = data?.connections || [];
+    const ownerTools = Boolean(data?.ownerTools);
+    const connCards = connections.map((row) => {
+      const tid = window.playEscapeAttr(row.twitchUserId || "");
+      const actions = [];
+      if (canEdit && !row.primary && row.confirmed !== false) {
+        actions.push(`<button type="button" data-admin-primary="${tid}">Make Primary</button>`);
+      }
+      if (canEdit && row.type !== "bot" && row.type !== "utility") {
+        actions.push(`<button type="button" class="secondary" data-admin-bot="${tid}">Mark bot / utility</button>`);
+      }
+      if (canEdit) {
+        actions.push(`<button type="button" class="secondary" data-admin-gameplay="${tid}" data-on="${row.gameplayEnabled ? "0" : "1"}">${row.gameplayEnabled ? "Disable gameplay" : "Enable gameplay"}</button>`);
+      }
+      if (ownerTools && !row.primary) {
+        actions.push(`<button type="button" class="danger secondary" data-admin-disconnect="${tid}">Disconnect</button>`);
+      }
+      return `<article class="connection-card${row.primary ? " is-primary" : ""}">
+        <div class="connection-head">
+          ${row.avatar ? `<img class="avatar" src="${window.playEscapeAttr(row.avatar)}" alt="">` : `<span class="avatar-fallback">${window.playEscapeAttr((row.displayName || "T").slice(0, 1))}</span>`}
+          <div>
+            <strong>${window.playEscapeAttr(row.displayName || row.login || "Twitch")}</strong>
+            <p class="muted">@${window.playEscapeAttr(row.login || "")} · ID ${tid}</p>
+          </div>
+        </div>
+        <div class="conn-badges">
+          <span class="conn-badge${row.primary ? " conn-primary" : ""}">${row.primary ? "Primary" : "Linked"}</span>
+          <span class="conn-badge">${row.type === "bot" || row.type === "utility" ? "Bot / Utility" : "Player"}</span>
+          <span class="conn-badge">${row.gameplayEnabled ? "Gameplay enabled" : "Gameplay disabled"}</span>
+          <span class="conn-badge">${row.loginEnabled ? "Login enabled" : "Login disabled"}</span>
+          <span class="conn-badge">${row.status === "connected" ? "Connected" : "Needs reauthorization"}</span>
+        </div>
+        <div class="links">${actions.join("")}</div>
+      </article>`;
+    }).join("") || `<p class="muted">No Twitch connections on this Trainer Account.</p>`;
     els.userDetail.innerHTML = `
       <header class="user-account-head">
         ${user.avatar ? `<img class="avatar" src="${window.playEscapeAttr(user.avatar)}" alt="">` : `<span class="avatar-fallback">${name.slice(0, 1)}</span>`}
         <div>
           <h3>${name}</h3>
-          <p class="muted">@${login} · ${role}${user.pass ? " · Pass" : ""}</p>
+          <p class="muted">${user.username ? `@${window.playEscapeAttr(user.username)} · ` : ""}@${login} · ${role}${user.pass ? " · Pass" : ""}</p>
+          <p class="muted">RPG ID ${window.playEscapeAttr(user.id || "")}</p>
         </div>
       </header>
+      <p class="account-health muted">Primary Twitch: ${window.playEscapeAttr(health.primaryTwitch || "none")} · Linked: ${health.linkedTwitch || 0} · Gameplay: ${health.gameplayTwitch || 0} · Bot/utility: ${health.botTwitch || 0}</p>
       ${roleBtns.length ? `<div class="links">${roleBtns.join("")}</div>` : ""}
       <p id="user-edit-status" class="muted" role="status"></p>
+      <h4>Account &amp; Connections</h4>
+      <p class="muted">Twitch identities belong to this Trainer Account. Changing Primary does not move Pokémon, inventory, or XP.</p>
+      <div class="admin-connections">${connCards}</div>
       <h4>Bag &amp; PokéCoins</h4>
       <p class="muted">Positive numbers add. Negative numbers take away. Coins can also be set to an exact amount.</p>
       <div class="user-item-grid">${itemRows}</div>
@@ -586,6 +627,72 @@
         renderAccount(data);
         accountStatus(data?.message || "Pokémon added.");
         await loadUsers();
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
+      }
+      return;
+    }
+    const adminPrimary = event.target.closest("[data-admin-primary]");
+    if (adminPrimary) {
+      accountStatus("Updating Primary…");
+      try {
+        const data = await window.playCall("admin_set_twitch_primary", {
+          p_user: selectedUserId,
+          p_twitch_user_id: adminPrimary.dataset.adminPrimary
+        });
+        renderAccount(data);
+        accountStatus(data?.message || "Primary updated. RPG progress is unchanged.");
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
+      }
+      return;
+    }
+    const adminBot = event.target.closest("[data-admin-bot]");
+    if (adminBot) {
+      if (!window.confirm("Mark this Twitch identity as bot/utility? It stays linked but will not join gameplay.")) return;
+      accountStatus("Updating connection…");
+      try {
+        const data = await window.playCall("admin_set_twitch_flags", {
+          p_user: selectedUserId,
+          p_twitch_user_id: adminBot.dataset.adminBot,
+          p_connection_type: "bot",
+          p_gameplay_enabled: false,
+          p_login_enabled: false
+        });
+        renderAccount(data);
+        accountStatus(data?.message || "Marked as bot/utility.");
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
+      }
+      return;
+    }
+    const adminGameplay = event.target.closest("[data-admin-gameplay]");
+    if (adminGameplay) {
+      accountStatus("Updating gameplay…");
+      try {
+        const data = await window.playCall("admin_set_twitch_flags", {
+          p_user: selectedUserId,
+          p_twitch_user_id: adminGameplay.dataset.adminGameplay,
+          p_gameplay_enabled: adminGameplay.dataset.on === "1"
+        });
+        renderAccount(data);
+        accountStatus(data?.message || "Gameplay updated.");
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
+      }
+      return;
+    }
+    const adminDisconnect = event.target.closest("[data-admin-disconnect]");
+    if (adminDisconnect) {
+      if (!window.confirm("Owner recovery: disconnect this Twitch identity? RPG progress stays on this Trainer.")) return;
+      accountStatus("Disconnecting…");
+      try {
+        const data = await window.playCall("admin_disconnect_twitch", {
+          p_user: selectedUserId,
+          p_twitch_user_id: adminDisconnect.dataset.adminDisconnect
+        });
+        renderAccount(data);
+        accountStatus(data?.message || "Disconnected.");
       } catch (error) {
         accountStatus(window.playRpcError(error));
       }

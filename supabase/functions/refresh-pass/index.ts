@@ -42,12 +42,23 @@ Deno.serve(async (req) => {
     .select("twitch_login")
     .eq("id", userData.user.id)
     .maybeSingle();
+  const { data: connection } = await admin
+    .from("twitch_connections")
+    .select("twitch_user_id, twitch_login, is_primary, gameplay_enabled")
+    .eq("user_id", userData.user.id)
+    .eq("confirmed", true)
+    .eq("gameplay_enabled", true)
+    .order("is_primary", { ascending: false })
+    .limit(1)
+    .maybeSingle();
   const clientId = (config?.twitch_client_id || "").trim();
   const twitchUserId =
+    connection?.twitch_user_id ||
     userData.user.identities?.find((identity) => identity.provider === "twitch")?.id ||
     userData.user.user_metadata?.provider_id ||
     userData.user.user_metadata?.sub;
   const userLogin = String(
+    connection?.twitch_login ||
     profile?.twitch_login ||
     userData.user.user_metadata?.preferred_username ||
     userData.user.user_metadata?.login ||

@@ -870,7 +870,7 @@
     if (!cart.length) return;
     const { data: sessionData } = await supabase.auth.getSession();
     if (!sessionData.session) {
-      checkoutNote = "Sign in with Twitch first.";
+      checkoutNote = "Sign in first.";
       syncCheckoutUi();
       return;
     }
@@ -972,7 +972,7 @@
       const { data: sessionData } = await supabase.auth.getSession();
       const session = sessionData.session;
       if (!session) {
-        if (note) note.textContent = "Sign in with Twitch first.";
+        if (note) note.textContent = "Sign in first.";
         return;
       }
       if (!session.provider_token) {

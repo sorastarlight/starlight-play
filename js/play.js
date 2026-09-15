@@ -193,7 +193,7 @@
       };
     }
     if (!signedIn) {
-      return { key: "signin", buttons: [], status: "Sign in with Twitch to join this encounter." };
+      return { key: "signin", buttons: [], status: "Sign in to join this encounter." };
     }
     if (round.paused) {
       return {

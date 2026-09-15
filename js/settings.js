@@ -260,7 +260,7 @@
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
     if (!session) {
-      els.pass.textContent = "Sign in with Twitch first.";
+      els.pass.textContent = "Sign in first.";
       return;
     }
     if (!session.provider_token) {

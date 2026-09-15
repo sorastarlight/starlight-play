@@ -48,7 +48,7 @@
   function setSignedOut() {
     els.staff.hidden = true;
     els.gate.hidden = false;
-    els.gate.textContent = "Sign in with Twitch to open staff tools.";
+    els.gate.textContent = "Sign in to open staff tools.";
     window.playSetAccountNav(null);
   }
 

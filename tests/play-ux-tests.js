@@ -99,6 +99,9 @@ test("Network errors become reconnecting", () => {
 test("Insufficient-item errors stay friendly", () => {
   assert(window.playHumanRpcError({ message: "You have no Ultra Ball left." }).includes("no longer available"));
 });
+test("Twitch sign-in RPC copy becomes site-account copy", () => {
+  assert(window.playHumanRpcError({ message: "Sign in with Twitch to join the live encounter." }) === "Sign in to join the live encounter.");
+});
 test("internal bridge errors stay player-safe", () => {
   const message = window.playHumanRpcError({ message: "Issue a Mix It Up bridge token in the staff hub, then run the bridge on the stream PC." });
   assert(message === window.PLAY_STATUS.saveFailed, message);

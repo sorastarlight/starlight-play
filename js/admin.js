@@ -241,7 +241,7 @@
   function setSignedOut() {
     els.staff.hidden = true;
     els.gate.hidden = false;
-    els.gate.textContent = "Sign in with Twitch to open the Admin Hub.";
+    els.gate.textContent = "Sign in to open the Admin Hub.";
     window.playSetAccountNav(null);
   }
 

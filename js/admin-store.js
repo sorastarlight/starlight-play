@@ -75,7 +75,7 @@
   function setSignedOut() {
     els.staff.hidden = true;
     els.gate.hidden = false;
-    els.gate.textContent = "Sign in with Twitch to open the Store editor.";
+    els.gate.textContent = "Sign in to open the Store editor.";
     window.playSetAccountNav(null);
   }
 

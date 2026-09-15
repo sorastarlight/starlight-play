@@ -533,7 +533,7 @@
               </div>
             </article>`).join("") : "<p class=\"muted\">No offers yet. Leave this deposit up and wait for a trainer.</p>"}</div>`;
       } else if (!session) {
-        els.detail.innerHTML = `${hero}<p class="notice">Sign in with Twitch to send an offer.</p>`;
+        els.detail.innerHTML = `${hero}<p class="notice">Sign in to send an offer.</p>`;
       } else {
         const pool = offerPool(listing);
         const hint = listing.wantDex && listing.acceptAny === false

@@ -105,7 +105,7 @@
     }
     if (help) {
       help.textContent = !signedIn
-        ? "Sign in with Twitch to turn on a Poké Radar from this screen."
+        ? "Sign in to turn on a Poké Radar from this screen."
         : on
           ? `Automatically detects nearby Pokémon and joins you to any encounter that appears. ${left}.`
           : count < 1

@@ -201,14 +201,16 @@
     }
     if (/http\s*409|conflict|already used that action/i.test(text)) return "That item was already used.";
     if (/inventory_validation|no .+ left|have no |no longer available/i.test(text)) return "That item is no longer available.";
-    if (/42501|jwt/i.test(text)) return "Sign in with Twitch to continue.";
+    if (/42501|jwt/i.test(text)) return "Sign in to continue.";
     if (/does not exist|undefined_function|gen_random_bytes|syntax error/i.test(text)) {
       return "The encounter could not finish cleanly. Please wait for the next one.";
     }
     if (/bridge token|stream_commands|sqlstate|operator does not exist|column .* does not exist|enqueue/i.test(text)) {
       return STATUS.saveFailed;
     }
-    const cleaned = text.replace(/Mix It Up/gi, "the stream");
+    const cleaned = text
+      .replace(/Mix It Up/gi, "the stream")
+      .replace(/Sign in with Twitch/gi, "Sign in");
     if (cleaned.length > 160) return STATUS.saveFailed;
     return cleaned;
   };

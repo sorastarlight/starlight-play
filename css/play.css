@@ -3680,6 +3680,8 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   gap: 16px;
   align-items: center;
 }
+#trainer-id h3 { margin: 16px 0 6px; }
+#trainer-id .look-row { margin-top: 18px; }
 .look-preview {
   display: grid;
   justify-items: center;

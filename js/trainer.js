@@ -49,10 +49,8 @@
         <p>Evolved: ${card.evolved || 0} · Trades: ${card.tradesDone || 0} · Species mastered: ${card.speciesMastered || 0}</p>
         ${badges ? `<p>Featured badges: ${badges}</p>` : ""}`;
     }
-    const nameEdit = document.getElementById("name-edit");
-    const nameInput = document.getElementById("trainer-display-name");
-    if (nameEdit) nameEdit.hidden = !mine;
-    if (mine && nameInput && !nameInput.dataset.dirty) nameInput.value = card.displayName || "";
+    const nameNote = document.getElementById("name-edit-note");
+    if (nameNote) nameNote.hidden = !mine;
     caught.innerHTML = (recent || []).map((row) => {
       const when = row.caughtAt ? new Date(row.caughtAt) : null;
       const stamp = when && !Number.isNaN(when.getTime()) ? when.toLocaleString() : "";
@@ -86,27 +84,6 @@
       gate.textContent = window.playRpcError(error, "No Trainer ID for that login yet.");
     }
   }
-
-  document.getElementById("trainer-display-name")?.addEventListener("input", (event) => {
-    event.target.dataset.dirty = "1";
-  });
-  document.getElementById("save-display-name")?.addEventListener("click", async () => {
-    const input = document.getElementById("trainer-display-name");
-    const status = document.getElementById("name-status");
-    if (status) status.textContent = "Saving…";
-    try {
-      const data = await window.playCall("play_update_profile", {
-        p_display_name: input?.value || "",
-        p_favorite_dex: card?.favoriteDex ?? null,
-        p_favorite_variant: card?.favoriteVariant || "normal"
-      });
-      if (input) input.dataset.dirty = "";
-      if (status) status.textContent = data?.message || "Display name saved. This name is used everywhere on Play.";
-      await load();
-    } catch (error) {
-      if (status) status.textContent = window.playRpcError(error);
-    }
-  });
 
   supabase.auth.onAuthStateChange((event) => {
     if (window.playAuthNoise(event)) return;

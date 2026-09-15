@@ -26,12 +26,16 @@
     saveEncounter: document.getElementById("save-encounter"),
     encounterStatus: document.getElementById("encounter-status"),
     perfPicks: document.getElementById("perf-picks"),
-    perfStatus: document.getElementById("perf-status")
+    perfStatus: document.getElementById("perf-status"),
+    nameInput: document.getElementById("trainer-display-name"),
+    nameSave: document.getElementById("save-display-name"),
+    nameStatus: document.getElementById("name-status")
   };
   let card = null;
   let catches = [];
   let bag = {};
   let encounter = window.playEncounterSettings();
+  let nameBusy = false;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -182,6 +186,7 @@
     }
     if (els.login) els.login.textContent = profile?.twitch_login ? `@${profile.twitch_login}` : "not linked";
     if (els.view) els.view.href = `./trainer.html?u=${encodeURIComponent(login)}`;
+    if (els.nameInput && !els.nameInput.dataset.dirty) els.nameInput.value = card?.displayName || "";
     fillLook(card);
     fillTeam(card);
     fillBgs(card);
@@ -205,6 +210,34 @@
     },
     els.teamStatus
   );
+
+  els.nameInput?.addEventListener("input", (event) => {
+    event.target.dataset.dirty = "1";
+  });
+
+  els.nameSave?.addEventListener("click", async () => {
+    if (nameBusy) return;
+    nameBusy = true;
+    if (els.nameSave) els.nameSave.disabled = true;
+    if (els.nameStatus) els.nameStatus.textContent = "Saving…";
+    try {
+      const data = await window.playCall("play_update_profile", {
+        p_display_name: els.nameInput?.value || "",
+        p_favorite_dex: card?.favoriteDex ?? null,
+        p_favorite_variant: card?.favoriteVariant || "normal"
+      });
+      if (els.nameInput) els.nameInput.dataset.dirty = "";
+      if (els.nameStatus) els.nameStatus.textContent = data?.message || "Display name saved. This name is used everywhere on Play.";
+      await load();
+    } catch (error) {
+      if (els.nameStatus) els.nameStatus.textContent = window.playHumanRpcError
+        ? window.playHumanRpcError(error, "Could not save that display name.")
+        : window.playRpcError(error);
+    } finally {
+      nameBusy = false;
+      if (els.nameSave) els.nameSave.disabled = false;
+    }
+  });
 
   els.bgs?.addEventListener("click", async (event) => {
     const button = event.target.closest("[data-bg]");

@@ -6665,14 +6665,19 @@ html[data-perf="low"] body.is-mart-enter .page-kicker h1 { animation: none; }
 }
 .evo-candy:focus-visible, .evo-node:focus-visible { outline: 3px solid #8a3d72; outline-offset: 2px; }
 .evo-preview .evo-preview-card {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
   max-width: min(420px, calc(100vw - 24px));
   max-height: min(88dvh, 900px);
-  overflow: auto;
+  overflow: hidden;
 }
+.evo-preview .evo-preview-card #evo-detail { overflow: auto; min-height: 0; }
 .evo-preview-actions {
   display: grid;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 10px;
+  padding-top: 8px;
+  background: #fff;
 }
 .evo-preview-actions button { width: 100%; min-height: 44px; }
 .evo-preview-stage { display: grid; justify-items: center; gap: 6px; text-align: center; }

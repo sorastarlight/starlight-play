@@ -134,7 +134,7 @@
     const need = view.candyNeed ? view.candyNeed(row) : 0;
     const label = terminal
       ? `${row.name}. No evolution currently available.`
-      : `${ready ? "Ready to evolve. " : ""}${row.name}${row.level ? ` level ${row.level}` : ""} into ${row.toName || ""}.`;
+      : `${ready ? "Ready to evolve. " : ""}${shiny ? "Shiny " : ""}${row.name}${row.level ? ` level ${row.level}` : ""} into ${row.toName || ""}.`;
     const badge = ready
       ? `<span class="evo-badge">✨ Ready to evolve!</span>`
       : kind === "locked"

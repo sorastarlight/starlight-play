@@ -251,6 +251,23 @@ test("playServerNowMs adds time since the snapshot was received", () => {
   assert(Math.abs(est - (sent + 8000)) < 80, String(est));
 });
 
+test("confirmed prep/ball survive a snapshot that omits them", () => {
+  const kept = window.playKeepPlayerMe(
+    { joined: true, prep: "berry", ball: "ultraball" },
+    { joined: true, prep: null, ball: null }
+  );
+  assert(kept.prep === "berry", kept.prep);
+  assert(kept.ball === "ultraball", kept.ball);
+});
+
+test("successful click pins the choice even if me is missing", () => {
+  const kept = window.playKeepPlayerMe({ joined: true }, null, { prep: "none" });
+  assert(kept.prep === "none", kept.prep);
+  const throwKept = window.playKeepPlayerMe(kept, { joined: true }, { ball: "standard" });
+  assert(throwKept.ball === "pokeball", throwKept.ball);
+  assert(throwKept.prep === "none", throwKept.prep);
+});
+
 test("click freeze stays true until pendingAction is set", () => {
   const src = require("fs").readFileSync(require("path").join(__dirname, "../js/play.js"), "utf8");
   assert(!/event\.preventDefault\(\);\s*pointerHeld = false;\s*clearTimeout\(holdReleaseTimer\);\s*pressAction/.test(src), "click still drops the freeze before act()");

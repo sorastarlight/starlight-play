@@ -130,9 +130,14 @@
     const incoming = data.me && data.me.joined !== false ? data.me : (data.youJoined ? { joined: true } : null);
     if (id && incoming) {
       const prev = joinedMe.get(id) || {};
-      const merged = { ...prev, ...incoming };
-      if (!merged.prep && prev.prep) merged.prep = prev.prep;
-      if (!merged.ball && prev.ball) merged.ball = prev.ball;
+      const merged = typeof window.playKeepPlayerMe === "function"
+        ? window.playKeepPlayerMe(prev, incoming)
+        : (() => {
+          const next = { ...prev, ...incoming };
+          if (!next.prep && prev.prep) next.prep = prev.prep;
+          if (!next.ball && prev.ball) next.ball = prev.ball;
+          return next;
+        })();
       if (merged.result == null && prev.result) merged.result = prev.result;
       const resultKind = String(merged.result || "").trim().toLowerCase();
       if (resultKind === "caught" || resultKind.startsWith("caught")) merged.caught = true;
@@ -856,6 +861,13 @@
     });
     markLocalPending(kind, item);
     const prevMe = roundId ? { ...(joinedMe.get(roundId) || { joined: true }) } : null;
+    if (roundId && (kind === "prepare" || kind === "throw") && typeof window.playKeepPlayerMe === "function") {
+      joinedMe.set(roundId, window.playKeepPlayerMe(
+        prevMe,
+        null,
+        kind === "prepare" ? { prep: item } : { ball: item }
+      ));
+    }
     lastRpcAction = `${kind}:${item || ""}`;
     lastRpcStatus = "pending";
     lastActionError = "";
@@ -884,12 +896,15 @@
       reconnecting = false;
       if (kind === "join") joiningPending = false;
       if (kind === "join" && roundId) joinedMe.set(roundId, data?.me || { joined: true });
-      if ((kind === "prepare" || kind === "throw") && roundId && data?.me) {
-        const prevKeep = joinedMe.get(roundId) || prevMe || {};
-        const merged = { ...prevKeep, ...data.me };
-        if (!merged.prep && prevKeep.prep) merged.prep = prevKeep.prep;
-        if (!merged.ball && prevKeep.ball) merged.ball = prevKeep.ball;
-        joinedMe.set(roundId, merged);
+      if ((kind === "prepare" || kind === "throw") && roundId) {
+        const keep = typeof window.playKeepPlayerMe === "function"
+          ? window.playKeepPlayerMe
+          : (prev, incoming, choice) => ({ ...prev, ...(incoming || {}), ...(choice || {}), joined: true });
+        joinedMe.set(roundId, keep(
+          joinedMe.get(roundId) || prevMe || { joined: true },
+          data?.me,
+          kind === "prepare" ? { prep: item } : { ball: item }
+        ));
       }
       if (kind === "prepare" && item) window.playRememberUsed?.("berries", item);
       if (kind === "throw" && item) window.playRememberUsed?.("balls", item);

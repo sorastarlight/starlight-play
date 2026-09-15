@@ -133,6 +133,17 @@
     return { ...round, phase: shown, endsAt: ends || round.endsAt, highestPhase, serverPhase: snapshotPhase };
   };
 
+  root.playKeepPlayerMe = function playKeepPlayerMe(prev, incoming, choice) {
+    const base = prev && typeof prev === "object" ? prev : {};
+    const src = incoming && typeof incoming === "object" ? incoming : null;
+    const next = { ...base, ...(src || {}), joined: true };
+    if ((src == null || src.prep == null || src.prep === "") && base.prep) next.prep = base.prep;
+    if ((src == null || src.ball == null || src.ball === "") && base.ball) next.ball = base.ball;
+    if (choice?.prep) next.prep = choice.prep;
+    if (choice?.ball) next.ball = choice.ball === "standard" ? "pokeball" : choice.ball;
+    return next;
+  };
+
   root.playActionStructureKey = function playActionStructureKey(plan) {
     const items = (plan?.buttons || []).map((row) => `${row.kind}:${row.item || ""}`).join("|");
     return items;

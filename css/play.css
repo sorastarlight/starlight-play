@@ -475,6 +475,23 @@ footer { margin-top: 24px; font-size: 13px; }
   box-shadow: 0 0 0 4px #fff, 0 12px 0 #e7b8d4, 0 22px 40px #687bae22;
   overflow: hidden;
 }
+body[data-page="play"] .dex-card.is-encounter-live {
+  overflow: visible;
+}
+body[data-page="play"] .dex-card.is-encounter-live #action-status,
+body[data-page="play"] .dex-card.is-encounter-live #actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 8;
+  background: #fff;
+}
+body[data-page="play"] .dex-card.is-encounter-live #action-status {
+  margin-bottom: 0;
+  padding-top: 8px;
+}
+body[data-page="play"] .dex-card.is-encounter-live #actions {
+  padding-bottom: 8px;
+}
 .dex-card .body { padding: 16px; }
 .dex-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
 .dex-live-fanfare {

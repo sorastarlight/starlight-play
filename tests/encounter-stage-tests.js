@@ -173,7 +173,8 @@ test("live HUD patches do not remount the catch sequence", () => {
   assert(!String(window.playFillEncounterStageHud).includes("innerHTML"));
   assert(!String(window.playAdvanceCatchSeq).includes("innerHTML"));
   assert(String(window.playCatchSeqHtml).includes("--seq-elapsed"));
-  assert(!String(window.playAdvanceCatchSeq).includes("--seq-elapsed"));
+  assert(String(window.playAdvanceCatchSeq).includes("--seq-elapsed"));
+  assert(String(window.playAdvanceCatchSeq).includes("seqElapsed"));
 });
 
 test("join stage uses a shared centered actor frame", () => {
@@ -310,6 +311,14 @@ test("stale unresolved snapshot cannot leave the results scene", () => {
   window.playAdvanceCatchSeqState(catchRound({ id, resolved: true, phase: "closed" }), me);
   const st = window.playAdvanceCatchSeqState(catchRound({ id, resolved: false, phase: "reveal" }), me);
   assert(st.scene === "results", st.scene);
+});
+
+test("catch animation elapsed follows the throw deadline clock", () => {
+  const previous = window.playRoundNowMs;
+  window.playRoundNowMs = () => Date.parse("2026-09-14T00:00:02.000Z");
+  const ms = window.playCatchSeqElapsedMs(catchRound());
+  window.playRoundNowMs = previous;
+  assert(ms === 2000, String(ms));
 });
 
 const failed = results.filter((row) => !row.passed);

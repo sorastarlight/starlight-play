@@ -424,6 +424,17 @@
     return false;
   };
 
+  window.playCatchSeqElapsedMs = function playCatchSeqElapsedMs(round) {
+    const start = Date.parse(round?.deadlines?.throw || "");
+    if (!Number.isFinite(start)) return 0;
+    const now = typeof window.playRoundNowMs === "function" ? window.playRoundNowMs(round) : Date.now();
+    return Math.max(0, now - start);
+  };
+
+  window.playCatchSeqElapsedSec = function playCatchSeqElapsedSec(round) {
+    return Math.max(0, Math.min(11, window.playCatchSeqElapsedMs(round) / 1000));
+  };
+
   window.playRevealSeqProgress = function playRevealSeqProgress(round) {
     const start = Date.parse(round?.deadlines?.throw || "");
     const end = Date.parse(round?.deadlines?.reveal || "");
@@ -608,10 +619,8 @@
     if (!me?.ball) {
       return { banner: "", status: window.PLAY_STATUS?.watching || "Watching the encounter…", showBanner: false };
     }
-    const throwEnd = Date.parse(round?.deadlines?.throw || "");
-    const now = typeof window.playRoundNowMs === "function" ? window.playRoundNowMs(round) : Date.now();
-    const sinceThrow = Number.isFinite(throwEnd) ? now - throwEnd : 9999;
-    if (st.scene === "wobble" && sinceThrow >= 0 && sinceThrow < 600) {
+    const sinceThrow = window.playCatchSeqElapsedMs(round);
+    if (st.scene === "wobble" && sinceThrow < 600) {
       return { banner: "", status: window.PLAY_STATUS?.thrown || "Poké Balls thrown!", showBanner: false };
     }
     return { banner: "", status: "The Poké Ball is shaking…", showBanner: false };
@@ -661,12 +670,13 @@
     }
     if (round.resolved) {
       st.outcome = outcome || st.outcome;
+      const now = typeof window.playRoundNowMs === "function" ? window.playRoundNowMs(round) : Date.now();
       if (st.live && me?.ball) {
         if (!st.personalAt) {
-          st.personalAt = Date.now();
+          st.personalAt = now;
           st.shakes = seqShakes(round, me, st.outcome);
         }
-        if (Date.now() - st.personalAt < st.shakes * SHAKE_MS + CATCH_CLICK_MS) {
+        if (now - st.personalAt < st.shakes * SHAKE_MS + CATCH_CLICK_MS) {
           st.scene = "personal";
           return st;
         }
@@ -690,13 +700,12 @@
       || "pokeball";
     const species = window.playDisplayName(round, { plain: true });
     const sprite = window.playSpriteUrl(round.dex, round.variant);
-    const pct = window.playRevealSeqProgress(round);
-    const elapsed = Math.max(0, Math.min(11, ((pct - 8) / 92) * 11));
+    const elapsed = window.playCatchSeqElapsedSec(round);
     const personal = personalResult(round, me, species);
     const win = st.scene === "results" && personal.win;
     const miss = st.scene === "results" && personal.outcome === "broke";
     const shiny = String(round.variant || "").includes("shiny");
-    const midSeq = st.scene === "wobble" && elapsed > 0.45;
+    const midSeq = st.scene === "wobble" && window.playCatchSeqElapsedMs(round) >= 450;
     const sceneClass = `is-${st.scene}${st.outcome ? ` is-${st.outcome}` : ""}${win ? " is-win" : ""}${miss ? " is-miss" : ""}${!threw ? " is-watch" : ""}${!threw && me?.joined ? " is-nothrow" : ""}${personal.spectator ? " is-spectator" : ""}${monitor ? " is-monitor" : ""}${win && shiny ? " is-shiny-win" : ""}${midSeq ? " is-mid-seq" : ""}`;
     return `<aside class="catch-seq ${sceneClass}" data-catch-seq data-seq="${st.scene}" data-seq-elapsed="${elapsed.toFixed(2)}" data-outcome="${st.outcome || ""}" style="--shakes:${st.shakes};--seq-elapsed:${elapsed.toFixed(2)}s">
       <div class="catch-seq-flash" aria-hidden="true"></div>
@@ -721,7 +730,10 @@
     const personal = personalResult(round, me, window.playDisplayName(round, { plain: true }));
     box.dataset.seq = st.scene;
     box.dataset.outcome = st.outcome || "";
+    const elapsed = window.playCatchSeqElapsedSec(round);
+    box.dataset.seqElapsed = elapsed.toFixed(2);
     box.style.setProperty("--shakes", String(st.shakes));
+    box.style.setProperty("--seq-elapsed", `${elapsed.toFixed(2)}s`);
     box.classList.toggle("is-wobble", st.scene === "wobble");
     box.classList.toggle("is-personal", st.scene === "personal");
     box.classList.toggle("is-results", st.scene === "results");
@@ -733,7 +745,7 @@
     box.classList.toggle("is-nothrow", Boolean(me?.joined && !me?.ball));
     box.classList.toggle("is-watch", !me?.ball);
     box.classList.toggle("is-shiny-win", st.scene === "results" && personal.win && String(round.variant || "").includes("shiny"));
-    box.classList.toggle("is-mid-seq", st.scene === "wobble" && Number(box.dataset.seqElapsed || 0) > 0.45);
+    box.classList.toggle("is-mid-seq", st.scene === "wobble" && window.playCatchSeqElapsedMs(round) >= 450);
     const ball = box.querySelector(".catch-seq-ball");
     if (ball && me?.ball) {
       const src = window.playItemSprite(me.ball);

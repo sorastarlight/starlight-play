@@ -129,7 +129,7 @@
   root.playApplyLocalRound = function playApplyLocalRound(round, nowMs) {
     if (!round) return null;
     const snapshotPhase = round.serverPhase || round.phase;
-    const now = Number.isFinite(nowMs) ? nowMs : root.playServerNowMs(round);
+    const now = Number.isFinite(nowMs) ? nowMs : root.playRoundNowMs(round);
     const idleAt = root.playRoundIdleAt(round);
     if (idleAt && now >= idleAt && !round.paused) return null;
     if (round.cancelled) {

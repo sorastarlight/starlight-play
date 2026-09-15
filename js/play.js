@@ -69,9 +69,9 @@
   }
 
   function nudgeEncounterIntoView() {
-    const card = els.encounter?.closest(".dex-card") || els.actions;
-    if (!card || typeof card.scrollIntoView !== "function") return;
-    try { card.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (_) {}
+    const target = els.actions || els.encounter?.closest(".dex-card");
+    if (!target || typeof target.scrollIntoView !== "function") return;
+    try { target.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (_) {}
   }
 
   function logPlayAction(stage, extra) {
@@ -315,6 +315,11 @@
       let keys = Array.isArray(prefs.favoriteBalls) ? prefs.favoriteBalls.slice() : [];
       if (me.ball && me.ball !== "standard" && !keys.includes(me.ball)) keys.push(me.ball);
       keys = keys.filter((key, index, list) => key && list.indexOf(key) === index);
+      keys = keys.filter((key) => {
+        if (me.ball === key) return true;
+        const qty = Number(bag[key] ?? adviceMap.get(key)?.quantity ?? 0);
+        return qty > 0;
+      });
       const ballRow = (key) => {
         const rec = adviceMap.get(key);
         const info = infoOf(key);
@@ -530,9 +535,10 @@
         if (row.selected) row.pending = true;
       });
     }
-    const key = plan.buttons?.length && typeof window.playActionStructureKey === "function"
+    const structure = plan.buttons?.length && typeof window.playActionStructureKey === "function"
       ? window.playActionStructureKey({ phase: plan.phase, buttons: plan.buttons })
-      : plan.key;
+      : "";
+    const key = structure ? `${plan.phase || ""}:${structure}` : plan.key;
     const canPatch = Boolean(els.actions.querySelector("button[data-kind]"));
     if (actionDomFrozen() && lastActionKey) {
       refreshQueued = true;
@@ -619,11 +625,15 @@
     if (mode === "throw" && state?.me?.ball) return;
     throwViewOnly = mode === "view";
     pickerKind = "balls";
-    if (els.throwTitle) els.throwTitle.textContent = throwViewOnly ? "Your Poké Balls" : "All my Poké Balls";
+    if (els.throwTitle) {
+      els.throwTitle.textContent = throwViewOnly
+        ? "Your Poké Balls"
+        : (window.PLAY_STATUS?.otherBalls || "Other Poké Balls");
+    }
     if (els.throwHint) {
       els.throwHint.textContent = throwViewOnly
         ? "Balls you own. Recommendations come from this encounter — not a raw multiplier."
-        : "Only balls in your bag. Recommended Balls are marked. Master Ball always catches and asks for confirmation.";
+        : (window.PLAY_STATUS?.otherBallsHint || "Choose any Poké Ball from your bag.");
     }
     const rows = window.playOwnedBalls(bag);
     const adviceMap = new Map((state?.ballAdvice || []).map((row) => [row.ballId, row]));

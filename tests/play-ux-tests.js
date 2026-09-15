@@ -219,6 +219,8 @@ test("throw phase lists favorite Balls instead of the whole bag", () => {
   const src = fs.readFileSync(path.join(__dirname, "../js/play.js"), "utf8");
   assert(src.includes("favoriteBalls"), "throw row should use favorite Balls");
   assert(src.includes('kind: "open-balls"'), "other Balls opener missing");
+  assert(src.includes("qty > 0"), "empty favorite Balls should stay off the throw row");
+  assert(src.includes('`${plan.phase || ""}:${structure}`'), "action DOM key should change with the phase");
   assert(!/if \(\(throwing \|\| preparing \|\| joining\) && me\)/.test(src), "action cards still stack across phases");
 });
 test("community result panel does not fade in on every patch", () => {

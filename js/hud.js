@@ -254,7 +254,7 @@
     const meta = `<div class="encounter-meta-identity">${identity}</div>${window.playLevelChipHtml(round)}`;
     return `
       ${header}
-      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${catchSeq && /is-mid-seq/.test(catchSeq) ? " is-mid-catch" : ""}${shiny ? " is-shiny-wild" : ""}${wildIntro ? " is-wild-enter" : ""}${shinyIntro ? " is-shiny-intro" : ""}${hud.showBanner && /GOTCHA|SHINY/.test(hud.banner) ? " is-win-scene" : ""}${hud.showBanner && /BROKE FREE|OH NO/.test(hud.banner) ? " is-miss-scene" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
+      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${cinematic && (seqScene === "personal" || seqScene === "results" || /is-mid-seq/.test(catchSeq)) ? " is-mid-catch" : ""}${shiny ? " is-shiny-wild" : ""}${wildIntro ? " is-wild-enter" : ""}${shinyIntro ? " is-shiny-intro" : ""}${hud.showBanner && /GOTCHA|SHINY/.test(hud.banner) ? " is-win-scene" : ""}${hud.showBanner && /BROKE FREE|OH NO/.test(hud.banner) ? " is-miss-scene" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
         <div class="encounter-map" aria-hidden="true"></div>
         <div class="encounter-map-scrim" aria-hidden="true"></div>
         <div class="encounter-map-vignette" aria-hidden="true"></div>
@@ -523,6 +523,8 @@
     if (listedCatcher(round)) return "caught";
     if (inferredSoloCatch(round, me)) return "caught";
     if (resultKind(me.result) === "broke") return "broke";
+    if (me.caught === false) return "broke";
+    if (round?.resolved && round.results && Number(round.results.escaped || 0) > 0) return "broke";
     return "";
   }
   window.playThrowOutcome = throwOutcome;
@@ -663,7 +665,7 @@
     const st = catchSeqState(round.id);
     if (round.paused && !round.resolved) return st;
     const outcome = throwOutcome(me, round);
-    if (st.outcome !== "caught" && outcome === "caught") st.outcome = "caught";
+    if (outcome) st.outcome = outcome;
     if (st.scene === "results") {
       if (outcome) st.outcome = outcome;
       return st;
@@ -758,7 +760,7 @@
     if (visual) {
       visual.classList.toggle("is-capture", true);
       visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
-      visual.classList.toggle("is-mid-catch", box.classList.contains("is-mid-seq"));
+      visual.classList.toggle("is-mid-catch", st.scene !== "wobble" || window.playCatchSeqElapsedMs(round) >= 450);
       visual.dataset.visualMode = st.scene === "results" ? "result" : "capture";
     }
     window.playFillEncounterStageHud(root, round, me);

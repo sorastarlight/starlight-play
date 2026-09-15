@@ -70,7 +70,7 @@ test("result hold starts at settlement, not original reveal deadline", () => {
     deadlines: { reveal }
   });
   const holdStart = Date.parse(settledAt);
-  assert(idleAt === holdStart + 12000, String(idleAt));
+  assert(idleAt === holdStart + 20000, String(idleAt));
   assert(idleAt > Date.parse(reveal) + 8000, "hold must outlast old reveal+8s window");
 });
 
@@ -83,7 +83,7 @@ test("very late settlement still gets a full result hold", () => {
     deadlines: { reveal }
   });
   assert(Date.parse(settledAt) > Date.parse(reveal) + 8000, "fixture is after reveal+8s");
-  assert(idleAt === Date.parse(settledAt) + 12000, String(idleAt));
+  assert(idleAt === Date.parse(settledAt) + 20000, String(idleAt));
   const shown = window.playApplyLocalRound({
     id: "late",
     resolved: true,
@@ -99,7 +99,7 @@ test("very late settlement still gets a full result hold", () => {
     phase: "closed",
     updatedAt: settledAt,
     deadlines: { reveal }
-  }, Date.parse(settledAt) + 12001);
+  }, Date.parse(settledAt) + 20001);
   assert(gone === null, "clears only after settlement hold");
 });
 
@@ -272,11 +272,13 @@ test("playServerNowMs adds time since the snapshot was received", () => {
 
 test("confirmed prep/ball survive a snapshot that omits them", () => {
   const kept = window.playKeepPlayerMe(
-    { joined: true, prep: "berry", ball: "ultraball" },
-    { joined: true, prep: null, ball: null }
+    { joined: true, prep: "berry", ball: "ultraball", result: "Escaped", caught: false },
+    { joined: true, prep: null, ball: null, result: null }
   );
   assert(kept.prep === "berry", kept.prep);
   assert(kept.ball === "ultraball", kept.ball);
+  assert(kept.result === "Escaped", kept.result);
+  assert(kept.caught === false, String(kept.caught));
 });
 
 test("successful click pins the choice even if me is missing", () => {

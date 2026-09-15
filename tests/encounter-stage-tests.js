@@ -154,11 +154,11 @@ test("personal success is not shown as a breakout", () => {
   assert(master.banner === "✨ GOTCHA! ✨", master.banner);
 });
 
-test("waiting results do not play the miss flee classes", () => {
-  const html = window.playCatchSeqHtml(catchRound({ id: "wait-1", resolved: true, phase: "closed" }), {
+test("waiting wobble does not play the miss flee classes", () => {
+  const html = window.playCatchSeqHtml(catchRound({ id: "wait-1", resolved: false, phase: "reveal" }), {
     me: { joined: true, ball: "ultraball" }
   });
-  assert(html.includes("is-results"), html.match(/catch-seq [^"]*/)?.[0]);
+  assert(html.includes("is-wobble"), html.match(/catch-seq [^"]*/)?.[0]);
   assert(!/\bis-miss\b/.test(html), html.match(/catch-seq [^"]*/)?.[0]);
   const missHtml = window.playCatchSeqHtml(catchRound({ id: "wait-2", resolved: true, phase: "closed" }), {
     me: { joined: true, ball: "ultraball", result: "Escaped" }
@@ -167,6 +167,21 @@ test("waiting results do not play the miss flee classes", () => {
   assert(/\bis-win\b/.test(window.playCatchSeqHtml(catchRound({ id: "wait-3", resolved: true, phase: "closed" }), {
     me: { joined: true, ball: "ultraball", result: "Caught" }
   })), "caught result should be a win");
+});
+
+test("resolved throw without a catch is a breakout", () => {
+  const round = catchRound({
+    id: "broke-infer",
+    resolved: true,
+    phase: "closed",
+    results: { caught: 0, escaped: 1, noThrow: 0 }
+  });
+  const me = { joined: true, ball: "ultraball", caught: false };
+  const html = window.playCatchSeqHtml(round, { me });
+  assert(/\bis-miss\b/.test(html), html.match(/catch-seq [^"]*/)?.[0]);
+  const hud = window.playEncounterStageCopy(round, { scene: "results" }, me, "Omanyte");
+  assert(hud.banner === "IT BROKE FREE!", hud.banner);
+  assert(/broke free/.test(hud.status), hud.status);
 });
 
 test("live HUD patches do not remount the catch sequence", () => {

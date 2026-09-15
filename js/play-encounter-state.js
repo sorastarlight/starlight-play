@@ -1,7 +1,7 @@
 (() => {
   const root = typeof window !== "undefined" ? window : globalThis;
 
-  root.PLAY_RESULT_HOLD_MS = 12 * 1000;
+  root.PLAY_RESULT_HOLD_MS = 20 * 1000;
   root.PLAY_UNRESOLVED_KEEP_MS = 120 * 1000;
   root.PLAY_ROUND_IDLE_AFTER_MS = root.PLAY_RESULT_HOLD_MS;
 
@@ -155,6 +155,8 @@
     const next = { ...base, ...(src || {}), joined: true };
     if ((src == null || src.prep == null || src.prep === "") && base.prep) next.prep = base.prep;
     if ((src == null || src.ball == null || src.ball === "") && base.ball) next.ball = base.ball;
+    if ((src == null || src.result == null || src.result === "") && base.result) next.result = base.result;
+    if ((src == null || src.caught == null) && base.caught != null) next.caught = base.caught;
     if (choice?.prep) next.prep = choice.prep;
     if (choice?.ball) next.ball = choice.ball === "standard" ? "pokeball" : choice.ball;
     return next;

@@ -118,6 +118,25 @@ test("unresolved rounds stay loadable past original reveal+8s", () => {
     deadlines: { reveal, throw: "2026-09-14T12:00:10.000Z", join: "2026-09-14T11:59:20.000Z", prepare: "2026-09-14T11:59:40.000Z" }
   }, Date.parse(reveal) + 20000);
   assert(shown, "must keep the round until settlement");
+  assert(shown.phase === "reveal", "timer stays on CATCH ATTEMPT until the server resolves");
+});
+
+test("unresolved reveal does not jump to RESULTS while the ball is still wobbling", () => {
+  const snap = {
+    id: "sync-seq",
+    resolved: false,
+    phase: "reveal",
+    deadlines: {
+      join: "2026-09-14T11:59:20.000Z",
+      prepare: "2026-09-14T11:59:40.000Z",
+      throw: "2026-09-14T12:00:10.000Z",
+      reveal: "2026-09-14T12:00:25.000Z"
+    }
+  };
+  const shown = window.playApplyLocalRound(snap, Date.parse(snap.deadlines.reveal) + 500);
+  assert(shown && shown.phase === "reveal", shown && shown.phase);
+  const settled = window.playApplyLocalRound({ ...snap, resolved: true, phase: "closed" }, Date.parse(snap.deadlines.reveal) + 500);
+  assert(settled && settled.phase === "closed", settled && settled.phase);
 });
 
 test("phase is monotonic unless a newer snapshot rewinds it", () => {

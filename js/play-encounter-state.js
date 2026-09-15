@@ -139,7 +139,9 @@
     const freeze = round.paused && !round.resolved;
     const revealAt = ts(round.deadlines?.reveal || round.endsAt || "");
     const revealPassed = Boolean(revealAt) && now >= revealAt && !freeze;
-    const shown = revealPassed ? "closed" : local;
+    const shown = revealPassed
+      ? ((round.resolved || round.cancelled) ? "closed" : "reveal")
+      : local;
     const highestPhase = root.playPhaseRank(shown) >= root.playPhaseRank(round.highestPhase || round.phase)
       ? shown
       : (round.highestPhase || round.phase);

@@ -6667,8 +6667,9 @@ html[data-perf="low"] body.is-mart-enter .page-kicker h1 { animation: none; }
 .evo-preview .evo-preview-card {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto auto;
-  max-width: min(420px, calc(100vw - 24px));
-  max-height: min(88dvh, 900px);
+  width: min(420px, calc(100vw - 24px));
+  height: min(82vh, 720px);
+  max-height: min(82vh, 720px);
   overflow: hidden;
 }
 .evo-preview .evo-preview-card #evo-detail { overflow: auto; min-height: 0; }

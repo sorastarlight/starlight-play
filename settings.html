@@ -55,32 +55,28 @@
   <div class="page-kicker">
     <h1>Settings</h1>
   </div>
-  <p id="gate" class="notice">Sign in with Twitch to edit your Trainer ID.</p>
+  <p id="gate" class="notice">Sign in to edit your Trainer look and encounter settings.</p>
   <div id="settings" hidden>
     <section class="card body">
       <h2>Trainer ID</h2>
-      <p class="muted">This is what other trainers see. Your Twitch login stays <span id="twitch-login"></span>.</p>
+      <p class="muted">Your display name for the whole site is set on <a href="./trainer.html">My Trainer ID</a>. Your Twitch login stays <span id="twitch-login"></span>.</p>
       <div class="look-row">
         <div class="look-preview">
           <img id="trainer-look-img" src="images/trainers/red-gen1.png" alt="">
           <p id="trainer-look-label">Red · Gen 1</p>
         </div>
         <div>
-          <p class="muted">Your sprite, display name, and card background all live on your Trainer ID. Pokémon looks are free. Extra series like Sonic sit in Premium Avatars on the Store.</p>
+          <p class="muted">Your sprite and card background live here. Pokémon looks are free. Extra series like Sonic sit in Premium Avatars on the Store.</p>
           <button id="choose-look" type="button">Choose trainer sprite</button>
           <p id="look-status" class="muted" role="status"></p>
         </div>
       </div>
-      <label class="field" for="display-name">Display name
-        <input id="display-name" type="text" maxlength="24" placeholder="Sora">
-      </label>
       <p class="muted">Pick a region, cute look, or pride flag for your Trainer ID.</p>
       <div id="card-bg-picks" class="card-bg-board"></div>
       <p id="bg-status" class="muted" role="status"></p>
       <div id="id-preview"></div>
       <div class="links id-actions">
-        <button id="save-profile" type="button">Save Trainer ID</button>
-        <a id="view-id" class="button secondary" href="./trainer.html">View My Public Trainer ID</a>
+        <a id="view-id" class="button secondary" href="./trainer.html">Edit display name on My Trainer ID</a>
         <a class="button secondary" href="./achievements.html">Titles & badges</a>
       </div>
       <p id="edit-status" class="muted" role="status"></p>
@@ -141,6 +137,6 @@
 <script src="js/play-ux.js?v=20260915-auth1"></script>
 <script src="js/trainers.js?v=20260915-auth1"></script>
 <script src="js/team.js?v=20260915-auth1"></script>
-<script src="js/nav.js?v=20260915-auth2"></script>
-<script src="js/settings.js?v=20260915-auth1"></script>
+<script src="js/nav.js?v=20260915-acct1"></script>
+<script src="js/settings.js?v=20260915-acct1"></script>
 </body>

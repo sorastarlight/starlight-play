@@ -46,7 +46,6 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     card: document.getElementById("account-card"),
     settings: document.getElementById("account-settings"),
     home: document.getElementById("account-home"),
-    connections: document.getElementById("account-connections"),
     staff: document.getElementById("account-staff"),
     signOut: document.getElementById("sign-out"),
     status: document.getElementById("auth-status")
@@ -60,12 +59,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (!document.getElementById("account-home") && anchor) {
       anchor.insertAdjacentHTML("beforebegin", `<a id="account-home" href="./account.html" role="menuitem">My Account</a>`);
     }
-    if (!document.getElementById("account-connections") && (document.getElementById("account-home") || anchor)) {
-      const after = document.getElementById("account-home") || anchor;
-      after.insertAdjacentHTML("afterend", `<a id="account-connections" href="./account.html?tab=connections" role="menuitem">Connections</a>`);
-    }
+    document.getElementById("account-connections")?.remove();
     els.home = document.getElementById("account-home");
-    els.connections = document.getElementById("account-connections");
   }
 
   const links = [
@@ -223,10 +218,6 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (els.home) {
       if (page === "account") els.home.setAttribute("aria-current", "page");
       else els.home.removeAttribute("aria-current");
-    }
-    if (els.connections) {
-      if (page === "account") els.connections.setAttribute("aria-current", "page");
-      else els.connections.removeAttribute("aria-current");
     }
     if (els.settings) {
       if (page === "settings") els.settings.setAttribute("aria-current", "page");

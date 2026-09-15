@@ -6,6 +6,7 @@
   const caught = document.getElementById("caught-grid");
   const title = document.getElementById("page-title");
   const face = document.getElementById("profile-face");
+  let card = null;
 
   window.playBindAccountNav();
 
@@ -16,7 +17,7 @@
       window.playSetAccountNav(null);
       return session;
     }
-    const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
+    const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, username").eq("id", session.user.id).maybeSingle();
     let extras = {};
     try {
       const snapshot = await window.playCall("play_state");
@@ -26,7 +27,7 @@
     return { session, profile };
   }
 
-  function render(card, recent) {
+  function render(card, recent, mine) {
     title.textContent = card.displayName;
     if (face) {
       face.hidden = false;
@@ -47,6 +48,10 @@
         <p>Evolved: ${card.evolved || 0} · Trades: ${card.tradesDone || 0} · Species mastered: ${card.speciesMastered || 0}</p>
         ${badges ? `<p>Featured badges: ${badges}</p>` : ""}`;
     }
+    const nameEdit = document.getElementById("name-edit");
+    const nameInput = document.getElementById("trainer-display-name");
+    if (nameEdit) nameEdit.hidden = !mine;
+    if (mine && nameInput && !nameInput.dataset.dirty) nameInput.value = card.displayName || "";
     caught.innerHTML = (recent || []).map((row) => `
       <article class="caught-card">
         <img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="">
@@ -59,6 +64,7 @@
     const nav = await loadNav();
     const login = new URLSearchParams(location.search).get("u")
       || nav?.profile?.twitch_login
+      || nav?.profile?.username
       || "";
     if (!login) {
       gate.textContent = "Sign in, or open a trainer from Rankings.";
@@ -66,13 +72,35 @@
     }
     try {
       const data = await window.playCall("play_trainer", { p_login: login });
-      render(data.trainer, data.recent);
+      card = data.trainer;
+      render(data.trainer, data.recent, Boolean(data.mine));
       gate.hidden = true;
       profileBox.hidden = false;
     } catch (error) {
       gate.textContent = window.playRpcError(error, "No Trainer ID for that login yet.");
     }
   }
+
+  document.getElementById("trainer-display-name")?.addEventListener("input", (event) => {
+    event.target.dataset.dirty = "1";
+  });
+  document.getElementById("save-display-name")?.addEventListener("click", async () => {
+    const input = document.getElementById("trainer-display-name");
+    const status = document.getElementById("name-status");
+    if (status) status.textContent = "Saving…";
+    try {
+      const data = await window.playCall("play_update_profile", {
+        p_display_name: input?.value || "",
+        p_favorite_dex: card?.favoriteDex ?? null,
+        p_favorite_variant: card?.favoriteVariant || "normal"
+      });
+      if (input) input.dataset.dirty = "";
+      if (status) status.textContent = data?.message || "Display name saved. This name is used everywhere on Play.";
+      await load();
+    } catch (error) {
+      if (status) status.textContent = window.playRpcError(error);
+    }
+  });
 
   supabase.auth.onAuthStateChange((event) => {
     if (window.playAuthNoise(event)) return;

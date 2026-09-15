@@ -11,9 +11,6 @@
   let state = null;
   let pendingOauth = "";
 
-  const params = new URLSearchParams(location.search);
-  const startTab = params.get("tab") || "profile";
-
   window.playBindAccountNav({
     onSignOut() {
       if (app) app.hidden = true;
@@ -26,21 +23,6 @@
 
   function setStatus(text) {
     if (status) status.textContent = text || "";
-  }
-
-  function selectTab(id) {
-    document.querySelectorAll(".account-tabs [data-tab]").forEach((button) => {
-      const on = button.dataset.tab === id;
-      button.setAttribute("aria-pressed", on ? "true" : "false");
-    });
-    ["profile", "security", "connections"].forEach((name) => {
-      const panel = document.getElementById(`tab-${name}`);
-      if (panel) panel.hidden = name !== id;
-    });
-    const url = new URL(location.href);
-    if (id === "profile") url.searchParams.delete("tab");
-    else url.searchParams.set("tab", id);
-    history.replaceState(null, "", url);
   }
 
   function kindLabel(conn) {
@@ -167,12 +149,9 @@
     if (gate) gate.hidden = true;
     if (app) app.hidden = false;
     render();
+    const jump = new URLSearchParams(location.search).get("tab") || location.hash.replace(/^#/, "");
+    if (jump === "connections") document.getElementById("connections")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
-
-  document.querySelectorAll(".account-tabs [data-tab]").forEach((button) => {
-    button.addEventListener("click", () => selectTab(button.dataset.tab));
-  });
-  selectTab(["profile", "security", "connections"].includes(startTab) ? startTab : "profile");
 
   document.getElementById("save-username")?.addEventListener("click", async () => {
     setStatus("Saving username…");

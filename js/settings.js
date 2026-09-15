@@ -4,8 +4,6 @@
     gate: document.getElementById("gate"),
     box: document.getElementById("settings"),
     login: document.getElementById("twitch-login"),
-    name: document.getElementById("display-name"),
-    save: document.getElementById("save-profile"),
     status: document.getElementById("edit-status"),
     view: document.getElementById("view-id"),
     pass: document.getElementById("pass-status"),
@@ -137,8 +135,8 @@
       return;
     }
     if (window.playTrainerCatalogReady) await window.playTrainerCatalogReady;
-    const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
-    const login = profile?.twitch_login || "";
+    const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, username").eq("id", session.user.id).maybeSingle();
+    const login = profile?.twitch_login || profile?.username || "";
     let extras = {};
     try {
       const snapshot = await window.playCall("play_state");
@@ -152,7 +150,7 @@
     }
     window.playSetAccountNav(session, profile, extras);
     if (!login) {
-      els.gate.textContent = "Twitch login is missing from this session. Sign out and sign in again.";
+      els.gate.textContent = "Sign in to edit your Trainer ID look and encounter settings.";
       els.box.hidden = true;
       els.gate.hidden = false;
       return;
@@ -167,9 +165,8 @@
       els.gate.hidden = false;
       return;
     }
-    els.login.textContent = `@${login}`;
-    els.view.href = `./trainer.html?u=${encodeURIComponent(login)}`;
-    els.name.value = card.displayName || "";
+    if (els.login) els.login.textContent = profile?.twitch_login ? `@${profile.twitch_login}` : "unlinked";
+    if (els.view) els.view.href = `./trainer.html?u=${encodeURIComponent(login)}`;
     fillLook(card);
     fillTeam(card);
     fillBgs(card);
@@ -221,21 +218,6 @@
         els.lookStatus.textContent = window.playRpcError(error);
       }
     }, { ownedPacks: window._playOwnedAvatarPacks || [] });
-  });
-
-  els.save.addEventListener("click", async () => {
-    els.status.textContent = "Saving…";
-    try {
-      const data = await window.playCall("play_update_profile", {
-        p_display_name: els.name.value,
-        p_favorite_dex: card?.favoriteDex || null,
-        p_favorite_variant: card?.favoriteVariant || "normal"
-      });
-      els.status.textContent = data.message || "Saved.";
-      await load();
-    } catch (error) {
-      els.status.textContent = window.playRpcError(error);
-    }
   });
 
   els.confirmRare?.addEventListener("change", () => {

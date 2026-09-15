@@ -52,22 +52,16 @@
   <div class="page-kicker"><h1>My Account</h1></div>
   <p id="gate" class="notice">Sign in to manage your Trainer Account.</p>
   <div id="account-app" hidden>
-    <div class="account-tabs" role="tablist">
-      <button type="button" data-tab="profile" aria-pressed="true">Profile</button>
-      <button type="button" data-tab="security" aria-pressed="false">Security</button>
-      <button type="button" data-tab="connections" aria-pressed="false">Connections</button>
-    </div>
     <p id="account-status" class="muted" role="status"></p>
-    <section id="tab-profile" class="card body">
-      <h2>Profile</h2>
-      <p class="muted">RPG username and display name belong to this Trainer Account. Twitch names are metadata on linked connections.</p>
+    <section class="card body">
+      <h2>Login</h2>
+      <p class="muted">Your RPG username is for signing in. The name other Trainers see is set on <a href="./trainer.html">My Trainer ID</a>.</p>
       <label class="field" for="acc-username">RPG username
         <input id="acc-username" maxlength="20" autocomplete="username">
       </label>
-      <p class="muted">Trainer display name and sprites live on <a href="./settings.html">Settings</a>.</p>
       <button id="save-username" type="button">Save username</button>
     </section>
-    <section id="tab-security" class="card body" hidden>
+    <section class="card body" style="margin-top:18px">
       <h2>Security</h2>
       <p id="security-email" class="muted">Email login is checked after you sign in.</p>
       <form id="claim-form">
@@ -89,9 +83,9 @@
         <button type="submit">Update password</button>
       </form>
     </section>
-    <section id="tab-connections" class="card body" hidden>
-      <h2>Connected accounts</h2>
-      <p class="muted">Primary is your default Twitch-facing identity. It does not move Pokémon, inventory, or XP.</p>
+    <section id="connections" class="card body" style="margin-top:18px">
+      <h2>Twitch connections</h2>
+      <p class="muted">Primary is your default Twitch-facing identity for stream features. It does not change your display name or move Pokémon, inventory, or XP.</p>
       <div id="pending-link" class="notice" hidden></div>
       <div id="connection-list"></div>
       <div class="links" style="margin-top:16px">
@@ -115,6 +109,6 @@
 <script src="js/build.js?v=20260915-auth1"></script>
 <script src="js/auth.js?v=20260915-auth1"></script>
 <script src="js/game.js?v=20260915-auth1"></script>
-<script src="js/nav.js?v=20260915-auth2"></script>
-<script src="js/account.js?v=20260915-auth1"></script>
+<script src="js/nav.js?v=20260915-acct1"></script>
+<script src="js/account.js?v=20260915-acct1"></script>
 </body>

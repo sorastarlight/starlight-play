@@ -774,6 +774,12 @@ body[data-page="play"] .dex-card.is-encounter-live .lure-panel-play {
   transform: none;
   box-shadow: 0 4px 0 #c98ab0;
 }
+.action-grid .enc-card.item-btn:disabled,
+.action-grid .enc-card.item-btn:disabled:hover,
+.action-grid .enc-card.item-btn:disabled:active {
+  pointer-events: auto;
+  cursor: not-allowed;
+}
 .item-btn.is-pending,
 .item-btn.is-pending:disabled,
 .item-btn.is-pending:disabled:hover,

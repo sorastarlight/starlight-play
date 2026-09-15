@@ -164,7 +164,7 @@ test("frozen pointer defers refresh instead of running it", async () => {
   assert(runs === 1, `ran ${runs}`);
 });
 
-test("action structure key ignores selected/qty/pending", () => {
+test("action structure key ignores selected/qty/pending and phase", () => {
   const a = window.playActionStructureKey({
     phase: "prepare",
     buttons: [
@@ -173,13 +173,46 @@ test("action structure key ignores selected/qty/pending", () => {
     ]
   });
   const b = window.playActionStructureKey({
-    phase: "prepare",
+    phase: "throw",
     buttons: [
       { kind: "prepare", item: "berry", selected: true, qty: 8 },
       { kind: "prepare", item: "bait", pending: false, qty: 3 }
     ]
   });
   assert(a === b, `${a} !== ${b}`);
+});
+
+test("prepare window stays closed while the server is still in Join", () => {
+  const snap = {
+    id: "win",
+    phase: "join",
+    serverNow: "2026-09-14T12:00:10.000Z",
+    receivedAt: Date.now(),
+    deadlines: {
+      join: "2026-09-14T12:00:30.000Z",
+      prepare: "2026-09-14T12:01:00.000Z",
+      throw: "2026-09-14T12:01:30.000Z",
+      reveal: "2026-09-14T12:01:45.000Z"
+    }
+  };
+  assert(window.playActionWindowOpen(snap, "prepare") === false, "prepare opened early");
+  assert(window.playActionWindowOpen(snap, "throw") === false, "throw opened early");
+});
+
+test("prepare window matches the server 1s join-edge grace", () => {
+  const snap = {
+    id: "grace",
+    phase: "join",
+    serverNow: "2026-09-14T12:00:29.200Z",
+    receivedAt: Date.now(),
+    deadlines: {
+      join: "2026-09-14T12:00:30.000Z",
+      prepare: "2026-09-14T12:01:00.000Z",
+      throw: "2026-09-14T12:01:30.000Z",
+      reveal: "2026-09-14T12:01:45.000Z"
+    }
+  };
+  assert(window.playActionWindowOpen(snap, "prepare") === true, "prepare should be open at join-1s");
 });
 
 test("cancelled no-join remains visible for the result hold", () => {

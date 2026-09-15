@@ -66,6 +66,26 @@
     return Number.isFinite(fallbackMs) ? fallbackMs : Date.now();
   };
 
+  function deadlineMs(round, key) {
+    const n = Date.parse(round?.deadlines?.[key] || "");
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  // Matches private.prepare_action_ok / throw_action_ok (1s grace on each edge).
+  root.playActionWindowOpen = function playActionWindowOpen(round, kind) {
+    if (!round || round.cancelled || round.paused) return false;
+    const now = root.playServerNowMs(round);
+    const join = deadlineMs(round, "join");
+    const prepare = deadlineMs(round, "prepare");
+    const throwAt = deadlineMs(round, "throw");
+    if (!join || !prepare || !throwAt) {
+      return (round.serverPhase || round.phase) === kind;
+    }
+    if (kind === "prepare") return now >= join - 1000 && now < prepare + 1000;
+    if (kind === "throw") return now >= prepare - 1000 && now < throwAt + 1000;
+    return false;
+  };
+
   root.playMergeRoundSnapshot = function playMergeRoundSnapshot(prev, incoming) {
     if (!incoming) return incoming;
     const stamped = { ...incoming, receivedAt: Date.now(), serverPhase: incoming.serverPhase || incoming.phase };
@@ -114,9 +134,8 @@
   };
 
   root.playActionStructureKey = function playActionStructureKey(plan) {
-    const phase = plan?.phase || "";
     const items = (plan?.buttons || []).map((row) => `${row.kind}:${row.item || ""}`).join("|");
-    return `${phase}:${items}`;
+    return items;
   };
 
   root.playReduceActionUi = function playReduceActionUi(prev, event) {

@@ -22,6 +22,8 @@
     emptyItems: "No encounter items available.",
     firstPrep: "Choose a Berry, Honey, or No Item.",
     firstThrow: "Choose a Poké Ball!",
+    waitPrep: "Opens in item selection",
+    waitThrow: "Opens in Poké Ball selection",
     thrown: "Poké Balls thrown!",
     adPause: "Encounter paused for Twitch ad break.",
     adminPause: "Encounter temporarily paused."

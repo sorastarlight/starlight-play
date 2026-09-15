@@ -117,7 +117,9 @@
     const startKey = keys[index - 1];
     const start = startKey ? new Date(round.deadlines[startKey]).getTime() : new Date(round.startedAt).getTime();
     const end = new Date(round.deadlines[round.phase]).getTime();
-    const now = round.pausedAt ? new Date(round.pausedAt).getTime() : Date.now();
+    const now = round.pausedAt
+      ? new Date(round.pausedAt).getTime()
+      : (typeof window.playServerNowMs === "function" ? window.playServerNowMs(round) : Date.now());
     if (end <= start) return 0;
     return Math.max(0, Math.min(100, ((end - now) / (end - start)) * 100));
   }
@@ -221,8 +223,14 @@
     }
     const lockedPrep = Boolean(me?.prep);
     const lockedBall = Boolean(me?.ball);
-    const prepActive = preparing && me && !lockedPrep;
-    const throwActive = throwing && me && !lockedBall;
+    const prepOpen = typeof window.playActionWindowOpen === "function"
+      ? window.playActionWindowOpen(round, "prepare")
+      : preparing;
+    const throwOpen = typeof window.playActionWindowOpen === "function"
+      ? window.playActionWindowOpen(round, "throw")
+      : throwing;
+    const prepActive = Boolean(me && !lockedPrep && prepOpen);
+    const throwActive = Boolean(me && !lockedBall && throwOpen);
     if (joining && !me) {
       const radar = Boolean(window.playRadarOn?.(bag));
       const pending = joiningPending || radar || pendingAction?.kind === "join";
@@ -235,7 +243,7 @@
         joining: pending
       });
     }
-    if (joining && me) {
+    if (me && (joining || preparing || throwing)) {
       const radar = Boolean(window.playRadarOn?.(bag));
       buttons.push({
         kind: "join",
@@ -246,7 +254,8 @@
         joined: true
       });
     }
-    if ((preparing || joining) && me) {
+    if ((preparing || joining || throwing) && me) {
+      const waitPrep = window.PLAY_STATUS?.waitPrep || "Opens in item selection";
       const owned = window.playOwnedBerries(bag, data?.captureItems);
       const berries = owned.map((row) => ({
         kind: "prepare",
@@ -256,7 +265,7 @@
         effect: row.description || "Makes this Pokémon easier to catch.",
         selected: me.prep === row.key,
         disabled: !prepActive || row.qty < 1,
-        reason: me.prep && me.prep !== row.key ? "ENCOUNTER LOCKED" : (row.qty < 1 ? "OUT OF STOCK" : (joining ? "Opens in item selection" : "")),
+        reason: me.prep && me.prep !== row.key ? "ENCOUNTER LOCKED" : (row.qty < 1 ? "OUT OF STOCK" : (!prepActive ? waitPrep : "")),
         sprite: row.key
       }));
       const honeyQty = Number(bag.bait || 0);
@@ -268,7 +277,7 @@
         effect: "Contribute Honey to improve the catch bonus for all Trainers.",
         selected: me.prep === "bait",
         disabled: !prepActive || honeyQty < 1,
-        reason: me.prep && me.prep !== "bait" ? "ENCOUNTER LOCKED" : (honeyQty < 1 ? "OUT OF STOCK" : (joining ? "Opens in item selection" : "")),
+        reason: me.prep && me.prep !== "bait" ? "ENCOUNTER LOCKED" : (honeyQty < 1 ? "OUT OF STOCK" : (!prepActive ? waitPrep : "")),
         sprite: "bait"
       };
       const skip = {
@@ -278,18 +287,26 @@
         effect: "Skip this phase. You can still throw a Poké Ball.",
         selected: me.prep === "none",
         disabled: !prepActive,
-        reason: lockedPrep && me.prep !== "none" ? "ENCOUNTER LOCKED" : (joining ? "Opens in item selection" : ""),
+        reason: lockedPrep && me.prep !== "none" ? "ENCOUNTER LOCKED" : (!prepActive ? waitPrep : ""),
         sprite: "berry"
       };
-      if (prepActive || lockedPrep) {
+      if (prepActive || lockedPrep || joining || throwing) {
         buttons.push(...berries, honey, skip);
       }
     }
-    if (throwing && me) {
+    if ((throwing || preparing || joining) && me) {
+      const waitThrow = window.PLAY_STATUS?.waitThrow || "Opens in Poké Ball selection";
       const advice = Array.isArray(data?.ballAdvice) ? data.ballAdvice : [];
       const owned = window.playOwnedBalls(bag);
       const pins = typeof window.playBagPins === "function" ? window.playBagPins() : [];
       const recent = typeof window.playRecentKeys === "function" ? window.playRecentKeys("balls") : [];
+      const ballDisabled = (qty, selected) => lockedBall || !throwActive || Number(qty) < 1;
+      const ballReason = (qty, selected) => {
+        if (lockedBall && !selected) return "ENCOUNTER LOCKED";
+        if (Number(qty) < 1) return "OUT OF STOCK";
+        if (!throwActive) return waitThrow;
+        return "";
+      };
       let rows = advice.length
         ? advice.map((row) => ({
           kind: "throw",
@@ -302,8 +319,8 @@
           recommended: Boolean(row.recommended),
           specialist: Boolean(row.specialist),
           selected: me.ball === row.ballId,
-          disabled: lockedBall || Number(bag[row.ballId] ?? row.quantity ?? 0) < 1,
-          reason: lockedBall && me.ball !== row.ballId ? "ENCOUNTER LOCKED" : (Number(bag[row.ballId] ?? 0) < 1 ? "OUT OF STOCK" : ""),
+          disabled: ballDisabled(bag[row.ballId] ?? row.quantity ?? 0, me.ball === row.ballId),
+          reason: ballReason(bag[row.ballId] ?? row.quantity ?? 0, me.ball === row.ballId),
           sprite: row.ballId
         }))
         : owned.map((row) => ({
@@ -314,8 +331,8 @@
           qty: Number(bag[row.key] || 0),
           effect: row.effect || "A Poké Ball for this encounter.",
           selected: me.ball === row.key,
-          disabled: lockedBall || Number(bag[row.key] || 0) < 1,
-          reason: lockedBall && me.ball !== row.key ? "ENCOUNTER LOCKED" : (Number(bag[row.key] || 0) < 1 ? "OUT OF STOCK" : ""),
+          disabled: ballDisabled(bag[row.key] || 0, me.ball === row.key),
+          reason: ballReason(bag[row.key] || 0, me.ball === row.key),
           sprite: row.key
         }));
       if (typeof window.playSortEncounterBalls === "function") {
@@ -333,7 +350,9 @@
           sprite: "pokeball"
         }];
       }
-      buttons.push(...rows);
+      if (throwActive || lockedBall || preparing || joining) {
+        buttons.push(...rows);
+      }
     }
     const waiting = window.PLAY_STATUS?.waitingOthers || "Waiting for other Trainers…";
     let status = "";
@@ -657,7 +676,10 @@
     const bag = data?.bag || {};
     const prefs = window.playEncounterSettings(data?.encounterSettings);
     if (!round || round.paused || acting || pendingAction || !me) return;
-    if (!me.prep && prefs.autoPrep && prefs.defaultPrep !== "ask" && round.phase === "prepare") {
+    if (!me.prep && prefs.autoPrep && prefs.defaultPrep !== "ask"
+      && (typeof window.playActionWindowOpen === "function"
+        ? window.playActionWindowOpen(round, "prepare")
+        : round.phase === "prepare")) {
       // "Berry" means whichever plain Berry is on hand, never the rare ones.
       const item = prefs.defaultPrep === "berry"
         ? window.playAutoBerryKey(bag, data?.captureItems)
@@ -668,7 +690,9 @@
       }
       return;
     }
-    if (round.phase === "throw" && !me.ball && prefs.autoThrow) {
+    if ((typeof window.playActionWindowOpen === "function"
+      ? window.playActionWindowOpen(round, "throw")
+      : round.phase === "throw") && !me.ball && prefs.autoThrow) {
       const favorite = window.playFavoriteBalls(bag, prefs).find((row) => Number(bag[row.key] || 0) > 0);
       const item = favorite?.key || (window.playThrowableTotal(bag) < 1 ? "standard" : "");
       if (item && maybeAutoAct._throw !== round.id) {
@@ -979,6 +1003,10 @@
     });
     if (button.disabled || busyNow()) {
       event.preventDefault();
+      if (button.disabled && button.dataset.kind !== "join") {
+        const why = button.getAttribute("title") || "";
+        if (why && els.actionStatus) els.actionStatus.textContent = why;
+      }
       return;
     }
     event.preventDefault();
@@ -1090,7 +1118,6 @@
     }
     if (round.phase && round.phase !== lastLocalPhase) {
       lastLocalPhase = round.phase;
-      lastActionKey = "";
       if (!actionDomFrozen()) renderActions({ ...state, round });
       else refreshQueued = true;
       maybeShowCatchNotices(round, state?.me);

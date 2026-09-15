@@ -861,13 +861,17 @@
     }
     if (visual) {
       visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
-      if (!capturing) {
+      const hadSeq = Boolean(root.querySelector("[data-catch-seq]"));
+      if (capturing) {
+        visual.classList.remove("is-exit");
+      } else if (hadSeq || visual.classList.contains("is-capture")) {
         visual.classList.remove("is-capture", "is-mid-catch", "is-wild-enter", "is-shiny-intro");
         visual.classList.add("is-exit");
-        visual.dataset.visualMode = round.phase === "closed" ? "result" : "wild";
         visual.querySelector(".dex-stage")?.classList.remove("is-throwing");
+        visual.dataset.visualMode = round.phase === "closed" ? "result" : "wild";
       } else {
-        visual.classList.remove("is-exit");
+        visual.classList.remove("is-capture", "is-mid-catch", "is-exit");
+        visual.dataset.visualMode = "wild";
       }
       window.playFillEncounterStageHud(root, round, extra?.staff ? null : (extra?.me || null));
     }

@@ -261,6 +261,13 @@ test("live patches can inject the catch sequence without remounting the map", ()
   assert(String(window.playPatchEncounter).includes("data-enc-head-copy"));
 });
 
+test("join and item patches do not hide the wild sprite", () => {
+  const src = String(window.playPatchEncounter);
+  assert(src.includes("is-exit"), "missing encounter exit class");
+  assert(src.includes("[data-catch-seq]"), "exit hide must check for a catch sequence");
+  assert(/hadSeq \|\| visual\.classList\.contains\("is-capture"\)/.test(src), src);
+});
+
 test("level chip uses authoritative round.level and hides when missing", () => {
   const withLevel = window.playRenderEncounter(wildRound({ level: 23 }), {});
   const without = window.playRenderEncounter(wildRound({ level: null }), {});

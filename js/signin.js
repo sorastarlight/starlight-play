@@ -109,5 +109,5 @@
     if (signedIn && !params.get("denied")) {
       window.location.assign("./");
     }
-  });
+  }).catch(() => {});
 })();

@@ -13,6 +13,27 @@ window.playEscapeAttr = function playEscapeAttr(value) {
     .replace(/</g, "&lt;");
 };
 
+window.playShowDialog = function playShowDialog(dialog) {
+  if (!dialog) return;
+  if (typeof dialog.showModal === "function") dialog.showModal();
+  else dialog.setAttribute("open", "");
+};
+
+window.playSetLoadingGate = function playSetLoadingGate(gate, app) {
+  if (gate) {
+    if (!gate.dataset.idle) gate.dataset.idle = gate.textContent || "";
+    gate.hidden = false;
+    gate.textContent = "Loading…";
+  }
+  if (app) app.hidden = true;
+};
+
+window.playRestoreGate = function playRestoreGate(gate, fallback) {
+  if (!gate) return;
+  gate.hidden = false;
+  gate.textContent = gate.dataset.idle || fallback || "Sign in to continue.";
+};
+
 window.playTwitchFaceInner = function playTwitchFaceInner(url, name) {
   const label = String(name || "Trainer").slice(0, 1).toUpperCase() || "T";
   const inner = url

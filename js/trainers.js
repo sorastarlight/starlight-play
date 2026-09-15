@@ -305,12 +305,14 @@
 
   window.playCaughtName = function playCaughtName(row) {
     if (!row) return "";
-    return String(row.variant || "").includes("shiny") ? `Shiny ${row.name}` : row.name;
+    const name = String(row.variant || "").includes("shiny") ? `Shiny ${row.name}` : (row.name || "");
+    return window.playEscapeAttr ? window.playEscapeAttr(name) : String(name);
   };
 
   window.playCaughtBlurb = function playCaughtBlurb(row) {
     if (!row) return "";
-    return [row.gender, window.playItemLabel(row.ball)].filter(Boolean).join(" · ");
+    const bits = [row.gender, window.playItemLabel(row.ball)].filter(Boolean);
+    return bits.map((bit) => (window.playEscapeAttr ? window.playEscapeAttr(bit) : String(bit))).join(" · ");
   };
 
   window.playCardTime = function playCardTime(seconds) {
@@ -329,6 +331,7 @@
   };
 
   window.playRenderIdCard = function playRenderIdCard(card) {
+    const esc = window.playEscapeAttr || ((value) => String(value || ""));
     const team = Array.isArray(card?.team) ? card.team : [];
     const look = window.playTrainerLook(card?.trainerSprite);
     const bg = window.playCardBg(card?.cardBg);
@@ -343,7 +346,7 @@
         </header>
         <div class="id-card-body">
           <dl class="id-stats">
-            <div class="id-stat-wide"><dt>Name</dt><dd>${card.displayName || "Trainer"}</dd></div>
+            <div class="id-stat-wide"><dt>Name</dt><dd>${esc(card.displayName || "Trainer")}</dd></div>
             <div><dt>Lv.</dt><dd>${card.level || 1}</dd></div>
             <div><dt>PokéCoins</dt><dd>${window.playCoinsHtml(card.coins || 0)}</dd></div>
             <div><dt>Pokédex</dt><dd>${card.species || 0}/151</dd></div>
@@ -352,9 +355,9 @@
           </dl>
           <div class="id-right">
             <div class="id-sprite-well">
-              <img src="${window.playTrainerSpriteUrl(card.trainerSprite)}" alt="${look.trainer.name}">
+              <img src="${window.playTrainerSpriteUrl(card.trainerSprite)}" alt="${esc(look.trainer.name)}">
             </div>
-            ${card.title ? `<p class="id-title">${card.title}</p>` : ""}
+            ${card.title ? `<p class="id-title">${esc(card.title)}</p>` : ""}
           </div>
         </div>
         <ul class="id-team">

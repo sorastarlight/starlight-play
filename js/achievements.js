@@ -16,7 +16,7 @@
   window.playBindAccountNav({
     onSignOut() {
       els.app.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to open your trainer progress.");
     }
   });
 
@@ -51,10 +51,10 @@
     const kanto = trainer.kanto || {};
     const next = trainer.nextReward;
     els.header.innerHTML = `
-      <h2>${trainer.displayName || "Trainer"} · Lv. ${trainer.level || 1}</h2>
-      <p class="muted">${trainer.title || "No title yet"} · ${kanto.caught || 0}/151 Kanto · ${trainer.caught || 0} caught</p>
+      <h2>${window.playEscapeAttr(trainer.displayName || "Trainer")} · Lv. ${trainer.level || 1}</h2>
+      <p class="muted">${window.playEscapeAttr(trainer.title || "No title yet")} · ${kanto.caught || 0}/151 Kanto · ${trainer.caught || 0} caught</p>
       <div class="xp-bar" aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, Math.round((trainer.xpInto / Math.max(1, trainer.xpNeed)) * 100)))}%"></i></div>
-      <p class="muted">${trainer.xpInto || 0} / ${trainer.xpNeed || 0} XP${next ? ` · Next reward: Level ${next.level} ${next.label || ""}` : ""}</p>
+      <p class="muted">${trainer.xpInto || 0} / ${trainer.xpNeed || 0} XP${next ? ` · Next reward: Level ${next.level} ${window.playEscapeAttr(next.label || "")}` : ""}</p>
       <dl class="sim-grid">
         <div><dt>Encounters</dt><dd>${stats.encounters || 0}</dd></div>
         <div><dt>Catches</dt><dd>${stats.captures || 0}</dd></div>
@@ -68,17 +68,17 @@
   function renderTitles() {
     const active = data?.trainer?.activeTitleId || "";
     els.titles.innerHTML = (data?.titles || []).map((row) => `
-      <button type="button" class="prog-pick ${row.unlocked ? "" : "is-locked"}" data-title="${row.id}" ${row.unlocked ? "" : "disabled"} aria-pressed="${row.id === active ? "true" : "false"}">
-        <strong>${row.name}</strong>
-        <span>${row.unlocked ? row.description : "Locked"}</span>
+      <button type="button" class="prog-pick ${row.unlocked ? "" : "is-locked"}" data-title="${window.playEscapeAttr(row.id)}" ${row.unlocked ? "" : "disabled"} aria-pressed="${row.id === active ? "true" : "false"}">
+        <strong>${window.playEscapeAttr(row.name)}</strong>
+        <span>${row.unlocked ? window.playEscapeAttr(row.description) : "Locked"}</span>
       </button>`).join("");
   }
 
   function renderBadges() {
     els.badges.innerHTML = (data?.badges || []).map((row) => `
-      <button type="button" class="prog-pick ${row.unlocked ? "" : "is-locked"}" data-badge="${row.id}" ${row.unlocked ? "" : "disabled"} aria-pressed="${row.featured ? "true" : "false"}">
-        <strong>${row.name}</strong>
-        <span>${row.unlocked ? row.description : "Locked"}</span>
+      <button type="button" class="prog-pick ${row.unlocked ? "" : "is-locked"}" data-badge="${window.playEscapeAttr(row.id)}" ${row.unlocked ? "" : "disabled"} aria-pressed="${row.featured ? "true" : "false"}">
+        <strong>${window.playEscapeAttr(row.name)}</strong>
+        <span>${row.unlocked ? window.playEscapeAttr(row.description) : "Locked"}</span>
       </button>`).join("");
   }
 
@@ -88,8 +88,8 @@
     els.ach.innerHTML = rows.map((row) => {
       const pct = Math.max(0, Math.min(100, Math.round((row.progress / Math.max(1, row.target)) * 100)));
       return `<article class="ach-card ${row.unlocked ? "is-done" : ""} ${row.hidden ? "is-hidden" : ""}">
-        <strong>${row.name}</strong>
-        <p>${row.description}</p>
+        <strong>${window.playEscapeAttr(row.name)}</strong>
+        <p>${window.playEscapeAttr(row.description)}</p>
         <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
         <span>${row.hidden ? "???" : `${row.progress} / ${row.target}`}</span>
         ${rewardBits(row.rewards) ? `<span class="muted">${rewardBits(row.rewards)}</span>` : ""}
@@ -109,9 +109,10 @@
     const session = await loadNav();
     if (!session) {
       els.app.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to open your trainer progress.");
       return;
     }
+    window.playSetLoadingGate(els.gate, els.app);
     try {
       data = await window.playCall("play_progression");
       els.gate.hidden = true;

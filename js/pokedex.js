@@ -20,7 +20,7 @@
   window.playBindAccountNav({
     onSignOut() {
       els.app.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to open your Pokédex.");
     }
   });
 
@@ -106,7 +106,7 @@
     }
     els.grid.innerHTML = visible.map((entry) => {
       const state = entry.caught ? "caught" : entry.seen ? "seen" : "unseen";
-      const label = entry.caught ? entry.name : entry.seen ? `${entry.name}?` : "?????";
+      const label = entry.caught ? window.playEscapeAttr(entry.name) : entry.seen ? `${window.playEscapeAttr(entry.name)}?` : "?????";
       const ready = (collection?.ready || []).some((row) => Number(row.dex) === entry.dex && (row.available || (row.haveCandy >= row.candyCost && row.haveItem)));
       const badges = [
         entry.forms.shiny ? `<span class="chip shiny">Shiny</span>` : "",
@@ -124,7 +124,7 @@
       const candy = entry.familyCandy ? ` · ${entry.familyCandy.qty} Candy` : "";
       const stars = entry.mastery ? ` · ${"★".repeat(entry.mastery.rank || 0)}${"☆".repeat(Math.max(0, 5 - (entry.mastery.rank || 0)))}` : "";
       const note = badges || owned || candy || stars || (state === "unseen" ? "Not seen" : "");
-      return `<article class="dex-cell ${state}" title="${entry.caught || entry.seen ? `${entry.name}${owned}${candy}${stars}` : "Not seen yet"}">
+      return `<article class="dex-cell ${state}" title="${entry.caught || entry.seen ? `${window.playEscapeAttr(entry.name)}${owned}${candy}${stars}` : "Not seen yet"}">
         ${mark}
         <span class="dex-no">No. ${window.playPadDex(entry.dex)}</span>
         <img src="${spriteFor(entry)}" alt="" class="${spriteClass}">
@@ -155,9 +155,10 @@
     const session = await loadNav();
     if (!session) {
       els.app.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to open your Pokédex.");
       return;
     }
+    window.playSetLoadingGate(els.gate, els.app);
     try {
       dexData = await window.playCall("play_pokedex", { p_login: null });
       try { collection = await window.playCall("play_collection"); } catch (_) { collection = null; }

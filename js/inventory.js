@@ -34,7 +34,7 @@
   window.playBindAccountNav({
     onSignOut() {
       els.trainer.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to open your inventory.");
     }
   });
 
@@ -47,8 +47,8 @@
     els.card.innerHTML = `
       ${window.playTwitchFaceHtml(trainer.avatar, trainer.displayName, "twitch-face-hero")}
       <div>
-        <h2>${trainer.displayName}</h2>
-        <p class="muted">@${trainer.login || "trainer"} · ${trainer.online ? "Online on Play" : "Away"}</p>
+        <h2>${window.playEscapeAttr(trainer.displayName)}</h2>
+        <p class="muted">@${window.playEscapeAttr(trainer.login || "trainer")} · ${trainer.online ? "Online on Play" : "Away"}</p>
         <p><strong>Lv. ${trainer.level}</strong> · ${trainer.caught} caught · ${trainer.species}/151 · ${window.playWatchHours(trainer.watchSeconds)} watched</p>
         <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
       </div>`;
@@ -133,10 +133,11 @@
     const session = sessionData.session;
     if (!session) {
       els.trainer.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to open your inventory.");
       window.playSetAccountNav(null);
       return;
     }
+    window.playSetLoadingGate(els.gate, els.trainer);
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     let snapshot = null;
     try {

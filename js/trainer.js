@@ -37,12 +37,12 @@
     hero.innerHTML = window.playRenderIdCard(card);
     const kanto = card.kanto || {};
     const variants = card.variants || {};
-    const badges = (card.badges || []).slice(0, 5).map((row) => `<span class="chip">${row.name}</span>`).join("");
+    const badges = (card.badges || []).slice(0, 5).map((row) => `<span class="chip">${window.playEscapeAttr(row.name)}</span>`).join("");
     const extra = document.getElementById("trainer-progress");
     if (extra) {
       extra.innerHTML = `
-        <h2>${card.displayName || "Trainer"}</h2>
-        <p class="muted">${card.title || "Trainer"} · Lv. ${card.level || 1}</p>
+        <h2>${window.playEscapeAttr(card.displayName || "Trainer")}</h2>
+        <p class="muted">${window.playEscapeAttr(card.title || "Trainer")} · Lv. ${card.level || 1}</p>
         <p>Kanto Pokédex: ${kanto.caught || card.species || 0} / ${kanto.total || 151} · ${kanto.percent || 0}%</p>
         <p>Total catches: ${card.caught || 0} · Shinies: ${variants.shinySpecies || 0} · Female variants: ${variants.femaleVariants || 0}</p>
         <p>Evolved: ${card.evolved || 0} · Trades: ${card.tradesDone || 0} · Species mastered: ${card.speciesMastered || 0}</p>

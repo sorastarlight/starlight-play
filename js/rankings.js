@@ -54,15 +54,16 @@
         return `
         <tr>
           <td class="num">${index + 1}</td>
-          <td class="rank-trainer">${face}<div><a href="./trainer.html?u=${encodeURIComponent(row.login)}">${row.displayName}</a><div class="muted">@${row.login}</div></div></td>
+          <td class="rank-trainer">${face}<div><a href="./trainer.html?u=${encodeURIComponent(row.login)}">${window.playEscapeAttr(row.displayName)}</a><div class="muted">@${window.playEscapeAttr(row.login)}</div></div></td>
           <td class="num">${left}</td>
           <td class="num">${right}</td>
-          <td>${row.title || "—"}</td>
+          <td>${window.playEscapeAttr(row.title || "—")}</td>
           <td>${row.online ? "Online" : "Away"}</td>
         </tr>`;
       }).join("");
     } catch (error) {
       status.textContent = window.playRpcError(error, "Rankings are not live yet.");
+      if (body) body.innerHTML = "";
     }
   }
 

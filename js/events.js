@@ -55,7 +55,7 @@
     for (let day = 1; day <= days; day += 1) {
       const date = new Date(cursor.getFullYear(), cursor.getMonth(), day);
       const listed = dayEvents(date);
-      const marks = listed.map((event) => `<i class="cal-dot ${event.kind}" title="${event.title}"></i>`).join("");
+      const marks = listed.map((event) => `<i class="cal-dot ${window.playEscapeAttr(event.kind)}" title="${window.playEscapeAttr(event.title)}"></i>`).join("");
       cells.push(`<div class="cal-day${listed.length ? " has-event" : ""}"><strong>${day}</strong><span>${marks}</span></div>`);
     }
     els.calendar.innerHTML = cells.join("");
@@ -77,9 +77,9 @@
       const remove = isAdmin ? `<button type="button" class="secondary" data-del="${event.id}">Remove</button>` : "";
       return `<article class="event-card">
         <span class="chip">${kindLabel(event.kind)}</span>
-        <strong>${event.title}</strong>
+        <strong>${window.playEscapeAttr(event.title)}</strong>
         <p>${when}</p>
-        <p class="muted">${event.blurb || ""}</p>
+        <p class="muted">${window.playEscapeAttr(event.blurb || "")}</p>
         ${remove}
       </article>`;
     }).join("");
@@ -111,6 +111,11 @@
       renderCalendar();
       renderList();
     } catch (error) {
+      events = [];
+      isAdmin = false;
+      if (els.staff) els.staff.hidden = true;
+      renderCalendar();
+      if (els.list) els.list.innerHTML = "";
       els.status.textContent = window.playRpcError(error, "Events calendar is not live yet.");
     }
   }

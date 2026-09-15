@@ -28,7 +28,7 @@
     onSignOut() {
       data = null;
       els.app.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to open your PC boxes.");
     }
   });
 
@@ -339,10 +339,11 @@
     const session = sessionData.session;
     if (!session) {
       els.app.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to open your PC boxes.");
       window.playSetAccountNav(null);
       return;
     }
+    window.playSetLoadingGate(els.gate, els.app);
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     let snapshot = null;
     try {

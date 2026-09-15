@@ -25,7 +25,7 @@
   window.playBindAccountNav({
     onSignOut() {
       els.app.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to evolve your Pokémon.");
     }
   });
 
@@ -184,16 +184,17 @@
       ${row.favorite ? `<p class="muted">This is a favorite. Evolution still transforms this exact Pokémon.</p>` : ""}
       <p>This cannot be reversed.</p>`;
     els.status.textContent = "";
-    els.modal.showModal();
+    window.playShowDialog(els.modal);
   }
 
   async function load() {
     const session = await loadNav();
     if (!session) {
       els.app.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to evolve your Pokémon.");
       return;
     }
+    window.playSetLoadingGate(els.gate, els.app);
     try {
       data = await window.playCall("play_collection");
       els.gate.hidden = true;

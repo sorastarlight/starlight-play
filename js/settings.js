@@ -34,7 +34,7 @@
   window.playBindAccountNav({
     onSignOut() {
       els.box.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to edit your Trainer look and encounter settings.");
     }
   });
 
@@ -131,9 +131,10 @@
     if (!session) {
       window.playSetAccountNav(null);
       els.box.hidden = true;
-      els.gate.hidden = false;
+      window.playRestoreGate(els.gate, "Sign in to edit your Trainer look and encounter settings.");
       return;
     }
+    window.playSetLoadingGate(els.gate, els.box);
     if (window.playTrainerCatalogReady) await window.playTrainerCatalogReady;
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, username").eq("id", session.user.id).maybeSingle();
     const login = profile?.twitch_login || profile?.username || "";
@@ -165,7 +166,7 @@
       els.gate.hidden = false;
       return;
     }
-    if (els.login) els.login.textContent = profile?.twitch_login ? `@${profile.twitch_login}` : "unlinked";
+    if (els.login) els.login.textContent = profile?.twitch_login ? `@${profile.twitch_login}` : "not linked";
     if (els.view) els.view.href = `./trainer.html?u=${encodeURIComponent(login)}`;
     fillLook(card);
     fillTeam(card);

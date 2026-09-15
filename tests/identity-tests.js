@@ -58,6 +58,26 @@ test("sign out helper is available", () => {
   assert(typeof window.playGuardTwitchLogin === "function");
 });
 
+require("../js/nav.js");
+test("HTML escape encodes quotes and tags", () => {
+  assert(window.playEscapeAttr('<img src="x">') === "&lt;img src=&quot;x&quot;>");
+});
+test("dialog helper falls back without showModal", () => {
+  const dialog = { setAttribute(name, value) { this[name] = value; } };
+  window.playShowDialog(dialog);
+  assert(dialog.open === "");
+});
+test("loading gate remembers idle copy", () => {
+  const gate = { hidden: true, textContent: "Sign in to continue.", dataset: {} };
+  const app = { hidden: false };
+  window.playSetLoadingGate(gate, app);
+  assert(gate.textContent === "Loading…");
+  assert(app.hidden === true);
+  window.playRestoreGate(gate);
+  assert(gate.textContent === "Sign in to continue.");
+  assert(gate.hidden === false);
+});
+
 const failed = results.filter((row) => !row.passed);
 if (failed.length) {
   console.error(failed);

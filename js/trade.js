@@ -54,6 +54,8 @@
   let listingMon = null;
   let listStep = 1;
   let offerPick = null;
+  let activeListing = null;
+  let tradeBusy = false;
   let gtsChannel = null;
   let pollTimer = 0;
   let filterTimer = 0;
@@ -111,6 +113,22 @@
     bits.push(window.playSpeciesName(listing.wantDex));
     const name = bits.join(" ");
     return listing.acceptAny === false ? `Looking for ${name}` : `Looking for ${name}, or other offers`;
+  }
+
+  function showTradeDialog(dialog) {
+    if (typeof window.playShowDialog === "function") window.playShowDialog(dialog);
+    else if (typeof dialog?.showModal === "function") dialog.showModal();
+    else dialog?.setAttribute("open", "");
+  }
+
+  async function runTradeAction(fn) {
+    if (tradeBusy) return;
+    tradeBusy = true;
+    try {
+      await fn();
+    } finally {
+      tradeBusy = false;
+    }
   }
 
   function fillSpeciesList() {
@@ -400,7 +418,7 @@
   function openWantBrowser() {
     if (els.wantSearch) els.wantSearch.value = "";
     renderWantGrid();
-    els.wantModal?.showModal();
+    showTradeDialog(els.wantModal);
     els.wantSearch?.focus();
   }
 
@@ -425,7 +443,7 @@
     updateWantTraits();
     renderListPc();
     setListStep(listingMon ? 2 : 1);
-    els.listModal?.showModal();
+    showTradeDialog(els.listModal);
   }
 
   async function submitListing() {
@@ -484,6 +502,7 @@
       const offers = listing.offerRows || [];
       const mine = listing.mine;
       offerPick = null;
+      activeListing = listing;
       if (els.detailTitle) els.detailTitle.textContent = mine ? "Your Open Trades" : "Trade details";
       const offeredShiny = String(mon.variant || "").includes("shiny");
       const hero = `
@@ -550,54 +569,7 @@
           <div class="links"><button id="send-offer" type="button" disabled>Send offer</button></div>
           <p id="offer-status" class="muted" role="status"></p>`;
       }
-      els.detailModal?.showModal();
-
-      document.getElementById("cancel-listing")?.addEventListener("click", async () => {
-        await window.playCall("play_trade_cancel", { p_listing_id: listing.id });
-        els.detailModal?.close();
-        loadBoard();
-      });
-      document.getElementById("offer-pc")?.addEventListener("click", (event) => {
-        const tile = event.target.closest("[data-catch]");
-        if (!tile) return;
-        offerPick = tile.dataset.catch;
-        document.getElementById("offer-pc")?.querySelectorAll(".gts-pc-tile").forEach((el) => {
-          el.classList.toggle("is-selected", el.dataset.catch === offerPick);
-        });
-        const send = document.getElementById("send-offer");
-        if (send) send.disabled = !offerPick;
-      });
-      document.getElementById("send-offer")?.addEventListener("click", async () => {
-        if (!offerPick) return;
-        const status = document.getElementById("offer-status");
-        if (status) status.textContent = "Sending…";
-        try {
-          const result = await window.playCall("play_trade_offer", { p_listing_id: listing.id, p_catch_id: offerPick });
-          if (status) status.textContent = result.message || "Offer sent.";
-          els.detailModal?.close();
-          loadBoard();
-        } catch (error) {
-          if (status) status.textContent = window.playRpcError(error);
-        }
-      });
-      els.detail.querySelectorAll("[data-accept]").forEach((button) => {
-        button.addEventListener("click", async () => {
-          try {
-            const result = await window.playCall("play_trade_accept", { p_offer_id: button.dataset.accept });
-            if (els.status) els.status.textContent = result.message || "Trade complete.";
-            els.detailModal?.close();
-            loadBoard();
-          } catch (error) {
-            if (els.status) els.status.textContent = window.playRpcError(error);
-          }
-        });
-      });
-      els.detail.querySelectorAll("[data-decline]").forEach((button) => {
-        button.addEventListener("click", async () => {
-          await window.playCall("play_trade_decline", { p_offer_id: button.dataset.decline });
-          openListing(listing.id);
-        });
-      });
+      showTradeDialog(els.detailModal);
     } catch (error) {
       if (els.status) els.status.textContent = window.playRpcError(error);
     }
@@ -660,6 +632,72 @@
   els.listModal?.addEventListener("click", (event) => dismissDialog(els.listModal, event));
   els.detailModal?.addEventListener("click", (event) => dismissDialog(els.detailModal, event));
   els.wantModal?.addEventListener("click", (event) => dismissDialog(els.wantModal, event));
+  els.detail?.addEventListener("click", async (event) => {
+    const listing = activeListing;
+    if (!listing) return;
+    if (event.target.closest("#cancel-listing")) {
+      await runTradeAction(async () => {
+        try {
+          await window.playCall("play_trade_cancel", { p_listing_id: listing.id });
+          els.detailModal?.close();
+          loadBoard();
+        } catch (error) {
+          if (els.status) els.status.textContent = window.playRpcError(error);
+        }
+      });
+      return;
+    }
+    const tile = event.target.closest("#offer-pc [data-catch]");
+    if (tile) {
+      offerPick = tile.dataset.catch;
+      document.getElementById("offer-pc")?.querySelectorAll(".gts-pc-tile").forEach((el) => {
+        el.classList.toggle("is-selected", el.dataset.catch === offerPick);
+      });
+      const send = document.getElementById("send-offer");
+      if (send) send.disabled = !offerPick;
+      return;
+    }
+    if (event.target.closest("#send-offer")) {
+      if (!offerPick) return;
+      await runTradeAction(async () => {
+        const status = document.getElementById("offer-status");
+        if (status) status.textContent = "Sending…";
+        try {
+          const result = await window.playCall("play_trade_offer", { p_listing_id: listing.id, p_catch_id: offerPick });
+          if (status) status.textContent = result.message || "Offer sent.";
+          els.detailModal?.close();
+          loadBoard();
+        } catch (error) {
+          if (status) status.textContent = window.playRpcError(error);
+        }
+      });
+      return;
+    }
+    const accept = event.target.closest("[data-accept]");
+    if (accept) {
+      await runTradeAction(async () => {
+        try {
+          const result = await window.playCall("play_trade_accept", { p_offer_id: accept.dataset.accept });
+          if (els.status) els.status.textContent = result.message || "Trade complete.";
+          els.detailModal?.close();
+          loadBoard();
+        } catch (error) {
+          if (els.status) els.status.textContent = window.playRpcError(error);
+        }
+      });
+      return;
+    }
+    const decline = event.target.closest("[data-decline]");
+    if (!decline) return;
+    await runTradeAction(async () => {
+      try {
+        await window.playCall("play_trade_decline", { p_offer_id: decline.dataset.decline });
+        openListing(listing.id);
+      } catch (error) {
+        if (els.status) els.status.textContent = window.playRpcError(error);
+      }
+    });
+  });
   els.listOpen?.addEventListener("click", () => openListWizard());
   els.listPcGrid?.addEventListener("click", (event) => {
     const tile = event.target.closest("[data-catch]");

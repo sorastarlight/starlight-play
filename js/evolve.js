@@ -12,11 +12,13 @@
     families: document.getElementById("family-list"),
     mastery: document.getElementById("mastery-list"),
     filter: document.getElementById("evo-filter"),
+    search: document.getElementById("evo-search"),
     note: document.getElementById("evo-ready-note"),
     modal: document.getElementById("evo-modal"),
     title: document.getElementById("evo-title"),
     detail: document.getElementById("evo-detail"),
     go: document.getElementById("evo-go"),
+    skip: document.getElementById("evo-skip"),
     status: document.getElementById("evo-status")
   };
   let data = null;
@@ -48,6 +50,8 @@
 
   function matches(row) {
     const filter = els.filter?.value || "ready";
+    const q = String(els.search?.value || "").trim().toLowerCase();
+    if (q && ![row.name, row.toName, row.familyName].some((bit) => String(bit || "").toLowerCase().includes(q))) return false;
     if (filter === "ready") return canEvolve(row);
     if (filter === "candy") return Number(row.candyCost || 0) > Number(row.haveCandy || 0);
     if (filter === "item") return Boolean(row.item) && !row.haveItem && !row.tradeReady;
@@ -68,7 +72,7 @@
     if (els.note) {
       els.note.innerHTML = (readyCount
         ? `${readyCount} evolution${readyCount === 1 ? "" : "s"} ready.`
-        : "No Pokémon are ready to evolve yet. Catch duplicates to earn Species Candy and collect Evolution Items.")
+        : "No Pokémon are ready to evolve yet. Catch duplicates to earn Evolution Candy and collect Evolution Items.")
         + (tradeTip || "");
     }
     const cards = rows.map((row) => {
@@ -77,7 +81,7 @@
       const need = Math.max(0, Number(row.candyCost || 0) - Number(row.haveCandy || 0));
       const cost = row.tradeReady && Number(row.candyCost) === 0
         ? "Trade Evolution Ready — no Candy or Linking Cord"
-        : `${row.haveCandy} / ${row.candyCost} Candy${row.item ? ` · ${itemLabel(row.item)} ${row.haveItem ? "✓" : ""}` : ""}${!ready && need ? ` · ${need} more needed` : ""}`;
+        : `${row.haveCandy} / ${row.candyCost} Evolution Candy${row.item ? ` · ${itemLabel(row.item)} ${row.haveItem ? "✓" : ""}` : ""}${!ready && need ? ` · ${need} more needed` : ""}`;
       return `
       <article class="ach-card ${ready ? "is-done" : ""}">
         <img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="" width="72" height="72">
@@ -101,7 +105,7 @@
       });
     }
     const empty = (els.filter?.value || "ready") === "ready"
-      ? `<p class="muted">No Pokémon are ready to evolve yet.</p><p class="muted">Catch duplicates to earn Species Candy and collect Evolution Items.</p>`
+      ? `<p class="muted">No Pokémon are ready to evolve yet.</p><p class="muted">Catch duplicates to earn Evolution Candy and collect Evolution Items.</p>`
       : (els.filter?.value === "item"
         ? `<p class="muted">No trade evolutions are currently ready, and no Evolution Items are missing right now.</p>`
         : `<p class="muted">Nothing in this filter right now.</p>`);
@@ -112,24 +116,29 @@
     if (!els.families) return;
     const families = data?.families || [];
     els.families.innerHTML = families.map((fam) => {
-      const members = (fam.members || []).map((member) => `
-        <li>
-          <img src="${window.playSpriteUrl(member.dex, "normal")}" alt="" width="40" height="40">
+      const members = fam.members || [];
+      const line = members.map((member, index) => {
+        const next = members[index + 1];
+        const node = `<button type="button" class="evo-node${member.owned ? " is-owned" : ""}" data-evo-dex="${member.dex}">
+          <img src="${window.playSpriteUrl(member.dex, "normal")}" alt="" width="56" height="56" loading="lazy">
           <strong>${window.playEscapeAttr(member.name)}</strong>
-          <span>${member.pokedex ? "✓ Pokédex" : "□ Pokédex"} · Owned: ${member.owned || 0}</span>
-        </li>`).join("");
+          <span>${member.pokedex ? "Pokédex" : "Unseen"} · ${member.owned || 0}</span>
+        </button>`;
+        const arrow = next ? `<span class="evo-arrow" aria-hidden="true">↓</span>` : "";
+        return `${node}${arrow}`;
+      }).join("");
       const next = (fam.next || []).map((rule) => {
         const need = Math.max(0, Number(rule.cost || 0) - Number(fam.candy || 0));
-        return `<p>${window.playEscapeAttr(rule.fromName)} → ${window.playEscapeAttr(rule.toName)}: ${rule.cost} required${rule.item ? ` + ${itemLabel(rule.item)}` : ""}${need ? ` · ${need} more Candy needed.` : " · ready if you have the Pokémon."}</p>`;
+        return `<p>${window.playEscapeAttr(rule.fromName)} → ${window.playEscapeAttr(rule.toName)}: ${rule.cost} Evolution Candy${rule.item ? ` + ${itemLabel(rule.item)}` : ""}${need ? ` · ${need} more needed.` : " · ready if you have the Pokémon."}</p>`;
       }).join("");
       return `
         <article class="card body family-card">
-          <h3>${window.playEscapeAttr(fam.name)} family</h3>
-          <p><strong>${window.playEscapeAttr(fam.name)} Candy:</strong> ${fam.candy || 0}</p>
-          <ol class="family-line">${members}</ol>
+          <h3>${window.playEscapeAttr(fam.name)} Evolution Line</h3>
+          <p><strong>Evolution Candy:</strong> ${fam.candy || 0}</p>
+          <div class="evo-line">${line || "<p class=\"muted\">No stages to show.</p>"}</div>
           ${next || "<p class=\"muted\">No evolution currently available.</p>"}
         </article>`;
-    }).join("") || `<p class="muted">Catch a Pokémon with an enabled family to see its line here.</p>`;
+    }).join("") || `<p class="muted">Catch a Pokémon with an enabled Evolution Line to see it here.</p>`;
   }
 
   function renderRareCandy() {
@@ -137,7 +146,7 @@
     const families = (data?.families || []).filter((fam) => (fam.next || []).length);
     if (els.rarePanel) els.rarePanel.hidden = qty < 1 && families.length < 1;
     if (els.rareFamily) {
-      els.rareFamily.innerHTML = families.map((fam) => `<option value="${fam.familyId}">${window.playEscapeAttr(fam.name)} · ${fam.candy || 0} Candy</option>`).join("");
+      els.rareFamily.innerHTML = families.map((fam) => `<option value="${fam.familyId}">${window.playEscapeAttr(fam.name)} · ${fam.candy || 0} Evolution Candy</option>`).join("");
     }
     if (els.rareUse) els.rareUse.disabled = qty < 1 || !families.length;
     if (els.rareStatus && qty) els.rareStatus.textContent = `${qty} Rare Candy ready.`;
@@ -152,7 +161,7 @@
         <img src="${window.playSpriteUrl(row.baseDex, "normal")}" alt="" width="48" height="48">
         <strong>${window.playEscapeAttr(row.name)}</strong>
         <span>${row.qty}</span>
-      </article>`).join("") || `<p class="muted">Catch Pokémon in evolving families to earn Candy.</p>`;
+      </article>`).join("") || `<p class="muted">Catch Pokémon from an Evolution Line to earn Evolution Candy.</p>`;
     els.mastery.innerHTML = (data?.mastery || []).map((row) => `
       <article class="prog-pick">
         <img src="${window.playSpriteUrl(row.dex, "normal")}" alt="" width="48" height="48">
@@ -173,8 +182,8 @@
     } else {
       const afterCandy = Math.max(0, Number(row.haveCandy || 0) - Number(row.candyCost || 0));
       const afterItem = row.item ? Math.max(0, Number(row.haveItemQty || (row.haveItem ? 1 : 0)) - 1) : null;
-      costLines.push(`<p>Cost: ${row.candyCost} ${window.playEscapeAttr(row.familyName || "family Candy")}${row.item ? `<br>1 ${itemLabel(row.item)}` : ""}</p>`);
-      costLines.push(`<p>After evolution: ${afterCandy} Candy${row.item ? ` · ${afterItem} ${itemLabel(row.item)}` : ""}</p>`);
+      costLines.push(`<p>Cost: ${row.candyCost} Evolution Candy${row.item ? `<br>1 ${itemLabel(row.item)}` : ""}</p>`);
+      costLines.push(`<p>After evolution: ${afterCandy} Evolution Candy${row.item ? ` · ${afterItem} ${itemLabel(row.item)}` : ""}</p>`);
     }
     els.detail.innerHTML = `
       <p><img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="${window.playEscapeAttr(fromName)}"> → <img src="${window.playSpriteUrl(row.toDex, row.variant)}" alt="${window.playEscapeAttr(toName)}"></p>
@@ -184,7 +193,45 @@
       ${row.favorite ? `<p class="muted">This is a favorite. Evolution still transforms this exact Pokémon.</p>` : ""}
       <p>This cannot be reversed.</p>`;
     els.status.textContent = "";
+    if (els.skip) els.skip.hidden = window.playPerfReduced?.() || window.playPerfMode?.() === "low";
     window.playShowDialog(els.modal);
+  }
+
+  function showEvoFanfare(fromName, toName, fromSrc, toSrc) {
+    if (window.playPerfReduced?.() || window.playPerfMode?.() === "low") return Promise.resolve();
+    return new Promise((resolve) => {
+      const overlay = document.createElement("div");
+      overlay.className = "evo-fanfare";
+      overlay.setAttribute("role", "dialog");
+      overlay.innerHTML = `
+        <div>
+          <p>What?</p>
+          <img src="${window.playEscapeAttr(fromSrc)}" alt="">
+          <p><strong>${window.playEscapeAttr(fromName)} is evolving!</strong></p>
+          <p><button type="button" class="secondary" data-evo-skip>Skip animation</button></p>
+        </div>`;
+      document.body.append(overlay);
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        overlay.remove();
+        resolve();
+      };
+      overlay.addEventListener("click", (event) => {
+        if (event.target.closest("[data-evo-skip]")) finish();
+      });
+      window.setTimeout(() => {
+        overlay.innerHTML = `
+          <div>
+            <p>Congratulations!</p>
+            <img src="${window.playEscapeAttr(toSrc)}" alt="">
+            <p><strong>Your ${window.playEscapeAttr(fromName)} evolved into ${window.playEscapeAttr(toName)}!</strong></p>
+            <p><button type="button" data-evo-skip>Continue</button></p>
+          </div>`;
+        window.setTimeout(finish, 3200);
+      }, 1600);
+    });
   }
 
   async function load() {
@@ -220,7 +267,7 @@
     let extras = {};
     try {
       const snapshot = await window.playCall("play_state");
-      extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer };
+      extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer, twitchLinked: snapshot?.twitchLinked };
     } catch (_) {}
     window.playSetAccountNav(session, profile, extras);
     return session;
@@ -238,8 +285,14 @@
     try {
       const result = await window.playCall("play_evolve", { p_catch: pick.catchId, p_rule: pick.ruleId });
       els.status.textContent = result.message || "Evolved!";
+      const fromName = pick.name;
+      const toName = pick.toName;
+      const fromSrc = window.playSpriteUrl(pick.dex, pick.variant);
+      const toSrc = window.playSpriteUrl(pick.toDex, pick.variant);
+      if (typeof els.modal.close === "function") els.modal.close();
+      else els.modal.removeAttribute("open");
+      await showEvoFanfare(fromName, toName, fromSrc, toSrc);
       if (typeof window.playShowNotices === "function") window.playShowNotices();
-      els.modal.close();
       await load();
     } catch (error) {
       const raw = window.playHumanRpcError ? window.playHumanRpcError(error) : window.playRpcError(error);
@@ -261,6 +314,10 @@
     }
   });
   els.filter?.addEventListener("change", renderReady);
+  els.search?.addEventListener("input", renderReady);
+  els.skip?.addEventListener("click", () => {
+    document.querySelector(".evo-fanfare [data-evo-skip]")?.click();
+  });
   window.playBindTips?.(document.body);
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });
   load();

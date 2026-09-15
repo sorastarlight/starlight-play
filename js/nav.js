@@ -34,17 +34,32 @@ window.playRestoreGate = function playRestoreGate(gate, fallback) {
   gate.textContent = gate.dataset.idle || fallback || "Sign in to continue.";
 };
 
-window.playTwitchFaceInner = function playTwitchFaceInner(url, name) {
-  const label = String(name || "Trainer").slice(0, 1).toUpperCase() || "T";
-  const inner = url
-    ? `<img class="avatar" src="${window.playEscapeAttr(url)}" alt="">`
-    : `<span class="avatar-fallback">${window.playEscapeAttr(label)}</span>`;
-  return `${inner}<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>`;
+window.playTwitchLinked = function playTwitchLinked(profile, extras) {
+  if (extras?.twitchLinked === true || extras?.trainer?.twitchLinked === true) return true;
+  if (extras?.twitchLinked === false || extras?.trainer?.twitchLinked === false) return false;
+  if (Array.isArray(extras?.connections)) {
+    return extras.connections.some((row) => {
+      const type = String(row?.type || row?.connection_type || "");
+      return row?.confirmed !== false && (type === "player" || type === "secondary");
+    });
+  }
+  if (typeof window._playTwitchLinked === "boolean") return window._playTwitchLinked;
+  return false;
 };
 
-window.playTwitchFaceHtml = function playTwitchFaceHtml(url, name, extraClass) {
-  const cls = extraClass ? ` twitch-face ${extraClass}` : " twitch-face";
-  return `<span class="${cls.trim()}">${window.playTwitchFaceInner(url, name)}</span>`;
+window.playTwitchFaceInner = function playTwitchFaceInner(url, name, linked) {
+  const label = String(name || "Trainer").slice(0, 1).toUpperCase() || "T";
+  const inner = url
+    ? `<img class="avatar" src="${window.playEscapeAttr(url)}" alt="" width="40" height="40">`
+    : `<span class="avatar-fallback">${window.playEscapeAttr(label)}</span>`;
+  const badge = linked ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : "";
+  return `${inner}${badge}`;
+};
+
+window.playTwitchFaceHtml = function playTwitchFaceHtml(url, name, extraClass, linked) {
+  const twitch = linked ? " has-twitch" : "";
+  const cls = extraClass ? ` twitch-face ${extraClass}${twitch}` : ` twitch-face${twitch}`;
+  return `<span class="${cls.trim()}">${window.playTwitchFaceInner(url, name, linked)}</span>`;
 };
 
 window.playBindAccountNav = function playBindAccountNav(options) {
@@ -228,6 +243,9 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     }
     const name = window.playAccountName(session, profile);
     const avatar = window.playAccountAvatar(session, profile);
+    const twitchLinked = window.playTwitchLinked(profile, extras);
+    const face = els.button?.querySelector(".twitch-face");
+    if (face) face.classList.toggle("has-twitch", twitchLinked);
     const handle = profile?.twitch_login || session.user.user_metadata?.preferred_username || "";
     if (els.name) els.name.textContent = name;
     if (els.handle) els.handle.textContent = handle ? `@${handle}` : name;

@@ -6361,3 +6361,151 @@ button.hub-metric { cursor: pointer; }
 .conn-help { margin: 0; }
 .account-health { margin: 8px 0 0; }
 .admin-connections { display: grid; gap: 10px; }
+
+/* P2 performance scaling — does not change encounter capture/hide logic */
+html[data-perf="low"] .mart-featured-art img,
+html[data-perf="low"] .mart-cart-fanfare-burst,
+html[data-perf="balanced"] .mart-cart-fanfare-burst i,
+html[data-reduced-motion="1"] .mart-featured-art img {
+  animation: none !important;
+}
+html[data-perf="low"] .mart-cart-fanfare-burst,
+html[data-reduced-motion="1"] .mart-cart-fanfare-burst { display: none; }
+html[data-perf="low"] .topnav,
+html[data-perf="low"] .account-menu,
+html[data-perf="low"] .play-modal-card,
+html[data-perf="low"] .modal-card {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+html[data-perf="low"] .id-card { box-shadow: 0 8px 0 #d7c39a; }
+
+body.is-mart-enter .page-kicker h1 {
+  animation: mart-sign-in .7s ease both;
+}
+@keyframes mart-sign-in {
+  from { opacity: 0; transform: translateY(-8px) scale(.98); }
+  to { opacity: 1; transform: none; }
+}
+html[data-reduced-motion="1"] body.is-mart-enter .page-kicker h1,
+html[data-perf="low"] body.is-mart-enter .page-kicker h1 { animation: none; }
+
+.mart-item .mart-detail {
+  margin-top: 6px;
+  font-size: 12px;
+}
+.mart-purchase-pop {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 10px;
+  align-items: center;
+  min-width: 240px;
+  max-width: min(360px, calc(100vw - 24px));
+  padding: 12px 14px;
+  border: 2px solid #e8c44a;
+  border-radius: 16px;
+  background: #fffdf3;
+  box-shadow: 0 12px 0 #f3d36a;
+}
+.mart-purchase-pop img { width: 40px; height: 40px; }
+.mart-purchase-pop strong { display: block; }
+
+.pass-meta { margin: 8px 0 0; font-size: 13px; }
+.pass-claims { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+
+.rank-podium {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  gap: 10px;
+  align-items: end;
+  margin: 0 0 18px;
+}
+.rank-podium-card {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 14px 10px 12px;
+  border: 2px solid #d7c39a;
+  border-radius: 18px;
+  background: #fffdf6;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+.rank-podium-card.is-first { padding-top: 22px; border-color: #e8c44a; background: #fff8dc; order: 2; }
+.rank-podium-card.is-second { order: 1; }
+.rank-podium-card.is-third { order: 3; }
+.rank-podium-place { font-weight: 800; letter-spacing: .08em; }
+.rank-me {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 2px solid #9ec4ff;
+  border-radius: 16px;
+  background: #f3f8ff;
+}
+.rank-table img,
+.rank-podium-card img { width: 40px; height: 40px; object-fit: cover; }
+
+.evo-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+.evo-node {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  min-width: 72px;
+  padding: 8px;
+  border: 2px solid #e7edf8;
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+}
+.evo-node img { width: 56px; height: 56px; }
+.evo-node.is-owned { border-color: #7bc67e; }
+.evo-arrow { font-size: 20px; color: #8a86b0; }
+.evo-fanfare {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  background: rgba(20, 18, 48, .72);
+  color: #fff;
+  padding: 24px;
+  text-align: center;
+}
+.evo-fanfare img { width: 96px; height: 96px; }
+.evo-search { max-width: 280px; }
+
+.auth-hero { text-align: center; }
+.auth-hero h1 { margin-bottom: 8px; }
+
+.twitch-face:not(.has-twitch) .twitch-badge { display: none; }
+
+.adventure-log { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.adventure-log li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e7edf8;
+}
+
+.perf-picks { display: grid; gap: 8px; }
+.perf-picks label { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; }
+
+@media (max-width: 720px) {
+  .rank-podium { grid-template-columns: 1fr; }
+  .rank-podium-card.is-first,
+  .rank-podium-card.is-second,
+  .rank-podium-card.is-third { order: 0; }
+}
+

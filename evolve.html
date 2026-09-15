@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260915-auth1">
+<link rel="stylesheet" href="css/play.css?v=20260915-p2">
 <body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -53,36 +53,40 @@
 </nav>
 <div class="wrap">
   <div class="page-kicker">
-    <h1>Evolution</h1>
+    <h1>Evolution Center</h1>
+    <p class="muted">Discover new possibilities for your Pokémon.</p>
   </div>
   <p id="gate" class="notice">Sign in to evolve your Pokémon.</p>
   <div id="evo-app" hidden>
     <section class="card body">
-      <p class="muted">Duplicates earn family Candy. Evolving transforms that Pokémon — it never creates a free extra copy. Stones are sold in Starlight Mart. Later-generation relatives stay unavailable while only Kanto is enabled.</p>
+      <p class="muted">Catch duplicates from an Evolution Line to earn Evolution Candy. Evolving transforms that Pokémon — it never creates a free extra copy. Stones and Linking Cords are sold in Starlight Mart. Later-generation relatives stay unavailable while only Kanto is enabled.</p>
       <p id="evo-ready-note" class="muted"></p>
       <div class="dex-filters">
         <label>Show
           <select id="evo-filter">
             <option value="ready">Ready to evolve</option>
-            <option value="candy">Needs Candy</option>
+            <option value="candy">Needs Evolution Candy</option>
             <option value="item">Needs item</option>
             <option value="all">All eligible</option>
             <option value="shiny">Shiny</option>
             <option value="favorites">Favorites</option>
           </select>
         </label>
+        <label>Search
+          <input id="evo-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
+        </label>
       </div>
     </section>
     <div id="evo-grid" class="ach-grid" style="margin-top:18px"></div>
     <section class="card body" style="margin-top:18px">
-      <h2>Family view</h2>
-      <p class="muted">One Candy resource per family. Disabled later stages are not shown.</p>
+      <h2>Evolution Lines</h2>
+      <p class="muted">One Evolution Candy resource per line. Disabled later stages are not shown as selectable.</p>
       <div id="family-list"></div>
     </section>
     <section class="card body" id="rare-candy-panel" style="margin-top:18px" hidden>
       <h2>Rare Candy</h2>
-      <p class="muted">Use one Rare Candy to add 1 Candy to an evolving family. Terminal families cannot be chosen.</p>
-      <label class="field" for="rare-candy-family">Family
+      <p class="muted">Convert a Rare Candy into 1 Evolution Candy for a selected Evolution Line. Terminal lines cannot be chosen.</p>
+      <label class="field" for="rare-candy-family">Evolution Line
         <select id="rare-candy-family"></select>
       </label>
       <div class="links">
@@ -91,7 +95,7 @@
       <p id="rare-candy-status" class="muted" role="status"></p>
     </section>
     <section class="card body" style="margin-top:18px">
-      <h2>Family Candy</h2>
+      <h2>Evolution Candy</h2>
       <div id="candy-list" class="prog-pick-grid"></div>
     </section>
     <section class="card body" style="margin-top:18px">
@@ -110,19 +114,21 @@
     <div id="evo-detail"></div>
     <div class="links">
       <button id="evo-go" type="button">Evolve</button>
+      <button id="evo-skip" class="secondary" type="button" hidden>Skip animation</button>
     </div>
     <p id="evo-status" class="muted" role="status"></p>
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js?v=20260915-auth1"></script>
+<script src="js/play-perf.js?v=20260915-p2"></script>
 <script src="js/build.js?v=20260915-auth1"></script>
 <script src="js/auth.js?v=20260915-auth1"></script>
 <script src="js/species.js?v=20260915-auth1"></script>
 <script src="js/variants.js?v=20260915-auth1"></script>
-<script src="js/game.js?v=20260915-enc4"></script>
+<script src="js/game.js?v=20260915-p2"></script>
 <script src="js/play-encounter-state.js?v=20260915-enc4"></script>
-<script src="js/play-ux.js?v=20260915-p1a"></script>
-<script src="js/nav.js?v=20260915-p1b"></script>
-<script src="js/evolve.js?v=20260915-p1b"></script>
+<script src="js/play-ux.js?v=20260915-p2"></script>
+<script src="js/nav.js?v=20260915-p2"></script>
+<script src="js/evolve.js?v=20260915-p2"></script>
 </body>

@@ -916,6 +916,8 @@
   window.playCall = async function playCall(name, args) {
     const { data, error } = await window.playSupabase.rpc(name, args || {});
     if (error) throw error;
+    if (data && typeof data.twitchLinked === "boolean") window._playTwitchLinked = data.twitchLinked;
+    else if (data?.trainer && typeof data.trainer.twitchLinked === "boolean") window._playTwitchLinked = data.trainer.twitchLinked;
     return data;
   };
 
@@ -934,7 +936,8 @@
     const host = noticeHost();
     const card = document.createElement("article");
     card.className = `play-toast play-toast-${notice?.kind || "info"}`;
-    card.innerHTML = `<strong>${notice?.title || "Reward"}</strong><p>${notice?.body || ""}</p>`;
+    const esc = window.playEscapeAttr || ((value) => String(value || ""));
+    card.innerHTML = `<strong>${esc(notice?.title || "Reward")}</strong><p>${esc(notice?.body || "")}</p>`;
     host.append(card);
     setTimeout(() => card.classList.add("is-out"), 4200);
     setTimeout(() => card.remove(), 5000);

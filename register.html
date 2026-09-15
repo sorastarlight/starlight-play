@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260915-auth1">
+<link rel="stylesheet" href="css/play.css?v=20260915-p2">
 <body data-page="register">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -49,7 +49,10 @@
   </div>
 </nav>
 <div class="wrap">
-  <div class="page-kicker"><h1>Create your Trainer Account</h1></div>
+  <div class="page-kicker auth-hero">
+    <h1>Welcome, Trainer!</h1>
+    <p class="muted">Your adventure starts here. Create your ST★RLIGHT Trainer Account to keep your Pokémon, Pokédex, inventory, achievements, and stream connections together.</p>
+  </div>
   <section class="card body trainer-login-card">
     <p class="muted">Your Trainer Account keeps your Pokémon, Pokédex, inventory, achievements, and Twitch connections together.</p>
     <form id="register-form">
@@ -66,7 +69,7 @@
       <label class="field" for="reg-confirm">Confirm password
         <input id="reg-confirm" type="password" autocomplete="new-password" required minlength="8">
       </label>
-      <div class="links"><button type="submit">Create Trainer Account</button></div>
+      <div class="links"><button type="submit">Begin my adventure</button></div>
       <p class="muted">Already have an account? <a href="./signin.html">Sign in</a></p>
       <p id="register-status" class="muted" role="status"></p>
     </form>
@@ -74,9 +77,10 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js?v=20260915-auth1"></script>
+<script src="js/play-perf.js?v=20260915-p2"></script>
 <script src="js/build.js?v=20260915-auth1"></script>
 <script src="js/auth.js?v=20260915-auth1"></script>
-<script src="js/game.js?v=20260915-enc4"></script>
-<script src="js/nav.js?v=20260915-p1b"></script>
-<script src="js/register.js?v=20260915-acct1"></script>
+<script src="js/game.js?v=20260915-p2"></script>
+<script src="js/nav.js?v=20260915-p2"></script>
+<script src="js/register.js?v=20260915-p2"></script>
 </body>

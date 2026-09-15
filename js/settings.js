@@ -24,7 +24,9 @@
     autoThrow: document.getElementById("auto-throw"),
     confirmRare: document.getElementById("confirm-rare"),
     saveEncounter: document.getElementById("save-encounter"),
-    encounterStatus: document.getElementById("encounter-status")
+    encounterStatus: document.getElementById("encounter-status"),
+    perfPicks: document.getElementById("perf-picks"),
+    perfStatus: document.getElementById("perf-status")
   };
   let card = null;
   let catches = [];
@@ -102,15 +104,27 @@
     }).join("");
   }
 
+  function fillPerf() {
+    const pref = window.playPerfPref?.() || "auto";
+    const mode = window.playPerfMode?.() || pref;
+    els.perfPicks?.querySelectorAll("[name=perf-mode]").forEach((input) => {
+      input.checked = input.value === pref;
+    });
+    if (els.perfStatus) {
+      els.perfStatus.textContent = pref === "auto" ? `AUTO is using ${String(mode).toUpperCase()} on this device.` : `${String(pref).toUpperCase()} is on.`;
+    }
+  }
+
   function describePass(pass) {
     if (!pass) return "Sign in to check your pass.";
+    const checked = pass.checkedAt ? ` Last checked ${new Date(pass.checkedAt).toLocaleString()}.` : "";
     if (pass.active) {
-      if (pass.source === "twitch-sub") return "Starlight Pass is active from your Twitch subscription.";
-      if (pass.source === "admin") return "Starlight Pass is active (staff grant).";
-      if (pass.source === "broadcaster") return "Starlight Pass is active because this is the channel account.";
-      return "Starlight Pass is active.";
+      if (pass.source === "twitch-sub") return `Starlight Pass is active from your Twitch subscription.${checked}`;
+      if (pass.source === "admin") return `Starlight Pass is active (staff grant).${checked}`;
+      if (pass.source === "broadcaster") return `Starlight Pass is active because this is the channel account.${checked}`;
+      return `Starlight Pass is active.${checked}`;
     }
-    return "No Starlight Pass yet. Subscribe on Twitch, then check again.";
+    return `No Starlight Pass yet. Subscribe on Twitch, then check again.${checked}`;
   }
 
   async function functionMessage(error, fallback) {
@@ -141,7 +155,7 @@
     let extras = {};
     try {
       const snapshot = await window.playCall("play_state");
-      extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer };
+      extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer, twitchLinked: snapshot?.twitchLinked };
       window._playOwnedAvatarPacks = snapshot?.ownedAvatarPacks || [];
       bag = snapshot?.bag || {};
       encounter = window.playEncounterSettings(snapshot?.encounterSettings);
@@ -173,6 +187,7 @@
     fillBgs(card);
     fillPreview(card);
     fillEncounter();
+    fillPerf();
     els.gate.hidden = true;
     els.box.hidden = false;
   }
@@ -278,6 +293,17 @@
     }
     els.pass.textContent = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
     await load();
+  });
+
+  els.perfPicks?.addEventListener("change", (event) => {
+    const input = event.target.closest("[name=perf-mode]");
+    if (!input) return;
+    const applied = window.playSetPerfPref?.(input.value) || { pref: input.value, mode: input.value };
+    if (els.perfStatus) {
+      els.perfStatus.textContent = applied.pref === "auto"
+        ? `AUTO is using ${String(applied.mode).toUpperCase()} on this device.`
+        : `${String(applied.pref).toUpperCase()} is on.`;
+    }
   });
 
   supabase.auth.onAuthStateChange((event) => {

@@ -5,6 +5,8 @@
   const colA = document.getElementById("rank-col-a");
   const colB = document.getElementById("rank-col-b");
   const boards = document.getElementById("rank-boards");
+  const podium = document.getElementById("rank-podium");
+  const mine = document.getElementById("rank-me");
   let board = "level";
 
   window.playBindAccountNav();
@@ -19,12 +21,13 @@
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     let trainer = null;
     let isAdmin = false;
+    let snapshot = null;
     try {
-      const snapshot = await window.playCall("play_state");
+      snapshot = await window.playCall("play_state");
       trainer = snapshot?.trainer;
       isAdmin = Boolean(snapshot?.isAdmin);
     } catch (_) {}
-    window.playSetAccountNav(session, profile, { isAdmin, trainer });
+    window.playSetAccountNav(session, profile, { isAdmin, trainer, twitchLinked: snapshot?.twitchLinked });
   }
 
   function labels() {
@@ -35,6 +38,50 @@
     return ["Lv", "Pokédex"];
   }
 
+  function score(row) {
+    if (board === "pokedex") return `${row.species}/151`;
+    if (board === "shinies") return row.shinies;
+    if (board === "catches") return row.captures;
+    if (board === "honey") return row.honey;
+    return `Lv. ${row.level}`;
+  }
+
+  function rowFace(row) {
+    return window.playTwitchFaceHtml(row.avatar, row.displayName, "twitch-face-sm", Boolean(row.twitchLinked));
+  }
+
+  function renderPodium(rows) {
+    if (!podium) return;
+    const top = rows.slice(0, 3);
+    if (!top.length) {
+      podium.hidden = true;
+      podium.innerHTML = "";
+      return;
+    }
+    const placeClass = ["is-first", "is-second", "is-third"];
+    podium.hidden = false;
+    podium.innerHTML = top.map((row, index) => `
+      <a class="rank-podium-card ${placeClass[index] || ""}" href="./trainer.html?u=${encodeURIComponent(row.login)}">
+        <span class="rank-podium-place">#${row.place || index + 1}</span>
+        ${rowFace(row)}
+        <strong>${window.playEscapeAttr(row.displayName)}</strong>
+        <span class="muted">${window.playEscapeAttr(row.title || "Trainer")}</span>
+        <span>${window.playEscapeAttr(String(score(row)))}</span>
+      </a>`).join("");
+  }
+
+  function renderMine(me) {
+    if (!mine) return;
+    if (!me) {
+      mine.hidden = true;
+      mine.textContent = "";
+      return;
+    }
+    mine.hidden = false;
+    mine.innerHTML = `<strong>Your rank · #${me.place || "—"}</strong>
+      <span> ${window.playEscapeAttr(me.displayName || "Trainer")} · ${window.playEscapeAttr(String(score(me)))}</span>`;
+  }
+
   async function loadRanks() {
     try {
       const data = await window.playCall("play_rankings", { p_board: board });
@@ -43,8 +90,10 @@
       if (colA) colA.textContent = a;
       if (colB) colB.textContent = b;
       status.textContent = rows.length ? `${rows.length} trainers · ${a}` : "No trainers ranked yet.";
+      renderPodium(rows);
+      renderMine(data?.me);
       body.innerHTML = rows.map((row, index) => {
-        const face = window.playTwitchFaceHtml(row.avatar, row.displayName, "twitch-face-sm");
+        const face = rowFace(row);
         const left = board === "pokedex" ? `${row.species}/151`
           : board === "shinies" ? row.shinies
           : board === "catches" ? row.captures
@@ -53,7 +102,7 @@
         const right = board === "honey" ? row.level : (board === "catches" || board === "shinies" ? row.species : row.caught);
         return `
         <tr>
-          <td class="num">${index + 1}</td>
+          <td class="num">${row.place || index + 1}</td>
           <td class="rank-trainer">${face}<div><a href="./trainer.html?u=${encodeURIComponent(row.login)}">${window.playEscapeAttr(row.displayName)}</a><div class="muted">@${window.playEscapeAttr(row.login)}</div></div></td>
           <td class="num">${left}</td>
           <td class="num">${right}</td>
@@ -64,6 +113,8 @@
     } catch (error) {
       status.textContent = window.playRpcError(error, "Rankings are not live yet.");
       if (body) body.innerHTML = "";
+      if (podium) { podium.hidden = true; podium.innerHTML = ""; }
+      if (mine) { mine.hidden = true; mine.textContent = ""; }
     }
   }
 

@@ -95,6 +95,26 @@
     return `<p class="muted">You own ${qty.toLocaleString()}</p>`;
   }
 
+  function showPurchasePop(purchase, bag) {
+    document.querySelectorAll(".mart-purchase-pop").forEach((el) => el.remove());
+    const first = purchase?.lines?.[0];
+    const pop = document.createElement("aside");
+    pop.className = "mart-purchase-pop";
+    pop.setAttribute("role", "status");
+    const sprite = first?.sprite || "poke-ball.png";
+    const src = typeof window.playItemSprite === "function" ? window.playItemSprite(sprite) : sprite;
+    const added = (purchase?.lines || []).map((row) => `${row.name} ×${row.qty}`).join(", ");
+    const coins = bag?.coins != null ? `Bag now: ${Number(bag.coins).toLocaleString()} PokéCoins` : "";
+    pop.innerHTML = `<img src="${esc(src)}" alt="" width="40" height="40">
+      <div>
+        <strong>${purchase?.premierBonus ? "Bonus! Premier Ball ×1 added to your Bag." : "Purchase complete!"}</strong>
+        <span>${esc(added)}</span>
+        ${coins ? `<span class="muted">${esc(coins)}</span>` : ""}
+      </div>`;
+    document.body.append(pop);
+    window.setTimeout(() => pop.remove(), 4500);
+  }
+
   function newOrderId() {
     if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
       return crypto.randomUUID();
@@ -226,11 +246,11 @@
       if (wallet?.dailyReady) gifts.push("daily gift ready");
       if (wallet?.weeklyReady) gifts.push("weekly crate ready");
       return {
-        note: gifts.length ? `${source}. ${gifts.join(" · ")}.` : `${source}. Gifts on cooldown.`,
+        note: `${gifts.length ? `${source}. ${gifts.join(" · ")}.` : `${source}. Gifts on cooldown.`}${pass.checkedAt ? ` Last checked ${new Date(pass.checkedAt).toLocaleString()}.` : ""}`,
         active: true
       };
     }
-    return { note: "No Pass on this account yet.", active: false };
+    return { note: `No Pass on this account yet.${pass.checkedAt ? ` Last checked ${new Date(pass.checkedAt).toLocaleString()}.` : ""}`, active: false };
   }
 
   function withLureBlurb(item) {
@@ -298,7 +318,7 @@
         key: "bits",
         kind: "bits",
         name: "Twitch Power-Ups",
-        blurb: "Use the matching Custom Power-Up on Twitch while Sora is live. Sign into Play once so the pack can find your bag. You get what's listed — nothing random.",
+        blurb: "Guaranteed items for a known Bits cost. Use the matching Custom Power-Up on Twitch while Sora is live. Nothing random — no surprise Pokémon.",
         icon: "amulet-coin.png",
         items: catalog?.bits || []
       }
@@ -340,6 +360,8 @@
           ${blurb ? `<p class="mart-blurb">${esc(blurb)}</p>` : ""}
           ${useLinesHtml(row)}
           ${ownedLine(row)}
+          ${mode === "bits" ? `<p class="muted">Guaranteed contents. Not a random pack.</p>` : ""}
+          ${row.key || grantKey(row) ? `<details class="mart-detail"><summary>What does this do?</summary><p>${esc((typeof window.playItemPlayerText === "function" && window.playItemPlayerText(row.key || grantKey(row))) || row.blurb || "A Trainer item.")}</p></details>` : ""}
         </div>
         <div class="mart-price">
           ${costHtml(row, mode)}
@@ -413,6 +435,7 @@
             <h2>${esc(title)} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h2>
             <ul>${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
             <p data-pass-status class="muted">${esc(info.note)}</p>
+            <p class="pass-meta">${pass?.login || pass?.twitchLogin ? `Linked through: @${esc(pass.login || pass.twitchLogin)}` : "Connect Twitch on My Account to verify a subscription without signing out of Play."}${pass?.checkedAt ? ` · Last checked ${esc(new Date(pass.checkedAt).toLocaleString())}` : ""}</p>
             <div class="daily-supply-card">
               <p class="eyebrow">Daily Trainer Supply</p>
               <p>${wallet?.dailyClaimed
@@ -853,6 +876,12 @@
   }
 
   async function load() {
+    try {
+      if (!sessionStorage.getItem("play-mart-enter")) {
+        sessionStorage.setItem("play-mart-enter", "1");
+        document.body.classList.add("is-mart-enter");
+      }
+    } catch (_) {}
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
     if (!session) {
@@ -863,7 +892,7 @@
     }
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, starlight_pass, pass_source").eq("id", session.user.id).maybeSingle();
     const store = await refreshStore();
-    window.playSetAccountNav(session, profile, { isAdmin: Boolean(store?.isAdmin), trainer: store?.trainer });
+    window.playSetAccountNav(session, profile, { isAdmin: Boolean(store?.isAdmin), trainer: store?.trainer, twitchLinked: store?.twitchLinked });
   }
 
   async function purchaseCart(button) {
@@ -903,14 +932,7 @@
       };
       if (data.bag?.coins != null) lastPurchase.after = Number(data.bag.coins);
       lastTab = CHECKOUT_TAB;
-      const added = receipt.lines.map((row) => `${row.name} ×${row.qty}`).join(", ");
-      if (typeof window.playToast === "function") {
-        window.playToast({
-          kind: "info",
-          title: lastPurchase.premierBonus ? "Bonus! Premier Ball ×1 added to your Bag." : "Added to your Bag!",
-          body: added
-        });
-      }
+      showPurchasePop(lastPurchase, data.bag);
       await refreshStore();
     } catch (error) {
       checkoutNote = window.playHumanRpcError

@@ -25,14 +25,14 @@
     card.innerHTML = `
       <h2>Trainer Account created!</h2>
       <p>${verify
-        ? "Check your email for a verification link, then sign in. Connect Twitch when you are ready to join stream features."
+        ? "Check your email for a verification link, then sign in. Connect Twitch when you are ready to join live encounters."
         : "Your Trainer Account keeps your Pokémon, Pokédex, inventory, and Twitch connections together."}</p>
-      <p class="muted">Twitch is not required for ordinary website features. Stream encounters and Bits need a linked Twitch identity.</p>
+      <p class="muted">Twitch is not required for ordinary website features. Live encounters and Bits need a linked Twitch identity.</p>
       <div class="links">
         ${verify
-          ? `<a class="button" href="./signin.html">Sign in</a>`
+          ? `<a class="button" href="./signin.html">Continue adventure</a>`
           : `<a class="button" href="./account.html#connections">Connect Twitch</a>
-             <a class="button secondary" href="./">I'll do this later</a>`}
+             <a class="button secondary" href="./">Maybe later</a>`}
       </div>`;
   }
 

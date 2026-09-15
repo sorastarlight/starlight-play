@@ -120,7 +120,7 @@
     }
     if (key === "lure") return "Automatically joins you to encounters for 30 minutes.";
     if (key === "coins") return "Spend these in Starlight Mart.";
-    if (key === "rarecandy") return "Gives 1 family Candy. Use it on the Evolution page.";
+    if (key === "rarecandy") return "Gives 1 Evolution Candy. Use it at the Evolution Center.";
     if (STONE_USES[key]) {
       const first = STONE_USES[key][0];
       return `Used to evolve certain Pokémon such as ${first[0]}.`;

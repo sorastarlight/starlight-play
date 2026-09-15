@@ -21,7 +21,7 @@
     let extras = {};
     try {
       const snapshot = await window.playCall("play_state");
-      extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer };
+      extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer, twitchLinked: snapshot?.twitchLinked };
     } catch (_) {}
     window.playSetAccountNav(session, profile, extras);
     return { session, profile };
@@ -32,7 +32,8 @@
     if (face) {
       face.hidden = false;
       face.className = "twitch-face twitch-face-lg";
-      face.innerHTML = window.playTwitchFaceInner(card.avatar, card.displayName);
+      face.innerHTML = window.playTwitchFaceInner(card.avatar, card.displayName, Boolean(card.twitchLinked));
+      face.classList.toggle("has-twitch", Boolean(card.twitchLinked));
     }
     hero.innerHTML = window.playRenderIdCard(card);
     const kanto = card.kanto || {};
@@ -52,12 +53,17 @@
     const nameInput = document.getElementById("trainer-display-name");
     if (nameEdit) nameEdit.hidden = !mine;
     if (mine && nameInput && !nameInput.dataset.dirty) nameInput.value = card.displayName || "";
-    caught.innerHTML = (recent || []).map((row) => `
+    caught.innerHTML = (recent || []).map((row) => {
+      const when = row.caughtAt ? new Date(row.caughtAt) : null;
+      const stamp = when && !Number.isNaN(when.getTime()) ? when.toLocaleString() : "";
+      return `
       <article class="caught-card">
-        <img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="">
+        <img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="" width="72" height="72" loading="lazy">
         <strong>${window.playCaughtName(row)}</strong>
         <span>${window.playCaughtBlurb(row)}</span>
-      </article>`).join("") || `<p class="muted">No catches yet.</p>`;
+        ${stamp ? `<span class="muted">${window.playEscapeAttr(stamp)}</span>` : ""}
+      </article>`;
+    }).join("") || `<p class="muted">No adventure log yet.</p>`;
   }
 
   async function load() {

@@ -1256,7 +1256,7 @@
         ${hubKpis([
           { label: "Evolutions logged", value: money(data.evolutions) },
           { label: "Trainers ready to evolve", value: money(data.readyPlayers) },
-          { label: "Family Candy held", value: money(data.candyTotal) },
+          { label: "Evolution Candy held", value: money(data.candyTotal) },
           { label: "Trainers with Candy", value: money(data.candyTrainers) }
         ])}
         <div class="hub-split">

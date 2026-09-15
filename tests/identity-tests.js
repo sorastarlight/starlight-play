@@ -62,6 +62,13 @@ require("../js/nav.js");
 test("HTML escape encodes quotes and tags", () => {
   assert(window.playEscapeAttr('<img src="x">') === "&lt;img src=&quot;x&quot;>");
 });
+test("Twitch badge requires a confirmed linked identity", () => {
+  assert(window.playTwitchLinked({ twitch_login: "legacy" }, {}) === false);
+  assert(window.playTwitchLinked({ twitch_login: "legacy" }, { twitchLinked: false }) === false);
+  assert(window.playTwitchLinked({}, { twitchLinked: true }) === true);
+  assert(window.playTwitchFaceInner("https://img.example/a.png", "Sora", false).includes("twitch-badge") === false);
+  assert(window.playTwitchFaceInner("https://img.example/a.png", "Sora", true).includes("twitch-badge"));
+});
 test("dialog helper falls back without showModal", () => {
   const dialog = { setAttribute(name, value) { this[name] = value; } };
   window.playShowDialog(dialog);

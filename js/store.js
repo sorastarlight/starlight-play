@@ -22,6 +22,7 @@
   let cart = loadCart();
   let checkoutNote = "";
   let lastPurchase = null;
+  let lastLinkedLogin = "";
 
   window.playBindAccountNav({
     onSignOut() {
@@ -435,7 +436,7 @@
             <h2>${esc(title)} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h2>
             <ul>${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
             <p data-pass-status class="muted">${esc(info.note)}</p>
-            <p class="pass-meta">${pass?.login || pass?.twitchLogin ? `Linked through: @${esc(pass.login || pass.twitchLogin)}` : "Connect Twitch on My Account to verify a subscription without signing out of Play."}${pass?.checkedAt ? ` · Last checked ${esc(new Date(pass.checkedAt).toLocaleString())}` : ""}</p>
+            <p class="pass-meta">${lastLinkedLogin || pass?.login || pass?.twitchLogin ? `Linked through: @${esc(lastLinkedLogin || pass.login || pass.twitchLogin)}` : "Connect Twitch on My Account to verify a subscription without signing out of Play."}${pass?.checkedAt ? ` · Last checked ${esc(new Date(pass.checkedAt).toLocaleString())}` : ""}</p>
             <div class="daily-supply-card">
               <p class="eyebrow">Daily Trainer Supply</p>
               <p>${wallet?.dailyClaimed
@@ -891,6 +892,17 @@
       return;
     }
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, starlight_pass, pass_source").eq("id", session.user.id).maybeSingle();
+    lastLinkedLogin = "";
+    try {
+      const { data: cons } = await supabase
+        .from("twitch_connections")
+        .select("twitch_login, confirmed, connection_type, is_primary")
+        .eq("user_id", session.user.id);
+      const row = (cons || [])
+        .filter((c) => c.confirmed && (c.connection_type === "player" || c.connection_type === "secondary"))
+        .sort((a, b) => Number(b.is_primary) - Number(a.is_primary))[0];
+      lastLinkedLogin = row?.twitch_login || "";
+    } catch (_) {}
     const store = await refreshStore();
     window.playSetAccountNav(session, profile, { isAdmin: Boolean(store?.isAdmin), trainer: store?.trainer, twitchLinked: store?.twitchLinked });
   }

@@ -6257,3 +6257,5 @@ button.hub-metric { cursor: pointer; }
 @media (max-width: 720px) {
   .hub-split, .hub-phase-grid, .hub-split-4, .hub-dist-row { grid-template-columns: 1fr; }
 }
+.trainer-login-card { max-width: 460px; }
+.trainer-login-card .links { margin-top: 8px; }

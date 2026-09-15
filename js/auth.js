@@ -41,6 +41,25 @@
     return { ok: true };
   };
 
+  window.playSignInWithPassword = async function playSignInWithPassword(email, password) {
+    const login = String(email || "").trim();
+    if (!login || !password) {
+      return { ok: false, message: "Enter the trainer email and password." };
+    }
+    const { data, error } = await window.playSupabase.auth.signInWithPassword({
+      email: login,
+      password
+    });
+    if (error || !data?.session) {
+      const raw = String(error?.message || "");
+      if (/email logins are disabled/i.test(raw) || /unsupported provider/i.test(raw)) {
+        return { ok: false, message: "Trainer login is not enabled yet." };
+      }
+      return { ok: false, message: "That trainer login did not work." };
+    }
+    return { ok: true };
+  };
+
   window.playSignOut = function playSignOut() {
     return window.playSupabase.auth.signOut();
   };

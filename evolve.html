@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260915-p2">
+<link rel="stylesheet" href="css/play.css?v=20260915-evo1">
 <body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -20,7 +20,7 @@
         <span class="visually-hidden">Open menu</span>
       </button>
       <div id="topnav-panel" class="topnav-panel">
-        <div id="topnav-links" class="topnav-links"><a class="topnav-link" href="./" data-nav="play">Play</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./inventory.html" data-nav="inventory">My Inventory</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./pokedex.html" data-nav="pokedex">My Pokédex</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./achievements.html" data-nav="achievements">Achievements</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./storage.html" data-nav="storage">My PC</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./evolve.html" data-nav="evolve" aria-current="page">Evolution</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./trade.html" data-nav="trade">Global Trade System</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./rankings.html" data-nav="rankings">Rankings</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./events.html" data-nav="events">Events</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link topnav-link-store" href="./store.html" data-nav="store">Store</a></div>
+        <div id="topnav-links" class="topnav-links"></div>
       </div>
       <div class="topnav-actions">
       <p id="auth-status" class="visually-hidden" role="status">Checking sign-in…</p>
@@ -51,70 +51,100 @@
     </div>
   </div>
 </nav>
-<div class="wrap">
-  <div class="page-kicker">
+<div class="wrap evo-wrap">
+  <header class="evo-hero">
+    <p class="eyebrow">ST★RLIGHT</p>
     <h1>Evolution Center</h1>
     <p class="muted">Discover new possibilities for your Pokémon.</p>
-  </div>
+    <div id="evo-strip" class="evo-strip" hidden>
+      <div><span id="evo-ready-count">0</span><small>Ready to evolve</small></div>
+      <div><span id="evo-candy-count">0</span><small>Evolution Candy</small></div>
+      <div><span id="evo-done-count">0</span><small>Evolutions</small></div>
+    </div>
+    <details class="evo-help">
+      <summary>How Evolution Works</summary>
+      <p>Catch duplicates from an Evolution Line to earn Evolution Candy. Evolving transforms that Pokémon — it never creates a free extra copy. Stones and Linking Cords are sold in Starlight Mart. Later-generation relatives stay unavailable while only Kanto is enabled.</p>
+    </details>
+  </header>
   <p id="gate" class="notice">Sign in to evolve your Pokémon.</p>
   <div id="evo-app" hidden>
-    <section class="card body">
-      <p class="muted">Catch duplicates from an Evolution Line to earn Evolution Candy. Evolving transforms that Pokémon — it never creates a free extra copy. Stones and Linking Cords are sold in Starlight Mart. Later-generation relatives stay unavailable while only Kanto is enabled.</p>
-      <p id="evo-ready-note" class="muted"></p>
-      <div class="dex-filters">
-        <label>Show
-          <select id="evo-filter">
-            <option value="ready">Ready to evolve</option>
-            <option value="candy">Needs Evolution Candy</option>
-            <option value="item">Needs item</option>
-            <option value="all">All eligible</option>
-            <option value="shiny">Shiny</option>
-            <option value="favorites">Favorites</option>
-          </select>
-        </label>
-        <label>Search
+    <section class="evo-block" aria-labelledby="evo-mons-title">
+      <div class="evo-block-head">
+        <h2 id="evo-mons-title">Your Pokémon</h2>
+        <p id="evo-ready-note" class="muted"></p>
+      </div>
+      <div class="evo-toolbar">
+        <div id="evo-filters" class="evo-chips" role="tablist" aria-label="Evolution filters">
+          <button type="button" class="evo-chip" data-filter="ready" aria-pressed="true">Ready <span data-count="ready">0</span></button>
+          <button type="button" class="evo-chip" data-filter="all" aria-pressed="false">All <span data-count="all">0</span></button>
+          <button type="button" class="evo-chip" data-filter="candy" aria-pressed="false">Needs Candy <span data-count="candy">0</span></button>
+          <button type="button" class="evo-chip" data-filter="item" aria-pressed="false">Needs item <span data-count="item">0</span></button>
+          <button type="button" class="evo-chip" data-filter="shiny" aria-pressed="false">Shiny <span data-count="shiny">0</span></button>
+          <button type="button" class="evo-chip" data-filter="favorites" aria-pressed="false">Favorites <span data-count="favorites">0</span></button>
+        </div>
+        <label class="evo-search-label">Search
           <input id="evo-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
         </label>
+        <select id="evo-filter" hidden>
+          <option value="ready" selected>Ready</option>
+          <option value="all">All</option>
+          <option value="candy">Needs Candy</option>
+          <option value="item">Needs item</option>
+          <option value="shiny">Shiny</option>
+          <option value="favorites">Favorites</option>
+        </select>
       </div>
+      <div id="evo-grid" class="evo-mons"></div>
     </section>
-    <div id="evo-grid" class="ach-grid" style="margin-top:18px"></div>
-    <section class="card body" style="margin-top:18px">
-      <h2>Evolution Lines</h2>
-      <p class="muted">One Evolution Candy resource per line. Disabled later stages are not shown as selectable.</p>
-      <div id="family-list"></div>
+
+    <section class="evo-block" aria-labelledby="evo-lines-title">
+      <h2 id="evo-lines-title">Evolution Lines</h2>
+      <div id="family-list" class="evo-lines"></div>
     </section>
-    <section class="card body" id="rare-candy-panel" style="margin-top:18px" hidden>
+
+    <section class="evo-block" id="rare-candy-panel" hidden>
       <h2>Rare Candy</h2>
-      <p class="muted">Convert a Rare Candy into 1 Evolution Candy for a selected Evolution Line. Terminal lines cannot be chosen.</p>
-      <label class="field" for="rare-candy-family">Evolution Line
-        <select id="rare-candy-family"></select>
-      </label>
-      <div class="links">
-        <button id="rare-candy-use" type="button">Use Rare Candy</button>
+      <div class="evo-rare">
+        <img id="rare-candy-art" alt="" width="64" height="64">
+        <div>
+          <p id="rare-candy-owned" class="muted">Owned: 0</p>
+          <p>Convert 1 Rare Candy into 1 Evolution Candy.</p>
+          <label class="field" for="rare-candy-family">Choose Evolution Line
+            <select id="rare-candy-family"></select>
+          </label>
+          <p id="rare-candy-preview" class="muted"></p>
+          <button id="rare-candy-use" type="button">Use Rare Candy</button>
+          <p id="rare-candy-status" class="muted" role="status"></p>
+        </div>
       </div>
-      <p id="rare-candy-status" class="muted" role="status"></p>
     </section>
-    <section class="card body" style="margin-top:18px">
-      <h2>Evolution Candy</h2>
-      <div id="candy-list" class="prog-pick-grid"></div>
+
+    <section class="evo-block">
+      <h2>Candy Collection</h2>
+      <div id="candy-list" class="evo-candy-grid"></div>
     </section>
-    <section class="card body" style="margin-top:18px">
-      <h2>Species Mastery</h2>
+
+    <section class="evo-block" id="evo-history-block" hidden>
+      <h2>Recent Evolutions</h2>
+      <ul id="evo-history" class="adventure-log"></ul>
+    </section>
+
+    <details class="evo-block evo-mastery">
+      <summary>Species Mastery</summary>
       <p class="muted">Mastery stays even if you trade or release every copy.</p>
       <div id="mastery-list" class="prog-pick-grid"></div>
-    </section>
+    </details>
   </div>
 </div>
-<dialog id="evo-modal" class="play-modal" aria-labelledby="evo-title">
-  <form class="play-modal-card" method="dialog">
+<dialog id="evo-modal" class="play-modal evo-preview" aria-labelledby="evo-title">
+  <form class="play-modal-card evo-preview-card" method="dialog">
     <header class="play-modal-head">
-      <h3 id="evo-title">Evolve?</h3>
-      <button class="secondary" value="cancel" type="submit">Cancel</button>
+      <h3 id="evo-title">Evolution</h3>
     </header>
     <div id="evo-detail"></div>
-    <div class="links">
+    <div class="evo-preview-actions">
       <button id="evo-go" type="button">Evolve</button>
-      <button id="evo-skip" class="secondary" type="button" hidden>Skip animation</button>
+      <button class="secondary" id="evo-cancel" value="cancel" type="submit">Not now</button>
     </div>
     <p id="evo-status" class="muted" role="status"></p>
   </form>
@@ -129,6 +159,7 @@
 <script src="js/game.js?v=20260915-p2"></script>
 <script src="js/play-encounter-state.js?v=20260915-enc4"></script>
 <script src="js/play-ux.js?v=20260915-p2"></script>
+<script src="js/evolve-view.js?v=20260915-evo1"></script>
 <script src="js/nav.js?v=20260915-p2"></script>
-<script src="js/evolve.js?v=20260915-p2"></script>
+<script src="js/evolve.js?v=20260915-evo1"></script>
 </body>

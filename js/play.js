@@ -901,8 +901,8 @@
     }
     if (!incomingRound) lastRoundId = "";
     prevServerRound = incomingRound || null;
-    confirmFirstClicksFromMe(data?.me || null, incomingRound?.id || null);
     state = attachMe({ ...data, round: incomingRound });
+    confirmFirstClicksFromMe(state?.me || null, incomingRound?.id || null);
     const trainer = state?.trainer || {};
     window._playTrainerName = trainer.displayName || trainer.display_name || trainer.name || profile?.display_name || "";
     window._playTrainerLogin = trainer.twitchLogin || trainer.twitch_login || profile?.twitch_login || "";

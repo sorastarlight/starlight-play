@@ -485,8 +485,6 @@
         overlay.dataset.stage = "morph";
         const holds = mode === "high" ? [780, 700, 620] : [560, 500, 440];
         for (const hold of holds) {
-          await flash(mode === "high" ? 240 : 160);
-          if (stopped()) return;
           setSprite(model.fromDex, true);
           await wait(hold);
           if (stopped()) return;
@@ -494,7 +492,11 @@
           await wait(hold);
           if (stopped()) return;
         }
-        await flash(mode === "high" ? 320 : 200);
+        await flash(mode === "high" ? 280 : 180);
+        if (stopped()) return;
+        await wait(mode === "high" ? 90 : 60);
+        if (stopped()) return;
+        await flash(mode === "high" ? 420 : 260);
         if (stopped()) return;
         showResult();
       };

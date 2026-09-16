@@ -326,4 +326,46 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       closeNavPanel();
     }
   });
+
+  function netBanner() {
+    let el = document.getElementById("play-net-banner");
+    if (el) return el;
+    el = document.createElement("p");
+    el.id = "play-net-banner";
+    el.className = "play-net-banner";
+    el.hidden = true;
+    el.setAttribute("role", "status");
+    const nav = document.querySelector(".topnav");
+    if (nav) nav.after(el);
+    else document.body?.prepend(el);
+    return el;
+  }
+
+  function setNetBanner(kind, text) {
+    const el = netBanner();
+    if (!text) {
+      el.hidden = true;
+      el.textContent = "";
+      return;
+    }
+    el.hidden = false;
+    el.dataset.kind = kind || "info";
+    const onPlay = document.body?.dataset?.page === "play";
+    el.textContent = onPlay && kind === "offline"
+      ? `${text} Do not refresh during an encounter.`
+      : text;
+  }
+
+  window.addEventListener("offline", () => {
+    setNetBanner("offline", "CONNECTION LOST. We're trying to reconnect.");
+  });
+  window.addEventListener("online", () => {
+    setNetBanner("info", "Connection restored.");
+    window.setTimeout(() => {
+      if (navigator.onLine) setNetBanner("", "");
+    }, 4000);
+  });
+  if (typeof navigator !== "undefined" && navigator.onLine === false) {
+    setNetBanner("offline", "CONNECTION LOST. We're trying to reconnect.");
+  }
 };

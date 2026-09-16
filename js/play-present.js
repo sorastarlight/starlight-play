@@ -786,7 +786,8 @@
     confirmBusy = true;
     return new Promise((resolve) => {
       const dialog = d.createElement("dialog");
-      dialog.className = "play-modal play-modal-confirm";
+      const danger = Boolean(opts?.danger);
+      dialog.className = `play-modal play-modal-confirm${danger ? " is-danger" : ""}`;
       dialog.innerHTML = `<form class="play-modal-card" method="dialog">
         <header class="play-modal-head">
           <h3>${esc(opts?.title || "Confirm")}</h3>
@@ -820,7 +821,10 @@
       if (typeof root.playShowDialog === "function") root.playShowDialog(dialog);
       else if (typeof dialog.showModal === "function") dialog.showModal();
       else dialog.setAttribute("open", "");
-      dialog.querySelector("button[value='confirm']")?.focus();
+      const focusBtn = danger
+        ? dialog.querySelector("button[value='cancel']")
+        : dialog.querySelector("button[value='confirm']");
+      focusBtn?.focus();
     });
   }
 
@@ -923,6 +927,7 @@
   root.playPresentPreview = preview;
   root.playPresentError = presentError;
   root.playPresentConfirm = presentConfirm;
+  root.playPresentRewardLine = rewardLine;
   root.playPresentCue = cue;
   root.playPresentReset = reset;
   root.playPresentHasSeen = hasSeen;

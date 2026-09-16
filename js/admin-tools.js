@@ -309,6 +309,11 @@
     preview.alt = grantItemName(key);
     const qty = row?.qty != null ? Number(row.qty) : Number((bag || accountState?.bag || {})[key] || 0);
     copy.textContent = `${grantItemName(key)} · they have ${qty}`;
+    if (key === "masterball") {
+      const real = Number((accountState?.bagSource?.ballsMasterball) ?? qty);
+      const overlay = Number(accountState?.bagSource?.itemsMasterball || 0);
+      copy.textContent = `REAL Master Balls: ${real} (inventories.balls.masterball)${overlay ? ` · leftover items overlay ${overlay}` : ""}`;
+    }
   }
 
   function pickGrantSpecies(dex) {
@@ -949,6 +954,21 @@
       }
       grantItemKey = key;
       grantItemQty = qty;
+      if (key === "masterball") {
+        const ok = typeof window.playPresentConfirm === "function"
+          ? await window.playPresentConfirm({
+            title: "Change real Master Balls?",
+            body: "Master Ball quantity lives in inventories.balls.masterball. This is real inventory, not a test overlay.",
+            confirmLabel: "Change real Master Balls",
+            cancelLabel: "Cancel",
+            danger: true
+          })
+          : window.confirm("This changes REAL Master Ball inventory (balls.masterball), not a test overlay. Continue?");
+        if (!ok) {
+          accountStatus("Master Ball change cancelled.");
+          return;
+        }
+      }
       const familyId = candyFamilyId(key);
       accountStatus(familyId ? "Updating Candy…" : "Updating bag…");
       try {

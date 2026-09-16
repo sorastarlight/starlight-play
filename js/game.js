@@ -880,12 +880,85 @@
     })[phase] || "ENCOUNTER";
   };
 
+  window.playRewardCopy = function playRewardCopy(rewards) {
+    if (!rewards) return "";
+    if (Array.isArray(rewards)) {
+      return rewards.map((row) => {
+        if (row?.label) return row.label;
+        if (typeof window.playPresentRewardLine === "function") return window.playPresentRewardLine(row);
+        const type = String(row?.type || "");
+        const n = Number(row?.amount || 0);
+        if (type === "xp") return `${n} XP`;
+        if (type === "coins") return `${n} PokéCoins`;
+        if (type === "candy" || type === "evolutioncandy") return `${n} Evolution Candy`;
+        if (n) return `${n} ${window.playItemLabel(type)}`;
+        return window.playItemLabel(type);
+      }).filter(Boolean).join(" · ");
+    }
+    if (typeof rewards !== "object") return "";
+    const lines = typeof window.playGrantLines === "function" ? window.playGrantLines(rewards) : [];
+    if (lines.length) return lines.map((row) => row.label).join(" · ");
+    return Object.entries(rewards)
+      .filter(([key, value]) => value && !["idempotency", "key", "label"].includes(key))
+      .map(([key, value]) => {
+        if (key === "xp") return `${value} XP`;
+        if (key === "coins") return `${value} PokéCoins`;
+        if (key === "candy" || key === "evolutioncandy") return `${value} Evolution Candy`;
+        return `${value} ${window.playItemLabel(key)}`;
+      })
+      .join(" · ");
+  };
+
+  window.playId = function playId() {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") return crypto.randomUUID();
+    const bytes = new Uint8Array(16);
+    if (typeof crypto !== "undefined" && crypto.getRandomValues) crypto.getRandomValues(bytes);
+    else for (let i = 0; i < 16; i += 1) bytes[i] = Math.floor(Math.random() * 256);
+    bytes[6] = (bytes[6] & 0x0f) | 0x40;
+    bytes[8] = (bytes[8] & 0x3f) | 0x80;
+    const hex = [...bytes].map((n) => n.toString(16).padStart(2, "0")).join("");
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+  };
+
   window.playRpcError = function playRpcError(error, fallback) {
-    const message = error?.message || fallback || "That action did not work.";
-    return message
+    const raw = String(error?.message || error?.details || fallback || "That action did not work.");
+    if (typeof navigator !== "undefined" && navigator.onLine === false) {
+      return "CONNECTION LOST. We're trying to reconnect.";
+    }
+    if (/Failed to fetch|NetworkError|ERR_INTERNET_DISCONNECTED|Load failed/i.test(raw)) {
+      return "CONNECTION LOST. Check your network. Do not refresh during an encounter.";
+    }
+    if (/JWT expired|invalid JWT|session_not_found|not authenticated/i.test(raw)) {
+      return "Your sign-in expired. Sign in again to continue.";
+    }
+    if (/42501|not allowed|permission denied/i.test(raw)) {
+      return "This action is not available on this account.";
+    }
+    return raw
       .replace(/^.*error:\s*/i, "")
       .replace(/\s+CONTEXT:[\s\S]*$/, "")
       .replace(/Mix It Up/gi, "the stream");
+  };
+
+  window.playCall = async function playCall(name, args) {
+    if (typeof navigator !== "undefined" && navigator.onLine === false) {
+      const error = new Error("CONNECTION LOST. We're trying to reconnect.");
+      error.code = "offline";
+      throw error;
+    }
+    let result;
+    try {
+      result = await window.playSupabase.rpc(name, args || {});
+    } catch (error) {
+      const wrapped = new Error(window.playRpcError(error, "That action did not work."));
+      wrapped.cause = error;
+      throw wrapped;
+    }
+    const { data, error } = result || {};
+    if (error) throw error;
+    if (data && typeof data.twitchLinked === "boolean") window._playTwitchLinked = data.twitchLinked;
+    else if (data?.trainer && typeof data.trainer.twitchLinked === "boolean") window._playTwitchLinked = data.trainer.twitchLinked;
+    return data;
   };
 
   window.playSecondsLeft = function playSecondsLeft(iso, nowMs) {
@@ -933,14 +1006,6 @@
     const level = Math.max(1, Number(mon?.level || 1));
     const cpm = 0.094 + 0.0176 * Math.min(level, 40);
     return Math.max(10, Math.floor((atk * Math.sqrt(def) * Math.sqrt(hp) * cpm * cpm) / 10));
-  };
-
-  window.playCall = async function playCall(name, args) {
-    const { data, error } = await window.playSupabase.rpc(name, args || {});
-    if (error) throw error;
-    if (data && typeof data.twitchLinked === "boolean") window._playTwitchLinked = data.twitchLinked;
-    else if (data?.trainer && typeof data.trainer.twitchLinked === "boolean") window._playTwitchLinked = data.trainer.twitchLinked;
-    return data;
   };
 
   function noticeHost() {

@@ -12,10 +12,13 @@
 
   function detectAuto() {
     if (motionReduced()) return "low";
-    const cores = Number(typeof navigator !== "undefined" ? navigator.hardwareConcurrency : 0) || 8;
+    const cores = Number(typeof navigator !== "undefined" ? navigator.hardwareConcurrency : 0) || 0;
     const mem = Number(typeof navigator !== "undefined" ? navigator.deviceMemory : 0);
-    if ((Number.isFinite(mem) && mem > 0 && mem <= 4) || cores <= 4) return "balanced";
-    return "high";
+    const memKnown = Number.isFinite(mem) && mem > 0;
+    if (memKnown && mem <= 4) return "balanced";
+    if (cores > 0 && cores <= 4) return "balanced";
+    if (memKnown && mem >= 8 && cores >= 6) return "high";
+    return "balanced";
   }
 
   function readPref() {
@@ -38,7 +41,7 @@
     if (!html) return { pref: chosen, mode, reducedMotion: motionReduced() };
     html.dataset.perfPref = chosen;
     html.dataset.perf = mode;
-    const reduced = motionReduced() || mode === "low";
+    const reduced = motionReduced();
     html.dataset.reducedMotion = reduced ? "1" : "0";
     if (document.body) {
       document.body.classList.toggle("is-perf-low", mode === "low");
@@ -53,8 +56,7 @@
     return effective(readPref());
   };
   root.playPerfReduced = function playPerfReduced() {
-    if (typeof document === "undefined") return motionReduced();
-    return document.documentElement?.dataset?.reducedMotion === "1" || motionReduced();
+    return motionReduced();
   };
   root.playSetPerfPref = function playSetPerfPref(pref) {
     const next = pref === "high" || pref === "balanced" || pref === "low" || pref === "auto" ? pref : "auto";

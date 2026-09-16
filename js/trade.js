@@ -707,14 +707,22 @@
   });
   els.listPcSearch?.addEventListener("input", renderListPc);
   els.listBack?.addEventListener("click", () => setListStep(1));
-  els.listNext?.addEventListener("click", () => {
+  els.listNext?.addEventListener("click", async () => {
     if (listStep === 1) {
       if (!listingMon) {
         if (els.listStatus) els.listStatus.textContent = "Select a Pokémon, then tap Trade.";
         return;
       }
       if (String(listingMon.variant || "").includes("shiny")) {
-        const ok = window.confirm(`You are offering a Shiny ${listingMon.name}. Continue?`);
+        const ok = typeof window.playPresentConfirm === "function"
+          ? await window.playPresentConfirm({
+            title: "Offer a Shiny Pokémon?",
+            body: `You are offering a Shiny ${listingMon.name}. Continue only if you mean to list this Shiny on the GTS.`,
+            confirmLabel: "Offer Shiny",
+            cancelLabel: "Cancel",
+            danger: true
+          })
+          : window.confirm(`You are offering a Shiny ${listingMon.name}. Continue?`);
         if (!ok) return;
       }
       setListStep(2);

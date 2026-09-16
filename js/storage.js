@@ -271,7 +271,17 @@
         els.status.textContent = `This is your only currently owned ${mon.name}. Keep it for your Living Dex.`;
         return;
       }
-      if (!window.confirm(`You are about to release ${displayName(mon)}. This cannot be undone.`)) return;
+      const releaseName = displayName(mon);
+      const ok = typeof window.playPresentConfirm === "function"
+        ? await window.playPresentConfirm({
+          title: "Release this Pokémon?",
+          body: `You are about to permanently release ${releaseName}. This cannot be undone. The Pokémon leaves your PC.`,
+          confirmLabel: "Release",
+          cancelLabel: "Keep",
+          danger: true
+        })
+        : window.confirm(`You are about to release ${releaseName}. This cannot be undone.`);
+      if (!ok) return;
       let confirmKey = "";
       if (shiny) {
         const typed = window.prompt("This is a SHINY Pokémon. Type SHINY to release it.");

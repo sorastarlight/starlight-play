@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260916-rc5">
+<link rel="stylesheet" href="css/play.css?v=20260916-rc6">
 <body data-page="settings">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -125,12 +125,12 @@
     </section>
     <section class="card body" style="margin-top:18px">
       <h2>Performance</h2>
-      <p class="muted">AUTO follows your device and reduced-motion setting. LOW keeps timers and capture readability, and turns off decorative motion.</p>
+      <p class="muted">AUTO follows reduced motion, CPU cores, and device memory when the browser exposes them. Uncertain devices stay on BALANCED. Streaming PCs should pick LOW or BALANCED even if the computer is powerful. The choice is saved on this browser only.</p>
       <div class="perf-picks" id="perf-picks">
-        <label><input type="radio" name="perf-mode" value="auto"> <span><strong>AUTO</strong><br>Match this device.</span></label>
-        <label><input type="radio" name="perf-mode" value="high"> <span><strong>HIGH</strong><br>Full animations and store fanfare.</span></label>
-        <label><input type="radio" name="perf-mode" value="balanced"> <span><strong>BALANCED</strong><br>Keep gameplay motion; reduce decoration.</span></label>
-        <label><input type="radio" name="perf-mode" value="low"> <span><strong>LOW</strong><br>Minimize particles, blur, and extra motion.</span></label>
+        <label><input type="radio" name="perf-mode" value="auto"> <span><strong>AUTO</strong><br>Match this device, defaulting to BALANCED.</span></label>
+        <label><input type="radio" name="perf-mode" value="high"> <span><strong>HIGH</strong><br>Full particles, glows, and fanfare.</span></label>
+        <label><input type="radio" name="perf-mode" value="balanced"> <span><strong>BALANCED</strong><br>Keep identity and important transitions; cut extra animation.</span></label>
+        <label><input type="radio" name="perf-mode" value="low"> <span><strong>LOW</strong><br>Minimize decoration. Capture wobble and Evolution stages stay readable.</span></label>
       </div>
       <p id="perf-status" class="muted" role="status"></p>
     </section>
@@ -145,19 +145,19 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260916-rc5"></script>
-<script src="js/play-perf.js?v=20260916-rc5"></script>
-<script src="js/build.js?v=20260916-rc5"></script>
-<script src="js/build-client.js?v=20260916-rc5"></script>
-<script src="js/auth.js?v=20260916-rc5"></script>
-<script src="js/species.js?v=20260916-rc5"></script>
-<script src="js/variants.js?v=20260916-rc5"></script>
-<script src="js/game.js?v=20260916-rc5"></script>
-<script src="js/play-present.js?v=20260916-rc5"></script>
-<script src="js/play-encounter-state.js?v=20260916-rc5"></script>
-<script src="js/play-ux.js?v=20260916-rc5"></script>
-<script src="js/trainers.js?v=20260916-rc5"></script>
-<script src="js/team.js?v=20260916-rc5"></script>
-<script src="js/nav.js?v=20260916-rc5"></script>
-<script src="js/settings.js?v=20260916-rc5"></script>
+<script src="js/config.js?v=20260916-rc6"></script>
+<script src="js/play-perf.js?v=20260916-rc6"></script>
+<script src="js/build.js?v=20260916-rc6"></script>
+<script src="js/build-client.js?v=20260916-rc6"></script>
+<script src="js/auth.js?v=20260916-rc6"></script>
+<script src="js/species.js?v=20260916-rc6"></script>
+<script src="js/variants.js?v=20260916-rc6"></script>
+<script src="js/game.js?v=20260916-rc6"></script>
+<script src="js/play-present.js?v=20260916-rc6"></script>
+<script src="js/play-encounter-state.js?v=20260916-rc6"></script>
+<script src="js/play-ux.js?v=20260916-rc6"></script>
+<script src="js/trainers.js?v=20260916-rc6"></script>
+<script src="js/team.js?v=20260916-rc6"></script>
+<script src="js/nav.js?v=20260916-rc6"></script>
+<script src="js/settings.js?v=20260916-rc6"></script>
 </body>

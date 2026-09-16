@@ -6714,25 +6714,6 @@ html[data-perf="low"] body.is-mart-enter .page-kicker h1 { animation: none; }
   margin-top: 6px;
   font-size: 12px;
 }
-.mart-purchase-pop {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 40;
-  display: grid;
-  grid-template-columns: 48px 1fr;
-  gap: 10px;
-  align-items: center;
-  min-width: 240px;
-  max-width: min(360px, calc(100vw - 24px));
-  padding: 12px 14px;
-  border: 2px solid #e8c44a;
-  border-radius: 16px;
-  background: #fffdf3;
-  box-shadow: 0 12px 0 #f3d36a;
-}
-.mart-purchase-pop img { width: 40px; height: 40px; }
-.mart-purchase-pop strong { display: block; }
 
 .pass-meta { margin: 8px 0 0; font-size: 13px; }
 .pass-claims { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
@@ -7217,9 +7198,7 @@ html[data-perf="balanced"] .evo-sparks i:nth-child(n+5) { display: none; }
 }
 html[data-perf="low"] .evo-mon.is-ready .evo-mon-art img,
 html[data-reduced-motion="1"] .evo-mon.is-ready .evo-mon-art img,
-html[data-perf="low"] .evo-fanfare[data-stage="build"] .evo-actor img,
 html[data-reduced-motion="1"] .evo-fanfare[data-stage="build"] .evo-actor img,
-html[data-perf="low"] .evo-fanfare[data-stage="morph"] .evo-actor img,
 html[data-reduced-motion="1"] .evo-fanfare[data-stage="morph"] .evo-actor img,
 html[data-reduced-motion="1"] .evo-mon:hover,
 html[data-reduced-motion="1"] .evo-mon.is-ready.is-fanfare::before,
@@ -7236,6 +7215,119 @@ html[data-reduced-motion="1"] .evo-fanfare[data-stage="result"] .evo-dialogue::a
   transform: none;
 }
 html[data-reduced-motion="1"] .evo-fanfare.is-flash .evo-flash { opacity: 0; }
+
+/* Phase 4 — BALANCED is the normal sweet spot, not a HIGH alias.
+   LOW cuts decoration but keeps capture wobble and Evolution stage changes.
+   Reduced motion is a separate accessibility signal. */
+html[data-perf="balanced"] .topnav,
+html[data-perf="balanced"] .account-menu,
+html[data-perf="balanced"] .play-modal-card,
+html[data-perf="balanced"] .modal-card {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+html[data-perf="balanced"] .play-present-fx i:nth-child(n+4),
+html[data-perf="balanced"] .evo-sparks i:nth-child(n+4) { display: none; }
+html[data-perf="balanced"] .mart-featured-art img,
+html[data-perf="balanced"] .evo-mon.is-ready .evo-mon-art img {
+  animation: none;
+}
+html[data-perf="low"] .throw-wait-ball,
+html[data-perf="balanced"] .throw-wait-ball {
+  animation: throw-fly .45s ease-out both, encounter-ball-wobble var(--catch-wobble-beat, .72s) ease-in-out .45s infinite;
+}
+html[data-perf="low"] .catch-result-art img,
+html[data-perf="balanced"] .catch-result-art img {
+  animation: catch-result-mon .7s ease-out both;
+}
+html[data-reduced-motion="1"] .throw-wait-ball,
+html[data-reduced-motion="1"] .catch-result-art img {
+  animation: none !important;
+}
+html[data-perf="low"] .mart-featured-art img,
+html[data-perf="low"] .evo-mon.is-ready .evo-mon-art img,
+html[data-perf="low"] body {
+  animation: none;
+}
+html[data-perf="low"] .topnav {
+  box-shadow: 0 4px 0 #f3c6e2;
+}
+.game-health-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin: 0 0 16px;
+}
+.game-health-card {
+  margin: 0;
+  padding: 12px;
+  border: 2px solid #e7edf8;
+  border-radius: 14px;
+  background: #fff;
+}
+.game-health-card dt {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.game-health-card dd { margin: 6px 0 0; font-size: 13px; }
+.health-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.health-pill.is-healthy { background: #d8f5e3; color: #1f6b3a; }
+.health-pill.is-warning { background: #fff1c2; color: #6a4b12; }
+.health-pill.is-action { background: #ffd6d6; color: #8a1f1f; }
+.health-pill.is-unknown { background: #eef2fb; color: #5d5b87; }
+.play-net-banner {
+  position: sticky;
+  top: 60px;
+  z-index: 28;
+  margin: 0;
+  padding: 10px 16px;
+  background: #fff6d8;
+  border-bottom: 3px solid #e8c44a;
+  font-weight: 800;
+}
+.play-net-banner[data-kind="offline"] { background: #ffe8e8; border-color: #e7a0a0; }
+.play-net-banner[hidden] { display: none !important; }
+.play-modal-confirm.is-danger .play-modal-card { border-color: #e7a0a0; }
+.play-modal-confirm.is-danger button[value="confirm"] {
+  background: #b42318;
+  color: #fff;
+  border-color: #8a1f1f;
+}
+:focus-visible {
+  outline: 3px solid #5b7cff;
+  outline-offset: 2px;
+}
+.perf-picks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+.perf-picks label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: start;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 2px solid #e7edf8;
+  border-radius: 14px;
+  background: #fff;
+}
+.perf-picks input { margin-top: 4px; width: 18px; height: 18px; }
 @media (max-width: 720px) {
   .evo-strip { grid-template-columns: 1fr; }
   .evo-mons { grid-template-columns: 1fr 1fr; }

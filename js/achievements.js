@@ -38,10 +38,16 @@
   }
 
   function rewardBits(rewards) {
+    if (typeof window.playRewardCopy === "function") return window.playRewardCopy(rewards);
     if (!rewards || typeof rewards !== "object") return "";
     return Object.entries(rewards)
       .filter(([key, value]) => value && !["idempotency", "key", "label"].includes(key))
-      .map(([key, value]) => `${key}: ${value}`)
+      .map(([key, value]) => {
+        if (key === "coins") return `${value} PokéCoins`;
+        if (key === "xp") return `${value} XP`;
+        if (key === "candy" || key === "evolutioncandy") return `${value} Evolution Candy`;
+        return `${value} ${typeof window.playItemLabel === "function" ? window.playItemLabel(key) : key}`;
+      })
       .join(" · ");
   }
 

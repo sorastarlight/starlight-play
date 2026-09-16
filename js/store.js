@@ -97,7 +97,6 @@
   }
 
   function showPurchasePop(purchase, bag) {
-    document.querySelectorAll(".mart-purchase-pop").forEach((el) => el.remove());
     const first = purchase?.lines?.[0];
     const added = (purchase?.lines || []).map((row) => `${row.name} ×${row.qty}`).join(", ");
     const coins = bag?.coins != null ? `Bag now: ${Number(bag.coins).toLocaleString()} PokéCoins` : "";
@@ -112,21 +111,7 @@
         qty: Number(first?.qty || 0),
         source: "store"
       }], { source: "store", noSummary: true });
-      return;
     }
-    const pop = document.createElement("aside");
-    pop.className = "mart-purchase-pop";
-    pop.setAttribute("role", "status");
-    const sprite = first?.sprite || "poke-ball.png";
-    const src = typeof window.playItemSprite === "function" ? window.playItemSprite(sprite) : sprite;
-    pop.innerHTML = `<img src="${esc(src)}" alt="" width="40" height="40">
-      <div>
-        <strong>${purchase?.premierBonus ? "Bonus! Premier Ball ×1 added to your Bag." : "Purchase complete!"}</strong>
-        <span>${esc(added)}</span>
-        ${coins ? `<span class="muted">${esc(coins)}</span>` : ""}
-      </div>`;
-    document.body.append(pop);
-    window.setTimeout(() => pop.remove(), 4500);
   }
 
   function presentClaim(title, data, source) {
@@ -145,6 +130,7 @@
   }
 
   function newOrderId() {
+    if (typeof window.playId === "function") return window.playId();
     if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
       return crypto.randomUUID();
     }

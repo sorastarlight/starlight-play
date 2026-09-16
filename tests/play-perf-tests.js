@@ -21,9 +21,15 @@ function assert(cond, detail) {
 
 window.playSetPerfPref("auto");
 assert(window.playPerfPref() === "auto");
-assert(["high", "balanced", "low"].includes(window.playPerfMode()));
+assert(window.playPerfMode() === "balanced", "AUTO defaults to BALANCED without deviceMemory");
+assert(window.playPerfReduced() === false, "LOW is not reduced-motion");
 window.playSetPerfPref("low");
 assert(window.playPerfMode() === "low");
+assert(window.playPerfReduced() === false, "manual LOW must keep capture wobble");
 window.playSetPerfPref("high");
 assert(window.playPerfMode() === "high");
-console.log("play-perf tests: 3 passed");
+window.playSetPerfPref("balanced");
+assert(window.playPerfMode() === "balanced");
+const src = require("fs").readFileSync(require("path").join(__dirname, "../js/play-perf.js"), "utf8");
+assert(/memKnown && mem >= 8 && cores >= 6/.test(src), "HIGH requires known memory and cores");
+console.log("play-perf tests: 7 passed");

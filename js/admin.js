@@ -924,7 +924,90 @@
     if (clientBuild) {
       clientBuild.textContent = `Client build: ${view.appBuild || "missing"} · Server: ${view.clientBuild || "missing"} · ${view.status}`;
     }
+    loadGameHealthBoard(view);
     return view;
+  }
+
+  function healthPill(status) {
+    const key = String(status || "UNKNOWN").toUpperCase();
+    const cls = key === "HEALTHY" ? "is-healthy"
+      : key === "WARNING" ? "is-warning"
+        : key === "ACTION NEEDED" ? "is-action"
+          : "is-unknown";
+    return `<span class="health-pill ${cls}">${window.playEscapeAttr(key)}</span>`;
+  }
+
+  function renderGameHealthBoard(data, buildView) {
+    const board = document.getElementById("game-health-board");
+    if (!board) return;
+    const stream = window.playHubLiveState?.stream || {};
+    const app = data?.application || {};
+    const db = data?.database || {};
+    const enc = data?.encounters || {};
+    const eco = data?.economy || {};
+    const auth = data?.auth || {};
+    const twitch = data?.twitch || {};
+    const assets = data?.assets || {};
+    const perf = data?.performance || {};
+    const fallbacks = (window.__playAssetFails || []).length;
+    const rows = [
+      {
+        label: "Application",
+        status: buildView?.mismatch ? "WARNING" : (app.status || buildView?.status || "UNKNOWN"),
+        detail: `APP ${buildView?.appBuild || "missing"} · sprites ${buildView?.spriteBuild || "—"} · server ${buildView?.clientBuild || app.clientBuild || "missing"}`
+      },
+      {
+        label: "Database",
+        status: db.status || "UNKNOWN",
+        detail: db.dbMigration ? `Migration ${db.dbMigration}` : (db.detail || "Unknown")
+      },
+      {
+        label: "Encounters",
+        status: enc.status || "UNKNOWN",
+        detail: `24h rounds ${enc.recent24h ?? "—"} · resolved ${enc.resolved24h ?? "—"} · cancelled ${enc.cancelled24h ?? "—"} · ${enc.detail || ""}`
+      },
+      {
+        label: "Economy",
+        status: eco.status || "UNKNOWN",
+        detail: eco.detail || "Read-only integrity"
+      },
+      {
+        label: "Auth",
+        status: auth.status || "UNKNOWN",
+        detail: auth.detail || "Not classified as broken."
+      },
+      {
+        label: "Twitch",
+        status: twitch.status || (stream.twitchLive ? "HEALTHY" : "UNKNOWN"),
+        detail: `${twitch.streamAccount || stream.login || "—"} · ${stream.twitchLive ? "LIVE" : (stream.liveKnown ? "offline" : "unknown")}. Controls stay on Dashboard.`
+      },
+      {
+        label: "Assets",
+        status: fallbacks ? "WARNING" : (assets.status || "UNKNOWN"),
+        detail: fallbacks ? `${fallbacks} recent fallbacks this browser session (legitimate fallback is not an error).` : (assets.detail || "Run Encounter Asset Health for URL checks.")
+      },
+      {
+        label: "Performance",
+        status: perf.status || "UNKNOWN",
+        detail: `This browser: ${String(window.playPerfPref?.() || "auto").toUpperCase()} → ${String(window.playPerfMode?.() || "balanced").toUpperCase()}${window.playPerfReduced?.() ? " · reduced motion" : ""}`
+      }
+    ];
+    board.innerHTML = rows.map((row) => `
+      <dl class="game-health-card">
+        <dt><span>${window.playEscapeAttr(row.label)}</span>${healthPill(row.status)}</dt>
+        <dd>${window.playEscapeAttr(row.detail)}</dd>
+      </dl>`).join("");
+  }
+
+  async function loadGameHealthBoard(buildView) {
+    const board = document.getElementById("game-health-board");
+    if (!board) return;
+    try {
+      const data = await window.playCall("admin_game_health");
+      renderGameHealthBoard(data, buildView);
+    } catch (error) {
+      board.innerHTML = `<p class="muted">${window.playRpcError(error, "Game Health is unavailable.")}</p>`;
+    }
   }
 
   document.getElementById("refresh-build-health")?.addEventListener("click", () => {
@@ -1419,7 +1502,15 @@
       if (els.collectionStatus) els.collectionStatus.textContent = "Enter a catch / instance ID first.";
       return;
     }
-    const ok = window.confirm("Clear the transaction lock for this Pokémon instance?\n\nThis should only be used to recover a stuck transaction. Ownership will not be changed.");
+    const ok = typeof window.playPresentConfirm === "function"
+      ? await window.playPresentConfirm({
+        title: "Clear transaction lock?",
+        body: "This should only be used to recover a stuck transaction. Ownership will not be changed.",
+        confirmLabel: "Clear lock",
+        cancelLabel: "Cancel",
+        danger: true
+      })
+      : window.confirm("Clear the transaction lock for this Pokémon instance?\n\nThis should only be used to recover a stuck transaction. Ownership will not be changed.");
     if (!ok) return;
     if (els.collectionStatus) els.collectionStatus.textContent = "Working…";
     try {
@@ -1645,6 +1736,7 @@
         : "Capture totals appear after the Captures report is refreshed.";
     }
     els.anaOverview.innerHTML = hubKpis(items);
+    loadGameHealthBoard();
   }
 
   async function loadEvolutionRules() {

@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260916-rc5">
+<link rel="stylesheet" href="css/play.css?v=20260916-rc6">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -655,7 +655,8 @@
       <div class="hub-page">
       <section class="card body" data-ana-panel="overview">
         <h2>Game health</h2>
-        <p class="muted">Historical reporting from existing Admin overviews. Live stream controls stay on Dashboard.</p>
+        <p class="muted">Compact status for the live RPG. UNKNOWN means we did not measure that slice, not that it is broken. Live stream controls stay on Dashboard.</p>
+        <div id="game-health-board" class="game-health-board" aria-label="Game health summary"></div>
         <section class="hub-card" aria-label="Build health">
           <h3>Build health</h3>
           <div id="build-health" class="build-health"></div>
@@ -791,7 +792,7 @@
           <section class="hub-card">
             <h3>Candy / evolution pacing</h3>
             <div class="hub-num-row">
-              <label class="field hub-num" for="candy-family">Family Dex
+              <label class="field hub-num" for="candy-family">Evolution Line Dex
                 <input id="candy-family" type="number" min="1" max="151" value="4">
               </label>
               <label class="field hub-num" for="candy-catches">Expected catches
@@ -927,22 +928,22 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260916-rc5"></script>
-<script src="js/play-perf.js?v=20260916-rc5"></script>
-<script src="js/build.js?v=20260916-rc5"></script>
-<script src="js/build-client.js?v=20260916-rc5"></script>
-<script src="js/auth.js?v=20260916-rc5"></script>
-<script src="js/species.js?v=20260916-rc5"></script>
-<script src="js/variants.js?v=20260916-rc5"></script>
-<script src="js/game.js?v=20260916-rc5"></script>
-<script src="js/play-present.js?v=20260916-rc5"></script>
-<script src="js/play-encounter-state.js?v=20260916-rc5"></script>
-<script src="js/location-visuals-data.js?v=20260916-rc5"></script>
-<script src="js/location-visuals.js?v=20260916-rc5"></script>
-<script src="js/hud.js?v=20260916-rc5"></script>
-<script src="js/nav.js?v=20260916-rc5"></script>
-<script src="js/admin-tools.js?v=20260916-rc5"></script>
-<script src="js/admin-live.js?v=20260916-rc5"></script>
-<script src="js/admin.js?v=20260916-rc5"></script>
-<script src="js/admin-present.js?v=20260916-rc5"></script>
+<script src="js/config.js?v=20260916-rc6"></script>
+<script src="js/play-perf.js?v=20260916-rc6"></script>
+<script src="js/build.js?v=20260916-rc6"></script>
+<script src="js/build-client.js?v=20260916-rc6"></script>
+<script src="js/auth.js?v=20260916-rc6"></script>
+<script src="js/species.js?v=20260916-rc6"></script>
+<script src="js/variants.js?v=20260916-rc6"></script>
+<script src="js/game.js?v=20260916-rc6"></script>
+<script src="js/play-present.js?v=20260916-rc6"></script>
+<script src="js/play-encounter-state.js?v=20260916-rc6"></script>
+<script src="js/location-visuals-data.js?v=20260916-rc6"></script>
+<script src="js/location-visuals.js?v=20260916-rc6"></script>
+<script src="js/hud.js?v=20260916-rc6"></script>
+<script src="js/nav.js?v=20260916-rc6"></script>
+<script src="js/admin-tools.js?v=20260916-rc6"></script>
+<script src="js/admin-live.js?v=20260916-rc6"></script>
+<script src="js/admin.js?v=20260916-rc6"></script>
+<script src="js/admin-present.js?v=20260916-rc6"></script>
 </body>

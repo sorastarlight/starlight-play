@@ -156,7 +156,7 @@
     renderBag(bag);
     const candyFirst = (lastCollection?.candy || []).find((row) => Number(row.qty || 0) > 0);
     if (candyFirst && typeof window.playTipHtml === "function" && !window.playTipDone("first-candy")) {
-      els.status.innerHTML = window.playTipHtml("first-candy", `You earned ${candyFirst.name} Candy! Catch Pokémon from the same evolutionary family to earn Candy for evolution.`);
+      els.status.innerHTML = window.playTipHtml("first-candy", `You earned ${candyFirst.name} Candy! Catch Pokémon from the same Evolution Line to earn Candy for evolution.`);
     }
     try {
       const hist = await window.playCall("play_item_ledger", { p_limit: 20 });

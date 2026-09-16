@@ -34,6 +34,7 @@
   };
   let data = null;
   let pick = null;
+  let rareIdem = "";
   const evolveGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
   const rareGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
 
@@ -52,8 +53,11 @@
     try { window.playEvoCue?.(name); } catch (_) {}
   }
 
-  function sprite(dex, variant, size) {
-    const src = window.playSpriteUrl(dex, variant);
+  function sprite(dex, variant, size, gender) {
+    const resolved = view.displayVariant
+      ? view.displayVariant({ variant, gender }, dex)
+      : (variant || "normal");
+    const src = window.playSpriteUrl(dex, resolved);
     const px = size || 96;
     return `<img src="${esc(src)}" alt="" width="${px}" height="${px}" loading="lazy" decoding="async" onerror="window.playSpriteOnError && window.playSpriteOnError(this)">`;
   }
@@ -106,6 +110,7 @@
       all: rows.length + owned.filter((mon) => !mon.canEvolve).length,
       candy: rows.filter((row) => view.matchesFilter(row, "candy")).length,
       item: rows.filter((row) => view.matchesFilter(row, "item")).length,
+      trade: rows.filter((row) => view.matchesFilter(row, "trade")).length,
       shiny: rows.filter((row) => view.matchesFilter(row, "shiny")).length,
       favorites: rows.filter((row) => view.matchesFilter(row, "favorites")).length
     };
@@ -148,7 +153,7 @@
     const item = row.item ? `${itemLabel(row.item)} ${row.haveItem || row.tradeReady ? "✓" : "✕"}` : "";
     return `
       <button type="button" class="evo-mon is-${kind}${ready ? " is-ready" : ""}" data-evo="${esc(row.catchId || row.id || "")}" data-rule="${esc(row.ruleId || "")}" data-kind="${kind}" data-dex="${row.dex || ""}" aria-label="${esc(label)}">
-        <span class="evo-mon-art">${sprite(row.dex, row.variant || "normal", 96)}</span>
+        <span class="evo-mon-art">${sprite(row.dex, row.variant || "normal", 96, row.gender)}</span>
         <strong>${shiny ? "✨ " : ""}${esc(row.name)} ${genderMark(row.gender)}</strong>
         <span class="muted">${row.level ? `Lv. ${row.level}` : ""}${row.favorite ? " ★ Favorite" : ""}</span>
         ${row.toName ? `<span class="evo-arrow-lite" aria-hidden="true">↓</span><span class="evo-target">${esc(row.toName)}</span>` : ""}
@@ -172,6 +177,11 @@
       ? `<p class="muted">No Pokémon are ready to evolve yet. Catch duplicates to earn Evolution Candy.</p>`
       : `<p class="muted">Nothing in this filter right now.</p>`;
     els.grid.innerHTML = cards.join("") || empty;
+    let fanfare = 0;
+    els.grid.querySelectorAll(".evo-mon.is-ready").forEach((card) => {
+      if (fanfare < 4) card.classList.add("is-fanfare");
+      fanfare += 1;
+    });
   }
 
   function nodeHtml(member) {
@@ -301,11 +311,11 @@
       if (row.item === "linkingcord") {
         const qty = view.itemQty ? view.itemQty(row) : (row.haveItem ? 1 : 0);
         bits.push(`<p>Linking Cord<br>Allows this Pokémon to evolve without trading.<br>Owned: ${qty} ${qty ? "✓" : "✕"}</p>`);
-        if (!qty) bits.push(`<p><a class="button secondary" href="${view.martHref()}">Get Linking Cord</a></p>`);
+        if (!qty) bits.push(`<p><a class="button secondary" href="${view.martHref("linkingcord")}">Find in Starlight Mart</a></p>`);
       } else if (row.item) {
         const qty = view.itemQty ? view.itemQty(row) : (row.haveItem ? 1 : 0);
         bits.push(`<p>${esc(itemLabel(row.item))}<br>1 / 1 ${qty ? "✓" : "✕"}</p>`);
-        if (!qty) bits.push(`<p><a class="button secondary" href="${view.martHref(row.item)}">Get ${esc(itemLabel(row.item))}</a></p>`);
+        if (!qty) bits.push(`<p>You need a ${esc(itemLabel(row.item))}.</p><p><a class="button secondary" href="${view.martHref(row.item)}">Find in Starlight Mart</a></p>`);
       }
       if (canEvolve(row) && row.item) {
         const afterCandy = Math.max(0, Number(row.haveCandy || 0) - Number(row.candyCost || 0));
@@ -324,12 +334,14 @@
     if (els.title) els.title.textContent = kind === "terminal" ? row.name : "Evolution";
     const fromName = `${shiny ? "✨ Shiny " : ""}${row.name}`;
     const toName = row.toName ? `${shiny ? "✨ Shiny " : ""}${row.toName}` : "";
+    const fromDex = row.dex != null ? `#${String(row.dex).padStart(3, "0")}` : "";
+    const toDex = row.toDex != null ? `#${String(row.toDex).padStart(3, "0")}` : "";
     els.detail.innerHTML = `
       <div class="evo-preview-stage${shiny ? " is-shiny" : ""}">
         ${shiny ? `<p class="evo-shiny-banner">✨ Shiny Pokémon ✨</p>` : ""}
-        <p class="evo-preview-from"><strong>${esc(fromName)}</strong>${row.level ? ` · Lv. ${row.level}` : ""} ${genderMark(row.gender)}</p>
-        ${sprite(row.dex, row.variant || "normal", 112)}
-        ${toName ? `<p class="evo-arrow-lite" aria-hidden="true">↓</p>${sprite(row.toDex, row.variant || "normal", 112)}<p><strong>${esc(toName)}</strong></p>` : ""}
+        <p class="evo-preview-from"><strong>${esc(fromName)}</strong>${fromDex ? ` · ${fromDex}` : ""}${row.level ? ` · Lv. ${row.level}` : ""} ${genderMark(row.gender)}</p>
+        ${sprite(row.dex, row.variant || "normal", 112, row.gender)}
+        ${toName ? `<p class="evo-arrow-lite" aria-hidden="true">↓</p>${sprite(row.toDex, row.variant || "normal", 112, row.gender)}<p><strong>${esc(toName)}</strong>${toDex ? ` · ${toDex}` : ""}</p>` : ""}
       </div>
       <div class="evo-reqs">
         <p class="eyebrow">Requirements</p>
@@ -340,7 +352,7 @@
       ${row.mastery ? `<p>Species Mastery ${stars(row.mastery.rank)} · ${row.mastery.points} pts</p>` : ""}
       ${row.eligibleCount ? `<p><button type="button" class="secondary" data-view-eligible="${row.dex}">View eligible Pokémon</button></p>` : ""}
       ${shiny && ready ? `<p>Shiny status will be preserved.</p>` : ""}
-      ${row.favorite ? `<p>★ Favorite Pokémon<br>You're evolving this exact Pokémon. It will remain the same Pokémon after evolution.</p>` : ""}
+      ${row.favorite ? `<p>★ Favorite Pokémon<br>This exact Pokémon will remain your Pokémon after Evolution.</p>` : ""}
       ${ready ? `<p>${esc(row.name)} will evolve into ${esc(row.toName)}. This cannot be reversed.</p>` : ""}`;
     if (els.status) els.status.textContent = "";
     if (els.go) {
@@ -367,36 +379,56 @@
   }
 
   function showEvoFanfare(result, row) {
-    const model = view.resultModel ? view.resultModel(result, row) : { fromName: row.name, toName: row.toName, fromDex: row.dex, toDex: row.toDex, variant: row.variant };
+    const model = view.resultModel ? view.resultModel(result, row) : { fromName: row.name, toName: row.toName, fromDex: row.dex, toDex: row.toDex, variant: row.variant, gender: row.gender };
     const lines = view.dialogueLines ? view.dialogueLines(model) : { what: "What?", evolving: `${model.fromName} is evolving!`, congrats: "Congratulations!", done: `Your ${model.fromName} evolved into ${model.toName}!` };
-    const pages = view.resultPages ? view.resultPages(model) : [{ line1: lines.congrats, line2: lines.done }];
+    const panel = view.resultPanel ? view.resultPanel(model) : { title: model.toName, subtitle: "Evolution complete!", extras: [], newDex: model.newDex, dexLabel: "" };
     const shiny = view.isShiny?.(model) || String(model.variant || "").includes("shiny");
+    const fromArt = view.displayVariant ? view.displayVariant(model, model.fromDex) : model.variant;
+    const toArt = view.displayVariant ? view.displayVariant(model, model.toDex) : model.variant;
     return new Promise((resolve) => {
       document.querySelector(".evo-fanfare")?.remove();
       const overlay = document.createElement("div");
       overlay.className = `evo-fanfare${shiny ? " is-shiny-seq" : ""}`;
       overlay.setAttribute("role", "dialog");
       overlay.setAttribute("aria-modal", "true");
-      overlay.setAttribute("aria-label", "Evolution. Click to skip.");
+      overlay.setAttribute("aria-label", "Evolution");
       const mode = perfMode();
+      const sparkCount = mode === "high" ? 12 : mode === "balanced" ? 4 : 0;
+      const sparks = Array.from({ length: sparkCount }, () => "<i></i>").join("");
       overlay.innerHTML = `
         <div class="evo-gba ${mode === "reduced" || mode === "low" ? "is-simple" : ""}" data-evo-root tabindex="0">
           <div class="evo-field">
             <div class="evo-flash"></div>
+            <div class="evo-ring" aria-hidden="true"></div>
+            <div class="evo-sparks" aria-hidden="true">${sparks}</div>
             <div class="evo-actor">
-              ${sprite(model.fromDex, model.variant, 112)}
+              ${sprite(model.fromDex, model.variant, 112, model.gender)}
             </div>
           </div>
           <div class="evo-dialogue" aria-live="polite">
             <p data-evo-line1></p>
             <p data-evo-line2></p>
           </div>
+          <button type="button" class="evo-skip" data-evo-skip>Skip animation</button>
+        </div>
+        <div class="evo-result-card" data-evo-result hidden>
+          ${shiny ? `<p class="evo-shiny-banner">✨ Shiny Pokémon ✨</p>` : ""}
+          ${sprite(model.toDex, model.variant, 128, model.gender)}
+          <p class="eyebrow">${esc(panel.subtitle)}</p>
+          <h2>${esc(panel.title)}</h2>
+          <p>${esc(lines.done)}</p>
+          ${panel.newDex ? `<p class="evo-newdex">New Pokédex entry! ${esc(panel.dexLabel)} ${esc(model.toName)} registered!</p>` : ""}
+          <ul class="evo-rewards">${(panel.extras || []).map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
+          <button type="button" class="evo-continue" data-evo-continue>Continue</button>
         </div>`;
       document.body.classList.add("evo-playing");
       document.body.append(overlay);
       overlay.querySelector("[data-evo-root]")?.focus();
       let done = false;
-      let pageIndex = 0;
+      const stageEl = overlay.querySelector("[data-evo-root]");
+      const resultEl = overlay.querySelector("[data-evo-result]");
+      const skipBtn = overlay.querySelector("[data-evo-skip]");
+      const continueBtn = overlay.querySelector("[data-evo-continue]");
       const finish = () => {
         if (done) return;
         done = true;
@@ -415,50 +447,46 @@
       };
       const setSprite = (dex, sil) => {
         if (img) {
-          img.src = window.playSpriteUrl(dex, model.variant);
+          img.src = window.playSpriteUrl(dex, dex === model.toDex ? toArt : fromArt);
           img.alt = dex === model.toDex ? (model.toName || "") : (model.fromName || "");
         }
         actor?.classList.toggle("is-sil", Boolean(sil));
-      };
-      const showPage = (index) => {
-        const page = pages[index] || pages[0];
-        setLines(page.line1, page.line2);
-        if (index > 0 && /pokédex|pokedex/i.test(`${page.line1} ${page.line2}`)) cue("pokedex");
       };
       const showResult = () => {
         if (done || overlay.dataset.stage === "result") return;
         overlay.classList.remove("is-flash");
         overlay.dataset.stage = "result";
-        overlay.setAttribute("aria-label", "Evolution complete. Click to continue.");
+        overlay.setAttribute("aria-label", "Evolution complete");
         setSprite(model.toDex, false);
-        pageIndex = 0;
-        showPage(0);
+        if (stageEl) stageEl.hidden = true;
+        if (resultEl) resultEl.hidden = false;
+        continueBtn?.focus();
         cue("reveal");
-        if (model.newDex && pages.length === 1) cue("pokedex");
-      };
-      const advance = () => {
-        if (overlay.dataset.stage !== "result") {
-          showResult();
-          return;
-        }
-        pageIndex += 1;
-        if (pageIndex >= pages.length) finish();
-        else showPage(pageIndex);
+        if (model.newDex) cue("pokedex");
       };
       const onKey = (event) => {
         if (event.key === "Escape") {
           event.preventDefault();
-          if (overlay.dataset.stage === "result") finish();
-          else showResult();
+          if (overlay.dataset.stage === "result") return;
+          showResult();
           return;
         }
         if (event.key === "Enter" || event.key === " ") {
+          if (overlay.dataset.stage === "result") return;
           event.preventDefault();
-          advance();
+          showResult();
         }
       };
       document.addEventListener("keydown", onKey);
-      overlay.addEventListener("click", () => advance());
+      skipBtn?.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        showResult();
+      });
+      continueBtn?.addEventListener("click", (event) => {
+        event.preventDefault();
+        finish();
+      });
       const stopped = () => done || overlay.dataset.stage === "result";
       const flash = async (ms) => {
         if (mode === "low" || mode === "reduced") return;
@@ -469,6 +497,9 @@
       const run = async () => {
         cue("begin");
         overlay.dataset.stage = "intro";
+        setLines(lines.what, "");
+        await wait(mode === "reduced" ? 280 : 720);
+        if (stopped()) return;
         setLines(lines.what, lines.evolving);
         if (mode === "low" || mode === "reduced") {
           await wait(mode === "reduced" ? 480 : 720);
@@ -476,7 +507,7 @@
           showResult();
           return;
         }
-        await wait(mode === "high" ? 1600 : 1100);
+        await wait(mode === "high" ? 900 : 600);
         if (stopped()) return;
         overlay.dataset.stage = "build";
         cue("build");
@@ -599,10 +630,12 @@
   els.rareUse?.addEventListener("click", async () => {
     const family = Number(els.rareFamily?.value || 0);
     if (!family || !rareGate.begin()) return;
+    if (!rareIdem) rareIdem = view.newIdempotency ? view.newIdempotency() : `${Date.now()}`;
     if (els.rareUse) els.rareUse.disabled = true;
     if (els.rareStatus) els.rareStatus.textContent = "Using Rare Candy…";
     try {
-      const result = await window.playCall("play_use_rare_candy", { p_family: family });
+      const result = await window.playCall("play_use_rare_candy", { p_family: family, p_idem: rareIdem });
+      rareIdem = "";
       if (els.rareStatus) els.rareStatus.textContent = result.message || "Rare Candy used.";
       await load();
     } catch (error) {

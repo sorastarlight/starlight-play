@@ -42,6 +42,7 @@
     if (mode === "ready") return canEvolve(row);
     if (mode === "candy") return Number(row.candyCost || 0) > Number(row.haveCandy || 0);
     if (mode === "item") return Boolean(row.item) && itemQty(row) < 1 && !row.tradeReady && !row.haveItem;
+    if (mode === "trade") return isTradeMethod(row) || Boolean(row.tradeReady);
     if (mode === "shiny") return isShiny(row);
     if (mode === "favorites") return Boolean(row.favorite);
     return true;
@@ -82,7 +83,50 @@
   }
 
   function martHref(itemKey) {
-    return "./store.html#evolution";
+    const key = String(itemKey || "evolution").toLowerCase().replace(/[^a-z0-9]+/g, "");
+    if (!key || key === "evolution") return "./store.html#evolution";
+    return `./store.html#${key}`;
+  }
+
+  function displayVariant(row, dex) {
+    const id = Number(dex || row?.dex || 0);
+    const shiny = isShiny(row);
+    if (typeof root.playSpriteVariant === "function") {
+      return root.playSpriteVariant(id, row?.gender, shiny);
+    }
+    if (shiny) return String(row?.variant || "shiny");
+    return row?.variant || "normal";
+  }
+
+  function newIdempotency() {
+    try {
+      if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") return crypto.randomUUID();
+    } catch (_) {}
+    return `rc-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  }
+
+  function resultPanel(model) {
+    const pages = resultPages(model);
+    const extras = [];
+    if (Number(model?.trainerXp)) extras.push(`+${model.trainerXp} Trainer XP`);
+    if (Number(model?.masteryFrom)) extras.push(`Species Mastery +${model.masteryFrom} ${model.fromName || ""}`.trim());
+    if (Number(model?.masteryTo)) extras.push(`Species Mastery +${model.masteryTo} ${model.toName || ""}`.trim());
+    if (Number(model?.coins)) extras.push(`+${model.coins} PokéCoins`);
+    return {
+      title: String(model?.toName || "Pokémon").toUpperCase(),
+      subtitle: "Evolution complete!",
+      newDex: Boolean(model?.newDex),
+      dexLabel: model?.toDex != null ? `#${String(model.toDex).padStart(3, "0")}` : "",
+      extras,
+      pages
+    };
+  }
+
+  function playEvoCue(name) {
+    try {
+      const fn = root.playSfx || root.playCue || root.playSound;
+      if (typeof fn === "function") fn(`evo-${name}`);
+    } catch (_) {}
   }
 
   function pendingGuard() {
@@ -201,6 +245,10 @@
     lineLayout,
     kantoOnlyMembers,
     martHref,
+    displayVariant,
+    newIdempotency,
+    resultPanel,
+    playEvoCue,
     pendingGuard,
     humanEvoError,
     resultModel,
@@ -209,4 +257,5 @@
     dialogueLines,
     resultPages
   };
+  if (typeof root.playEvoCue !== "function") root.playEvoCue = playEvoCue;
 })();

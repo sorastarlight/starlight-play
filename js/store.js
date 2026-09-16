@@ -639,6 +639,13 @@
       const match = shop.find((floor) => floor.kind === raw);
       return floorTabId(match, floors.indexOf(match));
     }
+    if (/^(evolution|firestone|waterstone|thunderstone|leafstone|moonstone|linkingcord)$/.test(raw)) {
+      const match = shop.find((floor, index) => {
+        const id = floorTabId(floor, floors.indexOf(floor));
+        return id === "evolution" || floor.key === "evolution" || /evol/i.test(String(floor.name || floor.key || ""));
+      });
+      if (match) return floorTabId(match, floors.indexOf(match));
+    }
     if (lastTab === CHECKOUT_TAB) return CHECKOUT_TAB;
     if (lastTab && ids.includes(lastTab)) return lastTab;
     return ids[0] || "";

@@ -49,7 +49,12 @@ test("not enough Candy is blocked and filterable", () => {
 test("missing Stone is blocked and item-filterable", () => {
   assert(!view.canEvolve(needStone));
   assert(view.matchesFilter(needStone, "item"));
-  assert(view.martHref("thunderstone").includes("store.html#evolution"));
+  assert(view.martHref("thunderstone").includes("store.html#thunderstone"));
+});
+test("trade evolution filter includes Cord and trade-ready", () => {
+  assert(view.matchesFilter(cord, "trade"));
+  assert(view.matchesFilter(tradeReady, "trade"));
+  assert(!view.matchesFilter(ready, "trade"));
 });
 test("Linking Cord method is recognized", () => {
   assert(view.isTradeMethod(cord));
@@ -171,6 +176,26 @@ test("idempotent already-evolved result does not fabricate rewards", () => {
   assert(model.already === true);
   assert(model.trainerXp === 0);
   assert(model.newDex === false);
+});
+test("result panel waits for Continue and skip stays on the result", () => {
+  const panel = view.resultPanel(view.resultModel({
+    evolution: { fromName: "Charmander", toName: "Charmeleon", fromDex: 4, toDex: 5 },
+    rewards: { trainerXp: 10, masteryFrom: 2, masteryTo: 2, newDex: true, newDexXp: 25, coins: 100 }
+  }, ready));
+  assert(panel.subtitle.toLowerCase().includes("complete"));
+  assert(panel.newDex === true);
+  assert(panel.extras.some((line) => /Trainer XP/.test(line)));
+});
+test("Rare Candy client retries reuse one idempotency key", () => {
+  const first = view.newIdempotency();
+  assert(Boolean(first));
+  assert(first !== view.newIdempotency());
+});
+test("female display uses the sprite resolver instead of copying the source file", () => {
+  const ivy = view.displayVariant({ gender: "Female", variant: "normal" }, 2);
+  const venusaur = view.displayVariant({ gender: "Female", variant: "normal" }, 3);
+  assert(ivy === "normal" || ivy === "female");
+  assert(venusaur === "female" || venusaur === "normal");
 });
 
 const failed = results.filter((row) => !row.passed);

@@ -321,6 +321,24 @@ test("Master Ball confirm freezes intent before RPC", () => {
   assert(src.includes('act("throw", "masterball")'), "YES still throws");
 });
 
+test("a missing snapshot cannot drop a resolved round during the result hold", () => {
+  const resolved = round({
+    phase: "closed",
+    resolved: true,
+    updatedAt: "2026-09-14T12:00:05.000Z",
+    deadlines: {
+      join: "2026-09-14T11:59:20.000Z",
+      prepare: "2026-09-14T11:59:40.000Z",
+      throw: "2026-09-14T12:00:00.000Z",
+      reveal: "2026-09-14T12:00:08.000Z"
+    }
+  });
+  const kept = window.playKeepHeldRound(null, resolved, Date.parse("2026-09-14T12:00:10.000Z"));
+  assert(kept && kept.id === "r-stable", "hold dropped the settled round");
+  const expired = window.playKeepHeldRound(null, resolved, Date.parse("2026-09-14T12:00:30.000Z"));
+  assert(expired == null, "hold must end after PLAY_RESULT_HOLD_MS");
+});
+
 test("first-click tracker treats missing RPC me.prep as unconfirmed until sync", () => {
   const tracker = window.playCreateFirstClickTracker();
   const accepted = tracker.recordRpcAccepted({

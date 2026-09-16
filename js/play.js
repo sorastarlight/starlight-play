@@ -887,11 +887,14 @@
   }
 
   function render(data) {
-    const incomingRound = data?.round
+    let incomingRound = data?.round
       ? (typeof window.playMergeRoundSnapshot === "function"
         ? window.playMergeRoundSnapshot(prevServerRound, data.round)
         : data.round)
       : data?.round;
+    if (typeof window.playKeepHeldRound === "function") {
+      incomingRound = window.playKeepHeldRound(incomingRound, prevServerRound);
+    }
     if (incomingRound?.id && incomingRound.id !== lastRoundId) {
       if (pendingAction && pendingAction.roundId !== incomingRound.id) pendingAction = null;
       joiningPending = false;

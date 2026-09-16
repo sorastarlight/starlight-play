@@ -149,6 +149,15 @@
     return { ...round, phase: shown, endsAt: ends || round.endsAt, highestPhase, serverPhase: snapshotPhase };
   };
 
+  root.playKeepHeldRound = function playKeepHeldRound(incoming, prev, nowMs) {
+    if (incoming) return incoming;
+    if (!prev) return incoming;
+    const idleAt = root.playRoundIdleAt(prev);
+    const now = Number.isFinite(nowMs) ? nowMs : root.playRoundNowMs(prev);
+    if (idleAt && now < idleAt) return prev;
+    return incoming;
+  };
+
   root.playKeepPlayerMe = function playKeepPlayerMe(prev, incoming, choice) {
     const base = prev && typeof prev === "object" ? prev : {};
     const src = incoming && typeof incoming === "object" ? incoming : null;

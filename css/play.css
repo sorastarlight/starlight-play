@@ -5300,8 +5300,44 @@ body[data-page="admin"] .play-stage {
   object-fit: contain;
 }
 .user-mon p { margin: 2px 0 0; }
+.form-preview img:not([src]) { display: none; }
+.user-suggest button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.user-suggest button img {
+  width: 28px;
+  height: 28px;
+  image-rendering: pixelated;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+.user-grant-qty {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+  margin: 8px 0 12px;
+}
+.user-wallet-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 220px) auto;
+  gap: 10px;
+  align-items: end;
+  margin: 8px 0 12px;
+}
+.user-grant-cat { margin: 8px 0; }
+.user-grant-cat .gift-pick-grid {
+  max-height: 240px;
+  margin-top: 8px;
+}
+.user-grant-cat .gift-pick.is-on {
+  border-color: #f3c6e2;
+  background: #fff7fb;
+}
 @media (max-width: 900px) {
-  .user-desk-grid, .user-grant-row { grid-template-columns: 1fr; }
+  .user-desk-grid, .user-grant-row, .user-grant-qty, .user-wallet-row { grid-template-columns: 1fr; }
 }
 
 .play-notice-host {

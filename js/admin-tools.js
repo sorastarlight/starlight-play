@@ -98,21 +98,209 @@
     els.packSku.dataset.filled = "1";
   }
 
-  function bagEditKeys() {
-    const keys = [
-      ["coins", "PokéCoins"],
-      ["berry", "Berry"],
-      ["bait", "Honey"],
-      ["pokeball", "Poké Ball"],
-      ["greatball", "Great Ball"],
-      ["ultraball", "Ultra Ball"],
-      ["lure", "Poké Radar"],
-      ["bag_bonus", "Bag space"]
-    ];
-    (window.PLAY_BALLS || []).forEach((row) => {
-      if (row.extra && !keys.some((pair) => pair[0] === row.key)) keys.push([row.key, row.name]);
+  const GRANT_CATS = [
+    ["wallet", "Wallet"],
+    ["balls", "Poké Balls"],
+    ["berries", "Berries"],
+    ["community", "Honey & Radar"],
+    ["evolution", "Evolution items"]
+  ];
+  const GRANT_EVO = [
+    ["firestone", "Fire Stone"],
+    ["waterstone", "Water Stone"],
+    ["thunderstone", "Thunder Stone"],
+    ["leafstone", "Leaf Stone"],
+    ["moonstone", "Moon Stone"],
+    ["linkingcord", "Linking Cord"],
+    ["rarecandy", "Rare Candy"],
+    ["choice_stone", "Evolution Stone (player chooses)"]
+  ];
+  let grantMonDex = 0;
+  let grantMonGender = "";
+  let grantMonShiny = false;
+  let grantMonBall = "pokeball";
+  let grantItemKey = "";
+  let grantItemQty = 1;
+  let grantOpenCats = new Set();
+
+  function grantItemName(key) {
+    if (key === "bag_bonus") return "Bag space";
+    if (key === "choice_stone") return "Evolution Stone (player chooses)";
+    const ball = window.playBallInfo?.(key);
+    if (ball?.name) return ball.name;
+    const berry = (window.PLAY_BERRIES || []).find((row) => row.key === key);
+    if (berry?.name) return berry.name;
+    const label = window.playItemLabel?.(key);
+    return label && label !== key ? label : key;
+  }
+
+  function grantItemCatalog(bag) {
+    const rows = [];
+    const seen = new Set();
+    const add = (key, cat) => {
+      if (!key || seen.has(key) || key === "capacity" || key === "used" || key === "lureArmed" || key === "lureUntil") return;
+      seen.add(key);
+      rows.push({ key, name: grantItemName(key), cat });
+    };
+    add("coins", "wallet");
+    add("bag_bonus", "wallet");
+    (window.PLAY_BALLS || []).forEach((row) => add(row.key, "balls"));
+    (window.PLAY_BERRIES || []).forEach((row) => add(row.key, "berries"));
+    add("bait", "community");
+    add("lure", "community");
+    GRANT_EVO.forEach(([key]) => add(key, "evolution"));
+    Object.keys(bag || {}).forEach((key) => add(key, "special"));
+    return rows;
+  }
+
+  function parseItemQuery(text, catalog) {
+    const list = catalog || grantItemCatalog(accountState?.bag);
+    const raw = String(text || "").trim().toLowerCase();
+    if (!raw) return [];
+    const exact = [];
+    const prefix = [];
+    const includes = [];
+    list.forEach((row) => {
+      const name = String(row.name || "").toLowerCase();
+      const key = String(row.key || "").toLowerCase();
+      if (name === raw || key === raw) exact.push(row);
+      else if (name.startsWith(raw) || key.startsWith(raw)) prefix.push(row);
+      else if (name.includes(raw) || key.includes(raw)) includes.push(row);
     });
-    return keys;
+    return exact.concat(prefix, includes);
+  }
+
+  function suggestRowsHtml(rows, dataKey) {
+    return rows.slice(0, 12).map((row) => {
+      const value = row.dex || row.key;
+      const label = row.dex
+        ? `${window.playPadDex(row.dex)} ${row.name}`
+        : row.name;
+      const qty = row.qty == null ? "" : ` · ${row.qty}`;
+      const img = row.dex
+        ? window.playSpriteUrl(row.dex, "normal")
+        : window.playItemSprite(row.key);
+      return `<li><button type="button" data-${dataKey}="${window.playEscapeAttr(String(value))}">
+        <img src="${window.playEscapeAttr(img)}" alt="">
+        <span>${window.playEscapeAttr(label)}${qty}</span>
+      </button></li>`;
+    }).join("");
+  }
+
+  function fillSuggest(list, rows, dataKey) {
+    if (!list) return;
+    if (!rows.length) {
+      list.hidden = true;
+      list.innerHTML = "";
+      return;
+    }
+    list.hidden = false;
+    list.innerHTML = suggestRowsHtml(rows, dataKey);
+  }
+
+  function selectedGrantGender(dex) {
+    const options = window.playGenderOptions(dex);
+    if (options.length === 1) return options[0];
+    if (grantMonGender && options.includes(grantMonGender)) return grantMonGender;
+    return dex ? (options[0] || "") : grantMonGender;
+  }
+
+  function renderGrantMonPreview() {
+    const dex = grantMonDex;
+    const genderEl = document.getElementById("grant-gender-row");
+    const shinyEl = document.getElementById("grant-shiny-row");
+    const preview = document.getElementById("grant-mon-preview");
+    const copy = document.getElementById("grant-mon-copy");
+    if (!genderEl || !shinyEl) return;
+    const options = window.playGenderOptions(dex);
+    if (!dex) {
+      genderEl.innerHTML = ["Male", "Female"].map((name) => (
+        `<button type="button" data-grant-gender="${name}" aria-pressed="${grantMonGender === name}">${name}</button>`
+      )).join("");
+    } else if (options.length === 1) {
+      grantMonGender = options[0];
+      genderEl.innerHTML = `<span class="chip">${options[0]}</span>`;
+    } else {
+      if (!options.includes(grantMonGender)) grantMonGender = options[0];
+      genderEl.innerHTML = options.map((name) => (
+        `<button type="button" data-grant-gender="${name}" aria-pressed="${grantMonGender === name}">${name}</button>`
+      )).join("");
+    }
+    shinyEl.innerHTML = `<button type="button" data-grant-shiny="1" aria-pressed="${grantMonShiny}">Shiny</button>`;
+    const gender = selectedGrantGender(dex);
+    const variant = window.playSpriteVariant(dex, gender, grantMonShiny);
+    if (!dex) {
+      if (copy) {
+        copy.textContent = grantMonShiny || grantMonGender
+          ? `${grantMonGender || "Any gender"}${grantMonShiny ? " · Shiny" : ""}`
+          : "Pick a species to preview.";
+      }
+      if (preview) preview.removeAttribute("src");
+      return;
+    }
+    if (preview) {
+      delete preview.dataset.playSpriteDone;
+      delete preview.dataset.playSpriteLock;
+      preview.src = window.playSpriteUrl(dex, variant);
+      preview.alt = `${window.playSpeciesName(dex)} ${gender}${grantMonShiny ? " Shiny" : ""}`;
+    }
+    if (copy) copy.textContent = `${window.playSpeciesName(dex)} · ${gender}${grantMonShiny ? " · Shiny" : ""}`;
+  }
+
+  function renderGrantItemPreview(bag) {
+    const preview = document.getElementById("grant-item-preview");
+    const copy = document.getElementById("grant-item-copy");
+    if (!preview || !copy) return;
+    const key = grantItemKey;
+    if (!key) {
+      preview.removeAttribute("src");
+      copy.textContent = "Pick an item to preview.";
+      return;
+    }
+    preview.src = window.playItemSprite(key);
+    preview.alt = grantItemName(key);
+    const qty = Number((bag || accountState?.bag || {})[key] || 0);
+    copy.textContent = `${grantItemName(key)} · they have ${qty}`;
+  }
+
+  function pickGrantSpecies(dex) {
+    grantMonDex = Number(dex) || 0;
+    const input = document.getElementById("grant-dex");
+    const list = document.getElementById("grant-dex-suggest");
+    if (input && grantMonDex) {
+      input.value = `${window.playPadDex(grantMonDex)} ${window.playSpeciesName(grantMonDex)}`;
+    }
+    if (list) {
+      list.hidden = true;
+      list.innerHTML = "";
+    }
+    renderGrantMonPreview();
+  }
+
+  function pickGrantItem(key) {
+    grantItemKey = key || "";
+    const input = document.getElementById("grant-item-pick");
+    const list = document.getElementById("grant-item-suggest");
+    if (input && grantItemKey) input.value = grantItemName(grantItemKey);
+    if (list) {
+      list.hidden = true;
+      list.innerHTML = "";
+    }
+    renderGrantItemPreview();
+    els.userDetail?.querySelectorAll("[data-grant-item]").forEach((node) => {
+      node.classList.toggle("is-on", node.dataset.grantItem === grantItemKey);
+    });
+  }
+
+  function pickGrantBall(key) {
+    grantMonBall = key || "pokeball";
+    const input = document.getElementById("grant-ball-pick");
+    const list = document.getElementById("grant-ball-suggest");
+    if (input) input.value = grantItemName(grantMonBall);
+    if (list) {
+      list.hidden = true;
+      list.innerHTML = "";
+    }
   }
 
   function openUserModal() {
@@ -194,18 +382,44 @@
         roleBtns.push(`<button type="button" class="secondary" data-user="${user.id}" data-role="player">Player</button>`);
       }
     }
-    const itemRows = bagEditKeys().map(([key, label]) => {
-      const qty = Number(bag[key] || 0);
-      return `<label class="user-item">
-        <img src="${window.playItemSprite(key)}" alt="">
-        <span>${window.playEscapeAttr(label)}</span>
-        <strong>${qty}</strong>
-        <input data-grant="${key}" type="number" step="1" placeholder="±">
-      </label>`;
+    const catalog = grantItemCatalog(bag);
+    const catMenus = GRANT_CATS.map(([id, label]) => {
+      const items = catalog.filter((row) => row.cat === id);
+      if (!items.length) return "";
+      const chips = items.map((row) => {
+        const qty = Number(bag[row.key] || 0);
+        const on = grantItemKey === row.key ? " is-on" : "";
+        return `<button type="button" class="gift-pick${on}" data-grant-item="${window.playEscapeAttr(row.key)}">
+          <img src="${window.playEscapeAttr(window.playItemSprite(row.key))}" alt="">
+          <strong>${window.playEscapeAttr(row.name)}</strong>
+          <span>×${qty}</span>
+        </button>`;
+      }).join("");
+      return `<details class="user-grant-cat hub-specific"${grantOpenCats.has(id) ? " open" : ""} data-grant-cat="${id}">
+        <summary>${window.playEscapeAttr(label)}</summary>
+        <div class="gift-pick-grid">${chips}</div>
+      </details>`;
     }).join("");
-    const balls = (window.PLAY_BALLS || []).map((row) => (
-      `<option value="${row.key}">${row.name}</option>`
-    )).join("");
+    const extraCats = catalog.filter((row) => row.cat === "special");
+    const extraMenu = extraCats.length
+      ? `<details class="user-grant-cat hub-specific"${grantOpenCats.has("special") ? " open" : ""} data-grant-cat="special">
+          <summary>Other items</summary>
+          <div class="gift-pick-grid">${extraCats.map((row) => {
+            const qty = Number(bag[row.key] || 0);
+            const on = grantItemKey === row.key ? " is-on" : "";
+            return `<button type="button" class="gift-pick${on}" data-grant-item="${window.playEscapeAttr(row.key)}">
+              <img src="${window.playEscapeAttr(window.playItemSprite(row.key))}" alt="">
+              <strong>${window.playEscapeAttr(row.name)}</strong>
+              <span>×${qty}</span>
+            </button>`;
+          }).join("")}</div>
+        </details>`
+      : "";
+    const dexValue = grantMonDex
+      ? `${window.playPadDex(grantMonDex)} ${window.playSpeciesName(grantMonDex)}`
+      : "";
+    const itemValue = grantItemKey ? grantItemName(grantItemKey) : "";
+    const ballValue = grantItemName(grantMonBall || "pokeball");
     const monRows = mons.map((mon) => {
       const title = window.playEscapeAttr(mon.nickname || mon.name || "Pokémon");
       return `<article class="user-mon">
@@ -268,44 +482,54 @@
       <h4>Account &amp; Connections</h4>
       <p class="muted">Twitch identities belong to this Trainer Account. Changing Primary does not move Pokémon, inventory, or XP.</p>
       <div class="admin-connections">${connCards}</div>
-      <h4>Bag &amp; PokéCoins</h4>
-      <p class="muted">Positive numbers add. Negative numbers take away. Coins can also be set to an exact amount.</p>
-      <div class="user-item-grid">${itemRows}</div>
-      <div class="links">
-        <button type="button" id="grant-bag" ${canEdit ? "" : "disabled"}>Apply item changes</button>
-        <button type="button" id="set-coins" class="secondary" ${canEdit ? "" : "disabled"}>Set PokéCoins</button>
-      </div>
       <h4>Give a Pokémon</h4>
+      <p class="muted">Type a name or Dex number. Suggestions fill in as you type, the same way as Start a specific Pokémon on Encounters.</p>
       <label class="field" for="grant-dex">Species
-        <input id="grant-dex" type="text" placeholder="ex: Eevee" autocomplete="off">
+        <input id="grant-dex" type="text" placeholder="ex: Pikachu" value="${window.playEscapeAttr(dexValue)}" autocomplete="off">
       </label>
-      <div class="user-grant-row">
-        <label class="field">Gender
-          <select id="grant-gender">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Genderless">Genderless</option>
-          </select>
-        </label>
-        <label class="field">Ball
-          <select id="grant-ball">${balls}</select>
-        </label>
-        <label class="check-row"><input id="grant-shiny" type="checkbox"> Shiny</label>
+      <ul id="grant-dex-suggest" class="dex-suggest user-suggest" hidden></ul>
+      <p class="muted">Gender is Male, Female, or Genderless. Shiny is its own switch on top of that.</p>
+      <div id="grant-gender-row" class="variant-row"></div>
+      <div id="grant-shiny-row" class="variant-row shiny-row"></div>
+      <div class="form-preview">
+        <img id="grant-mon-preview" alt="">
+        <p id="grant-mon-copy" class="muted">Pick a species to preview.</p>
       </div>
+      <label class="field" for="grant-ball-pick">Ball
+        <input id="grant-ball-pick" type="text" placeholder="ex: Premier Ball" value="${window.playEscapeAttr(ballValue)}" autocomplete="off">
+      </label>
+      <ul id="grant-ball-suggest" class="dex-suggest user-suggest" hidden></ul>
       <div class="links">
         <button type="button" id="grant-mon" ${canEdit ? "" : "disabled"}>Add to PC</button>
       </div>
+      <h4>Give items</h4>
+      <p class="muted">Type a name to pick Poké Balls, Berries, Honey, Radar, stones, Rare Candy, or PokéCoins — same style as the encounter species picker. Browse by kind in the menus below.</p>
+      <label class="field" for="grant-item-pick">Item
+        <input id="grant-item-pick" type="text" placeholder="ex: Premier Ball, Razz Berry, Fire Stone" value="${window.playEscapeAttr(itemValue)}" autocomplete="off">
+      </label>
+      <ul id="grant-item-suggest" class="dex-suggest user-suggest" hidden></ul>
+      <div class="form-preview">
+        <img id="grant-item-preview" alt="">
+        <p id="grant-item-copy" class="muted">Pick an item to preview.</p>
+      </div>
+      <div class="user-grant-qty">
+        <label class="field" for="grant-item-qty">Quantity (±)
+          <input id="grant-item-qty" type="number" step="1" value="${Number.isFinite(grantItemQty) && grantItemQty !== 0 ? grantItemQty : 1}">
+        </label>
+        <button type="button" id="grant-item" ${canEdit ? "" : "disabled"}>Give item</button>
+      </div>
+      <div class="user-wallet-row">
+        <p class="muted">Wallet: ${Number(bag.coins || 0)} PokéCoins · bag space ${Number(bag.capacity || 0)} (${Number(bag.used || 0)} used)</p>
+        <label class="field" for="set-coins-amount">Set exact PokéCoins
+          <input id="set-coins-amount" type="number" min="0" step="1" placeholder="${Number(bag.coins || 0)}">
+        </label>
+        <button type="button" id="set-coins" class="secondary" ${canEdit ? "" : "disabled"}>Set PokéCoins</button>
+      </div>
+      ${catMenus}${extraMenu}
       <h4>PC</h4>
       <div class="user-mon-list">${monRows}</div>`;
-  }
-
-  function grantInputs() {
-    const grants = {};
-    els.userDetail?.querySelectorAll("input[data-grant]").forEach((input) => {
-      const n = Number(input.value);
-      if (Number.isFinite(n) && n !== 0) grants[input.dataset.grant] = n;
-    });
-    return grants;
+    renderGrantMonPreview();
+    renderGrantItemPreview(bag);
   }
 
   function accountStatus(text) {
@@ -548,6 +772,68 @@
       });
     }
   });
+  els.userDetail?.addEventListener("toggle", (event) => {
+    const cat = event.target;
+    if (!(cat instanceof HTMLDetailsElement) || !cat.dataset.grantCat) return;
+    if (cat.open) grantOpenCats.add(cat.dataset.grantCat);
+    else grantOpenCats.delete(cat.dataset.grantCat);
+  }, true);
+  els.userDetail?.addEventListener("input", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement)) return;
+    if (target.id === "grant-dex") {
+      const matches = window.playParseSpeciesQuery(target.value);
+      fillSuggest(document.getElementById("grant-dex-suggest"), matches, "grant-dex");
+      grantMonDex = matches.length === 1 ? matches[0].dex : (matches[0]?.dex || 0);
+      renderGrantMonPreview();
+      return;
+    }
+    if (target.id === "grant-item-pick") {
+      const bag = accountState?.bag || {};
+      const matches = parseItemQuery(target.value).map((row) => ({ ...row, qty: Number(bag[row.key] || 0) }));
+      fillSuggest(document.getElementById("grant-item-suggest"), matches, "grant-item");
+      grantItemKey = matches[0]?.key || "";
+      renderGrantItemPreview(bag);
+      els.userDetail?.querySelectorAll("[data-grant-item]").forEach((node) => {
+        node.classList.toggle("is-on", node.dataset.grantItem === grantItemKey);
+      });
+      return;
+    }
+    if (target.id === "grant-ball-pick") {
+      const balls = (window.PLAY_BALLS || []).map((row) => ({ key: row.key, name: row.name }));
+      const matches = parseItemQuery(target.value, balls);
+      fillSuggest(document.getElementById("grant-ball-suggest"), matches, "grant-ball");
+      if (matches[0]) grantMonBall = matches[0].key;
+      return;
+    }
+    if (target.id === "grant-item-qty") {
+      const n = Number(target.value);
+      if (Number.isFinite(n) && n !== 0) grantItemQty = n;
+    }
+  });
+  els.userDetail?.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement)) return;
+    if (target.id === "grant-dex") {
+      event.preventDefault();
+      const matches = window.playParseSpeciesQuery(target.value);
+      if (matches[0]) pickGrantSpecies(matches[0].dex);
+      return;
+    }
+    if (target.id === "grant-item-pick") {
+      event.preventDefault();
+      const matches = parseItemQuery(target.value);
+      if (matches[0]) pickGrantItem(matches[0].key);
+      return;
+    }
+    if (target.id === "grant-ball-pick") {
+      event.preventDefault();
+      const balls = (window.PLAY_BALLS || []).map((row) => ({ key: row.key, name: row.name }));
+      const matches = parseItemQuery(target.value, balls);
+      if (matches[0]) pickGrantBall(matches[0].key);
+    }
+  });
   els.userDetail?.addEventListener("click", async (event) => {
     const roleBtn = event.target.closest("button[data-user][data-role]");
     if (roleBtn) {
@@ -565,17 +851,55 @@
       }
       return;
     }
-    if (event.target.closest("#grant-bag")) {
-      const grants = grantInputs();
-      if (!Object.keys(grants).length) {
+    const dexPick = event.target.closest("button[data-grant-dex]");
+    if (dexPick) {
+      pickGrantSpecies(Number(dexPick.dataset.grantDex));
+      return;
+    }
+    const itemPick = event.target.closest("button[data-grant-item]");
+    if (itemPick) {
+      pickGrantItem(itemPick.dataset.grantItem);
+      return;
+    }
+    const ballPick = event.target.closest("button[data-grant-ball]");
+    if (ballPick) {
+      pickGrantBall(ballPick.dataset.grantBall);
+      return;
+    }
+    const genderBtn = event.target.closest("button[data-grant-gender]");
+    if (genderBtn) {
+      grantMonGender = grantMonGender === genderBtn.dataset.grantGender && !grantMonDex
+        ? ""
+        : genderBtn.dataset.grantGender;
+      renderGrantMonPreview();
+      return;
+    }
+    if (event.target.closest("button[data-grant-shiny]")) {
+      grantMonShiny = !grantMonShiny;
+      renderGrantMonPreview();
+      return;
+    }
+    if (event.target.closest("#grant-item")) {
+      const raw = document.getElementById("grant-item-pick")?.value || "";
+      const match = parseItemQuery(raw)[0];
+      const key = grantItemKey || match?.key;
+      const qtyInput = document.getElementById("grant-item-qty");
+      const qty = Number(qtyInput?.value);
+      if (!key) {
+        accountStatus("Pick an item from the list, or type a name until a match appears.");
+        return;
+      }
+      if (!Number.isFinite(qty) || qty === 0) {
         accountStatus("Enter how many to add or remove.");
         return;
       }
+      grantItemKey = key;
+      grantItemQty = qty;
       accountStatus("Updating bag…");
       try {
         const data = await window.playCall("admin_grant_bag", {
           p_user: selectedUserId,
-          p_grants: grants
+          p_grants: { [key]: qty }
         });
         renderAccount(data);
         accountStatus(data?.message || "Bag updated.");
@@ -586,7 +910,7 @@
       return;
     }
     if (event.target.closest("#set-coins")) {
-      const input = els.userDetail.querySelector('input[data-grant="coins"]');
+      const input = document.getElementById("set-coins-amount");
       const coins = Number(input?.value);
       if (input?.value === "" || !Number.isFinite(coins) || coins < 0) {
         accountStatus("Type the new PokéCoin total, then Set PokéCoins.");
@@ -609,21 +933,26 @@
     if (event.target.closest("#grant-mon")) {
       const raw = document.getElementById("grant-dex")?.value || "";
       const match = window.playParseSpeciesQuery(raw)[0];
-      const dex = match?.dex || Number(raw);
+      const dex = grantMonDex || match?.dex || Number(raw);
       if (!dex || dex < 1 || dex > 151) {
         accountStatus("Pick a species from 1 to 151.");
         return;
       }
+      const ballRaw = document.getElementById("grant-ball-pick")?.value || "";
+      const ballMatch = parseItemQuery(ballRaw, (window.PLAY_BALLS || []).map((row) => ({ key: row.key, name: row.name })))[0];
+      const ball = grantMonBall || ballMatch?.key || "pokeball";
       accountStatus("Adding Pokémon…");
       try {
         const data = await window.playCall("admin_grant_pokemon", {
           p_user: selectedUserId,
           p_dex: dex,
           p_name: match?.name || window.playSpeciesName(dex),
-          p_gender: document.getElementById("grant-gender")?.value || "Unknown",
-          p_shiny: Boolean(document.getElementById("grant-shiny")?.checked),
-          p_ball: document.getElementById("grant-ball")?.value || "pokeball"
+          p_gender: selectedGrantGender(dex) || "Unknown",
+          p_shiny: Boolean(grantMonShiny),
+          p_ball: ball
         });
+        grantMonDex = dex;
+        grantMonBall = ball;
         renderAccount(data);
         accountStatus(data?.message || "Pokémon added.");
         await loadUsers();

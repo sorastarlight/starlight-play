@@ -5413,7 +5413,240 @@ body[data-page="admin"] .play-stage {
 .play-toast-level { background: #e8f7ff; border-color: #7ec8ea; }
 .play-toast-achievement, .play-toast-title, .play-toast-badge { background: #f3e8ff; border-color: #c9a4ea; }
 .play-toast-dex { background: #e9ffe8; border-color: #8ed37c; }
+.play-toast-success { background: #e9ffe8; border-color: #8ed37c; }
+.play-toast-warning { background: #fff4d6; border-color: #e0b85c; }
+.play-toast-error { background: #ffe8ef; border-color: #e89ab4; }
+.play-toast-xp, .play-toast-coins, .play-toast-mastery, .play-toast-loot { background: #fff7e6; border-color: #f0c36d; }
 @keyframes play-toast-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.play-present-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+.play-present-root {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+.play-present-root[hidden] { display: none !important; }
+.play-present-scrim {
+  position: absolute;
+  inset: 0;
+  background: #1a2238cc;
+}
+.play-present-stage {
+  position: relative;
+  z-index: 1;
+  width: min(420px, calc(100vw - 24px));
+  min-height: 280px;
+  outline: none;
+}
+.play-present-card,
+.play-present-moment {
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  padding: 22px 20px 18px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 12% -10%, #ffe3f3 0 18%, transparent 46%),
+    radial-gradient(circle at 100% 0%, #d9ecff 0 22%, transparent 52%),
+    #fffdf8;
+  border: 3px solid #fff;
+  box-shadow: 0 10px 0 #f3c6e2, 0 18px 36px #687bae33;
+  text-align: center;
+}
+.play-present-kicker {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #7a6aa8;
+}
+.play-present-card h2,
+.play-present-moment h2 {
+  margin: 8px 0 0;
+  font-family: Fredoka, "Fredoka Fallback", sans-serif;
+  font-size: 28px;
+  line-height: 1.15;
+  min-height: 1.15em;
+}
+.play-present-sub {
+  margin: 8px 0 0;
+  min-height: 1.4em;
+  color: var(--muted);
+}
+.play-present-art {
+  width: 128px;
+  height: 128px;
+  margin: 12px auto 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, #e8f7ff 0 48%, transparent 70%);
+  border-radius: 50%;
+}
+.play-present-art img {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.play-present-art.is-sil img {
+  filter: brightness(0);
+  opacity: .85;
+}
+.play-present-art-fallback {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #f3c6e2;
+}
+.play-present-rewards,
+.play-present-news {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  min-height: 1.4em;
+}
+.play-present-rewards li,
+.play-present-news li {
+  margin: 0;
+  font-weight: 800;
+}
+.play-present-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 16px;
+  min-height: 44px;
+}
+.play-present-actions:has(.play-present-skip:not([hidden])) {
+  grid-template-columns: minmax(96px, 1fr) minmax(140px, 1.4fr);
+}
+.play-present-continue,
+.play-present-skip {
+  min-width: 140px;
+  min-height: 44px;
+}
+.play-present-fx {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+.play-present-fx i {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  clip-path: polygon(50% 0, 61% 35%, 100% 50%, 61% 65%, 50% 100%, 39% 65%, 0 50%, 39% 35%);
+  opacity: .8;
+  animation: play-present-star 1.8s ease-in-out infinite;
+}
+.play-present-fx i:nth-child(1) { top: 12%; left: 10%; }
+.play-present-fx i:nth-child(2) { top: 18%; right: 12%; animation-delay: .2s; }
+.play-present-fx i:nth-child(3) { bottom: 22%; left: 14%; animation-delay: .4s; }
+.play-present-fx i:nth-child(4) { bottom: 16%; right: 16%; animation-delay: .6s; }
+.play-present-fx i:nth-child(5) { top: 46%; left: 6%; animation-delay: .3s; }
+.play-present-fx i:nth-child(6) { top: 50%; right: 8%; animation-delay: .5s; }
+.play-present-fx i:nth-child(7) { top: 8%; left: 48%; animation-delay: .1s; }
+.play-present-fx i:nth-child(8) { bottom: 10%; left: 46%; animation-delay: .7s; }
+@keyframes play-present-star {
+  0%, 100% { transform: scale(.6); opacity: .35; }
+  50% { transform: scale(1); opacity: 1; }
+}
+.play-present-dex-frame { min-height: 176px; }
+.play-present-status {
+  margin: 8px 0 0;
+  min-height: 1.4em;
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: #3a7cae;
+}
+.play-present-levels {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 12px;
+  margin: 14px 0 8px;
+  font-family: Fredoka, "Fredoka Fallback", sans-serif;
+  font-size: 40px;
+  min-height: 48px;
+}
+.play-present-xp {
+  height: 10px;
+  border-radius: 99px;
+  background: #e8eefc;
+  overflow: hidden;
+  margin: 8px 12px 0;
+}
+.play-present-xp i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #7ec8ea, #f3c6e2);
+  transition: width .6s ease;
+}
+.play-present-unlocks { margin-top: 12px; min-height: 3em; }
+body.is-presenting { overflow: hidden; }
+html[data-perf="low"] .play-present-fx,
+html[data-reduced-motion="1"] .play-present-fx,
+html[data-perf="low"] .play-present-scrim,
+.play-present-stage[data-motion="static"] .play-present-fx { display: none; }
+html[data-perf="low"] .play-present-scrim,
+html[data-reduced-motion="1"] .play-present-scrim,
+html[data-perf="low"] .play-present-card,
+html[data-perf="low"] .play-present-moment {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+html[data-reduced-motion="1"] .play-present-art img,
+html[data-perf="low"] .play-present-art img,
+html[data-reduced-motion="1"] .play-present-fx i,
+html[data-perf="low"] .play-present-xp i {
+  animation: none !important;
+  transition: none !important;
+}
+@media (max-width: 520px) {
+  .play-present-stage { width: min(100%, calc(100vw - 16px)); }
+  .play-present-card,
+  .play-present-moment { padding: 18px 14px 14px; }
+  .play-present-card h2,
+  .play-present-moment h2 { font-size: 24px; }
+  .play-present-actions:has(.play-present-skip:not([hidden])) { grid-template-columns: 1fr; }
+  .play-present-continue,
+  .play-present-skip { width: 100%; }
+}
+
+.present-lab {
+  display: grid;
+  gap: 12px;
+}
+.present-lab-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+}
+.present-lab-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.present-lab-note {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fff4d6;
+  border: 1px solid #e0b85c;
+}
 
 .prog-pick-grid, .ach-grid {
   display: grid;

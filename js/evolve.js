@@ -551,7 +551,17 @@
       }
       closeModal();
       await showEvoFanfare(result, pick);
-      if (typeof window.playShowNotices === "function") window.playShowNotices();
+      if (typeof window.playShowNotices === "function") {
+        window.playShowNotices({
+          source: "evolution",
+          suppressKinds: ["evolution"],
+          suppressTypes: model.newDex ? ["pokedex"] : [],
+          species: model.toDex,
+          variant: model.variant,
+          gender: model.gender,
+          noSummary: true
+        });
+      }
       await load();
     } catch (error) {
       const raw = window.playHumanRpcError ? window.playHumanRpcError(error) : window.playRpcError(error);

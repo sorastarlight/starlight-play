@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260916-rc4">
+<link rel="stylesheet" href="css/play.css?v=20260916-rc5">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -643,6 +643,7 @@
     <div id="hub-panel-analytics" data-hub-panel="analytics" hidden>
       <div class="hub-subnav" role="tablist" aria-label="Analytics">
         <button type="button" data-ana-view="overview" aria-selected="true">Overview</button>
+        <button type="button" data-ana-view="lab">Presentation Lab</button>
         <button type="button" data-ana-view="captures">Captures</button>
         <button type="button" data-ana-view="spawns">Spawns</button>
         <button type="button" data-ana-view="progression">Progression</button>
@@ -664,6 +665,64 @@
         </section>
         <p id="ana-overview-meta" class="hub-meta"></p>
         <div id="ana-overview" class="report-out"></div>
+      </section>
+      <section class="card body" data-ana-panel="lab" hidden>
+        <h2>Presentation Lab</h2>
+        <p class="present-lab-note">Visual QA only. These previews never grant XP, items, PokéCoins, Pokémon, or achievements.</p>
+        <div class="present-lab">
+          <div class="present-lab-controls">
+            <label class="field" for="lab-kind">Preview
+              <select id="lab-kind">
+                <option value="toast">Toast</option>
+                <option value="card">Reward card</option>
+                <option value="pokedex">Pokédex entry</option>
+                <option value="level">Level up</option>
+                <option value="achievement">Achievement</option>
+                <option value="unlock">Unlock</option>
+                <option value="item">Item reward</option>
+                <option value="summary">Summary</option>
+                <option value="error">Error</option>
+              </select>
+            </label>
+            <label class="field" for="lab-species">Species
+              <input id="lab-species" type="number" min="1" max="151" value="25">
+            </label>
+            <label class="field" for="lab-variant">Variant
+              <select id="lab-variant">
+                <option value="normal">normal</option>
+                <option value="shiny">shiny</option>
+              </select>
+            </label>
+            <label class="field" for="lab-gender">Gender
+              <select id="lab-gender">
+                <option value="">—</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </label>
+            <label class="field" for="lab-qty">Quantity
+              <input id="lab-qty" type="number" min="1" max="99" value="5">
+            </label>
+            <label class="field" for="lab-perf">Performance
+              <select id="lab-perf">
+                <option value="">Current</option>
+                <option value="high">HIGH</option>
+                <option value="balanced">BALANCED</option>
+                <option value="low">LOW</option>
+              </select>
+            </label>
+            <label class="field check" for="lab-reduced">Reduced motion
+              <input id="lab-reduced" type="checkbox">
+            </label>
+          </div>
+          <div class="present-lab-actions">
+            <button id="lab-run" type="button">Preview</button>
+            <button id="lab-queue" class="secondary" type="button">Queue sample rewards</button>
+            <button id="lab-confirm" class="secondary" type="button">Preview confirm</button>
+            <button id="lab-reset" class="secondary" type="button">Reset preview</button>
+          </div>
+          <p id="lab-status" class="muted" role="status">Mock UI only. No economy mutations.</p>
+        </div>
       </section>
       <section class="card body" data-ana-panel="captures" hidden>
         <h2>Capture analytics</h2>
@@ -868,20 +927,22 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260916-rc4"></script>
-<script src="js/play-perf.js?v=20260916-rc4"></script>
-<script src="js/build.js?v=20260916-rc4"></script>
-<script src="js/build-client.js?v=20260916-rc4"></script>
-<script src="js/auth.js?v=20260916-rc4"></script>
-<script src="js/species.js?v=20260916-rc4"></script>
-<script src="js/variants.js?v=20260916-rc4"></script>
-<script src="js/game.js?v=20260916-rc4"></script>
-<script src="js/play-encounter-state.js?v=20260916-rc4"></script>
-<script src="js/location-visuals-data.js?v=20260916-rc4"></script>
-<script src="js/location-visuals.js?v=20260916-rc4"></script>
-<script src="js/hud.js?v=20260916-rc4"></script>
-<script src="js/nav.js?v=20260916-rc4"></script>
-<script src="js/admin-tools.js?v=20260916-rc4"></script>
-<script src="js/admin-live.js?v=20260916-rc4"></script>
-<script src="js/admin.js?v=20260916-rc4"></script>
+<script src="js/config.js?v=20260916-rc5"></script>
+<script src="js/play-perf.js?v=20260916-rc5"></script>
+<script src="js/build.js?v=20260916-rc5"></script>
+<script src="js/build-client.js?v=20260916-rc5"></script>
+<script src="js/auth.js?v=20260916-rc5"></script>
+<script src="js/species.js?v=20260916-rc5"></script>
+<script src="js/variants.js?v=20260916-rc5"></script>
+<script src="js/game.js?v=20260916-rc5"></script>
+<script src="js/play-present.js?v=20260916-rc5"></script>
+<script src="js/play-encounter-state.js?v=20260916-rc5"></script>
+<script src="js/location-visuals-data.js?v=20260916-rc5"></script>
+<script src="js/location-visuals.js?v=20260916-rc5"></script>
+<script src="js/hud.js?v=20260916-rc5"></script>
+<script src="js/nav.js?v=20260916-rc5"></script>
+<script src="js/admin-tools.js?v=20260916-rc5"></script>
+<script src="js/admin-live.js?v=20260916-rc5"></script>
+<script src="js/admin.js?v=20260916-rc5"></script>
+<script src="js/admin-present.js?v=20260916-rc5"></script>
 </body>

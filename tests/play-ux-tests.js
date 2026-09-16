@@ -99,6 +99,12 @@ test("Network errors become reconnecting", () => {
 test("Insufficient-item errors stay friendly", () => {
   assert(window.playHumanRpcError({ message: "You have no Ultra Ball left." }).includes("no longer available"));
 });
+test("economy and lock errors stay friendly", () => {
+  assert(window.playHumanRpcError({ message: "Not enough PokéCoins." }) === "Not enough PokéCoins.");
+  assert(window.playHumanRpcError({ message: "You need a Thunder Stone." }) === "You don't have a Thunder Stone.");
+  assert(window.playHumanRpcError({ message: "This Pokémon is locked." }) === "This Pokémon is locked.");
+  assert(window.playHumanRpcError({ message: "jwt expired" }) === "Session expired. Sign in again.");
+});
 test("Twitch sign-in RPC copy becomes site-account copy", () => {
   assert(window.playHumanRpcError({ message: "Sign in with Twitch to join the live encounter." }) === "Sign in to join the live encounter.");
 });

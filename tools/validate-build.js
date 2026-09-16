@@ -65,6 +65,9 @@ for (const name of fs.readdirSync(dir)) {
   if (/js\/build\.js/.test(html) && !/js\/build-client\.js/.test(html)) {
     fail(`${name}: has build.js but missing build-client.js`);
   }
+  if (/js\/game\.js/.test(html) && !/js\/play-present\.js/.test(html)) {
+    fail(`${name}: has game.js but missing play-present.js`);
+  }
   pages.push({ name, assets, thirdParty });
 }
 

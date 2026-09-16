@@ -200,6 +200,15 @@
       return STATUS.phaseEnded;
     }
     if (/http\s*409|conflict|already used that action/i.test(text)) return "That item was already used.";
+    if (/not enough pokécoins|not enough pokecoins|need .+ more pokécoins/i.test(text)) return "Not enough PokéCoins.";
+    if (/this pokémon is locked|pokemon is locked|currently locked/i.test(text)) return "This Pokémon is locked.";
+    if (/session expired|jwt expired|invalid jwt|not authenticated/i.test(text)) return "Session expired. Sign in again.";
+    if (/linking cord/i.test(text) && /need|don't have|do not have/i.test(text)) return "You don't have a Linking Cord.";
+    const stone = text.match(/(thunder stone|fire stone|water stone|leaf stone|moon stone)/i);
+    if (stone && /need|don't have|do not have/i.test(text)) {
+      const label = stone[1].replace(/\b\w/g, (ch) => ch.toUpperCase());
+      return `You don't have a ${label}.`;
+    }
     if (/inventory_validation|no .+ left|have no |no longer available/i.test(text)) return "That item is no longer available.";
     if (/42501|jwt/i.test(text)) return "Sign in to continue.";
     if (/does not exist|undefined_function|gen_random_bytes|syntax error/i.test(text)) {

@@ -228,6 +228,9 @@
       });
       if (els.nameInput) els.nameInput.dataset.dirty = "";
       if (els.nameStatus) els.nameStatus.textContent = data?.message || "Display name saved. This name is used everywhere on Play.";
+      if (typeof window.playToast === "function") {
+        window.playToast({ kind: "success", title: "Profile updated", body: "Display name saved." });
+      }
       await load();
     } catch (error) {
       if (els.nameStatus) els.nameStatus.textContent = window.playHumanRpcError

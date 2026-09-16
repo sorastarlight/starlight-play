@@ -106,13 +106,13 @@
   const ECO_VIEWS = ["catalog", "rewards", "loot"];
   const SYS_VIEWS = ["twitch", "ads", "bits", "github", "pass", "system"];
   const CONTENT_VIEWS = ["evolution", "progression"];
-  const ANA_VIEWS = ["overview", "captures", "spawns", "progression", "evolution", "economy", "sessions", "sims"];
+  const ANA_VIEWS = ["overview", "lab", "captures", "spawns", "progression", "evolution", "economy", "sessions", "sims"];
   const VIEW_ALIASES = {
     encounters: { simulator: "sim", capture: "capture" },
     economy: { economy: "rewards", currency: "rewards" },
     system: { general: "twitch", maintenance: "system", settings: "twitch" },
     content: { pokemon: "evolution", items: "evolution" },
-    analytics: { capture: "captures", evo: "evolution", trading: "evolution", sim: "sims", simulator: "sims" }
+    analytics: { capture: "captures", evo: "evolution", trading: "evolution", sim: "sims", simulator: "sims", qa: "lab", presentation: "lab", health: "overview" },
   };
 
   function resolveHubSection(raw) {

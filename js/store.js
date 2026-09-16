@@ -99,13 +99,26 @@
   function showPurchasePop(purchase, bag) {
     document.querySelectorAll(".mart-purchase-pop").forEach((el) => el.remove());
     const first = purchase?.lines?.[0];
+    const added = (purchase?.lines || []).map((row) => `${row.name} ×${row.qty}`).join(", ");
+    const coins = bag?.coins != null ? `Bag now: ${Number(bag.coins).toLocaleString()} PokéCoins` : "";
+    if (typeof window.playPresentEnqueue === "function") {
+      window.playPresentEnqueue([{
+        id: `purchase:${purchase?.orderId || added}`,
+        type: "item",
+        kind: "loot",
+        title: purchase?.premierBonus ? "Bonus! Premier Ball ×1" : "Purchase complete!",
+        body: [added, coins].filter(Boolean).join(" · "),
+        item: first?.sku || "",
+        qty: Number(first?.qty || 0),
+        source: "store"
+      }], { source: "store", noSummary: true });
+      return;
+    }
     const pop = document.createElement("aside");
     pop.className = "mart-purchase-pop";
     pop.setAttribute("role", "status");
     const sprite = first?.sprite || "poke-ball.png";
     const src = typeof window.playItemSprite === "function" ? window.playItemSprite(sprite) : sprite;
-    const added = (purchase?.lines || []).map((row) => `${row.name} ×${row.qty}`).join(", ");
-    const coins = bag?.coins != null ? `Bag now: ${Number(bag.coins).toLocaleString()} PokéCoins` : "";
     pop.innerHTML = `<img src="${esc(src)}" alt="" width="40" height="40">
       <div>
         <strong>${purchase?.premierBonus ? "Bonus! Premier Ball ×1 added to your Bag." : "Purchase complete!"}</strong>
@@ -114,6 +127,21 @@
       </div>`;
     document.body.append(pop);
     window.setTimeout(() => pop.remove(), 4500);
+  }
+
+  function presentClaim(title, data, source) {
+    if (typeof window.playPresentEnqueue !== "function") return;
+    const grants = data?.grants || {};
+    const rewards = Object.entries(grants).map(([type, amount]) => ({ type, amount: Number(amount) || 0 }));
+    window.playPresentEnqueue([{
+      id: `${source}:${data?.streakDay || data?.message || title}`,
+      type: "item",
+      rare: true,
+      title,
+      body: data?.message || "Inventory updated.",
+      rewards,
+      source
+    }], { source, noSummary: true });
   }
 
   function newOrderId() {
@@ -954,9 +982,11 @@
       showPurchasePop(lastPurchase, data.bag);
       await refreshStore();
     } catch (error) {
-      checkoutNote = window.playHumanRpcError
-        ? window.playHumanRpcError(error, "Purchase could not be completed.")
-        : window.playRpcError(error);
+      checkoutNote = window.playPresentError
+        ? window.playPresentError(error, "Purchase could not be completed.")
+        : window.playHumanRpcError
+          ? window.playHumanRpcError(error, "Purchase could not be completed.")
+          : window.playRpcError(error);
       syncCheckoutUi();
       if (button && button.isConnected) button.disabled = false;
     }
@@ -996,8 +1026,12 @@
     if (buyAll) {
       const total = cart.reduce((n, row) => n + Number(findSku(row.sku)?.cost || 0) * row.qty, 0);
       const premium = cart.some((row) => findSku(row.sku)?.pack) || total >= 1000;
-      if (premium && !window.confirm(`Buy this checkout?\nCost: ${total} PokéCoins\nCurrent balance: ${Number(lastWallet?.coins || 0)}\nBalance after: ${Number(lastWallet?.coins || 0) - total}`)) {
-        return;
+      if (premium) {
+        const body = `Cost: ${total} PokéCoins\nCurrent balance: ${Number(lastWallet?.coins || 0)}\nBalance after: ${Number(lastWallet?.coins || 0) - total}`;
+        const ok = typeof window.playPresentConfirm === "function"
+          ? await window.playPresentConfirm({ title: "Confirm purchase", body, confirmLabel: "Buy" })
+          : window.confirm(`Buy this checkout?\n${body}`);
+        if (!ok) return;
       }
       await purchaseCart(buyAll);
       return;
@@ -1041,9 +1075,12 @@
           p_item: choiceBtn.getAttribute("data-choice-item")
         });
         if (note) note.textContent = data.message;
+        presentClaim("Reward chosen", data, "store");
         await refreshStore();
       } catch (error) {
-        if (note) note.textContent = window.playRpcError(error);
+        if (note) note.textContent = window.playPresentError
+          ? window.playPresentError(error)
+          : window.playRpcError(error);
       }
       return;
     }
@@ -1052,9 +1089,12 @@
       try {
         const data = await window.playCall("play_claim_daily_supply", {});
         if (note) note.textContent = data.message;
+        presentClaim("Daily Trainer Supply", data, "daily");
         await refreshStore();
       } catch (error) {
-        if (note) note.textContent = window.playRpcError(error);
+        if (note) note.textContent = window.playPresentError
+          ? window.playPresentError(error)
+          : window.playRpcError(error);
       }
       return;
     }
@@ -1063,9 +1103,12 @@
       try {
         const data = await window.playCall("play_claim_pass", { p_kind: "daily" });
         if (note) note.textContent = data.message;
+        presentClaim("Starlight Pass daily gift", data, "pass");
         await refreshStore();
       } catch (error) {
-        if (note) note.textContent = window.playRpcError(error);
+        if (note) note.textContent = window.playPresentError
+          ? window.playPresentError(error)
+          : window.playRpcError(error);
       }
       return;
     }
@@ -1074,9 +1117,12 @@
       try {
         const data = await window.playCall("play_claim_pass", { p_kind: "weekly" });
         if (note) note.textContent = data.message;
+        presentClaim("Starlight Pass weekly crate", data, "pass");
         await refreshStore();
       } catch (error) {
-        if (note) note.textContent = window.playRpcError(error);
+        if (note) note.textContent = window.playPresentError
+          ? window.playPresentError(error)
+          : window.playRpcError(error);
       }
     }
   });

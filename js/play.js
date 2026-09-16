@@ -872,7 +872,20 @@
     if (typeof window.playCommunityResultReady !== "function" || !window.playCommunityResultReady(round, me)) return;
     noticedRound = round.id;
     actionMetrics.resultShown += 1;
-    if (typeof window.playShowNotices === "function") setTimeout(() => window.playShowNotices(), 900);
+    if (typeof window.playShowNotices === "function") {
+      const caught = typeof window.playThrowOutcome === "function"
+        ? window.playThrowOutcome(me, round) === "caught"
+        : Boolean(me?.caught);
+      const opts = {
+        source: "capture",
+        species: round.dex,
+        variant: round.variant || "normal",
+        gender: round.gender || "",
+        caughtName: window.playDisplayName?.(round, { plain: true }) || "",
+        noSummary: !caught
+      };
+      setTimeout(() => window.playShowNotices(opts), 900);
+    }
   }
 
   function maybeRadarJoin(data) {

@@ -307,6 +307,20 @@ test("click freeze stays true until pendingAction is set", () => {
   assert(!/event\.preventDefault\(\);\s*pointerHeld = false;\s*clearTimeout\(holdReleaseTimer\);\s*pickFromGrid/.test(src), "throw grid still drops the freeze before act()");
 });
 
+test("Play inventories realtime is filtered to the signed-in Trainer", () => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "../js/play.js"), "utf8");
+  assert(src.includes("user_id=eq.${userId}"), "missing inventories user_id filter");
+  assert(!/table:\s*"inventories"\s*\},\s*\(\)\s*=>\s*\{\s*lastRealtimeEvent = "inventory"/.test(src), "unfiltered inventories listener still present");
+});
+
+test("Master Ball confirm freezes intent before RPC", () => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "../js/play.js"), "utf8");
+  assert(src.includes("function freezeMasterIntent"), "missing freezeMasterIntent");
+  assert(src.includes("masterIntent"), "missing masterIntent pending lock");
+  assert(/freezeMasterIntent\(liveRound\(state\)\?\.id/.test(src), "Master Ball click does not freeze intent");
+  assert(src.includes('act("throw", "masterball")'), "YES still throws");
+});
+
 const failed = results.filter((row) => !row.passed);
 console.log(results.map((row) => `${row.passed ? "ok" : "FAIL"} ${row.name}${row.detail ? ` — ${row.detail}` : ""}`).join("\n"));
 console.log(`${results.length - failed.length}/${results.length} passed`);

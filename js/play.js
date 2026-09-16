@@ -44,7 +44,24 @@
   let joiningPending = false;
   let reconnecting = false;
   let pendingAction = null;
+  let masterIntent = null;
   let actionSeq = 0;
+  const actionTrace = [];
+  const actionMetrics = {
+    join: { clicks: 0, rpcs: 0, rpcOk: 0, confirmed: 0, dup: 0, fail: 0, firstClickOk: 0 },
+    berry: { clicks: 0, rpcs: 0, rpcOk: 0, confirmed: 0, dup: 0, fail: 0, firstClickOk: 0 },
+    honey: { clicks: 0, rpcs: 0, rpcOk: 0, confirmed: 0, dup: 0, fail: 0, firstClickOk: 0 },
+    none: { clicks: 0, rpcs: 0, rpcOk: 0, confirmed: 0, dup: 0, fail: 0, firstClickOk: 0 },
+    throw: { clicks: 0, rpcs: 0, rpcOk: 0, confirmed: 0, dup: 0, fail: 0, firstClickOk: 0 },
+    resultShown: 0,
+    resultExpected: 0,
+    duplicateSpends: 0,
+    domReplaceDuringHold: 0,
+    inventoryEvents: 0,
+    inventoryIgnored: 0
+  };
+  window.__playActionTrace = actionTrace;
+  window.__playActionMetrics = actionMetrics;
   let refreshGen = 0;
   let holdReleaseTimer = 0;
   let lastSnapshotAt = 0;
@@ -74,15 +91,46 @@
     try { target.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (_) {}
   }
 
+  function metricBucket(kind, item) {
+    if (kind === "join") return "join";
+    if (kind === "prepare") {
+      if (item === "bait") return "honey";
+      if (item === "none") return "none";
+      return "berry";
+    }
+    if (kind === "throw") return "throw";
+    return "";
+  }
+
+  function actionLogBase(extra) {
+    const round = liveRound(state);
+    const me = state?.me || null;
+    return {
+      action_type: extra?.action_type || extra?.kind || extra?.item_key || extra?.item || "",
+      round_id: extra?.round_id !== undefined ? extra.round_id : (round?.id || null),
+      phase: extra?.phase !== undefined ? extra.phase : (round?.phase || ""),
+      trainer_id: window._playSession?.user?.id || null,
+      participant_id: me?.id || me?.participantId || (me?.joined ? (window._playSession?.user?.id || null) : null),
+      request_id: extra?.request_id || pendingAction?.id || masterIntent?.id || null,
+      pending: Boolean(pendingAction || masterIntent),
+      pointer_held: Boolean(pointerHeld),
+      ...(extra || {})
+    };
+  }
+
   function logPlayAction(stage, extra) {
+    const payload = actionLogBase(extra);
+    const row = { stage, at: Date.now(), ...payload };
+    actionTrace.push(row);
+    if (actionTrace.length > 500) actionTrace.splice(0, actionTrace.length - 500);
     if (!playDebugOn()) return;
     try {
-      console.info("[play-action]", stage, extra || {});
+      console.info("[play-action]", stage, payload);
     } catch (_) {}
   }
 
   function actionDomFrozen() {
-    return Boolean(pointerHeld || pendingAction);
+    return Boolean(pointerHeld || pendingAction || masterIntent);
   }
 
   function requestRefresh(reason) {
@@ -92,7 +140,27 @@
   }
 
   function busyNow() {
-    return Boolean(acting || pendingAction);
+    return Boolean(acting || pendingAction || masterIntent);
+  }
+
+  function freezeMasterIntent(roundId) {
+    const id = `m${++actionSeq}`;
+    masterIntent = { id, kind: "throw", item: "masterball", roundId: roundId || liveRound(state)?.id || null, at: Date.now() };
+    pointerHeld = true;
+    markLocalPending("throw", "masterball");
+    logPlayAction("MASTER INTENT FROZEN", {
+      action_type: "throw",
+      item: "masterball",
+      request_id: id,
+      round_id: masterIntent.roundId
+    });
+  }
+
+  function clearMasterIntent(reason) {
+    if (!masterIntent) return;
+    logPlayAction("MASTER INTENT CLEAR", { action_type: "throw", item: "masterball", reason: reason || "" });
+    masterIntent = null;
+    pointerHeld = false;
   }
 
   function ratingLabel(raw) {
@@ -610,13 +678,24 @@
     els.actions.classList.toggle("throw-picks", balls.length > 0);
     els.actions.classList.toggle("enc-actions", true);
     actionDomReplaces += 1;
-    logPlayAction("ACTION DOM REPLACEMENT", {
-      key,
-      phase: plan.phase || "",
-      round_id: liveRound(data)?.id || null,
-      replaces: actionDomReplaces,
-      timestamp: Date.now()
-    });
+    if (actionDomFrozen()) {
+      actionMetrics.domReplaceDuringHold += 1;
+      logPlayAction("ACTION DOM REPLACEMENT DURING HOLD", {
+        key,
+        phase: plan.phase || "",
+        round_id: liveRound(data)?.id || null,
+        replaces: actionDomReplaces,
+        timestamp: Date.now()
+      });
+    } else {
+      logPlayAction("ACTION DOM REPLACEMENT", {
+        key,
+        phase: plan.phase || "",
+        round_id: liveRound(data)?.id || null,
+        replaces: actionDomReplaces,
+        timestamp: Date.now()
+      });
+    }
     els.actions.innerHTML = `${tip}${html}`;
   }
 
@@ -728,6 +807,7 @@
     if (!round?.id || noticedRound === round.id) return;
     if (typeof window.playCommunityResultReady !== "function" || !window.playCommunityResultReady(round, me)) return;
     noticedRound = round.id;
+    actionMetrics.resultShown += 1;
     if (typeof window.playShowNotices === "function") setTimeout(() => window.playShowNotices(), 900);
   }
 
@@ -844,7 +924,13 @@
       lastSnapshotAt = Date.now();
       reconnecting = false;
       if (data?.channel !== undefined) loadStream(data.channel);
-      logPlayAction("REFRESH COMPLETE", { reason: lastRefreshReason, round_id: data?.round?.id || null, phase: data?.round?.phase || "" });
+      logPlayAction("REFRESH COMPLETE", {
+        reason: lastRefreshReason,
+        round_id: data?.round?.id || null,
+        phase: data?.round?.phase || "",
+        subsequent_sync: Boolean(pendingAction || lastRpcStatus === "ok"),
+        authoritative_choice: data?.me?.prep || data?.me?.ball || ""
+      });
       render(data);
     } catch (error) {
       const message = window.playHumanRpcError
@@ -859,21 +945,44 @@
   }
 
   async function act(kind, item) {
-    if (acting || pendingAction) return;
+    if (acting || pendingAction) {
+      const bucketName = metricBucket(kind, item);
+      if (bucketName && actionMetrics[bucketName]) {
+        actionMetrics[bucketName].dup += 1;
+        actionMetrics.duplicateSpends += 1;
+      }
+      logPlayAction("ACT BLOCKED DUPLICATE", { action_type: kind, item_key: item || kind });
+      return;
+    }
     if (liveRound(state)?.paused) {
       els.actionStatus.textContent = "This encounter is paused.";
       return;
     }
-    const requestId = `a${++actionSeq}`;
+    if (kind === "throw" && item === "masterball" && masterIntent) {
+      const liveId = liveRound(state)?.id || null;
+      if (masterIntent.roundId && liveId && masterIntent.roundId !== liveId) {
+        clearMasterIntent("round-changed");
+        lastActionKey = "";
+        renderActions({ ...state, round: liveRound(state) });
+        return;
+      }
+    }
+    const requestId = masterIntent?.id || `a${++actionSeq}`;
     const roundId = liveRound(state)?.id || null;
+    const bucketName = metricBucket(kind, item);
+    const bucket = bucketName ? actionMetrics[bucketName] : null;
+    const firstForClick = Boolean(bucket);
     acting = true;
     pointerHeld = false;
     clearTimeout(holdReleaseTimer);
     pendingAction = { id: requestId, kind, item, roundId, at: Date.now() };
+    if (masterIntent) masterIntent = null;
     if (kind === "join") joiningPending = true;
+    if (bucket) bucket.rpcs += 1;
     logPlayAction("ITEM CLICK", {
       round_id: roundId,
       item_key: item || kind,
+      action_type: kind,
       request_id: requestId,
       timestamp: pendingAction.at
     });
@@ -892,6 +1001,7 @@
     logPlayAction("RPC START", {
       round_id: roundId,
       item_key: item || kind,
+      action_type: kind,
       request_id: requestId,
       phase: liveRound(state)?.phase || ""
     });
@@ -903,10 +1013,28 @@
           : await window.playCall("play_throw", { p_item: item, p_round_id: roundId });
       lastRpcStatus = "ok";
       lastActionError = "";
+      const returnedChoice = kind === "prepare"
+        ? (data?.me?.prep || "")
+        : kind === "throw"
+          ? (data?.me?.ball || "")
+          : (data?.me?.joined ? "joined" : "");
+      if (bucket) {
+        bucket.rpcOk += 1;
+        if (kind === "join" ? data?.me?.joined !== false : (returnedChoice && (!item || returnedChoice === item || item === "standard"))) {
+          bucket.confirmed += 1;
+          if (firstForClick) bucket.firstClickOk += 1;
+        } else if (kind === "join") {
+          bucket.confirmed += 1;
+          if (firstForClick) bucket.firstClickOk += 1;
+        }
+        if (kind === "throw") actionMetrics.resultExpected += 1;
+      }
       logPlayAction("ITEM RPC SUCCESS", {
         round_id: roundId,
         item_key: item || kind,
+        action_type: kind,
         request_id: requestId,
+        authoritative_choice: returnedChoice,
         prep: data?.me?.prep || "",
         ball: data?.me?.ball || ""
       });
@@ -934,9 +1062,11 @@
       render(data);
     } catch (error) {
       lastRpcStatus = "error";
+      if (bucket) bucket.fail += 1;
       logPlayAction("ITEM RPC FAILURE", {
         round_id: roundId,
         item_key: item || kind,
+        action_type: kind,
         request_id: requestId,
         phase: liveRound(state)?.phase || "",
         serverPhase: liveRound(state)?.serverPhase || "",
@@ -977,7 +1107,7 @@
   }
 
   function pressAction(button) {
-    if (!button || button.disabled || acting || pendingAction) return;
+    if (!button || button.disabled || busyNow()) return;
     if (button.dataset.kind === "open-balls") {
       if (state?.me?.ball) return;
       openThrowBalls(state?.bag || {}, "throw");
@@ -991,6 +1121,7 @@
     if (button.dataset.kind === "throw" && button.dataset.item === "masterball" && window.playConfirmRare?.() !== false) {
       const modal = document.getElementById("master-modal");
       if (modal) {
+        freezeMasterIntent(liveRound(state)?.id || null);
         if (typeof modal.showModal === "function") modal.showModal();
         else modal.setAttribute("open", "");
         return;
@@ -1020,6 +1151,7 @@
       round_id: liveRound(state)?.id || null,
       phase: liveRound(state)?.phase || "",
       item: button.dataset.item || button.dataset.kind,
+      action_type: button.dataset.kind,
       timestamp: Date.now()
     });
     armActionHold();
@@ -1032,10 +1164,13 @@
       round_id: liveRound(state)?.id || null,
       phase: liveRound(state)?.phase || "",
       item: button.dataset.item || button.dataset.kind,
+      action_type: button.dataset.kind,
       timestamp: Date.now()
     });
     if (button.disabled || busyNow()) {
       event.preventDefault();
+      const blockedBucket = metricBucket(button.dataset.kind, button.dataset.item || "");
+      if (blockedBucket && actionMetrics[blockedBucket]) actionMetrics[blockedBucket].dup += 1;
       if (button.disabled && button.dataset.kind !== "join") {
         const why = button.getAttribute("title") || "";
         if (why && els.actionStatus) els.actionStatus.textContent = why;
@@ -1044,10 +1179,12 @@
     }
     event.preventDefault();
     clearTimeout(holdReleaseTimer);
+    const clickBucket = metricBucket(button.dataset.kind, button.dataset.item || "");
+    if (clickBucket && actionMetrics[clickBucket]) actionMetrics[clickBucket].clicks += 1;
     pressAction(button);
   });
   window.addEventListener("pointerup", () => {
-    logPlayAction("pointerup", { timestamp: Date.now(), round_id: liveRound(state)?.id || null });
+    logPlayAction("pointerup", { timestamp: Date.now(), round_id: liveRound(state)?.id || null, action_type: pendingAction?.kind || "" });
     releaseActionHold();
   });
   window.addEventListener("pointercancel", () => {
@@ -1064,12 +1201,13 @@
     if (kind === "throw" && item === "masterball" && window.playConfirmRare?.() !== false) {
       const modal = document.getElementById("master-modal");
       if (modal) {
+        freezeMasterIntent(liveRound(state)?.id || null);
         if (typeof modal.showModal === "function") modal.showModal();
         else modal.setAttribute("open", "");
         return;
       }
     }
-    if (acting || pendingAction) return;
+    if (acting || pendingAction || masterIntent) return;
     els.throwGrid.querySelectorAll("button[data-throw], button[data-prep]").forEach((btn) => { btn.disabled = true; });
     els.throwModal?.close?.();
     act(kind, item);
@@ -1086,10 +1224,18 @@
     if (!button) return;
     if (button.disabled || throwViewOnly || busyNow()) {
       event.preventDefault();
+      const gridKind = button.dataset.throw ? "throw" : "prepare";
+      const gridItem = button.dataset.throw || button.dataset.prep;
+      const blockedBucket = metricBucket(gridKind, gridItem);
+      if (blockedBucket && actionMetrics[blockedBucket]) actionMetrics[blockedBucket].dup += 1;
       return;
     }
     event.preventDefault();
     clearTimeout(holdReleaseTimer);
+    const gridKind = button.dataset.throw ? "throw" : "prepare";
+    const gridItem = button.dataset.throw || button.dataset.prep;
+    const clickBucket = metricBucket(gridKind, gridItem);
+    if (clickBucket && actionMetrics[clickBucket]) actionMetrics[clickBucket].clicks += 1;
     pickFromGrid(button);
   });
 
@@ -1100,6 +1246,7 @@
     if (!session) {
       profile = null;
       window.playSetAccountNav(null);
+      bindInventoryRealtime(null);
       await requestRefresh("session");
       return;
     }
@@ -1107,6 +1254,7 @@
       const allowed = await window.playGuardTwitchLogin();
       if (!allowed) return;
     }
+    bindInventoryRealtime(session.user.id);
     const { data } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, username").eq("id", session.user.id).maybeSingle();
     profile = data;
     window.playSetAccountNav(session, profile);
@@ -1169,9 +1317,16 @@
   }
 
   document.getElementById("master-use")?.addEventListener("click", () => {
-    const modal = document.getElementById("master-modal");
-    try { modal?.close?.(); } catch (_) {}
     act("throw", "masterball");
+    const modal = document.getElementById("master-modal");
+    try { modal?.close?.("confirm"); } catch (_) {}
+  });
+  document.getElementById("master-modal")?.addEventListener("close", () => {
+    if (acting || pendingAction) return;
+    if (!masterIntent) return;
+    clearMasterIntent("cancel");
+    lastActionKey = "";
+    renderActions({ ...state, round: liveRound(state) });
   });
   document.getElementById("live-feed")?.addEventListener("scroll", () => {
     const list = document.getElementById("live-feed");
@@ -1208,6 +1363,8 @@
       clientPhase: round?.phase || "",
       highestPhase: round?.highestPhase || prevServerRound?.highestPhase || "",
       pendingAction,
+      masterIntent,
+      metrics: actionMetrics,
       selectedPrep: me?.prep || "",
       selectedBall: me?.ball || "",
       lastRpc: lastRpcAction,
@@ -1226,6 +1383,32 @@
     };
   };
 
+  let invChannel = null;
+  function bindInventoryRealtime(userId) {
+    if (invChannel) {
+      try { supabase.removeChannel(invChannel); } catch (_) {}
+      invChannel = null;
+    }
+    if (!userId) return;
+    invChannel = supabase.channel(`play-inv-${userId}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "inventories", filter: `user_id=eq.${userId}` }, (payload) => {
+        actionMetrics.inventoryEvents += 1;
+        const changed = payload?.new?.user_id || payload?.old?.user_id || "";
+        if (changed && changed !== userId) {
+          actionMetrics.inventoryIgnored += 1;
+          return;
+        }
+        lastRealtimeEvent = "inventory";
+        if (actionDomFrozen()) {
+          refreshQueued = true;
+          refreshCoordinator?.markNeeded("inventory");
+          return;
+        }
+        scheduleRefresh("inventory");
+      })
+      .subscribe();
+  }
+
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadProfile(); });
   supabase.channel("play-live")
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, () => { lastRealtimeEvent = "round"; scheduleRefresh("round"); })
@@ -1237,14 +1420,6 @@
         return;
       }
       scheduleRefresh("console");
-    })
-    .on("postgres_changes", { event: "*", schema: "public", table: "inventories" }, () => {
-      if (actionDomFrozen()) {
-        refreshQueued = true;
-        refreshCoordinator?.markNeeded("inventory");
-        return;
-      }
-      scheduleRefresh("inventory");
     })
     .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, () => scheduleRefresh("stream"))
     .subscribe();

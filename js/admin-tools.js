@@ -103,7 +103,8 @@
     ["balls", "Poké Balls"],
     ["berries", "Berries"],
     ["community", "Honey & Radar"],
-    ["evolution", "Evolution items"]
+    ["evolution", "Evolution items"],
+    ["candy", "Evolution Candy"]
   ];
   const GRANT_EVO = [
     ["firestone", "Fire Stone"],
@@ -123,9 +124,38 @@
   let grantItemQty = 1;
   let grantOpenCats = new Set();
 
+  function candyKey(familyId) {
+    return `candy-${Number(familyId) || 0}`;
+  }
+
+  function candyFamilyId(key) {
+    const match = String(key || "").match(/^candy-(\d+)$/);
+    return match ? Number(match[1]) : 0;
+  }
+
+  function candyCatalog(list) {
+    return (list || accountState?.candy || []).map((row) => {
+      const familyId = Number(row.familyId || row.baseDex || 0);
+      const baseDex = Number(row.baseDex || familyId || 0);
+      const name = `${row.name || window.playSpeciesName(baseDex)} Candy`;
+      return {
+        key: candyKey(familyId || baseDex),
+        name,
+        cat: "candy",
+        familyId,
+        baseDex,
+        members: Array.isArray(row.members) ? row.members : [],
+        art: window.playSpriteUrl(baseDex, "normal"),
+        qty: Number(row.qty || 0)
+      };
+    });
+  }
+
   function grantItemName(key) {
     if (key === "bag_bonus") return "Bag space";
     if (key === "choice_stone") return "Evolution Stone (player chooses)";
+    const candy = candyCatalog().find((row) => row.key === key);
+    if (candy) return candy.name;
     const ball = window.playBallInfo?.(key);
     if (ball?.name) return ball.name;
     const berry = (window.PLAY_BERRIES || []).find((row) => row.key === key);
@@ -134,13 +164,13 @@
     return label && label !== key ? label : key;
   }
 
-  function grantItemCatalog(bag) {
+  function grantItemCatalog(bag, candy) {
     const rows = [];
     const seen = new Set();
-    const add = (key, cat) => {
+    const add = (key, cat, extra) => {
       if (!key || seen.has(key) || key === "capacity" || key === "used" || key === "lureArmed" || key === "lureUntil") return;
       seen.add(key);
-      rows.push({ key, name: grantItemName(key), cat });
+      rows.push({ key, name: extra?.name || grantItemName(key), cat, ...extra });
     };
     add("coins", "wallet");
     add("bag_bonus", "wallet");
@@ -149,39 +179,56 @@
     add("bait", "community");
     add("lure", "community");
     GRANT_EVO.forEach(([key]) => add(key, "evolution"));
+    candyCatalog(candy).forEach((row) => add(row.key, "candy", row));
     Object.keys(bag || {}).forEach((key) => add(key, "special"));
     return rows;
   }
 
   function parseItemQuery(text, catalog) {
-    const list = catalog || grantItemCatalog(accountState?.bag);
-    const raw = String(text || "").trim().toLowerCase();
+    const list = catalog || grantItemCatalog(accountState?.bag, accountState?.candy);
+    const raw = String(text || "").trim().toLowerCase().replace(/\s+candy\s*$/i, "").trim();
     if (!raw) return [];
     const exact = [];
     const prefix = [];
     const includes = [];
+    const species = window.playParseSpeciesQuery(raw)[0] || window.playParseSpeciesQuery(text)[0];
     list.forEach((row) => {
       const name = String(row.name || "").toLowerCase();
       const key = String(row.key || "").toLowerCase();
-      if (name === raw || key === raw) exact.push(row);
-      else if (name.startsWith(raw) || key.startsWith(raw)) prefix.push(row);
-      else if (name.includes(raw) || key.includes(raw)) includes.push(row);
+      const members = (row.members || []).map((bit) => String(bit || "").toLowerCase());
+      const hay = [name, key, ...members];
+      if (species && (Number(row.baseDex) === species.dex || members.includes(species.name.toLowerCase()))) {
+        exact.push(row);
+        return;
+      }
+      if (hay.some((bit) => bit === raw)) exact.push(row);
+      else if (hay.some((bit) => bit.startsWith(raw))) prefix.push(row);
+      else if (hay.some((bit) => bit.includes(raw))) includes.push(row);
     });
-    return exact.concat(prefix, includes);
+    const seen = new Set();
+    return exact.concat(prefix, includes).filter((row) => {
+      if (seen.has(row.key || row.dex)) return false;
+      seen.add(row.key || row.dex);
+      return true;
+    });
+  }
+
+  function grantRowArt(row) {
+    if (row?.art) return row.art;
+    if (row?.dex && !row?.key) return window.playSpriteUrl(row.dex, "normal");
+    if (candyFamilyId(row?.key) && row?.baseDex) return window.playSpriteUrl(row.baseDex, "normal");
+    return window.playItemSprite(row?.key);
   }
 
   function suggestRowsHtml(rows, dataKey) {
     return rows.slice(0, 12).map((row) => {
-      const value = row.dex || row.key;
-      const label = row.dex
+      const value = row.key || row.dex;
+      const label = row.dex && !row.key
         ? `${window.playPadDex(row.dex)} ${row.name}`
         : row.name;
       const qty = row.qty == null ? "" : ` · ${row.qty}`;
-      const img = row.dex
-        ? window.playSpriteUrl(row.dex, "normal")
-        : window.playItemSprite(row.key);
       return `<li><button type="button" data-${dataKey}="${window.playEscapeAttr(String(value))}">
-        <img src="${window.playEscapeAttr(img)}" alt="">
+        <img src="${window.playEscapeAttr(grantRowArt(row))}" alt="">
         <span>${window.playEscapeAttr(label)}${qty}</span>
       </button></li>`;
     }).join("");
@@ -252,14 +299,15 @@
     const copy = document.getElementById("grant-item-copy");
     if (!preview || !copy) return;
     const key = grantItemKey;
+    const row = grantItemCatalog(bag || accountState?.bag, accountState?.candy).find((item) => item.key === key);
     if (!key) {
       preview.removeAttribute("src");
       copy.textContent = "Pick an item to preview.";
       return;
     }
-    preview.src = window.playItemSprite(key);
+    preview.src = grantRowArt(row || { key });
     preview.alt = grantItemName(key);
-    const qty = Number((bag || accountState?.bag || {})[key] || 0);
+    const qty = row?.qty != null ? Number(row.qty) : Number((bag || accountState?.bag || {})[key] || 0);
     copy.textContent = `${grantItemName(key)} · they have ${qty}`;
   }
 
@@ -382,15 +430,18 @@
         roleBtns.push(`<button type="button" class="secondary" data-user="${user.id}" data-role="player">Player</button>`);
       }
     }
-    const catalog = grantItemCatalog(bag);
+    const catalog = grantItemCatalog(bag, data?.candy);
     const catMenus = GRANT_CATS.map(([id, label]) => {
-      const items = catalog.filter((row) => row.cat === id);
+      const items = catalog.filter((row) => row.cat === id).slice().sort((a, b) => {
+        if (id === "candy") return (Number(b.qty || 0) > 0) - (Number(a.qty || 0) > 0) || a.name.localeCompare(b.name);
+        return 0;
+      });
       if (!items.length) return "";
       const chips = items.map((row) => {
-        const qty = Number(bag[row.key] || 0);
+        const qty = row.qty != null ? Number(row.qty) : Number(bag[row.key] || 0);
         const on = grantItemKey === row.key ? " is-on" : "";
         return `<button type="button" class="gift-pick${on}" data-grant-item="${window.playEscapeAttr(row.key)}">
-          <img src="${window.playEscapeAttr(window.playItemSprite(row.key))}" alt="">
+          <img src="${window.playEscapeAttr(grantRowArt(row))}" alt="">
           <strong>${window.playEscapeAttr(row.name)}</strong>
           <span>×${qty}</span>
         </button>`;
@@ -503,9 +554,9 @@
         <button type="button" id="grant-mon" ${canEdit ? "" : "disabled"}>Add to PC</button>
       </div>
       <h4>Give items</h4>
-      <p class="muted">Type a name to pick Poké Balls, Berries, Honey, Radar, stones, Rare Candy, or PokéCoins — same style as the encounter species picker. Browse by kind in the menus below.</p>
+      <p class="muted">Type a name to pick Poké Balls, Berries, Honey, Radar, stones, Rare Candy, Evolution Candy, or PokéCoins — same style as the encounter species picker. Browse by kind in the menus below.</p>
       <label class="field" for="grant-item-pick">Item
-        <input id="grant-item-pick" type="text" placeholder="ex: Premier Ball, Razz Berry, Fire Stone" value="${window.playEscapeAttr(itemValue)}" autocomplete="off">
+        <input id="grant-item-pick" type="text" placeholder="ex: Premier Ball, Fire Stone, Eevee Candy" value="${window.playEscapeAttr(itemValue)}" autocomplete="off">
       </label>
       <ul id="grant-item-suggest" class="dex-suggest user-suggest" hidden></ul>
       <div class="form-preview">
@@ -519,7 +570,7 @@
         <button type="button" id="grant-item" ${canEdit ? "" : "disabled"}>Give item</button>
       </div>
       <div class="user-wallet-row">
-        <p class="muted">Wallet: ${Number(bag.coins || 0)} PokéCoins · bag space ${Number(bag.capacity || 0)} (${Number(bag.used || 0)} used)</p>
+        <p class="muted">Wallet: ${Number(bag.coins || 0)} PokéCoins · bag space ${Number(bag.capacity || 0)} (${Number(bag.used || 0)} used) · Candy ${(data?.candy || []).reduce((sum, row) => sum + Number(row.qty || 0), 0)}</p>
         <label class="field" for="set-coins-amount">Set exact PokéCoins
           <input id="set-coins-amount" type="number" min="0" step="1" placeholder="${Number(bag.coins || 0)}">
         </label>
@@ -790,7 +841,10 @@
     }
     if (target.id === "grant-item-pick") {
       const bag = accountState?.bag || {};
-      const matches = parseItemQuery(target.value).map((row) => ({ ...row, qty: Number(bag[row.key] || 0) }));
+      const matches = parseItemQuery(target.value).map((row) => ({
+        ...row,
+        qty: row.qty != null ? row.qty : Number(bag[row.key] || 0)
+      }));
       fillSuggest(document.getElementById("grant-item-suggest"), matches, "grant-item");
       grantItemKey = matches[0]?.key || "";
       renderGrantItemPreview(bag);
@@ -895,14 +949,21 @@
       }
       grantItemKey = key;
       grantItemQty = qty;
-      accountStatus("Updating bag…");
+      const familyId = candyFamilyId(key);
+      accountStatus(familyId ? "Updating Candy…" : "Updating bag…");
       try {
-        const data = await window.playCall("admin_grant_bag", {
-          p_user: selectedUserId,
-          p_grants: { [key]: qty }
-        });
+        const data = familyId
+          ? await window.playCall("admin_grant_candy", {
+              p_user: selectedUserId,
+              p_dex: grantItemCatalog(accountState?.bag, accountState?.candy).find((row) => row.key === key)?.baseDex || familyId,
+              p_amount: qty
+            })
+          : await window.playCall("admin_grant_bag", {
+              p_user: selectedUserId,
+              p_grants: { [key]: qty }
+            });
         renderAccount(data);
-        accountStatus(data?.message || "Bag updated.");
+        accountStatus(data?.message || (familyId ? "Candy updated." : "Bag updated."));
         await loadUsers();
       } catch (error) {
         accountStatus(window.playRpcError(error));

@@ -143,6 +143,25 @@ test("evolution dialogue uses the classic two-line beat", () => {
   assert(lines.congrats === "Congratulations!");
   assert(lines.done === "Your Eevee evolved into Jolteon!");
 });
+test("result pages stay in two-line RPG dialogue", () => {
+  const pages = view.resultPages({
+    fromName: "Eevee",
+    toName: "Jolteon",
+    toDex: 135,
+    trainerXp: 35,
+    masteryFrom: 2,
+    masteryTo: 2,
+    newDex: true,
+    newDexXp: 25,
+    coins: 100
+  });
+  assert(pages[0].line1 === "Congratulations!");
+  assert(pages[0].line2 === "Your Eevee evolved into Jolteon!");
+  assert(pages[1].line1 === "New Pokédex entry!");
+  assert(pages[1].line2.includes("#135 Jolteon"));
+  assert(pages.some((page) => page.line1 === "+35 Trainer XP!"));
+  assert(pages.some((page) => /PokéCoins/.test(`${page.line1} ${page.line2}`)));
+});
 test("Low Performance and reduced motion still have a result model", () => {
   const model = view.resultModel({ message: "Your Charmander evolved into Charmeleon!" }, ready);
   assert(model.toName === "Charmeleon");

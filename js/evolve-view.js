@@ -150,6 +150,30 @@
     };
   }
 
+  function resultPages(model) {
+    const fromName = String(model?.fromName || "Pokémon");
+    const toName = String(model?.toName || "Pokémon");
+    const lines = dialogueLines(model);
+    const pages = [{ line1: lines.congrats, line2: lines.done }];
+    if (model?.newDex) {
+      const num = String(model.toDex || 0).padStart(3, "0");
+      const xp = Number(model.newDexXp || 0);
+      pages.push({
+        line1: "New Pokédex entry!",
+        line2: `#${num} ${toName} registered!${xp ? ` +${xp} XP` : ""}`
+      });
+    }
+    const extras = [];
+    if (Number(model?.trainerXp)) extras.push(`+${model.trainerXp} Trainer XP!`);
+    if (Number(model?.masteryFrom)) extras.push(`${fromName} mastery +${model.masteryFrom}!`);
+    if (Number(model?.masteryTo)) extras.push(`${toName} mastery +${model.masteryTo}!`);
+    if (Number(model?.coins)) extras.push(`+${model.coins} PokéCoins!`);
+    for (let i = 0; i < extras.length; i += 2) {
+      pages.push({ line1: extras[i], line2: extras[i + 1] || "" });
+    }
+    return pages;
+  }
+
   function evolveLabel(row) {
     if (!canEvolve(row)) return "";
     if (row.tradeReady && Number(row.candyCost) === 0) return `Evolve ${row.name}`;
@@ -182,6 +206,7 @@
     resultModel,
     evolveLabel,
     itemLabel,
-    dialogueLines
+    dialogueLines,
+    resultPages
   };
 })();

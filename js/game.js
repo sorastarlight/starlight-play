@@ -537,12 +537,15 @@
     const stem = window.playSpriteStem(id, variant);
     const ext = (window.PLAY_SPRITE_EXT && window.PLAY_SPRITE_EXT[stem]) || "gif";
     const url = `images/pokemon/${stem}.${ext}`;
+    const stamp = window.PLAY_SPRITE_BUILD;
+    const stamped = stamp ? `${url}?v=${stamp}` : url;
     const kind = String(variant || "normal").toLowerCase();
     const catalog = window.PLAY_VARIANTS;
-    if (typeof console !== "undefined" && catalog && kind.includes("female") && !String(stem).includes("female")) {
+    const listed = catalog && catalog[id];
+    if (typeof console !== "undefined" && catalog && kind.includes("female") && !String(stem).includes("female") && Array.isArray(listed) && listed.includes("female")) {
       console.warn(`[play] ${id} variant ${kind} has no female visual; requesting ${url}`);
     }
-    return url;
+    return stamped;
   };
 
   window.playSpriteOnError = function playSpriteOnError(img) {
@@ -559,11 +562,12 @@
     const id = match[3];
     const ext = match[4].toLowerCase();
     let next = "";
-    if (ext === "gif") next = src.replace(/\.gif(?:\?.*)?$/i, ".png");
-    else if (shiny && female) next = `images/pokemon/shiny/${id}.gif`;
-    else if (female) next = `images/pokemon/${id}.gif`;
-    else if (shiny) next = `images/pokemon/${id}.gif`;
-    if (!next || next === src) {
+    const stamp = window.PLAY_SPRITE_BUILD ? `?v=${window.PLAY_SPRITE_BUILD}` : "";
+    if (ext === "gif") next = src.replace(/\.gif(?:\?.*)?$/i, `.png${stamp}`);
+    else if (shiny && female) next = `images/pokemon/shiny/${id}.gif${stamp}`;
+    else if (female) next = `images/pokemon/${id}.gif${stamp}`;
+    else if (shiny) next = `images/pokemon/${id}.gif${stamp}`;
+    if (!next || next.split("?")[0] === src.split("?")[0]) {
       img.dataset.playSpriteDone = "1";
       delete img.dataset.playSpriteLock;
       return;

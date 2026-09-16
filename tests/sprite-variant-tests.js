@@ -19,34 +19,43 @@ function test(name, fn) {
 function assert(cond, detail) {
   if (!cond) throw new Error(detail || "failed");
 }
+function fileOf(url) {
+  return String(url || "").split("?")[0];
+}
 function exists(rel) {
-  return fs.existsSync(path.join(root, rel.replace(/\//g, path.sep)));
+  return fs.existsSync(path.join(root, fileOf(rel).replace(/\//g, path.sep)));
 }
 
 test("Play variants catalog is loaded", () => {
-  assert(window.PLAY_VARIANTS[25].includes("shiny-female"), JSON.stringify(window.PLAY_VARIANTS[25]));
+  assert(Array.isArray(window.PLAY_VARIANTS[25]), JSON.stringify(window.PLAY_VARIANTS[25]));
+  assert(!window.PLAY_VARIANTS[25].includes("female"), JSON.stringify(window.PLAY_VARIANTS[25]));
   assert(!window.PLAY_VARIANTS[131].includes("female"), JSON.stringify(window.PLAY_VARIANTS[131]));
+  assert(window.PLAY_VARIANTS[3].includes("shiny-female"), JSON.stringify(window.PLAY_VARIANTS[3]));
 });
 
-test("Lapras has no female visual path", () => {
-  assert(window.playSpriteUrl(131, "normal") === "images/pokemon/131.gif");
-  assert(window.playSpriteUrl(131, "female") === "images/pokemon/131.gif");
-  assert(window.playSpriteUrl(131, "shiny") === "images/pokemon/shiny/131.gif");
-  assert(window.playSpriteUrl(131, "shiny-female") === "images/pokemon/shiny/131.gif");
-  assert(exists("images/pokemon/131.gif"));
-  assert(exists("images/pokemon/shiny/131.gif"));
-  assert(!exists("images/pokemon/female/131.gif"));
-});
-
-test("Pikachu gender-difference matrix", () => {
-  assert(window.playSpriteUrl(25, "normal") === "images/pokemon/25.gif");
-  assert(window.playSpriteUrl(25, "female") === "images/pokemon/female/25.gif");
-  assert(window.playSpriteUrl(25, "shiny") === "images/pokemon/shiny/25.gif");
-  assert(window.playSpriteUrl(25, "shiny-female") === "images/pokemon/shiny/female/25.gif");
+test("species without a female Front file default to the species sprite", () => {
+  assert(fileOf(window.playSpriteUrl(25, "normal")) === "images/pokemon/25.gif");
+  assert(fileOf(window.playSpriteUrl(25, "female")) === "images/pokemon/25.gif");
+  assert(fileOf(window.playSpriteUrl(25, "shiny")) === "images/pokemon/shiny/25.gif");
+  assert(fileOf(window.playSpriteUrl(25, "shiny-female")) === "images/pokemon/shiny/25.gif");
+  assert(fileOf(window.playSpriteUrl(133, "female")) === "images/pokemon/133.gif");
+  assert(fileOf(window.playSpriteUrl(131, "female")) === "images/pokemon/131.gif");
   assert(exists("images/pokemon/25.gif"));
-  assert(exists("images/pokemon/female/25.gif"));
   assert(exists("images/pokemon/shiny/25.gif"));
-  assert(exists("images/pokemon/shiny/female/25.gif"));
+  assert(!exists("images/pokemon/female/25.gif"));
+  assert(!exists("images/pokemon/female/133.gif"));
+  assert(!exists("images/pokemon/female/133.png"));
+});
+
+test("Venusaur keeps a distinct female Front from Legacy3D", () => {
+  assert(fileOf(window.playSpriteUrl(3, "normal")) === "images/pokemon/3.gif");
+  assert(fileOf(window.playSpriteUrl(3, "female")) === "images/pokemon/female/3.gif");
+  assert(fileOf(window.playSpriteUrl(3, "shiny")) === "images/pokemon/shiny/3.gif");
+  assert(fileOf(window.playSpriteUrl(3, "shiny-female")) === "images/pokemon/shiny/female/3.gif");
+  assert(exists("images/pokemon/3.gif"));
+  assert(exists("images/pokemon/female/3.gif"));
+  assert(exists("images/pokemon/shiny/3.gif"));
+  assert(exists("images/pokemon/shiny/female/3.gif"));
 });
 
 test("all catalog female visuals exist on the first requested path", () => {
@@ -55,15 +64,15 @@ test("all catalog female visuals exist on the first requested path", () => {
     (list || []).forEach((variant) => {
       if (variant !== "female" && variant !== "shiny-female") return;
       const url = window.playSpriteUrl(Number(dex), variant);
-      if (!exists(url)) missing.push(url);
+      if (!exists(url)) missing.push(fileOf(url));
     });
   });
   assert(!missing.length, missing.join(", "));
 });
 
-test("Eevee female uses png on the first request", () => {
-  assert(window.playSpriteUrl(133, "female") === "images/pokemon/female/133.png");
-  assert(window.playSpriteUrl(133, "shiny-female") === "images/pokemon/shiny/female/133.png");
+test("sprite URLs carry the 3D import cache stamp", () => {
+  assert(window.PLAY_SPRITE_BUILD === "20260916-sp1");
+  assert(window.playSpriteUrl(1, "normal").endsWith("?v=20260916-sp1"));
 });
 
 const failed = results.filter((row) => !row.passed);

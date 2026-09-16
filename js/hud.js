@@ -211,6 +211,9 @@
       : "";
     const locClass = locAttrs ? " has-location-bg" : "";
     const hidden = round.hidden ? `<span class="chip warn" data-enc-hidden>Hidden</span>` : "";
+    const testChip = String(round.triggerSource || "") === "TEST"
+      ? `<span class="chip warn" data-enc-test>TEST MODE</span>`
+      : "";
     const paused = round.paused
       ? `<span class="chip pause" data-enc-pause-chip>${round.pausedForBreak ? "Ad break" : "Paused"}</span>`
       : `<span class="chip pause" data-enc-pause-chip hidden>Paused</span>`;
@@ -245,9 +248,10 @@
           <span class="live-burst">LIVE</span>
           <strong data-enc-head-copy>${catching ? "Catch in progress" : "A wild Pokémon appeared!"}</strong>
           ${hidden}
+          ${testChip}
           ${paused}
         </div>`
-      : `<div class="dex-head" data-enc-head><span class="dex-ended" data-enc-head-copy>Encounter ended</span>${hidden}${paused}</div>`;
+      : `<div class="dex-head" data-enc-head><span class="dex-ended" data-enc-head-copy>Encounter ended</span>${hidden}${testChip}${paused}</div>`;
     const statText = (key) => window.playEncounterStatText(round, key);
     const thrownLabel = round.phase === "throw" ? "Ready" : (round.phase === "prepare" || round.phase === "join" ? "Prepared" : "Throws");
     const identity = `${window.playGenderChipHtml(round.gender)}${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}`;
@@ -857,6 +861,19 @@
       if (pauseChip) {
         pauseChip.hidden = !round.paused;
         if (round.paused) pauseChip.textContent = round.pausedForBreak ? "Ad break" : "Paused";
+      }
+      let testChipEl = head.querySelector("[data-enc-test]");
+      if (String(round.triggerSource || "") === "TEST") {
+        if (!testChipEl) {
+          testChipEl = document.createElement("span");
+          testChipEl.className = "chip warn";
+          testChipEl.dataset.encTest = "";
+          testChipEl.textContent = "TEST MODE";
+          const pause = head.querySelector("[data-enc-pause-chip]");
+          head.insertBefore(testChipEl, pause || null);
+        }
+      } else if (testChipEl) {
+        testChipEl.remove();
       }
     }
     if (visual) {

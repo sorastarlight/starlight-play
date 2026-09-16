@@ -321,6 +321,49 @@ test("Master Ball confirm freezes intent before RPC", () => {
   assert(src.includes('act("throw", "masterball")'), "YES still throws");
 });
 
+test("first-click tracker treats missing RPC me.prep as unconfirmed until sync", () => {
+  const tracker = window.playCreateFirstClickTracker();
+  const accepted = tracker.recordRpcAccepted({
+    bucket: "berry",
+    kind: "prepare",
+    item: "berry",
+    roundId: "r1",
+    requestId: "a1",
+    firstClick: true,
+    payloadConfirms: false
+  });
+  assert(accepted.rpcAccepted === true, "rpcAccepted");
+  assert(accepted.justConfirmed === false, "must not confirm from empty payload");
+  const later = tracker.recordSync({ joined: true, prep: "berry" }, "r1");
+  assert(later.length === 1, String(later.length));
+  assert(later[0].syncConfirms === true, "syncConfirms");
+  assert(later[0].firstClick === true, "firstClick");
+});
+
+test("first-click tracker confirms throw from later authoritative ball", () => {
+  const tracker = window.playCreateFirstClickTracker();
+  tracker.recordRpcAccepted({
+    bucket: "ultraball",
+    kind: "throw",
+    item: "ultraball",
+    roundId: "r2",
+    requestId: "a2",
+    firstClick: true,
+    payloadConfirms: false
+  });
+  const miss = tracker.recordSync({ joined: true }, "r2");
+  assert(miss.length === 0, "empty me.ball is not confirmation");
+  const hit = tracker.recordSync({ joined: true, ball: "ultraball" }, "r2");
+  assert(hit.length === 1 && hit[0].confirmed === true, "authoritative ball confirms");
+});
+
+test("RPC payload confirmation helper does not require undocumented fields", () => {
+  assert(window.playRpcPayloadConfirmsAction("prepare", "berry", null) === false, "null me");
+  assert(window.playRpcPayloadConfirmsAction("prepare", "berry", { joined: true }) === false, "missing prep");
+  assert(window.playRpcPayloadConfirmsAction("prepare", "berry", { joined: true, prep: "berry" }) === true, "prep present");
+  assert(window.playAuthoritativeConfirmsAction("throw", "standard", { ball: "pokeball" }) === true, "standard maps to pokeball");
+});
+
 const failed = results.filter((row) => !row.passed);
 console.log(results.map((row) => `${row.passed ? "ok" : "FAIL"} ${row.name}${row.detail ? ` — ${row.detail}` : ""}`).join("\n"));
 console.log(`${results.length - failed.length}/${results.length} passed`);

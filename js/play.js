@@ -47,12 +47,29 @@
   let masterIntent = null;
   let actionSeq = 0;
   const actionTrace = [];
+  function emptyActionMetric() {
+    return {
+      clicks: 0,
+      rpcs: 0,
+      rpcOk: 0,
+      rpcAccepted: 0,
+      confirmed: 0,
+      authoritativeConfirmed: 0,
+      dup: 0,
+      fail: 0,
+      firstClickOk: 0
+    };
+  }
   const actionMetrics = {
-    join: { clicks: 0, rpcs: 0, rpcOk: 0, confirmed: 0, dup: 0, fail: 0, firstClickOk: 0 },
-    berry: { clicks: 0, rpcs: 0, rpcOk: 0, confirmed: 0, dup: 0, fail: 0, firstClickOk: 0 },
-    honey: { clicks: 0, rpcs: 0, rpcOk: 0, confirmed: 0, dup: 0, fail: 0, firstClickOk: 0 },
-    none: { clicks: 0, rpcs: 0, rpcOk: 0, confirmed: 0, dup: 0, fail: 0, firstClickOk: 0 },
-    throw: { clicks: 0, rpcs: 0, rpcOk: 0, confirmed: 0, dup: 0, fail: 0, firstClickOk: 0 },
+    join: emptyActionMetric(),
+    berry: emptyActionMetric(),
+    honey: emptyActionMetric(),
+    none: emptyActionMetric(),
+    throw: emptyActionMetric(),
+    pokeball: emptyActionMetric(),
+    greatball: emptyActionMetric(),
+    ultraball: emptyActionMetric(),
+    masterball: emptyActionMetric(),
     resultShown: 0,
     resultExpected: 0,
     duplicateSpends: 0,
@@ -60,6 +77,9 @@
     inventoryEvents: 0,
     inventoryIgnored: 0
   };
+  const firstClickTracker = typeof window.playCreateFirstClickTracker === "function"
+    ? window.playCreateFirstClickTracker()
+    : null;
   window.__playActionTrace = actionTrace;
   window.__playActionMetrics = actionMetrics;
   let refreshGen = 0;
@@ -98,8 +118,52 @@
       if (item === "none") return "none";
       return "berry";
     }
-    if (kind === "throw") return "throw";
+    if (kind === "throw") {
+      if (item === "standard" || item === "pokeball" || item === "poke") return "pokeball";
+      if (item === "greatball") return "greatball";
+      if (item === "ultraball") return "ultraball";
+      if (item === "masterball") return "masterball";
+      return "throw";
+    }
     return "";
+  }
+
+  function metricBuckets(kind, item) {
+    const primary = metricBucket(kind, item);
+    if (!primary) return [];
+    if (kind === "throw" && primary !== "throw") return [primary, "throw"];
+    return [primary];
+  }
+
+  function bumpMetric(names, field, amount) {
+    const delta = amount == null ? 1 : amount;
+    (Array.isArray(names) ? names : [names]).forEach((name) => {
+      const bucket = name && actionMetrics[name];
+      if (!bucket || typeof bucket !== "object") return;
+      bucket[field] = Number(bucket[field] || 0) + delta;
+    });
+  }
+
+  function markFirstClickConfirmed(row) {
+    if (!row?.bucket) return;
+    bumpMetric(metricBuckets(row.kind, row.item), "confirmed");
+    bumpMetric(metricBuckets(row.kind, row.item), "authoritativeConfirmed");
+    if (row.firstClick) bumpMetric(metricBuckets(row.kind, row.item), "firstClickOk");
+  }
+
+  function confirmFirstClicksFromMe(me, roundId) {
+    if (!firstClickTracker) return;
+    const confirmed = firstClickTracker.recordSync(me, roundId) || [];
+    confirmed.forEach((row) => {
+      markFirstClickConfirmed(row);
+      logPlayAction("AUTHORITATIVE CONFIRMED", {
+        round_id: row.roundId,
+        item_key: row.item || row.kind,
+        action_type: row.kind,
+        request_id: row.requestId,
+        via: "sync"
+      });
+    });
   }
 
   function actionLogBase(extra) {
@@ -837,6 +901,7 @@
     }
     if (!incomingRound) lastRoundId = "";
     prevServerRound = incomingRound || null;
+    confirmFirstClicksFromMe(data?.me || null, incomingRound?.id || null);
     state = attachMe({ ...data, round: incomingRound });
     const trainer = state?.trainer || {};
     window._playTrainerName = trainer.displayName || trainer.display_name || trainer.name || profile?.display_name || "";
@@ -946,11 +1011,8 @@
 
   async function act(kind, item) {
     if (acting || pendingAction) {
-      const bucketName = metricBucket(kind, item);
-      if (bucketName && actionMetrics[bucketName]) {
-        actionMetrics[bucketName].dup += 1;
-        actionMetrics.duplicateSpends += 1;
-      }
+      bumpMetric(metricBuckets(kind, item), "dup");
+      actionMetrics.duplicateSpends += 1;
       logPlayAction("ACT BLOCKED DUPLICATE", { action_type: kind, item_key: item || kind });
       return;
     }
@@ -969,16 +1031,15 @@
     }
     const requestId = masterIntent?.id || `a${++actionSeq}`;
     const roundId = liveRound(state)?.id || null;
-    const bucketName = metricBucket(kind, item);
-    const bucket = bucketName ? actionMetrics[bucketName] : null;
-    const firstForClick = Boolean(bucket);
+    const bucketNames = metricBuckets(kind, item);
+    const firstForClick = bucketNames.length > 0;
     acting = true;
     pointerHeld = false;
     clearTimeout(holdReleaseTimer);
     pendingAction = { id: requestId, kind, item, roundId, at: Date.now() };
     if (masterIntent) masterIntent = null;
     if (kind === "join") joiningPending = true;
-    if (bucket) bucket.rpcs += 1;
+    bumpMetric(bucketNames, "rpcs");
     logPlayAction("ITEM CLICK", {
       round_id: roundId,
       item_key: item || kind,
@@ -1013,31 +1074,49 @@
           : await window.playCall("play_throw", { p_item: item, p_round_id: roundId });
       lastRpcStatus = "ok";
       lastActionError = "";
+      const payloadConfirms = kind === "join"
+        ? (data?.me?.joined !== false)
+        : (typeof window.playRpcPayloadConfirmsAction === "function"
+          ? window.playRpcPayloadConfirmsAction(kind, item, data?.me)
+          : Boolean(kind === "prepare" ? data?.me?.prep : data?.me?.ball));
       const returnedChoice = kind === "prepare"
         ? (data?.me?.prep || "")
         : kind === "throw"
           ? (data?.me?.ball || "")
           : (data?.me?.joined ? "joined" : "");
-      if (bucket) {
-        bucket.rpcOk += 1;
-        if (kind === "join" ? data?.me?.joined !== false : (returnedChoice && (!item || returnedChoice === item || item === "standard"))) {
-          bucket.confirmed += 1;
-          if (firstForClick) bucket.firstClickOk += 1;
-        } else if (kind === "join") {
-          bucket.confirmed += 1;
-          if (firstForClick) bucket.firstClickOk += 1;
-        }
-        if (kind === "throw") actionMetrics.resultExpected += 1;
-      }
+      bumpMetric(bucketNames, "rpcOk");
+      bumpMetric(bucketNames, "rpcAccepted");
+      if (kind === "throw") actionMetrics.resultExpected += 1;
+      const tracked = firstClickTracker?.recordRpcAccepted({
+        bucket: bucketNames[0] || "",
+        kind,
+        item,
+        roundId,
+        requestId,
+        firstClick: firstForClick,
+        payloadConfirms: kind === "join" ? true : payloadConfirms,
+        rpcOk: true
+      });
+      if (tracked?.justConfirmed) markFirstClickConfirmed(tracked);
       logPlayAction("ITEM RPC SUCCESS", {
         round_id: roundId,
         item_key: item || kind,
         action_type: kind,
         request_id: requestId,
-        authoritative_choice: returnedChoice,
+        rpc_accepted: true,
+        payload_confirms: Boolean(payloadConfirms),
+        authoritative_choice: returnedChoice || (tracked?.justConfirmed ? (item || kind) : ""),
         prep: data?.me?.prep || "",
         ball: data?.me?.ball || ""
       });
+      if (!payloadConfirms && kind !== "join") {
+        logPlayAction("RPC PAYLOAD CONFIRMATION UNAVAILABLE", {
+          round_id: roundId,
+          item_key: item || kind,
+          action_type: kind,
+          request_id: requestId
+        });
+      }
       if (pendingAction?.id !== requestId) return;
       reconnecting = false;
       if (kind === "join") joiningPending = false;
@@ -1062,7 +1141,7 @@
       render(data);
     } catch (error) {
       lastRpcStatus = "error";
-      if (bucket) bucket.fail += 1;
+      bumpMetric(bucketNames, "fail");
       logPlayAction("ITEM RPC FAILURE", {
         round_id: roundId,
         item_key: item || kind,
@@ -1169,8 +1248,7 @@
     });
     if (button.disabled || busyNow()) {
       event.preventDefault();
-      const blockedBucket = metricBucket(button.dataset.kind, button.dataset.item || "");
-      if (blockedBucket && actionMetrics[blockedBucket]) actionMetrics[blockedBucket].dup += 1;
+      bumpMetric(metricBuckets(button.dataset.kind, button.dataset.item || ""), "dup");
       if (button.disabled && button.dataset.kind !== "join") {
         const why = button.getAttribute("title") || "";
         if (why && els.actionStatus) els.actionStatus.textContent = why;
@@ -1179,8 +1257,7 @@
     }
     event.preventDefault();
     clearTimeout(holdReleaseTimer);
-    const clickBucket = metricBucket(button.dataset.kind, button.dataset.item || "");
-    if (clickBucket && actionMetrics[clickBucket]) actionMetrics[clickBucket].clicks += 1;
+    bumpMetric(metricBuckets(button.dataset.kind, button.dataset.item || ""), "clicks");
     pressAction(button);
   });
   window.addEventListener("pointerup", () => {
@@ -1226,16 +1303,14 @@
       event.preventDefault();
       const gridKind = button.dataset.throw ? "throw" : "prepare";
       const gridItem = button.dataset.throw || button.dataset.prep;
-      const blockedBucket = metricBucket(gridKind, gridItem);
-      if (blockedBucket && actionMetrics[blockedBucket]) actionMetrics[blockedBucket].dup += 1;
+      bumpMetric(metricBuckets(gridKind, gridItem), "dup");
       return;
     }
     event.preventDefault();
     clearTimeout(holdReleaseTimer);
     const gridKind = button.dataset.throw ? "throw" : "prepare";
     const gridItem = button.dataset.throw || button.dataset.prep;
-    const clickBucket = metricBucket(gridKind, gridItem);
-    if (clickBucket && actionMetrics[clickBucket]) actionMetrics[clickBucket].clicks += 1;
+    bumpMetric(metricBuckets(gridKind, gridItem), "clicks");
     pickFromGrid(button);
   });
 
@@ -1365,6 +1440,7 @@
       pendingAction,
       masterIntent,
       metrics: actionMetrics,
+      firstClickAwaiting: firstClickTracker?.awaiting?.() || [],
       selectedPrep: me?.prep || "",
       selectedBall: me?.ball || "",
       lastRpc: lastRpcAction,

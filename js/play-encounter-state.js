@@ -242,4 +242,71 @@
       snapshot
     };
   };
+
+  // Test instrumentation only. Does not change RPC contracts.
+  // A first-click PASS is: one physical click → one logical request → RPC accepted
+  // → authoritative state confirms the same selection (RPC payload OR later sync).
+  root.playExpectedActionChoice = function playExpectedActionChoice(kind, item) {
+    if (kind === "join") return "joined";
+    if (kind === "throw" && (item === "standard" || item === "poke")) return "pokeball";
+    return item || "";
+  };
+
+  root.playRpcPayloadConfirmsAction = function playRpcPayloadConfirmsAction(kind, item, me) {
+    if (!me) return false;
+    if (kind === "join") return me.joined !== false;
+    if (kind === "prepare") {
+      const prep = me.prep;
+      return prep != null && String(prep) !== "" && (!item || prep === item);
+    }
+    if (kind === "throw") {
+      const expected = root.playExpectedActionChoice(kind, item);
+      return me.ball != null && String(me.ball) !== "" && me.ball === expected;
+    }
+    return false;
+  };
+
+  root.playAuthoritativeConfirmsAction = function playAuthoritativeConfirmsAction(kind, item, me) {
+    return root.playRpcPayloadConfirmsAction(kind, item, me);
+  };
+
+  root.playCreateFirstClickTracker = function playCreateFirstClickTracker() {
+    const awaiting = [];
+    return {
+      awaiting() {
+        return awaiting.slice();
+      },
+      recordRpcAccepted(row) {
+        const next = {
+          bucket: row.bucket || "",
+          kind: row.kind,
+          item: row.item || "",
+          roundId: row.roundId || null,
+          requestId: row.requestId || "",
+          firstClick: Boolean(row.firstClick),
+          rpcAccepted: true,
+          payloadConfirms: Boolean(row.payloadConfirms),
+          syncConfirms: false,
+          confirmed: Boolean(row.payloadConfirms) || (row.kind === "join" && row.rpcOk !== false)
+        };
+        if (next.confirmed) return { ...next, justConfirmed: true };
+        awaiting.push(next);
+        return { ...next, justConfirmed: false };
+      },
+      recordSync(me, roundId) {
+        const confirmed = [];
+        for (let i = awaiting.length - 1; i >= 0; i -= 1) {
+          const row = awaiting[i];
+          if (roundId && row.roundId && row.roundId !== roundId) continue;
+          if (root.playAuthoritativeConfirmsAction(row.kind, row.item, me)) {
+            row.syncConfirms = true;
+            row.confirmed = true;
+            awaiting.splice(i, 1);
+            confirmed.push(row);
+          }
+        }
+        return confirmed;
+      }
+    };
+  };
 })();

@@ -178,7 +178,12 @@
     if (raw && typeof raw === "object") {
       return Object.entries(raw)
         .filter(([key, value]) => value && !["idempotency", "key", "label", "reason"].includes(key))
-        .map(([type, amount]) => ({ type, amount: Number(amount) || 0, label: "" }));
+        .map(([type, amount]) => {
+          if (type === "title") return { type, amount: 0, label: "Title" };
+          if (type === "badge") return { type, amount: 0, label: "Badge" };
+          if (type === "cosmetic") return { type, amount: 0, label: "Trainer ID cosmetic" };
+          return { type, amount: Number(amount) || 0, label: "" };
+        });
     }
     return [];
   }
@@ -222,7 +227,7 @@
     if (k === "dex") return "unlock";
     if (k === "level") return "level";
     if (k === "achievement") return "achievement";
-    if (k === "title" || k === "badge") return "unlock";
+    if (k === "title" || k === "badge" || k === "unlock" || k === "cosmetic" || k === "background" || k === "frame") return "unlock";
     if (k === "loot-rare") return "item";
     if (k === "loot" || k === "choice") return "item";
     if (k === "evolution") return "evolution";
@@ -267,7 +272,8 @@
       from: Number(payload.from || raw.from || 0) || 0,
       to: Number(payload.to || payload.level || raw.to || 0) || 0,
       unlockName: String(payload.name || raw.unlockName || ""),
-      unlockKind: String(raw.unlockKind || (raw.kind === "badge" ? "badge" : raw.kind === "title" ? "title" : "")),
+      unlockKind: String(raw.unlockKind || payload.kind || (raw.kind === "badge" ? "badge" : raw.kind === "title" ? "title" : raw.kind === "background" ? "background" : raw.kind === "frame" ? "frame" : "")),
+      cosmeticId: String(payload.cosmeticId || payload.titleId || payload.badgeId || payload.id || raw.cosmeticId || ""),
       news: asArray(raw.news),
       severity: String(raw.severity || (type === "error" ? "error" : type === "warning" ? "warning" : "info")),
       preview: Boolean(raw.preview || ctx.preview || isPreviewId(id)),
@@ -316,7 +322,9 @@
           ? `achievement:${event.payload?.id || event.subtitle || event.id}`
           : event.type === "level"
             ? `level:${event.to || event.subtitle}`
-            : `${event.type}:${event.id}`;
+            : event.type === "unlock"
+              ? `unlock:${event.cosmeticId || event.payload?.cosmeticId || event.payload?.titleId || event.payload?.badgeId || event.id}`
+              : `${event.type}:${event.id}`;
       if (seen.has(key)) return;
       seen.add(key);
       out.push(event);
@@ -491,6 +499,39 @@
     </div>`;
   }
 
+  function unlockKindLabel(kind) {
+    if (kind === "background") return "Trainer ID Background";
+    if (kind === "frame") return "Trainer ID Frame";
+    if (kind === "title") return "Trainer Title";
+    if (kind === "badge") return "Trainer Badge";
+    if (kind === "avatar") return "Trainer Avatar";
+    return "Trainer Reward";
+  }
+
+  function unlockActions(event) {
+    const kind = event.unlockKind || event.payload?.kind || "";
+    const id = event.cosmeticId || event.payload?.cosmeticId || event.payload?.titleId || event.payload?.badgeId || event.payload?.id || "";
+    const canEquip = event.type === "unlock" && Boolean(id) && ["background", "frame", "title", "badge"].includes(kind);
+    if (!canEquip) return continueHtml();
+    return `<div class="play-present-actions">
+      <button type="button" class="play-present-continue" data-present-equip data-equip-id="${esc(id)}" data-equip-kind="${esc(kind)}">Equip now</button>
+      <button type="button" class="secondary" data-present-continue>Later</button>
+    </div>`;
+  }
+
+  async function equipUnlock(event) {
+    if (event.preview || !root.playCall) return;
+    const kind = event.unlockKind || event.payload?.kind || "";
+    const id = event.cosmeticId || event.payload?.cosmeticId || event.payload?.titleId || event.payload?.badgeId || event.payload?.id || "";
+    if (!id) return;
+    try {
+      if (kind === "title") await root.playCall("play_set_title", { p_title: id });
+      else await root.playCall("play_equip_cosmetic", { p_id: id });
+    } catch (error) {
+      presentError(error, "Could not equip that reward.");
+    }
+  }
+
   function fxHtml() {
     if (isReduced() || perfMode() === "low") return "";
     const n = perfMode() === "high" ? 8 : 4;
@@ -549,11 +590,15 @@
         ev.preventDefault();
         done();
       });
+      stage.querySelector?.("[data-present-equip]")?.addEventListener?.("click", (ev) => {
+        ev.preventDefault();
+        Promise.resolve(equipUnlock(event)).finally(done);
+      });
       stage.querySelector?.("[data-present-skip]")?.addEventListener?.("click", (ev) => {
         ev.preventDefault();
         skip();
       });
-      const focusTarget = stage.querySelector?.("[data-present-continue], [data-present-skip], button");
+      const focusTarget = stage.querySelector?.("[data-present-equip], [data-present-continue], [data-present-skip], button");
       (focusTarget || stage).focus?.();
       announce(`${event.title}. ${event.subtitle || ""}`.trim());
       if (typeof opts?.animate === "function") {
@@ -677,15 +722,18 @@
             : event.title;
     const name = event.type === "achievement" ? (event.subtitle || event.unlockName) : (event.unlockName || event.subtitle);
     const news = asArray(event.news || event.payload?.news).map((line) => `<li>${esc(line)}</li>`).join("");
+    const kindLine = event.type === "unlock" ? unlockKindLabel(event.unlockKind || event.payload?.kind) : "";
+    const body = event.body || (event.type === "achievement" ? event.payload?.description : "") || kindLine;
     const html = `<article class="play-present-card" data-present-panel data-type="${esc(event.type)}">
       ${fxHtml()}
       <p class="play-present-kicker">${esc(kicker)}</p>
       ${event.species || event.item ? artBox(event) : ""}
       <h2>${esc(name || event.title)}</h2>
-      <p class="play-present-sub">${esc(event.body || (event.type === "achievement" ? event.payload?.description : "") || "")}</p>
+      <p class="play-present-sub">${esc(body)}</p>
+      ${event.type === "unlock" ? `<p class="play-present-kicker">UNLOCKED</p>` : ""}
       ${rewardHtml(event)}
       ${news ? `<ul class="play-present-news">${news}</ul>` : ""}
-      ${continueHtml()}
+      ${event.type === "unlock" ? unlockActions(event) : continueHtml()}
     </article>`;
     await runPanel(event, html);
   }
@@ -853,9 +901,55 @@
       id: "lab:unlock",
       type: "unlock",
       title: "NEW TRAINER REWARD!",
-      unlockName: "Cerulean Trainer Card",
+      unlockName: "Starlight Sky",
       body: "Trainer ID Background",
-      unlockKind: "background"
+      unlockKind: "background",
+      payload: { cosmeticId: "bg-starlight", kind: "background", name: "Starlight Sky", equip: true }
+    }),
+    title: () => ({
+      id: "lab:title",
+      type: "unlock",
+      title: "NEW TRAINER REWARD!",
+      unlockName: "Kanto Collector",
+      body: "Trainer Title",
+      unlockKind: "title",
+      payload: { titleId: "kanto-collector", kind: "title", name: "Kanto Collector", equip: true }
+    }),
+    badge: () => ({
+      id: "lab:badge",
+      type: "unlock",
+      title: "NEW TRAINER REWARD!",
+      unlockName: "Kanto Master",
+      body: "Trainer Badge",
+      unlockKind: "badge",
+      payload: { badgeId: "kanto-master", kind: "badge", name: "Kanto Master", equip: true }
+    }),
+    avatar: () => ({
+      id: "lab:avatar",
+      type: "unlock",
+      title: "NEW TRAINER REWARD!",
+      unlockName: "Red",
+      body: "Trainer Avatar",
+      unlockKind: "avatar",
+      payload: { kind: "avatar", name: "Red" }
+    }),
+    background: () => ({
+      id: "lab:background",
+      type: "unlock",
+      title: "NEW TRAINER REWARD!",
+      unlockName: "Starlight Sky",
+      body: "Trainer ID Background",
+      unlockKind: "background",
+      payload: { cosmeticId: "bg-starlight", kind: "background", name: "Starlight Sky", equip: true }
+    }),
+    frame: () => ({
+      id: "lab:frame",
+      type: "unlock",
+      title: "NEW TRAINER REWARD!",
+      unlockName: "Kanto Master Frame",
+      body: "Trainer ID Frame",
+      unlockKind: "frame",
+      payload: { cosmeticId: "frame-kanto", kind: "frame", name: "Kanto Master Frame", equip: true }
     }),
     item: (opts) => ({
       id: "lab:item",

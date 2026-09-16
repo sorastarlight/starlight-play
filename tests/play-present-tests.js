@@ -202,6 +202,32 @@ async function run() {
     assert(body.includes("PokéCoins") || body.includes("enough"), body);
   });
 
+  await test("unlock notices collapse and stay cards", () => {
+    const rows = window.playPresentCollapse([
+      window.playPresentNormalize({ id: "u1", kind: "unlock", payload: { cosmeticId: "bg-starlight", kind: "background", name: "Starlight Sky" } }),
+      window.playPresentNormalize({ id: "u2", kind: "unlock", payload: { cosmeticId: "bg-starlight", kind: "background", name: "Starlight Sky" } })
+    ]);
+    assert(rows.length === 1, String(rows.length));
+    assert(rows[0].type === "unlock");
+    assert(rows[0].tier === "card");
+  });
+
+  await test("title and frame lab previews exist", () => {
+    assert(window.playPresentPreviews.includes("title"), JSON.stringify(window.playPresentPreviews));
+    assert(window.playPresentPreviews.includes("frame"), JSON.stringify(window.playPresentPreviews));
+    assert(window.playPresentPreviews.includes("badge"));
+    assert(window.playPresentPreviews.includes("avatar"));
+    assert(window.playPresentPreviews.includes("background"));
+  });
+
+  await test("lab unlock preview does not persist seen ids", async () => {
+    window.playPresentReset(true);
+    window.playPresentSetEnv({ instant: true });
+    window.playPresentPreview("frame");
+    await window.playPresentFlush();
+    assert(window.playPresentHasSeen("lab:frame") === false);
+  });
+
   await test("lab previews never persist seen ids", async () => {
     window.playPresentReset(true);
     window.playPresentSetEnv({ instant: true });

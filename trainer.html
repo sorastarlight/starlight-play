@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260916-rc6">
+<link rel="stylesheet" href="css/play.css?v=20260916-rc7">
 <body data-page="trainer">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -59,8 +59,29 @@
   <p id="gate" class="notice">Loading Trainer ID…</p>
   <div id="profile" hidden>
     <p id="name-edit-note" class="muted" hidden><a class="button secondary" href="./settings.html#trainer-id">Change display name in Settings</a></p>
+    <section id="hero" class="id-hero"></section>
     <section class="card body" id="trainer-progress"></section>
-    <section id="hero"></section>
+    <section class="card body identity-customize" id="customize" hidden>
+      <h2>Customize Trainer ID</h2>
+      <p class="muted">Preview instantly. Nothing is saved until you press Save Trainer ID.</p>
+      <div class="id-customize-tabs" role="tablist">
+        <button type="button" class="secondary" data-custom-tab="avatar" aria-pressed="true">Trainer Avatar</button>
+        <button type="button" class="secondary" data-custom-tab="background">Background</button>
+        <button type="button" class="secondary" data-custom-tab="frame">Frame</button>
+        <button type="button" class="secondary" data-custom-tab="title">Title</button>
+        <button type="button" class="secondary" data-custom-tab="badge">Badge</button>
+        <button type="button" class="secondary" data-custom-tab="showcase">Showcase</button>
+      </div>
+      <p id="custom-hint" class="muted" role="status"></p>
+      <div id="custom-picks" class="id-custom-picks"></div>
+      <div class="links id-actions">
+        <button id="save-id" type="button">Save Trainer ID</button>
+        <button id="revert-id" class="secondary" type="button">Cancel / Revert</button>
+      </div>
+      <p id="edit-status" class="muted" role="status"></p>
+    </section>
+    <section class="card body" id="trainer-showcase"></section>
+    <section class="card body" id="trainer-stats"></section>
     <section class="card body" style="margin-top:18px">
       <h2>Adventure log</h2>
       <p class="muted">Recent catches on this Trainer ID. Private account details stay hidden.</p>
@@ -69,17 +90,18 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260916-rc6"></script>
-<script src="js/play-perf.js?v=20260916-rc6"></script>
-<script src="js/build.js?v=20260916-rc6"></script>
-<script src="js/build-client.js?v=20260916-rc6"></script>
-<script src="js/auth.js?v=20260916-rc6"></script>
-<script src="js/species.js?v=20260916-rc6"></script>
-<script src="js/variants.js?v=20260916-rc6"></script>
-<script src="js/game.js?v=20260916-rc6"></script>
-<script src="js/play-present.js?v=20260916-rc6"></script>
-<script src="js/play-encounter-state.js?v=20260916-rc6"></script>
-<script src="js/trainers.js?v=20260916-rc6"></script>
-<script src="js/nav.js?v=20260916-rc6"></script>
-<script src="js/trainer.js?v=20260916-rc6"></script>
+<script src="js/config.js?v=20260916-rc7"></script>
+<script src="js/play-perf.js?v=20260916-rc7"></script>
+<script src="js/build.js?v=20260916-rc7"></script>
+<script src="js/build-client.js?v=20260916-rc7"></script>
+<script src="js/auth.js?v=20260916-rc7"></script>
+<script src="js/species.js?v=20260916-rc7"></script>
+<script src="js/variants.js?v=20260916-rc7"></script>
+<script src="js/game.js?v=20260916-rc7"></script>
+<script src="js/play-present.js?v=20260916-rc7"></script>
+<script src="js/play-encounter-state.js?v=20260916-rc7"></script>
+<script src="js/trainers.js?v=20260916-rc7"></script>
+<script src="js/team.js?v=20260916-rc7"></script>
+<script src="js/nav.js?v=20260916-rc7"></script>
+<script src="js/trainer.js?v=20260916-rc7"></script>
 </body>

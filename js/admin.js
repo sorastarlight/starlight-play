@@ -1055,6 +1055,16 @@
         urls.push([String(row.local_asset_path).replace(/^\/+/, ""), `location ${row.location_key}`]);
       }
     });
+    (window.PLAY_TRAINERS || []).forEach((group) => {
+      (window.playTrainerLooks ? window.playTrainerLooks(group) : group.looks || []).forEach((look) => {
+        const url = window.playTrainerSpriteUrl ? window.playTrainerSpriteUrl(look.id) : `images/trainers/${look.id}.png`;
+        urls.push([url.split("?")[0], `trainer ${look.id}`]);
+      });
+    });
+    (window.PLAY_CARD_BGS || []).forEach((row) => {
+      const url = window.playCardBgUrl ? window.playCardBgUrl(row.id) : `images/cards/${row.id}.png`;
+      urls.push([url.split("?")[0], `card-bg ${row.id}`]);
+    });
     await Promise.all(urls.map(async ([url, label]) => {
       try {
         const res = await fetch(url, { method: "HEAD", cache: "no-store" });
@@ -1064,7 +1074,7 @@
       }
     }));
     const fails = (window.__playAssetFails || []).slice(-12).map((row) => `${row.kind} ${row.requestedUrl || row.location || ""} → ${row.fallbackUrl || row.fallback || ""} [${row.assetBuild || ""}]`).join("\n");
-    healthOut.innerHTML = `<h3>Encounter asset health</h3>
+    healthOut.innerHTML = `<h3>Encounter + identity asset health</h3>
       <p>Variant catalog loaded: ${Object.keys(variants).length ? "yes" : "NO"}</p>
       <p>Application build: ${window.PLAY_BUILD || "missing"}</p>
       <p>Sprite build: ${window.PLAY_SPRITE_BUILD || "missing"}</p>

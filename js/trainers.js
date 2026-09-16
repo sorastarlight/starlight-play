@@ -1,6 +1,6 @@
 (() => {
   window.PLAY_TRAINERS = [
-    { key: "gen1", label: "Gen 1 · Kanto", games: "Red / Blue / Yellow", looks: [
+    { key: "gen1", label: "Kanto Trainers", games: "Red / Blue / Yellow", looks: [
       { id: "red-gen1", name: "Red", gender: "Male", outfit: "Yellow" },
       { id: "red-gen1rb", name: "Red", gender: "Male", outfit: "Red / Blue" },
       { id: "red-gen1main", name: "Red", gender: "Male", outfit: "Overworld" },
@@ -12,7 +12,7 @@
       { id: "leaf-gen3", name: "Leaf", gender: "Female", outfit: "FRLG" },
       { id: "green", name: "Green", gender: "Female", outfit: "Classic" }
     ] },
-    { key: "gen2", label: "Gen 2 · Johto", games: "Gold / Silver / Crystal / HGSS", looks: [
+    { key: "gen2", label: "Johto Trainers", games: "Gold / Silver / Crystal / HGSS", looks: [
       { id: "ethan-gen2", name: "Ethan", gender: "Male", outfit: "Gold / Silver" },
       { id: "ethan-gen2c", name: "Ethan", gender: "Male", outfit: "Crystal" },
       { id: "ethan", name: "Ethan", gender: "Male", outfit: "HGSS" },
@@ -22,7 +22,7 @@
       { id: "lyra", name: "Lyra", gender: "Female", outfit: "HGSS" },
       { id: "lyra-pokeathlon", name: "Lyra", gender: "Female", outfit: "Pokéathlon" }
     ] },
-    { key: "gen3", label: "Gen 3 · Hoenn", games: "Ruby / Sapphire / Emerald", looks: [
+    { key: "gen3", label: "Hoenn Trainers", games: "Ruby / Sapphire / Emerald", looks: [
       { id: "brendan-gen3", name: "Brendan", gender: "Male", outfit: "Emerald" },
       { id: "brendan-gen3rs", name: "Brendan", gender: "Male", outfit: "RS overworld" },
       { id: "brendan-rs", name: "Brendan", gender: "Male", outfit: "Ruby / Sapphire" },
@@ -36,7 +36,7 @@
       { id: "may", name: "May", gender: "Female", outfit: "ORAS" },
       { id: "may-contest", name: "May", gender: "Female", outfit: "Contest" }
     ] },
-    { key: "gen4", label: "Gen 4 · Sinnoh", games: "Diamond / Pearl / Platinum", looks: [
+    { key: "gen4", label: "Sinnoh Trainers", games: "Diamond / Pearl / Platinum", looks: [
       { id: "lucas", name: "Lucas", gender: "Male", outfit: "DP" },
       { id: "lucas-gen4pt", name: "Lucas", gender: "Male", outfit: "Platinum" },
       { id: "lucas-contest", name: "Lucas", gender: "Male", outfit: "Super Contest" },
@@ -44,7 +44,7 @@
       { id: "dawn-gen4pt", name: "Dawn", gender: "Female", outfit: "Platinum" },
       { id: "dawn-contest", name: "Dawn", gender: "Female", outfit: "Super Contest" }
     ] },
-    { key: "gen5", label: "Gen 5 · Unova", games: "Black / White / B2W2", looks: [
+    { key: "gen5", label: "Unova Trainers", games: "Black / White / B2W2", looks: [
       { id: "hilbert", name: "Hilbert", gender: "Male", outfit: "Black / White" },
       { id: "hilbert-wonderlauncher", name: "Hilbert", gender: "Male", outfit: "Wonder Launcher" },
       { id: "hilda", name: "Hilda", gender: "Female", outfit: "Black / White" },
@@ -53,18 +53,18 @@
       { id: "rosa", name: "Rosa", gender: "Female", outfit: "Black 2 / White 2" },
       { id: "rosa-wonderlauncher", name: "Rosa", gender: "Female", outfit: "Wonder Launcher" }
     ] },
-    { key: "gen6", label: "Gen 6 · Kalos", games: "X / Y", looks: [
+    { key: "gen6", label: "Kalos Trainers", games: "X / Y", looks: [
       { id: "calem", name: "Calem", gender: "Male", outfit: "X / Y" },
       { id: "serena", name: "Serena", gender: "Female", outfit: "X / Y" },
       { id: "serena-anime", name: "Serena", gender: "Female", outfit: "Anime" }
     ] },
-    { key: "gen7", label: "Gen 7 · Alola", games: "Sun / Moon / Ultra", looks: [
+    { key: "gen7", label: "Alola Trainers", games: "Sun / Moon / Ultra", looks: [
       { id: "elio", name: "Elio", gender: "Male", outfit: "Sun / Moon" },
       { id: "elio-usum", name: "Elio", gender: "Male", outfit: "Ultra" },
       { id: "selene", name: "Selene", gender: "Female", outfit: "Sun / Moon" },
       { id: "selene-usum", name: "Selene", gender: "Female", outfit: "Ultra" }
     ] },
-    { key: "gen8", label: "Gen 8 · Galar", games: "Sword / Shield", looks: [
+    { key: "gen8", label: "Galar Trainers", games: "Sword / Shield", looks: [
       { id: "victor", name: "Victor", gender: "Male", outfit: "Sword / Shield" },
       { id: "victor-dojo", name: "Victor", gender: "Male", outfit: "Isle of Armor" },
       { id: "victor-tundra", name: "Victor", gender: "Male", outfit: "Crown Tundra" },
@@ -74,7 +74,7 @@
       { id: "gloria-tundra", name: "Gloria", gender: "Female", outfit: "Crown Tundra" },
       { id: "gloria-league", name: "Gloria", gender: "Female", outfit: "League" }
     ] },
-    { key: "gen9", label: "Gen 9 · Paldea", games: "Scarlet / Violet", looks: [
+    { key: "gen9", label: "Paldea Trainers", games: "Scarlet / Violet", looks: [
       { id: "florian-s", name: "Florian", gender: "Male", outfit: "School" },
       { id: "florian-bb", name: "Florian", gender: "Male", outfit: "Blueberry" },
       { id: "florian-festival", name: "Florian", gender: "Male", outfit: "Festival" },
@@ -82,35 +82,35 @@
       { id: "juliana-bb", name: "Juliana", gender: "Female", outfit: "Blueberry" },
       { id: "juliana-festival", name: "Juliana", gender: "Female", outfit: "Festival" }
     ] },
-    { key: "gen10", label: "Legends Z-A", games: "Lumiose City", looks: [
+    { key: "gen10", label: "Special Outfits", games: "Lumiose City", looks: [
       { id: "paxton", name: "Paxton", gender: "Male" },
       { id: "harmony", name: "Harmony", gender: "Female" }
     ] },
-    { key: "lgpe", label: "Let's Go", games: "Let's Go Pikachu / Eevee", looks: [
+    { key: "lgpe", label: "Kanto Trainers", games: "Let's Go Pikachu / Eevee", looks: [
       { id: "chase", name: "Chase", gender: "Male" },
       { id: "elaine", name: "Elaine", gender: "Female" },
       { id: "red-lgpe", name: "Red", gender: "Male", outfit: "Let's Go" }
     ] },
-    { key: "pla", label: "Legends: Arceus", games: "Hisui", looks: [
+    { key: "pla", label: "Special Outfits", games: "Hisui", looks: [
       { id: "rei", name: "Rei", gender: "Male" },
       { id: "akari", name: "Akari", gender: "Female" }
     ] },
-    { key: "ranger-fiore", label: "Ranger · Fiore", games: "Pokémon Ranger", looks: [
+    { key: "ranger-fiore", label: "Special Outfits", games: "Pokémon Ranger", looks: [
       { id: "pokemonranger-gen3", name: "Ranger", gender: "Male" },
       { id: "pokemonrangerf-gen3rs", name: "Ranger", gender: "Female" }
     ] },
-    { key: "ranger-almia", label: "Ranger · Almia", games: "Shadows of Almia", looks: [
+    { key: "ranger-almia", label: "Special Outfits", games: "Shadows of Almia", looks: [
       { id: "pokemonranger-gen4", name: "Ranger", gender: "Male" },
       { id: "pokemonrangerf-gen4", name: "Ranger", gender: "Female" }
     ] },
-    { key: "conquest", label: "Conquest", games: "Pokémon Conquest", looks: [
+    { key: "conquest", label: "Special Outfits", games: "Pokémon Conquest", looks: [
       { id: "hero-conquest", name: "Hero", gender: "Male" },
       { id: "heroine-conquest", name: "Heroine", gender: "Female" }
     ] },
-    { key: "go", label: "Pokémon GO", games: "Pokémon GO", looks: [
+    { key: "go", label: "Special Outfits", games: "Pokémon GO", looks: [
       { id: "player-go", name: "GO Trainer" }
     ] },
-    { key: "anime", label: "Anime", games: "Pokémon the Series", looks: [
+    { key: "anime", label: "Special Outfits", games: "Pokémon the Series", looks: [
       { id: "ash", name: "Ash", outfit: "Kanto" },
       { id: "ash-capbackward", name: "Ash", outfit: "Cap backward" },
       { id: "ash-johto", name: "Ash", outfit: "Johto" },
@@ -141,20 +141,20 @@
       { id: "nurse", name: "Nurse Joy" },
       { id: "officer-gen2", name: "Officer Jenny" }
     ] },
-    { key: "sonic", premium: true, label: "Sonic The Hedgehog Advance Trainer Sprite Pack", games: "Sonic Advance", looks: [
+    { key: "sonic", premium: true, label: "Premium / Special", games: "Sonic Advance", looks: [
       { id: "sonic-sonic", name: "Sonic" },
       { id: "sonic-tails", name: "Tails" },
       { id: "sonic-knuckles", name: "Knuckles" },
       { id: "sonic-amy", name: "Amy" },
       { id: "sonic-cream", name: "Cream" }
     ] },
-    { key: "sonic-classic", premium: true, label: "Sonic The Hedgehog Classic Trainer Sprite Pack", games: "Sonic Origins", looks: [
+    { key: "sonic-classic", premium: true, label: "Premium / Special", games: "Sonic Origins", looks: [
       { id: "sonic-origins-sonic", name: "Sonic" },
       { id: "sonic-origins-tails", name: "Tails" },
       { id: "sonic-origins-knuckles", name: "Knuckles" },
       { id: "sonic-origins-amy", name: "Amy" }
     ] },
-    { key: "digimon", premium: true, label: "Digimon Adventure Trainer Sprite Pack", games: "Digimon Adventure", looks: [
+    { key: "digimon", premium: true, label: "Premium / Special", games: "Digimon Adventure", looks: [
       { id: "taichi", name: "Taichi" },
       { id: "yamato", name: "Yamato" },
       { id: "sora", name: "Sora" },
@@ -330,39 +330,58 @@
     return `${months[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
   };
 
+  window.playXpProgressHtml = function playXpProgressHtml(card, options) {
+    const esc = window.playEscapeAttr || ((value) => String(value || ""));
+    const level = Number(card?.level || 1);
+    const into = Number(card?.xpInto || 0);
+    const need = Math.max(1, Number(card?.xpNeed || 1));
+    const remain = Math.max(0, Number(card?.xpToNext != null ? card.xpToNext : need - into));
+    const pct = Math.max(0, Math.min(100, Math.round((into / need) * 100)));
+    const compact = Boolean(options?.compact);
+    return `
+      <div class="xp-progress" role="img" aria-label="Trainer Level ${esc(level)}. ${into.toLocaleString()} of ${need.toLocaleString()} XP. ${remain.toLocaleString()} XP to Level ${level + 1}.">
+        <p class="xp-progress-kicker">${compact ? `Lv. ${esc(level)}` : `TRAINER LEVEL ${esc(level)}`}</p>
+        <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
+        <p class="muted">${into.toLocaleString()} / ${need.toLocaleString()} XP${compact ? "" : ` · ${remain.toLocaleString()} XP to Level ${level + 1}`}</p>
+      </div>`;
+  };
+
   window.playRenderIdCard = function playRenderIdCard(card) {
     const esc = window.playEscapeAttr || ((value) => String(value || ""));
     const team = Array.isArray(card?.team) ? card.team : [];
     const look = window.playTrainerLook(card?.trainerSprite);
     const bg = window.playCardBg(card?.cardBg);
+    const frame = String(card?.cardFrame || "plain").replace(/[^a-z0-9-]/gi, "") || "plain";
     const slots = Array.from({ length: 6 }, (_, i) => team[i] || null);
+    const title = String(card?.title || "").trim();
+    const badges = (card?.badges || []).slice(0, 3);
+    const twitch = Boolean(card?.twitchLinked);
     return `
-      <article class="id-card id-card-${bg.tone} id-card-${bg.group}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk};background-image:url('${window.playCardBgUrl(bg.id)}')">
+      <article class="id-card id-card-${bg.tone} id-card-${bg.group} id-card-frame-${esc(frame)}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk};background-image:url('${window.playCardBgUrl(bg.id)}')">
         <header class="id-card-head">
           <img class="id-ball" src="images/items/poke-ball.png" alt="" width="40" height="40">
-          <h2>TRAINER CARD</h2>
+          <h2>TRAINER ID</h2>
           <p class="id-no">IDNo. ${String(card.idNo || "00000").padStart(5, "0")}</p>
           <img class="id-ball" src="images/items/poke-ball.png" alt="" width="40" height="40">
         </header>
         <div class="id-card-body">
           <dl class="id-stats">
-            <div class="id-stat-wide"><dt>Name</dt><dd>${esc(card.displayName || "Trainer")}</dd></div>
+            <div class="id-stat-wide"><dt>Name</dt><dd>${esc(card.displayName || "Trainer")}${title ? `<span class="id-title-line">★ ${esc(title)}</span>` : ""}</dd></div>
             <div><dt>Lv.</dt><dd>${card.level || 1}</dd></div>
-            <div><dt>PokéCoins</dt><dd>${window.playCoinsHtml(card.coins || 0)}</dd></div>
-            <div><dt>Pokédex</dt><dd>${card.species || 0}/151</dd></div>
-            <div><dt>Time</dt><dd>${window.playCardTime(card.watchSeconds)}</dd></div>
+            <div><dt>Pokédex</dt><dd>${(card.kanto && card.kanto.caught != null) ? card.kanto.caught : (card.species || 0)}/151</dd></div>
             <div class="id-stat-wide"><dt>Started</dt><dd>${window.playCardDate(card.startedAt)}</dd></div>
           </dl>
           <div class="id-right">
-            <div class="id-sprite-well">
-              <img src="${window.playTrainerSpriteUrl(card.trainerSprite)}" alt="${esc(look.trainer.name)}">
+            <div class="id-sprite-well${twitch ? " has-twitch" : ""}">
+              <img src="${window.playTrainerSpriteUrl(card.trainerSprite)}" alt="${esc(look.trainer.name)}" width="220" height="220" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png'">
+              ${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}
             </div>
-            ${card.title ? `<p class="id-title">${esc(card.title)}</p>` : ""}
+            ${badges.length ? `<p class="id-badges">${badges.map((row) => `<span class="chip">${esc(row.name)}</span>`).join("")}</p>` : ""}
           </div>
         </div>
         <ul class="id-team">
           ${slots.map((mon) => mon
-            ? `<li><img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt=""><span>${window.playCaughtName(mon)}</span></li>`
+            ? `<li><img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="" width="48" height="48" loading="lazy"><span>${window.playCaughtName(mon)}</span></li>`
             : `<li class="empty"><span>Empty</span></li>`
           ).join("")}
         </ul>

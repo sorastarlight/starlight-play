@@ -904,6 +904,9 @@
         if (key === "xp") return `${value} XP`;
         if (key === "coins") return `${value} PokéCoins`;
         if (key === "candy" || key === "evolutioncandy") return `${value} Evolution Candy`;
+        if (key === "title") return "Title";
+        if (key === "badge") return "Badge";
+        if (key === "cosmetic") return "Trainer ID cosmetic";
         return `${value} ${window.playItemLabel(key)}`;
       })
       .join(" · ");

@@ -32,6 +32,9 @@
     nameStatus: document.getElementById("name-status")
   };
   let card = null;
+  let savedCard = null;
+  let cosmetics = [];
+  let draft = null;
   let catches = [];
   let bag = {};
   let encounter = window.playEncounterSettings();
@@ -43,6 +46,16 @@
       window.playRestoreGate(els.gate, "Sign in to edit your Trainer look and encounter settings.");
     }
   });
+
+  function currentCard() {
+    if (!card) return null;
+    return {
+      ...card,
+      trainerSprite: draft?.sprite || card.trainerSprite,
+      cardBg: draft?.bg || card.cardBg,
+      cardFrame: draft?.frame || card.cardFrame || "plain"
+    };
+  }
 
   function fillLook(nextCard) {
     const look = window.playTrainerLook(nextCard?.trainerSprite);
@@ -69,11 +82,17 @@
       <div class="card-bg-group">
         <h3>${group.title}</h3>
         <div class="card-bg-picks">
-          ${group.items.map((row) => `
-            <button type="button" class="card-bg-opt" data-bg="${row.id}" aria-pressed="${row.id === current ? "true" : "false"}">
-              <img src="${window.playCardBgUrl(row.id)}" alt="">
+          ${group.items.map((row) => {
+            const cosmetic = cosmetics.find((item) => item.kind === "background" && item.asset === row.id);
+            const locked = cosmetic ? !cosmetic.unlocked : false;
+            const state = locked ? "locked" : (row.id === current ? "equipped" : "owned");
+            return `
+            <button type="button" class="card-bg-opt is-${state}" data-bg="${row.id}" aria-pressed="${row.id === current ? "true" : "false"}" aria-label="${row.name} ${state}">
+              <img src="${window.playCardBgUrl(row.id)}" alt="" loading="lazy">
               <span>${row.name}</span>
-            </button>`).join("")}
+              <span class="id-state">${state}</span>
+            </button>`;
+          }).join("")}
         </div>
       </div>`).join("");
   }
@@ -177,6 +196,9 @@
     try {
       const data = await window.playCall("play_trainer", { p_login: login });
       card = data.trainer;
+      savedCard = { ...card };
+      cosmetics = data.cosmetics || [];
+      draft = { sprite: card?.trainerSprite, bg: card?.cardBg, frame: card?.cardFrame || "plain" };
       catches = data.catches || [];
     } catch (error) {
       els.gate.textContent = window.playRpcError(error, "Could not load your Trainer ID.");
@@ -187,10 +209,10 @@
     if (els.login) els.login.textContent = profile?.twitch_login ? `@${profile.twitch_login}` : "not linked";
     if (els.view) els.view.href = `./trainer.html?u=${encodeURIComponent(login)}`;
     if (els.nameInput && !els.nameInput.dataset.dirty) els.nameInput.value = card?.displayName || "";
-    fillLook(card);
-    fillTeam(card);
-    fillBgs(card);
-    fillPreview(card);
+    fillLook(currentCard());
+    fillTeam(currentCard());
+    fillBgs(currentCard());
+    fillPreview(currentCard());
     fillEncounter();
     fillPerf();
     els.gate.hidden = true;
@@ -242,33 +264,28 @@
     }
   });
 
-  els.bgs?.addEventListener("click", async (event) => {
+  els.bgs?.addEventListener("click", (event) => {
     const button = event.target.closest("[data-bg]");
     if (!button) return;
-    els.bgStatus.textContent = "Saving background…";
-    try {
-      const data = await window.playCall("play_set_card_bg", { p_bg: button.dataset.bg });
-      if (data?.trainer) card = data.trainer;
-      fillBgs(card);
-      fillPreview(card);
-      els.bgStatus.textContent = data.message || "Card background saved.";
-    } catch (error) {
-      els.bgStatus.textContent = window.playRpcError(error);
+    const cosmetic = cosmetics.find((row) => row.kind === "background" && row.asset === button.dataset.bg);
+    if (cosmetic && !cosmetic.unlocked) {
+      els.bgStatus.textContent = `${cosmetic.name} is locked. ${cosmetic.howTo || ""}`.trim();
+      return;
     }
+    draft = draft || {};
+    draft.bg = button.dataset.bg;
+    fillBgs(currentCard());
+    fillPreview(currentCard());
+    els.bgStatus.textContent = "Previewing. Press Save Trainer ID to keep this background.";
   });
 
   els.chooseLook?.addEventListener("click", () => {
-    window.playOpenTrainerPicker(card?.trainerSprite, async (id) => {
-      els.lookStatus.textContent = "Saving look…";
-      try {
-        const data = await window.playCall("play_set_trainer_sprite", { p_sprite: id });
-        if (data?.trainer) card = data.trainer;
-        fillLook(card);
-        fillPreview(card);
-        els.lookStatus.textContent = data.message || "Trainer look saved.";
-      } catch (error) {
-        els.lookStatus.textContent = window.playRpcError(error);
-      }
+    window.playOpenTrainerPicker(currentCard()?.trainerSprite, (id) => {
+      draft = draft || {};
+      draft.sprite = id;
+      fillLook(currentCard());
+      fillPreview(currentCard());
+      els.lookStatus.textContent = "Previewing. Press Save Trainer ID to keep this look.";
     }, { ownedPacks: window._playOwnedAvatarPacks || [] });
   });
 
@@ -305,6 +322,40 @@
       els.encounterStatus.textContent = data.message || "Encounter settings saved.";
     } catch (error) {
       els.encounterStatus.textContent = window.playRpcError(error);
+    }
+  });
+
+  document.getElementById("revert-id-look")?.addEventListener("click", () => {
+    if (!savedCard) return;
+    card = { ...savedCard };
+    draft = { sprite: card.trainerSprite, bg: card.cardBg, frame: card.cardFrame || "plain" };
+    fillLook(currentCard());
+    fillBgs(currentCard());
+    fillPreview(currentCard());
+    if (els.lookStatus) els.lookStatus.textContent = "Reverted to the saved Trainer ID.";
+    if (els.bgStatus) els.bgStatus.textContent = "";
+    if (els.status) els.status.textContent = "Reverted.";
+  });
+
+  document.getElementById("save-id-look")?.addEventListener("click", async () => {
+    if (!draft) return;
+    if (els.status) els.status.textContent = "Saving Trainer ID…";
+    try {
+      const data = await window.playCall("play_save_trainer_id", {
+        p_sprite: draft.sprite,
+        p_bg: draft.bg,
+        p_frame: draft.frame || card?.cardFrame || "plain"
+      });
+      card = data.trainer;
+      savedCard = { ...card };
+      cosmetics = data.cosmetics || cosmetics;
+      draft = { sprite: card.trainerSprite, bg: card.cardBg, frame: card.cardFrame || "plain" };
+      fillLook(currentCard());
+      fillBgs(currentCard());
+      fillPreview(currentCard());
+      if (els.status) els.status.textContent = data.message || "Trainer ID saved.";
+    } catch (error) {
+      if (els.status) els.status.textContent = window.playRpcError(error);
     }
   });
 

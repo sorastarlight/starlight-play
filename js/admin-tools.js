@@ -43,6 +43,7 @@
   let userTotal = 0;
   let selectedUserId = "";
   let accountState = null;
+  let identityState = null;
   let bitsSticky = "";
 
   function setSignedOut() {
@@ -407,6 +408,12 @@
     els.userDetail.innerHTML = `<p class="muted">Loading account…</p>`;
     try {
       const data = await window.playCall("admin_user_account", { p_user: userId });
+      try {
+        identityState = await window.playCall("admin_identity_inspect", { p_user: userId });
+        data.identity = identityState;
+      } catch (_) {
+        identityState = null;
+      }
       renderAccount(data);
     } catch (error) {
       els.userDetail.innerHTML = `<p class="muted">${window.playEscapeAttr(window.playRpcError(error))}</p>`;
@@ -582,10 +589,62 @@
         <button type="button" id="set-coins" class="secondary" ${canEdit ? "" : "disabled"}>Set PokéCoins</button>
       </div>
       ${catMenus}${extraMenu}
+      <div id="identity-desk" class="identity-desk"></div>
       <h4>PC</h4>
       <div class="user-mon-list">${monRows}</div>`;
     renderGrantMonPreview();
     renderGrantItemPreview(bag);
+    renderIdentity(data);
+  }
+
+  function renderIdentity(data) {
+    const host = document.getElementById("identity-desk");
+    if (!host) return;
+    const ident = data?.identity || identityState;
+    const trainer = ident?.trainer || {};
+    const canEdit = Boolean(data?.canEdit ?? accountState?.canEdit);
+    const cosmetics = ident?.cosmetics || [];
+    const titles = ident?.titles || [];
+    const badges = ident?.badges || [];
+    const catalog = ident?.catalog || cosmetics;
+    const owned = cosmetics.filter((row) => row.unlocked).map((row) => `${row.name} (${row.kind})`).join(", ") || "starter set";
+    host.innerHTML = `
+      <h4>Trainer identity</h4>
+      <p class="muted">Inspect only. Grant and revoke are logged, confirmed, and do not change XP or capture rates.</p>
+      <dl class="sim-grid">
+        <div><dt>Level</dt><dd>${trainer.level || 1}</dd></div>
+        <div><dt>XP</dt><dd>${Number(trainer.xp || 0).toLocaleString()}</dd></div>
+        <div><dt>Pokédex</dt><dd>${trainer.kanto?.caught || trainer.species || 0}/151</dd></div>
+        <div><dt>Title</dt><dd>${window.playEscapeAttr(trainer.title || "—")}</dd></div>
+        <div><dt>Frame</dt><dd>${window.playEscapeAttr(trainer.cardFrame || "plain")}</dd></div>
+        <div><dt>Background</dt><dd>${window.playEscapeAttr(trainer.cardBg || "—")}</dd></div>
+      </dl>
+      <p class="muted">Owned cosmetics: ${window.playEscapeAttr(owned)}</p>
+      <label class="field" for="identity-reason">Reason
+        <input id="identity-reason" type="text" maxlength="120" placeholder="event grant / correction">
+      </label>
+      <label class="field" for="identity-cosmetic">Cosmetic
+        <select id="identity-cosmetic">
+          ${(catalog.length ? catalog : cosmetics).map((row) => `<option value="${window.playEscapeAttr(row.id)}">${window.playEscapeAttr(row.name)} · ${window.playEscapeAttr(row.kind)}</option>`).join("")}
+        </select>
+      </label>
+      <div class="links">
+        <button type="button" id="identity-grant-cosmetic" ${canEdit ? "" : "disabled"}>Grant cosmetic</button>
+        <button type="button" class="danger secondary" id="identity-revoke-cosmetic" ${canEdit ? "" : "disabled"}>Revoke cosmetic</button>
+      </div>
+      <label class="field" for="identity-title">Title
+        <select id="identity-title">
+          ${titles.map((row) => `<option value="${window.playEscapeAttr(row.id)}">${window.playEscapeAttr(row.name)}${row.unlocked ? " · owned" : ""}</option>`).join("")}
+        </select>
+      </label>
+      <button type="button" id="identity-grant-title" ${canEdit ? "" : "disabled"}>Grant title</button>
+      <label class="field" for="identity-badge">Badge
+        <select id="identity-badge">
+          ${badges.map((row) => `<option value="${window.playEscapeAttr(row.id)}">${window.playEscapeAttr(row.name)}${row.unlocked ? " · owned" : ""}</option>`).join("")}
+        </select>
+      </label>
+      <button type="button" id="identity-grant-badge" ${canEdit ? "" : "disabled"}>Grant badge</button>
+      <p id="identity-status" class="muted" role="status"></p>`;
   }
 
   function accountStatus(text) {
@@ -1103,6 +1162,54 @@
         });
         renderAccount(data);
         accountStatus(data?.message || "Disconnected.");
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
+      }
+      return;
+    }
+    const identityGrant = event.target.closest("#identity-grant-cosmetic, #identity-revoke-cosmetic, #identity-grant-title, #identity-grant-badge");
+    if (identityGrant) {
+      const reason = document.getElementById("identity-reason")?.value || "";
+      const cosmetic = document.getElementById("identity-cosmetic")?.value || "";
+      const titleId = document.getElementById("identity-title")?.value || "";
+      const badgeId = document.getElementById("identity-badge")?.value || "";
+      const isRevoke = identityGrant.id === "identity-revoke-cosmetic";
+      const rpc = identityGrant.id === "identity-grant-cosmetic" ? "admin_grant_cosmetic"
+        : identityGrant.id === "identity-revoke-cosmetic" ? "admin_revoke_cosmetic"
+        : identityGrant.id === "identity-grant-title" ? "admin_grant_title"
+        : "admin_grant_badge";
+      const args = rpc.includes("cosmetic")
+        ? { p_id: cosmetic, p_reason: reason }
+        : rpc.includes("title")
+          ? { p_title: titleId, p_reason: reason }
+          : { p_badge: badgeId, p_reason: reason };
+      if (!args.p_id && !args.p_title && !args.p_badge) {
+        accountStatus("Pick an identity reward first.");
+        return;
+      }
+      const ok = typeof window.playPresentConfirm === "function"
+        ? await window.playPresentConfirm({
+          title: isRevoke ? "Revoke cosmetic?" : "Grant identity reward?",
+          body: isRevoke
+            ? `Revoke ${cosmetic} from this trainer? This is logged. Reason: ${reason || "(none)"}.`
+            : `Grant this identity reward to the selected trainer? This is logged. Reason: ${reason || "(none)"}.`,
+          confirmLabel: isRevoke ? "Revoke" : "Grant",
+          cancelLabel: "Cancel",
+          danger: isRevoke
+        })
+        : window.confirm(isRevoke ? "Revoke this cosmetic? This is logged." : "Grant this identity reward? This is logged.");
+      if (!ok) {
+        accountStatus("Identity change cancelled.");
+        return;
+      }
+      accountStatus(isRevoke ? "Revoking…" : "Granting…");
+      try {
+        identityState = await window.playCall(rpc, { p_user: selectedUserId, ...args });
+        if (accountState) accountState.identity = identityState;
+        renderIdentity(accountState);
+        const note = document.getElementById("identity-status");
+        if (note) note.textContent = identityState?.message || "Identity updated.";
+        accountStatus(identityState?.message || "Identity updated.");
       } catch (error) {
         accountStatus(window.playRpcError(error));
       }

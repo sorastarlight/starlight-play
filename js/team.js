@@ -54,23 +54,19 @@
     const owned = new Set(options?.ownedPacks || window._playOwnedAvatarPacks || []);
     const html = `<div class="trainer-pick-list">${window.PLAY_TRAINERS.map((row) => {
       const locked = Boolean(row.premium) && !owned.has(row.key);
-      if (locked) {
-        return `<section class="trainer-gen is-locked">
-          <h4>${row.label}</h4>
-          <p class="muted">${row.games} · Unlock in <a href="./store.html#premium-avatars">Premium Avatars</a></p>
-        </section>`;
-      }
-      return `<section class="trainer-gen">
+      return `<section class="trainer-gen${locked ? " is-locked" : ""}">
         <h4>${row.label}</h4>
-        <p class="muted">${row.games}</p>
+        <p class="muted">${row.games}${locked ? ` · Unlock in <a href="./store.html#premium-avatars">Premium Avatars</a>` : ""}</p>
         <div class="trainer-gen-row">
           ${window.playTrainerLooks(row).map((look) => {
             const pressed = look.id === current ? "true" : "false";
             const meta = [look.gender, look.outfit].filter(Boolean).join(" · ");
-            return `<button type="button" class="trainer-opt" data-id="${look.id}" aria-pressed="${pressed}">
-              <img src="${window.playTrainerSpriteUrl(look.id)}" alt="">
+            const state = locked ? "locked" : (look.id === current ? "equipped" : "owned");
+            return `<button type="button" class="trainer-opt is-${state}" data-id="${look.id}" data-locked="${locked ? "1" : "0"}" aria-pressed="${pressed}" aria-label="${look.name} ${state}">
+              <img src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="72" height="72" loading="lazy">
               <strong>${look.name}</strong>
               ${meta ? `<span>${meta}</span>` : ""}
+              <span class="id-state">${state}</span>
             </button>`;
           }).join("")}
         </div>
@@ -79,6 +75,11 @@
     const dialog = openPicker("Choose a trainer look", html, "play-modal-wide");
     dialog.querySelectorAll(".trainer-opt").forEach((button) => {
       button.addEventListener("click", () => {
+        if (button.dataset.locked === "1") {
+          const hint = dialog.querySelector(".trainer-gen.is-locked .muted");
+          if (hint) hint.scrollIntoView({ block: "nearest" });
+          return;
+        }
         dialog.close();
         onPick(button.dataset.id);
       });

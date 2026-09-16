@@ -34,6 +34,7 @@
     if (board === "pokedex") return ["Pokédex", "Caught"];
     if (board === "shinies") return ["Shinies", "Pokédex"];
     if (board === "catches") return ["Catches", "Pokédex"];
+    if (board === "evolutions") return ["Evolutions", "Lv"];
     if (board === "honey") return ["Honey", "Lv"];
     return ["Lv", "Pokédex"];
   }
@@ -42,12 +43,20 @@
     if (board === "pokedex") return `${row.species}/151`;
     if (board === "shinies") return row.shinies;
     if (board === "catches") return row.captures;
+    if (board === "evolutions") return row.evolved;
     if (board === "honey") return row.honey;
     return `Lv. ${row.level}`;
   }
 
   function rowFace(row) {
-    return window.playTwitchFaceHtml(row.avatar, row.displayName, "twitch-face-sm", Boolean(row.twitchLinked));
+    const sprite = window.playTrainerSpriteUrl
+      ? window.playTrainerSpriteUrl(row.trainerSprite || "red-gen1")
+      : "";
+    const twitch = Boolean(row.twitchLinked);
+    const img = sprite
+      ? `<img class="rank-sprite" src="${window.playEscapeAttr(sprite)}" alt="" width="40" height="40" loading="lazy">`
+      : window.playTwitchFaceHtml(row.avatar, row.displayName, "twitch-face-sm", twitch);
+    return `<span class="rank-id${twitch ? " has-twitch" : ""}">${img}${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}</span>`;
   }
 
   function renderPodium(rows) {
@@ -65,7 +74,7 @@
         <span class="rank-podium-place">#${row.place || index + 1}</span>
         ${rowFace(row)}
         <strong>${window.playEscapeAttr(row.displayName)}</strong>
-        <span class="muted">${window.playEscapeAttr(row.title || "Trainer")}</span>
+        <span class="muted">${row.title ? `★ ${window.playEscapeAttr(row.title)}` : "Trainer"} · Lv. ${row.level || 1}</span>
         <span>${window.playEscapeAttr(String(score(row)))}</span>
       </a>`).join("");
   }
@@ -97,13 +106,14 @@
         const left = board === "pokedex" ? `${row.species}/151`
           : board === "shinies" ? row.shinies
           : board === "catches" ? row.captures
+          : board === "evolutions" ? row.evolved
           : board === "honey" ? row.honey
           : row.level;
-        const right = board === "honey" ? row.level : (board === "catches" || board === "shinies" ? row.species : row.caught);
+        const right = board === "honey" || board === "evolutions" ? row.level : (board === "catches" || board === "shinies" ? row.species : row.caught);
         return `
         <tr>
           <td class="num">${row.place || index + 1}</td>
-          <td class="rank-trainer">${face}<div><a href="./trainer.html?u=${encodeURIComponent(row.login)}">${window.playEscapeAttr(row.displayName)}</a><div class="muted">@${window.playEscapeAttr(row.login)}</div></div></td>
+          <td class="rank-trainer">${face}<div><a href="./trainer.html?u=${encodeURIComponent(row.login)}">${window.playEscapeAttr(row.displayName)}</a><div class="muted">${row.title ? `★ ${window.playEscapeAttr(row.title)}` : "Trainer"} · Lv. ${row.level || 1}</div></div></td>
           <td class="num">${left}</td>
           <td class="num">${right}</td>
           <td>${window.playEscapeAttr(row.title || "—")}</td>

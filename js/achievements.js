@@ -59,8 +59,8 @@
     els.header.innerHTML = `
       <h2>${window.playEscapeAttr(trainer.displayName || "Trainer")} · Lv. ${trainer.level || 1}</h2>
       <p class="muted">${window.playEscapeAttr(trainer.title || "No title yet")} · ${kanto.caught || 0}/151 Kanto · ${trainer.caught || 0} caught</p>
-      <div class="xp-bar" aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, Math.round((trainer.xpInto / Math.max(1, trainer.xpNeed)) * 100)))}%"></i></div>
-      <p class="muted">${trainer.xpInto || 0} / ${trainer.xpNeed || 0} XP${next ? ` · Next reward: Level ${next.level} ${window.playEscapeAttr(next.label || "")}` : ""}</p>
+      ${window.playXpProgressHtml ? window.playXpProgressHtml(trainer, { compact: true }) : `<div class="xp-bar" aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, Math.round((trainer.xpInto / Math.max(1, trainer.xpNeed)) * 100)))}%"></i></div>
+      <p class="muted">${trainer.xpInto || 0} / ${trainer.xpNeed || 0} XP${next ? ` · Next reward: Level ${next.level} ${window.playEscapeAttr(next.label || "")}` : ""}</p>`}
       <dl class="sim-grid">
         <div><dt>Encounters</dt><dd>${stats.encounters || 0}</dd></div>
         <div><dt>Catches</dt><dd>${stats.captures || 0}</dd></div>
@@ -74,17 +74,19 @@
   function renderTitles() {
     const active = data?.trainer?.activeTitleId || "";
     els.titles.innerHTML = (data?.titles || []).map((row) => `
-      <button type="button" class="prog-pick ${row.unlocked ? "" : "is-locked"}" data-title="${window.playEscapeAttr(row.id)}" ${row.unlocked ? "" : "disabled"} aria-pressed="${row.id === active ? "true" : "false"}">
+      <button type="button" class="prog-pick ${row.unlocked ? "" : "is-locked"} ${row.isNew ? "is-new" : ""}" data-title="${window.playEscapeAttr(row.id)}" aria-pressed="${row.id === active ? "true" : "false"}" aria-label="${window.playEscapeAttr(row.name)} ${row.unlocked ? (row.id === active ? "equipped" : "owned") : "locked"}">
         <strong>${window.playEscapeAttr(row.name)}</strong>
-        <span>${row.unlocked ? window.playEscapeAttr(row.description) : "Locked"}</span>
+        <span class="id-state">${row.unlocked ? (row.id === active ? "equipped" : (row.isNew ? "new" : "owned")) : "locked"}</span>
+        <span>${window.playEscapeAttr(row.unlocked ? row.description : (row.howTo || row.description || "Locked"))}</span>
       </button>`).join("");
   }
 
   function renderBadges() {
     els.badges.innerHTML = (data?.badges || []).map((row) => `
-      <button type="button" class="prog-pick ${row.unlocked ? "" : "is-locked"}" data-badge="${window.playEscapeAttr(row.id)}" ${row.unlocked ? "" : "disabled"} aria-pressed="${row.featured ? "true" : "false"}">
+      <button type="button" class="prog-pick ${row.unlocked ? "" : "is-locked"} ${row.isNew ? "is-new" : ""}" data-badge="${window.playEscapeAttr(row.id)}" aria-pressed="${row.featured ? "true" : "false"}" aria-label="${window.playEscapeAttr(row.name)} ${row.unlocked ? (row.featured ? "equipped" : "owned") : "locked"}">
         <strong>${window.playEscapeAttr(row.name)}</strong>
-        <span>${row.unlocked ? window.playEscapeAttr(row.description) : "Locked"}</span>
+        <span class="id-state">${row.unlocked ? (row.featured ? "equipped" : (row.isNew ? "new" : "owned")) : "locked"}</span>
+        <span>${window.playEscapeAttr(row.unlocked ? row.description : (row.howTo || row.description || "Locked"))}</span>
       </button>`).join("");
   }
 
@@ -93,11 +95,14 @@
     const rows = (data?.achievements || []).filter((row) => cat === "all" || row.category === cat);
     els.ach.innerHTML = rows.map((row) => {
       const pct = Math.max(0, Math.min(100, Math.round((row.progress / Math.max(1, row.target)) * 100)));
+      const when = row.unlockedAt ? new Date(row.unlockedAt) : null;
+      const stamp = when && !Number.isNaN(when.getTime()) ? when.toLocaleDateString() : "";
       return `<article class="ach-card ${row.unlocked ? "is-done" : ""} ${row.hidden ? "is-hidden" : ""}">
         <strong>${window.playEscapeAttr(row.name)}</strong>
         <p>${window.playEscapeAttr(row.description)}</p>
         <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
-        <span>${row.hidden ? "???" : `${row.progress} / ${row.target}`}</span>
+        <span>${row.hidden ? "???" : `${row.progress} / ${row.target}`}${row.unlocked ? " · Complete" : " · Locked"}</span>
+        ${stamp ? `<span class="muted">${window.playEscapeAttr(stamp)}</span>` : ""}
         ${rewardBits(row.rewards) ? `<span class="muted">${rewardBits(row.rewards)}</span>` : ""}
       </article>`;
     }).join("") || `<p class="muted">No achievements in this category yet.</p>`;
@@ -134,6 +139,11 @@
   els.titles?.addEventListener("click", async (event) => {
     const button = event.target.closest("[data-title]");
     if (!button) return;
+    const row = (data?.titles || []).find((item) => item.id === button.dataset.title);
+    if (!row?.unlocked) {
+      els.titleStatus.textContent = `${row?.name || "This title"} is locked. ${row?.howTo || row?.description || ""}`.trim();
+      return;
+    }
     els.titleStatus.textContent = "Saving…";
     try {
       const next = button.dataset.title === data?.trainer?.activeTitleId ? "" : button.dataset.title;
@@ -150,7 +160,12 @@
     const button = event.target.closest("[data-badge]");
     if (!button) return;
     const id = button.dataset.badge;
-    const featured = (data?.badges || []).filter((row) => row.featured).map((row) => row.id);
+    const row = (data?.badges || []).find((item) => item.id === id);
+    if (!row?.unlocked) {
+      els.badgeStatus.textContent = `${row?.name || "This badge"} is locked. ${row?.howTo || row?.description || ""}`.trim();
+      return;
+    }
+    const featured = (data?.badges || []).filter((item) => item.featured).map((item) => item.id);
     const next = featured.includes(id) ? featured.filter((item) => item !== id) : featured.concat(id).slice(0, 5);
     els.badgeStatus.textContent = "Saving…";
     try {

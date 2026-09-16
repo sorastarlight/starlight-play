@@ -7328,11 +7328,89 @@ html[data-perf="low"] .topnav {
   background: #fff;
 }
 .perf-picks input { margin-top: 4px; width: 18px; height: 18px; }
-@media (max-width: 720px) {
-  .evo-strip { grid-template-columns: 1fr; }
-  .evo-mons { grid-template-columns: 1fr 1fr; }
-  .evo-line-graph.is-branch { flex-direction: column; }
-  .evo-gba { width: min(100%, calc(100vw - 20px)); }
-  .evo-dialogue { font-size: 10px; min-height: 80px; padding: 12px 12px 16px; }
+.xp-progress { margin: 8px 0 14px; }
+.xp-progress-kicker {
+  margin: 0 0 6px;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+.id-title-line {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.id-card-frame-bronze { border-color: #c08a4a; outline-color: #7a4a18; }
+.id-card-frame-silver { border-color: #d8dee8; outline-color: #6a7384; }
+.id-card-frame-gold { border-color: #f2d27a; outline-color: #b88820; box-shadow: 0 16px 36px rgba(26, 34, 56, .26), inset 0 0 0 3px #fff4c4; }
+.id-card-frame-kanto { border-color: #ef5350; outline-color: #2a6ad6; }
+.id-state {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.prog-pick.is-locked,
+.trainer-opt.is-locked,
+.card-bg-opt.is-locked {
+  opacity: 1;
+  border-style: dashed;
+  background: repeating-linear-gradient(135deg, #f4f6fb, #f4f6fb 8px, #eef1f8 8px, #eef1f8 16px);
+}
+.prog-pick.is-equipped,
+.trainer-opt.is-equipped,
+.card-bg-opt.is-equipped {
+  border-style: solid;
+  border-color: #4f7cff;
+  box-shadow: 0 0 0 2px #c9d6ff;
+}
+.prog-pick.is-new,
+.trainer-opt.is-new,
+.card-bg-opt.is-new {
+  border-style: solid;
+  outline: 2px dashed #e0b85c;
+  outline-offset: 2px;
+}
+.id-customize-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+.id-custom-picks { margin-top: 12px; }
+.id-showcase-edit {
+  display: grid;
+  gap: 12px;
+}
+.rank-id {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+}
+.rank-sprite {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  background: #eef4ff;
+  border-radius: 10px;
+}
+.rank-trainer {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+.identity-desk { margin: 18px 0; }
+@media (max-width: 900px) {
+  .id-customize-tabs { flex-direction: column; }
+  .id-customize-tabs button { width: 100%; }
+  .identity-customize { overflow-x: hidden; }
+  .rank-trainer { grid-template-columns: auto minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .id-card, .prog-pick, .trainer-opt { transition: none; }
 }
 

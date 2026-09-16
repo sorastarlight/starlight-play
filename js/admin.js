@@ -849,6 +849,89 @@
     clientBuild.textContent = `Client build: ${window.PLAY_BUILD}`;
   }
 
+  function renderBuildHealthCard(target, view) {
+    if (!target || !view) return;
+    target.classList.toggle("is-stale", Boolean(view.mismatch));
+    const status = view.status || "UNKNOWN";
+    target.innerHTML = `
+      <div><em>Application build</em><strong>${view.appBuild || "missing"}</strong></div>
+      <div><em>Sprite build</em><strong>${view.spriteBuild || "missing"}</strong></div>
+      <div><em>Location build</em><strong>${view.locationBuild || "—"}</strong></div>
+      <div><em>Database migration</em><strong>${view.dbMigration || "—"}</strong></div>
+      <div><em>Client build</em><strong>${view.clientBuild || "missing"}</strong></div>
+      <div data-build-status><em>Status</em><strong>${status}</strong></div>
+      ${view.gitCommit ? `<div><em>Git commit</em><strong>${view.gitCommit}</strong></div>` : ""}
+      ${view.mismatch ? `<div><em>This browser</em><strong>${view.appBuild}</strong></div>
+        <div><em>Deployed app</em><strong>${view.clientBuild}</strong></div>` : ""}`;
+    let btn = target.parentElement?.querySelector("[data-build-refresh]");
+    if (view.mismatch) {
+      if (!btn) {
+        btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "secondary";
+        btn.dataset.buildRefresh = "1";
+        btn.textContent = "Refresh";
+        target.after(btn);
+      }
+      btn.hidden = false;
+      btn.onclick = () => {
+        if (typeof window.playApplyClientUpdate === "function") {
+          const result = window.playApplyClientUpdate(view.clientBuild);
+          if (result?.reason === "reload-loop") {
+            btn.textContent = "Hard refresh needed";
+          }
+        } else {
+          location.reload();
+        }
+      };
+    } else if (btn) {
+      btn.hidden = true;
+    }
+  }
+
+  async function loadBuildHealth() {
+    let server = { clientBuild: window.__playServerBuild || "" };
+    try {
+      const data = await window.playCall("admin_build_health");
+      server = {
+        clientBuild: data?.clientBuild || server.clientBuild,
+        dbMigration: data?.dbMigration || ""
+      };
+      window.__playServerBuild = server.clientBuild;
+      window.__playDbMigration = server.dbMigration;
+    } catch (_) {
+      try {
+        const cap = await window.playCall("admin_capture_health");
+        server.clientBuild = cap?.clientBuild || server.clientBuild;
+        window.__playServerBuild = server.clientBuild;
+      } catch (error) {
+        server.error = window.playRpcError(error);
+      }
+    }
+    const view = typeof window.playBuildHealthView === "function"
+      ? window.playBuildHealthView(server)
+      : {
+        appBuild: window.PLAY_BUILD || "",
+        spriteBuild: window.PLAY_SPRITE_BUILD || "",
+        clientBuild: server.clientBuild || "",
+        dbMigration: server.dbMigration || "",
+        status: "UNKNOWN",
+        mismatch: false
+      };
+    ["build-health", "build-health-dash", "build-health-sim"].forEach((id) => {
+      renderBuildHealthCard(document.getElementById(id), view);
+    });
+    if (clientBuild) {
+      clientBuild.textContent = `Client build: ${view.appBuild || "missing"} · Server: ${view.clientBuild || "missing"} · ${view.status}`;
+    }
+    return view;
+  }
+
+  document.getElementById("refresh-build-health")?.addEventListener("click", () => {
+    loadBuildHealth();
+  });
+  loadBuildHealth();
+
   document.getElementById("run-capture-health")?.addEventListener("click", async () => {
     if (!healthOut) return;
     healthOut.innerHTML = `<p class="muted">Running capture health…</p>`;
@@ -897,11 +980,15 @@
         missing.push(`${label} ${url} → ${error.message || "fetch failed"}`);
       }
     }));
+    const fails = (window.__playAssetFails || []).slice(-12).map((row) => `${row.kind} ${row.requestedUrl || row.location || ""} → ${row.fallbackUrl || row.fallback || ""} [${row.assetBuild || ""}]`).join("\n");
     healthOut.innerHTML = `<h3>Encounter asset health</h3>
       <p>Variant catalog loaded: ${Object.keys(variants).length ? "yes" : "NO"}</p>
-      <p>Client build: ${window.PLAY_BUILD || "missing"}</p>
+      <p>Application build: ${window.PLAY_BUILD || "missing"}</p>
+      <p>Sprite build: ${window.PLAY_SPRITE_BUILD || "missing"}</p>
+      <p>Location build: ${window.PLAY_LOCATION_BUILD || "—"}</p>
       <p>Checked ${urls.length} URLs</p>
-      ${missing.length ? `<p>${missing.length} missing/broken</p><pre>${missing.slice(0, 80).join("\n")}</pre>` : "<p>All checked sprite and location URLs returned OK.</p>"}`;
+      ${missing.length ? `<p>${missing.length} missing/broken</p><pre>${missing.slice(0, 80).join("\n")}</pre>` : "<p>All checked sprite and location URLs returned OK.</p>"}
+      ${fails ? `<p>Recent asset fallbacks</p><pre>${fails}</pre>` : ""}`;
   });
 
   function reportTable(title, rows, labelKey) {

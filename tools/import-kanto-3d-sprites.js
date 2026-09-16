@@ -232,7 +232,9 @@ const report = {
 
 ensureDir(path.join(ROOT, "data"));
 if (!DRY) {
-  const variantsJs = `window.PLAY_SPRITE_BUILD = "20260916-sp1";\nwindow.PLAY_VARIANTS = ${JSON.stringify(variants)};\nwindow.PLAY_SPRITE_EXT = ${JSON.stringify(spriteExt)};\n`;
+  const buildInfo = require("../build.json");
+  const spriteBuild = buildInfo.spriteBuild || "20260916-sp1";
+  const variantsJs = `window.PLAY_SPRITE_BUILD = ${JSON.stringify(spriteBuild)};\nwindow.PLAY_VARIANTS = ${JSON.stringify(variants)};\nwindow.PLAY_SPRITE_EXT = ${JSON.stringify(spriteExt)};\n`;
   fs.writeFileSync(path.join(ROOT, "js", "variants.js"), variantsJs);
   fs.writeFileSync(path.join(ROOT, "data", "kanto-3d-forms.json"), JSON.stringify({ generatedAt: new Date().toISOString(), catalog, playableSummary: report.sourceForBase, femaleVisualDex: femaleDex }, null, 2));
 }

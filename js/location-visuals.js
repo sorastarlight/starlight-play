@@ -169,7 +169,8 @@
     const catalog = window.PLAY_LOCATION_VISUALS || {};
     const locations = catalog.locations || {};
     const seen = new Set();
-    let key = window.playLocationKey(locationName) || "kanto";
+    const requested = window.playLocationKey(locationName) || "kanto";
+    let key = requested;
     while (key && !seen.has(key)) {
       seen.add(key);
       const row = locations[key];
@@ -178,6 +179,18 @@
         const asset = /^https?:\/\//i.test(row.local_asset_path) ? row.local_asset_path : raw;
         const preset = window.PLAY_LOCATION_PRESENTATION_DEFAULTS || {};
         const tuned = (window.PLAY_LOCATION_PRESENTATION || {})[key] || {};
+        const usedFallback = key !== requested;
+        if (usedFallback && typeof window.playLogAssetEvent === "function") {
+          window.playLogAssetEvent({
+            kind: "location-fallback",
+            location: locationName,
+            locationKey: requested,
+            requestedUrl: asset,
+            fallbackUrl: asset,
+            assetBuild: window.PLAY_LOCATION_BUILD || "",
+            fallback: key
+          });
+        }
         return {
           key,
           displayName: row.display_name || locationName,
@@ -190,10 +203,18 @@
           overlay: Number(row.overlay_opacity ?? tuned.overlay ?? preset.overlay ?? 0.12),
           overlayTint: row.overlay_tint || tuned.overlay_tint || preset.overlayTint || "235, 245, 255",
           vignette: Number(row.vignette_strength ?? row.vignette ?? tuned.vignette ?? preset.vignette ?? 0.05),
-          fallback: false
+          fallback: usedFallback
         };
       }
       key = row?.fallback_key || (key === "kanto" ? "" : "kanto");
+    }
+    if (typeof window.playLogAssetEvent === "function") {
+      window.playLogAssetEvent({
+        kind: "location-missing",
+        location: locationName,
+        assetBuild: window.PLAY_LOCATION_BUILD || "",
+        fallback: "none"
+      });
     }
     return null;
   };
@@ -204,16 +225,22 @@
   window.playLocationAssetUrl = function playLocationAssetUrl(path) {
     const value = String(path || "").trim();
     if (!value) return "";
-    if (/^https?:\/\//i.test(value) || /^data:/i.test(value)) return value;
+    if (/^data:/i.test(value)) return value;
     const raw = value.replace(/^\/+/, "");
     const base = (typeof document !== "undefined" && document.baseURI)
       || (typeof location !== "undefined" && location.href)
       || "";
-    if (!base) return raw;
+    const stamp = window.PLAY_LOCATION_BUILD;
     try {
-      return new URL(raw, base).href;
+      const url = base ? new URL(/^https?:\/\//i.test(value) ? value : raw, base) : new URL(raw, "https://play.local/");
+      if (stamp && !url.searchParams.get("v")) url.searchParams.set("v", stamp);
+      if (!base && !/^https?:\/\//i.test(value)) {
+        const stamped = `${raw}${stamp ? `?v=${encodeURIComponent(stamp)}` : ""}`;
+        return stamped;
+      }
+      return url.href;
     } catch (_) {
-      return raw;
+      return stamp && !/[?&]v=/.test(raw) ? `${raw}?v=${encodeURIComponent(stamp)}` : raw;
     }
   };
 

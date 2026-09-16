@@ -955,14 +955,24 @@
       trainer: data?.trainer
     });
     const required = data?.settings?.clientBuild;
+    window.__playServerBuild = required || "";
     const update = document.getElementById("play-update");
-    if (update) {
+    if (typeof window.playRenderBuildNotice === "function") {
+      window.playRenderBuildNotice({
+        el: update,
+        required,
+        round,
+        busy: busyNow()
+      });
+    } else if (update) {
       update.hidden = !(required && window.PLAY_BUILD && String(required) !== String(window.PLAY_BUILD));
     }
     const build = document.getElementById("play-build");
-    if (build && window.PLAY_BUILD) {
+    if (build && window.PLAY_BUILD && playDebugOn()) {
       build.hidden = false;
       build.textContent = `Client build: ${window.PLAY_BUILD}`;
+    } else if (build) {
+      build.hidden = true;
     }
   }
 
@@ -1458,9 +1468,23 @@
       refreshQueued: Boolean(refreshQueued || coord.needed),
       resultState: round?.resolved ? "resolved" : (round?.cancelled ? "cancelled" : (round ? "live" : "idle")),
       clientBuild: window.PLAY_BUILD || "",
-      pointerHeld
+      serverBuild: window.__playServerBuild || "",
+      pointerHeld,
+      build: typeof window.__starlightBuildInfo === "function" ? window.__starlightBuildInfo() : null
     };
   };
+
+  if (typeof window.__starlightBuildInfo === "function") {
+    const prev = window.__starlightBuildInfo;
+    window.__starlightBuildInfo = function starlightBuildInfoPlay() {
+      const info = prev();
+      try {
+        info.debug = playDebugOn();
+      } catch (_) {}
+      info.serverBuild = window.__playServerBuild || info.serverBuild || "";
+      return info;
+    };
+  }
 
   let invChannel = null;
   function bindInventoryRealtime(userId) {

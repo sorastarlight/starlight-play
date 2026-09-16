@@ -570,9 +570,27 @@
     if (!next || next.split("?")[0] === src.split("?")[0]) {
       img.dataset.playSpriteDone = "1";
       delete img.dataset.playSpriteLock;
+      if (typeof window.playLogAssetEvent === "function") {
+        window.playLogAssetEvent({
+          kind: "sprite-missing",
+          requestedUrl: src,
+          assetBuild: window.PLAY_SPRITE_BUILD || "",
+          species: id,
+          variant: [shiny ? "shiny" : "", female ? "female" : ""].filter(Boolean).join("-") || "normal"
+        });
+      }
       return;
     }
-    if (typeof console !== "undefined") {
+    if (typeof window.playLogAssetEvent === "function") {
+      window.playLogAssetEvent({
+        kind: "sprite-fallback",
+        requestedUrl: src,
+        fallbackUrl: next,
+        assetBuild: window.PLAY_SPRITE_BUILD || "",
+        species: id,
+        variant: [shiny ? "shiny" : "", female ? "female" : ""].filter(Boolean).join("-") || "normal"
+      });
+    } else if (typeof console !== "undefined") {
       console.warn(`[play] sprite fallback ${src} → ${next}`);
     }
     img.src = next;

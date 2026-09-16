@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260916-grant2">
+<link rel="stylesheet" href="css/play.css?v=20260916-rc3">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -76,6 +76,10 @@
     <div id="hub-panel-live" data-hub-panel="dashboard">
       <div id="live-app">
         <p id="live-errors" class="notice hub-health" hidden></p>
+        <section class="hub-card is-compact" id="dash-build-health" aria-label="Build health">
+          <p class="eyebrow">Build health</p>
+          <div id="build-health-dash" class="build-health"></div>
+        </section>
         <div id="live-bar" class="hub-status-strip" aria-label="Live stream status"></div>
         <p id="live-status" class="muted" role="status"></p>
         <section class="hub-card dash-setup" id="dash-offline">
@@ -348,6 +352,7 @@
           <button id="run-asset-health" class="secondary" type="button">Run Encounter Asset Health Check</button>
         </div>
         <p id="client-build" class="muted"></p>
+        <div id="build-health-sim" class="build-health"></div>
         <div id="sim-out" class="sim-out"></div>
         <div id="health-out" class="sim-out"></div>
       </section>
@@ -650,6 +655,13 @@
       <section class="card body" data-ana-panel="overview">
         <h2>Game health</h2>
         <p class="muted">Historical reporting from existing Admin overviews. Live stream controls stay on Dashboard.</p>
+        <section class="hub-card" aria-label="Build health">
+          <h3>Build health</h3>
+          <div id="build-health" class="build-health"></div>
+          <div class="links">
+            <button id="refresh-build-health" class="secondary" type="button">Refresh</button>
+          </div>
+        </section>
         <p id="ana-overview-meta" class="hub-meta"></p>
         <div id="ana-overview" class="report-out"></div>
       </section>
@@ -856,19 +868,20 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260915-auth1"></script>
-<script src="js/play-perf.js?v=20260915-p2"></script>
-<script src="js/build.js?v=20260915-auth1"></script>
-<script src="js/auth.js?v=20260915-auth1"></script>
-<script src="js/species.js?v=20260915-auth1"></script>
-<script src="js/variants.js?v=20260916-sp1"></script>
-<script src="js/game.js?v=20260916-sp1"></script>
-<script src="js/play-encounter-state.js?v=20260916-enc9"></script>
-<script src="js/location-visuals-data.js?v=20260915-auth1"></script>
-<script src="js/location-visuals.js?v=20260915-auth1"></script>
-<script src="js/hud.js?v=20260916-p1b"></script>
-<script src="js/nav.js?v=20260915-p2"></script>
-<script src="js/admin-tools.js?v=20260916-grant2"></script>
-<script src="js/admin-live.js?v=20260915-auth1"></script>
-<script src="js/admin.js?v=20260915-p2"></script>
+<script src="js/config.js?v=20260916-rc3"></script>
+<script src="js/play-perf.js?v=20260916-rc3"></script>
+<script src="js/build.js?v=20260916-rc3"></script>
+<script src="js/build-client.js?v=20260916-rc3"></script>
+<script src="js/auth.js?v=20260916-rc3"></script>
+<script src="js/species.js?v=20260916-rc3"></script>
+<script src="js/variants.js?v=20260916-rc3"></script>
+<script src="js/game.js?v=20260916-rc3"></script>
+<script src="js/play-encounter-state.js?v=20260916-rc3"></script>
+<script src="js/location-visuals-data.js?v=20260916-rc3"></script>
+<script src="js/location-visuals.js?v=20260916-rc3"></script>
+<script src="js/hud.js?v=20260916-rc3"></script>
+<script src="js/nav.js?v=20260916-rc3"></script>
+<script src="js/admin-tools.js?v=20260916-rc3"></script>
+<script src="js/admin-live.js?v=20260916-rc3"></script>
+<script src="js/admin.js?v=20260916-rc3"></script>
 </body>

@@ -103,6 +103,66 @@ Play uses its own Supabase project. Do not put card-binder secrets here.
 
 The live player follows the Twitch channel in `site_config.broadcaster_twitch_login` (currently `sorastarlight`). Encounter actions stay server-side. Bits stay on Twitch.
 
+## Release / build identity
+
+One application build identifies a deployed Play site. Do not hand-edit `?v=` query strings.
+
+| Identity | Source | Purpose |
+| --- | --- | --- |
+| `APP_BUILD` | `build.json` → `js/build.js` `PLAY_BUILD` | First-party JS/CSS cache stamp and stale-client check |
+| `SPRITE_BUILD` | `build.json` → `PLAY_SPRITE_BUILD` | Pokémon sprite image cache stamp (variants can change independently) |
+| `LOCATION_BUILD` | `build.json` → `PLAY_LOCATION_BUILD` | FRLG location background cache stamp |
+| `site_config.game_settings.clientBuild` | Supabase | What the server currently requires; compared to `PLAY_BUILD` |
+
+GitHub Pages/Fastly caches HTML, JS, CSS, and images with `Cache-Control: max-age=600`. There is no Service Worker. Query-string stamps are the cache-bust. HTML itself is also cached for up to 10 minutes, so an open tab or a normal refresh can keep old HTML after a push.
+
+### Release command
+
+1. Choose the new application build in `build.json` (or pass `--set`).
+2. Publish `site_config.clientBuild` to that same value **before** pushing Pages. That way old HTML is detected as stale instead of new HTML looking stale against an old server value.
+3. Stamp, validate, test, commit, push.
+
+```bat
+node tools/release-build.js
+```
+
+To cut a new application identity:
+
+```bat
+node tools/release-build.js --set 20260916-rc4
+```
+
+Then update Supabase:
+
+```sql
+update public.site_config
+   set game_settings = coalesce(game_settings, '{}'::jsonb)
+       || jsonb_build_object('clientBuild', '20260916-rc4'),
+       updated_at = now()
+ where id = 1;
+```
+
+`release-build.js` prints that SQL after a successful stamp + validate.
+
+Sprite-only content updates:
+
+```bat
+node tools/release-build.js --sprite 20260916-sp2
+```
+
+Do not add a Service Worker for cache busting.
+
+### Stale clients
+
+Play compares `settings.clientBuild` from `play_sync` with `window.PLAY_BUILD`. It never auto-reloads.
+
+- Idle: “A new ST★RLIGHT RPG update is ready.” + **Update now**
+- During an encounter or result hold: “Update ready — we'll keep your current encounter safe.”
+- If Update now still loads old HTML: stop and ask for a hard refresh. That blocks a reload loop.
+
+Trainer debug: `?playDebug=1` then `window.__starlightBuildInfo()` in the console.
+
+
 ## Notes
 
 Do not commit trainer saves, Twitch secrets, or service-role keys.

@@ -200,8 +200,8 @@
     if (!Array.isArray(groups) || !groups.length) return;
     window.PLAY_TRAINERS = groups.map((row) => ({
       key: row.key,
-      label: row.label,
-      games: row.games || "",
+      label: /masters\s*ex/i.test(String(row.label || "")) ? "Premium / Special" : row.label,
+      games: /masters\s*ex/i.test(String(row.games || "")) ? "Premium Avatars" : (row.games || ""),
       premium: Boolean(row.premium),
       looks: (row.looks || []).map((look) => ({
         id: look.id,

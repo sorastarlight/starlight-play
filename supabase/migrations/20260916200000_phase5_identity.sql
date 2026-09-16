@@ -128,7 +128,12 @@ update private.trainer_looks set group_label = case group_key
   when 'sonic' then 'Premium / Special'
   when 'sonic-classic' then 'Premium / Special'
   when 'digimon' then 'Premium / Special'
+  when 'pokemasters-01' then 'Premium / Special'
   else group_label
+end,
+games = case group_key
+  when 'pokemasters-01' then 'Premium Avatars'
+  else games
 end;
 
 create or replace function private.cosmetic_asset(p_id text)

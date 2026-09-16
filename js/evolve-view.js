@@ -139,6 +139,17 @@
     };
   }
 
+  function dialogueLines(model) {
+    const fromName = String(model?.fromName || "Pokémon");
+    const toName = String(model?.toName || "Pokémon");
+    return {
+      what: "What?",
+      evolving: `${fromName.toUpperCase()} is evolving!`,
+      congrats: "Congratulations!",
+      done: `Your ${fromName} evolved into ${toName}!`
+    };
+  }
+
   function evolveLabel(row) {
     if (!canEvolve(row)) return "";
     if (row.tradeReady && Number(row.candyCost) === 0) return `Evolve ${row.name}`;
@@ -170,6 +181,7 @@
     humanEvoError,
     resultModel,
     evolveLabel,
-    itemLabel
+    itemLabel,
+    dialogueLines
   };
 })();

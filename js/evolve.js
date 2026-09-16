@@ -369,81 +369,144 @@
   function showResultCard(overlay, model) {
     overlay.dataset.stage = "result";
     overlay.classList.add("is-result");
+    overlay.classList.remove("is-flash", "is-shiny-seq");
+    const lines = view.dialogueLines ? view.dialogueLines(model) : {};
     const rewards = [];
     if (model.trainerXp) rewards.push(`+${model.trainerXp} Trainer XP`);
     if (model.masteryFrom) rewards.push(`Species Mastery +${model.masteryFrom} ${model.fromName}`);
     if (model.masteryTo) rewards.push(`Species Mastery +${model.masteryTo} ${model.toName}`);
     if (model.coins) rewards.push(`+${model.coins} PokéCoins`);
-    overlay.querySelector("[data-evo-stage]").innerHTML = `
-      <p>Congratulations!</p>
-      ${sprite(model.toDex, model.variant, 128)}
-      <p><strong>Your ${esc(model.fromName)} evolved into ${esc(model.toName)}!</strong></p>
-      <p class="evo-result-kicker">Evolution Complete!</p>
-      ${model.newDex ? `<p class="evo-dex-fanfare">NEW POKÉDEX ENTRY!<br>#${String(model.toDex).padStart(3, "0")} ${esc(model.toName)} REGISTERED!${model.newDexXp ? `<br>+${model.newDexXp} XP` : ""}</p>` : ""}
-      ${rewards.length ? `<ul class="evo-rewards">${rewards.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>` : ""}
-      <p><button type="button" data-evo-continue>Continue</button></p>`;
-    overlay.querySelector("[data-evo-skip]")?.closest(".evo-seq-skip")?.remove();
+    overlay.innerHTML = `
+      <div class="evo-result" data-evo-root>
+        <p class="evo-result-kicker">Evolution Complete</p>
+        <div class="evo-result-art">${sprite(model.toDex, model.variant, 160)}</div>
+        <h2>${esc(lines.congrats || "Congratulations!")}</h2>
+        <p class="evo-result-copy">${esc(lines.done || `Your ${model.fromName} evolved into ${model.toName}!`)}</p>
+        ${model.newDex ? `<p class="evo-dex-fanfare">New Pokédex entry<br><strong>#${String(model.toDex).padStart(3, "0")} ${esc(model.toName)}</strong><br>Registered!${model.newDexXp ? ` +${model.newDexXp} XP` : ""}</p>` : ""}
+        ${rewards.length ? `<ul class="evo-rewards">${rewards.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>` : ""}
+        <button type="button" data-evo-continue>Continue</button>
+      </div>`;
+    overlay.querySelector("[data-evo-continue]")?.focus();
     if (model.newDex) cue("pokedex");
   }
 
   function showEvoFanfare(result, row) {
     const model = view.resultModel ? view.resultModel(result, row) : { fromName: row.name, toName: row.toName, fromDex: row.dex, toDex: row.toDex, variant: row.variant };
+    const lines = view.dialogueLines ? view.dialogueLines(model) : { what: "What?", evolving: `${model.fromName} is evolving!`, congrats: "Congratulations!", done: `Your ${model.fromName} evolved into ${model.toName}!` };
+    const shiny = view.isShiny?.(model) || String(model.variant || "").includes("shiny");
     return new Promise((resolve) => {
       document.querySelector(".evo-fanfare")?.remove();
       const overlay = document.createElement("div");
-      overlay.className = "evo-fanfare";
+      overlay.className = `evo-fanfare${shiny ? " is-shiny-seq" : ""}`;
       overlay.setAttribute("role", "dialog");
       overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute("aria-label", "Evolution");
       const mode = perfMode();
-      const particles = mode === "high" ? `<i></i><i></i><i></i><i></i><i></i><i></i>` : mode === "balanced" ? `<i></i><i></i>` : "";
       overlay.innerHTML = `
-        <div class="evo-seq ${mode === "reduced" || mode === "low" ? "is-simple" : ""}" data-evo-root>
-          <div class="evo-seq-stars" aria-hidden="true">${particles}</div>
-          <div data-evo-stage></div>
-          <p class="evo-seq-skip"><button type="button" class="secondary" data-evo-skip>Skip animation</button></p>
+        <div class="evo-gba ${mode === "reduced" || mode === "low" ? "is-simple" : ""}" data-evo-root>
+          <div class="evo-field">
+            <div class="evo-flash"></div>
+            <div class="evo-actor">
+              ${sprite(model.fromDex, model.variant, 176)}
+            </div>
+            <p class="evo-seq-skip"><button type="button" class="secondary" data-evo-skip>Skip animation</button></p>
+          </div>
+          <div class="evo-dialogue" aria-live="polite">
+            <p data-evo-line1></p>
+            <p data-evo-line2></p>
+          </div>
         </div>`;
+      document.body.classList.add("evo-playing");
       document.body.append(overlay);
+      overlay.querySelector("[data-evo-skip]")?.focus();
       let done = false;
       const finish = () => {
         if (done) return;
         done = true;
+        document.removeEventListener("keydown", onKey);
+        document.body.classList.remove("evo-playing");
         overlay.remove();
         resolve();
       };
+      const onKey = (event) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          if (overlay.dataset.stage === "result") finish();
+          else showResultCard(overlay, model);
+        }
+      };
+      document.addEventListener("keydown", onKey);
       overlay.addEventListener("click", (event) => {
         if (event.target.closest("[data-evo-continue]")) finish();
         if (event.target.closest("[data-evo-skip]")) showResultCard(overlay, model);
       });
-      const stage = overlay.querySelector("[data-evo-stage]");
+      const line1 = overlay.querySelector("[data-evo-line1]");
+      const line2 = overlay.querySelector("[data-evo-line2]");
+      const actor = overlay.querySelector(".evo-actor");
+      const img = overlay.querySelector(".evo-actor img");
+      const setLines = (first, second) => {
+        if (line1) line1.textContent = first || "";
+        if (line2) line2.textContent = second || "";
+      };
+      const setSprite = (dex, sil) => {
+        if (img) {
+          img.src = window.playSpriteUrl(dex, model.variant);
+          img.alt = dex === model.toDex ? (model.toName || "") : (model.fromName || "");
+        }
+        actor?.classList.toggle("is-sil", Boolean(sil));
+      };
+      const stopped = () => done || overlay.dataset.stage === "result";
+      const flash = async (ms) => {
+        if (mode === "low" || mode === "reduced") return;
+        overlay.classList.add("is-flash");
+        await wait(ms || 180);
+        overlay.classList.remove("is-flash");
+      };
       const run = async () => {
         cue("begin");
+        overlay.dataset.stage = "intro";
+        setLines(lines.what, lines.evolving);
         if (mode === "low" || mode === "reduced") {
-          stage.innerHTML = `${sprite(model.fromDex, model.variant, 120)}<p>${esc(model.fromName)} → ${esc(model.toName)}</p>`;
-          await wait(mode === "reduced" ? 280 : 420);
+          await wait(mode === "reduced" ? 360 : 500);
+          if (stopped()) return;
+          setSprite(model.toDex, false);
+          setLines(lines.congrats, lines.done);
+          await wait(mode === "reduced" ? 360 : 560);
+          if (stopped()) return;
           showResultCard(overlay, model);
           return;
         }
-        overlay.dataset.stage = "intro";
-        stage.innerHTML = `<p>What?</p>${sprite(model.fromDex, model.variant, 120)}`;
-        await wait(mode === "high" ? 800 : 500);
-        if (done || overlay.dataset.stage === "result") return;
-        stage.innerHTML = `${sprite(model.fromDex, model.variant, 120)}<p><strong>${esc(model.fromName)} is evolving!</strong></p>`;
+        await wait(mode === "high" ? 900 : 620);
+        if (stopped()) return;
         overlay.dataset.stage = "build";
         cue("build");
-        await wait(mode === "high" ? 1400 : 900);
-        if (done || overlay.dataset.stage === "result") return;
+        await wait(mode === "high" ? 1000 : 680);
+        if (stopped()) return;
         overlay.dataset.stage = "morph";
-        stage.innerHTML = `<span class="evo-sil">${sprite(model.fromDex, model.variant, 120)}</span>`;
-        await wait(500);
-        if (done || overlay.dataset.stage === "result") return;
-        stage.innerHTML = `<span class="evo-sil">${sprite(model.toDex, model.variant, 120)}</span>`;
-        await wait(500);
-        if (done || overlay.dataset.stage === "result") return;
+        await flash(mode === "high" ? 220 : 140);
+        if (stopped()) return;
+        setSprite(model.fromDex, true);
+        await wait(mode === "high" ? 480 : 340);
+        if (stopped()) return;
+        setSprite(model.toDex, true);
+        await wait(mode === "high" ? 480 : 340);
+        if (stopped()) return;
+        await flash(mode === "high" ? 220 : 140);
+        if (stopped()) return;
+        setSprite(model.fromDex, true);
+        await wait(mode === "high" ? 420 : 300);
+        if (stopped()) return;
+        setSprite(model.toDex, true);
+        await wait(mode === "high" ? 420 : 300);
+        if (stopped()) return;
+        await flash(mode === "high" ? 280 : 160);
+        if (stopped()) return;
         overlay.dataset.stage = "reveal";
+        setSprite(model.toDex, false);
         cue("reveal");
-        stage.innerHTML = `<p>Congratulations!</p>${sprite(model.toDex, model.variant, 128)}<p><strong>Your ${esc(model.fromName)} evolved into ${esc(model.toName)}!</strong></p>`;
-        await wait(mode === "high" ? 900 : 600);
-        if (done || overlay.dataset.stage === "result") return;
+        setLines(lines.congrats, lines.done);
+        await wait(mode === "high" ? 1600 : 1000);
+        if (stopped()) return;
         showResultCard(overlay, model);
       };
       run();

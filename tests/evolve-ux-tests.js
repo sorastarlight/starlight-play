@@ -136,6 +136,13 @@ test("result model uses authoritative rewards only", () => {
   assert(model.coins === 100);
   assert(model.candySpent === 20);
 });
+test("evolution dialogue uses the classic two-line beat", () => {
+  const lines = view.dialogueLines({ fromName: "Eevee", toName: "Jolteon" });
+  assert(lines.what === "What?");
+  assert(lines.evolving === "EEVEE is evolving!");
+  assert(lines.congrats === "Congratulations!");
+  assert(lines.done === "Your Eevee evolved into Jolteon!");
+});
 test("Low Performance and reduced motion still have a result model", () => {
   const model = view.resultModel({ message: "Your Charmander evolved into Charmeleon!" }, ready);
   assert(model.toName === "Charmeleon");

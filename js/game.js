@@ -520,7 +520,16 @@
   window.playSpriteStem = function playSpriteStem(dex, variant) {
     const id = Number(dex);
     if (!id) return "";
-    const kind = String(variant || "normal").toLowerCase();
+    // Roster freeze: gameplay stems are base Kanto only (normal / shiny / female).
+    // Never fall forward to Mega, regional, Gmax, Cosplay, Cap, or other special forms
+    // just because those assets exist in the library.
+    let kind = String(variant || "normal").toLowerCase();
+    if (/(mega|alola|alolan|galar|galarian|hisui|hisuian|paldea|gmax|gigantamax|totem|cosplay|belle|libre|phd|popstar|rockstar|cap\b)/i.test(kind)) {
+      if (typeof console !== "undefined") {
+        console.warn(`[play] refused non-base sprite form for dex ${id}: ${kind}`);
+      }
+      kind = kind.includes("shiny") ? "shiny" : "normal";
+    }
     const catalog = window.PLAY_VARIANTS;
     const allowed = new Set(typeof window.playAllowedVariants === "function" ? window.playAllowedVariants(id) : []);
     const shiny = kind.includes("shiny");

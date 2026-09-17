@@ -1,3 +1,11 @@
+/* Legacy importer — DO NOT USE for the ProjectPokemon_Gen1_Sprites pack.
+ *
+ * Roster freeze: gameplay form availability must stay frozen.
+ * Use tools/import-projectpokemon-gen1-sprites.js instead. That importer
+ * preserves PLAY_VARIANTS, never enables Mega/regional/Gmax/Cosplay/Cap,
+ * and never falls forward from a missing base sprite to a special form.
+ */
+throw new Error("Deprecated: use tools/import-projectpokemon-gen1-sprites.js (BASE KANTO gameplay freeze).");
 /* Import ProjectPokemon Kanto 3D Front sprites and catalog every form. */
 const fs = require("fs");
 const path = require("path");

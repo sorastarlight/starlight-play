@@ -71,8 +71,27 @@ test("all catalog female visuals exist on the first requested path", () => {
 });
 
 test("sprite URLs carry the 3D import cache stamp", () => {
-  assert(window.PLAY_SPRITE_BUILD === "20260916-sp1");
-  assert(window.playSpriteUrl(1, "normal").endsWith("?v=20260916-sp1"));
+  assert(window.PLAY_SPRITE_BUILD === "20260917-sp2");
+  assert(window.playSpriteUrl(1, "normal").endsWith("?v=20260917-sp2"));
+});
+
+test("resolver never falls forward to Mega / regional / costume forms", () => {
+  assert(fileOf(window.playSpriteUrl(6, "mega-x")) === "images/pokemon/6.gif");
+  assert(fileOf(window.playSpriteUrl(6, "charizard-megay")) === "images/pokemon/6.gif");
+  assert(fileOf(window.playSpriteUrl(26, "alola")) === "images/pokemon/26.gif");
+  assert(fileOf(window.playSpriteUrl(25, "pikachu-belle")) === "images/pokemon/25.gif");
+  assert(fileOf(window.playSpriteUrl(25, "shiny-kantocap")) === "images/pokemon/shiny/25.gif");
+  assert(!exists("images/pokemon/female/25.gif"), "Pikachu female must stay asset-only");
+  assert(!window.PLAY_VARIANTS[25].includes("female"));
+  assert(!window.PLAY_VARIANTS[6].includes("mega"));
+});
+
+test("gameplay female roster stays frozen to the pre-migration set", () => {
+  const female = Object.entries(window.PLAY_VARIANTS)
+    .filter(([, list]) => Array.isArray(list) && list.includes("female"))
+    .map(([dex]) => Number(dex))
+    .sort((a, b) => a - b);
+  assert(JSON.stringify(female) === JSON.stringify([3, 19, 20, 41, 42, 64, 65, 84, 85, 97, 123]), JSON.stringify(female));
 });
 
 const failed = results.filter((row) => !row.passed);

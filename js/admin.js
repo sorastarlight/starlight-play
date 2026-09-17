@@ -968,8 +968,8 @@
       },
       {
         label: "Economy",
-        status: eco.status || "UNKNOWN",
-        detail: eco.detail || "Read-only integrity"
+        status: eco.status || data?.economyHealth?.status || "UNKNOWN",
+        detail: data?.economyHealth?.detail || eco.detail || "Read-only integrity"
       },
       {
         label: "Auth",
@@ -1023,6 +1023,11 @@
         data.content = await window.playCall("admin_content_health");
       } catch (_) {
         data.content = { status: "UNKNOWN", detail: "Content health unavailable." };
+      }
+      try {
+        data.economyHealth = await window.playCall("admin_economy_health");
+      } catch (_) {
+        data.economyHealth = { status: "UNKNOWN", detail: "Economy snapshot unavailable." };
       }
       try {
         data.bits = await window.playCall("admin_bits_health");

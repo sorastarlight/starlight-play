@@ -36,6 +36,16 @@
     return typeof window.playFormatCoins === "function" ? window.playFormatCoins(n) : String(n ?? 0);
   }
 
+  const MART_VALUE = {
+    pokeball: 100, greatball: 225, ultraball: 500, berry: 60, bait: 125, lure: 80,
+    nestball: 275, netball: 300, duskball: 325, razz: 200, bag_bonus: 12,
+    firestone: 350, waterstone: 350, thunderstone: 350, leafstone: 350, moonstone: 450, linkingcord: 600
+  };
+
+  function packMartValue(grants) {
+    return Object.entries(grants || {}).reduce((sum, [key, qty]) => sum + (MART_VALUE[key] || 0) * (Number(qty) || 0), 0);
+  }
+
   function itemArt(key) {
     return window.playItemSprite ? window.playItemSprite(key) : `images/items/${key}.png`;
   }
@@ -258,7 +268,7 @@
         <span class="studio-chip">${esc(row.rarity || "—")}</span>
         <em>${esc(row.powerLabel || "")}${row.collector ? " · Collector" : ""}</em>
         <p>${esc(row.bestUse || row.playerText || "")}</p>
-        <small>${row.storeAvailable === false ? "Not sold" : (row.shopPrice != null ? `${money(row.shopPrice)} PokéCoins` : "Mart")}</small>
+        <small>${row.storeAvailable === false ? "Not sold" : (row.shopPrice != null ? `${money(row.shopPrice)} PokéCoins` : "Mart")} · ${esc(row.adminText || row.condition || "")}</small>
       </button>`).join("") || `<p class="muted">No items match.</p>`;
   }
 
@@ -295,7 +305,7 @@
           </select>
         </label>
         <label class="field field-check"><input id="pack-featured" type="checkbox"${p.featured ? " checked" : ""}> Featured</label>
-        <p class="muted">Guaranteed contents — no odds field.</p>
+        <p class="muted">Guaranteed contents — no odds field. Mart equivalent ${money(packMartValue(p.grants))} PokéCoins${p.bits ? ` · ${money(Math.round(packMartValue(p.grants) / Math.max(p.bits, 1)))} per Bit` : ""}.</p>
         ${grantChips(p.grants)}
         ${collisions.length ? `<p class="status-bad">Live Bits amount collisions: ${collisions.map((row) => esc(row.bits != null ? `${row.bits} Bits (${(row.skus || []).join(", ")})` : JSON.stringify(row))).join(" · ")}</p>` : ""}
         <div class="links">

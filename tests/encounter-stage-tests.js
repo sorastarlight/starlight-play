@@ -355,6 +355,23 @@ test("catch animation elapsed follows the throw deadline clock", () => {
   assert(ms === 2000, String(ms));
 });
 
+test("TEST rounds surface an accelerated-timer chip on Play", () => {
+  const html = window.playRenderEncounter(wildRound({
+    triggerSource: "TEST",
+    rules: { testMode: true, joinSeconds: 6, prepareSeconds: 6, throwSeconds: 6, revealSeconds: 8 }
+  }), { me: null });
+  assert(html.includes("data-enc-test"), "missing TEST chip");
+  assert(/accelerated timers/i.test(html), html.match(/data-enc-test[^<]*/)?.[0] || html.slice(0, 200));
+});
+
+test("normal AUTO rounds do not show the TEST chip", () => {
+  const html = window.playRenderEncounter(wildRound({
+    triggerSource: "AUTO",
+    rules: { joinSeconds: 30, prepareSeconds: 30, throwSeconds: 30, revealSeconds: 15 }
+  }), { me: null });
+  assert(!html.includes("data-enc-test"), "TEST chip leaked onto normal round");
+});
+
 const failed = results.filter((row) => !row.passed);
 results.forEach((row) => {
   console.log(`${row.passed ? "PASS" : "FAIL"} ${row.name}${row.detail ? ` — ${row.detail}` : ""}`);

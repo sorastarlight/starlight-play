@@ -237,8 +237,11 @@
       : "";
     const locClass = locAttrs ? " has-location-bg" : "";
     const hidden = round.hidden ? `<span class="chip warn" data-enc-hidden>Hidden</span>` : "";
-    const testChip = String(round.triggerSource || "") === "TEST"
-      ? `<span class="chip warn" data-enc-test>TEST MODE</span>`
+    const isTestRound = String(round.triggerSource || "") === "TEST"
+      || round?.rules?.testMode === true
+      || String(round?.rules?.rewardMode || "") === "test";
+    const testChip = isTestRound
+      ? `<span class="chip warn" data-enc-test>TEST MODE · accelerated timers</span>`
       : "";
     const paused = round.paused
       ? `<span class="chip pause" data-enc-pause-chip>${round.pausedForBreak ? "Ad break" : "Paused"}</span>`
@@ -907,15 +910,18 @@
         if (round.paused) pauseChip.textContent = round.pausedForBreak ? "Ad break" : "Paused";
       }
       let testChipEl = head.querySelector("[data-enc-test]");
-      if (String(round.triggerSource || "") === "TEST") {
+      const isTestRound = String(round.triggerSource || "") === "TEST"
+        || round?.rules?.testMode === true
+        || String(round?.rules?.rewardMode || "") === "test";
+      if (isTestRound) {
         if (!testChipEl) {
           testChipEl = document.createElement("span");
           testChipEl.className = "chip warn";
           testChipEl.dataset.encTest = "";
-          testChipEl.textContent = "TEST MODE";
           const pause = head.querySelector("[data-enc-pause-chip]");
           head.insertBefore(testChipEl, pause || null);
         }
+        testChipEl.textContent = "TEST MODE · accelerated timers";
       } else if (testChipEl) {
         testChipEl.remove();
       }

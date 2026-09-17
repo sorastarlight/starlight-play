@@ -380,7 +380,7 @@
   };
 
   window.PLAY_ROUND_IDLE_AFTER_MS = 12 * 1000;
-  window.PLAY_RESULT_HOLD_MS = window.PLAY_RESULT_HOLD_MS || 12 * 1000;
+  window.PLAY_RESULT_HOLD_MS = window.PLAY_RESULT_HOLD_MS || 5 * 1000;
   window.PLAY_UNRESOLVED_KEEP_MS = window.PLAY_UNRESOLVED_KEEP_MS || 120 * 1000;
 
   if (typeof window.playPhaseRank !== "function") {

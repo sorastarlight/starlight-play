@@ -795,7 +795,9 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     if (act === "enter_test") {
       setTestMode(true);
       render();
-      if (els.status) els.status.textContent = "Test Mode on. Start a test encounter when you are ready.";
+      if (els.status) {
+        els.status.textContent = "Test Mode on. Starts use accelerated timers (6/6/6/8). Exit Test Mode before live production encounters.";
+      }
       return;
     }
     if (act === "exit_test") {
@@ -843,7 +845,12 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       }
       try { byId("live-specific")?.close(); } catch (_) {}
       if (testMode()) {
-        cmd("start_test", payload);
+        confirm(
+          "Start a TEST specific encounter?",
+          "This uses accelerated timers (6/6/6/8), not normal production cadence.",
+          "Start test",
+          () => cmd("start_test", payload)
+        );
         return;
       }
       startUnsafeConfirm(act, payload);
@@ -871,14 +878,24 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     }
     if (act === "start_random") {
       if (testMode()) {
-        cmd("start_test", {});
+        confirm(
+          "Start a TEST encounter?",
+          "This uses accelerated timers (JOIN/PREPARE/THROW 6s, RESULT 8s). Exit Test Mode for normal 30/30/30/15 production cadence.",
+          "Start test",
+          () => cmd("start_test", {})
+        );
         return;
       }
       startUnsafeConfirm("start_random", {});
       return;
     }
     if (act === "start_test") {
-      cmd("start_test", {});
+      confirm(
+        "Start a TEST encounter?",
+        "Accelerated timers only. Not a production encounter.",
+        "Start test",
+        () => cmd("start_test", {})
+      );
       return;
     }
     if (act === "end_session") {

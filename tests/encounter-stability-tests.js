@@ -70,20 +70,22 @@ test("result hold starts at settlement, not original reveal deadline", () => {
     deadlines: { reveal }
   });
   const holdStart = Date.parse(settledAt);
-  assert(idleAt === holdStart + 20000, String(idleAt));
-  assert(idleAt > Date.parse(reveal) + 8000, "hold must outlast old reveal+8s window");
+  const holdMs = window.PLAY_RESULT_HOLD_MS || 5000;
+  assert(idleAt === holdStart + holdMs, String(idleAt));
+  assert(idleAt > Date.parse(reveal), "hold must begin from settlement");
 });
 
 test("very late settlement still gets a full result hold", () => {
   const reveal = "2026-09-14T12:00:25.000Z";
   const settledAt = "2026-09-14T12:00:40.000Z";
+  const holdMs = window.PLAY_RESULT_HOLD_MS || 5000;
   const idleAt = window.playRoundIdleAt({
     resolved: true,
     updatedAt: settledAt,
     deadlines: { reveal }
   });
   assert(Date.parse(settledAt) > Date.parse(reveal) + 8000, "fixture is after reveal+8s");
-  assert(idleAt === Date.parse(settledAt) + 20000, String(idleAt));
+  assert(idleAt === Date.parse(settledAt) + holdMs, String(idleAt));
   const shown = window.playApplyLocalRound({
     id: "late",
     resolved: true,
@@ -91,7 +93,7 @@ test("very late settlement still gets a full result hold", () => {
     updatedAt: settledAt,
     deadlines: { reveal },
     highestPhase: "closed"
-  }, Date.parse(settledAt) + 4000);
+  }, Date.parse(settledAt) + Math.floor(holdMs / 2));
   assert(shown && shown.phase === "closed", "result must still be visible");
   const gone = window.playApplyLocalRound({
     id: "late",
@@ -99,7 +101,7 @@ test("very late settlement still gets a full result hold", () => {
     phase: "closed",
     updatedAt: settledAt,
     deadlines: { reveal }
-  }, Date.parse(settledAt) + 20001);
+  }, Date.parse(settledAt) + holdMs + 1);
   assert(gone === null, "clears only after settlement hold");
 });
 
@@ -333,9 +335,10 @@ test("a missing snapshot cannot drop a resolved round during the result hold", (
       reveal: "2026-09-14T12:00:08.000Z"
     }
   });
-  const kept = window.playKeepHeldRound(null, resolved, Date.parse("2026-09-14T12:00:10.000Z"));
+  const kept = window.playKeepHeldRound(null, resolved, Date.parse("2026-09-14T12:00:07.000Z"));
   assert(kept && kept.id === "r-stable", "hold dropped the settled round");
-  const expired = window.playKeepHeldRound(null, resolved, Date.parse("2026-09-14T12:00:30.000Z"));
+  const holdMs = window.PLAY_RESULT_HOLD_MS || 5000;
+  const expired = window.playKeepHeldRound(null, resolved, Date.parse("2026-09-14T12:00:05.000Z") + holdMs + 1);
   assert(expired == null, "hold must end after PLAY_RESULT_HOLD_MS");
 });
 

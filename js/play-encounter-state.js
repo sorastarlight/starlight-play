@@ -1,7 +1,9 @@
 (() => {
   const root = typeof window !== "undefined" ? window : globalThis;
 
-  root.PLAY_RESULT_HOLD_MS = 20 * 1000;
+  // Keep settled results briefly so a null/late play_sync cannot erase GOTCHA/escape
+  // before the player sees them. Must clear promptly afterward (not a long RESULT hold).
+  root.PLAY_RESULT_HOLD_MS = 5 * 1000;
   root.PLAY_UNRESOLVED_KEEP_MS = 120 * 1000;
   root.PLAY_ROUND_IDLE_AFTER_MS = root.PLAY_RESULT_HOLD_MS;
 

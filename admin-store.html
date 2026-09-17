@@ -3,11 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Store editor · THE STARLIGHT PLAY HUB</title>
+<title>Content Studio · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260916-rc8">
+<link rel="stylesheet" href="css/play.css?v=20260916-rc9">
 <body data-page="admin-store">
 <script>
 (() => {
@@ -64,7 +64,7 @@
 </nav>
 <div class="wrap">
   <div class="page-kicker">
-    <h1>Store editor</h1>
+    <h1>Content Studio</h1>
   </div>
   <p id="gate" class="notice">Sign in to open the Store editor.</p>
   <div id="staff" hidden>
@@ -134,8 +134,26 @@
           <label class="field" for="item-name">Name
             <input id="item-name" type="text">
           </label>
-          <label class="field" for="item-blurb">Blurb
+          <label class="field" for="item-blurb">Short description
             <textarea id="item-blurb" rows="2"></textarea>
+          </label>
+          <label class="field" for="item-detail">Detail
+            <textarea id="item-detail" rows="3" placeholder="Shown in Mart details, not on the card."></textarea>
+          </label>
+          <label class="field" for="item-kind">Product type
+            <select id="item-kind">
+              <option value="item">Single item</option>
+              <option value="pack">Pack / bundle</option>
+              <option value="avatar">Avatar pack</option>
+              <option value="bits">Bits product</option>
+              <option value="cosmetic">Cosmetic</option>
+            </select>
+          </label>
+          <label class="field" for="item-status">Status
+            <select id="item-status">
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+            </select>
           </label>
           <label class="field" for="item-cost">PokéCoins
             <input id="item-cost" class="money" type="text" inputmode="decimal" autocomplete="off" value="0">
@@ -166,6 +184,9 @@
           <label class="field field-check"><input id="item-visible" type="checkbox" checked> Visible</label>
           <p class="muted">Grants added to the bag</p>
           <div id="grant-grid" class="store-grant-grid"></div>
+          <div class="links">
+            <button id="item-add-content" class="secondary" type="button">Browse items…</button>
+          </div>
           <label class="field" for="item-ball-key">Ball grant key
             <input id="item-ball-key" type="text" spellcheck="false" placeholder="masterball">
           </label>
@@ -191,6 +212,8 @@
           </label>
           <div class="links">
             <button id="item-save" type="submit">Save item</button>
+            <button id="item-draft" class="secondary" type="button">Save draft</button>
+            <button id="item-duplicate" class="secondary" type="button">Duplicate</button>
             <button id="item-delete" class="danger" type="button">Remove item</button>
           </div>
         </form>
@@ -216,16 +239,21 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260916-rc8"></script>
-<script src="js/play-perf.js?v=20260916-rc8"></script>
-<script src="js/build.js?v=20260916-rc8"></script>
-<script src="js/build-client.js?v=20260916-rc8"></script>
-<script src="js/auth.js?v=20260916-rc8"></script>
-<script src="js/variants.js?v=20260916-rc8"></script>
-<script src="js/game.js?v=20260916-rc8"></script>
-<script src="js/play-present.js?v=20260916-rc8"></script>
-<script src="js/play-encounter-state.js?v=20260916-rc8"></script>
-<script src="js/hud.js?v=20260916-rc8"></script>
-<script src="js/nav.js?v=20260916-rc8"></script>
-<script src="js/admin-store.js?v=20260916-rc8"></script>
+<script src="js/config.js?v=20260916-rc9"></script>
+<script src="js/play-perf.js?v=20260916-rc9"></script>
+<script src="js/build.js?v=20260916-rc9"></script>
+<script src="js/build-client.js?v=20260916-rc9"></script>
+<script src="js/auth.js?v=20260916-rc9"></script>
+<script src="js/variants.js?v=20260916-rc9"></script>
+<script src="js/game.js?v=20260916-rc9"></script>
+<script src="js/play-present.js?v=20260916-rc9"></script>
+<script src="js/play-encounter-state.js?v=20260916-rc9"></script>
+<script src="js/hud.js?v=20260916-rc9"></script>
+<script src="js/nav.js?v=20260916-rc9"></script>
+<script src="js/trainers.js?v=20260916-rc9"></script>
+<script src="js/play-ux.js?v=20260916-rc9"></script>
+<script src="js/play-portrait.js?v=20260916-rc9"></script>
+<script src="js/content-picker.js?v=20260916-rc9"></script>
+<script src="js/admin-store.js?v=20260916-rc9"></script>
+<script src="js/admin-studio.js?v=20260916-rc9"></script>
 </body>

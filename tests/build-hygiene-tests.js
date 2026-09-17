@@ -31,12 +31,12 @@ function assert(cond, detail) {
 
 test("PLAY_BUILD matches generated build.js", () => {
   assert(Boolean(window.PLAY_BUILD), "missing PLAY_BUILD");
-  assert(window.PLAY_BUILD === "20260916-rc8", window.PLAY_BUILD);
+  assert(window.PLAY_BUILD === "20260916-rc9", window.PLAY_BUILD);
   assert(window.PLAY_SPRITE_BUILD === "20260916-sp1", window.PLAY_SPRITE_BUILD);
 });
 
 test("mismatch is detected without auto-reload", () => {
-  assert(window.playBuildMismatch("20260916-rc9") === true);
+  assert(window.playBuildMismatch("20260916-rc10") === true);
   assert(window.playBuildMismatch(window.PLAY_BUILD) === false);
   assert(window.playBuildMismatch("") === false);
   assert(!location.replaced, "location was replaced automatically");
@@ -54,7 +54,7 @@ test("idle mismatch shows update now and does not reload until clicked", () => {
     msg: { textContent: "" },
     btn: { hidden: true, textContent: "", onclick: null }
   };
-  const view = window.playRenderBuildNotice({ el, required: "20260916-rc9", round: null, busy: false });
+  const view = window.playRenderBuildNotice({ el, required: "20260916-rc10", round: null, busy: false });
   assert(view.idle === true, JSON.stringify(view));
   assert(el.hidden === false);
   assert(el.msg.textContent.includes("update is ready"));
@@ -75,7 +75,7 @@ test("encounter mismatch defers reload", () => {
     btn: { hidden: false, textContent: "Update now", onclick: null }
   };
   const round = { phase: "throw", resolved: false, cancelled: false };
-  const view = window.playRenderBuildNotice({ el, required: "20260916-rc9", round, busy: false });
+  const view = window.playRenderBuildNotice({ el, required: "20260916-rc10", round, busy: false });
   assert(view.deferred === true, JSON.stringify(view));
   assert(el.msg.textContent.includes("keep your current encounter safe"));
   assert(el.btn.hidden === true);
@@ -102,10 +102,10 @@ test("result hold also defers reload", () => {
 test("reload-loop protection blocks a second navigate", () => {
   Object.keys(store).forEach((key) => delete store[key]);
   location.replaced = "";
-  const first = window.playApplyClientUpdate("20260916-rc9");
+  const first = window.playApplyClientUpdate("20260916-rc10");
   assert(first.action === "navigate", JSON.stringify(first));
-  assert(String(location.replaced).includes("app=20260916-rc9"));
-  const second = window.playApplyClientUpdate("20260916-rc9");
+  assert(String(location.replaced).includes("app=20260916-rc10"));
+  const second = window.playApplyClientUpdate("20260916-rc10");
   assert(second.action === "blocked", JSON.stringify(second));
   assert(second.reason === "reload-loop");
 });

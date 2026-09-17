@@ -116,28 +116,58 @@
   root.playItemPlayerText = function playItemPlayerText(key, captureItems) {
     if (key === "bait") {
       return (captureItems?.honey?.description)
-        || "Contribute during the item phase to improve the community catch bonus for every participating Trainer.";
+        || "Honey is community catch support. Contributing improves the shared encounter effort. It is not a Berry.";
     }
     if (key === "lure") return "Automatically joins you to encounters for 30 minutes.";
     if (key === "coins") return "Spend these in Starlight Mart.";
-    if (key === "rarecandy") return "Gives 1 Evolution Candy. Use it at the Evolution Center.";
+    if (key === "rarecandy") return "Converts into 1 Evolution Candy at the Evolution Center. It does not evolve a Pokémon by itself.";
     if (STONE_USES[key]) {
       const first = STONE_USES[key][0];
       return `Used to evolve certain Pokémon such as ${first[0]}.`;
     }
     const berry = typeof window !== "undefined" ? root.playBerryInfo?.(key, captureItems) : null;
-    if (berry?.description) return berry.description;
+    if (berry?.rpgDescription || berry?.description) return berry.rpgDescription || berry.description;
     const info = typeof window !== "undefined" ? root.playBallInfo?.(key) : null;
     const ball = (captureItems?.balls || []).find((row) => row.key === key) || info;
-    if (ball?.description || ball?.effect || info?.multiplier) {
+    if (ball?.collector || info?.collector) {
+      return ball.description || info?.effect || "Collector Ball. Same catch power as a Poké Ball.";
+    }
+    if (ball?.description || ball?.effect) {
       const text = String(ball.description || ball.effect || "").replace(/\d+(\.\d+)?%\s*base catch chance\.?/i, "").trim();
-      if (/catch power|always catches/i.test(text)) return text;
-      const power = info?.multiplier
-        ? (/always/i.test(String(info.multiplier)) ? "Always catches. " : `${info.multiplier} catch power. `)
-        : "";
-      return `${power}${text}`.trim() || "A Poké Ball for catching wild Pokémon.";
+      if (text) return text;
     }
     return "A useful Trainer item.";
+  };
+
+  root.playItemPurpose = function playItemPurpose(key, captureItems, identity) {
+    if (identity?.bestUse) return identity.bestUse;
+    if (key === "bait") return "Community catch support for the whole encounter.";
+    if (key === "rarecandy") return "Converts into 1 Evolution Candy.";
+    if (STONE_USES[key]) return "Evolution item for eligible Pokémon.";
+    if (identity?.collector || root.playBallInfo?.(key)?.collector) return "Collector look. Same catch power as a Poké Ball.";
+    const text = root.playItemPlayerText(key, captureItems);
+    return text;
+  };
+
+  root.playMartDetailParts = function playMartDetailParts(item, captureItems) {
+    const key = item?.ballKey || item?.key || Object.keys(item?.grants || {})[0] || "";
+    const identity = item?.identity || {};
+    const purpose = root.playItemPurpose(key, captureItems, identity);
+    const player = identity.playerText || root.playItemPlayerText(key, captureItems);
+    const parts = [];
+    if (player && player !== purpose) parts.push(player);
+    if (identity.collector) parts.push("This is a Collector Ball. It is sold for its look, not extra catch power.");
+    if (identity.powerLabel && !identity.collector && identity.condition && identity.condition !== "NONE") {
+      parts.push(`Catch power: ${identity.basePower || "STANDARD"} normally, ${identity.powerLabel} in its niche.`);
+    } else if (identity.powerLabel && identity.powerLabel !== "STANDARD" && !identity.collector) {
+      parts.push(`Catch power: ${identity.powerLabel}.`);
+    }
+    if (identity.rarity) parts.push(`Rarity: ${identity.rarity}.`);
+    if (key === "bait") parts.push("Honey is not a Berry. It boosts the shared encounter when you contribute during Prepare.");
+    if (STONE_USES[key]) {
+      parts.push(`Currently used for: ${STONE_USES[key].map((pair) => pair.join(" → ")).join(", ")}.`);
+    }
+    return { purpose, parts, key, identity };
   };
 
   root.playItemAcquisition = function playItemAcquisition(key, captureItems) {
@@ -307,7 +337,9 @@
 
   root.playBallShopBlurb = function playBallShopBlurb(key, captureItems) {
     if (key === "masterball") return "Guaranteed capture. Extremely rare — not sold on the ordinary shelf.";
-    return root.playItemPlayerText(key, captureItems) || "A Poké Ball for catching wild Pokémon.";
+    const info = root.playBallInfo?.(key);
+    if (info?.collector) return "Collector Ball. Same catch power as a Poké Ball.";
+    return root.playItemPurpose(key, captureItems) || "A Poké Ball for catching wild Pokémon.";
   };
 
   root.playTipDone = function playTipDone(key) {

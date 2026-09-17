@@ -22,6 +22,9 @@
     itemSku: document.getElementById("item-sku"),
     itemName: document.getElementById("item-name"),
     itemBlurb: document.getElementById("item-blurb"),
+    itemDetail: document.getElementById("item-detail"),
+    itemKind: document.getElementById("item-kind"),
+    itemStatus: document.getElementById("item-status"),
     itemCost: document.getElementById("item-cost"),
     itemBits: document.getElementById("item-bits"),
     itemFeatured: document.getElementById("item-featured"),
@@ -291,7 +294,7 @@
       ? rows.map((row) => `
         <button class="store-sku${row.sku === selectedSku ? " is-on" : ""}" type="button" data-sku="${esc(row.sku)}">
           <img src="${esc(art(row.thumb || row.sprite))}" alt="">
-          <span><strong>${esc(row.name)}</strong><br><em class="muted">${esc(row.sku)}${row.featured ? " · featured" : ""}${row.visible ? "" : " · hidden"} · ${formatMoney((selectedCat()?.kind === "bits" ? row.bits : row.cost) || 0)}${selectedCat()?.kind === "bits" ? " Bits" : ""}</em></span>
+          <span><strong>${esc(row.name)}</strong><br><em class="muted">${esc(row.sku)}${row.featured ? " · featured" : ""}${row.visible ? "" : " · hidden"} · ${(row.status || row.extra?.status) === "draft" ? "draft · " : ""}${formatMoney((selectedCat()?.kind === "bits" ? row.bits : row.cost) || 0)}${selectedCat()?.kind === "bits" ? " Bits" : ""}</em></span>
         </button>`).join("")
       : `<p class="muted">No items on this floor yet.</p>`;
   }
@@ -320,6 +323,9 @@
     els.itemSku.readOnly = skuLocked;
     els.itemName.value = item?.name || "";
     els.itemBlurb.value = item?.blurb || "";
+    if (els.itemDetail) els.itemDetail.value = item?.extra?.detail || item?.detail || "";
+    if (els.itemKind) els.itemKind.value = item?.extra?.productKind || item?.productKind || (item?.extra?.pack ? "avatar" : "item");
+    if (els.itemStatus) els.itemStatus.value = item?.status || item?.extra?.status || "published";
     els.itemCost.value = formatMoney(item?.cost || 0);
     els.itemBits.value = formatMoney(item?.bits || 0);
     els.itemFeatured.checked = Boolean(item?.featured);
@@ -406,7 +412,10 @@
       pack: els.itemPack.value.trim(),
       games: els.itemGames?.value.trim() || "",
       looks: selectedLooks.slice(),
-      bitsTitles: lines(els.itemBitsTitles.value)
+      bitsTitles: lines(els.itemBitsTitles.value),
+      status: els.itemStatus?.value || "published",
+      productKind: els.itemKind?.value || "item",
+      detail: els.itemDetail?.value || ""
     };
     note("Saving item…");
     const data = await window.playCall("admin_store_save_item", {
@@ -415,6 +424,7 @@
         categoryId: cat.id,
         name: els.itemName.value.trim() || sku,
         blurb: els.itemBlurb.value,
+        detail: extra.detail,
         cost: parseMoney(els.itemCost.value),
         bits: parseMoney(els.itemBits.value),
         grants: readGrants(),
@@ -423,6 +433,8 @@
         featured: els.itemFeatured.checked,
         visible: els.itemVisible.checked,
         sort: selectedItem()?.sort ?? 100,
+        status: extra.status,
+        productKind: extra.productKind,
         extra
       }
     });
@@ -673,8 +685,31 @@
     selectedLooks = [];
     if (els.itemLooks) els.itemLooks.value = "";
     els.itemBitsTitles.value = "";
+    if (els.itemDetail) els.itemDetail.value = "";
+    if (els.itemKind) els.itemKind.value = isAvatarsFloor() ? "avatar" : "item";
+    if (els.itemStatus) els.itemStatus.value = "draft";
     renderItems();
     renderLookGrid();
+  });
+
+  document.getElementById("item-draft")?.addEventListener("click", async () => {
+    if (els.itemStatus) els.itemStatus.value = "draft";
+    try { await saveItem(); }
+    catch (error) { note(window.playRpcError(error)); }
+  });
+
+  document.getElementById("item-duplicate")?.addEventListener("click", async () => {
+    const item = selectedItem();
+    if (!item) return;
+    try {
+      note("Duplicating…");
+      const data = await window.playCall("admin_store_duplicate_item", { p_sku: item.sku });
+      selectedSku = data.sku || "";
+      await reload(data);
+      note(data.message || "Duplicated as a draft.");
+    } catch (error) {
+      note(window.playRpcError(error));
+    }
   });
 
   document.getElementById("item-delete").addEventListener("click", async () => {
@@ -690,6 +725,20 @@
     } catch (error) {
       note(window.playRpcError(error));
     }
+  });
+
+  document.getElementById("item-add-content")?.addEventListener("click", async () => {
+    if (!window.playContentPicker) return;
+    const picked = await window.playContentPicker.open({ title: "Add to this product", kind: "items" });
+    if (!picked?.key) return;
+    const input = els.grantGrid.querySelector(`[data-grant="${picked.key}"]`);
+    if (input) {
+      input.value = String(Number(input.value || 0) + Number(picked.qty || 1));
+      return;
+    }
+    const grants = readGrants();
+    grants[picked.key] = Number(picked.qty || 1);
+    fillGrants(grants);
   });
 
   document.getElementById("item-up").addEventListener("click", async () => {

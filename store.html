@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260916-rc8">
+<link rel="stylesheet" href="css/play.css?v=20260916-rc9">
 <body data-page="store">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -79,6 +79,15 @@
   </section>
   <div id="mart-floors"></div>
 </div>
+<dialog id="mart-detail" class="play-modal" aria-labelledby="mart-detail-title">
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="mart-detail-title">Item</h3>
+      <button class="secondary" value="cancel" type="submit">Close</button>
+    </header>
+    <div id="mart-detail-body"></div>
+  </form>
+</dialog>
 <dialog id="ball-modal" class="play-modal play-modal-balls" aria-labelledby="ball-title">
   <form class="play-modal-card" method="dialog">
     <header class="play-modal-head">
@@ -90,18 +99,18 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260916-rc8"></script>
-<script src="js/play-perf.js?v=20260916-rc8"></script>
-<script src="js/build.js?v=20260916-rc8"></script>
-<script src="js/build-client.js?v=20260916-rc8"></script>
-<script src="js/auth.js?v=20260916-rc8"></script>
-<script src="js/variants.js?v=20260916-rc8"></script>
-<script src="js/game.js?v=20260916-rc8"></script>
-<script src="js/play-present.js?v=20260916-rc8"></script>
-<script src="js/play-encounter-state.js?v=20260916-rc8"></script>
-<script src="js/play-ux.js?v=20260916-rc8"></script>
-<script src="js/trainers.js?v=20260916-rc8"></script>
-<script src="js/hud.js?v=20260916-rc8"></script>
-<script src="js/nav.js?v=20260916-rc8"></script>
-<script src="js/store.js?v=20260916-rc8"></script>
+<script src="js/config.js?v=20260916-rc9"></script>
+<script src="js/play-perf.js?v=20260916-rc9"></script>
+<script src="js/build.js?v=20260916-rc9"></script>
+<script src="js/build-client.js?v=20260916-rc9"></script>
+<script src="js/auth.js?v=20260916-rc9"></script>
+<script src="js/variants.js?v=20260916-rc9"></script>
+<script src="js/game.js?v=20260916-rc9"></script>
+<script src="js/play-present.js?v=20260916-rc9"></script>
+<script src="js/play-encounter-state.js?v=20260916-rc9"></script>
+<script src="js/play-ux.js?v=20260916-rc9"></script>
+<script src="js/trainers.js?v=20260916-rc9"></script>
+<script src="js/hud.js?v=20260916-rc9"></script>
+<script src="js/nav.js?v=20260916-rc9"></script>
+<script src="js/store.js?v=20260916-rc9"></script>
 </body>

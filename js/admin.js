@@ -995,6 +995,11 @@
         label: "Rankings",
         status: data?.rankings?.status || "UNKNOWN",
         detail: data?.rankings?.detail || "Ranking health not loaded."
+      },
+      {
+        label: "Content",
+        status: data?.content?.status || "UNKNOWN",
+        detail: data?.content?.detail || "Content health not loaded."
       }
     ];
     board.innerHTML = rows.map((row) => `
@@ -1009,6 +1014,11 @@
     if (!board) return;
     try {
       const data = await window.playCall("admin_game_health");
+      try {
+        data.content = await window.playCall("admin_content_health");
+      } catch (_) {
+        data.content = { status: "UNKNOWN", detail: "Content health unavailable." };
+      }
       renderGameHealthBoard(data, buildView);
     } catch (error) {
       board.innerHTML = `<p class="muted">${window.playRpcError(error, "Game Health is unavailable.")}</p>`;

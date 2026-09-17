@@ -47,6 +47,9 @@ Deno.serve(async (req) => {
 
     const body = await req.json().catch(() => ({}));
     const mime = String(body.mime || body.contentType || "image/png");
+    if (!/^image\/(png|webp|gif|jpeg|jpg)$/i.test(mime)) {
+      return json({ ok: false, message: "Upload a PNG, WebP, GIF, or JPEG." });
+    }
     const filename = sanitizeFilename(String(body.filename || "sprite.png"), mime);
     const contentBase64 = String(body.contentBase64 || "").replace(/\s+/g, "");
     const label = String(body.label || filename.replace(/\.[^.]+$/, ""));
@@ -68,7 +71,12 @@ Deno.serve(async (req) => {
     }
 
     const trainer = kind === "trainer";
-    const path = trainer ? `images/trainers/${filename}` : `images/items/${filename}`;
+    const portrait = kind === "portrait";
+    const path = portrait
+      ? `images/trainers/portraits/${filename}`
+      : trainer
+        ? `images/trainers/${filename}`
+        : `images/items/${filename}`;
     const api = `https://api.github.com/repos/${REPO}/contents/${path}`;
     const headers = {
       Accept: "application/vnd.github+json",
@@ -86,8 +94,8 @@ Deno.serve(async (req) => {
 
     const payload: Record<string, string> = {
       message: sha
-        ? `Update ${trainer ? "trainer look" : "store sprite"} ${filename}`
-        : `Add ${trainer ? "trainer look" : "store sprite"} ${filename}`,
+        ? `Update ${portrait ? "trainer portrait" : trainer ? "trainer look" : "store sprite"} ${filename}`
+        : `Add ${portrait ? "trainer portrait" : trainer ? "trainer look" : "store sprite"} ${filename}`,
       content: contentBase64,
       branch: BRANCH
     };

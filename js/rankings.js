@@ -76,9 +76,11 @@
   }
 
   function face(row) {
-    const sprite = window.playTrainerSpriteUrl
-      ? window.playTrainerSpriteUrl(row.trainerSprite || "red-gen1")
-      : "";
+    const sprite = window.playTrainerPortraitUrl
+      ? window.playTrainerPortraitUrl(row.trainerSprite || "red-gen1")
+      : (window.playTrainerSpriteUrl
+        ? window.playTrainerSpriteUrl(row.trainerSprite || "red-gen1")
+        : "");
     const twitch = Boolean(row.twitchLinked);
     const img = sprite
       ? `<img class="rank-sprite" src="${window.playEscapeAttr(sprite)}" alt="" width="48" height="48" loading="lazy">`

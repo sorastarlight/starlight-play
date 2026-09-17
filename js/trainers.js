@@ -254,6 +254,19 @@
     return `images/trainers/${key}.${ext}?v=av10`;
   };
 
+  window.playTrainerPortraitUrl = function playTrainerPortraitUrl(id) {
+    const look = window.playTrainerLook?.(id);
+    const trainer = look?.trainer || {};
+    const file = trainer.portrait || trainer.portraitFile || trainer.portrait_file || "";
+    if (file) {
+      if (/^https?:\/\//.test(file) || file.startsWith("images/") || file.startsWith("blob:")) {
+        return file.includes("?") || file.startsWith("blob:") ? file : `${file}?v=avp1`;
+      }
+      return `images/trainers/portraits/${file}?v=avp1`;
+    }
+    return window.playTrainerSpriteUrl(id);
+  };
+
   window.PLAY_CARD_BGS = [
     { id: "kanto", name: "Kanto", group: "region", tone: "light", chip: "#6aa4dee6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#d6ebf8", slotInk: "#2a3048" },
     { id: "johto", name: "Johto", group: "region", tone: "light", chip: "#f6cd08e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#fff4b8", slotInk: "#2a3048" },

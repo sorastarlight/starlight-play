@@ -100,18 +100,33 @@
     const first = purchase?.lines?.[0];
     const added = (purchase?.lines || []).map((row) => `${row.name} ×${row.qty}`).join(", ");
     const coins = bag?.coins != null ? `Bag now: ${Number(bag.coins).toLocaleString()} PokéCoins` : "";
-    if (typeof window.playPresentEnqueue === "function") {
-      window.playPresentEnqueue([{
-        id: `purchase:${purchase?.orderId || added}`,
-        type: "item",
-        kind: "loot",
-        title: purchase?.premierBonus ? "Bonus! Premier Ball ×1" : "Purchase complete!",
-        body: [added, coins].filter(Boolean).join(" · "),
-        item: first?.sku || "",
-        qty: Number(first?.qty || 0),
-        source: "store"
-      }], { source: "store", noSummary: true });
-    }
+    if (typeof window.playPresentEnqueue !== "function") return;
+    const packLines = (purchase?.lines || []).flatMap((row) => {
+      const item = findSku(row.sku);
+      if (!isPackProduct(item)) return [];
+      return (typeof window.playGrantLines === "function" ? window.playGrantLines(item.grants) : []).map((line) => ({
+        type: line.key,
+        amount: line.n,
+        label: line.label
+      }));
+    });
+    const cosmetic = (purchase?.lines || []).some((row) => findSku(row.sku)?.pack);
+    window.playPresentEnqueue([{
+      id: `purchase:${purchase?.orderId || added}`,
+      type: cosmetic ? "unlock" : "item",
+      kind: packLines.length ? "loot" : "loot",
+      rare: Boolean(packLines.length || cosmetic),
+      title: purchase?.premierBonus
+        ? "Bonus! Premier Ball ×1"
+        : (packLines.length ? "Pack purchased!" : (cosmetic ? "Look unlocked!" : "Purchase complete!")),
+      body: packLines.length
+        ? (purchase?.lines?.[0]?.name || "Guaranteed contents")
+        : [added, coins].filter(Boolean).join(" · "),
+      item: first?.sku || "",
+      qty: Number(first?.qty || 0),
+      rewards: packLines.length ? packLines : undefined,
+      source: "store"
+    }], { source: "store", noSummary: true });
   }
 
   function presentClaim(title, data, source) {
@@ -362,24 +377,77 @@
     return { featured, rest: list };
   }
 
+  function isPackProduct(item) {
+    if (!item) return false;
+    if (item.productKind === "pack") return true;
+    const keys = Object.keys(item.grants || {}).filter((key) => Number(item.grants[key]) > 0);
+    return keys.length > 1;
+  }
+
+  function purposeText(item, mode) {
+    const row = mode === "balls" ? ballView(item) : item;
+    const key = row.key || grantKey(row);
+    if (mode === "bits") return "Guaranteed contents. Not a random pack.";
+    if (row.identity?.bestUse) return row.identity.bestUse;
+    if (typeof window.playItemPurpose === "function") return window.playItemPurpose(key, null, row.identity);
+    return itemBlurb(row, mode);
+  }
+
+  function detailWorthShowing(item, mode) {
+    const purpose = purposeText(item, mode);
+    const parts = typeof window.playMartDetailParts === "function"
+      ? window.playMartDetailParts(item).parts
+      : [];
+    if (isPackProduct(item) || item.pack) return true;
+    if (item.detail && item.detail !== purpose && item.detail !== item.blurb) return true;
+    return parts.some((line) => line && line !== purpose);
+  }
+
+  function openMartDetail(item, mode) {
+    const dialog = document.getElementById("mart-detail");
+    if (!dialog) return;
+    const row = mode === "balls" ? ballView(item) : withLureBlurb(item);
+    const key = row.key || grantKey(row);
+    const purpose = purposeText(row, mode);
+    const info = typeof window.playMartDetailParts === "function" ? window.playMartDetailParts(row) : { parts: [] };
+    const grants = isPackProduct(row) || mode === "bits" ? grantListHtml(row) : "";
+    const uses = useLinesHtml(row);
+    dialog.querySelector("#mart-detail-title").textContent = displayName(row);
+    dialog.querySelector("#mart-detail-body").innerHTML = `
+      <div class="mart-detail-hero">
+        <img src="${esc(art(row, key || row.sku))}" alt="">
+        <p>${esc(purpose)}</p>
+      </div>
+      ${(info.parts || []).map((line) => `<p>${esc(line)}</p>`).join("")}
+      ${row.detail && row.detail !== purpose ? `<p>${esc(row.detail)}</p>` : ""}
+      ${uses}
+      ${grants}
+      ${ownedLine(row)}
+      ${costHtml(row, mode === "avatars" ? "coins" : mode)}`;
+    if (typeof dialog.showModal === "function") dialog.showModal();
+    else dialog.setAttribute("open", "");
+  }
+
   function shelfCard(item, mode) {
     const row = mode === "balls" ? ballView(item) : withLureBlurb(item);
     const sprite = art(row, row.key || row.sku || grantKey(row));
     const action = mode === "bits" ? "" : addButton(row.sku);
-    const blurb = mode === "bits" ? "" : itemBlurb(row, mode);
+    const purpose = purposeText(row, mode);
+    const details = detailWorthShowing(row, mode)
+      ? `<button type="button" class="secondary mart-more" data-mart-detail="${esc(row.sku)}" data-mart-mode="${esc(mode)}">Details</button>`
+      : "";
+    const collector = row.identity?.collector ? `<span class="studio-chip">Collector</span>` : "";
     return `
-      <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${row.sku === "radar1" || row.sku === "lure1" ? " mart-item-radar" : ""}">
+      <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${row.sku === "radar1" || row.sku === "lure1" ? " mart-item-radar" : ""}${row.featured ? " is-featured" : ""}">
         <div class="mart-sprite"><img src="${esc(sprite)}" alt=""></div>
         <div class="mart-copy">
-          <strong>${esc(displayName(row))}</strong>
-          ${blurb ? `<p class="mart-blurb">${esc(blurb)}</p>` : ""}
-          ${useLinesHtml(row)}
+          <strong>${esc(displayName(row))}${collector}</strong>
+          ${purpose ? `<p class="mart-purpose">${esc(purpose)}</p>` : ""}
           ${ownedLine(row)}
-          ${mode === "bits" ? `<p class="muted">Guaranteed contents. Not a random pack.</p>` : ""}
-          ${row.key || grantKey(row) ? `<details class="mart-detail"><summary>What does this do?</summary><p>${esc((typeof window.playItemPlayerText === "function" && window.playItemPlayerText(row.key || grantKey(row))) || row.blurb || "A Trainer item.")}</p></details>` : ""}
         </div>
-        <div class="mart-price">
+        <div class="mart-foot">
           ${costHtml(row, mode)}
+          ${details}
           ${action}
         </div>
         ${mode === "bits" ? grantListHtml(row) : ""}
@@ -401,7 +469,7 @@
       <img class="avatar-pack-art" src="${esc(window.playItemSprite(packThumb(item)))}" alt="">
       <div class="avatar-pack-copy">
         <strong>${esc(displayName(item))}</strong>
-        <p class="mart-blurb">${esc(item.blurb || "")}</p>
+        <p class="mart-purpose">${esc(item.blurb || "A Trainer look for your ID and Profile.")}</p>
       </div>
       <div class="avatar-pack-foot">
         ${costHtml(item, "coins")}
@@ -481,12 +549,10 @@
     let sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
     let extra = "";
     let action = mode === "bits" ? "" : addButton(row.sku);
-    let blurb = itemBlurb(row, mode);
     let artClass = "";
     if (mode === "balls") {
       row = ballView(item);
       sprite = art(row, row.key);
-      blurb = itemBlurb(row, "balls");
     } else if (mode === "avatars") {
       const have = owned.has(item.pack);
       sprite = window.playItemSprite(packThumb(item));
@@ -497,26 +563,24 @@
     } else {
       row = withLureBlurb(item);
       sprite = art(row, row.sku || Object.keys(row.grants || {})[0]);
-      if (mode === "bits") {
-        blurb = "";
-        extra = grantListHtml(row);
-      }
+      if (mode === "bits") extra = grantListHtml(row);
     }
     const mark = item.featured ? "Featured" : "Special";
-    return `<article class="mart-featured">
+    const purpose = purposeText(row, mode);
+    return `<article class="mart-featured${item.featured ? " is-glow" : ""}">
       <div class="mart-featured-art${artClass}" aria-hidden="true">
         <img src="${esc(sprite)}" alt="">
       </div>
       <div class="mart-copy">
         <p class="mart-featured-mark">${mark}</p>
         <strong>${esc(displayName(row))}</strong>
-        ${blurb ? `<p class="mart-blurb">${esc(blurb)}</p>` : ""}
-        ${useLinesHtml(row)}
+        ${purpose ? `<p class="mart-purpose">${esc(purpose)}</p>` : ""}
         ${ownedLine(row)}
         ${extra}
       </div>
       <div class="mart-price">
         ${costHtml(row, mode === "avatars" ? "coins" : mode)}
+        ${detailWorthShowing(row, mode) ? `<button type="button" class="secondary mart-more" data-mart-detail="${esc(row.sku)}" data-mart-mode="${esc(mode)}">Details</button>` : ""}
         ${action}
       </div>
     </article>`;
@@ -982,6 +1046,11 @@
     const tab = event.target.closest(".mart-tab[data-mart-tab]");
     if (tab) {
       showTab(tab.dataset.martTab);
+      return;
+    }
+    const more = event.target.closest("[data-mart-detail]");
+    if (more) {
+      openMartDetail(findSku(more.dataset.martDetail), more.dataset.martMode);
       return;
     }
     const add = event.target.closest("button[data-sku], button[data-avatar-sku]");

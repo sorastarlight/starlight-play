@@ -55,6 +55,6 @@ console.log("1. APP_BUILD is", config.appBuild);
 console.log("2. HTML/JS/CSS stamps validated");
 console.log("3. Publish site_config.clientBuild BEFORE pushing Pages:");
 console.log(`   ${sql}`);
-console.log("4. Run tests: node tests/play-perf-tests.js && node tests/phase4-hardening-tests.js && node tests/phase5-identity-tests.js && node tests/phase6-rankings-tests.js && node tests/phase7-content-tests.js && node tests/play-present-tests.js && node tests/encounter-stability-tests.js && node tests/encounter-stage-tests.js && node tests/play-ux-tests.js && node tests/evolve-ux-tests.js && node tests/sprite-variant-tests.js && node tests/location-visual-tests.js && node tests/build-hygiene-tests.js");
+console.log("4. Run tests: node tests/play-perf-tests.js && node tests/phase4-hardening-tests.js && node tests/phase5-identity-tests.js && node tests/phase6-rankings-tests.js && node tests/phase7-content-tests.js && node tests/phase8-bits-tests.js && node tests/play-present-tests.js && node tests/encounter-stability-tests.js && node tests/encounter-stage-tests.js && node tests/play-ux-tests.js && node tests/evolve-ux-tests.js && node tests/sprite-variant-tests.js && node tests/location-visual-tests.js && node tests/build-hygiene-tests.js");
 console.log("5. git commit && git push origin main");
 console.log("6. Verify Admin Hub → Game Health → Build Health after Pages cache (up to 10 min) or a hard refresh");

@@ -8,6 +8,7 @@
     ["items", "Items"],
     ["products", "Store products"],
     ["packs", "Packs"],
+    ["bits", "Bits products"],
     ["avatars", "Trainer avatars"],
     ["pass", "Starlight Pass"],
     ["assets", "Asset library"]
@@ -18,7 +19,7 @@
     studio: null,
     library: [],
     health: null,
-    pack: { sku: "", name: "", blurb: "", detail: "", cost: 0, bits: 0, currency: "coins", featured: false, status: "draft", grants: {}, sprite: "pack-thumb.png", categoryId: "" },
+    pack: { sku: "", name: "", blurb: "", detail: "", cost: 0, bits: 0, currency: "coins", featured: false, status: "draft", grants: {}, sprite: "pack-thumb.png", categoryId: "", bitsTitles: [] },
     look: null,
     crop: { zoom: 1, x: 0, y: 0, kind: "pixel" },
     passDaily: {},
@@ -69,7 +70,7 @@
     if (desk) desk.hidden = view !== "products";
     if (view === "overview") renderOverview();
     if (view === "items") loadLibrary();
-    if (view === "packs") renderPack();
+    if (view === "packs" || view === "bits") renderPack();
     if (view === "avatars") renderAvatars();
     if (view === "pass") renderPass();
     if (view === "assets") renderAssets();
@@ -118,6 +119,11 @@
         <h2>Pack builder</h2>
         <p class="muted">Guaranteed contents only. No odds, no Pokémon, no Shinies, no Master Balls.</p>
         <div id="studio-pack"></div>
+      </section>
+      <section class="card body" data-studio-panel="bits" hidden>
+        <h2>Bits products</h2>
+        <p class="muted">Custom Power-Ups only. Contents are guaranteed and listed before support. General cheers are not Store checkout. Master Ball cannot go in an ordinary Bits pack.</p>
+        <div id="studio-bits-pack"></div>
       </section>
       <section class="card body" data-studio-panel="avatars" hidden>
         <h2>Trainer avatars</h2>
@@ -211,9 +217,14 @@
         <article class="${o.invalid ? "is-warn" : ""}"><strong>${o.invalid ?? "—"}</strong><span>Invalid products</span></article>
       </div>
       <p class="muted">${esc(health.detail || "Content health not loaded.")}</p>
+      ${Array.isArray(health.bitsCollisions) && health.bitsCollisions.length
+        ? `<p class="status-bad">Bits amount collisions: ${health.bitsCollisions.map((row) => esc(typeof row === "string" ? row : JSON.stringify(row))).join(" · ")}</p>`
+        : ""}
+      ${health.bitsInvalid ? `<p class="status-bad">${Number(health.bitsInvalid)} live Bits product${health.bitsInvalid === 1 ? "" : "s"} failed validation.</p>` : ""}
       <div class="links">
         <button type="button" data-studio-go="products" data-studio-new="item">+ New product</button>
         <button type="button" data-studio-go="packs">+ New pack</button>
+        <button type="button" class="secondary" data-studio-go="bits">+ New Bits product</button>
         <button type="button" data-studio-go="avatars" data-studio-new="avatar">+ Add Trainer avatar</button>
         <button type="button" class="secondary" data-studio-go="avatars" data-studio-new="pack">+ Add avatar pack</button>
         <button type="button" class="secondary" data-studio-go="items">+ Add item</button>
@@ -252,10 +263,12 @@
   }
 
   function renderPack() {
-    const el = document.getElementById("studio-pack");
+    const bitsMode = state.view === "bits" || state.pack.currency === "bits";
+    const el = document.getElementById(state.view === "bits" ? "studio-bits-pack" : "studio-pack");
     if (!el) return;
     const p = state.pack;
-    const cats = (state.studio?.categories || []).filter((row) => row.kind !== "pass");
+    const cats = (state.studio?.categories || []).filter((row) => bitsMode ? row.kind === "bits" : row.kind !== "pass");
+    const collisions = state.health?.bitsCollisions || [];
     el.innerHTML = `
       <form id="pack-form" class="store-editor-form">
         <label class="field">Name <input id="pack-name" type="text" value="${esc(p.name)}" required></label>
@@ -271,7 +284,10 @@
             <option value="bits"${p.currency === "bits" ? " selected" : ""}>Bits</option>
           </select>
         </label>
-        <label class="field">Price <input id="pack-price" class="money" type="text" value="${esc(money(p.currency === "bits" ? p.bits : p.cost))}"></label>
+        <label class="field">${bitsMode ? "Bits cost" : "Price"} <input id="pack-price" class="money" type="text" value="${esc(money(p.currency === "bits" ? p.bits : p.cost))}"></label>
+        ${bitsMode ? `<label class="field">Power-Up title aliases <span class="muted">(one per line, must match Twitch)</span>
+          <textarea id="pack-bits-titles" rows="3">${esc((p.bitsTitles || []).join("\n"))}</textarea>
+        </label>` : ""}
         <label class="field">Status
           <select id="pack-status">
             <option value="draft"${p.status === "draft" ? " selected" : ""}>Draft</option>
@@ -279,16 +295,20 @@
           </select>
         </label>
         <label class="field field-check"><input id="pack-featured" type="checkbox"${p.featured ? " checked" : ""}> Featured</label>
-        <p class="muted">Contents</p>
+        <p class="muted">Guaranteed contents — no odds field.</p>
         ${grantChips(p.grants)}
+        ${collisions.length ? `<p class="status-bad">Live Bits amount collisions: ${collisions.map((row) => esc(row.bits != null ? `${row.bits} Bits (${(row.skus || []).join(", ")})` : JSON.stringify(row))).join(" · ")}</p>` : ""}
         <div class="links">
           <button type="button" id="pack-add">Add content</button>
-          <button type="button" class="secondary" id="pack-preview">Preview</button>
+          <button type="button" class="secondary" id="pack-preview">Preview Mart + stream</button>
           <button type="submit" class="secondary">Save draft</button>
           <button type="button" id="pack-publish">Publish</button>
         </div>
       </form>
-      <aside id="pack-preview-card" class="mart-item studio-preview-card" hidden></aside>`;
+      <div id="pack-preview-wrap" class="studio-preview-pair" hidden>
+        <aside id="pack-preview-card" class="mart-item studio-preview-card"></aside>
+        <aside id="pack-preview-alert" class="studio-alert-preview"></aside>
+      </div>`;
   }
 
   function packFromForm() {
@@ -304,6 +324,8 @@
     state.pack.bits = currency === "bits" ? price : 0;
     state.pack.status = document.getElementById("pack-status")?.value || "draft";
     state.pack.featured = Boolean(document.getElementById("pack-featured")?.checked);
+    const titles = document.getElementById("pack-bits-titles")?.value || "";
+    state.pack.bitsTitles = titles.split(/\r?\n/).map((row) => row.trim()).filter(Boolean);
     return state.pack;
   }
 
@@ -312,12 +334,22 @@
     const price = p.currency === "bits" ? `${money(p.bits)} Bits` : `${money(p.cost)} PokéCoins`;
     return `<div class="mart-sprite"><img src="${esc(itemArt(p.sprite || "pack-thumb.png"))}" alt=""></div>
       <div class="mart-copy">
+        <p class="eyebrow">Mart / player card</p>
         <strong>${esc(p.name || "Untitled pack")}</strong>
-        <p class="mart-purpose">${esc(p.blurb || "Guaranteed Trainer supplies.")}</p>
-        <p class="muted">${p.status === "draft" ? "Draft — not on the Mart" : "Live on the Mart"}</p>
+        <p class="mart-purpose">${esc(p.blurb || (p.currency === "bits" ? "Guaranteed contents. Not a random pack." : "Guaranteed Trainer supplies."))}</p>
+        <p class="muted">${p.status === "draft" ? "Draft — not live" : "Live"}</p>
       </div>
       <ul class="mart-grants">${lines.map((line) => `<li><img src="${esc(line.sprite)}" alt=""><span>${esc(line.label)}</span></li>`).join("")}</ul>
       <div class="mart-foot"><span class="mart-cost">${esc(price)}</span></div>`;
+  }
+
+  function previewAlertHtml(p) {
+    const lines = typeof window.playGrantLines === "function" ? window.playGrantLines(p.grants) : [];
+    return `<p class="support-kicker">SUPPORT RECEIVED!</p>
+      <p>A supporter supported with ${money(p.bits || 0)} Bits!</p>
+      <p><strong>${esc(p.name || "Starlight pack")}</strong></p>
+      <ul>${lines.map((line) => `<li>${esc(line.label)}</li>`).join("")}</ul>
+      <p>Added to Trainer inventory. THANK YOU! ★</p>`;
   }
 
   async function savePack(publish) {
@@ -332,6 +364,15 @@
     }
     const sku = p.sku || p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
     const status = publish ? "published" : "draft";
+    const bits = p.currency === "bits";
+    if (bits && publish && p.bits < 1) {
+      note("Live Bits products need a Bits cost greater than 0.");
+      return;
+    }
+    if (bits && publish && !(p.bitsTitles || []).length) {
+      note("Live Bits products need at least one Twitch Power-Up title.");
+      return;
+    }
     note(publish ? "Publishing pack…" : "Saving draft…");
     const data = await window.playCall("admin_store_save_item", {
       p_row: {
@@ -348,13 +389,20 @@
         featured: p.featured,
         visible: true,
         status,
-        productKind: "pack",
-        extra: { productKind: "pack", status, detail: p.detail }
+        productKind: bits ? "bits" : "pack",
+        bitsTitles: p.bitsTitles || [],
+        extra: {
+          productKind: bits ? "bits" : "pack",
+          status,
+          detail: p.detail,
+          bitsTitles: p.bitsTitles || []
+        }
       }
     });
     state.pack.sku = data.sku || sku;
     state.pack.status = status;
-    note(data.message || (publish ? "Pack published." : "Draft saved."));
+    const collisions = Array.isArray(data.bitsCollisions) ? data.bitsCollisions : [];
+    note((data.message || (publish ? "Pack published." : "Draft saved.")) + (collisions.length ? " Warning: live Bits amounts collide." : ""));
     await reloadStudio();
   }
 
@@ -606,7 +654,11 @@
       setView(go.dataset.studioGo);
       if (go.dataset.studioNew === "item") document.getElementById("item-add")?.click();
       if (go.dataset.studioNew === "pack") {
-        state.pack = { sku: "", name: "Trainer Starter Pack", blurb: "Guaranteed supplies for a new Trainer.", detail: "", cost: 5000, bits: 0, currency: "coins", featured: false, status: "draft", grants: {}, sprite: "pack-thumb.png", categoryId: (state.studio?.categories || []).find((c) => c.kind === "coins")?.id || "" };
+        state.pack = { sku: "", name: "Trainer Starter Pack", blurb: "Guaranteed supplies for a new Trainer.", detail: "", cost: 5000, bits: 0, currency: "coins", featured: false, status: "draft", grants: {}, sprite: "pack-thumb.png", categoryId: (state.studio?.categories || []).find((c) => c.kind === "coins")?.id || "", bitsTitles: [] };
+        renderPack();
+      }
+      if (go.dataset.studioGo === "bits") {
+        state.pack = { sku: "", name: "Starlight Support Pack", blurb: "Guaranteed convenience for stream support. Not a random pack.", detail: "Draft. Contents listed before support.", cost: 0, bits: 175, currency: "bits", featured: false, status: "draft", grants: {}, sprite: "amulet-coin.png", categoryId: (state.studio?.categories || []).find((c) => c.kind === "bits")?.id || "", bitsTitles: ["starlight support pack"] };
         renderPack();
       }
       return;
@@ -627,7 +679,7 @@
     }
     const remove = event.target.closest("[data-remove-grant]");
     if (remove) {
-      if (state.view === "packs") {
+      if (state.view === "packs" || state.view === "bits") {
         packFromForm();
         delete state.pack.grants[remove.dataset.removeGrant];
         renderPack();
@@ -640,11 +692,12 @@
     }
     if (event.target.id === "pack-preview") {
       packFromForm();
+      const wrap = document.getElementById("pack-preview-wrap");
       const card = document.getElementById("pack-preview-card");
-      if (card) {
-        card.hidden = false;
-        card.innerHTML = previewPackHtml(state.pack);
-      }
+      const alert = document.getElementById("pack-preview-alert");
+      if (wrap) wrap.hidden = false;
+      if (card) card.innerHTML = previewPackHtml(state.pack);
+      if (alert) alert.innerHTML = previewAlertHtml(state.pack);
       return;
     }
     if (event.target.id === "pack-publish") {

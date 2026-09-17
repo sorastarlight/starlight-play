@@ -3536,6 +3536,44 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   align-items: start;
 }
+.support-recent {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff7fc, #eaf6ff);
+  border: 2px solid #fff;
+}
+.support-recent ul {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.support-recent li { font-size: 15px; }
+.studio-preview-pair {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: 16px;
+}
+.studio-alert-preview {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff7fc, #e8f4ff);
+  color: #2a3048;
+}
+.studio-alert-preview .support-kicker {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: #c45b93;
+  font-weight: 800;
+}
+.bits-event {
+  padding: 10px 0;
+  border-bottom: 1px solid #e8eefc;
+}
 .mart-item-bits {
   grid-template-columns: 40px minmax(0, 1fr);
   grid-template-areas:
@@ -5462,6 +5500,14 @@ body[data-page="admin"] .play-stage {
   box-shadow: 0 10px 0 #f3c6e2, 0 18px 36px #687bae33;
   text-align: center;
 }
+.play-present-card.is-support {
+  background:
+    radial-gradient(circle at 18% -8%, #ffe3f3 0 22%, transparent 48%),
+    radial-gradient(circle at 92% 0%, #bfe8ff 0 26%, transparent 54%),
+    linear-gradient(180deg, #fff7fc, #eaf6ff);
+  box-shadow: 0 10px 0 #7ec8ea, 0 18px 36px #687bae33;
+}
+.play-present-card.is-support .play-present-kicker { color: #c45b93; }
 .play-present-kicker {
   margin: 0;
   font-size: 11px;
@@ -5558,7 +5604,10 @@ body[data-page="admin"] .play-stage {
 .play-present-fx i:nth-child(5) { top: 46%; left: 6%; animation-delay: .3s; }
 .play-present-fx i:nth-child(6) { top: 50%; right: 8%; animation-delay: .5s; }
 .play-present-fx i:nth-child(7) { top: 8%; left: 48%; animation-delay: .1s; }
-.play-present-fx i:nth-child(8) { bottom: 10%; left: 46%; animation-delay: .7s; }
+.play-present-fx.is-star i {
+  background: linear-gradient(180deg, #7ec8ea, #f3c6e2);
+  box-shadow: 0 0 10px #ffe3f3;
+}
 @keyframes play-present-star {
   0%, 100% { transform: scale(.6); opacity: .35; }
   50% { transform: scale(1); opacity: 1; }

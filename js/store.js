@@ -23,6 +23,7 @@
   let checkoutNote = "";
   let lastPurchase = null;
   let lastLinkedLogin = "";
+  let lastSupport = { events: [], bitsTotal: 0, pending: false };
 
   window.playBindAccountNav({
     onSignOut() {
@@ -31,6 +32,7 @@
       lastWallet = null;
       lastOwned = [];
       lastBag = null;
+      lastSupport = { events: [], bitsTotal: 0, pending: false };
       renderFloors(lastCatalog, null, null, []);
     }
   });
@@ -348,7 +350,7 @@
         key: "bits",
         kind: "bits",
         name: "Twitch Power-Ups",
-        blurb: "Guaranteed items for a known Bits cost. Use the matching Custom Power-Up on Twitch while Sora is live. Nothing random — no surprise Pokémon.",
+        blurb: "Use the matching Custom Power-Up on Twitch while Sora is live. Contents are guaranteed and listed here. A general cheer is not a Store checkout.",
         icon: "amulet-coin.png",
         items: catalog?.bits || []
       }
@@ -669,10 +671,21 @@
 
   function bitsFloor(floor, index) {
     const { featured, rest } = splitFeatured(floor.items || []);
+    const history = Array.isArray(lastSupport.events) ? lastSupport.events : [];
+    const historyHtml = history.length
+      ? `<section class="support-recent" aria-label="Recent support rewards">
+          <p class="eyebrow">Recent support rewards</p>
+          ${lastSupport.bitsTotal ? `<p class="muted">You've supported ST★RLIGHT streams with ${money(lastSupport.bitsTotal)} Bits.</p>` : ""}
+          ${lastSupport.pending ? `<p class="muted">A Power-Up is waiting until this Twitch account is linked for gameplay.</p>` : ""}
+          <ul>${history.slice(0, 6).map((row) => `<li><strong>${esc(row.name || row.sku)}</strong> · ${esc(row.status)} · ${money(row.bits)} Bits</li>`).join("")}</ul>
+        </section>`
+      : (lastSupport.pending
+        ? `<p class="muted">A Power-Up is waiting until this Twitch account is linked for gameplay.</p>`
+        : `<p class="muted">Support with a matching Custom Power-Up on Twitch. General cheers are thank-yous, not Store checkouts. Twitch Bits are stream support — ST★RLIGHT does not convert them into a Star Bits currency.</p>`);
     return floorShell(
       floor,
       floor.icon || "amulet-coin.png",
-      stageHtml(featuredCard(featured, "bits"), rest.map((item) => shelfCard(item, "bits")).join(""), "mart-shelf"),
+      historyHtml + stageHtml(featuredCard(featured, "bits"), rest.map((item) => shelfCard(item, "bits")).join(""), "mart-shelf"),
       "",
       index
     );
@@ -968,6 +981,11 @@
       lastOwned = data.ownedAvatarPacks || [];
       lastBag = data.bag || null;
       window._playOwnedAvatarPacks = lastOwned;
+      try {
+        lastSupport = await window.playCall("play_support_recent") || lastSupport;
+      } catch (_) {
+        lastSupport = { events: [], bitsTotal: 0, pending: false };
+      }
       fillWallet(wallet);
       renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
       return data;

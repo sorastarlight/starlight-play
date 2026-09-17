@@ -19,8 +19,9 @@
     xp: 8,
     coins: 9,
     evolution: 10,
-    info: 11,
-    error: 12
+    support: 11,
+    info: 12,
+    error: 13
   };
 
   const env = {
@@ -206,6 +207,11 @@
       return event.tier;
     }
     if (type === "pokedex" || type === "level" || type === "evolution") return TIER.moment;
+    if (type === "support") {
+      const round = root.playCurrentRound?.() || root.PLAY_ROUND;
+      const busy = Boolean(round && round.phase && round.phase !== "closed" && !round.resolved && !round.cancelled);
+      return busy ? TIER.toast : TIER.card;
+    }
     if (type === "achievement" || type === "unlock" || type === "summary" || type === "purchase") return TIER.card;
     if (type === "item") {
       const rare = Boolean(event?.rare) || /rare|stone|linkingcord|masterball|rarecandy/i.test(String(event?.item || event?.title || ""));
@@ -231,6 +237,7 @@
     if (k === "loot-rare") return "item";
     if (k === "loot" || k === "choice") return "item";
     if (k === "evolution") return "evolution";
+    if (k === "support" || k === "bits") return "support";
     if (k === "xp") return "xp";
     if (k === "mastery") return "mastery";
     if (/level up/.test(text)) return "level";
@@ -245,14 +252,14 @@
     if (!raw || typeof raw !== "object") return null;
     const ctx = context || {};
     const payload = raw.payload && typeof raw.payload === "object" ? raw.payload : {};
-    const type = String(raw.type || typeFromKind(raw.kind, raw.title, raw.body) || "info");
+    const rewards = rewardList(raw.rewards || payload.rewards || payload.grants);
+    const type = String(raw.type || payload.type || typeFromKind(raw.kind, raw.title, raw.body) || "info");
     const species = Number(raw.species || payload.species || payload.to || ctx.species || 0) || 0;
     const variantRaw = String(raw.variant || payload.variant || ctx.variant || "normal") || "normal";
     const shiny = /shiny/i.test(variantRaw) || Boolean(payload.shiny) || Boolean(raw.shiny);
     const variant = shiny ? (variantRaw.includes("shiny") ? variantRaw : "shiny") : (variantRaw === "female" ? "normal" : variantRaw || "normal");
     const gender = String(raw.gender || payload.gender || ctx.gender || "");
-    const id = String(raw.id || raw.key || `${type}:${species || raw.title || "x"}:${raw.body || ""}`);
-    const rewards = rewardList(raw.rewards || payload.rewards);
+    const id = String(raw.id || raw.key || `${type}:${species || raw.title || payload.eventId || "x"}:${raw.body || ""}`);
     const event = {
       id,
       type,
@@ -279,6 +286,14 @@
       preview: Boolean(raw.preview || ctx.preview || isPreviewId(id)),
       payload
     };
+    if (type === "support") {
+      event.unlockName = event.unlockName || String(payload.name || "");
+      event.body = event.body || (payload.bits ? `Supported with ${payload.bits} Bits.` : "Added to Trainer inventory.");
+      if (!event.item) {
+        const first = rewards.find((row) => row.type && !["title", "badge", "cosmetic"].includes(row.type));
+        if (first?.type) event.item = first.type;
+      }
+    }
     event.tier = classify(event);
     if (!event.subtitle && species) {
       const num = String(species).padStart(3, "0");
@@ -296,6 +311,7 @@
     if (type === "purchase") return "PURCHASE COMPLETE";
     if (type === "summary") return "REWARDS";
     if (type === "evolution") return "Congratulations!";
+    if (type === "support") return "THANK YOU! ★";
     return "Reward";
   }
 
@@ -532,10 +548,11 @@
     }
   }
 
-  function fxHtml() {
+  function fxHtml(kind) {
     if (isReduced() || perfMode() === "low") return "";
     const n = perfMode() === "high" ? 8 : 4;
-    return `<span class="play-present-fx" aria-hidden="true">${"<i></i>".repeat(n)}</span>`;
+    const extra = kind === "support" ? " is-star" : "";
+    return `<span class="play-present-fx${extra}" aria-hidden="true">${"<i></i>".repeat(n)}</span>`;
   }
 
   function rewardHtml(event) {
@@ -709,6 +726,7 @@
 
   async function presentCard(event) {
     if (event.type === "achievement") cue("achievement.unlock");
+    else if (event.type === "support") cue("support.thankyou");
     else if (event.rare || event.type === "item") cue(event.rare ? "item.rare" : "reward.small");
     else cue("reward.major");
     const kicker = event.type === "achievement"
@@ -717,15 +735,17 @@
         ? "NEW TRAINER REWARD!"
         : event.type === "purchase"
           ? "PURCHASE COMPLETE"
-          : event.type === "summary"
-            ? event.title
-            : event.title;
+          : event.type === "support"
+            ? "SUPPORT RECEIVED!"
+            : event.type === "summary"
+              ? event.title
+              : event.title;
     const name = event.type === "achievement" ? (event.subtitle || event.unlockName) : (event.unlockName || event.subtitle);
     const news = asArray(event.news || event.payload?.news).map((line) => `<li>${esc(line)}</li>`).join("");
     const kindLine = event.type === "unlock" ? unlockKindLabel(event.unlockKind || event.payload?.kind) : "";
     const body = event.body || (event.type === "achievement" ? event.payload?.description : "") || kindLine;
-    const html = `<article class="play-present-card" data-present-panel data-type="${esc(event.type)}">
-      ${fxHtml()}
+    const html = `<article class="play-present-card${event.type === "support" ? " is-support" : ""}" data-present-panel data-type="${esc(event.type)}">
+      ${fxHtml(event.type)}
       <p class="play-present-kicker">${esc(kicker)}</p>
       ${event.species || event.item ? artBox(event) : ""}
       <h2>${esc(name || event.title)}</h2>
@@ -972,7 +992,20 @@
       ],
       news: ["Pokédex Entry", "Achievement: Shocking Discovery"]
     }),
-    error: () => ({ id: "lab:error", type: "error", title: "Can't do that", body: "Not enough PokéCoins.", severity: "warning" })
+    error: () => ({ id: "lab:error", type: "error", title: "Can't do that", body: "Not enough PokéCoins.", severity: "warning" }),
+    support: () => ({
+      id: "lab:support",
+      type: "support",
+      kind: "support",
+      title: "THANK YOU! ★",
+      body: "Adventure Pack added to your bag.",
+      payload: {
+        type: "support",
+        name: "Adventure Pack",
+        bits: 200,
+        grants: { greatball: 10, berry: 3, bait: 2 }
+      }
+    })
   };
 
   function preview(kind, opts) {

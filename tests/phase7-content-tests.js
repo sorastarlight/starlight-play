@@ -133,7 +133,7 @@ test("Pack builder and Pass share the content picker", () => {
   const studio = fs.readFileSync(path.join(__dirname, "../js/admin-studio.js"), "utf8");
   assert(studio.includes("playContentPicker"), "studio does not use content picker");
   assert(studio.includes("admin_save_pass_rewards"), "pass editor missing");
-  assert(studio.includes("productKind: \"pack\""), "pack save missing");
+  assert(studio.includes("productKind: bits ? \"bits\" : \"pack\"") || studio.includes("productKind: \"pack\""), "pack save missing");
 });
 
 test("Portrait upload path is derived, not destructive", () => {

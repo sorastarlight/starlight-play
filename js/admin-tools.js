@@ -21,6 +21,9 @@
     packStatus: document.getElementById("pack-status"),
     bitsAutoStatus: document.getElementById("bits-auto-status"),
     bitsConnect: document.getElementById("bits-connect"),
+    bitsHealth: document.getElementById("bits-health-card"),
+    bitsEvents: document.getElementById("bits-event-list"),
+    bitsFilter: document.getElementById("bits-event-filter"),
     passLogin: document.getElementById("pass-login"),
     passCount: document.getElementById("pass-count"),
     passStatus: document.getElementById("pass-admin-status"),
@@ -82,6 +85,7 @@
     }
     renderBitsStatus(data.bitsAuto || {});
     fillBitsPacks(data);
+    loadBitsFulfillment();
     document.querySelectorAll(".owner-only").forEach((node) => {
       node.hidden = data.canManageSecrets === false;
     });
@@ -682,6 +686,58 @@
       els.bitsAutoStatus.innerHTML += ` ${info.pending} pack${info.pending === 1 ? "" : "s"} waiting for a Play sign-in.`;
     }
   }
+
+  async function loadBitsFulfillment() {
+    if (!els.bitsHealth && !els.bitsEvents) return;
+    try {
+      const health = await window.playCall("admin_bits_health");
+      if (els.bitsHealth) {
+        const collisions = Array.isArray(health.collisions) ? health.collisions : [];
+        els.bitsHealth.innerHTML = `<dt><span>Bits / Support</span><span class="health-pill">${window.playEscapeAttr(health.status || "UNKNOWN")}</span></dt>
+          <dd>${window.playEscapeAttr(health.detail || "")} EventSub ${window.playEscapeAttr(health.eventSub || "unknown")}. Live products ${health.liveProducts ?? "—"}. Unresolved ${health.unresolved ?? 0}. Failed ${health.failed ?? 0}. Duplicates ${health.duplicates ?? 0}.${collisions.length ? " Collisions present." : ""}</dd>`;
+      }
+      const filter = els.bitsFilter?.value || "";
+      const data = await window.playCall("admin_bits_events", { p_status: filter || null, p_limit: 40 });
+      const rows = Array.isArray(data.events) ? data.events : [];
+      if (els.bitsEvents) {
+        els.bitsEvents.innerHTML = rows.length
+          ? rows.map((row) => {
+            const who = row.anonymous ? "anonymous supporter" : (row.twitchLogin || "unlinked");
+            const retry = row.status === "failed" || row.status === "pending" || row.status === "unresolved"
+              ? `<button type="button" class="secondary" data-bits-retry="${window.playEscapeAttr(row.id)}">Retry fulfillment</button>`
+              : "";
+            return `<article class="bits-event">
+              <p><strong>${window.playEscapeAttr(who)}</strong> · ${Number(row.bits) || 0} Bits · ${window.playEscapeAttr(row.status)}</p>
+              <p class="muted">${window.playEscapeAttr(row.packName || row.sku || row.title || "—")} · ${window.playEscapeAttr(row.detail || "")}</p>
+              <p class="muted">Event ${window.playEscapeAttr(String(row.id || "").slice(0, 18))} · ${window.playEscapeAttr(row.at || "")}</p>
+              ${retry}
+            </article>`;
+          }).join("")
+          : `<p class="muted">No Bits events in this view.</p>`;
+      }
+    } catch (error) {
+      if (els.bitsEvents) els.bitsEvents.innerHTML = `<p class="muted">${window.playRpcError(error, "Bits fulfillment is unavailable.")}</p>`;
+    }
+  }
+
+  document.getElementById("bits-event-filter")?.addEventListener("change", () => {
+    loadBitsFulfillment();
+  });
+
+  document.getElementById("bits-event-list")?.addEventListener("click", async (event) => {
+    const btn = event.target.closest("[data-bits-retry]");
+    if (!btn) return;
+    btn.disabled = true;
+    try {
+      const data = await window.playCall("admin_bits_retry", { p_event_id: btn.dataset.bitsRetry });
+      if (els.packStatus) els.packStatus.textContent = data.message || "Retry finished.";
+      await loadBitsFulfillment();
+    } catch (error) {
+      if (els.packStatus) els.packStatus.textContent = window.playRpcError(error, "Retry failed.");
+    } finally {
+      btn.disabled = false;
+    }
+  });
 
   async function functionMessage(error, fallback) {
     try {

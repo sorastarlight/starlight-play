@@ -440,7 +440,8 @@
     });
     selectedSku = data.sku || sku;
     await reload(data);
-    note(data.message || "Item saved.");
+    const collisions = Array.isArray(data.bitsCollisions) ? data.bitsCollisions : [];
+    note((data.message || "Item saved.") + (collisions.length ? " Warning: live Bits amounts collide." : ""));
   }
 
   async function reorder(kind, ids) {

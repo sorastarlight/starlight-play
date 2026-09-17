@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260916-rc9b">
+<link rel="stylesheet" href="css/play.css?v=20260917-rc8">
 <body data-page="admin-tools">
 <script>
 (() => {
@@ -130,7 +130,20 @@
         <div class="links">
           <button id="bits-connect" type="button">Turn on Bits auto-credit</button>
         </div>
-        <p class="muted">Paste the Play Twitch Client Secret under Stream channel and save first (same secret already used for Play login). Then click Turn on once and wait for Auto-credit is on. Twitch may not open an authorize page if Bits permission was already granted.</p>
+        <p class="muted">Paste the Play Twitch Client Secret under Stream channel and save first (same secret already used for Play login). Then click Turn on once and wait for Auto-credit is on. Twitch may not open an authorize page if Bits permission was already granted. Play never treats a general cheer as Store checkout.</p>
+        <div id="bits-health-card" class="game-health-card" role="status"></div>
+        <label class="field" for="bits-event-filter">Fulfillment
+          <select id="bits-event-filter">
+            <option value="">Recent verified events</option>
+            <option value="fulfilled">Fulfilled</option>
+            <option value="pending">Unresolved Trainer</option>
+            <option value="unresolved">Anonymous / unresolved</option>
+            <option value="failed">Failed</option>
+            <option value="ignored">Duplicate / ignored</option>
+            <option value="skipped_bot">Bot identity</option>
+          </select>
+        </label>
+        <div id="bits-event-list" class="report-out"></div>
       </section>
       <section class="card body">
         <h2>Credit a Bits pack</h2>
@@ -224,17 +237,17 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260916-rc9b"></script>
-<script src="js/play-perf.js?v=20260916-rc9b"></script>
-<script src="js/build.js?v=20260916-rc9b"></script>
-<script src="js/build-client.js?v=20260916-rc9b"></script>
-<script src="js/auth.js?v=20260916-rc9b"></script>
-<script src="js/species.js?v=20260916-rc9b"></script>
-<script src="js/variants.js?v=20260916-rc9b"></script>
-<script src="js/game.js?v=20260916-rc9b"></script>
-<script src="js/play-present.js?v=20260916-rc9b"></script>
-<script src="js/play-encounter-state.js?v=20260916-rc9b"></script>
-<script src="js/hud.js?v=20260916-rc9b"></script>
-<script src="js/nav.js?v=20260916-rc9b"></script>
-<script src="js/admin-tools.js?v=20260916-rc9b"></script>
+<script src="js/config.js?v=20260917-rc8"></script>
+<script src="js/play-perf.js?v=20260917-rc8"></script>
+<script src="js/build.js?v=20260917-rc8"></script>
+<script src="js/build-client.js?v=20260917-rc8"></script>
+<script src="js/auth.js?v=20260917-rc8"></script>
+<script src="js/species.js?v=20260917-rc8"></script>
+<script src="js/variants.js?v=20260917-rc8"></script>
+<script src="js/game.js?v=20260917-rc8"></script>
+<script src="js/play-present.js?v=20260917-rc8"></script>
+<script src="js/play-encounter-state.js?v=20260917-rc8"></script>
+<script src="js/hud.js?v=20260917-rc8"></script>
+<script src="js/nav.js?v=20260917-rc8"></script>
+<script src="js/admin-tools.js?v=20260917-rc8"></script>
 </body>

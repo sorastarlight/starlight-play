@@ -1000,6 +1000,11 @@
         label: "Content",
         status: data?.content?.status || "UNKNOWN",
         detail: data?.content?.detail || "Content health not loaded."
+      },
+      {
+        label: "Bits / Support",
+        status: data?.bits?.status || "UNKNOWN",
+        detail: data?.bits?.detail || "Bits health not loaded."
       }
     ];
     board.innerHTML = rows.map((row) => `
@@ -1018,6 +1023,11 @@
         data.content = await window.playCall("admin_content_health");
       } catch (_) {
         data.content = { status: "UNKNOWN", detail: "Content health unavailable." };
+      }
+      try {
+        data.bits = await window.playCall("admin_bits_health");
+      } catch (_) {
+        data.bits = { status: "UNKNOWN", detail: "Bits health unavailable." };
       }
       renderGameHealthBoard(data, buildView);
     } catch (error) {

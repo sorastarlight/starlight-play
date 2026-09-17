@@ -250,6 +250,34 @@ async function run() {
     assert(event.title.includes("SHINY") || event.shiny);
   });
 
+  await test("support thank-you ranks after capture and evolution", () => {
+    const support = window.playPresentNormalize({
+      id: "sup1",
+      kind: "support",
+      title: "THANK YOU! ★",
+      body: "Adventure Pack added to your bag.",
+      payload: { type: "support", name: "Adventure Pack", bits: 200, grants: { greatball: 10, bait: 2 } }
+    });
+    const evo = window.playPresentNormalize({ id: "evo1", kind: "evolution", title: "Congratulations!" });
+    const dex = window.playPresentNormalize({ id: "dex1", kind: "pokedex", payload: { species: 25 } });
+    assert(support.type === "support", support.type);
+    assert(support.tier === "card", support.tier);
+    assert(window.playPresentRank(support) > window.playPresentRank(evo), "support should wait for evolution");
+    assert(window.playPresentRank(support) > window.playPresentRank(dex), "support should wait for capture");
+    assert(support.rewards.some((row) => row.type === "greatball" && row.amount === 10), JSON.stringify(support.rewards));
+  });
+
+  await test("support becomes a toast while an encounter is live", () => {
+    window.PLAY_ROUND = { phase: "items", resolved: false, cancelled: false };
+    const event = window.playPresentNormalize({
+      id: "sup-live",
+      kind: "support",
+      payload: { name: "Starter Pack", bits: 100, grants: { pokeball: 8 } }
+    });
+    assert(event.tier === "toast", event.tier);
+    window.PLAY_ROUND = null;
+  });
+
   const failed = results.filter((row) => !row.passed);
   console.log(`play-present tests: ${results.filter((row) => row.passed).length} passed, ${failed.length} failed`);
   failed.forEach((row) => console.log(`  FAIL ${row.name}: ${row.detail}`));

@@ -236,6 +236,9 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     const signedIn = Boolean(session);
     const isAdmin = Boolean(extras?.isAdmin);
     const trainer = extras?.trainer;
+    if (typeof window.playSetTipUser === "function") {
+      window.playSetTipUser(signedIn ? session?.user?.id : "");
+    }
     renderLinks(isAdmin);
     if (els.signIn) els.signIn.hidden = signedIn;
     if (els.account) els.account.hidden = !signedIn;

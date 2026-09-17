@@ -159,7 +159,7 @@
         const lockedPack = Boolean(group.premium) && !ownedPacks.includes(group.key);
         return `<section class="trainer-gen${lockedPack ? " is-locked" : ""}">
           <h3>${esc(group.label)}</h3>
-          <p class="muted">${esc(group.games)}${lockedPack ? " · Unlock in Premium Avatars on the Store." : ""}</p>
+          <p class="muted">${esc(group.games)}${lockedPack ? " · Unlock in Premium Avatars on the Mart." : ""}</p>
           <div class="trainer-gen-row">
             ${window.playTrainerLooks(group).map((look) => {
               const equipped = look.id === view.trainerSprite;
@@ -375,7 +375,7 @@
     if (sprite) {
       const group = window.PLAY_TRAINERS.find((row) => window.playTrainerLooks(row).some((look) => look.id === sprite.dataset.sprite));
       if (group?.premium && !ownedPacks.includes(group.key)) {
-        customHint.textContent = `${group.label} is locked. Unlock this series in Premium Avatars on the Store.`;
+        customHint.textContent = `${group.label} is locked. Unlock this series in Premium Avatars on the Mart.`;
         return;
       }
       draft.sprite = sprite.dataset.sprite;

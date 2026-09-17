@@ -371,9 +371,24 @@
     return root.playItemPurpose(key, captureItems) || "A Poké Ball for catching wild Pokémon.";
   };
 
+  root.playTipScopeId = function playTipScopeId() {
+    return root._playTipUserId
+      || root._playSession?.user?.id
+      || root.playSupabase?._tipUserId
+      || "anon";
+  };
+
+  root.playTipStorageKey = function playTipStorageKey() {
+    return `play-tips-done:${root.playTipScopeId()}`;
+  };
+
+  root.playSetTipUser = function playSetTipUser(userId) {
+    root._playTipUserId = userId ? String(userId) : "";
+  };
+
   root.playTipDone = function playTipDone(key) {
     try {
-      const raw = JSON.parse(localStorage.getItem("play-tips-done") || "{}") || {};
+      const raw = JSON.parse(localStorage.getItem(root.playTipStorageKey()) || "{}") || {};
       return Boolean(raw[key]);
     } catch (_) {
       return false;
@@ -382,9 +397,10 @@
 
   root.playMarkTip = function playMarkTip(key) {
     try {
-      const raw = JSON.parse(localStorage.getItem("play-tips-done") || "{}") || {};
+      const storageKey = root.playTipStorageKey();
+      const raw = JSON.parse(localStorage.getItem(storageKey) || "{}") || {};
       raw[key] = true;
-      localStorage.setItem("play-tips-done", JSON.stringify(raw));
+      localStorage.setItem(storageKey, JSON.stringify(raw));
     } catch (_) {}
   };
 

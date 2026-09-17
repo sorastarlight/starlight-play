@@ -11,7 +11,7 @@
     if (cap >= max) {
       return "Your bag is full. That’s the 10,000 item maximum — use some items to make space.";
     }
-    return "Your bag is full. Buy a Pouch on the Store for more space, or use some items first.";
+    return "Your bag is full. Buy a Pouch on the Mart for more space, or use some items first.";
   };
 
   window.playFillBagMeter = function playFillBagMeter(bag) {
@@ -109,7 +109,7 @@
         : on
           ? `Automatically detects nearby Pokémon and joins you to any encounter that appears. ${left}.`
           : count < 1
-            ? "You don’t have a Poké Radar yet. Get one from a Power-Up, a Pass crate, or the Store."
+            ? "You don’t have a Poké Radar yet. Get one from a Power-Up, a Pass crate, or the Mart."
             : "Automatically detects nearby Pokémon and joins you to any encounter that appears. Lasts 30 minutes.";
     }
   };
@@ -307,7 +307,7 @@
           return hint ? `<p class="special-event-retry" data-special-hint>${window.playEscapeAttr(hint)}</p>` : `<p class="special-event-retry" data-special-hint hidden></p>`;
         })()}
       </div>
-      <div class="phase-wrap ${warnClass}${cinematic ? " is-capture" : ""}" data-phase-wrap role="timer" aria-live="polite" aria-label="${window.playEscapeAttr(timerLabel)}">
+      <div class="phase-wrap ${warnClass}${cinematic ? " is-capture" : ""}" data-phase-wrap role="timer" aria-label="${window.playEscapeAttr(timerLabel)}">
         <div class="phase-label"><span data-phase-name>${phase}</span><span data-time-copy>${timeText}</span></div>
         <div class="phase-bar" aria-hidden="true"><i data-bar style="width:${opts.bar || 0}%"></i></div>
       </div>
@@ -867,7 +867,11 @@
     if (time) time.textContent = round.paused ? "PAUSED" : `${seconds || 0}s`;
     if (timeCopy) timeCopy.textContent = timeText;
     const phaseWrap = root.querySelector("[data-phase-wrap]");
-    if (phaseWrap) phaseWrap.setAttribute("aria-label", timerLabel);
+    if (phaseWrap) {
+      phaseWrap.setAttribute("aria-label", timerLabel);
+      // Avoid aria-live spam: seconds tick every second; screen readers use the label on demand.
+      phaseWrap.removeAttribute("aria-live");
+    }
     root.querySelector("[data-phase-wrap]")?.classList.toggle("is-warn", warnClass === "is-warn");
     root.querySelector("[data-phase-wrap]")?.classList.toggle("is-urgent", warnClass === "is-urgent");
     if (phaseEl) phaseEl.textContent = phase;

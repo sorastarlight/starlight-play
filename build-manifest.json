@@ -1,7 +1,7 @@
 {
-  "appBuild": "20260917-rc13",
+  "appBuild": "20260917-rc14",
   "spriteBuild": "20260916-sp1",
   "locationBuild": "20260916-loc1",
-  "gitCommit": "6bd868e",
-  "deployedAt": "2026-09-17T13:22:51.916Z"
+  "gitCommit": "b17e7ed",
+  "deployedAt": "2026-09-17T13:55:39.464Z"
 }

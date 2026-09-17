@@ -790,7 +790,7 @@
     };
     if (!rows.length) {
       els.throwGrid.innerHTML = throwViewOnly
-        ? `<p class="muted">You don’t have any Poké Balls right now. Buy more in the Store.</p>`
+        ? `<p class="muted">You don’t have any Poké Balls right now. Buy more in the Mart.</p>`
         : `<button type="button" class="ball-tile" data-throw="standard">
             <img src="${window.playItemSprite("pokeball")}" alt="">
             <strong>Standard throw</strong>
@@ -822,7 +822,7 @@
     if (els.throwHint) els.throwHint.textContent = "One Berry per encounter. It is used when the timer ends.";
     const rows = window.playOwnedBerries(bag, state?.captureItems);
     if (!rows.length) {
-      els.throwGrid.innerHTML = `<p class="muted">You don’t have any Berries right now. Buy more in the Store.</p>`;
+      els.throwGrid.innerHTML = `<p class="muted">You don’t have any Berries right now. Buy more in the Mart.</p>`;
     } else {
       els.throwGrid.innerHTML = rows.map((row) => `
         <button type="button" class="ball-tile" data-prep="${row.key}">
@@ -1440,6 +1440,9 @@
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
     window._playSession = session;
+    if (typeof window.playSetTipUser === "function") {
+      window.playSetTipUser(session?.user?.id || "");
+    }
     if (!session) {
       profile = null;
       window.playSetAccountNav(null);

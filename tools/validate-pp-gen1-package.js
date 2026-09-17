@@ -52,13 +52,26 @@ function isGif(buf) {
     && (buf.slice(3, 6).toString("ascii") === "87a" || buf.slice(3, 6).toString("ascii") === "89a");
 }
 
+function isPng(buf) {
+  return buf.length >= 8
+    && buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e && buf[3] === 0x47
+    && buf[4] === 0x0d && buf[5] === 0x0a && buf[6] === 0x1a && buf[7] === 0x0a;
+}
+
+function formatMatchesExtension(abs, buf) {
+  const ext = path.extname(abs).toLowerCase();
+  if (ext === ".gif") return isGif(buf) ? null : "expected GIF magic, got non-GIF";
+  if (ext === ".png") return isPng(buf) ? null : "expected PNG magic, got non-PNG";
+  return `unsupported extension ${ext}`;
+}
+
 const rows = parseCsv(fs.readFileSync(path.join(sourceRoot, "manifest.csv"), "utf8"));
 const gifFiles = [];
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const abs = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(abs);
-    else if (/\.gif$/i.test(entry.name)) gifFiles.push(abs);
+    else if (/\.(gif|png)$/i.test(entry.name)) gifFiles.push(abs);
   }
 }
 walk(sourceRoot);
@@ -94,7 +107,8 @@ for (const row of rows) {
     }
   }
   const buf = fs.readFileSync(abs);
-  if (!isGif(buf)) corruptGifs.push(rel);
+  const formatError = formatMatchesExtension(abs, buf);
+  if (formatError) corruptGifs.push(`${rel} (${formatError})`);
 }
 
 function has(dex, form, facing, color, gender) {
@@ -146,9 +160,9 @@ const ok = missingFiles.length === 0
   && corruptGifs.length === 0
   && duplicateKeys.length === 0
   && missingBaseFront.length === 0
-  && corrected[29].frontNormal && corrected[29].frontShiny
-  && corrected[32].frontNormal && corrected[32].frontShiny
-  && corrected[122].frontNormal && corrected[122].frontShiny;
+  && Boolean(corrected[29].frontNormal && corrected[29].frontShiny)
+  && Boolean(corrected[32].frontNormal && corrected[32].frontShiny)
+  && Boolean(corrected[122].frontNormal && corrected[122].frontShiny);
 
 const report = {
   ok,

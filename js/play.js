@@ -474,18 +474,7 @@
         };
       };
       let rows = keys.map(ballRow);
-      if (!rows.length && throwActive) {
-        rows = [{
-          kind: "throw",
-          item: "standard",
-          label: "Poké Ball",
-          qty: 1,
-          effect: "A free standard throw is available.",
-          selected: false,
-          disabled: false,
-          sprite: "pokeball"
-        }];
-      }
+      // Never invent a free client-side Ball when the bag is empty.
       buttons.push(...rows);
       if (!lockedBall) {
         buttons.push({
@@ -499,6 +488,8 @@
       }
     }
     const waiting = window.PLAY_STATUS?.waitingOthers || "Waiting for other Trainers…";
+    const emptyThrow = throwing && me && !me.ball
+      && (typeof window.playThrowableTotal === "function" ? window.playThrowableTotal(bag) < 1 : !buttons.some((row) => row.kind === "throw"));
     let status = "";
     if (joining && !me && joiningPending) status = "";
     else if (joining && me) status = "";
@@ -507,6 +498,7 @@
     } else if (throwing && me?.ball) {
       status = window.playStatusBall ? window.playStatusBall(me.ball) : waiting;
     } else if (preparing && me) status = "";
+    else if (emptyThrow) status = window.PLAY_STATUS?.emptyBalls || "You don't have a Poké Ball available for this encounter. Restock at Starlight Mart.";
     else if (throwing && me && !buttons.length) status = window.PLAY_STATUS?.emptyBalls || "You don't have a Poké Ball available for this encounter.";
     else if (throwing && me) status = "";
     else if (joining && !me) status = "";
@@ -789,14 +781,7 @@
       return `<span class="muted">${Number(bag?.[key] || 0)} in bag</span>`;
     };
     if (!rows.length) {
-      els.throwGrid.innerHTML = throwViewOnly
-        ? `<p class="muted">You don’t have any Poké Balls right now. Buy more in the Mart.</p>`
-        : `<button type="button" class="ball-tile" data-throw="standard">
-            <img src="${window.playItemSprite("pokeball")}" alt="">
-            <strong>Standard throw</strong>
-            <span class="ball-rate">1× catch power</span>
-            <span class="muted">Free Poké Ball · always available</span>
-          </button>`;
+      els.throwGrid.innerHTML = `<p class="muted">You don’t have any Poké Balls right now. Buy more in the <a href="./store.html">Mart</a>.</p>`;
     } else {
       els.throwGrid.innerHTML = rows.map((row) => {
         const qty = Number(bag?.[row.key] || 0);
@@ -860,7 +845,7 @@
       ? window.playActionWindowOpen(round, "throw")
       : round.phase === "throw") && !me.ball && prefs.autoThrow) {
       const favorite = window.playFavoriteBalls(bag, prefs).find((row) => Number(bag[row.key] || 0) > 0);
-      const item = favorite?.key || (window.playThrowableTotal(bag) < 1 ? "standard" : "");
+      const item = favorite?.key || "";
       if (item && maybeAutoAct._throw !== round.id) {
         maybeAutoAct._throw = round.id;
         act("throw", item);
@@ -957,12 +942,10 @@
     const catches = catchCount(view);
     const zeroCatch = catches === 0;
     const live = Boolean(view?.live);
+    // Join guidance lives in the action tip so the primary JOIN button stays adjacent.
     let message = "";
     let tipKey = "";
-    if (round?.phase === "join" && !view?.me) {
-      message = window.PLAY_STATUS?.firstJoin || "A wild Pokémon appeared! Join the encounter before the timer runs out.";
-      tipKey = "first-join";
-    } else if (!round && zeroCatch && live) {
+    if (!round && zeroCatch && live) {
       message = window.PLAY_STATUS?.nextZero || "Join a wild encounter to catch your first Pokémon.";
       tipKey = "next-zero";
     }

@@ -73,7 +73,7 @@ test("Bits products reject random rewards, Pokémon, Shinies, and Master Ball", 
 
 test("general cheers are not Store checkout", () => {
   assert(fulfill.includes("'general', true") || fulfill.includes("status = 'ignored'"), "unmatched ignore missing");
-  assert(store.includes("general cheer is not a Store checkout"), store);
+  assert(store.includes("general cheer is not a Mart checkout"), store);
   assert(store.includes("mode === \"bits\" ? \"\" : addButton"), "Bits Add button should be hidden");
 });
 

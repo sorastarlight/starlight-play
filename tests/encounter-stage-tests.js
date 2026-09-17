@@ -117,7 +117,7 @@ test("shiny success and failure use high-contrast HUD copy", () => {
     "Mr. Mime"
   );
   assert(miss.banner === "IT BROKE FREE!", miss.banner);
-  assert(miss.status === "Mr. Mime broke free!", miss.status);
+  assert(miss.status === "Mr. Mime escaped!", miss.status);
 });
 
 test("personal success is not shown as a breakout", () => {
@@ -181,7 +181,7 @@ test("resolved throw without a catch is a breakout", () => {
   assert(/\bis-miss\b/.test(html), html.match(/catch-seq [^"]*/)?.[0]);
   const hud = window.playEncounterStageCopy(round, { scene: "results" }, me, "Omanyte");
   assert(hud.banner === "IT BROKE FREE!", hud.banner);
-  assert(/broke free/.test(hud.status), hud.status);
+  assert(/escaped!/.test(hud.status), hud.status);
 });
 
 test("live HUD patches do not remount the catch sequence", () => {

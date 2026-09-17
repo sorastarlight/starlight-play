@@ -22,6 +22,7 @@ function read(rel) {
 const eventsSql = read("supabase/migrations/20260917070000_phase10_special_events.sql");
 const rpcsSql = read("supabase/migrations/20260917071000_phase10_special_rpcs.sql");
 const grantsSql = read("supabase/migrations/20260917072000_phase10_admin_grants.sql");
+const closureSql = read("supabase/migrations/20260917073000_phase10_closure_integrity.sql");
 const specialJs = read("js/special-events.js");
 const adminSpecial = read("js/admin-special.js");
 const adminLive = read("js/admin-live.js");
@@ -62,6 +63,17 @@ test("Legendaries are not ordinary auto-spawns", () => {
   const simSrc = read("tools/kanto-balance-sim.js");
   assert(simSrc.includes("LEGENDARY: 0"));
   assert(eventsSql.includes("spawn_band(144)") || rpcsSql.includes("spawn_band(144)"));
+  assert(closureSql.includes("only appear through a Special Event"));
+  assert(closureSql.includes("spawn_allow_special"));
+  assert(!/mode = 'SPECIAL_EVENT'/.test(closureSql.replace(/--[^\n]*/g, "")));
+});
+
+test("Kanto v1 acquisition model is documented and unchanged", () => {
+  assert(closureSql.includes("ordinaryEncounterEligible', 146"));
+  assert(closureSql.includes("specialEventOnly', 5"));
+  assert(closureSql.includes("evolutionRequiredFor151', false"));
+  assert(closureSql.includes("Evolution is NOT required for 151/151") || closureSql.includes("not required for 151/151"));
+  assert(closureSql.includes("144 Articuno"));
 });
 
 test("Mew is Mythical and hidden by default", () => {

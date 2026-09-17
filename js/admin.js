@@ -102,13 +102,13 @@
   let spawnRowsPromise = null;
   const HUB_SECTIONS = ["dashboard", "encounters", "trainers", "content", "economy", "analytics", "system"];
   const HUB_ALIASES = { live: "dashboard", players: "trainers", store: "economy", pokemon: "content", settings: "system" };
-  const ENC_VIEWS = ["overview", "rules", "capture", "spawn", "sim"];
+  const ENC_VIEWS = ["overview", "rules", "capture", "spawn", "sim", "special"];
   const ECO_VIEWS = ["catalog", "rewards", "loot"];
   const SYS_VIEWS = ["twitch", "ads", "bits", "github", "pass", "system"];
   const CONTENT_VIEWS = ["evolution", "progression"];
   const ANA_VIEWS = ["overview", "lab", "captures", "spawns", "progression", "evolution", "economy", "sessions", "sims"];
   const VIEW_ALIASES = {
-    encounters: { simulator: "sim", capture: "capture" },
+    encounters: { simulator: "sim", capture: "capture", events: "special", specials: "special", legendary: "special" },
     economy: { economy: "rewards", currency: "rewards" },
     system: { general: "twitch", maintenance: "system", settings: "twitch" },
     content: { pokemon: "evolution", items: "evolution" },
@@ -1005,6 +1005,11 @@
         label: "Bits / Support",
         status: data?.bits?.status || "UNKNOWN",
         detail: data?.bits?.detail || "Bits health not loaded."
+      },
+      {
+        label: "Special Events",
+        status: data?.specialEvents?.status || "UNKNOWN",
+        detail: data?.specialEvents?.detail || "Special Event health not loaded."
       }
     ];
     board.innerHTML = rows.map((row) => `
@@ -1033,6 +1038,11 @@
         data.bits = await window.playCall("admin_bits_health");
       } catch (_) {
         data.bits = { status: "UNKNOWN", detail: "Bits health unavailable." };
+      }
+      try {
+        data.specialEvents = await window.playCall("admin_special_event_health");
+      } catch (_) {
+        data.specialEvents = { status: "UNKNOWN", detail: "Special Event health unavailable." };
       }
       renderGameHealthBoard(data, buildView);
     } catch (error) {
@@ -1918,6 +1928,9 @@
       onState: updateHubChip,
       onOpenDetails: () => showHubTab("encounters", "overview", { push: true })
     });
+  }
+  if (typeof window.playBindAdminSpecial === "function") {
+    window.playBindAdminSpecial();
   }
 
   supabase.auth.onAuthStateChange((event, session) => {

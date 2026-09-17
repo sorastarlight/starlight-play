@@ -250,6 +250,19 @@ async function run() {
     assert(event.title.includes("SHINY") || event.shiny);
   });
 
+  await test("legendary registered ranks after pokedex and is a moment", () => {
+    const dex = window.playPresentNormalize({ id: "d1", type: "pokedex", species: 144 });
+    const legend = window.playPresentNormalize({
+      id: "l1",
+      type: "legendary",
+      kind: "legendary-registered",
+      species: 144,
+      title: "LEGENDARY REGISTERED"
+    });
+    assert(legend.tier === "moment", legend.tier);
+    assert(window.playPresentRank(legend) > window.playPresentRank(dex), "legendary should follow GOTCHA/pokedex");
+  });
+
   await test("support thank-you ranks after capture and evolution", () => {
     const support = window.playPresentNormalize({
       id: "sup1",

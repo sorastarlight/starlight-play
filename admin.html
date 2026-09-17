@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260917-rc9">
+<link rel="stylesheet" href="css/play.css?v=20260917-rc11">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -131,6 +131,7 @@
               <div id="card-safe"></div>
               <div id="card-ads"></div>
             </section>
+            <section class="hub-card is-compact" id="card-special"></section>
             <section class="hub-card is-compact" id="card-queue"></section>
             <section class="hub-card" id="card-session-wrap">
               <div id="card-mode"></div>
@@ -155,6 +156,7 @@
         <button type="button" data-hub-view="capture">Capture</button>
         <button type="button" data-hub-view="spawn">Spawn</button>
         <button type="button" data-hub-view="sim">Simulator</button>
+        <button type="button" data-hub-view="special">Special Events</button>
       </div>
       <div class="hub-page">
       <section class="card body" data-enc-view="overview">
@@ -355,6 +357,41 @@
         <div id="build-health-sim" class="build-health"></div>
         <div id="sim-out" class="sim-out"></div>
         <div id="health-out" class="sim-out"></div>
+      </section>
+      <section class="card body" data-enc-view="special" hidden>
+        <div id="special-events-app">
+          <h2>Special Events</h2>
+          <p class="muted">Create, schedule, and run Legendary, Mythical, and limited encounters. These reuse the proven JOIN / ITEM / THROW flow. Bits cannot buy access, Shinies, or catch odds.</p>
+          <p id="special-status" class="muted" role="status"></p>
+          <div id="special-health" class="hub-kv"></div>
+          <div class="studio-picker-tools">
+            <label class="field" for="special-q">Search species
+              <input id="special-q" type="search" placeholder="Articuno or 144">
+            </label>
+            <label class="field" for="special-filter">Filter
+              <select id="special-filter">
+                <option value="special">Special / event</option>
+                <option value="all">All Kanto</option>
+                <option value="normal">Normal spawn</option>
+                <option value="evolution">Evolution only</option>
+                <option value="unavailable">Unavailable</option>
+              </select>
+            </label>
+            <button id="special-refresh" class="secondary" type="button">Refresh</button>
+          </div>
+          <div id="special-species" class="special-species-grid"></div>
+          <div id="special-form"></div>
+          <p class="muted">Visual-only previews never create an encounter or grant a Pokémon.</p>
+          <div class="links">
+            <button type="button" class="secondary" data-se-preview="upcoming">Preview upcoming</button>
+            <button type="button" class="secondary" data-se-preview="starting">Preview starting</button>
+            <button type="button" class="secondary" data-se-preview="incoming">Preview incoming</button>
+            <button type="button" class="secondary" data-se-preview="caught">Preview caught</button>
+            <button type="button" class="secondary" data-se-preview="escaped">Preview escaped</button>
+          </div>
+          <h3>Event list</h3>
+          <div id="special-list"></div>
+        </div>
       </section>
       </div>
     </div>
@@ -701,6 +738,9 @@
                 <option value="item">Item reward</option>
                 <option value="summary">Summary</option>
                 <option value="support">Support thank-you</option>
+                <option value="legendary">Legendary registered</option>
+                <option value="mythical">Mythical registered</option>
+                <option value="incoming">Legendary incoming</option>
                 <option value="error">Error</option>
               </select>
             </label>
@@ -947,23 +987,25 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260917-rc9"></script>
-<script src="js/play-perf.js?v=20260917-rc9"></script>
-<script src="js/build.js?v=20260917-rc9"></script>
-<script src="js/build-client.js?v=20260917-rc9"></script>
-<script src="js/auth.js?v=20260917-rc9"></script>
-<script src="js/species.js?v=20260917-rc9"></script>
-<script src="js/variants.js?v=20260917-rc9"></script>
-<script src="js/game.js?v=20260917-rc9"></script>
-<script src="js/play-present.js?v=20260917-rc9"></script>
-<script src="js/play-encounter-state.js?v=20260917-rc9"></script>
-<script src="js/trainers.js?v=20260917-rc9"></script>
-<script src="js/location-visuals-data.js?v=20260917-rc9"></script>
-<script src="js/location-visuals.js?v=20260917-rc9"></script>
-<script src="js/hud.js?v=20260917-rc9"></script>
-<script src="js/nav.js?v=20260917-rc9"></script>
-<script src="js/admin-tools.js?v=20260917-rc9"></script>
-<script src="js/admin-live.js?v=20260917-rc9"></script>
-<script src="js/admin.js?v=20260917-rc9"></script>
-<script src="js/admin-present.js?v=20260917-rc9"></script>
+<script src="js/config.js?v=20260917-rc11"></script>
+<script src="js/play-perf.js?v=20260917-rc11"></script>
+<script src="js/build.js?v=20260917-rc11"></script>
+<script src="js/build-client.js?v=20260917-rc11"></script>
+<script src="js/auth.js?v=20260917-rc11"></script>
+<script src="js/species.js?v=20260917-rc11"></script>
+<script src="js/variants.js?v=20260917-rc11"></script>
+<script src="js/game.js?v=20260917-rc11"></script>
+<script src="js/play-present.js?v=20260917-rc11"></script>
+<script src="js/play-encounter-state.js?v=20260917-rc11"></script>
+<script src="js/trainers.js?v=20260917-rc11"></script>
+<script src="js/location-visuals-data.js?v=20260917-rc11"></script>
+<script src="js/location-visuals.js?v=20260917-rc11"></script>
+<script src="js/hud.js?v=20260917-rc11"></script>
+<script src="js/nav.js?v=20260917-rc11"></script>
+<script src="js/admin-tools.js?v=20260917-rc11"></script>
+<script src="js/admin-live.js?v=20260917-rc11"></script>
+<script src="js/special-events.js?v=20260917-rc11"></script>
+<script src="js/admin-special.js?v=20260917-rc11"></script>
+<script src="js/admin.js?v=20260917-rc11"></script>
+<script src="js/admin-present.js?v=20260917-rc11"></script>
 </body>

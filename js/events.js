@@ -110,6 +110,14 @@
       els.staff.hidden = !isAdmin;
       renderCalendar();
       renderList();
+      if (typeof window.playSpecialMount === "function") {
+        try {
+          const special = await window.playCall("play_special_events");
+          window.playSpecialMount(document.getElementById("special-upcoming"), special);
+        } catch (_) {
+          window.playSpecialMount(document.getElementById("special-upcoming"), null);
+        }
+      }
     } catch (error) {
       events = [];
       isAdmin = false;

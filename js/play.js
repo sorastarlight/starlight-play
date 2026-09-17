@@ -867,24 +867,59 @@
   }
 
   let noticedRound = "";
+  let specialIncomingRound = "";
   function maybeShowCatchNotices(round, me) {
     if (!round?.id || noticedRound === round.id) return;
     if (typeof window.playCommunityResultReady !== "function" || !window.playCommunityResultReady(round, me)) return;
     noticedRound = round.id;
     actionMetrics.resultShown += 1;
-    if (typeof window.playShowNotices === "function") {
-      const caught = typeof window.playThrowOutcome === "function"
-        ? window.playThrowOutcome(me, round) === "caught"
-        : Boolean(me?.caught);
-      const opts = {
-        source: "capture",
+    const outcome = typeof window.playThrowOutcome === "function"
+      ? window.playThrowOutcome(me, round)
+      : (me?.caught ? "caught" : "");
+    const caught = outcome === "caught";
+    const opts = {
+      source: "capture",
+      species: round.dex,
+      variant: round.variant || "normal",
+      gender: round.gender || "",
+      caughtName: window.playDisplayName?.(round, { plain: true }) || "",
+      noSummary: !caught
+    };
+    setTimeout(async () => {
+      let notices = [];
+      if (typeof window.playShowNotices === "function") {
+        notices = await window.playShowNotices(opts) || [];
+      }
+      if (!round.specialEvent || typeof window.playSpecialPresentation !== "function" || typeof window.playPresentEnqueue !== "function") return;
+      const newDex = notices.some((row) => row.type === "pokedex" && Number(row.species) === Number(round.dex));
+      const kind = caught && newDex ? "caught" : (outcome === "broke" ? "escaped" : "");
+      if (!kind) return;
+      const ev = window.playSpecialPresentation(kind, {
         species: round.dex,
-        variant: round.variant || "normal",
-        gender: round.gender || "",
-        caughtName: window.playDisplayName?.(round, { plain: true }) || "",
-        noSummary: !caught
-      };
-      setTimeout(() => window.playShowNotices(opts), 900);
+        title: round.specialEvent.title,
+        eventType: round.specialEvent.eventType,
+        remainingRounds: round.specialEvent.remainingRounds,
+        variant: round.variant
+      });
+      if (ev) {
+        window.playPresentEnqueue([{ ...ev, id: `special-${kind}:${round.id}` }], { noSummary: true, source: "special-result", preview: false });
+      }
+    }, 900);
+  }
+
+  function maybeShowSpecialIncoming(round) {
+    if (!round?.id || specialIncomingRound === round.id) return;
+    if (!round.specialEvent || round.resolved || round.phase === "closed" || round.phase === "reveal") return;
+    if (typeof window.playSpecialPresentation !== "function" || typeof window.playPresentEnqueue !== "function") return;
+    specialIncomingRound = round.id;
+    const ev = window.playSpecialPresentation("incoming", {
+      species: round.dex,
+      title: round.specialEvent.title,
+      eventType: round.specialEvent.eventType,
+      variant: round.variant
+    });
+    if (ev) {
+      window.playPresentEnqueue([{ ...ev, id: `special-in:${round.id}` }], { noSummary: true, source: "special-incoming" });
     }
   }
 
@@ -959,6 +994,10 @@
     renderActions(view);
     if (round?.phase && round.phase !== prevPhase) nudgeEncounterIntoView();
     maybeShowCatchNotices(round, state?.me);
+    maybeShowSpecialIncoming(round);
+    if (typeof window.playSpecialMount === "function") {
+      window.playSpecialMount(document.getElementById("special-upcoming"), data?.specialEvent);
+    }
     if (!busyNow()) {
       maybeRadarJoin(view);
       maybeAutoAct(view);
@@ -1406,15 +1445,18 @@
       }
       else refreshQueued = true;
       maybeShowCatchNotices(round, state?.me);
+      maybeShowSpecialIncoming(round);
       requestRefresh("phase");
       return;
     }
     if (actionDomFrozen()) {
       maybeShowCatchNotices(round, state?.me);
+      maybeShowSpecialIncoming(round);
       return;
     }
     renderActions({ ...state, round });
     maybeShowCatchNotices(round, state?.me);
+    maybeShowSpecialIncoming(round);
   }
 
   document.getElementById("master-use")?.addEventListener("click", () => {

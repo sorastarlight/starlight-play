@@ -40,6 +40,7 @@
       const data = await res.json();
       const round = data && data.round;
       const isTest = String(round && round.triggerSource || "") === "TEST";
+      const special = Boolean(round && (round.specialEvent || String(round.triggerSource || "") === "SPECIAL_EVENT"));
       const live = Boolean(round && !round.cancelled && round.phase && round.phase !== "closed" && (!round.hidden || isTest));
       const identity = live ? `${round.id}:${round.variant}:${round.dex}` : "idle";
       const phaseKey = live ? `${round.phase}:${round.paused || 0}:${round.resolved || 0}` : "idle";
@@ -55,6 +56,7 @@
         sprite.alt = round.name || "Pokémon";
         sprite.src = window.playSpriteUrl(round.dex, round.variant);
         stage.classList.add("shown");
+        stage.classList.toggle("is-special", special);
       }
       if (!live || phaseKey === lastPhase) return;
       lastPhase = phaseKey;
@@ -62,6 +64,7 @@
       stage.classList.toggle("is-capture", round.phase === "reveal");
       stage.classList.toggle("is-paused", Boolean(round.paused));
       stage.classList.toggle("is-result", Boolean(round.resolved));
+      stage.classList.toggle("is-special", special);
     } catch (_) {}
   }
 

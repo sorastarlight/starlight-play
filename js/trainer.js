@@ -339,6 +339,12 @@
       pcCatches = mine ? (data.catches || data.caughtOptions || []) : [];
       await loadProgression();
       render(previewCard(), recentLog);
+      if (mine && typeof window.playSpecialMount === "function") {
+        try {
+          const special = await window.playCall("play_special_events");
+          window.playSpecialMount(document.getElementById("special-upcoming"), special);
+        } catch (_) {}
+      }
       if (mine) {
         window.playCall("play_ack_cosmetics", { p_ids: null }).catch(() => {});
       }

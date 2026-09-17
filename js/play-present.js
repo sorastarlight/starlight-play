@@ -9,6 +9,8 @@
 
   const TYPE_RANK = {
     pokedex: 0,
+    legendary: 0.4,
+    mythical: 0.4,
     level: 1,
     achievement: 2,
     unlock: 3,
@@ -206,7 +208,7 @@
     if (event?.tier === TIER.toast || event?.tier === TIER.card || event?.tier === TIER.moment) {
       return event.tier;
     }
-    if (type === "pokedex" || type === "level" || type === "evolution") return TIER.moment;
+    if (type === "pokedex" || type === "level" || type === "evolution" || type === "legendary" || type === "mythical") return TIER.moment;
     if (type === "support") {
       const round = root.playCurrentRound?.() || root.PLAY_ROUND;
       const busy = Boolean(round && round.phase && round.phase !== "closed" && !round.resolved && !round.cancelled);
@@ -226,6 +228,8 @@
   function typeFromKind(kind, title, body) {
     const k = String(kind || "").toLowerCase();
     const text = `${title || ""} ${body || ""}`.toLowerCase();
+    if (k === "legendary" || k === "legendary-registered" || k === "legendary-incoming") return "legendary";
+    if (k === "mythical" || k === "mythical-registered") return "mythical";
     if (k === "pokedex" || (/new pokédex|new pokedex|new pokémon|new pokemon|new variant/.test(text) && k !== "achievement")) {
       if (k === "dex" && /\/151/.test(text)) return "unlock";
       return "pokedex";
@@ -303,6 +307,8 @@
   }
 
   function defaultTitle(type, shiny) {
+    if (type === "legendary") return "LEGENDARY REGISTERED";
+    if (type === "mythical") return "MYTHICAL REGISTERED";
     if (type === "pokedex") return shiny ? "✨ SHINY REGISTERED ✨" : "New Pokédex Entry!";
     if (type === "level") return "TRAINER LEVEL UP!";
     if (type === "achievement") return "ACHIEVEMENT UNLOCKED";
@@ -334,7 +340,9 @@
       if (!event) return;
       const key = event.type === "pokedex"
         ? `pokedex:${event.species}:${event.shiny ? "shiny" : "normal"}`
-        : event.type === "achievement"
+        : event.type === "legendary" || event.type === "mythical"
+          ? `${event.type}:${event.kind}:${event.species}`
+          : event.type === "achievement"
           ? `achievement:${event.payload?.id || event.subtitle || event.id}`
           : event.type === "level"
             ? `level:${event.to || event.subtitle}`
@@ -685,6 +693,50 @@
     });
   }
 
+  async function presentLegendary(event) {
+    const mythical = event.type === "mythical";
+    const incoming = /incoming|starting/.test(String(event.kind || ""));
+    const kicker = incoming
+      ? (mythical ? "MYTHICAL INCOMING" : "LEGENDARY INCOMING")
+      : (mythical ? "MYTHICAL REGISTERED" : "LEGENDARY REGISTERED");
+    const num = event.species ? `#${String(event.species).padStart(3, "0")}` : "";
+    const name = speciesName(event.species).toUpperCase();
+    cue(incoming ? "reward.major" : "pokedex.register");
+    const html = `<article class="play-present-moment play-present-special${mythical ? " is-mythical" : " is-legendary"}" data-present-panel>
+      <div class="play-present-starfield" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      ${fxHtml("legendary")}
+      <p class="play-present-kicker">${esc(event.title || kicker)}</p>
+      <div class="play-present-dex-frame">
+        <div class="play-present-art${incoming ? " is-sil" : ""}" data-present-art>
+          ${event.species ? `<img src="${esc(spriteUrl(event.species, event.variant, event.gender))}" alt="" width="128" height="128" decoding="async">` : ""}
+        </div>
+      </div>
+      <h2 data-special-title>${esc(incoming ? (event.subtitle || name) : kicker)}</h2>
+      <p class="play-present-sub" data-special-sub>${esc(incoming ? (event.body || event.title || "") : `${num} ${name}`.trim())}</p>
+      ${continueHtml()}
+    </article>`;
+    await runPanel(event, html, {
+      skipToEnd: true,
+      async animate(stage, ctl) {
+        const art = typeof stage?.querySelector === "function" ? stage.querySelector("[data-present-art]") : null;
+        const finish = () => {
+          art?.classList.remove("is-sil");
+        };
+        if (ctl.reduced || !incoming) {
+          finish();
+          return;
+        }
+        stage.dataset.stage = "enter";
+        await wait(360);
+        if (stage.dataset.stage === "done") return finish();
+        stage.dataset.stage = "reveal";
+        art?.classList.remove("is-sil");
+        await wait(420);
+        finish();
+      }
+    });
+  }
+
   async function presentLevel(event) {
     const from = event.from || Math.max(1, (event.to || 1) - 1);
     const to = event.to || from + 1;
@@ -766,6 +818,7 @@
       return;
     }
     if (event.type === "pokedex") return presentPokedex(event);
+    if (event.type === "legendary" || event.type === "mythical") return presentLegendary(event);
     if (event.type === "level") return presentLevel(event);
     return presentCard(event);
   }
@@ -1005,7 +1058,25 @@
         bits: 200,
         grants: { greatball: 10, berry: 3, bait: 2 }
       }
-    })
+    }),
+    legendary: (opts) => {
+      const factory = root.playSpecialPresentation;
+      return factory ? factory("caught", { species: Number(opts?.species || 144), eventType: "LEGENDARY", variant: opts?.variant }) : {
+        id: "lab:legendary", type: "legendary", kind: "legendary-registered", species: Number(opts?.species || 144), title: "LEGENDARY REGISTERED"
+      };
+    },
+    mythical: (opts) => {
+      const factory = root.playSpecialPresentation;
+      return factory ? factory("caught", { species: Number(opts?.species || 151), eventType: "MYTHICAL", variant: opts?.variant }) : {
+        id: "lab:mythical", type: "mythical", kind: "legendary-registered", species: 151, title: "MYTHICAL REGISTERED"
+      };
+    },
+    incoming: (opts) => {
+      const factory = root.playSpecialPresentation;
+      return factory ? factory("incoming", { species: Number(opts?.species || 144), eventType: "LEGENDARY", variant: opts?.variant }) : {
+        id: "lab:incoming", type: "legendary", kind: "legendary-incoming", species: Number(opts?.species || 144), title: "LEGENDARY INCOMING"
+      };
+    }
   };
 
   function preview(kind, opts) {

@@ -15,6 +15,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     ads: byId("card-ads"),
     next: byId("card-next"),
     queue: byId("card-queue"),
+    special: byId("card-special"),
     mode: byId("card-mode"),
     controls: byId("card-controls"),
     session: byId("card-session"),
@@ -488,6 +489,35 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       : `<p class="eyebrow">Queued special</p><p><strong>None</strong></p>`;
   }
 
+  function renderSpecial() {
+    if (!els.special) return;
+    const se = state?.specialEvent || {};
+    const active = se.active;
+    const next = se.nextScheduled;
+    const stuck = se.stuck;
+    if (active) {
+      els.special.classList.remove("is-compact");
+      els.special.innerHTML = `
+        <p class="eyebrow">Special Event</p>
+        <h2>SPECIAL EVENT ACTIVE</h2>
+        <p>${esc(active.title || active.name)} · ${esc(active.roundsLaunched || 0)}/${esc(active.encounterCount || 1)}</p>
+        <p class="muted">Normal auto encounters are paused so they cannot overwrite this species.</p>
+        <div class="links">
+          <button type="button" class="secondary" data-act="open_special">Open Special Events</button>
+        </div>`;
+      return;
+    }
+    els.special.classList.toggle("is-compact", !next && !stuck);
+    els.special.innerHTML = `
+      <p class="eyebrow">Special Event</p>
+      <h2>${stuck ? esc(String(stuck.status || "Needs admin").replace(/_/g, " ")) : "NORMAL ENCOUNTERS"}</h2>
+      <p>${next ? `Next: ${esc(next.title || next.name)}` : "No scheduled Special Event."}</p>
+      ${stuck ? `<p class="muted">${esc(stuck.status === "WAITING_FOR_STREAM" ? "Waiting for the stream. The event was not consumed." : "Admin action needed.")}</p>` : ""}
+      <div class="links">
+        <button type="button" class="secondary" data-act="open_special">Open Special Events</button>
+      </div>`;
+  }
+
   const MODE_LABELS = {
     NORMAL: "Normal",
     HIGH_ACTION: "High-Action Gameplay",
@@ -651,6 +681,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     renderAds();
     renderNext();
     renderQueue();
+    renderSpecial();
     renderMode();
     renderControls();
     renderSession();
@@ -749,6 +780,12 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     const act = btn.dataset.act;
     if (act === "open_details") {
       if (typeof opts.onOpenDetails === "function") opts.onOpenDetails();
+      return;
+    }
+    if (act === "open_special") {
+      if (typeof window.playShowHubTab === "function") {
+        window.playShowHubTab("encounters", "special", { push: true });
+      }
       return;
     }
     if (act === "open_specific") {

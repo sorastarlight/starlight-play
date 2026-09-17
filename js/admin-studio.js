@@ -11,6 +11,7 @@
     ["bits", "Bits products"],
     ["avatars", "Trainer avatars"],
     ["pass", "Starlight Pass"],
+    ["specials", "Special Events"],
     ["assets", "Asset library"]
   ];
 
@@ -83,6 +84,7 @@
     if (view === "packs" || view === "bits") renderPack();
     if (view === "avatars") renderAvatars();
     if (view === "pass") renderPass();
+    if (view === "specials") renderSpecials();
     if (view === "assets") renderAssets();
   }
 
@@ -144,6 +146,11 @@
         <h2>Starlight Pass rewards</h2>
         <p class="muted">Daily and weekly claims use the same content picker as packs.</p>
         <div id="studio-pass"></div>
+      </section>
+      <section class="card body" data-studio-panel="specials" hidden>
+        <h2>Special Events</h2>
+        <p class="muted">Legendary and Mythical encounters are scheduled from Live Operations. This catalog shows current Kanto availability. Bits cannot buy Legendary access, Shinies, or catch odds.</p>
+        <div id="studio-specials"></div>
       </section>
       <section class="card body" data-studio-panel="assets" hidden>
         <h2>Asset library</h2>
@@ -238,7 +245,34 @@
         <button type="button" data-studio-go="avatars" data-studio-new="avatar">+ Add Trainer avatar</button>
         <button type="button" class="secondary" data-studio-go="avatars" data-studio-new="pack">+ Add avatar pack</button>
         <button type="button" class="secondary" data-studio-go="items">+ Add item</button>
+        <a class="button secondary" href="./admin.html?section=encounters&view=special">Open Special Events</a>
       </div>`;
+  }
+
+  async function renderSpecials() {
+    const el = document.getElementById("studio-specials");
+    if (!el) return;
+    el.innerHTML = `<p class="muted">Loading Kanto availability…</p>`;
+    try {
+      const data = await window.playCall("admin_special_event_command", { p_action: "list", p_payload: {} });
+      const special = data?.availability?.special || [];
+      const counts = data?.availability?.counts || {};
+      el.innerHTML = `
+        <p>${esc(counts.normal || 146)} normal spawn · ${esc(counts.special || 5)} Special Event · ${esc(counts.evolutionOnly || 0)} evolution-only · ${esc(counts.unavailable || 0)} unavailable.</p>
+        <div class="special-species-grid">${special.map((row) => {
+          const art = window.playSpriteUrl ? window.playSpriteUrl(row.dex, "normal") : "";
+          return `<article class="special-species">
+            ${art ? `<img src="${esc(art)}" alt="">` : ""}
+            <strong>${esc(window.playPadDex ? window.playPadDex(row.dex) : row.dex)} ${esc(row.name)}</strong>
+            <span>${row.mythical ? "MYTHICAL" : "SPECIAL"}</span>
+          </article>`;
+        }).join("")}</div>
+        <div class="links">
+          <a class="button" href="./admin.html?section=encounters&view=special">Schedule / start events</a>
+        </div>`;
+    } catch (error) {
+      el.innerHTML = `<p class="muted">${window.playHumanRpcError ? window.playHumanRpcError(error) : esc(error.message || error)}</p>`;
+    }
   }
 
   async function loadLibrary() {

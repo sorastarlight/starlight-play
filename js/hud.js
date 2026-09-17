@@ -175,6 +175,21 @@
     return `<span class="encounter-level-chip" data-level-chip>Lv. ${level}</span>`;
   };
 
+  window.playEncounterIsSpecial = function playEncounterIsSpecial(round) {
+    if (typeof window.playSpecialIsRound === "function") return window.playSpecialIsRound(round);
+    return Boolean(round?.specialEvent?.id) || String(round?.triggerSource || "") === "SPECIAL_EVENT";
+  };
+
+  window.playEncounterHeadCopy = function playEncounterHeadCopy(round, catching) {
+    if (!round || !round.phase || round.phase === "closed") return "Encounter ended";
+    if (catching) return "Catch in progress";
+    if (window.playEncounterIsSpecial(round)) {
+      const name = window.playDisplayName(round, { plain: true }) || round.name || "Pokémon";
+      return `${name} appeared!`;
+    }
+    return "A wild Pokémon appeared!";
+  };
+
   window.playRenderEncounter = function playRenderEncounter(round, options) {
     const opts = options || {};
     if (!round) {
@@ -246,7 +261,7 @@
     const header = live
       ? `<div class="dex-head dex-live-fanfare" data-enc-head>
           <span class="live-burst">LIVE</span>
-          <strong data-enc-head-copy>${catching ? "Catch in progress" : "A wild Pokémon appeared!"}</strong>
+          <strong data-enc-head-copy>${window.playEncounterHeadCopy(round, catching)}</strong>
           ${hidden}
           ${testChip}
           ${paused}
@@ -258,7 +273,7 @@
     const meta = `<div class="encounter-meta-identity">${identity}</div>${window.playLevelChipHtml(round)}`;
     return `
       ${header}
-      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${cinematic && (seqScene === "personal" || seqScene === "results" || /is-mid-seq/.test(catchSeq)) ? " is-mid-catch" : ""}${shiny ? " is-shiny-wild" : ""}${wildIntro ? " is-wild-enter" : ""}${shinyIntro ? " is-shiny-intro" : ""}${hud.showBanner && /GOTCHA|SHINY/.test(hud.banner) ? " is-win-scene" : ""}${hud.showBanner && /BROKE FREE|OH NO/.test(hud.banner) ? " is-miss-scene" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
+      <div class="encounter-visual-stage${cinematic ? " is-capture" : ""}${window.playEncounterIsSpecial(round) ? " is-special" : ""}${round.paused && !round.resolved ? " is-paused" : ""}${cinematic && (seqScene === "personal" || seqScene === "results" || /is-mid-seq/.test(catchSeq)) ? " is-mid-catch" : ""}${shiny ? " is-shiny-wild" : ""}${wildIntro ? " is-wild-enter" : ""}${shinyIntro ? " is-shiny-intro" : ""}${hud.showBanner && /GOTCHA|SHINY/.test(hud.banner) ? " is-win-scene" : ""}${hud.showBanner && /BROKE FREE|OH NO/.test(hud.banner) ? " is-miss-scene" : ""}${locClass}" data-visual-mode="${visualMode}"${locAttrs}>
         <div class="encounter-map" aria-hidden="true"></div>
         <div class="encounter-map-scrim" aria-hidden="true"></div>
         <div class="encounter-map-vignette" aria-hidden="true"></div>
@@ -275,6 +290,11 @@
         </div>
         ${catchSeq}
         <p class="encounter-stage-status" data-stage-status${hud.status ? "" : " hidden"}><span data-seq-status>${window.playEscapeAttr(hud.status)}</span></p>
+        ${(() => {
+          const escaped = round.resolved && typeof window.playThrowOutcome === "function" && window.playThrowOutcome(opts.me || null, round) === "broke";
+          const hint = typeof window.playSpecialRemainingHint === "function" ? window.playSpecialRemainingHint(round.specialEvent, escaped) : "";
+          return hint ? `<p class="special-event-retry" data-special-hint>${window.playEscapeAttr(hint)}</p>` : `<p class="special-event-retry" data-special-hint hidden></p>`;
+        })()}
       </div>
       <div class="phase-wrap ${warnClass}${cinematic ? " is-capture" : ""}" data-phase-wrap>
         <div class="phase-label"><span data-phase-name>${phase}</span><span data-time-copy>${timeText}</span></div>
@@ -653,6 +673,13 @@
     visual.classList.toggle("is-win-scene", Boolean(hud.showBanner && /GOTCHA|SHINY/.test(hud.banner)));
     visual.classList.toggle("is-miss-scene", Boolean(hud.showBanner && /BROKE FREE|OH NO/.test(hud.banner)));
     visual.classList.toggle("is-shiny-win", Boolean(hud.showBanner && /SHINY/.test(`${hud.banner} ${hud.status}`)));
+    const hintEl = visual.querySelector("[data-special-hint]");
+    if (hintEl) {
+      const escaped = round.resolved && typeof window.playThrowOutcome === "function" && window.playThrowOutcome(me || null, round) === "broke";
+      const hint = typeof window.playSpecialRemainingHint === "function" ? window.playSpecialRemainingHint(round.specialEvent, escaped) : "";
+      hintEl.hidden = !hint;
+      if (hint) hintEl.textContent = hint;
+    }
     const pauseNote = visual.querySelector("[data-pause-note]");
     if (pauseNote) {
       const paused = Boolean(round.paused && !round.resolved);
@@ -853,9 +880,7 @@
       if (burst) burst.hidden = !live;
       const copy = root.querySelector("[data-enc-head-copy]");
       if (copy) {
-        copy.textContent = !live
-          ? "Encounter ended"
-          : (capturing ? "Catch in progress" : "A wild Pokémon appeared!");
+        copy.textContent = window.playEncounterHeadCopy(round, capturing);
       }
       const pauseChip = root.querySelector("[data-enc-pause-chip]");
       if (pauseChip) {
@@ -878,6 +903,7 @@
     }
     if (visual) {
       visual.classList.toggle("is-paused", Boolean(round.paused && !round.resolved));
+      visual.classList.toggle("is-special", window.playEncounterIsSpecial(round));
       const hadSeq = Boolean(root.querySelector("[data-catch-seq]"));
       if (capturing) {
         visual.classList.remove("is-exit");

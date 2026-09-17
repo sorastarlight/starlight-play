@@ -16,6 +16,7 @@
   };
   let dexData = null;
   let collection = null;
+  const announcedEvents = new Set([144, 145, 146, 150]);
 
   window.playBindAccountNav({
     onSignOut() {
@@ -112,7 +113,8 @@
         entry.forms.shiny ? `<span class="chip shiny">Shiny</span>` : "",
         entry.forms.female ? `<span class="chip">♀</span>` : "",
         ready ? `<span class="chip">Ready to evolve</span>` : "",
-        entry.caught && !entry.ownedNow ? `<span class="chip">Pokédex: Caught</span>` : ""
+        entry.caught && !entry.ownedNow ? `<span class="chip">Pokédex: Caught</span>` : "",
+        !entry.caught && announcedEvents.has(entry.dex) ? `<span class="chip">EVENT ENCOUNTER</span>` : ""
       ].join("");
       const mark = entry.caught
         ? `<img class="dex-caught-mark" src="${window.playItemSprite("pokeball")}" alt="Caught">`
@@ -162,6 +164,12 @@
     try {
       dexData = await window.playCall("play_pokedex", { p_login: null });
       try { collection = await window.playCall("play_collection"); } catch (_) { collection = null; }
+      try {
+        const events = await window.playCall("play_special_events");
+        (events?.upcoming || []).concat(events?.live ? [events.live] : []).forEach((row) => {
+          if (row?.dex) announcedEvents.add(Number(row.dex));
+        });
+      } catch (_) {}
       els.gate.hidden = true;
       els.app.hidden = false;
       render();

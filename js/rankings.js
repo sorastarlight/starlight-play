@@ -141,10 +141,10 @@
     if (board === "shinies") return "No Trainers have registered a Shiny yet. Be the first to register one!";
     if (board === "evolutions") return "No Trainers have evolved a Pokémon yet. Be the first!";
     if (board === "honey") return "No Honey has been contributed on an encounter yet.";
-    if (board === "mastery") return "No species mastery points are on the board yet.";
+    if (board === "mastery") return "No Species Mastery points are on the board yet.";
     if (board === "achievements") return "No Achievements have been completed yet. Be the first!";
     if (board === "pokedex" || board === "catches") return "No Trainers have caught a Pokémon yet. Be the first!";
-    return "No Trainers are ranked here yet.";
+    return "NOT RANKED YET — keep playing to appear on this board.";
   }
 
   function renderMine(data) {

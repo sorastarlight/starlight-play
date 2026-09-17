@@ -106,9 +106,9 @@
       : `<p class="muted">${showUnowned ? "No items match this filter." : "Nothing in this pocket yet. Visit Starlight Mart or join encounters to fill it."}</p>`;
     const specialist = ["netball", "diveball", "duskball", "lureball", "moonball", "repeatball", "nestball", "fastball", "heavyball"];
     const tip = tab === "evolution" && rows.some((row) => Number(bag[row.key] || 0) > 0 && ["firestone", "waterstone", "thunderstone", "leafstone", "moonstone"].includes(row.key))
-      ? window.playTipHtml?.("first-stone", "Evolution Items can be used with Species Candy to evolve eligible Pokémon.")
+      ? window.playTipHtml?.("first-stone", "Evolution Items can be used with Evolution Candy to evolve eligible Pokémon along their Evolution Line.")
       : tab === "community" && Number(bag.bait || 0) > 0
-        ? window.playTipHtml?.("first-honey", "Honey helps every participating Trainer during an encounter.")
+        ? window.playTipHtml?.("first-honey", "Honey is a community contribution. It helps the shared encounter, does not replace your Poké Ball, and does not guarantee a catch.")
         : tab === "balls" && rows.some((row) => specialist.includes(row.key) && row.qty > 0)
           ? window.playTipHtml?.("first-specialist", "Some Poké Balls are more effective against certain Pokémon. Watch for the recommended indicator during encounters.")
           : "";
@@ -121,7 +121,7 @@
     els.detailBody.innerHTML = `${window.playItemDetailHtml(key, lastBag[key] || 0, lastCapture)}
       <div class="links">
         <button type="button" class="secondary" data-pin-item="${key}">${(window.playBagPins?.() || []).includes(key) ? "Unpin" : "Pin in Bag"}</button>
-        <a class="button secondary" href="./store.html">Open Store</a>
+        <a class="button secondary" href="./store.html">Open Mart</a>
       </div>`;
     if (typeof els.detail.showModal === "function") els.detail.showModal();
     else els.detail.setAttribute("open", "");
@@ -156,7 +156,7 @@
     renderBag(bag);
     const candyFirst = (lastCollection?.candy || []).find((row) => Number(row.qty || 0) > 0);
     if (candyFirst && typeof window.playTipHtml === "function" && !window.playTipDone("first-candy")) {
-      els.status.innerHTML = window.playTipHtml("first-candy", `You earned ${candyFirst.name} Candy! Catch Pokémon from the same Evolution Line to earn Candy for evolution.`);
+      els.status.innerHTML = window.playTipHtml("first-candy", `You earned ${candyFirst.name} Evolution Candy! Catch Pokémon from the same Evolution Line to earn more Candy for evolution.`);
     }
     try {
       const hist = await window.playCall("play_item_ledger", { p_limit: 20 });

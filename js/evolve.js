@@ -128,7 +128,7 @@
     if (els.note) {
       els.note.textContent = tally.ready
         ? `${tally.ready} Pokémon ready to evolve.`
-        : "No Pokémon are ready to evolve yet.";
+        : "No Pokémon are ready to evolve yet. Catch Pokémon and earn Evolution Candy to unlock Evolution Lines.";
     }
   }
 
@@ -174,7 +174,7 @@
         .forEach((mon) => cards.push(cardHtml(mon, true)));
     }
     const empty = filter === "ready"
-      ? `<p class="muted">No Pokémon are ready to evolve yet. Catch duplicates to earn Evolution Candy.</p>`
+      ? `<div class="evo-empty"><p class="muted">No Pokémon are ready to evolve yet.</p><p class="muted">Catch Pokémon and earn Evolution Candy to unlock Evolution Lines.</p><p><a class="button secondary" href="./">Play</a></p></div>`
       : `<p class="muted">Nothing in this filter right now.</p>`;
     els.grid.innerHTML = cards.join("") || empty;
     let fanfare = 0;

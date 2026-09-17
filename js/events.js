@@ -67,8 +67,12 @@
 
   function renderList() {
     if (!events.length) {
-      els.status.textContent = "No upcoming events posted yet.";
-      els.list.innerHTML = "";
+      els.status.textContent = "No Special Events posted yet.";
+      els.list.innerHTML = `<article class="event-card event-empty">
+        <strong>Special Events</strong>
+        <p class="muted">Scheduled opportunities for rare Pokémon appear here. Check back before stream nights, then join the encounter on Play when one goes live.</p>
+        <p><a class="button secondary" href="./">Go to Play</a></p>
+      </article>`;
       return;
     }
     els.status.textContent = `${events.length} event${events.length === 1 ? "" : "s"}`;

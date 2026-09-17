@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260917-rc11">
+<link rel="stylesheet" href="css/play.css?v=20260917-rc12">
 <body data-page="play">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -54,6 +54,8 @@
 <div class="wrap">
   <div class="page-kicker">
     <h1>Play</h1>
+    <p class="muted welcome-blurb">ST★RLIGHT Pokémon RPG — catch Pokémon alongside Sora's livestream. Build your Pokédex, evolve your collection, and customize your Trainer.</p>
+    <p class="links welcome-links"><a class="button" href="./register.html">Start Playing</a> <a class="button secondary" href="./help.html">How to Play</a></p>
   </div>
   <aside id="play-update" class="play-update" hidden>
     <p id="play-update-msg">✨ A new ST★RLIGHT RPG update is ready.</p>
@@ -88,11 +90,12 @@
             <div class="dex-idle-copy">
               <span class="dex-idle-mark">?</span>
               <p class="wild-label">Searching</p>
-              <h2>The tall grass is quiet</h2>
-              <p class="muted">Waiting for the next encounter.</p>
+              <h2>Waiting for the next wild Pokémon…</h2>
+              <p class="muted">Wild Pokémon appear throughout the stream.</p>
             </div>
           </div>
         </div>
+        <div id="play-first-guide" class="play-first-guide" hidden></div>
         <p id="action-status" class="muted" role="status"></p>
         <div id="actions" class="action-grid"></div>
         <div id="special-upcoming" class="special-event-upcoming" hidden></div>
@@ -137,20 +140,20 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260917-rc11"></script>
-<script src="js/play-perf.js?v=20260917-rc11"></script>
-<script src="js/build.js?v=20260917-rc11"></script>
-<script src="js/build-client.js?v=20260917-rc11"></script>
-<script src="js/auth.js?v=20260917-rc11"></script>
-<script src="js/variants.js?v=20260917-rc11"></script>
-<script src="js/game.js?v=20260917-rc11"></script>
-<script src="js/play-present.js?v=20260917-rc11"></script>
-<script src="js/play-encounter-state.js?v=20260917-rc11"></script>
-<script src="js/play-ux.js?v=20260917-rc11"></script>
-<script src="js/location-visuals-data.js?v=20260917-rc11"></script>
-<script src="js/location-visuals.js?v=20260917-rc11"></script>
-<script src="js/hud.js?v=20260917-rc11"></script>
-<script src="js/special-events.js?v=20260917-rc11"></script>
-<script src="js/nav.js?v=20260917-rc11"></script>
-<script src="js/play.js?v=20260917-rc11"></script>
+<script src="js/config.js?v=20260917-rc12"></script>
+<script src="js/play-perf.js?v=20260917-rc12"></script>
+<script src="js/build.js?v=20260917-rc12"></script>
+<script src="js/build-client.js?v=20260917-rc12"></script>
+<script src="js/auth.js?v=20260917-rc12"></script>
+<script src="js/variants.js?v=20260917-rc12"></script>
+<script src="js/game.js?v=20260917-rc12"></script>
+<script src="js/play-present.js?v=20260917-rc12"></script>
+<script src="js/play-encounter-state.js?v=20260917-rc12"></script>
+<script src="js/play-ux.js?v=20260917-rc12"></script>
+<script src="js/location-visuals-data.js?v=20260917-rc12"></script>
+<script src="js/location-visuals.js?v=20260917-rc12"></script>
+<script src="js/hud.js?v=20260917-rc12"></script>
+<script src="js/special-events.js?v=20260917-rc12"></script>
+<script src="js/nav.js?v=20260917-rc12"></script>
+<script src="js/play.js?v=20260917-rc12"></script>
 </body>

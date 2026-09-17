@@ -6107,6 +6107,45 @@ html[data-perf="low"] .play-present-xp i {
   background: #eef7ff;
   border: 2px solid #b9d8f3;
 }
+.play-first-guide {
+  margin: 10px 0 0;
+}
+.dex-idle.is-offline .dex-idle-mark {
+  background: #c9d6e8;
+  color: #3a5070;
+}
+.dex-idle.is-offline .wild-label { color: #4a6286; }
+.dex-empty-banner,
+.lgpe-empty-state,
+.evo-empty,
+.event-empty {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #f4f9ff;
+  border: 2px dashed #b9d8f3;
+  text-align: center;
+}
+.help-steps {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 10px;
+  font-weight: 700;
+}
+.help-steps strong { color: #1f4f8a; }
+.help-topics details {
+  border: 2px solid #d7e8f8;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  background: #fbfeff;
+}
+.help-topics summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: #1f4f8a;
+}
+.help-topics details p { margin: 8px 0 0; }
 .feed-jump {
   position: sticky;
   bottom: 8px;

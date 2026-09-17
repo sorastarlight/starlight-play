@@ -135,7 +135,11 @@
     const slots = searching ? ids : Array.from({ length: BOX_SLOTS }, (_, i) => ids[i] || null);
     filtered = slots.map(monById).filter(Boolean);
     if (!searching && !(data?.mons || []).length) {
-      els.grid.innerHTML = `<p class="lgpe-empty">Catch Pokémon on Play to fill this box.</p>`;
+      els.grid.innerHTML = `<div class="lgpe-empty-state">
+        <p class="lgpe-empty">Your caught Pokémon will appear here.</p>
+        <p class="muted">Join a wild encounter on Play to catch your first Pokémon.</p>
+        <p><a class="button" href="./">Play</a></p>
+      </div>`;
       els.count.textContent = "0 / 30";
       renderHead(null, 0);
       renderDetail(null);

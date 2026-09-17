@@ -350,7 +350,7 @@
         key: "bits",
         kind: "bits",
         name: "Twitch Power-Ups",
-        blurb: "Use the matching Custom Power-Up on Twitch while Sora is live. Contents are guaranteed and listed here. A general cheer is not a Store checkout.",
+        blurb: "Optional stream support with guaranteed in-game supplies. Use the matching Custom Power-Up on Twitch while Sora is live. Contents are listed here. A general cheer is not a Mart checkout — and Power-Ups are never required to catch Pokémon.",
         icon: "amulet-coin.png",
         items: catalog?.bits || []
       }
@@ -681,7 +681,7 @@
         </section>`
       : (lastSupport.pending
         ? `<p class="muted">A Power-Up is waiting until this Twitch account is linked for gameplay.</p>`
-        : `<p class="muted">Support with a matching Custom Power-Up on Twitch. General cheers are thank-yous, not Store checkouts. Twitch Bits are stream support — ST★RLIGHT does not convert them into a Star Bits currency.</p>`);
+        : `<p class="muted">Optional stream support: use a matching Custom Power-Up on Twitch for guaranteed supplies listed above. General cheers are thank-yous, not Mart checkouts. Twitch Bits are stream support — ST★RLIGHT does not convert them into a Star Bits currency. Power-Ups are never required to catch Pokémon.</p>`);
     return floorShell(
       floor,
       floor.icon || "amulet-coin.png",

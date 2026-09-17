@@ -93,9 +93,12 @@
     const seen = entries.filter((row) => row.seen).length;
     const pct = (caught / 151 * 100).toFixed(1);
     const v = dexData.variants || {};
-    els.summary.textContent = `Kanto Pokédex ${caught}/151 · ${pct}% · ${seen} seen · ${151 - seen} unknown`;
+    els.summary.textContent = caught
+      ? `Kanto Pokédex ${caught}/151 · ${pct}% · ${seen} seen · ${151 - seen} unknown`
+      : `Kanto Pokédex 0/151 · Catch Pokémon during streams to register them here.`;
     if (els.variants) {
-      els.variants.innerHTML = `
+      els.variants.innerHTML = caught
+        ? `
         <h2>Collection variants</h2>
         <p class="muted">Variants do not count as extra National Pokédex species.</p>
         <dl class="sim-grid">
@@ -103,7 +106,13 @@
           <div><dt>Shinies</dt><dd>${v.shinySpecies || 0} / ${v.shinyEligible || 151} eligible</dd></div>
           <div><dt>Female variants</dt><dd>${v.femaleVariants || 0} / ${v.femaleEligible || 0} eligible</dd></div>
           <div><dt>Shiny female</dt><dd>${v.shinyFemale || 0}</dd></div>
-        </dl>`;
+        </dl>`
+        : `
+        <div class="dex-empty-banner">
+          <strong>Your Pokédex is waiting</strong>
+          <p class="muted">Wild Pokémon appear during Sora's stream. Join an encounter on Play to register your first species.</p>
+          <p><a class="button" href="./">Play</a></p>
+        </div>`;
     }
     els.grid.innerHTML = visible.map((entry) => {
       const state = entry.caught ? "caught" : entry.seen ? "seen" : "unseen";
@@ -123,7 +132,7 @@
       const owned = entry.caught
         ? ` · ${entry.ownedNow || 0} owned`
         : "";
-      const candy = entry.familyCandy ? ` · ${entry.familyCandy.qty} Candy` : "";
+      const candy = entry.familyCandy ? ` · ${entry.familyCandy.qty} Evolution Candy` : "";
       const stars = entry.mastery ? ` · ${"★".repeat(entry.mastery.rank || 0)}${"☆".repeat(Math.max(0, 5 - (entry.mastery.rank || 0)))}` : "";
       const note = badges || owned || candy || stars || (state === "unseen" ? "Not seen" : "");
       return `<article class="dex-cell ${state}" title="${entry.caught || entry.seen ? `${window.playEscapeAttr(entry.name)}${owned}${candy}${stars}` : "Not seen yet"}">
@@ -134,6 +143,12 @@
         ${note ? `<span>${note}</span>` : ""}
       </article>`;
     }).join("");
+    if (caught > 0 && entries.some((row) => row.mastery && Number(row.mastery.points || row.mastery.rank || 0) > 0)
+      && typeof window.playTipHtml === "function"
+      && !window.playTipDone?.("first-mastery")) {
+      const tip = window.playTipHtml("first-mastery", "Duplicate catches still matter. Catching the same species builds Species Mastery.");
+      if (tip && els.variants) els.variants.insertAdjacentHTML("beforeend", tip);
+    }
   }
 
   async function loadNav() {
@@ -192,6 +207,7 @@
     els.teamStatus
   );
 
+  window.playBindTips?.(document.body);
   ["region", "gen", "form", "gender", "status"].forEach((key) => {
     els[key].addEventListener("change", render);
   });

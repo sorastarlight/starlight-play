@@ -1,7 +1,7 @@
 (() => {
   const root = typeof window !== "undefined" ? window : globalThis;
   const STATUS = {
-    joined: "You have joined the encounter! Please wait while other Trainers join you.",
+    joined: "You joined the encounter. Next, choose an item—or save your supplies.",
     joining: "JOINING…",
     selecting: "SELECTING…",
     readying: "READYING…",
@@ -18,8 +18,9 @@
     phaseEnded: "That phase just ended. Nothing was used.",
     joinFailed: "Unable to join this encounter.",
     saveFailed: "That choice couldn't be saved. Please try again.",
-    emptyBalls: "You don't have a Poké Ball available for this encounter.",
+    emptyBalls: "You don't have a Poké Ball available for this encounter. Restock at Starlight Mart.",
     emptyItems: "No encounter items available.",
+    firstJoin: "A wild Pokémon appeared! Join the encounter before the timer runs out.",
     firstPrep: "Choose a Berry, Honey, or No Item.",
     firstThrow: "Choose a Poké Ball!",
     otherBalls: "Other Poké Balls",
@@ -28,7 +29,13 @@
     waitThrow: "Opens in Poké Ball selection",
     thrown: "Poké Balls thrown!",
     adPause: "Encounter paused for Twitch ad break.",
-    adminPause: "Encounter temporarily paused."
+    adminPause: "Encounter temporarily paused.",
+    idleLive: "Waiting for the next wild Pokémon…",
+    idleLiveHint: "Wild Pokémon appear throughout the stream.",
+    idleOffline: "Sora's stream is currently offline.",
+    idleOfflineHint: "Your Pokédex, PC, Mart, and Trainer ID are still available.",
+    nextZero: "Join a wild encounter to catch your first Pokémon.",
+    escapeNote: "Catch attempts aren't guaranteed—another wild Pokémon will appear."
   };
 
   const TIMER = {
@@ -116,7 +123,7 @@
   root.playItemPlayerText = function playItemPlayerText(key, captureItems) {
     if (key === "bait") {
       return (captureItems?.honey?.description)
-        || "Honey is community catch support. Contributing improves the shared encounter effort. It is not a Berry.";
+        || "Honey is community catch support. It helps the shared encounter, does not replace your Poké Ball, and does not guarantee a catch.";
     }
     if (key === "lure") return "Automatically joins you to encounters for 30 minutes.";
     if (key === "coins") return "Spend these in Starlight Mart.";
@@ -142,7 +149,7 @@
 
   root.playItemPurpose = function playItemPurpose(key, captureItems, identity) {
     if (identity?.bestUse) return identity.bestUse;
-    if (key === "bait") return "Community catch support for the whole encounter.";
+    if (key === "bait") return "Community catch support for the whole encounter. Does not replace your Poké Ball.";
     if (key === "bag_bonus") return "Permanently add bag slots.";
     if (key === "rarecandy") return "Converts into 1 Evolution Candy.";
     if (STONE_USES[key]) return "Evolution item for eligible Pokémon.";
@@ -170,7 +177,7 @@
       parts.push(`Catch power: ${identity.powerLabel}.`);
     }
     if (identity.rarity) parts.push(`Rarity: ${identity.rarity}.`);
-    if (key === "bait") parts.push("Honey is not a Berry. It boosts the shared encounter when you contribute during Prepare.");
+    if (key === "bait") parts.push("Honey is not a Berry. It boosts the shared encounter when you contribute during Prepare. It does not replace your Poké Ball or guarantee a catch.");
     if (STONE_USES[key]) {
       parts.push(`Currently used for: ${STONE_USES[key].map((pair) => pair.join(" → ")).join(", ")}.`);
     }
@@ -207,7 +214,22 @@
     const seconds = typeof window !== "undefined" && root.playEncounterSecondsLeft
       ? root.playEncounterSecondsLeft(round)
       : 0;
-    return seconds > 0 ? `${seconds}s left` : "0s left";
+    if (seconds <= 0) return "time's up";
+    const unit = seconds === 1 ? "second" : "seconds";
+    return `${seconds} ${unit} remaining`;
+  };
+
+  root.playEncounterTimerLabel = function playEncounterTimerLabel(round) {
+    if (!round) return "";
+    if (round.paused) return "Encounter paused";
+    if (round.phase === "closed") return TIMER.closed || "ENCOUNTER ENDED";
+    const phase = PHASE[round.phase] || "ENCOUNTER";
+    const seconds = typeof window !== "undefined" && root.playEncounterSecondsLeft
+      ? root.playEncounterSecondsLeft(round)
+      : 0;
+    if (seconds <= 0) return `${phase} — time's up`;
+    const unit = seconds === 1 ? "second" : "seconds";
+    return `${phase} — ${seconds} ${unit} remaining`;
   };
 
   root.playTimerWarnClass = function playTimerWarnClass(seconds) {
@@ -493,7 +515,7 @@
     const copy = joining || participants < 1
       ? "No contributions yet"
       : `${contributors} / ${participants} Trainers`;
-    const tip = "Honey is contributed during the Item Phase. More participating Trainers using Honey increases the community catch bonus.";
+    const tip = "Honey is contributed during Prepare. More participating Trainers using Honey increases the community catch bonus. Honey does not replace your Poké Ball and does not guarantee a catch.";
     return `<aside class="honey-meter honey-strip${joining ? " is-join-quiet" : ""}" data-honey="${contributors}:${participants}:${bonus}:${round?.phase || ""}">
       <img src="${spriteOf("bait")}" alt="">
       <strong>Honey <span class="honey-info" title="${esc(tip)}" aria-label="${esc(tip)}">ⓘ</span></strong>

@@ -193,8 +193,16 @@
   window.playRenderEncounter = function playRenderEncounter(round, options) {
     const opts = options || {};
     if (!round) {
+      const live = opts.streamLive === true;
+      const title = live
+        ? (opts.emptyTitle || "Waiting for the next wild Pokémon…")
+        : (opts.emptyTitle || "Sora's stream is currently offline.");
+      const note = live
+        ? (opts.emptyNote || "Wild Pokémon appear throughout the stream.")
+        : (opts.emptyNote || "Your Pokédex, PC, Mart, and Trainer ID are still available.");
+      const label = live ? "Searching" : "Offline";
       return `
-        <div class="dex-idle">
+        <div class="dex-idle${live ? "" : " is-offline"}">
           <div class="dex-idle-field" aria-hidden="true">
             <span class="dex-idle-cloud"></span>
             <span class="dex-idle-cloud is-two"></span>
@@ -202,9 +210,9 @@
           </div>
           <div class="dex-idle-copy">
             <span class="dex-idle-mark">?</span>
-            <p class="wild-label">Searching</p>
-            <h2>The tall grass is quiet</h2>
-            <p class="muted">${opts.emptyNote || "Waiting for the next encounter."}</p>
+            <p class="wild-label">${window.playEscapeAttr(label)}</p>
+            <h2>${window.playEscapeAttr(title)}</h2>
+            <p class="muted">${window.playEscapeAttr(note)}</p>
           </div>
         </div>`;
     }
@@ -215,6 +223,9 @@
     const timeText = typeof window.playEncounterTimeText === "function"
       ? window.playEncounterTimeText(round)
       : (round.paused ? "PAUSED" : (seconds ? `${seconds}s left` : "Waiting"));
+    const timerLabel = typeof window.playEncounterTimerLabel === "function"
+      ? window.playEncounterTimerLabel(round)
+      : `${phase} — ${timeText}`;
     const warnClass = typeof window.playTimerWarnClass === "function"
       ? window.playTimerWarnClass(seconds)
       : "";
@@ -296,7 +307,7 @@
           return hint ? `<p class="special-event-retry" data-special-hint>${window.playEscapeAttr(hint)}</p>` : `<p class="special-event-retry" data-special-hint hidden></p>`;
         })()}
       </div>
-      <div class="phase-wrap ${warnClass}${cinematic ? " is-capture" : ""}" data-phase-wrap>
+      <div class="phase-wrap ${warnClass}${cinematic ? " is-capture" : ""}" data-phase-wrap role="timer" aria-live="polite" aria-label="${window.playEscapeAttr(timerLabel)}">
         <div class="phase-label"><span data-phase-name>${phase}</span><span data-time-copy>${timeText}</span></div>
         <div class="phase-bar" aria-hidden="true"><i data-bar style="width:${opts.bar || 0}%"></i></div>
       </div>
@@ -586,8 +597,8 @@
         win: false,
         outcome: "broke",
         headline: "It broke free!",
-        sub: `${species} broke free!`,
-        note: `Better luck next encounter! · ${window.playItemLabel(me.ball)}${me.prep && me.prep !== "none" && me.prep !== "bait" ? ` · ${window.playItemLabel(me.prep)}` : ""}`
+        sub: `${species} escaped!`,
+        note: `${window.PLAY_STATUS?.escapeNote || "Catch attempts aren't guaranteed—another wild Pokémon will appear."}${me.ball ? ` · ${window.playItemLabel(me.ball)}` : ""}${me.prep && me.prep !== "none" && me.prep !== "bait" ? ` · ${window.playItemLabel(me.prep)}` : ""}`
       };
     }
     return {
@@ -841,6 +852,9 @@
     const timeText = typeof window.playEncounterTimeText === "function"
       ? window.playEncounterTimeText(round)
       : (round.paused ? "PAUSED" : (seconds ? `${seconds}s left` : "Waiting"));
+    const timerLabel = typeof window.playEncounterTimerLabel === "function"
+      ? window.playEncounterTimerLabel(round)
+      : `${phase} — ${timeText}`;
     const warnClass = typeof window.playTimerWarnClass === "function"
       ? window.playTimerWarnClass(seconds)
       : "";
@@ -852,12 +866,13 @@
     const last = root.querySelector("[data-last]");
     if (time) time.textContent = round.paused ? "PAUSED" : `${seconds || 0}s`;
     if (timeCopy) timeCopy.textContent = timeText;
+    const phaseWrap = root.querySelector("[data-phase-wrap]");
+    if (phaseWrap) phaseWrap.setAttribute("aria-label", timerLabel);
     root.querySelector("[data-phase-wrap]")?.classList.toggle("is-warn", warnClass === "is-warn");
     root.querySelector("[data-phase-wrap]")?.classList.toggle("is-urgent", warnClass === "is-urgent");
     if (phaseEl) phaseEl.textContent = phase;
     if (phaseName) phaseName.textContent = phase;
     if (barEl) barEl.style.width = `${bar || 0}%`;
-    const phaseWrap = root.querySelector("[data-phase-wrap]");
     const capturing = window.playShowCatchSeq(round);
     phaseWrap?.classList.toggle("is-capture", capturing);
     const statsEl = root.querySelector(".dex-stats");

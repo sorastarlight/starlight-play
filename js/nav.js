@@ -101,33 +101,50 @@ window.playBindAccountNav = function playBindAccountNav(options) {
 
   const links = [
     { href: "./", id: "play", label: "Play" },
-    { href: "./inventory.html", id: "inventory", label: "My Inventory" },
-    { href: "./pokedex.html", id: "pokedex", label: "My Pokédex" },
-    { href: "./achievements.html", id: "achievements", label: "Achievements" },
     { href: "./storage.html", id: "storage", label: "My PC" },
+    { href: "./pokedex.html", id: "pokedex", label: "Pokédex" },
+    { href: "./inventory.html", id: "inventory", label: "Inventory" },
     { href: "./evolve.html", id: "evolve", label: "Evolution" },
-    { href: "./trade.html", id: "trade", label: "Global Trade System" },
+    { href: "./trainer.html", id: "trainer", label: "Trainer ID" },
     { href: "./rankings.html", id: "rankings", label: "Rankings" },
-    { href: "./events.html", id: "events", label: "Events" }
+    { href: "./events.html", id: "events", label: "Events" },
+    { href: "./achievements.html", id: "achievements", label: "Achievements" },
+    { href: "./trade.html", id: "trade", label: "GTS" },
+    { href: "./help.html", id: "help", label: "How to Play" }
   ];
 
   function renderLinks(isAdmin) {
     if (!els.links) return;
     const items = links.slice();
-    items.push({ href: "./store.html", id: "store", label: "Store" });
+    items.push({ href: "./store.html", id: "store", label: "Mart" });
     if (!els.links.dataset.ready) {
-      if (!els.links.childElementCount) {
-        els.links.innerHTML = items.map((item, index) => {
-          const current = item.id === page ? " aria-current=\"page\"" : "";
-          const extra = item.id === "store" ? " topnav-link-store" : "";
-          const divider = index < items.length - 1 ? `<span class="topnav-div" aria-hidden="true">|</span>` : "";
-          return `<a class="topnav-link${extra}" href="${item.href}" data-nav="${item.id}"${current}>${item.label}</a>${divider}`;
-        }).join("");
-      }
+      els.links.innerHTML = items.map((item, index) => {
+        const current = item.id === page ? " aria-current=\"page\"" : "";
+        const extra = item.id === "store" ? " topnav-link-store" : "";
+        const divider = index < items.length - 1 ? `<span class="topnav-div" aria-hidden="true">|</span>` : "";
+        return `<a class="topnav-link${extra}" href="${item.href}" data-nav="${item.id}"${current}>${item.label}</a>${divider}`;
+      }).join("");
       els.links.addEventListener("click", (event) => {
         if (event.target.closest("a")) closeNavPanel();
       });
       els.links.dataset.ready = "1";
+    } else {
+      // Keep labels/hrefs aligned when HTML shipped an older nav snapshot.
+      const byId = new Map(items.map((item) => [item.id, item]));
+      els.links.querySelectorAll("a[data-nav]").forEach((link) => {
+        const item = byId.get(link.dataset.nav);
+        if (!item) return;
+        if (link.getAttribute("href") !== item.href) link.setAttribute("href", item.href);
+        if (link.textContent !== item.label) link.textContent = item.label;
+      });
+      if (!els.links.querySelector("[data-nav=\"help\"]")) {
+        const store = els.links.querySelector("[data-nav=\"store\"]");
+        const helpHtml = `<span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./help.html" data-nav="help">How to Play</a>`;
+        if (store) store.insertAdjacentHTML("beforebegin", helpHtml);
+        else els.links.insertAdjacentHTML("beforeend", helpHtml);
+      }
+      const storeLink = els.links.querySelector("[data-nav=\"store\"]");
+      if (storeLink && storeLink.textContent !== "Mart") storeLink.textContent = "Mart";
     }
     const adminPage = page === "admin" || page === "admin-live" || page === "admin-tools" || page === "admin-store";
     let adminLink = els.links.querySelector("[data-nav=\"admin\"]");

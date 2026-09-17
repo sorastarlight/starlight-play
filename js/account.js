@@ -96,7 +96,7 @@
           : "This identity stays linked to the same Trainer Account."}</p>
         <div class="links">${actions.join("")}</div>
       </article>`;
-    }).join("") || `<p class="muted">No Twitch account is linked yet. Connect Twitch to join stream features.</p>`;
+    }).join("") || `<p class="muted">No Twitch account is linked yet.<br>Connect Twitch so the RPG knows which Trainer is participating when you play in chat and on stream. You can still browse your Pokédex, PC, Mart, Rankings, and Events without it.</p>`;
   }
 
   function renderSecurity() {

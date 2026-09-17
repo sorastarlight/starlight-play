@@ -124,7 +124,7 @@
       </article>`).join("");
     box.innerHTML = `
       <h2>Showcase</h2>
-      <div class="caught-grid">${parts.join("") || `<p class="muted">No showcase yet.</p>`}</div>
+      <div class="caught-grid">${parts.join("") || `<p class="muted">Catch your first Pokémon to begin your collection. More customization unlocks as you play.</p>`}</div>
       ${mastery ? `<h3>Top mastered species</h3><div class="caught-grid">${mastery}</div>` : ""}`;
   }
 
@@ -249,7 +249,9 @@
       customHint.textContent = "Showcase uses Pokémon from your full PC. Favorite Pokémon and Favorite Shiny must be ones you own.";
       return;
     }
-    customHint.textContent = "Feature up to three badges on your Trainer ID.";
+    customHint.textContent = (badges || []).some((row) => row.unlocked)
+      ? "Feature up to three badges on your Trainer ID."
+      : "No badges equipped yet. Catch Pokémon and unlock achievements to earn badges.";
   }
 
   function render(view, recent) {

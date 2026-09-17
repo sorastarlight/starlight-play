@@ -417,7 +417,7 @@
         item: "bait",
         label: "Honey",
         qty: honeyQty,
-        effect: "Contribute Honey to improve the catch bonus for all Trainers.",
+        effect: "Community catch support. Helps everyone in this encounter. Does not replace your Poké Ball or guarantee a catch.",
         selected: me.prep === "bait",
         disabled: !prepActive || honeyQty < 1,
         reason: me.prep && me.prep !== "bait" ? "ENCOUNTER LOCKED" : (honeyQty < 1 ? "OUT OF STOCK" : ""),
@@ -427,7 +427,7 @@
         kind: "prepare",
         item: "none",
         label: "No item",
-        effect: "Skip this phase. You can still throw a Poké Ball.",
+        effect: "Save your supplies. You can still throw a Poké Ball.",
         selected: me.prep === "none",
         disabled: !prepActive,
         reason: lockedPrep && me.prep !== "none" ? "ENCOUNTER LOCKED" : "",
@@ -692,23 +692,25 @@
     const balls = plan.buttons.filter((row) => row.kind === "throw");
     const moreBalls = plan.buttons.filter((row) => row.kind === "open-balls");
     const joins = plan.buttons.filter((row) => row.kind === "join");
-    const tip = plan.phase === "prepare" && !data?.me?.prep
-      ? (typeof window.playTipHtml === "function" ? window.playTipHtml("first-prep", window.PLAY_STATUS.firstPrep) : "")
-      : plan.phase === "throw" && !data?.me?.ball
-        ? (typeof window.playTipHtml === "function" ? window.playTipHtml("first-throw", window.PLAY_STATUS.firstThrow) : "")
-        : "";
+    const tip = plan.phase === "join" && joins.some((row) => !row.joined && !row.joining)
+      ? (typeof window.playTipHtml === "function" ? window.playTipHtml("first-join", window.PLAY_STATUS.firstJoin) : "")
+      : plan.phase === "prepare" && !data?.me?.prep
+        ? (typeof window.playTipHtml === "function" ? window.playTipHtml("first-prep", window.PLAY_STATUS.firstPrep) : "")
+        : plan.phase === "throw" && !data?.me?.ball
+          ? (typeof window.playTipHtml === "function" ? window.playTipHtml("first-throw", window.PLAY_STATUS.firstThrow) : "")
+          : "";
     let html = "";
     if (joins.length) html += `<div class="enc-join">${joins.map(renderActionCard).join("")}</div>`;
     if (berries.length || honey.length || skip.length) {
       html += `<div class="enc-split enc-hud-in">
         <section class="enc-pane">
-          <h3>For you</h3>
-          <p class="muted">Berries help only your catch.</p>
+          <h3>Berry</h3>
+          <p class="muted">Personal effect — helps only your catch.</p>
           <div class="enc-card-row">${berries.length ? berries.map(renderActionCard).join("") : `<p class="muted">${window.PLAY_STATUS?.emptyItems || "No encounter items available."}</p>`}</div>
         </section>
         <section class="enc-pane">
-          <h3>Help everyone</h3>
-          <p class="muted">Honey raises the community bonus.</p>
+          <h3>Honey</h3>
+          <p class="muted">Community contribution — helps the whole encounter. Does not replace your Poké Ball.</p>
           <div class="enc-card-row">${honey.map(renderActionCard).join("")}</div>
         </section>
       </div>
@@ -934,6 +936,54 @@
     act("join", "");
   }
 
+  function catchCount(data) {
+    const trainer = data?.trainer || {};
+    const n = Number(
+      trainer.caught
+      ?? trainer.catches
+      ?? trainer.catchCount
+      ?? trainer.totalCatches
+      ?? data?.stats?.catches
+      ?? NaN
+    );
+    if (Number.isFinite(n)) return n;
+    return null;
+  }
+
+  function renderFirstRunGuide(view) {
+    const mount = document.getElementById("play-first-guide");
+    if (!mount) return;
+    const round = liveRound(view);
+    const catches = catchCount(view);
+    const zeroCatch = catches === 0;
+    const parts = [];
+    if (!round && zeroCatch) {
+      const live = Boolean(view?.live);
+      parts.push(live
+        ? (window.PLAY_STATUS?.nextZero || "Join a wild encounter to catch your first Pokémon.")
+        : (window.PLAY_STATUS?.idleOfflineHint || "Your Pokédex, PC, Mart, and Trainer ID are still available."));
+    }
+    if (round?.phase === "join" && !view?.me) {
+      parts.push(window.PLAY_STATUS?.firstJoin || "A wild Pokémon appeared! Join the encounter before the timer runs out.");
+    }
+    if (!parts.length) {
+      mount.hidden = true;
+      mount.innerHTML = "";
+      return;
+    }
+    const tipKey = round?.phase === "join" ? "first-join" : "next-zero";
+    const tip = typeof window.playTipHtml === "function"
+      ? window.playTipHtml(tipKey, parts[0])
+      : `<aside class="play-tip"><p>${window.playEscapeAttr(parts[0])}</p></aside>`;
+    if (!tip) {
+      mount.hidden = true;
+      mount.innerHTML = "";
+      return;
+    }
+    mount.hidden = false;
+    mount.innerHTML = tip;
+  }
+
   function render(data) {
     let incomingRound = data?.round
       ? (typeof window.playMergeRoundSnapshot === "function"
@@ -972,13 +1022,19 @@
     lastLocalPhase = round?.phase || lastLocalPhase;
     const hasLiveDom = Boolean(els.encounter?.querySelector(".dex-stage"));
     const paintFull = () => {
+      const live = Boolean(state?.live);
+      const status = window.PLAY_STATUS || {};
       els.encounter.innerHTML = window.playRenderEncounter(round, {
         bar,
         showLastAction: false,
         throwBall: state?.me?.ball || "pokeball",
-        me: state?.me || null
+        me: state?.me || null,
+        streamLive: live,
+        emptyTitle: live ? status.idleLive : status.idleOffline,
+        emptyNote: live ? status.idleLiveHint : status.idleOfflineHint
       });
       lastEncounterKey = key;
+      renderFirstRunGuide(view);
     };
     if (key !== lastEncounterKey || Boolean(round) !== hasLiveDom) {
       paintFull();
@@ -1006,6 +1062,8 @@
       isAdmin: Boolean(data?.isAdmin),
       trainer: data?.trainer
     });
+    const welcome = document.querySelector(".welcome-links");
+    if (welcome) welcome.hidden = Boolean(window._playSession);
     const required = data?.settings?.clientBuild;
     window.__playServerBuild = required || "";
     const update = document.getElementById("play-update");

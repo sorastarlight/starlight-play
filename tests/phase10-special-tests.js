@@ -23,6 +23,8 @@ const eventsSql = read("supabase/migrations/20260917070000_phase10_special_event
 const rpcsSql = read("supabase/migrations/20260917071000_phase10_special_rpcs.sql");
 const grantsSql = read("supabase/migrations/20260917072000_phase10_admin_grants.sql");
 const closureSql = read("supabase/migrations/20260917073000_phase10_closure_integrity.sql");
+const reconcileSql = read("supabase/migrations/20260917074000_phase10_reconcile_final_state.sql");
+const migrateNote = read("supabase/migrations/PHASE10_MIGRATION_NOTE.md");
 const specialJs = read("js/special-events.js");
 const adminSpecial = read("js/admin-special.js");
 const adminLive = read("js/admin-live.js");
@@ -74,6 +76,17 @@ test("Kanto v1 acquisition model is documented and unchanged", () => {
   assert(closureSql.includes("evolutionRequiredFor151', false"));
   assert(closureSql.includes("Evolution is NOT required for 151/151") || closureSql.includes("not required for 151/151"));
   assert(closureSql.includes("144 Articuno"));
+  assert(reconcileSql.includes("ordinaryEncounterEligible', 146"));
+  assert(reconcileSql.includes("only appear through a Special Event"));
+  assert(reconcileSql.includes("create table if not exists private.special_events"));
+});
+
+test("Phase 10 migration note documents manual 70000/71000 apply", () => {
+  assert(migrateNote.includes("supabase db query --file"));
+  assert(migrateNote.includes("20260917074000_phase10_reconcile_final_state.sql"));
+  assert(migrateNote.toLowerCase().includes("do not"));
+  assert(migrateNote.includes("70000") && migrateNote.includes("71000"));
+  assert(migrateNote.includes("schema_migrations"));
 });
 
 test("Mew is Mythical and hidden by default", () => {

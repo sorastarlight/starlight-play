@@ -260,9 +260,9 @@
     const file = trainer.portrait || trainer.portraitFile || trainer.portrait_file || "";
     if (file) {
       if (/^https?:\/\//.test(file) || file.startsWith("images/") || file.startsWith("blob:")) {
-        return file.includes("?") || file.startsWith("blob:") ? file : `${file}?v=avp1`;
+        return file.includes("?") || file.startsWith("blob:") ? file : `${file}?v=avp2`;
       }
-      return `images/trainers/portraits/${file}?v=avp1`;
+      return `images/trainers/portraits/${file}?v=avp2`;
     }
     return window.playTrainerSpriteUrl(id);
   };

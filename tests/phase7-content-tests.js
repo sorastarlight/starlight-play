@@ -51,8 +51,31 @@ test("Honey stays community support, not a Berry", () => {
   const text = window.playItemPlayerText("bait");
   assert(/community/i.test(text), text);
   assert(!/Berry/i.test(window.playItemPurpose("bait")) || /not a Berry/i.test(text), text);
-  const parts = window.playMartDetailParts({ key: "bait", ballKey: "bait", identity: { bestUse: "Community catch support for the whole encounter.", playerText: text } });
+  const parts = window.playMartDetailParts({
+    key: "bait",
+    ballKey: "bait",
+    identity: {
+      bestUse: "Contribute during the item phase so every participating Trainer gets a shared catch boost.",
+      playerText: text,
+      powerLabel: "COMMUNITY",
+      condition: "COMMUNITY_HONEY",
+      category: "community",
+      rarity: "common"
+    }
+  });
   assert(parts.parts.some((line) => /not a Berry/i.test(line)), parts.parts.join(" | "));
+  assert(!parts.parts.some((line) => /Catch power/i.test(line)), parts.parts.join(" | "));
+});
+
+test("Bag space and avatar packs do not use the generic Trainer-item fallback", () => {
+  const bag = window.playItemPlayerText("bag_bonus");
+  assert(/bag slots|bag space/i.test(bag), bag);
+  assert(!/useful Trainer item/i.test(bag), bag);
+  const purpose = window.playItemPurpose("bag_bonus");
+  assert(/bag slots/i.test(purpose), purpose);
+  const src = fs.readFileSync(path.join(__dirname, "../js/store.js"), "utf8");
+  assert(src.includes("mode === \"avatars\" || row.pack"), "avatar pack blurb path missing");
+  assert(src.includes("A useful Trainer item."), "generic fallback guard missing");
 });
 
 test("Rare Candy converts into Evolution Candy", () => {
@@ -120,6 +143,15 @@ test("Portrait upload path is derived, not destructive", () => {
   const studio = fs.readFileSync(path.join(__dirname, "../js/admin-studio.js"), "utf8");
   assert(studio.includes("Original sprites were not changed"), studio);
   assert(studio.includes("admin_save_look_portrait"), "portrait save RPC missing");
+});
+
+test("Generated portraits exist for the live look library", () => {
+  const dir = path.join(__dirname, "../images/trainers/portraits");
+  assert(fs.existsSync(path.join(dir, "red-gen1-portrait.png")), "red-gen1 portrait missing");
+  assert(fs.existsSync(path.join(dir, "cynthia-anime-portrait.png")), "cynthia portrait missing");
+  assert(fs.existsSync(path.join(dir, "ash-capbackward-portrait.png")), "hat portrait missing");
+  const count = fs.readdirSync(dir).filter((name) => name.endsWith("-portrait.png")).length;
+  assert(count >= 120, `only ${count} portraits`);
 });
 
 test("Bits packs cannot be defined with odds in the UI copy", () => {

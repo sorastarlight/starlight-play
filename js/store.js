@@ -387,9 +387,26 @@
   function purposeText(item, mode) {
     const row = mode === "balls" ? ballView(item) : item;
     const key = row.key || grantKey(row);
+    const blurb = String(row.blurb || "").trim();
     if (mode === "bits") return "Guaranteed contents. Not a random pack.";
+    if (mode === "avatars" || row.pack) {
+      return blurb || "A Trainer look for your ID, Profile, and Rankings.";
+    }
+    if (key === "bag_bonus" || Number(row.grants?.bag_bonus) > 0) {
+      const n = Number(row.grants?.bag_bonus) || 0;
+      if (blurb) return blurb;
+      if (row.identity?.bestUse) return row.identity.bestUse;
+      if (typeof window.playItemPurpose === "function") {
+        const purpose = window.playItemPurpose(key, null, row.identity);
+        if (purpose && purpose !== "A useful Trainer item.") return purpose;
+      }
+      return n > 0 ? `Permanently add +${n} bag slots.` : "Permanently add bag slots.";
+    }
     if (row.identity?.bestUse) return row.identity.bestUse;
-    if (typeof window.playItemPurpose === "function") return window.playItemPurpose(key, null, row.identity);
+    if (typeof window.playItemPurpose === "function") {
+      const purpose = window.playItemPurpose(key, null, row.identity);
+      if (purpose && purpose !== "A useful Trainer item.") return purpose;
+    }
     return itemBlurb(row, mode);
   }
 

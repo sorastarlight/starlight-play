@@ -120,6 +120,7 @@
     }
     if (key === "lure") return "Automatically joins you to encounters for 30 minutes.";
     if (key === "coins") return "Spend these in Starlight Mart.";
+    if (key === "bag_bonus") return "Permanently adds extra bag slots so you can carry more items.";
     if (key === "rarecandy") return "Converts into 1 Evolution Candy at the Evolution Center. It does not evolve a Pokémon by itself.";
     if (STONE_USES[key]) {
       const first = STONE_USES[key][0];
@@ -142,6 +143,7 @@
   root.playItemPurpose = function playItemPurpose(key, captureItems, identity) {
     if (identity?.bestUse) return identity.bestUse;
     if (key === "bait") return "Community catch support for the whole encounter.";
+    if (key === "bag_bonus") return "Permanently add bag slots.";
     if (key === "rarecandy") return "Converts into 1 Evolution Candy.";
     if (STONE_USES[key]) return "Evolution item for eligible Pokémon.";
     if (identity?.collector || root.playBallInfo?.(key)?.collector) return "Collector look. Same catch power as a Poké Ball.";
@@ -157,9 +159,14 @@
     const parts = [];
     if (player && player !== purpose) parts.push(player);
     if (identity.collector) parts.push("This is a Collector Ball. It is sold for its look, not extra catch power.");
-    if (identity.powerLabel && !identity.collector && identity.condition && identity.condition !== "NONE") {
+    const catchPower = (identity.category === "balls" || BALL_KEYS.has(key))
+      && identity.powerLabel
+      && identity.powerLabel !== "STANDARD"
+      && identity.powerLabel !== "COMMUNITY"
+      && !identity.collector;
+    if (catchPower && identity.condition && identity.condition !== "NONE") {
       parts.push(`Catch power: ${identity.basePower || "STANDARD"} normally, ${identity.powerLabel} in its niche.`);
-    } else if (identity.powerLabel && identity.powerLabel !== "STANDARD" && !identity.collector) {
+    } else if (catchPower) {
       parts.push(`Catch power: ${identity.powerLabel}.`);
     }
     if (identity.rarity) parts.push(`Rarity: ${identity.rarity}.`);

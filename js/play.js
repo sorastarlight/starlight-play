@@ -997,7 +997,7 @@
     if ((!round || round.paused || pickerStale) && els.throwModal?.open) {
       try { els.throwModal.close(); } catch (_) {}
     }
-    const key = `${round?.id || "none"}:${round ? "live" : "idle"}:${round?.variant || ""}:${round?.hidden || false}`;
+    const key = `${round?.id || "none"}:${round ? "live" : "idle"}:${Boolean(state?.live) ? "on" : "off"}:${round?.variant || ""}:${round?.hidden || false}`;
     const bar = phaseBar(round);
     const patchOpts = { me: state?.me || null };
     const prevPhase = lastLocalPhase;

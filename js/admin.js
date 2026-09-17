@@ -990,6 +990,11 @@
         label: "Performance",
         status: perf.status || "UNKNOWN",
         detail: `This browser: ${String(window.playPerfPref?.() || "auto").toUpperCase()} → ${String(window.playPerfMode?.() || "balanced").toUpperCase()}${window.playPerfReduced?.() ? " · reduced motion" : ""}`
+      },
+      {
+        label: "Rankings",
+        status: data?.rankings?.status || "UNKNOWN",
+        detail: data?.rankings?.detail || "Ranking health not loaded."
       }
     ];
     board.innerHTML = rows.map((row) => `

@@ -166,7 +166,7 @@
       return;
     }
     const featured = (data?.badges || []).filter((item) => item.featured).map((item) => item.id);
-    const next = featured.includes(id) ? featured.filter((item) => item !== id) : featured.concat(id).slice(0, 5);
+    const next = featured.includes(id) ? featured.filter((item) => item !== id) : featured.concat(id).slice(0, 3);
     els.badgeStatus.textContent = "Saving…";
     try {
       const saved = await window.playCall("play_set_badges", { p_ids: next });

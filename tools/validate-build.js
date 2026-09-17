@@ -8,7 +8,7 @@ const SPRITE = String(config.spriteBuild || "").trim();
 const LOCATION = String(config.locationBuild || "").trim();
 const STALE = [
   "enc4", "enc7", "enc9", "p1", "p1a", "p1b", "p2", "p4",
-  "rc1", "rc2", "rc8", "auth1", "grant2", "set1", "evo3", "evo4", "acct1"
+  "rc1", "rc2", "auth1", "grant2", "set1", "evo3", "evo4", "acct1"
 ];
 
 const failures = [];

@@ -21,6 +21,7 @@
   let ownedPacks = [];
   let prog = null;
   let recentLog = [];
+  let pcCatches = [];
   let achievements = [];
 
   window.playBindAccountNav();
@@ -44,7 +45,9 @@
         ...(card.showcase || {}),
         shinyCatchId: draft.shinyCatchId || "",
         achievementId: draft.achievementId || "",
-        shinyCatch: (recentLog || []).find((row) => String(row.id) === String(draft.shinyCatchId)) || card.showcase?.shinyCatch,
+        shinyCatch: (pcCatches || []).find((row) => String(row.id) === String(draft.shinyCatchId))
+          || (recentLog || []).find((row) => String(row.id) === String(draft.shinyCatchId))
+          || card.showcase?.shinyCatch,
         achievementName: (achievements.find((row) => row.id === draft.achievementId) || {}).name || card.showcase?.achievementName
       },
       favoriteDex: draft.favoriteDex ?? card.favoriteDex,
@@ -211,15 +214,23 @@
       </button>`;
     }).join("")}</div>`;
     if (tab === "showcase") {
-      const shinies = (recentLog || []).filter((row) => String(row.variant || "").includes("shiny"));
+      const owned = [];
+      const seen = new Set();
+      (pcCatches || []).forEach((row) => {
+        const key = `${row.dex}:${row.variant || "normal"}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        owned.push(row);
+      });
+      owned.sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")) || Number(a.dex) - Number(b.dex));
+      const shinies = (pcCatches || []).filter((row) => String(row.variant || "").includes("shiny"));
       const done = (achievements || []).filter((row) => row.unlocked);
-      const team = card?.team || [];
       customPicks.innerHTML = `
         <div class="id-showcase-edit">
           <label class="field">Favorite Pokémon
             <select id="showcase-fav">
               <option value="">Use Pokédex favorite</option>
-              ${team.map((row) => `<option value="${esc(row.dex)}:${esc(row.variant || "normal")}" ${Number(draft.favoriteDex) === Number(row.dex) ? "selected" : ""}>${window.playCaughtName(row)}</option>`).join("")}
+              ${owned.map((row) => `<option value="${esc(row.dex)}:${esc(row.variant || "normal")}" ${Number(draft.favoriteDex) === Number(row.dex) && String(draft.favoriteVariant || "normal") === String(row.variant || "normal") ? "selected" : ""}>${window.playCaughtName(row)}</option>`).join("")}
             </select>
           </label>
           <label class="field">Favorite Shiny
@@ -235,7 +246,7 @@
             </select>
           </label>
         </div>`;
-      customHint.textContent = "Showcase references Pokémon you already own. It does not duplicate them.";
+      customHint.textContent = "Showcase uses Pokémon from your full PC. Favorite Pokémon and Favorite Shiny must be ones you own.";
       return;
     }
     customHint.textContent = "Feature up to three badges on your Trainer ID.";
@@ -325,6 +336,7 @@
       ownedPacks = data.ownedAvatarPacks || [];
       snapshotDraft(card);
       recentLog = data.recent || [];
+      pcCatches = mine ? (data.catches || data.caughtOptions || []) : [];
       await loadProgression();
       render(previewCard(), recentLog);
       if (mine) {

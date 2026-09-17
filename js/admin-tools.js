@@ -620,6 +620,11 @@
         <div><dt>Background</dt><dd>${window.playEscapeAttr(trainer.cardBg || "—")}</dd></div>
       </dl>
       <p class="muted">Owned cosmetics: ${window.playEscapeAttr(owned)}</p>
+      <p class="muted">Public Rankings: ${ident?.rankingVisible === false ? "hidden" : "listed"}${ident?.rankingEligible ? " · eligible" : " · not eligible"}</p>
+      <div class="links">
+        <button type="button" id="identity-ranking-hide" class="secondary" ${canEdit ? "" : "disabled"}>Hide from Rankings</button>
+        <button type="button" id="identity-ranking-show" class="secondary" ${canEdit ? "" : "disabled"}>List on Rankings</button>
+      </div>
       <label class="field" for="identity-reason">Reason
         <input id="identity-reason" type="text" maxlength="120" placeholder="event grant / correction">
       </label>
@@ -1162,6 +1167,42 @@
         });
         renderAccount(data);
         accountStatus(data?.message || "Disconnected.");
+      } catch (error) {
+        accountStatus(window.playRpcError(error));
+      }
+      return;
+    }
+    const rankingToggle = event.target.closest("#identity-ranking-hide, #identity-ranking-show");
+    if (rankingToggle) {
+      const hide = rankingToggle.id === "identity-ranking-hide";
+      const reason = document.getElementById("identity-reason")?.value || "";
+      const ok = typeof window.playPresentConfirm === "function"
+        ? await window.playPresentConfirm({
+          title: hide ? "Hide from Rankings?" : "List on Rankings?",
+          body: hide
+            ? `Hide this Trainer from public Rankings and search? Ownership and collection stay. Reason: ${reason || "(none)"}.`
+            : `List this Trainer on public Rankings again? Reason: ${reason || "(none)"}.`,
+          confirmLabel: hide ? "Hide" : "List",
+          cancelLabel: "Cancel",
+          danger: hide
+        })
+        : window.confirm(hide ? "Hide this Trainer from public Rankings?" : "List this Trainer on public Rankings?");
+      if (!ok) {
+        accountStatus("Ranking visibility change cancelled.");
+        return;
+      }
+      accountStatus(hide ? "Hiding from Rankings…" : "Listing on Rankings…");
+      try {
+        identityState = await window.playCall("admin_set_ranking_visible", {
+          p_user: selectedUserId,
+          p_visible: !hide,
+          p_reason: reason
+        });
+        if (accountState) accountState.identity = identityState;
+        renderIdentity(accountState);
+        const note = document.getElementById("identity-status");
+        if (note) note.textContent = identityState?.message || "Ranking visibility updated.";
+        accountStatus(identityState?.message || "Ranking visibility updated.");
       } catch (error) {
         accountStatus(window.playRpcError(error));
       }

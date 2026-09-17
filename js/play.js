@@ -956,25 +956,24 @@
     const round = liveRound(view);
     const catches = catchCount(view);
     const zeroCatch = catches === 0;
-    const parts = [];
-    if (!round && zeroCatch) {
-      const live = Boolean(view?.live);
-      parts.push(live
-        ? (window.PLAY_STATUS?.nextZero || "Join a wild encounter to catch your first Pokémon.")
-        : (window.PLAY_STATUS?.idleOfflineHint || "Your Pokédex, PC, Mart, and Trainer ID are still available."));
-    }
+    const live = Boolean(view?.live);
+    let message = "";
+    let tipKey = "";
     if (round?.phase === "join" && !view?.me) {
-      parts.push(window.PLAY_STATUS?.firstJoin || "A wild Pokémon appeared! Join the encounter before the timer runs out.");
+      message = window.PLAY_STATUS?.firstJoin || "A wild Pokémon appeared! Join the encounter before the timer runs out.";
+      tipKey = "first-join";
+    } else if (!round && zeroCatch && live) {
+      message = window.PLAY_STATUS?.nextZero || "Join a wild encounter to catch your first Pokémon.";
+      tipKey = "next-zero";
     }
-    if (!parts.length) {
+    if (!message || !tipKey) {
       mount.hidden = true;
       mount.innerHTML = "";
       return;
     }
-    const tipKey = round?.phase === "join" ? "first-join" : "next-zero";
     const tip = typeof window.playTipHtml === "function"
-      ? window.playTipHtml(tipKey, parts[0])
-      : `<aside class="play-tip"><p>${window.playEscapeAttr(parts[0])}</p></aside>`;
+      ? window.playTipHtml(tipKey, message)
+      : `<aside class="play-tip"><p>${window.playEscapeAttr(message)}</p></aside>`;
     if (!tip) {
       mount.hidden = true;
       mount.innerHTML = "";

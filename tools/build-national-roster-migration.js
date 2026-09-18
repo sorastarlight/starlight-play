@@ -112,85 +112,10 @@ as $function$
   end;
 $function$;
 
-create or replace function private.spawn_pick_random_dex()
-returns integer
-language plpgsql
-as $function$
-declare
-  allow_special boolean := private.spawn_allow_special();
-  bands jsonb;
-  pool jsonb;
-  picked text;
-begin
-  bands := private.spawn_candidate_bands(allow_special);
-  loop
-    picked := private.spawn_weighted_key(bands);
-    if picked is null then
-      raise exception 'No eligible Pokémon are configured for a random encounter.';
-    end if;
-
-    select coalesce(jsonb_agg(jsonb_build_object(
-             'key', s.dex::text,
-             'weight', private.spawn_species_effective_weight(s.dex)
-           ) order by s.dex), '[]'::jsonb)
-      into pool
-      from public.species s
-     where s.dex between 1 and ${MAX_DEX}
-       and private.spawn_band(s.dex) = picked
-       and private.spawn_species_eligible(s.dex, allow_special);
-
-    if pool is not null and jsonb_array_length(pool) > 0 then
-      return private.spawn_weighted_key(pool)::int;
-    end if;
-
-    bands := private.spawn_omit_band(bands, picked);
-  end loop;
-end;
-$function$;
-
-create or replace function private.kanto_availability_json()
-returns jsonb
-language sql
-stable
-as $$
-  with bands as (
-    select s.dex, s.name, private.spawn_band(s.dex) as band, s.is_legendary, coalesce(s.mythical, false) as mythical
-    from public.species s
-    where s.dex between 1 and ${MAX_DEX}
-  ),
-  specials as (
-    select coalesce(array_agg(dex order by dex), '{}'::int[]) as ids
-    from bands where band in ('LEGENDARY', 'EVENT')
-  )
-  select jsonb_build_object(
-    'normal', coalesce((
-      select jsonb_agg(jsonb_build_object('dex', dex, 'name', name, 'band', band) order by dex)
-      from bands where band not in ('LEGENDARY', 'EVENT')
-    ), '[]'::jsonb),
-    'evolutionOnly', '[]'::jsonb,
-    'special', coalesce((
-      select jsonb_agg(jsonb_build_object('dex', dex, 'name', name, 'band', band, 'mythical', mythical) order by dex)
-      from bands where band in ('LEGENDARY', 'EVENT')
-    ), '[]'::jsonb),
-    'unavailable', '[]'::jsonb,
-    'counts', jsonb_build_object(
-      'normal', (select count(*) from bands where band not in ('LEGENDARY', 'EVENT')),
-      'evolutionOnly', 0,
-      'special', (select count(*) from bands where band in ('LEGENDARY', 'EVENT')),
-      'unavailable', 0,
-      'total', (select count(*) from bands)
-    ),
-    'acquisitionModel', jsonb_build_object(
-      'version', 'v2-national',
-      'ordinaryEncounterEligible', (select count(*) from bands where band not in ('LEGENDARY', 'EVENT')),
-      'specialEventOnly', (select count(*) from bands where band in ('LEGENDARY', 'EVENT')),
-      'specialSpecies', (select to_jsonb(ids) from specials),
-      'evolutionRequiredFor151', false,
-      'nationalDexMax', ${MAX_DEX},
-      'evolution', 'alternate acquisition/progression for species that can also spawn normally'
-    )
-  );
-$$;
+-- Kanto v1.0: national catalog may reach ${MAX_DEX}, but ordinary random
+-- encounters stay release-contained via private.normal_spawn_max_dex() (151).
+-- Do NOT widen spawn_pick / spawn_species_eligible to ${MAX_DEX} here.
+-- See 20260918040000_kanto_encounter_containment.sql.
 
 create or replace function private.launch_community_round(
   p_dex integer,

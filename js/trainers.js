@@ -381,7 +381,7 @@
           <dl class="id-stats">
             <div class="id-stat-wide"><dt>Name</dt><dd>${esc(card.displayName || "Trainer")}${title ? `<span class="id-title-line">★ ${esc(title)}</span>` : ""}</dd></div>
             <div><dt>Lv.</dt><dd>${card.level || 1}</dd></div>
-            <div><dt>Pokédex</dt><dd>${(card.kanto && card.kanto.caught != null) ? card.kanto.caught : (card.species || 0)}/151</dd></div>
+            <div><dt>Pokédex</dt><dd>${(card.variants && card.variants.nationalCaught != null) ? card.variants.nationalCaught : ((card.kanto && card.kanto.caught != null) ? card.kanto.caught : (card.species || 0))}/${(card.variants && card.variants.nationalTotal) || window.playNationalTotal?.() || 151}</dd></div>
             <div class="id-stat-wide"><dt>Started</dt><dd>${window.playCardDate(card.startedAt)}</dd></div>
           </dl>
           <div class="id-right">

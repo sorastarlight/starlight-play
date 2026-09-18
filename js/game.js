@@ -841,15 +841,31 @@
     return String(Number(dex) || 0).padStart(3, "0");
   };
 
+  window.playDexExists = function playDexExists(dex) {
+    const id = Number(dex);
+    if (!Number.isFinite(id) || id < 1) return false;
+    const catalog = window.PLAY_VARIANTS || {};
+    return Array.isArray(catalog[id]) || Array.isArray(catalog[String(id)]);
+  };
+
+  window.playNationalTotal = function playNationalTotal() {
+    return Object.keys(window.PLAY_VARIANTS || {}).length || 0;
+  };
+
+  window.playNationalMax = function playNationalMax() {
+    const keys = Object.keys(window.PLAY_VARIANTS || {}).map(Number).filter((n) => Number.isFinite(n) && n > 0);
+    return keys.length ? Math.max(...keys) : (window.PLAY_SPECIES || []).length || 0;
+  };
+
   window.playParseSpeciesQuery = function playParseSpeciesQuery(text) {
     const raw = String(text || "").trim();
     if (!raw) return [];
     const names = window.PLAY_SPECIES || [];
-    const numbered = raw.match(/^0*(\d{1,3})(?:\s+(.+))?$/);
+    const numbered = raw.match(/^0*(\d{1,4})(?:\s+(.+))?$/);
     if (numbered) {
       const n = Number(numbered[1]);
-      if (n >= 1 && n <= names.length) {
-        const name = names[n - 1];
+      if (window.playDexExists(n)) {
+        const name = names[n - 1] || `Dex ${n}`;
         const rest = (numbered[2] || "").trim().toLowerCase();
         if (!rest || name.toLowerCase() === rest || name.toLowerCase().startsWith(rest)) {
           return [{ dex: n, name }];
@@ -861,9 +877,11 @@
     const exact = [];
     const prefix = [];
     names.forEach((name, index) => {
-      const lower = name.toLowerCase();
-      if (lower === q) exact.push({ dex: index + 1, name });
-      else if (lower.startsWith(q)) prefix.push({ dex: index + 1, name });
+      const dex = index + 1;
+      if (!window.playDexExists(dex)) return;
+      const lower = String(name || "").toLowerCase();
+      if (lower === q) exact.push({ dex, name });
+      else if (lower.startsWith(q)) prefix.push({ dex, name });
     });
     return exact.concat(prefix);
   };

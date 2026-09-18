@@ -58,7 +58,7 @@
     const next = trainer.nextReward;
     els.header.innerHTML = `
       <h2>${window.playEscapeAttr(trainer.displayName || "Trainer")} · Lv. ${trainer.level || 1}</h2>
-      <p class="muted">${window.playEscapeAttr(trainer.title || "No title yet")} · ${kanto.caught || 0}/151 Kanto · ${trainer.caught || 0} caught</p>
+      <p class="muted">${window.playEscapeAttr(trainer.title || "No title yet")} · ${kanto.caught || 0}/151 Kanto · ${trainer.species || 0}/${window.playNationalTotal?.() || "?"} National · ${trainer.caught || 0} caught</p>
       ${window.playXpProgressHtml ? window.playXpProgressHtml(trainer, { compact: true }) : `<div class="xp-bar" aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, Math.round((trainer.xpInto / Math.max(1, trainer.xpNeed)) * 100)))}%"></i></div>
       <p class="muted">${trainer.xpInto || 0} / ${trainer.xpNeed || 0} XP${next ? ` · Next reward: Level ${next.level} ${window.playEscapeAttr(next.label || "")}` : ""}</p>`}
       <dl class="sim-grid">

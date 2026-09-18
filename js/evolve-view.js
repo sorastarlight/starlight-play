@@ -79,7 +79,8 @@
   }
 
   function kantoOnlyMembers(members) {
-    return (members || []).filter((row) => Number(row.dex) >= 1 && Number(row.dex) <= 151);
+    const max = window.playNationalMax?.() || 1025;
+    return (members || []).filter((row) => Number(row.dex) >= 1 && Number(row.dex) <= max);
   }
 
   function martHref(itemKey) {

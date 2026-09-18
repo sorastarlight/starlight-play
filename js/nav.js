@@ -290,11 +290,13 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (els.trainer) {
       if (trainer) {
         const pct = Math.max(0, Math.min(100, Math.round((trainer.xpInto / Math.max(1, trainer.xpNeed)) * 100)));
-        const kanto = trainer.kanto?.caught != null ? `${trainer.kanto.caught}/151` : `${trainer.species || 0}/151`;
+        const national = trainer.variants?.nationalCaught != null
+          ? `${trainer.variants.nationalCaught}/${trainer.variants.nationalTotal || window.playNationalTotal?.() || "?"}`
+          : `${trainer.species || 0}/${window.playNationalTotal?.() || "?"}`;
         els.trainer.hidden = false;
         els.trainer.innerHTML = `
           <strong>Trainer Lv. ${trainer.level}${trainer.title ? ` · ${trainer.title}` : ""}</strong>
-          <div>${kanto} Pokédex · ${trainer.caught || 0} caught</div>
+          <div>${national} Pokédex · ${trainer.caught || 0} caught</div>
           <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>`;
       } else {
         els.trainer.hidden = true;

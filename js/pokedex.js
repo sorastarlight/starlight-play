@@ -87,23 +87,29 @@
     if (!dexData) return;
     renderTeam();
     const names = window.PLAY_SPECIES || [];
-    const entries = names.map((_, index) => entryFor(index + 1, dexData));
+    const catalog = window.PLAY_VARIANTS || {};
+    const dexList = Object.keys(catalog).map(Number).filter((n) => Number.isFinite(n)).sort((a, b) => a - b);
+    const total = dexList.length || names.length || 0;
+    const entries = dexList.map((dex) => entryFor(dex, dexData));
     const visible = entries.filter(matches);
     const caught = entries.filter((row) => row.caught).length;
     const seen = entries.filter((row) => row.seen).length;
-    const pct = (caught / 151 * 100).toFixed(1);
+    const pct = total ? (caught / total * 100).toFixed(1) : "0.0";
     const v = dexData.variants || {};
+    const nationalCaught = v.nationalCaught != null ? v.nationalCaught : caught;
+    const nationalTotal = v.nationalTotal || total;
     els.summary.textContent = caught
-      ? `Kanto Pokédex ${caught}/151 · ${pct}% · ${seen} seen · ${151 - seen} unknown`
-      : `Kanto Pokédex 0/151 · Catch Pokémon during streams to register them here.`;
+      ? `National Pokédex ${nationalCaught}/${nationalTotal} · ${pct}% · ${seen} seen · ${Math.max(0, nationalTotal - seen)} unknown`
+      : `National Pokédex 0/${nationalTotal} · Catch Pokémon during streams to register them here.`;
     if (els.variants) {
       els.variants.innerHTML = caught
         ? `
         <h2>Collection variants</h2>
         <p class="muted">Variants do not count as extra National Pokédex species.</p>
         <dl class="sim-grid">
-          <div><dt>Kanto</dt><dd>${v.kantoCaught || caught} / ${v.kantoTotal || 151}</dd></div>
-          <div><dt>Shinies</dt><dd>${v.shinySpecies || 0} / ${v.shinyEligible || 151} eligible</dd></div>
+          <div><dt>National</dt><dd>${nationalCaught} / ${nationalTotal}</dd></div>
+          <div><dt>Kanto</dt><dd>${v.kantoCaught || 0} / ${v.kantoTotal || 151}</dd></div>
+          <div><dt>Shinies</dt><dd>${v.shinySpecies || 0} / ${v.shinyEligible || nationalTotal} eligible</dd></div>
           <div><dt>Female variants</dt><dd>${v.femaleVariants || 0} / ${v.femaleEligible || 0} eligible</dd></div>
           <div><dt>Shiny female</dt><dd>${v.shinyFemale || 0}</dd></div>
         </dl>`

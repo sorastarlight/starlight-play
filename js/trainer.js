@@ -88,10 +88,13 @@
     const extra = document.getElementById("trainer-progress");
     if (!extra) return;
     const kanto = view.kanto || {};
+    const nationalTotal = view.variants?.nationalTotal || window.playNationalTotal?.() || kanto.total || 151;
+    const nationalCaught = view.variants?.nationalCaught != null ? view.variants.nationalCaught : (view.species || kanto.caught || 0);
     extra.innerHTML = `
       <h2>Progression</h2>
       ${window.playXpProgressHtml(view)}
-      <p>Kanto Pokédex: ${kanto.caught || view.species || 0} / ${kanto.total || 151} · ${kanto.percent || 0}%</p>
+      <p>National Pokédex: ${nationalCaught} / ${nationalTotal}</p>
+      <p class="muted">Kanto: ${kanto.caught || 0} / ${kanto.total || 151}</p>
       <p class="muted">XP comes from encounters, catches, new Pokédex registrations, Shinies, Evolution, and Achievements the server actually grants.</p>
       <div class="links">
         <a class="button secondary" href="./achievements.html">Achievements</a>

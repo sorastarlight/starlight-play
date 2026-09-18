@@ -49,7 +49,7 @@
       <div>
         <h2>${window.playEscapeAttr(trainer.displayName)}</h2>
         <p class="muted">@${window.playEscapeAttr(trainer.login || "trainer")} · ${trainer.online ? "Online on Play" : "Away"}</p>
-        <p><strong>Lv. ${trainer.level}</strong> · ${trainer.caught} caught · ${trainer.species}/151 · ${window.playWatchHours(trainer.watchSeconds)} watched</p>
+        <p><strong>Lv. ${trainer.level}</strong> · ${trainer.caught} caught · ${trainer.species}/${window.playNationalTotal?.() || "?"} · ${window.playWatchHours(trainer.watchSeconds)} watched</p>
         <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
       </div>`;
   }

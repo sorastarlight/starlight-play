@@ -1,20 +1,18 @@
 /**
- * Import Project Pokemon Gen 1 sprite pack into Play.
+ * DEPRECATED — Gen 1 Project Pokémon importer.
  *
- * ABSOLUTE ROSTER FREEZE — BASE KANTO ONLY
- * ---------------------------------------
- * - PLAY_VARIANTS (gameplay form availability) is FROZEN from the pre-import catalog.
- * - Only form=base Front sprites may replace gameplay paths under images/pokemon/.
- * - Non-base forms (Mega, regional, Gmax, Cosplay, Cap, …) are copied to the
- *   asset library only. They are NEVER written into gameplay stems and NEVER
- *   added to PLAY_VARIANTS.
- * - Missing base sprites are REPORTED. Never fall forward to a special form.
+ * Live Play sprites are now owned by:
+ *   node tools/import-organized-showdown-sprites.js
+ *
+ * This script remains for historical Gen1 package work only. Prefer the
+ * Organized Showdown importer for national Front-Base rollouts.
  *
  * Usage:
  *   node tools/import-projectpokemon-gen1-sprites.js [--dry]
  *     [--source <extracted-or-zip-parent>]
  *     [--library <asset-library-dest>]
  */
+console.warn("[deprecated] Use tools/import-organized-showdown-sprites.js for live Play sprites.");
 const fs = require("fs");
 const path = require("path");
 

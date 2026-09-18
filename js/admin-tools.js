@@ -618,7 +618,7 @@
       <dl class="sim-grid">
         <div><dt>Level</dt><dd>${trainer.level || 1}</dd></div>
         <div><dt>XP</dt><dd>${Number(trainer.xp || 0).toLocaleString()}</dd></div>
-        <div><dt>Pokédex</dt><dd>${trainer.kanto?.caught || trainer.species || 0}/151</dd></div>
+        <div><dt>Pokédex</dt><dd>${trainer.variants?.nationalCaught != null ? trainer.variants.nationalCaught : (trainer.kanto?.caught || trainer.species || 0)}/${trainer.variants?.nationalTotal || window.playNationalTotal?.() || 151}</dd></div>
         <div><dt>Title</dt><dd>${window.playEscapeAttr(trainer.title || "—")}</dd></div>
         <div><dt>Frame</dt><dd>${window.playEscapeAttr(trainer.cardFrame || "plain")}</dd></div>
         <div><dt>Background</dt><dd>${window.playEscapeAttr(trainer.cardBg || "—")}</dd></div>
@@ -1135,8 +1135,8 @@
       const raw = document.getElementById("grant-dex")?.value || "";
       const match = window.playParseSpeciesQuery(raw)[0];
       const dex = grantMonDex || match?.dex || Number(raw);
-      if (!dex || dex < 1 || dex > 151) {
-        accountStatus("Pick a species from 1 to 151.");
+      if (!dex || dex < 1 || dex > (window.playNationalMax?.() || 1025) || !window.playDexExists?.(dex)) {
+        accountStatus(`Pick a species from 1 to ${window.playNationalMax?.() || 1025}.`);
         return;
       }
       const ballRaw = document.getElementById("grant-ball-pick")?.value || "";

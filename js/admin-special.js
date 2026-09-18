@@ -153,8 +153,9 @@
 
     function speciesRows() {
       const names = root.PLAY_SPECIES || [];
-      return names.map((name, index) => {
-        const dex = index + 1;
+      const variants = root.PLAY_VARIANTS || {};
+      return Object.keys(variants).map(Number).filter((n) => Number.isFinite(n)).sort((a, b) => a - b).map((dex) => {
+        const name = names[dex - 1] || `Dex ${dex}`;
         return { dex, name, availability: availabilityFor(dex) };
       }).filter((row) => {
         if (pickFilter === "special" && row.availability !== "SPECIAL") return false;
@@ -173,7 +174,7 @@
       const grid = byId("special-species");
       if (!grid) return;
       const rows = speciesRows();
-      grid.innerHTML = rows.slice(0, 151).map((row) => {
+      grid.innerHTML = rows.slice(0, 400).map((row) => {
         const art = typeof root.playSpriteUrl === "function" ? root.playSpriteUrl(row.dex, "normal") : "";
         return `<button type="button" class="special-species${Number(draft.dex) === row.dex ? " is-on" : ""}" data-special-dex="${row.dex}">
           ${art ? `<img src="${esc(art)}" alt="" onerror="window.playSpriteOnError && window.playSpriteOnError(this)">` : ""}

@@ -511,7 +511,7 @@
   document.getElementById("start-dex").addEventListener("click", () => {
     const dex = parseDex(els.dexPick.value);
     if (!dex) {
-      els.commandStatus.textContent = "Pick a Pokédex number from 1 to 151.";
+      els.commandStatus.textContent = `Pick a Pokédex number from 1 to ${window.playNationalMax?.() || 1025}.`;
       return;
     }
     queueMix("start", mixPayload(dex));
@@ -1082,13 +1082,13 @@
     const variants = window.PLAY_VARIANTS || {};
     if (!Object.keys(variants).length) missing.push("PLAY_VARIANTS catalog is not loaded");
     const urls = [];
-    for (let dex = 1; dex <= 151; dex += 1) {
+    Object.keys(variants).map(Number).filter((n) => Number.isFinite(n)).sort((a, b) => a - b).forEach((dex) => {
       urls.push([window.playSpriteUrl(dex, "normal"), `normal ${dex}`]);
       urls.push([window.playSpriteUrl(dex, "shiny"), `shiny ${dex}`]);
       const list = variants[dex] || variants[String(dex)] || [];
       if (list.includes("female")) urls.push([window.playSpriteUrl(dex, "female"), `female ${dex}`]);
       if (list.includes("shiny-female")) urls.push([window.playSpriteUrl(dex, "shiny-female"), `shiny-female ${dex}`]);
-    }
+    });
     const locations = window.PLAY_LOCATION_VISUALS?.locations || {};
     Object.values(locations).forEach((row) => {
       if (row?.enabled !== false && row.local_asset_path) {
@@ -1642,7 +1642,7 @@
     if (spawnRowsPromise) return spawnRowsPromise;
     spawnRowsPromise = supabase.from("species")
       .select("dex,name,catch_rate,spawn_weight,spawn_band_override,is_legendary,mythical")
-      .gte("dex", 1).lte("dex", 151).order("dex")
+      .gte("dex", 1).lte("dex", window.playNationalMax?.() || 1025).order("dex")
       .then(({ data, error }) => {
         lastSpeciesRows = error ? [] : (data || []);
         return lastSpeciesRows;
@@ -1697,7 +1697,7 @@
     const draw = () => {
       if (!list) return;
       const q = String(filter?.value || "").trim().toLowerCase();
-      const shown = rows.filter((row) => !q || String(row.dex).includes(q) || String(row.name || "").toLowerCase().includes(q)).slice(0, 151);
+      const shown = rows.filter((row) => !q || String(row.dex).includes(q) || String(row.name || "").toLowerCase().includes(q)).slice(0, 300);
       list.innerHTML = `<table class="report-table"><thead><tr><th>Dex</th><th>Pokémon</th><th>Band</th><th>Weight</th><th>Enabled</th></tr></thead>
         <tbody>${shown.map((row) => `<tr>
           <td>${row.dex}</td><td>${esc(row.name || window.playSpeciesName?.(row.dex) || row.dex)}</td>

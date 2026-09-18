@@ -7974,6 +7974,20 @@ html[data-reduced-motion="1"] .mart-featured.is-glow {
 .se-badge-costume {
   background: linear-gradient(180deg, #fff0e0 0%, #ffb86b 45%, #e07a28 100%);
 }
+.se-badge-cosplay {
+  background: linear-gradient(180deg, #fff5fb 0%, #f7a0d4 45%, #c94e9a 100%);
+  color: #3a1028;
+}
+.se-gender-locked {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.65rem;
+  font-weight: 600;
+  cursor: default;
+  user-select: none;
+}
 .se-badge-female {
   background: linear-gradient(180deg, #ffe8f2 0%, #ff9ec4 50%, #e06098 100%);
 }

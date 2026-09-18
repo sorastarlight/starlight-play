@@ -355,7 +355,23 @@
     return GENDER_RATES[Number(dex)] ?? 4;
   };
 
-  window.playGenderOptions = function playGenderOptions(dex) {
+  /** Authoritative forced gender from form catalog (e.g. Cosplay Pikachu → Female). */
+  window.playFormForcedGender = function playFormForcedGender(formId) {
+    const meta = typeof window.playFormMeta === "function" ? window.playFormMeta(formId) : null;
+    if (!meta) return null;
+    if (meta.forcedGender) return meta.forcedGender;
+    if (String(meta.kind || "").toLowerCase() === "cosplay") return "Female";
+    return null;
+  };
+
+  window.playIsCosplayForm = function playIsCosplayForm(formId) {
+    const meta = typeof window.playFormMeta === "function" ? window.playFormMeta(formId) : null;
+    return Boolean(meta && String(meta.kind || "").toLowerCase() === "cosplay");
+  };
+
+  window.playGenderOptions = function playGenderOptions(dex, formId) {
+    const forced = window.playFormForcedGender(formId);
+    if (forced) return [forced];
     if (!dex) return ["Male", "Female"];
     const rate = window.playGenderRate(dex);
     if (rate === -1) return ["Genderless"];

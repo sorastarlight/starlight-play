@@ -65,8 +65,11 @@
       return d.toISOString();
     }
 
-    function normalizeGender(dex, preferred) {
-      const opts = typeof root.playGenderOptions === "function" ? root.playGenderOptions(dex) : ["Male", "Female"];
+    function normalizeGender(dex, preferred, formId) {
+      const fid = formId != null ? formId : selection.formId;
+      const opts = typeof root.playGenderOptions === "function"
+        ? root.playGenderOptions(dex, fid)
+        : ["Male", "Female"];
       if (preferred && opts.includes(preferred)) return preferred;
       return opts[0] || "Genderless";
     }
@@ -122,7 +125,7 @@
         selection.formId = Number(allowed[0]?.formId || selection.dex);
       }
 
-      selection.gender = normalizeGender(selection.dex, selection.gender);
+      selection.gender = normalizeGender(selection.dex, selection.gender, selection.formId);
       applyPresetCopy(selection.dex);
       selection.subtitle = typeof root.playFormDisplayName === "function"
         ? root.playFormDisplayName(selection.dex, selection.formId)
@@ -252,7 +255,15 @@
     }
 
     function genderOptionsHtml() {
-      const opts = typeof root.playGenderOptions === "function" ? root.playGenderOptions(selection.dex) : ["Male", "Female"];
+      const opts = typeof root.playGenderOptions === "function"
+        ? root.playGenderOptions(selection.dex, selection.formId)
+        : ["Male", "Female"];
+      const locked = typeof root.playFormForcedGender === "function"
+        && root.playFormForcedGender(selection.formId);
+      if (locked) {
+        const label = locked === "Female" ? "♀ Female 🔒" : `${locked} 🔒`;
+        return `<option value="${esc(locked)}" selected>${esc(label)}</option>`;
+      }
       return opts.map((g) => `<option value="${esc(g)}"${selection.gender === g ? " selected" : ""}>${esc(g)}</option>`).join("");
     }
 
@@ -339,7 +350,10 @@
             <select id="se-form" class="se-control">${formOptionsHtml()}</select>
           </label>
           <label class="field">Gender
-            <select id="se-gender" class="se-control">${genderOptionsHtml()}</select>
+            ${typeof root.playFormForcedGender === "function" && root.playFormForcedGender(selection.formId)
+              ? `<div class="se-control se-gender-locked" id="se-gender-locked" aria-readonly="true">♀ Female 🔒</div>
+                 <input type="hidden" id="se-gender" value="Female">`
+              : `<select id="se-gender" class="se-control">${genderOptionsHtml()}</select>`}
           </label>
           <label class="field">Shiny
             <select id="se-shiny" class="se-control">
@@ -513,7 +527,7 @@
         selection.formId = typeof root.playSpecialDefaultFormForFilter === "function"
           ? root.playSpecialDefaultFormForFilter(selection.dex, selection.filter)
           : selection.dex;
-        selection.gender = normalizeGender(selection.dex, selection.gender);
+        selection.gender = normalizeGender(selection.dex, selection.gender, selection.formId);
         applyPresetCopy(selection.dex);
         selection.subtitle = typeof root.playFormDisplayName === "function"
           ? root.playFormDisplayName(selection.dex, selection.formId)
@@ -525,6 +539,7 @@
       }
       if (event.target.id === "se-form") {
         selection.formId = Number(event.target.value) || selection.dex;
+        selection.gender = normalizeGender(selection.dex, selection.gender, selection.formId);
         selection.subtitle = typeof root.playFormDisplayName === "function"
           ? root.playFormDisplayName(selection.dex, selection.formId)
           : selection.subtitle;
@@ -556,7 +571,7 @@
           id: row.id,
           dex: row.dex,
           formId: Number(row.formId || row.dex),
-          gender: normalizeGender(row.dex, row.presentation?.gender || row.gender),
+          gender: normalizeGender(row.dex, row.presentation?.gender || row.gender, Number(row.formId || row.dex)),
           eventType: row.eventType,
           variantPolicy: row.variantPolicy,
           visibility: row.visibility,

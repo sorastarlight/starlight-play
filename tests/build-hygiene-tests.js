@@ -31,7 +31,7 @@ function assert(cond, detail) {
 
 test("PLAY_BUILD matches generated build.js", () => {
   assert(Boolean(window.PLAY_BUILD), "missing PLAY_BUILD");
-  assert(window.PLAY_BUILD === "20260918-rc22", window.PLAY_BUILD);
+  assert(window.PLAY_BUILD === "20260918-rc23", window.PLAY_BUILD);
   assert(window.PLAY_SPRITE_BUILD === "20260918-forms1", window.PLAY_SPRITE_BUILD);
 });
 

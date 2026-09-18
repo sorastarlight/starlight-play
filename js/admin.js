@@ -456,7 +456,8 @@
   }
 
   function selectedGender(dex) {
-    const options = window.playGenderOptions(dex);
+    const formId = selectedFormId(dex);
+    const options = window.playGenderOptions(dex, formId);
     if (options.length === 1) return options[0];
     if (pickGender && options.includes(pickGender)) return pickGender;
     return dex ? (options[0] || "") : pickGender;
@@ -483,14 +484,18 @@
     const shinyEl = els.shinyRow;
     if (!genderEl || !shinyEl) return;
     renderFormPick(dex);
-    const options = window.playGenderOptions(dex);
+    const formId = selectedFormId(dex);
+    const options = window.playGenderOptions(dex, formId);
+    const locked = typeof window.playFormForcedGender === "function" && window.playFormForcedGender(formId);
     if (!dex) {
       genderEl.innerHTML = ["Male", "Female"].map((name) => (
         `<button type="button" data-gender="${name}" aria-pressed="${pickGender === name}">${name}</button>`
       )).join("");
-    } else if (options.length === 1) {
+    } else if (locked || options.length === 1) {
       pickGender = options[0];
-      genderEl.innerHTML = `<span class="chip">${options[0]}</span>`;
+      genderEl.innerHTML = locked
+        ? `<span class="chip se-gender-locked" aria-readonly="true">♀ Female 🔒</span>`
+        : `<span class="chip">${options[0]}</span>`;
     } else {
       if (!options.includes(pickGender)) pickGender = options[0];
       genderEl.innerHTML = options.map((name) => (

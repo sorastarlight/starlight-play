@@ -104,10 +104,28 @@ function kindFromLabel(formLabel) {
   if (s.includes("alolan") || s.includes("galarian") || s.includes("hisuian") || s.includes("paldea")) {
     return "regional";
   }
-  if (s.includes("cap") || s.includes("cosplay") || s.includes("belle") || s.includes("libre") || s.includes("phd") || s.includes("pop-star") || s.includes("rock-star") || s === "starter") {
-    return "costume";
+  // Cap hats are distinct from Cosplay outfits.
+  if (/\bcap\b/.test(s) || s.endsWith(" cap") || s.includes("-cap")) return "cap";
+  // Official Cosplay Pikachu family (Rock Star / Belle / Pop Star / PhD / Libre / Cosplay).
+  if (
+    s.includes("cosplay")
+    || s.includes("belle")
+    || s.includes("libre")
+    || s.includes("phd")
+    || s.includes("pop-star")
+    || s.includes("pop star")
+    || s.includes("rock-star")
+    || s.includes("rock star")
+  ) {
+    return "cosplay";
   }
+  if (s === "starter") return "starter";
   return "other";
+}
+
+function forcedGenderForForm(kind, dex) {
+  if (kind === "cosplay" && Number(dex) === 25) return "Female";
+  return null;
 }
 
 function humanFormLabel(formLabel) {
@@ -269,6 +287,7 @@ for (const form of formsById.values()) {
       normalEncounterEnabled: kantoOrdinary,
       originGen1: form.origin_gen1,
       assetStatus: form.has_front ? "ready" : "missing",
+      forcedGender: forcedGenderForForm(form.kind, form.dex),
     };
     playForms[form.pokemon_form_id] = entry;
     if (!byDex[form.dex]) byDex[form.dex] = [];
@@ -317,6 +336,7 @@ for (const form of formsById.values()) {
     normalEncounterEnabled: false,
     originGen1: form.origin_gen1,
     assetStatus: assetReady ? "ready" : form.origin_gen1 ? "asset_only" : "catalog_only",
+    forcedGender: forcedGenderForForm(form.kind, form.dex),
   };
   playForms[form.pokemon_form_id] = entry;
   if (!byDex[form.dex]) byDex[form.dex] = [];
@@ -349,6 +369,7 @@ const seedRows = Object.values(playForms).map((f) => ({
   normal_encounter_enabled: !!f.normalEncounterEnabled,
   asset_status: f.assetStatus,
   origin_gen1: !!f.originGen1,
+  forced_gender: f.forcedGender || null,
 }));
 
 ensureDir(path.join(ROOT, "data"));

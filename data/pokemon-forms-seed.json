@@ -18534,7 +18534,7 @@
     "dex": 25,
     "form_key": "rock-star",
     "form_label": "Rock Star",
-    "kind": "costume",
+    "kind": "cosplay",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18544,14 +18544,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": "Female"
   },
   {
     "pokemon_form_id": 10081,
     "dex": 25,
     "form_key": "belle",
     "form_label": "Belle",
-    "kind": "costume",
+    "kind": "cosplay",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18561,14 +18562,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": "Female"
   },
   {
     "pokemon_form_id": 10082,
     "dex": 25,
     "form_key": "pop-star",
     "form_label": "Pop Star",
-    "kind": "costume",
+    "kind": "cosplay",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18578,14 +18580,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": "Female"
   },
   {
     "pokemon_form_id": 10083,
     "dex": 25,
     "form_key": "phd",
     "form_label": "PhD",
-    "kind": "costume",
+    "kind": "cosplay",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18595,14 +18598,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": "Female"
   },
   {
     "pokemon_form_id": 10084,
     "dex": 25,
     "form_key": "libre",
     "form_label": "Libre",
-    "kind": "costume",
+    "kind": "cosplay",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18612,14 +18616,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": "Female"
   },
   {
     "pokemon_form_id": 10085,
     "dex": 25,
     "form_key": "cosplay",
     "form_label": "Cosplay",
-    "kind": "costume",
+    "kind": "cosplay",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18629,7 +18634,8 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": "Female"
   },
   {
     "pokemon_form_id": 10086,
@@ -18772,7 +18778,7 @@
     "dex": 25,
     "form_key": "original-cap",
     "form_label": "Original Cap",
-    "kind": "costume",
+    "kind": "cap",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18782,14 +18788,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": null
   },
   {
     "pokemon_form_id": 10095,
     "dex": 25,
     "form_key": "hoenn-cap",
     "form_label": "Hoenn Cap",
-    "kind": "costume",
+    "kind": "cap",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18799,14 +18806,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": null
   },
   {
     "pokemon_form_id": 10096,
     "dex": 25,
     "form_key": "sinnoh-cap",
     "form_label": "Sinnoh Cap",
-    "kind": "costume",
+    "kind": "cap",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18816,14 +18824,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": null
   },
   {
     "pokemon_form_id": 10097,
     "dex": 25,
     "form_key": "unova-cap",
     "form_label": "Unova Cap",
-    "kind": "costume",
+    "kind": "cap",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18833,14 +18842,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": null
   },
   {
     "pokemon_form_id": 10098,
     "dex": 25,
     "form_key": "kalos-cap",
     "form_label": "Kalos Cap",
-    "kind": "costume",
+    "kind": "cap",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18850,14 +18860,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": null
   },
   {
     "pokemon_form_id": 10099,
     "dex": 25,
     "form_key": "alola-cap",
     "form_label": "Alola Cap",
-    "kind": "costume",
+    "kind": "cap",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -18867,7 +18878,8 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": null
   },
   {
     "pokemon_form_id": 10100,
@@ -19690,7 +19702,7 @@
     "dex": 25,
     "form_key": "partner-cap",
     "form_label": "Partner Cap",
-    "kind": "costume",
+    "kind": "cap",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -19700,7 +19712,8 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": null
   },
   {
     "pokemon_form_id": 10149,
@@ -19860,7 +19873,7 @@
     "dex": 25,
     "form_key": "starter",
     "form_label": "Starter",
-    "kind": "costume",
+    "kind": "starter",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -19870,14 +19883,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": null
   },
   {
     "pokemon_form_id": 10159,
     "dex": 133,
     "form_key": "starter",
     "form_label": "Starter",
-    "kind": "costume",
+    "kind": "starter",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -19887,14 +19901,15 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": null
   },
   {
     "pokemon_form_id": 10160,
     "dex": 25,
     "form_key": "world-cap",
     "form_label": "World Cap",
-    "kind": "costume",
+    "kind": "cap",
     "is_base": false,
     "has_front": true,
     "has_shiny_front": true,
@@ -19904,7 +19919,8 @@
     "event_targetable": true,
     "normal_encounter_enabled": false,
     "asset_status": "ready",
-    "origin_gen1": true
+    "origin_gen1": true,
+    "forced_gender": null
   },
   {
     "pokemon_form_id": 10161,

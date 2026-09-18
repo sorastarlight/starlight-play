@@ -128,10 +128,16 @@
     const blob = `${kind} ${key} ${label}`;
     if (kind === "mega" || /\bmega\b/.test(blob)) return "mega";
     if (kind === "gigantamax" || /gigantamax|gmax/.test(blob)) return "gigantamax";
-    if (Number(form.dex) === 25 && (kind === "costume" || /cap|cosplay|belle|libre|phd|rock|pop|starter|partner/.test(blob))) {
+    if (
+      Number(form.dex) === 25
+      && (kind === "cosplay" || kind === "cap" || kind === "costume" || kind === "starter"
+        || /cap|cosplay|belle|libre|phd|rock|pop|starter|partner/.test(blob))
+    ) {
       return "pikachu";
     }
-    if (kind === "costume") return "costume";
+    if (kind === "cosplay") return "cosplay";
+    if (kind === "cap") return "cap";
+    if (kind === "costume" || kind === "starter") return "costume";
     // Totem / Alolan Totem / Galarian / Hisuian / Paldean → Regional
     if (
       kind === "regional" ||
@@ -160,9 +166,17 @@
       return { code: "REGIONAL", className: "se-badge-regional" };
     }
     if (cat === "gigantamax") return { code: "GIGANTAMAX", className: "se-badge-gmax" };
-    if (cat === "pikachu" || cat === "costume") {
-      if (/cap/i.test(String(meta?.formLabel || meta?.formKey || ""))) {
+    if (cat === "pikachu" || cat === "cosplay" || cat === "cap" || cat === "costume") {
+      const kind = String(meta?.kind || "").toLowerCase();
+      const key = String(meta?.formKey || meta?.formLabel || "").toLowerCase();
+      if (kind === "cosplay" || (!kind && /^(rock-star|belle|pop-star|phd|libre|cosplay)$/.test(key))) {
+        return { code: "COSPLAY", className: "se-badge-cosplay" };
+      }
+      if (kind === "cap" || /cap/.test(key)) {
         return { code: "CAP", className: "se-badge-costume" };
+      }
+      if (kind === "starter" || key === "starter") {
+        return { code: "STARTER", className: "se-badge-costume" };
       }
       return { code: "COSTUME", className: "se-badge-costume" };
     }

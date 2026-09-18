@@ -104,7 +104,10 @@ test("RPC failure copy stays human", () => {
 test("Rare Candy conversion stays a +1 mapping", () => {
   assert("Rare Candy used. Charmander Evolution Candy 18 → 19.".includes("18 → 19"));
 });
-test("Eevee branching line uses enabled Kanto targets only", () => {
+test("Eevee branching line uses enabled Kanto next edges", () => {
+  // Authoritative release routes come from evolution_rules / play_collection
+  // (to_dex 1..151). Client kantoOnlyMembers is catalog-range after national
+  // roster rollout (playNationalMax), not the Kanto release gate.
   const members = [
     { dex: 133, name: "Eevee" },
     { dex: 134, name: "Vaporeon" },
@@ -117,18 +120,32 @@ test("Eevee branching line uses enabled Kanto targets only", () => {
     { fromDex: 133, toDex: 135, toName: "Jolteon" },
     { fromDex: 133, toDex: 136, toName: "Flareon" }
   ];
-  const kanto = view.kantoOnlyMembers(members);
-  assert(kanto.every((row) => row.dex <= 151));
-  assert(!kanto.some((row) => row.dex === 196));
-  const layout = view.lineLayout(kanto, next);
+  const catalog = view.kantoOnlyMembers(members);
+  assert(catalog.some((row) => row.dex === 196), "catalog helper keeps national members");
+  assert(catalog.every((row) => row.dex >= 1 && row.dex <= (window.playNationalMax?.() || 1025)));
+  // Release UX still branches only on enabled Kanto next edges.
+  const releaseMembers = members.filter((row) => row.dex <= 151);
+  const layout = view.lineLayout(releaseMembers, next);
   assert(layout.kind === "branch");
   assert(layout.from.dex === 133);
   assert(layout.targets.map((row) => row.dex).join(",") === "134,135,136");
+  assert(!layout.targets.some((row) => row.dex === 196));
 });
-test("Kanto generation restriction keeps later stages out of members", () => {
+test("catalog membership helper uses national max, not Kanto release", () => {
   const members = view.kantoOnlyMembers([{ dex: 133, name: "Eevee" }, { dex: 700, name: "Sylveon" }]);
-  assert(members.length === 1);
-  assert(members[0].dex === 133);
+  assert(members.length === 2, "national catalog members remain visible to the helper");
+  assert(members.some((row) => row.dex === 700));
+  assert(members.every((row) => row.dex <= (window.playNationalMax?.() || 1025)));
+});
+test("Kanto evolution release boundary stays server-side (to_dex 1..151)", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const root = path.join(__dirname, "..");
+  const collection = fs.readFileSync(path.join(root, "supabase/migrations/20260915140000_evolution_center_viewmodel.sql"), "utf8");
+  const integrity = fs.readFileSync(path.join(root, "supabase/migrations/20260916170000_phase2_evolution_integrity.sql"), "utf8");
+  assert(collection.includes("r.to_dex between 1 and 151"));
+  assert(collection.includes("s.dex between 1 and 151"));
+  assert(integrity.includes("r.to_dex between 1 and 151"));
 });
 test("result model uses authoritative rewards only", () => {
   const model = view.resultModel({

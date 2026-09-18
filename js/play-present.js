@@ -751,25 +751,36 @@
     const name = event.displayName
       || (typeof root.playFormDisplayName === "function" ? root.playFormDisplayName(event.species, event.formId) : speciesName(event.species))
       || "Pokémon";
+    const theme = String(event.theme || "announced");
     const kicker = event.kicker || event.lifecycle || "SPECIAL EVENT";
-    const cat = event.formCategory ? `<span class="se-form-chip">${esc(event.formCategory)}</span>` : "";
+    const badges = typeof root.playSpecialBadgeHtml === "function"
+      ? root.playSpecialBadgeHtml(event.badges || root.playSpecialSelectionBadges?.({
+        dex: event.species,
+        formId: event.formId,
+        gender: event.gender,
+        shiny: event.shiny,
+        variantPolicy: event.variantPolicy
+      }))
+      : (event.formCategory ? `<span class="se-form-chip">${esc(event.formCategory)}</span>` : "");
     let whenHtml = "";
-    if (event.whenText) {
+    if (event.whenText && theme === "announced") {
       const line = String(event.whenText).startsWith("Begins") ? event.whenText : `Begins ${event.whenText}`;
       whenHtml = `<p class="play-present-when">${esc(line)}</p>`;
     }
-    cue("reward.major");
-    const html = `<article class="play-present-moment play-present-special is-event" data-present-panel>
-      <div class="play-present-starfield" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      ${fxHtml("legendary")}
+    cue(theme === "caught" ? "pokedex.register" : theme === "escaped" ? "error" : "reward.major");
+    const fx = theme === "caught" ? "star" : theme === "live" ? "legendary" : theme === "escaped" ? "" : "legendary";
+    const html = `<article class="play-present-moment play-present-special is-event se-theme-${esc(theme)}" data-present-panel data-se-theme="${esc(theme)}">
+      <div class="se-theme-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      ${fx ? fxHtml(fx) : ""}
       <p class="play-present-kicker">${esc(kicker)}</p>
-      <div class="play-present-dex-frame">
+      <div class="play-present-dex-frame se-theme-frame">
         <div class="play-present-art" data-present-art>
           ${event.species ? `<img src="${esc(spriteUrl(event.species, event.variant, event.gender, event.formId))}" alt="" width="128" height="128" decoding="async">` : ""}
         </div>
       </div>
-      <h2>${esc(event.title && event.title !== kicker ? event.title : name)}</h2>
-      <p class="play-present-sub se-identity"><strong>${esc(name)}</strong> ${cat}</p>
+      <h2>${esc(event.title && !["SPECIAL EVENT", "CAUGHT!", "ESCAPED!", "EVENT COMPLETE", "EVENT STARTING", "SPECIAL EVENT LIVE"].includes(event.title) ? event.title : name)}</h2>
+      <p class="play-present-sub se-identity"><strong>${esc(name)}</strong></p>
+      ${badges}
       ${event.body ? `<p class="play-present-sub">${esc(event.body)}</p>` : ""}
       ${whenHtml}
       ${continueHtml()}

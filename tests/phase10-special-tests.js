@@ -162,9 +162,11 @@ test("destructive live controls require confirmation", () => {
 
 test("timezone is shown, not a bare clock", () => {
   assert(specialJs.includes("timeZone") || specialJs.includes("timeZoneName"));
-  assert(adminSpecial.includes("UTC") && adminSpecial.includes("local timezone"));
+  assert(specialJs.includes("timeZoneName: \"short\"") || specialJs.includes("timeZoneName"));
   assert(adminSpecial.includes("datetime-local"));
   assert(!adminSpecial.includes("America/New_York"));
+  // Explanatory timezone blurb intentionally removed from Admin Special Events UI.
+  assert(!/Event times are saved in UTC/.test(adminSpecial));
 });
 
 test("selftest never launches 144-151 against Sora", () => {

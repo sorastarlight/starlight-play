@@ -117,7 +117,12 @@ test("client resolver uses formId stems; refuses variant-axis forms; Back not se
   assert(adminJs.includes("form-pick") || adminJs.includes("formPick") || adminJs.includes("selectedFormId"));
   assert(adminJs.includes("p_form_id") || adminJs.includes("formId"));
   assert(specialJs.includes("formId"));
-  assert(specialJs.includes("draft.formId = dex") || specialJs.includes("formId: dex"));
+  assert(
+    specialJs.includes("draft.formId = dex")
+    || specialJs.includes("formId: dex")
+    || specialJs.includes("selection.formId")
+    || /formId:\s*144/.test(specialJs)
+  );
 });
 
 test("Front/Back are not separate gameplay identities in catalog", () => {

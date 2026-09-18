@@ -22,33 +22,33 @@
     const host = byId("special-events-app");
     if (!host || host.dataset.bound === "1") return;
     host.dataset.bound = "1";
-    let data = null;
-    let draft = emptyDraft();
-    let pickFilter = "all";
-    let pickQ = "";
-    let pending = false;
 
-    function emptyDraft() {
-      return {
-        id: "",
-        dex: 144,
-        formId: 144,
-        gender: "Genderless",
-        eventType: "LEGENDARY",
-        variantPolicy: "NORMAL_ROLL",
-        visibility: "PUBLIC",
-        title: "THE FROZEN LEGEND AWAKENS",
-        subtitle: "Articuno",
-        announcement: "A Legendary encounter is scheduled. Join during the stream to participate.",
-        locationKey: "seafoam-islands",
-        locationLabel: "Seafoam Islands",
-        encounterCount: 3,
-        autoAdvance: true,
-        startsAtLocal: "",
-        endsAtLocal: "",
-        repeatPolicy: "SEASONAL"
-      };
-    }
+    /** One authoritative selection — every control/preview reads from this. */
+    const selection = {
+      filter: "all",
+      query: "",
+      dex: 144,
+      formId: 144,
+      gender: "Genderless",
+      variantPolicy: "NORMAL_ROLL",
+      id: "",
+      eventType: "LEGENDARY",
+      visibility: "PUBLIC",
+      title: "THE FROZEN LEGEND AWAKENS",
+      subtitle: "Articuno",
+      announcement: "A Legendary encounter is scheduled. Join during the stream to participate.",
+      locationKey: "seafoam-islands",
+      locationLabel: "Seafoam Islands",
+      encounterCount: 3,
+      autoAdvance: true,
+      startsAtLocal: "",
+      endsAtLocal: "",
+      repeatPolicy: "SEASONAL"
+    };
+
+    let data = null;
+    let pending = false;
+    let refreshing = false;
 
     function toLocalInput(iso) {
       if (!iso) return "";
@@ -71,44 +71,108 @@
       return opts[0] || "Genderless";
     }
 
-    function applySpecies(dex, keepForm) {
-      const next = Number(dex) || 1;
-      draft.dex = next;
-      if (!keepForm) draft.formId = next;
-      const forms = typeof root.playFormsForDex === "function"
-        ? root.playFormsForDex(next, { event: true })
-        : [{ formId: next, isBase: true }];
-      const ok = forms.some((f) => Number(f.formId) === Number(draft.formId));
-      if (!ok) draft.formId = next;
-      draft.gender = normalizeGender(next, draft.gender);
-      const row = data?.presets?.[String(next)] || {};
-      if (!draft.id) {
-        draft.eventType = row.eventType || (root.playSpecialDex?.has?.(next) ? (next === 151 ? "MYTHICAL" : "LEGENDARY") : draft.eventType);
-        draft.variantPolicy = row.variantPolicy || draft.variantPolicy || "NORMAL_ROLL";
-        draft.visibility = row.visibility || draft.visibility || "PUBLIC";
-        draft.title = row.title || draft.title;
-        draft.announcement = row.announcement || draft.announcement;
-        draft.locationKey = row.locationKey || draft.locationKey;
-        draft.locationLabel = row.locationLabel || draft.locationLabel;
-        draft.encounterCount = Number(row.encounterCount || draft.encounterCount || 1);
-        draft.repeatPolicy = row.repeatPolicy || draft.repeatPolicy || "ADMIN";
+    function applyPresetCopy(dex) {
+      const row = data?.presets?.[String(dex)] || {};
+      if (selection.id) return;
+      selection.eventType = row.eventType
+        || (root.playSpecialDex?.has?.(dex) ? (dex === 151 ? "MYTHICAL" : "LEGENDARY") : selection.eventType);
+      selection.variantPolicy = row.variantPolicy || selection.variantPolicy || "NORMAL_ROLL";
+      selection.visibility = row.visibility || selection.visibility || "PUBLIC";
+      selection.title = row.title || selection.title;
+      selection.announcement = row.announcement || selection.announcement;
+      selection.locationKey = row.locationKey || selection.locationKey;
+      selection.locationLabel = row.locationLabel || selection.locationLabel;
+      selection.encounterCount = Number(row.encounterCount || selection.encounterCount || 1);
+      selection.repeatPolicy = row.repeatPolicy || selection.repeatPolicy || "ADMIN";
+    }
+
+    /** Reconcile filter ↔ species ↔ form from ONE state object. */
+    function reconcile(opts) {
+      const options = opts || {};
+      const before = { dex: selection.dex, formId: selection.formId };
+      const result = typeof root.playSpecialReconcileSelection === "function"
+        ? root.playSpecialReconcileSelection({
+          filter: selection.filter,
+          query: selection.query,
+          dex: selection.dex,
+          formId: selection.formId
+        })
+        : { dex: selection.dex, formId: selection.formId, changed: false };
+
+      if (options.forceSpecies) {
+        selection.dex = Number(options.forceSpecies);
+        selection.formId = typeof root.playSpecialDefaultFormForFilter === "function"
+          ? root.playSpecialDefaultFormForFilter(selection.dex, selection.filter)
+          : selection.dex;
+      } else {
+        selection.dex = Number(result.dex);
+        selection.formId = Number(result.formId);
       }
-      draft.subtitle = typeof root.playFormDisplayName === "function"
-        ? root.playFormDisplayName(next, draft.formId)
-        : (root.playSpeciesName?.(next) || draft.subtitle);
+
+      if (options.resetForm) {
+        selection.formId = typeof root.playSpecialDefaultFormForFilter === "function"
+          ? root.playSpecialDefaultFormForFilter(selection.dex, selection.filter)
+          : selection.dex;
+      }
+
+      const allowed = typeof root.playSpecialFormsForFilter === "function"
+        ? root.playSpecialFormsForFilter(selection.dex, selection.filter)
+        : [{ formId: selection.dex, isBase: true }];
+      if (!allowed.some((f) => Number(f.formId) === Number(selection.formId))) {
+        selection.formId = Number(allowed[0]?.formId || selection.dex);
+      }
+
+      selection.gender = normalizeGender(selection.dex, selection.gender);
+      applyPresetCopy(selection.dex);
+      selection.subtitle = typeof root.playFormDisplayName === "function"
+        ? root.playFormDisplayName(selection.dex, selection.formId)
+        : (root.playSpeciesName?.(selection.dex) || selection.subtitle);
+
+      if (options.debugAssert !== false && typeof console !== "undefined") {
+        if (Number(before.dex) !== Number(selection.dex) || Number(before.formId) !== Number(selection.formId)) {
+          // intentional no-op log gate for tests via dataset
+        }
+      }
+      return selection;
+    }
+
+    function setStatus(msg, keep) {
+      const status = byId("special-status");
+      if (!status) return;
+      status.textContent = msg || "";
+      if (keep) status.dataset.keep = "1";
+      else delete status.dataset.keep;
     }
 
     async function load() {
-      const status = byId("special-status");
+      if (refreshing) return;
+      refreshing = true;
+      const btn = byId("special-refresh");
+      if (btn) {
+        btn.disabled = true;
+        btn.classList.add("is-loading");
+        btn.setAttribute("aria-busy", "true");
+      }
+      setStatus("Refreshing…", true);
       try {
         data = await root.playCall("admin_special_event_command", { p_action: "list", p_payload: {} });
         try {
           data.analytics = await root.playCall("admin_special_event_analytics", {});
         } catch (_) {}
-        if (status && !status.dataset.keep) status.textContent = "";
+        reconcile();
+        setStatus("");
         render();
       } catch (error) {
-        if (status) status.textContent = root.playHumanRpcError ? root.playHumanRpcError(error) : String(error.message || error);
+        const msg = root.playHumanRpcError ? root.playHumanRpcError(error) : String(error.message || error);
+        setStatus(`Refresh failed: ${msg}`);
+      } finally {
+        refreshing = false;
+        const refreshBtn = byId("special-refresh");
+        if (refreshBtn) {
+          refreshBtn.disabled = false;
+          refreshBtn.classList.remove("is-loading");
+          refreshBtn.removeAttribute("aria-busy");
+        }
       }
     }
 
@@ -116,24 +180,14 @@
       if (pending) return;
       const run = async () => {
         pending = true;
-        const status = byId("special-status");
-        if (status) {
-          status.dataset.keep = "1";
-          status.textContent = "Working…";
-        }
+        setStatus("Working…", true);
         try {
           const result = await root.playCall("admin_special_event_command", { p_action: action, p_payload: payload || {} });
           await load();
-          if (status) {
-            status.textContent = result?.message || "Updated.";
-            delete status.dataset.keep;
-          }
+          setStatus(result?.message || "Updated.");
           render();
         } catch (error) {
-          if (status) {
-            status.textContent = root.playHumanRpcError ? root.playHumanRpcError(error) : String(error.message || error);
-            delete status.dataset.keep;
-          }
+          setStatus(root.playHumanRpcError ? root.playHumanRpcError(error) : String(error.message || error));
         } finally {
           pending = false;
         }
@@ -152,175 +206,185 @@
       await run();
     }
 
-    function payloadFromDraft() {
-      const dex = Number(draft.dex);
-      const formId = Number(draft.formId) || dex;
+    function payloadFromSelection() {
+      const dex = Number(selection.dex);
+      const formId = Number(selection.formId) || dex;
       return {
-        id: draft.id || undefined,
+        id: selection.id || undefined,
         dex,
         formId,
-        gender: draft.gender,
-        eventType: draft.eventType,
-        variantPolicy: draft.variantPolicy,
-        visibility: draft.visibility,
-        title: draft.title,
-        subtitle: draft.subtitle,
-        announcement: draft.announcement,
-        locationKey: draft.locationKey,
-        locationLabel: draft.locationLabel,
-        encounterCount: Number(draft.encounterCount || 1),
-        autoAdvance: Boolean(draft.autoAdvance),
-        startsAt: fromLocalInput(draft.startsAtLocal) || null,
-        endsAt: fromLocalInput(draft.endsAtLocal) || null,
-        repeatPolicy: draft.repeatPolicy,
-        presentation: { gender: draft.gender }
+        gender: selection.gender,
+        eventType: selection.eventType,
+        variantPolicy: selection.variantPolicy,
+        visibility: selection.visibility,
+        title: selection.title,
+        subtitle: selection.subtitle,
+        announcement: selection.announcement,
+        locationKey: selection.locationKey,
+        locationLabel: selection.locationLabel,
+        encounterCount: Number(selection.encounterCount || 1),
+        autoAdvance: Boolean(selection.autoAdvance),
+        startsAt: fromLocalInput(selection.startsAtLocal) || null,
+        endsAt: fromLocalInput(selection.endsAtLocal) || null,
+        repeatPolicy: selection.repeatPolicy,
+        presentation: { gender: selection.gender }
       };
     }
 
     function speciesOptionsHtml() {
       const rows = typeof root.playSpecialFilterSpecies === "function"
-        ? root.playSpecialFilterSpecies(pickFilter, pickQ)
+        ? root.playSpecialFilterSpecies(selection.filter, selection.query)
         : [];
       if (!rows.length) return `<option value="">No Pokémon match</option>`;
       return rows.map((row) => {
         const pad = root.playPadDex ? root.playPadDex(row.dex) : String(row.dex).padStart(3, "0");
-        return `<option value="${row.dex}"${Number(draft.dex) === row.dex ? " selected" : ""}>${esc(pad)} — ${esc(row.name)}</option>`;
+        return `<option value="${row.dex}"${Number(selection.dex) === row.dex ? " selected" : ""}>${esc(pad)} — ${esc(row.name)}</option>`;
       }).join("");
     }
 
-    function formOptionsHtml(dex) {
-      const forms = typeof root.playFormsForDex === "function"
-        ? root.playFormsForDex(dex, { event: true })
-        : [{ formId: dex, formLabel: "Base", isBase: true }];
-      const selected = Number(draft.formId) || dex;
-      const ok = forms.some((f) => Number(f.formId) === selected);
-      if (!ok) draft.formId = dex;
+    function formOptionsHtml() {
+      const forms = typeof root.playSpecialFormsForFilter === "function"
+        ? root.playSpecialFormsForFilter(selection.dex, selection.filter)
+        : [{ formId: selection.dex, formLabel: "Base", isBase: true }];
       return forms.map((f) => (
-        `<option value="${f.formId}"${Number(f.formId) === Number(draft.formId || dex) ? " selected" : ""}>${esc(f.isBase ? "Base" : f.formLabel)}</option>`
+        `<option value="${f.formId}"${Number(f.formId) === Number(selection.formId) ? " selected" : ""}>${esc(f.isBase ? "Base" : f.formLabel)}</option>`
       )).join("");
     }
 
-    function genderOptionsHtml(dex) {
-      const opts = typeof root.playGenderOptions === "function" ? root.playGenderOptions(dex) : ["Male", "Female"];
-      draft.gender = normalizeGender(dex, draft.gender);
-      return opts.map((g) => `<option value="${esc(g)}"${draft.gender === g ? " selected" : ""}>${esc(g)}</option>`).join("");
+    function genderOptionsHtml() {
+      const opts = typeof root.playGenderOptions === "function" ? root.playGenderOptions(selection.dex) : ["Male", "Female"];
+      return opts.map((g) => `<option value="${esc(g)}"${selection.gender === g ? " selected" : ""}>${esc(g)}</option>`).join("");
     }
 
     function previewHtml() {
-      const dex = Number(draft.dex);
-      const formId = Number(draft.formId) || dex;
-      const shiny = draft.variantPolicy === "FORCED_SHINY";
+      const dex = Number(selection.dex);
+      const formId = Number(selection.formId) || dex;
+      const shiny = selection.variantPolicy === "FORCED_SHINY";
       const variant = typeof root.playSpecialPreviewVariant === "function"
-        ? root.playSpecialPreviewVariant({ dex, gender: draft.gender, shiny, variantPolicy: draft.variantPolicy })
+        ? root.playSpecialPreviewVariant({ dex, gender: selection.gender, shiny, variantPolicy: selection.variantPolicy })
         : (shiny ? "shiny" : "normal");
-      const display = typeof root.playFormDisplayName === "function" ? root.playFormDisplayName(dex, formId) : (root.playSpeciesName?.(dex) || "");
+      const display = typeof root.playFormDisplayName === "function"
+        ? root.playFormDisplayName(dex, formId)
+        : (root.playSpeciesName?.(dex) || "");
       const meta = typeof root.playFormMeta === "function" ? root.playFormMeta(formId) : null;
       const hasArt = meta?.isBase || meta?.hasFront || formId === dex;
       const url = typeof root.playSpriteUrl === "function" ? root.playSpriteUrl(dex, variant, formId) : "";
-      const props = [];
-      if (shiny) props.push("✨ Shiny");
-      if (draft.gender === "Female") props.push("♀ Female");
-      if (draft.gender === "Male") props.push("♂ Male");
+      const badges = typeof root.playSpecialBadgeHtml === "function"
+        ? root.playSpecialBadgeHtml(root.playSpecialSelectionBadges?.({
+          dex,
+          formId,
+          gender: selection.gender,
+          shiny,
+          variantPolicy: selection.variantPolicy
+        }))
+        : "";
+
+      // Hard invariant: preview identity must match selection
+      const mismatch = Number(byId("se-species")?.value || dex) !== dex;
+      if (mismatch && typeof console !== "undefined") {
+        console.warn("[special-events] preview/dropdown dex mismatch", byId("se-species")?.value, dex);
+      }
+
       if (!hasArt && formId !== dex) {
-        return `<div class="se-preview se-preview-missing" role="status">
+        return `<div class="se-preview se-preview-missing" data-se-preview-dex="${dex}" data-se-preview-form="${formId}" role="status">
           <p><strong>${esc(display)}</strong></p>
           <p class="notice">Missing Front artwork for this form. Gameplay identity is unchanged.</p>
+          ${badges}
         </div>`;
       }
-      return `<div class="se-preview" data-se-live-preview>
+      return `<div class="se-preview" data-se-live-preview data-se-preview-dex="${dex}" data-se-preview-form="${formId}" data-se-preview-shiny="${shiny ? "1" : "0"}" data-se-preview-gender="${esc(selection.gender)}">
         ${url ? `<img src="${esc(url)}" alt="" width="96" height="96" onerror="window.playSpriteOnError && window.playSpriteOnError(this)">` : ""}
-        <div>
+        <div class="se-preview-copy">
           <p class="se-preview-name"><strong>${esc(display)}</strong></p>
-          ${props.length ? `<p class="muted">${esc(props.join(" · "))}</p>` : ""}
+          ${badges}
         </div>
       </div>`;
     }
 
     function filterOptionsHtml() {
-      const filters = root.playSpecialFilters || [
-        { id: "all", label: "All Kanto" },
-        { id: "normal", label: "Normal Spawn" }
-      ];
-      return filters.map((f) => `<option value="${esc(f.id)}"${pickFilter === f.id ? " selected" : ""}>${esc(f.label)}</option>`).join("");
+      const filters = root.playSpecialFilters || [{ id: "all", label: "All Kanto" }];
+      return filters.map((f) => `<option value="${esc(f.id)}"${selection.filter === f.id ? " selected" : ""}>${esc(f.label)}</option>`).join("");
     }
 
     function renderToolbar() {
       const tools = byId("special-picker-tools");
       if (!tools) return;
-      const tz = root.playSpecialTimezone ? root.playSpecialTimezone() : "local";
       tools.innerHTML = `
-        <div class="se-toolbar">
-          <label class="field" for="special-filter">Filter
-            <select id="special-filter">${filterOptionsHtml()}</select>
+        <div class="se-toolbar" role="group" aria-label="Event Pokémon picker">
+          <label class="field se-field-filter" for="special-filter">
+            <span class="se-field-label">Filter</span>
+            <select id="special-filter" class="se-control">${filterOptionsHtml()}</select>
           </label>
-          <label class="field se-species-field" for="se-species">Pokémon
-            <input id="special-q" type="search" placeholder="Type to narrow…" value="${esc(pickQ)}" aria-controls="se-species">
-            <select id="se-species" size="1">${speciesOptionsHtml()}</select>
-          </label>
-          <button id="special-refresh" class="se-icon-btn secondary" type="button" title="Refresh events" aria-label="Refresh events">↻</button>
-        </div>
-        <p class="muted se-tz-hint">Event times are saved in UTC and shown in your local timezone. Your timezone: <strong>${esc(tz)}</strong></p>`;
+          <div class="field se-field-species">
+            <span class="se-field-label" id="se-species-label">Pokémon</span>
+            <div class="se-species-combo">
+              <input id="special-q" class="se-control" type="search" placeholder="Type to narrow…" value="${esc(selection.query)}" aria-labelledby="se-species-label" aria-controls="se-species">
+              <select id="se-species" class="se-control" aria-labelledby="se-species-label">${speciesOptionsHtml()}</select>
+            </div>
+          </div>
+          <div class="se-field-refresh">
+            <span class="se-field-label se-field-label-spacer" aria-hidden="true">&nbsp;</span>
+            <button id="special-refresh" class="se-icon-btn secondary se-control" type="button" title="Refresh events" aria-label="Refresh events">↻</button>
+          </div>
+        </div>`;
     }
 
     function renderForm() {
       const form = byId("special-form");
       if (!form) return;
-      const tz = root.playSpecialTimezone ? root.playSpecialTimezone() : "local";
-      const dex = Number(draft.dex);
       form.innerHTML = `
         ${previewHtml()}
-        <div class="hub-num-row">
+        <div class="hub-num-row se-identity-row">
           <label class="field">Form
-            <select id="se-form">${formOptionsHtml(dex)}</select>
+            <select id="se-form" class="se-control">${formOptionsHtml()}</select>
           </label>
           <label class="field">Gender
-            <select id="se-gender">${genderOptionsHtml(dex)}</select>
+            <select id="se-gender" class="se-control">${genderOptionsHtml()}</select>
           </label>
           <label class="field">Shiny
-            <select id="se-shiny">
-              <option value="NORMAL_ROLL"${draft.variantPolicy === "NORMAL_ROLL" ? " selected" : ""}>Normal roll</option>
-              <option value="DISABLED"${draft.variantPolicy === "DISABLED" ? " selected" : ""}>Disabled</option>
-              <option value="FORCED_SHINY"${draft.variantPolicy === "FORCED_SHINY" ? " selected" : ""}>Forced shiny</option>
+            <select id="se-shiny" class="se-control">
+              <option value="NORMAL_ROLL"${selection.variantPolicy === "NORMAL_ROLL" ? " selected" : ""}>Normal roll</option>
+              <option value="DISABLED"${selection.variantPolicy === "DISABLED" ? " selected" : ""}>Disabled</option>
+              <option value="FORCED_SHINY"${selection.variantPolicy === "FORCED_SHINY" ? " selected" : ""}>Forced shiny</option>
             </select>
           </label>
         </div>
         <label class="field">Title
-          <input id="se-title" value="${esc(draft.title)}">
+          <input id="se-title" value="${esc(selection.title)}">
         </label>
         <label class="field">Subtitle
-          <input id="se-sub" value="${esc(draft.subtitle)}">
+          <input id="se-sub" value="${esc(selection.subtitle)}">
         </label>
         <label class="field">Announcement
-          <textarea id="se-ann">${esc(draft.announcement)}</textarea>
+          <textarea id="se-ann">${esc(selection.announcement)}</textarea>
         </label>
         <div class="hub-num-row">
           <label class="field">Type
-            <select id="se-type">${TYPES.map((t) => `<option value="${t}"${draft.eventType === t ? " selected" : ""}>${esc(root.playSpecialTypeLabel?.(t) || t)}</option>`).join("")}</select>
+            <select id="se-type">${TYPES.map((t) => `<option value="${t}"${selection.eventType === t ? " selected" : ""}>${esc(root.playSpecialTypeLabel?.(t) || t)}</option>`).join("")}</select>
           </label>
           <label class="field">Visibility
             <select id="se-vis">
-              <option value="PUBLIC"${draft.visibility === "PUBLIC" ? " selected" : ""}>Public</option>
-              <option value="HIDDEN"${draft.visibility === "HIDDEN" ? " selected" : ""}>Hidden / surprise</option>
+              <option value="PUBLIC"${selection.visibility === "PUBLIC" ? " selected" : ""}>Public</option>
+              <option value="HIDDEN"${selection.visibility === "HIDDEN" ? " selected" : ""}>Hidden / surprise</option>
             </select>
           </label>
           <label class="field">Encounters
-            <input id="se-count" type="number" min="1" max="12" value="${esc(draft.encounterCount)}">
+            <input id="se-count" type="number" min="1" max="12" value="${esc(selection.encounterCount)}">
           </label>
         </div>
         <label class="field">Background
-          <select id="se-bg">${BACKGROUNDS.map(([key, label]) => `<option value="${key}"${draft.locationKey === key ? " selected" : ""}>${esc(label)}</option>`).join("")}</select>
+          <select id="se-bg">${BACKGROUNDS.map(([key, label]) => `<option value="${key}"${selection.locationKey === key ? " selected" : ""}>${esc(label)}</option>`).join("")}</select>
         </label>
         <div class="hub-num-row se-schedule-row">
           <label class="field">Starts
-            <input id="se-start" type="datetime-local" value="${esc(draft.startsAtLocal)}">
+            <input id="se-start" type="datetime-local" value="${esc(selection.startsAtLocal)}">
           </label>
           <label class="field">Ends
-            <input id="se-end" type="datetime-local" value="${esc(draft.endsAtLocal)}">
+            <input id="se-end" type="datetime-local" value="${esc(selection.endsAtLocal)}">
           </label>
         </div>
-        <p class="muted se-schedule-blurb">Saved as UTC · shown as local (${esc(tz)})</p>
         <label class="field check">Auto-advance remaining encounters
-          <input id="se-auto" type="checkbox"${draft.autoAdvance ? " checked" : ""}>
+          <input id="se-auto" type="checkbox"${selection.autoAdvance ? " checked" : ""}>
         </label>
         <div class="links">
           <button type="button" data-se-act="save">Save draft</button>
@@ -347,16 +411,23 @@
           ? root.playSpriteUrl(row.dex, shiny ? "shiny" : "normal", formId)
           : "";
         const canDelete = !["LIVE", "WAITING_FOR_STREAM"].includes(String(row.status || "").toUpperCase());
-        const props = [name, shiny ? "✨ Shiny" : "", gender === "Female" ? "♀ Female" : gender === "Male" ? "♂ Male" : ""]
-          .filter(Boolean)
-          .join(" · ");
+        const badges = typeof root.playSpecialBadgeHtml === "function"
+          ? root.playSpecialBadgeHtml(root.playSpecialSelectionBadges?.({
+            dex: row.dex,
+            formId,
+            gender,
+            shiny,
+            variantPolicy: row.variantPolicy
+          }))
+          : "";
         return `<article class="special-admin-row">
           <div class="special-admin-main">
             ${art ? `<img class="special-admin-art" src="${esc(art)}" alt="" width="64" height="64" onerror="window.playSpriteOnError && window.playSpriteOnError(this)">` : ""}
             <div>
               <p class="eyebrow">${esc(root.playSpecialStatusLabel?.(row.status) || row.status)} · ${esc(root.playSpecialTypeLabel?.(row.eventType) || row.eventType)}</p>
               <h3>${esc(row.title)}</h3>
-              <p>${esc(props)}</p>
+              <p><strong>${esc(name)}</strong></p>
+              ${badges}
               <p class="muted">${esc(root.playSpecialFormatWhen?.(row.startsAt, true) || "Unscheduled")} · ${esc(row.roundsLaunched)}/${esc(row.encounterCount)} encounters</p>
               ${liveWarn}
             </div>
@@ -384,30 +455,23 @@
         <p><strong>Analytics:</strong> ${esc(stats.eventsHeld || 0)} events · ${esc(stats.participants || 0)} participants · ${esc(stats.captures || 0)} captures</p>`;
     }
 
-    function readForm() {
-      draft.title = byId("se-title")?.value || draft.title;
-      draft.subtitle = byId("se-sub")?.value || draft.subtitle;
-      draft.announcement = byId("se-ann")?.value || draft.announcement;
-      draft.eventType = byId("se-type")?.value || draft.eventType;
-      draft.visibility = byId("se-vis")?.value || draft.visibility;
-      draft.variantPolicy = byId("se-shiny")?.value || draft.variantPolicy;
-      if (byId("se-form")) draft.formId = Number(byId("se-form").value) || draft.dex;
-      if (byId("se-gender")) draft.gender = byId("se-gender").value || draft.gender;
-      if (byId("se-species")) {
-        const next = Number(byId("se-species").value);
-        if (next && next !== Number(draft.dex)) applySpecies(next, false);
-      }
-      draft.encounterCount = Number(byId("se-count")?.value || draft.encounterCount);
-      draft.locationKey = byId("se-bg")?.value || draft.locationKey;
-      const bg = BACKGROUNDS.find((row) => row[0] === draft.locationKey);
-      if (bg) draft.locationLabel = bg[1];
-      draft.startsAtLocal = byId("se-start")?.value || "";
-      draft.endsAtLocal = byId("se-end")?.value || "";
-      draft.autoAdvance = Boolean(byId("se-auto")?.checked);
+    function readMetaFields() {
+      selection.title = byId("se-title")?.value || selection.title;
+      selection.subtitle = byId("se-sub")?.value || selection.subtitle;
+      selection.announcement = byId("se-ann")?.value || selection.announcement;
+      selection.eventType = byId("se-type")?.value || selection.eventType;
+      selection.visibility = byId("se-vis")?.value || selection.visibility;
+      selection.encounterCount = Number(byId("se-count")?.value || selection.encounterCount);
+      selection.locationKey = byId("se-bg")?.value || selection.locationKey;
+      const bg = BACKGROUNDS.find((row) => row[0] === selection.locationKey);
+      if (bg) selection.locationLabel = bg[1];
+      selection.startsAtLocal = byId("se-start")?.value || "";
+      selection.endsAtLocal = byId("se-end")?.value || "";
+      selection.autoAdvance = Boolean(byId("se-auto")?.checked);
     }
 
     function render() {
-      // Ensure current species remains valid for filter; if not, keep draft but list still works.
+      reconcile();
       renderHealth();
       renderToolbar();
       renderForm();
@@ -417,43 +481,64 @@
         grid.hidden = true;
         grid.innerHTML = "";
       }
+      // Expose for tests / debug
+      host.dataset.seDex = String(selection.dex);
+      host.dataset.seForm = String(selection.formId);
+      host.dataset.seFilter = String(selection.filter);
+      root.__playSpecialSelection = { ...selection };
     }
 
     host.addEventListener("input", (event) => {
       if (event.target.id === "special-q") {
-        pickQ = event.target.value || "";
+        selection.query = event.target.value || "";
+        reconcile();
         const sel = byId("se-species");
         if (sel) sel.innerHTML = speciesOptionsHtml();
+        // Keep form/preview in sync if species changed due to empty matches → fallback
+        renderForm();
+        host.dataset.seDex = String(selection.dex);
+        host.dataset.seForm = String(selection.formId);
       }
     });
 
     host.addEventListener("change", (event) => {
       if (event.target.id === "special-filter") {
-        pickFilter = event.target.value || "all";
-        const sel = byId("se-species");
-        if (sel) sel.innerHTML = speciesOptionsHtml();
+        selection.filter = event.target.value || "all";
+        reconcile();
+        render();
         return;
       }
       if (event.target.id === "se-species") {
-        applySpecies(Number(event.target.value), false);
+        selection.dex = Number(event.target.value) || selection.dex;
+        selection.formId = typeof root.playSpecialDefaultFormForFilter === "function"
+          ? root.playSpecialDefaultFormForFilter(selection.dex, selection.filter)
+          : selection.dex;
+        selection.gender = normalizeGender(selection.dex, selection.gender);
+        applyPresetCopy(selection.dex);
+        selection.subtitle = typeof root.playFormDisplayName === "function"
+          ? root.playFormDisplayName(selection.dex, selection.formId)
+          : selection.subtitle;
         renderForm();
+        host.dataset.seDex = String(selection.dex);
+        host.dataset.seForm = String(selection.formId);
         return;
       }
       if (event.target.id === "se-form") {
-        draft.formId = Number(event.target.value) || draft.dex;
-        draft.subtitle = typeof root.playFormDisplayName === "function"
-          ? root.playFormDisplayName(draft.dex, draft.formId)
-          : draft.subtitle;
+        selection.formId = Number(event.target.value) || selection.dex;
+        selection.subtitle = typeof root.playFormDisplayName === "function"
+          ? root.playFormDisplayName(selection.dex, selection.formId)
+          : selection.subtitle;
         renderForm();
+        host.dataset.seForm = String(selection.formId);
         return;
       }
       if (event.target.id === "se-gender") {
-        draft.gender = event.target.value || draft.gender;
+        selection.gender = event.target.value || selection.gender;
         renderForm();
         return;
       }
       if (event.target.id === "se-shiny") {
-        draft.variantPolicy = event.target.value || draft.variantPolicy;
+        selection.variantPolicy = event.target.value || selection.variantPolicy;
         renderForm();
       }
     });
@@ -467,7 +552,7 @@
       if (edit) {
         const row = (data?.events || []).find((item) => item.id === edit.dataset.seEdit);
         if (!row) return;
-        draft = {
+        Object.assign(selection, {
           id: row.id,
           dex: row.dex,
           formId: Number(row.formId || row.dex),
@@ -484,50 +569,52 @@
           autoAdvance: row.autoAdvance,
           startsAtLocal: toLocalInput(row.startsAt),
           endsAtLocal: toLocalInput(row.endsAt),
-          repeatPolicy: row.repeatPolicy
-        };
+          repeatPolicy: row.repeatPolicy,
+          filter: "all",
+          query: ""
+        });
+        reconcile();
         render();
         return;
       }
       const preview = event.target.closest("[data-se-preview]");
       if (preview) {
-        readForm();
+        readMetaFields();
         const kind = preview.dataset.sePreview;
         const raw = root.playSpecialPresentation?.(kind, {
-          species: draft.dex,
-          dex: draft.dex,
-          formId: draft.formId,
-          gender: draft.gender,
-          variantPolicy: draft.variantPolicy,
-          shiny: draft.variantPolicy === "FORCED_SHINY",
-          title: draft.title,
-          eventType: draft.eventType,
-          startsAt: fromLocalInput(draft.startsAtLocal) || undefined,
-          remainingRounds: Math.max(0, Number(draft.encounterCount) - 1)
+          species: selection.dex,
+          dex: selection.dex,
+          formId: selection.formId,
+          gender: selection.gender,
+          variantPolicy: selection.variantPolicy,
+          shiny: selection.variantPolicy === "FORCED_SHINY",
+          title: selection.title,
+          eventType: selection.eventType,
+          startsAt: fromLocalInput(selection.startsAtLocal) || undefined,
+          remainingRounds: Math.max(0, Number(selection.encounterCount) - 1)
         });
         if (raw && typeof root.playPresentEnqueue === "function") {
           root.playPresentEnqueue([{ ...raw, preview: true }], { preview: true, noSummary: true, source: "lab" });
         }
-        const status = byId("special-status");
-        if (status) status.textContent = "Visual-only preview. No Pokémon granted.";
+        setStatus("Visual-only preview. No Pokémon granted.");
         return;
       }
       const actBtn = event.target.closest("[data-se-act]");
       if (!actBtn) return;
-      readForm();
+      readMetaFields();
       const act = actBtn.dataset.seAct;
-      const id = actBtn.dataset.seId || draft.id;
-      const name = actBtn.dataset.seName || draft.title || draft.subtitle || "this event";
+      const id = actBtn.dataset.seId || selection.id;
+      const name = actBtn.dataset.seName || selection.title || selection.subtitle || "this event";
       if (act === "save") {
-        await cmd("save", payloadFromDraft());
+        await cmd("save", payloadFromSelection());
         return;
       }
       if (act === "schedule") {
-        await cmd("schedule", { ...payloadFromDraft(), id: id || undefined });
+        await cmd("schedule", { ...payloadFromSelection(), id: id || undefined });
         return;
       }
       if (act === "delete") {
-        const mon = actBtn.dataset.seMon || draft.subtitle || "Pokémon";
+        const mon = actBtn.dataset.seMon || selection.subtitle || "Pokémon";
         const when = actBtn.dataset.seWhen || "unscheduled";
         await cmd("delete", { id, confirm: true }, {
           title: `Delete "${name}"?`,
@@ -542,10 +629,10 @@
         cancel: { title: `Cancel ${name}?`, body: `This cancels the Special Event. It will not start automatically.`, go: "Cancel event" },
         end: { title: `End ${name}?`, body: `This ends the live Special Event. Remaining scheduled rounds will not run.`, go: "End event" }
       }[act];
-      await cmd(act, { id, confirm: true, ...payloadFromDraft() }, danger);
+      await cmd(act, { id, confirm: true, ...payloadFromSelection() }, danger);
     });
 
-    applySpecies(draft.dex, true);
+    reconcile();
     load();
   };
 })();

@@ -883,10 +883,13 @@
       if (!kind) return;
       const ev = window.playSpecialPresentation(kind, {
         species: round.dex,
+        formId: round.formId || round.pokemonFormId || round.specialEvent?.formId,
         title: round.specialEvent.title,
         eventType: round.specialEvent.eventType,
         remainingRounds: round.specialEvent.remainingRounds,
-        variant: round.variant
+        variant: round.variant,
+        gender: round.gender,
+        displayName: round.name || round.specialEvent?.displayName
       });
       if (ev) {
         window.playPresentEnqueue([{ ...ev, id: `special-${kind}:${round.id}` }], { noSummary: true, source: "special-result", preview: false });
@@ -901,9 +904,12 @@
     specialIncomingRound = round.id;
     const ev = window.playSpecialPresentation("incoming", {
       species: round.dex,
+      formId: round.formId || round.pokemonFormId || round.specialEvent?.formId,
       title: round.specialEvent.title,
       eventType: round.specialEvent.eventType,
-      variant: round.variant
+      variant: round.variant,
+      gender: round.gender,
+      displayName: round.name || round.specialEvent?.displayName
     });
     if (ev) {
       window.playPresentEnqueue([{ ...ev, id: `special-in:${round.id}` }], { noSummary: true, source: "special-incoming" });

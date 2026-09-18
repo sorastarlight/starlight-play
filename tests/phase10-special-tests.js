@@ -161,9 +161,10 @@ test("destructive live controls require confirmation", () => {
 });
 
 test("timezone is shown, not a bare clock", () => {
-  assert(specialJs.includes("timeZone"));
-  assert(adminSpecial.includes("Times are stored in UTC"));
+  assert(specialJs.includes("timeZone") || specialJs.includes("timeZoneName"));
+  assert(adminSpecial.includes("UTC") && adminSpecial.includes("local timezone"));
   assert(adminSpecial.includes("datetime-local"));
+  assert(!adminSpecial.includes("America/New_York"));
 });
 
 test("selftest never launches 144-151 against Sora", () => {

@@ -151,12 +151,12 @@
     return String(key || "Item");
   }
 
-  function spriteUrl(dex, variant, gender) {
+  function spriteUrl(dex, variant, gender, formId) {
     const shiny = String(variant || "").toLowerCase().includes("shiny");
     const art = typeof root.playSpriteVariant === "function"
       ? root.playSpriteVariant(dex, gender, shiny)
       : (shiny ? "shiny" : "normal");
-    if (typeof root.playSpriteUrl === "function") return root.playSpriteUrl(dex, art);
+    if (typeof root.playSpriteUrl === "function") return root.playSpriteUrl(dex, art, formId);
     return "";
   }
 
@@ -208,7 +208,7 @@
     if (event?.tier === TIER.toast || event?.tier === TIER.card || event?.tier === TIER.moment) {
       return event.tier;
     }
-    if (type === "pokedex" || type === "level" || type === "evolution" || type === "legendary" || type === "mythical") return TIER.moment;
+    if (type === "pokedex" || type === "level" || type === "evolution" || type === "legendary" || type === "mythical" || type === "special-event") return TIER.moment;
     if (type === "support") {
       const round = root.playCurrentRound?.() || root.PLAY_ROUND;
       const busy = Boolean(round && round.phase && round.phase !== "closed" && !round.resolved && !round.cancelled);
@@ -263,6 +263,7 @@
     const shiny = /shiny/i.test(variantRaw) || Boolean(payload.shiny) || Boolean(raw.shiny);
     const variant = shiny ? (variantRaw.includes("shiny") ? variantRaw : "shiny") : (variantRaw === "female" ? "normal" : variantRaw || "normal");
     const gender = String(raw.gender || payload.gender || ctx.gender || "");
+    const formId = Number(raw.formId || raw.pokemonFormId || payload.formId || payload.pokemonFormId || species) || species || 0;
     const id = String(raw.id || raw.key || `${type}:${species || raw.title || payload.eventId || "x"}:${raw.body || ""}`);
     const event = {
       id,
@@ -272,6 +273,12 @@
       subtitle: String(raw.subtitle || raw.body || payload.name || payload.description || ""),
       body: String(raw.body || payload.description || ""),
       species,
+      formId,
+      displayName: String(raw.displayName || payload.displayName || ""),
+      formCategory: String(raw.formCategory || ""),
+      kicker: String(raw.kicker || ""),
+      lifecycle: String(raw.lifecycle || ""),
+      whenText: String(raw.whenText || ""),
       variant,
       gender,
       shiny,
@@ -313,6 +320,7 @@
     if (type === "level") return "TRAINER LEVEL UP!";
     if (type === "achievement") return "ACHIEVEMENT UNLOCKED";
     if (type === "unlock") return "NEW TRAINER REWARD!";
+    if (type === "special-event") return "SPECIAL EVENT";
     if (type === "item") return "Item added";
     if (type === "purchase") return "PURCHASE COMPLETE";
     if (type === "summary") return "REWARDS";
@@ -569,7 +577,9 @@
   }
 
   function artBox(event) {
-    const src = event.species ? spriteUrl(event.species, event.variant, event.gender) : (event.item ? itemSprite(event.item) : "");
+    const src = event.species
+      ? spriteUrl(event.species, event.variant, event.gender, event.formId)
+      : (event.item ? itemSprite(event.item) : "");
     return `<div class="play-present-art" data-present-art>
       ${src ? `<img src="${esc(src)}" alt="" width="128" height="128" decoding="async">` : `<span class="play-present-art-fallback" aria-hidden="true"></span>`}
     </div>`;
@@ -642,7 +652,7 @@
       <p class="play-present-kicker" data-dex-kicker>Pokédex</p>
       <div class="play-present-dex-frame">
         <div class="play-present-art is-sil" data-present-art>
-          ${event.species ? `<img src="${esc(spriteUrl(event.species, event.variant, event.gender))}" alt="" width="128" height="128" decoding="async">` : ""}
+          ${event.species ? `<img src="${esc(spriteUrl(event.species, event.variant, event.gender, event.formId))}" alt="" width="128" height="128" decoding="async">` : ""}
         </div>
         <p class="play-present-status" data-dex-status>REGISTERING…</p>
       </div>
@@ -708,7 +718,7 @@
       <p class="play-present-kicker">${esc(event.title || kicker)}</p>
       <div class="play-present-dex-frame">
         <div class="play-present-art${incoming ? " is-sil" : ""}" data-present-art>
-          ${event.species ? `<img src="${esc(spriteUrl(event.species, event.variant, event.gender))}" alt="" width="128" height="128" decoding="async">` : ""}
+          ${event.species ? `<img src="${esc(spriteUrl(event.species, event.variant, event.gender, event.formId))}" alt="" width="128" height="128" decoding="async">` : ""}
         </div>
       </div>
       <h2 data-special-title>${esc(incoming ? (event.subtitle || name) : kicker)}</h2>
@@ -735,6 +745,36 @@
         finish();
       }
     });
+  }
+
+  async function presentSpecialEvent(event) {
+    const name = event.displayName
+      || (typeof root.playFormDisplayName === "function" ? root.playFormDisplayName(event.species, event.formId) : speciesName(event.species))
+      || "Pokémon";
+    const kicker = event.kicker || event.lifecycle || "SPECIAL EVENT";
+    const cat = event.formCategory ? `<span class="se-form-chip">${esc(event.formCategory)}</span>` : "";
+    let whenHtml = "";
+    if (event.whenText) {
+      const line = String(event.whenText).startsWith("Begins") ? event.whenText : `Begins ${event.whenText}`;
+      whenHtml = `<p class="play-present-when">${esc(line)}</p>`;
+    }
+    cue("reward.major");
+    const html = `<article class="play-present-moment play-present-special is-event" data-present-panel>
+      <div class="play-present-starfield" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      ${fxHtml("legendary")}
+      <p class="play-present-kicker">${esc(kicker)}</p>
+      <div class="play-present-dex-frame">
+        <div class="play-present-art" data-present-art>
+          ${event.species ? `<img src="${esc(spriteUrl(event.species, event.variant, event.gender, event.formId))}" alt="" width="128" height="128" decoding="async">` : ""}
+        </div>
+      </div>
+      <h2>${esc(event.title && event.title !== kicker ? event.title : name)}</h2>
+      <p class="play-present-sub se-identity"><strong>${esc(name)}</strong> ${cat}</p>
+      ${event.body ? `<p class="play-present-sub">${esc(event.body)}</p>` : ""}
+      ${whenHtml}
+      ${continueHtml()}
+    </article>`;
+    await runPanel(event, html, { skipToEnd: true });
   }
 
   async function presentLevel(event) {
@@ -818,6 +858,7 @@
       return;
     }
     if (event.type === "pokedex") return presentPokedex(event);
+    if (event.type === "special-event") return presentSpecialEvent(event);
     if (event.type === "legendary" || event.type === "mythical") return presentLegendary(event);
     if (event.type === "level") return presentLevel(event);
     return presentCard(event);

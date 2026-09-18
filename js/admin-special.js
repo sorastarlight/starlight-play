@@ -32,6 +32,7 @@
       return {
         id: "",
         dex: 144,
+        formId: 144,
         eventType: "LEGENDARY",
         variantPolicy: "NORMAL_ROLL",
         visibility: "PUBLIC",
@@ -66,6 +67,8 @@
     function applyPreset(dex) {
       const row = data?.presets?.[String(dex)] || {};
       draft.dex = dex;
+      // Phase 10 / presets always BASE form (formId = NationalDex).
+      draft.formId = dex;
       draft.eventType = row.eventType || draft.eventType;
       draft.variantPolicy = row.variantPolicy || "NORMAL_ROLL";
       draft.visibility = row.visibility || "PUBLIC";
@@ -132,9 +135,12 @@
     }
 
     function payloadFromDraft() {
+      const dex = Number(draft.dex);
+      const formId = Number(draft.formId) || dex;
       return {
         id: draft.id || undefined,
-        dex: Number(draft.dex),
+        dex,
+        formId,
         eventType: draft.eventType,
         variantPolicy: draft.variantPolicy,
         visibility: draft.visibility,
@@ -175,7 +181,7 @@
       if (!grid) return;
       const rows = speciesRows();
       grid.innerHTML = rows.slice(0, 400).map((row) => {
-        const art = typeof root.playSpriteUrl === "function" ? root.playSpriteUrl(row.dex, "normal") : "";
+        const art = typeof root.playSpriteUrl === "function" ? root.playSpriteUrl(row.dex, "normal", row.dex) : "";
         return `<button type="button" class="special-species${Number(draft.dex) === row.dex ? " is-on" : ""}" data-special-dex="${row.dex}">
           ${art ? `<img src="${esc(art)}" alt="" onerror="window.playSpriteOnError && window.playSpriteOnError(this)">` : ""}
           <strong>${esc(root.playPadDex ? root.playPadDex(row.dex) : row.dex)} ${esc(row.name)}</strong>
@@ -184,12 +190,35 @@
       }).join("") || "<p class='muted'>No species match.</p>";
     }
 
+    function formOptionsHtml(dex) {
+      const forms = typeof root.playFormsForDex === "function"
+        ? root.playFormsForDex(dex, { event: true })
+        : [{ formId: dex, formLabel: "Base", isBase: true }];
+      const selected = Number(draft.formId) || dex;
+      const ok = forms.some((f) => Number(f.formId) === selected);
+      if (!ok) draft.formId = dex;
+      return forms.map((f) => (
+        `<option value="${f.formId}"${Number(f.formId) === Number(draft.formId || dex) ? " selected" : ""}>${esc(f.isBase ? "Base" : f.formLabel)}</option>`
+      )).join("");
+    }
+
     function renderForm() {
       const form = byId("special-form");
       if (!form) return;
       const tz = root.playSpecialTimezone ? root.playSpecialTimezone() : "local";
+      const dex = Number(draft.dex);
+      const formId = Number(draft.formId) || dex;
+      const display = typeof root.playFormDisplayName === "function" ? root.playFormDisplayName(dex, formId) : (root.playSpeciesName?.(dex) || "");
+      const preview = typeof root.playSpriteUrl === "function" ? root.playSpriteUrl(dex, "normal", formId) : "";
       form.innerHTML = `
         <p class="muted">Times are stored in UTC and shown in your timezone: <strong>${esc(tz)}</strong></p>
+        <div class="form-preview" style="margin-bottom:0.75rem">
+          ${preview ? `<img src="${esc(preview)}" alt="" onerror="window.playSpriteOnError && window.playSpriteOnError(this)">` : ""}
+          <p class="muted">${esc(display)} · FormId ${esc(formId)}</p>
+        </div>
+        <label class="field">Form
+          <select id="se-form">${formOptionsHtml(dex)}</select>
+        </label>
         <label class="field">Title
           <input id="se-title" value="${esc(draft.title)}">
         </label>
@@ -257,7 +286,7 @@
           <div>
             <p class="eyebrow">${esc(root.playSpecialStatusLabel?.(row.status) || row.status)} · ${esc(root.playSpecialTypeLabel?.(row.eventType) || row.eventType)}</p>
             <h3>${esc(row.title)}</h3>
-            <p>${esc(row.name)} · ${esc(row.roundsLaunched)}/${esc(row.encounterCount)} encounters · ${esc(row.visibility)}</p>
+            <p>${esc(row.displayName || row.speciesName || row.name)} · ${esc(row.formLabel || "Base")} · ${esc(row.roundsLaunched)}/${esc(row.encounterCount)} encounters · ${esc(row.visibility)}</p>
             <p class="muted">${esc(root.playSpecialFormatWhen?.(row.startsAt, true) || "Unscheduled")}</p>
             ${liveWarn}
           </div>
@@ -292,6 +321,9 @@
       draft.eventType = byId("se-type")?.value || draft.eventType;
       draft.visibility = byId("se-vis")?.value || draft.visibility;
       draft.variantPolicy = byId("se-shiny")?.value || draft.variantPolicy;
+      if (byId("se-form")) {
+        draft.formId = Number(byId("se-form").value) || draft.dex;
+      }
       draft.encounterCount = Number(byId("se-count")?.value || draft.encounterCount);
       draft.locationKey = byId("se-bg")?.value || draft.locationKey;
       const bg = BACKGROUNDS.find((row) => row[0] === draft.locationKey);
@@ -319,6 +351,14 @@
         pickFilter = event.target.value || "special";
         renderPicker();
       }
+      if (event.target.id === "se-form") {
+        draft.formId = Number(event.target.value) || draft.dex;
+        const label = typeof root.playFormDisplayName === "function"
+          ? root.playFormDisplayName(draft.dex, draft.formId)
+          : root.playSpeciesName?.(draft.dex);
+        if (label && !draft.id) draft.subtitle = label;
+        renderForm();
+      }
     });
     host.addEventListener("click", async (event) => {
       const species = event.target.closest("[data-special-dex]");
@@ -335,6 +375,7 @@
         draft = {
           id: row.id,
           dex: row.dex,
+          formId: Number(row.formId || row.dex),
           eventType: row.eventType,
           variantPolicy: row.variantPolicy,
           visibility: row.visibility,

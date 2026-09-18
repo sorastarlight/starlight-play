@@ -71,9 +71,20 @@ test("all catalog female visuals exist on the first requested path", () => {
   assert(!missing.length, missing.slice(0, 20).join(", "));
 });
 
-test("sprite URLs carry the Organized import cache stamp", () => {
-  assert(window.PLAY_SPRITE_BUILD === report.spriteBuild, window.PLAY_SPRITE_BUILD);
-  assert(window.playSpriteUrl(1, "normal").endsWith(`?v=${report.spriteBuild}`));
+test("sprite URLs carry the current SPRITE_BUILD stamp", () => {
+  const build = JSON.parse(fs.readFileSync(path.join(root, "build.json"), "utf8"));
+  assert(window.PLAY_SPRITE_BUILD === build.spriteBuild, window.PLAY_SPRITE_BUILD);
+  assert(window.playSpriteUrl(1, "normal").endsWith(`?v=${build.spriteBuild}`));
+});
+
+test("form-aware stems resolve Mega / regional via FormId, not variant axis", () => {
+  require("../js/forms.js");
+  assert(fileOf(window.playSpriteUrl(149, "normal", 10281)) === "images/pokemon/forms/10281.gif");
+  assert(fileOf(window.playSpriteUrl(6, "normal", 10034)) === "images/pokemon/forms/10034.gif");
+  assert(fileOf(window.playSpriteUrl(144, "normal", 10169)) === "images/pokemon/forms/10169.gif");
+  assert(exists("images/pokemon/forms/10281.gif"));
+  assert(exists("images/pokemon/forms/10034.gif"));
+  assert(exists("images/pokemon/forms/10169.gif"));
 });
 
 test("resolver never falls forward to Mega / regional / costume forms or Backs", () => {

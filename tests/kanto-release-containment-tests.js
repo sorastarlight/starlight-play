@@ -88,7 +88,7 @@ test("roster builder must not re-widen ordinary spawn to national max", () => {
 test("play sprite resolver never falls forward to non-base forms", () => {
   assert(gameJs.includes("playSpriteStem"));
   assert(/(mega|alola|alolan|galar|galarian|hisui|hisuian|paldea|gmax|gigantamax)/i.test(gameJs));
-  assert(gameJs.includes("refused non-base sprite form") || gameJs.includes("Never fall forward"));
+  assert(gameJs.includes("refused non-base sprite form") || gameJs.includes("Never fall forward") || gameJs.includes("never interpret mega"));
 });
 
 test("KANTO_RELEASE_NORMAL_POOL is 146 BASE species conceptually", () => {
@@ -110,6 +110,29 @@ test("national PLAY_VARIANTS may exceed 151 while release pool stays 146", () =>
   const max = Math.max(...keys);
   assert(max > 151, `national catalog expected >151, got max ${max}`);
   assert(keys.filter((d) => d >= 1 && d <= 151).length === 151);
+});
+
+test("form-aware phase keeps normal pool BASE-only (seed matrix)", () => {
+  const seedPath = path.join(__dirname, "..", "data", "pokemon-forms-seed.json");
+  assert(fs.existsSync(seedPath), "pokemon-forms-seed.json missing");
+  const seed = JSON.parse(fs.readFileSync(seedPath, "utf8"));
+  const ordinary = seed.filter((r) => r.is_base && r.normal_encounter_enabled).length;
+  const nonbaseNormal = seed.filter((r) => !r.is_base && r.normal_encounter_enabled).length;
+  const special = seed.filter((r) => r.is_base && SPECIAL.includes(r.dex) && !r.normal_encounter_enabled).length;
+  assert(ordinary === 146, `ordinary ${ordinary}`);
+  assert(special === 5, `special ${special}`);
+  assert(nonbaseNormal === 0, `nonbaseNormal ${nonbaseNormal}`);
+});
+
+test("form-aware migration exists and never enables non-base normal encounters", () => {
+  const formMig = [
+    "supabase/migrations/20260918050000_form_aware_schema.sql",
+    "supabase/migrations/20260918050100_form_aware_seed.sql",
+    "supabase/migrations/20260918050200_form_aware_rpcs.sql"
+  ].map(read).join("\n");
+  assert(formMig.includes("public.pokemon_forms"));
+  assert(formMig.includes("Alternate forms cannot appear in normal encounters"));
+  assert(formMig.includes("nonbase_normal <> 0"));
 });
 
 const failed = results.filter((row) => !row.passed);

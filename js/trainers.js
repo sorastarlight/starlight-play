@@ -318,7 +318,13 @@
 
   window.playCaughtName = function playCaughtName(row) {
     if (!row) return "";
-    const name = String(row.variant || "").includes("shiny") ? `Shiny ${row.name}` : (row.name || "");
+    const base = row.displayName
+      || (typeof window.playFormDisplayName === "function"
+        ? window.playFormDisplayName(row.dex, row.formId || row.pokemonFormId)
+        : null)
+      || row.name
+      || "";
+    const name = String(row.variant || "").includes("shiny") && !/^Shiny\b/i.test(base) ? `Shiny ${base}` : base;
     return window.playEscapeAttr ? window.playEscapeAttr(name) : String(name);
   };
 
@@ -394,7 +400,7 @@
         </div>
         <ul class="id-team">
           ${slots.map((mon) => mon
-            ? `<li><img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="" width="48" height="48" loading="lazy"><span>${window.playCaughtName(mon)}</span></li>`
+            ? `<li><img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="48" height="48" loading="lazy"><span>${window.playCaughtName(mon)}</span></li>`
             : `<li class="empty"><span>Empty</span></li>`
           ).join("")}
         </ul>

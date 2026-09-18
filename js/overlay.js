@@ -54,7 +54,7 @@
           return;
         }
         sprite.alt = round.name || "Pokémon";
-        sprite.src = window.playSpriteUrl(round.dex, round.variant);
+        sprite.src = window.playSpriteUrl(round.dex, round.variant, window.playResolveFormId?.(round));
         stage.classList.add("shown");
         stage.classList.toggle("is-special", special);
       }

@@ -35,7 +35,7 @@
     const html = rows.length
       ? `<div class="picker-grid">${rows.map((row) => `
           <button type="button" class="picker-mon" data-id="${row.id}">
-            <img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="">
+            <img src="${window.playSpriteUrl(row.dex, row.variant, row.formId)}" alt="">
             <strong>${window.playCaughtName(row)}</strong>
             <span>${window.playCaughtBlurb(row)}</span>
           </button>`).join("")}</div>`
@@ -99,7 +99,7 @@
       }
       return `<article class="team-slot filled">
         <span class="team-slot-no">${index + 1}</span>
-        <img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
+        <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="">
         <strong>${window.playCaughtName(mon)}</strong>
         <span>${window.playCaughtBlurb(mon)}</span>
         ${mine ? `<div class="team-slot-actions">

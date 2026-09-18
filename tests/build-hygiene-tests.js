@@ -31,8 +31,8 @@ function assert(cond, detail) {
 
 test("PLAY_BUILD matches generated build.js", () => {
   assert(Boolean(window.PLAY_BUILD), "missing PLAY_BUILD");
-  assert(window.PLAY_BUILD === "20260917-rc18", window.PLAY_BUILD);
-  assert(window.PLAY_SPRITE_BUILD === "20260917-sp2", window.PLAY_SPRITE_BUILD);
+  assert(window.PLAY_BUILD === "20260918-rc20", window.PLAY_BUILD);
+  assert(window.PLAY_SPRITE_BUILD === "20260918-forms1", window.PLAY_SPRITE_BUILD);
 });
 
 test("mismatch is detected without auto-reload", () => {

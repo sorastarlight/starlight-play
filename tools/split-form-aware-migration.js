@@ -1,0 +1,15 @@
+const fs = require("fs");
+const path = require("path");
+const file = path.join(__dirname, "..", "supabase", "migrations", "20260918050000_form_aware_identity.sql");
+const t = fs.readFileSync(file, "utf8");
+const seedStart = t.indexOf("delete from public.pokemon_forms;");
+const rpcStart = t.indexOf("-- Canonical base FormId");
+if (seedStart < 0 || rpcStart < 0) throw new Error("markers missing");
+const schema = `${t.slice(0, seedStart).trim()}\n`;
+const seed = `${t.slice(seedStart, rpcStart).trim()}\n`;
+const rpcs = `${t.slice(rpcStart).trim()}\n`;
+const dir = path.dirname(file);
+fs.writeFileSync(path.join(dir, "20260918050000_form_aware_schema.sql"), schema);
+fs.writeFileSync(path.join(dir, "20260918050100_form_aware_seed.sql"), seed);
+fs.writeFileSync(path.join(dir, "20260918050200_form_aware_rpcs.sql"), rpcs);
+console.log({ schema: schema.length, seed: seed.length, rpcs: rpcs.length });

@@ -13,6 +13,7 @@
     dexSuggest: document.getElementById("dex-suggest"),
     genderRow: document.getElementById("gender-row"),
     shinyRow: document.getElementById("shiny-row"),
+    formPick: document.getElementById("form-pick"),
     formPreview: document.getElementById("form-preview"),
     formCopy: document.getElementById("form-copy"),
     hide: document.getElementById("toggle-hidden"),
@@ -87,6 +88,7 @@
   };
   let pickGender = "";
   let pickShiny = false;
+  let pickFormId = null;
   let overviewTimer = 0;
   let lastChannel = "";
   let giftItems = [];
@@ -264,11 +266,39 @@
   function pickSpecies(dex) {
     if (!dex) return;
     els.dexPick.value = `${window.playPadDex(dex)} ${window.playSpeciesName(dex)}`;
+    // Species change always resets form to BASE (never carry special form across species).
+    pickFormId = dex;
     if (els.dexSuggest) {
       els.dexSuggest.hidden = true;
       els.dexSuggest.innerHTML = "";
     }
     renderAppearance(dex);
+  }
+
+  function selectedFormId(dex) {
+    if (!dex) return null;
+    const forms = typeof window.playFormsForDex === "function" ? window.playFormsForDex(dex) : [];
+    const base = dex;
+    if (!forms.length) return base;
+    const ok = forms.some((f) => Number(f.formId) === Number(pickFormId));
+    if (!ok) pickFormId = base;
+    return Number(pickFormId) || base;
+  }
+
+  function renderFormPick(dex) {
+    if (!els.formPick) return;
+    if (!dex) {
+      els.formPick.innerHTML = "";
+      els.formPick.disabled = true;
+      pickFormId = null;
+      return;
+    }
+    const forms = typeof window.playFormsForDex === "function" ? window.playFormsForDex(dex) : [{ formId: dex, formLabel: "Base", isBase: true }];
+    const selected = selectedFormId(dex);
+    els.formPick.disabled = false;
+    els.formPick.innerHTML = forms.map((f) => (
+      `<option value="${f.formId}" ${Number(f.formId) === Number(selected) ? "selected" : ""}>${f.isBase ? "Base" : f.formLabel}</option>`
+    )).join("");
   }
 
   function loadStream(login) {
@@ -441,6 +471,10 @@
     if (dex || shiny) payload.shiny = shiny;
     const variant = window.playSpriteVariant(dex, gender, shiny);
     if (dex || shiny) payload.variant = variant;
+    if (dex) {
+      const formId = selectedFormId(dex);
+      if (formId) payload.formId = formId;
+    }
     return payload;
   }
 
@@ -448,6 +482,7 @@
     const genderEl = els.genderRow;
     const shinyEl = els.shinyRow;
     if (!genderEl || !shinyEl) return;
+    renderFormPick(dex);
     const options = window.playGenderOptions(dex);
     if (!dex) {
       genderEl.innerHTML = ["Male", "Female"].map((name) => (
@@ -465,6 +500,10 @@
     shinyEl.innerHTML = `<button type="button" data-shiny="1" aria-pressed="${pickShiny}">Shiny</button>`;
     const gender = selectedGender(dex);
     const variant = window.playSpriteVariant(dex, gender, pickShiny);
+    const formId = selectedFormId(dex);
+    const label = typeof window.playFormDisplayName === "function"
+      ? window.playFormDisplayName(dex, formId)
+      : window.playSpeciesName(dex);
     if (!dex) {
       if (els.formCopy) els.formCopy.textContent = pickShiny || pickGender
         ? `${pickGender || "Any gender"}${pickShiny ? " · Shiny" : ""} · random species`
@@ -475,12 +514,12 @@
     if (els.formPreview) {
       delete els.formPreview.dataset.playSpriteDone;
       delete els.formPreview.dataset.playSpriteLock;
-      els.formPreview.src = window.playSpriteUrl(dex, variant);
-      els.formPreview.alt = `${window.playSpeciesName(dex)} ${gender}${pickShiny ? " Shiny" : ""}`;
+      els.formPreview.src = window.playSpriteUrl(dex, variant, formId);
+      els.formPreview.alt = `${label} ${gender}${pickShiny ? " Shiny" : ""}`;
     }
     if (els.formCopy) {
       const place = window.playHabitat(dex);
-      els.formCopy.textContent = `${window.playSpeciesName(dex)} · ${gender}${pickShiny ? " · Shiny" : ""} · ${place}`;
+      els.formCopy.textContent = `${label} · ${gender}${pickShiny ? " · Shiny" : ""} · ${place}`;
     }
   }
 
@@ -499,7 +538,8 @@
       if (action === "start") return run("admin_start_round", {
         p_dex: payload?.dex ?? null,
         p_gender: payload?.gender ?? null,
-        p_shiny: payload?.shiny ?? null
+        p_shiny: payload?.shiny ?? null,
+        p_form_id: payload?.formId ?? null
       });
       if (action === "cancel") return run("admin_cancel_round");
       if (action === "hide") return run("admin_hide_round", { p_hidden: true });
@@ -545,6 +585,11 @@
     if (!button) return;
     pickShiny = !pickShiny;
     renderAppearance(parseDex(els.dexPick.value));
+  });
+  els.formPick?.addEventListener("change", () => {
+    const dex = parseDex(els.dexPick.value);
+    pickFormId = Number(els.formPick.value) || dex;
+    renderAppearance(dex);
   });
   document.getElementById("cancel-round").addEventListener("click", async () => {
     els.commandStatus.textContent = "Working…";

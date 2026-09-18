@@ -517,14 +517,77 @@
     return String(variant || "").toLowerCase().includes("female");
   };
 
-  window.playSpriteStem = function playSpriteStem(dex, variant) {
+  window.playIsBaseForm = function playIsBaseForm(formId, dex) {
+    const id = Number(formId);
+    const d = Number(dex);
+    if (!id || !d) return true;
+    if (id === d) return true;
+    const meta = window.playFormMeta(id);
+    return !meta || meta.isBase === true || meta.dex !== d;
+  };
+
+  window.playFormId = function playFormId(dex, formId) {
+    const d = Number(dex);
+    if (!d) return null;
+    const id = Number(formId);
+    if (!id || id === d) return d;
+    const meta = window.playFormMeta(id);
+    if (!meta || Number(meta.dex) !== d) return d;
+    return id;
+  };
+
+  window.playFormMeta = function playFormMeta(formId) {
+    const id = Number(formId);
+    if (!id) return null;
+    const catalog = window.PLAY_FORMS || {};
+    return catalog[id] || catalog[String(id)] || null;
+  };
+
+  window.playFormDisplayName = function playFormDisplayName(dex, formId) {
+    const d = Number(dex);
+    const id = window.playFormId(d, formId);
+    const meta = window.playFormMeta(id);
+    if (meta && meta.displayName) return meta.displayName;
+    const species = typeof window.playSpeciesName === "function" ? window.playSpeciesName(d) : `No. ${d}`;
+    if (!meta || meta.isBase || id === d) return species;
+    return `${species} — ${meta.formLabel || "Form"}`;
+  };
+
+  window.playFormsForDex = function playFormsForDex(dex, opts) {
+    const d = Number(dex);
+    if (!d) return [];
+    const ids = (window.PLAY_FORM_BY_DEX && (window.PLAY_FORM_BY_DEX[d] || window.PLAY_FORM_BY_DEX[String(d)])) || [];
+    const wantAdmin = !opts || opts.admin !== false;
+    const wantEvent = opts && opts.event === true;
+    return ids
+      .map((id) => window.playFormMeta(id))
+      .filter(Boolean)
+      .filter((f) => {
+        if (f.isBase) return true;
+        if (wantEvent) return !!f.eventTargetable;
+        if (wantAdmin) return !!f.adminTargetable;
+        return false;
+      });
+  };
+
+  window.playResolveFormId = function playResolveFormId(entity) {
+    if (!entity) return null;
+    const dex = Number(entity.dex || entity.speciesDex || 0);
+    const fromPokemon = entity.pokemon && (entity.pokemon.formId || entity.pokemon.pokemonFormId);
+    const raw = entity.formId || entity.pokemonFormId || fromPokemon || entity.pokemon_form_id;
+    return window.playFormId(dex, raw);
+  };
+
+  window.playSpriteStem = function playSpriteStem(dex, variant, formId) {
     const id = Number(dex);
     if (!id) return "";
-    // Roster freeze: gameplay stems are base Kanto only (normal / shiny / female).
-    // Never fall forward to Mega, regional, Gmax, Cosplay, Cap, or other special forms
-    // just because those assets exist in the library.
+    const resolvedForm = window.playFormId(id, formId);
+    const formMeta = window.playFormMeta(resolvedForm);
+    const useFormStem = formMeta && !formMeta.isBase && resolvedForm && resolvedForm !== id;
+
+    // Roster freeze: never interpret mega/regional tokens on the variant axis.
     let kind = String(variant || "normal").toLowerCase();
-    if (/(mega|alola|alolan|galar|galarian|hisui|hisuian|paldea|gmax|gigantamax|totem|cosplay|belle|libre|phd|popstar|rockstar|cap\b)/i.test(kind)) {
+    if (/(mega|alola|alolan|galar|galarian|hisui|hisuian|paldea|gmax|gigantamax|totem|cosplay|belle|libre|phd|popstar|rockstar|cap\b|back\b)/i.test(kind)) {
       if (typeof console !== "undefined") {
         console.warn(`[play] refused non-base sprite form for dex ${id}: ${kind}`);
       }
@@ -534,17 +597,24 @@
     const allowed = new Set(typeof window.playAllowedVariants === "function" ? window.playAllowedVariants(id) : []);
     const shiny = kind.includes("shiny");
     const wantsFemale = kind.includes("female");
-    const female = wantsFemale && (!catalog || allowed.has("female") || allowed.has("shiny-female"));
+    const female = !useFormStem && wantsFemale && (!catalog || allowed.has("female") || allowed.has("shiny-female"));
+
+    if (useFormStem) {
+      if (shiny && female) return `forms/shiny/female/${resolvedForm}`;
+      if (female) return `forms/female/${resolvedForm}`;
+      if (shiny) return `forms/shiny/${resolvedForm}`;
+      return `forms/${resolvedForm}`;
+    }
     if (shiny && female) return `shiny/female/${id}`;
     if (female) return `female/${id}`;
     if (shiny) return `shiny/${id}`;
     return String(id);
   };
 
-  window.playSpriteUrl = function playSpriteUrl(dex, variant) {
+  window.playSpriteUrl = function playSpriteUrl(dex, variant, formId) {
     const id = Number(dex);
     if (!id) return "";
-    const stem = window.playSpriteStem(id, variant);
+    const stem = window.playSpriteStem(id, variant, formId);
     const ext = (window.PLAY_SPRITE_EXT && window.PLAY_SPRITE_EXT[stem]) || "gif";
     const url = `images/pokemon/${stem}.${ext}`;
     const stamp = window.PLAY_SPRITE_BUILD;
@@ -561,22 +631,27 @@
   window.playSpriteOnError = function playSpriteOnError(img) {
     if (!(img instanceof HTMLImageElement) || img.dataset.playSpriteDone || img.dataset.playSpriteLock) return;
     const src = String(img.getAttribute("src") || img.currentSrc || "");
-    const match = src.match(/(?:(shiny)\/)?(?:(female)\/)?(\d+)\.(gif|png)(?:\?.*)?$/i);
+    const formMatch = src.match(/images\/pokemon\/forms\/(?:(shiny)\/)?(?:(female)\/)?(\d+)\.(gif|png)(?:\?.*)?$/i);
+    const baseMatch = src.match(/images\/pokemon\/(?:(shiny)\/)?(?:(female)\/)?(\d+)\.(gif|png)(?:\?.*)?$/i);
+    const match = formMatch || baseMatch;
     if (!match) {
       img.dataset.playSpriteDone = "1";
       return;
     }
     img.dataset.playSpriteLock = "1";
+    const isForm = Boolean(formMatch);
     const shiny = Boolean(match[1]);
     const female = Boolean(match[2]);
     const id = match[3];
     const ext = match[4].toLowerCase();
     let next = "";
     const stamp = window.PLAY_SPRITE_BUILD ? `?v=${window.PLAY_SPRITE_BUILD}` : "";
+    const root = isForm ? "images/pokemon/forms" : "images/pokemon";
     if (ext === "gif") next = src.replace(/\.gif(?:\?.*)?$/i, `.png${stamp}`);
-    else if (shiny && female) next = `images/pokemon/shiny/${id}.gif${stamp}`;
-    else if (female) next = `images/pokemon/${id}.gif${stamp}`;
-    else if (shiny) next = `images/pokemon/${id}.gif${stamp}`;
+    else if (shiny && female) next = `${root}/shiny/${id}.gif${stamp}`;
+    else if (female) next = `${root}/${id}.gif${stamp}`;
+    else if (shiny) next = `${root}/${id}.gif${stamp}`;
+    // Never fall across forms or into Back artwork.
     if (!next || next.split("?")[0] === src.split("?")[0]) {
       img.dataset.playSpriteDone = "1";
       delete img.dataset.playSpriteLock;

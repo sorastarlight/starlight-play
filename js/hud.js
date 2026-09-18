@@ -229,7 +229,7 @@
     const warnClass = typeof window.playTimerWarnClass === "function"
       ? window.playTimerWarnClass(seconds)
       : "";
-    const sprite = window.playSpriteUrl(round.dex, round.variant);
+    const sprite = window.playSpriteUrl(round.dex, round.variant, window.playResolveFormId?.(round));
     const shiny = String(round.variant || "").includes("shiny");
     const location = window.playHabitat(round.dex, round.location);
     const locAttrs = typeof window.playLocationVisualAttrs === "function"
@@ -746,7 +746,7 @@
       || (monitor && Array.isArray(round.throwers) && round.throwers[0]?.ball)
       || "pokeball";
     const species = window.playDisplayName(round, { plain: true });
-    const sprite = window.playSpriteUrl(round.dex, round.variant);
+    const sprite = window.playSpriteUrl(round.dex, round.variant, window.playResolveFormId?.(round));
     const elapsed = window.playCatchSeqElapsedSec(round);
     const personal = personalResult(round, me, species);
     const win = st.scene === "results" && personal.win;

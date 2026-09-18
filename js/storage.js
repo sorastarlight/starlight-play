@@ -159,7 +159,7 @@
         ${teamSlot(mon) === 1 ? `<span class="lgpe-heart" aria-hidden="true">♥</span>` : ""}
         ${String(mon.variant || "").includes("shiny") ? `<span class="lgpe-spark">✦</span>` : ""}
         ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
-        <span class="lgpe-sprite"><img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt=""></span>
+        <span class="lgpe-sprite"><img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt=""></span>
       </button>`;
     }).join("");
     const index = filtered.findIndex((row) => String(row.id) === selectedId);
@@ -205,7 +205,7 @@
     els.detail.innerHTML = `
       <div class="lgpe-detail-inner">
         <div class="lgpe-detail-hero">
-          <img class="lgpe-hero-sprite" src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt="">
+          <img class="lgpe-hero-sprite" src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="">
           <div>
             <h2>${window.playEscapeAttr(displayName(mon))}</h2>
             <p class="lgpe-species">Lv. ${mon.level || 1}</p>
@@ -308,7 +308,7 @@
     if (!els.oakModal || !mon) return;
     pendingOakId = String(mon.id);
     if (els.oakSprite) {
-      els.oakSprite.src = window.playSpriteUrl(mon.dex, mon.variant);
+      els.oakSprite.src = window.playSpriteUrl(mon.dex, mon.variant, mon.formId);
       els.oakSprite.alt = displayName(mon);
     }
     if (els.oakCopy) {

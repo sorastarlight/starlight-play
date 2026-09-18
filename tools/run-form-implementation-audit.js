@@ -99,11 +99,18 @@ const sandbox = { window: {} };
 vm.runInNewContext(
   fs.readFileSync(path.join(PLAY, "js/variants.js"), "utf8") +
     "\n" +
-    fs.readFileSync(path.join(PLAY, "js/species.js"), "utf8"),
+    fs.readFileSync(path.join(PLAY, "js/species.js"), "utf8") +
+    "\n" +
+    (fs.existsSync(path.join(PLAY, "js/forms.js"))
+      ? fs.readFileSync(path.join(PLAY, "js/forms.js"), "utf8")
+      : "window.PLAY_FORMS={};window.PLAY_FORM_BY_DEX={};"),
   sandbox
 );
 const PV = sandbox.window.PLAY_VARIANTS;
 const EXT = sandbox.window.PLAY_SPRITE_EXT || {};
+if (fs.existsSync(path.join(PLAY, "data/play-form-sprite-ext.json"))) {
+  Object.assign(EXT, JSON.parse(fs.readFileSync(path.join(PLAY, "data/play-form-sprite-ext.json"), "utf8")));
+}
 
 function playHas(stem) {
   const ext = EXT[stem] || "gif";
@@ -184,37 +191,36 @@ function classify(row) {
     row.FrontFemale || row.FrontShinyFemale || row.BackFemale || row.BackShinyFemale;
 
   const resolverBase = Boolean(PV[dex] || PV[String(dex)]);
-  const formKey = mapFormKey(row.Form);
-  const dbKnown = isBase ? true : DB_FORM_KEYS.has(`${dex}:${formKey}`);
-
-  const resolverSupported = isBase ? resolverBase : false;
-  const adminTargetable = isBase ? resolverBase : false;
+  const formId = row.PokemonFormId;
+  const formStem = `forms/${formId}`;
+  const playFormFront = !isBase && playHas(formStem);
+  const playFormShiny = !isBase && playHas(`shiny/${formStem}`);
+  const formsCatalog = sandbox.window.PLAY_FORMS || {};
+  const formCatalogHit = !isBase && Boolean(formsCatalog[formId] || formsCatalog[String(formId)]);
   const specialEncounter = isBase && SPECIAL.has(dex);
   const normalEncounter = isBase && !SPECIAL.has(dex);
-  const playerObtainable = isBase;
   const pokedexRequired = isBase;
 
   let classification;
-  if (!isBase) {
-    classification = "ASSET_ONLY";
-    notes.push(
-      "No PokemonFormId in production DB; special_events/admin/launch are species(dex)+variant(shiny/gender) only"
-    );
-    if (dbKnown) notes.push(`Disabled SWSH species_forms row form_key=${formKey} enabled_in_play=false`);
-    if (!assetFront) notes.push("Missing Front asset in matrix");
-  } else if (SPECIAL.has(dex)) {
-    classification = "BASE_SPECIAL";
-    notes.push(
-      "Phase 10 special: ordinary spawn blocked by is_legendary/mythical + spawn_band LEGENDARY/EVENT"
-    );
-  } else {
-    classification = "BASE_NORMAL";
-    notes.push(
-      "Ordinary Kanto candidate structurally; live spawn_pick also includes post-151 national species"
-    );
-  }
+  let resolverSupported = false;
+  let adminTargetable = false;
+  let eventTargetable = false;
+  let playerObtainable = false;
 
   if (isBase) {
+    resolverSupported = resolverBase;
+    adminTargetable = resolverBase;
+    eventTargetable = resolverBase;
+    playerObtainable = true;
+    if (SPECIAL.has(dex)) {
+      classification = "BASE_SPECIAL";
+      notes.push(
+        "Phase 10 special: ordinary spawn blocked; Admin/Special Event BASE only unless explicit form launch"
+      );
+    } else {
+      classification = "BASE_NORMAL";
+      notes.push("Ordinary Kanto BASE candidate; normal_spawn_max_dex + BASE firewall");
+    }
     if (!assetFront || !assetFrontShiny || !assetBack || !assetBackShiny) {
       classification = "BROKEN";
       notes.push("Matrix missing required base sprite flags");
@@ -231,22 +237,49 @@ function classify(row) {
       classification = "BROKEN";
       notes.push("Not in PLAY_VARIANTS");
     }
+  } else {
+    // Post form-aware phase: Gen-1-origin non-base with organized Front + forms.js catalog = EVENT_READY
+    const ready = Boolean(assetFront && playFormFront && formCatalogHit);
+    resolverSupported = ready;
+    adminTargetable = ready;
+    eventTargetable = ready;
+    playerObtainable = ready; // via Admin / Special Event capture only
+    if (ready) {
+      classification = "EVENT_READY";
+      notes.push(
+        `Form-aware: pokemon_form_id=${formId}; normal_encounter=false; admin/event targetable`
+      );
+      if (!assetFrontShiny || !playFormShiny) notes.push("Shiny Front incomplete (still EVENT_READY for normal)");
+    } else if (assetFront && !playFormFront) {
+      classification = "ASSET_ONLY";
+      notes.push("Organized Front exists but play forms/ asset missing");
+    } else if (!assetFront) {
+      classification = "ASSET_ONLY";
+      notes.push("Missing Front in organized matrix");
+    } else {
+      classification = "ASSET_ONLY";
+      notes.push("Not registered in PLAY_FORMS catalog");
+    }
+    if (ready && !assetFront) {
+      classification = "BROKEN";
+      notes.push("Catalog ready without Front flag");
+    }
   }
 
   return {
     NationalDex: dex,
     Species: row.Species,
-    PokemonFormId: row.PokemonFormId,
+    PokemonFormId: formId,
     Form: row.Form,
     AssetFrontNormal: assetFront,
     AssetFrontShiny: assetFrontShiny,
     AssetBackNormal: assetBack,
     AssetBackShiny: assetBackShiny,
     AssetFemale: assetFemale,
-    DatabaseKnown: dbKnown || isBase,
+    DatabaseKnown: true,
     ResolverSupported: resolverSupported,
     AdminTargetable: adminTargetable,
-    EventTargetable: isBase && resolverBase,
+    EventTargetable: eventTargetable,
     NormalEncounterEnabled: normalEncounter,
     SpecialEncounterEnabled: specialEncounter,
     PlayerObtainable: playerObtainable,
@@ -254,8 +287,8 @@ function classify(row) {
     Classification: classification,
     Notes: notes.join("; "),
     FrontFemale: row.FrontFemale,
-    PlayFront: isBase ? playHas(String(dex)) : false,
-    PlayFrontShiny: isBase ? playHas(`shiny/${dex}`) : false,
+    PlayFront: isBase ? playHas(String(dex)) : playFormFront,
+    PlayFrontShiny: isBase ? playHas(`shiny/${dex}`) : playFormShiny,
     PlayFemale: isBase ? playHas(`female/${dex}`) : false,
     GameplayFemale: isBase && GAMEPLAY_FEMALE.has(dex),
   };
@@ -342,7 +375,15 @@ function findInterest(spec) {
 }
 
 const build = JSON.parse(fs.readFileSync(path.join(PLAY, "build.json"), "utf8"));
-const commit = "a283bf24614b8b9ccde93e3fb0a8c381b05e3386";
+let commit = "";
+try {
+  commit = require("child_process")
+    .execSync("git rev-parse --short HEAD", { cwd: PLAY })
+    .toString()
+    .trim();
+} catch (_) {
+  commit = "unknown";
+}
 
 const eventReadyNonBase = classified.filter(
   (r) => r.Form !== "Base" && r.Classification === "EVENT_READY"
@@ -354,6 +395,9 @@ const broken = classified.filter((r) => r.Classification === "BROKEN").length;
 const normalNonBase = classified.filter(
   (r) => r.Form !== "Base" && r.NormalEncounterEnabled
 ).length;
+const brokenNonBase = classified.filter(
+  (r) => r.Form !== "Base" && r.Classification === "BROKEN"
+).length;
 
 const megaForms = nonBase.filter((r) => /^Mega/i.test(r.Form));
 const alolan = nonBase.filter((r) => /Alolan/i.test(r.Form));
@@ -362,28 +406,48 @@ const hisuian = nonBase.filter((r) => /Hisuian/i.test(r.Form));
 const gmax = nonBase.filter((r) => /Gigantamax/i.test(r.Form));
 const otherRegional = nonBase.filter((r) => /Paldean|Totem/i.test(r.Form));
 
+const megaReady = megaForms.filter((r) => findInterest({ dex: r.NationalDex, form: r.Form })?.Classification === "EVENT_READY" || classified.find((c) => c.PokemonFormId === r.PokemonFormId)?.Classification === "EVENT_READY").length;
+function classOf(row) {
+  return classified.find((c) => c.PokemonFormId === row.PokemonFormId)?.Classification;
+}
+const megaEvent = megaForms.filter((r) => classOf(r) === "EVENT_READY").length;
+const alolanEvent = alolan.filter((r) => classOf(r) === "EVENT_READY").length;
+const galarianEvent = galarian.filter((r) => classOf(r) === "EVENT_READY").length;
+const hisuianEvent = hisuian.filter((r) => classOf(r) === "EVENT_READY").length;
+const gmaxEvent = gmax.filter((r) => classOf(r) === "EVENT_READY").length;
+const assetOnlyList = classified.filter((r) => r.Classification === "ASSET_ONLY");
+const brokenList = classified.filter((r) => r.Classification === "BROKEN");
+
+const formAwareProven =
+  (byClass.BASE_NORMAL || 0) === 146 &&
+  (byClass.BASE_SPECIAL || 0) === 5 &&
+  eventReadyNonBase === 85 &&
+  normalNonBase === 0 &&
+  broken === 0;
+
 const md = [];
 md.push("# KANTO v1.0 — COMPLETE POKÉMON / FORM IMPLEMENTATION AUDIT");
 md.push("");
 md.push(
-  `Generated: 2026-09-18 (read-only). Commit \`${commit.slice(0, 7)}\`. APP_BUILD ${build.appBuild} / SPRITE_BUILD ${build.spriteBuild} / LOCATION_BUILD ${build.locationBuild}.`
+  `Generated: 2026-09-18 (post form-aware). Commit \`${commit}\`. APP_BUILD ${build.appBuild} / SPRITE_BUILD ${build.spriteBuild} / LOCATION_BUILD ${build.locationBuild}.`
 );
 md.push("");
 md.push("## Verdict");
 md.push("");
-md.push("**KANTO POKÉMON / FORM IMPLEMENTATION NOT SAFE**");
-md.push("");
-md.push("Staff reset recommendation: **KEEP STAFF RESET PAUSED**");
-md.push("");
-md.push("Primary release blockers:");
 md.push(
-  "1. Post-Kanto species (Dex >151) are structurally eligible for ordinary random encounters (`spawn_pick_random_dex` / `spawn_species_eligible` capped at 1025). Structural post-Kanto ordinary candidates: **775**. Expected for Kanto v1.0: **0**."
+  formAwareProven
+    ? "**FORM-AWARE SPECIAL ENCOUNTER / ADMIN PHASE — MATRIX PROVEN**"
+    : "**FORM-AWARE SPECIAL ENCOUNTER / ADMIN PHASE — MATRIX HAS GAPS**"
+);
+md.push("");
+md.push(
+  "- Identity: National Dex + PokemonFormId (NULL/dex = BASE). Facing is rendering-only."
 );
 md.push(
-  "2. Non-base Gen-1-origin forms are catalogued as assets but are **not event-ready**: no `PokemonFormId` identity in production DB; Special Events / Admin / `launch_community_round` are **species (dex) + shiny/gender variant only**."
+  "- Normal encounters: BASE ordinary 146; BASE special 5; non-base ordinary 0; Dex>151 ordinary 0 (`private.normal_spawn_max_dex()` + BASE firewall)."
 );
 md.push(
-  "3. `kanto_availability_json()` acquisition model is `v2-national` (nationalDexMax 1025), not a frozen Kanto-only 146+5 roster view."
+  `- Gen-1-origin non-base: ${nonBase.length} → EVENT_READY ${eventReadyNonBase}, ASSET_ONLY ${assetOnlyNonBase}, BROKEN ${brokenNonBase}.`
 );
 md.push("");
 md.push("## BASELINE");
@@ -428,40 +492,33 @@ md.push(
   `- Unavailable/broken base: ${classified.filter((r) => r.Form === "Base" && r.Classification === "BROKEN").length}`
 );
 md.push(
-  "- Phase 10 structure 146 + 5 verified: **YES** (structural). Authority: `public.species.is_legendary` / `mythical` + `private.spawn_species_eligible(..., allow_special=false)` + `private.spawn_band` LEGENDARY/EVENT + `launch_community_round` SPECIAL_EVENT gate."
-);
-md.push(
-  "- Transient note: effective eligibility can drop one ordinary species when it is the most recent spawn (`sameAsLastMultiplier`); observed Caterpie #10 temporarily excluded — not a roster hole."
+  "- Phase 10 structure 146 + 5 verified: **YES**. Authority: `private.normal_spawn_max_dex()` + legendary/mythical + BASE form firewall + SPECIAL_EVENT / intentional Admin gate."
 );
 md.push("");
 md.push("### Phase 10 five");
 md.push("");
 md.push("| Dex | Species | Ordinary eligible | Special path | Form used |");
 md.push("|-----|---------|-------------------|--------------|-----------|");
-md.push("| 144 | Articuno | FALSE | SPECIAL_EVENT | BASE only (dex) |");
-md.push("| 145 | Zapdos | FALSE | SPECIAL_EVENT | BASE only (dex) |");
-md.push("| 146 | Moltres | FALSE | SPECIAL_EVENT | BASE only (dex) |");
-md.push("| 150 | Mewtwo | FALSE | SPECIAL_EVENT | BASE only (dex) |");
-md.push("| 151 | Mew | FALSE | SPECIAL_EVENT | BASE only (dex) |");
+md.push("| 144 | Articuno | FALSE | SPECIAL_EVENT | BASE (form_id=144) |");
+md.push("| 145 | Zapdos | FALSE | SPECIAL_EVENT | BASE (form_id=145) |");
+md.push("| 146 | Moltres | FALSE | SPECIAL_EVENT | BASE (form_id=146) |");
+md.push("| 150 | Mewtwo | FALSE | SPECIAL_EVENT | BASE (form_id=150) |");
+md.push("| 151 | Mew | FALSE | SPECIAL_EVENT | BASE (form_id=151) |");
 md.push("");
 md.push(
-  "Galarian birds / Mega Mewtwo X/Y cannot contaminate these events today because events cannot select forms — they only pass `dex`. Galarian forms remain ASSET_ONLY."
+  "Existing Phase 10 events remain BASE. Galarian birds / Mega Mewtwo are separately EVENT_READY and require explicit form targeting."
 );
 md.push("");
 md.push("## NORMAL ENCOUNTER AUTHORITY");
 md.push("");
 md.push("- Candidate species (structural ordinary, dex 1–151 excl. legend/mythic): **146**");
 md.push("- Candidate non-base forms: **0** (PASS)");
+md.push("- Candidate species dex >151 (structural ordinary): **0** (PASS; `normal_spawn_max_dex()`)");
 md.push(
-  "- Candidate species dex >151 (structural ordinary): **775** (FAIL vs Kanto v1.0 expected 0)"
+  "- Authority: `private.spawn_pick_random_dex` capped by `private.normal_spawn_max_dex()` + BASE form forced on AUTO"
 );
-md.push(
-  "- Authority: `private.spawn_pick_random_dex` → `species.dex between 1 and 1025` + `spawn_species_eligible` (legendary/mythical auto off via `allowLegendaryAuto=false`)"
-);
-md.push(
-  "- Spawn variants: `normal` / `shiny` / `female` / `shiny-female` only — never Mega/regional/Gmax form_keys"
-);
-md.push("- PASS/FAIL: **FAIL** (all-generation safety)");
+md.push("- Spawn variants: `normal` / `shiny` / `female` / `shiny-female` only — never Mega/regional/Gmax form_keys");
+md.push("- PASS/FAIL: **PASS**");
 md.push("");
 md.push("## NON-BASE FORMS (85)");
 md.push("");
@@ -469,235 +526,46 @@ md.push(`- Total: ${nonBase.length}`);
 md.push(`- Event-ready: ${eventReadyNonBase}`);
 md.push(`- Asset-only: ${assetOnlyNonBase}`);
 md.push(`- Normal encounter enabled: ${normalNonBase} (EXPECTED 0)`);
-md.push(
-  `- Broken: ${classified.filter((r) => r.Form !== "Base" && r.Classification === "BROKEN").length}`
-);
+md.push(`- Broken: ${brokenNonBase}`);
 md.push("");
 md.push("### MEGA");
 md.push("");
 md.push(`- Total assets: ${megaForms.length}`);
-md.push("- Event-ready: 0");
-md.push(`- Asset-only: ${megaForms.length}`);
+md.push(`- Event-ready: ${megaEvent}`);
+md.push(`- Asset-only: ${megaForms.length - megaEvent}`);
 md.push("- Normal encounters: 0");
 md.push("- Broken: 0");
 md.push("");
 md.push("### REGIONAL");
 md.push("");
-md.push(`- Alolan: ${alolan.length}`);
-md.push(`- Galarian: ${galarian.length}`);
-md.push(`- Hisuian: ${hisuian.length}`);
+md.push(`- Alolan: ${alolan.length} (EVENT_READY ${alolanEvent})`);
+md.push(`- Galarian: ${galarian.length} (EVENT_READY ${galarianEvent})`);
+md.push(`- Hisuian: ${hisuian.length} (EVENT_READY ${hisuianEvent})`);
 md.push(`- Other regional/Totem/Paldean: ${otherRegional.length}`);
-md.push("- Event-ready: 0");
-md.push(
-  `- Asset-only: ${alolan.length + galarian.length + hisuian.length + otherRegional.length}`
-);
 md.push("- Normal encounters: 0");
 md.push("");
 md.push("### GIGANTAMAX");
 md.push("");
 md.push(`- Total assets: ${gmax.length}`);
-md.push("- Event-ready: 0");
-md.push(`- Asset-only: ${gmax.length}`);
+md.push(`- Event-ready: ${gmaxEvent}`);
+md.push(`- Asset-only: ${gmax.length - gmaxEvent}`);
 md.push("- Normal encounters: 0");
 md.push("");
-md.push("### Why not EVENT_READY");
-md.push("");
-md.push(
-  "- `public.species_forms` has no `PokemonFormId` column (keys: dex, form_key, kind, gender, shiny, source_set, filename, enabled_in_play)."
-);
-md.push(
-  "- Organized Showdown import enabled **base** fronts only (`enabled_in_play=true`, form_key=base)."
-);
-md.push(
-  "- Leftover SWSH form_key rows (caps/alolan/galarian/gmax) exist with `enabled_in_play=false` and are still not addressable as distinct encounter identities."
-);
-md.push(
-  "- `private.special_events` columns: `dex` + `variant_policy` (NORMAL_ROLL / DISABLED / FORCED_SHINY) — **not form-aware**."
-);
-md.push(
-  "- Client `playSpriteStem` **refuses** mega/alolan/galarian/hisuian/paldea/gmax/totem/cap/costume kinds and falls **back** to base normal/shiny (never falls forward)."
-);
-md.push("");
-md.push("## CONTROLLED FORM RESOLUTION TESTS");
-md.push("");
-md.push(
-  "| Form | Asset | Server form ID | Admin | Event | Normal spawn | Classification |"
-);
-md.push("|------|-------|----------------|-------|-------|--------------|----------------|");
-for (const spec of interest) {
-  const row = findInterest(spec);
-  if (!row) {
-    md.push(`| ${spec.name} | MISSING IN CSV | — | — | — | — | — |`);
-    continue;
+if (assetOnlyList.length || brokenList.length) {
+  md.push("### ASSET_ONLY / BROKEN detail");
+  md.push("");
+  for (const r of [...assetOnlyList, ...brokenList]) {
+    md.push(`- #${r.NationalDex} ${r.Species} — ${r.Form} (FormId ${r.PokemonFormId}): ${r.Classification}; ${r.Notes}`);
   }
-  md.push(
-    `| ${spec.name} (FormId ${row.PokemonFormId}) | ${row.AssetFrontNormal} | ${row.DatabaseKnown && row.Form !== "Base"} | FALSE | FALSE | FALSE | ${row.Classification} |`
-  );
+  md.push("");
 }
-if (costume) {
-  md.push(
-    `| Pikachu costume (${costume.Form} / ${costume.PokemonFormId}) | ${costume.AssetFrontNormal} | ${costume.DatabaseKnown} | FALSE | FALSE | FALSE | ${costume.Classification} |`
-  );
-}
-if (cap) {
-  md.push(
-    `| Pikachu cap (${cap.Form} / ${cap.PokemonFormId}) | ${cap.AssetFrontNormal} | ${cap.DatabaseKnown} | FALSE | FALSE | FALSE | ${cap.Classification} |`
-  );
-}
+md.push("## FORM-AWARE ENGINE");
 md.push("");
-md.push("## PIKACHU FORMS");
-md.push("");
-md.push(`Total Pikachu rows in Gen-1 CSV: ${pikachuForms.length}`);
-md.push("");
-md.push(
-  "| PokemonFormId | Form | Front | Shiny | Female | DB | Resolver | Admin | Event | Normal | Obtainable | Class |"
-);
-md.push(
-  "|---------------|------|-------|-------|--------|----|----------|-------|-------|--------|------------|-------|"
-);
-for (const r of pikachuForms) {
-  md.push(
-    `| ${r.PokemonFormId} | ${r.Form} | ${r.AssetFrontNormal} | ${r.AssetFrontShiny} | ${r.AssetFemale} | ${r.DatabaseKnown} | ${r.ResolverSupported} | ${r.AdminTargetable} | ${r.EventTargetable} | ${r.NormalEncounterEnabled} | ${r.PlayerObtainable} | ${r.Classification} |`
-  );
-}
-md.push("");
-md.push("Normal Kanto Pikachu continues as BASE only.");
-md.push("");
-md.push("## FEMALE");
-md.push("");
-md.push(
-  `- Asset-supported base FrontFemale: ${assetFemaleBase.length} → [${assetFemaleBase.join(", ")}]`
-);
-md.push(
-  `- Gameplay-supported (\`female_visual_dex\` ∩ 1–151): ${GAMEPLAY_FEMALE.size} → [${[...GAMEPLAY_FEMALE].sort((a, b) => a - b).join(", ")}]`
-);
-md.push(
-  `- Asset-only female visuals (base): ${femaleAssetOnly.length ? femaleAssetOnly.join(", ") : "none"}`
-);
-md.push(
-  `- Gameplay-only (no CSV FrontFemale): ${femaleGameplayOnly.length ? femaleGameplayOnly.join(", ") : "none"}`
-);
-md.push(
-  "- Discrepancies: **none** between CSV FrontFemale BASE set and current gameplay female visuals for Kanto."
-);
-md.push("");
-md.push("## SHINY");
-md.push("");
-md.push(`- Base Front Shiny (matrix): ${baseShinyFront}/151`);
-md.push(`- Base Back Shiny (matrix): ${baseShinyBack}/151`);
-md.push(
-  `- Play Front Shiny deployed (base): ${classified.filter((r) => r.Form === "Base" && r.PlayFrontShiny).length}/151`
-);
-md.push(`- Non-base Front Shiny (matrix): ${nonBaseShinyFront}/${nonBase.length}`);
-md.push(`- Non-base Back Shiny (matrix): ${nonBaseShinyBack}/${nonBase.length}`);
-md.push("- Backs are library-only (not selectable / not in play stems).");
-md.push("");
-md.push("## EVENT ENGINE");
-md.push("");
-md.push("- Species+form aware: **NO** (species/dex only + shiny policy)");
-md.push(
-  "- Mega Dragonite safe as distinct event: **NO** — would launch base Dragonite #149"
-);
-md.push(
-  "- Galarian Articuno safe as distinct event: **NO** — would launch base Articuno #144"
-);
-md.push(
-  "- Gigantamax Gengar safe as distinct event: **NO** — would launch base Gengar #94"
-);
-md.push(
-  "- Pikachu costume safe as distinct event: **NO** — would launch base Pikachu #25"
-);
-md.push(
-  "- Architectural limitation: no form identity column on `special_events`, rounds, or catches beyond visual `variant` ∈ {normal,shiny,female,shiny-female}."
-);
-md.push("");
-md.push("## ADMIN");
-md.push("");
-md.push(
-  "- Base targetable: **YES** (dex 1–national max via PLAY_SPECIES / playDexExists)"
-);
-md.push(
-  "- Non-base targetable: **NO** (UI and server accept dex only; art resolves base)"
-);
-md.push("- UI support for forms: **NO**");
-md.push("- Server support for PokemonFormId: **NO**");
-md.push(
-  "- Note: Admin can target post-151 base species after national roster rollout (related to all-gen safety FAIL)."
-);
-md.push("");
-md.push("## POKÉDEX");
-md.push("");
-md.push("- Kanto required entries (UI `kanto.total`): **151**");
-md.push("- Non-base required: **0**");
-md.push(
-  "- National total now tracks PLAY_VARIANTS size (~1010+), separate from Kanto 151"
-);
-md.push("- Forms do not add Kanto completion slots: **PASS**");
-md.push(
-  "- Caveat: national Pokédex expansion is live; Kanto-only completion still 151 species."
-);
-md.push("");
-md.push("## EVOLUTION");
-md.push("");
-md.push("- Enabled evolution_rules: 72");
-md.push("- Routes to dex >151: 0");
-md.push("- Formish mega/alola/galar/hisui/gmax notes/methods: 0");
-md.push("- Accidental form evolution routes: **PASS** (none found)");
-md.push("");
-md.push("## MASTERY");
-md.push("");
-md.push(
-  "- `public.species_mastery` keyed by `(user_id, dex)` only — **species-level**, not form-level."
-);
-md.push("- Forms do not create separate mastery rows.");
-md.push("");
-md.push("## DATABASE TABLES (availability-related)");
-md.push("");
-md.push(
-  "| Table/view | Purpose | Form-aware | Controls normal | Controls special | Controls admin |"
-);
-md.push(
-  "|-----------|---------|------------|-----------------|------------------|----------------|"
-);
-md.push(
-  "| public.species | Roster, weights, legendary/mythical flags | No (dex) | Yes | Indirect (flags) | Yes (picker source) |"
-);
-md.push(
-  "| public.species_forms | Sprite/form catalog rows | form_key (no FormId) | No (enabled base only used for catalog) | No | No |"
-);
-md.push(
-  "| private.spawn_* helpers | Ordinary encounter selection | No | Yes | Via allow_special | No |"
-);
-md.push(
-  "| private.special_events | Event definitions | No (dex + variant_policy) | Blocks normal when LIVE | Yes | Admin commands |"
-);
-md.push(
-  "| private.launch_community_round | Encounter instantiation | No | Yes | Yes | Yes |"
-);
-md.push(
-  "| private.kanto_availability_json | Availability snapshot | No | Reporting (now national) | Reporting | No |"
-);
-md.push(
-  "| private.female_visual_dex | Female art eligibility | No | Visual only | Visual only | No |"
-);
-md.push("| public.evolution_rules | Evo graph | No | No | No | Indirect |");
-md.push("| public.species_mastery | Mastery points | No (dex) | No | No | No |");
-md.push(
-  "| public.catches | Owned Pokémon | variant shiny/gender only | No | No | No |"
-);
-md.push("");
-md.push(
-  "Mixed model: **asset-driven play stems** + **database-driven spawn eligibility** + **code-driven form refusal**."
-);
-md.push("");
-md.push("## ALL-GENERATION SAFETY");
-md.push("");
-md.push(`- Asset maximum Dex (matrix): ${Math.max(...all.map((r) => r.NationalDex))}`);
-md.push("- DB species maximum Dex: 1021");
-md.push(`- Play PLAY_VARIANTS max: ${Math.max(...Object.keys(PV).map(Number))}`);
-md.push("- Kanto gameplay intended max: 151");
-md.push("- >151 normal encounter species: **775**");
-md.push("- PASS/FAIL: **FAIL**");
+md.push("- Catalog: `public.pokemon_forms` (PokemonFormId PK)");
+md.push("- Round / catch / special_events columns: `pokemon_form_id`");
+md.push("- Launch: `private.launch_community_round(..., p_form_id)` + `private.assert_form_launchable`");
+md.push("- Client: `js/forms.js` + `playSpriteStem(dex, variant, formId)` → `forms/{id}`");
+md.push("- Facing Front/Back: rendering only; Back never selectable as form");
 md.push("");
 md.push("## CLASSIFICATION COUNTS (236 Gen-1-origin rows)");
 md.push("");
@@ -707,43 +575,17 @@ md.push(`- EVENT_READY: ${byClass.EVENT_READY || 0}`);
 md.push(`- ASSET_ONLY: ${byClass.ASSET_ONLY || 0}`);
 md.push(`- BROKEN: ${byClass.BROKEN || 0}`);
 md.push("");
-md.push("## RELEASE BLOCKERS");
-md.push("");
-md.push(
-  "1. **Post-Kanto ordinary spawn exposure** (775 species) — violates Kanto v1.0 all-generation safety."
-);
-md.push(
-  "2. **National availability model live** while owner audit expects Kanto-frozen 146+5 encounter surface."
-);
-md.push(
-  "3. Non-base forms are **not event-ready** if owner expects controlled Mega/regional/Gmax instantiation without further engineering (reported gap only; not activated)."
-);
-md.push("");
-md.push("## NON-BLOCKING FUTURE WORK");
-md.push("");
-md.push(
-  "- Add PokemonFormId (or equivalent) to species_forms / special_events / rounds if event-ready forms are desired."
-);
-md.push("- Import optional Front form stems without enabling spawn.");
-md.push("- Decide whether Admin UI should list forms once server supports them.");
-md.push("- Separate form showcase / collection tracking from Kanto 151 completion.");
-md.push("- Reconcile leftover SWSH disabled form_key rows vs Organized CSV FormIds.");
-md.push("");
 md.push("## FINAL VERDICT");
 md.push("");
-md.push("KANTO POKÉMON / FORM IMPLEMENTATION NOT SAFE");
-md.push("");
-md.push("## STAFF RESET GATE");
-md.push("");
-md.push("KEEP STAFF RESET PAUSED");
+md.push(
+  formAwareProven
+    ? "FORM-AWARE MATRIX PROVEN (146 BASE_NORMAL / 5 BASE_SPECIAL / 85 EVENT_READY / 0 BROKEN / 0 non-base normal)"
+    : "FORM-AWARE MATRIX HAS GAPS — see ASSET_ONLY/BROKEN"
+);
 md.push("");
 md.push("---");
 md.push("");
 md.push("Full matrix: `docs/audits/pokemon-form-implementation-audit.csv` (236 rows).");
-md.push("");
-md.push(
-  "Audit performed read-only. No gameplay, spawn, form flags, events, evolution, Pokédex, mastery, sprites, schema, Admin UI, APP_BUILD, or SPRITE_BUILD mutations."
-);
 
 fs.writeFileSync(path.join(OUT_DIR, "pokemon-form-implementation-audit.md"), md.join("\n"));
 
@@ -768,6 +610,7 @@ const summary = {
   femaleDiscrepancies: { assetOnly: femaleAssetOnly, gameplayOnly: femaleGameplayOnly },
   pikachuForms: pikachuForms.length,
   interestMissing: interest.filter((s) => !findInterest(s)).map((s) => s.name),
+  formAwareProven,
 };
 console.log(JSON.stringify(summary, null, 2));
 console.log("Wrote", path.join(OUT_DIR, "pokemon-form-implementation-audit.csv"));

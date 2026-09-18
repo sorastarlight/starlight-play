@@ -164,7 +164,7 @@
       <div class="gts-swap">
         <div class="gts-slot">
           <div class="gts-sprite">
-            <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+            <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant, mon.formId))}" alt="">
             ${shiny ? `<span class="lgpe-spark">✦</span>` : ""}
             ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
           </div>
@@ -272,7 +272,7 @@
     const shiny = String(mon.variant || "").includes("shiny");
     const selected = String(mon.id) === String(selectedId);
     return `<button class="gts-pc-tile${selected ? " is-selected" : ""}" type="button" role="option" aria-selected="${selected ? "true" : "false"}" data-catch="${mon.id}">
-      <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+      <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant, mon.formId))}" alt="">
       ${shiny ? `<span class="lgpe-spark">✦</span>` : ""}
       ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
       <strong>${window.playEscapeAttr(monName(mon))}</strong>
@@ -310,7 +310,7 @@
     const shiny = String(mon.variant || "").includes("shiny");
     return `<div class="gts-picked-card">
       <div class="gts-sprite">
-        <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+        <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant, mon.formId))}" alt="">
         ${shiny ? `<span class="lgpe-spark">✦</span>` : ""}
       </div>
       <div>
@@ -517,7 +517,7 @@
           <div class="gts-swap">
             <div class="gts-slot">
               <div class="gts-sprite">
-                <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant))}" alt="">
+                <img src="${window.playEscapeAttr(window.playSpriteUrl(mon.dex, mon.variant, mon.formId))}" alt="">
                 ${offeredShiny ? `<span class="lgpe-spark">✦</span>` : ""}
               </div>
               <strong>${window.playEscapeAttr(monName(mon))}</strong>

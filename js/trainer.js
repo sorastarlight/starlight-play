@@ -114,7 +114,7 @@
       parts.push(`<article class="caught-card"><img src="${window.playSpriteUrl(favDex, favVar)}" alt="" width="72" height="72" loading="lazy"><strong>Favorite</strong><span>${esc(window.playSpeciesName?.(favDex) || `No. ${favDex}`)}</span></article>`);
     }
     if (shiny && String(shiny.dex) !== String(favDex)) {
-      parts.push(`<article class="caught-card"><img src="${window.playSpriteUrl(shiny.dex, shiny.variant)}" alt="" width="72" height="72" loading="lazy"><strong>Favorite Shiny</strong><span>${window.playCaughtName(shiny)}</span></article>`);
+      parts.push(`<article class="caught-card"><img src="${window.playSpriteUrl(shiny.dex, shiny.variant, shiny.formId)}" alt="" width="72" height="72" loading="lazy"><strong>Favorite Shiny</strong><span>${window.playCaughtName(shiny)}</span></article>`);
     }
     if (showcase.achievementName) {
       parts.push(`<article class="caught-card"><strong>Proudest Achievement</strong><span>${esc(showcase.achievementName)}</span></article>`);
@@ -279,7 +279,7 @@
       const stamp = when && !Number.isNaN(when.getTime()) ? when.toLocaleString() : "";
       return `
       <article class="caught-card">
-        <img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="" width="72" height="72" loading="lazy">
+        <img src="${window.playSpriteUrl(row.dex, row.variant, row.formId)}" alt="" width="72" height="72" loading="lazy">
         <strong>${window.playCaughtName(row)}</strong>
         <span>${window.playCaughtBlurb(row)}</span>
         ${stamp ? `<span class="muted">${esc(stamp)}</span>` : ""}

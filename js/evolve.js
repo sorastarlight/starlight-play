@@ -548,13 +548,29 @@
     const mons = sendableMons().filter((mon) => ids.includes(String(mon.id)) && !mon.oakBlocked);
     if (!mons.length || !els.oakModal) return;
     pendingOakIds = mons.map((mon) => String(mon.id));
+    const model = window.playOakTransfer?.confirmModel
+      ? window.playOakTransfer.confirmModel(mons)
+      : { count: mons.length, names: mons.map((m) => m.name), rewardHint: "You'll receive Evolution Candy.", leaveHint: "This Pokémon will leave your collection." };
     if (els.oakSprites) {
-      els.oakSprites.innerHTML = mons.slice(0, 8).map((mon) => sprite(mon.dex, mon.variant || "normal", 64, mon.gender)).join("");
+      els.oakSprites.innerHTML = mons.slice(0, 8).map((mon) => {
+        const src = window.playOakTransfer?.spriteUrl
+          ? window.playOakTransfer.spriteUrl(mon)
+          : window.playSpriteUrl(mon.dex, mon.variant || "normal", mon.formId);
+        return `<img src="${esc(src)}" alt="${esc(mon.name || "")}" width="64" height="64">`;
+      }).join("");
     }
     if (els.oakCopy) {
-      const names = mons.slice(0, 3).map((mon) => mon.name).join(", ");
-      const extra = mons.length > 3 ? ` and ${mons.length - 3} more` : "";
-      els.oakCopy.innerHTML = `Send <strong>${mons.length}</strong> Pokémon (${esc(names)}${esc(extra)}) to Professor Oak?<br>You'll receive <strong>Evolution Candy</strong>.<br>These Pokémon will leave your collection.`;
+      const lines = mons.slice(0, 4).map((mon) => {
+        const shiny = String(mon.variant || "").includes("shiny") ? "✨ " : "";
+        return `${shiny}${mon.name}${mon.level ? ` Lv. ${mon.level}` : ""}`;
+      });
+      const extra = mons.length > 4 ? `<li>…and ${mons.length - 4} more</li>` : "";
+      els.oakCopy.innerHTML = `
+        <p><strong>SEND TO PROFESSOR OAK?</strong></p>
+        <p>You're sending:</p>
+        <ul class="oak-confirm-list">${lines.map((line) => `<li>${esc(line)}</li>`).join("")}${extra}</ul>
+        <p>${esc(model.rewardHint)}</p>
+        <p>${esc(model.leaveHint)}</p>`;
     }
     if (typeof els.oakModal.showModal === "function") els.oakModal.showModal();
     else els.oakModal.setAttribute("open", "");
@@ -564,21 +580,63 @@
     if (!pendingOakIds.length || !oakGate.begin()) return;
     if (els.sendStatus) els.sendStatus.textContent = "Sending to Professor Oak…";
     if (els.sendGo) els.sendGo.disabled = true;
-    let ok = 0;
-    let lastMessage = "";
+    const wanted = pendingOakIds.slice();
+    const byId = new Map(sendableMons().map((mon) => [String(mon.id), mon]));
+    const successes = [];
+    const failures = [];
     try {
-      for (const id of pendingOakIds) {
-        const result = await window.playCall("play_transfer_oak", { p_catch_id: id });
-        ok += 1;
-        lastMessage = result.message || lastMessage;
-        selectedOak.delete(id);
-      }
-      if (els.sendStatus) {
-        els.sendStatus.textContent = ok > 1
-          ? `Sent ${ok} Pokémon to Oak. ${lastMessage || ""}`.trim()
-          : (lastMessage || "Sent to Professor Oak.");
+      for (const id of wanted) {
+        const mon = byId.get(id);
+        try {
+          const result = await window.playCall("play_transfer_oak", { p_catch_id: id });
+          successes.push({
+            ok: true,
+            id,
+            mon,
+            candyGranted: Number(result.candyGranted || 0),
+            familyId: Number(result.familyId || 0),
+            message: result.message || ""
+          });
+          selectedOak.delete(id);
+        } catch (error) {
+          failures.push({
+            id,
+            mon,
+            error: window.playHumanRpcError
+              ? window.playHumanRpcError(error, "Could not send that Pokémon to Oak.")
+              : window.playRpcError(error)
+          });
+        }
       }
       pendingOakIds = [];
+
+      if (!successes.length) {
+        if (els.sendStatus) {
+          els.sendStatus.textContent = failures[0]?.error || "Transfer failed.";
+        }
+        await load();
+        return;
+      }
+
+      // Animation only after authoritative success — never invents candy or deletes.
+      if (window.playOakTransfer?.runSequence) {
+        await window.playOakTransfer.runSequence({
+          results: successes,
+          families: data?.families || []
+        });
+      }
+
+      if (els.sendStatus) {
+        if (failures.length) {
+          els.sendStatus.textContent = `Sent ${successes.length}. ${failures.length} could not be sent: ${failures[0].error}`;
+        } else {
+          const last = successes[successes.length - 1];
+          els.sendStatus.textContent = successes.length > 1
+            ? `Sent ${successes.length} Pokémon to Oak.`
+            : (last.message || "Sent to Professor Oak.");
+        }
+      }
+      setTab("send");
       await load();
     } catch (error) {
       if (els.sendStatus) {

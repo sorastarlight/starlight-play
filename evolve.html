@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260919-rc26">
+<link rel="stylesheet" href="css/play.css?v=20260919-rc27">
 <body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -83,7 +83,7 @@
         <h2 id="evo-send-title">Send Pokémon to Professor Oak</h2>
         <div class="evo-research-body">
           <p>Catch duplicate Pokémon from the same <strong>Evolution Line</strong> and send them to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong>.</p>
-          <p>Select Pokémon below to transfer. Favorites, locked Pokémon, team members, and trade listings stay with you. Keep at least one of each species for your Living Dex.</p>
+          <p>Select duplicates below. Favorites, locked Pokémon, team members, and trade listings stay with you. Keep at least one of each species for your Living Dex.</p>
           <p class="evo-research-aside">Research, Discover, Evolve, Together!</p>
         </div>
       </section>
@@ -114,6 +114,7 @@
       <section class="evo-research" aria-labelledby="evo-research-title">
         <h2 id="evo-research-title">Evolve Your Pokémon with Professor Oak</h2>
         <div class="evo-research-body">
+          <p>Catch duplicate Pokémon from the same <strong>Evolution Line</strong> and send them to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong>.</p>
           <p>Use Evolution Candy to evolve a Pokémon you already own. <strong>Evolution transforms that Pokémon into its evolved form—it does not create an additional copy.</strong></p>
           <p>Some Pokémon also require special evolution items. <strong>Evolution Stones</strong> and <strong>Linking Cords</strong> can be purchased from the <a href="./store.html#evolution"><strong>Starlight Mart</strong></a>.</p>
           <p>Only Pokémon currently available in the game can be evolved into. While <strong>Kanto</strong> is the active region, evolutions or relatives introduced in later generations will remain locked until their corresponding content is released.</p>
@@ -220,24 +221,25 @@
     </div>
     <div class="links">
       <button value="cancel" class="secondary" type="submit">Keep them</button>
-      <button id="oak-lab-confirm" class="danger" value="transfer" type="submit">Send to Oak</button>
+      <button id="oak-lab-confirm" class="danger" value="transfer" type="submit">Send to Professor Oak</button>
     </div>
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260919-rc26"></script>
-<script src="js/play-perf.js?v=20260919-rc26"></script>
-<script src="js/build.js?v=20260919-rc26"></script>
-<script src="js/build-client.js?v=20260919-rc26"></script>
-<script src="js/auth.js?v=20260919-rc26"></script>
-<script src="js/species.js?v=20260919-rc26"></script>
-<script src="js/variants.js?v=20260919-rc26"></script>
-<script src="js/forms.js?v=20260919-rc26"></script>
-<script src="js/game.js?v=20260919-rc26"></script>
-<script src="js/play-present.js?v=20260919-rc26"></script>
-<script src="js/play-encounter-state.js?v=20260919-rc26"></script>
-<script src="js/play-ux.js?v=20260919-rc26"></script>
-<script src="js/evolve-view.js?v=20260919-rc26"></script>
-<script src="js/nav.js?v=20260919-rc26"></script>
-<script src="js/evolve.js?v=20260919-rc26"></script>
+<script src="js/config.js?v=20260919-rc27"></script>
+<script src="js/play-perf.js?v=20260919-rc27"></script>
+<script src="js/build.js?v=20260919-rc27"></script>
+<script src="js/build-client.js?v=20260919-rc27"></script>
+<script src="js/auth.js?v=20260919-rc27"></script>
+<script src="js/species.js?v=20260919-rc27"></script>
+<script src="js/variants.js?v=20260919-rc27"></script>
+<script src="js/forms.js?v=20260919-rc27"></script>
+<script src="js/game.js?v=20260919-rc27"></script>
+<script src="js/play-present.js?v=20260919-rc27"></script>
+<script src="js/play-encounter-state.js?v=20260919-rc27"></script>
+<script src="js/play-ux.js?v=20260919-rc27"></script>
+<script src="js/evolve-view.js?v=20260919-rc27"></script>
+<script src="js/oak-transfer.js?v=20260919-rc27"></script>
+<script src="js/nav.js?v=20260919-rc27"></script>
+<script src="js/evolve.js?v=20260919-rc27"></script>
 </body>

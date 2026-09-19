@@ -45,8 +45,19 @@ test("page is Prof. Oak's Lab with Send + Evolve tabs", () => {
   assert(evoHtml.includes('data-tab="send"'));
   assert(evoHtml.includes('data-tab="evolve"'));
   assert(evoHtml.includes('id="evo-send-grid"'));
+  assert(evoHtml.includes("js/oak-transfer.js"));
   assert(evolveJs.includes("play_transfer_oak"));
   assert(evolveJs.includes("setTab"));
+  assert(evolveJs.includes("playOakTransfer"));
+});
+
+test("Game Boy transfer uses local Oak pixel sprite and Poké Ball", () => {
+  const oakJs = read("js/oak-transfer.js");
+  assert(oakJs.includes('images/trainers/oak.png'));
+  assert(oakJs.includes('images/items/poke-ball.png'));
+  assert(fs.existsSync(path.join(__dirname, "..", "images", "trainers", "oak.png")));
+  assert(fs.existsSync(path.join(__dirname, "..", "images", "items", "poke-ball.png")));
+  assert(!/http.*=.*oak/i.test(oakJs));
 });
 
 test("filters: All first; Shiny/Favorites removed", () => {

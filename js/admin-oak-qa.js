@@ -10,6 +10,22 @@
     "linkingcord",
     "rarecandy"
   ];
+  const LOADING_COPY = {
+    PRESET_OAK: "Preparing QA resources…",
+    PRESET_EVO: "Preparing QA resources…",
+    GRANT_MON: "Granting Pokémon…",
+    GRANT_CANDY: "Granting candy…",
+    GRANT_ITEMS: "Granting items…",
+    RESET_QA: "Resetting QA…"
+  };
+  const SUCCESS_COPY = {
+    PRESET_OAK: "Oak Transfer Test preset granted",
+    PRESET_EVO: "Evolution Test preset granted",
+    GRANT_MON: "Pokémon granted",
+    GRANT_CANDY: "Evolution Candy granted",
+    GRANT_ITEMS: "Items granted",
+    RESET_QA: "QA state reset"
+  };
 
   const els = {
     userQ: document.getElementById("oakqa-user-q"),
@@ -18,6 +34,8 @@
     userMeta: document.getElementById("oakqa-user-meta"),
     soraWrap: document.getElementById("oakqa-sora-wrap"),
     soraName: document.getElementById("oakqa-sora-name"),
+    soraLogin: document.getElementById("oakqa-sora-login"),
+    soraId: document.getElementById("oakqa-sora-id"),
     soraConfirm: document.getElementById("oakqa-sora-confirm"),
     status: document.getElementById("oakqa-status"),
     candyQ: document.getElementById("oakqa-candy-q"),
@@ -42,16 +60,26 @@
     reset: document.getElementById("oakqa-reset")
   };
 
+  const actionButtons = [
+    els.presetOak,
+    els.presetEvo,
+    els.grantMon,
+    els.grantCandy,
+    els.grantItems,
+    els.reset
+  ].filter(Boolean);
+
   let usersById = new Map();
   let familyCatalog = [];
   let familiesLoaded = false;
-  let usersLoaded = false;
   let itemsRendered = false;
   let searchTimer = null;
   let bound = false;
   let lastQuery = "";
   let selectedMonDex = 0;
   let selectedFamilyId = 0;
+  let inFlight = null;
+  let successTimers = new WeakMap();
 
   function esc(value) {
     return window.playEscapeAttr
@@ -63,11 +91,17 @@
         .replace(/"/g, "&quot;");
   }
 
-  function setStatus(message, isError) {
+  function setStatus(message, kind) {
     if (!els.status) return;
-    els.status.textContent = message || "";
-    els.status.classList.toggle("hub-warn", Boolean(isError));
-    els.status.classList.toggle("hub-owner-warn", !isError && /OWNER|soraWarning|broadcaster/i.test(String(message || "")));
+    const text = String(message || "");
+    els.status.textContent = text;
+    els.status.hidden = !text;
+    els.status.classList.remove("is-error", "is-success", "is-loading", "hub-warn", "hub-owner-warn");
+    if (!text) return;
+    if (kind === "error") els.status.classList.add("is-error", "hub-warn");
+    else if (kind === "success") els.status.classList.add("is-success");
+    else if (kind === "loading") els.status.classList.add("is-loading");
+    else if (/OWNER|soraWarning|broadcaster/i.test(text)) els.status.classList.add("hub-owner-warn");
   }
 
   function selectedUserId() {
@@ -86,24 +120,105 @@
     return Boolean(els.soraConfirm?.checked);
   }
 
+  function targetLabel(user) {
+    const row = user || selectedUser();
+    return row?.displayName || row?.login || "Trainer";
+  }
+
   function grantsAllowed() {
     if (!selectedUserId()) return false;
     if (isSoraTarget() && !soraConfirmed()) return false;
     return true;
   }
 
+  function buttonLabel(btn) {
+    return btn?.dataset?.oakqaLabel || btn?.textContent || "Action";
+  }
+
+  function clearButtonState(btn) {
+    if (!btn) return;
+    const timer = successTimers.get(btn);
+    if (timer) clearTimeout(timer);
+    successTimers.delete(btn);
+    btn.classList.remove("is-loading", "is-success", "is-error", "is-pressed");
+    btn.removeAttribute("aria-busy");
+    const label = buttonLabel(btn);
+    if (btn.dataset.oakqaBusy !== "1") btn.textContent = label;
+  }
+
   function syncGrantButtons() {
-    const ok = grantsAllowed();
-    [
-      els.presetOak,
-      els.presetEvo,
-      els.grantMon,
-      els.grantCandy,
-      els.grantItems,
-      els.reset
-    ].forEach((btn) => {
-      if (btn) btn.disabled = !ok;
+    const soraBlocked = isSoraTarget() && !soraConfirmed();
+    const busy = Boolean(inFlight);
+    actionButtons.forEach((btn) => {
+      if (!btn) return;
+      const thisBusy = inFlight === btn;
+      if (btn.dataset.oakqaBusy === "1" && thisBusy) {
+        btn.disabled = true;
+        return;
+      }
+      if (btn.dataset.oakqaBusy === "1" && !thisBusy) {
+        clearButtonState(btn);
+        delete btn.dataset.oakqaBusy;
+      }
+      btn.disabled = busy || soraBlocked;
+      btn.title = soraBlocked
+        ? "Confirm the owner warning before granting to this live account."
+        : "";
+      if (!busy && !btn.classList.contains("is-success")) {
+        btn.textContent = buttonLabel(btn);
+        btn.classList.remove("is-loading", "is-error");
+        btn.removeAttribute("aria-busy");
+      }
     });
+  }
+
+  function markPressed(btn) {
+    if (!btn) return;
+    btn.classList.add("is-pressed");
+    window.setTimeout(() => btn.classList.remove("is-pressed"), 140);
+  }
+
+  function markLoading(btn, action) {
+    if (!btn) return;
+    clearButtonState(btn);
+    inFlight = btn;
+    btn.dataset.oakqaBusy = "1";
+    btn.classList.add("is-loading");
+    btn.setAttribute("aria-busy", "true");
+    btn.disabled = true;
+    btn.textContent = LOADING_COPY[action] || "Working…";
+    syncGrantButtons();
+  }
+
+  function markSuccess(btn, message) {
+    if (!btn) return;
+    btn.dataset.oakqaBusy = "1";
+    btn.classList.remove("is-loading", "is-error");
+    btn.classList.add("is-success");
+    btn.textContent = "✓ Granted!";
+    btn.setAttribute("aria-busy", "false");
+    const timer = window.setTimeout(() => {
+      delete btn.dataset.oakqaBusy;
+      clearButtonState(btn);
+      inFlight = null;
+      syncGrantButtons();
+    }, 1600);
+    successTimers.set(btn, timer);
+    setStatus(message, "success");
+  }
+
+  function markError(btn, message) {
+    if (btn) {
+      btn.classList.remove("is-loading", "is-success");
+      btn.classList.add("is-error");
+      btn.textContent = buttonLabel(btn);
+      delete btn.dataset.oakqaBusy;
+      btn.removeAttribute("aria-busy");
+      window.setTimeout(() => btn.classList.remove("is-error"), 1200);
+    }
+    inFlight = null;
+    syncGrantButtons();
+    setStatus(message, "error");
   }
 
   /**
@@ -170,30 +285,45 @@
   }
 
   function selectTrainer(userId, { fromClick } = {}) {
+    const prev = selectedUserId();
     const id = String(userId || "").trim();
     if (els.user) els.user.value = id;
-    if (fromClick && els.soraConfirm && id !== SORA_UUID) els.soraConfirm.checked = false;
+    if (id !== prev || fromClick) {
+      if (els.soraConfirm && id !== SORA_UUID) els.soraConfirm.checked = false;
+      if (id !== prev && els.soraConfirm) els.soraConfirm.checked = false;
+    }
     els.userList?.querySelectorAll(".staff-user-pick").forEach((node) => {
-      node.classList.toggle("is-on", node.dataset.openUser === id);
+      const on = node.dataset.openUser === id;
+      node.classList.toggle("is-on", on);
+      node.setAttribute("aria-selected", on ? "true" : "false");
     });
     syncSoraWarning();
   }
 
   function syncSoraWarning() {
     const sora = isSoraTarget();
-    if (els.soraWrap) els.soraWrap.hidden = !sora;
-    if (!sora && els.soraConfirm) els.soraConfirm.checked = false;
     const user = selectedUser();
-    if (els.soraName && user) {
-      els.soraName.textContent = user.displayName || user.login || "SoraStarlight";
+    if (els.soraWrap) {
+      els.soraWrap.hidden = !sora;
+      els.soraWrap.classList.toggle("is-acked", Boolean(sora && soraConfirmed()));
+    }
+    if (!sora && els.soraConfirm) els.soraConfirm.checked = false;
+    if (els.soraName) {
+      els.soraName.textContent = user?.displayName || user?.login || "Sora Starlight";
+    }
+    if (els.soraLogin) {
+      els.soraLogin.textContent = user?.login ? `@${user.login}` : "";
+    }
+    if (els.soraId) {
+      els.soraId.textContent = user?.id ? `Trainer ID: ${user.id}` : "";
     }
     if (els.userMeta) {
       if (!user) {
         els.userMeta.textContent = "Pick a Trainer from the list. Prefer QA / Play Tester.";
       } else {
-        const label = user.displayName || user.login || "Trainer";
         const login = user.login ? `@${user.login}` : "";
-        els.userMeta.textContent = `TARGET TRAINER · ${label}${login ? ` · ${login}` : ""} · ${user.id}`;
+        const mark = user.id === PLAYTESTER_UUID ? " · QA" : (user.id === SORA_UUID ? " · OWNER" : "");
+        els.userMeta.innerHTML = `<span class="oakqa-meta-name">${esc(user.displayName || user.login || "Trainer")}${esc(mark)}</span>${login ? ` <span class="muted">${esc(login)}</span>` : ""} <span class="oakqa-meta-id muted">ID ${esc(user.id)}</span>`;
       }
     }
     syncGrantButtons();
@@ -208,6 +338,15 @@
       if (b.id === PLAYTESTER_UUID) return 1;
       return String(a.displayName || a.login || "").localeCompare(String(b.displayName || b.login || ""));
     });
+  }
+
+  function trainerFace(row) {
+    const avatar = row.avatarUrl || row.avatar_url || "";
+    if (avatar) {
+      return `<img class="oakqa-user-avatar" src="${esc(avatar)}" alt="" width="40" height="40" loading="lazy" decoding="async">`;
+    }
+    const seed = String(row.displayName || row.login || "?").trim().slice(0, 1).toUpperCase() || "?";
+    return `<span class="oakqa-user-avatar oakqa-user-fallback" aria-hidden="true">${esc(seed)}</span>`;
   }
 
   function renderUserList(users, preferId, query) {
@@ -229,10 +368,11 @@
     els.userList.innerHTML = rows.map((row) => {
       const name = esc(row.displayName || row.login || "Trainer");
       const login = esc(row.login || "");
-      const mark = row.id === PLAYTESTER_UUID ? " · QA" : (row.id === SORA_UUID ? " · OWNER" : "");
+      const mark = row.id === PLAYTESTER_UUID ? `<span class="oakqa-chip is-qa">QA</span>` : (row.id === SORA_UUID ? `<span class="oakqa-chip is-owner">OWNER</span>` : "");
       const on = row.id === picked.targetId ? " is-on" : "";
-      return `<button type="button" class="staff-user staff-user-pick${on}" data-open-user="${esc(row.id)}" role="option" aria-selected="${row.id === picked.targetId}">
-        <div>
+      return `<button type="button" class="staff-user staff-user-pick oakqa-user-pick${on}" data-open-user="${esc(row.id)}" role="option" aria-selected="${row.id === picked.targetId}">
+        ${trainerFace(row)}
+        <div class="oakqa-user-copy">
           <strong>${name}${mark}</strong>
           <p class="muted">@${login} · ${esc(row.role || "player")}${row.pass ? " · Pass" : ""} · ${Number(row.coins || 0)} coins · ${Number(row.caught || 0)} Pokémon</p>
         </div>
@@ -244,7 +384,7 @@
   async function loadUsers(query) {
     if (!els.userList || typeof window.playCall !== "function") return;
     lastQuery = String(query || "").trim();
-    setStatus("Loading trainers…");
+    setStatus("Loading trainers…", "loading");
     try {
       const data = await window.playCall("admin_list_users", {
         p_query: lastQuery,
@@ -262,10 +402,14 @@
         } catch (_) { /* ignore */ }
       }
       renderUserList(users, selectedUserId(), lastQuery);
-      usersLoaded = true;
-      setStatus(users.length ? `${users.length} trainer${users.length === 1 ? "" : "s"} loaded.` : "No trainers match.");
+      setStatus(users.length ? `${users.length} trainer${users.length === 1 ? "" : "s"} ready.` : "No trainers match.", "success");
+      window.setTimeout(() => {
+        if (els.status?.classList.contains("is-success") && /trainer/i.test(els.status.textContent || "")) {
+          setStatus("");
+        }
+      }, 1800);
     } catch (error) {
-      setStatus(window.playRpcError?.(error) || String(error?.message || error), true);
+      setStatus(window.playRpcError?.(error) || String(error?.message || error), "error");
     }
   }
 
@@ -342,7 +486,7 @@
   }
 
   async function loadFamilies() {
-    if (familiesLoaded) return;
+    if (familiesLoaded && familyCatalog.length) return;
     const supabase = window.playSupabase;
     const applyRows = (rows) => {
       familyCatalog = (rows || []).map((row) => ({
@@ -358,7 +502,6 @@
     };
 
     if (!supabase) {
-      // Client fallback: one candy line per Kanto species using dex as family id.
       const names = window.PLAY_SPECIES || [];
       applyRows(names.slice(0, 151).map((name, index) => ({
         id: index + 1,
@@ -403,21 +546,37 @@
           base_dex: index + 1
         })));
         if (!familyCatalog.length) {
-          setStatus(window.playRpcError?.(err) || String(err?.message || err), true);
+          setStatus(window.playRpcError?.(err) || String(err?.message || err), "error");
         }
       }
     }
   }
 
   function resolveSpeciesHits(raw) {
+    const text = String(raw || "").trim();
+    if (!text) return [];
     if (typeof window.playParseSpeciesQuery === "function") {
-      return window.playParseSpeciesQuery(raw) || [];
+      const hits = window.playParseSpeciesQuery(text) || [];
+      if (hits.length) return hits;
     }
-    const asNum = Number(String(raw || "").trim());
+    const q = text.toLowerCase();
+    const names = window.PLAY_SPECIES || [];
+    const asNum = Number(q);
     if (Number.isFinite(asNum) && asNum >= 1 && asNum <= 151) {
-      return [{ dex: asNum, name: window.playSpeciesName?.(asNum) || `Dex ${asNum}` }];
+      return [{ dex: asNum, name: names[asNum - 1] || `Dex ${asNum}` }];
     }
-    return [];
+    const exact = [];
+    const prefix = [];
+    const contains = [];
+    names.forEach((name, index) => {
+      const dex = index + 1;
+      if (typeof window.playDexExists === "function" && !window.playDexExists(dex)) return;
+      const lower = String(name || "").toLowerCase();
+      if (lower === q) exact.push({ dex, name });
+      else if (lower.startsWith(q)) prefix.push({ dex, name });
+      else if (lower.includes(q)) contains.push({ dex, name });
+    });
+    return exact.concat(prefix, contains);
   }
 
   function setMonSpecies(dex) {
@@ -464,7 +623,7 @@
   function renderMonSuggest(query) {
     if (!els.monSuggest) return;
     const hits = resolveSpeciesHits(query).slice(0, 12);
-    if (!hits.length) {
+    if (!hits.length || !String(query || "").trim()) {
       els.monSuggest.hidden = true;
       els.monSuggest.innerHTML = "";
       return;
@@ -506,6 +665,36 @@
     return grants;
   }
 
+  function summarizeResponse(action, data) {
+    const bits = [];
+    const payload = data || {};
+    if (payload.granted && typeof payload.granted === "object") {
+      Object.entries(payload.granted).forEach(([key, qty]) => {
+        const n = Number(qty);
+        if (!n) return;
+        const label = window.playItemLabel?.(key) || key;
+        bits.push(`+${n} ${label}`);
+      });
+    }
+    if (Array.isArray(payload.grants)) {
+      payload.grants.forEach((row) => {
+        const n = Number(row?.qty || row?.amount || 0);
+        if (!n) return;
+        const label = row?.name || window.playItemLabel?.(row?.key) || row?.key || "item";
+        bits.push(`+${n} ${label}`);
+      });
+    }
+    if (payload.candyAmount || payload.amount) {
+      const n = Number(payload.candyAmount || payload.amount);
+      if (n) bits.push(`+${n} Evolution Candy`);
+    }
+    if (payload.mons || payload.pokemon || payload.count) {
+      const n = Number(payload.mons || payload.pokemon || payload.count);
+      if (n) bits.push(`+${n} Pokémon`);
+    }
+    return bits;
+  }
+
   /** Non-mutating target resolution for live/owner proofs. Never grants. */
   async function resolveTargetReadOnly(userId) {
     const id = String(userId || selectedUserId() || "").trim();
@@ -540,35 +729,39 @@
     };
   }
 
-  async function callOakQa(action, payload) {
+  async function callOakQa(action, payload, btn) {
+    if (inFlight) return null;
     const userId = selectedUserId();
     if (!userId) {
-      setStatus("Pick a target Trainer first.", true);
+      markError(btn, "Pick a target Trainer first.");
       return null;
     }
     if (!usersById.has(userId)) {
-      setStatus("Target must be a resolved Trainer from the list.", true);
+      markError(btn, "Target must be a resolved Trainer from the list.");
       return null;
     }
     if (isSoraTarget(userId) && !soraConfirmed()) {
-      setStatus("Confirm the OWNER / BROADCASTER warning before granting.", true);
+      markError(btn, "Confirm the OWNER / BROADCASTER warning before granting.");
       return null;
     }
+    markPressed(btn);
+    markLoading(btn, action);
+    setStatus(`${LOADING_COPY[action] || action} → ${targetLabel()}…`, "loading");
     const args = buildOakQaArgs(action, userId, payload);
-    setStatus(`${action} → ${userId}…`);
     try {
       const data = await window.playCall("admin_oak_qa", args);
       const user = selectedUser();
-      const label = user?.displayName || user?.login || "Trainer";
-      const warn = data?.soraWarning
-        ? ` · TARGET ${label} (${userId}) · OWNER/BROADCASTER · soraWarning=true`
-        : ` · target ${label} (${userId})`;
-      const msg = data?.message || JSON.stringify(data);
-      setStatus(`${msg}${warn}`, false);
+      const label = targetLabel(user);
+      const summary = summarizeResponse(action, data);
+      const base = data?.message || SUCCESS_COPY[action] || "QA action completed";
+      const bits = summary.length ? ` · ${summary.join(" · ")}` : "";
+      const owner = data?.soraWarning ? " · OWNER/BROADCASTER" : "";
+      const msg = `✓ ${base} to ${label}${bits}${owner}`;
+      markSuccess(btn, msg);
       if (data?.soraWarning && els.status) els.status.classList.add("hub-owner-warn");
       return data;
     } catch (error) {
-      setStatus(window.playRpcError?.(error) || String(error?.message || error), true);
+      markError(btn, window.playRpcError?.(error) || String(error?.message || error));
       return null;
     }
   }
@@ -577,7 +770,7 @@
     if (bound) return;
     bound = true;
 
-    els.soraConfirm?.addEventListener("change", syncGrantButtons);
+    els.soraConfirm?.addEventListener("change", syncSoraWarning);
 
     els.userQ?.addEventListener("input", () => {
       clearTimeout(searchTimer);
@@ -603,6 +796,12 @@
     els.monSpecies?.addEventListener("focus", () => {
       if (String(els.monSpecies.value || "").trim()) renderMonSuggest(els.monSpecies.value);
     });
+    els.monSpecies?.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      const hits = resolveSpeciesHits(els.monSpecies.value);
+      if (hits[0]) setMonSpecies(hits[0].dex);
+    });
     els.monSuggest?.addEventListener("click", (event) => {
       const btn = event.target.closest("[data-oakqa-dex]");
       if (!btn) return;
@@ -620,6 +819,12 @@
     els.candyQ?.addEventListener("focus", () => {
       renderCandySuggest(els.candyQ.value);
     });
+    els.candyQ?.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      const hit = filterFamilies(els.candyQ.value)[0];
+      if (hit) setCandyFamily(hit);
+    });
     els.candySuggest?.addEventListener("click", (event) => {
       const btn = event.target.closest("[data-oakqa-candy]");
       if (!btn) return;
@@ -628,8 +833,8 @@
       if (row) setCandyFamily(row);
     });
 
-    els.presetOak?.addEventListener("click", () => callOakQa("PRESET_OAK", {}));
-    els.presetEvo?.addEventListener("click", () => callOakQa("PRESET_EVO", {}));
+    els.presetOak?.addEventListener("click", () => callOakQa("PRESET_OAK", {}, els.presetOak));
+    els.presetEvo?.addEventListener("click", () => callOakQa("PRESET_EVO", {}, els.presetEvo));
     els.grantMon?.addEventListener("click", () => {
       let dex = selectedMonDex;
       if (!dex) {
@@ -637,7 +842,7 @@
         dex = Number(hits?.[0]?.dex || 0);
       }
       if (!(dex >= 1 && dex <= 151)) {
-        setStatus("Pick a Kanto species (name or Dex 1–151).", true);
+        markError(els.grantMon, "Pick a Kanto species (name or Dex 1–151).");
         return;
       }
       callOakQa("GRANT_MON", {
@@ -647,7 +852,7 @@
         level: Number(els.monLevel?.value || 10),
         qty: Number(els.monQty?.value || 1),
         name: window.playSpeciesName?.(dex) || undefined
-      });
+      }, els.grantMon);
     });
     els.grantCandy?.addEventListener("click", () => {
       let familyId = selectedFamilyId || Number(els.candyFamily?.value || 0);
@@ -656,27 +861,27 @@
         familyId = Number(hit?.id || 0);
       }
       if (!familyId) {
-        setStatus("Pick an Evolution Line candy.", true);
+        markError(els.grantCandy, "Pick an Evolution Line candy.");
         return;
       }
       callOakQa("GRANT_CANDY", {
         familyId,
         amount: Number(els.candyAmount?.value || 1)
-      });
+      }, els.grantCandy);
     });
     els.grantItems?.addEventListener("click", () => {
       const grants = itemGrants();
       if (!Object.keys(grants).length) {
-        setStatus("Set at least one item quantity.", true);
+        markError(els.grantItems, "Set at least one item quantity.");
         return;
       }
-      callOakQa("GRANT_ITEMS", { grants });
+      callOakQa("GRANT_ITEMS", { grants }, els.grantItems);
     });
     els.reset?.addEventListener("click", () => {
       const user = selectedUser();
-      const label = user?.displayName || user?.login || userIdLabel();
+      const label = user?.displayName || user?.login || selectedUserId() || "this Trainer";
       if (!window.confirm(`Reset ADMIN_QA Oak / Evolution state for ${label}?`)) return;
-      callOakQa("RESET_QA", {});
+      callOakQa("RESET_QA", {}, els.reset);
     });
 
     document.addEventListener("click", (event) => {
@@ -689,17 +894,13 @@
     });
   }
 
-  function userIdLabel() {
-    return selectedUserId() || "this Trainer";
-  }
-
   async function init() {
     if (!document.querySelector("[data-content-panel='oakqa']")) return;
     bind();
     renderItemGrid();
     syncSoraWarning();
     await Promise.all([
-      usersLoaded ? Promise.resolve() : loadUsers(els.userQ?.value || ""),
+      loadUsers(els.userQ?.value || ""),
       loadFamilies()
     ]);
   }
@@ -711,16 +912,14 @@
     pickTrainerTarget,
     buildOakQaArgs,
     resolveTargetReadOnly,
-    isSoraTarget: (id) => String(id) === SORA_UUID
+    isSoraTarget: (id) => String(id) === SORA_UUID,
+    grantsAllowed
   };
 
-  // Self-boot: admin.js may call showHubTab before this file loads.
   try {
     const params = new URLSearchParams(window.location.search);
     const section = params.get("section") || "";
     const view = params.get("view") || "";
-    if (section === "content" && view === "oakqa") {
-      init();
-    }
+    if (section === "content" && view === "oakqa") init();
   } catch (_) { /* ignore */ }
 })();

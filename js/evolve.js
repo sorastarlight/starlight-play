@@ -170,19 +170,19 @@
 
   function refreshOakBubble() {
     const tally = counts();
-    if (activeTab === "send" && selectedOak.size > 0) {
-      setOakBubble("These Pokémon can help with my Evolution research.");
+    if (activeTab === "send") {
+      if (selectedOak.size > 0) {
+        setOakBubble("Excellent! I've marked the Pokémon ready for transfer.");
+        return;
+      }
+      setOakBubble("Have any duplicate Pokémon? Send them my way for research!");
       return;
     }
     if (tally.ready > 0) {
-      setOakBubble("Looks like one of your Pokémon is ready to evolve!");
+      setOakBubble("Ah! It looks like one of your Pokémon is ready!");
       return;
     }
-    if (activeTab === "send") {
-      setOakBubble("Let's see how your Pokémon research is coming along!");
-      return;
-    }
-    setOakBubble("Use Evolution Candy carefully — every discovery counts!");
+    setOakBubble("Let's see which Pokémon are ready to evolve!");
   }
 
   function setTab(tab) {
@@ -192,6 +192,7 @@
       const on = btn.dataset.tab === activeTab;
       btn.setAttribute("aria-selected", on ? "true" : "false");
       btn.tabIndex = on ? 0 : -1;
+      btn.classList.toggle("is-active", on);
     });
     if (els.tabSend) els.tabSend.hidden = !sendOn;
     if (els.tabEvolve) els.tabEvolve.hidden = sendOn;
@@ -360,7 +361,8 @@
       els.sendGo.disabled = selectedOak.size < 1;
       els.sendGo.textContent = selectedOak.size
         ? `Send ${selectedOak.size} to Oak`
-        : "Send selected to Oak";
+        : "Send 0 to Oak";
+      els.sendGo.classList.toggle("is-armed", selectedOak.size > 0);
     }
     const empty = `<div class="evo-empty evo-empty-lab">
       <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
@@ -658,7 +660,7 @@
           trainer: trainerCard
         });
       }
-      setOakBubble("Excellent! This should help us understand their Evolution Line.");
+      setOakBubble("Excellent! This research should help us understand its Evolution Line.");
 
       if (els.sendStatus) {
         if (failures.length) {
@@ -870,6 +872,7 @@
       }
       closeModal();
       await showEvoFanfare(result, pick);
+      setOakBubble("Wonderful! Another successful evolution!");
       if (typeof window.playShowNotices === "function") {
         window.playShowNotices({
           source: "evolution",
@@ -898,7 +901,7 @@
       window.playRestoreGate(els.gate, "Sign in to visit Prof. Oak's Lab.");
       return;
     }
-    window.playSetLoadingGate(els.gate, els.app);
+    window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
     try {
       const [collection, boxes] = await Promise.all([
         window.playCall("play_collection"),

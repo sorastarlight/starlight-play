@@ -181,7 +181,7 @@
       window.playRestoreGate(els.gate, "Sign in to open your Pokédex.");
       return;
     }
-    window.playSetLoadingGate(els.gate, els.app);
+    window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
     try {
       dexData = await window.playCall("play_pokedex", { p_login: null });
       try { collection = await window.playCall("play_collection"); } catch (_) { collection = null; }

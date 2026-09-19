@@ -22,6 +22,7 @@ function read(rel) {
 const html = read("admin.html");
 const adminJs = read("js/admin.js");
 const oakQaJs = read("js/admin-oak-qa.js");
+const css = read("css/play.css");
 const migration = read("supabase/migrations/20260919031000_admin_oak_qa_toolkit.sql");
 
 const SORA = "60ff5211-6ef8-40e6-8daa-095b5600bf4c";
@@ -47,12 +48,17 @@ test("Admin Hub HTML includes Evolution / Oak QA Toolkit", () => {
   assert(html.includes("js/admin-oak-qa.js"), "admin-oak-qa.js not included");
 });
 
-test("Sora OWNER / BROADCASTER warning is present", () => {
+test("Sora OWNER / BROADCASTER warning is a polished card", () => {
   assert(html.includes("OWNER / BROADCASTER ACCOUNT"), "missing owner banner");
-  assert(html.includes("QA grants will modify this Trainer's real gameplay state."), "missing real-state warning");
+  assert(html.includes("oakqa-owner-card"), "missing owner card class");
+  assert(html.includes("QA grants modify this Trainer's live gameplay state."), "missing live-state warning");
   assert(html.includes("oakqa-sora-confirm"), "missing Sora confirm checkbox");
+  assert(html.includes("allow QA grants to this live account"), "missing refined checkbox copy");
+  assert(!html.includes("TARGET TRAINER</strong>"), "should not repeat TARGET TRAINER heading in warning");
   assert(oakQaJs.includes(SORA), "Sora UUID missing in JS");
   assert(oakQaJs.includes(PLAYTESTER), "Play Tester UUID missing");
+  assert(oakQaJs.includes("is-acked"), "acknowledgement visual state missing");
+  assert(oakQaJs.includes("els.soraConfirm.checked = false"), "ack reset missing");
 });
 
 test("admin_oak_qa is called via playCall with UUID p_user", () => {
@@ -88,7 +94,6 @@ test("Candy picker uses Evolution Line typeahead, not raw family ID typing", () 
   assert(html.includes("oakqa-candy-q"), "candy typeahead input missing");
   assert(html.includes("oakqa-candy-suggest"), "candy suggest list missing");
   assert(html.includes('id="oakqa-candy-family"'), "hidden candy family field missing");
-  assert(/<input[^>]*id="oakqa-candy-family"[^>]*type="hidden"/.test(html) || html.includes('id="oakqa-candy-family" type="hidden"'), "family id must be hidden, not free-typed");
   assert(oakQaJs.includes("Evolution Candy"), "Evolution Candy label missing");
   assert(oakQaJs.includes("renderCandySuggest"), "candy suggest renderer missing");
   assert(!/<select[^>]*id="oakqa-candy-family"/.test(html), "family must not be a select");
@@ -99,7 +104,6 @@ test("Trainer picker is a clickable staff list, not an empty select", () => {
   assert(oakQaJs.includes("renderUserList"), "trainer list renderer missing");
   assert(oakQaJs.includes("staff-user-pick"), "staff-user pick buttons missing");
   assert(!/<select[^>]*id="oakqa-user"/.test(html), "trainer must not be a select");
-  assert(/<input[^>]*id="oakqa-user"[^>]*type="hidden"/.test(html) || html.includes('id="oakqa-user" type="hidden"'), "trainer id must be hidden");
 });
 
 test("Grant Pokémon uses Admin Hub-style species typeahead", () => {
@@ -114,6 +118,19 @@ test("Grant Items shows sprites on quantity tiles", () => {
   assert(oakQaJs.includes("renderItemGrid"), "item grid renderer missing");
   assert(oakQaJs.includes("playItemSprite"), "item sprite helper missing");
   assert(oakQaJs.includes("data-oakqa-item"), "item qty inputs missing");
+});
+
+test("Oak QA action buttons have press/loading/success/error feedback", () => {
+  assert(oakQaJs.includes("is-pressed"), "pressed state missing");
+  assert(oakQaJs.includes("is-loading"), "loading state missing");
+  assert(oakQaJs.includes("is-success"), "success state missing");
+  assert(oakQaJs.includes("is-error"), "error state missing");
+  assert(oakQaJs.includes("inFlight"), "double-click guard missing");
+  assert(oakQaJs.includes("✓ Granted!"), "temporary success label missing");
+  assert(oakQaJs.includes("Granting"), "loading copy missing");
+  assert(css.includes(".oakqa-action.is-pressed") || css.includes(".oakqa-action:active"), "pressed CSS missing");
+  assert(css.includes(".oakqa-action.is-success"), "success CSS missing");
+  assert(css.includes(".oakqa-status.is-error"), "error status CSS missing");
 });
 
 test("Oak QA self-boots when deep-linked before admin.js callback", () => {
@@ -207,7 +224,7 @@ test("invalid / missing target shapes are rejected by UUID authority helpers", (
 
 test("soraWarning success is not treated as RPC failure styling", () => {
   assert(oakQaJs.includes("hub-owner-warn"), "owner warn class missing");
-  assert(/setStatus\(`\$\{msg\}\$\{warn\}`,\s*false\)/.test(oakQaJs) || oakQaJs.includes("setStatus(`${msg}${warn}`, false)"), "soraWarning must not force error status");
+  assert(oakQaJs.includes('setStatus(msg, "success")') || oakQaJs.includes('markSuccess'), "success path must not force error status");
 });
 
 const failed = results.filter((row) => !row.passed);

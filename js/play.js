@@ -237,6 +237,7 @@
     onSignOut() {
       profile = null;
       lastActionKey = "";
+      try { window.__playAccountNavSig = ""; } catch (_) {}
       requestRefresh("signout");
     }
   });
@@ -1093,7 +1094,8 @@
     const gen = ++refreshGen;
     refreshQueued = false;
     lastRefreshReason = reason || "sync";
-    logPlayAction("REFRESH START", { reason: lastRefreshReason, round_id: liveRound(state)?.id || null });
+    const soft = Boolean(window.__playSoftRefresh) || reason === "reconnect" || reason === "idle" || reason === "safety" || reason === "heartbeat";
+    logPlayAction("REFRESH START", { reason: lastRefreshReason, round_id: liveRound(state)?.id || null, soft });
     try {
       const data = await window.playCall("play_sync", { p_round_id: liveRound(state)?.id || null });
       if (gen !== refreshGen) return;
@@ -1105,8 +1107,10 @@
         round_id: data?.round?.id || null,
         phase: data?.round?.phase || "",
         subsequent_sync: Boolean(pendingAction || lastRpcStatus === "ok"),
-        authoritative_choice: data?.me?.prep || data?.me?.ball || ""
+        authoritative_choice: data?.me?.prep || data?.me?.ball || "",
+        soft
       });
+      if (soft) document.documentElement.dataset.playSoftRefresh = "1";
       render(data);
     } catch (error) {
       const message = window.playHumanRpcError
@@ -1117,6 +1121,9 @@
       else if (!/failed to fetch|networkerror|load failed/i.test(message)) {
         els.actionStatus.textContent = message;
       }
+    } finally {
+      window.__playSoftRefresh = false;
+      try { delete document.documentElement.dataset.playSoftRefresh; } catch (_) {}
     }
   }
 
@@ -1631,7 +1638,11 @@
     .on("postgres_changes", { event: "*", schema: "public", table: "stream_status" }, () => scheduleRefresh("stream"))
     .subscribe();
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") requestRefresh("reconnect");
+    if (document.visibilityState === "visible") {
+      // Background revalidation only — do not treat tab-return like a cold boot.
+      window.__playSoftRefresh = true;
+      requestRefresh("reconnect");
+    }
   });
   setInterval(tickLive, 200);
   setInterval(() => {

@@ -123,7 +123,7 @@
       window.playRestoreGate(els.gate, "Sign in to open your trainer progress.");
       return;
     }
-    window.playSetLoadingGate(els.gate, els.app);
+    window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
     try {
       data = await window.playCall("play_progression");
       els.gate.hidden = true;

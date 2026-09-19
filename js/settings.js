@@ -171,7 +171,7 @@
       window.playRestoreGate(els.gate, "Sign in to edit your Trainer look and encounter settings.");
       return;
     }
-    window.playSetLoadingGate(els.gate, els.box);
+    window.playSetLoadingGate(els.gate, els.box, { soft: !els.box?.hidden });
     if (window.playTrainerCatalogReady) await window.playTrainerCatalogReady;
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, username").eq("id", session.user.id).maybeSingle();
     const login = profile?.twitch_login || profile?.username || "";

@@ -19,13 +19,19 @@ window.playShowDialog = function playShowDialog(dialog) {
   else dialog.setAttribute("open", "");
 };
 
-window.playSetLoadingGate = function playSetLoadingGate(gate, app) {
+window.playSetLoadingGate = function playSetLoadingGate(gate, app, opts) {
+  const soft = Boolean(opts?.soft || opts?.background);
+  if (soft && app && !app.hidden) {
+    if (gate && !gate.dataset.idle) gate.dataset.idle = gate.textContent || "";
+    return { soft: true };
+  }
   if (gate) {
     if (!gate.dataset.idle) gate.dataset.idle = gate.textContent || "";
     gate.hidden = false;
     gate.textContent = "Loading…";
   }
   if (app) app.hidden = true;
+  return { soft: false };
 };
 
 window.playRestoreGate = function playRestoreGate(gate, fallback) {
@@ -236,6 +242,37 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     const signedIn = Boolean(session);
     const isAdmin = Boolean(extras?.isAdmin);
     const trainer = extras?.trainer;
+    const name = signedIn ? window.playAccountName(session, profile) : "";
+    const avatar = signedIn ? window.playAccountAvatar(session, profile) : "";
+    const handle = signedIn
+      ? (profile?.twitch_login || session?.user?.user_metadata?.preferred_username || "")
+      : "";
+    const twitchLinked = signedIn ? window.playTwitchLinked(profile, extras) : false;
+    const level = trainer?.level || "";
+    const title = trainer?.title || "";
+    const species = trainer?.species || trainer?.variants?.nationalCaught || "";
+    const caught = trainer?.caught || "";
+    const xpInto = trainer?.xpInto || 0;
+    const xpNeed = trainer?.xpNeed || 0;
+    const userId = signedIn ? (session?.user?.id || "") : "";
+    const signature = [
+      signedIn ? "1" : "0",
+      userId,
+      isAdmin ? "1" : "0",
+      name,
+      avatar,
+      handle,
+      twitchLinked ? "1" : "0",
+      level,
+      title,
+      species,
+      caught,
+      xpInto,
+      xpNeed
+    ].join("|");
+    const firstPaint = !window.__playAccountNavSig;
+    if (window.__playAccountNavSig === signature) return;
+    window.__playAccountNavSig = signature;
     if (typeof window.playSetTipUser === "function") {
       window.playSetTipUser(signedIn ? session?.user?.id : "");
     }
@@ -261,12 +298,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       }
       return;
     }
-    const name = window.playAccountName(session, profile);
-    const avatar = window.playAccountAvatar(session, profile);
-    const twitchLinked = window.playTwitchLinked(profile, extras);
     const face = els.button?.querySelector(".twitch-face");
     if (face) face.classList.toggle("has-twitch", twitchLinked);
-    const handle = profile?.twitch_login || session.user.user_metadata?.preferred_username || "";
     if (els.name) els.name.textContent = name;
     if (els.handle) els.handle.textContent = handle ? `@${handle}` : name;
     if (els.card) {
@@ -302,7 +335,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
         els.trainer.hidden = true;
       }
     }
-    if (signedIn && typeof window.playShowNotices === "function") {
+    // Notices only on first signed-in paint — not every soft refresh / tab return.
+    if (firstPaint && signedIn && typeof window.playShowNotices === "function") {
       window.playShowNotices();
     }
     if (avatar && els.avatar) {

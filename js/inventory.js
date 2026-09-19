@@ -137,7 +137,7 @@
       window.playSetAccountNav(null);
       return;
     }
-    window.playSetLoadingGate(els.gate, els.trainer);
+    window.playSetLoadingGate(els.gate, els.trainer, { soft: !els.trainer?.hidden });
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     let snapshot = null;
     try {

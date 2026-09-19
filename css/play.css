@@ -7296,10 +7296,13 @@ body.oak-gb-playing { overflow: hidden; }
   justify-items: center;
   flex: 0 0 auto;
   align-self: center;
+  width: 138px;
 }
 .oak-gameboy-shell {
   position: relative;
+  box-sizing: border-box;
   width: 138px;
+  height: 196px;
   padding: 12px 12px 14px;
   border-radius: 14px 14px 18px 18px;
   background: linear-gradient(180deg, #cfd6de, #9aa3ad 55%, #8b949e);
@@ -7307,6 +7310,7 @@ body.oak-gb-playing { overflow: hidden; }
   box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 8px 0 rgba(42, 39, 68, .12);
 }
 .oak-gameboy-bezel {
+  box-sizing: border-box;
   padding: 8px;
   border-radius: 8px;
   background: #5c6570;
@@ -7314,11 +7318,14 @@ body.oak-gb-playing { overflow: hidden; }
 }
 .oak-gameboy-screen {
   position: relative;
+  box-sizing: border-box;
   display: grid;
   place-items: center;
-  gap: 4px;
-  min-height: 96px;
-  padding: 8px 6px;
+  width: 100%;
+  height: 88px;
+  min-height: 88px;
+  max-height: 88px;
+  padding: 6px;
   border-radius: 4px;
   background: linear-gradient(180deg, #f4fbff, #dff0ff);
   border: 2px solid #2a2744;
@@ -7334,22 +7341,19 @@ body.oak-gb-playing { overflow: hidden; }
   color: #6b698c;
 }
 .oak-gameboy-mon {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
+  max-width: 64px;
+  max-height: 64px;
   object-fit: contain;
+  object-position: center;
   image-rendering: pixelated;
+  image-rendering: crisp-edges;
   filter: drop-shadow(0 2px 0 rgba(42,39,68,.15));
-}
-.oak-gameboy-caption {
-  max-width: 100%;
-  font-size: 10px;
-  font-weight: 800;
-  color: #2a2744;
-  text-align: center;
-  line-height: 1.2;
+  flex: none;
 }
 .oak-gameboy-screen.is-highlight {
-  box-shadow: 0 0 0 3px #e8c44a, 0 0 18px rgba(232, 196, 74, .55);
+  box-shadow: inset 0 0 0 3px #e8c44a;
 }
 .oak-gameboy-screen.is-flash {
   animation: oak-gb-flash .28s steps(2) 3;

@@ -237,13 +237,14 @@ test("Game Boy markup helpers expose A/B screens and link cable", () => {
     side: "player",
     art: "images/pokemon/133.gif",
     name: "Eevee",
-    caption: "Eevee ♂",
     empty: false
   });
   assert(html.includes("oak-gameboy"));
   assert(html.includes("oak-gameboy-screen"));
   assert(html.includes("images/pokemon/133.gif"));
-  assert(html.includes("Eevee"));
+  assert(html.includes('alt="Eevee"'));
+  assert(!html.includes("oak-gameboy-caption"), "screen must not show name/gender caption");
+  assert(!html.includes("♂") && !html.includes("♀"), "screen must not show gender mark");
   const empty = oak.gameboyHtml({ side: "oak", empty: true });
   assert(empty.includes("is-standby") || empty.includes("READY"));
 });
@@ -289,6 +290,7 @@ test("presentation source builds Game Boy shells and Pokémon token travel", () 
   assert(src.includes("Research Completed!"));
   assert(src.includes(" Received"));
   assert(!src.includes("RESEARCH OK"));
+  assert(!src.includes("oak-gameboy-caption"));
   assert(!src.includes("Evolution Line</small>") && !src.includes('oak-xfer-line">Evolution Line'));
   assert(!/rgba\(12,\s*14,\s*18/.test(src));
 });

@@ -194,15 +194,14 @@
     </div>`;
   }
 
-  function gameboyHtml({ side, art, name, caption, empty }) {
+  function gameboyHtml({ side, art, name, empty }) {
     const label = side === "player" ? "YOU" : "OAK";
     const screen = empty
       ? `<div class="oak-gameboy-screen is-standby" data-oak-screen-${side}>
            <span class="oak-gameboy-standby">READY</span>
          </div>`
       : `<div class="oak-gameboy-screen" data-oak-screen-${side}>
-           <img class="oak-gameboy-mon" data-oak-${side}-mon src="${esc(art)}" alt="${esc(name)}" width="72" height="72" decoding="async">
-           <span class="oak-gameboy-caption" data-oak-${side}-caption>${esc(caption)}</span>
+           <img class="oak-gameboy-mon" data-oak-${side}-mon src="${esc(art)}" alt="${esc(name)}" width="64" height="64" decoding="async">
          </div>`;
     return `<div class="oak-gameboy oak-gameboy-${side}" data-oak-gb-${side} aria-hidden="true">
       <div class="oak-gameboy-shell">
@@ -224,7 +223,6 @@
   function buildOverlay({ mode, count, first, trainerSprite, trainer }) {
     const name = monName(first?.mon);
     const art = spriteUrl(first?.mon);
-    const caption = monCaption(first?.mon);
     const player = resolvePlayerTrainer({ trainerSprite, trainer });
     const overlay = document.createElement("div");
     overlay.className = "oak-gb-fanfare oak-link-fanfare";
@@ -237,7 +235,7 @@
         <div class="oak-transfer-field">
           <div class="oak-transfer-side is-player">
             ${playerTrainerHtml(player)}
-            ${gameboyHtml({ side: "player", art, name, caption, empty: false })}
+            ${gameboyHtml({ side: "player", art, name, empty: false })}
           </div>
           <div class="oak-link-cable" aria-hidden="true">
             <span class="oak-link-wire"></span>
@@ -246,7 +244,7 @@
             <img class="oak-transfer-token" data-oak-token src="${esc(art)}" alt="" width="36" height="36" hidden>
           </div>
           <div class="oak-transfer-side is-oak" data-oak-receiver>
-            ${gameboyHtml({ side: "oak", art, name, caption, empty: true })}
+            ${gameboyHtml({ side: "oak", art, name, empty: true })}
             <div class="oak-receiver-dock" aria-hidden="true">
               <span class="oak-receiver-chamber" data-oak-chamber></span>
             </div>
@@ -328,28 +326,25 @@
   function setScreenMon(overlay, side, mon, { empty } = {}) {
     const screen = overlay.querySelector(`[data-oak-screen-${side}]`);
     const img = overlay.querySelector(`[data-oak-${side}-mon]`);
-    const caption = overlay.querySelector(`[data-oak-${side}-caption]`);
     if (!screen) return;
     if (empty || !mon) {
       screen.classList.add("is-standby");
+      // Keep a fixed slot so READY and Pokémon never change screen geometry.
       screen.innerHTML = `<span class="oak-gameboy-standby">READY</span>`;
       return;
     }
     const art = spriteUrl(mon);
     const name = monName(mon);
-    const cap = monCaption(mon);
-    if (img && caption) {
+    if (img) {
       screen.classList.remove("is-standby");
       img.src = art;
       img.alt = name;
       img.hidden = false;
-      caption.textContent = cap;
       return;
     }
     screen.classList.remove("is-standby");
     screen.innerHTML = `
-      <img class="oak-gameboy-mon" data-oak-${side}-mon src="${esc(art)}" alt="${esc(name)}" width="72" height="72" decoding="async">
-      <span class="oak-gameboy-caption" data-oak-${side}-caption>${esc(cap)}</span>`;
+      <img class="oak-gameboy-mon" data-oak-${side}-mon src="${esc(art)}" alt="${esc(name)}" width="64" height="64" decoding="async">`;
   }
 
   /**

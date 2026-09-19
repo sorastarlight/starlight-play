@@ -595,6 +595,8 @@
             mon,
             candyGranted: Number(result.candyGranted || 0),
             familyId: Number(result.familyId || 0),
+            candyBaseDex: Number(result.candyBaseDex || 0),
+            candyName: result.candyName || "",
             message: result.message || ""
           });
           selectedOak.delete(id);

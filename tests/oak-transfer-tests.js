@@ -7,7 +7,13 @@ window.playEscapeAttr = (value) => String(value ?? "")
   .replace(/</g, "&lt;")
   .replace(/>/g, "&gt;")
   .replace(/"/g, "&quot;");
-window.playSpeciesName = (dex) => ({ 25: "Pikachu", 27: "Sandshrew", 133: "Eevee" }[Number(dex)] || `No.${dex}`);
+window.playSpeciesName = (dex) => ({
+  25: "Pikachu",
+  27: "Sandshrew",
+  111: "Rhyhorn",
+  113: "Chansey",
+  133: "Eevee"
+}[Number(dex)] || `No.${dex}`);
 window.playSpriteUrl = (dex, variant, formId) => {
   const bits = [`images/pokemon/${dex}`];
   if (String(variant || "").includes("shiny")) bits.push("shiny");
@@ -41,6 +47,8 @@ const eevee = { id: "a", dex: 133, name: "Eevee", variant: "normal", gender: "ma
 const shinyEevee = { id: "b", dex: 133, name: "Eevee", variant: "shiny", gender: "female", formId: null, level: 12 };
 const pika = { id: "c", dex: 25, name: "Pikachu", variant: "normal", gender: "female" };
 const sand = { id: "d", dex: 27, name: "Sandshrew", variant: "normal", gender: "male" };
+const chansey = { id: "e", dex: 113, name: "Chansey", variant: "normal", gender: "female" };
+const rhyhorn = { id: "f", dex: 111, name: "Rhyhorn", variant: "normal", gender: "male" };
 
 test("single transfer plan mode", () => {
   const plan = oak.planSequence([{ ok: true, mon: eevee, candyGranted: 1, familyId: 133 }]);
@@ -88,6 +96,106 @@ test("Pikachu and Sandshrew candy stay on separate lines", () => {
   assert(summary.length === 2);
   assert(summary.every((row) => row.familyId === 25 || row.familyId === 27));
   assert(!summary.some((row) => row.familyId === 25 && row.label.includes("Sandshrew")));
+});
+
+test("Chansey transfer never displays Rhyhorn candy", () => {
+  const summary = oak.rewardSummary([
+    {
+      ok: true,
+      mon: chansey,
+      candyGranted: 1,
+      familyId: 113,
+      candyBaseDex: 113,
+      candyName: "Chansey Evolution Candy"
+    }
+  ]);
+  assert(summary.length === 1);
+  assert(summary[0].familyId === 113);
+  assert(summary[0].candyBaseDex === 113);
+  assert(summary[0].label === "Chansey Evolution Candy");
+  assert(summary[0].art.includes("/113") || summary[0].art.includes("113"));
+  assert(!/Rhyhorn/i.test(summary[0].label));
+  assert(!summary[0].art.includes("111"));
+});
+
+test("Rhyhorn transfer never displays Chansey candy", () => {
+  const summary = oak.rewardSummary([
+    {
+      ok: true,
+      mon: rhyhorn,
+      candyGranted: 1,
+      familyId: 111,
+      candyBaseDex: 111,
+      candyName: "Rhyhorn Evolution Candy"
+    }
+  ]);
+  assert(summary.length === 1);
+  assert(summary[0].familyId === 111);
+  assert(summary[0].candyBaseDex === 111);
+  assert(summary[0].label === "Rhyhorn Evolution Candy");
+  assert(summary[0].art.includes("111"));
+  assert(!/Chansey/i.test(summary[0].label));
+  assert(!summary[0].art.includes("113"));
+});
+
+test("candyArt prefers candyBaseDex over mismatched familyId", () => {
+  const art = oak.candyArt(
+    { familyId: 999, candyBaseDex: 113, candyName: "Chansey Evolution Candy" },
+    [{ familyId: 999, name: "Wrong", baseDex: 999 }]
+  );
+  assert(art.includes("113"), `expected sprite 113 got ${art}`);
+  assert(!art.includes("999"), `must not use blind familyId as dex: ${art}`);
+});
+
+test("batch aggregation keeps Chansey and Rhyhorn families separate", () => {
+  const summary = oak.rewardSummary([
+    {
+      ok: true,
+      mon: chansey,
+      candyGranted: 1,
+      familyId: 113,
+      candyBaseDex: 113,
+      candyName: "Chansey Evolution Candy"
+    },
+    {
+      ok: true,
+      mon: rhyhorn,
+      candyGranted: 2,
+      familyId: 111,
+      candyBaseDex: 111,
+      candyName: "Rhyhorn Evolution Candy"
+    },
+    {
+      ok: true,
+      mon: { id: "g", dex: 113, name: "Chansey", variant: "normal" },
+      candyGranted: 1,
+      familyId: 113,
+      candyBaseDex: 113,
+      candyName: "Chansey Evolution Candy"
+    }
+  ]);
+  assert(summary.length === 2, `expected 2 families got ${summary.length}`);
+  const ch = summary.find((row) => row.familyId === 113);
+  const rh = summary.find((row) => row.familyId === 111);
+  assert(ch && ch.qty === 2 && ch.label.includes("Chansey") && !ch.label.includes("Rhyhorn"));
+  assert(rh && rh.qty === 2 && rh.label.includes("Rhyhorn") && !rh.label.includes("Chansey"));
+  assert(ch.art.includes("113") && !ch.art.includes("111"));
+  assert(rh.art.includes("111") && !rh.art.includes("113"));
+});
+
+test("familyId is not used as dex when candyBaseDex is present", () => {
+  const label = oak.candyLabel(
+    { familyId: 111, candyBaseDex: 113, candyName: "Chansey Evolution Candy" },
+    [{ familyId: 111, name: "Rhyhorn", baseDex: 111 }]
+  );
+  const art = oak.candyArt(
+    { familyId: 111, candyBaseDex: 113, candyName: "Chansey Evolution Candy" },
+    [{ familyId: 111, name: "Rhyhorn", baseDex: 111 }]
+  );
+  assert(label === "Chansey Evolution Candy");
+  assert(!/Rhyhorn/i.test(label));
+  assert(art.includes("113"));
+  assert(!art.includes("111"));
 });
 
 test("confirm model never invents candy totals", () => {

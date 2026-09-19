@@ -101,6 +101,13 @@ test("candy manifest prepared with Gen1 gameplay only", () => {
   assert(lockedFuture.length === 0);
 });
 
+test("candy identity fix migration and audit CSV are present", () => {
+  const candyFix = read("supabase/migrations/20260919030000_fix_family_candy_species_identity.sql");
+  assert(candyFix.includes("family_candy_species_id = s.family_id"));
+  assert(candyFix.includes("candyBaseDex"));
+  assert(fs.existsSync(path.join(__dirname, "..", "docs", "audits", "evolution-candy-integrity.csv")));
+});
+
 const failed = results.filter((r) => !r.passed);
 for (const r of results) {
   console.log(`${r.passed ? "PASS" : "FAIL"} ${r.name}${r.detail ? " — " + r.detail : ""}`);

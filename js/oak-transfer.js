@@ -44,19 +44,48 @@
     return String(mon?.nickname || mon?.name || "Pokémon");
   }
 
-  function candyArt(familyId) {
-    const id = Number(familyId);
-    if (!id) return BALL_SPRITE;
-    if (typeof root.playItemSprite === "function") return root.playItemSprite(`species-${id}`);
-    if (typeof root.playEvolutionCandyFallback === "function") return root.playEvolutionCandyFallback(id);
-    return root.playSpriteUrl?.(id, "normal") || "";
+  function candyArt(rowOrFamilyId, families) {
+    if (rowOrFamilyId && typeof rowOrFamilyId === "object") {
+      const base = Number(rowOrFamilyId.candyBaseDex || rowOrFamilyId.baseDex || 0);
+      if (base && typeof root.playSpriteUrl === "function") return root.playSpriteUrl(base, "normal");
+      if (rowOrFamilyId.candyName && typeof root.playItemSprite === "function") {
+        // Prefer explicit baseDex path above; fall through only if needed.
+      }
+      const fam = Number(rowOrFamilyId.familyId || 0);
+      const match = (families || []).find((f) => Number(f.familyId) === fam);
+      const fromFam = Number(match?.baseDex || match?.representativeDex || 0);
+      if (fromFam && typeof root.playSpriteUrl === "function") return root.playSpriteUrl(fromFam, "normal");
+      return BALL_SPRITE;
+    }
+    const fam = Number(rowOrFamilyId);
+    const match = (families || []).find((f) => Number(f.familyId) === fam);
+    const base = Number(match?.baseDex || 0);
+    if (base && typeof root.playSpriteUrl === "function") return root.playSpriteUrl(base, "normal");
+    return BALL_SPRITE;
   }
 
-  function candyLabel(familyId, families) {
-    const id = Number(familyId);
-    const fam = (families || []).find((row) => Number(row.familyId) === id);
-    if (fam?.name) return `${fam.name} Evolution Candy`;
-    const species = root.playSpeciesName?.(id);
+  function candyLabel(rowOrFamilyId, families) {
+    if (rowOrFamilyId && typeof rowOrFamilyId === "object") {
+      if (rowOrFamilyId.candyName) return String(rowOrFamilyId.candyName);
+      const fam = Number(rowOrFamilyId.familyId || 0);
+      const match = (families || []).find((f) => Number(f.familyId) === fam);
+      if (match?.name) {
+        const bare = String(match.name).replace(/\s+Candy$/i, "");
+        return `${bare} Evolution Candy`;
+      }
+      const base = Number(rowOrFamilyId.candyBaseDex || match?.baseDex || 0);
+      const species = base ? root.playSpeciesName?.(base) : "";
+      if (species) return `${species} Evolution Candy`;
+      return "Evolution Candy";
+    }
+    const fam = Number(rowOrFamilyId);
+    const match = (families || []).find((f) => Number(f.familyId) === fam);
+    if (match?.name) {
+      const bare = String(match.name).replace(/\s+Candy$/i, "");
+      return `${bare} Evolution Candy`;
+    }
+    const base = Number(match?.baseDex || 0);
+    const species = base ? root.playSpeciesName?.(base) : "";
     if (species) return `${species} Evolution Candy`;
     return "Evolution Candy";
   }
@@ -69,13 +98,23 @@
       const fam = Number(row.familyId || 0);
       const amt = Number(row.candyGranted || 0);
       if (!fam || amt < 1) continue;
-      byFamily.set(fam, (byFamily.get(fam) || 0) + amt);
+      const prev = byFamily.get(fam) || {
+        familyId: fam,
+        qty: 0,
+        candyBaseDex: Number(row.candyBaseDex || 0),
+        candyName: row.candyName || ""
+      };
+      prev.qty += amt;
+      if (!prev.candyBaseDex && row.candyBaseDex) prev.candyBaseDex = Number(row.candyBaseDex);
+      if (!prev.candyName && row.candyName) prev.candyName = row.candyName;
+      byFamily.set(fam, prev);
     }
-    return [...byFamily.entries()].map(([familyId, qty]) => ({
-      familyId,
-      qty,
-      label: candyLabel(familyId, families),
-      art: candyArt(familyId)
+    return [...byFamily.values()].map((row) => ({
+      familyId: row.familyId,
+      qty: row.qty,
+      candyBaseDex: row.candyBaseDex,
+      label: candyLabel(row, families),
+      art: candyArt(row, families)
     }));
   }
 
@@ -121,31 +160,37 @@
     overlay.setAttribute("aria-modal", "true");
     overlay.setAttribute("aria-label", "Transfer to Professor Oak");
     overlay.innerHTML = `
-      <div class="oak-gb-stage" data-oak-root tabindex="0">
-        <div class="oak-gb-field">
+      <div class="oak-gb-stage oak-xfer-stage" data-oak-root tabindex="0">
+        <div class="oak-gb-field oak-xfer-field">
           <div class="oak-gb-side is-player">
-            <img class="oak-gb-mon" data-oak-player-mon src="${esc(art)}" alt="${esc(name)}" width="72" height="72" decoding="async">
+            <div class="oak-xfer-terminal" aria-hidden="true"></div>
+            <img class="oak-gb-mon" data-oak-player-mon src="${esc(art)}" alt="${esc(name)}" width="88" height="88" decoding="async">
             <span class="oak-gb-label">YOU</span>
           </div>
-          <div class="oak-gb-cable" aria-hidden="true">
+          <div class="oak-gb-cable oak-xfer-cable" aria-hidden="true">
             <i class="oak-gb-beam"></i>
-            <img class="oak-gb-ball" data-oak-ball src="${BALL_SPRITE}" alt="" width="24" height="24" hidden>
+            <img class="oak-gb-ball" data-oak-ball src="${BALL_SPRITE}" alt="" width="28" height="28" hidden>
           </div>
           <div class="oak-gb-side is-oak">
             ${machineHtml()}
-            <img class="oak-gb-oak" src="${OAK_SPRITE}" alt="" width="72" height="72" decoding="async">
-            <img class="oak-gb-received" data-oak-received src="${esc(art)}" alt="" width="56" height="56" hidden>
+            <img class="oak-gb-oak" src="${OAK_SPRITE}" alt="" width="84" height="84" decoding="async">
+            <img class="oak-gb-received" data-oak-received src="${esc(art)}" alt="" width="64" height="64" hidden>
             <span class="oak-gb-label">OAK</span>
           </div>
         </div>
-        <div class="oak-gb-textbox" aria-live="polite">
+        <div class="oak-gb-textbox oak-xfer-textbox" aria-live="polite">
           <p data-oak-line></p>
         </div>
         <button type="button" class="oak-gb-skip" data-oak-skip>Skip</button>
       </div>
-      <div class="oak-gb-reward" data-oak-reward hidden>
+      <div class="oak-gb-reward oak-xfer-reward" data-oak-reward hidden>
+        <p class="eyebrow">TRANSFER COMPLETE!</p>
         <h2 data-oak-reward-title>Professor Oak received ${esc(name)}!</h2>
-        <p class="muted">You received:</p>
+        <div class="oak-xfer-reward-hero">
+          <img src="${OAK_SPRITE}" alt="" width="72" height="72" decoding="async">
+          ${machineHtml()}
+        </div>
+        <p class="oak-xfer-reward-kicker">EVOLUTION CANDY EARNED</p>
         <ul class="oak-gb-reward-list" data-oak-reward-list></ul>
         <button type="button" class="oak-gb-continue" data-oak-continue>Continue</button>
       </div>`;
@@ -191,8 +236,11 @@
     list.innerHTML = summary.map((row) => `
       <li>
         <img src="${esc(row.art)}" alt="" width="40" height="40" decoding="async">
-        <span>${esc(row.label)}</span>
-        <strong>×${row.qty}</strong>
+        <span>
+          ${esc(row.label)}
+          <small class="oak-xfer-line">Evolution Line</small>
+        </span>
+        <strong aria-label="quantity">×${row.qty}</strong>
       </li>`).join("");
   }
 
@@ -221,6 +269,7 @@
     const ball = overlay.querySelector("[data-oak-ball]");
     const received = overlay.querySelector("[data-oak-received]");
     const chamber = overlay.querySelector("[data-oak-chamber]");
+    const oakEl = overlay.querySelector(".oak-gb-oak");
     const skipBtn = overlay.querySelector("[data-oak-skip]");
     const continueBtn = overlay.querySelector("[data-oak-continue]");
     rootEl?.focus();
@@ -295,11 +344,11 @@
           : `Sending ${name} to Professor Oak...`, reduced || quick);
       }
       if (aborted) return;
-      await wait(reduced ? 120 : quick ? 180 : 420);
+      await wait(reduced ? 120 : quick ? 220 : 1100);
       if (aborted) return;
 
       playerMon?.classList.add("is-flash");
-      await wait(reduced ? 80 : quick ? 120 : 220);
+      await wait(reduced ? 80 : quick ? 160 : 1000);
       playerMon?.classList.remove("is-flash");
       playerMon?.classList.add("is-gone");
       if (ball) {
@@ -307,14 +356,15 @@
         ball.classList.add("is-moving");
       }
       if (lineEl && !reduced) lineEl.textContent = "…";
-      await wait(reduced ? 160 : quick ? 280 : 900);
+      await wait(reduced ? 160 : quick ? 420 : 2200);
       if (aborted) return;
 
       if (ball) ball.hidden = true;
       chamber?.classList.add("is-active");
+      oakEl?.classList.add("is-receive");
       if (received) received.hidden = false;
       await typeLine(lineEl, `Professor Oak received ${name}!`, reduced || quick);
-      await wait(reduced ? 200 : quick ? 260 : 520);
+      await wait(reduced ? 200 : quick ? 320 : 1200);
     };
 
     try {

@@ -6684,6 +6684,52 @@ button.hub-metric { cursor: pointer; }
   background: linear-gradient(180deg, #fff6f6, #fff);
 }
 .hub-warn { color: #8a3a3a; font-weight: 800; }
+.hub-owner-warn { color: #7a4d16; font-weight: 800; }
+.oakqa-owner-banner {
+  margin: 10px 0 8px;
+  padding: 10px 12px;
+  border: 2px solid #e7a0a0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fff6f6, #fff);
+  color: #8a3a3a;
+  font-weight: 800;
+  line-height: 1.45;
+}
+.oakqa-user-list {
+  max-height: 280px;
+  overflow: auto;
+  margin: 8px 0 10px;
+}
+.oakqa-mon-preview {
+  margin: 8px 0 12px;
+}
+.oakqa-item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+.oakqa-item-grid .oakqa-item,
+.oakqa-item {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 72px;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+  padding: 10px;
+  border-radius: 12px;
+  background: #f7f9ff;
+  border: 1px solid #d7e0f2;
+  font-size: 13px;
+  font-weight: 800;
+}
+.oakqa-item img {
+  width: 40px;
+  height: 40px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+.oakqa-item input { width: 72px; }
 .hub-specific {
   margin: 14px 0;
   padding: 10px 12px;

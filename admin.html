@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260919-rc31">
+<link rel="stylesheet" href="css/play.css?v=20260919-rc32">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -683,19 +683,17 @@
         <p class="muted">Admin-only. Grants are ADMIN_QA provenance. Does not change economy rates.</p>
         <div class="hub-card">
           <h3>Target Trainer</h3>
+          <p class="muted">Search and click a Trainer — same quick-find pattern as Trainer Support.</p>
           <label class="field" for="oakqa-user-q">Search trainers
-            <input id="oakqa-user-q" type="search" placeholder="Username, display name, or QA…" autocomplete="off">
+            <input id="oakqa-user-q" type="search" placeholder="Username, display name, QA, or UUID…" autocomplete="off">
           </label>
-          <label class="field" for="oakqa-user">Trainer
-            <select id="oakqa-user">
-              <option value="">Select a Trainer…</option>
-            </select>
-          </label>
-          <p id="oakqa-user-meta" class="muted"></p>
+          <div id="oakqa-user-list" class="staff-users oakqa-user-list" role="listbox" aria-label="Matching trainers"></div>
+          <input id="oakqa-user" type="hidden" value="">
+          <p id="oakqa-user-meta" class="muted">Pick a Trainer from the list. Prefer QA / Play Tester.</p>
           <div id="oakqa-sora-wrap" hidden>
             <p class="hub-warn oakqa-owner-banner">
               <strong>TARGET TRAINER</strong><br>
-              SoraStarlight<br>
+              <span id="oakqa-sora-name">SoraStarlight</span><br>
               ⚠ OWNER / BROADCASTER ACCOUNT<br>
               QA grants will modify this Trainer's real gameplay state.
             </p>
@@ -723,18 +721,22 @@
         </div>
         <div class="hub-card">
           <h3>Grant Pokémon</h3>
+          <p class="muted">Type a name or Dex number. Suggestions fill in as you type — same style as Start a specific Pokémon.</p>
+          <label class="field" for="oakqa-mon-species">Species
+            <input id="oakqa-mon-species" type="text" placeholder="ex: Pikachu" autocomplete="off">
+          </label>
+          <ul id="oakqa-mon-suggest" class="dex-suggest user-suggest" hidden></ul>
+          <div class="form-preview oakqa-mon-preview">
+            <img id="oakqa-mon-preview-img" alt="">
+            <p id="oakqa-mon-preview-copy" class="muted">Pick a species to preview.</p>
+          </div>
           <div class="hub-num-row">
-            <label class="field" for="oakqa-mon-species">Species
-              <input id="oakqa-mon-species" type="text" placeholder="Name or Dex (1–151)" autocomplete="off">
-            </label>
             <label class="field hub-num" for="oakqa-mon-level">Level
               <input id="oakqa-mon-level" type="number" min="1" max="100" value="10">
             </label>
             <label class="field hub-num" for="oakqa-mon-qty">Qty
               <input id="oakqa-mon-qty" type="number" min="1" max="20" value="1">
             </label>
-          </div>
-          <div class="hub-num-row">
             <label class="field" for="oakqa-mon-gender">Gender
               <select id="oakqa-mon-gender">
                 <option value="Unknown">Unknown</option>
@@ -753,12 +755,14 @@
         </div>
         <div class="hub-card">
           <h3>Grant Evolution Candy</h3>
+          <p class="muted">Type an Evolution Line name. Click a suggestion to select it.</p>
+          <label class="field" for="oakqa-candy-q">Evolution Line
+            <input id="oakqa-candy-q" type="search" placeholder="ex: Chansey, Pikachu, Eevee…" autocomplete="off">
+          </label>
+          <ul id="oakqa-candy-suggest" class="dex-suggest user-suggest" hidden></ul>
+          <input id="oakqa-candy-family" type="hidden" value="">
+          <p id="oakqa-candy-meta" class="muted">Pick an Evolution Line.</p>
           <div class="hub-num-row">
-            <label class="field" for="oakqa-candy-family">Evolution Line
-              <select id="oakqa-candy-family">
-                <option value="">Loading lines…</option>
-              </select>
-            </label>
             <label class="field hub-num" for="oakqa-candy-amount">Amount
               <input id="oakqa-candy-amount" type="number" min="1" max="999" value="50">
             </label>
@@ -769,30 +773,8 @@
         </div>
         <div class="hub-card">
           <h3>Grant Items</h3>
-          <p class="muted">Evolution Stones, Linking Cord, and Rare Candy.</p>
-          <div class="hub-num-row">
-            <label class="field hub-num" for="oakqa-item-thunderstone">Thunder Stone
-              <input id="oakqa-item-thunderstone" type="number" min="0" max="99" value="0" data-oakqa-item="thunderstone">
-            </label>
-            <label class="field hub-num" for="oakqa-item-firestone">Fire Stone
-              <input id="oakqa-item-firestone" type="number" min="0" max="99" value="0" data-oakqa-item="firestone">
-            </label>
-            <label class="field hub-num" for="oakqa-item-waterstone">Water Stone
-              <input id="oakqa-item-waterstone" type="number" min="0" max="99" value="0" data-oakqa-item="waterstone">
-            </label>
-            <label class="field hub-num" for="oakqa-item-leafstone">Leaf Stone
-              <input id="oakqa-item-leafstone" type="number" min="0" max="99" value="0" data-oakqa-item="leafstone">
-            </label>
-            <label class="field hub-num" for="oakqa-item-moonstone">Moon Stone
-              <input id="oakqa-item-moonstone" type="number" min="0" max="99" value="0" data-oakqa-item="moonstone">
-            </label>
-            <label class="field hub-num" for="oakqa-item-linkingcord">Linking Cord
-              <input id="oakqa-item-linkingcord" type="number" min="0" max="99" value="0" data-oakqa-item="linkingcord">
-            </label>
-            <label class="field hub-num" for="oakqa-item-rarecandy">Rare Candy
-              <input id="oakqa-item-rarecandy" type="number" min="0" max="99" value="0" data-oakqa-item="rarecandy">
-            </label>
-          </div>
+          <p class="muted">Evolution Stones, Linking Cord, and Rare Candy. Set quantities on the tiles you need.</p>
+          <div id="oakqa-item-grid" class="oakqa-item-grid"></div>
           <div class="links">
             <button id="oakqa-grant-items" type="button">Grant Items</button>
           </div>
@@ -1099,27 +1081,27 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260919-rc31"></script>
-<script src="js/play-perf.js?v=20260919-rc31"></script>
-<script src="js/build.js?v=20260919-rc31"></script>
-<script src="js/build-client.js?v=20260919-rc31"></script>
-<script src="js/auth.js?v=20260919-rc31"></script>
-<script src="js/species.js?v=20260919-rc31"></script>
-<script src="js/variants.js?v=20260919-rc31"></script>
-<script src="js/forms.js?v=20260919-rc31"></script>
-<script src="js/game.js?v=20260919-rc31"></script>
-<script src="js/play-present.js?v=20260919-rc31"></script>
-<script src="js/play-encounter-state.js?v=20260919-rc31"></script>
-<script src="js/trainers.js?v=20260919-rc31"></script>
-<script src="js/location-visuals-data.js?v=20260919-rc31"></script>
-<script src="js/location-visuals.js?v=20260919-rc31"></script>
-<script src="js/hud.js?v=20260919-rc31"></script>
-<script src="js/nav.js?v=20260919-rc31"></script>
-<script src="js/admin-tools.js?v=20260919-rc31"></script>
-<script src="js/admin-live.js?v=20260919-rc31"></script>
-<script src="js/special-events.js?v=20260919-rc31"></script>
-<script src="js/admin-special.js?v=20260919-rc31"></script>
-<script src="js/admin.js?v=20260919-rc31"></script>
-<script src="js/admin-oak-qa.js?v=20260919-rc31"></script>
-<script src="js/admin-present.js?v=20260919-rc31"></script>
+<script src="js/config.js?v=20260919-rc32"></script>
+<script src="js/play-perf.js?v=20260919-rc32"></script>
+<script src="js/build.js?v=20260919-rc32"></script>
+<script src="js/build-client.js?v=20260919-rc32"></script>
+<script src="js/auth.js?v=20260919-rc32"></script>
+<script src="js/species.js?v=20260919-rc32"></script>
+<script src="js/variants.js?v=20260919-rc32"></script>
+<script src="js/forms.js?v=20260919-rc32"></script>
+<script src="js/game.js?v=20260919-rc32"></script>
+<script src="js/play-present.js?v=20260919-rc32"></script>
+<script src="js/play-encounter-state.js?v=20260919-rc32"></script>
+<script src="js/trainers.js?v=20260919-rc32"></script>
+<script src="js/location-visuals-data.js?v=20260919-rc32"></script>
+<script src="js/location-visuals.js?v=20260919-rc32"></script>
+<script src="js/hud.js?v=20260919-rc32"></script>
+<script src="js/nav.js?v=20260919-rc32"></script>
+<script src="js/admin-tools.js?v=20260919-rc32"></script>
+<script src="js/admin-live.js?v=20260919-rc32"></script>
+<script src="js/special-events.js?v=20260919-rc32"></script>
+<script src="js/admin-special.js?v=20260919-rc32"></script>
+<script src="js/admin.js?v=20260919-rc32"></script>
+<script src="js/admin-oak-qa.js?v=20260919-rc32"></script>
+<script src="js/admin-present.js?v=20260919-rc32"></script>
 </body>

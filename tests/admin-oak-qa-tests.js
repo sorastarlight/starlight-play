@@ -84,10 +84,41 @@ test("migration mentions ADMIN_QA and is_play_admin()", () => {
   assert(resetFix.includes("fc2.qty"), "reset alias migration missing fc2 qty qualify");
 });
 
-test("Candy picker uses Evolution Line display names, not raw family ID typing", () => {
-  assert(html.includes("oakqa-candy-family"), "candy family select missing");
+test("Candy picker uses Evolution Line typeahead, not raw family ID typing", () => {
+  assert(html.includes("oakqa-candy-q"), "candy typeahead input missing");
+  assert(html.includes("oakqa-candy-suggest"), "candy suggest list missing");
+  assert(html.includes('id="oakqa-candy-family"'), "hidden candy family field missing");
+  assert(/<input[^>]*id="oakqa-candy-family"[^>]*type="hidden"/.test(html) || html.includes('id="oakqa-candy-family" type="hidden"'), "family id must be hidden, not free-typed");
   assert(oakQaJs.includes("Evolution Candy"), "Evolution Candy label missing");
-  assert(!/<input[^>]*id="oakqa-candy-family"/.test(html), "family should be select, not free-typed ID");
+  assert(oakQaJs.includes("renderCandySuggest"), "candy suggest renderer missing");
+  assert(!/<select[^>]*id="oakqa-candy-family"/.test(html), "family must not be a select");
+});
+
+test("Trainer picker is a clickable staff list, not an empty select", () => {
+  assert(html.includes("oakqa-user-list"), "trainer list missing");
+  assert(oakQaJs.includes("renderUserList"), "trainer list renderer missing");
+  assert(oakQaJs.includes("staff-user-pick"), "staff-user pick buttons missing");
+  assert(!/<select[^>]*id="oakqa-user"/.test(html), "trainer must not be a select");
+  assert(/<input[^>]*id="oakqa-user"[^>]*type="hidden"/.test(html) || html.includes('id="oakqa-user" type="hidden"'), "trainer id must be hidden");
+});
+
+test("Grant Pokémon uses Admin Hub-style species typeahead", () => {
+  assert(html.includes("oakqa-mon-suggest"), "species suggest missing");
+  assert(oakQaJs.includes("renderMonSuggest"), "species suggest renderer missing");
+  assert(oakQaJs.includes("playParseSpeciesQuery"), "species parse helper missing");
+  assert(html.includes("oakqa-mon-preview-img"), "species preview missing");
+});
+
+test("Grant Items shows sprites on quantity tiles", () => {
+  assert(html.includes("oakqa-item-grid"), "item grid missing");
+  assert(oakQaJs.includes("renderItemGrid"), "item grid renderer missing");
+  assert(oakQaJs.includes("playItemSprite"), "item sprite helper missing");
+  assert(oakQaJs.includes("data-oakqa-item"), "item qty inputs missing");
+});
+
+test("Oak QA self-boots when deep-linked before admin.js callback", () => {
+  assert(oakQaJs.includes('view === "oakqa"'), "self-boot view check missing");
+  assert(oakQaJs.includes("playOakQaInit = init"), "init export missing");
 });
 
 test("Play Tester target resolves to Play Tester UUID", () => {

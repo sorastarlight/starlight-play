@@ -285,7 +285,55 @@ test("presentation source builds Game Boy shells and Pokémon token travel", () 
   assert(src.includes("data-oak-screen-player"));
   assert(src.includes("data-oak-screen-oak"));
   assert(src.includes("is-standby"));
+  assert(src.includes("data-oak-player-trainer"));
+  assert(src.includes("Research Completed!"));
+  assert(src.includes(" Received"));
+  assert(!src.includes("RESEARCH OK"));
+  assert(!src.includes("Evolution Line</small>") && !src.includes('oak-xfer-line">Evolution Line'));
   assert(!/rgba\(12,\s*14,\s*18/.test(src));
+});
+
+test("equipped Trainer avatar resolves via authoritative sprite helper", () => {
+  window.playTrainerSpriteUrl = (id) => `images/trainers/${id || "red-gen1"}.png`;
+  window.playTrainerLook = (id) => ({ trainer: { name: id === "elaine" ? "Elaine" : "Red" } });
+  const resolved = oak.resolvePlayerTrainer({ trainerSprite: "elaine" });
+  assert(resolved.id === "elaine");
+  assert(resolved.url.includes("elaine"));
+  assert(resolved.label === "Elaine");
+  const html = oak.playerTrainerHtml(resolved);
+  assert(html.includes("data-oak-player-trainer"));
+  assert(html.includes("elaine"));
+  const src = require("fs").readFileSync(require("path").join(__dirname, "../js/oak-transfer.js"), "utf8");
+  assert(src.includes("oak-transfer-side is-player"));
+  assert(src.includes("oak-transfer-side is-oak"));
+  assert(src.indexOf("playerTrainerHtml(player)") < src.indexOf('gameboyHtml({ side: "player"'));
+  assert(src.indexOf('gameboyHtml({ side: "oak"') < src.indexOf("oak-xfer-oak"));
+  assert(src.includes("Research Completed!"));
+  assert(!src.includes("RESEARCH OK"));
+});
+
+test("reward fill appends Received and omits Evolution Line", () => {
+  const summary = oak.rewardSummary([
+    { ok: true, mon: pika, candyGranted: 1, familyId: 25, candyBaseDex: 25, candyName: "Pikachu Evolution Candy" },
+    { ok: true, mon: chansey, candyGranted: 2, familyId: 113, candyBaseDex: 113, candyName: "Chansey Evolution Candy" }
+  ]);
+  assert(summary[0].label === "Pikachu Evolution Candy" || summary.find((r) => r.familyId === 25).label === "Pikachu Evolution Candy");
+  assert(summary.find((r) => r.familyId === 113).label === "Chansey Evolution Candy");
+  const src = require("fs").readFileSync(require("path").join(__dirname, "../js/oak-transfer.js"), "utf8");
+  assert(src.includes("Research Completed!"));
+  assert(src.includes("${esc(received)}"));
+  assert(src.includes(' Received'));
+  assert(!src.includes("RESEARCH OK"));
+  assert(!src.includes("Evolution Line</small>"));
+  assert(!src.includes('class="oak-xfer-line"'));
+});
+
+test("CSS keeps Game Boys on one horizontal axis with side avatars", () => {
+  const css = require("fs").readFileSync(require("path").join(__dirname, "../css/play.css"), "utf8");
+  assert(css.includes(".oak-transfer-side"));
+  assert(css.includes(".oak-xfer-avatar"));
+  assert(css.includes("align-items: center"));
+  assert(css.includes("image-rendering: pixelated"));
 });
 
 test("evolve page wires oak-transfer after server success path", () => {
@@ -297,6 +345,7 @@ test("evolve page wires oak-transfer after server success path", () => {
   assert(html.includes("Transfer Station") || html.includes("evo-lab-stations"));
   assert(js.includes("play_transfer_oak"));
   assert(js.includes("playOakTransfer.runSequence"));
+  assert(js.includes("trainerSprite"));
   assert(js.indexOf("play_transfer_oak") < js.indexOf("runSequence"));
 });
 

@@ -38,6 +38,7 @@
   let usersLoaded = false;
   let searchTimer = null;
   let bound = false;
+  let lastQuery = "";
 
   function esc(value) {
     return window.playEscapeAttr
@@ -53,6 +54,7 @@
     if (!els.status) return;
     els.status.textContent = message || "";
     els.status.classList.toggle("hub-warn", Boolean(isError));
+    els.status.classList.toggle("hub-owner-warn", !isError && /OWNER|soraWarning|broadcaster/i.test(String(message || "")));
   }
 
   function selectedUserId() {
@@ -63,8 +65,8 @@
     return usersById.get(selectedUserId()) || null;
   }
 
-  function isSoraTarget() {
-    return selectedUserId() === SORA_UUID;
+  function isSoraTarget(id) {
+    return String(id || selectedUserId()) === SORA_UUID;
   }
 
   function soraConfirmed() {
@@ -91,6 +93,70 @@
     });
   }
 
+  /**
+   * Pure target picker. UUID from the select is the RPC authority.
+   * Empty query never defaults to Sora. Explicit search may keep/select Sora.
+   */
+  function pickTrainerTarget(users, { currentId, query, playtesterId, soraId } = {}) {
+    const rows = Array.isArray(users) ? users.slice() : [];
+    const byId = new Map(rows.map((row) => [String(row.id), row]));
+    const qaId = String(playtesterId || PLAYTESTER_UUID);
+    const ownerId = String(soraId || SORA_UUID);
+    const current = String(currentId || "").trim();
+    const q = String(query || "").trim().toLowerCase();
+
+    if (current && byId.has(current)) {
+      return { targetId: current, reason: "preserve-selection", silentFallback: false };
+    }
+
+    if (!q) {
+      if (byId.has(qaId)) {
+        return { targetId: qaId, reason: "default-playtester", silentFallback: false };
+      }
+      const qa = rows.find((row) => {
+        const id = String(row.id);
+        if (id === ownerId) return false;
+        return /qa|play.?test/i.test(`${row.displayName || ""} ${row.login || ""} ${row.username || ""}`);
+      });
+      if (qa) return { targetId: String(qa.id), reason: "default-qa-name", silentFallback: false };
+      const firstSafe = rows.find((row) => String(row.id) !== ownerId);
+      return {
+        targetId: firstSafe ? String(firstSafe.id) : "",
+        reason: firstSafe ? "default-first-safe" : "empty",
+        silentFallback: false
+      };
+    }
+
+    // Explicit search: honor the listed match, including Sora when searched.
+    const exactUuid = rows.find((row) => String(row.id).toLowerCase() === q);
+    if (exactUuid) {
+      return { targetId: String(exactUuid.id), reason: "query-uuid", silentFallback: false };
+    }
+    const exactLogin = rows.find((row) => {
+      const login = String(row.login || row.username || "").toLowerCase();
+      const name = String(row.displayName || "").toLowerCase();
+      return login === q || name === q || login === q.replace(/^@/, "");
+    });
+    if (exactLogin) {
+      return { targetId: String(exactLogin.id), reason: "query-exact-name", silentFallback: false };
+    }
+    if (rows.length === 1) {
+      return { targetId: String(rows[0].id), reason: "query-single", silentFallback: false };
+    }
+    if (rows.length > 0) {
+      return { targetId: String(rows[0].id), reason: "query-first", silentFallback: false };
+    }
+    return { targetId: "", reason: "empty", silentFallback: false };
+  }
+
+  function buildOakQaArgs(action, userId, payload) {
+    return {
+      p_action: String(action || ""),
+      p_user: String(userId || ""),
+      p_payload: payload || {}
+    };
+  }
+
   function syncSoraWarning() {
     const sora = isSoraTarget();
     if (els.soraWrap) els.soraWrap.hidden = !sora;
@@ -102,15 +168,14 @@
       } else {
         const label = user.displayName || user.login || "Trainer";
         const login = user.login ? `@${user.login}` : "";
-        els.userMeta.textContent = `${label}${login ? ` · ${login}` : ""} · ${user.id}`;
+        els.userMeta.textContent = `TARGET TRAINER · ${label}${login ? ` · ${login}` : ""} · ${user.id}`;
       }
     }
     syncGrantButtons();
   }
 
-  function renderUserOptions(users, preferId) {
+  function renderUserOptions(users, preferId, query) {
     if (!els.user) return;
-    const current = preferId || selectedUserId();
     const rows = Array.isArray(users) ? users.slice() : [];
     rows.sort((a, b) => {
       const aQa = a.id === PLAYTESTER_UUID || /qa|play.?test/i.test(`${a.displayName || ""} ${a.login || ""} ${a.username || ""}`);
@@ -120,45 +185,36 @@
       if (b.id === PLAYTESTER_UUID) return 1;
       return String(a.displayName || a.login || "").localeCompare(String(b.displayName || b.login || ""));
     });
-    usersById = new Map(rows.map((row) => [row.id, row]));
+    usersById = new Map(rows.map((row) => [String(row.id), row]));
     const options = [`<option value="">Select a Trainer…</option>`].concat(rows.map((row) => {
       const name = row.displayName || row.login || "Trainer";
       const login = row.login ? `@${row.login}` : "";
-      const mark = row.id === PLAYTESTER_UUID ? " · QA" : "";
+      const mark = row.id === PLAYTESTER_UUID ? " · QA" : (row.id === SORA_UUID ? " · OWNER" : "");
       return `<option value="${esc(row.id)}">${esc(name)}${login ? ` (${esc(login)})` : ""}${mark}</option>`;
     }));
     els.user.innerHTML = options.join("");
-    let pick = "";
-    const hadExplicit = Boolean(current && usersById.has(current));
-    if (hadExplicit) {
-      pick = current; // honor explicit selection (including Sora after confirm flow)
-    } else if (usersById.has(PLAYTESTER_UUID)) {
-      pick = PLAYTESTER_UUID;
-    } else {
-      const qa = rows.find((row) => row.id !== SORA_UUID && /qa|play.?test/i.test(`${row.displayName || ""} ${row.login || ""} ${row.username || ""}`));
-      if (qa) pick = qa.id;
-      else {
-        const firstSafe = rows.find((row) => row.id !== SORA_UUID);
-        pick = firstSafe ? firstSafe.id : "";
-      }
-    }
-    // Never default to Sora.
-    if (!hadExplicit && pick === SORA_UUID) pick = "";
-    els.user.value = pick;
+    const picked = pickTrainerTarget(rows, {
+      currentId: preferId || selectedUserId(),
+      query: query != null ? query : lastQuery,
+      playtesterId: PLAYTESTER_UUID,
+      soraId: SORA_UUID
+    });
+    els.user.value = picked.targetId || "";
     syncSoraWarning();
   }
 
   async function loadUsers(query) {
     if (!els.user || typeof window.playCall !== "function") return;
+    lastQuery = String(query || "").trim();
     setStatus("Loading trainers…");
     try {
       const data = await window.playCall("admin_list_users", {
-        p_query: String(query || "").trim(),
+        p_query: lastQuery,
         p_offset: 0
       });
       const users = data?.users || [];
       // Prefer including Play Tester even when the current query is empty / unrelated.
-      if (!String(query || "").trim() && !users.some((row) => row.id === PLAYTESTER_UUID)) {
+      if (!lastQuery && !users.some((row) => row.id === PLAYTESTER_UUID)) {
         try {
           const qa = await window.playCall("admin_list_users", {
             p_query: "playtester",
@@ -168,7 +224,7 @@
           if (hit) users.unshift(hit);
         } catch (_) { /* ignore */ }
       }
-      renderUserOptions(users);
+      renderUserOptions(users, selectedUserId(), lastQuery);
       usersLoaded = true;
       setStatus(users.length ? `${users.length} trainer${users.length === 1 ? "" : "s"} loaded.` : "No trainers match.");
     } catch (error) {
@@ -256,6 +312,40 @@
     return grants;
   }
 
+  /** Non-mutating target resolution for live/owner proofs. Never grants. */
+  async function resolveTargetReadOnly(userId) {
+    const id = String(userId || selectedUserId() || "").trim();
+    if (!id) return { ok: false, error: "Pick a target Trainer first." };
+    if (!/^[0-9a-f-]{36}$/i.test(id)) {
+      return { ok: false, error: "Target must be a profile UUID.", targetId: id };
+    }
+    const listed = usersById.get(id) || null;
+    let account = null;
+    try {
+      if (typeof window.playCall === "function") {
+        account = await window.playCall("admin_user_account", { p_user: id });
+      }
+    } catch (error) {
+      return {
+        ok: false,
+        error: window.playRpcError?.(error) || String(error?.message || error),
+        targetId: id,
+        listed
+      };
+    }
+    const user = account?.user || listed || null;
+    return {
+      ok: Boolean(user || account),
+      targetId: id,
+      displayName: user?.displayName || listed?.displayName || "",
+      login: user?.login || listed?.login || "",
+      isSora: id === SORA_UUID,
+      isPlayTester: id === PLAYTESTER_UUID,
+      silentFallback: false,
+      mutated: false
+    };
+  }
+
   async function callOakQa(action, payload) {
     const userId = selectedUserId();
     if (!userId) {
@@ -266,20 +356,24 @@
       setStatus("Target must be a resolved Trainer from the list.", true);
       return null;
     }
-    if (isSoraTarget() && !soraConfirmed()) {
-      setStatus("Confirm the live Trainer warning before granting.", true);
+    if (isSoraTarget(userId) && !soraConfirmed()) {
+      setStatus("Confirm the OWNER / BROADCASTER warning before granting.", true);
       return null;
     }
-    setStatus(`${action}…`);
+    const args = buildOakQaArgs(action, userId, payload);
+    // UUID authority: display name / Twitch login never replace p_user.
+    setStatus(`${action} → ${userId}…`);
     try {
-      const data = await window.playCall("admin_oak_qa", {
-        p_action: action,
-        p_user: userId,
-        p_payload: payload || {}
-      });
-      const warn = data?.soraWarning ? " · soraWarning=true" : "";
+      const data = await window.playCall("admin_oak_qa", args);
+      const user = selectedUser();
+      const label = user?.displayName || user?.login || "Trainer";
+      const warn = data?.soraWarning
+        ? ` · TARGET ${label} (${userId}) · OWNER/BROADCASTER · soraWarning=true`
+        : ` · target ${label} (${userId})`;
       const msg = data?.message || JSON.stringify(data);
-      setStatus(`${msg}${warn}`, Boolean(data?.soraWarning));
+      // Success with soraWarning is intentional owner targeting — not an RPC failure.
+      setStatus(`${msg}${warn}`, false);
+      if (data?.soraWarning && els.status) els.status.classList.add("hub-owner-warn");
       return data;
     } catch (error) {
       setStatus(window.playRpcError?.(error) || String(error?.message || error), true);
@@ -355,4 +449,12 @@
   }
 
   window.playOakQaInit = init;
+  window.playOakQaTargeting = {
+    SORA_UUID,
+    PLAYTESTER_UUID,
+    pickTrainerTarget,
+    buildOakQaArgs,
+    resolveTargetReadOnly,
+    isSoraTarget: (id) => String(id) === SORA_UUID
+  };
 })();

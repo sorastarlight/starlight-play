@@ -163,6 +163,37 @@
     return ["prepare", "link", "highlight", "transfer", "arrive", "oak", "reward"];
   }
 
+  /**
+   * Authoritative equipped Trainer avatar for transfer presentation.
+   * Uses playTrainerSpriteUrl (falls back to red-gen1). Never Twitch face.
+   */
+  function resolvePlayerTrainer(opts = {}) {
+    const raw = opts.trainerSprite
+      || root._playTrainerSprite
+      || root.playLastTrainer?.trainerSprite
+      || opts.trainer?.trainerSprite
+      || "";
+    const id = String(raw || "").trim();
+    const url = typeof root.playTrainerSpriteUrl === "function"
+      ? root.playTrainerSpriteUrl(id || "red-gen1")
+      : (id ? `images/trainers/${id}.png` : "images/trainers/red-gen1.png");
+    const look = typeof root.playTrainerLook === "function"
+      ? root.playTrainerLook(id || "red-gen1")
+      : null;
+    const label = look?.trainer?.name || "Trainer";
+    return { id: id || "red-gen1", url, label, omitted: false };
+  }
+
+  function playerTrainerHtml(trainer) {
+    if (!trainer || trainer.omitted || !trainer.url) return "";
+    return `<div class="oak-xfer-avatar oak-xfer-player" data-oak-player-trainer>
+      <img src="${esc(trainer.url)}" alt="" width="72" height="72" decoding="async"
+        style="image-rendering:pixelated"
+        onerror="this.closest('[data-oak-player-trainer]')?.remove()">
+      <span class="oak-xfer-avatar-tag">${esc(trainer.label || "Trainer")}</span>
+    </div>`;
+  }
+
   function gameboyHtml({ side, art, name, caption, empty }) {
     const label = side === "player" ? "YOU" : "OAK";
     const screen = empty
@@ -190,10 +221,11 @@
     </div>`;
   }
 
-  function buildOverlay({ mode, count, first }) {
+  function buildOverlay({ mode, count, first, trainerSprite, trainer }) {
     const name = monName(first?.mon);
     const art = spriteUrl(first?.mon);
     const caption = monCaption(first?.mon);
+    const player = resolvePlayerTrainer({ trainerSprite, trainer });
     const overlay = document.createElement("div");
     overlay.className = "oak-gb-fanfare oak-link-fanfare";
     overlay.setAttribute("role", "dialog");
@@ -203,7 +235,8 @@
       <div class="oak-transfer-stage oak-xfer-stage" data-oak-root tabindex="0">
         <p class="oak-transfer-progress" data-oak-progress hidden></p>
         <div class="oak-transfer-field">
-          <div class="oak-transfer-col is-player">
+          <div class="oak-transfer-side is-player">
+            ${playerTrainerHtml(player)}
             ${gameboyHtml({ side: "player", art, name, caption, empty: false })}
           </div>
           <div class="oak-link-cable" aria-hidden="true">
@@ -212,13 +245,14 @@
             <span class="oak-link-node"></span>
             <img class="oak-transfer-token" data-oak-token src="${esc(art)}" alt="" width="36" height="36" hidden>
           </div>
-          <div class="oak-transfer-col is-oak">
+          <div class="oak-transfer-side is-oak" data-oak-receiver>
             ${gameboyHtml({ side: "oak", art, name, caption, empty: true })}
-            <div class="oak-receiver" data-oak-receiver>
+            <div class="oak-receiver-dock" aria-hidden="true">
+              <span class="oak-receiver-chamber" data-oak-chamber></span>
+            </div>
+            <div class="oak-xfer-avatar oak-xfer-oak">
               <img class="oak-receiver-oak" src="${OAK_SPRITE}" alt="" width="72" height="72" decoding="async">
-              <div class="oak-receiver-dock" aria-hidden="true">
-                <span class="oak-receiver-chamber" data-oak-chamber></span>
-              </div>
+              <span class="oak-xfer-avatar-tag">Oak</span>
             </div>
           </div>
         </div>
@@ -232,7 +266,7 @@
         <h2 data-oak-reward-title>Professor Oak received ${esc(name)}!</h2>
         <div class="oak-xfer-reward-hero">
           <img src="${OAK_SPRITE}" alt="" width="72" height="72" decoding="async">
-          <div class="oak-xfer-stamp" aria-hidden="true">RESEARCH OK</div>
+          <div class="oak-xfer-stamp" aria-hidden="true">Research Completed!</div>
         </div>
         <p class="oak-xfer-reward-kicker">PROFESSOR OAK'S RESEARCH RESULTS</p>
         <ul class="oak-gb-reward-list" data-oak-reward-list></ul>
@@ -277,18 +311,18 @@
     }
     if (!list) return;
     if (!summary.length) {
-      list.innerHTML = `<li><span>Evolution Candy</span><strong>×?</strong></li>`;
+      list.innerHTML = `<li><span>Evolution Candy Received</span><strong>×?</strong></li>`;
       return;
     }
-    list.innerHTML = summary.map((row) => `
+    list.innerHTML = summary.map((row) => {
+      const received = / Received$/i.test(row.label) ? row.label : `${row.label} Received`;
+      return `
       <li>
         <img src="${esc(row.art)}" alt="" width="40" height="40" decoding="async">
-        <span>
-          ${esc(row.label)}
-          <small class="oak-xfer-line">Evolution Line</small>
-        </span>
+        <span>${esc(received)}</span>
         <strong aria-label="quantity">×${row.qty}</strong>
-      </li>`).join("");
+      </li>`;
+    }).join("");
   }
 
   function setScreenMon(overlay, side, mon, { empty } = {}) {
@@ -322,7 +356,7 @@
    * Presentation only. Call AFTER authoritative Oak transfer success.
    * Never grants candy or deletes catches.
    */
-  async function runSequence({ results, families, onDone } = {}) {
+  async function runSequence({ results, families, onDone, trainerSprite, trainer } = {}) {
     const plan = planSequence(results);
     if (!plan.count || typeof document === "undefined") {
       onDone?.();
@@ -332,7 +366,9 @@
     const overlay = buildOverlay({
       mode: plan.mode,
       count: plan.count,
-      first: plan.results[0]
+      first: plan.results[0],
+      trainerSprite,
+      trainer
     });
     document.body.classList.add("oak-gb-playing");
     document.body.append(overlay);
@@ -527,6 +563,9 @@
     planSequence,
     stageOrder,
     gameboyHtml,
+    resolvePlayerTrainer,
+    playerTrainerHtml,
+    buildOverlay,
     runSequence,
     reducedMotion
   };

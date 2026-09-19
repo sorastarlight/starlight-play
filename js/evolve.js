@@ -53,6 +53,7 @@
   let activeTab = "send";
   const selectedOak = new Set();
   let pendingOakIds = [];
+  let trainerCard = null;
   const evolveGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
   const rareGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
   const oakGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
@@ -648,9 +649,13 @@
 
       // Animation only after authoritative success — never invents candy or deletes.
       if (window.playOakTransfer?.runSequence) {
+        const sprite = trainerCard?.trainerSprite || window._playTrainerSprite || "";
+        if (sprite) window._playTrainerSprite = sprite;
         await window.playOakTransfer.runSequence({
           results: successes,
-          families: data?.families || []
+          families: data?.families || [],
+          trainerSprite: sprite,
+          trainer: trainerCard
         });
       }
       setOakBubble("Excellent! This should help us understand their Evolution Line.");
@@ -924,6 +929,8 @@
     let extras = {};
     try {
       const snapshot = await window.playCall("play_state");
+      trainerCard = snapshot?.trainer || null;
+      if (trainerCard?.trainerSprite) window._playTrainerSprite = trainerCard.trainerSprite;
       extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer, twitchLinked: snapshot?.twitchLinked };
     } catch (_) {}
     window.playSetAccountNav(session, profile, extras);

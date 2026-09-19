@@ -7249,20 +7249,53 @@ body.oak-gb-playing { overflow: hidden; }
 }
 .oak-transfer-field {
   display: grid;
-  grid-template-columns: minmax(140px, 1fr) minmax(80px, 1.2fr) minmax(160px, 1.15fr);
-  gap: 10px;
+  grid-template-columns: minmax(200px, 1.15fr) minmax(72px, 1fr) minmax(220px, 1.25fr);
+  gap: 8px;
   align-items: center;
   min-height: 220px;
 }
-.oak-transfer-col {
-  display: grid;
+.oak-transfer-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
+  min-height: 180px;
+}
+.oak-transfer-side.is-player {
+  justify-content: flex-end;
+}
+.oak-transfer-side.is-oak {
+  justify-content: flex-start;
+}
+.oak-xfer-avatar {
+  display: grid;
+  gap: 4px;
   justify-items: center;
+  flex: 0 0 auto;
+}
+.oak-xfer-avatar img,
+.oak-receiver-oak {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 4px 0 rgba(138,61,114,.12));
+}
+.oak-xfer-avatar-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #4a7ab5;
 }
 .oak-gameboy {
   display: grid;
   gap: 6px;
   justify-items: center;
+  flex: 0 0 auto;
+  align-self: center;
 }
 .oak-gameboy-shell {
   position: relative;
@@ -7439,37 +7472,21 @@ body.oak-gb-playing { overflow: hidden; }
 .oak-transfer-token.is-moving {
   animation: oak-token-travel 2.3s cubic-bezier(.35,.1,.3,1) forwards;
 }
-.oak-receiver {
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 8px;
-  align-items: end;
-  opacity: .72;
-  transition: opacity .25s ease, transform .25s ease;
-}
-.oak-receiver.is-receive {
-  opacity: 1;
-  transform: translateY(-2px);
-}
-.oak-receiver-oak {
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 0 rgba(138,61,114,.12));
-}
 .oak-receiver-dock {
-  width: 54px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
   background: linear-gradient(180deg, #e8f1fb, #c9daf0);
   border: 2px solid #4a7ab5;
   display: grid;
   place-items: center;
   box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
+  flex: 0 0 auto;
+  align-self: center;
 }
 .oak-receiver-chamber {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #9ad0ff;
   box-shadow: inset 0 0 0 3px rgba(255,255,255,.35);
@@ -7478,6 +7495,9 @@ body.oak-gb-playing { overflow: hidden; }
   background: #7ed0ff;
   animation: oak-gb-flash .3s steps(2) 3;
   box-shadow: 0 0 12px rgba(74,122,181,.55);
+}
+.oak-transfer-side.is-oak.is-receive .oak-xfer-oak img {
+  filter: drop-shadow(0 0 8px rgba(74,122,181,.45));
 }
 .oak-transfer-textbox {
   margin-top: 12px;
@@ -7548,20 +7568,24 @@ body.oak-gb-playing { overflow: hidden; }
   justify-content: center;
 }
 .oak-xfer-stamp {
-  padding: 8px 10px;
-  border: 2px dashed #c9a227;
-  border-radius: 10px;
-  color: #8a3d72;
+  padding: 10px 12px;
+  border: 3px solid #c94b5b;
+  border-radius: 8px;
+  color: #c94b5b;
   font-weight: 800;
-  font-size: 12px;
-  letter-spacing: .08em;
-  transform: rotate(-6deg);
-  background: rgba(255,255,255,.7);
+  font-size: 13px;
+  letter-spacing: .02em;
+  transform: rotate(-8deg);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.55), transparent 40%),
+    rgba(255, 246, 246, .92);
+  box-shadow: 0 2px 0 rgba(201, 75, 91, .25), 0 0 0 2px rgba(201, 162, 39, .2);
+  text-shadow: 0 1px 0 rgba(255,255,255,.6);
 }
 .oak-gb-reward-list,
 .oak-xfer-reward .oak-gb-reward-list {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
   list-style: none;
   margin: 0;
@@ -7573,7 +7597,7 @@ body.oak-gb-playing { overflow: hidden; }
   grid-template-columns: 48px 1fr auto;
   align-items: center;
   gap: 10px;
-  padding: 10px 12px;
+  padding: 8px 12px;
   border-radius: 14px;
   background: linear-gradient(180deg, #fff, #fff8ec);
   border: 2px solid #d7c39a;
@@ -7589,16 +7613,7 @@ body.oak-gb-playing { overflow: hidden; }
 .oak-xfer-reward .oak-gb-reward-list li span {
   font-weight: 800;
   color: #2a2744;
-  line-height: 1.2;
-}
-.oak-xfer-reward .oak-gb-reward-list li .oak-xfer-line {
-  display: block;
-  margin-top: 2px;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .04em;
-  color: #4a7ab5;
-  text-transform: uppercase;
+  line-height: 1.25;
 }
 .oak-xfer-reward .oak-gb-reward-list li strong {
   display: inline-flex;
@@ -7642,7 +7657,11 @@ html[data-perf="low"] .oak-receiver-chamber.is-active {
     grid-template-rows: auto auto auto;
     min-height: 0;
   }
-  .oak-transfer-col.is-player { order: 1; }
+  .oak-transfer-side.is-player {
+    order: 1;
+    flex-direction: column;
+    justify-content: center;
+  }
   .oak-link-cable {
     order: 2;
     width: 18px;
@@ -7655,7 +7674,17 @@ html[data-perf="low"] .oak-receiver-chamber.is-active {
   .oak-transfer-token.is-moving {
     animation: oak-token-travel-vert 1.6s cubic-bezier(.35,.1,.3,1) forwards;
   }
-  .oak-transfer-col.is-oak { order: 3; }
+  .oak-transfer-side.is-oak {
+    order: 3;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .oak-transfer-side.is-oak .oak-receiver-dock {
+    order: 2;
+  }
+  .oak-transfer-side.is-oak .oak-xfer-oak {
+    order: 3;
+  }
   .oak-gameboy-oak .oak-gameboy-port,
   .oak-gameboy-player .oak-gameboy-port {
     left: 50%;
@@ -7665,6 +7694,16 @@ html[data-perf="low"] .oak-receiver-chamber.is-active {
     width: 14px;
     height: 8px;
     margin-left: -7px;
+  }
+}
+@media (min-width: 721px) and (max-width: 1023px) {
+  .oak-transfer-field {
+    grid-template-columns: minmax(160px, 1fr) minmax(56px, .8fr) minmax(180px, 1.1fr);
+  }
+  .oak-xfer-avatar img,
+  .oak-receiver-oak {
+    width: 64px;
+    height: 64px;
   }
 }
 @keyframes oak-token-travel-vert {

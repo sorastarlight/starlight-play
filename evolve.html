@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260919-rc28">
+<link rel="stylesheet" href="css/play.css?v=20260919-rc29">
 <body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -57,30 +57,37 @@
       <div class="evo-lab-intro">
         <p class="eyebrow">ST★RLIGHT</p>
         <h1>Prof. Oak's Lab</h1>
-        <p class="evo-lab-sub">Professor Oak's Research Lab</p>
+        <p class="evo-lab-sub">Research. Discover. Evolve.</p>
         <p class="evo-lab-tag">Help Pokémon grow. Strengthen your team. Complete their Evolution Lines!</p>
       </div>
       <div class="evo-lab-oak-panel">
         <img class="evo-lab-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="120" height="120" decoding="async" aria-hidden="true">
-        <p class="evo-oak-bubble" role="note">Let's help your Pokémon reach their full potential!</p>
+        <p id="evo-oak-bubble" class="evo-oak-bubble" role="note">Let's see how your Pokémon research is coming along!</p>
       </div>
     </div>
-    <div id="evo-strip" class="evo-strip" hidden>
-      <div><span id="evo-ready-count">0</span><small>Ready to evolve</small></div>
-      <div><span id="evo-candy-count">0</span><small>Evolution Candy</small></div>
-      <div><span id="evo-done-count">0</span><small>Evolutions</small></div>
+    <div id="evo-strip" class="evo-strip evo-lab-instruments" hidden>
+      <div class="evo-instrument"><span id="evo-ready-count">0</span><small>Ready to Evolve</small></div>
+      <div class="evo-instrument"><span id="evo-candy-count">0</span><small>Evolution Candy</small></div>
+      <div class="evo-instrument"><span id="evo-done-count">0</span><small>Evolutions</small></div>
     </div>
   </header>
   <p id="gate" class="notice">Sign in to visit Prof. Oak's Lab.</p>
   <div id="evo-app" hidden>
-    <div class="evo-tabs" role="tablist" aria-label="Professor Oak lab">
-      <button type="button" class="evo-tab" role="tab" id="tab-send" data-tab="send" aria-controls="evo-tab-send" aria-selected="true">Send to Oak</button>
-      <button type="button" class="evo-tab" role="tab" id="tab-evolve" data-tab="evolve" aria-controls="evo-tab-evolve" aria-selected="false" tabindex="-1">Evolve</button>
+    <div class="evo-tabs evo-lab-stations" role="tablist" aria-label="Professor Oak lab">
+      <button type="button" class="evo-tab" role="tab" id="tab-send" data-tab="send" aria-controls="evo-tab-send" aria-selected="true">
+        <span class="evo-tab-kicker">Transfer Station</span>
+        Send to Oak
+      </button>
+      <button type="button" class="evo-tab" role="tab" id="tab-evolve" data-tab="evolve" aria-controls="evo-tab-evolve" aria-selected="false" tabindex="-1">
+        <span class="evo-tab-kicker">Evolution Research</span>
+        Evolve
+      </button>
     </div>
 
     <section id="evo-tab-send" class="evo-tab-panel" role="tabpanel" aria-labelledby="tab-send">
-      <section class="evo-research" aria-labelledby="evo-send-title">
-        <h2 id="evo-send-title">Send Pokémon to Professor Oak</h2>
+      <section class="evo-research evo-station-card" aria-labelledby="evo-send-title">
+        <p class="evo-station-label">Transfer Station</p>
+        <h2 id="evo-send-title">Send duplicates to Professor Oak</h2>
         <div class="evo-research-body">
           <p>Catch duplicate Pokémon from the same <strong>Evolution Line</strong> and send them to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong>.</p>
           <p>Select duplicates below. Favorites, locked Pokémon, team members, and trade listings stay with you. Keep at least one of each species for your Living Dex.</p>
@@ -111,8 +118,9 @@
     </section>
 
     <section id="evo-tab-evolve" class="evo-tab-panel" role="tabpanel" aria-labelledby="tab-evolve" hidden>
-      <section class="evo-research" aria-labelledby="evo-research-title">
-        <h2 id="evo-research-title">Evolve Your Pokémon with Professor Oak</h2>
+      <section class="evo-research evo-station-card" aria-labelledby="evo-research-title">
+        <p class="evo-station-label">Evolution Research</p>
+        <h2 id="evo-research-title">Use Candy and evolution items</h2>
         <div class="evo-research-body">
           <p>Catch duplicate Pokémon from the same <strong>Evolution Line</strong> and send them to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong>.</p>
           <p>Use Evolution Candy to evolve a Pokémon you already own. <strong>Evolution transforms that Pokémon into its evolved form—it does not create an additional copy.</strong></p>
@@ -226,20 +234,20 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260919-rc28"></script>
-<script src="js/play-perf.js?v=20260919-rc28"></script>
-<script src="js/build.js?v=20260919-rc28"></script>
-<script src="js/build-client.js?v=20260919-rc28"></script>
-<script src="js/auth.js?v=20260919-rc28"></script>
-<script src="js/species.js?v=20260919-rc28"></script>
-<script src="js/variants.js?v=20260919-rc28"></script>
-<script src="js/forms.js?v=20260919-rc28"></script>
-<script src="js/game.js?v=20260919-rc28"></script>
-<script src="js/play-present.js?v=20260919-rc28"></script>
-<script src="js/play-encounter-state.js?v=20260919-rc28"></script>
-<script src="js/play-ux.js?v=20260919-rc28"></script>
-<script src="js/evolve-view.js?v=20260919-rc28"></script>
-<script src="js/oak-transfer.js?v=20260919-rc28"></script>
-<script src="js/nav.js?v=20260919-rc28"></script>
-<script src="js/evolve.js?v=20260919-rc28"></script>
+<script src="js/config.js?v=20260919-rc29"></script>
+<script src="js/play-perf.js?v=20260919-rc29"></script>
+<script src="js/build.js?v=20260919-rc29"></script>
+<script src="js/build-client.js?v=20260919-rc29"></script>
+<script src="js/auth.js?v=20260919-rc29"></script>
+<script src="js/species.js?v=20260919-rc29"></script>
+<script src="js/variants.js?v=20260919-rc29"></script>
+<script src="js/forms.js?v=20260919-rc29"></script>
+<script src="js/game.js?v=20260919-rc29"></script>
+<script src="js/play-present.js?v=20260919-rc29"></script>
+<script src="js/play-encounter-state.js?v=20260919-rc29"></script>
+<script src="js/play-ux.js?v=20260919-rc29"></script>
+<script src="js/evolve-view.js?v=20260919-rc29"></script>
+<script src="js/oak-transfer.js?v=20260919-rc29"></script>
+<script src="js/nav.js?v=20260919-rc29"></script>
+<script src="js/evolve.js?v=20260919-rc29"></script>
 </body>

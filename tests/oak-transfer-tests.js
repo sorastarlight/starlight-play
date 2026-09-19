@@ -232,12 +232,69 @@ test("local Oak and Poké Ball assets configured", () => {
   assert(fs.existsSync(path.join(__dirname, "..", "images/items/rare-candy.png")));
 });
 
+test("Game Boy markup helpers expose A/B screens and link cable", () => {
+  const html = oak.gameboyHtml({
+    side: "player",
+    art: "images/pokemon/133.gif",
+    name: "Eevee",
+    caption: "Eevee ♂",
+    empty: false
+  });
+  assert(html.includes("oak-gameboy"));
+  assert(html.includes("oak-gameboy-screen"));
+  assert(html.includes("images/pokemon/133.gif"));
+  assert(html.includes("Eevee"));
+  const empty = oak.gameboyHtml({ side: "oak", empty: true });
+  assert(empty.includes("is-standby") || empty.includes("READY"));
+});
+
+test("stage order covers prepare → link → travel → arrive → oak → reward", () => {
+  const stages = oak.stageOrder({ mode: "single", reduced: false });
+  assert(stages[0] === "prepare");
+  assert(stages.includes("link"));
+  assert(stages.includes("transfer"));
+  assert(stages.includes("arrive"));
+  assert(stages.includes("oak"));
+  assert(stages[stages.length - 1] === "reward");
+  const reduced = oak.stageOrder({ mode: "single", reduced: true });
+  assert(reduced.includes("prepare") && reduced.includes("arrive") && reduced.includes("reward"));
+  assert(!reduced.includes("transfer"));
+});
+
+test("shiny and gender captions preserve identity", () => {
+  assert(oak.isShiny(shinyEevee));
+  assert(oak.genderMark("female") === "♀");
+  assert(oak.genderMark("male") === "♂");
+  const cap = oak.monCaption(shinyEevee);
+  assert(cap.includes("Eevee"));
+  assert(cap.includes("✨") || /shiny/i.test(cap) || cap.includes("♀"));
+});
+
+test("sprite identity includes form id for alternate forms", () => {
+  const formUrl = oak.spriteUrl({ dex: 25, variant: "shiny", formId: 10080, name: "Pikachu", gender: "female" });
+  assert(formUrl.includes("25"));
+  assert(formUrl.includes("shiny"));
+  assert(formUrl.includes("form-10080"));
+});
+
+test("presentation source builds Game Boy shells and Pokémon token travel", () => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "../js/oak-transfer.js"), "utf8");
+  assert(src.includes("oak-gameboy"));
+  assert(src.includes("oak-link-cable"));
+  assert(src.includes("oak-transfer-token"));
+  assert(src.includes("data-oak-screen-player"));
+  assert(src.includes("data-oak-screen-oak"));
+  assert(src.includes("is-standby"));
+  assert(!/rgba\(12,\s*14,\s*18/.test(src));
+});
+
 test("evolve page wires oak-transfer after server success path", () => {
   const fs = require("fs");
   const path = require("path");
   const html = fs.readFileSync(path.join(__dirname, "../evolve.html"), "utf8");
   const js = fs.readFileSync(path.join(__dirname, "../js/evolve.js"), "utf8");
   assert(html.includes("js/oak-transfer.js"));
+  assert(html.includes("Transfer Station") || html.includes("evo-lab-stations"));
   assert(js.includes("play_transfer_oak"));
   assert(js.includes("playOakTransfer.runSequence"));
   assert(js.indexOf("play_transfer_oak") < js.indexOf("runSequence"));

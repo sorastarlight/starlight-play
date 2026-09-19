@@ -43,7 +43,8 @@
     status: document.getElementById("evo-status"),
     oakModal: document.getElementById("oak-lab-modal"),
     oakSprites: document.getElementById("oak-lab-sprites"),
-    oakCopy: document.getElementById("oak-lab-copy")
+    oakCopy: document.getElementById("oak-lab-copy"),
+    oakBubble: document.getElementById("evo-oak-bubble")
   };
   let data = null;
   let storage = null;
@@ -161,6 +162,28 @@
     });
   }
 
+  function setOakBubble(text) {
+    if (!els.oakBubble || !text) return;
+    els.oakBubble.textContent = text;
+  }
+
+  function refreshOakBubble() {
+    const tally = counts();
+    if (activeTab === "send" && selectedOak.size > 0) {
+      setOakBubble("These Pokémon can help with my Evolution research.");
+      return;
+    }
+    if (tally.ready > 0) {
+      setOakBubble("Looks like one of your Pokémon is ready to evolve!");
+      return;
+    }
+    if (activeTab === "send") {
+      setOakBubble("Let's see how your Pokémon research is coming along!");
+      return;
+    }
+    setOakBubble("Use Evolution Candy carefully — every discovery counts!");
+  }
+
   function setTab(tab) {
     activeTab = tab === "evolve" ? "evolve" : "send";
     const sendOn = activeTab === "send";
@@ -171,6 +194,7 @@
     });
     if (els.tabSend) els.tabSend.hidden = !sendOn;
     if (els.tabEvolve) els.tabEvolve.hidden = sendOn;
+    refreshOakBubble();
     try {
       const url = new URL(window.location.href);
       url.hash = activeTab;
@@ -204,6 +228,7 @@
         ? `${tally.ready} Pokémon ready to evolve.`
         : "No Pokémon are ready to evolve yet. Send duplicates to Oak for Evolution Candy, then evolve here.";
     }
+    refreshOakBubble();
   }
 
   function statusFooter(row, terminal) {
@@ -343,6 +368,7 @@
       <p><a class="button secondary" href="./">Play</a></p>
     </div>`;
     els.sendGrid.innerHTML = rows.map(sendCardHtml).join("") || empty;
+    refreshOakBubble();
   }
 
   function nodeHtml(member) {
@@ -627,6 +653,7 @@
           families: data?.families || []
         });
       }
+      setOakBubble("Excellent! This should help us understand their Evolution Line.");
 
       if (els.sendStatus) {
         if (failures.length) {

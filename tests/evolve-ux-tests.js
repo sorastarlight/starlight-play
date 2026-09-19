@@ -65,9 +65,15 @@ test("trade-ready evolution needs no Cord", () => {
   assert(view.canEvolve(tradeReady));
   assert(view.evolveLabel(tradeReady) === "Evolve Kadabra");
 });
-test("Favorite Pokémon is still evolvable", () => {
+test("Favorite Pokémon is still evolvable (Favorites filter removed)", () => {
   assert(view.canEvolve(favorite));
-  assert(view.matchesFilter(favorite, "favorites"));
+  assert(view.matchesFilter(favorite, "all"));
+  assert(view.matchesFilter(favorite, "ready"));
+});
+test("Shiny Pokémon still evolvable (Shiny filter removed)", () => {
+  assert(view.isShiny(shiny));
+  assert(view.canEvolve(shiny));
+  assert(view.matchesFilter(shiny, "all"));
 });
 test("Locked Pokémon opens as locked, not ready", () => {
   assert(!view.canEvolve(locked));
@@ -77,10 +83,6 @@ test("trade-reserved Pokémon is reserved", () => {
   assert(view.isReserved(reserved));
   assert(view.cardKind(reserved) === "reserved");
   assert(!view.canEvolve(reserved));
-});
-test("Shiny evolution keeps shiny filter", () => {
-  assert(view.isShiny(shiny));
-  assert(view.matchesFilter(shiny, "shiny"));
 });
 test("already-owned target still evolves", () => {
   assert(view.canEvolve(ownedTarget));
@@ -199,7 +201,7 @@ test("result panel waits for Continue and skip stays on the result", () => {
     evolution: { fromName: "Charmander", toName: "Charmeleon", fromDex: 4, toDex: 5 },
     rewards: { trainerXp: 10, masteryFrom: 2, masteryTo: 2, newDex: true, newDexXp: 25, coins: 100 }
   }, ready));
-  assert(panel.subtitle.toLowerCase().includes("complete"));
+  assert(/EVOLUTION COMPLETE/i.test(panel.title) || /complete/i.test(panel.subtitle));
   assert(panel.newDex === true);
   assert(panel.extras.some((line) => /Trainer XP/.test(line)));
 });

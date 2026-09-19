@@ -38,13 +38,11 @@
       const hay = [row.name, row.toName, row.familyName].map((bit) => String(bit || "").toLowerCase());
       if (!hay.some((bit) => bit.includes(q))) return false;
     }
-    const mode = filter || "ready";
+    const mode = filter || "all";
     if (mode === "ready") return canEvolve(row);
     if (mode === "candy") return Number(row.candyCost || 0) > Number(row.haveCandy || 0);
     if (mode === "item") return Boolean(row.item) && itemQty(row) < 1 && !row.tradeReady && !row.haveItem;
     if (mode === "trade") return isTradeMethod(row) || Boolean(row.tradeReady);
-    if (mode === "shiny") return isShiny(row);
-    if (mode === "favorites") return Boolean(row.favorite);
     return true;
   }
 
@@ -115,8 +113,10 @@
     if (Number(model?.masteryTo)) extras.push(`Species Mastery +${model.masteryTo} ${model.toName || ""}`.trim());
     if (Number(model?.coins)) extras.push(`+${model.coins} PokéCoins`);
     return {
-      title: String(model?.toName || "Pokémon").toUpperCase(),
+      title: "EVOLUTION COMPLETE!",
       subtitle: "Evolution complete!",
+      oakLine: "Professor Oak: Remarkable research, Trainer!",
+      species: String(model?.toName || "Pokémon").toUpperCase(),
       newDex: Boolean(model?.newDex),
       dexLabel: model?.toDex != null ? `#${String(model.toDex).padStart(3, "0")}` : "",
       extras,

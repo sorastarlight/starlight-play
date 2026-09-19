@@ -844,7 +844,8 @@
     moonstone1: "moon-stone",
     linkingcord: "linking-cord",
     linkingcord1: "linking-cord",
-    rarecandy: "lgpe-candy"
+    rarecandy: "rare-candy",
+    rarecandy1: "rare-candy"
   };
 
   const ITEM_RAW_BASE = "https://raw.githubusercontent.com/sorastarlight/starlight-play/main/images/items/";
@@ -852,15 +853,31 @@
   window.playItemSprite = function playItemSprite(key) {
     const raw = String(key || "").trim();
     if (!raw) return "images/items/poke-ball.png";
-    if (raw.startsWith("species-") && raw.endsWith("-xl")) return "images/items/lgpe-candy-xl.png";
-    if (raw.startsWith("species-") && raw.endsWith("-l")) return "images/items/lgpe-candy-l.png";
-    if (raw.startsWith("species-")) return "images/items/lgpe-candy.png";
+    // Evolution Candy is line-keyed (species-{familyId}). Prefer dedicated candy art,
+    // otherwise use the family mascot Pokémon sprite so lines never share wrong art.
+    const candyMatch = raw.match(/^species-(\d+)(-l|-xl)?$/i);
+    if (candyMatch) {
+      const id = Number(candyMatch[1]);
+      // Line-keyed Evolution Candy: show the family mascot Pokémon art (never Rare Candy art).
+      if (typeof window.playSpriteUrl === "function") {
+        return window.playSpriteUrl(id, "normal");
+      }
+      return `images/pokemon/${id}.gif`;
+    }
     if (/^(https?:|data:|blob:)/i.test(raw)) return raw;
     if (raw.includes("/")) return raw;
     if (raw === "premium-avatars.png") return "images/trainers/premium-avatars.png";
     if (/\.(png|webp|gif|jpe?g)$/i.test(raw)) return `images/items/${raw}`;
     const slug = ITEM_SPRITES[key] || ITEM_SPRITES[raw] || "poke-ball";
     return `images/items/${slug}.png`;
+  };
+
+  /** Fallback when a dedicated Evolution Candy PNG is missing: family mascot sprite. */
+  window.playEvolutionCandyFallback = function playEvolutionCandyFallback(familyId) {
+    const id = Number(familyId);
+    if (!id) return "images/items/lgpe-candy.png";
+    if (typeof window.playSpriteUrl === "function") return window.playSpriteUrl(id, "normal");
+    return `images/pokemon/${id}.gif`;
   };
 
   window.playItemRawUrl = function playItemRawUrl(key) {

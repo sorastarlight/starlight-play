@@ -78,7 +78,7 @@
   }
 
   function currentFilter() {
-    return els.filter?.value || "ready";
+    return els.filter?.value || "all";
   }
 
   function setFilter(value) {
@@ -110,9 +110,7 @@
       all: rows.length + owned.filter((mon) => !mon.canEvolve).length,
       candy: rows.filter((row) => view.matchesFilter(row, "candy")).length,
       item: rows.filter((row) => view.matchesFilter(row, "item")).length,
-      trade: rows.filter((row) => view.matchesFilter(row, "trade")).length,
-      shiny: rows.filter((row) => view.matchesFilter(row, "shiny")).length,
-      favorites: rows.filter((row) => view.matchesFilter(row, "favorites")).length
+      trade: rows.filter((row) => view.matchesFilter(row, "trade")).length
     };
   }
 
@@ -173,9 +171,13 @@
       terminals.filter((mon) => view.matchesFilter ? view.matchesFilter(mon, "all", q) : true)
         .forEach((mon) => cards.push(cardHtml(mon, true)));
     }
-    const empty = filter === "ready"
-      ? `<div class="evo-empty"><p class="muted">No Pokémon are ready to evolve yet.</p><p class="muted">Catch Pokémon and earn Evolution Candy to unlock Evolution Lines.</p><p><a class="button secondary" href="./">Play</a></p></div>`
-      : `<p class="muted">Nothing in this filter right now.</p>`;
+    const empty = `<div class="evo-empty evo-empty-lab">
+      <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
+      <p><strong>Professor Oak</strong> is ready when you are.</p>
+      <p class="muted">Catch duplicate Pokémon from the same Evolution Line, then send them to Professor Oak for Evolution Candy.</p>
+      <p class="muted">Use Candy—and Stones or Linking Cords from the <a href="./store.html#evolution">Starlight Mart</a>—to evolve Pokémon you already own.</p>
+      <p><a class="button secondary" href="./">Play</a></p>
+    </div>`;
     els.grid.innerHTML = cards.join("") || empty;
     let fanfare = 0;
     els.grid.querySelectorAll(".evo-mon.is-ready").forEach((card) => {
@@ -187,11 +189,23 @@
   function nodeHtml(member) {
     const owned = Number(member.owned || 0) > 0;
     const seen = Boolean(member.pokedex);
-    return `<button type="button" class="evo-node${owned ? " is-owned" : ""}" data-evo-dex="${member.dex}">
+    const locked = Boolean(member.locked || member.unavailable || member.futureLocked);
+    return `<button type="button" class="evo-node${owned ? " is-owned" : ""}${locked ? " is-locked" : ""}" data-evo-dex="${member.dex}"${locked ? ' aria-label="' + esc((member.name || "Pokémon") + " locked") + '"' : ""}>
       ${sprite(member.dex, "normal", 56)}
       <strong>${esc(member.name)}</strong>
-      <span>${owned ? "Owned" : seen ? "Pokédex" : "Unseen"} · ${member.owned || 0}</span>
+      <span>${locked ? "LOCKED" : owned ? "Owned" : seen ? "Pokédex" : "Unseen"} · ${member.owned || 0}</span>
     </button>`;
+  }
+
+  function lockedRelativeNote(fam) {
+    const list = fam?.lockedRelatives || fam?.lockedFuture || fam?.futureLocked || fam?.lockedMembers;
+    if (Array.isArray(list) && list.length) {
+      return `<p class="evo-locked-note muted">LOCKED · Later generations</p>`;
+    }
+    if (fam?.lockedHint || fam?.hasLockedRelatives) {
+      return `<p class="evo-locked-note muted">LOCKED</p>`;
+    }
+    return "";
   }
 
   function renderFamilies() {
@@ -208,13 +222,14 @@
           <div class="evo-branch-tos">${layout.targets.map(nodeHtml).join("")}</div>
         </div>`;
       } else {
-        graph = `<div class="evo-line">${(layout.nodes || members).map((member, index, list) => `${nodeHtml(member)}${index < list.length - 1 ? `<span class="evo-arrow" aria-hidden="true">↓</span>` : ""}`).join("")}</div>`;
+        graph = `<div class="evo-line">${(layout.nodes || members).map((member, index, list) => `${nodeHtml(member)}${index < list.length - 1 ? `<span class="evo-arrow" aria-hidden="true">→</span>` : ""}`).join("")}</div>`;
       }
       return `
         <article class="card body family-card" id="evo-line-${fam.familyId}">
           <h3>${esc(fam.name)} Evolution Line</h3>
           <p><strong>Evolution Candy:</strong> ${fam.candy || 0}</p>
           ${graph || "<p class=\"muted\">No stages to show.</p>"}
+          ${lockedRelativeNote(fam)}
         </article>`;
     }).join("") || `<p class="muted">Catch a Pokémon with an enabled Evolution Line to see it here.</p>`;
   }
@@ -381,22 +396,24 @@
   function showEvoFanfare(result, row) {
     const model = view.resultModel ? view.resultModel(result, row) : { fromName: row.name, toName: row.toName, fromDex: row.dex, toDex: row.toDex, variant: row.variant, gender: row.gender };
     const lines = view.dialogueLines ? view.dialogueLines(model) : { what: "What?", evolving: `${model.fromName} is evolving!`, congrats: "Congratulations!", done: `Your ${model.fromName} evolved into ${model.toName}!` };
-    const panel = view.resultPanel ? view.resultPanel(model) : { title: model.toName, subtitle: "Evolution complete!", extras: [], newDex: model.newDex, dexLabel: "" };
+    const panel = view.resultPanel ? view.resultPanel(model) : { title: "EVOLUTION COMPLETE!", subtitle: "Evolution complete!", oakLine: "Professor Oak: Remarkable research, Trainer!", species: model.toName, extras: [], newDex: model.newDex, dexLabel: "" };
     const shiny = view.isShiny?.(model) || String(model.variant || "").includes("shiny");
     const fromArt = view.displayVariant ? view.displayVariant(model, model.fromDex) : model.variant;
     const toArt = view.displayVariant ? view.displayVariant(model, model.toDex) : model.variant;
     return new Promise((resolve) => {
       document.querySelector(".evo-fanfare")?.remove();
       const overlay = document.createElement("div");
-      overlay.className = `evo-fanfare${shiny ? " is-shiny-seq" : ""}`;
+      overlay.className = `evo-fanfare is-lab${shiny ? " is-shiny-seq" : ""}`;
       overlay.setAttribute("role", "dialog");
       overlay.setAttribute("aria-modal", "true");
       overlay.setAttribute("aria-label", "Evolution");
       const mode = perfMode();
       const sparkCount = mode === "high" ? 12 : mode === "balanced" ? 4 : 0;
       const sparks = Array.from({ length: sparkCount }, () => "<i></i>").join("");
+      const oakLine = panel.oakLine || "Professor Oak: Remarkable research, Trainer!";
+      const speciesLabel = panel.species || String(model.toName || "Pokémon").toUpperCase();
       overlay.innerHTML = `
-        <div class="evo-gba ${mode === "reduced" || mode === "low" ? "is-simple" : ""}" data-evo-root tabindex="0">
+        <div class="evo-gba evo-gba-lab ${mode === "reduced" || mode === "low" ? "is-simple" : ""}" data-evo-root tabindex="0">
           <div class="evo-field">
             <div class="evo-flash"></div>
             <div class="evo-ring" aria-hidden="true"></div>
@@ -411,11 +428,12 @@
           </div>
           <button type="button" class="evo-skip" data-evo-skip>Skip animation</button>
         </div>
-        <div class="evo-result-card" data-evo-result hidden>
+        <div class="evo-result-card evo-result-lab" data-evo-result hidden>
           ${shiny ? `<p class="evo-shiny-banner">✨ Shiny Pokémon ✨</p>` : ""}
           ${sprite(model.toDex, model.variant, 128, model.gender)}
-          <p class="eyebrow">${esc(panel.subtitle)}</p>
-          <h2>${esc(panel.title)}</h2>
+          <h2>${esc(panel.title || "EVOLUTION COMPLETE!")}</h2>
+          <p class="evo-oak-flavor">${esc(oakLine)}</p>
+          <p class="eyebrow">${esc(speciesLabel)}</p>
           <p>${esc(lines.done)}</p>
           ${panel.newDex ? `<p class="evo-newdex">New Pokédex entry! ${esc(panel.dexLabel)} ${esc(model.toName)} registered!</p>` : ""}
           <ul class="evo-rewards">${(panel.extras || []).map((line) => `<li>${esc(line)}</li>`).join("")}</ul>

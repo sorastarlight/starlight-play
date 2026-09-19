@@ -40,6 +40,15 @@ test("approved Oak research copy is exact", () => {
   assert(evoHtml.includes("While <strong>Kanto</strong> is the active region"));
 });
 
+test("page is Prof. Oak's Lab with Send + Evolve tabs", () => {
+  assert(evoHtml.includes("Prof. Oak's Lab"));
+  assert(evoHtml.includes('data-tab="send"'));
+  assert(evoHtml.includes('data-tab="evolve"'));
+  assert(evoHtml.includes('id="evo-send-grid"'));
+  assert(evolveJs.includes("play_transfer_oak"));
+  assert(evolveJs.includes("setTab"));
+});
+
 test("filters: All first; Shiny/Favorites removed", () => {
   assert(!evoHtml.includes('data-filter="shiny"'));
   assert(!evoHtml.includes('data-filter="favorites"'));

@@ -128,7 +128,7 @@
     if (key === "lure") return "Automatically joins you to encounters for 30 minutes.";
     if (key === "coins") return "Spend these in Starlight Mart.";
     if (key === "bag_bonus") return "Permanently adds extra bag slots so you can carry more items.";
-    if (key === "rarecandy") return "Converts into 1 Evolution Candy at the Evolution Center. It does not evolve a Pokémon by itself.";
+    if (key === "rarecandy") return "Converts into 1 Evolution Candy at Prof. Oak's Lab. It does not evolve a Pokémon by itself.";
     if (STONE_USES[key]) {
       const first = STONE_USES[key][0];
       return `Used to evolve certain Pokémon such as ${first[0]}.`;

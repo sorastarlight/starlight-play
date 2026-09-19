@@ -4,7 +4,16 @@
   const els = {
     gate: document.getElementById("gate"),
     app: document.getElementById("evo-app"),
+    tabs: document.querySelector(".evo-tabs"),
+    tabSend: document.getElementById("evo-tab-send"),
+    tabEvolve: document.getElementById("evo-tab-evolve"),
     grid: document.getElementById("evo-grid"),
+    sendGrid: document.getElementById("evo-send-grid"),
+    sendSearch: document.getElementById("evo-send-search"),
+    sendSort: document.getElementById("evo-send-sort"),
+    sendGo: document.getElementById("evo-send-go"),
+    sendNote: document.getElementById("evo-send-note"),
+    sendStatus: document.getElementById("evo-send-status"),
     candy: document.getElementById("candy-list"),
     rarePanel: document.getElementById("rare-candy-panel"),
     rareFamily: document.getElementById("rare-candy-family"),
@@ -18,6 +27,7 @@
     filter: document.getElementById("evo-filter"),
     filters: document.getElementById("evo-filters"),
     search: document.getElementById("evo-search"),
+    sort: document.getElementById("evo-sort"),
     note: document.getElementById("evo-ready-note"),
     strip: document.getElementById("evo-strip"),
     readyCount: document.getElementById("evo-ready-count"),
@@ -30,18 +40,26 @@
     detail: document.getElementById("evo-detail"),
     go: document.getElementById("evo-go"),
     cancel: document.getElementById("evo-cancel"),
-    status: document.getElementById("evo-status")
+    status: document.getElementById("evo-status"),
+    oakModal: document.getElementById("oak-lab-modal"),
+    oakSprites: document.getElementById("oak-lab-sprites"),
+    oakCopy: document.getElementById("oak-lab-copy")
   };
   let data = null;
+  let storage = null;
   let pick = null;
   let rareIdem = "";
+  let activeTab = "send";
+  const selectedOak = new Set();
+  let pendingOakIds = [];
   const evolveGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
   const rareGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
+  const oakGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
 
   window.playBindAccountNav({
     onSignOut() {
       els.app.hidden = true;
-      window.playRestoreGate(els.gate, "Sign in to evolve your Pokémon.");
+      window.playRestoreGate(els.gate, "Sign in to visit Prof. Oak's Lab.");
     }
   });
 
@@ -98,8 +116,66 @@
     return "★".repeat(rank || 0) + "☆".repeat(Math.max(0, 5 - (rank || 0)));
   }
 
+  function dexLabel(dex) {
+    return dex != null ? `#${String(dex).padStart(3, "0")}` : "";
+  }
+
   function readyRows() {
     return data?.ready || [];
+  }
+
+  function storageMons() {
+    return Array.isArray(storage?.mons) ? storage.mons : [];
+  }
+
+  function ownedCounts() {
+    const counts = new Map();
+    for (const mon of storageMons()) {
+      const dex = Number(mon.dex);
+      counts.set(dex, (counts.get(dex) || 0) + 1);
+    }
+    if (!counts.size) {
+      for (const mon of data?.owned || []) {
+        const dex = Number(mon.dex);
+        counts.set(dex, (counts.get(dex) || 0) + 1);
+      }
+    }
+    return counts;
+  }
+
+  function oakBlockReason(mon, counts) {
+    if (mon.onTeam) return "On team";
+    if (mon.listed) return "Listed for trade";
+    if (mon.locked) return "Locked";
+    if (mon.favorite) return "Favorite";
+    if ((counts.get(Number(mon.dex)) || 0) <= 1) return "Keep for Living Dex";
+    return "";
+  }
+
+  function sendableMons() {
+    const counts = ownedCounts();
+    const source = storageMons().length ? storageMons() : (data?.owned || []);
+    return source.map((mon) => {
+      const reason = oakBlockReason(mon, counts);
+      return { ...mon, oakBlocked: Boolean(reason), oakReason: reason };
+    });
+  }
+
+  function setTab(tab) {
+    activeTab = tab === "evolve" ? "evolve" : "send";
+    const sendOn = activeTab === "send";
+    els.tabs?.querySelectorAll("[data-tab]").forEach((btn) => {
+      const on = btn.dataset.tab === activeTab;
+      btn.setAttribute("aria-selected", on ? "true" : "false");
+      btn.tabIndex = on ? 0 : -1;
+    });
+    if (els.tabSend) els.tabSend.hidden = !sendOn;
+    if (els.tabEvolve) els.tabEvolve.hidden = sendOn;
+    try {
+      const url = new URL(window.location.href);
+      url.hash = activeTab;
+      window.history.replaceState(null, "", url);
+    } catch (_) {}
   }
 
   function counts() {
@@ -126,8 +202,27 @@
     if (els.note) {
       els.note.textContent = tally.ready
         ? `${tally.ready} Pokémon ready to evolve.`
-        : "No Pokémon are ready to evolve yet. Catch Pokémon and earn Evolution Candy to unlock Evolution Lines.";
+        : "No Pokémon are ready to evolve yet. Send duplicates to Oak for Evolution Candy, then evolve here.";
     }
+  }
+
+  function statusFooter(row, terminal) {
+    if (terminal) return `<span class="evo-foot is-done">Fully Evolved</span>`;
+    const kind = view.cardKind ? view.cardKind(row) : (canEvolve(row) ? "ready" : "blocked");
+    if (kind === "ready") return `<span class="evo-foot is-ready">Ready to Evolve <i aria-hidden="true">→</i></span>`;
+    if (kind === "locked") return `<span class="evo-foot is-warn">Locked</span>`;
+    if (kind === "reserved") return `<span class="evo-foot is-warn">Trade reserved</span>`;
+    if (view.matchesFilter?.(row, "candy")) {
+      const need = Number(row.candyCost || 0);
+      return `<span class="evo-foot is-candy">Needs Candy <strong>x ${need}</strong></span>`;
+    }
+    if (view.matchesFilter?.(row, "item")) {
+      return `<span class="evo-foot is-item">Needs ${esc(itemLabel(row.item) || "Item")}</span>`;
+    }
+    if (view.matchesFilter?.(row, "trade")) {
+      return `<span class="evo-foot is-trade">Trade Evolution</span>`;
+    }
+    return `<span class="evo-foot is-wait">Not ready yet</span>`;
   }
 
   function cardHtml(row, terminal) {
@@ -138,45 +233,55 @@
     const label = terminal
       ? `${row.name}. No evolution currently available.`
       : `${ready ? "Ready to evolve. " : ""}${shiny ? "Shiny " : ""}${row.name}${row.level ? ` level ${row.level}` : ""} into ${row.toName || ""}.`;
-    const badge = ready
-      ? `<span class="evo-badge">✨ Ready to evolve!</span>`
-      : kind === "locked"
-        ? `<span class="evo-badge is-warn">Locked</span>`
-        : kind === "reserved"
-          ? `<span class="evo-badge is-warn">Trade reserved</span>`
-          : terminal
-            ? `<span class="evo-badge is-muted">No evolution</span>`
-            : `<span class="evo-badge is-wait">Not ready yet</span>`;
     const candy = terminal ? "" : `${Number(row.haveCandy || 0)} / ${Number(row.candyCost || 0)} Evolution Candy`;
     const item = row.item ? `${itemLabel(row.item)} ${row.haveItem || row.tradeReady ? "✓" : "✕"}` : "";
     return `
-      <button type="button" class="evo-mon is-${kind}${ready ? " is-ready" : ""}" data-evo="${esc(row.catchId || row.id || "")}" data-rule="${esc(row.ruleId || "")}" data-kind="${kind}" data-dex="${row.dex || ""}" aria-label="${esc(label)}">
+      <button type="button" class="evo-mon is-${kind}${ready ? " is-ready" : ""}${terminal ? " is-terminal" : ""}" data-evo="${esc(row.catchId || row.id || "")}" data-rule="${esc(row.ruleId || "")}" data-kind="${kind}" data-dex="${row.dex || ""}" aria-label="${esc(label)}">
+        <span class="evo-mon-ball" aria-hidden="true"></span>
         <span class="evo-mon-art">${sprite(row.dex, row.variant || "normal", 96, row.gender)}</span>
-        <strong>${shiny ? "✨ " : ""}${esc(row.name)} ${genderMark(row.gender)}</strong>
+        <strong class="evo-mon-name">${dexLabel(row.dex)} ${shiny ? "✨ " : ""}${esc(row.name)} ${genderMark(row.gender)}</strong>
         <span class="muted">${row.level ? `Lv. ${row.level}` : ""}${row.favorite ? " ★ Favorite" : ""}</span>
         ${row.toName ? `<span class="evo-arrow-lite" aria-hidden="true">↓</span><span class="evo-target">${esc(row.toName)}</span>` : ""}
-        ${badge}
         ${candy ? `<span class="evo-cost">${esc(candy)}${item ? ` · ${esc(item)}` : ""}${!ready && need ? ` · ${need} more needed` : ""}</span>` : ""}
-        ${ready ? `<span class="evo-cta">Click to evolve</span>` : ""}
+        ${statusFooter(row, terminal)}
       </button>`;
+  }
+
+  function sortRows(rows, mode) {
+    const list = rows.slice();
+    if (mode === "name") {
+      list.sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")) || (a.dex || 0) - (b.dex || 0));
+    } else if (mode === "dex-desc") {
+      list.sort((a, b) => (b.dex || 0) - (a.dex || 0));
+    } else if (mode === "ready") {
+      list.sort((a, b) => Number(canEvolve(b)) - Number(canEvolve(a)) || (a.dex || 0) - (b.dex || 0));
+    } else {
+      list.sort((a, b) => (a.dex || 0) - (b.dex || 0));
+    }
+    return list;
   }
 
   function renderReady() {
     const filter = currentFilter();
     const q = els.search?.value || "";
-    const rows = readyRows().filter((row) => (view.matchesFilter ? view.matchesFilter(row, filter, q) : true));
+    const rows = sortRows(
+      readyRows().filter((row) => (view.matchesFilter ? view.matchesFilter(row, filter, q) : true)),
+      els.sort?.value || "dex-asc"
+    );
     const cards = rows.map((row) => cardHtml(row, false));
     if (filter === "all") {
       const terminals = (data?.owned || []).filter((mon) => !mon.canEvolve).map((mon) => ({ ...mon, terminal: true, catchId: mon.id }));
-      terminals.filter((mon) => view.matchesFilter ? view.matchesFilter(mon, "all", q) : true)
-        .forEach((mon) => cards.push(cardHtml(mon, true)));
+      sortRows(
+        terminals.filter((mon) => (view.matchesFilter ? view.matchesFilter(mon, "all", q) : true)),
+        els.sort?.value || "dex-asc"
+      ).forEach((mon) => cards.push(cardHtml(mon, true)));
     }
     const empty = `<div class="evo-empty evo-empty-lab">
       <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
       <p><strong>Professor Oak</strong> is ready when you are.</p>
       <p class="muted">Catch duplicate Pokémon from the same Evolution Line, then send them to Professor Oak for Evolution Candy.</p>
       <p class="muted">Use Candy—and Stones or Linking Cords from the <a href="./store.html#evolution">Starlight Mart</a>—to evolve Pokémon you already own.</p>
-      <p><a class="button secondary" href="./">Play</a></p>
+      <p><button type="button" class="button secondary" data-switch-tab="send">Send to Oak</button></p>
     </div>`;
     els.grid.innerHTML = cards.join("") || empty;
     let fanfare = 0;
@@ -184,6 +289,60 @@
       if (fanfare < 4) card.classList.add("is-fanfare");
       fanfare += 1;
     });
+  }
+
+  function sendCardHtml(mon) {
+    const id = String(mon.id);
+    const selected = selectedOak.has(id);
+    const blocked = Boolean(mon.oakBlocked);
+    const shiny = String(mon.variant || "").includes("shiny");
+    const label = blocked
+      ? `${mon.name}. ${mon.oakReason}.`
+      : `${selected ? "Selected. " : ""}${shiny ? "Shiny " : ""}${mon.name}. Send to Professor Oak for Evolution Candy.`;
+    return `
+      <button type="button" class="evo-mon evo-send-card${selected ? " is-selected" : ""}${blocked ? " is-blocked" : ""}" data-oak-id="${esc(id)}" data-dex="${mon.dex || ""}" ${blocked ? "disabled" : ""} aria-pressed="${selected ? "true" : "false"}" aria-label="${esc(label)}">
+        <span class="evo-mon-ball" aria-hidden="true"></span>
+        <span class="evo-mon-art">${sprite(mon.dex, mon.variant || "normal", 96, mon.gender)}</span>
+        <strong class="evo-mon-name">${dexLabel(mon.dex)} ${shiny ? "✨ " : ""}${esc(mon.name || mon.nickname || "Pokémon")} ${genderMark(mon.gender)}</strong>
+        <span class="muted">${mon.level ? `Lv. ${mon.level}` : ""}${mon.favorite ? " ★" : ""}</span>
+        <span class="evo-foot ${blocked ? "is-warn" : selected ? "is-ready" : "is-candy"}">${blocked ? esc(mon.oakReason) : selected ? "Selected for Oak" : "Tap to select"}</span>
+      </button>`;
+  }
+
+  function renderSend() {
+    if (!els.sendGrid) return;
+    const q = String(els.sendSearch?.value || "").trim().toLowerCase();
+    let rows = sendableMons();
+    if (q) {
+      rows = rows.filter((mon) => [mon.name, mon.nickname, mon.gender, mon.variant, String(mon.dex)]
+        .join(" ")
+        .toLowerCase()
+        .includes(q));
+    }
+    rows = sortRows(rows, els.sendSort?.value || "dex-asc");
+    const live = new Set(rows.map((mon) => String(mon.id)));
+    for (const id of [...selectedOak]) {
+      if (!live.has(id) || rows.find((mon) => String(mon.id) === id)?.oakBlocked) selectedOak.delete(id);
+    }
+    const eligible = rows.filter((mon) => !mon.oakBlocked).length;
+    if (els.sendNote) {
+      els.sendNote.textContent = eligible
+        ? `${eligible} Pokémon can be sent to Oak · ${selectedOak.size} selected`
+        : "No duplicates ready to send. Catch extras, then come back.";
+    }
+    if (els.sendGo) {
+      els.sendGo.disabled = selectedOak.size < 1;
+      els.sendGo.textContent = selectedOak.size
+        ? `Send ${selectedOak.size} to Oak`
+        : "Send selected to Oak";
+    }
+    const empty = `<div class="evo-empty evo-empty-lab">
+      <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
+      <p><strong>No duplicates to send yet.</strong></p>
+      <p class="muted">Catch extra Pokémon from an Evolution Line, keep one for your Living Dex, then send the rest to Oak for Evolution Candy.</p>
+      <p><a class="button secondary" href="./">Play</a></p>
+    </div>`;
+    els.sendGrid.innerHTML = rows.map(sendCardHtml).join("") || empty;
   }
 
   function nodeHtml(member) {
@@ -263,7 +422,7 @@
         ${sprite(row.baseDex, "normal", 48)}
         <strong>${esc(row.name)} Line</strong>
         <span>${row.qty} Evolution Candy</span>
-      </button>`).join("") || `<p class="muted">Catch Pokémon from an Evolution Line to earn Evolution Candy.</p>`;
+      </button>`).join("") || `<p class="muted">Send Pokémon to Professor Oak to earn Evolution Candy.</p>`;
   }
 
   function renderHistory() {
@@ -289,6 +448,7 @@
 
   function render() {
     renderHero();
+    renderSend();
     renderReady();
     renderFamilies();
     renderRareCandy();
@@ -349,8 +509,8 @@
     if (els.title) els.title.textContent = kind === "terminal" ? row.name : "Evolution";
     const fromName = `${shiny ? "✨ Shiny " : ""}${row.name}`;
     const toName = row.toName ? `${shiny ? "✨ Shiny " : ""}${row.toName}` : "";
-    const fromDex = row.dex != null ? `#${String(row.dex).padStart(3, "0")}` : "";
-    const toDex = row.toDex != null ? `#${String(row.toDex).padStart(3, "0")}` : "";
+    const fromDex = row.dex != null ? dexLabel(row.dex) : "";
+    const toDex = row.toDex != null ? dexLabel(row.toDex) : "";
     els.detail.innerHTML = `
       <div class="evo-preview-stage${shiny ? " is-shiny" : ""}">
         ${shiny ? `<p class="evo-shiny-banner">✨ Shiny Pokémon ✨</p>` : ""}
@@ -376,12 +536,61 @@
       els.go.textContent = view.evolveLabel ? view.evolveLabel(row) : `Evolve ${row.name}`;
     }
     if (els.cancel) els.cancel.textContent = ready ? "Not now" : "Close";
-    document.querySelectorAll(".evo-mon.is-selected").forEach((el) => el.classList.remove("is-selected"));
+    document.querySelectorAll("#evo-grid .evo-mon.is-selected").forEach((el) => el.classList.remove("is-selected"));
     const selectedId = String(row.catchId || row.id || "");
     if (selectedId) {
       els.grid?.querySelector(`[data-evo="${selectedId}"]`)?.classList.add("is-selected");
     }
     window.playShowDialog(els.modal);
+  }
+
+  function openOakConfirm(ids) {
+    const mons = sendableMons().filter((mon) => ids.includes(String(mon.id)) && !mon.oakBlocked);
+    if (!mons.length || !els.oakModal) return;
+    pendingOakIds = mons.map((mon) => String(mon.id));
+    if (els.oakSprites) {
+      els.oakSprites.innerHTML = mons.slice(0, 8).map((mon) => sprite(mon.dex, mon.variant || "normal", 64, mon.gender)).join("");
+    }
+    if (els.oakCopy) {
+      const names = mons.slice(0, 3).map((mon) => mon.name).join(", ");
+      const extra = mons.length > 3 ? ` and ${mons.length - 3} more` : "";
+      els.oakCopy.innerHTML = `Send <strong>${mons.length}</strong> Pokémon (${esc(names)}${esc(extra)}) to Professor Oak?<br>You'll receive <strong>Evolution Candy</strong>.<br>These Pokémon will leave your collection.`;
+    }
+    if (typeof els.oakModal.showModal === "function") els.oakModal.showModal();
+    else els.oakModal.setAttribute("open", "");
+  }
+
+  async function transferSelected() {
+    if (!pendingOakIds.length || !oakGate.begin()) return;
+    if (els.sendStatus) els.sendStatus.textContent = "Sending to Professor Oak…";
+    if (els.sendGo) els.sendGo.disabled = true;
+    let ok = 0;
+    let lastMessage = "";
+    try {
+      for (const id of pendingOakIds) {
+        const result = await window.playCall("play_transfer_oak", { p_catch_id: id });
+        ok += 1;
+        lastMessage = result.message || lastMessage;
+        selectedOak.delete(id);
+      }
+      if (els.sendStatus) {
+        els.sendStatus.textContent = ok > 1
+          ? `Sent ${ok} Pokémon to Oak. ${lastMessage || ""}`.trim()
+          : (lastMessage || "Sent to Professor Oak.");
+      }
+      pendingOakIds = [];
+      await load();
+    } catch (error) {
+      if (els.sendStatus) {
+        els.sendStatus.textContent = window.playHumanRpcError
+          ? window.playHumanRpcError(error, "Could not send that Pokémon to Oak.")
+          : window.playRpcError(error);
+      }
+      await load();
+    } finally {
+      oakGate.end();
+      if (els.sendGo) els.sendGo.disabled = selectedOak.size < 1;
+    }
   }
 
   function wait(ms) {
@@ -594,12 +803,17 @@
     const session = await loadNav();
     if (!session) {
       els.app.hidden = true;
-      window.playRestoreGate(els.gate, "Sign in to evolve your Pokémon.");
+      window.playRestoreGate(els.gate, "Sign in to visit Prof. Oak's Lab.");
       return;
     }
     window.playSetLoadingGate(els.gate, els.app);
     try {
-      data = await window.playCall("play_collection");
+      const [collection, boxes] = await Promise.all([
+        window.playCall("play_collection"),
+        window.playCall("play_storage").catch(() => null)
+      ]);
+      data = collection;
+      storage = boxes;
       els.gate.hidden = true;
       els.app.hidden = false;
       render();
@@ -607,8 +821,8 @@
       els.gate.hidden = false;
       els.app.hidden = true;
       els.gate.textContent = window.playHumanRpcError
-        ? window.playHumanRpcError(error, "Evolution is not live yet.")
-        : window.playRpcError(error, "Evolution is not live yet.");
+        ? window.playHumanRpcError(error, "Prof. Oak's Lab is not live yet.")
+        : window.playRpcError(error, "Prof. Oak's Lab is not live yet.");
     }
   }
 
@@ -628,6 +842,49 @@
     window.playSetAccountNav(session, profile, extras);
     return session;
   }
+
+  const hashTab = String(window.location.hash || "").replace(/^#/, "");
+  setTab(hashTab === "evolve" ? "evolve" : "send");
+
+  els.tabs?.addEventListener("click", (event) => {
+    const tab = event.target.closest("[data-tab]");
+    if (!tab) return;
+    setTab(tab.dataset.tab);
+  });
+
+  els.app?.addEventListener("click", (event) => {
+    const switcher = event.target.closest("[data-switch-tab]");
+    if (!switcher) return;
+    event.preventDefault();
+    setTab(switcher.dataset.switchTab);
+  });
+
+  els.sendGrid?.addEventListener("click", (event) => {
+    const card = event.target.closest("[data-oak-id]");
+    if (!card || card.disabled) return;
+    const id = card.dataset.oakId;
+    if (selectedOak.has(id)) selectedOak.delete(id);
+    else selectedOak.add(id);
+    renderSend();
+  });
+
+  els.sendGo?.addEventListener("click", () => {
+    openOakConfirm([...selectedOak]);
+  });
+
+  els.sendSearch?.addEventListener("input", renderSend);
+  els.sendSort?.addEventListener("change", renderSend);
+
+  els.oakModal?.addEventListener("click", (event) => {
+    if (event.target === els.oakModal) els.oakModal.close("cancel");
+  });
+  els.oakModal?.addEventListener("close", () => {
+    if (els.oakModal.returnValue !== "transfer" || !pendingOakIds.length) {
+      pendingOakIds = [];
+      return;
+    }
+    transferSelected();
+  });
 
   els.grid?.addEventListener("click", (event) => {
     const card = event.target.closest("[data-evo]");
@@ -654,6 +911,7 @@
     renderReady();
   });
   els.search?.addEventListener("input", renderReady);
+  els.sort?.addEventListener("change", renderReady);
   els.rareFamily?.addEventListener("change", updateRarePreview);
   els.rareUse?.addEventListener("click", async () => {
     const family = Number(els.rareFamily?.value || 0);

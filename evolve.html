@@ -3,11 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Evolution · THE STARLIGHT PLAY HUB</title>
+<title>Prof. Oak's Lab · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260918-rc25">
+<link rel="stylesheet" href="css/play.css?v=20260919-rc26">
 <body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -54,12 +54,15 @@
 <div class="wrap evo-wrap">
   <header class="evo-hero evo-lab-hero">
     <div class="evo-lab-banner">
-      <img class="evo-lab-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="120" height="120" decoding="async" aria-hidden="true">
       <div class="evo-lab-intro">
         <p class="eyebrow">ST★RLIGHT</p>
-        <h1>Evolution Center</h1>
+        <h1>Prof. Oak's Lab</h1>
         <p class="evo-lab-sub">Professor Oak's Research Lab</p>
-        <p class="evo-lab-tag">Research. Discover. Evolve.</p>
+        <p class="evo-lab-tag">Help Pokémon grow. Strengthen your team. Complete their Evolution Lines!</p>
+      </div>
+      <div class="evo-lab-oak-panel">
+        <img class="evo-lab-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="120" height="120" decoding="async" aria-hidden="true">
+        <p class="evo-oak-bubble" role="note">Let's help your Pokémon reach their full potential!</p>
       </div>
     </div>
     <div id="evo-strip" class="evo-strip" hidden>
@@ -67,82 +70,129 @@
       <div><span id="evo-candy-count">0</span><small>Evolution Candy</small></div>
       <div><span id="evo-done-count">0</span><small>Evolutions</small></div>
     </div>
-    <section class="evo-research" aria-labelledby="evo-research-title">
-      <h2 id="evo-research-title">PROFESSOR OAK'S EVOLUTION RESEARCH</h2>
-      <div class="evo-research-body">
-        <p>Catch duplicate Pokémon from the same <strong>Evolution Line</strong> and send them to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong>.</p>
-        <p>Use Evolution Candy to evolve a Pokémon you already own. <strong>Evolution transforms that Pokémon into its evolved form—it does not create an additional copy.</strong></p>
-        <p>Some Pokémon also require special evolution items. <strong>Evolution Stones</strong> and <strong>Linking Cords</strong> can be purchased from the <a href="./store.html#evolution"><strong>Starlight Mart</strong></a>.</p>
-        <p>Only Pokémon currently available in the game can be evolved into. While <strong>Kanto</strong> is the active region, evolutions or relatives introduced in later generations will remain locked until their corresponding content is released.</p>
-      </div>
-    </section>
   </header>
-  <p id="gate" class="notice">Sign in to evolve your Pokémon.</p>
+  <p id="gate" class="notice">Sign in to visit Prof. Oak's Lab.</p>
   <div id="evo-app" hidden>
-    <section class="evo-block" aria-labelledby="evo-mons-title">
-      <div class="evo-block-head">
-        <h2 id="evo-mons-title">Your Pokémon</h2>
-        <p id="evo-ready-note" class="muted"></p>
-      </div>
-      <div class="evo-toolbar">
-        <div id="evo-filters" class="evo-chips" role="group" aria-label="Evolution filters">
-          <button type="button" class="evo-chip" data-filter="all" aria-pressed="true">All <span data-count="all">0</span></button>
-          <button type="button" class="evo-chip" data-filter="ready" aria-pressed="false">Ready <span data-count="ready">0</span></button>
-          <button type="button" class="evo-chip" data-filter="candy" aria-pressed="false">Needs Candy <span data-count="candy">0</span></button>
-          <button type="button" class="evo-chip" data-filter="item" aria-pressed="false">Needs Item <span data-count="item">0</span></button>
-          <button type="button" class="evo-chip" data-filter="trade" aria-pressed="false">Trade Evolution <span data-count="trade">0</span></button>
+    <div class="evo-tabs" role="tablist" aria-label="Professor Oak lab">
+      <button type="button" class="evo-tab" role="tab" id="tab-send" data-tab="send" aria-controls="evo-tab-send" aria-selected="true">Send to Oak</button>
+      <button type="button" class="evo-tab" role="tab" id="tab-evolve" data-tab="evolve" aria-controls="evo-tab-evolve" aria-selected="false" tabindex="-1">Evolve</button>
+    </div>
+
+    <section id="evo-tab-send" class="evo-tab-panel" role="tabpanel" aria-labelledby="tab-send">
+      <section class="evo-research" aria-labelledby="evo-send-title">
+        <h2 id="evo-send-title">Send Pokémon to Professor Oak</h2>
+        <div class="evo-research-body">
+          <p>Catch duplicate Pokémon from the same <strong>Evolution Line</strong> and send them to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong>.</p>
+          <p>Select Pokémon below to transfer. Favorites, locked Pokémon, team members, and trade listings stay with you. Keep at least one of each species for your Living Dex.</p>
+          <p class="evo-research-aside">Research, Discover, Evolve, Together!</p>
         </div>
-        <label class="evo-search-label">Search Pokémon
-          <input id="evo-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
-        </label>
-        <select id="evo-filter" hidden>
-          <option value="all" selected>All</option>
-          <option value="ready">Ready</option>
-          <option value="candy">Needs Candy</option>
-          <option value="item">Needs Item</option>
-          <option value="trade">Trade Evolution</option>
-        </select>
-      </div>
-      <div id="evo-grid" class="evo-mons"></div>
-    </section>
-
-    <section class="evo-block" aria-labelledby="evo-lines-title">
-      <h2 id="evo-lines-title">Evolution Lines</h2>
-      <div id="family-list" class="evo-lines"></div>
-    </section>
-
-    <section class="evo-block" id="rare-candy-panel" hidden>
-      <h2>Rare Candy</h2>
-      <div class="evo-rare">
-        <img id="rare-candy-art" alt="" width="64" height="64">
-        <div>
-          <p id="rare-candy-owned" class="muted">Owned: 0</p>
-          <p>Convert 1 Rare Candy into 1 Evolution Candy.</p>
-          <label class="field" for="rare-candy-family">Choose Evolution Line
-            <select id="rare-candy-family"></select>
+      </section>
+      <section class="evo-block" aria-labelledby="evo-send-mons-title">
+        <div class="evo-block-head">
+          <h2 id="evo-send-mons-title">Your Collection</h2>
+          <p id="evo-send-note" class="muted"></p>
+        </div>
+        <div class="evo-toolbar evo-send-toolbar">
+          <label class="evo-search-label">Search Pokémon
+            <input id="evo-send-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
           </label>
-          <p id="rare-candy-preview" class="muted"></p>
-          <button id="rare-candy-use" type="button">Use Rare Candy</button>
-          <p id="rare-candy-status" class="muted" role="status"></p>
+          <label class="evo-search-label">Sort by
+            <select id="evo-send-sort" class="evo-sort">
+              <option value="dex-asc" selected>Dex Number (Low → High)</option>
+              <option value="dex-desc">Dex Number (High → Low)</option>
+              <option value="name">Name (A → Z)</option>
+            </select>
+          </label>
+          <button id="evo-send-go" class="evo-send-go" type="button" disabled>Send selected to Oak</button>
         </div>
-      </div>
+        <p id="evo-send-status" class="muted" role="status"></p>
+        <div id="evo-send-grid" class="evo-mons evo-send-mons"></div>
+      </section>
     </section>
 
-    <section class="evo-block">
-      <h2>Candy Collection</h2>
-      <div id="candy-list" class="evo-candy-grid"></div>
-    </section>
+    <section id="evo-tab-evolve" class="evo-tab-panel" role="tabpanel" aria-labelledby="tab-evolve" hidden>
+      <section class="evo-research" aria-labelledby="evo-research-title">
+        <h2 id="evo-research-title">Evolve Your Pokémon with Professor Oak</h2>
+        <div class="evo-research-body">
+          <p>Use Evolution Candy to evolve a Pokémon you already own. <strong>Evolution transforms that Pokémon into its evolved form—it does not create an additional copy.</strong></p>
+          <p>Some Pokémon also require special evolution items. <strong>Evolution Stones</strong> and <strong>Linking Cords</strong> can be purchased from the <a href="./store.html#evolution"><strong>Starlight Mart</strong></a>.</p>
+          <p>Only Pokémon currently available in the game can be evolved into. While <strong>Kanto</strong> is the active region, evolutions or relatives introduced in later generations will remain locked until their corresponding content is released.</p>
+          <p class="evo-research-aside">Research, Discover, Evolve, Together!</p>
+        </div>
+      </section>
+      <section class="evo-block" aria-labelledby="evo-mons-title">
+        <div class="evo-block-head">
+          <h2 id="evo-mons-title">Your Pokémon</h2>
+          <p id="evo-ready-note" class="muted"></p>
+        </div>
+        <div class="evo-toolbar">
+          <div id="evo-filters" class="evo-chips" role="group" aria-label="Evolution filters">
+            <button type="button" class="evo-chip" data-filter="all" aria-pressed="true">All <span data-count="all">0</span></button>
+            <button type="button" class="evo-chip" data-filter="ready" aria-pressed="false">Ready <span data-count="ready">0</span></button>
+            <button type="button" class="evo-chip" data-filter="candy" aria-pressed="false">Needs Candy <span data-count="candy">0</span></button>
+            <button type="button" class="evo-chip" data-filter="item" aria-pressed="false">Needs Item <span data-count="item">0</span></button>
+            <button type="button" class="evo-chip" data-filter="trade" aria-pressed="false">Trade Evolution <span data-count="trade">0</span></button>
+          </div>
+          <label class="evo-search-label">Search Pokémon
+            <input id="evo-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
+          </label>
+          <label class="evo-search-label">Sort by
+            <select id="evo-sort" class="evo-sort">
+              <option value="dex-asc" selected>Dex Number (Low → High)</option>
+              <option value="dex-desc">Dex Number (High → Low)</option>
+              <option value="name">Name (A → Z)</option>
+              <option value="ready">Ready first</option>
+            </select>
+          </label>
+          <select id="evo-filter" hidden>
+            <option value="all" selected>All</option>
+            <option value="ready">Ready</option>
+            <option value="candy">Needs Candy</option>
+            <option value="item">Needs Item</option>
+            <option value="trade">Trade Evolution</option>
+          </select>
+        </div>
+        <div id="evo-grid" class="evo-mons"></div>
+      </section>
 
-    <section class="evo-block" id="evo-history-block" hidden>
-      <h2>Recent Evolutions</h2>
-      <ul id="evo-history" class="adventure-log"></ul>
-    </section>
+      <section class="evo-block" aria-labelledby="evo-lines-title">
+        <h2 id="evo-lines-title">Evolution Lines</h2>
+        <div id="family-list" class="evo-lines"></div>
+      </section>
 
-    <details class="evo-block evo-mastery">
-      <summary>Species Mastery</summary>
-      <p class="muted">Mastery stays even if you trade or release every copy.</p>
-      <div id="mastery-list" class="prog-pick-grid"></div>
-    </details>
+      <section class="evo-block" id="rare-candy-panel" hidden>
+        <h2>Rare Candy</h2>
+        <div class="evo-rare">
+          <img id="rare-candy-art" alt="" width="64" height="64">
+          <div>
+            <p id="rare-candy-owned" class="muted">Owned: 0</p>
+            <p>Convert 1 Rare Candy into 1 Evolution Candy.</p>
+            <label class="field" for="rare-candy-family">Choose Evolution Line
+              <select id="rare-candy-family"></select>
+            </label>
+            <p id="rare-candy-preview" class="muted"></p>
+            <button id="rare-candy-use" type="button">Use Rare Candy</button>
+            <p id="rare-candy-status" class="muted" role="status"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="evo-block">
+        <h2>Candy Collection</h2>
+        <div id="candy-list" class="evo-candy-grid"></div>
+      </section>
+
+      <section class="evo-block" id="evo-history-block" hidden>
+        <h2>Recent Evolutions</h2>
+        <ul id="evo-history" class="adventure-log"></ul>
+      </section>
+
+      <details class="evo-block evo-mastery">
+        <summary>Species Mastery</summary>
+        <p class="muted">Mastery stays even if you trade or release every copy.</p>
+        <div id="mastery-list" class="prog-pick-grid"></div>
+      </details>
+    </section>
   </div>
 </div>
 <dialog id="evo-modal" class="play-modal evo-preview" aria-labelledby="evo-title">
@@ -158,20 +208,36 @@
     <p id="evo-status" class="muted" role="status"></p>
   </form>
 </dialog>
+<dialog id="oak-lab-modal" class="play-modal play-modal-confirm" aria-labelledby="oak-lab-title">
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head">
+      <h3 id="oak-lab-title">Transfer to Professor Oak?</h3>
+    </header>
+    <div class="oak-modal-body">
+      <div id="oak-lab-sprites" class="oak-lab-sprites"></div>
+      <p id="oak-lab-copy"></p>
+      <p class="muted">This cannot be undone. Oak gives Evolution Candy for the transfer.</p>
+    </div>
+    <div class="links">
+      <button value="cancel" class="secondary" type="submit">Keep them</button>
+      <button id="oak-lab-confirm" class="danger" value="transfer" type="submit">Send to Oak</button>
+    </div>
+  </form>
+</dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260918-rc25"></script>
-<script src="js/play-perf.js?v=20260918-rc25"></script>
-<script src="js/build.js?v=20260918-rc25"></script>
-<script src="js/build-client.js?v=20260918-rc25"></script>
-<script src="js/auth.js?v=20260918-rc25"></script>
-<script src="js/species.js?v=20260918-rc25"></script>
-<script src="js/variants.js?v=20260918-rc25"></script>
-<script src="js/forms.js?v=20260918-rc25"></script>
-<script src="js/game.js?v=20260918-rc25"></script>
-<script src="js/play-present.js?v=20260918-rc25"></script>
-<script src="js/play-encounter-state.js?v=20260918-rc25"></script>
-<script src="js/play-ux.js?v=20260918-rc25"></script>
-<script src="js/evolve-view.js?v=20260918-rc25"></script>
-<script src="js/nav.js?v=20260918-rc25"></script>
-<script src="js/evolve.js?v=20260918-rc25"></script>
+<script src="js/config.js?v=20260919-rc26"></script>
+<script src="js/play-perf.js?v=20260919-rc26"></script>
+<script src="js/build.js?v=20260919-rc26"></script>
+<script src="js/build-client.js?v=20260919-rc26"></script>
+<script src="js/auth.js?v=20260919-rc26"></script>
+<script src="js/species.js?v=20260919-rc26"></script>
+<script src="js/variants.js?v=20260919-rc26"></script>
+<script src="js/forms.js?v=20260919-rc26"></script>
+<script src="js/game.js?v=20260919-rc26"></script>
+<script src="js/play-present.js?v=20260919-rc26"></script>
+<script src="js/play-encounter-state.js?v=20260919-rc26"></script>
+<script src="js/play-ux.js?v=20260919-rc26"></script>
+<script src="js/evolve-view.js?v=20260919-rc26"></script>
+<script src="js/nav.js?v=20260919-rc26"></script>
+<script src="js/evolve.js?v=20260919-rc26"></script>
 </body>

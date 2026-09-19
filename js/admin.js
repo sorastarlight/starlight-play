@@ -505,7 +505,6 @@
     shinyEl.innerHTML = `<button type="button" data-shiny="1" aria-pressed="${pickShiny}">Shiny</button>`;
     const gender = selectedGender(dex);
     const variant = window.playSpriteVariant(dex, gender, pickShiny);
-    const formId = selectedFormId(dex);
     const label = typeof window.playFormDisplayName === "function"
       ? window.playFormDisplayName(dex, formId)
       : window.playSpeciesName(dex);

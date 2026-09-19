@@ -330,11 +330,15 @@ test("reward fill appends Received and omits Evolution Line", () => {
   assert(!src.includes('class="oak-xfer-line"'));
 });
 
-test("CSS keeps Game Boys on one horizontal axis with side avatars", () => {
+test("CSS keeps Game Boys on one horizontal axis with fixed screen geometry", () => {
   const css = require("fs").readFileSync(require("path").join(__dirname, "../css/play.css"), "utf8");
   assert(css.includes(".oak-transfer-side"));
   assert(css.includes(".oak-xfer-avatar"));
   assert(css.includes("align-items: center"));
+  assert(/\.oak-gameboy-screen\s*\{[^}]*height:\s*88px/s.test(css), "fixed screen height");
+  assert(/\.oak-gameboy-shell\s*\{[^}]*height:\s*196px/s.test(css), "fixed shell height");
+  assert(/\.oak-gameboy-mon\s*\{[^}]*width:\s*64px/s.test(css), "fixed mon size");
+  assert(!css.includes(".oak-gameboy-caption"), "caption styles removed");
   assert(css.includes("image-rendering: pixelated"));
 });
 

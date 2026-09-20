@@ -181,7 +181,10 @@ test("result pages stay in two-line RPG dialogue", () => {
   });
   assert(pages[0].line1 === "Congratulations!");
   assert(pages[0].line2 === "Your Eevee evolved into Jolteon!");
-  assert(pages.length === 1, "evolution dialogue no longer dumps reward result pages");
+  assert(pages[1].line1 === "New Pokédex entry!");
+  assert(pages[1].line2.includes("#135 Jolteon"));
+  assert(pages.some((page) => page.line1 === "+35 Trainer XP!"));
+  assert(pages.some((page) => /PokéCoins/.test(`${page.line1} ${page.line2}`)));
 });
 test("Low Performance and reduced motion still have a result model", () => {
   const model = view.resultModel({ message: "Your Charmander evolved into Charmeleon!" }, ready);
@@ -193,7 +196,7 @@ test("idempotent already-evolved result does not fabricate rewards", () => {
   assert(model.trainerXp === 0);
   assert(model.newDex === false);
 });
-test("result panel keeps reward metadata without a fanfare result screen", () => {
+test("result panel carries rewards for the fade-in summary card", () => {
   const panel = view.resultPanel(view.resultModel({
     evolution: { fromName: "Charmander", toName: "Charmeleon", fromDex: 4, toDex: 5 },
     rewards: { trainerXp: 10, masteryFrom: 2, masteryTo: 2, newDex: true, newDexXp: 25, coins: 100 }

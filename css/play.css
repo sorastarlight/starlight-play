@@ -8745,6 +8745,51 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
 .evo-gba-classic .evo-skip {
   display: none !important;
 }
+/* Same footprint for GBA stage → result card crossfade (no layout jump) */
+.evo-stage-shell {
+  position: relative;
+  width: min(540px, calc(100vw - 32px), calc((100dvh - 36px) * 1.5));
+  aspect-ratio: 3 / 2;
+  max-height: calc(100dvh - 36px);
+}
+.evo-stage-shell > .evo-gba-classic {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  transition: opacity .48s ease;
+  z-index: 1;
+}
+.evo-stage-shell > .evo-result-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  box-sizing: border-box;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .48s ease;
+  z-index: 2;
+  overflow: auto;
+  align-content: center;
+  border-radius: 4px;
+}
+.evo-fanfare.is-result .evo-stage-shell > .evo-gba-classic {
+  opacity: 0;
+  pointer-events: none;
+}
+.evo-fanfare.is-result .evo-stage-shell > .evo-result-card {
+  opacity: 1;
+  pointer-events: auto;
+}
+html[data-reduced-motion="1"] .evo-stage-shell > .evo-gba-classic,
+html[data-reduced-motion="1"] .evo-stage-shell > .evo-result-card {
+  transition: none;
+}
 .evo-result-card {
   width: min(420px, calc(100vw - 24px));
   max-height: min(86dvh, 720px);

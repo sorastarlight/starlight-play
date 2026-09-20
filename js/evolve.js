@@ -713,11 +713,23 @@
       congrats: "Congratulations!",
       done: `Your ${model.fromName} evolved into ${model.toName}!`
     };
+    const panel = view.resultPanel ? view.resultPanel(model) : {
+      title: "EVOLUTION COMPLETE!",
+      oakLine: "Professor Oak: Remarkable research, Trainer!",
+      extras: [],
+      newDex: model.newDex,
+      dexLabel: model.toDex != null ? `#${String(model.toDex).padStart(3, "0")}` : "",
+      pages: [{ line1: lines.congrats, line2: lines.done }]
+    };
+    const pages = Array.isArray(panel.pages) && panel.pages.length
+      ? panel.pages
+      : (view.resultPages ? view.resultPages(model) : [{ line1: lines.congrats, line2: lines.done }]);
     const shiny = view.isShiny?.(model) || String(model.variant || "").includes("shiny");
     const fromArt = view.displayVariant ? view.displayVariant(model, model.fromDex) : model.variant;
     const toArt = view.displayVariant ? view.displayVariant(model, model.toDex) : model.variant;
     const fromUrl = window.playSpriteUrl(model.fromDex, fromArt, model.fromFormId);
     const toUrl = window.playSpriteUrl(model.toDex, toArt, model.toFormId);
+    const rewardItems = (panel.extras || []).map((line) => `<li>${esc(line)}</li>`).join("");
     return new Promise((resolve) => {
       document.querySelector(".evo-fanfare")?.remove();
       const overlay = document.createElement("div");
@@ -730,26 +742,40 @@
       const sparkCount = mode === "high" ? 10 : mode === "balanced" ? 5 : 0;
       const sparks = Array.from({ length: sparkCount }, () => "<i></i>").join("");
       overlay.innerHTML = `
-        <div class="evo-gba evo-gba-lab evo-gba-classic ${reduced ? "is-simple" : ""}" data-evo-root tabindex="0">
-          <div class="evo-field evo-field-black" data-evo-stage>
-            <div class="evo-sparks" aria-hidden="true">${sparks}</div>
-            <div class="evo-actor" data-evo-actor>
-              <img class="evo-sprite evo-from is-on" src="${esc(fromUrl)}" alt="${esc(model.fromName || "")}" width="112" height="112" decoding="async" data-evo-from>
-              <img class="evo-sprite evo-to" src="${esc(toUrl)}" alt="${esc(model.toName || "")}" width="112" height="112" decoding="async" data-evo-to aria-hidden="true">
+        <div class="evo-stage-shell" data-evo-shell>
+          <div class="evo-gba evo-gba-lab evo-gba-classic ${reduced ? "is-simple" : ""}" data-evo-root tabindex="0">
+            <div class="evo-field evo-field-black" data-evo-stage>
+              <div class="evo-sparks" aria-hidden="true">${sparks}</div>
+              <div class="evo-actor" data-evo-actor>
+                <img class="evo-sprite evo-from is-on" src="${esc(fromUrl)}" alt="${esc(model.fromName || "")}" width="112" height="112" decoding="async" data-evo-from>
+                <img class="evo-sprite evo-to" src="${esc(toUrl)}" alt="${esc(model.toName || "")}" width="112" height="112" decoding="async" data-evo-to aria-hidden="true">
+              </div>
+              <div class="evo-actor-flash" aria-hidden="true"></div>
             </div>
-            <div class="evo-actor-flash" aria-hidden="true"></div>
+            <div class="evo-dialogue evo-dialogue-gba" aria-live="polite" data-evo-dialogue>
+              <p data-evo-line1></p>
+              <p data-evo-line2></p>
+            </div>
           </div>
-          <div class="evo-dialogue evo-dialogue-gba" aria-live="polite" data-evo-dialogue>
-            <p data-evo-line1></p>
-            <p data-evo-line2></p>
-          </div>
+          <article class="evo-result-card evo-result-lab" data-evo-result aria-hidden="true">
+            <p class="evo-oak-flavor">${esc(panel.oakLine || "Professor Oak: Remarkable research, Trainer!")}</p>
+            <img src="${esc(toUrl)}" alt="${esc(model.toName || "")}" width="128" height="128" decoding="async">
+            <h2>${esc(panel.title || "EVOLUTION COMPLETE!")}</h2>
+            <p>${esc(lines.done)}</p>
+            ${panel.newDex ? `<p class="evo-newdex">New Pokédex ${esc(panel.dexLabel || "")} ${esc(model.toName || "")}</p>` : ""}
+            ${rewardItems ? `<ul class="evo-rewards">${rewardItems}</ul>` : ""}
+            <button type="button" class="evo-continue" data-evo-continue>Continue</button>
+          </article>
         </div>`;
       document.body.classList.add("evo-playing");
       document.body.append(overlay);
       const root = overlay.querySelector("[data-evo-root]");
+      const resultCard = overlay.querySelector("[data-evo-result]");
+      const continueBtn = overlay.querySelector("[data-evo-continue]");
       root?.focus();
       let done = false;
-      let phase = "anim"; // anim | typing | wait | closing
+      let phase = "anim"; // anim | typing | wait | result | closing
+      let pageIndex = 0;
       let typeToken = 0;
       let pageToken = 0;
       let skipAnim = false;
@@ -768,6 +794,7 @@
         phase = "closing";
         document.removeEventListener("keydown", onKey);
         overlay.removeEventListener("click", onClick);
+        continueBtn?.removeEventListener("click", onContinue);
         document.body.classList.remove("evo-playing");
         overlay.remove();
         resolve();
@@ -818,6 +845,26 @@
         }
       };
 
+      const typePage = async (page) => {
+        const token = ++pageToken;
+        phase = "typing";
+        setWaiting(false);
+        finishTyping = false;
+        setLines("", "");
+        await typeText(line1, page?.line1 || "");
+        if (done || token !== pageToken) return;
+        if (finishTyping) {
+          setLines(page?.line1 || "", page?.line2 || "");
+          phase = "wait";
+          setWaiting(true);
+          return;
+        }
+        await typeText(line2, page?.line2 || "");
+        if (done || token !== pageToken) return;
+        phase = "wait";
+        setWaiting(true);
+      };
+
       const typeIntro = async () => {
         setWaiting(false);
         setLines("", "");
@@ -826,28 +873,24 @@
         await typeText(line2, lines.evolving);
       };
 
-      const typeCongrats = async () => {
-        const token = ++pageToken;
-        phase = "typing";
+      const showResultCard = async () => {
+        if (done || phase === "result" || phase === "closing") return;
+        phase = "result";
         setWaiting(false);
-        finishTyping = false;
-        setLines("", "");
-        await typeText(line1, lines.congrats);
-        if (done || token !== pageToken) return;
-        if (finishTyping) {
-          setLines(lines.congrats, lines.done);
-          phase = "wait";
-          setWaiting(true);
+        overlay.dataset.stage = "result";
+        overlay.classList.add("is-result");
+        overlay.setAttribute("aria-label", "Evolution complete");
+        resultCard?.setAttribute("aria-hidden", "false");
+        if (reduced) {
+          continueBtn?.focus();
           return;
         }
-        await typeText(line2, lines.done);
-        if (done || token !== pageToken) return;
-        phase = "wait";
-        setWaiting(true);
+        await wait(520);
+        if (!done) continueBtn?.focus();
       };
 
-      const endSequence = async () => {
-        if (done || ending || phase === "closing") return;
+      const beginDialogueFlow = async () => {
+        if (done || ending || phase === "closing" || phase === "result") return;
         ending = true;
         skipAnim = true;
         finishTyping = true;
@@ -859,30 +902,50 @@
         overlay.setAttribute("aria-label", "Evolution complete");
         showWhich("to", false);
         cue("reveal");
+        if (model.newDex) cue("pokedex");
+        pageIndex = 0;
         finishTyping = false;
-        await typeCongrats();
+        await typePage(pages[0] || { line1: lines.congrats, line2: lines.done });
       };
 
-      const advanceDialogue = () => {
+      const advanceDialogue = async () => {
         if (done) return;
         if (phase === "typing") {
           finishTyping = true;
           typeToken += 1;
           pageToken += 1;
-          setLines(lines.congrats, lines.done);
+          const page = pages[pageIndex] || {};
+          setLines(page.line1 || "", page.line2 || "");
           phase = "wait";
           setWaiting(true);
           return;
         }
-        if (phase === "wait") finish();
+        if (phase !== "wait") return;
+        pageIndex += 1;
+        if (pageIndex >= pages.length) {
+          await showResultCard();
+          return;
+        }
+        await typePage(pages[pageIndex]);
+      };
+
+      const onContinue = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        finish();
       };
 
       const onClick = (event) => {
         if (event.button != null && event.button !== 0) return;
+        if (event.target?.closest?.("[data-evo-continue]")) return;
         event.preventDefault();
         if (done) return;
         if (phase === "anim") {
-          endSequence();
+          beginDialogueFlow();
+          return;
+        }
+        if (phase === "result") {
+          finish();
           return;
         }
         advanceDialogue();
@@ -893,7 +956,11 @@
           event.preventDefault();
           if (done) return;
           if (phase === "anim") {
-            endSequence();
+            beginDialogueFlow();
+            return;
+          }
+          if (phase === "result") {
+            finish();
             return;
           }
           advanceDialogue();
@@ -902,6 +969,7 @@
 
       document.addEventListener("keydown", onKey);
       overlay.addEventListener("click", onClick);
+      continueBtn?.addEventListener("click", onContinue);
 
       const stopped = () => done || skipAnim || ending;
       const pulsePairs = async (pairs, holdMs) => {
@@ -923,12 +991,12 @@
         showWhich("from", false);
         await typeIntro();
         if (stopped()) {
-          if (!done && !ending) await endSequence();
+          if (!done && !ending) await beginDialogueFlow();
           return;
         }
         await wait(reduced ? 180 : 420);
         if (stopped()) {
-          if (!done && !ending) await endSequence();
+          if (!done && !ending) await beginDialogueFlow();
           return;
         }
 
@@ -937,20 +1005,20 @@
           showWhich("from", true);
           await wait(320);
           if (stopped()) {
-            if (!done && !ending) await endSequence();
+            if (!done && !ending) await beginDialogueFlow();
             return;
           }
           overlay.dataset.stage = "morph";
           showWhich("to", true);
           await wait(320);
           if (stopped()) {
-            if (!done && !ending) await endSequence();
+            if (!done && !ending) await beginDialogueFlow();
             return;
           }
           overlay.dataset.stage = "reveal";
           showWhich("to", false);
           await wait(420);
-          if (!done && !ending) await endSequence();
+          if (!done && !ending) await beginDialogueFlow();
           return;
         }
 
@@ -959,7 +1027,7 @@
         showWhich("from", true);
         await wait(mode === "high" ? 1000 : 750);
         if (stopped()) {
-          if (!done && !ending) await endSequence();
+          if (!done && !ending) await beginDialogueFlow();
           return;
         }
 
@@ -969,15 +1037,15 @@
         const midHold = mode === "high" ? 210 : 170;
         const fastHold = mode === "high" ? 105 : 90;
         if (!(await pulsePairs(mode === "high" ? 3 : 2, slowHold))) {
-          if (!done && !ending) await endSequence();
+          if (!done && !ending) await beginDialogueFlow();
           return;
         }
         if (!(await pulsePairs(mode === "high" ? 4 : 3, midHold))) {
-          if (!done && !ending) await endSequence();
+          if (!done && !ending) await beginDialogueFlow();
           return;
         }
         if (!(await pulsePairs(mode === "high" ? 6 : 5, fastHold))) {
-          if (!done && !ending) await endSequence();
+          if (!done && !ending) await beginDialogueFlow();
           return;
         }
 
@@ -985,17 +1053,17 @@
         showWhich("to", true);
         await softFlash(mode === "high" ? 220 : 160);
         if (stopped()) {
-          if (!done && !ending) await endSequence();
+          if (!done && !ending) await beginDialogueFlow();
           return;
         }
         await wait(mode === "high" ? 380 : 280);
         if (stopped()) {
-          if (!done && !ending) await endSequence();
+          if (!done && !ending) await beginDialogueFlow();
           return;
         }
         await softFlash(mode === "high" ? 180 : 120);
         if (stopped()) {
-          if (!done && !ending) await endSequence();
+          if (!done && !ending) await beginDialogueFlow();
           return;
         }
 
@@ -1003,11 +1071,12 @@
         overlay.classList.add("is-finale");
         showWhich("to", false);
         await wait(mode === "high" ? 900 : 650);
-        if (!done && !ending) await endSequence();
+        if (!done && !ending) await beginDialogueFlow();
       };
       run();
     });
   }
+
 
   async function evolveOnce() {
     if (!pick || !canEvolve(pick)) return;

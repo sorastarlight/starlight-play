@@ -8675,20 +8675,21 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
 .evo-gba-classic .evo-sprite.is-on {
   opacity: 1;
   visibility: visible;
+  filter: drop-shadow(0 6px 3px rgba(16, 24, 40, .32));
 }
 .evo-gba-classic .evo-actor.is-sil .evo-sprite.is-on {
   /* Crisp white silhouette from sprite alpha — not a rectangle overlay */
-  filter: brightness(0) invert(1) contrast(1.05);
+  filter: brightness(0) invert(1) contrast(1.05) drop-shadow(0 6px 3px rgba(16, 24, 40, .28));
 }
 .evo-gba-classic .evo-actor.is-reveal .evo-sprite.is-on {
-  filter: none;
+  filter: drop-shadow(0 6px 3px rgba(16, 24, 40, .32));
 }
 .evo-gba-classic .evo-actor.is-bright .evo-sprite.is-on {
-  filter: brightness(0) invert(1) contrast(1.05) drop-shadow(0 0 10px rgba(255, 255, 255, .85));
+  filter: brightness(0) invert(1) contrast(1.05) drop-shadow(0 0 10px rgba(255, 255, 255, .85)) drop-shadow(0 6px 3px rgba(16, 24, 40, .28));
 }
 .evo-gba-classic .evo-actor.is-bright.is-reveal .evo-sprite.is-on,
 .evo-gba-classic[data-stage="reveal"] .evo-actor.is-bright .evo-sprite.is-on {
-  filter: brightness(1.35) contrast(1.05);
+  filter: brightness(1.35) contrast(1.05) drop-shadow(0 6px 3px rgba(16, 24, 40, .32));
 }
 .evo-actor-flash {
   position: absolute;
@@ -8991,7 +8992,7 @@ html[data-reduced-motion="1"] .evo-fanfare[data-stage="result"] .evo-dialogue::a
 html[data-reduced-motion="1"] .evo-fanfare.is-flash .evo-flash { opacity: 0; }
 html[data-reduced-motion="1"] .evo-gba-classic .evo-actor.is-bright .evo-sprite.is-on,
 html[data-perf="low"] .evo-gba-classic .evo-actor.is-bright .evo-sprite.is-on {
-  filter: brightness(0) invert(1) contrast(1.05);
+  filter: brightness(0) invert(1) contrast(1.05) drop-shadow(0 6px 3px rgba(16, 24, 40, .28));
 }
 html[data-reduced-motion="1"] .evo-gba-classic .evo-sparks,
 html[data-perf="low"] .evo-gba-classic .evo-sparks {

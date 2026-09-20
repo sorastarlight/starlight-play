@@ -815,19 +815,17 @@
         const full = String(text || "");
         if (!el) return;
         el.textContent = "";
-        if (reduced || !full) {
-          el.textContent = full;
-          return;
-        }
+        if (!full) return;
         finishTyping = false;
+        const delay = reduced ? 16 : 32;
         for (let i = 0; i < full.length; i += 1) {
           if (done || token !== typeToken) return;
-          if (finishTyping || skipAnim) {
+          if (finishTyping) {
             el.textContent = full;
             return;
           }
           el.textContent = full.slice(0, i + 1);
-          await wait(28);
+          await wait(delay);
         }
       };
 
@@ -851,10 +849,21 @@
         setWaiting(true);
       };
 
+      const typeIntro = async () => {
+        setWaiting(false);
+        setLines("", "");
+        await typeText(line1, lines.what);
+        if (done || skipAnim || resultStarted) return;
+        await typeText(line2, lines.evolving);
+      };
+
       const beginResultFlow = async () => {
         if (done || resultStarted || phase === "closing") return;
         resultStarted = true;
         skipAnim = true;
+        finishTyping = true;
+        typeToken += 1;
+        pageToken += 1;
         actor?.classList.remove("is-bright", "is-sil");
         overlay.dataset.stage = "result";
         overlay.classList.add("is-finale");
@@ -863,6 +872,7 @@
         cue("reveal");
         if (model.newDex) cue("pokedex");
         pageIndex = 0;
+        finishTyping = false;
         await typePage(pages[0] || { line1: lines.congrats, line2: lines.done });
       };
 
@@ -931,14 +941,12 @@
         overlay.dataset.stage = "intro";
         phase = "anim";
         showWhich("from", false);
-        setLines(lines.what, "");
-        await wait(reduced ? 220 : 700);
+        await typeIntro();
         if (stopped()) {
           if (!done && phase === "anim") await beginResultFlow();
           return;
         }
-        setLines(lines.what, lines.evolving);
-        await wait(reduced ? 280 : 800);
+        await wait(reduced ? 180 : 420);
         if (stopped()) {
           if (!done && phase === "anim") await beginResultFlow();
           return;

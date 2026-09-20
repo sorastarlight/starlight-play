@@ -113,7 +113,8 @@ test("Only one workstation and one research track are active", () => {
   assert(js.includes("els.tabResearch.hidden = activeTab !== \"research\""), "research hide wiring missing");
   assert(js.includes("oak-research-active"), "single active track shell missing");
   assert(css.includes("oak-research-workspace"), "research workspace CSS missing");
-  assert(css.includes("grid-template-columns: minmax(210px, 248px)"), "desktop research rail missing");
+  assert(css.includes("grid-template-columns: minmax(240px, 280px)"), "desktop research rail missing");
+  assert(css.includes("scrollbar-gutter: stable"), "scrollbar gutter missing for tab-switch stability");
 });
 
 test("Tab-return soft refresh avoids global loading flash", () => {

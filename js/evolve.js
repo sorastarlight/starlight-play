@@ -333,12 +333,16 @@
   function updateResearchClaimable(claimable) {
     if (els.researchClaimable) els.researchClaimable.textContent = String(claimable);
     if (els.researchClaimableBadge) {
+      // Keep the badge slot in layout so Research station width stays stable.
+      els.researchClaimableBadge.hidden = false;
       if (claimable > 0) {
-        els.researchClaimableBadge.hidden = false;
         els.researchClaimableBadge.textContent = `${claimable} claimable`;
+        els.researchClaimableBadge.classList.remove("is-empty");
+        els.researchClaimableBadge.removeAttribute("aria-hidden");
       } else {
-        els.researchClaimableBadge.hidden = true;
-        els.researchClaimableBadge.textContent = "";
+        els.researchClaimableBadge.textContent = "0 claimable";
+        els.researchClaimableBadge.classList.add("is-empty");
+        els.researchClaimableBadge.setAttribute("aria-hidden", "true");
       }
     }
     if (els.researchSummary) {

@@ -22,7 +22,11 @@
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; min-height: 100%; overflow-x: hidden; }
-html { max-width: 100%; }
+html {
+  max-width: 100%;
+  /* Keep sticky nav from jumping when Lab bay height toggles the scrollbar. */
+  scrollbar-gutter: stable;
+}
 body {
   font-family: "Nunito", "Nunito Fallback", "Segoe UI", system-ui, sans-serif;
   color: var(--ink);
@@ -7261,7 +7265,7 @@ body.evo-playing { overflow: hidden; }
   --evo-panel: #fffdf8;
 }
 body[data-page="evolve"] .wrap {
-  max-width: min(1420px, 100%);
+  max-width: min(1460px, 100%);
 }
 .oak-confirm-list {
   margin: 4px 0 10px;
@@ -7399,6 +7403,7 @@ body[data-page="evolve"] .wrap {
 .evo-oak-msg {
   margin: 8px 0 0;
   max-width: 40rem;
+  min-height: calc(1.35em * 2 + 14px);
   padding: 7px 11px;
   border: 1px solid #d2e0f0;
   border-left: 3px solid #c9a227;
@@ -7452,6 +7457,14 @@ body[data-page="evolve"] .wrap {
   gap: 8px;
   margin: 0;
   padding: 10px 0 0;
+  /* Shared console ledge so active bay color swaps do not reflow the shell. */
+  border-bottom: 3px solid #4a7ab5;
+}
+body[data-lab-station="evolve"] .evo-lab-stations {
+  border-bottom-color: #c46a98;
+}
+body[data-lab-station="research"] .evo-lab-stations {
+  border-bottom-color: #7a5a9e;
 }
 .evo-station {
   display: flex;
@@ -7460,11 +7473,11 @@ body[data-page="evolve"] .wrap {
   gap: 10px;
   text-align: left;
   min-width: 0;
-  min-height: 64px;
+  min-height: 68px;
   padding: 10px 12px;
   border-radius: 8px 8px 0 0;
   border: 2px solid #b9cee8;
-  border-bottom-width: 3px;
+  border-bottom: none;
   background: linear-gradient(180deg, #fff, #eef5ff);
   box-shadow: none;
   cursor: pointer;
@@ -7522,6 +7535,8 @@ body[data-page="evolve"] .wrap {
 }
 .evo-station-badge {
   flex: 0 0 auto;
+  min-width: 5.5rem;
+  min-height: 1.5rem;
   padding: 3px 8px;
   border-radius: 999px;
   border: 1px solid #c9a227;
@@ -7531,24 +7546,25 @@ body[data-page="evolve"] .wrap {
   font-weight: 800;
   letter-spacing: .02em;
   white-space: nowrap;
+  text-align: center;
+}
+.evo-station-badge.is-empty {
+  visibility: hidden;
 }
 .evo-station[aria-selected="true"],
 .evo-station.is-active {
   border-color: #4a7ab5;
-  border-bottom-color: #4a7ab5;
   background: linear-gradient(180deg, #fff, #e8f1fb);
   z-index: 1;
 }
 .evo-station-evolve[aria-selected="true"],
 .evo-station-evolve.is-active {
   border-color: #c46a98;
-  border-bottom-color: #c46a98;
   background: linear-gradient(180deg, #fff, #f7e8f1);
 }
 .evo-station-research[aria-selected="true"],
 .evo-station-research.is-active {
   border-color: #7a5a9e;
-  border-bottom-color: #7a5a9e;
   background: linear-gradient(180deg, #fff, #f0ebf8);
 }
 .evo-station[aria-selected="true"] .evo-station-lamp,
@@ -7569,20 +7585,19 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .evo-station[aria-sel
   gap: 10px;
   padding: 14px 12px 8px;
   border: 2px solid #c9daf0;
+  border-top: none;
   border-radius: 0 0 12px 12px;
-  border-top: 3px solid #4a7ab5;
   background:
     linear-gradient(180deg, rgba(232, 241, 251, .55), rgba(255, 253, 248, .2) 48px, transparent 120px);
 }
 .evo-lab-bay[data-bay="evolve"] {
-  border-top-color: #c46a98;
   border-color: #e5c3d4;
   background:
     linear-gradient(180deg, rgba(247, 232, 241, .45), rgba(255, 253, 248, .2) 48px, transparent 120px);
 }
 .evo-lab-bay[data-bay="research"] {
-  border-top-color: #7a5a9e;
   border-color: #d2c6e4;
+  padding: 16px 14px 12px;
   background:
     linear-gradient(180deg, rgba(240, 235, 248, .5), rgba(255, 253, 248, .2) 48px, transparent 120px);
 }
@@ -7742,11 +7757,16 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .evo-station[aria-sel
   .evo-lab-stations {
     grid-template-columns: 1fr;
     gap: 6px;
+    border-bottom-width: 3px;
   }
   .evo-station {
     border-radius: 8px;
-    border-bottom-width: 2px;
+    border-bottom: 2px solid inherit;
     min-height: 56px;
+  }
+  .evo-station[aria-selected="true"],
+  .evo-station.is-active {
+    border-bottom-color: inherit;
   }
   .evo-lab-identity-band {
     grid-template-columns: 1fr;
@@ -9993,24 +10013,24 @@ html[data-reduced-motion="1"] .play-present-starfield,
 /* —— Oak Research workspace —— */
 .oak-research-workspace {
   display: grid;
-  grid-template-columns: minmax(210px, 248px) minmax(0, 1fr);
-  gap: 14px 18px;
+  grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
+  gap: 16px 22px;
   align-items: start;
   min-width: 0;
 }
 .oak-research-rail {
   display: grid;
-  gap: 8px;
-  padding: 10px;
+  gap: 10px;
+  padding: 12px;
   border: 1px solid #d2c6e4;
-  border-radius: 10px;
+  border-radius: 12px;
   background: linear-gradient(180deg, #faf8ff, #f4f0f8);
   position: sticky;
   top: 10px;
 }
 .oak-research-rail-title {
   margin: 0;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -10018,23 +10038,23 @@ html[data-reduced-motion="1"] .play-present-starfield,
 }
 .oak-research-rail-summary {
   margin: 4px 0 0;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: #6a5a7e;
 }
 .oak-research-tracklist {
   display: grid;
-  gap: 6px;
+  gap: 8px;
 }
 .oak-research-track-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   text-align: left;
-  padding: 8px 10px;
-  border: 1px solid #d5deea;
-  border-radius: 8px;
+  padding: 11px 12px;
+  border: 2px solid #d5deea;
+  border-radius: 10px;
   background: #fff;
   color: inherit;
   font: inherit;
@@ -10046,7 +10066,6 @@ html[data-reduced-motion="1"] .play-present-starfield,
 }
 .oak-research-track-btn.is-active {
   border-color: #7a5a9e;
-  border-width: 2px;
   background: linear-gradient(180deg, #fff, #f0ebf8);
   box-shadow: inset 3px 0 0 #7a5a9e;
 }
@@ -10054,8 +10073,8 @@ html[data-reduced-motion="1"] .play-present-starfield,
   display: inline-flex;
 }
 .oak-research-track-dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: #c5c0d4;
   flex: 0 0 auto;
@@ -10075,72 +10094,72 @@ html[data-reduced-motion="1"] .play-present-starfield,
 }
 .oak-research-track-copy {
   display: grid;
-  gap: 1px;
+  gap: 2px;
   min-width: 0;
   flex: 1 1 auto;
 }
 .oak-research-track-copy strong {
-  font-size: 13px;
+  font-size: 14px;
   color: #2f4f78;
   line-height: 1.2;
 }
 .oak-research-track-copy span {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: #6a7f9a;
 }
 .oak-research-track-badge {
   flex: 0 0 auto;
-  padding: 2px 6px;
+  padding: 3px 7px;
   border-radius: 999px;
   border: 1px solid #c9a227;
   background: #fff6d8;
   color: #6a4e10;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
 }
 .oak-research-board {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   min-width: 0;
 }
 .oak-research-active {
   display: grid;
-  gap: 14px;
-  padding: 12px 14px 14px;
+  gap: 16px;
+  padding: 16px 18px 18px;
   border: 1px solid #d2c6e4;
-  border-radius: 12px;
+  border-radius: 14px;
   background: linear-gradient(180deg, #fbfaff, #f7f4fb);
 }
 .oak-research-active-head {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(180px, 1fr) minmax(140px, .85fr);
-  gap: 12px 16px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(200px, 1fr) minmax(160px, .9fr);
+  gap: 14px 18px;
   align-items: start;
 }
 .oak-research-active-copy h3 {
-  margin: 0 0 4px;
+  margin: 0 0 6px;
   font-family: "Fredoka", "Nunito", sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   color: #3a2f5c;
 }
 .oak-research-active-copy p {
   margin: 0;
   font-weight: 700;
   color: #5a6f8c;
-  font-size: 13px;
+  font-size: 14px;
 }
 .oak-research-active-meter-label {
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  margin: 0 0 6px;
-  font-size: 12px;
+  margin: 0 0 8px;
+  font-size: 13px;
   font-weight: 800;
   color: #4a5f7a;
 }
 .oak-research-meter {
-  height: 10px;
+  height: 12px;
   border-radius: 999px;
   background: #d9e4f2;
   overflow: hidden;
@@ -10151,39 +10170,39 @@ html[data-reduced-motion="1"] .play-present-starfield,
   background: linear-gradient(90deg, #4a7ab5, #8a3d72);
 }
 .oak-research-next-reward {
-  padding: 8px 10px;
+  padding: 10px 12px;
   border: 1px solid #e5d4a8;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #fffdf6;
 }
 .oak-research-next-label {
   margin: 0;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: #8a6a20;
 }
 .oak-research-next-req {
-  margin: 2px 0 6px;
-  font-size: 13px;
+  margin: 3px 0 8px;
+  font-size: 14px;
   font-weight: 800;
   color: #2a2744;
 }
 .oak-research-cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
 }
 .oak-research-card {
-  flex: 1 1 160px;
-  max-width: 220px;
-  min-width: 148px;
+  flex: 1 1 176px;
+  max-width: 248px;
+  min-width: 160px;
   display: grid;
-  gap: 6px;
+  gap: 7px;
   border: 1px solid #d5deea;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 12px;
+  padding: 12px;
   background: #fff;
 }
 .oak-research-card-head {
@@ -10192,19 +10211,19 @@ html[data-reduced-motion="1"] .play-present-starfield,
 }
 .oak-research-card-head h4 {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: #243a5e;
 }
 .oak-research-req {
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: #5a6f8c;
   line-height: 1.3;
 }
 .oak-research-progress-line {
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
   color: #2f4f78;
   font-variant-numeric: tabular-nums;
@@ -10249,18 +10268,18 @@ html[data-reduced-motion="1"] .play-present-starfield,
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 }
 .oak-research-reward img {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   object-fit: contain;
   image-rendering: pixelated;
 }
 .oak-research-claim {
   margin-top: 2px;
-  min-height: 34px;
+  min-height: 36px;
 }
 .evo-station-research .evo-station-lamp {
   background: #8a3d72;
@@ -10272,20 +10291,20 @@ html[data-reduced-motion="1"] .play-present-starfield,
   }
   .oak-research-rail {
     position: static;
-    padding: 8px;
+    padding: 10px;
   }
   .oak-research-tracklist {
     display: flex;
     flex-wrap: nowrap;
-    gap: 6px;
+    gap: 8px;
     overflow-x: auto;
     padding-bottom: 4px;
     -webkit-overflow-scrolling: touch;
   }
   .oak-research-track-btn {
     flex: 0 0 auto;
-    min-width: 148px;
-    max-width: 200px;
+    min-width: 160px;
+    max-width: 220px;
   }
   .oak-research-active-head {
     grid-template-columns: 1fr;
@@ -10297,9 +10316,9 @@ html[data-reduced-motion="1"] .play-present-starfield,
     max-width: none;
   }
   .oak-research-track-btn {
-    min-width: 132px;
+    min-width: 140px;
   }
   .oak-research-track-copy strong {
-    font-size: 12px;
+    font-size: 13px;
   }
 }

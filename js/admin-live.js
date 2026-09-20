@@ -198,7 +198,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
   function rpgFace(s) {
     if (testMode()) return "TEST";
     if (s.twitchLive && s.rpgSession) return "LIVE";
-    if (s.twitchLive && !s.rpgSession) return "STARTING";
+    if (s.twitchLive && !s.rpgSession) return "IDLE";
     if (s.rpgSession) return "FORCED";
     return "INACTIVE";
   }
@@ -902,8 +902,8 @@ window.playBindLiveOps = function playBindLiveOps(options) {
       cmd("end_session", {}, {
         confirmTitle: "End the live RPG session?",
         confirmBody: state?.activeEncounter
-          ? "An encounter is still active. The Director will not end the session until it finishes or is cancelled."
-          : "This stops new automatic encounters. Normal streams do not need this.",
+          ? "An encounter is still active. Cancel or finish it before ending the session."
+          : "Stops automatic encounters. If Twitch stays live, the RPG stays stopped until you Start it or the channel goes offline and live again.",
         go: "End session"
       });
       return;

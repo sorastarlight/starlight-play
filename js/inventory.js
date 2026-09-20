@@ -28,6 +28,7 @@
     ["berries", "Berries"],
     ["community", "Community Items"],
     ["evolution", "Evolution Items"],
+    ["valuables", "Valuables"],
     ["special", "Special Items"]
   ];
 
@@ -55,7 +56,7 @@
   }
 
   function allKeys(bag) {
-    const keys = new Set(["coins", "bait", "lure", "rarecandy", "firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord"]);
+    const keys = new Set(["coins", "bait", "lure", "rarecandy", "firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord", "stardust", "pearl", "starpiece", "nugget", "bigpearl", "bignugget"]);
     (window.PLAY_BALLS || []).forEach((row) => keys.add(row.key));
     (window.playBerryCatalog?.(lastCapture) || window.PLAY_BERRIES || []).forEach((row) => keys.add(row.key));
     Object.keys(bag || {}).forEach((key) => {

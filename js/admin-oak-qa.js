@@ -8,7 +8,13 @@
     "leafstone",
     "moonstone",
     "linkingcord",
-    "rarecandy"
+    "rarecandy",
+    "stardust",
+    "pearl",
+    "starpiece",
+    "nugget",
+    "bigpearl",
+    "bignugget"
   ];
   const LOADING_COPY = {
     PRESET_OAK: "Preparing QA resources…",
@@ -16,7 +22,8 @@
     GRANT_MON: "Granting Pokémon…",
     GRANT_CANDY: "Granting candy…",
     GRANT_ITEMS: "Granting items…",
-    RESET_QA: "Resetting QA…"
+    RESET_QA: "Resetting QA…",
+    RESET_RESEARCH: "Resetting Oak Research…"
   };
   const SUCCESS_COPY = {
     PRESET_OAK: "Oak Transfer Test preset granted",
@@ -24,7 +31,8 @@
     GRANT_MON: "Pokémon granted",
     GRANT_CANDY: "Evolution Candy granted",
     GRANT_ITEMS: "Items granted",
-    RESET_QA: "QA state reset"
+    RESET_QA: "QA state reset",
+    RESET_RESEARCH: "Oak Research claims reset"
   };
 
   const els = {
@@ -57,7 +65,8 @@
     grantMon: document.getElementById("oakqa-grant-mon"),
     grantCandy: document.getElementById("oakqa-grant-candy"),
     grantItems: document.getElementById("oakqa-grant-items"),
-    reset: document.getElementById("oakqa-reset")
+    reset: document.getElementById("oakqa-reset"),
+    resetResearch: document.getElementById("oakqa-reset-research")
   };
 
   const actionButtons = [
@@ -66,7 +75,8 @@
     els.grantMon,
     els.grantCandy,
     els.grantItems,
-    els.reset
+    els.reset,
+    els.resetResearch
   ].filter(Boolean);
 
   let usersById = new Map();
@@ -882,6 +892,28 @@
       const label = user?.displayName || user?.login || selectedUserId() || "this Trainer";
       if (!window.confirm(`Reset ADMIN_QA Oak / Evolution state for ${label}?`)) return;
       callOakQa("RESET_QA", {}, els.reset);
+    });
+    els.resetResearch?.addEventListener("click", async () => {
+      const user = selectedUser();
+      const id = selectedUserId();
+      const label = user?.displayName || user?.login || id || "this Trainer";
+      if (!id) {
+        markError(els.resetResearch, "Pick a Trainer.");
+        return;
+      }
+      if (!grantsAllowed()) {
+        markError(els.resetResearch, isSoraTarget() ? "Confirm OWNER warning first." : "Pick a Trainer.");
+        return;
+      }
+      if (!window.confirm(`Reset Oak Research CLAIMS only for ${label}? Progress stays; rewards become claimable again.`)) return;
+      markLoading(els.resetResearch, "RESET_RESEARCH");
+      try {
+        const data = await window.playCall("admin_oak_research_reset", { p_user: id });
+        markSuccess(els.resetResearch, SUCCESS_COPY.RESET_RESEARCH);
+        setStatus(SUCCESS_COPY.RESET_RESEARCH + (data?.ok ? "" : ""), "ok");
+      } catch (error) {
+        markError(els.resetResearch, window.playRpcError?.(error) || "Reset failed.");
+      }
     });
 
     document.addEventListener("click", (event) => {

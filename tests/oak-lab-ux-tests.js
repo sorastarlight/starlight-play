@@ -51,6 +51,10 @@ test("Transfer and Evolution are workstation panels", () => {
   assert(html.includes('role="tablist"'), "station tablist missing");
   assert(js.includes("is-active"), "active station class missing");
   assert(js.includes("ONLINE"), "station ONLINE state missing");
+  assert(html.includes("evo-station-research"), "research station missing");
+  assert(html.includes("oak-research-board"), "research board missing");
+  assert(js.includes("play_oak_research"), "research RPC missing");
+  assert(js.includes("play_claim_oak_research"), "claim RPC missing");
 });
 
 test("Counters live in stations / candy resource, not KPI row", () => {

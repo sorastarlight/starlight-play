@@ -73,7 +73,13 @@
     moonstone: "Moon Stone",
     linkingcord: "Linking Cord",
     rarecandy: "Rare Candy",
-    choice_stone: "Evolution Stone"
+    choice_stone: "Evolution Stone",
+    stardust: "Stardust",
+    pearl: "Pearl",
+    starpiece: "Star Piece",
+    nugget: "Nugget",
+    bigpearl: "Big Pearl",
+    bignugget: "Big Nugget"
   };
   const VARIANT_LABELS = {
     normal: "Normal",
@@ -845,7 +851,13 @@
     linkingcord: "linking-cord",
     linkingcord1: "linking-cord",
     rarecandy: "rare-candy",
-    rarecandy1: "rare-candy"
+    rarecandy1: "rare-candy",
+    stardust: "pokeapi/stardust",
+    pearl: "pokeapi/pearl",
+    starpiece: "pokeapi/star-piece",
+    nugget: "pokeapi/nugget",
+    bigpearl: "pokeapi/big-pearl",
+    bignugget: "pokeapi/big-nugget"
   };
 
   const ITEM_RAW_BASE = "https://raw.githubusercontent.com/sorastarlight/starlight-play/main/images/items/";

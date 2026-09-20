@@ -7,6 +7,9 @@
     tabs: document.getElementById("evo-stations") || document.querySelector(".evo-lab-stations"),
     tabSend: document.getElementById("evo-tab-send"),
     tabEvolve: document.getElementById("evo-tab-evolve"),
+    tabResearch: document.getElementById("evo-tab-research"),
+    researchBoard: document.getElementById("oak-research-board"),
+    researchClaimable: document.getElementById("evo-research-claimable"),
     grid: document.getElementById("evo-grid"),
     sendGrid: document.getElementById("evo-send-grid"),
     sendSearch: document.getElementById("evo-send-search"),
@@ -179,6 +182,10 @@
       setOakBubble("Have any duplicate Pokémon? Send them my way for research!");
       return;
     }
+    if (activeTab === "research") {
+      setOakBubble("Every discovery helps! Check the research board for milestones you can claim.");
+      return;
+    }
     if (tally.ready > 0) {
       setOakBubble("Ah! One of your Pokémon is ready to evolve!");
       return;
@@ -186,9 +193,13 @@
     setOakBubble("Let's see which Pokémon are ready to evolve!");
   }
 
+  let research = null;
+  let researchBusy = false;
+  let martEduShown = false;
+
   function setTab(tab) {
-    activeTab = tab === "evolve" ? "evolve" : "send";
-    const sendOn = activeTab === "send";
+    const next = tab === "evolve" ? "evolve" : (tab === "research" ? "research" : "send");
+    activeTab = next;
     els.tabs?.querySelectorAll("[data-tab]").forEach((btn) => {
       const on = btn.dataset.tab === activeTab;
       btn.setAttribute("aria-selected", on ? "true" : "false");
@@ -197,15 +208,131 @@
       const state = btn.querySelector(".evo-station-state");
       if (state) state.textContent = on ? "ONLINE" : "STANDBY";
     });
-    if (els.tabSend) els.tabSend.hidden = !sendOn;
-    if (els.tabEvolve) els.tabEvolve.hidden = sendOn;
+    if (els.tabSend) els.tabSend.hidden = activeTab !== "send";
+    if (els.tabEvolve) els.tabEvolve.hidden = activeTab !== "evolve";
+    if (els.tabResearch) els.tabResearch.hidden = activeTab !== "research";
     document.body.dataset.labStation = activeTab;
     refreshOakBubble();
+    if (activeTab === "research") loadResearch();
     try {
       const url = new URL(window.location.href);
       url.hash = activeTab;
       window.history.replaceState(null, "", url);
     } catch (_) {}
+  }
+
+  function rewardLines(rewards) {
+    const rows = [];
+    Object.entries(rewards || {}).forEach(([key, n]) => {
+      const qty = Number(n || 0);
+      if (!qty && key !== "title" && key !== "badge") return;
+      rows.push({ key, qty, label: window.playItemLabel?.(key) || key });
+    });
+    return rows;
+  }
+
+  function renderResearch() {
+    if (!els.researchBoard) return;
+    const tracks = research?.tracks || [];
+    let claimable = 0;
+    const html = tracks.map((track) => {
+      const progress = Number(track.progress || 0);
+      const milestones = track.milestones || [];
+      const next = milestones.find((m) => !m.claimed) || milestones[milestones.length - 1];
+      const nextThreshold = Number(next?.threshold || 1);
+      const pct = Math.max(0, Math.min(100, Math.round((progress / Math.max(1, nextThreshold)) * 100)));
+      const cards = milestones.map((m) => {
+        const complete = Boolean(m.complete);
+        const claimed = Boolean(m.claimed);
+        if (complete && !claimed) claimable += 1;
+        const status = claimed ? "COMPLETED ✓" : (complete ? "RESEARCH COMPLETE!" : "IN PROGRESS");
+        const rewards = rewardLines(m.rewards).map((row) => {
+          const art = window.playItemSprite?.(row.key) || "images/items/poke-ball.png";
+          return `<span class="oak-research-reward"><img src="${esc(art)}" alt="" width="28" height="28">${esc(row.label)} ×${row.qty}</span>`;
+        }).join("") || `<span class="muted">Reward ready</span>`;
+        return `<article class="oak-research-card${claimed ? " is-claimed" : ""}${complete && !claimed ? " is-ready" : ""}">
+          <header>
+            <h4>${esc(m.title)}</h4>
+            <p class="oak-research-status">${esc(status)}</p>
+          </header>
+          <p class="muted">${esc(m.description)}</p>
+          <p class="oak-research-progress-line">${progress.toLocaleString()} / ${Number(m.threshold || 0).toLocaleString()}</p>
+          <div class="oak-research-rewards">${rewards}</div>
+          ${complete && !claimed
+            ? `<button type="button" class="gold" data-claim-research="${esc(m.id)}">Claim Research Reward</button>`
+            : (claimed ? "" : `<p class="muted">LOCKED</p>`)}
+        </article>`;
+      }).join("");
+      return `<section class="oak-research-track">
+        <header class="oak-research-track-head">
+          <div>
+            <h3>${esc(track.name)}</h3>
+            <p class="muted">${esc(track.description)}</p>
+          </div>
+          <div class="oak-research-meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
+          <p class="oak-research-next">${esc(track.name)} · ${progress.toLocaleString()} / ${nextThreshold.toLocaleString()}</p>
+        </header>
+        <div class="oak-research-cards">${cards}</div>
+      </section>`;
+    }).join("") || `<p class="muted">Research tracks are not available yet.</p>`;
+    els.researchBoard.innerHTML = html;
+    if (els.researchClaimable) els.researchClaimable.textContent = String(claimable);
+  }
+
+  async function loadResearch() {
+    if (!els.researchBoard) return;
+    try {
+      research = await window.playCall("play_oak_research");
+      renderResearch();
+    } catch (error) {
+      els.researchBoard.innerHTML = `<p class="muted">${esc(window.playRpcError?.(error) || "Research is unavailable.")}</p>`;
+    }
+  }
+
+  async function claimResearch(milestoneId) {
+    if (researchBusy || !milestoneId) return;
+    researchBusy = true;
+    try {
+      const data = await window.playCall("play_claim_oak_research", { p_milestone_id: milestoneId });
+      const rewards = rewardLines(data.rewards);
+      const rewardHtml = rewards.map((row) => `${row.label} ×${row.qty}`).join(", ");
+      const valuable = rewards.some((row) => ["stardust", "pearl", "starpiece", "nugget", "bigpearl", "bignugget"].includes(row.key));
+      if (typeof window.playPresentEnqueue === "function") {
+        const events = [{
+          id: `oak-research:${data.milestoneId || milestoneId}`,
+          type: "item",
+          kind: "loot",
+          rare: true,
+          title: "PROFESSOR OAK'S RESEARCH",
+          subtitle: "Research Complete!",
+          body: `${data.description || data.title || ""}\n\nOak: "${data.oakLine || "Excellent work! We're learning more about Pokémon every day!"}"\n\nRESEARCH REWARD\n${rewardHtml}`,
+          rewards: rewards.map((row) => ({ type: row.key, amount: row.qty }))
+        }];
+        if (valuable && !martEduShown && !window.playTipDone?.("oak-valuable-mart")) {
+          martEduShown = true;
+          window.playMarkTip?.("oak-valuable-mart");
+          events.push({
+            id: `oak-research-mart:${data.milestoneId || milestoneId}`,
+            type: "item",
+            kind: "loot",
+            title: rewards[0] ? String(window.playItemLabel?.(rewards[0].key) || "Valuable").toUpperCase() : "VALUABLE",
+            body: "A valuable item.\n\nSell valuables at the Starlight Mart for Coins.\n\nOpen Mart → Sell when you are ready.",
+            rewards: rewards.map((row) => ({ type: row.key, amount: row.qty }))
+          });
+        }
+        window.playPresentEnqueue(events);
+      }
+      await loadResearch();
+    } catch (error) {
+      if (els.researchBoard) {
+        const note = document.createElement("p");
+        note.className = "notice";
+        note.textContent = window.playRpcError?.(error) || "Could not claim research reward.";
+        els.researchBoard.prepend(note);
+      }
+    } finally {
+      researchBusy = false;
+    }
   }
 
   function counts() {
@@ -1156,7 +1283,7 @@
   }
 
   const hashTab = String(window.location.hash || "").replace(/^#/, "");
-  setTab(hashTab === "evolve" ? "evolve" : "send");
+  setTab(hashTab === "evolve" || hashTab === "research" ? hashTab : "send");
 
   els.tabs?.addEventListener("click", (event) => {
     const tab = event.target.closest("[data-tab]");
@@ -1180,6 +1307,12 @@
   });
 
   els.app?.addEventListener("click", (event) => {
+    const claim = event.target.closest("[data-claim-research]");
+    if (claim) {
+      event.preventDefault();
+      claimResearch(claim.dataset.claimResearch);
+      return;
+    }
     const switcher = event.target.closest("[data-switch-tab]");
     if (!switcher) return;
     event.preventDefault();

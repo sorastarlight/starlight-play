@@ -70,6 +70,9 @@
   const EVO_KEYS = new Set([
     "firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord", "rarecandy"
   ]);
+  const VALUABLE_KEYS = new Set([
+    "stardust", "pearl", "starpiece", "nugget", "bigpearl", "bignugget"
+  ]);
   const COMMUNITY_KEYS = new Set(["bait", "lure"]);
 
   const STONE_USES = {
@@ -113,6 +116,7 @@
     if (BERRY_KEYS.has(key)) return "berries";
     if (BALL_KEYS.has(key) || (typeof window !== "undefined" && root.playBallInfo?.(key))) return "balls";
     if (EVO_KEYS.has(key)) return "evolution";
+    if (VALUABLE_KEYS.has(key)) return "valuables";
     return "special";
   };
 
@@ -129,6 +133,7 @@
     if (key === "coins") return "Spend these in Starlight Mart.";
     if (key === "bag_bonus") return "Permanently adds extra bag slots so you can carry more items.";
     if (key === "rarecandy") return "Converts into 1 Evolution Candy at Prof. Oak's Lab. It does not evolve a Pokémon by itself.";
+    if (VALUABLE_KEYS.has(key)) return "A valuable item. Sell valuables at the Starlight Mart for PokéCoins.";
     if (STONE_USES[key]) {
       const first = STONE_USES[key][0];
       return `Used to evolve certain Pokémon such as ${first[0]}.`;
@@ -558,6 +563,8 @@
       ENCOUNTER_DROP: "Encounter reward",
       ENCOUNTER_PARTICIPATION: "Encounter reward",
       STORE_PURCHASE: "Starlight Mart",
+      MART_SALE: "Starlight Mart",
+      OAK_RESEARCH: "Professor Oak Research",
       DAILY_SUPPLY: "Daily Trainer Supply",
       DAILY_TRAINER_SUPPLY: "Daily Trainer Supply",
       LEVEL_REWARD: "Trainer level reward",

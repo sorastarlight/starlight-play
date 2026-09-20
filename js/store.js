@@ -17,6 +17,7 @@
   let lastBag = null;
   let lastTab = "";
   const CHECKOUT_TAB = "checkout";
+  const SELL_TAB = "sell";
   const CART_KEY = "play-mart-checkout";
   const CART_MAX_QTY = 99;
   let cart = loadCart();
@@ -24,6 +25,11 @@
   let lastPurchase = null;
   let lastLinkedLogin = "";
   let lastSupport = { events: [], bitsTotal: 0, pending: false };
+  let martMode = "buy"; // buy | sell
+  let sellShelf = [];
+  let sellQty = {};
+  let sellBusy = false;
+  let sellNote = "";
 
   window.playBindAccountNav({
     onSignOut() {
@@ -711,6 +717,130 @@
     els.ballGrid.innerHTML = rest.map((item) => shelfCard(item, "balls")).join("");
   }
 
+  function modeToggleHtml() {
+    return `<div class="mart-mode" role="tablist" aria-label="Mart mode">
+      <button type="button" class="mart-mode-btn${martMode === "buy" ? " is-on" : ""}" data-mart-mode="buy" role="tab" aria-selected="${martMode === "buy"}">Buy</button>
+      <button type="button" class="mart-mode-btn${martMode === "sell" ? " is-on" : ""}" data-mart-mode="sell" role="tab" aria-selected="${martMode === "sell"}">Sell</button>
+    </div>`;
+  }
+
+  function sellCardHtml(item) {
+    const slug = item.slug;
+    const owned = Math.max(0, Number(item.owned || 0));
+    const unit = Math.max(0, Number(item.unitPrice || 0));
+    const qty = Math.max(1, Math.min(owned, Number(sellQty[slug] || 1)));
+    sellQty[slug] = qty;
+    const total = unit * qty;
+    const sprite = item.sprite || window.playItemSprite?.(slug) || "images/items/poke-ball.png";
+    return `<article class="mart-sell-card" data-sell-slug="${esc(slug)}">
+      <img class="mart-sell-art" src="${esc(sprite)}" alt="" width="64" height="64" loading="lazy" decoding="async">
+      <div class="mart-sell-copy">
+        <h3>${esc(item.name || slug)}</h3>
+        <p class="muted">${esc(item.blurb || "A valuable item.")}</p>
+        <p>Owned: <strong>${owned.toLocaleString()}</strong></p>
+        <p class="mart-sell-price poke-cash"><span class="poke-cash-mark" aria-hidden="true">₽</span>${unit.toLocaleString()} each</p>
+        <div class="mart-sell-qty" role="group" aria-label="Sell quantity">
+          <button type="button" class="secondary" data-sell-dec="${esc(slug)}" ${qty <= 1 ? "disabled" : ""}>−</button>
+          <span class="mart-sell-qty-val">${qty}</span>
+          <button type="button" class="secondary" data-sell-inc="${esc(slug)}" ${qty >= owned ? "disabled" : ""}>+</button>
+        </div>
+        <p class="mart-sell-total">${qty.toLocaleString()} × ${unit.toLocaleString()} = <strong class="poke-cash"><span class="poke-cash-mark" aria-hidden="true">₽</span>${total.toLocaleString()}</strong></p>
+        <button type="button" class="gold" data-sell-go="${esc(slug)}" ${owned < 1 || unit < 1 ? "disabled" : ""}>Sell</button>
+      </div>
+    </article>`;
+  }
+
+  function sellFloorHtml() {
+    const cards = sellShelf.length
+      ? sellShelf.map(sellCardHtml).join("")
+      : `<p class="muted">No sellable valuables in your bag yet. Complete Professor Oak Research or receive valuables, then sell them here for PokéCoins.</p>`;
+    return `<section class="mart-floor mart-sell-floor" id="${SELL_TAB}" role="tabpanel" aria-labelledby="mart-tab-${SELL_TAB}" data-mart-panel="${SELL_TAB}">
+      <div class="mart-floor-head">
+        <p class="eyebrow">Sell valuables</p>
+        <p class="muted">Only items you own that are marked sellable appear here. Prices are set by the Mart — your client total is never trusted.</p>
+      </div>
+      <p class="mart-checkout-note" data-sell-status${sellNote ? "" : " hidden"}>${esc(sellNote)}</p>
+      <div class="mart-sell-grid">${cards}</div>
+    </section>`;
+  }
+
+  async function refreshSellShelf() {
+    try {
+      const data = await window.playCall("play_mart_sell_shelf");
+      sellShelf = Array.isArray(data?.items) ? data.items : [];
+      const keep = new Set(sellShelf.map((row) => row.slug));
+      Object.keys(sellQty).forEach((key) => { if (!keep.has(key)) delete sellQty[key]; });
+    } catch (_) {
+      sellShelf = [];
+    }
+  }
+
+  async function sellItem(slug) {
+    if (sellBusy) return;
+    const row = sellShelf.find((item) => item.slug === slug);
+    if (!row) return;
+    const owned = Math.max(0, Number(row.owned || 0));
+    const unit = Math.max(0, Number(row.unitPrice || 0));
+    const qty = Math.max(1, Math.min(owned, Number(sellQty[slug] || 1)));
+    if (owned < 1 || unit < 1) return;
+    const total = unit * qty;
+    const label = row.name || slug;
+    const body = `Sell ${qty} ${label}${qty === 1 ? "" : "s"}?\n\nYou will receive:\n${total.toLocaleString()} PokéCoins`;
+    const ok = typeof window.playPresentConfirm === "function"
+      ? await window.playPresentConfirm({ title: `Sell ${label}?`, body, confirmLabel: "Sell Items", cancelLabel: "Cancel" })
+      : window.confirm(body);
+    if (!ok) return;
+    sellBusy = true;
+    sellNote = "Selling…";
+    syncSellUi();
+    const idem = `mart-sell:${slug}:${Date.now()}:${Math.random().toString(36).slice(2, 10)}`;
+    try {
+      const data = await window.playCall("play_sell_item", {
+        p_item_key: slug,
+        p_quantity: qty,
+        p_idempotency_key: idem
+      });
+      sellNote = "";
+      if (typeof window.playPresentEnqueue === "function") {
+        window.playPresentEnqueue([{
+          id: `mart-sale:${idem}`,
+          type: "item",
+          kind: "loot",
+          title: "MART SALE COMPLETE!",
+          subtitle: `Sold: ${data.displayName || label} ×${data.quantity || qty}`,
+          body: `Received: ₽ ${(data.coinsReceived || total).toLocaleString()} PokéCoins`,
+          rewards: [{ type: "coins", amount: data.coinsReceived || total }]
+        }]);
+      }
+      await refreshStore();
+      await refreshSellShelf();
+      if (martMode === "sell") renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
+    } catch (error) {
+      sellNote = window.playPresentError
+        ? window.playPresentError(error, "Sale could not be completed.")
+        : window.playHumanRpcError
+          ? window.playHumanRpcError(error, "Sale could not be completed.")
+          : window.playRpcError(error);
+      syncSellUi();
+    } finally {
+      sellBusy = false;
+    }
+  }
+
+  function syncSellUi() {
+    const panel = els.floors?.querySelector(`[data-mart-panel="${SELL_TAB}"]`);
+    if (!panel) return;
+    const note = panel.querySelector("[data-sell-status]");
+    if (note) {
+      note.hidden = !sellNote;
+      note.textContent = sellNote;
+    }
+    const grid = panel.querySelector(".mart-sell-grid");
+    if (grid) grid.innerHTML = sellShelf.length
+      ? sellShelf.map(sellCardHtml).join("")
+      : `<p class="muted">No sellable valuables in your bag yet.</p>`;
+  }
+
   function tabButtons(floors) {
     const shelves = floors.map((floor, index) => {
       const id = floorTabId(floor, index);
@@ -737,23 +867,37 @@
     const ids = shop.map((floor) => floorTabId(floor, floors.indexOf(floor)));
     const raw = String(wanted || "").replace(/^#/, "");
     if (raw === "pass") return ids[0] || "";
-    if (raw === CHECKOUT_TAB) return CHECKOUT_TAB;
-    if (raw && ids.includes(raw)) return raw;
+    if (raw === SELL_TAB || raw === "sell") {
+      martMode = "sell";
+      return SELL_TAB;
+    }
+    if (raw === CHECKOUT_TAB) {
+      martMode = "buy";
+      return CHECKOUT_TAB;
+    }
+    if (raw && ids.includes(raw)) {
+      martMode = "buy";
+      return raw;
+    }
     if (raw === "avatars" || raw === "premium-avatars") {
+      martMode = "buy";
       const match = shop.find((floor) => floor.kind === "avatars");
       if (match) return floorTabId(match, floors.indexOf(match));
     }
     if (raw && shop.some((floor) => floor.kind === raw)) {
+      martMode = "buy";
       const match = shop.find((floor) => floor.kind === raw);
       return floorTabId(match, floors.indexOf(match));
     }
     if (/^(evolution|firestone|waterstone|thunderstone|leafstone|moonstone|linkingcord)$/.test(raw)) {
+      martMode = "buy";
       const match = shop.find((floor, index) => {
         const id = floorTabId(floor, floors.indexOf(floor));
         return id === "evolution" || floor.key === "evolution" || /evol/i.test(String(floor.name || floor.key || ""));
       });
       if (match) return floorTabId(match, floors.indexOf(match));
     }
+    if (martMode === "sell") return SELL_TAB;
     if (lastTab === CHECKOUT_TAB) return CHECKOUT_TAB;
     if (lastTab && ids.includes(lastTab)) return lastTab;
     return ids[0] || "";
@@ -944,8 +1088,8 @@
     const tab = resolveTab(floors, location.hash);
     const passHtml = passRow ? passFloor(passRow, pass, wallet) : "";
     const choiceHtml = renderChoices(wallet);
-    const folderHtml = shop.length
-      ? `<div class="mart-folder">
+    const buyFolder = shop.length
+      ? `<div class="mart-folder${martMode === "sell" ? " is-sell-mode" : ""}">
           ${tabButtons(shop)}
           <div class="mart-folder-body">
             ${shop.map((floor) => floorHtml(floor, floors.indexOf(floor), ownedPacks)).join("")}
@@ -953,9 +1097,23 @@
           </div>
         </div>`
       : "";
-    els.floors.innerHTML = `${choiceHtml}${passHtml}${folderHtml}`;
+    const sellFolder = `<div class="mart-folder mart-sell-folder${martMode === "buy" ? " is-buy-mode" : ""}">
+      ${sellFloorHtml()}
+    </div>`;
+    els.floors.innerHTML = `${modeToggleHtml()}${choiceHtml}${passHtml}${martMode === "sell" ? sellFolder : buyFolder}`;
     placeWallet();
-    showTab(tab, { updateHash: Boolean(location.hash) && location.hash.replace(/^#/, "") !== "pass" });
+    if (martMode === "sell") {
+      lastTab = SELL_TAB;
+      if (location.hash.replace(/^#/, "") !== SELL_TAB) {
+        try {
+          const url = new URL(window.location.href);
+          url.hash = SELL_TAB;
+          window.history.replaceState(null, "", url);
+        } catch (_) {}
+      }
+    } else {
+      showTab(tab, { updateHash: Boolean(location.hash) && location.hash.replace(/^#/, "") !== "pass" });
+    }
     renderBallCase(catalog);
   }
 
@@ -987,10 +1145,12 @@
         lastSupport = { events: [], bitsTotal: 0, pending: false };
       }
       fillWallet(wallet);
+      await refreshSellShelf();
       renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
       return data;
     } catch (error) {
       if (els.status) els.status.textContent = window.playRpcError(error, "Mart catalog is not live yet.");
+      await refreshSellShelf();
       renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
       return null;
     }
@@ -1078,6 +1238,34 @@
   }
 
   els.floors?.addEventListener("click", async (event) => {
+    const modeBtn = event.target.closest("[data-mart-mode]");
+    if (modeBtn) {
+      martMode = modeBtn.dataset.martMode === "sell" ? "sell" : "buy";
+      if (martMode === "sell") await refreshSellShelf();
+      renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
+      return;
+    }
+    const sellInc = event.target.closest("[data-sell-inc]");
+    if (sellInc) {
+      const slug = sellInc.dataset.sellInc;
+      const row = sellShelf.find((item) => item.slug === slug);
+      const owned = Math.max(0, Number(row?.owned || 0));
+      sellQty[slug] = Math.min(owned, Math.max(1, Number(sellQty[slug] || 1) + 1));
+      syncSellUi();
+      return;
+    }
+    const sellDec = event.target.closest("[data-sell-dec]");
+    if (sellDec) {
+      const slug = sellDec.dataset.sellDec;
+      sellQty[slug] = Math.max(1, Number(sellQty[slug] || 1) - 1);
+      syncSellUi();
+      return;
+    }
+    const sellGo = event.target.closest("[data-sell-go]");
+    if (sellGo) {
+      await sellItem(sellGo.dataset.sellGo);
+      return;
+    }
     const tab = event.target.closest(".mart-tab[data-mart-tab]");
     if (tab) {
       showTab(tab.dataset.martTab);

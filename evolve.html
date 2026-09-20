@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260920-rc48">
+<link rel="stylesheet" href="css/play.css?v=20260920-rc49">
 <body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -108,6 +108,20 @@
           <div><dt>Evolutions completed</dt><dd id="evo-done-count">0</dd></div>
         </dl>
         <span class="evo-station-cta">Open Evolution Research</span>
+      </button>
+      <button type="button" class="evo-station evo-station-research" role="tab" id="tab-research" data-tab="research" aria-controls="evo-tab-research" aria-selected="false" tabindex="-1">
+        <span class="evo-station-top">
+          <span class="evo-station-lamp" aria-hidden="true"></span>
+          <span class="evo-station-state">STANDBY</span>
+          <img class="evo-station-glyph" src="images/items/pokeapi/nugget.png" alt="" width="22" height="22" decoding="async" aria-hidden="true" onerror="this.src='images/items/poke-ball.png'">
+        </span>
+        <strong class="evo-station-name">Research</strong>
+        <span class="evo-station-desc">Professor Oak milestone board</span>
+        <dl class="evo-station-metrics">
+          <div><dt>Tracks</dt><dd id="evo-research-tracks">4</dd></div>
+          <div><dt>Claimable</dt><dd id="evo-research-claimable">0</dd></div>
+        </dl>
+        <span class="evo-station-cta">Open Research</span>
       </button>
     </div>
     <!-- Legacy strip IDs retained off-DOM for soft migration; values mirrored into stations -->
@@ -235,6 +249,13 @@
         <div id="mastery-list" class="prog-pick-grid"></div>
       </details>
     </section>
+
+    <section id="evo-tab-research" class="evo-tab-panel evo-lab-bay" role="tabpanel" aria-labelledby="tab-research" data-bay="research" hidden>
+      <p class="evo-station-context">Professor Oak's research board tracks your Kanto journey. Milestones are one-time claims.</p>
+      <div id="oak-research-board" class="oak-research-board" aria-live="polite">
+        <p class="muted">Loading research…</p>
+      </div>
+    </section>
   </div>
 </div>
 <dialog id="evo-modal" class="play-modal evo-preview" aria-labelledby="evo-title">
@@ -266,20 +287,20 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260920-rc48"></script>
-<script src="js/play-perf.js?v=20260920-rc48"></script>
-<script src="js/build.js?v=20260920-rc48"></script>
-<script src="js/build-client.js?v=20260920-rc48"></script>
-<script src="js/auth.js?v=20260920-rc48"></script>
-<script src="js/species.js?v=20260920-rc48"></script>
-<script src="js/variants.js?v=20260920-rc48"></script>
-<script src="js/forms.js?v=20260920-rc48"></script>
-<script src="js/game.js?v=20260920-rc48"></script>
-<script src="js/play-present.js?v=20260920-rc48"></script>
-<script src="js/play-encounter-state.js?v=20260920-rc48"></script>
-<script src="js/play-ux.js?v=20260920-rc48"></script>
-<script src="js/evolve-view.js?v=20260920-rc48"></script>
-<script src="js/oak-transfer.js?v=20260920-rc48"></script>
-<script src="js/nav.js?v=20260920-rc48"></script>
-<script src="js/evolve.js?v=20260920-rc48"></script>
+<script src="js/config.js?v=20260920-rc49"></script>
+<script src="js/play-perf.js?v=20260920-rc49"></script>
+<script src="js/build.js?v=20260920-rc49"></script>
+<script src="js/build-client.js?v=20260920-rc49"></script>
+<script src="js/auth.js?v=20260920-rc49"></script>
+<script src="js/species.js?v=20260920-rc49"></script>
+<script src="js/variants.js?v=20260920-rc49"></script>
+<script src="js/forms.js?v=20260920-rc49"></script>
+<script src="js/game.js?v=20260920-rc49"></script>
+<script src="js/play-present.js?v=20260920-rc49"></script>
+<script src="js/play-encounter-state.js?v=20260920-rc49"></script>
+<script src="js/play-ux.js?v=20260920-rc49"></script>
+<script src="js/evolve-view.js?v=20260920-rc49"></script>
+<script src="js/oak-transfer.js?v=20260920-rc49"></script>
+<script src="js/nav.js?v=20260920-rc49"></script>
+<script src="js/evolve.js?v=20260920-rc49"></script>
 </body>

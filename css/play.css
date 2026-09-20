@@ -9937,4 +9937,119 @@ html[data-reduced-motion="1"] .play-present-starfield,
   .special-admin-row { grid-template-columns: 1fr; }
 }
 
+/* —— Mart Buy/Sell mode —— */
+.mart-mode {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.mart-mode-btn {
+  min-width: 96px;
+  font-weight: 800;
+}
+.mart-mode-btn.is-on {
+  outline: 2px solid #4a7ab5;
+}
+.mart-sell-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.mart-sell-card {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #c9d7ea;
+  border-radius: 12px;
+  background: #f7fbff;
+}
+.mart-sell-art {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.mart-sell-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+.mart-sell-qty-val {
+  min-width: 2ch;
+  text-align: center;
+  font-weight: 800;
+}
 
+/* —— Oak Research board —— */
+.oak-research-board {
+  display: grid;
+  gap: 18px;
+}
+.oak-research-track {
+  border: 1px solid #c9d7ea;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #f8fbff, #f4f0f6);
+  padding: 14px;
+}
+.oak-research-track-head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.oak-research-meter {
+  height: 10px;
+  border-radius: 999px;
+  background: #d9e4f2;
+  overflow: hidden;
+}
+.oak-research-meter > i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #4a7ab5, #8a3d72);
+}
+.oak-research-cards {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.oak-research-card {
+  border: 1px solid #d5deea;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+}
+.oak-research-card.is-ready {
+  border-color: #c9a227;
+  box-shadow: 0 0 0 1px rgba(201, 162, 39, .35);
+}
+.oak-research-card.is-claimed {
+  opacity: .72;
+}
+.oak-research-status {
+  margin: 0;
+  font-size: .85rem;
+  font-weight: 800;
+}
+.oak-research-rewards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+.oak-research-reward {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+.oak-research-reward img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.evo-station-research .evo-station-lamp {
+  background: #8a3d72;
+}

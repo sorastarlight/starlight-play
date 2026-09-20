@@ -4,7 +4,7 @@
   const els = {
     gate: document.getElementById("gate"),
     app: document.getElementById("evo-app"),
-    tabs: document.querySelector(".evo-tabs"),
+    tabs: document.getElementById("evo-stations") || document.querySelector(".evo-lab-stations"),
     tabSend: document.getElementById("evo-tab-send"),
     tabEvolve: document.getElementById("evo-tab-evolve"),
     grid: document.getElementById("evo-grid"),
@@ -14,6 +14,7 @@
     sendGo: document.getElementById("evo-send-go"),
     sendNote: document.getElementById("evo-send-note"),
     sendStatus: document.getElementById("evo-send-status"),
+    xferAvailable: document.getElementById("evo-xfer-available"),
     candy: document.getElementById("candy-list"),
     rarePanel: document.getElementById("rare-candy-panel"),
     rareFamily: document.getElementById("rare-candy-family"),
@@ -172,14 +173,14 @@
     const tally = counts();
     if (activeTab === "send") {
       if (selectedOak.size > 0) {
-        setOakBubble("Excellent! I've marked the Pokémon ready for transfer.");
+        setOakBubble("Excellent! These Pokémon are ready for transfer.");
         return;
       }
       setOakBubble("Have any duplicate Pokémon? Send them my way for research!");
       return;
     }
     if (tally.ready > 0) {
-      setOakBubble("Ah! It looks like one of your Pokémon is ready!");
+      setOakBubble("Ah! One of your Pokémon is ready to evolve!");
       return;
     }
     setOakBubble("Let's see which Pokémon are ready to evolve!");
@@ -193,9 +194,12 @@
       btn.setAttribute("aria-selected", on ? "true" : "false");
       btn.tabIndex = on ? 0 : -1;
       btn.classList.toggle("is-active", on);
+      const state = btn.querySelector(".evo-station-state");
+      if (state) state.textContent = on ? "ONLINE" : "STANDBY";
     });
     if (els.tabSend) els.tabSend.hidden = !sendOn;
     if (els.tabEvolve) els.tabEvolve.hidden = sendOn;
+    document.body.dataset.labStation = activeTab;
     refreshOakBubble();
     try {
       const url = new URL(window.location.href);
@@ -218,17 +222,20 @@
 
   function renderHero() {
     const tally = counts();
+    const candyTotal = Number(data?.stats?.candyTotal || 0);
     if (els.readyCount) els.readyCount.textContent = String(tally.ready);
-    if (els.candyCount) els.candyCount.textContent = String(data?.stats?.candyTotal || 0);
+    if (els.candyCount) els.candyCount.textContent = String(candyTotal);
     if (els.doneCount) els.doneCount.textContent = String(data?.stats?.evolved || 0);
-    if (els.strip) els.strip.hidden = false;
+    if (els.strip) els.strip.hidden = true;
+    const eligible = sendableMons().filter((mon) => !mon.oakBlocked).length;
+    if (els.xferAvailable) els.xferAvailable.textContent = String(eligible);
     els.filters?.querySelectorAll("[data-count]").forEach((el) => {
       el.textContent = String(tally[el.dataset.count] || 0);
     });
     if (els.note) {
       els.note.textContent = tally.ready
-        ? `${tally.ready} Pokémon ready to evolve.`
-        : "No Pokémon are ready to evolve yet. Send duplicates to Oak for Evolution Candy, then evolve here.";
+        ? `${tally.ready} ready · ${candyTotal} Evolution Candy`
+        : `0 ready · ${candyTotal} Evolution Candy`;
     }
     refreshOakBubble();
   }
@@ -352,10 +359,11 @@
       if (!live.has(id) || rows.find((mon) => String(mon.id) === id)?.oakBlocked) selectedOak.delete(id);
     }
     const eligible = rows.filter((mon) => !mon.oakBlocked).length;
+    if (els.xferAvailable) els.xferAvailable.textContent = String(eligible);
     if (els.sendNote) {
       els.sendNote.textContent = eligible
-        ? `${eligible} Pokémon can be sent to Oak · ${selectedOak.size} selected`
-        : "No duplicates ready to send. Catch extras, then come back.";
+        ? `${eligible} available · ${selectedOak.size} selected`
+        : "0 available · catch duplicates to research";
     }
     if (els.sendGo) {
       els.sendGo.disabled = selectedOak.size < 1;
@@ -947,6 +955,21 @@
     const tab = event.target.closest("[data-tab]");
     if (!tab) return;
     setTab(tab.dataset.tab);
+  });
+
+  els.tabs?.addEventListener("keydown", (event) => {
+    const tabs = [...(els.tabs?.querySelectorAll("[data-tab]") || [])];
+    if (!tabs.length) return;
+    const current = tabs.findIndex((btn) => btn.getAttribute("aria-selected") === "true");
+    let next = current;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") next = (current + 1) % tabs.length;
+    else if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = (current - 1 + tabs.length) % tabs.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = tabs.length - 1;
+    else return;
+    event.preventDefault();
+    setTab(tabs[next].dataset.tab);
+    tabs[next].focus();
   });
 
   els.app?.addEventListener("click", (event) => {

@@ -24,20 +24,42 @@ const css = read("css/play.css");
 const nav = read("js/nav.js");
 const play = read("js/play.js");
 
-test("Lab header is compact control header", () => {
-  assert(html.includes("evo-lab-control"), "compact control class missing");
-  assert(html.includes("Prof. Oak's Lab"), "title missing");
-  assert(html.includes("Research. Discover. Evolve."), "tagline missing");
-  assert(!html.includes("Help Pokémon grow. Strengthen your team."), "long hero tag should be removed from main flow");
-  assert(css.includes("evo-lab-control"), "compact header CSS missing");
+test("Lab workbench replaces dashboard hero", () => {
+  assert(html.includes("evo-lab-bench"), "workbench class missing");
+  assert(html.includes("Professor Oak's Lab"), "lab title missing");
+  assert(html.includes("Pokémon Research &amp; Evolution Laboratory") || html.includes("Pokémon Research & Evolution Laboratory"), "lab subtitle missing");
+  assert(!html.includes("evo-lab-hero"), "old hero class must be removed");
+  assert(!html.includes("evo-lab-control"), "old control header must be removed");
+  assert(!/<div id="evo-strip"[^>]*class="evo-strip/.test(html), "KPI strip must leave main composition");
+  assert(css.includes("evo-lab-bench"), "workbench CSS missing");
 });
 
-test("Transfer and Evolution stations are obvious", () => {
+test("Professor Oak is the left visual anchor", () => {
+  assert(html.includes("evo-lab-oak-stage"), "oak stage missing");
+  assert(html.includes("images/trainers/portraits/oak-portrait.png"), "oak portrait missing");
+  assert(css.includes(".evo-lab-oak"), "oak CSS missing");
+  assert(/\.evo-lab-oak\s*\{[^}]*128px/s.test(css) || css.includes("width: 128px"), "oak desktop size missing");
+});
+
+test("Transfer and Evolution are workstation panels", () => {
   assert(html.includes("Transfer Station"), "transfer station missing");
-  assert(html.includes("Evolution Chamber"), "evolution chamber missing");
+  assert(html.includes("Evolution Research"), "evolution research missing");
   assert(html.includes("evo-station-transfer"), "transfer station class missing");
   assert(html.includes("evo-station-evolve"), "evolve station class missing");
+  assert(html.includes("Open Transfer Station"), "transfer CTA missing");
+  assert(html.includes("Open Evolution Research"), "evolve CTA missing");
+  assert(html.includes('role="tablist"'), "station tablist missing");
   assert(js.includes("is-active"), "active station class missing");
+  assert(js.includes("ONLINE"), "station ONLINE state missing");
+});
+
+test("Counters live in stations / candy resource, not KPI row", () => {
+  assert(html.includes("evo-xfer-available"), "transfer available metric missing");
+  assert(html.includes("evo-ready-count"), "ready metric missing");
+  assert(html.includes("evo-lab-candy-res"), "candy resource chip missing");
+  assert(html.includes("evo-done-count"), "evolutions completed metric missing");
+  assert(!html.includes(">Ready</small>"), "legacy Ready KPI label must be gone");
+  assert(js.includes("xferAvailable"), "xfer available wiring missing");
 });
 
 test("Research notes are collapsed by default", () => {
@@ -45,13 +67,21 @@ test("Research notes are collapsed by default", () => {
   assert(html.includes("<details class=\"evo-research-notes\">"), "details element missing");
   assert(!/<section class="evo-research evo-station-card"/.test(html), "large instruction card must leave main flow");
   assert(html.includes("evo-station-context"), "contextual sentence missing");
+  assert(html.includes("Research Notes ▸") || html.includes("Research Notes"), "research notes summary missing");
+});
+
+test("Collection toolbar is cohesive", () => {
+  assert(html.includes("evo-collection-bar"), "collection bar missing");
+  assert(html.includes("Your Collection"), "collection title missing");
+  assert(css.includes("evo-send-toolbar"), "send toolbar CSS missing");
+  assert(css.includes("max-width: 920px") || css.includes("max-width:920px"), "toolbar max-width missing");
 });
 
 test("Oak contextual messages cover transfer and evolution states", () => {
   assert(js.includes("Have any duplicate Pokémon? Send them my way for research!"), "transfer idle missing");
-  assert(js.includes("Excellent! I've marked the Pokémon ready for transfer."), "transfer selection missing");
+  assert(js.includes("Excellent! These Pokémon are ready for transfer."), "transfer selection missing");
   assert(js.includes("Let's see which Pokémon are ready to evolve!"), "evolution idle missing");
-  assert(js.includes("Ah! It looks like one of your Pokémon is ready!"), "evolution ready missing");
+  assert(js.includes("Ah! One of your Pokémon is ready to evolve!"), "evolution ready missing");
   assert(js.includes("Excellent! This research should help us understand its Evolution Line."), "transfer success missing");
   assert(js.includes("Wonderful! Another successful evolution!"), "evolution success missing");
 });
@@ -59,6 +89,11 @@ test("Oak contextual messages cover transfer and evolution states", () => {
 test("Collection CTA uses Send N to Oak", () => {
   assert(js.includes("Send ${selectedOak.size} to Oak") || js.includes("Send ${selectedOak.size} to Oak"), "armed CTA missing");
   assert(js.includes("Send 0 to Oak"), "idle CTA missing");
+});
+
+test("Station keyboard navigation is supported", () => {
+  assert(js.includes("ArrowRight"), "arrow key nav missing");
+  assert(js.includes("aria-selected"), "aria-selected missing");
 });
 
 test("Tab-return soft refresh avoids global loading flash", () => {

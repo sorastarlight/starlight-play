@@ -3,6 +3,7 @@
 
   const OAK_SPRITE = "images/trainers/oak.png";
   const BALL_SPRITE = "images/items/poke-ball.png";
+  const OAK_COMPLETE_SFX = "sounds/oak-wonderful.wav";
 
   function esc(value) {
     return root.playEscapeAttr ? root.playEscapeAttr(value) : String(value ?? "")
@@ -14,6 +15,20 @@
 
   function wait(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  /** Oak research complete sting — fails soft if autoplay is blocked. */
+  function playCompleteSfx() {
+    try {
+      const AudioCtor = root.Audio || (typeof Audio !== "undefined" ? Audio : null);
+      if (!AudioCtor) return null;
+      const audio = new AudioCtor(OAK_COMPLETE_SFX);
+      const played = audio.play();
+      if (played && typeof played.catch === "function") played.catch(() => {});
+      return audio;
+    } catch (_) {
+      return null;
+    }
   }
 
   function reducedMotion() {
@@ -408,9 +423,16 @@
 
     let aborted = false;
     let finished = false;
+    let sfxPlayed = false;
     const summary = rewardSummary(plan.results, families);
     let resolveDone;
     const donePromise = new Promise((resolve) => { resolveDone = resolve; });
+
+    const playDoneSfx = () => {
+      if (sfxPlayed) return;
+      sfxPlayed = true;
+      playCompleteSfx();
+    };
 
     const setStage = (name) => {
       if (rootEl) rootEl.dataset.stage = name;
@@ -431,6 +453,7 @@
       aborted = true;
       if (lineEl) lineEl.dataset.skip = "1";
       setStage("reward");
+      playDoneSfx();
       if (rootEl) rootEl.hidden = true;
       fillRewards(overlay, summary, plan.results);
       if (rewardEl) rewardEl.hidden = false;
@@ -557,6 +580,7 @@
 
     if (!aborted && !finished) {
       setStage("reward");
+      playDoneSfx();
       if (rootEl) rootEl.hidden = true;
       fillRewards(overlay, summary, plan.results);
       if (rewardEl) rewardEl.hidden = false;
@@ -569,6 +593,7 @@
   const api = {
     OAK_SPRITE,
     BALL_SPRITE,
+    OAK_COMPLETE_SFX,
     spriteUrl,
     monName,
     monCaption,
@@ -585,6 +610,7 @@
     resolvePlayerTrainer,
     playerTrainerHtml,
     buildOverlay,
+    playCompleteSfx,
     runSequence,
     reducedMotion
   };

@@ -238,11 +238,21 @@ test("animation helpers cannot grant candy or delete catches", () => {
 test("local Oak and Poké Ball assets configured", () => {
   assert(oak.OAK_SPRITE === "images/trainers/oak.png");
   assert(oak.BALL_SPRITE === "images/items/poke-ball.png");
+  assert(oak.OAK_COMPLETE_SFX === "sounds/oak-wonderful.wav");
   const fs = require("fs");
   const path = require("path");
   assert(fs.existsSync(path.join(__dirname, "..", oak.OAK_SPRITE)));
   assert(fs.existsSync(path.join(__dirname, "..", oak.BALL_SPRITE)));
+  assert(fs.existsSync(path.join(__dirname, "..", oak.OAK_COMPLETE_SFX)));
   assert(fs.existsSync(path.join(__dirname, "..", "images/items/rare-candy.png")));
+});
+
+test("transfer complete plays Oak Wonderful SFX once", () => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "../js/oak-transfer.js"), "utf8");
+  assert(src.includes("playCompleteSfx"));
+  assert(src.includes("sounds/oak-wonderful.wav"));
+  assert(src.includes("playDoneSfx"));
+  assert(/playDoneSfx\(\)/.test(src));
 });
 
 test("Game Boy markup helpers expose A/B screens and link cable", () => {

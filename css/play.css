@@ -8925,7 +8925,7 @@ html[data-perf="balanced"] .evo-sparks i:nth-child(n+5) { display: none; }
 }
 .evo-dialogue p { margin: 0; }
 .evo-dialogue p + p { margin-top: 8px; }
-.evo-fanfare[data-stage="result"] .evo-dialogue::after,
+.evo-fanfare[data-stage="reveal"] .evo-dialogue.is-waiting::after,
 .evo-dialogue.is-waiting::after {
   content: "▼";
   position: absolute;
@@ -8985,7 +8985,7 @@ html[data-reduced-motion="1"] .evo-sparks,
 html[data-perf="low"] .evo-ring,
 html[data-reduced-motion="1"] .evo-ring,
 html[data-reduced-motion="1"] .evo-flash,
-html[data-reduced-motion="1"] .evo-fanfare[data-stage="result"] .evo-dialogue::after {
+html[data-reduced-motion="1"] .evo-fanfare[data-stage="reveal"] .evo-dialogue.is-waiting::after {
   animation: none;
   transform: none;
 }

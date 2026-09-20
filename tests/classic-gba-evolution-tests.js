@@ -39,23 +39,24 @@ test("Dual source/destination sprites drive silhouette alternation", () => {
   assert(js.includes("slowHold") && js.includes("fastHold"), "acceleration stages missing");
 });
 
-test("GBA dialogue framing and click-to-advance text flow", () => {
+test("GBA dialogue types intro and congrats without a reward result screen", () => {
   assert(js.includes("evo-dialogue-gba"), "gba dialogue class missing");
-  assert(js.includes("beginResultFlow"), "result dialogue flow missing");
+  assert(js.includes("endSequence"), "end sequence missing");
   assert(js.includes("typeIntro"), "intro typewriter missing");
-  assert(js.includes("typeText") || js.includes("typePage"), "typewriter flow missing");
+  assert(js.includes("typeCongrats"), "congrats typewriter missing");
   assert(js.includes("full.slice(0, i + 1)"), "letter-by-letter typing missing");
-  assert(js.includes("advanceResult"), "click advance missing");
   assert(js.includes('overlay.addEventListener("click"'), "click-anywhere skip missing");
   assert(!js.includes("data-evo-skip"), "skip button must be removed");
-  assert(!js.includes("data-evo-result"), "separate result card must leave classic flow");
+  assert(!js.includes("data-evo-result"), "separate result card must stay removed");
+  assert(!js.includes("beginResultFlow"), "multi-page result flow must stay removed");
+  assert(!js.includes("resultPages("), "reward result pages must not drive the fanfare");
+  assert(js.includes('playCall("play_notices")'), "notices must still be acknowledged");
+  assert(!/playShowNotices\(\{[\s\S]*source:\s*"evolution"/.test(js), "must not open a second evolution result presentation");
   assert(css.includes(".evo-dialogue-gba") || css.includes(".evo-gba-classic .evo-dialogue"), "gba dialogue CSS missing");
-  assert(css.includes("background: #ffffff") || css.includes("background: #f0f0f0"), "light dialogue fill missing");
-  assert(css.includes("inset 0 0 0 3px #d4b84a") || css.includes("inset 0 0 0 3px #d8bc6a"), "gold inner border missing");
   assert(css.includes("drop-shadow(0 6px 3px"), "pokemon drop shadow missing");
   assert(view.includes('what: "What?"'), "What? copy preserved");
   assert(view.includes("is evolving!"), "evolving copy preserved");
-  assert(view.includes("resultPages"), "stat pages helper missing");
+  assert(view.includes("Congratulations!"), "congrats copy preserved");
 });
 
 test("Presentation stays after authoritative evolve RPC", () => {
@@ -72,7 +73,7 @@ test("Presentation stays after authoritative evolve RPC", () => {
 test("Reduced-motion stays non-mutating", () => {
   assert(js.includes("Condensed accessibility path") || js.includes("reduced"), "reduced path missing");
   assert(js.includes('showWhich("from", true)'), "reduced silhouette path missing");
-  assert(js.includes("beginResultFlow"), "skip/result still presentation-only");
+  assert(js.includes("endSequence"), "skip/end still presentation-only");
 });
 
 test("Identity fields flow into sprites", () => {

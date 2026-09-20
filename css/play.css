@@ -8609,6 +8609,105 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
     0 0 0 10px rgba(138, 61, 114, .22),
     0 18px 40px #0008;
 }
+/* Classic GBA evolution stage — black field above approved RPG dialogue box */
+.evo-gba-classic {
+  background: #000;
+}
+.evo-gba-classic .evo-field,
+.evo-field-black {
+  background: #000 !important;
+}
+.evo-gba-classic .evo-field::before,
+.evo-field-black::before {
+  display: none !important;
+  content: none !important;
+}
+.evo-fanfare.is-classic-gba.is-shiny-seq .evo-field,
+.evo-fanfare.is-classic-gba.is-shiny-seq .evo-field::before {
+  background: #000 !important;
+  box-shadow: none !important;
+}
+.evo-gba-classic .evo-actor {
+  width: min(148px, 42vw);
+  height: min(148px, 42vw);
+  max-width: 148px;
+  max-height: 148px;
+}
+.evo-gba-classic .evo-sprite {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(128px, 36vw);
+  height: min(128px, 36vw);
+  max-width: 128px;
+  max-height: 128px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.evo-gba-classic .evo-sprite.is-on {
+  opacity: 1;
+  visibility: visible;
+}
+.evo-gba-classic .evo-actor.is-sil .evo-sprite.is-on {
+  /* Crisp white silhouette from sprite alpha — not a rectangle overlay */
+  filter: brightness(0) invert(1) contrast(1.05);
+}
+.evo-gba-classic .evo-actor.is-reveal .evo-sprite.is-on {
+  filter: none;
+}
+.evo-gba-classic .evo-actor.is-bright .evo-sprite.is-on {
+  filter: brightness(0) invert(1) contrast(1.05) drop-shadow(0 0 10px rgba(255, 255, 255, .85));
+}
+.evo-gba-classic .evo-actor.is-bright.is-reveal .evo-sprite.is-on,
+.evo-gba-classic[data-stage="reveal"] .evo-actor.is-bright .evo-sprite.is-on {
+  filter: brightness(1.35) contrast(1.05);
+}
+.evo-actor-flash {
+  position: absolute;
+  inset: 28% 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, .55), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.evo-gba-classic .evo-actor.is-bright ~ .evo-actor-flash,
+.evo-gba-classic .evo-actor.is-bright + .evo-actor-flash {
+  opacity: .55;
+}
+.evo-gba-classic .evo-sparks i {
+  width: 3px;
+  height: 3px;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .35);
+  animation: evo-spark-pixel 1.6s steps(2, end) infinite;
+}
+.evo-gba-classic.is-sparking .evo-sparks,
+.evo-fanfare[data-stage="morph"] .evo-gba-classic .evo-sparks,
+.evo-fanfare[data-stage="climax"] .evo-gba-classic .evo-sparks,
+.evo-fanfare[data-stage="reveal"] .evo-gba-classic .evo-sparks {
+  opacity: 1;
+}
+.evo-gba-classic .evo-sparks {
+  opacity: 0;
+  transition: opacity .2s linear;
+}
+.evo-gba-classic.is-finale .evo-sparks i {
+  animation-duration: 1.05s;
+}
+.evo-gba-classic .evo-ring,
+.evo-fanfare.is-classic-gba .evo-flash {
+  display: none !important;
+}
+@keyframes evo-spark-pixel {
+  0%, 100% { transform: translate(0, 0); opacity: .15; }
+  50% { transform: translate(0, -6px); opacity: 1; }
+}
 .evo-skip, .evo-continue {
   min-height: 44px;
   margin: 0 10px 10px;
@@ -8739,19 +8838,20 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
   display: grid;
   place-items: center;
 }
-.evo-actor img {
+.evo-actor img,
+.evo-sprite {
   width: 112px;
   height: 112px;
   object-fit: contain;
   image-rendering: pixelated;
 }
-.evo-fanfare[data-stage="build"] .evo-actor img,
-.evo-fanfare[data-stage="morph"] .evo-actor img {
+.evo-fanfare:not(.is-classic-gba)[data-stage="build"] .evo-actor img,
+.evo-fanfare:not(.is-classic-gba)[data-stage="morph"] .evo-actor img {
   animation: evo-pulse 1.6s ease-in-out infinite;
   filter: drop-shadow(0 0 16px #fff6b8);
 }
-.evo-fanfare[data-stage="build"] .evo-ring,
-.evo-fanfare[data-stage="morph"] .evo-ring {
+.evo-fanfare:not(.is-classic-gba)[data-stage="build"] .evo-ring,
+.evo-fanfare:not(.is-classic-gba)[data-stage="morph"] .evo-ring {
   border-color: rgba(255, 246, 184, .7);
   box-shadow: 0 0 24px #fff6b8;
   animation: evo-ring 2s ease-in-out infinite;
@@ -8760,7 +8860,8 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
 .evo-gba.is-simple .evo-sparks,
 .evo-gba.is-simple .evo-ring { display: none; }
 html[data-perf="balanced"] .evo-sparks i:nth-child(n+5) { display: none; }
-.evo-actor.is-sil img {
+.evo-actor.is-sil img:not(.evo-sprite),
+.evo-actor.is-sil .evo-sprite.is-on {
   filter: brightness(0) invert(1) contrast(1.1);
 }
 .evo-dialogue {
@@ -8827,8 +8928,8 @@ html[data-perf="balanced"] .evo-sparks i:nth-child(n+5) { display: none; }
 }
 html[data-perf="low"] .evo-mon.is-ready .evo-mon-art img,
 html[data-reduced-motion="1"] .evo-mon.is-ready .evo-mon-art img,
-html[data-reduced-motion="1"] .evo-fanfare[data-stage="build"] .evo-actor img,
-html[data-reduced-motion="1"] .evo-fanfare[data-stage="morph"] .evo-actor img,
+html[data-reduced-motion="1"] .evo-fanfare:not(.is-classic-gba)[data-stage="build"] .evo-actor img,
+html[data-reduced-motion="1"] .evo-fanfare:not(.is-classic-gba)[data-stage="morph"] .evo-actor img,
 html[data-reduced-motion="1"] .evo-mon:hover,
 html[data-reduced-motion="1"] .evo-mon.is-ready.is-fanfare::before,
 html[data-reduced-motion="1"] .evo-mon.is-ready.is-fanfare::after,
@@ -8844,6 +8945,14 @@ html[data-reduced-motion="1"] .evo-fanfare[data-stage="result"] .evo-dialogue::a
   transform: none;
 }
 html[data-reduced-motion="1"] .evo-fanfare.is-flash .evo-flash { opacity: 0; }
+html[data-reduced-motion="1"] .evo-gba-classic .evo-actor.is-bright .evo-sprite.is-on,
+html[data-perf="low"] .evo-gba-classic .evo-actor.is-bright .evo-sprite.is-on {
+  filter: brightness(0) invert(1) contrast(1.05);
+}
+html[data-reduced-motion="1"] .evo-gba-classic .evo-sparks,
+html[data-perf="low"] .evo-gba-classic .evo-sparks {
+  display: none;
+}
 
 /* Phase 4 — BALANCED is the normal sweet spot, not a HIGH alias.
    LOW cuts decoration but keeps capture wobble and Evolution stage changes.

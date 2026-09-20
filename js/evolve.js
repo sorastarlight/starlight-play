@@ -703,33 +703,52 @@
   }
 
   function showEvoFanfare(result, row) {
-    const model = view.resultModel ? view.resultModel(result, row) : { fromName: row.name, toName: row.toName, fromDex: row.dex, toDex: row.toDex, variant: row.variant, gender: row.gender };
-    const lines = view.dialogueLines ? view.dialogueLines(model) : { what: "What?", evolving: `${model.fromName} is evolving!`, congrats: "Congratulations!", done: `Your ${model.fromName} evolved into ${model.toName}!` };
-    const panel = view.resultPanel ? view.resultPanel(model) : { title: "EVOLUTION COMPLETE!", subtitle: "Evolution complete!", oakLine: "Professor Oak: Remarkable research, Trainer!", species: model.toName, extras: [], newDex: model.newDex, dexLabel: "" };
+    const model = view.resultModel ? view.resultModel(result, row) : {
+      fromName: row.name, toName: row.toName, fromDex: row.dex, toDex: row.toDex,
+      variant: row.variant, gender: row.gender, fromFormId: row.formId, toFormId: row.toFormId
+    };
+    const lines = view.dialogueLines ? view.dialogueLines(model) : {
+      what: "What?",
+      evolving: `${model.fromName} is evolving!`,
+      congrats: "Congratulations!",
+      done: `Your ${model.fromName} evolved into ${model.toName}!`
+    };
+    const panel = view.resultPanel ? view.resultPanel(model) : {
+      title: "EVOLUTION COMPLETE!",
+      subtitle: "Evolution complete!",
+      oakLine: "Professor Oak: Remarkable research, Trainer!",
+      species: model.toName,
+      extras: [],
+      newDex: model.newDex,
+      dexLabel: ""
+    };
     const shiny = view.isShiny?.(model) || String(model.variant || "").includes("shiny");
     const fromArt = view.displayVariant ? view.displayVariant(model, model.fromDex) : model.variant;
     const toArt = view.displayVariant ? view.displayVariant(model, model.toDex) : model.variant;
+    const fromUrl = window.playSpriteUrl(model.fromDex, fromArt, model.fromFormId);
+    const toUrl = window.playSpriteUrl(model.toDex, toArt, model.toFormId);
     return new Promise((resolve) => {
       document.querySelector(".evo-fanfare")?.remove();
       const overlay = document.createElement("div");
-      overlay.className = `evo-fanfare is-lab${shiny ? " is-shiny-seq" : ""}`;
+      overlay.className = `evo-fanfare is-lab is-classic-gba${shiny ? " is-shiny-seq" : ""}`;
       overlay.setAttribute("role", "dialog");
       overlay.setAttribute("aria-modal", "true");
       overlay.setAttribute("aria-label", "Evolution");
       const mode = perfMode();
-      const sparkCount = mode === "high" ? 12 : mode === "balanced" ? 4 : 0;
+      const reduced = mode === "reduced" || mode === "low";
+      const sparkCount = mode === "high" ? 10 : mode === "balanced" ? 5 : 0;
       const sparks = Array.from({ length: sparkCount }, () => "<i></i>").join("");
       const oakLine = panel.oakLine || "Professor Oak: Remarkable research, Trainer!";
       const speciesLabel = panel.species || String(model.toName || "Pokémon").toUpperCase();
       overlay.innerHTML = `
-        <div class="evo-gba evo-gba-lab ${mode === "reduced" || mode === "low" ? "is-simple" : ""}" data-evo-root tabindex="0">
-          <div class="evo-field">
-            <div class="evo-flash"></div>
-            <div class="evo-ring" aria-hidden="true"></div>
+        <div class="evo-gba evo-gba-lab evo-gba-classic ${reduced ? "is-simple" : ""}" data-evo-root tabindex="0">
+          <div class="evo-field evo-field-black" data-evo-stage>
             <div class="evo-sparks" aria-hidden="true">${sparks}</div>
-            <div class="evo-actor">
-              ${sprite(model.fromDex, model.variant, 112, model.gender)}
+            <div class="evo-actor" data-evo-actor>
+              <img class="evo-sprite evo-from is-on" src="${esc(fromUrl)}" alt="${esc(model.fromName || "")}" width="112" height="112" decoding="async" data-evo-from>
+              <img class="evo-sprite evo-to" src="${esc(toUrl)}" alt="${esc(model.toName || "")}" width="112" height="112" decoding="async" data-evo-to aria-hidden="true">
             </div>
+            <div class="evo-actor-flash" aria-hidden="true"></div>
           </div>
           <div class="evo-dialogue" aria-live="polite">
             <p data-evo-line1></p>
@@ -739,7 +758,7 @@
         </div>
         <div class="evo-result-card evo-result-lab" data-evo-result hidden>
           ${shiny ? `<p class="evo-shiny-banner">✨ Shiny Pokémon ✨</p>` : ""}
-          ${sprite(model.toDex, model.variant, 128, model.gender)}
+          <img src="${esc(toUrl)}" alt="" width="128" height="128" decoding="async">
           <h2>${esc(panel.title || "EVOLUTION COMPLETE!")}</h2>
           <p class="evo-oak-flavor">${esc(oakLine)}</p>
           <p class="eyebrow">${esc(speciesLabel)}</p>
@@ -766,25 +785,34 @@
       };
       const line1 = overlay.querySelector("[data-evo-line1]");
       const line2 = overlay.querySelector("[data-evo-line2]");
-      const actor = overlay.querySelector(".evo-actor");
-      const img = overlay.querySelector(".evo-actor img");
+      const actor = overlay.querySelector("[data-evo-actor]");
+      const fromImg = overlay.querySelector("[data-evo-from]");
+      const toImg = overlay.querySelector("[data-evo-to]");
       const setLines = (first, second) => {
         if (line1) line1.textContent = first || "";
         if (line2) line2.textContent = second || "";
       };
-      const setSprite = (dex, sil) => {
-        if (img) {
-          img.src = window.playSpriteUrl(dex, dex === model.toDex ? toArt : fromArt);
-          img.alt = dex === model.toDex ? (model.toName || "") : (model.fromName || "");
-        }
+      const showWhich = (which, sil) => {
+        const showTo = which === "to";
+        fromImg?.classList.toggle("is-on", !showTo);
+        toImg?.classList.toggle("is-on", showTo);
+        fromImg?.setAttribute("aria-hidden", showTo ? "true" : "false");
+        toImg?.setAttribute("aria-hidden", showTo ? "false" : "true");
         actor?.classList.toggle("is-sil", Boolean(sil));
+        actor?.classList.toggle("is-reveal", !sil && showTo);
+      };
+      const softFlash = async (ms) => {
+        if (reduced) return;
+        actor?.classList.add("is-bright");
+        await wait(ms || 160);
+        actor?.classList.remove("is-bright");
       };
       const showResult = () => {
         if (done || overlay.dataset.stage === "result") return;
-        overlay.classList.remove("is-flash");
+        actor?.classList.remove("is-bright", "is-sil");
         overlay.dataset.stage = "result";
         overlay.setAttribute("aria-label", "Evolution complete");
-        setSprite(model.toDex, false);
+        showWhich("to", false);
         if (stageEl) stageEl.hidden = true;
         if (resultEl) resultEl.hidden = false;
         continueBtn?.focus();
@@ -815,46 +843,75 @@
         finish();
       });
       const stopped = () => done || overlay.dataset.stage === "result";
-      const flash = async (ms) => {
-        if (mode === "low" || mode === "reduced") return;
-        overlay.classList.add("is-flash");
-        await wait(ms || 180);
-        overlay.classList.remove("is-flash");
+      const pulsePairs = async (pairs, holdMs) => {
+        for (let i = 0; i < pairs; i += 1) {
+          showWhich("from", true);
+          await wait(holdMs);
+          if (stopped()) return false;
+          showWhich("to", true);
+          await wait(holdMs);
+          if (stopped()) return false;
+        }
+        return true;
       };
       const run = async () => {
         cue("begin");
         overlay.dataset.stage = "intro";
+        showWhich("from", false);
         setLines(lines.what, "");
-        await wait(mode === "reduced" ? 280 : 720);
+        await wait(reduced ? 220 : 700);
         if (stopped()) return;
         setLines(lines.what, lines.evolving);
-        if (mode === "low" || mode === "reduced") {
-          await wait(mode === "reduced" ? 480 : 720);
+        await wait(reduced ? 280 : 800);
+        if (stopped()) return;
+
+        // Condensed accessibility path: color → white from → white to → color to.
+        if (reduced) {
+          overlay.dataset.stage = "build";
+          showWhich("from", true);
+          await wait(320);
+          if (stopped()) return;
+          overlay.dataset.stage = "morph";
+          showWhich("to", true);
+          await wait(320);
+          if (stopped()) return;
+          overlay.dataset.stage = "reveal";
+          showWhich("to", false);
+          await wait(420);
           if (stopped()) return;
           showResult();
           return;
         }
-        await wait(mode === "high" ? 900 : 600);
-        if (stopped()) return;
+
         overlay.dataset.stage = "build";
         cue("build");
-        await wait(mode === "high" ? 1800 : 1200);
+        showWhich("from", true);
+        await wait(mode === "high" ? 1000 : 750);
         if (stopped()) return;
+
         overlay.dataset.stage = "morph";
-        const holds = mode === "high" ? [780, 700, 620] : [560, 500, 440];
-        for (const hold of holds) {
-          setSprite(model.fromDex, true);
-          await wait(hold);
-          if (stopped()) return;
-          setSprite(model.toDex, true);
-          await wait(hold);
-          if (stopped()) return;
-        }
-        await flash(mode === "high" ? 280 : 180);
+        overlay.classList.add("is-sparking");
+        // Slow → medium → fast silhouette alternation (classic GBA feel).
+        const slowHold = mode === "high" ? 420 : 340;
+        const midHold = mode === "high" ? 210 : 170;
+        const fastHold = mode === "high" ? 105 : 90;
+        if (!(await pulsePairs(mode === "high" ? 3 : 2, slowHold))) return;
+        if (!(await pulsePairs(mode === "high" ? 4 : 3, midHold))) return;
+        if (!(await pulsePairs(mode === "high" ? 6 : 5, fastHold))) return;
+
+        overlay.dataset.stage = "climax";
+        showWhich("to", true);
+        await softFlash(mode === "high" ? 220 : 160);
         if (stopped()) return;
-        await wait(mode === "high" ? 90 : 60);
+        await wait(mode === "high" ? 380 : 280);
         if (stopped()) return;
-        await flash(mode === "high" ? 420 : 260);
+        await softFlash(mode === "high" ? 180 : 120);
+        if (stopped()) return;
+
+        overlay.dataset.stage = "reveal";
+        overlay.classList.add("is-finale");
+        showWhich("to", false);
+        await wait(mode === "high" ? 1700 : 1200);
         if (stopped()) return;
         showResult();
       };

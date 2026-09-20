@@ -9,7 +9,10 @@
     tabEvolve: document.getElementById("evo-tab-evolve"),
     tabResearch: document.getElementById("evo-tab-research"),
     researchBoard: document.getElementById("oak-research-board"),
+    researchTracklist: document.getElementById("oak-research-tracklist"),
+    researchSummary: document.getElementById("oak-research-summary"),
     researchClaimable: document.getElementById("evo-research-claimable"),
+    researchClaimableBadge: document.getElementById("evo-research-claimable-badge"),
     grid: document.getElementById("evo-grid"),
     sendGrid: document.getElementById("evo-send-grid"),
     sendSearch: document.getElementById("evo-send-search"),
@@ -172,6 +175,30 @@
     els.oakBubble.textContent = text;
   }
 
+  const RESEARCH_TRACK_IDS = ["field", "evolution", "line", "transfer"];
+  const RESEARCH_TRACK_ALIAS = {
+    field: "field",
+    evolution: "evolution",
+    evolutions: "evolution",
+    line: "line",
+    lines: "line",
+    transfer: "transfer",
+    transfers: "transfer"
+  };
+  const RESEARCH_TRACK_MSG = {
+    field: "There's still so much to learn about Pokémon in Kanto!",
+    evolution: "Evolution can reveal remarkable changes in Pokémon!",
+    line: "Related Pokémon can teach us a great deal about evolution!",
+    transfer: "Even duplicate Pokémon can contribute to valuable research!"
+  };
+  const RESEARCH_TRACK_META = {
+    field: { short: "Field", unit: "species", motif: "field" },
+    evolution: { short: "Evolutions", unit: "evolutions", motif: "evolution" },
+    line: { short: "Lines", unit: "lines", motif: "line" },
+    transfer: { short: "Transfers", unit: "sent", motif: "transfer" }
+  };
+  const RESEARCH_SESSION_KEY = "oakLabResearchTrack";
+
   function refreshOakBubble() {
     const tally = counts();
     if (activeTab === "send") {
@@ -179,46 +206,97 @@
         setOakBubble("Excellent! These Pokémon are ready for transfer.");
         return;
       }
-      setOakBubble("Have any duplicate Pokémon? Send them my way for research!");
+      setOakBubble("Send me duplicate Pokémon and I'll study their Evolution Line!");
       return;
     }
     if (activeTab === "research") {
-      setOakBubble("Every discovery helps! Check the research board for milestones you can claim.");
+      setOakBubble(RESEARCH_TRACK_MSG[activeResearchTrack] || "Every discovery helps with my Pokémon research!");
       return;
     }
     if (tally.ready > 0) {
       setOakBubble("Ah! One of your Pokémon is ready to evolve!");
       return;
     }
-    setOakBubble("Let's see which Pokémon are ready to evolve!");
+    setOakBubble("Let's see what your Pokémon can become!");
   }
 
   let research = null;
   let researchBusy = false;
   let martEduShown = false;
+  let activeResearchTrack = "field";
 
-  function setTab(tab) {
+  function normalizeResearchTrack(id) {
+    const key = String(id || "").toLowerCase().trim();
+    return RESEARCH_TRACK_ALIAS[key] || (RESEARCH_TRACK_IDS.includes(key) ? key : "field");
+  }
+
+  function rememberResearchTrack(id) {
+    activeResearchTrack = normalizeResearchTrack(id);
+    try { sessionStorage.setItem(RESEARCH_SESSION_KEY, activeResearchTrack); } catch (_) {}
+  }
+
+  function restoreResearchTrack() {
+    try {
+      const saved = sessionStorage.getItem(RESEARCH_SESSION_KEY);
+      if (saved) activeResearchTrack = normalizeResearchTrack(saved);
+    } catch (_) {}
+  }
+
+  function parseLabHash(raw) {
+    const hash = String(raw || "").replace(/^#/, "").trim().toLowerCase();
+    if (!hash) return { tab: "send", track: null };
+    if (hash === "transfer" || hash === "send") return { tab: "send", track: null };
+    if (hash === "evolution" || hash === "evolve") return { tab: "evolve", track: null };
+    if (hash === "research") return { tab: "research", track: null };
+    const researchMatch = hash.match(/^research\/([a-z]+)$/);
+    if (researchMatch) return { tab: "research", track: normalizeResearchTrack(researchMatch[1]) };
+    if (hash === "research/field" || hash.startsWith("research/")) {
+      const part = hash.split("/")[1];
+      return { tab: "research", track: normalizeResearchTrack(part) };
+    }
+    return { tab: "send", track: null };
+  }
+
+  function writeLabHash() {
+    try {
+      const url = new URL(window.location.href);
+      if (activeTab === "send") url.hash = "transfer";
+      else if (activeTab === "evolve") url.hash = "evolution";
+      else url.hash = `research/${activeResearchTrack}`;
+      window.history.replaceState(null, "", url);
+    } catch (_) {}
+  }
+
+  function setTab(tab, opts = {}) {
     const next = tab === "evolve" ? "evolve" : (tab === "research" ? "research" : "send");
     activeTab = next;
+    if (opts.track) rememberResearchTrack(opts.track);
     els.tabs?.querySelectorAll("[data-tab]").forEach((btn) => {
       const on = btn.dataset.tab === activeTab;
       btn.setAttribute("aria-selected", on ? "true" : "false");
       btn.tabIndex = on ? 0 : -1;
       btn.classList.toggle("is-active", on);
-      const state = btn.querySelector(".evo-station-state");
-      if (state) state.textContent = on ? "ONLINE" : "STANDBY";
     });
     if (els.tabSend) els.tabSend.hidden = activeTab !== "send";
     if (els.tabEvolve) els.tabEvolve.hidden = activeTab !== "evolve";
     if (els.tabResearch) els.tabResearch.hidden = activeTab !== "research";
     document.body.dataset.labStation = activeTab;
+    document.body.dataset.labResearchTrack = activeTab === "research" ? activeResearchTrack : "";
     refreshOakBubble();
     if (activeTab === "research") loadResearch();
-    try {
-      const url = new URL(window.location.href);
-      url.hash = activeTab;
-      window.history.replaceState(null, "", url);
-    } catch (_) {}
+    if (!opts.skipHash) writeLabHash();
+  }
+
+  function setResearchTrack(trackId, opts = {}) {
+    rememberResearchTrack(trackId);
+    document.body.dataset.labResearchTrack = activeResearchTrack;
+    if (activeTab === "research") {
+      renderResearch();
+      refreshOakBubble();
+      if (!opts.skipHash) writeLabHash();
+    } else {
+      setTab("research", { track: activeResearchTrack, skipHash: opts.skipHash });
+    }
   }
 
   function rewardLines(rewards) {
@@ -231,52 +309,168 @@
     return rows;
   }
 
+  function trackGoal(track) {
+    const milestones = track?.milestones || [];
+    if (track?.id === "line" && Number(track.lineTotal || 0) > 0) return Number(track.lineTotal);
+    const last = milestones[milestones.length - 1];
+    return Number(last?.threshold || 0) || 1;
+  }
+
+  function trackProgressLabel(track) {
+    const progress = Number(track?.progress || 0);
+    const id = track?.id;
+    if (id === "field") return `${progress.toLocaleString()} / ${trackGoal(track).toLocaleString()}`;
+    if (id === "evolution") return `${progress.toLocaleString()} evolutions`;
+    if (id === "line") return `${progress.toLocaleString()} / ${trackGoal(track).toLocaleString()} lines`;
+    if (id === "transfer") return `${progress.toLocaleString()} sent`;
+    return progress.toLocaleString();
+  }
+
+  function trackClaimableCount(track) {
+    return (track?.milestones || []).filter((m) => m.complete && !m.claimed).length;
+  }
+
+  function updateResearchClaimable(claimable) {
+    if (els.researchClaimable) els.researchClaimable.textContent = String(claimable);
+    if (els.researchClaimableBadge) {
+      if (claimable > 0) {
+        els.researchClaimableBadge.hidden = false;
+        els.researchClaimableBadge.textContent = `${claimable} claimable`;
+      } else {
+        els.researchClaimableBadge.hidden = true;
+        els.researchClaimableBadge.textContent = "";
+      }
+    }
+    if (els.researchSummary) {
+      if (claimable > 0) {
+        els.researchSummary.hidden = false;
+        els.researchSummary.textContent = `Oak Research · 4 tracks · ${claimable} reward${claimable === 1 ? "" : "s"} available`;
+      } else {
+        els.researchSummary.hidden = false;
+        els.researchSummary.textContent = "Oak Research · 4 tracks";
+      }
+    }
+  }
+
+  function renderResearchRail(tracks, claimableTotal) {
+    if (!els.researchTracklist) return;
+    const html = tracks.map((track) => {
+      const id = track.id;
+      const on = id === activeResearchTrack;
+      const claimable = trackClaimableCount(track);
+      const meta = RESEARCH_TRACK_META[id] || { short: track.name, motif: id };
+      return `<button type="button" class="oak-research-track-btn motif-${esc(meta.motif)}${on ? " is-active" : ""}${claimable ? " has-claimable" : ""}"
+        role="tab" id="oak-track-${esc(id)}" data-research-track="${esc(id)}"
+        aria-selected="${on ? "true" : "false"}" tabindex="${on ? 0 : -1}"
+        aria-controls="oak-research-board">
+        <span class="oak-research-track-dot" aria-hidden="true"></span>
+        <span class="oak-research-track-copy">
+          <strong>${esc(track.name)}</strong>
+          <span>${esc(trackProgressLabel(track))}</span>
+        </span>
+        ${claimable ? `<span class="oak-research-track-badge" title="${claimable} claimable">★ ${claimable}</span>` : ""}
+        <span class="visually-hidden">${esc(meta.short)}</span>
+      </button>`;
+    }).join("");
+    els.researchTracklist.innerHTML = html || `<p class="muted">No tracks</p>`;
+    updateResearchClaimable(claimableTotal);
+  }
+
   function renderResearch() {
     if (!els.researchBoard) return;
     const tracks = research?.tracks || [];
-    let claimable = 0;
-    const html = tracks.map((track) => {
-      const progress = Number(track.progress || 0);
-      const milestones = track.milestones || [];
-      const next = milestones.find((m) => !m.claimed) || milestones[milestones.length - 1];
-      const nextThreshold = Number(next?.threshold || 1);
-      const pct = Math.max(0, Math.min(100, Math.round((progress / Math.max(1, nextThreshold)) * 100)));
-      const cards = milestones.map((m) => {
-        const complete = Boolean(m.complete);
-        const claimed = Boolean(m.claimed);
-        if (complete && !claimed) claimable += 1;
-        const status = claimed ? "COMPLETED ✓" : (complete ? "RESEARCH COMPLETE!" : "IN PROGRESS");
-        const rewards = rewardLines(m.rewards).map((row) => {
-          const art = window.playItemSprite?.(row.key) || "images/items/poke-ball.png";
-          return `<span class="oak-research-reward"><img src="${esc(art)}" alt="" width="28" height="28">${esc(row.label)} ×${row.qty}</span>`;
-        }).join("") || `<span class="muted">Reward ready</span>`;
-        return `<article class="oak-research-card${claimed ? " is-claimed" : ""}${complete && !claimed ? " is-ready" : ""}">
-          <header>
-            <h4>${esc(m.title)}</h4>
-            <p class="oak-research-status">${esc(status)}</p>
-          </header>
-          <p class="muted">${esc(m.description)}</p>
-          <p class="oak-research-progress-line">${progress.toLocaleString()} / ${Number(m.threshold || 0).toLocaleString()}</p>
-          <div class="oak-research-rewards">${rewards}</div>
-          ${complete && !claimed
-            ? `<button type="button" class="gold" data-claim-research="${esc(m.id)}">Claim Research Reward</button>`
-            : (claimed ? "" : `<p class="muted">LOCKED</p>`)}
-        </article>`;
-      }).join("");
-      return `<section class="oak-research-track">
-        <header class="oak-research-track-head">
-          <div>
-            <h3>${esc(track.name)}</h3>
-            <p class="muted">${esc(track.description)}</p>
-          </div>
-          <div class="oak-research-meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
-          <p class="oak-research-next">${esc(track.name)} · ${progress.toLocaleString()} / ${nextThreshold.toLocaleString()}</p>
+    if (!tracks.length) {
+      els.researchBoard.innerHTML = `<p class="muted">Research tracks are not available yet.</p>`;
+      renderResearchRail([], 0);
+      return;
+    }
+    if (!tracks.some((t) => t.id === activeResearchTrack)) {
+      rememberResearchTrack(tracks[0].id);
+    }
+    let claimableTotal = 0;
+    tracks.forEach((t) => { claimableTotal += trackClaimableCount(t); });
+    renderResearchRail(tracks, claimableTotal);
+
+    const track = tracks.find((t) => t.id === activeResearchTrack) || tracks[0];
+    const progress = Number(track.progress || 0);
+    const milestones = track.milestones || [];
+    const goal = trackGoal(track);
+    const pct = Math.max(0, Math.min(100, Math.round((progress / Math.max(1, goal)) * 100)));
+    const nextOpen = milestones.find((m) => !m.claimed && !m.complete);
+    const nextClaim = milestones.find((m) => m.complete && !m.claimed);
+    const nextFocus = nextClaim || nextOpen || milestones[milestones.length - 1];
+    const nextRewards = rewardLines(nextFocus?.rewards).map((row) => {
+      const art = window.playItemSprite?.(row.key) || "images/items/poke-ball.png";
+      return `<span class="oak-research-reward"><img src="${esc(art)}" alt="" width="24" height="24">${esc(row.label)} ×${row.qty}</span>`;
+    }).join("") || `<span class="muted">—</span>`;
+
+    let sawOpen = false;
+    const cards = milestones.map((m) => {
+      const complete = Boolean(m.complete);
+      const claimed = Boolean(m.claimed);
+      const claimable = complete && !claimed;
+      let state = "locked";
+      let status = "LOCKED";
+      if (claimed) {
+        state = "claimed";
+        status = "CLAIMED";
+      } else if (claimable) {
+        state = "claimable";
+        status = "CLAIM REWARD";
+      } else if (!sawOpen) {
+        state = "progress";
+        status = "IN PROGRESS";
+        sawOpen = true;
+      } else {
+        state = "locked";
+        status = "LOCKED";
+      }
+      const rewards = rewardLines(m.rewards).map((row) => {
+        const art = window.playItemSprite?.(row.key) || "images/items/poke-ball.png";
+        return `<span class="oak-research-reward"><img src="${esc(art)}" alt="" width="26" height="26"><span>${esc(row.label)} ×${row.qty}</span></span>`;
+      }).join("") || `<span class="muted">Reward</span>`;
+      const req = String(m.description || "").replace(/\.$/, "");
+      return `<article class="oak-research-card is-${state}" data-milestone="${esc(m.id)}">
+        <header class="oak-research-card-head">
+          <h4>${claimed ? "✓ " : ""}${esc(m.title)}</h4>
+          <p class="oak-research-status" data-state="${state}">${esc(status)}</p>
         </header>
-        <div class="oak-research-cards">${cards}</div>
-      </section>`;
-    }).join("") || `<p class="muted">Research tracks are not available yet.</p>`;
-    els.researchBoard.innerHTML = html;
-    if (els.researchClaimable) els.researchClaimable.textContent = String(claimable);
+        <p class="oak-research-req">${esc(req)}</p>
+        <p class="oak-research-progress-line" aria-label="Progress">${progress.toLocaleString()} / ${Number(m.threshold || 0).toLocaleString()}</p>
+        <div class="oak-research-rewards">${rewards}</div>
+        ${claimable
+          ? `<button type="button" class="gold oak-research-claim" data-claim-research="${esc(m.id)}">Claim Reward</button>`
+          : ""}
+      </article>`;
+    }).join("");
+
+    const progressTitle = track.id === "field"
+      ? "Kanto Pokédex Progress"
+      : track.id === "line"
+        ? "Evolution Lines Complete"
+        : track.id === "evolution"
+          ? "Evolutions Completed"
+          : "Pokémon Sent to Oak";
+
+    els.researchBoard.innerHTML = `<section class="oak-research-active motif-${esc(track.id)}" aria-labelledby="oak-active-track-title">
+      <header class="oak-research-active-head">
+        <div class="oak-research-active-copy">
+          <h3 id="oak-active-track-title">${esc(track.name)}</h3>
+          <p>${esc(track.description)}</p>
+        </div>
+        <div class="oak-research-active-meter" role="group" aria-label="${esc(progressTitle)}">
+          <p class="oak-research-active-meter-label"><strong>${esc(progressTitle)}</strong>
+            <span>${progress.toLocaleString()} / ${goal.toLocaleString()}</span></p>
+          <div class="oak-research-meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
+        </div>
+        <div class="oak-research-next-reward">
+          <p class="oak-research-next-label">${nextClaim ? "Ready to claim" : "Next reward"}</p>
+          <p class="oak-research-next-req">${esc(nextFocus?.title || "—")}${nextFocus ? ` · ${Number(nextFocus.threshold || 0).toLocaleString()}` : ""}</p>
+          <div class="oak-research-rewards">${nextRewards}</div>
+        </div>
+      </header>
+      <div class="oak-research-cards" role="list">${cards}</div>
+    </section>`;
   }
 
   async function loadResearch() {
@@ -284,8 +478,10 @@
     try {
       research = await window.playCall("play_oak_research");
       renderResearch();
+      refreshOakBubble();
     } catch (error) {
       els.researchBoard.innerHTML = `<p class="muted">${esc(window.playRpcError?.(error) || "Research is unavailable.")}</p>`;
+      if (els.researchTracklist) els.researchTracklist.innerHTML = "";
     }
   }
 
@@ -1282,8 +1478,10 @@
     return session;
   }
 
-  const hashTab = String(window.location.hash || "").replace(/^#/, "");
-  setTab(hashTab === "evolve" || hashTab === "research" ? hashTab : "send");
+  restoreResearchTrack();
+  const bootHash = parseLabHash(window.location.hash);
+  if (bootHash.track) rememberResearchTrack(bootHash.track);
+  setTab(bootHash.tab, { track: bootHash.track || undefined, skipHash: false });
 
   els.tabs?.addEventListener("click", (event) => {
     const tab = event.target.closest("[data-tab]");
@@ -1307,6 +1505,12 @@
   });
 
   els.app?.addEventListener("click", (event) => {
+    const trackBtn = event.target.closest("[data-research-track]");
+    if (trackBtn) {
+      event.preventDefault();
+      setResearchTrack(trackBtn.dataset.researchTrack);
+      return;
+    }
     const claim = event.target.closest("[data-claim-research]");
     if (claim) {
       event.preventDefault();
@@ -1317,6 +1521,34 @@
     if (!switcher) return;
     event.preventDefault();
     setTab(switcher.dataset.switchTab);
+  });
+
+  els.researchTracklist?.addEventListener("keydown", (event) => {
+    const tabs = [...(els.researchTracklist?.querySelectorAll("[data-research-track]") || [])];
+    if (!tabs.length) return;
+    const current = tabs.findIndex((btn) => btn.getAttribute("aria-selected") === "true");
+    let next = current;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") next = (current + 1) % tabs.length;
+    else if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = (current - 1 + tabs.length) % tabs.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = tabs.length - 1;
+    else if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      const focused = document.activeElement?.closest?.("[data-research-track]");
+      if (focused) setResearchTrack(focused.dataset.researchTrack);
+      return;
+    } else return;
+    event.preventDefault();
+    setResearchTrack(tabs[next].dataset.researchTrack);
+    tabs[next].focus();
+  });
+
+  window.addEventListener("hashchange", () => {
+    const parsed = parseLabHash(window.location.hash);
+    if (parsed.track) rememberResearchTrack(parsed.track);
+    if (parsed.tab !== activeTab || (parsed.tab === "research" && parsed.track && parsed.track !== activeResearchTrack)) {
+      setTab(parsed.tab, { track: parsed.track || undefined, skipHash: true });
+    }
   });
 
   els.sendGrid?.addEventListener("click", (event) => {

@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260920-rc51">
+<link rel="stylesheet" href="css/play.css?v=20260920-rc52">
 <body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -52,41 +52,38 @@
   </div>
 </nav>
 <div class="wrap evo-wrap">
-  <header class="evo-lab-bench" aria-labelledby="evo-lab-title">
-    <div class="evo-lab-bench-rail" aria-hidden="true"></div>
-    <div class="evo-lab-bench-inner">
-      <div class="evo-lab-oak-stage">
-        <img class="evo-lab-oak" src="images/trainers/portraits/oak-portrait.png" alt="Professor Oak" width="128" height="128" decoding="async">
-        <div class="evo-lab-gameboy" aria-hidden="true">
-          <div class="oak-gameboy evo-lab-gb">
-            <div class="oak-gameboy-shell">
-              <div class="oak-gameboy-bezel">
-                <div class="oak-gameboy-screen is-standby">
-                  <span class="oak-gameboy-standby">READY</span>
-                </div>
+  <header class="evo-lab-identity-band" aria-labelledby="evo-lab-title">
+    <div class="evo-lab-host">
+      <img class="evo-lab-oak" src="images/trainers/portraits/oak-portrait.png" alt="Professor Oak" width="170" height="170" decoding="async">
+      <div class="evo-lab-gameboy" aria-hidden="true">
+        <div class="oak-gameboy evo-lab-gb">
+          <div class="oak-gameboy-shell">
+            <div class="oak-gameboy-bezel">
+              <div class="oak-gameboy-screen is-standby">
+                <span class="oak-gameboy-standby">READY</span>
               </div>
-              <div class="oak-gameboy-controls">
-                <span class="oak-gameboy-dpad"></span>
-                <span class="oak-gameboy-btns"><i></i><i></i></span>
-              </div>
-              <div class="oak-gameboy-speaker"></div>
-              <span class="oak-gameboy-led"></span>
             </div>
+            <div class="oak-gameboy-controls">
+              <span class="oak-gameboy-dpad"></span>
+              <span class="oak-gameboy-btns"><i></i><i></i></span>
+            </div>
+            <div class="oak-gameboy-speaker"></div>
+            <span class="oak-gameboy-led"></span>
           </div>
         </div>
       </div>
-      <div class="evo-lab-identity">
-        <p class="evo-lab-eyebrow">ST★RLIGHT RESEARCH</p>
-        <h1 id="evo-lab-title">Professor Oak's Lab</h1>
-        <p class="evo-lab-sub">Pokémon Research &amp; Evolution Laboratory</p>
-        <p id="evo-oak-bubble" class="evo-oak-msg" role="status">Have any duplicate Pokémon? Send them my way for research!</p>
-      </div>
-      <div class="evo-lab-candy-res" title="Evolution Candy">
-        <img src="images/items/lgpe-candy.png" alt="" width="28" height="28" decoding="async" aria-hidden="true">
-        <div>
-          <strong id="evo-candy-count">0</strong>
-          <span>Evolution Candy</span>
-        </div>
+    </div>
+    <div class="evo-lab-identity">
+      <p class="evo-lab-eyebrow">ST★RLIGHT RESEARCH</p>
+      <h1 id="evo-lab-title">Professor Oak's Lab</h1>
+      <p class="evo-lab-sub">Pokémon Research &amp; Evolution Laboratory</p>
+      <p id="evo-oak-bubble" class="evo-oak-msg" role="status">Have any duplicate Pokémon? Send them my way for research!</p>
+    </div>
+    <div class="evo-lab-candy-res" title="Evolution Candy">
+      <img src="images/items/lgpe-candy.png" alt="" width="28" height="28" decoding="async" aria-hidden="true">
+      <div>
+        <strong id="evo-candy-count">0</strong>
+        <span>Evolution Candy</span>
       </div>
     </div>
   </header>
@@ -94,46 +91,34 @@
   <div id="evo-app" class="evo-lab-workspace" hidden>
     <div id="evo-stations" class="evo-lab-stations" role="tablist" aria-label="Professor Oak laboratory stations">
       <button type="button" class="evo-station evo-station-transfer is-active" role="tab" id="tab-send" data-tab="send" aria-controls="evo-tab-send" aria-selected="true">
-        <span class="evo-station-top">
-          <span class="evo-station-lamp" aria-hidden="true"></span>
-          <span class="evo-station-state">ONLINE</span>
-          <img class="evo-station-glyph" src="images/items/poke-ball.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+        <span class="evo-station-lamp" aria-hidden="true"></span>
+        <img class="evo-station-glyph" src="images/items/poke-ball.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+        <span class="evo-station-copy">
+          <strong class="evo-station-name">Transfer Station</strong>
+          <span class="evo-station-desc">Send duplicates to Professor Oak</span>
         </span>
-        <strong class="evo-station-name">Transfer Station</strong>
-        <span class="evo-station-desc">Send duplicates to Professor Oak</span>
-        <dl class="evo-station-metrics">
-          <div><dt>Duplicates available</dt><dd id="evo-xfer-available">0</dd></div>
-          <div><dt>Earn Evolution Candy</dt><dd class="evo-station-metric-soft">Research reward</dd></div>
-        </dl>
-        <span class="evo-station-cta">Open Transfer Station</span>
+        <span class="visually-hidden" id="evo-xfer-available">0</span>
       </button>
       <button type="button" class="evo-station evo-station-evolve" role="tab" id="tab-evolve" data-tab="evolve" aria-controls="evo-tab-evolve" aria-selected="false" tabindex="-1">
-        <span class="evo-station-top">
-          <span class="evo-station-lamp" aria-hidden="true"></span>
-          <span class="evo-station-state">STANDBY</span>
-          <img class="evo-station-glyph" src="images/items/lgpe-candy.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+        <span class="evo-station-lamp" aria-hidden="true"></span>
+        <img class="evo-station-glyph" src="images/items/lgpe-candy.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+        <span class="evo-station-copy">
+          <strong class="evo-station-name">Evolution Research</strong>
+          <span class="evo-station-desc">Evolve Pokémon you already own</span>
         </span>
-        <strong class="evo-station-name">Evolution Research</strong>
-        <span class="evo-station-desc">Evolve Pokémon you already own</span>
-        <dl class="evo-station-metrics">
-          <div><dt>Ready to evolve</dt><dd id="evo-ready-count">0</dd></div>
-          <div><dt>Evolutions completed</dt><dd id="evo-done-count">0</dd></div>
-        </dl>
-        <span class="evo-station-cta">Open Evolution Research</span>
+        <span class="visually-hidden" id="evo-ready-count">0</span>
+        <span class="visually-hidden" id="evo-done-count">0</span>
       </button>
       <button type="button" class="evo-station evo-station-research" role="tab" id="tab-research" data-tab="research" aria-controls="evo-tab-research" aria-selected="false" tabindex="-1">
-        <span class="evo-station-top">
-          <span class="evo-station-lamp" aria-hidden="true"></span>
-          <span class="evo-station-state">STANDBY</span>
-          <img class="evo-station-glyph" src="images/items/pokeapi/nugget.png" alt="" width="22" height="22" decoding="async" aria-hidden="true" onerror="this.src='images/items/poke-ball.png'">
+        <span class="evo-station-lamp" aria-hidden="true"></span>
+        <img class="evo-station-glyph" src="images/items/pokeapi/nugget.png" alt="" width="22" height="22" decoding="async" aria-hidden="true" onerror="this.src='images/items/poke-ball.png'">
+        <span class="evo-station-copy">
+          <strong class="evo-station-name">Research</strong>
+          <span class="evo-station-desc">Milestones &amp; rewards</span>
         </span>
-        <strong class="evo-station-name">Research</strong>
-        <span class="evo-station-desc">Professor Oak milestone board</span>
-        <dl class="evo-station-metrics">
-          <div><dt>Tracks</dt><dd id="evo-research-tracks">4</dd></div>
-          <div><dt>Claimable</dt><dd id="evo-research-claimable">0</dd></div>
-        </dl>
-        <span class="evo-station-cta">Open Research</span>
+        <span id="evo-research-claimable-badge" class="evo-station-badge" hidden></span>
+        <span class="visually-hidden" id="evo-research-tracks">4</span>
+        <span class="visually-hidden" id="evo-research-claimable">0</span>
       </button>
     </div>
     <!-- Legacy strip IDs retained off-DOM for soft migration; values mirrored into stations -->
@@ -263,9 +248,22 @@
     </section>
 
     <section id="evo-tab-research" class="evo-tab-panel evo-lab-bay" role="tabpanel" aria-labelledby="tab-research" data-bay="research" hidden>
-      <p class="evo-station-context">Professor Oak's research board tracks your Kanto journey. Milestones are one-time claims.</p>
-      <div id="oak-research-board" class="oak-research-board" aria-live="polite">
-        <p class="muted">Loading research…</p>
+      <details class="evo-research-notes">
+        <summary>Research Notes ▸</summary>
+        <div class="evo-research-body">
+          <p>Professor Oak tracks four research paths: Field (Pokédex), Evolution, Evolution Lines, and Transfers.</p>
+          <p>Milestones are one-time claims. Valuable item rewards can be sold at the <a href="./store.html"><strong>Starlight Mart</strong></a>.</p>
+        </div>
+      </details>
+      <div class="oak-research-workspace">
+        <aside class="oak-research-rail" aria-label="Research tracks">
+          <p class="oak-research-rail-title">Research Tracks</p>
+          <div id="oak-research-tracklist" class="oak-research-tracklist" role="tablist" aria-orientation="vertical" aria-label="Oak Research tracks"></div>
+          <p class="oak-research-rail-summary" id="oak-research-summary" hidden></p>
+        </aside>
+        <div id="oak-research-board" class="oak-research-board" aria-live="polite">
+          <p class="muted">Loading research…</p>
+        </div>
       </div>
     </section>
   </div>
@@ -299,20 +297,20 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260920-rc51"></script>
-<script src="js/play-perf.js?v=20260920-rc51"></script>
-<script src="js/build.js?v=20260920-rc51"></script>
-<script src="js/build-client.js?v=20260920-rc51"></script>
-<script src="js/auth.js?v=20260920-rc51"></script>
-<script src="js/species.js?v=20260920-rc51"></script>
-<script src="js/variants.js?v=20260920-rc51"></script>
-<script src="js/forms.js?v=20260920-rc51"></script>
-<script src="js/game.js?v=20260920-rc51"></script>
-<script src="js/play-present.js?v=20260920-rc51"></script>
-<script src="js/play-encounter-state.js?v=20260920-rc51"></script>
-<script src="js/play-ux.js?v=20260920-rc51"></script>
-<script src="js/evolve-view.js?v=20260920-rc51"></script>
-<script src="js/oak-transfer.js?v=20260920-rc51"></script>
-<script src="js/nav.js?v=20260920-rc51"></script>
-<script src="js/evolve.js?v=20260920-rc51"></script>
+<script src="js/config.js?v=20260920-rc52"></script>
+<script src="js/play-perf.js?v=20260920-rc52"></script>
+<script src="js/build.js?v=20260920-rc52"></script>
+<script src="js/build-client.js?v=20260920-rc52"></script>
+<script src="js/auth.js?v=20260920-rc52"></script>
+<script src="js/species.js?v=20260920-rc52"></script>
+<script src="js/variants.js?v=20260920-rc52"></script>
+<script src="js/forms.js?v=20260920-rc52"></script>
+<script src="js/game.js?v=20260920-rc52"></script>
+<script src="js/play-present.js?v=20260920-rc52"></script>
+<script src="js/play-encounter-state.js?v=20260920-rc52"></script>
+<script src="js/play-ux.js?v=20260920-rc52"></script>
+<script src="js/evolve-view.js?v=20260920-rc52"></script>
+<script src="js/oak-transfer.js?v=20260920-rc52"></script>
+<script src="js/nav.js?v=20260920-rc52"></script>
+<script src="js/evolve.js?v=20260920-rc52"></script>
 </body>

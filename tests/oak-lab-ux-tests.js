@@ -24,37 +24,40 @@ const css = read("css/play.css");
 const nav = read("js/nav.js");
 const play = read("js/play.js");
 
-test("Lab workbench replaces dashboard hero", () => {
-  assert(html.includes("evo-lab-bench"), "workbench class missing");
+test("Lab identity band replaces boxed workbench header", () => {
+  assert(html.includes("evo-lab-identity-band"), "identity band missing");
   assert(html.includes("Professor Oak's Lab"), "lab title missing");
   assert(html.includes("Pokémon Research &amp; Evolution Laboratory") || html.includes("Pokémon Research & Evolution Laboratory"), "lab subtitle missing");
   assert(!html.includes("evo-lab-hero"), "old hero class must be removed");
   assert(!html.includes("evo-lab-control"), "old control header must be removed");
+  assert(!html.includes("evo-lab-bench"), "boxed bench header must be removed");
   assert(!/<div id="evo-strip"[^>]*class="evo-strip/.test(html), "KPI strip must leave main composition");
-  assert(css.includes("evo-lab-bench"), "workbench CSS missing");
+  assert(css.includes("evo-lab-identity-band"), "identity band CSS missing");
 });
 
-test("Professor Oak is the left visual anchor", () => {
-  assert(html.includes("evo-lab-oak-stage"), "oak stage missing");
+test("Professor Oak is the left visual host", () => {
+  assert(html.includes("evo-lab-host"), "oak host missing");
   assert(html.includes("images/trainers/portraits/oak-portrait.png"), "oak portrait missing");
   assert(css.includes(".evo-lab-oak"), "oak CSS missing");
-  assert(/\.evo-lab-oak\s*\{[^}]*128px/s.test(css) || css.includes("width: 128px"), "oak desktop size missing");
+  assert(/\.evo-lab-oak\s*\{[^}]*170px/s.test(css) || css.includes("width: 170px"), "oak desktop size missing");
 });
 
-test("Transfer and Evolution are workstation panels", () => {
+test("Transfer, Evolution, and Research are workstation tabs", () => {
   assert(html.includes("Transfer Station"), "transfer station missing");
   assert(html.includes("Evolution Research"), "evolution research missing");
   assert(html.includes("evo-station-transfer"), "transfer station class missing");
   assert(html.includes("evo-station-evolve"), "evolve station class missing");
-  assert(html.includes("Open Transfer Station"), "transfer CTA missing");
-  assert(html.includes("Open Evolution Research"), "evolve CTA missing");
+  assert(html.includes("evo-station-research"), "research station missing");
   assert(html.includes('role="tablist"'), "station tablist missing");
   assert(js.includes("is-active"), "active station class missing");
-  assert(js.includes("ONLINE"), "station ONLINE state missing");
-  assert(html.includes("evo-station-research"), "research station missing");
   assert(html.includes("oak-research-board"), "research board missing");
+  assert(html.includes("oak-research-workspace"), "research workspace missing");
+  assert(html.includes("oak-research-tracklist"), "research tracklist missing");
   assert(js.includes("play_oak_research"), "research RPC missing");
   assert(js.includes("play_claim_oak_research"), "claim RPC missing");
+  assert(js.includes("setResearchTrack"), "research track switcher missing");
+  assert(js.includes("activeResearchTrack"), "active research track state missing");
+  assert(!html.includes("Lab Notes"), "Lab Notes must not be a primary workstation");
 });
 
 test("Counters live in stations / candy resource, not KPI row", () => {
@@ -62,6 +65,7 @@ test("Counters live in stations / candy resource, not KPI row", () => {
   assert(html.includes("evo-ready-count"), "ready metric missing");
   assert(html.includes("evo-lab-candy-res"), "candy resource chip missing");
   assert(html.includes("evo-done-count"), "evolutions completed metric missing");
+  assert(html.includes("evo-research-claimable-badge"), "claimable badge missing");
   assert(!html.includes(">Ready</small>"), "legacy Ready KPI label must be gone");
   assert(js.includes("xferAvailable"), "xfer available wiring missing");
 });
@@ -81,13 +85,15 @@ test("Collection toolbar is cohesive", () => {
   assert(css.includes("max-width: 920px") || css.includes("max-width:920px"), "toolbar max-width missing");
 });
 
-test("Oak contextual messages cover transfer and evolution states", () => {
-  assert(js.includes("Have any duplicate Pokémon? Send them my way for research!"), "transfer idle missing");
+test("Oak contextual messages cover transfer, evolution, and research tracks", () => {
+  assert(js.includes("Send me duplicate Pokémon and I'll study their Evolution Line!"), "transfer idle missing");
   assert(js.includes("Excellent! These Pokémon are ready for transfer."), "transfer selection missing");
-  assert(js.includes("Let's see which Pokémon are ready to evolve!"), "evolution idle missing");
+  assert(js.includes("Let's see what your Pokémon can become!"), "evolution idle missing");
   assert(js.includes("Ah! One of your Pokémon is ready to evolve!"), "evolution ready missing");
   assert(js.includes("Excellent! This research should help us understand its Evolution Line."), "transfer success missing");
   assert(js.includes("Wonderful! Another successful evolution!"), "evolution success missing");
+  assert(js.includes("There's still so much to learn about Pokémon in Kanto!"), "field research message missing");
+  assert(js.includes("research/"), "research hash deep-link missing");
 });
 
 test("Collection CTA uses Send N to Oak", () => {
@@ -98,6 +104,16 @@ test("Collection CTA uses Send N to Oak", () => {
 test("Station keyboard navigation is supported", () => {
   assert(js.includes("ArrowRight"), "arrow key nav missing");
   assert(js.includes("aria-selected"), "aria-selected missing");
+  assert(js.includes("data-research-track"), "research track keyboard wiring missing");
+});
+
+test("Only one workstation and one research track are active", () => {
+  assert(js.includes("els.tabSend.hidden = activeTab !== \"send\""), "send hide wiring missing");
+  assert(js.includes("els.tabEvolve.hidden = activeTab !== \"evolve\""), "evolve hide wiring missing");
+  assert(js.includes("els.tabResearch.hidden = activeTab !== \"research\""), "research hide wiring missing");
+  assert(js.includes("oak-research-active"), "single active track shell missing");
+  assert(css.includes("oak-research-workspace"), "research workspace CSS missing");
+  assert(css.includes("grid-template-columns: minmax(210px, 248px)"), "desktop research rail missing");
 });
 
 test("Tab-return soft refresh avoids global loading flash", () => {

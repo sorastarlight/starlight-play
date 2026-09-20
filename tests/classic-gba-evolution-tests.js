@@ -22,12 +22,13 @@ const js = read("js/evolve.js");
 const view = read("js/evolve-view.js");
 const css = read("css/play.css");
 
-test("Classic GBA black stage replaces green field for evolution", () => {
+test("Classic GBA evolution stage uses owner backdrop behind sprites", () => {
   assert(js.includes("evo-gba-classic"), "classic gba class missing in fanfare");
-  assert(js.includes("evo-field-black"), "black field class missing");
+  assert(js.includes("evo-field-black"), "stage field class missing");
   assert(css.includes(".evo-gba-classic"), "classic CSS missing");
-  assert(css.includes("background: #000"), "solid black stage missing");
-  assert(css.includes(".evo-field-black"), "black field CSS missing");
+  assert(css.includes("evolution-stage-bg.jpg"), "owner evolution backdrop missing from CSS");
+  assert(css.includes(".evo-field-black"), "stage field CSS missing");
+  assert(fs.existsSync(path.join(__dirname, "..", "images", "ui", "evolution-stage-bg.jpg")), "backdrop asset file missing");
 });
 
 test("Dual source/destination sprites drive silhouette alternation", () => {

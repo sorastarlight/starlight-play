@@ -7328,46 +7328,22 @@ body[data-page="evolve"] .wrap {
   image-rendering: crisp-edges;
   filter: drop-shadow(0 4px 0 rgba(74, 122, 181, .14));
 }
-.evo-lab-console {
+/* Compact READY Game Boy — same shell as Oak transfer animation */
+.evo-lab-gameboy {
   position: relative;
-  width: 54px;
-  height: 72px;
-  border: 2px solid #9eb6d4;
-  border-radius: 6px;
-  background: linear-gradient(180deg, #dfeaf8, #c9daf0);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.65);
-  display: grid;
-  place-items: center;
-  gap: 4px;
-  padding: 6px 4px 8px;
+  width: 66px;
+  height: 94px;
+  flex: 0 0 auto;
+  overflow: visible;
 }
-.evo-lab-console-screen {
-  display: block;
-  width: 36px;
-  height: 28px;
-  border-radius: 3px;
-  background:
-    linear-gradient(180deg, #9ad4b0, #6bb58a),
-    repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,40,20,.12) 3px 4px);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+.evo-lab-gameboy .evo-lab-gb {
+  width: 138px;
+  transform: scale(0.48);
+  transform-origin: bottom left;
+  pointer-events: none;
 }
-.evo-lab-console-ball {
-  width: 18px;
-  height: 18px;
-  image-rendering: pixelated;
-}
-.evo-lab-console-lamp {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #3ddc84;
-  box-shadow: 0 0 6px rgba(61, 220, 132, .45);
-}
-html:not([data-reduced-motion="1"]):not([data-perf="low"]) .evo-lab-console-lamp {
-  animation: evo-lamp-pulse 2.8s ease-in-out infinite;
+.evo-lab-gameboy .oak-gameboy-standby {
+  animation: none;
 }
 .evo-lab-identity {
   display: grid;
@@ -7763,7 +7739,7 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .evo-lab-bay {
     grid-template-columns: auto auto;
   }
   .evo-lab-oak { width: 96px; height: 96px; }
-  .evo-lab-console { display: none; }
+  .evo-lab-gameboy { display: none; }
   .evo-send-toolbar {
     grid-template-columns: 1fr;
   }

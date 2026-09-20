@@ -8609,13 +8609,19 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
     0 0 0 10px rgba(138, 61, 114, .22),
     0 18px 40px #0008;
 }
-/* Classic GBA evolution stage — black field above approved RPG dialogue box */
+/* Classic GBA evolution stage — owner evolution backdrop above approved RPG dialogue box */
 .evo-gba-classic {
-  background: #000;
+  background: #0a1830;
 }
 .evo-gba-classic .evo-field,
 .evo-field-black {
-  background: #000 !important;
+  background-color: #1a3a68 !important;
+  background-image: url("../images/ui/evolution-stage-bg.jpg") !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 .evo-gba-classic .evo-field::before,
 .evo-field-black::before {
@@ -8624,7 +8630,11 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
 }
 .evo-fanfare.is-classic-gba.is-shiny-seq .evo-field,
 .evo-fanfare.is-classic-gba.is-shiny-seq .evo-field::before {
-  background: #000 !important;
+  background-color: #1a3a68 !important;
+  background-image: url("../images/ui/evolution-stage-bg.jpg") !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: cover !important;
   box-shadow: none !important;
 }
 .evo-gba-classic .evo-actor {
@@ -8632,6 +8642,10 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
   height: min(148px, 42vw);
   max-width: 148px;
   max-height: 148px;
+  /* Sit on the bright elliptical glow in the supplied backdrop */
+  align-self: center;
+  margin-top: 10%;
+  transform: translateY(8%);
 }
 .evo-gba-classic .evo-sprite {
   position: absolute;

@@ -324,17 +324,41 @@
   async function typeLine(el, text, instant) {
     if (!el) return;
     const value = String(text || "");
+    const box = el.closest?.(".oak-transfer-textbox");
     if (instant) {
       el.textContent = value;
+      box?.classList.remove("is-line-fade");
       return;
     }
+    box?.classList.add("is-line-fade");
+    await wait(140);
     el.textContent = "";
+    box?.classList.remove("is-line-fade");
     for (let i = 0; i < value.length; i += 1) {
       el.textContent = value.slice(0, i + 1);
       await wait(16);
       if (el.dataset.skip === "1") {
         el.textContent = value;
         return;
+      }
+    }
+  }
+
+  async function softSetScreen(overlay, side, mon, { empty, reduced, quick } = {}) {
+    const screen = overlay.querySelector(`[data-oak-screen-${side}]`);
+    const fadeMs = reduced ? 0 : quick ? 160 : 340;
+    if (screen && fadeMs) {
+      screen.classList.add("is-fading");
+      screen.classList.remove("is-appearing", "is-highlight", "is-flash");
+      await wait(fadeMs);
+    }
+    setScreenMon(overlay, side, mon, { empty });
+    if (screen) {
+      screen.classList.remove("is-fading");
+      if (fadeMs) {
+        screen.classList.add("is-appearing");
+        await wait(fadeMs);
+        screen.classList.remove("is-appearing");
       }
     }
   }
@@ -408,6 +432,9 @@
     });
     document.body.classList.add("oak-gb-playing");
     document.body.append(overlay);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => overlay.classList.add("is-ready"));
+    });
     const rootEl = overlay.querySelector("[data-oak-root]");
     const rewardEl = overlay.querySelector("[data-oak-reward]");
     const lineEl = overlay.querySelector("[data-oak-line]");
@@ -449,15 +476,27 @@
       resolveDone({ ok: true, mode: plan.mode, count: plan.count, summary, stages: stageOrder({ mode: plan.mode, reduced }) });
     };
 
+    const revealReward = async () => {
+      setStage("reward");
+      playDoneSfx();
+      fillRewards(overlay, summary, plan.results);
+      if (rewardEl) {
+        rewardEl.hidden = false;
+        rewardEl.classList.remove("is-visible");
+        requestAnimationFrame(() => rewardEl.classList.add("is-visible"));
+      }
+      if (rootEl) {
+        rootEl.classList.add("is-exit");
+        if (!reduced) await wait(420);
+        rootEl.hidden = true;
+      }
+      continueBtn?.focus();
+    };
+
     const jumpReward = () => {
       aborted = true;
       if (lineEl) lineEl.dataset.skip = "1";
-      setStage("reward");
-      playDoneSfx();
-      if (rootEl) rootEl.hidden = true;
-      fillRewards(overlay, summary, plan.results);
-      if (rewardEl) rewardEl.hidden = false;
-      continueBtn?.focus();
+      revealReward();
     };
 
     const onKey = (event) => {
@@ -483,8 +522,8 @@
       const name = monName(mon);
       const art = spriteUrl(mon);
 
-      setScreenMon(overlay, "player", mon);
-      setScreenMon(overlay, "oak", null, { empty: true });
+      await softSetScreen(overlay, "player", mon, { reduced, quick });
+      await softSetScreen(overlay, "oak", null, { empty: true, reduced, quick });
       if (token) {
         token.hidden = true;
         token.src = art;
@@ -505,7 +544,7 @@
         await typeLine(lineEl, `Sending ${name} to Professor Oak...`, reduced || quick);
       }
       if (aborted) return;
-      await wait(reduced ? 80 : quick ? 280 : 1200);
+      await wait(reduced ? 80 : quick ? 280 : 900);
       if (aborted) return;
 
       if (!reduced) {
@@ -513,46 +552,49 @@
         cable?.classList.add("is-active");
         ledPlayer?.classList.add("is-on");
         ledOak?.classList.add("is-on");
-        await wait(quick ? 320 : 900);
+        await wait(quick ? 360 : 1000);
         if (aborted) return;
 
         if (!quick) {
           setStage("highlight");
           overlay.querySelector("[data-oak-screen-player]")?.classList.add("is-highlight");
-          await wait(700);
+          await wait(780);
           overlay.querySelector("[data-oak-screen-player]")?.classList.remove("is-highlight");
           if (aborted) return;
         }
 
         setStage("transfer");
-        setScreenMon(overlay, "player", null, { empty: true });
+        await softSetScreen(overlay, "player", null, { empty: true, reduced, quick });
         if (token) {
           token.hidden = false;
+          // restart travel animation cleanly
+          token.classList.remove("is-moving");
+          void token.offsetWidth;
           token.classList.add("is-moving");
         }
-        await wait(quick ? 900 : 2400);
+        await wait(quick ? 1000 : 2600);
         if (aborted) return;
         if (token) {
           token.hidden = true;
           token.classList.remove("is-moving");
         }
       } else {
-        setScreenMon(overlay, "player", null, { empty: true });
+        await softSetScreen(overlay, "player", null, { empty: true, reduced, quick });
         await wait(120);
       }
 
       setStage("arrive");
-      setScreenMon(overlay, "oak", mon);
+      await softSetScreen(overlay, "oak", mon, { reduced, quick });
       overlay.querySelector("[data-oak-screen-oak]")?.classList.add("is-flash");
       await typeLine(lineEl, `${name} arrived at Professor Oak's Lab!`, reduced || quick);
-      await wait(reduced ? 160 : quick ? 500 : 1100);
+      await wait(reduced ? 160 : quick ? 520 : 1100);
       overlay.querySelector("[data-oak-screen-oak]")?.classList.remove("is-flash");
       if (aborted) return;
 
       setStage("oak");
       oakReceiver?.classList.add("is-receive");
       await typeLine(lineEl, `Professor Oak received ${name}!`, reduced || quick);
-      await wait(reduced ? 160 : quick ? 420 : 900);
+      await wait(reduced ? 160 : quick ? 460 : 950);
     };
 
     try {
@@ -564,14 +606,14 @@
         cable?.classList.add("is-active");
         ledPlayer?.classList.add("is-on");
         ledOak?.classList.add("is-on");
-        await wait(reduced ? 120 : 500);
+        await wait(reduced ? 120 : 560);
         for (let i = 0; i < plan.results.length; i += 1) {
           if (aborted) break;
           await playOne(plan.results[i], { quick: true, first: i === 0, index: i + 1 });
         }
         if (!aborted) {
           await typeLine(lineEl, `Professor Oak received ${plan.count} Pokémon!`, reduced);
-          await wait(reduced ? 140 : 400);
+          await wait(reduced ? 140 : 420);
         }
       }
     } catch (_) {
@@ -579,12 +621,7 @@
     }
 
     if (!aborted && !finished) {
-      setStage("reward");
-      playDoneSfx();
-      if (rootEl) rootEl.hidden = true;
-      fillRewards(overlay, summary, plan.results);
-      if (rewardEl) rewardEl.hidden = false;
-      continueBtn?.focus();
+      await revealReward();
     }
 
     return donePromise;

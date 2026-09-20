@@ -7801,6 +7801,12 @@ body.oak-gb-playing { overflow: hidden; }
     radial-gradient(ellipse at 80% 90%, rgba(247, 232, 241, .5), transparent 40%),
     rgba(255, 253, 248, .82);
   backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity .48s ease;
+}
+.oak-gb-fanfare.is-ready,
+.oak-link-fanfare.is-ready {
+  opacity: 1;
 }
 .oak-transfer-stage,
 .oak-xfer-stage {
@@ -7814,6 +7820,14 @@ body.oak-gb-playing { overflow: hidden; }
   box-shadow: 0 0 0 4px rgba(201, 162, 39, .2), 0 18px 36px rgba(42, 39, 68, .18);
   font-family: "Fredoka", "Nunito", sans-serif;
   color: #2a2744;
+  opacity: 1;
+  transform: none;
+  transition: opacity .48s ease, transform .48s ease;
+}
+.oak-xfer-stage.is-exit {
+  opacity: 0;
+  transform: scale(.985) translateY(4px);
+  pointer-events: none;
 }
 .oak-transfer-progress {
   margin: 0 0 8px;
@@ -7911,6 +7925,18 @@ body.oak-gb-playing { overflow: hidden; }
   background: linear-gradient(180deg, #f4fbff, #dff0ff);
   border: 2px solid #2a2744;
   overflow: hidden;
+  transition:
+    opacity .38s ease,
+    background .38s ease,
+    box-shadow .38s ease,
+    filter .38s ease;
+}
+.oak-gameboy-screen.is-fading {
+  opacity: .12;
+  filter: saturate(.7);
+}
+.oak-gameboy-screen.is-appearing {
+  animation: oak-screen-in .42s ease;
 }
 .oak-gameboy-screen.is-standby {
   background: linear-gradient(180deg, #dce6ef, #c5d0db);
@@ -7920,6 +7946,7 @@ body.oak-gb-playing { overflow: hidden; }
   font-weight: 800;
   letter-spacing: .14em;
   color: #6b698c;
+  animation: oak-fade-in .4s ease;
 }
 .oak-gameboy-mon {
   width: 64px;
@@ -7932,12 +7959,14 @@ body.oak-gb-playing { overflow: hidden; }
   image-rendering: crisp-edges;
   filter: drop-shadow(0 2px 0 rgba(42,39,68,.15));
   flex: none;
+  animation: oak-fade-in .4s ease;
 }
 .oak-gameboy-screen.is-highlight {
   box-shadow: inset 0 0 0 3px #e8c44a;
+  animation: oak-highlight-pulse .75s ease;
 }
 .oak-gameboy-screen.is-flash {
-  animation: oak-gb-flash .28s steps(2) 3;
+  animation: oak-gb-flash .55s ease-in-out 2;
 }
 .oak-gameboy-controls {
   display: flex;
@@ -7983,10 +8012,12 @@ body.oak-gb-playing { overflow: hidden; }
   border-radius: 50%;
   background: #6f7882;
   box-shadow: inset 0 0 0 1px #3d4550;
+  transition: background .45s ease, box-shadow .45s ease, transform .45s ease;
 }
 .oak-gameboy-led.is-on {
   background: #3ddc84;
   box-shadow: 0 0 8px rgba(61, 220, 132, .8);
+  transform: scale(1.08);
 }
 .oak-gameboy-port {
   position: absolute;
@@ -8022,7 +8053,7 @@ body.oak-gb-playing { overflow: hidden; }
   background: repeating-linear-gradient(90deg, rgba(42,39,68,.25) 0 6px, transparent 6px 14px);
 }
 .oak-link-cable.is-active .oak-link-wire {
-  animation: oak-link-pulse 1s linear infinite;
+  animation: oak-link-pulse 1.35s ease-in-out infinite;
 }
 .oak-link-node {
   position: absolute;
@@ -8035,6 +8066,10 @@ body.oak-gb-playing { overflow: hidden; }
   background: radial-gradient(circle at 35% 35%, #fff, #e8c44a 45%, #c94b5b);
   border: 2px solid #2a2744;
   z-index: 2;
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+.oak-link-cable.is-active .oak-link-node {
+  animation: oak-node-glow 1.2s ease-in-out infinite;
 }
 .oak-transfer-token {
   position: absolute;
@@ -8046,13 +8081,15 @@ body.oak-gb-playing { overflow: hidden; }
   object-fit: contain;
   image-rendering: pixelated;
   z-index: 3;
+  opacity: 0;
   filter: drop-shadow(0 0 6px rgba(232, 196, 74, .75));
+  transition: opacity .25s ease;
 }
 .oak-transfer-token.is-moving {
-  animation: oak-token-travel 2.3s cubic-bezier(.35,.1,.3,1) forwards;
+  animation: oak-token-travel 2.55s cubic-bezier(.42, 0, .2, 1) forwards;
 }
 .oak-transfer-side.is-oak.is-receive .oak-xfer-oak img {
-  filter: drop-shadow(0 0 8px rgba(74,122,181,.45));
+  animation: oak-receive-glow 1.15s ease;
 }
 .oak-transfer-textbox {
   margin-top: 12px;
@@ -8062,6 +8099,10 @@ body.oak-gb-playing { overflow: hidden; }
   background: #fffdf8;
   box-shadow: inset 0 0 0 2px rgba(138, 61, 114, .12);
   min-height: 52px;
+  transition: opacity .3s ease;
+}
+.oak-transfer-textbox.is-line-fade {
+  opacity: .35;
 }
 .oak-transfer-textbox p {
   margin: 0;
@@ -8097,6 +8138,13 @@ body.oak-gb-playing { overflow: hidden; }
     radial-gradient(circle at 12% 88%, rgba(247, 232, 241, .9), transparent 40%),
     linear-gradient(160deg, #fffdf8, #f7e8f1 55%, #e8f1fb);
   box-shadow: 0 0 0 4px rgba(201, 162, 39, .28), 0 18px 40px rgba(0,0,0,.18);
+  opacity: 0;
+  transform: translateY(10px) scale(.97);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.oak-xfer-reward.is-visible {
+  opacity: 1;
+  transform: none;
 }
 .oak-xfer-reward .eyebrow {
   margin: 0;
@@ -8181,27 +8229,82 @@ body.oak-gb-playing { overflow: hidden; }
   font-size: .95rem;
 }
 @keyframes oak-token-travel {
-  from { left: 8px; opacity: 1; transform: scale(1); }
-  45% { transform: scale(1.08); }
-  to { left: calc(100% - 44px); opacity: 1; transform: scale(1); }
+  0% { left: 8px; opacity: 0; transform: scale(.82); }
+  14% { opacity: 1; transform: scale(1.06); }
+  50% { opacity: .92; transform: scale(1.1); }
+  86% { opacity: 1; transform: scale(1.02); }
+  100% { left: calc(100% - 44px); opacity: 0; transform: scale(.88); }
 }
 @keyframes oak-link-pulse {
-  from { transform: translateX(-18%); opacity: .25; }
-  to { transform: translateX(18%); opacity: .85; }
+  from { transform: translateX(-14%); opacity: .2; }
+  50% { opacity: .8; }
+  to { transform: translateX(14%); opacity: .25; }
+}
+@keyframes oak-node-glow {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(232, 196, 74, 0); }
+  50% { transform: scale(1.08); box-shadow: 0 0 10px rgba(232, 196, 74, .55); }
 }
 @keyframes oak-gb-flash {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .35; }
+  0%, 100% { opacity: 1; filter: brightness(1); }
+  50% { opacity: .55; filter: brightness(1.28); }
+}
+@keyframes oak-fade-in {
+  from { opacity: 0; transform: scale(.94); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes oak-screen-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes oak-highlight-pulse {
+  from { box-shadow: inset 0 0 0 0 transparent; filter: brightness(1); }
+  45% { box-shadow: inset 0 0 0 3px #e8c44a; filter: brightness(1.08); }
+  to { box-shadow: inset 0 0 0 3px rgba(232, 196, 74, .55); filter: brightness(1); }
+}
+@keyframes oak-receive-glow {
+  0% { filter: drop-shadow(0 4px 0 rgba(138, 61, 114, .12)); opacity: .88; transform: scale(1); }
+  40% { filter: drop-shadow(0 0 14px rgba(74, 122, 181, .65)); opacity: 1; transform: scale(1.06); }
+  100% { filter: drop-shadow(0 0 8px rgba(74, 122, 181, .45)); opacity: 1; transform: scale(1); }
+}
+html[data-reduced-motion="1"] .oak-gb-fanfare,
+html[data-reduced-motion="1"] .oak-link-fanfare,
+html[data-perf="low"] .oak-gb-fanfare,
+html[data-perf="low"] .oak-link-fanfare {
+  opacity: 1;
+  transition: none;
+}
+html[data-reduced-motion="1"] .oak-xfer-stage,
+html[data-reduced-motion="1"] .oak-xfer-reward,
+html[data-perf="low"] .oak-xfer-stage,
+html[data-perf="low"] .oak-xfer-reward,
+html[data-reduced-motion="1"] .oak-gameboy-screen,
+html[data-perf="low"] .oak-gameboy-screen,
+html[data-reduced-motion="1"] .oak-gameboy-led,
+html[data-perf="low"] .oak-gameboy-led {
+  transition: none;
 }
 html[data-reduced-motion="1"] .oak-transfer-token.is-moving,
 html[data-perf="low"] .oak-transfer-token.is-moving {
   animation: none;
   left: calc(100% - 44px);
+  opacity: 1;
 }
 html[data-reduced-motion="1"] .oak-link-cable.is-active .oak-link-wire,
 html[data-perf="low"] .oak-link-cable.is-active .oak-link-wire,
+html[data-reduced-motion="1"] .oak-link-cable.is-active .oak-link-node,
+html[data-perf="low"] .oak-link-cable.is-active .oak-link-node,
 html[data-reduced-motion="1"] .oak-gameboy-screen.is-flash,
-html[data-perf="low"] .oak-gameboy-screen.is-flash {
+html[data-perf="low"] .oak-gameboy-screen.is-flash,
+html[data-reduced-motion="1"] .oak-gameboy-screen.is-highlight,
+html[data-perf="low"] .oak-gameboy-screen.is-highlight,
+html[data-reduced-motion="1"] .oak-gameboy-screen.is-appearing,
+html[data-perf="low"] .oak-gameboy-screen.is-appearing,
+html[data-reduced-motion="1"] .oak-gameboy-mon,
+html[data-perf="low"] .oak-gameboy-mon,
+html[data-reduced-motion="1"] .oak-gameboy-standby,
+html[data-perf="low"] .oak-gameboy-standby,
+html[data-reduced-motion="1"] .oak-transfer-side.is-oak.is-receive .oak-xfer-oak img,
+html[data-perf="low"] .oak-transfer-side.is-oak.is-receive .oak-xfer-oak img {
   animation: none;
 }
 @media (max-width: 720px) {
@@ -8225,7 +8328,7 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
   .oak-link-wire { inset: 10% 6px; }
   .oak-transfer-token { left: 50%; top: 8px; margin-left: -18px; margin-top: 0; }
   .oak-transfer-token.is-moving {
-    animation: oak-token-travel-vert 1.6s cubic-bezier(.35,.1,.3,1) forwards;
+    animation: oak-token-travel-vert 1.85s cubic-bezier(.42, 0, .2, 1) forwards;
   }
   .oak-transfer-side.is-oak {
     order: 3;
@@ -8257,8 +8360,11 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
   }
 }
 @keyframes oak-token-travel-vert {
-  from { top: 8px; }
-  to { top: calc(100% - 44px); }
+  0% { top: 8px; opacity: 0; transform: scale(.82); }
+  14% { opacity: 1; transform: scale(1.06); }
+  50% { opacity: .92; transform: scale(1.1); }
+  86% { opacity: 1; transform: scale(1.02); }
+  100% { top: calc(100% - 44px); opacity: 0; transform: scale(.88); }
 }
 
 /* Lab workbench polish leftovers cleared — stations live above */

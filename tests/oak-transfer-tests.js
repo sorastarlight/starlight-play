@@ -203,6 +203,19 @@ test("confirm model never invents candy totals", () => {
   assert(model.count === 1);
   assert(!/×\d/.test(model.rewardHint));
   assert(/Evolution Candy/i.test(model.rewardHint));
+  assert(/can't be undone/i.test(model.leaveHint));
+  assert(!/SEND TO PROFESSOR OAK/i.test(model.title));
+});
+
+test("transfer layout drops Game Boy tags and receiver chamber", () => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "../js/oak-transfer.js"), "utf8");
+  const css = require("fs").readFileSync(require("path").join(__dirname, "../css/play.css"), "utf8");
+  assert(!src.includes("oak-gameboy-tag"));
+  assert(!src.includes("oak-receiver-dock"));
+  assert(!src.includes("oak-receiver-chamber"));
+  assert(!src.includes('"YOU"'));
+  assert(!css.includes(".oak-receiver-dock"));
+  assert(!css.includes(".oak-gameboy-tag"));
 });
 
 test("sprite identity includes shiny and form when present", () => {
@@ -302,9 +315,19 @@ test("equipped Trainer avatar resolves via authoritative sprite helper", () => {
   assert(resolved.id === "elaine");
   assert(resolved.url.includes("elaine"));
   assert(resolved.label === "Elaine");
-  const html = oak.playerTrainerHtml(resolved);
+  const named = oak.resolvePlayerTrainer({
+    trainerSprite: "elaine",
+    trainer: { displayName: "Sora Starlight", twitchLogin: "sorastarlight" }
+  });
+  assert(named.label === "Sora Starlight");
+  const loginOnly = oak.resolvePlayerTrainer({
+    trainerSprite: "elaine",
+    trainer: { username: "playtester" }
+  });
+  assert(loginOnly.label === "playtester");
+  const html = oak.playerTrainerHtml(named);
   assert(html.includes("data-oak-player-trainer"));
-  assert(html.includes("elaine"));
+  assert(html.includes("Sora Starlight"));
   const src = require("fs").readFileSync(require("path").join(__dirname, "../js/oak-transfer.js"), "utf8");
   assert(src.includes("oak-transfer-side is-player"));
   assert(src.includes("oak-transfer-side is-oak"));

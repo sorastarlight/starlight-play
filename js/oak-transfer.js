@@ -138,12 +138,14 @@
     const list = Array.isArray(mons) ? mons : [];
     return {
       count: list.length,
-      title: "SEND TO PROFESSOR OAK?",
+      title: "Transfer to Professor Oak?",
       names: list.map(monName),
-      rewardHint: "You'll receive Evolution Candy for this Evolution Line.",
+      rewardHint: list.length > 1
+        ? "You'll get Evolution Candy for each Evolution Line."
+        : "You'll get Evolution Candy for this Evolution Line.",
       leaveHint: list.length > 1
-        ? "These Pokémon will leave your collection."
-        : "This Pokémon will leave your collection."
+        ? "They leave your collection. This can't be undone."
+        : "It leaves your collection. This can't be undone."
     };
   }
 
@@ -163,6 +165,38 @@
     return ["prepare", "link", "highlight", "transfer", "arrive", "oak", "reward"];
   }
 
+  /** Player-facing label: display name, else username/login. Never Twitch face art. */
+  function resolvePlayerLabel(opts = {}) {
+    const trainer = opts.trainer || {};
+    const display = String(
+      opts.displayName
+      || trainer.displayName
+      || trainer.display_name
+      || root._playTrainerName
+      || ""
+    ).trim();
+    const login = String(
+      opts.username
+      || opts.login
+      || trainer.twitchLogin
+      || trainer.twitch_login
+      || trainer.username
+      || trainer.login
+      || root._playTrainerLogin
+      || ""
+    ).trim().replace(/^@/, "");
+    if (display) return display;
+    if (login) return login;
+    const raw = opts.trainerSprite
+      || root._playTrainerSprite
+      || trainer.trainerSprite
+      || "";
+    const look = typeof root.playTrainerLook === "function"
+      ? root.playTrainerLook(String(raw || "red-gen1").trim() || "red-gen1")
+      : null;
+    return look?.trainer?.name || "Trainer";
+  }
+
   /**
    * Authoritative equipped Trainer avatar for transfer presentation.
    * Uses playTrainerSpriteUrl (falls back to red-gen1). Never Twitch face.
@@ -177,10 +211,7 @@
     const url = typeof root.playTrainerSpriteUrl === "function"
       ? root.playTrainerSpriteUrl(id || "red-gen1")
       : (id ? `images/trainers/${id}.png` : "images/trainers/red-gen1.png");
-    const look = typeof root.playTrainerLook === "function"
-      ? root.playTrainerLook(id || "red-gen1")
-      : null;
-    const label = look?.trainer?.name || "Trainer";
+    const label = resolvePlayerLabel(opts);
     return { id: id || "red-gen1", url, label, omitted: false };
   }
 
@@ -195,7 +226,6 @@
   }
 
   function gameboyHtml({ side, art, name, empty }) {
-    const label = side === "player" ? "YOU" : "OAK";
     const screen = empty
       ? `<div class="oak-gameboy-screen is-standby" data-oak-screen-${side}>
            <span class="oak-gameboy-standby">READY</span>
@@ -216,7 +246,6 @@
         <span class="oak-gameboy-led" data-oak-led-${side}></span>
         <span class="oak-gameboy-port"></span>
       </div>
-      <span class="oak-gameboy-tag">${label}</span>
     </div>`;
   }
 
@@ -245,9 +274,6 @@
           </div>
           <div class="oak-transfer-side is-oak" data-oak-receiver>
             ${gameboyHtml({ side: "oak", art, name, empty: true })}
-            <div class="oak-receiver-dock" aria-hidden="true">
-              <span class="oak-receiver-chamber" data-oak-chamber></span>
-            </div>
             <div class="oak-xfer-avatar oak-xfer-oak">
               <img class="oak-receiver-oak" src="${OAK_SPRITE}" alt="" width="72" height="72" decoding="async">
               <span class="oak-xfer-avatar-tag">Oak</span>
@@ -373,7 +399,6 @@
     const token = overlay.querySelector("[data-oak-token]");
     const cable = overlay.querySelector(".oak-link-cable");
     const oakReceiver = overlay.querySelector("[data-oak-receiver]");
-    const chamber = overlay.querySelector("[data-oak-chamber]");
     const progressEl = overlay.querySelector("[data-oak-progress]");
     const skipBtn = overlay.querySelector("[data-oak-skip]");
     const continueBtn = overlay.querySelector("[data-oak-continue]");
@@ -442,7 +467,6 @@
         token.src = art;
         token.classList.remove("is-moving");
       }
-      chamber?.classList.remove("is-active");
       oakReceiver?.classList.remove("is-receive");
       cable?.classList.remove("is-active");
       ledPlayer?.classList.remove("is-on");
@@ -504,7 +528,6 @@
 
       setStage("oak");
       oakReceiver?.classList.add("is-receive");
-      chamber?.classList.add("is-active");
       await typeLine(lineEl, `Professor Oak received ${name}!`, reduced || quick);
       await wait(reduced ? 160 : quick ? 420 : 900);
     };
@@ -555,6 +578,7 @@
     candyLabel,
     rewardSummary,
     confirmModel,
+    resolvePlayerLabel,
     planSequence,
     stageOrder,
     gameboyHtml,

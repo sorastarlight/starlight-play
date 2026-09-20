@@ -312,7 +312,7 @@
       els.oakSprite.alt = displayName(mon);
     }
     if (els.oakCopy) {
-      els.oakCopy.innerHTML = `Send this duplicate Pokémon to Professor Oak?<br>You'll receive Evolution Candy.<br>This Pokémon will leave your collection.`;
+      els.oakCopy.innerHTML = `<p>You'll get Evolution Candy for this Evolution Line.</p><p class="muted">It leaves your collection. This can't be undone.</p>`;
     }
     if (typeof els.oakModal.showModal === "function") els.oakModal.showModal();
     else els.oakModal.setAttribute("open", "");

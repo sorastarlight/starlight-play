@@ -595,11 +595,9 @@
       });
       const extra = mons.length > 4 ? `<li>…and ${mons.length - 4} more</li>` : "";
       els.oakCopy.innerHTML = `
-        <p><strong>SEND TO PROFESSOR OAK?</strong></p>
-        <p>You're sending:</p>
         <ul class="oak-confirm-list">${lines.map((line) => `<li>${esc(line)}</li>`).join("")}${extra}</ul>
         <p>${esc(model.rewardHint)}</p>
-        <p>${esc(model.leaveHint)}</p>`;
+        <p class="muted">${esc(model.leaveHint)}</p>`;
     }
     if (typeof els.oakModal.showModal === "function") els.oakModal.showModal();
     else els.oakModal.setAttribute("open", "");
@@ -928,12 +926,14 @@
       window.playSetAccountNav(null);
       return session;
     }
-    const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
+    const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, username").eq("id", session.user.id).maybeSingle();
     let extras = {};
     try {
       const snapshot = await window.playCall("play_state");
       trainerCard = snapshot?.trainer || null;
       if (trainerCard?.trainerSprite) window._playTrainerSprite = trainerCard.trainerSprite;
+      window._playTrainerName = trainerCard?.displayName || profile?.display_name || "";
+      window._playTrainerLogin = trainerCard?.twitchLogin || trainerCard?.login || profile?.twitch_login || profile?.username || "";
       extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer, twitchLinked: snapshot?.twitchLinked };
     } catch (_) {}
     window.playSetAccountNav(session, profile, extras);

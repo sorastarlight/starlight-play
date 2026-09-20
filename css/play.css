@@ -8751,6 +8751,17 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
   width: min(540px, calc(100vw - 32px), calc((100dvh - 36px) * 1.5));
   aspect-ratio: 3 / 2;
   max-height: calc(100dvh - 36px);
+  transition:
+    width .48s ease,
+    height .48s ease,
+    max-height .48s ease,
+    aspect-ratio .48s ease;
+}
+.evo-fanfare.is-result .evo-stage-shell {
+  width: min(560px, calc(100vw - 24px));
+  aspect-ratio: auto;
+  height: min(720px, calc(100dvh - 24px));
+  max-height: calc(100dvh - 24px);
 }
 .evo-stage-shell > .evo-gba-classic {
   position: absolute;
@@ -8774,9 +8785,11 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
   pointer-events: none;
   transition: opacity .48s ease;
   z-index: 2;
-  overflow: auto;
+  overflow: hidden;
   align-content: center;
-  border-radius: 4px;
+  border-radius: 12px;
+  padding: 28px 26px 22px;
+  gap: 10px;
 }
 .evo-fanfare.is-result .evo-stage-shell > .evo-gba-classic {
   opacity: 0;
@@ -8786,6 +8799,7 @@ html[data-perf="low"] .oak-gameboy-screen.is-flash {
   opacity: 1;
   pointer-events: auto;
 }
+html[data-reduced-motion="1"] .evo-stage-shell,
 html[data-reduced-motion="1"] .evo-stage-shell > .evo-gba-classic,
 html[data-reduced-motion="1"] .evo-stage-shell > .evo-result-card {
   transition: none;
@@ -8803,6 +8817,14 @@ html[data-reduced-motion="1"] .evo-stage-shell > .evo-result-card {
   justify-items: center;
   gap: 8px;
   box-shadow: 0 18px 40px #0006;
+}
+.evo-stage-shell > .evo-result-card img {
+  width: 144px;
+  height: 144px;
+}
+.evo-stage-shell > .evo-result-card .evo-continue {
+  margin: 8px 0 0;
+  width: min(280px, 100%);
 }
 .evo-result-lab {
   border: 2px solid #d7c39a;

@@ -181,7 +181,14 @@ window.playBindLiveOps = function playBindLiveOps(options) {
   function autoInfo(d, s) {
     if (testMode()) return { label: "OFF", reason: "Test Mode does not run automatic cadence" };
     if (!s.twitchLive && !s.rpgSession) return { label: "WAITING", reason: "Stream is offline" };
-    if (s.twitchLive && !s.rpgSession) return { label: "WAITING", reason: "Live RPG is starting" };
+    if (s.twitchLive && !s.rpgSession) {
+      return {
+        label: d.autoEnabled ? "ARMED" : "OFF",
+        reason: d.autoEnabled
+          ? "Waiting for a Live RPG Session"
+          : "Director Auto disabled · Start Live RPG when ready"
+      };
+    }
     if (d.manualHold || !d.autoEnabled) {
       const mode = (s.mode || "").toUpperCase();
       if (["REACTION", "STORY", "BRB"].includes(mode)) return { label: "PAUSED", reason: MODE_LABELS[mode] || mode };
@@ -291,8 +298,8 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     } else if (!s.twitchLive && !s.rpgSession) {
       html = `
         <p class="eyebrow">Stream offline</p>
-        <h2>Live encounters are not running</h2>
-        <p>Want to test the RPG? Enter Test Mode. Going live? Twitch will activate the Live RPG when the stream is detected.</p>
+        <h2>Live RPG is idle</h2>
+        <p>Twitch is offline, so Live RPG cannot run. Going live alone does not start the Pokémon RPG — you start a Live RPG Session from Admin Hub when you want encounters.</p>
         <div class="links">
           <button type="button" class="secondary" data-act="refresh_live">Refresh Twitch Status</button>
           <button type="button" class="gold" data-act="enter_test">Enter Test Mode</button>
@@ -304,10 +311,11 @@ window.playBindLiveOps = function playBindLiveOps(options) {
         </details>`;
     } else if (s.twitchLive && !s.rpgSession) {
       html = `
-        <p class="eyebrow">Live RPG</p>
-        <h2>Live detected — initializing RPG session</h2>
-        <p>Twitch is live. The Director starts the Live RPG automatically. No Start button is required.</p>
+        <p class="eyebrow">Twitch LIVE · Live RPG IDLE</p>
+        <h2>Ready when you are</h2>
+        <p>Twitch is live, but the Pokémon RPG is idle. This is normal for non-RPG streams. Start a Live RPG Session only when you want Director encounters.</p>
         <div class="links">
+          <button type="button" class="gold" data-act="start_session">Start Live RPG Session</button>
           <button type="button" class="secondary" data-act="refresh_live">Refresh Twitch Status</button>
         </div>`;
     } else if (ad.adActive) {
@@ -627,17 +635,25 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     if (!els.session) return;
     const s = state?.stream || {};
     const d = state?.director || {};
-    const dur = s.startedAt ? clock(Math.floor((Date.now() - Date.parse(s.startedAt)) / 1000)) : "—";
+    const dur = s.sessionStartedAt || s.rpgStartedAt
+      ? clock(Math.floor((Date.now() - Date.parse(s.sessionStartedAt || s.rpgStartedAt)) / 1000))
+      : (s.startedAt && s.rpgSession ? clock(Math.floor((Date.now() - Date.parse(s.startedAt)) / 1000)) : "—");
     const auto = autoInfo(d, s);
     const liveOn = Boolean(s.rpgSession) && !testMode();
+    const twitch = s.twitchLive ? "LIVE" : (s.liveKnown ? "OFFLINE" : "UNKNOWN");
+    let idleCopy = "Inactive until you Start a Live RPG Session.";
+    if (testMode()) idleCopy = "Test Mode is not a live stream session.";
+    else if (!s.twitchLive) idleCopy = "Twitch is offline. Live RPG cannot run until Twitch is LIVE and you Start a session.";
+    else if (s.twitchLive && !s.rpgSession) idleCopy = "Twitch is LIVE. Live RPG stays IDLE until you Start it.";
     els.session.innerHTML = `
-      <p class="eyebrow">Live RPG session</p>
-      <p><strong>${rpgFace(s)}</strong> · ${liveOn ? `Active ${dur}${s.viewers != null ? ` · Viewers ${s.viewers}` : ""}` : (testMode() ? "Test Mode is not a live stream session." : "Inactive until Twitch goes live.")}</p>
-      <p class="muted">Auto ${auto.label} · ${esc(auto.reason)}</p>
+      <p class="eyebrow">Session authority</p>
+      <p><em>Twitch</em> <strong>${twitch}</strong> · <em>Live RPG</em> <strong>${rpgFace(s)}</strong> · <em>Director Auto</em> <strong>${auto.label}</strong></p>
+      <p>${liveOn ? `Live RPG active ${dur}${s.viewers != null ? ` · Viewers ${s.viewers}` : ""}` : idleCopy}</p>
+      <p class="muted">${esc(auto.reason)}</p>
       <div class="links">
         ${liveOn
-          ? `<button type="button" class="danger" data-act="end_session">End live RPG session</button>`
-          : `<button type="button" data-act="start_session">Start live RPG session</button>`}
+          ? `<button type="button" class="danger" data-act="end_session">End Live RPG Session</button>`
+          : `<button type="button" data-act="start_session">${s.twitchLive ? "Start Live RPG Session" : "Force Start Live RPG Session"}</button>`}
         <button type="button" class="secondary" data-act="refresh_live">Refresh Twitch Status</button>
         <button type="button" class="secondary" data-act="copy">Copy status</button>
       </div>`;
@@ -900,19 +916,22 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     }
     if (act === "end_session") {
       cmd("end_session", {}, {
-        confirmTitle: "End the live RPG session?",
+        confirmTitle: "End the Live RPG session?",
         confirmBody: state?.activeEncounter
           ? "An encounter is still active. Cancel or finish it before ending the session."
-          : "Stops automatic encounters. If Twitch stays live, the RPG stays stopped until you Start it or the channel goes offline and live again.",
+          : "Stops the Live RPG while Twitch may stay LIVE. Director Auto preference is kept, but encounters will not spawn until you Start Live RPG again. Going offline later also ends the session; coming back LIVE will not restart it.",
         go: "End session"
       });
       return;
     }
     if (act === "start_session") {
+      const live = Boolean(state?.stream?.twitchLive);
       cmd("start_session", {}, {
-        confirmTitle: "Force start the Live RPG session?",
-        confirmBody: "Starts the live RPG Director even if Twitch live detection is unavailable or delayed. This is not the normal way to test while offline.",
-        go: "Force start"
+        confirmTitle: live ? "Start the Live RPG session?" : "Force start the Live RPG session?",
+        confirmBody: live
+          ? "Twitch is already LIVE. This explicitly starts the Pokémon RPG Director so automatic encounters can run."
+          : "Starts the live RPG Director even if Twitch live detection is unavailable or delayed. This is not the normal way to test while offline.",
+        go: live ? "Start Live RPG" : "Force start"
       });
       return;
     }

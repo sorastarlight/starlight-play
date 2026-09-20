@@ -7,3 +7,6 @@ supabase/.temp/
 tmp-cards/
 tools/.cache/
 images/encounters/locations/frlg/original/
+
+docs/audits/_qa-session.tmp.json
+.env.local

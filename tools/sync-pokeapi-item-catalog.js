@@ -146,15 +146,22 @@ async function main() {
     totalItems: 0,
     fetched: 0,
     upserted: 0,
+    uniqueSlugs: 0,
     spritesOk: 0,
+    spritesDownloaded: 0,
+    spritesReused: 0,
     spritesMissing: 0,
+    localSpriteFiles: 0,
+    aliasesSkipped: [],
     newSlugs: [],
     changed: [],
+    unchanged: 0,
     categories: new Set(),
     pockets: new Set(),
     valuableCandidates: [],
     errors: []
   };
+  const seenSlugs = new Map(); // slug -> first pokeapi id
 
   console.log("Fetching PokéAPI item index…");
   const list = await fetchAllItems();
@@ -181,6 +188,20 @@ async function main() {
       report.fetched += 1;
       const pokeapiName = item.name;
       const slug = gameKey(pokeapiName);
+      if (seenSlugs.has(slug)) {
+        const primaryId = seenSlugs.get(slug);
+        report.aliasesSkipped.push({
+          slug,
+          pokeapiId: item.id,
+          pokeapiName,
+          primaryPokeapiId: primaryId,
+          reason: "duplicate_canonical_key"
+        });
+        // Do not double-count sprites or upsert again for alias IDs.
+        continue;
+      }
+      seenSlugs.set(slug, item.id);
+
       const display = (item.names || []).find((n) => n.language?.name === "en")?.name || pokeapiName;
       const category = item.category?.name || "";
       let pocketSlug = item.category?.pocket?.name || "";
@@ -206,8 +227,13 @@ async function main() {
         const dl = await downloadSprite(spriteUrl, localPath);
         spriteAvailable = Boolean(dl.ok);
         checksum = dl.checksum || null;
-        if (dl.ok) report.spritesOk += 1;
-        else report.spritesMissing += 1;
+        if (dl.ok) {
+          report.spritesOk += 1;
+          if (dl.cached) report.spritesReused += 1;
+          else report.spritesDownloaded += 1;
+        } else {
+          report.spritesMissing += 1;
+        }
       } else {
         report.spritesMissing += 1;
       }
@@ -290,7 +316,24 @@ async function main() {
     }
   }
 
+  report.uniqueSlugs = seenSlugs.size;
+  report.unchanged = Math.max(0, report.upserted - report.newSlugs.length);
+  try {
+    report.localSpriteFiles = fs.readdirSync(SPRITE_DIR).filter((f) => f.endsWith(".png")).length;
+  } catch (_) {
+    report.localSpriteFiles = 0;
+  }
+
   const finishedAt = new Date().toISOString();
+  const aliasLines = report.aliasesSkipped.length
+    ? report.aliasesSkipped
+        .slice(0, 40)
+        .map(
+          (a) =>
+            `- ${a.pokeapiName} (id ${a.pokeapiId}) → slug \`${a.slug}\` skipped; primary id ${a.primaryPokeapiId} (${a.reason})`
+        )
+        .join("\n")
+    : "- none";
   const md = [
     "# PokéAPI item sync report",
     "",
@@ -299,20 +342,33 @@ async function main() {
     `- Dry run: ${DRY}`,
     `- Upstream processed: ${report.totalItems}`,
     `- Fetched: ${report.fetched}`,
-    `- Upserted: ${report.upserted}`,
+    `- Unique canonical keys: ${report.uniqueSlugs}`,
+    `- DB upserted: ${report.upserted}`,
     `- New slugs: ${report.newSlugs.length}`,
-    `- Changed/seen: ${report.changed.length}`,
-    `- Sprites ok: ${report.spritesOk}`,
+    `- Changed/seen existing: ${report.changed.length}`,
+    `- Unchanged estimate: ${report.unchanged}`,
+    `- Aliases/skipped: ${report.aliasesSkipped.length}`,
+    `- Sprites ok (unique items): ${report.spritesOk}`,
+    `- Sprites downloaded: ${report.spritesDownloaded}`,
+    `- Sprites reused (local cache): ${report.spritesReused}`,
     `- Sprites missing: ${report.spritesMissing}`,
+    `- Local sprite files: ${report.localSpriteFiles}`,
     `- Categories: ${[...report.categories].sort().join(", ")}`,
     `- Pockets: ${[...report.pockets].sort().join(", ")}`,
     `- Valuable candidates (heuristic): ${report.valuableCandidates.length}`,
     `- Errors: ${report.errors.length}`,
     "",
-    "## Notes",
+    "## Invariants",
     "",
+    "- `upstream processed - unique keys = aliases/skipped` (PokéAPI may list duplicate names that collapse to one game key).",
+    "- `sprites ok` counts unique catalog items with a usable sprite, not upstream index length.",
+    "- `local sprite files` is the on-disk PNG count under `images/items/pokeapi/`.",
     "- Gameplay policy flags are never reset by this sync.",
     "- New items receive catalog-only defaults (all gameplay flags false).",
+    "",
+    "## Aliases / skipped duplicates",
+    "",
+    aliasLines,
     "",
     report.errors.length ? "## Errors\n\n" + report.errors.slice(0, 40).map((e) => `- ${e.name}: ${e.error}`).join("\n") : ""
   ].filter(Boolean).join("\n");
@@ -322,8 +378,21 @@ async function main() {
     path.join(AUDIT_DIR, "pokeapi-item-catalog.csv"),
     csvRows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n")
   );
+  fs.writeFileSync(
+    path.join(AUDIT_DIR, "pokeapi-item-sync-report.json"),
+    JSON.stringify(
+      {
+        ...report,
+        categories: [...report.categories],
+        pockets: [...report.pockets],
+        finishedAt
+      },
+      null,
+      2
+    )
+  );
   console.log(md);
-  console.log("Wrote docs/audits/pokeapi-item-sync-report.md and pokeapi-item-catalog.csv");
+  console.log("Wrote docs/audits/pokeapi-item-sync-report.md, .json, and pokeapi-item-catalog.csv");
 }
 
 main().catch((err) => {

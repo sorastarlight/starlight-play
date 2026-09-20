@@ -1,0 +1,49 @@
+{
+  "upstreamCount": 2223,
+  "uniqueKeys": 2222,
+  "dbRows": 2222,
+  "difference": 1,
+  "collisions": [
+    {
+      "key": "roseliberry",
+      "primary": {
+        "id": 723,
+        "name": "roseli-berry",
+        "key": "roseliberry",
+        "inDb": true
+      },
+      "losers": [
+        {
+          "id": 2279,
+          "name": "roseli-berry",
+          "key": "roseliberry",
+          "inDb": true
+        }
+      ],
+      "all": [
+        {
+          "id": 723,
+          "name": "roseli-berry",
+          "key": "roseliberry",
+          "inDb": true
+        },
+        {
+          "id": 2279,
+          "name": "roseli-berry",
+          "key": "roseliberry",
+          "inDb": true
+        }
+      ]
+    }
+  ],
+  "missingSlugKeys": [],
+  "sprites": {
+    "dbSpriteAvailable": 1093,
+    "localFiles": 1093,
+    "difference": 0,
+    "missingFiles": [],
+    "orphanFiles": [],
+    "orphanFileCount": 0,
+    "sharedPaths": []
+  }
+}

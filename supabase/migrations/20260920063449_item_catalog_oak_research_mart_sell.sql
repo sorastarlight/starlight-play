@@ -323,7 +323,7 @@ set search_path to 'public'
 as $function$
 declare
   uid uuid := auth.uid();
-  slug text := lower(nullif(btrim(coalesce(p_item_key, '')), ''));
+  v_slug text := lower(nullif(btrim(coalesce(p_item_key, '')), ''));
   qty int := coalesce(p_quantity, 0);
   unit int;
   total int;
@@ -337,7 +337,7 @@ begin
   if uid is null then
     raise exception 'Sign in to sell items.' using errcode = '42501';
   end if;
-  if slug is null then
+  if v_slug is null then
     raise exception 'Choose an item to sell.';
   end if;
   if qty < 1 or qty > 99 then
@@ -360,50 +360,50 @@ begin
     end if;
   end if;
 
-  select * into pol from public.item_policy where item_slug = slug;
+  select * into pol from public.item_policy where item_slug = v_slug;
   if not found or not pol.mart_sell_enabled or not pol.inventory_enabled then
     raise exception 'That item cannot be sold at the Mart.';
   end if;
-  unit := private.item_sell_price(slug);
+  unit := private.item_sell_price(v_slug);
   if unit < 1 then
     raise exception 'That item has no sell price.';
   end if;
-  select * into cat from public.item_catalog where slug = slug;
+  select * into cat from public.item_catalog where item_catalog.slug = v_slug;
 
   perform private.ensure_inventory(uid);
-  have := private.item_qty(uid, slug);
+  have := private.item_qty(uid, v_slug);
   if have < qty then
     raise exception 'You do not own that many.';
   end if;
 
   total := unit * qty;
-  after_qty := private.adjust_item(uid, slug, -qty);
+  after_qty := private.adjust_item(uid, v_slug, -qty);
   perform private.adjust_coins(
-    uid, total, 'MART_SALE', 'Sold ' || coalesce(cat.display_name, slug),
+    uid, total, 'MART_SALE', 'Sold ' || coalesce(cat.display_name, v_slug),
     jsonb_build_object(
       'idempotency', case when p_idempotency_key is null then null else p_idempotency_key || ':coins' end,
-      'relatedItem', slug
+      'relatedItem', v_slug
     )
   );
   insert into public.item_ledger (user_id, item_key, amount, reason, source_id, idempotency)
   values (
-    uid, slug, -qty, 'MART_SALE', null,
+    uid, v_slug, -qty, 'MART_SALE', null,
     case when p_idempotency_key is null then null else p_idempotency_key || ':item' end
   )
   on conflict do nothing;
 
   insert into public.mart_sales (user_id, item_slug, quantity, unit_price, coins_received, idempotency, detail)
   values (
-    uid, slug, qty, unit, total, p_idempotency_key,
-    jsonb_build_object('displayName', coalesce(cat.display_name, slug))
+    uid, v_slug, qty, unit, total, p_idempotency_key,
+    jsonb_build_object('displayName', coalesce(cat.display_name, v_slug))
   );
 
   select coins into after_coins from public.inventories where user_id = uid;
 
   return jsonb_build_object(
     'ok', true,
-    'item', slug,
-    'displayName', coalesce(cat.display_name, slug),
+    'item', v_slug,
+    'displayName', coalesce(cat.display_name, v_slug),
     'quantity', qty,
     'unitPrice', unit,
     'coinsReceived', total,

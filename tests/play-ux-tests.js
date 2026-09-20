@@ -242,6 +242,16 @@ test("community result panel does not fade in on every patch", () => {
   assert(slimWin && slimWin.every((block) => /animation:\s*none/.test(block)), String(slimWin));
 });
 
+test("play-modal stays hidden until open so encounter UI cannot paint over it", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const css = fs.readFileSync(path.join(__dirname, "../css/play.css"), "utf8");
+  assert(/\.play-modal:not\(\[open\]\)\s*\{[^}]*display:\s*none/s.test(css), "closed dialogs must stay display:none");
+  assert(/\.play-modal\[open\]\s*\{[^}]*display:\s*grid/s.test(css), "open dialogs center with grid");
+  const base = css.match(/\.play-modal \{[\s\S]*?\n\}/);
+  assert(base && !/display:\s*grid/.test(base[0]), "base .play-modal must not force display:grid");
+});
+
 const failed = results.filter((row) => !row.passed);
 results.forEach((row) => {
   console.log(`${row.passed ? "PASS" : "FAIL"} ${row.name}${row.detail ? ` — ${row.detail}` : ""}`);

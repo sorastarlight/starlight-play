@@ -4042,6 +4042,11 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   width: 100%;
   height: 100%;
   max-height: none;
+}
+.play-modal:not([open]) {
+  display: none;
+}
+.play-modal[open] {
   display: grid;
   place-items: center;
 }

@@ -7804,6 +7804,17 @@ body.oak-gb-playing { overflow: hidden; }
   opacity: 0;
   transition: opacity .48s ease;
 }
+/* Stack stage + reward in the same center cell so the handoff never jumps */
+.oak-gb-fanfare > .oak-xfer-stage,
+.oak-gb-fanfare > .oak-xfer-reward,
+.oak-link-fanfare > .oak-xfer-stage,
+.oak-link-fanfare > .oak-xfer-reward {
+  grid-area: 1 / 1;
+  justify-self: center;
+  align-self: center;
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+}
 .oak-gb-fanfare.is-ready,
 .oak-link-fanfare.is-ready {
   opacity: 1;
@@ -7826,7 +7837,7 @@ body.oak-gb-playing { overflow: hidden; }
 }
 .oak-xfer-stage.is-exit {
   opacity: 0;
-  transform: scale(.985) translateY(4px);
+  transform: scale(.99);
   pointer-events: none;
 }
 .oak-transfer-progress {
@@ -8139,12 +8150,15 @@ body.oak-gb-playing { overflow: hidden; }
     linear-gradient(160deg, #fffdf8, #f7e8f1 55%, #e8f1fb);
   box-shadow: 0 0 0 4px rgba(201, 162, 39, .28), 0 18px 40px rgba(0,0,0,.18);
   opacity: 0;
-  transform: translateY(10px) scale(.97);
-  transition: opacity .55s ease, transform .55s ease;
+  transform: scale(.985);
+  transition: opacity .5s ease, transform .5s ease;
+  z-index: 2;
+  pointer-events: none;
 }
 .oak-xfer-reward.is-visible {
   opacity: 1;
   transform: none;
+  pointer-events: auto;
 }
 .oak-xfer-reward .eyebrow {
   margin: 0;

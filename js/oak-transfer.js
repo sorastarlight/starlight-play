@@ -23,6 +23,7 @@
       const AudioCtor = root.Audio || (typeof Audio !== "undefined" ? Audio : null);
       if (!AudioCtor) return null;
       const audio = new AudioCtor(OAK_COMPLETE_SFX);
+      audio.volume = 0.5;
       const played = audio.play();
       if (played && typeof played.catch === "function") played.catch(() => {});
       return audio;
@@ -480,16 +481,17 @@
       setStage("reward");
       playDoneSfx();
       fillRewards(overlay, summary, plan.results);
+      if (rootEl) rootEl.classList.add("is-exit");
       if (rewardEl) {
         rewardEl.hidden = false;
         rewardEl.classList.remove("is-visible");
-        requestAnimationFrame(() => rewardEl.classList.add("is-visible"));
+        // Paint stacked in the same grid cell, then fade in place (no bottom→center jump).
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => rewardEl.classList.add("is-visible"));
+        });
       }
-      if (rootEl) {
-        rootEl.classList.add("is-exit");
-        if (!reduced) await wait(420);
-        rootEl.hidden = true;
-      }
+      if (!reduced) await wait(480);
+      if (rootEl) rootEl.hidden = true;
       continueBtn?.focus();
     };
 

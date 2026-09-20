@@ -253,6 +253,7 @@ test("transfer complete plays Oak Wonderful SFX once", () => {
   assert(src.includes("sounds/oak-wonderful.wav"));
   assert(src.includes("playDoneSfx"));
   assert(/playDoneSfx\(\)/.test(src));
+  assert(src.includes("audio.volume = 0.5"), "complete sting should play at half volume");
 });
 
 test("Game Boy markup helpers expose A/B screens and link cable", () => {
@@ -373,6 +374,7 @@ test("CSS keeps Game Boys on one horizontal axis with fixed screen geometry", ()
   assert(/\.oak-gameboy-mon\s*\{[^}]*width:\s*64px/s.test(css), "fixed mon size");
   assert(!css.includes(".oak-gameboy-caption"), "caption styles removed");
   assert(css.includes("image-rendering: pixelated"));
+  assert(css.includes("grid-area: 1 / 1"), "reward must stack centered over stage");
 });
 
 test("evolve page wires oak-transfer after server success path", () => {

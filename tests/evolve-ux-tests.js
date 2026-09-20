@@ -163,7 +163,7 @@ test("result model uses authoritative rewards only", () => {
 test("evolution dialogue uses the classic two-line beat", () => {
   const lines = view.dialogueLines({ fromName: "Eevee", toName: "Jolteon" });
   assert(lines.what === "What?");
-  assert(lines.evolving === "EEVEE is evolving!");
+  assert(lines.evolving === "Eevee is evolving!");
   assert(lines.congrats === "Congratulations!");
   assert(lines.done === "Your Eevee evolved into Jolteon!");
 });
@@ -196,7 +196,7 @@ test("idempotent already-evolved result does not fabricate rewards", () => {
   assert(model.trainerXp === 0);
   assert(model.newDex === false);
 });
-test("result panel waits for Continue and skip stays on the result", () => {
+test("result panel pages carry rewards for dialogue flow", () => {
   const panel = view.resultPanel(view.resultModel({
     evolution: { fromName: "Charmander", toName: "Charmeleon", fromDex: 4, toDex: 5 },
     rewards: { trainerXp: 10, masteryFrom: 2, masteryTo: 2, newDex: true, newDexXp: 25, coins: 100 }

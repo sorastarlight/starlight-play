@@ -39,14 +39,20 @@ test("Dual source/destination sprites drive silhouette alternation", () => {
   assert(js.includes("slowHold") && js.includes("fastHold"), "acceleration stages missing");
 });
 
-test("Approved RPG dialogue box markup and styles remain", () => {
-  assert(js.includes('class="evo-dialogue"'), "dialogue box missing");
-  assert(js.includes("lines.what") && js.includes("lines.evolving"), "What?/evolving lines missing");
-  assert(css.includes(".evo-dialogue {"), "dialogue CSS missing");
-  assert(css.includes('font-family: "Press Start 2P"'), "dialogue font preserved");
-  assert(css.includes("background: #2a4d6e"), "dialogue color preserved");
+test("GBA dialogue framing and click-to-advance text flow", () => {
+  assert(js.includes("evo-dialogue-gba"), "gba dialogue class missing");
+  assert(js.includes("beginResultFlow"), "result dialogue flow missing");
+  assert(js.includes("typeText") || js.includes("typePage"), "typewriter flow missing");
+  assert(js.includes("advanceResult"), "click advance missing");
+  assert(js.includes('overlay.addEventListener("click"'), "click-anywhere skip missing");
+  assert(!js.includes("data-evo-skip"), "skip button must be removed");
+  assert(!js.includes("data-evo-result"), "separate result card must leave classic flow");
+  assert(css.includes(".evo-dialogue-gba") || css.includes(".evo-gba-classic .evo-dialogue"), "gba dialogue CSS missing");
+  assert(css.includes("background: #ffffff") || css.includes("background: #f0f0f0"), "light dialogue fill missing");
+  assert(css.includes("inset 0 0 0 3px #d4b84a") || css.includes("inset 0 0 0 3px #d8bc6a"), "gold inner border missing");
   assert(view.includes('what: "What?"'), "What? copy preserved");
   assert(view.includes("is evolving!"), "evolving copy preserved");
+  assert(view.includes("resultPages"), "stat pages helper missing");
 });
 
 test("Presentation stays after authoritative evolve RPC", () => {
@@ -60,11 +66,10 @@ test("Presentation stays after authoritative evolve RPC", () => {
   assert((evolveOnce.match(/play_evolve/g) || []).length === 1, "must not duplicate evolve RPC");
 });
 
-test("Skip and reduced-motion stay non-mutating", () => {
-  assert(js.includes("data-evo-skip"), "skip control missing");
-  assert(js.includes("showResult()"), "skip finishes to result");
+test("Reduced-motion stays non-mutating", () => {
   assert(js.includes("Condensed accessibility path") || js.includes("reduced"), "reduced path missing");
   assert(js.includes('showWhich("from", true)'), "reduced silhouette path missing");
+  assert(js.includes("beginResultFlow"), "skip/result still presentation-only");
 });
 
 test("Identity fields flow into sprites", () => {

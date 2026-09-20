@@ -715,13 +715,14 @@
     };
     const panel = view.resultPanel ? view.resultPanel(model) : {
       title: "EVOLUTION COMPLETE!",
-      subtitle: "Evolution complete!",
-      oakLine: "Professor Oak: Remarkable research, Trainer!",
-      species: model.toName,
       extras: [],
       newDex: model.newDex,
-      dexLabel: ""
+      dexLabel: "",
+      pages: [{ line1: lines.congrats, line2: lines.done }]
     };
+    const pages = Array.isArray(panel.pages) && panel.pages.length
+      ? panel.pages
+      : (view.resultPages ? view.resultPages(model) : [{ line1: lines.congrats, line2: lines.done }]);
     const shiny = view.isShiny?.(model) || String(model.variant || "").includes("shiny");
     const fromArt = view.displayVariant ? view.displayVariant(model, model.fromDex) : model.variant;
     const toArt = view.displayVariant ? view.displayVariant(model, model.toDex) : model.variant;
@@ -738,8 +739,6 @@
       const reduced = mode === "reduced" || mode === "low";
       const sparkCount = mode === "high" ? 10 : mode === "balanced" ? 5 : 0;
       const sparks = Array.from({ length: sparkCount }, () => "<i></i>").join("");
-      const oakLine = panel.oakLine || "Professor Oak: Remarkable research, Trainer!";
-      const speciesLabel = panel.species || String(model.toName || "Pokémon").toUpperCase();
       overlay.innerHTML = `
         <div class="evo-gba evo-gba-lab evo-gba-classic ${reduced ? "is-simple" : ""}" data-evo-root tabindex="0">
           <div class="evo-field evo-field-black" data-evo-stage>
@@ -750,48 +749,50 @@
             </div>
             <div class="evo-actor-flash" aria-hidden="true"></div>
           </div>
-          <div class="evo-dialogue" aria-live="polite">
+          <div class="evo-dialogue evo-dialogue-gba" aria-live="polite" data-evo-dialogue>
             <p data-evo-line1></p>
             <p data-evo-line2></p>
           </div>
-          <button type="button" class="evo-skip" data-evo-skip>Skip animation</button>
-        </div>
-        <div class="evo-result-card evo-result-lab" data-evo-result hidden>
-          ${shiny ? `<p class="evo-shiny-banner">✨ Shiny Pokémon ✨</p>` : ""}
-          <img src="${esc(toUrl)}" alt="" width="128" height="128" decoding="async">
-          <h2>${esc(panel.title || "EVOLUTION COMPLETE!")}</h2>
-          <p class="evo-oak-flavor">${esc(oakLine)}</p>
-          <p class="eyebrow">${esc(speciesLabel)}</p>
-          <p>${esc(lines.done)}</p>
-          ${panel.newDex ? `<p class="evo-newdex">New Pokédex entry! ${esc(panel.dexLabel)} ${esc(model.toName)} registered!</p>` : ""}
-          <ul class="evo-rewards">${(panel.extras || []).map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
-          <button type="button" class="evo-continue" data-evo-continue>Continue</button>
         </div>`;
       document.body.classList.add("evo-playing");
       document.body.append(overlay);
-      overlay.querySelector("[data-evo-root]")?.focus();
+      const root = overlay.querySelector("[data-evo-root]");
+      root?.focus();
       let done = false;
-      const stageEl = overlay.querySelector("[data-evo-root]");
-      const resultEl = overlay.querySelector("[data-evo-result]");
-      const skipBtn = overlay.querySelector("[data-evo-skip]");
-      const continueBtn = overlay.querySelector("[data-evo-continue]");
-      const finish = () => {
-        if (done) return;
-        done = true;
-        document.removeEventListener("keydown", onKey);
-        document.body.classList.remove("evo-playing");
-        overlay.remove();
-        resolve();
-      };
+      let phase = "anim"; // anim | typing | wait | closing
+      let pageIndex = 0;
+      let typeToken = 0;
+      let pageToken = 0;
+      let skipAnim = false;
+      let finishTyping = false;
+      let resultStarted = false;
+      const dialogue = overlay.querySelector("[data-evo-dialogue]");
       const line1 = overlay.querySelector("[data-evo-line1]");
       const line2 = overlay.querySelector("[data-evo-line2]");
       const actor = overlay.querySelector("[data-evo-actor]");
       const fromImg = overlay.querySelector("[data-evo-from]");
       const toImg = overlay.querySelector("[data-evo-to]");
+
+      const finish = () => {
+        if (done) return;
+        done = true;
+        phase = "closing";
+        document.removeEventListener("keydown", onKey);
+        overlay.removeEventListener("click", onClick);
+        document.body.classList.remove("evo-playing");
+        overlay.remove();
+        resolve();
+      };
+
+      const setWaiting = (on) => {
+        dialogue?.classList.toggle("is-waiting", Boolean(on));
+      };
+
       const setLines = (first, second) => {
         if (line1) line1.textContent = first || "";
         if (line2) line2.textContent = second || "";
       };
+
       const showWhich = (which, sil) => {
         const showTo = which === "to";
         fromImg?.classList.toggle("is-on", !showTo);
@@ -801,48 +802,118 @@
         actor?.classList.toggle("is-sil", Boolean(sil));
         actor?.classList.toggle("is-reveal", !sil && showTo);
       };
+
       const softFlash = async (ms) => {
         if (reduced) return;
         actor?.classList.add("is-bright");
         await wait(ms || 160);
         actor?.classList.remove("is-bright");
       };
-      const showResult = () => {
-        if (done || overlay.dataset.stage === "result") return;
-        actor?.classList.remove("is-bright", "is-sil");
-        overlay.dataset.stage = "result";
-        overlay.setAttribute("aria-label", "Evolution complete");
-        showWhich("to", false);
-        if (stageEl) stageEl.hidden = true;
-        if (resultEl) resultEl.hidden = false;
-        continueBtn?.focus();
-        cue("reveal");
-        if (model.newDex) cue("pokedex");
-      };
-      const onKey = (event) => {
-        if (event.key === "Escape") {
-          event.preventDefault();
-          if (overlay.dataset.stage === "result") return;
-          showResult();
+
+      const typeText = async (el, text) => {
+        const token = ++typeToken;
+        const full = String(text || "");
+        if (!el) return;
+        el.textContent = "";
+        if (reduced || !full) {
+          el.textContent = full;
           return;
         }
-        if (event.key === "Enter" || event.key === " ") {
-          if (overlay.dataset.stage === "result") return;
-          event.preventDefault();
-          showResult();
+        finishTyping = false;
+        for (let i = 0; i < full.length; i += 1) {
+          if (done || token !== typeToken) return;
+          if (finishTyping || skipAnim) {
+            el.textContent = full;
+            return;
+          }
+          el.textContent = full.slice(0, i + 1);
+          await wait(28);
         }
       };
+
+      const typePage = async (page) => {
+        const token = ++pageToken;
+        phase = "typing";
+        setWaiting(false);
+        finishTyping = false;
+        setLines("", "");
+        await typeText(line1, page?.line1 || "");
+        if (done || token !== pageToken) return;
+        if (finishTyping) {
+          setLines(page?.line1 || "", page?.line2 || "");
+          phase = "wait";
+          setWaiting(true);
+          return;
+        }
+        await typeText(line2, page?.line2 || "");
+        if (done || token !== pageToken) return;
+        phase = "wait";
+        setWaiting(true);
+      };
+
+      const beginResultFlow = async () => {
+        if (done || resultStarted || phase === "closing") return;
+        resultStarted = true;
+        skipAnim = true;
+        actor?.classList.remove("is-bright", "is-sil");
+        overlay.dataset.stage = "result";
+        overlay.classList.add("is-finale");
+        overlay.setAttribute("aria-label", "Evolution complete");
+        showWhich("to", false);
+        cue("reveal");
+        if (model.newDex) cue("pokedex");
+        pageIndex = 0;
+        await typePage(pages[0] || { line1: lines.congrats, line2: lines.done });
+      };
+
+      const advanceResult = async () => {
+        if (done) return;
+        if (phase === "typing") {
+          finishTyping = true;
+          typeToken += 1;
+          pageToken += 1;
+          const page = pages[pageIndex] || {};
+          setLines(page.line1 || "", page.line2 || "");
+          phase = "wait";
+          setWaiting(true);
+          return;
+        }
+        if (phase !== "wait") return;
+        pageIndex += 1;
+        if (pageIndex >= pages.length) {
+          finish();
+          return;
+        }
+        await typePage(pages[pageIndex]);
+      };
+
+      const onClick = (event) => {
+        if (event.button != null && event.button !== 0) return;
+        event.preventDefault();
+        if (done) return;
+        if (phase === "anim") {
+          beginResultFlow();
+          return;
+        }
+        advanceResult();
+      };
+
+      const onKey = (event) => {
+        if (event.key === "Escape" || event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          if (done) return;
+          if (phase === "anim") {
+            beginResultFlow();
+            return;
+          }
+          advanceResult();
+        }
+      };
+
       document.addEventListener("keydown", onKey);
-      skipBtn?.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        showResult();
-      });
-      continueBtn?.addEventListener("click", (event) => {
-        event.preventDefault();
-        finish();
-      });
-      const stopped = () => done || overlay.dataset.stage === "result";
+      overlay.addEventListener("click", onClick);
+
+      const stopped = () => done || skipAnim || overlay.dataset.stage === "result";
       const pulsePairs = async (pairs, holdMs) => {
         for (let i = 0; i < pairs; i += 1) {
           showWhich("from", true);
@@ -854,32 +925,44 @@
         }
         return true;
       };
+
       const run = async () => {
         cue("begin");
         overlay.dataset.stage = "intro";
+        phase = "anim";
         showWhich("from", false);
         setLines(lines.what, "");
         await wait(reduced ? 220 : 700);
-        if (stopped()) return;
+        if (stopped()) {
+          if (!done && phase === "anim") await beginResultFlow();
+          return;
+        }
         setLines(lines.what, lines.evolving);
         await wait(reduced ? 280 : 800);
-        if (stopped()) return;
+        if (stopped()) {
+          if (!done && phase === "anim") await beginResultFlow();
+          return;
+        }
 
-        // Condensed accessibility path: color → white from → white to → color to.
         if (reduced) {
           overlay.dataset.stage = "build";
           showWhich("from", true);
           await wait(320);
-          if (stopped()) return;
+          if (stopped()) {
+            if (!done && phase === "anim") await beginResultFlow();
+            return;
+          }
           overlay.dataset.stage = "morph";
           showWhich("to", true);
           await wait(320);
-          if (stopped()) return;
+          if (stopped()) {
+            if (!done && phase === "anim") await beginResultFlow();
+            return;
+          }
           overlay.dataset.stage = "reveal";
           showWhich("to", false);
           await wait(420);
-          if (stopped()) return;
-          showResult();
+          if (!done) await beginResultFlow();
           return;
         }
 
@@ -887,33 +970,52 @@
         cue("build");
         showWhich("from", true);
         await wait(mode === "high" ? 1000 : 750);
-        if (stopped()) return;
+        if (stopped()) {
+          if (!done && phase === "anim") await beginResultFlow();
+          return;
+        }
 
         overlay.dataset.stage = "morph";
         overlay.classList.add("is-sparking");
-        // Slow → medium → fast silhouette alternation (classic GBA feel).
         const slowHold = mode === "high" ? 420 : 340;
         const midHold = mode === "high" ? 210 : 170;
         const fastHold = mode === "high" ? 105 : 90;
-        if (!(await pulsePairs(mode === "high" ? 3 : 2, slowHold))) return;
-        if (!(await pulsePairs(mode === "high" ? 4 : 3, midHold))) return;
-        if (!(await pulsePairs(mode === "high" ? 6 : 5, fastHold))) return;
+        if (!(await pulsePairs(mode === "high" ? 3 : 2, slowHold))) {
+          if (!done && phase === "anim") await beginResultFlow();
+          return;
+        }
+        if (!(await pulsePairs(mode === "high" ? 4 : 3, midHold))) {
+          if (!done && phase === "anim") await beginResultFlow();
+          return;
+        }
+        if (!(await pulsePairs(mode === "high" ? 6 : 5, fastHold))) {
+          if (!done && phase === "anim") await beginResultFlow();
+          return;
+        }
 
         overlay.dataset.stage = "climax";
         showWhich("to", true);
         await softFlash(mode === "high" ? 220 : 160);
-        if (stopped()) return;
+        if (stopped()) {
+          if (!done && phase === "anim") await beginResultFlow();
+          return;
+        }
         await wait(mode === "high" ? 380 : 280);
-        if (stopped()) return;
+        if (stopped()) {
+          if (!done && phase === "anim") await beginResultFlow();
+          return;
+        }
         await softFlash(mode === "high" ? 180 : 120);
-        if (stopped()) return;
+        if (stopped()) {
+          if (!done && phase === "anim") await beginResultFlow();
+          return;
+        }
 
         overlay.dataset.stage = "reveal";
         overlay.classList.add("is-finale");
         showWhich("to", false);
         await wait(mode === "high" ? 1700 : 1200);
-        if (stopped()) return;
-        showResult();
+        if (!done) await beginResultFlow();
       };
       run();
     });

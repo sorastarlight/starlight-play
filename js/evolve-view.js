@@ -193,7 +193,7 @@
     const toName = String(model?.toName || "Pokémon");
     return {
       what: "What?",
-      evolving: `${fromName.toUpperCase()} is evolving!`,
+      evolving: `${fromName} is evolving!`,
       congrats: "Congratulations!",
       done: `Your ${fromName} evolved into ${toName}!`
     };

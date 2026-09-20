@@ -7290,7 +7290,7 @@ body[data-page="evolve"] .wrap {
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.9),
     0 3px 0 rgba(74, 122, 181, .12);
-  overflow: hidden;
+  overflow: visible;
 }
 .evo-lab-bench-rail {
   position: absolute;
@@ -7328,22 +7328,71 @@ body[data-page="evolve"] .wrap {
   image-rendering: crisp-edges;
   filter: drop-shadow(0 4px 0 rgba(74, 122, 181, .14));
 }
-/* Compact READY Game Boy — same shell as Oak transfer animation */
+/* Compact READY Game Boy — same shell language as Oak transfer animation */
 .evo-lab-gameboy {
   position: relative;
-  width: 66px;
-  height: 94px;
   flex: 0 0 auto;
-  overflow: visible;
+  align-self: end;
+  width: 72px;
+  height: 102px;
 }
 .evo-lab-gameboy .evo-lab-gb {
-  width: 138px;
-  transform: scale(0.48);
-  transform-origin: bottom left;
-  pointer-events: none;
+  width: 72px;
+  gap: 0;
+}
+.evo-lab-gameboy .oak-gameboy-shell {
+  width: 72px;
+  height: 102px;
+  padding: 7px 7px 8px;
+  border-radius: 8px 8px 10px 10px;
+  border-width: 2px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 4px 0 rgba(42, 39, 68, .1);
+}
+.evo-lab-gameboy .oak-gameboy-bezel {
+  padding: 4px;
+  border-radius: 5px;
+}
+.evo-lab-gameboy .oak-gameboy-screen {
+  height: 42px;
+  min-height: 42px;
+  max-height: 42px;
+  padding: 3px;
+  border-width: 1.5px;
 }
 .evo-lab-gameboy .oak-gameboy-standby {
+  font-size: 8px;
+  letter-spacing: .12em;
   animation: none;
+}
+.evo-lab-gameboy .oak-gameboy-controls {
+  margin-top: 6px;
+  padding: 0 2px;
+}
+.evo-lab-gameboy .oak-gameboy-dpad {
+  width: 16px;
+  height: 16px;
+  background:
+    linear-gradient(#4a5058, #4a5058) center/6px 16px no-repeat,
+    linear-gradient(#4a5058, #4a5058) center/16px 6px no-repeat;
+}
+.evo-lab-gameboy .oak-gameboy-btns {
+  gap: 4px;
+}
+.evo-lab-gameboy .oak-gameboy-btns i {
+  width: 8px;
+  height: 8px;
+}
+.evo-lab-gameboy .oak-gameboy-speaker {
+  margin-top: 5px;
+  width: 24px;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, #6f7882 0 1.5px, transparent 1.5px 3.5px);
+}
+.evo-lab-gameboy .oak-gameboy-led {
+  top: 6px;
+  left: 6px;
+  width: 5px;
+  height: 5px;
 }
 .evo-lab-identity {
   display: grid;
@@ -7739,7 +7788,22 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .evo-lab-bay {
     grid-template-columns: auto auto;
   }
   .evo-lab-oak { width: 96px; height: 96px; }
-  .evo-lab-gameboy { display: none; }
+  .evo-lab-gameboy {
+    width: 58px;
+    height: 82px;
+  }
+  .evo-lab-gameboy .evo-lab-gb,
+  .evo-lab-gameboy .oak-gameboy-shell {
+    width: 58px;
+    height: 82px;
+  }
+  .evo-lab-gameboy .oak-gameboy-shell { padding: 5px 5px 6px; }
+  .evo-lab-gameboy .oak-gameboy-screen {
+    height: 34px;
+    min-height: 34px;
+    max-height: 34px;
+  }
+  .evo-lab-gameboy .oak-gameboy-standby { font-size: 7px; }
   .evo-send-toolbar {
     grid-template-columns: 1fr;
   }

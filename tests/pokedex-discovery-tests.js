@@ -24,7 +24,14 @@ const migration = fs.readFileSync(
 );
 
 assert(!/id="filter-region"|id="filter-gen"|id="filter-form"|id="filter-gender"/.test(pokedexHtml), "no region/gen/form/gender grid filters");
-assert(/id="dex-detail"/.test(pokedexHtml) && /id="dex-counters"/.test(pokedexHtml), "detail + counters present");
+assert(!/id="dex-detail"/.test(pokedexHtml), "inline detail section removed");
+assert(/id="dex-overlay"|dex-overlay/.test(pokedexJs) && /id="dex-counters"/.test(pokedexHtml), "overlay mount + counters present");
+assert(/pokedex-reference\.js/.test(pokedexHtml), "local pokedex reference script included");
+assert(!/pokeapi\.co\/api/.test(pokedexJs), "no live pokeapi.co fetch in pokedex.js");
+assert(pokedexJs.includes("playPokedexRef") || pokedexJs.includes("PLAY_POKEDEX_REF") || pokedexJs.includes("localRef"), "local reference helper used");
+assert(pokedexJs.includes('role="dialog"') || pokedexJs.includes("aria-modal"), "dialog semantics present");
+assert(pokedexJs.includes("dex-scroll-locked") || pokedexJs.includes("lockPageScroll"), "scroll lock present");
+assert(pokedexJs.includes("data-dex-close"), "backdrop/X close hooks present");
 assert(pokedexJs.includes("play_pokedex_entry"), "gated entry RPC used");
 assert(pokedexJs.includes("You haven't discovered this Pokémon yet."), "undiscovered gate message");
 assert(!pokedexJs.includes("Ready to evolve"), "no Ready to evolve on main grid");

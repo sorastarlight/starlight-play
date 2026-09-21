@@ -36,6 +36,8 @@ assert(pokedexJs.includes("play_pokedex_entry"), "gated entry RPC used");
 assert(pokedexJs.includes("You haven't discovered this Pokémon yet."), "undiscovered gate message");
 assert(!pokedexJs.includes("Ready to evolve"), "no Ready to evolve on main grid");
 assert(!/chip shiny/.test(pokedexJs), "no shiny chips on main grid");
+assert(!/\{\s*id:\s*"stats"/m.test(pokedexJs) && !pokedexJs.includes('label: "Stats"'), "Stats tab removed from player UI");
+assert(pokedexJs.includes("normalizeTab") && pokedexJs.includes('"stats"') && pokedexJs.includes("overview"), "old stats state falls back to overview");
 assert(migration.includes("mark_seen(uid, r.dex, r.pokemon_form_id)"), "join registers form-aware seen");
 assert(migration.includes("Discovery is join/catch authoritative"), "snapshot seen removed");
 assert(migration.includes("from public.catches c"), "caught→seen backfill present");

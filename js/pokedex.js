@@ -27,10 +27,119 @@
   const TABS = [
     { id: "overview", label: "Overview" },
     { id: "forms", label: "Forms" },
-    { id: "stats", label: "Stats" },
     { id: "evolution", label: "Evolution" },
     { id: "research", label: "Your Research" }
   ];
+  const TAB_IDS = new Set(TABS.map((t) => t.id));
+
+  // Compact Kanto evolution edge labels (display only; Oak owns readiness).
+  const EVO_EDGE = {
+    "1>2": "Lv. 16 · 40 Candy",
+    "2>3": "Lv. 32 · 80 Candy",
+    "4>5": "Lv. 16 · 40 Candy",
+    "5>6": "Lv. 36 · 80 Candy",
+    "7>8": "Lv. 16 · 40 Candy",
+    "8>9": "Lv. 36 · 80 Candy",
+    "10>11": "Lv. 7 · 25 Candy",
+    "11>12": "Lv. 10 · 50 Candy",
+    "13>14": "Lv. 7 · 25 Candy",
+    "14>15": "Lv. 10 · 50 Candy",
+    "16>17": "Lv. 18 · 40 Candy",
+    "17>18": "Lv. 36 · 80 Candy",
+    "19>20": "Lv. 20 · 40 Candy",
+    "21>22": "Lv. 20 · 40 Candy",
+    "23>24": "Lv. 22 · 40 Candy",
+    "25>26": "Thunder Stone · 40 Candy",
+    "27>28": "Lv. 22 · 40 Candy",
+    "29>30": "Lv. 16 · 40 Candy",
+    "30>31": "Moon Stone · 40 Candy",
+    "32>33": "Lv. 16 · 40 Candy",
+    "33>34": "Moon Stone · 40 Candy",
+    "35>36": "Moon Stone · 40 Candy",
+    "37>38": "Fire Stone · 40 Candy",
+    "39>40": "Moon Stone · 40 Candy",
+    "41>42": "Lv. 22 · 40 Candy",
+    "43>44": "Lv. 21 · 40 Candy",
+    "44>45": "Leaf Stone · 40 Candy",
+    "46>47": "Lv. 24 · 40 Candy",
+    "48>49": "Lv. 31 · 40 Candy",
+    "50>51": "Lv. 26 · 40 Candy",
+    "52>53": "Lv. 28 · 40 Candy",
+    "54>55": "Lv. 33 · 40 Candy",
+    "56>57": "Lv. 28 · 40 Candy",
+    "58>59": "Fire Stone · 40 Candy",
+    "60>61": "Lv. 25 · 40 Candy",
+    "61>62": "Water Stone · 40 Candy",
+    "63>64": "Lv. 16 · 40 Candy",
+    "64>65": "Trade / Linking Cord · 40 Candy",
+    "66>67": "Lv. 28 · 40 Candy",
+    "67>68": "Trade / Linking Cord · 40 Candy",
+    "69>70": "Lv. 21 · 40 Candy",
+    "70>71": "Leaf Stone · 40 Candy",
+    "72>73": "Lv. 30 · 40 Candy",
+    "74>75": "Lv. 25 · 40 Candy",
+    "75>76": "Trade / Linking Cord · 40 Candy",
+    "77>78": "Lv. 40 · 40 Candy",
+    "79>80": "Lv. 37 · 40 Candy",
+    "81>82": "Lv. 30 · 40 Candy",
+    "84>85": "Lv. 31 · 40 Candy",
+    "86>87": "Lv. 34 · 40 Candy",
+    "88>89": "Lv. 38 · 40 Candy",
+    "90>91": "Water Stone · 40 Candy",
+    "92>93": "Lv. 25 · 40 Candy",
+    "93>94": "Trade / Linking Cord · 40 Candy",
+    "95>208": null,
+    "96>97": "Lv. 26 · 40 Candy",
+    "98>99": "Lv. 28 · 40 Candy",
+    "100>101": "Lv. 30 · 40 Candy",
+    "102>103": "Leaf Stone · 40 Candy",
+    "104>105": "Lv. 28 · 40 Candy",
+    "108>463": null,
+    "109>110": "Lv. 35 · 40 Candy",
+    "111>112": "Lv. 42 · 40 Candy",
+    "112>464": null,
+    "113>242": null,
+    "116>117": "Lv. 32 · 40 Candy",
+    "117>230": null,
+    "118>119": "Lv. 33 · 40 Candy",
+    "120>121": "Water Stone · 40 Candy",
+    "123>212": null,
+    "125>466": null,
+    "126>467": null,
+    "129>130": "Lv. 20 · 40 Candy",
+    "133>134": "Water Stone · 40 Candy",
+    "133>135": "Thunder Stone · 40 Candy",
+    "133>136": "Fire Stone · 40 Candy",
+    "137>233": null,
+    "138>139": "Lv. 40 · 40 Candy",
+    "140>141": "Lv. 40 · 40 Candy",
+    "147>148": "Lv. 30 · 40 Candy",
+    "148>149": "Lv. 55 · 80 Candy"
+  };
+
+  function normalizeTab(id) {
+    const key = String(id || "").toLowerCase();
+    if (key === "stats") return "overview";
+    if (TAB_IDS.has(key)) return key;
+    return "overview";
+  }
+
+  function routeTabHint() {
+    try {
+      const url = new URL(window.location.href);
+      const tab = url.searchParams.get("tab") || url.searchParams.get("dexTab");
+      if (tab) return normalizeTab(tab);
+      const hash = String(url.hash || "").replace(/^#/, "");
+      if (/^tab[=-]?stats$/i.test(hash) || hash === "stats") return "overview";
+      const m = hash.match(/^tab[=-]?([a-z]+)/i);
+      if (m) return normalizeTab(m[1]);
+    } catch (_) {}
+    return null;
+  }
+
+  function evoEdgeLabel(fromDex, toDex) {
+    return EVO_EDGE[`${Number(fromDex)}>${Number(toDex)}`] || null;
+  }
 
   const overlay = document.createElement("div");
   overlay.id = "dex-overlay";
@@ -448,11 +557,12 @@
   }
 
   function paintTabs() {
-    const tab = detailState?.tab || "overview";
+    const tab = normalizeTab(detailState?.tab || "overview");
+    if (detailState) detailState.tab = tab;
     tabsEl.innerHTML = TABS.map((row) => `
       <button type="button" class="dex-mode-tab${tab === row.id ? " is-active" : ""}"
-        role="tab" aria-selected="${tab === row.id ? "true" : "false"}"
-        data-dex-tab="${row.id}">${row.label}</button>`).join("");
+        role="tab" id="dex-tab-${row.id}" aria-selected="${tab === row.id ? "true" : "false"}"
+        aria-controls="dex-overlay-body" data-dex-tab="${row.id}">${row.label}</button>`).join("");
   }
 
   function paintNav() {
@@ -495,92 +605,94 @@
             <blockquote class="dex-za-flavor"><span class="dex-za-flavor-rule" aria-hidden="true"></span><p>${window.playEscapeAttr(flavor)}</p></blockquote>
           </div>
           <div class="dex-za-hero">
-            <img class="dex-za-sprite" src="${ctx.sprite}" alt="">
+            <div class="dex-za-sprite-frame">
+              <img class="dex-za-sprite" src="${ctx.sprite}" alt="">
+            </div>
           </div>
         </div>
       </div>`;
   }
 
   function formsHtml(ctx) {
-    const { entry, forms, form, formId, shiny, female, formPills, shinyPills, genderPills, showGender, classBadges, displayName } = ctx;
+    const { entry, forms, formPills, shinyPills, genderPills, showGender, classBadges, displayName } = ctx;
     return `
       <div class="dex-za-stage dex-za-stage-forms">
         <div class="dex-za-silhouette" aria-hidden="true"><img src="${ctx.sprite}" alt=""></div>
         <div class="dex-za-forms-layout">
           <div class="dex-za-hero dex-za-hero-compact">
-            <img class="dex-za-sprite" src="${ctx.sprite}" alt="">
+            <div class="dex-za-sprite-frame">
+              <img class="dex-za-sprite" src="${ctx.sprite}" alt="">
+            </div>
             <p class="dex-za-no">No. ${window.playPadDex(entry.dex)}</p>
-            <h2 class="dex-za-name">${window.playEscapeAttr(displayName)}</h2>
+            <h2 class="dex-za-name dex-za-name-sm">${window.playEscapeAttr(displayName)}</h2>
             <div class="se-badge-row">${classBadges.join("")}</div>
           </div>
           <div class="dex-za-controls">
             ${forms.length > 1 ? `<section class="dex-axis"><h3>Form</h3><div class="dex-pill-row">${formPills}</div></section>` : ""}
             <section class="dex-axis"><h3>Appearance</h3><div class="dex-pill-row">${shinyPills}</div></section>
             ${showGender ? `<section class="dex-axis"><h3>Gender</h3><div class="dex-pill-row">${genderPills}</div></section>` : ""}
-            <p class="muted dex-entry-note">Selecting a form updates types, stats, abilities, and measurements for that form. Shiny and gender only change appearance.</p>
+            <p class="dex-entry-note">Form changes types, abilities, and size. Shiny and gender change appearance only.</p>
           </div>
         </div>
       </div>`;
   }
 
-  function statsHtml(ctx) {
-    const stats = ctx.ref?.stats || {};
-    const order = [
-      ["hp", "HP"],
-      ["attack", "Attack"],
-      ["defense", "Defense"],
-      ["special-attack", "Sp. Atk"],
-      ["special-defense", "Sp. Def"],
-      ["speed", "Speed"]
-    ];
-    let total = 0;
-    const rows = order.map(([key, label]) => {
-      const val = Number(stats[key]);
-      if (!Number.isFinite(val)) return "";
-      total += val;
-      const pct = Math.max(4, Math.min(100, Math.round((val / 255) * 100)));
-      return `<div class="dex-stat-bar-row">
-        <span class="dex-stat-label">${label}</span>
-        <span class="dex-stat-num">${val}</span>
-        <span class="dex-stat-track"><span class="dex-stat-fill" style="width:${pct}%"></span></span>
-      </div>`;
-    }).filter(Boolean).join("");
+  function evoNodeHtml(dex, opts = {}) {
+    const seenSet = new Set(discoveredDexes());
+    const known = seenSet.has(dex);
+    const current = dex === Number(opts.currentDex);
+    const name = known ? window.playSpeciesName(dex) : "???";
+    const sprite = window.playSpriteUrl(dex, "normal");
+    const req = opts.req ? `<span class="dex-evo-req">${window.playEscapeAttr(opts.req)}</span>` : "";
     return `
-      <div class="dex-za-stage dex-za-stage-stats">
-        <div class="dex-za-silhouette" aria-hidden="true"><img src="${ctx.sprite}" alt=""></div>
-        <div class="dex-stats-panel">
-          <p class="dex-za-no">No. ${window.playPadDex(ctx.entry.dex)} · ${window.playEscapeAttr(ctx.displayName)}</p>
-          <h3 class="dex-stats-heading">Base Stats</h3>
-          <div class="dex-stat-bars">${rows || `<p class="muted">Stats unavailable for this form.</p>`}</div>
-          ${rows ? `<p class="dex-stat-total">Total <strong>${total}</strong></p>` : ""}
-        </div>
+      <div class="dex-evo-node${current ? " is-current" : ""}${known ? "" : " is-unknown"}">
+        <div class="dex-evo-art"><img src="${sprite}" alt="" class="${known ? "" : "silhouette"}"></div>
+        <span class="dex-evo-no">No. ${window.playPadDex(dex)}</span>
+        <strong>${window.playEscapeAttr(name)}</strong>
+        ${req}
       </div>`;
   }
 
   function evolutionHtml(ctx) {
     const family = (ctx.ref?.evoFamily || [ctx.entry.dex]).map(Number).filter((d) => isReleasedDex(d));
-    const seenSet = new Set(discoveredDexes());
-    const nodes = family.map((dex, i) => {
-      const known = seenSet.has(dex);
-      const current = dex === Number(ctx.entry.dex);
-      const name = known ? window.playSpeciesName(dex) : "???";
-      const sprite = known
-        ? window.playSpriteUrl(dex, "normal")
-        : window.playSpriteUrl(dex, "normal");
-      const arrow = i < family.length - 1 ? `<span class="dex-evo-arrow" aria-hidden="true">→</span>` : "";
-      return `
-        <div class="dex-evo-node${current ? " is-current" : ""}${known ? "" : " is-unknown"}">
-          <img src="${sprite}" alt="" class="${known ? "" : "silhouette"}">
-          <span class="dex-evo-no">No. ${window.playPadDex(dex)}</span>
-          <strong>${window.playEscapeAttr(name)}</strong>
-        </div>${arrow}`;
-    }).join("");
+    const current = Number(ctx.entry.dex);
+    const branching = family.length >= 4 && family[0] === Math.min(...family);
+    let tree = "";
+    if (branching) {
+      const root = family[0];
+      const branches = family.slice(1);
+      tree = `
+        <div class="dex-evo-tree is-branch">
+          <div class="dex-evo-tree-root">${evoNodeHtml(root, { currentDex: current })}</div>
+          <div class="dex-evo-branch-rule" aria-hidden="true"></div>
+          <div class="dex-evo-branches">
+            ${branches.map((dex) => `
+              <div class="dex-evo-branch">
+                <span class="dex-evo-arrow dex-evo-arrow-down" aria-hidden="true">↓</span>
+                ${evoNodeHtml(dex, { currentDex: current, req: evoEdgeLabel(root, dex) })}
+              </div>`).join("")}
+          </div>
+        </div>`;
+    } else {
+      tree = `<div class="dex-evo-tree is-linear">${family.map((dex, i) => {
+        const prev = family[i - 1];
+        const req = prev != null ? evoEdgeLabel(prev, dex) : null;
+        const arrow = i > 0
+          ? `<div class="dex-evo-link"><span class="dex-evo-arrow" aria-hidden="true">→</span>${req ? `<span class="dex-evo-req">${window.playEscapeAttr(req)}</span>` : ""}</div>`
+          : "";
+        return `${arrow}${evoNodeHtml(dex, { currentDex: current })}`;
+      }).join("")}</div>`;
+    }
     const showLab = family.length > 1 && ctx.entry.caught;
     return `
       <div class="dex-za-stage dex-za-stage-evo">
-        <div class="dex-evo-line">${nodes}</div>
-        <p class="muted">Canonical Kanto evolution family. Later-generation relatives outside this Pokédex stay locked.</p>
-        ${showLab ? `<p><a class="button secondary" href="./evolve.html">View in Professor Oak's Lab</a></p>` : `<p class="muted">Catch this species to research evolution readiness in Professor Oak's Lab.</p>`}
+        ${tree}
+        <div class="dex-evo-footer">
+          <p class="dex-entry-note">Kanto evolution family only. Later-generation relatives stay outside this Pokédex.</p>
+          ${showLab
+            ? `<a class="button secondary dex-evo-lab" href="./evolve.html">View in Professor Oak's Lab</a>`
+            : `<p class="dex-entry-note">Catch this species to research evolution readiness in Professor Oak's Lab.</p>`}
+        </div>
       </div>`;
   }
 
@@ -599,18 +711,18 @@
     const candy = fam ? Number(fam.candy || 0) : null;
     return `
       <div class="dex-za-stage dex-za-stage-research">
-        <h3 class="dex-stats-heading">Your Research</h3>
+        <p class="dex-za-no">No. ${window.playPadDex(entry.dex)} · ${window.playEscapeAttr(entry.name || "")}</p>
+        <h3 class="dex-research-heading">Your Research</h3>
         <dl class="dex-research-grid">
           <div><dt>Status</dt><dd>${entry.caught ? "Caught" : "Seen"}</dd></div>
-          <div><dt>Caught count</dt><dd>${catches.length}</dd></div>
-          <div><dt>Shiny registered</dt><dd>${shinyN ? `Yes (${shinyN})` : "No"}</dd></div>
-          <div><dt>♂ appearances</dt><dd>${maleN || "—"}</dd></div>
-          <div><dt>♀ appearances</dt><dd>${femaleN || "—"}</dd></div>
-          <div><dt>Forms registered</dt><dd>${formsReg} / ${Math.max(forms.length, 1)}</dd></div>
-          <div><dt>Species Mastery</dt><dd>${mastery ? `${mastery.rank || mastery.stars || "—"} · ${mastery.points || 0} pts` : "—"}</dd></div>
-          <div><dt>Evolution Candy</dt><dd>${candy != null ? candy : "—"}</dd></div>
+          <div><dt>Caught</dt><dd>${catches.length}</dd></div>
+          <div><dt>Shiny</dt><dd>${shinyN ? `Yes (${shinyN})` : "No"}</dd></div>
+          <div><dt>♂ / ♀</dt><dd>${maleN || 0} / ${femaleN || 0}</dd></div>
+          <div><dt>Forms</dt><dd>${formsReg} / ${Math.max(forms.length, 1)}</dd></div>
+          <div><dt>Mastery</dt><dd>${mastery ? `${mastery.rank || mastery.stars || "—"} · ${mastery.points || 0} pts` : "—"}</dd></div>
+          <div><dt>Evo Candy</dt><dd>${candy != null ? candy : "—"}</dd></div>
         </dl>
-        <p class="muted">Owned individuals live in My PC. Evolution readiness lives in Professor Oak's Lab.</p>
+        <p class="dex-entry-note">Manage owned Pokémon in <a href="./storage.html">My PC</a>. Evolution readiness lives in <a href="./evolve.html">Professor Oak's Lab</a>.</p>
       </div>`;
   }
 
@@ -678,10 +790,10 @@
       displayName, sprite, ref, types, height, weight
     };
 
-    const tab = detailState.tab || "overview";
+    const tab = normalizeTab(detailState.tab || routeTabHint() || "overview");
+    detailState.tab = tab;
     let html = "";
     if (tab === "forms") html = formsHtml(ctx);
-    else if (tab === "stats") html = statsHtml(ctx);
     else if (tab === "evolution") html = evolutionHtml(ctx);
     else if (tab === "research") html = researchHtml(ctx);
     else html = overviewHtml(ctx);
@@ -786,7 +898,7 @@
         formId: Number(base?.formId || id),
         shiny: false,
         female: false,
-        tab: "overview"
+        tab: normalizeTab(routeTabHint() || "overview")
       };
       ensureCollection().then(() => {
         if (detailState?.entry?.dex === id && detailState.tab === "research") paintDetail();
@@ -881,7 +993,7 @@
     }
     const tabBtn = event.target.closest("[data-dex-tab]");
     if (tabBtn && detailState) {
-      detailState.tab = tabBtn.dataset.dexTab;
+      detailState.tab = normalizeTab(tabBtn.dataset.dexTab);
       if (detailState.tab === "research") ensureCollection().then(() => paintDetail());
       else paintDetail();
       return;

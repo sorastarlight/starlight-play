@@ -76,6 +76,7 @@ body.nav-open { overflow: hidden; }
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
+  flex: 1 1 auto;
   min-width: 0;
   margin-left: auto;
 }
@@ -111,13 +112,20 @@ body.nav-open { overflow: hidden; }
 .topnav.is-open .nav-toggle-bars { background: transparent; }
 .topnav.is-open .nav-toggle-bars::before { top: 0; transform: rotate(45deg); }
 .topnav.is-open .nav-toggle-bars::after { top: 0; transform: rotate(-45deg); }
-.topnav-panel { display: flex; align-items: center; min-width: 0; }
+.topnav-panel {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: flex-end;
+}
 .topnav-links {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
   gap: 2px;
+  min-width: 0;
 }
 .topnav-div {
   color: #c9b8d8;
@@ -165,38 +173,60 @@ body.nav-open { overflow: hidden; }
   color: #6a4b12;
   box-shadow: 0 0 0 3px rgba(232, 196, 74, .4), 0 3px 0 #e0b84a;
 }
+/* Admin Hub may appear late — keep it out of the primary flex flow so the header shell does not jump. */
+.topnav-link[data-nav="admin"],
+.topnav-div[data-nav="admin-div"] {
+  flex: 0 0 auto;
+}
 .topnav-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
-  min-width: 148px;
+  flex: 0 0 auto;
+  width: 200px;
+  min-width: 200px;
+  max-width: 220px;
   min-height: 42px;
 }
 .topnav-auth-slot {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  min-width: 148px;
+  width: 100%;
   min-height: 42px;
 }
 .topnav button { padding: 8px 14px; font-size: 14px; }
 .signin-btn {
+  width: 100%;
+  min-height: 42px;
   white-space: nowrap;
   box-shadow: 0 3px 0 #dca8c9;
 }
-.account { position: relative; max-width: 100%; }
+.account {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
 .account-button {
   display: flex;
   align-items: center;
   gap: 8px;
-  max-width: min(260px, 48vw);
+  width: 100%;
+  max-width: 100%;
   min-height: 42px;
-  min-width: 148px;
+  min-width: 0;
   padding: 3px 10px 3px 3px;
   background: #fff;
   border: 2px solid #c9d4ec;
   box-shadow: 0 3px 0 #d7e0f2;
+}
+.account-button:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.account[data-auth="unknown"] .account-name,
+.account[data-auth="unknown"] .account-level {
+  opacity: .38;
 }
 .account-caret {
   flex: 0 0 auto;
@@ -213,25 +243,44 @@ body.nav-open { overflow: hidden; }
 }
 .account-meta {
   display: grid;
+  grid-template-rows: auto auto;
+  gap: 1px;
+  flex: 1 1 auto;
   min-width: 0;
   text-align: left;
   line-height: 1.1;
 }
-.account-name { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.account-name {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 800;
+  font-size: 13px;
+  line-height: 1.15;
+}
 .account-level {
-  min-height: 1.1em;
+  display: block;
+  min-height: 1.15em;
   font-size: 10px;
-  line-height: 1.1;
+  line-height: 1.15;
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: #8a3d72;
-  visibility: hidden;
 }
-.account-level:not(:empty) { visibility: visible; }
+.twitch-face-nav {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  aspect-ratio: 1;
+}
 .avatar, .avatar-fallback {
   width: 34px;
   height: 34px;
+  aspect-ratio: 1;
   border-radius: 50%;
   object-fit: cover;
   background: linear-gradient(180deg, #f6cde4, #abc9ef);
@@ -4208,6 +4257,22 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   .account-meta { display: none; }
   .account-button { max-width: none; padding: 3px; }
   .account-caret { display: none; }
+  .topnav-actions {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+  }
+  body[data-auth="signed-out"] .topnav-actions {
+    width: auto;
+    min-width: 72px;
+    max-width: none;
+  }
+  .signin-btn {
+    width: auto;
+    min-width: 0;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
 }
 @media (max-width: 900px) {
   .layout, .layout.stack-2 { grid-template-columns: 1fr; }

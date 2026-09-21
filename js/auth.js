@@ -56,6 +56,7 @@
       ["playBitsConnect", "playDebug"].forEach((key) => {
         if (key !== "playDebug") sessionStorage.removeItem(key);
       });
+      sessionStorage.removeItem("play-account-present-v1");
     } catch (_) {}
   };
 

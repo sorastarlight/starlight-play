@@ -70,6 +70,7 @@ window.playTwitchFaceHtml = function playTwitchFaceHtml(url, name, extraClass, l
 
 window.playBindAccountNav = function playBindAccountNav(options) {
   const page = document.body?.dataset?.page || "";
+  const PRESENT_KEY = "play-account-present-v1";
   const els = {
     links: document.getElementById("topnav-links"),
     nav: document.querySelector(".topnav"),
@@ -92,6 +93,81 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     signOut: document.getElementById("sign-out"),
     status: document.getElementById("auth-status")
   };
+
+  function readPresentCache() {
+    try {
+      const raw = JSON.parse(sessionStorage.getItem(PRESENT_KEY) || "null");
+      if (!raw || typeof raw !== "object") return null;
+      return {
+        name: String(raw.name || "").slice(0, 48),
+        level: Number(raw.level || 0) || 0,
+        avatar: String(raw.avatar || "").slice(0, 500),
+        letter: String(raw.letter || "·").slice(0, 1)
+      };
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function writePresentCache(payload) {
+    try {
+      if (!payload) {
+        sessionStorage.removeItem(PRESENT_KEY);
+        return;
+      }
+      sessionStorage.setItem(PRESENT_KEY, JSON.stringify({
+        name: String(payload.name || "").slice(0, 48),
+        level: Number(payload.level || 0) || 0,
+        avatar: String(payload.avatar || "").slice(0, 500),
+        letter: String(payload.letter || "·").slice(0, 1)
+      }));
+    } catch (_) {}
+  }
+
+  function setAuthState(state) {
+    const next = state === "in" ? "in" : (state === "out" ? "out" : "unknown");
+    document.body.dataset.auth = next === "in" ? "signed-in" : (next === "out" ? "signed-out" : "unknown");
+    if (els.account) els.account.dataset.auth = next === "in" ? "in" : (next === "out" ? "out" : "unknown");
+  }
+
+  function paintAvatar(url, letter) {
+    const mark = String(letter || "·").slice(0, 1).toUpperCase() || "·";
+    if (url && els.avatar) {
+      els.avatar.hidden = false;
+      if (els.avatar.getAttribute("src") !== url) els.avatar.src = url;
+      if (els.fallback) els.fallback.hidden = true;
+      return;
+    }
+    if (els.avatar) {
+      els.avatar.hidden = true;
+      els.avatar.removeAttribute("src");
+    }
+    if (els.fallback) {
+      els.fallback.hidden = false;
+      els.fallback.textContent = mark;
+      els.fallback.setAttribute("aria-hidden", "true");
+    }
+  }
+
+  function paintUnknownShell() {
+    setAuthState("unknown");
+    if (els.signIn) {
+      els.signIn.hidden = true;
+      els.signIn.setAttribute("aria-hidden", "true");
+    }
+    if (els.account) els.account.hidden = false;
+    if (els.button) {
+      els.button.disabled = true;
+      els.button.setAttribute("aria-busy", "true");
+      els.button.setAttribute("aria-expanded", "false");
+    }
+    closeMenu();
+    const cached = readPresentCache();
+    if (els.name) els.name.textContent = cached?.name || "Trainer";
+    if (els.level) els.level.textContent = cached?.level ? `Lv. ${cached.level}` : "Lv. ·";
+    paintAvatar(cached?.avatar || "", cached?.letter || "·");
+    if (els.status) els.status.textContent = "Checking sign-in…";
+  }
 
   function ensureAccountMenuLinks() {
     if (!els.menu) return;
@@ -194,7 +270,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
   }
 
   function toggleMenu() {
-    if (!els.menu || !els.button) return;
+    if (!els.menu || !els.button || els.button.disabled) return;
     const open = els.menu.hidden;
     els.menu.hidden = !open;
     els.button.setAttribute("aria-expanded", open ? "true" : "false");
@@ -217,17 +293,10 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     wrap.append(badge);
   }
 
-  if (els.signIn) {
-    els.signIn.hidden = false;
-    els.signIn.removeAttribute("title");
-    els.signIn.title = "Sign in";
-  }
-  if (els.status && /Twitch/.test(els.status.textContent || "")) {
-    els.status.textContent = "Checking sign-in…";
-  }
   ensureAccountMenuLinks();
   ensureNavTwitchFace();
   renderLinks(false);
+  paintUnknownShell();
   if (els.toggle) {
     els.toggle.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -277,27 +346,38 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       window.playSetTipUser(signedIn ? session?.user?.id : "");
     }
     renderLinks(isAdmin);
-    if (els.signIn) els.signIn.hidden = signedIn;
-    if (els.account) els.account.hidden = !signedIn;
-    if (els.staff) els.staff.hidden = !isAdmin;
-    if (!signedIn) closeMenu();
+
     if (!signedIn) {
+      setAuthState("out");
+      writePresentCache(null);
+      if (els.signIn) {
+        els.signIn.hidden = false;
+        els.signIn.removeAttribute("aria-hidden");
+      }
+      if (els.account) els.account.hidden = true;
+      if (els.button) {
+        els.button.disabled = true;
+        els.button.removeAttribute("aria-busy");
+      }
+      if (els.staff) els.staff.hidden = true;
+      closeMenu();
       if (els.status) els.status.textContent = "Not signed in.";
-      if (els.avatar) {
-        els.avatar.removeAttribute("src");
-        els.avatar.hidden = true;
-      }
-      if (els.fallback) els.fallback.hidden = true;
-      if (els.level) {
-        els.level.hidden = false;
-        els.level.textContent = "";
-      }
-      if (els.trainer) {
-        els.trainer.hidden = true;
-        els.trainer.innerHTML = "";
-      }
       return;
     }
+
+    setAuthState("in");
+    if (els.signIn) {
+      els.signIn.hidden = true;
+      els.signIn.setAttribute("aria-hidden", "true");
+    }
+    if (els.account) els.account.hidden = false;
+    if (els.button) {
+      els.button.disabled = false;
+      els.button.removeAttribute("aria-busy");
+      els.button.title = name;
+    }
+    if (els.staff) els.staff.hidden = !isAdmin;
+
     const face = els.button?.querySelector(".twitch-face");
     if (face) face.classList.toggle("has-twitch", twitchLinked);
     if (els.name) els.name.textContent = name;
@@ -317,8 +397,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     }
     if (els.status) els.status.textContent = `Signed in as ${name}.`;
     if (els.level) {
-      els.level.hidden = false;
-      els.level.textContent = trainer?.level ? `Lv. ${trainer.level}` : "";
+      els.level.textContent = trainer?.level ? `Lv. ${trainer.level}` : "Lv. ·";
     }
     if (els.trainer) {
       if (trainer) {
@@ -339,19 +418,15 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (firstPaint && signedIn && typeof window.playShowNotices === "function") {
       window.playShowNotices();
     }
-    if (avatar && els.avatar) {
-      els.avatar.hidden = false;
-      els.avatar.src = avatar;
-      els.avatar.alt = name;
-      if (els.fallback) els.fallback.hidden = true;
-    } else if (els.fallback) {
-      if (els.avatar) {
-        els.avatar.hidden = true;
-        els.avatar.removeAttribute("src");
-      }
-      els.fallback.hidden = false;
-      els.fallback.textContent = name.slice(0, 1).toUpperCase();
-    }
+    const letter = name.slice(0, 1).toUpperCase() || "T";
+    paintAvatar(avatar, letter);
+    if (els.avatar) els.avatar.alt = name;
+    writePresentCache({
+      name,
+      level: Number(trainer?.level || 0) || 0,
+      avatar,
+      letter
+    });
   };
 
   if (els.signIn) {

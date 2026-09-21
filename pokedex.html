@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260920-rc58">
+<link rel="stylesheet" href="css/play.css?v=20260921-rc59">
 <body data-page="pokedex">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -70,56 +70,48 @@
     </section>
     <section class="card body" id="dex-variants"></section>
     <section class="card body dex-toolbar">
+      <div id="dex-counters" class="dex-counters" aria-live="polite"></div>
       <p id="dex-summary" class="muted"></p>
       <p id="dex-boundary-notice" class="notice" hidden role="status"></p>
       <div class="dex-filters">
         <label class="dex-search-label">Search Kanto Pokédex
           <input id="dex-search" class="dex-search" type="search" placeholder="Bulbasaur, 025, Mew…" autocomplete="off">
         </label>
-        <label>Form
-          <select id="filter-form">
-            <option value="all">All</option>
-            <option value="normal">Normal</option>
-            <option value="female">Female</option>
-            <option value="shiny">Shiny</option>
-          </select>
-        </label>
-        <label>Gender
-          <select id="filter-gender">
-            <option value="all">All</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Genderless">Genderless</option>
-          </select>
-        </label>
         <label>Status
           <select id="filter-status">
             <option value="all">All</option>
             <option value="caught">Caught</option>
-            <option value="seen">Seen</option>
+            <option value="seen">Seen only</option>
             <option value="unknown">Unknown</option>
           </select>
         </label>
       </div>
     </section>
     <div id="dex-grid" class="pokedex-grid"></div>
+    <section id="dex-detail" class="card body dex-detail" hidden>
+      <div class="dex-detail-head">
+        <h2>Pokédex Entry</h2>
+        <button id="dex-detail-close" class="button secondary" type="button">Close</button>
+      </div>
+      <div id="dex-detail-panel"></div>
+    </section>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260920-rc58"></script>
-<script src="js/play-perf.js?v=20260920-rc58"></script>
-<script src="js/build.js?v=20260920-rc58"></script>
-<script src="js/build-client.js?v=20260920-rc58"></script>
-<script src="js/auth.js?v=20260920-rc58"></script>
-<script src="js/species.js?v=20260920-rc58"></script>
-<script src="js/variants.js?v=20260920-rc58"></script>
-<script src="js/forms.js?v=20260920-rc58"></script>
-<script src="js/game.js?v=20260920-rc58"></script>
-<script src="js/play-present.js?v=20260920-rc58"></script>
-<script src="js/play-encounter-state.js?v=20260920-rc58"></script>
-<script src="js/trainers.js?v=20260920-rc58"></script>
-<script src="js/team.js?v=20260920-rc58"></script>
-<script src="js/nav.js?v=20260920-rc58"></script>
-<script src="js/special-events.js?v=20260920-rc58"></script>
-<script src="js/pokedex.js?v=20260920-rc58"></script>
+<script src="js/config.js?v=20260921-rc59"></script>
+<script src="js/play-perf.js?v=20260921-rc59"></script>
+<script src="js/build.js?v=20260921-rc59"></script>
+<script src="js/build-client.js?v=20260921-rc59"></script>
+<script src="js/auth.js?v=20260921-rc59"></script>
+<script src="js/species.js?v=20260921-rc59"></script>
+<script src="js/variants.js?v=20260921-rc59"></script>
+<script src="js/forms.js?v=20260921-rc59"></script>
+<script src="js/game.js?v=20260921-rc59"></script>
+<script src="js/play-present.js?v=20260921-rc59"></script>
+<script src="js/play-encounter-state.js?v=20260921-rc59"></script>
+<script src="js/trainers.js?v=20260921-rc59"></script>
+<script src="js/team.js?v=20260921-rc59"></script>
+<script src="js/nav.js?v=20260921-rc59"></script>
+<script src="js/special-events.js?v=20260921-rc59"></script>
+<script src="js/pokedex.js?v=20260921-rc59"></script>
 </body>

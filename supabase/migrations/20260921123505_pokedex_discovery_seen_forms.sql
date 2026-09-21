@@ -2,7 +2,8 @@
 -- SEEN registration point = play_join (valid participation), plus catch safety net.
 -- Remove passive play_snapshot Seen (page poll must not discover).
 -- Safe historical backfill: every caught species => seen.
--- Do NOT backfill Seen from historical encounter rounds (TEST/admin uncertainty).
+-- OWNER DECISION (2026-09-21): Seen is forward-only beyond that caught→seen fill.
+-- Do NOT backfill Seen from historical encounter_players / uncaught joins.
 
 create table if not exists public.form_seen (
   user_id uuid not null references public.profiles(id) on delete cascade,

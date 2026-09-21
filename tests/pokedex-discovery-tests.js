@@ -32,7 +32,11 @@ assert(!/chip shiny/.test(pokedexJs), "no shiny chips on main grid");
 assert(migration.includes("mark_seen(uid, r.dex, r.pokemon_form_id)"), "join registers form-aware seen");
 assert(migration.includes("Discovery is join/catch authoritative"), "snapshot seen removed");
 assert(migration.includes("from public.catches c"), "caught→seen backfill present");
-assert(!/encounter_players/.test(migration.split("-- Safe backfill")[1] || ""), "no encounter mass backfill");
+assert(
+  !/insert into public\.species_seen[\s\S]*encounter_players/i.test(migration),
+  "no encounter_players→seen historical backfill"
+);
+assert(migration.includes("forward-only") || migration.includes("Do NOT backfill Seen from historical encounter"), "forward-only policy recorded");
 
 console.log(`${passed}/${passed + failed} passed`);
 process.exit(failed ? 1 : 0);

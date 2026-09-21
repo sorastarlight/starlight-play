@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260920-rc54">
+<link rel="stylesheet" href="css/play.css?v=20260920-rc55">
 <body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -153,20 +153,56 @@
     </section>
 
     <section id="evo-tab-evolve" class="evo-tab-panel evo-lab-bay" role="tabpanel" aria-labelledby="tab-evolve" data-bay="evolve" hidden>
-      <div class="evo-evolve-summary" aria-label="Evolution Research summary">
-        <div class="evo-evolve-summary-copy">
-          <p class="evo-station-context" id="evo-evolve-context">Evolve Pokémon you already own.</p>
-          <p class="evo-evolve-done"><strong id="evo-evolved-count">0</strong> Evolutions Completed</p>
+      <div class="evo-evolve-board">
+        <aside class="evo-evolve-intro" aria-labelledby="evo-evolve-intro-title">
+          <div class="evo-evolve-intro-mark" aria-hidden="true">
+            <img src="images/items/lgpe-candy.png" alt="" width="56" height="56" decoding="async">
+          </div>
+          <h2 id="evo-evolve-intro-title">Evolution Research</h2>
+          <p class="evo-evolve-lede">Evolve Pokémon you already own.</p>
+          <p class="evo-evolve-blurb">Evolution can reveal remarkable changes in Pokémon! Each evolution helps us learn more about how Pokémon grow and adapt.</p>
+        </aside>
+        <div class="evo-evolve-collection-panel" aria-labelledby="evo-mons-title">
+          <h2 id="evo-mons-title">Your Collection</h2>
+          <div class="evo-evolve-metrics" role="group" aria-label="Evolution collection overview">
+            <div class="evo-metric evo-metric-progress">
+              <p class="evo-metric-label" id="evo-kanto-label">Kanto Evolutions</p>
+              <p class="evo-metric-value">
+                <strong id="evo-kanto-done">0</strong>
+                <span aria-hidden="true"> / </span>
+                <span id="evo-kanto-total">0</span>
+              </p>
+              <div class="evo-kanto-meter" role="progressbar" id="evo-kanto-meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="evo-kanto-label">
+                <i id="evo-kanto-fill" style="width:0%"></i>
+              </div>
+              <p class="evo-metric-pct" id="evo-kanto-pct">0%</p>
+            </div>
+            <div class="evo-metric evo-metric-candy" title="Sum of Evolution Candy across all Evolution Lines — not a single spendable wallet">
+              <p class="evo-metric-label">Total Evolution Candy</p>
+              <p class="evo-metric-value">
+                <img class="evo-candy-total-mark" src="images/items/lgpe-candy.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+                <strong id="evo-candy-count">0</strong>
+              </p>
+              <p class="evo-metric-note muted">across your Evolution Lines</p>
+            </div>
+            <div class="evo-metric evo-metric-ready">
+              <p class="evo-metric-label">Pokémon Ready to Evolve</p>
+              <p class="evo-metric-value"><strong id="evo-ready-display">0</strong></p>
+              <button type="button" class="evo-view-ready" id="evo-view-ready">View ready Pokémon →</button>
+            </div>
+          </div>
+          <div id="evo-filters" class="evo-chips evo-evolve-filters" role="group" aria-label="Evolution filters">
+            <button type="button" class="evo-chip" data-filter="all" aria-pressed="true">All <span data-count="all">0</span></button>
+            <button type="button" class="evo-chip" data-filter="ready" aria-pressed="false">Ready <span data-count="ready">0</span></button>
+            <button type="button" class="evo-chip" data-filter="candy" aria-pressed="false">Needs Candy <span data-count="candy">0</span></button>
+            <button type="button" class="evo-chip" data-filter="item" aria-pressed="false">Needs Item <span data-count="item">0</span></button>
+            <button type="button" class="evo-chip" data-filter="trade" aria-pressed="false">Trade Evolution <span data-count="trade">0</span></button>
+          </div>
+          <p id="evo-ready-note" class="evo-collection-meta muted visually-hidden"></p>
+          <span class="visually-hidden" id="evo-evolved-count">0</span>
         </div>
-        <p class="evo-evolve-candy-total" title="Sum of Evolution Candy across all Evolution Lines — not a single spendable wallet">
-          <img class="evo-candy-total-mark" src="images/items/lgpe-candy.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
-          <span>
-            <strong id="evo-candy-count">0</strong>
-            <span class="evo-evolve-candy-label">Total Evolution Candy</span>
-            <span class="muted">collected across your Evolution Lines</span>
-          </span>
-        </p>
       </div>
+
       <details class="evo-research-notes">
         <summary>Research Notes ▸</summary>
         <div class="evo-research-body">
@@ -177,42 +213,29 @@
           <p class="evo-research-aside">Research, Discover, Evolve, Together!</p>
         </div>
       </details>
-      <section class="evo-block evo-collection" aria-labelledby="evo-mons-title">
-        <div class="evo-collection-bar">
-          <div class="evo-collection-heading">
-            <h2 id="evo-mons-title">Your Collection</h2>
-            <p id="evo-ready-note" class="evo-collection-meta muted"></p>
-          </div>
-          <div class="evo-toolbar evo-evolve-toolbar">
-            <div id="evo-filters" class="evo-chips" role="group" aria-label="Evolution filters">
-              <button type="button" class="evo-chip" data-filter="all" aria-pressed="true">All <span data-count="all">0</span></button>
-              <button type="button" class="evo-chip" data-filter="ready" aria-pressed="false">Ready <span data-count="ready">0</span></button>
-              <button type="button" class="evo-chip" data-filter="candy" aria-pressed="false">Needs Candy <span data-count="candy">0</span></button>
-              <button type="button" class="evo-chip" data-filter="item" aria-pressed="false">Needs Item <span data-count="item">0</span></button>
-              <button type="button" class="evo-chip" data-filter="trade" aria-pressed="false">Trade Evolution <span data-count="trade">0</span></button>
-            </div>
-            <label class="evo-search-label">Search Pokémon
-              <input id="evo-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
-            </label>
-            <label class="evo-search-label">Sort
-              <select id="evo-sort" class="evo-sort">
-                <option value="dex-asc" selected>Dex #</option>
-                <option value="dex-desc">Dex # ↓</option>
-                <option value="name">Name A→Z</option>
-                <option value="ready">Ready first</option>
-              </select>
-            </label>
-            <select id="evo-filter" hidden>
-              <option value="all" selected>All</option>
-              <option value="ready">Ready</option>
-              <option value="candy">Needs Candy</option>
-              <option value="item">Needs Item</option>
-              <option value="trade">Trade Evolution</option>
-            </select>
-          </div>
-        </div>
-        <div id="evo-grid" class="evo-mons"></div>
-      </section>
+
+      <div class="evo-evolve-tools">
+        <label class="evo-search-label">Search Pokémon
+          <input id="evo-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
+        </label>
+        <label class="evo-search-label">Sort by
+          <select id="evo-sort" class="evo-sort">
+            <option value="dex-asc" selected>Dex # (Ascending)</option>
+            <option value="dex-desc">Dex # (Descending)</option>
+            <option value="name">Name A→Z</option>
+            <option value="ready">Ready first</option>
+          </select>
+        </label>
+        <select id="evo-filter" hidden>
+          <option value="all" selected>All</option>
+          <option value="ready">Ready</option>
+          <option value="candy">Needs Candy</option>
+          <option value="item">Needs Item</option>
+          <option value="trade">Trade Evolution</option>
+        </select>
+      </div>
+
+      <div id="evo-grid" class="evo-mons"></div>
 
       <section class="evo-block" aria-labelledby="evo-lines-title">
         <h2 id="evo-lines-title">Evolution Lines</h2>
@@ -303,20 +326,20 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260920-rc54"></script>
-<script src="js/play-perf.js?v=20260920-rc54"></script>
-<script src="js/build.js?v=20260920-rc54"></script>
-<script src="js/build-client.js?v=20260920-rc54"></script>
-<script src="js/auth.js?v=20260920-rc54"></script>
-<script src="js/species.js?v=20260920-rc54"></script>
-<script src="js/variants.js?v=20260920-rc54"></script>
-<script src="js/forms.js?v=20260920-rc54"></script>
-<script src="js/game.js?v=20260920-rc54"></script>
-<script src="js/play-present.js?v=20260920-rc54"></script>
-<script src="js/play-encounter-state.js?v=20260920-rc54"></script>
-<script src="js/play-ux.js?v=20260920-rc54"></script>
-<script src="js/evolve-view.js?v=20260920-rc54"></script>
-<script src="js/oak-transfer.js?v=20260920-rc54"></script>
-<script src="js/nav.js?v=20260920-rc54"></script>
-<script src="js/evolve.js?v=20260920-rc54"></script>
+<script src="js/config.js?v=20260920-rc55"></script>
+<script src="js/play-perf.js?v=20260920-rc55"></script>
+<script src="js/build.js?v=20260920-rc55"></script>
+<script src="js/build-client.js?v=20260920-rc55"></script>
+<script src="js/auth.js?v=20260920-rc55"></script>
+<script src="js/species.js?v=20260920-rc55"></script>
+<script src="js/variants.js?v=20260920-rc55"></script>
+<script src="js/forms.js?v=20260920-rc55"></script>
+<script src="js/game.js?v=20260920-rc55"></script>
+<script src="js/play-present.js?v=20260920-rc55"></script>
+<script src="js/play-encounter-state.js?v=20260920-rc55"></script>
+<script src="js/play-ux.js?v=20260920-rc55"></script>
+<script src="js/evolve-view.js?v=20260920-rc55"></script>
+<script src="js/oak-transfer.js?v=20260920-rc55"></script>
+<script src="js/nav.js?v=20260920-rc55"></script>
+<script src="js/evolve.js?v=20260920-rc55"></script>
 </body>

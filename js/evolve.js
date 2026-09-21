@@ -41,6 +41,13 @@
     candyCount: document.getElementById("evo-candy-count"),
     evolvedCount: document.getElementById("evo-evolved-count"),
     doneCount: document.getElementById("evo-done-count"),
+    readyDisplay: document.getElementById("evo-ready-display"),
+    kantoDone: document.getElementById("evo-kanto-done"),
+    kantoTotal: document.getElementById("evo-kanto-total"),
+    kantoFill: document.getElementById("evo-kanto-fill"),
+    kantoMeter: document.getElementById("evo-kanto-meter"),
+    kantoPct: document.getElementById("evo-kanto-pct"),
+    viewReady: document.getElementById("evo-view-ready"),
     historyBlock: document.getElementById("evo-history-block"),
     history: document.getElementById("evo-history"),
     modal: document.getElementById("evo-modal"),
@@ -582,11 +589,15 @@
     const id = candyIdentity(row);
     const haveN = Number(have ?? row.haveCandy ?? 0);
     const needN = Number(need ?? row.candyCost ?? 0);
+    const shortfall = Math.max(0, needN - haveN);
     const ready = needN > 0 && haveN >= needN;
-    const short = needN > haveN ? `Needs ${needN - haveN} more` : (ready ? "READY TO EVOLVE" : "");
     return `<span class="evo-cost-candy">
       <img src="${esc(id.art)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy">
-      <span>${esc(id.label)} · ${haveN} / ${needN} required${short ? ` · ${esc(short)}` : ""}</span>
+      <span class="evo-cost-candy-copy">
+        <strong>${esc(id.label)}</strong>
+        <span>${haveN} / ${needN} required</span>
+        ${ready ? `<span class="evo-cost-state is-ready">READY TO EVOLVE</span>` : (shortfall ? `<span class="evo-cost-state is-need">Needs ${shortfall} more</span>` : "")}
+      </span>
     </span>`;
   }
 
@@ -606,10 +617,24 @@
     const tally = counts();
     const candyTotal = Number(data?.stats?.candyTotal || 0);
     const evolved = Number(data?.stats?.evolved || 0);
+    const kanto = data?.stats?.kantoEvolutions || {};
+    const kantoDone = Number(kanto.completed || 0);
+    const kantoTotal = Number(kanto.total || 0);
+    const kantoPct = kantoTotal > 0 ? Math.max(0, Math.min(100, Math.round((kantoDone / kantoTotal) * 100))) : 0;
     if (els.readyCount) els.readyCount.textContent = String(tally.ready);
+    if (els.readyDisplay) els.readyDisplay.textContent = String(tally.ready);
     if (els.candyCount) els.candyCount.textContent = String(candyTotal);
     if (els.evolvedCount) els.evolvedCount.textContent = String(evolved);
     if (els.doneCount) els.doneCount.textContent = String(evolved);
+    if (els.kantoDone) els.kantoDone.textContent = String(kantoDone);
+    if (els.kantoTotal) els.kantoTotal.textContent = String(kantoTotal);
+    if (els.kantoFill) els.kantoFill.style.width = `${kantoPct}%`;
+    if (els.kantoPct) els.kantoPct.textContent = `${kantoPct}%`;
+    if (els.kantoMeter) {
+      els.kantoMeter.setAttribute("aria-valuenow", String(kantoPct));
+      els.kantoMeter.setAttribute("aria-valuetext", `${kantoDone} of ${kantoTotal} Kanto evolutions complete, ${kantoPct} percent`);
+    }
+    if (els.viewReady) els.viewReady.disabled = tally.ready < 1;
     if (els.strip) els.strip.hidden = true;
     const eligible = sendableMons().filter((mon) => !mon.oakBlocked).length;
     if (els.xferAvailable) els.xferAvailable.textContent = String(eligible);
@@ -1692,6 +1717,12 @@
     if (!chip) return;
     setFilter(chip.dataset.filter);
     renderReady();
+  });
+  els.viewReady?.addEventListener("click", () => {
+    setFilter("ready");
+    renderReady();
+    const reduce = window.playPerfReduced?.() || window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    els.grid?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   });
   els.search?.addEventListener("input", renderReady);
   els.sort?.addEventListener("change", renderReady);

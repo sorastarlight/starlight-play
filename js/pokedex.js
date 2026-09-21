@@ -4,9 +4,9 @@
     gate: document.getElementById("gate"),
     app: document.getElementById("dex-app"),
     summary: document.getElementById("dex-summary"),
+    notice: document.getElementById("dex-boundary-notice"),
     grid: document.getElementById("dex-grid"),
-    region: document.getElementById("filter-region"),
-    gen: document.getElementById("filter-gen"),
+    search: document.getElementById("dex-search"),
     form: document.getElementById("filter-form"),
     gender: document.getElementById("filter-gender"),
     status: document.getElementById("filter-status"),
@@ -24,6 +24,18 @@
       window.playRestoreGate(els.gate, "Sign in to open your Pokédex.");
     }
   });
+
+  function releasedDexList() {
+    return window.playReleasedDexList ? window.playReleasedDexList() : Array.from({ length: 151 }, (_, i) => i + 1);
+  }
+
+  function isReleasedDex(dex) {
+    return window.playIsReleasedDex ? window.playIsReleasedDex(dex) : (Number(dex) >= 1 && Number(dex) <= 151);
+  }
+
+  function releasedTotal() {
+    return window.playReleasedDexTotal ? window.playReleasedDexTotal() : 151;
+  }
 
   function entryFor(dex, data) {
     const name = window.playSpeciesName(dex);
@@ -49,9 +61,10 @@
   }
 
   function matches(entry) {
-    const form = els.form.value;
-    const gender = els.gender.value;
-    const status = els.status.value;
+    const form = els.form?.value || "all";
+    const gender = els.gender?.value || "all";
+    const status = els.status?.value || "all";
+    const q = String(els.search?.value || "").trim();
     if (status === "caught" && !entry.caught) return false;
     if (status === "seen" && (!entry.seen || entry.caught)) return false;
     if (status === "unknown" && entry.seen) return false;
@@ -59,12 +72,20 @@
     if (form === "female" && !entry.forms.female) return false;
     if (form === "shiny" && !entry.forms.shiny) return false;
     if (gender !== "all" && !entry.genders[gender]) return false;
+    if (q) {
+      const hits = window.playParseSpeciesQuery
+        ? window.playParseSpeciesQuery(q, { releasedOnly: true })
+        : [];
+      // Empty released-only parse = no Kanto hit (blocks Chikorita / #152 / etc.).
+      if (!hits.length) return false;
+      return hits.some((hit) => Number(hit.dex) === entry.dex);
+    }
     return true;
   }
 
   function spriteFor(entry) {
-    const form = els.form.value;
-    const gender = els.gender.value;
+    const form = els.form?.value || "all";
+    const gender = els.gender?.value || "all";
     const wantShiny = form === "shiny";
     const wantFemale = form === "female" || gender === "Female";
     if (wantShiny && wantFemale) return window.playSpriteUrl(entry.dex, "shiny-female");
@@ -83,33 +104,74 @@
     window.playRenderTeamSlots(els.team, dexData?.team, { mine: Boolean(dexData?.mine) });
   }
 
+  function showBoundaryNotice(show) {
+    if (!els.notice) return;
+    els.notice.hidden = !show;
+    if (show) els.notice.textContent = "This Pokédex entry isn't currently available.";
+  }
+
+  function clearUnreleasedRoute() {
+    try {
+      const url = new URL(window.location.href);
+      let dirty = false;
+      ["pokemon", "dex", "species", "id"].forEach((key) => {
+        if (!url.searchParams.has(key)) return;
+        const value = Number(url.searchParams.get(key));
+        if (!isReleasedDex(value)) {
+          url.searchParams.delete(key);
+          dirty = true;
+        }
+      });
+      if (url.hash) {
+        const hashDex = Number(String(url.hash).replace(/^#0*/, ""));
+        if (Number.isFinite(hashDex) && hashDex > 0 && !isReleasedDex(hashDex)) {
+          url.hash = "";
+          dirty = true;
+        }
+      }
+      if (dirty) {
+        window.history.replaceState(null, "", url);
+        showBoundaryNotice(true);
+        return true;
+      }
+    } catch (_) {}
+    return false;
+  }
+
   function render() {
     if (!dexData) return;
     renderTeam();
-    const names = window.PLAY_SPECIES || [];
-    const catalog = window.PLAY_VARIANTS || {};
-    const dexList = Object.keys(catalog).map(Number).filter((n) => Number.isFinite(n)).sort((a, b) => a - b);
-    const total = dexList.length || names.length || 0;
+    const total = releasedTotal();
+    const dexList = releasedDexList();
     const entries = dexList.map((dex) => entryFor(dex, dexData));
     const visible = entries.filter(matches);
     const caught = entries.filter((row) => row.caught).length;
     const seen = entries.filter((row) => row.seen).length;
     const pct = total ? (caught / total * 100).toFixed(1) : "0.0";
     const v = dexData.variants || {};
-    const nationalCaught = v.nationalCaught != null ? v.nationalCaught : caught;
-    const nationalTotal = v.nationalTotal || total;
-    els.summary.textContent = caught
-      ? `National Pokédex ${nationalCaught}/${nationalTotal} · ${pct}% · ${seen} seen · ${Math.max(0, nationalTotal - seen)} unknown`
-      : `National Pokédex 0/${nationalTotal} · Catch Pokémon during streams to register them here.`;
+    const kantoCaught = v.kantoCaught != null ? v.kantoCaught : caught;
+    const kantoTotal = v.kantoTotal || total;
+    const q = String(els.search?.value || "").trim();
+    const searchHits = q
+      ? (window.playParseSpeciesQuery?.(q, { releasedOnly: true }) || [])
+      : null;
+    if (els.summary) {
+      if (q && searchHits && !searchHits.length) {
+        els.summary.textContent = `No Kanto Pokédex results for “${q}”.`;
+      } else {
+        els.summary.textContent = caught
+          ? `Kanto Pokédex ${kantoCaught}/${kantoTotal} · ${pct}% · ${seen} seen · ${Math.max(0, kantoTotal - seen)} unknown`
+          : `Kanto Pokédex 0/${kantoTotal} · Catch Pokémon during streams to register them here.`;
+      }
+    }
     if (els.variants) {
       els.variants.innerHTML = caught
         ? `
         <h2>Collection variants</h2>
-        <p class="muted">Variants do not count as extra National Pokédex species.</p>
+        <p class="muted">Forms and variants stay under their Kanto species. They do not add extra Pokédex slots.</p>
         <dl class="sim-grid">
-          <div><dt>National</dt><dd>${nationalCaught} / ${nationalTotal}</dd></div>
-          <div><dt>Kanto</dt><dd>${v.kantoCaught || 0} / ${v.kantoTotal || 151}</dd></div>
-          <div><dt>Shinies</dt><dd>${v.shinySpecies || 0} / ${v.shinyEligible || nationalTotal} eligible</dd></div>
+          <div><dt>Kanto</dt><dd>${kantoCaught} / ${kantoTotal}</dd></div>
+          <div><dt>Shinies</dt><dd>${v.shinySpecies || 0} / ${v.shinyEligible || kantoTotal} eligible</dd></div>
           <div><dt>Female variants</dt><dd>${v.femaleVariants || 0} / ${v.femaleEligible || 0} eligible</dd></div>
           <div><dt>Shiny female</dt><dd>${v.shinyFemale || 0}</dd></div>
         </dl>`
@@ -141,14 +203,16 @@
       const candy = entry.familyCandy ? ` · ${entry.familyCandy.qty} Evolution Candy` : "";
       const stars = entry.mastery ? ` · ${"★".repeat(entry.mastery.rank || 0)}${"☆".repeat(Math.max(0, 5 - (entry.mastery.rank || 0)))}` : "";
       const note = badges || owned || candy || stars || (state === "unseen" ? "Not seen" : "");
-      return `<article class="dex-cell ${state}" title="${entry.caught || entry.seen ? `${window.playEscapeAttr(entry.name)}${owned}${candy}${stars}` : "Not seen yet"}">
+      return `<article class="dex-cell ${state}" data-dex="${entry.dex}" title="${entry.caught || entry.seen ? `${window.playEscapeAttr(entry.name)}${owned}${candy}${stars}` : "Not seen yet"}">
         ${mark}
         <span class="dex-no">No. ${window.playPadDex(entry.dex)}</span>
         <img src="${spriteFor(entry)}" alt="" class="${spriteClass}">
         <strong>${label}</strong>
         ${note ? `<span>${note}</span>` : ""}
       </article>`;
-    }).join("");
+    }).join("") || (q
+      ? `<p class="muted dex-empty-search">No Kanto Pokédex results.</p>`
+      : "");
     if (caught > 0 && entries.some((row) => row.mastery && Number(row.mastery.points || row.mastery.rank || 0) > 0)
       && typeof window.playTipHtml === "function"
       && !window.playTipDone?.("first-mastery")) {
@@ -183,12 +247,14 @@
     }
     window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
     try {
+      clearUnreleasedRoute();
       dexData = await window.playCall("play_pokedex", { p_login: null });
       try { collection = await window.playCall("play_collection"); } catch (_) { collection = null; }
       try {
         const events = await window.playCall("play_special_events");
         (events?.upcoming || []).concat(events?.live ? [events.live] : []).forEach((row) => {
-          if (row?.dex) announcedEvents.add(Number(row.dex));
+          const dex = Number(row?.dex);
+          if (isReleasedDex(dex)) announcedEvents.add(dex);
         });
       } catch (_) {}
       els.gate.hidden = true;
@@ -214,8 +280,15 @@
   );
 
   window.playBindTips?.(document.body);
-  ["region", "gen", "form", "gender", "status"].forEach((key) => {
-    els[key].addEventListener("change", render);
+  ["form", "gender", "status"].forEach((key) => {
+    els[key]?.addEventListener("change", render);
+  });
+  els.search?.addEventListener("input", () => {
+    showBoundaryNotice(false);
+    render();
+  });
+  window.addEventListener("hashchange", () => {
+    if (clearUnreleasedRoute()) render();
   });
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });
   load();

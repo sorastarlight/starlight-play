@@ -968,6 +968,27 @@
     return Array.isArray(catalog[id]) || Array.isArray(catalog[String(id)]);
   };
 
+  // Player-facing release roster for Kanto v1.0. Reference catalog may be larger.
+  window.playReleasedDexMax = function playReleasedDexMax() {
+    return 151;
+  };
+
+  window.playIsReleasedDex = function playIsReleasedDex(dex) {
+    const id = Number(dex);
+    return Number.isFinite(id) && id >= 1 && id <= window.playReleasedDexMax();
+  };
+
+  window.playReleasedDexTotal = function playReleasedDexTotal() {
+    return window.playReleasedDexMax();
+  };
+
+  window.playReleasedDexList = function playReleasedDexList() {
+    const max = window.playReleasedDexMax();
+    const out = [];
+    for (let dex = 1; dex <= max; dex += 1) out.push(dex);
+    return out;
+  };
+
   window.playNationalTotal = function playNationalTotal() {
     return Object.keys(window.PLAY_VARIANTS || {}).length || 0;
   };
@@ -977,14 +998,19 @@
     return keys.length ? Math.max(...keys) : (window.PLAY_SPECIES || []).length || 0;
   };
 
-  window.playParseSpeciesQuery = function playParseSpeciesQuery(text) {
+  window.playParseSpeciesQuery = function playParseSpeciesQuery(text, opts) {
     const raw = String(text || "").trim();
     if (!raw) return [];
+    const releasedOnly = Boolean(opts?.releasedOnly);
+    const allow = (dex) => {
+      if (releasedOnly) return window.playIsReleasedDex(dex);
+      return window.playDexExists(dex);
+    };
     const names = window.PLAY_SPECIES || [];
     const numbered = raw.match(/^0*(\d{1,4})(?:\s+(.+))?$/);
     if (numbered) {
       const n = Number(numbered[1]);
-      if (window.playDexExists(n)) {
+      if (allow(n)) {
         const name = names[n - 1] || `Dex ${n}`;
         const rest = (numbered[2] || "").trim().toLowerCase();
         if (!rest || name.toLowerCase() === rest || name.toLowerCase().startsWith(rest)) {
@@ -998,7 +1024,7 @@
     const prefix = [];
     names.forEach((name, index) => {
       const dex = index + 1;
-      if (!window.playDexExists(dex)) return;
+      if (!allow(dex)) return;
       const lower = String(name || "").toLowerCase();
       if (lower === q) exact.push({ dex, name });
       else if (lower.startsWith(q)) prefix.push({ dex, name });

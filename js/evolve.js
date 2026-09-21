@@ -275,36 +275,54 @@
     } catch (_) {}
   }
 
+  function preserveLabScroll(run) {
+    const x = window.scrollX || window.pageXOffset || 0;
+    const y = window.scrollY || window.pageYOffset || 0;
+    const restore = () => {
+      try { window.scrollTo(x, y); } catch (_) {}
+    };
+    run();
+    restore();
+    requestAnimationFrame(() => {
+      restore();
+      requestAnimationFrame(restore);
+    });
+  }
+
   function setTab(tab, opts = {}) {
     const next = tab === "evolve" ? "evolve" : (tab === "research" ? "research" : "send");
-    activeTab = next;
-    if (opts.track) rememberResearchTrack(opts.track);
-    els.tabs?.querySelectorAll("[data-tab]").forEach((btn) => {
-      const on = btn.dataset.tab === activeTab;
-      btn.setAttribute("aria-selected", on ? "true" : "false");
-      btn.tabIndex = on ? 0 : -1;
-      btn.classList.toggle("is-active", on);
+    preserveLabScroll(() => {
+      activeTab = next;
+      if (opts.track) rememberResearchTrack(opts.track);
+      els.tabs?.querySelectorAll("[data-tab]").forEach((btn) => {
+        const on = btn.dataset.tab === activeTab;
+        btn.setAttribute("aria-selected", on ? "true" : "false");
+        btn.tabIndex = on ? 0 : -1;
+        btn.classList.toggle("is-active", on);
+      });
+      if (els.tabSend) els.tabSend.hidden = activeTab !== "send";
+      if (els.tabEvolve) els.tabEvolve.hidden = activeTab !== "evolve";
+      if (els.tabResearch) els.tabResearch.hidden = activeTab !== "research";
+      document.body.dataset.labStation = activeTab;
+      document.body.dataset.labResearchTrack = activeTab === "research" ? activeResearchTrack : "";
+      refreshOakBubble();
+      if (activeTab === "research") loadResearch();
+      if (!opts.skipHash) writeLabHash();
     });
-    if (els.tabSend) els.tabSend.hidden = activeTab !== "send";
-    if (els.tabEvolve) els.tabEvolve.hidden = activeTab !== "evolve";
-    if (els.tabResearch) els.tabResearch.hidden = activeTab !== "research";
-    document.body.dataset.labStation = activeTab;
-    document.body.dataset.labResearchTrack = activeTab === "research" ? activeResearchTrack : "";
-    refreshOakBubble();
-    if (activeTab === "research") loadResearch();
-    if (!opts.skipHash) writeLabHash();
   }
 
   function setResearchTrack(trackId, opts = {}) {
-    rememberResearchTrack(trackId);
-    document.body.dataset.labResearchTrack = activeResearchTrack;
-    if (activeTab === "research") {
+    if (activeTab !== "research") {
+      setTab("research", { track: trackId, skipHash: opts.skipHash });
+      return;
+    }
+    preserveLabScroll(() => {
+      rememberResearchTrack(trackId);
+      document.body.dataset.labResearchTrack = activeResearchTrack;
       renderResearch();
       refreshOakBubble();
       if (!opts.skipHash) writeLabHash();
-    } else {
-      setTab("research", { track: activeResearchTrack, skipHash: opts.skipHash });
-    }
+    });
   }
 
   function rewardLines(rewards) {
@@ -1617,7 +1635,7 @@
     else return;
     event.preventDefault();
     setTab(tabs[next].dataset.tab);
-    tabs[next].focus();
+    tabs[next].focus({ preventScroll: true });
   });
 
   els.app?.addEventListener("click", (event) => {

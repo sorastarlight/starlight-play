@@ -337,7 +337,12 @@
     if (formBadge) classBadges.push(infoBadge(formBadge.code, formBadge.className, formBadge.sub));
     if (shiny) classBadges.push(infoBadge("SHINY", "se-badge-shiny", null));
 
-    const hasRegional = forms.some((f) => String(f.kind || "").toLowerCase() === "regional" || /alol|galar|hisui|paldea/i.test(String(f.formKey || f.formLabel || "")));
+    const hasRegional = forms.some((f) => {
+      const kind = String(f.kind || "").toLowerCase();
+      if (kind === "regional") return true;
+      const key = String(f.formKey || "").toLowerCase();
+      return key === "alolan" || key === "galarian" || key === "hisuian" || key === "paldean" || key === "totem";
+    });
     const formPills = forms.map((f) => {
       let label = f.formLabel || "Form";
       if (f.isBase) label = hasRegional ? "Kanto" : "Base";

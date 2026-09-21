@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260920-rc53">
+<link rel="stylesheet" href="css/play.css?v=20260920-rc54">
 <body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -78,13 +78,6 @@
       <h1 id="evo-lab-title">Professor Oak's Lab</h1>
       <p class="evo-lab-sub">Pokémon Research &amp; Evolution Laboratory</p>
       <p id="evo-oak-bubble" class="evo-oak-msg" role="status">Have any duplicate Pokémon? Send them my way for research!</p>
-    </div>
-    <div class="evo-lab-candy-res" title="Evolution Candy">
-      <img src="images/items/lgpe-candy.png" alt="" width="28" height="28" decoding="async" aria-hidden="true">
-      <div>
-        <strong id="evo-candy-count">0</strong>
-        <span>Evolution Candy</span>
-      </div>
     </div>
   </header>
   <p id="gate" class="notice">Sign in to visit Prof. Oak's Lab.</p>
@@ -160,12 +153,25 @@
     </section>
 
     <section id="evo-tab-evolve" class="evo-tab-panel evo-lab-bay" role="tabpanel" aria-labelledby="tab-evolve" data-bay="evolve" hidden>
-      <p class="evo-station-context" id="evo-evolve-context">Use Evolution Candy and special items to evolve Pokémon you own.</p>
+      <div class="evo-evolve-summary" aria-label="Evolution Research summary">
+        <div class="evo-evolve-summary-copy">
+          <p class="evo-station-context" id="evo-evolve-context">Evolve Pokémon you already own.</p>
+          <p class="evo-evolve-done"><strong id="evo-evolved-count">0</strong> Evolutions Completed</p>
+        </div>
+        <p class="evo-evolve-candy-total" title="Sum of Evolution Candy across all Evolution Lines — not a single spendable wallet">
+          <img class="evo-candy-total-mark" src="images/items/lgpe-candy.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+          <span>
+            <strong id="evo-candy-count">0</strong>
+            <span class="evo-evolve-candy-label">Total Evolution Candy</span>
+            <span class="muted">collected across your Evolution Lines</span>
+          </span>
+        </p>
+      </div>
       <details class="evo-research-notes">
         <summary>Research Notes ▸</summary>
         <div class="evo-research-body">
-          <p>Catch duplicate Pokémon from the same <strong>Evolution Line</strong> and send them to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong>.</p>
-          <p>Use Evolution Candy to evolve a Pokémon you already own. <strong>Evolution transforms that Pokémon into its evolved form—it does not create an additional copy.</strong></p>
+          <p>Catch duplicate Pokémon from the same <strong>Evolution Line</strong> and send them to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong> for that line.</p>
+          <p>Use that line's Evolution Candy to evolve a Pokémon you already own. <strong>Evolution transforms that Pokémon into its evolved form—it does not create an additional copy.</strong></p>
           <p>Some Pokémon also require special evolution items. <strong>Evolution Stones</strong> and <strong>Linking Cords</strong> can be purchased from the <a href="./store.html#evolution"><strong>Starlight Mart</strong></a>.</p>
           <p>Only Pokémon currently available in the game can be evolved into. While <strong>Kanto</strong> is the active region, evolutions or relatives introduced in later generations will remain locked until their corresponding content is released.</p>
           <p class="evo-research-aside">Research, Discover, Evolve, Together!</p>
@@ -219,7 +225,7 @@
           <img id="rare-candy-art" alt="" width="64" height="64">
           <div>
             <p id="rare-candy-owned" class="muted">Owned: 0</p>
-            <p>Convert 1 Rare Candy into 1 Evolution Candy.</p>
+            <p>Convert 1 Rare Candy into 1 Evolution Candy for a chosen Evolution Line.</p>
             <label class="field" for="rare-candy-family">Choose Evolution Line
               <select id="rare-candy-family"></select>
             </label>
@@ -297,20 +303,20 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260920-rc53"></script>
-<script src="js/play-perf.js?v=20260920-rc53"></script>
-<script src="js/build.js?v=20260920-rc53"></script>
-<script src="js/build-client.js?v=20260920-rc53"></script>
-<script src="js/auth.js?v=20260920-rc53"></script>
-<script src="js/species.js?v=20260920-rc53"></script>
-<script src="js/variants.js?v=20260920-rc53"></script>
-<script src="js/forms.js?v=20260920-rc53"></script>
-<script src="js/game.js?v=20260920-rc53"></script>
-<script src="js/play-present.js?v=20260920-rc53"></script>
-<script src="js/play-encounter-state.js?v=20260920-rc53"></script>
-<script src="js/play-ux.js?v=20260920-rc53"></script>
-<script src="js/evolve-view.js?v=20260920-rc53"></script>
-<script src="js/oak-transfer.js?v=20260920-rc53"></script>
-<script src="js/nav.js?v=20260920-rc53"></script>
-<script src="js/evolve.js?v=20260920-rc53"></script>
+<script src="js/config.js?v=20260920-rc54"></script>
+<script src="js/play-perf.js?v=20260920-rc54"></script>
+<script src="js/build.js?v=20260920-rc54"></script>
+<script src="js/build-client.js?v=20260920-rc54"></script>
+<script src="js/auth.js?v=20260920-rc54"></script>
+<script src="js/species.js?v=20260920-rc54"></script>
+<script src="js/variants.js?v=20260920-rc54"></script>
+<script src="js/forms.js?v=20260920-rc54"></script>
+<script src="js/game.js?v=20260920-rc54"></script>
+<script src="js/play-present.js?v=20260920-rc54"></script>
+<script src="js/play-encounter-state.js?v=20260920-rc54"></script>
+<script src="js/play-ux.js?v=20260920-rc54"></script>
+<script src="js/evolve-view.js?v=20260920-rc54"></script>
+<script src="js/oak-transfer.js?v=20260920-rc54"></script>
+<script src="js/nav.js?v=20260920-rc54"></script>
+<script src="js/evolve.js?v=20260920-rc54"></script>
 </body>

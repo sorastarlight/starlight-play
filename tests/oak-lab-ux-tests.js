@@ -60,14 +60,18 @@ test("Transfer, Evolution, and Research are workstation tabs", () => {
   assert(!html.includes("Lab Notes"), "Lab Notes must not be a primary workstation");
 });
 
-test("Counters live in stations / candy resource, not KPI row", () => {
+test("Counters live in Evolution workspace / stations, not floating header chip", () => {
+  assert(!html.includes("evo-lab-candy-res"), "floating header candy chip must be removed");
+  assert(html.includes("evo-evolve-summary"), "evolution workspace candy summary missing");
+  assert(html.includes("evo-candy-count"), "candy total counter missing");
+  assert(html.includes("Total Evolution Candy"), "total candy label missing");
+  assert(html.includes("collected across your Evolution Lines"), "line-specific total semantics missing");
   assert(html.includes("evo-xfer-available"), "transfer available metric missing");
   assert(html.includes("evo-ready-count"), "ready metric missing");
-  assert(html.includes("evo-lab-candy-res"), "candy resource chip missing");
   assert(html.includes("evo-done-count"), "evolutions completed metric missing");
-  assert(html.includes("evo-research-claimable-badge"), "claimable badge missing");
-  assert(!html.includes(">Ready</small>"), "legacy Ready KPI label must be gone");
   assert(js.includes("xferAvailable"), "xfer available wiring missing");
+  assert(js.includes("candyIdentity"), "line candy identity helper missing");
+  assert(js.includes("playSpriteUrl"), "candy sprite resolver wiring missing");
 });
 
 test("Research notes are collapsed by default", () => {

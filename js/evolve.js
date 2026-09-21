@@ -39,6 +39,7 @@
     strip: document.getElementById("evo-strip"),
     readyCount: document.getElementById("evo-ready-count"),
     candyCount: document.getElementById("evo-candy-count"),
+    evolvedCount: document.getElementById("evo-evolved-count"),
     doneCount: document.getElementById("evo-done-count"),
     historyBlock: document.getElementById("evo-history-block"),
     history: document.getElementById("evo-history"),
@@ -535,6 +536,60 @@
     }
   }
 
+  function familyForDex(dex) {
+    const id = Number(dex);
+    if (!id) return null;
+    return (data?.families || []).find((fam) =>
+      Number(fam.baseDex) === id
+      || Number(fam.familyId) === id
+      || (fam.members || []).some((member) => Number(member.dex) === id)
+    ) || null;
+  }
+
+  function candyBareName(raw) {
+    return String(raw || "")
+      .replace(/\s+Evolution\s+Candy$/i, "")
+      .replace(/\s+Candy$/i, "")
+      .replace(/\s+Evolution\s+Line$/i, "")
+      .trim();
+  }
+
+  /** Authoritative line candy identity: family mascot sprite + "{Species} Evolution Candy". */
+  function candyIdentity(row = {}) {
+    const famId = Number(row.familyId || 0);
+    let fam = famId
+      ? (data?.families || []).find((item) => Number(item.familyId) === famId)
+      : null;
+    if (!fam && row.dex) fam = familyForDex(row.dex);
+    const baseDex = Number(
+      row.candyBaseDex
+      || row.baseDex
+      || fam?.baseDex
+      || famId
+      || 0
+    );
+    const bare = candyBareName(row.familyName || row.candyName || fam?.name)
+      || (baseDex && window.playSpeciesName ? window.playSpeciesName(baseDex) : "")
+      || "Evolution Line";
+    const label = `${bare} Evolution Candy`;
+    const art = baseDex && typeof window.playSpriteUrl === "function"
+      ? window.playSpriteUrl(baseDex, "normal")
+      : (window.playEvolutionCandyFallback?.(baseDex) || "images/items/poke-ball.png");
+    return { baseDex, bare, label, art, familyId: famId || Number(fam?.familyId || 0) };
+  }
+
+  function candyChipHtml(row, { have, need, size = 28 } = {}) {
+    const id = candyIdentity(row);
+    const haveN = Number(have ?? row.haveCandy ?? 0);
+    const needN = Number(need ?? row.candyCost ?? 0);
+    const ready = needN > 0 && haveN >= needN;
+    const short = needN > haveN ? `Needs ${needN - haveN} more` : (ready ? "READY TO EVOLVE" : "");
+    return `<span class="evo-cost-candy">
+      <img src="${esc(id.art)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy">
+      <span>${esc(id.label)} · ${haveN} / ${needN} required${short ? ` · ${esc(short)}` : ""}</span>
+    </span>`;
+  }
+
   function counts() {
     const rows = readyRows();
     const owned = data?.owned || [];
@@ -550,9 +605,11 @@
   function renderHero() {
     const tally = counts();
     const candyTotal = Number(data?.stats?.candyTotal || 0);
+    const evolved = Number(data?.stats?.evolved || 0);
     if (els.readyCount) els.readyCount.textContent = String(tally.ready);
     if (els.candyCount) els.candyCount.textContent = String(candyTotal);
-    if (els.doneCount) els.doneCount.textContent = String(data?.stats?.evolved || 0);
+    if (els.evolvedCount) els.evolvedCount.textContent = String(evolved);
+    if (els.doneCount) els.doneCount.textContent = String(evolved);
     if (els.strip) els.strip.hidden = true;
     const eligible = sendableMons().filter((mon) => !mon.oakBlocked).length;
     if (els.xferAvailable) els.xferAvailable.textContent = String(eligible);
@@ -561,8 +618,8 @@
     });
     if (els.note) {
       els.note.textContent = tally.ready
-        ? `${tally.ready} ready · ${candyTotal} Evolution Candy`
-        : `0 ready · ${candyTotal} Evolution Candy`;
+        ? `${tally.ready} ready · ${candyTotal} candy collected across lines`
+        : `0 ready · ${candyTotal} candy collected across lines`;
     }
     refreshOakBubble();
   }
@@ -590,11 +647,10 @@
     const kind = view.cardKind ? view.cardKind(row) : (canEvolve(row) ? "ready" : "blocked");
     const shiny = view.isShiny?.(row);
     const ready = kind === "ready";
-    const need = view.candyNeed ? view.candyNeed(row) : 0;
     const label = terminal
       ? `${row.name}. No evolution currently available.`
       : `${ready ? "Ready to evolve. " : ""}${shiny ? "Shiny " : ""}${row.name}${row.level ? ` level ${row.level}` : ""} into ${row.toName || ""}.`;
-    const candy = terminal ? "" : `${Number(row.haveCandy || 0)} / ${Number(row.candyCost || 0)} Evolution Candy`;
+    const candy = terminal ? "" : candyChipHtml(row);
     const item = row.item ? `${itemLabel(row.item)} ${row.haveItem || row.tradeReady ? "✓" : "✕"}` : "";
     return `
       <button type="button" class="evo-mon is-${kind}${ready ? " is-ready" : ""}${terminal ? " is-terminal" : ""}" data-evo="${esc(row.catchId || row.id || "")}" data-rule="${esc(row.ruleId || "")}" data-kind="${kind}" data-dex="${row.dex || ""}" aria-label="${esc(label)}">
@@ -603,7 +659,8 @@
         <strong class="evo-mon-name">${dexLabel(row.dex)} ${shiny ? "✨ " : ""}${esc(row.name)} ${genderMark(row.gender)}</strong>
         <span class="muted">${row.level ? `Lv. ${row.level}` : ""}${row.favorite ? " ★ Favorite" : ""}</span>
         ${row.toName ? `<span class="evo-arrow-lite" aria-hidden="true">↓</span><span class="evo-target">${esc(row.toName)}</span>` : ""}
-        ${candy ? `<span class="evo-cost">${esc(candy)}${item ? ` · ${esc(item)}` : ""}${!ready && need ? ` · ${need} more needed` : ""}</span>` : ""}
+        ${candy || ""}
+        ${item ? `<span class="evo-cost muted">${esc(item)}</span>` : ""}
         ${statusFooter(row, terminal)}
       </button>`;
   }
@@ -657,15 +714,20 @@
     const selected = selectedOak.has(id);
     const blocked = Boolean(mon.oakBlocked);
     const shiny = String(mon.variant || "").includes("shiny");
+    const candy = candyIdentity(mon);
     const label = blocked
       ? `${mon.name}. ${mon.oakReason}.`
-      : `${selected ? "Selected. " : ""}${shiny ? "Shiny " : ""}${mon.name}. Send to Professor Oak for Evolution Candy.`;
+      : `${selected ? "Selected. " : ""}${shiny ? "Shiny " : ""}${mon.name}. Send to Professor Oak for ${candy.label}.`;
+    const reward = blocked
+      ? ""
+      : `<span class="evo-cost-candy"><img src="${esc(candy.art)}" alt="" width="24" height="24" decoding="async" loading="lazy"><span>${esc(candy.label)}</span></span>`;
     return `
       <button type="button" class="evo-mon evo-send-card${selected ? " is-selected" : ""}${blocked ? " is-blocked" : ""}" data-oak-id="${esc(id)}" data-dex="${mon.dex || ""}" ${blocked ? "disabled" : ""} aria-pressed="${selected ? "true" : "false"}" aria-label="${esc(label)}">
         <span class="evo-mon-ball" aria-hidden="true"></span>
         <span class="evo-mon-art">${sprite(mon.dex, mon.variant || "normal", 96, mon.gender)}</span>
         <strong class="evo-mon-name">${dexLabel(mon.dex)} ${shiny ? "✨ " : ""}${esc(mon.name || mon.nickname || "Pokémon")} ${genderMark(mon.gender)}</strong>
         <span class="muted">${mon.level ? `Lv. ${mon.level}` : ""}${mon.favorite ? " ★" : ""}</span>
+        ${reward}
         <span class="evo-foot ${blocked ? "is-warn" : selected ? "is-ready" : "is-candy"}">${blocked ? esc(mon.oakReason) : selected ? "Selected for Oak" : "Tap to select"}</span>
       </button>`;
   }
@@ -749,8 +811,8 @@
       }
       return `
         <article class="card body family-card" id="evo-line-${fam.familyId}">
-          <h3>${esc(fam.name)} Evolution Line</h3>
-          <p><strong>Evolution Candy:</strong> ${fam.candy || 0}</p>
+          <h3>${esc(candyBareName(fam.name) || fam.name)} Evolution Line</h3>
+          <p class="evo-line-candy">${sprite(fam.baseDex, "normal", 28)}<span><strong>${esc(candyIdentity(fam).label)}:</strong> ${fam.candy || 0}</span></p>
           ${graph || "<p class=\"muted\">No stages to show.</p>"}
           ${lockedRelativeNote(fam)}
         </article>`;
@@ -764,7 +826,10 @@
     if (els.rareArt && window.playItemSprite) els.rareArt.src = window.playItemSprite("rarecandy");
     if (els.rareOwned) els.rareOwned.textContent = `Owned: ${qty}`;
     if (els.rareFamily) {
-      els.rareFamily.innerHTML = families.map((fam) => `<option value="${fam.familyId}">${esc(fam.name)} · ${fam.candy || 0} Evolution Candy</option>`).join("");
+      els.rareFamily.innerHTML = families.map((fam) => {
+        const id = candyIdentity(fam);
+        return `<option value="${fam.familyId}">${esc(id.label)} · ${fam.candy || 0}</option>`;
+      }).join("");
     }
     updateRarePreview();
     if (els.rareUse) els.rareUse.disabled = qty < 1 || !families.length;
@@ -773,20 +838,24 @@
   function updateRarePreview() {
     const fam = (data?.families || []).find((row) => String(row.familyId) === String(els.rareFamily?.value || ""));
     if (els.rarePreview) {
-      els.rarePreview.textContent = fam
-        ? `${fam.name} Evolution Candy: ${fam.candy || 0} → ${(fam.candy || 0) + 1}`
+      const id = fam ? candyIdentity(fam) : null;
+      els.rarePreview.textContent = id
+        ? `${id.label}: ${fam.candy || 0} → ${(fam.candy || 0) + 1}`
         : "";
     }
   }
 
   function renderCandy() {
     if (!els.candy) return;
-    els.candy.innerHTML = (data?.candy || []).map((row) => `
+    els.candy.innerHTML = (data?.candy || []).map((row) => {
+      const id = candyIdentity(row);
+      return `
       <button type="button" class="evo-candy" data-family="${row.familyId}">
-        ${sprite(row.baseDex, "normal", 48)}
-        <strong>${esc(row.name)} Line</strong>
-        <span>${row.qty} Evolution Candy</span>
-      </button>`).join("") || `<p class="muted">Send Pokémon to Professor Oak to earn Evolution Candy.</p>`;
+        ${sprite(row.baseDex || id.baseDex, "normal", 48)}
+        <strong>${esc(id.bare)} Line</strong>
+        <span>${row.qty} ${esc(id.label)}</span>
+      </button>`;
+    }).join("") || `<p class="muted">Send Pokémon to Professor Oak to earn Evolution Candy for each Evolution Line.</p>`;
   }
 
   function renderHistory() {
@@ -845,8 +914,9 @@
     } else {
       const have = Number(row.haveCandy || 0);
       const need = Number(row.candyCost || 0);
-      bits.push(`<p>Evolution Candy<br><strong>${have} / ${need}</strong> ${have >= need ? "✓" : "✕"}</p>${meter(have, need)}`);
-      if (need > have) bits.push(`<p>You need ${need - have} more Evolution Candy.</p>`);
+      const candy = candyIdentity(row);
+      bits.push(`<div class="evo-req-candy"><img src="${esc(candy.art)}" alt="" width="32" height="32" decoding="async"><span><strong>${esc(candy.label)}</strong><br>${have} / ${need} required ${have >= need ? "✓" : "✕"}</span></div>${meter(have, need)}`);
+      if (need > have) bits.push(`<p>You need ${need - have} more ${esc(candy.label)}.</p>`);
       if (row.item === "linkingcord") {
         const qty = view.itemQty ? view.itemQty(row) : (row.haveItem ? 1 : 0);
         bits.push(`<p>Linking Cord<br>Allows this Pokémon to evolve without trading.<br>Owned: ${qty} ${qty ? "✓" : "✕"}</p>`);
@@ -859,7 +929,7 @@
       if (canEvolve(row) && row.item) {
         const afterCandy = Math.max(0, Number(row.haveCandy || 0) - Number(row.candyCost || 0));
         const afterItem = Math.max(0, (view.itemQty ? view.itemQty(row) : 1) - 1);
-        bits.push(`<p class="muted">After Evolution: ${afterCandy} Evolution Candy${row.item ? ` · ${afterItem} ${itemLabel(row.item)}` : ""}</p>`);
+        bits.push(`<p class="muted">After Evolution: ${afterCandy} ${esc(candy.label)}${row.item ? ` · ${afterItem} ${itemLabel(row.item)}` : ""}</p>`);
       }
     }
     return bits.join("");
@@ -929,9 +999,26 @@
         return `${shiny}${mon.name}${mon.level ? ` Lv. ${mon.level}` : ""}`;
       });
       const extra = mons.length > 4 ? `<li>…and ${mons.length - 4} more</li>` : "";
+      const candyRows = [];
+      const seen = new Set();
+      for (const mon of mons) {
+        const id = candyIdentity(mon);
+        const key = id.familyId || id.baseDex || id.label;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        candyRows.push(id);
+      }
+      const candyHtml = candyRows.length
+        ? `<div class="oak-confirm-candy">${candyRows.map((row) => `
+            <span class="oak-confirm-candy-row">
+              <img src="${esc(row.art)}" alt="" width="28" height="28" decoding="async">
+              <span>${esc(row.label)}</span>
+            </span>`).join("")}</div>
+            <p class="muted">Reward amounts are confirmed when Professor Oak receives each Pokémon.</p>`
+        : `<p>${esc(model.rewardHint)}</p>`;
       els.oakCopy.innerHTML = `
         <ul class="oak-confirm-list">${lines.map((line) => `<li>${esc(line)}</li>`).join("")}${extra}</ul>
-        <p>${esc(model.rewardHint)}</p>
+        ${candyHtml}
         <p class="muted">${esc(model.leaveHint)}</p>`;
     }
     if (typeof els.oakModal.showModal === "function") els.oakModal.showModal();

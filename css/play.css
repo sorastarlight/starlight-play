@@ -7285,7 +7285,7 @@ body[data-page="evolve"] .wrap {
 /* —— Professor Oak Lab workspace identity —— */
 .evo-lab-identity-band {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 14px 22px;
   align-items: end;
   margin: 0 0 4px;
@@ -7402,7 +7402,7 @@ body[data-page="evolve"] .wrap {
 }
 .evo-oak-msg {
   margin: 8px 0 0;
-  max-width: 40rem;
+  max-width: 44rem;
   min-height: calc(1.35em * 2 + 14px);
   padding: 7px 11px;
   border: 1px solid #d2e0f0;
@@ -7414,37 +7414,124 @@ body[data-page="evolve"] .wrap {
   font-size: 13px;
   line-height: 1.35;
 }
-.evo-lab-candy-res {
+/* Total-collection mark only — not a spendable Pokémon item identity. */
+.evo-lab-candy-res,
+.evo-evolve-candy-total {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 12px;
-  border: 2px solid #e5c3d4;
+}
+.evo-evolve-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px 18px;
+  padding: 10px 12px;
+  border: 1px solid #e5c3d4;
   border-radius: 10px;
-  background: linear-gradient(180deg, #fff, #fff3f8);
-  box-shadow: 0 2px 0 rgba(138, 61, 114, .1);
-  white-space: nowrap;
-  align-self: start;
-  margin-top: 8px;
+  background: linear-gradient(180deg, #fffafc, #fff5f9);
 }
-.evo-lab-candy-res img {
-  width: 28px;
-  height: 28px;
+.evo-evolve-summary-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.evo-evolve-summary .evo-station-context {
+  margin: 0;
+}
+.evo-evolve-done {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6d3a58;
+}
+.evo-evolve-done strong {
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+}
+.evo-evolve-candy-total {
+  margin: 0;
+  max-width: 22rem;
+  padding: 6px 10px;
+  border: 1px dashed #e0c0d0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .7);
+}
+.evo-candy-total-mark {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
   image-rendering: pixelated;
+  opacity: .9;
 }
-.evo-lab-candy-res strong {
-  display: block;
-  font-size: 1.25rem;
+.evo-evolve-candy-total > span {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+.evo-evolve-candy-total strong {
+  font-size: 1.15rem;
   line-height: 1;
   color: #8a3d72;
   font-variant-numeric: tabular-nums;
 }
-.evo-lab-candy-res span {
+.evo-evolve-candy-label {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .04em;
   text-transform: uppercase;
   color: #7a5a6e;
+}
+.evo-line-candy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+.evo-line-candy img,
+.evo-cost-candy img,
+.evo-req-candy img,
+.oak-confirm-candy img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.evo-cost-candy,
+.evo-req-candy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.evo-cost-candy {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5a6f8c;
+}
+.evo-req-candy {
+  margin: 0 0 6px;
+}
+.oak-confirm-candy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 8px 0;
+  justify-content: center;
+}
+.oak-confirm-candy-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid #d2e0f0;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .evo-lab-workspace {
@@ -7728,11 +7815,6 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .evo-station[aria-sel
 @media (max-width: 1024px) {
   .evo-lab-identity-band {
     grid-template-columns: auto minmax(0, 1fr);
-  }
-  .evo-lab-candy-res {
-    grid-column: 1 / -1;
-    justify-self: start;
-    margin-top: 0;
   }
   .evo-lab-oak {
     width: 136px;

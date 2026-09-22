@@ -3770,11 +3770,10 @@ body.dex-scroll-locked .topnav {
   --dex-muted: #6a7196;
   --dex-cyan: #5ec8ef;
   --dex-pink: #f3a0c8;
-  --dex-panel-h: min(680px, calc(100dvh - 32px));
-  --dex-stage-max: 1200px;
+  --dex-panel-h: min(860px, calc(100dvh - 24px));
+  --dex-stage-max: 1240px;
   --dex-gutter: 28px;
-  --dex-sprite: 208px;
-  --dex-evo-art: 168px;
+  --dex-evo-art: 220px;
   position: fixed;
   inset: 0;
   z-index: var(--dex-z-panel);
@@ -3948,7 +3947,26 @@ html[data-reduced-motion="1"] .dex-overlay-panel { transform: none; }
 html[data-perf="low"] .dex-overlay-scan,
 html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
 
-/* ZONE B — content stage */
+/* —— rc63 Pokémon-first internal screen (replaces rc62 viewer/layout) —— */
+
+.dex-overlay {
+  --dex-panel-h: min(860px, calc(100dvh - 24px));
+  --dex-stage-max: 1240px;
+  --dex-gutter: 22px;
+}
+
+.dex-overlay-panel {
+  width: min(1240px, calc(100vw - 28px));
+  height: var(--dex-panel-h);
+  max-height: calc(100dvh - 24px);
+}
+
+.dex-overlay-chrome {
+  padding: 10px 16px 6px;
+  border-bottom: 1px solid rgba(130, 190, 225, 0.22);
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(236,247,255,0.55));
+}
+
 .dex-overlay-body {
   position: relative;
   z-index: 2;
@@ -3956,24 +3974,17 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 0;
-}
-.dex-overlay-loading {
-  margin: auto;
-  text-align: center;
-  color: var(--dex-muted);
-  font-weight: 700;
+  padding: 10px 16px 8px;
 }
 
 .dex-screen {
   flex: 1 1 auto;
   min-height: 0;
-  width: min(var(--dex-stage-max), calc(100% - (var(--dex-gutter) * 2)));
+  width: min(var(--dex-stage-max), 100%);
   height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
   overflow: hidden;
 }
 
@@ -3982,13 +3993,114 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
   flex: 1 1 auto;
   min-height: 0;
   display: grid;
-  align-items: center;
-  align-content: center;
+  align-items: stretch;
 }
 
-/* Shared type / text primitives */
+/* Shared master: VIEWER | PANEL */
+.dex-compose-overview,
+.dex-compose-forms {
+  grid-template-columns: minmax(300px, 0.44fr) minmax(0, 0.56fr);
+  gap: clamp(14px, 1.8vw, 28px);
+  height: 100%;
+}
+
+.dex-panel {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px 14px;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.88), rgba(240,248,255,0.72));
+  border: 1px solid rgba(140, 200, 235, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+  overflow: hidden;
+}
+
+/* Pokémon observation chamber */
+.dex-pokemon-viewer {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.dex-pokemon-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(120, 190, 230, 0.45);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.35), transparent 30%),
+    repeating-linear-gradient(
+      180deg,
+      #e7f5ff 0 10px,
+      #dff0fb 10px 20px
+    );
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.55),
+    inset 0 -28px 40px rgba(120, 190, 230, 0.12),
+    0 10px 24px rgba(90, 140, 190, 0.12);
+}
+.dex-pokemon-glow {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 10%;
+  height: 18%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.85), rgba(120,200,240,0.2) 48%, transparent 72%);
+  pointer-events: none;
+  z-index: 0;
+}
+.dex-pokemon-art {
+  position: relative;
+  z-index: 1;
+  width: 82%;
+  height: 76%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  object-view-box: inset(var(--ovb-t, 0%) var(--ovb-r, 0%) var(--ovb-b, 0%) var(--ovb-l, 0%));
+  image-rendering: var(--dex-art-render, auto);
+  filter: drop-shadow(0 12px 18px rgba(70, 110, 160, 0.28));
+  pointer-events: none;
+}
+.dex-pokemon-caption {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  text-align: center;
+  padding: 8px 10px 10px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(236,247,255,0.88));
+  border: 1px solid rgba(140, 200, 235, 0.35);
+  pointer-events: none;
+}
+.dex-pokemon-caption .dex-za-no { margin-bottom: 0; }
+.dex-pokemon-caption .dex-za-name {
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  margin: 0;
+}
+.dex-pokemon-caption .dex-viewer-sub {
+  margin: 2px 0 0;
+  font-size: 0.78rem;
+}
+
+/* Overview readout */
 .dex-za-no {
-  margin: 0 0 2px;
+  margin: 0;
   font-weight: 800;
   letter-spacing: 0.08em;
   color: #4aa8d4;
@@ -3997,11 +4109,12 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
 .dex-za-name {
   margin: 0 0 2px;
   font-family: Fredoka, Nunito, sans-serif;
-  font-size: clamp(1.35rem, 2.1vw, 1.9rem);
+  font-size: clamp(1.45rem, 2.3vw, 2rem);
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--dex-ink);
+  line-height: 1.1;
 }
 .dex-za-genus {
   margin: 0 0 8px;
@@ -4009,7 +4122,6 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
   font-weight: 700;
   font-size: 0.95rem;
 }
-.dex-za-badges { margin-bottom: 8px; }
 .dex-status-chip {
   display: inline-flex;
   padding: 3px 10px;
@@ -4025,174 +4137,76 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin: 0 0 12px;
+  margin: 0 0 6px;
 }
-.dex-entry-note {
+.dex-readout {
   margin: 0;
-  color: var(--dex-muted);
-  font-size: 0.8rem;
-  font-weight: 650;
-}
-.dex-entry-note a { color: #3a8fbf; font-weight: 800; }
-
-/* —— OVERVIEW + FORMS: shared content | viewer geometry —— */
-.dex-compose-overview,
-.dex-compose-forms {
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.85fr);
-  gap: clamp(20px, 2.8vw, 40px);
-  align-items: center;
-  height: 100%;
-}
-.dex-compose-overview .dex-viewer,
-.dex-compose-forms .dex-viewer {
-  justify-self: center;
-  align-self: center;
-  width: 100%;
-}
-.dex-compose-overview .dex-viewer-stage,
-.dex-compose-forms .dex-viewer-stage {
-  width: min(100%, 360px);
-}
-.dex-info { min-width: 0; }
-.dex-za-facts {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin: 0 0 12px;
+  gap: 0;
+  border-top: 1px solid rgba(140, 200, 235, 0.28);
 }
-.dex-za-facts div {
-  padding: 8px 10px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(150, 200, 230, 0.35);
-  min-height: 3.4rem;
+.dex-readout-row {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 2px;
+  border-bottom: 1px solid rgba(140, 200, 235, 0.22);
 }
-.dex-za-facts dt {
+.dex-readout-row dt {
   margin: 0;
-  font-size: 0.62rem;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #6f8fb0;
 }
-.dex-za-facts dd {
-  margin: 2px 0 0;
+.dex-readout-row dd {
+  margin: 0;
   font-weight: 800;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--dex-ink);
   overflow-wrap: anywhere;
 }
 .dex-za-flavor {
-  position: relative;
-  margin: 0;
-  padding: 8px 12px 8px 16px;
+  margin: 4px 0 0;
+  padding: 10px 12px 10px 14px;
   color: #46507a;
   font-weight: 650;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   line-height: 1.45;
-  background: rgba(255, 255, 255, 0.58);
-  border-radius: 0 12px 12px 0;
-}
-.dex-za-flavor-rule {
-  position: absolute;
-  left: 0;
-  top: 8px;
-  bottom: 8px;
-  width: 3px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--dex-cyan), var(--dex-pink));
+  background: rgba(255, 255, 255, 0.62);
+  border-radius: 12px;
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, var(--dex-cyan), var(--dex-pink)) 1;
+  flex: 0 0 auto;
 }
 .dex-za-flavor p {
   margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* Shared Pokémon viewer (silhouette + sprite same center; no crop) */
-.dex-viewer {
-  display: grid;
-  justify-items: center;
-  align-content: center;
-  gap: 8px;
-  min-width: 0;
-}
-.dex-viewer-stage {
-  position: relative;
-  width: min(100%, 360px);
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  overflow: visible;
-  box-sizing: border-box;
-  padding: 4%;
-}
-.dex-viewer-sil {
-  position: absolute;
-  inset: 4%;
-  width: auto;
-  height: auto;
-  max-width: 90%;
-  max-height: 90%;
-  margin: auto;
-  object-fit: contain;
-  object-position: center;
-  opacity: 0.09;
-  filter: grayscale(1) brightness(0.35);
-  pointer-events: none;
-  transform: none;
-  z-index: 0;
-}
-.dex-viewer-frame {
-  position: relative;
-  z-index: 1;
-  width: var(--dex-sprite);
-  height: var(--dex-sprite);
-  display: grid;
-  place-items: center;
-  overflow: visible;
-}
-.dex-viewer-sprite {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  /* Many showdown sprites carry empty canvas padding — fill the frame more evenly */
-  transform: scale(1.12);
-  transform-origin: center center;
-  filter: drop-shadow(0 10px 18px rgba(90, 140, 190, 0.24));
-}
-.dex-viewer-meta {
-  text-align: center;
-  max-width: 100%;
-}
-.dex-viewer-sub {
-  margin: 0 0 4px;
-  color: var(--dex-muted);
-  font-weight: 800;
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.dex-viewer-overview .dex-viewer-meta { display: none; }
-html[data-perf="low"] .dex-viewer-sil,
-html[data-reduced-motion="1"] .dex-viewer-sil {
-  opacity: 0.06;
-}
-
-/* —— FORMS: controls | viewer (same geometry as Overview) —— */
+/* Forms controls */
 .dex-controls {
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-self: center;
+  overflow: hidden;
 }
 .dex-axis {
   margin: 0;
   display: grid;
   gap: 6px;
+  min-width: 0;
+}
+.dex-axis.is-forms {
+  min-height: 0;
+  flex: 1 1 auto;
 }
 .dex-axis h3 {
   margin: 0;
@@ -4207,18 +4221,27 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
   gap: 5px;
   align-content: flex-start;
 }
+.dex-pill-row.is-dense {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: 5px;
+  max-height: min(220px, 32vh);
+  overflow: auto;
+  padding-right: 2px;
+}
 .dex-pill {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 4px;
-  min-height: 1.9rem;
-  padding: 5px 10px 6px;
+  min-height: 1.85rem;
+  padding: 5px 9px 6px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.7);
   color: #2a1c08;
   font: inherit;
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -4251,38 +4274,63 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
   line-height: 1;
 }
 .dex-pill.is-registered .dex-pill-reg { opacity: 1; color: #2a6a40; }
+.dex-selected-form {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid rgba(140, 200, 235, 0.28);
+}
+.dex-selected-form h4 {
+  margin: 0 0 4px;
+  font-family: Fredoka, Nunito, sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--dex-ink);
+}
+.dex-entry-note {
+  margin: 0;
+  color: var(--dex-muted);
+  font-size: 0.8rem;
+  font-weight: 650;
+}
+.dex-entry-note a { color: #3a8fbf; font-weight: 800; }
 
-/* —— EVOLUTION —— */
+/* Evolution — large normalized nodes */
 .dex-compose-evo {
   grid-template-rows: minmax(0, 1fr) auto;
-  gap: 14px;
+  gap: 12px;
   height: 100%;
-  align-content: stretch;
 }
 .dex-evo-stage {
   min-height: 0;
   display: grid;
   place-items: center;
   overflow: hidden;
+  padding: 8px;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.4), transparent 40%),
+    repeating-linear-gradient(180deg, #eef7ff 0 12px, #e6f2fb 12px 24px);
+  border: 1px solid rgba(140, 200, 235, 0.35);
 }
 .dex-evo-tree {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 6px 4px;
+  gap: 8px 10px;
   width: 100%;
 }
 .dex-evo-tree.is-branch {
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 .dex-evo-tree-root { display: flex; justify-content: center; }
 .dex-evo-branches {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px 16px;
+  gap: 12px 18px;
 }
 .dex-evo-branch {
   display: grid;
@@ -4294,29 +4342,28 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
   justify-items: center;
   align-content: center;
   gap: 2px;
-  min-width: 88px;
+  min-width: 96px;
   color: #4aa8d4;
   font-weight: 800;
   text-align: center;
 }
-.dex-evo-link-h { padding: 0 4px; }
-.dex-evo-arrow { font-size: 1.05rem; line-height: 1; }
+.dex-evo-arrow { font-size: 1.2rem; line-height: 1; }
 .dex-evo-req {
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 800;
   color: var(--dex-muted);
   line-height: 1.25;
-  max-width: 110px;
+  max-width: 120px;
 }
 .dex-evo-node {
   display: grid;
   grid-template-rows: var(--dex-evo-art) auto auto;
   justify-items: center;
   gap: 4px;
-  width: 176px;
+  width: calc(var(--dex-evo-art) + 28px);
   padding: 10px 8px 12px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(140, 200, 235, 0.42);
   box-sizing: border-box;
 }
@@ -4328,21 +4375,19 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
   position: relative;
   width: var(--dex-evo-art);
   height: var(--dex-evo-art);
-  overflow: hidden;
-  box-sizing: border-box;
+  overflow: visible;
+  border-radius: 12px;
+  background: repeating-linear-gradient(180deg, #e7f5ff 0 8px, #dff0fb 8px 16px);
 }
 .dex-evo-art img {
   position: absolute;
-  inset: 6px;
-  width: auto;
-  height: auto;
-  max-width: calc(100% - 12px);
-  max-height: calc(100% - 12px);
+  inset: 4%;
+  width: 92%;
+  height: 92%;
   margin: auto;
   object-fit: contain;
-  object-position: center;
-  transform: scale(1.08);
-  transform-origin: center center;
+  object-view-box: inset(var(--ovb-t, 0%) var(--ovb-r, 0%) var(--ovb-b, 0%) var(--ovb-l, 0%));
+  image-rendering: var(--dex-art-render, auto);
 }
 .dex-evo-art img.silhouette {
   filter: brightness(0);
@@ -4355,7 +4400,7 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
   font-weight: 800;
 }
 .dex-evo-name {
-  font-size: 0.84rem;
+  font-size: 0.9rem;
   color: var(--dex-ink);
   text-align: center;
   line-height: 1.15;
@@ -4371,17 +4416,22 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
 }
 .dex-evo-lab { margin: 0; flex: 0 0 auto; }
 
-/* —— RESEARCH —— */
+/* Research with portrait */
 .dex-compose-research {
-  max-width: 880px;
-  width: 100%;
-  margin: 0 auto;
+  grid-template-columns: minmax(180px, 0.34fr) minmax(0, 0.66fr);
   gap: 16px;
-  justify-items: stretch;
-  align-content: center;
   height: 100%;
+  align-items: stretch;
 }
-.dex-research-head { text-align: center; }
+.dex-compose-research .dex-pokemon-viewer { max-width: 320px; margin: 0 auto; width: 100%; }
+.dex-research-panel {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+}
+.dex-research-head { text-align: left; }
 .dex-research-heading {
   margin: 2px 0 0;
   letter-spacing: 0.12em;
@@ -4395,13 +4445,10 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
   gap: 8px;
   margin: 0;
 }
-.dex-research-primary {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
+.dex-research-primary { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .dex-research-secondary {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   width: min(100%, 560px);
-  margin-inline: auto;
 }
 .dex-metric {
   margin: 0;
@@ -4432,21 +4479,18 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
 .dex-research-footer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 6px 18px;
-  text-align: center;
 }
 
-/* ZONE C — tabs */
 .dex-overlay-tabs {
   position: relative;
   z-index: 2;
   display: flex;
   flex-wrap: nowrap;
   gap: 6px;
-  padding: 10px 16px 14px;
+  padding: 8px 14px 12px;
   border-top: 1px solid rgba(130, 190, 225, 0.28);
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.62);
 }
 .dex-mode-tab {
   appearance: none;
@@ -4476,66 +4520,54 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
   outline-offset: 2px;
 }
 
-/* Short laptop */
 @media (min-width: 901px) and (max-height: 820px) {
   .dex-overlay {
-    --dex-panel-h: calc(100dvh - 20px);
-    --dex-sprite: 192px;
-    --dex-evo-art: 148px;
-    --dex-gutter: 20px;
-    padding: 10px;
+    --dex-panel-h: calc(100dvh - 16px);
+    --dex-gutter: 16px;
+    padding: 8px;
   }
-  .dex-overlay-chrome { padding: 8px 14px 4px; }
-  .dex-overlay-tabs { padding: 6px 12px 10px; }
-  .dex-za-flavor p { -webkit-line-clamp: 2; }
-  .dex-evo-node { width: 160px; }
-}
-
-@media (max-width: 1100px) {
-  .dex-overlay { --dex-sprite: 184px; --dex-evo-art: 148px; }
-  .dex-evo-node { width: 160px; }
+  .dex-overlay-chrome { padding: 8px 12px 4px; }
+  .dex-overlay-tabs { padding: 6px 10px 8px; }
+  .dex-pokemon-stage { min-height: 200px; }
+  .dex-za-flavor p { -webkit-line-clamp: 3; }
+  .dex-evo-node { width: 150px; grid-template-rows: 132px auto auto; }
+  .dex-evo-art { width: 132px; height: 132px; }
+  .dex-pill-row.is-dense { max-height: min(160px, 28vh); }
 }
 
 @media (max-width: 900px) {
   .dex-overlay {
     padding: 10px;
     --dex-panel-h: calc(100dvh - 20px);
-    --dex-gutter: 16px;
-    --dex-sprite: 156px;
   }
   .dex-overlay-panel {
     width: calc(100vw - 20px);
     border-radius: 16px;
   }
   .dex-overlay-body { overflow-y: auto; overflow-x: hidden; }
-  .dex-screen { justify-content: flex-start; padding-block: 8px; }
   .dex-compose-overview,
-  .dex-compose-forms {
+  .dex-compose-forms,
+  .dex-compose-research {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 12px;
   }
-  .dex-compose-overview .dex-viewer,
-  .dex-compose-forms .dex-viewer { order: -1; }
+  .dex-pokemon-viewer { order: -1; }
+  .dex-pokemon-stage { min-height: 220px; aspect-ratio: 1.15 / 1; }
   .dex-overlay-nav { display: none; }
   .dex-research-primary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .dex-research-secondary {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    width: 100%;
-  }
+  .dex-research-secondary { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
   .dex-evo-footer { justify-content: center; text-align: center; }
-  .dex-evo-node { width: 140px; }
 }
 
 @media (max-width: 430px) {
-  .dex-overlay { padding: 8px; --dex-panel-h: calc(100dvh - 16px); --dex-gutter: 12px; }
+  .dex-overlay { padding: 8px; --dex-panel-h: calc(100dvh - 16px); }
   .dex-overlay-panel { width: calc(100vw - 16px); border-radius: 14px; }
-  .dex-overlay-chrome { padding: 8px 10px 4px; }
   .dex-mode-tab { font-size: 0.58rem; padding: 8px 4px; letter-spacing: 0.04em; }
-  .dex-za-facts { grid-template-columns: 1fr 1fr; }
   .dex-research-secondary { grid-template-columns: 1fr; }
-  .dex-evo-node { width: 120px; }
-  .dex-overlay { --dex-evo-art: 112px; --dex-sprite: 140px; }
-  .dex-za-flavor p { -webkit-line-clamp: 4; }
+  .dex-evo-node { width: 120px; grid-template-rows: 104px auto auto; }
+  .dex-evo-art { width: 104px; height: 104px; }
+  .dex-za-flavor p { -webkit-line-clamp: 5; }
+  .dex-readout-row { grid-template-columns: 5.5rem minmax(0, 1fr); }
 }
 
 .dex-filters, .dex-toolbar { display: grid; gap: 12px; }

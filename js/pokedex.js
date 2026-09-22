@@ -579,32 +579,45 @@
     nextBtn.dataset.dex = next || "";
   }
 
-  function viewerHtml(ctx, opts = {}) {
-    const { entry, displayName, classBadges, sprite } = ctx;
-    const sub = opts.subtitle ? `<p class="dex-viewer-sub">${window.playEscapeAttr(opts.subtitle)}</p>` : "";
+  function styleAttrs(cssVars) {
+    return Object.entries(cssVars || {})
+      .map(([k, v]) => `${k}:${v}`)
+      .join(";");
+  }
+
+  function resolvePresentation(entry, formId, shiny, female) {
+    if (typeof window.resolvePokedexPresentation === "function") {
+      return window.resolvePokedexPresentation({
+        dex: entry.dex,
+        formId,
+        shiny,
+        female
+      });
+    }
+    const variant = shiny && female ? "shiny-female" : shiny ? "shiny" : female ? "female" : "normal";
+    return {
+      url: window.playSpriteUrl(entry.dex, variant, formId),
+      assetClass: "battle",
+      renderMode: "pixelated",
+      cssVars: { "--dex-art-render": "pixelated", "--ovb-t": "0%", "--ovb-r": "0%", "--ovb-b": "0%", "--ovb-l": "0%" }
+    };
+  }
+
+  function pokemonViewerHtml(pres, opts = {}) {
+    const caption = opts.captionHtml ? `<div class="dex-pokemon-caption">${opts.captionHtml}</div>` : "";
     const titleId = opts.titleId ? ` id="${opts.titleId}"` : "";
-    const badges = (opts.showBadges !== false && classBadges?.length)
-      ? `<div class="se-badge-row dex-za-badges">${classBadges.join("")}</div>`
-      : "";
     return `
-      <div class="dex-viewer">
-        <div class="dex-viewer-stage">
-          <img class="dex-viewer-sil" src="${sprite}" alt="" aria-hidden="true">
-          <div class="dex-viewer-frame">
-            <img class="dex-viewer-sprite" src="${sprite}" alt="">
-          </div>
+      <div class="dex-pokemon-viewer" data-asset-class="${window.playEscapeAttr(pres.assetClass || "")}" style="${styleAttrs(pres.cssVars)}"${titleId}>
+        <div class="dex-pokemon-stage">
+          <div class="dex-pokemon-glow" aria-hidden="true"></div>
+          <img class="dex-pokemon-art" src="${pres.url}" alt="" decoding="async" draggable="false">
         </div>
-        <div class="dex-viewer-meta">
-          <p class="dex-za-no"${titleId}>No. ${window.playPadDex(entry.dex)}</p>
-          <h2 class="dex-za-name">${window.playEscapeAttr(displayName)}</h2>
-          ${sub}
-          ${badges}
-        </div>
+        ${caption}
       </div>`;
   }
 
   function overviewHtml(ctx) {
-    const { entry, ref, displayName, types, height, weight, classBadges } = ctx;
+    const { entry, ref, displayName, types, height, weight, classBadges, presentation } = ctx;
     const abilities = (ref?.abilities || []).map(abilityLabel).join(", ") || "—";
     const flavor = ref?.flavor || "Pokédex data syncing…";
     const genus = ref?.genus || "";
@@ -612,47 +625,53 @@
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-overview">
-          <div class="dex-info">
-            <p class="dex-za-no" id="dex-overlay-title">No. ${window.playPadDex(entry.dex)}</p>
+          ${pokemonViewerHtml(presentation, { titleId: "dex-overlay-title" })}
+          <div class="dex-panel dex-info">
+            <p class="dex-za-no">No. ${window.playPadDex(entry.dex)}</p>
             <h2 class="dex-za-name">${window.playEscapeAttr(displayName)}</h2>
             ${genus ? `<p class="dex-za-genus">${window.playEscapeAttr(genus)}</p>` : ""}
             <div class="se-badge-row dex-za-badges">${classBadges.join("") || `<span class="dex-status-chip">${status}</span>`}</div>
             <div class="dex-za-types">${typeBadgesHtml(types)}</div>
-            <dl class="dex-za-facts">
-              <div><dt>Height</dt><dd>${formatHeight(height)}</dd></div>
-              <div><dt>Weight</dt><dd>${formatWeight(weight)}</dd></div>
-              <div><dt>Ability</dt><dd>${window.playEscapeAttr(abilities)}</dd></div>
-              <div><dt>Generation</dt><dd>${Number(ref?.generation) || 1}</dd></div>
+            <dl class="dex-readout">
+              <div class="dex-readout-row"><dt>Height</dt><dd>${formatHeight(height)}</dd></div>
+              <div class="dex-readout-row"><dt>Weight</dt><dd>${formatWeight(weight)}</dd></div>
+              <div class="dex-readout-row"><dt>Ability</dt><dd>${window.playEscapeAttr(abilities)}</dd></div>
+              <div class="dex-readout-row"><dt>Generation</dt><dd>${Number(ref?.generation) || 1}</dd></div>
             </dl>
-            <blockquote class="dex-za-flavor"><span class="dex-za-flavor-rule" aria-hidden="true"></span><p>${window.playEscapeAttr(flavor)}</p></blockquote>
-          </div>
-          <div class="dex-viewer dex-viewer-overview">
-            <div class="dex-viewer-stage">
-              <img class="dex-viewer-sil" src="${ctx.sprite}" alt="" aria-hidden="true">
-              <div class="dex-viewer-frame">
-                <img class="dex-viewer-sprite" src="${ctx.sprite}" alt="">
-              </div>
-            </div>
+            <blockquote class="dex-za-flavor"><p>${window.playEscapeAttr(flavor)}</p></blockquote>
           </div>
         </div>
       </div>`;
   }
 
   function formsHtml(ctx) {
-    const { forms, form, formPills, shinyPills, genderPills, showGender, classBadges } = ctx;
+    const {
+      entry, forms, form, formPills, shinyPills, genderPills, showGender,
+      displayName, types, classBadges, presentation
+    } = ctx;
     const subtitle = (!form?.isBase && (form?.formLabel || form?.formKey))
       ? String(form.formLabel || form.formKey)
-      : "";
+      : "Base";
+    const dense = forms.length > 8;
+    const caption = `
+      <p class="dex-za-no">No. ${window.playPadDex(entry.dex)}</p>
+      <h2 class="dex-za-name">${window.playEscapeAttr(displayName)}</h2>
+      <p class="dex-viewer-sub">${window.playEscapeAttr(subtitle)}</p>`;
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-forms">
-          <div class="dex-controls">
-            ${forms.length > 1 ? `<section class="dex-axis"><h3>Form</h3><div class="dex-pill-row">${formPills}</div></section>` : ""}
+          ${pokemonViewerHtml(presentation, { captionHtml: caption })}
+          <div class="dex-panel dex-controls">
+            ${forms.length > 1 ? `<section class="dex-axis is-forms"><h3>Form</h3><div class="dex-pill-row${dense ? " is-dense" : ""}">${formPills}</div></section>` : ""}
             <section class="dex-axis"><h3>Appearance</h3><div class="dex-pill-row">${shinyPills}</div></section>
             ${showGender ? `<section class="dex-axis"><h3>Gender</h3><div class="dex-pill-row">${genderPills}</div></section>` : ""}
-            <p class="dex-entry-note">Form changes types, abilities, and size. Shiny and gender change appearance only.</p>
+            <div class="dex-selected-form">
+              <h4>${window.playEscapeAttr(displayName)}</h4>
+              <div class="se-badge-row dex-za-badges">${classBadges.join("") || `<span class="dex-status-chip">${subtitle}</span>`}</div>
+              <div class="dex-za-types">${typeBadgesHtml(types)}</div>
+              <p class="dex-entry-note">Form changes types, abilities, and size. Shiny and gender change appearance only.</p>
+            </div>
           </div>
-          ${viewerHtml(ctx, { subtitle, showBadges: true })}
         </div>
       </div>`;
   }
@@ -662,10 +681,12 @@
     const known = seenSet.has(dex);
     const current = dex === Number(opts.currentDex);
     const name = known ? window.playSpeciesName(dex) : "???";
-    const sprite = window.playSpriteUrl(dex, "normal");
+    const pres = typeof window.resolvePokedexPresentation === "function"
+      ? window.resolvePokedexPresentation({ dex, formId: dex, shiny: false, female: false })
+      : { url: window.playSpriteUrl(dex, "normal"), cssVars: {} };
     return `
-      <article class="dex-evo-node${current ? " is-current" : ""}${known ? "" : " is-unknown"}">
-        <div class="dex-evo-art"><img src="${sprite}" alt="" class="${known ? "" : "silhouette"}"></div>
+      <article class="dex-evo-node${current ? " is-current" : ""}${known ? "" : " is-unknown"}" style="${styleAttrs(pres.cssVars)}">
+        <div class="dex-evo-art"><img src="${pres.url}" alt="" class="${known ? "" : "silhouette"}"></div>
         <span class="dex-evo-no">No. ${window.playPadDex(dex)}</span>
         <strong class="dex-evo-name">${window.playEscapeAttr(name)}</strong>
       </article>`;
@@ -735,27 +756,32 @@
     const candy = fam ? Number(fam.candy || 0) : null;
     const metric = (label, value, tone = "") =>
       `<div class="dex-metric${tone ? ` ${tone}` : ""}"><dt>${label}</dt><dd>${value}</dd></div>`;
+    const caption = `
+      <p class="dex-za-no">No. ${window.playPadDex(entry.dex)}</p>
+      <h2 class="dex-za-name">${window.playEscapeAttr(entry.name || "")}</h2>`;
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-research">
-          <header class="dex-research-head">
-            <p class="dex-za-no">No. ${window.playPadDex(entry.dex)} · ${window.playEscapeAttr(entry.name || "")}</p>
-            <h3 class="dex-research-heading">Your Research</h3>
-          </header>
-          <dl class="dex-research-primary">
-            ${metric("Status", entry.caught ? "Caught" : "Seen", "is-primary")}
-            ${metric("Caught", String(catches.length), "is-primary")}
-            ${metric("Forms", `${formsReg} / ${Math.max(forms.length, 1)}`, "is-primary")}
-            ${metric("Mastery", mastery ? `${mastery.rank || mastery.stars || "—"} · ${mastery.points || 0} pts` : "—", "is-primary")}
-          </dl>
-          <dl class="dex-research-secondary">
-            ${metric("Shiny", shinyN ? `Yes (${shinyN})` : "No")}
-            ${metric("♂ / ♀", `${maleN || 0} / ${femaleN || 0}`)}
-            ${metric("Evo Candy", candy != null ? String(candy) : "—")}
-          </dl>
-          <div class="dex-research-footer">
-            <p class="dex-entry-note">Manage owned Pokémon in <a href="./storage.html">My PC</a>.</p>
-            <p class="dex-entry-note">Evolution readiness in <a href="./evolve.html">Professor Oak's Lab</a>.</p>
+          ${pokemonViewerHtml(ctx.presentation, { captionHtml: caption })}
+          <div class="dex-research-panel">
+            <header class="dex-research-head">
+              <h3 class="dex-research-heading">Your Research</h3>
+            </header>
+            <dl class="dex-research-primary">
+              ${metric("Status", entry.caught ? "Caught" : "Seen", "is-primary")}
+              ${metric("Caught", String(catches.length), "is-primary")}
+              ${metric("Forms", `${formsReg} / ${Math.max(forms.length, 1)}`, "is-primary")}
+              ${metric("Mastery", mastery ? `${mastery.rank || mastery.stars || "—"} · ${mastery.points || 0} pts` : "—", "is-primary")}
+            </dl>
+            <dl class="dex-research-secondary">
+              ${metric("Shiny", shinyN ? `Yes (${shinyN})` : "No")}
+              ${metric("♂ / ♀", `${maleN || 0} / ${femaleN || 0}`)}
+              ${metric("Evo Candy", candy != null ? String(candy) : "—")}
+            </dl>
+            <div class="dex-research-footer">
+              <p class="dex-entry-note">Manage owned Pokémon in <a href="./storage.html">My PC</a>.</p>
+              <p class="dex-entry-note">Evolution readiness in <a href="./evolve.html">Professor Oak's Lab</a>.</p>
+            </div>
           </div>
         </div>
       </div>`;
@@ -773,6 +799,7 @@
     detailState.female = female;
     const variant = shiny && female ? "shiny-female" : shiny ? "shiny" : female ? "female" : "normal";
     const sprite = window.playSpriteUrl(entry.dex, variant, formId);
+    const presentation = resolvePresentation(entry, formId, shiny, female);
     const displayName = headerDisplayName(entry, form);
     const formSeenSet = new Set((entry.formSeen || []).map(Number));
     const ref = localRef(formId, entry.dex) || {};
@@ -822,7 +849,7 @@
     const ctx = {
       entry, forms, form, formId, shiny, female, showGender,
       formPills, shinyPills, genderPills, classBadges,
-      displayName, sprite, ref, types, height, weight
+      displayName, sprite, presentation, ref, types, height, weight
     };
 
     const tab = normalizeTab(detailState.tab || routeTabHint() || "overview");

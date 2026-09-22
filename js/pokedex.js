@@ -646,13 +646,13 @@
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-forms">
-          ${viewerHtml(ctx, { subtitle, showBadges: true })}
           <div class="dex-controls">
             ${forms.length > 1 ? `<section class="dex-axis"><h3>Form</h3><div class="dex-pill-row">${formPills}</div></section>` : ""}
             <section class="dex-axis"><h3>Appearance</h3><div class="dex-pill-row">${shinyPills}</div></section>
             ${showGender ? `<section class="dex-axis"><h3>Gender</h3><div class="dex-pill-row">${genderPills}</div></section>` : ""}
             <p class="dex-entry-note">Form changes types, abilities, and size. Shiny and gender change appearance only.</p>
           </div>
+          ${viewerHtml(ctx, { subtitle, showBadges: true })}
         </div>
       </div>`;
   }

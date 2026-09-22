@@ -4035,18 +4035,22 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
 }
 .dex-entry-note a { color: #3a8fbf; font-weight: 800; }
 
-/* —— OVERVIEW: info | viewer —— */
-.dex-compose-overview {
-  grid-template-columns: minmax(0, 1.25fr) minmax(240px, 0.75fr);
+/* —— OVERVIEW + FORMS: shared content | viewer geometry —— */
+.dex-compose-overview,
+.dex-compose-forms {
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.85fr);
   gap: clamp(20px, 2.8vw, 40px);
   align-items: center;
   height: 100%;
 }
-.dex-viewer-overview {
+.dex-compose-overview .dex-viewer,
+.dex-compose-forms .dex-viewer {
   justify-self: center;
+  align-self: center;
   width: 100%;
 }
-.dex-viewer-overview .dex-viewer-stage {
+.dex-compose-overview .dex-viewer-stage,
+.dex-compose-forms .dex-viewer-stage {
   width: min(100%, 300px);
 }
 .dex-info { min-width: 0; }
@@ -4106,7 +4110,7 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
   overflow: hidden;
 }
 
-/* Shared Pokémon viewer (silhouette + sprite same center) */
+/* Shared Pokémon viewer (silhouette + sprite same center; no crop) */
 .dex-viewer {
   display: grid;
   justify-items: center;
@@ -4116,25 +4120,28 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
 }
 .dex-viewer-stage {
   position: relative;
-  width: min(100%, 280px);
+  width: min(100%, 300px);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
-  overflow: hidden;
+  overflow: visible;
+  box-sizing: border-box;
+  padding: 6%;
 }
 .dex-viewer-sil {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: 6%;
+  width: auto;
+  height: auto;
+  max-width: 88%;
+  max-height: 88%;
   margin: auto;
   object-fit: contain;
   object-position: center;
   opacity: 0.09;
   filter: grayscale(1) brightness(0.35);
   pointer-events: none;
-  transform: scale(1.22);
-  transform-origin: center center;
+  transform: none;
   z-index: 0;
 }
 .dex-viewer-frame {
@@ -4144,12 +4151,13 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
   height: var(--dex-sprite);
   display: grid;
   place-items: center;
-  overflow: hidden;
+  overflow: visible;
 }
 .dex-viewer-sprite {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: center;
   filter: drop-shadow(0 8px 16px rgba(90, 140, 190, 0.22));
 }
 .dex-viewer-meta {
@@ -4168,22 +4176,9 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
 html[data-perf="low"] .dex-viewer-sil,
 html[data-reduced-motion="1"] .dex-viewer-sil {
   opacity: 0.06;
-  transform: scale(1.22);
 }
 
-/* —— FORMS: viewer | controls —— */
-.dex-compose-forms {
-  grid-template-columns: minmax(220px, 0.48fr) minmax(0, 1fr);
-  gap: clamp(18px, 2.2vw, 32px);
-  align-items: center;
-  height: 100%;
-}
-.dex-compose-forms .dex-viewer-stage {
-  width: min(100%, 260px);
-}
-.dex-compose-forms {
-  --dex-sprite: 132px;
-}
+/* —— FORMS: controls | viewer (same geometry as Overview) —— */
 .dex-controls {
   min-width: 0;
   display: flex;
@@ -4488,12 +4483,10 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
   .dex-overlay-chrome { padding: 8px 14px 4px; }
   .dex-overlay-tabs { padding: 6px 12px 10px; }
   .dex-za-flavor p { -webkit-line-clamp: 2; }
-  .dex-compose-forms { --dex-sprite: 116px; }
 }
 
 @media (max-width: 1100px) {
   .dex-overlay { --dex-sprite: 136px; --dex-evo-art: 118px; }
-  .dex-compose-forms { --dex-sprite: 120px; }
   .dex-evo-node { width: 128px; }
 }
 
@@ -4515,7 +4508,8 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
     grid-template-columns: 1fr;
     gap: 14px;
   }
-  .dex-viewer-overview { order: -1; }
+  .dex-compose-overview .dex-viewer,
+  .dex-compose-forms .dex-viewer { order: -1; }
   .dex-overlay-nav { display: none; }
   .dex-research-primary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .dex-research-secondary {
@@ -4523,7 +4517,6 @@ html[data-reduced-motion="1"] .dex-viewer-sil {
     width: 100%;
   }
   .dex-evo-footer { justify-content: center; text-align: center; }
-  .dex-compose-forms { --dex-sprite: 120px; }
 }
 
 @media (max-width: 430px) {

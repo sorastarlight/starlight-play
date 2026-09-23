@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Build Pokédex presentation assets + visible-alpha bounds metadata.
+"""Build Pokédex presentation catalog (animated primary + HOME retained).
 
-Priority (Pokédex presentation only — does NOT touch encounter sprites):
-  1. Pokémon HOME (PokeAPI sprites repo)
-  2. Official Artwork
-  3. Local form/battle GIF
-  4. Stadium2 last-resort fallback
+Priority for LIVE chamber (Pokédex presentation only):
+  1. Local animated Showdown/GIF (species/form/shiny/gender)
+  2. Pokémon HOME PNG (retained as static/fallback tier)
+  3. Official Artwork PNG
+  4. Stadium2 LAST RESORT
 
-Assets are cached under images/pokemon/home/ and images/pokemon/official-artwork/.
+Does NOT delete HOME/OA files. Does NOT touch encounter/PC sprites.
+GIF bounds use a union envelope across animation frames.
 """
 from __future__ import annotations
 
@@ -35,6 +36,13 @@ UA = "StarlightPlay-PokedexSync/1.0 (local build cache; not browser runtime)"
 RAW = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other"
 
 
+def public_url(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def opaque_bounds(im: Image.Image) -> tuple[int, int, int, int] | None:
     rgba = im.convert("RGBA")
     alpha = rgba.getchannel("A")
@@ -46,33 +54,74 @@ def opaque_bounds(im: Image.Image) -> tuple[int, int, int, int] | None:
     return (x0, y0, x1 - x0, y1 - y0)
 
 
-def best_frame(im: Image.Image) -> Image.Image:
-    n = getattr(im, "n_frames", 1)
-    best = None
-    best_score = -1
-    for i in range(n):
+def union_bounds(boxes: list[tuple[int, int, int, int]]) -> tuple[int, int, int, int] | None:
+    if not boxes:
+        return None
+    x0 = min(b[0] for b in boxes)
+    y0 = min(b[1] for b in boxes)
+    x1 = max(b[0] + b[2] for b in boxes)
+    y1 = max(b[1] + b[3] for b in boxes)
+    return (x0, y0, x1 - x0, y1 - y0)
+
+
+def analyze_still(im: Image.Image) -> dict:
+    w, h = im.size
+    bounds = opaque_bounds(im) or (0, 0, w, h)
+    return {"w": w, "h": h, "bounds": list(bounds), "frameCount": 1}
+
+
+def analyze_gif(path: Path) -> dict | None:
+    if not path.exists():
+        return None
+    try:
+        im = Image.open(path)
+    except Exception as exc:
+        print("skip gif", path, exc, file=sys.stderr)
+        return None
+    w, h = im.size
+    n = getattr(im, "n_frames", 1) or 1
+    boxes: list[tuple[int, int, int, int]] = []
+    # Cap frame sampling for huge GIFs but prefer full scan when reasonable
+    step = 1 if n <= 80 else max(1, n // 60)
+    for i in range(0, n, step):
         try:
             im.seek(i)
         except EOFError:
             break
-        frame = im.convert("RGBA")
-        alpha = frame.getchannel("A")
-        score = sum(1 for a in alpha.getdata() if a > ALPHA_CUTOFF)
-        if score > best_score:
-            best_score = score
-            best = frame.copy()
-    return best or im.convert("RGBA")
+        box = opaque_bounds(im)
+        if box:
+            boxes.append(box)
+    # Always include first + last frame
+    for i in (0, n - 1):
+        try:
+            im.seek(i)
+            box = opaque_bounds(im)
+            if box:
+                boxes.append(box)
+        except EOFError:
+            pass
+    bounds = union_bounds(boxes) or (0, 0, w, h)
+    return {
+        "w": w,
+        "h": h,
+        "bounds": list(bounds),
+        "frameCount": n,
+        "class": "battle",
+        "render": "pixelated",
+        "url": public_url(path),
+    }
 
 
-def analyze_image(im: Image.Image) -> dict:
-    w, h = im.size
-    bounds = opaque_bounds(im) or (0, 0, w, h)
-    return {"w": w, "h": h, "bounds": list(bounds)}
-
-
-def write_png(im: Image.Image, dest: Path) -> None:
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    im.save(dest, format="PNG", optimize=True)
+def load_png_meta(path: Path) -> dict | None:
+    if not path.exists() or path.stat().st_size < 200:
+        return None
+    try:
+        im = Image.open(path).convert("RGBA")
+    except Exception as exc:
+        print("skip png", path, exc, file=sys.stderr)
+        return None
+    meta = analyze_still(im)
+    return meta
 
 
 def fetch_url(url: str, dest: Path) -> bool:
@@ -91,54 +140,7 @@ def fetch_url(url: str, dest: Path) -> bool:
         return False
 
 
-def load_image(path: Path) -> Image.Image | None:
-    if not path.exists():
-        return None
-    try:
-        im = Image.open(path)
-        return best_frame(im) if path.suffix.lower() == ".gif" else im.convert("RGBA")
-    except Exception as exc:
-        print("skip", path, exc, file=sys.stderr)
-        return None
-
-
-def find_gif(base: Path, dex: int) -> Path | None:
-    direct = base / f"{dex}.gif"
-    if direct.exists():
-        return direct
-    hits = list(base.rglob(f"{dex}.gif")) if base.exists() else []
-    return hits[0] if hits else None
-
-
-def battle_paths(dex: int, form_id: int | None = None, shiny: bool = False, female: bool = False) -> list[Path]:
-    if form_id and form_id != dex:
-        root = LIVE / "forms"
-        parts = []
-        if shiny:
-            parts.append("shiny")
-        if female:
-            parts.append("female")
-        folder = root.joinpath(*parts) if parts else root
-        return [folder / f"{form_id}.gif", folder / f"{form_id}.png"]
-    if shiny and female:
-        return [LIVE / "shiny" / "female" / f"{dex}.gif"]
-    if female:
-        return [LIVE / "female" / f"{dex}.gif"]
-    if shiny:
-        return [LIVE / "shiny" / f"{dex}.gif"]
-    return [LIVE / f"{dex}.gif"]
-
-
-def load_first(paths: list[Path]) -> tuple[Path, Image.Image] | None:
-    for p in paths:
-        im = load_image(p)
-        if im is not None:
-            return p, im
-    return None
-
-
 def sync_remote(kind: str, pid: int, shiny: bool = False) -> Path | None:
-    """kind: home | official-artwork. Returns local path if present/fetched."""
     base = HOME_OUT if kind == "home" else OA_OUT
     rel = f"{'shiny/' if shiny else ''}{pid}.png"
     dest = base / rel
@@ -150,91 +152,148 @@ def sync_remote(kind: str, pid: int, shiny: bool = False) -> Path | None:
     return None
 
 
-def resolve_base(dex: int, shiny: bool = False) -> tuple[str, Path, Image.Image] | None:
-    for kind, cls in (("home", "home"), ("official-artwork", "official-artwork")):
-        path = sync_remote(kind, dex, shiny=shiny)
-        if path:
-            im = load_image(path)
-            if im is not None:
-                return cls, path, im
-    hit = load_first(battle_paths(dex, shiny=shiny))
-    if hit:
-        return "battle", hit[0], hit[1]
-    if not shiny:
-        stad = find_gif(STAD_N, dex)
-        if stad:
-            im = load_image(stad)
-            if im is not None:
-                return "stadium2", stad, im
-    else:
-        stad = find_gif(STAD_S, dex)
-        if stad:
-            im = load_image(stad)
-            if im is not None:
-                return "stadium2", stad, im
-    return None
+def find_gif(base: Path, dex: int) -> Path | None:
+    direct = base / f"{dex}.gif"
+    if direct.exists():
+        return direct
+    hits = list(base.rglob(f"{dex}.gif")) if base.exists() else []
+    return hits[0] if hits else None
 
 
-def resolve_form(dex: int, form_id: int, shiny: bool = False) -> tuple[str, Path, Image.Image] | None:
-    for kind, cls in (("home", "home"), ("official-artwork", "official-artwork")):
-        path = sync_remote(kind, form_id, shiny=shiny)
-        if path:
-            im = load_image(path)
-            if im is not None:
-                return cls, path, im
-    hit = load_first(battle_paths(dex, form_id=form_id, shiny=shiny))
-    if hit:
-        return "battle", hit[0], hit[1]
-    return None
+def battle_gif_path(dex: int, form_id: int | None = None, shiny: bool = False, female: bool = False) -> Path | None:
+    if form_id and form_id != dex:
+        root = LIVE / "forms"
+        parts: list[str] = []
+        if shiny:
+            parts.append("shiny")
+        if female:
+            parts.append("female")
+        folder = root.joinpath(*parts) if parts else root
+        p = folder / f"{form_id}.gif"
+        return p if p.exists() else None
+    if shiny and female:
+        p = LIVE / "shiny" / "female" / f"{dex}.gif"
+        return p if p.exists() else None
+    if female:
+        p = LIVE / "female" / f"{dex}.gif"
+        return p if p.exists() else None
+    if shiny:
+        p = LIVE / "shiny" / f"{dex}.gif"
+        return p if p.exists() else None
+    p = LIVE / f"{dex}.gif"
+    return p if p.exists() else None
 
 
-def public_url(path: Path) -> str:
-    try:
-        rel = path.relative_to(ROOT).as_posix()
-    except ValueError:
-        rel = path.as_posix()
-    return rel
-
-
-def entry_from(cls: str, path: Path, im: Image.Image) -> dict:
-    meta = analyze_image(im)
-    render = "pixelated" if cls == "battle" else "auto"
-    # If we loaded from outside live tree (stadium), copy into home fallbacks folder
-    url_path = path
-    if not str(path).replace("\\", "/").startswith(str(LIVE).replace("\\", "/")):
-        # stadium last-resort: copy into images/pokemon/home/_fallback/
-        dest = HOME_OUT / "_fallback" / path.name.replace(".gif", ".png")
-        write_png(im, dest)
-        url_path = dest
-    elif path.suffix.lower() == ".gif" and cls != "battle":
-        # shouldn't happen for home/oa
-        pass
+def tier_meta(kind: str, pid: int, shiny: bool = False) -> dict | None:
+    """HOME or OA still metadata (files retained even when not primary)."""
+    base = HOME_OUT if kind == "home" else OA_OUT
+    path = base / f"{'shiny/' if shiny else ''}{pid}.png"
+    if not path.exists():
+        sync_remote(kind, pid, shiny=shiny)
+    meta = load_png_meta(path)
+    if not meta:
+        return None
+    url = f"images/pokemon/{'home' if kind == 'home' else 'official-artwork'}/{'shiny/' if shiny else ''}{pid}.png"
     return {
-        "class": cls,
-        "render": render,
-        "url": public_url(url_path) if cls != "battle" or path.suffix.lower() != ".gif" else public_url(path),
+        "class": kind,
+        "render": "auto",
+        "url": url,
         "w": meta["w"],
         "h": meta["h"],
         "bounds": meta["bounds"],
     }
 
 
-def prefetch_ids(ids: list[int]) -> None:
+def stadium_gif(dex: int, shiny: bool = False) -> dict | None:
+    root = STAD_S if shiny else STAD_N
+    path = find_gif(root, dex)
+    if not path:
+        return None
+    # Copy last-resort still into local fallback so runtime stays local
+    try:
+        im = Image.open(path)
+        im.seek(0)
+        frame = im.convert("RGBA")
+    except Exception:
+        return None
+    dest = HOME_OUT / "_fallback" / f"{'shiny-' if shiny else ''}{dex}.png"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    frame.save(dest, format="PNG", optimize=True)
+    meta = analyze_still(frame)
+    # Prefer analyzing the GIF itself for envelope if readable from STAD path — but runtime URL must be local.
+    # Use still bounds from frame 1 as last resort (stadium rarely used).
+    return {
+        "class": "stadium2",
+        "render": "pixelated",
+        "url": public_url(dest),
+        "w": meta["w"],
+        "h": meta["h"],
+        "bounds": meta["bounds"],
+        "frameCount": 1,
+    }
+
+
+def build_variant(dex: int, form_id: int | None = None, shiny: bool = False, female: bool = False) -> dict | None:
+    pid = form_id if form_id and form_id != dex else dex
+    animated = None
+    gif = battle_gif_path(dex, form_id=form_id, shiny=shiny, female=female)
+    if gif:
+        animated = analyze_gif(gif)
+
+    home = tier_meta("home", pid, shiny=shiny)
+    oa = tier_meta("official-artwork", pid, shiny=shiny)
+
+    primary = animated
+    if not primary and home:
+        primary = {**home, "frameCount": 1}
+    if not primary and oa:
+        primary = {**oa, "frameCount": 1}
+    if not primary and not form_id:
+        primary = stadium_gif(dex, shiny=shiny)
+
+    if not primary:
+        return None
+
+    entry = {
+        "class": primary["class"],
+        "render": primary.get("render", "auto"),
+        "url": primary["url"],
+        "w": primary["w"],
+        "h": primary["h"],
+        "bounds": primary["bounds"],
+        "frameCount": primary.get("frameCount", 1),
+    }
+    if animated:
+        entry["animatedAsset"] = {
+            "class": "battle",
+            "render": "pixelated",
+            "url": animated["url"],
+            "w": animated["w"],
+            "h": animated["h"],
+            "bounds": animated["bounds"],
+            "frameCount": animated["frameCount"],
+        }
+    if home:
+        entry["homeAsset"] = home
+    if oa:
+        entry["officialArtworkAsset"] = oa
+    return entry
+
+
+def prefetch_still_ids(ids: list[int]) -> None:
     jobs = []
     for pid in ids:
-        jobs.append(("home", pid, False))
-        jobs.append(("home", pid, True))
-        jobs.append(("official-artwork", pid, False))
-        jobs.append(("official-artwork", pid, True))
+        for kind in ("home", "official-artwork"):
+            jobs.append((kind, pid, False))
+            jobs.append((kind, pid, True))
 
     def work(item):
         kind, pid, shiny = item
-        return kind, pid, shiny, sync_remote(kind, pid, shiny=shiny) is not None
+        return sync_remote(kind, pid, shiny=shiny) is not None
 
     ok = 0
     with concurrent.futures.ThreadPoolExecutor(max_workers=16) as pool:
-        for i, result in enumerate(pool.map(work, jobs), 1):
-            kind, pid, shiny, success = result
+        for i, success in enumerate(pool.map(work, jobs), 1):
             if success:
                 ok += 1
             if i % 100 == 0:
@@ -249,94 +308,80 @@ def main() -> int:
     form_ids = sorted({fid for fid, dex in form_to_dex.items() if fid != dex})
 
     all_ids = sorted(set(KANTO) | set(form_ids))
-    print(f"syncing HOME/OA for {len(all_ids)} ids…")
-    prefetch_ids(all_ids)
+    print(f"ensuring HOME/OA stills for {len(all_ids)} ids (retained catalog)…")
+    prefetch_still_ids(all_ids)
 
     assets: dict[str, dict] = {}
-    counts = {"home": 0, "official-artwork": 0, "battle": 0, "stadium2": 0}
+    counts: dict[str, int] = {}
 
     for dex in KANTO:
-        resolved = resolve_base(dex, shiny=False)
-        if not resolved:
+        entry = build_variant(dex)
+        if not entry:
             print("MISSING base", dex, file=sys.stderr)
             continue
-        cls, path, im = resolved
-        entry = entry_from(cls, path, im)
-        # Prefer serving from home/oa folders with stable URLs
-        if cls == "home":
-            entry["url"] = f"images/pokemon/home/{dex}.png"
-        elif cls == "official-artwork":
-            entry["url"] = f"images/pokemon/official-artwork/{dex}.png"
-        counts[cls] = counts.get(cls, 0) + 1
-
-        shiny = resolve_base(dex, shiny=True)
+        shiny = build_variant(dex, shiny=True)
         if shiny:
-            scls, spath, sim = shiny
-            sm = analyze_image(sim)
-            if scls == "home":
-                entry["shinyUrl"] = f"images/pokemon/home/shiny/{dex}.png"
-            elif scls == "official-artwork":
-                entry["shinyUrl"] = f"images/pokemon/official-artwork/shiny/{dex}.png"
-            else:
-                entry["shinyUrl"] = public_url(spath)
-            entry["shiny"] = {"w": sm["w"], "h": sm["h"], "bounds": sm["bounds"], "class": scls}
-
-        # battle fallback metadata for female / missing shiny cases
-        bhit = load_first(battle_paths(dex))
-        if bhit:
-            bm = analyze_image(bhit[1])
-            entry["battleFallback"] = {
-                "class": "battle",
-                "render": "pixelated",
-                "url": public_url(bhit[0]),
-                "w": bm["w"],
-                "h": bm["h"],
-                "bounds": bm["bounds"],
+            entry["shinyUrl"] = shiny["url"]
+            entry["shiny"] = {
+                "w": shiny["w"],
+                "h": shiny["h"],
+                "bounds": shiny["bounds"],
+                "class": shiny["class"],
+                "render": shiny["render"],
+                "frameCount": shiny.get("frameCount", 1),
             }
-        fhit = load_first(battle_paths(dex, female=True))
-        if fhit:
-            fm = analyze_image(fhit[1])
+            if shiny.get("animatedAsset"):
+                entry["shiny"]["animatedAsset"] = shiny["animatedAsset"]
+            if shiny.get("homeAsset"):
+                entry["shiny"]["homeAsset"] = shiny["homeAsset"]
+        female = build_variant(dex, female=True)
+        if female:
             entry["female"] = {
-                "class": "battle",
-                "render": "pixelated",
-                "url": public_url(fhit[0]),
-                "w": fm["w"],
-                "h": fm["h"],
-                "bounds": fm["bounds"],
+                "class": female["class"],
+                "render": female["render"],
+                "url": female["url"],
+                "w": female["w"],
+                "h": female["h"],
+                "bounds": female["bounds"],
+                "frameCount": female.get("frameCount", 1),
             }
+        # Keep battleFallback alias for older resolve paths
+        if entry.get("animatedAsset"):
+            entry["battleFallback"] = entry["animatedAsset"]
         assets[str(dex)] = entry
+        counts[entry["class"]] = counts.get(entry["class"], 0) + 1
         if dex % 25 == 0:
-            print(f"base {dex}/151 class={cls}")
+            print(f"base {dex}/151 class={entry['class']} frames={entry.get('frameCount')}")
 
     for form_id in form_ids:
         dex = form_to_dex[form_id]
-        resolved = resolve_form(dex, form_id, shiny=False)
-        if not resolved:
+        entry = build_variant(dex, form_id=form_id)
+        if not entry:
             continue
-        cls, path, im = resolved
-        entry = entry_from(cls, path, im)
-        if cls == "home":
-            entry["url"] = f"images/pokemon/home/{form_id}.png"
-        elif cls == "official-artwork":
-            entry["url"] = f"images/pokemon/official-artwork/{form_id}.png"
-        shiny = resolve_form(dex, form_id, shiny=True)
+        shiny = build_variant(dex, form_id=form_id, shiny=True)
         if shiny:
-            scls, spath, sim = shiny
-            sm = analyze_image(sim)
-            if scls == "home":
-                entry["shinyUrl"] = f"images/pokemon/home/shiny/{form_id}.png"
-            elif scls == "official-artwork":
-                entry["shinyUrl"] = f"images/pokemon/official-artwork/shiny/{form_id}.png"
-            else:
-                entry["shinyUrl"] = public_url(spath)
-            entry["shiny"] = {"w": sm["w"], "h": sm["h"], "bounds": sm["bounds"], "class": scls}
+            entry["shinyUrl"] = shiny["url"]
+            entry["shiny"] = {
+                "w": shiny["w"],
+                "h": shiny["h"],
+                "bounds": shiny["bounds"],
+                "class": shiny["class"],
+                "render": shiny["render"],
+                "frameCount": shiny.get("frameCount", 1),
+            }
+            if shiny.get("homeAsset"):
+                entry["shiny"]["homeAsset"] = shiny["homeAsset"]
+        if entry.get("animatedAsset"):
+            entry["battleFallback"] = entry["animatedAsset"]
         assets[f"{dex}:{form_id}"] = entry
-        counts[cls] = counts.get(cls, 0) + 1
+        counts[entry["class"]] = counts.get(entry["class"], 0) + 1
 
+    animated_n = sum(1 for a in assets.values() if a.get("animatedAsset") or a.get("class") == "battle")
+    home_n = sum(1 for a in assets.values() if a.get("homeAsset"))
     payload = {
-        "version": 2,
-        "envelope": {"occupancyH": 0.78, "occupancyW": 0.86, "margin": 0.05},
-        "priority": ["home", "official-artwork", "battle", "stadium2"],
+        "version": 3,
+        "envelope": {"occupancyH": 0.78, "occupancyW": 0.86, "margin": 0.08},
+        "priority": ["battle", "home", "official-artwork", "stadium2"],
         "assets": assets,
     }
     OUT_JS.write_text(
@@ -344,7 +389,7 @@ def main() -> int:
         f"window.PLAY_POKEDEX_PRESENTATION = {json.dumps(payload, separators=(',', ':'))};\n",
         encoding="utf-8",
     )
-    print("wrote", OUT_JS, "keys", len(assets), "counts", counts)
+    print("wrote", OUT_JS, "keys", len(assets), "primary", counts, "animated", animated_n, "homeRetained", home_n)
     return 0
 
 

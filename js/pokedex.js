@@ -623,7 +623,7 @@
           <div class="dex-chamber-watermark" aria-hidden="true"></div>
           <div class="dex-chamber-platform" aria-hidden="true"></div>
           <div class="dex-pokemon-glow" aria-hidden="true"></div>
-          <img class="dex-pokemon-art" src="${pres.url}" alt="" decoding="async" draggable="false" loading="eager">
+          <img class="dex-pokemon-art" src="${pres.url}" alt="" decoding="async" draggable="false" loading="${opts.lazy ? "lazy" : "eager"}">
         </div>
         ${caption}
       </div>`;
@@ -641,6 +641,7 @@
     const genus = ref?.genus || "";
     const status = entry.caught ? "Caught" : "Seen";
     const gen = Number(ref?.generation) || 1;
+    const genLabel = gen === 1 ? "Generation I" : `Generation ${gen}`;
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-overview">
@@ -654,18 +655,29 @@
               </div>
             </header>
             ${genus ? `<p class="dex-za-genus">${window.playEscapeAttr(genus)}</p>` : ""}
-            <div class="se-badge-row dex-za-badges">${classBadges.join("") || `<span class="dex-status-chip">${status}</span>`}</div>
+            <div class="se-badge-row dex-za-badges"><span class="dex-status-chip">${status}</span>${classBadges.join("")}</div>
             <div class="dex-za-types">${typeBadgesHtml(types)}</div>
-            <dl class="dex-info-grid">
-              <div class="dex-info-card"><span class="dex-info-ico is-height" aria-hidden="true"></span><dt>Height</dt><dd>${formatHeight(height)}</dd></div>
-              <div class="dex-info-card"><span class="dex-info-ico is-weight" aria-hidden="true"></span><dt>Weight</dt><dd>${formatWeight(weight)}</dd></div>
-              <div class="dex-info-card"><span class="dex-info-ico is-ability" aria-hidden="true"></span><dt>Ability</dt><dd>${abilityLinesHtml(ref)}</dd></div>
-              <div class="dex-info-card"><span class="dex-info-ico is-gen" aria-hidden="true"></span><dt>Generation</dt><dd>${gen}<br><span style="font-size:0.82em;font-weight:700;color:#6a7196">Kanto</span></dd></div>
-            </dl>
-            <blockquote class="dex-za-flavor"><p>${window.playEscapeAttr(flavor)}</p></blockquote>
+            <section class="dex-entry-block" aria-label="Pokédex entry">
+              <h3 class="dex-section-label">Pokédex Entry</h3>
+              <blockquote class="dex-za-flavor is-primary"><p>${window.playEscapeAttr(flavor)}</p></blockquote>
+            </section>
+            <section class="dex-species-data" aria-label="Species data">
+              <h3 class="dex-section-label">Species Data</h3>
+              <dl class="dex-info-grid">
+                <div class="dex-info-card"><span class="dex-info-ico is-height" aria-hidden="true"></span><dt>Height</dt><dd>${formatHeight(height)}</dd></div>
+                <div class="dex-info-card"><span class="dex-info-ico is-weight" aria-hidden="true"></span><dt>Weight</dt><dd>${formatWeight(weight)}</dd></div>
+                <div class="dex-info-card"><span class="dex-info-ico is-ability" aria-hidden="true"></span><dt>Ability</dt><dd>${abilityLinesHtml(ref)}</dd></div>
+                <div class="dex-info-card"><span class="dex-info-ico is-gen" aria-hidden="true"></span><dt>Region / Generation</dt><dd>Kanto<br><span style="font-size:0.82em;font-weight:700;color:#6a7196">${window.playEscapeAttr(genLabel)}</span></dd></div>
+              </dl>
+            </section>
           </div>
         </div>
       </div>`;
+  }
+
+  function formFactRow(label, value) {
+    if (value == null || value === "") return "";
+    return `<div class="dex-form-fact"><dt>${window.playEscapeAttr(label)}</dt><dd>${value}</dd></div>`;
   }
 
   function formsHtml(ctx) {
@@ -677,7 +689,16 @@
       ? String(form.formLabel || form.formKey)
       : "Base";
     const dense = forms.length > 8;
-    const registered = entry.caught ? "Registered" : "Seen";
+    const formSeenSet = new Set((entry.formSeen || []).map(Number));
+    const registered = formSeenSet.has(Number(form?.formId || entry.dex))
+      || collectionFlags(entry, form?.formId || entry.dex, false, false).formCaught
+      || entry.caught;
+    const regLabel = registered ? "Registered" : "Not registered";
+    const description = String(ref?.description || "").trim();
+    const intro = ref?.introduced || "";
+    const transform = ref?.transformation || "";
+    const requirement = ref?.requirement || "";
+    const selectedTitle = String(displayName || entry.name || "").toUpperCase();
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-forms">
@@ -688,14 +709,28 @@
             <section class="dex-axis"><h3>Appearance</h3><div class="dex-pill-row">${shinyPills}</div></section>
             ${showGender ? `<section class="dex-axis"><h3>Gender</h3><div class="dex-pill-row">${genderPills}</div></section>` : ""}
             <div class="dex-selected-form">
-              <h4>${window.playEscapeAttr(displayName)}</h4>
+              <p class="dex-section-label">Selected Form</p>
+              <h4>${window.playEscapeAttr(selectedTitle)}</h4>
               <div class="se-badge-row dex-za-badges">${classBadges.join("") || `<span class="dex-status-chip">${window.playEscapeAttr(subtitle)}</span>`}</div>
               <div class="dex-za-types">${typeBadgesHtml(types)}</div>
-              <dl class="dex-info-grid" style="margin-top:8px">
-                <div class="dex-info-card"><span class="dex-info-ico is-ability" aria-hidden="true"></span><dt>Ability</dt><dd>${abilityLinesHtml(ref)}</dd></div>
-                <div class="dex-info-card"><span class="dex-info-ico is-height" aria-hidden="true"></span><dt>Size</dt><dd>${formatHeight(height)} · ${formatWeight(weight)}</dd></div>
-              </dl>
-              <p class="dex-entry-note" style="margin-top:8px">${registered}. Form changes types, abilities, and size. Shiny and gender change appearance only.</p>
+              ${description ? `
+                <section class="dex-form-desc" aria-label="Form description">
+                  <h5 class="dex-section-label">Form Description</h5>
+                  <p>${window.playEscapeAttr(description)}</p>
+                </section>` : ""}
+              <section class="dex-form-data" aria-label="Form data">
+                <h5 class="dex-section-label">Form Data</h5>
+                <dl class="dex-form-facts">
+                  ${formFactRow("Ability", abilityLinesHtml(ref))}
+                  ${formFactRow("Height", formatHeight(height))}
+                  ${formFactRow("Weight", formatWeight(weight))}
+                  ${formFactRow("Introduced", window.playEscapeAttr(intro))}
+                  ${formFactRow("Transformation", window.playEscapeAttr(transform))}
+                  ${formFactRow("Requirement", window.playEscapeAttr(requirement))}
+                  ${formFactRow("Registration", window.playEscapeAttr(regLabel))}
+                </dl>
+              </section>
+              <p class="dex-entry-note">Shiny and gender change appearance only. Form selection updates types, abilities, and size where they differ.</p>
             </div>
           </div>
         </div>
@@ -712,7 +747,7 @@
       : { url: window.playSpriteUrl(dex, "normal"), cssVars: {} };
     return `
       <article class="dex-evo-node${current ? " is-current" : ""}${known ? "" : " is-unknown"}" style="${styleAttrs(pres.cssVars)}">
-        <div class="dex-evo-art"><img src="${pres.url}" alt="" class="${known ? "" : "silhouette"}"></div>
+        <div class="dex-evo-art"><img src="${pres.url}" alt="" class="${known ? "" : "silhouette"}" loading="lazy" decoding="async"></div>
         <span class="dex-evo-no">No. ${window.playPadDex(dex)}</span>
         <strong class="dex-evo-name">${window.playEscapeAttr(name)}</strong>
       </article>`;
@@ -795,21 +830,30 @@
               </div>
             </header>
             <h3 class="dex-research-heading">Your Research</h3>
-            <dl class="dex-research-primary">
-              ${metric("Status", entry.caught ? "Caught" : "Seen", "is-primary")}
-              ${metric("Caught", String(catches.length), "is-primary")}
-              ${metric("Forms", `${formsReg} / ${Math.max(forms.length, 1)}`, "is-primary")}
-              ${metric("Mastery", mastery ? `${mastery.rank || mastery.stars || "—"} · ${mastery.points || 0} pts` : "—", "is-primary")}
-            </dl>
-            <dl class="dex-research-secondary">
-              ${metric("Shiny", shinyN ? `Yes (${shinyN})` : "No")}
-              ${metric("♂ / ♀", `${maleN || 0} / ${femaleN || 0}`)}
-              ${metric("Evo Candy", candy != null ? String(candy) : "—")}
-            </dl>
-            <div class="dex-research-actions">
-              <a class="button secondary" href="./storage.html">My PC</a>
-              <a class="button secondary" href="./evolve.html">Professor Oak's Lab</a>
-            </div>
+            <section class="dex-research-group" aria-label="Collection">
+              <h4 class="dex-section-label">Collection</h4>
+              <dl class="dex-research-primary">
+                ${metric("Status", entry.caught ? "Caught" : "Seen", "is-primary")}
+                ${metric("Caught", String(catches.length), "is-primary")}
+                ${metric("Forms", `${formsReg} / ${Math.max(forms.length, 1)}`, "is-primary")}
+                ${metric("Shiny", shinyN ? `Yes (${shinyN})` : "No")}
+                ${metric("♂ / ♀", `${maleN || 0} / ${femaleN || 0}`)}
+              </dl>
+            </section>
+            <section class="dex-research-group" aria-label="Progression">
+              <h4 class="dex-section-label">Progression</h4>
+              <dl class="dex-research-secondary">
+                ${metric("Mastery", mastery ? `${mastery.rank || mastery.stars || "—"} · ${mastery.points || 0} pts` : "—", "is-primary")}
+                ${metric("Evolution Candy", candy != null ? String(candy) : "—")}
+              </dl>
+            </section>
+            <section class="dex-research-group" aria-label="Actions">
+              <h4 class="dex-section-label">Actions</h4>
+              <div class="dex-research-actions">
+                <a class="button secondary" href="./storage.html">My PC</a>
+                <a class="button secondary" href="./evolve.html">Professor Oak's Lab</a>
+              </div>
+            </section>
           </div>
         </div>
       </div>`;
@@ -911,6 +955,8 @@
       return;
     }
     detailState = null;
+    bodyEl.innerHTML = "";
+    tabsEl.innerHTML = "";
     overlay.hidden = true;
     overlay.classList.remove("is-open");
     unlockPageScroll();

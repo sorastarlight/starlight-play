@@ -150,8 +150,12 @@
     <div class="dex-overlay-panel" role="dialog" aria-modal="true" aria-labelledby="dex-overlay-title" tabindex="-1">
       <div class="dex-overlay-chrome">
         <div class="dex-overlay-brand">
-          <span class="dex-overlay-brand-mark" aria-hidden="true"></span>
-          <span>Pokédex</span>
+          <span class="dex-brand-ball" aria-hidden="true"></span>
+          <div class="dex-brand-text">
+            <strong>Pokédex</strong>
+            <span>ST★RLIGHT Pokémon Database</span>
+          </div>
+          <span class="dex-brand-stars" aria-hidden="true"><i></i><i></i><i></i></span>
         </div>
         <div class="dex-overlay-nav">
           <button type="button" class="dex-overlay-step" data-dex-prev hidden>← Previous</button>
@@ -164,6 +168,10 @@
       <div class="dex-overlay-scan" aria-hidden="true"></div>
       <div class="dex-overlay-body" id="dex-overlay-body"></div>
       <div class="dex-overlay-tabs" role="tablist" aria-label="Pokédex modes"></div>
+      <div class="dex-overlay-strip" aria-hidden="true">
+        <span>Discover · Catch · Research · Together under the stars</span>
+        <strong>☆ Sora Starlight</strong>
+      </div>
     </div>`;
   document.body.appendChild(overlay);
 
@@ -562,7 +570,10 @@
     tabsEl.innerHTML = TABS.map((row) => `
       <button type="button" class="dex-mode-tab${tab === row.id ? " is-active" : ""}"
         role="tab" id="dex-tab-${row.id}" aria-selected="${tab === row.id ? "true" : "false"}"
-        aria-controls="dex-overlay-body" data-dex-tab="${row.id}">${row.label}</button>`).join("");
+        aria-controls="dex-overlay-body" data-dex-tab="${row.id}">
+        <span class="dex-tab-ico" aria-hidden="true"></span>
+        <span>${row.label}</span>
+      </button>`).join("");
   }
 
   function paintNav() {
@@ -609,34 +620,47 @@
     return `
       <div class="dex-pokemon-viewer" data-asset-class="${window.playEscapeAttr(pres.assetClass || "")}" style="${styleAttrs(pres.cssVars)}"${titleId}>
         <div class="dex-pokemon-stage">
+          <div class="dex-chamber-watermark" aria-hidden="true"></div>
+          <div class="dex-chamber-platform" aria-hidden="true"></div>
           <div class="dex-pokemon-glow" aria-hidden="true"></div>
-          <img class="dex-pokemon-art" src="${pres.url}" alt="" decoding="async" draggable="false">
+          <img class="dex-pokemon-art" src="${pres.url}" alt="" decoding="async" draggable="false" loading="eager">
         </div>
         ${caption}
       </div>`;
   }
 
+  function abilityLinesHtml(ref) {
+    const abs = ref?.abilities || [];
+    if (!abs.length) return "—";
+    return abs.map(abilityLabel).map((line) => window.playEscapeAttr(line)).join("<br>");
+  }
+
   function overviewHtml(ctx) {
     const { entry, ref, displayName, types, height, weight, classBadges, presentation } = ctx;
-    const abilities = (ref?.abilities || []).map(abilityLabel).join(", ") || "—";
     const flavor = ref?.flavor || "Pokédex data syncing…";
     const genus = ref?.genus || "";
     const status = entry.caught ? "Caught" : "Seen";
+    const gen = Number(ref?.generation) || 1;
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-overview">
           ${pokemonViewerHtml(presentation, { titleId: "dex-overlay-title" })}
           <div class="dex-panel dex-info">
-            <p class="dex-za-no">No. ${window.playPadDex(entry.dex)}</p>
-            <h2 class="dex-za-name">${window.playEscapeAttr(displayName)}</h2>
+            <header class="dex-species-banner">
+              <span class="dex-banner-ball" aria-hidden="true"></span>
+              <div class="dex-banner-copy">
+                <p class="dex-za-no">No. ${window.playPadDex(entry.dex)}</p>
+                <h2 class="dex-za-name">${window.playEscapeAttr(displayName)}</h2>
+              </div>
+            </header>
             ${genus ? `<p class="dex-za-genus">${window.playEscapeAttr(genus)}</p>` : ""}
             <div class="se-badge-row dex-za-badges">${classBadges.join("") || `<span class="dex-status-chip">${status}</span>`}</div>
             <div class="dex-za-types">${typeBadgesHtml(types)}</div>
-            <dl class="dex-readout">
-              <div class="dex-readout-row"><dt>Height</dt><dd>${formatHeight(height)}</dd></div>
-              <div class="dex-readout-row"><dt>Weight</dt><dd>${formatWeight(weight)}</dd></div>
-              <div class="dex-readout-row"><dt>Ability</dt><dd>${window.playEscapeAttr(abilities)}</dd></div>
-              <div class="dex-readout-row"><dt>Generation</dt><dd>${Number(ref?.generation) || 1}</dd></div>
+            <dl class="dex-info-grid">
+              <div class="dex-info-card"><span class="dex-info-ico is-height" aria-hidden="true"></span><dt>Height</dt><dd>${formatHeight(height)}</dd></div>
+              <div class="dex-info-card"><span class="dex-info-ico is-weight" aria-hidden="true"></span><dt>Weight</dt><dd>${formatWeight(weight)}</dd></div>
+              <div class="dex-info-card"><span class="dex-info-ico is-ability" aria-hidden="true"></span><dt>Ability</dt><dd>${abilityLinesHtml(ref)}</dd></div>
+              <div class="dex-info-card"><span class="dex-info-ico is-gen" aria-hidden="true"></span><dt>Generation</dt><dd>${gen}<br><span style="font-size:0.82em;font-weight:700;color:#6a7196">Kanto</span></dd></div>
             </dl>
             <blockquote class="dex-za-flavor"><p>${window.playEscapeAttr(flavor)}</p></blockquote>
           </div>
@@ -647,29 +671,31 @@
   function formsHtml(ctx) {
     const {
       entry, forms, form, formPills, shinyPills, genderPills, showGender,
-      displayName, types, classBadges, presentation
+      displayName, types, classBadges, presentation, ref, height, weight
     } = ctx;
     const subtitle = (!form?.isBase && (form?.formLabel || form?.formKey))
       ? String(form.formLabel || form.formKey)
       : "Base";
     const dense = forms.length > 8;
-    const caption = `
-      <p class="dex-za-no">No. ${window.playPadDex(entry.dex)}</p>
-      <h2 class="dex-za-name">${window.playEscapeAttr(displayName)}</h2>
-      <p class="dex-viewer-sub">${window.playEscapeAttr(subtitle)}</p>`;
+    const registered = entry.caught ? "Registered" : "Seen";
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-forms">
-          ${pokemonViewerHtml(presentation, { captionHtml: caption })}
+          ${pokemonViewerHtml(presentation)}
           <div class="dex-panel dex-controls">
+            <h3 class="dex-forms-heading">Forms &amp; Appearance</h3>
             ${forms.length > 1 ? `<section class="dex-axis is-forms"><h3>Form</h3><div class="dex-pill-row${dense ? " is-dense" : ""}">${formPills}</div></section>` : ""}
             <section class="dex-axis"><h3>Appearance</h3><div class="dex-pill-row">${shinyPills}</div></section>
             ${showGender ? `<section class="dex-axis"><h3>Gender</h3><div class="dex-pill-row">${genderPills}</div></section>` : ""}
             <div class="dex-selected-form">
               <h4>${window.playEscapeAttr(displayName)}</h4>
-              <div class="se-badge-row dex-za-badges">${classBadges.join("") || `<span class="dex-status-chip">${subtitle}</span>`}</div>
+              <div class="se-badge-row dex-za-badges">${classBadges.join("") || `<span class="dex-status-chip">${window.playEscapeAttr(subtitle)}</span>`}</div>
               <div class="dex-za-types">${typeBadgesHtml(types)}</div>
-              <p class="dex-entry-note">Form changes types, abilities, and size. Shiny and gender change appearance only.</p>
+              <dl class="dex-info-grid" style="margin-top:8px">
+                <div class="dex-info-card"><span class="dex-info-ico is-ability" aria-hidden="true"></span><dt>Ability</dt><dd>${abilityLinesHtml(ref)}</dd></div>
+                <div class="dex-info-card"><span class="dex-info-ico is-height" aria-hidden="true"></span><dt>Size</dt><dd>${formatHeight(height)} · ${formatWeight(weight)}</dd></div>
+              </dl>
+              <p class="dex-entry-note" style="margin-top:8px">${registered}. Form changes types, abilities, and size. Shiny and gender change appearance only.</p>
             </div>
           </div>
         </div>
@@ -756,17 +782,19 @@
     const candy = fam ? Number(fam.candy || 0) : null;
     const metric = (label, value, tone = "") =>
       `<div class="dex-metric${tone ? ` ${tone}` : ""}"><dt>${label}</dt><dd>${value}</dd></div>`;
-    const caption = `
-      <p class="dex-za-no">No. ${window.playPadDex(entry.dex)}</p>
-      <h2 class="dex-za-name">${window.playEscapeAttr(entry.name || "")}</h2>`;
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-research">
-          ${pokemonViewerHtml(ctx.presentation, { captionHtml: caption })}
+          ${pokemonViewerHtml(ctx.presentation)}
           <div class="dex-research-panel">
-            <header class="dex-research-head">
-              <h3 class="dex-research-heading">Your Research</h3>
+            <header class="dex-species-banner">
+              <span class="dex-banner-ball" aria-hidden="true"></span>
+              <div class="dex-banner-copy">
+                <p class="dex-za-no">No. ${window.playPadDex(entry.dex)}</p>
+                <h2 class="dex-za-name">${window.playEscapeAttr(entry.name || "")}</h2>
+              </div>
             </header>
+            <h3 class="dex-research-heading">Your Research</h3>
             <dl class="dex-research-primary">
               ${metric("Status", entry.caught ? "Caught" : "Seen", "is-primary")}
               ${metric("Caught", String(catches.length), "is-primary")}
@@ -778,9 +806,9 @@
               ${metric("♂ / ♀", `${maleN || 0} / ${femaleN || 0}`)}
               ${metric("Evo Candy", candy != null ? String(candy) : "—")}
             </dl>
-            <div class="dex-research-footer">
-              <p class="dex-entry-note">Manage owned Pokémon in <a href="./storage.html">My PC</a>.</p>
-              <p class="dex-entry-note">Evolution readiness in <a href="./evolve.html">Professor Oak's Lab</a>.</p>
+            <div class="dex-research-actions">
+              <a class="button secondary" href="./storage.html">My PC</a>
+              <a class="button secondary" href="./evolve.html">Professor Oak's Lab</a>
             </div>
           </div>
         </div>

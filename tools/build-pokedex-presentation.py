@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
 """Build Pokédex presentation assets + visible-alpha bounds metadata.
 
-Prefer Stadium2 high-res frames for base Kanto (1-151) Normal/Shiny.
-Forms / female / missing fall back to live battle sprites with bounds.
+Priority (Pokédex presentation only — does NOT touch encounter sprites):
+  1. Pokémon HOME (PokeAPI sprites repo)
+  2. Official Artwork
+  3. Local form/battle GIF
+  4. Stadium2 last-resort fallback
 
-Does NOT modify encounter battle sprites under images/pokemon/*.gif.
+Assets are cached under images/pokemon/home/ and images/pokemon/official-artwork/.
 """
 from __future__ import annotations
 
+import concurrent.futures
 import json
 import re
 import sys
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 from PIL import Image
@@ -18,27 +24,20 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 REPO = ROOT.parent
 LIVE = ROOT / "images" / "pokemon"
-DEX_OUT = LIVE / "dex"
+HOME_OUT = LIVE / "home"
+OA_OUT = LIVE / "official-artwork"
 STAD_N = REPO / "ASSETS" / "SPRITES" / "POKEMON" / "Pokemon Sprites" / "Stadium2-Animations-(Normal)"
 STAD_S = REPO / "ASSETS" / "SPRITES" / "POKEMON" / "Pokemon Sprites" / "Stadium2-Animations-(Shiny)"
 OUT_JS = ROOT / "js" / "pokedex-presentation.js"
 KANTO = range(1, 152)
 ALPHA_CUTOFF = 8
-
-
-def find_gif(base: Path, dex: int) -> Path | None:
-    direct = base / f"{dex}.gif"
-    if direct.exists():
-        return direct
-    hits = list(base.rglob(f"{dex}.gif"))
-    return hits[0] if hits else None
+UA = "StarlightPlay-PokedexSync/1.0 (local build cache; not browser runtime)"
+RAW = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other"
 
 
 def opaque_bounds(im: Image.Image) -> tuple[int, int, int, int] | None:
-    """Return (x, y, w, h) of non-transparent pixels, or None."""
     rgba = im.convert("RGBA")
     alpha = rgba.getchannel("A")
-    # bbox is (left, upper, right, lower) for non-zero; treat near-transparent as empty
     mask = alpha.point(lambda a: 255 if a > ALPHA_CUTOFF else 0)
     box = mask.getbbox()
     if not box:
@@ -48,7 +47,6 @@ def opaque_bounds(im: Image.Image) -> tuple[int, int, int, int] | None:
 
 
 def best_frame(im: Image.Image) -> Image.Image:
-    """Pick the frame with the most opaque pixels (stable presentation pose)."""
     n = getattr(im, "n_frames", 1)
     best = None
     best_score = -1
@@ -69,13 +67,7 @@ def best_frame(im: Image.Image) -> Image.Image:
 def analyze_image(im: Image.Image) -> dict:
     w, h = im.size
     bounds = opaque_bounds(im) or (0, 0, w, h)
-    return {
-        "w": w,
-        "h": h,
-        "bounds": list(bounds),
-        "visW": bounds[2],
-        "visH": bounds[3],
-    }
+    return {"w": w, "h": h, "bounds": list(bounds)}
 
 
 def write_png(im: Image.Image, dest: Path) -> None:
@@ -83,357 +75,276 @@ def write_png(im: Image.Image, dest: Path) -> None:
     im.save(dest, format="PNG", optimize=True)
 
 
+def fetch_url(url: str, dest: Path) -> bool:
+    if dest.exists() and dest.stat().st_size > 200:
+        return True
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=45) as resp:
+            data = resp.read()
+        if len(data) < 200 or data[:4] != b"\x89PNG":
+            return False
+        dest.write_bytes(data)
+        return True
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError):
+        return False
+
+
+def load_image(path: Path) -> Image.Image | None:
+    if not path.exists():
+        return None
+    try:
+        im = Image.open(path)
+        return best_frame(im) if path.suffix.lower() == ".gif" else im.convert("RGBA")
+    except Exception as exc:
+        print("skip", path, exc, file=sys.stderr)
+        return None
+
+
+def find_gif(base: Path, dex: int) -> Path | None:
+    direct = base / f"{dex}.gif"
+    if direct.exists():
+        return direct
+    hits = list(base.rglob(f"{dex}.gif")) if base.exists() else []
+    return hits[0] if hits else None
+
+
 def battle_paths(dex: int, form_id: int | None = None, shiny: bool = False, female: bool = False) -> list[Path]:
-    """Candidate battle sprite paths (gif preferred)."""
-    stem_parts = []
-    root = LIVE
     if form_id and form_id != dex:
         root = LIVE / "forms"
+        parts = []
         if shiny:
-            stem_parts.append("shiny")
+            parts.append("shiny")
         if female:
-            stem_parts.append("female")
-        folder = root.joinpath(*stem_parts) if stem_parts else root
+            parts.append("female")
+        folder = root.joinpath(*parts) if parts else root
         return [folder / f"{form_id}.gif", folder / f"{form_id}.png"]
     if shiny and female:
-        return [LIVE / "shiny" / "female" / f"{dex}.gif", LIVE / "shiny" / "female" / f"{dex}.png"]
+        return [LIVE / "shiny" / "female" / f"{dex}.gif"]
     if female:
-        return [LIVE / "female" / f"{dex}.gif", LIVE / "female" / f"{dex}.png"]
+        return [LIVE / "female" / f"{dex}.gif"]
     if shiny:
-        return [LIVE / "shiny" / f"{dex}.gif", LIVE / "shiny" / f"{dex}.png"]
-    return [LIVE / f"{dex}.gif", LIVE / f"{dex}.png"]
+        return [LIVE / "shiny" / f"{dex}.gif"]
+    return [LIVE / f"{dex}.gif"]
 
 
-def load_first_existing(paths: list[Path]) -> tuple[Path, Image.Image] | None:
+def load_first(paths: list[Path]) -> tuple[Path, Image.Image] | None:
     for p in paths:
-        if not p.exists():
-            continue
-        try:
-            im = Image.open(p)
-            frame = best_frame(im) if p.suffix.lower() == ".gif" else im.convert("RGBA")
-            return p, frame
-        except Exception as exc:
-            print("skip", p, exc, file=sys.stderr)
+        im = load_image(p)
+        if im is not None:
+            return p, im
     return None
 
 
+def sync_remote(kind: str, pid: int, shiny: bool = False) -> Path | None:
+    """kind: home | official-artwork. Returns local path if present/fetched."""
+    base = HOME_OUT if kind == "home" else OA_OUT
+    rel = f"{'shiny/' if shiny else ''}{pid}.png"
+    dest = base / rel
+    url = f"{RAW}/{kind}/{'shiny/' if shiny else ''}{pid}.png"
+    if fetch_url(url, dest):
+        return dest
+    if dest.exists() and dest.stat().st_size < 200:
+        dest.unlink(missing_ok=True)
+    return None
+
+
+def resolve_base(dex: int, shiny: bool = False) -> tuple[str, Path, Image.Image] | None:
+    for kind, cls in (("home", "home"), ("official-artwork", "official-artwork")):
+        path = sync_remote(kind, dex, shiny=shiny)
+        if path:
+            im = load_image(path)
+            if im is not None:
+                return cls, path, im
+    hit = load_first(battle_paths(dex, shiny=shiny))
+    if hit:
+        return "battle", hit[0], hit[1]
+    if not shiny:
+        stad = find_gif(STAD_N, dex)
+        if stad:
+            im = load_image(stad)
+            if im is not None:
+                return "stadium2", stad, im
+    else:
+        stad = find_gif(STAD_S, dex)
+        if stad:
+            im = load_image(stad)
+            if im is not None:
+                return "stadium2", stad, im
+    return None
+
+
+def resolve_form(dex: int, form_id: int, shiny: bool = False) -> tuple[str, Path, Image.Image] | None:
+    for kind, cls in (("home", "home"), ("official-artwork", "official-artwork")):
+        path = sync_remote(kind, form_id, shiny=shiny)
+        if path:
+            im = load_image(path)
+            if im is not None:
+                return cls, path, im
+    hit = load_first(battle_paths(dex, form_id=form_id, shiny=shiny))
+    if hit:
+        return "battle", hit[0], hit[1]
+    return None
+
+
+def public_url(path: Path) -> str:
+    try:
+        rel = path.relative_to(ROOT).as_posix()
+    except ValueError:
+        rel = path.as_posix()
+    return rel
+
+
+def entry_from(cls: str, path: Path, im: Image.Image) -> dict:
+    meta = analyze_image(im)
+    render = "pixelated" if cls == "battle" else "auto"
+    # If we loaded from outside live tree (stadium), copy into home fallbacks folder
+    url_path = path
+    if not str(path).replace("\\", "/").startswith(str(LIVE).replace("\\", "/")):
+        # stadium last-resort: copy into images/pokemon/home/_fallback/
+        dest = HOME_OUT / "_fallback" / path.name.replace(".gif", ".png")
+        write_png(im, dest)
+        url_path = dest
+    elif path.suffix.lower() == ".gif" and cls != "battle":
+        # shouldn't happen for home/oa
+        pass
+    return {
+        "class": cls,
+        "render": render,
+        "url": public_url(url_path) if cls != "battle" or path.suffix.lower() != ".gif" else public_url(path),
+        "w": meta["w"],
+        "h": meta["h"],
+        "bounds": meta["bounds"],
+    }
+
+
+def prefetch_ids(ids: list[int]) -> None:
+    jobs = []
+    for pid in ids:
+        jobs.append(("home", pid, False))
+        jobs.append(("home", pid, True))
+        jobs.append(("official-artwork", pid, False))
+        jobs.append(("official-artwork", pid, True))
+
+    def work(item):
+        kind, pid, shiny = item
+        return kind, pid, shiny, sync_remote(kind, pid, shiny=shiny) is not None
+
+    ok = 0
+    with concurrent.futures.ThreadPoolExecutor(max_workers=16) as pool:
+        for i, result in enumerate(pool.map(work, jobs), 1):
+            kind, pid, shiny, success = result
+            if success:
+                ok += 1
+            if i % 100 == 0:
+                print(f"prefetch {i}/{len(jobs)} ok={ok}")
+    print(f"prefetch done ok={ok}/{len(jobs)}")
+
+
 def main() -> int:
-    if not STAD_N.exists():
-        print("Stadium2 Normal library missing:", STAD_N, file=sys.stderr)
-        return 1
+    forms_js = (ROOT / "js" / "forms.js").read_text(encoding="utf-8", errors="ignore")
+    pairs = re.findall(r'"formId"\s*:\s*(\d+)\s*,\s*"dex"\s*:\s*(\d+)', forms_js)
+    form_to_dex = {int(fid): int(dex) for fid, dex in pairs if int(dex) <= 151}
+    form_ids = sorted({fid for fid, dex in form_to_dex.items() if fid != dex})
+
+    all_ids = sorted(set(KANTO) | set(form_ids))
+    print(f"syncing HOME/OA for {len(all_ids)} ids…")
+    prefetch_ids(all_ids)
 
     assets: dict[str, dict] = {}
-    built = 0
+    counts = {"home": 0, "official-artwork": 0, "battle": 0, "stadium2": 0}
 
     for dex in KANTO:
-        stad = find_gif(STAD_N, dex)
-        shiny_stad = find_gif(STAD_S, dex)
-        if not stad:
-            print("missing stadium", dex, file=sys.stderr)
+        resolved = resolve_base(dex, shiny=False)
+        if not resolved:
+            print("MISSING base", dex, file=sys.stderr)
             continue
-        im = best_frame(Image.open(stad))
-        meta = analyze_image(im)
-        out = DEX_OUT / f"{dex}.png"
-        write_png(im, out)
-        entry = {
-            "class": "stadium2",
-            "render": "auto",
-            "url": f"images/pokemon/dex/{dex}.png",
-            "w": meta["w"],
-            "h": meta["h"],
-            "bounds": meta["bounds"],
-        }
-        if shiny_stad and shiny_stad.exists():
-            sim = best_frame(Image.open(shiny_stad))
+        cls, path, im = resolved
+        entry = entry_from(cls, path, im)
+        # Prefer serving from home/oa folders with stable URLs
+        if cls == "home":
+            entry["url"] = f"images/pokemon/home/{dex}.png"
+        elif cls == "official-artwork":
+            entry["url"] = f"images/pokemon/official-artwork/{dex}.png"
+        counts[cls] = counts.get(cls, 0) + 1
+
+        shiny = resolve_base(dex, shiny=True)
+        if shiny:
+            scls, spath, sim = shiny
             sm = analyze_image(sim)
-            sout = DEX_OUT / "shiny" / f"{dex}.png"
-            write_png(sim, sout)
-            entry["shinyUrl"] = f"images/pokemon/dex/shiny/{dex}.png"
-            entry["shiny"] = {
-                "w": sm["w"],
-                "h": sm["h"],
-                "bounds": sm["bounds"],
-            }
-        assets[str(dex)] = entry
-        built += 1
-        if dex % 25 == 0:
-            print(f"stadium base {dex}/151")
+            if scls == "home":
+                entry["shinyUrl"] = f"images/pokemon/home/shiny/{dex}.png"
+            elif scls == "official-artwork":
+                entry["shinyUrl"] = f"images/pokemon/official-artwork/shiny/{dex}.png"
+            else:
+                entry["shinyUrl"] = public_url(spath)
+            entry["shiny"] = {"w": sm["w"], "h": sm["h"], "bounds": sm["bounds"], "class": scls}
 
-    # Battle fallbacks for forms that exist under images/pokemon/forms
-    forms_dir = LIVE / "forms"
-    form_ids: set[int] = set()
-    if forms_dir.exists():
-        for p in forms_dir.glob("*.gif"):
-            if p.stem.isdigit():
-                form_ids.add(int(p.stem))
-        for p in (forms_dir / "shiny").glob("*.gif") if (forms_dir / "shiny").exists() else []:
-            if p.stem.isdigit():
-                form_ids.add(int(p.stem))
-
-    # Also parse PLAY_FORMS from forms.js lightly for dex mapping
-    forms_js = (ROOT / "js" / "forms.js").read_text(encoding="utf-8", errors="ignore")
-    # "formId":10034,"dex":6
-    pairs = re.findall(r'"formId"\s*:\s*(\d+)\s*,\s*"dex"\s*:\s*(\d+)', forms_js)
-    form_to_dex = {int(fid): int(dex) for fid, dex in pairs}
-
-    for form_id in sorted(form_ids):
-        dex = form_to_dex.get(form_id)
-        if not dex or dex > 151:
-            continue
-        if form_id == dex:
-            continue
-        loaded = load_first_existing(battle_paths(dex, form_id=form_id))
-        if not loaded:
-            continue
-        _path, frame = loaded
-        meta = analyze_image(frame)
-        key = f"{dex}:{form_id}"
-        assets[key] = {
-            "class": "battle",
-            "render": "pixelated",
-            "url": f"images/pokemon/forms/{form_id}.gif",
-            "w": meta["w"],
-            "h": meta["h"],
-            "bounds": meta["bounds"],
-        }
-        shiny_loaded = load_first_existing(battle_paths(dex, form_id=form_id, shiny=True))
-        if shiny_loaded:
-            _sp, sframe = shiny_loaded
-            sm = analyze_image(sframe)
-            assets[key]["shinyUrl"] = f"images/pokemon/forms/shiny/{form_id}.gif"
-            assets[key]["shiny"] = {
-                "w": sm["w"],
-                "h": sm["h"],
-                "bounds": sm["bounds"],
-            }
-
-    # Battle bounds for base as fallback metadata (when stadium missing / female)
-    for dex in KANTO:
-        loaded = load_first_existing(battle_paths(dex))
-        if not loaded:
-            continue
-        _path, frame = loaded
-        meta = analyze_image(frame)
-        assets.setdefault(str(dex), {})
-        assets[str(dex)]["battleFallback"] = {
-            "class": "battle",
-            "render": "pixelated",
-            "url": f"images/pokemon/{dex}.gif",
-            "w": meta["w"],
-            "h": meta["h"],
-            "bounds": meta["bounds"],
-        }
-        female = load_first_existing(battle_paths(dex, female=True))
-        if female:
-            _fp, fframe = female
-            fm = analyze_image(fframe)
-            assets[str(dex)]["female"] = {
+        # battle fallback metadata for female / missing shiny cases
+        bhit = load_first(battle_paths(dex))
+        if bhit:
+            bm = analyze_image(bhit[1])
+            entry["battleFallback"] = {
                 "class": "battle",
                 "render": "pixelated",
-                "url": f"images/pokemon/female/{dex}.gif",
+                "url": public_url(bhit[0]),
+                "w": bm["w"],
+                "h": bm["h"],
+                "bounds": bm["bounds"],
+            }
+        fhit = load_first(battle_paths(dex, female=True))
+        if fhit:
+            fm = analyze_image(fhit[1])
+            entry["female"] = {
+                "class": "battle",
+                "render": "pixelated",
+                "url": public_url(fhit[0]),
                 "w": fm["w"],
                 "h": fm["h"],
                 "bounds": fm["bounds"],
             }
+        assets[str(dex)] = entry
+        if dex % 25 == 0:
+            print(f"base {dex}/151 class={cls}")
+
+    for form_id in form_ids:
+        dex = form_to_dex[form_id]
+        resolved = resolve_form(dex, form_id, shiny=False)
+        if not resolved:
+            continue
+        cls, path, im = resolved
+        entry = entry_from(cls, path, im)
+        if cls == "home":
+            entry["url"] = f"images/pokemon/home/{form_id}.png"
+        elif cls == "official-artwork":
+            entry["url"] = f"images/pokemon/official-artwork/{form_id}.png"
+        shiny = resolve_form(dex, form_id, shiny=True)
+        if shiny:
+            scls, spath, sim = shiny
+            sm = analyze_image(sim)
+            if scls == "home":
+                entry["shinyUrl"] = f"images/pokemon/home/shiny/{form_id}.png"
+            elif scls == "official-artwork":
+                entry["shinyUrl"] = f"images/pokemon/official-artwork/shiny/{form_id}.png"
+            else:
+                entry["shinyUrl"] = public_url(spath)
+            entry["shiny"] = {"w": sm["w"], "h": sm["h"], "bounds": sm["bounds"], "class": scls}
+        assets[f"{dex}:{form_id}"] = entry
+        counts[cls] = counts.get(cls, 0) + 1
 
     payload = {
-        "version": 1,
-        "envelope": {
-            "occupancyH": 0.72,
-            "occupancyW": 0.78,
-            "margin": 0.06,
-        },
+        "version": 2,
+        "envelope": {"occupancyH": 0.78, "occupancyW": 0.86, "margin": 0.05},
+        "priority": ["home", "official-artwork", "battle", "stadium2"],
         "assets": assets,
     }
-
-    js = (
-        "/* generated by tools/build-pokedex-presentation.py — do not hand-edit */\n"
-        "window.PLAY_POKEDEX_PRESENTATION = "
-        + json.dumps(payload, separators=(",", ":"))
-        + ";\n"
-        + """
-(() => {
-  const data = window.PLAY_POKEDEX_PRESENTATION;
-  if (!data) return;
-
-  function stamp(url) {
-    if (!url) return "";
-    const s = window.PLAY_SPRITE_BUILD;
-    if (!s) return url;
-    return url.includes("?") ? url : `${url}?v=${s}`;
-  }
-
-  function pickAsset(dex, formId, shiny, female) {
-    const id = Number(dex);
-    const fid = Number(formId || id);
-    const isBase = !fid || fid === id;
-    const key = isBase ? String(id) : `${id}:${fid}`;
-    let row = data.assets[key];
-
-    if (female && isBase && row?.female) {
-      return { ...row.female, assetKey: key + ":female" };
-    }
-    if (!row && isBase) {
-      // no stadium — try nothing
-      return null;
-    }
-    if (!row) {
-      // unknown form — synthesize battle path
-      return {
-        class: "battle",
-        render: "pixelated",
-        url: shiny
-          ? `images/pokemon/forms/shiny/${fid}.gif`
-          : `images/pokemon/forms/${fid}.gif`,
-        w: 96,
-        h: 96,
-        bounds: [0, 0, 96, 96],
-        assetKey: key,
-        synthetic: true
-      };
-    }
-
-    if (shiny && row.shinyUrl) {
-      const sb = row.shiny || row;
-      return {
-        class: row.class,
-        render: row.render,
-        url: row.shinyUrl,
-        w: sb.w,
-        h: sb.h,
-        bounds: sb.bounds || row.bounds,
-        assetKey: key + ":shiny"
-      };
-    }
-    if (shiny && row.battleFallback) {
-      // shiny stadium missing — battle shiny via playSpriteUrl caller
-    }
-    return {
-      class: row.class,
-      render: row.render,
-      url: row.url,
-      w: row.w,
-      h: row.h,
-      bounds: row.bounds,
-      assetKey: key
-    };
-  }
-
-  function fitStyle(asset, stageW, stageH) {
-    const env = data.envelope || {};
-    const margin = Number(env.margin) || 0.06;
-    const occH = Number(env.occupancyH) || 0.72;
-    const occW = Number(env.occupancyW) || 0.78;
-    const [bx, by, bw, bh] = asset.bounds || [0, 0, asset.w, asset.h];
-    const availW = stageW * (1 - margin * 2) * (occW / (1 - margin * 2 > 0 ? 1 : 1));
-    // Use occupancy against full stage with margin inset
-    const innerW = stageW * (1 - margin * 2);
-    const innerH = stageH * (1 - margin * 2);
-    const targetW = innerW * (occW / 0.88);
-    const targetH = innerH * (occH / 0.88);
-    // Clamp targets into inner box
-    const maxW = innerW;
-    const maxH = innerH;
-    const tw = Math.min(targetW, maxW);
-    const th = Math.min(targetH, maxH);
-    const scale = Math.min(tw / Math.max(bw, 1), th / Math.max(bh, 1));
-    const dispW = asset.w * scale;
-    const dispH = asset.h * scale;
-    const visCx = (bx + bw / 2) * scale;
-    const visCy = (by + bh / 2) * scale;
-    const left = stageW / 2 - visCx;
-    const top = stageH / 2 - visCy;
-    const occPrimary = Math.max((bw * scale) / stageW, (bh * scale) / stageH);
-    return {
-      scale,
-      left,
-      top,
-      dispW,
-      dispH,
-      occupancy: occPrimary,
-      css: {
-        "--dex-art-w": `${dispW}px`,
-        "--dex-art-h": `${dispH}px`,
-        "--dex-art-l": `${left}px`,
-        "--dex-art-t": `${top}px`,
-        "--dex-art-render": asset.render === "pixelated" ? "pixelated" : "auto"
-      }
-    };
-  }
-
-  window.resolvePokedexPresentation = function resolvePokedexPresentation(opts = {}) {
-    const dex = Number(opts.dex);
-    const formId = Number(opts.formId || dex);
-    const shiny = !!opts.shiny;
-    const female = !!opts.female;
-    let asset = pickAsset(dex, formId, shiny, female);
-
-    // Female/shiny form paths: prefer playSpriteUrl when synthetic or missing file class battle
-    if ((!asset || asset.synthetic || (shiny && !asset.url.includes("shiny") && asset.class === "stadium2" && female)) && typeof window.playSpriteUrl === "function") {
-      const variant = shiny && female ? "shiny-female" : shiny ? "shiny" : female ? "female" : "normal";
-      const url = window.playSpriteUrl(dex, variant, formId);
-      if (!asset || asset.synthetic || (female && asset.class === "stadium2")) {
-        const fb = data.assets[String(dex)]?.battleFallback || data.assets[`${dex}:${formId}`] || {
-          w: 96, h: 96, bounds: [0, 0, 96, 96], render: "pixelated", class: "battle"
-        };
-        asset = {
-          class: "battle",
-          render: "pixelated",
-          url,
-          w: fb.w,
-          h: fb.h,
-          bounds: fb.bounds,
-          assetKey: `battle:${dex}:${formId}:${variant}`
-        };
-      }
-    }
-
-    if (!asset) {
-      const url = typeof window.playSpriteUrl === "function"
-        ? window.playSpriteUrl(dex, shiny ? "shiny" : "normal", formId)
-        : "";
-      asset = {
-        class: "battle",
-        render: "pixelated",
-        url,
-        w: 96,
-        h: 96,
-        bounds: [0, 0, 96, 96],
-        assetKey: "fallback"
-      };
-    }
-
-    asset.url = stamp(asset.url);
-    const stageW = Number(opts.stageW) || 420;
-    const stageH = Number(opts.stageH) || 420;
-    const fit = fitStyle(asset, stageW, stageH);
-    return {
-      url: asset.url,
-      assetClass: asset.class,
-      renderMode: asset.render,
-      sourceW: asset.w,
-      sourceH: asset.h,
-      bounds: {
-        x: asset.bounds[0],
-        y: asset.bounds[1],
-        w: asset.bounds[2],
-        h: asset.bounds[3]
-      },
-      scale: fit.scale,
-      occupancy: fit.occupancy,
-      fit,
-      cssVars: fit.css,
-      assetKey: asset.assetKey
-    };
-  };
-
-  window.playPokedexPresentationData = data;
-})();
-"""
+    OUT_JS.write_text(
+        "/* generated by tools/build-pokedex-presentation.py — data only */\n"
+        f"window.PLAY_POKEDEX_PRESENTATION = {json.dumps(payload, separators=(',', ':'))};\n",
+        encoding="utf-8",
     )
-    OUT_JS.write_text(js, encoding="utf-8")
-    print(f"built {built} stadium bases; assets keys={len(assets)}; wrote {OUT_JS}")
-    print(f"dex png dir: {DEX_OUT}")
+    print("wrote", OUT_JS, "keys", len(assets), "counts", counts)
     return 0
 
 

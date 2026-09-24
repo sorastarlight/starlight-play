@@ -67,24 +67,25 @@ function assert(cond, msg) {
 }
 
 function fits(pres, label) {
-  const insetT = Number(pres.cssVars["--dex-safe-t"] || 0.06);
-  const insetB = Number(pres.cssVars["--dex-safe-b"] || 0.16);
-  const insetL = Number(pres.cssVars["--dex-safe-l"] || 0.07);
-  const insetR = Number(pres.cssVars["--dex-safe-r"] || 0.07);
+  const insetT = Number(pres.cssVars["--dex-safe-t"] || 0.045);
+  const insetB = Number(pres.cssVars["--dex-safe-b"] || 0.13);
+  const insetL = Number(pres.cssVars["--dex-safe-l"] || 0.05);
+  const insetR = Number(pres.cssVars["--dex-safe-r"] || 0.05);
   const h = pres.occupancyH;
   const w = pres.occupancyW;
   const topClear = 1 - insetB - h;
   const usableH = 1 - insetT - insetB;
   const usableW = 1 - insetL - insetR;
   const ok = h <= usableH + 1e-6 && w <= usableW + 1e-6 && topClear >= insetT - 1e-6;
-  assert(ok, `${label} fits chamber (h=${h} w=${w} topClear=${topClear.toFixed(3)})`);
-  return { topClear, h, w, core: pres.coreOccupancy, full: pres.fullEnvelopeOccupancy };
+  assert(ok, `${label} fits chamber (h=${h} w=${w} topClear=${topClear.toFixed(3)} insetT=${insetT})`);
+  return { topClear, h, w, core: pres.coreOccupancy, full: pres.fullEnvelopeOccupancy, insetT };
 }
 
 const gmax = resolve({ dex: 25, formId: 10199, shiny: false, female: false });
 assert(gmax.url.includes("forms/10199"), "Gmax Pikachu asset");
 const g = fits(gmax, "Gmax Pikachu");
-assert(g.topClear >= 0.055, `Gmax top clearance >= 6% (got ${g.topClear})`);
+assert(g.topClear >= g.insetT - 1e-6, `Gmax top clearance >= inset (${g.topClear} >= ${g.insetT})`);
+assert(g.core >= 0.58, `Gmax core prominence raised (got ${g.core})`);
 
 const raichu = resolve({ dex: 26, formId: 26 });
 const r = fits(raichu, "Raichu");

@@ -4477,6 +4477,31 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
+.dex-form-facts.is-lean {
+  grid-template-columns: 1fr 1fr;
+}
+.dex-form-traits {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255, 140, 180, 0.35);
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,240,248,0.88));
+}
+.dex-form-trait-head {
+  margin: 0 0 4px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: #3a4a78;
+}
+.dex-form-trait-line {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #5a6a90;
+  line-height: 1.4;
+}
+.dex-form-trait-line + .dex-form-trait-line { margin-top: 2px; }
 .dex-form-fact {
   margin: 0;
   padding: 8px 10px;
@@ -4663,9 +4688,6 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
 }
 .dex-pill-row.is-compact {
   flex-wrap: wrap;
-}
-.dex-form-facts.is-lean {
-  grid-template-columns: 1fr 1fr;
 }
 .dex-axis h3 {
   margin: 0;

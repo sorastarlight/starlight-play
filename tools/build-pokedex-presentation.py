@@ -44,14 +44,19 @@ UA = "StarlightPlay-PokedexSync/1.0 (local build cache; not browser runtime)"
 RAW = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other"
 
 # Chamber safe-fit constants (fractions of observation stage)
-SAFE_INSET = {"top": 0.06, "right": 0.07, "bottom": 0.16, "left": 0.07}
-MIN_CORE_OCC = 0.34
-MAX_CORE_OCC = 0.78
+# Ordinary ~4–6% edge clearance; platform band reserved at bottom.
+SAFE_INSET = {"top": 0.045, "right": 0.05, "bottom": 0.13, "left": 0.05}
+# Extreme tall/wide may approach the frame more closely (still never clip).
+SAFE_INSET_EXTREME = {"top": 0.032, "right": 0.038, "bottom": 0.12, "left": 0.038}
+MIN_CORE_OCC = 0.36
+MAX_CORE_OCC = 0.86
 REF_HEIGHT_M = 1.2
-REF_CORE_OCC = 0.52
-SCALE_POWER = 0.38  # stronger diminishing returns for giants
-MIN_PRESENT_OCC = 0.32
-MAX_SAFE_OCC = 0.88  # hard ceiling — never a target
+REF_CORE_OCC = 0.58
+SCALE_POWER = 0.42
+MIN_PRESENT_OCC = 0.36
+MAX_SAFE_OCC = 0.92  # hard ceiling — never a target
+CATALOG_FLOOR_KEYS = 220
+CATALOG_KANTO_BASE = 151
 
 
 def public_url(path: Path) -> str:
@@ -263,15 +268,56 @@ def analyze_composition_from_mask(union: list[int], w: int, h: int, frame_count:
 
 
 def desired_core_occupancy(height_m: float | None) -> float:
+    """Body prominence targets by canonical height (calibration bands)."""
     h = height_m if height_m and height_m > 0 else REF_HEIGHT_M
-    # log-ish diminishing returns for giants
-    ratio = math.pow(max(0.12, h) / REF_HEIGHT_M, SCALE_POWER)
-    occ = REF_CORE_OCC * ratio
-    # Soft giant compression: above ~3m, squeeze toward ceiling slowly
-    if h >= 3.0:
-        t = min(1.0, math.log10(h / 3.0 + 1.0) / math.log10(12.0))
-        occ = occ * (1.0 - 0.18 * t) + MAX_CORE_OCC * (0.18 * t)
-    return max(MIN_CORE_OCC, min(MAX_CORE_OCC, occ))
+    # (height_m, desired core occupancy of chamber)
+    bands = [
+        (0.10, 0.38),
+        (0.30, 0.42),
+        (0.40, 0.45),
+        (0.50, 0.47),
+        (0.80, 0.52),
+        (0.90, 0.53),
+        (1.00, 0.56),
+        (1.20, 0.58),
+        (1.50, 0.62),
+        (1.70, 0.66),
+        (2.00, 0.69),
+        (2.40, 0.72),
+        (3.00, 0.74),
+        (5.00, 0.77),
+        (8.00, 0.79),
+        (12.0, 0.82),
+        (21.0, 0.85),
+        (30.0, 0.86),
+    ]
+    if h <= bands[0][0]:
+        return bands[0][1]
+    if h >= bands[-1][0]:
+        return bands[-1][1]
+    for i in range(1, len(bands)):
+        h0, o0 = bands[i - 1]
+        h1, o1 = bands[i]
+        if h0 <= h <= h1:
+            t = (h - h0) / max(1e-6, h1 - h0)
+            # ease toward larger sizes
+            t = t * t * (3 - 2 * t)
+            return max(MIN_CORE_OCC, min(MAX_CORE_OCC, o0 + (o1 - o0) * t))
+    return REF_CORE_OCC
+
+
+def active_safe_inset(comp: dict, height_m: float | None) -> dict:
+    safe = comp["safeBounds"]
+    safe_w = max(1, safe[2])
+    safe_h = max(1, safe[3])
+    aspect_hw = safe_h / safe_w
+    aspect_wh = safe_w / safe_h
+    extreme = (
+        (height_m is not None and height_m >= 8.0)
+        or aspect_hw >= 1.35
+        or aspect_wh >= 1.45
+    )
+    return dict(SAFE_INSET_EXTREME if extreme else SAFE_INSET)
 
 
 def compute_fit(comp: dict, height_m: float | None, override: dict | None = None) -> dict:
@@ -279,16 +325,16 @@ def compute_fit(comp: dict, height_m: float | None, override: dict | None = None
     ow = override or {}
     safe = comp["safeBounds"]
     core = comp["coreBounds"]
-    canvas_w = max(1, comp["w"])
-    canvas_h = max(1, comp["h"])
     safe_w = max(1, safe[2])
     safe_h = max(1, safe[3])
-    core_w = max(1, core[2])
     core_h = max(1, core[3])
 
-    # Usable chamber fractions after insets
-    usable_w = 1.0 - SAFE_INSET["left"] - SAFE_INSET["right"]
-    usable_h = 1.0 - SAFE_INSET["top"] - SAFE_INSET["bottom"]
+    inset = active_safe_inset(comp, height_m)
+    if ow.get("safeInset"):
+        inset = {**inset, **ow["safeInset"]}
+
+    usable_w = 1.0 - inset["left"] - inset["right"]
+    usable_h = 1.0 - inset["top"] - inset["bottom"]
 
     desire = desired_core_occupancy(height_m)
     if "desiredCoreOccupancy" in ow:
@@ -296,48 +342,33 @@ def compute_fit(comp: dict, height_m: float | None, override: dict | None = None
     if "scaleMultiplier" in ow:
         desire = max(MIN_CORE_OCC, min(MAX_CORE_OCC, desire * float(ow["scaleMultiplier"])))
 
-    # Candidate: make core occupy `desire` of chamber height
-    # When rendering SAFE region into chamber, core is (core_h/safe_h) of that display.
     core_of_safe = core_h / safe_h
-    # display_h_frac such that display_h_frac * core_of_safe = desire
-    # => display_h_frac = desire / core_of_safe
     candidate_h = desire / max(0.25, core_of_safe)
 
-    # Safe maximum: entire safe envelope inside usable area
-    # Also width: display_w = display_h * (safe_w/safe_h) <= usable_w
     aspect = safe_w / safe_h
-    max_h_from_height = usable_h * MAX_SAFE_OCC / usable_h  # = MAX_SAFE_OCC of full stage via usable
-    # Interpret final occ as fraction of FULL stage for CSS compatibility
-    max_safe_h = usable_h  # envelope must fit in usable band
+    max_safe_h = usable_h
     max_safe_w = usable_w
     max_h_from_width = max_safe_w / aspect if aspect > 0 else max_safe_h
 
-    safe_max_h = min(max_safe_h, max_h_from_width)
+    safe_max_h = min(max_safe_h, max_h_from_width, MAX_SAFE_OCC)
     final_h = min(candidate_h, safe_max_h)
-    final_h = max(MIN_PRESENT_OCC * (usable_h / 0.78), min(final_h, safe_max_h))
-    # Clamp to absolute ceiling
-    final_h = min(final_h, MAX_SAFE_OCC)
+    final_h = max(MIN_PRESENT_OCC, min(final_h, safe_max_h))
 
-    # Tall/extreme silhouettes keep breathing room even at the safe ceiling.
-    aspect_hw = safe_h / max(1, safe_w)
-    if aspect_hw >= 1.45 and final_h > usable_h * 0.9:
-        final_h *= 0.92
-    if height_m and height_m >= 12 and final_h > usable_h * 0.88:
-        final_h *= 0.94
+    # Tiny breathing room only when parked on the absolute ceiling.
+    if final_h >= safe_max_h * 0.995:
+        final_h *= 0.985
 
-    # Audited multiplier applies to FINAL presentation, not only desire.
     if "scaleMultiplier" in ow:
         final_h *= float(ow["scaleMultiplier"])
 
     final_h = min(final_h, safe_max_h, MAX_SAFE_OCC)
-    final_h = max(MIN_PRESENT_OCC * 0.9, final_h)
+    final_h = max(MIN_PRESENT_OCC * 0.95, final_h)
 
     final_w = final_h * aspect
     if final_w > max_safe_w:
         final_w = max_safe_w
         final_h = final_w / aspect
 
-    # Core/full envelope occupancy for QA reporting (fractions of stage)
     core_occ = final_h * core_of_safe
     full_occ = final_h
 
@@ -356,7 +387,7 @@ def compute_fit(comp: dict, height_m: float | None, override: dict | None = None
         "anchorType": anchor,
         "xOffset": x_off,
         "yOffset": y_off,
-        "safeInset": SAFE_INSET,
+        "safeInset": inset,
     }
 
 
@@ -683,7 +714,6 @@ def harmonize_appearance_scales(variants: list[dict]) -> None:
             comps.append((v, c))
     if len(comps) < 2:
         return
-    # Share the most restrictive FINAL scale already computed (includes overrides).
     shared_h = min(c["finalScaleH"] for _, c in comps)
     for v, c in comps:
         safe = (v.get("animatedAsset") or v).get("safeBounds") or v.get("safeBounds") or v.get("bounds")
@@ -691,9 +721,10 @@ def harmonize_appearance_scales(variants: list[dict]) -> None:
         if not safe:
             continue
         aspect = safe[2] / max(1, safe[3])
+        inset = c.get("safeInset") or SAFE_INSET
+        usable_w = 1.0 - inset["left"] - inset["right"]
         final_h = shared_h
         final_w = final_h * aspect
-        usable_w = 1.0 - SAFE_INSET["left"] - SAFE_INSET["right"]
         if final_w > usable_w:
             final_w = usable_w
             final_h = final_w / aspect
@@ -704,6 +735,96 @@ def harmonize_appearance_scales(variants: list[dict]) -> None:
             c["coreOccupancy"] = round(final_h * core_of_safe, 4)
         c["fullEnvelopeOccupancy"] = round(final_h, 4)
         c["harmonized"] = True
+
+
+def load_existing_catalog() -> dict | None:
+    if not OUT_JS.exists():
+        return None
+    text = OUT_JS.read_text(encoding="utf-8", errors="ignore")
+    m = re.search(r"window\.PLAY_POKEDEX_PRESENTATION\s*=\s*(\{.*\})\s*;\s*$", text, re.S)
+    if not m:
+        # single-line dump
+        m = re.search(r"window\.PLAY_POKEDEX_PRESENTATION\s*=\s*(\{.*\})\s*;", text, re.S)
+    if not m:
+        return None
+    try:
+        return json.loads(m.group(1))
+    except json.JSONDecodeError:
+        return None
+
+
+def validate_catalog_or_abort(
+    assets: dict,
+    previous: dict | None,
+    *,
+    only_mode: bool,
+    allow_shrink: bool,
+) -> dict:
+    """FAIL-CLOSED against unexpected destructive catalog shrinkage."""
+    new_keys = set(assets.keys())
+    prev_assets = (previous or {}).get("assets") or {}
+    prev_keys = set(prev_assets.keys())
+    added = sorted(new_keys - prev_keys)
+    removed = sorted(prev_keys - new_keys)
+    report = {
+        "previousCount": len(prev_keys),
+        "newCount": len(new_keys),
+        "addedKeys": added,
+        "removedKeys": removed,
+        "onlyMode": only_mode,
+    }
+    print(
+        "catalog guard:",
+        f"prev={report['previousCount']}",
+        f"new={report['newCount']}",
+        f"added={len(added)}",
+        f"removed={len(removed)}",
+        f"only={only_mode}",
+    )
+
+    if only_mode:
+        # Partial rebuild must merge; never publish a subset as the full catalog.
+        if previous and len(new_keys) < len(prev_keys):
+            print(
+                "ABORT: --only rebuild produced fewer keys than the live catalog. "
+                "Merge path required; refusing to write.",
+                file=sys.stderr,
+            )
+            print("removed sample:", removed[:20], file=sys.stderr)
+            raise SystemExit(2)
+        return report
+
+    base_present = sum(1 for d in range(1, 152) if str(d) in assets)
+    if base_present < CATALOG_KANTO_BASE:
+        missing = [d for d in range(1, 152) if str(d) not in assets]
+        print(
+            f"ABORT: Kanto base coverage {base_present}/{CATALOG_KANTO_BASE}. Missing {missing[:20]}",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+
+    if len(new_keys) < CATALOG_FLOOR_KEYS:
+        print(
+            f"ABORT: catalog key count {len(new_keys)} below floor {CATALOG_FLOOR_KEYS}",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+
+    if previous and not allow_shrink:
+        # Unexpected shrink: more than 2% keys removed, or any Kanto base removed.
+        shrink_ratio = (len(prev_keys) - len(new_keys)) / max(1, len(prev_keys))
+        base_removed = [k for k in removed if k.isdigit() and 1 <= int(k) <= 151]
+        if shrink_ratio > 0.02 or base_removed:
+            print(
+                "ABORT: unexpected catalog shrinkage detected.",
+                file=sys.stderr,
+            )
+            print(f"  prev={len(prev_keys)} new={len(new_keys)} shrink={shrink_ratio:.3f}", file=sys.stderr)
+            print(f"  removed={removed[:40]}", file=sys.stderr)
+            print("  Re-run with --allow-shrink only for intentional full rebuilds.", file=sys.stderr)
+            raise SystemExit(2)
+
+    return report
 
 
 def prefetch_still_ids(ids: list[int]) -> None:
@@ -730,7 +851,12 @@ def prefetch_still_ids(ids: list[int]) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--skip-prefetch", action="store_true", help="Skip HOME/OA remote prefetch")
-    ap.add_argument("--only", type=str, default="", help="Comma dex/form ids for quick rebuild debug")
+    ap.add_argument("--only", type=str, default="", help="Comma dex/form ids; merges into existing catalog")
+    ap.add_argument(
+        "--allow-shrink",
+        action="store_true",
+        help="Permit intentional full-catalog shrinkage (still requires Kanto 151 + floor)",
+    )
     args = ap.parse_args()
 
     forms_js = (ROOT / "js" / "forms.js").read_text(encoding="utf-8", errors="ignore")
@@ -739,6 +865,7 @@ def main() -> int:
     form_ids = sorted({fid for fid, dex in form_to_dex.items() if fid != dex})
     heights = load_heights()
     overrides = load_overrides()
+    previous = load_existing_catalog()
 
     all_ids = sorted(set(KANTO) | set(form_ids))
     if not args.skip_prefetch:
@@ -755,6 +882,11 @@ def main() -> int:
     counts: dict[str, int] = {}
     frames_total = 0
     assets_analyzed = 0
+
+    # Partial rebuild starts from live catalog and merges updates.
+    if only and previous and isinstance(previous.get("assets"), dict):
+        assets = dict(previous["assets"])
+        print(f"--only merge base keys={len(assets)}")
 
     for dex in KANTO:
         if only and dex not in only:
@@ -800,7 +932,6 @@ def main() -> int:
 
     for form_id in form_ids:
         if only and form_id not in only and form_to_dex[form_id] not in (only or set()):
-            # allow --only 10199
             if only and form_id not in only:
                 continue
         dex = form_to_dex[form_id]
@@ -838,13 +969,20 @@ def main() -> int:
         assets[f"{dex}:{form_id}"] = entry
         counts[entry["class"]] = counts.get(entry["class"], 0) + 1
 
+    guard = validate_catalog_or_abort(
+        assets,
+        previous,
+        only_mode=bool(only),
+        allow_shrink=bool(args.allow_shrink),
+    )
+
     animated_n = sum(1 for a in assets.values() if a.get("animatedAsset") or a.get("class") == "battle")
     home_n = sum(1 for a in assets.values() if a.get("homeAsset"))
     payload = {
-        "version": 4,
+        "version": 5,
         "envelope": {
-            "occupancyH": 0.52,
-            "occupancyW": 0.72,
+            "occupancyH": 0.58,
+            "occupancyW": 0.78,
             "margin": 0.02,
             "minOccupancyH": MIN_PRESENT_OCC,
             "maxOccupancyH": MAX_SAFE_OCC,
@@ -852,6 +990,7 @@ def main() -> int:
             "refOccupancyH": REF_CORE_OCC,
             "scalePower": SCALE_POWER,
             "safeInset": SAFE_INSET,
+            "safeInsetExtreme": SAFE_INSET_EXTREME,
             "maxCoreOccupancy": MAX_CORE_OCC,
             "minCoreOccupancy": MIN_CORE_OCC,
         },
@@ -860,6 +999,12 @@ def main() -> int:
         "buildStats": {
             "assetsAnalyzed": assets_analyzed,
             "framesAnalyzed": frames_total,
+            "catalogGuard": {
+                "previousCount": guard["previousCount"],
+                "newCount": guard["newCount"],
+                "added": len(guard["addedKeys"]),
+                "removed": len(guard["removedKeys"]),
+            },
         },
     }
     OUT_JS.write_text(
@@ -875,10 +1020,12 @@ def main() -> int:
         "homeRetained", home_n,
         "frames", frames_total,
     )
-    # Quick proof print for Gmax Pikachu
     g = assets.get("25:10199")
     if g and g.get("composition"):
         print("GMAX PIKACHU fit", g["composition"], "safe", g.get("safeBounds"), "core", g.get("coreBounds"))
+    r = assets.get("26")
+    if r and r.get("composition"):
+        print("RAICHU fit", r["composition"])
     return 0
 
 

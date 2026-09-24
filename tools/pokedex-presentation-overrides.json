@@ -1,13 +1,29 @@
 {
-  "_comment": "Rare audited presentation overrides. Keys: dex:formId:variant or dex:formId or formId. Fields: scaleMultiplier, xOffset, yOffset, anchorOverride, desiredCoreOccupancy, coreBoundsOverride, safeBoundsOverride.",
-  "25:10199": {
-    "scaleMultiplier": 0.88,
-    "_note": "Gmax Pikachu — keep extreme lightning-bolt silhouette fully inside chamber with clear top/side breathing room"
+  "_comment": "Rare audited presentation overrides. Keys: dex:formId:variant or dex:formId. Fields: scaleMultiplier, xOffset, yOffset, anchorOverride, desiredCoreOccupancy, coreBoundsOverride, safeBoundsOverride, safeInset.",
+  "26": {
+    "desiredCoreOccupancy": 0.58,
+    "_note": "Raichu — stronger body prominence; tail may occupy more upper chamber"
   },
-  "25:10199:shiny": {
-    "scaleMultiplier": 0.88
+  "26:26:normal": {
+    "desiredCoreOccupancy": 0.58
+  },
+  "26:26:shiny": {
+    "desiredCoreOccupancy": 0.58
+  },
+  "26:26:female": {
+    "desiredCoreOccupancy": 0.58
+  },
+  "26:26:shiny-female": {
+    "desiredCoreOccupancy": 0.58
+  },
+  "25:10199": {
+    "desiredCoreOccupancy": 0.84,
+    "_note": "Gmax Pikachu — maximize body prominence; extreme inset still guarantees no clip"
   },
   "25:10199:normal": {
-    "scaleMultiplier": 0.88
+    "desiredCoreOccupancy": 0.84
+  },
+  "25:10199:shiny": {
+    "desiredCoreOccupancy": 0.84
   }
 }

@@ -762,35 +762,68 @@
     return `<div class="dex-form-fact"><dt>${window.playEscapeAttr(label)}</dt><dd>${value}</dd></div>`;
   }
 
+  function formTraitsHtml(ctx) {
+    const { entry, form, ref, height, weight, types } = ctx;
+    if (!form || form.isBase) return "";
+    const baseRef = localRef(entry.dex, entry.dex) || {};
+    const kind = String(form.kind || "").toLowerCase();
+    const intro = String(ref?.introduced || "").trim();
+    const transform = String(ref?.transformation || "").trim();
+    const requirement = String(ref?.requirement || "").trim();
+    const trigger = requirement || transform;
+    const heightChanged = height != null && baseRef.heightM != null
+      && Number(height) !== Number(baseRef.heightM);
+    const weightChanged = weight != null && baseRef.weightKg != null
+      && Number(weight) !== Number(baseRef.weightKg);
+    const typesChanged = JSON.stringify(types || []) !== JSON.stringify(baseRef.types || []);
+    const abilityChanged = JSON.stringify(ref?.abilities || []) !== JSON.stringify(baseRef.abilities || []);
+
+    const headlines = [];
+    if (kind === "gigantamax") headlines.push("Gigantamax Factor");
+    else if (kind === "mega") headlines.push(trigger || "Mega Evolution");
+    else if (kind === "regional") headlines.push(`${form.formLabel || "Regional"} Form`);
+    else if (kind === "cosplay" || kind === "cap" || kind === "starter") {
+      headlines.push(form.formLabel || "Costume Form");
+    } else if (trigger) {
+      headlines.push(trigger);
+    }
+
+    const lines = [];
+    if (typesChanged && (types || []).length) {
+      lines.push((types || []).map(titleCaseType).join(" / "));
+    }
+    if (abilityChanged || (kind === "mega" || kind === "gigantamax" || kind === "regional")) {
+      if (abilityChanged) lines.push(abilityLinesHtml(ref).replace(/<br>/g, " · "));
+    }
+    if (kind === "mega" && trigger && !headlines.includes(trigger)) {
+      lines.push(window.playEscapeAttr(trigger));
+    }
+    const sizeBits = [];
+    if (heightChanged) sizeBits.push(formatHeight(height));
+    if (weightChanged) sizeBits.push(formatWeight(weight));
+    if (sizeBits.length) lines.push(sizeBits.join(" · "));
+    if (intro) lines.push(window.playEscapeAttr(intro));
+
+    if (!headlines.length && !lines.length) return "";
+    return `
+      <section class="dex-form-traits" aria-label="Form traits">
+        <h5 class="dex-section-label">Form Traits</h5>
+        ${headlines.map((h) => `<p class="dex-form-trait-head">${window.playEscapeAttr(h)}</p>`).join("")}
+        ${lines.map((line) => `<p class="dex-form-trait-line">${line}</p>`).join("")}
+      </section>`;
+  }
+
   function formsHtml(ctx) {
     const {
       entry, forms, form, formSelector, shinyPills, genderPills, showGender,
-      displayName, types, classBadges, presentation, ref, height, weight,
+      displayName, types, classBadges, presentation, ref,
       genderNote
     } = ctx;
     const subtitle = (!form?.isBase && (form?.formLabel || form?.formKey))
       ? String(form.formLabel || form.formKey)
       : "Base";
-    const baseRef = localRef(entry.dex, entry.dex) || {};
     const description = String(ref?.description || "").trim();
-    const intro = ref?.introduced || "";
-    const transform = ref?.transformation || "";
-    const requirement = ref?.requirement || "";
     const selectedTitle = String(displayName || entry.name || "").toUpperCase();
-    const heightChanged = form && !form.isBase && height != null && baseRef.heightM != null
-      && Number(height) !== Number(baseRef.heightM);
-    const weightChanged = form && !form.isBase && weight != null && baseRef.weightKg != null
-      && Number(weight) !== Number(baseRef.weightKg);
-    const abilityChanged = form && !form.isBase && JSON.stringify(ref?.abilities || []) !== JSON.stringify(baseRef.abilities || []);
-    const showAbility = !form?.isBase && (abilityChanged || ["mega", "gigantamax", "regional", "totem"].includes(String(form?.kind || "").toLowerCase()));
-    const trigger = requirement || transform;
-    const facts = [
-      showAbility ? formFactRow("Ability", abilityLinesHtml(ref)) : "",
-      heightChanged ? formFactRow("Height", formatHeight(height)) : "",
-      weightChanged ? formFactRow("Weight", formatWeight(weight)) : "",
-      (!form?.isBase && intro) ? formFactRow("Introduced", window.playEscapeAttr(intro)) : "",
-      trigger ? formFactRow("Trigger", window.playEscapeAttr(trigger)) : ""
-    ].filter(Boolean).join("");
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-forms">
@@ -811,11 +844,7 @@
                   <h5 class="dex-section-label">Form Entry</h5>
                   <p>${window.playEscapeAttr(description)}</p>
                 </section>` : ""}
-              ${facts ? `
-                <section class="dex-form-data" aria-label="Form data">
-                  <h5 class="dex-section-label">Form Data</h5>
-                  <dl class="dex-form-facts is-lean">${facts}</dl>
-                </section>` : ""}
+              ${formTraitsHtml(ctx)}
             </div>
           </div>
         </div>

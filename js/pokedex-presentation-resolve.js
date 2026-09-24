@@ -3,12 +3,12 @@
   if (!data) return;
 
   const FALLBACK = {
-    minOccH: 0.32,
-    maxOccH: 0.88,
+    minOccH: 0.36,
+    maxOccH: 0.92,
     refHeightM: 1.2,
-    refCoreOcc: 0.52,
-    power: 0.38,
-    safeInset: { top: 0.06, right: 0.07, bottom: 0.16, left: 0.07 }
+    refCoreOcc: 0.58,
+    power: 0.42,
+    safeInset: { top: 0.045, right: 0.05, bottom: 0.13, left: 0.05 }
   };
 
   function stamp(url) {
@@ -160,25 +160,37 @@
 
   function desiredCoreOccupancy(heightM) {
     const env = data.envelope || {};
-    const refH = Number(env.refHeightM) || FALLBACK.refHeightM;
-    const refOcc = Number(env.refOccupancyH) || FALLBACK.refCoreOcc;
-    const power = Number(env.scalePower) || FALLBACK.power;
-    const minC = Number(env.minCoreOccupancy) || 0.34;
-    const maxC = Number(env.maxCoreOccupancy) || 0.78;
-    const h = Math.max(0.12, Number(heightM) || refH);
-    let occ = refOcc * Math.pow(h / refH, power);
-    if (h >= 3) {
-      const t = Math.min(1, Math.log10(h / 3 + 1) / Math.log10(12));
-      occ = occ * (1 - 0.18 * t) + maxC * (0.18 * t);
+    const minC = Number(env.minCoreOccupancy) || 0.36;
+    const maxC = Number(env.maxCoreOccupancy) || 0.86;
+    const h = Math.max(0.1, Number(heightM) || FALLBACK.refHeightM);
+    const bands = [
+      [0.1, 0.38], [0.3, 0.42], [0.4, 0.45], [0.5, 0.47], [0.8, 0.52],
+      [0.9, 0.53], [1.0, 0.56], [1.2, 0.58], [1.5, 0.62], [1.7, 0.66],
+      [2.0, 0.69], [2.4, 0.72], [3.0, 0.74], [5.0, 0.77], [8.0, 0.79],
+      [12.0, 0.82], [21.0, 0.85], [30.0, 0.86]
+    ];
+    if (h <= bands[0][0]) return bands[0][1];
+    if (h >= bands[bands.length - 1][0]) return bands[bands.length - 1][1];
+    for (let i = 1; i < bands.length; i += 1) {
+      const [h0, o0] = bands[i - 1];
+      const [h1, o1] = bands[i];
+      if (h >= h0 && h <= h1) {
+        let t = (h - h0) / Math.max(1e-6, h1 - h0);
+        t = t * t * (3 - 2 * t);
+        return Math.min(maxC, Math.max(minC, o0 + (o1 - o0) * t));
+      }
     }
-    return Math.min(maxC, Math.max(minC, occ));
+    return FALLBACK.refCoreOcc;
   }
 
   function runtimeFit(asset, heightM, envelopeScale) {
     const env = data.envelope || {};
-    const inset = env.safeInset || FALLBACK.safeInset;
-    const usableW = 1 - (inset.left || 0.07) - (inset.right || 0.07);
-    const usableH = 1 - (inset.top || 0.06) - (inset.bottom || 0.16);
+    const pre = asset.composition;
+    const inset = (pre && pre.safeInset)
+      || env.safeInset
+      || FALLBACK.safeInset;
+    const usableW = 1 - (inset.left || 0.05) - (inset.right || 0.05);
+    const usableH = 1 - (inset.top || 0.045) - (inset.bottom || 0.13);
     const maxOcc = Number(env.maxOccupancyH) || FALLBACK.maxOccH;
     const minOcc = Number(env.minOccupancyH) || FALLBACK.minOccH;
 
@@ -189,7 +201,6 @@
     const aspect = safe.w / Math.max(1, safe.h);
     const coreOfSafe = Math.max(0.25, core.h / Math.max(1, safe.h));
 
-    const pre = asset.composition;
     if (pre && pre.finalScaleH != null && pre.finalScaleW != null && !envelopeScale) {
       return {
         occupancyH: Number(pre.finalScaleH),
@@ -201,6 +212,7 @@
         xOffset: Number(pre.xOffset) || 0,
         yOffset: Number(pre.yOffset) || 0,
         heightM: heightM ?? pre.canonicalHeightM ?? null,
+        safeInset: inset,
         fromManifest: true
       };
     }
@@ -211,6 +223,7 @@
     const safeMaxH = Math.min(usableH, maxHFromWidth, maxOcc);
     let finalH = Math.min(candidateH, safeMaxH);
     finalH = Math.max(minOcc, Math.min(finalH, safeMaxH));
+    if (finalH >= safeMaxH * 0.995) finalH *= 0.985;
     let finalW = finalH * aspect;
     if (finalW > usableW) {
       finalW = usableW;
@@ -239,6 +252,7 @@
       xOffset: 0,
       yOffset: 0,
       heightM,
+      safeInset: inset,
       fromManifest: false
     };
   }
@@ -380,7 +394,9 @@
     const heightM = resolveHeightM(opts, formId, dex);
     const fit = runtimeFit(asset, heightM, opts.envelopeScale);
     const render = asset.render || "pixelated";
-    const inset = (data.envelope && data.envelope.safeInset) || FALLBACK.safeInset;
+    const inset = fit.safeInset
+      || (data.envelope && data.envelope.safeInset)
+      || FALLBACK.safeInset;
 
     return {
       url: stamp(asset.url),
@@ -412,10 +428,10 @@
         "--dex-art-render": render === "pixelated" ? "pixelated" : "auto",
         "--dex-occ-h": String(fit.occupancyH),
         "--dex-occ-w": String(fit.occupancyW),
-        "--dex-safe-t": String(inset.top ?? 0.06),
-        "--dex-safe-r": String(inset.right ?? 0.07),
-        "--dex-safe-b": String(inset.bottom ?? 0.16),
-        "--dex-safe-l": String(inset.left ?? 0.07),
+        "--dex-safe-t": String(inset.top ?? 0.045),
+        "--dex-safe-r": String(inset.right ?? 0.05),
+        "--dex-safe-b": String(inset.bottom ?? 0.13),
+        "--dex-safe-l": String(inset.left ?? 0.05),
         "--dex-x-off": String(fit.xOffset || 0),
         "--dex-y-off": String(fit.yOffset || 0)
       },

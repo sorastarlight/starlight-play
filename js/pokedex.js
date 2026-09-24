@@ -504,10 +504,85 @@
   }
 
   function hasFemaleVisual(dex, form) {
+    if (form?.forcedGender === "Female" || form?.forcedGender === "Male") return false;
     if (form && form.hasFemaleFront) return true;
     if (form && !form.isBase) return false;
     const allowed = typeof window.playAllowedVariants === "function" ? window.playAllowedVariants(dex) : [];
     return allowed.includes("female") || allowed.includes("shiny-female");
+  }
+
+  function normalizeAppearance(entry, form, shinyWanted, femaleWanted) {
+    const formId = Number(form?.formId || entry.dex);
+    if (typeof window.normalizePokedexAppearance === "function") {
+      return window.normalizePokedexAppearance({
+        dex: entry.dex,
+        formId,
+        shiny: shinyWanted,
+        female: femaleWanted
+      });
+    }
+    let shiny = !!shinyWanted;
+    let female = !!femaleWanted && hasFemaleVisual(entry.dex, form);
+    if (form?.forcedGender) female = false;
+    const variant = shiny && female ? "shiny-female" : shiny ? "shiny" : female ? "female" : "normal";
+    return { shiny, female, variant, formId, forcedGender: form?.forcedGender || null };
+  }
+
+  function formSelectorHtml(forms, form, formSeenSet, entry) {
+    if (forms.length <= 1) return "";
+    const formId = Number(form?.formId || entry.dex);
+    const idx = Math.max(0, forms.findIndex((f) => Number(f.formId) === formId));
+    const hasRegional = forms.some((f) => {
+      const kind = String(f.kind || "").toLowerCase();
+      if (kind === "regional") return true;
+      const key = String(f.formKey || "").toLowerCase();
+      return key === "alolan" || key === "galarian" || key === "hisuian" || key === "paldean" || key === "totem";
+    });
+    const labelFor = (f) => {
+      if (f.isBase) return hasRegional ? "Kanto" : "Base";
+      return f.formLabel || f.formKey || "Form";
+    };
+    const MANY = 6;
+    if (forms.length <= MANY) {
+      const pills = forms.map((f) => {
+        const registered = formSeenSet.has(Number(f.formId)) || collectionFlags(entry, f.formId, false, false).formCaught;
+        return pill(labelFor(f), {
+          active: Number(f.formId) === formId,
+          registered,
+          axis: "form",
+          value: f.formId,
+          title: f.formLabel
+        });
+      }).join("");
+      return `<section class="dex-axis is-forms"><h3>Form</h3><div class="dex-pill-row">${pills}</div></section>`;
+    }
+    const current = forms[idx] || forms[0];
+    const chooserItems = forms.map((f, i) => {
+      const registered = formSeenSet.has(Number(f.formId)) || collectionFlags(entry, f.formId, false, false).formCaught;
+      return `<button type="button" class="dex-form-option${Number(f.formId) === formId ? " is-active" : ""}${registered ? " is-registered" : ""}"
+        data-axis="form" data-value="${f.formId}" role="option" aria-selected="${Number(f.formId) === formId ? "true" : "false"}">
+        <span class="dex-form-option-label">${window.playEscapeAttr(labelFor(f))}</span>
+        <span class="dex-form-option-idx">${i + 1}</span>
+      </button>`;
+    }).join("");
+    return `
+      <section class="dex-axis is-forms-carousel" aria-label="Form selector">
+        <h3>Form</h3>
+        <div class="dex-form-carousel">
+          <button type="button" class="dex-form-step" data-axis="form-step" data-dir="-1" aria-label="Previous form">‹</button>
+          <div class="dex-form-current">
+            <strong>${window.playEscapeAttr(labelFor(current).toUpperCase())}</strong>
+            <span class="dex-form-count">${idx + 1} of ${forms.length}</span>
+          </div>
+          <button type="button" class="dex-form-step" data-axis="form-step" data-dir="1" aria-label="Next form">›</button>
+        </div>
+        <div class="dex-form-chooser-wrap">
+          <button type="button" class="dex-form-chooser-btn" data-dex-form-chooser="1" aria-expanded="false" aria-haspopup="listbox">
+            Choose Form ▾
+          </button>
+          <div class="dex-form-chooser" hidden role="listbox" aria-label="All forms">${chooserItems}</div>
+        </div>
+      </section>`;
   }
 
   function collectionFlags(entry, formId, shiny, female) {
@@ -596,13 +671,14 @@
       .join(";");
   }
 
-  function resolvePresentation(entry, formId, shiny, female) {
+  function resolvePresentation(entry, formId, shiny, female, heightM) {
     if (typeof window.resolvePokedexPresentation === "function") {
       return window.resolvePokedexPresentation({
         dex: entry.dex,
         formId,
         shiny,
-        female
+        female,
+        heightM
       });
     }
     const variant = shiny && female ? "shiny-female" : shiny ? "shiny" : female ? "female" : "normal";
@@ -610,7 +686,12 @@
       url: window.playSpriteUrl(entry.dex, variant, formId),
       assetClass: "battle",
       renderMode: "pixelated",
-      cssVars: { "--dex-art-render": "pixelated", "--ovb-t": "0%", "--ovb-r": "0%", "--ovb-b": "0%", "--ovb-l": "0%" }
+      cssVars: {
+        "--dex-art-render": "pixelated",
+        "--ovb-t": "0%", "--ovb-r": "0%", "--ovb-b": "0%", "--ovb-l": "0%",
+        "--dex-occ-h": "0.68",
+        "--dex-occ-w": "0.82"
+      }
     };
   }
 
@@ -657,17 +738,17 @@
             ${genus ? `<p class="dex-za-genus">${window.playEscapeAttr(genus)}</p>` : ""}
             <div class="se-badge-row dex-za-badges"><span class="dex-status-chip">${status}</span>${classBadges.join("")}</div>
             <div class="dex-za-types">${typeBadgesHtml(types)}</div>
+            <p class="dex-meta-line">Kanto · ${window.playEscapeAttr(genLabel)}</p>
             <section class="dex-entry-block" aria-label="Pokédex entry">
               <h3 class="dex-section-label">Pokédex Entry</h3>
               <blockquote class="dex-za-flavor is-primary"><p>${window.playEscapeAttr(flavor)}</p></blockquote>
             </section>
             <section class="dex-species-data" aria-label="Species data">
               <h3 class="dex-section-label">Species Data</h3>
-              <dl class="dex-info-grid">
+              <dl class="dex-info-grid is-essential">
                 <div class="dex-info-card"><span class="dex-info-ico is-height" aria-hidden="true"></span><dt>Height</dt><dd>${formatHeight(height)}</dd></div>
                 <div class="dex-info-card"><span class="dex-info-ico is-weight" aria-hidden="true"></span><dt>Weight</dt><dd>${formatWeight(weight)}</dd></div>
-                <div class="dex-info-card"><span class="dex-info-ico is-ability" aria-hidden="true"></span><dt>Ability</dt><dd>${abilityLinesHtml(ref)}</dd></div>
-                <div class="dex-info-card"><span class="dex-info-ico is-gen" aria-hidden="true"></span><dt>Region / Generation</dt><dd>Kanto<br><span style="font-size:0.82em;font-weight:700;color:#6a7196">${window.playEscapeAttr(genLabel)}</span></dd></div>
+                <div class="dex-info-card is-ability"><span class="dex-info-ico is-ability" aria-hidden="true"></span><dt>Ability</dt><dd>${abilityLinesHtml(ref)}</dd></div>
               </dl>
             </section>
           </div>
@@ -682,55 +763,58 @@
 
   function formsHtml(ctx) {
     const {
-      entry, forms, form, formPills, shinyPills, genderPills, showGender,
-      displayName, types, classBadges, presentation, ref, height, weight
+      entry, forms, form, formSelector, shinyPills, genderPills, showGender,
+      displayName, types, classBadges, presentation, ref, height, weight,
+      genderNote
     } = ctx;
     const subtitle = (!form?.isBase && (form?.formLabel || form?.formKey))
       ? String(form.formLabel || form.formKey)
       : "Base";
-    const dense = forms.length > 8;
-    const formSeenSet = new Set((entry.formSeen || []).map(Number));
-    const registered = formSeenSet.has(Number(form?.formId || entry.dex))
-      || collectionFlags(entry, form?.formId || entry.dex, false, false).formCaught
-      || entry.caught;
-    const regLabel = registered ? "Registered" : "Not registered";
+    const baseRef = localRef(entry.dex, entry.dex) || {};
     const description = String(ref?.description || "").trim();
     const intro = ref?.introduced || "";
     const transform = ref?.transformation || "";
     const requirement = ref?.requirement || "";
     const selectedTitle = String(displayName || entry.name || "").toUpperCase();
+    const heightChanged = form && !form.isBase && height != null && baseRef.heightM != null
+      && Number(height) !== Number(baseRef.heightM);
+    const weightChanged = form && !form.isBase && weight != null && baseRef.weightKg != null
+      && Number(weight) !== Number(baseRef.weightKg);
+    const abilityChanged = form && !form.isBase && JSON.stringify(ref?.abilities || []) !== JSON.stringify(baseRef.abilities || []);
+    const showAbility = !form?.isBase && (abilityChanged || ["mega", "gigantamax", "regional", "totem"].includes(String(form?.kind || "").toLowerCase()));
+    const trigger = requirement || transform;
+    const facts = [
+      showAbility ? formFactRow("Ability", abilityLinesHtml(ref)) : "",
+      heightChanged ? formFactRow("Height", formatHeight(height)) : "",
+      weightChanged ? formFactRow("Weight", formatWeight(weight)) : "",
+      (!form?.isBase && intro) ? formFactRow("Introduced", window.playEscapeAttr(intro)) : "",
+      trigger ? formFactRow("Trigger", window.playEscapeAttr(trigger)) : ""
+    ].filter(Boolean).join("");
     return `
       <div class="dex-screen">
         <div class="dex-compose dex-compose-forms">
           ${pokemonViewerHtml(presentation)}
           <div class="dex-panel dex-controls">
             <h3 class="dex-forms-heading">Forms &amp; Appearance</h3>
-            ${forms.length > 1 ? `<section class="dex-axis is-forms"><h3>Form</h3><div class="dex-pill-row${dense ? " is-dense" : ""}">${formPills}</div></section>` : ""}
-            <section class="dex-axis"><h3>Appearance</h3><div class="dex-pill-row">${shinyPills}</div></section>
-            ${showGender ? `<section class="dex-axis"><h3>Gender</h3><div class="dex-pill-row">${genderPills}</div></section>` : ""}
+            ${formSelector}
+            <section class="dex-axis is-appearance"><h3>Appearance</h3><div class="dex-pill-row is-compact">${shinyPills}</div></section>
+            ${showGender ? `<section class="dex-axis is-appearance"><h3>Gender</h3><div class="dex-pill-row is-compact">${genderPills}</div></section>` : ""}
+            ${genderNote ? `<p class="dex-gender-note">${window.playEscapeAttr(genderNote)}</p>` : ""}
             <div class="dex-selected-form">
               <p class="dex-section-label">Selected Form</p>
               <h4>${window.playEscapeAttr(selectedTitle)}</h4>
               <div class="se-badge-row dex-za-badges">${classBadges.join("") || `<span class="dex-status-chip">${window.playEscapeAttr(subtitle)}</span>`}</div>
               <div class="dex-za-types">${typeBadgesHtml(types)}</div>
               ${description ? `
-                <section class="dex-form-desc" aria-label="Form description">
-                  <h5 class="dex-section-label">Form Description</h5>
+                <section class="dex-form-desc" aria-label="Form entry">
+                  <h5 class="dex-section-label">Form Entry</h5>
                   <p>${window.playEscapeAttr(description)}</p>
                 </section>` : ""}
-              <section class="dex-form-data" aria-label="Form data">
-                <h5 class="dex-section-label">Form Data</h5>
-                <dl class="dex-form-facts">
-                  ${formFactRow("Ability", abilityLinesHtml(ref))}
-                  ${formFactRow("Height", formatHeight(height))}
-                  ${formFactRow("Weight", formatWeight(weight))}
-                  ${formFactRow("Introduced", window.playEscapeAttr(intro))}
-                  ${formFactRow("Transformation", window.playEscapeAttr(transform))}
-                  ${formFactRow("Requirement", window.playEscapeAttr(requirement))}
-                  ${formFactRow("Registration", window.playEscapeAttr(regLabel))}
-                </dl>
-              </section>
-              <p class="dex-entry-note">Shiny and gender change appearance only. Form selection updates types, abilities, and size where they differ.</p>
+              ${facts ? `
+                <section class="dex-form-data" aria-label="Form data">
+                  <h5 class="dex-section-label">Form Data</h5>
+                  <dl class="dex-form-facts is-lean">${facts}</dl>
+                </section>` : ""}
             </div>
           </div>
         </div>
@@ -742,9 +826,18 @@
     const known = seenSet.has(dex);
     const current = dex === Number(opts.currentDex);
     const name = known ? window.playSpeciesName(dex) : "???";
+    const ref = localRef(dex, dex) || {};
+    const heightM = ref.heightM;
     const pres = typeof window.resolvePokedexPresentation === "function"
-      ? window.resolvePokedexPresentation({ dex, formId: dex, shiny: false, female: false })
-      : { url: window.playSpriteUrl(dex, "normal"), cssVars: {} };
+      ? window.resolvePokedexPresentation({
+        dex,
+        formId: dex,
+        shiny: false,
+        female: false,
+        heightM,
+        envelopeScale: 0.92
+      })
+      : { url: window.playSpriteUrl(dex, "normal"), cssVars: { "--dex-occ-h": "0.68", "--dex-occ-w": "0.82" } };
     return `
       <article class="dex-evo-node${current ? " is-current" : ""}${known ? "" : " is-unknown"}" style="${styleAttrs(pres.cssVars)}">
         <div class="dex-evo-art"><img src="${pres.url}" alt="" class="${known ? "" : "silhouette"}" loading="lazy" decoding="async"></div>
@@ -866,18 +959,22 @@
     const form = forms.find((f) => Number(f.formId) === Number(detailState.formId)) || forms[0];
     const formId = Number(form?.formId || entry.dex);
     detailState.formId = formId;
-    const shiny = !!detailState.shiny;
-    const female = !!detailState.female && hasFemaleVisual(entry.dex, form);
-    detailState.female = female;
-    const variant = shiny && female ? "shiny-female" : shiny ? "shiny" : female ? "female" : "normal";
-    const sprite = window.playSpriteUrl(entry.dex, variant, formId);
-    const presentation = resolvePresentation(entry, formId, shiny, female);
-    const displayName = headerDisplayName(entry, form);
-    const formSeenSet = new Set((entry.formSeen || []).map(Number));
+
+    const axes = normalizeAppearance(entry, form, detailState.shiny, detailState.female);
+    detailState.shiny = !!axes.shiny;
+    detailState.female = !!axes.female;
+    const shiny = !!axes.shiny;
+    const female = !!axes.female;
+    const variant = axes.variant || (shiny && female ? "shiny-female" : shiny ? "shiny" : female ? "female" : "normal");
+
     const ref = localRef(formId, entry.dex) || {};
     const types = (ref.types?.length ? ref.types : entry.types) || [];
     const height = ref.heightM ?? entry.heightM;
     const weight = ref.weightKg ?? entry.weightKg;
+    const sprite = window.playSpriteUrl(entry.dex, variant, formId);
+    const presentation = resolvePresentation(entry, formId, shiny, female, height);
+    const displayName = headerDisplayName(entry, form);
+    const formSeenSet = new Set((entry.formSeen || []).map(Number));
 
     const classBadges = [];
     if (entry.isLegendary || LEGENDARY.has(entry.dex)) classBadges.push(infoBadge("LEGENDARY", "se-badge-legendary", null));
@@ -886,26 +983,14 @@
     if (formBadge) classBadges.push(infoBadge(formBadge.code, formBadge.className, formBadge.sub));
     if (shiny) classBadges.push(infoBadge("SHINY", "se-badge-shiny", null));
 
-    const hasRegional = forms.some((f) => {
-      const kind = String(f.kind || "").toLowerCase();
-      if (kind === "regional") return true;
-      const key = String(f.formKey || "").toLowerCase();
-      return key === "alolan" || key === "galarian" || key === "hisuian" || key === "paldean" || key === "totem";
-    });
-    const formPills = forms.map((f) => {
-      let label = f.formLabel || "Form";
-      if (f.isBase) label = hasRegional ? "Kanto" : "Base";
-      const registered = formSeenSet.has(Number(f.formId)) || collectionFlags(entry, f.formId, false, false).formCaught;
-      return pill(label, {
-        active: Number(f.formId) === formId,
-        registered,
-        axis: "form",
-        value: f.formId,
-        title: f.formLabel
-      });
-    }).join("");
-
+    const formSelector = formSelectorHtml(forms, form, formSeenSet, entry);
     const showGender = hasFemaleVisual(entry.dex, form);
+    let genderNote = "";
+    if (form?.forcedGender === "Female") {
+      genderNote = "This costume form is Female.";
+    } else if (form?.forcedGender === "Male") {
+      genderNote = "This form is Male.";
+    }
     const genderPills = showGender
       ? [
           pill("♂ Male", { active: !female, registered: collectionFlags(entry, formId, shiny, false).combo, axis: "gender", value: "male" }),
@@ -919,8 +1004,8 @@
     ].join("");
 
     const ctx = {
-      entry, forms, form, formId, shiny, female, showGender,
-      formPills, shinyPills, genderPills, classBadges,
+      entry, forms, form, formId, shiny, female, showGender, genderNote,
+      formSelector, shinyPills, genderPills, classBadges,
       displayName, sprite, presentation, ref, types, height, weight
     };
 
@@ -1139,14 +1224,44 @@
       openDetail(Number(step.dataset.dex), { opener: openerEl });
       return;
     }
-    const pillBtn = event.target.closest(".dex-pill[data-axis]");
+    const pillBtn = event.target.closest(".dex-pill[data-axis], .dex-form-option[data-axis], .dex-form-step[data-axis]");
     if (pillBtn && detailState) {
       const axis = pillBtn.dataset.axis;
       const value = pillBtn.dataset.value;
       if (axis === "form") detailState.formId = Number(value);
+      if (axis === "form-step") {
+        const forms = (detailState.entry.forms || []).filter((f) => f && f.assetStatus === "ready");
+        if (forms.length) {
+          const idx = Math.max(0, forms.findIndex((f) => Number(f.formId) === Number(detailState.formId)));
+          const dir = Number(pillBtn.dataset.dir) || 1;
+          const next = forms[(idx + dir + forms.length) % forms.length];
+          detailState.formId = Number(next.formId);
+        }
+      }
       if (axis === "shiny") detailState.shiny = value === "shiny";
       if (axis === "gender") detailState.female = value === "female";
       paintDetail();
+      return;
+    }
+    const chooserBtn = event.target.closest("[data-dex-form-chooser]");
+    if (chooserBtn) {
+      const wrap = chooserBtn.closest(".dex-form-chooser-wrap");
+      const panel = wrap?.querySelector(".dex-form-chooser");
+      if (panel) {
+        const open = panel.hasAttribute("hidden");
+        if (open) panel.removeAttribute("hidden");
+        else panel.setAttribute("hidden", "");
+        chooserBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      }
+      return;
+    }
+    if (!event.target.closest(".dex-form-chooser-wrap")) {
+      const openChooser = bodyEl.querySelector(".dex-form-chooser:not([hidden])");
+      if (openChooser) {
+        openChooser.setAttribute("hidden", "");
+        const btn = bodyEl.querySelector("[data-dex-form-chooser]");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      }
     }
   });
 

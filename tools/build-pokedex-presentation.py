@@ -345,6 +345,21 @@ def main() -> int:
                 "bounds": female["bounds"],
                 "frameCount": female.get("frameCount", 1),
             }
+        shiny_female = build_variant(dex, shiny=True, female=True)
+        if shiny_female:
+            entry["shinyFemale"] = {
+                "class": shiny_female["class"],
+                "render": shiny_female["render"],
+                "url": shiny_female["url"],
+                "w": shiny_female["w"],
+                "h": shiny_female["h"],
+                "bounds": shiny_female["bounds"],
+                "frameCount": shiny_female.get("frameCount", 1),
+            }
+            if shiny_female.get("animatedAsset"):
+                entry["shinyFemale"]["animatedAsset"] = shiny_female["animatedAsset"]
+            if shiny_female.get("homeAsset"):
+                entry["shinyFemale"]["homeAsset"] = shiny_female["homeAsset"]
         # Keep battleFallback alias for older resolve paths
         if entry.get("animatedAsset"):
             entry["battleFallback"] = entry["animatedAsset"]
@@ -380,7 +395,18 @@ def main() -> int:
     home_n = sum(1 for a in assets.values() if a.get("homeAsset"))
     payload = {
         "version": 3,
-        "envelope": {"occupancyH": 0.78, "occupancyW": 0.86, "margin": 0.08},
+        "envelope": {
+            "occupancyH": 0.68,
+            "occupancyW": 0.82,
+            "margin": 0.08,
+            "minOccupancyH": 0.4,
+            "maxOccupancyH": 0.9,
+            "refHeightM": 1.2,
+            "refOccupancyH": 0.68,
+            "scalePower": 0.45,
+            "extremeBoostH": 10,
+            "extremeOccupancyH": 0.94,
+        },
         "priority": ["battle", "home", "official-artwork", "stadium2"],
         "assets": assets,
     }

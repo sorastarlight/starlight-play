@@ -60,11 +60,10 @@ function titleCaseSlug(slug) {
     .join(" ");
 }
 
-function pickFlavor(entries) {
+function pickFlavor(entries, preferVersions) {
   const en = (entries || []).filter((e) => e.language?.name === "en");
   if (!en.length) return { text: "", version: "", versionGroup: "" };
-  // Prefer canonical Kanto-era entries when present, then deterministic modern fallbacks.
-  const prefer = [
+  const prefer = preferVersions || [
     "red", "blue", "yellow", "firered", "leafgreen",
     "gold", "silver", "crystal", "heartgold", "soulsilver",
     "ruby", "sapphire", "emerald", "diamond", "pearl", "platinum",
@@ -72,7 +71,8 @@ function pickFlavor(entries) {
     "x", "y", "omega-ruby", "alpha-sapphire",
     "sun", "moon", "ultra-sun", "ultra-moon",
     "sword", "shield", "scarlet", "violet",
-    "legends-arceus", "legends-za"
+    "legends-arceus", "legends-za",
+    "lets-go-pikachu", "lets-go-eevee"
   ];
   for (const vg of prefer) {
     const hit = [...en].reverse().find((e) => e.version?.name === vg || e.version_group?.name === vg);
@@ -88,8 +88,98 @@ function pickFlavor(entries) {
   return {
     text: String(last.flavor_text || "").replace(/\s+/g, " ").trim(),
     version: last.version?.name || "",
-    versionGroup: last.version_group?.name || ""
+    versionGroup: last.version_group?.name || last.version?.name || ""
   };
+}
+
+function pickFormFlavor(entries, kind, formKey) {
+  const en = (entries || []).filter((e) => {
+    const lang = e.language?.name || e.language;
+    return lang === "en" && (e.flavor_text || e.text);
+  });
+  if (!en.length) return { text: "", version: "", versionGroup: "" };
+  const normalized = en.map((e) => ({
+    text: String(e.flavor_text || e.text || "").replace(/\s+/g, " ").trim(),
+    version: e.version?.name || "",
+    versionGroup: e.version_group?.name || e.version?.name || ""
+  })).filter((e) => e.text);
+  if (!normalized.length) return { text: "", version: "", versionGroup: "" };
+
+  const k = String(kind || "").toLowerCase();
+  const key = String(formKey || "").toLowerCase();
+  let prefer = [];
+  if (k === "regional" || key.includes("alola")) {
+    prefer = ["ultra-sun", "ultra-moon", "sun", "moon", "lets-go-pikachu", "lets-go-eevee", "sword", "shield"];
+  } else if (key.includes("galar")) {
+    prefer = ["sword", "shield", "scarlet", "violet"];
+  } else if (k === "mega") {
+    prefer = ["lets-go-pikachu", "lets-go-eevee", "omega-ruby", "alpha-sapphire", "x", "y"];
+  } else if (k === "gigantamax") {
+    prefer = ["sword", "shield"];
+  }
+  if (prefer.length) {
+    for (const vg of prefer) {
+      const hit = [...normalized].reverse().find((e) => e.version === vg || e.versionGroup === vg);
+      if (hit) return hit;
+    }
+  }
+  return normalized[normalized.length - 1];
+}
+
+function structuredFormDescription(meta) {
+  const name = meta.displayName || meta.formName || meta.formLabel || "This form";
+  const species = titleCaseSlug(String(meta.speciesName || "this-species").replace(/\s+/g, "-"));
+  const types = (meta.types || []).map(titleCaseSlug);
+  const typeText = types.length ? types.join("/") : "";
+  const baseTypes = (meta.baseTypes || []).map(titleCaseSlug);
+  const baseTypeText = baseTypes.length ? baseTypes.join("/") : "";
+  const kind = String(meta.kind || "").toLowerCase();
+  const region = titleCaseSlug(meta.formKey || meta.formLabel || "regional");
+
+  if (kind === "mega") {
+    // Prefer not to restate stone/typing when Form Traits carries them.
+    let text = `${name} is ${species} after Mega Evolution`;
+    if (meta.requirement) text += ` (${meta.requirement})`;
+    text += ".";
+    if (typeText && baseTypeText && typeText !== baseTypeText) {
+      text += ` Its typing becomes ${typeText}.`;
+    }
+    return text;
+  }
+  if (kind === "gigantamax") {
+    // Avoid "This is the Gigantamax form" — badge/traits already say that.
+    let text = `When ${species} Gigantamaxes, it takes on this distinct battle form.`;
+    if (typeText && baseTypeText && typeText !== baseTypeText) {
+      text += ` Its typing becomes ${typeText}.`;
+    } else if (typeText && !baseTypeText) {
+      text += ` Its typing is ${typeText}.`;
+    }
+    return text;
+  }
+  if (kind === "regional") {
+    const regionLabel = titleCaseSlug(
+      String(meta.formKey || meta.formLabel || "regional").replace(/-/g, " ")
+    );
+    let text = `${species}'s ${regionLabel} form is found in the ${regionLabel} region.`;
+    if (typeText && baseTypeText && typeText !== baseTypeText) {
+      text += ` Its typing is ${typeText} (base form ${baseTypeText}).`;
+    } else if (typeText) {
+      text += ` Its typing is ${typeText}.`;
+    }
+    return text;
+  }
+  if (kind === "cosplay" || kind === "cap" || kind === "costume") {
+    const label = titleCaseSlug(String(meta.formLabel || meta.formKey || "costume").replace(/-/g, " "));
+    return `This is ${species} in its ${label} costume appearance.`;
+  }
+  if (!meta.isDefault && meta.formLabel) {
+    let text = `${name} is an alternate form of ${species}.`;
+    if (typeText && baseTypeText && typeText !== baseTypeText) {
+      text += ` Its typing is ${typeText}.`;
+    }
+    return text;
+  }
+  return "";
 }
 
 function pickGenus(genera) {
@@ -166,41 +256,6 @@ function megaStoneRequirement(speciesName, formKey) {
   if (key === "mega-y") return `${stoneBase} Y`;
   if (key === "mega") return stoneBase;
   return null;
-}
-
-function structuredFormDescription(meta) {
-  const name = meta.displayName || meta.formName || meta.formLabel || "This form";
-  const species = titleCaseSlug(String(meta.speciesName || "this-species").replace(/\s+/g, "-"));
-  const types = (meta.types || []).map(titleCaseSlug);
-  const typeText = types.length ? types.join("/") : "";
-  const kind = String(meta.kind || "").toLowerCase();
-  if (kind === "mega") {
-    let text = `${name} is ${species}'s Mega Evolution`;
-    if (meta.requirement) text += ` using ${meta.requirement}`;
-    text += ".";
-    if (typeText) text += ` Its typing is ${typeText}.`;
-    return text;
-  }
-  if (kind === "gigantamax") {
-    let text = `${name} is the Gigantamax form of ${species}.`;
-    if (typeText) text += ` Its typing is ${typeText}.`;
-    return text;
-  }
-  if (kind === "regional") {
-    const region = titleCaseSlug(meta.formKey || meta.formLabel || "regional");
-    let text = `${name} is the ${region} regional form of ${species}.`;
-    if (typeText) text += ` Its typing is ${typeText}.`;
-    return text;
-  }
-  if (kind === "cosplay" || kind === "cap" || kind === "costume") {
-    return `${name} is a costume form of ${species}.`;
-  }
-  if (!meta.isDefault && meta.formLabel) {
-    let text = `${name} is an alternate form of ${species}.`;
-    if (typeText) text += ` Its typing is ${typeText}.`;
-    return text;
-  }
-  return "";
 }
 
 async function mapPool(items, concurrency, worker) {
@@ -293,16 +348,42 @@ async function main() {
               ? "Base form"
               : titleCaseSlug(kind);
 
-    // Prefer species form_descriptions only when a single description exists for multi-form species
-    // and this is a non-base form — otherwise use structured facts.
+    // Form Entry priority:
+    // 1) pokemon-form flavor_text_entries (official, form-specific)
+    // 2) pokemon-species form_descriptions when uniquely applicable
+    // 3) concise structured summary from authoritative fields (last fallback)
     let description = "";
     let descriptionSource = "";
+    let descriptionVersion = "";
+    let descriptionVersionGroup = "";
+    const formFlavor = pickFormFlavor(
+      formRes?.flavor_text_entries || [],
+      kind,
+      catalog.formKey
+    );
+    if (formFlavor.text) {
+      description = formFlavor.text;
+      descriptionSource = "pokeapi:pokemon-form/flavor_text_entries";
+      descriptionVersion = formFlavor.version || "";
+      descriptionVersionGroup = formFlavor.versionGroup || "";
+    }
     const spDesc = species[dex]?.formDescriptions || [];
-    if (!catalog.isBase && spDesc.length === 1 && kind !== "mega" && kind !== "gigantamax") {
+    if (!description && !catalog.isBase && spDesc.length === 1 && kind !== "mega" && kind !== "gigantamax") {
       description = spDesc[0].text;
       descriptionSource = "pokeapi:pokemon-species/form_descriptions";
     }
     if (!description && (kind === "mega" || kind === "gigantamax" || kind === "regional" || kind === "cosplay" || kind === "cap")) {
+      const baseMapped = forms[dex] || (id === dex ? mapped : null);
+      // Base form may not be in forms yet during parallel map — fetch types from species default later via catalog
+      let baseTypes = baseMapped?.types || [];
+      if (!baseTypes.length && id !== dex) {
+        try {
+          const basePoke = await fetchJson(`${API}/pokemon/${dex}`);
+          baseTypes = (basePoke?.types || []).map((t) => t.type?.name).filter(Boolean);
+        } catch (_) {
+          baseTypes = [];
+        }
+      }
       description = structuredFormDescription({
         displayName: catalog.displayName || formName,
         formName,
@@ -310,6 +391,7 @@ async function main() {
         formKey: catalog.formKey,
         kind,
         types: mapped.types,
+        baseTypes,
         speciesName,
         requirement,
         isDefault: !!formRes?.is_default || !!catalog.isBase
@@ -333,11 +415,16 @@ async function main() {
       requirement: requirement || null,
       description: description || null,
       descriptionSource: descriptionSource || null,
+      descriptionVersion: descriptionVersion || null,
+      descriptionVersionGroup: descriptionVersionGroup || null,
       provenance: {
         source: "pokeapi",
-        sourceResource: id === dex ? `pokemon/${id}` : `pokemon-form/${id}`,
+        sourceResource: descriptionSource?.startsWith("pokeapi:pokemon-form")
+          ? `pokemon-form/${formRes?.id || id}`
+          : (id === dex ? `pokemon/${id}` : `pokemon-form/${id}`),
         pokemonResource: `pokemon/${id}`,
-        versionGroup: vg || null
+        versionGroup: descriptionVersionGroup || vg || null,
+        language: description ? "en" : null
       }
     };
     if ((idx + 1) % 40 === 0) console.log(`  forms ${idx + 1}/${formIds.length}`);
@@ -396,6 +483,8 @@ async function main() {
     `    requirement: form?.requirement || "",`,
     `    description: form?.description || "",`,
     `    descriptionSource: form?.descriptionSource || "",`,
+    `    descriptionVersion: form?.descriptionVersion || "",`,
+    `    descriptionVersionGroup: form?.descriptionVersionGroup || "",`,
     `    provenance: form?.provenance || null`,
     `  };`,
     `};`,

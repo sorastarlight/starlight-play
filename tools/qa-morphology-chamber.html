@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Morphology chamber QA (lab)</title>
+<link rel="stylesheet" href="../css/play.css">
+<style>
+  body { margin: 0; padding: 16px; background: #1a1c28; color: #f4f6ff; font-family: Nunito, sans-serif; }
+  h1 { font: 700 18px Fredoka, sans-serif; margin: 0 0 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+  .card { background: #2a2d3f; border-radius: 12px; padding: 10px; }
+  .card h2 { margin: 0 0 6px; font-size: 14px; }
+  .meta { font-size: 11px; opacity: 0.85; margin-bottom: 8px; white-space: pre-wrap; }
+  .dex-pokemon-viewer { height: 280px; }
+</style>
+<body>
+<h1>Morphology / Form Entry chamber QA</h1>
+<div id="grid" class="grid"></div>
+<script src="../js/variants.js"></script>
+<script src="../js/forms.js"></script>
+<script src="../js/species.js"></script>
+<script src="../js/pokedex-reference.js"></script>
+<script src="../js/pokedex-presentation.js"></script>
+<script src="../js/pokedex-presentation-resolve.js"></script>
+<script>
+  window.playFormMeta = (id) => window.PLAY_FORMS?.[id] || window.PLAY_FORMS?.[String(id)] || null;
+  window.playFormId = (dex, formId) => Number(formId || dex) || Number(dex);
+  window.playAllowedVariants = (dex) => window.PLAY_VARIANTS?.[dex] || window.PLAY_VARIANTS?.[String(dex)] || ["normal"];
+  window.playSpriteStem = function (dex, variant, formId) {
+    const id = Number(dex);
+    const resolvedForm = window.playFormId(id, formId);
+    const formMeta = window.playFormMeta(resolvedForm);
+    const useFormStem = formMeta && !formMeta.isBase && resolvedForm && resolvedForm !== id;
+    const kind = String(variant || "normal").toLowerCase();
+    const shiny = kind.includes("shiny");
+    if (useFormStem) return shiny ? `forms/shiny/${resolvedForm}` : `forms/${resolvedForm}`;
+    if (shiny) return `shiny/${id}`;
+    return String(id);
+  };
+  window.playSpriteUrl = function (dex, variant, formId) {
+    const stem = window.playSpriteStem(dex, variant, formId);
+    const ext = (window.PLAY_SPRITE_EXT && window.PLAY_SPRITE_EXT[stem]) || "gif";
+    return `../images/pokemon/${stem}.${ext}`;
+  };
+  window.playEscapeAttr = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+  const cases = [
+    { label: "Pikachu", dex: 25, formId: 25 },
+    { label: "Raichu", dex: 26, formId: 26 },
+    { label: "Charizard", dex: 6, formId: 6 },
+    { label: "Gyarados", dex: 130, formId: 130 },
+    { label: "Onix", dex: 95, formId: 95 },
+    { label: "Dragonair", dex: 148, formId: 148 },
+    { label: "Arbok", dex: 24, formId: 24 },
+    { label: "Articuno", dex: 144, formId: 144 },
+    { label: "Gmax Pikachu", dex: 25, formId: 10199 },
+    { label: "Gmax Charizard", dex: 6, formId: 10196 },
+  ];
+
+  function styleAttrs(vars) {
+    return Object.entries(vars || {}).map(([k, v]) => `${k}:${v}`).join(";");
+  }
+
+  const grid = document.getElementById("grid");
+  for (const c of cases) {
+    const ref = window.playPokedexRef?.(c.formId, c.dex) || {};
+    const pres = window.resolvePokedexPresentation({
+      dex: c.dex, formId: c.formId, shiny: false, female: false, heightM: ref.heightM
+    });
+    const comp = pres.composition || {};
+    const card = document.createElement("article");
+    card.className = "card";
+    card.dataset.case = c.label;
+    card.innerHTML = `
+      <h2>${c.label}</h2>
+      <div class="meta">morph=${comp.morphology || "?"} flags=${JSON.stringify(comp.morphologyFlags || [])}
+coreOcc=${comp.coreOccupancy ?? pres.coreOccupancy} full=${comp.fullEnvelopeOccupancy ?? pres.occupancyH}
+desire=${comp.desiredCoreOccupancy} maxSafe=${comp.maxSafeScaleH}
+${c.formId !== c.dex ? `entry: ${(ref.description || "").slice(0, 140)}` : ""}</div>
+      <div class="dex-pokemon-viewer" data-anchor="${pres.anchorType || "ground"}" style="${styleAttrs(pres.cssVars)}">
+        <div class="dex-pokemon-stage">
+          <div class="dex-chamber-watermark" aria-hidden="true"></div>
+          <div class="dex-chamber-platform" aria-hidden="true"></div>
+          <div class="dex-pokemon-glow" aria-hidden="true"></div>
+          <img class="dex-pokemon-art" src="${pres.url}" alt="">
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  }
+</script>
+</body>
+</html>

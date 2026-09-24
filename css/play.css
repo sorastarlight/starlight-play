@@ -4133,20 +4133,33 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
   z-index: 0;
 }
 .dex-pokemon-art {
-  position: relative;
+  position: absolute;
   z-index: 1;
-  width: calc(var(--dex-occ-w, 0.86) * 100%);
-  height: calc(var(--dex-occ-h, 0.68) * 100%);
-  max-width: 94%;
-  max-height: 92%;
-  margin-bottom: 4%;
+  left: 50%;
+  bottom: calc(var(--dex-safe-b, 0.16) * 100%);
+  width: calc(var(--dex-occ-w, 0.72) * 100%);
+  height: calc(var(--dex-occ-h, 0.52) * 100%);
+  max-width: calc((1 - var(--dex-safe-l, 0.07) - var(--dex-safe-r, 0.07)) * 100%);
+  max-height: calc((1 - var(--dex-safe-t, 0.06) - var(--dex-safe-b, 0.16)) * 100%);
+  margin: 0;
+  transform: translateX(calc(-50% + var(--dex-x-off, 0) * 1%)) translateY(calc(var(--dex-y-off, 0) * -1%));
   object-fit: contain;
   object-position: center bottom;
   object-view-box: inset(var(--ovb-t, 0%) var(--ovb-r, 0%) var(--ovb-b, 0%) var(--ovb-l, 0%));
   image-rendering: var(--dex-art-render, auto);
   filter: drop-shadow(0 14px 18px rgba(70, 110, 160, 0.28));
   pointer-events: none;
-  transition: width 180ms ease, height 180ms ease;
+  transition: width 180ms ease, height 180ms ease, transform 180ms ease, bottom 180ms ease;
+}
+.dex-pokemon-viewer[data-anchor="float"] .dex-pokemon-art {
+  bottom: calc((var(--dex-safe-b, 0.16) + 0.06) * 100%);
+  object-position: center center;
+}
+.dex-pokemon-viewer[data-anchor="center"] .dex-pokemon-art {
+  top: 50%;
+  bottom: auto;
+  transform: translate(-50%, -50%) translateX(calc(var(--dex-x-off, 0) * 1%)) translateY(calc(var(--dex-y-off, 0) * 1%));
+  object-position: center center;
 }
 .dex-pokemon-viewer[data-asset-class="battle"] .dex-pokemon-art,
 .dex-pokemon-viewer[data-asset-class="stadium2"] .dex-pokemon-art,

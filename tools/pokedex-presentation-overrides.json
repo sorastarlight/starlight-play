@@ -1,0 +1,13 @@
+{
+  "_comment": "Rare audited presentation overrides. Keys: dex:formId:variant or dex:formId or formId. Fields: scaleMultiplier, xOffset, yOffset, anchorOverride, desiredCoreOccupancy, coreBoundsOverride, safeBoundsOverride.",
+  "25:10199": {
+    "scaleMultiplier": 0.88,
+    "_note": "Gmax Pikachu — keep extreme lightning-bolt silhouette fully inside chamber with clear top/side breathing room"
+  },
+  "25:10199:shiny": {
+    "scaleMultiplier": 0.88
+  },
+  "25:10199:normal": {
+    "scaleMultiplier": 0.88
+  }
+}

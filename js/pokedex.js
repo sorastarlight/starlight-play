@@ -698,8 +698,9 @@
   function pokemonViewerHtml(pres, opts = {}) {
     const caption = opts.captionHtml ? `<div class="dex-pokemon-caption">${opts.captionHtml}</div>` : "";
     const titleId = opts.titleId ? ` id="${opts.titleId}"` : "";
+    const anchor = window.playEscapeAttr(pres.anchorType || "ground");
     return `
-      <div class="dex-pokemon-viewer" data-asset-class="${window.playEscapeAttr(pres.assetClass || "")}" style="${styleAttrs(pres.cssVars)}"${titleId}>
+      <div class="dex-pokemon-viewer" data-asset-class="${window.playEscapeAttr(pres.assetClass || "")}" data-anchor="${anchor}" style="${styleAttrs(pres.cssVars)}"${titleId}>
         <div class="dex-pokemon-stage">
           <div class="dex-chamber-watermark" aria-hidden="true"></div>
           <div class="dex-chamber-platform" aria-hidden="true"></div>

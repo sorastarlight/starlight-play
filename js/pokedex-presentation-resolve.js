@@ -2,14 +2,13 @@
   const data = window.PLAY_POKEDEX_PRESENTATION;
   if (!data) return;
 
-  const SCALE = {
-    minOccH: 0.4,
-    maxOccH: 0.9,
+  const FALLBACK = {
+    minOccH: 0.32,
+    maxOccH: 0.88,
     refHeightM: 1.2,
-    refOccH: 0.68,
-    power: 0.45,
-    extremeBoostH: 10,
-    extremeOccH: 0.94
+    refCoreOcc: 0.52,
+    power: 0.38,
+    safeInset: { top: 0.06, right: 0.07, bottom: 0.16, left: 0.07 }
   };
 
   function stamp(url) {
@@ -33,38 +32,34 @@
     return false;
   }
 
-  function padBounds(bounds, w, h, margin) {
-    const [x, y, bw, bh] = bounds || [0, 0, w, h];
-    const mx = Math.max(bw * margin, w * 0.02);
-    const my = Math.max(bh * margin, h * 0.02);
-    const x0 = Math.max(0, x - mx);
-    const y0 = Math.max(0, y - my);
-    const x1 = Math.min(w, x + bw + mx);
-    const y1 = Math.min(h, y + bh + my);
-    return [x0, y0, Math.max(1, x1 - x0), Math.max(1, y1 - y0)];
+  function asRect(raw, fallbackW, fallbackH) {
+    if (Array.isArray(raw) && raw.length >= 4) {
+      return {
+        x: Number(raw[0]) || 0,
+        y: Number(raw[1]) || 0,
+        w: Math.max(1, Number(raw[2]) || fallbackW),
+        h: Math.max(1, Number(raw[3]) || fallbackH)
+      };
+    }
+    return { x: 0, y: 0, w: fallbackW, h: fallbackH };
   }
 
-  function viewBoxCss(bounds, w, h) {
-    const [x, y, bw, bh] = bounds;
-    return {
-      "--ovb-t": `${((y / h) * 100).toFixed(3)}%`,
-      "--ovb-r": `${(((w - x - bw) / w) * 100).toFixed(3)}%`,
-      "--ovb-b": `${(((h - y - bh) / h) * 100).toFixed(3)}%`,
-      "--ovb-l": `${((x / w) * 100).toFixed(3)}%`
-    };
+  function padRect(rect, canvasW, canvasH, px) {
+    const p = Math.max(0, Number(px) || 0);
+    const x0 = Math.max(0, rect.x - p);
+    const y0 = Math.max(0, rect.y - p);
+    const x1 = Math.min(canvasW, rect.x + rect.w + p);
+    const y1 = Math.min(canvasH, rect.y + rect.h + p);
+    return { x: x0, y: y0, w: Math.max(1, x1 - x0), h: Math.max(1, y1 - y0) };
   }
 
-  function asAsset(raw, assetKey) {
-    if (!raw?.url && !(raw?.w || raw?.h)) return null;
+  function viewBoxCss(rect, canvasW, canvasH) {
+    const { x, y, w, h } = rect;
     return {
-      class: raw.class || "battle",
-      render: raw.render || (raw.class === "battle" || raw.class === "stadium2" ? "pixelated" : "auto"),
-      url: raw.url || "",
-      w: Number(raw.w) || 96,
-      h: Number(raw.h) || 96,
-      bounds: raw.bounds || [0, 0, Number(raw.w) || 96, Number(raw.h) || 96],
-      frameCount: Number(raw.frameCount) || 1,
-      assetKey
+      "--ovb-t": `${((y / canvasH) * 100).toFixed(3)}%`,
+      "--ovb-r": `${(((canvasW - x - w) / canvasW) * 100).toFixed(3)}%`,
+      "--ovb-b": `${(((canvasH - y - h) / canvasH) * 100).toFixed(3)}%`,
+      "--ovb-l": `${((x / canvasW) * 100).toFixed(3)}%`
     };
   }
 
@@ -125,7 +120,6 @@
     let shiny = !!opts.shiny;
     let female = !!opts.female;
 
-    // Form stems already encode costume sex; do not layer female/ path.
     if (form?.forcedGender === "Female" || form?.forcedGender === "Male") {
       female = false;
     } else if (!isBase && !form?.hasFemaleFront) {
@@ -140,14 +134,9 @@
     let variant = variantKey(shiny, female);
     if (!hasCatalogVariant(dex, formId, variant)) {
       if (shiny && female) {
-        if (hasCatalogVariant(dex, formId, "shiny")) {
-          female = false;
-        } else if (hasCatalogVariant(dex, formId, "female")) {
-          shiny = false;
-        } else {
-          shiny = false;
-          female = false;
-        }
+        if (hasCatalogVariant(dex, formId, "shiny")) female = false;
+        else if (hasCatalogVariant(dex, formId, "female")) shiny = false;
+        else { shiny = false; female = false; }
       } else if (shiny && !hasCatalogVariant(dex, formId, "shiny")) {
         shiny = false;
       } else if (female && !hasCatalogVariant(dex, formId, "female")) {
@@ -169,71 +158,183 @@
 
   window.normalizePokedexAppearance = normalizeIdentity;
 
-  function heightToOccupancy(heightM, envelopeScale = 1) {
+  function desiredCoreOccupancy(heightM) {
     const env = data.envelope || {};
-    const minH = Number(env.minOccupancyH) || SCALE.minOccH;
-    const maxH = Number(env.maxOccupancyH) || SCALE.maxOccH;
-    const refH = Number(env.refHeightM) || SCALE.refHeightM;
-    const refOcc = Number(env.refOccupancyH) || SCALE.refOccH;
-    const power = Number(env.scalePower) || SCALE.power;
-    const h = Math.max(0.1, Number(heightM) || refH);
-    const ratio = Math.pow(h / refH, power);
-    let occH = refOcc * ratio;
-    if (h >= (Number(env.extremeBoostH) || SCALE.extremeBoostH)) {
-      occH = Math.max(occH, Number(env.extremeOccupancyH) || SCALE.extremeOccH);
+    const refH = Number(env.refHeightM) || FALLBACK.refHeightM;
+    const refOcc = Number(env.refOccupancyH) || FALLBACK.refCoreOcc;
+    const power = Number(env.scalePower) || FALLBACK.power;
+    const minC = Number(env.minCoreOccupancy) || 0.34;
+    const maxC = Number(env.maxCoreOccupancy) || 0.78;
+    const h = Math.max(0.12, Number(heightM) || refH);
+    let occ = refOcc * Math.pow(h / refH, power);
+    if (h >= 3) {
+      const t = Math.min(1, Math.log10(h / 3 + 1) / Math.log10(12));
+      occ = occ * (1 - 0.18 * t) + maxC * (0.18 * t);
     }
-    occH = Math.min(maxH, Math.max(minH, occH));
-    occH *= Math.max(0.35, Math.min(1.15, Number(envelopeScale) || 1));
-    occH = Math.min(maxH, Math.max(minH * 0.85, occH));
-    const occW = Math.min(0.94, Math.max(0.52, occH * 1.12 + 0.06));
+    return Math.min(maxC, Math.max(minC, occ));
+  }
+
+  function runtimeFit(asset, heightM, envelopeScale) {
+    const env = data.envelope || {};
+    const inset = env.safeInset || FALLBACK.safeInset;
+    const usableW = 1 - (inset.left || 0.07) - (inset.right || 0.07);
+    const usableH = 1 - (inset.top || 0.06) - (inset.bottom || 0.16);
+    const maxOcc = Number(env.maxOccupancyH) || FALLBACK.maxOccH;
+    const minOcc = Number(env.minOccupancyH) || FALLBACK.minOccH;
+
+    const canvasW = Math.max(1, asset.w);
+    const canvasH = Math.max(1, asset.h);
+    const safe = asRect(asset.safeBounds || asset.bounds, canvasW, canvasH);
+    const core = asRect(asset.coreBounds || asset.bounds, canvasW, canvasH);
+    const aspect = safe.w / Math.max(1, safe.h);
+    const coreOfSafe = Math.max(0.25, core.h / Math.max(1, safe.h));
+
+    const pre = asset.composition;
+    if (pre && pre.finalScaleH != null && pre.finalScaleW != null && !envelopeScale) {
+      return {
+        occupancyH: Number(pre.finalScaleH),
+        occupancyW: Number(pre.finalScaleW),
+        coreOccupancy: Number(pre.coreOccupancy) || Number(pre.finalScaleH) * coreOfSafe,
+        fullEnvelopeOccupancy: Number(pre.fullEnvelopeOccupancy) || Number(pre.finalScaleH),
+        desiredCoreOccupancy: Number(pre.desiredCoreOccupancy) || desiredCoreOccupancy(heightM),
+        anchorType: pre.anchorType || asset.anchorType || "ground",
+        xOffset: Number(pre.xOffset) || 0,
+        yOffset: Number(pre.yOffset) || 0,
+        heightM: heightM ?? pre.canonicalHeightM ?? null,
+        fromManifest: true
+      };
+    }
+
+    let desire = desiredCoreOccupancy(heightM);
+    const candidateH = desire / coreOfSafe;
+    const maxHFromWidth = usableW / aspect;
+    const safeMaxH = Math.min(usableH, maxHFromWidth, maxOcc);
+    let finalH = Math.min(candidateH, safeMaxH);
+    finalH = Math.max(minOcc, Math.min(finalH, safeMaxH));
+    let finalW = finalH * aspect;
+    if (finalW > usableW) {
+      finalW = usableW;
+      finalH = finalW / aspect;
+    }
+    if (envelopeScale && Number(envelopeScale) > 0) {
+      finalH *= Math.min(1.15, Math.max(0.35, Number(envelopeScale)));
+      finalW = finalH * aspect;
+      if (finalH > safeMaxH) {
+        finalH = safeMaxH;
+        finalW = finalH * aspect;
+      }
+      if (finalW > usableW) {
+        finalW = usableW;
+        finalH = finalW / aspect;
+      }
+    }
+
     return {
-      occupancyH: Math.round(occH * 1000) / 1000,
-      occupancyW: Math.round(occW * 1000) / 1000,
-      heightM: h
+      occupancyH: Math.round(finalH * 1000) / 1000,
+      occupancyW: Math.round(finalW * 1000) / 1000,
+      coreOccupancy: Math.round(finalH * coreOfSafe * 1000) / 1000,
+      fullEnvelopeOccupancy: Math.round(finalH * 1000) / 1000,
+      desiredCoreOccupancy: Math.round(desire * 1000) / 1000,
+      anchorType: asset.anchorType || "ground",
+      xOffset: 0,
+      yOffset: 0,
+      heightM,
+      fromManifest: false
     };
   }
 
-  window.pokedexPresentationOccupancy = heightToOccupancy;
+  window.pokedexPresentationOccupancy = function (heightM, envelopeScale) {
+    const fit = runtimeFit({
+      w: 96, h: 96,
+      bounds: [0, 0, 96, 96],
+      safeBounds: [0, 0, 96, 96],
+      coreBounds: [16, 16, 64, 64]
+    }, heightM, envelopeScale);
+    return {
+      occupancyH: fit.occupancyH,
+      occupancyW: fit.occupancyW,
+      heightM: fit.heightM
+    };
+  };
 
-  function pickFromRow(row, key, shiny, wantStatic) {
+  function pickLayer(row, shiny, female) {
     if (!row) return null;
-    const shinyRow = shiny ? (row.shiny || null) : null;
-    const base = shiny
-      ? {
-          class: shinyRow?.class || row.class,
-          render: shinyRow?.render || row.render,
-          url: row.shinyUrl || shinyRow?.url || row.url,
-          w: shinyRow?.w || row.w,
-          h: shinyRow?.h || row.h,
-          bounds: shinyRow?.bounds || row.bounds,
-          frameCount: shinyRow?.frameCount || row.frameCount,
-          animatedAsset: shinyRow?.animatedAsset || row.animatedAsset,
-          homeAsset: shinyRow?.homeAsset || row.homeAsset,
-          officialArtworkAsset: shinyRow?.officialArtworkAsset || row.officialArtworkAsset,
-          battleFallback: shinyRow?.battleFallback || row.battleFallback
-        }
-      : row;
-
-    if (wantStatic) {
-      const home = asAsset(base.homeAsset, `${key}:home`);
-      if (home) return home;
-      const oa = asAsset(base.officialArtworkAsset, `${key}:oa`);
-      if (oa) return oa;
-    }
-
-    if (base.animatedAsset) return asAsset(base.animatedAsset, `${key}:anim`);
-    if (base.class === "battle" || /\.gif(\?|$)/i.test(base.url || "")) {
-      return asAsset(base, `${key}:anim`);
-    }
-
-    const home = asAsset(base.homeAsset, `${key}:home`);
-    if (home) return home;
-    const oa = asAsset(base.officialArtworkAsset, `${key}:oa`);
-    if (oa) return oa;
-    return asAsset(base, key);
+    if (female && shiny && row.shinyFemale) return row.shinyFemale;
+    if (female && row.female) return row.female;
+    if (shiny && row.shiny) return row.shiny;
+    return row;
   }
 
-  /** Catalog meta (bounds) only — URL always comes from exact identity axes. */
+  function enrichAsset(layer, row, key, shiny, female, wantStatic) {
+    const base = layer || row || {};
+    const composition = base.composition
+      || base.animatedAsset?.composition
+      || row?.composition
+      || null;
+
+    if (wantStatic) {
+      const home = base.homeAsset || row?.homeAsset;
+      if (home?.url) {
+        return {
+          class: home.class || "home",
+          render: home.render || "auto",
+          url: home.url,
+          w: home.w || 512,
+          h: home.h || 512,
+          bounds: home.bounds || [0, 0, home.w || 512, home.h || 512],
+          safeBounds: home.safeBounds || home.bounds,
+          coreBounds: home.coreBounds || home.bounds,
+          alphaBounds: home.alphaBounds || home.bounds,
+          frameCount: 1,
+          composition: home.composition || composition,
+          anchorType: home.anchorType || "ground",
+          visualCenterX: home.visualCenterX,
+          visualCenterY: home.visualCenterY,
+          groundY: home.groundY,
+          assetKey: `${key}:home`
+        };
+      }
+    }
+
+    const anim = base.animatedAsset || (base.class === "battle" || /\.gif(\?|$)/i.test(base.url || "") ? base : null);
+    if (anim) {
+      return {
+        class: anim.class || "battle",
+        render: anim.render || "pixelated",
+        url: anim.url || base.url || row?.url,
+        w: anim.w || base.w || 96,
+        h: anim.h || base.h || 96,
+        bounds: anim.bounds || base.bounds,
+        safeBounds: anim.safeBounds || base.safeBounds || anim.bounds || base.bounds,
+        coreBounds: anim.coreBounds || base.coreBounds || anim.bounds || base.bounds,
+        alphaBounds: anim.alphaBounds || base.alphaBounds || anim.bounds || base.bounds,
+        frameCount: anim.frameCount || base.frameCount || 1,
+        composition: anim.composition || composition,
+        anchorType: anim.anchorType || base.anchorType || composition?.anchorType || "ground",
+        visualCenterX: anim.visualCenterX ?? base.visualCenterX,
+        visualCenterY: anim.visualCenterY ?? base.visualCenterY,
+        groundY: anim.groundY ?? base.groundY,
+        assetKey: `${key}:${shiny && female ? "shiny-female" : shiny ? "shiny" : female ? "female" : "anim"}`
+      };
+    }
+
+    return {
+      class: base.class || "battle",
+      render: base.render || "pixelated",
+      url: base.url || "",
+      w: base.w || 96,
+      h: base.h || 96,
+      bounds: base.bounds || [0, 0, 96, 96],
+      safeBounds: base.safeBounds || base.bounds,
+      coreBounds: base.coreBounds || base.bounds,
+      alphaBounds: base.alphaBounds || base.bounds,
+      frameCount: base.frameCount || 1,
+      composition,
+      anchorType: base.anchorType || "ground",
+      assetKey: `${key}:raw`
+    };
+  }
+
   function catalogMeta(dex, formId, shiny, female) {
     const id = Number(dex);
     const fid = Number(formId || id);
@@ -241,31 +342,8 @@
     const key = isBase ? String(id) : `${id}:${fid}`;
     const row = data.assets[key];
     const wantStatic = preferStatic();
-
-    if (female && shiny && row?.shinyFemale) {
-      return asAsset(row.shinyFemale, `${key}:shiny-female`);
-    }
-    if (female && row?.female) {
-      // Bounds envelope only when shinyFemale missing — URL still exact shiny-female.
-      const f = asAsset(row.female, `${key}:female-bounds`);
-      if (f && !shiny) return f;
-      if (f && shiny) {
-        return { ...f, assetKey: `${key}:shiny-female-bounds` };
-      }
-    }
-
-    const picked = pickFromRow(row, key, shiny, wantStatic);
-    if (picked) return picked;
-    return {
-      class: "battle",
-      render: "pixelated",
-      url: "",
-      w: 96,
-      h: 96,
-      bounds: [0, 0, 96, 96],
-      frameCount: 1,
-      assetKey: `${key}:synth`
-    };
+    const layer = pickLayer(row, shiny, female);
+    return enrichAsset(layer, row, key, shiny, female, wantStatic);
   }
 
   function resolveHeightM(opts, formId, dex) {
@@ -285,7 +363,6 @@
   window.resolvePokedexPresentation = function resolvePokedexPresentation(opts = {}) {
     const identity = normalizeIdentity(opts);
     const { dex, formId, shiny, female, variant } = identity;
-    const margin = Number(data.envelope?.margin) || 0.08;
     const meta = catalogMeta(dex, formId, shiny, female);
     const url = typeof window.playSpriteUrl === "function"
       ? window.playSpriteUrl(dex, variant, formId)
@@ -296,19 +373,26 @@
       assetKey: `${identity.isBase ? dex : `${dex}:${formId}`}:${variant}`
     };
 
-    const bounds = padBounds(asset.bounds, asset.w, asset.h, margin);
+    const canvasW = Math.max(1, asset.w || 96);
+    const canvasH = Math.max(1, asset.h || 96);
+    const safe = padRect(asRect(asset.safeBounds || asset.bounds, canvasW, canvasH), canvasW, canvasH, 1);
+    const core = asRect(asset.coreBounds || asset.bounds, canvasW, canvasH);
     const heightM = resolveHeightM(opts, formId, dex);
-    const scale = heightToOccupancy(heightM, opts.envelopeScale);
+    const fit = runtimeFit(asset, heightM, opts.envelopeScale);
     const render = asset.render || "pixelated";
+    const inset = (data.envelope && data.envelope.safeInset) || FALLBACK.safeInset;
 
     return {
       url: stamp(asset.url),
       assetClass: asset.class || "battle",
       renderMode: render,
-      sourceW: asset.w,
-      sourceH: asset.h,
+      sourceW: canvasW,
+      sourceH: canvasH,
       frameCount: asset.frameCount || 1,
-      bounds: { x: bounds[0], y: bounds[1], w: bounds[2], h: bounds[3] },
+      bounds: safe,
+      alphaBounds: asRect(asset.alphaBounds || asset.bounds, canvasW, canvasH),
+      coreBounds: core,
+      safeBounds: safe,
       identity: {
         formId,
         shiny,
@@ -316,14 +400,24 @@
         variant,
         forcedGender: identity.forcedGender
       },
-      heightM: scale.heightM,
-      occupancyH: scale.occupancyH,
-      occupancyW: scale.occupancyW,
+      heightM: fit.heightM,
+      occupancyH: fit.occupancyH,
+      occupancyW: fit.occupancyW,
+      coreOccupancy: fit.coreOccupancy,
+      fullEnvelopeOccupancy: fit.fullEnvelopeOccupancy,
+      desiredCoreOccupancy: fit.desiredCoreOccupancy,
+      anchorType: fit.anchorType,
       cssVars: {
-        ...viewBoxCss(bounds, asset.w, asset.h),
+        ...viewBoxCss(safe, canvasW, canvasH),
         "--dex-art-render": render === "pixelated" ? "pixelated" : "auto",
-        "--dex-occ-h": String(scale.occupancyH),
-        "--dex-occ-w": String(scale.occupancyW)
+        "--dex-occ-h": String(fit.occupancyH),
+        "--dex-occ-w": String(fit.occupancyW),
+        "--dex-safe-t": String(inset.top ?? 0.06),
+        "--dex-safe-r": String(inset.right ?? 0.07),
+        "--dex-safe-b": String(inset.bottom ?? 0.16),
+        "--dex-safe-l": String(inset.left ?? 0.07),
+        "--dex-x-off": String(fit.xOffset || 0),
+        "--dex-y-off": String(fit.yOffset || 0)
       },
       assetKey: asset.assetKey
     };

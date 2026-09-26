@@ -5892,15 +5892,13 @@ html[data-reduced-motion="1"] .dex-overlay-scan { display: none; }
   min-width: 0;
 }
 .pc-brand-mark {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  background:
-    radial-gradient(circle at 50% 42%, #fff 0 18%, transparent 19%),
-    linear-gradient(180deg, var(--pc-pink) 0 48%, #fff 48% 52%, var(--pc-cyan) 52%);
-  border: 2px solid rgba(78, 200, 245, 0.65);
-  box-shadow: 0 0 0 3px rgba(255,255,255,0.7), 0 4px 12px rgba(78,200,245,0.25);
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  image-rendering: auto;
   flex: 0 0 auto;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(78, 200, 245, 0.28));
 }
 .pc-status-lights {
   display: flex;

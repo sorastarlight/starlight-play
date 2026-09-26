@@ -521,6 +521,7 @@
         candyName: result?.candyName || "",
         message: result?.message || ""
       };
+      if (els.status) els.status.textContent = "";
       // Animation only after authoritative success — never invents candy or deletes.
       if (window.playOakTransfer?.runSequence) {
         const sprite = trainerCard?.trainerSprite || window._playTrainerSprite || "";
@@ -535,7 +536,8 @@
       data = result;
       selectedId = nextSelect && monById(nextSelect) ? nextSelect : "";
       lastDetailId = "";
-      els.status.textContent = success.message || "Sent to Professor Oak.";
+      // Payoff lives in the Oak Game Moment — do not echo candy text under the PC.
+      if (els.status) els.status.textContent = "";
       render();
     } catch (error) {
       els.status.textContent = window.playHumanRpcError

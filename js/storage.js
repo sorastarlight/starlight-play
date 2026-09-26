@@ -6,6 +6,7 @@
     head: document.getElementById("box-head"),
     grid: document.getElementById("box-grid"),
     count: document.getElementById("box-count"),
+    usage: document.getElementById("box-usage-bar"),
     detail: document.getElementById("box-detail"),
     candy: document.getElementById("candy-grid"),
     search: document.getElementById("box-search"),
@@ -23,6 +24,7 @@
   let saveTimer = 0;
   let pendingOakId = "";
   let renamingBox = -1;
+  let dropTargetEl = null;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -41,6 +43,31 @@
 
   function displayName(mon) {
     return mon.nickname ? `${mon.nickname}` : `${mon.name}`;
+  }
+
+  function monSpriteUrl(mon) {
+    if (typeof window.playPcSpriteUrl === "function") return window.playPcSpriteUrl(mon);
+    return window.playSpriteUrl(mon.dex, mon.variant, mon.formId);
+  }
+
+  function pcStyle(mon, mode) {
+    const pres = typeof window.resolvePcPresentation === "function"
+      ? window.resolvePcPresentation(mon, mode)
+      : { cssVars: { "--pc-sprite-scale": mode === "inspect" ? "0.72" : "0.64" }, url: monSpriteUrl(mon) };
+    return {
+      url: pres.url || monSpriteUrl(mon),
+      style: Object.entries(pres.cssVars || {}).map(([k, v]) => `${k}:${v}`).join(";")
+    };
+  }
+
+  function monAriaLabel(mon) {
+    const bits = [displayName(mon), `Level ${mon.level || 1}`];
+    if (mon.gender) bits.push(String(mon.gender).toLowerCase());
+    if (String(mon.variant || "").includes("shiny") || mon.shiny) bits.push("shiny");
+    if (mon.favorite) bits.push("favorite");
+    if (mon.locked) bits.push("locked");
+    if (mon.listed) bits.push("listed for trade");
+    return bits.join(", ");
   }
 
   function teamSlot(mon) {
@@ -112,63 +139,111 @@
       .includes(q);
   }
 
-  function renderHead(mon, index) {
-    if (!mon) {
-      els.head.textContent = filtered.length ? "Select a Pokémon" : "No Pokémon in this box yet";
-      return;
+  function updateStorageStatus(filled, capacity, boxName, searchingMode, matchCount) {
+    const boxes = normalizeBoxes();
+    const name = boxName || boxes[boxIndex]?.name || `BOX ${boxIndex + 1}`;
+    if (els.head) els.head.textContent = name;
+    if (els.count) {
+      els.count.textContent = searchingMode
+        ? `${matchCount} match${matchCount === 1 ? "" : "es"}`
+        : `${filled} / ${capacity}`;
     }
-    els.head.innerHTML = `${window.playEscapeAttr(displayName(mon))} <span>Lv. ${mon.level || 1}</span>`;
+    if (els.usage) {
+      const pct = searchingMode ? 0 : Math.round((filled / Math.max(1, capacity)) * 100);
+      els.usage.style.setProperty("--pc-fill", `${pct}%`);
+      els.usage.parentElement?.classList.toggle("is-near-full", !searchingMode && pct >= 90);
+    }
   }
 
   function renderTabs() {
     if (!els.tabs || renamingBox >= 0) return;
     const boxes = normalizeBoxes();
     els.tabs.innerHTML = boxes.map((box, i) => (
-      `<button type="button" class="pc-tab${i === boxIndex ? " is-on" : ""}" data-box="${i}">${window.playEscapeAttr(box.name)}</button>`
-    )).join("") + `<button type="button" class="pc-tab pc-tab-add" data-add-box="1">+</button>`;
+      `<button type="button" class="pc-tab${i === boxIndex ? " is-on" : ""}" data-box="${i}" role="tab" aria-selected="${i === boxIndex}">${window.playEscapeAttr(box.name)}</button>`
+    )).join("") + `<button type="button" class="pc-tab pc-tab-add" data-add-box="1" aria-label="Add box">+</button>`;
+  }
+
+  function slotIndicators(mon) {
+    const bits = [];
+    if (mon.favorite) bits.push(`<span class="pc-pip is-fav" title="Favorite" aria-hidden="true">★</span>`);
+    if (mon.locked) bits.push(`<span class="pc-pip is-lock" title="Locked" aria-hidden="true">🔒</span>`);
+    if (String(mon.variant || "").includes("shiny") || mon.shiny) {
+      bits.push(`<span class="pc-pip is-shiny" title="Shiny" aria-hidden="true">✦</span>`);
+    }
+    if (mon.listed) bits.push(`<span class="pc-pip is-trade" title="Listed for trade" aria-hidden="true">⇄</span>`);
+    if (teamSlot(mon) === 1) bits.push(`<span class="pc-pip is-team" title="On team" aria-hidden="true">♥</span>`);
+    if (mon.isAlpha) bits.push(`<span class="pc-pip is-alpha" title="Alpha" aria-hidden="true">α</span>`);
+    return bits.join("");
   }
 
   function renderGrid() {
     const boxes = normalizeBoxes();
-    const searching = Boolean((els.search?.value || "").trim());
-    const ids = searching ? monsMatching().map((row) => String(row.id)) : (boxes[boxIndex]?.slots || []);
-    const slots = searching ? ids : Array.from({ length: BOX_SLOTS }, (_, i) => ids[i] || null);
+    const searchingMode = Boolean((els.search?.value || "").trim());
+    const ids = searchingMode ? monsMatching().map((row) => String(row.id)) : (boxes[boxIndex]?.slots || []);
+    const slots = searchingMode ? ids : Array.from({ length: BOX_SLOTS }, (_, i) => ids[i] || null);
     filtered = slots.map(monById).filter(Boolean);
-    if (!searching && !(data?.mons || []).length) {
-      els.grid.innerHTML = `<div class="lgpe-empty-state">
-        <p class="lgpe-empty">Your caught Pokémon will appear here.</p>
+
+    if (!searchingMode && !(data?.mons || []).length) {
+      els.grid.innerHTML = `<div class="pc-empty-state">
+        <div class="pc-empty-mark" aria-hidden="true"></div>
+        <p class="pc-empty-title">No Pokémon yet</p>
         <p class="muted">Join a wild encounter on Play to catch your first Pokémon.</p>
         <p><a class="button" href="./">Play</a></p>
       </div>`;
-      els.count.textContent = "0 / 30";
-      renderHead(null, 0);
+      updateStorageStatus(0, BOX_SLOTS, boxes[boxIndex]?.name, false, 0);
       renderDetail(null);
       renderTabs();
       return;
     }
+
+    if (!searchingMode && filtered.length === 0) {
+      els.grid.innerHTML = Array.from({ length: BOX_SLOTS }, (_, slot) => (
+        `<div class="pc-slot is-empty" data-slot="${slot}" aria-hidden="true"></div>`
+      )).join("") + `<div class="pc-empty-overlay">
+        <div class="pc-empty-mark" aria-hidden="true"></div>
+        <p class="pc-empty-title">This Box is Empty</p>
+        <p class="muted">Caught Pokémon can be moved here from your other Boxes.</p>
+      </div>`;
+      updateStorageStatus(0, BOX_SLOTS, boxes[boxIndex]?.name, false, 0);
+      selectedId = "";
+      renderDetail(null);
+      renderTabs();
+      if (data?._layoutDirty) {
+        data._layoutDirty = false;
+        saveLayout();
+      }
+      return;
+    }
+
     if (selectedId && !slots.some((id) => String(id) === selectedId)) {
       selectedId = String(filtered[0]?.id || "");
     }
+
     els.grid.innerHTML = slots.map((id, slot) => {
       const mon = monById(id);
       if (!mon) {
-        return `<div class="lgpe-mon is-empty" data-slot="${slot}"></div>`;
+        return `<div class="pc-slot is-empty" data-slot="${slot}" aria-hidden="true"></div>`;
       }
       const selected = String(mon.id) === selectedId;
-      return `<button type="button" class="lgpe-mon${selected ? " is-selected" : ""}" draggable="true" data-id="${mon.id}" data-slot="${slot}" role="option" aria-selected="${selected}">
-        ${teamSlot(mon) === 1 ? `<span class="lgpe-heart" aria-hidden="true">♥</span>` : ""}
-        ${String(mon.variant || "").includes("shiny") ? `<span class="lgpe-spark">✦</span>` : ""}
-        ${mon.isAlpha ? `<span class="lgpe-alpha-pip">α</span>` : ""}
-        <span class="lgpe-sprite"><img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt=""></span>
+      const art = pcStyle(mon, "slot");
+      const tip = `${displayName(mon)} · Lv. ${mon.level || 1}${mon.gender === "Female" ? " · ♀" : mon.gender === "Male" ? " · ♂" : ""}${String(mon.variant || "").includes("shiny") || mon.shiny ? " · Shiny" : ""}`;
+      return `<button type="button" class="pc-slot${selected ? " is-selected" : ""}" draggable="true" data-id="${mon.id}" data-slot="${slot}" role="option" aria-selected="${selected}" aria-label="${window.playEscapeAttr(monAriaLabel(mon))}" title="${window.playEscapeAttr(tip)}">
+        <span class="pc-slot-pips">${slotIndicators(mon)}</span>
+        <span class="pc-slot-art" style="${art.style}"><img src="${art.url}" alt="" decoding="async" draggable="false"></span>
       </button>`;
     }).join("");
+
     const index = filtered.findIndex((row) => String(row.id) === selectedId);
-    renderHead(filtered[index] || filtered[0], Math.max(0, index));
-    renderDetail(filtered[index] || filtered[0] || null);
+    const active = filtered[index] || filtered[0] || null;
+    updateStorageStatus(
+      searchingMode ? filtered.length : filtered.length,
+      BOX_SLOTS,
+      boxes[boxIndex]?.name,
+      searchingMode,
+      filtered.length
+    );
+    renderDetail(active);
     renderTabs();
-    els.count.textContent = searching
-      ? `${filtered.length} match${filtered.length === 1 ? "" : "es"}`
-      : `${filtered.length} / ${BOX_SLOTS}`;
     if (data?._layoutDirty) {
       data._layoutDirty = false;
       saveLayout();
@@ -183,65 +258,94 @@
     return labels.map(([key, label]) => {
       const value = Number(mon.stats?.[key] || 0);
       const pct = Math.max(8, Math.min(100, Math.round((value / 250) * 100)));
-      return `<div class="lgpe-stat"><span>${label}</span><i style="--pct:${pct}%"></i><strong>${value}</strong></div>`;
+      return `<div class="pc-stat"><span>${label}</span><i style="--pct:${pct}%"></i><strong>${value}</strong></div>`;
     }).join("");
   }
 
   function renderDetail(mon) {
     if (!mon) {
       els.detail.innerHTML = `
-        <div class="lgpe-detail-inner is-empty">
-          <p class="muted">Tap a Pokémon in the box to see its Let’s Go stats, OT, and nickname.</p>
+        <div class="pc-inspect-empty">
+          <div class="pc-empty-mark is-soft" aria-hidden="true"></div>
+          <p class="muted">Select a Pokémon in the box to inspect it.</p>
         </div>`;
       return;
     }
-    const shiny = String(mon.variant || "").includes("shiny");
+    const shiny = String(mon.variant || "").includes("shiny") || mon.shiny;
     const types = window.playSpeciesTypes(mon.dex, mon.types);
     const ballName = window.playItemLabel(mon.ball) || "Poké Ball";
     const metLevel = mon.metLevel || mon.level || 1;
     const metPlace = mon.metLocation || "the wild";
     const otName = mon.otName || "Unknown Trainer";
     const otNo = mon.otNumber ? String(mon.otNumber).padStart(5, "0") : "-----";
+    const art = pcStyle(mon, "inspect");
+    const tradeDisabled = mon.listed || mon.locked || mon.favorite || mon.tradable === false;
+    const oakDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite;
+    const releaseDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite;
+
     els.detail.innerHTML = `
-      <div class="lgpe-detail-inner">
-        <div class="lgpe-detail-hero">
-          <img class="lgpe-hero-sprite" src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="">
-          <div>
+      <div class="pc-inspect-inner">
+        <header class="pc-inspect-hero">
+          <div class="pc-inspect-art" style="${art.style}">
+            <img src="${art.url}" alt="" decoding="async">
+          </div>
+          <div class="pc-inspect-id">
+            <p class="pc-inspect-kicker">Selected Pokémon</p>
             <h2>${window.playEscapeAttr(displayName(mon))}</h2>
-            <p class="lgpe-species">Lv. ${mon.level || 1}</p>
+            <p class="pc-inspect-level">Lv. ${mon.level || 1}</p>
             <div class="type-row">
               ${window.playTypeChipHtml(types)}
               ${genderChip(mon.gender)}
-              ${shiny ? `<span class="type-chip gender-chip is-shiny">Shiny</span>` : ""}
+              ${shiny ? `<span class="type-chip gender-chip is-shiny">✦ Shiny</span>` : ""}
               ${mon.isAlpha ? `<span class="type-chip gender-chip is-alpha">Alpha</span>` : ""}
             </div>
           </div>
-        </div>
-        <div class="lgpe-caught">
-          <img src="${window.playItemSprite(mon.ball)}" alt="">
-          <div>
-            <strong>Caught in ${window.playEscapeAttr(ballName)}</strong>
-            <p>Met at Lv. ${metLevel} in ${window.playEscapeAttr(metPlace)}.</p>
+        </header>
+
+        <section class="pc-module pc-capture" aria-label="Capture record">
+          <h3 class="pc-module-label">Capture Record</h3>
+          <div class="pc-capture-row">
+            <img src="${window.playItemSprite(mon.ball)}" alt="">
+            <div>
+              <strong>${window.playEscapeAttr(ballName)}</strong>
+              <p>${window.playEscapeAttr(metPlace)} · Met at Lv. ${metLevel}</p>
+            </div>
           </div>
-        </div>
-        <p class="lgpe-ot"><span>OT</span> <strong>${window.playEscapeAttr(otName)}</strong> <em>No. ${otNo}</em></p>
-        <p class="muted">${mon.obtainedMethod || "CAPTURE"}${mon.favorite ? " · Favorite" : ""}${mon.locked ? " · Locked" : ""}${mon.tradeEvoReady ? " · Can evolve after trade" : ""}</p>
-        ${mon.tradeEvoReady ? `<p><a href="./evolve.html">Evolve ${window.playEscapeAttr(displayName(mon))} now</a> — or wait. No Candy or Linking Cord required.</p>` : ""}
-        <div class="lgpe-stats">${statRows(mon)}</div>
-        <div class="lgpe-detail-actions">
-          <label class="field" for="nick-input">Nickname
-            <input id="nick-input" type="text" maxlength="12" value="${window.playEscapeAttr(mon.nickname || "")}" placeholder="${window.playEscapeAttr(mon.name)}">
-          </label>
-          <div class="links">
-            <button id="save-nick" type="button">Save nickname</button>
-            <button id="toggle-fav" class="secondary" type="button">${mon.favorite ? "Unfavorite" : "Favorite"}</button>
-            <button id="toggle-lock" class="secondary" type="button">${mon.locked ? "Unlock" : "Lock"}</button>
-            <button id="list-trade" class="secondary" type="button" ${mon.listed || mon.locked || mon.favorite || mon.tradable === false ? "disabled" : ""}>${mon.listed ? "Already listed" : "Put up for trade"}</button>
-            <button id="send-oak" class="danger" type="button" ${mon.onTeam || mon.listed || mon.locked || mon.favorite ? "disabled" : ""}>Transfer to Oak</button>
-            <button id="release-mon" class="danger" type="button" ${mon.onTeam || mon.listed || mon.locked || mon.favorite ? "disabled" : ""}>Release duplicate</button>
+          <p class="pc-ot"><span>OT</span> <strong>${window.playEscapeAttr(otName)}</strong> <em>No. ${otNo}</em></p>
+          ${mon.tradeEvoReady ? `<p class="pc-trade-evo"><a href="./evolve.html">Evolve ${window.playEscapeAttr(displayName(mon))} now</a> — or wait. No Candy or Linking Cord required.</p>` : ""}
+        </section>
+
+        <section class="pc-module pc-stats-mod" aria-label="Stats">
+          <h3 class="pc-module-label">Stats</h3>
+          <div class="pc-stats">${statRows(mon)}</div>
+        </section>
+
+        <section class="pc-module pc-manage" aria-label="Management">
+          <h3 class="pc-module-label">Nickname</h3>
+          <div class="pc-nick-row">
+            <input id="nick-input" type="text" maxlength="12" value="${window.playEscapeAttr(mon.nickname || "")}" placeholder="${window.playEscapeAttr(mon.name)}" aria-label="Nickname">
+            <button id="save-nick" type="button">Save</button>
           </div>
-        </div>
+
+          <div class="pc-action-group" aria-label="Common management">
+            <button id="toggle-fav" class="pc-action${mon.favorite ? " is-on" : ""}" type="button">${mon.favorite ? "★ Favorited" : "☆ Favorite"}</button>
+            <button id="toggle-lock" class="pc-action${mon.locked ? " is-on" : ""}" type="button">${mon.locked ? "🔒 Locked" : "🔒 Lock"}</button>
+          </div>
+
+          <div class="pc-action-group" aria-label="Trade">
+            <button id="list-trade" class="pc-action pc-action-trade" type="button" ${tradeDisabled ? "disabled" : ""}>${mon.listed ? "Already listed" : "Put Up for Trade"}</button>
+          </div>
+
+          <div class="pc-action-group" aria-label="Professor Oak">
+            <button id="send-oak" class="pc-action pc-action-oak" type="button" ${oakDisabled ? "disabled" : ""}>Transfer to Oak</button>
+          </div>
+
+          <div class="pc-action-group is-danger" aria-label="Destructive">
+            <button id="release-mon" class="pc-action pc-action-danger" type="button" ${releaseDisabled ? "disabled" : ""}>Release Duplicate</button>
+          </div>
+        </section>
       </div>`;
+
     document.getElementById("save-nick")?.addEventListener("click", () => act("play_set_nickname", {
       p_catch_id: mon.id,
       p_name: document.getElementById("nick-input")?.value || ""
@@ -269,7 +373,7 @@
       window.location.href = `./trade.html?list=${encodeURIComponent(mon.id)}`;
     });
     document.getElementById("release-mon")?.addEventListener("click", async () => {
-      const shiny = String(mon.variant || "").includes("shiny");
+      const isShiny = String(mon.variant || "").includes("shiny") || mon.shiny;
       const copies = (data?.mons || []).filter((row) => Number(row.dex) === Number(mon.dex)).length;
       if (copies <= 1) {
         els.status.textContent = `This is your only currently owned ${mon.name}. Keep it for your Living Dex.`;
@@ -287,7 +391,7 @@
         : window.confirm(`You are about to release ${releaseName}. This cannot be undone.`);
       if (!ok) return;
       let confirmKey = "";
-      if (shiny) {
+      if (isShiny) {
         const typed = window.prompt("This is a SHINY Pokémon. Type SHINY to release it.");
         if (typed !== "SHINY") return;
         confirmKey = "SHINY";
@@ -302,13 +406,17 @@
         els.status.textContent = window.playRpcError(error);
       }
     });
+
+    if (window.matchMedia("(max-width: 900px)").matches) {
+      els.detail.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
   }
 
   function openOakModal(mon) {
     if (!els.oakModal || !mon) return;
     pendingOakId = String(mon.id);
     if (els.oakSprite) {
-      els.oakSprite.src = window.playSpriteUrl(mon.dex, mon.variant, mon.formId);
+      els.oakSprite.src = monSpriteUrl(mon);
       els.oakSprite.alt = displayName(mon);
     }
     if (els.oakCopy) {
@@ -389,6 +497,7 @@
     const next = Math.max(0, Math.min(filtered.length - 1, (index < 0 ? 0 : index) + dx + dy * cols));
     selectedId = String(filtered[next].id);
     renderGrid();
+    els.grid.querySelector(".is-selected")?.focus({ preventScroll: true });
     els.grid.querySelector(".is-selected")?.scrollIntoView({ block: "nearest" });
   }
 
@@ -406,6 +515,11 @@
     data.layout = { boxes };
     saveLayout();
     renderGrid();
+  }
+
+  function clearDropTarget() {
+    dropTargetEl?.classList.remove("is-drop-target");
+    dropTargetEl = null;
   }
 
   function startRename(index) {
@@ -494,7 +608,8 @@
     button.classList.add("is-dragging");
   });
   els.grid.addEventListener("dragend", (event) => {
-    event.target.closest(".lgpe-mon")?.classList.remove("is-dragging");
+    event.target.closest(".pc-slot")?.classList.remove("is-dragging");
+    clearDropTarget();
   });
   els.grid.addEventListener("dragover", (event) => {
     if (searching()) return;
@@ -502,12 +617,24 @@
     if (!slot) return;
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
+    if (dropTargetEl !== slot) {
+      clearDropTarget();
+      dropTargetEl = slot;
+      slot.classList.add("is-drop-target");
+    }
+  });
+  els.grid.addEventListener("dragleave", (event) => {
+    const slot = event.target.closest("[data-slot]");
+    if (slot && slot === dropTargetEl && !slot.contains(event.relatedTarget)) {
+      clearDropTarget();
+    }
   });
   els.grid.addEventListener("drop", (event) => {
     if (searching()) return;
     const slot = event.target.closest("[data-slot]");
     if (!slot) return;
     event.preventDefault();
+    clearDropTarget();
     let payload = null;
     try { payload = JSON.parse(event.dataTransfer.getData("text/plain") || ""); } catch (_) {}
     if (!payload || payload.slot == null) return;

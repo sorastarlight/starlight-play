@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My PC visual QA (fixture — no player writes)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/play.css">
+<body data-page="storage" class="box-page" style="margin:0;background:#dceaf8">
+<div class="wrap box-wrap" style="padding-top:16px">
+  <div id="box-app">
+    <section class="pc-terminal" aria-label="Pokémon Storage System">
+      <header class="pc-terminal-head">
+        <div class="pc-terminal-brand">
+          <span class="pc-brand-mark" aria-hidden="true"></span>
+          <div>
+            <h1 class="pc-title">My PC</h1>
+            <p class="pc-subtitle">Pokémon Storage System</p>
+          </div>
+        </div>
+        <div class="pc-terminal-meta">
+          <p id="box-head" class="pc-box-label">BOX 1</p>
+          <p id="box-count" class="pc-box-count">12 / 30</p>
+          <div class="pc-usage"><i id="box-usage-bar" style="--pc-fill:40%"></i></div>
+        </div>
+      </header>
+      <div class="pc-terminal-body">
+        <div class="pc-storage">
+          <div class="pc-nav-row">
+            <div class="pc-box-tabs" id="box-tabs"></div>
+            <p class="pc-box-hint muted">Double-click a box name to rename</p>
+          </div>
+          <label class="pc-search">
+            <span class="pc-search-icon" aria-hidden="true">⌕</span>
+            <input id="box-search" type="search" placeholder="Name, nickname, shiny, OT…" disabled>
+          </label>
+          <div id="box-grid" class="pc-grid" role="listbox" tabindex="0"></div>
+        </div>
+        <aside class="pc-inspect" id="box-detail"></aside>
+      </div>
+    </section>
+  </div>
+</div>
+<script src="../js/species.js"></script>
+<script src="../js/types.js"></script>
+<script src="../js/variants.js"></script>
+<script src="../js/forms.js"></script>
+<script src="../js/game.js"></script>
+<script src="../js/pokedex-presentation.js"></script>
+<script src="../js/pokedex-presentation-resolve.js"></script>
+<script src="../js/pc-presentation.js"></script>
+<script>
+  window.playEscapeAttr = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  window.playTypeChipHtml = window.playTypeChipHtml || ((types) => (types || []).map((t) => `<span class="type-chip" style="--type:var(--type-${t},#888)">${t}</span>`).join(""));
+  window.playSpeciesTypes = window.playSpeciesTypes || ((dex) => ["normal"]);
+  window.playItemLabel = () => "Poké Ball";
+  window.playItemSprite = () => "../images/items/poke-ball.png";
+
+  const params = new URLSearchParams(location.search);
+  const mode = params.get("mode") || "populated"; // populated | empty | mobile
+
+  const fixtures = [
+    { id: "1", dex: 25, name: "Pikachu", gender: "Female", variant: "shiny-female", level: 18, nickname: "", favorite: true, formId: 25,
+      stats: { hp: 55, atk: 40, def: 30, spa: 50, spd: 40, spe: 80 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Route 1", metLevel: 5 },
+    { id: "2", dex: 26, name: "Raichu", gender: "Male", variant: "normal", level: 32, formId: 26,
+      stats: { hp: 80, atk: 70, def: 55, spa: 80, spd: 70, spe: 100 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Route 2", metLevel: 20 },
+    { id: "3", dex: 6, name: "Charizard", gender: "Male", variant: "normal", level: 40, formId: 6,
+      stats: { hp: 110, atk: 90, def: 80, spa: 110, spd: 85, spe: 100 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Cinnabar", metLevel: 36 },
+    { id: "4", dex: 130, name: "Gyarados", gender: "Male", variant: "normal", level: 28, formId: 130, locked: true,
+      stats: { hp: 120, atk: 110, def: 79, spa: 60, spd: 80, spe: 81 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Fuchsia", metLevel: 20 },
+    { id: "5", dex: 95, name: "Onix", gender: "Male", variant: "normal", level: 22, formId: 95,
+      stats: { hp: 55, atk: 45, def: 140, spa: 30, spd: 45, spe: 70 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Rock Tunnel", metLevel: 15 },
+    { id: "6", dex: 93, name: "Haunter", gender: "Genderless", variant: "normal", level: 25, formId: 93,
+      stats: { hp: 60, atk: 50, def: 45, spa: 95, spd: 55, spe: 90 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Lavender", metLevel: 22 },
+    { id: "7", dex: 144, name: "Articuno", gender: "Genderless", variant: "normal", level: 50, formId: 144,
+      stats: { hp: 120, atk: 85, def: 100, spa: 95, spd: 125, spe: 85 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Seafoam", metLevel: 50 },
+    { id: "8", dex: 148, name: "Dragonair", gender: "Female", variant: "normal", level: 30, formId: 148,
+      stats: { hp: 75, atk: 75, def: 65, spa: 70, spd: 70, spe: 70 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Safari", metLevel: 20 },
+    { id: "9", dex: 150, name: "Mewtwo", gender: "Genderless", variant: "shiny", level: 70, formId: 150, favorite: true,
+      stats: { hp: 150, atk: 130, def: 90, spa: 154, spd: 90, spe: 130 }, otName: "QA Fixture", otNumber: 12345, ball: "masterball", metLocation: "Cerulean Cave", metLevel: 70 },
+    { id: "10", dex: 24, name: "Arbok", gender: "Female", variant: "normal", level: 26, formId: 24,
+      stats: { hp: 80, atk: 85, def: 69, spa: 65, spd: 70, spe: 80 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Route 23", metLevel: 22 },
+    { id: "11", dex: 133, name: "Eevee", gender: "Female", variant: "shiny", level: 19, formId: 133, nickname: "Twinkle",
+      stats: { hp: 55, atk: 55, def: 50, spa: 45, spd: 65, spe: 55 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Route 17", metLevel: 19 },
+    { id: "12", dex: 10, name: "Caterpie", gender: "Male", variant: "normal", level: 5, formId: 10,
+      stats: { hp: 30, atk: 20, def: 25, spa: 15, spd: 20, spe: 30 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Viridian Forest", metLevel: 3 },
+  ];
+
+  const empty = mode === "empty";
+  const slots = empty ? Array(30).fill(null) : [...fixtures.map((m) => m.id), ...Array(18).fill(null)].slice(0, 30);
+  const byId = Object.fromEntries(fixtures.map((m) => [m.id, m]));
+  let selected = empty ? null : fixtures[10];
+
+  document.getElementById("box-tabs").innerHTML = `
+    <button type="button" class="pc-tab is-on">BOX 1</button>
+    <button type="button" class="pc-tab">BOX 2</button>
+    <button type="button" class="pc-tab">BOX 3</button>
+    <button type="button" class="pc-tab pc-tab-add">+</button>`;
+
+  function art(mon, modeName) {
+    const p = window.resolvePcPresentation(mon, modeName);
+    return { url: p.url, style: Object.entries(p.cssVars).map(([k,v]) => `${k}:${v}`).join(";") };
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById("box-grid");
+    if (empty) {
+      grid.innerHTML = Array.from({ length: 30 }, (_, i) => `<div class="pc-slot is-empty" data-slot="${i}"></div>`).join("") +
+        `<div class="pc-empty-overlay"><div class="pc-empty-mark"></div><p class="pc-empty-title">This Box is Empty</p><p class="muted">Caught Pokémon can be moved here from your other Boxes.</p></div>`;
+      document.getElementById("box-count").textContent = "0 / 30";
+      document.getElementById("box-usage-bar").style.setProperty("--pc-fill", "0%");
+      return;
+    }
+    grid.innerHTML = slots.map((id, i) => {
+      if (!id) return `<div class="pc-slot is-empty" data-slot="${i}"></div>`;
+      const mon = byId[id];
+      const a = art(mon, "slot");
+      const sel = selected && String(selected.id) === id;
+      const pips = [
+        mon.favorite ? `<span class="pc-pip is-fav">★</span>` : "",
+        mon.locked ? `<span class="pc-pip is-lock">🔒</span>` : "",
+        String(mon.variant).includes("shiny") ? `<span class="pc-pip is-shiny">✦</span>` : ""
+      ].join("");
+      return `<button type="button" class="pc-slot${sel ? " is-selected" : ""}" data-id="${id}" data-slot="${i}">
+        <span class="pc-slot-pips">${pips}</span>
+        <span class="pc-slot-art" style="${a.style}"><img src="${a.url.replace(/^\.\.\//,'../')}" alt=""></span>
+      </button>`;
+    }).join("");
+    grid.querySelectorAll("button[data-id]").forEach((btn) => btn.addEventListener("click", () => {
+      selected = byId[btn.dataset.id];
+      renderGrid();
+      renderDetail();
+    }));
+  }
+
+  function renderDetail() {
+    const el = document.getElementById("box-detail");
+    if (!selected) {
+      el.innerHTML = `<div class="pc-inspect-empty"><div class="pc-empty-mark is-soft"></div><p class="muted">Select a Pokémon in the box to inspect it.</p></div>`;
+      return;
+    }
+    const mon = selected;
+    const a = art(mon, "inspect");
+    const shiny = String(mon.variant).includes("shiny");
+    const types = (window.playSpeciesTypes?.(mon.dex) || ["normal"]);
+    el.innerHTML = `
+      <div class="pc-inspect-inner">
+        <header class="pc-inspect-hero">
+          <div class="pc-inspect-art" style="${a.style}"><img src="${a.url}" alt=""></div>
+          <div class="pc-inspect-id">
+            <p class="pc-inspect-kicker">Selected Pokémon</p>
+            <h2>${playEscapeAttr(mon.nickname || mon.name)}</h2>
+            <p class="pc-inspect-level">Lv. ${mon.level}</p>
+            <div class="type-row">${playTypeChipHtml(types)}
+              <span class="type-chip gender-chip ${mon.gender === "Female" ? "is-female" : mon.gender === "Male" ? "is-male" : "is-none"}">${mon.gender === "Female" ? "Female ♀" : mon.gender === "Male" ? "Male ♂" : "Genderless"}</span>
+              ${shiny ? `<span class="type-chip gender-chip is-shiny">✦ Shiny</span>` : ""}
+            </div>
+          </div>
+        </header>
+        <section class="pc-module"><h3 class="pc-module-label">Capture Record</h3>
+          <div class="pc-capture-row"><img src="${playItemSprite()}" alt=""><div><strong>Poké Ball</strong><p>${mon.metLocation} · Met at Lv. ${mon.metLevel}</p></div></div>
+          <p class="pc-ot"><span>OT</span> <strong>${mon.otName}</strong> <em>No. ${String(mon.otNumber).padStart(5,"0")}</em></p>
+        </section>
+        <section class="pc-module"><h3 class="pc-module-label">Stats</h3>
+          <div class="pc-stats">${[["hp","HP"],["atk","Attack"],["def","Defense"],["spa","Sp. Atk"],["spd","Sp. Def"],["spe","Speed"]].map(([k,l]) => {
+            const v = mon.stats[k]; const pct = Math.max(8, Math.min(100, Math.round(v/250*100)));
+            return `<div class="pc-stat"><span>${l}</span><i style="--pct:${pct}%"></i><strong>${v}</strong></div>`;
+          }).join("")}</div>
+        </section>
+        <section class="pc-module"><h3 class="pc-module-label">Nickname</h3>
+          <div class="pc-nick-row"><input value="${playEscapeAttr(mon.nickname || "")}" placeholder="${mon.name}"><button type="button">Save</button></div>
+          <div class="pc-action-group"><button class="pc-action${mon.favorite?" is-on":""}" type="button">${mon.favorite?"★ Favorited":"☆ Favorite"}</button><button class="pc-action${mon.locked?" is-on":""}" type="button">${mon.locked?"🔒 Locked":"🔒 Lock"}</button></div>
+          <div class="pc-action-group"><button class="pc-action pc-action-trade" type="button">Put Up for Trade</button></div>
+          <div class="pc-action-group"><button class="pc-action pc-action-oak" type="button">Transfer to Oak</button></div>
+          <div class="pc-action-group is-danger"><button class="pc-action pc-action-danger" type="button">Release Duplicate</button></div>
+        </section>
+      </div>`;
+  }
+
+  // Fix sprite paths for tools/ folder
+  const orig = window.playSpriteUrl;
+  window.playSpriteUrl = function(dex, variant, formId) {
+    const url = orig.call(this, dex, variant, formId);
+    return url.startsWith("images/") ? "../" + url : url;
+  };
+
+  renderGrid();
+  renderDetail();
+  document.title = `PC QA · ${mode}`;
+</script>
+</body>
+</html>

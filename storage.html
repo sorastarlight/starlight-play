@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260924-rc69">
+<link rel="stylesheet" href="css/play.css?v=20260926-rc70">
 <body data-page="storage" class="box-page">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -52,34 +52,51 @@
   </div>
 </nav>
 <div class="wrap box-wrap">
-  <div class="page-kicker">
-    <div>
-      <h1>My PC</h1>
-      <p class="lede">Pokémon Storage System</p>
-    </div>
-  </div>
   <p id="gate" class="notice">Sign in to open your PC boxes.</p>
   <div id="box-app" hidden>
-    <section class="lgpe-shell">
-      <div class="lgpe-box">
-        <div class="pc-box-tabs" id="box-tabs"></div>
-        <p class="muted pc-box-hint">Drag Pokémon to move them. Double-click a box tab to rename it.</p>
-        <p id="box-head" class="lgpe-head">Select a Pokémon</p>
-        <div id="box-grid" class="lgpe-grid" role="listbox" aria-label="Caught Pokémon" tabindex="0"></div>
-        <div class="lgpe-foot">
-          <p id="box-count" class="lgpe-count">0 of 0</p>
-          <label class="lgpe-search">Search
-            <input id="box-search" type="search" placeholder="Name, shiny, OT…" autocomplete="off">
-          </label>
+    <section class="pc-terminal" aria-label="Pokémon Storage System">
+      <header class="pc-terminal-head">
+        <div class="pc-terminal-brand">
+          <span class="pc-brand-mark" aria-hidden="true"></span>
+          <div>
+            <h1 class="pc-title">My PC</h1>
+            <p class="pc-subtitle">Pokémon Storage System</p>
+          </div>
         </div>
+        <div class="pc-terminal-meta" aria-live="polite">
+          <p id="box-head" class="pc-box-label">BOX 1</p>
+          <p id="box-count" class="pc-box-count">0 / 30</p>
+          <div class="pc-usage" aria-hidden="true"><i id="box-usage-bar" style="--pc-fill:0%"></i></div>
+        </div>
+      </header>
+
+      <div class="pc-terminal-body">
+        <div class="pc-storage">
+          <div class="pc-nav-row">
+            <div class="pc-box-tabs" id="box-tabs" role="tablist" aria-label="Storage boxes"></div>
+            <p class="pc-box-hint muted">Double-click a box name to rename</p>
+          </div>
+          <label class="pc-search">
+            <span class="visually-hidden">Search Pokémon</span>
+            <span class="pc-search-icon" aria-hidden="true">⌕</span>
+            <input id="box-search" type="search" placeholder="Name, nickname, shiny, OT…" autocomplete="off">
+          </label>
+          <div id="box-grid" class="pc-grid" role="listbox" aria-label="Caught Pokémon" tabindex="0"></div>
+        </div>
+
+        <aside class="pc-inspect" id="box-detail" aria-label="Selected Pokémon">
+          <div class="pc-inspect-empty">
+            <p class="muted">Select a Pokémon in the box to inspect it.</p>
+          </div>
+        </aside>
       </div>
-      <aside class="lgpe-detail card body" id="box-detail">
-        <p class="muted">Tap a Pokémon in the box to see its Let’s Go stats, OT, and nickname.</p>
-      </aside>
     </section>
-    <section class="lgpe-candy card body" style="margin-top:18px">
-      <h2>Candy</h2>
-      <p class="muted">Transfer a Pokémon to Professor Oak for Evolution Candy. Every 50 of the same species grants a bonus Candy.</p>
+
+    <section class="pc-candy" aria-label="Evolution Candy">
+      <header class="pc-candy-head">
+        <h2>Candy</h2>
+        <p class="muted">Transfer a Pokémon to Professor Oak for Evolution Candy. Every 50 of the same species grants a bonus Candy.</p>
+      </header>
       <div id="candy-grid" class="candy-grid"></div>
     </section>
     <p id="box-status" class="muted" role="status"></p>
@@ -101,19 +118,22 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260924-rc69"></script>
-<script src="js/play-perf.js?v=20260924-rc69"></script>
-<script src="js/build.js?v=20260924-rc69"></script>
-<script src="js/build-client.js?v=20260924-rc69"></script>
-<script src="js/auth.js?v=20260924-rc69"></script>
-<script src="js/species.js?v=20260924-rc69"></script>
-<script src="js/types.js?v=20260924-rc69"></script>
-<script src="js/variants.js?v=20260924-rc69"></script>
-<script src="js/forms.js?v=20260924-rc69"></script>
-<script src="js/game.js?v=20260924-rc69"></script>
-<script src="js/play-present.js?v=20260924-rc69"></script>
-<script src="js/play-encounter-state.js?v=20260924-rc69"></script>
-<script src="js/trainers.js?v=20260924-rc69"></script>
-<script src="js/nav.js?v=20260924-rc69"></script>
-<script src="js/storage.js?v=20260924-rc69"></script>
+<script src="js/config.js?v=20260926-rc70"></script>
+<script src="js/play-perf.js?v=20260926-rc70"></script>
+<script src="js/build.js?v=20260926-rc70"></script>
+<script src="js/build-client.js?v=20260926-rc70"></script>
+<script src="js/auth.js?v=20260926-rc70"></script>
+<script src="js/species.js?v=20260926-rc70"></script>
+<script src="js/types.js?v=20260926-rc70"></script>
+<script src="js/variants.js?v=20260926-rc70"></script>
+<script src="js/forms.js?v=20260926-rc70"></script>
+<script src="js/game.js?v=20260926-rc70"></script>
+<script src="js/play-present.js?v=20260926-rc70"></script>
+<script src="js/play-encounter-state.js?v=20260926-rc70"></script>
+<script src="js/pokedex-presentation.js?v=20260926-rc70"></script>
+<script src="js/pokedex-presentation-resolve.js?v=20260926-rc70"></script>
+<script src="js/pc-presentation.js?v=20260926-rc70"></script>
+<script src="js/trainers.js?v=20260926-rc70"></script>
+<script src="js/nav.js?v=20260926-rc70"></script>
+<script src="js/storage.js?v=20260926-rc70"></script>
 </body>

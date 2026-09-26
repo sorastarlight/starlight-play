@@ -251,6 +251,77 @@
     }).join("");
   };
 
+  /** Shared raised identity badges (type / gender / shiny / form). Appearance: shiny only — never a fake "Normal" type badge. */
+  window.playIdentityBadgeHtml = function playIdentityBadgeHtml(code, className, sub) {
+    const esc = window.playEscapeAttr || ((s) => String(s ?? ""));
+    return `<span class="se-badge ${className || ""}"><span class="se-badge-icon" aria-hidden="true"></span>${esc(code)}${sub ? `<span class="se-badge-sub">${esc(sub)}</span>` : ""}</span>`;
+  };
+
+  window.playFormBadgeMeta = function playFormBadgeMeta(formOrKind) {
+    const form = formOrKind && typeof formOrKind === "object"
+      ? formOrKind
+      : (typeof window.playFormMeta === "function" ? window.playFormMeta(formOrKind) : null);
+    if (!form || form.isBase) return null;
+    const kind = String(form.kind || "").toLowerCase();
+    const lab = String(form.formLabel || form.formKey || "").toLowerCase();
+    if (kind === "mega" || /mega/.test(lab)) {
+      if (/x/.test(lab)) return { code: "MEGA X", className: "se-badge-mega" };
+      if (/y/.test(lab)) return { code: "MEGA Y", className: "se-badge-mega" };
+      return { code: "MEGA", className: "se-badge-mega" };
+    }
+    if (kind === "regional" || /alola|galar|hisui|paldea|totem/.test(lab + kind)) {
+      if (/alola/.test(lab + kind)) return { code: "ALOLAN", className: "se-badge-regional", sub: "REGIONAL" };
+      if (/galar/.test(lab + kind)) return { code: "GALARIAN", className: "se-badge-regional", sub: "REGIONAL" };
+      if (/hisui/.test(lab + kind)) return { code: "HISUIAN", className: "se-badge-regional", sub: "REGIONAL" };
+      if (/paldea/.test(lab + kind)) return { code: "PALDEAN", className: "se-badge-regional", sub: "REGIONAL" };
+      return { code: "REGIONAL", className: "se-badge-regional" };
+    }
+    if (kind === "gigantamax" || /gmax|gigantamax/.test(kind + lab)) {
+      return { code: "GIGANTAMAX", className: "se-badge-gmax" };
+    }
+    if (kind === "cosplay") return { code: "COSPLAY", className: "se-badge-cosplay" };
+    if (kind === "cap" || /cap/.test(kind + lab)) return { code: "CAP", className: "se-badge-costume" };
+    if (kind === "starter") return { code: "STARTER", className: "se-badge-costume" };
+    if (kind && kind !== "base" && kind !== "form") {
+      const label = String(form.formLabel || form.formKey || "FORM").toUpperCase();
+      return { code: label, className: "se-badge-other" };
+    }
+    return null;
+  };
+
+  window.playMonIdentityBadgesHtml = function playMonIdentityBadgesHtml(mon, opts = {}) {
+    if (!mon) return "";
+    const shiny = Boolean(mon.shiny) || String(mon.variant || "").toLowerCase().includes("shiny");
+    const types = typeof window.playSpeciesTypes === "function"
+      ? window.playSpeciesTypes(mon.dex, mon.types)
+      : (mon.types || []);
+    const bits = [];
+    if (typeof window.playTypeChipHtml === "function") bits.push(window.playTypeChipHtml(types));
+    const g = String(mon.gender || "");
+    if (g === "Male") bits.push(`<span class="type-chip gender-chip is-male">♂ Male</span>`);
+    else if (g === "Female") bits.push(`<span class="type-chip gender-chip is-female">♀ Female</span>`);
+    else if (g && g !== "Unknown") bits.push(`<span class="type-chip gender-chip is-none">Genderless</span>`);
+    if (shiny) bits.push(window.playIdentityBadgeHtml("★ Shiny", "se-badge-shiny"));
+    if (mon.isAlpha) bits.push(window.playIdentityBadgeHtml("Alpha", "se-badge-mythical"));
+    const form = typeof window.playFormMeta === "function"
+      ? window.playFormMeta(mon.formId || mon.dex)
+      : null;
+    const formBadge = window.playFormBadgeMeta(form);
+    if (formBadge && !opts.skipForm) {
+      bits.push(window.playIdentityBadgeHtml(formBadge.code, formBadge.className, formBadge.sub));
+    }
+    return `<div class="se-badge-row pc-identity-badges">${bits.join("")}</div>`;
+  };
+
+  window.playMonDisplayTitle = function playMonDisplayTitle(mon) {
+    if (!mon) return "";
+    const base = mon.nickname || mon.name || "Pokémon";
+    const g = String(mon.gender || "");
+    if (g === "Male") return `${base} ♂`;
+    if (g === "Female") return `${base} ♀`;
+    return String(base);
+  };
+
   window.playSizeMeta = function playSizeMeta(size) {
     const key = String(size || "M").toUpperCase();
     const labels = { XS: "Extra Small", S: "Small", M: "Medium", L: "Large", XL: "Extra Large" };

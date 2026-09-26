@@ -390,6 +390,22 @@ test("evolve page wires oak-transfer after server success path", () => {
   assert(js.indexOf("play_transfer_oak") < js.indexOf("runSequence"));
 });
 
+test("My PC wires shared oak-transfer after server success (no candy panel)", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const html = fs.readFileSync(path.join(__dirname, "../storage.html"), "utf8");
+  const js = fs.readFileSync(path.join(__dirname, "../js/storage.js"), "utf8");
+  assert(html.includes("js/oak-transfer.js"), "storage must load oak-transfer.js");
+  assert(!html.includes('id="candy-grid"'), "My PC candy panel removed");
+  assert(!html.includes("pc-candy"), "My PC candy section removed");
+  assert(js.includes("play_transfer_oak"));
+  assert(js.includes("playOakTransfer.runSequence") || js.includes("playOakTransfer?.runSequence"));
+  assert(js.includes("transferToOak"));
+  assert(!js.includes("renderCandy"), "PC candy renderer removed");
+  assert(js.indexOf("play_transfer_oak") < js.indexOf("runSequence"), "animation only after RPC");
+  assert(js.includes("playMonIdentityBadgesHtml"), "shared identity badges");
+});
+
 const failed = results.filter((r) => !r.passed);
 for (const r of results) {
   console.log(`${r.passed ? "PASS" : "FAIL"} ${r.name}${r.detail ? " — " + r.detail : ""}`);

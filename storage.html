@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260926-rc70">
+<link rel="stylesheet" href="css/play.css?v=20260926-rc71">
 <body data-page="storage" class="box-page">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -57,10 +57,15 @@
     <section class="pc-terminal" aria-label="Pokémon Storage System">
       <header class="pc-terminal-head">
         <div class="pc-terminal-brand">
-          <span class="pc-brand-mark" aria-hidden="true"></span>
+          <span class="pc-brand-mark" aria-hidden="true" title="Storage terminal"></span>
           <div>
             <h1 class="pc-title">My PC</h1>
             <p class="pc-subtitle">Pokémon Storage System</p>
+            <ul class="pc-status-lights" aria-label="Terminal status">
+              <li class="is-on"><i aria-hidden="true"></i> Online</li>
+              <li class="is-on"><i aria-hidden="true"></i> Storage Link</li>
+              <li class="is-on"><i aria-hidden="true"></i> Box Active</li>
+            </ul>
           </div>
         </div>
         <div class="pc-terminal-meta" aria-live="polite">
@@ -91,14 +96,6 @@
         </aside>
       </div>
     </section>
-
-    <section class="pc-candy" aria-label="Evolution Candy">
-      <header class="pc-candy-head">
-        <h2>Candy</h2>
-        <p class="muted">Transfer a Pokémon to Professor Oak for Evolution Candy. Every 50 of the same species grants a bonus Candy.</p>
-      </header>
-      <div id="candy-grid" class="candy-grid"></div>
-    </section>
     <p id="box-status" class="muted" role="status"></p>
   </div>
 </div>
@@ -118,22 +115,23 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260926-rc70"></script>
-<script src="js/play-perf.js?v=20260926-rc70"></script>
-<script src="js/build.js?v=20260926-rc70"></script>
-<script src="js/build-client.js?v=20260926-rc70"></script>
-<script src="js/auth.js?v=20260926-rc70"></script>
-<script src="js/species.js?v=20260926-rc70"></script>
-<script src="js/types.js?v=20260926-rc70"></script>
-<script src="js/variants.js?v=20260926-rc70"></script>
-<script src="js/forms.js?v=20260926-rc70"></script>
-<script src="js/game.js?v=20260926-rc70"></script>
-<script src="js/play-present.js?v=20260926-rc70"></script>
-<script src="js/play-encounter-state.js?v=20260926-rc70"></script>
-<script src="js/pokedex-presentation.js?v=20260926-rc70"></script>
-<script src="js/pokedex-presentation-resolve.js?v=20260926-rc70"></script>
-<script src="js/pc-presentation.js?v=20260926-rc70"></script>
-<script src="js/trainers.js?v=20260926-rc70"></script>
-<script src="js/nav.js?v=20260926-rc70"></script>
-<script src="js/storage.js?v=20260926-rc70"></script>
+<script src="js/config.js?v=20260926-rc71"></script>
+<script src="js/play-perf.js?v=20260926-rc71"></script>
+<script src="js/build.js?v=20260926-rc71"></script>
+<script src="js/build-client.js?v=20260926-rc71"></script>
+<script src="js/auth.js?v=20260926-rc71"></script>
+<script src="js/species.js?v=20260926-rc71"></script>
+<script src="js/types.js?v=20260926-rc71"></script>
+<script src="js/variants.js?v=20260926-rc71"></script>
+<script src="js/forms.js?v=20260926-rc71"></script>
+<script src="js/game.js?v=20260926-rc71"></script>
+<script src="js/play-present.js?v=20260926-rc71"></script>
+<script src="js/play-encounter-state.js?v=20260926-rc71"></script>
+<script src="js/pokedex-presentation.js?v=20260926-rc71"></script>
+<script src="js/pokedex-presentation-resolve.js?v=20260926-rc71"></script>
+<script src="js/pc-presentation.js?v=20260926-rc71"></script>
+<script src="js/trainers.js?v=20260926-rc71"></script>
+<script src="js/oak-transfer.js?v=20260926-rc71"></script>
+<script src="js/nav.js?v=20260926-rc71"></script>
+<script src="js/storage.js?v=20260926-rc71"></script>
 </body>

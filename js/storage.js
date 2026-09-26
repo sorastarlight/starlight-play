@@ -8,7 +8,6 @@
     count: document.getElementById("box-count"),
     usage: document.getElementById("box-usage-bar"),
     detail: document.getElementById("box-detail"),
-    candy: document.getElementById("candy-grid"),
     search: document.getElementById("box-search"),
     status: document.getElementById("box-status"),
     tabs: document.getElementById("box-tabs"),
@@ -17,32 +16,44 @@
     oakCopy: document.getElementById("oak-copy")
   };
   let data = null;
+  let trainerCard = null;
   let selectedId = "";
+  let lastDetailId = "";
   let filtered = [];
   let boxIndex = 0;
   const BOX_SLOTS = 30;
   let saveTimer = 0;
   let pendingOakId = "";
+  let oakBusy = false;
   let renamingBox = -1;
   let dropTargetEl = null;
+  let acquireTimer = 0;
 
   window.playBindAccountNav({
     onSignOut() {
       data = null;
+      trainerCard = null;
       els.app.hidden = true;
       window.playRestoreGate(els.gate, "Sign in to open your PC boxes.");
     }
   });
 
-  function genderChip(gender) {
-    const key = String(gender || "");
-    if (key === "Male") return `<span class="type-chip gender-chip is-male">Male ♂</span>`;
-    if (key === "Female") return `<span class="type-chip gender-chip is-female">Female ♀</span>`;
-    return `<span class="type-chip gender-chip is-none">Genderless</span>`;
+  function displayName(mon) {
+    return mon.nickname || mon.name || "Pokémon";
   }
 
-  function displayName(mon) {
-    return mon.nickname ? `${mon.nickname}` : `${mon.name}`;
+  function identityTitle(mon) {
+    if (typeof window.playMonDisplayTitle === "function") {
+      return window.playMonDisplayTitle({
+        ...mon,
+        nickname: mon.nickname || mon.name || "Pokémon"
+      });
+    }
+    const base = mon.nickname || mon.name || "Pokémon";
+    const g = String(mon.gender || "");
+    if (g === "Male") return `${base} ♂`;
+    if (g === "Female") return `${base} ♀`;
+    return base;
   }
 
   function monSpriteUrl(mon) {
@@ -78,6 +89,48 @@
 
   function monById(id) {
     return (data?.mons || []).find((row) => String(row.id) === String(id)) || null;
+  }
+
+  function reducedMotion() {
+    if (window.playPerfReduced?.()) return true;
+    const mode = window.playPerfMode?.();
+    if (mode === "low" || mode === "reduced") return true;
+    try {
+      return Boolean(window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches);
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function pulseAcquisition() {
+    if (reducedMotion()) return;
+    els.detail?.classList.remove("is-acquiring");
+    els.grid?.querySelector(".pc-slot.is-selected")?.classList.remove("is-acquiring");
+    void els.detail?.offsetWidth;
+    els.detail?.classList.add("is-acquiring");
+    els.grid?.querySelector(".pc-slot.is-selected")?.classList.add("is-acquiring");
+    window.clearTimeout(acquireTimer);
+    acquireTimer = window.setTimeout(() => {
+      els.detail?.classList.remove("is-acquiring");
+      els.grid?.querySelectorAll(".pc-slot.is-acquiring").forEach((el) => el.classList.remove("is-acquiring"));
+    }, 180);
+  }
+
+  function pickAdjacentAfter(removedId) {
+    const boxes = normalizeBoxes();
+    const slots = boxes[boxIndex]?.slots || [];
+    const idx = slots.findIndex((id) => id && String(id) === String(removedId));
+    const isOther = (id) => id && String(id) !== String(removedId);
+    if (idx >= 0) {
+      for (let i = idx + 1; i < slots.length; i += 1) {
+        if (isOther(slots[i]) && monById(slots[i])) return String(slots[i]);
+      }
+      for (let i = idx - 1; i >= 0; i -= 1) {
+        if (isOther(slots[i]) && monById(slots[i])) return String(slots[i]);
+      }
+    }
+    const fallback = (data?.mons || []).find((row) => String(row.id) !== String(removedId));
+    return fallback ? String(fallback.id) : "";
   }
 
   function normalizeBoxes() {
@@ -264,6 +317,7 @@
 
   function renderDetail(mon) {
     if (!mon) {
+      lastDetailId = "";
       els.detail.innerHTML = `
         <div class="pc-inspect-empty">
           <div class="pc-empty-mark is-soft" aria-hidden="true"></div>
@@ -271,8 +325,8 @@
         </div>`;
       return;
     }
-    const shiny = String(mon.variant || "").includes("shiny") || mon.shiny;
-    const types = window.playSpeciesTypes(mon.dex, mon.types);
+    const changed = String(mon.id) !== String(lastDetailId);
+    lastDetailId = String(mon.id);
     const ballName = window.playItemLabel(mon.ball) || "Poké Ball";
     const metLevel = mon.metLevel || mon.level || 1;
     const metPlace = mon.metLocation || "the wild";
@@ -280,25 +334,28 @@
     const otNo = mon.otNumber ? String(mon.otNumber).padStart(5, "0") : "-----";
     const art = pcStyle(mon, "inspect");
     const tradeDisabled = mon.listed || mon.locked || mon.favorite || mon.tradable === false;
-    const oakDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite;
+    const oakDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite || oakBusy;
     const releaseDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite;
+    const badges = typeof window.playMonIdentityBadgesHtml === "function"
+      ? window.playMonIdentityBadgesHtml(mon)
+      : `<div class="type-row">${window.playTypeChipHtml(window.playSpeciesTypes(mon.dex, mon.types))}</div>`;
 
     els.detail.innerHTML = `
       <div class="pc-inspect-inner">
         <header class="pc-inspect-hero">
           <div class="pc-inspect-art" style="${art.style}">
+            <span class="pc-scan-corner is-tl" aria-hidden="true"></span>
+            <span class="pc-scan-corner is-tr" aria-hidden="true"></span>
+            <span class="pc-scan-corner is-bl" aria-hidden="true"></span>
+            <span class="pc-scan-corner is-br" aria-hidden="true"></span>
+            <span class="pc-inspect-platform" aria-hidden="true"></span>
             <img src="${art.url}" alt="" decoding="async">
           </div>
           <div class="pc-inspect-id">
             <p class="pc-inspect-kicker">Selected Pokémon</p>
-            <h2>${window.playEscapeAttr(displayName(mon))}</h2>
+            <h2>${window.playEscapeAttr(identityTitle(mon))}</h2>
             <p class="pc-inspect-level">Lv. ${mon.level || 1}</p>
-            <div class="type-row">
-              ${window.playTypeChipHtml(types)}
-              ${genderChip(mon.gender)}
-              ${shiny ? `<span class="type-chip gender-chip is-shiny">✦ Shiny</span>` : ""}
-              ${mon.isAlpha ? `<span class="type-chip gender-chip is-alpha">Alpha</span>` : ""}
-            </div>
+            ${badges}
           </div>
         </header>
 
@@ -400,12 +457,15 @@
         const result = await window.playCall("play_release", { p_catch: mon.id, p_confirm: confirmKey });
         els.status.textContent = result.message || "Released.";
         data = await window.playCall("play_storage");
-        selectedId = "";
+        selectedId = pickAdjacentAfter(mon.id);
+        lastDetailId = "";
         render();
       } catch (error) {
         els.status.textContent = window.playRpcError(error);
       }
     });
+
+    if (changed) pulseAcquisition();
 
     if (window.matchMedia("(max-width: 900px)").matches) {
       els.detail.scrollIntoView({ block: "nearest", behavior: "smooth" });
@@ -413,36 +473,82 @@
   }
 
   function openOakModal(mon) {
-    if (!els.oakModal || !mon) return;
+    if (!els.oakModal || !mon || oakBusy) return;
     pendingOakId = String(mon.id);
+    const model = window.playOakTransfer?.confirmModel
+      ? window.playOakTransfer.confirmModel([mon])
+      : {
+        rewardHint: "You'll get Evolution Candy for this Evolution Line.",
+        leaveHint: "It leaves your collection. This can't be undone."
+      };
     if (els.oakSprite) {
-      els.oakSprite.src = monSpriteUrl(mon);
+      const src = window.playOakTransfer?.spriteUrl
+        ? window.playOakTransfer.spriteUrl(mon)
+        : monSpriteUrl(mon);
+      els.oakSprite.src = src;
       els.oakSprite.alt = displayName(mon);
     }
     if (els.oakCopy) {
-      els.oakCopy.innerHTML = `<p>You'll get Evolution Candy for this Evolution Line.</p><p class="muted">It leaves your collection. This can't be undone.</p>`;
+      const shiny = String(mon.variant || "").includes("shiny") || mon.shiny;
+      els.oakCopy.innerHTML = `
+        <p><strong>${shiny ? "✨ " : ""}${window.playEscapeAttr(identityTitle(mon))}</strong> · Lv. ${mon.level || 1}</p>
+        <p>${window.playEscapeAttr(model.rewardHint)}</p>
+        <p class="muted">${window.playEscapeAttr(model.leaveHint)}</p>`;
     }
     if (typeof els.oakModal.showModal === "function") els.oakModal.showModal();
     else els.oakModal.setAttribute("open", "");
   }
 
-  function renderCandy() {
-    const rows = data?.candies || [];
-    if (!rows.length) {
-      els.candy.innerHTML = `<p class="muted">No Candy yet. Transfer Pokémon from this box to Professor Oak.</p>`;
+  async function transferToOak(id) {
+    if (!id || oakBusy) return;
+    const mon = monById(id);
+    if (!mon) {
+      els.status.textContent = "That Pokémon is no longer in your PC.";
       return;
     }
-    els.candy.innerHTML = rows.map((row) => `
-      <article class="candy-chip">
-        <img src="${window.playItemSprite(row.key)}" alt="">
-        <strong>${window.playCandyLabel(row.key)}</strong>
-        <span>×${row.qty}</span>
-      </article>`).join("");
+    oakBusy = true;
+    els.status.textContent = "Sending to Professor Oak…";
+    const nextSelect = pickAdjacentAfter(id);
+    try {
+      const result = await window.playCall("play_transfer_oak", { p_catch_id: id });
+      const success = {
+        ok: true,
+        id,
+        mon,
+        candyGranted: Number(result?.candyGranted || 0),
+        familyId: Number(result?.familyId || 0),
+        candyBaseDex: Number(result?.candyBaseDex || 0),
+        candyName: result?.candyName || "",
+        message: result?.message || ""
+      };
+      // Animation only after authoritative success — never invents candy or deletes.
+      if (window.playOakTransfer?.runSequence) {
+        const sprite = trainerCard?.trainerSprite || window._playTrainerSprite || "";
+        if (sprite) window._playTrainerSprite = sprite;
+        await window.playOakTransfer.runSequence({
+          results: [success],
+          families: result?.families || data?.families || [],
+          trainerSprite: sprite,
+          trainer: trainerCard || result?.trainer || null
+        });
+      }
+      data = result;
+      selectedId = nextSelect && monById(nextSelect) ? nextSelect : "";
+      lastDetailId = "";
+      els.status.textContent = success.message || "Sent to Professor Oak.";
+      render();
+    } catch (error) {
+      els.status.textContent = window.playHumanRpcError
+        ? window.playHumanRpcError(error, "Could not send that Pokémon to Oak.")
+        : window.playRpcError(error);
+      // No success animation / no fake removal on failure.
+    } finally {
+      oakBusy = false;
+    }
   }
 
   function render() {
     renderGrid();
-    renderCandy();
   }
 
   async function act(name, args) {
@@ -461,6 +567,7 @@
     const session = sessionData.session;
     if (!session) {
       els.app.hidden = true;
+      trainerCard = null;
       window.playRestoreGate(els.gate, "Sign in to open your PC boxes.");
       window.playSetAccountNav(null);
       return;
@@ -471,7 +578,9 @@
     try {
       snapshot = await window.playCall("play_state");
     } catch (_) {}
-    window.playSetAccountNav(session, profile, { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer });
+    trainerCard = snapshot?.trainer || null;
+    if (trainerCard?.trainerSprite) window._playTrainerSprite = trainerCard.trainerSprite;
+    window.playSetAccountNav(session, profile, { isAdmin: Boolean(snapshot?.isAdmin), trainer: trainerCard });
     try {
       data = await window.playCall("play_storage");
       els.gate.hidden = true;
@@ -658,7 +767,7 @@
     }
     const id = pendingOakId;
     pendingOakId = "";
-    act("play_transfer_oak", { p_catch_id: id });
+    transferToOak(id);
   });
   supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });
   load();

@@ -30,9 +30,12 @@ function assert(cond, detail) {
 }
 
 test("PLAY_BUILD matches generated build.js", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const cfg = JSON.parse(fs.readFileSync(path.join(__dirname, "../build.json"), "utf8"));
   assert(Boolean(window.PLAY_BUILD), "missing PLAY_BUILD");
-  assert(window.PLAY_BUILD === "20260918-rc25", window.PLAY_BUILD);
-  assert(window.PLAY_SPRITE_BUILD === "20260919-items1", window.PLAY_SPRITE_BUILD);
+  assert(window.PLAY_BUILD === cfg.appBuild, window.PLAY_BUILD);
+  assert(window.PLAY_SPRITE_BUILD === cfg.spriteBuild, window.PLAY_SPRITE_BUILD);
 });
 
 test("mismatch is detected without auto-reload", () => {

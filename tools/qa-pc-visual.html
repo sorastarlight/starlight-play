@@ -17,6 +17,11 @@
           <div>
             <h1 class="pc-title">My PC</h1>
             <p class="pc-subtitle">Pokémon Storage System</p>
+            <ul class="pc-status-lights" aria-label="Terminal status">
+              <li class="is-on"><i aria-hidden="true"></i> Online</li>
+              <li class="is-on"><i aria-hidden="true"></i> Storage Link</li>
+              <li class="is-on"><i aria-hidden="true"></i> Box Active</li>
+            </ul>
           </div>
         </div>
         <div class="pc-terminal-meta">
@@ -42,6 +47,19 @@
     </section>
   </div>
 </div>
+<dialog id="oak-modal" class="play-modal play-modal-confirm" hidden>
+  <form class="play-modal-card" method="dialog">
+    <header class="play-modal-head"><h3>Transfer to Professor Oak?</h3></header>
+    <div class="oak-modal-body">
+      <img id="oak-sprite" alt="" width="72" height="72">
+      <div id="oak-copy"></div>
+    </div>
+    <div class="links oak-confirm-actions">
+      <button value="cancel" class="secondary" type="submit">Keep in box</button>
+      <button class="danger" value="transfer" type="submit">Transfer to Oak</button>
+    </div>
+  </form>
+</dialog>
 <script src="../js/species.js"></script>
 <script src="../js/types.js"></script>
 <script src="../js/variants.js"></script>
@@ -51,16 +69,22 @@
 <script src="../js/pokedex-presentation-resolve.js"></script>
 <script src="../js/pc-presentation.js"></script>
 <script>
-  window.playEscapeAttr = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  window.playTypeChipHtml = window.playTypeChipHtml || ((types) => (types || []).map((t) => `<span class="type-chip" style="--type:var(--type-${t},#888)">${t}</span>`).join(""));
-  window.playSpeciesTypes = window.playSpeciesTypes || ((dex) => ["normal"]);
-  window.playItemLabel = () => "Poké Ball";
-  window.playItemSprite = () => "../images/items/poke-ball.png";
-
+  window.playEscapeAttr = window.playEscapeAttr || function playEscapeAttr(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  };
+  const hash = new URLSearchParams(String(location.hash || "").replace(/^#/, ""));
   const params = new URLSearchParams(location.search);
-  const mode = params.get("mode") || "populated"; // populated | empty | mobile
+  const mode = hash.get("mode") || params.get("mode") || "populated"; // populated | empty | confirm | oak | mobile
+  const pick = hash.get("pick") || params.get("pick") || "";
 
   const fixtures = [
+    { id: "m", dex: 32, name: "Nidoran", gender: "Male", variant: "normal", level: 20, formId: 32,
+      stats: { hp: 55, atk: 50, def: 40, spa: 40, spd: 40, spe: 50 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Route 22", metLevel: 8 },
     { id: "1", dex: 25, name: "Pikachu", gender: "Female", variant: "shiny-female", level: 18, nickname: "", favorite: true, formId: 25,
       stats: { hp: 55, atk: 40, def: 30, spa: 50, spd: 40, spe: 80 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Route 1", metLevel: 5 },
     { id: "2", dex: 26, name: "Raichu", gender: "Male", variant: "normal", level: 32, formId: 26,
@@ -69,8 +93,8 @@
       stats: { hp: 110, atk: 90, def: 80, spa: 110, spd: 85, spe: 100 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Cinnabar", metLevel: 36 },
     { id: "4", dex: 130, name: "Gyarados", gender: "Male", variant: "normal", level: 28, formId: 130, locked: true,
       stats: { hp: 120, atk: 110, def: 79, spa: 60, spd: 80, spe: 81 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Fuchsia", metLevel: 20 },
-    { id: "5", dex: 95, name: "Onix", gender: "Male", variant: "normal", level: 22, formId: 95,
-      stats: { hp: 55, atk: 45, def: 140, spa: 30, spd: 45, spe: 70 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Rock Tunnel", metLevel: 15 },
+    { id: "5", dex: 16, name: "Pidgey", gender: "Female", variant: "normal", level: 12, formId: 16,
+      stats: { hp: 40, atk: 35, def: 30, spa: 30, spd: 30, spe: 50 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Route 1", metLevel: 4 },
     { id: "6", dex: 93, name: "Haunter", gender: "Genderless", variant: "normal", level: 25, formId: 93,
       stats: { hp: 60, atk: 50, def: 45, spa: 95, spd: 55, spe: 90 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Lavender", metLevel: 22 },
     { id: "7", dex: 144, name: "Articuno", gender: "Genderless", variant: "normal", level: 50, formId: 144,
@@ -81,22 +105,66 @@
       stats: { hp: 150, atk: 130, def: 90, spa: 154, spd: 90, spe: 130 }, otName: "QA Fixture", otNumber: 12345, ball: "masterball", metLocation: "Cerulean Cave", metLevel: 70 },
     { id: "10", dex: 24, name: "Arbok", gender: "Female", variant: "normal", level: 26, formId: 24,
       stats: { hp: 80, atk: 85, def: 69, spa: 65, spd: 70, spe: 80 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Route 23", metLevel: 22 },
-    { id: "11", dex: 133, name: "Eevee", gender: "Female", variant: "shiny", level: 19, formId: 133, nickname: "Twinkle",
+    { id: "11", dex: 133, name: "Eevee", gender: "Female", variant: "shiny", level: 19, formId: 133, nickname: "TwinkleQA",
       stats: { hp: 55, atk: 55, def: 50, spa: 45, spd: 65, spe: 55 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Route 17", metLevel: 19 },
     { id: "12", dex: 10, name: "Caterpie", gender: "Male", variant: "normal", level: 5, formId: 10,
       stats: { hp: 30, atk: 20, def: 25, spa: 15, spd: 20, spe: 30 }, otName: "QA Fixture", otNumber: 12345, ball: "pokeball", metLocation: "Viridian Forest", metLevel: 3 },
   ];
 
+  // Prefer an Alolan form id if the local forms catalog has one for Raichu.
+  const formList = Array.isArray(window.PLAY_FORMS)
+    ? window.PLAY_FORMS
+    : Object.values(window.PLAY_FORMS || {});
+  const alolan = formList.find((f) => f && /alola/i.test(String(f.formKey || f.formLabel || f.id || f.slug || "")) && Number(f.dex || f.speciesDex || f.species_id) === 26);
+  if (alolan) {
+    fixtures.push({
+      id: "form",
+      dex: 26,
+      name: "Raichu",
+      gender: "Female",
+      variant: "normal",
+      level: 34,
+      formId: alolan.id || alolan.formId || alolan.pokemonFormId,
+      stats: { hp: 80, atk: 70, def: 55, spa: 95, spd: 85, spe: 100 },
+      otName: "QA Fixture",
+      otNumber: 12345,
+      ball: "pokeball",
+      metLocation: "Alola QA",
+      metLevel: 20
+    });
+  }
+
   const empty = mode === "empty";
+  const confirmOnly = mode === "confirm";
   const slots = empty ? Array(30).fill(null) : [...fixtures.map((m) => m.id), ...Array(18).fill(null)].slice(0, 30);
   const byId = Object.fromEntries(fixtures.map((m) => [m.id, m]));
-  let selected = empty ? null : fixtures[10];
+  let selected = empty ? null : (byId[pick] || fixtures.find((f) => f.id === "m") || fixtures[0]);
 
   document.getElementById("box-tabs").innerHTML = `
     <button type="button" class="pc-tab is-on">BOX 1</button>
     <button type="button" class="pc-tab">BOX 2</button>
     <button type="button" class="pc-tab">BOX 3</button>
     <button type="button" class="pc-tab pc-tab-add">+</button>`;
+
+  if (confirmOnly) {
+    const mon = selected;
+    const modal = document.getElementById("oak-modal");
+    const img = document.getElementById("oak-sprite");
+    const copy = document.getElementById("oak-copy");
+    if (img) {
+      const a = window.resolvePcPresentation(mon, "inspect");
+      img.src = a.url.startsWith("images/") ? "../" + a.url : a.url;
+      img.alt = mon.name;
+    }
+    if (copy) {
+      copy.innerHTML = `<p><strong>${mon.name}</strong> · Lv. ${mon.level}</p><p>You'll get Evolution Candy for this Evolution Line.</p><p class="muted">It leaves your collection. This can't be undone.</p>`;
+    }
+    modal?.removeAttribute("hidden");
+    if (typeof modal?.showModal === "function") modal.showModal();
+    else modal?.setAttribute("open", "");
+  } else {
+    document.getElementById("oak-modal")?.remove();
+  }
 
   function art(mon, modeName) {
     const p = window.resolvePcPresentation(mon, modeName);
@@ -112,6 +180,9 @@
       document.getElementById("box-usage-bar").style.setProperty("--pc-fill", "0%");
       return;
     }
+    const filled = slots.filter(Boolean).length;
+    document.getElementById("box-count").textContent = `${filled} / 30`;
+    document.getElementById("box-usage-bar").style.setProperty("--pc-fill", `${Math.round(filled / 30 * 100)}%`);
     grid.innerHTML = slots.map((id, i) => {
       if (!id) return `<div class="pc-slot is-empty" data-slot="${i}"></div>`;
       const mon = byId[id];
@@ -124,7 +195,7 @@
       ].join("");
       return `<button type="button" class="pc-slot${sel ? " is-selected" : ""}" data-id="${id}" data-slot="${i}">
         <span class="pc-slot-pips">${pips}</span>
-        <span class="pc-slot-art" style="${a.style}"><img src="${a.url.replace(/^\.\.\//,'../')}" alt=""></span>
+        <span class="pc-slot-art" style="${a.style}"><img src="${a.url}" alt=""></span>
       </button>`;
     }).join("");
     grid.querySelectorAll("button[data-id]").forEach((btn) => btn.addEventListener("click", () => {
@@ -142,24 +213,32 @@
     }
     const mon = selected;
     const a = art(mon, "inspect");
-    const shiny = String(mon.variant).includes("shiny");
-    const types = (window.playSpeciesTypes?.(mon.dex) || ["normal"]);
+    const title = window.playMonDisplayTitle
+      ? window.playMonDisplayTitle({ ...mon, nickname: mon.nickname || mon.name })
+      : (mon.nickname || mon.name);
+    const badges = window.playMonIdentityBadgesHtml
+      ? window.playMonIdentityBadgesHtml(mon)
+      : "";
     el.innerHTML = `
       <div class="pc-inspect-inner">
         <header class="pc-inspect-hero">
-          <div class="pc-inspect-art" style="${a.style}"><img src="${a.url}" alt=""></div>
+          <div class="pc-inspect-art" style="${a.style}">
+            <span class="pc-scan-corner is-tl" aria-hidden="true"></span>
+            <span class="pc-scan-corner is-tr" aria-hidden="true"></span>
+            <span class="pc-scan-corner is-bl" aria-hidden="true"></span>
+            <span class="pc-scan-corner is-br" aria-hidden="true"></span>
+            <span class="pc-inspect-platform" aria-hidden="true"></span>
+            <img src="${a.url}" alt="">
+          </div>
           <div class="pc-inspect-id">
             <p class="pc-inspect-kicker">Selected Pokémon</p>
-            <h2>${playEscapeAttr(mon.nickname || mon.name)}</h2>
+            <h2>${window.playEscapeAttr(title)}</h2>
             <p class="pc-inspect-level">Lv. ${mon.level}</p>
-            <div class="type-row">${playTypeChipHtml(types)}
-              <span class="type-chip gender-chip ${mon.gender === "Female" ? "is-female" : mon.gender === "Male" ? "is-male" : "is-none"}">${mon.gender === "Female" ? "Female ♀" : mon.gender === "Male" ? "Male ♂" : "Genderless"}</span>
-              ${shiny ? `<span class="type-chip gender-chip is-shiny">✦ Shiny</span>` : ""}
-            </div>
+            ${badges}
           </div>
         </header>
         <section class="pc-module"><h3 class="pc-module-label">Capture Record</h3>
-          <div class="pc-capture-row"><img src="${playItemSprite()}" alt=""><div><strong>Poké Ball</strong><p>${mon.metLocation} · Met at Lv. ${mon.metLevel}</p></div></div>
+          <div class="pc-capture-row"><img src="${window.playItemSprite(mon.ball)}" alt=""><div><strong>Poké Ball</strong><p>${mon.metLocation} · Met at Lv. ${mon.metLevel}</p></div></div>
           <p class="pc-ot"><span>OT</span> <strong>${mon.otName}</strong> <em>No. ${String(mon.otNumber).padStart(5,"0")}</em></p>
         </section>
         <section class="pc-module"><h3 class="pc-module-label">Stats</h3>
@@ -169,7 +248,7 @@
           }).join("")}</div>
         </section>
         <section class="pc-module"><h3 class="pc-module-label">Nickname</h3>
-          <div class="pc-nick-row"><input value="${playEscapeAttr(mon.nickname || "")}" placeholder="${mon.name}"><button type="button">Save</button></div>
+          <div class="pc-nick-row"><input value="${window.playEscapeAttr(mon.nickname || "")}" placeholder="${mon.name}"><button type="button">Save</button></div>
           <div class="pc-action-group"><button class="pc-action${mon.favorite?" is-on":""}" type="button">${mon.favorite?"★ Favorited":"☆ Favorite"}</button><button class="pc-action${mon.locked?" is-on":""}" type="button">${mon.locked?"🔒 Locked":"🔒 Lock"}</button></div>
           <div class="pc-action-group"><button class="pc-action pc-action-trade" type="button">Put Up for Trade</button></div>
           <div class="pc-action-group"><button class="pc-action pc-action-oak" type="button">Transfer to Oak</button></div>
@@ -178,16 +257,50 @@
       </div>`;
   }
 
-  // Fix sprite paths for tools/ folder
   const orig = window.playSpriteUrl;
   window.playSpriteUrl = function(dex, variant, formId) {
     const url = orig.call(this, dex, variant, formId);
     return url.startsWith("images/") ? "../" + url : url;
   };
+  const origItem = window.playItemSprite;
+  window.playItemSprite = function(key) {
+    const url = origItem ? origItem.call(this, key) : "images/items/poke-ball.png";
+    return url.startsWith("images/") ? "../" + url : url;
+  };
 
   renderGrid();
   renderDetail();
-  document.title = `PC QA · ${mode}`;
+  document.title = `PC QA · ${mode}${pick ? " · " + pick : ""}`;
+  document.body.dataset.qaReady = "1";
+
+  if (mode === "oak") {
+    const s = document.createElement("script");
+    s.src = "../js/trainers.js";
+    s.onload = () => {
+      const s2 = document.createElement("script");
+      s2.src = "../js/oak-transfer.js";
+      s2.onload = async () => {
+        const mon = selected || fixtures[0];
+        await window.playOakTransfer.runSequence({
+          results: [{
+            ok: true,
+            id: mon.id,
+            mon,
+            candyGranted: 1,
+            familyId: Number(mon.dex),
+            candyBaseDex: Number(mon.dex === 26 ? 25 : mon.dex),
+            candyName: `${mon.name} Evolution Candy`,
+            message: `Professor Oak took ${mon.name}. You received 1 Evolution Candy.`
+          }],
+          families: [{ familyId: Number(mon.dex), baseDex: Number(mon.dex === 26 ? 25 : mon.dex), name: `${mon.name} Candy` }],
+          trainerSprite: "red-gen1"
+        });
+        document.body.dataset.qaOakDone = "1";
+      };
+      document.body.appendChild(s2);
+    };
+    document.body.appendChild(s);
+  }
 </script>
 </body>
 </html>

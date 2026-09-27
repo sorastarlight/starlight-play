@@ -3,7 +3,6 @@
   const els = {
     gate: document.getElementById("gate"),
     trainer: document.getElementById("trainer"),
-    card: document.getElementById("trainer-card"),
     bag: document.getElementById("bag-grid"),
     capacity: document.getElementById("capacity-note"),
     capacityBar: document.getElementById("capacity-bar"),
@@ -38,20 +37,6 @@
       window.playRestoreGate(els.gate, "Sign in to open your inventory.");
     }
   });
-
-  function renderCard(trainer) {
-    if (!trainer) {
-      els.card.innerHTML = "";
-      return;
-    }
-    els.card.innerHTML = `
-      ${window.playTwitchFaceHtml(trainer.avatar, trainer.displayName, "twitch-face-hero")}
-      <div>
-        <h2>${window.playEscapeAttr(trainer.displayName)}</h2>
-        <p class="muted">@${window.playEscapeAttr(trainer.login || "trainer")} · ${trainer.online ? "Online on Play" : "Away"}</p>
-        <p><strong>Lv. ${trainer.level}</strong> · ${trainer.caught} caught · ${trainer.species}/${window.playNationalTotal?.() || "?"} · ${window.playWatchHours(trainer.watchSeconds)} watched</p>
-      </div>`;
-  }
 
   function allKeys(bag) {
     const keys = new Set(["coins", "bait", "lure", "rarecandy", "firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord", "stardust", "pearl", "starpiece", "nugget", "bigpearl", "bignugget"]);
@@ -145,7 +130,6 @@
       snapshot = null;
     }
     window.playSetAccountNav(session, profile, { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer });
-    renderCard(snapshot?.trainer);
     lastCapture = snapshot?.captureItems || null;
     let bag = snapshot?.bag || {};
     try {
@@ -178,7 +162,6 @@
       .on("postgres_changes", { event: "*", schema: "public", table: "inventories", filter: `user_id=eq.${session.user.id}` }, async () => {
         try {
           const snap = await window.playCall("play_state");
-          renderCard(snap?.trainer);
           lastCapture = snap?.captureItems || lastCapture;
           let nextBag = snap?.bag || {};
           try {

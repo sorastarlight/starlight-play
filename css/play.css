@@ -407,6 +407,12 @@ body.nav-open { overflow: hidden; }
   gap: 10px 16px;
   margin-bottom: 16px;
 }
+.inv-kicker {
+  margin-bottom: 18px;
+}
+.inv-kicker h1 {
+  margin: 0;
+}
 .inv-brand-mark {
   width: 56px;
   height: 56px;

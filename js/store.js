@@ -190,7 +190,7 @@
     if (floor?.kind === "balls") return window.playItemSprite(floor.icon || "poke-ball.png");
     if (floor?.kind === "avatars") return window.playItemSprite(floor.icon || "images/trainers/premium-avatars.png");
     if (floor?.kind === "bits") return window.playItemSprite(floor.icon || "amulet-coin.png");
-    return window.playItemSprite(floor?.icon || "relic-gold.png");
+    return window.playItemSprite(floor?.icon || "pokecoin.png");
   }
 
   function art(item, fallback) {
@@ -333,7 +333,7 @@
         kind: "coins",
         name: "Field Kit",
         blurb: "",
-        icon: "relic-gold.png",
+        icon: "pokecoin.png",
         items: catalog?.coins || []
       },
       {
@@ -645,7 +645,7 @@
     const { featured, rest } = splitFeatured((floor.items || []).map(withLureBlurb));
     return floorShell(
       floor,
-      floor.icon || "relic-gold.png",
+      floor.icon || "pokecoin.png",
       stageHtml(featuredCard(featured, "coins"), rest.map((item) => shelfCard(item, "coins")).join(""), "mart-shelf"),
       "",
       index
@@ -738,13 +738,13 @@
         <h3>${esc(item.name || slug)}</h3>
         <p class="muted">${esc(item.blurb || "A valuable item.")}</p>
         <p>Owned: <strong>${owned.toLocaleString()}</strong></p>
-        <p class="mart-sell-price poke-cash"><span class="poke-cash-mark" aria-hidden="true">₽</span>${unit.toLocaleString()} each</p>
+        <p class="mart-sell-price">${typeof window.playCoinsHtml === "function" ? window.playCoinsHtml(unit) : money(unit)} each</p>
         <div class="mart-sell-qty" role="group" aria-label="Sell quantity">
           <button type="button" class="secondary" data-sell-dec="${esc(slug)}" ${qty <= 1 ? "disabled" : ""}>−</button>
           <span class="mart-sell-qty-val">${qty}</span>
           <button type="button" class="secondary" data-sell-inc="${esc(slug)}" ${qty >= owned ? "disabled" : ""}>+</button>
         </div>
-        <p class="mart-sell-total">${qty.toLocaleString()} × ${unit.toLocaleString()} = <strong class="poke-cash"><span class="poke-cash-mark" aria-hidden="true">₽</span>${total.toLocaleString()}</strong></p>
+        <p class="mart-sell-total">${qty.toLocaleString()} × ${unit.toLocaleString()} = <strong>${typeof window.playCoinsHtml === "function" ? window.playCoinsHtml(total) : money(total)}</strong></p>
         <button type="button" class="gold" data-sell-go="${esc(slug)}" ${owned < 1 || unit < 1 ? "disabled" : ""}>Sell</button>
       </div>
     </article>`;
@@ -808,7 +808,7 @@
           kind: "loot",
           title: "MART SALE COMPLETE!",
           subtitle: `Sold: ${data.displayName || label} ×${data.quantity || qty}`,
-          body: `Received: ₽ ${(data.coinsReceived || total).toLocaleString()} PokéCoins`,
+          body: `Received: ${(data.coinsReceived || total).toLocaleString()} PokéCoins`,
           rewards: [{ type: "coins", amount: data.coinsReceived || total }]
         }]);
       }

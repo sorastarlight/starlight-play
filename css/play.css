@@ -2716,10 +2716,14 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   line-height: 1;
 }
 .poke-cash-mark {
-  font-size: 0.72em;
-  font-weight: 800;
-  color: #e0a31a;
-  text-shadow: 0 1px 0 #fff3c4;
+  width: 0.85em;
+  height: 0.85em;
+  min-width: 14px;
+  min-height: 14px;
+  object-fit: contain;
+  align-self: center;
+  flex: 0 0 auto;
+  image-rendering: auto;
 }
 .bag-row.coins .poke-cash { font-size: 28px; }
 .mart-wallet-value.poke-cash {

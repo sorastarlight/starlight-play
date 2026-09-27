@@ -842,7 +842,7 @@
     silverpinap: "pinap-berry",
     bait: "honey",
     lure: "poke-radar",
-    coins: "relic-gold",
+    coins: "pokecoin",
     bag_bonus: "explorer-kit",
     pass: "rainbow-pass",
     poke5: "poke-ball",
@@ -1013,7 +1013,8 @@
   };
 
   window.playCoinsHtml = function playCoinsHtml(n) {
-    return `<span class="poke-cash"><span class="poke-cash-mark" aria-hidden="true">₽</span><span>${window.playFormatCoins(n)}</span></span>`;
+    const mark = window.playItemSprite("coins");
+    return `<span class="poke-cash"><img class="poke-cash-mark" src="${mark}" alt="" width="18" height="18" decoding="async"><span>${window.playFormatCoins(n)}</span></span>`;
   };
 
   window.playCandyLabel = function playCandyLabel(key) {

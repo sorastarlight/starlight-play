@@ -111,13 +111,46 @@
       journalCategory = "ALL";
       journalLimit = 8;
       render(card, data.recent || []);
-      if (mine && typeof window.playSpecialMount === "function") {
-        try {
-          const special = await window.playCall("play_special_events");
-          window.playSpecialMount(document.getElementById("special-upcoming"), special);
-        } catch (_) {}
-      }
       if (mine) {
+        try {
+          const prog = await window.playCall("play_progression");
+          const achRows = (prog?.achievements || [])
+            .filter((row) => row?.unlocked && (row.unlockedAt || row.unlocked_at))
+            .map((row) => ({
+              type: "ACHIEVEMENT",
+              at: row.unlockedAt || row.unlocked_at,
+              title: row.name || "Achievement earned",
+              body: row.description || "Achievement earned",
+              dex: null,
+              variant: null,
+              formId: null
+            }));
+          const evoRows = (prog?.recentEvolutions || prog?.evolutions || [])
+            .filter((row) => row?.at || row?.evolvedAt || row?.createdAt)
+            .map((row) => ({
+              type: "EVOLUTION",
+              at: row.at || row.evolvedAt || row.createdAt,
+              title: row.title || (row.toName ? `${row.fromName || "Pokémon"} evolved into ${row.toName}` : "Evolution"),
+              body: row.body || row.note || "",
+              dex: row.toDex || row.dex || null,
+              variant: row.variant || null,
+              formId: row.formId || null
+            }));
+          if (achRows.length || evoRows.length) {
+            journalEntries = journalEntries.concat(achRows, evoRows).sort((a, b) => {
+              const ta = a.at ? new Date(a.at).getTime() : 0;
+              const tb = b.at ? new Date(b.at).getTime() : 0;
+              return tb - ta;
+            });
+            renderJournal();
+          }
+        } catch (_) {}
+        if (typeof window.playSpecialMount === "function") {
+          try {
+            const special = await window.playCall("play_special_events");
+            window.playSpecialMount(document.getElementById("special-upcoming"), special);
+          } catch (_) {}
+        }
         window.playCall("play_ack_cosmetics", { p_ids: null }).catch(() => {});
       }
       gate.hidden = true;

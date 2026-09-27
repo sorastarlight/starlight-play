@@ -482,7 +482,7 @@
           <p class="tid-show-kicker">Favorite Pokémon</p>
           ${favDex
             ? `<div class="tid-show-stage"><img class="tid-show-sprite" src="${window.playSpriteUrl(favDex, favVar)}" alt="" width="112" height="112" loading="lazy"></div><strong>${esc(favName)}</strong>`
-            : `<div class="tid-show-stage is-empty" aria-hidden="true"></div><p class="muted">Choose a favorite in Settings.</p>`}
+            : `<div class="tid-show-stage is-empty" aria-hidden="true"></div><p class="muted">Choose a favorite in My Account.</p>`}
         </article>
         <article class="tid-show-card tid-show-shiny${shiny ? "" : " is-empty"}">
           <p class="tid-show-kicker">Featured Shiny</p>
@@ -519,17 +519,39 @@
   };
 
   window.playRenderTrainerProgressHtml = function playRenderTrainerProgressHtml(card) {
-    const counts = profileDexCounts(card);
     const variants = card?.variants || {};
     const esc = window.playEscapeAttr || ((value) => String(value || ""));
+    const mastered = Number(card?.speciesMastered || 0);
+    const female = Number(variants.femaleVariants || 0);
+    const kanto = card?.kanto || {};
+    const researchPct = kanto.percent != null
+      ? Number(kanto.percent)
+      : (kanto.caught != null ? Math.round(100 * Number(kanto.caught) / (Number(kanto.total) || 151)) : null);
+    const achBlock = card?.achievements;
+    let achUnlocked = null;
+    let achTotal = null;
+    if (achBlock && typeof achBlock === "object") {
+      achUnlocked = achBlock.unlocked ?? achBlock.unlockedCount ?? achBlock.complete ?? null;
+      achTotal = achBlock.total ?? achBlock.totalCount ?? null;
+    }
+    if (achUnlocked == null && card?.achievementsUnlocked != null) achUnlocked = card.achievementsUnlocked;
+    if (achTotal == null && card?.achievementsTotal != null) achTotal = card.achievementsTotal;
+    const milestoneCells = [
+      `<div><dt>Species mastered</dt><dd>${esc(mastered)}</dd></div>`
+    ];
+    if (researchPct != null && !Number.isNaN(researchPct)) {
+      milestoneCells.push(`<div><dt>Kanto research</dt><dd>${esc(researchPct)}%</dd></div>`);
+    }
+    if (achUnlocked != null && achTotal != null) {
+      milestoneCells.push(`<div><dt>Achievements</dt><dd>${esc(achUnlocked)} / ${esc(achTotal)}</dd></div>`);
+    }
+    if (female > 0) {
+      milestoneCells.push(`<div><dt>Female variants</dt><dd>${esc(female)}</dd></div>`);
+    }
     return `
-      ${typeof window.playXpProgressHtml === "function" ? window.playXpProgressHtml(card) : ""}
-      <dl class="tid-prog-strip">
-        <div><dt>Pokédex</dt><dd>${counts.kantoCaught} / ${counts.kantoTotal}</dd></div>
-        <div><dt>Mastered</dt><dd>${esc(card?.speciesMastered || 0)}</dd></div>
-        <div><dt>Shiny species</dt><dd>${esc(variants.shinySpecies || 0)}</dd></div>
-      </dl>
-      <div class="links">
+      <p class="muted tid-journey-lede">Milestones beyond the Trainer ID card.</p>
+      <dl class="tid-prog-strip tid-journey-strip">${milestoneCells.join("")}</dl>
+      <div class="links tid-journey-links">
         <a class="button secondary" href="./achievements.html">Achievements</a>
         <a class="button secondary" href="./pokedex.html">Pokédex</a>
       </div>`;
@@ -549,23 +571,110 @@
     return `<dl class="tid-stats-grid">${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl>`;
   };
 
-  window.playRenderAdventureLogHtml = function playRenderAdventureLogHtml(recent) {
+  const JOURNAL_TYPE_LABELS = {
+    CAPTURE: "Capture",
+    ACHIEVEMENT: "Achievement",
+    EVOLUTION: "Evolution",
+    TRADE: "Trade",
+    RESEARCH: "Research",
+    MILESTONE: "Milestone"
+  };
+  const JOURNAL_TAB_LABELS = {
+    ALL: "All",
+    CAPTURE: "Captures",
+    ACHIEVEMENT: "Achievements",
+    EVOLUTION: "Evolutions",
+    TRADE: "Trades",
+    RESEARCH: "Research",
+    MILESTONE: "Milestones"
+  };
+
+  function journalNormalizeEntry(raw) {
+    if (!raw || typeof raw !== "object") return null;
+    if (raw.type) {
+      return {
+        type: String(raw.type || "CAPTURE").toUpperCase(),
+        at: raw.at || raw.caughtAt || null,
+        title: raw.title || "",
+        body: raw.body || "",
+        dex: raw.dex,
+        variant: raw.variant,
+        formId: raw.formId
+      };
+    }
+    const at = raw.caughtAt || raw.at || null;
+    if (!at && raw.dex == null) return null;
+    const place = raw.routeName || raw.locationName || raw.area || "";
+    return {
+      type: "CAPTURE",
+      at,
+      title: `Caught ${window.playCaughtName(raw)}`,
+      body: place || (typeof window.playCaughtBlurb === "function" ? window.playCaughtBlurb(raw) : ""),
+      dex: raw.dex,
+      variant: raw.variant,
+      formId: raw.formId
+    };
+  }
+
+  function journalEntryTime(entry) {
+    const when = entry?.at ? new Date(entry.at) : null;
+    return when && !Number.isNaN(when.getTime()) ? when.getTime() : 0;
+  }
+
+  window.playRenderAdventureLogHtml = function playRenderAdventureLogHtml(entries, options) {
     const esc = window.playEscapeAttr || ((value) => String(value || ""));
-    const rows = Array.isArray(recent) ? recent : [];
-    if (!rows.length) return `<p class="muted tid-empty">No adventure log yet. Catches will appear here.</p>`;
-    return `<ol class="tid-log">
-      ${rows.map((row) => {
-        const when = row.caughtAt ? new Date(row.caughtAt) : null;
-        const stamp = when && !Number.isNaN(when.getTime()) ? when.toLocaleString() : "";
-        const place = row.routeName || row.locationName || row.area || "";
-        return `<li>
-          <img src="${window.playSpriteUrl(row.dex, row.variant, row.formId)}" alt="" width="40" height="40" loading="lazy">
-          <div>
-            <strong>Caught ${window.playCaughtName(row)}</strong>
-            <span class="muted">${place ? esc(place) : window.playCaughtBlurb(row)}${stamp ? ` · ${esc(stamp)}` : ""}</span>
-          </div>
-        </li>`;
-      }).join("")}
-    </ol>`;
+    const opts = options && typeof options === "object" ? options : {};
+    const limit = Math.max(1, Number(opts.limit) || 8);
+    const activeCat = String(opts.category || "ALL").toUpperCase();
+    const source = Array.isArray(entries) ? entries : [];
+    const normalized = source.map(journalNormalizeEntry).filter(Boolean);
+    normalized.sort((a, b) => journalEntryTime(b) - journalEntryTime(a));
+    if (!normalized.length) {
+      return `<p class="muted tid-empty tid-journal-empty">No journal entries yet. Catches will appear here.</p>`;
+    }
+    const presentTypes = [...new Set(normalized.map((row) => row.type))];
+    const tabKeys = ["ALL", ...presentTypes.filter((t) => t !== "ALL")];
+    const filtered = activeCat === "ALL"
+      ? normalized
+      : normalized.filter((row) => row.type === activeCat);
+    const visible = filtered.slice(0, limit);
+    const moreRemain = filtered.length > visible.length;
+    const fmtDate = (entry) => {
+      const when = entry.at ? new Date(entry.at) : null;
+      if (!when || Number.isNaN(when.getTime())) return "";
+      return when.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+    };
+    return `
+      <div class="tid-journal" data-journal-root>
+        <div class="tid-journal-tabs" role="tablist" aria-label="Journal categories">
+          ${tabKeys.map((key) => {
+            const selected = key === activeCat;
+            const label = JOURNAL_TAB_LABELS[key] || JOURNAL_TYPE_LABELS[key] || key;
+            return `<button type="button" class="tid-journal-tab${selected ? " is-active" : ""}" role="tab" data-journal-cat="${esc(key)}" aria-selected="${selected ? "true" : "false"}">${esc(label)}</button>`;
+          }).join("")}
+        </div>
+        <div class="tid-journal-book">
+          <ol class="tid-journal-timeline">
+            ${visible.map((entry) => {
+              const typeLabel = JOURNAL_TYPE_LABELS[entry.type] || entry.type;
+              const desc = entry.body ? esc(entry.body) : esc(entry.title);
+              const sprite = entry.dex != null
+                ? `<img class="tid-journal-sprite" src="${window.playSpriteUrl(entry.dex, entry.variant, entry.formId)}" alt="" width="44" height="44" loading="lazy">`
+                : `<span class="tid-journal-sprite tid-journal-sprite-empty" aria-hidden="true">★</span>`;
+              return `<li class="tid-journal-entry" data-journal-type="${esc(entry.type)}">
+                ${sprite}
+                <div class="tid-journal-copy">
+                  <div class="tid-journal-meta">
+                    <time class="tid-journal-date">${esc(fmtDate(entry))}</time>
+                    <span class="tid-journal-type">${esc(typeLabel)}</span>
+                  </div>
+                  <p class="tid-journal-desc">${desc || esc(entry.title)}</p>
+                </div>
+              </li>`;
+            }).join("")}
+          </ol>
+          ${moreRemain ? `<button type="button" class="button secondary tid-journal-more" data-journal-more>Show more</button>` : ""}
+        </div>
+      </div>`;
   };
 })();

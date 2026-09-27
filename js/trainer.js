@@ -8,9 +8,51 @@
   const ownerCustomize = document.getElementById("owner-customize");
   let card = null;
   let mine = false;
-  let recentLog = [];
+  let journalEntries = [];
+  let journalCategory = "ALL";
+  let journalLimit = 8;
 
   window.playBindAccountNav();
+
+  function capturesToJournalEntries(recent) {
+    const rows = Array.isArray(recent) ? recent : [];
+    return rows.map((row) => ({
+      type: "CAPTURE",
+      at: row.caughtAt,
+      title: `Caught ${window.playCaughtName(row)}`,
+      body: row.routeName || row.locationName || row.area || (typeof window.playCaughtBlurb === "function" ? window.playCaughtBlurb(row) : ""),
+      dex: row.dex,
+      variant: row.variant,
+      formId: row.formId
+    })).filter((entry) => entry.at || entry.dex != null);
+  }
+
+  function renderJournal() {
+    if (!caught) return;
+    caught.innerHTML = window.playRenderAdventureLogHtml(journalEntries, {
+      limit: journalLimit,
+      category: journalCategory
+    });
+  }
+
+  function bindJournalInteractions() {
+    const host = document.getElementById("trainer-journal") || caught?.closest(".tid-module");
+    if (!host || host.dataset.journalBound === "1") return;
+    host.dataset.journalBound = "1";
+    host.addEventListener("click", (event) => {
+      const tab = event.target.closest("[data-journal-cat]");
+      if (tab) {
+        journalCategory = tab.getAttribute("data-journal-cat") || "ALL";
+        journalLimit = 8;
+        renderJournal();
+        return;
+      }
+      if (event.target.closest("[data-journal-more]")) {
+        journalLimit += 8;
+        renderJournal();
+      }
+    });
+  }
 
   async function loadNav() {
     const { data: sessionData } = await supabase.auth.getSession();
@@ -45,10 +87,9 @@
     if (teamBody) teamBody.innerHTML = window.playRenderTrainerPartyHtml(view);
     const progressBody = document.getElementById("trainer-progress-body");
     if (progressBody) progressBody.innerHTML = window.playRenderTrainerProgressHtml(view);
-    const statsBody = document.getElementById("trainer-stats-body");
-    if (statsBody) statsBody.innerHTML = window.playRenderTrainerStatsHtml(view);
-    if (recent) recentLog = recent;
-    if (caught) caught.innerHTML = window.playRenderAdventureLogHtml(recentLog);
+    if (recent) journalEntries = capturesToJournalEntries(recent);
+    renderJournal();
+    bindJournalInteractions();
   }
 
   async function load() {
@@ -66,8 +107,10 @@
       const data = await window.playCall("play_trainer", { p_login: login });
       card = data.trainer;
       mine = Boolean(data.mine);
-      recentLog = data.recent || [];
-      render(card, recentLog);
+      journalEntries = capturesToJournalEntries(data.recent || []);
+      journalCategory = "ALL";
+      journalLimit = 8;
+      render(card, data.recent || []);
       if (mine && typeof window.playSpecialMount === "function") {
         try {
           const special = await window.playCall("play_special_events");

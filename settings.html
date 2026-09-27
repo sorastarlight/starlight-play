@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260926-rc76">
-<body data-page="settings">
+<link rel="stylesheet" href="css/play.css?v=20260926-rc77">
+<body data-page="settings" class="scc-page">
 <nav class="topnav">
   <div class="topnav-inner">
     <a class="topnav-brand" href="./">
@@ -51,116 +51,130 @@
     </div>
   </div>
 </nav>
-<div class="wrap">
-  <div class="page-kicker">
-    <h1>Settings</h1>
+<div class="wrap scc-wrap">
+  <div class="page-kicker scc-kicker">
+    <div>
+      <p class="tid-eyebrow">Trainer Control Center</p>
+      <h1>Settings</h1>
+    </div>
   </div>
-  <p id="gate" class="notice">Sign in to edit your Trainer look and encounter settings.</p>
-  <div id="settings" hidden>
-    <section class="card body" id="trainer-id">
-      <h2>Trainer ID</h2>
-      <p class="muted">Twitch login: <span id="twitch-login"></span>.</p>
-      <h3>Display name</h3>
-      <p class="muted">This is the only Trainer name used on Play: nav, rankings, encounters, trades, and your Trainer ID.</p>
-      <label class="field" for="trainer-display-name">Display name
-        <input id="trainer-display-name" type="text" maxlength="24" placeholder="Sora Starlight" autocomplete="nickname">
-      </label>
-      <button id="save-display-name" type="button">Save display name</button>
-      <p id="name-status" class="muted" role="status"></p>
-      <div class="look-row">
-        <div class="look-preview">
-          <img id="trainer-look-img" src="images/trainers/red-gen1.png" alt="">
-          <p id="trainer-look-label">Red · Gen 1</p>
+  <p id="gate" class="notice">Sign in to customize your Trainer and configure your game.</p>
+  <div id="settings" class="scc-shell" hidden>
+    <nav class="scc-nav" aria-label="Settings categories">
+      <button type="button" class="scc-nav-btn is-on" data-scc-cat="profile" aria-pressed="true">Profile</button>
+      <button type="button" class="scc-nav-btn" data-scc-cat="gameplay" aria-pressed="false">Gameplay</button>
+      <button type="button" class="scc-nav-btn" data-scc-cat="display" aria-pressed="false">Display</button>
+      <button type="button" class="scc-nav-btn" data-scc-cat="account" aria-pressed="false">Account</button>
+    </nav>
+
+    <div class="scc-main">
+      <section id="panel-profile" class="scc-panel" data-scc-panel="profile">
+        <div class="scc-profile-layout">
+          <div class="scc-editor">
+            <div class="scc-subnav" role="tablist" aria-label="Profile customization">
+              <button type="button" class="scc-subnav-btn is-on" role="tab" data-profile-tab="identity" aria-selected="true">Identity</button>
+              <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="avatar" aria-selected="false">Avatar</button>
+              <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="card-style" aria-selected="false">Card Style</button>
+              <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="titles" aria-selected="false">Title &amp; Badges</button>
+              <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="showcase" aria-selected="false">Showcase</button>
+              <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="team" aria-selected="false">Team</button>
+            </div>
+            <div id="profile-workspace" class="scc-workspace"></div>
+            <div class="scc-profile-actions links id-actions">
+              <button id="save-profile" type="button">Save Profile</button>
+              <button id="revert-profile" class="secondary" type="button">Revert Changes</button>
+              <a id="view-id" class="button secondary" href="./trainer.html">View Public Trainer ID</a>
+            </div>
+            <p id="edit-status" class="muted" role="status"></p>
+          </div>
+          <aside class="scc-preview" aria-label="Live Trainer ID preview">
+            <p class="scc-preview-kicker">Live Trainer ID</p>
+            <p id="preview-dirty" class="scc-preview-flag muted" hidden>Draft preview — not saved yet</p>
+            <div id="id-preview"></div>
+          </aside>
         </div>
-        <div>
-          <p class="muted">Preview instantly. Nothing is saved until you press Save Trainer ID. Pokémon looks are free. Extra series like Sonic sit in Premium Avatars on the Mart.</p>
-          <button id="choose-look" type="button">Choose trainer sprite</button>
-          <p id="look-status" class="muted" role="status"></p>
+      </section>
+
+      <section id="panel-gameplay" class="scc-panel" data-scc-panel="gameplay" hidden>
+        <header class="scc-panel-head">
+          <h2>Encounter Preferences</h2>
+          <p class="muted">Favorite Poké Balls show first when it’s time to throw. “All my Poké Balls” still lists every ball you own.</p>
+        </header>
+        <div id="favorite-balls" class="ball-grid encounter-fav-grid"></div>
+        <p id="favorite-empty" class="muted" hidden>Sign in and grab some Poké Balls to pick favorites.</p>
+        <label class="field" for="default-prep">Default prepare item
+          <select id="default-prep">
+            <option value="ask">Ask me each encounter</option>
+            <option value="berry">Berry</option>
+            <option value="bait">Honey</option>
+          </select>
+        </label>
+        <label class="check-row" for="auto-prep">
+          <input id="auto-prep" type="checkbox">
+          <span>Use that item automatically after I join</span>
+        </label>
+        <label class="check-row" for="auto-throw">
+          <input id="auto-throw" type="checkbox">
+          <span>Throw my first favorite ball automatically when throws open</span>
+        </label>
+        <label class="check-row" for="confirm-rare">
+          <input id="confirm-rare" type="checkbox" checked>
+          <span>Confirm before using very rare items like the Master Ball</span>
+        </label>
+        <div class="links id-actions">
+          <button id="save-encounter" type="button">Save encounter settings</button>
         </div>
-      </div>
-      <p class="muted">Pick a region, cute look, or pride flag for your Trainer ID.</p>
-      <div id="card-bg-picks" class="card-bg-board"></div>
-      <p id="bg-status" class="muted" role="status"></p>
-      <div id="id-preview"></div>
-      <div class="links id-actions">
-        <button id="save-id-look" type="button">Save Trainer ID</button>
-        <button id="revert-id-look" class="secondary" type="button">Cancel / Revert</button>
-        <a id="view-id" class="button secondary" href="./trainer.html">View my Trainer ID</a>
-        <a class="button secondary" href="./achievements.html">Titles & badges</a>
-      </div>
-      <p id="edit-status" class="muted" role="status"></p>
-    </section>
-    <section class="card body" style="margin-top:18px">
-      <h2>Encounter</h2>
-      <p class="muted">Favorite Poké Balls show first when it’s time to throw. “All my Poké Balls” still lists every ball you own — not the whole catalog.</p>
-      <div id="favorite-balls" class="ball-grid encounter-fav-grid"></div>
-      <p id="favorite-empty" class="muted" hidden>Sign in and grab some Poké Balls to pick favorites.</p>
-      <label class="field" for="default-prep">Default prepare item
-        <select id="default-prep">
-          <option value="ask">Ask me each encounter</option>
-          <option value="berry">Berry</option>
-          <option value="bait">Honey</option>
-        </select>
-      </label>
-      <label class="check-row" for="auto-prep">
-        <input id="auto-prep" type="checkbox">
-        <span>Use that item automatically after I join</span>
-      </label>
-      <label class="check-row" for="auto-throw">
-        <input id="auto-throw" type="checkbox">
-        <span>Throw my first favorite ball automatically when throws open</span>
-      </label>
-      <label class="check-row" for="confirm-rare">
-        <input id="confirm-rare" type="checkbox" checked>
-        <span>Confirm before using very rare items like the Master Ball</span>
-      </label>
-      <div class="links id-actions">
-        <button id="save-encounter" type="button">Save encounter settings</button>
-      </div>
-      <p id="encounter-status" class="muted" role="status"></p>
-    </section>
-    <section class="card body" style="margin-top:18px">
-      <h2>My Team</h2>
-      <p class="muted">Organize six Pokémon from ones you’ve caught. This is the same team shown on My Pokédex and your Trainer ID.</p>
-      <div id="team-slots" class="team-slots"></div>
-      <p id="team-status" class="muted" role="status"></p>
-    </section>
-    <section class="card body" style="margin-top:18px">
-      <h2>Performance</h2>
-      <p class="muted">AUTO follows reduced motion, CPU cores, and device memory when the browser exposes them. Uncertain devices stay on BALANCED. Streaming PCs should pick LOW or BALANCED even if the computer is powerful. The choice is saved on this browser only.</p>
-      <div class="perf-picks" id="perf-picks">
-        <label><input type="radio" name="perf-mode" value="auto"> <span><strong>AUTO</strong><br>Match this device, defaulting to BALANCED.</span></label>
-        <label><input type="radio" name="perf-mode" value="high"> <span><strong>HIGH</strong><br>Full particles, glows, and fanfare.</span></label>
-        <label><input type="radio" name="perf-mode" value="balanced"> <span><strong>BALANCED</strong><br>Keep identity and important transitions; cut extra animation.</span></label>
-        <label><input type="radio" name="perf-mode" value="low"> <span><strong>LOW</strong><br>Minimize decoration. Capture wobble and Evolution stages stay readable.</span></label>
-      </div>
-      <p id="perf-status" class="muted" role="status"></p>
-    </section>
-    <section class="card body" style="margin-top:18px">
-      <h2>Starlight Pass</h2>
-      <p id="pass-status" class="muted">Checking pass…</p>
-      <div class="links">
-        <button id="check-pass" type="button">Check my subscription</button>
-        <a class="button secondary" href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Twitch subscribe</a>
-      </div>
-    </section>
+        <p id="encounter-status" class="muted" role="status"></p>
+      </section>
+
+      <section id="panel-display" class="scc-panel" data-scc-panel="display" hidden>
+        <header class="scc-panel-head">
+          <h2>Display &amp; Performance</h2>
+          <p class="muted">This preference is saved on this browser only. It does not sync to your account.</p>
+        </header>
+        <p id="perf-current" class="scc-current-mode" role="status"></p>
+        <p id="reduced-motion-status" class="muted"></p>
+        <div class="perf-picks scc-perf-picks" id="perf-picks">
+          <label><input type="radio" name="perf-mode" value="auto"> <span><strong>AUTO</strong><br>Match this device, defaulting to BALANCED.</span></label>
+          <label><input type="radio" name="perf-mode" value="high"> <span><strong>HIGH</strong><br>Full particles, glows, and fanfare.</span></label>
+          <label><input type="radio" name="perf-mode" value="balanced"> <span><strong>BALANCED</strong><br>Keep identity and important transitions; cut extra animation.</span></label>
+          <label><input type="radio" name="perf-mode" value="low"> <span><strong>LOW</strong><br>Minimize decoration. Capture wobble and Evolution stages stay readable.</span></label>
+        </div>
+        <p id="perf-status" class="muted" role="status"></p>
+      </section>
+
+      <section id="panel-account" class="scc-panel" data-scc-panel="account" hidden>
+        <header class="scc-panel-head">
+          <h2>Account</h2>
+          <p class="muted">Pass status and subscription checks. Sign out stays in the account menu.</p>
+        </header>
+        <article id="pass-card" class="scc-pass-card">
+          <p class="scc-pass-kicker">★ ST★RLIGHT PASS</p>
+          <p id="pass-status" class="scc-pass-status">Checking pass…</p>
+          <div class="links">
+            <button id="check-pass" type="button">Check Subscription</button>
+            <a class="button secondary" href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Twitch Subscribe</a>
+          </div>
+        </article>
+      </section>
+    </div>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260926-rc76"></script>
-<script src="js/play-perf.js?v=20260926-rc76"></script>
-<script src="js/build.js?v=20260926-rc76"></script>
-<script src="js/build-client.js?v=20260926-rc76"></script>
-<script src="js/auth.js?v=20260926-rc76"></script>
-<script src="js/species.js?v=20260926-rc76"></script>
-<script src="js/variants.js?v=20260926-rc76"></script>
-<script src="js/forms.js?v=20260926-rc76"></script>
-<script src="js/game.js?v=20260926-rc76"></script>
-<script src="js/play-present.js?v=20260926-rc76"></script>
-<script src="js/play-encounter-state.js?v=20260926-rc76"></script>
-<script src="js/play-ux.js?v=20260926-rc76"></script>
-<script src="js/trainers.js?v=20260926-rc76"></script>
-<script src="js/team.js?v=20260926-rc76"></script>
-<script src="js/nav.js?v=20260926-rc76"></script>
-<script src="js/settings.js?v=20260926-rc76"></script>
+<script src="js/config.js?v=20260926-rc77"></script>
+<script src="js/play-perf.js?v=20260926-rc77"></script>
+<script src="js/build.js?v=20260926-rc77"></script>
+<script src="js/build-client.js?v=20260926-rc77"></script>
+<script src="js/auth.js?v=20260926-rc77"></script>
+<script src="js/species.js?v=20260926-rc77"></script>
+<script src="js/variants.js?v=20260926-rc77"></script>
+<script src="js/forms.js?v=20260926-rc77"></script>
+<script src="js/game.js?v=20260926-rc77"></script>
+<script src="js/play-present.js?v=20260926-rc77"></script>
+<script src="js/play-encounter-state.js?v=20260926-rc77"></script>
+<script src="js/play-ux.js?v=20260926-rc77"></script>
+<script src="js/trainers.js?v=20260926-rc77"></script>
+<script src="js/team.js?v=20260926-rc77"></script>
+<script src="js/nav.js?v=20260926-rc77"></script>
+<script src="js/settings.js?v=20260926-rc77"></script>
 </body>

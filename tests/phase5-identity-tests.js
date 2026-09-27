@@ -14,7 +14,9 @@ const sql = read("supabase/migrations/20260916200000_phase5_identity.sql")
   + read("supabase/migrations/20260916210000_phase5_equip_kinds.sql");
 const trainers = read("js/trainers.js");
 const trainer = read("js/trainer.js");
+const trainerHtml = read("trainer.html");
 const settings = read("js/settings.js");
+const settingsHtml = read("settings.html");
 const present = read("js/play-present.js");
 const ach = read("js/achievements.js");
 const ranks = read("js/rankings.js");
@@ -44,21 +46,24 @@ assert(sql.includes("badge_rec.id is not null"), "EQUIP NOW badges");
 
 assert(trainers.includes("playXpProgressHtml"), "XP progress helper");
 assert(trainers.includes("TRAINER ID"), "Trainer ID card heading");
-assert(trainers.includes("id-title-line"), "title under name");
+assert(trainers.includes("tid-title") || trainers.includes("id-title-line"), "title under name");
 assert(!trainers.includes("Pokémon Masters EX"), "no Masters EX player-facing category");
 assert(trainers.includes("Kanto Trainers"), "Kanto trainer pack label");
 assert(trainers.includes("Premium / Special"), "premium pack label");
 
-assert(trainer.includes("play_save_trainer_id"), "profile save uses one RPC");
-assert(!trainer.includes("play_set_card_bg"), "profile must not save background on click");
-assert(trainer.includes("Cancel / Revert") || trainer.includes("revert-id"), "revert control");
-assert(trainer.includes("howTo"), "locked cosmetics explain unlock");
+assert(trainer.includes("playRenderIdCard"), "public profile uses shared Trainer ID renderer");
+assert(trainerHtml.includes("Customize Profile") && trainerHtml.includes("settings.html#profile"), "owner customize routes to Settings");
+assert(!trainer.includes("play_save_trainer_id"), "public Trainer ID page no longer saves cosmetics");
+assert(!trainerHtml.includes("id-customize-tabs"), "customize workshop removed from Trainer ID");
 assert(trainer.includes("play_ack_cosmetics"), "NEW cosmetics are acknowledged");
-assert(trainer.includes("p_showcase"), "showcase save");
+assert(settingsHtml.includes("scc-shell") && settingsHtml.includes("data-scc-cat"), "settings control center shell");
 
 assert(settings.includes("play_save_trainer_id"), "settings save Trainer ID");
+assert(settings.includes("p_showcase"), "showcase save lives in Settings");
+assert(settings.includes("Revert Changes") || settings.includes("revert-profile"), "settings revert control");
+assert(settings.includes("howTo"), "locked cosmetics explain unlock");
 assert(!settings.includes("play_set_card_bg"), "settings must not save background on click");
-assert(settings.includes("Previewing"), "settings preview copy");
+assert(settings.includes("Draft preview") || settings.includes("preview-dirty") || settings.includes("Live Trainer ID"), "settings live preview");
 
 assert(present.includes("data-present-equip"), "EQUIP NOW control");
 assert(present.includes("Later"), "LATER control");
@@ -78,7 +83,8 @@ assert(ranks.includes("trainer.html?u="), "rankings open profile");
 
 assert(css.includes("id-card-frame-kanto"), "kanto frame CSS");
 assert(css.includes(".id-state"), "owned/locked/equipped labels");
-assert(css.includes("id-customize-tabs"), "customize tabs");
+assert(css.includes("scc-subnav") || css.includes("id-customize-tabs"), "profile customize tabs");
+assert(css.includes("tid-card") || css.includes("tid-hero"), "Trainer ID profile hero styles");
 assert(css.includes("rank-sprite"), "ranking sprite");
 
 assert(adminTools.includes("admin_identity_inspect"), "admin inspect UI");

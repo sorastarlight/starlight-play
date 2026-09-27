@@ -1187,6 +1187,9 @@
     if (/42501|not allowed|permission denied/i.test(raw)) {
       return "This action is not available on this account.";
     }
+    if (/column reference|ambiguous|SQLSTATE|42702|P0001.*title_id/i.test(raw)) {
+      return "Could not save your Trainer ID. Please try again.";
+    }
     return raw
       .replace(/^.*error:\s*/i, "")
       .replace(/\s+CONTEXT:[\s\S]*$/, "")

@@ -4,7 +4,6 @@
     gate: document.getElementById("gate"),
     box: document.getElementById("settings"),
     status: document.getElementById("edit-status"),
-    view: document.getElementById("view-id"),
     pass: document.getElementById("pass-status"),
     passCard: document.getElementById("pass-card"),
     check: document.getElementById("check-pass"),
@@ -21,8 +20,20 @@
     perfPicks: document.getElementById("perf-picks"),
     perfStatus: document.getElementById("perf-status"),
     perfCurrent: document.getElementById("perf-current"),
-    reducedMotion: document.getElementById("reduced-motion-status")
+    reducedMotion: document.getElementById("reduced-motion-status"),
+    connStatus: document.getElementById("conn-status"),
+    username: document.getElementById("acc-username"),
+    securityEmail: document.getElementById("security-email"),
+    claimForm: document.getElementById("claim-form"),
+    passwordForm: document.getElementById("password-form"),
+    pendingLink: document.getElementById("pending-link"),
+    connectionList: document.getElementById("connection-list"),
+    twitchWarn: document.getElementById("twitch-warn")
   };
+
+  const GATE_COPY = "Sign in to open My Account.";
+  const SAVE_FAIL = "Could not save your Trainer ID. Please try again.";
+  const PROFILE_TABS = ["identity", "avatar", "card-style", "titles", "showcase", "team"];
 
   let card = null;
   let savedCard = null;
@@ -36,38 +47,59 @@
   let bag = {};
   let encounter = window.playEncounterSettings();
   let nameBusy = false;
-  let category = "profile";
+  let category = "trainer-id";
   let profileTab = "identity";
   let avatarFilter = "all";
   let avatarQuery = "";
   let login = "";
+  let accountState = null;
+  let pcStorage = null;
+  let pendingOauth = "";
 
   const LEGACY_HASH = {
-    "trainer-id": { cat: "profile", tab: "identity" },
-    profile: { cat: "profile", tab: "identity" },
-    "profile/identity": { cat: "profile", tab: "identity" },
-    "profile/avatar": { cat: "profile", tab: "avatar" },
-    "profile/card-style": { cat: "profile", tab: "card-style" },
-    "profile/titles": { cat: "profile", tab: "titles" },
-    "profile/showcase": { cat: "profile", tab: "showcase" },
-    "profile/team": { cat: "profile", tab: "team" },
+    "": { cat: "trainer-id", tab: "identity" },
+    settings: { cat: "trainer-id", tab: "identity" },
+    "trainer-id": { cat: "trainer-id", tab: "identity" },
+    profile: { cat: "trainer-id", tab: "identity" },
+    "trainer-id/identity": { cat: "trainer-id", tab: "identity" },
+    "trainer-id/avatar": { cat: "trainer-id", tab: "avatar" },
+    "trainer-id/card-style": { cat: "trainer-id", tab: "card-style" },
+    "trainer-id/titles": { cat: "trainer-id", tab: "titles" },
+    "trainer-id/showcase": { cat: "trainer-id", tab: "showcase" },
+    "trainer-id/team": { cat: "trainer-id", tab: "team" },
+    "profile/identity": { cat: "trainer-id", tab: "identity" },
+    "profile/avatar": { cat: "trainer-id", tab: "avatar" },
+    "profile/card-style": { cat: "trainer-id", tab: "card-style" },
+    "profile/titles": { cat: "trainer-id", tab: "titles" },
+    "profile/showcase": { cat: "trainer-id", tab: "showcase" },
+    "profile/team": { cat: "trainer-id", tab: "team" },
     gameplay: { cat: "gameplay" },
     encounter: { cat: "gameplay" },
     display: { cat: "display" },
     performance: { cat: "display" },
-    account: { cat: "account" },
-    pass: { cat: "account" }
+    connections: { cat: "connections" },
+    account: { cat: "connections" },
+    pass: { cat: "pass" }
   };
 
   window.playBindAccountNav({
     onSignOut() {
       els.box.hidden = true;
-      window.playRestoreGate(els.gate, "Sign in to customize your Trainer and configure your game.");
+      window.playRestoreGate(els.gate, GATE_COPY);
     }
   });
 
   function esc(value) {
     return window.playEscapeAttr ? window.playEscapeAttr(value) : String(value || "");
+  }
+
+  function friendlySaveError(error, fallback) {
+    console.warn("Trainer ID save failed", error);
+    const human = window.playHumanRpcError
+      ? window.playHumanRpcError(error, fallback)
+      : window.playRpcError(error, fallback);
+    if (/column reference|ambiguous|sqlstate|42702|p0001|title_id/i.test(String(human || ""))) return fallback;
+    return human || fallback;
   }
 
   function snapshotDraft(next) {
@@ -168,43 +200,112 @@
     return [look?.trainer?.outfit, look?.gender || look?.trainer?.gender].filter(Boolean).join(" · ");
   }
 
+  function trainerIdActions() {
+    return `
+      <div class="scc-workspace-actions links id-actions">
+        <button id="save-trainer-id" type="button">Save Trainer ID</button>
+        <button id="revert-trainer-id" class="secondary" type="button">Revert Changes</button>
+        <a id="view-id" class="button secondary" href="./trainer.html${login ? `?u=${encodeURIComponent(login)}` : ""}">View Trainer ID</a>
+      </div>`;
+  }
+
+  function linkedConnections() {
+    return (accountState?.connections || []).filter((row) => row.confirmed !== false);
+  }
+
+  function identityStatusHtml() {
+    const view = previewCard();
+    const title = view?.title || "";
+    return `
+      <div class="scc-identity-status">
+        <div class="scc-identity-avatar">
+          <img src="${window.playTrainerSpriteUrl(view?.trainerSprite)}" alt="" width="96" height="96">
+        </div>
+        <div class="scc-identity-facts">
+          <p class="scc-module-kicker">TRAINER IDENTITY</p>
+          <p class="scc-identity-name">${esc(card?.displayName || "Trainer")}</p>
+          <p class="scc-identity-meta">ID No. ${esc(String(card?.idNo || "00000").padStart(5, "0"))} · Lv. ${esc(card?.level || 1)}${title ? ` · ${esc(title)}` : ""}</p>
+        </div>
+      </div>`;
+  }
+
+  function twitchModuleHtml() {
+    const rows = linkedConnections();
+    if (!rows.length) {
+      return `
+        <div class="scc-twitch-module">
+          <p class="scc-module-kicker">TWITCH CONNECTION</p>
+          <p class="scc-twitch-headline is-off">Not connected</p>
+          <p class="muted">Link Twitch so the RPG knows which Trainer is playing in chat and on stream.</p>
+          <div class="links id-actions">
+            <button id="identity-link-twitch" type="button">Connect Twitch</button>
+          </div>
+        </div>`;
+    }
+    const primary = rows.find((row) => row.primary) || rows[0];
+    const others = rows.filter((row) => row !== primary);
+    return `
+      <div class="scc-twitch-module scc-twitch-connected">
+        <p class="scc-module-kicker">TWITCH CONNECTION</p>
+        <p class="scc-twitch-headline">✓ TWITCH CONNECTED</p>
+        <div class="scc-twitch-who">
+          ${primary.avatar ? `<img class="avatar" src="${esc(primary.avatar)}" alt="">` : ""}
+          <div>
+            <strong>@${esc(primary.login || primary.displayName || "twitch")}</strong>
+            <p class="muted">${rows.length > 1 ? "Primary" : "Linked"}</p>
+          </div>
+        </div>
+        ${others.length
+          ? `<ul class="scc-twitch-extra">${others.map((row) => `<li>@${esc(row.login || "")} · Linked</li>`).join("")}</ul>`
+          : ""}
+        <div class="links id-actions">
+          <button type="button" class="secondary" data-jump-cat="connections">Manage connections</button>
+        </div>
+      </div>`;
+  }
+
   function renderIdentity() {
     return `
       <header class="scc-panel-head">
         <h2>Identity</h2>
-        <p class="muted">Display name saves on its own. Avatar, card style, titles, showcase, and cosmetics use <strong>Save Profile</strong> below.</p>
+        <p class="muted">Your display name saves on its own. Avatar, card style, titles, and showcase are saved with <strong>Save Trainer ID</strong> in those tabs.</p>
       </header>
-      <p class="muted">Twitch: <strong id="twitch-login">${login ? `@${esc(login)}` : "not linked"}</strong></p>
+      <div class="scc-identity-modules">
+        ${identityStatusHtml()}
+        ${twitchModuleHtml()}
+      </div>
       <label class="field" for="trainer-display-name">Display name
         <input id="trainer-display-name" type="text" maxlength="24" placeholder="Sora Starlight" autocomplete="nickname" value="${esc(card?.displayName || "")}">
       </label>
       <div class="links id-actions">
-        <button id="save-display-name" type="button">Save display name</button>
-        <button type="button" class="secondary" data-jump-tab="avatar">Customize Avatar</button>
-        <a class="button secondary" href="./trainer.html${login ? `?u=${encodeURIComponent(login)}` : ""}">View Public Trainer ID</a>
+        <button id="save-display-name" type="button">Save Display Name</button>
       </div>
-      <p id="name-status" class="muted" role="status"></p>`;
+      <p id="name-status" class="muted" role="status"></p>
+      <p class="muted scc-identity-hint">Looking for your avatar? <a href="#trainer-id/avatar" data-jump-tab="avatar">Open the Avatar tab</a>.</p>`;
+  }
+
+  function avatarPreviewHtml() {
+    const view = previewCard();
+    const look = window.playTrainerLook(view?.trainerSprite);
+    const meta = lookMeta(look);
+    return `${window.playRenderIdCard(view, { mode: "preview", variant: "avatar" })}
+      <p class="scc-contextual-caption"><strong>${esc(look.trainer?.name || "Trainer")}</strong>${meta ? ` · ${esc(meta)}` : ""}</p>`;
   }
 
   function renderAvatar() {
     const view = previewCard();
-    const look = window.playTrainerLook(view?.trainerSprite);
     const filters = [
       ["all", "All"], ["kanto", "Kanto"], ["johto", "Johto"], ["hoenn", "Hoenn"], ["sinnoh", "Sinnoh"],
       ["unova", "Unova"], ["kalos", "Kalos"], ["alola", "Alola"], ["galar", "Galar"], ["paldea", "Paldea"],
       ["special", "Special"], ["premium", "Premium"]
     ];
     const groups = avatarGroups();
-    const meta = lookMeta(look);
     return `
       <header class="scc-panel-head">
         <h2>Trainer Avatar</h2>
-        <p class="muted">Preview instantly. Premium series stay locked until purchased in the Mart. Press <strong>Save Profile</strong> to keep changes.</p>
+        <p class="muted">Preview instantly. Premium series stay locked until purchased in the Mart. Press <strong>Save Trainer ID</strong> to keep changes.</p>
       </header>
-      <div class="scc-contextual scc-contextual-avatar">
-        ${window.playRenderIdCard(view, { mode: "preview", variant: "avatar" })}
-        <p class="scc-contextual-caption"><strong>${esc(look.trainer?.name || "Trainer")}</strong>${meta ? ` · ${esc(meta)}` : ""}</p>
-      </div>
+      <div class="scc-contextual scc-contextual-avatar">${avatarPreviewHtml()}</div>
       <div class="scc-avatar-tools">
         <label class="field">Search
           <input id="avatar-search" type="search" placeholder="Name or outfit" value="${esc(avatarQuery)}">
@@ -240,35 +341,48 @@
             </div>
           </section>`;
         }).join("") || `<p class="muted">No avatars match this filter.</p>`}
-      </div>`;
+      </div>
+      ${trainerIdActions()}`;
+  }
+
+  function backgroundRows() {
+    const bgs = cosmetics.filter((row) => row.kind === "background");
+    if (bgs.length) return bgs;
+    return (window.PLAY_CARD_BGS || []).map((row) => ({
+      id: `bg-${row.id}`,
+      kind: "background",
+      asset: row.id,
+      name: row.name,
+      unlocked: true,
+      description: row.group,
+      howTo: ""
+    }));
+  }
+
+  function frameRows() {
+    const frames = cosmetics.filter((row) => row.kind === "frame");
+    if (frames.length) return frames;
+    return [{ id: "frame-plain", kind: "frame", asset: "plain", name: "Plain", unlocked: true, description: "Default frame", howTo: "" }];
+  }
+
+  function cardPreviewStageHtml() {
+    return `<p class="scc-contextual-kicker">Live Trainer ID preview</p>
+      ${window.playRenderIdCard(previewCard(), { mode: "preview", variant: "hero" })}`;
   }
 
   function renderCardStyle() {
     const view = previewCard();
-    const bgs = cosmetics.filter((row) => row.kind === "background");
-    const frames = cosmetics.filter((row) => row.kind === "frame");
-    const bgFallback = !bgs.length;
-    const bgRows = bgFallback
-      ? (window.PLAY_CARD_BGS || []).map((row) => ({
-        id: `bg-${row.id}`,
-        kind: "background",
-        asset: row.id,
-        name: row.name,
-        unlocked: true,
-        description: row.group,
-        howTo: ""
-      }))
-      : bgs;
     return `
       <header class="scc-panel-head">
         <h2>Card Style</h2>
         <p class="muted">Background is the art layer. Frame accents the card. Locked looks stay visible with unlock hints.</p>
       </header>
+      <div class="scc-card-preview-stage">${cardPreviewStageHtml()}</div>
       <div class="scc-style-layout">
-        <div class="scc-style-controls">
+        <section class="scc-style-catalog">
           <h3>Background</h3>
           <div class="prog-pick-grid scc-style-grid">
-            ${bgRows.map((row) => {
+            ${backgroundRows().map((row) => {
               const equipped = row.asset === view.cardBg;
               const state = pickState(row, equipped);
               return `<button type="button" class="prog-pick card-bg-opt is-${state}" data-cosmetic="${esc(row.id)}" data-bg-asset="${esc(row.asset)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
@@ -279,9 +393,11 @@
               </button>`;
             }).join("")}
           </div>
+        </section>
+        <section class="scc-style-catalog">
           <h3>Frame</h3>
-          <div class="prog-pick-grid">
-            ${(frames.length ? frames : [{ id: "frame-plain", asset: "plain", name: "Plain", unlocked: true, description: "Default frame", howTo: "" }]).map((row) => {
+          <div class="prog-pick-grid scc-frame-grid">
+            ${frameRows().map((row) => {
               const equipped = row.asset === view.cardFrame;
               const state = pickState(row, equipped);
               return `<button type="button" class="prog-pick is-${state}" data-cosmetic="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
@@ -291,12 +407,9 @@
               </button>`;
             }).join("")}
           </div>
-        </div>
-        <div class="scc-contextual scc-contextual-card">
-          <p class="scc-contextual-kicker">Card preview</p>
-          ${window.playRenderIdCard(view, { mode: "preview", variant: "hero" })}
-        </div>
-      </div>`;
+        </section>
+      </div>
+      ${trainerIdActions()}`;
   }
 
   function renderTitles() {
@@ -321,7 +434,7 @@
           </button>`;
         }).join("") || `<p class="muted">No titles unlocked yet.</p>`}
       </div>
-      <h3>Featured badges <span class="muted">(${(draft?.badgeIds || []).length}/3)</span></h3>
+      <h3>Featured badges <span class="muted" id="badge-count">(${(draft?.badgeIds || []).length}/3)</span></h3>
       <div class="prog-pick-grid">
         ${(badges || []).map((row) => {
           const equipped = (draft?.badgeIds || []).includes(row.id);
@@ -332,7 +445,8 @@
             <span>${esc(row.unlocked ? row.description : (row.howTo || row.description))}</span>
           </button>`;
         }).join("") || `<p class="muted">No badges yet. Catch Pokémon and unlock achievements to earn them.</p>`}
-      </div>`;
+      </div>
+      ${trainerIdActions()}`;
   }
 
   function renderShowcase() {
@@ -350,7 +464,7 @@
     return `
       <header class="scc-panel-head">
         <h2>Showcase</h2>
-        <p class="muted">Three meaningful picks for your public profile. Favorite and Shiny must be Pokémon you own.</p>
+        <p class="muted">Three meaningful picks for your public Trainer ID. Favorite and Shiny must be Pokémon you own.</p>
       </header>
       <div class="scc-showcase-layout">
         <div class="id-showcase-edit">
@@ -374,14 +488,15 @@
           </label>
         </div>
         <div class="scc-contextual scc-showcase-preview">${window.playRenderTrainerShowcaseHtml(previewCard())}</div>
-      </div>`;
+      </div>
+      ${trainerIdActions()}`;
   }
 
   function renderTeam() {
     return `
       <header class="scc-panel-head">
         <h2>My Team</h2>
-        <p class="muted">Organize six Pokémon from ones you’ve caught. Team saves immediately when you edit slots.</p>
+        <p class="muted">Pick six Pokémon from your current PC. Team saves immediately when you edit slots — there is nothing extra to press.</p>
       </header>
       <div class="scc-contextual scc-contextual-team">${window.playRenderTrainerPartyHtml(card)}</div>
       <div id="team-slots" class="team-slots"></div>
@@ -390,6 +505,8 @@
 
   function renderProfileWorkspace() {
     if (!els.workspace) return;
+    const gallery = els.workspace.querySelector(".scc-avatar-gallery");
+    const galleryTop = gallery ? gallery.scrollTop : null;
     if (profileTab === "identity") els.workspace.innerHTML = renderIdentity();
     else if (profileTab === "avatar") els.workspace.innerHTML = renderAvatar();
     else if (profileTab === "card-style") els.workspace.innerHTML = renderCardStyle();
@@ -400,8 +517,71 @@
       const teamEl = document.getElementById("team-slots");
       window.playRenderTeamSlots(teamEl, card?.team, { mine: true });
     }
+    if (galleryTop != null) {
+      const next = els.workspace.querySelector(".scc-avatar-gallery");
+      if (next) next.scrollTop = galleryTop;
+    }
     markDirtyFlag();
     syncSubnav();
+  }
+
+  function repaintPick(btn, state) {
+    btn.classList.remove("is-locked", "is-equipped", "is-owned", "is-new");
+    btn.classList.add(`is-${state}`);
+    const label = btn.querySelector(".id-state");
+    if (label) label.textContent = state;
+  }
+
+  function updateAvatarSelection() {
+    if (!els.workspace) return;
+    els.workspace.querySelectorAll("[data-sprite]").forEach((btn) => {
+      const equipped = btn.dataset.sprite === draft.sprite;
+      const locked = btn.dataset.locked === "1";
+      btn.setAttribute("aria-pressed", equipped ? "true" : "false");
+      repaintPick(btn, locked ? "locked" : (equipped ? "equipped" : "owned"));
+    });
+    const preview = els.workspace.querySelector(".scc-contextual-avatar");
+    if (preview) preview.innerHTML = avatarPreviewHtml();
+    markDirtyFlag();
+  }
+
+  function updateCardStyleSelection() {
+    if (!els.workspace) return;
+    const view = previewCard();
+    const lookup = backgroundRows().concat(frameRows());
+    els.workspace.querySelectorAll("[data-cosmetic]").forEach((btn) => {
+      const row = lookup.find((item) => item.id === btn.dataset.cosmetic);
+      if (!row) return;
+      const equipped = row.kind === "background" ? row.asset === view.cardBg : row.asset === view.cardFrame;
+      btn.setAttribute("aria-pressed", equipped ? "true" : "false");
+      repaintPick(btn, pickState(row, equipped));
+    });
+    const stage = els.workspace.querySelector(".scc-card-preview-stage");
+    if (stage) stage.innerHTML = cardPreviewStageHtml();
+    markDirtyFlag();
+  }
+
+  function updateTitleSelection() {
+    if (!els.workspace) return;
+    els.workspace.querySelectorAll("[data-title]").forEach((btn) => {
+      const row = (titles || []).find((item) => item.id === btn.dataset.title);
+      if (!row) return;
+      const equipped = row.id === (draft?.titleId || "");
+      btn.setAttribute("aria-pressed", equipped ? "true" : "false");
+      repaintPick(btn, pickState(row, equipped));
+    });
+    els.workspace.querySelectorAll("[data-badge]").forEach((btn) => {
+      const row = (badges || []).find((item) => item.id === btn.dataset.badge);
+      if (!row) return;
+      const equipped = (draft?.badgeIds || []).includes(row.id);
+      btn.setAttribute("aria-pressed", equipped ? "true" : "false");
+      repaintPick(btn, pickState(row, equipped));
+    });
+    const count = document.getElementById("badge-count");
+    if (count) count.textContent = `(${(draft?.badgeIds || []).length}/3)`;
+    const preview = els.workspace.querySelector(".scc-contextual-identity");
+    if (preview) preview.innerHTML = window.playRenderIdCard(previewCard(), { mode: "preview", variant: "identity" });
+    markDirtyFlag();
   }
 
   function syncNav() {
@@ -424,8 +604,8 @@
   }
 
   function setHash() {
-    const next = category === "profile" && profileTab !== "identity"
-      ? `profile/${profileTab}`
+    const next = category === "trainer-id" && profileTab !== "identity"
+      ? `trainer-id/${profileTab}`
       : category;
     if (location.hash.replace(/^#/, "") !== next) {
       history.replaceState(null, "", `#${next}`);
@@ -434,15 +614,23 @@
 
   function applyHash() {
     const raw = location.hash.replace(/^#/, "").toLowerCase();
-    const mapped = LEGACY_HASH[raw] || LEGACY_HASH[raw.split("/")[0]] || { cat: "profile", tab: "identity" };
-    category = mapped.cat || "profile";
+    const mapped = LEGACY_HASH[raw] || LEGACY_HASH[raw.split("/")[0]] || { cat: "trainer-id", tab: "identity" };
+    category = mapped.cat || "trainer-id";
     if (mapped.tab) profileTab = mapped.tab;
-    if (raw.startsWith("profile/")) {
-      const tab = raw.split("/")[1];
-      if (["identity", "avatar", "card-style", "titles", "showcase", "team"].includes(tab)) profileTab = tab;
-    }
+    const tab = raw.split("/")[1];
+    if (PROFILE_TABS.includes(tab)) profileTab = tab;
     syncNav();
-    if (category === "profile") renderProfileWorkspace();
+    if (category === "trainer-id") renderProfileWorkspace();
+  }
+
+  function goToCategory(next) {
+    if (category === "trainer-id" && next !== "trainer-id" && profileDirty()) {
+      if (!window.confirm("You have unsaved Trainer ID changes. Leave without saving?")) return;
+    }
+    category = next;
+    syncNav();
+    setHash();
+    if (category === "trainer-id") renderProfileWorkspace();
   }
 
   function fillEncounter(syncForm) {
@@ -516,6 +704,237 @@
     return error?.message || fallback;
   }
 
+  /* ---------- Connections (Trainer Account) ---------- */
+
+  function setConnStatus(text) {
+    if (els.connStatus) els.connStatus.textContent = text || "";
+  }
+
+  function renderSecurity() {
+    if (els.securityEmail) {
+      els.securityEmail.textContent = accountState?.emailLogin
+        ? "Email & password login is enabled for this Trainer Account."
+        : "This Trainer was originally created through Twitch. Add an email and password so you can sign in even if Twitch changes.";
+    }
+    if (els.claimForm) els.claimForm.hidden = Boolean(accountState?.emailLogin);
+    if (els.passwordForm) els.passwordForm.hidden = !accountState?.emailLogin;
+  }
+
+  function renderConnections() {
+    if (!els.connectionList || !els.pendingLink) return;
+    const rows = accountState?.connections || [];
+    const advanced = rows.length > 1 || Boolean(accountState?.staffRole);
+    const unconfirmed = rows.filter((row) => row.confirmed === false);
+    const intent = window.playReadOAuthIntent();
+    if (unconfirmed.length) {
+      const row = unconfirmed[0];
+      const mismatch = intent.intent === "reauthorize" && intent.target && intent.target !== row.twitchUserId;
+      els.pendingLink.hidden = false;
+      els.pendingLink.innerHTML = mismatch
+        ? `<strong>Identity mismatch</strong>
+           <p>You started reauthorization for a different Twitch account. This returned <strong>${esc(row.displayName || row.login)}</strong> (@${esc(row.login || "")}). It was not connected.</p>
+           <div class="links"><button type="button" data-cancel-link="${esc(row.twitchUserId)}">Dismiss</button></div>`
+        : `<strong>Twitch account found</strong>
+           <div class="connection-found">
+             ${row.avatar ? `<img class="avatar" src="${esc(row.avatar)}" alt="">` : ""}
+             <div>
+               <strong>${esc(row.displayName || row.login || "Twitch")}</strong>
+               <p class="muted">@${esc(row.login || "")}</p>
+             </div>
+           </div>
+           <p>Is this the Twitch account you want to connect?</p>
+           <div class="links">
+             <button type="button" data-confirm-link="${esc(row.twitchUserId)}">Yes, link this account</button>
+             <button type="button" class="secondary" data-cancel-link="${esc(row.twitchUserId)}">Cancel</button>
+           </div>`;
+      if (mismatch) {
+        window.playCall("play_cancel_twitch_link", { p_twitch_user_id: row.twitchUserId }).catch(() => {});
+      }
+    } else {
+      els.pendingLink.hidden = true;
+      els.pendingLink.innerHTML = "";
+      if (intent.intent === "reauthorize" && pendingOauth === "done") {
+        els.pendingLink.hidden = false;
+        els.pendingLink.innerHTML = `<strong>Twitch reauthorized.</strong> The same identity was confirmed. Primary did not change.`;
+      }
+    }
+    const shown = rows.filter((row) => row.confirmed !== false);
+    els.connectionList.innerHTML = shown.map((row) => {
+      const tags = [];
+      if (row.primary) tags.push(`<span class="conn-badge conn-primary">Primary</span>`);
+      else tags.push(`<span class="conn-badge">Linked</span>`);
+      if (row.type === "bot" || row.type === "utility") tags.push(`<span class="conn-badge">Bot / Utility</span>`);
+      tags.push(`<span class="conn-badge">${row.gameplayEnabled ? "Gameplay enabled" : "Gameplay disabled"}</span>`);
+      if (advanced) tags.push(`<span class="conn-badge">${row.loginEnabled ? "Login enabled" : "Login disabled"}</span>`);
+      tags.push(`<span class="conn-badge">${row.status === "connected" ? "Connected" : "Needs reauthorization"}</span>`);
+      const actions = [];
+      if (!row.primary) actions.push(`<button type="button" data-primary="${esc(row.twitchUserId)}">Make Primary</button>`);
+      actions.push(`<button type="button" class="secondary" data-reauth="${esc(row.twitchUserId)}">Reauthorize</button>`);
+      if (!row.primary) actions.push(`<button type="button" class="secondary" data-disconnect="${esc(row.twitchUserId)}">Disconnect</button>`);
+      if (advanced && row.type !== "bot" && row.type !== "utility") {
+        actions.push(`<button type="button" class="secondary" data-bot="${esc(row.twitchUserId)}">Mark bot / utility</button>`);
+      }
+      return `<article class="connection-card${row.primary ? " is-primary" : ""}">
+        <div class="connection-head">
+          ${row.avatar ? `<img class="avatar" src="${esc(row.avatar)}" alt="">` : `<span class="avatar-fallback">${esc((row.displayName || "T").slice(0, 1))}</span>`}
+          <div>
+            <strong>${esc(row.displayName || row.login || "Twitch")}</strong>
+            <p class="muted">@${esc(row.login || "")} · ${esc(window.playTwitchConnectionKindLabel(row))}</p>
+          </div>
+        </div>
+        <div class="conn-badges">${tags.join("")}</div>
+        <p class="muted conn-help">${row.primary
+          ? "Primary is your default Twitch-facing identity. Changing it does not move Pokémon, inventory, or XP."
+          : "This identity stays linked to the same Trainer Account."}</p>
+        <div class="links">${actions.join("")}</div>
+      </article>`;
+    }).join("") || `<p class="muted">No Twitch account is linked yet.<br>Connect Twitch so the RPG knows which Trainer is participating when you play in chat and on stream. You can still browse your Pokédex, PC, Mart, Rankings, and Events without it.</p>`;
+  }
+
+  function renderAccountPanels() {
+    if (els.username) els.username.value = accountState?.username || "";
+    renderSecurity();
+    renderConnections();
+  }
+
+  async function startLink() {
+    setConnStatus("Opening Twitch…");
+    const result = await window.playLinkTwitch({
+      intent: pendingOauth === "reauth" ? "reauthorize" : "link",
+      target: pendingOauth === "reauth" ? window.playReadOAuthIntent().target : ""
+    });
+    if (result && !result.ok) setConnStatus(result.message);
+  }
+
+  function openLinkFlow(kind) {
+    pendingOauth = kind;
+    if (typeof els.twitchWarn?.showModal === "function") els.twitchWarn.showModal();
+    else startLink();
+  }
+
+  document.getElementById("save-username")?.addEventListener("click", async () => {
+    setConnStatus("Saving username…");
+    try {
+      accountState = await window.playCall("play_set_username", { p_username: els.username?.value || "" });
+      renderAccountPanels();
+      setConnStatus(accountState?.message || "Username saved.");
+    } catch (error) {
+      setConnStatus(window.playRpcError(error));
+    }
+  });
+
+  els.claimForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    setConnStatus("Adding login method…");
+    const result = await window.playClaimEmailPassword(
+      document.getElementById("claim-email")?.value,
+      document.getElementById("claim-password")?.value
+    );
+    setConnStatus(result.message);
+    if (result.ok) await loadAccountState();
+  });
+
+  els.passwordForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const pass = document.getElementById("new-password")?.value || "";
+    if (pass.length < 8) {
+      setConnStatus("Use at least 8 characters for your password.");
+      return;
+    }
+    setConnStatus("Updating password…");
+    const { error } = await supabase.auth.updateUser({ password: pass });
+    setConnStatus(error ? "Could not update that password." : "Password updated.");
+  });
+
+  document.getElementById("link-twitch")?.addEventListener("click", () => openLinkFlow("link"));
+
+  document.getElementById("twitch-warn-go")?.addEventListener("click", (event) => {
+    event.preventDefault();
+    els.twitchWarn?.close?.("yes");
+    startLink();
+  });
+
+  els.connectionList?.addEventListener("click", async (event) => {
+    const primary = event.target.closest("[data-primary]");
+    const disconnect = event.target.closest("[data-disconnect]");
+    const reauth = event.target.closest("[data-reauth]");
+    const bot = event.target.closest("[data-bot]");
+    try {
+      if (primary) {
+        setConnStatus("Updating Primary…");
+        accountState = await window.playCall("play_set_primary_twitch", { p_twitch_user_id: primary.dataset.primary });
+        renderAccountPanels();
+        setConnStatus(accountState?.message || "Primary updated. RPG progress is unchanged.");
+        return;
+      }
+      if (disconnect) {
+        if (!window.confirm("Disconnect this Twitch identity? Pokémon, inventory, and XP stay on this Trainer Account.")) return;
+        setConnStatus("Disconnecting…");
+        accountState = await window.playCall("play_disconnect_twitch", { p_twitch_user_id: disconnect.dataset.disconnect });
+        renderAccountPanels();
+        setConnStatus(accountState?.message || "Disconnected.");
+        return;
+      }
+      if (bot) {
+        if (!window.confirm("Mark this Twitch identity as bot/utility? It will stay linked but will not join gameplay or sign in.")) return;
+        setConnStatus("Updating connection…");
+        accountState = await window.playCall("play_set_twitch_flags", {
+          p_twitch_user_id: bot.dataset.bot,
+          p_connection_type: "bot",
+          p_gameplay_enabled: false,
+          p_login_enabled: false
+        });
+        renderAccountPanels();
+        setConnStatus(accountState?.message || "Marked as bot/utility.");
+        return;
+      }
+      if (reauth) {
+        window.playSetOAuthIntent("reauthorize", reauth.dataset.reauth);
+        openLinkFlow("reauth");
+      }
+    } catch (error) {
+      setConnStatus(window.playRpcError(error));
+    }
+  });
+
+  els.pendingLink?.addEventListener("click", async (event) => {
+    const confirmBtn = event.target.closest("[data-confirm-link]");
+    const cancelBtn = event.target.closest("[data-cancel-link]");
+    try {
+      if (confirmBtn) {
+        setConnStatus("Linking…");
+        accountState = await window.playCall("play_confirm_twitch_link", { p_twitch_user_id: confirmBtn.dataset.confirmLink });
+        window.playClearOAuthIntent();
+        renderAccountPanels();
+        if (category === "trainer-id" && profileTab === "identity") renderProfileWorkspace();
+        setConnStatus(accountState?.message || "Twitch account linked.");
+      }
+      if (cancelBtn) {
+        setConnStatus("Cancelling…");
+        accountState = await window.playCall("play_cancel_twitch_link", { p_twitch_user_id: cancelBtn.dataset.cancelLink });
+        window.playClearOAuthIntent();
+        renderAccountPanels();
+        setConnStatus(accountState?.message || "Link cancelled.");
+      }
+    } catch (error) {
+      setConnStatus(window.playRpcError(error));
+    }
+  });
+
+  async function loadAccountState() {
+    try {
+      accountState = await window.playCall("play_account_state");
+    } catch (error) {
+      console.warn("play_account_state failed", error);
+      accountState = null;
+      setConnStatus(window.playRpcError(error, "Could not load your account connections."));
+      return;
+    }
+    renderAccountPanels();
+  }
+
+  /* ---------- Load ---------- */
+
   async function loadProgression() {
     try {
       const prog = await window.playCall("play_progression");
@@ -533,13 +952,23 @@
     } catch (_) {}
   }
 
+  async function loadPcStorage() {
+    try {
+      const boxes = await window.playCall("play_storage");
+      pcStorage = { mons: boxes?.mons || [], layout: boxes?.layout || { boxes: [] } };
+    } catch (error) {
+      console.warn("play_storage failed", error);
+      pcStorage = null;
+    }
+  }
+
   async function load() {
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
     if (!session) {
       window.playSetAccountNav(null);
       els.box.hidden = true;
-      window.playRestoreGate(els.gate, "Sign in to customize your Trainer and configure your game.");
+      window.playRestoreGate(els.gate, GATE_COPY);
       return;
     }
     window.playSetLoadingGate(els.gate, els.box, { soft: !els.box?.hidden });
@@ -560,6 +989,7 @@
       if (els.pass) els.pass.textContent = "Pass status is not available right now.";
     }
     window.playSetAccountNav(session, profile, extras);
+    await loadAccountState();
     if (!login) {
       els.gate.textContent = "Sign in to edit your Trainer ID look and encounter settings.";
       els.box.hidden = true;
@@ -582,7 +1012,7 @@
       els.gate.hidden = false;
       return;
     }
-    if (els.view) els.view.href = `./trainer.html?u=${encodeURIComponent(login)}`;
+    await loadPcStorage();
     applyHash();
     fillEncounter();
     fillPerf();
@@ -603,7 +1033,7 @@
   if (els.workspace) {
     window.playBindTeamSlots(
       els.workspace,
-      () => ({ team: card?.team || [], caught: catches }),
+      () => ({ team: card?.team || [], pcStorage }),
       async (ids) => {
         const data = await window.playCall("play_set_team", { p_catch_ids: ids });
         if (data?.trainer) card = data.trainer;
@@ -622,13 +1052,7 @@
   document.querySelector(".scc-nav")?.addEventListener("click", (event) => {
     const btn = event.target.closest("[data-scc-cat]");
     if (!btn) return;
-    if (category === "profile" && profileDirty() && btn.dataset.sccCat !== "profile") {
-      if (!window.confirm("You have unsaved profile changes. Leave without saving?")) return;
-    }
-    category = btn.dataset.sccCat;
-    syncNav();
-    setHash();
-    if (category === "profile") renderProfileWorkspace();
+    goToCategory(btn.dataset.sccCat);
   });
 
   document.querySelector(".scc-subnav")?.addEventListener("click", (event) => {
@@ -640,8 +1064,30 @@
   });
 
   els.workspace?.addEventListener("click", (event) => {
+    if (event.target.closest("#save-display-name")) {
+      saveDisplayName();
+      return;
+    }
+    if (event.target.closest("#save-trainer-id")) {
+      saveTrainerId();
+      return;
+    }
+    if (event.target.closest("#revert-trainer-id")) {
+      revertTrainerId();
+      return;
+    }
+    if (event.target.closest("#identity-link-twitch")) {
+      goToCategory("connections");
+      return;
+    }
+    const jumpCat = event.target.closest("[data-jump-cat]");
+    if (jumpCat) {
+      goToCategory(jumpCat.dataset.jumpCat);
+      return;
+    }
     const jump = event.target.closest("[data-jump-tab]");
     if (jump) {
+      event.preventDefault();
       profileTab = jump.dataset.jumpTab;
       renderProfileWorkspace();
       setHash();
@@ -660,7 +1106,7 @@
         return;
       }
       draft.sprite = sprite.dataset.sprite;
-      renderProfileWorkspace();
+      updateAvatarSelection();
       return;
     }
     const cosmetic = event.target.closest("[data-cosmetic]");
@@ -673,7 +1119,7 @@
       }
       if (row.kind === "background") draft.bg = row.asset;
       if (row.kind === "frame") draft.frame = row.asset;
-      renderProfileWorkspace();
+      updateCardStyleSelection();
       return;
     }
     const titleBtn = event.target.closest("[data-title]");
@@ -684,7 +1130,7 @@
         return;
       }
       draft.titleId = draft.titleId === row.id ? "" : row.id;
-      renderProfileWorkspace();
+      updateTitleSelection();
       return;
     }
     const badgeBtn = event.target.closest("[data-badge]");
@@ -704,7 +1150,7 @@
         next.add(row.id);
       }
       draft.badgeIds = Array.from(next);
-      renderProfileWorkspace();
+      updateTitleSelection();
     }
   });
 
@@ -726,26 +1172,16 @@
       const [dex, variant] = String(event.target.value || "").split(":");
       draft.favoriteDex = dex ? Number(dex) : null;
       draft.favoriteVariant = variant || "normal";
-      markDirtyFlag();
-      const box = els.workspace.querySelector(".scc-showcase-preview");
-      if (box) box.innerHTML = window.playRenderTrainerShowcaseHtml(previewCard());
     } else if (event.target.id === "showcase-shiny") {
       draft.shinyCatchId = event.target.value || "";
-      markDirtyFlag();
-      const box = els.workspace.querySelector(".scc-showcase-preview");
-      if (box) box.innerHTML = window.playRenderTrainerShowcaseHtml(previewCard());
     } else if (event.target.id === "showcase-ach") {
       draft.achievementId = event.target.value || "";
-      markDirtyFlag();
-      const box = els.workspace.querySelector(".scc-showcase-preview");
-      if (box) box.innerHTML = window.playRenderTrainerShowcaseHtml(previewCard());
+    } else {
+      return;
     }
-  });
-
-  els.workspace?.addEventListener("click", (event) => {
-    if (event.target.id === "save-display-name" || event.target.closest("#save-display-name")) {
-      saveDisplayName();
-    }
+    markDirtyFlag();
+    const box = els.workspace.querySelector(".scc-showcase-preview");
+    if (box) box.innerHTML = window.playRenderTrainerShowcaseHtml(previewCard());
   });
 
   async function saveDisplayName() {
@@ -762,7 +1198,7 @@
       });
       if (nameStatus) nameStatus.textContent = data?.message || "Display name saved.";
       if (typeof window.playToast === "function") {
-        window.playToast({ kind: "success", title: "Profile updated", body: "Display name saved." });
+        window.playToast({ kind: "success", title: "Display name saved", body: "Other Trainers will see your new name." });
       }
       await load();
     } catch (error) {
@@ -776,17 +1212,17 @@
     }
   }
 
-  document.getElementById("revert-profile")?.addEventListener("click", () => {
+  function revertTrainerId() {
     if (!savedCard) return;
     card = { ...savedCard };
     snapshotDraft(savedCard);
     renderProfileWorkspace();
-    if (els.status) els.status.textContent = "Reverted to the saved profile.";
-  });
+    if (els.status) els.status.textContent = "Reverted to your saved Trainer ID.";
+  }
 
-  document.getElementById("save-profile")?.addEventListener("click", async () => {
+  async function saveTrainerId() {
     if (!draft) return;
-    if (els.status) els.status.textContent = "Saving profile…";
+    if (els.status) els.status.textContent = "Saving Trainer ID…";
     try {
       const saved = await window.playCall("play_save_trainer_id", {
         p_sprite: draft.sprite,
@@ -806,11 +1242,11 @@
       cosmetics = saved.cosmetics || cosmetics;
       snapshotDraft(card);
       renderProfileWorkspace();
-      if (els.status) els.status.textContent = saved.message || "Profile saved.";
+      if (els.status) els.status.textContent = saved.message || "Trainer ID saved.";
     } catch (error) {
-      if (els.status) els.status.textContent = window.playRpcError(error);
+      if (els.status) els.status.textContent = friendlySaveError(error, SAVE_FAIL);
     }
-  });
+  }
 
   els.confirmRare?.addEventListener("change", () => {
     window.playSetConfirmRare?.(Boolean(els.confirmRare.checked));
@@ -893,6 +1329,7 @@
 
   supabase.auth.onAuthStateChange((event) => {
     if (window.playAuthNoise(event)) return;
+    if (event === "SIGNED_IN") pendingOauth = pendingOauth || "done";
     load();
   });
   load();

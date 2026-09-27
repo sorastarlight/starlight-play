@@ -109,7 +109,7 @@
       intent: options?.intent || "link",
       link: true,
       target: options?.target,
-      redirectTo: options?.redirectTo || `${window.location.origin}${window.location.pathname.replace(/[^/]+$/, "")}account.html`
+      redirectTo: options?.redirectTo || `${window.location.origin}${window.location.pathname.replace(/[^/]+$/, "")}settings.html#connections`
     });
   };
 

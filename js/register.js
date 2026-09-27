@@ -31,7 +31,7 @@
       <div class="links">
         ${verify
           ? `<a class="button" href="./signin.html">Continue adventure</a>`
-          : `<a class="button" href="./account.html#connections">Connect Twitch</a>
+          : `<a class="button" href="./settings.html#connections">Connect Twitch</a>
              <a class="button secondary" href="./">Maybe later</a>`}
       </div>`;
   }

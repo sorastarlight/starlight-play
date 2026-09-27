@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Settings · THE STARLIGHT PLAY HUB</title>
+<title>My Account · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
           <p id="account-handle" class="account-handle"></p>
           <div id="account-trainer" class="account-trainer" hidden></div>
           <a id="account-card" href="./trainer.html" role="menuitem">My Trainer ID</a>
-          <a id="account-settings" href="./settings.html" role="menuitem">Settings</a>
+          <a id="account-settings" href="./settings.html" role="menuitem">My Account</a>
           <a id="account-staff" href="./admin.html" hidden role="menuitem">Admin Hub</a>
           <button id="sign-out" type="button" role="menuitem">Sign out</button>
         </div>
@@ -54,23 +54,24 @@
 <div class="wrap scc-wrap">
   <div class="page-kicker scc-kicker">
     <div>
-      <p class="tid-eyebrow">Trainer Control Center</p>
-      <h1>Settings</h1>
+      <p class="tid-eyebrow">MY ACCOUNT</p>
+      <h1>My Account</h1>
     </div>
   </div>
-  <p id="gate" class="notice">Sign in to customize your Trainer and configure your game.</p>
+  <p id="gate" class="notice">Sign in to open My Account.</p>
   <div id="settings" class="scc-shell" hidden>
-    <nav class="scc-nav" aria-label="Settings categories">
-      <button type="button" class="scc-nav-btn is-on" data-scc-cat="profile" aria-pressed="true">Profile</button>
+    <nav class="scc-nav" aria-label="My Account categories">
+      <button type="button" class="scc-nav-btn is-on" data-scc-cat="trainer-id" aria-pressed="true">Trainer ID</button>
       <button type="button" class="scc-nav-btn" data-scc-cat="gameplay" aria-pressed="false">Gameplay</button>
       <button type="button" class="scc-nav-btn" data-scc-cat="display" aria-pressed="false">Display</button>
-      <button type="button" class="scc-nav-btn" data-scc-cat="account" aria-pressed="false">Account</button>
+      <button type="button" class="scc-nav-btn" data-scc-cat="connections" aria-pressed="false">Connections</button>
+      <button type="button" class="scc-nav-btn" data-scc-cat="pass" aria-pressed="false">Starlight Pass</button>
     </nav>
 
     <div class="scc-main">
-      <section id="panel-profile" class="scc-panel" data-scc-panel="profile">
+      <section id="panel-trainer-id" class="scc-panel" data-scc-panel="trainer-id">
         <div class="scc-editor">
-          <div class="scc-subnav" role="tablist" aria-label="Profile customization">
+          <div class="scc-subnav" role="tablist" aria-label="Trainer ID customization">
             <button type="button" class="scc-subnav-btn is-on" role="tab" data-profile-tab="identity" aria-selected="true">Identity</button>
             <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="avatar" aria-selected="false">Avatar</button>
             <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="card-style" aria-selected="false">Card Style</button>
@@ -80,11 +81,6 @@
           </div>
           <p id="preview-dirty" class="scc-preview-flag muted" hidden>Draft changes — not saved yet</p>
           <div id="profile-workspace" class="scc-workspace"></div>
-          <div class="scc-profile-actions links id-actions">
-            <button id="save-profile" type="button">Save Profile</button>
-            <button id="revert-profile" class="secondary" type="button">Revert Changes</button>
-            <a id="view-id" class="button secondary" href="./trainer.html">View Public Trainer ID</a>
-          </div>
           <p id="edit-status" class="muted" role="status"></p>
         </div>
       </section>
@@ -137,13 +133,69 @@
         <p id="perf-status" class="muted" role="status"></p>
       </section>
 
-      <section id="panel-account" class="scc-panel" data-scc-panel="account" hidden>
+      <section id="panel-connections" class="scc-panel" data-scc-panel="connections" hidden>
         <header class="scc-panel-head">
-          <h2>Account</h2>
+          <h2>Connections &amp; Login</h2>
+          <p class="muted">Your sign-in username, password, and the Twitch identities tied to this Trainer Account.</p>
+        </header>
+        <p id="conn-status" class="muted" role="status"></p>
+
+        <section class="scc-section">
+          <h3>Login username</h3>
+          <p class="muted">Your RPG username is for signing in. The name other Trainers see is your display name under <a href="#trainer-id">Trainer ID</a>.</p>
+          <label class="field" for="acc-username">RPG username
+            <input id="acc-username" maxlength="20" autocomplete="username">
+          </label>
+          <div class="links id-actions">
+            <button id="save-username" type="button">Save username</button>
+          </div>
+        </section>
+
+        <section class="scc-section">
+          <h3>Security</h3>
+          <p id="security-email" class="muted">Email login is checked after you sign in.</p>
+          <form id="claim-form">
+            <h4>Add email &amp; password</h4>
+            <p class="muted">Attach a password to this existing Trainer Account. This does not create a new Trainer.</p>
+            <label class="field" for="claim-email">Email
+              <input id="claim-email" type="email" autocomplete="email">
+            </label>
+            <label class="field" for="claim-password">New password
+              <input id="claim-password" type="password" autocomplete="new-password" minlength="8">
+            </label>
+            <div class="links id-actions">
+              <button type="submit">Add login method</button>
+            </div>
+          </form>
+          <form id="password-form">
+            <h4>Change password</h4>
+            <label class="field" for="new-password">New password
+              <input id="new-password" type="password" autocomplete="new-password" minlength="8">
+            </label>
+            <div class="links id-actions">
+              <button type="submit">Update password</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="twitch-connections" class="scc-section">
+          <h3>Twitch connections</h3>
+          <p class="muted">Connect Twitch so the RPG knows which Trainer is participating when you play in chat and on stream. Primary is your default Twitch-facing identity. Changing it does not move Pokémon, inventory, or XP. Browsing Pokédex, Rankings, Events, and public Trainer IDs does not require Twitch.</p>
+          <div id="pending-link" class="notice" hidden></div>
+          <div id="connection-list"></div>
+          <div class="links id-actions">
+            <button id="link-twitch" type="button">+ Link another Twitch account</button>
+          </div>
+        </section>
+      </section>
+
+      <section id="panel-pass" class="scc-panel" data-scc-panel="pass" hidden>
+        <header class="scc-panel-head">
+          <h2>Starlight Pass</h2>
           <p class="muted">Pass status and subscription checks. Sign out stays in the account menu.</p>
         </header>
         <article id="pass-card" class="scc-pass-card">
-          <p class="scc-pass-kicker">★ ST★RLIGHT PASS</p>
+          <p class="scc-pass-kicker">Starlight Pass</p>
           <p id="pass-status" class="scc-pass-status">Checking pass…</p>
           <div class="links">
             <button id="check-pass" type="button">Check Subscription</button>
@@ -154,6 +206,16 @@
     </div>
   </div>
 </div>
+<dialog id="twitch-warn" class="modal">
+  <form method="dialog" class="modal-card">
+    <h3>Link a Twitch account</h3>
+    <p>You'll be sent to Twitch to authorize an account. Twitch may automatically use whichever account is currently signed in there. Make sure you're signed into the Twitch account you want to connect before continuing.</p>
+    <div class="links">
+      <button id="twitch-warn-go" value="yes">Continue to Twitch</button>
+      <button class="secondary" value="no">Cancel</button>
+    </div>
+  </form>
+</dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js?v=20260926-rc78"></script>
 <script src="js/play-perf.js?v=20260926-rc78"></script>

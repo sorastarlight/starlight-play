@@ -13174,12 +13174,28 @@ body.scc-page { --tid-cyan: #6ec8e8; --tid-pink: #f3a0c8; --tid-navy: #1a2744; }
 .tid-avatar-preview .tid-avatar-stage { position: relative; z-index: 1; width: min(100%, 300px); }
 .scc-style-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
-  gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
   align-items: start;
 }
 .scc-style-controls h3 { margin: 16px 0 8px; }
 .scc-style-controls h3:first-child { margin-top: 0; }
+.scc-style-catalog h3 { margin: 0 0 10px; color: var(--tid-navy); }
+.scc-card-preview-stage {
+  margin: 0 0 18px;
+  padding: 18px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #f2fbff, #e6f4ff);
+  border: 2px solid #8fd4ef;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.7), 0 14px 30px rgba(26,39,68,.12);
+  overflow: visible;
+}
+.scc-card-preview-stage .tid-card {
+  transform: none;
+  max-width: none;
+  width: 100%;
+  margin: 0 auto;
+}
 .scc-contextual-card .tid-card { transform: none; }
 .scc-showcase-layout {
   display: grid;
@@ -13193,7 +13209,15 @@ body.scc-page { --tid-cyan: #6ec8e8; --tid-pink: #f3a0c8; --tid-navy: #1a2744; }
   background: linear-gradient(180deg, #ffe0f0, #ffc4e0);
   border-color: #e88ab8;
 }
-.scc-avatar-gallery { max-height: 58vh; overflow: auto; padding-right: 4px; }
+.scc-avatar-gallery {
+  max-height: 58vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding-right: 4px;
+  contain: paint;
+}
 .scc-style-grid .card-bg-opt img {
   width: 100%; height: 64px; object-fit: cover; border-radius: 8px; margin-bottom: 6px;
 }
@@ -13232,6 +13256,86 @@ body.scc-page { --tid-cyan: #6ec8e8; --tid-pink: #f3a0c8; --tid-navy: #1a2744; }
 .scc-pass-card .button,
 .scc-pass-card button { box-shadow: 0 3px 0 rgba(0,0,0,.25); }
 
+/* My Account — workspace actions, identity modules, connection sections */
+.scc-workspace-actions {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 2px dashed #cfe8f4;
+}
+.scc-identity-modules {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.scc-module-kicker {
+  margin: 0 0 6px;
+  font-family: "Press Start 2P", "Nunito", sans-serif;
+  font-size: 9px; letter-spacing: .08em;
+  color: #5a7a98;
+}
+.scc-identity-status,
+.scc-twitch-module {
+  padding: 16px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff, #eef8ff);
+  border: 2px solid #bfe8f6;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.9), 0 10px 24px rgba(26,39,68,.12);
+}
+.scc-identity-status {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+.scc-identity-avatar {
+  display: grid; place-items: center;
+  width: 84px; height: 84px;
+  border-radius: 16px;
+  background: #dff1ff;
+  border: 2px solid #8fd4ef;
+  overflow: hidden;
+}
+.scc-identity-avatar img { width: 76px; height: 76px; object-fit: contain; image-rendering: pixelated; }
+.scc-identity-facts { min-width: 0; }
+.scc-identity-name {
+  margin: 0 0 2px;
+  font-family: "Fredoka", "Nunito", sans-serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--tid-navy);
+  overflow-wrap: anywhere;
+}
+.scc-identity-meta { margin: 0; font-weight: 800; color: #5a7a98; font-size: 13px; }
+.scc-identity-hint { margin-top: 14px; }
+.scc-twitch-module .links { margin-top: 12px; }
+.scc-twitch-headline {
+  margin: 0 0 10px;
+  font-family: "Press Start 2P", "Nunito", sans-serif;
+  font-size: 12px; letter-spacing: .04em;
+  color: #6a3088;
+}
+.scc-twitch-headline.is-off { color: #7a8ba0; }
+.scc-twitch-connected {
+  background: linear-gradient(160deg, #f6ecff, #ede0ff 55%, #ffe8f6);
+  border-color: #c7a5ee;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.9), 0 12px 26px rgba(106,48,136,.22);
+}
+.scc-twitch-who { display: flex; align-items: center; gap: 10px; }
+.scc-twitch-who .avatar { width: 40px; height: 40px; border-radius: 50%; }
+.scc-twitch-who strong { overflow-wrap: anywhere; }
+.scc-twitch-who p { margin: 0; }
+.scc-twitch-extra { margin: 10px 0 0; padding-left: 18px; font-weight: 700; color: #5a7a98; }
+.scc-section {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 18px;
+  background: #fbfeff;
+  border: 2px solid #d7eaf5;
+}
+.scc-section:first-of-type { margin-top: 0; }
+.scc-section h3 { margin: 0 0 8px; color: var(--tid-navy); }
+.scc-section h4 { margin: 16px 0 6px; color: var(--tid-navy); }
+
 @media (max-width: 1100px) {
   .scc-style-layout,
   .scc-showcase-layout { grid-template-columns: 1fr; }
@@ -13240,7 +13344,7 @@ body.scc-page { --tid-cyan: #6ec8e8; --tid-pink: #f3a0c8; --tid-navy: #1a2744; }
   .scc-shell { grid-template-columns: 1fr; }
   .scc-nav {
     position: static;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   }
   .scc-nav-btn { text-align: center; padding: 10px 6px; font-size: 13px; }
   .tid-card-body { grid-template-columns: 1fr; }

@@ -52,13 +52,25 @@ assert(trainers.includes("Kanto Trainers"), "Kanto trainer pack label");
 assert(trainers.includes("Premium / Special"), "premium pack label");
 
 assert(trainer.includes("playRenderIdCard"), "public profile uses shared Trainer ID renderer");
-assert((trainerHtml.includes("Customize Profile") || trainer.includes("owner-customize")) && (trainerHtml.includes("settings.html#profile") || trainer.includes("settings.html#profile")), "owner customize routes to Settings");
+assert((trainerHtml.includes("Customize Trainer ID") || trainer.includes("owner-customize")) && (trainerHtml.includes("settings.html#trainer-id") || trainer.includes("settings.html#trainer-id")), "owner customize routes to My Account");
 assert(!trainer.includes("play_save_trainer_id"), "public Trainer ID page no longer saves cosmetics");
 assert(!trainerHtml.includes("id-customize-tabs"), "customize workshop removed from Trainer ID");
 assert(trainer.includes("play_ack_cosmetics"), "NEW cosmetics are acknowledged");
 assert(settingsHtml.includes("scc-shell") && settingsHtml.includes("data-scc-cat"), "settings control center shell");
+assert(settingsHtml.includes("My Account · THE STARLIGHT PLAY HUB"), "Settings is now My Account");
+assert(settingsHtml.includes('data-scc-cat="trainer-id"')
+  && settingsHtml.includes('data-scc-cat="connections"')
+  && settingsHtml.includes('data-scc-cat="pass"'), "My Account categories");
+assert(settingsHtml.includes("connection-list") && settingsHtml.includes("link-twitch"), "connections live in My Account");
+assert(!settingsHtml.includes("Save Profile"), "global Save Profile bar removed");
+assert(/scc-pass-kicker">Starlight Pass</.test(settingsHtml), "Starlight Pass kicker copy");
 
 assert(settings.includes("play_save_trainer_id"), "settings save Trainer ID");
+assert(settings.includes("Save Trainer ID") && settings.includes("View Trainer ID"), "Trainer ID terminology");
+assert(!settings.includes("Save Profile") && !settings.includes("Public Profile") && !settings.includes("Profile Settings"), "no Profile button terminology");
+assert(settings.includes("play_account_state") && settings.includes("play_confirm_twitch_link"), "account connections ported into My Account");
+assert(settings.includes("play_storage") && settings.includes("pcStorage"), "team picker reads the current PC");
+assert(settings.includes("updateAvatarSelection"), "avatar picks update in place");
 assert(settings.includes("p_showcase"), "showcase save lives in Settings");
 assert(settings.includes("Revert Changes") || settings.includes("revert-profile"), "settings revert control");
 assert(settings.includes("howTo"), "locked cosmetics explain unlock");

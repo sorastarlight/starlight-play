@@ -171,14 +171,25 @@ window.playBindAccountNav = function playBindAccountNav(options) {
 
   function ensureAccountMenuLinks() {
     if (!els.menu) return;
-    const settings = els.settings || document.getElementById("account-settings");
-    const card = els.card || document.getElementById("account-card");
-    const anchor = settings || card;
-    if (!document.getElementById("account-home") && anchor) {
-      anchor.insertAdjacentHTML("beforebegin", `<a id="account-home" href="./account.html" role="menuitem">My Account</a>`);
+    const settings = document.getElementById("account-settings");
+    let home = document.getElementById("account-home");
+    if (home && settings) settings.remove();
+    if (!home && settings) {
+      settings.id = "account-home";
+      home = settings;
+    }
+    if (!home) {
+      const card = els.card || document.getElementById("account-card");
+      card?.insertAdjacentHTML("afterend", `<a id="account-home" href="./settings.html" role="menuitem">My Account</a>`);
+      home = document.getElementById("account-home");
+    }
+    if (home) {
+      home.href = "./settings.html";
+      home.textContent = "My Account";
     }
     document.getElementById("account-connections")?.remove();
-    els.home = document.getElementById("account-home");
+    els.home = home;
+    els.settings = null;
   }
 
   const links = [
@@ -388,12 +399,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       else els.card.removeAttribute("aria-current");
     }
     if (els.home) {
-      if (page === "account") els.home.setAttribute("aria-current", "page");
+      if (page === "account" || page === "settings") els.home.setAttribute("aria-current", "page");
       else els.home.removeAttribute("aria-current");
-    }
-    if (els.settings) {
-      if (page === "settings") els.settings.setAttribute("aria-current", "page");
-      else els.settings.removeAttribute("aria-current");
     }
     if (els.status) els.status.textContent = `Signed in as ${name}.`;
     if (els.level) {

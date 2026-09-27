@@ -843,7 +843,9 @@
     bait: "honey",
     lure: "poke-radar",
     coins: "pokecoin",
-    bag_bonus: "explorer-kit",
+    bag_bonus: "inventory-bag",
+    inventory: "inventory-bag",
+    bag: "inventory-bag",
     pass: "rainbow-pass",
     poke5: "poke-ball",
     great3: "great-ball",
@@ -903,12 +905,12 @@
     bait5: "honey",
     radar1: "poke-radar",
     lure1: "poke-radar",
-    pouch10: "explorer-kit",
+    pouch10: "inventory-bag",
     "bits-starter": "poke-ball",
     "bits-great": "great-ball",
     "bits-ultra": "ultra-ball",
     "bits-pantry": "oran-berry",
-    "bits-pouch": "explorer-kit",
+    "bits-pouch": "inventory-bag",
     firestone: "fire-stone",
     firestone1: "fire-stone",
     waterstone: "water-stone",
@@ -950,6 +952,8 @@
     if (/^(https?:|data:|blob:)/i.test(raw)) return raw;
     if (raw.includes("/")) return raw;
     if (raw === "premium-avatars.png") return "images/trainers/premium-avatars.png";
+    // Owner inventory backpack replaces the old explorer-kit stand-in site-wide.
+    if (raw === "explorer-kit" || raw === "explorer-kit.png") return "images/items/inventory-bag.png";
     if (/\.(png|webp|gif|jpe?g)$/i.test(raw)) return `images/items/${raw}`;
     const slug = ITEM_SPRITES[key] || ITEM_SPRITES[raw] || "poke-ball";
     return `images/items/${slug}.png`;

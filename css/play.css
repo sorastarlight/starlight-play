@@ -407,6 +407,14 @@ body.nav-open { overflow: hidden; }
   gap: 10px 16px;
   margin-bottom: 16px;
 }
+.inv-brand-mark {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(80, 140, 180, 0.22));
+}
 .tag {
   display: inline-block;
   border: 2px solid #f0c3e0;

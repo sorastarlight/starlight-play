@@ -2502,7 +2502,7 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 12px;
 }
-.bag-floor { margin-top: 18px; }
+.bag-floor { margin-top: 0; }
 .bag-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(140px, 240px);

@@ -13129,3 +13129,253 @@ body.scc-page { --tid-cyan: #6ec8e8; --tid-pink: #f3a0c8; --tid-navy: #1a2744; }
   .tid-card-head { flex-wrap: wrap; }
   .tid-brand-mark { display: none; }
 }
+
+/* PC team picker modal (My Account / team slots) */
+.play-modal-pc-pick .play-modal-card {
+  width: min(980px, calc(100vw - 16px));
+  max-height: min(88vh, 820px);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border-color: #9ecfe8;
+  box-shadow:
+    0 18px 40px #1a223855,
+    inset 0 1px 0 #fff,
+    0 0 0 1px #f3c6e2;
+}
+.play-modal-pc-pick #play-picker-body {
+  min-height: 0;
+  overflow: hidden;
+}
+.pc-pick-shell {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
+  min-height: min(68vh, 620px);
+}
+.pc-pick-nav {
+  display: grid;
+  gap: 10px;
+}
+.pc-pick-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pc-pick-tab {
+  border: 2px solid #c5d8ef;
+  background: linear-gradient(180deg, #f7fbff 0%, #e8f2fc 100%);
+  color: #1a2238;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 3px 0 #9ecfe8;
+  cursor: pointer;
+}
+.pc-pick-tab:hover { border-color: #f3c6e2; }
+.pc-pick-tab:focus-visible {
+  outline: 2px solid #f3c6e2;
+  outline-offset: 2px;
+}
+.pc-pick-tab.is-on {
+  background: linear-gradient(180deg, #fff 0%, #dff0ff 100%);
+  border-color: #5eb8e8;
+  box-shadow: 0 3px 0 #3a8fc4, inset 0 0 0 1px #fff;
+}
+.pc-pick-search {
+  display: grid;
+  gap: 4px;
+}
+.pc-pick-search-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5a6a88;
+}
+.pc-pick-search-input {
+  width: 100%;
+  border: 2px solid #d7e0f2;
+  border-radius: 14px;
+  padding: 10px 12px;
+  font: inherit;
+  background: #fff;
+  box-shadow: inset 0 2px 0 #eef3fb;
+}
+.pc-pick-search-input:focus {
+  border-color: #9ecfe8;
+  outline: 2px solid #f3c6e244;
+  outline-offset: 1px;
+}
+.pc-pick-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
+  gap: 12px;
+  min-height: 0;
+}
+.pc-pick-grid-wrap {
+  min-height: 0;
+  overflow: auto;
+  border: 2px solid #d7e0f2;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f7fbff 0%, #eef4ff 100%);
+  padding: 10px;
+  box-shadow: inset 0 2px 8px #1a223812;
+}
+.pc-pick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: 8px;
+}
+.pc-pick-mon {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 8px 6px;
+  border-radius: 14px;
+  border: 2px solid #d7e0f2;
+  background: #fff;
+  color: inherit;
+  text-align: center;
+  box-shadow: 0 3px 0 #c5d8ef;
+  cursor: pointer;
+}
+.pc-pick-mon:hover { border-color: #f3c6e2; }
+.pc-pick-mon:focus-visible {
+  outline: 2px solid #f3c6e2;
+  outline-offset: 2px;
+}
+.pc-pick-mon.is-selected {
+  border-color: #5eb8e8;
+  background: #f0f9ff;
+  box-shadow: 0 3px 0 #3a8fc4, inset 0 0 0 1px #fff;
+}
+.pc-pick-mon img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pc-pick-mon strong { font-size: 12px; line-height: 1.2; }
+.pc-pick-mon span { font-size: 11px; color: var(--muted); }
+.pc-pick-empty { margin: 24px 8px; text-align: center; }
+.pc-pick-inspect {
+  min-height: 0;
+  overflow: auto;
+  border: 2px solid #d7e0f2;
+  border-radius: 16px;
+  background: #fff;
+  padding: 12px;
+  box-shadow: 0 4px 0 #c5d8ef;
+}
+.pc-pick-inspect-empty {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  text-align: center;
+}
+.pc-pick-inspect-hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: start;
+  margin-bottom: 12px;
+}
+.pc-pick-inspect-hero img {
+  image-rendering: pixelated;
+  background: radial-gradient(circle at 50% 70%, #dff0ff 0%, #fff 70%);
+  border-radius: 14px;
+  border: 2px solid #d7e0f2;
+}
+.pc-pick-inspect-name { display: block; font-size: 16px; }
+.pc-pick-species { display: block; font-size: 12px; }
+.pc-pick-inspect-meta { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+.pc-pick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.pc-pick-chip {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid #d7e0f2;
+  background: #f7fbff;
+}
+.pc-pick-chip.is-fav { border-color: #f3c6e2; color: #b04588; }
+.pc-pick-chip.is-lock { border-color: #c5d8ef; color: #1a2238; }
+.pc-pick-chip.is-shiny { border-color: #ffe08a; background: #fffbeb; color: #9a7200; }
+.pc-pick-module {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #d7e0f2;
+}
+.pc-pick-module h4 {
+  margin: 0 0 8px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5a6a88;
+}
+.pc-pick-capture {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  align-items: start;
+}
+.pc-pick-capture img { image-rendering: pixelated; }
+.pc-pick-capture p { margin: 4px 0 0; font-size: 12px; }
+.pc-pick-stats { display: grid; gap: 6px; }
+.pc-pick-stat {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+.pc-pick-stat i {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: #e8f0fb;
+  overflow: hidden;
+  position: relative;
+}
+.pc-pick-stat i::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--pct, 0%);
+  background: linear-gradient(90deg, #5eb8e8, #f3c6e2);
+  border-radius: inherit;
+}
+.pc-pick-foot {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+.pc-pick-add.primary {
+  border: 2px solid #3a8fc4;
+  background: linear-gradient(180deg, #7fd0ff 0%, #5eb8e8 100%);
+  color: #0b1a2e;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border-radius: 14px;
+  box-shadow: 0 4px 0 #2a6f9a;
+}
+.pc-pick-add.primary:disabled {
+  opacity: 0.45;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+@media (max-width: 760px) {
+  .pc-pick-body { grid-template-columns: 1fr; }
+  .pc-pick-shell { min-height: min(75vh, 680px); }
+}

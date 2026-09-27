@@ -398,6 +398,7 @@
             ${badges.length ? `<p class="id-badges">${badges.map((row) => `<span class="chip">${esc(row.name)}</span>`).join("")}</p>` : ""}
           </div>
         </div>
+        ${typeof window.playXpProgressHtml === "function" ? window.playXpProgressHtml(card, { compact: true }) : ""}
         <ul class="id-team">
           ${slots.map((mon) => mon
             ? `<li><img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="48" height="48" loading="lazy"><span>${window.playCaughtName(mon)}</span></li>`

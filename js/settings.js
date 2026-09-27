@@ -9,7 +9,6 @@
     passCard: document.getElementById("pass-card"),
     check: document.getElementById("check-pass"),
     workspace: document.getElementById("profile-workspace"),
-    preview: document.getElementById("id-preview"),
     previewDirty: document.getElementById("preview-dirty"),
     favorites: document.getElementById("favorite-balls"),
     favoriteEmpty: document.getElementById("favorite-empty"),
@@ -161,34 +160,30 @@
     });
   }
 
-  function fillPreview() {
-    const view = previewCard();
-    if (els.preview) els.preview.innerHTML = view ? window.playRenderIdCard(view, { mode: "preview" }) : "";
-    const dirty = profileDirty();
-    if (els.previewDirty) els.previewDirty.hidden = !dirty;
+  function markDirtyFlag() {
+    if (els.previewDirty) els.previewDirty.hidden = !profileDirty();
+  }
+
+  function lookMeta(look) {
+    return [look?.trainer?.outfit, look?.gender || look?.trainer?.gender].filter(Boolean).join(" · ");
   }
 
   function renderIdentity() {
-    const look = window.playTrainerLook(previewCard()?.trainerSprite);
     return `
       <header class="scc-panel-head">
         <h2>Identity</h2>
-        <p class="muted">Your display name is used everywhere on Play. Trainer avatar is customized under Avatar.</p>
+        <p class="muted">Display name saves on its own. Avatar, card style, titles, showcase, and cosmetics use <strong>Save Profile</strong> below.</p>
       </header>
-      <p class="muted">Twitch login: <strong id="twitch-login">${login ? `@${esc(login)}` : "not linked"}</strong></p>
+      <p class="muted">Twitch: <strong id="twitch-login">${login ? `@${esc(login)}` : "not linked"}</strong></p>
       <label class="field" for="trainer-display-name">Display name
         <input id="trainer-display-name" type="text" maxlength="24" placeholder="Sora Starlight" autocomplete="nickname" value="${esc(card?.displayName || "")}">
       </label>
-      <button id="save-display-name" type="button">Save display name</button>
-      <p id="name-status" class="muted" role="status"></p>
-      <div class="scc-identity-look">
-        <img src="${window.playTrainerSpriteUrl(look.trainer.id)}" alt="" width="96" height="96">
-        <div>
-          <p><strong>${esc(look.trainer.name)}</strong></p>
-          <p class="muted">${esc([look.trainer.outfit, look.label, look.gender].filter(Boolean).join(" · "))}</p>
-          <button type="button" class="secondary" data-jump-tab="avatar">Open Avatar workshop</button>
-        </div>
-      </div>`;
+      <div class="links id-actions">
+        <button id="save-display-name" type="button">Save display name</button>
+        <button type="button" class="secondary" data-jump-tab="avatar">Customize Avatar</button>
+        <a class="button secondary" href="./trainer.html${login ? `?u=${encodeURIComponent(login)}` : ""}">View Public Trainer ID</a>
+      </div>
+      <p id="name-status" class="muted" role="status"></p>`;
   }
 
   function renderAvatar() {
@@ -200,21 +195,19 @@
       ["special", "Special"], ["premium", "Premium"]
     ];
     const groups = avatarGroups();
+    const meta = lookMeta(look);
     return `
       <header class="scc-panel-head">
         <h2>Trainer Avatar</h2>
-        <p class="muted">Preview instantly. Premium series stay locked until purchased in the Mart.</p>
+        <p class="muted">Preview instantly. Premium series stay locked until purchased in the Mart. Press <strong>Save Profile</strong> to keep changes.</p>
       </header>
-      <div class="scc-avatar-hero">
-        <img src="${window.playTrainerSpriteUrl(look.trainer.id)}" alt="${esc(look.trainer.name)}" width="160" height="160">
-        <div>
-          <p class="tid-name">${esc(look.trainer.name)}</p>
-          <p class="muted">${esc([look.trainer.outfit, look.label, look.gender].filter(Boolean).join(" · "))}</p>
-        </div>
+      <div class="scc-contextual scc-contextual-avatar">
+        ${window.playRenderIdCard(view, { mode: "preview", variant: "avatar" })}
+        <p class="scc-contextual-caption"><strong>${esc(look.trainer?.name || "Trainer")}</strong>${meta ? ` · ${esc(meta)}` : ""}</p>
       </div>
       <div class="scc-avatar-tools">
         <label class="field">Search
-          <input id="avatar-search" type="search" placeholder="Name, outfit, series" value="${esc(avatarQuery)}">
+          <input id="avatar-search" type="search" placeholder="Name or outfit" value="${esc(avatarQuery)}">
         </label>
         <div class="scc-filter-row" role="group" aria-label="Avatar filters">
           ${filters.map(([id, label]) => `<button type="button" class="secondary scc-filter${avatarFilter === id ? " is-on" : ""}" data-avatar-filter="${id}" aria-pressed="${avatarFilter === id}">${label}</button>`).join("")}
@@ -236,9 +229,11 @@
               ${looks.map((lookRow) => {
                 const equipped = lookRow.id === view.trainerSprite;
                 const state = lockedPack ? "locked" : (equipped ? "equipped" : "owned");
+                const rowMeta = [lookRow.outfit, lookRow.gender].filter(Boolean).join(" · ");
                 return `<button type="button" class="trainer-opt is-${state}" data-sprite="${esc(lookRow.id)}" data-locked="${lockedPack ? "1" : "0"}" aria-pressed="${equipped}" aria-label="${esc(lookRow.name)} ${state}">
                   <img src="${window.playTrainerSpriteUrl(lookRow.id)}" alt="" width="72" height="72" loading="lazy">
                   <strong>${esc(lookRow.name)}</strong>
+                  ${rowMeta ? `<span>${esc(rowMeta)}</span>` : ""}
                   <span class="id-state">${state}</span>
                 </button>`;
               }).join("")}
@@ -267,41 +262,53 @@
     return `
       <header class="scc-panel-head">
         <h2>Card Style</h2>
-        <p class="muted">Background and frame are cosmetic. Locked looks stay visible with unlock hints.</p>
+        <p class="muted">Background is the art layer. Frame accents the card. Locked looks stay visible with unlock hints.</p>
       </header>
-      <h3>Background</h3>
-      <div class="prog-pick-grid scc-style-grid">
-        ${bgRows.map((row) => {
-          const equipped = row.asset === view.cardBg;
-          const state = pickState(row, equipped);
-          return `<button type="button" class="prog-pick card-bg-opt is-${state}" data-cosmetic="${esc(row.id)}" data-bg-asset="${esc(row.asset)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
-            <img src="${window.playCardBgUrl(row.asset)}" alt="" loading="lazy">
-            <strong>${esc(row.name)}</strong>
-            <span class="id-state">${state}</span>
-            <span>${esc(row.unlocked ? (row.description || "") : (row.howTo || row.description || "Locked"))}</span>
-          </button>`;
-        }).join("")}
-      </div>
-      <h3>Frame</h3>
-      <div class="prog-pick-grid">
-        ${(frames.length ? frames : [{ id: "frame-plain", asset: "plain", name: "Plain", unlocked: true, description: "Default frame", howTo: "" }]).map((row) => {
-          const equipped = row.asset === view.cardFrame;
-          const state = pickState(row, equipped);
-          return `<button type="button" class="prog-pick is-${state}" data-cosmetic="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
-            <strong>${esc(row.name)}</strong>
-            <span class="id-state">${state}</span>
-            <span>${esc(row.unlocked ? (row.description || "") : (row.howTo || row.description || "Locked"))}</span>
-          </button>`;
-        }).join("")}
+      <div class="scc-style-layout">
+        <div class="scc-style-controls">
+          <h3>Background</h3>
+          <div class="prog-pick-grid scc-style-grid">
+            ${bgRows.map((row) => {
+              const equipped = row.asset === view.cardBg;
+              const state = pickState(row, equipped);
+              return `<button type="button" class="prog-pick card-bg-opt is-${state}" data-cosmetic="${esc(row.id)}" data-bg-asset="${esc(row.asset)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
+                <img src="${window.playCardBgUrl(row.asset)}" alt="" loading="lazy">
+                <strong>${esc(row.name)}</strong>
+                <span class="id-state">${state}</span>
+                <span>${esc(row.unlocked ? (row.description || "") : (row.howTo || row.description || "Locked"))}</span>
+              </button>`;
+            }).join("")}
+          </div>
+          <h3>Frame</h3>
+          <div class="prog-pick-grid">
+            ${(frames.length ? frames : [{ id: "frame-plain", asset: "plain", name: "Plain", unlocked: true, description: "Default frame", howTo: "" }]).map((row) => {
+              const equipped = row.asset === view.cardFrame;
+              const state = pickState(row, equipped);
+              return `<button type="button" class="prog-pick is-${state}" data-cosmetic="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
+                <strong>${esc(row.name)}</strong>
+                <span class="id-state">${state}</span>
+                <span>${esc(row.unlocked ? (row.description || "") : (row.howTo || row.description || "Locked"))}</span>
+              </button>`;
+            }).join("")}
+          </div>
+        </div>
+        <div class="scc-contextual scc-contextual-card">
+          <p class="scc-contextual-kicker">Card preview</p>
+          ${window.playRenderIdCard(view, { mode: "preview", variant: "hero" })}
+        </div>
       </div>`;
   }
 
   function renderTitles() {
+    const view = previewCard();
     return `
       <header class="scc-panel-head">
         <h2>Title &amp; Badges</h2>
         <p class="muted">Wear one title. Feature up to three badges on your Trainer ID.</p>
       </header>
+      <div class="scc-contextual scc-contextual-identity">
+        ${window.playRenderIdCard(view, { mode: "preview", variant: "identity" })}
+      </div>
       <h3>Title</h3>
       <div class="prog-pick-grid">
         ${(titles || []).map((row) => {
@@ -345,35 +352,38 @@
         <h2>Showcase</h2>
         <p class="muted">Three meaningful picks for your public profile. Favorite and Shiny must be Pokémon you own.</p>
       </header>
-      <div class="id-showcase-edit">
-        <label class="field">Favorite Pokémon
-          <select id="showcase-fav">
-            <option value="">None</option>
-            ${owned.map((row) => `<option value="${esc(row.dex)}:${esc(row.variant || "normal")}" ${Number(draft.favoriteDex) === Number(row.dex) && String(draft.favoriteVariant || "normal") === String(row.variant || "normal") ? "selected" : ""}>${window.playCaughtName(row)}</option>`).join("")}
-          </select>
-        </label>
-        <label class="field">Featured Shiny
-          <select id="showcase-shiny">
-            <option value="">None</option>
-            ${shinies.map((row) => `<option value="${esc(row.id)}" ${String(draft.shinyCatchId) === String(row.id) ? "selected" : ""}>${window.playCaughtName(row)}</option>`).join("")}
-          </select>
-        </label>
-        <label class="field">Featured Achievement
-          <select id="showcase-ach">
-            <option value="">None</option>
-            ${done.map((row) => `<option value="${esc(row.id)}" ${draft.achievementId === row.id ? "selected" : ""}>${esc(row.name)}</option>`).join("")}
-          </select>
-        </label>
-      </div>
-      <div class="scc-showcase-preview">${window.playRenderTrainerShowcaseHtml(previewCard())}</div>`;
+      <div class="scc-showcase-layout">
+        <div class="id-showcase-edit">
+          <label class="field">Favorite Pokémon
+            <select id="showcase-fav">
+              <option value="">None</option>
+              ${owned.map((row) => `<option value="${esc(row.dex)}:${esc(row.variant || "normal")}" ${Number(draft.favoriteDex) === Number(row.dex) && String(draft.favoriteVariant || "normal") === String(row.variant || "normal") ? "selected" : ""}>${window.playCaughtName(row)}</option>`).join("")}
+            </select>
+          </label>
+          <label class="field">Featured Shiny
+            <select id="showcase-shiny">
+              <option value="">None</option>
+              ${shinies.map((row) => `<option value="${esc(row.id)}" ${String(draft.shinyCatchId) === String(row.id) ? "selected" : ""}>${window.playCaughtName(row)}</option>`).join("")}
+            </select>
+          </label>
+          <label class="field">Featured Achievement
+            <select id="showcase-ach">
+              <option value="">None</option>
+              ${done.map((row) => `<option value="${esc(row.id)}" ${draft.achievementId === row.id ? "selected" : ""}>${esc(row.name)}</option>`).join("")}
+            </select>
+          </label>
+        </div>
+        <div class="scc-contextual scc-showcase-preview">${window.playRenderTrainerShowcaseHtml(previewCard())}</div>
+      </div>`;
   }
 
   function renderTeam() {
     return `
       <header class="scc-panel-head">
         <h2>My Team</h2>
-        <p class="muted">Organize six Pokémon from ones you’ve caught. This team appears on your Trainer ID and Pokédex.</p>
+        <p class="muted">Organize six Pokémon from ones you’ve caught. Team saves immediately when you edit slots.</p>
       </header>
+      <div class="scc-contextual scc-contextual-team">${window.playRenderTrainerPartyHtml(card)}</div>
       <div id="team-slots" class="team-slots"></div>
       <p id="team-status" class="muted" role="status"></p>`;
   }
@@ -390,7 +400,7 @@
       const teamEl = document.getElementById("team-slots");
       window.playRenderTeamSlots(teamEl, card?.team, { mine: true });
     }
-    fillPreview();
+    markDirtyFlag();
     syncSubnav();
   }
 
@@ -601,7 +611,8 @@
         if (savedCard) savedCard = { ...savedCard, team: card.team };
         const teamEl = document.getElementById("team-slots");
         if (teamEl) window.playRenderTeamSlots(teamEl, card?.team, { mine: true });
-        fillPreview();
+        const party = els.workspace.querySelector(".scc-contextual-team");
+        if (party) party.innerHTML = window.playRenderTrainerPartyHtml(card);
         return data;
       },
       teamStatusProxy
@@ -715,17 +726,17 @@
       const [dex, variant] = String(event.target.value || "").split(":");
       draft.favoriteDex = dex ? Number(dex) : null;
       draft.favoriteVariant = variant || "normal";
-      fillPreview();
+      markDirtyFlag();
       const box = els.workspace.querySelector(".scc-showcase-preview");
       if (box) box.innerHTML = window.playRenderTrainerShowcaseHtml(previewCard());
     } else if (event.target.id === "showcase-shiny") {
       draft.shinyCatchId = event.target.value || "";
-      fillPreview();
+      markDirtyFlag();
       const box = els.workspace.querySelector(".scc-showcase-preview");
       if (box) box.innerHTML = window.playRenderTrainerShowcaseHtml(previewCard());
     } else if (event.target.id === "showcase-ach") {
       draft.achievementId = event.target.value || "";
-      fillPreview();
+      markDirtyFlag();
       const box = els.workspace.querySelector(".scc-showcase-preview");
       if (box) box.innerHTML = window.playRenderTrainerShowcaseHtml(previewCard());
     }

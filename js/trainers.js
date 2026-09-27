@@ -357,6 +357,17 @@
     const remain = Math.max(0, Number(card?.xpToNext != null ? card.xpToNext : need - into));
     const pct = Math.max(0, Math.min(100, Math.round((into / need) * 100)));
     const compact = Boolean(options?.compact);
+    const profile = Boolean(options?.profile);
+    if (profile) {
+      return `
+        <div class="tid-xp" role="img" aria-label="Trainer Level ${esc(level)}. ${into.toLocaleString()} of ${need.toLocaleString()} XP.">
+          <div class="tid-xp-meta">
+            <span class="tid-xp-lv">Lv. ${esc(level)}</span>
+            <span class="tid-xp-nums">${into.toLocaleString()} / ${need.toLocaleString()} XP</span>
+          </div>
+          <div class="xp-bar tid-xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
+        </div>`;
+    }
     return `
       <div class="xp-progress" role="img" aria-label="Trainer Level ${esc(level)}. ${into.toLocaleString()} of ${need.toLocaleString()} XP. ${remain.toLocaleString()} XP to Level ${level + 1}.">
         <p class="xp-progress-kicker">${compact ? `Lv. ${esc(level)}` : `TRAINER LEVEL ${esc(level)}`}</p>
@@ -368,68 +379,89 @@
   function profileDexCounts(card) {
     const variants = card?.variants || {};
     const kanto = card?.kanto || {};
-    const nationalTotal = variants.nationalTotal || window.playNationalTotal?.() || kanto.total || 151;
-    const nationalCaught = variants.nationalCaught != null
-      ? variants.nationalCaught
-      : (card?.species != null ? card.species : (kanto.caught || 0));
-    const kantoCaught = kanto.caught != null ? kanto.caught : nationalCaught;
-    const kantoTotal = kanto.total || 151;
-    return { variants, kanto, nationalTotal, nationalCaught, kantoCaught, kantoTotal };
+    const releasedTotal = window.playReleasedDexTotal?.() || 151;
+    const kantoCaught = kanto.caught != null
+      ? kanto.caught
+      : (card?.species != null ? Math.min(Number(card.species) || 0, releasedTotal) : 0);
+    const kantoTotal = kanto.total || releasedTotal || 151;
+    return { variants, kanto, kantoCaught, kantoTotal };
+  }
+
+  function badgeRowHtml(badges, esc) {
+    if (!badges.length) return `<p class="tid-badge-empty">No featured badges yet</p>`;
+    return `<ul class="tid-badge-row">${badges.map((row) => `
+      <li class="tid-badge">
+        <span class="tid-badge-gem" aria-hidden="true">★</span>
+        <span class="tid-badge-name">${esc(row.name)}</span>
+      </li>`).join("")}</ul>`;
   }
 
   window.playRenderIdCard = function playRenderIdCard(card, options) {
     const esc = window.playEscapeAttr || ((value) => String(value || ""));
     const opts = options || {};
-    const team = Array.isArray(card?.team) ? card.team : [];
     const look = window.playTrainerLook(card?.trainerSprite);
     const bg = window.playCardBg(card?.cardBg);
     const frame = String(card?.cardFrame || "plain").replace(/[^a-z0-9-]/gi, "") || "plain";
-    const slots = Array.from({ length: 6 }, (_, i) => team[i] || null);
     const title = String(card?.title || "").trim();
     const badges = (card?.badges || []).slice(0, 3);
     const twitch = Boolean(card?.twitchLinked);
     const counts = profileDexCounts(card);
     const mode = opts.mode === "preview" ? "preview" : "public";
-    const hideTeam = Boolean(opts.hideTeam);
-    const spriteMeta = [look.trainer?.outfit, look.label, look.gender].filter(Boolean).join(" · ");
-    return `
-      <article class="id-card tid-card id-card-${bg.tone} id-card-${bg.group} id-card-frame-${esc(frame)}" data-tid-mode="${mode}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk};background-image:url('${window.playCardBgUrl(bg.id)}')">
-        <header class="id-card-head tid-card-head">
-          <img class="id-ball" src="images/items/poke-ball.png" alt="" width="40" height="40">
-          <h2>TRAINER ID</h2>
-          <p class="tid-brand-mark" aria-hidden="true">★ ST★RLIGHT</p>
-          <p class="id-no">IDNo. ${String(card?.idNo || "00000").padStart(5, "0")}</p>
-        </header>
-        <div class="tid-card-main">
-          <div class="tid-avatar-stage${twitch ? " has-twitch" : ""}">
+    const variant = opts.variant || "hero";
+    const avatarOnly = variant === "avatar";
+    const identityOnly = variant === "identity";
+    const trainerAlt = esc(card?.displayName || look.trainer?.name || "Trainer");
+    if (avatarOnly) {
+      return `
+        <div class="tid-avatar-preview id-card-${bg.tone}" style="--id-chip:${bg.chip};background-image:url('${window.playCardBgUrl(bg.id)}')">
+          <div class="tid-avatar-stage is-hero${twitch ? " has-twitch" : ""}">
             <div class="tid-avatar-glow" aria-hidden="true"></div>
+            <div class="tid-avatar-platform" aria-hidden="true"></div>
             <div class="tid-avatar-well">
-              <img class="tid-avatar-sprite" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${esc(look.trainer?.name || "Trainer")}" width="280" height="280" decoding="async" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png'">
+              <img class="tid-avatar-sprite" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png'">
+            </div>
+          </div>
+        </div>`;
+    }
+    return `
+      <article class="tid-card id-card-${bg.tone} id-card-${bg.group} id-card-frame-${esc(frame)}" data-tid-mode="${mode}" data-tid-variant="${esc(variant)}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk}">
+        <div class="tid-art" style="background-image:url('${window.playCardBgUrl(bg.id)}')" aria-hidden="true"></div>
+        <div class="tid-art-scrim" aria-hidden="true"></div>
+        <header class="tid-card-head">
+          <div class="tid-card-head-left">
+            <img class="id-ball" src="images/items/poke-ball.png" alt="" width="28" height="28">
+            <h2>TRAINER ID</h2>
+            <span class="tid-brand-mark" aria-hidden="true">★ ST★RLIGHT</span>
+          </div>
+          <p class="tid-id-no">ID No. ${String(card?.idNo || "00000").padStart(5, "0")}</p>
+        </header>
+        <div class="tid-card-body">
+          <div class="tid-avatar-stage is-hero${twitch ? " has-twitch" : ""}">
+            <div class="tid-avatar-glow" aria-hidden="true"></div>
+            <div class="tid-avatar-platform" aria-hidden="true"></div>
+            <div class="tid-avatar-well">
+              <img class="tid-avatar-sprite" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png'">
             </div>
             ${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}
-            <p class="tid-avatar-caption">${esc(look.trainer?.name || "Trainer")}${spriteMeta ? `<span>${esc(spriteMeta)}</span>` : ""}</p>
           </div>
-          <div class="tid-identity">
+          <div class="tid-identity-panel">
             <p class="tid-name">${esc(card?.displayName || "Trainer")}</p>
             ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
             <p class="tid-level">Lv. ${esc(card?.level || 1)}</p>
-            ${badges.length ? `<ul class="tid-badge-row">${badges.map((row) => `<li class="tid-badge chip">${esc(row.name)}</li>`).join("")}</ul>` : `<p class="tid-badge-empty muted">No featured badges yet</p>`}
-            <p class="tid-started muted">Started ${window.playCardDate(card?.startedAt)}</p>
+            ${badgeRowHtml(badges, esc)}
+            <p class="tid-started">Trainer since ${window.playCardDate(card?.startedAt)}</p>
           </div>
         </div>
-        <dl class="tid-highlights">
-          <div><dt>Kanto</dt><dd>${counts.kantoCaught}/${counts.kantoTotal}</dd></div>
-          <div><dt>Pokédex</dt><dd>${counts.nationalCaught}/${counts.nationalTotal}</dd></div>
-          <div><dt>Catches</dt><dd>${esc(card?.caught || 0)}</dd></div>
-          <div><dt>Shinies</dt><dd>${esc(card?.shinyCaught || card?.variants?.shinySpecies || 0)}</dd></div>
-        </dl>
-        ${typeof window.playXpProgressHtml === "function" ? window.playXpProgressHtml(card, { compact: true }) : ""}
-        ${hideTeam ? "" : `<ul class="id-team tid-card-team">
-          ${slots.map((mon) => mon
-            ? `<li><img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="48" height="48" loading="lazy"><span>${window.playCaughtName(mon)}</span></li>`
-            : `<li class="empty"><span>Empty</span></li>`
-          ).join("")}
-        </ul>`}
+        ${identityOnly ? "" : `
+        <div class="tid-info-panel">
+          <dl class="tid-highlights">
+            <div><dt>Pokédex</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>
+            <div><dt>Catches</dt><dd>${esc(card?.caught || 0)}</dd></div>
+            <div><dt>Shinies</dt><dd>${esc(card?.shinyCaught || 0)}</dd></div>
+            <div><dt>Evolutions</dt><dd>${esc(card?.evolved || 0)}</dd></div>
+          </dl>
+          ${window.playXpProgressHtml(card, { profile: true })}
+        </div>`}
       </article>`;
   };
 
@@ -449,20 +481,20 @@
         <article class="tid-show-card${favDex ? "" : " is-empty"}">
           <p class="tid-show-kicker">Favorite Pokémon</p>
           ${favDex
-            ? `<img class="tid-show-sprite" src="${window.playSpriteUrl(favDex, favVar)}" alt="" width="96" height="96" loading="lazy"><strong>${esc(favName)}</strong><span class="muted">${esc(String(favVar).includes("shiny") ? "Shiny" : "Partner pick")}</span>`
-            : `<p class="muted">No favorite chosen yet.</p>`}
+            ? `<div class="tid-show-stage"><img class="tid-show-sprite" src="${window.playSpriteUrl(favDex, favVar)}" alt="" width="112" height="112" loading="lazy"></div><strong>${esc(favName)}</strong>`
+            : `<div class="tid-show-stage is-empty" aria-hidden="true"></div><p class="muted">Choose a favorite in Settings.</p>`}
         </article>
         <article class="tid-show-card tid-show-shiny${shiny ? "" : " is-empty"}">
           <p class="tid-show-kicker">Featured Shiny</p>
           ${shiny
-            ? `<img class="tid-show-sprite" src="${window.playSpriteUrl(shiny.dex, shiny.variant, shiny.formId)}" alt="" width="96" height="96" loading="lazy"><strong>${window.playCaughtName(shiny)}</strong><span class="se-badge se-badge-shiny"><span class="se-badge-icon" aria-hidden="true">✦</span><span>Shiny</span></span>`
-            : `<p class="muted">Catch a Shiny to feature it here.</p>`}
+            ? `<div class="tid-show-stage"><img class="tid-show-sprite" src="${window.playSpriteUrl(shiny.dex, shiny.variant, shiny.formId)}" alt="" width="112" height="112" loading="lazy"></div><strong>${window.playCaughtName(shiny)}</strong><span class="se-badge se-badge-shiny"><span class="se-badge-icon" aria-hidden="true">✦</span><span>Shiny</span></span>${shiny.level != null ? `<span class="muted">Lv. ${esc(shiny.level)}</span>` : ""}`
+            : `<div class="tid-show-stage is-empty" aria-hidden="true"></div><p class="muted">Feature a Shiny catch.</p>`}
         </article>
         <article class="tid-show-card tid-show-ach${achName ? "" : " is-empty"}">
           <p class="tid-show-kicker">Featured Achievement</p>
           ${achName
-            ? `<strong class="tid-ach-name">${esc(achName)}</strong>${achDesc ? `<span class="muted">${esc(achDesc)}</span>` : ""}`
-            : `<p class="muted">Feature an achievement from Settings.</p>`}
+            ? `<div class="tid-ach-emblem" aria-hidden="true">★</div><strong class="tid-ach-name">${esc(achName)}</strong>${achDesc ? `<span class="muted">${esc(achDesc)}</span>` : ""}`
+            : `<div class="tid-ach-emblem is-empty" aria-hidden="true">★</div><p class="muted">Feature an achievement.</p>`}
         </article>
       </div>`;
   };
@@ -471,33 +503,32 @@
     const team = Array.isArray(card?.team) ? card.team : [];
     const slots = Array.from({ length: 6 }, (_, i) => team[i] || null);
     const filled = slots.filter(Boolean).length;
-    if (!filled) {
-      return `<p class="muted tid-empty">No party set yet. Trainers can organize six Pokémon in Settings.</p>`;
-    }
-    return `<ul class="tid-party">
-      ${slots.map((mon, index) => mon
+    return `<ul class="tid-party${filled ? "" : " is-all-empty"}">
+      ${slots.map((mon) => mon
         ? `<li class="tid-party-slot">
-            <span class="tid-party-no" aria-hidden="true">${index + 1}</span>
-            <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="64" height="64" loading="lazy">
-            <div>
-              <strong>${window.playCaughtName(mon)}</strong>
-              <span class="muted">${mon.level != null ? `Lv. ${mon.level}` : window.playCaughtBlurb(mon)}</span>
-            </div>
+            <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="72" height="72" loading="lazy">
+            <strong>${window.playCaughtName(mon)}</strong>
+            <span>${mon.level != null ? `Lv. ${mon.level}` : "—"}</span>
           </li>`
-        : `<li class="tid-party-slot empty"><span class="tid-party-no" aria-hidden="true">${index + 1}</span><span class="muted">Empty</span></li>`
+        : `<li class="tid-party-slot is-open">
+            <img class="tid-party-ball" src="images/items/poke-ball.png" alt="" width="36" height="36" aria-hidden="true">
+            <span class="tid-party-open">Open slot</span>
+          </li>`
       ).join("")}
-    </ul>`;
+    </ul>${filled ? "" : `<p class="muted tid-empty">No party set yet. Organize six Pokémon in Settings.</p>`}`;
   };
 
   window.playRenderTrainerProgressHtml = function playRenderTrainerProgressHtml(card) {
     const counts = profileDexCounts(card);
+    const variants = card?.variants || {};
+    const esc = window.playEscapeAttr || ((value) => String(value || ""));
     return `
       ${typeof window.playXpProgressHtml === "function" ? window.playXpProgressHtml(card) : ""}
       <dl class="tid-prog-strip">
-        <div><dt>National Pokédex</dt><dd>${counts.nationalCaught} / ${counts.nationalTotal}</dd></div>
-        <div><dt>Kanto</dt><dd>${counts.kantoCaught} / ${counts.kantoTotal}</dd></div>
+        <div><dt>Pokédex</dt><dd>${counts.kantoCaught} / ${counts.kantoTotal}</dd></div>
+        <div><dt>Mastered</dt><dd>${esc(card?.speciesMastered || 0)}</dd></div>
+        <div><dt>Shiny species</dt><dd>${esc(variants.shinySpecies || 0)}</dd></div>
       </dl>
-      <p class="muted">XP comes from encounters, catches, new Pokédex registrations, Shinies, Evolution, and Achievements the server grants.</p>
       <div class="links">
         <a class="button secondary" href="./achievements.html">Achievements</a>
         <a class="button secondary" href="./pokedex.html">Pokédex</a>
@@ -506,12 +537,13 @@
 
   window.playRenderTrainerStatsHtml = function playRenderTrainerStatsHtml(card) {
     const variants = card?.variants || {};
+    const counts = profileDexCounts(card);
     const rows = [
+      ["Pokédex", `${counts.kantoCaught} / ${counts.kantoTotal}`],
       ["Caught", card?.caught || 0],
-      ["Shiny species", variants.shinySpecies || 0],
-      ["Shiny catches", card?.shinyCaught || 0],
+      ["Shinies", card?.shinyCaught || 0],
       ["Evolved", card?.evolved || 0],
-      ["Species mastered", card?.speciesMastered || 0],
+      ["Mastered", card?.speciesMastered || 0],
       ["Female variants", variants.femaleVariants || 0]
     ];
     return `<dl class="tid-stats-grid">${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl>`;

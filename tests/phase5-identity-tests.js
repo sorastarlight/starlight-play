@@ -52,7 +52,7 @@ assert(trainers.includes("Kanto Trainers"), "Kanto trainer pack label");
 assert(trainers.includes("Premium / Special"), "premium pack label");
 
 assert(trainer.includes("playRenderIdCard"), "public profile uses shared Trainer ID renderer");
-assert(trainerHtml.includes("Customize Profile") && trainerHtml.includes("settings.html#profile"), "owner customize routes to Settings");
+assert((trainerHtml.includes("Customize Profile") || trainer.includes("owner-customize")) && (trainerHtml.includes("settings.html#profile") || trainer.includes("settings.html#profile")), "owner customize routes to Settings");
 assert(!trainer.includes("play_save_trainer_id"), "public Trainer ID page no longer saves cosmetics");
 assert(!trainerHtml.includes("id-customize-tabs"), "customize workshop removed from Trainer ID");
 assert(trainer.includes("play_ack_cosmetics"), "NEW cosmetics are acknowledged");

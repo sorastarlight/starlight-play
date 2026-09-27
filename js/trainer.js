@@ -5,7 +5,7 @@
   const hero = document.getElementById("hero");
   const caught = document.getElementById("caught-grid");
   const title = document.getElementById("page-title");
-  const ownerBar = document.getElementById("owner-bar");
+  const ownerCustomize = document.getElementById("owner-customize");
   let card = null;
   let mine = false;
   let recentLog = [];
@@ -31,9 +31,9 @@
 
   function render(view, recent) {
     title.textContent = view?.displayName ? `${view.displayName}` : "Trainer ID";
-    if (ownerBar) ownerBar.hidden = !mine;
+    if (ownerCustomize) ownerCustomize.hidden = !mine;
     if (hero) {
-      hero.innerHTML = window.playRenderIdCard(view, { mode: "public" });
+      hero.innerHTML = window.playRenderIdCard(view, { mode: "public", variant: "hero" });
       hero.classList.remove("is-revealed");
       requestAnimationFrame(() => {
         requestAnimationFrame(() => hero.classList.add("is-revealed"));

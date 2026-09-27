@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260926-rc77">
+<link rel="stylesheet" href="css/play.css?v=20260926-rc78">
 <body data-page="settings" class="scc-page">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -69,29 +69,23 @@
 
     <div class="scc-main">
       <section id="panel-profile" class="scc-panel" data-scc-panel="profile">
-        <div class="scc-profile-layout">
-          <div class="scc-editor">
-            <div class="scc-subnav" role="tablist" aria-label="Profile customization">
-              <button type="button" class="scc-subnav-btn is-on" role="tab" data-profile-tab="identity" aria-selected="true">Identity</button>
-              <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="avatar" aria-selected="false">Avatar</button>
-              <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="card-style" aria-selected="false">Card Style</button>
-              <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="titles" aria-selected="false">Title &amp; Badges</button>
-              <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="showcase" aria-selected="false">Showcase</button>
-              <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="team" aria-selected="false">Team</button>
-            </div>
-            <div id="profile-workspace" class="scc-workspace"></div>
-            <div class="scc-profile-actions links id-actions">
-              <button id="save-profile" type="button">Save Profile</button>
-              <button id="revert-profile" class="secondary" type="button">Revert Changes</button>
-              <a id="view-id" class="button secondary" href="./trainer.html">View Public Trainer ID</a>
-            </div>
-            <p id="edit-status" class="muted" role="status"></p>
+        <div class="scc-editor">
+          <div class="scc-subnav" role="tablist" aria-label="Profile customization">
+            <button type="button" class="scc-subnav-btn is-on" role="tab" data-profile-tab="identity" aria-selected="true">Identity</button>
+            <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="avatar" aria-selected="false">Avatar</button>
+            <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="card-style" aria-selected="false">Card Style</button>
+            <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="titles" aria-selected="false">Title &amp; Badges</button>
+            <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="showcase" aria-selected="false">Showcase</button>
+            <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="team" aria-selected="false">Team</button>
           </div>
-          <aside class="scc-preview" aria-label="Live Trainer ID preview">
-            <p class="scc-preview-kicker">Live Trainer ID</p>
-            <p id="preview-dirty" class="scc-preview-flag muted" hidden>Draft preview — not saved yet</p>
-            <div id="id-preview"></div>
-          </aside>
+          <p id="preview-dirty" class="scc-preview-flag muted" hidden>Draft changes — not saved yet</p>
+          <div id="profile-workspace" class="scc-workspace"></div>
+          <div class="scc-profile-actions links id-actions">
+            <button id="save-profile" type="button">Save Profile</button>
+            <button id="revert-profile" class="secondary" type="button">Revert Changes</button>
+            <a id="view-id" class="button secondary" href="./trainer.html">View Public Trainer ID</a>
+          </div>
+          <p id="edit-status" class="muted" role="status"></p>
         </div>
       </section>
 
@@ -161,20 +155,20 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260926-rc77"></script>
-<script src="js/play-perf.js?v=20260926-rc77"></script>
-<script src="js/build.js?v=20260926-rc77"></script>
-<script src="js/build-client.js?v=20260926-rc77"></script>
-<script src="js/auth.js?v=20260926-rc77"></script>
-<script src="js/species.js?v=20260926-rc77"></script>
-<script src="js/variants.js?v=20260926-rc77"></script>
-<script src="js/forms.js?v=20260926-rc77"></script>
-<script src="js/game.js?v=20260926-rc77"></script>
-<script src="js/play-present.js?v=20260926-rc77"></script>
-<script src="js/play-encounter-state.js?v=20260926-rc77"></script>
-<script src="js/play-ux.js?v=20260926-rc77"></script>
-<script src="js/trainers.js?v=20260926-rc77"></script>
-<script src="js/team.js?v=20260926-rc77"></script>
-<script src="js/nav.js?v=20260926-rc77"></script>
-<script src="js/settings.js?v=20260926-rc77"></script>
+<script src="js/config.js?v=20260926-rc78"></script>
+<script src="js/play-perf.js?v=20260926-rc78"></script>
+<script src="js/build.js?v=20260926-rc78"></script>
+<script src="js/build-client.js?v=20260926-rc78"></script>
+<script src="js/auth.js?v=20260926-rc78"></script>
+<script src="js/species.js?v=20260926-rc78"></script>
+<script src="js/variants.js?v=20260926-rc78"></script>
+<script src="js/forms.js?v=20260926-rc78"></script>
+<script src="js/game.js?v=20260926-rc78"></script>
+<script src="js/play-present.js?v=20260926-rc78"></script>
+<script src="js/play-encounter-state.js?v=20260926-rc78"></script>
+<script src="js/play-ux.js?v=20260926-rc78"></script>
+<script src="js/trainers.js?v=20260926-rc78"></script>
+<script src="js/team.js?v=20260926-rc78"></script>
+<script src="js/nav.js?v=20260926-rc78"></script>
+<script src="js/settings.js?v=20260926-rc78"></script>
 </body>

@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260926-rc77">
+<link rel="stylesheet" href="css/play.css?v=20260926-rc78">
 <body data-page="trainer" class="tid-page">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -54,17 +54,14 @@
 <div class="wrap tid-wrap">
   <div class="page-kicker tid-kicker">
     <span class="tid-kicker-icon" aria-hidden="true">★</span>
-    <div>
-      <p class="tid-eyebrow">Public Trainer Card</p>
+    <div class="tid-kicker-copy">
+      <p class="tid-eyebrow">Trainer Profile</p>
       <h1 id="page-title">Trainer ID</h1>
     </div>
+    <a id="owner-customize" class="button tid-customize-btn" href="./settings.html#profile" hidden>Customize Profile</a>
   </div>
   <p id="gate" class="notice">Loading Trainer ID…</p>
   <div id="profile" class="tid-profile" hidden>
-    <div id="owner-bar" class="tid-owner-bar" hidden>
-      <p class="muted">This is your public profile — what other Trainers see.</p>
-      <a class="button tid-customize-btn" href="./settings.html#profile">Customize Profile</a>
-    </div>
     <section id="hero" class="tid-hero" aria-label="Trainer ID card"></section>
     <div id="special-upcoming" class="special-event-upcoming" hidden></div>
     <section class="tid-module" id="trainer-showcase" aria-labelledby="tid-showcase-h">
@@ -76,7 +73,7 @@
       <div id="trainer-team-body"></div>
     </section>
     <section class="tid-module" id="trainer-progress" aria-labelledby="tid-progress-h">
-      <header class="tid-module-head"><h2 id="tid-progress-h">Trainer Progress</h2></header>
+      <header class="tid-module-head"><h2 id="tid-progress-h">Trainer Journey</h2></header>
       <div id="trainer-progress-body"></div>
     </section>
     <section class="tid-module" id="trainer-stats" aria-labelledby="tid-stats-h">
@@ -86,27 +83,26 @@
     <section class="tid-module" id="adventure-log" aria-labelledby="tid-log-h">
       <header class="tid-module-head">
         <h2 id="tid-log-h">Adventure Log</h2>
-        <p class="muted">Recent catches on this Trainer ID. Private account details stay hidden.</p>
       </header>
       <div id="caught-grid"></div>
     </section>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260926-rc77"></script>
-<script src="js/play-perf.js?v=20260926-rc77"></script>
-<script src="js/build.js?v=20260926-rc77"></script>
-<script src="js/build-client.js?v=20260926-rc77"></script>
-<script src="js/auth.js?v=20260926-rc77"></script>
-<script src="js/species.js?v=20260926-rc77"></script>
-<script src="js/variants.js?v=20260926-rc77"></script>
-<script src="js/forms.js?v=20260926-rc77"></script>
-<script src="js/game.js?v=20260926-rc77"></script>
-<script src="js/play-present.js?v=20260926-rc77"></script>
-<script src="js/play-encounter-state.js?v=20260926-rc77"></script>
-<script src="js/trainers.js?v=20260926-rc77"></script>
-<script src="js/team.js?v=20260926-rc77"></script>
-<script src="js/nav.js?v=20260926-rc77"></script>
-<script src="js/special-events.js?v=20260926-rc77"></script>
-<script src="js/trainer.js?v=20260926-rc77"></script>
+<script src="js/config.js?v=20260926-rc78"></script>
+<script src="js/play-perf.js?v=20260926-rc78"></script>
+<script src="js/build.js?v=20260926-rc78"></script>
+<script src="js/build-client.js?v=20260926-rc78"></script>
+<script src="js/auth.js?v=20260926-rc78"></script>
+<script src="js/species.js?v=20260926-rc78"></script>
+<script src="js/variants.js?v=20260926-rc78"></script>
+<script src="js/forms.js?v=20260926-rc78"></script>
+<script src="js/game.js?v=20260926-rc78"></script>
+<script src="js/play-present.js?v=20260926-rc78"></script>
+<script src="js/play-encounter-state.js?v=20260926-rc78"></script>
+<script src="js/trainers.js?v=20260926-rc78"></script>
+<script src="js/team.js?v=20260926-rc78"></script>
+<script src="js/nav.js?v=20260926-rc78"></script>
+<script src="js/special-events.js?v=20260926-rc78"></script>
+<script src="js/trainer.js?v=20260926-rc78"></script>
 </body>

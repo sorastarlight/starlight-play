@@ -1350,7 +1350,7 @@
         renderBitsStatus({});
       }
     }
-    if (window.playAuthNoise(event)) return;
+    if (window.playAuthNoise(event, session)) return;
     loadHub(session);
   });
   if (!hubHosted) loadHub();

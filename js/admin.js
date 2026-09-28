@@ -1984,7 +1984,7 @@
   }
 
   supabase.auth.onAuthStateChange((event, session) => {
-    if (window.playAuthNoise(event)) return;
+    if (window.playAuthNoise(event, session)) return;
     loadHub(session);
   });
   supabase.channel("play-staff")

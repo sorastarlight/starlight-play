@@ -100,8 +100,7 @@
     if (node) node.textContent = result.message;
   });
 
-  window.playSupabase.auth.onAuthStateChange((event) => {
-    if (window.playAuthNoise(event)) return;
+  window.playSupabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return;
     showNav();
   });
 

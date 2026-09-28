@@ -52,8 +52,7 @@
     showCreated(Boolean(result.verify));
   });
 
-  window.playSupabase.auth.onAuthStateChange((event) => {
-    if (window.playAuthNoise(event)) return;
+  window.playSupabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return;
     showNav();
   });
   showNav();

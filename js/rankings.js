@@ -376,8 +376,7 @@
     }
   });
 
-  supabase.auth.onAuthStateChange((event) => {
-    if (window.playAuthNoise(event)) return;
+  supabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return;
     loadNav();
     cache.clear();
     loadRanks();

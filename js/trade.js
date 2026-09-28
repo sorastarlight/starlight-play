@@ -761,6 +761,6 @@
   els.board?.addEventListener("keydown", listingKey);
   els.myBoard?.addEventListener("click", listingFromEvent);
   els.myBoard?.addEventListener("keydown", listingKey);
-  supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });
+  supabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return; load(); });
   load();
 })();

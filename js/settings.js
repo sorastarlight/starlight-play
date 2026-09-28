@@ -211,23 +211,44 @@
     return Boolean(group?.premium) && !ownedPacks.includes(group.key);
   }
 
+  function avatarAvailable(group) {
+    return !packLocked(group);
+  }
+
   function avatarLooks() {
     const q = avatarQuery.trim().toLowerCase();
     const rows = [];
     (window.PLAY_TRAINERS || []).forEach((group) => {
+      if (!avatarAvailable(group)) return;
       const scope = avatarScopeOf(group);
       if (avatarScope !== "all" && scope !== avatarScope) return;
       if (avatarScope === "regions" && avatarFilter !== "all" && avatarRegionOf(group) !== avatarFilter) return;
-      const locked = packLocked(group);
       window.playTrainerLooks(group).forEach((look) => {
         if (q) {
           const blob = `${look.name} ${look.gender || ""} ${look.outfit || ""} ${group.label} ${group.games || ""}`.toLowerCase();
           if (!blob.includes(q)) return;
         }
-        rows.push({ look, group, locked });
+        rows.push({ look, group, locked: false });
       });
     });
     return rows;
+  }
+
+  function avatarScopesPresent() {
+    const present = new Set(["all"]);
+    (window.PLAY_TRAINERS || []).forEach((group) => {
+      if (!avatarAvailable(group)) return;
+      present.add(avatarScopeOf(group));
+    });
+    return AVATAR_SCOPES.filter(([id]) => present.has(id));
+  }
+
+  function ensureAvatarScope() {
+    const scopes = avatarScopesPresent().map(([id]) => id);
+    if (!scopes.includes(avatarScope)) {
+      avatarScope = "all";
+      avatarFilter = "all";
+    }
   }
 
   function motionOk() {
@@ -381,30 +402,40 @@
     const view = previewCard();
     const rows = avatarLooks();
     if (!rows.length) return `<p class="muted scc-workshop-empty">No avatars match this search.</p>`;
-    return rows.map(({ look, group, locked }) => {
+    return rows.map(({ look, group }) => {
       const equipped = look.id === view.trainerSprite;
-      const state = locked ? "locked" : (equipped ? "equipped" : "owned");
+      const state = equipped ? "equipped" : "owned";
       const meta = [look.outfit, look.gender].filter(Boolean).join(" · ");
-      return `<button type="button" class="scc-avatar-card trainer-opt is-${state}" data-sprite="${esc(look.id)}" data-locked="${locked ? "1" : "0"}" aria-pressed="${equipped}" aria-label="${esc(look.name)} ${state}">
+      return `<button type="button" class="scc-avatar-card trainer-opt is-${state}" data-sprite="${esc(look.id)}" data-locked="0" aria-pressed="${equipped}" aria-label="${esc(look.name)} ${state}">
         <span class="scc-avatar-thumb">
           <img src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="64" height="64" loading="lazy" decoding="async">
-          ${locked ? `<span class="scc-avatar-lock" aria-hidden="true">🔒</span>` : ""}
         </span>
         <strong class="scc-avatar-name">${esc(look.name)}</strong>
         <span class="scc-avatar-era">${esc(group.label)}</span>
         ${meta ? `<span class="scc-avatar-meta">${esc(meta)}</span>` : ""}
         <span class="id-state">${stateLabel(state)}</span>
-        ${locked ? `<span class="scc-avatar-hint">Available in Mart</span>` : ""}
       </button>`;
     }).join("");
   }
 
+  function avatarRegionsPresent() {
+    const present = new Set();
+    (window.PLAY_TRAINERS || []).forEach((group) => {
+      if (!avatarAvailable(group)) return;
+      const region = avatarRegionOf(group);
+      if (region) present.add(region);
+    });
+    return AVATAR_REGIONS.filter(([id]) => present.has(id));
+  }
+
   function renderAvatar() {
-    const regionChips = [["all", "All regions"]].concat(AVATAR_REGIONS.map((row) => [row[0], row[1]]));
+    ensureAvatarScope();
+    const scopes = avatarScopesPresent();
+    const regionChips = [["all", "All regions"]].concat(avatarRegionsPresent().map((row) => [row[0], row[1]]));
     return `
       <header class="scc-panel-head">
         <h2>Avatar Workshop</h2>
-        <p class="muted">Pick the Trainer sprite that represents you. Premium series stay visible but locked until purchased in the Mart. Press <strong>Save Trainer ID</strong> to keep your pick.</p>
+        <p class="muted">Choose from the Trainer avatars available to your account. Your collection includes free avatars and any avatar packs you've unlocked. Press <strong>Save Trainer ID</strong> to keep your pick.</p>
       </header>
       <div class="scc-workshop-split">
         <section class="scc-avatar-stage" aria-label="Avatar stage">
@@ -414,7 +445,7 @@
         <section class="scc-avatar-browser" aria-label="Avatar browser">
           <p class="scc-module-kicker">AVATAR BROWSER</p>
           <div class="scc-scope-row" role="group" aria-label="Avatar categories">
-            ${AVATAR_SCOPES.map(([id, label]) => `<button type="button" class="scc-scope${avatarScope === id ? " is-on" : ""}" data-avatar-scope="${id}" aria-pressed="${avatarScope === id}">${label.toUpperCase()}</button>`).join("")}
+            ${scopes.map(([id, label]) => `<button type="button" class="scc-scope${avatarScope === id ? " is-on" : ""}" data-avatar-scope="${id}" aria-pressed="${avatarScope === id}">${label.toUpperCase()}</button>`).join("")}
           </div>
           <label class="field scc-browser-search" for="avatar-search">Search
             <input id="avatar-search" type="search" placeholder="Name or outfit" value="${esc(avatarQuery)}">
@@ -1242,6 +1273,7 @@
     const keepDraft = profileDirty() ? { ...draft } : null;
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
+    window.playAuthRememberSession?.(session || null);
     if (!session) {
       window.playSetAccountNav(null);
       els.box.hidden = true;
@@ -1302,13 +1334,33 @@
 
   const teamStatusProxy = {
     _text: "",
+    _clearTimer: 0,
     get textContent() { return this._text; },
     set textContent(value) {
       this._text = value;
       const el = document.getElementById("team-status");
-      if (el) el.textContent = value;
+      if (!el) return;
+      el.textContent = value;
+      window.clearTimeout(this._clearTimer);
+      if (value) {
+        this._clearTimer = window.setTimeout(() => {
+          if (el.textContent === value) el.textContent = "";
+          if (this._text === value) this._text = "";
+        }, 2400);
+      }
     }
   };
+
+  function flashEditStatus(message) {
+    if (!els.status) return;
+    els.status.textContent = message || "";
+    window.clearTimeout(flashEditStatus._timer);
+    if (message) {
+      flashEditStatus._timer = window.setTimeout(() => {
+        if (els.status?.textContent === message) els.status.textContent = "";
+      }, 2400);
+    }
+  }
 
   if (els.workspace) {
     window.playBindTeamSlots(
@@ -1504,13 +1556,13 @@
     snapshotDraft(savedCard, { force: true });
     renderProfileWorkspace();
     markDirtyFlag();
-    if (els.status) els.status.textContent = "Reverted to your saved Trainer ID.";
+    flashEditStatus("Reverted to your saved Trainer ID.");
   }
 
   async function saveTrainerId() {
     if (!draft || saveBusy) return false;
     setSaveBusy(true);
-    if (els.status) els.status.textContent = "Saving Trainer ID…";
+    flashEditStatus("Saving Trainer ID…");
     try {
       const saved = await window.playCall("play_save_trainer_id", {
         p_sprite: draft.sprite,
@@ -1532,11 +1584,11 @@
       setSaveBusy(false);
       renderProfileWorkspace();
       markDirtyFlag();
-      if (els.status) els.status.textContent = saved.message || "Trainer ID saved.";
+      flashEditStatus(saved.message || "Trainer ID saved.");
       return true;
     } catch (error) {
       setSaveBusy(false);
-      if (els.status) els.status.textContent = friendlySaveError(error, SAVE_FAIL);
+      flashEditStatus(friendlySaveError(error, SAVE_FAIL));
       return false;
     }
   }
@@ -1620,9 +1672,8 @@
     }
   });
 
-  supabase.auth.onAuthStateChange((event) => {
-    if (window.playAuthNoise(event)) return;
-    if (event === "INITIAL_SESSION") return;
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (window.playAuthNoise(event, session)) return;
     if (event === "SIGNED_IN") pendingOauth = pendingOauth || "done";
     if (event === "SIGNED_IN" || event === "SIGNED_OUT") load();
   });

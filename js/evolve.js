@@ -1819,6 +1819,6 @@
     });
   });
   window.playBindTips?.(document.body);
-  supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });
+  supabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return; load(); });
   load();
 })();

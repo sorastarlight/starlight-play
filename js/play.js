@@ -1623,7 +1623,7 @@
       .subscribe();
   }
 
-  supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; loadProfile(); });
+  supabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return; loadProfile(); });
   supabase.channel("play-live")
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_rounds" }, () => { lastRealtimeEvent = "round"; scheduleRefresh("round"); })
     .on("postgres_changes", { event: "*", schema: "public", table: "encounter_activity" }, () => { lastRealtimeEvent = "activity"; scheduleRefresh("activity"); })

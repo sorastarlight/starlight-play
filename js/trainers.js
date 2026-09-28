@@ -286,7 +286,7 @@
     { id: "cotton", name: "Cotton", group: "cute", tone: "light", chip: "#7eb8dce6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#e4f2ff", slotInk: "#2a3048" },
     { id: "ribbon", name: "Ribbon", group: "cute", tone: "light", chip: "#de5777e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#ffd4de", slotInk: "#2a3048" },
     { id: "aurora", name: "Aurora", group: "cute", tone: "light", chip: "#63e2d6e6", ink: "#2a3048", head: "#fffdf4", shadow: "0 2px 0 rgba(40,36,56,.28)", slot: "#d8faf6", slotInk: "#2a3048" },
-    { id: "pride-trans", name: "Trans", group: "pride", tone: "light", chip: "#5a3a78e8", ink: "#fff8fc", head: "#3a3068", shadow: "0 1px 0 #fff", slot: "#ffe0ec", slotInk: "#3a3068" },
+    { id: "pride-trans", name: "Trans", group: "pride", tone: "light", chip: "#c8f0faee", ink: "#1a2744", head: "#1a2744", shadow: "0 1px 0 rgba(255,255,255,.85)", slot: "#ffe4f0", slotInk: "#1a2744" },
     { id: "pride-rainbow", name: "Pride", group: "pride", tone: "dark", chip: "#1e1038e8", ink: "#fff8e8", head: "#fff", shadow: "0 2px 0 #3a0860", slot: "#ffe8a0", slotInk: "#3a0860" },
     { id: "pride-lesbian", name: "Lesbian", group: "pride", tone: "dark", chip: "#6a1028e8", ink: "#fff8f4", head: "#fff", shadow: "0 2px 0 #5a0818", slot: "#ffd8c8", slotInk: "#6a1028" },
     { id: "pride-bi", name: "Bi", group: "pride", tone: "dark", chip: "#4a2068e8", ink: "#fff8fc", head: "#fff", shadow: "0 2px 0 #1a2068", slot: "#e8d8ff", slotInk: "#2a1860" },

@@ -20,9 +20,43 @@
     return window.location.hostname;
   };
 
-  window.playAuthNoise = function playAuthNoise(event) {
-    return event === "TOKEN_REFRESHED" || event === "USER_UPDATED";
+  // Track the known signed-in user so focus/visibility recovery does not look
+  // like a fresh SIGNED_IN. GoTrue calls _recoverAndRefresh on visibilitychange
+  // and re-emits SIGNED_IN for the same session — that must NOT full-reload pages.
+  let knownAuthUserId = undefined;
+
+  window.playAuthNoise = function playAuthNoise(event, session) {
+    if (event === "TOKEN_REFRESHED" || event === "USER_UPDATED") return true;
+    if (event === "INITIAL_SESSION") {
+      knownAuthUserId = session?.user?.id || null;
+      return true;
+    }
+    if (event === "SIGNED_IN") {
+      const id = session?.user?.id || null;
+      if (knownAuthUserId === undefined) {
+        knownAuthUserId = id;
+        // Bootstrap / recover before the page's own load() finished — not a new login.
+        return true;
+      }
+      if (id && id === knownAuthUserId) return true;
+      knownAuthUserId = id;
+      return false;
+    }
+    if (event === "SIGNED_OUT") {
+      knownAuthUserId = null;
+      return false;
+    }
+    return false;
   };
+
+  window.playAuthRememberSession = function playAuthRememberSession(session) {
+    knownAuthUserId = session?.user?.id || null;
+  };
+
+  // Seed before page handlers so a later visibility SIGNED_IN is not treated as a new login.
+  window.playSupabase.auth.getSession().then(({ data }) => {
+    window.playAuthRememberSession(data?.session || null);
+  }).catch(() => {});
 
   window.playSetOAuthIntent = function playSetOAuthIntent(intent, targetId) {
     try {

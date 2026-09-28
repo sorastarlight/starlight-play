@@ -1107,7 +1107,7 @@ window.playBindLiveOps = function playBindLiveOps(options) {
     }
   }
 
-  supabase.auth.onAuthStateChange((event) => { if (window.playAuthNoise(event)) return; load(); });
+  supabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return; load(); });
   setInterval(() => {
     if (document.visibilityState !== "visible" || pending || staffHidden()) return;
     if (!embedded && els.app.hidden) return;

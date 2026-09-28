@@ -163,7 +163,7 @@
         <div class="pc-pick-inspect-inner">
           <div class="pc-pick-inspect-hero">
             <div class="pc-pick-inspect-stage">
-              <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="96" height="96" loading="lazy">
+              <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="80" height="80" loading="lazy">
             </div>
             <div>
               <strong class="pc-pick-inspect-name">${display}</strong>
@@ -441,13 +441,12 @@
       return `<article class="team-slot filled">
         <span class="team-slot-no">${index + 1}</span>
         <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="">
-        <strong>${window.playCaughtName(mon)}</strong>
-        <span>${window.playCaughtBlurb(mon)}</span>
+        <strong class="team-slot-name">${window.playCaughtName(mon)}</strong>
         ${mine ? `<div class="team-slot-actions">
-          <button type="button" data-move="${index}" data-dir="-1" ${index === 0 ? "disabled" : ""}>◀</button>
-          <button type="button" data-move="${index}" data-dir="1" ${index === 5 || !slots[index + 1] ? "disabled" : ""}>▶</button>
+          <button type="button" data-move="${index}" data-dir="-1" aria-label="Move left" ${index === 0 ? "disabled" : ""}>◀</button>
+          <button type="button" data-move="${index}" data-dir="1" aria-label="Move right" ${index === 5 || !slots[index + 1] ? "disabled" : ""}>▶</button>
           <button type="button" data-remove="${index}">Remove</button>
-        </div>` : ""}
+        </div>` : `<span class="team-slot-spacer" aria-hidden="true"></span>`}
       </article>`;
     }).join("");
   };

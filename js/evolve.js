@@ -692,7 +692,7 @@
     const ready = kind === "ready";
     const label = terminal
       ? `${row.name}. No evolution currently available.`
-      : `${ready ? "Ready to evolve. " : ""}${shiny ? "Shiny " : ""}${row.name}${row.level ? ` level ${row.level}` : ""} into ${row.toName || ""}.`;
+      : `${ready ? "Ready to evolve. " : ""}${row.name}${shiny ? " (Shiny)" : ""}${row.level ? ` level ${row.level}` : ""} into ${row.toName || ""}.`;
     const candy = terminal ? "" : candyChipHtml(row);
     const item = row.item ? `${itemLabel(row.item)} ${row.haveItem || row.tradeReady ? "✓" : "✕"}` : "";
     return `
@@ -760,7 +760,7 @@
     const candy = candyIdentity(mon);
     const label = blocked
       ? `${mon.name}. ${mon.oakReason}.`
-      : `${selected ? "Selected. " : ""}${shiny ? "Shiny " : ""}${mon.name}. Send to Professor Oak for ${candy.label}.`;
+      : `${selected ? "Selected. " : ""}${mon.name}${shiny ? " (Shiny)" : ""}. Send to Professor Oak for ${candy.label}.`;
     const reward = blocked
       ? ""
       : `<span class="evo-cost-candy"><img src="${esc(candy.art)}" alt="" width="24" height="24" decoding="async" loading="lazy"><span>${esc(candy.label)}</span></span>`;

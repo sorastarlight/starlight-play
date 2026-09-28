@@ -78,8 +78,7 @@
 
   function monName(mon) {
     if (!mon) return "Pokémon";
-    const shiny = String(mon.variant || "").includes("shiny") ? "Shiny " : "";
-    return mon.nickname || `${shiny}${mon.name}`;
+    return mon.nickname || mon.name || "Pokémon";
   }
 
   function trainerSprite(trainer) {

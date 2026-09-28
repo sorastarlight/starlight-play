@@ -316,22 +316,33 @@
     return window.playTrainerLook("red-gen1");
   };
 
-  window.playCaughtName = function playCaughtName(row) {
+  /** Nickname if set, else form/species display name. Shiny is never part of the name. */
+  window.playCaughtSpeciesName = function playCaughtSpeciesName(row) {
     if (!row) return "";
-    const base = row.displayName
+    return row.displayName
       || (typeof window.playFormDisplayName === "function"
         ? window.playFormDisplayName(row.dex, row.formId || row.pokemonFormId)
         : null)
       || row.name
-      || "";
-    const name = String(row.variant || "").includes("shiny") && !/^Shiny\b/i.test(base) ? `Shiny ${base}` : base;
+      || "Pokémon";
+  };
+
+  window.playCaughtName = function playCaughtName(row) {
+    if (!row) return "";
+    const nick = String(row.nickname || "").trim();
+    const name = nick || window.playCaughtSpeciesName(row) || "Pokémon";
     return window.playEscapeAttr ? window.playEscapeAttr(name) : String(name);
   };
 
+  /** Compact provenance only — never gender (badges own that) and never shiny-as-name. */
   window.playCaughtBlurb = function playCaughtBlurb(row) {
     if (!row) return "";
-    const bits = [row.gender, window.playItemLabel(row.ball)].filter(Boolean);
-    return bits.map((bit) => (window.playEscapeAttr ? window.playEscapeAttr(bit) : String(bit))).join(" · ");
+    const ball = typeof window.playItemLabel === "function" ? window.playItemLabel(row.ball) : "";
+    return ball && window.playEscapeAttr ? window.playEscapeAttr(ball) : String(ball || "");
+  };
+
+  window.playCaughtIsShiny = function playCaughtIsShiny(row) {
+    return Boolean(row?.shiny) || String(row?.variant || "").toLowerCase().includes("shiny");
   };
 
   window.playCardTime = function playCardTime(seconds) {

@@ -37,11 +37,11 @@
     const species = new Set(rows.map((row) => row.dex)).size;
     els.note.textContent = `${rows.length} caught · ${species} species`;
     els.caught.innerHTML = rows.map((row) => {
-      const name = String(row.variant || "").includes("shiny") ? `Shiny ${row.name}` : row.name;
+      const name = row.nickname || row.name || "Pokémon";
       return `<article class="caught-card">
         <img src="${window.playSpriteUrl(row.dex, row.variant)}" alt="">
         <strong>${name}</strong>
-        <span>${window.playItemLabel(row.ball) || "Ball"} · ${row.gender || ""}</span>
+        <span>${window.playItemLabel(row.ball) || "Ball"}</span>
       </article>`;
     }).join("");
   }

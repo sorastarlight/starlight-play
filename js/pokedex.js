@@ -5,6 +5,7 @@
     app: document.getElementById("dex-app"),
     summary: document.getElementById("dex-summary"),
     counters: document.getElementById("dex-counters"),
+    heroReadouts: document.getElementById("dex-hero-readouts"),
     notice: document.getElementById("dex-boundary-notice"),
     grid: document.getElementById("dex-grid"),
     search: document.getElementById("dex-search"),
@@ -403,7 +404,7 @@
   }
 
   function renderTeam() {
-    window.playRenderTeamSlots(els.team, dexData?.team, { mine: Boolean(dexData?.mine) });
+    // Team editing lives on My Account / Trainer ID — not the Pokédex landing.
   }
 
   function renderCounters(entries) {
@@ -412,6 +413,21 @@
     const seen = entries.filter((row) => row.seen).length;
     const seenN = dexData?.seenCount != null ? Number(dexData.seenCount) : seen;
     const caughtN = dexData?.caughtCount != null ? Number(dexData.caughtCount) : caught;
+    const pct = Math.max(0, Math.min(100, Math.round((caughtN / Math.max(1, total)) * 100)));
+    if (els.heroReadouts) {
+      els.heroReadouts.innerHTML = `
+        <div class="dex-hero-stat">
+          <span class="dex-hero-stat-label">Seen</span>
+          <strong>${seenN}<span class="dex-hero-slash">/</span>${total}</strong>
+        </div>
+        <div class="dex-hero-stat">
+          <span class="dex-hero-stat-label">Caught</span>
+          <strong>${caughtN}<span class="dex-hero-slash">/</span>${total}</strong>
+        </div>
+        <div class="dex-hero-progress" role="img" aria-label="${caughtN} of ${total} Kanto Pokémon caught.">
+          <i style="width:${pct}%"></i>
+        </div>`;
+    }
     if (els.counters) {
       els.counters.innerHTML = `
         <div class="dex-counter"><span class="dex-counter-label">Seen</span><strong>${seenN} / ${total}</strong></div>
@@ -424,24 +440,28 @@
         : null;
       if (q && searchHits && !searchHits.length) {
         els.summary.textContent = `No Kanto Pokédex results for “${q}”.`;
+        els.summary.classList.remove("visually-hidden");
       } else {
-        els.summary.textContent = "Kanto Pokédex — discovery grid. Open a Seen or Caught species for forms and research.";
+        els.summary.textContent = "";
+        els.summary.classList.add("visually-hidden");
       }
     }
   }
 
   function renderVariantsBanner(caughtN) {
     if (!els.variants) return;
-    els.variants.innerHTML = caughtN
-      ? `
-        <h2>How this Pokédex works</h2>
-        <p class="muted">The grid tracks species discovery. Forms, Shinies, and detailed research live in each species entry. Manage owned Pokémon in My PC, and evolution readiness in Prof. Oak's Lab.</p>`
-      : `
-        <div class="dex-empty-banner">
-          <strong>Your Pokédex is waiting</strong>
-          <p class="muted">Wild Pokémon appear during Sora's stream. Join an encounter on Play to discover your first species.</p>
-          <p><a class="button" href="./">Play</a></p>
-        </div>`;
+    if (caughtN) {
+      els.variants.hidden = true;
+      els.variants.innerHTML = "";
+      return;
+    }
+    els.variants.hidden = false;
+    els.variants.innerHTML = `
+      <div class="dex-empty-banner">
+        <strong>Your Pokédex is waiting</strong>
+        <p class="muted">Wild Pokémon appear during Sora's stream. Join an encounter on Play to discover your first species.</p>
+        <p><a class="button" href="./">Play</a></p>
+      </div>`;
   }
 
   function renderGrid() {
@@ -1205,17 +1225,19 @@
     }
   }
 
-  window.playBindTeamSlots(
-    els.team,
-    () => ({ team: dexData?.team || [], caught: dexData?.caught || [] }),
-    async (ids) => {
-      const data = await window.playCall("play_set_team", { p_catch_ids: ids });
-      if (dexData) dexData.team = data.team || [];
-      renderTeam();
-      return data;
-    },
-    els.teamStatus
-  );
+  if (els.team) {
+    window.playBindTeamSlots(
+      els.team,
+      () => ({ team: dexData?.team || [], caught: dexData?.caught || [] }),
+      async (ids) => {
+        const data = await window.playCall("play_set_team", { p_catch_ids: ids });
+        if (dexData) dexData.team = data.team || [];
+        renderTeam();
+        return data;
+      },
+      els.teamStatus
+    );
+  }
 
   window.playBindTips?.(document.body);
   els.status?.addEventListener("change", render);

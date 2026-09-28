@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260927-rc89">
+<link rel="stylesheet" href="css/play.css?v=20260927-rc90">
 <body data-page="pokedex">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -57,21 +57,21 @@
   </div>
   <p id="gate" class="notice">Sign in to open your Pokédex.</p>
   <div id="dex-app" hidden>
-    <section class="card body team-floor">
-      <div class="team-head">
-        <div>
-          <h2>My Team</h2>
-          <p class="muted">Choose up to six Pokémon you’ve caught. Your team also appears on your Trainer ID.</p>
+    <section class="dex-hero" aria-label="Kanto Pokédex">
+      <div class="dex-hero-stage">
+        <div class="dex-hero-glow" aria-hidden="true"></div>
+        <img class="dex-hero-device" src="images/pokedex/Kanto_PokeDex01.png" alt="Kanto Pokédex" width="520" height="360" decoding="async">
+        <div class="dex-hero-copy">
+          <p class="dex-hero-kicker">Kanto Research Device</p>
+          <h2 class="dex-hero-title">Kanto Pokédex</h2>
+          <p class="dex-hero-sub">Pokémon Research Database</p>
+          <div id="dex-hero-readouts" class="dex-hero-readouts" aria-live="polite"></div>
         </div>
-        <a class="button secondary" href="./settings.html">Edit in Settings</a>
       </div>
-      <div id="team-slots" class="team-slots"></div>
-      <p id="team-status" class="muted" role="status"></p>
     </section>
-    <section class="card body" id="dex-variants"></section>
     <section class="card body dex-toolbar">
       <div id="dex-counters" class="dex-counters" aria-live="polite"></div>
-      <p id="dex-summary" class="muted"></p>
+      <p id="dex-summary" class="muted visually-hidden"></p>
       <p id="dex-boundary-notice" class="notice" hidden role="status"></p>
       <div class="dex-filters">
         <label class="dex-search-label">Search Kanto Pokédex
@@ -88,26 +88,27 @@
       </div>
     </section>
     <div id="dex-grid" class="pokedex-grid"></div>
+    <div id="dex-variants" hidden></div>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260927-rc89"></script>
-<script src="js/play-perf.js?v=20260927-rc89"></script>
-<script src="js/build.js?v=20260927-rc89"></script>
-<script src="js/build-client.js?v=20260927-rc89"></script>
-<script src="js/auth.js?v=20260927-rc89"></script>
-<script src="js/species.js?v=20260927-rc89"></script>
-<script src="js/variants.js?v=20260927-rc89"></script>
-<script src="js/forms.js?v=20260927-rc89"></script>
-<script src="js/pokedex-reference.js?v=20260927-rc89"></script>
-<script src="js/pokedex-presentation.js?v=20260927-rc89"></script>
-<script src="js/pokedex-presentation-resolve.js?v=20260927-rc89"></script>
-<script src="js/game.js?v=20260927-rc89"></script>
-<script src="js/play-present.js?v=20260927-rc89"></script>
-<script src="js/play-encounter-state.js?v=20260927-rc89"></script>
-<script src="js/trainers.js?v=20260927-rc89"></script>
-<script src="js/team.js?v=20260927-rc89"></script>
-<script src="js/nav.js?v=20260927-rc89"></script>
-<script src="js/special-events.js?v=20260927-rc89"></script>
-<script src="js/pokedex.js?v=20260927-rc89"></script>
+<script src="js/config.js?v=20260927-rc90"></script>
+<script src="js/play-perf.js?v=20260927-rc90"></script>
+<script src="js/build.js?v=20260927-rc90"></script>
+<script src="js/build-client.js?v=20260927-rc90"></script>
+<script src="js/auth.js?v=20260927-rc90"></script>
+<script src="js/species.js?v=20260927-rc90"></script>
+<script src="js/variants.js?v=20260927-rc90"></script>
+<script src="js/forms.js?v=20260927-rc90"></script>
+<script src="js/pokedex-reference.js?v=20260927-rc90"></script>
+<script src="js/pokedex-presentation.js?v=20260927-rc90"></script>
+<script src="js/pokedex-presentation-resolve.js?v=20260927-rc90"></script>
+<script src="js/game.js?v=20260927-rc90"></script>
+<script src="js/play-present.js?v=20260927-rc90"></script>
+<script src="js/play-encounter-state.js?v=20260927-rc90"></script>
+<script src="js/trainers.js?v=20260927-rc90"></script>
+<script src="js/team.js?v=20260927-rc90"></script>
+<script src="js/nav.js?v=20260927-rc90"></script>
+<script src="js/special-events.js?v=20260927-rc90"></script>
+<script src="js/pokedex.js?v=20260927-rc90"></script>
 </body>

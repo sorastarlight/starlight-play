@@ -126,9 +126,12 @@
         </div>`;
     }
     const esc = window.playEscapeAttr || ((value) => String(value || ""));
-    const shiny = String(mon.variant || "").includes("shiny") || mon.shiny;
     const formLabel = pcPickFormLabel(mon);
     const display = window.playCaughtName(mon);
+    const species = typeof window.playCaughtSpeciesName === "function"
+      ? window.playCaughtSpeciesName(mon)
+      : (mon.name || "");
+    const nick = String(mon.nickname || "").trim();
     const ballName = (typeof window.playItemLabel === "function" ? window.playItemLabel(mon.ball) : null) || "Poké Ball";
     const ballImg = typeof window.playItemSprite === "function" ? window.playItemSprite(mon.ball) : "";
     const metPlace = mon.metLocation || "";
@@ -138,8 +141,7 @@
       : (mon.caughtAt ? String(mon.caughtAt) : "");
     const chips = [
       mon.favorite ? `<span class="pc-pick-chip is-fav">★ Favorite</span>` : "",
-      mon.locked ? `<span class="pc-pick-chip is-lock">Locked</span>` : "",
-      shiny ? `<span class="pc-pick-chip is-shiny">✦ Shiny</span>` : ""
+      mon.locked ? `<span class="pc-pick-chip is-lock">Locked</span>` : ""
     ].filter(Boolean).join("");
     const captureBits = [
       metPlace ? esc(metPlace) : "",
@@ -151,12 +153,12 @@
       : "";
     const metaLine = [
       mon.level != null ? `Lv. ${mon.level}` : "",
-      mon.gender || "",
-      formLabel ? esc(formLabel) : ""
+      formLabel && formLabel !== species ? esc(formLabel) : ""
     ].filter(Boolean).join(" · ");
+    const addPlain = nick || species || "Pokémon";
     const addLabel = Number.isFinite(slotNo) && slotNo >= 0
-      ? `Add ${display} to Slot ${slotNo + 1}`
-      : `Add ${display} to Team`;
+      ? `Add ${addPlain} to Slot ${slotNo + 1}`
+      : `Add ${addPlain} to Team`;
     return `
       <div class="pc-pick-inspect-panel">
         <p class="pc-pick-slot-kicker">${slotLabel}</p>
@@ -167,9 +169,9 @@
             </div>
             <div>
               <strong class="pc-pick-inspect-name">${display}</strong>
-              ${mon.nickname && mon.name && mon.nickname !== mon.name
-                ? `<span class="muted pc-pick-species">${esc(mon.name)}</span>` : ""}
-              <p class="pc-pick-inspect-meta">${metaLine}</p>
+              ${nick && species && nick !== species
+                ? `<span class="muted pc-pick-species">${esc(species)}</span>` : ""}
+              ${metaLine ? `<p class="pc-pick-inspect-meta">${metaLine}</p>` : ""}
               ${chips ? `<div class="pc-pick-chips">${chips}</div>` : ""}
               ${badges}
             </div>
@@ -202,16 +204,18 @@
         <p class="muted">No Pokémon selected.</p>
       </div>`;
     }
-    const shiny = String(mon.variant || "").includes("shiny") || mon.shiny;
     const formLabel = pcPickFormLabel(mon);
     const display = window.playCaughtName(mon);
+    const species = typeof window.playCaughtSpeciesName === "function"
+      ? window.playCaughtSpeciesName(mon)
+      : (mon.name || "");
+    const nick = String(mon.nickname || "").trim();
     const badges = typeof window.playMonIdentityBadgesHtml === "function"
       ? window.playMonIdentityBadgesHtml(mon)
       : "";
     const metaLine = [
       mon.level != null ? `Lv. ${mon.level}` : "",
-      mode === "owner" ? (mon.gender || "") : "",
-      formLabel ? esc(formLabel) : ""
+      formLabel && formLabel !== species ? esc(formLabel) : ""
     ].filter(Boolean).join(" · ");
 
     if (mode === "public") {
@@ -228,10 +232,9 @@
               </div>
               <div>
                 <strong class="pc-pick-inspect-name">${display}</strong>
-                ${mon.nickname && mon.name && mon.nickname !== mon.name
-                  ? `<span class="muted pc-pick-species">${esc(mon.name)}</span>` : ""}
+                ${nick && species && nick !== species
+                  ? `<span class="muted pc-pick-species">${esc(species)}</span>` : ""}
                 ${metaLine ? `<p class="pc-pick-inspect-meta">${metaLine}</p>` : ""}
-                ${shiny ? `<div class="pc-pick-chips"><span class="pc-pick-chip is-shiny">✦ Shiny</span></div>` : ""}
                 ${badges}
               </div>
             </div>
@@ -317,10 +320,15 @@
       }
       return rows.map((mon) => {
         const on = String(mon.id) === selectedId;
-        return `<button type="button" class="pc-pick-mon${on ? " is-selected" : ""}" data-id="${mon.id}" aria-pressed="${on}">
-          <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" loading="lazy">
+        const shiny = window.playCaughtIsShiny?.(mon)
+          || String(mon.variant || "").includes("shiny")
+          || mon.shiny;
+        return `<button type="button" class="pc-pick-mon${on ? " is-selected" : ""}${shiny ? " is-shiny" : ""}" data-id="${mon.id}" aria-pressed="${on}">
+          <span class="pc-pick-mon-art">
+            <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" loading="lazy">
+            ${shiny ? `<span class="pc-pick-shiny-mark" title="Shiny" aria-label="Shiny">★</span>` : ""}
+          </span>
           <strong>${window.playCaughtName(mon)}</strong>
-          <span>${window.playCaughtBlurb(mon)}</span>
         </button>`;
       }).join("");
     }
@@ -444,12 +452,19 @@
     const used = new Set((usedIds || []).map(String));
     const rows = (caught || []).filter((row) => row?.id && !used.has(String(row.id)));
     const html = rows.length
-      ? `<div class="picker-grid">${rows.map((row) => `
-          <button type="button" class="picker-mon" data-id="${row.id}">
-            <img src="${window.playSpriteUrl(row.dex, row.variant, row.formId)}" alt="">
+      ? `<div class="picker-grid">${rows.map((row) => {
+          const shiny = window.playCaughtIsShiny?.(row)
+            || String(row.variant || "").includes("shiny")
+            || row.shiny;
+          return `
+          <button type="button" class="picker-mon${shiny ? " is-shiny" : ""}" data-id="${row.id}">
+            <span class="pc-pick-mon-art">
+              <img src="${window.playSpriteUrl(row.dex, row.variant, row.formId)}" alt="">
+              ${shiny ? `<span class="pc-pick-shiny-mark" title="Shiny" aria-label="Shiny">★</span>` : ""}
+            </span>
             <strong>${window.playCaughtName(row)}</strong>
-            <span>${window.playCaughtBlurb(row)}</span>
-          </button>`).join("")}</div>`
+          </button>`;
+        }).join("")}</div>`
       : `<p class="muted">Catch Pokémon on Play, then add them here. Ones already on the team won’t show again.</p>`;
     const dialog = openPicker("Add to My Team", html);
     dialog.querySelectorAll(".picker-mon").forEach((button) => {

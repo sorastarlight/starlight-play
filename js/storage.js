@@ -44,10 +44,7 @@
 
   function identityTitle(mon) {
     if (typeof window.playMonDisplayTitle === "function") {
-      return window.playMonDisplayTitle({
-        ...mon,
-        nickname: mon.nickname || mon.name || "Pokémon"
-      });
+      return window.playMonDisplayTitle(mon);
     }
     return mon.nickname || mon.name || "Pokémon";
   }
@@ -207,9 +204,10 @@
   function renderTabs() {
     if (!els.tabs || renamingBox >= 0) return;
     const boxes = normalizeBoxes();
-    els.tabs.innerHTML = boxes.map((box, i) => (
-      `<button type="button" class="pc-tab${i === boxIndex ? " is-on" : ""}" data-box="${i}" role="tab" aria-selected="${i === boxIndex}">${window.playEscapeAttr(box.name)}</button>`
-    )).join("") + `<button type="button" class="pc-tab pc-tab-add" data-add-box="1" aria-label="Add box">+</button>`;
+    els.tabs.innerHTML = boxes.map((box, i) => {
+      const filled = (box.slots || []).filter(Boolean).length;
+      return `<button type="button" class="pc-tab${i === boxIndex ? " is-on" : ""}" data-box="${i}" role="tab" aria-selected="${i === boxIndex}" data-capacity="${filled}/${BOX_SLOTS}" title="${window.playEscapeAttr(`${box.name} · ${filled} / ${BOX_SLOTS}`)}">${window.playEscapeAttr(box.name)}</button>`;
+    }).join("") + `<button type="button" class="pc-tab pc-tab-add" data-add-box="1" aria-label="Add box">+</button>`;
   }
 
   function slotIndicators(mon) {
@@ -217,9 +215,11 @@
     if (mon.favorite) bits.push(`<span class="pc-pip is-fav" title="Favorite" aria-hidden="true">★</span>`);
     if (mon.locked) bits.push(`<span class="pc-pip is-lock" title="Locked" aria-hidden="true">🔒</span>`);
     if (String(mon.variant || "").includes("shiny") || mon.shiny) {
-      bits.push(`<span class="pc-pip is-shiny" title="Shiny" aria-hidden="true">✦</span>`);
+      bits.push(`<span class="pc-pip is-shiny" title="Shiny" aria-label="Shiny"><span aria-hidden="true">★</span></span>`);
     }
-    if (mon.listed) bits.push(`<span class="pc-pip is-trade" title="Listed for trade" aria-hidden="true">⇄</span>`);
+    if (mon.listed) {
+      bits.push(`<span class="pc-pip is-trade" title="Listed on GTS" aria-label="Listed on GTS"><span aria-hidden="true">⇄</span></span>`);
+    }
     if (teamSlot(mon) === 1) bits.push(`<span class="pc-pip is-team" title="On team" aria-hidden="true">♥</span>`);
     if (mon.isAlpha) bits.push(`<span class="pc-pip is-alpha" title="Alpha" aria-hidden="true">α</span>`);
     return bits.join("");
@@ -275,8 +275,9 @@
       }
       const selected = String(mon.id) === selectedId;
       const art = pcStyle(mon, "slot");
-      const tip = `${displayName(mon)} · Lv. ${mon.level || 1}${mon.gender === "Female" ? " · ♀" : mon.gender === "Male" ? " · ♂" : ""}${String(mon.variant || "").includes("shiny") || mon.shiny ? " · Shiny" : ""}`;
-      return `<button type="button" class="pc-slot${selected ? " is-selected" : ""}" draggable="true" data-id="${mon.id}" data-slot="${slot}" role="option" aria-selected="${selected}" aria-label="${window.playEscapeAttr(monAriaLabel(mon))}" title="${window.playEscapeAttr(tip)}">
+      const isShiny = String(mon.variant || "").includes("shiny") || mon.shiny;
+      const tip = `${displayName(mon)} · Lv. ${mon.level || 1}${isShiny ? " · Shiny" : ""}${mon.listed ? " · Listed on GTS" : ""}`;
+      return `<button type="button" class="pc-slot${selected ? " is-selected" : ""}${isShiny ? " is-shiny" : ""}${mon.listed ? " is-listed" : ""}" draggable="true" data-id="${mon.id}" data-slot="${slot}" role="option" aria-selected="${selected}" aria-label="${window.playEscapeAttr(monAriaLabel(mon))}" title="${window.playEscapeAttr(tip)}">
         <span class="pc-slot-pips">${slotIndicators(mon)}</span>
         <span class="pc-slot-art" style="${art.style}"><img src="${art.url}" alt="" decoding="async" draggable="false"></span>
       </button>`;
@@ -350,6 +351,8 @@
           <div class="pc-inspect-id">
             <p class="pc-inspect-kicker">Selected Pokémon</p>
             <h2>${window.playEscapeAttr(identityTitle(mon))}</h2>
+            ${String(mon.nickname || "").trim() && mon.name && String(mon.nickname).trim() !== mon.name
+              ? `<p class="pc-inspect-species muted">${window.playEscapeAttr(mon.name)}</p>` : ""}
             <p class="pc-inspect-level">Lv. ${mon.level || 1}</p>
             ${badges}
           </div>
@@ -383,6 +386,7 @@
           <div class="pc-action-group" aria-label="Common management">
             <button id="toggle-fav" class="pc-action${mon.favorite ? " is-on" : ""}" type="button">${mon.favorite ? "★ Favorited" : "☆ Favorite"}</button>
             <button id="toggle-lock" class="pc-action${mon.locked ? " is-on" : ""}" type="button">${mon.locked ? "🔒 Locked" : "🔒 Lock"}</button>
+            <button id="move-mon" class="pc-action pc-action-move" type="button">Move</button>
           </div>
 
           <div class="pc-action-group" aria-label="Trade">
@@ -421,6 +425,7 @@
         els.status.textContent = window.playRpcError(error);
       }
     });
+    document.getElementById("move-mon")?.addEventListener("click", () => openMoveDialog(mon));
     document.getElementById("send-oak")?.addEventListener("click", () => openOakModal(mon));
     document.getElementById("list-trade")?.addEventListener("click", () => {
       window.location.href = `./trade.html?list=${encodeURIComponent(mon.id)}`;
@@ -624,8 +629,98 @@
     renderGrid();
   }
 
+  function boxFillCount(box) {
+    return (box?.slots || []).filter(Boolean).length;
+  }
+
+  async function moveMonToBox(catchId, toBoxIndex, opts = {}) {
+    const boxes = normalizeBoxes();
+    if (!boxes[toBoxIndex]) throw new Error("That box is not available.");
+    if (boxFillCount(boxes[toBoxIndex]) >= BOX_SLOTS && opts.allowFull !== true) {
+      // Server will also reject; give a fast local message when obvious.
+      const alreadyHere = (boxes[toBoxIndex].slots || []).some((id) => id && String(id) === String(catchId));
+      if (!alreadyHere) throw new Error("That box is full.");
+    }
+    const next = await window.playCall("play_move_pc_mon", {
+      p_catch_id: catchId,
+      p_to_box: toBoxIndex
+    });
+    data = next;
+    if (next?.layout) data.layout = next.layout;
+    if (next?.mons) data.mons = next.mons;
+    if (Number.isFinite(Number(opts.stayOnBox))) boxIndex = Number(opts.stayOnBox);
+    else if (next?.moved) boxIndex = toBoxIndex;
+    selectedId = String(catchId);
+    render();
+    if (els.status && next?.message && next.moved !== false) {
+      els.status.textContent = next.message;
+      window.setTimeout(() => {
+        if (els.status?.textContent === next.message) els.status.textContent = "";
+      }, 2400);
+    }
+    return next;
+  }
+
+  function openMoveDialog(mon) {
+    if (!mon?.id) return;
+    const boxes = normalizeBoxes();
+    const name = displayName(mon);
+    let currentBox = -1;
+    boxes.forEach((box, i) => {
+      if ((box.slots || []).some((id) => id && String(id) === String(mon.id))) currentBox = i;
+    });
+    const existing = document.getElementById("pc-move-dialog");
+    existing?.remove();
+    const dialog = document.createElement("dialog");
+    dialog.id = "pc-move-dialog";
+    dialog.className = "modal pc-move-modal";
+    dialog.innerHTML = `
+      <form method="dialog" class="modal-card pc-move-card">
+        <button type="submit" class="pc-move-close" value="cancel" aria-label="Close">×</button>
+        <h3>Move ${window.playEscapeAttr(name)}</h3>
+        <p class="muted">Choose a destination box.</p>
+        <div class="pc-move-list" role="listbox" aria-label="Destination boxes">
+          ${boxes.map((box, i) => {
+            const filled = boxFillCount(box);
+            const full = filled >= BOX_SLOTS && i !== currentBox;
+            const current = i === currentBox;
+            return `<button type="button" class="pc-move-option${current ? " is-current" : ""}${full ? " is-full" : ""}" data-box="${i}" ${full || current ? "disabled" : ""} role="option" aria-selected="${current}">
+              <strong>${window.playEscapeAttr(box.name)}</strong>
+              <span>${filled} / ${BOX_SLOTS}${current ? " · current" : full ? " · full" : ""}</span>
+            </button>`;
+          }).join("")}
+        </div>
+        <div class="links">
+          <button class="secondary" value="cancel">Cancel</button>
+        </div>
+      </form>`;
+    document.body.appendChild(dialog);
+    const close = () => {
+      dialog.close();
+      dialog.remove();
+    };
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) close();
+    });
+    dialog.querySelectorAll(".pc-move-option:not([disabled])").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const dest = Number(btn.dataset.box);
+        btn.disabled = true;
+        try {
+          await moveMonToBox(mon.id, dest);
+          close();
+        } catch (error) {
+          btn.disabled = false;
+          if (els.status) els.status.textContent = window.playRpcError(error);
+        }
+      });
+    });
+    dialog.showModal();
+    dialog.querySelector(".pc-move-option:not([disabled])")?.focus();
+  }
+
   function clearDropTarget() {
-    dropTargetEl?.classList.remove("is-drop-target");
+    dropTargetEl?.classList.remove("is-drop-target", "is-drop-ok", "is-drop-bad");
     dropTargetEl = null;
   }
 
@@ -669,6 +764,47 @@
     input.addEventListener("blur", () => finish(true));
   }
 
+  els.tabs?.addEventListener("dragover", (event) => {
+    if (searching()) return;
+    const tab = event.target.closest("[data-box]");
+    if (!tab) return;
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+    const dest = Number(tab.dataset.box);
+    const boxes = normalizeBoxes();
+    const filled = boxFillCount(boxes[dest]);
+    const full = filled >= BOX_SLOTS;
+    tab.classList.toggle("is-drop-ok", !full);
+    tab.classList.toggle("is-drop-bad", full);
+    if (dropTargetEl !== tab) {
+      clearDropTarget();
+      dropTargetEl = tab;
+    }
+  });
+  els.tabs?.addEventListener("dragleave", (event) => {
+    const tab = event.target.closest("[data-box]");
+    if (tab && tab === dropTargetEl && !tab.contains(event.relatedTarget)) {
+      tab.classList.remove("is-drop-ok", "is-drop-bad");
+      clearDropTarget();
+    }
+  });
+  els.tabs?.addEventListener("drop", async (event) => {
+    const tab = event.target.closest("[data-box]");
+    if (!tab || searching()) return;
+    event.preventDefault();
+    tab.classList.remove("is-drop-ok", "is-drop-bad");
+    clearDropTarget();
+    let payload = null;
+    try { payload = JSON.parse(event.dataTransfer.getData("text/plain") || ""); } catch (_) {}
+    const catchId = payload?.id;
+    const dest = Number(tab.dataset.box);
+    if (!catchId || !Number.isFinite(dest)) return;
+    try {
+      await moveMonToBox(catchId, dest, { stayOnBox: boxIndex });
+    } catch (error) {
+      if (els.status) els.status.textContent = window.playRpcError(error);
+    }
+  });
   els.tabs?.addEventListener("click", (event) => {
     if (event.detail > 1 || event.target.closest("input")) return;
     if (event.target.closest("[data-add-box]")) {

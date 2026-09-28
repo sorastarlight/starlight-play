@@ -114,7 +114,8 @@
     return human || fallback;
   }
 
-  function snapshotDraft(next) {
+  function snapshotDraft(next, options = {}) {
+    if (!options.force && draft && savedCard && profileDirty()) return;
     const featured = Array.isArray(next.featuredBadgeIds)
       ? next.featuredBadgeIds
       : (next.badges || []).map((row) => row.id);
@@ -1500,7 +1501,7 @@
   function revertTrainerId() {
     if (!savedCard || saveBusy) return;
     card = { ...savedCard };
-    snapshotDraft(savedCard);
+    snapshotDraft(savedCard, { force: true });
     renderProfileWorkspace();
     markDirtyFlag();
     if (els.status) els.status.textContent = "Reverted to your saved Trainer ID.";
@@ -1621,8 +1622,9 @@
 
   supabase.auth.onAuthStateChange((event) => {
     if (window.playAuthNoise(event)) return;
+    if (event === "INITIAL_SESSION") return;
     if (event === "SIGNED_IN") pendingOauth = pendingOauth || "done";
-    load();
+    if (event === "SIGNED_IN" || event === "SIGNED_OUT") load();
   });
   load();
 })();

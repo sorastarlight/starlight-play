@@ -244,9 +244,8 @@
     }
     const wasHidden = bar.hidden;
     bar.hidden = false;
-    if (wasHidden) {
-      if (motionOk()) requestAnimationFrame(() => bar.classList.add("is-in"));
-      else bar.classList.add("is-in");
+    if (wasHidden && motionOk()) {
+      requestAnimationFrame(() => bar.classList.add("is-in"));
     } else {
       bar.classList.add("is-in");
     }

@@ -517,8 +517,6 @@
       </div>`;
   };
 
-  const PARTY_GENDER_MARKS = { male: "♂", female: "♀" };
-
   function partySpeciesLabel(mon) {
     const formName = typeof window.playFormDisplayName === "function"
       ? window.playFormDisplayName(mon.dex, mon.formId || mon.pokemonFormId)
@@ -557,21 +555,10 @@
       const nickname = String(mon.nickname || "").trim();
       const primary = nickname || species;
       const showSpecies = Boolean(nickname) && nickname !== species;
-      const genderMark = PARTY_GENDER_MARKS[String(mon.gender || "").toLowerCase()] || "";
       const formLabel = partyFormLabel(mon, species);
-      const ballSprite = mon.ball && typeof window.playItemSprite === "function"
-        ? window.playItemSprite(mon.ball)
-        : "";
-      const ballName = mon.ball && typeof window.playItemLabel === "function"
-        ? window.playItemLabel(mon.ball)
-        : "";
-      const tags = [
-        genderMark
-          ? `<span class="tid-party-tag tid-party-gender is-${esc(String(mon.gender).toLowerCase())}">${genderMark}<span class="visually-hidden">${esc(mon.gender)}</span></span>`
-          : "",
-        formLabel ? `<span class="tid-party-tag tid-party-form">${esc(formLabel)}</span>` : ""
-      ].filter(Boolean).join("");
-      return `<li class="tid-party-slot is-filled${shiny ? " is-shiny" : ""}" style="--tid-slot-i:${index}">
+      const catchId = mon.id ? esc(mon.id) : "";
+      return `<li class="tid-party-slot is-filled${shiny ? " is-shiny" : ""}${catchId ? " is-inspectable" : ""}" style="--tid-slot-i:${index}"${catchId ? ` data-catch-id="${catchId}"` : ""}>
+          ${catchId ? `<button type="button" class="tid-party-hit" data-inspect-catch="${catchId}" aria-label="Inspect ${esc(primary)}"></button>` : ""}
           <span class="tid-party-index" aria-hidden="true">${position}</span>
           <span class="tid-party-figure">
             <img class="tid-party-sprite" src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="72" height="72" loading="lazy">
@@ -579,9 +566,7 @@
           </span>
           <strong class="tid-party-name">${esc(primary)}</strong>
           ${showSpecies ? `<span class="tid-party-species">${esc(species)}</span>` : ""}
-          ${mon.level != null ? `<span class="tid-party-lv">Lv. ${esc(mon.level)}</span>` : ""}
-          ${tags ? `<span class="tid-party-tags">${tags}</span>` : ""}
-          ${ballSprite ? `<img class="tid-party-ball-icon" src="${ballSprite}" alt="" width="18" height="18" loading="lazy" title="${esc(ballName || "Poké Ball")}">` : ""}
+          ${formLabel ? `<span class="tid-party-tags"><span class="tid-party-tag tid-party-form">${esc(formLabel)}</span></span>` : ""}
         </li>`;
     }).join("");
     return `<div class="tid-party-tray${filled ? "" : " is-all-empty"}">
@@ -611,7 +596,7 @@
   };
 
   const JOURNAL_TYPE_LABELS = {
-    CAPTURE: "Capture",
+    CAPTURE: "Catch",
     ACHIEVEMENT: "Achievement",
     EVOLUTION: "Evolution",
     TRADE: "Trade",
@@ -619,13 +604,13 @@
     MILESTONE: "Milestone"
   };
   const JOURNAL_TAB_LABELS = {
-    ALL: "All",
-    CAPTURE: "Captures",
-    ACHIEVEMENT: "Achievements",
-    EVOLUTION: "Evolutions",
-    TRADE: "Trades",
-    RESEARCH: "Research",
-    MILESTONE: "Milestones"
+    ALL: "★ All",
+    CAPTURE: "● Catches",
+    ACHIEVEMENT: "★ Achievements",
+    EVOLUTION: "◇ Evolutions",
+    TRADE: "⇄ Trades",
+    RESEARCH: "✧ Research",
+    MILESTONE: "◆ Milestones"
   };
 
   function journalNormalizeEntry(raw) {
@@ -666,8 +651,7 @@
     return when && !Number.isNaN(when.getTime()) ? when.getTime() : 0;
   }
 
-  const JOURNAL_LEDE = "Your adventure, recorded along the way.";
-  const JOURNAL_GENDER_MARKS = { male: "♂", female: "♀" };
+  const JOURNAL_LEDE = "A field journal of this Trainer's adventure — catches, milestones, and research along the way.";
 
   function journalFigureHtml(entry, esc) {
     if (entry.dex != null) {
@@ -678,17 +662,20 @@
       </span>`;
     }
     if (entry.type === "ACHIEVEMENT") {
-      return `<span class="tid-journal-figure is-emblem"><span class="tid-journal-emblem" aria-hidden="true">★</span></span>`;
+      return `<span class="tid-journal-figure is-emblem is-achievement"><span class="tid-journal-emblem" aria-hidden="true">★</span></span>`;
     }
-    return `<span class="tid-journal-figure is-emblem"><span class="tid-journal-emblem is-plain" aria-hidden="true">${esc(entry.type === "EVOLUTION" ? "⤴" : "•")}</span></span>`;
+    if (entry.type === "EVOLUTION") {
+      return `<span class="tid-journal-figure is-emblem is-evolution"><span class="tid-journal-emblem" aria-hidden="true">◇</span></span>`;
+    }
+    if (entry.type === "TRADE") {
+      return `<span class="tid-journal-figure is-emblem is-trade"><span class="tid-journal-emblem" aria-hidden="true">⇄</span></span>`;
+    }
+    return `<span class="tid-journal-figure is-emblem"><span class="tid-journal-emblem is-plain" aria-hidden="true">•</span></span>`;
   }
 
   function journalFactsHtml(entry, esc) {
     const facts = [];
-    const mark = JOURNAL_GENDER_MARKS[String(entry.gender || "").toLowerCase()];
-    if (mark) {
-      facts.push(`<li class="tid-journal-fact tid-journal-gender is-${esc(String(entry.gender).toLowerCase())}">${mark}<span class="visually-hidden">${esc(entry.gender)}</span></li>`);
-    }
+    // Catch entries: place · ball only (no gender noise).
     if (entry.ball) {
       const ballName = typeof window.playItemLabel === "function" ? window.playItemLabel(entry.ball) : entry.ball;
       const ballSprite = typeof window.playItemSprite === "function" ? window.playItemSprite(entry.ball) : "";
@@ -745,29 +732,42 @@
               const stamp = fmtDate(entry);
               let headline = entry.title || entry.body || typeLabel;
               let subline = "";
+              let note = "";
+              let showTypeChip = entry.type !== "CAPTURE";
               if (entry.type === "CAPTURE" && entry.dex != null) {
                 const species = (typeof window.playSpeciesName === "function" && window.playSpeciesName(entry.dex))
                   || String(entry.title || "").replace(/^Caught\s+/i, "")
                   || `No. ${entry.dex}`;
                 headline = species;
                 subline = stamp ? `Caught ${stamp}` : "Caught";
-              } else if (stamp) {
-                subline = stamp;
+                // Place · Ball are shown as facts; skip repeating body.
+                note = "";
+              } else {
+                if (stamp) subline = stamp;
+                note = entry.body && entry.body !== entry.title && entry.body !== entry.place
+                  ? entry.body
+                  : "";
               }
-              const note = entry.body && entry.body !== entry.title && entry.body !== entry.place
-                ? entry.body
-                : "";
+              const factBits = [];
+              if (entry.type === "CAPTURE") {
+                if (entry.place) factBits.push(esc(entry.place));
+                if (entry.ball) {
+                  const ballName = typeof window.playItemLabel === "function" ? window.playItemLabel(entry.ball) : entry.ball;
+                  factBits.push(esc(ballName));
+                }
+              }
               return `<li class="tid-journal-entry tid-journal-entry-${esc(entry.type.toLowerCase())}${shiny ? " is-shiny" : ""}" data-journal-type="${esc(entry.type)}" style="--tid-journal-i:${index}">
                 ${journalFigureHtml(entry, esc)}
                 <div class="tid-journal-copy">
                   <p class="tid-journal-title">${esc(headline)}</p>
                   ${subline ? `<p class="tid-journal-sub">${esc(subline)}</p>` : ""}
+                  ${factBits.length ? `<p class="tid-journal-catchline">${factBits.join(" · ")}</p>` : ""}
                   <div class="tid-journal-meta">
-                    <span class="tid-journal-type">${esc(typeLabel)}</span>
+                    ${showTypeChip ? `<span class="tid-journal-type">${esc(typeLabel)}</span>` : ""}
                     ${shiny ? `<span class="tid-journal-shiny-tag"><span aria-hidden="true">✦</span> Shiny</span>` : ""}
                   </div>
                   ${note ? `<p class="tid-journal-desc">${esc(note)}</p>` : ""}
-                  ${journalFactsHtml(entry, esc)}
+                  ${entry.type === "CAPTURE" ? "" : journalFactsHtml(entry, esc)}
                 </div>
               </li>`;
             }).join("")}

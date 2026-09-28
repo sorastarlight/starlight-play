@@ -240,17 +240,14 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       if (storeLink && storeLink.textContent !== "Mart") storeLink.textContent = "Mart";
     }
     const adminPage = page === "admin" || page === "admin-live" || page === "admin-tools" || page === "admin-store";
-    let adminLink = els.links.querySelector("[data-nav=\"admin\"]");
-    if (isAdmin && !adminLink) {
-      els.links.insertAdjacentHTML("beforeend", `<span class="topnav-div" data-nav="admin-div" aria-hidden="true">|</span><a class="topnav-link" href="./admin.html" data-nav="admin">Admin Hub</a>`);
-      adminLink = els.links.querySelector("[data-nav=\"admin\"]");
-    }
+    // Admin Hub lives in the account dropdown only — never inject into primary top nav.
+    const adminLink = els.links.querySelector("[data-nav=\"admin\"]");
     if (adminLink) {
       const div = els.links.querySelector("[data-nav=\"admin-div\"]");
-      adminLink.hidden = !isAdmin;
-      if (div) div.hidden = !isAdmin;
-      if (isAdmin) adminLink.setAttribute("aria-current", adminPage ? "page" : "false");
+      adminLink.remove();
+      if (div) div.remove();
     }
+    void adminPage;
     els.links.querySelectorAll("a[data-nav]").forEach((link) => {
       if (link.dataset.nav === "admin") return;
       if (link.dataset.nav === page) link.setAttribute("aria-current", "page");
@@ -387,7 +384,15 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       els.button.removeAttribute("aria-busy");
       els.button.title = name;
     }
-    if (els.staff) els.staff.hidden = !isAdmin;
+    if (els.staff) {
+      els.staff.hidden = !isAdmin;
+      els.staff.classList.toggle("account-staff-action", isAdmin);
+      if (isAdmin) {
+        els.staff.setAttribute("aria-current", (page === "admin" || page === "admin-live" || page === "admin-tools" || page === "admin-store") ? "page" : "false");
+      } else {
+        els.staff.removeAttribute("aria-current");
+      }
+    }
 
     const face = els.button?.querySelector(".twitch-face");
     if (face) face.classList.toggle("has-twitch", twitchLinked);

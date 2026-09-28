@@ -315,11 +315,8 @@
 
   window.playMonDisplayTitle = function playMonDisplayTitle(mon) {
     if (!mon) return "";
-    const base = mon.nickname || mon.name || "Pokémon";
-    const g = String(mon.gender || "");
-    if (g === "Male") return `${base} ♂`;
-    if (g === "Female") return `${base} ♀`;
-    return String(base);
+    // Gender lives on the identity badges — keep the heading name-only.
+    return String(mon.nickname || mon.name || "Pokémon");
   };
 
   window.playSizeMeta = function playSizeMeta(size) {

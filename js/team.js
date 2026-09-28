@@ -174,8 +174,8 @@
               ${badges}
             </div>
           </div>
-          <section class="pc-pick-module" aria-label="Capture">
-            <h4>Capture</h4>
+          <section class="pc-pick-module" aria-label="Catch history">
+            <h4>Catch History</h4>
             <div class="pc-pick-capture">
               ${ballImg ? `<img src="${ballImg}" alt="" width="28" height="28">` : ""}
               <div>
@@ -193,6 +193,76 @@
         <button type="button" class="pc-pick-add" data-add-catch="${esc(mon.id)}">${esc(addLabel)}</button>
       </div>`;
   }
+
+  function teamMonInspectHtml(mon, options) {
+    const mode = options?.mode === "owner" ? "owner" : "public";
+    const esc = window.playEscapeAttr || ((value) => String(value || ""));
+    if (!mon) {
+      return `<div class="pc-pick-inspect-panel team-mon-inspect">
+        <p class="muted">No Pokémon selected.</p>
+      </div>`;
+    }
+    const shiny = String(mon.variant || "").includes("shiny") || mon.shiny;
+    const formLabel = pcPickFormLabel(mon);
+    const display = window.playCaughtName(mon);
+    const badges = typeof window.playMonIdentityBadgesHtml === "function"
+      ? window.playMonIdentityBadgesHtml(mon)
+      : "";
+    const metaLine = [
+      mon.level != null ? `Lv. ${mon.level}` : "",
+      mode === "owner" ? (mon.gender || "") : "",
+      formLabel ? esc(formLabel) : ""
+    ].filter(Boolean).join(" · ");
+
+    if (mode === "public") {
+      const ballName = mon.ball
+        ? ((typeof window.playItemLabel === "function" ? window.playItemLabel(mon.ball) : null) || "Poké Ball")
+        : "";
+      const ballImg = mon.ball && typeof window.playItemSprite === "function" ? window.playItemSprite(mon.ball) : "";
+      return `
+        <div class="pc-pick-inspect-panel team-mon-inspect is-public">
+          <div class="pc-pick-inspect-inner">
+            <div class="pc-pick-inspect-hero">
+              <div class="pc-pick-inspect-stage">
+                <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="96" height="96" loading="lazy">
+              </div>
+              <div>
+                <strong class="pc-pick-inspect-name">${display}</strong>
+                ${mon.nickname && mon.name && mon.nickname !== mon.name
+                  ? `<span class="muted pc-pick-species">${esc(mon.name)}</span>` : ""}
+                ${metaLine ? `<p class="pc-pick-inspect-meta">${metaLine}</p>` : ""}
+                ${shiny ? `<div class="pc-pick-chips"><span class="pc-pick-chip is-shiny">✦ Shiny</span></div>` : ""}
+                ${badges}
+              </div>
+            </div>
+            ${ballName ? `
+              <section class="pc-pick-module" aria-label="Poké Ball">
+                <h4>Poké Ball</h4>
+                <div class="pc-pick-capture">
+                  ${ballImg ? `<img src="${ballImg}" alt="" width="28" height="28">` : ""}
+                  <div><strong>${esc(ballName)}</strong></div>
+                </div>
+              </section>` : ""}
+            <p class="muted pc-pick-public-note">Public Trainer ID summary — catch record details stay with the Trainer.</p>
+          </div>
+        </div>`;
+    }
+
+    // Owner: reuse PC picker inspection language (no Add CTA).
+    const html = pcPickInspectHtml(mon, { slotIndex: options?.slotIndex });
+    return html
+      .replace(/<button[\s\S]*?class="pc-pick-add"[\s\S]*?<\/button>/, "")
+      .replace(/TEAM SLOT(?: \d+)?/i, "TEAM POKÉMON")
+      .replace('class="pc-pick-inspect-panel"', 'class="pc-pick-inspect-panel team-mon-inspect is-owner"');
+  }
+
+  window.playOpenTeamMonInspect = function playOpenTeamMonInspect(mon, options) {
+    const resolved = typeof options?.resolve === "function" ? (options.resolve(mon) || mon) : mon;
+    if (!resolved) return null;
+    const title = window.playCaughtName?.(resolved) || "Pokémon";
+    const html = teamMonInspectHtml(resolved, options);
+    return openPicker(title, html, "play-modal-team-inspect");
+  };
 
   window.playOpenPcTeamPicker = function playOpenPcTeamPicker(options) {
     const mons = options?.mons || [];
@@ -438,7 +508,8 @@
           <strong>${mine ? "+ Add" : "Empty"}</strong>
         </button>`;
       }
-      return `<article class="team-slot filled">
+      return `<article class="team-slot filled" data-catch-id="${mon.id || ""}">
+        <button type="button" class="team-slot-hit" data-inspect-catch="${mon.id || ""}" aria-label="Inspect ${window.playCaughtName(mon)}"></button>
         <span class="team-slot-no">${index + 1}</span>
         <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="">
         <strong class="team-slot-name">${window.playCaughtName(mon)}</strong>
@@ -454,9 +525,21 @@
   window.playBindTeamSlots = function playBindTeamSlots(el, getState, saveTeam, statusEl, bindOptions) {
     if (!el) return;
     el.addEventListener("click", async (event) => {
+      const inspect = event.target.closest("[data-inspect-catch]");
+      if (inspect && !event.target.closest("[data-move], [data-remove], [data-add]")) {
+        const state = getState();
+        const id = inspect.getAttribute("data-inspect-catch");
+        const mon = (state.team || []).find((row) => String(row?.id) === String(id));
+        if (!mon) return;
+        const pc = bindOptions?.pcStorage || state.pcStorage;
+        const richer = (pc?.mons || []).find((row) => String(row?.id) === String(id)) || mon;
+        window.playOpenTeamMonInspect?.(richer, { mode: "owner" });
+        return;
+      }
       const add = event.target.closest("[data-add]");
       const remove = event.target.closest("[data-remove]");
       const move = event.target.closest("[data-move]");
+      if (!add && !remove && !move) return;
       const state = getState();
       const team = (state.team || []).slice();
       const ids = () => team.map((row) => row.id).filter(Boolean);
@@ -473,18 +556,17 @@
               const at = Number.isFinite(slotIndex) ? Math.min(Math.max(slotIndex, 0), team.length) : team.length;
               team.splice(at, 0, row);
               if (team.length > 6) team.length = 6;
-              if (statusEl) statusEl.textContent = "Saving team…";
-              const data = await saveTeam(ids());
-              if (statusEl) statusEl.textContent = data?.message || "Team updated.";
-              if (typeof window.playToast === "function") {
-                window.playToast({
-                  kind: "success",
-                  title: "Team updated",
-                  body: `${window.playCaughtName?.(row) || "Pokémon"} joined slot ${at + 1}.`
-                });
-              }
+              await saveTeam(ids());
+              if (statusEl) statusEl.textContent = "";
             } catch (error) {
               if (statusEl) statusEl.textContent = window.playRpcError(error);
+              if (typeof window.playToast === "function") {
+                window.playToast({
+                  kind: "error",
+                  title: "Team not updated",
+                  body: window.playRpcError(error)
+                });
+              }
             }
           };
           if (pcStorage?.mons && pcStorage?.layout) {
@@ -502,9 +584,8 @@
         }
         if (remove) {
           team.splice(Number(remove.dataset.remove), 1);
-          if (statusEl) statusEl.textContent = "Saving team…";
-          const data = await saveTeam(ids());
-          if (statusEl) statusEl.textContent = data?.message || "Team updated.";
+          await saveTeam(ids());
+          if (statusEl) statusEl.textContent = "";
           return;
         }
         if (move) {
@@ -514,12 +595,18 @@
           const swap = team[index];
           team[index] = team[next];
           team[next] = swap;
-          if (statusEl) statusEl.textContent = "Saving team…";
-          const data = await saveTeam(ids());
-          if (statusEl) statusEl.textContent = data?.message || "Team updated.";
+          await saveTeam(ids());
+          if (statusEl) statusEl.textContent = "";
         }
       } catch (error) {
         if (statusEl) statusEl.textContent = window.playRpcError(error);
+        if (typeof window.playToast === "function") {
+          window.playToast({
+            kind: "error",
+            title: "Team not updated",
+            body: window.playRpcError(error)
+          });
+        }
       }
     });
   };

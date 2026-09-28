@@ -49,11 +49,7 @@
         nickname: mon.nickname || mon.name || "Pokémon"
       });
     }
-    const base = mon.nickname || mon.name || "Pokémon";
-    const g = String(mon.gender || "");
-    if (g === "Male") return `${base} ♂`;
-    if (g === "Female") return `${base} ♀`;
-    return base;
+    return mon.nickname || mon.name || "Pokémon";
   }
 
   function monSpriteUrl(mon) {
@@ -359,8 +355,8 @@
           </div>
         </header>
 
-        <section class="pc-module pc-capture" aria-label="Capture record">
-          <h3 class="pc-module-label">Capture Record</h3>
+        <section class="pc-module pc-capture" aria-label="Catch history">
+          <h3 class="pc-module-label">Catch History</h3>
           <div class="pc-capture-row">
             <img src="${window.playItemSprite(mon.ball)}" alt="">
             <div>

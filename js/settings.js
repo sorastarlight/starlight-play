@@ -732,6 +732,19 @@
       els.workspace.innerHTML = renderTeam();
       const teamEl = document.getElementById("team-slots");
       window.playRenderTeamSlots(teamEl, card?.team, { mine: true });
+      const party = els.workspace.querySelector(".scc-contextual-team");
+      if (party && party.dataset.inspectBound !== "1") {
+        party.dataset.inspectBound = "1";
+        party.addEventListener("click", (event) => {
+          const hit = event.target.closest("[data-inspect-catch]");
+          if (!hit) return;
+          const id = hit.getAttribute("data-inspect-catch");
+          const mon = (card?.team || []).find((row) => String(row?.id) === String(id));
+          if (!mon) return;
+          const richer = (pcStorage?.mons || []).find((row) => String(row?.id) === String(id)) || mon;
+          window.playOpenTeamMonInspect?.(richer, { mode: "owner" });
+        });
+      }
     }
     if (galleryTop != null) {
       const next = els.workspace.querySelector(".scc-avatar-results");
@@ -1374,7 +1387,21 @@
         const teamEl = document.getElementById("team-slots");
         if (teamEl) window.playRenderTeamSlots(teamEl, card?.team, { mine: true });
         const party = els.workspace.querySelector(".scc-contextual-team");
-        if (party) party.innerHTML = window.playRenderTrainerPartyHtml(card);
+        if (party) {
+          party.innerHTML = window.playRenderTrainerPartyHtml(card);
+          if (party.dataset.inspectBound !== "1") {
+            party.dataset.inspectBound = "1";
+            party.addEventListener("click", (event) => {
+              const hit = event.target.closest("[data-inspect-catch]");
+              if (!hit) return;
+              const id = hit.getAttribute("data-inspect-catch");
+              const mon = (card?.team || []).find((row) => String(row?.id) === String(id));
+              if (!mon) return;
+              const richer = (pcStorage?.mons || []).find((row) => String(row?.id) === String(id)) || mon;
+              window.playOpenTeamMonInspect?.(richer, { mode: "owner" });
+            });
+          }
+        }
         return data;
       },
       teamStatusProxy

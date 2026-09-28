@@ -388,7 +388,27 @@ body.nav-open { overflow: hidden; }
   font-size: 12px;
 }
 .account-trainer .xp-bar { margin: 6px 0 0; height: 8px; }
-.account-menu a.button { padding: 10px 12px; }
+.account-menu #account-staff.account-staff-action {
+  margin: 8px 0 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 2px solid #5a7ab8;
+  background: linear-gradient(180deg, #e8f0ff 0%, #c8daf8 55%, #aec8f0 100%);
+  color: #1a2744;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 0 #4a6498, inset 0 1px 0 rgba(255,255,255,.85);
+  text-align: center;
+}
+.account-menu #account-staff.account-staff-action:hover,
+.account-menu #account-staff.account-staff-action:focus-visible {
+  filter: brightness(1.04);
+  background: linear-gradient(180deg, #f2f7ff 0%, #d4e4fc 55%, #b8d0f4 100%);
+}
+.account-menu #account-staff.account-staff-action[aria-current="page"] {
+  outline: 2px solid #5eb8e8;
+  outline-offset: 1px;
+}
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -12625,12 +12645,6 @@ html[data-perf="low"] .tid-hero .tid-card {
     0 2px 0 rgba(26,39,68,.08),
     0 8px 18px rgba(26,39,68,.12);
 }
-.tid-card.id-card-light .tid-card-head h2,
-.tid-card.id-card-light .tid-id-no,
-.tid-card.id-card-light .tid-brand-mark {
-  color: var(--id-head, var(--tid-ink, #1a2744));
-  text-shadow: none;
-}
 .tid-card.id-card-dark .tid-card-head h2,
 .tid-card.id-card-dark .tid-id-no {
   color: var(--id-head, #fff);
@@ -12644,7 +12658,14 @@ html[data-perf="low"] .tid-hero .tid-card {
   font-size: clamp(10px, 1.8vw, 14px);
   letter-spacing: .06em;
   color: var(--id-head, #fff);
-  text-shadow: var(--id-shadow, 0 2px 0 rgba(40,36,56,.28));
+  text-shadow:
+    0 1px 0 rgba(26, 39, 68, .55),
+    0 0 2px rgba(26, 39, 68, .45),
+    1px 0 0 rgba(26, 39, 68, .28),
+    -1px 0 0 rgba(26, 39, 68, .28),
+    0 1px 0 rgba(26, 39, 68, .28),
+    0 -1px 0 rgba(26, 39, 68, .28),
+    var(--id-shadow, 0 2px 0 rgba(40,36,56,.28));
 }
 .tid-brand-mark {
   font-family: "Press Start 2P", "Nunito", sans-serif;
@@ -12653,6 +12674,9 @@ html[data-perf="low"] .tid-hero .tid-card {
   color: var(--id-head, #fff);
   opacity: .92;
   white-space: nowrap;
+  text-shadow:
+    0 1px 0 rgba(26, 39, 68, .5),
+    0 0 2px rgba(26, 39, 68, .35);
 }
 .tid-id-no {
   margin: 0;
@@ -12660,6 +12684,20 @@ html[data-perf="low"] .tid-hero .tid-card {
   font-size: 9px;
   color: var(--id-head, #fff);
   white-space: nowrap;
+  text-shadow:
+    0 1px 0 rgba(26, 39, 68, .55),
+    0 0 2px rgba(26, 39, 68, .45),
+    1px 0 0 rgba(26, 39, 68, .28),
+    -1px 0 0 rgba(26, 39, 68, .28),
+    0 1px 0 rgba(26, 39, 68, .28),
+    0 -1px 0 rgba(26, 39, 68, .28),
+    var(--id-shadow, 0 2px 0 rgba(40,36,56,.28));
+}
+.tid-card.id-card-light .tid-card-head h2,
+.tid-card.id-card-light .tid-id-no,
+.tid-card.id-card-light .tid-brand-mark {
+  color: var(--id-head, var(--tid-ink, #1a2744));
+  text-shadow: 0 1px 0 rgba(255,255,255,.75);
 }
 .tid-card-body {
   display: grid;
@@ -14313,6 +14351,64 @@ html[data-reduced-motion="1"] .scc-stage-sprite.is-acquiring { animation: none; 
   color: #8496ae;
 }
 .tid-party-empty { margin: 12px 0 0; }
+.tid-party-slot.is-inspectable {
+  position: relative;
+  cursor: pointer;
+}
+.tid-party-hit,
+.team-slot-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: inherit;
+}
+.team-slot.filled {
+  position: relative;
+}
+.team-slot-actions {
+  position: relative;
+  z-index: 3;
+}
+.tid-party-slot.is-inspectable:hover,
+.tid-party-slot.is-inspectable:focus-within {
+  border-color: var(--tid-pink, #f3a0c8);
+  box-shadow: 0 0 0 2px rgba(94, 184, 232, .35);
+}
+.team-slot.filled:hover .team-slot-hit:focus-visible,
+.team-slot-hit:focus-visible,
+.tid-party-hit:focus-visible {
+  outline: 2px solid #5eb8e8;
+  outline-offset: 2px;
+}
+.play-modal-team-inspect .play-modal-card {
+  width: min(520px, calc(100vw - 24px));
+  max-height: min(86vh, 720px);
+}
+.play-modal-team-inspect .pc-pick-inspect-panel {
+  padding: 4px 2px 8px;
+}
+.tid-journal-catchline {
+  margin: 2px 0 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5a6a88;
+}
+.tid-journal-entry-achievement {
+  background: linear-gradient(135deg, rgba(255, 244, 214, .95), rgba(255, 255, 255, .96));
+  border-color: #f0d48a;
+}
+.tid-journal-figure.is-achievement .tid-journal-emblem {
+  color: #c48a18;
+}
+.tid-journal-tab {
+  font-size: 11px;
+  letter-spacing: .05em;
+}
 html:not([data-reduced-motion="1"]):not([data-perf="low"]) .tid-party-tray .tid-party-slot {
   animation: tid-slot-in .34s ease-out backwards;
   animation-delay: calc(var(--tid-slot-i, 0) * 45ms);

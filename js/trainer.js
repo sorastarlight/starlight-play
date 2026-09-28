@@ -8,6 +8,7 @@
   const ownerCustomize = document.getElementById("owner-customize");
   let card = null;
   let mine = false;
+  let catchById = new Map();
   let journalEntries = [];
   let journalCategory = "ALL";
   let journalLimit = 8;
@@ -26,8 +27,30 @@
       formId: row.formId,
       gender: row.gender || "",
       ball: row.ball || "",
-      place: row.routeName || row.locationName || row.area || ""
+      place: row.metLocation || row.routeName || row.locationName || row.area || ""
     })).filter((entry) => entry.at || entry.dex != null);
+  }
+
+  function achievementsToJournalEntries(rows) {
+    return (Array.isArray(rows) ? rows : [])
+      .filter((row) => row?.unlockedAt || row?.unlocked_at || row?.at)
+      .map((row) => ({
+        type: "ACHIEVEMENT",
+        at: row.unlockedAt || row.unlocked_at || row.at,
+        title: row.name || row.title || "Achievement earned",
+        body: row.description || row.body || "Achievement earned",
+        dex: null,
+        variant: null,
+        formId: null
+      }));
+  }
+
+  function mergeJournal(...groups) {
+    return groups.flat().filter(Boolean).sort((a, b) => {
+      const ta = a.at ? new Date(a.at).getTime() : 0;
+      const tb = b.at ? new Date(b.at).getTime() : 0;
+      return tb - ta;
+    });
   }
 
   function renderJournal() {
@@ -57,6 +80,23 @@
     });
   }
 
+  function bindTeamInspect(view) {
+    const teamBody = document.getElementById("trainer-team-body");
+    if (!teamBody || teamBody.dataset.inspectBound === "1") return;
+    teamBody.dataset.inspectBound = "1";
+    teamBody.addEventListener("click", (event) => {
+      const hit = event.target.closest("[data-inspect-catch]");
+      if (!hit) return;
+      const id = hit.getAttribute("data-inspect-catch");
+      const mon = (view?.team || card?.team || []).find((row) => String(row?.id) === String(id));
+      if (!mon) return;
+      window.playOpenTeamMonInspect?.(mon, {
+        mode: mine ? "owner" : "public",
+        resolve: (row) => catchById.get(String(row.id)) || row
+      });
+    });
+  }
+
   async function loadNav() {
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
@@ -74,7 +114,7 @@
     return { session, profile };
   }
 
-  function render(view, recent) {
+  function render(view) {
     title.textContent = view?.displayName ? `${view.displayName}` : "Trainer ID";
     if (ownerCustomize) ownerCustomize.hidden = !mine;
     if (hero) {
@@ -88,9 +128,9 @@
     if (showcaseBody) showcaseBody.innerHTML = window.playRenderTrainerShowcaseHtml(view);
     const teamBody = document.getElementById("trainer-team-body");
     if (teamBody) teamBody.innerHTML = window.playRenderTrainerPartyHtml(view);
-    if (recent) journalEntries = capturesToJournalEntries(recent);
     renderJournal();
     bindJournalInteractions();
+    bindTeamInspect(view);
   }
 
   async function load() {
@@ -108,24 +148,27 @@
       const data = await window.playCall("play_trainer", { p_login: login });
       card = data.trainer;
       mine = Boolean(data.mine);
-      journalEntries = capturesToJournalEntries(data.recent || []);
+      catchById = new Map();
+      (data.catches || []).forEach((row) => {
+        if (row?.id) catchById.set(String(row.id), row);
+      });
+      (data.recent || []).forEach((row) => {
+        if (row?.id && !catchById.has(String(row.id))) catchById.set(String(row.id), row);
+      });
+      (card?.team || []).forEach((row) => {
+        if (row?.id && !catchById.has(String(row.id))) catchById.set(String(row.id), row);
+      });
+      journalEntries = mergeJournal(
+        capturesToJournalEntries(data.recent || []),
+        achievementsToJournalEntries(data.journalAchievements || [])
+      );
       journalCategory = "ALL";
       journalLimit = 8;
-      render(card, data.recent || []);
+      render(card);
       if (mine) {
         try {
           const prog = await window.playCall("play_progression");
-          const achRows = (prog?.achievements || [])
-            .filter((row) => row?.unlocked && (row.unlockedAt || row.unlocked_at))
-            .map((row) => ({
-              type: "ACHIEVEMENT",
-              at: row.unlockedAt || row.unlocked_at,
-              title: row.name || "Achievement earned",
-              body: row.description || "Achievement earned",
-              dex: null,
-              variant: null,
-              formId: null
-            }));
+          // Prefer public journalAchievements when present; still merge owner evolutions.
           const evoRows = (prog?.recentEvolutions || prog?.evolutions || [])
             .filter((row) => row?.at || row?.evolvedAt || row?.createdAt)
             .map((row) => ({
@@ -137,12 +180,8 @@
               variant: row.variant || null,
               formId: row.formId || null
             }));
-          if (achRows.length || evoRows.length) {
-            journalEntries = journalEntries.concat(achRows, evoRows).sort((a, b) => {
-              const ta = a.at ? new Date(a.at).getTime() : 0;
-              const tb = b.at ? new Date(b.at).getTime() : 0;
-              return tb - ta;
-            });
+          if (evoRows.length) {
+            journalEntries = mergeJournal(journalEntries, evoRows);
             renderJournal();
           }
         } catch (_) {}

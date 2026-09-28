@@ -111,13 +111,24 @@
     }).join("");
   }
 
-  function pcPickInspectHtml(mon) {
+  function pcPickInspectHtml(mon, options) {
+    const slotNo = Number(options?.slotIndex);
+    const slotLabel = Number.isFinite(slotNo) && slotNo >= 0 ? `TEAM SLOT ${slotNo + 1}` : "TEAM SLOT";
     if (!mon) {
-      return `<div class="pc-pick-inspect-empty"><p class="muted">Select a Pokémon from your PC to inspect it.</p></div>`;
+      return `
+        <div class="pc-pick-inspect-panel">
+          <p class="pc-pick-slot-kicker">${slotLabel}</p>
+          <div class="pc-pick-inspect-empty">
+            <div class="pc-pick-inspect-platform" aria-hidden="true"></div>
+            <p class="muted">Select a Pokémon from your PC to inspect it.</p>
+          </div>
+          <button type="button" class="pc-pick-add" disabled>Add to Team</button>
+        </div>`;
     }
     const esc = window.playEscapeAttr || ((value) => String(value || ""));
     const shiny = String(mon.variant || "").includes("shiny") || mon.shiny;
     const formLabel = pcPickFormLabel(mon);
+    const display = window.playCaughtName(mon);
     const ballName = (typeof window.playItemLabel === "function" ? window.playItemLabel(mon.ball) : null) || "Poké Ball";
     const ballImg = typeof window.playItemSprite === "function" ? window.playItemSprite(mon.ball) : "";
     const metPlace = mon.metLocation || "";
@@ -127,7 +138,7 @@
       : (mon.caughtAt ? String(mon.caughtAt) : "");
     const chips = [
       mon.favorite ? `<span class="pc-pick-chip is-fav">★ Favorite</span>` : "",
-      mon.locked ? `<span class="pc-pick-chip is-lock">🔒 Locked</span>` : "",
+      mon.locked ? `<span class="pc-pick-chip is-lock">Locked</span>` : "",
       shiny ? `<span class="pc-pick-chip is-shiny">✦ Shiny</span>` : ""
     ].filter(Boolean).join("");
     const captureBits = [
@@ -138,38 +149,48 @@
     const badges = typeof window.playMonIdentityBadgesHtml === "function"
       ? window.playMonIdentityBadgesHtml(mon)
       : "";
+    const metaLine = [
+      mon.level != null ? `Lv. ${mon.level}` : "",
+      mon.gender || "",
+      formLabel ? esc(formLabel) : ""
+    ].filter(Boolean).join(" · ");
+    const addLabel = Number.isFinite(slotNo) && slotNo >= 0
+      ? `Add ${display} to Slot ${slotNo + 1}`
+      : `Add ${display} to Team`;
     return `
-      <div class="pc-pick-inspect-inner">
-        <div class="pc-pick-inspect-hero">
-          <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="96" height="96" loading="lazy">
-          <div>
-            <strong class="pc-pick-inspect-name">${window.playCaughtName(mon)}</strong>
-            ${mon.nickname && mon.name && mon.nickname !== mon.name
-              ? `<span class="muted pc-pick-species">${esc(mon.name)}</span>` : ""}
-            <p class="pc-pick-inspect-meta">${[
-              mon.level != null ? `Lv. ${mon.level}` : "",
-              mon.gender || "",
-              formLabel ? esc(formLabel) : ""
-            ].filter(Boolean).join(" · ")}</p>
-            ${chips ? `<div class="pc-pick-chips">${chips}</div>` : ""}
-            ${badges}
-          </div>
-        </div>
-        <section class="pc-pick-module" aria-label="Capture">
-          <h4>Capture</h4>
-          <div class="pc-pick-capture">
-            ${ballImg ? `<img src="${ballImg}" alt="" width="28" height="28">` : ""}
+      <div class="pc-pick-inspect-panel">
+        <p class="pc-pick-slot-kicker">${slotLabel}</p>
+        <div class="pc-pick-inspect-inner">
+          <div class="pc-pick-inspect-hero">
+            <div class="pc-pick-inspect-stage">
+              <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="96" height="96" loading="lazy">
+            </div>
             <div>
-              <strong>${esc(ballName)}</strong>
-              ${captureBits.length ? `<p class="muted">${captureBits.join(" · ")}</p>` : ""}
+              <strong class="pc-pick-inspect-name">${display}</strong>
+              ${mon.nickname && mon.name && mon.nickname !== mon.name
+                ? `<span class="muted pc-pick-species">${esc(mon.name)}</span>` : ""}
+              <p class="pc-pick-inspect-meta">${metaLine}</p>
+              ${chips ? `<div class="pc-pick-chips">${chips}</div>` : ""}
+              ${badges}
             </div>
           </div>
-        </section>
-        ${pcPickHasStats(mon) ? `
-          <section class="pc-pick-module" aria-label="Stats">
-            <h4>Stats</h4>
-            <div class="pc-pick-stats">${pcPickStatRows(mon)}</div>
-          </section>` : ""}
+          <section class="pc-pick-module" aria-label="Capture">
+            <h4>Capture</h4>
+            <div class="pc-pick-capture">
+              ${ballImg ? `<img src="${ballImg}" alt="" width="28" height="28">` : ""}
+              <div>
+                <strong>${esc(ballName)}</strong>
+                ${captureBits.length ? `<p class="muted">${captureBits.join(" · ")}</p>` : ""}
+              </div>
+            </div>
+          </section>
+          ${pcPickHasStats(mon) ? `
+            <section class="pc-pick-module" aria-label="Stats">
+              <h4>Stats</h4>
+              <div class="pc-pick-stats">${pcPickStatRows(mon)}</div>
+            </section>` : ""}
+        </div>
+        <button type="button" class="pc-pick-add" data-add-catch="${esc(mon.id)}">${esc(addLabel)}</button>
       </div>`;
   }
 
@@ -178,11 +199,13 @@
     const layout = options?.layout || { boxes: [] };
     const used = new Set((options?.usedIds || []).map(String));
     const onPick = typeof options?.onPick === "function" ? options.onPick : () => {};
+    const slotIndex = Number.isFinite(Number(options?.slotIndex)) ? Number(options.slotIndex) : -1;
     const monById = monMapFrom(mons);
-    let boxes = normalizePcBoxes(layout, mons);
+    const boxes = normalizePcBoxes(layout, mons);
     let boxIndex = 0;
     let selectedId = "";
     let searchQuery = "";
+    let gridScrollTop = 0;
 
     function boxNameMap() {
       return monBoxNames(boxes);
@@ -211,53 +234,89 @@
       return rows;
     }
 
-    function shellHtml() {
+    function gridHtml() {
       const searching = Boolean(searchQuery.trim());
       const rows = visibleMons();
-      if (selectedId && !rows.some((row) => String(row.id) === selectedId)) {
-        selectedId = rows[0] ? String(rows[0].id) : "";
+      if (selectedId && !rows.some((row) => String(row.id) === selectedId) && !monById.has(selectedId)) {
+        selectedId = "";
       }
+      if (!rows.length) {
+        return `<p class="muted pc-pick-empty">${searching
+          ? "No Pokémon match your search."
+          : "This box has no available Pokémon for your team."}</p>`;
+      }
+      return rows.map((mon) => {
+        const on = String(mon.id) === selectedId;
+        return `<button type="button" class="pc-pick-mon${on ? " is-selected" : ""}" data-id="${mon.id}" aria-pressed="${on}">
+          <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" loading="lazy">
+          <strong>${window.playCaughtName(mon)}</strong>
+          <span>${window.playCaughtBlurb(mon)}</span>
+        </button>`;
+      }).join("");
+    }
+
+    function shellHtml() {
+      const searching = Boolean(searchQuery.trim());
       const selected = selectedId ? monById.get(selectedId) : null;
       const tabs = boxes.map((box, i) => (
         `<button type="button" class="pc-pick-tab${!searching && i === boxIndex ? " is-on" : ""}" data-box="${i}" role="tab" aria-selected="${!searching && i === boxIndex}">${window.playEscapeAttr(box.name)}</button>`
       )).join("");
-      const grid = rows.length
-        ? rows.map((mon) => {
-          const on = String(mon.id) === selectedId;
-          return `<button type="button" class="pc-pick-mon${on ? " is-selected" : ""}" data-id="${mon.id}" aria-pressed="${on}">
-            <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="">
-            <strong>${window.playCaughtName(mon)}</strong>
-            <span>${window.playCaughtBlurb(mon)}</span>
-          </button>`;
-        }).join("")
-        : `<p class="muted pc-pick-empty">${searching
-          ? "No Pokémon match your search."
-          : "This box has no available Pokémon for your team."}</p>`;
+      const boxNote = searching
+        ? `Search · ${visibleMons().length} matches`
+        : `${boxes[boxIndex]?.name || "BOX"} · ${visibleMons().length} ready`;
       return `
         <div class="pc-pick-shell">
           <div class="pc-pick-nav">
             <div class="pc-pick-tabs" role="tablist">${tabs}</div>
             <label class="pc-pick-search">
               <span class="pc-pick-search-label">Search</span>
-              <input type="search" class="pc-pick-search-input" placeholder="Name, box, shiny, form…" value="${window.playEscapeAttr(searchQuery)}" autocomplete="off">
+              <input type="search" class="pc-pick-search-input" placeholder="Name, nickname, shiny, form…" value="${window.playEscapeAttr(searchQuery)}" autocomplete="off">
             </label>
+            <p class="pc-pick-box-status" aria-live="polite">${window.playEscapeAttr(boxNote)}</p>
           </div>
           <div class="pc-pick-body">
-            <div class="pc-pick-grid-wrap">
-              <div class="pc-pick-grid">${grid}</div>
-            </div>
-            <aside class="pc-pick-inspect" aria-live="polite">${pcPickInspectHtml(selected)}</aside>
+            <section class="pc-pick-browser" aria-label="PC storage">
+              <header class="pc-pick-pane-head">
+                <span>PC Storage</span>
+                <span class="pc-pick-pane-hint">Inspect · then Add</span>
+              </header>
+              <div class="pc-pick-grid-wrap">
+                <div class="pc-pick-grid">${gridHtml()}</div>
+              </div>
+            </section>
+            <aside class="pc-pick-inspect" aria-live="polite" aria-label="Inspection terminal">${pcPickInspectHtml(selected, { slotIndex })}</aside>
           </div>
-          <footer class="pc-pick-foot">
-            <button type="button" class="pc-pick-add primary" ${selected ? "" : "disabled"}>Add to Team</button>
-          </footer>
         </div>`;
     }
 
+    function rememberGridScroll() {
+      const wrap = document.querySelector("#play-picker-body .pc-pick-grid-wrap");
+      if (wrap) gridScrollTop = wrap.scrollTop;
+    }
+
+    function restoreGridScroll() {
+      const wrap = document.querySelector("#play-picker-body .pc-pick-grid-wrap");
+      if (wrap) wrap.scrollTop = gridScrollTop;
+    }
+
+    function paintInspectOnly() {
+      const aside = document.querySelector("#play-picker-body .pc-pick-inspect");
+      if (!aside) return;
+      const selected = selectedId ? monById.get(selectedId) : null;
+      aside.innerHTML = pcPickInspectHtml(selected, { slotIndex });
+      document.querySelectorAll("#play-picker-body .pc-pick-mon").forEach((btn) => {
+        const on = String(btn.dataset.id) === selectedId;
+        btn.classList.toggle("is-selected", on);
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    }
+
     function paint(focusSearch) {
+      rememberGridScroll();
       const body = document.getElementById("play-picker-body");
       if (!body) return;
       body.innerHTML = shellHtml();
+      restoreGridScroll();
       if (!focusSearch) return;
       const input = body.querySelector(".pc-pick-search-input");
       if (input) {
@@ -269,6 +328,8 @@
 
     const dialog = openPicker("Add to My Team", shellHtml(), "play-modal-wide play-modal-pc-pick");
     const body = dialog.querySelector("#play-picker-body");
+    const form = dialog.querySelector(".play-modal-card");
+    if (form) form.classList.add("pc-pick-card");
 
     body.addEventListener("click", (event) => {
       const tab = event.target.closest(".pc-pick-tab[data-box]");
@@ -278,25 +339,31 @@
         boxIndex = Number(tab.dataset.box);
         if (Number.isNaN(boxIndex)) return;
         searchQuery = "";
-        paint(true);
+        selectedId = "";
+        gridScrollTop = 0;
+        paint(false);
         return;
       }
       if (monBtn) {
         selectedId = String(monBtn.dataset.id || "");
-        paint(false);
+        paintInspectOnly();
         return;
       }
       if (addBtn && !addBtn.disabled) {
-        const mon = selectedId ? monById.get(selectedId) : null;
+        const id = addBtn.dataset.addCatch || selectedId;
+        const mon = id ? monById.get(String(id)) : null;
+        if (!mon) return;
         dialog.close();
-        if (mon) onPick(mon);
+        onPick(mon);
       }
     });
 
     body.addEventListener("input", (event) => {
       if (!event.target.matches(".pc-pick-search-input")) return;
       searchQuery = event.target.value;
-      paint(false);
+      selectedId = "";
+      gridScrollTop = 0;
+      paint(true);
     });
 
     body.querySelector(".pc-pick-search-input")?.focus({ preventScroll: true });
@@ -368,7 +435,7 @@
       if (!mon) {
         return `<button type="button" class="team-slot empty" data-add="${index}" ${mine ? "" : "disabled"}>
           <span class="team-slot-no">${index + 1}</span>
-          <strong>${mine ? "Add" : "Empty"}</strong>
+          <strong>${mine ? "+ Add" : "Empty"}</strong>
         </button>`;
       }
       return `<article class="team-slot filled">
@@ -401,12 +468,22 @@
             if (statusEl) statusEl.textContent = "Your team already has six Pokémon.";
             return;
           }
+          const slotIndex = Number(add.dataset.add);
           const pickHandler = async (row) => {
             try {
-              team.push(row);
+              const at = Number.isFinite(slotIndex) ? Math.min(Math.max(slotIndex, 0), team.length) : team.length;
+              team.splice(at, 0, row);
+              if (team.length > 6) team.length = 6;
               if (statusEl) statusEl.textContent = "Saving team…";
               const data = await saveTeam(ids());
               if (statusEl) statusEl.textContent = data?.message || "Team updated.";
+              if (typeof window.playToast === "function") {
+                window.playToast({
+                  kind: "success",
+                  title: "Team updated",
+                  body: `${window.playCaughtName?.(row) || "Pokémon"} joined slot ${at + 1}.`
+                });
+              }
             } catch (error) {
               if (statusEl) statusEl.textContent = window.playRpcError(error);
             }
@@ -416,6 +493,7 @@
               mons: pcStorage.mons,
               layout: pcStorage.layout,
               usedIds: ids(),
+              slotIndex: Number.isFinite(slotIndex) ? slotIndex : team.length,
               onPick: pickHandler
             });
             return;

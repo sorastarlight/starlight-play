@@ -20,10 +20,13 @@
       type: "CAPTURE",
       at: row.caughtAt,
       title: `Caught ${window.playCaughtName(row)}`,
-      body: row.routeName || row.locationName || row.area || (typeof window.playCaughtBlurb === "function" ? window.playCaughtBlurb(row) : ""),
+      body: "",
       dex: row.dex,
       variant: row.variant,
-      formId: row.formId
+      formId: row.formId,
+      gender: row.gender || "",
+      ball: row.ball || "",
+      place: row.routeName || row.locationName || row.area || ""
     })).filter((entry) => entry.at || entry.dex != null);
   }
 
@@ -85,8 +88,6 @@
     if (showcaseBody) showcaseBody.innerHTML = window.playRenderTrainerShowcaseHtml(view);
     const teamBody = document.getElementById("trainer-team-body");
     if (teamBody) teamBody.innerHTML = window.playRenderTrainerPartyHtml(view);
-    const progressBody = document.getElementById("trainer-progress-body");
-    if (progressBody) progressBody.innerHTML = window.playRenderTrainerProgressHtml(view);
     if (recent) journalEntries = capturesToJournalEntries(recent);
     renderJournal();
     bindJournalInteractions();

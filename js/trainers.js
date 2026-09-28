@@ -412,8 +412,10 @@
     const identityOnly = variant === "identity";
     const trainerAlt = esc(card?.displayName || look.trainer?.name || "Trainer");
     if (avatarOnly) {
+      // Avatar Workshop preview deliberately ignores the Card Style background so the
+      // sprite is judged on a neutral stage.
       return `
-        <div class="tid-avatar-preview id-card-${bg.tone}" style="--id-chip:${bg.chip};background-image:url('${window.playCardBgUrl(bg.id)}')">
+        <div class="tid-avatar-preview is-neutral-stage">
           <div class="tid-avatar-stage is-hero${twitch ? " has-twitch" : ""}">
             <div class="tid-avatar-glow" aria-hidden="true"></div>
             <div class="tid-avatar-platform" aria-hidden="true"></div>
@@ -423,6 +425,16 @@
           </div>
         </div>`;
     }
+    const variants = counts.variants || {};
+    const mastered = Number(card?.speciesMastered || 0);
+    const femaleVariants = Number(variants.femaleVariants || 0);
+    const secondaryCells = [
+      `<div><dt>SPECIES MASTERED</dt><dd>${esc(mastered)}</dd></div>`,
+      `<div><dt>RESEARCH</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>`
+    ];
+    if (femaleVariants > 0) {
+      secondaryCells.push(`<div><dt>FEMALE VARIANTS</dt><dd>${esc(femaleVariants)}</dd></div>`);
+    }
     return `
       <article class="tid-card id-card-${bg.tone} id-card-${bg.group} id-card-frame-${esc(frame)}" data-tid-mode="${mode}" data-tid-variant="${esc(variant)}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk}">
         <div class="tid-art" style="background-image:url('${window.playCardBgUrl(bg.id)}')" aria-hidden="true"></div>
@@ -431,7 +443,6 @@
           <div class="tid-card-head-left">
             <img class="id-ball" src="images/items/poke-ball.png" alt="" width="28" height="28">
             <h2>TRAINER ID</h2>
-            <span class="tid-brand-mark" aria-hidden="true">★ ST★RLIGHT</span>
           </div>
           <p class="tid-id-no">ID No. ${String(card?.idNo || "00000").padStart(5, "0")}</p>
         </header>
@@ -444,23 +455,30 @@
             </div>
             ${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}
           </div>
-          <div class="tid-identity-panel">
-            <p class="tid-name">${esc(card?.displayName || "Trainer")}</p>
-            ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
-            <p class="tid-level">Lv. ${esc(card?.level || 1)}</p>
-            ${badgeRowHtml(badges, esc)}
-            <p class="tid-started">Trainer since ${window.playCardDate(card?.startedAt)}</p>
+          <div class="tid-identity-panel tid-glass">
+            <div class="tid-plaque tid-plaque-name">
+              <p class="tid-name">${esc(card?.displayName || "Trainer")}</p>
+              ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
+            </div>
+            <div class="tid-plaque tid-plaque-meta">
+              <p class="tid-level">Lv. ${esc(card?.level || 1)}</p>
+              <p class="tid-started">Trainer since ${window.playCardDate(card?.startedAt)}</p>
+            </div>
+            <div class="tid-plaque tid-plaque-badges">
+              ${badgeRowHtml(badges, esc)}
+            </div>
           </div>
         </div>
         ${identityOnly ? "" : `
-        <div class="tid-info-panel">
+        <div class="tid-info-panel tid-glass">
           <dl class="tid-highlights">
             <div><dt>Pokédex</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>
             <div><dt>Catches</dt><dd>${esc(card?.caught || 0)}</dd></div>
             <div><dt>Shinies</dt><dd>${esc(card?.shinyCaught || 0)}</dd></div>
             <div><dt>Evolutions</dt><dd>${esc(card?.evolved || 0)}</dd></div>
           </dl>
-          ${window.playXpProgressHtml(card, { profile: true })}
+          <dl class="tid-highlights tid-highlights-secondary">${secondaryCells.join("")}</dl>
+          <div class="tid-plaque tid-plaque-xp">${window.playXpProgressHtml(card, { profile: true })}</div>
         </div>`}
       </article>`;
   };
@@ -499,62 +517,83 @@
       </div>`;
   };
 
+  const PARTY_GENDER_MARKS = { male: "♂", female: "♀" };
+
+  function partySpeciesLabel(mon) {
+    const formName = typeof window.playFormDisplayName === "function"
+      ? window.playFormDisplayName(mon.dex, mon.formId || mon.pokemonFormId)
+      : "";
+    return String(mon.displayName || formName || mon.name || "").trim();
+  }
+
+  function partyFormLabel(mon, speciesLabel) {
+    const formId = mon.formId || mon.pokemonFormId;
+    if (!formId || typeof window.playFormDisplayName !== "function") return "";
+    const label = String(window.playFormDisplayName(mon.dex, formId) || "").trim();
+    if (!label || label === speciesLabel || label === String(mon.name || "").trim()) return "";
+    // playFormDisplayName renders "Species — Form"; only the form half is worth a chip.
+    const dash = label.indexOf("—");
+    return dash >= 0 ? label.slice(dash + 1).trim() : label;
+  }
+
   window.playRenderTrainerPartyHtml = function playRenderTrainerPartyHtml(card) {
+    const esc = window.playEscapeAttr || ((value) => String(value || ""));
     const team = Array.isArray(card?.team) ? card.team : [];
     const slots = Array.from({ length: 6 }, (_, i) => team[i] || null);
     const filled = slots.filter(Boolean).length;
-    return `<ul class="tid-party${filled ? "" : " is-all-empty"}">
-      ${slots.map((mon) => mon
-        ? `<li class="tid-party-slot">
-            <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="72" height="72" loading="lazy">
-            <strong>${window.playCaughtName(mon)}</strong>
-            <span>${mon.level != null ? `Lv. ${mon.level}` : "—"}</span>
-          </li>`
-        : `<li class="tid-party-slot is-open">
-            <img class="tid-party-ball" src="images/items/poke-ball.png" alt="" width="36" height="36" aria-hidden="true">
-            <span class="tid-party-open">Open slot</span>
-          </li>`
-      ).join("")}
-    </ul>${filled ? "" : `<p class="muted tid-empty">No party set yet. Organize six Pokémon in Settings.</p>`}`;
+    const slotHtml = slots.map((mon, index) => {
+      const position = index + 1;
+      if (!mon) {
+        return `<li class="tid-party-slot is-open" style="--tid-slot-i:${index}">
+            <span class="tid-party-index" aria-hidden="true">${position}</span>
+            <span class="tid-party-ball-well" aria-hidden="true">
+              <img class="tid-party-ball" src="images/items/poke-ball.png" alt="" width="40" height="40">
+            </span>
+            <span class="tid-party-open">Open Slot</span>
+          </li>`;
+      }
+      const shiny = String(mon.variant || "").toLowerCase().includes("shiny");
+      const species = partySpeciesLabel(mon) || "Pokémon";
+      const nickname = String(mon.nickname || "").trim();
+      const primary = nickname || species;
+      const showSpecies = Boolean(nickname) && nickname !== species;
+      const genderMark = PARTY_GENDER_MARKS[String(mon.gender || "").toLowerCase()] || "";
+      const formLabel = partyFormLabel(mon, species);
+      const ballSprite = mon.ball && typeof window.playItemSprite === "function"
+        ? window.playItemSprite(mon.ball)
+        : "";
+      const ballName = mon.ball && typeof window.playItemLabel === "function"
+        ? window.playItemLabel(mon.ball)
+        : "";
+      const tags = [
+        genderMark
+          ? `<span class="tid-party-tag tid-party-gender is-${esc(String(mon.gender).toLowerCase())}">${genderMark}<span class="visually-hidden">${esc(mon.gender)}</span></span>`
+          : "",
+        formLabel ? `<span class="tid-party-tag tid-party-form">${esc(formLabel)}</span>` : ""
+      ].filter(Boolean).join("");
+      return `<li class="tid-party-slot is-filled${shiny ? " is-shiny" : ""}" style="--tid-slot-i:${index}">
+          <span class="tid-party-index" aria-hidden="true">${position}</span>
+          <span class="tid-party-figure">
+            <img class="tid-party-sprite" src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="72" height="72" loading="lazy">
+            ${shiny ? `<span class="tid-party-sparkle" title="Shiny"><span aria-hidden="true">✦</span><span class="visually-hidden">Shiny</span></span>` : ""}
+          </span>
+          <strong class="tid-party-name">${esc(primary)}</strong>
+          ${showSpecies ? `<span class="tid-party-species">${esc(species)}</span>` : ""}
+          ${mon.level != null ? `<span class="tid-party-lv">Lv. ${esc(mon.level)}</span>` : ""}
+          ${tags ? `<span class="tid-party-tags">${tags}</span>` : ""}
+          ${ballSprite ? `<img class="tid-party-ball-icon" src="${ballSprite}" alt="" width="18" height="18" loading="lazy" title="${esc(ballName || "Poké Ball")}">` : ""}
+        </li>`;
+    }).join("");
+    return `<div class="tid-party-tray${filled ? "" : " is-all-empty"}">
+      <ol class="tid-party tid-party-slots">${slotHtml}</ol>
+      ${filled ? "" : `<p class="muted tid-empty tid-party-empty">No party set yet. Organize six Pokémon in My Account.</p>`}
+    </div>`;
   };
 
-  window.playRenderTrainerProgressHtml = function playRenderTrainerProgressHtml(card) {
-    const variants = card?.variants || {};
-    const esc = window.playEscapeAttr || ((value) => String(value || ""));
-    const mastered = Number(card?.speciesMastered || 0);
-    const female = Number(variants.femaleVariants || 0);
-    const kanto = card?.kanto || {};
-    const researchPct = kanto.percent != null
-      ? Number(kanto.percent)
-      : (kanto.caught != null ? Math.round(100 * Number(kanto.caught) / (Number(kanto.total) || 151)) : null);
-    const achBlock = card?.achievements;
-    let achUnlocked = null;
-    let achTotal = null;
-    if (achBlock && typeof achBlock === "object") {
-      achUnlocked = achBlock.unlocked ?? achBlock.unlockedCount ?? achBlock.complete ?? null;
-      achTotal = achBlock.total ?? achBlock.totalCount ?? null;
-    }
-    if (achUnlocked == null && card?.achievementsUnlocked != null) achUnlocked = card.achievementsUnlocked;
-    if (achTotal == null && card?.achievementsTotal != null) achTotal = card.achievementsTotal;
-    const milestoneCells = [
-      `<div><dt>Species mastered</dt><dd>${esc(mastered)}</dd></div>`
-    ];
-    if (researchPct != null && !Number.isNaN(researchPct)) {
-      milestoneCells.push(`<div><dt>Kanto research</dt><dd>${esc(researchPct)}%</dd></div>`);
-    }
-    if (achUnlocked != null && achTotal != null) {
-      milestoneCells.push(`<div><dt>Achievements</dt><dd>${esc(achUnlocked)} / ${esc(achTotal)}</dd></div>`);
-    }
-    if (female > 0) {
-      milestoneCells.push(`<div><dt>Female variants</dt><dd>${esc(female)}</dd></div>`);
-    }
-    return `
-      <p class="muted tid-journey-lede">Milestones beyond the Trainer ID card.</p>
-      <dl class="tid-prog-strip tid-journey-strip">${milestoneCells.join("")}</dl>
-      <div class="links tid-journey-links">
-        <a class="button secondary" href="./achievements.html">Achievements</a>
-        <a class="button secondary" href="./pokedex.html">Pokédex</a>
-      </div>`;
+  // Trainer Journey is folded into the Trainer ID info panel; kept as a stub so any
+  // stale caller renders nothing instead of throwing.
+  window.playRenderTrainerProgressHtml = function playRenderTrainerProgressHtml() {
+    return "";
   };
 
   window.playRenderTrainerStatsHtml = function playRenderTrainerStatsHtml(card) {
@@ -599,7 +638,10 @@
         body: raw.body || "",
         dex: raw.dex,
         variant: raw.variant,
-        formId: raw.formId
+        formId: raw.formId,
+        gender: raw.gender || "",
+        ball: raw.ball || "",
+        place: raw.place || raw.routeName || raw.locationName || raw.area || ""
       };
     }
     const at = raw.caughtAt || raw.at || null;
@@ -612,13 +654,51 @@
       body: place || (typeof window.playCaughtBlurb === "function" ? window.playCaughtBlurb(raw) : ""),
       dex: raw.dex,
       variant: raw.variant,
-      formId: raw.formId
+      formId: raw.formId,
+      gender: raw.gender || "",
+      ball: raw.ball || "",
+      place
     };
   }
 
   function journalEntryTime(entry) {
     const when = entry?.at ? new Date(entry.at) : null;
     return when && !Number.isNaN(when.getTime()) ? when.getTime() : 0;
+  }
+
+  const JOURNAL_LEDE = "Your adventure, recorded along the way.";
+  const JOURNAL_GENDER_MARKS = { male: "♂", female: "♀" };
+
+  function journalFigureHtml(entry, esc) {
+    if (entry.dex != null) {
+      const shiny = String(entry.variant || "").toLowerCase().includes("shiny");
+      return `<span class="tid-journal-figure${shiny ? " is-shiny" : ""}">
+        <img class="tid-journal-sprite" src="${window.playSpriteUrl(entry.dex, entry.variant, entry.formId)}" alt="" width="48" height="48" loading="lazy">
+        ${shiny ? `<span class="tid-journal-sparkle" aria-hidden="true">✦</span>` : ""}
+      </span>`;
+    }
+    if (entry.type === "ACHIEVEMENT") {
+      return `<span class="tid-journal-figure is-emblem"><span class="tid-journal-emblem" aria-hidden="true">★</span></span>`;
+    }
+    return `<span class="tid-journal-figure is-emblem"><span class="tid-journal-emblem is-plain" aria-hidden="true">${esc(entry.type === "EVOLUTION" ? "⤴" : "•")}</span></span>`;
+  }
+
+  function journalFactsHtml(entry, esc) {
+    const facts = [];
+    const mark = JOURNAL_GENDER_MARKS[String(entry.gender || "").toLowerCase()];
+    if (mark) {
+      facts.push(`<li class="tid-journal-fact tid-journal-gender is-${esc(String(entry.gender).toLowerCase())}">${mark}<span class="visually-hidden">${esc(entry.gender)}</span></li>`);
+    }
+    if (entry.ball) {
+      const ballName = typeof window.playItemLabel === "function" ? window.playItemLabel(entry.ball) : entry.ball;
+      const ballSprite = typeof window.playItemSprite === "function" ? window.playItemSprite(entry.ball) : "";
+      facts.push(`<li class="tid-journal-fact tid-journal-ball">${ballSprite ? `<img src="${ballSprite}" alt="" width="16" height="16" loading="lazy">` : ""}${esc(ballName)}</li>`);
+    }
+    if (entry.place) {
+      facts.push(`<li class="tid-journal-fact tid-journal-place">${esc(entry.place)}</li>`);
+    }
+    if (!facts.length) return "";
+    return `<ul class="tid-journal-facts">${facts.join("")}</ul>`;
   }
 
   window.playRenderAdventureLogHtml = function playRenderAdventureLogHtml(entries, options) {
@@ -630,7 +710,10 @@
     const normalized = source.map(journalNormalizeEntry).filter(Boolean);
     normalized.sort((a, b) => journalEntryTime(b) - journalEntryTime(a));
     if (!normalized.length) {
-      return `<p class="muted tid-empty tid-journal-empty">No journal entries yet. Catches will appear here.</p>`;
+      return `<div class="tid-journal is-empty">
+        <p class="tid-journal-lede">${JOURNAL_LEDE}</p>
+        <p class="muted tid-empty tid-journal-empty">No journal entries yet. Catches will appear here.</p>
+      </div>`;
     }
     const presentTypes = [...new Set(normalized.map((row) => row.type))];
     const tabKeys = ["ALL", ...presentTypes.filter((t) => t !== "ALL")];
@@ -646,6 +729,7 @@
     };
     return `
       <div class="tid-journal" data-journal-root>
+        <p class="tid-journal-lede">${JOURNAL_LEDE}</p>
         <div class="tid-journal-tabs" role="tablist" aria-label="Journal categories">
           ${tabKeys.map((key) => {
             const selected = key === activeCat;
@@ -655,20 +739,35 @@
         </div>
         <div class="tid-journal-book">
           <ol class="tid-journal-timeline">
-            ${visible.map((entry) => {
+            ${visible.map((entry, index) => {
               const typeLabel = JOURNAL_TYPE_LABELS[entry.type] || entry.type;
-              const desc = entry.body ? esc(entry.body) : esc(entry.title);
-              const sprite = entry.dex != null
-                ? `<img class="tid-journal-sprite" src="${window.playSpriteUrl(entry.dex, entry.variant, entry.formId)}" alt="" width="44" height="44" loading="lazy">`
-                : `<span class="tid-journal-sprite tid-journal-sprite-empty" aria-hidden="true">★</span>`;
-              return `<li class="tid-journal-entry" data-journal-type="${esc(entry.type)}">
-                ${sprite}
+              const shiny = String(entry.variant || "").toLowerCase().includes("shiny");
+              const stamp = fmtDate(entry);
+              let headline = entry.title || entry.body || typeLabel;
+              let subline = "";
+              if (entry.type === "CAPTURE" && entry.dex != null) {
+                const species = (typeof window.playSpeciesName === "function" && window.playSpeciesName(entry.dex))
+                  || String(entry.title || "").replace(/^Caught\s+/i, "")
+                  || `No. ${entry.dex}`;
+                headline = species;
+                subline = stamp ? `Caught ${stamp}` : "Caught";
+              } else if (stamp) {
+                subline = stamp;
+              }
+              const note = entry.body && entry.body !== entry.title && entry.body !== entry.place
+                ? entry.body
+                : "";
+              return `<li class="tid-journal-entry tid-journal-entry-${esc(entry.type.toLowerCase())}${shiny ? " is-shiny" : ""}" data-journal-type="${esc(entry.type)}" style="--tid-journal-i:${index}">
+                ${journalFigureHtml(entry, esc)}
                 <div class="tid-journal-copy">
+                  <p class="tid-journal-title">${esc(headline)}</p>
+                  ${subline ? `<p class="tid-journal-sub">${esc(subline)}</p>` : ""}
                   <div class="tid-journal-meta">
-                    <time class="tid-journal-date">${esc(fmtDate(entry))}</time>
                     <span class="tid-journal-type">${esc(typeLabel)}</span>
+                    ${shiny ? `<span class="tid-journal-shiny-tag"><span aria-hidden="true">✦</span> Shiny</span>` : ""}
                   </div>
-                  <p class="tid-journal-desc">${desc || esc(entry.title)}</p>
+                  ${note ? `<p class="tid-journal-desc">${esc(note)}</p>` : ""}
+                  ${journalFactsHtml(entry, esc)}
                 </div>
               </li>`;
             }).join("")}

@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260927-rc79">
+<link rel="stylesheet" href="css/play.css?v=20260927-rc80">
 <body data-page="settings" class="scc-page">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -79,7 +79,6 @@
             <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="showcase" aria-selected="false">Showcase</button>
             <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="team" aria-selected="false">Team</button>
           </div>
-          <p id="preview-dirty" class="scc-preview-flag muted" hidden>Draft changes — not saved yet</p>
           <div id="profile-workspace" class="scc-workspace"></div>
           <p id="edit-status" class="muted" role="status"></p>
         </div>
@@ -141,22 +140,18 @@
         <p id="conn-status" class="muted" role="status"></p>
 
         <section class="scc-section">
-          <h3>Login username</h3>
-          <p class="muted">Your RPG username is for signing in. The name other Trainers see is your display name under <a href="#trainer-id">Trainer ID</a>.</p>
-          <label class="field" for="acc-username">RPG username
+          <h3>Login</h3>
+          <p class="muted">This is the username you use to sign in. It is separate from your Display Name — the name other Trainers see — which lives under <a href="#trainer-id">Trainer ID</a>.</p>
+          <label class="field" for="acc-username">Account Username
             <input id="acc-username" maxlength="20" autocomplete="username">
           </label>
           <div class="links id-actions">
-            <button id="save-username" type="button">Save username</button>
+            <button id="save-username" type="button">Save Account Username</button>
           </div>
-        </section>
-
-        <section class="scc-section">
-          <h3>Security</h3>
+          <h4>Password</h4>
           <p id="security-email" class="muted">Email login is checked after you sign in.</p>
           <form id="claim-form">
-            <h4>Add email &amp; password</h4>
-            <p class="muted">Attach a password to this existing Trainer Account. This does not create a new Trainer.</p>
+            <p class="muted">Attach an email and password to this existing Trainer Account. This does not create a new Trainer.</p>
             <label class="field" for="claim-email">Email
               <input id="claim-email" type="email" autocomplete="email">
             </label>
@@ -168,7 +163,6 @@
             </div>
           </form>
           <form id="password-form">
-            <h4>Change password</h4>
             <label class="field" for="new-password">New password
               <input id="new-password" type="password" autocomplete="new-password" minlength="8">
             </label>
@@ -179,7 +173,7 @@
         </section>
 
         <section id="twitch-connections" class="scc-section">
-          <h3>Twitch connections</h3>
+          <h3>Connected Accounts</h3>
           <p class="muted">Connect Twitch so the RPG knows which Trainer is participating when you play in chat and on stream. Primary is your default Twitch-facing identity. Changing it does not move Pokémon, inventory, or XP. Browsing Pokédex, Rankings, Events, and public Trainer IDs does not require Twitch.</p>
           <div id="pending-link" class="notice" hidden></div>
           <div id="connection-list"></div>
@@ -206,6 +200,27 @@
     </div>
   </div>
 </div>
+<div id="dirty-bar" class="scc-dirty-bar" hidden>
+  <div class="scc-dirty-inner" role="status" aria-live="polite">
+    <span class="scc-dirty-spark" aria-hidden="true"></span>
+    <p id="dirty-bar-text" class="scc-dirty-text">Trainer ID has unsaved changes.</p>
+    <div class="scc-dirty-actions">
+      <button id="dirty-discard" class="secondary" type="button">Discard</button>
+      <button id="dirty-save" type="button">Save Trainer ID</button>
+    </div>
+  </div>
+</div>
+<dialog id="dirty-warn" class="modal">
+  <form method="dialog" class="modal-card">
+    <h3>You have unsaved Trainer ID changes.</h3>
+    <p>Keep editing, discard your draft, or save it before you go.</p>
+    <div class="links">
+      <button value="keep">Keep Editing</button>
+      <button id="dirty-warn-save" class="secondary" value="save">Save &amp; Continue</button>
+      <button id="dirty-warn-discard" class="secondary" value="discard">Discard Changes</button>
+    </div>
+  </form>
+</dialog>
 <dialog id="twitch-warn" class="modal">
   <form method="dialog" class="modal-card">
     <h3>Link a Twitch account</h3>
@@ -217,20 +232,20 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260927-rc79"></script>
-<script src="js/play-perf.js?v=20260927-rc79"></script>
-<script src="js/build.js?v=20260927-rc79"></script>
-<script src="js/build-client.js?v=20260927-rc79"></script>
-<script src="js/auth.js?v=20260927-rc79"></script>
-<script src="js/species.js?v=20260927-rc79"></script>
-<script src="js/variants.js?v=20260927-rc79"></script>
-<script src="js/forms.js?v=20260927-rc79"></script>
-<script src="js/game.js?v=20260927-rc79"></script>
-<script src="js/play-present.js?v=20260927-rc79"></script>
-<script src="js/play-encounter-state.js?v=20260927-rc79"></script>
-<script src="js/play-ux.js?v=20260927-rc79"></script>
-<script src="js/trainers.js?v=20260927-rc79"></script>
-<script src="js/team.js?v=20260927-rc79"></script>
-<script src="js/nav.js?v=20260927-rc79"></script>
-<script src="js/settings.js?v=20260927-rc79"></script>
+<script src="js/config.js?v=20260927-rc80"></script>
+<script src="js/play-perf.js?v=20260927-rc80"></script>
+<script src="js/build.js?v=20260927-rc80"></script>
+<script src="js/build-client.js?v=20260927-rc80"></script>
+<script src="js/auth.js?v=20260927-rc80"></script>
+<script src="js/species.js?v=20260927-rc80"></script>
+<script src="js/variants.js?v=20260927-rc80"></script>
+<script src="js/forms.js?v=20260927-rc80"></script>
+<script src="js/game.js?v=20260927-rc80"></script>
+<script src="js/play-present.js?v=20260927-rc80"></script>
+<script src="js/play-encounter-state.js?v=20260927-rc80"></script>
+<script src="js/play-ux.js?v=20260927-rc80"></script>
+<script src="js/trainers.js?v=20260927-rc80"></script>
+<script src="js/team.js?v=20260927-rc80"></script>
+<script src="js/nav.js?v=20260927-rc80"></script>
+<script src="js/settings.js?v=20260927-rc80"></script>
 </body>

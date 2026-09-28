@@ -8,7 +8,11 @@
     passCard: document.getElementById("pass-card"),
     check: document.getElementById("check-pass"),
     workspace: document.getElementById("profile-workspace"),
-    previewDirty: document.getElementById("preview-dirty"),
+    dirtyBar: document.getElementById("dirty-bar"),
+    dirtyText: document.getElementById("dirty-bar-text"),
+    dirtyDiscard: document.getElementById("dirty-discard"),
+    dirtySave: document.getElementById("dirty-save"),
+    dirtyWarn: document.getElementById("dirty-warn"),
     favorites: document.getElementById("favorite-balls"),
     favoriteEmpty: document.getElementById("favorite-empty"),
     defaultPrep: document.getElementById("default-prep"),
@@ -49,8 +53,12 @@
   let nameBusy = false;
   let category = "trainer-id";
   let profileTab = "identity";
+  let avatarScope = "all";
   let avatarFilter = "all";
   let avatarQuery = "";
+  let titleFilter = "all";
+  let saveBusy = false;
+  let leaveIntent = null;
   let login = "";
   let accountState = null;
   let pcStorage = null;
@@ -85,6 +93,10 @@
   window.playBindAccountNav({
     onSignOut() {
       els.box.hidden = true;
+      if (els.dirtyBar) {
+        els.dirtyBar.hidden = true;
+        els.dirtyBar.classList.remove("is-in");
+      }
       window.playRestoreGate(els.gate, GATE_COPY);
     }
   });
@@ -164,36 +176,93 @@
     return "owned";
   }
 
-  function avatarGroups() {
+  const STATE_LABELS = { locked: "Locked", equipped: "Equipped", owned: "Owned", new: "New" };
+
+  function stateLabel(state) {
+    return STATE_LABELS[state] || state;
+  }
+
+  const AVATAR_SCOPES = [["all", "All"], ["regions", "Regions"], ["special", "Special"], ["premium", "Premium"]];
+
+  const AVATAR_REGIONS = [
+    ["kanto", "Kanto", /^(gen1|lgpe)$/],
+    ["johto", "Johto", /^gen2$/],
+    ["hoenn", "Hoenn", /^gen3$/],
+    ["sinnoh", "Sinnoh", /^gen4$/],
+    ["unova", "Unova", /^gen5$/],
+    ["kalos", "Kalos", /^gen6$/],
+    ["alola", "Alola", /^gen7$/],
+    ["galar", "Galar", /^gen8$/],
+    ["paldea", "Paldea", /^gen9$/]
+  ];
+
+  function avatarRegionOf(group) {
+    const row = AVATAR_REGIONS.find((item) => item[2].test(String(group?.key || "")));
+    return row ? row[0] : "";
+  }
+
+  function avatarScopeOf(group) {
+    if (group?.premium) return "premium";
+    return avatarRegionOf(group) ? "regions" : "special";
+  }
+
+  function packLocked(group) {
+    return Boolean(group?.premium) && !ownedPacks.includes(group.key);
+  }
+
+  function avatarLooks() {
     const q = avatarQuery.trim().toLowerCase();
-    return (window.PLAY_TRAINERS || []).filter((group) => {
-      if (avatarFilter === "premium") return Boolean(group.premium);
-      if (avatarFilter === "special") return !group.premium && /special|anime|go|ranger|conquest|lgpe|pla|gen10/i.test(`${group.key} ${group.label}`);
-      if (avatarFilter !== "all") {
-        const map = {
-          kanto: /gen1|lgpe/i,
-          johto: /gen2/i,
-          hoenn: /gen3/i,
-          sinnoh: /gen4/i,
-          unova: /gen5/i,
-          kalos: /gen6/i,
-          alola: /gen7/i,
-          galar: /gen8/i,
-          paldea: /gen9/i
-        };
-        const re = map[avatarFilter];
-        if (re && !re.test(`${group.key} ${group.label} ${group.games || ""}`)) return false;
-      }
-      if (!q) return true;
-      return window.playTrainerLooks(group).some((look) => {
-        const blob = `${look.name} ${look.gender || ""} ${look.outfit || ""} ${group.label}`.toLowerCase();
-        return blob.includes(q);
-      }) || `${group.label} ${group.games || ""}`.toLowerCase().includes(q);
+    const rows = [];
+    (window.PLAY_TRAINERS || []).forEach((group) => {
+      const scope = avatarScopeOf(group);
+      if (avatarScope !== "all" && scope !== avatarScope) return;
+      if (avatarScope === "regions" && avatarFilter !== "all" && avatarRegionOf(group) !== avatarFilter) return;
+      const locked = packLocked(group);
+      window.playTrainerLooks(group).forEach((look) => {
+        if (q) {
+          const blob = `${look.name} ${look.gender || ""} ${look.outfit || ""} ${group.label} ${group.games || ""}`.toLowerCase();
+          if (!blob.includes(q)) return;
+        }
+        rows.push({ look, group, locked });
+      });
     });
+    return rows;
+  }
+
+  function motionOk() {
+    if (window.playPerfReduced?.()) return false;
+    return (window.playPerfMode?.() || "balanced") !== "low";
   }
 
   function markDirtyFlag() {
-    if (els.previewDirty) els.previewDirty.hidden = !profileDirty();
+    const bar = els.dirtyBar;
+    if (!bar) return;
+    if (!profileDirty()) {
+      bar.hidden = true;
+      bar.classList.remove("is-in");
+      return;
+    }
+    const wasHidden = bar.hidden;
+    bar.hidden = false;
+    if (wasHidden) {
+      if (motionOk()) requestAnimationFrame(() => bar.classList.add("is-in"));
+      else bar.classList.add("is-in");
+    } else {
+      bar.classList.add("is-in");
+    }
+  }
+
+  function setSaveBusy(busy) {
+    saveBusy = Boolean(busy);
+    els.dirtyBar?.classList.toggle("is-busy", saveBusy);
+    if (els.dirtySave) {
+      els.dirtySave.disabled = saveBusy;
+      els.dirtySave.textContent = saveBusy ? "Saving…" : "Save Trainer ID";
+    }
+    if (els.dirtyDiscard) els.dirtyDiscard.disabled = saveBusy;
+    els.workspace?.querySelectorAll("#save-trainer-id, #revert-trainer-id").forEach((btn) => {
+      btn.disabled = saveBusy;
+    });
   }
 
   function lookMeta(look) {
@@ -268,13 +337,13 @@
     return `
       <header class="scc-panel-head">
         <h2>Identity</h2>
-        <p class="muted">Your display name saves on its own. Avatar, card style, titles, and showcase are saved with <strong>Save Trainer ID</strong> in those tabs.</p>
+        <p class="muted">Your Display Name saves on its own — it is the name other Trainers see, separate from the Account Username you sign in with. Avatar, card style, titles, and showcase are saved with <strong>Save Trainer ID</strong> in those tabs.</p>
       </header>
       <div class="scc-identity-modules">
         ${identityStatusHtml()}
         ${twitchModuleHtml()}
       </div>
-      <label class="field" for="trainer-display-name">Display name
+      <label class="field" for="trainer-display-name">Display Name
         <input id="trainer-display-name" type="text" maxlength="24" placeholder="Sora Starlight" autocomplete="nickname" value="${esc(card?.displayName || "")}">
       </label>
       <div class="links id-actions">
@@ -284,65 +353,102 @@
       <p class="muted scc-identity-hint">Looking for your avatar? <a href="#trainer-id/avatar" data-jump-tab="avatar">Open the Avatar tab</a>.</p>`;
   }
 
-  function avatarPreviewHtml() {
+  function avatarStageHtml() {
     const view = previewCard();
     const look = window.playTrainerLook(view?.trainerSprite);
     const meta = lookMeta(look);
-    return `${window.playRenderIdCard(view, { mode: "preview", variant: "avatar" })}
-      <p class="scc-contextual-caption"><strong>${esc(look.trainer?.name || "Trainer")}</strong>${meta ? ` · ${esc(meta)}` : ""}</p>`;
+    const era = [look?.label, look?.games].filter(Boolean).join(" · ");
+    return `
+      <div class="scc-stage-frame">
+        <div class="scc-stage-glow" aria-hidden="true"></div>
+        <div class="scc-stage-platform" aria-hidden="true"></div>
+        <img class="scc-stage-sprite" src="${window.playTrainerSpriteUrl(view?.trainerSprite)}" alt="${esc(look?.trainer?.name || "Trainer")}" width="320" height="320" decoding="async" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png'">
+      </div>
+      <p class="scc-stage-name">${esc(look?.trainer?.name || "Trainer")}</p>
+      ${meta ? `<p class="scc-stage-meta">${esc(meta)}</p>` : ""}
+      ${era ? `<p class="scc-stage-era">${esc(era)}</p>` : ""}`;
+  }
+
+  function avatarCountText() {
+    const total = avatarLooks().length;
+    return `${total} avatar${total === 1 ? "" : "s"} shown`;
+  }
+
+  function avatarResultsHtml() {
+    const view = previewCard();
+    const rows = avatarLooks();
+    if (!rows.length) return `<p class="muted scc-workshop-empty">No avatars match this search.</p>`;
+    return rows.map(({ look, group, locked }) => {
+      const equipped = look.id === view.trainerSprite;
+      const state = locked ? "locked" : (equipped ? "equipped" : "owned");
+      const meta = [look.outfit, look.gender].filter(Boolean).join(" · ");
+      return `<button type="button" class="scc-avatar-card trainer-opt is-${state}" data-sprite="${esc(look.id)}" data-locked="${locked ? "1" : "0"}" aria-pressed="${equipped}" aria-label="${esc(look.name)} ${state}">
+        <span class="scc-avatar-thumb">
+          <img src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="64" height="64" loading="lazy" decoding="async">
+          ${locked ? `<span class="scc-avatar-lock" aria-hidden="true">🔒</span>` : ""}
+        </span>
+        <strong class="scc-avatar-name">${esc(look.name)}</strong>
+        <span class="scc-avatar-era">${esc(group.label)}</span>
+        ${meta ? `<span class="scc-avatar-meta">${esc(meta)}</span>` : ""}
+        <span class="id-state">${stateLabel(state)}</span>
+        ${locked ? `<span class="scc-avatar-hint">Available in Mart</span>` : ""}
+      </button>`;
+    }).join("");
   }
 
   function renderAvatar() {
-    const view = previewCard();
-    const filters = [
-      ["all", "All"], ["kanto", "Kanto"], ["johto", "Johto"], ["hoenn", "Hoenn"], ["sinnoh", "Sinnoh"],
-      ["unova", "Unova"], ["kalos", "Kalos"], ["alola", "Alola"], ["galar", "Galar"], ["paldea", "Paldea"],
-      ["special", "Special"], ["premium", "Premium"]
-    ];
-    const groups = avatarGroups();
+    const regionChips = [["all", "All regions"]].concat(AVATAR_REGIONS.map((row) => [row[0], row[1]]));
     return `
       <header class="scc-panel-head">
-        <h2>Trainer Avatar</h2>
-        <p class="muted">Preview instantly. Premium series stay locked until purchased in the Mart. Press <strong>Save Trainer ID</strong> to keep changes.</p>
+        <h2>Avatar Workshop</h2>
+        <p class="muted">Pick the Trainer sprite that represents you. Premium series stay visible but locked until purchased in the Mart. Press <strong>Save Trainer ID</strong> to keep your pick.</p>
       </header>
-      <div class="scc-contextual scc-contextual-avatar">${avatarPreviewHtml()}</div>
-      <div class="scc-avatar-tools">
-        <label class="field">Search
-          <input id="avatar-search" type="search" placeholder="Name or outfit" value="${esc(avatarQuery)}">
-        </label>
-        <div class="scc-filter-row" role="group" aria-label="Avatar filters">
-          ${filters.map(([id, label]) => `<button type="button" class="secondary scc-filter${avatarFilter === id ? " is-on" : ""}" data-avatar-filter="${id}" aria-pressed="${avatarFilter === id}">${label}</button>`).join("")}
-        </div>
-      </div>
-      <div class="scc-avatar-gallery">
-        ${groups.map((group) => {
-          const lockedPack = Boolean(group.premium) && !ownedPacks.includes(group.key);
-          const looks = window.playTrainerLooks(group).filter((lookRow) => {
-            if (!avatarQuery.trim()) return true;
-            const blob = `${lookRow.name} ${lookRow.gender || ""} ${lookRow.outfit || ""}`.toLowerCase();
-            return blob.includes(avatarQuery.trim().toLowerCase());
-          });
-          if (!looks.length) return "";
-          return `<section class="trainer-gen${lockedPack ? " is-locked" : ""}">
-            <h3>${esc(group.label)}</h3>
-            <p class="muted">${esc(group.games || "")}${lockedPack ? ` · <a href="./store.html#premium-avatars">Available in Mart</a>` : ""}</p>
-            <div class="trainer-gen-row">
-              ${looks.map((lookRow) => {
-                const equipped = lookRow.id === view.trainerSprite;
-                const state = lockedPack ? "locked" : (equipped ? "equipped" : "owned");
-                const rowMeta = [lookRow.outfit, lookRow.gender].filter(Boolean).join(" · ");
-                return `<button type="button" class="trainer-opt is-${state}" data-sprite="${esc(lookRow.id)}" data-locked="${lockedPack ? "1" : "0"}" aria-pressed="${equipped}" aria-label="${esc(lookRow.name)} ${state}">
-                  <img src="${window.playTrainerSpriteUrl(lookRow.id)}" alt="" width="72" height="72" loading="lazy">
-                  <strong>${esc(lookRow.name)}</strong>
-                  ${rowMeta ? `<span>${esc(rowMeta)}</span>` : ""}
-                  <span class="id-state">${state}</span>
-                </button>`;
-              }).join("")}
-            </div>
-          </section>`;
-        }).join("") || `<p class="muted">No avatars match this filter.</p>`}
+      <div class="scc-workshop-split">
+        <section class="scc-avatar-stage" aria-label="Avatar stage">
+          <p class="scc-module-kicker">AVATAR STAGE</p>
+          <div class="scc-stage-body">${avatarStageHtml()}</div>
+        </section>
+        <section class="scc-avatar-browser" aria-label="Avatar browser">
+          <p class="scc-module-kicker">AVATAR BROWSER</p>
+          <div class="scc-scope-row" role="group" aria-label="Avatar categories">
+            ${AVATAR_SCOPES.map(([id, label]) => `<button type="button" class="scc-scope${avatarScope === id ? " is-on" : ""}" data-avatar-scope="${id}" aria-pressed="${avatarScope === id}">${label.toUpperCase()}</button>`).join("")}
+          </div>
+          <label class="field scc-browser-search" for="avatar-search">Search
+            <input id="avatar-search" type="search" placeholder="Name or outfit" value="${esc(avatarQuery)}">
+          </label>
+          <div class="scc-region-chips" role="group" aria-label="Regions"${avatarScope === "regions" ? "" : " hidden"}>
+            ${regionChips.map(([id, label]) => `<button type="button" class="scc-chip${avatarFilter === id ? " is-on" : ""}" data-avatar-filter="${id}" aria-pressed="${avatarFilter === id}">${label}</button>`).join("")}
+          </div>
+          <div id="avatar-results" class="scc-avatar-results">${avatarResultsHtml()}</div>
+          <p id="avatar-count" class="muted scc-browser-count">${avatarCountText()}</p>
+        </section>
       </div>
       ${trainerIdActions()}`;
+  }
+
+  function refreshAvatarBrowser() {
+    const box = document.getElementById("avatar-results");
+    if (!box) {
+      renderProfileWorkspace();
+      return;
+    }
+    box.innerHTML = avatarResultsHtml();
+    box.scrollTop = 0;
+    const count = document.getElementById("avatar-count");
+    if (count) count.textContent = avatarCountText();
+    els.workspace?.querySelectorAll("[data-avatar-scope]").forEach((btn) => {
+      const on = btn.dataset.avatarScope === avatarScope;
+      btn.classList.toggle("is-on", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    const chips = els.workspace?.querySelector(".scc-region-chips");
+    if (!chips) return;
+    chips.hidden = avatarScope !== "regions";
+    chips.querySelectorAll("[data-avatar-filter]").forEach((btn) => {
+      const on = btn.dataset.avatarFilter === avatarFilter;
+      btn.classList.toggle("is-on", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
   }
 
   function backgroundRows() {
@@ -412,41 +518,117 @@
       ${trainerIdActions()}`;
   }
 
+  const TITLE_FILTERS = [["all", "All"], ["owned", "Owned"], ["locked", "Locked"]];
+
+  function titleHeroHtml() {
+    const row = (titles || []).find((item) => item.id === (draft?.titleId || ""));
+    const name = row?.name || "";
+    return `
+      <p class="scc-module-kicker">YOUR TITLE</p>
+      <p class="scc-title-hero-name${name ? "" : " is-empty"}">${name ? `★ ${esc(name)}` : "No title equipped"}</p>
+      <p class="muted">Displayed beneath your Trainer name.</p>`;
+  }
+
+  function titleListHtml() {
+    const rows = (titles || []).filter((row) => {
+      if (titleFilter === "owned") return Boolean(row.unlocked);
+      if (titleFilter === "locked") return !row.unlocked;
+      return true;
+    });
+    if (!rows.length) {
+      return `<p class="muted scc-workshop-empty">${titleFilter === "locked"
+        ? "Nothing left to unlock here."
+        : "No titles unlocked yet. Keep playing to earn some."}</p>`;
+    }
+    return rows.map((row) => {
+      const equipped = row.id === (draft?.titleId || "");
+      const state = pickState(row, equipped);
+      const hint = row.unlocked ? (row.description || "") : (row.howTo || row.description || "Locked");
+      return `<button type="button" class="scc-title-card prog-pick is-${state}" data-title="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
+        <strong class="scc-title-name">${esc(row.name)}</strong>
+        <span class="id-state">${stateLabel(state)}</span>
+        ${hint ? `<span class="scc-title-hint">${esc(hint)}</span>` : ""}
+      </button>`;
+    }).join("");
+  }
+
+  function badgeSocketsHtml() {
+    const ids = (draft?.badgeIds || []).slice(0, 3);
+    return [0, 1, 2].map((index) => {
+      const row = (badges || []).find((item) => item.id === ids[index]);
+      if (!row) {
+        return `<li class="scc-badge-socket is-empty">
+          <span class="scc-socket-gem" aria-hidden="true">+</span>
+          <span class="scc-socket-name">Empty slot</span>
+        </li>`;
+      }
+      return `<li class="scc-badge-socket">
+        <button type="button" class="scc-socket-btn" data-badge="${esc(row.id)}" aria-label="Remove ${esc(row.name)} from featured badges">
+          <span class="scc-socket-gem" aria-hidden="true">★</span>
+          <span class="scc-socket-name">${esc(row.name)}</span>
+          <span class="scc-socket-action">Remove</span>
+        </button>
+      </li>`;
+    }).join("");
+  }
+
+  function badgeCollectionHtml() {
+    if (!(badges || []).length) {
+      return `<p class="muted scc-workshop-empty">No badges yet. Catch Pokémon and unlock achievements to earn them.</p>`;
+    }
+    return (badges || []).map((row) => {
+      const equipped = (draft?.badgeIds || []).includes(row.id);
+      const state = pickState(row, equipped);
+      const hint = row.unlocked ? (row.description || "") : (row.howTo || row.description || "Locked");
+      return `<button type="button" class="scc-badge-card prog-pick is-${state}" data-badge="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
+        <span class="scc-badge-gem" aria-hidden="true">${row.unlocked ? "★" : "✦"}</span>
+        <strong class="scc-badge-name">${esc(row.name)}</strong>
+        <span class="id-state">${stateLabel(state)}</span>
+        ${hint ? `<span class="scc-badge-hint">${esc(hint)}</span>` : ""}
+      </button>`;
+    }).join("");
+  }
+
   function renderTitles() {
-    const view = previewCard();
     return `
       <header class="scc-panel-head">
         <h2>Title &amp; Badges</h2>
-        <p class="muted">Wear one title. Feature up to three badges on your Trainer ID.</p>
+        <p class="muted">Wear one title and feature up to three badges on your Trainer ID. Press <strong>Save Trainer ID</strong> to keep changes.</p>
       </header>
-      <div class="scc-contextual scc-contextual-identity">
-        ${window.playRenderIdCard(view, { mode: "preview", variant: "identity" })}
-      </div>
-      <h3>Title</h3>
-      <div class="prog-pick-grid">
-        ${(titles || []).map((row) => {
-          const equipped = row.id === (draft?.titleId || "");
-          const state = pickState(row, equipped);
-          return `<button type="button" class="prog-pick is-${state}" data-title="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
-            <strong>${esc(row.name)}</strong>
-            <span class="id-state">${state}</span>
-            <span>${esc(row.unlocked ? row.description : (row.howTo || row.description))}</span>
-          </button>`;
-        }).join("") || `<p class="muted">No titles unlocked yet.</p>`}
-      </div>
-      <h3>Featured badges <span class="muted" id="badge-count">(${(draft?.badgeIds || []).length}/3)</span></h3>
-      <div class="prog-pick-grid">
-        ${(badges || []).map((row) => {
-          const equipped = (draft?.badgeIds || []).includes(row.id);
-          const state = pickState(row, equipped);
-          return `<button type="button" class="prog-pick is-${state}" data-badge="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
-            <strong>${esc(row.name)}</strong>
-            <span class="id-state">${state}</span>
-            <span>${esc(row.unlocked ? row.description : (row.howTo || row.description))}</span>
-          </button>`;
-        }).join("") || `<p class="muted">No badges yet. Catch Pokémon and unlock achievements to earn them.</p>`}
-      </div>
+      <section class="scc-workshop" aria-label="Title workshop">
+        <h3 class="scc-workshop-head">Title Workshop</h3>
+        <div class="scc-title-hero">${titleHeroHtml()}</div>
+        <div class="scc-workshop-bar">
+          <p class="scc-module-kicker">AVAILABLE TITLES</p>
+          <div class="scc-filter-row" role="group" aria-label="Title filters">
+            ${TITLE_FILTERS.map(([id, label]) => `<button type="button" class="scc-chip${titleFilter === id ? " is-on" : ""}" data-title-filter="${id}" aria-pressed="${titleFilter === id}">${label}</button>`).join("")}
+          </div>
+        </div>
+        <div id="title-list" class="scc-title-list">${titleListHtml()}</div>
+      </section>
+      <section class="scc-workshop" aria-label="Badge workshop">
+        <h3 class="scc-workshop-head">Badge Workshop</h3>
+        <p class="scc-module-kicker">FEATURED BADGES <span id="badge-count">${(draft?.badgeIds || []).length}/3</span></p>
+        <ul id="badge-sockets" class="scc-badge-sockets">${badgeSocketsHtml()}</ul>
+        <p class="scc-module-kicker scc-collection-kicker">BADGE COLLECTION</p>
+        <div id="badge-collection" class="scc-badge-collection">${badgeCollectionHtml()}</div>
+      </section>
       ${trainerIdActions()}`;
+  }
+
+  function refreshTitleList() {
+    const box = document.getElementById("title-list");
+    if (!box) {
+      renderProfileWorkspace();
+      return;
+    }
+    box.innerHTML = titleListHtml();
+    box.scrollTop = 0;
+    els.workspace?.querySelectorAll("[data-title-filter]").forEach((btn) => {
+      const on = btn.dataset.titleFilter === titleFilter;
+      btn.classList.toggle("is-on", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
   }
 
   function renderShowcase() {
@@ -505,7 +687,7 @@
 
   function renderProfileWorkspace() {
     if (!els.workspace) return;
-    const gallery = els.workspace.querySelector(".scc-avatar-gallery");
+    const gallery = els.workspace.querySelector(".scc-avatar-results");
     const galleryTop = gallery ? gallery.scrollTop : null;
     if (profileTab === "identity") els.workspace.innerHTML = renderIdentity();
     else if (profileTab === "avatar") els.workspace.innerHTML = renderAvatar();
@@ -518,10 +700,11 @@
       window.playRenderTeamSlots(teamEl, card?.team, { mine: true });
     }
     if (galleryTop != null) {
-      const next = els.workspace.querySelector(".scc-avatar-gallery");
+      const next = els.workspace.querySelector(".scc-avatar-results");
       if (next) next.scrollTop = galleryTop;
     }
     markDirtyFlag();
+    setSaveBusy(saveBusy);
     syncSubnav();
   }
 
@@ -529,7 +712,7 @@
     btn.classList.remove("is-locked", "is-equipped", "is-owned", "is-new");
     btn.classList.add(`is-${state}`);
     const label = btn.querySelector(".id-state");
-    if (label) label.textContent = state;
+    if (label) label.textContent = stateLabel(state);
   }
 
   function updateAvatarSelection() {
@@ -540,8 +723,15 @@
       btn.setAttribute("aria-pressed", equipped ? "true" : "false");
       repaintPick(btn, locked ? "locked" : (equipped ? "equipped" : "owned"));
     });
-    const preview = els.workspace.querySelector(".scc-contextual-avatar");
-    if (preview) preview.innerHTML = avatarPreviewHtml();
+    const stage = els.workspace.querySelector(".scc-stage-body");
+    if (stage) {
+      stage.innerHTML = avatarStageHtml();
+      const sprite = motionOk() ? stage.querySelector(".scc-stage-sprite") : null;
+      if (sprite) {
+        sprite.classList.add("is-acquiring");
+        sprite.addEventListener("animationend", () => sprite.classList.remove("is-acquiring"), { once: true });
+      }
+    }
     markDirtyFlag();
   }
 
@@ -563,24 +753,26 @@
 
   function updateTitleSelection() {
     if (!els.workspace) return;
-    els.workspace.querySelectorAll("[data-title]").forEach((btn) => {
+    els.workspace.querySelectorAll("#title-list [data-title]").forEach((btn) => {
       const row = (titles || []).find((item) => item.id === btn.dataset.title);
       if (!row) return;
       const equipped = row.id === (draft?.titleId || "");
       btn.setAttribute("aria-pressed", equipped ? "true" : "false");
       repaintPick(btn, pickState(row, equipped));
     });
-    els.workspace.querySelectorAll("[data-badge]").forEach((btn) => {
+    els.workspace.querySelectorAll("#badge-collection [data-badge]").forEach((btn) => {
       const row = (badges || []).find((item) => item.id === btn.dataset.badge);
       if (!row) return;
       const equipped = (draft?.badgeIds || []).includes(row.id);
       btn.setAttribute("aria-pressed", equipped ? "true" : "false");
       repaintPick(btn, pickState(row, equipped));
     });
+    const hero = els.workspace.querySelector(".scc-title-hero");
+    if (hero) hero.innerHTML = titleHeroHtml();
+    const sockets = document.getElementById("badge-sockets");
+    if (sockets) sockets.innerHTML = badgeSocketsHtml();
     const count = document.getElementById("badge-count");
-    if (count) count.textContent = `(${(draft?.badgeIds || []).length}/3)`;
-    const preview = els.workspace.querySelector(".scc-contextual-identity");
-    if (preview) preview.innerHTML = window.playRenderIdCard(previewCard(), { mode: "preview", variant: "identity" });
+    if (count) count.textContent = `${(draft?.badgeIds || []).length}/3`;
     markDirtyFlag();
   }
 
@@ -623,15 +815,87 @@
     if (category === "trainer-id") renderProfileWorkspace();
   }
 
-  function goToCategory(next) {
-    if (category === "trainer-id" && next !== "trainer-id" && profileDirty()) {
-      if (!window.confirm("You have unsaved Trainer ID changes. Leave without saving?")) return;
-    }
+  function applyCategory(next) {
     category = next;
     syncNav();
     setHash();
     if (category === "trainer-id") renderProfileWorkspace();
+    markDirtyFlag();
   }
+
+  function goToCategory(next) {
+    if (category === "trainer-id" && next !== "trainer-id" && profileDirty()) {
+      confirmLeave(() => applyCategory(next));
+      return;
+    }
+    applyCategory(next);
+  }
+
+  /* ---------- Unsaved Trainer ID guard ---------- */
+
+  function confirmLeave(proceed) {
+    if (!profileDirty()) {
+      proceed();
+      return;
+    }
+    if (typeof els.dirtyWarn?.showModal === "function") {
+      leaveIntent = proceed;
+      if (!els.dirtyWarn.open) {
+        els.dirtyWarn.returnValue = "";
+        els.dirtyWarn.showModal();
+      }
+      return;
+    }
+    if (window.confirm("You have unsaved Trainer ID changes. Leave without saving?")) {
+      revertTrainerId();
+      proceed();
+    }
+  }
+
+  function leavingHref(anchor) {
+    if (!anchor || anchor.target === "_blank" || anchor.hasAttribute("download")) return "";
+    const raw = anchor.getAttribute("href") || "";
+    if (!raw || raw.startsWith("#") || /^(mailto:|tel:|javascript:)/i.test(raw)) return "";
+    const url = new URL(anchor.href, location.href);
+    if (url.origin === location.origin && url.pathname === location.pathname && url.search === location.search) return "";
+    return url.href;
+  }
+
+  els.dirtyWarn?.addEventListener("close", async () => {
+    const proceed = leaveIntent;
+    const choice = els.dirtyWarn.returnValue;
+    leaveIntent = null;
+    if (!proceed || choice === "keep" || !choice) return;
+    if (choice === "discard") {
+      revertTrainerId();
+      proceed();
+      return;
+    }
+    if (choice === "save") {
+      const ok = await saveTrainerId();
+      if (ok) proceed();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!profileDirty()) return;
+    const anchor = event.target.closest?.("a[href]");
+    if (!anchor || els.dirtyWarn?.contains(anchor)) return;
+    const href = leavingHref(anchor);
+    if (!href) return;
+    event.preventDefault();
+    confirmLeave(() => { location.href = href; });
+  }, true);
+
+  els.dirtyDiscard?.addEventListener("click", () => {
+    if (saveBusy) return;
+    revertTrainerId();
+  });
+
+  els.dirtySave?.addEventListener("click", () => {
+    if (saveBusy) return;
+    saveTrainerId();
+  });
 
   function fillEncounter(syncForm) {
     if (syncForm !== false) {
@@ -813,11 +1077,11 @@
   }
 
   document.getElementById("save-username")?.addEventListener("click", async () => {
-    setConnStatus("Saving username…");
+    setConnStatus("Saving Account Username…");
     try {
       accountState = await window.playCall("play_set_username", { p_username: els.username?.value || "" });
       renderAccountPanels();
-      setConnStatus(accountState?.message || "Username saved.");
+      setConnStatus(accountState?.message || "Account Username saved.");
     } catch (error) {
       setConnStatus(window.playRpcError(error));
     }
@@ -1093,16 +1357,29 @@
       setHash();
       return;
     }
+    const scope = event.target.closest("[data-avatar-scope]");
+    if (scope) {
+      avatarScope = scope.dataset.avatarScope;
+      if (avatarScope !== "regions") avatarFilter = "all";
+      refreshAvatarBrowser();
+      return;
+    }
     const filter = event.target.closest("[data-avatar-filter]");
     if (filter) {
       avatarFilter = filter.dataset.avatarFilter;
-      renderProfileWorkspace();
+      refreshAvatarBrowser();
+      return;
+    }
+    const titleFilterBtn = event.target.closest("[data-title-filter]");
+    if (titleFilterBtn) {
+      titleFilter = titleFilterBtn.dataset.titleFilter;
+      refreshTitleList();
       return;
     }
     const sprite = event.target.closest("[data-sprite]");
     if (sprite) {
       if (sprite.dataset.locked === "1") {
-        if (els.status) els.status.textContent = "Premium Avatar — available in Mart.";
+        if (els.status) els.status.textContent = "Premium Avatar — available in the Mart.";
         return;
       }
       draft.sprite = sprite.dataset.sprite;
@@ -1155,16 +1432,9 @@
   });
 
   els.workspace?.addEventListener("input", (event) => {
-    if (event.target.id === "avatar-search") {
-      avatarQuery = event.target.value || "";
-      renderProfileWorkspace();
-      const input = document.getElementById("avatar-search");
-      if (input) {
-        input.focus();
-        const len = input.value.length;
-        input.setSelectionRange(len, len);
-      }
-    }
+    if (event.target.id !== "avatar-search") return;
+    avatarQuery = event.target.value || "";
+    refreshAvatarBrowser();
   });
 
   els.workspace?.addEventListener("change", (event) => {
@@ -1213,15 +1483,17 @@
   }
 
   function revertTrainerId() {
-    if (!savedCard) return;
+    if (!savedCard || saveBusy) return;
     card = { ...savedCard };
     snapshotDraft(savedCard);
     renderProfileWorkspace();
+    markDirtyFlag();
     if (els.status) els.status.textContent = "Reverted to your saved Trainer ID.";
   }
 
   async function saveTrainerId() {
-    if (!draft) return;
+    if (!draft || saveBusy) return false;
+    setSaveBusy(true);
     if (els.status) els.status.textContent = "Saving Trainer ID…";
     try {
       const saved = await window.playCall("play_save_trainer_id", {
@@ -1241,10 +1513,15 @@
       savedCard = { ...card };
       cosmetics = saved.cosmetics || cosmetics;
       snapshotDraft(card);
+      setSaveBusy(false);
       renderProfileWorkspace();
+      markDirtyFlag();
       if (els.status) els.status.textContent = saved.message || "Trainer ID saved.";
+      return true;
     } catch (error) {
+      setSaveBusy(false);
       if (els.status) els.status.textContent = friendlySaveError(error, SAVE_FAIL);
+      return false;
     }
   }
 

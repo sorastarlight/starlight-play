@@ -1216,8 +1216,13 @@
       window._playOwnedAvatarPacks = ownedPacks;
       if (prog?.trainer) {
         card = { ...card, ...prog.trainer };
-        savedCard = { ...card };
-        snapshotDraft(card);
+        if (!profileDirty()) {
+          savedCard = { ...card };
+          snapshotDraft(card);
+        } else if (savedCard) {
+          // Keep the in-progress Trainer ID draft; refresh non-draft fields only.
+          savedCard = { ...savedCard, ...prog.trainer };
+        }
       }
     } catch (_) {}
   }
@@ -1233,6 +1238,7 @@
   }
 
   async function load() {
+    const keepDraft = profileDirty() ? { ...draft } : null;
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
     if (!session) {
@@ -1274,8 +1280,10 @@
       ownedPacks = data.ownedAvatarPacks || ownedPacks;
       window._playOwnedAvatarPacks = ownedPacks;
       catches = data.catches || data.caughtOptions || [];
-      snapshotDraft(card);
+      if (keepDraft) draft = keepDraft;
+      else snapshotDraft(card);
       await loadProgression();
+      if (keepDraft) draft = keepDraft;
     } catch (error) {
       els.gate.textContent = window.playRpcError(error, "Could not load your Trainer ID.");
       els.box.hidden = true;
@@ -1288,6 +1296,7 @@
     fillPerf();
     els.gate.hidden = true;
     els.box.hidden = false;
+    markDirtyFlag();
   }
 
   const teamStatusProxy = {

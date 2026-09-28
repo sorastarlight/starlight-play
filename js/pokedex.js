@@ -429,9 +429,9 @@
         </div>`;
     }
     if (els.counters) {
-      els.counters.innerHTML = `
-        <div class="dex-counter"><span class="dex-counter-label">Seen</span><strong>${seenN} / ${total}</strong></div>
-        <div class="dex-counter"><span class="dex-counter-label">Caught</span><strong>${caughtN} / ${total}</strong></div>`;
+      // Seen/Caught live in the hero readouts; keep the node for a11y/tests but empty.
+      els.counters.innerHTML = "";
+      els.counters.hidden = true;
     }
     if (els.summary) {
       const q = String(els.search?.value || "").trim();

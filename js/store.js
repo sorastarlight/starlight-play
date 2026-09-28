@@ -238,8 +238,8 @@
     if (!wallet) {
       banner?.classList.remove("is-full");
       if (coinsEl) {
-        coinsEl.innerHTML = window.playCoinsHtml(null);
-        coinsEl.classList.remove("bag-warn");
+        coinsEl.classList.remove("poke-cash");
+        coinsEl.textContent = "—";
       }
       if (note) {
         note.textContent = "—";
@@ -258,7 +258,11 @@
     const coins = Number(wallet.coins || 0);
     const used = Number(wallet.used || 0);
     const cap = Number(wallet.capacity || 0);
-    if (coinsEl) coinsEl.innerHTML = window.playCoinsHtml(coins);
+    if (coinsEl) {
+      // Card already shows one PokéCoin art — value is number-only (no nested mark).
+      coinsEl.classList.remove("poke-cash");
+      coinsEl.textContent = window.playFormatCoins(coins);
+    }
     window.playFillBagMeter(wallet);
     if (note) note.textContent = `${used.toLocaleString()} / ${cap.toLocaleString()}`;
     banner?.classList.toggle("is-full", typeof window.playBagIsFull === "function" && window.playBagIsFull(wallet));
@@ -1240,7 +1244,17 @@
   els.floors?.addEventListener("click", async (event) => {
     const modeBtn = event.target.closest("[data-mart-mode]");
     if (modeBtn) {
-      martMode = modeBtn.dataset.martMode === "sell" ? "sell" : "buy";
+      const nextMode = modeBtn.dataset.martMode === "sell" ? "sell" : "buy";
+      martMode = nextMode;
+      try {
+        const url = new URL(window.location.href);
+        if (nextMode === "sell") url.hash = SELL_TAB;
+        else if (url.hash.replace(/^#/, "") === SELL_TAB) {
+          // Leaving sell must clear #sell or resolveTab() forces sell again.
+          url.hash = lastTab && lastTab !== SELL_TAB ? lastTab : "";
+        }
+        window.history.replaceState(null, "", url);
+      } catch (_) {}
       if (martMode === "sell") await refreshSellShelf();
       renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
       return;

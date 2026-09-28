@@ -155,10 +155,12 @@
       mon.level != null ? `Lv. ${mon.level}` : "",
       formLabel && formLabel !== species ? esc(formLabel) : ""
     ].filter(Boolean).join(" · ");
-    const addPlain = nick || species || "Pokémon";
+    const identityRow = nick && species && nick !== species
+      ? `<strong class="pc-pick-inspect-name">${display}<span class="pc-pick-name-sep" aria-hidden="true"> · </span><span class="pc-pick-species">${esc(species)}</span></strong>`
+      : `<strong class="pc-pick-inspect-name">${display}</strong>`;
     const addLabel = Number.isFinite(slotNo) && slotNo >= 0
-      ? `Add ${addPlain} to Slot ${slotNo + 1}`
-      : `Add ${addPlain} to Team`;
+      ? `Add to Slot ${slotNo + 1}`
+      : "Add to Team";
     return `
       <div class="pc-pick-inspect-panel">
         <p class="pc-pick-slot-kicker">${slotLabel}</p>
@@ -167,10 +169,8 @@
             <div class="pc-pick-inspect-stage">
               <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="80" height="80" loading="lazy">
             </div>
-            <div>
-              <strong class="pc-pick-inspect-name">${display}</strong>
-              ${nick && species && nick !== species
-                ? `<span class="muted pc-pick-species">${esc(species)}</span>` : ""}
+            <div class="pc-pick-inspect-id">
+              ${identityRow}
               ${metaLine ? `<p class="pc-pick-inspect-meta">${metaLine}</p>` : ""}
               ${chips ? `<div class="pc-pick-chips">${chips}</div>` : ""}
               ${badges}
@@ -223,6 +223,9 @@
         ? ((typeof window.playItemLabel === "function" ? window.playItemLabel(mon.ball) : null) || "Poké Ball")
         : "";
       const ballImg = mon.ball && typeof window.playItemSprite === "function" ? window.playItemSprite(mon.ball) : "";
+      const identityRow = nick && species && nick !== species
+        ? `<strong class="pc-pick-inspect-name">${display}<span class="pc-pick-name-sep" aria-hidden="true"> · </span><span class="pc-pick-species">${esc(species)}</span></strong>`
+        : `<strong class="pc-pick-inspect-name">${display}</strong>`;
       return `
         <div class="pc-pick-inspect-panel team-mon-inspect is-public">
           <div class="pc-pick-inspect-inner">
@@ -230,10 +233,8 @@
               <div class="pc-pick-inspect-stage">
                 <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="96" height="96" loading="lazy">
               </div>
-              <div>
-                <strong class="pc-pick-inspect-name">${display}</strong>
-                ${nick && species && nick !== species
-                  ? `<span class="muted pc-pick-species">${esc(species)}</span>` : ""}
+              <div class="pc-pick-inspect-id">
+                ${identityRow}
                 ${metaLine ? `<p class="pc-pick-inspect-meta">${metaLine}</p>` : ""}
                 ${badges}
               </div>
@@ -262,9 +263,9 @@
   window.playOpenTeamMonInspect = function playOpenTeamMonInspect(mon, options) {
     const resolved = typeof options?.resolve === "function" ? (options.resolve(mon) || mon) : mon;
     if (!resolved) return null;
-    const title = window.playCaughtName?.(resolved) || "Pokémon";
+    // Modal title stays generic — identity lives once in the inspector body.
     const html = teamMonInspectHtml(resolved, options);
-    return openPicker(title, html, "play-modal-team-inspect");
+    return openPicker("Team Pokémon", html, "play-modal-team-inspect");
   };
 
   window.playOpenPcTeamPicker = function playOpenPcTeamPicker(options) {

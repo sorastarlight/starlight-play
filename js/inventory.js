@@ -14,22 +14,29 @@
     sort: document.getElementById("bag-sort"),
     unowned: document.getElementById("bag-unowned"),
     detail: document.getElementById("item-detail"),
-    detailBody: document.getElementById("item-detail-body")
+    detailBody: document.getElementById("item-detail-body"),
+    wallet: document.getElementById("bag-wallet")
   };
   let invChannel = null;
   let lastBag = {};
   let lastCapture = null;
   let lastCollection = null;
   let lastLedgerOrder = [];
-  let tab = "balls";
+  let tab = "all";
+  let selectedKey = "";
   const TABS = [
+    ["all", "All"],
     ["balls", "Poké Balls"],
+    ["community", "Medicine / Supplies"],
     ["berries", "Berries"],
-    ["community", "Community Items"],
-    ["evolution", "Evolution Items"],
-    ["valuables", "Valuables"],
-    ["special", "Special Items"]
+    ["evolution", "Evolution"],
+    ["special", "Key / Special"],
+    ["valuables", "Other"]
   ];
+  const HIGHLIGHT = new Set([
+    "masterball", "rarecandy", "firestone", "waterstone", "thunderstone",
+    "leafstone", "moonstone", "linkingcord", "bait", "lure", "nugget", "bignugget"
+  ]);
 
   window.playBindAccountNav({
     onSignOut() {
@@ -39,13 +46,83 @@
   });
 
   function allKeys(bag) {
-    const keys = new Set(["coins", "bait", "lure", "rarecandy", "firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord", "stardust", "pearl", "starpiece", "nugget", "bigpearl", "bignugget"]);
+    const keys = new Set(["bait", "lure", "rarecandy", "firestone", "waterstone", "thunderstone", "leafstone", "moonstone", "linkingcord", "stardust", "pearl", "starpiece", "nugget", "bigpearl", "bignugget"]);
     (window.PLAY_BALLS || []).forEach((row) => keys.add(row.key));
     (window.playBerryCatalog?.(lastCapture) || window.PLAY_BERRIES || []).forEach((row) => keys.add(row.key));
     Object.keys(bag || {}).forEach((key) => {
-      if (!["capacity", "used", "lureArmed", "lureUntil"].includes(key)) keys.add(key);
+      if (!["capacity", "used", "lureArmed", "lureUntil", "coins"].includes(key)) keys.add(key);
     });
     return [...keys];
+  }
+
+  function pocketOf(key) {
+    const cat = window.playItemCategory(key);
+    if (cat === "balls") return "balls";
+    if (cat === "berries") return "berries";
+    if (cat === "community") return "community";
+    if (cat === "evolution") return "evolution";
+    if (cat === "valuables") return "valuables";
+    return "special";
+  }
+
+  function walletHtml(bag) {
+    const coins = Number(bag?.coins || 0);
+    const used = Number(bag?.used || 0);
+    const cap = Number(bag?.capacity || 0);
+    const mark = typeof window.playItemSprite === "function"
+      ? window.playItemSprite("coins")
+      : "images/items/pokecoin.png";
+    return `<section class="bag-wallet" aria-label="PokéCoins and bag space">
+      <div class="bag-wallet-coin">
+        <img class="poke-cash-mark" src="${mark}" alt="" width="28" height="28" decoding="async">
+        <div>
+          <p class="eyebrow">PokéCoins</p>
+          <strong class="bag-wallet-value">${window.playFormatCoins?.(coins) ?? coins}</strong>
+        </div>
+      </div>
+      <div class="bag-wallet-space">
+        <p class="eyebrow">Bag capacity</p>
+        <strong>${used.toLocaleString()} / ${cap.toLocaleString()}</strong>
+        <div class="bag-space" aria-hidden="true"><i style="width:${cap ? Math.min(100, Math.round((used / cap) * 100)) : 0}%"></i></div>
+      </div>
+    </section>`;
+  }
+
+  function itemCardHtml(row, bag) {
+    const key = row.key;
+    const qty = row.qty;
+    const name = window.playItemLabel(key);
+    const blurb = window.playItemPlayerText(key, lastCapture);
+    const pocket = TABS.find((t) => t[0] === pocketOf(key))?.[1] || "Items";
+    const isNew = window.playIsNewItem?.(key, qty);
+    const pinned = (window.playBagPins?.() || []).includes(key);
+    const hot = HIGHLIGHT.has(key);
+    const on = selectedKey === key;
+    return `<button type="button" class="bag-item${hot ? " is-hot" : ""}${on ? " is-selected" : ""}${qty < 1 ? " is-empty" : ""}" data-item="${key}" aria-pressed="${on}">
+      <img class="item-sprite" src="${window.playItemSprite(key)}" alt="" width="40" height="40" loading="lazy" decoding="async">
+      <span class="bag-item-copy">
+        <strong>${window.playEscapeAttr(name)}${isNew ? ` <span class="chip">NEW</span>` : ""}${pinned ? ` <span class="chip">PINNED</span>` : ""}</strong>
+        <span class="muted bag-item-blurb">${window.playEscapeAttr(blurb)}</span>
+        <span class="bag-item-meta">${window.playEscapeAttr(pocket)}</span>
+      </span>
+      <span class="bag-item-qty">×${Number(qty || 0).toLocaleString()}</span>
+    </button>`;
+  }
+
+  function detailPaneHtml(key, bag) {
+    if (!key) {
+      return `<aside class="bag-detail" aria-label="Item detail">
+        <p class="muted">Select an item to inspect it.</p>
+      </aside>`;
+    }
+    const qty = Number(bag[key] || 0);
+    return `<aside class="bag-detail" aria-label="Item detail">
+      ${window.playItemDetailHtml(key, qty, lastCapture)}
+      <div class="links">
+        <button type="button" class="secondary" data-pin-item="${key}">${(window.playBagPins?.() || []).includes(key) ? "Unpin" : "Pin in Bag"}</button>
+        <a class="button secondary" href="./store.html">Open Mart</a>
+      </div>
+    </aside>`;
   }
 
   function renderBag(bag) {
@@ -58,13 +135,12 @@
     window.playFillLurePanel(bag);
     if (els.tabs) {
       els.tabs.innerHTML = TABS.map(([id, label]) => (
-        `<button type="button" class="mart-tab${tab === id ? " is-on" : ""}" data-bag-tab="${id}" aria-pressed="${tab === id}">${label}</button>`
+        `<button type="button" class="mart-tab bag-pocket${tab === id ? " is-on" : ""}" data-bag-tab="${id}" aria-pressed="${tab === id}">${label}</button>`
       )).join("");
     }
     const rows = allKeys(bag)
-      .filter((key) => key !== "coins")
-      .map((key) => ({ key, qty: Number(bag[key] || 0), category: window.playItemCategory(key) }))
-      .filter((row) => row.category === tab)
+      .map((key) => ({ key, qty: Number(bag[key] || 0), pocket: pocketOf(key) }))
+      .filter((row) => tab === "all" || row.pocket === tab)
       .filter((row) => showUnowned || row.qty > 0 || pins.includes(row.key))
       .filter((row) => !query || window.playItemLabel(row.key).toLowerCase().includes(query) || row.key.includes(query));
     rows.sort((a, b) => {
@@ -78,38 +154,52 @@
         return idx(a.key) - idx(b.key) || b.qty - a.qty;
       }
       if (pins.includes(a.key) !== pins.includes(b.key)) return pins.includes(a.key) ? -1 : 1;
-      return a.key.localeCompare(b.key);
+      if (HIGHLIGHT.has(a.key) !== HIGHLIGHT.has(b.key)) return HIGHLIGHT.has(a.key) ? -1 : 1;
+      return a.pocket.localeCompare(b.pocket) || a.key.localeCompare(b.key);
     });
-    const wallet = `<section class="bag-group">
-      <h3>Wallet</h3>
-      <p class="muted bag-group-note">Spend these on Starlight Mart.</p>
-      <div class="bag-rows">${window.playBagRowHtml("coins", bag.coins || 0, lastCapture, { pins })}</div>
-    </section>`;
-    const body = rows.length
-      ? `<div class="bag-rows">${rows.map((row) => window.playBagRowHtml(row.key, row.qty, lastCapture, { pins })).join("")}</div>`
-      : `<p class="muted">${showUnowned ? "No items match this filter." : "Nothing in this pocket yet. Visit Starlight Mart or join encounters to fill it."}</p>`;
-    const specialist = ["netball", "diveball", "duskball", "lureball", "moonball", "repeatball", "nestball", "fastball", "heavyball"];
+    if (selectedKey && !rows.some((row) => row.key === selectedKey)) selectedKey = rows[0]?.key || "";
+    const pocketLabel = TABS.find((row) => row[0] === tab)?.[1] || "Items";
+    const list = rows.length
+      ? `<div class="bag-item-list">${rows.map((row) => itemCardHtml(row, bag)).join("")}</div>`
+      : `<p class="muted bag-empty">${showUnowned
+        ? "No items match this filter."
+        : tab === "all"
+          ? "Your bag is empty. Visit Starlight Mart or join encounters to fill it."
+          : `Nothing in the ${pocketLabel} pocket yet.`}</p>`;
     const tip = tab === "evolution" && rows.some((row) => Number(bag[row.key] || 0) > 0 && ["firestone", "waterstone", "thunderstone", "leafstone", "moonstone"].includes(row.key))
       ? window.playTipHtml?.("first-stone", "Evolution Items can be used with Evolution Candy to evolve eligible Pokémon along their Evolution Line.")
       : tab === "community" && Number(bag.bait || 0) > 0
         ? window.playTipHtml?.("first-honey", "Honey is a community contribution. It helps the shared encounter, does not replace your Poké Ball, and does not guarantee a catch.")
-        : tab === "balls" && rows.some((row) => specialist.includes(row.key) && row.qty > 0)
-          ? window.playTipHtml?.("first-specialist", "Some Poké Balls are more effective against certain Pokémon. Watch for the recommended indicator during encounters.")
-          : "";
-    els.bag.innerHTML = `${wallet}${tip || ""}<section class="bag-group"><h3>${TABS.find((row) => row[0] === tab)?.[1] || "Items"}</h3>${body}</section>`;
+        : "";
+    els.bag.innerHTML = `
+      ${walletHtml(bag)}
+      ${tip || ""}
+      <div class="bag-layout">
+        <section class="bag-main" aria-label="${pocketLabel}">
+          <header class="bag-main-head">
+            <h3>${pocketLabel}</h3>
+            <p class="muted">${rows.length} item${rows.length === 1 ? "" : "s"}</p>
+          </header>
+          ${list}
+        </section>
+        ${detailPaneHtml(selectedKey, bag)}
+      </div>`;
   }
 
   function openDetail(key) {
-    if (!els.detail || !els.detailBody) return;
+    if (!key) return;
+    selectedKey = key;
     window.playMarkItemSeen?.(key);
-    els.detailBody.innerHTML = `${window.playItemDetailHtml(key, lastBag[key] || 0, lastCapture)}
-      <div class="links">
-        <button type="button" class="secondary" data-pin-item="${key}">${(window.playBagPins?.() || []).includes(key) ? "Unpin" : "Pin in Bag"}</button>
-        <a class="button secondary" href="./store.html">Open Mart</a>
-      </div>`;
-    if (typeof els.detail.showModal === "function") els.detail.showModal();
-    else els.detail.setAttribute("open", "");
     renderBag(lastBag);
+    if (els.detail && els.detailBody && window.matchMedia("(max-width: 780px)").matches) {
+      els.detailBody.innerHTML = `${window.playItemDetailHtml(key, lastBag[key] || 0, lastCapture)}
+        <div class="links">
+          <button type="button" class="secondary" data-pin-item="${key}">${(window.playBagPins?.() || []).includes(key) ? "Unpin" : "Pin in Bag"}</button>
+          <a class="button secondary" href="./store.html">Open Mart</a>
+        </div>`;
+      if (typeof els.detail.showModal === "function") els.detail.showModal();
+      else els.detail.setAttribute("open", "");
+    }
   }
 
   async function load() {
@@ -183,12 +273,19 @@
     const btn = event.target.closest("[data-bag-tab]");
     if (!btn) return;
     tab = btn.dataset.bagTab;
+    selectedKey = "";
     renderBag(lastBag);
   });
   els.search?.addEventListener("input", () => renderBag(lastBag));
   els.sort?.addEventListener("change", () => renderBag(lastBag));
   els.unowned?.addEventListener("change", () => renderBag(lastBag));
   els.bag?.addEventListener("click", (event) => {
+    const pin = event.target.closest("[data-pin-item]");
+    if (pin) {
+      window.playToggleBagPin?.(pin.dataset.pinItem);
+      openDetail(pin.dataset.pinItem);
+      return;
+    }
     const row = event.target.closest("[data-item]");
     if (row) openDetail(row.dataset.item);
   });

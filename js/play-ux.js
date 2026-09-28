@@ -497,13 +497,19 @@
     const pinned = (options.pins || []).includes(key);
     const isNew = root.playIsNewItem(key, qty);
     const coins = key === "coins";
+    // aria-label must be plain text — never embed playCoinsHtml (its ">" broke the attribute).
+    const qtyPlain = coins
+      ? (typeof window !== "undefined" && root.playFormatCoins
+        ? root.playFormatCoins(qty)
+        : String(qty || 0))
+      : `x${Number(qty || 0).toLocaleString()}`;
     const qtyHtml = coins
       ? (typeof window !== "undefined" && root.playCoinsHtml
         ? root.playCoinsHtml(qty)
-        : String(qty || 0))
-      : `x${Number(qty || 0).toLocaleString()}`;
-    return `<article class="bag-row${coins ? " coins" : ""}${Number(qty || 0) < 1 ? " is-empty" : ""}" data-item="${esc(key)}" tabindex="0" role="button" aria-label="${esc(name)}, ${qtyHtml}">
-      <img class="item-sprite" src="${spriteOf(key)}" alt="">
+        : qtyPlain)
+      : qtyPlain;
+    return `<article class="bag-row${coins ? " coins" : ""}${Number(qty || 0) < 1 ? " is-empty" : ""}" data-item="${esc(key)}" tabindex="0" role="button" aria-label="${esc(name)}, ${esc(qtyPlain)}">
+      ${coins ? "" : `<img class="item-sprite" src="${spriteOf(key)}" alt="">`}
       <div class="bag-copy">
         <h3>${esc(name)}${isNew ? ` <span class="chip">NEW</span>` : ""}${pinned ? ` <span class="chip">PINNED</span>` : ""}</h3>
         <p>${esc(root.playItemPlayerText(key, captureItems))}</p>

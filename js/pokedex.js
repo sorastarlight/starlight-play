@@ -416,16 +416,14 @@
     const pct = Math.max(0, Math.min(100, Math.round((caughtN / Math.max(1, total)) * 100)));
     if (els.heroReadouts) {
       els.heroReadouts.innerHTML = `
-        <div class="dex-hero-stat">
-          <span class="dex-hero-stat-label">Seen</span>
-          <strong>${seenN}<span class="dex-hero-slash">/</span>${total}</strong>
-        </div>
-        <div class="dex-hero-stat">
-          <span class="dex-hero-stat-label">Caught</span>
-          <strong>${caughtN}<span class="dex-hero-slash">/</span>${total}</strong>
-        </div>
-        <div class="dex-hero-progress" role="img" aria-label="${caughtN} of ${total} Kanto Pokémon caught.">
-          <i style="width:${pct}%"></i>
+        <div class="dex-hero-readout">
+          <div class="dex-hero-leds" aria-hidden="true"><i></i><i></i><i></i></div>
+          <p class="dex-hero-readout-kicker">Kanto Research</p>
+          <p class="dex-hero-readout-line"><strong>${seenN}</strong> Seen <span aria-hidden="true">•</span> <strong>${caughtN}</strong> Caught</p>
+          <div class="dex-hero-progress" role="img" aria-label="${caughtN} of ${total} Kanto Pokémon caught.">
+            <i style="width:${pct}%"></i>
+          </div>
+          <p class="dex-hero-readout-foot muted">${caughtN}/${total} discovery</p>
         </div>`;
     }
     if (els.counters) {

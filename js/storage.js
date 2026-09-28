@@ -350,9 +350,9 @@
           </div>
           <div class="pc-inspect-id">
             <p class="pc-inspect-kicker">Selected Pokémon</p>
-            <h2>${window.playEscapeAttr(identityTitle(mon))}</h2>
             ${String(mon.nickname || "").trim() && mon.name && String(mon.nickname).trim() !== mon.name
-              ? `<p class="pc-inspect-species muted">${window.playEscapeAttr(mon.name)}</p>` : ""}
+              ? `<h2 class="pc-inspect-title">${window.playEscapeAttr(identityTitle(mon))}<span class="pc-pick-name-sep" aria-hidden="true"> · </span><span class="pc-inspect-species">${window.playEscapeAttr(mon.name)}</span></h2>`
+              : `<h2 class="pc-inspect-title">${window.playEscapeAttr(identityTitle(mon))}</h2>`}
             <p class="pc-inspect-level">Lv. ${mon.level || 1}</p>
             ${badges}
           </div>

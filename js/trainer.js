@@ -167,6 +167,12 @@
       render(card);
       if (mine) {
         try {
+          const storage = await window.playCall("play_storage");
+          (storage?.mons || []).forEach((row) => {
+            if (row?.id) catchById.set(String(row.id), row);
+          });
+        } catch (_) {}
+        try {
           const prog = await window.playCall("play_progression");
           // Prefer public journalAchievements when present; still merge owner evolutions.
           const evoRows = (prog?.recentEvolutions || prog?.evolutions || [])

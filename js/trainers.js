@@ -254,6 +254,25 @@
     return `images/trainers/${key}.${ext}?v=av10`;
   };
 
+  /** Classify avatar art family from visible pixel bounds for stage normalization. */
+  window.playNormalizeTrainerAvatar = function playNormalizeTrainerAvatar(img) {
+    if (!img || img.dataset.avatarNorm === "1") return;
+    const apply = () => {
+      const w = Number(img.naturalWidth || 0);
+      const h = Number(img.naturalHeight || 0);
+      const max = Math.max(w, h);
+      let family = "mid";
+      if (max >= 256) family = "full";
+      else if (max > 0 && max <= 96) family = "pixel";
+      img.dataset.avatarFamily = family;
+      img.dataset.avatarNorm = "1";
+      img.classList.toggle("is-full-art", family === "full");
+      img.classList.toggle("is-pixel-art", family === "pixel");
+    };
+    if (img.complete && img.naturalWidth) apply();
+    else img.addEventListener("load", apply, { once: true });
+  };
+
   window.playTrainerPortraitUrl = function playTrainerPortraitUrl(id) {
     const look = window.playTrainerLook?.(id);
     const trainer = look?.trainer || {};
@@ -431,7 +450,7 @@
             <div class="tid-avatar-glow" aria-hidden="true"></div>
             <div class="tid-avatar-platform" aria-hidden="true"></div>
             <div class="tid-avatar-well">
-              <img class="tid-avatar-sprite" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png'">
+              <img class="tid-avatar-sprite" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
             </div>
           </div>
         </div>`;
@@ -462,7 +481,7 @@
             <div class="tid-avatar-glow" aria-hidden="true"></div>
             <div class="tid-avatar-platform" aria-hidden="true"></div>
             <div class="tid-avatar-well">
-              <img class="tid-avatar-sprite" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png'">
+              <img class="tid-avatar-sprite" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
             </div>
             ${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}
           </div>

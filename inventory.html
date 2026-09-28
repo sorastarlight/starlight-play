@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260927-rc90">
+<link rel="stylesheet" href="css/play.css?v=20260928-rc91">
 <body data-page="inventory">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -20,7 +20,7 @@
         <span class="visually-hidden">Open menu</span>
       </button>
       <div id="topnav-panel" class="topnav-panel">
-        <div id="topnav-links" class="topnav-links"><a class="topnav-link" href="./" data-nav="play">Play</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./inventory.html" data-nav="inventory" aria-current="page">My Inventory</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./pokedex.html" data-nav="pokedex">My Pokédex</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./achievements.html" data-nav="achievements">Achievements</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./storage.html" data-nav="storage">My PC</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./evolve.html" data-nav="evolve">Evolution</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./trade.html" data-nav="trade">Global Trade System</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./rankings.html" data-nav="rankings">Rankings</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./events.html" data-nav="events">Events</a><span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link topnav-link-store" href="./store.html" data-nav="store">Store</a></div>
+        <div id="topnav-links" class="topnav-links" aria-busy="true"></div>
       </div>
       <div class="topnav-actions">
       <p id="auth-status" class="visually-hidden" role="status">Checking sign-in…</p>
@@ -54,7 +54,7 @@
 <div class="wrap">
   <div class="page-kicker inv-kicker">
     <img class="inv-brand-mark" src="images/items/inventory-bag.png" alt="" width="56" height="56" decoding="async">
-    <h1>My Inventory</h1>
+    <h1>My Bag</h1>
   </div>
   <p id="gate" class="notice">Sign in to open your inventory.</p>
   <div id="trainer" hidden>
@@ -62,7 +62,7 @@
       <div class="bag-head">
         <div>
           <h2>Bag pockets</h2>
-          <p id="capacity-note" class="muted"></p>
+          <p id="capacity-note" class="muted visually-hidden"></p>
         </div>
         <div class="bag-space" aria-hidden="true"><i id="capacity-bar"></i></div>
       </div>
@@ -113,18 +113,18 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260927-rc90"></script>
-<script src="js/play-perf.js?v=20260927-rc90"></script>
-<script src="js/build.js?v=20260927-rc90"></script>
-<script src="js/build-client.js?v=20260927-rc90"></script>
-<script src="js/auth.js?v=20260927-rc90"></script>
-<script src="js/variants.js?v=20260927-rc90"></script>
-<script src="js/forms.js?v=20260927-rc90"></script>
-<script src="js/game.js?v=20260927-rc90"></script>
-<script src="js/play-present.js?v=20260927-rc90"></script>
-<script src="js/play-encounter-state.js?v=20260927-rc90"></script>
-<script src="js/play-ux.js?v=20260927-rc90"></script>
-<script src="js/hud.js?v=20260927-rc90"></script>
-<script src="js/nav.js?v=20260927-rc90"></script>
-<script src="js/inventory.js?v=20260927-rc90"></script>
+<script src="js/config.js?v=20260928-rc91"></script>
+<script src="js/play-perf.js?v=20260928-rc91"></script>
+<script src="js/build.js?v=20260928-rc91"></script>
+<script src="js/build-client.js?v=20260928-rc91"></script>
+<script src="js/auth.js?v=20260928-rc91"></script>
+<script src="js/variants.js?v=20260928-rc91"></script>
+<script src="js/forms.js?v=20260928-rc91"></script>
+<script src="js/game.js?v=20260928-rc91"></script>
+<script src="js/play-present.js?v=20260928-rc91"></script>
+<script src="js/play-encounter-state.js?v=20260928-rc91"></script>
+<script src="js/play-ux.js?v=20260928-rc91"></script>
+<script src="js/hud.js?v=20260928-rc91"></script>
+<script src="js/nav.js?v=20260928-rc91"></script>
+<script src="js/inventory.js?v=20260928-rc91"></script>
 </body>

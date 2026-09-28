@@ -186,7 +186,15 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (home) {
       home.href = "./settings.html";
       home.textContent = "My Account";
+      home.classList.add("account-menu-btn");
     }
+    const card = els.card || document.getElementById("account-card");
+    if (card) {
+      card.textContent = "View My Trainer ID";
+      card.classList.add("account-menu-btn");
+    }
+    const staff = els.staff || document.getElementById("account-staff");
+    if (staff) staff.classList.add("account-menu-btn", "account-staff-action");
     document.getElementById("account-connections")?.remove();
     els.home = home;
     els.settings = null;
@@ -210,34 +218,22 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     if (!els.links) return;
     const items = links.slice();
     items.push({ href: "./store.html", id: "store", label: "Mart" });
-    if (!els.links.dataset.ready) {
-      els.links.innerHTML = items.map((item, index) => {
-        const current = item.id === page ? " aria-current=\"page\"" : "";
-        const extra = item.id === "store" ? " topnav-link-store" : "";
-        const divider = index < items.length - 1 ? `<span class="topnav-div" aria-hidden="true">|</span>` : "";
-        return `<a class="topnav-link${extra}" href="${item.href}" data-nav="${item.id}"${current}>${item.label}</a>${divider}`;
-      }).join("");
+    // Always rebuild from the canonical list so every page shares one geometry.
+    // Stale baked HTML (old labels/order/count) was the root cause of nav jump.
+    const html = items.map((item, index) => {
+      const current = item.id === page ? " aria-current=\"page\"" : "";
+      const extra = item.id === "store" ? " topnav-link-store" : "";
+      const divider = index < items.length - 1 ? `<span class="topnav-div" aria-hidden="true">|</span>` : "";
+      return `<a class="topnav-link${extra}" href="${item.href}" data-nav="${item.id}"${current}>${item.label}</a>${divider}`;
+    }).join("");
+    if (els.links.dataset.ready !== "1" || els.links.innerHTML !== html) {
+      els.links.innerHTML = html;
+    }
+    if (els.links.dataset.ready !== "1") {
       els.links.addEventListener("click", (event) => {
         if (event.target.closest("a")) closeNavPanel();
       });
       els.links.dataset.ready = "1";
-    } else {
-      // Keep labels/hrefs aligned when HTML shipped an older nav snapshot.
-      const byId = new Map(items.map((item) => [item.id, item]));
-      els.links.querySelectorAll("a[data-nav]").forEach((link) => {
-        const item = byId.get(link.dataset.nav);
-        if (!item) return;
-        if (link.getAttribute("href") !== item.href) link.setAttribute("href", item.href);
-        if (link.textContent !== item.label) link.textContent = item.label;
-      });
-      if (!els.links.querySelector("[data-nav=\"help\"]")) {
-        const store = els.links.querySelector("[data-nav=\"store\"]");
-        const helpHtml = `<span class="topnav-div" aria-hidden="true">|</span><a class="topnav-link" href="./help.html" data-nav="help">How to Play</a>`;
-        if (store) store.insertAdjacentHTML("beforebegin", helpHtml);
-        else els.links.insertAdjacentHTML("beforeend", helpHtml);
-      }
-      const storeLink = els.links.querySelector("[data-nav=\"store\"]");
-      if (storeLink && storeLink.textContent !== "Mart") storeLink.textContent = "Mart";
     }
     const adminPage = page === "admin" || page === "admin-live" || page === "admin-tools" || page === "admin-store";
     // Admin Hub lives in the account dropdown only — never inject into primary top nav.
@@ -248,6 +244,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       if (div) div.remove();
     }
     void adminPage;
+    void isAdmin;
     els.links.querySelectorAll("a[data-nav]").forEach((link) => {
       if (link.dataset.nav === "admin") return;
       if (link.dataset.nav === page) link.setAttribute("aria-current", "page");

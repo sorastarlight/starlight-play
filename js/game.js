@@ -1240,6 +1240,7 @@
     if (!round?.name) return "a wild Pokémon";
     const shiny = String(round.variant || "").includes("shiny");
     if (options?.plain) return round.name;
+    // Encounter fanfare may announce shininess; owned-mon labels never prefix "Shiny".
     if (shiny) return `Shiny ${round.name}`;
     return round.name;
   };

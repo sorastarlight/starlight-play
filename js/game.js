@@ -315,7 +315,15 @@
 
   window.playMonDisplayTitle = function playMonDisplayTitle(mon) {
     if (!mon) return "";
-    // Gender lives on the identity badges — keep the heading name-only.
+    // Prefer shared nickname/species helper — shiny is never part of the title.
+    if (typeof window.playCaughtName === "function") {
+      const named = window.playCaughtName(mon);
+      // playCaughtName HTML-escapes; titles often escape again — return raw when possible.
+      const nick = String(mon.nickname || "").trim();
+      if (nick) return nick;
+      if (typeof window.playCaughtSpeciesName === "function") return window.playCaughtSpeciesName(mon);
+      return mon.name || "Pokémon";
+    }
     return String(mon.nickname || mon.name || "Pokémon");
   };
 

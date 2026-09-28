@@ -855,9 +855,13 @@
     if (!anchor || anchor.target === "_blank" || anchor.hasAttribute("download")) return "";
     const raw = anchor.getAttribute("href") || "";
     if (!raw || raw.startsWith("#") || /^(mailto:|tel:|javascript:)/i.test(raw)) return "";
-    const url = new URL(anchor.href, location.href);
-    if (url.origin === location.origin && url.pathname === location.pathname && url.search === location.search) return "";
-    return url.href;
+    try {
+      const url = new URL(raw, location.href);
+      if (url.origin === location.origin && url.pathname === location.pathname && url.search === location.search) return "";
+      return url.href;
+    } catch (_) {
+      return "";
+    }
   }
 
   els.dirtyWarn?.addEventListener("close", async () => {

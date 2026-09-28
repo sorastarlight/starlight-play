@@ -244,9 +244,12 @@
     }
     const wasHidden = bar.hidden;
     bar.hidden = false;
+    // Apply is-in synchronously so the bar is visible even if a later
+    // paint/nav runs before the next animation frame.
+    bar.classList.add("is-in");
     if (wasHidden && motionOk()) {
-      requestAnimationFrame(() => bar.classList.add("is-in"));
-    } else {
+      bar.classList.remove("is-in");
+      void bar.offsetWidth;
       bar.classList.add("is-in");
     }
   }

@@ -429,11 +429,11 @@
     const mastered = Number(card?.speciesMastered || 0);
     const femaleVariants = Number(variants.femaleVariants || 0);
     const secondaryCells = [
-      `<div><dt>SPECIES MASTERED</dt><dd>${esc(mastered)}</dd></div>`,
+      `<div><dt>SPECIES MASTERED</dt><dd>${mastered}</dd></div>`,
       `<div><dt>RESEARCH</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>`
     ];
     if (femaleVariants > 0) {
-      secondaryCells.push(`<div><dt>FEMALE VARIANTS</dt><dd>${esc(femaleVariants)}</dd></div>`);
+      secondaryCells.push(`<div><dt>FEMALE VARIANTS</dt><dd>${femaleVariants}</dd></div>`);
     }
     return `
       <article class="tid-card id-card-${bg.tone} id-card-${bg.group} id-card-frame-${esc(frame)}" data-tid-mode="${mode}" data-tid-variant="${esc(variant)}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk}">
@@ -473,9 +473,9 @@
         <div class="tid-info-panel tid-glass">
           <dl class="tid-highlights">
             <div><dt>Pokédex</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>
-            <div><dt>Catches</dt><dd>${esc(card?.caught || 0)}</dd></div>
-            <div><dt>Shinies</dt><dd>${esc(card?.shinyCaught || 0)}</dd></div>
-            <div><dt>Evolutions</dt><dd>${esc(card?.evolved || 0)}</dd></div>
+            <div><dt>Catches</dt><dd>${Number(card?.caught || 0)}</dd></div>
+            <div><dt>Shinies</dt><dd>${Number(card?.shinyCaught || 0)}</dd></div>
+            <div><dt>Evolutions</dt><dd>${Number(card?.evolved || 0)}</dd></div>
           </dl>
           <dl class="tid-highlights tid-highlights-secondary">${secondaryCells.join("")}</dl>
           <div class="tid-plaque tid-plaque-xp">${window.playXpProgressHtml(card, { profile: true })}</div>

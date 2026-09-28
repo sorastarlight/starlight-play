@@ -1528,7 +1528,7 @@
       card = saved.trainer;
       savedCard = { ...card };
       cosmetics = saved.cosmetics || cosmetics;
-      snapshotDraft(card);
+      snapshotDraft(card, { force: true });
       setSaveBusy(false);
       renderProfileWorkspace();
       markDirtyFlag();

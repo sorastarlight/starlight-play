@@ -13,3 +13,7 @@ docs/audits/_qa-session.tmp.json
 
 __pycache__/
 *.pyc
+
+# Agent/tool dump artifacts
+[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]-*.txt
+

@@ -256,11 +256,10 @@
 
   /** Presentation overrides for unusual avatar silhouettes (auditable, sparse). */
   window.PLAY_AVATAR_STAGE_OVERRIDES = Object.assign({
-    // id: { targetH: 0.74, family: "pixel"|"full"|"mid"|"mascot", coreInset: 0.08 }
-    "sonic-sonic": { targetH: 0.74, family: "mascot" },
-    "sonic-amy": { targetH: 0.74, family: "mascot" },
-    "sonic-origins-sonic": { targetH: 0.74, family: "mascot" },
-    "sonic-origins-amy": { targetH: 0.74, family: "mascot" }
+    "sonic-sonic": { targetH: 0.78, family: "mascot" },
+    "sonic-amy": { targetH: 0.78, family: "mascot" },
+    "sonic-origins-sonic": { targetH: 0.78, family: "mascot" },
+    "sonic-origins-amy": { targetH: 0.78, family: "mascot" }
   }, window.PLAY_AVATAR_STAGE_OVERRIDES || {});
 
   function avatarAlphaBounds(img) {
@@ -357,13 +356,13 @@
       const override = window.PLAY_AVATAR_STAGE_OVERRIDES?.[id] || null;
       const family = avatarFamilyFromBounds(bounds, override?.family);
       const targetH = Number(override?.targetH)
-        || (family === "mascot" ? 0.74 : family === "pixel" ? 0.78 : family === "full" ? 0.76 : 0.76);
+        || (family === "mascot" ? 0.78 : family === "pixel" ? 0.78 : family === "full" ? 0.76 : 0.76);
       const envelope = mode === "thumb" ? 64 : 208;
       const usable = mode === "thumb" ? envelope * 0.92 : envelope * 0.9;
       const coreH = Number(bounds.ch || bounds.vh);
       const coreW = Number(bounds.cw || bounds.vw);
       const scaleByH = (usable * targetH) / Math.max(1, coreH);
-      const scaleByW = (usable * 0.92) / Math.max(1, bounds.vw);
+      const scaleByW = (usable * (family === "mascot" ? 0.98 : 0.92)) / Math.max(1, bounds.vw);
       const scale = Math.min(scaleByH, scaleByW);
       const renderW = Math.round(bounds.w * scale);
       const renderH = Math.round(bounds.h * scale);

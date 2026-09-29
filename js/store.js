@@ -487,7 +487,6 @@
           ${details}
           ${action || `<span class="mart-add-spacer" aria-hidden="true"></span>`}
         </div>
-        ${mode === "bits" ? grantListHtml(row) : ""}
       </article>`;
   }
 

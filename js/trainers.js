@@ -338,8 +338,8 @@
     let scale = Math.min(usable / Math.max(1, bounds.h), (envelope * 0.92) / Math.max(1, bounds.w));
     if (familyCfg.preferInteger && bounds.w <= 96) {
       const nearest = Math.max(1, Math.round(scale));
-      // Prefer integer when it still fits the stage safely.
-      if (bounds.h * nearest <= envelope * 0.92 && bounds.w * nearest <= envelope * 0.95) {
+      // Integer scale only when it still respects the family maxStage envelope.
+      if (nearest > 0 && bounds.h * nearest <= usable && bounds.w * nearest <= envelope * 0.95) {
         scale = nearest;
       }
     }

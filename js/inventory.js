@@ -73,12 +73,12 @@
       ? window.playItemSprite("coins")
       : "images/items/pokecoin.png";
     const bagArt = "images/items/inventory-bag.png";
-    return `<section class="bag-hero" aria-label="My Bag summary">
+    return `<section class="bag-hero" aria-label="My Inventory summary">
       <div class="bag-hero-identity">
         <img class="bag-hero-art" src="${bagArt}" alt="" width="56" height="56" decoding="async">
         <div>
           <p class="eyebrow">Trainer Bag</p>
-          <h3 class="bag-hero-title">My Bag</h3>
+          <h3 class="bag-hero-title">My Inventory</h3>
         </div>
       </div>
       <div class="bag-hero-stats">

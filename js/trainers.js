@@ -254,17 +254,52 @@
     return `images/trainers/${key}.${ext}?v=av10`;
   };
 
-  /** Family defaults for natural avatar stage scale (not forced body-height equalization). */
+  /**
+   * Family presentation hints — envelopes and pixel rules only.
+   * maxFill is a SAFE CEILING, never a forced equal-height target.
+   */
   window.PLAY_AVATAR_FAMILY_DEFAULTS = Object.assign({
-    pokemon_pixel: { maxStage: 0.58, pixelated: true, preferInteger: true },
-    pokemon_modern: { maxStage: 0.70, pixelated: false, preferInteger: false },
-    digimon: { maxStage: 0.66, pixelated: true, preferInteger: false },
-    sonic: { maxStage: 0.72, pixelated: true, preferInteger: true },
-    default: { maxStage: 0.68, pixelated: false, preferInteger: false }
+    pokemon_pixel: {
+      pixelated: true,
+      preferInteger: true,
+      maxFill: { stage: 0.72, card: 0.86, thumb: 0.92 },
+      minFill: { stage: 0.30, card: 0.34, thumb: 0.42 }
+    },
+    pokemon_modern: {
+      pixelated: false,
+      preferInteger: false,
+      maxFill: { stage: 0.88, card: 0.92, thumb: 0.94 },
+      minFill: { stage: 0.40, card: 0.44, thumb: 0.48 }
+    },
+    digimon: {
+      pixelated: true,
+      preferInteger: true,
+      maxFill: { stage: 0.78, card: 0.88, thumb: 0.92 },
+      minFill: { stage: 0.34, card: 0.38, thumb: 0.44 }
+    },
+    sonic: {
+      pixelated: true,
+      preferInteger: true,
+      maxFill: { stage: 0.80, card: 0.90, thumb: 0.94 },
+      minFill: { stage: 0.36, card: 0.40, thumb: 0.46 }
+    },
+    default: {
+      pixelated: false,
+      preferInteger: false,
+      maxFill: { stage: 0.82, card: 0.90, thumb: 0.94 },
+      minFill: { stage: 0.34, card: 0.38, thumb: 0.44 }
+    }
   }, window.PLAY_AVATAR_FAMILY_DEFAULTS || {});
 
-  /** Rare per-id overrides only. */
-  window.PLAY_AVATAR_STAGE_OVERRIDES = Object.assign({}, window.PLAY_AVATAR_STAGE_OVERRIDES || {});
+  /**
+   * Rare per-id presentation overrides (presentation metadata only).
+   * Keys: family, workshopScale, trainerCardScale, thumbScale, offsetX, offsetY, shadowWidth, pixelated, preferInteger
+   */
+  window.PLAY_AVATAR_STAGE_OVERRIDES = Object.assign({
+    // Keep unusual mascot art from looking oversized when padding is thin.
+    "sonic-amy": { trainerCardScale: 0.92, workshopScale: 0.94 },
+    "sonic-cream": { trainerCardScale: 0.94, workshopScale: 0.96 }
+  }, window.PLAY_AVATAR_STAGE_OVERRIDES || {});
 
   function avatarAlphaBounds(img) {
     const w = Number(img.naturalWidth || 0);
@@ -331,28 +366,76 @@
     return "default";
   }
 
-  function avatarNaturalScale(bounds, familyCfg, envelope) {
-    const maxStage = Number(familyCfg.maxStage || 0.68);
-    const usable = envelope * maxStage;
-    // Scale from full source canvas (authored size), not forced body occupancy.
-    let scale = Math.min(usable / Math.max(1, bounds.h), (envelope * 0.92) / Math.max(1, bounds.w));
-    if (familyCfg.preferInteger && bounds.w <= 96) {
-      const nearest = Math.max(1, Math.round(scale));
-      // Integer scale only when it still respects the family maxStage envelope.
-      if (nearest > 0 && bounds.h * nearest <= usable && bounds.w * nearest <= envelope * 0.95) {
-        scale = nearest;
-      }
-    }
-    return scale;
+  function avatarModeKey(mode) {
+    if (mode === "thumb") return "thumb";
+    if (mode === "card") return "card";
+    return "stage";
+  }
+
+  function avatarEnvelopePx(mode) {
+    if (mode === "thumb") return 64;
+    if (mode === "card") return 240;
+    return 208;
+  }
+
+  function avatarFillLimit(familyCfg, mode, which) {
+    const key = avatarModeKey(mode);
+    const bag = familyCfg?.[which] || {};
+    if (typeof bag === "number") return bag;
+    return Number(bag[key] ?? bag.stage ?? (which === "maxFill" ? 0.82 : 0.34));
   }
 
   /**
-   * Present avatars at natural/authored scale inside a fixed stage.
-   * Alpha bounds only trim transparent padding for grounding — not universal body size.
+   * Natural scale from authored/visible art — integer where practical, never forced equal height.
+   */
+  function avatarNaturalScale(bounds, familyCfg, envelope, mode) {
+    const vw = Math.max(1, bounds.vw || bounds.w || 1);
+    const vh = Math.max(1, bounds.vh || bounds.h || 1);
+    const maxFill = avatarFillLimit(familyCfg, mode, "maxFill");
+    const minFill = avatarFillLimit(familyCfg, mode, "minFill");
+    const maxH = envelope * maxFill;
+    const maxW = envelope * 0.92;
+    let scale = Math.min(maxH / vh, maxW / vw);
+
+    if (familyCfg.preferInteger && Math.max(bounds.w || 0, bounds.h || 0) <= 128) {
+      // Largest clean integer that still fits the family's safe envelope.
+      let best = 0;
+      for (let n = 1; n <= 8; n += 1) {
+        if (vh * n <= maxH + 0.5 && vw * n <= maxW + 0.5) best = n;
+      }
+      if (best > 0) scale = best;
+    }
+
+    // Recognition floor for thumbnails / tiny assets — never inflate past maxFill.
+    const minScale = Math.min(maxH / vh, maxW / vw, (envelope * minFill) / vh);
+    if (scale * vh < envelope * minFill * 0.98) {
+      scale = Math.min(Math.max(scale, minScale), maxH / vh, maxW / vw);
+    }
+    return Math.max(0.25, scale);
+  }
+
+  function avatarShadowHost(img) {
+    const well = img.closest(".scc-stage-frame, .tid-avatar-well, .scc-avatar-thumb, .tid-avatar-stage");
+    if (!well) return null;
+    let shadow = well.querySelector(".avatar-stage-shadow");
+    if (!shadow) {
+      shadow = document.createElement("span");
+      shadow.className = "avatar-stage-shadow";
+      shadow.setAttribute("aria-hidden", "true");
+      well.appendChild(shadow);
+    }
+    return shadow;
+  }
+
+  /**
+   * Present avatars at intentional natural scale inside a fixed stage.
+   * Alpha bounds trim transparent padding for grounding only.
    */
   window.playNormalizeTrainerAvatar = function playNormalizeTrainerAvatar(img, opts) {
     if (!img) return;
-    const mode = opts?.mode || (img.classList.contains("scc-avatar-thumb-img") || img.closest?.(".scc-avatar-thumb") ? "thumb" : "stage");
+    const mode = opts?.mode
+      || (img.classList.contains("scc-avatar-thumb-img") || img.closest?.(".scc-avatar-thumb") ? "thumb"
+        : (img.classList.contains("tid-avatar-sprite") || img.closest?.(".tid-avatar-stage") ? "card" : "stage"));
     const apply = () => {
       const bounds = avatarAlphaBounds(img) || {
         left: 0,
@@ -377,22 +460,34 @@
         window.PLAY_AVATAR_FAMILY_DEFAULTS[family] || {},
         override || {}
       );
-      const envelope = mode === "thumb" ? 64 : 208;
-      const scale = avatarNaturalScale(bounds, familyCfg, envelope);
-      const renderW = Math.round(bounds.w * scale);
-      const renderH = Math.round(bounds.h * scale);
-      // Transparent padding only — keep feet on fixed stage baseline.
+      const envelope = avatarEnvelopePx(mode);
+      let scale = avatarNaturalScale(bounds, familyCfg, envelope, mode);
+      const modeMul = mode === "card"
+        ? Number(familyCfg.trainerCardScale || 1)
+        : mode === "thumb"
+          ? Number(familyCfg.thumbScale || 1)
+          : Number(familyCfg.workshopScale || 1);
+      scale *= Number.isFinite(modeMul) && modeMul > 0 ? modeMul : 1;
+
+      const renderW = Math.max(1, Math.round(bounds.w * scale));
+      const renderH = Math.max(1, Math.round(bounds.h * scale));
+      const visW = Math.max(1, Math.round(bounds.vw * scale));
+      const visH = Math.max(1, Math.round(bounds.vh * scale));
       const padL = bounds.left * scale;
       const padR = (bounds.w - 1 - bounds.right) * scale;
       const padB = (bounds.h - 1 - bounds.bottom) * scale;
-      const stagePct = Math.round((bounds.vh * scale / envelope) * 1000) / 10;
+      const offX = Number(familyCfg.offsetX || 0);
+      const offY = Number(familyCfg.offsetY || 0);
+      const stagePct = Math.round((visH / envelope) * 1000) / 10;
 
       img.dataset.avatarFamily = family;
       img.dataset.avatarNorm = "1";
+      img.dataset.avatarMode = mode;
       img.dataset.avatarSrcW = String(bounds.w);
       img.dataset.avatarSrcH = String(bounds.h);
       img.dataset.avatarVis = `${bounds.vw}x${bounds.vh}`;
-      img.dataset.avatarRender = `${Math.round(bounds.vw * scale)}x${Math.round(bounds.vh * scale)}`;
+      img.dataset.avatarRender = `${visW}x${visH}`;
+      img.dataset.avatarScale = String(Math.round(scale * 1000) / 1000);
       img.dataset.avatarStagePct = String(stagePct);
       img.classList.toggle("is-pixel-art", Boolean(familyCfg.pixelated));
       img.classList.toggle("is-full-art", family === "pokemon_modern");
@@ -402,9 +497,17 @@
       img.style.maxWidth = "none";
       img.style.maxHeight = "none";
       img.style.objectFit = "fill";
-      img.style.margin = `0 ${-padR}px ${-padB}px ${-padL}px`;
-      img.style.transform = `translateX(${((padR - padL) / 2).toFixed(2)}px)`;
+      img.style.margin = `0 ${-padR}px ${-padB + offY}px ${-padL}px`;
+      img.style.transform = `translateX(${(((padR - padL) / 2) + offX).toFixed(2)}px)`;
       img.style.imageRendering = familyCfg.pixelated ? "pixelated" : "auto";
+      img.style.filter = familyCfg.pixelated ? "none" : "";
+
+      const shadow = avatarShadowHost(img);
+      if (shadow) {
+        const shadowW = Math.max(28, Math.min(envelope * 0.72, Number(familyCfg.shadowWidth) || visW * 0.78));
+        shadow.style.setProperty("--shadow-w", `${Math.round(shadowW)}px`);
+        shadow.classList.add("is-on");
+      }
     };
     if (img.complete && img.naturalWidth) apply();
     else img.addEventListener("load", apply, { once: true });
@@ -589,17 +692,14 @@
         <div class="tid-avatar-preview is-neutral-stage">
           <div class="tid-avatar-stage is-hero${twitch ? " has-twitch" : ""}">
             <div class="tid-avatar-glow" aria-hidden="true"></div>
-            <div class="tid-avatar-platform" aria-hidden="true"></div>
             <div class="tid-avatar-well">
-              <img class="tid-avatar-sprite" data-avatar-id="${window.playEscapeAttr?.(card?.trainerSprite) || card?.trainerSprite || ""}" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
+              <span class="avatar-stage-shadow" aria-hidden="true"></span>
+              <img class="tid-avatar-sprite" data-avatar-id="${window.playEscapeAttr?.(card?.trainerSprite) || card?.trainerSprite || ""}" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })">
             </div>
           </div>
         </div>`;
     }
     const mastered = Number(card?.speciesMastered || 0);
-    const secondaryCells = [
-      `<div><dt>SPECIES MASTERED</dt><dd>${mastered}</dd></div>`
-    ];
     return `
       <article class="tid-card id-card-${bg.tone} id-card-${bg.group} id-card-frame-${esc(frame)}" data-tid-mode="${mode}" data-tid-variant="${esc(variant)}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk}">
         <div class="tid-art" style="background-image:url('${window.playCardBgUrl(bg.id)}')" aria-hidden="true"></div>
@@ -614,37 +714,38 @@
         <div class="tid-card-body">
           <div class="tid-avatar-stage is-hero${twitch ? " has-twitch" : ""}">
             <div class="tid-avatar-glow" aria-hidden="true"></div>
-            <div class="tid-avatar-platform" aria-hidden="true"></div>
             <div class="tid-avatar-well">
-              <img class="tid-avatar-sprite" data-avatar-id="${window.playEscapeAttr?.(card?.trainerSprite) || card?.trainerSprite || ""}" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
+              <span class="avatar-stage-shadow" aria-hidden="true"></span>
+              <img class="tid-avatar-sprite" data-avatar-id="${window.playEscapeAttr?.(card?.trainerSprite) || card?.trainerSprite || ""}" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })">
             </div>
             ${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}
           </div>
-          <div class="tid-identity-panel tid-glass">
-            <div class="tid-plaque tid-plaque-name">
-              <p class="tid-name">${esc(card?.displayName || "Trainer")}</p>
-              ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
+          <div class="tid-side-column">
+            <div class="tid-identity-panel tid-glass">
+              <div class="tid-plaque tid-plaque-name">
+                <p class="tid-name">${esc(card?.displayName || "Trainer")}</p>
+                ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
+              </div>
+              <div class="tid-plaque tid-plaque-meta">
+                <p class="tid-level">Lv. ${esc(card?.level || 1)}</p>
+                <p class="tid-started">Trainer since ${window.playCardDate(card?.startedAt)}</p>
+              </div>
+              <div class="tid-plaque tid-plaque-badges">
+                ${badgeRowHtml(badges, esc)}
+              </div>
             </div>
-            <div class="tid-plaque tid-plaque-meta">
-              <p class="tid-level">Lv. ${esc(card?.level || 1)}</p>
-              <p class="tid-started">Trainer since ${window.playCardDate(card?.startedAt)}</p>
-            </div>
-            <div class="tid-plaque tid-plaque-badges">
-              ${badgeRowHtml(badges, esc)}
-            </div>
+            ${identityOnly ? "" : `
+            <div class="tid-info-panel tid-glass">
+              <dl class="tid-highlights">
+                <div><dt>Pokédex</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>
+                <div><dt>Catches</dt><dd>${Number(card?.caught || 0)}</dd></div>
+                <div><dt>Shinies</dt><dd>${Number(card?.shinyCaught || 0)}</dd></div>
+                <div><dt>Species Mastered</dt><dd>${mastered}</dd></div>
+              </dl>
+              <div class="tid-plaque tid-plaque-xp">${window.playXpProgressHtml(card, { profile: true })}</div>
+            </div>`}
           </div>
         </div>
-        ${identityOnly ? "" : `
-        <div class="tid-info-panel tid-glass">
-          <dl class="tid-highlights">
-            <div><dt>Pokédex</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>
-            <div><dt>Catches</dt><dd>${Number(card?.caught || 0)}</dd></div>
-            <div><dt>Shinies</dt><dd>${Number(card?.shinyCaught || 0)}</dd></div>
-            <div><dt>Species Mastered</dt><dd>${mastered}</dd></div>
-          </dl>
-          <dl class="tid-highlights tid-highlights-secondary visually-hidden">${secondaryCells.join("")}</dl>
-          <div class="tid-plaque tid-plaque-xp">${window.playXpProgressHtml(card, { profile: true })}</div>
-        </div>`}
       </article>`;
   };
 
@@ -699,11 +800,43 @@
     return dash >= 0 ? label.slice(dash + 1).trim() : label;
   }
 
+  /**
+   * Authoritative local Team Showcase background catalog (presentation).
+   * Unlock/equip authority lives in progression_cosmetics kind=team_background.
+   */
+  window.PLAY_TEAM_BACKGROUNDS = [
+    { id: "starlight-gradient", name: "ST★RLIGHT Gradient", category: "ST★RLIGHT Originals", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-starlight-gradient", sort: 10 },
+    { id: "pokedex-grid", name: "Pokédex Grid", category: "ST★RLIGHT Originals", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-pokedex-grid", sort: 11 },
+    { id: "research-lab", name: "Research Lab", category: "ST★RLIGHT Originals", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-research-lab", sort: 12 },
+    { id: "battle-stage", name: "Battle Stage", category: "ST★RLIGHT Originals", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-battle-stage", sort: 13 },
+    { id: "pallet-town", name: "Pallet Town", category: "Locations", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/pallet-town.png", cssClass: "team-bg-image", sort: 100 },
+    { id: "viridian-forest", name: "Viridian Forest", category: "Locations", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/viridian-forest.png", cssClass: "team-bg-image", sort: 101 },
+    { id: "route-1", name: "Route 1", category: "Routes", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/route-1.png", cssClass: "team-bg-image", sort: 110 },
+    { id: "mt-moon", name: "Mt. Moon", category: "Locations", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/mt-moon.png", cssClass: "team-bg-image", sort: 120 },
+    { id: "cerulean-cave", name: "Cerulean Cave", category: "Locations", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/cerulean-cave.png", cssClass: "team-bg-image", sort: 121 },
+    { id: "saffron-city", name: "Saffron City", category: "Cities", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/saffron-city.png", cssClass: "team-bg-image", sort: 130 },
+    { id: "cinnabar-lab", name: "Cinnabar Lab", category: "Pokémon Centers", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/cinnabar-lab.png", cssClass: "team-bg-image", sort: 140 },
+    { id: "safari-zone", name: "Safari Zone", category: "Special Events", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/safari-zone.png", cssClass: "team-bg-image", sort: 150 },
+    { id: "power-plant", name: "Power Plant", category: "Locations", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/power-plant.png", cssClass: "team-bg-image", sort: 151 },
+    { id: "victory-road", name: "Victory Road", category: "Battle Arenas", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/victory-road.png", cssClass: "team-bg-image", sort: 160 }
+  ];
+
+  window.playTeamBg = function playTeamBg(id) {
+    const key = String(id || "").trim() || "starlight-gradient";
+    return window.PLAY_TEAM_BACKGROUNDS.find((row) => row.id === key)
+      || window.PLAY_TEAM_BACKGROUNDS.find((row) => row.id === "starlight-gradient");
+  };
+
   window.playRenderTrainerPartyHtml = function playRenderTrainerPartyHtml(card) {
     const esc = window.playEscapeAttr || ((value) => String(value || ""));
     const team = Array.isArray(card?.team) ? card.team : [];
     const slots = Array.from({ length: 6 }, (_, i) => team[i] || null);
     const filled = slots.filter(Boolean).length;
+    const bg = window.playTeamBg?.(card?.teamBg) || window.playTeamBg?.("starlight-gradient");
+    const bgClass = bg?.cssClass || "team-bg-starlight-gradient";
+    const bgStyle = bg?.asset
+      ? ` style="--team-bg-image:url('${esc(bg.asset)}')"`
+      : "";
     const slotHtml = slots.map((mon, index) => {
       const position = index + 1;
       if (!mon) {
@@ -734,8 +867,12 @@
           ${formLabel ? `<span class="tid-party-tags"><span class="tid-party-tag tid-party-form">${esc(formLabel)}</span></span>` : ""}
         </li>`;
     }).join("");
-    return `<div class="tid-party-tray${filled ? "" : " is-all-empty"}">
-      <ol class="tid-party tid-party-slots">${slotHtml}</ol>
+    return `<div class="tid-team-showcase" data-team-bg="${esc(bg?.id || "starlight-gradient")}">
+      <div class="tid-team-stage ${esc(bgClass)}"${bgStyle}>
+        <div class="tid-team-stage-veil" aria-hidden="true"></div>
+        <ol class="tid-party tid-party-slots">${slotHtml}</ol>
+      </div>
+      <p class="tid-team-bg-meta"><span class="tid-team-bg-name">${esc(bg?.name || "ST★RLIGHT Gradient")}</span>${bg?.category ? `<span class="tid-team-bg-cat">${esc(bg.category)}</span>` : ""}</p>
       ${filled ? "" : `<p class="muted tid-empty tid-party-empty">No party set yet. Organize six Pokémon in My Account.</p>`}
     </div>`;
   };

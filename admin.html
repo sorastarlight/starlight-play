@@ -3,11 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Admin Hub · THE STARLIGHT PLAY HUB</title>
+<title>Admin Hub ï¿½ THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20260929-rc96">
+<link rel="stylesheet" href="css/play.css?v=20260929-rc97">
 <body data-page="admin">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -23,18 +23,18 @@
         <div id="topnav-links" class="topnav-links" aria-busy="true"></div>
       </div>
       <div class="topnav-actions">
-      <p id="auth-status" class="visually-hidden" role="status">Checking sign-in…</p>
+      <p id="auth-status" class="visually-hidden" role="status">Checking sign-inï¿½</p>
       <button id="sign-in" class="signin-btn" type="button" hidden>Sign in</button>
       <div id="account" class="account" data-auth="unknown">
         <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu" aria-busy="true" disabled>
           <span class="twitch-face twitch-face-nav">
           <img id="account-avatar" class="avatar" alt="" width="34" height="34" hidden>
-          <span id="account-fallback" class="avatar-fallback" aria-hidden="true">·</span>
+          <span id="account-fallback" class="avatar-fallback" aria-hidden="true">ï¿½</span>
           <i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>
         </span>
           <span class="account-meta">
             <span id="account-name" class="account-name">Trainer</span>
-            <span id="account-level" class="account-level">Lv. ·</span>
+            <span id="account-level" class="account-level">Lv. ï¿½</span>
           </span>
           <span class="account-caret" aria-hidden="true"></span>
         </button>
@@ -93,7 +93,7 @@
               <div class="hero">
                 <div class="eyebrow">Stream preview</div>
                 <iframe id="stream-frame" title="Twitch stream preview" allowfullscreen></iframe>
-                <p id="stream-note" class="muted">Loading preview…</p>
+                <p id="stream-note" class="muted">Loading previewï¿½</p>
               </div>
             </section>
             <section class="card play-stream-col">
@@ -162,7 +162,7 @@
       <section class="card body" data-enc-view="overview">
         <h2>Manual &amp; Test</h2>
         <p class="muted">Start, pause, or cancel the current encounter. Live actions affect Play immediately.</p>
-        <p id="bridge-status" class="muted">Checking stream link…</p>
+        <p id="bridge-status" class="muted">Checking stream linkï¿½</p>
         <div class="hub-split">
           <div>
             <p class="eyebrow">Live manual controls</p>
@@ -176,7 +176,7 @@
               </div>
             </div>
             <details class="hub-specific">
-              <summary>Start a specific Pokémon</summary>
+              <summary>Start a specific Pokï¿½mon</summary>
               <label class="field" for="dex-pick">Type name or Dex number
                 <input id="dex-pick" type="text" placeholder="ex: Pikachu" autocomplete="off">
               </label>
@@ -232,7 +232,7 @@
             </label>
           </div>
           <div class="hub-card">
-            <h3>Poké Ball Phase</h3>
+            <h3>Pokï¿½ Ball Phase</h3>
             <p class="muted">Time to choose a Ball.</p>
             <label class="field hub-num" for="throw-seconds">Seconds
               <input id="throw-seconds" type="number" min="5" max="180">
@@ -311,7 +311,7 @@
         <p class="hub-sim-banner">Simulation / dry run. No inventory, catches, or rewards are changed.</p>
         <div class="hub-split">
           <div>
-            <h3>Target Pokémon</h3>
+            <h3>Target Pokï¿½mon</h3>
             <label class="field hub-num" for="sim-dex">Dex #
               <input id="sim-dex" type="number" min="1" max="151" value="131">
             </label>
@@ -364,13 +364,13 @@
       <section class="card body" data-enc-view="special" hidden>
         <div id="special-events-app">
           <h2>Special Events</h2>
-          <p class="muted">Create, schedule, and run controlled Event Pokémon encounters. These reuse the proven JOIN / ITEM / THROW flow. Bits cannot buy access, Shinies, or catch odds.</p>
+          <p class="muted">Create, schedule, and run controlled Event Pokï¿½mon encounters. These reuse the proven JOIN / ITEM / THROW flow. Bits cannot buy access, Shinies, or catch odds.</p>
           <p id="special-status" class="muted" role="status"></p>
           <div id="special-health" class="hub-kv"></div>
           <div id="special-picker-tools" class="studio-picker-tools"></div>
           <div id="special-species" class="special-species-grid" hidden></div>
           <div id="special-form"></div>
-          <p class="muted">Visual-only previews never create an encounter or grant a Pokémon.</p>
+          <p class="muted">Visual-only previews never create an encounter or grant a Pokï¿½mon.</p>
           <div class="links">
             <button type="button" class="secondary" data-se-preview="upcoming">Preview announced</button>
             <button type="button" class="secondary" data-se-preview="starting">Preview starting</button>
@@ -389,7 +389,7 @@
     <div id="hub-panel-players" data-hub-panel="trainers" hidden>
       <section class="card body">
         <h2>Trainer support</h2>
-        <p class="muted">Inspect or help a specific Trainer. Give Pokémon and items from typeahead menus. Site-wide Twitch, Bits, GitHub, and Pass settings live under System &amp; Integrations.</p>
+        <p class="muted">Inspect or help a specific Trainer. Give Pokï¿½mon and items from typeahead menus. Site-wide Twitch, Bits, GitHub, and Pass settings live under System &amp; Integrations.</p>
         <p id="user-status" class="muted" role="status"></p>
         <div class="user-desk-grid">
           <div class="user-desk-list">
@@ -405,7 +405,7 @@
             <div id="user-list" class="staff-users"></div>
           </div>
           <div id="user-detail" class="user-desk-detail">
-            <p class="muted">Pick a trainer to give Pokémon or items, and inspect their PC and staff role.</p>
+            <p class="muted">Pick a trainer to give Pokï¿½mon or items, and inspect their PC and staff role.</p>
           </div>
         </div>
       </section>
@@ -445,7 +445,7 @@
       <div data-eco-panel="rewards" hidden>
       <section class="card body">
         <h2>Encounter rewards</h2>
-        <p class="muted">PokéCoin amounts granted by encounter outcomes. Circulation and spending reports live under Analytics ? Economy &amp; Loot.</p>
+        <p class="muted">Pokï¿½Coin amounts granted by encounter outcomes. Circulation and spending reports live under Analytics ? Economy &amp; Loot.</p>
         <div class="hub-num-row hub-config-grid">
           <label class="field hub-num" for="eco-join">Join + complete
             <input id="eco-join" type="number" min="0" max="5000" step="1">
@@ -453,7 +453,7 @@
           <label class="field hub-num" for="eco-catch">Successful catch
             <input id="eco-catch" type="number" min="0" max="5000" step="1">
           </label>
-          <label class="field hub-num" for="eco-dex">New Pokédex entry
+          <label class="field hub-num" for="eco-dex">New Pokï¿½dex entry
             <input id="eco-dex" type="number" min="0" max="5000" step="1">
           </label>
           <label class="field hub-num" for="eco-shiny">Shiny bonus
@@ -613,7 +613,7 @@
         <section class="card body hub-recovery">
           <h2>Maintenance &amp; recovery</h2>
           <p class="muted">Tools for resolving stuck or inconsistent transactional state. Use only when troubleshooting.</p>
-          <h3>Clear Pokémon / trade lock</h3>
+          <h3>Clear Pokï¿½mon / trade lock</h3>
           <p class="muted">Clears a stuck transaction lock. Ownership is not changed.</p>
           <label class="field" for="unlock-catch">Catch / instance ID
             <input id="unlock-catch" type="text" placeholder="uuid">
@@ -635,7 +635,7 @@
       <div class="hub-page">
       <section class="card body" data-content-panel="evolution">
         <h2>Evolution rules</h2>
-        <p class="muted">How Pokémon evolve: families, Candy costs, stones, and trade / Linking Cord rules. Historical activity is under Analytics ? Evolution &amp; Trading.</p>
+        <p class="muted">How Pokï¿½mon evolve: families, Candy costs, stones, and trade / Linking Cord rules. Historical activity is under Analytics ? Evolution &amp; Trading.</p>
         <p class="hub-meta" id="evo-balance-meta"></p>
         <div id="evo-rules-out" class="report-out"></div>
         <div class="links">
@@ -684,9 +684,9 @@
         <p id="oakqa-status" class="oakqa-status" role="status" aria-live="polite"></p>
         <div class="hub-card">
           <h3>Target Trainer</h3>
-          <p class="muted">Search and click a Trainer — same quick-find pattern as Trainer Support.</p>
+          <p class="muted">Search and click a Trainer ï¿½ same quick-find pattern as Trainer Support.</p>
           <label class="field" for="oakqa-user-q">Search trainers
-            <input id="oakqa-user-q" type="search" placeholder="Username, display name, QA, or UUID…" autocomplete="off">
+            <input id="oakqa-user-q" type="search" placeholder="Username, display name, QA, or UUIDï¿½" autocomplete="off">
           </label>
           <div id="oakqa-user-list" class="staff-users oakqa-user-list" role="listbox" aria-label="Matching trainers"></div>
           <input id="oakqa-user" type="hidden" value="">
@@ -704,7 +704,7 @@
             <p id="oakqa-sora-id" class="oakqa-owner-id muted"></p>
             <label class="oakqa-owner-check" for="oakqa-sora-confirm">
               <input id="oakqa-sora-confirm" type="checkbox">
-              <span>I understand — allow QA grants to this live account</span>
+              <span>I understand ï¿½ allow QA grants to this live account</span>
             </label>
           </div>
         </div>
@@ -726,7 +726,7 @@
           </div>
         </div>
         <div class="hub-card">
-          <h3>Grant Pokémon</h3>
+          <h3>Grant Pokï¿½mon</h3>
           <p class="muted">Type a name or Dex number. Click a suggestion to select it.</p>
           <div class="oakqa-pick-row">
             <label class="field oakqa-pick-field" for="oakqa-mon-species">Species
@@ -758,14 +758,14 @@
             </label>
           </div>
           <div class="links oakqa-actions">
-            <button id="oakqa-grant-mon" class="oakqa-action" type="button" data-oakqa-label="Grant Pokémon">Grant Pokémon</button>
+            <button id="oakqa-grant-mon" class="oakqa-action" type="button" data-oakqa-label="Grant Pokï¿½mon">Grant Pokï¿½mon</button>
           </div>
         </div>
         <div class="hub-card">
           <h3>Grant Evolution Candy</h3>
           <p class="muted">Type an Evolution Line name. Click a suggestion to select it.</p>
           <label class="field" for="oakqa-candy-q">Evolution Line
-            <input id="oakqa-candy-q" type="search" placeholder="ex: Chansey, Pikachu, Eevee…" autocomplete="off">
+            <input id="oakqa-candy-q" type="search" placeholder="ex: Chansey, Pikachu, Eeveeï¿½" autocomplete="off">
           </label>
           <ul id="oakqa-candy-suggest" class="dex-suggest user-suggest oakqa-suggest" hidden></ul>
           <input id="oakqa-candy-family" type="hidden" value="">
@@ -820,14 +820,14 @@
       </section>
       <section class="card body" data-ana-panel="lab" hidden>
         <h2>Presentation Lab</h2>
-        <p class="present-lab-note">Visual QA only. These previews never grant XP, items, PokéCoins, Pokémon, or achievements.</p>
+        <p class="present-lab-note">Visual QA only. These previews never grant XP, items, Pokï¿½Coins, Pokï¿½mon, or achievements.</p>
         <div class="present-lab">
           <div class="present-lab-controls">
             <label class="field" for="lab-kind">Preview
               <select id="lab-kind">
                 <option value="toast">Toast</option>
                 <option value="card">Reward card</option>
-                <option value="pokedex">Pokédex entry</option>
+                <option value="pokedex">Pokï¿½dex entry</option>
                 <option value="level">Level up</option>
                 <option value="achievement">Achievement</option>
                 <option value="unlock">Unlock</option>
@@ -856,7 +856,7 @@
             </label>
             <label class="field" for="lab-gender">Gender
               <select id="lab-gender">
-                <option value="">—</option>
+                <option value="">ï¿½</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -910,7 +910,7 @@
       </section>
       <section class="card body" data-ana-panel="progression" hidden>
         <h2>Progression analytics</h2>
-        <p class="muted">How Trainers have actually leveled and completed the Pokédex. XP rules are under Game Content ? Progression.</p>
+        <p class="muted">How Trainers have actually leveled and completed the Pokï¿½dex. XP rules are under Game Content ? Progression.</p>
         <div id="prog-overview" class="report-out"></div>
         <div class="links">
           <button type="button" class="secondary" data-hub-tab-jump="content" data-hub-view-jump="progression">Edit Progression Rules</button>
@@ -947,7 +947,7 @@
       </section>
       <section class="card body" data-ana-panel="sims" hidden>
         <h2>Simulators</h2>
-        <p class="hub-sim-banner">Simulation / dry run. No items are spent, no Pokémon are caught, and no currency, XP, or database progression is changed.</p>
+        <p class="hub-sim-banner">Simulation / dry run. No items are spent, no Pokï¿½mon are caught, and no currency, XP, or database progression is changed.</p>
         <div class="hub-split">
           <section class="hub-card">
             <h3>Candy / evolution pacing</h3>
@@ -1030,7 +1030,7 @@
       <h3 id="gift-title">Give +1 item</h3>
       <button class="secondary" value="cancel" type="submit">Close</button>
     </header>
-    <p class="muted">Sends one of the chosen supply or Poké Ball to every trainer who joined the live encounter, right now.</p>
+    <p class="muted">Sends one of the chosen supply or Pokï¿½ Ball to every trainer who joined the live encounter, right now.</p>
     <label class="field" for="gift-filter">Search
       <input id="gift-filter" type="search" placeholder="Berry, Master Ball">
     </label>
@@ -1057,7 +1057,7 @@
       <h3 id="live-specific-title">Start specific</h3>
       <button class="secondary" value="cancel" type="submit">Close</button>
     </header>
-    <label class="field">Pokémon
+    <label class="field">Pokï¿½mon
       <input id="live-dex" type="search" placeholder="Eevee or 133" autocomplete="off">
     </label>
     <div id="live-dex-opts" class="dex-suggest" hidden></div>
@@ -1088,27 +1088,27 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260929-rc96"></script>
-<script src="js/play-perf.js?v=20260929-rc96"></script>
-<script src="js/build.js?v=20260929-rc96"></script>
-<script src="js/build-client.js?v=20260929-rc96"></script>
-<script src="js/auth.js?v=20260929-rc96"></script>
-<script src="js/species.js?v=20260929-rc96"></script>
-<script src="js/variants.js?v=20260929-rc96"></script>
-<script src="js/forms.js?v=20260929-rc96"></script>
-<script src="js/game.js?v=20260929-rc96"></script>
-<script src="js/play-present.js?v=20260929-rc96"></script>
-<script src="js/play-encounter-state.js?v=20260929-rc96"></script>
-<script src="js/trainers.js?v=20260929-rc96"></script>
-<script src="js/location-visuals-data.js?v=20260929-rc96"></script>
-<script src="js/location-visuals.js?v=20260929-rc96"></script>
-<script src="js/hud.js?v=20260929-rc96"></script>
-<script src="js/nav.js?v=20260929-rc96"></script>
-<script src="js/admin-tools.js?v=20260929-rc96"></script>
-<script src="js/admin-live.js?v=20260929-rc96"></script>
-<script src="js/special-events.js?v=20260929-rc96"></script>
-<script src="js/admin-special.js?v=20260929-rc96"></script>
-<script src="js/admin.js?v=20260929-rc96"></script>
-<script src="js/admin-oak-qa.js?v=20260929-rc96"></script>
-<script src="js/admin-present.js?v=20260929-rc96"></script>
+<script src="js/config.js?v=20260929-rc97"></script>
+<script src="js/play-perf.js?v=20260929-rc97"></script>
+<script src="js/build.js?v=20260929-rc97"></script>
+<script src="js/build-client.js?v=20260929-rc97"></script>
+<script src="js/auth.js?v=20260929-rc97"></script>
+<script src="js/species.js?v=20260929-rc97"></script>
+<script src="js/variants.js?v=20260929-rc97"></script>
+<script src="js/forms.js?v=20260929-rc97"></script>
+<script src="js/game.js?v=20260929-rc97"></script>
+<script src="js/play-present.js?v=20260929-rc97"></script>
+<script src="js/play-encounter-state.js?v=20260929-rc97"></script>
+<script src="js/trainers.js?v=20260929-rc97"></script>
+<script src="js/location-visuals-data.js?v=20260929-rc97"></script>
+<script src="js/location-visuals.js?v=20260929-rc97"></script>
+<script src="js/hud.js?v=20260929-rc97"></script>
+<script src="js/nav.js?v=20260929-rc97"></script>
+<script src="js/admin-tools.js?v=20260929-rc97"></script>
+<script src="js/admin-live.js?v=20260929-rc97"></script>
+<script src="js/special-events.js?v=20260929-rc97"></script>
+<script src="js/admin-special.js?v=20260929-rc97"></script>
+<script src="js/admin.js?v=20260929-rc97"></script>
+<script src="js/admin-oak-qa.js?v=20260929-rc97"></script>
+<script src="js/admin-present.js?v=20260929-rc97"></script>
 </body>

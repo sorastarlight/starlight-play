@@ -123,6 +123,7 @@
       sprite: next.trainerSprite,
       bg: next.cardBg,
       frame: next.cardFrame || "plain",
+      teamBg: next.teamBg || "starlight-gradient",
       titleId: next.activeTitleId || "",
       badgeIds: featured.slice(0, 3),
       shinyCatchId: next.showcase?.shinyCatch?.id || next.showcase?.shinyCatchId || "",
@@ -139,6 +140,7 @@
       trainerSprite: draft.sprite || card.trainerSprite,
       cardBg: draft.bg || card.cardBg,
       cardFrame: draft.frame || card.cardFrame,
+      teamBg: draft.teamBg || card.teamBg || "starlight-gradient",
       title: (titles.find((row) => row.id === draft.titleId) || {}).name || (draft.titleId ? card.title : ""),
       activeTitleId: draft.titleId || "",
       badges: (badges || []).filter((row) => (draft.badgeIds || []).includes(row.id)).slice(0, 3)
@@ -162,6 +164,7 @@
     return draft.sprite !== savedCard.trainerSprite
       || draft.bg !== savedCard.cardBg
       || draft.frame !== (savedCard.cardFrame || "plain")
+      || (draft.teamBg || "starlight-gradient") !== (savedCard.teamBg || "starlight-gradient")
       || (draft.titleId || "") !== (savedCard.activeTitleId || "")
       || JSON.stringify(draft.badgeIds || []) !== JSON.stringify(savedCard.featuredBadgeIds || savedCard.badges?.map((row) => row.id) || [])
       || (draft.shinyCatchId || "") !== String(savedCard.showcase?.shinyCatch?.id || savedCard.showcase?.shinyCatchId || "")
@@ -385,8 +388,8 @@
     return `
       <div class="scc-stage-frame">
         <div class="scc-stage-glow" aria-hidden="true"></div>
-        <div class="scc-stage-platform" aria-hidden="true"></div>
-        <img class="scc-stage-sprite" data-avatar-id="${esc(view?.trainerSprite || "")}" src="${window.playTrainerSpriteUrl(view?.trainerSprite)}" alt="${esc(look?.trainer?.name || "Trainer")}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
+        <span class="avatar-stage-shadow" aria-hidden="true"></span>
+        <img class="scc-stage-sprite" data-avatar-id="${esc(view?.trainerSprite || "")}" src="${window.playTrainerSpriteUrl(view?.trainerSprite)}" alt="${esc(look?.trainer?.name || "Trainer")}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this, { mode: 'stage' })" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this, { mode: 'stage' })">
       </div>
       <p class="scc-stage-name">${esc(look?.trainer?.name || "Trainer")}</p>
       ${meta ? `<p class="scc-stage-meta">${esc(meta)}</p>` : ""}
@@ -708,15 +711,111 @@
       ${trainerIdActions()}`;
   }
 
+  function teamBgRows() {
+    const catalog = window.PLAY_TEAM_BACKGROUNDS || [];
+    const byAsset = new Map();
+    (cosmetics || []).forEach((row) => {
+      if (row.kind === "team_background") byAsset.set(row.asset, row);
+    });
+    return catalog
+      .slice()
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .map((meta) => {
+        const cos = byAsset.get(meta.id);
+        return {
+          id: cos?.id || `team-bg-${meta.id}`,
+          kind: "team_background",
+          asset: meta.id,
+          name: cos?.name || meta.name,
+          description: cos?.description || "",
+          howTo: cos?.howTo || "Coming soon — unlocks through future Trainer rewards.",
+          unlocked: Boolean(
+            cos?.unlocked
+            || cos?.starter
+            || ["starlight-gradient", "pokedex-grid", "research-lab", "battle-stage"].includes(meta.id)
+          ),
+          starter: Boolean(cos?.starter || ["starlight-gradient", "pokedex-grid", "research-lab", "battle-stage"].includes(meta.id)),
+          category: meta.category || "Special",
+          region: meta.region || "",
+          source: meta.source || "",
+          cssClass: meta.cssClass,
+          style: meta.style,
+          image: meta.asset || "",
+          sort: meta.sort || 0
+        };
+      });
+  }
+
+  function teamBgCategories() {
+    const cats = [];
+    const seen = new Set();
+    teamBgRows().forEach((row) => {
+      if (!seen.has(row.category)) {
+        seen.add(row.category);
+        cats.push(row.category);
+      }
+    });
+    return cats;
+  }
+
+  let teamBgFilter = "all";
+
+  function renderTeamBgBrowser() {
+    const view = previewCard();
+    const rows = teamBgRows().filter((row) => teamBgFilter === "all" || row.category === teamBgFilter);
+    const cats = [["all", "All"], ...teamBgCategories().map((c) => [c, c])];
+    return `
+      <section class="scc-team-bg" aria-label="Team Showcase background">
+        <p class="scc-module-kicker">TEAM SHOWCASE BACKGROUND</p>
+        <p class="muted">Choose the backdrop behind My Team on your public Trainer ID. Saves with <strong>Save Trainer ID</strong>.</p>
+        <div class="scc-scope-row" role="group" aria-label="Background categories">
+          ${cats.map(([id, label]) => `<button type="button" class="scc-scope${teamBgFilter === id ? " is-on" : ""}" data-team-bg-filter="${esc(id)}" aria-pressed="${teamBgFilter === id}">${esc(label)}</button>`).join("")}
+        </div>
+        <div class="prog-pick-grid scc-team-bg-grid">
+          ${rows.map((row) => {
+            const equipped = row.asset === (view.teamBg || "starlight-gradient");
+            const state = pickState(row, equipped);
+            const thumbStyle = row.image
+              ? ` style="--team-bg-image:url('${esc(row.image)}')"`
+              : "";
+            return `<button type="button" class="prog-pick team-bg-opt is-${state}" data-team-bg="${esc(row.asset)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
+              <span class="team-bg-thumb ${esc(row.cssClass || "")}"${thumbStyle} aria-hidden="true"></span>
+              <strong>${esc(row.name)}</strong>
+              <span class="muted">${esc(row.category)}${row.source ? ` · ${esc(row.source)}` : ""}</span>
+              <span class="id-state">${stateLabel(state)}</span>
+            </button>`;
+          }).join("")}
+        </div>
+      </section>`;
+  }
+
   function renderTeam() {
+    const view = previewCard();
     return `
       <header class="scc-panel-head">
         <h2>My Team</h2>
-        <p class="muted">Pick six Pokémon from your current PC. Team saves immediately when you edit slots — there is nothing extra to press.</p>
+        <p class="muted">Pick six Pokémon from your current PC. Team slots save immediately when you edit them. Showcase backgrounds save with <strong>Save Trainer ID</strong>.</p>
       </header>
-      <div class="scc-contextual scc-contextual-team">${window.playRenderTrainerPartyHtml(card)}</div>
+      <div class="scc-contextual scc-contextual-team">${window.playRenderTrainerPartyHtml(view)}</div>
+      ${renderTeamBgBrowser()}
       <div id="team-slots" class="team-slots"></div>
-      <p id="team-status" class="muted" role="status"></p>`;
+      <p id="team-status" class="muted" role="status"></p>
+      ${trainerIdActions()}`;
+  }
+
+  function updateTeamBgSelection() {
+    if (!els.workspace) return;
+    const view = previewCard();
+    els.workspace.querySelectorAll("[data-team-bg]").forEach((btn) => {
+      const row = teamBgRows().find((item) => item.asset === btn.dataset.teamBg);
+      if (!row) return;
+      const equipped = row.asset === (view.teamBg || "starlight-gradient");
+      btn.setAttribute("aria-pressed", equipped ? "true" : "false");
+      repaintPick(btn, pickState(row, equipped));
+    });
+    const party = els.workspace.querySelector(".scc-contextual-team");
+    if (party) party.innerHTML = window.playRenderTrainerPartyHtml(view);
+    markDirtyFlag();
   }
 
   function renderProfileWorkspace() {
@@ -1388,7 +1487,7 @@
         if (teamEl) window.playRenderTeamSlots(teamEl, card?.team, { mine: true });
         const party = els.workspace.querySelector(".scc-contextual-team");
         if (party) {
-          party.innerHTML = window.playRenderTrainerPartyHtml(card);
+          party.innerHTML = window.playRenderTrainerPartyHtml(previewCard());
           if (party.dataset.inspectBound !== "1") {
             party.dataset.inspectBound = "1";
             party.addEventListener("click", (event) => {
@@ -1479,6 +1578,23 @@
       }
       draft.sprite = sprite.dataset.sprite;
       updateAvatarSelection();
+      return;
+    }
+    const teamBgFilterBtn = event.target.closest("[data-team-bg-filter]");
+    if (teamBgFilterBtn) {
+      teamBgFilter = teamBgFilterBtn.dataset.teamBgFilter || "all";
+      if (profileTab === "team") renderProfileWorkspace();
+      return;
+    }
+    const teamBgBtn = event.target.closest("[data-team-bg]");
+    if (teamBgBtn) {
+      const row = teamBgRows().find((item) => item.asset === teamBgBtn.dataset.teamBg);
+      if (!row?.unlocked) {
+        if (els.status) els.status.textContent = `${row?.name || "This background"} is locked. ${row?.howTo || ""}`.trim();
+        return;
+      }
+      draft.teamBg = row.asset;
+      updateTeamBgSelection();
       return;
     }
     const cosmetic = event.target.closest("[data-cosmetic]");
@@ -1595,6 +1711,7 @@
         p_sprite: draft.sprite,
         p_bg: draft.bg,
         p_frame: draft.frame,
+        p_team_bg: draft.teamBg || "starlight-gradient",
         p_title: draft.titleId || "",
         p_badges: draft.badgeIds || [],
         p_favorite_dex: draft.favoriteDex ?? null,

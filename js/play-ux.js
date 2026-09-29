@@ -335,9 +335,28 @@
     try { localStorage.setItem("play-seen-items", JSON.stringify(seen)); } catch (_) {}
   };
 
-  root.playIsNewItem = function playIsNewItem(key, qty) {
+  root.playIsNewItem = function playIsNewItem(key, qty, opts) {
     if (Number(qty || 0) < 1) return false;
+    // Prefer ledger-backed "recently acquired" — bare unseen floods every owned item as NEW.
+    const recent = opts?.recentKeys;
+    if (Array.isArray(recent)) return recent.includes(key);
     return !root.playSeenItems()[key];
+  };
+
+  /** Seed seen-items for current bag so legacy owned stock is not all NEW. */
+  root.playSeedSeenBag = function playSeedSeenBag(bag) {
+    const seen = root.playSeenItems();
+    let changed = false;
+    Object.keys(bag || {}).forEach((key) => {
+      if (["capacity", "used", "lureArmed", "lureUntil"].includes(key)) return;
+      if (Number(bag[key] || 0) < 1) return;
+      if (seen[key]) return;
+      seen[key] = true;
+      changed = true;
+    });
+    if (changed) {
+      try { localStorage.setItem("play-seen-items", JSON.stringify(seen)); } catch (_) {}
+    }
   };
 
   root.playRecentKeys = function playRecentKeys(kind) {

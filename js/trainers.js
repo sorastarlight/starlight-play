@@ -254,23 +254,174 @@
     return `images/trainers/${key}.${ext}?v=av10`;
   };
 
-  /** Classify avatar art family from visible pixel bounds for stage normalization. */
-  window.playNormalizeTrainerAvatar = function playNormalizeTrainerAvatar(img) {
-    if (!img || img.dataset.avatarNorm === "1") return;
+  /** Presentation overrides for unusual avatar silhouettes (auditable, sparse). */
+  window.PLAY_AVATAR_STAGE_OVERRIDES = Object.assign({
+    // id: { targetH: 0.74, family: "pixel"|"full"|"mid"|"mascot", coreInset: 0.08 }
+    "sonic-sonic": { targetH: 0.74, family: "mascot" },
+    "sonic-amy": { targetH: 0.74, family: "mascot" },
+    "sonic-origins-sonic": { targetH: 0.74, family: "mascot" },
+    "sonic-origins-amy": { targetH: 0.74, family: "mascot" }
+  }, window.PLAY_AVATAR_STAGE_OVERRIDES || {});
+
+  function avatarAlphaBounds(img) {
+    const w = Number(img.naturalWidth || 0);
+    const h = Number(img.naturalHeight || 0);
+    if (!w || !h) return null;
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+      if (!ctx) return null;
+      ctx.clearRect(0, 0, w, h);
+      ctx.drawImage(img, 0, 0);
+      const data = ctx.getImageData(0, 0, w, h).data;
+      let scan = typeof window.playPortraitVisibleBounds === "function"
+        ? window.playPortraitVisibleBounds(data, w, h, 10)
+        : null;
+      if (!scan) {
+        const minA = 10;
+        let left = w;
+        let top = h;
+        let right = -1;
+        let bottom = -1;
+        for (let y = 0; y < h; y += 1) {
+          for (let x = 0; x < w; x += 1) {
+            if (data[((y * w) + x) * 4 + 3] >= minA) {
+              if (x < left) left = x;
+              if (y < top) top = y;
+              if (x > right) right = x;
+              if (y > bottom) bottom = y;
+            }
+          }
+        }
+        scan = right < 0
+          ? { left: 0, top: 0, right: w - 1, bottom: h - 1, empty: true }
+          : { left, top, right, bottom, empty: false };
+      }
+      if (!scan || scan.empty) {
+        return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h };
+      }
+      const vw = Math.max(1, scan.right - scan.left + 1);
+      const vh = Math.max(1, scan.bottom - scan.top + 1);
+      // Core: shrink extreme appendages by trimming sparse outer 8% of envelope width/height when very wide.
+      let coreLeft = scan.left;
+      let coreRight = scan.right;
+      let coreTop = scan.top;
+      let coreBottom = scan.bottom;
+      if (vw / vh > 1.35) {
+        const trim = Math.floor(vw * 0.08);
+        coreLeft += trim;
+        coreRight -= trim;
+      }
+      if (vh / vw > 1.8) {
+        const trimT = Math.floor(vh * 0.04);
+        coreTop += trimT;
+      }
+      const cw = Math.max(1, coreRight - coreLeft + 1);
+      const ch = Math.max(1, coreBottom - coreTop + 1);
+      return {
+        left: scan.left, top: scan.top, right: scan.right, bottom: scan.bottom,
+        w, h, vw, vh, coreLeft, coreTop, coreRight, coreBottom, cw, ch
+      };
+    } catch (_) {
+      return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h, cw: w, ch: h };
+    }
+  }
+
+  function avatarFamilyFromBounds(bounds, overrideFamily) {
+    if (overrideFamily) return overrideFamily;
+    const maxSrc = Math.max(bounds.w, bounds.h);
+    const maxVis = Math.max(bounds.vw, bounds.vh);
+    if (maxSrc <= 96 || maxVis <= 96) return "pixel";
+    if (maxSrc >= 256 && (bounds.vw / bounds.w < 0.72 || bounds.vh / bounds.h < 0.72)) return "full";
+    if (maxSrc >= 256) return "full";
+    return "mid";
+  }
+
+  /**
+   * Normalize avatar to perceived stage size using visible-alpha bounds (not source canvas size).
+   * Sets CSS vars used by .scc-stage-sprite / .tid-avatar-sprite / thumb fits.
+   */
+  window.playNormalizeTrainerAvatar = function playNormalizeTrainerAvatar(img, opts) {
+    if (!img) return;
+    const mode = opts?.mode || (img.classList.contains("scc-avatar-thumb-img") || img.closest?.(".scc-avatar-thumb") ? "thumb" : "stage");
     const apply = () => {
-      const w = Number(img.naturalWidth || 0);
-      const h = Number(img.naturalHeight || 0);
-      const max = Math.max(w, h);
-      let family = "mid";
-      if (max >= 256) family = "full";
-      else if (max > 0 && max <= 96) family = "pixel";
+      const bounds = avatarAlphaBounds(img);
+      if (!bounds) return;
+      const srcKey = String(img.currentSrc || img.src || "")
+        .replace(/\?.*$/, "")
+        .replace(/^.*\//, "")
+        .replace(/\.(png|gif|webp|jpe?g)$/i, "");
+      const id = String(img.dataset.avatarId || img.getAttribute("data-avatar-id") || srcKey || "");
+      const override = window.PLAY_AVATAR_STAGE_OVERRIDES?.[id] || null;
+      const family = avatarFamilyFromBounds(bounds, override?.family);
+      const targetH = Number(override?.targetH)
+        || (family === "mascot" ? 0.74 : family === "pixel" ? 0.78 : family === "full" ? 0.76 : 0.76);
+      const envelope = mode === "thumb" ? 64 : 208;
+      const usable = mode === "thumb" ? envelope * 0.92 : envelope * 0.9;
+      const coreH = Number(bounds.ch || bounds.vh);
+      const coreW = Number(bounds.cw || bounds.vw);
+      const scaleByH = (usable * targetH) / Math.max(1, coreH);
+      const scaleByW = (usable * 0.92) / Math.max(1, bounds.vw);
+      const scale = Math.min(scaleByH, scaleByW);
+      const renderW = Math.round(bounds.w * scale);
+      const renderH = Math.round(bounds.h * scale);
+      const padL = bounds.left * scale;
+      const padR = (bounds.w - 1 - bounds.right) * scale;
+      const padB = (bounds.h - 1 - bounds.bottom) * scale;
+      const padT = bounds.top * scale;
+      const stagePct = Math.round((coreH * scale / envelope) * 1000) / 10;
+
       img.dataset.avatarFamily = family;
       img.dataset.avatarNorm = "1";
+      img.dataset.avatarSrcW = String(bounds.w);
+      img.dataset.avatarSrcH = String(bounds.h);
+      img.dataset.avatarVis = `${bounds.vw}x${bounds.vh}`;
+      img.dataset.avatarRender = `${Math.round(bounds.vw * scale)}x${Math.round(bounds.vh * scale)}`;
+      img.dataset.avatarStagePct = String(stagePct);
       img.classList.toggle("is-full-art", family === "full");
-      img.classList.toggle("is-pixel-art", family === "pixel");
+      img.classList.toggle("is-pixel-art", family === "pixel" || (family === "mascot" && bounds.w <= 128));
+      img.classList.toggle("is-mascot-art", family === "mascot");
+      if (mode === "thumb") {
+        const thumbBox = 56;
+        const tScale = Math.min(thumbBox / Math.max(1, bounds.vw), thumbBox / Math.max(1, coreH));
+        const tw = Math.round(bounds.w * tScale);
+        const th = Math.round(bounds.h * tScale);
+        const tPadL = bounds.left * tScale;
+        const tPadR = (bounds.w - 1 - bounds.right) * tScale;
+        const tPadB = (bounds.h - 1 - bounds.bottom) * tScale;
+        img.style.width = `${tw}px`;
+        img.style.height = `${th}px`;
+        img.style.maxWidth = "none";
+        img.style.maxHeight = "none";
+        img.style.objectFit = "fill";
+        img.style.margin = `0 ${-tPadR}px ${-tPadB}px ${-tPadL}px`;
+        img.style.transform = `translateX(${((tPadR - tPadL) / 2).toFixed(2)}px)`;
+        img.dataset.avatarRender = `${Math.round(bounds.vw * tScale)}x${Math.round(bounds.vh * tScale)}`;
+        img.dataset.avatarStagePct = String(Math.round((coreH * tScale / 64) * 1000) / 10);
+      } else {
+        img.style.width = `${renderW}px`;
+        img.style.height = `${renderH}px`;
+        img.style.maxWidth = "none";
+        img.style.maxHeight = "none";
+        img.style.objectFit = "fill";
+        img.style.margin = `0 ${-padR}px ${-padB}px ${-padL}px`;
+        img.style.transform = `translateX(${((padR - padL) / 2).toFixed(2)}px)`;
+        img.style.setProperty("--avatar-pad-t", `${padT.toFixed(1)}px`);
+      }
+      if (family === "pixel" || (family === "mascot" && bounds.w <= 128)) {
+        img.style.imageRendering = "pixelated";
+      } else {
+        img.style.imageRendering = "auto";
+      }
     };
     if (img.complete && img.naturalWidth) apply();
     else img.addEventListener("load", apply, { once: true });
+  };
+
+  window.playNormalizeAvatarThumb = function playNormalizeAvatarThumb(img) {
+    window.playNormalizeTrainerAvatar(img, { mode: "thumb" });
   };
 
   window.playTrainerPortraitUrl = function playTrainerPortraitUrl(id) {
@@ -450,7 +601,7 @@
             <div class="tid-avatar-glow" aria-hidden="true"></div>
             <div class="tid-avatar-platform" aria-hidden="true"></div>
             <div class="tid-avatar-well">
-              <img class="tid-avatar-sprite" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
+              <img class="tid-avatar-sprite" data-avatar-id="${window.playEscapeAttr?.(card?.trainerSprite) || card?.trainerSprite || ""}" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
             </div>
           </div>
         </div>`;
@@ -481,7 +632,7 @@
             <div class="tid-avatar-glow" aria-hidden="true"></div>
             <div class="tid-avatar-platform" aria-hidden="true"></div>
             <div class="tid-avatar-well">
-              <img class="tid-avatar-sprite" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
+              <img class="tid-avatar-sprite" data-avatar-id="${window.playEscapeAttr?.(card?.trainerSprite) || card?.trainerSprite || ""}" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
             </div>
             ${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}
           </div>

@@ -457,32 +457,6 @@
     else dialog.setAttribute("open", "");
   }
 
-  function shelfCard(item, mode) {
-    const row = mode === "balls" ? ballView(item) : withLureBlurb(item);
-    const sprite = art(row, row.key || row.sku || grantKey(row));
-    const action = mode === "bits" ? "" : addButton(row.sku);
-    const purpose = purposeText(row, mode);
-    const details = detailWorthShowing(row, mode)
-      ? `<button type="button" class="secondary mart-more" data-mart-detail="${esc(row.sku)}" data-mart-mode="${esc(mode)}">Details</button>`
-      : "";
-    const collector = row.identity?.collector ? `<span class="studio-chip">Collector</span>` : "";
-    return `
-      <article class="mart-item${mode === "bits" ? " mart-item-bits" : ""}${row.sku === "radar1" || row.sku === "lure1" ? " mart-item-radar" : ""}${row.featured ? " is-featured" : ""}">
-        <div class="mart-sprite"><img src="${esc(sprite)}" alt=""></div>
-        <div class="mart-copy">
-          <strong>${esc(displayName(row))}${collector}</strong>
-          ${purpose ? `<p class="mart-purpose">${esc(purpose)}</p>` : ""}
-          ${ownedLine(row)}
-        </div>
-        <div class="mart-foot">
-          ${costHtml(row, mode)}
-          ${details}
-          ${action}
-        </div>
-        ${mode === "bits" ? grantListHtml(row) : ""}
-      </article>`;
-  }
-
   function packThumb(item) {
     const raw = item?.thumb || item?.sprite || "pack-thumb.png";
     if (!raw || raw === "premium-avatars.png" || raw === "images/trainers/premium-avatars.png" || raw === "poke-ball.png") {
@@ -491,20 +465,46 @@
     return raw;
   }
 
+  function shelfCard(item, mode) {
+    const row = mode === "balls" ? ballView(item) : withLureBlurb(item);
+    const sprite = art(row, row.key || row.sku || grantKey(row));
+    const action = mode === "bits" ? "" : addButton(row.sku);
+    const purpose = purposeText(row, mode);
+    const details = detailWorthShowing(row, mode)
+      ? `<button type="button" class="secondary mart-more" data-mart-detail="${esc(row.sku)}" data-mart-mode="${esc(mode)}">Details</button>`
+      : `<span class="mart-more-spacer" aria-hidden="true"></span>`;
+    const collector = row.identity?.collector ? `<span class="studio-chip">Collector</span>` : "";
+    return `
+      <article class="mart-card${mode === "bits" ? " is-bits" : ""}${row.sku === "radar1" || row.sku === "lure1" ? " is-radar" : ""}${row.featured ? " is-featured" : ""}">
+        <div class="mart-card-media"><img src="${esc(sprite)}" alt=""></div>
+        <div class="mart-card-body">
+          <strong class="mart-card-name">${esc(displayName(row))}${collector}</strong>
+          <p class="mart-card-desc">${esc(purpose || "\u00a0")}</p>
+          <div class="mart-card-owned">${ownedLine(row) || "<span class=\"muted\">&nbsp;</span>"}</div>
+        </div>
+        <div class="mart-card-actions">
+          <div class="mart-card-price">${costHtml(row, mode)}</div>
+          ${details}
+          ${action || `<span class="mart-add-spacer" aria-hidden="true"></span>`}
+        </div>
+        ${mode === "bits" ? grantListHtml(row) : ""}
+      </article>`;
+  }
+
   function avatarCard(item, ownedPacks) {
     const owned = new Set(ownedPacks || []);
     const have = owned.has(item.pack);
-    return `<article class="avatar-pack${have ? " is-owned" : ""}">
-      <img class="avatar-pack-art" src="${esc(window.playItemSprite(packThumb(item)))}" alt="">
-      <div class="avatar-pack-copy">
-        <strong>${esc(displayName(item))}</strong>
-        <p class="mart-purpose">${esc(item.blurb || "A Trainer look for your ID and Profile.")}</p>
+    return `<article class="mart-card is-pack${have ? " is-owned" : ""}">
+      <div class="mart-card-media is-wide"><img src="${esc(window.playItemSprite(packThumb(item)))}" alt=""></div>
+      <div class="mart-card-body">
+        <strong class="mart-card-name">${esc(displayName(item))}</strong>
+        <p class="mart-card-desc">${esc(item.blurb || "A Trainer look for your ID and Profile.")}</p>
+        <div class="mart-card-owned">${have ? `<span class="owned-mark">Owned</span>` : "<span class=\"muted\">&nbsp;</span>"}</div>
       </div>
-      <div class="avatar-pack-foot">
-        ${costHtml(item, "coins")}
-        ${have
-          ? `<span class="owned-mark">Owned</span>`
-          : addButton(item.sku, { avatar: true })}
+      <div class="mart-card-actions">
+        <div class="mart-card-price">${costHtml(item, "coins")}</div>
+        <span class="mart-more-spacer" aria-hidden="true"></span>
+        ${have ? `<span class="owned-mark">Owned</span>` : addButton(item.sku, { avatar: true })}
       </div>
     </article>`;
   }
@@ -626,12 +626,17 @@
     const bits = floor.kind === "bits";
     const avatars = floor.kind === "avatars";
     const title = floor.name || "Shelf";
+    const blurb = floor.blurb || (avatars
+      ? "Premium Trainer looks for your ID and Profile."
+      : bits
+        ? "Optional stream support Power-Ups."
+        : "Stocked for this department.");
     return `<section class="mart-floor${bits ? " bits-floor" : ""}${avatars ? " avatar-floor" : ""}" id="${esc(id)}" role="tabpanel" aria-labelledby="mart-tab-${esc(id)}" data-mart-panel="${esc(id)}" hidden>
-      <header class="mart-sign">
-        <img src="${esc(window.playItemSprite(icon))}" alt="">
-        <div>
-          <h2 class="visually-hidden">${esc(title)}</h2>
-          ${floor.blurb ? `<p class="muted">${esc(floor.blurb)}</p>` : `<p class="mart-sign-title">${esc(title)}</p>`}
+      <header class="mart-dept-head">
+        <img class="mart-dept-icon" src="${esc(window.playItemSprite(icon))}" alt="" width="48" height="48">
+        <div class="mart-dept-copy">
+          <h2 class="mart-dept-title">${esc(title)}</h2>
+          <p class="mart-dept-blurb">${esc(blurb)}</p>
         </div>
       </header>
       ${body || `<p class="muted">No items are available here right now.</p>`}
@@ -639,9 +644,10 @@
   }
 
   function stageHtml(featuredHtml, restHtml, restClass) {
+    const featured = featuredHtml || `<div class="mart-featured-slot is-empty" aria-hidden="true"></div>`;
     return `<div class="mart-stage">
-      ${featuredHtml || ""}
-      ${restHtml ? `<div class="${restClass}">${restHtml}</div>` : ""}
+      ${featured}
+      <div class="${restClass || "mart-shelf"}">${restHtml || ""}</div>
     </div>`;
   }
 
@@ -673,7 +679,7 @@
     return floorShell(
       floor,
       floor.icon || "images/trainers/premium-avatars.png",
-      stageHtml(featuredCard(featured, "avatars", ownedPacks), rest.map((item) => avatarCard(item, ownedPacks)).join(""), "avatar-shelf"),
+      stageHtml(featuredCard(featured, "avatars", ownedPacks), rest.map((item) => avatarCard(item, ownedPacks)).join(""), "mart-shelf is-pack-shelf"),
       " data-avatar-status",
       index
     );
@@ -695,7 +701,7 @@
     return floorShell(
       floor,
       floor.icon || "amulet-coin.png",
-      historyHtml + stageHtml(featuredCard(featured, "bits"), rest.map((item) => shelfCard(item, "bits")).join(""), "mart-shelf"),
+      stageHtml(featuredCard(featured, "bits"), rest.map((item) => shelfCard(item, "bits")).join(""), "mart-shelf") + historyHtml,
       "",
       index
     );
@@ -732,24 +738,28 @@
     const slug = item.slug;
     const owned = Math.max(0, Number(item.owned || 0));
     const unit = Math.max(0, Number(item.unitPrice || 0));
-    const qty = Math.max(1, Math.min(owned, Number(sellQty[slug] || 1)));
+    const qty = Math.max(1, Math.min(owned || 1, Number(sellQty[slug] || 1)));
     sellQty[slug] = qty;
     const total = unit * qty;
     const sprite = item.sprite || window.playItemSprite?.(slug) || "images/items/poke-ball.png";
-    return `<article class="mart-sell-card" data-sell-slug="${esc(slug)}">
-      <img class="mart-sell-art" src="${esc(sprite)}" alt="" width="64" height="64" loading="lazy" decoding="async">
-      <div class="mart-sell-copy">
-        <h3>${esc(item.name || slug)}</h3>
-        <p class="muted">${esc(item.blurb || "A valuable item.")}</p>
-        <p>Owned: <strong>${owned.toLocaleString()}</strong></p>
-        <p class="mart-sell-price">${typeof window.playCoinsHtml === "function" ? window.playCoinsHtml(unit) : money(unit)} each</p>
+    const coinHtml = typeof window.playCoinsHtml === "function" ? window.playCoinsHtml(total) : money(total);
+    const unitHtml = typeof window.playCoinsHtml === "function" ? window.playCoinsHtml(unit) : money(unit);
+    return `<article class="mart-card is-sell" data-sell-slug="${esc(slug)}">
+      <div class="mart-card-media"><img class="mart-sell-art" src="${esc(sprite)}" alt="" width="72" height="72" loading="lazy" decoding="async"></div>
+      <div class="mart-card-body">
+        <strong class="mart-card-name">${esc(item.name || slug)}</strong>
+        <p class="mart-card-desc">${esc(item.blurb || "A valuable item.")}</p>
+        <div class="mart-card-owned"><span class="muted">Owned</span> <strong>${owned.toLocaleString()}</strong></div>
+        <div class="mart-sell-unit"><span class="muted">Sell price</span> ${unitHtml}</div>
+      </div>
+      <div class="mart-card-actions is-sell-actions">
         <div class="mart-sell-qty" role="group" aria-label="Sell quantity">
           <button type="button" class="secondary" data-sell-dec="${esc(slug)}" ${qty <= 1 ? "disabled" : ""}>−</button>
           <span class="mart-sell-qty-val">${qty}</span>
           <button type="button" class="secondary" data-sell-inc="${esc(slug)}" ${qty >= owned ? "disabled" : ""}>+</button>
         </div>
-        <p class="mart-sell-total">${qty.toLocaleString()} × ${unit.toLocaleString()} = <strong>${typeof window.playCoinsHtml === "function" ? window.playCoinsHtml(total) : money(total)}</strong></p>
-        <button type="button" class="gold" data-sell-go="${esc(slug)}" ${owned < 1 || unit < 1 ? "disabled" : ""}>Sell</button>
+        <div class="mart-sell-total"><span class="muted">Total</span> <strong>${coinHtml}</strong></div>
+        <button type="button" class="gold mart-sell-go" data-sell-go="${esc(slug)}" ${owned < 1 || unit < 1 ? "disabled" : ""}>Sell</button>
       </div>
     </article>`;
   }
@@ -759,12 +769,16 @@
       ? sellShelf.map(sellCardHtml).join("")
       : `<p class="muted">No sellable valuables in your bag yet. Complete Professor Oak Research or receive valuables, then sell them here for PokéCoins.</p>`;
     return `<section class="mart-floor mart-sell-floor" id="${SELL_TAB}" role="tabpanel" aria-labelledby="mart-tab-${SELL_TAB}" data-mart-panel="${SELL_TAB}">
-      <div class="mart-floor-head">
-        <p class="eyebrow">Sell valuables</p>
-        <p class="muted">Only items you own that are marked sellable appear here. Prices are set by the Mart — your client total is never trusted.</p>
-      </div>
+      <header class="mart-dept-head">
+        <img class="mart-dept-icon" src="${esc(window.playItemSprite("pokecoin.png"))}" alt="" width="48" height="48">
+        <div class="mart-dept-copy">
+          <h2 class="mart-dept-title">Sell Valuables</h2>
+          <p class="mart-dept-blurb">Trade valuables from your Bag for PokéCoins.</p>
+        </div>
+      </header>
+      <p class="muted mart-sell-help">Only items you own that are marked sellable appear here. Sale prices are set by the Mart server — your client total is never trusted.</p>
       <p class="mart-checkout-note" data-sell-status${sellNote ? "" : " hidden"}>${esc(sellNote)}</p>
-      <div class="mart-sell-grid">${cards}</div>
+      <div class="mart-shelf mart-sell-grid">${cards}</div>
     </section>`;
   }
 

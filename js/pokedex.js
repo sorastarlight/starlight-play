@@ -415,15 +415,28 @@
     const caughtN = dexData?.caughtCount != null ? Number(dexData.caughtCount) : caught;
     const pct = Math.max(0, Math.min(100, Math.round((caughtN / Math.max(1, total)) * 100)));
     if (els.heroReadouts) {
+      const seenPad = String(seenN).padStart(3, "0");
+      const caughtPad = String(caughtN).padStart(3, "0");
       els.heroReadouts.innerHTML = `
-        <div class="dex-hero-readout">
+        <div class="dex-hero-readout" role="group" aria-label="Kanto research progress">
           <div class="dex-hero-leds" aria-hidden="true"><i></i><i></i><i></i></div>
-          <p class="dex-hero-readout-kicker">Kanto Research</p>
-          <p class="dex-hero-readout-line"><strong>${seenN}</strong> Seen <span aria-hidden="true">•</span> <strong>${caughtN}</strong> Caught</p>
+          <div class="dex-hero-scan" aria-hidden="true"></div>
+          <div class="dex-hero-stats">
+            <div class="dex-hero-metric">
+              <span class="dex-hero-metric-label">Seen</span>
+              <strong class="dex-hero-metric-value">${seenPad}</strong>
+            </div>
+            <div class="dex-hero-metric">
+              <span class="dex-hero-metric-label">Caught</span>
+              <strong class="dex-hero-metric-value">${caughtPad}</strong>
+            </div>
+          </div>
+          <p class="dex-hero-meter-label">Kanto Discovery</p>
           <div class="dex-hero-progress" role="img" aria-label="${caughtN} of ${total} Kanto Pokémon caught.">
             <i style="width:${pct}%"></i>
+            <span class="dex-hero-progress-mark" style="left:${pct}%" aria-hidden="true"></span>
           </div>
-          <p class="dex-hero-readout-foot muted">${caughtN}/${total} discovery</p>
+          <p class="dex-hero-readout-foot">${caughtN} / ${total}</p>
         </div>`;
     }
     if (els.counters) {

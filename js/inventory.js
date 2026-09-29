@@ -69,50 +69,65 @@
     const coins = Number(bag?.coins || 0);
     const used = Number(bag?.used || 0);
     const cap = Number(bag?.capacity || 0);
+    const pct = cap ? Math.min(100, Math.round((used / cap) * 100)) : 0;
     const mark = typeof window.playItemSprite === "function"
       ? window.playItemSprite("coins")
       : "images/items/pokecoin.png";
-    return `<section class="bag-wallet" aria-label="PokéCoins and bag space">
-      <div class="bag-wallet-coin">
-        <img class="poke-cash-mark" src="${mark}" alt="" width="28" height="28" decoding="async">
+    const bagArt = "images/items/inventory-bag.png";
+    return `<section class="bag-hero" aria-label="My Bag summary">
+      <div class="bag-hero-identity">
+        <img class="bag-hero-art" src="${bagArt}" alt="" width="56" height="56" decoding="async">
         <div>
-          <p class="eyebrow">PokéCoins</p>
-          <strong class="bag-wallet-value">${window.playFormatCoins?.(coins) ?? coins}</strong>
+          <p class="eyebrow">Trainer Bag</p>
+          <h3 class="bag-hero-title">My Bag</h3>
         </div>
       </div>
-      <div class="bag-wallet-space">
-        <p class="eyebrow">Bag capacity</p>
-        <strong>${used.toLocaleString()} / ${cap.toLocaleString()}</strong>
-        <div class="bag-space" aria-hidden="true"><i style="width:${cap ? Math.min(100, Math.round((used / cap) * 100)) : 0}%"></i></div>
+      <div class="bag-hero-stats">
+        <div class="bag-hero-coin">
+          <img class="poke-cash-mark" src="${mark}" alt="" width="22" height="22" decoding="async">
+          <strong>${window.playFormatCoins?.(coins) ?? coins}</strong>
+          <span>PokéCoins</span>
+        </div>
+        <div class="bag-hero-cap">
+          <div class="bag-hero-cap-row">
+            <span>Capacity</span>
+            <strong>${used.toLocaleString()} / ${cap.toLocaleString()}</strong>
+          </div>
+          <div class="bag-space" aria-hidden="true"><i style="width:${pct}%"></i></div>
+        </div>
       </div>
     </section>`;
   }
 
-  function itemCardHtml(row, bag) {
+  function itemCardHtml(row) {
     const key = row.key;
     const qty = row.qty;
     const name = window.playItemLabel(key);
     const blurb = window.playItemPlayerText(key, lastCapture);
     const pocket = TABS.find((t) => t[0] === pocketOf(key))?.[1] || "Items";
-    const isNew = window.playIsNewItem?.(key, qty);
+    const isNew = window.playIsNewItem?.(key, qty, { recentKeys: lastLedgerOrder.slice(0, 8) });
     const pinned = (window.playBagPins?.() || []).includes(key);
     const hot = HIGHLIGHT.has(key);
     const on = selectedKey === key;
     return `<button type="button" class="bag-item${hot ? " is-hot" : ""}${on ? " is-selected" : ""}${qty < 1 ? " is-empty" : ""}" data-item="${key}" aria-pressed="${on}">
-      <img class="item-sprite" src="${window.playItemSprite(key)}" alt="" width="40" height="40" loading="lazy" decoding="async">
+      <span class="bag-item-sprite"><img class="item-sprite" src="${window.playItemSprite(key)}" alt="" width="40" height="40" loading="lazy" decoding="async"></span>
       <span class="bag-item-copy">
-        <strong>${window.playEscapeAttr(name)}${isNew ? ` <span class="chip">NEW</span>` : ""}${pinned ? ` <span class="chip">PINNED</span>` : ""}</strong>
-        <span class="muted bag-item-blurb">${window.playEscapeAttr(blurb)}</span>
+        <strong class="bag-item-name">${window.playEscapeAttr(name)}${isNew ? ` <span class="chip chip-new">NEW</span>` : ""}${pinned ? ` <span class="chip">PINNED</span>` : ""}</strong>
         <span class="bag-item-meta">${window.playEscapeAttr(pocket)}</span>
+        <span class="muted bag-item-blurb">${window.playEscapeAttr(blurb)}</span>
       </span>
-      <span class="bag-item-qty">×${Number(qty || 0).toLocaleString()}</span>
+      <span class="bag-item-qty" aria-label="Quantity ${qty}">×${Number(qty || 0).toLocaleString()}</span>
     </button>`;
   }
 
   function detailPaneHtml(key, bag) {
     if (!key) {
-      return `<aside class="bag-detail" aria-label="Item detail">
-        <p class="muted">Select an item to inspect it.</p>
+      return `<aside class="bag-detail is-empty" aria-label="Item detail">
+        <div class="bag-detail-empty">
+          <img src="images/items/inventory-bag.png" alt="" width="72" height="72" decoding="async">
+          <p><strong>Choose an item to inspect</strong></p>
+          <p class="muted">Pick something from your Bag pockets to see details.</p>
+        </div>
       </aside>`;
     }
     const qty = Number(bag[key] || 0);
@@ -160,7 +175,7 @@
     if (selectedKey && !rows.some((row) => row.key === selectedKey)) selectedKey = rows[0]?.key || "";
     const pocketLabel = TABS.find((row) => row[0] === tab)?.[1] || "Items";
     const list = rows.length
-      ? `<div class="bag-item-list">${rows.map((row) => itemCardHtml(row, bag)).join("")}</div>`
+      ? `<div class="bag-item-list">${rows.map((row) => itemCardHtml(row)).join("")}</div>`
       : `<p class="muted bag-empty">${showUnowned
         ? "No items match this filter."
         : tab === "all"
@@ -226,6 +241,7 @@
       lastCollection = await window.playCall("play_collection");
       bag = { ...bag, ...(lastCollection?.items || {}) };
     } catch (_) {}
+    window.playSeedSeenBag?.(bag);
     renderBag(bag);
     const candyFirst = (lastCollection?.candy || []).find((row) => Number(row.qty || 0) > 0);
     if (candyFirst && typeof window.playTipHtml === "function" && !window.playTipDone("first-candy")) {
@@ -234,14 +250,15 @@
     try {
       const hist = await window.playCall("play_item_ledger", { p_limit: 20 });
       const rows = hist?.rows || [];
+      lastLedgerOrder = [...new Set(rows.map((row) => row.item).filter(Boolean))];
       if (els.ledger) {
-        lastLedgerOrder = [...new Set(rows.map((row) => row.item).filter(Boolean))];
         els.ledger.innerHTML = rows.length
           ? `<table class="report-table"><thead><tr><th>Item</th><th>Qty</th><th>Source</th></tr></thead><tbody>${
             rows.map((row) => `<tr><td>${window.playEscapeAttr(window.playItemLabel(row.item))}</td><td>${row.amount > 0 ? "+" : ""}${row.amount}</td><td>${window.playEscapeAttr(window.playLedgerLabel?.(row.reason) || row.reason)}</td></tr>`).join("")
           }</tbody></table>`
           : `<p class="muted">No item history yet.</p>`;
       }
+      renderBag(bag);
     } catch (_) {
       if (els.ledger) els.ledger.innerHTML = "";
     }

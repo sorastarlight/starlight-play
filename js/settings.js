@@ -386,7 +386,7 @@
       <div class="scc-stage-frame">
         <div class="scc-stage-glow" aria-hidden="true"></div>
         <div class="scc-stage-platform" aria-hidden="true"></div>
-        <img class="scc-stage-sprite" src="${window.playTrainerSpriteUrl(view?.trainerSprite)}" alt="${esc(look?.trainer?.name || "Trainer")}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
+        <img class="scc-stage-sprite" data-avatar-id="${esc(view?.trainerSprite || "")}" src="${window.playTrainerSpriteUrl(view?.trainerSprite)}" alt="${esc(look?.trainer?.name || "Trainer")}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this)" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this)">
       </div>
       <p class="scc-stage-name">${esc(look?.trainer?.name || "Trainer")}</p>
       ${meta ? `<p class="scc-stage-meta">${esc(meta)}</p>` : ""}
@@ -408,7 +408,7 @@
       const meta = [look.outfit, look.gender].filter(Boolean).join(" · ");
       return `<button type="button" class="scc-avatar-card trainer-opt is-${state}" data-sprite="${esc(look.id)}" data-locked="0" aria-pressed="${equipped}" aria-label="${esc(look.name)} ${state}">
         <span class="scc-avatar-thumb">
-          <img src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="64" height="64" loading="lazy" decoding="async">
+          <img class="scc-avatar-thumb-img" data-avatar-id="${esc(look.id)}" src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="64" height="64" loading="lazy" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
         </span>
         <strong class="scc-avatar-name">${esc(look.name)}</strong>
         <span class="scc-avatar-era">${esc(group.label)}</span>

@@ -867,7 +867,7 @@
           ${formLabel ? `<span class="tid-party-tags"><span class="tid-party-tag tid-party-form">${esc(formLabel)}</span></span>` : ""}
         </li>`;
     }).join("");
-    return `<div class="tid-team-showcase" data-team-bg="${esc(bg?.id || "starlight-gradient")}">
+    return `<div class="tid-team-showcase" data-team-bg-id="${esc(bg?.id || "starlight-gradient")}">
       <div class="tid-team-stage ${esc(bgClass)}"${bgStyle}>
         <div class="tid-team-stage-veil" aria-hidden="true"></div>
         <ol class="tid-party tid-party-slots">${slotHtml}</ol>

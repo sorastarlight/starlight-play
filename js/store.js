@@ -605,7 +605,6 @@
         <strong>${esc(displayName(row))}</strong>
         ${purpose ? `<p class="mart-purpose">${esc(purpose)}</p>` : ""}
         ${ownedLine(row)}
-        ${extra}
       </div>
       <div class="mart-price">
         ${costHtml(row, mode === "avatars" ? "coins" : mode)}

@@ -148,6 +148,7 @@
     const sort = els.sort?.value || "category";
     window.playFillBagMeter(bag);
     window.playFillLurePanel(bag);
+    if (els.wallet) els.wallet.innerHTML = walletHtml(bag);
     if (els.tabs) {
       els.tabs.innerHTML = TABS.map(([id, label]) => (
         `<button type="button" class="mart-tab bag-pocket${tab === id ? " is-on" : ""}" data-bag-tab="${id}" aria-pressed="${tab === id}">${label}</button>`
@@ -187,7 +188,7 @@
         ? window.playTipHtml?.("first-honey", "Honey is a community contribution. It helps the shared encounter, does not replace your Poké Ball, and does not guarantee a catch.")
         : "";
     els.bag.innerHTML = `
-      ${walletHtml(bag)}
+      ${els.wallet ? "" : walletHtml(bag)}
       ${tip || ""}
       <div class="bag-layout">
         <section class="bag-main" aria-label="${pocketLabel}">

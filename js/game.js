@@ -1192,7 +1192,7 @@
     if (/42501|not allowed|permission denied/i.test(raw)) {
       return "This action is not available on this account.";
     }
-    if (/column reference|ambiguous|SQLSTATE|42702|P0001.*title_id/i.test(raw)) {
+    if (/column reference|ambiguous|42702|P0001.*title_id/i.test(raw)) {
       return "Could not save your Trainer ID. Please try again.";
     }
     return raw

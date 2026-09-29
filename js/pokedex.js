@@ -418,7 +418,7 @@
       const seenPad = String(seenN).padStart(3, "0");
       const caughtPad = String(caughtN).padStart(3, "0");
       els.heroReadouts.innerHTML = `
-        <div class="dex-hero-readout" role="group" aria-label="Kanto research progress">
+        <div class="dex-hero-readout" role="group" aria-label="Pokédex research progress">
           <div class="dex-hero-leds" aria-hidden="true"><i></i><i></i><i></i></div>
           <div class="dex-hero-scan" aria-hidden="true"></div>
           <div class="dex-hero-stats">
@@ -431,8 +431,8 @@
               <strong class="dex-hero-metric-value">${caughtPad}</strong>
             </div>
           </div>
-          <p class="dex-hero-meter-label">Kanto Discovery</p>
-          <div class="dex-hero-progress" role="img" aria-label="${caughtN} of ${total} Kanto Pokémon caught.">
+          <p class="dex-hero-meter-label">Research Progress</p>
+          <div class="dex-hero-progress" role="img" aria-label="${caughtN} of ${total} Pokémon caught.">
             <i style="width:${pct}%"></i>
             <span class="dex-hero-progress-mark" style="left:${pct}%" aria-hidden="true"></span>
           </div>

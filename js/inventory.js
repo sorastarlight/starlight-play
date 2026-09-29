@@ -12,7 +12,6 @@
     tabs: document.getElementById("bag-tabs"),
     search: document.getElementById("bag-search"),
     sort: document.getElementById("bag-sort"),
-    unowned: document.getElementById("bag-unowned"),
     detail: document.getElementById("item-detail"),
     detailBody: document.getElementById("item-detail-body"),
     wallet: document.getElementById("bag-wallet")
@@ -143,7 +142,7 @@
   function renderBag(bag) {
     lastBag = bag || {};
     const pins = window.playBagPins?.() || [];
-    const showUnowned = Boolean(els.unowned?.checked);
+    const showUnowned = false;
     const query = String(els.search?.value || "").trim().toLowerCase();
     const sort = els.sort?.value || "category";
     window.playFillBagMeter(bag);
@@ -296,7 +295,6 @@
   });
   els.search?.addEventListener("input", () => renderBag(lastBag));
   els.sort?.addEventListener("change", () => renderBag(lastBag));
-  els.unowned?.addEventListener("change", () => renderBag(lastBag));
   els.bag?.addEventListener("click", (event) => {
     const pin = event.target.closest("[data-pin-item]");
     if (pin) {

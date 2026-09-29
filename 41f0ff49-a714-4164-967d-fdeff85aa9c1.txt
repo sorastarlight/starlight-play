@@ -1,0 +1,242 @@
+PC / Computer - Sonic Mania - Sonic the Hedgehog - The Spriters Resource
+[![The VG Resource](https://www.vg-resource.com/images/vgr_logo-small.png)](https://www.vg-resource.com)[Wiki](https://wiki.vg-resource.com)[Sprites](https://www.spriters-resource.com)[Models](https://www.models-resource.com)[Textures](https://www.textures-resource.com)[Sounds](https://www.sounds-resource.com)[Login](https://www.vg-resource.com/login/?return=www.spriters-resource.com/pc_computer/sonicmania/sheet/95304)
+[VGFacts](https://www.vgfacts.com)[DidYouKnowGaming?](http://www.didyouknowgaming.com)
+☰
+[![The Spriters Resource](https://www.spriters-resource.com/resources/images/light/header/logo.png)](https://www.spriters-resource.com/)
+Hello, Guest! ([Login](https://www.vg-resource.com/login/?return=www.spriters-resource.com/pc_computer/sonicmania/sheet/95304)|[Register](https://www.vg-resource.com/member.php?action=register))
+![Not Logged In](https://www.spriters-resource.com/resources/images/light/display/default.png)
+Register today to join in with discussions on the forum, post comments on the site, and upload your own sheets!
+☰
+[Home](https://www.spriters-resource.com/)-[Search](https://www.spriters-resource.com/search/)-[Forums](https://www.vg-resource.com)-[About](https://www.spriters-resource.com/page/about/)-[Stats](https://www.spriters-resource.com/stats/)-[Comments](https://www.spriters-resource.com/comments/)-[Contact](https://www.spriters-resource.com/contact/)
+[![Icon Mode](https://www.spriters-resource.com/images/light/buttons/mode/icon.png)](https://www.spriters-resource.com/setmode/text/?return=/pc_computer/sonicmania/sheet/95304)[![NSFW: Hide](https://www.spriters-resource.com/images/light/buttons/nsfw/hide.png)](https://www.spriters-resource.com/setnsfw/show/?return=/pc_computer/sonicmania/sheet/95304)[![Random Sheet!](https://www.spriters-resource.com/images/light/buttons/random.png)](https://www.spriters-resource.com/random/)
+[Sprites](https://www.spriters-resource.com)[Models](https://www.models-resource.com)[Textures](https://www.textures-resource.com)[Sounds](https://www.sounds-resource.com)
+[Home](https://www.spriters-resource.com/)[Search](https://www.spriters-resource.com/search/)[Forums](https://www.vg-resource.com)[Wiki](https://wiki.vg-resource.com)[About](https://www.spriters-resource.com/page/about/)[FAQ](https://www.spriters-resource.com/page/faq/)[Stats](https://www.spriters-resource.com/stats/)[Comments](https://www.spriters-resource.com/comments/)[Contact](https://www.spriters-resource.com/contact/)[User Agreement](https://www.spriters-resource.com/page/agreement/)[Privacy Policy](https://www.spriters-resource.com/page/privacy)
+Social Links
+[Discord](https://discord.gg/dykg)[Twitter](https://twitter.com/thevgresource)[Facebook](https://www.facebook.com/TheVGResource)
+User Links
+[Login](https://www.vg-resource.com/login/?return=www.spriters-resource.com/pc_computer/sonicmania/sheet/95304)
+[![Icon Mode](https://www.spriters-resource.com/images/light/buttons/mode/icon.png)](https://www.spriters-resource.com/setmode/text/?return=/pc_computer/sonicmania/sheet/95304)[![NSFW: Hide](https://www.spriters-resource.com/images/light/buttons/nsfw/hide.png)](https://www.spriters-resource.com/setnsfw/show/?return=/pc_computer/sonicmania/sheet/95304)[![Random Sheet!](https://www.spriters-resource.com/images/light/buttons/random.png)](https://www.spriters-resource.com/random/)
+Consoles![](https://www.spriters-resource.com/images/light/buttons/nav-open.png)
+[3DS](https://www.spriters-resource.com/3ds/)[Arcade](https://www.spriters-resource.com/arcade/)[Browser Games](https://www.spriters-resource.com/browser_games/)[Custom / Edited](https://www.spriters-resource.com/custom_edited/)[DS / DSi](https://www.spriters-resource.com/ds_dsi/)[Game Boy / GBC](https://www.spriters-resource.com/game_boy_gbc/)[Game Boy Advance](https://www.spriters-resource.com/game_boy_advance/)[GameCube](https://www.spriters-resource.com/gamecube/)[LCD Handhelds](https://www.spriters-resource.com/lcd_handhelds/)[Master System](https://www.spriters-resource.com/master_system/)[Mobile](https://www.spriters-resource.com/mobile/)[Neo Geo / NGCD](https://www.spriters-resource.com/neo_geo_ngcd/)[NES](https://www.spriters-resource.com/nes/)[Nintendo 64](https://www.spriters-resource.com/nintendo_64/)[Nintendo Switch](https://www.spriters-resource.com/nintendo_switch/)[PC / Computer](https://www.spriters-resource.com/pc_computer/)[PlayStation](https://www.spriters-resource.com/playstation/)[PlayStation 2](https://www.spriters-resource.com/playstation_2/)[PlayStation 3](https://www.spriters-resource.com/playstation_3/)[PSP](https://www.spriters-resource.com/psp/)[Sega CD](https://www.spriters-resource.com/sega_cd/)[Sega Genesis / 32X](https://www.spriters-resource.com/genesis_32x_scd/)[SNES](https://www.spriters-resource.com/snes/)[Wii](https://www.spriters-resource.com/wii/)[Wii U](https://www.spriters-resource.com/wii_u/)[Other Systems![](https://www.spriters-resource.com/images/light/buttons/nav-closed.png)](https://www.spriters-resource.com/other_systems/)
+[3DO](https://www.spriters-resource.com/3do/)[Acorn Archimedes](https://www.spriters-resource.com/acorn_archimedes/)[Acorn Electron](https://www.spriters-resource.com/acorn_electron/)[Adventure Vision](https://www.spriters-resource.com/adventure_vision/)[Amiga / Amiga CD32](https://www.spriters-resource.com/amiga_amiga_cd32/)[Amstrad CPC](https://www.spriters-resource.com/amstrad_cpc/)[Apple II](https://www.spriters-resource.com/apple_ii/)[Atari](https://www.spriters-resource.com/atari/)[Atari ST](https://www.spriters-resource.com/atari_st/)[Bally Astrocade](https://www.spriters-resource.com/bally_astrocade/)[BBC Micro](https://www.spriters-resource.com/bbc_micro/)[CD-i](https://www.spriters-resource.com/cd_i/)[ColecoVision](https://www.spriters-resource.com/colecovision/)[Commodore 16](https://www.spriters-resource.com/commodore_16/)[Commodore 64](https://www.spriters-resource.com/commodore_64/)[COMX-35](https://www.spriters-resource.com/comx_35/)[Cybiko](https://www.spriters-resource.com/cybiko/)[Dreamcast](https://www.spriters-resource.com/dreamcast/)[Elektronika Calculators](https://www.spriters-resource.com/elektronika_calculators/)[Emerson Arcadia 2001](https://www.spriters-resource.com/emerson_arcadia_2001/)[Enterprise](https://www.spriters-resource.com/enterprise/)[FM Towns](https://www.spriters-resource.com/fm_towns/)[FM-7](https://www.spriters-resource.com/fm_7/)[Game Gear](https://www.spriters-resource.com/game_gear/)[Game Master](https://www.spriters-resource.com/game_master/)[Game.com](https://www.spriters-resource.com/game_com/)[HyperScan](https://www.spriters-resource.com/hyperscan/)[Intellivision](https://www.spriters-resource.com/intellivision/)[Jaguar](https://www.spriters-resource.com/jaguar/)[LeapFrog](https://www.spriters-resource.com/leapfrog/)[Lynx](https://www.spriters-resource.com/lynx/)[Mega Duck](https://www.spriters-resource.com/mega_duck/)[MSX / MSX2](https://www.spriters-resource.com/msx_msx2/)[N-Gage](https://www.spriters-resource.com/n_gage/)[NEC PC-6001](https://www.spriters-resource.com/nec_pc_6001/)[NEC PC-8801](https://www.spriters-resource.com/nec_pc_8801/)[NEC PC-9801](https://www.spriters-resource.com/nec_pc_9801/)[Neo Geo Pocket](https://www.spriters-resource.com/neo_geo_pocket/)[Nokia Series 40/60](https://www.spriters-resource.com/nokia_series_40_60/)[Odyssey²](https://www.spriters-resource.com/odyssey/)[PalmOS](https://www.spriters-resource.com/palmos/)[Pico](https://www.spriters-resource.com/pico/)[Pinball](https://www.spriters-resource.com/pinball/)[PlayStation 4](https://www.spriters-resource.com/playstation_4/)[PlayStation 5](https://www.spriters-resource.com/playstation_5/)[PlayStation Vita](https://www.spriters-resource.com/playstation_vita/)[Plug & Play](https://www.spriters-resource.com/plug_play/)[Pokémon Mini](https://www.spriters-resource.com/pokemon_mini/)[RCA Studio II](https://www.spriters-resource.com/rca_studio_ii/)[Saturn](https://www.spriters-resource.com/saturn/)[SG-1000](https://www.spriters-resource.com/sg_1000/)[Sharp MZ](https://www.spriters-resource.com/sharp_mz/)[Sharp X1](https://www.spriters-resource.com/sharp_x1/)[Sharp X68000](https://www.spriters-resource.com/sharp_x68000/)[Super A'Can](https://www.spriters-resource.com/super_a_can/)[Super Cassette Vision](https://www.spriters-resource.com/super_cassette_vision/)[Supervision](https://www.spriters-resource.com/supervision/)[Tapwave Zodiac](https://www.spriters-resource.com/tapwave_zodiac/)[Thumby](https://www.spriters-resource.com/thumby/)[TI-83](https://www.spriters-resource.com/ti_83/)[TI-99](https://www.spriters-resource.com/ti_99/)[TurboGrafx-16](https://www.spriters-resource.com/turbografx_16/)[V.Smile](https://www.spriters-resource.com/v_smile/)[Vectrex](https://www.spriters-resource.com/vectrex/)[Virtual Boy](https://www.spriters-resource.com/virtual_boy/)[Visicom COM-100](https://www.spriters-resource.com/visicom_com_100/)[WonderSwan / WSC](https://www.spriters-resource.com/wonderswan_wsc/)[Xbox](https://www.spriters-resource.com/xbox/)[Xbox 360](https://www.spriters-resource.com/xbox_360/)[Zeebo](https://www.spriters-resource.com/zeebo/)[ZX Spectrum](https://www.spriters-resource.com/zx_spectrum/)
+Genres![](https://www.spriters-resource.com/images/light/buttons/nav-closed.png)
+[Action](https://www.spriters-resource.com/genre/action/)[Action RPG](https://www.spriters-resource.com/genre/action_rpg/)[Action-Adventure](https://www.spriters-resource.com/genre/action_adventure/)[Action-Platformer](https://www.spriters-resource.com/genre/action_platformer/)[Adventure](https://www.spriters-resource.com/genre/adventure/)[Beat 'em Up](https://www.spriters-resource.com/genre/beat_em_up/)[Board / Card Game](https://www.spriters-resource.com/genre/board_card_game/)[Customs](https://www.spriters-resource.com/genre/customs/)[Educational](https://www.spriters-resource.com/genre/educational/)[Fighting](https://www.spriters-resource.com/genre/fighting/)[Horror](https://www.spriters-resource.com/genre/horror/)[Music](https://www.spriters-resource.com/genre/music/)[Platformer](https://www.spriters-resource.com/genre/platformer/)[Puzzle](https://www.spriters-resource.com/genre/puzzle/)[Racing](https://www.spriters-resource.com/genre/racing/)[Shoot 'em Up](https://www.spriters-resource.com/genre/shoot_em_up/)[Shooter](https://www.spriters-resource.com/genre/shooter/)[Simulation](https://www.spriters-resource.com/genre/simulation/)[Sports](https://www.spriters-resource.com/genre/sports/)[Strategy](https://www.spriters-resource.com/genre/strategy/)[Turn-Based RPG](https://www.spriters-resource.com/genre/turn_based_rpg/)[Visual Novel](https://www.spriters-resource.com/genre/visual_novel/)[Other](https://www.spriters-resource.com/genre/other/)
+Advertisement
+[#](https://www.spriters-resource.com/pc_computer/0.html)-[A](https://www.spriters-resource.com/pc_computer/A.html)-[B](https://www.spriters-resource.com/pc_computer/B.html)-[C](https://www.spriters-resource.com/pc_computer/C.html)-[D](https://www.spriters-resource.com/pc_computer/D.html)-[E](https://www.spriters-resource.com/pc_computer/E.html)-[F](https://www.spriters-resource.com/pc_computer/F.html)-[G](https://www.spriters-resource.com/pc_computer/G.html)-[H](https://www.spriters-resource.com/pc_computer/H.html)-[I](https://www.spriters-resource.com/pc_computer/I.html)-[J](https://www.spriters-resource.com/pc_computer/J.html)-[K](https://www.spriters-resource.com/pc_computer/K.html)-[L](https://www.spriters-resource.com/pc_computer/L.html)-[M](https://www.spriters-resource.com/pc_computer/M.html)-[N](https://www.spriters-resource.com/pc_computer/N.html)-[O](https://www.spriters-resource.com/pc_computer/O.html)-[P](https://www.spriters-resource.com/pc_computer/P.html)-[Q](https://www.spriters-resource.com/pc_computer/Q.html)-[R](https://www.spriters-resource.com/pc_computer/R.html)-[S](https://www.spriters-resource.com/pc_computer/S.html)-[T](https://www.spriters-resource.com/pc_computer/T.html)-[U](https://www.spriters-resource.com/pc_computer/U.html)-[V](https://www.spriters-resource.com/pc_computer/V.html)-[W](https://www.spriters-resource.com/pc_computer/W.html)-[X](https://www.spriters-resource.com/pc_computer/X.html)-[Y](https://www.spriters-resource.com/pc_computer/Y.html)-[Z](https://www.spriters-resource.com/pc_computer/Z.html)
+|
+Sonic the Hedgehog
+|
+Category|[PC / Computer](https://www.spriters-resource.com/pc_computer/)|
+Game|
+[Sonic Mania](https://www.spriters-resource.com/pc_computer/sonicmania/)
+|
+Section|
+Playable Characters
+|
+Submitter|[AsuharaMoon](https://www.spriters-resource.com/submitter/AsuharaMoon/)|
+Size|223.79 KB (1226x2466)|
+Format|PNG (image/png)|
+Hits|360,090|
+Comments|110|
+[Download this Sheet](https://www.spriters-resource.com/download/95304/)
+[Return to Game](https://www.spriters-resource.com/pc_computer/sonicmania/)
+|
+|
+[![Sonic the Hedgehog](https://www.spriters-resource.com/resources/sheets/92/95304.png?updated=1532491261)](https://www.spriters-resource.com/fullview/95304/)
+[![Previous](https://www.spriters-resource.com/images/light/buttons/prev.png)Previous Sheet](https://www.spriters-resource.com/pc_computer/sonicmania/sheet/107353/)|[Next Sheet![Next](https://www.spriters-resource.com/images/light/buttons/next.png)](https://www.spriters-resource.com/pc_computer/sonicmania/sheet/107597/)
+You must be[logged in](https://www.spriters-resource.com/login/?return=www.spriters-resource.com/pc_computer/sonicmania/sheet/95304)with an active forum account to post comments.
+![Avatar](https://www.spriters-resource.com/image.php?src=https%3A%2F%2Fwww.spriters-resource.com%2Fresources%2Fsheet_icons%2F165%2F168466.png%3Fupdated%3D1659089357%3Fdateline%3D1687830840&hash=04c463989fe093860aa1bac73cc16bfa)|
+[PlayerZeroX](https://www.vg-resource.com/user-104350.html)
+Jul 21, 2023, 8:03 AM
+|
+the "Outta Here" sprites... I can't believe that's in Mania.|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_102979.png)|
+[Anormalperson](https://www.vg-resource.com/user-102979.html)
+Jun 5, 2023, 7:49 PM
+|
+How do I get the pages separately? I don't want to be cutting them 1x1!|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_100549.png)|
+[AnNormalCat2014](https://www.vg-resource.com/user-100549.html)
+Apr 6, 2023, 7:48 AM
+|
+Spoiler:Fired but cool|
+|
+![Avatar](https://www.spriters-resource.com/resources/images/light/display/default.png)|
+[The Pan Man](https://www.vg-resource.com/user-75316.html)
+Aug 28, 2021, 11:20 AM\*
+|
+Hey, is there a way for me to get a Zip file of all the isolated sprites instead of having them all in one png? thanks.
+A helpful alternative would be to have the sprite sheet how it is here in one image, But with the sprites evenly spaced out, like a grid, with a transparent background|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_78365.png)|
+[ILikeSonic80904SR](https://www.vg-resource.com/user-78365.html)
+May 2, 2021, 8:35 AM
+|
+@Random Talking Bush: The update that Supersonic got his own sheet was way back in 2018, I tracked the Way Back Machine using this URL and found this, the old sprite sheet.
+Edit; I forgot it was HTTP when I loaded it it was blank:
+[http://web.archive.org/web/20170912145719/https://www.spriters-resource.com/fullview/95304/](http://web.archive.org/web/20170912145719/https://www.spriters-resource.com/fullview/95304/)|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_79208.png)|
+[SpyrotheDragon2021](https://www.vg-resource.com/user-79208.html)
+Mar 29, 2021, 12:07 AM
+|
+One of Sonic's "turntable" frames looks like his version of Crash's "WOAH surprise"|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_70678.png)|
+[The Sprite Planet](https://www.vg-resource.com/user-70678.html)
+Apr 8, 2020, 10:25 AM
+|
+These sprites when put together frame by frame into one animated sprite looks so smooth. I was gonna rip them but since I didn't have an account yet, I decided to rip them for me until this sprite sheet popped up. Thanks :)|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_51384.jpeg)|
+[JacobLeBeauREAL](https://www.vg-resource.com/user-51384.html)
+Mar 31, 2019, 7:20 AM
+|
+This sprite sheet highlights the problem I have with normal Sonic's palette. It's too bright imo, it strains my eyes. I wish that they used a slightly darker blue|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_62016.gif)|
+[SuperSonicChaos](https://www.vg-resource.com/user-62016.html)
+Mar 13, 2019, 8:35 AM
+|
+hecc nevermind i am blind|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_62016.gif)|
+[SuperSonicChaos](https://www.vg-resource.com/user-62016.html)
+Mar 13, 2019, 8:33 AM
+|
+Does anyone know where the "ride" sprites are? I might be blind but I can't find them...|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_7.png)|
+[Random Talking Bush](https://www.vg-resource.com/user-7.html)![Staff](https://www.vg-resource.com/images/userbars/seniorstaff.png)
+Mar 11, 2019, 1:28 PM
+|
+@Samey the Hedgewhatever: It may seem that way due to Super Sonic's sprites being given their own sheet when it was updated earlier.|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_33276.png)|
+[Samey the Hedgewhatever](https://www.vg-resource.com/user-33276.html)
+Mar 11, 2019, 5:48 AM
+|
+Is it just me, or is this sheet smaller then it used to be?|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_62016.gif)|
+[SuperSonicChaos](https://www.vg-resource.com/user-62016.html)
+Mar 8, 2019, 7:08 AM
+|
+Nevermind found them|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_62016.gif)|
+[SuperSonicChaos](https://www.vg-resource.com/user-62016.html)
+Mar 8, 2019, 7:03 AM
+|
+Does anyone know where the Outta Here sprites are? I can't seem to find them...|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_7.png)|
+[Random Talking Bush](https://www.vg-resource.com/user-7.html)![Staff](https://www.vg-resource.com/images/userbars/seniorstaff.png)
+Feb 25, 2019, 11:27 AM
+|
+@EXEcutor-The-Bat: Except Triangly didn't work on this sheet in particular (just ones for the older Sonic games). I was the one that re-arranged this sheet (and Super Sonic) to match the ones I personally ripped, for consistency's sake.|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_17568.png)|
+[Void-the-Bat](https://www.vg-resource.com/user-17568.html)
+Feb 25, 2019, 9:30 AM
+|
+It's a raging battle between Asuhara and Triangly to see who could claim this rip.|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_51417.png)|
+[snowTM](https://www.vg-resource.com/user-51417.html)
+Nov 6, 2018, 8:45 AM
+|
+so smooth|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_18.png)|
+[Yawackhary](https://www.vg-resource.com/user-18.html)
+Nov 6, 2018, 5:03 AM
+|
+@Doc If we are judging by staff, yeah Spinball was the only one that had full American staff and half the people who worked on that were known for the early PGA Tour Golf games.
+Sonic 2 was half done by Japanese staff (Yuji Naka, sound team, Tails' creator) and half by the American staff (Tom Payne, Brenda Ross, Craig Stitt, Peter Morawiec who was the special stage programmer) in the US. Sonic 3&K was almost completely done by the Japanese staff apart from Howard Drisson and MJ's sound team but was located in the US with Yuji Naka. No different than Sonic Adventure 2 for the latter.|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_43385.png)|
+[Doc von Schmeltwick](https://www.vg-resource.com/user-43385.html)
+Nov 5, 2018, 9:05 PM
+|
+Um, last I checked, the only Sonic Genesis sidescroller to be developed in the West wasSpinball....|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_58710.png)|
+[You Gotta be Joshing me](https://www.vg-resource.com/user-58710.html)
+Nov 5, 2018, 9:04 PM
+|
+@Doc also keep in mind that Sonic 1 was developed in Japan, and S2 and S3K were developed in the US, so there may have been some cultural influence as well how different Sega of Japan and Sega of America were at that time, Japanese Sonic was more anime-like, and American Sonic was portrayed as the "dude with the 'tude".|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_43385.png)|
+[Doc von Schmeltwick](https://www.vg-resource.com/user-43385.html)
+Nov 5, 2018, 5:17 PM
+|
+Sonic CD was always its own game iirc, and I never got that impression. I got the impression that Sonic Team had become better at drawing and allocating palettes. Besides, I personally think he looks the "oldest" in the first game, and more childlike in StH3&K, just on body language.|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_58710.png)|
+[You Gotta be Joshing me](https://www.vg-resource.com/user-58710.html)
+Nov 5, 2018, 2:09 PM
+|
+@Doc What I was saying was that whenever you play Sonic 1, 2, 3&K back to back, you get the idea that Sonic has aged since the previous game. Sonic CD was originally meant to be a Sega CD port of Sonic 1 I think, and It's obvious that the 8-bit games weren't Sega's main focus back then.|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_43385.png)|
+[Doc von Schmeltwick](https://www.vg-resource.com/user-43385.html)
+Nov 5, 2018, 1:32 PM
+|
+@Beaky Preeeetty sure that's just them working out what his palette should be, not an indicator of age. Besides, explain CD, which reuses the StH1 sprites tit-for-tat, and all of the 8-bit games of the time.|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_58710.png)|
+[You Gotta be Joshing me](https://www.vg-resource.com/user-58710.html)
+Nov 5, 2018, 8:24 AM
+|
+The problem I have with these sprites is that, they're inconsistent with the classic games, see, in Sonic 1 and Sonic CD, Sonic's fur was more of a light purple than blue, indicating that he's probably in his preteens, in Sonic 2 he's a darker shade of blue and looks different in some places, meaning that he's a young teenager, and in Sonic 3 & Knuckles he looks like a younger version of the Dreamcast-era Sonic, meaning that he's probably 15 or 16 (He even has green eyes in his super form, explaining the change) we even see this trend continue into modern games, but more recent games just break this trend completely.|
+|
+![Avatar](https://www.vg-resource.com/uploads/avatars/avatar_44802.png)|
+[Bromaster](https://www.vg-resource.com/user-44802.html)
+Sep 17, 2018, 4:58 PM
+|
+Sonic Did a Thing!|
+|
+<<First<Prev|Pageof 5|[Next>](https://www.spriters-resource.com/pc_computer/sonicmania/sheet/95304/page-2/)[Last>>](https://www.spriters-resource.com/pc_computer/sonicmania/sheet/95304/page-5/)|
+This page does not work well in portrait mode on mobile. Please rotate your device.
+* Site Network
+* [The VG Resource](https://www.vg-resource.com)
+* [The Spriters Resource](https://www.spriters-resource.com)
+* [The Models Resource](https://www.models-resource.com)
+* [The Textures Resource](https://www.textures-resource.com)
+* [The Sounds Resource](https://www.sounds-resource.com)
+* Popular Games
+* [Sonic the Hedgehog C...](https://www.spriters-resource.com/custom_edited/sonicthehedgehogcustoms/)
+* [Mario Customs](https://www.spriters-resource.com/custom_edited/mariocustoms/)
+* [Fire Emblem: Heroes](https://www.spriters-resource.com/mobile/fireemblemheroes/)
+* [Osomatsu-san Hesokur...](https://www.spriters-resource.com/mobile/osomatsusanhesokuriwarsbattleoftheneets/)
+* [Undertale](https://www.spriters-resource.com/pc_computer/undertale/)
+* Affiliates
+* [Sprite Database](https://spritedatabase.net/)
+* [Sprites Inc.](http://www.sprites-inc.co.uk/)
+* [Retro Game Zone](https://retrogamezone.co.uk/)
+* [Mario Fan Games Galaxy](https://mfgg.net/)
+* [Videogame Sprites](http://www.videogamesprites.net/)
+* About
+* [About](https://www.spriters-resource.com/page/about/)
+* [Contact Us](https://www.spriters-resource.com/contact/)
+* [Staff](https://www.vg-resource.com/showteam.php)
+* [FAQ](https://www.spriters-resource.com/page/faq/)
+* [Advertising](https://www.spriters-resource.com/page/advertising/)
+* Legal
+* By use of this site, you
+agree to abide by the
+[User Agreement](https://www.spriters-resource.com/page/agreement/).
+* [Privacy Policy](https://www.spriters-resource.com/page/privacy/)
+* [RSS Feed](https://www.spriters-resource.com/uploads.php)
+© 2003-2024, The VG Resource
+© 2003-2024, The VG Resource
+Revise
+Report
+Switch to Dark Theme
+Switch to Text Mode
+Click to show NSFW Content
+Click to toggle list of pending sheets
+Click for a random sheet!

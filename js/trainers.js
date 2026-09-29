@@ -254,13 +254,17 @@
     return `images/trainers/${key}.${ext}?v=av10`;
   };
 
-  /** Presentation overrides for unusual avatar silhouettes (auditable, sparse). */
-  window.PLAY_AVATAR_STAGE_OVERRIDES = Object.assign({
-    "sonic-sonic": { targetH: 0.78, family: "mascot" },
-    "sonic-amy": { targetH: 0.78, family: "mascot" },
-    "sonic-origins-sonic": { targetH: 0.78, family: "mascot" },
-    "sonic-origins-amy": { targetH: 0.78, family: "mascot" }
-  }, window.PLAY_AVATAR_STAGE_OVERRIDES || {});
+  /** Family defaults for natural avatar stage scale (not forced body-height equalization). */
+  window.PLAY_AVATAR_FAMILY_DEFAULTS = Object.assign({
+    pokemon_pixel: { maxStage: 0.58, pixelated: true, preferInteger: true },
+    pokemon_modern: { maxStage: 0.70, pixelated: false, preferInteger: false },
+    digimon: { maxStage: 0.66, pixelated: true, preferInteger: false },
+    sonic: { maxStage: 0.72, pixelated: true, preferInteger: true },
+    default: { maxStage: 0.68, pixelated: false, preferInteger: false }
+  }, window.PLAY_AVATAR_FAMILY_DEFAULTS || {});
+
+  /** Rare per-id overrides only. */
+  window.PLAY_AVATAR_STAGE_OVERRIDES = Object.assign({}, window.PLAY_AVATAR_STAGE_OVERRIDES || {});
 
   function avatarAlphaBounds(img) {
     const w = Number(img.naturalWidth || 0);
@@ -271,7 +275,7 @@
       canvas.width = w;
       canvas.height = h;
       const ctx = canvas.getContext("2d", { willReadFrequently: true });
-      if (!ctx) return null;
+      if (!ctx) return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h };
       ctx.clearRect(0, 0, w, h);
       ctx.drawImage(img, 0, 0);
       const data = ctx.getImageData(0, 0, w, h).data;
@@ -301,76 +305,87 @@
       if (!scan || scan.empty) {
         return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h };
       }
-      const vw = Math.max(1, scan.right - scan.left + 1);
-      const vh = Math.max(1, scan.bottom - scan.top + 1);
-      // Core: shrink extreme appendages by trimming sparse outer 8% of envelope width/height when very wide.
-      let coreLeft = scan.left;
-      let coreRight = scan.right;
-      let coreTop = scan.top;
-      let coreBottom = scan.bottom;
-      if (vw / vh > 1.35) {
-        const trim = Math.floor(vw * 0.08);
-        coreLeft += trim;
-        coreRight -= trim;
-      }
-      if (vh / vw > 1.8) {
-        const trimT = Math.floor(vh * 0.04);
-        coreTop += trimT;
-      }
-      const cw = Math.max(1, coreRight - coreLeft + 1);
-      const ch = Math.max(1, coreBottom - coreTop + 1);
       return {
-        left: scan.left, top: scan.top, right: scan.right, bottom: scan.bottom,
-        w, h, vw, vh, coreLeft, coreTop, coreRight, coreBottom, cw, ch
+        left: scan.left,
+        top: scan.top,
+        right: scan.right,
+        bottom: scan.bottom,
+        w,
+        h,
+        vw: Math.max(1, scan.right - scan.left + 1),
+        vh: Math.max(1, scan.bottom - scan.top + 1)
       };
     } catch (_) {
-      return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h, cw: w, ch: h };
+      return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h };
     }
   }
 
-  function avatarFamilyFromBounds(bounds, overrideFamily) {
-    if (overrideFamily) return overrideFamily;
-    const maxSrc = Math.max(bounds.w, bounds.h);
-    const maxVis = Math.max(bounds.vw, bounds.vh);
-    if (maxSrc <= 96 || maxVis <= 96) return "pixel";
-    if (maxSrc >= 256 && (bounds.vw / bounds.w < 0.72 || bounds.vh / bounds.h < 0.72)) return "full";
-    if (maxSrc >= 256) return "full";
-    return "mid";
+  function avatarFamilyOf(id, bounds) {
+    const key = String(id || "").toLowerCase();
+    if (/^sonic/.test(key)) return "sonic";
+    if (/^(taichi|yamato|sora|hikari|takeru|joe|mimi|koushiro)$/.test(key)) return "digimon";
+    const maxSrc = Math.max(bounds?.w || 0, bounds?.h || 0);
+    if (maxSrc >= 256) return "pokemon_modern";
+    if (maxSrc > 0 && maxSrc <= 96) return "pokemon_pixel";
+    if (maxSrc > 96 && maxSrc < 256) return "digimon";
+    return "default";
+  }
+
+  function avatarNaturalScale(bounds, familyCfg, envelope) {
+    const maxStage = Number(familyCfg.maxStage || 0.68);
+    const usable = envelope * maxStage;
+    // Scale from full source canvas (authored size), not forced body occupancy.
+    let scale = Math.min(usable / Math.max(1, bounds.h), (envelope * 0.92) / Math.max(1, bounds.w));
+    if (familyCfg.preferInteger && bounds.w <= 96) {
+      const nearest = Math.max(1, Math.round(scale));
+      // Prefer integer when it still fits the stage safely.
+      if (bounds.h * nearest <= envelope * 0.92 && bounds.w * nearest <= envelope * 0.95) {
+        scale = nearest;
+      }
+    }
+    return scale;
   }
 
   /**
-   * Normalize avatar to perceived stage size using visible-alpha bounds (not source canvas size).
-   * Sets CSS vars used by .scc-stage-sprite / .tid-avatar-sprite / thumb fits.
+   * Present avatars at natural/authored scale inside a fixed stage.
+   * Alpha bounds only trim transparent padding for grounding — not universal body size.
    */
   window.playNormalizeTrainerAvatar = function playNormalizeTrainerAvatar(img, opts) {
     if (!img) return;
     const mode = opts?.mode || (img.classList.contains("scc-avatar-thumb-img") || img.closest?.(".scc-avatar-thumb") ? "thumb" : "stage");
     const apply = () => {
-      const bounds = avatarAlphaBounds(img);
-      if (!bounds) return;
+      const bounds = avatarAlphaBounds(img) || {
+        left: 0,
+        top: 0,
+        right: Math.max(0, (img.naturalWidth || 1) - 1),
+        bottom: Math.max(0, (img.naturalHeight || 1) - 1),
+        w: img.naturalWidth || 1,
+        h: img.naturalHeight || 1,
+        vw: img.naturalWidth || 1,
+        vh: img.naturalHeight || 1
+      };
       const srcKey = String(img.currentSrc || img.src || "")
         .replace(/\?.*$/, "")
         .replace(/^.*\//, "")
         .replace(/\.(png|gif|webp|jpe?g)$/i, "");
       const id = String(img.dataset.avatarId || img.getAttribute("data-avatar-id") || srcKey || "");
       const override = window.PLAY_AVATAR_STAGE_OVERRIDES?.[id] || null;
-      const family = avatarFamilyFromBounds(bounds, override?.family);
-      const targetH = Number(override?.targetH)
-        || (family === "mascot" ? 0.78 : family === "pixel" ? 0.78 : family === "full" ? 0.76 : 0.76);
+      const family = override?.family || avatarFamilyOf(id, bounds);
+      const familyCfg = Object.assign(
+        {},
+        window.PLAY_AVATAR_FAMILY_DEFAULTS.default,
+        window.PLAY_AVATAR_FAMILY_DEFAULTS[family] || {},
+        override || {}
+      );
       const envelope = mode === "thumb" ? 64 : 208;
-      const usable = mode === "thumb" ? envelope * 0.92 : envelope * 0.9;
-      const coreH = Number(bounds.ch || bounds.vh);
-      const coreW = Number(bounds.cw || bounds.vw);
-      const scaleByH = (usable * targetH) / Math.max(1, coreH);
-      const scaleByW = (usable * (family === "mascot" ? 0.98 : 0.92)) / Math.max(1, bounds.vw);
-      const scale = Math.min(scaleByH, scaleByW);
+      const scale = avatarNaturalScale(bounds, familyCfg, envelope);
       const renderW = Math.round(bounds.w * scale);
       const renderH = Math.round(bounds.h * scale);
+      // Transparent padding only — keep feet on fixed stage baseline.
       const padL = bounds.left * scale;
       const padR = (bounds.w - 1 - bounds.right) * scale;
       const padB = (bounds.h - 1 - bounds.bottom) * scale;
-      const padT = bounds.top * scale;
-      const stagePct = Math.round((coreH * scale / envelope) * 1000) / 10;
+      const stagePct = Math.round((bounds.vh * scale / envelope) * 1000) / 10;
 
       img.dataset.avatarFamily = family;
       img.dataset.avatarNorm = "1";
@@ -379,41 +394,17 @@
       img.dataset.avatarVis = `${bounds.vw}x${bounds.vh}`;
       img.dataset.avatarRender = `${Math.round(bounds.vw * scale)}x${Math.round(bounds.vh * scale)}`;
       img.dataset.avatarStagePct = String(stagePct);
-      img.classList.toggle("is-full-art", family === "full");
-      img.classList.toggle("is-pixel-art", family === "pixel" || (family === "mascot" && bounds.w <= 128));
-      img.classList.toggle("is-mascot-art", family === "mascot");
-      if (mode === "thumb") {
-        const thumbBox = 56;
-        const tScale = Math.min(thumbBox / Math.max(1, bounds.vw), thumbBox / Math.max(1, coreH));
-        const tw = Math.round(bounds.w * tScale);
-        const th = Math.round(bounds.h * tScale);
-        const tPadL = bounds.left * tScale;
-        const tPadR = (bounds.w - 1 - bounds.right) * tScale;
-        const tPadB = (bounds.h - 1 - bounds.bottom) * tScale;
-        img.style.width = `${tw}px`;
-        img.style.height = `${th}px`;
-        img.style.maxWidth = "none";
-        img.style.maxHeight = "none";
-        img.style.objectFit = "fill";
-        img.style.margin = `0 ${-tPadR}px ${-tPadB}px ${-tPadL}px`;
-        img.style.transform = `translateX(${((tPadR - tPadL) / 2).toFixed(2)}px)`;
-        img.dataset.avatarRender = `${Math.round(bounds.vw * tScale)}x${Math.round(bounds.vh * tScale)}`;
-        img.dataset.avatarStagePct = String(Math.round((coreH * tScale / 64) * 1000) / 10);
-      } else {
-        img.style.width = `${renderW}px`;
-        img.style.height = `${renderH}px`;
-        img.style.maxWidth = "none";
-        img.style.maxHeight = "none";
-        img.style.objectFit = "fill";
-        img.style.margin = `0 ${-padR}px ${-padB}px ${-padL}px`;
-        img.style.transform = `translateX(${((padR - padL) / 2).toFixed(2)}px)`;
-        img.style.setProperty("--avatar-pad-t", `${padT.toFixed(1)}px`);
-      }
-      if (family === "pixel" || (family === "mascot" && bounds.w <= 128)) {
-        img.style.imageRendering = "pixelated";
-      } else {
-        img.style.imageRendering = "auto";
-      }
+      img.classList.toggle("is-pixel-art", Boolean(familyCfg.pixelated));
+      img.classList.toggle("is-full-art", family === "pokemon_modern");
+      img.classList.toggle("is-mascot-art", family === "sonic");
+      img.style.width = `${renderW}px`;
+      img.style.height = `${renderH}px`;
+      img.style.maxWidth = "none";
+      img.style.maxHeight = "none";
+      img.style.objectFit = "fill";
+      img.style.margin = `0 ${-padR}px ${-padB}px ${-padL}px`;
+      img.style.transform = `translateX(${((padR - padL) / 2).toFixed(2)}px)`;
+      img.style.imageRendering = familyCfg.pixelated ? "pixelated" : "auto";
     };
     if (img.complete && img.naturalWidth) apply();
     else img.addEventListener("load", apply, { once: true });
@@ -605,16 +596,10 @@
           </div>
         </div>`;
     }
-    const variants = counts.variants || {};
     const mastered = Number(card?.speciesMastered || 0);
-    const femaleVariants = Number(variants.femaleVariants || 0);
     const secondaryCells = [
-      `<div><dt>SPECIES MASTERED</dt><dd>${mastered}</dd></div>`,
-      `<div><dt>RESEARCH</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>`
+      `<div><dt>SPECIES MASTERED</dt><dd>${mastered}</dd></div>`
     ];
-    if (femaleVariants > 0) {
-      secondaryCells.push(`<div><dt>FEMALE VARIANTS</dt><dd>${femaleVariants}</dd></div>`);
-    }
     return `
       <article class="tid-card id-card-${bg.tone} id-card-${bg.group} id-card-frame-${esc(frame)}" data-tid-mode="${mode}" data-tid-variant="${esc(variant)}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk}">
         <div class="tid-art" style="background-image:url('${window.playCardBgUrl(bg.id)}')" aria-hidden="true"></div>
@@ -655,9 +640,9 @@
             <div><dt>Pokédex</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>
             <div><dt>Catches</dt><dd>${Number(card?.caught || 0)}</dd></div>
             <div><dt>Shinies</dt><dd>${Number(card?.shinyCaught || 0)}</dd></div>
-            <div><dt>Evolutions</dt><dd>${Number(card?.evolved || 0)}</dd></div>
+            <div><dt>Species Mastered</dt><dd>${mastered}</dd></div>
           </dl>
-          <dl class="tid-highlights tid-highlights-secondary">${secondaryCells.join("")}</dl>
+          <dl class="tid-highlights tid-highlights-secondary visually-hidden">${secondaryCells.join("")}</dl>
           <div class="tid-plaque tid-plaque-xp">${window.playXpProgressHtml(card, { profile: true })}</div>
         </div>`}
       </article>`;
@@ -762,15 +747,12 @@
   };
 
   window.playRenderTrainerStatsHtml = function playRenderTrainerStatsHtml(card) {
-    const variants = card?.variants || {};
     const counts = profileDexCounts(card);
     const rows = [
       ["Pokédex", `${counts.kantoCaught} / ${counts.kantoTotal}`],
-      ["Caught", card?.caught || 0],
+      ["Catches", card?.caught || 0],
       ["Shinies", card?.shinyCaught || 0],
-      ["Evolved", card?.evolved || 0],
-      ["Mastered", card?.speciesMastered || 0],
-      ["Female variants", variants.femaleVariants || 0]
+      ["Species Mastered", card?.speciesMastered || 0]
     ];
     return `<dl class="tid-stats-grid">${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl>`;
   };

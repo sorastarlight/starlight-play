@@ -1,0 +1,1223 @@
+Developer API – Mix It Up Docs
+
+ Steps to enable the Developer APIs Status GET /status/version Users GET /users/{userId} DELETE /users/{userId} GET /users/{platform}/{usernameOrID} GET /users GET /users/active POST /users/add Currency GET /currency GET /currency/{currencyId}/{userId} PUT /currency/{currencyId}/{userId} PATCH /currency/{currencyId}/{userId} Inventory GET /inventory GET /inventory/{inventoryId}/{userId} GET /inventory/{inventoryId}/{itemId}/{userId} PUT /inventory/{inventoryId}/{itemId}/{userId} PATCH /inventory/{inventoryId}/{itemId}/{userId} Counters GET /counters POST /counters GET /counters/{counterName} DELETE /counters/{counterName} POST /counters/{counterName}/set POST /counters/{counterName}/update POST /counters/{counterName}/reset Chat POST /chat/message POST /chat/clear Commands GET /commands GET /commands/{commandId} POST /commands/{commandId} PATCH /commands/{commandId}/state/{state} Data Models ProblemDetails User UserPlatformData GetSingleUserResponse GetListOfUsersResponse NewUser GetCurrencyResponse GetCurrencyAmountResponse UpdateCurrencyAmount GetInventoryResponse GetInventoryItemResponse GetInventoryItemAmountResponse UpdateInventoryAmount Counter GetListOfCountersResponse GetSingleCounterResponse CreateCounterRequest SetCounterRequest UpdateCounterRequest Command GetSingleCommandResponse GetListOfCommandsResponse RunCommandParameters SendChatMessage 
+
+# Developer API
+
+The Developer API allows our more advanced users to interact with Mix It Up using external or customized programs. To use this feature, ensure the Developer API is enabled on the Services page. All APIs are REST-like endpoints that you can call, sending and receiving JSON text. All endpoints begin with the base address of “ http://localhost:8911/api/v2/”
+
+The full REST documentation is available here: https://mixitup.bot/desktopapidocs/
+
+## Steps to enable the Developer APIs
+
+First open the services page:
+
+Then scroll down to the Developer API section and click the Connect button:
+
+ Base URL 
+
+```
+http://localhost:8911/api/v2
+```
+
+ Mix It Up Developer API · v2.0.0 · Mix It Up Support 
+
+## Status 
+
+ Operations related to application status 
+
+### GET `/status/version` 
+
+ Gets the Mix It Up version number 
+
+#### Responses 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `string` |
+
+ 200 response 
+
+```
+"1.0.0.0"
+```
+
+## Users 
+
+ Operations related to Mix It Up User data 
+
+### GET `/users/{userId}` 
+
+ Get user data by Mix It Up user ID 
+
+#### Parameters 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `userId` | path | `string ` | Yes | The Mix It Up user ID that needs to be fetched |
+
+#### Responses 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetSingleUserResponse` |
+| `404` | User not found | `ProblemDetails` |
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User with ID '137CD793-F4E7-4330-8282-B06E52644F78' not found"
+}
+```
+
+### DELETE `/users/{userId}` 
+
+ Delete user by Mix It Up user ID 
+
+#### Parameters 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `userId` | path | `string ` | Yes | The Mix It Up user ID to delete |
+
+#### Responses 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | None |
+| `404` | User not found | `ProblemDetails` |
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User with ID '137CD793-F4E7-4330-8282-B06E52644F78' not found"
+}
+```
+
+### GET `/users/{platform}/{usernameOrID}` 
+
+ Get user data by platform username or ID 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `platform` | path | `string` | Yes | The name of the streaming platform (e.g., Twitch, YouTube) |
+| `usernameOrID` | path | `string` | Yes | The platform username or ID that needs to be fetched |
+
+#### Responses 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetSingleUserResponse` |
+| `400` | Bad request | `ProblemDetails` |
+| `404` | User not found | `ProblemDetails` |
+
+ 400 response 
+
+```
+{
+  "status": 400,
+  "title": "Bad Request",
+  "detail": "Unknown platform: InvalidPlatform"
+}
+```
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User 'username' not found on platform 'Twitch'"
+}
+```
+
+### GET `/users` 
+
+ Get multiple users with pagination 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `skip` | query | `integer` | No | How many users to skip |
+| `pageSize` | query | `integer` | No | The total number of users to return |
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetListOfUsersResponse` |
+
+### GET `/users/active` 
+
+ Get multiple active users with pagination 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `skip` | query | `integer` | No | How many users to skip |
+| `pageSize` | query | `integer` | No | The total number of users to return |
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetListOfUsersResponse` |
+
+### POST `/users/add` 
+
+ Add a new user by platform username 
+
+#### Request Body (required) 
+
+ `application/json` · Schema: `NewUser` 
+
+ Example request 
+
+```
+{
+  "Platform": "Twitch",
+  "Username": "saviorxtanren"
+}
+```
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetSingleUserResponse` |
+| `400` | Bad request | `ProblemDetails` |
+| `404` | User not found | `ProblemDetails` |
+
+ 400 response 
+
+```
+{
+  "status": 400,
+  "title": "Bad Request",
+  "detail": "Unknown platform: InvalidPlatform"
+}
+```
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User 'username' not found on platform 'Twitch'"
+}
+```
+
+## Currency 
+
+ Operations related to Mix It Up Currency data 
+
+### GET `/currency` 
+
+ Gets a list of all currencies available 
+
+#### Responses 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `array ` |
+
+### GET `/currency/{currencyId}/{userId}` 
+
+ Gets the currency amount for a specific user 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `currencyId` | path | `string ` | Yes | The currency ID to query |
+| `userId` | path | `string ` | Yes | The Mix It Up user ID to query for |
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetCurrencyAmountResponse` |
+| `404` | Currency or user not found | `ProblemDetails` |
+
+ 404 response: currencyNotFound 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "Currency with ID '1783e5d9-c2ab-423a-ae64-7dc9a086b194' not found"
+}
+```
+
+ 404 response: userNotFound 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User with ID '137CD793-F4E7-4330-8282-B06E52644F78' not found"
+}
+```
+
+### PUT `/currency/{currencyId}/{userId}` 
+
+ Set the currency amount for a specific user 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `currencyId` | path | `string ` | Yes | The currency ID to query |
+| `userId` | path | `string ` | Yes | The Mix It Up user ID to query for |
+
+#### Request Body (required) 
+
+ `application/json` · Schema: `UpdateCurrencyAmount` 
+
+ Example request 
+
+```
+{
+  "Amount": 100
+}
+```
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetCurrencyAmountResponse` |
+| `404` | Currency or user not found | `ProblemDetails` |
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User with ID '137CD793-F4E7-4330-8282-B06E52644F78' not found"
+}
+```
+
+### PATCH `/currency/{currencyId}/{userId}` 
+
+ Updates the currency amount for a specific user (add or subtract) 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `currencyId` | path | `string ` | Yes | The currency ID to query |
+| `userId` | path | `string ` | Yes | The Mix It Up user ID to query for |
+
+#### Request Body (required) 
+
+ `application/json` · Schema: `UpdateCurrencyAmount` 
+
+ Example request 
+
+```
+{
+  "Amount": 100
+}
+```
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetCurrencyAmountResponse` |
+| `404` | Currency or user not found | `ProblemDetails` |
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User with ID '137CD793-F4E7-4330-8282-B06E52644F78' not found"
+}
+```
+
+## Inventory 
+
+ Operations related to Mix It Up Inventory data 
+
+### GET `/inventory` 
+
+ Gets a list of all inventories available 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `array ` |
+
+### GET `/inventory/{inventoryId}/{userId}` 
+
+ Gets all inventory item amounts for a specific user 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `inventoryId` | path | `string ` | Yes | The inventory ID to query |
+| `userId` | path | `string ` | Yes | The Mix It Up user ID to query |
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `array ` |
+| `404` | Inventory or user not found | `ProblemDetails` |
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User with ID '137CD793-F4E7-4330-8282-B06E52644F78' not found"
+}
+```
+
+### GET `/inventory/{inventoryId}/{itemId}/{userId}` 
+
+ Gets the inventory item amount for a specific user 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `inventoryId` | path | `string ` | Yes | The inventory ID to query |
+| `itemId` | path | `string ` | Yes | The inventory item ID to query |
+| `userId` | path | `string ` | Yes | The Mix It Up user ID to query for |
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetInventoryItemAmountResponse` |
+| `404` | Inventory, item, or user not found | `ProblemDetails` |
+
+ 200 response 
+
+```
+{
+  "Amount": 5
+}
+```
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User with ID '137CD793-F4E7-4330-8282-B06E52644F78' not found"
+}
+```
+
+### PUT `/inventory/{inventoryId}/{itemId}/{userId}` 
+
+ Set the inventory item amount for a specific user 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `inventoryId` | path | `string ` | Yes | The inventory ID to query |
+| `itemId` | path | `string ` | Yes | The inventory item ID to query |
+| `userId` | path | `string ` | Yes | The Mix It Up user ID to query for |
+
+#### Request Body (required) 
+
+ `application/json` · Schema: `UpdateInventoryAmount` 
+
+ Example request 
+
+```
+{
+  "Amount": 10
+}
+```
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetInventoryItemAmountResponse` |
+| `404` | Inventory, item, or user not found | `ProblemDetails` |
+
+ 200 response 
+
+```
+{
+  "Amount": 5
+}
+```
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User with ID '137CD793-F4E7-4330-8282-B06E52644F78' not found"
+}
+```
+
+### PATCH `/inventory/{inventoryId}/{itemId}/{userId}` 
+
+ Updates the inventory item amount for a specific user (add or subtract) 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `inventoryId` | path | `string ` | Yes | The inventory ID to query |
+| `itemId` | path | `string ` | Yes | The inventory item ID to query |
+| `userId` | path | `string ` | Yes | The Mix It Up user ID to query for |
+
+ `application/json` · Schema: `UpdateInventoryAmount` 
+
+ Example request 
+
+```
+{
+  "Amount": 10
+}
+```
+
+#### Responses 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetInventoryItemAmountResponse` |
+| `404` | Inventory, item, or user not found | `ProblemDetails` |
+
+ 200 response 
+
+```
+{
+  "Amount": 5
+}
+```
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User with ID '137CD793-F4E7-4330-8282-B06E52644F78' not found"
+}
+```
+
+## Counters 
+
+ Operations related to Mix It Up Counter data 
+
+### GET `/counters` 
+
+ Gets a list of all counters 
+
+#### Responses 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetListOfCountersResponse` |
+
+### POST `/counters` 
+
+ Creates a new counter 
+
+#### Request Body (required) 
+
+ `application/json` · Schema: `CreateCounterRequest` 
+
+ Example request 
+
+```
+{
+  "Name": "DeathCounter"
+}
+```
+
+#### Responses 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetSingleCounterResponse` |
+| `400` | Bad request | `ProblemDetails` |
+
+ 400 response: nameRequired 
+
+```
+{
+  "status": 400,
+  "title": "Bad Request",
+  "detail": "Counter name is required"
+}
+```
+
+ 400 response: alreadyExists 
+
+```
+{
+  "status": 400,
+  "title": "Bad Request",
+  "detail": "Counter 'MyCounter' already exists"
+}
+```
+
+### GET `/counters/{counterName}` 
+
+ Gets a specific counter by name 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `counterName` | path | `string` | Yes | The counter name to query |
+
+#### Responses 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetSingleCounterResponse` |
+| `404` | Counter not found | `ProblemDetails` |
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "Counter 'MyCounter' not found"
+}
+```
+
+### DELETE `/counters/{counterName}` 
+
+ Deletes a counter 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `counterName` | path | `string` | Yes | The counter name to delete |
+
+#### Responses 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | None |
+| `404` | Counter not found | `ProblemDetails` |
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "Counter 'MyCounter' not found"
+}
+```
+
+### POST `/counters/{counterName}/set` 
+
+ Sets the counter to a specific value 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `counterName` | path | `string` | Yes | The counter name to update |
+
+#### Request Body (required) 
+
+ `application/json` · Schema: `SetCounterRequest` 
+
+ Example request 
+
+```
+{
+  "Amount": 100
+}
+```
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetSingleCounterResponse` |
+| `400` | Bad request | `ProblemDetails` |
+| `404` | Counter not found | `ProblemDetails` |
+
+ 400 response 
+
+```
+{
+  "status": 400,
+  "title": "Bad Request",
+  "detail": "Amount is required"
+}
+```
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "Counter 'MyCounter' not found"
+}
+```
+
+### POST `/counters/{counterName}/update` 
+
+ Updates the counter by adding or subtracting a value 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `counterName` | path | `string` | Yes | The counter name to update |
+
+#### Request Body (required) 
+
+ `application/json` · Schema: `UpdateCounterRequest` 
+
+ Example request 
+
+```
+{
+  "Amount": 5
+}
+```
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetSingleCounterResponse` |
+| `404` | Counter not found | `ProblemDetails` |
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "Counter 'MyCounter' not found"
+}
+```
+
+### POST `/counters/{counterName}/reset` 
+
+ Resets the counter to zero 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `counterName` | path | `string` | Yes | The counter name to reset |
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetSingleCounterResponse` |
+| `404` | Counter not found | `ProblemDetails` |
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "Counter 'MyCounter' not found"
+}
+```
+
+ Operations related to Mix It Up Chat 
+
+### POST `/chat/message` 
+
+ Sends a message to the chat 
+
+#### Request Body (required) 
+
+ `application/json` · Schema: `SendChatMessage` 
+
+ Example request 
+
+```
+{
+  "Message": "This is a test of the emergency broadcast system!",
+  "Platform": "Twitch",
+  "SendAsStreamer": false
+}
+```
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | None |
+| `400` | Bad request | `ProblemDetails` |
+
+ 400 response: missingMessage 
+
+```
+{
+  "status": 400,
+  "title": "Bad Request",
+  "detail": "Missing chat message"
+}
+```
+
+ 400 response: unknownPlatform 
+
+```
+{
+  "status": 400,
+  "title": "Bad Request",
+  "detail": "Unknown platform: InvalidPlatform"
+}
+```
+
+### POST `/chat/clear` 
+
+ Clears the chat for all connected platforms 
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | None |
+
+ Operations related to Mix It Up Commands 
+
+### GET `/commands` 
+
+ Gets a list of all commands with pagination 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `skip` | query | `integer` | No | How many commands to skip |
+| `pageSize` | query | `integer` | No | The total number of commands to return |
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetListOfCommandsResponse` |
+
+### GET `/commands/{commandId}` 
+
+ Gets a specific command by ID 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `commandId` | path | `string ` | Yes | The command ID to query |
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetSingleCommandResponse` |
+| `404` | Command not found | `ProblemDetails` |
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "Command with ID '1783e5d9-c2ab-423a-ae64-7dc9a086b194' not found"
+}
+```
+
+### POST `/commands/{commandId}` 
+
+ Runs a command 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `commandId` | path | `string ` | Yes | The command ID to run |
+
+#### Request Body 
+
+ `application/json` · Schema: `RunCommandParameters` 
+
+ Example request 
+
+```
+{
+  "Platform": "Twitch",
+  "Arguments": "arg1 arg2 arg3",
+  "IgnoreRequirements": false
+}
+```
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | None |
+| `400` | Bad request | `ProblemDetails` |
+| `404` | Command not found | `ProblemDetails` |
+
+ 400 response 
+
+```
+{
+  "status": 400,
+  "title": "Bad Request",
+  "detail": "Unknown platform: InvalidPlatform"
+}
+```
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "Command with ID '1783e5d9-c2ab-423a-ae64-7dc9a086b194' not found"
+}
+```
+
+### PATCH `/commands/{commandId}/state/{state}` 
+
+ Updates the command's enabled state 
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `commandId` | path | `string ` | Yes | The command ID to update |
+| `state` | path | `enum: 0 | 1 | 2` | Yes | The state to update the command to (0 = Disable, 1 = Enable, 2 = Toggle) |
+
+| Status | Description | Schema |
+| --- | --- | --- |
+| `200` | Success | `GetSingleCommandResponse` |
+| `400` | Bad request | `ProblemDetails` |
+| `404` | Command not found | `ProblemDetails` |
+
+ 400 response 
+
+```
+{
+  "status": 400,
+  "title": "Bad Request",
+  "detail": "Invalid command state option"
+}
+```
+
+ 404 response 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "Command with ID '1783e5d9-c2ab-423a-ae64-7dc9a086b194' not found"
+}
+```
+
+### `ProblemDetails` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `status` | `integer` | No | The HTTP status code |
+| `title` | `string` | No | A short, human-readable summary of the problem |
+| `detail` | `string` | No | A human-readable explanation specific to this occurrence of the problem |
+
+ Example 
+
+```
+{
+  "status": 404,
+  "title": "Not Found",
+  "detail": "User with ID '137CD793-F4E7-4330-8282-B06E52644F78' not found"
+}
+```
+
+### `User` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `ID` | `string ` | Yes | The Mix It Up User ID |
+| `PlatformData` | `map<string, UserPlatformData>` | No | Platform-specific user data |
+| `LastActivity` | `string ` | No | The last date time of activity |
+| `LastUpdated` | `string ` | No | The last date time of updates |
+| `OnlineViewingMinutes` | `integer` | No | The total number of online viewing minutes in your stream |
+| `CustomTitle` | `string` | No | The user's custom title |
+| `IsSpecialtyExcluded` | `boolean` | No | Whether the user is a specialty excluded user |
+| `Notes` | `string` | No | The notes for the user |
+| `CurrencyAmounts` | `map<string, integer>` | No | Map of currency IDs to amounts |
+| `InventoryAmounts` | `map<string, map<string, integer>>` | No | Map of inventory IDs to item amounts |
+| `StreamPassAmounts` | `map<string, integer>` | No | Map of stream pass IDs to amounts |
+
+ Example 
+
+```
+{
+  "ID": "137CD793-F4E7-4330-8282-B06E52644F78",
+  "OnlineViewingMinutes": 1234567890,
+  "CustomTitle": "Ultimate",
+  "IsSpecialtyExcluded": false,
+  "Notes": "Is a lovely person"
+}
+```
+
+### `UserPlatformData` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Platform` | `string` | No | The Platform name |
+| `ID` | `string` | No | The Platform user ID |
+| `Username` | `string` | No | The Platform username |
+| `DisplayName` | `string` | No | The Platform display name |
+| `AvatarLink` | `string` | No | The Platform avatar URL |
+| `SubscriberBadgeLink` | `string` | No | The Platform subscriber badge URL |
+| `RoleBadgeLink` | `string` | No | The Platform role badge URL |
+| `SpecialtyBadgeLink` | `string` | No | The Platform specialty badge URL |
+| `Roles` | `array ` | No | The list of Platform roles |
+| `AccountDate` | `string ` | No | The platform account date |
+| `FollowDate` | `string ` | No | The platform follow date |
+| `SubscribeDate` | `string ` | No | The platform subscriber date |
+| `SubscriberTier` | `integer` | No | The platform subscriber tier |
+
+ Example 
+
+```
+{
+  "Platform": "Twitch",
+  "ID": "1234567890",
+  "Username": "saviorxtanren",
+  "DisplayName": "SaviorXTanren"
+}
+```
+
+### `GetSingleUserResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `User` | `User` | No | |
+
+### `GetListOfUsersResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `TotalCount` | `integer` | No | Total number of users |
+| `Users` | `array ` | No | |
+
+### `NewUser` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Platform` | `string` | Yes | The streaming platform name |
+| `Username` | `string` | Yes | The platform username |
+
+ Example 
+
+```
+{
+  "Platform": "Twitch",
+  "Username": "saviorxtanren"
+}
+```
+
+### `GetCurrencyResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `ID` | `string ` | Yes | The Mix It Up currency ID |
+| `Name` | `string` | Yes | The Mix It Up currency name |
+
+ Example 
+
+```
+{
+  "ID": "1783e5d9-c2ab-423a-ae64-7dc9a086b194",
+  "Name": "Influence"
+}
+```
+
+### `GetCurrencyAmountResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `CurrencyID` | `string ` | Yes | The currency ID |
+| `CurrencyName` | `string` | Yes | The currency name |
+| `UserID` | `string ` | Yes | The user ID |
+| `Amount` | `integer` | Yes | The currency amount |
+
+### `UpdateCurrencyAmount` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Amount` | `integer` | Yes | The amount to adjust or set the user's currency. For PATCH operations, this can be positive (add) or negative (subtract). For PUT operations, this sets the absolute value. |
+
+ Example 
+
+```
+{
+  "Amount": 100
+}
+```
+
+### `GetInventoryResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `ID` | `string ` | Yes | The Mix It Up inventory ID |
+| `Name` | `string` | Yes | The Mix It Up inventory name |
+| `Items` | `array ` | Yes | |
+
+ Example 
+
+```
+{
+  "ID": "1783e5d9-c2ab-423a-ae64-7dc9a086b194",
+  "Name": "Equipment"
+}
+```
+
+### `GetInventoryItemResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `ID` | `string ` | Yes | The Mix It Up inventory item ID |
+| `Name` | `string` | Yes | The Mix It Up inventory item name |
+
+ Example 
+
+```
+{
+  "Name": "Sword"
+}
+```
+
+### `GetInventoryItemAmountResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `ID` | `string ` | Yes | The inventory item ID |
+| `Name` | `string` | Yes | The inventory item name |
+| `Amount` | `integer` | Yes | The amount of this item the user has |
+
+ Example 
+
+```
+{
+  "Amount": 5
+}
+```
+
+### `UpdateInventoryAmount` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Amount` | `integer` | Yes | The amount to adjust or set the user's inventory item. For PATCH operations, this can be positive (add) or negative (subtract). For PUT operations, this sets the absolute value. |
+
+ Example 
+
+```
+{
+  "Amount": 10
+}
+```
+
+### `Counter` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Name` | `string` | Yes | The counter name |
+| `Amount` | `number ` | Yes | The current counter value |
+
+ Example 
+
+```
+{
+  "Name": "DeathCounter",
+  "Amount": 42.5
+}
+```
+
+### `GetListOfCountersResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `TotalCount` | `integer` | No | Total number of counters |
+| `Counters` | `array ` | No | |
+
+### `GetSingleCounterResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Counter` | `Counter` | No | |
+
+### `CreateCounterRequest` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Name` | `string` | Yes | The name for the new counter |
+
+ Example 
+
+```
+{
+  "Name": "DeathCounter"
+}
+```
+
+### `SetCounterRequest` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Amount` | `number ` | Yes | The value to set the counter to |
+
+ Example 
+
+```
+{
+  "Amount": 100
+}
+```
+
+### `UpdateCounterRequest` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Amount` | `number ` | No | The amount to add to the counter (defaults to 1 if not provided). Can be negative to subtract. |
+
+ Example 
+
+```
+{
+  "Amount": 5
+}
+```
+
+### `Command` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `ID` | `string ` | Yes | The Mix It Up command ID |
+| `Name` | `string` | Yes | The Mix It Up command name |
+| `Type` | `string` | Yes | The Mix It Up command type |
+| `IsEnabled` | `boolean` | Yes | True if enabled, false otherwise |
+| `Unlocked` | `boolean` | No | Whether the command is unlocked or not |
+| `GroupName` | `string` | No | The name of the group the command belongs to, if any |
+
+ Example 
+
+```
+{
+  "ID": "1783e5d9-c2ab-423a-ae64-7dc9a086b194",
+  "Name": "MyCommand",
+  "Type": "Chat",
+  "IsEnabled": true
+}
+```
+
+### `GetSingleCommandResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Command` | `Command` | No | |
+
+### `GetListOfCommandsResponse` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `TotalCount` | `integer` | No | Total number of commands |
+| `Commands` | `array ` | No | |
+
+### `RunCommandParameters` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Platform` | `string` | No | The streaming platform to run the command for |
+| `Arguments` | `string` | No | The arguments for the command |
+| `SpecialIdentifiers` | `map<string, string>` | No | Special identifiers replacements to pass to the command |
+| `IgnoreRequirements` | `boolean` | No | If true, bypasses all command requirements (cooldowns, roles, costs). Defaults to false. |
+
+ Example 
+
+```
+{
+  "Platform": "Twitch",
+  "Arguments": "arg1 arg2 arg3",
+  "IgnoreRequirements": false
+}
+```
+
+### `SendChatMessage` 
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `Message` | `string` | Yes | The message to send to chat |
+| `Platform` | `string` | No | The streaming platform to send the message to (e.g., Twitch, YouTube, All) |
+| `SendAsStreamer` | `boolean` | No | True will force the message to send as the streamer. False will try to send as the registered bot, if available. |
+
+ Example 
+
+```
+{
+  "Message": "This is a test of the emergency broadcast system!",
+  "Platform": "Twitch",
+  "SendAsStreamer": false
+}
+```
+
+ Last updated July 19, 2026 Last audited July 19, 2026 
+
+### Contents

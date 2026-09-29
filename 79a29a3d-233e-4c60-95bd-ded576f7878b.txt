@@ -1,0 +1,2782 @@
+ST★RLIGHT POKÉMON RPG
+FINAL GAMEPLAY / UX / STABILITY / PERFORMANCE POLISH PASS
+=========================================================
+
+I am providing the CURRENT production site/repository.
+
+This is now a mature project and is approaching what I consider a release-quality version.
+
+I want a comprehensive polish, maintenance, UX, gameplay, and stability pass.
+
+HOWEVER:
+
+THIS IS NOT A REWRITE.
+
+DO NOT throw away working systems.
+
+DO NOT redesign the database unnecessarily.
+
+DO NOT replace stable architecture merely because you prefer another pattern.
+
+DO NOT break existing:
+
+- Trainer accounts
+- linked Twitch accounts
+- authentication
+- Pokémon ownership
+- Pokédex
+- Inventory
+- currencies
+- Starlight Pass
+- Twitch Bits rewards
+- GTS
+- trades
+- Evolution data
+- achievements
+- rankings
+- encounter balancing
+- capture calculations
+- admin systems
+- stream director
+- Twitch ad integration
+- location backgrounds
+- shiny/female variants
+- Trainer avatars
+- profile cosmetics
+
+Audit first.
+
+Fix stability first.
+
+Then improve presentation.
+
+=========================================================
+PRIORITY ORDER
+=========================================================
+
+Treat this work in this order:
+
+P0 — ENCOUNTER ACTIONS / CAPTURE RELIABILITY
+
+P1 — SITE-WIDE STABILITY / MAINTENANCE
+
+P2 — PERFORMANCE / BROWSER COMPATIBILITY
+
+P3 — STORE + STARLIGHT PASS
+
+P4 — EVOLUTION CENTER
+
+P5 — TRAINER ID / PROFILE / REWARDS
+
+P6 — RANKINGS
+
+P7 — AUTH / REGISTRATION PRESENTATION
+
+P8 — TWITCH BITS POWER-UP ECONOMY
+
+P9 — ADDITIONAL QUALITY-OF-LIFE FEATURES
+
+Do NOT spend hours adding sparkles while the encounter buttons are still broken.
+
+The encounter system is the heart of the RPG.
+
+It must work first.
+
+=========================================================
+P0 — ENCOUNTER SYSTEM IS CURRENTLY BROKEN
+=========================================================
+
+CURRENT REAL-WORLD TEST:
+
+I can successfully JOIN an encounter.
+
+However:
+
+Once Phase 2 begins, I still cannot reliably select encounter items.
+
+The interface responds visually to clicks, but Berry / Honey / No Item and/or subsequent Poké Ball selection does not reliably become the authoritative selected choice.
+
+This is a RELEASE-BLOCKING BUG.
+
+DO NOT assume the previous encounter-stability migration solved this.
+
+Test the ACTUAL deployed/current code path.
+
+=========================================================
+IMPORTANT EXISTING ARCHITECTURE
+=========================================================
+
+The current client already contains:
+
+play-encounter-state.js
+
+play.js
+
+single-flight refresh coordination
+
+pointerHeld
+
+pendingAction
+
+action DOM freezing
+
+patchActionButtons()
+
+idempotent play_prepare
+
+idempotent play_throw
+
+phase monotonicity
+
+result holding
+
+late settlement handling
+
+Do NOT casually rip this architecture out.
+
+But also do NOT assume it is correct merely because unit tests pass.
+
+Something is STILL preventing Prepare/Throw interaction from behaving correctly in real use.
+
+=========================================================
+TRACE ONE CLICK END TO END
+=========================================================
+
+Instrument and trace:
+
+USER CLICKS BERRY
+
+↓
+pointerdown
+
+↓
+click
+
+↓
+pressAction()
+
+↓
+act("prepare", item)
+
+↓
+play_prepare RPC
+
+↓
+server validates participant
+
+↓
+server validates current round
+
+↓
+server validates phase
+
+↓
+server validates inventory
+
+↓
+server writes selection
+
+↓
+server returns authoritative me.prep
+
+↓
+client merges response
+
+↓
+button becomes SELECTED
+
+↓
+other buttons lock
+
+↓
+inventory decrements exactly once
+
+↓
+selection survives subsequent sync/realtime events
+
+Do the same for:
+
+Honey
+
+No Item
+
+Poké Ball
+
+Master Ball
+
+special Poké Balls
+
+=========================================================
+INVESTIGATE JOIN VS PREPARE/THROW
+=========================================================
+
+Because JOIN works but subsequent actions do not, specifically compare:
+
+play_join
+
+versus:
+
+play_prepare
+play_throw
+
+Look for differences involving:
+
+- authenticated user resolution
+- canonical Trainer account
+- Twitch-linked identity migration
+- round participant lookup
+- round ID
+- phase validation
+- RLS
+- RPC overload/signature resolution
+- inventory lookup
+- participant primary key
+- canonical RPG user ID
+- stale participant data
+- joinedMe cache
+- me returned by play_sync
+- action DOM state
+- button.disabled
+- pendingAction
+- acting
+- busyNow()
+- pointerHeld
+- local phase
+- authoritative phase
+
+DO NOT merely tweak CSS.
+
+Find the actual failing layer.
+
+=========================================================
+RPC SIGNATURE AUDIT
+=========================================================
+
+There have been MANY historical versions of:
+
+play_prepare
+play_throw
+play_join
+
+across migrations.
+
+Audit the FINAL production function signatures.
+
+Verify the browser is calling EXACTLY the intended overload:
+
+play_prepare(p_item text, p_round_id uuid)
+
+play_throw(p_item text, p_round_id uuid)
+
+and the correct play_join overload.
+
+Check Supabase/PostgREST for stale or ambiguous overloads.
+
+Verify old overloads are not still callable in a way that creates ambiguous function resolution.
+
+If obsolete overloads remain and are unsafe:
+
+remove them through a SAFE migration.
+
+Do not break currently-deployed clients without compatibility analysis.
+
+=========================================================
+AUTH / IDENTITY REGRESSION AUDIT
+=========================================================
+
+We recently introduced/changed account identity architecture.
+
+Audit whether:
+
+auth.uid()
+
+canonical Trainer ID
+
+profiles.id
+
+linked Twitch account ID
+
+encounter participant user ID
+
+are still referring to the SAME canonical RPG identity where required.
+
+This is especially suspicious because:
+
+JOIN succeeds
+
+but inventory-backed actions fail.
+
+Verify Prepare and Throw are not attempting to find inventory using:
+
+Twitch user ID
+
+while Join uses:
+
+auth.uid()
+
+or vice versa.
+
+ONE canonical RPG account must own:
+
+participant
+inventory
+Pokémon
+currency
+Pokédex
+etc.
+
+=========================================================
+BUTTON INTERACTION REQUIREMENT
+=========================================================
+
+One physical click/tap must equal one attempt.
+
+The user must NEVER have to:
+
+double click
+
+click twice
+
+spam the button
+
+wait and click again
+
+move the mouse away and back
+
+refresh
+
+reload
+
+or fight a flashing/re-rendering UI.
+
+Desktop mouse:
+
+1 click.
+
+Touch:
+
+1 tap.
+
+Keyboard:
+
+Enter/Space.
+
+=========================================================
+ACTION STATE MACHINE
+=========================================================
+
+For each phase, use a clear state model:
+
+AVAILABLE
+↓
+PENDING
+↓
+CONFIRMED
+
+or:
+
+AVAILABLE
+↓
+PENDING
+↓
+ERROR
+↓
+AVAILABLE
+
+Never:
+
+AVAILABLE
+↓
+PENDING
+↓
+AVAILABLE
+↓
+PENDING
+↓
+CONFIRMED
+
+because a background sync replaced state.
+
+=========================================================
+PENDING UX
+=========================================================
+
+Immediately after clicking:
+
+selected card becomes visibly pending.
+
+Example:
+
+ORAN BERRY
+Selecting…
+
+Disable the remaining choices for that action while RPC is in flight.
+
+Do not gray the selected card into an unreadable generic disabled state.
+
+Then:
+
+SELECTED ✓
+
+If failure:
+
+restore buttons.
+
+Show understandable error.
+
+=========================================================
+NO ITEM
+=========================================================
+
+"No Item" is a valid authoritative Phase 2 selection.
+
+It should use the same reliable transaction flow as a Berry/Honey.
+
+Do not treat it as merely client-side skipping.
+
+=========================================================
+PHASE TRANSITIONS
+=========================================================
+
+When Prepare reaches zero:
+
+the server decides phase transition.
+
+Client updates smoothly.
+
+Do not destroy/recreate interactive DOM unnecessarily at the exact phase boundary.
+
+When Throw begins:
+
+show Poké Balls.
+
+=========================================================
+THROW PHASE
+=========================================================
+
+Poké Ball selection must be as reliable as Join.
+
+One click.
+
+Immediate pending state.
+
+One RPC.
+
+One inventory spend.
+
+Confirmed selection.
+
+Then:
+
+"<Trainer> has chosen their Poké Ball and is ready to throw!"
+
+At timer zero:
+
+"<Trainer> threw an Ultra Ball!"
+
+=========================================================
+CATCH PRESENTATION
+=========================================================
+
+Keep the existing capture fanfare direction.
+
+At Throw → Capture:
+
+replace the Wild Encounter presentation area with the catch animation.
+
+Sequence:
+
+Pokémon encounter
+↓
+Trainer chooses ball
+↓
+Throw animation
+↓
+Pokémon enters ball
+↓
+Ball lands
+↓
+Wobble
+↓
+Wobble
+↓
+Wobble / suspense
+↓
+RESULT
+
+Do not make wobble animation sluggish.
+
+It should feel responsive and game-like.
+
+=========================================================
+RESULT FANFARE
+=========================================================
+
+CAUGHT:
+
+impact flash / star burst
+
+"GOTCHA!"
+
+Pokémon reappears prominently.
+
+Show:
+
+species
+level
+gender
+shiny indicator
+Poké Ball used
+XP gained
+Pokédex registration if new
+achievement progress
+other relevant rewards
+
+If first Pokédex registration:
+
+NEW POKÉDEX ENTRY!
+
+Give this extra fanfare.
+
+FAILED:
+
+Poké Ball breaks/open effect
+
+Pokémon reappears.
+
+"Oh no! It broke free!"
+
+Then useful feedback without revealing raw hidden RNG:
+
+"That was a tough catch!"
+
+or equivalent.
+
+=========================================================
+RESULT MUST NEVER DISAPPEAR BEFORE USER SEES IT
+=========================================================
+
+Preserve the existing settlement-based result hold.
+
+If tab was backgrounded:
+
+result should still appear when returning when reasonably possible.
+
+Do not regress this.
+
+=========================================================
+REAL MULTI-CLIENT ENCOUNTER TEST
+=========================================================
+
+DO NOT declare encounters fixed from unit tests.
+
+Run actual browser testing.
+
+Minimum:
+
+ADMIN TEST TRAINER
+
+NORMAL TRAINER
+
+Prefer also:
+
+SECOND NORMAL TRAINER
+
+Test 30 encounters if practical.
+
+Record:
+
+Join first-click success
+
+Prepare first-click success
+
+Throw first-click success
+
+Result shown
+
+Duplicate spend
+
+Wrong inventory spend
+
+Phase regression
+
+UI flashing
+
+DOM replacement during pointer action
+
+Expected target:
+
+100% first-click registration.
+
+=========================================================
+ENCOUNTER DEBUG PANEL
+=========================================================
+
+Keep existing debug capability.
+
+Enhance if needed.
+
+Admin/debug should expose:
+
+Round ID
+
+Canonical Trainer ID
+
+Participant ID
+
+Server Phase
+
+Client Phase
+
+Pending Action
+
+Selected Prep
+
+Selected Ball
+
+Last RPC
+
+Last RPC status
+
+Last sync
+
+Last realtime event
+
+Inventory before
+
+Inventory after
+
+DOM replacement count
+
+This should make future bugs diagnosable without guessing.
+
+=========================================================
+P1 — SITE-WIDE MAINTENANCE PASS
+=========================================================
+
+After encounter reliability is fixed:
+
+audit the entire repository.
+
+Look for:
+
+console errors
+
+uncaught promises
+
+dead code
+
+obsolete migrations
+
+obsolete RPC calls
+
+duplicate helper functions
+
+unused CSS
+
+broken asset paths
+
+missing images
+
+404s
+
+stale cache-busting versions
+
+hard-coded Twitch assumptions
+
+old "Sign in with Twitch" copy where site accounts now exist
+
+layout shifts
+
+missing loading states
+
+inconsistent empty states
+
+missing error states
+
+incorrect auth gates
+
+broken deep links
+
+mobile overflow
+
+accessibility problems
+
+z-index conflicts
+
+dialog problems
+
+race conditions
+
+realtime subscription leaks
+
+multiple event listeners
+
+timers not cleaned up
+
+unnecessary 1-second polling
+
+excessive Supabase calls
+
+N+1 database queries
+
+large payloads
+
+duplicate requests
+
+stale localStorage keys
+
+unsafe innerHTML
+
+missing HTML escaping
+
+browser-specific APIs without fallbacks
+
+=========================================================
+SITE HEALTH REPORT
+=========================================================
+
+Classify discovered problems:
+
+P0 CRITICAL
+
+P1 HIGH
+
+P2 MEDIUM
+
+P3 POLISH
+
+Fix safe issues.
+
+For risky architectural changes:
+
+report first rather than silently rewriting systems.
+
+=========================================================
+P2 — PERFORMANCE MODES
+=========================================================
+
+The RPG now contains:
+
+animations
+background maps
+sprites
+fanfare
+realtime updates
+capture effects
+store effects
+profile cosmetics
+
+We need performance scaling.
+
+Add:
+
+Settings
+→ Performance
+
+Options:
+
+AUTO
+HIGH
+BALANCED
+LOW
+
+Default:
+
+AUTO
+
+=========================================================
+AUTO PERFORMANCE MODE
+=========================================================
+
+AUTO should respect useful browser/system hints where reliable:
+
+prefers-reduced-motion
+
+device capability heuristics
+
+hardwareConcurrency
+
+deviceMemory where available
+
+but DO NOT rely on unsupported APIs.
+
+Progressive enhancement only.
+
+=========================================================
+HIGH
+=========================================================
+
+Full:
+
+animations
+particles
+background motion
+capture effects
+store fanfare
+profile effects
+ranking effects
+
+=========================================================
+BALANCED
+=========================================================
+
+Reduce:
+
+particle counts
+decorative animations
+background movement
+nonessential transitions
+
+Keep gameplay animations.
+
+=========================================================
+LOW
+=========================================================
+
+Disable/minimize:
+
+particles
+background animation
+parallax
+expensive shadows
+blur/backdrop-filter
+continuous decorative animation
+
+Keep:
+
+functional UI
+capture readability
+phase timers
+essential feedback.
+
+=========================================================
+REDUCED MOTION
+=========================================================
+
+Respect:
+
+prefers-reduced-motion: reduce
+
+Do not remove important state communication.
+
+Replace motion with:
+
+opacity
+static highlight
+text/status changes.
+
+=========================================================
+BROWSER COMPATIBILITY
+=========================================================
+
+Test current versions of:
+
+Chrome
+
+Edge
+
+Firefox
+
+Safari where possible
+
+Mobile Chrome
+
+Mobile Safari
+
+Pay special attention to:
+
+dialog/showModal
+
+backdrop-filter
+
+pointer events
+
+touch behavior
+
+Web Animations API
+
+localStorage failures/privacy modes
+
+CSS nesting if used
+
+new viewport units
+
+image formats
+
+audio autoplay
+
+Supabase realtime reconnect
+
+=========================================================
+LAZY LOADING
+=========================================================
+
+Lazy-load:
+
+offscreen Pokémon sprites
+
+Trainer avatars
+
+store art
+
+ranking avatars
+
+Evolution Line art
+
+Do not lazy-load something needed immediately for active encounter presentation.
+
+=========================================================
+ASSET STABILITY
+=========================================================
+
+Avoid layout shifts.
+
+Reserve image dimensions/aspect ratios.
+
+Especially:
+
+nav avatars
+Trainer ID
+Pokémon sprites
+store items
+rankings
+Evolution Line nodes.
+
+=========================================================
+P3 — STARLIGHT MART OVERHAUL
+=========================================================
+
+KEEP the current store concept.
+
+Do not replace it.
+
+The current store already contains meaningful floor/category architecture.
+
+Improve presentation, clarity, delight and usability.
+
+It should feel like:
+
+a Pokémon department store
++
+Sora Starlight branding.
+
+=========================================================
+STORE ARRIVAL FANFARE
+=========================================================
+
+On first visit per session:
+
+subtle shop entrance flourish.
+
+Examples:
+
+small star sweep
+Mart sign animation
+soft item sparkle
+
+NOT a five-second unskippable animation.
+
+=========================================================
+STORE CATEGORY EXPERIENCE
+=========================================================
+
+Make major categories visually obvious:
+
+Poké Balls
+
+Berries & Catch Support
+
+Evolution Items
+
+Trainer Style / Cosmetics
+
+Starlight Pass
+
+Twitch Power-Ups
+
+Special/Event items if enabled
+
+Keep current underlying store inventory.
+
+=========================================================
+ITEM CARDS
+=========================================================
+
+Each item should clearly show:
+
+sprite
+
+name
+
+owned quantity
+
+price
+
+short purpose
+
+availability
+
+Add-to-cart/buy action
+
+For unfamiliar items:
+
+"What does this do?"
+
+tooltip/details.
+
+=========================================================
+PURCHASE FANFARE
+=========================================================
+
+Successful purchase:
+
+small Poké Mart-style confirmation.
+
+Item sprite rises/appears.
+
+PURCHASE COMPLETE!
+
++3 Ultra Balls
+
+Bag now: 12
+
+Do not block shopping flow.
+
+=========================================================
+STARLIGHT PASS OVERHAUL
+=========================================================
+
+The current Starlight Pass implementation is useful but subscription switching/checking needs to become MUCH simpler.
+
+The user should immediately understand:
+
+Is my Pass active?
+
+Which Twitch account provides it?
+
+When was it last checked?
+
+What do I get?
+
+What can I claim?
+
+=========================================================
+STARLIGHT PASS CARD
+=========================================================
+
+Prominent Pass presentation:
+
+🌠 STARLIGHT PASS
+
+ACTIVE
+
+Linked through:
+SoraStarlight
+
+Twitch Subscription:
+Active
+
+Daily Supply:
+READY / CLAIMED
+
+Weekly Supply:
+READY / CLAIMED
+
+[ Claim Daily ]
+
+[ Claim Weekly ]
+
+=========================================================
+TWITCH SUBSCRIPTION ACCOUNT SWITCHING
+=========================================================
+
+This must integrate with the new linked Twitch identity system.
+
+If multiple Twitch accounts are linked:
+
+STARLIGHT PASS TWITCH ACCOUNT
+
+SoraStarlight
+MotobugBOT
+
+But only identities eligible/authorized for subscription verification should appear.
+
+Do NOT make the user sign out of their RPG account merely to check another linked Twitch identity.
+
+Provide:
+
+[ Use for Starlight Pass ]
+
+Changing this changes the Twitch identity used for subscription verification.
+
+It must NOT change:
+
+RPG account
+
+PRIMARY Twitch identity
+
+Pokémon ownership
+
+gameplay identity
+
+unless explicitly designed otherwise.
+
+=========================================================
+PASS ACCOUNT STATUS
+=========================================================
+
+Show clearly:
+
+CONNECTED
+
+NEEDS REAUTHORIZATION
+
+NOT SUBSCRIBED
+
+SUBSCRIBED
+
+LAST CHECKED: ...
+
+If reauthorization needed:
+
+[ Reconnect Twitch ]
+
+=========================================================
+PASS BENEFITS
+=========================================================
+
+Make benefits exciting and understandable.
+
+Current benefits can remain unless balance audit suggests otherwise.
+
+Display:
+
+DAILY SUPPLY
+
+WEEKLY SUPPLY
+
+PASS BONUSES
+
+COSMETIC BENEFITS
+
+future unlocks.
+
+=========================================================
+P4 — EVOLUTION CENTER OVERHAUL
+=========================================================
+
+The current Evolution page needs a substantial UX/fanfare overhaul.
+
+IMPORTANT:
+
+Do not use player-facing terminology:
+
+"Family"
+
+"Family Candy"
+
+Pokémon does not normally present evolution relationships to players as "families."
+
+=========================================================
+CANON-FRIENDLY TERMINOLOGY
+=========================================================
+
+Use:
+
+EVOLUTION LINE
+
+Example:
+
+Bulbasaur Evolution Line
+
+Charmander Evolution Line
+
+Eevee Evolution Line
+
+Replace player-facing:
+
+Family View
+
+with:
+
+Evolution Lines
+
+Replace:
+
+Family Candy
+
+with:
+
+Evolution Candy
+
+or, if technically practical later:
+
+species-themed Candy.
+
+For THIS implementation I recommend:
+
+EVOLUTION CANDY
+
+because the current database uses one resource per evolutionary grouping.
+
+Internal database fields may remain:
+
+family_id
+family_candy
+
+temporarily for compatibility.
+
+Do NOT perform a dangerous schema rename merely for presentation.
+
+Player-facing terminology changes.
+
+Internal compatibility can remain.
+
+=========================================================
+EVOLUTION CENTER EXPERIENCE
+=========================================================
+
+Rename/present the page as something like:
+
+EVOLUTION CENTER
+
+Subtitle:
+
+"Discover new possibilities for your Pokémon."
+
+=========================================================
+INTERACTIVE EVOLUTION LINE
+=========================================================
+
+Make the selected Pokémon's line visual.
+
+Example:
+
+[ Bulbasaur ]
+     ↓
+[ Ivysaur ]
+     ↓
+[ Venusaur ]
+
+Each node:
+
+sprite
+species
+owned status
+Pokédex status
+
+Click/tap a stage for details.
+
+=========================================================
+BRANCHING EVOLUTIONS
+=========================================================
+
+Support clean branching visually.
+
+Future-safe example:
+
+           → Vaporeon
+Eevee →    → Jolteon
+           → Flareon
+
+Only currently-enabled species/routes should be actionable.
+
+Do not expose unavailable future-generation evolution as selectable if only Kanto is enabled.
+
+=========================================================
+SELECT POKÉMON
+=========================================================
+
+Instead of giant dropdown-heavy UI:
+
+show eligible Pokémon cards.
+
+Filters:
+
+READY TO EVOLVE
+
+ALL ELIGIBLE
+
+NEEDS CANDY
+
+NEEDS ITEM
+
+Search.
+
+=========================================================
+EVOLUTION READINESS
+=========================================================
+
+Card states:
+
+READY!
+
+Needs 12 Evolution Candy
+
+Needs Fire Stone
+
+Needs Trade Cable
+
+Not currently available
+
+=========================================================
+EVOLUTION PREVIEW
+=========================================================
+
+Click Pokémon:
+
+large interactive panel.
+
+CHARMANDER
+Lv. ##
+→
+CHARMELEON
+
+Requirements:
+
+Evolution Candy: 24 / 20 ✓
+
+[ EVOLVE ]
+
+=========================================================
+EVOLUTION CONFIRMATION
+=========================================================
+
+Before evolution:
+
+EVOLVE CHARMANDER?
+
+Charmander will evolve into Charmeleon.
+
+Cost:
+
+20 Evolution Candy
+
+[ EVOLVE ]
+
+[ CANCEL ]
+
+=========================================================
+EVOLUTION FANFARE
+=========================================================
+
+This should be one of the most satisfying experiences on the site.
+
+Sequence:
+
+selected Pokémon appears
+
+"What?"
+
+"Charmander is evolving!"
+
+light/star energy
+
+sprite silhouette / transition
+
+reveal evolved Pokémon
+
+"Congratulations!"
+
+"Your Charmander evolved into Charmeleon!"
+
+Then:
+
+Pokédex registration if new
+
+Trainer XP if applicable
+
+achievement progress
+
+=========================================================
+SKIP EVOLUTION ANIMATION
+=========================================================
+
+Allow:
+
+Skip Animation
+
+especially for Low Performance / Reduced Motion.
+
+=========================================================
+EVOLUTION ITEMS
+=========================================================
+
+Clearly support canonical evolution methods/items where applicable.
+
+Kanto examples:
+
+Fire Stone
+
+Water Stone
+
+Thunder Stone
+
+Leaf Stone
+
+Moon Stone
+
+Trade evolution support item/system
+
+=========================================================
+TRADE EVOLUTION SOLUTION
+=========================================================
+
+Since this is a stream/web RPG and forcing actual Pokémon trading may be inconvenient:
+
+use a canonical-inspired utility item for trade evolutions.
+
+Preferred:
+
+LINKING CORD
+
+This is an official Pokémon item from Pokémon Legends: Arceus that allows Pokémon which normally evolve by trading to evolve without trading.
+
+Use it if compatible with the project's design.
+
+This is much better than inventing "Trade Stone."
+
+=========================================================
+EVOLUTION CANDY
+=========================================================
+
+Explain simply:
+
+"Catch duplicates from an Evolution Line to earn Evolution Candy."
+
+Rare Candy:
+
+"Convert a Rare Candy into Evolution Candy for a selected Evolution Line."
+
+Keep mechanics if already balanced.
+
+Improve presentation.
+
+=========================================================
+P5 — TRAINER ID / PROFILE OVERHAUL
+=========================================================
+
+Trainer Profile should become a major progression/show-off feature.
+
+Think:
+
+Pokémon Trainer Card
+
++
+player profile
+
++
+achievement showcase
+
++
+stream identity.
+
+=========================================================
+TRAINER ID CARD
+=========================================================
+
+Create a polished collectible-looking Trainer ID.
+
+Show:
+
+Trainer avatar
+
+Trainer name
+
+Trainer Level
+
+Trainer ID number / public identifier
+
+join date
+
+Pokédex caught count
+
+Shiny count
+
+achievement score/count
+
+favorite Pokémon
+
+chosen title
+
+badges/medals where appropriate
+
+=========================================================
+TWITCH ICON RULE
+=========================================================
+
+IMPORTANT:
+
+ONLY show the Twitch icon/badge if that Trainer actually has a linked Twitch identity.
+
+Do NOT show Twitch icon merely because:
+
+avatar_url exists
+
+old twitch_login field exists incorrectly
+
+they once authenticated through Twitch
+
+or the component assumes everyone is Twitch-linked.
+
+Resolve actual linked Twitch connection state.
+
+If no Twitch account linked:
+
+NO TWITCH ICON.
+
+=========================================================
+TWITCH PROFILE DISPLAY
+=========================================================
+
+If linked:
+
+show Twitch badge/icon.
+
+Optionally:
+
+@TwitchName
+
+Only link externally if privacy/profile settings permit.
+
+=========================================================
+TRAINER CARD CUSTOMIZATION
+=========================================================
+
+Make Trainer ID collectible/customizable.
+
+Unlockable:
+
+card backgrounds
+
+borders
+
+frames
+
+foil effects
+
+star effects
+
+profile icons
+
+Trainer avatar images
+
+titles
+
+badges
+
+nameplates
+
+Pokémon stickers
+
+favorite Pokémon slots
+
+=========================================================
+TRAINER ID RARITY / PRESTIGE
+=========================================================
+
+Cosmetics can be unlocked through gameplay.
+
+Examples:
+
+Catch 10 Pokémon
+→ Beginner Trainer frame
+
+Complete 25 Pokédex entries
+→ Pokédex Research background
+
+Catch first Shiny
+→ Shiny Sparkle profile effect
+
+Catch all Kanto starters
+→ Kanto Starter badge
+
+Reach Trainer Level 10
+→ Silver Trainer Card
+
+Level 25
+→ Gold Trainer Card
+
+Complete Kanto Pokédex
+→ Kanto Master Card
+
+Do not make progression pay-only.
+
+=========================================================
+PROFILE ICONS
+=========================================================
+
+Unlock icons through:
+
+Pokédex milestones
+
+achievements
+
+events
+
+Trainer Levels
+
+Starlight Pass
+
+store cosmetics
+
+special stream events.
+
+=========================================================
+TRAINER AVATARS
+=========================================================
+
+Support:
+
+default Trainer avatars
+
+premium Trainer avatars
+
+earned Trainer avatars
+
+event Trainer avatars
+
+Do not automatically overwrite chosen avatar with Twitch avatar.
+
+Define avatar precedence.
+
+=========================================================
+PROFILE SHOWCASE
+=========================================================
+
+Allow Trainer to choose showcase slots.
+
+Example:
+
+Favorite Pokémon
+
+Favorite Shiny
+
+Proudest Achievement
+
+Favorite Trainer Avatar
+
+Title.
+
+=========================================================
+PUBLIC PROFILE
+=========================================================
+
+Where safe:
+
+allow shareable Trainer profile URLs.
+
+Do NOT expose:
+
+email
+
+internal UUID
+
+private account information
+
+Twitch tokens
+
+admin status internals.
+
+=========================================================
+P6 — RANKINGS OVERHAUL
+=========================================================
+
+Rankings should feel like a Pokémon League leaderboard.
+
+Give it fanfare without becoming noisy.
+
+=========================================================
+RANKING CATEGORIES
+=========================================================
+
+Potential categories using existing data:
+
+Trainer Level
+
+Pokédex Completion
+
+Total Pokémon Caught
+
+Shiny Pokémon
+
+Achievements
+
+Evolution Count
+
+Event Points if applicable
+
+Do not invent metrics that cannot be reliably calculated.
+
+=========================================================
+PODIUM
+=========================================================
+
+Top 3:
+
+large podium presentation.
+
+#1
+
+#2
+
+#3
+
+Trainer avatar
+
+name
+
+chosen title
+
+score
+
+appropriate cosmetic frame.
+
+=========================================================
+MY RANK
+=========================================================
+
+Always make the signed-in Trainer's own position easy to find.
+
+Example:
+
+YOUR RANK
+
+#27
+
+Sora Starlight
+
+Trainer Lv. 14
+
+=========================================================
+RANKING FILTERS
+=========================================================
+
+Tabs/dropdown:
+
+Overall
+
+Trainer Level
+
+Pokédex
+
+Shinies
+
+Achievements
+
+etc.
+
+=========================================================
+RANK MOVEMENT
+=========================================================
+
+If historical snapshots already exist or can be added cheaply:
+
+show:
+
+▲ 3
+
+▼ 1
+
+NEW
+
+Do NOT add an expensive ranking-history system unless worthwhile.
+
+=========================================================
+P7 — AUTH / REGISTER / SIGN-IN FANFARE
+=========================================================
+
+The new account architecture is important.
+
+Make the entry experience feel like:
+
+"Beginning your Pokémon adventure."
+
+=========================================================
+REGISTER
+=========================================================
+
+Presentation:
+
+WELCOME, TRAINER!
+
+Your adventure starts here.
+
+Create your ST★RLIGHT Trainer Account to keep your Pokémon,
+Pokédex, inventory, achievements and stream connections together.
+
+Username
+
+Email
+
+Password
+
+Confirm Password
+
+[ BEGIN MY ADVENTURE ]
+
+=========================================================
+AFTER REGISTRATION
+=========================================================
+
+TRAINER ACCOUNT CREATED!
+
+Give a short celebratory flourish.
+
+Then:
+
+Connect Twitch to participate in Sora's live encounters.
+
+[ CONNECT TWITCH ]
+
+[ MAYBE LATER ]
+
+=========================================================
+SIGN IN
+=========================================================
+
+WELCOME BACK, TRAINER!
+
+Username or Email
+
+Password
+
+[ CONTINUE ADVENTURE ]
+
+Forgot Password?
+
+Forgot Username?
+
+OR
+
+Continue with Twitch
+
+Keep the existing Twitch-account warning/confirmation safety.
+
+=========================================================
+AUTH PERFORMANCE
+=========================================================
+
+Do not make auth pages animation-heavy.
+
+Fanfare should be lightweight.
+
+=========================================================
+P8 — TWITCH POWER-UP / BITS ECONOMY
+=========================================================
+
+This requires careful balance.
+
+BITS COST REAL MONEY.
+
+Therefore Twitch Power-Up packages must:
+
+feel worthwhile
+
+be transparent
+
+be guaranteed
+
+NOT be gambling
+
+NOT sell random capture outcomes
+
+NOT directly sell Pokémon
+
+NOT create absurd pay-to-win advantages.
+
+=========================================================
+CORE RULE
+=========================================================
+
+Bits purchase:
+
+KNOWN COST
+→
+GUARANTEED ITEMS
+
+Never:
+
+Bits
+→
+random pack chance
+→
+maybe useful item.
+
+=========================================================
+BITS PACKAGE DESIGN
+=========================================================
+
+Audit current packages and rebalance.
+
+Create a clean ladder.
+
+Example conceptual structure:
+
+100 Bits — TRAINER SUPPLY
+
+Poké Balls
+Berry
+Honey
+PokéCoins
+
+300 Bits — GREAT SUPPLY
+
+Great Balls
+better Berries
+Honey
+Evolution support item
+PokéCoins
+
+500 Bits — ULTRA SUPPLY
+
+Ultra Balls
+stronger Berries
+Honey
+Evolution Candy/Rare Candy
+PokéCoins
+
+1000 Bits — STARLIGHT SUPPLY
+
+premium guaranteed inventory bundle
+Evolution items
+Rare Candy
+Linking Cord
+PokéCoins
+possibly cosmetic reward
+
+These are EXAMPLES.
+
+Balance against the actual existing economy before setting quantities.
+
+=========================================================
+EVOLUTION ITEMS IN BITS PACKAGES
+=========================================================
+
+Yes:
+
+Bits packages may include guaranteed evolution support items.
+
+Potential:
+
+Fire Stone
+
+Water Stone
+
+Thunder Stone
+
+Leaf Stone
+
+Moon Stone
+
+Linking Cord
+
+Rare Candy
+
+Do NOT put an RNG evolution stone inside a paid package.
+
+If the package says:
+
+Evolution Stone Choice
+
+allow player to choose.
+
+=========================================================
+CHOICE REWARDS
+=========================================================
+
+Consider guaranteed choice tickets.
+
+Example:
+
+EVOLUTION STONE CHOICE
+
+Choose ONE:
+
+Fire Stone
+Water Stone
+Thunder Stone
+Leaf Stone
+Moon Stone
+
+This makes paid support useful without giving random junk.
+
+=========================================================
+LINKING CORD
+=========================================================
+
+Include Linking Cord in an appropriate higher-value Bits package and normal gameplay/store acquisition path.
+
+Do NOT make trade evolutions Bits-exclusive.
+
+Paid support can accelerate.
+
+It must not permanently gate gameplay.
+
+=========================================================
+BITS PURCHASE FANFARE
+=========================================================
+
+When Twitch event arrives:
+
+POWER-UP RECEIVED!
+
+TrainerName powered up their adventure!
+
+Show granted items.
+
+Keep this tasteful on stream/player UI.
+
+=========================================================
+NO PAY-TO-WIN MASTER BALL SPAM
+=========================================================
+
+Be extremely conservative with:
+
+Master Balls
+
+If sold/granted through Bits at all:
+
+they should be exceptional.
+
+Prefer Ultra Balls, specialist Balls, Berries, evolution resources and cosmetics.
+
+=========================================================
+P9 — ADDITIONAL IMPORTANT FEATURES
+=========================================================
+
+After the above systems are stable, identify missing high-value features.
+
+Do not feature-creep wildly.
+
+Prioritize features that improve:
+
+clarity
+
+retention
+
+progression
+
+collection
+
+social/showcase
+
+accessibility.
+
+=========================================================
+RECOMMENDED — ADVENTURE LOG
+=========================================================
+
+Create/expand a recent activity feed for the Trainer.
+
+Examples:
+
+Caught Pikachu
+
+Evolved Charmander → Charmeleon
+
+Unlocked Achievement
+
+Completed Pokédex Entry
+
+Reached Trainer Level 10
+
+Received Twitch Power-Up
+
+Trade completed.
+
+Keep history reasonably bounded/paginated.
+
+=========================================================
+RECOMMENDED — DAILY / WEEKLY GOALS
+=========================================================
+
+If not already represented elsewhere:
+
+consider lightweight Trainer Goals.
+
+Examples:
+
+Join 2 encounters
+
+Catch 1 Pokémon
+
+Use 1 Berry
+
+Evolve 1 Pokémon
+
+Rewards should be modest.
+
+Do NOT create another giant economy system.
+
+=========================================================
+RECOMMENDED — POKÉDEX MILESTONE REWARDS
+=========================================================
+
+Pokédex progress should unlock cosmetics.
+
+Examples:
+
+10 entries
+25
+50
+75
+100
+151
+
+Rewards:
+
+Trainer Card backgrounds
+
+profile icons
+
+titles
+
+frames
+
+PokéCoins
+
+cosmetics.
+
+=========================================================
+RECOMMENDED — ACHIEVEMENT → COSMETIC INTEGRATION
+=========================================================
+
+Achievements should sometimes unlock visible prestige rewards.
+
+Example:
+
+SHINY HUNTER
+
+Reward:
+
+Shiny Sparkle Trainer Card effect.
+
+=========================================================
+RECOMMENDED — NOTIFICATION CENTER
+=========================================================
+
+Use lightweight site notifications for:
+
+new unlock
+
+new achievement
+
+Pass supply ready
+
+trade offer
+
+evolution ready
+
+new profile cosmetic.
+
+Do not spam.
+
+=========================================================
+RECOMMENDED — NEW UNLOCK PRESENTATION
+=========================================================
+
+When a cosmetic unlocks:
+
+NEW TRAINER REWARD!
+
+[ icon ]
+
+KANTO RESEARCHER FRAME
+
+[ EQUIP NOW ]
+
+[ LATER ]
+
+=========================================================
+ACCESSIBILITY
+=========================================================
+
+All new fanfare must remain accessible.
+
+Support:
+
+keyboard navigation
+
+visible focus states
+
+screen-reader labels
+
+reduced motion
+
+sufficient contrast
+
+touch targets
+
+no information communicated by color alone.
+
+=========================================================
+DO NOT BREAK CURRENT VISUAL IDENTITY
+=========================================================
+
+Keep:
+
+Sora Starlight branding
+
+light blue/pink identity
+
+Pokémon-inspired game presentation
+
+current site structure where it works.
+
+This is an EVOLUTION of the existing site.
+
+Not a replacement.
+
+=========================================================
+CACHE / VERSIONING
+=========================================================
+
+The project has had repeated client-cache issues.
+
+Audit asset versioning.
+
+Ensure deployed:
+
+JS
+
+CSS
+
+critical JSON/data assets
+
+update predictably.
+
+Do not require users to manually:
+
+Ctrl+F5
+
+clear browser cache
+
+refresh source cache
+
+every deployment.
+
+Use consistent cache busting/build version.
+
+=========================================================
+ERROR UX
+=========================================================
+
+Replace vague errors where possible.
+
+BAD:
+
+"RPC failed"
+
+GOOD:
+
+"Your Berry couldn't be selected. Nothing was used. Try again."
+
+GOOD:
+
+"That phase just ended. Get ready to choose your Poké Ball!"
+
+GOOD:
+
+"Your inventory changed. Refreshing your choices…"
+
+Never claim an item was spent unless authoritative server result says it was.
+
+=========================================================
+OBSERVABILITY
+=========================================================
+
+Add useful Admin diagnostics without exposing them to normal players.
+
+Admin should be able to see:
+
+site build
+
+DB migration/build marker
+
+current encounter
+
+realtime connection
+
+Twitch connection
+
+Director status
+
+ad status
+
+active Trainers
+
+last settlement
+
+last encounter error
+
+recent RPC error count
+
+client build mismatch if detectable.
+
+=========================================================
+DO NOT CHANGE GAME BALANCE DURING BUG FIXING
+=========================================================
+
+IMPORTANT:
+
+Encounter reliability work must NOT silently change:
+
+capture formula
+
+Poké Ball multipliers
+
+Berry multipliers
+
+Honey community bonus
+
+spawn bands
+
+shiny odds
+
+female odds
+
+XP
+
+prices
+
+rewards.
+
+First make it WORK.
+
+Balance changes must be separately documented.
+
+=========================================================
+DATABASE SAFETY
+=========================================================
+
+Before migration:
+
+inventory existing tables/functions.
+
+Use additive migrations.
+
+Do not edit old applied migration files as if production will rerun them.
+
+Create NEW migration(s).
+
+Back up/verify important counts.
+
+=========================================================
+REQUIRED AUTOMATED TESTS
+=========================================================
+
+Add/maintain tests for:
+
+Encounter state machine
+
+Join
+
+Prepare Berry
+
+Prepare Honey
+
+Prepare No Item
+
+Throw standard
+
+Throw owned ball
+
+Master Ball confirmation
+
+same-choice retry
+
+duplicate spend prevention
+
+phase expiry
+
+late settlement
+
+background reconnect
+
+canonical Trainer identity
+
+Twitch linked identity
+
+gameplay-disabled bot
+
+inventory consumption
+
+Evolution requirements
+
+Evolution item consumption
+
+Starlight Pass
+
+Bits package grants
+
+profile cosmetic unlocks
+
+Twitch badge visibility.
+
+=========================================================
+TWITCH BADGE TEST
+=========================================================
+
+Trainer with Twitch linked:
+
+badge visible.
+
+Trainer without Twitch linked:
+
+NO badge.
+
+Trainer with old legacy twitch_login text but no valid linked identity:
+
+NO badge unless migration confirms actual Twitch linkage.
+
+=========================================================
+PERFORMANCE TEST
+=========================================================
+
+Test:
+
+HIGH
+
+BALANCED
+
+LOW
+
+prefers-reduced-motion
+
+Confirm gameplay remains identical.
+
+Only presentation/performance changes.
+
+=========================================================
+FINAL MANUAL ACCEPTANCE TEST
+=========================================================
+
+This is mandatory.
+
+Use actual browser sessions.
+
+ENCOUNTER:
+
+Join
+✓ first click
+
+Berry
+✓ first click
+
+Honey
+✓ first click
+
+No Item
+✓ first click
+
+Poké Ball
+✓ first click
+
+Capture animation
+✓
+
+Result
+✓
+
+Pokédex update
+✓
+
+Inventory correct
+✓
+
+No duplicate spend
+✓
+
+No flashing
+✓
+
+No disappearing result
+✓
+
+Then test:
+
+Store purchase
+
+Starlight Pass status
+
+Pass account selection
+
+Daily claim
+
+Weekly claim
+
+Evolution
+
+Evolution item
+
+Linking Cord evolution
+
+Trainer ID customization
+
+Cosmetic unlock
+
+Rankings
+
+Register
+
+Sign in
+
+Sign out
+
+Twitch linked badge
+
+No-Twitch profile
+
+Low Performance Mode
+
+Firefox
+
+Chrome/Edge
+
+Mobile/touch if possible.
+
+=========================================================
+IMPLEMENTATION PHASES
+=========================================================
+
+DO NOT do this as one giant uncontrolled commit.
+
+Use phases.
+
+PHASE 1
+Encounter diagnosis + fix.
+
+STOP and report test results.
+
+PHASE 2
+Maintenance + performance/browser audit.
+
+PHASE 3
+Store + Starlight Pass.
+
+PHASE 4
+Evolution Center.
+
+PHASE 5
+Trainer ID + cosmetics/unlocks.
+
+PHASE 6
+Rankings.
+
+PHASE 7
+Auth presentation.
+
+PHASE 8
+Bits packages/economy.
+
+PHASE 9
+Additional high-value QoL.
+
+After EACH phase:
+
+run regression tests.
+
+=========================================================
+FINAL REPORT FORMAT
+=========================================================
+
+When complete report:
+
+P0 ENCOUNTER
+============
+
+Root cause:
+Files changed:
+Functions changed:
+Migration:
+Join test:
+Berry test:
+Honey test:
+No Item test:
+Ball test:
+Result test:
+Duplicate spend:
+Remaining issues:
+
+SITE MAINTENANCE
+================
+
+Critical issues:
+High issues:
+Medium issues:
+Polish:
+
+PERFORMANCE
+===========
+
+Modes:
+Browser compatibility:
+Optimizations:
+Known limitations:
+
+STORE
+=====
+
+Changes:
+Starlight Pass:
+Subscription account switching:
+Purchase UX:
+
+EVOLUTION CENTER
+================
+
+Family terminology removed:
+Evolution Line implementation:
+Evolution Candy:
+Evolution animation:
+Evolution items:
+Linking Cord:
+
+TRAINER ID
+==========
+
+Card:
+Customization:
+Unlockables:
+Profile icons:
+Avatars:
+Showcase:
+Twitch badge logic:
+
+RANKINGS
+========
+
+Categories:
+Podium:
+My Rank:
+Fanfare:
+
+AUTH
+====
+
+Register:
+Sign In:
+Recovery:
+Twitch connection presentation:
+
+TWITCH POWER-UPS
+================
+
+Old packages:
+New packages:
+Value changes:
+Evolution items:
+Paid-balance protections:
+
+NEW FEATURES
+============
+
+...
+
+REGRESSION TESTS
+================
+
+...
+
+KNOWN ISSUES
+============
+
+...
+
+FINAL VERDICT
+=============
+
+READY FOR LIVE STREAM
+
+or
+
+NOT READY FOR LIVE STREAM
+
+=========================================================
+ABSOLUTE FINAL REQUIREMENT
+=========================================================
+
+The most important thing in this entire project is:
+
+THE ENCOUNTER MUST WORK.
+
+A Trainer must be able to:
+
+SEE WILD POKÉMON
+↓
+JOIN
+↓
+CHOOSE BERRY / HONEY / NO ITEM
+↓
+CHOOSE POKÉ BALL
+↓
+WATCH THE THROW
+↓
+WATCH THE BALL WOBBLE
+↓
+SEE THE RESULT
+↓
+RECEIVE THEIR POKÉMON / REWARD
+↓
+SEE PROGRESS UPDATE
+
+without:
+
+double-clicking
+
+refreshing
+
+flashing controls
+
+stale selections
+
+lost selections
+
+duplicate inventory spending
+
+missing results
+
+incorrect sprites
+
+incorrect backgrounds
+
+or unexplained state jumps.
+
+Once that core loop is rock-solid:
+
+MAKE THE REST OF THE RPG FEEL LIKE AN ADVENTURE.
+
+The Store should feel rewarding.
+
+Evolution should feel exciting.
+
+Trainer IDs should feel collectible.
+
+Rankings should feel competitive.
+
+Unlocks should give Trainers something to chase.
+
+The Starlight Pass should feel valuable and understandable.
+
+Twitch Power-Ups should feel worthwhile without becoming pay-to-win.
+
+And all of it must remain:
+
+FAST
+
+CLEAR
+
+ACCESSIBLE
+
+STABLE
+
+MOBILE-FRIENDLY
+
+BROWSER-COMPATIBLE
+
+and unmistakably:
+
+ST★RLIGHT.
+</user_query>

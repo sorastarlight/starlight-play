@@ -1,0 +1,610 @@
+[
+ {
+ "name": "beast.png",
+ "path": "items/ball/beast.png",
+ "sha": "447d739614677f206c14b7def4afdd6c1471de8b",
+ "size": 402,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/beast.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/beast.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/447d739614677f206c14b7def4afdd6c1471de8b",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/beast.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/beast.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/447d739614677f206c14b7def4afdd6c1471de8b",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/beast.png"
+ }
+ },
+ {
+ "name": "cherish.png",
+ "path": "items/ball/cherish.png",
+ "sha": "c9fc2d3b7a03fc26eb23f9d2538b8139b56ca2cc",
+ "size": 276,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/cherish.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/cherish.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/c9fc2d3b7a03fc26eb23f9d2538b8139b56ca2cc",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/cherish.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/cherish.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/c9fc2d3b7a03fc26eb23f9d2538b8139b56ca2cc",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/cherish.png"
+ }
+ },
+ {
+ "name": "dive.png",
+ "path": "items/ball/dive.png",
+ "sha": "7b5264cdc32db714a032ef8a032bc7e49485e4ba",
+ "size": 294,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/dive.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/dive.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/7b5264cdc32db714a032ef8a032bc7e49485e4ba",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/dive.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/dive.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/7b5264cdc32db714a032ef8a032bc7e49485e4ba",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/dive.png"
+ }
+ },
+ {
+ "name": "dream.png",
+ "path": "items/ball/dream.png",
+ "sha": "ecc75087252770f1ce52a54b5f91125ac1c25a47",
+ "size": 284,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/dream.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/dream.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/ecc75087252770f1ce52a54b5f91125ac1c25a47",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/dream.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/dream.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/ecc75087252770f1ce52a54b5f91125ac1c25a47",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/dream.png"
+ }
+ },
+ {
+ "name": "dusk.png",
+ "path": "items/ball/dusk.png",
+ "sha": "3804e6dc0cd84faad768c2f3d2b2c9c327e3f984",
+ "size": 329,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/dusk.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/dusk.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/3804e6dc0cd84faad768c2f3d2b2c9c327e3f984",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/dusk.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/dusk.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/3804e6dc0cd84faad768c2f3d2b2c9c327e3f984",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/dusk.png"
+ }
+ },
+ {
+ "name": "fast.png",
+ "path": "items/ball/fast.png",
+ "sha": "9feab10bdec0a92dd7c36707c30fc281830dceb3",
+ "size": 302,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/fast.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/fast.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/9feab10bdec0a92dd7c36707c30fc281830dceb3",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/fast.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/fast.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/9feab10bdec0a92dd7c36707c30fc281830dceb3",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/fast.png"
+ }
+ },
+ {
+ "name": "feather.png",
+ "path": "items/ball/feather.png",
+ "sha": "06876121d180ec93dd5446ccce53c44c7f9b597a",
+ "size": 980,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/feather.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/feather.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/06876121d180ec93dd5446ccce53c44c7f9b597a",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/feather.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/feather.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/06876121d180ec93dd5446ccce53c44c7f9b597a",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/feather.png"
+ }
+ },
+ {
+ "name": "friend.png",
+ "path": "items/ball/friend.png",
+ "sha": "a7262765ff9fce45d4019f90f20d6293f5669bd8",
+ "size": 295,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/friend.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/friend.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/a7262765ff9fce45d4019f90f20d6293f5669bd8",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/friend.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/friend.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/a7262765ff9fce45d4019f90f20d6293f5669bd8",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/friend.png"
+ }
+ },
+ {
+ "name": "gigaton.png",
+ "path": "items/ball/gigaton.png",
+ "sha": "fd2804cd8a5e6f9d335d3d164440c3a7fb729d5d",
+ "size": 1023,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/gigaton.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/gigaton.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/fd2804cd8a5e6f9d335d3d164440c3a7fb729d5d",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/gigaton.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/gigaton.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/fd2804cd8a5e6f9d335d3d164440c3a7fb729d5d",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/gigaton.png"
+ }
+ },
+ {
+ "name": "great.png",
+ "path": "items/ball/great.png",
+ "sha": "5a69585f5cd27a94624284b870d3475bab53a9e6",
+ "size": 317,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/great.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/great.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/5a69585f5cd27a94624284b870d3475bab53a9e6",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/great.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/great.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/5a69585f5cd27a94624284b870d3475bab53a9e6",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/great.png"
+ }
+ },
+ {
+ "name": "heal.png",
+ "path": "items/ball/heal.png",
+ "sha": "6a75883b8b61e7ccd081a87624cb95b31bf42845",
+ "size": 326,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/heal.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/heal.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/6a75883b8b61e7ccd081a87624cb95b31bf42845",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/heal.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/heal.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/6a75883b8b61e7ccd081a87624cb95b31bf42845",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/heal.png"
+ }
+ },
+ {
+ "name": "heavy.png",
+ "path": "items/ball/heavy.png",
+ "sha": "a7b744bd947493041da5dedb378bbcd0beaf2725",
+ "size": 314,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/heavy.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/heavy.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/a7b744bd947493041da5dedb378bbcd0beaf2725",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/heavy.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/heavy.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/a7b744bd947493041da5dedb378bbcd0beaf2725",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/heavy.png"
+ }
+ },
+ {
+ "name": "hisuian-great.png",
+ "path": "items/ball/hisuian-great.png",
+ "sha": "74ed5454ee861d714ba14a53f89b634def5708db",
+ "size": 1005,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/hisuian-great.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/hisuian-great.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/74ed5454ee861d714ba14a53f89b634def5708db",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/hisuian-great.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/hisuian-great.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/74ed5454ee861d714ba14a53f89b634def5708db",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/hisuian-great.png"
+ }
+ },
+ {
+ "name": "hisuian-heavy.png",
+ "path": "items/ball/hisuian-heavy.png",
+ "sha": "48b30770f89a5b0baa5e01f521cd6687ed973fcf",
+ "size": 984,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/hisuian-heavy.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/hisuian-heavy.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/48b30770f89a5b0baa5e01f521cd6687ed973fcf",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/hisuian-heavy.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/hisuian-heavy.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/48b30770f89a5b0baa5e01f521cd6687ed973fcf",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/hisuian-heavy.png"
+ }
+ },
+ {
+ "name": "hisuian-poke.png",
+ "path": "items/ball/hisuian-poke.png",
+ "sha": "3e2b8a861f9184463c7d378e278bfcb90a7eb6a7",
+ "size": 919,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/hisuian-poke.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/hisuian-poke.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/3e2b8a861f9184463c7d378e278bfcb90a7eb6a7",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/hisuian-poke.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/hisuian-poke.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/3e2b8a861f9184463c7d378e278bfcb90a7eb6a7",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/hisuian-poke.png"
+ }
+ },
+ {
+ "name": "hisuian-ultra.png",
+ "path": "items/ball/hisuian-ultra.png",
+ "sha": "2dc545a9e789860684f750a010550aa9fd527dfe",
+ "size": 1017,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/hisuian-ultra.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/hisuian-ultra.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/2dc545a9e789860684f750a010550aa9fd527dfe",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/hisuian-ultra.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/hisuian-ultra.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/2dc545a9e789860684f750a010550aa9fd527dfe",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/hisuian-ultra.png"
+ }
+ },
+ {
+ "name": "jet.png",
+ "path": "items/ball/jet.png",
+ "sha": "3b64cbef026e94b33de23b6f488f44fed61b71ac",
+ "size": 1003,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/jet.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/jet.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/3b64cbef026e94b33de23b6f488f44fed61b71ac",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/jet.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/jet.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/3b64cbef026e94b33de23b6f488f44fed61b71ac",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/jet.png"
+ }
+ },
+ {
+ "name": "leaden.png",
+ "path": "items/ball/leaden.png",
+ "sha": "1a4fc8ab119c19396a69742a66ce535dd819d0ba",
+ "size": 985,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/leaden.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/leaden.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/1a4fc8ab119c19396a69742a66ce535dd819d0ba",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/leaden.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/leaden.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/1a4fc8ab119c19396a69742a66ce535dd819d0ba",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/leaden.png"
+ }
+ },
+ {
+ "name": "level.png",
+ "path": "items/ball/level.png",
+ "sha": "4b37a710dbe6f8452028056d4433c2c464324bbe",
+ "size": 303,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/level.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/level.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/4b37a710dbe6f8452028056d4433c2c464324bbe",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/level.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/level.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/4b37a710dbe6f8452028056d4433c2c464324bbe",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/level.png"
+ }
+ },
+ {
+ "name": "love.png",
+ "path": "items/ball/love.png",
+ "sha": "ead55a8613fd6640cd548dda96639a3849130a1e",
+ "size": 291,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/love.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/love.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/ead55a8613fd6640cd548dda96639a3849130a1e",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/love.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/love.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/ead55a8613fd6640cd548dda96639a3849130a1e",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/love.png"
+ }
+ },
+ {
+ "name": "lure.png",
+ "path": "items/ball/lure.png",
+ "sha": "33331c80475e82c75237e1bcb1c9eb679e03b4de",
+ "size": 310,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/lure.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/lure.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/33331c80475e82c75237e1bcb1c9eb679e03b4de",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/lure.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/lure.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/33331c80475e82c75237e1bcb1c9eb679e03b4de",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/lure.png"
+ }
+ },
+ {
+ "name": "luxury.png",
+ "path": "items/ball/luxury.png",
+ "sha": "a87f30c376ea6b6c0bd9910eb6cf71bab6a5ff42",
+ "size": 329,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/luxury.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/luxury.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/a87f30c376ea6b6c0bd9910eb6cf71bab6a5ff42",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/luxury.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/luxury.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/a87f30c376ea6b6c0bd9910eb6cf71bab6a5ff42",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/luxury.png"
+ }
+ },
+ {
+ "name": "master.png",
+ "path": "items/ball/master.png",
+ "sha": "cfa421d621964cd10288661f676e92c65b791308",
+ "size": 312,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/master.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/master.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/cfa421d621964cd10288661f676e92c65b791308",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/master.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/master.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/cfa421d621964cd10288661f676e92c65b791308",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/master.png"
+ }
+ },
+ {
+ "name": "moon.png",
+ "path": "items/ball/moon.png",
+ "sha": "cfcbc7964f210064a1a9f4cc1e5f0478d8766419",
+ "size": 306,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/moon.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/moon.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/cfcbc7964f210064a1a9f4cc1e5f0478d8766419",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/moon.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/moon.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/cfcbc7964f210064a1a9f4cc1e5f0478d8766419",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/moon.png"
+ }
+ },
+ {
+ "name": "nest.png",
+ "path": "items/ball/nest.png",
+ "sha": "b0fc14c2de2d4806d669231cc57ee0c17a3b96c1",
+ "size": 304,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/nest.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/nest.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/b0fc14c2de2d4806d669231cc57ee0c17a3b96c1",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/nest.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/nest.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/b0fc14c2de2d4806d669231cc57ee0c17a3b96c1",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/nest.png"
+ }
+ },
+ {
+ "name": "net.png",
+ "path": "items/ball/net.png",
+ "sha": "9f87ba1a936e89ad6d46d913dd33187498bf501b",
+ "size": 330,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/net.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/net.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/9f87ba1a936e89ad6d46d913dd33187498bf501b",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/net.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/net.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/9f87ba1a936e89ad6d46d913dd33187498bf501b",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/net.png"
+ }
+ },
+ {
+ "name": "origin.png",
+ "path": "items/ball/origin.png",
+ "sha": "1759e3bc8415467ec58e29b6bb6d762fb81e1820",
+ "size": 958,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/origin.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/origin.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/1759e3bc8415467ec58e29b6bb6d762fb81e1820",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/origin.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/origin.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/1759e3bc8415467ec58e29b6bb6d762fb81e1820",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/origin.png"
+ }
+ },
+ {
+ "name": "park.png",
+ "path": "items/ball/park.png",
+ "sha": "0bba7c578dbe3c0cbf92dd042700ce3ef347164f",
+ "size": 269,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/park.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/park.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/0bba7c578dbe3c0cbf92dd042700ce3ef347164f",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/park.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/park.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/0bba7c578dbe3c0cbf92dd042700ce3ef347164f",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/park.png"
+ }
+ },
+ {
+ "name": "poke.png",
+ "path": "items/ball/poke.png",
+ "sha": "ec4fe69c86fd7556ced320965cb81ce8e9b2373f",
+ "size": 258,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/poke.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/poke.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/ec4fe69c86fd7556ced320965cb81ce8e9b2373f",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/poke.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/poke.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/ec4fe69c86fd7556ced320965cb81ce8e9b2373f",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/poke.png"
+ }
+ },
+ {
+ "name": "premier.png",
+ "path": "items/ball/premier.png",
+ "sha": "c62e1bff25fbfa325b59f1d849957c6d95b61924",
+ "size": 237,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/premier.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/premier.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/c62e1bff25fbfa325b59f1d849957c6d95b61924",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/premier.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/premier.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/c62e1bff25fbfa325b59f1d849957c6d95b61924",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/premier.png"
+ }
+ },
+ {
+ "name": "quick.png",
+ "path": "items/ball/quick.png",
+ "sha": "03ef64044b25d46df1663a528fef1ec633a26e12",
+ "size": 307,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/quick.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/quick.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/03ef64044b25d46df1663a528fef1ec633a26e12",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/quick.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/quick.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/03ef64044b25d46df1663a528fef1ec633a26e12",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/quick.png"
+ }
+ },
+ {
+ "name": "repeat.png",
+ "path": "items/ball/repeat.png",
+ "sha": "4330c1dfa45374ed56b0d376c3cddfb68af627ba",
+ "size": 328,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/repeat.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/repeat.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/4330c1dfa45374ed56b0d376c3cddfb68af627ba",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/repeat.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/repeat.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/4330c1dfa45374ed56b0d376c3cddfb68af627ba",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/repeat.png"
+ }
+ },
+ {
+ "name": "safari.png",
+ "path": "items/ball/safari.png",
+ "sha": "45abee050d5637220684e64fe6f453b4ed6c1dc3",
+ "size": 335,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/safari.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/safari.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/45abee050d5637220684e64fe6f453b4ed6c1dc3",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/safari.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/safari.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/45abee050d5637220684e64fe6f453b4ed6c1dc3",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/safari.png"
+ }
+ },
+ {
+ "name": "sport.png",
+ "path": "items/ball/sport.png",
+ "sha": "d71bad1f8ffe7a0d3cac252cb6fe8ddabd9b78ca",
+ "size": 282,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/sport.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/sport.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/d71bad1f8ffe7a0d3cac252cb6fe8ddabd9b78ca",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/sport.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/sport.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/d71bad1f8ffe7a0d3cac252cb6fe8ddabd9b78ca",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/sport.png"
+ }
+ },
+ {
+ "name": "strange.png",
+ "path": "items/ball/strange.png",
+ "sha": "64246f031ee2300ec010c1a2d58d00c9b740e79d",
+ "size": 885,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/strange.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/strange.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/64246f031ee2300ec010c1a2d58d00c9b740e79d",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/strange.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/strange.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/64246f031ee2300ec010c1a2d58d00c9b740e79d",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/strange.png"
+ }
+ },
+ {
+ "name": "timer.png",
+ "path": "items/ball/timer.png",
+ "sha": "0740f0547820e4ba79fe6cb417ee288b38477416",
+ "size": 320,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/timer.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/timer.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/0740f0547820e4ba79fe6cb417ee288b38477416",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/timer.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/timer.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/0740f0547820e4ba79fe6cb417ee288b38477416",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/timer.png"
+ }
+ },
+ {
+ "name": "ultra.png",
+ "path": "items/ball/ultra.png",
+ "sha": "964fb6b25c3a2d76fb453ef37e9011defd66cee1",
+ "size": 312,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/ultra.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/ultra.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/964fb6b25c3a2d76fb453ef37e9011defd66cee1",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/ultra.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/ultra.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/964fb6b25c3a2d76fb453ef37e9011defd66cee1",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/ultra.png"
+ }
+ },
+ {
+ "name": "wing.png",
+ "path": "items/ball/wing.png",
+ "sha": "a2217ccfa06807807e7bf45e9c544ae1e8b7cb3b",
+ "size": 1004,
+ "url": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/wing.png?ref=master",
+ "html_url": "https://github.com/msikma/pokesprite/blob/master/items/ball/wing.png",
+ "git_url": "https://api.github.com/repos/msikma/pokesprite/git/blobs/a2217ccfa06807807e7bf45e9c544ae1e8b7cb3b",
+ "download_url": "https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/wing.png",
+ "type": "file",
+ "_links": {
+ "self": "https://api.github.com/repos/msikma/pokesprite/contents/items/ball/wing.png?ref=master",
+ "git": "https://api.github.com/repos/msikma/pokesprite/git/blobs/a2217ccfa06807807e7bf45e9c544ae1e8b7cb3b",
+ "html": "https://github.com/msikma/pokesprite/blob/master/items/ball/wing.png"
+ }
+ }
+]

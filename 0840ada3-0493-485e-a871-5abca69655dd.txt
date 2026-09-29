@@ -1,0 +1,292 @@
+FireRed hack: - Pokémon AshGray Version (Beta 4.5 Released!!)
+
+# FireRed hack: Pokémon AshGray Version (Beta 4.5 Released!!)
+
+- Thread starter metapod23
+- Start date May 31, 2009
+
+#### metapod23 
+
+- May 31, 2009 
+
+ Hack of: 
+
+ 
+
+Hi, I've been working on a hack of FireRed for a Pokemon Anime Version of the game that basically follows the same events of the anime. I see that there have been hacks like this already, so I'm not sure how good mine would be in comparison. But I started this because I wanted to make videos of playing Pokemon all the way through with Ash's lineup, to see just how it would go and it snowballed from there. I'm going to cover the events from each episode in the Kanto and Orange League series. The story follows the same one as the anime, including events, etc. I've basically hacked up to half way through the Orange Islands. You should expect a new Beta every 25 episodes or so, barring updates for bugs/glitches. Official Facebook page: Official Pokémon AshGray Facebook page *image removed* You are Ash Ketchum. You're about to embark on your Pokémon adventure. Unfortunately, you stayed up all night watching Pokémon matches and woke up late! With all your rivals from Pallet Town (the most annoying being Gary) having taken all the starters available, it looks like you'll just have to go home ... unless you want Pikachu instead. You're about to embark on an adventure of 116 events (plus two movie events) that will put you in Ash's shoes, allow you to catch the Pokémon he catches, and make the decisions he makes. How will your journey as Ash Ketchum play out? There's only one way to find out ... *image removed* - Play as Ash Ketchum - Have the opportunity to catch all of the Pokémon Ash does - Follows the same events as in the Anime Series and be rewarded with special events/items for carrying Ash's team - New Tiles - New Sprites - New Maps - New Tools to replace HMs: Hatchet replaces HM01 Cut Computer Teleport System replaces HM02 Fly Raft replaces HM03 Surf Pickaxe replaces HM06 Rock Smash Climb Kit is added to be used as Rock Climb Whirlpuller is added to cross whirlpools *image removed* APE A-Text Advance Map OverworldEditor Rebirth Edition UNLZ XSE YAPE A-Trainer Item Editor NTME TileMolestor DayAndNight Attack Type Editor NSE Hex Workshop Fire Red Hacked Engine *image removed* 
+
+ Introduction: *image removed**image removed* Episode 1: Pokémon I Choose You *image removed**image removed* *image removed**image removed* *image removed**image removed* Episode 2: Pokémon Emergency *image removed**image removed**image removed*] Episode 4: Challenge of the Samura *image removed* Episode 81: Pallet Party Panic *image removed* Episode 97: Tracey Gets Bugged *image removed* Episode 102: The Mystery Menace 
+
+ 
+
+ Events form "Pokémon I Choose You": 
+
+ Events from "The Water Flowers of Cerulean City": 
+
+ Spoiler: Show 
+
+ Events from "Bye Bye Butterfree": 
+
+ Spoiler: Show 
+
+ Events form "Pikachu's Goodbye": 
+
+ Events from "Primeape Goes Bananas": 
+
+ Events from "The Flame Pokémon-athon": 
+
+ Spoiler: Show 
+
+ Events from "A Scare in the Air": 
+
+ Intro event from "Pokémon the Movie 2000: The Power of one": 
+
+ *image removed* Official Ashgray Guide by Denali *image removed* Red = Critical - game-crashing glitch Yellow = Medium - may affect gameplay Green = Odd bug, but doesn't harm gameplay in the least Strikethrough = Bug fixed :) - Running Shoes don't work in Pallet Town or Route 1? - Ash stays on Misty's bike after Pikachu thundershocks the Spearow - Bad Eggs appearing in your Storage Boxes (DO NOT move them) - The Pokédex thinks Onix is part of the Diglett/Dugtrio family :/ - Not a bug - FireRed's Pokedex is just weird - Can't get on/off the bike in certain outdoor areas - Teachy TV is broken - DON'T USE IT - Rival's face turns red if you try to name him - Message for computer in player's room stays opened - Message for Prof. Oak evaluating Pokédex stays opened - Ashley backsprite is sometimes discolored and HP bar may be discolored during battles as Ashley - Pallet Town berry system doesn't work quite right yet - Slight hitch in Pallet Town Windmill - Quite a few more, I'm sure *image removed* - colcolstyles, JPAN, TheDarkShark, and Jambo51 - Charmeleon/Charizard disobedience routine - JPAN - Uncatchable Pokemon routine and awesome Fire Red Hacked Engine and his general knowledge - doesntknowhowtoplay, Darthatron, & Jambo51 Phys/Spec split routines - KDS - Updated Light Ball routine - diegoisawesome - Force Male Gender in Intro patch - HackMew - awesome tools like XSE, and general knowledge - con-11 - Team Rocket trainer sprite - mvidmaster - Mewtwo trainer sprite - Alzatia - Ash trainer sprite (modified) - TaniJ - Trainer sprite base (used for Danny & Rudy), Cissy, Drake, and Lorelei trainer sprites - FoxBluereaver - Slate sprite - Alistair - Xanadu Nursery tiles, special tree tile, and some flower tiles - OceansLugiaSpirit - Professor Ivy OW sprite - ShinyAeon - Tracey battle sprite - Surav - Fallen Log Sprite (re-modelled) - JohnnyRoll - B/W Grass (slightly altered) - Kyledove and Speed - Various Diamond & Pearl Tiles - Enterbrain and FlamingTeddyProductions - Modified playground sprites - spriters-resource.com - Pokémon OWs and various tiles/sprites - zappyspiker - BANNER 2 and 3 - Pyromaniac45 - BANNER 4 - Konekodemon - BANNER 5 - KurcioDurcio - BANNER 6 - Denali - Official Guide - Me - Everything else ... If I've forgotten anyone, please let me know! I appreciate all the help I've gotten! *image removed* 
+
+ BANNER 1 *image removed* BANNER 2 by zappyspiker BANNER 3 by zappyspiker BANNER 4 by Pyromaniac45 BANNER 5 *image removed* by Konekodemon by KurcioDurcio Click here to check out KurcioDurcio's Walkthrough 
+
+ *image removed* Unofficial Hack of the Week # 128 Hack of the Month - September 2010 *image removed* 
+
+- Why doesn't Pikachu follow you like in Yellow? Can you make it follow you?
+
+ While it is on my wish list for things I would like the hack to include, I am not advanced enough in hacking to accomplish it. It requires the use of Assembly (ASM) and creating unique routines. Jambo51 had been working on such a routine. If he gets the chance to finish it and chooses to release the routine to the public (his prerogative) I will of course implement it in my hack. As of this time, though, no such routine exists that has been thoroughly completed, so this feature is currently not possible. 
+
+- How do I beat Sabrina? Kadabra's way too strong!
+
+ Spoiler: Show 
+
+ Kadabra is somewhat overleveled for a couple of reasons: 1. Ash gets there early in the anime. 2. No Pokemon on Ash's team could even come close to beating it. It's meant to be a challenge. If you want to beat Sabrina, it's suggest you level up Pikachu (use the Vs. Seeker if need be) so that it can outspeed Kadabra. Thunder Wave it to paralyze it, then have Bulbasaur use leach seed on the next turn. From there, just keep attacking/using potions or revives until it ultimately is knocked out. 
+
+- Why is my screen red when I go outside?
+
+ Spoiler: Show 
+
+ That is part of the day/night system by Interdpth & ZodiacDaGreat. You are simply playing during evening-ish hours, when the sun would be setting. Play a little bit later or earlier, and the outdoor color scheme will be changed. 
+
+- I beat Misty, where do I go now? The path to Vermilion is blocked.
+
+ Spoiler: Show 
+
+ If you already headed north and battled AJ and the Giselle at the Tech (recommended), go South and then directly west. There will be a (somewhat) hidden open route that leads to some grass and takes you south to an opening - the Hidden Village. Continue this way to progress. 
+
+- How do I get into Koga's Gym? I don't understand the statue's riddle.
+
+ Spoiler: Show 
+
+ The intent of the riddle when it says that you must "turn South" is that you must face the back of the statue. The intent of the riddle when it says you must "go back" is that you must hit the Back button while facing the back of the statue. This will open the secret entrance to Koga's mansion. 
+
+- How can I help Jigglypuff?
+
+- Why won't Charmeleon/Charizard obey me? How can I make it listen?
+
+ It doesn't obey you because it doesn't respect you as a trainer - this was the case in the anime as well. This will continue for the entire game until you complete the "Charizard Chills" event, after which Charizard will obey you once more, except for certain events where Charizard temporarily obeys. 
+
+- How do I complete the Lights, Camera, Quaction! event? The director doesn't like any of my Pokémon!
+
+ Spoiler: Show 
+
+ There are five condition upgraders in the game. In order for the director to accept one of your Pokemon, you must upgrade its Toughness, Coolness, and Smartness. The upgraders for these three conditions are located in Pewter City, Vermillion City, and Saffron City respectively. Each requires a particular colored shard. Some shards can be found as Hidden Items, and others can be mined using the pickaxe on rocks. If you do not have the appropriate shard, return to some cave (Mt. Moon, for instance) and begin mining until you luck into it. Once you have raised one of your Pokemon's conditions in each category listed, return to the director with that Pokemon in the first slot of your party. Do not raise any other conditions of your Pokémon, or they will not qualify. 
+
+- How do I start the Pokémon League? The guy at the gate says it still hasn't started yet.
+
+ Spoiler: Show 
+
+ To begin the Pokémon League, you must complete all the events at Mr. Hideaway, including the Giant Onix and Pokémopolis. Afterward, return to Prof. Oak's lab and speak to him. He will tell you that the League is ready to begin. Before entering Victory Road, the Bad to the Bone event will activate. Afterward, you the guard will let you pass into the Pokémon League. 
+
+ [A ID]episodes[/A ID]*image removed* * Strikethrough indicates the episode is completed * √ = Beta-tested, metapod23 approved (for Beta 3.0) 
+
+ Spoiler: Show 
+
+ Pokémon - I Choose You! √ Pokémon Emergency! √ Ash Catches a Pokémon √ Challenge of the Samurai √ Showdown in Pewter City √ Clefairy and the Moon Stone √ The Water Flowers of Cerulean City √ The Path to the Pokémon League √ The School of Hard Knocks √ Bulbasaur and the Hidden Village √ Charmander – The Stray Pokémon √ Here Comes the Squirtle Squad √ Mystery at the Lighthouse √ Electric Shock Showdown √ Battle Aboard the St. Anne √ Pokémon Shipwreck √ Island of the Giant Pokémon √ Beauty and the Beach √ Tentacool & Tentacruel √ The Ghost of Maiden's Peak √ Bye Bye Butterfree √ Abra and the Psychic Showdown √ The Tower of Terror √ Haunter versus Kadabra √ Primeape Goes Bananas √ BETA 1.0 Pokémon Scent-sation! √ Hypno's Naptime √ Pokémon Fashion Flash √ The Punchy Pokémon √ Sparks Fly for Magnemite √ Dig Those Diglett! √ The Ninja Poké-Showdown √ The Flame Pokémon-athon! √ The Kangaskhan Kid √ The Legend of Dratini √ The Bridge Bike Gang √ Ditto's Mysterious Mansion √ Electric Soldier Porygon √ Holiday Hi-Jynx √ Snow Way Out! √ Pikachu's Goodbye √ The Battling Eevee Brothers √ Wake Up Snorlax! √ Showdown at Dark City √ The March of the Exeggutor Squad √ The Problem with Paras √ The Song of Jigglypuff √ Attack of the Prehistoric Pokémon √ A Chansey Operation √ Holy Matrimony! √ So Near, Yet So Farfetch'd √ Who Gets to Keep Togepi? √ BETA 2.0 Bulbasaur's Mysterious Garden √ Princess vs. Princess √ The Purr-fect Hero √ The Case of the K-9 Caper! √ Pokémon Paparazzi √ The Ultimate Test √ The Breeding Center Secret √ Riddle Me This √ Volcanic Panic √ Beach Blank-Out Blastoise √ The Misty Mermaid √ Clefairy Tales √ The Battle of the Badge √ It's Mr. Mime Time √ Showdown at the Po-ké Corral √ The Evolution Solution √ The Pi-Kahuna √ Pokémon the First Movie - Mewtwo Strikes Back √ Make Room for Gloom √ Lights, Camera, Quack-tion! √ Go West Young Meowth √ To Master the Onixpected! √ The Ancient Puzzle of Pokémopolis √ Bad to the Bone √ BETA 3.0 All Fired Up! Round One - Begin! Fire and Ice The Fourth Round Rumble A Friend In Deed Friend and Foe Alike Friends to the End Pallet Party Panic BETA 3.5 A Scare in the Air Poké Ball Peril The Lost Lapras Fit to be Tide Pikachu Re-Volts The Crystal Onix In the Pink Shell Shock! Stage Fight! Bye Bye Psyduck The Joy of Pokémon Navel Maneuvers Snack Attack A Shipful of Shivers Meowth Rules! Tracey Gets Bugged A Way Off Day Off BETA 4.0 The Mandarin Island Miss Match Wherefore Art Thou, Pokémon? Get Along, Little Pokémon The Mystery Menace Misty Meets Her Match Bound For Trouble Charizard Chills Pokémon the Movie 2000 - The Power of One BETA 4.5 The Pokémon Water War Pokémon Food Fight! Pokémon Double Trouble The Wacky Watcher! The Stun Spore Detour Hello, Pummelo! Enter The Dragonite Viva Las Lapras The Underground Round Up A Tent Situation The Rivalry Revival BETA 5.0 Various updates and special post game events BETA 6.0 
+
+ Updates: 5/9/15 - beta 4.5.3 with fix for activated Make Room for Gloom event released *link removed* 5/8/15 - beta 4.5.2 with bug fixes for Agatha and cutting trees in Snorlax event released *link removed* 4/10/15 - Beta 4.51 with bug fixes for after North Pole, Krabby not appearing, and other glitches released 4/5/15 - Beta 4.5 released 7/20/13 - Beta 4.2 released with bug fixes 7/13/13 - Beta 4.1 released with bug fixes 7/10/13 - Beta 4.0 released covering through episode 98 - A Way Off Day Off 9/13/11 - Beta 3.6 released including new animations, tiles, scripts, and some fixed glitches 8/18/11 - Indigo League blackout after fourth round glitch fixed; releasing Pidgeot if you have Pidgeotto on Route 1 glitch fixed and beta 3.5.4 re-released 8/16/11 - Various glitches for Indigo League and Pallet Party Panic fixed and re-released as Beta 3.5.2 3.5.3 8/15/11 - Various glitches for Indigo League fixed and re-released as 3.5.1 8/14/11 - Beta 3.5 covering all of Indigo League has been released 8/3/11 - Working on episode "All Fired Up" 7/30/11 - Working on Victory Road 7/27/11 - Beta 3 bugs fixed and re-released as Beta 3.03 7/26/11 - BETA 3.0 has been released!
+
+ Last edited: May 9, 2015 
+
+Anime hacks/RPG's are quite popular today, but I suppose you will be able to put your personal touch into this hack. From what I see, there's a lot of work to be done. Why are some screenies too light?
+
+3DS Friend Code: 3024 - 6078 - 0809 Pokemon OmegaRuby IGN: Athens 
+
+ 
+
+You can ad some new event's and tiles. The idea is very good. Good luck (were did you get the pokemon overworlds. pm me)
+
+ Some of the screenshots were taken from video that weren't high quality and some of them were captured directly from the game. I do still have a long way to go, but it is progressing bit by bit. Thanks for the comment. :) 
+
+ I think adding new tiles will be the last thing I do, but I am doing my best to replicate the events of the anime series. I'm editing the overworld sprites myself in Photoshop, which is the easiest way to do it.
+
+ Last edited by a moderator: Jun 3, 2009 
+
+- Jun 3, 2009 
+
+> metapod23 said: 
+> 
+> I think adding new tiles will be the last thing I do, but I am doing my best to replicate the events of the anime series. I'm editing the overworld sprites myself in Photoshop, which is the easiest way to do it. 
+> 
+> Click to expand...
+
+ you should add the new tiles first becouse than the game will be messed up.
+
+ 
+
+#### .com 
+
+- Jun 3, 2009 
+
+> SasukeCat said: 
+> 
+> you should add the new tiles first becouse than the game will be messed up. 
+> 
+> Click to expand...
+
+it shouldn't mess up the game by adding tiles later... This looks pretty good so far. The backsprite needs work... unless the discoloration and lack of details in the color is from the brightness. Hope you get clearer screenshots up soon! Anyways, good luck!
+
+#### Banjora Marxvile 
+
+- Jun 3, 2009 
+
+ Like the above poster said, it won't mess up. Unless you are not careful, and only replace the tiles that you are changing. Anyway, this looks good. In my opinion, don't change the tiles unless you have REALLY unique ones. FR tiles are unique in hacks nowadays.
+
+ 
+
+ Temmie vibrates intensely. awwAwa cute!! (pets u) OMG!! humans TOO CUTE (dies) can't blame a BARK for tryin'... RATED TEM OUTTA TEM. ​
+
+#### Westrmistr 
+
+This looks pretty cool! I've actually made a Misty Trainer sprite like that in one of the screen shots. XD So, I hope you keep at this and make it awesome!
+
+Westermeister, your friendly neighborhood Spriter-Man! ​
+
+ I am a Spriter and part-time Mapper for: ​
+
+ 
+
+Thanks for the comments, everyone! :) I've added a new video showing what I have for the re-edited beginning of the game, which covers episode one of the anime: AshGray - Pokémon I Choose You 
+
+> someperson2008 said: 
+> 
+> it shouldn't mess up the game by adding tiles later... This looks pretty good so far. The backsprite needs work... unless the discoloration and lack of details in the color is from the brightness. Hope you get clearer screenshots up soon! Anyways, good luck! 
+> 
+> Click to expand...
+
+ I added a picture with an updated version of the backsprite. Mostly I just fixed the colors of his backpack/gloves and made his hat a bit brighter red. Thanks for the support! :) 
+
+> Marxvile said: 
+> 
+> Like the above poster said, it won't mess up. Unless you are not careful, and only replace the tiles that you are changing. Anyway, this looks good. In my opinion, don't change the tiles unless you have REALLY unique ones. FR tiles are unique in hacks nowadays. 
+> 
+> Click to expand...
+
+ Thanks! I don't have plans for the tiles yet, but I could see myself trying to maybe create something for Bill's Lighthouse that looks more like a lighthouse. I haven't done much with tile editing, though, so that would take some practice anyway. 
+
+> Westrmistr said: 
+> 
+> This looks pretty cool! I've actually made a Misty Trainer sprite like that in one of the screen shots. XD So, I hope you keep at this and make it awesome! 
+> 
+> Click to expand...
+
+ Thanks! I'm going to try to see it to the end. I think I might release a Beta after I get through 25 episodes and keep doing that until I get through the whole Kanto/Orange Island series.
+
+The sprite looks better, the green is a lot better of a touch, but you should still add more detail. The colors look too flat, almost gbc-ish, just using more colors than gbc does xD. Not really, but erm... the clothes are the main flat colors that make it look weird imo. I saw the video of the intro on YouTube just now. It looks really good, better than what I've seen in other anime remake hacks before. You should really record straight from VBA though. I know the uncompressed codec gets the video size really high, but you can just make it smaller later with a basic program like Movie Maker, when you save it. Just a head's up. I'll check back to see how to hack progresses. xD
+
+I saw the video and it was great the part where the pikachu jumped and the flash of light was great cant wait to play this good luck
+
+The progress is good so far.. but the sprites are poor and the backsprite is ununique, the sprites needs more work XD
+
+ 
+
+The updated backsprite does looks better than the original. (b ' ')b & This hack looks good so far. I like that it's based off the anime, so I'll definitely give it a go if the beta is released. :D As for the video, I liked how you handled the Spearow attack, and actually had the Pikachu sprite run up the tree. xD Nicely done.
+
+in route 1 the ho-oh could fly from the up of the map to the down of the map. (i know my grammar is bad but i'm not from england or america)
+
+- Jun 4, 2009 
+
+I checked the video and I was impressed. This is great piece of scripting work truly fantastic! But the sprites aren't so good as others said but I believe ya can fix it
+
+ROM hacking FAQ - Read before asking how to play a hack. 
+
+ 
+
+#### metapod23 
+
+- Jun 4, 2009 
+
+Update: Managed to change the intro sprite for the main character and the rival - I sprited a picture of Ash and Gary myself. 
+
+> someperson2008 said: 
+> 
+> The sprite looks better, the green is a lot better of a touch, but you should still add more detail. The colors look too flat, almost gbc-ish, just using more colors than gbc does xD. Not really, but erm... the clothes are the main flat colors that make it look weird imo. I saw the video of the intro on YouTube just now. It looks really good, better than what I've seen in other anime remake hacks before. You should really record straight from VBA though. I know the uncompressed codec gets the video size really high, but you can just make it smaller later with a basic program like Movie Maker, when you save it. Just a head's up. I'll check back to see how to hack progresses. xD 
+> 
+> Click to expand...
+
+ I'll have to work on the backsprite more. (It's a little tougher for me to edit since I can't export it to Photoshop.) I'll keep posting updates as I come up with them. 
+
+> alo123 said: 
+> 
+> I saw the video and it was great the part where the pikachu jumped and the flash of light was great cant wait to play this good luck 
+> 
+> Click to expand...
+
+ Thanks! :) 
+
+> Zophus Maverick said: 
+> 
+> The progress is good so far.. but the sprites are poor and the backsprite is ununique, the sprites needs more work XD 
+> 
+> Click to expand...
+
+ I don't claim to be the best spriter, so I'm doing the best I can, but I can always go back and change them a bit. 
+
+> Drew said: 
+> 
+> The updated backsprite does looks better than the original. (b ' ')b & This hack looks good so far. I like that it's based off the anime, so I'll definitely give it a go if the beta is released. :D As for the video, I liked how you handled the Spearow attack, and actually had the Pikachu sprite run up the tree. xD Nicely done. 
+> 
+> Click to expand...
+
+ Thanks! 
+
+> SasukeCat said: 
+> 
+> in route 1 the ho-oh could fly from the up of the map to the down of the map. (i know my grammar is bad but i'm not from england or america) 
+> 
+> Click to expand...
+
+ I tried. It won't flap it's wings if it goes vertically across the screen. 
+
+> Ash493 said: 
+> 
+> I checked the video and I was impressed. This is great piece of scripting work truly fantastic! But the sprites aren't so good as others said but I believe ya can fix it 
+> 
+> Click to expand...
+
+ Thanks! I have been improving on my scripting a lot since I started this. I'm finally feeling pretty comfortable with it. I'll try to improve the spirtes and get better at making them when I can. :)
+
+ok. But you can make it 1 tile lower beacuse the tree covers it and you can add some d/p pokemon
+
+#### Satoshi Ookami 
+
+Dex No11 : Are ya doin' this hack all alone?
+
+ROM hacking FAQ - Read before asking how to play a hack. 
+
+ 
+
+I like the video! The great part was when Pikachu attacked those Spearows and disappeared. Good luck on this hack!
+
+Hacks I Support:
+
+ Pokemon Ametrino 
+
+ 
+
+ -------------------------- My Thread: http://www.pokecommunity.com/showthread.php?t=201787 Post your suggestions on my thread.
+
+Contains DPP and HGSS Tiles and Overworlds! 
+
+ 
+
+ 
+
+This sounds so cool :D If you want help with the OWs i can help :D i might seeem new but i have been spriting some time :D
+
+ Sora's Nobody★ Nothing Yet! ♠The Official Roxas♠ My Stuff:

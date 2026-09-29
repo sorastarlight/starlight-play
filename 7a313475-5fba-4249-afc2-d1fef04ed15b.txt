@@ -1,0 +1,1253 @@
+
+
+Toggle menu contents 
+
+---
+
+# Table Reference[¶](#table-reference "Permalink to this heading")
+
+Warning
+
+This document is a work in progress.
+
+| Type | Subscription | Event | Payload |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Automod Message Hold | [AutomodMessageHoldSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodMessageHoldSubscription "twitchio.eventsub.AutomodMessageHoldSubscription") | [event\_automod\_message\_hold()](#twitchio.event%5Fautomod%5Fmessage%5Fhold "twitchio.event_automod_message_hold") | [AutomodMessageHold](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodMessageHold "twitchio.models.eventsub_.AutomodMessageHold") |
+| Automod Message Hold V2 | [AutomodMessageHoldV2Subscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodMessageHoldV2Subscription "twitchio.eventsub.AutomodMessageHoldV2Subscription") | [event\_automod\_message\_hold()](#twitchio.event%5Fautomod%5Fmessage%5Fhold "twitchio.event_automod_message_hold") | [AutomodMessageHold](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodMessageHold "twitchio.models.eventsub_.AutomodMessageHold") |
+| Automod Message Update | [AutomodMessageUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodMessageUpdateSubscription "twitchio.eventsub.AutomodMessageUpdateSubscription") | [event\_automod\_message\_update()](#twitchio.event%5Fautomod%5Fmessage%5Fupdate "twitchio.event_automod_message_update") | [AutomodMessageUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodMessageUpdate "twitchio.models.eventsub_.AutomodMessageUpdate") |
+| Automod Message Update V2 | [AutomodMessageUpdateV2Subscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodMessageUpdateV2Subscription "twitchio.eventsub.AutomodMessageUpdateV2Subscription") | [event\_automod\_message\_update()](#twitchio.event%5Fautomod%5Fmessage%5Fupdate "twitchio.event_automod_message_update") | [AutomodMessageUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodMessageUpdate "twitchio.models.eventsub_.AutomodMessageUpdate") |
+| Automod Settings Update | [AutomodSettingsUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodSettingsUpdateSubscription "twitchio.eventsub.AutomodSettingsUpdateSubscription") | [event\_automod\_settings\_update()](#twitchio.event%5Fautomod%5Fsettings%5Fupdate "twitchio.event_automod_settings_update") | [AutomodSettingsUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodSettingsUpdate "twitchio.models.eventsub_.AutomodSettingsUpdate") |
+| Automod Terms Update | [AutomodTermsUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodTermsUpdateSubscription "twitchio.eventsub.AutomodTermsUpdateSubscription") | [event\_automod\_terms\_update()](#twitchio.event%5Fautomod%5Fterms%5Fupdate "twitchio.event_automod_terms_update") | [AutomodTermsUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodTermsUpdate "twitchio.models.eventsub_.AutomodTermsUpdate") |
+| Channel Update | [ChannelUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelUpdateSubscription "twitchio.eventsub.ChannelUpdateSubscription") | [event\_channel\_update()](#twitchio.event%5Fchannel%5Fupdate "twitchio.event_channel_update") | [ChannelUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUpdate "twitchio.models.eventsub_.ChannelUpdate") |
+| Channel Follow | [ChannelFollowSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelFollowSubscription "twitchio.eventsub.ChannelFollowSubscription") | [event\_follow()](#twitchio.event%5Ffollow "twitchio.event_follow") | [ChannelFollow](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelFollow "twitchio.models.eventsub_.ChannelFollow") |
+| Channel Ad Break Begin | [AdBreakBeginSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AdBreakBeginSubscription "twitchio.eventsub.AdBreakBeginSubscription") | [event\_ad\_break()](#twitchio.event%5Fad%5Fbreak "twitchio.event_ad_break") | [ChannelAdBreakBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelAdBreakBegin "twitchio.models.eventsub_.ChannelAdBreakBegin") |
+| Channel Bits Use | [ChannelBitsUseSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelBitsUseSubscription "twitchio.eventsub.ChannelBitsUseSubscription") | [event\_bits\_use()](#twitchio.event%5Fbits%5Fuse "twitchio.event_bits_use") | [ChannelBitsUse](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelBitsUse "twitchio.models.eventsub_.ChannelBitsUse") |
+| Channel Chat Clear | [ChatClearSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatClearSubscription "twitchio.eventsub.ChatClearSubscription") | [event\_chat\_clear()](#twitchio.event%5Fchat%5Fclear "twitchio.event_chat_clear") | [ChannelChatClear](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelChatClear "twitchio.models.eventsub_.ChannelChatClear") |
+| Channel Chat Clear User Messages | [ChatClearUserMessagesSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatClearUserMessagesSubscription "twitchio.eventsub.ChatClearUserMessagesSubscription") | [event\_chat\_clear\_user()](#twitchio.event%5Fchat%5Fclear%5Fuser "twitchio.event_chat_clear_user") | [ChannelChatClearUserMessages](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelChatClearUserMessages "twitchio.models.eventsub_.ChannelChatClearUserMessages") |
+| Channel Chat Message | [ChatMessageSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatMessageSubscription "twitchio.eventsub.ChatMessageSubscription") | [event\_message()](#twitchio.event%5Fmessage "twitchio.event_message") | [ChatMessage](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatMessage "twitchio.models.eventsub_.ChatMessage") |
+| Channel Chat Message Delete | [ChatMessageDeleteSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatMessageDeleteSubscription "twitchio.eventsub.ChatMessageDeleteSubscription") | [event\_message\_delete()](#twitchio.event%5Fmessage%5Fdelete "twitchio.event_message_delete") | [ChatMessageDelete](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatMessageDelete "twitchio.models.eventsub_.ChatMessageDelete") |
+| Channel Chat Notification | [ChatNotificationSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatNotificationSubscription "twitchio.eventsub.ChatNotificationSubscription") | [event\_chat\_notification()](#twitchio.event%5Fchat%5Fnotification "twitchio.event_chat_notification") | [ChatNotification](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatNotification "twitchio.models.eventsub_.ChatNotification") |
+| Channel Chat Settings Update | [ChatSettingsUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatSettingsUpdateSubscription "twitchio.eventsub.ChatSettingsUpdateSubscription") | [event\_chat\_settings\_update()](#twitchio.event%5Fchat%5Fsettings%5Fupdate "twitchio.event_chat_settings_update") | [ChatSettingsUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatSettingsUpdate "twitchio.models.eventsub_.ChatSettingsUpdate") |
+| Channel Chat User Message Hold | [ChatUserMessageHoldSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatUserMessageHoldSubscription "twitchio.eventsub.ChatUserMessageHoldSubscription") | [event\_chat\_user\_message\_hold()](#twitchio.event%5Fchat%5Fuser%5Fmessage%5Fhold "twitchio.event_chat_user_message_hold") | [ChatUserMessageHold](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatUserMessageHold "twitchio.models.eventsub_.ChatUserMessageHold") |
+| Channel Chat User Message Update | [ChatUserMessageUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatUserMessageUpdateSubscription "twitchio.eventsub.ChatUserMessageUpdateSubscription") | [event\_chat\_user\_message\_update()](#twitchio.event%5Fchat%5Fuser%5Fmessage%5Fupdate "twitchio.event_chat_user_message_update") | [ChatUserMessageUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatUserMessageUpdate "twitchio.models.eventsub_.ChatUserMessageUpdate") |
+| Channel Shared Chat Session Begin | [SharedChatSessionBeginSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.SharedChatSessionBeginSubscription "twitchio.eventsub.SharedChatSessionBeginSubscription") | [event\_shared\_chat\_begin()](#twitchio.event%5Fshared%5Fchat%5Fbegin "twitchio.event_shared_chat_begin") | [SharedChatSessionBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SharedChatSessionBegin "twitchio.models.eventsub_.SharedChatSessionBegin") |
+| Channel Shared Chat Session Update | [SharedChatSessionUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.SharedChatSessionUpdateSubscription "twitchio.eventsub.SharedChatSessionUpdateSubscription") | [event\_shared\_chat\_update()](#twitchio.event%5Fshared%5Fchat%5Fupdate "twitchio.event_shared_chat_update") | [SharedChatSessionUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SharedChatSessionUpdate "twitchio.models.eventsub_.SharedChatSessionUpdate") |
+| Channel Shared Chat Session End | [SharedChatSessionEndSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.SharedChatSessionEndSubscription "twitchio.eventsub.SharedChatSessionEndSubscription") | [event\_shared\_chat\_end()](#twitchio.event%5Fshared%5Fchat%5Fend "twitchio.event_shared_chat_end") | [SharedChatSessionEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SharedChatSessionEnd "twitchio.models.eventsub_.SharedChatSessionEnd") |
+| Channel Subscribe | [ChannelSubscribeSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelSubscribeSubscription "twitchio.eventsub.ChannelSubscribeSubscription") | [event\_subscription()](#twitchio.event%5Fsubscription "twitchio.event_subscription") | [ChannelSubscribe](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscribe "twitchio.models.eventsub_.ChannelSubscribe") |
+| Channel Subscription End | [ChannelSubscriptionEndSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelSubscriptionEndSubscription "twitchio.eventsub.ChannelSubscriptionEndSubscription") | [event\_subscription\_end()](#twitchio.event%5Fsubscription%5Fend "twitchio.event_subscription_end") | [ChannelSubscriptionEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscriptionEnd "twitchio.models.eventsub_.ChannelSubscriptionEnd") |
+| Channel Subscription Gift | [ChannelSubscriptionGiftSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelSubscriptionGiftSubscription "twitchio.eventsub.ChannelSubscriptionGiftSubscription") | [event\_subscription\_gift()](#twitchio.event%5Fsubscription%5Fgift "twitchio.event_subscription_gift") | [ChannelSubscriptionGift](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscriptionGift "twitchio.models.eventsub_.ChannelSubscriptionGift") |
+| Channel Subscription Message | [ChannelSubscribeMessageSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelSubscribeMessageSubscription "twitchio.eventsub.ChannelSubscribeMessageSubscription") | [event\_subscription\_message()](#twitchio.event%5Fsubscription%5Fmessage "twitchio.event_subscription_message") | [ChannelSubscriptionMessage](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscriptionMessage "twitchio.models.eventsub_.ChannelSubscriptionMessage") |
+| Channel Cheer | [ChannelCheerSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelCheerSubscription "twitchio.eventsub.ChannelCheerSubscription") | [event\_cheer()](#twitchio.event%5Fcheer "twitchio.event_cheer") | [ChannelCheer](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelCheer "twitchio.models.eventsub_.ChannelCheer") |
+| Channel Raid | [ChannelRaidSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelRaidSubscription "twitchio.eventsub.ChannelRaidSubscription") | [event\_raid()](#twitchio.event%5Fraid "twitchio.event_raid") | [ChannelRaid](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelRaid "twitchio.models.eventsub_.ChannelRaid") |
+| Channel Ban | [ChannelBanSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelBanSubscription "twitchio.eventsub.ChannelBanSubscription") | [event\_ban()](#twitchio.event%5Fban "twitchio.event_ban") | [ChannelBan](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelBan "twitchio.models.eventsub_.ChannelBan") |
+| Channel Unban | [ChannelUnbanSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelUnbanSubscription "twitchio.eventsub.ChannelUnbanSubscription") | [event\_unban()](#twitchio.event%5Funban "twitchio.event_unban") | [ChannelUnban](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUnban "twitchio.models.eventsub_.ChannelUnban") |
+| Channel Unban Request Create | [ChannelUnbanRequestSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelUnbanRequestSubscription "twitchio.eventsub.ChannelUnbanRequestSubscription") | [event\_unban\_request()](#twitchio.event%5Funban%5Frequest "twitchio.event_unban_request") | [ChannelUnbanRequest](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUnbanRequest "twitchio.models.eventsub_.ChannelUnbanRequest") |
+| Channel Unban Request Resolve | [ChannelUnbanRequestResolveSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelUnbanRequestResolveSubscription "twitchio.eventsub.ChannelUnbanRequestResolveSubscription") | [event\_unban\_request\_resolve()](#twitchio.event%5Funban%5Frequest%5Fresolve "twitchio.event_unban_request_resolve") | [ChannelUnbanRequestResolve](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUnbanRequestResolve "twitchio.models.eventsub_.ChannelUnbanRequestResolve") |
+| Channel Moderate | [ChannelModerateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelModerateSubscription "twitchio.eventsub.ChannelModerateSubscription") | [event\_mod\_action()](#twitchio.event%5Fmod%5Faction "twitchio.event_mod_action") | [ChannelModerate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelModerate "twitchio.models.eventsub_.ChannelModerate") |
+| Channel Moderate V2 | [ChannelModerateV2Subscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelModerateV2Subscription "twitchio.eventsub.ChannelModerateV2Subscription") | [event\_mod\_action()](#twitchio.event%5Fmod%5Faction "twitchio.event_mod_action") | [ChannelModerate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelModerate "twitchio.models.eventsub_.ChannelModerate") |
+| Channel Moderator Add | [ChannelModeratorAddSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelModeratorAddSubscription "twitchio.eventsub.ChannelModeratorAddSubscription") | [event\_moderator\_add()](#twitchio.event%5Fmoderator%5Fadd "twitchio.event_moderator_add") | [ChannelModeratorAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelModeratorAdd "twitchio.models.eventsub_.ChannelModeratorAdd") |
+| Channel Moderator Remove | [ChannelModeratorRemoveSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelModeratorRemoveSubscription "twitchio.eventsub.ChannelModeratorRemoveSubscription") | [event\_moderator\_remove()](#twitchio.event%5Fmoderator%5Fremove "twitchio.event_moderator_remove") | [ChannelModeratorRemove](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelModeratorRemove "twitchio.models.eventsub_.ChannelModeratorRemove") |
+| Channel Points Automatic Reward Redemption | [ChannelPointsAutoRedeemSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsAutoRedeemSubscription "twitchio.eventsub.ChannelPointsAutoRedeemSubscription") | [event\_automatic\_redemption\_add()](#twitchio.event%5Fautomatic%5Fredemption%5Fadd "twitchio.event_automatic_redemption_add") | [ChannelPointsAutoRedeemAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsAutoRedeemAdd "twitchio.models.eventsub_.ChannelPointsAutoRedeemAdd") |
+| Channel Points Automatic Reward Redemption V2 | [ChannelPointsAutoRedeemV2Subscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsAutoRedeemV2Subscription "twitchio.eventsub.ChannelPointsAutoRedeemV2Subscription") | [event\_automatic\_redemption\_add()](#twitchio.event%5Fautomatic%5Fredemption%5Fadd "twitchio.event_automatic_redemption_add") | [ChannelPointsAutoRedeemAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsAutoRedeemAdd "twitchio.models.eventsub_.ChannelPointsAutoRedeemAdd") |
+| Channel Points Custom Reward Add | [ChannelPointsRewardAddSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsRewardAddSubscription "twitchio.eventsub.ChannelPointsRewardAddSubscription") | [event\_custom\_reward\_add()](#twitchio.event%5Fcustom%5Freward%5Fadd "twitchio.event_custom_reward_add") | [ChannelPointsRewardAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRewardAdd "twitchio.models.eventsub_.ChannelPointsRewardAdd") |
+| Channel Points Custom Reward Update | [ChannelPointsRewardUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsRewardUpdateSubscription "twitchio.eventsub.ChannelPointsRewardUpdateSubscription") | [event\_custom\_reward\_update()](#twitchio.event%5Fcustom%5Freward%5Fupdate "twitchio.event_custom_reward_update") | [ChannelPointsRewardUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRewardUpdate "twitchio.models.eventsub_.ChannelPointsRewardUpdate") |
+| Channel Points Custom Reward Remove | [ChannelPointsRewardRemoveSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsRewardRemoveSubscription "twitchio.eventsub.ChannelPointsRewardRemoveSubscription") | [event\_custom\_reward\_remove()](#twitchio.event%5Fcustom%5Freward%5Fremove "twitchio.event_custom_reward_remove") | [ChannelPointsRewardRemove](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRewardRemove "twitchio.models.eventsub_.ChannelPointsRewardRemove") |
+| Channel Points Custom Reward Redemption Add | [ChannelPointsRedeemAddSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsRedeemAddSubscription "twitchio.eventsub.ChannelPointsRedeemAddSubscription") | [event\_custom\_redemption\_add()](#twitchio.event%5Fcustom%5Fredemption%5Fadd "twitchio.event_custom_redemption_add") | [ChannelPointsRedemptionAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRedemptionAdd "twitchio.models.eventsub_.ChannelPointsRedemptionAdd") |
+| Channel Points Custom Reward Redemption Update | [ChannelPointsRedeemUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsRedeemUpdateSubscription "twitchio.eventsub.ChannelPointsRedeemUpdateSubscription") | [event\_custom\_redemption\_update()](#twitchio.event%5Fcustom%5Fredemption%5Fupdate "twitchio.event_custom_redemption_update") | [ChannelPointsRedemptionUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRedemptionUpdate "twitchio.models.eventsub_.ChannelPointsRedemptionUpdate") |
+| Channel Custom Power-ups Redemption Add | [CustomPowerupRedeemAddSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.CustomPowerupRedeemAddSubscription "twitchio.eventsub.CustomPowerupRedeemAddSubscription") | [event\_custom\_power\_up\_redemption\_add()](#twitchio.event%5Fcustom%5Fpower%5Fup%5Fredemption%5Fadd "twitchio.event_custom_power_up_redemption_add") | [CustomPowerupRedemptionAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CustomPowerupRedemptionAdd "twitchio.models.eventsub_.CustomPowerupRedemptionAdd") |
+| Channel Poll Begin | [ChannelPollBeginSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPollBeginSubscription "twitchio.eventsub.ChannelPollBeginSubscription") | [event\_poll\_begin()](#twitchio.event%5Fpoll%5Fbegin "twitchio.event_poll_begin") | [ChannelPollBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPollBegin "twitchio.models.eventsub_.ChannelPollBegin") |
+| Channel Poll Progress | [ChannelPollProgressSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPollProgressSubscription "twitchio.eventsub.ChannelPollProgressSubscription") | [event\_poll\_progress()](#twitchio.event%5Fpoll%5Fprogress "twitchio.event_poll_progress") | [ChannelPollProgress](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPollProgress "twitchio.models.eventsub_.ChannelPollProgress") |
+| Channel Poll End | [ChannelPollEndSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPollEndSubscription "twitchio.eventsub.ChannelPollEndSubscription") | [event\_poll\_end()](#twitchio.event%5Fpoll%5Fend "twitchio.event_poll_end") | [ChannelPollEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPollEnd "twitchio.models.eventsub_.ChannelPollEnd") |
+| Channel Prediction Begin | [ChannelPredictionBeginSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPredictionBeginSubscription "twitchio.eventsub.ChannelPredictionBeginSubscription") | [event\_prediction\_begin()](#twitchio.event%5Fprediction%5Fbegin "twitchio.event_prediction_begin") | [ChannelPredictionBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionBegin "twitchio.models.eventsub_.ChannelPredictionBegin") |
+| Channel Prediction Progress | [ChannelPredictionProgressSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPredictionProgressSubscription "twitchio.eventsub.ChannelPredictionProgressSubscription") | [event\_prediction\_progress()](#twitchio.event%5Fprediction%5Fprogress "twitchio.event_prediction_progress") | [ChannelPredictionProgress](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionProgress "twitchio.models.eventsub_.ChannelPredictionProgress") |
+| Channel Prediction Lock | [ChannelPredictionLockSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPredictionLockSubscription "twitchio.eventsub.ChannelPredictionLockSubscription") | [event\_prediction\_lock()](#twitchio.event%5Fprediction%5Flock "twitchio.event_prediction_lock") | [ChannelPredictionLock](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionLock "twitchio.models.eventsub_.ChannelPredictionLock") |
+| Channel Prediction End | [ChannelPredictionEndSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPredictionEndSubscription "twitchio.eventsub.ChannelPredictionEndSubscription") | [event\_prediction\_end()](#twitchio.event%5Fprediction%5Fend "twitchio.event_prediction_end") | [ChannelPredictionEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionEnd "twitchio.models.eventsub_.ChannelPredictionEnd") |
+| Channel Suspicious User Message | [SuspiciousUserMessageSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.SuspiciousUserMessageSubscription "twitchio.eventsub.SuspiciousUserMessageSubscription") | [event\_suspicious\_user\_message()](#twitchio.event%5Fsuspicious%5Fuser%5Fmessage "twitchio.event_suspicious_user_message") | [SuspiciousUserMessage](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SuspiciousUserMessage "twitchio.models.eventsub_.SuspiciousUserMessage") |
+| Channel Suspicious User Update | [SuspiciousUserUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.SuspiciousUserUpdateSubscription "twitchio.eventsub.SuspiciousUserUpdateSubscription") | [event\_suspicious\_user\_update()](#twitchio.event%5Fsuspicious%5Fuser%5Fupdate "twitchio.event_suspicious_user_update") | [SuspiciousUserUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SuspiciousUserUpdate "twitchio.models.eventsub_.SuspiciousUserUpdate") |
+| Channel VIP Add | [ChannelVIPAddSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelVIPAddSubscription "twitchio.eventsub.ChannelVIPAddSubscription") | [event\_vip\_add()](#twitchio.event%5Fvip%5Fadd "twitchio.event_vip_add") | [ChannelVIPAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelVIPAdd "twitchio.models.eventsub_.ChannelVIPAdd") |
+| Channel VIP Remove | [ChannelVIPRemoveSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelVIPRemoveSubscription "twitchio.eventsub.ChannelVIPRemoveSubscription") | [event\_vip\_remove()](#twitchio.event%5Fvip%5Fremove "twitchio.event_vip_remove") | [ChannelVIPRemove](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelVIPRemove "twitchio.models.eventsub_.ChannelVIPRemove") |
+| Channel Warning Acknowledgement | [ChannelWarningAcknowledgementSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelWarningAcknowledgementSubscription "twitchio.eventsub.ChannelWarningAcknowledgementSubscription") | [event\_warning\_acknowledge()](#twitchio.event%5Fwarning%5Facknowledge "twitchio.event_warning_acknowledge") | [ChannelWarningAcknowledge](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelWarningAcknowledge "twitchio.models.eventsub_.ChannelWarningAcknowledge") |
+| Channel Warning Send | [ChannelWarningSendSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelWarningSendSubscription "twitchio.eventsub.ChannelWarningSendSubscription") | [event\_warning\_send()](#twitchio.event%5Fwarning%5Fsend "twitchio.event_warning_send") | [ChannelWarningSend](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelWarningSend "twitchio.models.eventsub_.ChannelWarningSend") |
+| Charity Donation | [CharityDonationSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.CharityDonationSubscription "twitchio.eventsub.CharityDonationSubscription") | [event\_charity\_campaign\_donate()](#twitchio.event%5Fcharity%5Fcampaign%5Fdonate "twitchio.event_charity_campaign_donate") | [CharityCampaignDonation](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignDonation "twitchio.models.eventsub_.CharityCampaignDonation") |
+| Charity Campaign Start | [CharityCampaignStartSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.CharityCampaignStartSubscription "twitchio.eventsub.CharityCampaignStartSubscription") | [event\_charity\_campaign\_start()](#twitchio.event%5Fcharity%5Fcampaign%5Fstart "twitchio.event_charity_campaign_start") | [CharityCampaignStart](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignStart "twitchio.models.eventsub_.CharityCampaignStart") |
+| Charity Campaign Progress | [CharityCampaignProgressSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.CharityCampaignProgressSubscription "twitchio.eventsub.CharityCampaignProgressSubscription") | [event\_charity\_campaign\_progress()](#twitchio.event%5Fcharity%5Fcampaign%5Fprogress "twitchio.event_charity_campaign_progress") | [CharityCampaignProgress](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignProgress "twitchio.models.eventsub_.CharityCampaignProgress") |
+| Charity Campaign Stop | [CharityCampaignStopSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.CharityCampaignStopSubscription "twitchio.eventsub.CharityCampaignStopSubscription") | [event\_charity\_campaign\_stop()](#twitchio.event%5Fcharity%5Fcampaign%5Fstop "twitchio.event_charity_campaign_stop") | [CharityCampaignStop](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignStop "twitchio.models.eventsub_.CharityCampaignStop") |
+| Goal Begin | [GoalBeginSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.GoalBeginSubscription "twitchio.eventsub.GoalBeginSubscription") | [event\_goal\_begin()](#twitchio.event%5Fgoal%5Fbegin "twitchio.event_goal_begin") | [GoalBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.GoalBegin "twitchio.models.eventsub_.GoalBegin") |
+| Goal Progress | [GoalProgressSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.GoalProgressSubscription "twitchio.eventsub.GoalProgressSubscription") | [event\_goal\_progress()](#twitchio.event%5Fgoal%5Fprogress "twitchio.event_goal_progress") | [GoalProgress](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.GoalProgress "twitchio.models.eventsub_.GoalProgress") |
+| Goal End | [GoalEndSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.GoalEndSubscription "twitchio.eventsub.GoalEndSubscription") | [event\_goal\_end()](#twitchio.event%5Fgoal%5Fend "twitchio.event_goal_end") | [GoalEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.GoalEnd "twitchio.models.eventsub_.GoalEnd") |
+| Hype Train Begin | [HypeTrainBeginSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.HypeTrainBeginSubscription "twitchio.eventsub.HypeTrainBeginSubscription") | [event\_hype\_train()](#twitchio.event%5Fhype%5Ftrain "twitchio.event_hype_train") | [HypeTrainBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.HypeTrainBegin "twitchio.models.eventsub_.HypeTrainBegin") |
+| Hype Train Progress | [HypeTrainProgressSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.HypeTrainProgressSubscription "twitchio.eventsub.HypeTrainProgressSubscription") | [event\_hype\_train\_progress()](#twitchio.event%5Fhype%5Ftrain%5Fprogress "twitchio.event_hype_train_progress") | [HypeTrainProgress](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.HypeTrainProgress "twitchio.models.eventsub_.HypeTrainProgress") |
+| Hype Train End | [HypeTrainEndSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.HypeTrainEndSubscription "twitchio.eventsub.HypeTrainEndSubscription") | [event\_hype\_train\_end()](#twitchio.event%5Fhype%5Ftrain%5Fend "twitchio.event_hype_train_end") | [HypeTrainEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.HypeTrainEnd "twitchio.models.eventsub_.HypeTrainEnd") |
+| Shield Mode Begin | [ShieldModeBeginSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ShieldModeBeginSubscription "twitchio.eventsub.ShieldModeBeginSubscription") | [event\_shield\_mode\_begin()](#twitchio.event%5Fshield%5Fmode%5Fbegin "twitchio.event_shield_mode_begin") | [ShieldModeBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShieldModeBegin "twitchio.models.eventsub_.ShieldModeBegin") |
+| Shield Mode End | [ShieldModeEndSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ShieldModeEndSubscription "twitchio.eventsub.ShieldModeEndSubscription") | [event\_shield\_mode\_end()](#twitchio.event%5Fshield%5Fmode%5Fend "twitchio.event_shield_mode_end") | [ShieldModeEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShieldModeEnd "twitchio.models.eventsub_.ShieldModeEnd") |
+| Shoutout Create | [ShoutoutCreateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ShoutoutCreateSubscription "twitchio.eventsub.ShoutoutCreateSubscription") | [event\_shoutout\_create()](#twitchio.event%5Fshoutout%5Fcreate "twitchio.event_shoutout_create") | [ShoutoutCreate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShoutoutCreate "twitchio.models.eventsub_.ShoutoutCreate") |
+| Shoutout Received | [ShoutoutReceiveSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ShoutoutReceiveSubscription "twitchio.eventsub.ShoutoutReceiveSubscription") | [event\_shoutout\_receive()](#twitchio.event%5Fshoutout%5Freceive "twitchio.event_shoutout_receive") | [ShoutoutReceive](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShoutoutReceive "twitchio.models.eventsub_.ShoutoutReceive") |
+| Stream Online | [StreamOnlineSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.StreamOnlineSubscription "twitchio.eventsub.StreamOnlineSubscription") | [event\_stream\_online()](#twitchio.event%5Fstream%5Fonline "twitchio.event_stream_online") | [StreamOnline](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.StreamOnline "twitchio.models.eventsub_.StreamOnline") |
+| Stream Offline | [StreamOfflineSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.StreamOfflineSubscription "twitchio.eventsub.StreamOfflineSubscription") | [event\_stream\_offline()](#twitchio.event%5Fstream%5Foffline "twitchio.event_stream_offline") | [StreamOffline](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.StreamOffline "twitchio.models.eventsub_.StreamOffline") |
+| User Authorization Grant | [UserAuthorizationGrantSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.UserAuthorizationGrantSubscription "twitchio.eventsub.UserAuthorizationGrantSubscription") | [event\_user\_authorization\_grant()](#twitchio.event%5Fuser%5Fauthorization%5Fgrant "twitchio.event_user_authorization_grant") | [UserAuthorizationGrant](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.UserAuthorizationGrant "twitchio.models.eventsub_.UserAuthorizationGrant") |
+| User Authorization Revoke | [UserAuthorizationRevokeSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.UserAuthorizationRevokeSubscription "twitchio.eventsub.UserAuthorizationRevokeSubscription") | [event\_user\_authorization\_revoke()](#twitchio.event%5Fuser%5Fauthorization%5Frevoke "twitchio.event_user_authorization_revoke") | [UserAuthorizationRevoke](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.UserAuthorizationRevoke "twitchio.models.eventsub_.UserAuthorizationRevoke") |
+| User Update | [UserUpdateSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.UserUpdateSubscription "twitchio.eventsub.UserUpdateSubscription") | [event\_user\_update()](#twitchio.event%5Fuser%5Fupdate "twitchio.event_user_update") | [UserUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.UserUpdate "twitchio.models.eventsub_.UserUpdate") |
+| Whisper Received | [WhisperReceivedSubscription()](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.WhisperReceivedSubscription "twitchio.eventsub.WhisperReceivedSubscription") | [event\_message\_whisper()](#twitchio.event%5Fmessage%5Fwhisper "twitchio.event_message_whisper") | [Whisper](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.Whisper "twitchio.models.eventsub_.Whisper") |
+
+# Client Events[¶](#client-events "Permalink to this heading")
+
+_async_ twitchio.event\_ready() → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fready "Permalink to this definition")
+
+Event dispatched when the [Client](https://twitchio.dev/en/latest/references/client.html#twitchio.Client "twitchio.Client") is ready and has completed login.
+
+_async_ twitchio.event\_error(_payload: [twitchio.EventErrorPayload](#twitchio.EventErrorPayload "twitchio.EventErrorPayload")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Ferror "Permalink to this definition")
+
+Event dispatched when an exception is raised inside of a dispatched event.
+
+Parameters
+
+**payload** ([_twitchio.EventErrorPayload_](#twitchio.EventErrorPayload "twitchio.EventErrorPayload")) – The payload containing information about the event and exception raised.
+
+_async_ twitchio.event\_token\_refreshed(_payload: [twitchio.TokenRefreshedPayload](#twitchio.TokenRefreshedPayload "twitchio.TokenRefreshedPayload")_) → None:[¶](#twitchio.event%5Ftoken%5Frefreshed "Permalink to this definition")
+
+Event dispatched when a token managed by the [Client](https://twitchio.dev/en/latest/references/client.html#twitchio.Client "twitchio.Client") is successfully refreshed.
+
+You can use this event to update the stored token locally as they are refreshed.
+
+Parameters
+
+**payload** ([_TokenRefreshedPayload_](#twitchio.TokenRefreshedPayload "twitchio.TokenRefreshedPayload")) – The payload containing various information about the refreshed token.
+
+_async_ twitchio.event\_oauth\_authorized(_payload: [twitchio.authentication.UserTokenPayload](https://twitchio.dev/en/latest/references/web.html#twitchio.authentication.UserTokenPayload "twitchio.authentication.UserTokenPayload")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Foauth%5Fauthorized "Permalink to this definition")
+
+Event dispatched when a user authorizes your Client-ID via Twitch OAuth on a built-in web adapter.
+
+The default behaviour of this event is to add the authorized token to the client. See: [add\_token](https://twitchio.dev/en/latest/references/client.html#twitchio.Client.add%5Ftoken "twitchio.Client.add_token") for more details.
+
+Parameters
+
+**payload** ([_UserTokenPayload_](https://twitchio.dev/en/latest/references/web.html#twitchio.authentication.UserTokenPayload "twitchio.authentication.UserTokenPayload")) – The payload containing token information.
+
+_async_ twitchio.event\_subscription\_revoked(_payload: [SubscriptionRevoked](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SubscriptionRevoked "twitchio.models.eventsub.SubscriptionRevoked")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fsubscription%5Frevoked "Permalink to this definition")
+
+Event dispatched when Twitch revokes a subscription. This can occur on websockets and webhooks. You’ll receive this message once and then no longer receive messages for the specified user and subscription type.
+
+Webhook:
+
+* The user mentioned in the subscription no longer exists. The notification’s status is set to user\_removed.
+* The user revoked the authorization token or simply changed their password. The notification’s status is set to authorization\_revoked.
+* The callback failed to respond in a timely manner too many times. The notification’s status is set to notification\_failures\_exceeded.
+* The subscribed to subscription type and version is no longer supported. The notification’s status is set to version\_removed.
+
+Websocket:
+
+* The user mentioned in the subscription no longer exists. The notification’s status field is set to user\_removed.
+* The user revoked the authorization token that the subscription relied on. The notification’s status field is set to authorization\_revoked.
+* The subscribed to subscription type and version is no longer supported. The notification’s status field is set to version\_removed.
+
+Parameters
+
+**payload** ([_SubscriptionRevoked_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SubscriptionRevoked "twitchio.SubscriptionRevoked")) – The payload containing token information.
+
+_async_ twitchio.event\_websocket\_welcome(_payload: [WebsocketWelcome](#twitchio.WebsocketWelcome "twitchio.models.eventsub.WebsocketWelcome")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fwebsocket%5Fwelcome "Permalink to this definition")
+
+Event dispatched when a websocket successfully connects to Twitch via Eventsub or Conduits.
+
+Parameters
+
+**payload** ([_WebsocketWelcome_](#twitchio.WebsocketWelcome "twitchio.WebsocketWelcome")) – The payload containing information about the connected websocket.
+
+# Commands Events[¶](#commands-events "Permalink to this heading")
+
+_async_ twitchio.event\_command\_invoked(_ctx: [twitchio.ext.commands.Context](https://twitchio.dev/en/latest/exts/commands/core.html#twitchio.ext.commands.Context "twitchio.ext.commands.Context")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcommand%5Finvoked "Permalink to this definition")
+
+Event dispatched when a [Command](https://twitchio.dev/en/latest/exts/commands/core.html#twitchio.ext.commands.Command "twitchio.ext.commands.Command") is invoked.
+
+Parameters
+
+**ctx** ([_twitchio.ext.commands.Context_](https://twitchio.dev/en/latest/exts/commands/core.html#twitchio.ext.commands.Context "twitchio.ext.commands.Context")) – The context object that invoked the command.
+
+_async_ twitchio.event\_command\_completed(_ctx: [twitchio.ext.commands.Context](https://twitchio.dev/en/latest/exts/commands/core.html#twitchio.ext.commands.Context "twitchio.ext.commands.Context")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcommand%5Fcompleted "Permalink to this definition")
+
+Event dispatched when a [Command](https://twitchio.dev/en/latest/exts/commands/core.html#twitchio.ext.commands.Command "twitchio.ext.commands.Command") has completed invocation.
+
+Parameters
+
+**ctx** ([_twitchio.ext.commands.Context_](https://twitchio.dev/en/latest/exts/commands/core.html#twitchio.ext.commands.Context "twitchio.ext.commands.Context")) – The context object that invoked the command.
+
+_async_ twitchio.event\_command\_error(_payload: [twitchio.ext.commands.CommandErrorPayload](https://twitchio.dev/en/latest/exts/commands/exceptions.html#twitchio.ext.commands.CommandErrorPayload "twitchio.ext.commands.CommandErrorPayload")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcommand%5Ferror "Permalink to this definition")
+
+Event dispatched when a [Command](https://twitchio.dev/en/latest/exts/commands/core.html#twitchio.ext.commands.Command "twitchio.ext.commands.Command") encounters an error during invocation.
+
+By default, every [Bot](https://twitchio.dev/en/latest/exts/commands/bot.html#twitchio.ext.commands.Bot "twitchio.ext.commands.Bot") implements this event. You can override the default implementation of this event to fine-tune errors. Care should be taken to make sure unexpected exceptions are properly logged or made aware of.
+
+Below is a small example of overriding the default implementation in a [Component](https://twitchio.dev/en/latest/exts/commands/components.html#twitchio.ext.commands.Component "twitchio.ext.commands.Component"). This, when used in an extension allows your error handler to be hot-reloaded without losing access to a proper exception handler.
+
+Parameters
+
+**payload** ([_twitchio.ext.commands.CommandErrorPayload_](https://twitchio.dev/en/latest/exts/commands/exceptions.html#twitchio.ext.commands.CommandErrorPayload "twitchio.ext.commands.CommandErrorPayload")) – The error payload containing context and the exception raised.
+
+**Example**
+
+import logging
+
+from twitchio.ext import commands
+
+logger = logging.getLogger(__name__)
+
+class ErrorComponent(commands.Component):
+
+ def __init__(self, bot: commands.Bot) -> None:
+ # Store the original error handler; if we re/unload this component it will be reassigned to our bot...
+ self.original = bot.event_command_error
+
+ # Override the default error handler...
+ bot.event_command_error = self.event_command_error
+
+ self.bot = bot
+
+ async def component_teardown(self) -> None:
+ # Reassign the original error handler...
+ self.bot.event_command_error = self.original
+
+ async def event_command_error(self, payload: commands.CommandErrorPayload) -> None:
+ ctx = payload.context
+ command = ctx.command
+ error = payload.exception
+
+ # We don't want to dispatch errors that have already been handled before...
+ if command and command.has_error and ctx.error_dispatched:
+ return
+
+ # Example: A common error to suppress is the CommandNotFound error...
+ if isinstance(error, commands.CommandNotFound):
+ return
+
+ # Example: As an example if a guard fails we can send a default message back...
+ if isinstance(error, commands.GuardFailure):
+ await ctx.send(f"{ctx.chatter} you do not have permission to use this command.")
+
+ # For all unhandled errors, we should log them so we know what went wrong...
+ msg = f'Ignoring exception in command "{ctx.command}":\n'
+ logger.error(msg, exc_info=error)
+
+async def setup(bot: commands.Bot) -> None:
+ await bot.add_component(ErrorComponent(bot))
+
+# Automod[¶](#automod "Permalink to this heading")
+
+_async_ twitchio.event\_automod\_message\_hold(_payload: [twitchio.AutomodMessageHold](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodMessageHold "twitchio.AutomodMessageHold")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fautomod%5Fmessage%5Fhold "Permalink to this definition")
+
+Event dispatched when a message is held by Automod and needs review.
+
+Corresponds to the Twitch EventSub subscriptions [Automod Message Hold](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#automodmessagehold) and [Automod Message Hold V2](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#automodmessagehold-v2).
+
+You must subscribe to EventSub with [AutomodMessageHoldSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodMessageHoldSubscription "twitchio.eventsub.AutomodMessageHoldSubscription") or [AutomodMessageHoldV2Subscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodMessageHoldV2Subscription "twitchio.eventsub.AutomodMessageHoldV2Subscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.AutomodMessageHold_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodMessageHold "twitchio.AutomodMessageHold")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_automod\_message\_update(_payload: [twitchio.AutomodMessageUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodMessageUpdate "twitchio.AutomodMessageUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fautomod%5Fmessage%5Fupdate "Permalink to this definition")
+
+Event dispatched when a message held by Automod status changes.
+
+Corresponds to the Twitch EventSub subscriptions [Automod Message Update](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#automodmessageupdate) and [Automod Message Update V2](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#automodmessageupdate-v2).
+
+You must subscribe to EventSub with [AutomodMessageUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodMessageUpdateSubscription "twitchio.eventsub.AutomodMessageUpdateSubscription") or [AutomodMessageUpdateV2Subscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodMessageUpdateV2Subscription "twitchio.eventsub.AutomodMessageUpdateV2Subscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.AutomodMessageUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodMessageUpdate "twitchio.AutomodMessageUpdate")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_automod\_settings\_update(_payload: [twitchio.AutomodSettingsUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodSettingsUpdate "twitchio.AutomodSettingsUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fautomod%5Fsettings%5Fupdate "Permalink to this definition")
+
+Event dispatched when a broadcaster’s automod settings are updated.
+
+Corresponds to the Twitch EventSub subscriptions [Automod Settings Update](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#automodsettingsupdate)
+
+You must subscribe to EventSub with [AutomodSettingsUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodSettingsUpdateSubscription "twitchio.eventsub.AutomodSettingsUpdateSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.AutomodSettingsUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodSettingsUpdate "twitchio.AutomodSettingsUpdate")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_automod\_terms\_update(_payload: [twitchio.AutomodTermsUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodTermsUpdate "twitchio.AutomodTermsUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fautomod%5Fterms%5Fupdate "Permalink to this definition")
+
+Event dispatched when a broadcaster’s automod terms are updated. Changes to private terms are not sent.
+
+Corresponds to the Twitch EventSub subscriptions [Automod Terms Update](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#automodtermsupdate)
+
+You must subscribe to EventSub with [AutomodTermsUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AutomodTermsUpdateSubscription "twitchio.eventsub.AutomodTermsUpdateSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.AutomodTermsUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.AutomodTermsUpdate "twitchio.AutomodTermsUpdate")) – The EventSub payload received for this event.
+
+# Bans[¶](#bans "Permalink to this heading")
+
+_async_ twitchio.event\_ban(_payload: [twitchio.ChannelBan](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelBan "twitchio.ChannelBan")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fban "Permalink to this definition")
+
+Event dispatched when a viewer is banned from the specified channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Ban](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelban)
+
+You must subscribe to EventSub with [ChannelBanSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelBanSubscription "twitchio.eventsub.ChannelBanSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelBan_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelBan "twitchio.ChannelBan")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_unban(_payload: [twitchio.ChannelUnban](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUnban "twitchio.ChannelUnban")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Funban "Permalink to this definition")
+
+Event dispatched when a viewer is unbanned from the specified channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Unban](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelunban)
+
+You must subscribe to EventSub with [ChannelUnbanSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelUnbanSubscription "twitchio.eventsub.ChannelUnbanSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelUnban_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUnban "twitchio.ChannelUnban")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_unban\_request(_payload: [twitchio.ChannelUnbanRequest](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUnbanRequest "twitchio.ChannelUnbanRequest")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Funban%5Frequest "Permalink to this definition")
+
+Event dispatched when user creates an unban request.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Unban Request Create](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelunban%5Frequestcreate)
+
+You must subscribe to EventSub with [ChannelUnbanRequestSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelUnbanRequestSubscription "twitchio.eventsub.ChannelUnbanRequestSubscription")for each required broadcaster, with moderator, to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelUnbanRequest_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUnbanRequest "twitchio.ChannelUnbanRequest")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_unban\_request\_resolve(_payload: [twitchio.ChannelUnbanRequest](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUnbanRequest "twitchio.ChannelUnbanRequest")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Funban%5Frequest%5Fresolve "Permalink to this definition")
+
+Event dispatched when an unban request is resolved.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Unban Request Resolve](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelunban%5Frequestresolve)
+
+You must subscribe to EventSub with [ChannelUnbanRequestResolveSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelUnbanRequestResolveSubscription "twitchio.eventsub.ChannelUnbanRequestResolveSubscription")for each required broadcaster, with moderator, to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelUnbanRequest_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUnbanRequest "twitchio.ChannelUnbanRequest")) – The EventSub payload received for this event.
+
+# Channel / Broadcaster[¶](#channel-broadcaster "Permalink to this heading")
+
+_async_ twitchio.event\_channel\_update(_payload: [twitchio.ChannelUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUpdate "twitchio.ChannelUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fchannel%5Fupdate "Permalink to this definition")
+
+Event dispatched when a broadcaster updates their channel properties e.g. category, title, content classification labels, broadcast, or language.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Update](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelupdate)
+
+You must subscribe to EventSub with [ChannelUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelUpdateSubscription "twitchio.eventsub.ChannelUpdateSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelUpdate "twitchio.ChannelUpdate")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_follow(_payload: [twitchio.ChannelFollow](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelFollow "twitchio.ChannelFollow")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Ffollow "Permalink to this definition")
+
+Event dispatched when someone follows a channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Follow](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelfollow)
+
+You must subscribe to EventSub with [ChannelFollowSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelFollowSubscription "twitchio.eventsub.ChannelFollowSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelFollow_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelFollow "twitchio.ChannelFollow")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_ad\_break(_payload: [twitchio.ChannelAdBreakBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelAdBreakBegin "twitchio.ChannelAdBreakBegin")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fad%5Fbreak "Permalink to this definition")
+
+Event dispatched when a midroll commercial break has started running.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Ad Break Begin](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelad%5Fbreakbegin)
+
+You must subscribe to EventSub with [AdBreakBeginSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.AdBreakBeginSubscription "twitchio.eventsub.AdBreakBeginSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelAdBreakBegin_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelAdBreakBegin "twitchio.ChannelAdBreakBegin")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_cheer(_payload: [twitchio.ChannelCheer](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelCheer "twitchio.ChannelCheer")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcheer "Permalink to this definition")
+
+Event dispatched when a user cheers on the specified channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Cheer](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelcheer)
+
+You must subscribe to EventSub with [ChannelCheerSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelCheerSubscription "twitchio.eventsub.ChannelCheerSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelCheer_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelCheer "twitchio.ChannelCheer")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_raid(_payload: [twitchio.ChannelRaid](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelRaid "twitchio.ChannelRaid")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fraid "Permalink to this definition")
+
+Event dispatched when a user broadcaster raids another broadcaster’s channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Raid](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelraid)
+
+You must subscribe to EventSub with [ChannelRaidSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelRaidSubscription "twitchio.eventsub.ChannelRaidSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelRaid_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelRaid "twitchio.ChannelRaid")) – The EventSub payload received for this event.
+
+# Channel Points[¶](#channel-points "Permalink to this heading")
+
+_async_ twitchio.event\_automatic\_redemption\_add(_payload: [twitchio.ChannelPointsAutoRedeemAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsAutoRedeemAdd "twitchio.ChannelPointsAutoRedeemAdd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fautomatic%5Fredemption%5Fadd "Permalink to this definition")
+
+Event dispatched when a viewer has redeemed an automatic channel points reward on the specified channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Points Automatic Reward Redemption](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchannel%5Fpoints%5Fautomatic%5Freward%5Fredemptionadd) and [Channel Points Automatic Reward Redemption V2](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchannel%5Fpoints%5Fautomatic%5Freward%5Fredemptionadd-v2).
+
+You must subscribe to EventSub with [ChannelPointsAutoRedeemSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsAutoRedeemSubscription "twitchio.eventsub.ChannelPointsAutoRedeemSubscription") or [ChannelPointsAutoRedeemV2Subscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsAutoRedeemV2Subscription "twitchio.eventsub.ChannelPointsAutoRedeemV2Subscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPointsAutoRedeemAdd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsAutoRedeemAdd "twitchio.ChannelPointsAutoRedeemAdd")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_custom\_reward\_add(_payload: [twitchio.ChannelPointsRewardAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRewardAdd "twitchio.ChannelPointsRewardAdd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcustom%5Freward%5Fadd "Permalink to this definition")
+
+Event dispatched when a custom channel points reward has been created for the specified channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Points Custom Reward Add](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchannel%5Fpoints%5Fcustom%5Frewardadd)
+
+You must subscribe to EventSub with [ChannelPointsRewardAddSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsRewardAddSubscription "twitchio.eventsub.ChannelPointsRewardAddSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPointsRewardAdd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRewardAdd "twitchio.ChannelPointsRewardAdd")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_custom\_reward\_update(_payload: [twitchio.ChannelPointsRewardUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRewardUpdate "twitchio.ChannelPointsRewardUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcustom%5Freward%5Fupdate "Permalink to this definition")
+
+Event dispatched when a custom channel points reward has been updated for the specified channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Points Custom Reward Update](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchannel%5Fpoints%5Fcustom%5Frewardupdate)
+
+You must subscribe to EventSub with [ChannelPointsRewardUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsRewardUpdateSubscription "twitchio.eventsub.ChannelPointsRewardUpdateSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPointsRewardUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRewardUpdate "twitchio.ChannelPointsRewardUpdate")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_custom\_reward\_remove(_payload: [twitchio.ChannelPointsRewardRemove](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRewardRemove "twitchio.ChannelPointsRewardRemove")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcustom%5Freward%5Fremove "Permalink to this definition")
+
+Event dispatched when a custom channel points reward has been removed from the specified channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Points Custom Reward Remove](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchannel%5Fpoints%5Fcustom%5Frewardremove)
+
+You must subscribe to EventSub with [ChannelPointsRewardRemoveSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsRewardRemoveSubscription "twitchio.eventsub.ChannelPointsRewardRemoveSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPointsRewardRemove_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRewardRemove "twitchio.ChannelPointsRewardRemove")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_custom\_redemption\_add(_payload: [twitchio.ChannelPointsRedemptionAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRedemptionAdd "twitchio.ChannelPointsRedemptionAdd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcustom%5Fredemption%5Fadd "Permalink to this definition")
+
+Event dispatched when a viewer has redeemed a custom channel points reward on the specified channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Points Custom Reward Redemption Add](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchannel%5Fpoints%5Fcustom%5Freward%5Fredemptionadd)
+
+You must subscribe to EventSub with [ChannelPointsRedeemAddSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsRedeemAddSubscription "twitchio.eventsub.ChannelPointsRedeemAddSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPointsRedemptionAdd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRedemptionAdd "twitchio.ChannelPointsRedemptionAdd")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_custom\_redemption\_update(_payload: [twitchio.ChannelPointsRedemptionUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRedemptionUpdate "twitchio.ChannelPointsRedemptionUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcustom%5Fredemption%5Fupdate "Permalink to this definition")
+
+Event dispatched when a redemption of a channel points custom reward has been updated for the specified channel.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Points Custom Reward Redemption Update](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchannel%5Fpoints%5Fcustom%5Freward%5Fredemptionupdate)
+
+You must subscribe to EventSub with [ChannelPointsRedeemUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPointsRedeemUpdateSubscription "twitchio.eventsub.ChannelPointsRedeemUpdateSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPointsRedemptionUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPointsRedemptionUpdate "twitchio.ChannelPointsRedemptionUpdate")) – The EventSub payload received for this event.
+
+# Charity Campaigns[¶](#charity-campaigns "Permalink to this heading")
+
+_async_ twitchio.event\_charity\_campaign\_donate(_payload: [twitchio.CharityCampaignDonation](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignDonation "twitchio.CharityCampaignDonation")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcharity%5Fcampaign%5Fdonate "Permalink to this definition")
+
+Event dispatched when a user donates to the broadcaster’s charity campaign.
+
+Corresponds to the Twitch EventSub subscription [Charity Donation](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelcharity%5Fcampaigndonate).
+
+You must subscribe to EventSub with [CharityDonationSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.CharityDonationSubscription "twitchio.eventsub.CharityDonationSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.CharityCampaignDonation_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignDonation "twitchio.CharityCampaignDonation")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_charity\_campaign\_start(_payload: [twitchio.CharityCampaignStart](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignStart "twitchio.CharityCampaignStart")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcharity%5Fcampaign%5Fstart "Permalink to this definition")
+
+Event dispatched when the broadcaster starts a charity campaign.
+
+Corresponds to the Twitch EventSub subscription [Charity Campaign Start](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelcharity%5Fcampaignstart).
+
+You must subscribe to EventSub with [CharityCampaignStartSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.CharityCampaignStartSubscription "twitchio.eventsub.CharityCampaignStartSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.CharityCampaignStart_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignStart "twitchio.CharityCampaignStart")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_charity\_campaign\_progress(_payload: [twitchio.CharityCampaignProgress](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignProgress "twitchio.CharityCampaignProgress")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcharity%5Fcampaign%5Fprogress "Permalink to this definition")
+
+Event dispatched when progress is made towards the campaign’s goal or when the broadcaster changes the fundraising goal.
+
+Corresponds to the Twitch EventSub subscription [Charity Campaign Progress](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelcharity%5Fcampaignprogress).
+
+You must subscribe to EventSub with [CharityCampaignProgressSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.CharityCampaignProgressSubscription "twitchio.eventsub.CharityCampaignProgressSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.CharityCampaignProgress_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignProgress "twitchio.CharityCampaignProgress")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_charity\_campaign\_stop(_payload: [twitchio.CharityCampaignStop](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignStop "twitchio.CharityCampaignStop")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcharity%5Fcampaign%5Fstop "Permalink to this definition")
+
+Event dispatched when the broadcaster stops a charity campaign.
+
+Corresponds to the Twitch EventSub subscription [Charity Campaign Stop](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelcharity%5Fcampaignend).
+
+You must subscribe to EventSub with [CharityCampaignStopSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.CharityCampaignStopSubscription "twitchio.eventsub.CharityCampaignStopSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.CharityCampaignStop_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CharityCampaignStop "twitchio.CharityCampaignStop")) – The EventSub payload for this event.
+
+# Chat / Messages[¶](#chat-messages "Permalink to this heading")
+
+_async_ twitchio.event\_message(_payload: [twitchio.ChatMessage](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatMessage "twitchio.ChatMessage")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fmessage "Permalink to this definition")
+
+Event dispatched when a user sends a message to a chat room.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Chat Message](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchatmessage)
+
+You must subscribe to EventSub with [ChatMessageSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatMessageSubscription "twitchio.eventsub.ChatMessageSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChatMessage_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatMessage "twitchio.ChatMessage")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_message\_delete(_payload: [twitchio.ChatMessageDelete](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatMessageDelete "twitchio.ChatMessageDelete")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fmessage%5Fdelete "Permalink to this definition")
+
+Event dispatched when a moderator has removed a specific message.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Chat Message Delete](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchatmessage%5Fdelete)
+
+You must subscribe to EventSub with [ChatMessageDeleteSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatMessageDeleteSubscription "twitchio.eventsub.ChatMessageDeleteSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChatMessageDelete_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatMessageDelete "twitchio.ChatMessageDelete")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_chat\_clear(_payload: [twitchio.ChannelChatClear](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelChatClear "twitchio.ChannelChatClear")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fchat%5Fclear "Permalink to this definition")
+
+Event dispatched when a moderator or bot has cleared all messages from the chat room.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Chat Clear](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchatclear)
+
+You must subscribe to EventSub with [ChatClearSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatClearSubscription "twitchio.eventsub.ChatClearSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelChatClear_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelChatClear "twitchio.ChannelChatClear")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_chat\_clear\_user(_payload: [twitchio.ChannelChatClearUserMessages](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelChatClearUserMessages "twitchio.ChannelChatClearUserMessages")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fchat%5Fclear%5Fuser "Permalink to this definition")
+
+Event dispatched when a moderator or bot has cleared all messages from a specific user.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Chat Clear User Messages](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchatclear%5Fuser%5Fmessages)
+
+You must subscribe to EventSub with [ChatClearUserMessagesSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatClearUserMessagesSubscription "twitchio.eventsub.ChatClearUserMessagesSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelChatClearUserMessages_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelChatClearUserMessages "twitchio.ChannelChatClearUserMessages")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_chat\_notification(_payload: [twitchio.ChatNotification](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatNotification "twitchio.ChatNotification")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fchat%5Fnotification "Permalink to this definition")
+
+Event dispatched when an event that appears in chat has occurred. This event can be used to replace multiple other events, depending on the data required.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Chat Notification](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchatnotification)
+
+You must subscribe to EventSub with [ChatNotificationSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatNotificationSubscription "twitchio.eventsub.ChatNotificationSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChatNotification_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatNotification "twitchio.ChatNotification")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_chat\_settings\_update(_payload: [twitchio.ChatSettingsUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatSettingsUpdate "twitchio.ChatSettingsUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fchat%5Fsettings%5Fupdate "Permalink to this definition")
+
+Event dispatched when a broadcaster’s chat settings are updated.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Chat Settings Update](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchat%5Fsettingsupdate)
+
+You must subscribe to EventSub with [ChatSettingsUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatSettingsUpdateSubscription "twitchio.eventsub.ChatSettingsUpdateSubscription")for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChatSettingsUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatSettingsUpdate "twitchio.ChatSettingsUpdate")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_chat\_user\_message\_hold(_payload: [twitchio.ChatUserMessageHold](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatUserMessageHold "twitchio.ChatUserMessageHold")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fchat%5Fuser%5Fmessage%5Fhold "Permalink to this definition")
+
+Event dispatched when a user is notified if their message is caught by automod.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Chat User Message Hold](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchatuser%5Fmessage%5Fhold)
+
+You must subscribe to EventSub with [ChatUserMessageHoldSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatUserMessageHoldSubscription "twitchio.eventsub.ChatUserMessageHoldSubscription")for each required broadcaster and user to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChatUserMessageHold_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatUserMessageHold "twitchio.ChatUserMessageHold")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_chat\_user\_message\_update(_payload: [twitchio.ChatUserMessageUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatUserMessageUpdate "twitchio.ChatUserMessageUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fchat%5Fuser%5Fmessage%5Fupdate "Permalink to this definition")
+
+Event dispatched when a user is notified if their message’s automod status is updated.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Chat User Message Hold](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelchatuser%5Fmessage%5Fhold)
+
+You must subscribe to EventSub with [ChatUserMessageUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChatUserMessageUpdateSubscription "twitchio.eventsub.ChatUserMessageUpdateSubscription")for each required broadcaster and user to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChatUserMessageUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChatUserMessageUpdate "twitchio.ChatUserMessageUpdate")) – The EventSub payload received for this event.
+
+_async_ twitchio.event\_message\_whisper(_payload: [twitchio.Whisper](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.Whisper "twitchio.Whisper")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fmessage%5Fwhisper "Permalink to this definition")
+
+Event dispatched when a user receives this a whisper.
+
+Corresponds to the Twitch EventSub subscription [User Whisper](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#userwhispermessage).
+
+You must subscribe to EventSub with [WhisperReceivedSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.WhisperReceivedSubscription "twitchio.eventsub.WhisperReceivedSubscription") for each required user to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.Whisper_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.Whisper "twitchio.Whisper")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_bits\_use(_payload: [twitchio.ChannelBitsUse](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelBitsUse "twitchio.ChannelBitsUse")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fbits%5Fuse "Permalink to this definition")
+
+Event dispatched whenever Bits are used on a channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Bits Use](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelbitsuse).
+
+You must subscribe to EventSub with [ChannelBitsUseSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelBitsUseSubscription "twitchio.eventsub.ChannelBitsUseSubscription") for each required user to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelBitsUse_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelBitsUse "twitchio.ChannelBitsUse")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_custom\_power\_up\_redemption\_add(_payload: [twitchio.CustomPowerupRedemptionAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CustomPowerupRedemptionAdd "twitchio.CustomPowerupRedemptionAdd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fcustom%5Fpower%5Fup%5Fredemption%5Fadd "Permalink to this definition")
+
+Event dispatched whenever a viewer has redeemed a custom Power-up.
+
+Corresponds to the Twitch EventSub subscription [Channel Custom Power-ups Redemption Add](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelcustompower-upsredemptionadd).
+
+You must subscribe to EventSub with [CustomPowerupRedeemAddSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.CustomPowerupRedeemAddSubscription "twitchio.eventsub.CustomPowerupRedeemAddSubscription") for each required user to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.CustomPowerupRedemptionAdd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.CustomPowerupRedemptionAdd "twitchio.CustomPowerupRedemptionAdd")) – The EventSub payload for this event.
+
+# Goals[¶](#goals "Permalink to this heading")
+
+_async_ twitchio.event\_goal\_begin(_payload: [twitchio.GoalBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.GoalBegin "twitchio.GoalBegin")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fgoal%5Fbegin "Permalink to this definition")
+
+Event dispatched when a broadcaster begins a goal.
+
+Corresponds to the Twitch EventSub subscription [Goal Begin](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelgoalbegin).
+
+You must subscribe to EventSub with [GoalBeginSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.GoalBeginSubscription "twitchio.eventsub.GoalBeginSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.GoalBegin_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.GoalBegin "twitchio.GoalBegin")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_goal\_progress(_payload: [twitchio.GoalProgress](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.GoalProgress "twitchio.GoalProgress")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fgoal%5Fprogress "Permalink to this definition")
+
+Event dispatched when progress (either positive or negative) is made towards a broadcaster’s goal.
+
+Corresponds to the Twitch EventSub subscription [Goal Progress](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelgoalprogress).
+
+You must subscribe to EventSub with [GoalProgressSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.GoalProgressSubscription "twitchio.eventsub.GoalProgressSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.GoalProgress_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.GoalProgress "twitchio.GoalProgress")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_goal\_end(_payload: [twitchio.GoalEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.GoalEnd "twitchio.GoalEnd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fgoal%5Fend "Permalink to this definition")
+
+Event dispatched when a broadcaster ends a goal.
+
+Corresponds to the Twitch EventSub subscription [Goal End](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelgoalend).
+
+You must subscribe to EventSub with [GoalEndSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.GoalEndSubscription "twitchio.eventsub.GoalEndSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.GoalEnd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.GoalEnd "twitchio.GoalEnd")) – The EventSub payload for this event.
+
+# Hype Train[¶](#hype-train "Permalink to this heading")
+
+_async_ twitchio.event\_hype\_train(_payload: [twitchio.HypeTrainBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.HypeTrainBegin "twitchio.HypeTrainBegin")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fhype%5Ftrain "Permalink to this definition")
+
+Event dispatched when a Hype Train begins on the specified channel.
+
+Corresponds to the Twitch EventSub subscription [Hype Train Begin](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelhype%5Ftrainbegin).
+
+You must subscribe to EventSub with [HypeTrainBeginSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.HypeTrainBeginSubscription "twitchio.eventsub.HypeTrainBeginSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.HypeTrainBegin_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.HypeTrainBegin "twitchio.HypeTrainBegin")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_hype\_train\_progress(_payload: twitchio.HypeHypeTrainProgress_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fhype%5Ftrain%5Fprogress "Permalink to this definition")
+
+Event dispatched when a Hype Train makes progress on the specified channel.
+
+Corresponds to the Twitch EventSub subscription [Hype Train Progress](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelhype%5Ftrainprogress).
+
+You must subscribe to EventSub with [HypeTrainProgressSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.HypeTrainProgressSubscription "twitchio.eventsub.HypeTrainProgressSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.HypeTrainProgress_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.HypeTrainProgress "twitchio.HypeTrainProgress")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_hype\_train\_end(_payload: [twitchio.HypeTrainEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.HypeTrainEnd "twitchio.HypeTrainEnd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fhype%5Ftrain%5Fend "Permalink to this definition")
+
+Event dispatched when a Hype Train ends on the specified channel.
+
+Corresponds to the Twitch EventSub subscription [Hype Train End](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelhype%5Ftrainend).
+
+You must subscribe to EventSub with [HypeTrainEndSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.HypeTrainEndSubscription "twitchio.eventsub.HypeTrainEndSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.HypeTrainEnd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.HypeTrainEnd "twitchio.HypeTrainEnd")) – The EventSub payload for this event.
+
+# Moderation[¶](#moderation "Permalink to this heading")
+
+_async_ twitchio.event\_mod\_action(_payload: [twitchio.ChannelModerate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelModerate "twitchio.ChannelModerate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fmod%5Faction "Permalink to this definition")
+
+Event dispatched when a moderator performs a moderation action in a channel. If you subscribe to V2 then warnings are included.
+
+Corresponds to the Twitch EventSub subscriptions [Channel Moderate](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelmoderate) and [Channel Moderate V2](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelmoderate-v2).
+
+You must subscribe to EventSub with [ChannelModerateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelModerateSubscription "twitchio.eventsub.ChannelModerateSubscription") or [ChannelModerateV2Subscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelModerateV2Subscription "twitchio.eventsub.ChannelModerateV2Subscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelModerate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelModerate "twitchio.ChannelModerate")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_moderator\_add(_payload: [twitchio.ChannelModeratorAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelModeratorAdd "twitchio.ChannelModeratorAdd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fmoderator%5Fadd "Permalink to this definition")
+
+Event dispatched when moderator privileges were added to a user on a specified channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Moderator Add](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelmoderatoradd).
+
+You must subscribe to EventSub with [ChannelModeratorAddSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelModeratorAddSubscription "twitchio.eventsub.ChannelModeratorAddSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelModeratorAdd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelModeratorAdd "twitchio.ChannelModeratorAdd")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_moderator\_remove(_payload: [twitchio.ChannelModeratorRemove](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelModeratorRemove "twitchio.ChannelModeratorRemove")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fmoderator%5Fremove "Permalink to this definition")
+
+Event dispatched when moderator privileges were rmoved from a user on a specified channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Moderator Removed](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelmoderatorremove).
+
+You must subscribe to EventSub with [ChannelModeratorRemoveSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelModeratorRemoveSubscription "twitchio.eventsub.ChannelModeratorRemoveSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelModeratorRemove_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelModeratorRemove "twitchio.ChannelModeratorRemove")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_vip\_add(_payload: [twitchio.ChannelVIPAdd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelVIPAdd "twitchio.ChannelVIPAdd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fvip%5Fadd "Permalink to this definition")
+
+Event dispatched when a vip is added to the channel.
+
+Corresponds to the Twitch EventSub subscription [Channel VIP Add](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelvipadd).
+
+You must subscribe to EventSub with [ChannelVIPAddSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelVIPAddSubscription "twitchio.eventsub.ChannelVIPAddSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelVIPAdd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelVIPAdd "twitchio.ChannelVIPAdd")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_vip\_remove(_payload: [twitchio.ChannelVIPRemove](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelVIPRemove "twitchio.ChannelVIPRemove")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fvip%5Fremove "Permalink to this definition")
+
+Event dispatched when a vip is removed from the channel.
+
+Corresponds to the Twitch EventSub subscription [Channel VIP Remove](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelvipremove).
+
+You must subscribe to EventSub with [ChannelVIPRemoveSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelVIPRemoveSubscription "twitchio.eventsub.ChannelVIPRemoveSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelVIPRemove_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelVIPRemove "twitchio.ChannelVIPRemove")) – The EventSub payload for this event.
+
+# Polls[¶](#polls "Permalink to this heading")
+
+_async_ twitchio.event\_poll\_begin(_payload: [twitchio.ChannelPollBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPollBegin "twitchio.ChannelPollBegin")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fpoll%5Fbegin "Permalink to this definition")
+
+Event dispatched when a poll started on a specified channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Poll Begin](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelpollbegin).
+
+You must subscribe to EventSub with [ChannelPollBeginSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPollBeginSubscription "twitchio.eventsub.ChannelPollBeginSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPollBegin_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPollBegin "twitchio.ChannelPollBegin")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_poll\_progress(_payload: [twitchio.ChannelPollProgress](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPollProgress "twitchio.ChannelPollProgress")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fpoll%5Fprogress "Permalink to this definition")
+
+Event dispatched when users respond to a poll on a specified channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Poll Progress](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelpollprogress).
+
+You must subscribe to EventSub with [ChannelPollProgressSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPollProgressSubscription "twitchio.eventsub.ChannelPollProgressSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPollProgress_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPollProgress "twitchio.ChannelPollProgress")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_poll\_end(_payload: [twitchio.ChannelPollEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPollEnd "twitchio.ChannelPollEnd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fpoll%5Fend "Permalink to this definition")
+
+Event dispatched when a poll ends on a specified channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Poll End](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelpollend).
+
+You must subscribe to EventSub with [ChannelPollEndSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPollEndSubscription "twitchio.eventsub.ChannelPollEndSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPollEnd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPollEnd "twitchio.ChannelPollEnd")) – The EventSub payload for this event.
+
+# Predictions[¶](#predictions "Permalink to this heading")
+
+_async_ twitchio.event\_prediction\_begin(_payload: [twitchio.ChannelPredictionBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionBegin "twitchio.ChannelPredictionBegin")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fprediction%5Fbegin "Permalink to this definition")
+
+Event dispatched when a prediction begins on a specified channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Prediction Begin](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelpredictionbegin).
+
+You must subscribe to EventSub with [ChannelPredictionBeginSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPredictionBeginSubscription "twitchio.eventsub.ChannelPredictionBeginSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPredictionBegin_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionBegin "twitchio.ChannelPredictionBegin")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_prediction\_progress(_payload: [twitchio.ChannelPredictionProgress](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionProgress "twitchio.ChannelPredictionProgress")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fprediction%5Fprogress "Permalink to this definition")
+
+Event dispatched when users participated in a Prediction on a specified channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Prediction Progress](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelpredictionprogress).
+
+You must subscribe to EventSub with [ChannelPredictionProgressSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPredictionProgressSubscription "twitchio.eventsub.ChannelPredictionProgressSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPredictionProgress_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionProgress "twitchio.ChannelPredictionProgress")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_prediction\_lock(_payload: [twitchio.ChannelPredictionLock](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionLock "twitchio.ChannelPredictionLock")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fprediction%5Flock "Permalink to this definition")
+
+Event dispatched when a prediction was locked on a specified channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Prediction Lock](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelpredictionlock).
+
+You must subscribe to EventSub with [ChannelPredictionLockSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPredictionLockSubscription "twitchio.eventsub.ChannelPredictionLockSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPredictionLock_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionLock "twitchio.ChannelPredictionLock")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_prediction\_end(_payload: [twitchio.ChannelPredictionEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionEnd "twitchio.ChannelPredictionEnd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fprediction%5Fend "Permalink to this definition")
+
+Event dispatched when a prediction ended on a specified channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Prediction End](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelpredictionend).
+
+You must subscribe to EventSub with [ChannelPredictionEndSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelPredictionEndSubscription "twitchio.eventsub.ChannelPredictionEndSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelPredictionEnd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelPredictionEnd "twitchio.ChannelPredictionEnd")) – The EventSub payload for this event.
+
+# Shared Chat[¶](#shared-chat "Permalink to this heading")
+
+_async_ twitchio.event\_shared\_chat\_begin(_payload: [twitchio.SharedChatSessionBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SharedChatSessionBegin "twitchio.SharedChatSessionBegin")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fshared%5Fchat%5Fbegin "Permalink to this definition")
+
+Event dispatched when a channel becomes active in an active shared chat session.
+
+Corresponds to the Twitch EventSub subscription [Channel Shared Chat Session Begin](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelshared%5Fchatbegin).
+
+You must subscribe to EventSub with [SharedChatSessionBeginSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.SharedChatSessionBeginSubscription "twitchio.eventsub.SharedChatSessionBeginSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.SharedChatSessionBegin_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SharedChatSessionBegin "twitchio.SharedChatSessionBegin")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_shared\_chat\_update(_payload: [twitchio.SharedChatSessionUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SharedChatSessionUpdate "twitchio.SharedChatSessionUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fshared%5Fchat%5Fupdate "Permalink to this definition")
+
+Event dispatched when the active shared chat session the channel is in changes.
+
+Corresponds to the Twitch EventSub subscription [Channel Shared Chat Session Update](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelshared%5Fchatupdate).
+
+You must subscribe to EventSub with [SharedChatSessionUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.SharedChatSessionUpdateSubscription "twitchio.eventsub.SharedChatSessionUpdateSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.SharedChatSessionUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SharedChatSessionUpdate "twitchio.SharedChatSessionUpdate")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_shared\_chat\_end(_payload: [twitchio.SharedChatSessionEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SharedChatSessionEnd "twitchio.SharedChatSessionEnd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fshared%5Fchat%5Fend "Permalink to this definition")
+
+Event dispatched when a channel leaves a shared chat session or the session ends.
+
+Corresponds to the Twitch EventSub subscription [Channel Shared Chat Session End](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelshared%5Fchatend).
+
+You must subscribe to EventSub with [SharedChatSessionEndSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.SharedChatSessionEndSubscription "twitchio.eventsub.SharedChatSessionEndSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.SharedChatSessionEnd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SharedChatSessionEnd "twitchio.SharedChatSessionEnd")) – The EventSub payload for this event.
+
+# Shield Mode[¶](#shield-mode "Permalink to this heading")
+
+_async_ twitchio.event\_shield\_mode\_begin(_payload: [twitchio.ShieldModeBegin](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShieldModeBegin "twitchio.ShieldModeBegin")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fshield%5Fmode%5Fbegin "Permalink to this definition")
+
+Event dispatched when the broadcaster activates Shield Mode.
+
+Corresponds to the Twitch EventSub subscription [Shield Mode Begin](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelshield%5Fmodebegin).
+
+You must subscribe to EventSub with [ShieldModeBeginSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ShieldModeBeginSubscription "twitchio.eventsub.ShieldModeBeginSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ShieldModeBegin_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShieldModeBegin "twitchio.ShieldModeBegin")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_shield\_mode\_end(_payload: [twitchio.ShieldModeEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShieldModeEnd "twitchio.ShieldModeEnd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fshield%5Fmode%5Fend "Permalink to this definition")
+
+Event dispatched when the broadcaster deactivates Shield Mode.
+
+Corresponds to the Twitch EventSub subscription [Shield Mode End](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelshield%5Fmodeend).
+
+You must subscribe to EventSub with [ShieldModeEndSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ShieldModeEndSubscription "twitchio.eventsub.ShieldModeEndSubscription")for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ShieldModeEnd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShieldModeEnd "twitchio.ShieldModeEnd")) – The EventSub payload for this event.
+
+# Shoutouts[¶](#shoutouts "Permalink to this heading")
+
+_async_ twitchio.event\_shoutout\_create(_payload: [twitchio.ShoutoutCreate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShoutoutCreate "twitchio.ShoutoutCreate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fshoutout%5Fcreate "Permalink to this definition")
+
+Event dispatched when the specified broadcaster sends a shoutout.
+
+Corresponds to the Twitch EventSub subscription [Shoutout Create](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#shoutoutcreate).
+
+You must subscribe to EventSub with [ShoutoutCreateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ShoutoutCreateSubscription "twitchio.eventsub.ShoutoutCreateSubscription") for each required broadcaster to receive this event to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ShoutoutCreate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShoutoutCreate "twitchio.ShoutoutCreate")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_shoutout\_receive(_payload: [twitchio.ShoutoutReceive](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShoutoutReceive "twitchio.ShoutoutReceive")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fshoutout%5Freceive "Permalink to this definition")
+
+Event dispatched when the specified broadcaster receives a shoutout.
+
+Corresponds to the Twitch EventSub subscription [Shoutout Create](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#shoutoutreceive).
+
+You must subscribe to EventSub with [ShoutoutReceiveSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ShoutoutReceiveSubscription "twitchio.eventsub.ShoutoutReceiveSubscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ShoutoutReceive_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ShoutoutReceive "twitchio.ShoutoutReceive")) – The EventSub payload for this event.
+
+# Subscriptions[¶](#subscriptions "Permalink to this heading")
+
+_async_ twitchio.event\_subscription(_payload: [twitchio.ChannelSubscribe](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscribe "twitchio.ChannelSubscribe")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fsubscription "Permalink to this definition")
+
+Event dispatched when a specified channel receives a subscriber. This does not include resubscribes.
+
+Corresponds to the Twitch EventSub subscription [Channel Subscribe](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelsubscribe).
+
+You must subscribe to EventSub with [ChannelSubscribeSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelSubscribeSubscription "twitchio.eventsub.ChannelSubscribeSubscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelSubscribe_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscribe "twitchio.ChannelSubscribe")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_subscription\_end(_payload: [twitchio.ChannelSubscriptionEnd](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscriptionEnd "twitchio.ChannelSubscriptionEnd")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fsubscription%5Fend "Permalink to this definition")
+
+Event dispatched when a subscription to the specified channel ends.
+
+Corresponds to the Twitch EventSub subscription [Channel Subscription End](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelsubscriptionend).
+
+You must subscribe to EventSub with [ChannelSubscriptionEndSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelSubscriptionEndSubscription "twitchio.eventsub.ChannelSubscriptionEndSubscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelSubscriptionEnd_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscriptionEnd "twitchio.ChannelSubscriptionEnd")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_subscription\_gift(_payload: [twitchio.ChannelSubscriptionGift](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscriptionGift "twitchio.ChannelSubscriptionGift")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fsubscription%5Fgift "Permalink to this definition")
+
+Event dispatched when a viewer gives a gift subscription to one or more users in the specified channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Subscription Gift](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelsubscriptiongift).
+
+You must subscribe to EventSub with [ChannelSubscriptionGiftSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelSubscriptionGiftSubscription "twitchio.eventsub.ChannelSubscriptionGiftSubscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelSubscriptionGift_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscriptionGift "twitchio.ChannelSubscriptionGift")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_subscription\_message(_payload: [twitchio.ChannelSubscriptionMessage](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscriptionMessage "twitchio.ChannelSubscriptionMessage")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fsubscription%5Fmessage "Permalink to this definition")
+
+Event dispatched when a user sends a resubscription chat message in a specific channel.
+
+Corresponds to the Twitch EventSub subscription [Channel Subscription Message](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelsubscriptionmessage).
+
+You must subscribe to EventSub with `ChannelSubscriptionMessageSubscription` for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelSubscriptionMessage_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelSubscriptionMessage "twitchio.ChannelSubscriptionMessage")) – The EventSub payload for this event.
+
+# Streams[¶](#streams "Permalink to this heading")
+
+_async_ twitchio.event\_stream\_online(_payload: [twitchio.StreamOnline](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.StreamOnline "twitchio.StreamOnline")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fstream%5Fonline "Permalink to this definition")
+
+Event dispatched when a stream comes online.
+
+Corresponds to the Twitch EventSub subscription [Stream Online](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#streamonline).
+
+You must subscribe to EventSub with [StreamOnlineSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.StreamOnlineSubscription "twitchio.eventsub.StreamOnlineSubscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.StreamOnline_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.StreamOnline "twitchio.StreamOnline")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_stream\_offline(_payload: [twitchio.StreamOffline](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.StreamOffline "twitchio.StreamOffline")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fstream%5Foffline "Permalink to this definition")
+
+Event dispatched when a stream goes offline.
+
+Corresponds to the Twitch EventSub subscription [Stream Offline](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#streamoffline).
+
+You must subscribe to EventSub with [StreamOfflineSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.StreamOfflineSubscription "twitchio.eventsub.StreamOfflineSubscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.StreamOffline_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.StreamOffline "twitchio.StreamOffline")) – The EventSub payload for this event.
+
+# Suspicious Users[¶](#suspicious-users "Permalink to this heading")
+
+_async_ twitchio.event\_suspicious\_user\_message(_payload: [twitchio.SuspiciousUserMessage](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SuspiciousUserMessage "twitchio.SuspiciousUserMessage")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fsuspicious%5Fuser%5Fmessage "Permalink to this definition")
+
+Event dispatched when chat message has been sent by a suspicious user.
+
+Corresponds to the Twitch EventSub subscription [Channel Suspicious User Message](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelsuspicious%5Fusermessage).
+
+You must subscribe to EventSub with [SuspiciousUserMessageSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.SuspiciousUserMessageSubscription "twitchio.eventsub.SuspiciousUserMessageSubscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.SuspiciousUserMessage_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SuspiciousUserMessage "twitchio.SuspiciousUserMessage")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_suspicious\_user\_update(_payload: [twitchio.SuspiciousUserUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SuspiciousUserUpdate "twitchio.SuspiciousUserUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fsuspicious%5Fuser%5Fupdate "Permalink to this definition")
+
+Event dispatched when a suspicious user has been updated.
+
+Corresponds to the Twitch EventSub subscription [Channel Suspicious User Update](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelsuspicious%5Fuserupdate).
+
+You must subscribe to EventSub with [SuspiciousUserUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.SuspiciousUserUpdateSubscription "twitchio.eventsub.SuspiciousUserUpdateSubscription") for each required broadcaster to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.SuspiciousUserUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.SuspiciousUserUpdate "twitchio.SuspiciousUserUpdate")) – The EventSub payload for this event.
+
+# OAuth[¶](#oauth "Permalink to this heading")
+
+_async_ twitchio.event\_user\_authorization\_grant(_payload: [twitchio.UserAuthorizationGrant](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.UserAuthorizationGrant "twitchio.UserAuthorizationGrant")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fuser%5Fauthorization%5Fgrant "Permalink to this definition")
+
+Event dispatched when a user’s authorization has been granted for your client id.
+
+Corresponds to the Twitch EventSub subscription [User Authorization Grant](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#userauthorizationgrant).
+
+You must subscribe to EventSub with [UserAuthorizationRevokeSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.UserAuthorizationRevokeSubscription "twitchio.eventsub.UserAuthorizationRevokeSubscription") to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.UserAuthorizationGrant_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.UserAuthorizationGrant "twitchio.UserAuthorizationGrant")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_user\_authorization\_revoke(_payload: [twitchio.UserAuthorizationRevoke](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.UserAuthorizationRevoke "twitchio.UserAuthorizationRevoke")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fuser%5Fauthorization%5Frevoke "Permalink to this definition")
+
+Event dispatched when a user’s authorization has been revoked for your client id.
+
+Corresponds to the Twitch EventSub subscription [User Authorization Revoke](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#userauthorizationrevoke).
+
+You must subscribe to EventSub with [UserAuthorizationRevokeSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.UserAuthorizationRevokeSubscription "twitchio.eventsub.UserAuthorizationRevokeSubscription") to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.UserAuthorizationRevoke_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.UserAuthorizationRevoke "twitchio.UserAuthorizationRevoke")) – The EventSub payload for this event.
+
+# User[¶](#user "Permalink to this heading")
+
+_async_ twitchio.event\_user\_update(_payload: [twitchio.UserUpdate](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.UserUpdate "twitchio.UserUpdate")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fuser%5Fupdate "Permalink to this definition")
+
+Event dispatched when a user has updated their account.
+
+Corresponds to the Twitch EventSub subscription [User Update](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#userupdate).
+
+You must subscribe to EventSub with [UserUpdateSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.UserUpdateSubscription "twitchio.eventsub.UserUpdateSubscription") for each required user to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.UserUpdate_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.UserUpdate "twitchio.UserUpdate")) – The EventSub payload for this event.
+
+# Warnings[¶](#warnings "Permalink to this heading")
+
+_async_ twitchio.event\_warning\_acknowledge(_payload: [twitchio.ChannelWarningAcknowledge](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelWarningAcknowledge "twitchio.ChannelWarningAcknowledge")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fwarning%5Facknowledge "Permalink to this definition")
+
+Event dispatched when a user awknowledges a warning. Broadcasters and moderators can see the warning’s details.
+
+Corresponds to the Twitch EventSub subscription [Channel Warning Acknowledgement](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelwarningacknowledge).
+
+You must subscribe to EventSub with [ChannelWarningAcknowledgementSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelWarningAcknowledgementSubscription "twitchio.eventsub.ChannelWarningAcknowledgementSubscription")for each required broadcaster, with a moderator, to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelWarningAcknowledge_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelWarningAcknowledge "twitchio.ChannelWarningAcknowledge")) – The EventSub payload for this event.
+
+_async_ twitchio.event\_warning\_send(_payload: [twitchio.ChannelWarningSend](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelWarningSend "twitchio.ChannelWarningSend")_) → [None](https://docs.python.org/3/library/constants.html#None "(in Python v3.14)")[¶](#twitchio.event%5Fwarning%5Fsend "Permalink to this definition")
+
+Event dispatched when a user is sent a warning. Broadcasters and moderators can see the warning’s details.
+
+Corresponds to the Twitch EventSub subscription [Channel Warning Send](https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/#channelwarningsend).
+
+You must subscribe to EventSub with [ChannelWarningSendSubscription](https://twitchio.dev/en/latest/references/eventsub%5Fsubscriptions.html#twitchio.eventsub.ChannelWarningSendSubscription "twitchio.eventsub.ChannelWarningSendSubscription")for each required broadcaster, with a moderator, to receive this event.
+
+Parameters
+
+**payload** ([_twitchio.ChannelWarningSend_](https://twitchio.dev/en/latest/references/eventsub/eventsub%5Fmodels.html#twitchio.ChannelWarningSend "twitchio.ChannelWarningSend")) – The EventSub payload for this event.
+
+## Payloads[¶](#payloads "Permalink to this heading")
+
+Attributes
+* [error](#twitchio.EventErrorPayload.error)
+* [listener](#twitchio.EventErrorPayload.listener)
+* [original](#twitchio.EventErrorPayload.original)
+
+_class_ twitchio.EventErrorPayload[¶](#twitchio.EventErrorPayload "Permalink to this definition")
+
+Payload received in the [Client.event\_error](https://twitchio.dev/en/latest/references/client.html#twitchio.Client.event%5Ferror "twitchio.Client.event_error") event when an error occurs during an event listener.
+
+error[¶](#twitchio.EventErrorPayload.error "Permalink to this definition")
+
+The error that occurred.
+
+Type
+
+[Exception](https://docs.python.org/3/library/exceptions.html#Exception "(in Python v3.14)")
+
+listener[¶](#twitchio.EventErrorPayload.listener "Permalink to this definition")
+
+The listener that raised the error.
+
+Type
+
+Callable\[…, Coroutine\[Any, Any, None\]\]
+
+original[¶](#twitchio.EventErrorPayload.original "Permalink to this definition")
+
+The original event payload that was passed to the listener that caused the error.
+
+Type
+
+Any
+
+Attributes
+* [expires\_in](#twitchio.TokenRefreshedPayload.expires%5Fin)
+* [refresh\_token](#twitchio.TokenRefreshedPayload.refresh%5Ftoken)
+* [scopes](#twitchio.TokenRefreshedPayload.scopes)
+* [token](#twitchio.TokenRefreshedPayload.token)
+* [user\_id](#twitchio.TokenRefreshedPayload.user%5Fid)
+
+_class_ twitchio.TokenRefreshedPayload[¶](#twitchio.TokenRefreshedPayload "Permalink to this definition")
+
+Payload received in the [event\_token\_refreshed()](#twitchio.event%5Ftoken%5Frefreshed "twitchio.event_token_refreshed") event when a token managed by TwitchIO is successfully refreshed on the [Client](https://twitchio.dev/en/latest/references/client.html#twitchio.Client "twitchio.Client").
+
+user\_id[¶](#twitchio.TokenRefreshedPayload.user%5Fid "Permalink to this definition")
+
+The User ID associated with the refreshed token.
+
+Type
+
+[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.14)")
+
+refresh\_token[¶](#twitchio.TokenRefreshedPayload.refresh%5Ftoken "Permalink to this definition")
+
+The new refresh token returned by Twitch.
+
+Type
+
+[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.14)")
+
+token[¶](#twitchio.TokenRefreshedPayload.token "Permalink to this definition")
+
+The updated token after refreshing returned by Twitch.
+
+Type
+
+[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.14)")
+
+scopes[¶](#twitchio.TokenRefreshedPayload.scopes "Permalink to this definition")
+
+The scopes associated with the token.
+
+Type
+
+[Scopes](https://twitchio.dev/en/latest/references/utils.html#twitchio.Scopes "twitchio.Scopes")
+
+expires\_in[¶](#twitchio.TokenRefreshedPayload.expires%5Fin "Permalink to this definition")
+
+The time the new token expires as an [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.14)") of seconds.
+
+Type
+
+[int](https://docs.python.org/3/library/functions.html#int "(in Python v3.14)")
+
+Attributes
+* [connected\_at](#twitchio.WebsocketWelcome.connected%5Fat)
+* [id](#twitchio.WebsocketWelcome.id)
+* [keepalive\_timeout\_seconds](#twitchio.WebsocketWelcome.keepalive%5Ftimeout%5Fseconds)
+
+_class_ twitchio.WebsocketWelcome[¶](#twitchio.WebsocketWelcome "Permalink to this definition")
+
+The model received in the [event\_websocket\_welcome()](#twitchio.event%5Fwebsocket%5Fwelcome "twitchio.event_websocket_welcome") event.
+
+id[¶](#twitchio.WebsocketWelcome.id "Permalink to this definition")
+
+The ID associated with the Websocket, received from Twitch in “session\_welcome”.
+
+Type
+
+[str](https://docs.python.org/3/library/stdtypes.html#str "(in Python v3.14)")
+
+keepalive\_timeout\_seconds[¶](#twitchio.WebsocketWelcome.keepalive%5Ftimeout%5Fseconds "Permalink to this definition")
+
+The keepalive timeout as an [int](https://docs.python.org/3/library/functions.html#int "(in Python v3.14)") sent and confirmed by Twitch.
+
+Type
+
+[int](https://docs.python.org/3/library/functions.html#int "(in Python v3.14)")
+
+connected\_at[¶](#twitchio.WebsocketWelcome.connected%5Fat "Permalink to this definition")
+
+A [datetime.datetime](https://docs.python.org/3/library/datetime.html#datetime.datetime "(in Python v3.14)") representing when this websocket officially connected.
+
+Type
+
+[datetime.datetime](https://docs.python.org/3/library/datetime.html#datetime.datetime "(in Python v3.14)")

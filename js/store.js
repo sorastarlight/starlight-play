@@ -599,16 +599,16 @@
       <div class="mart-featured-art${artClass}" aria-hidden="true">
         <img src="${esc(sprite)}" alt="">
       </div>
-      <div class="mart-copy">
+      <div class="mart-featured-copy mart-copy">
         <p class="mart-featured-mark">${mark}</p>
-        <strong>${esc(displayName(row))}</strong>
-        ${purpose ? `<p class="mart-purpose">${esc(purpose)}</p>` : ""}
-        ${ownedLine(row)}
+        <strong class="mart-featured-name">${esc(displayName(row))}</strong>
+        <p class="mart-featured-desc mart-purpose">${esc(purpose || "\u00a0")}</p>
+        <div class="mart-featured-owned">${ownedLine(row) || "<span class=\"muted\">&nbsp;</span>"}</div>
       </div>
-      <div class="mart-price">
-        ${costHtml(row, mode === "avatars" ? "coins" : mode)}
-        ${detailWorthShowing(row, mode) ? `<button type="button" class="secondary mart-more" data-mart-detail="${esc(row.sku)}" data-mart-mode="${esc(mode)}">Details</button>` : ""}
-        ${action}
+      <div class="mart-featured-actions mart-price">
+        <div class="mart-card-price">${costHtml(row, mode === "avatars" ? "coins" : mode)}</div>
+        ${detailWorthShowing(row, mode) ? `<button type="button" class="secondary mart-more" data-mart-detail="${esc(row.sku)}" data-mart-mode="${esc(mode)}">Details</button>` : `<span class="mart-more-spacer" aria-hidden="true"></span>`}
+        ${action || `<span class="mart-add-spacer" aria-hidden="true"></span>`}
       </div>
     </article>`;
   }
@@ -725,11 +725,29 @@
     els.ballGrid.innerHTML = rest.map((item) => shelfCard(item, "balls")).join("");
   }
 
+  function floorTabLabel(floor) {
+    const id = floorTabId(floor, 0);
+    const kind = String(floor?.kind || "");
+    if (kind === "balls" || id === "balls") return "Poké Balls";
+    if (kind === "avatars" || id === "premium-avatars") return "Avatars";
+    if (kind === "bits") return "Power-Ups";
+    if (/berry/i.test(id) || /berry/i.test(floor?.name || "")) return "Berry Stand";
+    if (/evol/i.test(id) || /evol/i.test(floor?.name || "")) return "Evolution";
+    if (/suppl|field|kit|coin/i.test(id) || kind === "coins") return "Supplies";
+    const name = String(floor?.name || "Shelf");
+    return name.length > 14 ? name.slice(0, 12).trim() + "…" : name;
+  }
+
   function modeToggleHtml() {
     return `<div class="mart-mode" role="tablist" aria-label="Mart mode">
       <button type="button" class="mart-mode-btn${martMode === "buy" ? " is-on" : ""}" data-mart-mode="buy" role="tab" aria-selected="${martMode === "buy"}">Buy</button>
       <button type="button" class="mart-mode-btn${martMode === "sell" ? " is-on" : ""}" data-mart-mode="sell" role="tab" aria-selected="${martMode === "sell"}">Sell</button>
     </div>`;
+  }
+
+  function syncModeMount() {
+    const mount = document.getElementById("mart-mode-mount");
+    if (mount) mount.innerHTML = modeToggleHtml();
   }
 
   function sellCardHtml(item) {
@@ -860,7 +878,9 @@
   function tabButtons(floors) {
     const shelves = floors.map((floor, index) => {
       const id = floorTabId(floor, index);
-      return `<button class="mart-tab" type="button" role="tab" id="mart-tab-${esc(id)}" data-mart-tab="${esc(id)}" aria-controls="${esc(id)}" aria-selected="false" tabindex="-1"><img class="mart-tab-icon" src="${esc(floorTabIcon(floor))}" alt=""><span class="mart-tab-label">${esc(floor.name || "Shelf")}</span></button>`;
+      const label = floorTabLabel(floor);
+      const formal = floor.name || label;
+      return `<button class="mart-tab" type="button" role="tab" id="mart-tab-${esc(id)}" data-mart-tab="${esc(id)}" aria-controls="${esc(id)}" aria-selected="false" tabindex="-1" title="${esc(formal)}"><img class="mart-tab-icon" src="${esc(floorTabIcon(floor))}" alt=""><span class="mart-tab-label">${esc(label)}</span></button>`;
     }).join("");
     const checkout = `<button class="mart-tab mart-tab-checkout" type="button" role="tab" id="mart-tab-${CHECKOUT_TAB}" data-mart-tab="${CHECKOUT_TAB}" aria-controls="${CHECKOUT_TAB}" aria-selected="false" tabindex="-1">${checkoutTabLabel()}</button>`;
     return `<div class="mart-tabs" role="tablist" aria-label="Store shelves">${shelves}${checkout}</div>`;
@@ -997,19 +1017,18 @@
              : ""}
            <button type="button" class="gold" data-checkout-buy${short ? " disabled" : ""}>Purchase</button>
          </div>`
-      : `<div class="mart-cart-empty">
+      : `<div class="mart-cart-empty is-compact">
            ${cartIconHtml("mart-cart-empty-icon")}
-           <p>Your checkout is empty.</p>
-           <p class="muted">Add items from the shelves, then come here to review quantities and purchase.</p>
+           <p><strong>Checkout is empty</strong></p>
+           <p class="muted">Add items from any Buy department, then return here.</p>
          </div>`;
     const fanfare = lastPurchase ? purchaseFanfareHtml(lastPurchase) : "";
-    return `<section class="mart-floor mart-checkout-floor${lastPurchase ? " is-fanfare" : ""}" id="${CHECKOUT_TAB}" role="tabpanel" aria-labelledby="mart-tab-${CHECKOUT_TAB}" data-mart-panel="${CHECKOUT_TAB}" hidden>
-      <header class="mart-sign">
-        ${cartIconHtml("mart-sign-cart")}
-        <div>
-          <h2 class="visually-hidden">Checkout</h2>
-          <p class="mart-sign-title">Checkout</p>
-          <p class="muted">${lastPurchase ? "Your items are in your bag!" : "Review your items, then purchase them all at once."}</p>
+    return `<section class="mart-floor mart-checkout-floor${lastPurchase ? " is-fanfare" : ""}${count ? "" : " is-empty-cart"}" id="${CHECKOUT_TAB}" role="tabpanel" aria-labelledby="mart-tab-${CHECKOUT_TAB}" data-mart-panel="${CHECKOUT_TAB}" hidden>
+      <header class="mart-dept-head">
+        ${cartIconHtml("mart-dept-icon mart-sign-cart")}
+        <div class="mart-dept-copy">
+          <h2 class="mart-dept-title">Checkout</h2>
+          <p class="mart-dept-blurb">${lastPurchase ? "Your items are in your bag!" : "Review quantities, then purchase once."}</p>
         </div>
       </header>
       ${fanfare || cartBody}
@@ -1116,7 +1135,8 @@
     const sellFolder = `<div class="mart-folder mart-sell-folder${martMode === "buy" ? " is-buy-mode" : ""}">
       ${sellFloorHtml()}
     </div>`;
-    els.floors.innerHTML = `${modeToggleHtml()}${choiceHtml}${passHtml}${martMode === "sell" ? sellFolder : buyFolder}`;
+    els.floors.innerHTML = `${choiceHtml}${passHtml}${martMode === "sell" ? sellFolder : buyFolder}`;
+    syncModeMount();
     placeWallet();
     if (martMode === "sell") {
       lastTab = SELL_TAB;
@@ -1252,6 +1272,22 @@
       if (button && button.isConnected) button.disabled = false;
     }
   }
+
+  document.addEventListener("click", async (event) => {
+    const modeBtn = event.target.closest("#mart-mode-mount [data-mart-mode]");
+    if (!modeBtn) return;
+    const nextMode = modeBtn.dataset.martMode === "sell" ? "sell" : "buy";
+    if (nextMode === martMode) return;
+    martMode = nextMode;
+    try {
+      const url = new URL(window.location.href);
+      if (nextMode === "sell") url.hash = SELL_TAB;
+      else if (url.hash.replace(/^#/, "") === SELL_TAB) url.hash = "";
+      window.history.replaceState(null, "", url);
+    } catch (_) {}
+    if (martMode === "sell") await refreshSellShelf();
+    renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
+  });
 
   els.floors?.addEventListener("click", async (event) => {
     const modeBtn = event.target.closest("[data-mart-mode]");

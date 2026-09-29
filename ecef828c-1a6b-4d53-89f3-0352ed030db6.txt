@@ -1,0 +1,2931 @@
+Trainer sprites - Showdown!
+
+/trainers/ 
+
+## Trainer sprites
+
+#### Many of these sprites are not from the games. Credit must be given to the appropriate artist if used elsewhere. DO NOT EDIT without permission.
+
+aaron
+
+aarune by kyledove
+
+acerola-masters by kyledove
+
+acerola-masters2 by kyledove
+
+acerola-masters3 by kyledove
+
+acerola by Beliot419
+
+acetrainer-gen1
+
+acetrainer-gen1rb
+
+acetrainer-gen2
+
+acetrainer-gen3
+
+acetrainer-gen3jp
+
+acetrainer-gen3rs
+
+acetrainer-gen4
+
+acetrainer-gen4dp
+
+acetrainer-gen6 by kyledove
+
+acetrainer-gen6xy by kyledove
+
+acetrainer-gen7 by kyledove
+
+acetrainer
+
+acetrainercouple-gen3
+
+acetrainercouple
+
+acetrainerf-gen1
+
+acetrainerf-gen1rb
+
+acetrainerf-gen2
+
+acetrainerf-gen3
+
+acetrainerf-gen3rs
+
+acetrainerf-gen4
+
+acetrainerf-gen4dp
+
+acetrainerf-gen6 by kyledove
+
+acetrainerf-gen6xy by kyledove
+
+acetrainerf-gen7 by kyledove
+
+acetrainerf
+
+acetrainersnow
+
+acetrainersnowf
+
+adaman-masters by kyledove
+
+adaman-masters2 by kyledove
+
+adaman by Brumirage
+
+aetheremployee by Beliot419
+
+aetheremployeef by Beliot419
+
+aetherfoundation by Beliot419
+
+aetherfoundation2 by kyledove
+
+aetherfoundationf by Beliot419
+
+agatha-gen1
+
+agatha-gen1rb
+
+agatha-gen3
+
+agatha-lgpe by Brumirage
+
+akari-isekai by kyledove
+
+akari by Brumirage
+
+alain by ZacWeavile
+
+alder
+
+alec-anime by kyledove
+
+allister-masters by kyledove
+
+allister-unmasked by kyledove
+
+allister by Brumirage
+
+amarys by kyledove
+
+amelia-shuffle by kyledove
+
+anabel-gen3
+
+anabel-gen7 by Beliot419
+
+anabel by kyledove
+
+ansha-cook by kyledove
+
+ansha by kyledove
+
+anthe by kyledove
+
+anthea by kyledove
+
+anvin by kyledove
+
+aquagrunt-rse by kyledove
+
+aquagrunt by kyledove
+
+aquagruntf-rse by kyledove
+
+aquagruntf by kyledove
+
+aquasuit by kyledove
+
+archer
+
+archie-gen3
+
+archie-gen6 by Brumirage
+
+archie-usum by kyledove
+
+arezu by Brumirage
+
+argenta
+
+ariana
+
+arlo by kyledove
+
+aromalady-gen3
+
+aromalady-gen3rs
+
+aromalady-gen6 by kyledove
+
+aromalady
+
+artist-gen4
+
+artist-gen6 by kyledove
+
+artist-gen8 by kyledove
+
+artist-gen9 by kyledove
+
+artist
+
+artistf-gen6 by kyledove
+
+arven-masters by kyledove
+
+arven-s by kyledove
+
+arven-v by ZacWeavile
+
+ash-alola
+
+ash-capbackward
+
+ash-hoenn
+
+ash-johto
+
+ash-kalos
+
+ash-sinnoh
+
+ash-unova
+
+ash
+
+atticus by ZacWeavile
+
+avery by Brumirage
+
+az-lza by kyledove
+
+az by Gnomowladny
+
+backers
+
+backersf
+
+backpacker-gen6 by kyledove
+
+backpacker-gen8 by kyledove
+
+backpacker-gen9 by kyledove
+
+backpacker
+
+backpackerf
+
+baker
+
+ballguy-masters by kyledove
+
+ballguy by Brumirage
+
+baoba by kyledove
+
+barry-masters by kyledove
+
+barry
+
+battlegirl-gen3
+
+battlegirl-gen4
+
+battlegirl-gen6 by kyledove
+
+battlegirl-gen6xy by kyledove
+
+battlegirl
+
+bea-masters by kyledove
+
+bea by Brumirage
+
+beauty-gen1
+
+beauty-gen1rb
+
+beauty-gen2
+
+beauty-gen2jp
+
+beauty-gen3
+
+beauty-gen3rs
+
+beauty-gen4dp
+
+beauty-gen5bw2
+
+beauty-gen6 by kyledove
+
+beauty-gen6xy by kyledove
+
+beauty-gen7 by Beliot419
+
+beauty-gen8 by kyledove
+
+beauty-gen9 by kyledove
+
+beauty-masters by kyledove
+
+beauty
+
+becca by kyledove
+
+bede-leader by Brumirage
+
+bede-masters by kyledove
+
+bede-masters2 by kyledove
+
+bede by Brumirage
+
+bellelba
+
+bellepa
+
+bellhop by kyledove
+
+bellis by kyledove
+
+benga
+
+beni-ninja by kyledove
+
+beni by kyledove
+
+bertha
+
+bianca-masters by kyledove
+
+bianca-pwt
+
+bianca
+
+biker-gen1
+
+biker-gen1rb
+
+biker-gen2
+
+biker-gen3
+
+biker-gen4
+
+biker
+
+bill-gen3
+
+bill by kyledove
+
+birch-gen3
+
+birch by kyledove
+
+birdkeeper-gen1
+
+birdkeeper-gen1rb
+
+birdkeeper-gen2
+
+birdkeeper-gen3
+
+birdkeeper-gen3rs
+
+birdkeeper-gen4dp
+
+birdkeeper-gen6 by kyledove
+
+birdkeeper
+
+blackbelt-gen1
+
+blackbelt-gen1rb
+
+blackbelt-gen2
+
+blackbelt-gen3
+
+blackbelt-gen3rs
+
+blackbelt-gen4
+
+blackbelt-gen4dp
+
+blackbelt-gen6 by kyledove
+
+blackbelt-gen7 by kyledove
+
+blackbelt-gen8 by kyledove
+
+blackbelt-gen9 by kyledove
+
+blackbelt
+
+blaine-gen1
+
+blaine-gen1rb
+
+blaine-gen2
+
+blaine-gen3
+
+blaine-lgpe by kyledove
+
+blaine
+
+blanche-casual by kyledove
+
+blanche by kyledove
+
+blue-gen1
+
+blue-gen1champion
+
+blue-gen1rb
+
+blue-gen1rbchampion
+
+blue-gen1rbtwo
+
+blue-gen1two
+
+blue-gen2
+
+blue-gen3
+
+blue-gen3champion
+
+blue-gen3two
+
+blue-gen7 by Beliot419
+
+blue-lgpe by kyledove
+
+blue-masters by kyledove
+
+blue-masters2 by kyledove
+
+blue
+
+bodybuilderf-gen9 by kyledove
+
+brandon-gen3
+
+brandon by kyledove
+
+brassius by kyledove
+
+brawly-gen3
+
+brawly-gen6 by Gnomowladny
+
+brawly
+
+brendan-contest by Brumirage
+
+brendan-e by hyo-oppa
+
+brendan-gen3
+
+brendan-gen3rs
+
+brendan-masters by kyledove
+
+brendan-masters2 by kyledove
+
+brendan-masters3 by kyledove
+
+brendan-rs by kyledove
+
+brendan by hyo-oppa
+
+briar by kyledove
+
+brigette by kyledove
+
+brock-gen1
+
+brock-gen1rb
+
+brock-gen2
+
+brock-gen3
+
+brock-lgpe by kyledove
+
+brock-masters by kyledove
+
+brock
+
+bruno-gen1
+
+bruno-gen1rb
+
+bruno-gen2
+
+bruno-gen3
+
+bruno
+
+brycen
+
+brycenman
+
+bryony by Gnomowladny
+
+buck
+
+bugcatcher-gen1
+
+bugcatcher-gen1rb
+
+bugcatcher-gen2
+
+bugcatcher-gen3
+
+bugcatcher-gen3rs
+
+bugcatcher-gen4dp
+
+bugcatcher-gen6 by kyledove
+
+bugcatcher
+
+bugmaniac-gen3
+
+bugmaniac-gen6 by kyledove
+
+bugsy-gen2
+
+bugsy-masters by kyledove
+
+bugsy
+
+burgh-masters by kyledove
+
+burgh
+
+burnet-radar by Brumirage
+
+burnet by Beliot419
+
+butler by kyledove
+
+byron
+
+cabbie-gen9 by kyledove
+
+cabbie by kyledove
+
+cafemaster by kyledove
+
+caitlin-gen4
+
+caitlin-masters by kyledove
+
+caitlin
+
+calaba by Brumirage
+
+calem-masters by kyledove
+
+calem by Brumirage
+
+cameraman-gen6 by kyledove
+
+cameraman-gen8 by kyledove
+
+cameraman
+
+camper-gen2
+
+camper-gen3
+
+camper-gen3rs
+
+camper-gen6 by kyledove
+
+camper
+
+canari by kyledove
+
+candela-casual by kyledove
+
+candela by kyledove
+
+candice-masters by kyledove
+
+candice
+
+caraliss by kyledove
+
+caretaker by kyledove
+
+carmine-festival by kyledove
+
+carmine-masters by kyledove
+
+carmine by kyledove
+
+cedricjuniper by kyledove
+
+celio by kyledove
+
+channeler-gen1
+
+channeler-gen1rb
+
+channeler-gen3
+
+channeler-lgpe by kyledove
+
+charm by ZacWeavile
+
+charon by kyledove
+
+chase by Brumirage
+
+chef by kyledove
+
+cheren-gen5bw2
+
+cheren-masters by kyledove
+
+cheren
+
+cheryl
+
+chili
+
+choy by kyledove
+
+christoph by kyledove
+
+chuck-gen2
+
+chuck
+
+cilan
+
+clair-gen2
+
+clair-masters by kyledove
+
+clair
+
+clavell-s by kyledove
+
+clay
+
+clemont
+
+clerk-boss
+
+clerk-gen8 by kyledove
+
+clerk-unite by kyledove
+
+clerkf-gen8 by kyledove
+
+clerkf
+
+cliff by kyledove
+
+clive-v by kyledove
+
+clover by kyledove
+
+clown
+
+cogita by Brumirage
+
+coin by ZacWeavile
+
+collector-gen3
+
+collector-gen6 by kyledove
+
+collector-gen7 by kyledove
+
+collector-masters by kyledove
+
+collector
+
+colress-gen7 by Beliot419
+
+colress
+
+colza by kyledove
+
+concordia by kyledove
+
+cook-gen7 by kyledove
+
+cook-gen9 by kyledove
+
+cook by kyledove
+
+corbeau by kyledove
+
+courier by kyledove
+
+courtney-gen3
+
+courtney by ZacWeavile
+
+cowgirl
+
+crasherwake
+
+cress
+
+crispin by kyledove
+
+crushgirl-gen3
+
+crushkin-gen3
+
+cueball-gen1
+
+cueball-gen1rb
+
+cueball-gen3
+
+curtis by kyledove
+
+cyclist-gen4
+
+cyclist
+
+cyclistf-gen4
+
+cyclistf
+
+cyllene by kyledove
+
+cynthia-anime by kyledove
+
+cynthia-anime2 by kyledove
+
+cynthia-gen4
+
+cynthia-gen7 by Brumirage
+
+cynthia-masters by Brumirage
+
+cynthia-masters2 by kyledove
+
+cynthia-masters3 by kyledove
+
+cynthia-masters4 by kyledove
+
+cynthia-masters5 by kyledove
+
+cynthia
+
+cyrano by kyledove
+
+cyrus-masters by kyledove
+
+cyrus
+
+dagero by kyledove
+
+dahlia
+
+daisy-gen3
+
+daisy by kyledove
+
+dana by kyledove
+
+dancer-gen7 by kyledove
+
+dancer-gen8 by kyledove
+
+dancer
+
+darach-caitlin
+
+darach
+
+dawn-contest by kyledove
+
+dawn-gen4pt
+
+dawn-masters by kyledove
+
+dawn-masters2 by kyledove
+
+dawn-masters3 by kyledove
+
+dawn
+
+delinquent-gen9 by kyledove
+
+delinquent by kyledove
+
+delinquentf-gen9 by kyledove
+
+delinquentf2-gen9 by kyledove
+
+dendra by kyledove
+
+depotagent
+
+dexio-gen6 by ZacWeavile
+
+dexio by Beliot419
+
+diamondclanmember by kyledove
+
+diantha-masters by kyledove
+
+diantha-masters2 by kyledove
+
+diantha by Brumirage
+
+doctor-gen8 by Brumirage
+
+doctor
+
+doctorf-gen8 by kyledove
+
+doubleteam
+
+dragontamer-gen3
+
+dragontamer-gen6 by kyledove
+
+dragontamer-gen9 by kyledove
+
+dragontamer
+
+drake-gen3
+
+drasna by Gnomowladny
+
+drayden
+
+drayton by kyledove
+
+dulse by ZacWeavile
+
+elaine by Brumirage
+
+elesa-gen5bw2
+
+elesa-masters by kyledove
+
+elesa-masters2 by kyledove
+
+elesa-masters3 by kyledove
+
+elesa
+
+elio-masters by kyledove
+
+elio-usum by ZacWeavile
+
+elio by Beliot419
+
+elm by kyledove
+
+emma-lza by Horo
+
+emma by ZacWeavile
+
+emmet-masters by kyledove
+
+emmet
+
+engineer-gen1
+
+engineer-gen1rb
+
+engineer-gen3
+
+erbie-unite by kyledove
+
+eri by ZacWeavile
+
+erika-gen1
+
+erika-gen1rb
+
+erika-gen2
+
+erika-gen3
+
+erika-lgpe by kyledove
+
+erika-masters by kyledove
+
+erika-masters2 by kyledove
+
+erika-masters3 by kyledove
+
+erika
+
+essentia by ZacWeavile
+
+ethan-gen2
+
+ethan-gen2c
+
+ethan-masters by kyledove
+
+ethan-pokeathlon
+
+ethan
+
+eusine-gen2
+
+eusine
+
+evelyn by Gnomowladny
+
+expert-gen3
+
+expert-gen6 by kyledove
+
+expertf-gen3
+
+expertf-gen6 by kyledove
+
+faba by Beliot419
+
+fairytalegirl by kyledove
+
+falkner-gen2
+
+falkner
+
+fantina
+
+fennel by kyledove
+
+firebreather-gen2
+
+firebreather
+
+firefighter by kyledove
+
+fisher-gen8 by kyledove
+
+fisherman-gen1
+
+fisherman-gen1rb
+
+fisherman-gen2jp
+
+fisherman-gen3
+
+fisherman-gen3rs
+
+fisherman-gen4
+
+fisherman-gen6 by kyledove
+
+fisherman-gen6xy by kyledove
+
+fisherman-gen7 by kyledove
+
+fisherman
+
+flannery-gen3
+
+flannery-gen6 by ZacWeavile
+
+flannery
+
+flaregrunt by kyledove
+
+flaregruntf by kyledove
+
+flint
+
+florian-bb by Horo
+
+florian-festival by kyledove
+
+florian-masters by kyledove
+
+florian-s by kyledove
+
+freediver by kyledove
+
+furisodegirl-black by Gnomowladny
+
+furisodegirl-blue by kyledove
+
+furisodegirl-pink by Gnomowladny
+
+furisodegirl-white by kyledove
+
+gaeric by kyledove
+
+galacticgrunt
+
+galacticgruntf
+
+gambler-gen1
+
+gambler-gen1rb
+
+gambler
+
+gamer-gen3
+
+garcon by kyledove
+
+gardener by kyledove
+
+gardenia-masters by kyledove
+
+gardenia
+
+geeta by kyledove
+
+gentleman-gen1
+
+gentleman-gen1rb
+
+gentleman-gen2
+
+gentleman-gen3
+
+gentleman-gen3rs
+
+gentleman-gen4
+
+gentleman-gen4dp
+
+gentleman-gen6 by kyledove
+
+gentleman-gen6xy by kyledove
+
+gentleman-gen7 by kyledove
+
+gentleman-gen8 by kyledove
+
+gentleman-lgpe by kyledove
+
+gentleman
+
+ghetsis-gen5bw
+
+ghetsis
+
+giacomo by ZacWeavile
+
+ginchiyo-conquest by ZacWeavile
+
+ginter by kyledove
+
+giovanni-gen1
+
+giovanni-gen1rb
+
+giovanni-gen3
+
+giovanni-lgpe by kyledove
+
+giovanni-masters by kyledove
+
+giovanni-masters2 by kyledove
+
+giovanni
+
+glacia-gen3
+
+glacia by Grapo
+
+gladion-masters by kyledove
+
+gladion-masters2 by kyledove
+
+gladion-stance by Beliot419
+
+gladion by Beliot419
+
+gloria-dojo by ZacWeavile
+
+gloria-league by kyledove
+
+gloria-masters by kyledove
+
+gloria-masters2 by kyledove
+
+gloria-tundra by kyledove
+
+gloria by Brumirage
+
+golfer by kyledove
+
+gordie by Brumirage
+
+grace by kyledove
+
+grant by kyledove
+
+green by ZacWeavile
+
+greta-gen3
+
+greta by kyledove
+
+grimsley-gen7 by Beliot419
+
+grimsley-masters by kyledove
+
+grimsley
+
+grisham by kyledove
+
+grusha by ZacWeavile
+
+guitarist-gen2
+
+guitarist-gen3
+
+guitarist-gen4
+
+guitarist-gen6 by kyledove
+
+guitarist
+
+gurkinn by kyledove
+
+guzma-masters by kyledove
+
+guzma by Gnomowladny
+
+gwynn by kyledove
+
+hala by Gnomowladny
+
+hanbei-conquest by ZacWeavile
+
+hapu by Beliot419
+
+harlequin
+
+harmony by kyledove
+
+hassel by kyledove
+
+hau-masters by kyledove
+
+hau-stance by Beliot419
+
+hau by Beliot419
+
+hayley by kyledove
+
+heath by kyledove
+
+hero-conquest by ZacWeavile
+
+hero2-conquest by ZacWeavile
+
+heroine-conquest by ZacWeavile
+
+heroine2-conquest by ZacWeavile
+
+hexmaniac-gen3
+
+hexmaniac-gen3jp
+
+hexmaniac-gen6 by kyledove
+
+hiker-gen1
+
+hiker-gen1rb
+
+hiker-gen2
+
+hiker-gen3
+
+hiker-gen3rs
+
+hiker-gen4
+
+hiker-gen6 by kyledove
+
+hiker-gen7 by Beliot419
+
+hiker-gen8 by kyledove
+
+hiker-gen9 by kyledove
+
+hiker
+
+hilbert-masters by kyledove
+
+hilbert-masters2 by kyledove
+
+hilbert-masters3 by kyledove
+
+hilbert-wonderlauncher
+
+hilbert
+
+hilda-masters by kyledove
+
+hilda-masters2 by Brumirage
+
+hilda-masters3 by kyledove
+
+hilda-masters4 by kyledove
+
+hilda-wonderlauncher
+
+hilda
+
+hooligans
+
+hoopster
+
+hop-masters by kyledove
+
+hop by Brumirage
+
+hugh-masters by kyledove
+
+hugh
+
+hyde by kyledove
+
+idol
+
+ilima by Beliot419
+
+infielder
+
+ingo-hisui by kyledove
+
+ingo-masters by kyledove
+
+ingo
+
+interviewers-gen3
+
+interviewers-gen6 by kyledove
+
+interviewers
+
+iono-masters by kyledove
+
+iono-masters2 by kyledove
+
+iono by kyledove
+
+irida-masters by kyledove
+
+irida-masters2 by kyledove
+
+irida by Brumirage
+
+iris-gen5bw2
+
+iris-masters by kyledove
+
+iris-masters2 by kyledove
+
+iris
+
+iscan by kyledove
+
+ivor by kyledove
+
+jacinthe by Brumirage
+
+jacq by kyledove
+
+jamie by kyledove
+
+janine-gen2
+
+janine
+
+janitor-gen7 by kyledove
+
+janitor-gen9 by kyledove
+
+janitor
+
+jasmine-contest by kyledove
+
+jasmine-gen2
+
+jasmine-masters by kyledove
+
+jasmine-masters2 by kyledove
+
+jasmine-masters3 by kyledove
+
+jasmine
+
+jessiejames-gen1
+
+jogger
+
+johanna-contest by kyledove
+
+johanna by kyledove
+
+jrtrainer-gen1
+
+jrtrainer-gen1rb
+
+jrtrainerf-gen1
+
+jrtrainerf-gen1rb
+
+juan-gen3
+
+juggler-gen1
+
+juggler-gen1rb
+
+juggler-gen2
+
+juggler-gen3
+
+juggler
+
+juliana-bb by Horo
+
+juliana-festival by kyledove
+
+juliana-masters by kyledove
+
+juliana-s by kyledove
+
+juniper
+
+jupiter
+
+kabu-masters by kyledove
+
+kabu by Brumirage
+
+kahili by Beliot419
+
+kamado-armor by kyledove
+
+kamado by kyledove
+
+karen-gen2
+
+karen
+
+katy by kyledove
+
+kiawe by Beliot419
+
+kieran-champion by kyledove
+
+kieran-festival by kyledove
+
+kieran-masters by kyledove
+
+kieran by kyledove
+
+kimonogirl-gen2
+
+kimonogirl
+
+kindler-gen3
+
+kindler-gen6 by kyledove
+
+klara by Brumirage
+
+kofu by kyledove
+
+koga-gen1
+
+koga-gen1rb
+
+koga-gen2
+
+koga-gen3
+
+koga-lgpe by Brumirage
+
+koga
+
+korrina-masters by kyledove
+
+korrina by Gnomowladny
+
+kris-gen2
+
+kris-masters by kyledove
+
+kris-masters2 by kyledove
+
+kris by Selena
+
+kukui-stand by Beliot419
+
+kukui by Beliot419
+
+kunoichi-conquest by ZacWeavile
+
+kunoichi2-conquest by ZacWeavile
+
+kurt by kyledove
+
+lacey-masters by kyledove
+
+lacey by kyledove
+
+lady-gen3
+
+lady-gen3rs
+
+lady-gen4
+
+lady-gen6 by kyledove
+
+lady-gen6oras by kyledove
+
+lady
+
+lana-masters by kyledove
+
+lana-masters2 by kyledove
+
+lana by Beliot419
+
+lance-gen1
+
+lance-gen1rb
+
+lance-gen2
+
+lance-gen3
+
+lance-lgpe by kyledove
+
+lance-masters by kyledove
+
+lance-masters2 by kyledove
+
+lance
+
+lanette by kyledove
+
+larry-masters by kyledove
+
+larry-masters2 by kyledove
+
+larry by kyledove
+
+lass-gen1
+
+lass-gen1rb
+
+lass-gen2
+
+lass-gen3
+
+lass-gen3rs
+
+lass-gen4
+
+lass-gen4dp
+
+lass-gen6 by kyledove
+
+lass-gen6oras by kyledove
+
+lass-gen7 by Beliot419
+
+lass-gen8 by kyledove
+
+lass
+
+laventon by kyledove
+
+laventon2 by kyledove
+
+leaf-gen3
+
+leaf-masters by kyledove
+
+leaf-masters2 by kyledove
+
+leaguestaff by kyledove
+
+leaguestafff by kyledove
+
+lebanne by kyledove
+
+lenora
+
+leon-masters by kyledove
+
+leon-masters2 by kyledove
+
+leon-tower by Brumirage
+
+leon by Brumirage
+
+li
+
+lian by Brumirage
+
+lida by Horo
+
+liko by Horo
+
+lillie-masters by kyledove
+
+lillie-masters2 by kyledove
+
+lillie-masters3 by kyledove
+
+lillie-masters4 by kyledove
+
+lillie-masters5 by kyledove
+
+lillie-z by Beliot419
+
+lillie by Beliot419
+
+linebacker
+
+lisia-masters by kyledove
+
+lisia by Brumirage
+
+liza-gen6 by kyledove
+
+liza-masters by kyledove
+
+liza
+
+lorelei-gen1
+
+lorelei-gen1rb
+
+lorelei-gen3
+
+lorelei-lgpe by Brumirage
+
+ltsurge-gen1
+
+ltsurge-gen1rb
+
+ltsurge-gen2
+
+ltsurge-gen3
+
+ltsurge
+
+lucas-contest by kyledove
+
+lucas-gen4pt
+
+lucas
+
+lucian
+
+lucy-gen3
+
+lucy by kyledove
+
+lusamine-masters by kyledove
+
+lusamine-nihilego by Beliot419
+
+lusamine by Beliot419
+
+lyra-masters by kyledove
+
+lyra-masters2 by kyledove
+
+lyra-pokeathlon
+
+lyra
+
+lysandre-masters by kyledove
+
+lysandre by kyledove
+
+mable by Horo
+
+madame-gen4
+
+madame-gen4dp
+
+madame-gen6 by kyledove
+
+madame-gen7 by kyledove
+
+madame-gen8 by kyledove
+
+madame
+
+magmagrunt-rse by kyledove
+
+magmagrunt by ZacWeavile
+
+magmagruntf-rse by kyledove
+
+magmagruntf by ZacWeavile
+
+magnolia by Brumirage
+
+magnus by kyledove
+
+mai by Brumirage
+
+maid-gen4
+
+maid-gen6 by kyledove
+
+maid
+
+mallow-masters by kyledove
+
+mallow by Beliot419
+
+malva by Gnomowladny
+
+marley-masters by kyledove
+
+marley
+
+marlon
+
+marnie-league by ZacWeavile
+
+marnie-masters by kyledove
+
+marnie-masters2 by kyledove
+
+marnie-masters3 by kyledove
+
+marnie-masters4 by kyledove
+
+marnie by Brumirage
+
+mars
+
+marshal
+
+masamune-conquest by ZacWeavile
+
+mateo by kyledove
+
+matt-gen3
+
+matt by kyledove
+
+maxie-gen3
+
+maxie-gen6 by hyo-oppa
+
+may-contest by Brumirage
+
+may-e by kyledove
+
+may-gen3
+
+may-gen3rs
+
+may-masters by kyledove
+
+may-masters2 by kyledove
+
+may-masters3 by kyledove
+
+may-masters4 by kyledove
+
+may-rs by kyledove
+
+may by hyo-oppa
+
+maylene
+
+medium-gen2jp
+
+medium
+
+mela by ZacWeavile
+
+melli by kyledove
+
+melony by Brumirage
+
+miku-fairy by wisteriapurple
+
+miku-fire by kyledove
+
+miku-flying by Brumirage
+
+miku-ghost by Flamibane
+
+miku-grass by kyledove
+
+miku-ground by Brumirage
+
+miku-ice by RADU
+
+miku-psychic by kyledove
+
+miku-water by kyledove
+
+milo by Brumirage
+
+mina-lgpe by Brumirage
+
+mina-masters by kyledove
+
+mina by Beliot419
+
+mira
+
+miriam by kyledove
+
+mirror by kyledove
+
+misty-gen1
+
+misty-gen1rb
+
+misty-gen2
+
+misty-gen3
+
+misty-lgpe by kyledove
+
+misty-masters by kyledove
+
+misty
+
+model-gen8 by kyledove
+
+mohn-anime by kyledove
+
+mohn by kyledove
+
+molayne by Beliot419
+
+mom-alola by kyledove
+
+mom-hoenn by kyledove
+
+mom-johto by kyledove
+
+mom-paldea by kyledove
+
+mom-unova by kyledove
+
+mom-unova2 by kyledove
+
+morgan by ZacWeavile
+
+morty-gen2
+
+morty-masters by kyledove
+
+morty-masters2 by kyledove
+
+morty-masters3 by kyledove
+
+morty
+
+mrbriney by kyledove
+
+mrfuji-gen3
+
+mrstone by kyledove
+
+musician-gen8 by kyledove
+
+musician-gen9 by kyledove
+
+musician
+
+mustard-champion by kyledove
+
+mustard-master by Brumirage
+
+mustard by Brumirage
+
+n-masters by kyledove
+
+n-masters2 by kyledove
+
+n-masters3 by kyledove
+
+n
+
+nancy by kyledove
+
+nanu by Beliot419
+
+nate-masters by kyledove
+
+nemona-masters by kyledove
+
+nemona-s by kyledove
+
+nemona-v by kyledove
+
+neroli by kyledove
+
+nessa-masters by kyledove
+
+nessa by Brumirage
+
+ninjaboy-gen3
+
+ninjaboy-gen6 by kyledove
+
+ninjaboy
+
+nita by Gnomowladny
+
+nobunaga-conquest by ZacWeavile
+
+norman-gen6 by ZacWeavile
+
+norman
+
+nurse
+
+nurseryaide
+
+oak-gen1
+
+oak-gen1rb
+
+oak-gen2
+
+oak-gen3
+
+oak by kyledove
+
+officer-gen2
+
+officeworker-gen9 by kyledove
+
+officeworker by Beliot419
+
+officeworkerf-gen9 by kyledove
+
+officeworkerf by kyledove
+
+ogreclan by kyledove
+
+oichi-conquest by ZacWeavile
+
+oldcouple-gen3
+
+oleana by Brumirage
+
+olivia by Beliot419
+
+olympia by Gnomowladny
+
+opal by Brumirage
+
+ortega by ZacWeavile
+
+owner by kyledove
+
+painter-gen3
+
+palina by kyledove
+
+palmer
+
+parasollady-gen3
+
+parasollady-gen4
+
+parasollady-gen6 by kyledove
+
+parasollady
+
+paulo-masters by kyledove
+
+paxton by kyledove
+
+pearlclanmember by kyledove
+
+penny by ZacWeavile
+
+peonia by Grapo
+
+peony-league by kyledove
+
+peony by Brumirage
+
+perrin-masters by kyledove
+
+perrin by kyledove
+
+pesselle by Brumirage
+
+petrel
+
+phil by kyledove
+
+phillipe by kyledove
+
+phoebe-gen3
+
+phoebe-gen6 by Brumirage
+
+phoebe-masters by Grapo
+
+phorus-unite by kyledove
+
+phyco by ZacWeavile
+
+picnicker-gen2
+
+picnicker-gen3
+
+picnicker-gen3rs
+
+picnicker-gen6 by kyledove
+
+picnicker
+
+piers-league by kyledove
+
+piers-masters by kyledove
+
+piers by Brumirage
+
+plasmagrunt-gen5bw
+
+plasmagrunt
+
+plasmagruntf-gen5bw
+
+plasmagruntf
+
+player-go by kyledove
+
+playerf-go by kyledove
+
+plumeria-league by kyledove
+
+plumeria by Beliot419
+
+pokefan-gen2
+
+pokefan-gen3
+
+pokefan-gen4
+
+pokefan-gen6 by kyledove
+
+pokefan-gen6xy by kyledove
+
+pokefanf-gen3
+
+pokefanf-gen6 by kyledove
+
+pokemaniac-gen1rb
+
+pokemaniac-gen2
+
+pokemaniac-gen3
+
+pokemaniac-gen3rs
+
+pokemaniac-gen6 by kyledove
+
+pokemaniac-gen9 by kyledove
+
+pokemonbreeder-gen3
+
+pokemonbreeder-gen4
+
+pokemonbreeder-gen6 by kyledove
+
+pokemonbreeder-gen6xy by kyledove
+
+pokemonbreeder-gen7 by Beliot419
+
+pokemonbreeder-gen8 by kyledove
+
+pokemonbreederf-gen3
+
+pokemonbreederf-gen3frlg
+
+pokemonbreederf-gen4
+
+pokemonbreederf-gen6 by kyledove
+
+pokemonbreederf-gen6xy by kyledove
+
+pokemonbreederf-gen7 by Beliot419
+
+pokemonbreederf-gen8 by kyledove
+
+pokemoncenterlady by kyledove
+
+pokemonranger-gen3
+
+pokemonranger-gen3rs
+
+pokemonranger-gen4
+
+pokemonranger-gen6 by kyledove
+
+pokemonrangerf-gen3rs
+
+pokemonrangerf-gen4
+
+pokemonrangerf-gen6 by kyledove
+
+pokemonrangerf-gen6xy by kyledove
+
+policeman-gen4
+
+policeman-gen7 by kyledove
+
+policeman-gen8 by kyledove
+
+policeman
+
+poppy-masters by kyledove
+
+poppy by kyledove
+
+postman by kyledove
+
+preschooler-gen6 by kyledove
+
+preschooler-gen7 by kyledove
+
+preschooler
+
+preschoolerf-gen6 by kyledove
+
+preschoolerf-gen7 by kyledove
+
+preschoolerf
+
+preschoolers by Beliot419
+
+proton
+
+pryce-gen2
+
+pryce
+
+psychic-gen1
+
+psychic-gen1rb
+
+psychic-gen2
+
+psychic-gen3
+
+psychic-gen3rs
+
+psychic-gen4
+
+psychic-gen6 by kyledove
+
+psychic-lgpe by kyledove
+
+psychic
+
+psychicf-gen3
+
+psychicf-gen3rs
+
+psychicf-gen4
+
+psychicf
+
+psychicfjp-gen3
+
+punkgirl-gen7 by kyledove
+
+punkgirl-masters by kyledove
+
+punkgirl by kyledove
+
+punkguy-gen7 by kyledove
+
+punkguy by kyledove
+
+raifort by kyledove
+
+raihan-masters by kyledove
+
+raihan by Brumirage
+
+railstaff by kyledove
+
+rainbowrocketgrunt by Brumirage
+
+rainbowrocketgruntf by Brumirage
+
+ramos by Gnomowladny
+
+rancher
+
+ranmaru-conquest by ZacWeavile
+
+red-gen1
+
+red-gen1main
+
+red-gen1rb
+
+red-gen1title
+
+red-gen2
+
+red-gen3
+
+red-gen7 by Beliot419
+
+red-lgpe by Horo
+
+red-masters by kyledove
+
+red-masters2 by kyledove
+
+red-masters3 by kyledove
+
+red-masters4 by kyledove
+
+red
+
+rei-isekai by kyledove
+
+rei-masters by kyledove
+
+rei by Brumirage
+
+reporter-gen6 by kyledove
+
+reporter-gen8 by kyledove
+
+rhi by kyledove
+
+richboy-gen3
+
+richboy-gen4
+
+richboy-gen6 by kyledove
+
+richboy-gen6xy by kyledove
+
+richboy
+
+rika-masters by kyledove
+
+rika by kyledove
+
+riley
+
+risingstar-gen6 by kyledove
+
+risingstar by Beliot419
+
+risingstarf-gen6 by kyledove
+
+risingstarf by Beliot419
+
+rita by kyledove
+
+river by kyledove
+
+roark
+
+rocker-gen1
+
+rocker-gen1rb
+
+rocker-gen3
+
+rocket-gen1
+
+rocket-gen1rb
+
+rocketexecutive-gen2
+
+rocketexecutivef-gen2
+
+rocketgrunt-gen2
+
+rocketgrunt
+
+rocketgruntf-gen2
+
+rocketgruntf
+
+rollerskater by kyledove
+
+rollerskaterf by kyledove
+
+rood
+
+rosa-masters by kyledove
+
+rosa-masters2 by kyledove
+
+rosa-masters3 by Grapo
+
+rosa-masters4 by kyledove
+
+rosa-pokestar by kyledove
+
+rosa-pokestar2 by kyledove
+
+rosa-pokestar3 by kyledove
+
+rosa-wonderlauncher
+
+rosa
+
+rose-zerosuit by Fifty Shades of Rez
+
+rose by Brumirage
+
+roughneck-gen4
+
+roughneck
+
+rowan by kyledove
+
+roxanne-gen3
+
+roxanne-gen6 by kyledove
+
+roxanne-masters by kyledove
+
+roxanne
+
+roxie-masters by kyledove
+
+roxie
+
+roy by Horo
+
+ruffian by kyledove
+
+ruinmaniac-gen3
+
+ruinmaniac-gen3rs
+
+ruinmaniac-gen6 by kyledove
+
+ruinmaniac
+
+rye by kyledove
+
+ryme by kyledove
+
+ryuki by Beliot419
+
+sabi by Brumirage
+
+sabrina-frlg by kyledove
+
+sabrina-gen1
+
+sabrina-gen1rb
+
+sabrina-gen2
+
+sabrina-gen3
+
+sabrina-lgpe by kyledove
+
+sabrina-masters by kyledove
+
+sabrina
+
+sada-ai by Brumirage
+
+sada by kyledove
+
+sage-gen2
+
+sage-gen2jp
+
+sage
+
+saguaro by kyledove
+
+sailor-gen1
+
+sailor-gen1rb
+
+sailor-gen2
+
+sailor-gen3
+
+sailor-gen3jp
+
+sailor-gen3rs
+
+sailor-gen6 by kyledove
+
+sailor
+
+salvatore by kyledove
+
+samsonoak by Beliot419
+
+sanqua by Brumirage
+
+saturn
+
+sbcmember by kyledove
+
+schoolboy-gen2
+
+schoolboy by kyledove
+
+schoolgirl by kyledove
+
+schoolkid-gen3
+
+schoolkid-gen4
+
+schoolkid-gen4dp
+
+schoolkid-gen6 by kyledove
+
+schoolkid-gen8 by kyledove
+
+schoolkid
+
+schoolkidf-gen3
+
+schoolkidf-gen4
+
+schoolkidf-gen6 by kyledove
+
+schoolkidf-gen8 by kyledove
+
+schoolkidf
+
+scientist-gen1
+
+scientist-gen1rb
+
+scientist-gen2
+
+scientist-gen3
+
+scientist-gen4
+
+scientist-gen4dp
+
+scientist-gen6 by kyledove
+
+scientist-gen7 by kyledove
+
+scientist-gen9 by kyledove
+
+scientist
+
+scientistf-gen6 by kyledove
+
+scientistf
+
+scott by kyledove
+
+scottie-masters by Grapo
+
+scubadiver by kyledove
+
+securitycorps by kyledove
+
+securitycorpsf by kyledove
+
+selene-masters by kyledove
+
+selene-masters2 by kyledove
+
+selene-usum by ZacWeavile
+
+selene by Beliot419
+
+serena-anime by ZacWeavile
+
+serena-masters by kyledove
+
+serena-masters2 by kyledove
+
+serena-masters3 by kyledove
+
+serena by kyledove
+
+shadowtriad
+
+shauna-masters by kyledove
+
+shauna by ZacWeavile
+
+shauntal-masters by kyledove
+
+shauntal
+
+shelly-gen3
+
+shelly by Gnomowladny
+
+shielbert by Brumirage
+
+sidney-gen3
+
+sidney by Gnomowladny
+
+siebold-masters by kyledove
+
+siebold by Gnomowladny
+
+sierra by kyledove
+
+sightseer by kyledove
+
+sightseerf by Beliot419
+
+silver-gen2
+
+silver-gen2kanto
+
+silver-masters by kyledove
+
+silver-masters2 by kyledove
+
+silver
+
+sina-gen6 by ZacWeavile
+
+sina by Beliot419
+
+sisandbro-gen3
+
+sisandbro-gen3rs
+
+sisandbro
+
+skier-gen2
+
+skier
+
+skierf-gen4dp
+
+skierf
+
+skullgrunt by ZacWeavile
+
+skullgruntf by ZacWeavile
+
+skyla-masters by kyledove
+
+skyla-masters2 by Grapo
+
+skyla-masters3 by kyledove
+
+skyla
+
+skytrainer by kyledove
+
+skytrainerf by kyledove
+
+smasher
+
+soliera by ZacWeavile
+
+sonia-masters by kyledove
+
+sonia-masters2 by kyledove
+
+sonia-professor by Brumirage
+
+sonia by Brumirage
+
+sophocles by Beliot419
+
+sordward-shielbert by Brumirage
+
+sordward by Brumirage
+
+spark-casual by kyledove
+
+spark by kyledove
+
+spenser-gen3
+
+spenser by kyledove
+
+srandjr-gen3
+
+stargrunt-s by kyledove
+
+stargrunt-v by kyledove
+
+stargruntf-s by kyledove
+
+stargruntf-v by kyledove
+
+steven-gen3
+
+steven-gen6 by ZacWeavile
+
+steven-masters by kyledove
+
+steven-masters2 by kyledove
+
+steven-masters3 by kyledove
+
+steven-masters4 by kyledove
+
+steven-masters5 by kyledove
+
+steven
+
+streetthug-masters by kyledove
+
+streetthug by kyledove
+
+striker
+
+supernerd-gen1
+
+supernerd-gen1rb
+
+supernerd-gen2
+
+supernerd-gen3
+
+supernerd
+
+surfer by kyledove
+
+swimmer-gen1
+
+swimmer-gen1rb
+
+swimmer-gen4
+
+swimmer-gen4dp
+
+swimmer-gen4jp
+
+swimmer-gen6 by kyledove
+
+swimmer-gen7 by kyledove
+
+swimmer-gen8 by kyledove
+
+swimmer-masters by kyledove
+
+swimmer
+
+swimmerf-gen2
+
+swimmerf-gen3
+
+swimmerf-gen3rs
+
+swimmerf-gen4
+
+swimmerf-gen4dp
+
+swimmerf-gen6 by kyledove
+
+swimmerf-gen7 by kyledove
+
+swimmerf-gen8 by kyledove
+
+swimmerf
+
+swimmerf2-gen6 by kyledove
+
+swimmerf2-gen7 by kyledove
+
+swimmerfjp-gen2
+
+swimmerm-gen2
+
+swimmerm-gen3
+
+swimmerm-gen3rs
+
+sycamore-masters by kyledove
+
+sycamore by kyledove
+
+tabitha-gen3
+
+tabitha by kyledove
+
+tamer-gen1
+
+tamer-gen1rb
+
+tamer-gen3
+
+taohua by kyledove
+
+tarragon by kyledove
+
+tate-gen6 by kyledove
+
+tate-masters by kyledove
+
+tate
+
+tateandliza-gen3
+
+tateandliza-gen6 by Brumirage
+
+taunie by kyledove
+
+teacher-gen2
+
+teacher-gen7 by Beliot419
+
+teacher
+
+teamaquabeta-gen3
+
+teamaquagruntf-gen3
+
+teamaquagruntm-gen3
+
+teammagmagruntf-gen3
+
+teammagmagruntm-gen3
+
+teammates by kyledove
+
+teamrocket
+
+teamrocketgruntf-gen3
+
+teamrocketgruntm-gen3
+
+theroyal by Beliot419
+
+thorton
+
+tierno by Gnomowladny
+
+tina-masters by kyledove
+
+toddsnap by kyledove
+
+toddsnap2 by kyledove
+
+tourist by kyledove
+
+touristf by kyledove
+
+touristf2 by kyledove
+
+trace by kyledove
+
+trevor by kyledove
+
+trialguide by kyledove
+
+trialguidef by kyledove
+
+triathletebiker-gen6 by kyledove
+
+triathletebikerf-gen3
+
+triathletebikerm-gen3
+
+triathleterunner-gen6 by kyledove
+
+triathleterunnerf-gen3
+
+triathleterunnerm-gen3
+
+triathleteswimmer-gen6 by kyledove
+
+triathleteswimmerf-gen3
+
+triathleteswimmerm-gen3
+
+tricia-masters by kyledove
+
+trinnia-masters by kyledove
+
+trista-masters by kyledove
+
+tuber-gen3
+
+tuber-gen6 by kyledove
+
+tuber
+
+tuberf-gen3
+
+tuberf-gen3rs
+
+tuberf-gen6 by kyledove
+
+tuberf
+
+tucker-gen3
+
+tucker by kyledove
+
+tuli by kyledove
+
+tulip by kyledove
+
+turo-ai by Brumirage
+
+turo by kyledove
+
+twins-gen2
+
+twins-gen3
+
+twins-gen3rs
+
+twins-gen4
+
+twins-gen4dp
+
+twins-gen6 by kyledove
+
+twins
+
+tyme by kyledove
+
+ultraforestkartenvoy by kyledove
+
+unknown-flipped
+
+unknown
+
+unknownf-flipped
+
+unknownf
+
+urbain by kyledove
+
+valerie by Gnomowladny
+
+vessa by kyledove
+
+veteran-gen4
+
+veteran-gen6 by kyledove
+
+veteran-gen7 by kyledove
+
+veteran
+
+veteranf-gen6 by kyledove
+
+veteranf-gen7 by kyledove
+
+veteranf
+
+victor-dojo by Brumirage
+
+victor-league by kyledove
+
+victor-masters by kyledove
+
+victor-tundra by kyledove
+
+victor by Brumirage
+
+vince by kyledove
+
+viola-masters by kyledove
+
+viola by Gnomowladny
+
+volkner-masters by kyledove
+
+volkner
+
+volo-ginkgo by Grapo
+
+volo by Brumirage
+
+waiter-gen4
+
+waiter-gen4dp
+
+waiter-gen9 by kyledove
+
+waiter
+
+waitress-gen4
+
+waitress-gen6 by kyledove
+
+waitress-gen9 by kyledove
+
+waitress
+
+wallace-gen3
+
+wallace-gen3rs
+
+wallace-gen6 by Gnomowladny
+
+wallace-masters by kyledove
+
+wallace
+
+wally-gen3
+
+wally-masters by kyledove
+
+wally-rse by kyledove
+
+wally by Beliot419
+
+wattson-gen3
+
+wattson
+
+whitney-gen2
+
+whitney-masters by kyledove
+
+whitney
+
+wicke by Beliot419
+
+wikstrom by Gnomowladny
+
+will-gen2
+
+will
+
+willem by kyledove
+
+willow-casual by kyledove
+
+willow by kyledove
+
+winona-gen3
+
+winona-gen6 by Gnomowladny
+
+winona
+
+worker-gen4
+
+worker-gen6 by kyledove
+
+worker-gen7 by kyledove
+
+worker-gen8 by kyledove
+
+worker-gen9 by kyledove
+
+worker-lgpe by kyledove
+
+worker
+
+worker2-gen6 by kyledove
+
+workerf-gen8 by kyledove
+
+workerice
+
+wulfric by Gnomowladny
+
+xerosic by Gnomowladny
+
+yancy by kyledove
+
+yellgrunt by Brumirage
+
+yellgruntf by Brumirage
+
+yellow
+
+youngathlete by Beliot419
+
+youngathletef by Beliot419
+
+youngcouple-gen3
+
+youngcouple-gen3rs
+
+youngcouple-gen4dp
+
+youngcouple-gen6 by kyledove
+
+youngcouple
+
+youngn by Gnomowladny
+
+youngster-gen1
+
+youngster-gen1rb
+
+youngster-gen2
+
+youngster-gen3
+
+youngster-gen3rs
+
+youngster-gen4
+
+youngster-gen4dp
+
+youngster-gen6 by kyledove
+
+youngster-gen6xy by kyledove
+
+youngster-gen7 by Beliot419
+
+youngster-gen8 by kyledove
+
+youngster-gen9 by kyledove
+
+youngster-masters by kyledove
+
+youngster
+
+yukito-hideko by kyledove
+
+zinnia-masters by kyledove
+
+zinnia by Gnomowladny
+
+zinzolin
+
+zirco-unite by kyledove
+
+zisu by Brumirage
+
+zossie by ZacWeavile

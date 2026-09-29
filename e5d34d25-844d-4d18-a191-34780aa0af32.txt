@@ -1,0 +1,1127 @@
+Pokémon Ash Gray Gameplay Guide | PDF
+
+Skip to main content
+
+Open navigation menu https://www.scribd.com/
+
+Close suggestionsSearchSearch
+
+Change Language, English
+
+Sign in
+
+Sign in
+
+0% found this document useful (0 votes)
+
+40K views36 pages
+
+# Pokémon Ash Gray Gameplay Guide
+
+This document provides a guide to the Pokémon Ash Grey ROM hack, which recreates the story and events of the Pokémon anime series. It summarizes the key plot points and gameplay features, including starting with Pikachu instead of a starter Pokémon, battling Team Rocket frequently, and challenging the gyms led by Brock and Misty in a way that mirrors the anime. The guide walks through the major locations like Viridian Forest and Mt. Moon, noting how encounters are adapted from the show. It aims to help players experience Ash's journey from the anime as a video game.
+
+## Uploaded by
+
+AI-enhanced title and description
+
+Copyright
+
+© All Rights Reserved
+
+We take content rights seriously. If you suspect this is your content, claim it here.
+
+Available Formats
+
+Download as PDF, TXT or read online on Scribd
+
+Download
+
+Save pokemon-ash-grey-guide For Later
+
+Share
+
+0% found this document useful, Mark this document as useful
+
+0% found this document not useful, Mark this document as not useful
+
+Print
+
+Embed
+
+Translate
+
+Report
+
+0% found this document useful (0 votes)
+
+40K views36 pages
+
+# Pokémon Ash Gray Gameplay Guide
+
+This document provides a guide to the Pokémon Ash Grey ROM hack, which recreates the story and events of the Pokémon anime series. It summarizes the key plot points and gameplay features, including starting with Pikachu instead of a starter Pokémon, battling Team Rocket frequently, and challenging the gyms led by Brock and Misty in a way that mirrors the anime. The guide walks through the major locations like Viridian Forest and Mt. Moon, noting how encounters are adapted from the show. It aims to help players experience Ash's journey from the anime as a video game.
+
+## Uploaded by
+
+AI-enhanced title and description
+
+Copyright
+
+© All Rights Reserved
+
+We take content rights seriously. If you suspect this is your content, claim it here.
+
+Available Formats
+
+Download as PDF, TXT or read online on Scribd
+
+Go to previous items
+
+Download
+
+Save pokemon-ash-grey-guide For Later
+
+Share
+
+0% found this document useful, Mark this document as useful
+
+0% found this document not useful, Mark this document as not useful
+
+Print
+
+Embed
+
+Translate
+
+Report
+
+Go to next items
+
+OutlinePage view
+
+Download
+
+Save pokemon-ash-grey-guide For Later
+
+Share
+
+More options
+
+Fullscreen
+
+- Introduction to Pokémon Ash Grey
+- Getting Pikachu in Ash Gray
+- Viridian Locations
+- Mt. Moon and Cerulean City
+- Catching Pokémon
+- Battling Lt. Surge
+- St. Anne and Pokémon Land
+- Porta Vista and Saffron City
+- Sabrina and Celadon City
+- Koga and the Safari Zone
+- Cinnabar Island and Blaine Battle
+- Viridian Gym Rematch
+- Pokémon League Challenges
+- FAQs
+- Author's Note
+
+# Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+## Pokemon Ash Grey Guide - Pok Universe
+
+Pokémon is a popular franchise that everyone has heard of. Even if you ask your century-old grandma with no exposure to the internet what Pokémon is, she would probably mention Pikachu, the yellow rodent with red cheeks heralded as the famed mascot.
+
+As a gamer, I think Pokémon has been one of the most impactful games in the industry; it reached even people who are not into gaming. However, Pokémon as a whole would not be as popular as it is now without the help of the Pokémon anime.
+
+It established Pikachu’s place in gaming icons. It helped garner interest for these digital creatures on our Gameboy. The anime was so exemplary it still continues to this day. As of the time of writing, Ash Ketchum recently became the Pokémon world champion after many generations.
+
+Many Pokémon fans were now brought in by the anime, and one enthusiast made a ROM hack following the events that happened in the show.
+
+Yes, you have read it right. A genius managed to morph a Pokémon Fire Red game into an accurate reenactment of the show. The question remains; is the ROM hack as good as the Pokémon anime? If you are as curious as me, this Pokemon Ash Grey guide will help you understand.
+
+Story Synopsis The story is molded after the original Pokémon anime series. It starts off with Ash waking up too late to pick a starter. Instead, he receives a Pikachu. Along their journey, they meet some allies like Misty and Brock. His bond with Pikachu also strengthens with each victory and loss.
+
+As Ash earns his badges from defeating gym leaders, he comes across various scenarios that will let him learn more about Pokémon. He aims to go compete in the Pokémon League, but he also has a rival with the same goal.
+
+Ash also constantly faces battles against enemies like Jessie, James, and Meowth from Team Rocket. Team Rocket’s scheme of making a clone of a legendary Pokémon backfires as it enslaves an island, but thankfully, Ash saves the day with the power of empathy and kindness.
+
+Key Features The map and story are completely overhauled and remodeled to follow Ash’s journey in the original Pokémon anime. New characters and areas are added to match the anime. Be able to replicate Ash’s experience in the anime as a game, including core story arcs like releasing Butterfree, stopping Bulbasaur from evolving, etc. It features the Physical and Special split of moves. The HM system is abandoned; instead, the game uses key items as substitutes for the HM system (e.g., the Hatchet is used like HM Cut, the Raft is used like HM Surf, etc.). It is incredibly challenging, with reasonable difficulty spikes.
+
+[Link] 1 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM The Guide to Pokémon Ash Gray
+
+## Getting Pikachu in Ash Gray
+
+At the start, Professor Oak will introduce you to Pokémon as usual. However, in this game, you play as Ash instead of Red or Leaf. You can still enter your name, though (which I did). You can also rename Professor Oak’s grandson, Gary (which I also did).
+
+At the start, you go to sleep and wake up late (like in the anime). Go outside, head south, then go up the stairs between the red pillars. The path will eventually lead to Prof. Oak’s lab. As you approach the door, Gary will come out. He states that he has his own Pokémon already and rushes off.
+
+Go inside and proceed upstairs to find Prof. Oak. After talking to him, go to the structure in the middle containing Poké Balls. However, you will learn that all the starter Pokémon have been taken by other trainers who came in earlier.
+
+Go back to Prof. Oak and talk to him; he will give you a Pikachu. He will also provide you with a Pokédex. Go outside, and you will encounter your mom, who will give you your running shoes, a town map, and a fame checker. Head north of your house to reach Route 1; you will encounter a wild Pidgey.
+
+After defeating it, run along the path and get into the water; Misty will fish you up, and you take her bike. The Spearows chasing you will stop you, but Pikachu will save you. A Ho-oh appears in this cutscene, similar to the anime.
+
+[Link] 2 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+## Viridian City in Ash Gray
+
+Continue following the path to reach Viridian City. As you enter, a policewoman stops you and leads you to the Pokémon Center. After the cutscene with the orange-haired girl, approach the counter and talk to Nurse Joy to heal your Pokémon.
+
+Before you can reach the doors to go outside, Team Rocket (Jessie, James, and Meowth) will interrupt you. A battle will begin; they have level five Ekans and Koffing. You can spam Thundershock to get past them.
+
+After defeating them, Pikachu will use Thundershock to send them flying (i.e., blast them off); I suggest you heal your Pokémon again. While in Viridian City, buy some potions or Poké Balls in the Poké Mart. If you are ready, head north to enter Route 2 and continue heading north to enter the Viridian Forest.
+
+## Viridian Forest in Ash Gray
+
+Navigate through Viridian Forest. When you reach a blonde lady in the middle of the road, note that proceeding further will trigger a cutscene. Team Rocket ambushes you to get your Pikachu. A double Pokémon battle will commence against their level eight Ekans and Koffing.
+
+[Link] 3 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+I recommend catching another Pokémon beforehand; I caught a level seven Pidgeotto I named Slicky and a level three Caterpie I named Heimlich. After defeating them, they will blast off again. Talk to the blonde lady behind you to heal your Pokémon. Continue the path to leave Viridian Forest.
+
+## Battling Rock-type Gym Leader Brock in Ash Gray
+
+Head to the Pewter Pokémon Gym in Pewter City to find its gym leader, Brock. He has a level 14 Onix. However, when you battle with him, the game expects you to lose for the story. So, even if you manage to defeat his Onix, the story will treat it as a loss for you (which is weird).
+
+After the battle, head out, and a guy named Flint will lead you to the city’s hydroelectric plant. After his encouraging speech about Brock’s backstory, he gives you a Light Ball; give it to Pikachu. Now, head back to the gym and fight Brock again.
+
+[Link] 4 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+This time, Brock has a level 12 Geodude. I recommend having another Pokémon besides Pikachu for this battle since Electric-type attacks do not affect Ground-type Pokémon. After defeating Brock’s Geodude, a cutscene will play involving Brock’s siblings. Then, another Pokémon battle with Brock begins.
+
+He sends his level 14 Onix again. It is also raining, so Water-type attacks would prove useful. After defeating him, he will give you TM39 Rock Tomb and the Boulder Badge.
+
+A cutscene will play about Brock’s aspirations of becoming a Pokémon breeder. However, Flint barges in and makes Brock go fulfill his dreams.
+
+## Mt. Moon in Ash Gray
+
+You can head out and go east to Route 3. Navigate your way through the various Pokémon trainers and proceed to Mt. Moon. Upon arriving, a man will shout for help as a wild Zubat attacks him. Then, after defeating the Zubat, the man introduces himself as Seymour, the Scientist.
+
+He asks you to help the Clefairy from people who are stealing Moon Stone from Mt. Moon. Head inside the entrance. Go east once, then go north. As you move to the stairs to the ladder, Team Rocket will stop you for a battle.
+
+[Link] 5 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+Team Rocket has level 15 Ekans and Koffing. They have Poison-type moves, so prepare some antidotes. After defeating them, they will blast off again. Head to the ladder to reach the surface. Next, go right, cross the river via the stairway above, then head right through the narrow path to find a ladder going down.
+
+Follow the straightforward path until you find a large boulder with a Moon Stone attached; you can take it if you want to. Then, head to the group of Clefairy to start a cutscene. Team Rocket stops you, but the Clefairy uses Metronome to blast them off again.
+
+Seymour thanks you and decides to live with them. Go west and through the stairs to find a ladder going down; the exit will lead you to Route 4.
+
+## Battling Water-type Gym Leader Misty in Ash Gray
+
+Head east to reach Cerulean City. Go in the Cerulean Pokémon Gym to find three sisters who claim to be the Gym Trainers. They do not want to fight you; instead, they will give you the Cascade Badge willingly. However, the orange-haired girl from before stops them from handing it to you.
+
+She is Misty, the fourth sister and one of the Gym Trainers. She argues with her sisters and convinces them to let her battle you. However, Pikachu does not want to battle Misty, so you must bring other Pokémons with you.
+
+[Link] 6 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+She has a level 17 Staryu and a level 19 Starmie; both are Water-type Pokémon, so I recommend having a Pokémon with Grass or Electric-type moves. After defeating her, Team Rocket will barge in with a large device that can suck up Pokémon. They will also start a Pokémon battle with you.
+
+Team Rocket has level 17 Ekans and Koffing. Defeat them to make them blast off again. Misty also parts ways with you as she wants to become even stronger. Go and talk to the sisters again to get the Cascade Badge.
+
+Go outside, then go inside the house left of the Pokémon Center. Go through the tunnel; it will lead you to the back of Cerulean City.
+
+## Catching Bulbasaur in Ash Gray
+
+While in the back area of Cerulean City, go all the way east, then head south through the narrow path. Next, go all the way west; you will find a small patch of grass. The path will eventually lead you to the Hidden Village’s entrance.
+
+Navigate your way through the forest, as there are no long forks along the path. It is important that you avoid the differently-colored patches of grass as they will lead you to a hole. If you have no Escape Rope or the Dig move, you cannot get out of it.
+
+[Link] 7 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+After going down the stairs, do not jump off the cliff. Instead, go north to find a small hut with a blue roof. A girl named Melanie stands guard, and she tells you that Bulbasaur would be a good addition to your team. However, you must fight it first.
+
+Interact with the Bulbasaur to fight it. Remember to lower its HP first and apply status conditions. Also, make sure to bring Poké Balls. I caught mine and named it “Boilbasaur.” You can now exit the village by heading south, jumping off the small cliff, and following the path.
+
+## Catching Charmander in Ash Gray
+
+Continue along the route until you find a Pokémon Center. Go inside it and talk to the boy wearing a blue shirt to the right; he will mention that he left a Charmander on a rock on this route. So, go back up from where you went through. You will find a Charmander sitting on a rock; take it.
+
+[Link] 8 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+After getting the Charmander, take it to the Pokémon Center to heal it. As you go outside the Pokémon Center, the boy you talked with before shows up and wants his Charmander back. After refusing, a fight will begin.
+
+Damian has level 16 Machop, Drowzee, and Rhyhorn. I suggest having Psychic or Flying-type moves for Machop, Bug or Dark-type moves for Drowzee, and Water or Grass-type moves for Rhyhorn.
+
+## Catching Squirtle in Ash Gray
+
+Head south, then go east. Suddenly, a cutscene starts; a gang of Squirtles with sunglasses on surrounds you while you are in a pit. After climbing up, continue heading east and go inside the hut with a blue roof. Talk to the man inside, and he will give you an Old Rod.
+
+Next, use the Old Rod on the fishing hole nearby. You will fish up a Squirtle, and you need to bring out Pikachu for an anticipated battle. However, the Squirtle will badly hurt your Pikachu and take it away. So, head east and get in the cave.
+
+The cave is dark inside. At the entrance, head all the way north until you encounter Squirtle and Pikachu. Talk to Squirtle; he will inform you that you need a Super Potion to heal up Pikachu. Thankfully, a Poké Mart exists at the other end of the cave’s exit.
+
+Head north, then east, and finally, south. You will eventually reach the cave’s other exit. Go inside the Poké Mart here and talk to the clerk inside; he will give you a Super Potion for free. Now, go back to your Pikachu in the cave and give it to him.
+
+[Link] 9 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+After healing Pikachu, the Squirtle becomes impressed by your compassion and joins your team. Exit the cave; you can now go back west. Head south, pass Officer Jenny to go through the Underground Tunnel, and reach Vermilion City.
+
+## Battling Electric-type Gym Leader Lt. Surge in Ash Gray
+
+Head inside the Vermilion Pokémon Gym to find two purple-haired engineers standing guard, and between them is a path blocked by lasers. The left engineer has level 21 Magnemite and Voltorb. Meanwhile, the right engineer has a level 23 Electabuzz. You need to defeat both of them to continue.
+
+[Link] 10 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+After defeating them, talk to them again to turn off the lasers blocking the way. You can now talk to Lt. Surge to battle him. He has a level 25 Raichu, so it would be best to have a Ground-type Pokémon for immunity. After defeating him, he will give you TM34 Shock Wave and the Thunder Badge.
+
+## St. Anne in Ash Gray
+
+Next, head over to the right across the Poké Mart to trigger a cutscene. Two girls approach you, and they will give you a free ticket to the St. Anne cruise. Then, head to the dock nearby and enter St. Anne. Go left and up the stairs. On the 2nd floor, you will find two staircases going up.
+
+The nearest one leads to the deck. If you want to be faithful to reenacting the anime, you can approach the man with a Ratticate to trade it with your Butterfree (if you have one).
+
+Meanwhile, the staircase on the other side leads to the St. Anne captain’s room. Talk to him. Then, go back to the first floor. Talk with James near the Magikarp vendor, and he will eventually leave. Then, head downstairs and fight off the Team Rocket grunts to reach the last room.
+
+Go inside the room and pick up the Poké Ball, which contains a Hatchet. Return upstairs, and Jesse and James of Team Rocket fame will stop you. A battle will then commence. They have level 25 Ekans and Koffing. After defeating them, they will blast off.
+
+## Pokémon Land in Ash Gray
+
+Go back to the St. Anne captain’s room and talk to the captain again. After talking to him, St. Anne will capsize, and you will be stuck in the room. Interact with the crack on the wall to use your Hatchet on it; a pathway will open up. Exiting the room will make you exit St. Anne.[Link] 11 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+Swim towards the Raft with Jesse and James to start a cutscene; a Gyarados appears and blasts them off. Then, the Gyarados will attack you. It is level 25, and you can capture it. After defeating or capturing it, a school of Gyarados makes you faint and lose all your Pokémon.
+
+You then wake up on a sandy beach. Go left through a narrow path; Zapdos will chase you further inside. Then, pick up the Poké Balls scattered in the area. After picking up all your Pokémon, talk to the lady on the west near the ship; she will take you to Porta Vista.
+
+## Porta Vista in Ash Gray
+
+Go north, and you will encounter two buildings beside each other: Moe’s Seaside Restaurant and Brutella’s Ocean Chateau. You can complete this side quest by talking to the owner of the first restaurant, then talking to the customers of the second restaurant.
+
+You will also find your rival and a couple of girls participating in a beauty contest; this event and the restaurants are references to episode 18.
+
+Continue further north to find a house up a hill. Enter it and talk to the old woman inside. She will give you a quest to stop a group of Tentacool from interrupting their construction; accept it. Then, go outside and walk through the small path to the left of the hill. You will reach a blonde man wearing a red shirt.
+
+Talk to him to trigger a fight between a level 25 Tentacruel. Tentacruel is a Water and Poison-type Pokémon, so Electric, Ground, or Psychic-type moves are super effective against it. After defeating it, talk to the man again to go to Maiden’s Peak.
+
+[Link] 12 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM Saffron City in Ash Gray Maiden’s Peak is an area where you can do a side quest; it is a reference to episode 20. When you are done, head to the left to enter Route 7. If you have a Butterfree, you can release it by talking to the lady in this route. It is a reference to episode 21, wherein Ash releases his Butterfree.
+
+Once you are done, go down the hill and head right; you will find a girl standing and giggling at you. Move past her to access Saffron City. Two girls will stop you and make you follow them to Silph Co. However, they are actually Jesse and James, and they send you to a trap room.
+
+Interact with the TV in front of you; a girl will appear and teleport you to the Pokémon Center. Next, head to the Saffron Pokémon Gym. An old man stops you, but enter anyway. Go through the door inside, and a purple-haired man will also stop you. He then challenges you to a Pokémon battle.
+
+He has two Drowzee, a Slowpoke, and a Mr. Mine; all of them are level 25. After defeating him, go through the door. It turns out that the little girl from before is a doll belonging to Sabrina, the gym leader. Accept her challenge, and a fight against a level 35 Abra will begin.
+
+No matter if you win or lose, the game will treat it as if you lost. Sabrina will shrink you into her miniature city. Head to the small passage left of the Pokémon gym, and the old man from before will appear.
+
+He will tell you to get a Ghost Pokémon in Lavender Town, and he will teleport you back to Saffron City. So, go east to Route 8.
+
+## Lavender Town in Ash Gray
+
+Go through Route 8 to reach Lavender Town. Once there, go inside the Pokémon Tower. The area is dark, but I will guide you through the darkness; from the entrance, go north until you reach a hole. Then, go left until you reach another hole. Go around it and head north until you find a door.
+
+Entering the room, you will find a long table. Reach the other end of the table and pull the rope between the two statues. Then, step back; a Haunter will take your soul to another room. Talk to the Haunter, and it will take you back to your body. After entering your body, Haunter will join you.
+
+[Link] 13 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+Go out of the room and head south; Team Rocket will try to stop you. This time, their Ekans and Koffing are level 28. After defeating them, they will blast off. Head south and go east until you reach the exit. Now, go back to Saffron City.
+
+## Battling Psychic-type Gym Leader Sabrina in Ash Gray
+
+Head back to the Saffron Pokémon Gym and talk to the old man blocking the door. He will go away after seeing your Haunter. Go inside and talk to Sabrina again. You try to show your Haunter, but it disappears. You will have a fight with the level 35 Kadabra again.
+
+[Link] 14 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+After the fight, Haunter reappears and makes Sabrina laugh. Then, she will give you the Marsh Badge as thanks. Now, head back to Route 7 and head west. On your way, you may encounter a Mankey; you need to have the Tasty Donut first to catch it as a Primeape. It is a reference to episode 25.
+
+## Battling Grass-type Gym Leader Erika in Ash Gray
+
+Continue heading west until you reach Celadon City. Enter the Celadon Perfume Store and talk to the girl near the counter. After talking with her, leave the store and talk with the girl blocking the doors of the Celadon Pokémon Gym. Then, head left; Jesse, James, and Meowth of Team Rocket will interrupt you.
+
+They will dress you up to help you in the gym. Talk to the girl near you to battle her. She has level 23 Bellsprout and Weepinbell. Cut the small tree using your Hatchet and go in. You need to defeat at least one of the girls in the way.
+
+[Link] 15 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+Talk to Erika to start a battle. She has a level 35 Tangela, level 32 Weepinbell, and level 38 Gloom. Ice, Fire, or Flying-type moves would be great against her. After defeating her, Team Rocket will interrupt and burn down the gym.
+
+Cut the small tree on the left, then head north and east to find Erika’s Gloom. After rescuing it, go back west, then head south. Break the small tree blocking the exit to get out of the burning gym. Erika will meet you at the entrance. She thanks you for saving her Gloom and gives you the Rainbow Badge.
+
+## Diglett’s Tunnel in Ash Gray
+
+You can find more side quests in this city, particularly references to episodes 27 and 28. After you are done, head west to enter Route 13. A Hitmonchan will appear; interacting with it will trigger another side quest, which is a reference to episode 29.
+
+Continue heading west until you reach Route 14. This area also has side quests which are references to episodes 30 and 31. When you are done, go through the hill and inside Diglett’s Tunnel. Find your way to the other end of the tunnel. Once outside, head to the Underground Path southeast of the exit.
+
+As you approach the Underground Path, Team Rocket will stop you and start a battle. This time, their Pokémon has evolved; their Ekans is now a level 30 Arbok, while their Koffing is now a level 30 Weezing. After defeating them, they will blast off again.
+
+Go through the Underground Tunnel to enter Route 9 and head to the bridge east of you. Then, go inside the building across the bridge; this building is the Fuschia Pokémon Gym.
+
+[Link] 16 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM Battling Poison-type Gym Leader Koga in Ash Gray Go behind the left statue and read its sign. Then, press B instead of A to get through the dialogue to open up the gym. Inside are invisible walls, but you can make them briefly visible by interacting with them. Make your way through this invisible maze.
+
+Do not pick the Poké Ball on the ground, as it is a level 25 Voltorb (unless you want one). Halfway through, a girl will start a fight with you. She has a level 32 Venonat, a Bug and Poison-type Pokémon. Continue through the maze after defeating her.
+
+Go to the center of the yellow area to trigger a cutscene. The gym leader Koga will appear and battle you. He has a level 40 Venomath and a level 38 Golbat. Koga’s specialty is Poison-type Pokémon, so I recommend having Psychic- type moves. After defeating him, he will give you the Soul Badge.
+
+## Safari Zone in Ash Gray
+
+Go outside and head east until you reach Fuchsia City. North of the city is the Safari Zone; go inside. You need to pay 500 Pokémon Dollars to enter the area. Then, you need to go to the warden; note that you can only have 500 steps inside, so you need to go there without getting kicked out.
+
+At the entrance, go west and enter Area 1. Continue west until you find some stairs on a mound. Go up, then go down the stairs to your left. Go north until you find another mound with stairs; go over it. Then, go north and west around the mound. At this point, you will enter Area 2.
+
+Go west and go up the stairs of the second mound. Go over it, then head north. Simply follow the path since there are no forks at this point. You will soon come to Team Rocket near a lake, attempting to catch a Dratini. A battle will[Link] 17 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM then commence. They have level 34 Arbok and Weezing.
+
+After defeating them, a Dragonair pops up and blasts them off. The safari’s warden will thank you and give you a Dragon Scale. Exit the safari afterward.
+
+## Route 11 (episodes 37 to 39) in Ash Gray
+
+Head to Fuchsia City’s Pokémon Center (follow the left path from the Safari Guide Hut) and talk to Nurse Joy at the counter. She will give you a Bicycle and some medicine. She wants you to give the medicine to the Pokémon Center in Sunny Town.
+
+Exit the Pokémon Center, ride your bike, and head to Route 11 (south of the Pokémon Center). Then, go through the bridge until you reach the exit. Enter the Pokémon Center on this end and give the medicine to Nurse Joy on the counter; she will let you keep the bike.
+
+Along the route, you will find a mansion and a Jynx; these are side quests that are references to episode 37 and the holiday specials. Also, you will encounter a Pikachu on your way to Route 12. Upon entering a forest, you will find a group of Pikachu.
+
+## Route 12 (episodes 40 to 56) in Ash Gray
+
+You can leave Pikachu here as a reference to episode 39, though the Pikachu will return to you as you exit the forest.
+
+In this route, you can find a lost Eevee and a farmer distraught by the Snorlax blocking the river. They are side quests that reference episodes 40 and 41. Continue heading west until you meet a maze of fences.
+
+[Link] 18 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM There are two exits in this maze; one of them leads to Dark Town. This area is a side quest referencing episode 42. The other exit will lead to the Traveling Pokémon Circus; it is referencing episode 43. Continue west until you reach Exeggutor’s Forest. Go through it and exit the other way.
+
+Going north will lead you to Mossgreen Village; this area is a side quest referencing episode 44. Continue going west through the trees, and you will eventually reach Neon Town; this area is a side quest referencing episode 45.
+
+Continue west until you reach Grampa Canyon. Go down the stairs to find your rival; he will give you a pickaxe for digging fossils. In this area, you can find a rock that, when broken, leads to Aerodactyl; it is referencing episode 46. Route 12 is full of references to episodes 47 to 56.
+
+## Breeding Center Secret in Ash Gray
+
+Further west, you will find a breeding center and a restaurant; you need to go to the breeding center and deposit a Pokémon. I deposited my Primeape I named “Pacquiao.” After depositing your Pokémon, go outside and go back inside; you will notice that the couple is gone.
+
+[Link] 19 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+Go to the computer on the left and interact with it; it will open up a secret passage. Go down and navigate your way through. Eventually, you will find Jessie and James infiltrating the center. They will notice you and start a fight with you.
+
+They have level 40 Victreebel, Arbok, Weezing, and Lickitung. After defeating them, they will blast off again. Continue the path until you reach the pair; it turns out that they are Team Rocket members named Cassidy and Butch. They will start a battle with you.
+
+They have level 42 Primeape and Raticate; the former is a Fighting-type Pokémon while the latter is a Normal-type Pokémon. So, bring Pokémon with you that have Flying and Fighting-type moves. After defeating them, they will return the Pokémon you gave them. Then, they will launch away.
+
+## Cinnabar Island in Ash Gray
+
+Head out and go south until you reach the ferry heading to Cinnabar Island. Once inside, your rival will approach you and tell you that Cinnabar Island is a tourist destination. Then, he gets onto the ferry. Talk to the sailor in front of the ferry to ride it and go to Cinnabar Island.
+
+Go outside, then head to the Cinnabar Pokémon Gym. However, it is locked. So, talk to the man with long blonde hair, black sunglasses, and a mustache in front of the gym. He will tell you that the gym leader Blaine closed the gym because of the tourists. He then invites you to the Big Riddle Inn.
+
+Go to the Big Riddle Inn and talk to the man again who is attending the counter. He denies you a room because the Pokémon Lab is under attack. Head out to the Pokémon Lab, and you will see Jessie, James, and Meowth from Team Rocket in front of the building. Talk to them to trigger a Pokémon battle.
+
+[Link] 20 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM They still have the same Pokémon: Victreebel, Arbok, Weezing, and Lickitung. This time, they are level 42. After defeating them, they will blast off again. Go back to the Big Riddle Inn and talk to the man once more. He will tell you a secret; gym leader Blaine built a gym where “firefighters could never win.”
+
+## Battling Fire-type Gym Leader Blaine in Ash Gray
+
+Head north and enter the hot springs. Then, interact with the middle section of the wall; you will notice that the wall is loose, and an entrance will form. Enter the cave and go down the ladder. Below, you will find the man in charge of the Big Riddle Inn.
+
+Talking to him will reveal that he is Blaine wearing a disguise. Before your battle with Blaine starts, you need to only have three Pokémon with you. So, choose three to deposit and three to keep for the battle. As for me, I kept my Pikachu, Blastoise, and Pidgeot.
+
+He also has three Pokémon. The first one is a level 42 Ninetales, level 40 Rhydon, and level 45 Magmar. All of them are weak to Water-type moves. After defeating him, he will give you the Volcano Badge. You can then exit the cave.
+
+## Rock Tunnel to Cerulean City in Ash Gray
+
+Talk to the old man standing near the ocean west of the hot springs; he will give you a Raft. You can use the Raft as a substitute for the HM Surf, similar to how the Hatchet and Pickaxe are substitutes for HM Cut and Rock Smash, respectively.
+
+Head to the other side, i.e., east of the hot springs. A cutscene will play involving a wild Wartortle. After the cutscene, use your Raft to surf the waters on this side. The first island you will encounter will have the wild Wartorle and a couple of shells; it is a side quest referencing episode 60.[Link] 21 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM Continue heading north until you encounter a rock tunnel leading to Cerulean City. Enter the tunnel and head east until you reach a ladder going down. Then, navigate your way through this area until you find a ladder going up.
+
+Once up, follow the path and destroy a rock blocking the way to reach a ladder going down. After going down, continue going east until you find another ladder going up. Finally, go west and destroy the blocking rock to find the exit.
+
+## Going back to Viridian City in Ash Gray
+
+You will find a PC once outside; interacting with it will strike up a phone conversation with Misty’s Sisters. They will tell you that they are looking for Misty. After the conversation, Misty will be in Cerulean City; this event is a side quest referencing episode 61.
+
+Now, you need to go back to Viridian City. So, head west to retrace your steps. Upon arriving at the entrance of Mt. Moon, a wild Clefairy will steal your Pickaxe. Go inside Mt. Moon and follow the path. You will then stumble upon Seymour the Scientist again.
+
+This time, a spaceship is blocking your way. Talk to Seymour to trigger a cutscene. He tells you that the Clefairy stole your Pickaxe to chip the walls. After the wall is gone, the Clefairies and Seymour will get in the spaceship and take off.
+
+Go east to find a new shortcut and head to the ladder going up. Then, go further east until you stumble into a ladder going down. Below, head south until you hit a wall. Then, head west until you find the exit. It will take you to Route 4. Follow the straightforward path until you arrive at Pewter City.
+
+You can rest up and buy some stuff you need while in here. After you are done, head south to Route 2. You do not
+
+[Link] 22 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM need to enter the Viridian Forest. Instead, use your Hatchet to chop down the small tree nearby the entrance to the forest.
+
+Enter this new area and go all the way south. Eventually, you will arrive at a dead end. Chop down the small tree nearby the dead end and head south to reach Viridian City.
+
+## Battling Viridian Pokémon Gym’s Team Rocket in Ash Gray
+
+Approach the doors to Viridian Pokémon Gym, and your rival will approach you. He will go first inside the gym. Approach the doors again; initially, the guards will stop you. However, he lets you in after your rival’s battle is over.
+
+Once inside, you will find your rival on the ground. Talk to him, and he mentions a powerful and evil Pokémon never seen before. Then, Jessie, James, and Meowth appear and tell you that they are now the new gym leaders. A battle will start soon after.
+
+They have level 50 Machamp, Kingler, and Rhydon. In the official games, the Viridian Gym is centered around Ground-type Pokémon. However, in this game, there is no clear theme since Machamp is a Fighting-type, Kingler is a Water-type, and Rhydon is a Ground and Rock-type Pokémon.
+
+After defeating them, another battle will begin. This time, they will bring out their usual team: Victreebel, Weezing, Arbok, and Lickitung. They are all level 45. After defeating them a second time, they will blast off and leave behind the Earth Badge, which you will take.
+
+## Going back to Pallet Town in Ash Gray
+
+[Link] 23 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM Go out of the building with your rival as the building collapses. After healing up, go south to head back to Route 1. Make your way back to Pallet Town. As you walk through the narrow passage linking Route 1 and Pallet Town, you will be pushed back by an invisible force.
+
+It reveals itself as a Mr. Mime. A girl appears and stops the Pokémon. A battle will then begin against her. She has Mr. Mime, and it is level 45. The best approach would be to use Bug, Ghost, or Dark-type moves. After defeating her, she leaves.
+
+Continue your way to Pallet Town and visit your home. You will notice your mom has a Mr. Mime now. Talk to her, and she will tell you to go to Prof. Oak. So, go out and head to Prof. Oak’s Research Lab. Inside, you will find Prof. Oak and your rival sitting around the table.
+
+Talk to Prof. Oak, and he will tell you that both of you are eligible for the Pokémon League. Suddenly, an explosion occurs in the middle of your conversation. Oak and your rival hurry to the back; follow them. It is Team Rocket, and they will start a Pokémon battle with you.
+
+Their team composition is the same (i.e., Victreebel, Weezing, Arbok, and Lickitung), but now they are level 47. After defeating them, they will blast off. Your rival will head home. Oak tells you to visit the Seafoam Islands since the Pokémon League is not ready yet.
+
+## Prof. Westwood and Victor in Ash Gray
+
+Go outside and head south to the waters; use your Raft to surf through. Then, head east until you end up on a large island. On it, you will find a blue-roofed house between two trees. Inside, you will find Prof. Westwood. Talk to him to trigger a side quest referencing episode 66.
+
+[Link] 24 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM You will also find a Pikachu named Puka on a hill near an empty house. Now, go to the waters on the east and use your Raft to surf. Continue heading east to the dark waters. A cutscene starts; the currents become too rough, and you lose consciousness as your Raft tosses you.
+
+You awake and find a surfer named Victor taking care of you. Then, he and Puka surf across a big wave to plant their flag on a mountain; this event is a reference to episode 67. After the event, use your Raft again to the east. This time, the strong currents will be absent.
+
+## New Island in Ash Gray
+
+Follow the path until you reach Route 22. Continue over the hill until a cutscene starts involving a Dragonite. The Pokémon carries an invitation to New Island; accept it. It will suddenly rain. Continue and go to the Old Shore Wharf. Talk to Officer Jenny inside.
+
+After talking to her, head outside and have a Water-type Pokémon on your team. Then, use your Raft to surf on the water. Since the sea is too harsh, you will go underwater and ride your Water-type Pokémon. Go south, then southwest to find an entrance; you will arrive at New Island.
+
+Head inside the mansion and talk to Nurse Joy; she will let your Pokémon out. Then, you can fight the other trainers in the room. Their Pokémon are mostly level 45 with varying types, so having a diverse team will help you out. You can talk to Nurse Joy to heal your party from time to time.
+
+## Battling Mewtwo in New Island in Ash Gray
+
+After defeating everyone, talk to Nurse Joy, and she will tell you that the master is ready. The master is Mewtwo, and after a speech about hating humans, Mewtwo will start a battle with you. He has a level 75 Venusaur, Blastoise, and[Link] 25 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM Charizard.
+
+It will be difficult; I would advise using moves that inflict status conditions like Toxic or Thunder Wave. I also advise you to use potions and spam Double Team. After defeating Mewtwo, he will capture your Pokémon. Go down the hole that opened at the top-right corner of the room.
+
+You will retrieve all your Pokémon after the cutscene. Head to the exit north of the room; all the Pokémon will fight their clones. Talk to Mewtwo. Initially, he will reject you. Talk to him again, and Mew will appear. They will fight; you need to move in between them.
+
+You then turn to stone after interfering in their fight. Do not worry because the other Pokémon will feel bad for you, and their tears will bring you back to life. After Mewtwo self-reflects, he erases your memory and sends you back to Old Shore Wharf.
+
+[Link] 26 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+## Xanadu Nursery in Ash Gray
+
+Head to the Pokémon Center, go to the PC and use the Warp System to warp to Pallet Town. Go down, and your mom will talk to you. She asks you to go to Xanadu Nursery in Viridian City to get some fertilizer. Next, head to your PC and use the Warp System to warp to Viridian City.
+
+Walk to Xanadu Nursery (the building with the blue dome). A blonde man named Potter will come out to talk to you. After the conversation, get inside. Interact with the giant plant in the middle of the room. A girl named Florinda will appear; follow her to the back of the building.
+
+Talk to her Gloom first to heal your Bulbasaur. Then, talk to Florinda, and a Pokémon battle will start. She has a level 55 Gloom, so Fire, Flying, or Ice-type moves would do wonders. After defeating her, she will give you the fertilizer; go back to Pallet Town and give it to your mom.
+
+## Victory Road in Ash Gray
+
+Warp back to Viridian City and head west to access Route 16. Before going to Victory Road, you need to access Route 18 first by cutting the small tree on this route using your Hatchet. Inside are some important quests that you need to do first, such as confronting Bruno and assisting the archeologists.
+
+Warp back to Pallet Town after completing the quests and talk to Prof. Oak in his lab. Then, head back to Route 16. After a battle with Otoshi’s level 50 Marowak and Team Rocket’s usual team, a cutscene between you and your rival will start. Then, head inside Victory Road.
+
+[Link] 27 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+At the entrance, go left and smash the rock blocking the way. Go north and head to the ladder going up. Go up the stairs of the mound and reach its end, where you can see a ladder going up (you need to break the rock blocking the path first).
+
+Go up the ladder, then go north to find another ladder going down. Go pass through the trainer after battling him, and you will arrive at the Pokémon League’s front gate.
+
+## Pokémon League in Ash Gray
+
+Go inside and talk to the guard to go to the Indigo Plateau. As you follow the path, you will be asked if you want to be a torchbearer; accepting it will trigger a battle with Team Rocket later on with their usual party. Continue north until you reach the main building.
+
+Go inside and talk to the lady at the receptionist. She will tell you that you need to be victorious in four fields: Rock, Grass, Water, and Ice. After winning, you advance to the Indigo Stadium. Your first opponent is Mandi in the Water field. Talk to your rival for good measure.
+
+## Preliminary Round in Ash Gray
+
+Talk to the guard of the Water field to face Mandi. They have the following Pokémon:
+
+Level 40 Exeggutor Level 45 Seadra Level 50 Golbat
+
+[Link] 28 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM I suggest bringing Pokémon with Electric and Ice-type moves; Seadra and Golbat are weak to Electric-type moves, while Golbat and Exeggutor are weak to Ice-type moves. Bringing a Steel-type Pokémon would also work for immunity against Poison-type attacks against you.
+
+Go back to the receptionist, and you will face Kevin in the Rock field. Talk to the guard of the said field to face him. They have the following Pokémon:
+
+Level 50 Electrode Level 55 Cubone Level 58 Nidorino
+
+Bringing a Pokémon with a high Attack stat and an Earth-type move like Earthquake will wreck Electrode and Nidorino. For Cubone, Water, Grass, or Ice-type moves can bring it down. After defeating him, talk to the receptionist; your next opponent is Pete Pebbleman in the Ice field.
+
+## They have the following Pokémon:
+
+Level 55 Graveler Level 60 Cloyster Level 62 Arcanine
+
+Water-type attacks can cover Graveler and Arcanine neatly, so you only have to worry about Cloyster. If your Water- type Pokémon has a Grass-type Hidden Power, or a Fighting-type move, you can even use it without the need to switch to another one.
+
+Talk to the receptionist; your fourth opponent is Jeanette Fisher in the Grass field. They have the following Pokémon:
+
+Level 60 Beedrill Level 65 Scyther Level 70 Bellsprout
+
+[Link] 29 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+She has Bug and Grass-type Pokémon, so having Fire or Flying-type moves will make you breeze through. A great plus would be bringing in a Pokémon that can change the environment to fit your needs.
+
+After a cutscene involving Team Rocket and a new character named Ritchie, your final opponent in the preliminary round is your new friend. Talk to Ritchie; your battle is in the Indigo Stadium. However, Team Rocket ambushes you with their usual party.
+
+After defeating them, you fly to the venue. Then, you start to battle Ritchie, who has:
+
+Level 60 Butterfree Level 65 Pikachu Level 62 Charmander
+
+Ground-type moves can cover Pikachu and Charmander, but it will not hit the Butterfree. Fortunately, you can bring a Ground and Rock-type Pokémon like Graveler or Rhydon with moves of the same typing, because Rock-type moves will definitely hit it.
+
+If you want to be faithful to the anime, you can throw the game and purposefully lose to Ritchie. If not, you will proceed to fight Assunta.
+
+## Indigo League Full Battles in Ash Gray
+
+Assunta has the following Pokémon:
+
+Level 60 Drowzee
+
+[Link] 30 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM Level 62 Rhydon Level 62 Raticate Level 63 Tentacool Level 62 Venomoth Level 65 Ivysaur
+
+Half of her Pokémon are Poison-type Pokémon, so you can bring in Psychic-type moves to counter them. As for the rest, you can bring in Bug-type moves for Drowzee and Fighting-type moves for Rhydon and Raticate.
+
+## After defeating her, you will face Melissa next.
+
+Level 68 Porygon Level 70 Golem Level 65 Magneton Level 65 Primeape Level 65 Pinsir Level 68 Flareon
+
+As before, having a Fighting-type move will prove useful, and in this case, it is useful against Porygon, Golem, and Magneton. You can deal with Primeape and Pinsir with Flying-type moves.
+
+After facing Melissa, you will proceed to the final round. Winning this battle will rank you as the number one trainer in Kanto. Your final competitor is Gideon, and he has the following Pokémon:
+
+Level 70 Seadra Level 72 Dragonair Level 70 Onix Level 68 Kangaskhan Level 68 Fearow Level 75 Charizard
+
+For this battle, I suggest bringing Electric-type moves as they are super effective against Seadra, Fearow, and Charizard. As for the others, Fighting-type moves are super effective against Onix and Kangaskhan, while Ice-type moves work great for Dragonair.
+
+You can bring a Fighting-type Pokémon that can learn Ice Punch and Thunder Punch to pair well with other Fighting- type moves.
+
+## Elite Four in Ash Gray
+
+[Link] 31 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+After being number one in Kanto, you can proceed to the Elite Four. You can go at it in any order, but you will face the people below.
+
+## Lorelie (Ice expert in the Ice field)
+
+Level 80 Dewgong Level 80 Jynx Level 82 Kingler Level 84 Lapras Level 82 Cloyster Level 82 Slowbro
+
+This battle is relatively simple; four of her Pokémon are weak to Fighting-type moves (Dewgong, Lapras, Cloyster, and Slowbro). Alternatively, you can fight him using Electric-type moves against Dewgong, Kingdra, Lapras, and Cloyster.
+
+## Bruno (Fighting expert in the Rock field)
+
+Level 82 Primeape Level 80 Hitmonchan Level 82 Poliwrath Level 84 Machamp Level 80 Onix Level 80 Hitmonlee
+
+Five out of six of his Pokémon are Fighting-type Pokémon with an exception of Onix. So, instead of using a Flying- type Pokémon, I suggest bringing one that knows Psychic-type moves.
+
+[Link] 32 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM Agatha (Ghost expert in the Grass field) Level 82 Golbat Level 82 Nidoking Level 84 Gengar Level 80 Arbok Level 82 Nidoqueen Level 80 Muk
+
+Weirdly enough, only one Pokémon from her team is a Ghost-type Pokémon (Gengar); the others are Poison-type Pokémon. Thus, it is vital for you to have a Ground-type move against them. It will work except for Golbat due to its Flying type.
+
+## Drake (Dragon expert in the Water field)
+
+Level 80 Gyarados Level 84 Dragonite Level 82 Aerodactyl Level 82 Scyther Level 80 Seadra Level 82 Charizard
+
+Like Agatha, only one of his Pokémon are Dragon-type (Dragonite). Gyarados is a Water and Flying type, Aerodactyl is a Rock and Flying type, Scyther is a Bug and Flying type, Seadra is a Water type, and Charizard is a Fire and Flying-type Pokémon; you would be better off bringing an Electric-type move.
+
+## The Pokémon Champion in Ash Gray
+
+Slate is the Pokémon Champion, and he has the following Pokémon:
+
+Level 82 Kangaskhan Level 80 Poliwrath Level 84 Electrode Level 84 Fearow Level 84 Arcanine Level 88 Venusaur
+
+He is the Pokémon Champion, so you can expect him to have a diverse team. Despite the diversity, there are still common weaknesses among them. I suggest bringing Ground and Electric-type moves; Ground-type moves can cover Electrode and Arcanine, while Electric-type moves can cover Fearow and Poliwrath.
+
+Alternatively, you can go for Psychic and Rock-type moves, although they are more uncommon. If you do this strategy, Psychic-type moves will work great against Venusaur and Poliwrath, while Rock-type moves will work against Arcanine and Fearow.
+
+After the Pokémon League, you can play the post content, including the Orange Islands.
+
+FAQs
+
+[Link] 33 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM Question: Is Pokémon Ash Gray a real game?
+
+Answer: Yes, Pokémon Ash Gray is a real game, but it is not an official game. Instead, it is a ROM hack of Pokémon Fire Red. Its creator, metapod23, published this project as early as 2009.
+
+## Question: Is Pokémon Ash Gray complete?
+
+Answer: Yes, the game is complete since the creator has finished updating it. The story barely has any loose ends, thanks to it being a remodel based on the Pokémon anime.
+
+## Question: How do I get a bike in Pokémon Ash Gray?
+
+Answer: To get a bike, you must first stop Team Rocket in Fuchsia City’s Safari Zone as they are trying to capture a Dratini. The warden will be thankful for your efforts. Then, head to the Pokémon Center in the same city and talk to Nurse Joy. She wants you to give medicine to the other Pokémon Center, so she gives you a bike to traverse the bridge.
+
+## Conclusion: Is Pokémon Ash Gray a good game?
+
+I can say with complete confidence that Pokémon Ash Gray is a great and well-polished ROM hack. I think it deserves all the praise it gets. I love its implementation of episodes as side quests because it does not punish the player if they do not want to do a certain event. With this game, you can get close to Ash’s journey in the anime. If you want that experience, Pokémon Ash Gray would be for you.
+
+My biggest irk with this game is that it can be easy to become stuck or lost in them. For example, the Hidden Village has traps with no exits unless you have an escape rope or the Dig move. I find myself being stuck at times because I do not know where to go or what to do to progress the story. However, a good rewatch of the anime might refresh your mind.
+
+About Latest Posts
+
+[Link] 34 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+Arthur has been in the writing business for years now, and he loves writing about his hobbies, one of which is video games. He loves Animal Crossing, Stardew Valley and other relaxing games of this nature, namely the Pokémon series which is his biggest love within gaming. He is also a software programmer, so he understands the craft and effort invested in the gaming medium. He is also fond of manga and anime, being an avid follower of One Piece and Kaguya-Sama, to name a few.
+
+[Link] 35 Pokemon Ash Grey Guide - Pok Universe 2/24/23, 12:31 AM
+
+## Latest posts by Arthur Monteclar (see all)
+
+## Pokemon Radical Red Guide - December 10, 2022
+
+Pokemon Ash Grey Guide - December 7, 2022 Pokemon Snakewood Guide - October 30, 2022
+
+[Link] 36
+
+## You might also like
+
+Pokemon Ultra Shiny Gold Sigma Guide
+
+100% (1)
+
+Pokemon Ultra Shiny Gold Sigma Guide
+
+9 pages
+
+Pokémon Light Platinum Walkthrough Guide
+
+100% (1)
+
+Pokémon Light Platinum Walkthrough Guide
+
+49 pages
+
+Pokemon Ash Gray Complete Walkthrough
+
+75% (4)
+
+Pokemon Ash Gray Complete Walkthrough
+
+17 pages
+
+Pokémon Flora Sky Walkthrough Guide
+
+67% (9)
+
+Pokémon Flora Sky Walkthrough Guide
+
+103 pages
+
+Pokemon Dreams Walkthrough v1.5.1
+
+No ratings yet
+
+Pokemon Dreams Walkthrough v1.5.1
+
+146 pages
+
+Pokemon Dark Rising Walkthrough Guide
+
+No ratings yet
+
+Pokemon Dark Rising Walkthrough Guide
+
+64 pages
+
+Pokémon Cloud White 2 Official Guide
+
+0% (1)
+
+Pokémon Cloud White 2 Official Guide
+
+100 pages
+
+Pokemon Cloud White Official Game Guide
+
+56% (18)
+
+Pokemon Cloud White Official Game Guide
+
+118 pages
+
+Shiny Gold Sigma Guide
+
+83% (23)
+
+Shiny Gold Sigma Guide
+
+101 pages
+
+Kanlara Ultimate Walkthrough Guide
+
+No ratings yet
+
+Kanlara Ultimate Walkthrough Guide
+
+108 pages
+
+Pokémon GS Chronicles Locations Guide
+
+100% (4)
+
+Pokémon GS Chronicles Locations Guide
+
+39 pages
+
+Red Chapter Bonus Chapters Guide
+
+100% (1)
+
+Red Chapter Bonus Chapters Guide
+
+3 pages
+
+Pokémon Locations by Route Guide
+
+100% (4)
+
+Pokémon Locations by Route Guide
+
+8 pages
+
+Delta Emerald Pokémon Locations Guide
+
+50% (2)
+
+Delta Emerald Pokémon Locations Guide
+
+30 pages
+
+Pokémon Resolute Complete Walkthrough
+
+No ratings yet
+
+Pokémon Resolute Complete Walkthrough
+
+4 pages
+
+CloudWhite3 OfficialGameGuide en
+
+No ratings yet
+
+CloudWhite3 OfficialGameGuide en
+
+115 pages
+
+Pokemon Ultra Violet Guide 1 50
+
+100% (5)
+
+Pokemon Ultra Violet Guide 1 50
+
+50 pages
+
+Pokemon Gaia v3.2 Walkthrough Guide
+
+100% (2)
+
+Pokemon Gaia v3.2 Walkthrough Guide
+
+107 pages
+
+Pokémon Gaia Evolution Methods Guide
+
+100% (5)
+
+Pokémon Gaia Evolution Methods Guide
+
+4 pages
+
+50% (2)
+
+New Tab
+
+30 pages
+
+Radical Red Pokémon Locations Guide
+
+No ratings yet
+
+Radical Red Pokémon Locations Guide
+
+144 pages
+
+Pokémon Sors Wild Encounter Guide
+
+40% (5)
+
+Pokémon Sors Wild Encounter Guide
+
+27 pages
+
+Lauren Region Walkthrough for Light Platinum
+
+100% (2)
+
+Lauren Region Walkthrough for Light Platinum
+
+31 pages
+
+Pokémon Crystal Advance Documentation
+
+100% (6)
+
+Pokémon Crystal Advance Documentation
+
+21 pages
+
+Pokémon Item Modifier Cheat Codes
+
+No ratings yet
+
+Pokémon Item Modifier Cheat Codes
+
+13 pages
+
+Red Chapter TMs and HMs Locations
+
+No ratings yet
+
+Red Chapter TMs and HMs Locations
+
+3 pages
+
+Pokémon Altered: Unique Evolutions & Types
+
+50% (6)
+
+Pokémon Altered: Unique Evolutions & Types
+
+36 pages
+
+Eclipse Pokémon Species Guide
+
+No ratings yet
+
+Eclipse Pokémon Species Guide
+
+4 pages
+
+Pokemon Resolute v2.78 Walkthrough Guide
+
+100% (1)
+
+Pokemon Resolute v2.78 Walkthrough Guide
+
+157 pages
+
+Pokemon Sors v1.2 Walkthrough Guide
+
+100% (2)
+
+Pokemon Sors v1.2 Walkthrough Guide
+
+129 pages
+
+Pokémon Radical Red Evolution Guide
+
+0% (1)
+
+Pokémon Radical Red Evolution Guide
+
+7 pages
+
+Radical Red 4.1 TM Locations Guide
+
+No ratings yet
+
+Radical Red 4.1 TM Locations Guide
+
+38 pages
+
+Fire Red Omega Trainer Guide
+
+No ratings yet
+
+Fire Red Omega Trainer Guide
+
+47 pages
+
+Pokémon Dark Violet Evolution Guide
+
+36% (11)
+
+Pokémon Dark Violet Evolution Guide
+
+7 pages
+
+Pokemon Flora Sky Walkthrough Guide
+
+100% (5)
+
+Pokemon Flora Sky Walkthrough Guide
+
+86 pages
+
+Pokémon Adventure: Red Chapter Update
+
+No ratings yet
+
+Pokémon Adventure: Red Chapter Update
+
+217 pages
+
+Radical Red TM Locations Guide
+
+100% (2)
+
+Radical Red TM Locations Guide
+
+93 pages
+
+Pokémon Sors Evolution Guide v1.3
+
+100% (2)
+
+Pokémon Sors Evolution Guide v1.3
+
+2 pages
+
+Pokémon Crystal Advance Overview
+
+100% (1)
+
+Pokémon Crystal Advance Overview
+
+21 pages
+
+Pokémon Encounter Rates by Route
+
+100% (2)
+
+Pokémon Encounter Rates by Route
+
+27 pages
+
+Pokémon Shiny Gold Sigma Walkthrough
+
+No ratings yet
+
+Pokémon Shiny Gold Sigma Walkthrough
+
+126 pages
+
+Soothing Silver Pokémon Guide
+
+No ratings yet
+
+Soothing Silver Pokémon Guide
+
+84 pages
+
+Pokémon SunGold & MoonSilver Changes
+
+No ratings yet
+
+Pokémon SunGold & MoonSilver Changes
+
+30 pages
+
+Kanlara Ultimate Wild Pokémon Guide
+
+100% (3)
+
+Kanlara Ultimate Wild Pokémon Guide
+
+5 pages
+
+Pokemon Glazed Walkthrough 8.6.3
+
+No ratings yet
+
+Pokemon Glazed Walkthrough 8.6.3
+
+116 pages
+
+Pokémon Emerald Legacy Pokedex Data
+
+50% (2)
+
+Pokémon Emerald Legacy Pokedex Data
+
+331 pages
+
+Pokémon Light Platinum Walkthrough Guide
+
+0% (1)
+
+Pokémon Light Platinum Walkthrough Guide
+
+67 pages
+
+Hardcore Mode Changes in Radical Red 4.1
+
+100% (2)
+
+Hardcore Mode Changes in Radical Red 4.1
+
+114 pages
+
+Pokémon Saiph Locations Guide
+
+No ratings yet
+
+Pokémon Saiph Locations Guide
+
+23 pages
+
+Guía Pokémon Ash Gray en Español
+
+No ratings yet
+
+Guía Pokémon Ash Gray en Español
+
+47 pages
+
+No ratings yet
+
+AshGray Guide
+
+114 pages
+
+Ash Gray Oak Guide
+
+No ratings yet
+
+Ash Gray Oak Guide
+
+21 pages
+
+Pokémon Fire Ash Walkthrough v3.4
+
+82% (11)
+
+Pokémon Fire Ash Walkthrough v3.4
+
+309 pages
+
+Pokemon FireRed Version Walkthrough
+
+No ratings yet
+
+Pokemon FireRed Version Walkthrough
+
+252 pages
+
+Pokemon Fire Ash Walkthrough v2.25
+
+No ratings yet
+
+Pokemon Fire Ash Walkthrough v2.25
+
+326 pages
+
+Guía de Pokémon Light Platinum en Español
+
+No ratings yet
+
+Guía de Pokémon Light Platinum en Español
+
+71 pages
+
+Ash Gray Oak Guide
+
+No ratings yet
+
+Ash Gray Oak Guide
+
+21 pages
+
+Pokémon Red and Blue Strategy Guide
+
+No ratings yet
+
+Pokémon Red and Blue Strategy Guide
+
+12 pages
+
+Pokemon Colosseum: Nature & Snag Guide
+
+No ratings yet
+
+Pokemon Colosseum: Nature & Snag Guide
+
+340 pages
+
+Pokémon Yellow: 151 ROM Hack Guide
+
+No ratings yet
+
+Pokémon Yellow: 151 ROM Hack Guide
+
+5 pages

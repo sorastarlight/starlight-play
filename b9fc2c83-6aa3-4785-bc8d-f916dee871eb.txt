@@ -1,0 +1,1673 @@
+Update auth service config | Management API Reference | Supabase Docs
+
+## Updates a project's auth config
+
+patch`/v1/projects/{ref}/config/auth`
+
+### OAuth scopes
+
+- auth:write
+
+### The fine-grained token must include the following permissions to access this endpoint:
+
+- auth_config_write
+- project_admin_write
+
+### Path parameters
+
+- ref
+
+Required
+
+string
+
+Project ref
+
+Details
+
+### Body
+
+- site_url
+
+Optional
+
+string
+
+Details
+- disable_signup
+
+Optional
+
+boolean
+- jwt_exp
+
+Optional
+
+integer
+- smtp_admin_email
+
+Optional
+
+string
+
+Details
+- smtp_host
+
+Optional
+
+string
+- smtp_port
+
+Optional
+
+string
+- smtp_user
+
+Optional
+
+string
+- smtp_pass
+
+Optional
+
+string
+- smtp_max_frequency
+
+Optional
+
+integer
+- smtp_sender_name
+
+Optional
+
+string
+- mailer_allow_unverified_email_sign_ins
+
+Optional
+
+boolean
+- mailer_autoconfirm
+
+Optional
+
+boolean
+- mailer_subjects_invite
+
+Optional
+
+string
+- mailer_subjects_confirmation
+
+Optional
+
+string
+- mailer_subjects_recovery
+
+Optional
+
+string
+- mailer_subjects_email_change
+
+Optional
+
+string
+- mailer_subjects_magic_link
+
+Optional
+
+string
+- mailer_subjects_reauthentication
+
+Optional
+
+string
+- mailer_subjects_password_changed_notification
+
+Optional
+
+string
+- mailer_subjects_email_changed_notification
+
+Optional
+
+string
+- mailer_subjects_phone_changed_notification
+
+Optional
+
+string
+- mailer_subjects_mfa_factor_enrolled_notification
+
+Optional
+
+string
+- mailer_subjects_mfa_factor_unenrolled_notification
+
+Optional
+
+string
+- mailer_subjects_identity_linked_notification
+
+Optional
+
+string
+- mailer_subjects_identity_unlinked_notification
+
+Optional
+
+string
+- mailer_templates_invite_content
+
+Optional
+
+string
+- mailer_templates_confirmation_content
+
+Optional
+
+string
+- mailer_templates_recovery_content
+
+Optional
+
+string
+- mailer_templates_email_change_content
+
+Optional
+
+string
+- mailer_templates_magic_link_content
+
+Optional
+
+string
+- mailer_templates_reauthentication_content
+
+Optional
+
+string
+- mailer_templates_password_changed_notification_content
+
+Optional
+
+string
+- mailer_templates_email_changed_notification_content
+
+Optional
+
+string
+- mailer_templates_phone_changed_notification_content
+
+Optional
+
+string
+- mailer_templates_mfa_factor_enrolled_notification_content
+
+Optional
+
+string
+- mailer_templates_mfa_factor_unenrolled_notification_content
+
+Optional
+
+string
+- mailer_templates_identity_linked_notification_content
+
+Optional
+
+string
+- mailer_templates_identity_unlinked_notification_content
+
+Optional
+
+string
+- mailer_notifications_password_changed_enabled
+
+Optional
+
+boolean
+- mailer_notifications_email_changed_enabled
+
+Optional
+
+boolean
+- mailer_notifications_phone_changed_enabled
+
+Optional
+
+boolean
+- mailer_notifications_mfa_factor_enrolled_enabled
+
+Optional
+
+boolean
+- mailer_notifications_mfa_factor_unenrolled_enabled
+
+Optional
+
+boolean
+- mailer_notifications_identity_linked_enabled
+
+Optional
+
+boolean
+- mailer_notifications_identity_unlinked_enabled
+
+Optional
+
+boolean
+- mfa_max_enrolled_factors
+
+Optional
+
+integer
+- uri_allow_list
+
+Optional
+
+string
+- external_anonymous_users_enabled
+
+Optional
+
+boolean
+- external_email_enabled
+
+Optional
+
+boolean
+- external_phone_enabled
+
+Optional
+
+boolean
+- saml_enabled
+
+Optional
+
+boolean
+- saml_external_url
+
+Optional
+
+string
+
+Details
+- security_sb_forwarded_for_enabled
+
+Optional
+
+boolean
+- security_captcha_enabled
+
+Optional
+
+boolean
+- security_captcha_provider
+
+Optional
+
+enum
+
+Accepted values
+- security_captcha_secret
+
+Optional
+
+string
+- sessions_timebox
+
+Optional
+
+number
+- sessions_inactivity_timeout
+
+Optional
+
+number
+- sessions_single_per_user
+
+Optional
+
+boolean
+- sessions_tags
+
+Optional
+
+string
+
+Details
+- rate_limit_anonymous_users
+
+Optional
+
+integer
+- rate_limit_email_sent
+
+Optional
+
+integer
+- rate_limit_sms_sent
+
+Optional
+
+integer
+- rate_limit_verify
+
+Optional
+
+integer
+- rate_limit_token_refresh
+
+Optional
+
+integer
+- rate_limit_otp
+
+Optional
+
+integer
+- rate_limit_web3
+
+Optional
+
+integer
+- mailer_secure_email_change_enabled
+
+Optional
+
+boolean
+- refresh_token_rotation_enabled
+
+Optional
+
+boolean
+- password_hibp_enabled
+
+Optional
+
+boolean
+- password_min_length
+
+Optional
+
+integer
+- password_required_characters
+
+Optional
+
+enum
+
+Accepted values
+- security_manual_linking_enabled
+
+Optional
+
+boolean
+- security_update_password_require_reauthentication
+
+Optional
+
+boolean
+- security_refresh_token_reuse_interval
+
+Optional
+
+integer
+- mailer_otp_exp
+
+Optional
+
+integer
+- mailer_otp_length
+
+Optional
+
+integer
+- sms_autoconfirm
+
+Optional
+
+boolean
+- sms_max_frequency
+
+Optional
+
+integer
+- sms_otp_exp
+
+Optional
+
+integer
+- sms_otp_length
+
+Optional
+
+integer
+- sms_provider
+
+Optional
+
+enum
+
+Accepted values
+- sms_messagebird_access_key
+
+Optional
+
+string
+- sms_messagebird_originator
+
+Optional
+
+string
+- sms_test_otp
+
+Optional
+
+string
+
+Details
+- sms_test_otp_valid_until
+
+Optional
+
+string
+
+Details
+- sms_textlocal_api_key
+
+Optional
+
+string
+- sms_textlocal_sender
+
+Optional
+
+string
+- sms_twilio_account_sid
+
+Optional
+
+string
+- sms_twilio_auth_token
+
+Optional
+
+string
+- sms_twilio_content_sid
+
+Optional
+
+string
+- sms_twilio_message_service_sid
+
+Optional
+
+string
+- sms_twilio_verify_account_sid
+
+Optional
+
+string
+- sms_twilio_verify_auth_token
+
+Optional
+
+string
+- sms_twilio_verify_message_service_sid
+
+Optional
+
+string
+- sms_vonage_api_key
+
+Optional
+
+string
+- sms_vonage_api_secret
+
+Optional
+
+string
+- sms_vonage_from
+
+Optional
+
+string
+- sms_template
+
+Optional
+
+string
+- hook_mfa_verification_attempt_enabled
+
+Optional
+
+boolean
+- hook_mfa_verification_attempt_uri
+
+Optional
+
+string
+- hook_mfa_verification_attempt_secrets
+
+Optional
+
+string
+- hook_password_verification_attempt_enabled
+
+Optional
+
+boolean
+- hook_password_verification_attempt_uri
+
+Optional
+
+string
+- hook_password_verification_attempt_secrets
+
+Optional
+
+string
+- hook_custom_access_token_enabled
+
+Optional
+
+boolean
+- hook_custom_access_token_uri
+
+Optional
+
+string
+- hook_custom_access_token_secrets
+
+Optional
+
+string
+- hook_send_sms_enabled
+
+Optional
+
+boolean
+- hook_send_sms_uri
+
+Optional
+
+string
+- hook_send_sms_secrets
+
+Optional
+
+string
+- hook_send_email_enabled
+
+Optional
+
+boolean
+- hook_send_email_uri
+
+Optional
+
+string
+- hook_send_email_secrets
+
+Optional
+
+string
+- hook_before_user_created_enabled
+
+Optional
+
+boolean
+- hook_before_user_created_uri
+
+Optional
+
+string
+- hook_before_user_created_secrets
+
+Optional
+
+string
+- hook_after_user_created_enabled
+
+Optional
+
+boolean
+- hook_after_user_created_uri
+
+Optional
+
+string
+- hook_after_user_created_secrets
+
+Optional
+
+string
+- external_apple_enabled
+
+Optional
+
+boolean
+- external_apple_client_id
+
+Optional
+
+string
+- external_apple_email_optional
+
+Optional
+
+boolean
+- external_apple_secret
+
+Optional
+
+string
+- external_apple_additional_client_ids
+
+Optional
+
+string
+- external_azure_enabled
+
+Optional
+
+boolean
+- external_azure_client_id
+
+Optional
+
+string
+- external_azure_email_optional
+
+Optional
+
+boolean
+- external_azure_secret
+
+Optional
+
+string
+- external_azure_url
+
+Optional
+
+string
+- external_bitbucket_enabled
+
+Optional
+
+boolean
+- external_bitbucket_client_id
+
+Optional
+
+string
+- external_bitbucket_email_optional
+
+Optional
+
+boolean
+- external_bitbucket_secret
+
+Optional
+
+string
+- external_discord_enabled
+
+Optional
+
+boolean
+- external_discord_client_id
+
+Optional
+
+string
+- external_discord_email_optional
+
+Optional
+
+boolean
+- external_discord_secret
+
+Optional
+
+string
+- external_facebook_enabled
+
+Optional
+
+boolean
+- external_facebook_client_id
+
+Optional
+
+string
+- external_facebook_email_optional
+
+Optional
+
+boolean
+- external_facebook_secret
+
+Optional
+
+string
+- external_figma_enabled
+
+Optional
+
+boolean
+- external_figma_client_id
+
+Optional
+
+string
+- external_figma_email_optional
+
+Optional
+
+boolean
+- external_figma_secret
+
+Optional
+
+string
+- external_github_enabled
+
+Optional
+
+boolean
+- external_github_client_id
+
+Optional
+
+string
+- external_github_email_optional
+
+Optional
+
+boolean
+- external_github_secret
+
+Optional
+
+string
+- external_gitlab_enabled
+
+Optional
+
+boolean
+- external_gitlab_client_id
+
+Optional
+
+string
+- external_gitlab_email_optional
+
+Optional
+
+boolean
+- external_gitlab_secret
+
+Optional
+
+string
+- external_gitlab_url
+
+Optional
+
+string
+- external_google_enabled
+
+Optional
+
+boolean
+- external_google_client_id
+
+Optional
+
+string
+- external_google_email_optional
+
+Optional
+
+boolean
+- external_google_secret
+
+Optional
+
+string
+- external_google_additional_client_ids
+
+Optional
+
+string
+- external_google_skip_nonce_check
+
+Optional
+
+boolean
+- external_kakao_enabled
+
+Optional
+
+boolean
+- external_kakao_client_id
+
+Optional
+
+string
+- external_kakao_email_optional
+
+Optional
+
+boolean
+- external_kakao_secret
+
+Optional
+
+string
+- external_keycloak_enabled
+
+Optional
+
+boolean
+- external_keycloak_client_id
+
+Optional
+
+string
+- external_keycloak_email_optional
+
+Optional
+
+boolean
+- external_keycloak_secret
+
+Optional
+
+string
+- external_keycloak_url
+
+Optional
+
+string
+- external_linkedin_oidc_enabled
+
+Optional
+
+boolean
+- external_linkedin_oidc_client_id
+
+Optional
+
+string
+- external_linkedin_oidc_email_optional
+
+Optional
+
+boolean
+- external_linkedin_oidc_secret
+
+Optional
+
+string
+- external_slack_oidc_enabled
+
+Optional
+
+boolean
+- external_slack_oidc_client_id
+
+Optional
+
+string
+- external_slack_oidc_email_optional
+
+Optional
+
+boolean
+- external_slack_oidc_secret
+
+Optional
+
+string
+- external_notion_enabled
+
+Optional
+
+boolean
+- external_notion_client_id
+
+Optional
+
+string
+- external_notion_email_optional
+
+Optional
+
+boolean
+- external_notion_secret
+
+Optional
+
+string
+- external_slack_enabled
+
+Optional
+
+boolean
+- external_slack_client_id
+
+Optional
+
+string
+- external_slack_email_optional
+
+Optional
+
+boolean
+- external_slack_secret
+
+Optional
+
+string
+- external_spotify_enabled
+
+Optional
+
+boolean
+- external_spotify_client_id
+
+Optional
+
+string
+- external_spotify_email_optional
+
+Optional
+
+boolean
+- external_spotify_secret
+
+Optional
+
+string
+- external_twitch_enabled
+
+Optional
+
+boolean
+- external_twitch_client_id
+
+Optional
+
+string
+- external_twitch_email_optional
+
+Optional
+
+boolean
+- external_twitch_secret
+
+Optional
+
+string
+- external_twitter_enabled
+
+Optional
+
+boolean
+- external_twitter_client_id
+
+Optional
+
+string
+- external_twitter_email_optional
+
+Optional
+
+boolean
+- external_twitter_secret
+
+Optional
+
+string
+- external_x_enabled
+
+Optional
+
+boolean
+- external_x_client_id
+
+Optional
+
+string
+- external_x_email_optional
+
+Optional
+
+boolean
+- external_x_secret
+
+Optional
+
+string
+- external_workos_enabled
+
+Optional
+
+boolean
+- external_workos_client_id
+
+Optional
+
+string
+- external_workos_secret
+
+Optional
+
+string
+- external_workos_url
+
+Optional
+
+string
+- external_web3_solana_enabled
+
+Optional
+
+boolean
+- external_web3_ethereum_enabled
+
+Optional
+
+boolean
+- external_zoom_enabled
+
+Optional
+
+boolean
+- external_zoom_client_id
+
+Optional
+
+string
+- external_zoom_email_optional
+
+Optional
+
+boolean
+- external_zoom_secret
+
+Optional
+
+string
+- db_max_pool_size
+
+Optional
+
+integer
+- db_max_pool_size_unit
+
+Optional
+
+enum
+
+Accepted values
+- api_max_request_duration
+
+Optional
+
+integer
+- mfa_totp_enroll_enabled
+
+Optional
+
+boolean
+- mfa_totp_verify_enabled
+
+Optional
+
+boolean
+- mfa_web_authn_enroll_enabled
+
+Optional
+
+boolean
+- mfa_web_authn_verify_enabled
+
+Optional
+
+boolean
+- passkey_enabled
+
+Optional
+
+boolean
+- webauthn_rp_display_name
+
+Optional
+
+string
+- webauthn_rp_id
+
+Optional
+
+string
+- webauthn_rp_origins
+
+Optional
+
+string
+- mfa_phone_enroll_enabled
+
+Optional
+
+boolean
+- mfa_phone_verify_enabled
+
+Optional
+
+boolean
+- mfa_phone_max_frequency
+
+Optional
+
+integer
+- mfa_phone_otp_length
+
+Optional
+
+integer
+- mfa_phone_template
+
+Optional
+
+string
+- nimbus_oauth_client_id
+
+Optional
+
+string
+- nimbus_oauth_client_secret
+
+Optional
+
+string
+- oauth_server_enabled
+
+Optional
+
+boolean
+- oauth_server_allow_dynamic_registration
+
+Optional
+
+boolean
+- oauth_server_authorization_path
+
+Optional
+
+string
+- custom_oauth_enabled
+
+Optional
+
+boolean
+
+### Response codes
+
+- 200
+- 401
+- 403
+- 429
+- 500
+
+### Response (200)
+
+example schema
+
+ "api_max_request_duration": -9007199254740991,
+
+ "db_max_pool_size": -9007199254740991,
+
+ "db_max_pool_size_unit": " connections",
+
+ "disable_signup": true,
+
+ "external_anonymous_users_enabled": true,
+
+ "external_apple_additional_client_ids": " lorem",
+
+ "external_apple_client_id": " lorem",
+
+ "external_apple_email_optional": true,
+
+ "external_apple_enabled": true,
+
+ "external_apple_secret": " lorem",
+
+ "external_azure_client_id": " lorem",
+
+ "external_azure_email_optional": true,
+
+ "external_azure_enabled": true,
+
+ "external_azure_secret": " lorem",
+
+ "external_azure_url": " lorem",
+
+ "external_bitbucket_client_id": " lorem",
+
+ "external_bitbucket_email_optional": true,
+
+ "external_bitbucket_enabled": true,
+
+ "external_bitbucket_secret": " lorem",
+
+ "external_discord_client_id": " lorem",
+
+ "external_discord_email_optional": true,
+
+ "external_discord_enabled": true,
+
+ "external_discord_secret": " lorem",
+
+ "external_email_enabled": true,
+
+ "external_facebook_client_id": " lorem",
+
+ "external_facebook_enabled": true,
+
+ "external_facebook_secret": " lorem",
+
+ "external_figma_client_id": " lorem",
+
+ "external_figma_email_optional": true,
+
+ "external_figma_enabled": true,
+
+ "external_figma_secret": " lorem",
+
+ "external_github_client_id": " lorem",
+
+ "external_github_secret": " lorem",
+
+ "external_gitlab_client_id": " lorem",
+
+ "external_gitlab_email_optional": true,
+
+ "external_gitlab_enabled": true,
+
+ "external_gitlab_secret": " lorem",
+
+ "external_gitlab_url": " lorem",
+
+ "external_google_additional_client_ids": " lorem",
+
+ "external_google_client_id": " lorem",
+
+ "external_google_email_optional": true,
+
+ "external_google_enabled": true,
+
+ "external_google_secret": " lorem",
+
+ "external_google_skip_nonce_check": true,
+
+ "external_kakao_client_id": " lorem",
+
+ "external_kakao_email_optional": true,
+
+ "external_kakao_enabled": true,
+
+ "external_kakao_secret": " lorem",
+
+ "external_keycloak_client_id": " lorem",
+
+ "external_keycloak_email_optional": true,
+
+ "external_keycloak_enabled": true,
+
+ "external_keycloak_secret": " lorem",
+
+ "external_keycloak_url": " lorem",
+
+ "external_linkedin_oidc_client_id": " lorem",
+
+ "external_linkedin_oidc_email_optional": true,
+
+ "external_linkedin_oidc_enabled": true,
+
+ "external_linkedin_oidc_secret": " lorem",
+
+ "external_slack_oidc_client_id": " lorem",
+
+ "external_slack_oidc_email_optional": true,
+
+ "external_slack_oidc_enabled": true,
+
+ "external_slack_oidc_secret": " lorem",
+
+ "external_notion_client_id": " lorem",
+
+ "external_notion_email_optional": true,
+
+ "external_notion_enabled": true,
+
+ "external_notion_secret": " lorem",
+
+ "external_phone_enabled": true,
+
+ "external_slack_client_id": " lorem",
+
+ "external_slack_email_optional": true,
+
+ "external_slack_enabled": true,
+
+ "external_slack_secret": " lorem",
+
+ "external_spotify_client_id": " lorem",
+
+ "external_spotify_email_optional": true,
+
+ "external_spotify_enabled": true,
+
+ "external_spotify_secret": " lorem",
+
+ "external_twitch_client_id": " lorem",
+
+ "external_twitch_email_optional": true,
+
+ "external_twitch_enabled": true,
+
+ "external_twitch_secret": " lorem",
+
+ "external_twitter_client_id": " lorem",
+
+ "external_twitter_email_optional": true,
+
+ "external_twitter_enabled": true,
+
+ "external_twitter_secret": " lorem",
+
+ "external_x_client_id": " lorem",
+
+ "external_x_email_optional": true,
+
+ "external_x_enabled": true,
+
+ "external_x_secret": " lorem",
+
+ "external_workos_client_id": " lorem",
+
+ "external_workos_enabled": true,
+
+ "external_workos_secret": " lorem",
+
+ "external_workos_url": " lorem",
+
+ "external_web3_solana_enabled": true,
+
+ "external_web3_ethereum_enabled": true,
+
+ "external_zoom_client_id": " lorem",
+
+ "external_zoom_email_optional": true,
+
+ "external_zoom_enabled": true,
+
+ "external_zoom_secret": " lorem",
+
+ "hook_custom_access_token_enabled": true,
+
+ "hook_custom_access_token_uri": " lorem",
+
+ "hook_custom_access_token_secrets": " lorem",
+
+ "hook_mfa_verification_attempt_enabled": true,
+
+ "hook_mfa_verification_attempt_uri": " lorem",
+
+ "hook_mfa_verification_attempt_secrets": " lorem",
+
+ "hook_password_verification_attempt_enabled": true,
+
+ "hook_send_sms_secrets": " lorem",
+
+ "hook_send_email_enabled": true,
+
+ "hook_before_user_created_enabled": true,
+
+ "hook_before_user_created_uri": " lorem",
+
+ "hook_before_user_created_secrets": " lorem",
+
+ "hook_after_user_created_enabled": true,
+
+ "hook_after_user_created_uri": " lorem",
+
+ "hook_after_user_created_secrets": " lorem",
+
+ "jwt_exp": -9007199254740991,
+
+ "mailer_allow_unverified_email_sign_ins": true,
+
+ "mailer_autoconfirm": true,
+
+ "mailer_otp_exp": -9007199254740991,
+
+ "mailer_otp_length": -9007199254740991,
+
+ "mailer_secure_email_change_enabled": true,
+
+ "mailer_subjects_confirmation": " lorem",
+
+ "mailer_subjects_email_change": " lorem",
+
+ "mailer_subjects_invite": " lorem",
+
+ "mailer_subjects_magic_link": " lorem",
+
+ "mailer_subjects_reauthentication": " lorem",
+
+ "mailer_subjects_recovery": " lorem",
+
+ "mailer_subjects_mfa_factor_enrolled_notification": " lorem",
+
+ "mailer_subjects_mfa_factor_unenrolled_notification": " lorem",
+
+ "mailer_templates_confirmation_content": " lorem",
+
+ "mailer_templates_invite_content": " lorem",
+
+ "mailer_templates_magic_link_content": " lorem",
+
+ "mailer_templates_reauthentication_content": " lorem",
+
+ "mailer_templates_recovery_content": " lorem",
+
+ "mailer_templates_password_changed_notification_content": " lorem",
+
+ "mailer_templates_mfa_factor_enrolled_notification_content": " lorem",
+
+ "mailer_templates_mfa_factor_unenrolled_notification_content": " lorem",
+
+ "mailer_templates_identity_linked_notification_content": " lorem",
+
+ "mailer_templates_identity_unlinked_notification_content": " lorem",
+
+ "mailer_notifications_password_changed_enabled": true,
+
+ "mailer_notifications_mfa_factor_enrolled_enabled": true,
+
+ "mailer_notifications_mfa_factor_unenrolled_enabled": true,
+
+ "mailer_notifications_identity_linked_enabled": true,
+
+ "mailer_notifications_identity_unlinked_enabled": true,
+
+ "mfa_max_enrolled_factors": -9007199254740991,
+
+ "mfa_totp_enroll_enabled": true,
+
+ "mfa_totp_verify_enabled": true,
+
+ "mfa_phone_enroll_enabled": true,
+
+ "mfa_phone_verify_enabled": true,
+
+ "mfa_web_authn_enroll_enabled": true,
+
+ "mfa_web_authn_verify_enabled": true,
+
+ "passkey_enabled": true,
+
+ "webauthn_rp_display_name": " lorem",
+
+ "webauthn_rp_id": " lorem",
+
+ "webauthn_rp_origins": " lorem",
+
+ "mfa_phone_otp_length": -9007199254740991,
+
+ "mfa_phone_template": " lorem",
+
+ "mfa_phone_max_frequency": -9007199254740991,
+
+ "nimbus_oauth_client_id": " lorem",
+
+ "nimbus_oauth_email_optional": true,
+
+ "nimbus_oauth_client_secret": " lorem",
+
+ "password_hibp_enabled": true,
+
+ "password_min_length": -9007199254740991,
+
+ "password_required_characters": " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:0123456789",
+
+ "rate_limit_anonymous_users": -9007199254740991,
+
+ "rate_limit_email_sent": -9007199254740991,
+
+ "rate_limit_sms_sent": -9007199254740991,
+
+ "rate_limit_token_refresh": -9007199254740991,
+
+ "rate_limit_verify": -9007199254740991,
+
+ "rate_limit_otp": -9007199254740991,
+
+ "rate_limit_web3": -9007199254740991,
+
+ "refresh_token_rotation_enabled": true,
+
+ "saml_enabled": true,
+
+ "saml_external_url": " lorem",
+
+ "saml_allow_encrypted_assertions": true,
+
+ "security_sb_forwarded_for_enabled": true,
+
+193
+
+ "security_captcha_enabled": true,
+
+ "security_captcha_provider": " turnstile",
+
+ "security_captcha_secret": " lorem",
+
+ "security_manual_linking_enabled": true,
+
+ "security_refresh_token_reuse_interval": -9007199254740991,
+
+ "security_update_password_require_reauthentication": true,
+
+ "sessions_inactivity_timeout": 42,
+
+ "sessions_single_per_user": true,
+
+ "sessions_tags": " lorem",
+
+ "sessions_timebox": 42,
+
+ "site_url": " lorem",
+
+ "sms_autoconfirm": true,
+
+ "sms_max_frequency": -9007199254740991,
+
+ "sms_messagebird_access_key": " lorem",
+
+ "sms_messagebird_originator": " lorem",
+
+ "sms_otp_exp": -9007199254740991,
+
+ "sms_otp_length": -9007199254740991,
+
+ "sms_provider": " messagebird",
+
+ "sms_template": " lorem",
+
+ "sms_test_otp": " lorem",
+
+ "sms_test_otp_valid_until": " 4404-02-29T04:24Z",
+
+ "sms_textlocal_api_key": " lorem",
+
+ "sms_textlocal_sender": " lorem",
+
+ "sms_twilio_account_sid": " lorem",
+
+217
+
+ "sms_twilio_auth_token": " lorem",
+
+ "sms_twilio_content_sid": " lorem",
+
+ "sms_twilio_message_service_sid": " lorem",
+
+ "sms_twilio_verify_account_sid": " lorem",
+
+ "sms_twilio_verify_auth_token": " lorem",
+
+ "sms_twilio_verify_message_service_sid": " lorem",
+
+ "sms_vonage_api_key": " lorem",
+
+ "sms_vonage_api_secret": " lorem",
+
+ "sms_vonage_from": " lorem",
+
+ "smtp_admin_email": " hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhg@effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.effffffffffffffffffffffffffffffffffffffffffffffffff.ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
+
+ "smtp_host": " lorem",
+
+ "smtp_max_frequency": -9007199254740991,
+
+ "smtp_pass": " lorem",
+
+ "smtp_port": " lorem",
+
+ "smtp_sender_name": " lorem",
+
+ "smtp_user": " lorem",
+
+ "uri_allow_list": " lorem",
+
+ "oauth_server_enabled": true,
+
+ "oauth_server_allow_dynamic_registration": true,
+
+ "oauth_server_authorization_path": " lorem",
+
+ "custom_oauth_enabled": true,
+
+ "custom_oauth_max_providers": -9007199254740991
+
+}

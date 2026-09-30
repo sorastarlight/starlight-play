@@ -262,65 +262,65 @@
     pokemon_classic_pixel: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.72, card: 0.55, thumb: 0.96 },
-      minFill: { stage: 0.30, card: 0.38, thumb: 0.52 },
-      cardTargetH: 0.48,
-      cardMinH: 0.40,
-      cardMaxH: 0.55,
-      cardTargetW: 0.42,
-      cardMaxW: 0.58,
+      maxFill: { stage: 0.78, card: 0.72, thumb: 0.92 },
+      minFill: { stage: 0.34, card: 0.52, thumb: 0.55 },
+      cardTargetH: 0.64,
+      cardMinH: 0.54,
+      cardMaxH: 0.72,
+      cardTargetW: 0.48,
+      cardMaxW: 0.68,
       minIntegerScale: 1,
       maxIntegerScale: 4
     },
     pokemon_modern_pixel: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.74, card: 0.60, thumb: 0.96 },
-      minFill: { stage: 0.32, card: 0.42, thumb: 0.52 },
-      cardTargetH: 0.54,
-      cardMinH: 0.44,
-      cardMaxH: 0.60,
-      cardTargetW: 0.44,
-      cardMaxW: 0.60,
+      maxFill: { stage: 0.80, card: 0.74, thumb: 0.92 },
+      minFill: { stage: 0.36, card: 0.56, thumb: 0.55 },
+      cardTargetH: 0.68,
+      cardMinH: 0.56,
+      cardMaxH: 0.74,
+      cardTargetW: 0.50,
+      cardMaxW: 0.70,
       minIntegerScale: 1,
       maxIntegerScale: 4
     },
     pokemon_modern_render: {
       pixelated: false,
       preferInteger: false,
-      maxFill: { stage: 0.88, card: 0.72, thumb: 0.96 },
-      minFill: { stage: 0.40, card: 0.60, thumb: 0.55 },
-      cardTargetH: 0.66,
-      cardMinH: 0.60,
-      cardMaxH: 0.72,
-      cardTargetW: 0.48,
-      cardMaxW: 0.68,
+      maxFill: { stage: 0.90, card: 0.78, thumb: 0.92 },
+      minFill: { stage: 0.44, card: 0.62, thumb: 0.55 },
+      cardTargetH: 0.72,
+      cardMinH: 0.64,
+      cardMaxH: 0.78,
+      cardTargetW: 0.52,
+      cardMaxW: 0.74,
       minIntegerScale: 1,
       maxIntegerScale: 8
     },
     digimon_pixel: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.78, card: 0.62, thumb: 0.96 },
-      minFill: { stage: 0.34, card: 0.48, thumb: 0.52 },
-      cardTargetH: 0.55,
-      cardMinH: 0.48,
-      cardMaxH: 0.62,
-      cardTargetW: 0.42,
-      cardMaxW: 0.55,
+      maxFill: { stage: 0.82, card: 0.72, thumb: 0.92 },
+      minFill: { stage: 0.38, card: 0.56, thumb: 0.55 },
+      cardTargetH: 0.66,
+      cardMinH: 0.56,
+      cardMaxH: 0.72,
+      cardTargetW: 0.48,
+      cardMaxW: 0.64,
       minIntegerScale: 1,
       maxIntegerScale: 2
     },
     sonic_pixel: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.80, card: 0.62, thumb: 0.96 },
-      minFill: { stage: 0.36, card: 0.42, thumb: 0.54 },
-      cardTargetH: 0.52,
-      cardMinH: 0.42,
-      cardMaxH: 0.60,
-      cardTargetW: 0.42,
-      cardMaxW: 0.50,
+      maxFill: { stage: 0.84, card: 0.72, thumb: 0.92 },
+      minFill: { stage: 0.40, card: 0.52, thumb: 0.55 },
+      cardTargetH: 0.64,
+      cardMinH: 0.52,
+      cardMaxH: 0.72,
+      cardTargetW: 0.48,
+      cardMaxW: 0.58,
       minIntegerScale: 1,
       maxIntegerScale: 3
     },
@@ -328,72 +328,78 @@
     pokemon_pixel: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.72, card: 0.55, thumb: 0.96 },
-      minFill: { stage: 0.30, card: 0.38, thumb: 0.52 },
-      cardTargetH: 0.48,
-      cardMinH: 0.40,
-      cardMaxH: 0.55,
-      cardTargetW: 0.42,
-      cardMaxW: 0.58,
+      maxFill: { stage: 0.78, card: 0.72, thumb: 0.92 },
+      minFill: { stage: 0.34, card: 0.52, thumb: 0.55 },
+      cardTargetH: 0.64,
+      cardMinH: 0.54,
+      cardMaxH: 0.72,
+      cardTargetW: 0.48,
+      cardMaxW: 0.68,
       minIntegerScale: 1,
       maxIntegerScale: 4
     },
     pokemon_modern: {
       pixelated: false,
       preferInteger: false,
-      maxFill: { stage: 0.88, card: 0.72, thumb: 0.96 },
-      minFill: { stage: 0.40, card: 0.60, thumb: 0.55 },
-      cardTargetH: 0.66,
-      cardMinH: 0.60,
-      cardMaxH: 0.72,
-      cardTargetW: 0.48,
-      cardMaxW: 0.68
+      maxFill: { stage: 0.90, card: 0.78, thumb: 0.92 },
+      minFill: { stage: 0.44, card: 0.62, thumb: 0.55 },
+      cardTargetH: 0.72,
+      cardMinH: 0.64,
+      cardMaxH: 0.78,
+      cardTargetW: 0.52,
+      cardMaxW: 0.74
     },
     digimon: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.78, card: 0.62, thumb: 0.96 },
-      minFill: { stage: 0.34, card: 0.48, thumb: 0.52 },
-      cardTargetH: 0.55,
-      cardMinH: 0.48,
-      cardMaxH: 0.62,
-      cardTargetW: 0.42,
-      cardMaxW: 0.55,
+      maxFill: { stage: 0.82, card: 0.72, thumb: 0.92 },
+      minFill: { stage: 0.38, card: 0.56, thumb: 0.55 },
+      cardTargetH: 0.66,
+      cardMinH: 0.56,
+      cardMaxH: 0.72,
+      cardTargetW: 0.48,
+      cardMaxW: 0.64,
       minIntegerScale: 1,
       maxIntegerScale: 2
     },
     sonic: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.80, card: 0.62, thumb: 0.96 },
-      minFill: { stage: 0.36, card: 0.48, thumb: 0.54 },
-      cardTargetH: 0.54,
-      cardMinH: 0.48,
-      cardMaxH: 0.62,
-      cardTargetW: 0.44,
-      cardMaxW: 0.52,
+      maxFill: { stage: 0.84, card: 0.72, thumb: 0.92 },
+      minFill: { stage: 0.40, card: 0.52, thumb: 0.55 },
+      cardTargetH: 0.64,
+      cardMinH: 0.52,
+      cardMaxH: 0.72,
+      cardTargetW: 0.48,
+      cardMaxW: 0.58,
       minIntegerScale: 1,
       maxIntegerScale: 3
     },
     default: {
       pixelated: false,
       preferInteger: false,
-      maxFill: { stage: 0.82, card: 0.66, thumb: 0.96 },
-      minFill: { stage: 0.34, card: 0.45, thumb: 0.52 },
-      cardTargetH: 0.58,
-      cardMinH: 0.48,
-      cardMaxH: 0.68,
-      cardTargetW: 0.45,
-      cardMaxW: 0.62
+      maxFill: { stage: 0.86, card: 0.74, thumb: 0.92 },
+      minFill: { stage: 0.38, card: 0.56, thumb: 0.55 },
+      cardTargetH: 0.68,
+      cardMinH: 0.56,
+      cardMaxH: 0.74,
+      cardTargetW: 0.50,
+      cardMaxW: 0.70
     }
   }, window.PLAY_AVATAR_FAMILY_DEFAULTS || {});
 
   /**
    * Rare per-id Trainer ID presentation overrides (last resort).
+   * Width-safe for wide appendages; body presence still raised via family targets.
    */
   window.PLAY_AVATAR_STAGE_OVERRIDES = Object.assign({
-    "sonic-amy": { cardMaxW: 0.48, cardTargetW: 0.42, cardTargetH: 0.50, cardMinH: 0.42, trainerCardScale: 1 },
-    "sonic-cream": { cardTargetH: 0.52, cardMaxH: 0.58, trainerCardScale: 1 }
+    "sonic-amy": { preferInteger: false, cardMaxW: 0.58, cardTargetW: 0.48, cardTargetH: 0.64, cardMinH: 0.56, cardMaxH: 0.72, trainerCardScale: 1 },
+    "sonic-cream": { cardTargetH: 0.64, cardMaxH: 0.72, cardMinH: 0.56, trainerCardScale: 1 },
+    "sonic-tails": { preferInteger: false, cardMaxW: 0.60, cardTargetW: 0.50, cardTargetH: 0.62, cardMaxH: 0.70, cardMinH: 0.52, trainerCardScale: 1 },
+    "sonic-sonic": { preferInteger: false, cardTargetH: 0.64, cardMinH: 0.56, cardMaxH: 0.72, trainerCardScale: 1 },
+    "sonic-knuckles": { preferInteger: false, cardTargetH: 0.64, cardMinH: 0.56, cardMaxH: 0.72, trainerCardScale: 1 },
+    "iris": { preferInteger: false, cardTargetH: 0.66, cardMinH: 0.58, cardMaxH: 0.74, cardMaxW: 0.74, trainerCardScale: 1 },
+    "red-lgpe": { preferInteger: false, cardTargetH: 0.66, cardMinH: 0.58, cardMaxH: 0.74, trainerCardScale: 1 }
   }, window.PLAY_AVATAR_STAGE_OVERRIDES || {});
 
   function avatarAlphaBounds(img) {
@@ -527,9 +533,35 @@
   }
 
   function avatarEnvelopePx(mode) {
-    if (mode === "thumb") return 68;
+    if (mode === "thumb") return 96;
     if (mode === "card") return 400;
-    return 220;
+    return 240;
+  }
+
+  /** Avatar Browser thumbnails: full alpha envelope must fit (contain). Never inherit card occupancy. */
+  function avatarThumbScale(bounds, familyCfg, stageBox) {
+    const pad = 0.14;
+    const usableH = Math.max(1, (stageBox.h || 96) * (1 - pad * 2));
+    const usableW = Math.max(1, (stageBox.w || 96) * (1 - pad * 2));
+    const safeH = Math.max(1, bounds.vh || bounds.h || 1);
+    const safeW = Math.max(1, bounds.vw || bounds.w || 1);
+    let scale = Math.min(usableH / safeH, usableW / safeW);
+
+    if (familyCfg.preferInteger && Math.max(bounds.w || 0, bounds.h || 0) <= 128) {
+      const maxI = Math.max(1, Number(familyCfg.maxIntegerScale || 6));
+      let best = 0;
+      for (let n = maxI; n >= 1; n -= 1) {
+        if (safeH * n <= usableH + 0.5 && safeW * n <= usableW + 0.5) {
+          best = n;
+          break;
+        }
+      }
+      if (best > 0) scale = best;
+    }
+
+    // Hard clamp: never exceed tile (full visibility wins over integer crispness).
+    scale = Math.min(scale, usableH / safeH, usableW / safeW);
+    return Math.max(0.15, scale);
   }
 
   function avatarFillLimit(familyCfg, mode, which) {
@@ -605,6 +637,12 @@
       if (band.length) {
         band.sort((a, b) => a.dist - b.dist || a.n - b.n);
         scale = band[0].n;
+        // If nearest integer still reads too small, allow a safe fractional bump for presence.
+        const occ = (safeH * scale) / usableH;
+        if (occ < minH - 0.01) {
+          const frac = Math.min(Math.max(idealFromCore, safeMin), safeMax);
+          if (frac > scale + 0.05) scale = frac;
+        }
       } else {
         scale = Math.min(Math.max(idealFromCore, safeMin), safeMax);
       }
@@ -696,13 +734,24 @@
       const stageBox = avatarStageBox(img, mode, envelope);
       let scale = mode === "card"
         ? avatarCardScale(bounds, familyCfg, stageBox)
-        : avatarNaturalScale(bounds, familyCfg, envelope, mode);
+        : mode === "thumb"
+          ? avatarThumbScale(bounds, familyCfg, stageBox)
+          : avatarNaturalScale(bounds, familyCfg, Math.min(envelope, stageBox.h || envelope), mode);
       const modeMul = mode === "card"
         ? Number(familyCfg.trainerCardScale || 1)
         : mode === "thumb"
           ? Number(familyCfg.thumbScale || 1)
           : Number(familyCfg.workshopScale || 1);
       scale *= Number.isFinite(modeMul) && modeMul > 0 ? modeMul : 1;
+      if (mode === "thumb") {
+        // Re-clamp after multiplier so thumbs never crop.
+        const pad = 0.14;
+        const usableH = Math.max(1, (stageBox.h || 96) * (1 - pad * 2));
+        const usableW = Math.max(1, (stageBox.w || 96) * (1 - pad * 2));
+        const safeH = Math.max(1, bounds.vh || bounds.h || 1);
+        const safeW = Math.max(1, bounds.vw || bounds.w || 1);
+        scale = Math.min(scale, usableH / safeH, usableW / safeW);
+      }
 
       const renderW = Math.max(1, Math.round(bounds.w * scale));
       const renderH = Math.max(1, Math.round(bounds.h * scale));
@@ -710,6 +759,7 @@
       const visH = Math.max(1, Math.round(bounds.vh * scale));
       const padL = bounds.left * scale;
       const padR = (bounds.w - 1 - bounds.right) * scale;
+      const padT = bounds.top * scale;
       const padB = (bounds.h - 1 - bounds.bottom) * scale;
       const offX = Number(familyCfg.offsetX || 0);
       const offY = Number(familyCfg.offsetY || 0);
@@ -730,9 +780,11 @@
       img.dataset.avatarScale = String(Math.round(scale * 1000) / 1000);
       img.dataset.avatarStagePct = String(stagePct);
       img.dataset.avatarWidthPct = String(widthPct);
-      img.dataset.avatarStrategy = familyCfg.preferInteger
-        ? (isInteger ? "integer" : "fractional-target")
-        : "smooth";
+      img.dataset.avatarStrategy = mode === "thumb"
+        ? (familyCfg.preferInteger && isInteger ? "thumb-integer-contain" : "thumb-contain")
+        : (familyCfg.preferInteger
+          ? (isInteger ? "integer" : "fractional-target")
+          : "smooth");
       img.classList.toggle("is-pixel-art", Boolean(familyCfg.pixelated));
       img.classList.toggle("is-full-art", family === "pokemon_modern_render" || family === "pokemon_modern");
       img.classList.toggle("is-mascot-art", family === "sonic_pixel" || family === "sonic");
@@ -741,8 +793,26 @@
       img.style.maxWidth = "none";
       img.style.maxHeight = "none";
       img.style.objectFit = "fill";
-      img.style.margin = `0 ${-padR}px ${-padB + offY}px ${-padL}px`;
-      img.style.transform = `translateX(${(((padR - padL) / 2) + offX).toFixed(2)}px)`;
+      if (mode === "thumb") {
+        // Absolute grounded contain: place VISIBLE alpha inside the tile (transparent canvas may extend under overflow:hidden).
+        const ground = 6 + offY;
+        const left = ((stageRefW - visW) / 2) - padL + offX;
+        img.style.position = "absolute";
+        img.style.left = `${left.toFixed(2)}px`;
+        img.style.right = "auto";
+        img.style.top = "auto";
+        img.style.bottom = `${(ground - padB).toFixed(2)}px`;
+        img.style.margin = "0";
+        img.style.transform = "none";
+      } else {
+        img.style.position = "";
+        img.style.left = "";
+        img.style.right = "";
+        img.style.top = "";
+        img.style.bottom = "";
+        img.style.margin = `0 ${-padR}px ${-padB + offY}px ${-padL}px`;
+        img.style.transform = `translateX(${(((padR - padL) / 2) + offX).toFixed(2)}px)`;
+      }
       img.style.imageRendering = familyCfg.pixelated ? "pixelated" : "auto";
       img.style.filter = familyCfg.pixelated ? "none" : "";
 
@@ -1060,22 +1130,29 @@
    * Unlock/equip authority lives in progression_cosmetics kind=team_background.
    */
   window.PLAY_TEAM_BACKGROUNDS = [
-    { id: "starlight-gradient", name: "ST★RLIGHT Gradient", category: "ST★RLIGHT Originals", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-starlight-gradient", sort: 10 },
-    { id: "pokedex-grid", name: "Pokédex Grid", category: "ST★RLIGHT Originals", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-pokedex-grid", sort: 11 },
-    { id: "research-lab", name: "Research Lab", category: "ST★RLIGHT Originals", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-research-lab", sort: 12 },
-    { id: "battle-stage", name: "Battle Stage", category: "ST★RLIGHT Originals", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-battle-stage", sort: 13 },
-    { id: "pallet-town", name: "Pallet Town", category: "Locations", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/pallet-town.png", cssClass: "team-bg-image", sort: 100 },
-    { id: "viridian-forest", name: "Viridian Forest", category: "Locations", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/viridian-forest.png", cssClass: "team-bg-image", sort: 101 },
-    { id: "route-1", name: "Route 1", category: "Routes", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/route-1.png", cssClass: "team-bg-image", sort: 110 },
-    { id: "mt-moon", name: "Mt. Moon", category: "Locations", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/mt-moon.png", cssClass: "team-bg-image", sort: 120 },
-    { id: "cerulean-cave", name: "Cerulean Cave", category: "Locations", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/cerulean-cave.png", cssClass: "team-bg-image", sort: 121 },
-    { id: "saffron-city", name: "Saffron City", category: "Cities", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/saffron-city.png", cssClass: "team-bg-image", sort: 130 },
-    { id: "cinnabar-lab", name: "Cinnabar Lab", category: "Pokémon Centers", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/cinnabar-lab.png", cssClass: "team-bg-image", sort: 140 },
-    { id: "safari-zone", name: "Safari Zone", category: "Special Events", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/safari-zone.png", cssClass: "team-bg-image", sort: 150 },
-    { id: "power-plant", name: "Power Plant", category: "Locations", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/power-plant.png", cssClass: "team-bg-image", sort: 151 },
-    { id: "victory-road", name: "Victory Road", category: "Battle Arenas", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/victory-road.png", cssClass: "team-bg-image", sort: 160 }
+    { id: "starlight-gradient", name: "ST★RLIGHT Gradient", category: "ST★RLIGHT", filter: "starlight", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-starlight-gradient", sort: 10, free: true },
+    { id: "pokedex-grid", name: "Pokédex Grid", category: "ST★RLIGHT", filter: "starlight", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-pokedex-grid", sort: 11, free: true },
+    { id: "research-lab", name: "Research Lab", category: "ST★RLIGHT", filter: "starlight", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-research-lab", sort: 12, free: true },
+    { id: "battle-stage", name: "Battle Stage", category: "ST★RLIGHT", filter: "starlight", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-battle-stage", sort: 13, free: true },
+    { id: "pallet-town", name: "Pallet Town", category: "Kanto", filter: "kanto", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/pallet-town.png", cssClass: "team-bg-image", sort: 100, free: true },
+    { id: "viridian-forest", name: "Viridian Forest", category: "Kanto", filter: "kanto", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/viridian-forest.png", cssClass: "team-bg-image", sort: 101, free: true },
+    { id: "route-1", name: "Route 1", category: "Routes", filter: "routes", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/route-1.png", cssClass: "team-bg-image", sort: 110, free: true },
+    { id: "route-2", name: "Route 2", category: "Routes", filter: "routes", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/route-2.png", cssClass: "team-bg-image", sort: 111, free: false },
+    { id: "mt-moon", name: "Mt. Moon", category: "Landmarks", filter: "landmarks", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/mt-moon.png", cssClass: "team-bg-image", sort: 120, free: true },
+    { id: "cerulean-cave", name: "Cerulean Cave", category: "Landmarks", filter: "landmarks", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/cerulean-cave.png", cssClass: "team-bg-image", sort: 121, free: false },
+    { id: "digletts-cave", name: "Diglett's Cave", category: "Landmarks", filter: "landmarks", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/digletts-cave.png", cssClass: "team-bg-image", sort: 122, free: false },
+    { id: "rock-tunnel", name: "Rock Tunnel", category: "Landmarks", filter: "landmarks", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/rock-tunnel.png", cssClass: "team-bg-image", sort: 123, free: false },
+    { id: "seafoam-islands", name: "Seafoam Islands", category: "Landmarks", filter: "landmarks", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/seafoam-islands.png", cssClass: "team-bg-image", sort: 124, free: false },
+    { id: "saffron-city", name: "Saffron City", category: "Cities", filter: "cities", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/saffron-city.png", cssClass: "team-bg-image", sort: 130, free: true },
+    { id: "cinnabar-lab", name: "Cinnabar Lab", category: "Special", filter: "special", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/cinnabar-lab.png", cssClass: "team-bg-image", sort: 140, free: false },
+    { id: "safari-zone", name: "Safari Zone", category: "Special", filter: "special", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/safari-zone.png", cssClass: "team-bg-image", sort: 150, free: true },
+    { id: "power-plant", name: "Power Plant", category: "Special", filter: "special", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/power-plant.png", cssClass: "team-bg-image", sort: 151, free: false },
+    { id: "victory-road", name: "Victory Road", category: "Special", filter: "special", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/victory-road.png", cssClass: "team-bg-image", sort: 160, free: false }
   ];
 
+  window.PLAY_TEAM_BG_FREE_IDS = (window.PLAY_TEAM_BACKGROUNDS || [])
+    .filter((row) => row.free)
+    .map((row) => row.id);
   window.playTeamBg = function playTeamBg(id) {
     const key = String(id || "").trim() || "starlight-gradient";
     return window.PLAY_TEAM_BACKGROUNDS.find((row) => row.id === key)
@@ -1127,7 +1204,7 @@
         <div class="tid-team-stage-veil" aria-hidden="true"></div>
         <ol class="tid-party tid-party-slots">${slotHtml}</ol>
       </div>
-      <p class="tid-team-bg-meta"><span class="tid-team-bg-name">${esc(bg?.name || "ST★RLIGHT Gradient")}</span>${bg?.category ? `<span class="tid-team-bg-cat">${esc(bg.category)}</span>` : ""}</p>
+      <p class="tid-team-bg-meta"><span class="tid-team-bg-name">${esc(bg?.name || "ST★RLIGHT Gradient")}</span></p>
       ${filled ? "" : `<p class="muted tid-empty tid-party-empty">No party set yet. Organize six Pokémon in My Account.</p>`}
     </div>`;
   };

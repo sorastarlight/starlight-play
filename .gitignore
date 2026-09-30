@@ -17,3 +17,7 @@ __pycache__/
 # Agent/tool dump artifacts
 [0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]-*.txt
 
+
+# tmp local QA pages (regenerate via tools/qa-*)
+tmp-avatar-thumb-audit.html
+tmp-tid-avatar-matrix.html

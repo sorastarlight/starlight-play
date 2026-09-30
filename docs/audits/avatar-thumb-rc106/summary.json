@@ -1,0 +1,7 @@
+﻿{
+  "thumbAudit": { "total": 128, "fullyVisible": 128, "cropped": 0, "overflow": 0, "missing": 0, "pass": true },
+  "rule": "private.play_staff_role(uid) in ('admin','owner') for kinds background|frame|team_background",
+  "freeTeamBgs": 10,
+  "totalTeamBgs": 18,
+  "appBuild": "20260930-rc106"
+}

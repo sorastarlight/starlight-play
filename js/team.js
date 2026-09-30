@@ -521,14 +521,32 @@
       if (!mon) {
         return `<button type="button" class="team-slot empty" data-add="${index}" ${mine ? "" : "disabled"}>
           <span class="team-slot-no">${index + 1}</span>
-          <strong>${mine ? "+ Add" : "Empty"}</strong>
+          <span class="team-slot-sprite team-slot-sprite-empty" aria-hidden="true">＋</span>
+          <strong>${mine ? "Add Pokémon" : "Empty"}</strong>
         </button>`;
       }
-      return `<article class="team-slot filled" data-catch-id="${mon.id || ""}">
+      const shiny = Boolean(window.playCaughtIsShiny?.(mon)
+        || String(mon.variant || "").includes("shiny")
+        || mon.shiny);
+      const formId = mon.formId || mon.pokemonFormId || "";
+      const formLabel = formId && typeof window.playFormDisplayName === "function"
+        ? window.playFormDisplayName(mon.dex, formId)
+        : "";
+      const baseName = mon.displayName || mon.name || "";
+      const formLine = formLabel && formLabel !== baseName ? formLabel : "";
+      const gender = String(mon.gender || "").toLowerCase();
+      const genderMark = gender === "f" || gender === "female" ? "♀"
+        : (gender === "m" || gender === "male" ? "♂" : "");
+      const metaBits = [formLine, genderMark].filter(Boolean).join(" · ");
+      return `<article class="team-slot filled${shiny ? " is-shiny" : ""}" data-catch-id="${mon.id || ""}">
         <button type="button" class="team-slot-hit" data-inspect-catch="${mon.id || ""}" aria-label="Inspect ${window.playCaughtName(mon)}"></button>
         <span class="team-slot-no">${index + 1}</span>
-        <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="">
+        <span class="team-slot-sprite">
+          <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="">
+          ${shiny ? `<span class="team-slot-shiny" title="Shiny" aria-label="Shiny">★</span>` : ""}
+        </span>
         <strong class="team-slot-name">${window.playCaughtName(mon)}</strong>
+        ${metaBits ? `<span class="team-slot-meta">${metaBits}</span>` : `<span class="team-slot-meta team-slot-meta-empty" aria-hidden="true"></span>`}
         ${mine ? `<div class="team-slot-actions">
           <button type="button" data-move="${index}" data-dir="-1" aria-label="Move left" ${index === 0 ? "disabled" : ""}>◀</button>
           <button type="button" data-move="${index}" data-dir="1" aria-label="Move right" ${index === 5 || !slots[index + 1] ? "disabled" : ""}>▶</button>

@@ -63,7 +63,19 @@
   let accountState = null;
   let pcStorage = null;
   let pendingOauth = "";
+  let staffRole = "";
+  let cardBgFilter = "all";
+  let teamBgFilter = "all";
 
+  function isCosmeticAdmin() {
+    return staffRole === "admin" || staffRole === "owner";
+  }
+
+  function freeTeamBgIds() {
+    return window.PLAY_TEAM_BG_FREE_IDS
+      || (window.PLAY_TEAM_BACKGROUNDS || []).filter((row) => row.free).map((row) => row.id)
+      || ["starlight-gradient", "pokedex-grid", "research-lab", "battle-stage"];
+  }
   const LEGACY_HASH = {
     "": { cat: "trainer-id", tab: "identity" },
     settings: { cat: "trainer-id", tab: "identity" },
@@ -411,7 +423,7 @@
       const meta = [look.outfit, look.gender].filter(Boolean).join(" · ");
       return `<button type="button" class="scc-avatar-card trainer-opt is-${state}" data-sprite="${esc(look.id)}" data-locked="0" aria-pressed="${equipped}" aria-label="${esc(look.name)} ${state}">
         <span class="scc-avatar-thumb">
-          <img class="scc-avatar-thumb-img" data-avatar-id="${esc(look.id)}" src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="64" height="64" loading="lazy" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+          <img class="scc-avatar-thumb-img" data-avatar-id="${esc(look.id)}" src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="96" height="96" loading="lazy" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
         </span>
         <strong class="scc-avatar-name">${esc(look.name)}</strong>
         <span class="scc-avatar-era">${esc(group.label)}</span>
@@ -490,7 +502,18 @@
 
   function backgroundRows() {
     const bgs = cosmetics.filter((row) => row.kind === "background");
-    if (bgs.length) return bgs;
+    const metaById = new Map((window.PLAY_CARD_BGS || []).map((row) => [row.id, row]));
+    if (bgs.length) {
+      return bgs.map((row) => {
+        const meta = metaById.get(row.asset) || {};
+        return {
+          ...row,
+          unlocked: Boolean(row.unlocked || isCosmeticAdmin()),
+          group: meta.group || (String(row.asset || "").startsWith("pride-") ? "pride" : (["starlight", "candy"].includes(row.asset) ? "rewards" : "region")),
+          thumb: window.playCardBgUrl(row.asset)
+        };
+      });
+    }
     return (window.PLAY_CARD_BGS || []).map((row) => ({
       id: `bg-${row.id}`,
       kind: "background",
@@ -498,13 +521,20 @@
       name: row.name,
       unlocked: true,
       description: row.group,
-      howTo: ""
+      howTo: "",
+      group: row.group || "region",
+      thumb: window.playCardBgUrl(row.id)
     }));
   }
 
   function frameRows() {
     const frames = cosmetics.filter((row) => row.kind === "frame");
-    if (frames.length) return frames;
+    if (frames.length) {
+      return frames.map((row) => ({
+        ...row,
+        unlocked: Boolean(row.unlocked || isCosmeticAdmin())
+      }));
+    }
     return [{ id: "frame-plain", kind: "frame", asset: "plain", name: "Plain", unlocked: true, description: "Default frame", howTo: "" }];
   }
 
@@ -513,8 +543,30 @@
       ${window.playRenderIdCard(previewCard(), { mode: "preview", variant: "hero" })}`;
   }
 
+  const CARD_BG_FILTERS = [
+    ["all", "All"],
+    ["starlight", "ST★RLIGHT"],
+    ["region", "Pokémon"],
+    ["kanto", "Kanto"],
+    ["cute", "Special"],
+    ["pride", "Pride"],
+    ["rewards", "Rewards"]
+  ];
+
+  function cardBgMatchesFilter(row, filter) {
+    if (filter === "all") return true;
+    if (filter === "kanto") return row.asset === "kanto" || row.group === "kanto";
+    if (filter === "starlight") return row.asset === "starlight" || /starlight/i.test(row.name || "");
+    if (filter === "rewards") return row.group === "rewards" || ["starlight", "candy"].includes(row.asset) || !row.starter;
+    if (filter === "region") return row.group === "region";
+    if (filter === "cute") return row.group === "cute";
+    if (filter === "pride") return row.group === "pride" || String(row.asset || "").startsWith("pride-");
+    return true;
+  }
+
   function renderCardStyle() {
     const view = previewCard();
+    const bgs = backgroundRows().filter((row) => cardBgMatchesFilter(row, cardBgFilter));
     return `
       <header class="scc-panel-head">
         <h2>Card Style</h2>
@@ -522,17 +574,19 @@
       </header>
       <div class="scc-card-preview-stage">${cardPreviewStageHtml()}</div>
       <div class="scc-style-layout">
-        <section class="scc-style-catalog">
+        <section class="scc-style-catalog" aria-label="Card backgrounds">
           <h3>Background</h3>
-          <div class="prog-pick-grid scc-style-grid">
-            ${backgroundRows().map((row) => {
+          <div class="scc-scope-row" role="group" aria-label="Background categories">
+            ${CARD_BG_FILTERS.map(([id, label]) => `<button type="button" class="scc-scope${cardBgFilter === id ? " is-on" : ""}" data-card-bg-filter="${esc(id)}" aria-pressed="${cardBgFilter === id}">${esc(label)}</button>`).join("")}
+          </div>
+          <div class="scc-compact-bg-grid scc-style-grid">
+            ${bgs.map((row) => {
               const equipped = row.asset === view.cardBg;
               const state = pickState(row, equipped);
-              return `<button type="button" class="prog-pick card-bg-opt is-${state}" data-cosmetic="${esc(row.id)}" data-bg-asset="${esc(row.asset)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
-                <img src="${window.playCardBgUrl(row.asset)}" alt="" loading="lazy">
-                <strong>${esc(row.name)}</strong>
-                <span class="id-state">${state}</span>
-                <span>${esc(row.unlocked ? (row.description || "") : (row.howTo || row.description || "Locked"))}</span>
+              return `<button type="button" class="scc-compact-bg-opt card-bg-opt is-${state}" data-cosmetic="${esc(row.id)}" data-bg-asset="${esc(row.asset)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
+                <span class="scc-compact-bg-thumb" style="background-image:url('${esc(row.thumb || window.playCardBgUrl(row.asset))}')" aria-hidden="true"></span>
+                <strong class="scc-compact-bg-name">${esc(row.name)}</strong>
+                <span class="id-state">${stateLabel(state)}</span>
               </button>`;
             }).join("")}
           </div>
@@ -545,7 +599,7 @@
               const state = pickState(row, equipped);
               return `<button type="button" class="prog-pick is-${state}" data-cosmetic="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
                 <strong>${esc(row.name)}</strong>
-                <span class="id-state">${state}</span>
+                <span class="id-state">${stateLabel(state)}</span>
                 <span>${esc(row.unlocked ? (row.description || "") : (row.howTo || row.description || "Locked"))}</span>
               </button>`;
             }).join("")}
@@ -717,11 +771,13 @@
     (cosmetics || []).forEach((row) => {
       if (row.kind === "team_background") byAsset.set(row.asset, row);
     });
+    const freeIds = new Set(freeTeamBgIds());
     return catalog
       .slice()
       .sort((a, b) => (a.sort || 0) - (b.sort || 0))
       .map((meta) => {
         const cos = byAsset.get(meta.id);
+        const free = Boolean(meta.free || freeIds.has(meta.id));
         return {
           id: cos?.id || `team-bg-${meta.id}`,
           kind: "team_background",
@@ -732,10 +788,12 @@
           unlocked: Boolean(
             cos?.unlocked
             || cos?.starter
-            || ["starlight-gradient", "pokedex-grid", "research-lab", "battle-stage"].includes(meta.id)
+            || free
+            || isCosmeticAdmin()
           ),
-          starter: Boolean(cos?.starter || ["starlight-gradient", "pokedex-grid", "research-lab", "battle-stage"].includes(meta.id)),
+          starter: Boolean(cos?.starter || free),
           category: meta.category || "Special",
+          filter: meta.filter || "special",
           region: meta.region || "",
           source: meta.source || "",
           cssClass: meta.cssClass,
@@ -746,43 +804,38 @@
       });
   }
 
-  function teamBgCategories() {
-    const cats = [];
-    const seen = new Set();
-    teamBgRows().forEach((row) => {
-      if (!seen.has(row.category)) {
-        seen.add(row.category);
-        cats.push(row.category);
-      }
-    });
-    return cats;
-  }
-
-  let teamBgFilter = "all";
+  const TEAM_BG_FILTERS = [
+    ["all", "All"],
+    ["starlight", "ST★RLIGHT"],
+    ["kanto", "Kanto"],
+    ["cities", "Cities"],
+    ["routes", "Routes"],
+    ["landmarks", "Landmarks"],
+    ["special", "Special"]
+  ];
 
   function renderTeamBgBrowser() {
     const view = previewCard();
-    const rows = teamBgRows().filter((row) => teamBgFilter === "all" || row.category === teamBgFilter);
-    const cats = [["all", "All"], ...teamBgCategories().map((c) => [c, c])];
+    const selected = teamBgRows().find((row) => row.asset === (view.teamBg || "starlight-gradient"));
+    const rows = teamBgRows().filter((row) => teamBgFilter === "all" || row.filter === teamBgFilter);
     return `
-      <section class="scc-team-bg" aria-label="Team Showcase background">
-        <p class="scc-module-kicker">TEAM SHOWCASE BACKGROUND</p>
-        <p class="muted">Choose the backdrop behind My Team on your public Trainer ID. Saves with <strong>Save Trainer ID</strong>.</p>
+      <section class="scc-team-bg" aria-label="Team background">
+        <p class="scc-module-kicker">TEAM BACKGROUND</p>
+        <p class="muted scc-team-bg-selected">Selected: <strong>${esc(selected?.name || "ST★RLIGHT Gradient")}</strong></p>
         <div class="scc-scope-row" role="group" aria-label="Background categories">
-          ${cats.map(([id, label]) => `<button type="button" class="scc-scope${teamBgFilter === id ? " is-on" : ""}" data-team-bg-filter="${esc(id)}" aria-pressed="${teamBgFilter === id}">${esc(label)}</button>`).join("")}
+          ${TEAM_BG_FILTERS.map(([id, label]) => `<button type="button" class="scc-scope${teamBgFilter === id ? " is-on" : ""}" data-team-bg-filter="${esc(id)}" aria-pressed="${teamBgFilter === id}">${esc(label)}</button>`).join("")}
         </div>
-        <div class="prog-pick-grid scc-team-bg-grid">
+        <div class="scc-compact-bg-grid scc-team-bg-grid">
           ${rows.map((row) => {
             const equipped = row.asset === (view.teamBg || "starlight-gradient");
             const state = pickState(row, equipped);
             const thumbStyle = row.image
               ? ` style="--team-bg-image:url('${esc(row.image)}')"`
               : "";
-            return `<button type="button" class="prog-pick team-bg-opt is-${state}" data-team-bg="${esc(row.asset)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
-              <span class="team-bg-thumb ${esc(row.cssClass || "")}"${thumbStyle} aria-hidden="true"></span>
-              <strong>${esc(row.name)}</strong>
-              <span class="muted">${esc(row.category)}${row.source ? ` · ${esc(row.source)}` : ""}</span>
-              <span class="id-state">${stateLabel(state)}</span>
+            return `<button type="button" class="scc-compact-bg-opt team-bg-opt is-${state}" data-team-bg="${esc(row.asset)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
+              <span class="scc-compact-bg-thumb team-bg-thumb ${esc(row.cssClass || "")}"${thumbStyle} aria-hidden="true"></span>
+              <strong class="scc-compact-bg-name">${esc(row.name)}</strong>
+              <span class="id-state">${state === "locked" ? "🔒" : stateLabel(state)}</span>
             </button>`;
           }).join("")}
         </div>
@@ -790,16 +843,17 @@
   }
 
   function renderTeam() {
-    const view = previewCard();
     return `
       <header class="scc-panel-head">
         <h2>My Team</h2>
         <p class="muted">Pick six Pokémon from your current PC. Team slots save immediately when you edit them. Showcase backgrounds save with <strong>Save Trainer ID</strong>.</p>
       </header>
-      <div class="scc-contextual scc-contextual-team">${window.playRenderTrainerPartyHtml(view)}</div>
+      <section class="scc-team-editor" aria-label="My Team slots">
+        <p class="scc-module-kicker">MY TEAM</p>
+        <div id="team-slots" class="team-slots team-slots-party"></div>
+        <p id="team-status" class="muted" role="status"></p>
+      </section>
       ${renderTeamBgBrowser()}
-      <div id="team-slots" class="team-slots"></div>
-      <p id="team-status" class="muted" role="status"></p>
       ${trainerIdActions()}`;
   }
 
@@ -813,8 +867,11 @@
       btn.setAttribute("aria-pressed", equipped ? "true" : "false");
       repaintPick(btn, pickState(row, equipped));
     });
-    const party = els.workspace.querySelector(".scc-contextual-team");
-    if (party) party.innerHTML = window.playRenderTrainerPartyHtml(view);
+    const selectedLabel = els.workspace.querySelector(".scc-team-bg-selected strong");
+    if (selectedLabel) {
+      const selected = teamBgRows().find((row) => row.asset === (view.teamBg || "starlight-gradient"));
+      selectedLabel.textContent = selected?.name || "ST★RLIGHT Gradient";
+    }
     markDirtyFlag();
   }
 
@@ -831,19 +888,6 @@
       els.workspace.innerHTML = renderTeam();
       const teamEl = document.getElementById("team-slots");
       window.playRenderTeamSlots(teamEl, card?.team, { mine: true });
-      const party = els.workspace.querySelector(".scc-contextual-team");
-      if (party && party.dataset.inspectBound !== "1") {
-        party.dataset.inspectBound = "1";
-        party.addEventListener("click", (event) => {
-          const hit = event.target.closest("[data-inspect-catch]");
-          if (!hit) return;
-          const id = hit.getAttribute("data-inspect-catch");
-          const mon = (card?.team || []).find((row) => String(row?.id) === String(id));
-          if (!mon) return;
-          const richer = (pcStorage?.mons || []).find((row) => String(row?.id) === String(id)) || mon;
-          window.playOpenTeamMonInspect?.(richer, { mode: "owner" });
-        });
-      }
     }
     if (galleryTop != null) {
       const next = els.workspace.querySelector(".scc-avatar-results");
@@ -1400,6 +1444,7 @@
     try {
       const snapshot = await window.playCall("play_state");
       extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer, twitchLinked: snapshot?.twitchLinked };
+      staffRole = String(snapshot?.staffRole || "");
       ownedPacks = snapshot?.ownedAvatarPacks || [];
       window._playOwnedAvatarPacks = ownedPacks;
       bag = snapshot?.bag || {};
@@ -1586,6 +1631,12 @@
       if (profileTab === "team") renderProfileWorkspace();
       return;
     }
+    const cardBgFilterBtn = event.target.closest("[data-card-bg-filter]");
+    if (cardBgFilterBtn) {
+      cardBgFilter = cardBgFilterBtn.dataset.cardBgFilter || "all";
+      if (profileTab === "card-style") renderProfileWorkspace();
+      return;
+    }
     const teamBgBtn = event.target.closest("[data-team-bg]");
     if (teamBgBtn) {
       const row = teamBgRows().find((item) => item.asset === teamBgBtn.dataset.teamBg);
@@ -1599,7 +1650,8 @@
     }
     const cosmetic = event.target.closest("[data-cosmetic]");
     if (cosmetic) {
-      const row = cosmetics.find((item) => item.id === cosmetic.dataset.cosmetic)
+      const row = backgroundRows().concat(frameRows()).find((item) => item.id === cosmetic.dataset.cosmetic)
+        || cosmetics.find((item) => item.id === cosmetic.dataset.cosmetic)
         || (cosmetic.dataset.bgAsset ? { kind: "background", asset: cosmetic.dataset.bgAsset, unlocked: true, name: cosmetic.dataset.bgAsset } : null);
       if (!row?.unlocked) {
         if (els.status) els.status.textContent = `${row?.name || "This look"} is locked. ${row?.howTo || ""}`.trim();

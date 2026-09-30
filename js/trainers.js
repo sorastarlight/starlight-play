@@ -262,32 +262,33 @@
     pokemon_pixel: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.72, card: 0.84, thumb: 0.96 },
-      minFill: { stage: 0.30, card: 0.34, thumb: 0.52 }
+      // Tall BDSP-style stage: keep crisp integer scale — do not stretch tiny sprites.
+      maxFill: { stage: 0.72, card: 0.62, thumb: 0.96 },
+      minFill: { stage: 0.30, card: 0.28, thumb: 0.52 }
     },
     pokemon_modern: {
       pixelated: false,
       preferInteger: false,
-      maxFill: { stage: 0.88, card: 0.90, thumb: 0.96 },
-      minFill: { stage: 0.40, card: 0.44, thumb: 0.55 }
+      maxFill: { stage: 0.88, card: 0.84, thumb: 0.96 },
+      minFill: { stage: 0.40, card: 0.55, thumb: 0.55 }
     },
     digimon: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.78, card: 0.86, thumb: 0.96 },
-      minFill: { stage: 0.34, card: 0.38, thumb: 0.52 }
+      maxFill: { stage: 0.78, card: 0.80, thumb: 0.96 },
+      minFill: { stage: 0.34, card: 0.48, thumb: 0.52 }
     },
     sonic: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.80, card: 0.88, thumb: 0.96 },
-      minFill: { stage: 0.36, card: 0.40, thumb: 0.54 }
+      maxFill: { stage: 0.80, card: 0.78, thumb: 0.96 },
+      minFill: { stage: 0.36, card: 0.42, thumb: 0.54 }
     },
     default: {
       pixelated: false,
       preferInteger: false,
-      maxFill: { stage: 0.82, card: 0.88, thumb: 0.96 },
-      minFill: { stage: 0.34, card: 0.38, thumb: 0.52 }
+      maxFill: { stage: 0.82, card: 0.80, thumb: 0.96 },
+      minFill: { stage: 0.34, card: 0.45, thumb: 0.52 }
     }
   }, window.PLAY_AVATAR_FAMILY_DEFAULTS || {});
 
@@ -374,8 +375,9 @@
 
   function avatarEnvelopePx(mode) {
     // Context-specific presentation envelopes (same asset identity, different stage).
+    // Card = tall BDSP-inspired right-side character stage (not the old square portrait).
     if (mode === "thumb") return 68;
-    if (mode === "card") return 188;
+    if (mode === "card") return 360;
     return 220;
   }
 
@@ -671,6 +673,21 @@
       </li>`).join("")}</ul>`;
   }
 
+  function tidStatRowsHtml(card, counts, esc) {
+    const mastered = Number(card?.speciesMastered || 0);
+    const rows = [
+      { label: "Pokédex", value: `${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}` },
+      { label: "Catches", value: String(Number(card?.caught || 0)) },
+      { label: "Shinies", value: String(Number(card?.shinyCaught || 0)) },
+      { label: "Species Mastered", value: String(mastered) }
+    ];
+    return `<dl class="tid-stat-rows">${rows.map((row) => `
+      <div class="tid-stat-row">
+        <dt>${esc(row.label)}</dt>
+        <dd>${row.value}</dd>
+      </div>`).join("")}</dl>`;
+  }
+
   window.playRenderIdCard = function playRenderIdCard(card, options) {
     const esc = window.playEscapeAttr || ((value) => String(value || ""));
     const opts = options || {};
@@ -686,25 +703,52 @@
     const avatarOnly = variant === "avatar";
     const identityOnly = variant === "identity";
     const trainerAlt = esc(card?.displayName || look.trainer?.name || "Trainer");
+    const spriteId = window.playEscapeAttr?.(card?.trainerSprite) || card?.trainerSprite || "";
+    const avatarStageHtml = `
+          <div class="tid-avatar-stage is-hero is-character${twitch ? " has-twitch" : ""}">
+            <div class="tid-avatar-glow" aria-hidden="true"></div>
+            <div class="tid-avatar-well">
+              <span class="avatar-stage-shadow" aria-hidden="true"></span>
+              <img class="tid-avatar-sprite" data-avatar-id="${spriteId}" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })">
+            </div>
+            ${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}
+          </div>`;
     if (avatarOnly) {
       // Avatar Workshop preview deliberately ignores the Card Style background so the
       // sprite is judged on a neutral stage.
       return `
         <div class="tid-avatar-preview is-neutral-stage">
-          <div class="tid-avatar-stage is-hero${twitch ? " has-twitch" : ""}">
-            <div class="tid-avatar-glow" aria-hidden="true"></div>
-            <div class="tid-avatar-well">
-              <span class="avatar-stage-shadow" aria-hidden="true"></span>
-              <img class="tid-avatar-sprite" data-avatar-id="${window.playEscapeAttr?.(card?.trainerSprite) || card?.trainerSprite || ""}" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })">
-            </div>
-          </div>
+          ${avatarStageHtml}
         </div>`;
     }
-    const mastered = Number(card?.speciesMastered || 0);
+    const infoHtml = `
+          <div class="tid-identity-panel tid-glass">
+            <div class="tid-plaque tid-plaque-name">
+              <p class="tid-name">${esc(card?.displayName || "Trainer")}</p>
+              ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
+            </div>
+            <div class="tid-data-rows" aria-label="Trainer identity">
+              <div class="tid-data-row">
+                <span class="tid-data-label">Trainer Level</span>
+                <span class="tid-data-value">Lv. ${esc(card?.level || 1)}</span>
+              </div>
+              <div class="tid-data-row">
+                <span class="tid-data-label">Trainer Since</span>
+                <span class="tid-data-value">${window.playCardDate(card?.startedAt)}</span>
+              </div>
+            </div>
+            ${identityOnly ? "" : tidStatRowsHtml(card, counts, esc)}
+            ${identityOnly ? "" : `<div class="tid-info-xp">${window.playXpProgressHtml(card, { profile: true })}</div>`}
+            <div class="tid-plaque tid-plaque-badges">
+              <p class="tid-ach-kicker">Featured Achievements</p>
+              ${badgeRowHtml(badges, esc)}
+            </div>
+          </div>`;
     return `
-      <article class="tid-card id-card-${bg.tone} id-card-${bg.group} id-card-frame-${esc(frame)}" data-tid-mode="${mode}" data-tid-variant="${esc(variant)}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk}">
+      <article class="tid-card tid-card-bdsp id-card-${bg.tone} id-card-${bg.group} id-card-frame-${esc(frame)}" data-tid-mode="${mode}" data-tid-variant="${esc(variant)}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk}">
         <div class="tid-art" style="background-image:url('${window.playCardBgUrl(bg.id)}')" aria-hidden="true"></div>
         <div class="tid-art-scrim" aria-hidden="true"></div>
+        <div class="tid-ball-watermark" aria-hidden="true"></div>
         <header class="tid-card-head">
           <div class="tid-card-head-left">
             <img class="id-ball" src="images/items/poke-ball.png" alt="" width="28" height="28">
@@ -713,38 +757,9 @@
           <p class="tid-id-no">ID No. ${String(card?.idNo || "00000").padStart(5, "0")}</p>
         </header>
         <div class="tid-card-body">
-          <div class="tid-avatar-stage is-hero${twitch ? " has-twitch" : ""}">
-            <div class="tid-avatar-glow" aria-hidden="true"></div>
-            <div class="tid-avatar-well">
-              <span class="avatar-stage-shadow" aria-hidden="true"></span>
-              <img class="tid-avatar-sprite" data-avatar-id="${window.playEscapeAttr?.(card?.trainerSprite) || card?.trainerSprite || ""}" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })">
-            </div>
-            ${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}
-          </div>
-          <div class="tid-identity-panel tid-glass">
-            <div class="tid-plaque tid-plaque-name">
-              <p class="tid-name">${esc(card?.displayName || "Trainer")}</p>
-              ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
-            </div>
-            <div class="tid-plaque tid-plaque-meta">
-              <p class="tid-level">Lv. ${esc(card?.level || 1)}</p>
-              <p class="tid-started">Trainer since ${window.playCardDate(card?.startedAt)}</p>
-            </div>
-            <div class="tid-plaque tid-plaque-badges">
-              ${badgeRowHtml(badges, esc)}
-            </div>
-          </div>
+          ${infoHtml}
+          ${avatarStageHtml}
         </div>
-        ${identityOnly ? "" : `
-        <div class="tid-card-footer tid-glass">
-          <dl class="tid-highlights">
-            <div><dt>Pokédex</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>
-            <div><dt>Catches</dt><dd>${Number(card?.caught || 0)}</dd></div>
-            <div><dt>Shinies</dt><dd>${Number(card?.shinyCaught || 0)}</dd></div>
-            <div><dt>Species Mastered</dt><dd>${mastered}</dd></div>
-          </dl>
-          <div class="tid-footer-xp">${window.playXpProgressHtml(card, { profile: true })}</div>
-        </div>`}
       </article>`;
   };
 

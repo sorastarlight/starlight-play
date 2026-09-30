@@ -255,51 +255,145 @@
   };
 
   /**
-   * Family presentation hints — envelopes and pixel rules only.
-   * maxFill is a SAFE CEILING, never a forced equal-height target.
+   * Presentation families — workshop/thumb keep recognition envelopes;
+   * Trainer ID (card) uses target occupancy + nearest-integer (NOT max-fit).
    */
   window.PLAY_AVATAR_FAMILY_DEFAULTS = Object.assign({
+    pokemon_classic_pixel: {
+      pixelated: true,
+      preferInteger: true,
+      maxFill: { stage: 0.72, card: 0.55, thumb: 0.96 },
+      minFill: { stage: 0.30, card: 0.38, thumb: 0.52 },
+      cardTargetH: 0.46,
+      cardMinH: 0.38,
+      cardMaxH: 0.52,
+      cardTargetW: 0.40,
+      cardMaxW: 0.56,
+      minIntegerScale: 1,
+      maxIntegerScale: 4
+    },
+    pokemon_modern_pixel: {
+      pixelated: true,
+      preferInteger: true,
+      maxFill: { stage: 0.74, card: 0.58, thumb: 0.96 },
+      minFill: { stage: 0.32, card: 0.40, thumb: 0.52 },
+      cardTargetH: 0.50,
+      cardMinH: 0.42,
+      cardMaxH: 0.56,
+      cardTargetW: 0.42,
+      cardMaxW: 0.58,
+      minIntegerScale: 1,
+      maxIntegerScale: 4
+    },
+    pokemon_modern_render: {
+      pixelated: false,
+      preferInteger: false,
+      maxFill: { stage: 0.88, card: 0.72, thumb: 0.96 },
+      minFill: { stage: 0.40, card: 0.60, thumb: 0.55 },
+      cardTargetH: 0.66,
+      cardMinH: 0.60,
+      cardMaxH: 0.72,
+      cardTargetW: 0.48,
+      cardMaxW: 0.68,
+      minIntegerScale: 1,
+      maxIntegerScale: 8
+    },
+    digimon_pixel: {
+      pixelated: true,
+      preferInteger: true,
+      maxFill: { stage: 0.78, card: 0.62, thumb: 0.96 },
+      minFill: { stage: 0.34, card: 0.48, thumb: 0.52 },
+      cardTargetH: 0.55,
+      cardMinH: 0.48,
+      cardMaxH: 0.62,
+      cardTargetW: 0.42,
+      cardMaxW: 0.55,
+      minIntegerScale: 1,
+      maxIntegerScale: 2
+    },
+    sonic_pixel: {
+      pixelated: true,
+      preferInteger: true,
+      maxFill: { stage: 0.80, card: 0.62, thumb: 0.96 },
+      minFill: { stage: 0.36, card: 0.48, thumb: 0.54 },
+      cardTargetH: 0.54,
+      cardMinH: 0.48,
+      cardMaxH: 0.62,
+      cardTargetW: 0.44,
+      cardMaxW: 0.52,
+      minIntegerScale: 1,
+      maxIntegerScale: 3
+    },
+    // Legacy aliases (workshop / older metadata).
     pokemon_pixel: {
       pixelated: true,
       preferInteger: true,
-      // Tall BDSP-style stage: keep crisp integer scale — do not stretch tiny sprites.
-      maxFill: { stage: 0.72, card: 0.62, thumb: 0.96 },
-      minFill: { stage: 0.30, card: 0.28, thumb: 0.52 }
+      maxFill: { stage: 0.72, card: 0.55, thumb: 0.96 },
+      minFill: { stage: 0.30, card: 0.38, thumb: 0.52 },
+      cardTargetH: 0.46,
+      cardMinH: 0.38,
+      cardMaxH: 0.52,
+      cardTargetW: 0.40,
+      cardMaxW: 0.56,
+      minIntegerScale: 1,
+      maxIntegerScale: 4
     },
     pokemon_modern: {
       pixelated: false,
       preferInteger: false,
-      maxFill: { stage: 0.88, card: 0.84, thumb: 0.96 },
-      minFill: { stage: 0.40, card: 0.55, thumb: 0.55 }
+      maxFill: { stage: 0.88, card: 0.72, thumb: 0.96 },
+      minFill: { stage: 0.40, card: 0.60, thumb: 0.55 },
+      cardTargetH: 0.66,
+      cardMinH: 0.60,
+      cardMaxH: 0.72,
+      cardTargetW: 0.48,
+      cardMaxW: 0.68
     },
     digimon: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.78, card: 0.80, thumb: 0.96 },
-      minFill: { stage: 0.34, card: 0.48, thumb: 0.52 }
+      maxFill: { stage: 0.78, card: 0.62, thumb: 0.96 },
+      minFill: { stage: 0.34, card: 0.48, thumb: 0.52 },
+      cardTargetH: 0.55,
+      cardMinH: 0.48,
+      cardMaxH: 0.62,
+      cardTargetW: 0.42,
+      cardMaxW: 0.55,
+      minIntegerScale: 1,
+      maxIntegerScale: 2
     },
     sonic: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.80, card: 0.78, thumb: 0.96 },
-      minFill: { stage: 0.36, card: 0.42, thumb: 0.54 }
+      maxFill: { stage: 0.80, card: 0.62, thumb: 0.96 },
+      minFill: { stage: 0.36, card: 0.48, thumb: 0.54 },
+      cardTargetH: 0.54,
+      cardMinH: 0.48,
+      cardMaxH: 0.62,
+      cardTargetW: 0.44,
+      cardMaxW: 0.52,
+      minIntegerScale: 1,
+      maxIntegerScale: 3
     },
     default: {
       pixelated: false,
       preferInteger: false,
-      maxFill: { stage: 0.82, card: 0.80, thumb: 0.96 },
-      minFill: { stage: 0.34, card: 0.45, thumb: 0.52 }
+      maxFill: { stage: 0.82, card: 0.66, thumb: 0.96 },
+      minFill: { stage: 0.34, card: 0.45, thumb: 0.52 },
+      cardTargetH: 0.58,
+      cardMinH: 0.48,
+      cardMaxH: 0.68,
+      cardTargetW: 0.45,
+      cardMaxW: 0.62
     }
   }, window.PLAY_AVATAR_FAMILY_DEFAULTS || {});
 
   /**
-   * Rare per-id presentation overrides (presentation metadata only).
-   * Keys: family, workshopScale, trainerCardScale, thumbScale, offsetX, offsetY, shadowWidth, pixelated, preferInteger
+   * Rare per-id Trainer ID presentation overrides (last resort).
    */
   window.PLAY_AVATAR_STAGE_OVERRIDES = Object.assign({
-    // Keep unusual mascot art from looking oversized when padding is thin.
-    "sonic-amy": { trainerCardScale: 0.92, workshopScale: 0.94 },
-    "sonic-cream": { trainerCardScale: 0.94, workshopScale: 0.96 }
+    "sonic-amy": { cardMaxW: 0.46, cardTargetW: 0.40, cardTargetH: 0.52, trainerCardScale: 1 },
+    "sonic-cream": { cardTargetH: 0.52, cardMaxH: 0.58, trainerCardScale: 1 }
   }, window.PLAY_AVATAR_STAGE_OVERRIDES || {});
 
   function avatarAlphaBounds(img) {
@@ -311,7 +405,7 @@
       canvas.width = w;
       canvas.height = h;
       const ctx = canvas.getContext("2d", { willReadFrequently: true });
-      if (!ctx) return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h };
+      if (!ctx) return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h, cw: w, ch: h };
       ctx.clearRect(0, 0, w, h);
       ctx.drawImage(img, 0, 0);
       const data = ctx.getImageData(0, 0, w, h).data;
@@ -339,8 +433,11 @@
           : { left, top, right, bottom, empty: false };
       }
       if (!scan || scan.empty) {
-        return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h };
+        return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h, cw: w, ch: h };
       }
+      const vw = Math.max(1, scan.right - scan.left + 1);
+      const vh = Math.max(1, scan.bottom - scan.top + 1);
+      const core = avatarBodyCore(data, w, h, scan);
       return {
         left: scan.left,
         top: scan.top,
@@ -348,22 +445,78 @@
         bottom: scan.bottom,
         w,
         h,
-        vw: Math.max(1, scan.right - scan.left + 1),
-        vh: Math.max(1, scan.bottom - scan.top + 1)
+        vw,
+        vh,
+        cw: core.cw,
+        ch: core.ch
       };
     } catch (_) {
-      return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h };
+      return { left: 0, top: 0, right: w - 1, bottom: h - 1, w, h, vw: w, vh: h, cw: w, ch: h };
     }
+  }
+
+  function avatarBodyCore(data, w, h, scan) {
+    const minA = 10;
+    const left = scan.left;
+    const right = scan.right;
+    const top = scan.top;
+    const bottom = scan.bottom;
+    const cols = new Float64Array(right - left + 1);
+    const rows = new Float64Array(bottom - top + 1);
+    let total = 0;
+    for (let y = top; y <= bottom; y += 1) {
+      for (let x = left; x <= right; x += 1) {
+        const a = data[((y * w) + x) * 4 + 3];
+        if (a < minA) continue;
+        const weight = a / 255;
+        cols[x - left] += weight;
+        rows[y - top] += weight;
+        total += weight;
+      }
+    }
+    if (total <= 0) {
+      return { cw: Math.max(1, right - left + 1), ch: Math.max(1, bottom - top + 1) };
+    }
+    const trim = (arr, keep) => {
+      const need = total * keep;
+      let acc = 0;
+      let i0 = 0;
+      for (; i0 < arr.length; i0 += 1) {
+        acc += arr[i0];
+        if (acc >= (total - need) / 2) break;
+      }
+      acc = 0;
+      let i1 = arr.length - 1;
+      for (; i1 >= 0; i1 -= 1) {
+        acc += arr[i1];
+        if (acc >= (total - need) / 2) break;
+      }
+      return { i0: Math.max(0, i0), i1: Math.max(i0, i1) };
+    };
+    const cx = trim(cols, 0.78);
+    const cy = trim(rows, 0.78);
+    return {
+      cw: Math.max(1, cx.i1 - cx.i0 + 1),
+      ch: Math.max(1, cy.i1 - cy.i0 + 1)
+    };
   }
 
   function avatarFamilyOf(id, bounds) {
     const key = String(id || "").toLowerCase();
-    if (/^sonic/.test(key)) return "sonic";
-    if (/^(taichi|yamato|sora|hikari|takeru|joe|mimi|koushiro)$/.test(key)) return "digimon";
+    if (/^sonic/.test(key)) return "sonic_pixel";
+    if (/^(taichi|yamato|sora|hikari|takeru|joe|mimi|koushiro)$/.test(key)) return "digimon_pixel";
     const maxSrc = Math.max(bounds?.w || 0, bounds?.h || 0);
-    if (maxSrc >= 256) return "pokemon_modern";
-    if (maxSrc > 0 && maxSrc <= 96) return "pokemon_pixel";
-    if (maxSrc > 96 && maxSrc < 256) return "digimon";
+    if (maxSrc >= 256) return "pokemon_modern_render";
+    if (maxSrc > 0 && maxSrc <= 96) {
+      if (/-gen3|-gen4|-gen5|-lgpe|wonderlauncher|pokeathlon|contest|-gen7|-usum|-dojo|-tundra|-league|-bb|-festival/.test(key)) {
+        return "pokemon_modern_pixel";
+      }
+      if (/^(lucas|dawn|hilbert|hilda|nate|rosa|brendan|may|ethan|kris|lyra|iris|ash|misty|brock|clemont|cynthia|yellow|liko|kiawe|lana|mallow|sophocles|giovanni|teamrocket|chase|elaine|paxton|harmony|hero|heroine|player-go|pokemonranger|calem|serena|elio|selene|victor|gloria|florian|juliana|rei|akari)/.test(key)) {
+        return "pokemon_modern_pixel";
+      }
+      return "pokemon_classic_pixel";
+    }
+    if (maxSrc > 96 && maxSrc < 256) return "pokemon_modern_pixel";
     return "default";
   }
 
@@ -374,8 +527,6 @@
   }
 
   function avatarEnvelopePx(mode) {
-    // Context-specific presentation envelopes (same asset identity, different stage).
-    // Card = tall BDSP-inspired right-side character stage (not the old square portrait).
     if (mode === "thumb") return 68;
     if (mode === "card") return 400;
     return 220;
@@ -388,10 +539,83 @@
     return Number(bag[key] ?? bag.stage ?? (which === "maxFill" ? 0.82 : 0.34));
   }
 
-  /**
-   * Natural scale from authored/visible art — integer where practical, never forced equal height.
-   */
+  function avatarStageBox(img, mode, envelope) {
+    if (mode === "card") {
+      const well = img.closest?.(".tid-avatar-well, .tid-avatar-stage");
+      if (well && well.clientHeight > 40 && well.clientWidth > 40) {
+        return { w: well.clientWidth, h: well.clientHeight };
+      }
+    }
+    if (mode === "stage") {
+      const frame = img.closest?.(".scc-stage-frame");
+      if (frame && frame.clientHeight > 40 && frame.clientWidth > 40) {
+        return { w: frame.clientWidth, h: frame.clientHeight };
+      }
+    }
+    if (mode === "thumb") {
+      const thumb = img.closest?.(".scc-avatar-thumb");
+      if (thumb && thumb.clientHeight > 20 && thumb.clientWidth > 20) {
+        return { w: thumb.clientWidth, h: thumb.clientHeight };
+      }
+    }
+    return { w: envelope, h: envelope };
+  }
+
+  function avatarCardScale(bounds, familyCfg, stageBox) {
+    const safeH = Math.max(1, bounds.vh || bounds.h || 1);
+    const safeW = Math.max(1, bounds.vw || bounds.w || 1);
+    const coreH = Math.max(1, bounds.ch || safeH);
+    const coreW = Math.max(1, bounds.cw || safeW);
+    const stageH = Math.max(1, stageBox.h || 1);
+    const stageW = Math.max(1, stageBox.w || 1);
+    const usableH = stageH * 0.90;
+    const usableW = stageW * 0.90;
+
+    const targetH = Number(familyCfg.cardTargetH ?? 0.55);
+    const minH = Number(familyCfg.cardMinH ?? 0.45);
+    const maxH = Number(familyCfg.cardMaxH ?? 0.65);
+    const targetW = Number(familyCfg.cardTargetW ?? 0.45);
+    const maxW = Number(familyCfg.cardMaxW ?? 0.60);
+
+    const idealFromCore = Math.min(
+      (usableH * targetH) / coreH,
+      (usableW * targetW) / coreW
+    );
+    const safeMax = Math.min(
+      (usableH * maxH) / safeH,
+      (usableW * maxW) / safeW,
+      usableH / safeH,
+      usableW / safeW
+    );
+    const safeMin = Math.min((usableH * minH) / safeH, safeMax);
+
+    let scale = Math.min(Math.max(idealFromCore, Math.min(safeMin, safeMax)), safeMax);
+
+    if (familyCfg.preferInteger) {
+      const minI = Math.max(1, Number(familyCfg.minIntegerScale || 1));
+      const maxI = Math.max(minI, Number(familyCfg.maxIntegerScale || 6));
+      const band = [];
+      for (let n = minI; n <= maxI; n += 1) {
+        const hOcc = (safeH * n) / usableH;
+        const wOcc = (safeW * n) / usableW;
+        if (hOcc <= maxH + 0.02 && wOcc <= maxW + 0.02 && hOcc >= minH - 0.04) {
+          band.push({ n, dist: Math.abs(n - idealFromCore) });
+        }
+      }
+      if (band.length) {
+        band.sort((a, b) => a.dist - b.dist || a.n - b.n);
+        scale = band[0].n;
+      } else {
+        scale = Math.min(Math.max(idealFromCore, safeMin), safeMax);
+      }
+    }
+
+    scale = Math.min(scale, safeMax, usableH / safeH, usableW / safeW);
+    return Math.max(0.25, scale);
+  }
+
   function avatarNaturalScale(bounds, familyCfg, envelope, mode) {
+    if (mode === "card") return 1;
     const vw = Math.max(1, bounds.vw || bounds.w || 1);
     const vh = Math.max(1, bounds.vh || bounds.h || 1);
     const maxFill = avatarFillLimit(familyCfg, mode, "maxFill");
@@ -401,15 +625,22 @@
     let scale = Math.min(maxH / vh, maxW / vw);
 
     if (familyCfg.preferInteger && Math.max(bounds.w || 0, bounds.h || 0) <= 128) {
-      // Largest clean integer that still fits the family's safe envelope.
+      const maxI = Math.max(1, Number(familyCfg.maxIntegerScale || 8));
       let best = 0;
-      for (let n = 1; n <= 8; n += 1) {
-        if (vh * n <= maxH + 0.5 && vw * n <= maxW + 0.5) best = n;
+      let bestDist = Infinity;
+      const ideal = scale;
+      for (let n = 1; n <= maxI; n += 1) {
+        if (vh * n <= maxH + 0.5 && vw * n <= maxW + 0.5) {
+          const dist = Math.abs(n - ideal);
+          if (dist < bestDist || (dist === bestDist && n > best)) {
+            best = n;
+            bestDist = dist;
+          }
+        }
       }
       if (best > 0) scale = best;
     }
 
-    // Recognition floor for thumbnails / tiny assets — never inflate past maxFill.
     const minScale = Math.min(maxH / vh, maxW / vw, (envelope * minFill) / vh);
     if (scale * vh < envelope * minFill * 0.98) {
       scale = Math.min(Math.max(scale, minScale), maxH / vh, maxW / vw);
@@ -430,10 +661,6 @@
     return shadow;
   }
 
-  /**
-   * Present avatars at intentional natural scale inside a fixed stage.
-   * Alpha bounds trim transparent padding for grounding only.
-   */
   window.playNormalizeTrainerAvatar = function playNormalizeTrainerAvatar(img, opts) {
     if (!img) return;
     const mode = opts?.mode
@@ -448,7 +675,9 @@
         w: img.naturalWidth || 1,
         h: img.naturalHeight || 1,
         vw: img.naturalWidth || 1,
-        vh: img.naturalHeight || 1
+        vh: img.naturalHeight || 1,
+        cw: img.naturalWidth || 1,
+        ch: img.naturalHeight || 1
       };
       const srcKey = String(img.currentSrc || img.src || "")
         .replace(/\?.*$/, "")
@@ -464,7 +693,10 @@
         override || {}
       );
       const envelope = avatarEnvelopePx(mode);
-      let scale = avatarNaturalScale(bounds, familyCfg, envelope, mode);
+      const stageBox = avatarStageBox(img, mode, envelope);
+      let scale = mode === "card"
+        ? avatarCardScale(bounds, familyCfg, stageBox)
+        : avatarNaturalScale(bounds, familyCfg, envelope, mode);
       const modeMul = mode === "card"
         ? Number(familyCfg.trainerCardScale || 1)
         : mode === "thumb"
@@ -481,7 +713,11 @@
       const padB = (bounds.h - 1 - bounds.bottom) * scale;
       const offX = Number(familyCfg.offsetX || 0);
       const offY = Number(familyCfg.offsetY || 0);
-      const stagePct = Math.round((visH / envelope) * 1000) / 10;
+      const stageRefH = Math.max(1, stageBox.h || envelope);
+      const stageRefW = Math.max(1, stageBox.w || envelope);
+      const stagePct = Math.round((visH / stageRefH) * 1000) / 10;
+      const widthPct = Math.round((visW / stageRefW) * 1000) / 10;
+      const isInteger = Math.abs(scale - Math.round(scale)) < 0.02;
 
       img.dataset.avatarFamily = family;
       img.dataset.avatarNorm = "1";
@@ -489,12 +725,17 @@
       img.dataset.avatarSrcW = String(bounds.w);
       img.dataset.avatarSrcH = String(bounds.h);
       img.dataset.avatarVis = `${bounds.vw}x${bounds.vh}`;
+      img.dataset.avatarCore = `${bounds.cw || bounds.vw}x${bounds.ch || bounds.vh}`;
       img.dataset.avatarRender = `${visW}x${visH}`;
       img.dataset.avatarScale = String(Math.round(scale * 1000) / 1000);
       img.dataset.avatarStagePct = String(stagePct);
+      img.dataset.avatarWidthPct = String(widthPct);
+      img.dataset.avatarStrategy = familyCfg.preferInteger
+        ? (isInteger ? "integer" : "fractional-target")
+        : "smooth";
       img.classList.toggle("is-pixel-art", Boolean(familyCfg.pixelated));
-      img.classList.toggle("is-full-art", family === "pokemon_modern");
-      img.classList.toggle("is-mascot-art", family === "sonic");
+      img.classList.toggle("is-full-art", family === "pokemon_modern_render" || family === "pokemon_modern");
+      img.classList.toggle("is-mascot-art", family === "sonic_pixel" || family === "sonic");
       img.style.width = `${renderW}px`;
       img.style.height = `${renderH}px`;
       img.style.maxWidth = "none";
@@ -507,7 +748,7 @@
 
       const shadow = avatarShadowHost(img);
       if (shadow) {
-        const shadowW = Math.max(28, Math.min(envelope * 0.72, Number(familyCfg.shadowWidth) || visW * 0.78));
+        const shadowW = Math.max(28, Math.min(stageRefW * 0.55, Number(familyCfg.shadowWidth) || visW * 0.78));
         shadow.style.setProperty("--shadow-w", `${Math.round(shadowW)}px`);
         shadow.classList.add("is-on");
       }

@@ -375,7 +375,7 @@
   function avatarEnvelopePx(mode) {
     // Context-specific presentation envelopes (same asset identity, different stage).
     if (mode === "thumb") return 68;
-    if (mode === "card") return 200;
+    if (mode === "card") return 188;
     return 220;
   }
 

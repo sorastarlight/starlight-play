@@ -13046,13 +13046,14 @@ html[data-perf="low"] .tid-hero .tid-card {
 }
 .tid-card-head,
 .tid-card-body,
+.tid-card-footer,
 .tid-info-panel { position: relative; z-index: 2; }
 .tid-card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin: 0 0 14px;
+  margin: 0;
   padding: 8px 12px;
   border-radius: 12px;
   background: color-mix(in srgb, var(--id-chip, #5d90c8) 88%, #1a2744);

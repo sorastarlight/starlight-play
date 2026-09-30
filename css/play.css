@@ -16083,7 +16083,9 @@ button.bag-pocket::after { display: none !important; content: none !important; }
 .tid-card-body .tid-identity-panel.tid-glass {
   display: grid;
   gap: 6px;
-  align-content: center;
+  align-content: start;
+  align-self: center;
+  height: auto;
   min-width: 0;
   width: 100%;
   padding: 10px 12px;

@@ -264,24 +264,24 @@
       preferInteger: true,
       maxFill: { stage: 0.72, card: 0.55, thumb: 0.96 },
       minFill: { stage: 0.30, card: 0.38, thumb: 0.52 },
-      cardTargetH: 0.46,
-      cardMinH: 0.38,
-      cardMaxH: 0.52,
-      cardTargetW: 0.40,
-      cardMaxW: 0.56,
+      cardTargetH: 0.48,
+      cardMinH: 0.40,
+      cardMaxH: 0.55,
+      cardTargetW: 0.42,
+      cardMaxW: 0.58,
       minIntegerScale: 1,
       maxIntegerScale: 4
     },
     pokemon_modern_pixel: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.74, card: 0.58, thumb: 0.96 },
-      minFill: { stage: 0.32, card: 0.40, thumb: 0.52 },
-      cardTargetH: 0.50,
-      cardMinH: 0.42,
-      cardMaxH: 0.56,
-      cardTargetW: 0.42,
-      cardMaxW: 0.58,
+      maxFill: { stage: 0.74, card: 0.60, thumb: 0.96 },
+      minFill: { stage: 0.32, card: 0.42, thumb: 0.52 },
+      cardTargetH: 0.54,
+      cardMinH: 0.44,
+      cardMaxH: 0.60,
+      cardTargetW: 0.44,
+      cardMaxW: 0.60,
       minIntegerScale: 1,
       maxIntegerScale: 4
     },
@@ -315,12 +315,12 @@
       pixelated: true,
       preferInteger: true,
       maxFill: { stage: 0.80, card: 0.62, thumb: 0.96 },
-      minFill: { stage: 0.36, card: 0.48, thumb: 0.54 },
-      cardTargetH: 0.54,
-      cardMinH: 0.48,
-      cardMaxH: 0.62,
-      cardTargetW: 0.44,
-      cardMaxW: 0.52,
+      minFill: { stage: 0.36, card: 0.42, thumb: 0.54 },
+      cardTargetH: 0.52,
+      cardMinH: 0.42,
+      cardMaxH: 0.60,
+      cardTargetW: 0.42,
+      cardMaxW: 0.50,
       minIntegerScale: 1,
       maxIntegerScale: 3
     },
@@ -330,11 +330,11 @@
       preferInteger: true,
       maxFill: { stage: 0.72, card: 0.55, thumb: 0.96 },
       minFill: { stage: 0.30, card: 0.38, thumb: 0.52 },
-      cardTargetH: 0.46,
-      cardMinH: 0.38,
-      cardMaxH: 0.52,
-      cardTargetW: 0.40,
-      cardMaxW: 0.56,
+      cardTargetH: 0.48,
+      cardMinH: 0.40,
+      cardMaxH: 0.55,
+      cardTargetW: 0.42,
+      cardMaxW: 0.58,
       minIntegerScale: 1,
       maxIntegerScale: 4
     },
@@ -392,7 +392,7 @@
    * Rare per-id Trainer ID presentation overrides (last resort).
    */
   window.PLAY_AVATAR_STAGE_OVERRIDES = Object.assign({
-    "sonic-amy": { cardMaxW: 0.46, cardTargetW: 0.40, cardTargetH: 0.52, trainerCardScale: 1 },
+    "sonic-amy": { cardMaxW: 0.48, cardTargetW: 0.42, cardTargetH: 0.50, cardMinH: 0.42, trainerCardScale: 1 },
     "sonic-cream": { cardTargetH: 0.52, cardMaxH: 0.58, trainerCardScale: 1 }
   }, window.PLAY_AVATAR_STAGE_OVERRIDES || {});
 
@@ -568,8 +568,8 @@
     const coreW = Math.max(1, bounds.cw || safeW);
     const stageH = Math.max(1, stageBox.h || 1);
     const stageW = Math.max(1, stageBox.w || 1);
-    const usableH = stageH * 0.90;
-    const usableW = stageW * 0.90;
+    const usableH = stageH * 0.94;
+    const usableW = stageW * 0.92;
 
     const targetH = Number(familyCfg.cardTargetH ?? 0.55);
     const minH = Number(familyCfg.cardMinH ?? 0.45);

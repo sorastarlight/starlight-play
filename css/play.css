@@ -16022,7 +16022,7 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   display: grid;
   grid-template-columns: 36% minmax(0, 1fr);
   gap: 10px 14px;
-  align-items: stretch;
+  align-items: center;
   margin-bottom: 0;
 }
 .tid-side-column { display: contents; } /* legacy safety if stale HTML remains */
@@ -16038,6 +16038,7 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   align-items: center;
   justify-content: center;
   justify-self: stretch;
+  align-self: center;
 }
 .tid-card > .tid-card-body .tid-avatar-well {
   position: relative;

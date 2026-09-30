@@ -16037,17 +16037,17 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   gap: 10px 16px;
   align-items: stretch;
   margin-bottom: 0;
-  height: 392px;
-  min-height: 392px;
-  max-height: 392px;
+  height: 420px;
+  min-height: 420px;
+  max-height: 420px;
 }
 .tid-side-column { display: contents; } /* legacy safety if stale HTML remains */
 
 /* LEFT — trainer identity / ID-card rows */
 .tid-card > .tid-card-body > .tid-identity-panel.tid-glass {
   display: grid;
-  grid-template-rows: auto auto auto auto 1fr;
-  gap: 8px;
+  grid-template-rows: auto auto auto auto auto;
+  gap: 6px;
   align-content: start;
   align-self: stretch;
   height: 100%;
@@ -16055,8 +16055,8 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   width: 100%;
   max-width: none;
   margin: 0;
-  padding: 10px 12px 10px;
-  overflow: hidden;
+  padding: 8px 10px 8px;
+  overflow: visible;
 }
 .tid-card-body .tid-plaque {
   padding: 6px 10px;
@@ -16064,20 +16064,16 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   background: rgba(255, 255, 255, .72);
 }
 .tid-card-body .tid-plaque-name {
-  padding: 8px 10px 10px;
+  padding: 6px 10px 8px;
   border-color: rgba(143, 212, 239, .45);
 }
 .tid-card-body .tid-name {
-  font-size: clamp(22px, 2.6vw, 32px);
+  font-size: clamp(20px, 2.4vw, 30px);
   line-height: 1.08;
 }
 .tid-card-body .tid-title {
-  margin-top: 4px;
+  margin-top: 2px;
   font-size: 13px;
-}
-.tid-data-rows {
-  display: grid;
-  gap: 5px;
 }
 .tid-data-row,
 .tid-stat-row {
@@ -16085,12 +16081,21 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  min-height: 28px;
-  padding: 5px 10px;
+  min-height: 26px;
+  padding: 4px 10px;
   border-radius: 10px;
   background: rgba(255, 255, 255, .78);
   border: 1px solid rgba(143, 212, 239, .55);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+.tid-data-rows {
+  display: grid;
+  gap: 4px;
+}
+.tid-stat-rows {
+  margin: 0;
+  display: grid;
+  gap: 4px;
 }
 .tid-data-label,
 .tid-stat-row dt {
@@ -16115,7 +16120,7 @@ button.bag-pocket::after { display: none !important; content: none !important; }
 .tid-stat-rows {
   margin: 0;
   display: grid;
-  gap: 5px;
+  gap: 4px;
 }
 .tid-stat-row dd {
   font-size: clamp(15px, 1.6vw, 18px);
@@ -16145,7 +16150,7 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   height: 9px;
 }
 .tid-card-body .tid-plaque-badges {
-  align-self: end;
+  margin-top: 2px;
   padding: 6px 8px 8px;
   background: rgba(255, 255, 255, .55);
   border-color: rgba(143, 212, 239, .4);
@@ -16172,7 +16177,7 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   font-size: 12px;
 }
 
-/* RIGHT — full-height character stage (not a floating portrait box) */
+/* RIGHT — full-height character stage (belongs to the card, not a portrait widget) */
 .tid-card > .tid-card-body > .tid-avatar-stage.is-hero.is-character {
   position: relative;
   width: 100%;
@@ -16186,12 +16191,12 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   justify-content: stretch;
   justify-self: stretch;
   align-self: stretch;
-  border-radius: 18px;
+  border-radius: 16px;
   background:
-    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, .55), transparent 55%),
-    linear-gradient(180deg, rgba(255, 255, 255, .28), rgba(214, 240, 255, .22) 55%, rgba(243, 160, 200, .12));
-  border: 1px solid rgba(255, 255, 255, .55);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .65);
+    radial-gradient(ellipse at 50% 22%, rgba(255, 255, 255, .42), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, .10), rgba(214, 240, 255, .08) 60%, rgba(243, 160, 200, .06));
+  border: 1px solid rgba(255, 255, 255, .28);
+  box-shadow: none;
 }
 .tid-card > .tid-card-body .tid-avatar-well {
   position: relative;

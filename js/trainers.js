@@ -262,32 +262,32 @@
     pokemon_pixel: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.72, card: 0.86, thumb: 0.92 },
-      minFill: { stage: 0.30, card: 0.34, thumb: 0.42 }
+      maxFill: { stage: 0.72, card: 0.84, thumb: 0.96 },
+      minFill: { stage: 0.30, card: 0.34, thumb: 0.52 }
     },
     pokemon_modern: {
       pixelated: false,
       preferInteger: false,
-      maxFill: { stage: 0.88, card: 0.92, thumb: 0.94 },
-      minFill: { stage: 0.40, card: 0.44, thumb: 0.48 }
+      maxFill: { stage: 0.88, card: 0.90, thumb: 0.96 },
+      minFill: { stage: 0.40, card: 0.44, thumb: 0.55 }
     },
     digimon: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.78, card: 0.88, thumb: 0.92 },
-      minFill: { stage: 0.34, card: 0.38, thumb: 0.44 }
+      maxFill: { stage: 0.78, card: 0.86, thumb: 0.96 },
+      minFill: { stage: 0.34, card: 0.38, thumb: 0.52 }
     },
     sonic: {
       pixelated: true,
       preferInteger: true,
-      maxFill: { stage: 0.80, card: 0.90, thumb: 0.94 },
-      minFill: { stage: 0.36, card: 0.40, thumb: 0.46 }
+      maxFill: { stage: 0.80, card: 0.88, thumb: 0.96 },
+      minFill: { stage: 0.36, card: 0.40, thumb: 0.54 }
     },
     default: {
       pixelated: false,
       preferInteger: false,
-      maxFill: { stage: 0.82, card: 0.90, thumb: 0.94 },
-      minFill: { stage: 0.34, card: 0.38, thumb: 0.44 }
+      maxFill: { stage: 0.82, card: 0.88, thumb: 0.96 },
+      minFill: { stage: 0.34, card: 0.38, thumb: 0.52 }
     }
   }, window.PLAY_AVATAR_FAMILY_DEFAULTS || {});
 
@@ -373,9 +373,10 @@
   }
 
   function avatarEnvelopePx(mode) {
-    if (mode === "thumb") return 64;
-    if (mode === "card") return 240;
-    return 208;
+    // Context-specific presentation envelopes (same asset identity, different stage).
+    if (mode === "thumb") return 68;
+    if (mode === "card") return 200;
+    return 220;
   }
 
   function avatarFillLimit(familyCfg, mode, which) {
@@ -720,32 +721,30 @@
             </div>
             ${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}
           </div>
-          <div class="tid-side-column">
-            <div class="tid-identity-panel tid-glass">
-              <div class="tid-plaque tid-plaque-name">
-                <p class="tid-name">${esc(card?.displayName || "Trainer")}</p>
-                ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
-              </div>
-              <div class="tid-plaque tid-plaque-meta">
-                <p class="tid-level">Lv. ${esc(card?.level || 1)}</p>
-                <p class="tid-started">Trainer since ${window.playCardDate(card?.startedAt)}</p>
-              </div>
-              <div class="tid-plaque tid-plaque-badges">
-                ${badgeRowHtml(badges, esc)}
-              </div>
+          <div class="tid-identity-panel tid-glass">
+            <div class="tid-plaque tid-plaque-name">
+              <p class="tid-name">${esc(card?.displayName || "Trainer")}</p>
+              ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
             </div>
-            ${identityOnly ? "" : `
-            <div class="tid-info-panel tid-glass">
-              <dl class="tid-highlights">
-                <div><dt>Pokédex</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>
-                <div><dt>Catches</dt><dd>${Number(card?.caught || 0)}</dd></div>
-                <div><dt>Shinies</dt><dd>${Number(card?.shinyCaught || 0)}</dd></div>
-                <div><dt>Species Mastered</dt><dd>${mastered}</dd></div>
-              </dl>
-              <div class="tid-plaque tid-plaque-xp">${window.playXpProgressHtml(card, { profile: true })}</div>
-            </div>`}
+            <div class="tid-plaque tid-plaque-meta">
+              <p class="tid-level">Lv. ${esc(card?.level || 1)}</p>
+              <p class="tid-started">Trainer since ${window.playCardDate(card?.startedAt)}</p>
+            </div>
+            <div class="tid-plaque tid-plaque-badges">
+              ${badgeRowHtml(badges, esc)}
+            </div>
           </div>
         </div>
+        ${identityOnly ? "" : `
+        <div class="tid-card-footer tid-glass">
+          <dl class="tid-highlights">
+            <div><dt>Pokédex</dt><dd>${counts.kantoCaught}<span class="tid-slash">/</span>${counts.kantoTotal}</dd></div>
+            <div><dt>Catches</dt><dd>${Number(card?.caught || 0)}</dd></div>
+            <div><dt>Shinies</dt><dd>${Number(card?.shinyCaught || 0)}</dd></div>
+            <div><dt>Species Mastered</dt><dd>${mastered}</dd></div>
+          </dl>
+          <div class="tid-footer-xp">${window.playXpProgressHtml(card, { profile: true })}</div>
+        </div>`}
       </article>`;
   };
 

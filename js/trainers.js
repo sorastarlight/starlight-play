@@ -377,7 +377,7 @@
     // Context-specific presentation envelopes (same asset identity, different stage).
     // Card = tall BDSP-inspired right-side character stage (not the old square portrait).
     if (mode === "thumb") return 68;
-    if (mode === "card") return 360;
+    if (mode === "card") return 400;
     return 220;
   }
 

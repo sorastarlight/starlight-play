@@ -16037,9 +16037,9 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   gap: 10px 16px;
   align-items: stretch;
   margin-bottom: 0;
-  height: 420px;
-  min-height: 420px;
-  max-height: 420px;
+  height: 440px;
+  min-height: 440px;
+  max-height: 440px;
 }
 .tid-side-column { display: contents; } /* legacy safety if stale HTML remains */
 
@@ -16051,12 +16051,13 @@ button.bag-pocket::after { display: none !important; content: none !important; }
   align-content: start;
   align-self: stretch;
   height: 100%;
+  min-height: 0;
   min-width: 0;
   width: 100%;
   max-width: none;
   margin: 0;
   padding: 8px 10px 8px;
-  overflow: visible;
+  overflow: hidden;
 }
 .tid-card-body .tid-plaque {
   padding: 6px 10px;

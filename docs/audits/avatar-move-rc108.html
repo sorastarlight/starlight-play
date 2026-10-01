@@ -1,0 +1,134 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<base href="/">
+<title>Avatar Stage Movement QA rc108</title>
+<link rel="stylesheet" href="css/play.css">
+<style>
+body{margin:16px;background:#eef6ff;font-family:Segoe UI,sans-serif;color:#1a2744}
+.scc-workshop-split{max-width:1100px}
+#log{white-space:pre-wrap;background:#fff;border:1px solid #cfe3f4;border-radius:12px;padding:12px;margin-top:16px}
+</style>
+</head><body>
+<h1>Avatar Workshop stage movement QA</h1>
+<div class="scc-workshop-split">
+  <section class="scc-avatar-stage">
+    <p class="scc-module-kicker">AVATAR STAGE</p>
+    <div class="scc-stage-body" id="stage"></div>
+  </section>
+  <section class="scc-avatar-browser">
+    <p class="scc-module-kicker">SEQUENCE</p>
+    <div id="buttons"></div>
+  </section>
+</div>
+<pre id="log">Running…</pre>
+<script src="js/trainers.js"></script>
+<script>
+const IDS = ["sonic-sonic","sonic-tails","sonic-knuckles","sonic-amy","sonic-cream","sora","mimi","hikari","leaf-gen3","red-gen1","red-lgpe"];
+const buttons = document.getElementById("buttons");
+const stage = document.getElementById("stage");
+const results = [];
+
+function stageHtml(id) {
+  return `<div class="scc-stage-frame">
+    <div class="scc-stage-glow" aria-hidden="true"></div>
+    <span class="avatar-stage-shadow" aria-hidden="true"></span>
+    <img class="scc-stage-sprite is-stage-pending" data-avatar-id="${id}" src="images/trainers/${id}.png" alt="${id}" width="320" height="320" decoding="async">
+  </div>
+  <p class="scc-stage-name">${id}</p>`;
+}
+
+function measure(img) {
+  const frame = img.closest(".scc-stage-frame");
+  const fr = frame.getBoundingClientRect();
+  const ir = img.getBoundingClientRect();
+  return {
+    stage: { w: +fr.width.toFixed(2), h: +fr.height.toFixed(2), l: +fr.left.toFixed(2) },
+    img: { l: +ir.left.toFixed(2), t: +ir.top.toFixed(2), w: +ir.width.toFixed(2), h: +ir.height.toFixed(2), cx: +((ir.left+ir.right)/2).toFixed(2) },
+    opacity: getComputedStyle(img).opacity,
+    transform: getComputedStyle(img).transform
+  };
+}
+
+async function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+async function selectId(id) {
+  stage.innerHTML = stageHtml(id);
+  const img = stage.querySelector("img");
+  window.playNormalizeTrainerAvatar(img, { mode: "stage" });
+  // Wait until visible (opacity > 0.9) or timeout
+  let visibleAt = null;
+  const samples = [];
+  const t0 = performance.now();
+  // Budget: wait up to 4s for first visible paint, then sample through +1000ms.
+  for (let i = 0; i < 220; i++) {
+    const m = measure(img);
+    const elapsed = performance.now() - t0;
+    const ready = img.dataset.avatarNorm === "1" || img.classList.contains("is-stage-ready");
+    if (visibleAt == null && Number(m.opacity) > 0.9 && ready) {
+      visibleAt = elapsed;
+      samples.push({ t: "T1_visible", elapsed: +elapsed.toFixed(1), ...m });
+    } else if (visibleAt != null) {
+      const since = elapsed - visibleAt;
+      for (const mark of [100, 250, 500, 1000]) {
+        if (!samples.some((s) => s.t === "T+" + mark) && since >= mark) {
+          samples.push({ t: "T+" + mark, elapsed: +elapsed.toFixed(1), ...measure(img) });
+        }
+      }
+      if (since >= 1000) break;
+    } else if (elapsed > 4000) {
+      break;
+    }
+    await wait(25);
+  }
+  if (!samples.length) {
+    const late = measure(img);
+    if (Number(late.opacity) > 0.9) {
+      samples.push({ t: "T1_visible", elapsed: +(performance.now() - t0).toFixed(1), ...late });
+      await wait(100); samples.push({ t: "T+100", ...measure(img) });
+      await wait(150); samples.push({ t: "T+250", ...measure(img) });
+      await wait(250); samples.push({ t: "T+500", ...measure(img) });
+      await wait(500); samples.push({ t: "T+1000", ...measure(img) });
+    } else {
+      samples.push({ t: "FAIL_never_visible", ...late });
+    }
+  }
+  const first = samples.find((s) => s.t === "T1_visible") || samples[0];
+  const last = samples[samples.length - 1];
+  const d = {
+    id,
+    maxDx: Math.abs((last.img?.cx || 0) - (first.img?.cx || 0)),
+    maxDy: Math.abs((last.img?.t || 0) - (first.img?.t || 0)),
+    maxDw: Math.abs((last.img?.w || 0) - (first.img?.w || 0)),
+    maxDh: Math.abs((last.img?.h || 0) - (first.img?.h || 0)),
+    stageDw: Math.abs((last.stage?.w || 0) - (first.stage?.w || 0)),
+    stageDh: Math.abs((last.stage?.h || 0) - (first.stage?.h || 0)),
+    samples
+  };
+  results.push(d);
+  return d;
+}
+
+IDS.forEach((id) => {
+  const b = document.createElement("button");
+  b.textContent = id;
+  b.style.margin = "4px";
+  b.onclick = () => selectId(id);
+  buttons.appendChild(b);
+});
+
+(async () => {
+  for (const id of IDS) await selectId(id);
+  const maxDx = Math.max(...results.map((r) => r.maxDx));
+  const maxDy = Math.max(...results.map((r) => r.maxDy));
+  const maxDs = Math.max(...results.map((r) => Math.max(r.maxDw, r.maxDh)));
+  const summary = {
+    pass: maxDx <= 1 && maxDy <= 1 && maxDs <= 1,
+    maxDx, maxDy, maxSizeDelta: maxDs,
+    results
+  };
+  document.getElementById("log").textContent = JSON.stringify(summary, null, 2);
+  window.__AVATAR_MOVE_QA_RC108__ = summary;
+})();
+</script>
+</body></html>

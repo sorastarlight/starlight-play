@@ -1,0 +1,350 @@
+{
+  "total": 43,
+  "broken": [],
+  "rows": [
+    {
+      "file": "r002g0101.png",
+      "path": "images/team-bgs/owner/r002g0101.png",
+      "bytes": 108175,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "r004d0101.png",
+      "path": "images/team-bgs/owner/r004d0101.png",
+      "bytes": 85351,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "r010d0101.png",
+      "path": "images/team-bgs/owner/r010d0101.png",
+      "bytes": 82461,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "r010r0101.png",
+      "path": "images/team-bgs/owner/r010r0101.png",
+      "bytes": 99403,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "r011d0101.png",
+      "path": "images/team-bgs/owner/r011d0101.png",
+      "bytes": 73975,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "r020d0101.png",
+      "path": "images/team-bgs/owner/r020d0101.png",
+      "bytes": 89914,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "r023d0101.png",
+      "path": "images/team-bgs/owner/r023d0101.png",
+      "bytes": 85288,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road001.png",
+      "path": "images/team-bgs/owner/road001.png",
+      "bytes": 116361,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road002.png",
+      "path": "images/team-bgs/owner/road002.png",
+      "bytes": 106549,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road003.png",
+      "path": "images/team-bgs/owner/road003.png",
+      "bytes": 117041,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road004.png",
+      "path": "images/team-bgs/owner/road004.png",
+      "bytes": 110945,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road005.png",
+      "path": "images/team-bgs/owner/road005.png",
+      "bytes": 102080,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road006.png",
+      "path": "images/team-bgs/owner/road006.png",
+      "bytes": 113916,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road007.png",
+      "path": "images/team-bgs/owner/road007.png",
+      "bytes": 104230,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road008.png",
+      "path": "images/team-bgs/owner/road008.png",
+      "bytes": 108962,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road009.png",
+      "path": "images/team-bgs/owner/road009.png",
+      "bytes": 111236,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road010.png",
+      "path": "images/team-bgs/owner/road010.png",
+      "bytes": 105696,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road011.png",
+      "path": "images/team-bgs/owner/road011.png",
+      "bytes": 116091,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road012.png",
+      "path": "images/team-bgs/owner/road012.png",
+      "bytes": 115191,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road013.png",
+      "path": "images/team-bgs/owner/road013.png",
+      "bytes": 111020,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road014.png",
+      "path": "images/team-bgs/owner/road014.png",
+      "bytes": 109217,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road015.png",
+      "path": "images/team-bgs/owner/road015.png",
+      "bytes": 109001,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road016.png",
+      "path": "images/team-bgs/owner/road016.png",
+      "bytes": 107620,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road017.png",
+      "path": "images/team-bgs/owner/road017.png",
+      "bytes": 113948,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road018.png",
+      "path": "images/team-bgs/owner/road018.png",
+      "bytes": 114438,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road019.png",
+      "path": "images/team-bgs/owner/road019.png",
+      "bytes": 120895,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road020.png",
+      "path": "images/team-bgs/owner/road020.png",
+      "bytes": 117907,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road021.png",
+      "path": "images/team-bgs/owner/road021.png",
+      "bytes": 119025,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road022.png",
+      "path": "images/team-bgs/owner/road022.png",
+      "bytes": 114597,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road023.png",
+      "path": "images/team-bgs/owner/road023.png",
+      "bytes": 107361,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road024.png",
+      "path": "images/team-bgs/owner/road024.png",
+      "bytes": 118660,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "road025.png",
+      "path": "images/team-bgs/owner/road025.png",
+      "bytes": 116421,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town001.png",
+      "path": "images/team-bgs/owner/town001.png",
+      "bytes": 108436,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town002.png",
+      "path": "images/team-bgs/owner/town002.png",
+      "bytes": 105615,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town003.png",
+      "path": "images/team-bgs/owner/town003.png",
+      "bytes": 108812,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town004.png",
+      "path": "images/team-bgs/owner/town004.png",
+      "bytes": 115186,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town005.png",
+      "path": "images/team-bgs/owner/town005.png",
+      "bytes": 100679,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town006.png",
+      "path": "images/team-bgs/owner/town006.png",
+      "bytes": 112735,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town007.png",
+      "path": "images/team-bgs/owner/town007.png",
+      "bytes": 93013,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town008.png",
+      "path": "images/team-bgs/owner/town008.png",
+      "bytes": 112528,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town009.png",
+      "path": "images/team-bgs/owner/town009.png",
+      "bytes": 108862,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town010.png",
+      "path": "images/team-bgs/owner/town010.png",
+      "bytes": 106162,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    },
+    {
+      "file": "town011.png",
+      "path": "images/team-bgs/owner/town011.png",
+      "bytes": 87570,
+      "width": 396,
+      "height": 228,
+      "valid": true
+    }
+  ]
+}

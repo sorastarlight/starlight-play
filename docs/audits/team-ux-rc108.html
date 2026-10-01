@@ -1,0 +1,100 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<base href="/">
+<title>Team UX visual QA rc108</title>
+<link rel="stylesheet" href="css/play.css">
+<style>
+body{margin:0;background:#e8f4ff;font-family:Segoe UI,sans-serif;color:#1a2744}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+.grid{display:grid;gap:18px}
+.panel{background:#fff;border:2px solid #cfe3f4;border-radius:18px;padding:12px}
+h1,h2{margin:0 0 8px}
+.shot{margin-bottom:24px}
+#party-strip-demo .team-party-strip{margin-top:8px}
+</style>
+</head><body>
+<div class="wrap">
+  <h1>Team UX / party stage QA rc108</h1>
+  <div class="grid">
+    <section class="panel shot" id="stage-default"></section>
+    <section class="panel shot" id="stage-gen1"></section>
+    <section class="panel shot" id="stage-gen2"></section>
+    <section class="panel shot" id="stage-gen3"></section>
+    <section class="panel shot" id="stage-gen4"></section>
+    <section class="panel shot" id="stage-owner"></section>
+    <section class="panel shot" id="stage-diglett"></section>
+    <section class="panel shot" id="compact-bg"></section>
+    <section class="panel shot" id="party-strip-demo"></section>
+  </div>
+</div>
+<script src="js/build.js"></script>
+<script src="js/trainers.js"></script>
+<script>
+window.playSpriteUrl = window.playSpriteUrl || function(dex){
+  const id = Number(dex) || 0;
+  return `images/pokemon/${id}.gif`;
+};
+window.playAnimatedSpriteUrl = window.playAnimatedSpriteUrl || window.playSpriteUrl;
+window.playEscapeAttr = window.playEscapeAttr || ((v)=>String(v||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])));
+const TEAM = [
+  { id:"c1", dex:25, nickname:"Pikachu", variant:"normal" },
+  { id:"c2", dex:150, nickname:"Mewtwo", variant:"normal" },
+  { id:"c3", dex:136, nickname:"Flareon", variant:"normal" },
+  { id:"c4", dex:26, nickname:"Raichu", variant:"normal" },
+  { id:"c5", dex:29, nickname:"Nidoran♀", variant:"normal" },
+  { id:"c6", dex:135, nickname:"Jolteon", variant:"normal" }
+];
+function card(bg){ return { team: TEAM, teamBg: bg, editor: true, trainerName: "QA" }; }
+function mount(id, bg, title){
+  const el = document.getElementById(id);
+  el.innerHTML = `<h2>${title}</h2>` + window.playRenderTrainerPartyHtml(card(bg));
+}
+mount("stage-default", "starlight-gradient", "Default ST★RLIGHT");
+mount("stage-gen1", "gen1-mono", "Gen I mono");
+mount("stage-gen2", "gen2-color", "Gen II color");
+mount("stage-gen3", "gen3-gba", "Gen III GBA");
+mount("stage-gen4", "gen4-ds", "Gen IV DS");
+const ownerIds = (window.PLAY_TEAM_BACKGROUNDS||[]).filter(r => String(r.id||"").includes("owner") || String(r.asset||"").includes("team-bgs/owner")).map(r=>r.id);
+const diglett = (window.PLAY_TEAM_BACKGROUNDS||[]).find(r => /diglett/i.test(r.name||"") || /diglett/i.test(r.id||""));
+mount("stage-owner", ownerIds[0] || "viridian-forest", "First owner / image BG");
+mount("stage-diglett", diglett?.id || ownerIds.find(id=>/cave/i.test(id)) || ownerIds[0] || "starlight-gradient", "Diglett's Cave / cave sample");
+
+const selected = window.playTeamBg(diglett?.id || "gen3-gba");
+document.getElementById("compact-bg").innerHTML = `
+  <h2>Compact background selector mock</h2>
+  <section class="scc-team-bg-compact">
+    <div class="scc-team-bg-compact-head">
+      <p class="scc-module-kicker">TEAM BACKGROUND</p>
+      <button type="button" class="scc-team-bg-browse">Browse All Backgrounds</button>
+    </div>
+    <div class="scc-team-bg-carousel">
+      <button type="button" class="scc-team-bg-nav" aria-label="Previous">‹</button>
+      <button type="button" class="scc-team-bg-current">
+        <span class="scc-team-bg-current-thumb ${selected?.cssClass||""}" ${selected?.asset?`style="background-image:linear-gradient(180deg,rgba(12,24,48,.12),rgba(12,24,48,.28)),url('${selected.asset}');background-size:cover;background-position:center"`:""}></span>
+        <strong>${selected?.name||"Background"}</strong>
+        <span class="id-state">OWNED</span>
+      </button>
+      <button type="button" class="scc-team-bg-nav" aria-label="Next">›</button>
+    </div>
+  </section>`;
+
+document.getElementById("party-strip-demo").innerHTML = `
+  <h2>Party strip</h2>
+  <div class="team-slots team-slots-party team-party-strip">
+    ${TEAM.map((mon,i)=>`<article class="team-slot team-party-chip filled">
+      <span class="team-slot-ball">${i+1}</span>
+      <div class="team-slot-sprite"><img src="${window.playSpriteUrl(mon.dex, mon.variant)}" alt=""></div>
+      <strong class="team-slot-name">${mon.nickname}</strong>
+      <div class="team-slot-actions"><button class="team-slot-icon" type="button">◀</button><button class="team-slot-icon" type="button">▶</button><button class="team-slot-icon is-remove" type="button">×</button></div>
+    </article>`).join("")}
+  </div>`;
+
+window.__TEAM_UX_RC108__ = {
+  build: window.PLAY_BUILD,
+  ownerBgCount: ownerIds.length,
+  diglett: diglett || null,
+  catalog: (window.PLAY_TEAM_BACKGROUNDS||[]).length
+};
+</script>
+</body></html>

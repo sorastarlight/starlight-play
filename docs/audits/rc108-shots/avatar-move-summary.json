@@ -1,0 +1,22 @@
+{
+  "pass": true,
+  "maxDx": 0,
+  "maxDy": 0,
+  "maxSizeDelta": 0,
+  "build": "20261001-rc108",
+  "avatars": [
+    "sonic-sonic",
+    "sonic-tails",
+    "sonic-knuckles",
+    "sonic-amy",
+    "sonic-cream",
+    "sora",
+    "mimi",
+    "hikari",
+    "leaf-gen3",
+    "red-gen1",
+    "red-lgpe"
+  ],
+  "marks": ["T1_visible", "T+100", "T+250", "T+500", "T+1000"],
+  "note": "Atomic stage reveal via is-stage-pending/is-stage-ready classes; decode timeout 2s; no position transitions."
+}

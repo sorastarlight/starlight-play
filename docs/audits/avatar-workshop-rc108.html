@@ -1,0 +1,73 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<base href="/">
+<title>Avatar Workshop visual QA rc108</title>
+<link rel="stylesheet" href="css/play.css">
+<style>
+body{margin:0;background:#e8f4ff;font-family:Segoe UI,sans-serif;color:#1a2744}
+.wrap{max-width:1180px;margin:0 auto;padding:16px 16px 80px}
+.scc-workshop-split{display:grid;grid-template-columns:minmax(320px,.42fr) minmax(0,.58fr);gap:18px;align-items:start}
+.thumb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.thumb{border:2px solid #c5d8ef;border-radius:12px;background:#fff;padding:6px;cursor:pointer}
+.thumb.is-on{border-color:#f3a0c8;box-shadow:0 0 0 2px rgba(243,160,200,.35)}
+.thumb img{width:100%;height:88px;object-fit:contain}
+.sticky-bar{position:sticky;bottom:0;background:rgba(255,255,255,.92);border-top:2px solid #cfe3f4;padding:10px 16px;display:flex;gap:8px;justify-content:flex-end}
+</style>
+</head><body>
+<div class="wrap">
+  <header class="scc-panel-head"><h1>Avatar Workshop QA</h1><p class="muted">Selected stage ~42% · Browser ~58%</p></header>
+  <div class="scc-workshop-split" id="workspace">
+    <section class="scc-avatar-stage">
+      <p class="scc-module-kicker">AVATAR STAGE</p>
+      <div class="scc-stage-body" id="stage"></div>
+      <p class="scc-stage-meta" id="meta"></p>
+    </section>
+    <section class="scc-avatar-browser">
+      <p class="scc-module-kicker">AVATAR BROWSER</p>
+      <div class="thumb-grid" id="thumbs"></div>
+    </section>
+  </div>
+</div>
+<div class="sticky-bar"><button type="button">Discard</button><button type="button" class="scc-team-bg-browse">Save Trainer ID</button></div>
+<script src="js/trainers.js"></script>
+<script>
+const IDS = [
+  {id:"sonic-tails",name:"Tails",pack:"Classic Sonic Premium"},
+  {id:"sonic-amy",name:"Amy",pack:"Classic Sonic Premium"},
+  {id:"sora",name:"Sora",pack:"ST★RLIGHT"},
+  {id:"mimi",name:"Mimi",pack:"Digimon"},
+  {id:"leaf-gen3",name:"Leaf",pack:"Pokémon Classic"},
+  {id:"red-lgpe",name:"Red (LGPE)",pack:"Pokémon Modern"}
+];
+const stage = document.getElementById("stage");
+const meta = document.getElementById("meta");
+const thumbs = document.getElementById("thumbs");
+
+function select(id) {
+  const row = IDS.find((r) => r.id === id) || IDS[0];
+  [...thumbs.children].forEach((el) => el.classList.toggle("is-on", el.dataset.id === id));
+  stage.innerHTML = `<div class="scc-stage-frame">
+    <div class="scc-stage-glow" aria-hidden="true"></div>
+    <span class="avatar-stage-shadow" aria-hidden="true"></span>
+    <img class="scc-stage-sprite is-stage-pending" data-avatar-id="${row.id}" src="images/trainers/${row.id}.png" alt="${row.name}" width="320" height="320" decoding="async">
+  </div>
+  <p class="scc-stage-name">${row.name}</p>`;
+  meta.textContent = `${row.pack} · ${row.id}`;
+  const img = stage.querySelector("img");
+  window.playNormalizeTrainerAvatar(img, { mode: "stage" });
+  window.__WORKSHOP_SELECTED__ = row.id;
+}
+
+IDS.forEach((row) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "thumb";
+  b.dataset.id = row.id;
+  b.innerHTML = `<img src="images/trainers/${row.id}.png" alt=""><strong>${row.name}</strong>`;
+  b.onclick = () => select(row.id);
+  thumbs.appendChild(b);
+});
+select("sonic-tails");
+</script>
+</body></html>

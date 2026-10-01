@@ -458,6 +458,8 @@
         h,
         vw,
         vh,
+        cl: core.cl,
+        ct: core.ct,
         cw: core.cw,
         ch: core.ch
       };
@@ -486,7 +488,7 @@
       }
     }
     if (total <= 0) {
-      return { cw: Math.max(1, right - left + 1), ch: Math.max(1, bottom - top + 1) };
+      return { cl: left, ct: top, cw: Math.max(1, right - left + 1), ch: Math.max(1, bottom - top + 1) };
     }
     const trim = (arr, keep) => {
       const need = total * keep;
@@ -507,6 +509,8 @@
     const cx = trim(cols, 0.78);
     const cy = trim(rows, 0.78);
     return {
+      cl: left + cx.i0,
+      ct: top + cy.i0,
       cw: Math.max(1, cx.i1 - cx.i0 + 1),
       ch: Math.max(1, cy.i1 - cy.i0 + 1)
     };
@@ -709,6 +713,11 @@
     const mode = opts?.mode
       || (img.classList.contains("scc-avatar-thumb-img") || img.closest?.(".scc-avatar-thumb") ? "thumb"
         : (img.classList.contains("tid-avatar-sprite") || img.closest?.(".tid-avatar-stage") ? "card" : "stage"));
+    if (mode === "stage") {
+      img.classList.add("is-stage-pending");
+      img.style.opacity = "0";
+      img.style.transition = "none";
+    }
     const apply = () => {
       const bounds = avatarAlphaBounds(img) || {
         left: 0,
@@ -846,9 +855,17 @@
         img.style.removeProperty("height");
         img.style.width = renderW + "px";
         img.style.height = renderH + "px";
+        // Center BODY/CORE on workshop stage; full alpha used for fit clamps.
+        const alphaMid = bounds.left + (bounds.vw / 2);
+        const coreMid = Number.isFinite(bounds.cl)
+          ? (bounds.cl + ((bounds.cw || bounds.vw) / 2))
+          : alphaMid;
+        const coreShift = mode === "stage" ? ((alphaMid - coreMid) * scale) : 0;
+        const tx = ((padR - padL) / 2) + offX + coreShift;
         img.style.margin = "0 " + (-padR) + "px " + (-padB + offY) + "px " + (-padL) + "px";
-        img.style.transform = "translateX(" + ((((padR - padL) / 2) + offX).toFixed(2)) + "px)";
+        img.style.transform = "translateX(" + tx.toFixed(2) + "px)";
         img.style.transformOrigin = "";
+        img.style.transition = "none";
       }
       img.style.imageRendering = familyCfg.pixelated ? "pixelated" : "auto";
       img.style.filter = familyCfg.pixelated ? "none" : "";
@@ -856,12 +873,38 @@
       const shadow = avatarShadowHost(img);
       if (shadow) {
         const shadowW = Math.max(28, Math.min(stageRefW * 0.55, Number(familyCfg.shadowWidth) || visW * 0.78));
-        shadow.style.setProperty("--shadow-w", `${Math.round(shadowW)}px`);
+        shadow.style.setProperty("--shadow-w", Math.round(shadowW) + "px");
         shadow.classList.add("is-on");
       }
+      if (mode === "stage") {
+        img.classList.remove("is-stage-pending");
+        img.classList.add("is-stage-ready");
+        // Reveal only after final geometry. Prefer class opacity (no rAF) so
+        // background-tab throttling cannot leave the sprite stuck at opacity 0.
+        img.style.opacity = "";
+        img.style.transition = "";
+        const reduce = Boolean(window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches);
+        const low = String(window.playPerfMode?.() || window.PLAY_PERF_MODE || "").toLowerCase() === "low";
+        if (reduce || low) {
+          img.classList.add("is-stage-instant");
+        } else {
+          img.classList.remove("is-stage-instant");
+        }
+      }
     };
-    if (img.complete && img.naturalWidth) apply();
-    else img.addEventListener("load", apply, { once: true });
+    const run = async () => {
+      try {
+        if (typeof img.decode === "function") {
+          await Promise.race([
+            img.decode(),
+            new Promise((_, reject) => setTimeout(() => reject(new Error("decode-timeout")), 2000))
+          ]);
+        }
+      } catch (_) {}
+      apply();
+    };
+    if (img.complete && img.naturalWidth) run();
+    else img.addEventListener("load", () => { run(); }, { once: true });
   };
 
   window.playNormalizeAvatarThumb = function playNormalizeAvatarThumb(img) {
@@ -2317,17 +2360,26 @@
     const gen = bg?.generationStyle || "starlight";
     const renderMode = bg?.renderMode || (bg?.style === "image" ? "cover" : "css");
     const fx = Number.isFinite(bg?.focalX) ? bg.focalX : 0.5;
-    const fy = Number.isFinite(bg?.focalY) ? bg.focalY : 0.5;
-    const bgStyle = bg?.asset
-      ? ` style="--team-bg-image:url('${esc(bg.asset)}');--team-bg-fx:${fx};--team-bg-fy:${fy}"`
+    const fy = Number.isFinite(bg?.focalY) ? bg.focalY : 0.55;
+    const pixel = Boolean(bg?.pixelArt) || String(renderMode).startsWith("pixel") || gen === "gen1" || gen === "gen2" || gen === "gen3";
+    const assetUrl = bg?.asset ? esc(bg.asset) : "";
+    const sizeMode = String(renderMode || "cover");
+    const bgSize = sizeMode === "contain" || sizeMode === "pixel-contain"
+      ? "contain"
+      : (sizeMode === "tile" ? "auto" : "cover");
+    const bgRepeat = sizeMode === "tile" ? "repeat" : "no-repeat";
+    const bgStyle = assetUrl
+      ? ` style="--team-bg-image:url('${assetUrl}');--team-bg-fx:${fx};--team-bg-fy:${fy};background-image:linear-gradient(180deg,rgba(12,24,48,.10),rgba(12,24,48,.22)),url('${assetUrl}');background-size:${bgSize};background-position:calc(${fx}*100%) calc(${fy}*100%);background-repeat:${bgRepeat};${pixel ? "image-rendering:pixelated;" : ""}"`
       : ` style="--team-bg-fx:${fx};--team-bg-fy:${fy}"`;
     const perf = String(window.playPerfMode?.() || window.PLAY_PERF_MODE || "balanced").toLowerCase();
     const reduce = Boolean(window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches);
     const animate = !reduce && (perf === "high" || perf === "auto" || perf === "balanced");
+    const fanfare = animate ? (card?.editor ? " is-fanfare-soft" : " is-fanfare") : "";
     const figures = slots.map((mon, index) => {
       const position = index + 1;
+      const row = (position % 2 === 0) ? "is-back" : "is-front";
       if (!mon) {
-        return `<li class="tid-party-figure is-open" style="--i:${index}" data-slot="${position}">
+        return `<li class="tid-party-figure is-open ${row}" style="--i:${index}" data-slot="${position}">
           <span class="tid-party-pad" aria-hidden="true"></span>
           <span class="tid-party-ball" aria-hidden="true">${position}</span>
           <span class="tid-party-open-label">Open</span>
@@ -2342,7 +2394,7 @@
       if (animate && typeof window.playAnimatedSpriteUrl === "function") {
         spriteUrl = window.playAnimatedSpriteUrl(mon.dex, mon.variant, mon.formId) || spriteUrl;
       }
-      return `<li class="tid-party-figure is-filled${shiny ? " is-shiny" : ""}${catchId ? " is-inspectable" : ""}" style="--i:${index}" data-slot="${position}"${catchId ? ` data-catch-id="${catchId}"` : ""}>
+      return `<li class="tid-party-figure is-filled ${row}${shiny ? " is-shiny" : ""}${catchId ? " is-inspectable" : ""}" style="--i:${index}" data-slot="${position}"${catchId ? ` data-catch-id="${catchId}"` : ""}>
         ${catchId ? `<button type="button" class="tid-party-hit" data-inspect-catch="${catchId}" aria-label="Inspect ${esc(primary)}"></button>` : ""}
         <span class="tid-party-pad" aria-hidden="true"></span>
         <span class="tid-party-actor">
@@ -2353,18 +2405,17 @@
         <strong class="tid-party-caption">${esc(primary)}</strong>
       </li>`;
     }).join("");
-    return `<div class="tid-team-showcase is-scene" data-team-bg-id="${esc(bg?.id || "starlight-gradient")}" data-gen="${esc(gen)}" data-render="${esc(renderMode)}">
+    return `<div class="tid-team-showcase is-scene${fanfare}" data-team-bg-id="${esc(bg?.id || "starlight-gradient")}" data-gen="${esc(gen)}" data-render="${esc(renderMode)}" data-has-image="${assetUrl ? "1" : "0"}">
       <div class="tid-team-stage ${esc(bgClass)} is-${esc(renderMode)}"${bgStyle}>
         <div class="tid-team-stage-veil" aria-hidden="true"></div>
         <div class="tid-team-stage-frame" aria-hidden="true"></div>
         <p class="tid-team-scene-kicker"><span>MY TEAM</span></p>
-        <ol class="tid-party-scene">${figures}</ol>
+        <ol class="tid-party-scene is-depth">${figures}</ol>
         <p class="tid-team-scene-bgname">${esc(bg?.name || "ST★RLIGHT Gradient")}</p>
       </div>
       ${filled ? "" : `<p class="muted tid-empty tid-party-empty">No party set yet. Organize six Pokémon in My Account.</p>`}
     </div>`;
   };
-
 
   // Trainer Journey is folded into the Trainer ID info panel; kept as a stub so any
   // stale caller renders nothing instead of throwing.

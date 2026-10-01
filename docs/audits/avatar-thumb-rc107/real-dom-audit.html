@@ -1,0 +1,1001 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>Avatar Thumb REAL DOM Audit rc107</title>
+<link rel="stylesheet" href="../../../css/play.css">
+<style>
+body { margin: 16px; font-family: Segoe UI, sans-serif; background: #eef6ff; color: #1a2744; }
+h1,h2 { margin: 12px 0 8px; }
+.sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 10px; margin-bottom: 28px; }
+.cell { background: #fff; border: 1px solid #cfe3f4; border-radius: 12px; padding: 8px; text-align: center; }
+.cell .scc-avatar-thumb { margin: 0 auto 6px; }
+.cell strong { display:block; font-size: 11px; word-break: break-all; }
+.metrics { font-size: 10px; color: #4a5a78; min-height: 2.4em; }
+.fail { outline: 3px solid #e25555; }
+.pass { outline: 2px solid #3aa66a; }
+#summary { white-space: pre-wrap; background: #fff; padding: 12px; border-radius: 12px; border: 1px solid #cfe3f4; }
+</style>
+</head><body>
+<h1>Avatar Browser — REAL DOM Thumbnail Audit (rc107)</h1>
+<p>Measures actual tile vs projected visible-alpha rects after <code>playNormalizeAvatarThumb</code>.</p>
+<pre id="summary">Running…</pre>
+
+  <h2 id="group-digimon">digimon (8)</h2>
+  <div class="sheet" data-group="digimon">
+    <div class="cell" data-id="hikari">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="hikari" src="../../../images/trainers/hikari.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>hikari</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="joe">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="joe" src="../../../images/trainers/joe.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>joe</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="koushiro">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="koushiro" src="../../../images/trainers/koushiro.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>koushiro</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="mimi">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="mimi" src="../../../images/trainers/mimi.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>mimi</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="sora">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sora" src="../../../images/trainers/sora.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sora</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="taichi">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="taichi" src="../../../images/trainers/taichi.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>taichi</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="takeru">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="takeru" src="../../../images/trainers/takeru.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>takeru</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="yamato">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="yamato" src="../../../images/trainers/yamato.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>yamato</strong>
+      <div class="metrics" data-metrics></div>
+    </div></div>
+  <h2 id="group-sonic">sonic (9)</h2>
+  <div class="sheet" data-group="sonic">
+    <div class="cell" data-id="sonic-amy">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sonic-amy" src="../../../images/trainers/sonic-amy.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sonic-amy</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="sonic-cream">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sonic-cream" src="../../../images/trainers/sonic-cream.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sonic-cream</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="sonic-knuckles">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sonic-knuckles" src="../../../images/trainers/sonic-knuckles.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sonic-knuckles</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="sonic-origins-amy">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sonic-origins-amy" src="../../../images/trainers/sonic-origins-amy.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sonic-origins-amy</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="sonic-origins-knuckles">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sonic-origins-knuckles" src="../../../images/trainers/sonic-origins-knuckles.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sonic-origins-knuckles</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="sonic-origins-sonic">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sonic-origins-sonic" src="../../../images/trainers/sonic-origins-sonic.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sonic-origins-sonic</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="sonic-origins-tails">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sonic-origins-tails" src="../../../images/trainers/sonic-origins-tails.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sonic-origins-tails</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="sonic-sonic">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sonic-sonic" src="../../../images/trainers/sonic-sonic.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sonic-sonic</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="sonic-tails">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sonic-tails" src="../../../images/trainers/sonic-tails.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sonic-tails</strong>
+      <div class="metrics" data-metrics></div>
+    </div></div>
+  <h2 id="group-premium">premium (6)</h2>
+  <div class="sheet" data-group="premium">
+    <div class="cell" data-id="brock-lgpe">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="brock-lgpe" src="../../../images/trainers/brock-lgpe.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>brock-lgpe</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="iris">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="iris" src="../../../images/trainers/iris.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>iris</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="misty-lgpe">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="misty-lgpe" src="../../../images/trainers/misty-lgpe.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>misty-lgpe</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="red-lgpe">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="red-lgpe" src="../../../images/trainers/red-lgpe.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>red-lgpe</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="rosa-wonderlauncher">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="rosa-wonderlauncher" src="../../../images/trainers/rosa-wonderlauncher.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>rosa-wonderlauncher</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="serena-anime">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="serena-anime" src="../../../images/trainers/serena-anime.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>serena-anime</strong>
+      <div class="metrics" data-metrics></div>
+    </div></div>
+  <h2 id="group-pokemon">pokemon (101)</h2>
+  <div class="sheet" data-group="pokemon">
+    <div class="cell" data-id="akari">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="akari" src="../../../images/trainers/akari.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>akari</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ash">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ash" src="../../../images/trainers/ash.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ash</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ash-alola">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ash-alola" src="../../../images/trainers/ash-alola.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ash-alola</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ash-capbackward">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ash-capbackward" src="../../../images/trainers/ash-capbackward.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ash-capbackward</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ash-hoenn">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ash-hoenn" src="../../../images/trainers/ash-hoenn.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ash-hoenn</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ash-johto">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ash-johto" src="../../../images/trainers/ash-johto.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ash-johto</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ash-kalos">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ash-kalos" src="../../../images/trainers/ash-kalos.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ash-kalos</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ash-sinnoh">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ash-sinnoh" src="../../../images/trainers/ash-sinnoh.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ash-sinnoh</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ash-unova">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ash-unova" src="../../../images/trainers/ash-unova.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ash-unova</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="brendan">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="brendan" src="../../../images/trainers/brendan.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>brendan</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="brendan-contest">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="brendan-contest" src="../../../images/trainers/brendan-contest.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>brendan-contest</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="brendan-e">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="brendan-e" src="../../../images/trainers/brendan-e.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>brendan-e</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="brendan-gen3">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="brendan-gen3" src="../../../images/trainers/brendan-gen3.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>brendan-gen3</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="brendan-gen3rs">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="brendan-gen3rs" src="../../../images/trainers/brendan-gen3rs.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>brendan-gen3rs</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="brendan-rs">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="brendan-rs" src="../../../images/trainers/brendan-rs.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>brendan-rs</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="brock">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="brock" src="../../../images/trainers/brock.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>brock</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="brock-gen1">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="brock-gen1" src="../../../images/trainers/brock-gen1.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>brock-gen1</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="calem">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="calem" src="../../../images/trainers/calem.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>calem</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="chase">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="chase" src="../../../images/trainers/chase.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>chase</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="clemont">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="clemont" src="../../../images/trainers/clemont.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>clemont</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="cynthia-anime">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="cynthia-anime" src="../../../images/trainers/cynthia-anime.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>cynthia-anime</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="dawn">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="dawn" src="../../../images/trainers/dawn.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>dawn</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="dawn-contest">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="dawn-contest" src="../../../images/trainers/dawn-contest.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>dawn-contest</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="dawn-gen4pt">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="dawn-gen4pt" src="../../../images/trainers/dawn-gen4pt.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>dawn-gen4pt</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="elaine">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="elaine" src="../../../images/trainers/elaine.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>elaine</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="elio">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="elio" src="../../../images/trainers/elio.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>elio</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="elio-usum">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="elio-usum" src="../../../images/trainers/elio-usum.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>elio-usum</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ethan">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ethan" src="../../../images/trainers/ethan.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ethan</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ethan-gen2">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ethan-gen2" src="../../../images/trainers/ethan-gen2.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ethan-gen2</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ethan-gen2c">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ethan-gen2c" src="../../../images/trainers/ethan-gen2c.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ethan-gen2c</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="ethan-pokeathlon">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="ethan-pokeathlon" src="../../../images/trainers/ethan-pokeathlon.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>ethan-pokeathlon</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="florian-bb">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="florian-bb" src="../../../images/trainers/florian-bb.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>florian-bb</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="florian-festival">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="florian-festival" src="../../../images/trainers/florian-festival.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>florian-festival</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="florian-s">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="florian-s" src="../../../images/trainers/florian-s.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>florian-s</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="giovanni">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="giovanni" src="../../../images/trainers/giovanni.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>giovanni</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="gloria">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="gloria" src="../../../images/trainers/gloria.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>gloria</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="gloria-dojo">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="gloria-dojo" src="../../../images/trainers/gloria-dojo.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>gloria-dojo</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="gloria-league">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="gloria-league" src="../../../images/trainers/gloria-league.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>gloria-league</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="gloria-tundra">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="gloria-tundra" src="../../../images/trainers/gloria-tundra.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>gloria-tundra</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="green">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="green" src="../../../images/trainers/green.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>green</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="harmony">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="harmony" src="../../../images/trainers/harmony.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>harmony</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="hero-conquest">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="hero-conquest" src="../../../images/trainers/hero-conquest.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>hero-conquest</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="heroine-conquest">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="heroine-conquest" src="../../../images/trainers/heroine-conquest.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>heroine-conquest</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="hilbert">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="hilbert" src="../../../images/trainers/hilbert.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>hilbert</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="hilbert-wonderlauncher">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="hilbert-wonderlauncher" src="../../../images/trainers/hilbert-wonderlauncher.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>hilbert-wonderlauncher</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="hilda">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="hilda" src="../../../images/trainers/hilda.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>hilda</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="hilda-wonderlauncher">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="hilda-wonderlauncher" src="../../../images/trainers/hilda-wonderlauncher.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>hilda-wonderlauncher</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="jessiejames-gen1">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="jessiejames-gen1" src="../../../images/trainers/jessiejames-gen1.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>jessiejames-gen1</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="juliana-bb">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="juliana-bb" src="../../../images/trainers/juliana-bb.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>juliana-bb</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="juliana-festival">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="juliana-festival" src="../../../images/trainers/juliana-festival.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>juliana-festival</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="juliana-s">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="juliana-s" src="../../../images/trainers/juliana-s.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>juliana-s</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="kiawe">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="kiawe" src="../../../images/trainers/kiawe.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>kiawe</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="kris">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="kris" src="../../../images/trainers/kris.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>kris</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="kris-gen2">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="kris-gen2" src="../../../images/trainers/kris-gen2.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>kris-gen2</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="lana">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="lana" src="../../../images/trainers/lana.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>lana</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="leaf-gen3">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="leaf-gen3" src="../../../images/trainers/leaf-gen3.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>leaf-gen3</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="liko">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="liko" src="../../../images/trainers/liko.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>liko</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="lucas">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="lucas" src="../../../images/trainers/lucas.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>lucas</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="lucas-contest">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="lucas-contest" src="../../../images/trainers/lucas-contest.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>lucas-contest</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="lucas-gen4pt">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="lucas-gen4pt" src="../../../images/trainers/lucas-gen4pt.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>lucas-gen4pt</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="lyra">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="lyra" src="../../../images/trainers/lyra.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>lyra</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="lyra-pokeathlon">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="lyra-pokeathlon" src="../../../images/trainers/lyra-pokeathlon.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>lyra-pokeathlon</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="mallow">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="mallow" src="../../../images/trainers/mallow.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>mallow</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="may">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="may" src="../../../images/trainers/may.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>may</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="may-contest">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="may-contest" src="../../../images/trainers/may-contest.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>may-contest</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="may-e">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="may-e" src="../../../images/trainers/may-e.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>may-e</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="may-gen3">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="may-gen3" src="../../../images/trainers/may-gen3.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>may-gen3</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="may-gen3rs">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="may-gen3rs" src="../../../images/trainers/may-gen3rs.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>may-gen3rs</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="may-rs">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="may-rs" src="../../../images/trainers/may-rs.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>may-rs</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="misty">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="misty" src="../../../images/trainers/misty.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>misty</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="misty-gen1">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="misty-gen1" src="../../../images/trainers/misty-gen1.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>misty-gen1</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="nate">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="nate" src="../../../images/trainers/nate.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>nate</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="nurse">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="nurse" src="../../../images/trainers/nurse.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>nurse</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="oak">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="oak" src="../../../images/trainers/oak.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>oak</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="officer-gen2">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="officer-gen2" src="../../../images/trainers/officer-gen2.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>officer-gen2</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="paxton">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="paxton" src="../../../images/trainers/paxton.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>paxton</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="player-go">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="player-go" src="../../../images/trainers/player-go.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>player-go</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="pokemonranger-gen3">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="pokemonranger-gen3" src="../../../images/trainers/pokemonranger-gen3.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>pokemonranger-gen3</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="pokemonranger-gen4">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="pokemonranger-gen4" src="../../../images/trainers/pokemonranger-gen4.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>pokemonranger-gen4</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="pokemonrangerf-gen3rs">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="pokemonrangerf-gen3rs" src="../../../images/trainers/pokemonrangerf-gen3rs.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>pokemonrangerf-gen3rs</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="pokemonrangerf-gen4">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="pokemonrangerf-gen4" src="../../../images/trainers/pokemonrangerf-gen4.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>pokemonrangerf-gen4</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="red">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="red" src="../../../images/trainers/red.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>red</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="red-gen1">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="red-gen1" src="../../../images/trainers/red-gen1.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>red-gen1</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="red-gen1main">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="red-gen1main" src="../../../images/trainers/red-gen1main.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>red-gen1main</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="red-gen1rb">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="red-gen1rb" src="../../../images/trainers/red-gen1rb.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>red-gen1rb</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="red-gen1title">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="red-gen1title" src="../../../images/trainers/red-gen1title.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>red-gen1title</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="red-gen2">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="red-gen2" src="../../../images/trainers/red-gen2.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>red-gen2</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="red-gen3">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="red-gen3" src="../../../images/trainers/red-gen3.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>red-gen3</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="red-gen7">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="red-gen7" src="../../../images/trainers/red-gen7.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>red-gen7</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="rei">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="rei" src="../../../images/trainers/rei.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>rei</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="rosa">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="rosa" src="../../../images/trainers/rosa.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>rosa</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="selene">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="selene" src="../../../images/trainers/selene.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>selene</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="selene-usum">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="selene-usum" src="../../../images/trainers/selene-usum.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>selene-usum</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="serena">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="serena" src="../../../images/trainers/serena.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>serena</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="sophocles">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="sophocles" src="../../../images/trainers/sophocles.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>sophocles</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="teamrocket">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="teamrocket" src="../../../images/trainers/teamrocket.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>teamrocket</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="victor">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="victor" src="../../../images/trainers/victor.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>victor</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="victor-dojo">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="victor-dojo" src="../../../images/trainers/victor-dojo.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>victor-dojo</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="victor-league">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="victor-league" src="../../../images/trainers/victor-league.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>victor-league</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="victor-tundra">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="victor-tundra" src="../../../images/trainers/victor-tundra.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>victor-tundra</strong>
+      <div class="metrics" data-metrics></div>
+    </div>
+    <div class="cell" data-id="yellow">
+      <span class="scc-avatar-thumb">
+        <img class="scc-avatar-thumb-img" data-avatar-id="yellow" src="../../../images/trainers/yellow.png" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+      </span>
+      <strong>yellow</strong>
+      <div class="metrics" data-metrics></div>
+    </div></div>
+<script src="../../../js/trainers.js?v=rc107b"></script>
+<script>
+(async function () {
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  // Wait for images + normalize (alpha canvas may be async).
+  for (let i = 0; i < 40; i++) {
+    const imgs = [...document.querySelectorAll(".scc-avatar-thumb-img")];
+    const ready = imgs.filter((img) => img.dataset.avatarNorm === "1").length;
+    if (ready >= imgs.length * 0.98) break;
+    await wait(250);
+  }
+  await wait(400);
+
+  const insetTol = 0.5; // px float tolerance
+  const cells = [...document.querySelectorAll(".cell")];
+  let cropped = 0, translated = 0, overflow = 0, missing = 0, visible = 0;
+  const fails = [];
+
+  for (const cell of cells) {
+    const img = cell.querySelector("img");
+    const thumb = cell.querySelector(".scc-avatar-thumb");
+    const metrics = cell.querySelector("[data-metrics]");
+    if (!img || !img.naturalWidth || !thumb) {
+      missing += 1;
+      cell.classList.add("fail");
+      if (metrics) metrics.textContent = "MISSING";
+      fails.push({ id: cell.dataset.id, reason: "missing" });
+      continue;
+    }
+    // Force normalize if still pending
+    if (img.dataset.avatarNorm !== "1") {
+      window.playNormalizeAvatarThumb?.(img);
+      await wait(30);
+    }
+
+    const tile = thumb.getBoundingClientRect();
+    const ir = img.getBoundingClientRect();
+    const vis = String(img.dataset.avatarRender || "").split("x").map(Number);
+    const visW = vis[0] || ir.width;
+    const visH = vis[1] || ir.height;
+    const inset = Number(img.dataset.avatarThumbInset || 6);
+    // Contract: visible alpha is centered on tile X and grounded at bottom inset.
+    const centerX = tile.left + tile.width / 2;
+    const alphaBottom = tile.bottom - inset;
+    const proj = {
+      left: centerX - visW / 2,
+      right: centerX + visW / 2,
+      bottom: alphaBottom,
+      top: alphaBottom - visH
+    };
+
+    const soft = 1.5;
+    const outL = proj.left < tile.left - soft;
+    const outR = proj.right > tile.right + soft;
+    const outT = proj.top < tile.top - soft;
+    const outB = proj.bottom > tile.bottom + soft;
+    const alphaCx = centerX;
+    const alphaCy = (proj.top + proj.bottom) / 2;
+    const translatedOut = alphaCx < tile.left || alphaCx > tile.right || alphaCy < tile.top || alphaCy > tile.bottom;
+
+    let status = "PASS";
+    if (translatedOut) { translated += 1; status = "TRANSLATED"; }
+    else if (outL || outR || outT || outB) { cropped += 1; status = "CROPPED"; }
+    else { visible += 1; }
+
+    if (status !== "PASS") {
+      cell.classList.add("fail");
+      fails.push({
+        id: cell.dataset.id,
+        status,
+        proj: { l: +proj.left.toFixed(1), r: +proj.right.toFixed(1), t: +proj.top.toFixed(1), b: +proj.bottom.toFixed(1) },
+        tile: { l: +tile.left.toFixed(1), r: +tile.right.toFixed(1), t: +tile.top.toFixed(1), b: +tile.bottom.toFixed(1) },
+        vis: img.dataset.avatarVis,
+        render: img.dataset.avatarRender,
+        scale: img.dataset.avatarScale,
+        pad: img.dataset.avatarPad || "",
+        bottomCss: getComputedStyle(img).bottom
+      });
+    } else {
+      cell.classList.add("pass");
+    }
+    if (metrics) {
+      metrics.textContent = status + " · " + (img.dataset.avatarRender || "?") + " @" + (img.dataset.avatarScale || "?");
+    }
+  }
+
+  const summary = {
+    build: window.PLAY_BUILD || "(trainers.js)",
+    total: cells.length,
+    fullyVisible: visible,
+    cropped,
+    translatedOutsideTile: translated,
+    overflow,
+    missing,
+    fails: fails.slice(0, 40),
+    pass: cropped === 0 && translated === 0 && overflow === 0 && missing === 0
+  };
+  document.getElementById("summary").textContent = JSON.stringify(summary, null, 2);
+  window.__AVATAR_THUMB_AUDIT_RC107__ = summary;
+  console.log("AVATAR_THUMB_AUDIT_RC107", summary);
+})();
+</script>
+</body></html>

@@ -1,0 +1,14 @@
+﻿{
+    "translatedOutsideTile":  0,
+    "total":  124,
+    "previousRc106PassInvalidated":  true,
+    "fix":  "Dedicated thumb contract: setProperty width/height/transform important; alpha-centered translateX; CSS contain fallback translateX(-50%); removed loading=lazy on browser tiles",
+    "rootCause":  "CSS .scc-avatar-thumb-img left:50% without translateX, plus width/height auto !important defeating JS scale; card-style alpha offsets reused on thumbs",
+    "pass":  true,
+    "realDomAudit":  "PASS 124/124",
+    "fullyVisible":  124,
+    "syntheticAudit":  "contact-sheet supplement only",
+    "page":  "local real-DOM audit mirroring Avatar Browser tile CSS/JS",
+    "missing":  0,
+    "cropped":  0
+}

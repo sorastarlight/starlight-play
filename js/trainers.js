@@ -393,11 +393,16 @@
    * Width-safe for wide appendages; body presence still raised via family targets.
    */
   window.PLAY_AVATAR_STAGE_OVERRIDES = Object.assign({
-    "sonic-amy": { preferInteger: false, cardMaxW: 0.58, cardTargetW: 0.48, cardTargetH: 0.64, cardMinH: 0.56, cardMaxH: 0.72, trainerCardScale: 1 },
-    "sonic-cream": { cardTargetH: 0.64, cardMaxH: 0.72, cardMinH: 0.56, trainerCardScale: 1 },
-    "sonic-tails": { preferInteger: false, cardMaxW: 0.60, cardTargetW: 0.50, cardTargetH: 0.62, cardMaxH: 0.70, cardMinH: 0.52, trainerCardScale: 1 },
-    "sonic-sonic": { preferInteger: false, cardTargetH: 0.64, cardMinH: 0.56, cardMaxH: 0.72, trainerCardScale: 1 },
-    "sonic-knuckles": { preferInteger: false, cardTargetH: 0.64, cardMinH: 0.56, cardMaxH: 0.72, trainerCardScale: 1 },
+    // Classic Sonic Premium — Trainer ID card-mode only (workshop/thumb ignore card* keys).
+    "sonic-amy": { preferInteger: false, cardMaxW: 0.70, cardTargetW: 0.52, cardTargetH: 0.68, cardMinH: 0.60, cardMaxH: 0.74, trainerCardScale: 1.08 },
+    "sonic-cream": { preferInteger: false, cardTargetH: 0.68, cardMaxH: 0.74, cardMinH: 0.60, cardTargetW: 0.50, cardMaxW: 0.68, trainerCardScale: 1.06 },
+    "sonic-tails": { preferInteger: false, cardMaxW: 0.72, cardTargetW: 0.54, cardTargetH: 0.66, cardMaxH: 0.74, cardMinH: 0.58, trainerCardScale: 1.08 },
+    "sonic-sonic": { preferInteger: false, cardTargetH: 0.70, cardMinH: 0.62, cardMaxH: 0.76, cardTargetW: 0.52, cardMaxW: 0.70, trainerCardScale: 1.10 },
+    "sonic-knuckles": { preferInteger: false, cardTargetH: 0.70, cardMinH: 0.62, cardMaxH: 0.76, cardTargetW: 0.52, cardMaxW: 0.70, trainerCardScale: 1.10 },
+    "sonic-origins-amy": { preferInteger: false, cardTargetH: 0.68, cardMinH: 0.60, cardMaxH: 0.74, cardMaxW: 0.70, trainerCardScale: 1.05 },
+    "sonic-origins-tails": { preferInteger: false, cardTargetH: 0.66, cardMinH: 0.58, cardMaxH: 0.74, cardMaxW: 0.72, trainerCardScale: 1.05 },
+    "sonic-origins-sonic": { preferInteger: false, cardTargetH: 0.70, cardMinH: 0.62, cardMaxH: 0.76, cardMaxW: 0.70, trainerCardScale: 1.05 },
+    "sonic-origins-knuckles": { preferInteger: false, cardTargetH: 0.70, cardMinH: 0.62, cardMaxH: 0.76, cardMaxW: 0.70, trainerCardScale: 1.05 },
     "iris": { preferInteger: false, cardTargetH: 0.66, cardMinH: 0.58, cardMaxH: 0.74, cardMaxW: 0.74, trainerCardScale: 1 },
     "red-lgpe": { preferInteger: false, cardTargetH: 0.66, cardMinH: 0.58, cardMaxH: 0.74, trainerCardScale: 1 }
   }, window.PLAY_AVATAR_STAGE_OVERRIDES || {});
@@ -794,24 +799,56 @@
       img.style.maxHeight = "none";
       img.style.objectFit = "fill";
       if (mode === "thumb") {
-        // Absolute grounded contain: place VISIBLE alpha inside the tile (transparent canvas may extend under overflow:hidden).
-        const ground = 6 + offY;
-        const left = ((stageRefW - visW) / 2) - padL + offX;
+        // Dedicated thumbnail contract: visible alpha must fit inside tile inset.
+        // Transparent source padding may extend outside and is clipped by overflow:hidden.
+        // left:50% + translateX(-(alphaCenterX)); never reuse card/stage offsets.
+        const inset = Math.max(6, Math.round(Math.min(stageRefW, stageRefH) * 0.08));
+        const maxVisH = Math.max(1, stageRefH - inset * 2);
+        const maxVisW = Math.max(1, stageRefW - inset * 2);
+        if (visH > maxVisH || visW > maxVisW) {
+          const fit = Math.min(maxVisH / Math.max(1, bounds.vh), maxVisW / Math.max(1, bounds.vw));
+          scale = Math.min(scale, fit);
+        }
+        const renderW2 = Math.max(1, Math.round(bounds.w * scale));
+        const renderH2 = Math.max(1, Math.round(bounds.h * scale));
+        const visW2 = Math.max(1, Math.round(bounds.vw * scale));
+        const visH2 = Math.max(1, Math.round(bounds.vh * scale));
+        const padL2 = bounds.left * scale;
+        const padB2 = (bounds.h - 1 - bounds.bottom) * scale;
+        const alphaCx = (bounds.left + (bounds.vw / 2)) * scale;
+        img.style.setProperty("width", renderW2 + "px", "important");
+        img.style.setProperty("height", renderH2 + "px", "important");
+        img.style.setProperty("max-width", "none", "important");
+        img.style.setProperty("max-height", "none", "important");
+        img.style.setProperty("object-fit", "fill", "important");
         img.style.position = "absolute";
-        img.style.left = `${left.toFixed(2)}px`;
+        img.style.left = "50%";
         img.style.right = "auto";
         img.style.top = "auto";
-        img.style.bottom = `${(ground - padB).toFixed(2)}px`;
+        // Ground visible alpha at inset; transparent pad may hang below (clipped).
+        img.style.bottom = (inset - padB2 + offY).toFixed(2) + "px";
         img.style.margin = "0";
-        img.style.transform = "none";
+        img.style.setProperty("transform", "translateX(" + (-alphaCx + offX).toFixed(2) + "px)", "important");
+        img.style.transformOrigin = "left bottom";
+        img.dataset.avatarThumbInset = String(inset);
+        img.dataset.avatarRender = `${visW2}x${visH2}`;
+        img.dataset.avatarScale = String(Math.round(scale * 1000) / 1000);
+        img.dataset.avatarStagePct = String(Math.round((visH2 / stageRefH) * 1000) / 10);
+        img.dataset.avatarWidthPct = String(Math.round((visW2 / stageRefW) * 1000) / 10);
+        img.dataset.avatarPad = `${padL2.toFixed(1)},${padB2.toFixed(1)}`;
       } else {
         img.style.position = "";
         img.style.left = "";
         img.style.right = "";
         img.style.top = "";
         img.style.bottom = "";
-        img.style.margin = `0 ${-padR}px ${-padB + offY}px ${-padL}px`;
-        img.style.transform = `translateX(${(((padR - padL) / 2) + offX).toFixed(2)}px)`;
+        img.style.removeProperty("width");
+        img.style.removeProperty("height");
+        img.style.width = renderW + "px";
+        img.style.height = renderH + "px";
+        img.style.margin = "0 " + (-padR) + "px " + (-padB + offY) + "px " + (-padL) + "px";
+        img.style.transform = "translateX(" + ((((padR - padL) / 2) + offX).toFixed(2)) + "px)";
+        img.style.transformOrigin = "";
       }
       img.style.imageRendering = familyCfg.pixelated ? "pixelated" : "auto";
       img.style.filter = familyCfg.pixelated ? "none" : "";
@@ -1130,25 +1167,1136 @@
    * Unlock/equip authority lives in progression_cosmetics kind=team_background.
    */
   window.PLAY_TEAM_BACKGROUNDS = [
-    { id: "starlight-gradient", name: "ST★RLIGHT Gradient", category: "ST★RLIGHT", filter: "starlight", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-starlight-gradient", sort: 10, free: true },
-    { id: "pokedex-grid", name: "Pokédex Grid", category: "ST★RLIGHT", filter: "starlight", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-pokedex-grid", sort: 11, free: true },
-    { id: "research-lab", name: "Research Lab", category: "ST★RLIGHT", filter: "starlight", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-research-lab", sort: 12, free: true },
-    { id: "battle-stage", name: "Battle Stage", category: "ST★RLIGHT", filter: "starlight", region: "", source: "ST★RLIGHT", style: "css", cssClass: "team-bg-battle-stage", sort: 13, free: true },
-    { id: "pallet-town", name: "Pallet Town", category: "Kanto", filter: "kanto", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/pallet-town.png", cssClass: "team-bg-image", sort: 100, free: true },
-    { id: "viridian-forest", name: "Viridian Forest", category: "Kanto", filter: "kanto", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/viridian-forest.png", cssClass: "team-bg-image", sort: 101, free: true },
-    { id: "route-1", name: "Route 1", category: "Routes", filter: "routes", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/route-1.png", cssClass: "team-bg-image", sort: 110, free: true },
-    { id: "route-2", name: "Route 2", category: "Routes", filter: "routes", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/route-2.png", cssClass: "team-bg-image", sort: 111, free: false },
-    { id: "mt-moon", name: "Mt. Moon", category: "Landmarks", filter: "landmarks", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/mt-moon.png", cssClass: "team-bg-image", sort: 120, free: true },
-    { id: "cerulean-cave", name: "Cerulean Cave", category: "Landmarks", filter: "landmarks", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/cerulean-cave.png", cssClass: "team-bg-image", sort: 121, free: false },
-    { id: "digletts-cave", name: "Diglett's Cave", category: "Landmarks", filter: "landmarks", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/digletts-cave.png", cssClass: "team-bg-image", sort: 122, free: false },
-    { id: "rock-tunnel", name: "Rock Tunnel", category: "Landmarks", filter: "landmarks", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/rock-tunnel.png", cssClass: "team-bg-image", sort: 123, free: false },
-    { id: "seafoam-islands", name: "Seafoam Islands", category: "Landmarks", filter: "landmarks", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/seafoam-islands.png", cssClass: "team-bg-image", sort: 124, free: false },
-    { id: "saffron-city", name: "Saffron City", category: "Cities", filter: "cities", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/saffron-city.png", cssClass: "team-bg-image", sort: 130, free: true },
-    { id: "cinnabar-lab", name: "Cinnabar Lab", category: "Special", filter: "special", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/cinnabar-lab.png", cssClass: "team-bg-image", sort: 140, free: false },
-    { id: "safari-zone", name: "Safari Zone", category: "Special", filter: "special", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/safari-zone.png", cssClass: "team-bg-image", sort: 150, free: true },
-    { id: "power-plant", name: "Power Plant", category: "Special", filter: "special", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/power-plant.png", cssClass: "team-bg-image", sort: 151, free: false },
-    { id: "victory-road", name: "Victory Road", category: "Special", filter: "special", region: "Kanto", source: "FRLG", style: "image", asset: "images/encounters/locations/frlg/victory-road.png", cssClass: "team-bg-image", sort: 160, free: false }
-  ];
+  {
+    "sort": 10,
+    "id": "starlight-gradient",
+    "name": "ST★RLIGHT Gradient",
+    "category": "ST★RLIGHT",
+    "filter": "starlight",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-starlight-gradient",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "starlight",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 11,
+    "id": "pokedex-grid",
+    "name": "Pokédex Grid",
+    "category": "ST★RLIGHT",
+    "filter": "starlight",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-pokedex-grid",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "starlight",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 12,
+    "id": "research-lab",
+    "name": "Research Lab",
+    "category": "ST★RLIGHT",
+    "filter": "starlight",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-research-lab",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "starlight",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 13,
+    "id": "battle-stage",
+    "name": "Battle Stage",
+    "category": "Battle",
+    "filter": "battle",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-battle-stage",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "starlight",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 14,
+    "id": "gen1-mono",
+    "name": "ST★RLIGHT — Gen I",
+    "category": "Retro",
+    "filter": "retro",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-gen1-mono",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen1",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 15,
+    "id": "gen2-color",
+    "name": "ST★RLIGHT — Gen II",
+    "category": "Retro",
+    "filter": "retro",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-gen2-color",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen2",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 16,
+    "id": "gen3-gba",
+    "name": "ST★RLIGHT — Gen III",
+    "category": "Retro",
+    "filter": "retro",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-gen3-gba",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 17,
+    "id": "gen4-ds",
+    "name": "ST★RLIGHT — Gen IV",
+    "category": "Retro",
+    "filter": "retro",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-gen4-ds",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen4",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 18,
+    "id": "retro-battle",
+    "name": "ST★RLIGHT — Retro Battle",
+    "category": "Battle",
+    "filter": "battle",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-retro-battle",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 19,
+    "id": "kanto-route",
+    "name": "ST★RLIGHT — Kanto Route",
+    "category": "ST★RLIGHT",
+    "filter": "routes",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-kanto-route",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen1",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 20,
+    "id": "pallet-town",
+    "name": "Pallet Town",
+    "category": "Cities",
+    "filter": "kanto",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/pallet-town.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 21,
+    "id": "viridian-forest",
+    "name": "Viridian Forest",
+    "category": "Landmarks",
+    "filter": "kanto",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/viridian-forest.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 22,
+    "id": "route-1",
+    "name": "Route 1",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/route-1.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 23,
+    "id": "route-2",
+    "name": "Route 2",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/route-2.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 24,
+    "id": "mt-moon",
+    "name": "Mt. Moon",
+    "category": "Landmarks",
+    "filter": "landmarks",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/mt-moon.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 25,
+    "id": "cerulean-cave",
+    "name": "Cerulean Cave",
+    "category": "Landmarks",
+    "filter": "landmarks",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/cerulean-cave.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 26,
+    "id": "digletts-cave",
+    "name": "Diglett's Cave",
+    "category": "Landmarks",
+    "filter": "landmarks",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/digletts-cave.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 27,
+    "id": "rock-tunnel",
+    "name": "Rock Tunnel",
+    "category": "Landmarks",
+    "filter": "landmarks",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/rock-tunnel.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 28,
+    "id": "seafoam-islands",
+    "name": "Seafoam Islands",
+    "category": "Landmarks",
+    "filter": "landmarks",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/seafoam-islands.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 29,
+    "id": "saffron-city",
+    "name": "Saffron City",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/saffron-city.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 30,
+    "id": "cinnabar-lab",
+    "name": "Cinnabar Lab",
+    "category": "Special",
+    "filter": "special",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/cinnabar-lab.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 31,
+    "id": "safari-zone",
+    "name": "Safari Zone",
+    "category": "Special",
+    "filter": "special",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/safari-zone.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 32,
+    "id": "power-plant",
+    "name": "Power Plant",
+    "category": "Special",
+    "filter": "special",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/power-plant.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 33,
+    "id": "victory-road",
+    "name": "Victory Road",
+    "category": "Battle",
+    "filter": "battle",
+    "region": "Kanto",
+    "source": "FRLG",
+    "style": "image",
+    "asset": "images/encounters/locations/frlg/victory-road.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "pixel-cover",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.45
+  },
+  {
+    "sort": 34,
+    "id": "owner-town001",
+    "name": "Hometown Lane",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town001.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 35,
+    "id": "owner-town002",
+    "name": "Village Square",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town002.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 36,
+    "id": "owner-town003",
+    "name": "Lakeside Town",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town003.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 37,
+    "id": "owner-town004",
+    "name": "Harbor Town",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town004.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 38,
+    "id": "owner-town005",
+    "name": "Market Town",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town005.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 39,
+    "id": "owner-town006",
+    "name": "Hillside Town",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town006.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 40,
+    "id": "owner-town007",
+    "name": "Garden Town",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town007.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 41,
+    "id": "owner-town008",
+    "name": "River Town",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town008.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 42,
+    "id": "owner-town009",
+    "name": "Farmstead",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town009.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 43,
+    "id": "owner-town010",
+    "name": "Coastal Town",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town010.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 44,
+    "id": "owner-town011",
+    "name": "Pokémon Center Outlook",
+    "category": "Cities",
+    "filter": "cities",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/town011.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 45,
+    "id": "owner-road001",
+    "name": "Sunny Route",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road001.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 46,
+    "id": "owner-road002",
+    "name": "Grassy Route",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road002.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 47,
+    "id": "owner-road003",
+    "name": "Forest Path",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road003.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 48,
+    "id": "owner-road004",
+    "name": "Meadow Path",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road004.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 49,
+    "id": "owner-road005",
+    "name": "Pine Route",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road005.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 50,
+    "id": "owner-road006",
+    "name": "Cliffside Path",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road006.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 51,
+    "id": "owner-road007",
+    "name": "Tall Grass Trail",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road007.png",
+    "cssClass": "team-bg-image",
+    "free": true,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 52,
+    "id": "owner-road008",
+    "name": "Woodland Trail",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road008.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 53,
+    "id": "owner-road009",
+    "name": "Stream Crossing",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road009.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 54,
+    "id": "owner-road010",
+    "name": "Scenic Overlook",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road010.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 55,
+    "id": "owner-road011",
+    "name": "Canyon Road",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road011.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 56,
+    "id": "owner-road012",
+    "name": "Dusty Canyon",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road012.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 57,
+    "id": "owner-road013",
+    "name": "Highland Path",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road013.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 58,
+    "id": "owner-road014",
+    "name": "Verdant Terrace",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road014.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 59,
+    "id": "owner-road015",
+    "name": "Evergreen Route",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road015.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 60,
+    "id": "owner-road016",
+    "name": "Flowering Path",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road016.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 61,
+    "id": "owner-road017",
+    "name": "Gatehouse Road",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road017.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 62,
+    "id": "owner-road018",
+    "name": "Park Path",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road018.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 63,
+    "id": "owner-road019",
+    "name": "Training Yard",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road019.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 64,
+    "id": "owner-road020",
+    "name": "Practice Field",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road020.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 65,
+    "id": "owner-road021",
+    "name": "River Fence Route",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road021.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 66,
+    "id": "owner-road022",
+    "name": "Cave Mouth Road",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road022.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 67,
+    "id": "owner-road023",
+    "name": "Mountain Approach",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road023.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 68,
+    "id": "owner-road024",
+    "name": "Layered Cliffs",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road024.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 69,
+    "id": "owner-road025",
+    "name": "Forest Edge",
+    "category": "Routes",
+    "filter": "routes",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/road025.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 70,
+    "id": "owner-r002g0101",
+    "name": "Torchlit Chamber",
+    "category": "Landmarks",
+    "filter": "landmarks",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/r002g0101.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 71,
+    "id": "owner-r004d0101",
+    "name": "Icy Cavern",
+    "category": "Landmarks",
+    "filter": "landmarks",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/r004d0101.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 72,
+    "id": "owner-r010d0101",
+    "name": "Power Plant Floor",
+    "category": "Battle",
+    "filter": "battle",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/r010d0101.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 73,
+    "id": "owner-r010r0101",
+    "name": "Electric Lab",
+    "category": "Battle",
+    "filter": "battle",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/r010r0101.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 74,
+    "id": "owner-r011d0101",
+    "name": "Sandy Cave",
+    "category": "Landmarks",
+    "filter": "landmarks",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/r011d0101.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 75,
+    "id": "owner-r020d0101",
+    "name": "Crater Cavern",
+    "category": "Landmarks",
+    "filter": "landmarks",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/r020d0101.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 76,
+    "id": "owner-r023d0101",
+    "name": "Canyon Arena",
+    "category": "Battle",
+    "filter": "battle",
+    "region": "",
+    "source": "Owner",
+    "style": "image",
+    "asset": "images/team-bgs/owner/r023d0101.png",
+    "cssClass": "team-bg-image",
+    "free": false,
+    "renderMode": "cover",
+    "generationStyle": "modern",
+    "focalX": 0.5,
+    "focalY": 0.55
+  }
+];
 
   window.PLAY_TEAM_BG_FREE_IDS = (window.PLAY_TEAM_BACKGROUNDS || [])
     .filter((row) => row.free)
@@ -1166,48 +2314,57 @@
     const filled = slots.filter(Boolean).length;
     const bg = window.playTeamBg?.(card?.teamBg) || window.playTeamBg?.("starlight-gradient");
     const bgClass = bg?.cssClass || "team-bg-starlight-gradient";
+    const gen = bg?.generationStyle || "starlight";
+    const renderMode = bg?.renderMode || (bg?.style === "image" ? "cover" : "css");
+    const fx = Number.isFinite(bg?.focalX) ? bg.focalX : 0.5;
+    const fy = Number.isFinite(bg?.focalY) ? bg.focalY : 0.5;
     const bgStyle = bg?.asset
-      ? ` style="--team-bg-image:url('${esc(bg.asset)}')"`
-      : "";
-    const slotHtml = slots.map((mon, index) => {
+      ? ` style="--team-bg-image:url('${esc(bg.asset)}');--team-bg-fx:${fx};--team-bg-fy:${fy}"`
+      : ` style="--team-bg-fx:${fx};--team-bg-fy:${fy}"`;
+    const perf = String(window.playPerfMode?.() || window.PLAY_PERF_MODE || "balanced").toLowerCase();
+    const reduce = Boolean(window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches);
+    const animate = !reduce && (perf === "high" || perf === "auto" || perf === "balanced");
+    const figures = slots.map((mon, index) => {
       const position = index + 1;
       if (!mon) {
-        return `<li class="tid-party-slot is-open" style="--tid-slot-i:${index}">
-            <span class="tid-party-index" aria-hidden="true">${position}</span>
-            <span class="tid-party-ball-well" aria-hidden="true">
-              <img class="tid-party-ball" src="images/items/poke-ball.png" alt="" width="40" height="40">
-            </span>
-            <span class="tid-party-open">Open Slot</span>
-          </li>`;
+        return `<li class="tid-party-figure is-open" style="--i:${index}" data-slot="${position}">
+          <span class="tid-party-pad" aria-hidden="true"></span>
+          <span class="tid-party-ball" aria-hidden="true">${position}</span>
+          <span class="tid-party-open-label">Open</span>
+        </li>`;
       }
-      const shiny = String(mon.variant || "").toLowerCase().includes("shiny");
+      const shiny = String(mon.variant || "").toLowerCase().includes("shiny") || mon.shiny;
       const species = partySpeciesLabel(mon) || "Pokémon";
       const nickname = String(mon.nickname || "").trim();
       const primary = nickname || species;
-      const showSpecies = Boolean(nickname) && nickname !== species;
-      const formLabel = partyFormLabel(mon, species);
       const catchId = mon.id ? esc(mon.id) : "";
-      return `<li class="tid-party-slot is-filled${shiny ? " is-shiny" : ""}${catchId ? " is-inspectable" : ""}" style="--tid-slot-i:${index}"${catchId ? ` data-catch-id="${catchId}"` : ""}>
-          ${catchId ? `<button type="button" class="tid-party-hit" data-inspect-catch="${catchId}" aria-label="Inspect ${esc(primary)}"></button>` : ""}
-          <span class="tid-party-index" aria-hidden="true">${position}</span>
-          <span class="tid-party-figure">
-            <img class="tid-party-sprite" src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="72" height="72" loading="lazy">
-            ${shiny ? `<span class="tid-party-sparkle" title="Shiny"><span aria-hidden="true">✦</span><span class="visually-hidden">Shiny</span></span>` : ""}
-          </span>
-          <strong class="tid-party-name">${esc(primary)}</strong>
-          ${showSpecies ? `<span class="tid-party-species">${esc(species)}</span>` : ""}
-          ${formLabel ? `<span class="tid-party-tags"><span class="tid-party-tag tid-party-form">${esc(formLabel)}</span></span>` : ""}
-        </li>`;
+      let spriteUrl = window.playSpriteUrl(mon.dex, mon.variant, mon.formId);
+      if (animate && typeof window.playAnimatedSpriteUrl === "function") {
+        spriteUrl = window.playAnimatedSpriteUrl(mon.dex, mon.variant, mon.formId) || spriteUrl;
+      }
+      return `<li class="tid-party-figure is-filled${shiny ? " is-shiny" : ""}${catchId ? " is-inspectable" : ""}" style="--i:${index}" data-slot="${position}"${catchId ? ` data-catch-id="${catchId}"` : ""}>
+        ${catchId ? `<button type="button" class="tid-party-hit" data-inspect-catch="${catchId}" aria-label="Inspect ${esc(primary)}"></button>` : ""}
+        <span class="tid-party-pad" aria-hidden="true"></span>
+        <span class="tid-party-actor">
+          <img class="tid-party-sprite${animate ? " is-anim" : ""}" src="${spriteUrl}" alt="" width="96" height="96" loading="lazy" decoding="async">
+          ${shiny ? `<span class="tid-party-sparkle" title="Shiny" aria-label="Shiny">✦</span>` : ""}
+        </span>
+        <span class="tid-party-ball" aria-hidden="true">${position}</span>
+        <strong class="tid-party-caption">${esc(primary)}</strong>
+      </li>`;
     }).join("");
-    return `<div class="tid-team-showcase" data-team-bg-id="${esc(bg?.id || "starlight-gradient")}">
-      <div class="tid-team-stage ${esc(bgClass)}"${bgStyle}>
+    return `<div class="tid-team-showcase is-scene" data-team-bg-id="${esc(bg?.id || "starlight-gradient")}" data-gen="${esc(gen)}" data-render="${esc(renderMode)}">
+      <div class="tid-team-stage ${esc(bgClass)} is-${esc(renderMode)}"${bgStyle}>
         <div class="tid-team-stage-veil" aria-hidden="true"></div>
-        <ol class="tid-party tid-party-slots">${slotHtml}</ol>
+        <div class="tid-team-stage-frame" aria-hidden="true"></div>
+        <p class="tid-team-scene-kicker"><span>MY TEAM</span></p>
+        <ol class="tid-party-scene">${figures}</ol>
+        <p class="tid-team-scene-bgname">${esc(bg?.name || "ST★RLIGHT Gradient")}</p>
       </div>
-      <p class="tid-team-bg-meta"><span class="tid-team-bg-name">${esc(bg?.name || "ST★RLIGHT Gradient")}</span></p>
       ${filled ? "" : `<p class="muted tid-empty tid-party-empty">No party set yet. Organize six Pokémon in My Account.</p>`}
     </div>`;
   };
+
 
   // Trainer Journey is folded into the Trainer ID info panel; kept as a stub so any
   // stale caller renders nothing instead of throwing.

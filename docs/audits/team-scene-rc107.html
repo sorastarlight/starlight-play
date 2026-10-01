@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>My Team Scene Preview rc107</title>
+<link rel="stylesheet" href="../../css/play.css">
+<style>
+body { margin: 16px; background: #e8f2fc; font-family: Nunito, Segoe UI, sans-serif; color: #1a2744; }
+h1 { font-size: 18px; }
+h2 { font-size: 14px; margin: 8px 0; }
+.grid { display: grid; gap: 18px; max-width: 960px; }
+</style>
+</head><body>
+<h1>My Team environment-first scene previews (rc107)</h1>
+<div class="grid" id="grid"></div>
+<script src="../../js/variants.js"></script>
+<script src="../../js/forms.js"></script>
+<script src="../../js/game.js"></script>
+<script src="../../js/trainers.js?v=rc107"></script>
+<script>
+const demoTeam = [
+  { id: "a", dex: 25, name: "Pikachu", displayName: "Pikachu", variant: "normal" },
+  { id: "b", dex: 150, name: "Mewtwo", displayName: "Mewtwo", variant: "normal" },
+  { id: "c", dex: 136, name: "Flareon", displayName: "Flareon", variant: "normal" },
+  { id: "d", dex: 26, name: "Raichu", displayName: "Raichu", variant: "normal" },
+  { id: "e", dex: 29, name: "Nidoran♀", displayName: "Nidoran♀", variant: "normal", gender: "female" },
+  { id: "f", dex: 135, name: "Jolteon", displayName: "Jolteon", variant: "shiny", shiny: true }
+];
+const ids = ["viridian-forest","gen1-mono","gen2-color","gen3-gba","gen4-ds","retro-battle","kanto-route","owner-town011","owner-road001","mt-moon"];
+const grid = document.getElementById("grid");
+ids.forEach((id) => {
+  const wrap = document.createElement("section");
+  wrap.innerHTML = `<h2>${id}</h2>` + window.playRenderTrainerPartyHtml({ team: demoTeam, teamBg: id });
+  grid.appendChild(wrap);
+});
+</script>
+</body></html>

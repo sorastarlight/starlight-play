@@ -16055,14 +16055,21 @@ button.bag-pocket::after { display: none !important; content: none !important; }
 }
 .scc-avatar-thumb img,
 .scc-avatar-thumb-img {
-  width: auto !important;
-  height: auto !important;
-  max-width: none;
-  max-height: none;
-  object-fit: fill;
+  /* Safe pre-normalize fallback: keep sprite inside tile until JS alpha-centers. */
+  width: auto;
+  height: auto;
+  max-width: calc(100% - 12px);
+  max-height: calc(100% - 14px);
+  object-fit: contain;
+  object-position: center bottom;
   image-rendering: pixelated;
-  position: relative;
+  position: absolute;
   z-index: 1;
+  left: 50%;
+  bottom: 8px;
+  margin: 0;
+  transform: translateX(-50%);
+  transform-origin: bottom center;
 }
 .scc-avatar-thumb .avatar-stage-shadow {
   bottom: 4px;
@@ -16516,4 +16523,141 @@ button.bag-pocket::after { display: none !important; content: none !important; }
     min-height: 240px;
     max-height: 240px;
   }
+}
+/* === rc107 My Team environment scene + gen CSS backgrounds === */
+.team-bg-gen1-mono {
+  image-rendering: pixelated;
+  background-color: #9bbc0f;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 7px, rgba(15,56,15,.35) 7px, rgba(15,56,15,.35) 8px),
+    repeating-linear-gradient(90deg, transparent, transparent 7px, rgba(15,56,15,.25) 7px, rgba(15,56,15,.25) 8px),
+    linear-gradient(180deg, #9bbc0f 0%, #8bac0f 40%, #306230 78%, #0f380f 100%);
+  background-size: 8px 8px, 8px 8px, auto;
+}
+.team-bg-gen2-color {
+  image-rendering: pixelated;
+  background: linear-gradient(180deg, #7ec8ff 0 38%, #57c057 38% 62%, #3aa03a 62% 78%, #c8a048 78% 100%);
+}
+.team-bg-gen3-gba {
+  image-rendering: pixelated;
+  background:
+    radial-gradient(ellipse at 50% 78%, rgba(255,255,200,.35), transparent 45%),
+    linear-gradient(180deg, #68b8f0 0%, #90d060 42%, #58a040 70%, #d8b060 100%);
+}
+.team-bg-gen4-ds {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255,255,255,.45), transparent 40%),
+    linear-gradient(165deg, #a8d8ff 0%, #7ec8a8 45%, #d0e878 78%, #f0d090 100%);
+}
+.team-bg-retro-battle {
+  image-rendering: pixelated;
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(255,255,255,.4), transparent 50%),
+    linear-gradient(180deg, #203060 0%, #4060a0 35%, #80a0d0 60%, #d0c070 82%, #806030 100%);
+}
+.team-bg-kanto-route {
+  image-rendering: pixelated;
+  background: linear-gradient(180deg, #88c8f8 0 34%, #60c060 34% 58%, #48a048 58% 72%, #c8a858 72% 100%);
+  box-shadow: inset 0 -28px 0 rgba(80,140,40,.25);
+}
+.tid-team-showcase.is-scene { margin: 0; }
+.tid-team-showcase.is-scene .tid-team-stage {
+  position: relative;
+  min-height: 320px;
+  height: clamp(300px, 42vw, 420px);
+  max-height: none;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 3px solid rgba(255,255,255,.55);
+  box-shadow: 0 10px 0 rgba(26,39,68,.12), inset 0 0 0 1px rgba(26,39,68,.12);
+  background-size: cover;
+  background-position: calc(var(--team-bg-fx, .5) * 100%) calc(var(--team-bg-fy, .5) * 100%);
+}
+.tid-team-showcase.is-scene .tid-team-stage.is-pixel-cover,
+.tid-team-showcase.is-scene .tid-team-stage.is-pixel-contain { image-rendering: pixelated; }
+.tid-team-showcase.is-scene .tid-team-stage.is-contain,
+.tid-team-showcase.is-scene .tid-team-stage.is-pixel-contain {
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.tid-team-showcase.is-scene .tid-team-stage-veil {
+  background: linear-gradient(180deg, rgba(12,24,48,.08), rgba(12,24,48,.18) 55%, rgba(12,24,48,.42));
+  opacity: 1;
+}
+.tid-team-showcase.is-scene .tid-team-stage-frame {
+  position: absolute; inset: 8px; border-radius: 12px;
+  border: 2px solid rgba(255,255,255,.28); pointer-events: none; z-index: 1;
+}
+.tid-team-showcase[data-gen="gen1"] .tid-team-stage-frame {
+  border-width: 3px; border-color: #0f380f; border-radius: 0;
+  box-shadow: inset 0 0 0 2px #9bbc0f;
+}
+.tid-team-showcase[data-gen="gen2"] .tid-team-stage-frame { border-color: #3060a8; }
+.tid-team-showcase[data-gen="gen3"] .tid-team-stage-frame { border-color: rgba(255,220,120,.55); }
+.tid-team-showcase[data-gen="gen4"] .tid-team-stage-frame { border-radius: 16px; border-color: rgba(180,220,255,.65); }
+.tid-team-scene-kicker { position: absolute; top: 12px; left: 14px; z-index: 3; margin: 0; }
+.tid-team-scene-kicker span {
+  display: inline-block; padding: 4px 10px; border-radius: 999px;
+  background: rgba(255,255,255,.82); color: #1a2744; font-size: 11px; font-weight: 900; letter-spacing: .14em;
+}
+.tid-team-scene-bgname {
+  position: absolute; right: 14px; bottom: 10px; z-index: 3; margin: 0;
+  padding: 4px 10px; border-radius: 999px;
+  background: rgba(12,24,48,.45); color: #fff; font-size: 11px; font-weight: 800;
+  backdrop-filter: blur(4px);
+}
+.tid-party-scene {
+  position: absolute; inset: 42px 18px 46px; z-index: 2;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: end; gap: 6px; margin: 0; padding: 0; list-style: none;
+}
+.tid-party-figure {
+  position: relative; display: grid; justify-items: center; align-content: end; gap: 2px; min-width: 0;
+}
+.tid-party-figure .tid-party-hit {
+  position: absolute; inset: 0; z-index: 4; border: 0; background: transparent; cursor: pointer;
+}
+.tid-party-pad {
+  width: 72%; height: 14px; border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(12,24,48,.35), transparent 70%);
+  margin-bottom: -6px;
+}
+.tid-party-actor {
+  position: relative; display: grid; place-items: end center; width: 100%; min-height: 88px;
+}
+.tid-party-sprite {
+  width: auto; height: auto; max-width: min(100%, 110px); max-height: 120px;
+  object-fit: contain; image-rendering: pixelated;
+  filter: drop-shadow(0 2px 0 rgba(12,24,48,.2));
+}
+.tid-party-sparkle {
+  position: absolute; top: 0; right: 8%; color: #f0c040; font-size: 14px; text-shadow: 0 1px 0 #fff;
+}
+.tid-party-ball {
+  display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+  background: linear-gradient(180deg, #ff6b6b, #c62828 48%, #fff 52%, #eee);
+  border: 2px solid #1a2744; color: #1a2744; font-size: 10px; font-weight: 900; line-height: 1;
+}
+.tid-party-caption {
+  font-size: 11px; font-weight: 800; color: #fff; text-shadow: 0 1px 2px rgba(12,24,48,.85);
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  background: rgba(12,24,48,.28); padding: 2px 6px; border-radius: 8px;
+}
+.tid-party-figure.is-open .tid-party-open-label { font-size: 10px; font-weight: 800; color: rgba(255,255,255,.8); }
+.tid-party-figure.is-open .tid-party-actor { min-height: 48px; }
+.tid-party-figure:nth-child(1),
+.tid-party-figure:nth-child(3),
+.tid-party-figure:nth-child(5) { transform: translateY(-10px); }
+.tid-party-figure:nth-child(2),
+.tid-party-figure:nth-child(4),
+.tid-party-figure:nth-child(6) { transform: translateY(6px); }
+.scc-team-live-preview { margin: 12px 0 16px; border-radius: 16px; overflow: hidden; }
+.scc-team-live-preview .tid-team-showcase { margin: 0; }
+@media (max-width: 900px) {
+  .tid-party-scene { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 10px; }
+  .tid-party-figure:nth-child(n) { transform: none; }
+  .tid-team-showcase.is-scene .tid-team-stage { height: auto; min-height: 360px; }
+}
+@media (max-width: 560px) {
+  .tid-party-scene { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

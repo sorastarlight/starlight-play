@@ -529,15 +529,17 @@
         || String(mon.variant || "").includes("shiny")
         || mon.shiny);
       const formId = mon.formId || mon.pokemonFormId || "";
-      const formLabel = formId && typeof window.playFormDisplayName === "function"
-        ? window.playFormDisplayName(mon.dex, formId)
-        : "";
-      const baseName = mon.displayName || mon.name || "";
-      const formLine = formLabel && formLabel !== baseName ? formLabel : "";
-      const gender = String(mon.gender || "").toLowerCase();
-      const genderMark = gender === "f" || gender === "female" ? "♀"
-        : (gender === "m" || gender === "male" ? "♂" : "");
-      const metaBits = [formLine, genderMark].filter(Boolean).join(" · ");
+      let formLine = "";
+      if (formId && typeof window.playFormDisplayName === "function") {
+        const formLabel = window.playFormDisplayName(mon.dex, formId);
+        const baseName = mon.displayName || mon.name || "";
+        if (formLabel && formLabel !== baseName) {
+          const dash = String(formLabel).indexOf("—");
+          formLine = dash >= 0 ? String(formLabel).slice(dash + 1).trim() : formLabel;
+        }
+      }
+      // Gender exists on catch records for sprite/identity authority, but is not shown in Team editor UI.
+      const metaBits = formLine || "";
       return `<article class="team-slot filled${shiny ? " is-shiny" : ""}" data-catch-id="${mon.id || ""}">
         <button type="button" class="team-slot-hit" data-inspect-catch="${mon.id || ""}" aria-label="Inspect ${window.playCaughtName(mon)}"></button>
         <span class="team-slot-no">${index + 1}</span>

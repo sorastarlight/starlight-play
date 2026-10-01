@@ -423,7 +423,7 @@
       const meta = [look.outfit, look.gender].filter(Boolean).join(" · ");
       return `<button type="button" class="scc-avatar-card trainer-opt is-${state}" data-sprite="${esc(look.id)}" data-locked="0" aria-pressed="${equipped}" aria-label="${esc(look.name)} ${state}">
         <span class="scc-avatar-thumb">
-          <img class="scc-avatar-thumb-img" data-avatar-id="${esc(look.id)}" src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="96" height="96" loading="lazy" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+          <img class="scc-avatar-thumb-img" data-avatar-id="${esc(look.id)}" src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
         </span>
         <strong class="scc-avatar-name">${esc(look.name)}</strong>
         <span class="scc-avatar-era">${esc(group.label)}</span>
@@ -807,10 +807,12 @@
   const TEAM_BG_FILTERS = [
     ["all", "All"],
     ["starlight", "ST★RLIGHT"],
+    ["retro", "Retro"],
     ["kanto", "Kanto"],
     ["cities", "Cities"],
     ["routes", "Routes"],
     ["landmarks", "Landmarks"],
+    ["battle", "Battle"],
     ["special", "Special"]
   ];
 
@@ -821,7 +823,8 @@
     return `
       <section class="scc-team-bg" aria-label="Team background">
         <p class="scc-module-kicker">TEAM BACKGROUND</p>
-        <p class="muted scc-team-bg-selected">Selected: <strong>${esc(selected?.name || "ST★RLIGHT Gradient")}</strong></p>
+        <div class="scc-team-live-preview" id="team-bg-live-preview">${window.playRenderTrainerPartyHtml(view)}</div>
+        <p class="muted scc-team-bg-selected">Selected: <strong>${esc(selected?.name || "ST★RLIGHT Gradient")}</strong> · Preview updates instantly. Persist with <strong>Save Trainer ID</strong>.</p>
         <div class="scc-scope-row" role="group" aria-label="Background categories">
           ${TEAM_BG_FILTERS.map(([id, label]) => `<button type="button" class="scc-scope${teamBgFilter === id ? " is-on" : ""}" data-team-bg-filter="${esc(id)}" aria-pressed="${teamBgFilter === id}">${esc(label)}</button>`).join("")}
         </div>
@@ -835,7 +838,7 @@
             return `<button type="button" class="scc-compact-bg-opt team-bg-opt is-${state}" data-team-bg="${esc(row.asset)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
               <span class="scc-compact-bg-thumb team-bg-thumb ${esc(row.cssClass || "")}"${thumbStyle} aria-hidden="true"></span>
               <strong class="scc-compact-bg-name">${esc(row.name)}</strong>
-              <span class="id-state">${state === "locked" ? "🔒" : stateLabel(state)}</span>
+              <span class="id-state">${state === "locked" ? "LOCKED" : stateLabel(state)}</span>
             </button>`;
           }).join("")}
         </div>
@@ -872,6 +875,8 @@
       const selected = teamBgRows().find((row) => row.asset === (view.teamBg || "starlight-gradient"));
       selectedLabel.textContent = selected?.name || "ST★RLIGHT Gradient";
     }
+    const preview = els.workspace.querySelector("#team-bg-live-preview");
+    if (preview) preview.innerHTML = window.playRenderTrainerPartyHtml(view);
     markDirtyFlag();
   }
 

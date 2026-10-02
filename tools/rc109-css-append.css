@@ -1,0 +1,312 @@
+
+/* === rc109 Team composition / BG modal / editor / save-stable avatars === */
+.tid-team-showcase.is-scene .tid-team-stage {
+  min-height: 272px;
+  height: clamp(255px, 35.7vw, 357px);
+}
+.tid-party-scene.is-depth.is-grounded {
+  inset: 30px 8% 54px;
+  align-items: end;
+  column-gap: 8px;
+}
+.tid-party-figure {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 22px 18px;
+  justify-items: center;
+  align-content: end;
+  gap: 4px;
+  min-width: 0;
+  transform: none;
+}
+.tid-party-figure.is-back {
+  transform: translateY(-8px) scale(.94);
+  z-index: 1;
+}
+.tid-party-figure.is-front {
+  transform: translateY(0) scale(1.02);
+  z-index: 2;
+}
+.tid-party-stage {
+  position: relative;
+  width: 100%;
+  min-height: 84px;
+  display: grid;
+  place-items: end center;
+}
+.tid-party-shadow {
+  position: absolute;
+  left: calc(50% + var(--party-core-x, 0px));
+  bottom: calc(2px + var(--party-foot-gap, 0px));
+  transform: translateX(-50%);
+  width: var(--party-shadow-w, 56px);
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(12,24,48,.42), transparent 72%);
+  z-index: 0;
+  pointer-events: none;
+}
+.tid-party-actor {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: end center;
+  width: 100%;
+  min-height: 72px;
+}
+.tid-party-figure.is-back .tid-party-actor { min-height: 68px; }
+.tid-party-figure.is-front .tid-party-actor { min-height: 84px; }
+.tid-party-sprite {
+  max-width: min(100%, 104px);
+  max-height: 112px;
+  filter: drop-shadow(0 1px 0 rgba(12,24,48,.18));
+}
+.tid-party-figure.is-back .tid-party-sprite { max-height: 96px; }
+.tid-party-figure.is-front .tid-party-sprite { max-height: 118px; }
+.tid-party-pad { display: none; }
+.tid-party-ball {
+  align-self: center;
+}
+.tid-party-caption {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 18px;
+  line-height: 1.15;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(12,24,48,.9);
+  background: rgba(12,24,48,.34);
+  padding: 2px 6px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.tid-party-caption.is-open-label {
+  background: rgba(12,24,48,.22);
+  color: rgba(255,255,255,.82);
+}
+.tid-team-scene-bgname {
+  bottom: 8px;
+  right: 12px;
+  font-size: 10px;
+  opacity: .92;
+}
+
+/* Party editor chips: fixed zones + always-visible controls */
+.team-party-chip.team-slot,
+.team-party-chip.team-slot.empty,
+.team-party-chip.team-slot.filled {
+  display: grid;
+  grid-template-rows: 22px 72px 20px 32px;
+  align-items: center;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px 6px 8px;
+  min-height: 0;
+}
+.team-party-chip .team-slot-sprite {
+  width: 68px;
+  height: 68px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.team-party-chip .team-slot img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+.team-party-chip .team-slot-name {
+  font-size: 12px;
+  line-height: 1.1;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+.team-party-chip .team-slot-actions,
+.team-party-chip .team-slot-actions.is-always {
+  opacity: 1;
+  pointer-events: auto;
+  display: flex;
+  gap: 4px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+}
+.team-slot-icon:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+/* Compact BG selector: fixed geometry, no OWNED */
+.scc-team-bg-carousel {
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  min-height: 160px;
+}
+.scc-team-bg-nav {
+  min-height: 148px;
+}
+.scc-team-bg-current {
+  min-height: 148px;
+  gap: 8px;
+}
+.scc-team-bg-current-thumb {
+  width: min(100%, 520px);
+  aspect-ratio: 16 / 9;
+  min-height: 96px;
+}
+.scc-team-bg-current .id-state:not(:empty) { margin-top: 0; }
+.scc-team-bg-current .id-state.is-silent,
+.team-bg-opt .id-state.is-silent {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Fixed Browse All modal envelope */
+.scc-team-bg-modal {
+  padding: 0;
+}
+.scc-team-bg-modal .scc-team-bg-modal-card,
+.scc-team-bg-modal-card {
+  width: min(1060px, calc(100vw - 28px));
+  height: min(760px, calc(100dvh - 28px));
+  max-height: min(760px, calc(100dvh - 28px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.scc-team-bg-modal-body,
+.scc-team-bg-modal .play-modal-body.scc-team-bg-modal-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.scc-team-bg-modal-chrome {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  gap: 10px;
+}
+.scc-team-bg-modal-chrome .scc-scope-row {
+  flex: 0 0 auto;
+}
+.scc-team-bg-modal-chrome .scc-browser-search {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+}
+.scc-team-bg-modal-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.scc-team-bg-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 12px;
+  max-height: none;
+  overflow: visible;
+  align-content: start;
+  padding: 4px 2px 12px;
+}
+.scc-team-bg-modal .team-bg-opt,
+.scc-team-bg-modal .scc-compact-bg-opt {
+  grid-template-rows: auto 36px 0;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  border-width: 2px;
+  box-shadow: none;
+}
+.scc-team-bg-modal .team-bg-opt.is-equipped,
+.scc-team-bg-modal .scc-compact-bg-opt.is-equipped {
+  border-color: #f3a0c8;
+  outline: 2px solid rgba(243,160,200,.55);
+  outline-offset: 0;
+  box-shadow: none;
+}
+.scc-team-bg-modal .scc-compact-bg-thumb,
+.scc-team-bg-modal .team-bg-thumb {
+  aspect-ratio: 16 / 10;
+  width: 100%;
+}
+.scc-team-bg-modal .scc-compact-bg-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.2;
+  min-height: 2.4em;
+  max-height: 2.4em;
+}
+.scc-team-bg-coming-soon {
+  min-height: 100%;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 28px 16px;
+  border-radius: 18px;
+  border: 2px dashed #f3a0c8;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,255,255,.9), transparent 48%),
+    linear-gradient(180deg, #fff7fb, #eef8ff);
+}
+.scc-team-bg-coming-soon strong {
+  font-size: 28px;
+  letter-spacing: .04em;
+  color: #1a2744;
+}
+
+/* Avatar equipped state: outline only, stable box */
+.scc-avatar-card,
+.scc-avatar-card.trainer-opt {
+  box-sizing: border-box;
+  border: 2px solid #cfe3f4;
+}
+.scc-avatar-card.is-equipped,
+.scc-avatar-card.trainer-opt.is-equipped {
+  border-color: #f3a0c8;
+  outline: 2px solid rgba(243,160,200,.45);
+  outline-offset: 0;
+  box-shadow: none;
+  padding: inherit;
+}
+
+@media (max-width: 980px) {
+  .tid-team-showcase.is-scene .tid-team-stage {
+    height: clamp(240px, 48vw, 320px);
+    min-height: 240px;
+  }
+  .tid-party-scene.is-depth.is-grounded { inset: 28px 4% 50px; }
+  .scc-team-bg-modal-card {
+    width: min(100vw - 16px, 1060px);
+    height: min(100dvh - 16px, 760px);
+  }
+}
+@media (max-width: 560px) {
+  .tid-party-figure.is-back,
+  .tid-party-figure.is-front { transform: none; }
+  .tid-party-scene.is-depth.is-grounded { inset: 24px 3% 48px; }
+  .team-party-chip.team-slot,
+  .team-party-chip.team-slot.filled {
+    grid-template-rows: 20px 64px 18px 30px;
+  }
+}

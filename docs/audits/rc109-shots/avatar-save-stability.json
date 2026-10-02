@@ -1,0 +1,6 @@
+{
+  "rootCause": "saveTrainerId always called renderProfileWorkspace(), which rebuilt Avatar Workshop DOM (stage img + thumbnail grid), re-running decode/normalize and applying equipped class border changes.",
+  "fix": "softRefreshAvatarAfterSave keeps stage img when sprite unchanged; updates equipped classes in-place; restores scrollTop; equipped state uses outline without box-size change.",
+  "instrumentation": "T0-T7 covered by soft path: no preview reacquisition when identity unchanged.",
+  "note": "Full authenticated Save RPC matrix requires live account; local soft-refresh path verified by code + geometry CSS contract."
+}

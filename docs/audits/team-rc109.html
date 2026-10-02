@@ -1,0 +1,56 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"><base href="/">
+<title>rc109 Team / BG QA</title>
+<link rel="stylesheet" href="css/play.css">
+<style>
+body{margin:0;background:#e8f4ff;font-family:Segoe UI,sans-serif;color:#1a2744}
+.wrap{max-width:1100px;margin:0 auto;padding:16px;display:grid;gap:18px}
+.panel{background:#fff;border:2px solid #cfe3f4;border-radius:18px;padding:12px}
+</style>
+</head><body>
+<div class="wrap">
+  <section class="panel" id="scene-reduced"></section>
+  <section class="panel" id="party-editor"></section>
+  <section class="panel" id="compact"></section>
+  <section class="panel" id="grounding"></section>
+</div>
+<script src="js/build.js"></script>
+<script src="js/trainers.js"></script>
+<script>
+window.playSpriteUrl = window.playSpriteUrl || ((dex)=>`images/pokemon/${Number(dex)||0}.gif`);
+window.playAnimatedSpriteUrl = window.playAnimatedSpriteUrl || window.playSpriteUrl;
+window.playEscapeAttr = window.playEscapeAttr || ((v)=>String(v||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])));
+const TEAM=[
+  {id:"c1",dex:25,nickname:"Pikachu"},
+  {id:"c2",dex:150,nickname:"Mewtwo"},
+  {id:"c3",dex:136,nickname:"Flareon"},
+  {id:"c4",dex:26,nickname:"Raichu"},
+  {id:"c5",dex:29,nickname:"Nidoran♀"},
+  {id:"c6",dex:135,nickname:"Jolteon"}
+];
+const GROUND=[
+  {id:"g1",dex:144,nickname:"Articuno"},
+  {id:"g2",dex:130,nickname:"Gyarados"},
+  {id:"g3",dex:95,nickname:"Onix"},
+  {id:"g4",dex:93,nickname:"Haunter"},
+  {id:"g5",dex:133,nickname:"Eevee"},
+  {id:"g6",dex:25,nickname:"Pikachu"}
+];
+document.getElementById("scene-reduced").innerHTML = "<h2>Reduced Team scene (~15%)</h2>" + window.playRenderTrainerPartyHtml({team:TEAM,teamBg:"lgpe-pallet-town",editor:true});
+document.getElementById("grounding").innerHTML = "<h2>Grounding QA set</h2>" + window.playRenderTrainerPartyHtml({team:GROUND,teamBg:"lgpe-viridian-forest",editor:false});
+document.getElementById("compact").innerHTML = "<h2>Compact selector</h2><section class='scc-team-bg-compact'><div class='scc-team-bg-compact-head'><p class='scc-module-kicker'>TEAM BACKGROUND</p><button class='scc-team-bg-browse'>Browse All Backgrounds</button></div><div class='scc-team-bg-carousel'><button class='scc-team-bg-nav'>‹</button><button class='scc-team-bg-current'><span class='scc-team-bg-current-thumb team-bg-image' style=\"background-image:url('images/team-bgs/lets-go/Pallet_Town.png');background-size:cover\"></span><strong class='scc-team-bg-current-name'>Pallet Town</strong></button><button class='scc-team-bg-nav'>›</button></div></section>";
+document.getElementById("party-editor").innerHTML = "<h2>Party editor controls</h2><div class='team-slots team-slots-party team-party-strip'>" + TEAM.map((mon,i)=>`<article class='team-slot team-party-chip filled'><span class='team-slot-ball'>${i+1}</span><div class='team-slot-sprite'><img src='${window.playSpriteUrl(mon.dex)}' alt=''></div><strong class='team-slot-name'>${mon.nickname}</strong><div class='team-slot-actions is-always'><button class='team-slot-icon' ${i===0?'disabled':''}>◀</button><button class='team-slot-icon' ${i===5?'disabled':''}>▶</button><button class='team-slot-icon is-remove'>×</button></div></article>`).join("") + "</div>";
+const stage=document.querySelector('#scene-reduced .tid-team-stage');
+window.__RC109_QA__={
+  build:window.PLAY_BUILD,
+  catalog:(window.PLAY_TEAM_BACKGROUNDS||[]).length,
+  letsGo:(window.PLAY_TEAM_BACKGROUNDS||[]).filter(r=>r.filter==='lets-go').length,
+  kanto:(window.PLAY_TEAM_BACKGROUNDS||[]).filter(r=>r.filter==='kanto').length,
+  retro:(window.PLAY_TEAM_BACKGROUNDS||[]).filter(r=>r.filter==='retro').length,
+  starlight:(window.PLAY_TEAM_BACKGROUNDS||[]).filter(r=>r.filter==='starlight').length,
+  stageH: stage?getComputedStyle(stage).height:null,
+  alias: window.playNormalizeTeamBgId?.('owner-town001')
+};
+</script>
+</body></html>

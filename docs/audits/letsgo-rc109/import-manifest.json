@@ -1,0 +1,1115 @@
+{
+  "zipImages": 44,
+  "imported": 44,
+  "broken": [],
+  "ambiguous": [],
+  "replaced": [
+    {
+      "from": "owner-r011d0101",
+      "to": "lgpe-digletts-cave",
+      "file": "Digletts_Cave.png"
+    },
+    {
+      "from": "owner-r004d0101",
+      "to": "lgpe-mt-moon",
+      "file": "Mt_Moon.png"
+    },
+    {
+      "from": "owner-r010r0101",
+      "to": "lgpe-power-plant",
+      "file": "Power_Plant.png"
+    },
+    {
+      "from": "owner-r010d0101",
+      "to": "lgpe-rock-tunnel",
+      "file": "Rock_Tunnel.png"
+    },
+    {
+      "from": "owner-r020d0101",
+      "to": "lgpe-seafoam-islands",
+      "file": "Seafoam_Islands.png"
+    },
+    {
+      "from": "owner-r023d0101",
+      "to": "lgpe-victory-road",
+      "file": "Victory_Road.png"
+    },
+    {
+      "from": "owner-r002g0101",
+      "to": "lgpe-viridian-forest",
+      "file": "Viridian_Forest.png"
+    },
+    {
+      "from": "owner-town007",
+      "to": "lgpe-celadon-city",
+      "file": "Celadon_City.png"
+    },
+    {
+      "from": "owner-town004",
+      "to": "lgpe-cerulean-city",
+      "file": "Cerulean_City.png"
+    },
+    {
+      "from": "owner-town011",
+      "to": "lgpe-cinnabar-island",
+      "file": "Cinnabar_Island.png"
+    },
+    {
+      "from": "owner-town008",
+      "to": "lgpe-fuchsia-city",
+      "file": "Fuchsia_City.png"
+    },
+    {
+      "from": "owner-town010",
+      "to": "lgpe-indigo-plateau",
+      "file": "Indigo_Plateau.png"
+    },
+    {
+      "from": "owner-town005",
+      "to": "lgpe-lavender-town",
+      "file": "Lavender_Town.png"
+    },
+    {
+      "from": "owner-town001",
+      "to": "lgpe-pallet-town",
+      "file": "Pallet_Town.png"
+    },
+    {
+      "from": "owner-town003",
+      "to": "lgpe-pewter-city",
+      "file": "Pewter_City.png"
+    },
+    {
+      "from": "owner-town009",
+      "to": "lgpe-saffron-city",
+      "file": "Saffron_City.png"
+    },
+    {
+      "from": "owner-town006",
+      "to": "lgpe-vermilion-city",
+      "file": "Vermilion_City.png"
+    },
+    {
+      "from": "owner-town002",
+      "to": "lgpe-viridian-city",
+      "file": "Viridian_City.png"
+    },
+    {
+      "from": "owner-road001",
+      "to": "lgpe-route-01",
+      "file": "Route_01.png"
+    },
+    {
+      "from": "owner-road002",
+      "to": "lgpe-route-02",
+      "file": "Route_02.png"
+    },
+    {
+      "from": "owner-road003",
+      "to": "lgpe-route-03",
+      "file": "Route_03.png"
+    },
+    {
+      "from": "owner-road004",
+      "to": "lgpe-route-04",
+      "file": "Route_04.png"
+    },
+    {
+      "from": "owner-road005",
+      "to": "lgpe-route-05",
+      "file": "Route_05.png"
+    },
+    {
+      "from": "owner-road006",
+      "to": "lgpe-route-06",
+      "file": "Route_06.png"
+    },
+    {
+      "from": "owner-road007",
+      "to": "lgpe-route-07",
+      "file": "Route_07.png"
+    },
+    {
+      "from": "owner-road008",
+      "to": "lgpe-route-08",
+      "file": "Route_08.png"
+    },
+    {
+      "from": "owner-road009",
+      "to": "lgpe-route-09",
+      "file": "Route_09.png"
+    },
+    {
+      "from": "owner-road010",
+      "to": "lgpe-route-10",
+      "file": "Route_10.png"
+    },
+    {
+      "from": "owner-road011",
+      "to": "lgpe-route-11",
+      "file": "Route_11.png"
+    },
+    {
+      "from": "owner-road012",
+      "to": "lgpe-route-12",
+      "file": "Route_12.png"
+    },
+    {
+      "from": "owner-road013",
+      "to": "lgpe-route-13",
+      "file": "Route_13.png"
+    },
+    {
+      "from": "owner-road014",
+      "to": "lgpe-route-14",
+      "file": "Route_14.png"
+    },
+    {
+      "from": "owner-road015",
+      "to": "lgpe-route-15",
+      "file": "Route_15.png"
+    },
+    {
+      "from": "owner-road016",
+      "to": "lgpe-route-16",
+      "file": "Route_16.png"
+    },
+    {
+      "from": "owner-road017",
+      "to": "lgpe-route-17",
+      "file": "Route_17.png"
+    },
+    {
+      "from": "owner-road018",
+      "to": "lgpe-route-18",
+      "file": "Route_18.png"
+    },
+    {
+      "from": "owner-road019",
+      "to": "lgpe-route-19",
+      "file": "Route_19.png"
+    },
+    {
+      "from": "owner-road020",
+      "to": "lgpe-route-20",
+      "file": "Route_20.png"
+    },
+    {
+      "from": "owner-road021",
+      "to": "lgpe-route-21",
+      "file": "Route_21.png"
+    },
+    {
+      "from": "owner-road022",
+      "to": "lgpe-route-22",
+      "file": "Route_22.png"
+    },
+    {
+      "from": "owner-road023",
+      "to": "lgpe-route-23",
+      "file": "Route_23.png"
+    },
+    {
+      "from": "owner-road024",
+      "to": "lgpe-route-24",
+      "file": "Route_24.png"
+    },
+    {
+      "from": "owner-road025",
+      "to": "lgpe-route-25",
+      "file": "Route_25.png"
+    }
+  ],
+  "aliases": {
+    "starlight-gradient": "pallet-town",
+    "pokedex-grid": "pallet-town",
+    "research-lab": "pallet-town",
+    "kanto-route": "route-1",
+    "gen1-mono": "pallet-town",
+    "gen2-color": "pallet-town",
+    "gen3-gba": "pallet-town",
+    "gen4-ds": "pallet-town",
+    "retro-battle": "battle-stage",
+    "owner-r011d0101": "lgpe-digletts-cave",
+    "owner-r004d0101": "lgpe-mt-moon",
+    "owner-r010r0101": "lgpe-power-plant",
+    "owner-r010d0101": "lgpe-rock-tunnel",
+    "owner-r020d0101": "lgpe-seafoam-islands",
+    "owner-r023d0101": "lgpe-victory-road",
+    "owner-r002g0101": "lgpe-viridian-forest",
+    "owner-town007": "lgpe-celadon-city",
+    "owner-town004": "lgpe-cerulean-city",
+    "owner-town011": "lgpe-cinnabar-island",
+    "owner-town008": "lgpe-fuchsia-city",
+    "owner-town010": "lgpe-indigo-plateau",
+    "owner-town005": "lgpe-lavender-town",
+    "owner-town001": "lgpe-pallet-town",
+    "owner-town003": "lgpe-pewter-city",
+    "owner-town009": "lgpe-saffron-city",
+    "owner-town006": "lgpe-vermilion-city",
+    "owner-town002": "lgpe-viridian-city",
+    "owner-road001": "lgpe-route-01",
+    "owner-road002": "lgpe-route-02",
+    "owner-road003": "lgpe-route-03",
+    "owner-road004": "lgpe-route-04",
+    "owner-road005": "lgpe-route-05",
+    "owner-road006": "lgpe-route-06",
+    "owner-road007": "lgpe-route-07",
+    "owner-road008": "lgpe-route-08",
+    "owner-road009": "lgpe-route-09",
+    "owner-road010": "lgpe-route-10",
+    "owner-road011": "lgpe-route-11",
+    "owner-road012": "lgpe-route-12",
+    "owner-road013": "lgpe-route-13",
+    "owner-road014": "lgpe-route-14",
+    "owner-road015": "lgpe-route-15",
+    "owner-road016": "lgpe-route-16",
+    "owner-road017": "lgpe-route-17",
+    "owner-road018": "lgpe-route-18",
+    "owner-road019": "lgpe-route-19",
+    "owner-road020": "lgpe-route-20",
+    "owner-road021": "lgpe-route-21",
+    "owner-road022": "lgpe-route-22",
+    "owner-road023": "lgpe-route-23",
+    "owner-road024": "lgpe-route-24",
+    "owner-road025": "lgpe-route-25"
+  },
+  "rows": [
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Caves & Special Areas/Digletts_Cave.png",
+      "sourceFilename": "Digletts_Cave.png",
+      "folder": "Caves & Special Areas",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Digletts_Cave.png",
+      "asset": "images/team-bgs/lets-go/Digletts_Cave.png",
+      "id": "lgpe-digletts-cave",
+      "displayName": "Diglett's Cave",
+      "category": "Landmarks",
+      "filterBucket": "landmarks",
+      "replacedOldId": "owner-r011d0101",
+      "replacedOldFile": "r011d0101.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Caves & Special Areas/Mt_Moon.png",
+      "sourceFilename": "Mt_Moon.png",
+      "folder": "Caves & Special Areas",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Mt_Moon.png",
+      "asset": "images/team-bgs/lets-go/Mt_Moon.png",
+      "id": "lgpe-mt-moon",
+      "displayName": "Mt. Moon",
+      "category": "Landmarks",
+      "filterBucket": "landmarks",
+      "replacedOldId": "owner-r004d0101",
+      "replacedOldFile": "r004d0101.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Caves & Special Areas/Power_Plant.png",
+      "sourceFilename": "Power_Plant.png",
+      "folder": "Caves & Special Areas",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Power_Plant.png",
+      "asset": "images/team-bgs/lets-go/Power_Plant.png",
+      "id": "lgpe-power-plant",
+      "displayName": "Power Plant",
+      "category": "Landmarks",
+      "filterBucket": "landmarks",
+      "replacedOldId": "owner-r010r0101",
+      "replacedOldFile": "r010r0101.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Caves & Special Areas/Rock_Tunnel.png",
+      "sourceFilename": "Rock_Tunnel.png",
+      "folder": "Caves & Special Areas",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Rock_Tunnel.png",
+      "asset": "images/team-bgs/lets-go/Rock_Tunnel.png",
+      "id": "lgpe-rock-tunnel",
+      "displayName": "Rock Tunnel",
+      "category": "Landmarks",
+      "filterBucket": "landmarks",
+      "replacedOldId": "owner-r010d0101",
+      "replacedOldFile": "r010d0101.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Caves & Special Areas/Seafoam_Islands.png",
+      "sourceFilename": "Seafoam_Islands.png",
+      "folder": "Caves & Special Areas",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Seafoam_Islands.png",
+      "asset": "images/team-bgs/lets-go/Seafoam_Islands.png",
+      "id": "lgpe-seafoam-islands",
+      "displayName": "Seafoam Islands",
+      "category": "Landmarks",
+      "filterBucket": "landmarks",
+      "replacedOldId": "owner-r020d0101",
+      "replacedOldFile": "r020d0101.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Caves & Special Areas/Victory_Road.png",
+      "sourceFilename": "Victory_Road.png",
+      "folder": "Caves & Special Areas",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Victory_Road.png",
+      "asset": "images/team-bgs/lets-go/Victory_Road.png",
+      "id": "lgpe-victory-road",
+      "displayName": "Victory Road",
+      "category": "Landmarks",
+      "filterBucket": "landmarks",
+      "replacedOldId": "owner-r023d0101",
+      "replacedOldFile": "r023d0101.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Caves & Special Areas/Viridian_Forest.png",
+      "sourceFilename": "Viridian_Forest.png",
+      "folder": "Caves & Special Areas",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Viridian_Forest.png",
+      "asset": "images/team-bgs/lets-go/Viridian_Forest.png",
+      "id": "lgpe-viridian-forest",
+      "displayName": "Viridian Forest",
+      "category": "Landmarks",
+      "filterBucket": "landmarks",
+      "replacedOldId": "owner-r002g0101",
+      "replacedOldFile": "r002g0101.png",
+      "free": true,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Celadon_City.png",
+      "sourceFilename": "Celadon_City.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Celadon_City.png",
+      "asset": "images/team-bgs/lets-go/Celadon_City.png",
+      "id": "lgpe-celadon-city",
+      "displayName": "Celadon City",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town007",
+      "replacedOldFile": "town007.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Cerulean_City.png",
+      "sourceFilename": "Cerulean_City.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Cerulean_City.png",
+      "asset": "images/team-bgs/lets-go/Cerulean_City.png",
+      "id": "lgpe-cerulean-city",
+      "displayName": "Cerulean City",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town004",
+      "replacedOldFile": "town004.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Cinnabar_Island.png",
+      "sourceFilename": "Cinnabar_Island.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Cinnabar_Island.png",
+      "asset": "images/team-bgs/lets-go/Cinnabar_Island.png",
+      "id": "lgpe-cinnabar-island",
+      "displayName": "Cinnabar Island",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town011",
+      "replacedOldFile": "town011.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Fuchsia_City.png",
+      "sourceFilename": "Fuchsia_City.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Fuchsia_City.png",
+      "asset": "images/team-bgs/lets-go/Fuchsia_City.png",
+      "id": "lgpe-fuchsia-city",
+      "displayName": "Fuchsia City",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town008",
+      "replacedOldFile": "town008.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Indigo_Plateau.png",
+      "sourceFilename": "Indigo_Plateau.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Indigo_Plateau.png",
+      "asset": "images/team-bgs/lets-go/Indigo_Plateau.png",
+      "id": "lgpe-indigo-plateau",
+      "displayName": "Indigo Plateau",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town010",
+      "replacedOldFile": "town010.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Lavender_Town.png",
+      "sourceFilename": "Lavender_Town.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Lavender_Town.png",
+      "asset": "images/team-bgs/lets-go/Lavender_Town.png",
+      "id": "lgpe-lavender-town",
+      "displayName": "Lavender Town",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town005",
+      "replacedOldFile": "town005.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Pallet_Town.png",
+      "sourceFilename": "Pallet_Town.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Pallet_Town.png",
+      "asset": "images/team-bgs/lets-go/Pallet_Town.png",
+      "id": "lgpe-pallet-town",
+      "displayName": "Pallet Town",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town001",
+      "replacedOldFile": "town001.png",
+      "free": true,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Pewter_City.png",
+      "sourceFilename": "Pewter_City.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Pewter_City.png",
+      "asset": "images/team-bgs/lets-go/Pewter_City.png",
+      "id": "lgpe-pewter-city",
+      "displayName": "Pewter City",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town003",
+      "replacedOldFile": "town003.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Saffron_City.png",
+      "sourceFilename": "Saffron_City.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Saffron_City.png",
+      "asset": "images/team-bgs/lets-go/Saffron_City.png",
+      "id": "lgpe-saffron-city",
+      "displayName": "Saffron City",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town009",
+      "replacedOldFile": "town009.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Vermilion_City.png",
+      "sourceFilename": "Vermilion_City.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Vermilion_City.png",
+      "asset": "images/team-bgs/lets-go/Vermilion_City.png",
+      "id": "lgpe-vermilion-city",
+      "displayName": "Vermilion City",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town006",
+      "replacedOldFile": "town006.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Cities & Towns/Viridian_City.png",
+      "sourceFilename": "Viridian_City.png",
+      "folder": "Cities & Towns",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Viridian_City.png",
+      "asset": "images/team-bgs/lets-go/Viridian_City.png",
+      "id": "lgpe-viridian-city",
+      "displayName": "Viridian City",
+      "category": "Cities",
+      "filterBucket": "cities",
+      "replacedOldId": "owner-town002",
+      "replacedOldFile": "town002.png",
+      "free": true,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Map Backgrounds/Kanto_Map_Background.png",
+      "sourceFilename": "Kanto_Map_Background.png",
+      "folder": "Map Backgrounds",
+      "dimensions": {
+        "width": 1280,
+        "height": 720
+      },
+      "normalizedLocalFilename": "Kanto_Map_Background.png",
+      "asset": "images/team-bgs/lets-go/Kanto_Map_Background.png",
+      "id": "lgpe-kanto-map-background",
+      "displayName": "Kanto Map Background",
+      "category": "Special",
+      "filterBucket": "special",
+      "replacedOldId": null,
+      "replacedOldFile": null,
+      "free": true,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_01.png",
+      "sourceFilename": "Route_01.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_01.png",
+      "asset": "images/team-bgs/lets-go/Route_01.png",
+      "id": "lgpe-route-01",
+      "displayName": "Route 01",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road001",
+      "replacedOldFile": "road001.png",
+      "free": true,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_02.png",
+      "sourceFilename": "Route_02.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_02.png",
+      "asset": "images/team-bgs/lets-go/Route_02.png",
+      "id": "lgpe-route-02",
+      "displayName": "Route 02",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road002",
+      "replacedOldFile": "road002.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_03.png",
+      "sourceFilename": "Route_03.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_03.png",
+      "asset": "images/team-bgs/lets-go/Route_03.png",
+      "id": "lgpe-route-03",
+      "displayName": "Route 03",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road003",
+      "replacedOldFile": "road003.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_04.png",
+      "sourceFilename": "Route_04.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_04.png",
+      "asset": "images/team-bgs/lets-go/Route_04.png",
+      "id": "lgpe-route-04",
+      "displayName": "Route 04",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road004",
+      "replacedOldFile": "road004.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_05.png",
+      "sourceFilename": "Route_05.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_05.png",
+      "asset": "images/team-bgs/lets-go/Route_05.png",
+      "id": "lgpe-route-05",
+      "displayName": "Route 05",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road005",
+      "replacedOldFile": "road005.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_06.png",
+      "sourceFilename": "Route_06.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_06.png",
+      "asset": "images/team-bgs/lets-go/Route_06.png",
+      "id": "lgpe-route-06",
+      "displayName": "Route 06",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road006",
+      "replacedOldFile": "road006.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_07.png",
+      "sourceFilename": "Route_07.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_07.png",
+      "asset": "images/team-bgs/lets-go/Route_07.png",
+      "id": "lgpe-route-07",
+      "displayName": "Route 07",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road007",
+      "replacedOldFile": "road007.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_08.png",
+      "sourceFilename": "Route_08.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_08.png",
+      "asset": "images/team-bgs/lets-go/Route_08.png",
+      "id": "lgpe-route-08",
+      "displayName": "Route 08",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road008",
+      "replacedOldFile": "road008.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_09.png",
+      "sourceFilename": "Route_09.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_09.png",
+      "asset": "images/team-bgs/lets-go/Route_09.png",
+      "id": "lgpe-route-09",
+      "displayName": "Route 09",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road009",
+      "replacedOldFile": "road009.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_10.png",
+      "sourceFilename": "Route_10.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_10.png",
+      "asset": "images/team-bgs/lets-go/Route_10.png",
+      "id": "lgpe-route-10",
+      "displayName": "Route 10",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road010",
+      "replacedOldFile": "road010.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_11.png",
+      "sourceFilename": "Route_11.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_11.png",
+      "asset": "images/team-bgs/lets-go/Route_11.png",
+      "id": "lgpe-route-11",
+      "displayName": "Route 11",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road011",
+      "replacedOldFile": "road011.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_12.png",
+      "sourceFilename": "Route_12.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_12.png",
+      "asset": "images/team-bgs/lets-go/Route_12.png",
+      "id": "lgpe-route-12",
+      "displayName": "Route 12",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road012",
+      "replacedOldFile": "road012.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_13.png",
+      "sourceFilename": "Route_13.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_13.png",
+      "asset": "images/team-bgs/lets-go/Route_13.png",
+      "id": "lgpe-route-13",
+      "displayName": "Route 13",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road013",
+      "replacedOldFile": "road013.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_14.png",
+      "sourceFilename": "Route_14.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_14.png",
+      "asset": "images/team-bgs/lets-go/Route_14.png",
+      "id": "lgpe-route-14",
+      "displayName": "Route 14",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road014",
+      "replacedOldFile": "road014.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_15.png",
+      "sourceFilename": "Route_15.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_15.png",
+      "asset": "images/team-bgs/lets-go/Route_15.png",
+      "id": "lgpe-route-15",
+      "displayName": "Route 15",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road015",
+      "replacedOldFile": "road015.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_16.png",
+      "sourceFilename": "Route_16.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_16.png",
+      "asset": "images/team-bgs/lets-go/Route_16.png",
+      "id": "lgpe-route-16",
+      "displayName": "Route 16",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road016",
+      "replacedOldFile": "road016.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_17.png",
+      "sourceFilename": "Route_17.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_17.png",
+      "asset": "images/team-bgs/lets-go/Route_17.png",
+      "id": "lgpe-route-17",
+      "displayName": "Route 17",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road017",
+      "replacedOldFile": "road017.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_18.png",
+      "sourceFilename": "Route_18.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_18.png",
+      "asset": "images/team-bgs/lets-go/Route_18.png",
+      "id": "lgpe-route-18",
+      "displayName": "Route 18",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road018",
+      "replacedOldFile": "road018.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_19.png",
+      "sourceFilename": "Route_19.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_19.png",
+      "asset": "images/team-bgs/lets-go/Route_19.png",
+      "id": "lgpe-route-19",
+      "displayName": "Route 19",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road019",
+      "replacedOldFile": "road019.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_20.png",
+      "sourceFilename": "Route_20.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_20.png",
+      "asset": "images/team-bgs/lets-go/Route_20.png",
+      "id": "lgpe-route-20",
+      "displayName": "Route 20",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road020",
+      "replacedOldFile": "road020.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_21.png",
+      "sourceFilename": "Route_21.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_21.png",
+      "asset": "images/team-bgs/lets-go/Route_21.png",
+      "id": "lgpe-route-21",
+      "displayName": "Route 21",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road021",
+      "replacedOldFile": "road021.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_22.png",
+      "sourceFilename": "Route_22.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_22.png",
+      "asset": "images/team-bgs/lets-go/Route_22.png",
+      "id": "lgpe-route-22",
+      "displayName": "Route 22",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road022",
+      "replacedOldFile": "road022.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_23.png",
+      "sourceFilename": "Route_23.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_23.png",
+      "asset": "images/team-bgs/lets-go/Route_23.png",
+      "id": "lgpe-route-23",
+      "displayName": "Route 23",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road023",
+      "replacedOldFile": "road023.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_24.png",
+      "sourceFilename": "Route_24.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_24.png",
+      "asset": "images/team-bgs/lets-go/Route_24.png",
+      "id": "lgpe-route-24",
+      "displayName": "Route 24",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road024",
+      "replacedOldFile": "road024.png",
+      "free": false,
+      "importStatus": "imported"
+    },
+    {
+      "sourcePath": "tmp-letsgo-zip/LGPE_Map_Icons_Organized/Routes/Route_25.png",
+      "sourceFilename": "Route_25.png",
+      "folder": "Routes",
+      "dimensions": {
+        "width": 396,
+        "height": 228
+      },
+      "normalizedLocalFilename": "Route_25.png",
+      "asset": "images/team-bgs/lets-go/Route_25.png",
+      "id": "lgpe-route-25",
+      "displayName": "Route 25",
+      "category": "Routes",
+      "filterBucket": "routes",
+      "replacedOldId": "owner-road025",
+      "replacedOldFile": "road025.png",
+      "free": false,
+      "importStatus": "imported"
+    }
+  ]
+}

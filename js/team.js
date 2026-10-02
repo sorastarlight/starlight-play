@@ -549,7 +549,7 @@
         </span>
         <strong class="team-slot-name">${display}</strong>
         ${formLine ? `<span class="team-slot-meta">${formLine}</span>` : ""}
-        ${mine ? `<div class="team-slot-actions" role="group" aria-label="Reorder ${display}">
+        ${mine ? `<div class="team-slot-actions is-always" role="group" aria-label="Reorder ${display}">
           <button type="button" class="team-slot-icon" data-move="${index}" data-dir="-1" aria-label="Move left" ${index === 0 ? "disabled" : ""}>◀</button>
           <button type="button" class="team-slot-icon" data-move="${index}" data-dir="1" aria-label="Move right" ${index === 5 || !slots[index + 1] ? "disabled" : ""}>▶</button>
           <button type="button" class="team-slot-icon is-remove" data-remove="${index}" aria-label="Remove from party">×</button>

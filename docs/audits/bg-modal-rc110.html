@@ -1,0 +1,41 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"><base href="/">
+<title>rc110 BG modal geometry</title>
+<link rel="stylesheet" href="css/play.css">
+<style>body{margin:0;background:rgba(0,0,0,.35);padding:24px}</style>
+</head><body>
+<div class="play-modal scc-team-bg-modal open" id="modal" style="display:block;position:relative;inset:auto"></div>
+<script src="js/build.js"></script>
+<script src="js/trainers.js"></script>
+<script>
+const filters = ["all","basic","kanto","lets-go","retro","cities","routes","landmarks","battle","special"];
+function gridFor(filter) {
+  if (filter==="retro") return `<div class="scc-team-bg-coming-soon"><strong>Coming Soon</strong></div>`;
+  let rows = window.PLAY_TEAM_BACKGROUNDS.filter(r=>filter==="all"||r.filter===filter||(filter==="cities"&&r.filterBucket==="cities"));
+  if (filter==="basic") rows = rows.filter(r=>r.filter==="basic");
+  if (filter==="kanto") rows = rows.filter(r=>r.filter==="kanto");
+  if (filter==="lets-go") rows = rows.filter(r=>r.filter==="lets-go");
+  return `<div class="scc-team-bg-modal-grid">${rows.slice(0,12).map(r=>`<button class="scc-compact-bg-opt team-bg-opt"><span class="scc-compact-bg-thumb team-bg-thumb ${r.cssClass}"></span><strong class="scc-compact-bg-name">${r.name}</strong><span class="id-state is-silent"></span></button>`).join("")}</div>`;
+}
+function body(filter) {
+  const chrome = filters.map(f=>`<button class="scc-scope${f===filter?" is-on":""}">${f}</button>`).join("");
+  return `<div class="play-modal-card scc-team-bg-modal-card"><div class="play-modal-body scc-team-bg-modal-body"><div class="scc-team-bg-modal-chrome"><div class="scc-scope-row">${chrome}</div><label class="field scc-browser-search">Search<input type="search"></label><div class="scc-team-bg-modal-viewport">${gridFor(filter)}</div></div></div></div>`;
+}
+const modal = document.getElementById("modal");
+modal.innerHTML = body("basic");
+window.__RC110_MODAL__ = { sizes: {} };
+function measure(filter) {
+  modal.innerHTML = body(filter);
+  const card = modal.querySelector(".scc-team-bg-modal-card");
+  if (!card) return;
+  const r = card.getBoundingClientRect();
+  window.__RC110_MODAL__.sizes[filter] = { w: Math.round(r.width), h: Math.round(r.height) };
+}
+filters.forEach(measure);
+const vals = Object.values(window.__RC110_MODAL__.sizes);
+window.__RC110_MODAL__.maxW = Math.max(...vals.map(v=>v.w)) - Math.min(...vals.map(v=>v.w));
+window.__RC110_MODAL__.maxH = Math.max(...vals.map(v=>v.h)) - Math.min(...vals.map(v=>v.h));
+modal.innerHTML = body("basic");
+</script>
+</body></html>

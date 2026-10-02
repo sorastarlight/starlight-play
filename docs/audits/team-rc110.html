@@ -1,0 +1,81 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"><base href="/">
+<title>rc110 Team / BG QA</title>
+<link rel="stylesheet" href="css/play.css">
+<style>
+body{margin:0;background:#e8f4ff;font-family:Segoe UI,sans-serif;color:#1a2744}
+.wrap{max-width:1200px;margin:0 auto;padding:16px;display:grid;gap:18px}
+.panel{background:#fff;border:2px solid #cfe3f4;border-radius:18px;padding:12px}
+.basic-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+</style>
+</head><body>
+<div class="wrap">
+  <section class="panel" id="party-editor"></section>
+  <section class="panel" id="party-extreme"></section>
+  <section class="panel" id="basic-previews"></section>
+</div>
+<script src="js/build.js"></script>
+<script src="js/trainers.js"></script>
+<script src="js/team.js"></script>
+<script>
+window.playSpriteUrl = window.playSpriteUrl || ((dex)=>`images/pokemon/${Number(dex)||0}.gif`);
+window.playCaughtName = window.playCaughtName || ((m)=>m.nickname||m.name||"Mon");
+window.playCaughtIsShiny = window.playCaughtIsShiny || (()=>false);
+const TEAM=[
+  {id:"c1",dex:25,name:"Pikachu"},
+  {id:"c2",dex:150,name:"Mewtwo"},
+  {id:"c3",dex:136,name:"Flareon"},
+  {id:"c4",dex:26,name:"Raichu"},
+  {id:"c5",dex:29,name:"Nidoran♀"},
+  {id:"c6",dex:135,name:"Jolteon"}
+];
+const EXT=[
+  {id:"e1",dex:95,name:"Onix"},
+  {id:"e2",dex:130,name:"Gyarados"},
+  {id:"e3",dex:144,name:"Articuno"},
+  {id:"e4",dex:148,name:"Dragonair"},
+  {id:"e5",dex:25,name:"Pikachu"},
+  {id:"e6",dex:150,name:"Mewtwo"}
+];
+function mount(id, team, title) {
+  const root = document.getElementById(id);
+  root.innerHTML = `<h2>${title}</h2><div class="team-slots team-slots-party team-party-strip" id="${id}-slots"></div>`;
+  window.playRenderTeamSlots(document.getElementById(`${id}-slots`), team, { mine: true });
+}
+mount("party-editor", TEAM, "Party editor — standard QA set");
+mount("party-extreme", EXT, "Party editor — extreme silhouettes");
+const basics = (window.PLAY_TEAM_BACKGROUNDS||[]).filter(r=>r.filter==="basic");
+document.getElementById("basic-previews").innerHTML = "<h2>BASIC team scenes</h2><div class='basic-row'>" + basics.slice(0,4).map(bg=>`<div>${window.playRenderTrainerPartyHtml({team:TEAM,teamBg:bg.id,editor:false})}</div>`).join("") + "</div>";
+window.__RC110_QA__ = {
+  build: window.PLAY_BUILD,
+  basic: basics.length,
+  basicFree: basics.filter(b=>b.free).length,
+  freeIds: (window.PLAY_FREE_TEAM_BG_IDS||[]).filter(id=>String(id).startsWith("basic-")).length
+};
+async function measureSlots(rootId) {
+  await new Promise(r=>setTimeout(r, 2500));
+  const slots = document.querySelectorAll(`#${rootId}-slots .team-party-chip.filled`);
+  let crop = 0, nameOverlap = 0, ctrlOverlap = 0;
+  slots.forEach(slot=>{
+    const sprite = slot.querySelector(".team-slot-sprite");
+    const img = slot.querySelector(".team-slot-sprite img");
+    const name = slot.querySelector(".team-slot-name");
+    const actions = slot.querySelector(".team-slot-actions");
+    if (!sprite||!img||!name||!actions) return;
+    const sr = sprite.getBoundingClientRect();
+    const ir = img.getBoundingClientRect();
+    if (ir.width>sr.width+1||ir.height>sr.height+1||ir.left<sr.left-1||ir.top<sr.top-1||ir.right>sr.right+1||ir.bottom>sr.bottom+1) crop++;
+    const nr = name.getBoundingClientRect();
+    const ar = actions.getBoundingClientRect();
+    if (nr.bottom > ar.top + 1) nameOverlap++;
+    if (ir.bottom > nr.top + 2) ctrlOverlap++;
+  });
+  return { crop, nameOverlap, ctrlOverlap, slots: slots.length };
+}
+Promise.all([measureSlots("party-editor"), measureSlots("party-extreme")]).then(([a,b])=>{
+  window.__RC110_QA__.partyStandard = a;
+  window.__RC110_QA__.partyExtreme = b;
+});
+</script>
+</body></html>

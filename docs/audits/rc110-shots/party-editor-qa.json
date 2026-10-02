@@ -1,0 +1,6 @@
+{
+  "partyStandard": { "crop": 0, "nameOverlap": 0, "ctrlOverlap": 0, "slots": 6 },
+  "partyExtreme": { "crop": 0, "nameOverlap": 0, "ctrlOverlap": 0, "slots": 6 },
+  "speciesStandard": ["Pikachu", "Mewtwo", "Flareon", "Raichu", "Nidoran♀", "Jolteon"],
+  "speciesExtreme": ["Onix", "Gyarados", "Articuno", "Dragonair", "Pikachu", "Mewtwo"]
+}

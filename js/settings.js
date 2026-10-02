@@ -419,18 +419,15 @@
     const view = previewCard();
     const rows = avatarLooks();
     if (!rows.length) return `<p class="muted scc-workshop-empty">No avatars match this search.</p>`;
-    return rows.map(({ look, group }) => {
+    return rows.map(({ look }) => {
       const equipped = look.id === view.trainerSprite;
       const state = equipped ? "equipped" : "owned";
-      const meta = [look.outfit, look.gender].filter(Boolean).join(" · ");
-      return `<button type="button" class="scc-avatar-card trainer-opt is-${state}" data-sprite="${esc(look.id)}" data-locked="0" aria-pressed="${equipped}" aria-label="${esc(look.name)} ${state}">
+      return `<button type="button" class="scc-avatar-card trainer-opt is-${state}" data-sprite="${esc(look.id)}" data-locked="0" aria-pressed="${equipped}" aria-label="${esc(look.name)}${equipped ? ", equipped" : ""}">
         <span class="scc-avatar-thumb">
-          <img class="scc-avatar-thumb-img" data-avatar-id="${esc(look.id)}" src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="96" height="96" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+          <img class="scc-avatar-thumb-img" data-avatar-id="${esc(look.id)}" src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="112" height="112" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
         </span>
         <strong class="scc-avatar-name">${esc(look.name)}</strong>
-        <span class="scc-avatar-era">${esc(group.label)}</span>
-        ${meta ? `<span class="scc-avatar-meta">${esc(meta)}</span>` : ""}
-        <span class="id-state">${stateLabel(state)}</span>
+        <span class="scc-avatar-equipped"${equipped ? "" : ' aria-hidden="true"'}>${equipped ? "EQUIPPED" : "\u00a0"}</span>
       </button>`;
     }).join("");
   }
@@ -808,6 +805,7 @@
 
   const TEAM_BG_FILTERS = [
     ["all", "All"],
+    ["basic", "Basic"],
     ["kanto", "Kanto"],
     ["lets-go", "Let's Go"],
     ["retro", "Retro"],
@@ -821,6 +819,7 @@
   function teamBgMatchesFilter(row, filter) {
     if (filter === "all") return true;
     if (filter === "retro") return false;
+    if (filter === "basic") return row.filter === "basic";
     if (filter === "kanto" || filter === "lets-go") return row.filter === filter;
     if (["cities", "routes", "landmarks", "battle", "special"].includes(filter)) {
       const bucket = String(row.filterBucket || row.category || "").toLowerCase();
@@ -1958,8 +1957,13 @@
         btn.classList.toggle("is-equipped", equipped);
         btn.classList.toggle("is-owned", !equipped);
         btn.setAttribute("aria-pressed", equipped ? "true" : "false");
-        const state = btn.querySelector(".id-state");
-        if (state) state.textContent = equipped ? "Equipped" : "Owned";
+        btn.setAttribute("aria-label", `${btn.querySelector(".scc-avatar-name")?.textContent || "Avatar"}${equipped ? ", equipped" : ""}`);
+        const badge = btn.querySelector(".scc-avatar-equipped");
+        if (badge) {
+          badge.textContent = equipped ? "EQUIPPED" : "\u00a0";
+          if (equipped) badge.removeAttribute("aria-hidden");
+          else badge.setAttribute("aria-hidden", "true");
+        }
       });
       if (galleryTop != null) box.scrollTop = galleryTop;
     }

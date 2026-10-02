@@ -520,7 +520,7 @@
     el.innerHTML = slots.map((mon, index) => {
       if (!mon) {
         return `<button type="button" class="team-slot team-party-chip empty" data-add="${index}" ${mine ? "" : "disabled"}>
-          <span class="team-slot-ball" aria-hidden="true">${index + 1}</span>
+          <span class="team-slot-ball" aria-hidden="true"><span class="team-slot-num">${index + 1}</span></span>
           <span class="team-slot-sprite team-slot-sprite-empty" aria-hidden="true">＋</span>
           <strong class="team-slot-name">Add</strong>
         </button>`;
@@ -542,9 +542,9 @@
       const display = window.playCaughtName(mon);
       return `<article class="team-slot team-party-chip filled${shiny ? " is-shiny" : ""}" data-catch-id="${mon.id || ""}">
         <button type="button" class="team-slot-hit" data-inspect-catch="${mon.id || ""}" aria-label="Inspect ${display}"></button>
-        <span class="team-slot-ball" aria-hidden="true">${index + 1}</span>
+        <span class="team-slot-ball" aria-hidden="true"><span class="team-slot-num">${index + 1}</span></span>
         <span class="team-slot-sprite">
-          <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="">
+          <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="96" height="96" decoding="async" onload="window.playNormalizePartyEditorSprite?.(this)">
           ${shiny ? `<span class="team-slot-shiny" title="Shiny" aria-label="Shiny">★</span>` : ""}
         </span>
         <strong class="team-slot-name">${display}</strong>

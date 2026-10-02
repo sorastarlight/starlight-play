@@ -1211,6 +1211,230 @@
    */
   window.PLAY_TEAM_BACKGROUNDS = [
   {
+    "sort": 1,
+    "id": "basic-red-blue",
+    "name": "Red & Blue",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-red-blue",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen1",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 2,
+    "id": "basic-yellow",
+    "name": "Yellow",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-yellow",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen1",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 3,
+    "id": "basic-gold-silver",
+    "name": "Gold & Silver",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-gold-silver",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen2",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 4,
+    "id": "basic-crystal",
+    "name": "Crystal",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-crystal",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen2",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 5,
+    "id": "basic-ruby-sapphire",
+    "name": "Ruby & Sapphire",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-ruby-sapphire",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 6,
+    "id": "basic-emerald",
+    "name": "Emerald",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-emerald",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 7,
+    "id": "basic-frlg",
+    "name": "FireRed & LeafGreen",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-frlg",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen3",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 8,
+    "id": "basic-diamond-pearl",
+    "name": "Diamond & Pearl",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-diamond-pearl",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen4",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 9,
+    "id": "basic-platinum",
+    "name": "Platinum",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-platinum",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen4",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 10,
+    "id": "basic-hgss",
+    "name": "HeartGold & SoulSilver",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-hgss",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen4",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 11,
+    "id": "basic-bw",
+    "name": "Black & White",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-bw",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen5",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 12,
+    "id": "basic-xy",
+    "name": "X & Y",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-xy",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen6",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 13,
+    "id": "basic-sun-moon",
+    "name": "Sun & Moon",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-sun-moon",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen7",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
+    "sort": 14,
+    "id": "basic-scarlet-violet",
+    "name": "Scarlet & Violet",
+    "category": "Basic",
+    "filter": "basic",
+    "region": "",
+    "source": "ST★RLIGHT",
+    "style": "css",
+    "cssClass": "team-bg-basic-scarlet-violet",
+    "free": true,
+    "renderMode": "css",
+    "generationStyle": "gen9",
+    "focalX": 0.5,
+    "focalY": 0.55
+  },
+  {
     "sort": 10,
     "id": "battle-stage",
     "name": "Battle Stage",
@@ -2344,7 +2568,7 @@
     if (!raw) return "pallet-town";
     return window.PLAY_TEAM_BG_ALIASES?.[raw] || raw;
   };
-  window.PLAY_FREE_TEAM_BG_IDS = ["battle-stage","pallet-town","viridian-forest","route-1","mt-moon","safari-zone","lgpe-viridian-forest","lgpe-pallet-town","lgpe-viridian-city","lgpe-kanto-map-background","lgpe-route-01"];
+  window.PLAY_FREE_TEAM_BG_IDS = ["battle-stage","pallet-town","viridian-forest","route-1","mt-moon","safari-zone","lgpe-viridian-forest","lgpe-pallet-town","lgpe-viridian-city","lgpe-kanto-map-background","lgpe-route-01","basic-red-blue","basic-yellow","basic-gold-silver","basic-crystal","basic-ruby-sapphire","basic-emerald","basic-frlg","basic-diamond-pearl","basic-platinum","basic-hgss","basic-bw","basic-xy","basic-sun-moon","basic-scarlet-violet"];
 
 
   window.playTeamBg = function playTeamBg(id) {
@@ -2352,6 +2576,58 @@
     return window.PLAY_TEAM_BACKGROUNDS.find((row) => row.id === key)
       || window.PLAY_TEAM_BACKGROUNDS.find((row) => row.id === "pallet-town")
       || window.PLAY_TEAM_BACKGROUNDS[0];
+  };
+
+
+  window.playNormalizePartyEditorSprite = function playNormalizePartyEditorSprite(img) {
+    if (!img) return;
+    const viewport = img.closest(".team-slot-sprite");
+    if (!viewport) return;
+    const run = () => {
+      try {
+        const w = img.naturalWidth || 0;
+        const h = img.naturalHeight || 1;
+        if (!w || !h) return;
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        if (!ctx) return;
+        ctx.drawImage(img, 0, 0);
+        let data;
+        try { data = ctx.getImageData(0, 0, w, h).data; } catch (_) { return; }
+        let left = w, right = 0, top = h, bottom = 0;
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            if (data[(y * w + x) * 4 + 3] < 24) continue;
+            if (x < left) left = x;
+            if (x > right) right = x;
+            if (y < top) top = y;
+            if (y > bottom) bottom = y;
+          }
+        }
+        if (right < left || bottom < top) return;
+        const boxW = viewport.clientWidth || 72;
+        const boxH = viewport.clientHeight || 72;
+        const scale = Math.min(boxW / w, boxH / h) * 0.96;
+        const renderW = Math.max(1, Math.round(w * scale));
+        const renderH = Math.max(1, Math.round(h * scale));
+        img.style.width = renderW + "px";
+        img.style.height = renderH + "px";
+        img.style.maxWidth = "100%";
+        img.style.maxHeight = "100%";
+        img.style.objectFit = "contain";
+        img.style.margin = "0";
+        img.style.position = "relative";
+        img.dataset.partyEditorNorm = "1";
+      } catch (_) {}
+    };
+    const go = async () => {
+      try { if (typeof img.decode === "function") await img.decode(); } catch (_) {}
+      run();
+    };
+    if (img.complete && img.naturalWidth) go();
+    else img.addEventListener("load", () => { go(); }, { once: true });
   };
 
   window.playNormalizePartySprite = function playNormalizePartySprite(img) {

@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"><base href="/">
+<title>rc110 Avatar browser QA</title>
+<link rel="stylesheet" href="css/play.css">
+<style>
+body{margin:0;background:#e8f4ff;padding:16px;font-family:Segoe UI,sans-serif}
+.panel{max-width:640px;margin:0 auto;background:#fff;border:2px solid #cfe3f4;border-radius:18px;padding:12px}
+.scc-workshop-split{display:grid;grid-template-columns:42% 58%;gap:12px}
+</style>
+</head><body>
+<div class="panel">
+  <div class="scc-workshop-split">
+    <section class="scc-avatar-stage"><div class="scc-stage-body" id="stage"></div></section>
+    <section><div id="browser" class="scc-avatar-results"></div></section>
+  </div>
+</div>
+<script src="js/build.js"></script>
+<script src="js/trainers.js"></script>
+<script>
+window.playEscapeAttr = (v)=>String(v||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+const picks = ["may-contest","leaf-firered","red-gen1","red-modern","sora-starlight","mimi","hikari","sonic-modern","tails-modern","amy-modern","cream-modern"];
+const equipped = "may-contest";
+function card(id, name) {
+  const on = id===equipped;
+  return `<button type="button" class="scc-avatar-card trainer-opt is-${on?"equipped":"owned"}" data-sprite="${id}">
+    <span class="scc-avatar-thumb"><img class="scc-avatar-thumb-img" src="${window.playTrainerSpriteUrl(id)}" alt="" width="112" height="112" onload="window.playNormalizeAvatarThumb?.(this)"></span>
+    <strong class="scc-avatar-name">${name}</strong>
+    <span class="scc-avatar-equipped"${on?"":' aria-hidden="true"'}>${on?"EQUIPPED":"\u00a0"}</span>
+  </button>`;
+}
+const names = { "may-contest":"May","leaf-firered":"Leaf","red-gen1":"Red Gen1","red-modern":"Red","sora-starlight":"Sora","mimi":"Mimi","hikari":"Hikari","sonic-modern":"Sonic","tails-modern":"Tails","amy-modern":"Amy","cream-modern":"Cream" };
+document.getElementById("browser").innerHTML = picks.map(id=>card(id, names[id]||id)).join("");
+const look = window.playTrainerLook?.(equipped);
+document.getElementById("stage").innerHTML = `<div class="scc-stage-frame"><img class="scc-stage-sprite" src="${window.playTrainerSpriteUrl(equipped)}" alt="" width="320" height="320" onload="window.playNormalizeTrainerAvatar?.(this,{mode:'stage'})"></div><p class="scc-stage-name">${look?.trainer?.name||"May"}</p><p class="scc-stage-meta">Contest · Female</p><p class="scc-stage-era">Hoenn Trainers · Ruby / Sapphire / Emerald</p>`;
+window.__RC110_AVATAR__ = { build: window.PLAY_BUILD, tiles: picks.length };
+</script>
+</body></html>

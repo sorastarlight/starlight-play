@@ -1,0 +1,8 @@
+{
+  "atomicPreviewRetained": true,
+  "softRefreshAvatarAfterSaveRetained": true,
+  "authenticatedSaveRpcTested": false,
+  "note": "Authenticated play_save_trainer_id not exercised against owner account. Local contract: softRefreshAvatarAfterSave updates is-equipped / scc-avatar-equipped text in-place without rebuilding avatar-results or stage img when sprite unchanged; reserved EQUIPPED line prevents tile height shift.",
+  "representativeAvatars": ["May", "Leaf", "Red Gen1", "Red", "Sora", "Mimi", "Hikari", "Sonic", "Tails", "Amy", "Cream"],
+  "expectedDeltasPx": { "x": 0, "y": 0, "size": 0, "scroll": 0 }
+}

@@ -17291,3 +17291,222 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
     grid-template-rows: 20px 64px 18px 30px;
   }
 }
+
+/* rc110 — Avatar browser picker tiles */
+.scc-avatar-results {
+  grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
+  gap: 10px;
+}
+.scc-avatar-card,
+.scc-avatar-card.trainer-opt {
+  display: grid;
+  grid-template-rows: minmax(96px, auto) auto 14px;
+  align-content: start;
+  justify-items: center;
+  gap: 4px;
+  padding: 10px 8px 8px;
+  min-height: 148px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.scc-avatar-thumb {
+  width: 100%;
+  min-height: 96px;
+  max-height: 112px;
+  position: relative;
+  display: grid;
+  place-items: end center;
+  overflow: visible;
+}
+.scc-avatar-thumb img,
+.scc-avatar-thumb-img {
+  width: auto;
+  height: auto;
+  max-width: 108px;
+  max-height: 108px;
+  object-fit: contain;
+}
+.scc-avatar-name {
+  font-size: 12px;
+  line-height: 1.15;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.scc-avatar-equipped {
+  display: block;
+  width: 100%;
+  min-height: 14px;
+  line-height: 14px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #c04878;
+  text-transform: uppercase;
+}
+.scc-avatar-card .scc-avatar-era,
+.scc-avatar-card .scc-avatar-meta,
+.scc-avatar-card .id-state {
+  display: none !important;
+}
+
+/* rc110 — Party editor slot fanfare + safe sprite viewport */
+.team-party-chip.team-slot,
+.team-party-chip.team-slot.empty,
+.team-party-chip.team-slot.filled {
+  position: relative;
+  border: 2px solid #b8d4f0;
+  background:
+    radial-gradient(circle at 50% 88%, rgba(243, 160, 200, 0.12), transparent 55%),
+    radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.95), transparent 48%),
+    linear-gradient(180deg, #ffffff 0%, #eef6ff 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85), 0 3px 0 rgba(26, 39, 68, 0.1);
+  grid-template-rows: 32px 76px 20px 32px;
+  padding: 8px 6px 8px;
+}
+.team-party-chip .team-slot-ball {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #1a2744;
+  background:
+    radial-gradient(circle at 50% 50%, #ffffff 0 18%, transparent 19%),
+    linear-gradient(180deg, #ff5a5a 0 46%, #1a2744 46% 54%, #f4f4f4 54% 100%);
+  box-shadow: 0 2px 0 rgba(26, 39, 68, 0.15);
+}
+.team-party-chip .team-slot-num {
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  color: #1a2744;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+.team-party-chip .team-slot-sprite {
+  width: 72px;
+  height: 72px;
+  overflow: visible;
+  display: grid;
+  place-items: center;
+  position: relative;
+  isolation: isolate;
+}
+.team-party-chip .team-slot-sprite::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143, 212, 239, 0.22), transparent 68%);
+  opacity: 0.55;
+  z-index: 0;
+  pointer-events: none;
+}
+.team-party-chip .team-slot-sprite::after {
+  content: "";
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid rgba(26, 39, 68, 0.08);
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.5), transparent 55%),
+    linear-gradient(180deg, rgba(255, 90, 90, 0.08) 0 48%, rgba(26, 39, 68, 0.06) 48% 52%, rgba(240, 240, 240, 0.12) 52%);
+  z-index: 0;
+  pointer-events: none;
+}
+.team-party-chip .team-slot img {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  height: auto;
+  max-width: 68px;
+  max-height: 68px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.team-party-chip .team-slot-meta {
+  display: none;
+}
+.team-party-chip.filled:hover,
+.team-party-chip.filled:focus-within {
+  border-color: #8fd4ef;
+  outline: 2px solid rgba(143, 212, 239, 0.45);
+  outline-offset: 0;
+}
+
+/* rc110 — BASIC team background themes (original CSS) */
+.team-bg-basic-red-blue {
+  background:
+    linear-gradient(135deg, #c03028 0 50%, #3060a8 50% 100%);
+}
+.team-bg-basic-yellow {
+  background:
+    radial-gradient(circle at 70% 25%, rgba(255, 248, 200, 0.65), transparent 45%),
+    linear-gradient(180deg, #ffe066 0%, #f0b030 45%, #e89820 100%);
+}
+.team-bg-basic-gold-silver {
+  background:
+    linear-gradient(135deg, #d4a017 0 50%, #a8b0c0 50% 100%);
+}
+.team-bg-basic-crystal {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.5), transparent 40%),
+    linear-gradient(180deg, #88e0f0 0%, #5098c8 40%, #c8b8e8 100%);
+}
+.team-bg-basic-ruby-sapphire {
+  background:
+    linear-gradient(135deg, #a02030 0 50%, #2040a0 50% 100%);
+}
+.team-bg-basic-emerald {
+  background:
+    radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.25), transparent 50%),
+    linear-gradient(180deg, #58c878 0%, #208848 55%, #104828 100%);
+}
+.team-bg-basic-frlg {
+  background:
+    linear-gradient(135deg, #e85828 0 50%, #48a838 50% 100%);
+}
+.team-bg-basic-diamond-pearl {
+  background:
+    linear-gradient(135deg, #88c8f0 0 50%, #f0a8c8 50% 100%);
+}
+.team-bg-basic-platinum {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.45), transparent 45%),
+    linear-gradient(180deg, #9098a8 0%, #484858 50%, #c0d8e8 100%);
+}
+.team-bg-basic-hgss {
+  background:
+    linear-gradient(135deg, #c89818 0 50%, #6888a8 50% 100%);
+}
+.team-bg-basic-bw {
+  background:
+    linear-gradient(180deg, #f8f8f8 0%, #e0e0e0 40%, #303030 100%);
+}
+.team-bg-basic-xy {
+  background:
+    linear-gradient(135deg, #3080d0 0 50%, #d04048 50% 100%);
+}
+.team-bg-basic-sun-moon {
+  background:
+    linear-gradient(135deg, #f0a030 0 50%, #283878 50% 100%);
+}
+.team-bg-basic-scarlet-violet {
+  background:
+    linear-gradient(135deg, #d03048 0 50%, #7038a8 50% 100%);
+}
+
+@media (max-width: 560px) {
+  .team-party-chip.team-slot,
+  .team-party-chip.team-slot.filled {
+    grid-template-rows: 28px 68px 18px 30px;
+  }
+  .team-party-chip .team-slot-sprite {
+    width: 64px;
+    height: 64px;
+  }
+  .scc-avatar-card,
+  .scc-avatar-card.trainer-opt {
+    min-height: 136px;
+    grid-template-rows: minmax(84px, auto) auto 14px;
+  }
+}

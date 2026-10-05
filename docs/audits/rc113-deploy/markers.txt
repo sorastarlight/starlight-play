@@ -1,0 +1,5 @@
+# RC113 production marker excerpts
+Mart h1: Mart
+store css stamp rc113: True
+Auto-Arrange in storage.html: True
+placeholder: Search by name, type, shiny, gender, Dex number, and more...

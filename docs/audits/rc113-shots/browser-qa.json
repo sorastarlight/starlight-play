@@ -1,0 +1,134 @@
+{
+  "brand": {
+    "h1": "Mart",
+    "hasStarlightMartHeader": false,
+    "hasStarlightRpg": false,
+    "hasAmericaNewYork": false,
+    "hasMartNav": true,
+    "passTitle": "Starlight Pass Inactive",
+    "supplyNote": "Daily Trainer Supply refreshes at 12:00 AM Eastern Time.",
+    "sellId": null,
+    "sellPanelId": null
+  },
+  "mart": {},
+  "pass": {
+    "active": false,
+    "cards": [
+      {
+        "chip": "Claimed",
+        "ready": false,
+        "claimed": true
+      },
+      {
+        "chip": "Pass needed",
+        "ready": false,
+        "claimed": false
+      },
+      {
+        "chip": "Pass needed",
+        "ready": false,
+        "claimed": false
+      }
+    ],
+    "hasEastern": true,
+    "hasAmericaTz": false,
+    "cooldownCopy": [
+      "Daily Trainer Supply refreshes at 12:00 AM Eastern Time.",
+      "Uses the Pass cooldown — not the midnight Eastern reset.",
+      "Uses the Pass cooldown — not the midnight Eastern reset."
+    ]
+  },
+  "geometry": {
+    "buy": {
+      "scrollY": 0,
+      "mode": {
+        "top": 887,
+        "left": 379,
+        "width": 1148,
+        "height": 67
+      },
+      "shell": {
+        "top": 887,
+        "left": 379,
+        "width": 1148,
+        "height": 848
+      },
+      "content": {
+        "top": 954,
+        "left": 379,
+        "width": 1148,
+        "height": 781
+      },
+      "selected": "Buy",
+      "selectedBg": "linear-gradient(rgb(255, 224, 239), rgb(255, 208, 228))"
+    },
+    "sell": {
+      "scrollY": 0,
+      "mode": {
+        "top": 881,
+        "left": 379,
+        "width": 1148,
+        "height": 67
+      },
+      "shell": {
+        "top": 881,
+        "left": 379,
+        "width": 1148,
+        "height": 385
+      },
+      "content": {
+        "top": 948,
+        "left": 379,
+        "width": 1148,
+        "height": 318
+      },
+      "selected": "Sell",
+      "selectedBg": "linear-gradient(rgb(255, 224, 239), rgb(255, 208, 228))"
+    },
+    "buyAgain": {
+      "scrollY": 0,
+      "mode": {
+        "top": 887,
+        "left": 379,
+        "width": 1148,
+        "height": 67
+      },
+      "shell": {
+        "top": 887,
+        "left": 379,
+        "width": 1148,
+        "height": 848
+      },
+      "content": {
+        "top": 954,
+        "left": 379,
+        "width": 1148,
+        "height": 781
+      },
+      "selected": "Buy",
+      "selectedBg": "linear-gradient(rgb(255, 224, 239), rgb(255, 208, 228))"
+    },
+    "shellTopDeltaBuySell": 6,
+    "shellTopDeltaSellBuy": 6,
+    "modeTopDelta": 6,
+    "scrollDelta": 0,
+    "noRainbow": true
+  },
+  "pc": {
+    "title": "My PC",
+    "placeholder": "Search by name, type, shiny, gender, Dex number, and more...",
+    "searchIcon": "⌕",
+    "hasAutoArrange": true,
+    "hasDeleteBox": true
+  },
+  "viewports": {
+    "390": {
+      "h1": "Mart",
+      "passPanels": 3
+    },
+    "2560": {
+      "h1": "Mart",
+      "passPanels": 3
+    }
+  }
+}

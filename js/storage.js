@@ -13,7 +13,9 @@
     tabs: document.getElementById("box-tabs"),
     oakModal: document.getElementById("oak-modal"),
     oakSprite: document.getElementById("oak-sprite"),
-    oakCopy: document.getElementById("oak-copy")
+    oakCopy: document.getElementById("oak-copy"),
+    autoArrange: document.getElementById("pc-auto-arrange"),
+    deleteBox: document.getElementById("pc-delete-box")
   };
   let data = null;
   let trainerCard = null;
@@ -179,10 +181,31 @@
   function matches(mon) {
     const q = (els.search?.value || "").trim().toLowerCase();
     if (!q) return true;
-    return [mon.name, mon.nickname, mon.gender, mon.variant, mon.otName, mon.metLocation, String(mon.dex)]
-      .join(" ")
-      .toLowerCase()
-      .includes(q);
+    const types = typeof window.playSpeciesTypes === "function"
+      ? (window.playSpeciesTypes(mon.dex, mon.types) || [])
+      : (mon.types || []);
+    const typeText = Array.isArray(types) ? types.join(" ") : String(types || "");
+    const shiny = String(mon.variant || "").includes("shiny") || mon.shiny;
+    const gender = String(mon.gender || "").toLowerCase();
+    const dex = String(mon.dex || "");
+    const dexPad = dex.padStart(3, "0");
+    const hay = [
+      mon.name,
+      mon.nickname,
+      gender,
+      mon.variant,
+      mon.otName,
+      mon.metLocation,
+      dex,
+      dexPad,
+      "#" + dexPad,
+      typeText,
+      shiny ? "shiny" : "",
+      gender === "f" || gender === "female" ? "female" : "",
+      gender === "m" || gender === "male" ? "male" : "",
+      gender === "n" || gender === "unknown" || gender === "genderless" ? "genderless" : ""
+    ].join(" ").toLowerCase();
+    return hay.includes(q);
   }
 
   function updateStorageStatus(filled, capacity, boxName, searchingMode, matchCount) {
@@ -398,7 +421,7 @@
           </div>
 
           <div class="pc-action-group is-danger" aria-label="Destructive">
-            <button id="release-mon" class="pc-action pc-action-danger" type="button" ${releaseDisabled ? "disabled" : ""}>Release Duplicate</button>
+            <button id="release-mon" class="pc-action pc-action-danger" type="button" ${releaseDisabled ? "disabled" : ""}>Release Pokémon</button>
           </div>
         </section>
       </div>`;
@@ -437,32 +460,54 @@
         els.status.textContent = `This is your only currently owned ${mon.name}. Keep it for your Living Dex.`;
         return;
       }
-      const releaseName = displayName(mon);
-      const ok = typeof window.playPresentConfirm === "function"
-        ? await window.playPresentConfirm({
-          title: "Release this Pokémon?",
-          body: `You are about to permanently release ${releaseName}. This cannot be undone. The Pokémon leaves your PC.`,
-          confirmLabel: "Release",
-          cancelLabel: "Keep",
-          danger: true
-        })
-        : window.confirm(`You are about to release ${releaseName}. This cannot be undone.`);
-      if (!ok) return;
+      const choice = await confirmRelease(mon);
+      if (choice === "oak") {
+        openOakModal(mon);
+        return;
+      }
+      if (choice !== "release") return;
       let confirmKey = "";
       if (isShiny) {
-        const typed = window.prompt("This is a SHINY Pokémon. Type SHINY to release it.");
-        if (typed !== "SHINY") return;
+        const typed = await openPcDialog({
+          title: "Release Shiny?",
+          danger: true,
+          body: "This is a SHINY Pokémon. Type SHINY to permanently release it.",
+          extraHtml: `<input class="pc-confirm-input" id="pc-shiny-yes" type="text" autocomplete="off" spellcheck="false" aria-label="Type SHINY to confirm">`,
+          actionsHtml: `
+            <button class="pc-btn-keep" value="cancel" type="submit">Keep Pokémon</button>
+            <button class="pc-btn-release" value="confirm" type="submit" disabled id="pc-shiny-confirm">Release Pokémon</button>`,
+          focusSelector: "#pc-shiny-yes",
+          onMount(dialog) {
+            const input = dialog.querySelector("#pc-shiny-yes");
+            const btn = dialog.querySelector("#pc-shiny-confirm");
+            const sync = () => {
+              const ok = String(input?.value || "").trim().toUpperCase() === "SHINY";
+              if (btn) btn.disabled = !ok;
+            };
+            input?.addEventListener("input", sync);
+            sync();
+          },
+          validate(value, dialog) {
+            if (value !== "confirm") return true;
+            return String(dialog.querySelector("#pc-shiny-yes")?.value || "").trim().toUpperCase() === "SHINY";
+          }
+        });
+        if (typed !== "confirm") return;
         confirmKey = "SHINY";
       }
       try {
         const result = await window.playCall("play_release", { p_catch: mon.id, p_confirm: confirmKey });
-        els.status.textContent = result.message || "Released.";
+        if (els.status) els.status.textContent = "";
+        if (typeof window.playToast === "function") {
+          window.playToast({ kind: "success", title: "Released", body: result.message || "Pokémon released." });
+        }
         data = await window.playCall("play_storage");
         selectedId = pickAdjacentAfter(mon.id);
         lastDetailId = "";
         render();
       } catch (error) {
-        els.status.textContent = window.playRpcError(error);
+        if (typeof window.playPresentError === "function") window.playPresentError(error, "Could not release that Pokémon.");
+        else if (els.status) els.status.textContent = window.playRpcError(error);
       }
     });
 
@@ -550,18 +595,266 @@
     }
   }
 
+
+  function monArtUrl(mon) {
+    try {
+      return pcStyle(mon, "inspect").url || monSpriteUrl(mon);
+    } catch (_) {
+      return monSpriteUrl(mon);
+    }
+  }
+
+  function oakEligible(mon) {
+    if (!mon) return false;
+    return !(mon.onTeam || mon.listed || mon.locked || mon.favorite || oakBusy);
+  }
+
+  function openPcDialog(opts) {
+    const d = document;
+    return new Promise((resolve) => {
+      const dialog = d.createElement("dialog");
+      const danger = Boolean(opts?.danger);
+      dialog.className = `play-modal play-modal-confirm pc-dialog${danger ? " is-danger" : ""}`;
+      dialog.innerHTML = `<form class="play-modal-card" method="dialog">
+        <header class="play-modal-head">
+          <h3>${window.playEscapeAttr(opts?.title || "Confirm")}</h3>
+        </header>
+        ${opts?.monHtml || ""}
+        ${opts?.bodyHtml || (opts?.body ? `<p class="pc-dialog-body">${window.playEscapeAttr(opts.body)}</p>` : "")}
+        ${opts?.warnHtml || ""}
+        ${opts?.extraHtml || ""}
+        <div class="pc-dialog-actions">${opts?.actionsHtml || ""}</div>
+      </form>`;
+      d.body.append(dialog);
+      let settled = false;
+      const finish = (value) => {
+        if (settled) return;
+        settled = true;
+        try { dialog.close?.(); } catch (_) {}
+        dialog.remove();
+        resolve(value);
+      };
+      dialog.addEventListener("cancel", (event) => {
+        event.preventDefault();
+        finish("cancel");
+      });
+      dialog.querySelector("form")?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const value = event.submitter?.value || "cancel";
+        if (opts?.validate && !opts.validate(value, dialog)) return;
+        finish(value);
+      });
+      if (opts?.onMount) opts.onMount(dialog);
+      if (typeof dialog.showModal === "function") dialog.showModal();
+      else dialog.setAttribute("open", "");
+      const focus = dialog.querySelector(opts?.focusSelector || "button[value='cancel'], button.pc-btn-keep, input");
+      focus?.focus?.();
+    });
+  }
+
+  async function confirmRelease(mon) {
+    const releaseName = displayName(mon);
+    const canOak = oakEligible(mon);
+    const art = monArtUrl(mon);
+    const model = window.playOakTransfer?.confirmModel
+      ? window.playOakTransfer.confirmModel([mon])
+      : { rewardHint: "You'll get Evolution Candy for this Evolution Line if eligible." };
+    const monHtml = `<div class="pc-dialog-mon">
+      <img src="${window.playEscapeAttr(art)}" alt="">
+      <div>
+        <strong>${window.playEscapeAttr(identityTitle(mon))}</strong>
+        <p class="muted">Lv. ${mon.level || 1}</p>
+      </div>
+    </div>`;
+    const warn = `<div class="pc-dialog-warn">Releasing permanently removes this Pokémon from your PC.</div>`;
+    const oakNote = canOak
+      ? `<p class="pc-dialog-body">Before releasing it, you may instead transfer it to Professor Oak for Evolution Candy if it is eligible.<br><span class="muted">${window.playEscapeAttr(model.rewardHint || "")}</span></p>`
+      : `<p class="pc-dialog-body muted">Transfer to Oak is unavailable for this Pokémon (favorite, lock, team, or trade listing).</p>`;
+    const actions = `
+      <button class="pc-btn-keep" value="keep" type="submit">Keep Pokémon</button>
+      <button class="pc-btn-oak" value="oak" type="submit" ${canOak ? "" : "disabled"}>${canOak ? "Transfer to Oak" : "Oak unavailable"}</button>
+      <button class="pc-btn-release" value="release" type="submit">Release Pokémon</button>`;
+    return openPcDialog({
+      title: `Release ${releaseName}?`,
+      danger: true,
+      monHtml,
+      bodyHtml: oakNote,
+      warnHtml: warn,
+      actionsHtml: actions,
+      focusSelector: "button.pc-btn-keep"
+    });
+  }
+
+  async function runAutoArrange() {
+    if (searching()) {
+      if (typeof window.playToast === "function") {
+        window.playToast({ kind: "warning", title: "Clear search first", body: "Auto-Arrange works on the current box view." });
+      }
+      return;
+    }
+    try {
+      const result = await window.playCall("play_pc_auto_arrange", { p_box: boxIndex });
+      data = result;
+      if (els.status) els.status.textContent = "";
+      if (typeof window.playToast === "function") {
+        window.playToast({ kind: "success", title: "Box arranged", body: result?.message || "Pokémon packed to the top-left." });
+      }
+      render();
+    } catch (error) {
+      if (typeof window.playPresentError === "function") window.playPresentError(error, "Could not arrange this box.");
+      else if (els.status) els.status.textContent = window.playRpcError(error);
+    }
+  }
+
+  async function runDeleteBox() {
+    const boxes = normalizeBoxes();
+    const box = boxes[boxIndex];
+    if (!box) return;
+    if (boxes.length <= 1) {
+      if (typeof window.playToast === "function") {
+        window.playToast({ kind: "warning", title: "Keep one box", body: "You must keep at least one PC box." });
+      }
+      return;
+    }
+    let preflight;
+    try {
+      preflight = await window.playCall("play_pc_delete_box_preflight", { p_box: boxIndex });
+    } catch (error) {
+      if (typeof window.playPresentError === "function") window.playPresentError(error, "Could not check this box.");
+      return;
+    }
+    if (!preflight?.canDelete) {
+      if (typeof window.playToast === "function") {
+        window.playToast({ kind: "warning", title: "Cannot delete", body: preflight?.message || "You must keep at least one PC box." });
+      }
+      return;
+    }
+    const occupants = Number(preflight.occupants || 0);
+    const free = Number(preflight.freeElsewhere || 0);
+    const releaseCount = Number(preflight.releaseCount || 0);
+    const name = preflight.boxName || box.name || `BOX ${boxIndex + 1}`;
+
+    if (releaseCount <= 0) {
+      const ok = await openPcDialog({
+        title: "Delete this Box?",
+        body: occupants
+          ? `All Pokémon in this box will be moved to available spaces in your other PC storage boxes.`
+          : "This box is empty and will be removed.",
+        warnHtml: occupants
+          ? `<div class="pc-dialog-warn">${occupants} Pokémon will be relocated. None will be released.</div>`
+          : "",
+        actionsHtml: `
+          <button class="pc-btn-keep" value="cancel" type="submit">Cancel</button>
+          <button class="pc-btn-destroy" value="delete" type="submit">Delete Box</button>`,
+        focusSelector: "button.pc-btn-keep"
+      });
+      if (ok !== "delete") return;
+      try {
+        const result = await window.playCall("play_pc_delete_box", {
+          p_box: boxIndex,
+          p_confirm_release: false,
+          p_confirm_text: "",
+          p_expected_release: 0
+        });
+        data = result;
+        boxIndex = Math.min(boxIndex, Math.max(0, (normalizeBoxes().length || 1) - 1));
+        if (typeof window.playToast === "function") {
+          window.playToast({ kind: "success", title: "Box deleted", body: result?.message || "Box deleted." });
+        }
+        render();
+      } catch (error) {
+        if (typeof window.playPresentError === "function") window.playPresentError(error, "Could not delete this box.");
+      }
+      return;
+    }
+
+    const first = await openPcDialog({
+      title: "Not Enough PC Storage",
+      danger: true,
+      bodyHtml: `<p class="pc-dialog-body">This box contains <strong>${occupants}</strong> Pokémon, but your other Boxes only have <strong>${free}</strong> available spaces.</p>
+        <p class="pc-dialog-body"><strong>${releaseCount}</strong> Pokémon cannot be moved.</p>`,
+      warnHtml: `<div class="pc-dialog-warn">If you continue, Pokémon that cannot be moved will be PERMANENTLY RELEASED. This cannot be undone.</div>`,
+      actionsHtml: `
+        <button class="pc-btn-keep" value="cancel" type="submit">Cancel</button>
+        <button class="pc-btn-destroy" value="continue" type="submit">Continue Anyway</button>`,
+      focusSelector: "button.pc-btn-keep"
+    });
+    if (first !== "continue") return;
+
+    const second = await openPcDialog({
+      title: "Permanent Release Warning",
+      danger: true,
+      bodyHtml: `<p class="pc-dialog-body">Deleting <strong>${window.playEscapeAttr(name)}</strong> will permanently release <strong>${releaseCount}</strong> Pokémon.</p>
+        <p class="pc-dialog-body">To continue, type: <strong>YES</strong></p>`,
+      extraHtml: `<input class="pc-confirm-input" id="pc-delete-yes" type="text" autocomplete="off" spellcheck="false" aria-label="Type YES to confirm">`,
+      actionsHtml: `
+        <button class="pc-btn-keep" value="cancel" type="submit">Cancel</button>
+        <button class="pc-btn-destroy" value="confirm" type="submit" disabled id="pc-delete-confirm">Confirm Delete</button>`,
+      focusSelector: "#pc-delete-yes",
+      onMount(dialog) {
+        const input = dialog.querySelector("#pc-delete-yes");
+        const btn = dialog.querySelector("#pc-delete-confirm");
+        const sync = () => {
+          const ok = String(input?.value || "").trim().toUpperCase() === "YES";
+          if (btn) btn.disabled = !ok;
+        };
+        input?.addEventListener("input", sync);
+        sync();
+      },
+      validate(value, dialog) {
+        if (value !== "confirm") return true;
+        const typed = String(dialog.querySelector("#pc-delete-yes")?.value || "").trim().toUpperCase();
+        return typed === "YES";
+      }
+    });
+    if (second !== "confirm") return;
+
+    try {
+      const result = await window.playCall("play_pc_delete_box", {
+        p_box: boxIndex,
+        p_confirm_release: true,
+        p_confirm_text: "YES",
+        p_expected_release: releaseCount
+      });
+      data = result;
+      boxIndex = Math.min(boxIndex, Math.max(0, (normalizeBoxes().length || 1) - 1));
+      if (typeof window.playToast === "function") {
+        window.playToast({ kind: "success", title: "Box deleted", body: result?.message || "Box deleted." });
+      }
+      render();
+    } catch (error) {
+      if (typeof window.playPresentError === "function") window.playPresentError(error, "Could not delete this box.");
+    }
+  }
+
+
   function render() {
     renderGrid();
   }
 
   async function act(name, args) {
-    els.status.textContent = "Working…";
+    const nickSave = name === "play_set_nickname";
+    if (!nickSave && els.status) els.status.textContent = "Working…";
     try {
       data = await window.playCall(name, args);
-      els.status.textContent = data.message || "";
+      if (nickSave) {
+        if (els.status) els.status.textContent = "";
+        const row = document.querySelector(".pc-nick-row");
+        row?.classList.add("is-saved");
+        setTimeout(() => row?.classList.remove("is-saved"), 1600);
+        if (typeof window.playToast === "function") {
+          window.playToast({ kind: "success", title: "Nickname saved", body: data?.message || "Nickname updated." });
+        }
+      } else if (els.status) {
+        els.status.textContent = data.message || "";
+      }
       render();
     } catch (error) {
-      els.status.textContent = window.playRpcError(error);
+      const msg = window.playRpcError(error);
+      if (els.status) els.status.textContent = msg;
+      if (nickSave && typeof window.playPresentError === "function") {
+        window.playPresentError(error, "Could not save that nickname.");
+      }
     }
   }
 
@@ -890,6 +1183,8 @@
     event.preventDefault();
     moveSelection(move[0], move[1]);
   });
+  els.autoArrange?.addEventListener("click", () => runAutoArrange());
+  els.deleteBox?.addEventListener("click", () => runDeleteBox());
   els.search?.addEventListener("input", renderGrid);
   els.oakModal?.addEventListener("click", (event) => {
     if (event.target === els.oakModal) els.oakModal.close("cancel");

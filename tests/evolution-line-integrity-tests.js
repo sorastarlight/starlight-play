@@ -36,7 +36,7 @@ test("approved Oak research copy is exact", () => {
   assert(evoHtml.includes("<strong>Evolution transforms that Pokémon into its evolved form—it does not create an additional copy.</strong>"));
   assert(evoHtml.includes("<strong>Evolution Stones</strong> and <strong>Linking Cords</strong>"));
   assert(evoHtml.includes('href="./store.html#evolution"'));
-  assert(evoHtml.includes("<strong>Starlight Mart</strong>"));
+  assert(evoHtml.includes("<strong>Mart</strong>"));
   assert(evoHtml.includes("While <strong>Kanto</strong> is the active region"));
 });
 

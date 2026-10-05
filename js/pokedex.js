@@ -154,7 +154,7 @@
           <span class="dex-brand-ball" aria-hidden="true"></span>
           <div class="dex-brand-text">
             <strong>Pokédex</strong>
-            <span>ST★RLIGHT Pokémon Database</span>
+            <span>Pokédex</span>
           </div>
           <span class="dex-brand-stars" aria-hidden="true"><i></i><i></i><i></i></span>
         </div>

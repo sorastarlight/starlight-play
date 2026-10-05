@@ -917,6 +917,12 @@
     p_login: els.passLogin.value,
     p_active: false
   }, els.passStatus));
+  document.getElementById("qa-pass-daily")?.addEventListener("click", () => run("admin_qa_grant_pass_reward", {
+    p_kind: "daily"
+  }, document.getElementById("qa-pass-status")));
+  document.getElementById("qa-pass-weekly")?.addEventListener("click", () => run("admin_qa_grant_pass_reward", {
+    p_kind: "weekly"
+  }, document.getElementById("qa-pass-status")));
   els.openUsers?.addEventListener("click", () => openUserModal());
   document.getElementById("user-search")?.addEventListener("click", () => {
     userOffset = 0;

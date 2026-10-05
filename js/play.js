@@ -499,7 +499,7 @@
     } else if (throwing && me?.ball) {
       status = window.playStatusBall ? window.playStatusBall(me.ball) : waiting;
     } else if (preparing && me) status = "";
-    else if (emptyThrow) status = window.PLAY_STATUS?.emptyBalls || "You don't have a Poké Ball available for this encounter. Restock at Starlight Mart.";
+    else if (emptyThrow) status = window.PLAY_STATUS?.emptyBalls || "You don't have a Poké Ball available for this encounter. Restock at the Mart.";
     else if (throwing && me && !buttons.length) status = window.PLAY_STATUS?.emptyBalls || "You don't have a Poké Ball available for this encounter.";
     else if (throwing && me) status = "";
     else if (joining && !me) status = "";

@@ -122,7 +122,7 @@ test("Premier preview uses 10 qualifying Balls", () => {
 });
 test("Ledger labels hide internal IDs", () => {
   assert(window.playLedgerLabel("DAILY_SUPPLY") === "Daily Trainer Supply");
-  assert(window.playLedgerLabel("STORE_PURCHASE") === "Starlight Mart");
+  assert(window.playLedgerLabel("STORE_PURCHASE") === "Mart");
 });
 test("Mart Ball copy never shows a raw multiplier", () => {
   window.playItemPlayerText = () => "Especially effective against Water- and Bug-type Pokémon.";

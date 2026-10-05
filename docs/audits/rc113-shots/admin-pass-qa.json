@@ -1,0 +1,24 @@
+{
+  "isAdmin": true,
+  "daily": {
+    "ok": true,
+    "grants": {
+      "bait": 1,
+      "berry": 2,
+      "coins": 20
+    },
+    "message": "ADMIN QA Daily Pass granted: Honey ×1, Oran Berry ×2, PokéCoins ×20."
+  },
+  "weekly": {
+    "ok": false,
+    "error": "Inventory is full. Buy a Pouch on the Store or use some items first."
+  },
+  "coinDelta": 20,
+  "passStill": {
+    "active": false,
+    "source": null,
+    "checkedAt": null
+  },
+  "cooldownDailyReady": false,
+  "cooldownWeeklyReady": false
+}

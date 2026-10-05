@@ -550,37 +550,70 @@
     const info = describePass(pass, wallet);
     const perks = Array.isArray(floor.extra?.perks) && floor.extra.perks.length
       ? floor.extra.perks
-      : ["+25 bag space while active", "Daily: 2 Berries, 1 Honey, 20 PokéCoins", "Weekly: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins"];
+      : ["+25 bag space while active", "Daily gift: 2 Berries, 1 Honey, 20 PokéCoins", "Weekly crate: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins"];
     const title = floor.name || "Starlight Pass";
+    const day = Math.max(1, Math.min(7, Number(wallet?.dailyStreakDay || 1)));
+    const supplyReady = wallet?.dailySupplyReady !== false && !wallet?.dailyClaimed;
+    const supplyClaimed = wallet?.dailyClaimed || wallet?.dailySupplyReady === false;
+    const trackHtml = typeof window.playDailyStreakHtml === "function"
+      ? window.playDailyStreakHtml(wallet)
+      : `<div class="pass-day-track" aria-label="Seven-day reward track">${Array.from({ length: 7 }, (_, i) => {
+        const n = i + 1;
+        const cls = n < day ? "is-claimed" : n === day ? "is-current" : "is-locked";
+        return `<span class="pass-day-pip ${cls}">${n}</span>`;
+      }).join("")}<p class="muted">Day ${day} of 7</p></div>`;
     return `
       <div class="mart-pass">
-        <section class="pass-showcase${info.active ? " active" : ""}" data-pass-hero>
-          <img class="pass-sprite" src="${esc(window.playItemSprite(floor.icon || "rainbow-pass.png"))}" alt="">
-          <div>
-            <p class="eyebrow">${esc(floor.blurb || "Twitch subscriber perk")}</p>
-            <h2>${esc(title)} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h2>
-            <ul>${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
-            <p data-pass-status class="muted">${esc(info.note)}</p>
-            <p class="pass-meta">${lastLinkedLogin || pass?.login || pass?.twitchLogin ? `Linked through: @${esc(lastLinkedLogin || pass.login || pass.twitchLogin)}` : "Connect Twitch on My Account to verify a subscription without signing out of Play."}${pass?.checkedAt ? ` · Last checked ${esc(new Date(pass.checkedAt).toLocaleString())}` : ""}</p>
-            <div class="daily-supply-card">
-              <p class="eyebrow">Daily Trainer Supply</p>
-              <p>${wallet?.dailyClaimed
-                ? "Claimed. Next supply available tomorrow."
-                : `Today's Supplies: Poké Ball ×3 · ${window.playItemLabel(wallet?.dailyPreview?.berry || "berry")} ×1 · 50 PokéCoins${dailyBonusLine(wallet)}.`}</p>
-              ${typeof window.playDailyStreakHtml === "function" ? window.playDailyStreakHtml(wallet) : `<p class="muted">Day ${Number(wallet?.dailyStreakDay || 1)} of 7</p>`}
-              <p class="muted">Daily Trainer Supply refreshes at 12:00 AM Eastern Time.</p>
+        <section class="pass-showcase${info.active ? " is-active" : ""}" data-pass-hero>
+          <div class="pass-hero-row">
+            <div class="pass-icon-wrap" aria-hidden="true">
+              <img class="pass-sprite" src="${esc(window.playItemSprite(floor.icon || "rainbow-pass.png"))}" alt="">
+              <span class="pass-icon-spark"></span>
             </div>
-            <div class="links pass-actions">
-              <button id="claim-supply" class="secondary" type="button"${wallet?.dailySupplyReady === false ? " disabled" : ""}>${wallet?.dailySupplyReady === false ? "Claimed" : "Claim"}</button>
-              <button id="claim-daily" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "Daily claimed" : "Claim daily gift"}</button>
-              <button id="claim-weekly" class="gold" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "Weekly claimed" : "Claim weekly crate"}</button>
-              <button id="check-pass" class="secondary" type="button">Check my subscription</button>
+            <div class="pass-hero-copy">
+              <p class="pass-kicker">${esc(floor.blurb || "Twitch subscriber perk")}</p>
+              <h2 class="pass-title">${esc(title)} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h2>
+              <p data-pass-status class="pass-status">${esc(info.note)}</p>
+              <p class="pass-meta">${lastLinkedLogin || pass?.login || pass?.twitchLogin ? `Linked: @${esc(lastLinkedLogin || pass.login || pass.twitchLogin)}` : "Connect Twitch on My Account to verify your subscription."}${pass?.checkedAt ? ` · Checked ${esc(new Date(pass.checkedAt).toLocaleString())}` : ""}</p>
             </div>
           </div>
-          <p class="pass-subscribe">
-            Want the Starlight Pass?
-            <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch now</a>
-          </p>
+          <ul class="pass-perk-list">${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
+          <div class="pass-reward-panels">
+            <article class="pass-reward-card pass-supply-card${supplyReady ? " is-ready" : ""}${supplyClaimed ? " is-claimed" : ""}">
+              <header class="pass-reward-head">
+                <p class="eyebrow">Daily Trainer Supply</p>
+                <span class="pass-reward-chip">${supplyReady ? "Ready" : "Claimed"}</span>
+              </header>
+              <p class="pass-reward-body">${wallet?.dailyClaimed
+                ? "Claimed for today. Come back after midnight Eastern."
+                : `Poké Ball ×${Number(wallet?.dailyPreview?.pokeball ?? 3)} · ${window.playItemLabel(wallet?.dailyPreview?.berry || "berry")} ×${Number(wallet?.dailyPreview?.berryQty ?? wallet?.dailyPreview?.berryCount ?? 1)} · ${Number(wallet?.dailyPreview?.coins ?? 40)} PokéCoins${dailyBonusLine(wallet)}`}</p>
+              ${trackHtml}
+              <p class="pass-time-note">Daily Trainer Supply refreshes at 12:00 AM Eastern Time.</p>
+              <button id="claim-supply" class="pass-claim-btn" type="button"${supplyReady ? "" : " disabled"}>${supplyReady ? "Claim Supply" : "Claimed"}</button>
+            </article>
+            <article class="pass-reward-card pass-gift-card${info.active && wallet?.dailyReady ? " is-ready" : ""}${info.active && !wallet?.dailyReady ? " is-claimed" : ""}${!info.active ? " is-locked" : ""}">
+              <header class="pass-reward-head">
+                <p class="eyebrow">Pass Daily Gift</p>
+                <span class="pass-reward-chip">${!info.active ? "Pass needed" : wallet?.dailyReady ? "Ready" : "Cooldown"}</span>
+              </header>
+              <p class="pass-reward-body">Subscriber daily gift (about every 20 hours).</p>
+              <p class="pass-time-note">Uses the Pass cooldown — not the midnight Eastern reset.</p>
+              <button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "On cooldown" : "Claim Daily Gift"}</button>
+            </article>
+            <article class="pass-reward-card pass-weekly-card${info.active && wallet?.weeklyReady ? " is-ready" : ""}${info.active && !wallet?.weeklyReady ? " is-claimed" : ""}${!info.active ? " is-locked" : ""}">
+              <header class="pass-reward-head">
+                <p class="eyebrow">Pass Weekly Crate</p>
+                <span class="pass-reward-chip">${!info.active ? "Pass needed" : wallet?.weeklyReady ? "Ready" : "Cooldown"}</span>
+              </header>
+              <p class="pass-reward-body">Subscriber weekly crate (about every 6 days).</p>
+              <p class="pass-time-note">Uses the Pass cooldown — not the midnight Eastern reset.</p>
+              <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "On cooldown" : "Claim Weekly Crate"}</button>
+            </article>
+          </div>
+          <div class="pass-footer-row">
+            <button id="check-pass" class="pass-check-btn" type="button">Check subscription</button>
+            <p class="pass-subscribe">Want the Starlight Pass? <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch</a></p>
+          </div>
         </section>
       </div>`;
   }
@@ -704,13 +737,13 @@
     const historyHtml = history.length
       ? `<section class="support-recent" aria-label="Recent support rewards">
           <p class="eyebrow">Recent support rewards</p>
-          ${lastSupport.bitsTotal ? `<p class="muted">You've supported ST★RLIGHT streams with ${money(lastSupport.bitsTotal)} Bits.</p>` : ""}
+          ${lastSupport.bitsTotal ? `<p class="muted">You've supported Sora Starlight streams with ${money(lastSupport.bitsTotal)} Bits.</p>` : ""}
           ${lastSupport.pending ? `<p class="muted">A Power-Up is waiting until this Twitch account is linked for gameplay.</p>` : ""}
           <ul>${history.slice(0, 6).map((row) => `<li><strong>${esc(row.name || row.sku)}</strong> · ${esc(row.status)} · ${money(row.bits)} Bits</li>`).join("")}</ul>
         </section>`
       : (lastSupport.pending
         ? `<p class="muted">A Power-Up is waiting until this Twitch account is linked for gameplay.</p>`
-        : `<p class="muted">Optional stream support: use a matching Custom Power-Up on Twitch for guaranteed supplies listed above. General cheers are thank-yous, not Mart checkouts. Twitch Bits are stream support — ST★RLIGHT does not convert them into a Star Bits currency. Power-Ups are never required to catch Pokémon.</p>`);
+        : `<p class="muted">Optional stream support: use a matching Custom Power-Up on Twitch for guaranteed supplies listed above. General cheers are thank-yous, not Mart checkouts. Twitch Bits are stream support — Pokémon StreamLink does not convert them into a Star Bits currency. Power-Ups are never required to catch Pokémon.</p>`);
     return floorShell(
       floor,
       floor.icon || "amulet-coin.png",
@@ -804,7 +837,7 @@
     const cards = sellShelf.length
       ? sellShelf.map(sellCardHtml).join("")
       : `<p class="muted">No sellable valuables in your bag yet. Complete Professor Oak Research or receive valuables, then sell them here for PokéCoins.</p>`;
-    return `<section class="mart-floor mart-sell-floor" id="${SELL_TAB}" role="tabpanel" aria-labelledby="mart-tab-${SELL_TAB}" data-mart-panel="${SELL_TAB}">
+    return `<section class="mart-floor mart-sell-floor" id="mart-sell-panel" role="tabpanel" aria-labelledby="mart-tab-${SELL_TAB}" data-mart-panel="${SELL_TAB}">
       <header class="mart-dept-head">
         <img class="mart-dept-icon" src="${esc(window.playItemSprite("pokecoin.png"))}" alt="" width="48" height="48">
         <div class="mart-dept-copy">
@@ -1169,6 +1202,11 @@
           window.history.replaceState(null, "", url);
         } catch (_) {}
       }
+      // Keep a department tab visually selected so tab padding/height stay stable.
+      const tabs = els.floors?.querySelectorAll(".mart-tab[data-mart-tab]");
+      if (tabs?.length && !els.floors.querySelector(".mart-tab.is-on")) {
+        tabs[0].classList.add("is-on");
+      }
     } else {
       showTab(tab, { updateHash: Boolean(location.hash) && location.hash.replace(/^#/, "") !== "pass" });
     }
@@ -1317,6 +1355,8 @@
     const modeBtn = event.target.closest("[data-mart-mode]");
     if (modeBtn) {
       const nextMode = modeBtn.dataset.martMode === "sell" ? "sell" : "buy";
+      if (nextMode === martMode) return;
+      const keepY = window.scrollY;
       martMode = nextMode;
       try {
         const url = new URL(window.location.href);
@@ -1329,6 +1369,9 @@
       } catch (_) {}
       if (martMode === "sell") await refreshSellShelf();
       renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
+      requestAnimationFrame(() => {
+        window.scrollTo(0, keepY);
+      });
       return;
     }
     const sellInc = event.target.closest("[data-sell-inc]");

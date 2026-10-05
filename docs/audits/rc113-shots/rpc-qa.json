@@ -1,0 +1,119 @@
+{
+  "account": "playtester@sorastarlight.net",
+  "uid": "a98cbf81-a6b2-4dbf-8448-8d62f6d5f523",
+  "sora": false,
+  "twinkle": false,
+  "steps": [
+    {
+      "step": "baseline",
+      "coins": 650,
+      "dailyClaimed": false,
+      "dailySupplyReady": true,
+      "dailyReady": false,
+      "weeklyReady": false,
+      "isAdmin": false
+    },
+    {
+      "step": "daily_supply_claim",
+      "ok": true,
+      "error": null,
+      "grants": {
+        "coins": 40,
+        "pecha": 1,
+        "pokeball": 3
+      },
+      "message": "Daily Trainer Supply claimed. Day 1 of 7.",
+      "ambiguousGrants": false,
+      "trainerIdLeak": false,
+      "rawSqlExposed": false,
+      "coinDelta": 40,
+      "itemDelta": {
+        "used": 4,
+        "coins": 40,
+        "pokeball": 3,
+        "pecha": 1
+      }
+    },
+    {
+      "step": "daily_supply_cooldown",
+      "ok": true,
+      "error": {
+        "message": "Daily Trainer Supply is not ready yet."
+      },
+      "message": null,
+      "ambiguousGrants": false,
+      "trainerIdLeak": false
+    },
+    {
+      "step": "admin_qa_daily",
+      "ok": false,
+      "rejected": true,
+      "error": {
+        "message": "not allowed",
+        "code": "42501"
+      },
+      "grants": null,
+      "message": null,
+      "isAdmin": false,
+      "coinDelta": 0,
+      "itemDelta": {},
+      "cooldownUnaffectedNote": "normal play_claim_pass cooldown not touched by QA grant"
+    },
+    {
+      "step": "admin_qa_bad_kind",
+      "rejected": true,
+      "error": {
+        "message": "not allowed"
+      },
+      "data": null
+    },
+    {
+      "step": "pc_baseline",
+      "boxCount": 3,
+      "monCount": 12
+    },
+    {
+      "step": "pc_auto_arrange",
+      "ok": true,
+      "error": null,
+      "message": "Box arranged.",
+      "count": 12
+    },
+    {
+      "step": "pc_auto_arrange_idempotent",
+      "ok": true,
+      "sameMessage": true
+    },
+    {
+      "step": "pc_delete_preflight_box0",
+      "ok": true,
+      "preflight": {
+        "ok": true,
+        "safe": true,
+        "boxName": "BOX 1",
+        "message": "All 12 Pokémon can be moved to your other boxes.",
+        "boxCount": 3,
+        "boxIndex": 0,
+        "minBoxes": 1,
+        "canDelete": true,
+        "occupants": 12,
+        "releaseCount": 0,
+        "freeElsewhere": 60,
+        "protectedCount": 0,
+        "protectedWouldRelease": 0
+      },
+      "error": null
+    },
+    {
+      "step": "pc_delete_empty_tmp",
+      "ok": true,
+      "error": null,
+      "message": "Box deleted. Pokémon were moved to your other boxes."
+    },
+    {
+      "step": "pc_delete_bad_yes",
+      "rejected": false,
+      "error": null
+    }
+  ]
+}

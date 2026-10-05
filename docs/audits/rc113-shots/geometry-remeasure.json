@@ -1,0 +1,51 @@
+{
+  "buy": {
+    "scrollY": 0,
+    "mode": {
+      "top": 887,
+      "width": 1148
+    },
+    "shell": {
+      "top": 887,
+      "width": 1148
+    },
+    "content": {
+      "top": 954,
+      "width": 1148
+    }
+  },
+  "sell": {
+    "scrollY": 0,
+    "mode": {
+      "top": 887,
+      "width": 1148
+    },
+    "shell": {
+      "top": 887,
+      "width": 1148
+    },
+    "content": {
+      "top": 954,
+      "width": 1148
+    }
+  },
+  "buy2": {
+    "scrollY": 0,
+    "mode": {
+      "top": 887,
+      "width": 1148
+    },
+    "shell": {
+      "top": 887,
+      "width": 1148
+    },
+    "content": {
+      "top": 954,
+      "width": 1148
+    }
+  },
+  "shellTopDeltaBuySell": 0,
+  "shellTopDeltaSellBuy": 0,
+  "modeTopDelta": 0,
+  "scrollDelta": 0
+}

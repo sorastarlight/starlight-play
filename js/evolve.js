@@ -547,7 +547,7 @@
             type: "item",
             kind: "loot",
             title: rewards[0] ? String(window.playItemLabel?.(rewards[0].key) || "Valuable").toUpperCase() : "VALUABLE",
-            body: "A valuable item.\n\nSell valuables at the Starlight Mart for Coins.\n\nOpen Mart → Sell when you are ready.",
+            body: "A valuable item.\n\nSell valuables at the Mart for Coins.\n\nOpen Mart → Sell when you are ready.",
             rewards: rewards.map((row) => ({ type: row.key, amount: row.qty }))
           });
         }
@@ -746,7 +746,7 @@
       <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
       <p><strong>Professor Oak</strong> is ready when you are.</p>
       <p class="muted">Catch duplicate Pokémon from the same Evolution Line, then send them to Professor Oak for Evolution Candy.</p>
-      <p class="muted">Use Candy—and Stones or Linking Cords from the <a href="./store.html#evolution">Starlight Mart</a>—to evolve Pokémon you already own.</p>
+      <p class="muted">Use Candy—and Stones or Linking Cords from the <a href="./store.html#evolution">Mart</a>—to evolve Pokémon you already own.</p>
       <p><button type="button" class="button secondary" data-switch-tab="send">Send to Oak</button></p>
     </div>`;
     els.grid.innerHTML = cards.join("") || empty;
@@ -968,11 +968,11 @@
       if (row.item === "linkingcord") {
         const qty = view.itemQty ? view.itemQty(row) : (row.haveItem ? 1 : 0);
         bits.push(`<p>Linking Cord<br>Allows this Pokémon to evolve without trading.<br>Owned: ${qty} ${qty ? "✓" : "✕"}</p>`);
-        if (!qty) bits.push(`<p><a class="button secondary" href="${view.martHref("linkingcord")}">Find in Starlight Mart</a></p>`);
+        if (!qty) bits.push(`<p><a class="button secondary" href="${view.martHref("linkingcord")}">Find in Mart</a></p>`);
       } else if (row.item) {
         const qty = view.itemQty ? view.itemQty(row) : (row.haveItem ? 1 : 0);
         bits.push(`<p>${esc(itemLabel(row.item))}<br>1 / 1 ${qty ? "✓" : "✕"}</p>`);
-        if (!qty) bits.push(`<p>You need a ${esc(itemLabel(row.item))}.</p><p><a class="button secondary" href="${view.martHref(row.item)}">Find in Starlight Mart</a></p>`);
+        if (!qty) bits.push(`<p>You need a ${esc(itemLabel(row.item))}.</p><p><a class="button secondary" href="${view.martHref(row.item)}">Find in Mart</a></p>`);
       }
       if (canEvolve(row) && row.item) {
         const afterCandy = Math.max(0, Number(row.haveCandy || 0) - Number(row.candyCost || 0));

@@ -18,7 +18,7 @@
     phaseEnded: "That phase just ended. Nothing was used.",
     joinFailed: "Unable to join this encounter.",
     saveFailed: "That choice couldn't be saved. Please try again.",
-    emptyBalls: "You don't have a Poké Ball available for this encounter. Restock at Starlight Mart.",
+    emptyBalls: "You don't have a Poké Ball available for this encounter. Restock at the Mart.",
     emptyItems: "No encounter items available.",
     firstJoin: "A wild Pokémon appeared! Join the encounter before the timer runs out.",
     firstPrep: "Choose a Berry, Honey, or No Item.",
@@ -130,10 +130,10 @@
         || "Honey is community catch support. It helps the shared encounter, does not replace your Poké Ball, and does not guarantee a catch.";
     }
     if (key === "lure") return "Automatically joins you to encounters for 30 minutes.";
-    if (key === "coins") return "Spend these in Starlight Mart.";
+    if (key === "coins") return "Spend these in Mart.";
     if (key === "bag_bonus") return "Permanently adds extra bag slots so you can carry more items.";
     if (key === "rarecandy") return "Converts into 1 Evolution Candy at Prof. Oak's Lab. It does not evolve a Pokémon by itself.";
-    if (VALUABLE_KEYS.has(key)) return "A valuable item. Sell valuables at the Starlight Mart for PokéCoins.";
+    if (VALUABLE_KEYS.has(key)) return "A valuable item. Sell valuables at the Mart for PokéCoins.";
     if (STONE_USES[key]) {
       const first = STONE_USES[key][0];
       return `Used to evolve certain Pokémon such as ${first[0]}.`;
@@ -190,16 +190,16 @@
   };
 
   root.playItemAcquisition = function playItemAcquisition(key, captureItems) {
-    if (key === "masterball") return "Not sold in Starlight Mart. Awarded for rare Trainer milestones.";
+    if (key === "masterball") return "Not sold in Mart. Awarded for rare Trainer milestones.";
     if (key === "rarecandy") return "Found as a rare capture reward.";
-    if (key === "linkingcord") return "Sold in Starlight Mart. Also awarded after your first trade.";
-    if (EVO_KEYS.has(key)) return "Sold in Starlight Mart. Sometimes found after a catch.";
-    if (key === "bait") return "Daily Trainer Supply, Starlight Mart, and encounter rewards.";
+    if (key === "linkingcord") return "Sold in Mart. Also awarded after your first trade.";
+    if (EVO_KEYS.has(key)) return "Sold in Mart. Sometimes found after a catch.";
+    if (key === "bait") return "Daily Trainer Supply, Mart, and encounter rewards.";
     const berry = typeof window !== "undefined" ? root.playBerryInfo?.(key, captureItems) : null;
-    if (berry?.storeAvailable) return "Available in Starlight Mart.";
+    if (berry?.storeAvailable) return "Available in Mart.";
     const ball = (captureItems?.balls || []).find((row) => row.key === key);
     if (ball?.storeAvailable || ["pokeball", "greatball", "ultraball"].includes(key)) {
-      return "Available in Starlight Mart.";
+      return "Available in Mart.";
     }
     return "Earned from encounters, Daily Trainer Supply, or the Mart.";
   };
@@ -587,8 +587,8 @@
     const map = {
       ENCOUNTER_DROP: "Encounter reward",
       ENCOUNTER_PARTICIPATION: "Encounter reward",
-      STORE_PURCHASE: "Starlight Mart",
-      MART_SALE: "Starlight Mart",
+      STORE_PURCHASE: "Mart",
+      MART_SALE: "Mart",
       OAK_RESEARCH: "Professor Oak Research",
       DAILY_SUPPLY: "Daily Trainer Supply",
       DAILY_TRAINER_SUPPLY: "Daily Trainer Supply",

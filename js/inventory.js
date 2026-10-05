@@ -179,7 +179,7 @@
       : `<p class="muted bag-empty">${showUnowned
         ? "No items match this filter."
         : tab === "all"
-          ? "Your bag is empty. Visit Starlight Mart or join encounters to fill it."
+          ? "Your bag is empty. Visit the Mart or join encounters to fill it."
           : `Nothing in the ${pocketLabel} pocket yet.`}</p>`;
     const tip = tab === "evolution" && rows.some((row) => Number(bag[row.key] || 0) > 0 && ["firestone", "waterstone", "thunderstone", "leafstone", "moonstone"].includes(row.key))
       ? window.playTipHtml?.("first-stone", "Evolution Items can be used with Evolution Candy to evolve eligible Pokémon along their Evolution Line.")

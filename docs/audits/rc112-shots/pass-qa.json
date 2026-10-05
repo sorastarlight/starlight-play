@@ -1,0 +1,48 @@
+{
+  "account": "playtester@sorastarlight.net",
+  "username": "playtester",
+  "uid": "a98cbf81-a6b2-4dbf-8448-8d62f6d5f523",
+  "soraMutated": false,
+  "twinkleMutated": false,
+  "method": "SQL auth.uid() context via set_config (password login invalid in stored QA session)",
+  "daily": {
+    "ok": true,
+    "grants": { "bait": 1, "berry": 2, "coins": 20 },
+    "message": "Daily Pass gift: Honey ×1, Oran Berry ×2, PokéCoins ×20.",
+    "coinDelta": 20
+  },
+  "dailyCooldown": {
+    "ok": false,
+    "error": "Daily Pass gift is not ready yet.",
+    "trainerIdLeak": false
+  },
+  "weekly": {
+    "ok": true,
+    "grants": { "lure": 1, "berry": 3, "coins": 150, "pokeball": 5 },
+    "message": "Weekly Pass crate: Poké Radar ×1, Oran Berry ×3, PokéCoins ×150, Poké Ball ×5.",
+    "coinDelta": 150
+  },
+  "weeklyCooldown": {
+    "ok": false,
+    "error": "Weekly Pass crate is not ready yet. (raised)",
+    "trainerIdLeak": false
+  },
+  "intentionalFailure": {
+    "kind": "not-a-real-kind",
+    "error": "Unknown Pass gift.",
+    "trainerIdLeak": false
+  },
+  "mapper": {
+    "ambiguousWithoutTitleId": "column reference \"x\" is ambiguous → NOT Trainer ID (rc112 narrow remap)",
+    "titleIdAmbiguous": "still maps to Trainer ID save copy"
+  },
+  "cleanup": {
+    "reversedGrants": true,
+    "coinsRestoredTo": 650,
+    "starlightPassRestored": false,
+    "passSourceCleared": true,
+    "cooldownsCleared": true,
+    "note": "Temporarily enabled starlight_pass=true / pass_source=qa-rc112 for PlayTester only, then restored false/null."
+  },
+  "noTrainerIdFromPass": true
+}

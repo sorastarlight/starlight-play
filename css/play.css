@@ -3721,13 +3721,43 @@ body[data-page="admin"] .encounter-visual-stage .dex-stage img {
 }
 .dex-cell {
   position: relative;
+  display: grid;
+  grid-template-rows: auto 72px auto;
+  justify-items: center;
+  align-content: start;
+  gap: 4px;
   background: #fff;
   border: 2px solid #d7e0f2;
   border-radius: 16px;
-  padding: 8px;
+  padding: 8px 8px 10px;
   text-align: center;
+  min-height: 132px;
 }
-.dex-cell img { width: 72px; height: 72px; image-rendering: pixelated; }
+.dex-cell .dex-no {
+  grid-row: 1;
+  line-height: 1.2;
+}
+.dex-cell img.dex-sprite,
+.dex-cell img:not(.dex-caught-mark) {
+  grid-row: 2;
+  width: 72px;
+  height: 72px;
+  image-rendering: pixelated;
+  object-fit: contain;
+  object-position: center bottom;
+  display: block;
+}
+.dex-cell .dex-name {
+  grid-row: 3;
+  display: block;
+  width: 100%;
+  min-height: 1.25em;
+  line-height: 1.25;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
 .dex-cell .silhouette { filter: brightness(0); opacity: .55; }
 .dex-cell .seen-sprite { filter: grayscale(1); opacity: .58; }
 .dex-cell img.dex-caught-mark {
@@ -7858,7 +7888,7 @@ body[data-page="admin"] .play-stage {
 }
 .play-toast.is-out { opacity: 0; transform: translateY(8px); transition: 0.25s ease; }
 .play-toast strong { display: block; font-family: Fredoka, sans-serif; }
-.play-toast p { margin: 4px 0 0; }
+.play-toast p { margin: 4px 0 0; white-space: pre-line; }
 .play-toast-level { background: #e8f7ff; border-color: #7ec8ea; }
 .play-toast-achievement, .play-toast-title, .play-toast-badge { background: #f3e8ff; border-color: #c9a4ea; }
 .play-toast-dex { background: #e9ffe8; border-color: #8ed37c; }
@@ -15357,8 +15387,13 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .tid-journal-entry {
   color: #fff;
   box-shadow: 0 3px 0 #1f4f98;
 }
-.mart-folder.is-sell-mode,
-.mart-sell-folder.is-buy-mode { display: none; }
+.mart-folder.is-sell-mode .mart-tabs {
+  opacity: 0.55;
+  pointer-events: none;
+}
+.mart-folder.is-sell-mode .mart-tab {
+  cursor: default;
+}
 
 /* —— OWNER VISUAL COHESION: Bag + Mart shared contracts —— */
 .bag-hero {
@@ -15602,6 +15637,68 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .tid-journal-entry {
 .mart-mode .mart-mode-btn.is-on {
   background: linear-gradient(180deg, #6aa8ef, #3f78c8);
   box-shadow: 0 3px 0 #1f4f98;
+}
+
+/* rc112 — Buy/Sell is the primary mode switch inside the Mart workspace */
+.mart-mode-workspace {
+  display: grid;
+  gap: 0;
+}
+.mart-mode-workspace > .mart-mode {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 6px;
+  border-radius: 18px 18px 0 0;
+  border: 3px solid #d7c39a;
+  border-bottom: 0;
+  background:
+    linear-gradient(180deg, #ffe8f4, #e8f6ff);
+  box-shadow: none;
+  position: relative;
+  z-index: 2;
+}
+.mart-mode-workspace > .mart-mode .mart-mode-btn {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5a4018;
+  border-radius: 12px;
+}
+.mart-mode-workspace > .mart-mode .mart-mode-btn:focus-visible {
+  outline: 3px solid #5a8fd4;
+  outline-offset: 2px;
+}
+.mart-mode-workspace > .mart-mode .mart-mode-btn.is-on {
+  background: linear-gradient(180deg, #ff7eb6, #5ec8ef);
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(40, 40, 80, 0.25);
+  box-shadow: 0 3px 0 #c04878;
+}
+.mart-mode-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.mart-mode-workspace > .mart-folder-body {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+body[data-page="store"] {
+  background:
+    radial-gradient(circle at 8% -10%, #ffe3f3 0 18%, transparent 46%),
+    radial-gradient(circle at 100% 8%, #d9ecff 0 16%, transparent 48%),
+    repeating-linear-gradient(135deg, #f7fbff 0 18px, #f3f6ff 18px 36px);
 }
 
 .mart-dept-head {
@@ -17593,11 +17690,13 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
 }
 
 /* Pokédex cell sprites stay fully visible */
+.dex-cell img.dex-sprite,
 .dex-cell img:not(.dex-caught-mark) {
   width: 72px;
   height: 72px;
   object-fit: contain;
   object-position: center bottom;
+  display: block;
 }
 .dex-cell img.is-sprite-fallback {
   filter: none !important;

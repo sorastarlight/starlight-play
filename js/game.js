@@ -1192,7 +1192,8 @@
     if (/42501|not allowed|permission denied/i.test(raw)) {
       return "This action is not available on this account.";
     }
-    if (/column reference|ambiguous|42702|P0001.*title_id/i.test(raw)) {
+    // Trainer ID only — do not remap unrelated ambiguous/42702/P0001 errors.
+    if (/\btitle_id\b/i.test(raw) && /ambiguous|column reference|42702/i.test(raw)) {
       return "Could not save your Trainer ID. Please try again.";
     }
     return raw
@@ -1281,12 +1282,22 @@
     return host;
   }
 
+  let _playToastDedupeKey = "";
+  let _playToastDedupeAt = 0;
   window.playToast = function playToast(notice) {
+    const esc = window.playEscapeAttr || ((value) => String(value || ""));
+    const title = String(notice?.title || "Reward");
+    const body = String(notice?.body || "");
+    const key = `${title}\n${body}`;
+    const now = Date.now();
+    if (key === _playToastDedupeKey && now - _playToastDedupeAt < 2200) return;
+    _playToastDedupeKey = key;
+    _playToastDedupeAt = now;
     const host = noticeHost();
     const card = document.createElement("article");
     card.className = `play-toast play-toast-${notice?.kind || "info"}`;
-    const esc = window.playEscapeAttr || ((value) => String(value || ""));
-    card.innerHTML = `<strong>${esc(notice?.title || "Reward")}</strong><p>${esc(notice?.body || "")}</p>`;
+    if (notice?.severity) card.classList.add(`play-toast-${notice.severity}`);
+    card.innerHTML = `<strong>${esc(title)}</strong><p>${esc(body)}</p>`;
     host.append(card);
     setTimeout(() => card.classList.add("is-out"), 4200);
     setTimeout(() => card.remove(), 5000);

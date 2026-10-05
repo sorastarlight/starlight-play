@@ -105,7 +105,7 @@
       if (btn) btn.hidden = true;
       return { shown: true, loop: true, mismatch: true };
     }
-    setMsg("✨ A new ST★RLIGHT RPG update is ready.");
+    setMsg("✨ A new update is ready.");
     if (btn) {
       btn.hidden = false;
       btn.textContent = "Update now";

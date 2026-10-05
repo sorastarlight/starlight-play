@@ -932,9 +932,17 @@
   }
 
   function presentError(error, fallback) {
-    const body = typeof root.playHumanRpcError === "function"
-      ? root.playHumanRpcError(error, fallback)
-      : (error?.message || fallback || "That action did not work.");
+    const preferred = String(fallback || "").trim();
+    let body = typeof root.playHumanRpcError === "function"
+      ? root.playHumanRpcError(error, preferred || undefined)
+      : (error?.message || preferred || "That action did not work.");
+    body = String(body || preferred || "That action did not work.");
+    // Never let an unrelated feature inherit Trainer ID save copy.
+    if (preferred && /Could not save your Trainer ID/i.test(body) && !/Trainer ID/i.test(preferred)) {
+      body = preferred;
+    } else if (preferred && (/That choice couldn't be saved/i.test(body) || body.length > 180) && preferred.length <= 160) {
+      body = preferred;
+    }
     const event = normalize({
       id: `error:${body}`.slice(0, 160),
       type: "error",

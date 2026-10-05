@@ -140,14 +140,29 @@
   function presentClaim(title, data, source) {
     if (typeof window.playPresentEnqueue !== "function") return;
     const grants = data?.grants || {};
-    const rewards = Object.entries(grants).map(([type, amount]) => ({ type, amount: Number(amount) || 0 }));
+    const rewards = Object.entries(grants)
+      .filter(([, amount]) => Number(amount) > 0)
+      .map(([type, amount]) => ({ type, amount: Number(amount) || 0 }));
+    const lines = rewards.map((row) => {
+      if (row.type === "coins") return `PokéCoins ×${row.amount}`;
+      const label = typeof window.playItemLabel === "function" ? window.playItemLabel(row.type) : row.type;
+      return `${label} ×${row.amount}`;
+    });
+    const claimTitle = /weekly/i.test(String(title))
+      ? "Weekly Pass rewards claimed!"
+      : /pass|daily gift/i.test(String(title)) && !/supply/i.test(String(title))
+        ? "Daily Pass rewards claimed!"
+        : /supply/i.test(String(title))
+          ? "Daily Trainer Supply claimed!"
+          : String(title || "Rewards claimed!");
     window.playPresentEnqueue([{
-      id: `${source}:${data?.streakDay || data?.message || title}`,
+      id: `${source}:claim:${claimTitle}:${lines.join("|")}`.slice(0, 160),
       type: "item",
-      rare: true,
-      title,
-      body: data?.message || "Inventory updated.",
+      tier: "toast",
+      title: claimTitle,
+      body: lines.join("\n") || "Inventory updated.",
       rewards,
+      severity: "success",
       source
     }], { source, noSummary: true });
   }
@@ -553,7 +568,7 @@
                 ? "Claimed. Next supply available tomorrow."
                 : `Today's Supplies: Poké Ball ×3 · ${window.playItemLabel(wallet?.dailyPreview?.berry || "berry")} ×1 · 50 PokéCoins${dailyBonusLine(wallet)}.`}</p>
               ${typeof window.playDailyStreakHtml === "function" ? window.playDailyStreakHtml(wallet) : `<p class="muted">Day ${Number(wallet?.dailyStreakDay || 1)} of 7</p>`}
-              <p class="muted">${esc(wallet?.dailyTimezone || "America/New_York")}</p>
+              <p class="muted">Daily Trainer Supply refreshes at 12:00 AM Eastern Time.</p>
             </div>
             <div class="links pass-actions">
               <button id="claim-supply" class="secondary" type="button"${wallet?.dailySupplyReady === false ? " disabled" : ""}>${wallet?.dailySupplyReady === false ? "Claimed" : "Claim"}</button>
@@ -739,15 +754,20 @@
   }
 
   function modeToggleHtml() {
-    return `<div class="mart-mode" role="tablist" aria-label="Mart mode">
-      <button type="button" class="mart-mode-btn${martMode === "buy" ? " is-on" : ""}" data-mart-mode="buy" role="tab" aria-selected="${martMode === "buy"}">Buy</button>
-      <button type="button" class="mart-mode-btn${martMode === "sell" ? " is-on" : ""}" data-mart-mode="sell" role="tab" aria-selected="${martMode === "sell"}">Sell</button>
+    return `<div class="mart-mode" role="tablist" aria-label="Buy or Sell">
+      <button type="button" class="mart-mode-btn${martMode === "buy" ? " is-on" : ""}" data-mart-mode="buy" role="tab" aria-selected="${martMode === "buy"}" aria-controls="mart-mode-panel">
+        <img class="mart-mode-icon" src="${esc(window.playItemSprite?.("inventory-bag") || "images/items/inventory-bag.png")}" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+        <span>Buy</span>
+      </button>
+      <button type="button" class="mart-mode-btn${martMode === "sell" ? " is-on" : ""}" data-mart-mode="sell" role="tab" aria-selected="${martMode === "sell"}" aria-controls="mart-mode-panel">
+        <img class="mart-mode-icon" src="${esc(window.playItemSprite?.("pokecoin") || "images/items/pokecoin.png")}" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+        <span>Sell</span>
+      </button>
     </div>`;
   }
 
   function syncModeMount() {
-    const mount = document.getElementById("mart-mode-mount");
-    if (mount) mount.innerHTML = modeToggleHtml();
+    /* Buy/Sell lives inside the Mart workspace (renderFloors) — no kicker mount. */
   }
 
   function sellCardHtml(item) {
@@ -851,10 +871,10 @@
       if (martMode === "sell") renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
     } catch (error) {
       sellNote = window.playPresentError
-        ? window.playPresentError(error, "Sale could not be completed.")
+        ? window.playPresentError(error, "Could not complete your sale.")
         : window.playHumanRpcError
-          ? window.playHumanRpcError(error, "Sale could not be completed.")
-          : window.playRpcError(error);
+          ? window.playHumanRpcError(error, "Could not complete your sale.")
+          : window.playRpcError(error, "Could not complete your sale.");
       syncSellUi();
     } finally {
       sellBusy = false;
@@ -1123,19 +1143,21 @@
     const tab = resolveTab(floors, location.hash);
     const passHtml = passRow ? passFloor(passRow, pass, wallet) : "";
     const choiceHtml = renderChoices(wallet);
-    const buyFolder = shop.length
-      ? `<div class="mart-folder${martMode === "sell" ? " is-sell-mode" : ""}">
-          ${tabButtons(shop)}
-          <div class="mart-folder-body">
-            ${shop.map((floor) => floorHtml(floor, floors.indexOf(floor), ownedPacks)).join("")}
-            ${checkoutHtml()}
-          </div>
-        </div>`
+    const tabs = shop.length ? tabButtons(shop) : "";
+    const buyBody = shop.length
+      ? `${shop.map((floor) => floorHtml(floor, floors.indexOf(floor), ownedPacks)).join("")}${checkoutHtml()}`
       : "";
-    const sellFolder = `<div class="mart-folder mart-sell-folder${martMode === "buy" ? " is-buy-mode" : ""}">
-      ${sellFloorHtml()}
-    </div>`;
-    els.floors.innerHTML = `${choiceHtml}${passHtml}${martMode === "sell" ? sellFolder : buyFolder}`;
+    const sellBody = sellFloorHtml();
+    const folder = `<div class="mart-folder${martMode === "sell" ? " is-sell-mode" : " is-buy-mode"}">
+          ${tabs}
+          <div class="mart-mode-workspace">
+            ${modeToggleHtml()}
+            <div class="mart-folder-body" id="mart-mode-panel" role="tabpanel">
+              ${martMode === "sell" ? sellBody : buyBody}
+            </div>
+          </div>
+        </div>`;
+    els.floors.innerHTML = `${choiceHtml}${passHtml}${shop.length || martMode === "sell" ? folder : ""}`;
     syncModeMount();
     placeWallet();
     if (martMode === "sell") {
@@ -1264,14 +1286,16 @@
       await refreshStore();
     } catch (error) {
       checkoutNote = window.playPresentError
-        ? window.playPresentError(error, "Purchase could not be completed.")
+        ? window.playPresentError(error, "Could not complete your purchase.")
         : window.playHumanRpcError
-          ? window.playHumanRpcError(error, "Purchase could not be completed.")
-          : window.playRpcError(error);
+          ? window.playHumanRpcError(error, "Could not complete your purchase.")
+          : window.playRpcError(error, "Could not complete your purchase.");
       syncCheckoutUi();
       if (button && button.isConnected) button.disabled = false;
     }
   }
+
+  let claimBusy = false;
 
   document.addEventListener("click", async (event) => {
     const modeBtn = event.target.closest("#mart-mode-mount [data-mart-mode]");
@@ -1408,7 +1432,9 @@
     }
     const choiceBtn = event.target.closest("[data-choice-item]");
     if (choiceBtn) {
+      if (claimBusy) return;
       const note = els.status;
+      claimBusy = true;
       try {
         const data = await window.playCall("play_claim_choice", {
           p_reward_key: choiceBtn.getAttribute("data-choice-key"),
@@ -1418,51 +1444,78 @@
         presentClaim("Reward chosen", data, "store");
         await refreshStore();
       } catch (error) {
-        if (note) note.textContent = window.playPresentError
-          ? window.playPresentError(error)
-          : window.playRpcError(error);
+        const msg = window.playPresentError
+          ? window.playPresentError(error, "Could not claim that reward. Please try again.")
+          : window.playRpcError(error, "Could not claim that reward. Please try again.");
+        if (note) note.textContent = msg;
+      } finally {
+        claimBusy = false;
       }
       return;
     }
     if (event.target.closest("#claim-supply")) {
+      if (claimBusy) return;
       const note = document.querySelector("[data-pass-status]") || els.status;
+      const btn = document.getElementById("claim-supply");
+      claimBusy = true;
+      if (btn) btn.disabled = true;
       try {
         const data = await window.playCall("play_claim_daily_supply", {});
         if (note) note.textContent = data.message;
         presentClaim("Daily Trainer Supply", data, "daily");
         await refreshStore();
       } catch (error) {
-        if (note) note.textContent = window.playPresentError
-          ? window.playPresentError(error)
-          : window.playRpcError(error);
+        const msg = window.playPresentError
+          ? window.playPresentError(error, "Could not claim Daily Trainer Supply. Please try again.")
+          : window.playRpcError(error, "Could not claim Daily Trainer Supply. Please try again.");
+        if (note) note.textContent = msg;
+        if (btn && btn.isConnected) btn.disabled = false;
+      } finally {
+        claimBusy = false;
       }
       return;
     }
     if (event.target.closest("#claim-daily")) {
+      if (claimBusy) return;
       const note = document.querySelector("[data-pass-status]") || els.status;
+      const btn = document.getElementById("claim-daily");
+      claimBusy = true;
+      if (btn) btn.disabled = true;
       try {
         const data = await window.playCall("play_claim_pass", { p_kind: "daily" });
         if (note) note.textContent = data.message;
         presentClaim("Starlight Pass daily gift", data, "pass");
         await refreshStore();
       } catch (error) {
-        if (note) note.textContent = window.playPresentError
-          ? window.playPresentError(error)
-          : window.playRpcError(error);
+        const msg = window.playPresentError
+          ? window.playPresentError(error, "Could not claim your Pass rewards. Please try again.")
+          : window.playRpcError(error, "Could not claim your Pass rewards. Please try again.");
+        if (note) note.textContent = msg;
+        if (btn && btn.isConnected) btn.disabled = false;
+      } finally {
+        claimBusy = false;
       }
       return;
     }
     if (event.target.closest("#claim-weekly")) {
+      if (claimBusy) return;
       const note = document.querySelector("[data-pass-status]") || els.status;
+      const btn = document.getElementById("claim-weekly");
+      claimBusy = true;
+      if (btn) btn.disabled = true;
       try {
         const data = await window.playCall("play_claim_pass", { p_kind: "weekly" });
         if (note) note.textContent = data.message;
         presentClaim("Starlight Pass weekly crate", data, "pass");
         await refreshStore();
       } catch (error) {
-        if (note) note.textContent = window.playPresentError
-          ? window.playPresentError(error)
-          : window.playRpcError(error);
+        const msg = window.playPresentError
+          ? window.playPresentError(error, "Could not claim your Pass rewards. Please try again.")
+          : window.playRpcError(error, "Could not claim your Pass rewards. Please try again.");
+        if (note) note.textContent = msg;
+        if (btn && btn.isConnected) btn.disabled = false;
+      } finally {
+        claimBusy = false;
       }
     }
   });

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<base href="/">
+<link rel="stylesheet" href="/css/play.css">
+<body data-page="pokedex">
+<div class="wrap"><div class="dex-grid" id="grid"></div></div>
+<script src="/js/config.js"></script>
+<script src="/js/build.js"></script>
+<script src="/js/variants.js"></script>
+<script src="/js/game.js"></script>
+<script>
+const cells = [
+  {dex:1,name:"Bulbasaur",seen:false,caught:false},
+  {dex:25,name:"Pikachu",seen:true,caught:false},
+  {dex:64,name:"Kadabra",seen:true,caught:true},
+  {dex:65,name:"Alakazam",seen:true,caught:true},
+  {dex:70,name:"Weepinbell",seen:false,caught:false},
+  {dex:71,name:"Victreebel",seen:false,caught:false},
+  {dex:72,name:"Tentacool",seen:false,caught:false},
+  {dex:102,name:"Exeggcute",seen:true,caught:true}
+];
+document.getElementById("grid").innerHTML = cells.map((entry) => {
+  const state = entry.caught ? "caught" : entry.seen ? "seen" : "unseen";
+  const label = entry.seen ? entry.name : "???";
+  const sprite = window.playSpriteUrl(entry.dex, "normal");
+  const spriteClass = state === "unseen" ? "silhouette" : state === "seen" ? "seen-sprite" : "";
+  return `<article class="dex-cell ${state}" data-dex="${entry.dex}">
+    <span class="dex-no">No. ${String(entry.dex).padStart(3,"0")}</span>
+    <img src="/${sprite.replace(/^\//,'')}" alt="" class="dex-sprite ${spriteClass}" width="72" height="72">
+    <strong class="dex-name">${label}</strong>
+  </article>`;
+}).join("");
+</script>
+</body>
+</html>

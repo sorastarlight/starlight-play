@@ -1,0 +1,66 @@
+[
+  {
+    "dex": 1,
+    "label": "???",
+    "src": "http://127.0.0.1:4194/images/pokemon/1.gif?v=20260923-home1",
+    "natural": 45,
+    "ok": true,
+    "h": 137
+  },
+  {
+    "dex": 25,
+    "label": "Pikachu",
+    "src": "http://127.0.0.1:4194/images/pokemon/25.gif?v=20260923-home1",
+    "natural": 60,
+    "ok": true,
+    "h": 137
+  },
+  {
+    "dex": 64,
+    "label": "Kadabra",
+    "src": "http://127.0.0.1:4194/images/pokemon/64.gif?v=20260923-home1",
+    "natural": 70,
+    "ok": true,
+    "h": 137
+  },
+  {
+    "dex": 65,
+    "label": "Alakazam",
+    "src": "http://127.0.0.1:4194/images/pokemon/65.gif?v=20260923-home1",
+    "natural": 77,
+    "ok": true,
+    "h": 137
+  },
+  {
+    "dex": 70,
+    "label": "???",
+    "src": "http://127.0.0.1:4194/images/pokemon/70.gif?v=20260923-home1",
+    "natural": 65,
+    "ok": true,
+    "h": 137
+  },
+  {
+    "dex": 71,
+    "label": "???",
+    "src": "http://127.0.0.1:4194/images/pokemon/71.gif?v=20260923-home1",
+    "natural": 98,
+    "ok": true,
+    "h": 137
+  },
+  {
+    "dex": 72,
+    "label": "???",
+    "src": "http://127.0.0.1:4194/images/pokemon/72.gif?v=20260923-home1",
+    "natural": 45,
+    "ok": true,
+    "h": 137
+  },
+  {
+    "dex": 102,
+    "label": "Exeggcute",
+    "src": "http://127.0.0.1:4194/images/pokemon/102.gif?v=20260923-home1",
+    "natural": 77,
+    "ok": true,
+    "h": 137
+  }
+]

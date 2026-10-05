@@ -1,0 +1,47 @@
+{
+  "brand": {
+    "before": {
+      "note": "rc111 baseline player-facing ST★RLIGHT RPG / ST★RLIGHT Pokémon RPG hits were in index, help, rankings, achievements, build-client (5 files / 7 phrases).",
+      "count": 7
+    },
+    "afterRpgCount": 0,
+    "afterHits": [],
+    "streamLinkPlacements": [
+      {
+        "file": "help.html",
+        "count": 1
+      },
+      {
+        "file": "rankings.html",
+        "count": 1
+      },
+      {
+        "file": "achievements.html",
+        "count": 1
+      }
+    ],
+    "fffd": 0,
+    "mojibake": 0
+  },
+  "silhouette": {
+    "expected": 151,
+    "valid": 151,
+    "missing": [],
+    "broken": [],
+    "071": {
+      "exists": true,
+      "bytes": 57013
+    }
+  },
+  "checks": {
+    "rpcRemapNarrow": true,
+    "toastDedupe": true,
+    "passToastClaim": true,
+    "noAmericaNewYorkUi": true,
+    "eastFriendly": true,
+    "buySellInWorkspace": true,
+    "noKickerModeMount": true,
+    "dexNameClass": true,
+    "presentErrorContext": true
+  }
+}

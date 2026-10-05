@@ -501,8 +501,8 @@
       return `<article class="dex-cell ${state}${openable ? " dex-openable" : ""}" data-dex="${entry.dex}" ${interactive}>
         ${mark}
         <span class="dex-no">No. ${window.playPadDex(entry.dex)}</span>
-        <img src="${sprite}" alt="" class="${spriteClass}" draggable="false" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='images/items/poke-ball.png';this.classList.add('is-sprite-fallback')">
-        <strong>${label}</strong>
+        <img src="${sprite}" alt="" class="dex-sprite ${spriteClass}" draggable="false" loading="lazy" decoding="async" width="72" height="72" onerror="if(window.playSpriteOnError){window.playSpriteOnError(this);}else{this.onerror=null;this.src='images/items/poke-ball.png';this.classList.add('is-sprite-fallback');}">
+        <strong class="dex-name">${label}</strong>
       </article>`;
     }).join("") || (q
       ? `<p class="muted dex-empty-search">No Kanto Pokédex results.</p>`

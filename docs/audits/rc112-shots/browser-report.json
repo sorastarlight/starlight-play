@@ -1,0 +1,355 @@
+{
+  "viewports": {
+    "dex80": true,
+    "mart390": true
+  },
+  "dex": {
+    "390": [
+      {
+        "dex": 1,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/1.png?v=20260923-home1",
+        "h": 137,
+        "w": 351
+      },
+      {
+        "dex": 25,
+        "state": "seen",
+        "label": "Pikachu",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/25.png?v=20260923-home1",
+        "h": 137,
+        "w": 351
+      },
+      {
+        "dex": 64,
+        "state": "caught",
+        "label": "Kadabra",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/64.png?v=20260923-home1",
+        "h": 137,
+        "w": 351
+      },
+      {
+        "dex": 65,
+        "state": "caught",
+        "label": "Alakazam",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/65.png?v=20260923-home1",
+        "h": 137,
+        "w": 351
+      },
+      {
+        "dex": 70,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/70.png?v=20260923-home1",
+        "h": 137,
+        "w": 351
+      },
+      {
+        "dex": 71,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/71.png?v=20260923-home1",
+        "h": 137,
+        "w": 351
+      },
+      {
+        "dex": 72,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/72.png?v=20260923-home1",
+        "h": 137,
+        "w": 351
+      },
+      {
+        "dex": 102,
+        "state": "caught",
+        "label": "Exeggcute",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/102.png?v=20260923-home1",
+        "h": 137,
+        "w": 351
+      }
+    ],
+    "1920": [
+      {
+        "dex": 1,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/1.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 25,
+        "state": "seen",
+        "label": "Pikachu",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/25.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 64,
+        "state": "caught",
+        "label": "Kadabra",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/64.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 65,
+        "state": "caught",
+        "label": "Alakazam",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/65.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 70,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/70.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 71,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/71.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 72,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/72.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 102,
+        "state": "caught",
+        "label": "Exeggcute",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/102.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      }
+    ],
+    "2560": [
+      {
+        "dex": 1,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/1.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 25,
+        "state": "seen",
+        "label": "Pikachu",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/25.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 64,
+        "state": "caught",
+        "label": "Kadabra",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/64.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 65,
+        "state": "caught",
+        "label": "Alakazam",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/65.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 70,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/70.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 71,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/71.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 72,
+        "state": "unseen",
+        "label": "???",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/72.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      },
+      {
+        "dex": 102,
+        "state": "caught",
+        "label": "Exeggcute",
+        "geometryOk": true,
+        "imgNatural": 0,
+        "src": "images/pokemon/102.png?v=20260923-home1",
+        "h": 137,
+        "w": 1148
+      }
+    ]
+  },
+  "mart": {
+    "modeGeom": {
+      "hasBuy": true,
+      "hasSell": true,
+      "inWorkspace": true,
+      "inKicker": false,
+      "buyOn": true,
+      "rect": {
+        "x": 387.5,
+        "y": 901.515625,
+        "width": 565,
+        "height": 52,
+        "top": 901.515625,
+        "right": 952.5,
+        "bottom": 953.515625,
+        "left": 387.5
+      }
+    },
+    "bgs": {
+      "initial": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)||rgba(0, 0, 0, 0)",
+      "Supplies": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)||rgba(0, 0, 0, 0)",
+      "Berry Stand": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)||rgba(0, 0, 0, 0)",
+      "Evolution": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)||rgba(0, 0, 0, 0)",
+      "Poké Balls": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)||rgba(0, 0, 0, 0)",
+      "Avatars": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)||rgba(0, 0, 0, 0)",
+      "Power-Ups": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)||rgba(0, 0, 0, 0)",
+      "Checkout": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)||rgba(0, 0, 0, 0)",
+      "afterSell": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)||rgba(0, 0, 0, 0)",
+      "afterBuy": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)||rgba(0, 0, 0, 0)"
+    },
+    "sameBg": true,
+    "tabs": [
+      "Supplies",
+      "Berry Stand",
+      "Evolution",
+      "Poké Balls",
+      "Avatars",
+      "Power-Ups",
+      "Checkout"
+    ],
+    "geometry": {
+      "scrollDelta": 0,
+      "buyWidthDelta": 0,
+      "modeBarStable": true
+    }
+  },
+  "brand": {
+    "scan": {
+      "/index.html": {
+        "hasRpg": false,
+        "streamLink": false,
+        "fffd": false,
+        "pokemon": true
+      },
+      "/help.html": {
+        "hasRpg": false,
+        "streamLink": true,
+        "fffd": false,
+        "pokemon": true
+      },
+      "/rankings.html": {
+        "hasRpg": false,
+        "streamLink": false,
+        "fffd": false,
+        "pokemon": true
+      },
+      "/achievements.html": {
+        "hasRpg": false,
+        "streamLink": false,
+        "fffd": false,
+        "pokemon": false
+      }
+    }
+  },
+  "passUi": {
+    "americaNewYork": false,
+    "eastern": true,
+    "trainerIdError": false
+  },
+  "errors": [
+    {
+      "msg": "column reference \"title_id\" is ambiguous",
+      "out": "Could not save your Trainer ID. Please try again.",
+      "ok": true
+    },
+    {
+      "msg": "column reference \"foo\" is ambiguous",
+      "out": "column reference \"foo\" is ambiguous",
+      "ok": true
+    },
+    {
+      "msg": "42702",
+      "out": "42702",
+      "ok": true
+    },
+    {
+      "msg": "Daily Pass gift is not ready yet.",
+      "out": "Daily Pass gift is not ready yet.",
+      "ok": true
+    }
+  ]
+}

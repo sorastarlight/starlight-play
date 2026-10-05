@@ -1,0 +1,31 @@
+---
+description: Pokémon StreamLink core identity, architecture, and non-negotiables
+alwaysApply: true
+---
+
+# Pokémon StreamLink — core
+
+Product: **Pokémon StreamLink: A Community-Driven Streaming RPG**  
+Use the full title only where a product/application title is appropriate.
+
+Concise feature names (do not prefix with ST★RLIGHT / Pokémon StreamLink):
+Play · My PC · Pokédex · My Inventory · Prof. Oak's Lab · Trainer ID · Rankings · Events · Achievements · GTS · How to Play · Mart
+
+Sora Starlight is the creator/stream identity — not a generic feature-name prefix.
+
+## Architecture (do not rewrite)
+
+- Static HTML pages + vanilla JS modules under `play-site/js/`
+- Shared CSS in `play-site/css/play.css` (not Tailwind / CSS-in-JS)
+- Supabase Auth + Postgres RPCs via `window.playCall` / supabase-js
+- Local reference data and assets preferred at runtime (species, forms, sprites)
+- Build stamps via `play-site/tools/stamp-build.js` + `build.json` — do not hand-edit many files
+
+Do **not** impose React, Tailwind, CSS-in-JS, or a new state framework unless the owner explicitly requests it.
+
+## Working style
+
+- Smallest coherent fix for the stated defect; do not redesign frozen systems
+- Owner instructions in the current task override these defaults
+- These rules do not replace source-of-truth docs under `play-site/README.md` / audits
+- In OWNER VISUAL REVIEW: only requested changes, focused QA, STOP after the closure report; final release smoke stays paused until explicitly started

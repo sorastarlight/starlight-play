@@ -1,0 +1,38 @@
+---
+description: QA account safety, admin QA paths, build stamps, testing claim honesty, closure reports
+alwaysApply: true
+---
+
+# QA / release / reporting
+
+## Accounts
+
+Do **not** mutate **Sora** or **Twinkle** in automated QA unless the owner authorizes that exact mutation.  
+Use PlayTester / dedicated QA / local harnesses / non-mutating inspection. Clean up temporary QA mutations when practical.
+
+Reports must state: Sora mutated YES/NO · Twinkle mutated YES/NO · QA account · mutations · cleanup (never claim cleanup if state was intentionally kept).
+
+## Admin QA
+
+Separate admin RPC + server auth check + distinct audit source.  
+Do **not** weaken normal player cooldowns for admin convenience. Same grant machinery where practical. Normal users must not invoke admin QA.
+
+## Build
+
+Use `tools/stamp-build.js` / `build.json`. Do not casually edit build IDs in many HTML files by hand.  
+Never `git reset --hard` / `git clean -fd` without inspecting state — do not discard owner work.
+
+## Testing honesty
+
+Do not report PASS from static inspection, synthetic HTML, mocked geometry, or a different DOM path alone.
+
+Distinguish: STATIC PASS · LOCAL HARNESS PASS · REAL DOM PASS · REAL RPC PASS · PRODUCTION PASS.
+
+Owner production observation overrides synthetic local PASS — investigate the real production DOM/path.
+
+Screenshot-driven fixes: treat the image as symptom evidence; trace real DOM/CSS/render/asset/state.
+
+## Owner-review closure
+
+Report: BUILD before/after · commit · deploy state · root cause · implementation · QA (viewports + real DOM/RPC) · unchanged authority · player data · known limitations · verdict · next gate.  
+If final release smoke is paused, say so explicitly and STOP.

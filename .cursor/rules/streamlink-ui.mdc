@@ -1,0 +1,35 @@
+---
+description: Pastel game UI language, layout stability, responsiveness, a11y, motion
+globs: "**/*.{html,css,js}"
+alwaysApply: false
+---
+
+# UI / presentation — game interface, not SaaS
+
+This is a **Pokémon-game-inspired** companion UI: modern retro/device panels, light pastels (white / pale blue / pink), navy text, cyan/pink accents, restrained gold for rewards, rounded panels, deliberate borders, subtle depth, meaningful fanfare.
+
+Avoid: corporate dashboards, giant empty whitespace, huge left navs, analytics card walls, dark Twitch-dashboard restyles, rainbow selected states, glassmorphism everywhere, excessive gradients/ornament.
+
+## Layout
+
+- Grid for true 2D matrices; Flex for toolbars, button groups, nav, linear rows
+- Do not mechanically swap Grid↔Flex
+- Prefer stable parent geometry, `minmax(0, 1fr)`, reserved media size, controlled overflow
+- **No layout shift** when switching tabs / Buy·Sell / filters / selected cosmetics / async data
+- Dynamic strings: `min-width: 0`, wrap or truncate appropriately — do not truncate blindly
+
+Async UX: establish stable containers → load/decode → present. Do not animate position just because data arrived.
+
+## Responsive QA (typical)
+
+1920×1080 · 2560×1440 · half-screen / constrained desktop · ~390px mobile  
+No horizontal overflow; touch-usable controls; do not shrink text into unreadability.
+
+## Sprites
+
+Use established presentation helpers (`pc-presentation`, pokedex presentation, alpha/safe envelope). Do not invent one-off crop CSS unless the system cannot represent the case. Do not force identical apparent heights.
+
+## Motion / a11y
+
+Respect `play-perf` modes (AUTO/HIGH/BALANCED/LOW) and `prefers-reduced-motion`.  
+Dialogs: keyboard, focus-visible, semantics, focus trap, Escape when safe, restore focus. Do not encode state by color alone.

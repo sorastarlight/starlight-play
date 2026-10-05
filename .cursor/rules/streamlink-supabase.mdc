@@ -1,0 +1,21 @@
+---
+description: Supabase/Postgres RPC safety, RLS, no raw SQL to players
+globs: supabase/**/*
+alwaysApply: false
+---
+
+# Database / Supabase safety
+
+Before changing a production RPC:
+1. Trace callers
+2. Inspect current signature + downstream private functions
+3. Check RLS / `security definer` implications
+4. Test unauthorized rejection
+
+Prefer unambiguous PL/pgSQL names (`v_`, `p_` prefixes consistent with existing code).  
+Avoid ambiguous column/variable collisions (e.g. `grants = grants`).
+
+- Do not expose raw SQL / Postgres error text to players
+- Do not weaken RLS for convenience
+- Grant/revoke execute deliberately for `authenticated` / public
+- Prefer transactional mutations for multi-step inventory/PC changes

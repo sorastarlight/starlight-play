@@ -1,0 +1,34 @@
+---
+description: Keep gameplay mutations server-authoritative; separate presentation from authority
+alwaysApply: true
+---
+
+# Authority vs presentation
+
+Visual/UI work must **not** casually change gameplay authority.
+
+Keep separate:
+1. Server/database authority (Postgres RPCs, RLS)
+2. Client state
+3. Presentation/rendering
+
+Do not move authoritative calculations into browser JS just because a UI change is easier.
+
+Must stay server-authoritative (examples):
+capture settlement · inventory grants/removal · PokéCoins · Pass claims · Mart buy/sell · release · Oak transfer · Evolution Candy · evolution · PC destructive ops · cosmetic entitlement · rankings eligibility · Twitch identity mapping
+
+UI may preview safe authoritative results; final mutation is always server-validated.
+
+## Realtime isolation
+
+Do not mix unrelated presentation refactors into realtime/state authority code.
+Keep Supabase/Twitch/realtime in established controllers; pass normalized data into presentation.
+Improve separation incrementally when touching that code — no big-bang rewrite for style alone.
+
+## Destructive ops
+
+- Explicit confirmation matching severity
+- Never client-only confirmation for permanent loss
+- Server must validate destructive intent
+- Race conditions must not silently increase destruction
+- Never silently release/delete Pokémon to “fix” an error

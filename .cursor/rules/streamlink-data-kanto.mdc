@@ -1,0 +1,31 @@
+---
+description: Pokémon data, assets, Kanto #001–151 boundary, Pokédex discovery
+globs: "{js,css,images,supabase}/**/*"
+alwaysApply: false
+---
+
+# Pokémon data / assets / Kanto boundary
+
+Do **not** invent Pokémon data or generate replacement artwork.
+
+- Prefer local project authoritative data and assets at runtime
+- PokéAPI is upstream reference/import only where the project already uses it — no new runtime PokéAPI dependency for convenience
+- Do not hotlink arbitrary third-party assets
+
+Identity axes (keep distinct): **species · form · gender · shiny**  
+Do not collapse female into form/variant.
+
+Spelling: Poké Ball · Pokédex · Pokémon · PokéCoins (proper Unicode).
+
+## Kanto release boundary
+
+Player-facing scope is **#001–#151**.  
+National/reference assets may exist internally — that does **not** make Johto+ playable.
+
+Do not expose later-gen species via ordinary Pokédex, encounters, or National Dex selectors without explicit owner instruction.  
+Kanto-origin alternate forms stay under their Kanto species per established rules.
+
+## Pokédex discovery
+
+UNSEEN → SEEN → CAUGHT (monotonic).  
+Do not mark Seen from opening Pokédex, polling, page load, or admin/test rendering. Use established server encounter/catch paths. Player Pokédex remains 151 species for this release.

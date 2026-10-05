@@ -3,6 +3,7 @@
   const boardsEl = document.getElementById("rank-boards");
   const status = document.getElementById("rank-status");
   const defEl = document.getElementById("rank-board-def");
+  const boardTitleEl = document.getElementById("rank-board-title");
   const list = document.getElementById("rank-list");
   const mineBox = document.getElementById("rank-mine");
   const mineGrid = document.getElementById("rank-mine-grid");
@@ -18,6 +19,16 @@
   const searchResults = document.getElementById("rank-search-results");
 
   const BOARDS = ["level", "pokedex", "shinies", "catches", "evolutions", "mastery", "honey", "achievements"];
+  const BOARD_LABELS = {
+    level: "Trainer Level",
+    pokedex: "Pokédex",
+    shinies: "Shinies",
+    catches: "Catches",
+    evolutions: "Evolutions",
+    mastery: "Mastery",
+    honey: "Honey contributed",
+    achievements: "Achievements"
+  };
   const PAGE = 20;
   const FRESH_MS = 45000;
   const cache = new Map();
@@ -81,11 +92,15 @@
       : (window.playTrainerSpriteUrl
         ? window.playTrainerSpriteUrl(row.trainerSprite || "red-gen1")
         : "");
-    const twitch = Boolean(row.twitchLinked);
-    const img = sprite
-      ? `<img class="rank-sprite" src="${window.playEscapeAttr(sprite)}" alt="" width="48" height="48" loading="lazy">`
-      : window.playTwitchFaceHtml(row.avatar, row.displayName, "twitch-face-sm", twitch);
-    return `<span class="rank-id${twitch ? " has-twitch" : ""}">${img}${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}</span>`;
+    return sprite
+      ? `<img class="rank-sprite" src="${window.playEscapeAttr(sprite)}" alt="" width="56" height="56" loading="lazy">`
+      : window.playTwitchFaceHtml(row.avatar, row.displayName, "twitch-face-sm", false);
+  }
+
+  function twitchMark(row) {
+    return Boolean(row.twitchLinked)
+      ? `<i class="twitch-badge tid-name-twitch" title="Twitch linked" aria-label="Twitch linked"></i>`
+      : "";
   }
 
   function badges(row) {
@@ -108,9 +123,9 @@
     return `
       <article class="rank-row${you ? " is-you" : ""}${top}" id="rank-row-${window.playEscapeAttr(row.login || "")}" data-login="${window.playEscapeAttr(row.login || "")}">
         <span class="rank-mark" aria-label="Rank ${row.place}">${placeLabel(row.place)}</span>
-        ${face(row)}
+        <span class="rank-avatar">${face(row)}</span>
         <div class="rank-copy">
-          <strong>${window.playEscapeAttr(row.displayName || "Trainer")}${you ? ` <span class="rank-you-tag">YOU</span>` : ""}</strong>
+          <strong class="rank-name">${window.playEscapeAttr(row.displayName || "Trainer")}${twitchMark(row)}${you ? ` <span class="rank-you-tag">YOU</span>` : ""}</strong>
           <span class="muted">${title} · Lv. ${row.level || 1}</span>
           ${badges(row)}
         </div>
@@ -123,7 +138,7 @@
   }
 
   function skeleton(count = 6) {
-    return Array.from({ length: count }, () => `<article class="rank-row is-skel" aria-hidden="true"><span class="rank-mark">#00</span><span class="rank-id"></span><div class="rank-copy"><strong>—</strong><span class="muted">—</span></div><div class="rank-metric"><strong>—</strong></div></article>`).join("");
+    return Array.from({ length: count }, () => `<article class="rank-row is-skel" aria-hidden="true"><span class="rank-mark">#00</span><span class="rank-avatar"></span><div class="rank-copy"><strong>—</strong><span class="muted">—</span></div><div class="rank-metric"><strong>—</strong></div></article>`).join("");
   }
 
   function failBox(message) {
@@ -158,11 +173,10 @@
     mineBox.hidden = false;
     mineGrid.innerHTML = ranks.map((row) => {
       const ranked = Boolean(row.ranked);
-      const value = ranked ? placeLabel(row.place) : "NOT RANKED YET";
-      return `<button type="button" class="rank-mine-chip" data-my-board="${window.playEscapeAttr(row.board)}" aria-label="${window.playEscapeAttr(row.label)} ${ranked ? `rank ${row.place}` : "not ranked yet"}">
-        <span>${window.playEscapeAttr(row.label)}</span>
-        <strong>${window.playEscapeAttr(value)}</strong>
-        <em>${ranked ? window.playEscapeAttr(row.metricText || "") : window.playEscapeAttr(row.hint || "Not ranked yet")}</em>
+      const value = ranked ? placeLabel(row.place) : "—";
+      return `<button type="button" class="rank-mine-chip" role="listitem" data-my-board="${window.playEscapeAttr(row.board)}" aria-label="${window.playEscapeAttr(row.label)} ${ranked ? `rank ${row.place}` : "not ranked yet"}">
+        <span class="rank-mine-label">${window.playEscapeAttr(row.label)}</span>
+        <strong class="rank-mine-place">${window.playEscapeAttr(value)}</strong>
       </button>`;
     }).join("");
   }
@@ -208,7 +222,7 @@
           <div class="rank-discover-grid">${items.map((row) => `
             <a class="rank-discover-card" href="./trainer.html?u=${encodeURIComponent(row.login)}">
               ${face(row)}
-              <strong>${window.playEscapeAttr(row.displayName)}</strong>
+              <strong class="rank-name">${window.playEscapeAttr(row.displayName)}${twitchMark(row)}</strong>
               <span class="muted">${window.playEscapeAttr(row.event || row.title || "Trainer")}</span>
             </a>`).join("")}</div>`;
       }
@@ -223,7 +237,7 @@
         <div class="rank-discover-grid">${items.map((row) => `
           <a class="rank-discover-card" href="./trainer.html?u=${encodeURIComponent(row.login)}">
             ${face(row)}
-            <strong>${window.playEscapeAttr(row.displayName)}</strong>
+            <strong class="rank-name">${window.playEscapeAttr(row.displayName)}${twitchMark(row)}</strong>
             <span class="muted">${row.title ? `★ ${window.playEscapeAttr(row.title)}` : "Trainer"} · Lv. ${row.level || 1}</span>
           </a>`).join("")}</div>`;
     }
@@ -245,12 +259,24 @@
   function applyPayload(data, append) {
     payload = data;
     rows = append ? rows.concat(data?.trainers || []) : (data?.trainers || []);
-    if (defEl) defEl.textContent = data?.definition || "";
+    if (boardTitleEl) boardTitleEl.textContent = BOARD_LABELS[board] || data?.metricLabel || "Rankings";
+    if (defEl) {
+      const total = Number(data?.total || 0);
+      const label = BOARD_LABELS[board] || data?.metricLabel || "Rankings";
+      defEl.textContent = total
+        ? `Lifetime Rankings · ${total} Trainer${total === 1 ? "" : "s"}`
+        : "Lifetime Rankings";
+      if (data?.definition && !/authoritative/i.test(data.definition)) {
+        defEl.textContent += ` · ${data.definition}`;
+      } else if (data?.definition) {
+        // Prefer player-facing board label; keep short human clarification without "authoritative".
+        const clean = String(data.definition).replace(/authoritative\s+/ig, "").trim();
+        if (clean && clean.toLowerCase() !== label.toLowerCase()) defEl.textContent += ` · ${clean}`;
+      }
+    }
     if (status) {
       const total = Number(data?.total || 0);
-      status.textContent = total
-        ? `${total} Trainer${total === 1 ? "" : "s"} · ${data?.metricLabel || "Rankings"} · lifetime`
-        : emptyCopy();
+      status.textContent = total ? `${BOARD_LABELS[board] || "Board"} standings` : emptyCopy();
     }
     if (fail) { fail.hidden = true; fail.innerHTML = ""; }
     renderMine(data);
@@ -363,7 +389,7 @@
         searchResults.innerHTML = found.map((row) => `
           <a class="rank-discover-card" href="./trainer.html?u=${encodeURIComponent(row.login)}">
             ${face(row)}
-            <strong>${window.playEscapeAttr(row.displayName)}</strong>
+            <strong class="rank-name">${window.playEscapeAttr(row.displayName)}${twitchMark(row)}</strong>
             <span class="muted">${row.title ? `★ ${window.playEscapeAttr(row.title)}` : "Trainer"} · Lv. ${row.level || 1}</span>
           </a>`).join("");
       }

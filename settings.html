@@ -3,11 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>My Account � THE STARLIGHT PLAY HUB</title>
+<title>My Account · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20261002-rc110">
+<link rel="stylesheet" href="css/play.css?v=20261002-rc111">
 <body data-page="settings" class="scc-page">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -23,18 +23,18 @@
         <div id="topnav-links" class="topnav-links" aria-busy="true"></div>
       </div>
       <div class="topnav-actions">
-      <p id="auth-status" class="visually-hidden" role="status">Checking sign-in�</p>
+      <p id="auth-status" class="visually-hidden" role="status">Checking sign-in…</p>
       <button id="sign-in" class="signin-btn" type="button" hidden>Sign in</button>
       <div id="account" class="account" data-auth="unknown">
         <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu" aria-busy="true" disabled>
           <span class="twitch-face twitch-face-nav">
           <img id="account-avatar" class="avatar" alt="" width="34" height="34" hidden>
-          <span id="account-fallback" class="avatar-fallback" aria-hidden="true">�</span>
+          <span id="account-fallback" class="avatar-fallback" aria-hidden="true">·</span>
           <i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>
         </span>
           <span class="account-meta">
             <span id="account-name" class="account-name">Trainer</span>
-            <span id="account-level" class="account-level">Lv. �</span>
+            <span id="account-level" class="account-level">Lv. ·</span>
           </span>
           <span class="account-caret" aria-hidden="true"></span>
         </button>
@@ -86,10 +86,10 @@
       <section id="panel-gameplay" class="scc-panel" data-scc-panel="gameplay" hidden>
         <header class="scc-panel-head">
           <h2>Encounter Preferences</h2>
-          <p class="muted">Favorite Pok� Balls show first when it�s time to throw. �All my Pok� Balls� still lists every ball you own.</p>
+          <p class="muted">Favorite Poké Balls show first when it·s time to throw. ·All my Poké Balls· still lists every ball you own.</p>
         </header>
         <div id="favorite-balls" class="ball-grid encounter-fav-grid"></div>
-        <p id="favorite-empty" class="muted" hidden>Sign in and grab some Pok� Balls to pick favorites.</p>
+        <p id="favorite-empty" class="muted" hidden>Sign in and grab some Poké Balls to pick favorites.</p>
         <label class="field" for="default-prep">Default prepare item
           <select id="default-prep">
             <option value="ask">Ask me each encounter</option>
@@ -140,7 +140,7 @@
 
         <section class="scc-section">
           <h3>Login</h3>
-          <p class="muted">This is the username you use to sign in. It is separate from your Display Name � the name other Trainers see � which lives under <a href="#trainer-id">Trainer ID</a>.</p>
+          <p class="muted">This is the username you use to sign in. It is separate from your Display Name · the name other Trainers see · which lives under <a href="#trainer-id">Trainer ID</a>.</p>
           <label class="field" for="acc-username">Account Username
             <input id="acc-username" maxlength="20" autocomplete="username">
           </label>
@@ -173,7 +173,7 @@
 
         <section id="twitch-connections" class="scc-section">
           <h3>Connected Accounts</h3>
-          <p class="muted">Connect Twitch so the RPG knows which Trainer is participating when you play in chat and on stream. Primary is your default Twitch-facing identity. Changing it does not move Pok�mon, inventory, or XP. Browsing Pok�dex, Rankings, Events, and public Trainer IDs does not require Twitch.</p>
+          <p class="muted">Connect Twitch so the RPG knows which Trainer is participating when you play in chat and on stream. Primary is your default Twitch-facing identity. Changing it does not move Pokémon, inventory, or XP. Browsing Pokédex, Rankings, Events, and public Trainer IDs does not require Twitch.</p>
           <div id="pending-link" class="notice" hidden></div>
           <div id="connection-list"></div>
           <div class="links id-actions">
@@ -189,7 +189,7 @@
         </header>
         <article id="pass-card" class="scc-pass-card">
           <p class="scc-pass-kicker">Starlight Pass</p>
-          <p id="pass-status" class="scc-pass-status">Checking pass�</p>
+          <p id="pass-status" class="scc-pass-status">Checking pass·</p>
           <div class="links">
             <button id="check-pass" type="button">Check Subscription</button>
             <a class="button secondary" href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Twitch Subscribe</a>
@@ -231,20 +231,20 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20261002-rc110"></script>
-<script src="js/play-perf.js?v=20261002-rc110"></script>
-<script src="js/build.js?v=20261002-rc110"></script>
-<script src="js/build-client.js?v=20261002-rc110"></script>
-<script src="js/auth.js?v=20261002-rc110"></script>
-<script src="js/species.js?v=20261002-rc110"></script>
-<script src="js/variants.js?v=20261002-rc110"></script>
-<script src="js/forms.js?v=20261002-rc110"></script>
-<script src="js/game.js?v=20261002-rc110"></script>
-<script src="js/play-present.js?v=20261002-rc110"></script>
-<script src="js/play-encounter-state.js?v=20261002-rc110"></script>
-<script src="js/play-ux.js?v=20261002-rc110"></script>
-<script src="js/trainers.js?v=20261002-rc110"></script>
-<script src="js/team.js?v=20261002-rc110"></script>
-<script src="js/nav.js?v=20261002-rc110"></script>
-<script src="js/settings.js?v=20261002-rc110"></script>
+<script src="js/config.js?v=20261002-rc111"></script>
+<script src="js/play-perf.js?v=20261002-rc111"></script>
+<script src="js/build.js?v=20261002-rc111"></script>
+<script src="js/build-client.js?v=20261002-rc111"></script>
+<script src="js/auth.js?v=20261002-rc111"></script>
+<script src="js/species.js?v=20261002-rc111"></script>
+<script src="js/variants.js?v=20261002-rc111"></script>
+<script src="js/forms.js?v=20261002-rc111"></script>
+<script src="js/game.js?v=20261002-rc111"></script>
+<script src="js/play-present.js?v=20261002-rc111"></script>
+<script src="js/play-encounter-state.js?v=20261002-rc111"></script>
+<script src="js/play-ux.js?v=20261002-rc111"></script>
+<script src="js/trainers.js?v=20261002-rc111"></script>
+<script src="js/team.js?v=20261002-rc111"></script>
+<script src="js/nav.js?v=20261002-rc111"></script>
+<script src="js/settings.js?v=20261002-rc111"></script>
 </body>

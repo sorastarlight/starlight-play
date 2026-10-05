@@ -1,0 +1,23 @@
+{
+  "sameBg": true,
+  "samples": {
+    "09-oak-evolution-outer": {
+      "bg": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)",
+      "color": "rgba(0, 0, 0, 0)",
+      "labStationBody": "",
+      "labStationApp": "evolve"
+    },
+    "10-oak-research-outer": {
+      "bg": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)",
+      "color": "rgba(0, 0, 0, 0)",
+      "labStationBody": "",
+      "labStationApp": "research"
+    },
+    "08-oak-transfer-outer": {
+      "bg": "radial-gradient(circle at 8% -10%, rgb(255, 227, 243) 0px, rgb(255, 227, 243) 18%, rgba(0, 0, 0, 0) 46%), radial-gradient(circle at 100% 8%, rgb(217, 236, 255) 0px, rgb(217, 236, 255) 16%, rgba(0, 0, 0, 0) 48%), repeating-linear-gradient(135deg, rgb(247, 251, 255) 0px, rgb(247, 251, 255) 18px, rgb(243, 246, 255) 18px, rgb(243, 246, 255) 36px)",
+      "color": "rgba(0, 0, 0, 0)",
+      "labStationBody": "",
+      "labStationApp": "send"
+    }
+  }
+}

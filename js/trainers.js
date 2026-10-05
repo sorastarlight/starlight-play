@@ -1096,13 +1096,12 @@
     const trainerAlt = esc(card?.displayName || look.trainer?.name || "Trainer");
     const spriteId = window.playEscapeAttr?.(card?.trainerSprite) || card?.trainerSprite || "";
     const avatarStageHtml = `
-          <div class="tid-avatar-stage is-hero is-character${twitch ? " has-twitch" : ""}">
+          <div class="tid-avatar-stage is-hero is-character">
             <div class="tid-avatar-glow" aria-hidden="true"></div>
             <div class="tid-avatar-well">
               <span class="avatar-stage-shadow" aria-hidden="true"></span>
               <img class="tid-avatar-sprite" data-avatar-id="${spriteId}" src="${window.playTrainerSpriteUrl(card?.trainerSprite)}" alt="${trainerAlt}" width="320" height="320" decoding="async" onload="window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })" onerror="this.onerror=null;this.src='images/trainers/red-gen1.png';window.playNormalizeTrainerAvatar?.(this, { mode: 'card' })">
             </div>
-            ${twitch ? `<i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>` : ""}
           </div>`;
     if (avatarOnly) {
       // Avatar Workshop preview deliberately ignores the Card Style background so the
@@ -1115,7 +1114,7 @@
     const infoHtml = `
           <div class="tid-identity-panel tid-glass">
             <div class="tid-plaque tid-plaque-name">
-              <p class="tid-name">${esc(card?.displayName || "Trainer")}</p>
+              <p class="tid-name">${esc(card?.displayName || "Trainer")}${twitch ? `<i class="twitch-badge tid-name-twitch" title="Twitch linked" aria-label="Twitch linked"></i>` : ""}</p>
               ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
             </div>
             <div class="tid-data-rows" aria-label="Trainer identity">
@@ -2759,7 +2758,6 @@
       <div class="tid-team-stage ${esc(bgClass)} is-${esc(renderMode)}"${bgStyle}>
         <div class="tid-team-stage-veil" aria-hidden="true"></div>
         <div class="tid-team-stage-frame" aria-hidden="true"></div>
-        <p class="tid-team-scene-kicker"><span>MY TEAM</span></p>
         <ol class="tid-party-scene is-depth is-grounded">${figures}</ol>
         <p class="tid-team-scene-bgname">${esc(bg?.name || "Pallet Town")}</p>
       </div>

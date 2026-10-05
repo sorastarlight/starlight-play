@@ -3,11 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Rankings � THE STARLIGHT PLAY HUB</title>
+<title>Trainer Rankings · THE STARLIGHT PLAY HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20261002-rc110">
+<link rel="stylesheet" href="css/play.css?v=20261002-rc111">
 <body data-page="rankings">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -23,18 +23,18 @@
         <div id="topnav-links" class="topnav-links" aria-busy="true"></div>
       </div>
       <div class="topnav-actions">
-      <p id="auth-status" class="visually-hidden" role="status">Checking sign-in�</p>
+      <p id="auth-status" class="visually-hidden" role="status">Checking sign-in…</p>
       <button id="sign-in" class="signin-btn" type="button" hidden>Sign in</button>
       <div id="account" class="account" data-auth="unknown">
         <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu" aria-busy="true" disabled>
           <span class="twitch-face twitch-face-nav">
           <img id="account-avatar" class="avatar" alt="" width="34" height="34" hidden>
-          <span id="account-fallback" class="avatar-fallback" aria-hidden="true">�</span>
+          <span id="account-fallback" class="avatar-fallback" aria-hidden="true">·</span>
           <i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>
         </span>
           <span class="account-meta">
             <span id="account-name" class="account-name">Trainer</span>
-            <span id="account-level" class="account-level">Lv. �</span>
+            <span id="account-level" class="account-level">Lv. ·</span>
           </span>
           <span class="account-caret" aria-hidden="true"></span>
         </button>
@@ -52,28 +52,38 @@
   </div>
 </nav>
 <div class="wrap rank-page">
-  <section class="card rank-hero">
-    <p class="rank-kicker">ST?RLIGHT RPG</p>
+  <header class="rank-hero">
+    <p class="rank-kicker">ST★RLIGHT RPG</p>
     <h1>Trainer Rankings</h1>
-    <p>See how Trainers across the ST?RLIGHT RPG are progressing through their adventures.</p>
-  </section>
-  <section id="rank-mine" class="card rank-mine" hidden>
-    <h2>Your Rankings</h2>
-    <div id="rank-mine-grid" class="rank-mine-grid"></div>
-  </section>
-  <section class="card body rank-board-card">
-    <div class="dex-filters" id="rank-boards" role="tablist" aria-label="Ranking categories">
-      <button type="button" class="button secondary" data-board="level" aria-pressed="true">Trainer Level</button>
-      <button type="button" class="button secondary" data-board="pokedex">Pok�dex</button>
-      <button type="button" class="button secondary" data-board="shinies">Shinies</button>
-      <button type="button" class="button secondary" data-board="catches">Catches</button>
-      <button type="button" class="button secondary" data-board="evolutions">Evolutions</button>
-      <button type="button" class="button secondary" data-board="mastery">Mastery</button>
-      <button type="button" class="button secondary" data-board="honey">Honey contributed</button>
-      <button type="button" class="button secondary" data-board="achievements">Achievements</button>
+    <p>See how Trainers across the ST★RLIGHT RPG are progressing through their adventures.</p>
+  </header>
+
+  <section id="rank-mine" class="rank-mine" hidden>
+    <div class="rank-mine-head">
+      <h2>Your Rankings</h2>
+      <p class="muted">Your place on each lifetime board.</p>
     </div>
-    <p id="rank-board-def" class="muted"></p>
-    <p id="rank-status" class="muted">Loading rankings�</p>
+    <div id="rank-mine-grid" class="rank-mine-strip" role="list"></div>
+  </section>
+
+  <section class="rank-board-shell">
+    <div class="rank-board-chrome">
+      <div class="rank-boards" id="rank-boards" role="tablist" aria-label="Ranking boards">
+        <button type="button" class="rank-board-tab" data-board="level" aria-pressed="true">Trainer Level</button>
+        <button type="button" class="rank-board-tab" data-board="pokedex">Pokédex</button>
+        <button type="button" class="rank-board-tab" data-board="shinies">Shinies</button>
+        <button type="button" class="rank-board-tab" data-board="catches">Catches</button>
+        <button type="button" class="rank-board-tab" data-board="evolutions">Evolutions</button>
+        <button type="button" class="rank-board-tab" data-board="mastery">Mastery</button>
+        <button type="button" class="rank-board-tab" data-board="honey">Honey</button>
+        <button type="button" class="rank-board-tab" data-board="achievements">Achievements</button>
+      </div>
+      <div class="rank-board-meta">
+        <h2 id="rank-board-title">Trainer Level</h2>
+        <p id="rank-board-def" class="muted"></p>
+        <p id="rank-status" class="rank-status muted">Loading rankings…</p>
+      </div>
+    </div>
     <div id="rank-fail" hidden></div>
     <div id="rank-you-pin" class="rank-you-pin" hidden></div>
     <div id="rank-list" class="rank-list" aria-busy="true" aria-live="polite"></div>
@@ -82,8 +92,10 @@
       <button type="button" id="rank-refresh" class="button secondary">Refresh</button>
     </div>
   </section>
-  <section class="card rank-discover">
+
+  <section class="rank-discover">
     <h2>Discover Trainers</h2>
+    <p class="muted">Find public Trainer profiles by display name.</p>
     <form id="rank-search-form" class="rank-search">
       <label class="field" for="rank-search">Search by Trainer name
         <input id="rank-search" name="q" type="search" maxlength="40" placeholder="Trainer name" autocomplete="off" spellcheck="false">
@@ -97,19 +109,20 @@
   </section>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20261002-rc110"></script>
-<script src="js/play-perf.js?v=20261002-rc110"></script>
-<script src="js/build.js?v=20261002-rc110"></script>
-<script src="js/build-client.js?v=20261002-rc110"></script>
-<script src="js/auth.js?v=20261002-rc110"></script>
-<script src="js/species.js?v=20261002-rc110"></script>
-<script src="js/variants.js?v=20261002-rc110"></script>
-<script src="js/forms.js?v=20261002-rc110"></script>
-<script src="js/game.js?v=20261002-rc110"></script>
-<script src="js/play-present.js?v=20261002-rc110"></script>
-<script src="js/play-encounter-state.js?v=20261002-rc110"></script>
-<script src="js/trainers.js?v=20261002-rc110"></script>
-<script src="js/nav.js?v=20261002-rc110"></script>
-<script src="js/play-ux.js?v=20261002-rc110"></script>
-<script src="js/rankings.js?v=20261002-rc110"></script>
+<script src="js/config.js?v=20261002-rc111"></script>
+<script src="js/play-perf.js?v=20261002-rc111"></script>
+<script src="js/build.js?v=20261002-rc111"></script>
+<script src="js/build-client.js?v=20261002-rc111"></script>
+<script src="js/auth.js?v=20261002-rc111"></script>
+<script src="js/species.js?v=20261002-rc111"></script>
+<script src="js/variants.js?v=20261002-rc111"></script>
+<script src="js/forms.js?v=20261002-rc111"></script>
+<script src="js/game.js?v=20261002-rc111"></script>
+<script src="js/play-present.js?v=20261002-rc111"></script>
+<script src="js/play-encounter-state.js?v=20261002-rc111"></script>
+<script src="js/trainers.js?v=20261002-rc111"></script>
+<script src="js/nav.js?v=20261002-rc111"></script>
+<script src="js/play-ux.js?v=20261002-rc111"></script>
+<script src="js/rankings.js?v=20261002-rc111"></script>
 </body>
+</html>

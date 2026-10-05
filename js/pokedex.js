@@ -501,7 +501,7 @@
       return `<article class="dex-cell ${state}${openable ? " dex-openable" : ""}" data-dex="${entry.dex}" ${interactive}>
         ${mark}
         <span class="dex-no">No. ${window.playPadDex(entry.dex)}</span>
-        <img src="${sprite}" alt="" class="${spriteClass}" draggable="false">
+        <img src="${sprite}" alt="" class="${spriteClass}" draggable="false" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='images/items/poke-ball.png';this.classList.add('is-sprite-fallback')">
         <strong>${label}</strong>
       </article>`;
     }).join("") || (q

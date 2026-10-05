@@ -56,38 +56,81 @@
     const stats = data?.stats || {};
     const kanto = trainer.kanto || {};
     const next = trainer.nextReward;
+    const kantoCaught = kanto.caught || 0;
     els.header.innerHTML = `
-      <h2>${window.playEscapeAttr(trainer.displayName || "Trainer")} · Lv. ${trainer.level || 1}</h2>
-      <p class="muted">${window.playEscapeAttr(trainer.title || "No title yet")} · ${kanto.caught || 0}/151 Kanto · ${trainer.species || 0}/${window.playNationalTotal?.() || "?"} National · ${trainer.caught || 0} caught</p>
+      <div class="ach-progress-hero">
+        <div class="ach-progress-identity">
+          <p class="ach-kicker">TRAINER PROGRESS</p>
+          <h2 class="ach-trainer-name">${window.playEscapeAttr(trainer.displayName || "Trainer")}</h2>
+          <p class="ach-trainer-title">${window.playEscapeAttr(trainer.title || "No title yet")}</p>
+          <p class="ach-trainer-level">Lv. ${trainer.level || 1}</p>
+        </div>
+        <div class="ach-progress-stats" role="group" aria-label="Kanto progress">
+          <div class="ach-stat"><span>Kanto Pokédex</span><strong>${kantoCaught}/151</strong></div>
+          <div class="ach-stat"><span>Catches</span><strong>${trainer.caught || stats.captures || 0}</strong></div>
+          <div class="ach-stat"><span>Shinies</span><strong>${trainer.variants?.shinySpecies || 0}</strong></div>
+          <div class="ach-stat"><span>Honey</span><strong>${stats.honey || 0}</strong></div>
+        </div>
+      </div>
       ${window.playXpProgressHtml ? window.playXpProgressHtml(trainer, { compact: true }) : `<div class="xp-bar" aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, Math.round((trainer.xpInto / Math.max(1, trainer.xpNeed)) * 100)))}%"></i></div>
-      <p class="muted">${trainer.xpInto || 0} / ${trainer.xpNeed || 0} XP${next ? ` · Next reward: Level ${next.level} ${window.playEscapeAttr(next.label || "")}` : ""}</p>`}
-      <dl class="sim-grid">
-        <div><dt>Encounters</dt><dd>${stats.encounters || 0}</dd></div>
-        <div><dt>Catches</dt><dd>${stats.captures || 0}</dd></div>
-        <div><dt>Escapes</dt><dd>${stats.fails || 0}</dd></div>
-        <div><dt>Honey</dt><dd>${stats.honey || 0}</dd></div>
-        <div><dt>Shinies</dt><dd>${trainer.variants?.shinySpecies || 0}</dd></div>
-        <div><dt>Female variants</dt><dd>${trainer.variants?.femaleVariants || 0}</dd></div>
-      </dl>`;
+      <p class="muted">${trainer.xpInto || 0} / ${trainer.xpNeed || 0} XP${next ? ` · Next reward: Level ${next.level} ${window.playEscapeAttr(next.label || "")}` : ""}</p>`}`;
   }
+
+  function titleCategory(row) {
+    const blob = `${row.id || ""} ${row.name || ""} ${row.description || ""} ${row.howTo || ""} ${row.category || ""}`.toLowerCase();
+    if (/pokedex|pokédex|dex|species/.test(blob)) return "pokedex";
+    if (/shiny/.test(blob)) return "shiny";
+    if (/evolv/.test(blob)) return "evolution";
+    if (/trade|link/.test(blob)) return "trading";
+    if (/honey|community|stream|oak|research/.test(blob)) return "community";
+    if (/catch|capture|ball/.test(blob)) return "catching";
+    return "trainer";
+  }
+
+  let titleFilter = "all";
 
   function renderTitles() {
     const active = data?.trainer?.activeTitleId || "";
-    els.titles.innerHTML = (data?.titles || []).map((row) => `
-      <button type="button" class="prog-pick ${row.unlocked ? "" : "is-locked"} ${row.isNew ? "is-new" : ""}" data-title="${window.playEscapeAttr(row.id)}" aria-pressed="${row.id === active ? "true" : "false"}" aria-label="${window.playEscapeAttr(row.name)} ${row.unlocked ? (row.id === active ? "equipped" : "owned") : "locked"}">
-        <strong>${window.playEscapeAttr(row.name)}</strong>
-        <span class="id-state">${row.unlocked ? (row.id === active ? "equipped" : (row.isNew ? "new" : "owned")) : "locked"}</span>
-        <span>${window.playEscapeAttr(row.unlocked ? row.description : (row.howTo || row.description || "Locked"))}</span>
-      </button>`).join("");
+    const filters = [
+      ["all", "All"],
+      ["owned", "Owned"],
+      ["locked", "Locked"],
+      ["trainer", "Trainer"],
+      ["pokedex", "Pokédex"],
+      ["catching", "Catching"],
+      ["shiny", "Shiny"],
+      ["community", "Community"],
+      ["evolution", "Evolution"],
+      ["trading", "Trading"]
+    ];
+    const rows = (data?.titles || []).filter((row) => {
+      if (titleFilter === "owned") return row.unlocked;
+      if (titleFilter === "locked") return !row.unlocked;
+      if (titleFilter === "all") return true;
+      return titleCategory(row) === titleFilter;
+    });
+    const filterHtml = `<div class="ach-title-filters" role="toolbar" aria-label="Title filters">${filters.map(([id, label]) =>
+      `<button type="button" class="ach-filter-chip${titleFilter === id ? " is-on" : ""}" data-title-filter="${id}" aria-pressed="${titleFilter === id}">${label}</button>`
+    ).join("")}</div>`;
+    els.titles.innerHTML = filterHtml + (rows.map((row) => {
+      const state = row.unlocked ? (row.id === active ? "equipped" : "owned") : "locked";
+      return `<button type="button" class="prog-pick ach-title-card is-${state} ${row.isNew ? "is-new" : ""}" data-title="${window.playEscapeAttr(row.id)}" aria-pressed="${row.id === active ? "true" : "false"}" aria-label="${window.playEscapeAttr(row.name)} ${state}">
+        <strong class="ach-title-name">${window.playEscapeAttr(row.name)}</strong>
+        <span class="ach-title-req">${window.playEscapeAttr(row.unlocked ? row.description : (row.howTo || row.description || "Locked"))}</span>
+        <span class="ach-title-state">${state}</span>
+      </button>`;
+    }).join("") || `<p class="muted">No titles in this filter.</p>`);
   }
 
   function renderBadges() {
-    els.badges.innerHTML = (data?.badges || []).map((row) => `
-      <button type="button" class="prog-pick ${row.unlocked ? "" : "is-locked"} ${row.isNew ? "is-new" : ""}" data-badge="${window.playEscapeAttr(row.id)}" aria-pressed="${row.featured ? "true" : "false"}" aria-label="${window.playEscapeAttr(row.name)} ${row.unlocked ? (row.featured ? "equipped" : "owned") : "locked"}">
-        <strong>${window.playEscapeAttr(row.name)}</strong>
-        <span class="id-state">${row.unlocked ? (row.featured ? "equipped" : (row.isNew ? "new" : "owned")) : "locked"}</span>
-        <span>${window.playEscapeAttr(row.unlocked ? row.description : (row.howTo || row.description || "Locked"))}</span>
-      </button>`).join("");
+    els.badges.innerHTML = (data?.badges || []).map((row) => {
+      const state = row.unlocked ? (row.featured ? "equipped" : "owned") : "locked";
+      return `<button type="button" class="prog-pick ach-badge-card is-${state} ${row.isNew ? "is-new" : ""}" data-badge="${window.playEscapeAttr(row.id)}" aria-pressed="${row.featured ? "true" : "false"}" aria-label="${window.playEscapeAttr(row.name)} ${state}">
+        <strong class="ach-title-name">${window.playEscapeAttr(row.name)}</strong>
+        <span class="ach-title-req">${window.playEscapeAttr(row.unlocked ? row.description : (row.howTo || row.description || "Locked"))}</span>
+        <span class="ach-title-state">${state}</span>
+      </button>`;
+    }).join("");
   }
 
   function renderAchievements() {
@@ -97,11 +140,11 @@
       const pct = Math.max(0, Math.min(100, Math.round((row.progress / Math.max(1, row.target)) * 100)));
       const when = row.unlockedAt ? new Date(row.unlockedAt) : null;
       const stamp = when && !Number.isNaN(when.getTime()) ? when.toLocaleDateString() : "";
-      return `<article class="ach-card ${row.unlocked ? "is-done" : ""} ${row.hidden ? "is-hidden" : ""}">
+      return `<article class="ach-card ${row.unlocked ? "is-done" : "is-locked"} ${row.hidden ? "is-hidden" : ""}">
         <strong>${window.playEscapeAttr(row.name)}</strong>
         <p>${window.playEscapeAttr(row.description)}</p>
         <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
-        <span>${row.hidden ? "???" : `${row.progress} / ${row.target}`}${row.unlocked ? " · Complete" : " · Locked"}</span>
+        <span class="ach-card-progress">${row.hidden ? "???" : `${row.progress} / ${row.target}`}${row.unlocked ? " · Complete" : ""}</span>
         ${stamp ? `<span class="muted">${window.playEscapeAttr(stamp)}</span>` : ""}
         ${rewardBits(row.rewards) ? `<span class="muted">${rewardBits(row.rewards)}</span>` : ""}
       </article>`;
@@ -137,6 +180,12 @@
   }
 
   els.titles?.addEventListener("click", async (event) => {
+    const filterBtn = event.target.closest("[data-title-filter]");
+    if (filterBtn) {
+      titleFilter = filterBtn.dataset.titleFilter || "all";
+      renderTitles();
+      return;
+    }
     const button = event.target.closest("[data-title]");
     if (!button) return;
     const row = (data?.titles || []).find((item) => item.id === button.dataset.title);

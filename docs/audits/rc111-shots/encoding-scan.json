@@ -1,0 +1,58 @@
+[
+  {
+    "file": "index.html",
+    "fffd": 0,
+    "stQuestion": 0,
+    "hasStarlightStar": true,
+    "hasPokemon": true
+  },
+  {
+    "file": "rankings.html",
+    "fffd": 0,
+    "stQuestion": 0,
+    "hasStarlightStar": true,
+    "hasPokemon": false
+  },
+  {
+    "file": "achievements.html",
+    "fffd": 0,
+    "stQuestion": 0,
+    "hasStarlightStar": true,
+    "hasPokemon": false
+  },
+  {
+    "file": "trainer.html",
+    "fffd": 0,
+    "stQuestion": 0,
+    "hasStarlightStar": false,
+    "hasPokemon": true
+  },
+  {
+    "file": "storage.html",
+    "fffd": 0,
+    "stQuestion": 0,
+    "hasStarlightStar": false,
+    "hasPokemon": true
+  },
+  {
+    "file": "evolve.html",
+    "fffd": 0,
+    "stQuestion": 0,
+    "hasStarlightStar": true,
+    "hasPokemon": true
+  },
+  {
+    "file": "pokedex.html",
+    "fffd": 0,
+    "stQuestion": 0,
+    "hasStarlightStar": false,
+    "hasPokemon": false
+  },
+  {
+    "file": "help.html",
+    "fffd": 0,
+    "stQuestion": 0,
+    "hasStarlightStar": true,
+    "hasPokemon": true
+  }
+]

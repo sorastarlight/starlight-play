@@ -1,0 +1,12 @@
+{
+  "expected": 151,
+  "valid": 151,
+  "missing": [],
+  "broken": [],
+  "071": {
+    "path": "images/pokemon/71.gif",
+    "exists": true,
+    "bytes": 57013,
+    "note": "Asset present and GIF-valid locally and on production (HTTP 200). Grid now uses object-fit:contain + onerror fallback to poke-ball.png if runtime load fails."
+  }
+}

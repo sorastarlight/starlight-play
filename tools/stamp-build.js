@@ -70,7 +70,7 @@ for (const name of fs.readdirSync(dir)) {
     html = html.replace(/<script src="js\/game\.js(?:\?v=[^"]*)?"><\/script>/, (m) => `${m}\n<script src="js/play-encounter-state.js?v=${APP}"></script>`);
   }
   html = html.replace(/(href|src)="((?:css|js)\/[^"?]+)(?:\?v=[^"]*)?"/g, `$1="$2?v=${APP}"`);
-  fs.writeFileSync(file, html);
+  fs.writeFileSync(file, html, "utf8");
 }
 
 fs.writeFileSync(path.join(dir, "build-manifest.json"), `${JSON.stringify({

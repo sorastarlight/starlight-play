@@ -1,0 +1,18 @@
+{
+  "play": {
+    "text": "ST★RLIGHT Pokémon RPG — catch Pokémon alongside Sora's livestream. Build your Pokédex, evolve your collection, and customize your Trainer.",
+    "fffd": false,
+    "star": true,
+    "pokemon": true,
+    "dash": true
+  },
+  "tid": {
+    "onAvatar": false,
+    "onName": true,
+    "kicker": false
+  },
+  "nav": {
+    "dw": 14.359375,
+    "dh": 0
+  }
+}

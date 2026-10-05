@@ -1,0 +1,501 @@
+
+/* ========== rc111 — Site cohesion / Rankings + Achievements ========== */
+
+/* Nav: single soft active state, no double outline, no geometry shift */
+.topnav-link {
+  border: 2px solid transparent;
+  box-shadow: none;
+  background: transparent;
+  position: relative;
+}
+.topnav-link:hover {
+  background: rgba(243, 160, 200, 0.12);
+  border-color: transparent;
+  color: #8a3d72;
+  box-shadow: none;
+}
+.topnav-link:focus-visible {
+  background: rgba(143, 212, 239, 0.18);
+  border-color: transparent;
+  color: #1a2744;
+  box-shadow: 0 0 0 3px rgba(143, 212, 239, 0.55);
+  outline: none;
+}
+.topnav-link[aria-current="page"] {
+  background: linear-gradient(180deg, #fff7fb, #eef8ff);
+  border-color: transparent;
+  color: #1a2744;
+  box-shadow: inset 0 -3px 0 #f3a0c8;
+}
+.topnav-link-store {
+  background: linear-gradient(180deg, #fff3b0, #f5d56a);
+  border-color: #e8c44a;
+  color: #6a4b12;
+  box-shadow: 0 3px 0 #e0b84a;
+}
+.topnav-link-store:hover,
+.topnav-link-store:focus-visible,
+.topnav-link-store[aria-current="page"] {
+  background: linear-gradient(180deg, #fff8cc, #f7dc78);
+  border-color: #e8c44a;
+  color: #6a4b12;
+  box-shadow: 0 3px 0 #e0b84a;
+}
+
+/* Trainer ID — Twitch beside name */
+.tid-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tid-name-twitch.twitch-badge,
+.tid-name .twitch-badge {
+  position: static;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  transform: none;
+}
+.tid-avatar-stage .twitch-badge,
+.tid-card > .tid-card-body > .tid-avatar-stage .twitch-badge {
+  display: none !important;
+}
+.tid-team-scene-kicker { display: none !important; }
+
+/* My PC empty box — normal Poké Ball */
+.pc-empty-mark {
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 0;
+  background: url("../images/items/poke-ball.png") center / contain no-repeat;
+  opacity: 0.92;
+  margin-bottom: 6px;
+}
+.pc-empty-mark.is-soft {
+  width: 44px;
+  height: 44px;
+  opacity: 0.7;
+}
+
+/* Pokédex cell sprites stay fully visible */
+.dex-cell img:not(.dex-caught-mark) {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+.dex-cell img.is-sprite-fallback {
+  filter: none !important;
+  opacity: 0.45;
+}
+
+/* Oak Lab — station accent lives on workspace, not body page canvas */
+.evo-lab-workspace[data-lab-station="evolve"] .evo-lab-stations {
+  border-bottom-color: #c46a98;
+}
+.evo-lab-workspace[data-lab-station="research"] .evo-lab-stations {
+  border-bottom-color: #7a5a9e;
+}
+body[data-page="evolve"] {
+  background:
+    radial-gradient(circle at 8% -10%, #ffe3f3 0 18%, transparent 46%),
+    radial-gradient(circle at 100% 8%, #d9ecff 0 16%, transparent 48%),
+    repeating-linear-gradient(135deg, #f7fbff 0 18px, #f3f6ff 18px 36px);
+}
+.evo-lab-bay,
+.evo-lab-bay[data-bay="evolve"],
+.evo-lab-bay[data-bay="research"] {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.72), rgba(255, 253, 248, 0.28) 56px, transparent 130px);
+}
+.evo-lab-bay[data-bay="evolve"] { border-color: #e5c3d4; }
+.evo-lab-bay[data-bay="research"] { border-color: #d2c6e4; }
+
+/* Rankings presentation */
+.rank-page {
+  max-width: min(1180px, 100%);
+  display: grid;
+  gap: 22px;
+  padding-bottom: 28px;
+}
+.rank-hero {
+  padding: 8px 4px 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.rank-hero h1 {
+  margin: 0 0 8px;
+  font-family: "Fredoka", "Nunito", sans-serif;
+  font-size: clamp(32px, 4vw, 44px);
+  color: #1a2744;
+}
+.rank-kicker {
+  color: #c04878;
+  letter-spacing: 0.14em;
+}
+.rank-mine {
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 2px solid #d7eaf5;
+  background: linear-gradient(180deg, #fff, #f4fbff);
+}
+.rank-mine-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+  margin-bottom: 10px;
+}
+.rank-mine-head h2 { margin: 0; }
+.rank-mine-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+  gap: 8px;
+}
+.rank-mine-chip {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  text-align: left;
+  min-height: 64px;
+  padding: 10px 12px;
+  border: 2px solid #cfe3f4;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.rank-mine-chip:hover,
+.rank-mine-chip:focus-visible {
+  border-color: #f3a0c8;
+  outline: 2px solid rgba(243, 160, 200, 0.4);
+  outline-offset: 0;
+}
+.rank-mine-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5a7a98;
+}
+.rank-mine-place {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a2744;
+  font-variant-numeric: tabular-nums;
+}
+.rank-board-shell {
+  padding: 14px 14px 16px;
+  border-radius: 20px;
+  border: 2px solid #cfe3f4;
+  background: linear-gradient(180deg, #ffffff, #f7fbff);
+  box-shadow: 0 10px 28px rgba(26, 39, 68, 0.06);
+}
+.rank-boards {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 2px 10px;
+  scrollbar-width: thin;
+}
+.rank-board-tab {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.7);
+  color: #4d6188;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: none;
+}
+.rank-board-tab:hover {
+  background: rgba(243, 160, 200, 0.12);
+  color: #8a3d72;
+}
+.rank-board-tab:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(143, 212, 239, 0.55);
+}
+.rank-board-tab[aria-pressed="true"] {
+  background: linear-gradient(180deg, #fff7fb, #eef8ff);
+  color: #1a2744;
+  box-shadow: inset 0 -3px 0 #f3a0c8;
+}
+.rank-board-meta {
+  display: grid;
+  gap: 4px;
+  margin: 0 0 12px;
+}
+.rank-board-meta h2 {
+  margin: 0;
+  font-family: "Fredoka", "Nunito", sans-serif;
+  font-size: 26px;
+  color: #1a2744;
+}
+.rank-status { margin: 0; }
+.rank-list { display: grid; gap: 10px; min-height: 360px; }
+.rank-row {
+  display: grid;
+  grid-template-columns: 64px 64px minmax(0, 1fr) minmax(88px, auto) auto;
+  gap: 10px 14px;
+  align-items: center;
+  min-height: 84px;
+  padding: 12px 14px;
+  border: 2px solid #dce8f6;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(243, 160, 200, 0.08), transparent 42%),
+    linear-gradient(180deg, #fff, #f8fbff);
+}
+.rank-row.is-you {
+  border-color: #8fd4ef;
+  box-shadow: inset 0 0 0 1px rgba(143, 212, 239, 0.65);
+  background: linear-gradient(180deg, #f3fbff, #fff);
+}
+.rank-row.is-top-1 {
+  border-color: #e8c44a;
+  background: linear-gradient(180deg, #fffdf4, #fff8e4);
+}
+.rank-row.is-top-2 {
+  border-color: #b8c4d8;
+  background: linear-gradient(180deg, #f8fafc, #eef2f8);
+}
+.rank-row.is-top-3 {
+  border-color: #d7b089;
+  background: linear-gradient(180deg, #fff8f0, #f8ebe0);
+}
+.rank-mark {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #eef4ff;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: #1a2744;
+}
+.rank-row.is-top-1 .rank-mark {
+  background: linear-gradient(180deg, #ffe98a, #f0c84a);
+}
+.rank-row.is-top-2 .rank-mark {
+  background: linear-gradient(180deg, #eef2f8, #c5d0e0);
+}
+.rank-row.is-top-3 .rank-mark {
+  background: linear-gradient(180deg, #f6e0cc, #d7b089);
+}
+.rank-avatar {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+}
+.rank-sprite {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.rank-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.rank-discover {
+  padding: 14px 16px 18px;
+  border-radius: 18px;
+  border: 2px dashed #d7eaf5;
+  background: rgba(255, 255, 255, 0.72);
+}
+.rank-discover h2 { margin: 0 0 4px; }
+.rank-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: end;
+  margin: 12px 0;
+}
+.rank-search .field { flex: 1 1 220px; margin: 0; }
+
+/* Achievements presentation */
+.ach-page {
+  max-width: min(1180px, 100%);
+  display: grid;
+  gap: 18px;
+}
+.ach-workspace { display: grid; gap: 18px; }
+.ach-panel { margin: 0; }
+.ach-kicker {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c04878;
+}
+.ach-progress-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.ach-trainer-name {
+  margin: 0;
+  font-family: "Fredoka", "Nunito", sans-serif;
+  font-size: clamp(28px, 3.4vw, 36px);
+  color: #1a2744;
+}
+.ach-trainer-title {
+  margin: 4px 0 0;
+  font-weight: 800;
+  color: #4a5f7a;
+}
+.ach-trainer-level {
+  margin: 8px 0 0;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 2px solid #8fd4ef;
+  background: #eef8ff;
+  font-weight: 800;
+}
+.ach-progress-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.ach-stat {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 2px solid #d7eaf5;
+  background: #fff;
+}
+.ach-stat span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5a7a98;
+}
+.ach-stat strong {
+  font-size: 20px;
+  color: #1a2744;
+  font-variant-numeric: tabular-nums;
+}
+.ach-title-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  grid-column: 1 / -1;
+  margin-bottom: 4px;
+}
+.ach-filter-chip {
+  min-height: 34px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background: #fff;
+  color: #4d6188;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+}
+.ach-filter-chip.is-on,
+.ach-filter-chip[aria-pressed="true"] {
+  background: linear-gradient(180deg, #fff7fb, #eef8ff);
+  box-shadow: inset 0 -3px 0 #f3a0c8;
+  color: #1a2744;
+}
+.ach-title-grid,
+.ach-badge-grid {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+.ach-title-card,
+.ach-badge-card {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 6px;
+  align-content: start;
+  justify-items: start;
+  text-align: left;
+  min-height: 118px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 2px solid #d7eaf5;
+  background: #fff;
+}
+.ach-title-card.is-owned,
+.ach-badge-card.is-owned {
+  border-color: #8fd4ef;
+  background: linear-gradient(180deg, #fff, #f3fbff);
+}
+.ach-title-card.is-equipped,
+.ach-badge-card.is-equipped {
+  border-color: #f3a0c8;
+  background: linear-gradient(180deg, #fff7fb, #eef8ff);
+  box-shadow: inset 0 -3px 0 rgba(243, 160, 200, 0.85);
+}
+.ach-title-card.is-locked,
+.ach-badge-card.is-locked {
+  opacity: 0.72;
+  background: #f5f7fb;
+}
+.ach-title-name {
+  font-size: 16px;
+  color: #1a2744;
+}
+.ach-title-req {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #5a7a98;
+}
+.ach-title-state {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c04878;
+}
+.ach-title-card.is-locked .ach-title-state,
+.ach-badge-card.is-locked .ach-title-state { color: #7a879c; }
+.ach-card {
+  border-radius: 16px;
+  border: 2px solid #d7eaf5;
+  background: #fff;
+  padding: 12px 14px;
+}
+.ach-card.is-done {
+  border-color: #8fd4ef;
+  background: linear-gradient(180deg, #fff, #f3fbff);
+}
+.ach-card.is-locked { opacity: 0.78; }
+
+@media (max-width: 820px) {
+  .ach-progress-hero { grid-template-columns: 1fr; }
+  .rank-row {
+    grid-template-columns: 48px 48px minmax(0, 1fr);
+  }
+  .rank-metric,
+  .rank-profile {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+  .rank-metric { justify-items: start; text-align: left; }
+}
+@media (max-width: 560px) {
+  .rank-mine-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ach-progress-stats { grid-template-columns: 1fr 1fr; }
+}

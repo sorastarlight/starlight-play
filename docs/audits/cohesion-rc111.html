@@ -1,0 +1,79 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"><base href="/">
+<title>rc111 cohesion QA</title>
+<link rel="stylesheet" href="css/play.css">
+<style>
+body{margin:0;background:#e8f4ff;font-family:Segoe UI,sans-serif;color:#1a2744}
+.wrap{max-width:1180px;margin:0 auto;padding:16px;display:grid;gap:18px}
+.panel{background:#fff;border:2px solid #cfe3f4;border-radius:18px;padding:12px}
+.nav-demo{display:flex;gap:8px;flex-wrap:wrap;padding:12px;background:#fff;border-radius:14px}
+.dex-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+</style>
+</head><body>
+<nav class="topnav"><div class="topnav-inner"><div class="topnav-links nav-demo" id="nav"></div></div></nav>
+<div class="wrap">
+  <section class="panel" id="play-copy"></section>
+  <section class="panel" id="tid"></section>
+  <section class="panel" id="tid-unlinked"></section>
+  <section class="panel" id="team"></section>
+  <section class="panel" id="pc"></section>
+  <section class="panel" id="dex"></section>
+  <section class="panel" id="rank"></section>
+  <section class="panel" id="ach"></section>
+</div>
+<script src="js/build.js"></script>
+<script src="js/trainers.js"></script>
+<script src="js/game.js"></script>
+<script>
+window.playSpriteUrl = window.playSpriteUrl || ((dex)=>`images/pokemon/${Number(dex)||0}.gif`);
+window.playPadDex = window.playPadDex || ((n)=>String(n).padStart(3,"0"));
+window.playItemSprite = window.playItemSprite || (()=>"images/items/poke-ball.png");
+window.playXpProgressHtml = window.playXpProgressHtml || (()=>"");
+document.getElementById("play-copy").innerHTML = `<h2>Play copy</h2><p class="muted welcome-blurb">ST★RLIGHT Pokémon RPG — catch Pokémon alongside Sora's livestream. Build your Pokédex, evolve your collection, and customize your Trainer.</p>`;
+document.getElementById("nav").innerHTML = ["Play","My PC","Pokédex","Trainer ID","Rankings","Achievements"].map((l,i)=>`<a class="topnav-link" href="#" ${i===0?'aria-current="page"':''}>${l}</a>`).join("");
+const linked = { displayName:"Sora Starlight", trainerSprite:"red-gen1", twitchLinked:true, level:42, title:"Starlight Champion", idNo:"00001", startedAt:"2024-01-01", team:[{id:"a",dex:25,nickname:"Pikachu"},{id:"b",dex:150,nickname:"Mewtwo"},{id:"c",dex:6,nickname:"Charizard"},{id:"d",dex:130,nickname:"Gyarados"},{id:"e",dex:94,nickname:"Gengar"},{id:"f",dex:149,nickname:"Dragonite"}], teamBg:"basic-red-blue" };
+const unlinked = { ...linked, displayName:"Twinkle", twitchLinked:false, trainerSprite:"leaf-firered" };
+document.getElementById("tid").innerHTML = "<h2>Linked Trainer ID</h2>" + window.playRenderIdCard(linked);
+document.getElementById("tid-unlinked").innerHTML = "<h2>Unlinked Trainer ID</h2>" + window.playRenderIdCard(unlinked);
+document.getElementById("team").innerHTML = "<h2>My Team scene</h2>" + window.playRenderTrainerPartyHtml(linked);
+document.getElementById("pc").innerHTML = `<h2>Empty PC Box</h2><div class="pc-empty-overlay" style="position:relative;min-height:180px;display:grid;place-items:center"><div class="pc-empty-mark"></div><p class="pc-empty-title">This Box is Empty</p><p class="muted">Caught Pokémon can be moved here from your other Boxes.</p></div>`;
+const cells = [];
+for (let d=64; d<=80; d++) {
+  cells.push(`<article class="dex-cell unseen"><span class="dex-no">No. ${window.playPadDex(d)}</span><img src="${window.playSpriteUrl(d)}" class="silhouette" alt="" onerror="this.onerror=null;this.src='images/items/poke-ball.png'"><strong>???</strong></article>`);
+}
+document.getElementById("dex").innerHTML = "<h2>Pokédex #064–#080</h2><div class='dex-row pokedex-grid'>"+cells.join("")+"</div>";
+document.getElementById("rank").innerHTML = `<h2>Rankings sample</h2>
+<section class="rank-mine"><div class="rank-mine-head"><h2>Your Rankings</h2></div><div class="rank-mine-strip">
+<button class="rank-mine-chip"><span class="rank-mine-label">Trainer Level</span><strong class="rank-mine-place">#01</strong></button>
+<button class="rank-mine-chip"><span class="rank-mine-label">Pokédex</span><strong class="rank-mine-place">#01</strong></button>
+<button class="rank-mine-chip"><span class="rank-mine-label">Shinies</span><strong class="rank-mine-place">#02</strong></button>
+</div></section>
+<div class="rank-board-shell"><div class="rank-boards"><button class="rank-board-tab" aria-pressed="true">Trainer Level</button><button class="rank-board-tab">Pokédex</button><button class="rank-board-tab">Shinies</button></div>
+<div class="rank-board-meta"><h2>Trainer Level</h2><p class="muted">Lifetime Rankings · 3 Trainers</p></div>
+<div class="rank-list">
+<article class="rank-row is-top-1 is-you"><span class="rank-mark">#01</span><span class="rank-avatar"><img class="rank-sprite" src="${window.playTrainerSpriteUrl('red-gen1')}"></span><div class="rank-copy"><strong class="rank-name">Sora Starlight <i class="twitch-badge tid-name-twitch"></i> <span class="rank-you-tag">YOU</span></strong><span class="muted">★ Starlight Champion · Lv. 42</span></div><div class="rank-metric"><strong>Lv. 42</strong></div><a class="button secondary">View Trainer</a></article>
+<article class="rank-row is-top-2"><span class="rank-mark">#02</span><span class="rank-avatar"><img class="rank-sprite" src="${window.playTrainerSpriteUrl('leaf-firered')}"></span><div class="rank-copy"><strong class="rank-name">Twinkle</strong><span class="muted">Trainer · Lv. 30</span></div><div class="rank-metric"><strong>Lv. 30</strong></div><a class="button secondary">View Trainer</a></article>
+<article class="rank-row is-top-3"><span class="rank-mark">#03</span><span class="rank-avatar"><img class="rank-sprite" src="${window.playTrainerSpriteUrl('may-contest')}"></span><div class="rank-copy"><strong class="rank-name">May</strong><span class="muted">Trainer · Lv. 22</span></div><div class="rank-metric"><strong>Lv. 22</strong></div><a class="button secondary">View Trainer</a></article>
+</div></div>`;
+document.getElementById("ach").innerHTML = `<h2>Achievements sample</h2>
+<div class="ach-progress-hero"><div class="ach-progress-identity"><p class="ach-kicker">TRAINER PROGRESS</p><h2 class="ach-trainer-name">Sora Starlight</h2><p class="ach-trainer-title">Starlight Champion</p><p class="ach-trainer-level">Lv. 42</p></div>
+<div class="ach-progress-stats"><div class="ach-stat"><span>Kanto Pokédex</span><strong>21/151</strong></div><div class="ach-stat"><span>Catches</span><strong>48</strong></div><div class="ach-stat"><span>Shinies</span><strong>2</strong></div><div class="ach-stat"><span>Honey</span><strong>12</strong></div></div></div>
+<div class="ach-title-filters"><button class="ach-filter-chip is-on">All</button><button class="ach-filter-chip">Owned</button><button class="ach-filter-chip">Locked</button></div>
+<div class="prog-pick-grid ach-title-grid">
+<button class="prog-pick ach-title-card is-equipped"><strong class="ach-title-name">Starlight Champion</strong><span class="ach-title-req">Wear your brightest title.</span><span class="ach-title-state">equipped</span></button>
+<button class="prog-pick ach-title-card is-owned"><strong class="ach-title-name">Kanto Beginner</strong><span class="ach-title-req">Catch your first Pokémon.</span><span class="ach-title-state">owned</span></button>
+<button class="prog-pick ach-title-card is-locked"><strong class="ach-title-name">Living Dex</strong><span class="ach-title-req">Complete the Kanto Pokédex.</span><span class="ach-title-state">locked</span></button>
+</div>`;
+window.__RC111__ = {
+  build: window.PLAY_BUILD,
+  copy: document.querySelector('.welcome-blurb')?.textContent,
+  fffd: (document.querySelector('.welcome-blurb')?.textContent||'').includes('\uFFFD'),
+  twitchOnAvatar: Boolean(document.querySelector('#tid .tid-avatar-stage .twitch-badge')),
+  twitchOnName: Boolean(document.querySelector('#tid .tid-name .twitch-badge')),
+  unlinkedTwitch: Boolean(document.querySelector('#tid-unlinked .twitch-badge')),
+  myTeamKicker: Boolean(document.querySelector('#team .tid-team-scene-kicker')),
+  navActive: (()=>{ const a=document.querySelector('.topnav-link[aria-current=page]'); const i=document.querySelectorAll('.topnav-link')[1]; return {aw:a?.getBoundingClientRect().width, iw:i?.getBoundingClientRect().width, ah:a?.getBoundingClientRect().height, ih:i?.getBoundingClientRect().height}; })()
+};
+</script>
+</body></html>

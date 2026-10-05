@@ -303,8 +303,12 @@
       if (els.tabSend) els.tabSend.hidden = activeTab !== "send";
       if (els.tabEvolve) els.tabEvolve.hidden = activeTab !== "evolve";
       if (els.tabResearch) els.tabResearch.hidden = activeTab !== "research";
-      document.body.dataset.labStation = activeTab;
-      document.body.dataset.labResearchTrack = activeTab === "research" ? activeResearchTrack : "";
+      if (els.app) {
+        els.app.dataset.labStation = activeTab;
+        els.app.dataset.labResearchTrack = activeTab === "research" ? activeResearchTrack : "";
+      }
+      delete document.body.dataset.labStation;
+      delete document.body.dataset.labResearchTrack;
       refreshOakBubble();
       if (activeTab === "research") loadResearch();
       if (!opts.skipHash) writeLabHash();
@@ -318,7 +322,8 @@
     }
     preserveLabScroll(() => {
       rememberResearchTrack(trackId);
-      document.body.dataset.labResearchTrack = activeResearchTrack;
+      if (els.app) els.app.dataset.labResearchTrack = activeResearchTrack;
+      delete document.body.dataset.labResearchTrack;
       renderResearch();
       refreshOakBubble();
       if (!opts.skipHash) writeLabHash();

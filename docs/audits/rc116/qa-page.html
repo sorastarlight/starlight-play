@@ -1,0 +1,17 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>rc116 QA page loader</title>
+<script>
+// Loads a real site page with qa-stub.js first. Usage: qa-page.html?page=settings.html&hash=trainer-id
+(async () => {
+  const params = new URLSearchParams(location.search);
+  const page = params.get("page") || "achievements.html";
+  const html = await (await fetch("/" + page, { cache: "no-store" })).text();
+  const inject = '<base href="/"><script src="/docs/audits/rc116/qa-stub.js"><\/script>';
+  const out = html.replace(/(play\.css|\.js)\?v=/g, (m, p) => p + "?qa=" + Date.now() + "&v=").replace(/<meta charset="utf-8">/i, (m) => m + inject);
+  if (params.get("hash")) history.replaceState(null, "", location.pathname + location.search + "#" + params.get("hash"));
+  document.open();
+  document.write(out);
+  document.close();
+})();
+</script>

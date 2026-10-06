@@ -140,7 +140,6 @@
     draft = {
       sprite: next.trainerSprite,
       bg: next.cardBg,
-      frame: next.cardFrame || "plain",
       teamBg: window.playNormalizeTeamBgId?.(next.teamBg) || next.teamBg || "pallet-town",
       titleId: next.activeTitleId || "",
       badgeIds: featured.slice(0, 5),
@@ -157,7 +156,6 @@
       ...card,
       trainerSprite: draft.sprite || card.trainerSprite,
       cardBg: draft.bg || card.cardBg,
-      cardFrame: draft.frame || card.cardFrame,
       teamBg: window.playNormalizeTeamBgId?.(draft.teamBg || card.teamBg) || draft.teamBg || card.teamBg || "pallet-town",
       title: (titles.find((row) => row.id === draft.titleId) || {}).name || (draft.titleId ? card.title : ""),
       activeTitleId: draft.titleId || "",
@@ -181,7 +179,6 @@
     if (!savedCard || !draft) return false;
     return draft.sprite !== savedCard.trainerSprite
       || draft.bg !== savedCard.cardBg
-      || draft.frame !== (savedCard.cardFrame || "plain")
       || (window.playNormalizeTeamBgId?.(draft.teamBg) || draft.teamBg || "pallet-town") !== (window.playNormalizeTeamBgId?.(savedCard.teamBg) || savedCard.teamBg || "pallet-town")
       || (draft.titleId || "") !== (savedCard.activeTitleId || "")
       || JSON.stringify(draft.badgeIds || []) !== JSON.stringify(savedCard.featuredBadgeIds || savedCard.badges?.map((row) => row.id) || [])
@@ -530,15 +527,20 @@
     }));
   }
 
-  function frameRows() {
-    const frames = cosmetics.filter((row) => row.kind === "frame");
-    if (frames.length) {
-      return frames.map((row) => ({
-        ...row,
-        unlocked: Boolean(row.unlocked || isCosmeticAdmin())
-      }));
-    }
-    return [{ id: "frame-plain", kind: "frame", asset: "plain", name: "Plain", unlocked: true, description: "Default frame", howTo: "" }];
+  // Background picks only swap art/tone; re-rendering the card reloads the avatar and shifts layout.
+  function patchCardPreviewArt(stage) {
+    const current = stage.querySelector(".tid-card");
+    const currentArt = current?.querySelector(".tid-art");
+    if (!current || !currentArt) return false;
+    const tpl = document.createElement("template");
+    tpl.innerHTML = window.playRenderIdCard(previewCard(), { mode: "preview", variant: "hero" }).trim();
+    const next = tpl.content.querySelector(".tid-card");
+    const nextArt = next?.querySelector(".tid-art");
+    if (!next || !nextArt) return false;
+    current.className = next.className;
+    current.setAttribute("style", next.getAttribute("style") || "");
+    currentArt.setAttribute("style", nextArt.getAttribute("style") || "");
+    return true;
   }
 
   function cardPreviewStageHtml() {
@@ -573,7 +575,7 @@
     return `
       <header class="scc-panel-head">
         <h2>Card Style</h2>
-        <p class="muted">Background is the art layer. Frame accents the card. Locked looks stay visible with unlock hints.</p>
+        <p class="muted">Choose the background art for your Trainer ID. Locked looks stay visible with unlock hints.</p>
       </header>
       <div class="scc-card-preview-stage">${cardPreviewStageHtml()}</div>
       <div class="scc-style-layout">
@@ -590,20 +592,6 @@
                 <span class="scc-compact-bg-thumb" style="background-image:url('${esc(row.thumb || window.playCardBgUrl(row.asset))}')" aria-hidden="true"></span>
                 <strong class="scc-compact-bg-name">${esc(row.name)}</strong>
                 <span class="id-state">${stateLabel(state)}</span>
-              </button>`;
-            }).join("")}
-          </div>
-        </section>
-        <section class="scc-style-catalog">
-          <h3>Frame</h3>
-          <div class="prog-pick-grid scc-frame-grid">
-            ${frameRows().map((row) => {
-              const equipped = row.asset === view.cardFrame;
-              const state = pickState(row, equipped);
-              return `<button type="button" class="prog-pick is-${state}" data-cosmetic="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
-                <strong>${esc(row.name)}</strong>
-                <span class="id-state">${stateLabel(state)}</span>
-                <span>${esc(row.unlocked ? (row.description || "") : (row.howTo || row.description || "Locked"))}</span>
               </button>`;
             }).join("")}
           </div>
@@ -625,10 +613,7 @@
   }
 
   function ribbonStreamHint(row) {
-    const map = window.playRibbonMapping?.(row.id);
-    const ribbon = window.playRibbonForBadge?.(row) || row;
-    if (!row.unlocked) return row.howTo || row.description || "Complete the linked Achievement to earn this Ribbon.";
-    return map?.streamLinkDescription || ribbon.streamLinkDescription || row.description || map?.reason || ribbon.origin || "";
+    return window.playRibbonCopy?.({ badge: row })?.requirement || "";
   }
 
   function titleListHtml() {
@@ -694,7 +679,8 @@
     }).filter((row) => {
       if (!q) return true;
       const ribbon = window.playRibbonForBadge?.(row) || row;
-      return `${ribbon.name || row.name || ""} ${row.description || ""} ${row.howTo || ""}`.toLowerCase().includes(q);
+      const copy = window.playRibbonCopy?.({ badge: row }) || {};
+      return `${ribbon.name || row.name || ""} ${copy.achievementName || ""} ${copy.requirement || ""}`.toLowerCase().includes(q);
     });
     if (!rows.length) {
       return `<p class="muted scc-workshop-empty">${q ? "No Ribbons match your search." : "No Ribbons in this filter."}</p>`;
@@ -809,7 +795,7 @@
     return `
       <header class="scc-panel-head">
         <h2>Showcase</h2>
-        <p class="muted">Favorite Pokémon and Featured Shiny appear on your public Trainer ID. Gym Badges are coming later.</p>
+        <p class="muted">Favorite Pokémon and Featured Shiny appear on your public Trainer ID.</p>
       </header>
       <div class="scc-showcase-layout">
         <div class="id-showcase-edit">
@@ -832,7 +818,6 @@
                 <img src="${esc(rainbow.localIcon || "images/gym-badges/rainbow-badge.png")}" alt="" width="48" height="48" decoding="async">
               </div>
               <p class="tid-show-badge-soon">Badges Coming Soon</p>
-              <p class="muted">Gym Badge showcases are coming in a future update.</p>
             </div>
           </section>
         </div>
@@ -1180,16 +1165,16 @@
   function updateCardStyleSelection() {
     if (!els.workspace) return;
     const view = previewCard();
-    const lookup = backgroundRows().concat(frameRows());
+    const lookup = backgroundRows();
     els.workspace.querySelectorAll("[data-cosmetic]").forEach((btn) => {
       const row = lookup.find((item) => item.id === btn.dataset.cosmetic);
       if (!row) return;
-      const equipped = row.kind === "background" ? row.asset === view.cardBg : row.asset === view.cardFrame;
+      const equipped = row.asset === view.cardBg;
       btn.setAttribute("aria-pressed", equipped ? "true" : "false");
       repaintPick(btn, pickState(row, equipped));
     });
     const stage = els.workspace.querySelector(".scc-card-preview-stage");
-    if (stage) stage.innerHTML = cardPreviewStageHtml();
+    if (stage && !patchCardPreviewArt(stage)) stage.innerHTML = cardPreviewStageHtml();
     markDirtyFlag();
   }
 
@@ -1884,17 +1869,12 @@
       const row = (badges || []).find((item) => item.id === ribbonDetailBtn.dataset.ribbonDetail);
       if (row) {
         const ribbon = window.playRibbonForBadge?.(row) || row;
-        const map = window.playRibbonMapping?.(row.id);
         window.playOpenRibbonDetail?.({
           badge: row,
           ribbon,
           ribbonId: ribbon?.id || row.id,
           name: ribbon?.name || row.name,
-          description: ribbonStreamHint(row),
-          origin: map?.ribbonOrigin || ribbon?.origin || "",
-          achievementName: map?.achievementName || "",
-          locked: !row.unlocked,
-          howTo: row.howTo || ""
+          locked: !row.unlocked
         });
       }
       return;
@@ -1946,15 +1926,14 @@
     }
     const cosmetic = event.target.closest("[data-cosmetic]");
     if (cosmetic) {
-      const row = backgroundRows().concat(frameRows()).find((item) => item.id === cosmetic.dataset.cosmetic)
-        || cosmetics.find((item) => item.id === cosmetic.dataset.cosmetic)
+      const row = backgroundRows().find((item) => item.id === cosmetic.dataset.cosmetic)
+        || cosmetics.find((item) => item.id === cosmetic.dataset.cosmetic && item.kind === "background")
         || (cosmetic.dataset.bgAsset ? { kind: "background", asset: cosmetic.dataset.bgAsset, unlocked: true, name: cosmetic.dataset.bgAsset } : null);
       if (!row?.unlocked) {
         if (els.status) els.status.textContent = `${row?.name || "This look"} is locked. ${row?.howTo || ""}`.trim();
         return;
       }
       if (row.kind === "background") draft.bg = row.asset;
-      if (row.kind === "frame") draft.frame = row.asset;
       updateCardStyleSelection();
       return;
     }
@@ -1973,7 +1952,7 @@
     if (badgeBtn) {
       const row = badges.find((item) => item.id === badgeBtn.dataset.badge);
       if (!row?.unlocked) {
-        if (els.status) els.status.textContent = `${row?.name || "This Ribbon"} is locked. ${row?.howTo || row?.description || ""}`.trim();
+        if (els.status) els.status.textContent = `${row?.name || "This Ribbon"} is locked. ${row ? ribbonStreamHint(row) : ""}`.trim();
         return;
       }
       const next = new Set(draft.badgeIds || []);
@@ -2103,7 +2082,6 @@
       const saved = await window.playCall("play_save_trainer_id", {
         p_sprite: draft.sprite,
         p_bg: draft.bg,
-        p_frame: draft.frame,
         p_team_bg: window.playNormalizeTeamBgId?.(draft.teamBg) || draft.teamBg || "pallet-town",
         p_title: draft.titleId || "",
         p_badges: draft.badgeIds || [],

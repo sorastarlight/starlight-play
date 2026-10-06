@@ -212,9 +212,9 @@ async function run() {
     assert(rows[0].tier === "card");
   });
 
-  await test("title and frame lab previews exist", () => {
+  await test("title lab preview exists and retired frame preview is gone", () => {
     assert(window.playPresentPreviews.includes("title"), JSON.stringify(window.playPresentPreviews));
-    assert(window.playPresentPreviews.includes("frame"), JSON.stringify(window.playPresentPreviews));
+    assert(!window.playPresentPreviews.includes("frame"), JSON.stringify(window.playPresentPreviews));
     assert(window.playPresentPreviews.includes("badge"));
     assert(window.playPresentPreviews.includes("avatar"));
     assert(window.playPresentPreviews.includes("background"));
@@ -223,9 +223,9 @@ async function run() {
   await test("lab unlock preview does not persist seen ids", async () => {
     window.playPresentReset(true);
     window.playPresentSetEnv({ instant: true });
-    window.playPresentPreview("frame");
+    window.playPresentPreview("background");
     await window.playPresentFlush();
-    assert(window.playPresentHasSeen("lab:frame") === false);
+    assert(window.playPresentHasSeen("lab:background") === false);
   });
 
   await test("lab previews never persist seen ids", async () => {

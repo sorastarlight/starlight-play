@@ -9,6 +9,8 @@
     search: document.getElementById("ach-search"),
     sort: document.getElementById("ach-sort"),
     grid: document.getElementById("ach-grid"),
+    next: document.getElementById("ach-next"),
+    nextPanel: document.getElementById("ach-next-panel"),
     empty: document.getElementById("ach-empty"),
     equipHint: document.getElementById("ach-equip-hint")
   };
@@ -103,15 +105,6 @@
       return fromBadge;
     }
     return ribbon || { id: map.ribbonId, name: map.ribbonName, origin: map.ribbonOrigin };
-  }
-
-  function streamLinkCopy(row, ribbon) {
-    const map = window.playRibbonMapping?.(row.id);
-    return map?.streamLinkDescription
-      || ribbon?.streamLinkDescription
-      || row.description
-      || map?.reason
-      || "";
   }
 
   function overviewStats() {
@@ -211,14 +204,53 @@
     const title = titleReward(row);
     const ribbon = ribbonReward(row);
     if (title) {
-      parts.push(`<span class="ach-hub-reward is-title"><strong>Trainer Title</strong> ${window.playEscapeAttr(title.name)}</span>`);
+      parts.push(`<span class="ach-hub-reward is-title"><span class="ach-hub-reward-tag">Title</span><strong>${window.playEscapeAttr(title.name)}</strong></span>`);
     }
     if (ribbon) {
       const name = ribbon.name || "Ribbon";
-      parts.push(`<span class="ach-hub-reward is-ribbon">${window.playRibbonIconHtml?.(ribbon, { name, locked: !row.unlocked, size: 28 }) || ""}<strong>Ribbon</strong> ${window.playEscapeAttr(name)}</span>`);
+      parts.push(`<button type="button" class="ach-hub-reward is-ribbon" data-ach-ribbon="${window.playEscapeAttr(row.id)}" aria-label="Ribbon reward: ${window.playEscapeAttr(name)}">${window.playRibbonIconHtml?.(ribbon, { name, locked: !row.unlocked, size: 28 }) || ""}<strong>${window.playEscapeAttr(name)}</strong></button>`);
     }
+    Object.entries(row.rewards || {}).forEach(([key, qty]) => {
+      if (["badge", "title", "cosmetic"].includes(key) || !(Number(qty) > 0)) return;
+      const label = window.playItemLabel?.(key) || key;
+      const sprite = window.playItemSprite?.(key) || "images/items/poke-ball.png";
+      parts.push(`<span class="ach-hub-reward is-item"><img src="${window.playEscapeAttr(sprite)}" alt="" width="24" height="24" decoding="async"><strong>${window.playEscapeAttr(label)}${Number(qty) > 1 ? ` ×${Number(qty)}` : ""}</strong></span>`);
+    });
     if (!parts.length) return "";
-    return `<div class="ach-hub-rewards">${parts.join("")}</div>`;
+    return `<div class="ach-hub-rewards"><span class="ach-hub-rewards-label">Rewards</span>${parts.join("")}</div>`;
+  }
+
+  function stateOf(row) {
+    if (row.unlocked) return { cls: "is-done", label: "Completed" };
+    if (Number(row.progress || 0) > 0) return { cls: "is-progress", label: "In Progress" };
+    return { cls: "is-locked", label: "Not Started" };
+  }
+
+  function nextGoals() {
+    const open = (data?.achievements || []).filter((row) => !row.unlocked && !row.hidden);
+    const byClosest = (a, b) => progressPct(b) - progressPct(a)
+      || (Number(a.target || 1) - Number(a.progress || 0)) - (Number(b.target || 1) - Number(b.progress || 0))
+      || String(a.name || "").localeCompare(String(b.name || ""));
+    const started = open.filter((row) => Number(row.progress || 0) > 0).sort(byClosest);
+    const fresh = open.filter((row) => !(Number(row.progress || 0) > 0)).sort(byClosest);
+    return started.concat(fresh).slice(0, 4);
+  }
+
+  function renderNext() {
+    if (!els.next) return;
+    const rows = nextGoals();
+    if (els.nextPanel) els.nextPanel.hidden = rows.length === 0;
+    els.next.innerHTML = rows.map((row) => {
+      const pct = progressPct(row);
+      return `<article class="ach-next-card">
+        <p class="ach-hub-cat">${window.playEscapeAttr(catLabel(achCategory(row)))}</p>
+        <strong class="ach-hub-name">${window.playEscapeAttr(row.name)}</strong>
+        <p class="ach-hub-desc">${window.playEscapeAttr(row.description || "")}</p>
+        <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
+        <span class="ach-hub-progress">${window.playEscapeAttr(`${row.progress || 0} / ${row.target || 0}`)} · ${pct}%</span>
+        ${rewardHtml(row)}
+      </article>`;
+    }).join("");
   }
 
   function renderAchievements() {
@@ -241,17 +273,19 @@
       const pct = progressPct(row);
       const ribbon = ribbonReward(row);
       const done = Boolean(row.unlocked);
-      const started = Number(row.progress || 0) > 0;
-      const stateClass = done ? "is-done" : (started ? "is-progress" : "is-locked");
+      const state = stateOf(row);
       const progressLabel = row.hidden && !done
         ? "???"
-        : `${row.progress || 0} / ${row.target || 0}${done ? " · Completed" : (started ? " · In Progress" : " · Not started")}`;
+        : `${row.progress || 0} / ${row.target || 0}`;
       const icon = window.playRibbonIconHtml?.(ribbon, { name: ribbon?.name || row.name, locked: !done, size: 44 })
         || `<span class="ach-hub-fallback" aria-hidden="true">★</span>`;
-      return `<article class="ach-hub-card ${stateClass}${row.hidden ? " is-hidden" : ""}">
+      return `<article class="ach-hub-card ${state.cls}${row.hidden ? " is-hidden" : ""}" data-ach-id="${window.playEscapeAttr(row.id)}">
         <div class="ach-hub-icon">${icon}</div>
         <div class="ach-hub-copy">
-          <p class="ach-hub-cat">${window.playEscapeAttr(catLabel(achCategory(row)))}</p>
+          <div class="ach-hub-meta">
+            <p class="ach-hub-cat">${window.playEscapeAttr(catLabel(achCategory(row)))}</p>
+            <span class="ach-hub-state ${state.cls}">${state.label}</span>
+          </div>
           <strong class="ach-hub-name">${window.playEscapeAttr(row.name)}</strong>
           <p class="ach-hub-desc">${window.playEscapeAttr(row.description || "")}</p>
           <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
@@ -265,6 +299,7 @@
   function render() {
     if (!data) return;
     renderOverview();
+    renderNext();
     renderFilters();
     renderAchievements();
     if (els.equipHint) {
@@ -305,12 +340,9 @@
       render();
       return;
     }
-    const ribbonBtn = event.target.closest("[data-ribbon-open], .ach-hub-reward.is-ribbon");
+    const ribbonBtn = event.target.closest("[data-ach-ribbon]");
     if (ribbonBtn) {
-      const card = ribbonBtn.closest(".ach-hub-card");
-      // Prefer opening via mapped achievement when available
-      const nameEl = card?.querySelector(".ach-hub-name");
-      const row = (data?.achievements || []).find((item) => item.name === nameEl?.textContent);
+      const row = (data?.achievements || []).find((item) => item.id === ribbonBtn.dataset.achRibbon);
       if (row) {
         const ribbon = ribbonReward(row);
         const map = window.playRibbonMapping?.(row.id);
@@ -318,10 +350,10 @@
           ribbon,
           ribbonId: ribbon?.id || map?.ribbonId,
           name: ribbon?.name || map?.ribbonName,
-          description: streamLinkCopy(row, ribbon),
-          origin: map?.ribbonOrigin || ribbon?.origin || "",
+          achievementId: row.id,
           achievementName: row.name,
-          earnedAt: row.unlockedAt || row.completedAt || ""
+          requirement: row.description || "",
+          locked: !row.unlocked
         });
       }
     }

@@ -26,14 +26,26 @@ html {
   max-width: 100%;
   /* Keep sticky nav from jumping when Lab bay height toggles the scrollbar. */
   scrollbar-gutter: stable;
+  --site-bg:
+    radial-gradient(circle at 8% -10%, #ffe3f3 0 18%, transparent 46%),
+    radial-gradient(circle at 100% 8%, #d9ecff 0 16%, transparent 48%),
+    repeating-linear-gradient(135deg, #f7fbff 0 18px, #f3f6ff 18px 36px);
+  background-color: #f5f8ff;
 }
 body {
   font-family: "Nunito", "Nunito Fallback", "Segoe UI", system-ui, sans-serif;
   color: var(--ink);
-  background:
-    radial-gradient(circle at 8% -10%, #ffe3f3 0 18%, transparent 46%),
-    radial-gradient(circle at 100% 8%, #d9ecff 0 16%, transparent 48%),
-    repeating-linear-gradient(135deg, #f7fbff 0 18px, #f3f6ff 18px 36px);
+  background: transparent;
+}
+/* The one canonical site background: viewport-sized so page length never stretches the glows.
+   Pages and tabs must not set their own html/body background. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--site-bg);
 }
 body.nav-open { overflow: hidden; }
 .topnav {
@@ -15901,13 +15913,6 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .tid-journal-entry {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-body[data-page="store"] {
-  background:
-    radial-gradient(circle at 8% -10%, #ffe3f3 0 18%, transparent 46%),
-    radial-gradient(circle at 100% 8%, #d9ecff 0 16%, transparent 48%),
-    repeating-linear-gradient(135deg, #f7fbff 0 18px, #f3f6ff 18px 36px);
-}
-
 .mart-dept-head {
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr);
@@ -16942,11 +16947,15 @@ button.bag-pocket::after { display: none !important; content: none !important; }
 .tid-party-sparkle {
   position: absolute; top: 0; right: 8%; color: #f0c040; font-size: 14px; text-shadow: 0 1px 0 #fff;
 }
-.tid-party-ball {
-  display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
-  background: linear-gradient(180deg, #ff6b6b, #c62828 48%, #fff 52%, #eee);
-  border: 2px solid #1a2744; color: #1a2744; font-size: 10px; font-weight: 900; line-height: 1;
+.tid-team-showcase .tid-party-ball {
+  display: grid; place-items: center; width: 22px; height: 22px;
+  background: none; border: 0; border-radius: 0; opacity: 1; filter: none;
 }
+.tid-team-showcase .tid-party-ball img {
+  display: block; width: 20px; height: 20px; object-fit: contain;
+  image-rendering: pixelated; filter: drop-shadow(0 1px 1px rgba(12,24,48,.45));
+}
+.tid-team-showcase .tid-party-ball.is-empty { visibility: hidden; }
 .tid-party-caption {
   font-size: 11px; font-weight: 800; color: #fff; text-shadow: 0 1px 2px rgba(12,24,48,.85);
   max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
@@ -17745,7 +17754,20 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
   outline-offset: 0;
 }
 
-/* rc110 BASIC split swatches retired — see rc115 .team-bg-basic-template below */
+.team-bg-basic-red-blue { background: linear-gradient(135deg, #c03028 0 50%, #3060a8 50% 100%); }
+.team-bg-basic-yellow { background: radial-gradient(circle at 70% 25%, rgba(255, 248, 200, 0.65), transparent 45%), linear-gradient(180deg, #ffe066 0%, #f0b030 45%, #e89820 100%); }
+.team-bg-basic-gold-silver { background: linear-gradient(135deg, #d4a017 0 50%, #a8b0c0 50% 100%); }
+.team-bg-basic-crystal { background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.5), transparent 40%), linear-gradient(180deg, #88e0f0 0%, #5098c8 40%, #c8b8e8 100%); }
+.team-bg-basic-ruby-sapphire { background: linear-gradient(135deg, #a02030 0 50%, #2040a0 50% 100%); }
+.team-bg-basic-emerald { background: radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.25), transparent 50%), linear-gradient(180deg, #58c878 0%, #208848 55%, #104828 100%); }
+.team-bg-basic-frlg { background: linear-gradient(135deg, #e85828 0 50%, #48a838 50% 100%); }
+.team-bg-basic-diamond-pearl { background: linear-gradient(135deg, #88c8f0 0 50%, #f0a8c8 50% 100%); }
+.team-bg-basic-platinum { background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.45), transparent 45%), linear-gradient(180deg, #9098a8 0%, #484858 50%, #c0d8e8 100%); }
+.team-bg-basic-hgss { background: linear-gradient(135deg, #c89818 0 50%, #6888a8 50% 100%); }
+.team-bg-basic-bw { background: linear-gradient(180deg, #f8f8f8 0%, #e0e0e0 40%, #303030 100%); }
+.team-bg-basic-xy { background: linear-gradient(135deg, #3080d0 0 50%, #d04048 50% 100%); }
+.team-bg-basic-sun-moon { background: linear-gradient(135deg, #f0a030 0 50%, #283878 50% 100%); }
+.team-bg-basic-scarlet-violet { background: linear-gradient(135deg, #d03048 0 50%, #7038a8 50% 100%); }
 
 @media (max-width: 560px) {
   .team-party-chip.team-slot,
@@ -17864,12 +17886,6 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
 }
 .evo-lab-workspace[data-lab-station="research"] .evo-lab-stations {
   border-bottom-color: #7a5a9e;
-}
-body[data-page="evolve"] {
-  background:
-    radial-gradient(circle at 8% -10%, #ffe3f3 0 18%, transparent 46%),
-    radial-gradient(circle at 100% 8%, #d9ecff 0 16%, transparent 48%),
-    repeating-linear-gradient(135deg, #f7fbff 0 18px, #f3f6ff 18px 36px);
 }
 .evo-lab-bay,
 .evo-lab-bay[data-bay="evolve"],
@@ -18451,6 +18467,11 @@ body[data-page="evolve"] {
 .mart-mode-workspace > .mart-folder-body {
   min-height: min(56vh, 720px);
 }
+.mart-folder .mart-mode-workspace > .mart-folder-body,
+.mart-folder:not(.is-first) .mart-mode-workspace > .mart-folder-body {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
 
 /* rc114 — Featured Ribbons + Achievements Progress */
 .tid-ribbon-row {
@@ -18543,8 +18564,6 @@ body[data-page="evolve"] {
   font-weight: 800;
   padding: 0 12px;
 }
-.ribbon-detail-art { text-align: center; }
-.ribbon-detail-art img { width: 72px; height: 72px; }
 .tid-title-label {
   margin: 0 0 2px;
   font-size: 10px;
@@ -18639,38 +18658,6 @@ body[data-page="evolve"] {
   background: rgba(255, 255, 255, 0.14);
   border-radius: inherit;
 }
-.tid-team-showcase .tid-party-scene,
-.tid-team-showcase .tid-party-figures,
-.scc-team-live-preview .tid-party-scene {
-  position: relative;
-  z-index: 2;
-}
-
-/* Basic generational Team backgrounds â€” shared template */
-.team-bg-basic-template,
-[class^="team-bg-basic-"] {
-  background-color: #eef5ff;
-  background-image:
-    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, 0.72), transparent 55%),
-    linear-gradient(165deg, var(--team-basic-a, #88b4e8) 0%, var(--team-basic-b, #f4f8ff) 48%, var(--team-basic-c, #d8e8f8) 100%);
-  background-size: cover;
-  background-position: center;
-}
-.team-bg-basic-red-blue { --team-basic-a: #d04848; --team-basic-b: #f7f9ff; --team-basic-c: #3a68b8; }
-.team-bg-basic-yellow { --team-basic-a: #ffe066; --team-basic-b: #fff8e0; --team-basic-c: #e8a028; }
-.team-bg-basic-gold-silver { --team-basic-a: #d4a017; --team-basic-b: #f8f4e8; --team-basic-c: #98a4b8; }
-.team-bg-basic-crystal { --team-basic-a: #7ad8ec; --team-basic-b: #f2fbff; --team-basic-c: #b8a8e0; }
-.team-bg-basic-ruby-sapphire { --team-basic-a: #b02840; --team-basic-b: #f7f8ff; --team-basic-c: #2850b8; }
-.team-bg-basic-emerald { --team-basic-a: #48c070; --team-basic-b: #f2fff6; --team-basic-c: #187848; }
-.team-bg-basic-frlg { --team-basic-a: #ef6030; --team-basic-b: #fff8f2; --team-basic-c: #48a840; }
-.team-bg-basic-diamond-pearl { --team-basic-a: #78c0f0; --team-basic-b: #fff8fc; --team-basic-c: #f0a0c0; }
-.team-bg-basic-platinum { --team-basic-a: #a8b0c0; --team-basic-b: #f6f7fa; --team-basic-c: #586070; }
-.team-bg-basic-hgss { --team-basic-a: #c89820; --team-basic-b: #f8f4e8; --team-basic-c: #6888a8; }
-.team-bg-basic-bw { --team-basic-a: #f4f4f4; --team-basic-b: #ececec; --team-basic-c: #2a2a2a; }
-.team-bg-basic-xy { --team-basic-a: #3880d0; --team-basic-b: #f7f8ff; --team-basic-c: #d04048; }
-.team-bg-basic-sun-moon { --team-basic-a: #f0a030; --team-basic-b: #fff8ef; --team-basic-c: #283878; }
-.team-bg-basic-scarlet-violet { --team-basic-a: #d03048; --team-basic-b: #faf5ff; --team-basic-c: #7038a8; }
-
 /* Uniform Team BG browser thumbnails */
 .scc-team-bg-modal-grid .scc-compact-bg-thumb,
 .scc-team-bg-modal-grid .team-bg-thumb,
@@ -18876,10 +18863,141 @@ body[data-page="evolve"] {
   color: #c04878;
   font-weight: 900;
 }
-.ribbon-detail-streamlink {
-  font-weight: 700;
-  color: #2a3048;
-  margin: 0 0 8px;
+/* rc116 — narrow Team stage: wrapped rows must stay inside the stage (desktop keeps the absolute scene) */
+@media (max-width: 900px) {
+  .tid-team-showcase.is-scene .tid-team-stage { height: auto; min-height: 0; }
+  .tid-team-showcase .tid-party-scene.is-depth.is-grounded {
+    position: relative;
+    inset: auto;
+    padding: 28px 4% 46px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 12px;
+  }
 }
-.ribbon-detail-locked { color: #6a5070; }
+@media (max-width: 560px) {
+  .tid-team-showcase .tid-party-scene.is-depth.is-grounded { padding: 22px 3% 42px; column-gap: 4px; }
+}
+
+/* rc116 — Achievements cards: state, rewards, Next Goals */
+.ach-hub-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); align-items: stretch; }
+.ach-hub-card { align-content: start; }
+.ach-hub-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ach-hub-state {
+  flex: 0 0 auto;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border: 1px solid #c8d4e4;
+  background: #f2f5fa;
+  color: #6a7a90;
+}
+.ach-hub-state.is-progress { border-color: #9ebef0; background: #e8f1ff; color: #2f5f9e; }
+.ach-hub-state.is-done { border-color: #f2c94c; background: linear-gradient(180deg, #fff6c8, #ffe58a); color: #6a4a00; }
+.ach-hub-card.is-locked { background: linear-gradient(180deg, #fbfcfe, #f3f6fa); box-shadow: 0 3px 0 #d6dfeb; }
+.ach-hub-card.is-locked .ach-hub-name { color: #4a5670; }
+.ach-hub-card.is-locked .ach-hub-desc { color: #6a7790; }
+.ach-hub-card.is-progress { background: linear-gradient(180deg, #fff, #eef5ff); }
+.ach-hub-card.is-progress .ach-hub-bar { height: 10px; }
+.ach-hub-card.is-done {
+  border-color: #f2c94c;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255, 236, 150, .55), transparent 40%),
+    linear-gradient(180deg, #fffdf2, #fff4cf);
+  box-shadow: 0 4px 0 #e2b93c;
+}
+.ach-hub-card.is-done .ach-hub-bar i { background: linear-gradient(90deg, #f2c94c, #f08a3c); }
+.ach-hub-rewards { align-items: center; padding-top: 8px; border-top: 1px dashed #d4deec; }
+.ach-hub-rewards-label {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #6a7a96;
+}
+.ach-hub-reward { appearance: none; font: inherit; font-size: 12px; color: #2a3048; line-height: 1.2; }
+button.ach-hub-reward { cursor: pointer; }
+button.ach-hub-reward:hover,
+button.ach-hub-reward:focus-visible { border-color: #f3a0c8; outline: 2px solid rgba(243, 160, 200, .35); outline-offset: 1px; }
+.ach-hub-reward .ribbon-icon-img { width: 28px; height: 28px; object-fit: contain; image-rendering: pixelated; }
+.ach-hub-reward.is-item img { width: 24px; height: 24px; object-fit: contain; image-rendering: pixelated; }
+.ach-hub-reward-tag {
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: #1a2744;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+.ach-next-sub { margin: -6px 0 10px; }
+.ach-next-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (max-width: 1100px) { .ach-next-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .ach-next-grid { grid-template-columns: minmax(0, 1fr); } }
+.ach-next-card {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 2px solid #9ebef0;
+  background: linear-gradient(180deg, #fff, #eaf3ff);
+  box-shadow: 0 4px 0 #b9cdee;
+}
+.ach-next-card .ach-hub-bar { height: 10px; margin-top: 4px; }
+.ach-next-card .ach-hub-rewards { margin-top: 6px; }
+
+/* rc116 — Ribbon detail: name, large icon, state, awarded-for, requirement */
+.ribbon-detail-card { width: min(92vw, 420px); }
+.ribbon-detail-body { display: grid; justify-items: center; gap: 10px; text-align: center; }
+.ribbon-detail-art {
+  display: grid;
+  place-items: center;
+  width: min(100%, 220px);
+  aspect-ratio: 1;
+  border-radius: 20px;
+  background: radial-gradient(circle at 50% 40%, #fff, #eef5ff 70%);
+  border: 2px solid #c7d8ee;
+}
+.ribbon-detail-art .ribbon-icon-img {
+  width: min(160px, 70%);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.ribbon-detail-state {
+  margin: 0;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.ribbon-detail-state.is-earned { background: linear-gradient(180deg, #fff6c8, #ffe58a); border: 1px solid #f2c94c; color: #6a4a00; }
+.ribbon-detail-state.is-locked { background: #f2f5fa; border: 1px solid #c8d4e4; color: #6a7a90; }
+.ribbon-detail-ach { margin: 0; display: grid; gap: 2px; }
+.ribbon-detail-ach span { font-size: 11px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: #6a7a96; }
+.ribbon-detail-ach strong { font-size: 18px; color: #1a2744; }
+.ribbon-detail-req { margin: 0; color: #4a5a78; }
+.ribbon-detail-actions { width: 100%; display: flex; justify-content: center; margin-top: 4px; }
+.ribbon-detail-close { min-width: 120px; }
+
+/* rc116 — Card Style background tiles: the state label (Owned/Equipped) must not resize the swatch or the row */
+.scc-compact-bg-grid.scc-style-grid .scc-compact-bg-opt {
+  grid-template-columns: minmax(0, 1fr);
+  justify-content: stretch;
+  text-align: center;
+}
+.scc-compact-bg-grid.scc-style-grid .scc-compact-bg-thumb {
+  width: 46px;
+  justify-self: center;
+}
 

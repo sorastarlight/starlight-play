@@ -19,7 +19,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching 10 Pokémon."
+      "streamLinkDescription": "Catch 10 Pokémon in encounters.",
+      "badgeId": "catch-10"
     },
     {
       "achievementId": "catch-25",
@@ -36,7 +37,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching 25 Pokémon."
+      "streamLinkDescription": "Catch 25 Pokémon in encounters.",
+      "badgeId": "catch-25"
     },
     {
       "achievementId": "catch-50",
@@ -53,7 +55,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching 50 Pokémon."
+      "streamLinkDescription": "Catch 50 Pokémon in encounters.",
+      "badgeId": "catch-50"
     },
     {
       "achievementId": "catch-100",
@@ -70,7 +73,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching 100 Pokémon."
+      "streamLinkDescription": "Catch 100 Pokémon in encounters.",
+      "badgeId": "catch-100"
     },
     {
       "achievementId": "catch-250",
@@ -87,7 +91,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching 250 Pokémon."
+      "streamLinkDescription": "Catch 250 Pokémon in encounters.",
+      "badgeId": "catch-250"
     },
     {
       "achievementId": "catch-500",
@@ -104,7 +109,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching 500 Pokémon."
+      "streamLinkDescription": "Catch 500 Pokémon in encounters.",
+      "badgeId": "catch-500"
     },
     {
       "achievementId": "catch-1000",
@@ -121,7 +127,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching 1,000 Pokémon."
+      "streamLinkDescription": "Catch 1,000 Pokémon in encounters.",
+      "badgeId": "catch-1000"
     },
     {
       "achievementId": "dup-5",
@@ -138,7 +145,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for modest repeat-catching; memorial Alert Ribbon is common-tier.."
+      "streamLinkDescription": "Catch the same species 5 times.",
+      "badgeId": "dup-5"
     },
     {
       "achievementId": "dup-10",
@@ -155,7 +163,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for next step in species familiarity, still a modest memorial Ribbon.."
+      "streamLinkDescription": "Catch the same species 10 times.",
+      "badgeId": "dup-10"
     },
     {
       "achievementId": "dup-25",
@@ -172,7 +181,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for fan dedication without high prestige.."
+      "streamLinkDescription": "Catch the same species 25 times.",
+      "badgeId": "dup-25"
     },
     {
       "achievementId": "dup-50",
@@ -189,7 +199,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for deeper species loyalty; still not a Champion Ribbon.."
+      "streamLinkDescription": "Catch the same species 50 times.",
+      "badgeId": "dup-50"
     },
     {
       "achievementId": "dup-100",
@@ -206,7 +217,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for high repeat counts; memorial series reserved for this family.."
+      "streamLinkDescription": "Catch the same species 100 times.",
+      "badgeId": "dup-100"
     },
     {
       "achievementId": "join-10",
@@ -223,7 +235,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for joining 10 wild encounters."
+      "streamLinkDescription": "Join 10 encounters.",
+      "badgeId": "join-10"
     },
     {
       "achievementId": "join-50",
@@ -240,7 +253,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for recurring attendance as a modest souvenir Ribbon.."
+      "streamLinkDescription": "Join 50 encounters.",
+      "badgeId": "join-50"
     },
     {
       "achievementId": "join-100",
@@ -257,7 +271,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for hundred encounters is a notable loyalty souvenir.."
+      "streamLinkDescription": "Join 100 encounters.",
+      "badgeId": "encounters-100"
     },
     {
       "achievementId": "join-250",
@@ -274,7 +289,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for sustained presence; souvenir Sky Ribbon.."
+      "streamLinkDescription": "Join 250 encounters.",
+      "badgeId": "join-250"
     },
     {
       "achievementId": "join-500",
@@ -291,7 +307,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for overcoming a long attendance grind."
+      "streamLinkDescription": "Join 500 encounters.",
+      "badgeId": "join-500"
     },
     {
       "achievementId": "join-1000",
@@ -308,7 +325,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for global-scale presence maps to World Ribbon, not randomly assigned Champion.."
+      "streamLinkDescription": "Join 1,000 encounters.",
+      "badgeId": "join-1000"
     },
     {
       "achievementId": "honey-10",
@@ -325,7 +343,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for using Honey 10 times."
+      "streamLinkDescription": "Contribute Honey 10 times.",
+      "badgeId": "honey-10"
     },
     {
       "achievementId": "honey-25",
@@ -342,7 +361,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for being a good pal to the stream community.."
+      "streamLinkDescription": "Contribute Honey 25 times.",
+      "badgeId": "honey-25"
     },
     {
       "achievementId": "honey-50",
@@ -359,7 +379,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for festival-scale community gathering via Honey.."
+      "streamLinkDescription": "Contribute Honey 50 times.",
+      "badgeId": "honey-50"
     },
     {
       "achievementId": "honey-100",
@@ -376,7 +397,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for larger community event energy.."
+      "streamLinkDescription": "Contribute Honey 100 times.",
+      "badgeId": "honey-100"
     },
     {
       "achievementId": "honey-250",
@@ -393,7 +415,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for named Champion in StreamLink, but canonical Ribbon is Premier (special occasion)."
+      "streamLinkDescription": "Contribute Honey 250 times.",
+      "badgeId": "honey-250"
     },
     {
       "achievementId": "honey-500",
@@ -410,7 +433,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for rare community volume; Special Ribbon rather than Legend Ribbon (reserved for shiny living dex).."
+      "streamLinkDescription": "Contribute Honey 500 times.",
+      "badgeId": "honey-500"
     },
     {
       "achievementId": "shiny-1",
@@ -427,7 +451,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching your first Shiny Pokémon."
+      "streamLinkDescription": "Catch your first shiny Pokémon.",
+      "badgeId": "first-shiny"
     },
     {
       "achievementId": "shiny-5",
@@ -444,7 +469,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for growing shiny collection with regal sparkle.."
+      "streamLinkDescription": "Catch 5 different shiny species.",
+      "badgeId": "shiny-5"
     },
     {
       "achievementId": "shiny-10",
@@ -461,7 +487,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for luxury combined Ribbon for a serious shiny collection.."
+      "streamLinkDescription": "Catch 10 different shiny species.",
+      "badgeId": "shiny-10"
     },
     {
       "achievementId": "shiny-25",
@@ -478,7 +505,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for twinkling Star is the canonical sparkling-star Ribbon.."
+      "streamLinkDescription": "Catch 25 different shiny species.",
+      "badgeId": "shiny-25"
     },
     {
       "achievementId": "shiny-50",
@@ -495,7 +523,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for master-tier sparkle as a Contest Star, not League Champion.."
+      "streamLinkDescription": "Catch 50 different shiny species.",
+      "badgeId": "shiny-50"
     },
     {
       "achievementId": "shiny-100",
@@ -512,7 +541,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for wish-come-true rarity of a huge shiny dex.."
+      "streamLinkDescription": "Catch 100 different shiny species.",
+      "badgeId": "shiny-100"
     },
     {
       "achievementId": "shiny-151",
@@ -529,7 +559,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching a Shiny of every Kanto species."
+      "streamLinkDescription": "Catch every eligible Kanto shiny.",
+      "badgeId": "shiny-151"
     },
     {
       "achievementId": "female-1",
@@ -546,7 +577,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching your first female Pokémon."
+      "streamLinkDescription": "Catch your first female visual variant.",
+      "badgeId": "female-1"
     },
     {
       "achievementId": "female-10",
@@ -563,7 +595,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for super-rank Cute Ribbon for growing variant work.."
+      "streamLinkDescription": "Catch 10 female visual variants.",
+      "badgeId": "female-10"
     },
     {
       "achievementId": "female-all",
@@ -580,7 +613,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for complete female-variant set."
+      "streamLinkDescription": "Catch every eligible Kanto female visual variant.",
+      "badgeId": "female-all"
     },
     {
       "achievementId": "net-10",
@@ -597,7 +631,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for specialist-ball onboarding."
+      "streamLinkDescription": "Catch 10 Pokémon with a Net Ball while its bonus applies.",
+      "badgeId": "net-10"
     },
     {
       "achievementId": "dusk-10",
@@ -614,7 +649,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for night-themed specialist work."
+      "streamLinkDescription": "Catch 10 Pokémon with a Dusk Ball while its bonus applies.",
+      "badgeId": "dusk-10"
     },
     {
       "achievementId": "repeat-10",
@@ -631,7 +667,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for repeat Ball specialist."
+      "streamLinkDescription": "Catch 10 Pokémon with a Repeat Ball while its bonus applies.",
+      "badgeId": "repeat-10"
     },
     {
       "achievementId": "fast-10",
@@ -648,7 +685,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for fast Ball specialist."
+      "streamLinkDescription": "Catch 10 Pokémon with a Fast Ball while its bonus applies.",
+      "badgeId": "fast-10"
     },
     {
       "achievementId": "perfect-1",
@@ -665,7 +703,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for a perfect catch."
+      "streamLinkDescription": "Catch a Pokémon with a specialist Ball while its bonus is active.",
+      "badgeId": "perfect-1"
     },
     {
       "achievementId": "perfect-10",
@@ -682,7 +721,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for repeated optimal tools."
+      "streamLinkDescription": "Make 10 specialist Ball catches with the bonus active.",
+      "badgeId": "perfect-10"
     },
     {
       "achievementId": "perfect-50",
@@ -699,7 +739,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for mastery of ball choice."
+      "streamLinkDescription": "Make 50 specialist Ball catches with the bonus active.",
+      "badgeId": "perfect-50"
     },
     {
       "achievementId": "rare-1",
@@ -716,7 +757,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for standout capture chosen like a Contest artist pick.."
+      "streamLinkDescription": "Catch a Rare Pokémon.",
+      "badgeId": "rare-1"
     },
     {
       "achievementId": "rare-10",
@@ -733,7 +775,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for a recorded rare-hunting streak.."
+      "streamLinkDescription": "Catch 10 Rare Pokémon.",
+      "badgeId": "rare-10"
     },
     {
       "achievementId": "vrare-1",
@@ -750,7 +793,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for a notable souvenir of a very rare find.."
+      "streamLinkDescription": "Catch a Very Rare Pokémon.",
+      "badgeId": "vrare-1"
     },
     {
       "achievementId": "vrare-10",
@@ -767,7 +811,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for classic-competition prestige for repeated very rares.."
+      "streamLinkDescription": "Catch 10 Very Rare Pokémon.",
+      "badgeId": "vrare-10"
     },
     {
       "achievementId": "urare-1",
@@ -784,7 +829,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for ultra-rare as a special event caliber find.."
+      "streamLinkDescription": "Catch an Ultra Rare Pokémon.",
+      "badgeId": "urare-1"
     },
     {
       "achievementId": "legend-1",
@@ -801,7 +847,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching a Legendary or Mythical Pokémon."
+      "streamLinkDescription": "Catch a Legendary or Mythical Pokémon.",
+      "badgeId": "legendary-catch"
     },
     {
       "achievementId": "kanto-legend-set",
@@ -818,7 +865,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for catching the Kanto Legendary set."
+      "streamLinkDescription": "Catch Articuno, Zapdos, Moltres, and Mewtwo.",
+      "badgeId": "kanto-legend-set"
     },
     {
       "achievementId": "fail-25",
@@ -835,7 +883,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for enduring 25 failed catches."
+      "streamLinkDescription": "Have 25 Pokémon break free.",
+      "badgeId": "fail-25"
     },
     {
       "achievementId": "streak-5",
@@ -852,7 +901,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for a 5-catch streak."
+      "streamLinkDescription": "Catch Pokémon in 5 encounters in a row.",
+      "badgeId": "streak-5"
     },
     {
       "achievementId": "streak-10",
@@ -869,7 +919,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for longer streak maps to Victory Ribbon (Lv. 100 Tower).."
+      "streamLinkDescription": "Catch Pokémon in 10 encounters in a row.",
+      "badgeId": "streak-10"
     },
     {
       "achievementId": "odds-5",
@@ -886,7 +937,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for hundred-win Tower flavor for beating long odds.."
+      "streamLinkDescription": "Catch a Pokémon at 5% or lower final chance.",
+      "badgeId": "odds-5"
     },
     {
       "achievementId": "evo-1",
@@ -903,7 +955,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for evolving your first Pokémon."
+      "streamLinkDescription": "Evolve a Pokémon.",
+      "badgeId": "evo-1"
     },
     {
       "achievementId": "evo-10",
@@ -920,7 +973,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for evolving 10 Pokémon."
+      "streamLinkDescription": "Evolve 10 Pokémon.",
+      "badgeId": "evo-10"
     },
     {
       "achievementId": "evo-50",
@@ -937,7 +991,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for evolving 50 Pokémon."
+      "streamLinkDescription": "Evolve 50 Pokémon.",
+      "badgeId": "evo-50"
     },
     {
       "achievementId": "trade-1",
@@ -954,7 +1009,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for completing your first trade."
+      "streamLinkDescription": "Complete a trainer-to-trainer trade.",
+      "badgeId": "trade-1"
     },
     {
       "achievementId": "trade-10",
@@ -971,7 +1027,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for completing 10 trades."
+      "streamLinkDescription": "Complete 10 trades.",
+      "badgeId": "trade-10"
     },
     {
       "achievementId": "master-1",
@@ -988,7 +1045,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for mastering your first species."
+      "streamLinkDescription": "Reach Master rank with one species.",
+      "badgeId": "master-1"
     },
     {
       "achievementId": "master-5",
@@ -1005,7 +1063,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for mastering 5 species."
+      "streamLinkDescription": "Master 5 species.",
+      "badgeId": "master-5"
     },
     {
       "achievementId": "master-10",
@@ -1022,7 +1081,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for mastering 10 species."
+      "streamLinkDescription": "Master 10 species.",
+      "badgeId": "master-10"
     },
     {
       "achievementId": "dup-catch-10",
@@ -1039,7 +1099,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for casual duplicate catching."
+      "streamLinkDescription": "Catch 10 duplicate Pokémon.",
+      "badgeId": "dup-catch-10"
     },
     {
       "achievementId": "dex-25",
@@ -1056,7 +1117,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for registering 25 Kanto Pokémon in your Pokédex."
+      "streamLinkDescription": "Register 25 Kanto Pokémon in your Pokédex.",
+      "badgeId": "kanto-25"
     },
     {
       "achievementId": "dex-50",
@@ -1073,7 +1135,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for registering 50 Kanto Pokémon in your Pokédex."
+      "streamLinkDescription": "Register 50 Kanto Pokémon in your Pokédex.",
+      "badgeId": "kanto-50"
     },
     {
       "achievementId": "dex-75",
@@ -1090,7 +1153,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for registering 75 Kanto Pokémon in your Pokédex."
+      "streamLinkDescription": "Register 75 Kanto Pokémon in your Pokédex.",
+      "badgeId": "dex-75"
     },
     {
       "achievementId": "dex-100",
@@ -1107,7 +1171,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for registering 100 Kanto Pokémon in your Pokédex."
+      "streamLinkDescription": "Register 100 Kanto Pokémon in your Pokédex.",
+      "badgeId": "kanto-100"
     },
     {
       "achievementId": "dex-125",
@@ -1124,7 +1189,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for registering 125 Kanto Pokémon in your Pokédex."
+      "streamLinkDescription": "Register 125 Kanto Pokémon in your Pokédex.",
+      "badgeId": "dex-125"
     },
     {
       "achievementId": "dex-151",
@@ -1141,7 +1207,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for completing the Kanto Pokédex."
+      "streamLinkDescription": "Register all 151 Kanto Pokémon in your Pokédex.",
+      "badgeId": "kanto-complete"
     },
     {
       "achievementId": "dup-catch-50",
@@ -1158,7 +1225,8 @@
         "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
         "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
       },
-      "streamLinkDescription": "Awarded for sustained duplicate catching."
+      "streamLinkDescription": "Catch 50 duplicate Pokémon.",
+      "badgeId": "dup-catch-50"
     }
   ],
   "legacyBadgeAliases": {

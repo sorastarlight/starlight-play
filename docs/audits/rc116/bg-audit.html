@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>rc116 global background audit</title>
+<style>body{font:13px system-ui;margin:12px} iframe{width:1280px;height:800px;border:1px solid #888;display:block} pre{white-space:pre-wrap}</style>
+<p>Loads each real page in a same-origin frame and records computed html/body backgrounds and large opaque layers.</p>
+<iframe id="f"></iframe>
+<pre id="out">running…</pre>
+<script>
+const PAGES = [
+  "index.html", "storage.html", "pokedex.html", "inventory.html", "evolve.html", "trainer.html", "rankings.html",
+  "events.html", "achievements.html", "trade.html", "help.html", "store.html",
+  "settings.html#trainer-id", "settings.html#gameplay", "settings.html#display", "settings.html#connections", "settings.html#pass",
+  "signin.html", "register.html"
+];
+const frame = document.getElementById("f");
+function bgOf(el, win) {
+  const cs = win.getComputedStyle(el);
+  return { color: cs.backgroundColor, image: cs.backgroundImage.slice(0, 220), attach: cs.backgroundAttachment };
+}
+function largeLayers(doc, win) {
+  const vw = win.innerWidth, vh = win.innerHeight, out = [];
+  doc.querySelectorAll("body *").forEach((el) => {
+    const r = el.getBoundingClientRect();
+    if (r.width * Math.min(r.height, vh) < vw * vh * 0.4) return;
+    const cs = win.getComputedStyle(el);
+    const opaque = cs.backgroundImage !== "none" || !/rgba\(0, 0, 0, 0\)|transparent/.test(cs.backgroundColor);
+    if (!opaque || cs.display === "none" || cs.visibility === "hidden") return;
+    out.push(`${el.tagName.toLowerCase()}${el.id ? "#" + el.id : ""}.${String(el.className).split(" ").slice(0, 3).join(".")} ${Math.round(r.width)}x${Math.round(r.height)} ${cs.backgroundColor} ${cs.backgroundImage.slice(0, 80)}`);
+  });
+  return out;
+}
+(async () => {
+  const results = [];
+  for (const page of PAGES) {
+    frame.src = "../../../" + page;
+    await new Promise((res) => { frame.onload = res; setTimeout(res, 6000); });
+    await new Promise((r) => setTimeout(r, 1800));
+    const win = frame.contentWindow, doc = frame.contentDocument;
+    const pseudo = win.getComputedStyle(doc.body, "::before");
+    results.push({
+      page, html: bgOf(doc.documentElement, win), body: bgOf(doc.body, win),
+      layer: { position: pseudo.position, z: pseudo.zIndex, image: pseudo.backgroundImage.slice(0, 220) },
+      docH: doc.documentElement.scrollHeight, bodyClass: doc.body.className, layers: largeLayers(doc, win)
+    });
+  }
+  const key = (r) => JSON.stringify(r.body) + JSON.stringify(r.html) + JSON.stringify(r.layer);
+  const ref = key(results[0]);
+  results.forEach((r) => { r.matchesIndex = key(r) === ref; });
+  window.__bgAudit = results;
+  document.getElementById("out").textContent = JSON.stringify(results, null, 1);
+})();
+</script>

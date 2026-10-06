@@ -369,6 +369,7 @@
     const suppressKinds = new Set(asArray(opts?.suppressKinds).map((v) => String(v)));
     const suppressTypes = new Set(asArray(opts?.suppressTypes).map((v) => String(v)));
     if (suppressKinds.has(event.kind) || suppressTypes.has(event.type)) return false;
+    if (event.unlockKind === "frame") return false;
     if (opts?.source === "evolution" && event.type === "evolution") return false;
     if (event.type === "evolution" && pageId() === "evolve") return false;
     if (!event.preview && hasSeen(event.id)) return false;
@@ -1082,15 +1083,6 @@
       body: "Trainer ID Background",
       unlockKind: "background",
       payload: { cosmeticId: "bg-starlight", kind: "background", name: "Starlight Sky", equip: true }
-    }),
-    frame: () => ({
-      id: "lab:frame",
-      type: "unlock",
-      title: "NEW TRAINER REWARD!",
-      unlockName: "Kanto Master Frame",
-      body: "Trainer ID Frame",
-      unlockKind: "frame",
-      payload: { cosmeticId: "frame-kanto", kind: "frame", name: "Kanto Master Frame", equip: true }
     }),
     item: (opts) => ({
       id: "lab:item",

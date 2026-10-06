@@ -81,11 +81,11 @@ assert(present.includes("data-present-equip"), "EQUIP NOW control");
 assert(present.includes("Later"), "LATER control");
 assert(present.includes("event.preview || !root.playCall"), "lab previews must not grant");
 assert(present.includes("title: ()"), "title lab preview");
-assert(present.includes("frame: ()"), "frame lab preview");
+assert(!present.includes("frame: ()"), "retired frame lab preview removed");
 assert(present.includes("Trainer ID cosmetic"), "cosmetic reward copy");
 
-assert(ach.includes("PokéCoins") || ach.includes("playRewardCopy"), "achievement reward copy");
-assert(ach.includes("howTo"), "locked titles/badges explain unlock");
+assert(ach.includes("ach-hub-rewards") && ach.includes("playItemLabel"), "achievement reward copy");
+assert(!ach.includes("howTo"), "achievement cards never show canonical ribbon lore");
 assert(ach.includes("Complete"), "achievement complete state");
 
 assert(ranks.includes("trainerSprite"), "rankings show trainer avatar");
@@ -104,7 +104,7 @@ assert(adminTools.includes("admin_grant_cosmetic"), "admin grant UI");
 assert(adminTools.includes("admin_revoke_cosmetic"), "admin revoke UI");
 assert(adminTools.includes("playPresentConfirm"), "admin identity confirm");
 assert(adminHtml.includes("Title unlock"), "lab title preview");
-assert(adminHtml.includes("Frame unlock"), "lab frame preview");
+assert(!adminHtml.includes("Frame unlock"), "retired frame lab preview removed");
 assert(team.includes("loading=\"lazy\""), "avatar picker lazy loads");
 assert(team.includes("data-locked"), "locked premium looks stay visible");
 

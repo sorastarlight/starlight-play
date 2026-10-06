@@ -86,44 +86,55 @@
     return dlg;
   }
 
-  function streamLinkDescription(ribbon, payload) {
-    if (payload?.description) return String(payload.description);
-    const map = payload?.achievementId
-      ? mappingForAchievement(payload.achievementId)
-      : (payload?.badge?.id ? mappingForAchievement(payload.badge.id) : null)
-        || (ribbon?.id ? (mapDoc().mappings || []).find((row) => row.ribbonId === ribbon.id) : null);
-    if (map?.streamLinkDescription) return String(map.streamLinkDescription);
-    if (ribbon?.streamLinkDescription) return String(ribbon.streamLinkDescription);
-    if (map?.reason) return `Awarded for the StreamLink Achievement “${map.achievementName || map.achievementId}.”`;
-    return "";
+  function mappingForBadge(badgeId) {
+    const key = String(badgeId || "");
+    if (!key) return null;
+    const rows = mapDoc().mappings || [];
+    return rows.find((row) => row.badgeId === key) || rows.find((row) => row.achievementId === key) || null;
+  }
+
+  // Player-facing Ribbon copy is StreamLink-only: achievement name + requirement.
+  // Canonical flavor (server badge description / ribbon_flavor / origin) is never shown.
+  function ribbonCopy(payload) {
+    const p = payload || {};
+    const badgeId = p.badge?.id || p.badgeId || "";
+    const map = (p.achievementId && mappingForAchievement(p.achievementId)) || mappingForBadge(badgeId);
+    if (map) {
+      return {
+        achievementName: String(p.achievementName || map.achievementName || ""),
+        requirement: String(p.requirement || map.streamLinkDescription || ""),
+        mapped: true
+      };
+    }
+    const level = String(badgeId).match(/^level-(\d+)$/);
+    if (level) {
+      return { achievementName: `Trainer Level ${level[1]}`, requirement: `Reach Trainer Level ${level[1]}.`, mapped: true };
+    }
+    return {
+      achievementName: String(p.achievementName || ""),
+      requirement: String(p.requirement || "Earned through StreamLink progression."),
+      mapped: false
+    };
   }
 
   function openRibbonDetail(payload) {
     const ribbon = payload?.ribbon || ribbonById(payload?.ribbonId) || ribbonForBadge(payload?.badge);
     if (!ribbon && !payload?.name) return;
+    const esc = (value) => root.playEscapeAttr?.(value) || String(value || "");
     const dlg = ensureDialog();
     const title = dlg.querySelector("#ribbon-detail-title");
     const body = dlg.querySelector("#ribbon-detail-body");
     const name = ribbonName(ribbon, payload?.name);
     if (title) title.textContent = name;
-    const earned = payload?.earnedAt ? new Date(payload.earnedAt) : null;
-    const stamp = earned && !Number.isNaN(earned.getTime()) ? earned.toLocaleDateString() : "";
-    const ach = payload?.achievementName || "";
-    const origin = ribbon?.origin || payload?.origin || "";
-    const streamLink = streamLinkDescription(ribbon, payload);
-    const lockedNote = payload?.locked
-      ? (payload?.howTo || "Complete the linked Achievement to earn this Ribbon.")
-      : "";
-    const designNote = "Ribbon artwork and names reference canonical Pokémon honors. Unlock requirements are StreamLink RPG designs — not official Pokémon League behavior.";
+    const locked = Boolean(payload?.locked);
+    const copy = ribbonCopy(payload);
     if (body) {
       body.innerHTML = `
-        <div class="ribbon-detail-art">${ribbonIcon(ribbon, { name, size: 72, locked: Boolean(payload?.locked) })}</div>
-        ${streamLink ? `<p class="ribbon-detail-streamlink">${root.playEscapeAttr?.(streamLink) || streamLink}</p>` : ""}
-        ${ach ? `<p class="ribbon-detail-ach"><strong>Achievement</strong> ${root.playEscapeAttr?.(ach) || ach}</p>` : ""}
-        ${lockedNote ? `<p class="ribbon-detail-locked">${root.playEscapeAttr?.(lockedNote) || lockedNote}</p>` : ""}
-        ${stamp ? `<p class="muted">Earned ${root.playEscapeAttr?.(stamp) || stamp}</p>` : ""}
-        ${origin ? `<p class="muted ribbon-detail-origin">Ribbon design originating from ${root.playEscapeAttr?.(origin) || origin}</p>` : ""}
-        <p class="muted ribbon-detail-note">${designNote}</p>`;
+        <div class="ribbon-detail-art">${ribbonIcon(ribbon, { name, size: 160, locked })}</div>
+        <p class="ribbon-detail-state ${locked ? "is-locked" : "is-earned"}">${locked ? "Locked" : "Earned"}</p>
+        ${copy.achievementName ? `<p class="ribbon-detail-ach"><span>Awarded for</span> <strong>${esc(copy.achievementName)}</strong></p>` : ""}
+        ${copy.requirement ? `<p class="ribbon-detail-req">${esc(copy.requirement)}</p>` : ""}
+        <div class="ribbon-detail-actions"><button type="submit" class="secondary ribbon-detail-close">Close</button></div>`;
     }
     if (typeof dlg.showModal === "function") dlg.showModal();
     else dlg.hidden = false;
@@ -144,6 +155,8 @@
   root.playRibbonForBadge = ribbonForBadge;
   root.playRibbonForAchievement = ribbonForAchievement;
   root.playRibbonMapping = mappingForAchievement;
+  root.playRibbonMappingForBadge = mappingForBadge;
+  root.playRibbonCopy = ribbonCopy;
   root.playRibbonIconHtml = ribbonIcon;
   root.playRibbonName = ribbonName;
   root.playOpenRibbonDetail = openRibbonDetail;

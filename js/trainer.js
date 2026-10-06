@@ -4,7 +4,6 @@
   const profileBox = document.getElementById("profile");
   const hero = document.getElementById("hero");
   const caught = document.getElementById("caught-grid");
-  const title = document.getElementById("page-title");
   const ownerCustomize = document.getElementById("owner-customize");
   let card = null;
   let mine = false;
@@ -115,7 +114,6 @@
   }
 
   function render(view) {
-    title.textContent = view?.displayName ? `${view.displayName}` : "Trainer ID";
     if (ownerCustomize) ownerCustomize.hidden = !mine;
     if (hero) {
       hero.innerHTML = window.playRenderIdCard(view, { mode: "public", variant: "hero" });

@@ -21,3 +21,4 @@ __pycache__/
 # tmp local QA pages (regenerate via tools/qa-*)
 tmp-avatar-thumb-audit.html
 tmp-tid-avatar-matrix.html
+docs/audits/rc116/_fixture.json

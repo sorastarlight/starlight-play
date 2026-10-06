@@ -1144,7 +1144,8 @@
     const opts = options || {};
     const look = window.playTrainerLook(card?.trainerSprite);
     const bg = window.playCardBg(card?.cardBg);
-    const frame = String(card?.cardFrame || "plain").replace(/[^a-z0-9-]/gi, "") || "plain";
+    // Trainer ID Frames are retired; legacy saved card_frame values must not change the card.
+    const frame = "plain";
     const title = String(card?.title || "").trim();
     const badges = (card?.badges || []).slice(0, window.PLAY_FEATURED_RIBBON_MAX || 5);
     const twitch = Boolean(card?.twitchLinked);
@@ -1246,7 +1247,6 @@
               <img src="${esc(rainbow.localIcon || "images/gym-badges/rainbow-badge.png")}" alt="" width="48" height="48" decoding="async">
             </div>
             <p class="tid-show-badge-soon">Badges Coming Soon</p>
-            <p class="muted">Gym Badge showcases are coming in a future update.</p>
           </div>
         </article>
       </div>`;
@@ -2793,7 +2793,7 @@
             <span class="tid-party-shadow"></span>
             <span class="tid-party-actor is-empty"></span>
           </span>
-          <span class="tid-party-ball" aria-hidden="true">${position}</span>
+          <span class="tid-party-ball is-empty" aria-hidden="true"></span>
           <span class="tid-party-caption is-open-label">Open</span>
         </li>`;
       }
@@ -2802,6 +2802,9 @@
       const nickname = String(mon.nickname || "").trim();
       const primary = nickname || species;
       const catchId = mon.id ? esc(mon.id) : "";
+      const ballKey = String(mon.ball || "").trim() || "poke-ball";
+      const ballSprite = typeof window.playItemSprite === "function" ? window.playItemSprite(ballKey) : "images/items/poke-ball.png";
+      const ballLabel = (typeof window.playItemLabel === "function" ? window.playItemLabel(ballKey) : "") || "Poké Ball";
       let spriteUrl = window.playSpriteUrl(mon.dex, mon.variant, mon.formId);
       if (animate && typeof window.playAnimatedSpriteUrl === "function") {
         spriteUrl = window.playAnimatedSpriteUrl(mon.dex, mon.variant, mon.formId) || spriteUrl;
@@ -2815,7 +2818,7 @@
             ${shiny ? `<span class="tid-party-sparkle" title="Shiny" aria-label="Shiny">✦</span>` : ""}
           </span>
         </span>
-        <span class="tid-party-ball" aria-hidden="true">${position}</span>
+        <span class="tid-party-ball" title="${esc(ballLabel)}"><img src="${esc(ballSprite)}" alt="${esc(ballLabel)}" width="20" height="20" decoding="async" onerror="this.onerror=null;this.src='images/items/poke-ball.png'"></span>
         <strong class="tid-party-caption">${esc(primary)}</strong>
       </li>`;
     }).join("");

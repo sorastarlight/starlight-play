@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Avatar Browser thumb QA rc114</title>
+<link rel="stylesheet" href="../../css/play.css?v=20261006-rc114f">
+<style>
+  body { margin: 16px; font-family: Nunito, system-ui, sans-serif; }
+  #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 12px; }
+  #out { white-space: pre-wrap; font: 12px/1.4 ui-monospace, monospace; margin-top: 16px; }
+</style>
+<body>
+<h1>Avatar Browser thumb QA rc114</h1>
+<div id="grid"></div>
+<pre id="out">measuring…</pre>
+<script src="../../js/trainers.js?v=20261006-rc114d"></script>
+<script>
+(async () => {
+  const ids = [
+    "mimi", "leaf", "blue", "red", "red-gen1", "green",
+    "sonic-sonic", "sonic-tails", "sonic-knuckles", "sonic-amy", "sonic-cream",
+    "teamrocket", "sora", "ash", "brock", "oak", "brendan", "chase", "akari",
+    "clemont", "calem", "misty", "nurse", "officer-gen2"
+  ];
+  const grid = document.getElementById("grid");
+  const cards = ids.map((id) => {
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "scc-avatar-card";
+    card.innerHTML = `<span class="scc-avatar-thumb"><img class="scc-avatar-thumb-img" data-avatar-id="${id}" src="../../images/trainers/${id}.png" width="112" height="112" decoding="async"></span><strong>${id}</strong>`;
+    grid.appendChild(card);
+    return { id, img: card.querySelector("img"), thumb: card.querySelector(".scc-avatar-thumb") };
+  });
+  await Promise.all(cards.map((c) => new Promise((resolve) => {
+    const done = () => { window.playNormalizeAvatarThumb?.(c.img); resolve(); };
+    if (c.img.complete && c.img.naturalWidth) done();
+    else {
+      c.img.onload = done;
+      c.img.onerror = () => { c.missing = true; resolve(); };
+    }
+  })));
+  await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  const rows = cards.map((c) => {
+    if (c.missing || !c.img.naturalWidth) return { id: c.id, ok: false, reason: "missing" };
+    const tr = c.thumb.getBoundingClientRect();
+    const ir = c.img.getBoundingClientRect();
+    const aspect = ir.width / Math.max(1, ir.height);
+    const sliver = aspect < 0.35 || aspect > 2.8;
+    const tiny = ir.width < 28 || ir.height < 28;
+    const thumbCollapsed = tr.width < 80;
+    return {
+      id: c.id,
+      ok: !sliver && !tiny && !thumbCollapsed,
+      w: Math.round(ir.width),
+      h: Math.round(ir.height),
+      thumbW: Math.round(tr.width),
+      aspect: Number(aspect.toFixed(2)),
+      sliver,
+      tiny,
+      thumbCollapsed
+    };
+  });
+  const report = {
+    count: rows.length,
+    pass: rows.filter((r) => r.ok).length,
+    fail: rows.filter((r) => !r.ok),
+    rows
+  };
+  document.getElementById("out").textContent = JSON.stringify(report, null, 2);
+  window.__RC114_AVATAR_THUMB__ = report;
+})();
+</script>
+</body>

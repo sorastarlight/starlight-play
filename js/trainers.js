@@ -542,7 +542,7 @@
   }
 
   function avatarEnvelopePx(mode) {
-    if (mode === "thumb") return 96;
+    if (mode === "thumb") return 112;
     if (mode === "card") return 400;
     return 240;
   }
@@ -595,8 +595,17 @@
     }
     if (mode === "thumb") {
       const thumb = img.closest?.(".scc-avatar-thumb");
-      if (thumb && thumb.clientHeight > 20 && thumb.clientWidth > 20) {
-        return { w: thumb.clientWidth, h: thumb.clientHeight };
+      if (thumb) {
+        const card = thumb.closest?.(".scc-avatar-card");
+        let h = Math.max(thumb.clientHeight || 0, thumb.offsetHeight || 0);
+        let w = Math.max(thumb.clientWidth || 0, thumb.offsetWidth || 0);
+        const cardW = Math.max(card?.clientWidth || 0, card?.offsetWidth || 0);
+        // Absolute sprites + justify-items:center can collapse the thumb width to
+        // the label's min-content. Prefer the card track width when that happens.
+        if (h < 40) h = envelope;
+        if (w < 80 && cardW >= 80) w = cardW;
+        if (w < 80) w = Math.max(h, envelope);
+        return { w, h };
       }
     }
     return { w: envelope, h: envelope };

@@ -17604,23 +17604,30 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
 .scc-avatar-card,
 .scc-avatar-card.trainer-opt {
   display: grid;
-  grid-template-rows: minmax(96px, auto) auto 14px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 112px auto 14px;
   align-content: start;
-  justify-items: center;
+  justify-items: stretch;
   gap: 4px;
   padding: 10px 8px 8px;
   min-height: 148px;
   width: 100%;
   box-sizing: border-box;
+  text-align: center;
 }
 .scc-avatar-thumb {
-  width: 100%;
-  min-height: 96px;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  justify-self: stretch;
+  height: 112px;
+  min-height: 112px;
   max-height: 112px;
   position: relative;
-  display: grid;
-  place-items: end center;
-  overflow: visible;
+  display: block;
+  overflow: hidden;
+  isolation: isolate;
+  margin-inline: 0;
 }
 .scc-avatar-thumb img,
 .scc-avatar-thumb-img {
@@ -18471,20 +18478,31 @@ body[data-page="evolve"] {
   color: #6a7a96;
 }
 
-/* rc114 — Avatar Browser thumbs: visible-bounds envelope, clip padding */
-.scc-avatar-card .scc-avatar-thumb {
+/* rc114 — Avatar Browser thumbs: stable envelope (absolute sprites must not collapse the tile) */
+.scc-avatar-card > .scc-avatar-thumb {
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin-inline: 0 !important;
+  justify-self: stretch !important;
+  align-self: stretch;
+  height: 112px !important;
+  min-height: 112px !important;
+  max-height: 112px !important;
+  position: relative;
+  overflow: hidden !important;
+  isolation: isolate;
+  display: block !important;
+  background: linear-gradient(180deg, #f7fbff, #eef5ff);
+}
+.scc-avatar-card > .scc-avatar-thumb::before {
+  content: "";
+  display: block;
   width: 100%;
   height: 112px;
-  min-height: 112px;
-  max-height: 112px;
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  display: grid;
-  place-items: center;
 }
-.scc-avatar-card .scc-avatar-thumb img,
-.scc-avatar-card .scc-avatar-thumb-img {
+.scc-avatar-card > .scc-avatar-thumb img,
+.scc-avatar-card > .scc-avatar-thumb .scc-avatar-thumb-img {
   max-width: none !important;
   max-height: none !important;
   object-fit: fill !important;

@@ -67,6 +67,10 @@
   let cardBgFilter = "all";
   let teamBgFilter = "all";
   let teamBgQuery = "";
+  let honorsPane = "titles";
+  let ribbonFilter = "all";
+  let ribbonQuery = "";
+  let titleQuery = "";
 
   function isCosmeticAdmin() {
     return staffRole === "admin" || staffRole === "owner";
@@ -608,7 +612,8 @@
       ${trainerIdActions()}`;
   }
 
-  const TITLE_FILTERS = [["all", "All"], ["owned", "Owned"], ["locked", "Locked"]];
+  const TITLE_FILTERS = [["all", "All"], ["owned", "Earned"], ["locked", "Locked"]];
+  const RIBBON_FILTERS = [["all", "All"], ["owned", "Earned"], ["locked", "Locked"], ["featured", "Featured"]];
 
   function titleHeroHtml() {
     const row = (titles || []).find((item) => item.id === (draft?.titleId || ""));
@@ -619,16 +624,29 @@
       <p class="muted">Displayed beneath your Trainer name.</p>`;
   }
 
+  function ribbonStreamHint(row) {
+    const map = window.playRibbonMapping?.(row.id);
+    const ribbon = window.playRibbonForBadge?.(row) || row;
+    if (!row.unlocked) return row.howTo || row.description || "Complete the linked Achievement to earn this Ribbon.";
+    return map?.streamLinkDescription || ribbon.streamLinkDescription || row.description || map?.reason || ribbon.origin || "";
+  }
+
   function titleListHtml() {
+    const q = String(titleQuery || "").trim().toLowerCase();
     const rows = (titles || []).filter((row) => {
       if (titleFilter === "owned") return Boolean(row.unlocked);
       if (titleFilter === "locked") return !row.unlocked;
       return true;
+    }).filter((row) => {
+      if (!q) return true;
+      return `${row.name || ""} ${row.description || ""} ${row.howTo || ""}`.toLowerCase().includes(q);
     });
     if (!rows.length) {
-      return `<p class="muted scc-workshop-empty">${titleFilter === "locked"
-        ? "Nothing left to unlock here."
-        : "No Trainer Titles unlocked yet. Keep playing to earn some."}</p>`;
+      return `<p class="muted scc-workshop-empty">${q
+        ? "No Trainer Titles match your search."
+        : (titleFilter === "locked"
+          ? "Nothing left to unlock here."
+          : "No Trainer Titles unlocked yet. Keep playing to earn some.")}</p>`;
     }
     return rows.map((row) => {
       const equipped = row.id === (draft?.titleId || "");
@@ -666,42 +684,76 @@
     if (!(badges || []).length) {
       return `<p class="muted scc-workshop-empty">Complete Achievements to earn Ribbons.</p>`;
     }
-    return (badges || []).map((row) => {
-      const equipped = (draft?.badgeIds || []).includes(row.id);
+    const q = String(ribbonQuery || "").trim().toLowerCase();
+    const featured = new Set(draft?.badgeIds || []);
+    const rows = (badges || []).filter((row) => {
+      if (ribbonFilter === "owned") return Boolean(row.unlocked);
+      if (ribbonFilter === "locked") return !row.unlocked;
+      if (ribbonFilter === "featured") return featured.has(row.id);
+      return true;
+    }).filter((row) => {
+      if (!q) return true;
+      const ribbon = window.playRibbonForBadge?.(row) || row;
+      return `${ribbon.name || row.name || ""} ${row.description || ""} ${row.howTo || ""}`.toLowerCase().includes(q);
+    });
+    if (!rows.length) {
+      return `<p class="muted scc-workshop-empty">${q ? "No Ribbons match your search." : "No Ribbons in this filter."}</p>`;
+    }
+    return rows.map((row) => {
+      const equipped = featured.has(row.id);
       const state = pickState(row, equipped);
       const ribbon = window.playRibbonForBadge?.(row) || row;
-      const hint = row.unlocked ? (ribbon.origin || row.description || "") : (row.howTo || row.description || "Locked");
-      return `<button type="button" class="scc-ribbon-card prog-pick is-${state}" data-badge="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(ribbon.name || row.name)} ${state}">
-        ${window.playRibbonIconHtml?.(ribbon, { name: ribbon.name || row.name, locked: !row.unlocked, size: 48 }) || ""}
-        <strong class="scc-badge-name">${esc(ribbon.name || row.name)}</strong>
-        <span class="id-state">${stateLabel(state)}</span>
-        ${hint ? `<span class="scc-badge-hint">${esc(hint)}</span>` : ""}
-      </button>`;
+      const hint = ribbonStreamHint(row);
+      return `<div class="scc-ribbon-card-wrap">
+        <button type="button" class="scc-ribbon-card prog-pick is-${state}" data-badge="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(ribbon.name || row.name)} ${state}">
+          ${window.playRibbonIconHtml?.(ribbon, { name: ribbon.name || row.name, locked: !row.unlocked, size: 48 }) || ""}
+          <strong class="scc-badge-name">${esc(ribbon.name || row.name)}</strong>
+          <span class="id-state">${stateLabel(state)}</span>
+          ${hint ? `<span class="scc-badge-hint">${esc(hint)}</span>` : ""}
+        </button>
+        <button type="button" class="scc-ribbon-info" data-ribbon-detail="${esc(row.id)}" aria-label="Details for ${esc(ribbon.name || row.name)}">Details</button>
+      </div>`;
     }).join("");
   }
 
   function renderTitles() {
+    const max = window.PLAY_FEATURED_RIBBON_MAX || 5;
+    const featuredCount = (draft?.badgeIds || []).length;
     return `
       <header class="scc-panel-head">
-        <h2>Trainer Titles &amp; Ribbons</h2>
-        <p class="muted">Wear one Trainer Title and feature up to five earned Ribbons on your Trainer ID. Press <strong>Save Trainer ID</strong> to keep changes.</p>
+        <h2>Titles &amp; Ribbons</h2>
+        <p class="muted">Choose the Trainer Title and Featured Ribbons displayed on your Trainer ID. Press <strong>Save Trainer ID</strong> to keep changes.</p>
       </header>
-      <section class="scc-workshop" aria-label="Trainer Title workshop">
+      <div class="scc-honors-subnav" role="tablist" aria-label="Titles and Ribbons">
+        <button type="button" class="scc-chip${honorsPane === "titles" ? " is-on" : ""}" data-honors-pane="titles" role="tab" aria-selected="${honorsPane === "titles"}">Trainer Titles</button>
+        <button type="button" class="scc-chip${honorsPane === "ribbons" ? " is-on" : ""}" data-honors-pane="ribbons" role="tab" aria-selected="${honorsPane === "ribbons"}">Ribbons</button>
+      </div>
+      <section class="scc-workshop" aria-label="Trainer Title workshop" ${honorsPane === "titles" ? "" : "hidden"}>
         <h3 class="scc-workshop-head">Trainer Titles</h3>
         <div class="scc-title-hero">${titleHeroHtml()}</div>
         <div class="scc-workshop-bar">
-          <p class="scc-module-kicker">AVAILABLE TRAINER TITLES</p>
+          <label class="field scc-browser-search" for="title-search">Search
+            <input id="title-search" type="search" placeholder="Search Trainer Titles…" value="${esc(titleQuery || "")}">
+          </label>
           <div class="scc-filter-row" role="group" aria-label="Trainer Title filters">
             ${TITLE_FILTERS.map(([id, label]) => `<button type="button" class="scc-chip${titleFilter === id ? " is-on" : ""}" data-title-filter="${id}" aria-pressed="${titleFilter === id}">${label}</button>`).join("")}
           </div>
         </div>
         <div id="title-list" class="scc-title-list">${titleListHtml()}</div>
       </section>
-      <section class="scc-workshop" aria-label="Featured Ribbons">
-        <h3 class="scc-workshop-head">Featured Ribbons</h3>
-        <p class="muted">Complete Achievements to earn Ribbons. Choose up to five earned Ribbons to display on your Trainer ID.</p>
-        <p class="scc-module-kicker">FEATURED RIBBONS <span id="badge-count">${(draft?.badgeIds || []).length}/${window.PLAY_FEATURED_RIBBON_MAX || 5}</span></p>
+      <section class="scc-workshop" aria-label="Ribbon workshop" ${honorsPane === "ribbons" ? "" : "hidden"}>
+        <h3 class="scc-workshop-head">Ribbons</h3>
+        <p class="muted">Feature up to five earned Ribbons on your Trainer ID.</p>
+        <p class="scc-module-kicker">FEATURED RIBBONS <span id="badge-count">${featuredCount}/${max}</span></p>
         <ul id="badge-sockets" class="scc-ribbon-sockets">${badgeSocketsHtml()}</ul>
+        <div class="scc-workshop-bar">
+          <label class="field scc-browser-search" for="ribbon-search">Search
+            <input id="ribbon-search" type="search" placeholder="Search Ribbons…" value="${esc(ribbonQuery || "")}">
+          </label>
+          <div class="scc-filter-row" role="group" aria-label="Ribbon filters">
+            ${RIBBON_FILTERS.map(([id, label]) => `<button type="button" class="scc-chip${ribbonFilter === id ? " is-on" : ""}" data-ribbon-filter="${id}" aria-pressed="${ribbonFilter === id}">${label}</button>`).join("")}
+          </div>
+        </div>
         <p class="scc-module-kicker scc-collection-kicker">RIBBON COLLECTION</p>
         <div id="badge-collection" class="scc-ribbon-collection">${badgeCollectionHtml()}</div>
       </section>
@@ -723,6 +775,24 @@
     });
   }
 
+  function refreshRibbonCollection() {
+    const box = document.getElementById("badge-collection");
+    if (!box) {
+      renderProfileWorkspace();
+      return;
+    }
+    box.innerHTML = badgeCollectionHtml();
+    els.workspace?.querySelectorAll("[data-ribbon-filter]").forEach((btn) => {
+      const on = btn.dataset.ribbonFilter === ribbonFilter;
+      btn.classList.toggle("is-on", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    const count = document.getElementById("badge-count");
+    if (count) count.textContent = `${(draft?.badgeIds || []).length}/${window.PLAY_FEATURED_RIBBON_MAX || 5}`;
+    const sockets = document.getElementById("badge-sockets");
+    if (sockets) sockets.innerHTML = badgeSocketsHtml();
+  }
+
   function renderShowcase() {
     const owned = [];
     const seen = new Set();
@@ -734,11 +804,12 @@
     });
     owned.sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")) || Number(a.dex) - Number(b.dex));
     const shinies = (catches || []).filter((row) => String(row.variant || "").includes("shiny"));
-    const done = (achievements || []).filter((row) => row.unlocked);
+    const rainbow = window.PLAY_GYM_BADGE_CATALOG?.badges?.find((b) => b.id === "rainbow-badge")
+      || { id: "rainbow-badge", name: "Rainbow Badge", localIcon: "images/gym-badges/rainbow-badge.png" };
     return `
       <header class="scc-panel-head">
         <h2>Showcase</h2>
-        <p class="muted">Three meaningful picks for your public Trainer ID. Favorite and Shiny must be Pokémon you own.</p>
+        <p class="muted">Favorite Pokémon and Featured Shiny appear on your public Trainer ID. Gym Badges are coming later.</p>
       </header>
       <div class="scc-showcase-layout">
         <div class="id-showcase-edit">
@@ -754,12 +825,16 @@
               ${shinies.map((row) => `<option value="${esc(row.id)}" ${String(draft.shinyCatchId) === String(row.id) ? "selected" : ""}>${window.playCaughtName(row)}</option>`).join("")}
             </select>
           </label>
-          <label class="field">Featured Achievement
-            <select id="showcase-ach">
-              <option value="">None</option>
-              ${done.map((row) => `<option value="${esc(row.id)}" ${draft.achievementId === row.id ? "selected" : ""}>${esc(row.name)}</option>`).join("")}
-            </select>
-          </label>
+          <section class="scc-gym-badge-placeholder" aria-label="Gym Badge Coming Soon">
+            <p class="scc-module-kicker">GYM BADGE</p>
+            <div class="tid-show-badge-placeholder">
+              <div class="tid-show-badge-art" aria-hidden="true">
+                <img src="${esc(rainbow.localIcon || "images/gym-badges/rainbow-badge.png")}" alt="" width="48" height="48" decoding="async">
+              </div>
+              <p class="tid-show-badge-soon">Badges Coming Soon</p>
+              <p class="muted">Gym Badge showcases are coming in a future update.</p>
+            </div>
+          </section>
         </div>
         <div class="scc-contextual scc-showcase-preview">${window.playRenderTrainerShowcaseHtml(previewCard())}</div>
       </div>
@@ -773,9 +848,14 @@
       if (row.kind === "team_background") byAsset.set(row.asset, row);
     });
     const freeIds = new Set(freeTeamBgIds());
+    const filterRank = (filter) => {
+      const order = ["basic", "kanto", "lets-go", "cities", "routes", "landmarks", "battle", "special", "retro"];
+      const idx = order.indexOf(String(filter || "").toLowerCase());
+      return idx < 0 ? 90 : idx;
+    };
     return catalog
       .slice()
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0))
+      .sort((a, b) => filterRank(a.filter) - filterRank(b.filter) || (a.sort || 0) - (b.sort || 0) || String(a.name || "").localeCompare(String(b.name || "")))
       .map((meta) => {
         const cos = byAsset.get(meta.id);
         const free = Boolean(meta.free || freeIds.has(meta.id));
@@ -1787,6 +1867,38 @@
       refreshTitleList();
       return;
     }
+    const honorsPaneBtn = event.target.closest("[data-honors-pane]");
+    if (honorsPaneBtn) {
+      honorsPane = honorsPaneBtn.dataset.honorsPane || "titles";
+      renderProfileWorkspace();
+      return;
+    }
+    const ribbonFilterBtn = event.target.closest("[data-ribbon-filter]");
+    if (ribbonFilterBtn) {
+      ribbonFilter = ribbonFilterBtn.dataset.ribbonFilter || "all";
+      refreshRibbonCollection();
+      return;
+    }
+    const ribbonDetailBtn = event.target.closest("[data-ribbon-detail]");
+    if (ribbonDetailBtn) {
+      const row = (badges || []).find((item) => item.id === ribbonDetailBtn.dataset.ribbonDetail);
+      if (row) {
+        const ribbon = window.playRibbonForBadge?.(row) || row;
+        const map = window.playRibbonMapping?.(row.id);
+        window.playOpenRibbonDetail?.({
+          badge: row,
+          ribbon,
+          ribbonId: ribbon?.id || row.id,
+          name: ribbon?.name || row.name,
+          description: ribbonStreamHint(row),
+          origin: map?.ribbonOrigin || ribbon?.origin || "",
+          achievementName: map?.achievementName || "",
+          locked: !row.unlocked,
+          howTo: row.howTo || ""
+        });
+      }
+      return;
+    }
     const sprite = event.target.closest("[data-sprite]");
     if (sprite) {
       if (sprite.dataset.locked === "1") {
@@ -1879,9 +1991,20 @@
   });
 
   els.workspace?.addEventListener("input", (event) => {
-    if (event.target.id !== "avatar-search") return;
-    avatarQuery = event.target.value || "";
-    refreshAvatarBrowser();
+    if (event.target.id === "avatar-search") {
+      avatarQuery = event.target.value || "";
+      refreshAvatarBrowser();
+      return;
+    }
+    if (event.target.id === "title-search") {
+      titleQuery = event.target.value || "";
+      refreshTitleList();
+      return;
+    }
+    if (event.target.id === "ribbon-search") {
+      ribbonQuery = event.target.value || "";
+      refreshRibbonCollection();
+    }
   });
 
   els.workspace?.addEventListener("change", (event) => {
@@ -1891,11 +2014,10 @@
       draft.favoriteVariant = variant || "normal";
     } else if (event.target.id === "showcase-shiny") {
       draft.shinyCatchId = event.target.value || "";
-    } else if (event.target.id === "showcase-ach") {
-      draft.achievementId = event.target.value || "";
     } else {
       return;
     }
+    // Legacy Featured Achievement field remains in draft for save compatibility only.
     markDirtyFlag();
     const box = els.workspace.querySelector(".scc-showcase-preview");
     if (box) box.innerHTML = window.playRenderTrainerShowcaseHtml(previewCard());

@@ -16665,9 +16665,10 @@ button.bag-pocket::after { display: none !important; content: none !important; }
 .tid-team-stage-veil {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .18), rgba(12, 24, 48, .28)),
-    radial-gradient(ellipse at 50% 20%, rgba(255, 255, 255, .2), transparent 60%);
+    linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(12, 24, 48, .12)),
+    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, .12), transparent 62%);
   pointer-events: none;
 }
 .tid-team-stage .tid-party {
@@ -16894,7 +16895,7 @@ button.bag-pocket::after { display: none !important; content: none !important; }
 }
 .tid-team-showcase.is-scene .tid-team-stage-frame {
   position: absolute; inset: 8px; border-radius: 12px;
-  border: 2px solid rgba(255,255,255,.28); pointer-events: none; z-index: 1;
+  border: 2px solid rgba(255,255,255,.28); pointer-events: none; z-index: 3;
 }
 .tid-team-showcase[data-gen="gen1"] .tid-team-stage-frame {
   border-width: 3px; border-color: #0f380f; border-radius: 0;
@@ -17744,67 +17745,7 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
   outline-offset: 0;
 }
 
-/* rc110 — BASIC team background themes (original CSS) */
-.team-bg-basic-red-blue {
-  background:
-    linear-gradient(135deg, #c03028 0 50%, #3060a8 50% 100%);
-}
-.team-bg-basic-yellow {
-  background:
-    radial-gradient(circle at 70% 25%, rgba(255, 248, 200, 0.65), transparent 45%),
-    linear-gradient(180deg, #ffe066 0%, #f0b030 45%, #e89820 100%);
-}
-.team-bg-basic-gold-silver {
-  background:
-    linear-gradient(135deg, #d4a017 0 50%, #a8b0c0 50% 100%);
-}
-.team-bg-basic-crystal {
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.5), transparent 40%),
-    linear-gradient(180deg, #88e0f0 0%, #5098c8 40%, #c8b8e8 100%);
-}
-.team-bg-basic-ruby-sapphire {
-  background:
-    linear-gradient(135deg, #a02030 0 50%, #2040a0 50% 100%);
-}
-.team-bg-basic-emerald {
-  background:
-    radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.25), transparent 50%),
-    linear-gradient(180deg, #58c878 0%, #208848 55%, #104828 100%);
-}
-.team-bg-basic-frlg {
-  background:
-    linear-gradient(135deg, #e85828 0 50%, #48a838 50% 100%);
-}
-.team-bg-basic-diamond-pearl {
-  background:
-    linear-gradient(135deg, #88c8f0 0 50%, #f0a8c8 50% 100%);
-}
-.team-bg-basic-platinum {
-  background:
-    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.45), transparent 45%),
-    linear-gradient(180deg, #9098a8 0%, #484858 50%, #c0d8e8 100%);
-}
-.team-bg-basic-hgss {
-  background:
-    linear-gradient(135deg, #c89818 0 50%, #6888a8 50% 100%);
-}
-.team-bg-basic-bw {
-  background:
-    linear-gradient(180deg, #f8f8f8 0%, #e0e0e0 40%, #303030 100%);
-}
-.team-bg-basic-xy {
-  background:
-    linear-gradient(135deg, #3080d0 0 50%, #d04048 50% 100%);
-}
-.team-bg-basic-sun-moon {
-  background:
-    linear-gradient(135deg, #f0a030 0 50%, #283878 50% 100%);
-}
-.team-bg-basic-scarlet-violet {
-  background:
-    linear-gradient(135deg, #d03048 0 50%, #7038a8 50% 100%);
-}
+/* rc110 BASIC split swatches retired — see rc115 .team-bg-basic-template below */
 
 @media (max-width: 560px) {
   .team-party-chip.team-slot,
@@ -18615,3 +18556,330 @@ body[data-page="evolve"] {
 @media (max-width: 720px) {
   .scc-ribbon-collection { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+/* rc115 â€” Trainer ID Featured Ribbons: compact, non-clipping honor row */
+.tid-card > .tid-card-body > .tid-identity-panel.tid-glass {
+  display: grid;
+  grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
+  gap: 4px;
+  overflow: hidden;
+  padding: 6px 8px 6px;
+}
+.tid-card-body .tid-plaque-badges {
+  margin-top: 0;
+  padding: 4px 6px 5px;
+  min-height: 0;
+  max-height: 52px;
+  overflow: hidden;
+  display: grid;
+  gap: 3px;
+  align-content: center;
+  background: rgba(255, 255, 255, .62);
+}
+.tid-card-body .tid-ach-kicker {
+  margin: 0;
+  font-size: 9px;
+  letter-spacing: .08em;
+  line-height: 1;
+}
+.tid-ribbon-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: center;
+  justify-items: center;
+  min-height: 30px;
+}
+.tid-ribbon-row > li {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-width: 0;
+}
+.tid-ribbon-btn {
+  appearance: none;
+  border: 0;
+  background: rgba(255, 255, 255, .78);
+  border-radius: 9px;
+  padding: 2px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 1px 0 rgba(143, 212, 239, .35);
+}
+.tid-ribbon-btn img,
+.tid-ribbon-btn .ribbon-icon-img {
+  width: 24px !important;
+  height: 24px !important;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.tid-card-body .tid-badge-empty {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.2;
+}
+.tid-card-body .tid-info-xp {
+  margin: 0;
+}
+.tid-card-body .tid-info-xp .tid-xp-bar {
+  height: 7px;
+}
+
+/* Team stage readability wash between background and PokÃ©mon */
+.tid-team-stage-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: inherit;
+}
+.tid-team-showcase .tid-party-scene,
+.tid-team-showcase .tid-party-figures,
+.scc-team-live-preview .tid-party-scene {
+  position: relative;
+  z-index: 2;
+}
+
+/* Basic generational Team backgrounds â€” shared template */
+.team-bg-basic-template,
+[class^="team-bg-basic-"] {
+  background-color: #eef5ff;
+  background-image:
+    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, 0.72), transparent 55%),
+    linear-gradient(165deg, var(--team-basic-a, #88b4e8) 0%, var(--team-basic-b, #f4f8ff) 48%, var(--team-basic-c, #d8e8f8) 100%);
+  background-size: cover;
+  background-position: center;
+}
+.team-bg-basic-red-blue { --team-basic-a: #d04848; --team-basic-b: #f7f9ff; --team-basic-c: #3a68b8; }
+.team-bg-basic-yellow { --team-basic-a: #ffe066; --team-basic-b: #fff8e0; --team-basic-c: #e8a028; }
+.team-bg-basic-gold-silver { --team-basic-a: #d4a017; --team-basic-b: #f8f4e8; --team-basic-c: #98a4b8; }
+.team-bg-basic-crystal { --team-basic-a: #7ad8ec; --team-basic-b: #f2fbff; --team-basic-c: #b8a8e0; }
+.team-bg-basic-ruby-sapphire { --team-basic-a: #b02840; --team-basic-b: #f7f8ff; --team-basic-c: #2850b8; }
+.team-bg-basic-emerald { --team-basic-a: #48c070; --team-basic-b: #f2fff6; --team-basic-c: #187848; }
+.team-bg-basic-frlg { --team-basic-a: #ef6030; --team-basic-b: #fff8f2; --team-basic-c: #48a840; }
+.team-bg-basic-diamond-pearl { --team-basic-a: #78c0f0; --team-basic-b: #fff8fc; --team-basic-c: #f0a0c0; }
+.team-bg-basic-platinum { --team-basic-a: #a8b0c0; --team-basic-b: #f6f7fa; --team-basic-c: #586070; }
+.team-bg-basic-hgss { --team-basic-a: #c89820; --team-basic-b: #f8f4e8; --team-basic-c: #6888a8; }
+.team-bg-basic-bw { --team-basic-a: #f4f4f4; --team-basic-b: #ececec; --team-basic-c: #2a2a2a; }
+.team-bg-basic-xy { --team-basic-a: #3880d0; --team-basic-b: #f7f8ff; --team-basic-c: #d04048; }
+.team-bg-basic-sun-moon { --team-basic-a: #f0a030; --team-basic-b: #fff8ef; --team-basic-c: #283878; }
+.team-bg-basic-scarlet-violet { --team-basic-a: #d03048; --team-basic-b: #faf5ff; --team-basic-c: #7038a8; }
+
+/* Uniform Team BG browser thumbnails */
+.scc-team-bg-modal-grid .scc-compact-bg-thumb,
+.scc-team-bg-modal-grid .team-bg-thumb,
+.scc-team-bg-current-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  box-sizing: border-box;
+}
+
+/* Showcase Gym Badge placeholder */
+.tid-show-badge-placeholder {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.tid-show-badge-art {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f2f4f8, #e4e8ef);
+  border: 2px solid #c8d0dc;
+}
+.tid-show-badge-art img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: grayscale(1) brightness(0.92);
+  opacity: 0.78;
+  image-rendering: pixelated;
+}
+.tid-show-badge-soon {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #6a7a90;
+}
+
+/* Achievements hub */
+.ach-hub-overview {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 14px;
+}
+.ach-hub-stat {
+  padding: 12px;
+  border-radius: 14px;
+  border: 2px solid #c7d8ee;
+  background: linear-gradient(180deg, #fff, #eef5ff);
+  box-shadow: 0 3px 0 #c3d4ea;
+}
+.ach-hub-stat span { display: block; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #6a7a96; }
+.ach-hub-stat strong { font-size: 22px; }
+.ach-hub-toolbar {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 14px;
+}
+.ach-hub-states,
+.ach-hub-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ach-hub-chip {
+  appearance: none;
+  border: 2px solid #c5d8ef;
+  background: #fff;
+  border-radius: 999px;
+  min-height: 36px;
+  padding: 0 14px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  color: #2a3048;
+}
+.ach-hub-chip.is-on {
+  border-color: #f3a0c8;
+  background: linear-gradient(180deg, #ffe8f4, #ffd6ea);
+  box-shadow: 0 2px 0 #e090b8;
+}
+.ach-hub-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+.ach-hub-card {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 8px 12px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 2px solid #c8daf0;
+  background: linear-gradient(180deg, #fff, #f4f8ff);
+  box-shadow: 0 4px 0 #c3d4ea;
+}
+.ach-hub-card.is-done {
+  border-color: #8ed37c;
+  background: linear-gradient(180deg, #f5fff2, #eef8ea);
+}
+.ach-hub-rewards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  grid-column: 1 / -1;
+}
+.ach-hub-reward {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.8);
+  border: 1px solid #c7d8ee;
+  font-size: 12px;
+  font-weight: 800;
+}
+@media (max-width: 860px) {
+  .ach-hub-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ach-hub-tools { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .tid-ribbon-btn { width: 26px; height: 26px; }
+  .tid-ribbon-btn img, .tid-ribbon-btn .ribbon-icon-img { width: 20px !important; height: 20px !important; }
+}
+
+.scc-honors-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.scc-ribbon-card-wrap {
+  display: grid;
+  gap: 6px;
+}
+.scc-ribbon-info {
+  appearance: none;
+  border: 1px solid #c5d8ef;
+  background: #fff;
+  border-radius: 999px;
+  min-height: 28px;
+  padding: 0 10px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  color: #3a5070;
+  cursor: pointer;
+}
+.scc-ribbon-info:hover,
+.scc-ribbon-info:focus-visible {
+  border-color: #f3a0c8;
+  outline: 2px solid rgba(243, 160, 200, .35);
+  outline-offset: 1px;
+}
+.scc-gym-badge-placeholder {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 2px dashed #c8d0dc;
+  background: linear-gradient(180deg, #f7f8fb, #eef1f6);
+}
+.ach-hub-section-title { margin: 0 0 10px; }
+.ach-equip-hint { margin: 8px 0 0; }
+.ach-hub-grid {
+  display: grid;
+  gap: 12px;
+}
+.ach-hub-cat {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #6a7a96;
+}
+.ach-hub-name { display: block; margin: 2px 0 4px; }
+.ach-hub-desc { margin: 0 0 8px; color: #4a5a78; }
+.ach-hub-progress { font-size: 12px; font-weight: 800; color: #3a5070; }
+.ach-hub-bar { height: 8px; border-radius: 99px; background: #dce7f5; overflow: hidden; margin: 0 0 6px; }
+.ach-hub-bar i { display: block; height: 100%; background: linear-gradient(90deg, #6aa8ef, #c04878); }
+.ach-hub-card.is-progress { border-color: #9ebef0; }
+.ach-hub-fallback {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #eef5ff;
+  color: #c04878;
+  font-weight: 900;
+}
+.ribbon-detail-streamlink {
+  font-weight: 700;
+  color: #2a3048;
+  margin: 0 0 8px;
+}
+.ribbon-detail-locked { color: #6a5070; }
+

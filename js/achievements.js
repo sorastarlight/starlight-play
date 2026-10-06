@@ -3,15 +3,37 @@
   const els = {
     gate: document.getElementById("gate"),
     app: document.getElementById("prog-app"),
-    header: document.getElementById("prog-header"),
-    titles: document.getElementById("title-grid"),
-    titleStatus: document.getElementById("title-status"),
-    badges: document.getElementById("badge-grid"),
-    badgeStatus: document.getElementById("badge-status"),
-    ach: document.getElementById("ach-grid"),
-    cat: document.getElementById("ach-cat")
+    overview: document.getElementById("ach-overview"),
+    states: document.getElementById("ach-states"),
+    cats: document.getElementById("ach-cats"),
+    search: document.getElementById("ach-search"),
+    sort: document.getElementById("ach-sort"),
+    grid: document.getElementById("ach-grid"),
+    empty: document.getElementById("ach-empty"),
+    equipHint: document.getElementById("ach-equip-hint")
   };
   let data = null;
+  let stateFilter = "all";
+  let catFilter = "all";
+  let query = "";
+  let sortMode = "closest";
+
+  const CAT_LABELS = {
+    pokedex: "Pokédex",
+    catching: "Catching",
+    capture: "Catching",
+    evolution: "Evolution",
+    mastery: "Mastery",
+    encounters: "Encounters",
+    rare: "Encounters",
+    shiny: "Shiny",
+    trading: "Trading",
+    trade: "Trading",
+    community: "Community",
+    items: "Items",
+    trainer: "Adventure",
+    special: "Special"
+  };
 
   window.playBindAccountNav({
     onSignOut() {
@@ -37,132 +59,217 @@
     return session;
   }
 
-  function rewardBits(rewards) {
-    if (typeof window.playRewardCopy === "function") return window.playRewardCopy(rewards);
-    if (!rewards || typeof rewards !== "object") return "";
-    return Object.entries(rewards)
-      .filter(([key, value]) => value && !["idempotency", "key", "label"].includes(key))
-      .map(([key, value]) => {
-        if (key === "coins") return `${value} PokéCoins`;
-        if (key === "xp") return `${value} XP`;
-        if (key === "candy" || key === "evolutioncandy") return `${value} Evolution Candy`;
-        return `${value} ${typeof window.playItemLabel === "function" ? window.playItemLabel(key) : key}`;
-      })
-      .join(" · ");
-  }
-
-  function renderHeader() {
-    const trainer = data?.trainer || {};
-    const stats = data?.stats || {};
-    const kanto = trainer.kanto || {};
-    const next = trainer.nextReward;
-    const kantoCaught = kanto.caught || 0;
-    els.header.innerHTML = `
-      <div class="ach-progress-hero">
-        <div class="ach-progress-identity">
-          <p class="ach-kicker">TRAINER PROGRESS</p>
-          <h2 class="ach-trainer-name">${window.playEscapeAttr(trainer.displayName || "Trainer")}</h2>
-          <p class="ach-trainer-title">${window.playEscapeAttr(trainer.title || "No Trainer Title yet")}</p>
-          <p class="ach-trainer-level">Lv. ${trainer.level || 1}</p>
-        </div>
-        <div class="ach-progress-stats" role="group" aria-label="Kanto progress">
-          <div class="ach-stat"><span>Kanto Pokédex</span><strong>${kantoCaught}/151</strong></div>
-          <div class="ach-stat"><span>Catches</span><strong>${trainer.caught || stats.captures || 0}</strong></div>
-          <div class="ach-stat"><span>Shinies</span><strong>${trainer.variants?.shinySpecies || 0}</strong></div>
-          <div class="ach-stat"><span>Honey</span><strong>${stats.honey || 0}</strong></div>
-        </div>
-      </div>
-      ${window.playXpProgressHtml ? window.playXpProgressHtml(trainer, { compact: true }) : `<div class="xp-bar" aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, Math.round((trainer.xpInto / Math.max(1, trainer.xpNeed)) * 100)))}%"></i></div>
-      <p class="muted">${trainer.xpInto || 0} / ${trainer.xpNeed || 0} XP${next ? ` · Next reward: Level ${next.level} ${window.playEscapeAttr(next.label || "")}` : ""}</p>`}`;
-  }
-
-  function titleCategory(row) {
-    const blob = `${row.id || ""} ${row.name || ""} ${row.description || ""} ${row.howTo || ""} ${row.category || ""}`.toLowerCase();
-    if (/pokedex|pokédex|dex|species/.test(blob)) return "pokedex";
-    if (/shiny/.test(blob)) return "shiny";
+  function achCategory(row) {
+    const raw = String(row.category || "").toLowerCase();
+    if (raw && CAT_LABELS[raw]) return raw === "capture" ? "catching" : (raw === "rare" ? "encounters" : (raw === "trade" ? "trading" : raw));
+    const blob = `${row.id || ""} ${row.name || ""} ${row.description || ""}`.toLowerCase();
+    if (/pokedex|pokédex|dex|species|register/.test(blob)) return "pokedex";
     if (/evolv/.test(blob)) return "evolution";
-    if (/trade|link/.test(blob)) return "trading";
+    if (/mastery|mastered/.test(blob)) return "mastery";
+    if (/shiny/.test(blob)) return "shiny";
+    if (/trade|link|gts/.test(blob)) return "trading";
     if (/honey|community|stream|oak|research/.test(blob)) return "community";
+    if (/encounter|legendary|mythical|rare/.test(blob)) return "encounters";
     if (/catch|capture|ball/.test(blob)) return "catching";
+    if (/item|candy|coin|mart/.test(blob)) return "items";
+    if (/special|event|secret/.test(blob)) return "special";
     return "trainer";
   }
 
-  let titleFilter = "all";
-
-  function renderTitles() {
-    const active = data?.trainer?.activeTitleId || "";
-    const filters = [
-      ["all", "All"],
-      ["owned", "Owned"],
-      ["locked", "Locked"],
-      ["trainer", "Trainer"],
-      ["pokedex", "Pokédex"],
-      ["catching", "Catching"],
-      ["shiny", "Shiny"],
-      ["community", "Community"],
-      ["evolution", "Evolution"],
-      ["trading", "Trading"]
-    ];
-    const rows = (data?.titles || []).filter((row) => {
-      if (titleFilter === "owned") return row.unlocked;
-      if (titleFilter === "locked") return !row.unlocked;
-      if (titleFilter === "all") return true;
-      return titleCategory(row) === titleFilter;
-    });
-    const filterHtml = `<div class="ach-title-filters" role="toolbar" aria-label="Trainer Title filters">${filters.map(([id, label]) =>
-      `<button type="button" class="ach-filter-chip${titleFilter === id ? " is-on" : ""}" data-title-filter="${id}" aria-pressed="${titleFilter === id}">${label}</button>`
-    ).join("")}</div>`;
-    els.titles.innerHTML = filterHtml + (rows.map((row) => {
-      const state = row.unlocked ? (row.id === active ? "equipped" : "owned") : "locked";
-      return `<button type="button" class="prog-pick ach-title-card is-${state} ${row.isNew ? "is-new" : ""}" data-title="${window.playEscapeAttr(row.id)}" aria-pressed="${row.id === active ? "true" : "false"}" aria-label="${window.playEscapeAttr(row.name)} ${state}">
-        <strong class="ach-title-name">${window.playEscapeAttr(row.name)}</strong>
-        <span class="ach-title-req">${window.playEscapeAttr(row.unlocked ? row.description : (row.howTo || row.description || "Locked"))}</span>
-        <span class="ach-title-state">${state}</span>
-      </button>`;
-    }).join("") || `<p class="muted">No Trainer Titles in this filter.</p>`);
+  function catLabel(id) {
+    return CAT_LABELS[id] || (id === "trainer" ? "Adventure" : id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()));
   }
 
-  function renderBadges() {
-    const max = window.PLAY_FEATURED_RIBBON_MAX || 5;
-    els.badges.innerHTML = (data?.badges || []).map((row) => {
-      const ribbon = window.playRibbonForBadge?.(row) || row;
-      const state = row.unlocked ? (row.featured ? "equipped" : "owned") : "locked";
-      return `<button type="button" class="ach-ribbon-card is-${state} ${row.isNew ? "is-new" : ""}" data-badge="${window.playEscapeAttr(row.id)}" aria-pressed="${row.featured ? "true" : "false"}" aria-label="${window.playEscapeAttr(ribbon.name || row.name)} ${state}">
-        ${window.playRibbonIconHtml?.(ribbon, { name: ribbon.name || row.name, locked: !row.unlocked, size: 48 }) || ""}
-        <strong class="ach-title-name">${window.playEscapeAttr(ribbon.name || row.name)}</strong>
-        <span class="ach-title-req">${window.playEscapeAttr(row.unlocked ? (ribbon.origin || row.description) : (row.howTo || "Complete the linked Achievement to earn this Ribbon."))}</span>
-        <span class="ach-title-state">${state}</span>
-      </button>`;
-    }).join("");
-    void max;
+  function progressPct(row) {
+    return Math.max(0, Math.min(100, Math.round((Number(row.progress || 0) / Math.max(1, Number(row.target || 1))) * 100)));
+  }
+
+  function titleReward(row) {
+    const rewards = row.rewards || {};
+    const id = rewards.title || rewards.trainerTitle || rewards.trainer_title || "";
+    if (!id) return null;
+    const fromList = (data?.titles || []).find((t) => t.id === id);
+    return { id, name: fromList?.name || rewards.titleName || id };
+  }
+
+  function ribbonReward(row) {
+    const ribbon = window.playRibbonForAchievement?.(row);
+    const map = window.playRibbonMapping?.(row.id);
+    if (!ribbon && !map) {
+      const badgeId = row.rewards?.badge || row.rewards?.ribbon;
+      if (!badgeId) return null;
+      const fromBadge = window.playRibbonForBadge?.({ id: badgeId }) || null;
+      if (!fromBadge) return { id: badgeId, name: badgeId };
+      return fromBadge;
+    }
+    return ribbon || { id: map.ribbonId, name: map.ribbonName, origin: map.ribbonOrigin };
+  }
+
+  function streamLinkCopy(row, ribbon) {
+    const map = window.playRibbonMapping?.(row.id);
+    return map?.streamLinkDescription
+      || ribbon?.streamLinkDescription
+      || row.description
+      || map?.reason
+      || "";
+  }
+
+  function overviewStats() {
+    const rows = data?.achievements || [];
+    const completed = rows.filter((r) => r.unlocked).length;
+    const inProgress = rows.filter((r) => !r.unlocked && Number(r.progress || 0) > 0).length;
+    const ribbons = (data?.badges || []).filter((b) => b.unlocked).length;
+    const titles = (data?.titles || []).filter((t) => t.unlocked).length;
+    return { completed, inProgress, ribbons, titles, total: rows.length };
+  }
+
+  function renderOverview() {
+    if (!els.overview) return;
+    const s = overviewStats();
+    els.overview.innerHTML = `
+      <div class="ach-hub-stat"><span>Completed</span><strong>${s.completed}</strong></div>
+      <div class="ach-hub-stat"><span>In Progress</span><strong>${s.inProgress}</strong></div>
+      <div class="ach-hub-stat"><span>Ribbons Earned</span><strong>${s.ribbons}</strong></div>
+      <div class="ach-hub-stat"><span>Titles Earned</span><strong>${s.titles}</strong></div>`;
+  }
+
+  function availableCategories() {
+    const counts = new Map();
+    (data?.achievements || []).forEach((row) => {
+      const cat = achCategory(row);
+      counts.set(cat, (counts.get(cat) || 0) + 1);
+    });
+    return Array.from(counts.entries())
+      .sort((a, b) => catLabel(a[0]).localeCompare(catLabel(b[0])))
+      .map(([id, count]) => ({ id, count }));
+  }
+
+  function renderFilters() {
+    if (els.states) {
+      const states = [
+        ["all", "All"],
+        ["progress", "In Progress"],
+        ["completed", "Completed"]
+      ];
+      els.states.innerHTML = states.map(([id, label]) =>
+        `<button type="button" class="ach-hub-chip${stateFilter === id ? " is-on" : ""}" data-ach-state="${id}" aria-pressed="${stateFilter === id}">${label}</button>`
+      ).join("");
+    }
+    if (els.cats) {
+      const cats = availableCategories();
+      els.cats.innerHTML = [
+        `<button type="button" class="ach-hub-chip${catFilter === "all" ? " is-on" : ""}" data-ach-cat="all" aria-pressed="${catFilter === "all"}">All Categories</button>`,
+        ...cats.map(({ id, count }) =>
+          `<button type="button" class="ach-hub-chip${catFilter === id ? " is-on" : ""}" data-ach-cat="${window.playEscapeAttr(id)}" aria-pressed="${catFilter === id}">${window.playEscapeAttr(catLabel(id))} <span class="muted">(${count})</span></button>`
+        )
+      ].join("");
+    }
+  }
+
+  function filteredRows() {
+    let rows = (data?.achievements || []).slice();
+    rows = rows.filter((row) => {
+      if (stateFilter === "completed") return Boolean(row.unlocked);
+      if (stateFilter === "progress") return !row.unlocked;
+      return true;
+    });
+    if (catFilter !== "all") rows = rows.filter((row) => achCategory(row) === catFilter);
+    const q = String(query || "").trim().toLowerCase();
+    if (q) {
+      rows = rows.filter((row) => {
+        const ribbon = ribbonReward(row);
+        const title = titleReward(row);
+        const blob = `${row.name || ""} ${row.description || ""} ${ribbon?.name || ""} ${title?.name || ""} ${catLabel(achCategory(row))}`.toLowerCase();
+        return blob.includes(q);
+      });
+    }
+    if (sortMode === "recent") {
+      rows.sort((a, b) => {
+        const ta = a.unlockedAt || a.completedAt || "";
+        const tb = b.unlockedAt || b.completedAt || "";
+        if (a.unlocked !== b.unlocked) return a.unlocked ? -1 : 1;
+        return String(tb).localeCompare(String(ta)) || String(a.name || "").localeCompare(String(b.name || ""));
+      });
+    } else if (sortMode === "category") {
+      rows.sort((a, b) => catLabel(achCategory(a)).localeCompare(catLabel(achCategory(b))) || String(a.name || "").localeCompare(String(b.name || "")));
+    } else if (sortMode === "progress") {
+      rows.sort((a, b) => progressPct(b) - progressPct(a) || String(a.name || "").localeCompare(String(b.name || "")));
+    } else {
+      // closest to completion (incomplete first, then by remaining)
+      rows.sort((a, b) => {
+        if (a.unlocked !== b.unlocked) return a.unlocked ? 1 : -1;
+        const ra = Math.max(0, Number(a.target || 1) - Number(a.progress || 0));
+        const rb = Math.max(0, Number(b.target || 1) - Number(b.progress || 0));
+        return ra - rb || progressPct(b) - progressPct(a) || String(a.name || "").localeCompare(String(b.name || ""));
+      });
+    }
+    return rows;
+  }
+
+  function rewardHtml(row) {
+    const parts = [];
+    const title = titleReward(row);
+    const ribbon = ribbonReward(row);
+    if (title) {
+      parts.push(`<span class="ach-hub-reward is-title"><strong>Trainer Title</strong> ${window.playEscapeAttr(title.name)}</span>`);
+    }
+    if (ribbon) {
+      const name = ribbon.name || "Ribbon";
+      parts.push(`<span class="ach-hub-reward is-ribbon">${window.playRibbonIconHtml?.(ribbon, { name, locked: !row.unlocked, size: 28 }) || ""}<strong>Ribbon</strong> ${window.playEscapeAttr(name)}</span>`);
+    }
+    if (!parts.length) return "";
+    return `<div class="ach-hub-rewards">${parts.join("")}</div>`;
   }
 
   function renderAchievements() {
-    const cat = els.cat?.value || "all";
-    const rows = (data?.achievements || []).filter((row) => cat === "all" || row.category === cat);
-    els.ach.innerHTML = rows.map((row) => {
-      const pct = Math.max(0, Math.min(100, Math.round((row.progress / Math.max(1, row.target)) * 100)));
-      const ribbon = window.playRibbonForAchievement?.(row);
-      const map = window.playRibbonMapping?.(row.id);
-      return `<article class="ach-progress-card ${row.unlocked ? "is-done" : "is-locked"} ${row.hidden ? "is-hidden" : ""}">
-        <div>${window.playRibbonIconHtml?.(ribbon, { name: ribbon?.name || map?.ribbonName, locked: !row.unlocked, size: 40 }) || ""}</div>
-        <div>
-          <strong>${window.playEscapeAttr(row.name)}</strong>
-          <p>${window.playEscapeAttr(row.description)}</p>
+    if (!els.grid) return;
+    const rows = filteredRows();
+    if (els.empty) {
+      els.empty.hidden = rows.length > 0;
+      if (!rows.length) {
+        const msg = query
+          ? "No achievements match your search."
+          : stateFilter === "completed"
+            ? "No completed achievements in this view yet."
+            : stateFilter === "progress"
+              ? "Nothing in progress for this filter."
+              : "No achievements in this category yet.";
+        els.empty.textContent = msg;
+      }
+    }
+    els.grid.innerHTML = rows.map((row) => {
+      const pct = progressPct(row);
+      const ribbon = ribbonReward(row);
+      const done = Boolean(row.unlocked);
+      const started = Number(row.progress || 0) > 0;
+      const stateClass = done ? "is-done" : (started ? "is-progress" : "is-locked");
+      const progressLabel = row.hidden && !done
+        ? "???"
+        : `${row.progress || 0} / ${row.target || 0}${done ? " · Completed" : (started ? " · In Progress" : " · Not started")}`;
+      const icon = window.playRibbonIconHtml?.(ribbon, { name: ribbon?.name || row.name, locked: !done, size: 44 })
+        || `<span class="ach-hub-fallback" aria-hidden="true">★</span>`;
+      return `<article class="ach-hub-card ${stateClass}${row.hidden ? " is-hidden" : ""}">
+        <div class="ach-hub-icon">${icon}</div>
+        <div class="ach-hub-copy">
+          <p class="ach-hub-cat">${window.playEscapeAttr(catLabel(achCategory(row)))}</p>
+          <strong class="ach-hub-name">${window.playEscapeAttr(row.name)}</strong>
+          <p class="ach-hub-desc">${window.playEscapeAttr(row.description || "")}</p>
+          <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
+          <span class="ach-hub-progress">${window.playEscapeAttr(progressLabel)}</span>
         </div>
-        <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
-        <span class="ach-card-progress">${row.hidden ? "???" : `${row.progress} / ${row.target}`}${row.unlocked ? " · Completed" : " · In Progress"}</span>
-        ${ribbon || map ? `<span class="muted">Ribbon: ${window.playEscapeAttr(ribbon?.name || map?.ribbonName || "")}</span>` : ""}
+        ${rewardHtml(row)}
       </article>`;
-    }).join("") || `<p class="muted">No achievements in this category yet.</p>`;
+    }).join("");
   }
 
   function render() {
     if (!data) return;
-    renderHeader();
-    renderTitles();
-    renderBadges();
+    renderOverview();
+    renderFilters();
     renderAchievements();
+    if (els.equipHint) {
+      els.equipHint.hidden = false;
+    }
   }
 
   async function load() {
@@ -185,56 +292,54 @@
     }
   }
 
-  els.titles?.addEventListener("click", async (event) => {
-    const filterBtn = event.target.closest("[data-title-filter]");
-    if (filterBtn) {
-      titleFilter = filterBtn.dataset.titleFilter || "all";
-      renderTitles();
-      return;
-    }
-    const button = event.target.closest("[data-title]");
-    if (!button) return;
-    const row = (data?.titles || []).find((item) => item.id === button.dataset.title);
-    if (!row?.unlocked) {
-      els.titleStatus.textContent = `${row?.name || "This title"} is locked. ${row?.howTo || row?.description || ""}`.trim();
-      return;
-    }
-    els.titleStatus.textContent = "Saving…";
-    try {
-      const next = button.dataset.title === data?.trainer?.activeTitleId ? "" : button.dataset.title;
-      const saved = await window.playCall("play_set_title", { p_title: next });
-      if (data) data.trainer = saved.trainer;
+  els.app?.addEventListener("click", (event) => {
+    const stateBtn = event.target.closest("[data-ach-state]");
+    if (stateBtn) {
+      stateFilter = stateBtn.dataset.achState || "all";
       render();
-      els.titleStatus.textContent = saved.message || "Trainer Title saved.";
-    } catch (error) {
-      els.titleStatus.textContent = window.playRpcError(error);
+      return;
+    }
+    const catBtn = event.target.closest("[data-ach-cat]");
+    if (catBtn) {
+      catFilter = catBtn.dataset.achCat || "all";
+      render();
+      return;
+    }
+    const ribbonBtn = event.target.closest("[data-ribbon-open], .ach-hub-reward.is-ribbon");
+    if (ribbonBtn) {
+      const card = ribbonBtn.closest(".ach-hub-card");
+      // Prefer opening via mapped achievement when available
+      const nameEl = card?.querySelector(".ach-hub-name");
+      const row = (data?.achievements || []).find((item) => item.name === nameEl?.textContent);
+      if (row) {
+        const ribbon = ribbonReward(row);
+        const map = window.playRibbonMapping?.(row.id);
+        window.playOpenRibbonDetail?.({
+          ribbon,
+          ribbonId: ribbon?.id || map?.ribbonId,
+          name: ribbon?.name || map?.ribbonName,
+          description: streamLinkCopy(row, ribbon),
+          origin: map?.ribbonOrigin || ribbon?.origin || "",
+          achievementName: row.name,
+          earnedAt: row.unlockedAt || row.completedAt || ""
+        });
+      }
     }
   });
 
-  els.badges?.addEventListener("click", async (event) => {
-    const button = event.target.closest("[data-badge]");
-    if (!button) return;
-    const id = button.dataset.badge;
-    const row = (data?.badges || []).find((item) => item.id === id);
-    if (!row?.unlocked) {
-      els.badgeStatus.textContent = `${row?.name || "This Ribbon"} is locked. ${row?.howTo || row?.description || ""}`.trim();
-      return;
-    }
-    const featured = (data?.badges || []).filter((item) => item.featured).map((item) => item.id);
-    const max = window.PLAY_FEATURED_RIBBON_MAX || 5;
-    const next = featured.includes(id) ? featured.filter((item) => item !== id) : featured.concat(id).slice(0, max);
-    els.badgeStatus.textContent = "Saving…";
-    try {
-      const saved = await window.playCall("play_set_badges", { p_ids: next });
-      data = await window.playCall("play_progression");
-      render();
-      els.badgeStatus.textContent = saved.message || "Featured Ribbons saved.";
-    } catch (error) {
-      els.badgeStatus.textContent = window.playRpcError(error);
-    }
+  els.search?.addEventListener("input", () => {
+    query = els.search.value || "";
+    renderAchievements();
   });
 
-  els.cat?.addEventListener("change", renderAchievements);
-  supabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return; load(); });
+  els.sort?.addEventListener("change", () => {
+    sortMode = els.sort.value || "closest";
+    renderAchievements();
+  });
+
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (window.playAuthNoise(event, session)) return;
+    load();
+  });
   load();
 })();

@@ -86,6 +86,18 @@
     return dlg;
   }
 
+  function streamLinkDescription(ribbon, payload) {
+    if (payload?.description) return String(payload.description);
+    const map = payload?.achievementId
+      ? mappingForAchievement(payload.achievementId)
+      : (payload?.badge?.id ? mappingForAchievement(payload.badge.id) : null)
+        || (ribbon?.id ? (mapDoc().mappings || []).find((row) => row.ribbonId === ribbon.id) : null);
+    if (map?.streamLinkDescription) return String(map.streamLinkDescription);
+    if (ribbon?.streamLinkDescription) return String(ribbon.streamLinkDescription);
+    if (map?.reason) return `Awarded for the StreamLink Achievement “${map.achievementName || map.achievementId}.”`;
+    return "";
+  }
+
   function openRibbonDetail(payload) {
     const ribbon = payload?.ribbon || ribbonById(payload?.ribbonId) || ribbonForBadge(payload?.badge);
     if (!ribbon && !payload?.name) return;
@@ -98,15 +110,19 @@
     const stamp = earned && !Number.isNaN(earned.getTime()) ? earned.toLocaleDateString() : "";
     const ach = payload?.achievementName || "";
     const origin = ribbon?.origin || payload?.origin || "";
-    const flavor = ribbon?.flavor || payload?.description || "";
-    const designNote = "This Ribbon is a canonical Pokémon honor. StreamLink awards it for a game Achievement — not as official Pokémon League behavior.";
+    const streamLink = streamLinkDescription(ribbon, payload);
+    const lockedNote = payload?.locked
+      ? (payload?.howTo || "Complete the linked Achievement to earn this Ribbon.")
+      : "";
+    const designNote = "Ribbon artwork and names reference canonical Pokémon honors. Unlock requirements are StreamLink RPG designs — not official Pokémon League behavior.";
     if (body) {
       body.innerHTML = `
-        <div class="ribbon-detail-art">${ribbonIcon(ribbon, { name, size: 72 })}</div>
-        <p class="ribbon-detail-origin">${root.playEscapeAttr?.(origin) || origin}</p>
-        ${flavor ? `<p>${root.playEscapeAttr?.(flavor) || flavor}</p>` : ""}
+        <div class="ribbon-detail-art">${ribbonIcon(ribbon, { name, size: 72, locked: Boolean(payload?.locked) })}</div>
+        ${streamLink ? `<p class="ribbon-detail-streamlink">${root.playEscapeAttr?.(streamLink) || streamLink}</p>` : ""}
         ${ach ? `<p class="ribbon-detail-ach"><strong>Achievement</strong> ${root.playEscapeAttr?.(ach) || ach}</p>` : ""}
+        ${lockedNote ? `<p class="ribbon-detail-locked">${root.playEscapeAttr?.(lockedNote) || lockedNote}</p>` : ""}
         ${stamp ? `<p class="muted">Earned ${root.playEscapeAttr?.(stamp) || stamp}</p>` : ""}
+        ${origin ? `<p class="muted ribbon-detail-origin">Ribbon design originating from ${root.playEscapeAttr?.(origin) || origin}</p>` : ""}
         <p class="muted ribbon-detail-note">${designNote}</p>`;
     }
     if (typeof dlg.showModal === "function") dlg.showModal();

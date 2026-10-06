@@ -547,29 +547,50 @@
     return 240;
   }
 
-  /** Avatar Browser thumbnails: full alpha envelope must fit (contain). Never inherit card occupancy. */
+  /** Avatar Browser thumbnails: target core occupancy for comparable apparent size. */
   function avatarThumbScale(bounds, familyCfg, stageBox) {
-    const pad = 0.14;
-    const usableH = Math.max(1, (stageBox.h || 96) * (1 - pad * 2));
-    const usableW = Math.max(1, (stageBox.w || 96) * (1 - pad * 2));
+    const pad = 0.1;
+    const usableH = Math.max(1, (stageBox.h || 112) * (1 - pad * 2));
+    const usableW = Math.max(1, (stageBox.w || 112) * (1 - pad * 2));
     const safeH = Math.max(1, bounds.vh || bounds.h || 1);
     const safeW = Math.max(1, bounds.vw || bounds.w || 1);
-    let scale = Math.min(usableH / safeH, usableW / safeW);
+    const coreH = Math.max(1, bounds.ch || safeH);
+    const coreW = Math.max(1, bounds.cw || safeW);
+    const targetH = Number(familyCfg.thumbTargetH ?? 0.74);
+    const minH = Number(familyCfg.thumbMinH ?? 0.58);
+    const maxH = Number(familyCfg.thumbMaxH ?? 0.9);
+    const maxW = Number(familyCfg.thumbMaxW ?? 0.88);
+
+    const idealFromCore = Math.min((usableH * targetH) / coreH, (usableW * 0.62) / coreW);
+    const safeMax = Math.min(
+      (usableH * maxH) / safeH,
+      (usableW * maxW) / safeW,
+      usableH / safeH,
+      usableW / safeW
+    );
+    const safeMin = Math.min((usableH * minH) / Math.max(coreH, safeH * 0.85), safeMax);
+    let scale = Math.min(Math.max(idealFromCore, safeMin), safeMax);
 
     if (familyCfg.preferInteger && Math.max(bounds.w || 0, bounds.h || 0) <= 128) {
       const maxI = Math.max(1, Number(familyCfg.maxIntegerScale || 6));
       let best = 0;
-      for (let n = maxI; n >= 1; n -= 1) {
-        if (safeH * n <= usableH + 0.5 && safeW * n <= usableW + 0.5) {
-          best = n;
-          break;
+      let bestDist = Infinity;
+      for (let n = 1; n <= maxI; n += 1) {
+        if (safeH * n <= usableH * maxH + 0.5 && safeW * n <= usableW * maxW + 0.5) {
+          const dist = Math.abs(n - idealFromCore);
+          if (dist < bestDist) {
+            best = n;
+            bestDist = dist;
+          }
         }
       }
-      if (best > 0) scale = best;
+      if (best > 0) {
+        const occ = (coreH * best) / usableH;
+        scale = occ < minH - 0.02 ? Math.min(Math.max(idealFromCore, safeMin), safeMax) : best;
+      }
     }
 
-    // Hard clamp: never exceed tile (full visibility wins over integer crispness).
-    scale = Math.min(scale, usableH / safeH, usableW / safeW);
+    scale = Math.min(scale, safeMax, usableH / safeH, usableW / safeW);
     return Math.max(0.15, scale);
   }
 
@@ -881,9 +902,35 @@
 
       const shadow = avatarShadowHost(img);
       if (shadow) {
-        const shadowW = Math.max(28, Math.min(stageRefW * 0.55, Number(familyCfg.shadowWidth) || visW * 0.78));
-        shadow.style.setProperty("--shadow-w", Math.round(shadowW) + "px");
-        shadow.classList.add("is-on");
+        if (mode === "thumb") {
+          // Tiny browser tiles cannot reliably ground a contact shadow.
+          shadow.classList.remove("is-on");
+          shadow.hidden = true;
+          shadow.style.opacity = "0";
+        } else {
+          shadow.hidden = false;
+          const shadowW = Math.max(28, Math.min(stageRefW * 0.55, Number(familyCfg.shadowWidth) || visW * 0.78));
+          shadow.style.setProperty("--shadow-w", Math.round(shadowW) + "px");
+          // Ground under visible character feet (alpha bottom), not raw canvas.
+          const padBGround = Math.max(0, (bounds.h - 1 - bounds.bottom) * scale);
+          const groundInset = Math.max(4, Math.round(padBGround + (mode === "card" ? 10 : 8)));
+          shadow.style.bottom = groundInset + "px";
+          shadow.style.left = "50%";
+          shadow.style.transform = "translateX(-50%)";
+          shadow.classList.add("is-on");
+          // Refine after layout using measured visible bottom.
+          requestAnimationFrame(() => {
+            const well = img.closest?.(".tid-avatar-well, .scc-stage-frame");
+            if (!well || !shadow.isConnected) return;
+            const wr = well.getBoundingClientRect();
+            const ir = img.getBoundingClientRect();
+            const visBottom = ir.bottom - padBGround;
+            const fromBottom = wr.bottom - visBottom;
+            if (Number.isFinite(fromBottom)) {
+              shadow.style.bottom = Math.max(2, Math.min(wr.height * 0.35, Math.round(fromBottom - 1))) + "px";
+            }
+          });
+        }
       }
       if (mode === "stage") {
         img.classList.remove("is-stage-pending");
@@ -1071,7 +1118,7 @@
       const name = esc(ribbon.name || row.name);
       return `<li>
         <button type="button" class="tid-ribbon-btn" data-ribbon-open="${esc(row.id)}" aria-label="${name}">
-          ${window.playRibbonIconHtml?.(ribbon, { name, size: 36 }) || `<span class="tid-badge-gem" aria-hidden="true">★</span>`}
+          ${window.playRibbonIconHtml?.(ribbon, { name, size: 24 }) || `<span class="tid-badge-gem" aria-hidden="true">★</span>`}
         </button>
       </li>`;
     }).join("")}</ul>`;
@@ -1173,11 +1220,11 @@
     const favDex = showcase.favoriteDex || card?.favoriteDex;
     const favVar = showcase.favoriteVariant || card?.favoriteVariant || "normal";
     const shiny = showcase.shinyCatch;
-    const achName = showcase.achievementName;
-    const achDesc = showcase.achievementDescription || showcase.achievementDesc || "";
     const favName = favDex
       ? (window.playSpeciesName?.(favDex) || `No. ${favDex}`)
       : "";
+    const rainbow = window.PLAY_GYM_BADGE_CATALOG?.badges?.find((b) => b.id === "rainbow-badge")
+      || { id: "rainbow-badge", name: "Rainbow Badge", localIcon: "images/gym-badges/rainbow-badge.png" };
     return `
       <div class="tid-showcase-grid">
         <article class="tid-show-card${favDex ? "" : " is-empty"}">
@@ -1192,11 +1239,15 @@
             ? `<div class="tid-show-stage"><img class="tid-show-sprite" src="${window.playSpriteUrl(shiny.dex, shiny.variant, shiny.formId)}" alt="" width="112" height="112" loading="lazy"></div><strong>${window.playCaughtName(shiny)}</strong><span class="se-badge se-badge-shiny"><span class="se-badge-icon" aria-hidden="true">✦</span><span>Shiny</span></span>${shiny.level != null ? `<span class="muted">Lv. ${esc(shiny.level)}</span>` : ""}`
             : `<div class="tid-show-stage is-empty" aria-hidden="true"></div><p class="muted">Feature a Shiny catch.</p>`}
         </article>
-        <article class="tid-show-card tid-show-ach${achName ? "" : " is-empty"}">
-          <p class="tid-show-kicker">Featured Achievement</p>
-          ${achName
-            ? `<div class="tid-ach-emblem" aria-hidden="true">★</div><strong class="tid-ach-name">${esc(achName)}</strong>${achDesc ? `<span class="muted">${esc(achDesc)}</span>` : ""}`
-            : `<div class="tid-ach-emblem is-empty" aria-hidden="true">★</div><p class="muted">Feature an achievement.</p>`}
+        <article class="tid-show-card tid-show-badge is-placeholder" aria-label="Gym Badge Coming Soon">
+          <p class="tid-show-kicker">Gym Badge</p>
+          <div class="tid-show-badge-placeholder">
+            <div class="tid-show-badge-art" aria-hidden="true">
+              <img src="${esc(rainbow.localIcon || "images/gym-badges/rainbow-badge.png")}" alt="" width="48" height="48" decoding="async">
+            </div>
+            <p class="tid-show-badge-soon">Badges Coming Soon</p>
+            <p class="muted">Gym Badge showcases are coming in a future update.</p>
+          </div>
         </article>
       </div>`;
   };
@@ -2771,6 +2822,7 @@
     return `<div class="tid-team-showcase is-scene${fanfare}" data-team-bg-id="${esc(bg?.id || "pallet-town")}" data-gen="${esc(gen)}" data-render="${esc(renderMode)}" data-has-image="${assetUrl ? "1" : "0"}">
       <div class="tid-team-stage ${esc(bgClass)} is-${esc(renderMode)}"${bgStyle}>
         <div class="tid-team-stage-veil" aria-hidden="true"></div>
+        <div class="tid-team-stage-wash" aria-hidden="true"></div>
         <div class="tid-team-stage-frame" aria-hidden="true"></div>
         <ol class="tid-party-scene is-depth is-grounded">${figures}</ol>
         <p class="tid-team-scene-bgname">${esc(bg?.name || "Pallet Town")}</p>

@@ -923,6 +923,9 @@
   document.getElementById("qa-pass-weekly")?.addEventListener("click", () => run("admin_qa_grant_pass_reward", {
     p_kind: "weekly"
   }, document.getElementById("qa-pass-status")));
+  document.getElementById("qa-pass-supply")?.addEventListener("click", () => run("admin_qa_grant_pass_reward", {
+    p_kind: "supply"
+  }, document.getElementById("qa-pass-status")));
   els.openUsers?.addEventListener("click", () => openUserModal());
   document.getElementById("user-search")?.addEventListener("click", () => {
     userOffset = 0;

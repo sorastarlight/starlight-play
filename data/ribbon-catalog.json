@@ -1,0 +1,1087 @@
+{
+  "generatedAt": "2026-10-06T13:14:42.644Z",
+  "source": "pokesprite misc/ribbon + core-series Ribbon names (build-time cache)",
+  "runtimeExternalCalls": false,
+  "ribbons": [
+    {
+      "id": "effort-ribbon",
+      "name": "Effort Ribbon",
+      "origin": "Generation III — Hoenn",
+      "flavor": "A Ribbon for Pokémon that put forth a great deal of effort.",
+      "prestige": "low",
+      "icon": "images/ribbons/effort-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/effort-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "footprint-ribbon",
+      "name": "Footprint Ribbon",
+      "origin": "Generation IV — Sinnoh",
+      "flavor": "A Ribbon awarded for leaving a lasting footprint on a journey.",
+      "prestige": "low",
+      "icon": "images/ribbons/footprint-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/footprint-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "alert-ribbon",
+      "name": "Alert Ribbon",
+      "origin": "Generation IV — Sinnoh memorial",
+      "flavor": "A memorial Ribbon for a Pokémon that lived alertly.",
+      "prestige": "low",
+      "icon": "images/ribbons/alert-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/alert-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "shock-ribbon",
+      "name": "Shock Ribbon",
+      "origin": "Generation IV — Sinnoh memorial",
+      "flavor": "A memorial Ribbon for a Pokémon that lived through shock.",
+      "prestige": "low",
+      "icon": "images/ribbons/shock-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/shock-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "downcast-ribbon",
+      "name": "Downcast Ribbon",
+      "origin": "Generation IV — Sinnoh memorial",
+      "flavor": "A memorial Ribbon for a Pokémon that lived through melancholy.",
+      "prestige": "low",
+      "icon": "images/ribbons/downcast-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/downcast-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "careless-ribbon",
+      "name": "Careless Ribbon",
+      "origin": "Generation IV — Sinnoh memorial",
+      "flavor": "A memorial Ribbon for a Pokémon that lived carelessly.",
+      "prestige": "low",
+      "icon": "images/ribbons/careless-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/careless-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "relax-ribbon",
+      "name": "Relax Ribbon",
+      "origin": "Generation IV — Sinnoh memorial",
+      "flavor": "A memorial Ribbon for a Pokémon that lived relaxedly.",
+      "prestige": "low",
+      "icon": "images/ribbons/relax-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/relax-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "snooze-ribbon",
+      "name": "Snooze Ribbon",
+      "origin": "Generation IV — Sinnoh memorial",
+      "flavor": "A memorial Ribbon for a Pokémon that lived sleepily.",
+      "prestige": "low",
+      "icon": "images/ribbons/snooze-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/snooze-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "smile-ribbon",
+      "name": "Smile Ribbon",
+      "origin": "Generation IV — Sinnoh memorial",
+      "flavor": "A memorial Ribbon for a Pokémon that lived with a smile.",
+      "prestige": "low",
+      "icon": "images/ribbons/smile-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/smile-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "gorgeous-ribbon",
+      "name": "Gorgeous Ribbon",
+      "origin": "Generation IV — Sinnoh",
+      "flavor": "An extraordinarily gorgeous and extravagant Ribbon.",
+      "prestige": "mid",
+      "icon": "images/ribbons/gorgeous-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/gorgeous-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "royal-ribbon",
+      "name": "Royal Ribbon",
+      "origin": "Generation IV — Sinnoh",
+      "flavor": "An incredibly regal Ribbon with an air of nobility.",
+      "prestige": "mid",
+      "icon": "images/ribbons/royal-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/royal-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "gorgeous-royal-ribbon",
+      "name": "Gorgeous Royal Ribbon",
+      "origin": "Generation IV — Sinnoh",
+      "flavor": "A gorgeous and regal Ribbon that is the highest of luxury.",
+      "prestige": "high",
+      "icon": "images/ribbons/gorgeous-royal-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/gorgeous-royal-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "artist-ribbon",
+      "name": "Artist Ribbon",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for being chosen as a super Contest star in Hoenn.",
+      "prestige": "mid",
+      "icon": "images/ribbons/artist-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/artist-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "record-ribbon",
+      "name": "Record Ribbon",
+      "origin": "Generation IV",
+      "flavor": "A Ribbon awarded for setting an incredible record.",
+      "prestige": "mid",
+      "icon": "images/ribbons/record-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/record-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "legend-ribbon",
+      "name": "Legend Ribbon",
+      "origin": "Generation IV",
+      "flavor": "A Ribbon awarded for setting a legendary record.",
+      "prestige": "high",
+      "icon": "images/ribbons/legend-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/legend-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "country-ribbon",
+      "name": "Country Ribbon",
+      "origin": "Generation III — Hoenn Tower",
+      "flavor": "A Ribbon awarded for winning at a Pokémon League Tower challenge.",
+      "prestige": "low",
+      "icon": "images/ribbons/country-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/country-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "national-ribbon",
+      "name": "National Ribbon",
+      "origin": "Generation III — Hoenn",
+      "flavor": "A Ribbon awarded for overcoming all difficult challenges.",
+      "prestige": "mid",
+      "icon": "images/ribbons/national-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/national-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "earth-ribbon",
+      "name": "Earth Ribbon",
+      "origin": "Generation III — Hoenn Battle Tower",
+      "flavor": "A Ribbon awarded for winning 100 consecutive times at the Battle Tower.",
+      "prestige": "high",
+      "icon": "images/ribbons/earth-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/earth-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "world-ribbon",
+      "name": "World Ribbon",
+      "origin": "Generation III — Hoenn Tower",
+      "flavor": "A Ribbon awarded for being World Champions.",
+      "prestige": "high",
+      "icon": "images/ribbons/world-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/world-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "champion-ribbon",
+      "name": "Champion Ribbon",
+      "origin": "Generation III — Hoenn League",
+      "flavor": "A Ribbon awarded for beating the Champion and entering the Hall of Fame.",
+      "prestige": "high",
+      "icon": "images/ribbons/champion-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "winning-ribbon",
+      "name": "Winning Ribbon",
+      "origin": "Generation III — Hoenn Battle Tower",
+      "flavor": "A Ribbon awarded for clearing Hoenn's Battle Tower's Lv. 50 challenge.",
+      "prestige": "mid",
+      "icon": "images/ribbons/winning-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/winning-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "victory-ribbon",
+      "name": "Victory Ribbon",
+      "origin": "Generation III — Hoenn Battle Tower",
+      "flavor": "A Ribbon awarded for clearing Hoenn's Battle Tower's Lv. 100 challenge.",
+      "prestige": "high",
+      "icon": "images/ribbons/victory-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/victory-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "marine-ribbon",
+      "name": "Marine Ribbon",
+      "origin": "Generation III — Hoenn souvenir",
+      "flavor": "A souvenir Ribbon from a marine-themed place.",
+      "prestige": "low",
+      "icon": "images/ribbons/marine-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/marine-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "land-ribbon",
+      "name": "Land Ribbon",
+      "origin": "Generation III — Hoenn souvenir",
+      "flavor": "A souvenir Ribbon from a land-themed place.",
+      "prestige": "low",
+      "icon": "images/ribbons/land-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/land-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "sky-ribbon",
+      "name": "Sky Ribbon",
+      "origin": "Generation III — Hoenn souvenir",
+      "flavor": "A souvenir Ribbon from a sky-themed place.",
+      "prestige": "low",
+      "icon": "images/ribbons/sky-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/sky-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "cool-ribbon-hoenn",
+      "name": "Cool Ribbon",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Cool Contest Normal Rank in Hoenn.",
+      "prestige": "low",
+      "icon": "images/ribbons/cool-ribbon-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cool-ribbon-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "cool-ribbon-super-hoenn",
+      "name": "Cool Ribbon Super",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Cool Contest Super Rank in Hoenn.",
+      "prestige": "mid",
+      "icon": "images/ribbons/cool-ribbon-super-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cool-ribbon-super-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "cool-ribbon-hyper-hoenn",
+      "name": "Cool Ribbon Hyper",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Cool Contest Hyper Rank in Hoenn.",
+      "prestige": "mid",
+      "icon": "images/ribbons/cool-ribbon-hyper-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cool-ribbon-hyper-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "cool-ribbon-master-hoenn",
+      "name": "Cool Ribbon Master",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Cool Contest Master Rank in Hoenn.",
+      "prestige": "high",
+      "icon": "images/ribbons/cool-ribbon-master-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cool-ribbon-master-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "beauty-ribbon-hoenn",
+      "name": "Beauty Ribbon",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Beauty Contest Normal Rank in Hoenn.",
+      "prestige": "low",
+      "icon": "images/ribbons/beauty-ribbon-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/beauty-ribbon-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "beauty-ribbon-super-hoenn",
+      "name": "Beauty Ribbon Super",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Beauty Contest Super Rank in Hoenn.",
+      "prestige": "mid",
+      "icon": "images/ribbons/beauty-ribbon-super-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/beauty-ribbon-super-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "beauty-ribbon-hyper-hoenn",
+      "name": "Beauty Ribbon Hyper",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Beauty Contest Hyper Rank in Hoenn.",
+      "prestige": "mid",
+      "icon": "images/ribbons/beauty-ribbon-hyper-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/beauty-ribbon-hyper-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "beauty-ribbon-master-hoenn",
+      "name": "Beauty Ribbon Master",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Beauty Contest Master Rank in Hoenn.",
+      "prestige": "high",
+      "icon": "images/ribbons/beauty-ribbon-master-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/beauty-ribbon-master-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "cute-ribbon-hoenn",
+      "name": "Cute Ribbon",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Cute Contest Normal Rank in Hoenn.",
+      "prestige": "low",
+      "icon": "images/ribbons/cute-ribbon-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cute-ribbon-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "cute-ribbon-super-hoenn",
+      "name": "Cute Ribbon Super",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Cute Contest Super Rank in Hoenn.",
+      "prestige": "mid",
+      "icon": "images/ribbons/cute-ribbon-super-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cute-ribbon-super-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "cute-ribbon-master-hoenn",
+      "name": "Cute Ribbon Master",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Cute Contest Master Rank in Hoenn.",
+      "prestige": "high",
+      "icon": "images/ribbons/cute-ribbon-master-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cute-ribbon-master-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "smart-ribbon-hoenn",
+      "name": "Smart Ribbon",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Smart Contest Normal Rank in Hoenn.",
+      "prestige": "low",
+      "icon": "images/ribbons/smart-ribbon-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/smart-ribbon-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "smart-ribbon-super-hoenn",
+      "name": "Smart Ribbon Super",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Smart Contest Super Rank in Hoenn.",
+      "prestige": "mid",
+      "icon": "images/ribbons/smart-ribbon-super-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/smart-ribbon-super-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "smart-ribbon-hyper-hoenn",
+      "name": "Smart Ribbon Hyper",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Smart Contest Hyper Rank in Hoenn.",
+      "prestige": "mid",
+      "icon": "images/ribbons/smart-ribbon-hyper-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/smart-ribbon-hyper-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "tough-ribbon-hoenn",
+      "name": "Tough Ribbon",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Tough Contest Normal Rank in Hoenn.",
+      "prestige": "low",
+      "icon": "images/ribbons/tough-ribbon-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/tough-ribbon-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "tough-ribbon-super-hoenn",
+      "name": "Tough Ribbon Super",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Tough Contest Super Rank in Hoenn.",
+      "prestige": "mid",
+      "icon": "images/ribbons/tough-ribbon-super-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/tough-ribbon-super-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "tough-ribbon-hyper-hoenn",
+      "name": "Tough Ribbon Hyper",
+      "origin": "Generation III — Hoenn Contests",
+      "flavor": "A Ribbon awarded for winning the Tough Contest Hyper Rank in Hoenn.",
+      "prestige": "mid",
+      "icon": "images/ribbons/tough-ribbon-hyper-hoenn.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/tough-ribbon-hyper-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "sinnoh-champion-ribbon",
+      "name": "Sinnoh Champion Ribbon",
+      "origin": "Generation IV — Sinnoh League",
+      "flavor": "A Ribbon awarded for beating the Sinnoh Champion and entering the Hall of Fame.",
+      "prestige": "high",
+      "icon": "images/ribbons/sinnoh-champion-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/sinnoh-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "kalos-champion-ribbon",
+      "name": "Kalos Champion Ribbon",
+      "origin": "Generation VI — Kalos League",
+      "flavor": "A Ribbon awarded for becoming the Kalos Champion.",
+      "prestige": "high",
+      "icon": "images/ribbons/kalos-champion-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/kalos-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "hoenn-champion-ribbon",
+      "name": "Hoenn Champion Ribbon",
+      "origin": "Generation VI — Omega Ruby / Alpha Sapphire",
+      "flavor": "A Ribbon awarded for becoming the Hoenn Champion.",
+      "prestige": "high",
+      "icon": "images/ribbons/hoenn-champion-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/hoenn-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "contest-memory-ribbon",
+      "name": "Contest Memory Ribbon",
+      "origin": "Generation VI",
+      "flavor": "A Ribbon commemorating participation in Pokémon Contests.",
+      "prestige": "mid",
+      "icon": "images/ribbons/contest-memory-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/contest-memory-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "battle-memory-ribbon",
+      "name": "Battle Memory Ribbon",
+      "origin": "Generation VI",
+      "flavor": "A Ribbon commemorating participation in battles.",
+      "prestige": "mid",
+      "icon": "images/ribbons/battle-memory-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/battle-memory-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "contest-memory-ribbon-gold",
+      "name": "Contest Memory Ribbon (Gold)",
+      "origin": "Generation VI",
+      "flavor": "A gold Ribbon commemorating outstanding Contest accomplishments.",
+      "prestige": "high",
+      "icon": "images/ribbons/contest-memory-ribbon-gold.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/contest-memory-ribbon-gold.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "battle-memory-ribbon-gold",
+      "name": "Battle Memory Ribbon (Gold)",
+      "origin": "Generation VI",
+      "flavor": "A gold Ribbon commemorating outstanding battle accomplishments.",
+      "prestige": "high",
+      "icon": "images/ribbons/battle-memory-ribbon-gold.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/battle-memory-ribbon-gold.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "skillful-battler-ribbon",
+      "name": "Skillful Battler Ribbon",
+      "origin": "Generation VI — Battle Maison",
+      "flavor": "A Ribbon awarded for defeating the Battle Chatelaine at the Battle Maison.",
+      "prestige": "mid",
+      "icon": "images/ribbons/skillful-battler-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/skillful-battler-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "expert-battler-ribbon",
+      "name": "Expert Battler Ribbon",
+      "origin": "Generation VI — Battle Maison",
+      "flavor": "A Ribbon awarded for defeating the Battle Chatelaine in Super Battles.",
+      "prestige": "high",
+      "icon": "images/ribbons/expert-battler-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/expert-battler-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "best-friends-ribbon",
+      "name": "Best Friends Ribbon",
+      "origin": "Generation VI",
+      "flavor": "A Ribbon that can be given to a Pokémon with which you share a close bond.",
+      "prestige": "low",
+      "icon": "images/ribbons/best-friends-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/best-friends-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "training-ribbon",
+      "name": "Training Ribbon",
+      "origin": "Generation VI — Super Training",
+      "flavor": "A Ribbon awarded for completing all Secret Super Training regimens.",
+      "prestige": "low",
+      "icon": "images/ribbons/training-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/training-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "battle-champion-ribbon",
+      "name": "Battle Champion Ribbon",
+      "origin": "Generation IV — World Championships",
+      "flavor": "A Ribbon awarded to a Battle Competition Champion.",
+      "prestige": "high",
+      "icon": "images/ribbons/battle-champion-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/battle-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "regional-champion-ribbon",
+      "name": "Regional Champion Ribbon",
+      "origin": "Generation IV — World Championships",
+      "flavor": "A Ribbon awarded to a Regional Champion.",
+      "prestige": "high",
+      "icon": "images/ribbons/regional-champion-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/regional-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "national-champion-ribbon",
+      "name": "National Champion Ribbon",
+      "origin": "Generation IV — World Championships",
+      "flavor": "A Ribbon awarded to a National Champion.",
+      "prestige": "high",
+      "icon": "images/ribbons/national-champion-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/national-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "world-champion-ribbon",
+      "name": "World Champion Ribbon",
+      "origin": "Generation IV — World Championships",
+      "flavor": "A Ribbon awarded to a World Champion.",
+      "prestige": "high",
+      "icon": "images/ribbons/world-champion-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/world-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "contest-star-ribbon",
+      "name": "Contest Star Ribbon",
+      "origin": "Generation VI — Hoenn Contests",
+      "flavor": "A Ribbon awarded for becoming a Contest Star.",
+      "prestige": "high",
+      "icon": "images/ribbons/contest-star-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/contest-star-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "beauty-master-ribbon",
+      "name": "Beauty Master Ribbon",
+      "origin": "Generation VI — Pokémon Contests",
+      "flavor": "A Ribbon awarded for becoming a Beauty Contest Master.",
+      "prestige": "high",
+      "icon": "images/ribbons/beauty-master-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/beauty-master-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "tower-master-ribbon",
+      "name": "Tower Master Ribbon",
+      "origin": "Generation VIII — Battle Tower",
+      "flavor": "A Ribbon awarded for becoming a Battle Tower Master.",
+      "prestige": "high",
+      "icon": "images/ribbons/tower-master-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/gen8/tower-master-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "history-ribbon",
+      "name": "History Ribbon",
+      "origin": "Generation IV",
+      "flavor": "A Ribbon awarded for making history.",
+      "prestige": "low",
+      "icon": "images/ribbons/history-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/history-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "blue-ribbon",
+      "name": "Blue Ribbon",
+      "origin": "Generation III souvenir",
+      "flavor": "A souvenir Blue Ribbon.",
+      "prestige": "low",
+      "icon": "images/ribbons/blue-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/blue-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "battle-tree-great-ribbon",
+      "name": "Battle Tree Great Ribbon",
+      "origin": "Generation VII — Battle Tree",
+      "flavor": "A Ribbon awarded for a great showing at the Battle Tree.",
+      "prestige": "mid",
+      "icon": "images/ribbons/battle-tree-great-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/battle-tree-great-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "premier-ribbon",
+      "name": "Premier Ribbon",
+      "origin": "Generation IV — event",
+      "flavor": "A special Ribbon from a special occasion.",
+      "prestige": "mid",
+      "icon": "images/ribbons/premier-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/premier-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "event-ribbon",
+      "name": "Event Ribbon",
+      "origin": "Generation IV — event",
+      "flavor": "A Ribbon awarded for participating in a special Pokémon event.",
+      "prestige": "mid",
+      "icon": "images/ribbons/event-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/event-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "special-ribbon",
+      "name": "Special Ribbon",
+      "origin": "Generation IV — event",
+      "flavor": "A special Ribbon for a special occasion.",
+      "prestige": "high",
+      "icon": "images/ribbons/special-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/special-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "carnival-ribbon",
+      "name": "Carnival Ribbon",
+      "origin": "Generation IV — event",
+      "flavor": "A Ribbon awarded during a Carnival event.",
+      "prestige": "mid",
+      "icon": "images/ribbons/carnival-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/carnival-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "festival-ribbon",
+      "name": "Festival Ribbon",
+      "origin": "Generation IV — event",
+      "flavor": "A Ribbon awarded during a Festival event.",
+      "prestige": "mid",
+      "icon": "images/ribbons/festival-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/festival-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "classic-ribbon",
+      "name": "Classic Ribbon",
+      "origin": "Generation IV — event",
+      "flavor": "A Ribbon awarded during a Classic competition.",
+      "prestige": "mid",
+      "icon": "images/ribbons/classic-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/classic-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "souvenir-ribbon",
+      "name": "Souvenir Ribbon",
+      "origin": "Generation IV — event",
+      "flavor": "A souvenir Ribbon from a special location.",
+      "prestige": "low",
+      "icon": "images/ribbons/souvenir-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/souvenir-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "wishing-ribbon",
+      "name": "Wishing Ribbon",
+      "origin": "Generation IV — event",
+      "flavor": "A Ribbon said to make a wish come true.",
+      "prestige": "high",
+      "icon": "images/ribbons/wishing-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/wishing-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "id": "birthday-ribbon",
+      "name": "Birthday Ribbon",
+      "origin": "Generation IV — event",
+      "flavor": "A Ribbon awarded on a birthday.",
+      "prestige": "low",
+      "icon": "images/ribbons/birthday-ribbon.png",
+      "spriteFetched": true,
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/birthday-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    }
+  ]
+}

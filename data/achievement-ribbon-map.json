@@ -1,0 +1,1138 @@
+{
+  "version": 1,
+  "gameDesignNote": "Canonical Ribbon names, flavor, origin, and sprites are Pokémon references. Which StreamLink Achievement awards which Ribbon is this game's design — not official Pokémon behavior.",
+  "duplicateStrategy": "Each Achievement maps to a unique canonical Ribbon. Level-milestone badges (kanto-10, level-20, level-50) reuse the same Ribbon as the closest Achievement when those badges exist independently of an Achievement row.",
+  "prestigeMethod": "Low = onboarding/participation/souvenir/normal-rank contest Ribbons. Mid = distinguished contest ranks, Battle Maison skill, event/festival Ribbons. High = League Champion, Tower/World Championship, Legend, Master-rank contest, gold memory Ribbons.",
+  "mappings": [
+    {
+      "achievementId": "catch-10",
+      "achievementName": "Novice Trainer",
+      "tier": "low",
+      "ribbonId": "effort-ribbon",
+      "reason": "First catching effort — Effort Ribbon is a modest recognition of work put in.",
+      "ribbonName": "Effort Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn",
+      "localIcon": "images/ribbons/effort-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/effort-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "catch-25",
+      "achievementName": "Getting Started",
+      "tier": "low",
+      "ribbonId": "footprint-ribbon",
+      "reason": "Early journey progress — Footprint Ribbon marks a Trainer's first lasting steps.",
+      "ribbonName": "Footprint Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh",
+      "localIcon": "images/ribbons/footprint-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/footprint-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "catch-50",
+      "achievementName": "On a Roll",
+      "tier": "low",
+      "ribbonId": "training-ribbon",
+      "reason": "Sustained catching practice maps to Training Ribbon.",
+      "ribbonName": "Training Ribbon",
+      "ribbonOrigin": "Generation VI — Super Training",
+      "localIcon": "images/ribbons/training-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/training-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "catch-100",
+      "achievementName": "Experienced Trainer",
+      "tier": "mid",
+      "ribbonId": "skillful-battler-ribbon",
+      "reason": "Triple-digit catches show practiced skill, akin to Battle Maison skill.",
+      "ribbonName": "Skillful Battler Ribbon",
+      "ribbonOrigin": "Generation VI — Battle Maison",
+      "localIcon": "images/ribbons/skillful-battler-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/skillful-battler-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "catch-250",
+      "achievementName": "Veteran Trainer",
+      "tier": "mid",
+      "ribbonId": "expert-battler-ribbon",
+      "reason": "Veteran volume deserves a distinguished battle Ribbon.",
+      "ribbonName": "Expert Battler Ribbon",
+      "ribbonOrigin": "Generation VI — Battle Maison",
+      "localIcon": "images/ribbons/expert-battler-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/expert-battler-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "catch-500",
+      "achievementName": "Master Catcher",
+      "tier": "high",
+      "ribbonId": "battle-memory-ribbon-gold",
+      "reason": "Long-term catching mastery — gold battle memory, not a League Champion Ribbon.",
+      "ribbonName": "Battle Memory Ribbon (Gold)",
+      "ribbonOrigin": "Generation VI",
+      "localIcon": "images/ribbons/battle-memory-ribbon-gold.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/battle-memory-ribbon-gold.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "catch-1000",
+      "achievementName": "Living Pokédex",
+      "tier": "high",
+      "ribbonId": "tower-master-ribbon",
+      "reason": "Thousand catches is a rare lifetime volume.",
+      "ribbonName": "Tower Master Ribbon",
+      "ribbonOrigin": "Generation VIII — Battle Tower",
+      "localIcon": "images/ribbons/tower-master-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/gen8/tower-master-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dup-5",
+      "achievementName": "Familiar Face",
+      "tier": "low",
+      "ribbonId": "alert-ribbon",
+      "reason": "Modest repeat-catching; memorial Alert Ribbon is common-tier.",
+      "ribbonName": "Alert Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh memorial",
+      "localIcon": "images/ribbons/alert-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/alert-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dup-10",
+      "achievementName": "Regular",
+      "tier": "low",
+      "ribbonId": "shock-ribbon",
+      "reason": "Next step in species familiarity, still a modest memorial Ribbon.",
+      "ribbonName": "Shock Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh memorial",
+      "localIcon": "images/ribbons/shock-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/shock-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dup-25",
+      "achievementName": "Super Fan",
+      "tier": "low",
+      "ribbonId": "careless-ribbon",
+      "reason": "Fan dedication without high prestige.",
+      "ribbonName": "Careless Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh memorial",
+      "localIcon": "images/ribbons/careless-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/careless-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dup-50",
+      "achievementName": "True Fan",
+      "tier": "mid",
+      "ribbonId": "relax-ribbon",
+      "reason": "Deeper species loyalty; still not a Champion Ribbon.",
+      "ribbonName": "Relax Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh memorial",
+      "localIcon": "images/ribbons/relax-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/relax-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dup-100",
+      "achievementName": "Number One Fan",
+      "tier": "mid",
+      "ribbonId": "snooze-ribbon",
+      "reason": "High repeat counts; memorial series reserved for this family.",
+      "ribbonName": "Snooze Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh memorial",
+      "localIcon": "images/ribbons/snooze-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/snooze-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "join-10",
+      "achievementName": "Showing Up",
+      "tier": "low",
+      "ribbonId": "country-ribbon",
+      "reason": "Local participation — Country Ribbon is an early Tower souvenir, not Champion.",
+      "ribbonName": "Country Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Tower",
+      "localIcon": "images/ribbons/country-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/country-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "join-50",
+      "achievementName": "Regular Viewer",
+      "tier": "low",
+      "ribbonId": "marine-ribbon",
+      "reason": "Recurring attendance as a modest souvenir Ribbon.",
+      "ribbonName": "Marine Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn souvenir",
+      "localIcon": "images/ribbons/marine-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/marine-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "join-100",
+      "achievementName": "Loyal Trainer",
+      "tier": "mid",
+      "ribbonId": "land-ribbon",
+      "reason": "Hundred encounters is a notable loyalty souvenir.",
+      "ribbonName": "Land Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn souvenir",
+      "localIcon": "images/ribbons/land-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/land-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "join-250",
+      "achievementName": "Stream Regular",
+      "tier": "mid",
+      "ribbonId": "sky-ribbon",
+      "reason": "Sustained presence; souvenir Sky Ribbon.",
+      "ribbonName": "Sky Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn souvenir",
+      "localIcon": "images/ribbons/sky-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/sky-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "join-500",
+      "achievementName": "Always Here",
+      "tier": "high",
+      "ribbonId": "national-ribbon",
+      "reason": "Overcoming a long attendance grind — National Ribbon's 'difficult challenges' flavor.",
+      "ribbonName": "National Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn",
+      "localIcon": "images/ribbons/national-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/national-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "join-1000",
+      "achievementName": "Everpresent",
+      "tier": "high",
+      "ribbonId": "world-ribbon",
+      "reason": "Global-scale presence maps to World Ribbon, not randomly assigned Champion.",
+      "ribbonName": "World Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Tower",
+      "localIcon": "images/ribbons/world-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/world-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "honey-10",
+      "achievementName": "Helping Hand",
+      "tier": "low",
+      "ribbonId": "smile-ribbon",
+      "reason": "Community help with a friendly, modest memorial Ribbon.",
+      "ribbonName": "Smile Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh memorial",
+      "localIcon": "images/ribbons/smile-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/smile-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "honey-25",
+      "achievementName": "Sweet Supporter",
+      "tier": "low",
+      "ribbonId": "blue-ribbon",
+      "reason": "Being a good pal to the stream community.",
+      "ribbonName": "Blue Ribbon",
+      "ribbonOrigin": "Generation III souvenir",
+      "localIcon": "images/ribbons/blue-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/blue-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "honey-50",
+      "achievementName": "Hive Helper",
+      "tier": "mid",
+      "ribbonId": "festival-ribbon",
+      "reason": "Festival-scale community gathering via Honey.",
+      "ribbonName": "Festival Ribbon",
+      "ribbonOrigin": "Generation IV — event",
+      "localIcon": "images/ribbons/festival-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/festival-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "honey-100",
+      "achievementName": "Hive Hero",
+      "tier": "mid",
+      "ribbonId": "carnival-ribbon",
+      "reason": "Larger community event energy.",
+      "ribbonName": "Carnival Ribbon",
+      "ribbonOrigin": "Generation IV — event",
+      "localIcon": "images/ribbons/carnival-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/carnival-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "honey-250",
+      "achievementName": "Community Champion",
+      "tier": "high",
+      "ribbonId": "premier-ribbon",
+      "reason": "Named Champion in StreamLink, but canonical Ribbon is Premier (special occasion) — not League Champion.",
+      "ribbonName": "Premier Ribbon",
+      "ribbonOrigin": "Generation IV — event",
+      "localIcon": "images/ribbons/premier-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/premier-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "honey-500",
+      "achievementName": "Honey Legend",
+      "tier": "high",
+      "ribbonId": "special-ribbon",
+      "reason": "Rare community volume; Special Ribbon rather than Legend Ribbon (reserved for shiny living dex).",
+      "ribbonName": "Special Ribbon",
+      "ribbonOrigin": "Generation IV — event",
+      "localIcon": "images/ribbons/special-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/special-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "shiny-1",
+      "achievementName": "Shiny Hunter",
+      "tier": "mid",
+      "ribbonId": "gorgeous-ribbon",
+      "reason": "First shiny is striking — Gorgeous Ribbon, not Champion.",
+      "ribbonName": "Gorgeous Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh",
+      "localIcon": "images/ribbons/gorgeous-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/gorgeous-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "shiny-5",
+      "achievementName": "Sparkle Watch",
+      "tier": "mid",
+      "ribbonId": "royal-ribbon",
+      "reason": "Growing shiny collection with regal sparkle.",
+      "ribbonName": "Royal Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh",
+      "localIcon": "images/ribbons/royal-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/royal-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "shiny-10",
+      "achievementName": "Sparkling Collector",
+      "tier": "high",
+      "ribbonId": "gorgeous-royal-ribbon",
+      "reason": "Luxury combined Ribbon for a serious shiny collection.",
+      "ribbonName": "Gorgeous Royal Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh",
+      "localIcon": "images/ribbons/gorgeous-royal-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/gorgeous-royal-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "shiny-25",
+      "achievementName": "Shiny Specialist",
+      "tier": "high",
+      "ribbonId": "beauty-master-ribbon",
+      "reason": "Twinkling Star is the canonical sparkling-star Ribbon.",
+      "ribbonName": "Beauty Master Ribbon",
+      "ribbonOrigin": "Generation VI — Pokémon Contests",
+      "localIcon": "images/ribbons/beauty-master-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/beauty-master-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "shiny-50",
+      "achievementName": "Shiny Master",
+      "tier": "high",
+      "ribbonId": "contest-star-ribbon",
+      "reason": "Master-tier sparkle as a Contest Star, not League Champion.",
+      "ribbonName": "Contest Star Ribbon",
+      "ribbonOrigin": "Generation VI — Hoenn Contests",
+      "localIcon": "images/ribbons/contest-star-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/contest-star-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "shiny-100",
+      "achievementName": "Shiny Virtuoso",
+      "tier": "high",
+      "ribbonId": "wishing-ribbon",
+      "reason": "Wish-come-true rarity of a huge shiny dex.",
+      "ribbonName": "Wishing Ribbon",
+      "ribbonOrigin": "Generation IV — event",
+      "localIcon": "images/ribbons/wishing-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/wishing-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "shiny-151",
+      "achievementName": "Kanto Shiny Living Dex",
+      "tier": "high",
+      "ribbonId": "legend-ribbon",
+      "reason": "Legendary-scale completion; Legend Ribbon's record flavor.",
+      "ribbonName": "Legend Ribbon",
+      "ribbonOrigin": "Generation IV",
+      "localIcon": "images/ribbons/legend-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/legend-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "female-1",
+      "achievementName": "Keen Eye",
+      "tier": "low",
+      "ribbonId": "cute-ribbon-hoenn",
+      "reason": "First female variant — Normal-rank Cute Ribbon.",
+      "ribbonName": "Cute Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/cute-ribbon-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cute-ribbon-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "female-10",
+      "achievementName": "Form Finder",
+      "tier": "mid",
+      "ribbonId": "cute-ribbon-super-hoenn",
+      "reason": "Super-rank Cute Ribbon for growing variant work.",
+      "ribbonName": "Cute Ribbon Super",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/cute-ribbon-super-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cute-ribbon-super-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "female-all",
+      "achievementName": "Every Lady",
+      "tier": "high",
+      "ribbonId": "cute-ribbon-master-hoenn",
+      "reason": "Complete female-variant set — Master Rank Cute.",
+      "ribbonName": "Cute Ribbon Master",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/cute-ribbon-master-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cute-ribbon-master-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "net-10",
+      "achievementName": "Net Work",
+      "tier": "low",
+      "ribbonId": "cool-ribbon-hoenn",
+      "reason": "Specialist-ball onboarding — Cool Contest Normal Rank.",
+      "ribbonName": "Cool Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/cool-ribbon-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cool-ribbon-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dusk-10",
+      "achievementName": "Night Owl",
+      "tier": "low",
+      "ribbonId": "smart-ribbon-hoenn",
+      "reason": "Night-themed specialist work — Smart Contest Normal Rank.",
+      "ribbonName": "Smart Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/smart-ribbon-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/smart-ribbon-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "repeat-10",
+      "achievementName": "Déjà Vu",
+      "tier": "low",
+      "ribbonId": "beauty-ribbon-hoenn",
+      "reason": "Repeat Ball specialist — Beauty Contest Normal Rank.",
+      "ribbonName": "Beauty Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/beauty-ribbon-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/beauty-ribbon-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "fast-10",
+      "achievementName": "Speedster",
+      "tier": "low",
+      "ribbonId": "tough-ribbon-hoenn",
+      "reason": "Fast Ball specialist — Tough Contest Normal Rank.",
+      "ribbonName": "Tough Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/tough-ribbon-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/tough-ribbon-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "perfect-1",
+      "achievementName": "Perfect Tool",
+      "tier": "mid",
+      "ribbonId": "cool-ribbon-super-hoenn",
+      "reason": "First optimal catch — Super Rank Cool.",
+      "ribbonName": "Cool Ribbon Super",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/cool-ribbon-super-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cool-ribbon-super-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "perfect-10",
+      "achievementName": "Right Tool",
+      "tier": "mid",
+      "ribbonId": "cool-ribbon-hyper-hoenn",
+      "reason": "Repeated optimal tools — Hyper Rank Cool.",
+      "ribbonName": "Cool Ribbon Hyper",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/cool-ribbon-hyper-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cool-ribbon-hyper-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "perfect-50",
+      "achievementName": "Item Scholar",
+      "tier": "high",
+      "ribbonId": "cool-ribbon-master-hoenn",
+      "reason": "Mastery of ball choice — Master Rank Cool.",
+      "ribbonName": "Cool Ribbon Master",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/cool-ribbon-master-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/cool-ribbon-master-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "rare-1",
+      "achievementName": "First Rare",
+      "tier": "mid",
+      "ribbonId": "artist-ribbon",
+      "reason": "Standout capture chosen like a Contest artist pick.",
+      "ribbonName": "Artist Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/artist-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/artist-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "rare-10",
+      "achievementName": "Rare Hunter",
+      "tier": "mid",
+      "ribbonId": "record-ribbon",
+      "reason": "A recorded rare-hunting streak.",
+      "ribbonName": "Record Ribbon",
+      "ribbonOrigin": "Generation IV",
+      "localIcon": "images/ribbons/record-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/record-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "vrare-1",
+      "achievementName": "First Very Rare",
+      "tier": "mid",
+      "ribbonId": "souvenir-ribbon",
+      "reason": "A notable souvenir of a very rare find.",
+      "ribbonName": "Souvenir Ribbon",
+      "ribbonOrigin": "Generation IV — event",
+      "localIcon": "images/ribbons/souvenir-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/souvenir-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "vrare-10",
+      "achievementName": "Very Rare Hunter",
+      "tier": "mid",
+      "ribbonId": "classic-ribbon",
+      "reason": "Classic-competition prestige for repeated very rares.",
+      "ribbonName": "Classic Ribbon",
+      "ribbonOrigin": "Generation IV — event",
+      "localIcon": "images/ribbons/classic-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/classic-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "urare-1",
+      "achievementName": "First Ultra Rare",
+      "tier": "high",
+      "ribbonId": "event-ribbon",
+      "reason": "Ultra-rare as a special event caliber find.",
+      "ribbonName": "Event Ribbon",
+      "ribbonOrigin": "Generation IV — event",
+      "localIcon": "images/ribbons/event-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/event-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "legend-1",
+      "achievementName": "Legendary Trainer",
+      "tier": "high",
+      "ribbonId": "champion-ribbon",
+      "reason": "Catching a Legendary/Mythical is Hall of Fame caliber — Champion Ribbon.",
+      "ribbonName": "Champion Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn League",
+      "localIcon": "images/ribbons/champion-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "kanto-legend-set",
+      "achievementName": "Kanto Legends",
+      "tier": "high",
+      "ribbonId": "sinnoh-champion-ribbon",
+      "reason": "Full legendary bird/Mewtwo set — second League Champion Ribbon, not duplicating Hoenn Champion.",
+      "ribbonName": "Sinnoh Champion Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh League",
+      "localIcon": "images/ribbons/sinnoh-champion-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/sinnoh-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "fail-25",
+      "achievementName": "So Close!",
+      "tier": "low",
+      "ribbonId": "downcast-ribbon",
+      "reason": "Failed catches — Downcast memorial Ribbon.",
+      "ribbonName": "Downcast Ribbon",
+      "ribbonOrigin": "Generation IV — Sinnoh memorial",
+      "localIcon": "images/ribbons/downcast-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/downcast-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "streak-5",
+      "achievementName": "Hot Streak",
+      "tier": "mid",
+      "ribbonId": "winning-ribbon",
+      "reason": "Battle Tower Winning Ribbon for a short hot streak.",
+      "ribbonName": "Winning Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Battle Tower",
+      "localIcon": "images/ribbons/winning-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/winning-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "streak-10",
+      "achievementName": "Unstoppable",
+      "tier": "high",
+      "ribbonId": "victory-ribbon",
+      "reason": "Longer streak maps to Victory Ribbon (Lv. 100 Tower).",
+      "ribbonName": "Victory Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Battle Tower",
+      "localIcon": "images/ribbons/victory-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/victory-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "odds-5",
+      "achievementName": "Against All Odds",
+      "tier": "high",
+      "ribbonId": "earth-ribbon",
+      "reason": "Hundred-win Tower flavor for beating long odds.",
+      "ribbonName": "Earth Ribbon",
+      "ribbonOrigin": "Generation III — Hoenn Battle Tower",
+      "localIcon": "images/ribbons/earth-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/earth-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "evo-1",
+      "achievementName": "First Evolution",
+      "tier": "low",
+      "ribbonId": "best-friends-ribbon",
+      "reason": "Bond of first evolution — Best Friends Ribbon.",
+      "ribbonName": "Best Friends Ribbon",
+      "ribbonOrigin": "Generation VI",
+      "localIcon": "images/ribbons/best-friends-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/best-friends-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "evo-10",
+      "achievementName": "Evolution Fan",
+      "tier": "mid",
+      "ribbonId": "contest-memory-ribbon",
+      "reason": "Remembered growth through many evolutions.",
+      "ribbonName": "Contest Memory Ribbon",
+      "ribbonOrigin": "Generation VI",
+      "localIcon": "images/ribbons/contest-memory-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/contest-memory-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "evo-50",
+      "achievementName": "Evolution Expert",
+      "tier": "high",
+      "ribbonId": "contest-memory-ribbon-gold",
+      "reason": "Gold memory of extensive evolution work.",
+      "ribbonName": "Contest Memory Ribbon (Gold)",
+      "ribbonOrigin": "Generation VI",
+      "localIcon": "images/ribbons/contest-memory-ribbon-gold.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/contest-memory-ribbon-gold.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "trade-1",
+      "achievementName": "Pokémon Trader",
+      "tier": "low",
+      "ribbonId": "history-ribbon",
+      "reason": "First trade partnership.",
+      "ribbonName": "History Ribbon",
+      "ribbonOrigin": "Generation IV",
+      "localIcon": "images/ribbons/history-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/history-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "trade-10",
+      "achievementName": "Trade Partner",
+      "tier": "mid",
+      "ribbonId": "battle-tree-great-ribbon",
+      "reason": "Repeated GTS pioneering.",
+      "ribbonName": "Battle Tree Great Ribbon",
+      "ribbonOrigin": "Generation VII — Battle Tree",
+      "localIcon": "images/ribbons/battle-tree-great-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/battle-tree-great-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "master-1",
+      "achievementName": "First Species Mastered",
+      "tier": "mid",
+      "ribbonId": "battle-memory-ribbon",
+      "reason": "First mastery recorded as battle memory.",
+      "ribbonName": "Battle Memory Ribbon",
+      "ribbonOrigin": "Generation VI",
+      "localIcon": "images/ribbons/battle-memory-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/battle-memory-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "master-5",
+      "achievementName": "Five Masters",
+      "tier": "high",
+      "ribbonId": "kalos-champion-ribbon",
+      "reason": "Multi-species mastery at League-champion prestige.",
+      "ribbonName": "Kalos Champion Ribbon",
+      "ribbonOrigin": "Generation VI — Kalos League",
+      "localIcon": "images/ribbons/kalos-champion-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/kalos-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "master-10",
+      "achievementName": "Ten Masters",
+      "tier": "high",
+      "ribbonId": "world-champion-ribbon",
+      "reason": "Ten mastered species is world-championship prestige.",
+      "ribbonName": "World Champion Ribbon",
+      "ribbonOrigin": "Generation IV — World Championships",
+      "localIcon": "images/ribbons/world-champion-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/world-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dup-catch-10",
+      "achievementName": "Another One",
+      "tier": "low",
+      "ribbonId": "birthday-ribbon",
+      "reason": "Casual duplicate catching — festive modest Ribbon.",
+      "ribbonName": "Birthday Ribbon",
+      "ribbonOrigin": "Generation IV — event",
+      "localIcon": "images/ribbons/birthday-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/birthday-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dex-25",
+      "achievementName": "Kanto Explorer",
+      "tier": "low",
+      "ribbonId": "beauty-ribbon-super-hoenn",
+      "reason": "Early Pokédex milestone — Super Beauty, not Champion.",
+      "ribbonName": "Beauty Ribbon Super",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/beauty-ribbon-super-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/beauty-ribbon-super-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dex-50",
+      "achievementName": "Pokédex Researcher",
+      "tier": "mid",
+      "ribbonId": "smart-ribbon-super-hoenn",
+      "reason": "Research flavor — Super Smart Contest.",
+      "ribbonName": "Smart Ribbon Super",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/smart-ribbon-super-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/smart-ribbon-super-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dex-75",
+      "achievementName": "Kanto Road",
+      "tier": "mid",
+      "ribbonId": "tough-ribbon-super-hoenn",
+      "reason": "Road-worn mid dex — Super Tough.",
+      "ribbonName": "Tough Ribbon Super",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/tough-ribbon-super-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/tough-ribbon-super-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dex-100",
+      "achievementName": "Veteran Collector",
+      "tier": "mid",
+      "ribbonId": "beauty-ribbon-hyper-hoenn",
+      "reason": "Hyper-rank Beauty for a large Kanto collection.",
+      "ribbonName": "Beauty Ribbon Hyper",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/beauty-ribbon-hyper-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/beauty-ribbon-hyper-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dex-125",
+      "achievementName": "Almost There",
+      "tier": "high",
+      "ribbonId": "smart-ribbon-hyper-hoenn",
+      "reason": "Near-complete dex — Hyper Smart.",
+      "ribbonName": "Smart Ribbon Hyper",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/smart-ribbon-hyper-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/smart-ribbon-hyper-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dex-151",
+      "achievementName": "Kanto Master",
+      "tier": "high",
+      "ribbonId": "hoenn-champion-ribbon",
+      "reason": "Regional Pokédex completion maps to a League Champion Ribbon (Hoenn Champion), distinct from Legendary capture's Champion Ribbon.",
+      "ribbonName": "Hoenn Champion Ribbon",
+      "ribbonOrigin": "Generation VI — Omega Ruby / Alpha Sapphire",
+      "localIcon": "images/ribbons/hoenn-champion-ribbon.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/hoenn-champion-ribbon.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    },
+    {
+      "achievementId": "dup-catch-50",
+      "achievementName": "Familiar Faces",
+      "tier": "mid",
+      "ribbonId": "tough-ribbon-hyper-hoenn",
+      "reason": "Sustained duplicate catching — Hyper Tough.",
+      "ribbonName": "Tough Ribbon Hyper",
+      "ribbonOrigin": "Generation III — Hoenn Contests",
+      "localIcon": "images/ribbons/tough-ribbon-hyper-hoenn.png",
+      "provenance": {
+        "sprite": "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/ribbon/tough-ribbon-hyper-hoenn.png",
+        "source": "pokesprite misc/ribbon (in-game Ribbon graphics, cached locally at build time)",
+        "pokeapi": "PokéAPI has no dedicated Ribbon endpoint; ribbons are not bag items. Names/flavor follow core-series Ribbon names.",
+        "note": "StreamLink Achievement mapping is this game's design, not official Pokémon behavior."
+      }
+    }
+  ],
+  "legacyBadgeAliases": {
+    "kanto-10": {
+      "ribbonId": "effort-ribbon",
+      "note": "Species-10 economy badge; presentation aliases Effort Ribbon (same as catch-10)."
+    },
+    "kanto-25": {
+      "ribbonId": "beauty-ribbon-super-hoenn",
+      "note": "Existing badge id for dex-25."
+    },
+    "kanto-50": {
+      "ribbonId": "smart-ribbon-super-hoenn",
+      "note": "Existing badge id for dex-50."
+    },
+    "kanto-100": {
+      "ribbonId": "beauty-ribbon-hyper-hoenn",
+      "note": "Existing badge id for dex-100."
+    },
+    "kanto-complete": {
+      "ribbonId": "hoenn-champion-ribbon",
+      "note": "Existing badge id for dex-151."
+    },
+    "first-shiny": {
+      "ribbonId": "gorgeous-ribbon",
+      "note": "Existing badge id for shiny-1."
+    },
+    "encounters-100": {
+      "ribbonId": "land-ribbon",
+      "note": "Existing badge id for join-100."
+    },
+    "legendary-catch": {
+      "ribbonId": "champion-ribbon",
+      "note": "Existing badge id for legend-1."
+    },
+    "level-20": {
+      "ribbonId": "training-ribbon",
+      "note": "Level milestone badge; reuses Training Ribbon presentation."
+    },
+    "level-50": {
+      "ribbonId": "regional-champion-ribbon",
+      "note": "High trainer level — Regional Champion Ribbon, unused by an Achievement."
+    }
+  }
+}

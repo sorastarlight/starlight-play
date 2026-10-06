@@ -104,7 +104,7 @@
   }
 
   function badges(row) {
-    const items = (row.featuredBadges || []).slice(0, 3);
+    const items = (row.featuredBadges || []).slice(0, window.PLAY_FEATURED_RIBBON_MAX || 5);
     if (!items.length) return "";
     return `<span class="rank-badges">${items.map((item) => `<span class="rank-badge">${window.playEscapeAttr(item.name || item.id)}</span>`).join("")}</span>`;
   }

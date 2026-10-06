@@ -57,7 +57,7 @@ assert(!trainer.includes("play_save_trainer_id"), "public Trainer ID page no lon
 assert(!trainerHtml.includes("id-customize-tabs"), "customize workshop removed from Trainer ID");
 assert(trainer.includes("play_ack_cosmetics"), "NEW cosmetics are acknowledged");
 assert(settingsHtml.includes("scc-shell") && settingsHtml.includes("data-scc-cat"), "settings control center shell");
-assert(settingsHtml.includes("My Account · THE STARLIGHT PLAY HUB"), "Settings is now My Account");
+assert(settingsHtml.includes("My Account · Unofficial Pokémon StreamLink RPG"), "Settings is now My Account");
 assert(settingsHtml.includes('data-scc-cat="trainer-id"')
   && settingsHtml.includes('data-scc-cat="connections"')
   && settingsHtml.includes('data-scc-cat="pass"'), "My Account categories");

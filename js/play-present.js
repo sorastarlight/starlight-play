@@ -535,7 +535,7 @@
     if (kind === "background") return "Trainer ID Background";
     if (kind === "frame") return "Trainer ID Frame";
     if (kind === "title") return "Trainer Title";
-    if (kind === "badge") return "Trainer Badge";
+    if (kind === "badge") return "Ribbon";
     if (kind === "avatar") return "Trainer Avatar";
     return "Trainer Reward";
   }
@@ -847,12 +847,20 @@
     const news = asArray(event.news || event.payload?.news).map((line) => `<li>${esc(line)}</li>`).join("");
     const kindLine = event.type === "unlock" ? unlockKindLabel(event.unlockKind || event.payload?.kind) : "";
     const body = event.body || (event.type === "achievement" ? event.payload?.description : "") || kindLine;
+      const ribbon = event.type === "achievement"
+        ? (root.playRibbonForAchievement?.(event.payload || { id: event.payload?.id, rewards: event.payload?.rewards }) || root.playRibbonById?.(event.payload?.rewards?.badge) || root.playRibbonForBadge?.({ id: event.payload?.rewards?.badge }))
+        : null;
+      const ribbonBlock = ribbon
+        ? `<p class="play-present-kicker">RIBBON EARNED</p>
+           <p class="play-present-ribbon">${root.playRibbonIconHtml?.(ribbon, { name: ribbon.name, size: 48 }) || ""} ${esc(ribbon.name)}</p>`
+        : "";
     const html = `<article class="play-present-card${event.type === "support" ? " is-support" : ""}" data-present-panel data-type="${esc(event.type)}">
       ${fxHtml(event.type)}
-      <p class="play-present-kicker">${esc(kicker)}</p>
+      <p class="play-present-kicker">${esc(event.type === "achievement" ? "ACHIEVEMENT COMPLETE" : kicker)}</p>
       ${event.species || event.item ? artBox(event) : ""}
       <h2>${esc(name || event.title)}</h2>
       <p class="play-present-sub">${esc(body)}</p>
+      ${ribbonBlock}
       ${event.type === "unlock" ? `<p class="play-present-kicker">UNLOCKED</p>` : ""}
       ${rewardHtml(event)}
       ${news ? `<ul class="play-present-news">${news}</ul>` : ""}

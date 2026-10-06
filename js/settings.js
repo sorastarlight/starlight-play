@@ -139,7 +139,7 @@
       frame: next.cardFrame || "plain",
       teamBg: window.playNormalizeTeamBgId?.(next.teamBg) || next.teamBg || "pallet-town",
       titleId: next.activeTitleId || "",
-      badgeIds: featured.slice(0, 3),
+      badgeIds: featured.slice(0, 5),
       shinyCatchId: next.showcase?.shinyCatch?.id || next.showcase?.shinyCatchId || "",
       achievementId: next.showcase?.achievementId || "",
       favoriteDex: next.favoriteDex || next.showcase?.favoriteDex || null,
@@ -157,7 +157,7 @@
       teamBg: window.playNormalizeTeamBgId?.(draft.teamBg || card.teamBg) || draft.teamBg || card.teamBg || "pallet-town",
       title: (titles.find((row) => row.id === draft.titleId) || {}).name || (draft.titleId ? card.title : ""),
       activeTitleId: draft.titleId || "",
-      badges: (badges || []).filter((row) => (draft.badgeIds || []).includes(row.id)).slice(0, 3)
+      badges: (badges || []).filter((row) => (draft.badgeIds || []).includes(row.id)).slice(0, 5)
         .map((row) => ({ id: row.id, name: row.name })),
       showcase: {
         ...(card.showcase || {}),
@@ -614,8 +614,8 @@
     const row = (titles || []).find((item) => item.id === (draft?.titleId || ""));
     const name = row?.name || "";
     return `
-      <p class="scc-module-kicker">YOUR TITLE</p>
-      <p class="scc-title-hero-name${name ? "" : " is-empty"}">${name ? `★ ${esc(name)}` : "No title equipped"}</p>
+      <p class="scc-module-kicker">YOUR TRAINER TITLE</p>
+      <p class="scc-title-hero-name${name ? "" : " is-empty"}">${name ? `★ ${esc(name)}` : "Choose a Trainer Title"}</p>
       <p class="muted">Displayed beneath your Trainer name.</p>`;
   }
 
@@ -628,7 +628,7 @@
     if (!rows.length) {
       return `<p class="muted scc-workshop-empty">${titleFilter === "locked"
         ? "Nothing left to unlock here."
-        : "No titles unlocked yet. Keep playing to earn some."}</p>`;
+        : "No Trainer Titles unlocked yet. Keep playing to earn some."}</p>`;
     }
     return rows.map((row) => {
       const equipped = row.id === (draft?.titleId || "");
@@ -643,20 +643,20 @@
   }
 
   function badgeSocketsHtml() {
-    const ids = (draft?.badgeIds || []).slice(0, 3);
-    return [0, 1, 2].map((index) => {
+    const max = window.PLAY_FEATURED_RIBBON_MAX || 5;
+    const ids = (draft?.badgeIds || []).slice(0, max);
+    return Array.from({ length: max }, (_, index) => {
       const row = (badges || []).find((item) => item.id === ids[index]);
       if (!row) {
-        return `<li class="scc-badge-socket is-empty">
-          <span class="scc-socket-gem" aria-hidden="true">+</span>
-          <span class="scc-socket-name">Empty slot</span>
+        return `<li class="scc-ribbon-socket is-empty">
+          <span class="scc-socket-name">Empty</span>
         </li>`;
       }
-      return `<li class="scc-badge-socket">
-        <button type="button" class="scc-socket-btn" data-badge="${esc(row.id)}" aria-label="Remove ${esc(row.name)} from featured badges">
-          <span class="scc-socket-gem" aria-hidden="true">★</span>
-          <span class="scc-socket-name">${esc(row.name)}</span>
-          <span class="scc-socket-action">Remove</span>
+      const ribbon = window.playRibbonForBadge?.(row) || row;
+      return `<li class="scc-ribbon-socket">
+        <button type="button" class="scc-socket-btn" data-badge="${esc(row.id)}" aria-label="Remove ${esc(ribbon.name || row.name)} from featured Ribbons">
+          ${window.playRibbonIconHtml?.(ribbon, { name: ribbon.name || row.name, size: 36 }) || ""}
+          <span class="scc-socket-name">${esc(ribbon.name || row.name)}</span>
         </button>
       </li>`;
     }).join("");
@@ -664,15 +664,16 @@
 
   function badgeCollectionHtml() {
     if (!(badges || []).length) {
-      return `<p class="muted scc-workshop-empty">No badges yet. Catch Pokémon and unlock achievements to earn them.</p>`;
+      return `<p class="muted scc-workshop-empty">Complete Achievements to earn Ribbons.</p>`;
     }
     return (badges || []).map((row) => {
       const equipped = (draft?.badgeIds || []).includes(row.id);
       const state = pickState(row, equipped);
-      const hint = row.unlocked ? (row.description || "") : (row.howTo || row.description || "Locked");
-      return `<button type="button" class="scc-badge-card prog-pick is-${state}" data-badge="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(row.name)} ${state}">
-        <span class="scc-badge-gem" aria-hidden="true">${row.unlocked ? "★" : "✦"}</span>
-        <strong class="scc-badge-name">${esc(row.name)}</strong>
+      const ribbon = window.playRibbonForBadge?.(row) || row;
+      const hint = row.unlocked ? (ribbon.origin || row.description || "") : (row.howTo || row.description || "Locked");
+      return `<button type="button" class="scc-ribbon-card prog-pick is-${state}" data-badge="${esc(row.id)}" aria-pressed="${equipped}" aria-label="${esc(ribbon.name || row.name)} ${state}">
+        ${window.playRibbonIconHtml?.(ribbon, { name: ribbon.name || row.name, locked: !row.unlocked, size: 48 }) || ""}
+        <strong class="scc-badge-name">${esc(ribbon.name || row.name)}</strong>
         <span class="id-state">${stateLabel(state)}</span>
         ${hint ? `<span class="scc-badge-hint">${esc(hint)}</span>` : ""}
       </button>`;
@@ -682,26 +683,27 @@
   function renderTitles() {
     return `
       <header class="scc-panel-head">
-        <h2>Title &amp; Badges</h2>
-        <p class="muted">Wear one title and feature up to three badges on your Trainer ID. Press <strong>Save Trainer ID</strong> to keep changes.</p>
+        <h2>Trainer Titles &amp; Ribbons</h2>
+        <p class="muted">Wear one Trainer Title and feature up to five earned Ribbons on your Trainer ID. Press <strong>Save Trainer ID</strong> to keep changes.</p>
       </header>
-      <section class="scc-workshop" aria-label="Title workshop">
-        <h3 class="scc-workshop-head">Title Workshop</h3>
+      <section class="scc-workshop" aria-label="Trainer Title workshop">
+        <h3 class="scc-workshop-head">Trainer Titles</h3>
         <div class="scc-title-hero">${titleHeroHtml()}</div>
         <div class="scc-workshop-bar">
-          <p class="scc-module-kicker">AVAILABLE TITLES</p>
-          <div class="scc-filter-row" role="group" aria-label="Title filters">
+          <p class="scc-module-kicker">AVAILABLE TRAINER TITLES</p>
+          <div class="scc-filter-row" role="group" aria-label="Trainer Title filters">
             ${TITLE_FILTERS.map(([id, label]) => `<button type="button" class="scc-chip${titleFilter === id ? " is-on" : ""}" data-title-filter="${id}" aria-pressed="${titleFilter === id}">${label}</button>`).join("")}
           </div>
         </div>
         <div id="title-list" class="scc-title-list">${titleListHtml()}</div>
       </section>
-      <section class="scc-workshop" aria-label="Badge workshop">
-        <h3 class="scc-workshop-head">Badge Workshop</h3>
-        <p class="scc-module-kicker">FEATURED BADGES <span id="badge-count">${(draft?.badgeIds || []).length}/3</span></p>
-        <ul id="badge-sockets" class="scc-badge-sockets">${badgeSocketsHtml()}</ul>
-        <p class="scc-module-kicker scc-collection-kicker">BADGE COLLECTION</p>
-        <div id="badge-collection" class="scc-badge-collection">${badgeCollectionHtml()}</div>
+      <section class="scc-workshop" aria-label="Featured Ribbons">
+        <h3 class="scc-workshop-head">Featured Ribbons</h3>
+        <p class="muted">Complete Achievements to earn Ribbons. Choose up to five earned Ribbons to display on your Trainer ID.</p>
+        <p class="scc-module-kicker">FEATURED RIBBONS <span id="badge-count">${(draft?.badgeIds || []).length}/${window.PLAY_FEATURED_RIBBON_MAX || 5}</span></p>
+        <ul id="badge-sockets" class="scc-ribbon-sockets">${badgeSocketsHtml()}</ul>
+        <p class="scc-module-kicker scc-collection-kicker">RIBBON COLLECTION</p>
+        <div id="badge-collection" class="scc-ribbon-collection">${badgeCollectionHtml()}</div>
       </section>
       ${trainerIdActions()}`;
   }
@@ -1132,7 +1134,7 @@
     const sockets = document.getElementById("badge-sockets");
     if (sockets) sockets.innerHTML = badgeSocketsHtml();
     const count = document.getElementById("badge-count");
-    if (count) count.textContent = `${(draft?.badgeIds || []).length}/3`;
+    if (count) count.textContent = `${(draft?.badgeIds || []).length}/${window.PLAY_FEATURED_RIBBON_MAX || 5}`;
     markDirtyFlag();
   }
 
@@ -1859,14 +1861,14 @@
     if (badgeBtn) {
       const row = badges.find((item) => item.id === badgeBtn.dataset.badge);
       if (!row?.unlocked) {
-        if (els.status) els.status.textContent = `${row?.name || "This badge"} is locked. ${row?.howTo || row?.description || ""}`.trim();
+        if (els.status) els.status.textContent = `${row?.name || "This Ribbon"} is locked. ${row?.howTo || row?.description || ""}`.trim();
         return;
       }
       const next = new Set(draft.badgeIds || []);
       if (next.has(row.id)) next.delete(row.id);
       else {
-        if (next.size >= 3) {
-          if (els.status) els.status.textContent = "Feature up to three badges.";
+        if (next.size >= (window.PLAY_FEATURED_RIBBON_MAX || 5)) {
+          if (els.status) els.status.textContent = "Pick up to five Ribbons to show on your Trainer ID.";
           return;
         }
         next.add(row.id);

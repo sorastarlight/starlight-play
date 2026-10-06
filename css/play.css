@@ -15840,6 +15840,8 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .tid-journal-entry {
 .mart-mode-workspace {
   display: grid;
   gap: 0;
+  min-height: min(70vh, 860px);
+  align-content: start;
 }
 .mart-mode-workspace > .mart-mode {
   display: grid;
@@ -18467,4 +18469,131 @@ body[data-page="evolve"] {
   font-size: 14px;
   line-height: 1;
   color: #6a7a96;
+}
+
+/* rc114 — Avatar Browser thumbs: visible-bounds envelope, clip padding */
+.scc-avatar-card .scc-avatar-thumb {
+  width: 100%;
+  height: 112px;
+  min-height: 112px;
+  max-height: 112px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+}
+.scc-avatar-card .scc-avatar-thumb img,
+.scc-avatar-card .scc-avatar-thumb-img {
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: fill !important;
+}
+.mart-mode-workspace > .mart-folder-body {
+  min-height: min(56vh, 720px);
+}
+
+/* rc114 — Featured Ribbons + Achievements Progress */
+.tid-ribbon-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tid-ribbon-btn {
+  appearance: none;
+  border: 0;
+  background: rgba(255,255,255,.72);
+  border-radius: 12px;
+  padding: 4px;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+}
+.tid-ribbon-btn img, .ribbon-icon-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.ribbon-icon-img.is-locked { filter: grayscale(1) brightness(0.7); opacity: .55; }
+.scc-ribbon-collection, .ach-ribbon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 10px;
+}
+.scc-ribbon-card, .ach-ribbon-card {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  text-align: center;
+  padding: 10px 8px;
+  border-radius: 16px;
+  border: 2px solid #c7d8ee;
+  background: linear-gradient(180deg, #fff, #eef5ff);
+  box-shadow: 0 3px 0 #b7c9e0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+.scc-ribbon-card.is-equipped, .ach-ribbon-card.is-equipped {
+  border-color: #5a8fd4;
+  background: linear-gradient(180deg, #e7f2ff, #d5e8ff);
+}
+.scc-ribbon-card.is-locked, .ach-ribbon-card.is-locked { opacity: .7; cursor: default; }
+.scc-ribbon-sockets {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+.scc-ribbon-socket {
+  min-height: 72px;
+  border-radius: 14px;
+  border: 2px dashed #c5d4e8;
+  display: grid;
+  place-items: center;
+  background: #f7fbff;
+  font-size: 11px;
+  font-weight: 800;
+}
+.ach-progress-card {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 8px 12px;
+  align-items: start;
+  padding: 12px;
+  border-radius: 16px;
+  border: 2px solid #c8daf0;
+  background: linear-gradient(180deg, #fff, #f4f8ff);
+  box-shadow: 0 4px 0 #c3d4ea;
+}
+.ach-progress-card.is-done { border-color: #8ed37c; background: linear-gradient(180deg, #f5fff2, #eef8ea); }
+.ach-progress-card .xp-bar { grid-column: 2; height: 8px; border-radius: 99px; background: #dce7f5; overflow: hidden; }
+.ach-progress-card .xp-bar i { display: block; height: 100%; background: linear-gradient(90deg, #6aa8ef, #c04878); }
+.ach-cat-filter {
+  appearance: none;
+  min-height: 40px;
+  border-radius: 12px;
+  border: 2px solid #c5d8ef;
+  background: #fff;
+  font-weight: 800;
+  padding: 0 12px;
+}
+.ribbon-detail-art { text-align: center; }
+.ribbon-detail-art img { width: 72px; height: 72px; }
+.tid-title-label {
+  margin: 0 0 2px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: .72;
+}
+@media (max-width: 720px) {
+  .scc-ribbon-collection { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

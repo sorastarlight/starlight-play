@@ -17,7 +17,7 @@
   let lastBag = null;
   let lastTab = "";
   const CHECKOUT_TAB = "checkout";
-  const SELL_TAB = "sell";
+  const SELL_TAB = "mart-sell";
   const CART_KEY = "play-mart-checkout";
   const CART_MAX_QTY = 99;
   let cart = loadCart();
@@ -803,6 +803,42 @@
     /* Buy/Sell lives inside the Mart workspace (renderFloors) — no kicker mount. */
   }
 
+  function martModeEl() {
+    return document.querySelector(".mart-mode") || document.getElementById("mart-mode-mount");
+  }
+
+  function preserveMartModeViewport(run) {
+    const el = martModeEl();
+    const top = el ? el.getBoundingClientRect().top : null;
+    return Promise.resolve(run()).then(() => new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        const next = martModeEl();
+        if (next && top != null) {
+          window.scrollBy(0, next.getBoundingClientRect().top - top);
+        }
+        resolve();
+      });
+    }));
+  }
+
+  async function switchMartMode(nextMode) {
+    if (nextMode === martMode) return;
+    await preserveMartModeViewport(async () => {
+      martMode = nextMode;
+      try {
+        const url = new URL(window.location.href);
+        const hash = url.hash.replace(/^#/, "");
+        if (nextMode === "sell") url.hash = SELL_TAB;
+        else if (hash === SELL_TAB || hash === "sell") {
+          url.hash = lastTab && lastTab !== SELL_TAB && lastTab !== "sell" ? lastTab : "";
+        }
+        window.history.replaceState(null, "", url);
+      } catch (_) {}
+      if (martMode === "sell") await refreshSellShelf();
+      renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
+    });
+  }
+
   function sellCardHtml(item) {
     const slug = item.slug;
     const owned = Math.max(0, Number(item.owned || 0));
@@ -1338,40 +1374,13 @@
   document.addEventListener("click", async (event) => {
     const modeBtn = event.target.closest("#mart-mode-mount [data-mart-mode]");
     if (!modeBtn) return;
-    const nextMode = modeBtn.dataset.martMode === "sell" ? "sell" : "buy";
-    if (nextMode === martMode) return;
-    martMode = nextMode;
-    try {
-      const url = new URL(window.location.href);
-      if (nextMode === "sell") url.hash = SELL_TAB;
-      else if (url.hash.replace(/^#/, "") === SELL_TAB) url.hash = "";
-      window.history.replaceState(null, "", url);
-    } catch (_) {}
-    if (martMode === "sell") await refreshSellShelf();
-    renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
+    await switchMartMode(modeBtn.dataset.martMode === "sell" ? "sell" : "buy");
   });
 
   els.floors?.addEventListener("click", async (event) => {
     const modeBtn = event.target.closest("[data-mart-mode]");
     if (modeBtn) {
-      const nextMode = modeBtn.dataset.martMode === "sell" ? "sell" : "buy";
-      if (nextMode === martMode) return;
-      const keepY = window.scrollY;
-      martMode = nextMode;
-      try {
-        const url = new URL(window.location.href);
-        if (nextMode === "sell") url.hash = SELL_TAB;
-        else if (url.hash.replace(/^#/, "") === SELL_TAB) {
-          // Leaving sell must clear #sell or resolveTab() forces sell again.
-          url.hash = lastTab && lastTab !== SELL_TAB ? lastTab : "";
-        }
-        window.history.replaceState(null, "", url);
-      } catch (_) {}
-      if (martMode === "sell") await refreshSellShelf();
-      renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
-      requestAnimationFrame(() => {
-        window.scrollTo(0, keepY);
-      });
+      await switchMartMode(modeBtn.dataset.martMode === "sell" ? "sell" : "buy");
       return;
     }
     const sellInc = event.target.closest("[data-sell-inc]");

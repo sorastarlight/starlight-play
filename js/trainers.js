@@ -833,12 +833,12 @@
         img.style.position = "absolute";
         img.style.left = "50%";
         img.style.right = "auto";
-        img.style.top = "auto";
-        // Ground visible alpha at inset; transparent pad may hang below (clipped).
-        img.style.bottom = (inset - padB2 + offY).toFixed(2) + "px";
+        img.style.top = "50%";
+        img.style.bottom = "auto";
         img.style.margin = "0";
-        img.style.setProperty("transform", "translateX(" + (-alphaCx + offX).toFixed(2) + "px)", "important");
-        img.style.transformOrigin = "left bottom";
+        const alphaCy = (bounds.top + (bounds.vh / 2)) * scale;
+        img.style.setProperty("transform", "translate(" + (-alphaCx + offX).toFixed(2) + "px," + (-alphaCy + offY).toFixed(2) + "px)", "important");
+        img.style.transformOrigin = "center center";
         img.dataset.avatarThumbInset = String(inset);
         img.dataset.avatarRender = `${visW2}x${visH2}`;
         img.dataset.avatarScale = String(Math.round(scale * 1000) / 1000);
@@ -1056,12 +1056,16 @@
   }
 
   function badgeRowHtml(badges, esc) {
-    if (!badges.length) return `<p class="tid-badge-empty">No featured badges yet</p>`;
-    return `<ul class="tid-badge-row">${badges.map((row) => `
-      <li class="tid-badge">
-        <span class="tid-badge-gem" aria-hidden="true">★</span>
-        <span class="tid-badge-name">${esc(row.name)}</span>
-      </li>`).join("")}</ul>`;
+    if (!badges.length) return `<p class="tid-badge-empty">No featured Ribbons yet</p>`;
+    return `<ul class="tid-ribbon-row">${badges.map((row) => {
+      const ribbon = window.playRibbonForBadge?.(row) || row;
+      const name = esc(ribbon.name || row.name);
+      return `<li>
+        <button type="button" class="tid-ribbon-btn" data-ribbon-open="${esc(row.id)}" aria-label="${name}">
+          ${window.playRibbonIconHtml?.(ribbon, { name, size: 36 }) || `<span class="tid-badge-gem" aria-hidden="true">★</span>`}
+        </button>
+      </li>`;
+    }).join("")}</ul>`;
   }
 
   function tidStatRowsHtml(card, counts, esc) {
@@ -1086,7 +1090,7 @@
     const bg = window.playCardBg(card?.cardBg);
     const frame = String(card?.cardFrame || "plain").replace(/[^a-z0-9-]/gi, "") || "plain";
     const title = String(card?.title || "").trim();
-    const badges = (card?.badges || []).slice(0, 3);
+    const badges = (card?.badges || []).slice(0, window.PLAY_FEATURED_RIBBON_MAX || 5);
     const twitch = Boolean(card?.twitchLinked);
     const counts = profileDexCounts(card);
     const mode = opts.mode === "preview" ? "preview" : "public";
@@ -1115,7 +1119,8 @@
           <div class="tid-identity-panel tid-glass">
             <div class="tid-plaque tid-plaque-name">
               <p class="tid-name">${esc(card?.displayName || "Trainer")}${twitch ? `<i class="twitch-badge tid-name-twitch" title="Twitch linked" aria-label="Twitch linked"></i>` : ""}</p>
-              ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">Trainer</p>`}
+              <p class="tid-title-label">Trainer Title</p>
+              ${title ? `<p class="tid-title">★ ${esc(title)}</p>` : `<p class="tid-title tid-title-empty">None equipped</p>`}
             </div>
             <div class="tid-data-rows" aria-label="Trainer identity">
               <div class="tid-data-row">
@@ -1130,7 +1135,7 @@
             ${identityOnly ? "" : tidStatRowsHtml(card, counts, esc)}
             ${identityOnly ? "" : `<div class="tid-info-xp">${window.playXpProgressHtml(card, { profile: true })}</div>`}
             <div class="tid-plaque tid-plaque-badges">
-              <p class="tid-ach-kicker">Featured Achievements</p>
+              <p class="tid-ach-kicker">Featured Ribbons</p>
               ${badgeRowHtml(badges, esc)}
             </div>
           </div>`;

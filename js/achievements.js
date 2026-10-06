@@ -62,7 +62,7 @@
         <div class="ach-progress-identity">
           <p class="ach-kicker">TRAINER PROGRESS</p>
           <h2 class="ach-trainer-name">${window.playEscapeAttr(trainer.displayName || "Trainer")}</h2>
-          <p class="ach-trainer-title">${window.playEscapeAttr(trainer.title || "No title yet")}</p>
+          <p class="ach-trainer-title">${window.playEscapeAttr(trainer.title || "No Trainer Title yet")}</p>
           <p class="ach-trainer-level">Lv. ${trainer.level || 1}</p>
         </div>
         <div class="ach-progress-stats" role="group" aria-label="Kanto progress">
@@ -109,7 +109,7 @@
       if (titleFilter === "all") return true;
       return titleCategory(row) === titleFilter;
     });
-    const filterHtml = `<div class="ach-title-filters" role="toolbar" aria-label="Title filters">${filters.map(([id, label]) =>
+    const filterHtml = `<div class="ach-title-filters" role="toolbar" aria-label="Trainer Title filters">${filters.map(([id, label]) =>
       `<button type="button" class="ach-filter-chip${titleFilter === id ? " is-on" : ""}" data-title-filter="${id}" aria-pressed="${titleFilter === id}">${label}</button>`
     ).join("")}</div>`;
     els.titles.innerHTML = filterHtml + (rows.map((row) => {
@@ -119,18 +119,22 @@
         <span class="ach-title-req">${window.playEscapeAttr(row.unlocked ? row.description : (row.howTo || row.description || "Locked"))}</span>
         <span class="ach-title-state">${state}</span>
       </button>`;
-    }).join("") || `<p class="muted">No titles in this filter.</p>`);
+    }).join("") || `<p class="muted">No Trainer Titles in this filter.</p>`);
   }
 
   function renderBadges() {
+    const max = window.PLAY_FEATURED_RIBBON_MAX || 5;
     els.badges.innerHTML = (data?.badges || []).map((row) => {
+      const ribbon = window.playRibbonForBadge?.(row) || row;
       const state = row.unlocked ? (row.featured ? "equipped" : "owned") : "locked";
-      return `<button type="button" class="prog-pick ach-badge-card is-${state} ${row.isNew ? "is-new" : ""}" data-badge="${window.playEscapeAttr(row.id)}" aria-pressed="${row.featured ? "true" : "false"}" aria-label="${window.playEscapeAttr(row.name)} ${state}">
-        <strong class="ach-title-name">${window.playEscapeAttr(row.name)}</strong>
-        <span class="ach-title-req">${window.playEscapeAttr(row.unlocked ? row.description : (row.howTo || row.description || "Locked"))}</span>
+      return `<button type="button" class="ach-ribbon-card is-${state} ${row.isNew ? "is-new" : ""}" data-badge="${window.playEscapeAttr(row.id)}" aria-pressed="${row.featured ? "true" : "false"}" aria-label="${window.playEscapeAttr(ribbon.name || row.name)} ${state}">
+        ${window.playRibbonIconHtml?.(ribbon, { name: ribbon.name || row.name, locked: !row.unlocked, size: 48 }) || ""}
+        <strong class="ach-title-name">${window.playEscapeAttr(ribbon.name || row.name)}</strong>
+        <span class="ach-title-req">${window.playEscapeAttr(row.unlocked ? (ribbon.origin || row.description) : (row.howTo || "Complete the linked Achievement to earn this Ribbon."))}</span>
         <span class="ach-title-state">${state}</span>
       </button>`;
     }).join("");
+    void max;
   }
 
   function renderAchievements() {
@@ -138,15 +142,17 @@
     const rows = (data?.achievements || []).filter((row) => cat === "all" || row.category === cat);
     els.ach.innerHTML = rows.map((row) => {
       const pct = Math.max(0, Math.min(100, Math.round((row.progress / Math.max(1, row.target)) * 100)));
-      const when = row.unlockedAt ? new Date(row.unlockedAt) : null;
-      const stamp = when && !Number.isNaN(when.getTime()) ? when.toLocaleDateString() : "";
-      return `<article class="ach-card ${row.unlocked ? "is-done" : "is-locked"} ${row.hidden ? "is-hidden" : ""}">
-        <strong>${window.playEscapeAttr(row.name)}</strong>
-        <p>${window.playEscapeAttr(row.description)}</p>
+      const ribbon = window.playRibbonForAchievement?.(row);
+      const map = window.playRibbonMapping?.(row.id);
+      return `<article class="ach-progress-card ${row.unlocked ? "is-done" : "is-locked"} ${row.hidden ? "is-hidden" : ""}">
+        <div>${window.playRibbonIconHtml?.(ribbon, { name: ribbon?.name || map?.ribbonName, locked: !row.unlocked, size: 40 }) || ""}</div>
+        <div>
+          <strong>${window.playEscapeAttr(row.name)}</strong>
+          <p>${window.playEscapeAttr(row.description)}</p>
+        </div>
         <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
-        <span class="ach-card-progress">${row.hidden ? "???" : `${row.progress} / ${row.target}`}${row.unlocked ? " · Complete" : ""}</span>
-        ${stamp ? `<span class="muted">${window.playEscapeAttr(stamp)}</span>` : ""}
-        ${rewardBits(row.rewards) ? `<span class="muted">${rewardBits(row.rewards)}</span>` : ""}
+        <span class="ach-card-progress">${row.hidden ? "???" : `${row.progress} / ${row.target}`}${row.unlocked ? " · Completed" : " · In Progress"}</span>
+        ${ribbon || map ? `<span class="muted">Ribbon: ${window.playEscapeAttr(ribbon?.name || map?.ribbonName || "")}</span>` : ""}
       </article>`;
     }).join("") || `<p class="muted">No achievements in this category yet.</p>`;
   }
@@ -199,7 +205,7 @@
       const saved = await window.playCall("play_set_title", { p_title: next });
       if (data) data.trainer = saved.trainer;
       render();
-      els.titleStatus.textContent = saved.message || "Title saved.";
+      els.titleStatus.textContent = saved.message || "Trainer Title saved.";
     } catch (error) {
       els.titleStatus.textContent = window.playRpcError(error);
     }
@@ -211,17 +217,18 @@
     const id = button.dataset.badge;
     const row = (data?.badges || []).find((item) => item.id === id);
     if (!row?.unlocked) {
-      els.badgeStatus.textContent = `${row?.name || "This badge"} is locked. ${row?.howTo || row?.description || ""}`.trim();
+      els.badgeStatus.textContent = `${row?.name || "This Ribbon"} is locked. ${row?.howTo || row?.description || ""}`.trim();
       return;
     }
     const featured = (data?.badges || []).filter((item) => item.featured).map((item) => item.id);
-    const next = featured.includes(id) ? featured.filter((item) => item !== id) : featured.concat(id).slice(0, 3);
+    const max = window.PLAY_FEATURED_RIBBON_MAX || 5;
+    const next = featured.includes(id) ? featured.filter((item) => item !== id) : featured.concat(id).slice(0, max);
     els.badgeStatus.textContent = "Saving…";
     try {
       const saved = await window.playCall("play_set_badges", { p_ids: next });
       data = await window.playCall("play_progression");
       render();
-      els.badgeStatus.textContent = saved.message || "Badges saved.";
+      els.badgeStatus.textContent = saved.message || "Featured Ribbons saved.";
     } catch (error) {
       els.badgeStatus.textContent = window.playRpcError(error);
     }

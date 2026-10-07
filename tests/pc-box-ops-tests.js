@@ -69,7 +69,14 @@ test("Stale leftover slots do not abort Move", () => {
 test("Client keeps selection on catch identity after arrange", () => {
   assert(/const keepId = selectedId/.test(storageJs));
   assert(/selectedId = String\(keepId\)/.test(storageJs));
-  assert(/selectedId = String\(catchId\)/.test(storageJs));
+});
+
+test("Move stays on the source box and clears selection", () => {
+  assert(/const sourceBox = boxIndex/.test(storageJs));
+  assert(!/else if \(next\?\.moved\) boxIndex = toBoxIndex/.test(storageJs), "must not navigate to destination");
+  assert(/boxIndex = Number\.isFinite\(Number\(opts\.stayOnBox\)\) \? Number\(opts\.stayOnBox\) : sourceBox/.test(storageJs));
+  assert(/if \(next\?\.moved\) \{\s*selectedId = ""/.test(storageJs));
+  assert(/emptyInspectOnce = true/.test(storageJs));
 });
 
 test("One failed box action uses a single error presenter", () => {

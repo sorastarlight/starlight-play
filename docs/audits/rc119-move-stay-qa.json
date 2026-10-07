@@ -1,0 +1,56 @@
+{
+  "account": "playtester@sorastarlight.net",
+  "soraMutated": false,
+  "twinkleMutated": false,
+  "steps": [
+    {
+      "step": "box1-to-box2",
+      "remained": true,
+      "disappeared": true,
+      "selectionCleared": true,
+      "dialogClosed": true,
+      "counts": [
+        "11/30",
+        "1/30",
+        "0/30"
+      ],
+      "rpcDestHasA": true,
+      "rpcSrcLacksA": true,
+      "box0": 11,
+      "box1": 1
+    },
+    {
+      "step": "box2-to-box1",
+      "remained": true,
+      "disappeared": true,
+      "selectionCleared": true,
+      "rpcSrcLacksA": true,
+      "rpcDestHasA": true
+    },
+    {
+      "step": "box1-to-box3",
+      "remained": true,
+      "disappeared": true,
+      "rpcDestHasB": true
+    },
+    {
+      "step": "same-box",
+      "noMutation": true,
+      "ok": true
+    },
+    {
+      "step": "invalid",
+      "rejected": true,
+      "remainedBox1": true
+    },
+    {
+      "step": "auto-arrange-after-move",
+      "remained": true,
+      "stillBox1": true
+    },
+    {
+      "step": "restore",
+      "ok": true
+    }
+  ]
+}

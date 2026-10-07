@@ -31,6 +31,7 @@
   let dropTargetEl = null;
   let acquireTimer = 0;
   let boxOpBusy = false;
+  let emptyInspectOnce = false;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -250,6 +251,8 @@
   }
 
   function renderGrid() {
+    const clearInspect = emptyInspectOnce;
+    emptyInspectOnce = false;
     const boxes = normalizeBoxes();
     const searchingMode = Boolean((els.search?.value || "").trim());
     const ids = searchingMode ? monsMatching().map((row) => String(row.id)) : (boxes[boxIndex]?.slots || []);
@@ -288,7 +291,9 @@
       return;
     }
 
-    if (selectedId && !slots.some((id) => String(id) === selectedId)) {
+    if (clearInspect) {
+      selectedId = "";
+    } else if (selectedId && !slots.some((id) => String(id) === selectedId)) {
       selectedId = String(filtered[0]?.id || "");
     }
 
@@ -308,7 +313,7 @@
     }).join("");
 
     const index = filtered.findIndex((row) => String(row.id) === selectedId);
-    const active = filtered[index] || filtered[0] || null;
+    const active = clearInspect ? null : (filtered[index] || filtered[0] || null);
     updateStorageStatus(
       searchingMode ? filtered.length : filtered.length,
       BOX_SLOTS,
@@ -942,6 +947,7 @@
 
   async function moveMonToBox(catchId, toBoxIndex, opts = {}) {
     if (boxOpBusy) return null;
+    const sourceBox = boxIndex;
     const boxes = normalizeBoxes();
     if (!boxes[toBoxIndex]) throw new Error("That box is not available.");
     if (boxFillCount(boxes[toBoxIndex]) >= BOX_SLOTS && opts.allowFull !== true) {
@@ -958,9 +964,12 @@
       data = next;
       if (next?.layout) data.layout = next.layout;
       if (next?.mons) data.mons = next.mons;
-      if (Number.isFinite(Number(opts.stayOnBox))) boxIndex = Number(opts.stayOnBox);
-      else if (next?.moved) boxIndex = toBoxIndex;
-      selectedId = String(catchId);
+      boxIndex = Number.isFinite(Number(opts.stayOnBox)) ? Number(opts.stayOnBox) : sourceBox;
+      if (next?.moved) {
+        selectedId = "";
+        lastDetailId = "";
+        emptyInspectOnce = true;
+      }
       render();
       if (els.status && next?.message && next.moved !== false) {
         els.status.textContent = next.message;

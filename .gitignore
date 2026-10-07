@@ -22,3 +22,5 @@ __pycache__/
 tmp-avatar-thumb-audit.html
 tmp-tid-avatar-matrix.html
 docs/audits/rc116/_fixture.json
+docs/audits/rc116/_catalog.json
+docs/audits/rc116/extract-catalog.js

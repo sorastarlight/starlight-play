@@ -1,0 +1,62 @@
+{
+  "account": "playtester@sorastarlight.net",
+  "soraMutated": false,
+  "twinkleMutated": false,
+  "steps": [
+    {
+      "step": "box1-to-box2",
+      "remained": true,
+      "disappeared": true,
+      "selectionCleared": true,
+      "oneSuccess": true,
+      "noInline": true,
+      "toast": {
+        "title": "Moved",
+        "body": "Bulbasaur moved to Box 2.",
+        "kind": "play-toast-success"
+      }
+    },
+    {
+      "step": "box2-to-box1",
+      "remained": true,
+      "disappeared": true,
+      "latestMoved": "Bulbasaur moved to Box 1.",
+      "noInline": true
+    },
+    {
+      "step": "box1-to-box4",
+      "remained": true,
+      "disappeared": true,
+      "namesBox4": true,
+      "noAllCapsBody": true,
+      "noInline": true,
+      "toast": {
+        "title": "Moved",
+        "body": "Bulbasaur moved to Box 2.",
+        "kind": "play-toast-success"
+      }
+    },
+    {
+      "step": "same-box",
+      "noMutation": true,
+      "noNewMoveToastFromRpc": true,
+      "statusEmpty": true
+    },
+    {
+      "step": "failed-rpc",
+      "rejected": true,
+      "remained": true
+    },
+    {
+      "step": "auto-arrange",
+      "remained": true,
+      "arrangedToast": true,
+      "noInline": true,
+      "consistentHost": true
+    },
+    {
+      "step": "restore",
+      "ok": true
+    }
+  ]
+}

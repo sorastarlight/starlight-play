@@ -79,6 +79,17 @@ test("Move stays on the source box and clears selection", () => {
   assert(/emptyInspectOnce = true/.test(storageJs));
 });
 
+test("Move success uses Auto-Arrange playToast, not box-status", () => {
+  const moveFn = storageJs.split("async function moveMonToBox")[1].split("function openMoveDialog")[0];
+  const arrangeFn = storageJs.split("async function runAutoArrange")[1].split("async function runDeleteBox")[0];
+  assert(/playToast/.test(moveFn), "Move must toast");
+  assert(/kind: "success"/.test(moveFn));
+  assert(/title: "Moved"/.test(moveFn));
+  assert(!/els\.status\.textContent = next\.message/.test(moveFn), "must not write Move success to box-status");
+  assert(/els\.status\) els\.status\.textContent = ""/.test(moveFn), "must clear leftover box-status");
+  assert(/playToast/.test(arrangeFn) && /title: "Box arranged"/.test(arrangeFn));
+});
+
 test("One failed box action uses a single error presenter", () => {
   assert(/boxOpBusy/.test(storageJs));
   assert(/presentBoxError/.test(storageJs));

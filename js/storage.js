@@ -945,6 +945,12 @@
     return (box?.slots || []).filter(Boolean).length;
   }
 
+  function boxToastName(box, index) {
+    const raw = String(box?.name || `Box ${index + 1}`).trim();
+    const numbered = raw.match(/^BOX\s+(\d+)$/i);
+    return numbered ? `Box ${numbered[1]}` : raw;
+  }
+
   async function moveMonToBox(catchId, toBoxIndex, opts = {}) {
     if (boxOpBusy) return null;
     const sourceBox = boxIndex;
@@ -971,11 +977,17 @@
         emptyInspectOnce = true;
       }
       render();
-      if (els.status && next?.message && next.moved !== false) {
-        els.status.textContent = next.message;
-        window.setTimeout(() => {
-          if (els.status?.textContent === next.message) els.status.textContent = "";
-        }, 2400);
+      if (els.status) els.status.textContent = "";
+      if (next?.moved && typeof window.playToast === "function") {
+        const dest = (data.layout?.boxes || [])[toBoxIndex];
+        const destName = boxToastName(dest, toBoxIndex);
+        const mon = monById(catchId);
+        const who = mon ? displayName(mon) : "Pokémon";
+        window.playToast({
+          kind: "success",
+          title: "Moved",
+          body: `${who} moved to ${destName}.`
+        });
       }
       return next;
     } finally {

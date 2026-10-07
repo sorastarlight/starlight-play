@@ -425,7 +425,7 @@
       const state = equipped ? "equipped" : "owned";
       return `<button type="button" class="scc-avatar-card trainer-opt is-${state}" data-sprite="${esc(look.id)}" data-locked="0" aria-pressed="${equipped}" aria-label="${esc(look.name)}${equipped ? ", equipped" : ""}">
         <span class="scc-avatar-thumb">
-          <img class="scc-avatar-thumb-img" data-avatar-id="${esc(look.id)}" src="${window.playTrainerSpriteUrl(look.id)}" alt="" width="112" height="112" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
+          <img class="scc-avatar-thumb-img" data-avatar-id="${esc(look.id)}" src="${window.playTrainerSpriteUrl(look.id)}" alt="" decoding="async" onload="window.playNormalizeAvatarThumb?.(this)">
         </span>
         <strong class="scc-avatar-name">${esc(look.name)}</strong>
         <span class="scc-avatar-equipped"${equipped ? "" : ' aria-hidden="true"'}>${equipped ? "EQUIPPED" : "\u00a0"}</span>
@@ -710,11 +710,11 @@
         <h2>Titles &amp; Ribbons</h2>
         <p class="muted">Choose the Trainer Title and Featured Ribbons displayed on your Trainer ID. Press <strong>Save Trainer ID</strong> to keep changes.</p>
       </header>
-      <div class="scc-honors-subnav" role="tablist" aria-label="Titles and Ribbons">
-        <button type="button" class="scc-chip${honorsPane === "titles" ? " is-on" : ""}" data-honors-pane="titles" role="tab" aria-selected="${honorsPane === "titles"}">Trainer Titles</button>
-        <button type="button" class="scc-chip${honorsPane === "ribbons" ? " is-on" : ""}" data-honors-pane="ribbons" role="tab" aria-selected="${honorsPane === "ribbons"}">Ribbons</button>
+      <div class="scc-honors-switch" role="tablist" aria-label="Titles and Ribbons">
+        <button type="button" class="scc-honors-tab${honorsPane === "titles" ? " is-on" : ""}" data-honors-pane="titles" role="tab" aria-selected="${honorsPane === "titles"}" aria-controls="honors-titles-pane" id="honors-tab-titles">Trainer Titles</button>
+        <button type="button" class="scc-honors-tab${honorsPane === "ribbons" ? " is-on" : ""}" data-honors-pane="ribbons" role="tab" aria-selected="${honorsPane === "ribbons"}" aria-controls="honors-ribbons-pane" id="honors-tab-ribbons">Ribbons</button>
       </div>
-      <section class="scc-workshop" aria-label="Trainer Title workshop" ${honorsPane === "titles" ? "" : "hidden"}>
+      <section id="honors-titles-pane" class="scc-workshop" aria-label="Trainer Title workshop" aria-labelledby="honors-tab-titles" ${honorsPane === "titles" ? "" : "hidden"}>
         <h3 class="scc-workshop-head">Trainer Titles</h3>
         <div class="scc-title-hero">${titleHeroHtml()}</div>
         <div class="scc-workshop-bar">
@@ -727,7 +727,7 @@
         </div>
         <div id="title-list" class="scc-title-list">${titleListHtml()}</div>
       </section>
-      <section class="scc-workshop" aria-label="Ribbon workshop" ${honorsPane === "ribbons" ? "" : "hidden"}>
+      <section id="honors-ribbons-pane" class="scc-workshop" aria-label="Ribbon workshop" aria-labelledby="honors-tab-ribbons" ${honorsPane === "ribbons" ? "" : "hidden"}>
         <h3 class="scc-workshop-head">Ribbons</h3>
         <p class="muted">Feature up to five earned Ribbons on your Trainer ID.</p>
         <p class="scc-module-kicker">FEATURED RIBBONS <span id="badge-count">${featuredCount}/${max}</span></p>
@@ -1803,6 +1803,21 @@
     setHash();
   });
 
+  els.workspace?.addEventListener("keydown", (event) => {
+    const tab = event.target.closest?.(".scc-honors-tab");
+    if (!tab || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    const tabs = [...els.workspace.querySelectorAll(".scc-honors-tab")];
+    const i = tabs.indexOf(tab);
+    if (i < 0) return;
+    event.preventDefault();
+    const next = event.key === "Home" ? 0
+      : event.key === "End" ? tabs.length - 1
+      : event.key === "ArrowLeft" ? (i + tabs.length - 1) % tabs.length
+      : (i + 1) % tabs.length;
+    honorsPane = tabs[next].dataset.honorsPane || "titles";
+    renderProfileWorkspace();
+    els.workspace?.querySelector(`.scc-honors-tab[data-honors-pane="${honorsPane}"]`)?.focus();
+  });
   els.workspace?.addEventListener("click", (event) => {
     if (event.target.closest("#save-display-name")) {
       saveDisplayName();

@@ -82,8 +82,18 @@
     return CAT_LABELS[id] || (id === "trainer" ? "Adventure" : id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()));
   }
 
+  function progressView(row) {
+    const target = Math.max(0, Number(row.target || 0));
+    const raw = Number(row.progress || 0);
+    const shown = target > 0 ? Math.min(raw, target) : raw;
+    const pct = target > 0
+      ? Math.max(0, Math.min(100, Math.round((shown / target) * 100)))
+      : 0;
+    return { raw, target, shown, pct };
+  }
+
   function progressPct(row) {
-    return Math.max(0, Math.min(100, Math.round((Number(row.progress || 0) / Math.max(1, Number(row.target || 1))) * 100)));
+    return progressView(row).pct;
   }
 
   function titleReward(row) {
@@ -188,12 +198,28 @@
     } else if (sortMode === "progress") {
       rows.sort((a, b) => progressPct(b) - progressPct(a) || String(a.name || "").localeCompare(String(b.name || "")));
     } else {
-      // closest to completion (incomplete first, then by remaining)
+      // Closest to Completion:
+      // 1) visible IN PROGRESS, by highest clamped ratio then least remaining
+      // 2) visible NOT STARTED (name)
+      // 3) hidden incomplete (name only — no secret progress leak)
+      // 4) completed last
       rows.sort((a, b) => {
-        if (a.unlocked !== b.unlocked) return a.unlocked ? 1 : -1;
-        const ra = Math.max(0, Number(a.target || 1) - Number(a.progress || 0));
-        const rb = Math.max(0, Number(b.target || 1) - Number(b.progress || 0));
-        return ra - rb || progressPct(b) - progressPct(a) || String(a.name || "").localeCompare(String(b.name || ""));
+        const rank = (row) => {
+          if (row.unlocked) return 3;
+          if (row.hidden) return 2;
+          return Number(row.progress || 0) > 0 ? 0 : 1;
+        };
+        const ra = rank(a);
+        const rb = rank(b);
+        if (ra !== rb) return ra - rb;
+        if (ra === 0) {
+          const va = progressView(a);
+          const vb = progressView(b);
+          const remainA = Math.max(0, va.target - va.shown);
+          const remainB = Math.max(0, vb.target - vb.shown);
+          return vb.pct - va.pct || remainA - remainB || String(a.name || "").localeCompare(String(b.name || ""));
+        }
+        return String(a.name || "").localeCompare(String(b.name || ""));
       });
     }
     return rows;
@@ -241,13 +267,15 @@
     const rows = nextGoals();
     if (els.nextPanel) els.nextPanel.hidden = rows.length === 0;
     els.next.innerHTML = rows.map((row) => {
-      const pct = progressPct(row);
+      const view = progressView(row);
       return `<article class="ach-next-card">
         <p class="ach-hub-cat">${window.playEscapeAttr(catLabel(achCategory(row)))}</p>
         <strong class="ach-hub-name">${window.playEscapeAttr(row.name)}</strong>
         <p class="ach-hub-desc">${window.playEscapeAttr(row.description || "")}</p>
-        <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
-        <span class="ach-hub-progress">${window.playEscapeAttr(`${row.progress || 0} / ${row.target || 0}`)} · ${pct}%</span>
+        <div class="ach-hub-progress-block">
+          <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${view.pct}%"></i></div>
+          <span class="ach-hub-progress">${window.playEscapeAttr(`${view.shown} / ${view.target}`)} · ${view.pct}%</span>
+        </div>
         ${rewardHtml(row)}
       </article>`;
     }).join("");
@@ -270,26 +298,23 @@
       }
     }
     els.grid.innerHTML = rows.map((row) => {
-      const pct = progressPct(row);
-      const ribbon = ribbonReward(row);
+      const view = progressView(row);
       const done = Boolean(row.unlocked);
       const state = stateOf(row);
       const progressLabel = row.hidden && !done
         ? "???"
-        : `${row.progress || 0} / ${row.target || 0}`;
-      const icon = window.playRibbonIconHtml?.(ribbon, { name: ribbon?.name || row.name, locked: !done, size: 44 })
-        || `<span class="ach-hub-fallback" aria-hidden="true">★</span>`;
+        : `${view.shown} / ${view.target}`;
+      const pctLabel = row.hidden && !done ? "" : ` · ${view.pct}%`;
       return `<article class="ach-hub-card ${state.cls}${row.hidden ? " is-hidden" : ""}" data-ach-id="${window.playEscapeAttr(row.id)}">
-        <div class="ach-hub-icon">${icon}</div>
-        <div class="ach-hub-copy">
-          <div class="ach-hub-meta">
-            <p class="ach-hub-cat">${window.playEscapeAttr(catLabel(achCategory(row)))}</p>
-            <span class="ach-hub-state ${state.cls}">${state.label}</span>
-          </div>
-          <strong class="ach-hub-name">${window.playEscapeAttr(row.name)}</strong>
-          <p class="ach-hub-desc">${window.playEscapeAttr(row.description || "")}</p>
-          <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
-          <span class="ach-hub-progress">${window.playEscapeAttr(progressLabel)}</span>
+        <div class="ach-hub-meta">
+          <p class="ach-hub-cat">${window.playEscapeAttr(catLabel(achCategory(row)))}</p>
+          <span class="ach-hub-state ${state.cls}">${state.label}</span>
+        </div>
+        <strong class="ach-hub-name">${window.playEscapeAttr(row.name)}</strong>
+        <p class="ach-hub-desc">${window.playEscapeAttr(row.description || "")}</p>
+        <div class="ach-hub-progress-block">
+          <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${row.hidden && !done ? 0 : view.pct}%"></i></div>
+          <span class="ach-hub-progress">${window.playEscapeAttr(progressLabel)}${pctLabel}</span>
         </div>
         ${rewardHtml(row)}
       </article>`;

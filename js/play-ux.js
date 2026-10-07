@@ -278,7 +278,7 @@
     if (/does not exist|undefined_function|gen_random_bytes|syntax error/i.test(text)) {
       return "The encounter could not finish cleanly. Please wait for the next one.";
     }
-    if (/bridge token|stream_commands|sqlstate|operator does not exist|column .* does not exist|enqueue/i.test(text)) {
+    if (/bridge token|stream_commands|sqlstate|operator does not exist|column .* does not exist|enqueue|duplicate key|violates unique constraint/i.test(text)) {
       return STATUS.saveFailed;
     }
     const cleaned = text

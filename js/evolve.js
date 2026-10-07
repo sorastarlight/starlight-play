@@ -515,7 +515,7 @@
       renderResearch();
       refreshOakBubble();
     } catch (error) {
-      els.researchBoard.innerHTML = `<p class="muted">${esc(window.playRpcError?.(error) || "Research is unavailable.")}</p>`;
+      els.researchBoard.innerHTML = `<p class="muted">${esc(window.playHumanRpcError?.(error, "Research is unavailable.") || window.playRpcError?.(error, "Research is unavailable.") || "Research is unavailable.")}</p>`;
       if (els.researchTracklist) els.researchTracklist.innerHTML = "";
     }
   }
@@ -526,17 +526,22 @@
     try {
       const data = await window.playCall("play_claim_oak_research", { p_milestone_id: milestoneId });
       const rewards = rewardLines(data.rewards);
-      const rewardHtml = rewards.map((row) => `${row.label} ×${row.qty}`).join(", ");
       const valuable = rewards.some((row) => ["stardust", "pearl", "starpiece", "nugget", "bigpearl", "bignugget"].includes(row.key));
       if (typeof window.playPresentEnqueue === "function") {
         const events = [{
           id: `oak-research:${data.milestoneId || milestoneId}`,
           type: "item",
-          kind: "loot",
+          kind: "oak-research",
           rare: true,
           title: "PROFESSOR OAK'S RESEARCH",
           subtitle: "Research Complete!",
-          body: `${data.description || data.title || ""}\n\nOak: "${data.oakLine || "Excellent work! We're learning more about Pokémon every day!"}"\n\nRESEARCH REWARD\n${rewardHtml}`,
+          item: rewards[0]?.key || "",
+          qty: rewards[0]?.qty || 0,
+          payload: {
+            milestoneTitle: data.title || "",
+            description: data.description || "",
+            oakLine: data.oakLine || "Excellent work! We're learning more about Pokémon every day!"
+          },
           rewards: rewards.map((row) => ({ type: row.key, amount: row.qty }))
         }];
         if (valuable && !martEduShown && !window.playTipDone?.("oak-valuable-mart")) {
@@ -546,9 +551,10 @@
             id: `oak-research-mart:${data.milestoneId || milestoneId}`,
             type: "item",
             kind: "loot",
-            title: rewards[0] ? String(window.playItemLabel?.(rewards[0].key) || "Valuable").toUpperCase() : "VALUABLE",
-            body: "A valuable item.\n\nSell valuables at the Mart for Coins.\n\nOpen Mart → Sell when you are ready.",
-            rewards: rewards.map((row) => ({ type: row.key, amount: row.qty }))
+            title: "Mart tip",
+            subtitle: "Sell valuables at the Mart",
+            body: "Open Mart → Sell when you are ready.",
+            rewards: []
           });
         }
         window.playPresentEnqueue(events);
@@ -558,7 +564,9 @@
       if (els.researchBoard) {
         const note = document.createElement("p");
         note.className = "notice";
-        note.textContent = window.playRpcError?.(error) || "Could not claim research reward.";
+        note.textContent = window.playHumanRpcError?.(error, "Could not claim that research reward.")
+          || window.playRpcError?.(error, "Could not claim that research reward.")
+          || "Could not claim that research reward.";
         els.researchBoard.prepend(note);
       }
     } finally {

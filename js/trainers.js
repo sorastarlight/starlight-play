@@ -836,11 +836,10 @@
       img.style.height = `${renderH}px`;
       img.style.maxWidth = "none";
       img.style.maxHeight = "none";
-      img.style.objectFit = "fill";
+      img.style.objectFit = mode === "thumb" ? "contain" : "fill";
       if (mode === "thumb") {
         // Dedicated thumbnail contract: visible alpha must fit inside tile inset.
-        // Transparent source padding may extend outside and is clipped by overflow:hidden.
-        // left:50% + translateX(-(alphaCenterX)); never reuse card/stage offsets.
+        // Uniform scale only — never force a square box or non-uniform X/Y scale.
         const inset = Math.max(6, Math.round(Math.min(stageRefW, stageRefH) * 0.08));
         const maxVisH = Math.max(1, stageRefH - inset * 2);
         const maxVisW = Math.max(1, stageRefW - inset * 2);
@@ -848,8 +847,11 @@
           const fit = Math.min(maxVisH / Math.max(1, bounds.vh), maxVisW / Math.max(1, bounds.vw));
           scale = Math.min(scale, fit);
         }
-        const renderW2 = Math.max(1, Math.round(bounds.w * scale));
-        const renderH2 = Math.max(1, Math.round(bounds.h * scale));
+        const srcW = Math.max(1, img.naturalWidth || bounds.w);
+        const srcH = Math.max(1, img.naturalHeight || bounds.h);
+        scale = Math.min(scale, maxVisW / srcW, maxVisH / srcH);
+        const renderW2 = Math.max(1, Math.round(srcW * scale));
+        const renderH2 = Math.max(1, Math.round(srcH * scale));
         const visW2 = Math.max(1, Math.round(bounds.vw * scale));
         const visH2 = Math.max(1, Math.round(bounds.vh * scale));
         const padL2 = bounds.left * scale;
@@ -859,7 +861,7 @@
         img.style.setProperty("height", renderH2 + "px", "important");
         img.style.setProperty("max-width", "none", "important");
         img.style.setProperty("max-height", "none", "important");
-        img.style.setProperty("object-fit", "fill", "important");
+        img.style.setProperty("object-fit", "contain", "important");
         img.style.position = "absolute";
         img.style.left = "50%";
         img.style.right = "auto";

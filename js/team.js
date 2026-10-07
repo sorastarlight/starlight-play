@@ -520,7 +520,9 @@
     el.innerHTML = slots.map((mon, index) => {
       if (!mon) {
         return `<button type="button" class="team-slot team-party-chip empty" data-add="${index}" ${mine ? "" : "disabled"}>
-          <span class="team-slot-ball" aria-hidden="true"><span class="team-slot-num">${index + 1}</span></span>
+          <span class="team-slot-head">
+            <span class="team-slot-index">Slot ${index + 1}</span>
+          </span>
           <span class="team-slot-sprite team-slot-sprite-empty" aria-hidden="true">＋</span>
           <strong class="team-slot-name">Add</strong>
         </button>`;
@@ -540,9 +542,18 @@
       }
       // Gender exists on catch records for sprite/identity authority, but is not shown in Team editor UI.
       const display = window.playCaughtName(mon);
+      const ballKey = String(mon.ball || "").trim() || "poke-ball";
+      const ballSprite = typeof window.playItemSprite === "function" ? window.playItemSprite(ballKey) : "images/items/poke-ball.png";
+      const ballLabel = (typeof window.playItemLabel === "function" ? window.playItemLabel(ballKey) : "") || "Poké Ball";
+      const escBall = window.playEscapeAttr || ((value) => String(value || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"));
       return `<article class="team-slot team-party-chip filled${shiny ? " is-shiny" : ""}" data-catch-id="${mon.id || ""}">
         <button type="button" class="team-slot-hit" data-inspect-catch="${mon.id || ""}" aria-label="Inspect ${display}"></button>
-        <span class="team-slot-ball" aria-hidden="true"><span class="team-slot-num">${index + 1}</span></span>
+        <span class="team-slot-head">
+          <span class="team-slot-index">Slot ${index + 1}</span>
+          <span class="team-slot-caught" title="${escBall(ballLabel)}">
+            <img src="${escBall(ballSprite)}" alt="${escBall(ballLabel)}" width="18" height="18" decoding="async" onerror="this.onerror=null;this.src='images/items/poke-ball.png'">
+          </span>
+        </span>
         <span class="team-slot-sprite">
           <img src="${window.playSpriteUrl(mon.dex, mon.variant, mon.formId)}" alt="" width="96" height="96" decoding="async" onload="window.playNormalizePartyEditorSprite?.(this)">
           ${shiny ? `<span class="team-slot-shiny" title="Shiny" aria-label="Shiny">★</span>` : ""}

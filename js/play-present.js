@@ -870,6 +870,48 @@
     await runPanel(event, html);
   }
 
+  function oakResearchRewardGrid(event) {
+    const rows = asArray(event.rewards).filter((row) => row && (row.type || row.item));
+    if (!rows.length && event.item) {
+      rows.push({ type: event.item, amount: event.qty || 1 });
+    }
+    if (!rows.length) return "";
+    return `<div class="play-present-oak-rewards${rows.length > 1 ? " is-multi" : ""}">
+      ${rows.map((row) => {
+        const key = row.type || row.item || "";
+        const qty = Number(row.amount || row.qty || 1);
+        const src = itemSprite(key);
+        const label = itemLabel(key);
+        return `<figure class="play-present-oak-reward">
+          <img src="${esc(src)}" alt="" width="128" height="128" decoding="async">
+          <figcaption><strong>${esc(label)} ×${esc(qty)}</strong></figcaption>
+        </figure>`;
+      }).join("")}
+    </div>`;
+  }
+
+  async function presentOakResearch(event) {
+    cue(event.rare ? "item.rare" : "reward.small");
+    const payload = event.payload || {};
+    const quote = String(payload.oakLine || "Excellent work! We're learning more about Pokémon every day!");
+    const milestone = payload.milestoneTitle || event.subtitle || "";
+    const requirement = payload.description || "";
+    const html = `<article class="play-present-card play-present-oak-research" data-present-panel data-type="oak-research">
+      ${fxHtml("item")}
+      <p class="play-present-kicker">PROFESSOR OAK'S RESEARCH</p>
+      <h2>Research Complete!</h2>
+      ${oakResearchRewardGrid(event)}
+      ${milestone ? `<p class="play-present-oak-milestone">${esc(milestone)}</p>` : ""}
+      ${requirement ? `<p class="play-present-sub play-present-oak-req">${esc(requirement)}</p>` : ""}
+      <blockquote class="play-present-oak-quote">
+        <p>“${esc(quote)}”</p>
+        <footer>— Professor Oak</footer>
+      </blockquote>
+      ${continueHtml()}
+    </article>`;
+    await runPanel(event, html);
+  }
+
   async function presentOne(event) {
     current = event;
     markSeen(event.id);
@@ -877,6 +919,7 @@
       showToast(event);
       return;
     }
+    if (event.kind === "oak-research") return presentOakResearch(event);
     if (event.type === "pokedex") return presentPokedex(event);
     if (event.type === "special-event") return presentSpecialEvent(event);
     if (event.type === "legendary" || event.type === "mythical") return presentLegendary(event);

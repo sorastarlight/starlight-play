@@ -266,6 +266,15 @@
     if (/http\s*409|conflict|already used that action/i.test(text)) return "That item was already used.";
     if (/not enough pokécoins|not enough pokecoins|need .+ more pokécoins/i.test(text)) return "Not enough PokéCoins.";
     if (/this pokémon is locked|pokemon is locked|currently locked/i.test(text)) return "This Pokémon is locked.";
+    if (/a box slot is not one of your pokémon|invalid pokémon in a box slot/i.test(text)) {
+      return "Your PC changed while this action was being completed. Please try again.";
+    }
+    if (/that pokémon is not in your storage|that pokémon could not be moved|that pokémon is not in a pc box/i.test(text)) {
+      return "That Pokémon could not be moved.";
+    }
+    if (/that box is full|that storage slot is no longer available/i.test(text)) {
+      return "That storage slot is no longer available.";
+    }
     if (/session expired|jwt expired|invalid jwt|not authenticated/i.test(text)) return "Session expired. Sign in again.";
     if (/linking cord/i.test(text) && /need|don't have|do not have/i.test(text)) return "You don't have a Linking Cord.";
     const stone = text.match(/(thunder stone|fire stone|water stone|leaf stone|moon stone)/i);

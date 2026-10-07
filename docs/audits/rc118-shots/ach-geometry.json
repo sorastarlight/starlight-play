@@ -1,0 +1,779 @@
+{
+  "account": "playtester@sorastarlight.net",
+  "v1920": {
+    "named": {
+      "Sparkling Collector": {
+        "name": "Sparkling Collector",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Number One Fan": {
+        "name": "Number One Fan",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Community Champion": {
+        "name": "Community Champion",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Almost There": {
+        "name": "Almost There",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Everpresent": {
+        "name": "Everpresent",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Kanto Master": {
+        "name": "Kanto Master",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Experienced Trainer": {
+        "name": "Experienced Trainer",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Familiar Faces": {
+        "name": "Familiar Faces",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Honey Legend": {
+        "name": "Honey Legend",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Shiny Specialist": {
+        "name": "Shiny Specialist",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Veteran Trainer": {
+        "name": "Veteran Trainer",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Shiny Master": {
+        "name": "Shiny Master",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Hive Helper": {
+        "name": "Hive Helper",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Kanto Explorer": {
+        "name": "Kanto Explorer",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Stream Regular": {
+        "name": "Stream Regular",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Another One": {
+        "name": "Another One",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    },
+    "hubCount": 68,
+    "next": [
+      {
+        "name": "Showing Up",
+        "width": 268.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Evolution Fan",
+        "width": 268.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Familiar Face",
+        "width": 268.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Sparkle Watch",
+        "width": 268.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    ],
+    "hubSample": [
+      {
+        "name": "Showing Up",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Evolution Fan",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Familiar Face",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Sparkle Watch",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Helping Hand",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Kanto Explorer",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    ],
+    "heightSpread": 0,
+    "progressYSpread": 0,
+    "rewardYSpread": 0
+  },
+  "v2560": {
+    "named": {
+      "Sparkling Collector": {
+        "name": "Sparkling Collector",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Number One Fan": {
+        "name": "Number One Fan",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Community Champion": {
+        "name": "Community Champion",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Almost There": {
+        "name": "Almost There",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Everpresent": {
+        "name": "Everpresent",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Kanto Master": {
+        "name": "Kanto Master",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Experienced Trainer": {
+        "name": "Experienced Trainer",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Familiar Faces": {
+        "name": "Familiar Faces",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Honey Legend": {
+        "name": "Honey Legend",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Shiny Specialist": {
+        "name": "Shiny Specialist",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Veteran Trainer": {
+        "name": "Veteran Trainer",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Shiny Master": {
+        "name": "Shiny Master",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Hive Helper": {
+        "name": "Hive Helper",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Kanto Explorer": {
+        "name": "Kanto Explorer",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Stream Regular": {
+        "name": "Stream Regular",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Another One": {
+        "name": "Another One",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    },
+    "hubCount": 68,
+    "next": [
+      {
+        "name": "Showing Up",
+        "width": 268.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Evolution Fan",
+        "width": 268.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Familiar Face",
+        "width": 268.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Sparkle Watch",
+        "width": 268.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    ],
+    "hubSample": [
+      {
+        "name": "Showing Up",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Evolution Fan",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Familiar Face",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Sparkle Watch",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Helping Hand",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Kanto Explorer",
+        "width": 360,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    ],
+    "heightSpread": 0,
+    "progressYSpread": 0,
+    "rewardYSpread": 0
+  },
+  "v960": {
+    "named": {
+      "Sparkling Collector": {
+        "name": "Sparkling Collector",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Number One Fan": {
+        "name": "Number One Fan",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Community Champion": {
+        "name": "Community Champion",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Almost There": {
+        "name": "Almost There",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Everpresent": {
+        "name": "Everpresent",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Kanto Master": {
+        "name": "Kanto Master",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Experienced Trainer": {
+        "name": "Experienced Trainer",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Familiar Faces": {
+        "name": "Familiar Faces",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Honey Legend": {
+        "name": "Honey Legend",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Shiny Specialist": {
+        "name": "Shiny Specialist",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Veteran Trainer": {
+        "name": "Veteran Trainer",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Shiny Master": {
+        "name": "Shiny Master",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Hive Helper": {
+        "name": "Hive Helper",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Kanto Explorer": {
+        "name": "Kanto Explorer",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Stream Regular": {
+        "name": "Stream Regular",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Another One": {
+        "name": "Another One",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    },
+    "hubCount": 68,
+    "next": [
+      {
+        "name": "Showing Up",
+        "width": 429.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Evolution Fan",
+        "width": 429.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Familiar Face",
+        "width": 429.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Sparkle Watch",
+        "width": 429.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    ],
+    "hubSample": [
+      {
+        "name": "Showing Up",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Evolution Fan",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Familiar Face",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Sparkle Watch",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Helping Hand",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Kanto Explorer",
+        "width": 428.5,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    ],
+    "heightSpread": 0,
+    "progressYSpread": 0,
+    "rewardYSpread": 0
+  },
+  "v390": {
+    "named": {
+      "Sparkling Collector": {
+        "name": "Sparkling Collector",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Number One Fan": {
+        "name": "Number One Fan",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Community Champion": {
+        "name": "Community Champion",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Almost There": {
+        "name": "Almost There",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Everpresent": {
+        "name": "Everpresent",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Kanto Master": {
+        "name": "Kanto Master",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Experienced Trainer": {
+        "name": "Experienced Trainer",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Familiar Faces": {
+        "name": "Familiar Faces",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Honey Legend": {
+        "name": "Honey Legend",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Shiny Specialist": {
+        "name": "Shiny Specialist",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Veteran Trainer": {
+        "name": "Veteran Trainer",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Shiny Master": {
+        "name": "Shiny Master",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Hive Helper": {
+        "name": "Hive Helper",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Kanto Explorer": {
+        "name": "Kanto Explorer",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Stream Regular": {
+        "name": "Stream Regular",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      "Another One": {
+        "name": "Another One",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    },
+    "hubCount": 68,
+    "next": [
+      {
+        "name": "Showing Up",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Evolution Fan",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Familiar Face",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Sparkle Watch",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    ],
+    "hubSample": [
+      {
+        "name": "Showing Up",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Evolution Fan",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Familiar Face",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Sparkle Watch",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Helping Hand",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      },
+      {
+        "name": "Kanto Explorer",
+        "width": 319,
+        "height": 282,
+        "progressY": 90,
+        "rewardY": 188
+      }
+    ],
+    "heightSpread": 0,
+    "progressYSpread": 0,
+    "rewardYSpread": 0
+  }
+}

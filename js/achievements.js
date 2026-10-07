@@ -242,8 +242,31 @@
       const sprite = window.playItemSprite?.(key) || "images/items/poke-ball.png";
       parts.push(`<span class="ach-hub-reward is-item"><img src="${window.playEscapeAttr(sprite)}" alt="" width="24" height="24" decoding="async"><strong>${window.playEscapeAttr(label)}${Number(qty) > 1 ? ` ×${Number(qty)}` : ""}</strong></span>`);
     });
-    if (!parts.length) return "";
     return `<div class="ach-hub-rewards"><span class="ach-hub-rewards-label">Rewards</span>${parts.join("")}</div>`;
+  }
+
+  function cardAnatomyHtml(row, opts = {}) {
+    const view = progressView(row);
+    const done = Boolean(row.unlocked);
+    const state = stateOf(row);
+    const hidden = Boolean(row.hidden && !done);
+    const progressLabel = hidden ? "???" : `${view.shown} / ${view.target}`;
+    const pctLabel = hidden ? "" : ` · ${view.pct}%`;
+    const pct = hidden ? 0 : view.pct;
+    const stateChip = opts.next
+      ? ""
+      : `<span class="ach-hub-state ${state.cls}">${window.playEscapeAttr(state.label)}</span>`;
+    return `<div class="ach-hub-meta">
+          <p class="ach-hub-cat">${window.playEscapeAttr(catLabel(achCategory(row)))}</p>
+          ${stateChip}
+        </div>
+        <strong class="ach-hub-name">${window.playEscapeAttr(row.name)}</strong>
+        <div class="ach-hub-progress-block">
+          <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
+          <span class="ach-hub-progress">${window.playEscapeAttr(progressLabel)}${pctLabel}</span>
+        </div>
+        <p class="ach-hub-desc">${window.playEscapeAttr(row.description || "")}</p>
+        ${rewardHtml(row)}`;
   }
 
   function stateOf(row) {
@@ -267,16 +290,8 @@
     const rows = nextGoals();
     if (els.nextPanel) els.nextPanel.hidden = rows.length === 0;
     els.next.innerHTML = rows.map((row) => {
-      const view = progressView(row);
       return `<article class="ach-next-card">
-        <p class="ach-hub-cat">${window.playEscapeAttr(catLabel(achCategory(row)))}</p>
-        <strong class="ach-hub-name">${window.playEscapeAttr(row.name)}</strong>
-        <p class="ach-hub-desc">${window.playEscapeAttr(row.description || "")}</p>
-        <div class="ach-hub-progress-block">
-          <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${view.pct}%"></i></div>
-          <span class="ach-hub-progress">${window.playEscapeAttr(`${view.shown} / ${view.target}`)} · ${view.pct}%</span>
-        </div>
-        ${rewardHtml(row)}
+        ${cardAnatomyHtml(row, { next: true })}
       </article>`;
     }).join("");
   }
@@ -298,25 +313,9 @@
       }
     }
     els.grid.innerHTML = rows.map((row) => {
-      const view = progressView(row);
-      const done = Boolean(row.unlocked);
       const state = stateOf(row);
-      const progressLabel = row.hidden && !done
-        ? "???"
-        : `${view.shown} / ${view.target}`;
-      const pctLabel = row.hidden && !done ? "" : ` · ${view.pct}%`;
       return `<article class="ach-hub-card ${state.cls}${row.hidden ? " is-hidden" : ""}" data-ach-id="${window.playEscapeAttr(row.id)}">
-        <div class="ach-hub-meta">
-          <p class="ach-hub-cat">${window.playEscapeAttr(catLabel(achCategory(row)))}</p>
-          <span class="ach-hub-state ${state.cls}">${state.label}</span>
-        </div>
-        <strong class="ach-hub-name">${window.playEscapeAttr(row.name)}</strong>
-        <p class="ach-hub-desc">${window.playEscapeAttr(row.description || "")}</p>
-        <div class="ach-hub-progress-block">
-          <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${row.hidden && !done ? 0 : view.pct}%"></i></div>
-          <span class="ach-hub-progress">${window.playEscapeAttr(progressLabel)}${pctLabel}</span>
-        </div>
-        ${rewardHtml(row)}
+        ${cardAnatomyHtml(row)}
       </article>`;
     }).join("");
   }

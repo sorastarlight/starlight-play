@@ -1,0 +1,122 @@
+{
+  "account": "playtester@sorastarlight.net",
+  "uid": "a98cbf81-a6b2-4dbf-8448-8d62f6d5f523",
+  "soraMutated": false,
+  "twinkleMutated": false,
+  "steps": [
+    {
+      "step": "plant-holes",
+      "box0": [
+        {
+          "slot": 1,
+          "id": "fec3c296-ddf4-4d25-8ec0-1914075d8fc4"
+        },
+        {
+          "slot": 3,
+          "id": "150dcad8-1d7d-4b46-aca5-6846874a323b"
+        },
+        {
+          "slot": 5,
+          "id": "70c31afa-24ad-46a2-9c2b-6e6fb564786b"
+        }
+      ]
+    },
+    {
+      "step": "auto-arrange",
+      "before": [
+        {
+          "slot": 1,
+          "id": "fec3c296-ddf4-4d25-8ec0-1914075d8fc4"
+        },
+        {
+          "slot": 3,
+          "id": "150dcad8-1d7d-4b46-aca5-6846874a323b"
+        },
+        {
+          "slot": 5,
+          "id": "70c31afa-24ad-46a2-9c2b-6e6fb564786b"
+        }
+      ],
+      "after": [
+        {
+          "slot": 1,
+          "id": "fec3c296-ddf4-4d25-8ec0-1914075d8fc4"
+        },
+        {
+          "slot": 2,
+          "id": "150dcad8-1d7d-4b46-aca5-6846874a323b"
+        },
+        {
+          "slot": 3,
+          "id": "70c31afa-24ad-46a2-9c2b-6e6fb564786b"
+        }
+      ],
+      "compactOk": true,
+      "identityOk": true,
+      "currentBoxOnly": true,
+      "error": null
+    },
+    {
+      "step": "auto-arrange-idempotent",
+      "ok": true
+    },
+    {
+      "step": "auto-arrange-other-box",
+      "ok": true,
+      "error": null
+    },
+    {
+      "step": "move-box1",
+      "sameId": true,
+      "destHasA": true,
+      "sourceCleared": true,
+      "metaUnchanged": true,
+      "beforeMeta": {
+        "id": "fec3c296-ddf4-4d25-8ec0-1914075d8fc4",
+        "dex": 1,
+        "formId": 1,
+        "shiny": false,
+        "gender": "Male",
+        "nickname": null,
+        "level": 5,
+        "favorite": false,
+        "locked": false,
+        "ball": null,
+        "ot": null
+      },
+      "afterMeta": {
+        "id": "fec3c296-ddf4-4d25-8ec0-1914075d8fc4",
+        "dex": 1,
+        "formId": 1,
+        "shiny": false,
+        "gender": "Male",
+        "nickname": null,
+        "level": 5,
+        "favorite": false,
+        "locked": false,
+        "ball": null,
+        "ot": null
+      }
+    },
+    {
+      "step": "move-same-box",
+      "moved": true,
+      "ok": true
+    },
+    {
+      "step": "unauthorized-move",
+      "rejected": true,
+      "message": "That Pokémon could not be moved."
+    },
+    {
+      "step": "invalid-destination",
+      "rejected": true,
+      "message": "That box is not available."
+    },
+    {
+      "step": "restore",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

@@ -202,6 +202,15 @@ async function run() {
     assert(body.includes("PokéCoins") || body.includes("enough"), body);
   });
 
+  await test("one failed action presents one error toast", () => {
+    window.playPresentReset(true);
+    const toasts = [];
+    window.playToast = function playToast(notice) { toasts.push(notice); };
+    window.playPresentError({ message: "That Pokémon could not be moved." }, "That Pokémon could not be moved.");
+    window.playPresentError({ message: "That Pokémon could not be moved." }, "That Pokémon could not be moved.");
+    assert(toasts.length === 1, `toasts=${toasts.length}`);
+  });
+
   await test("unlock notices collapse and stay cards", () => {
     const rows = window.playPresentCollapse([
       window.playPresentNormalize({ id: "u1", kind: "unlock", payload: { cosmeticId: "bg-starlight", kind: "background", name: "Starlight Sky" } }),

@@ -19215,3 +19215,98 @@ button.ach-hub-reward:focus-visible { border-color: #f3a0c8; outline: 2px solid 
   .play-present-oak-reward img { width: 96px; height: 96px; }
 }
 
+/* rc118 — true fixed achievement card anatomy (progress above description) */
+.ach-hub-card,
+.ach-next-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 22px 42px 10px 16px 40px minmax(8px, 1fr) 80px;
+  grid-template-areas:
+    "meta"
+    "title"
+    "bar"
+    "progress"
+    "desc"
+    "spacer"
+    "rewards";
+  row-gap: 6px;
+  column-gap: 0;
+  height: 100%;
+  min-height: 282px;
+  padding: 12px;
+  box-sizing: border-box;
+  align-content: stretch;
+}
+.ach-hub-card::after,
+.ach-next-card::after {
+  content: "";
+  grid-area: spacer;
+}
+.ach-hub-card .ach-hub-meta,
+.ach-next-card .ach-hub-meta {
+  grid-area: meta;
+  min-height: 22px;
+  margin: 0;
+  align-self: stretch;
+}
+.ach-hub-card .ach-hub-name,
+.ach-next-card .ach-hub-name {
+  grid-area: title;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin: 0;
+  min-height: 42px;
+  max-height: 42px;
+  line-height: 1.3;
+  align-self: start;
+}
+.ach-hub-card .ach-hub-progress-block,
+.ach-next-card .ach-hub-progress-block {
+  display: contents;
+  margin: 0;
+}
+.ach-hub-card .ach-hub-bar,
+.ach-next-card .ach-hub-bar,
+.ach-hub-card.is-progress .ach-hub-bar,
+.ach-hub-card.is-done .ach-hub-bar,
+.ach-hub-card.is-locked .ach-hub-bar {
+  grid-area: bar;
+  height: 10px;
+  margin: 0;
+  align-self: stretch;
+}
+.ach-hub-card .ach-hub-progress,
+.ach-next-card .ach-hub-progress {
+  grid-area: progress;
+  margin: 0;
+  min-height: 16px;
+  line-height: 16px;
+  align-self: start;
+}
+.ach-hub-card .ach-hub-desc,
+.ach-next-card .ach-hub-desc {
+  grid-area: desc;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin: 0;
+  min-height: 40px;
+  max-height: 40px;
+  line-height: 1.4;
+  align-self: start;
+}
+.ach-hub-card .ach-hub-rewards,
+.ach-next-card .ach-hub-rewards {
+  grid-area: rewards;
+  align-self: stretch;
+  margin: 0;
+  min-height: 80px;
+  max-height: 80px;
+  overflow: hidden;
+}
+

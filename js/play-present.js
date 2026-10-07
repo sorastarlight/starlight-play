@@ -46,6 +46,8 @@
   let liveEl = null;
   let confirmBusy = false;
   let settlePanel = null;
+  let lastErrorKey = "";
+  let lastErrorAt = 0;
 
   function doc() {
     return typeof document !== "undefined" ? document : null;
@@ -1005,6 +1007,11 @@
       preview: env.preview
     });
     event.tier = TIER.toast;
+    const key = `${event.title}\n${body}`;
+    const now = Date.now();
+    if (key === lastErrorKey && now - lastErrorAt < 1600) return body;
+    lastErrorKey = key;
+    lastErrorAt = now;
     showToast(event);
     if (typeof console !== "undefined" && error && (error.code || error.details || error.hint)) {
       console.warn("[play]", error);
@@ -1201,6 +1208,8 @@
     presented.length = 0;
     running = false;
     current = null;
+    lastErrorKey = "";
+    lastErrorAt = 0;
     env.instant = false;
     env.perf = "";
     env.reducedMotion = null;

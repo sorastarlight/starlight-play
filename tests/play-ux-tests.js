@@ -105,6 +105,11 @@ test("economy and lock errors stay friendly", () => {
   assert(window.playHumanRpcError({ message: "This Pokémon is locked." }) === "This Pokémon is locked.");
   assert(window.playHumanRpcError({ message: "jwt expired" }) === "Session expired. Sign in again.");
 });
+test("PC box-op errors stay friendly and hide slot internals", () => {
+  assert(window.playHumanRpcError({ message: "A box slot is not one of your Pokémon." }) === "Your PC changed while this action was being completed. Please try again.");
+  assert(window.playHumanRpcError({ message: "That Pokémon is not in your storage." }) === "That Pokémon could not be moved.");
+  assert(window.playHumanRpcError({ message: "That box is full." }) === "That storage slot is no longer available.");
+});
 test("Twitch sign-in RPC copy becomes site-account copy", () => {
   assert(window.playHumanRpcError({ message: "Sign in with Twitch to join the live encounter." }) === "Sign in to join the live encounter.");
 });

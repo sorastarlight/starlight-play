@@ -30,6 +30,7 @@
   let renamingBox = -1;
   let dropTargetEl = null;
   let acquireTimer = 0;
+  let boxOpBusy = false;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -685,24 +686,37 @@
     });
   }
 
+  function presentBoxError(error, fallback) {
+    if (typeof window.playPresentError === "function") {
+      window.playPresentError(error, fallback);
+      return;
+    }
+    if (els.status) els.status.textContent = window.playRpcError?.(error, fallback) || fallback;
+  }
+
   async function runAutoArrange() {
+    if (boxOpBusy) return;
     if (searching()) {
       if (typeof window.playToast === "function") {
         window.playToast({ kind: "warning", title: "Clear search first", body: "Auto-Arrange works on the current box view." });
       }
       return;
     }
+    const keepId = selectedId;
+    boxOpBusy = true;
     try {
       const result = await window.playCall("play_pc_auto_arrange", { p_box: boxIndex });
       data = result;
+      if (keepId) selectedId = String(keepId);
       if (els.status) els.status.textContent = "";
       if (typeof window.playToast === "function") {
         window.playToast({ kind: "success", title: "Box arranged", body: result?.message || "Pokémon packed to the top-left." });
       }
       render();
     } catch (error) {
-      if (typeof window.playPresentError === "function") window.playPresentError(error, "Could not arrange this box.");
-      else if (els.status) els.status.textContent = window.playRpcError(error);
+      presentBoxError(error, "Could not arrange this box.");
+    } finally {
+      boxOpBusy = false;
     }
   }
 
@@ -927,31 +941,37 @@
   }
 
   async function moveMonToBox(catchId, toBoxIndex, opts = {}) {
+    if (boxOpBusy) return null;
     const boxes = normalizeBoxes();
     if (!boxes[toBoxIndex]) throw new Error("That box is not available.");
     if (boxFillCount(boxes[toBoxIndex]) >= BOX_SLOTS && opts.allowFull !== true) {
       // Server will also reject; give a fast local message when obvious.
       const alreadyHere = (boxes[toBoxIndex].slots || []).some((id) => id && String(id) === String(catchId));
-      if (!alreadyHere) throw new Error("That box is full.");
+      if (!alreadyHere) throw new Error("That storage slot is no longer available.");
     }
-    const next = await window.playCall("play_move_pc_mon", {
-      p_catch_id: catchId,
-      p_to_box: toBoxIndex
-    });
-    data = next;
-    if (next?.layout) data.layout = next.layout;
-    if (next?.mons) data.mons = next.mons;
-    if (Number.isFinite(Number(opts.stayOnBox))) boxIndex = Number(opts.stayOnBox);
-    else if (next?.moved) boxIndex = toBoxIndex;
-    selectedId = String(catchId);
-    render();
-    if (els.status && next?.message && next.moved !== false) {
-      els.status.textContent = next.message;
-      window.setTimeout(() => {
-        if (els.status?.textContent === next.message) els.status.textContent = "";
-      }, 2400);
+    boxOpBusy = true;
+    try {
+      const next = await window.playCall("play_move_pc_mon", {
+        p_catch_id: catchId,
+        p_to_box: toBoxIndex
+      });
+      data = next;
+      if (next?.layout) data.layout = next.layout;
+      if (next?.mons) data.mons = next.mons;
+      if (Number.isFinite(Number(opts.stayOnBox))) boxIndex = Number(opts.stayOnBox);
+      else if (next?.moved) boxIndex = toBoxIndex;
+      selectedId = String(catchId);
+      render();
+      if (els.status && next?.message && next.moved !== false) {
+        els.status.textContent = next.message;
+        window.setTimeout(() => {
+          if (els.status?.textContent === next.message) els.status.textContent = "";
+        }, 2400);
+      }
+      return next;
+    } finally {
+      boxOpBusy = false;
     }
-    return next;
   }
 
   function openMoveDialog(mon) {
@@ -1004,7 +1024,7 @@
           close();
         } catch (error) {
           btn.disabled = false;
-          if (els.status) els.status.textContent = window.playRpcError(error);
+          presentBoxError(error, "That Pokémon could not be moved.");
         }
       });
     });
@@ -1095,7 +1115,7 @@
     try {
       await moveMonToBox(catchId, dest, { stayOnBox: boxIndex });
     } catch (error) {
-      if (els.status) els.status.textContent = window.playRpcError(error);
+      presentBoxError(error, "That Pokémon could not be moved.");
     }
   });
   els.tabs?.addEventListener("click", (event) => {

@@ -902,9 +902,10 @@
       ${fxHtml("item")}
       <p class="play-present-kicker">PROFESSOR OAK'S RESEARCH</p>
       <h2>Research Complete!</h2>
-      ${oakResearchRewardGrid(event)}
       ${milestone ? `<p class="play-present-oak-milestone">${esc(milestone)}</p>` : ""}
       ${requirement ? `<p class="play-present-sub play-present-oak-req">${esc(requirement)}</p>` : ""}
+      <p class="play-present-oak-reward-kicker">Reward</p>
+      ${oakResearchRewardGrid(event)}
       <blockquote class="play-present-oak-quote">
         <p>“${esc(quote)}”</p>
         <footer>— Professor Oak</footer>

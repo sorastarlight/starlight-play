@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20261007-rc121">
+<link rel="stylesheet" href="css/play.css?v=20261007-rc122">
 <body data-page="evolve">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -304,8 +304,8 @@
     </header>
     <div id="evo-detail"></div>
     <div class="evo-preview-actions">
-      <button id="evo-go" type="button">Evolve</button>
       <button class="secondary" id="evo-cancel" value="cancel" type="submit">Not now</button>
+      <button id="evo-go" type="button">Evolve</button>
     </div>
     <p id="evo-status" class="muted" role="status"></p>
   </form>
@@ -319,36 +319,38 @@
     <div id="oak-inspect-body" class="oak-inspect-body"></div>
   </form>
 </dialog>
-<dialog id="oak-lab-modal" class="play-modal play-modal-confirm" aria-labelledby="oak-lab-title">
-  <form class="play-modal-card" method="dialog">
+<dialog id="oak-lab-modal" class="play-modal play-modal-confirm oak-transfer-confirm" aria-labelledby="oak-lab-title">
+  <form class="play-modal-card oak-transfer-card" method="dialog">
+    <p class="oak-confirm-kicker">PROFESSOR OAK'S LAB</p>
     <header class="play-modal-head">
-      <h3 id="oak-lab-title">Transfer to Professor Oak?</h3>
+      <h3 id="oak-lab-title">Transfer Pokémon?</h3>
     </header>
     <div class="oak-modal-body">
       <div id="oak-lab-sprites" class="oak-lab-sprites"></div>
       <div id="oak-lab-copy"></div>
     </div>
     <div class="links oak-confirm-actions">
-      <button value="cancel" class="secondary" type="submit">Keep them</button>
+      <button value="cancel" class="secondary" type="submit">Keep Pokémon</button>
       <button id="oak-lab-confirm" class="danger" value="transfer" type="submit">Send to Professor Oak</button>
     </div>
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20261007-rc121"></script>
-<script src="js/play-perf.js?v=20261007-rc121"></script>
-<script src="js/build.js?v=20261007-rc121"></script>
-<script src="js/build-client.js?v=20261007-rc121"></script>
-<script src="js/auth.js?v=20261007-rc121"></script>
-<script src="js/species.js?v=20261007-rc121"></script>
-<script src="js/variants.js?v=20261007-rc121"></script>
-<script src="js/forms.js?v=20261007-rc121"></script>
-<script src="js/game.js?v=20261007-rc121"></script>
-<script src="js/play-present.js?v=20261007-rc121"></script>
-<script src="js/play-encounter-state.js?v=20261007-rc121"></script>
-<script src="js/play-ux.js?v=20261007-rc121"></script>
-<script src="js/evolve-view.js?v=20261007-rc121"></script>
-<script src="js/oak-transfer.js?v=20261007-rc121"></script>
-<script src="js/nav.js?v=20261007-rc121"></script>
-<script src="js/evolve.js?v=20261007-rc121"></script>
+<script src="js/config.js?v=20261007-rc122"></script>
+<script src="js/play-perf.js?v=20261007-rc122"></script>
+<script src="js/build.js?v=20261007-rc122"></script>
+<script src="js/build-client.js?v=20261007-rc122"></script>
+<script src="js/auth.js?v=20261007-rc122"></script>
+<script src="js/species.js?v=20261007-rc122"></script>
+<script src="js/variants.js?v=20261007-rc122"></script>
+<script src="js/forms.js?v=20261007-rc122"></script>
+<script src="js/evolution-candy-png.js?v=20261007-rc122"></script>
+<script src="js/game.js?v=20261007-rc122"></script>
+<script src="js/play-present.js?v=20261007-rc122"></script>
+<script src="js/play-encounter-state.js?v=20261007-rc122"></script>
+<script src="js/play-ux.js?v=20261007-rc122"></script>
+<script src="js/evolve-view.js?v=20261007-rc122"></script>
+<script src="js/oak-transfer.js?v=20261007-rc122"></script>
+<script src="js/nav.js?v=20261007-rc122"></script>
+<script src="js/evolve.js?v=20261007-rc122"></script>
 </body>

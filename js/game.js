@@ -968,6 +968,9 @@
   /** Local Evolution Candy ITEM art for a family / representative dex. */
   window.playEvolutionCandyItemUrl = function playEvolutionCandyItemUrl(familyId) {
     const id = Number(familyId);
+    const pngIndex = window.PLAY_EVO_CANDY_PNG || {};
+    const fileDex = Number(pngIndex[id] || 0);
+    if (fileDex >= 1) return `images/items/evolution-candy/${fileDex}.png`;
     if (id >= 1 && id <= 151) return `images/items/evolution-candy/${id}.svg`;
     return "images/items/lgpe-candy.png";
   };
@@ -1304,7 +1307,7 @@
     const card = document.createElement("article");
     card.className = `play-toast play-toast-${notice?.kind || "info"}`;
     if (notice?.severity) card.classList.add(`play-toast-${notice.severity}`);
-    card.innerHTML = `<strong>${esc(title)}</strong><p>${esc(body)}</p>`;
+    card.innerHTML = `<strong>${esc(title)}</strong><p>${esc(body).replace(/\n/g, "<br>")}</p>`;
     host.append(card);
     setTimeout(() => card.classList.add("is-out"), 4200);
     setTimeout(() => card.remove(), 5000);

@@ -57,6 +57,7 @@
     cancel: document.getElementById("evo-cancel"),
     status: document.getElementById("evo-status"),
     oakModal: document.getElementById("oak-lab-modal"),
+    oakTitle: document.getElementById("oak-lab-title"),
     oakSprites: document.getElementById("oak-lab-sprites"),
     oakCopy: document.getElementById("oak-lab-copy"),
     oakBubble: document.getElementById("evo-oak-bubble"),
@@ -72,6 +73,7 @@
   const selectedOak = new Set();
   let pendingOakIds = [];
   let inspectReturnFocus = null;
+  let evoReturnFocus = null;
   let trainerCard = null;
   const evolveGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
   const rareGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
@@ -204,10 +206,10 @@
     transfer: "Even duplicate Pokémon can contribute to valuable research!"
   };
   const RESEARCH_TRACK_META = {
-    field: { short: "Field", unit: "species", motif: "field" },
-    evolution: { short: "Evolutions", unit: "evolutions", motif: "evolution" },
-    line: { short: "Lines", unit: "lines", motif: "line" },
-    transfer: { short: "Transfers", unit: "sent", motif: "transfer" }
+    field: { short: "Field", unit: "species", motif: "field", progressUnit: "registered" },
+    evolution: { short: "Evolutions", unit: "evolutions", motif: "evolution", progressUnit: "evolutions" },
+    line: { short: "Lines", unit: "lines", motif: "line", progressUnit: "lines" },
+    transfer: { short: "Transfers", unit: "sent", motif: "transfer", progressUnit: "sent" }
   };
   const RESEARCH_SESSION_KEY = "oakLabResearchTrack";
 
@@ -475,6 +477,7 @@
         <p class="oak-research-req">${esc(req)}</p>
         <p class="oak-research-progress-line" aria-label="Progress">${progress.toLocaleString()} / ${Number(m.threshold || 0).toLocaleString()}</p>
         <div class="oak-research-rewards"><span class="oak-research-reward-kicker">Reward</span>${rewards}</div>
+        <span class="oak-research-card-grow" aria-hidden="true"></span>
         ${claimable
           ? `<button type="button" class="gold oak-research-claim" data-claim-research="${esc(m.id)}">Claim Reward</button>`
           : `<span class="oak-research-claim-slot" aria-hidden="true"></span>`}
@@ -494,25 +497,26 @@
       ? Math.max(0, nextThreshold - progress)
       : 0;
     const nextReq = String(nextFocus?.description || "").replace(/\.$/, "");
+    const unit = RESEARCH_TRACK_META[track.id]?.progressUnit || "complete";
     els.researchBoard.innerHTML = `<section class="oak-research-active motif-${esc(track.id)}" aria-labelledby="oak-active-track-title">
       <header class="oak-research-summary">
-        <div class="oak-research-summary-copy">
-          <p class="oak-research-kicker">${esc((RESEARCH_TRACK_META[track.id]?.short || track.name).toUpperCase())}</p>
+        <div class="oak-research-summary-identity">
+          <p class="oak-research-kicker">TRACK</p>
           <h3 id="oak-active-track-title">${esc(track.name)}</h3>
           <p>${esc(track.description || "")}</p>
+          <div class="oak-research-track-progress" role="group" aria-label="${esc(progressTitle)} overall">
+            <p class="oak-research-progress-count"><strong>${progress.toLocaleString()}</strong><span> / ${goal.toLocaleString()} ${esc(unit)}</span></p>
+            <div class="oak-research-meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
+            <p class="oak-research-complete-pct">${pct}% complete</p>
+            <p class="oak-research-progress-caption muted">Overall track progress</p>
+          </div>
         </div>
-        <div class="oak-research-summary-progress" role="group" aria-label="${esc(progressTitle)}">
-          <p class="oak-research-progress-count"><strong>${progress.toLocaleString()}</strong><span> / ${goal.toLocaleString()}</span></p>
-          <div class="oak-research-meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
-          <p class="oak-research-complete-pct">${pct}% Complete</p>
-          <p class="oak-research-progress-caption muted">${esc(progressTitle)} overall</p>
-        </div>
-        <div class="oak-research-next-milestone">
-          <p class="oak-research-next-label">${nextClaim ? "Ready to claim" : "Next Milestone"}</p>
+        <div class="oak-research-next-milestone${nextClaim ? " is-ready" : ""}">
+          <p class="oak-research-next-label">${nextClaim ? "Ready to Claim" : "Next Milestone"}</p>
           <p class="oak-research-next-req">${esc(nextFocus?.title || "—")}</p>
           <p class="oak-research-next-desc">${esc(nextReq || "")}</p>
           ${nextOpen && !nextClaim
-            ? `<p class="oak-research-next-toward">${progress.toLocaleString()} / ${nextThreshold.toLocaleString()} toward this milestone · ${towardNext.toLocaleString()} remaining</p>`
+            ? `<p class="oak-research-next-toward">${progress.toLocaleString()} / ${nextThreshold.toLocaleString()} · ${towardNext.toLocaleString()} remaining</p>`
             : ""}
           <div class="oak-research-rewards">${nextRewards}</div>
         </div>
@@ -629,16 +633,20 @@
     const art = window.playOakTransfer?.candyItemArt
       ? window.playOakTransfer.candyItemArt({ candyBaseDex: baseDex, familyId: famId || Number(fam?.familyId || 0) }, data?.families || [])
       : (window.playEvolutionCandyItemUrl?.(baseDex) || window.playEvolutionCandyFallback?.(baseDex) || "images/items/lgpe-candy.png");
-    return { baseDex, bare, label, art, mascot, familyId: famId || Number(fam?.familyId || 0) };
+    const artFallback = /\.png$/i.test(art) && baseDex >= 1 && baseDex <= 151
+      ? `images/items/evolution-candy/${baseDex}.svg`
+      : "images/items/lgpe-candy.png";
+    return { baseDex, bare, label, art, artFallback, mascot, familyId: famId || Number(fam?.familyId || 0) };
   }
 
   function candyArtHtml(id, size = 40) {
     const item = id?.art || "images/items/lgpe-candy.png";
+    const fallback = id?.artFallback || "images/items/lgpe-candy.png";
     const mascot = id?.mascot || "";
     const dedicated = /evolution-candy\//.test(item);
     if (dedicated) {
       return `<span class="oak-candy-art" style="--oak-candy-size:${size}px">
-        <img class="oak-candy-item" src="${esc(item)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy" onerror="this.onerror=null;this.src='images/items/lgpe-candy.png'">
+        <img class="oak-candy-item" src="${esc(item)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy" data-fallback="${esc(fallback)}" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.removeAttribute('data-fallback');this.src=f;}else{this.onerror=null;this.src='images/items/lgpe-candy.png'}">
       </span>`;
     }
     return `<span class="oak-candy-art is-composite" style="--oak-candy-size:${size}px">
@@ -754,8 +762,10 @@
           <span class="oak-evo-target-art">${sprite(row.toDex, row.variant || "normal", 48, row.gender)}</span>
           <span class="oak-evo-target-name">${esc(row.toName)}</span>
         </span>` : `<span class="oak-evo-target is-empty" aria-hidden="true"></span>`}
-        ${terminal ? `<span class="oak-candy-chip is-empty" aria-hidden="true"></span>` : candyChipHtml(row, { size: 28 })}
-        ${item ? `<span class="evo-cost oak-evo-item">${esc(item)}</span>` : `<span class="evo-cost oak-evo-item is-empty" aria-hidden="true"></span>`}
+        <div class="oak-evo-reqs">
+          ${terminal ? `<span class="oak-candy-chip is-empty" aria-hidden="true"></span>` : candyChipHtml(row, { size: 28 })}
+          ${item ? `<span class="evo-cost oak-evo-item">${esc(item)}</span>` : `<span class="evo-cost oak-evo-item is-empty" aria-hidden="true"></span>`}
+        </div>
         ${statusFooter(row, terminal)}
       </article>`;
   }
@@ -816,6 +826,7 @@
           <span class="evo-mon-art">${sprite(mon.dex, mon.variant || "normal", 96, mon.gender)}</span>
           <strong class="evo-mon-name oak-mon-name">${dexLabel(mon.dex)} ${shiny ? "✨ " : ""}${esc(name)}</strong>
         </button>
+        <span class="oak-card-grow" aria-hidden="true"></span>
         <span class="oak-send-candy evo-cost-candy">
           ${candyArtHtml(candy, 40)}
           <span class="evo-cost-candy-copy"><strong>${esc(candy.label)}</strong></span>
@@ -992,6 +1003,7 @@
 
   function closeModal() {
     document.querySelectorAll(".evo-mon.is-selected").forEach((el) => el.classList.remove("is-selected"));
+    els.modal?.classList.remove("is-ready-confirm");
     if (!els.modal) return;
     if (typeof els.modal.close === "function" && els.modal.open) els.modal.close();
     else els.modal.removeAttribute("open");
@@ -1118,34 +1130,74 @@
     window.playShowDialog(els.inspectModal);
   }
 
+  function confirmRequirementHtml(row) {
+    const candy = candyIdentity(row);
+    const have = Number(row.haveCandy || 0);
+    const need = Number(row.candyCost || 0);
+    const candyOk = need > 0 && have >= need;
+    const bits = [`<div class="evo-confirm-req">
+      ${candyArtHtml(candy, 36)}
+      <span>${esc(candy.label)}</span>
+      <strong>${have} / ${need}${candyOk ? " ✓" : ""}</strong>
+    </div>`];
+    if (row.item) {
+      const qty = view.itemQty ? view.itemQty(row) : (row.haveItem ? 1 : 0);
+      const art = window.playItemSprite?.(row.item) || "images/items/poke-ball.png";
+      bits.push(`<div class="evo-confirm-req">
+        <img src="${esc(art)}" alt="" width="28" height="28" decoding="async">
+        <span>${esc(itemLabel(row.item))}</span>
+        <strong>${qty ? "Owned ✓" : "Missing"}</strong>
+      </div>`);
+    }
+    return `<div class="evo-confirm-reqs"><p class="eyebrow">Requirements</p>${bits.join("")}</div>`;
+  }
+
   function openPreview(row) {
     pick = row;
+    evoReturnFocus = document.activeElement;
     const shiny = view.isShiny?.(row);
     const kind = view.cardKind(row);
     const ready = canEvolve(row);
-    if (els.title) els.title.textContent = kind === "terminal" ? row.name : "Evolution";
-    const fromName = `${shiny ? "✨ Shiny " : ""}${row.name}`;
-    const toName = row.toName ? `${shiny ? "✨ Shiny " : ""}${row.toName}` : "";
-    const fromDex = row.dex != null ? dexLabel(row.dex) : "";
-    const toDex = row.toDex != null ? dexLabel(row.toDex) : "";
-    els.detail.innerHTML = `
-      <div class="evo-preview-stage${shiny ? " is-shiny" : ""}">
-        ${shiny ? `<p class="evo-shiny-banner">✨ Shiny Pokémon ✨</p>` : ""}
-        <p class="evo-preview-from"><strong>${esc(fromName)}</strong>${fromDex ? ` · ${fromDex}` : ""}${row.level ? ` · Lv. ${row.level}` : ""} ${genderMark(row.gender)}</p>
-        ${sprite(row.dex, row.variant || "normal", 112, row.gender)}
-        ${toName ? `<p class="evo-arrow-lite" aria-hidden="true">↓</p>${sprite(row.toDex, row.variant || "normal", 112, row.gender)}<p><strong>${esc(toName)}</strong>${toDex ? ` · ${toDex}` : ""}</p>` : ""}
-      </div>
-      <div class="evo-reqs">
-        <p class="eyebrow">Requirements</p>
-        ${requirementHtml(row)}
-      </div>
-      ${row.ownedCopies != null ? `<p>Owned copies: ${Number(row.ownedCopies)}</p>` : ""}
-      ${row.pokedex != null ? `<p>${row.pokedex ? "Registered in the Pokédex" : "Not registered yet"}</p>` : ""}
-      ${row.mastery ? `<p>Species Mastery ${stars(row.mastery.rank)} · ${row.mastery.points} pts</p>` : ""}
-      ${row.eligibleCount ? `<p><button type="button" class="secondary" data-view-eligible="${row.dex}">View eligible Pokémon</button></p>` : ""}
-      ${shiny && ready ? `<p>Shiny status will be preserved.</p>` : ""}
-      ${row.favorite ? `<p>★ Favorite Pokémon<br>This exact Pokémon will remain your Pokémon after Evolution.</p>` : ""}
-      ${ready ? `<p>${esc(row.name)} will evolve into ${esc(row.toName)}. This cannot be reversed.</p>` : ""}`;
+    if (els.title) els.title.textContent = ready ? "Evolution Ready" : (kind === "terminal" ? row.name : "Evolution");
+    els.modal?.classList.toggle("is-ready-confirm", ready);
+    const fromName = `${shiny ? "✨ " : ""}${row.name}`;
+    const toName = row.toName ? `${shiny ? "✨ " : ""}${row.toName}` : "";
+    const fromMeta = [row.dex != null ? dexLabel(row.dex) : "", row.level ? `Lv. ${row.level}` : "", genderMark(row.gender)]
+      .filter(Boolean).join(" · ");
+    const toMeta = row.toDex != null ? dexLabel(row.toDex) : "";
+    if (ready && row.toName) {
+      els.detail.innerHTML = `
+        <div class="evo-confirm-pair${shiny ? " is-shiny" : ""}">
+          <div class="evo-confirm-mon">
+            ${sprite(row.dex, row.variant || "normal", 96, row.gender)}
+            <strong>${esc(fromName)}</strong>
+            <span>${esc(fromMeta)}</span>
+          </div>
+          <span class="evo-confirm-arrow" aria-hidden="true">→</span>
+          <div class="evo-confirm-mon">
+            ${sprite(row.toDex, row.variant || "normal", 96, row.gender)}
+            <strong>${esc(toName)}</strong>
+            <span>${esc(toMeta)}</span>
+          </div>
+        </div>
+        ${confirmRequirementHtml(row)}
+        <p class="evo-confirm-call">${esc(row.name)} is ready to evolve into ${esc(row.toName)}!</p>
+        ${shiny ? `<p class="evo-confirm-note">Shiny status will be preserved.</p>` : ""}
+        ${row.favorite ? `<p class="evo-confirm-note">★ This exact Pokémon remains yours after Evolution.</p>` : ""}`;
+    } else {
+      els.detail.innerHTML = `
+        <div class="evo-preview-stage${shiny ? " is-shiny" : ""}">
+          ${shiny ? `<p class="evo-shiny-banner">✨ Shiny Pokémon ✨</p>` : ""}
+          <p class="evo-preview-from"><strong>${esc(fromName)}</strong>${fromMeta ? ` · ${esc(fromMeta)}` : ""}</p>
+          ${sprite(row.dex, row.variant || "normal", 96, row.gender)}
+          ${toName ? `<p class="evo-arrow-lite" aria-hidden="true">↓</p>${sprite(row.toDex, row.variant || "normal", 96, row.gender)}<p><strong>${esc(toName)}</strong>${toMeta ? ` · ${esc(toMeta)}` : ""}</p>` : ""}
+        </div>
+        <div class="evo-reqs">
+          <p class="eyebrow">Requirements</p>
+          ${requirementHtml(row)}
+        </div>
+        ${row.eligibleCount ? `<p><button type="button" class="secondary" data-view-eligible="${row.dex}">View eligible Pokémon</button></p>` : ""}`;
+    }
     if (els.status) els.status.textContent = "";
     if (els.go) {
       els.go.hidden = !ready;
@@ -1165,23 +1217,35 @@
     const mons = sendableMons().filter((mon) => ids.includes(String(mon.id)) && !mon.oakBlocked);
     if (!mons.length || !els.oakModal) return;
     pendingOakIds = mons.map((mon) => String(mon.id));
-    const model = window.playOakTransfer?.confirmModel
-      ? window.playOakTransfer.confirmModel(mons)
-      : { count: mons.length, names: mons.map((m) => m.name), rewardHint: "You'll receive Evolution Candy.", leaveHint: "This Pokémon will leave your collection." };
+    const multi = mons.length > 1;
+    if (els.oakTitle) {
+      els.oakTitle.textContent = "Transfer Pokémon?";
+    }
     if (els.oakSprites) {
-      els.oakSprites.innerHTML = mons.slice(0, 8).map((mon) => {
+      if (!multi) {
+        const mon = mons[0];
         const src = window.playOakTransfer?.spriteUrl
           ? window.playOakTransfer.spriteUrl(mon)
           : window.playSpriteUrl(mon.dex, mon.variant || "normal", mon.formId);
-        return `<img src="${esc(src)}" alt="${esc(mon.name || "")}" width="64" height="64">`;
-      }).join("");
+        const shiny = String(mon.variant || "").includes("shiny") ? "✨ " : "";
+        const formBit = mon.formName ? ` · ${mon.formName}` : "";
+        const meta = [dexLabel(mon.dex), mon.level ? `Lv. ${mon.level}` : ""].filter(Boolean).join(" · ");
+        els.oakSprites.innerHTML = `<div class="oak-confirm-hero">
+          <img src="${esc(src)}" alt="" width="112" height="112">
+          <strong>${shiny}${esc(mon.name || mon.nickname || "Pokémon")}</strong>
+          <span>${esc(meta)}${esc(formBit)}</span>
+        </div>`;
+      } else {
+        els.oakSprites.innerHTML = `<p class="oak-confirm-count">${mons.length} Pokémon selected</p>
+          <div class="oak-confirm-row">${mons.slice(0, 8).map((mon) => {
+            const src = window.playOakTransfer?.spriteUrl
+              ? window.playOakTransfer.spriteUrl(mon)
+              : window.playSpriteUrl(mon.dex, mon.variant || "normal", mon.formId);
+            return `<img src="${esc(src)}" alt="${esc(mon.name || "")}" width="56" height="56">`;
+          }).join("")}${mons.length > 8 ? `<span class="oak-confirm-more">+${mons.length - 8}</span>` : ""}</div>`;
+      }
     }
     if (els.oakCopy) {
-      const lines = mons.slice(0, 4).map((mon) => {
-        const shiny = String(mon.variant || "").includes("shiny") ? "✨ " : "";
-        return `${shiny}${mon.name}${mon.level ? ` Lv. ${mon.level}` : ""}`;
-      });
-      const extra = mons.length > 4 ? `<li>…and ${mons.length - 4} more</li>` : "";
       const candyRows = [];
       const seen = new Set();
       for (const mon of mons) {
@@ -1192,17 +1256,16 @@
         candyRows.push(id);
       }
       const candyHtml = candyRows.length
-        ? `<div class="oak-confirm-candy">${candyRows.map((row) => `
-            <span class="oak-confirm-candy-row">
-              ${candyArtHtml(row, 28)}
-              <span>${esc(row.label)}</span>
-            </span>`).join("")}</div>
-            <p class="muted">Reward amounts are confirmed when Professor Oak receives each Pokémon.</p>`
-        : `<p>${esc(model.rewardHint)}</p>`;
-      els.oakCopy.innerHTML = `
-        <ul class="oak-confirm-list">${lines.map((line) => `<li>${esc(line)}</li>`).join("")}${extra}</ul>
-        ${candyHtml}
-        <p class="muted">${esc(model.leaveHint)}</p>`;
+        ? `<div class="oak-confirm-result">
+            <p class="oak-confirm-result-label">Transfer result</p>
+            ${candyRows.map((row) => `<span class="oak-confirm-candy-row">${candyArtHtml(row, 40)}<span>${esc(row.label)}</span></span>`).join("")}
+            ${multi ? `<p class="oak-confirm-amount-note">Reward amounts are confirmed when Professor Oak receives each Pokémon.</p>` : ""}
+          </div>`
+        : "";
+      const warn = multi
+        ? `Sending these Pokémon to Professor Oak permanently removes them from your collection. Professor Oak will provide Evolution Candy for each Evolution Line after receiving them. This cannot be undone.`
+        : `Sending this Pokémon to Professor Oak permanently removes it from your collection. Professor Oak will provide Evolution Candy for its Evolution Line after receiving it. This cannot be undone.`;
+      els.oakCopy.innerHTML = `${candyHtml}<div class="oak-confirm-warn"><p>${esc(warn)}</p></div>`;
     }
     if (typeof els.oakModal.showModal === "function") els.oakModal.showModal();
     else els.oakModal.setAttribute("open", "");
@@ -1265,15 +1328,29 @@
       }
       setOakBubble("Excellent! This research should help us understand its Evolution Line.");
 
-      if (els.sendStatus) {
-        if (failures.length) {
-          els.sendStatus.textContent = `Sent ${successes.length}. ${failures.length} could not be sent: ${failures[0].error}`;
-        } else {
-          const last = successes[successes.length - 1];
-          els.sendStatus.textContent = successes.length > 1
-            ? `Sent ${successes.length} Pokémon to Oak.`
-            : (last.message || "Sent to Professor Oak.");
+      const summary = window.playOakTransfer?.rewardSummary
+        ? window.playOakTransfer.rewardSummary(successes, data?.families || [])
+        : [];
+      const title = "Transferred to Professor Oak";
+      let body = "";
+      if (successes.length === 1) {
+        const mon = successes[0].mon;
+        const name = mon?.name || mon?.nickname || "Pokémon";
+        body = `${name} was sent to Professor Oak.`;
+        if (summary[0]?.qty) body += `\nReceived ${summary[0].label} ×${summary[0].qty}.`;
+      } else {
+        body = `${successes.length} Pokémon were sent to Professor Oak.`;
+        if (summary.length) {
+          body += `\nReceived: ${summary.map((row) => `${row.label} ×${row.qty}`).join(" · ")}`;
         }
+      }
+      if (typeof window.playToast === "function") {
+        window.playToast({ kind: "success", title, body });
+      }
+      if (els.sendStatus) {
+        els.sendStatus.textContent = failures.length
+          ? `${failures.length} could not be sent: ${failures[0].error}`
+          : "";
       }
       setTab("send");
       await load();
@@ -1955,12 +2032,24 @@
   }
 
   els.modal?.addEventListener("click", (event) => {
+    if (event.target === els.modal) {
+      closeModal();
+      return;
+    }
     const btn = event.target.closest("[data-view-eligible]");
     if (!btn) return;
     event.preventDefault();
     const dex = Number(btn.dataset.viewEligible);
     const row = readyRows().find((item) => Number(item.dex) === dex);
     focusEligible(dex, row?.name || pick?.name);
+  });
+  els.modal?.addEventListener("close", () => {
+    els.modal?.classList.remove("is-ready-confirm");
+    const back = evoReturnFocus;
+    evoReturnFocus = null;
+    if (back && typeof back.focus === "function") {
+      try { back.focus({ preventScroll: true }); } catch (_) { back.focus(); }
+    }
   });
 
   els.families?.addEventListener("click", (event) => {

@@ -63,6 +63,9 @@ for (const name of fs.readdirSync(dir)) {
   if (/js\/game\.js/.test(html) && !/js\/variants\.js/.test(html)) {
     html = html.replace(/<script src="js\/game\.js(?:\?v=[^"]*)?"><\/script>/, (m) => `<script src="js/variants.js?v=${APP}"></script>\n${m}`);
   }
+  if (/js\/game\.js/.test(html) && !/evolution-candy-png/.test(html)) {
+    html = html.replace(/<script src="js\/game\.js(?:\?v=[^"]*)?"><\/script>/, (m) => `<script src="js/evolution-candy-png.js?v=${APP}"></script>\n${m}`);
+  }
   if (/js\/game\.js/.test(html) && !/js\/play-present\.js/.test(html)) {
     html = html.replace(/<script src="js\/game\.js(?:\?v=[^"]*)?"><\/script>/, (m) => `${m}\n<script src="js/play-present.js?v=${APP}"></script>`);
   }

@@ -1,0 +1,186 @@
+{
+  "suppliedZipEntries": 1103,
+  "suppliedNormalDir": 550,
+  "suppliedRawDir": 550,
+  "normalCandyCount": 549,
+  "xlOrOtherIgnored": 1,
+  "xlIgnored": [],
+  "otherIgnored": [
+    "0-candy.png"
+  ],
+  "uniquePngImported": 79,
+  "kantoDexMapped": 151,
+  "kantoLinesMapped": 79,
+  "kantoLinesTotal": 79,
+  "missingKantoDex": [],
+  "missingKantoLines": [],
+  "fallbackSvgCount": 0,
+  "samplePng": {
+    "1": {
+      "width": 256,
+      "height": 256,
+      "colorType": 6,
+      "alpha": true,
+      "bytes": 51467,
+      "kind": "png",
+      "sourceKind": "webp"
+    },
+    "4": {
+      "width": 256,
+      "height": 256,
+      "colorType": 6,
+      "alpha": true,
+      "bytes": 51260,
+      "kind": "png",
+      "sourceKind": "webp"
+    },
+    "25": {
+      "width": 256,
+      "height": 256,
+      "colorType": 6,
+      "alpha": true,
+      "bytes": 48507,
+      "kind": "png",
+      "sourceKind": "webp"
+    },
+    "27": {
+      "width": 256,
+      "height": 256,
+      "colorType": 6,
+      "alpha": true,
+      "bytes": 44451,
+      "kind": "png",
+      "sourceKind": "webp"
+    },
+    "29": {
+      "width": 256,
+      "height": 256,
+      "colorType": 6,
+      "alpha": true,
+      "bytes": 45203,
+      "kind": "png",
+      "sourceKind": "webp"
+    },
+    "32": {
+      "width": 256,
+      "height": 256,
+      "colorType": 6,
+      "alpha": true,
+      "bytes": 44449,
+      "kind": "png",
+      "sourceKind": "webp"
+    },
+    "63": {
+      "width": 256,
+      "height": 256,
+      "colorType": 6,
+      "alpha": true,
+      "bytes": 51322,
+      "kind": "png",
+      "sourceKind": "webp"
+    },
+    "92": {
+      "width": 256,
+      "height": 256,
+      "colorType": 6,
+      "alpha": true,
+      "bytes": 38853,
+      "kind": "png",
+      "sourceKind": "webp"
+    },
+    "133": {
+      "width": 256,
+      "height": 256,
+      "colorType": 6,
+      "alpha": true,
+      "bytes": 46212,
+      "kind": "png",
+      "sourceKind": "webp"
+    },
+    "147": {
+      "width": 256,
+      "height": 256,
+      "colorType": 6,
+      "alpha": true,
+      "bytes": 47264,
+      "kind": "png",
+      "sourceKind": "webp"
+    }
+  },
+  "representative": {
+    "Charmander": {
+      "dex": 4,
+      "name": "Charmander",
+      "family": 4,
+      "file": "charmander-candy.png",
+      "via": "name",
+      "dest": "images/items/evolution-candy/4.png"
+    },
+    "Pikachu": {
+      "dex": 25,
+      "name": "Pikachu",
+      "family": 25,
+      "file": "pikachu-candy.png",
+      "via": "name",
+      "dest": "images/items/evolution-candy/25.png"
+    },
+    "Sandshrew": {
+      "dex": 27,
+      "name": "Sandshrew",
+      "family": 27,
+      "file": "sandshrew-candy.png",
+      "via": "name",
+      "dest": "images/items/evolution-candy/27.png"
+    },
+    "Nidoran F": {
+      "dex": 29,
+      "name": "Nidoran♀",
+      "family": 29,
+      "file": "nidoranf-candy.png",
+      "via": "name",
+      "dest": "images/items/evolution-candy/29.png"
+    },
+    "Nidoran M": {
+      "dex": 32,
+      "name": "Nidoran♂",
+      "family": 32,
+      "file": "nidoranm-candy.png",
+      "via": "name",
+      "dest": "images/items/evolution-candy/32.png"
+    },
+    "Eevee": {
+      "dex": 133,
+      "name": "Eevee",
+      "family": 133,
+      "file": "eevee-candy.png",
+      "via": "name",
+      "dest": "images/items/evolution-candy/133.png"
+    },
+    "Abra": {
+      "dex": 63,
+      "name": "Abra",
+      "family": 63,
+      "file": "abra-candy.png",
+      "via": "name",
+      "dest": "images/items/evolution-candy/63.png"
+    },
+    "Gastly": {
+      "dex": 92,
+      "name": "Gastly",
+      "family": 92,
+      "file": "gastly-candy.png",
+      "via": "name",
+      "dest": "images/items/evolution-candy/92.png"
+    },
+    "Dratini": {
+      "dex": 147,
+      "name": "Dratini",
+      "family": 147,
+      "file": "dratini-candy.png",
+      "via": "name",
+      "dest": "images/items/evolution-candy/147.png"
+    }
+  },
+  "runtimeExternalRequests": false,
+  "svgFallbackKept": true
+}

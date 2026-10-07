@@ -22,7 +22,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/1.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/1.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -34,7 +36,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/2.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/1.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -46,7 +50,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/3.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/1.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -58,7 +64,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/4.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/4.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -70,7 +78,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/5.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/4.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -82,7 +92,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/6.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/4.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -94,7 +106,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/7.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/7.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -106,7 +120,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/8.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/7.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -118,7 +134,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/9.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/7.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -130,7 +148,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/10.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/10.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -142,7 +162,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/11.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/10.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -154,7 +176,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/12.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/10.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -166,7 +190,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/13.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/13.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -178,7 +204,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/14.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/13.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -190,7 +218,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/15.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/13.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -202,7 +232,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/16.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/16.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -214,7 +246,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/17.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/16.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -226,7 +260,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/18.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/16.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -238,7 +274,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/19.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/19.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -250,7 +288,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/20.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/19.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -262,7 +302,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/21.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/21.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -274,7 +316,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/22.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/21.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -286,7 +330,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/23.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/23.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -298,7 +344,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/24.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/23.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -310,7 +358,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/25.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/25.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -322,7 +372,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/26.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/25.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -334,7 +386,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/27.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/27.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -346,7 +400,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/28.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/27.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -358,7 +414,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/29.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/29.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -370,7 +428,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/30.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/29.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -382,7 +442,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/31.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/29.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -394,7 +456,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/32.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/32.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -406,7 +470,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/33.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/32.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -418,7 +484,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/34.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/32.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -430,7 +498,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/35.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/35.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -442,7 +512,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/36.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/35.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -454,7 +526,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/37.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/37.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -466,7 +540,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/38.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/37.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -478,7 +554,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/39.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/39.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -490,7 +568,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/40.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/39.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -502,7 +582,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/41.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/41.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -514,7 +596,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/42.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/41.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -526,7 +610,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/43.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/43.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -538,7 +624,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/44.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/43.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -550,7 +638,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/45.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/43.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -562,7 +652,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/46.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/46.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -574,7 +666,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/47.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/46.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -586,7 +680,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/48.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/48.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -598,7 +694,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/49.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/48.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -610,7 +708,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/50.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/50.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -622,7 +722,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/51.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/50.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -634,7 +736,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/52.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/52.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -646,7 +750,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/53.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/52.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -658,7 +764,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/54.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/54.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -670,7 +778,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/55.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/54.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -682,7 +792,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/56.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/56.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -694,7 +806,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/57.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/56.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -706,7 +820,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/58.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/58.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -718,7 +834,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/59.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/58.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -730,7 +848,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/60.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/60.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -742,7 +862,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/61.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/60.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -754,7 +876,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/62.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/60.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -766,7 +890,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/63.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/63.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -778,7 +904,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/64.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/63.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -790,7 +918,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/65.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/63.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -802,7 +932,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/66.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/66.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -814,7 +946,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/67.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/66.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -826,7 +960,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/68.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/66.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -838,7 +974,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/69.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/69.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -850,7 +988,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/70.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/69.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -862,7 +1002,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/71.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/69.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -874,7 +1016,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/72.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/72.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -886,7 +1030,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/73.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/72.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -898,7 +1044,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/74.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/74.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -910,7 +1058,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/75.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/74.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -922,7 +1072,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/76.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/74.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -934,7 +1086,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/77.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/77.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -946,7 +1100,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/78.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/77.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -958,7 +1114,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/79.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/79.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -970,7 +1128,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/80.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/79.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -982,7 +1142,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/81.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/81.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -994,7 +1156,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/82.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/81.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1006,7 +1170,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/83.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/83.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1018,7 +1184,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/84.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/84.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1030,7 +1198,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/85.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/84.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1042,7 +1212,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/86.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/86.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1054,7 +1226,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/87.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/86.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1066,7 +1240,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/88.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/88.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1078,7 +1254,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/89.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/88.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1090,7 +1268,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/90.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/90.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1102,7 +1282,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/91.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/90.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1114,7 +1296,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/92.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/92.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1126,7 +1310,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/93.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/92.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1138,7 +1324,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/94.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/92.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1150,7 +1338,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/95.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/95.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1162,7 +1352,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/96.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/96.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1174,7 +1366,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/97.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/96.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1186,7 +1380,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/98.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/98.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1198,7 +1394,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/99.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/98.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1210,7 +1408,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/100.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/100.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1222,7 +1422,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/101.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/100.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1234,7 +1436,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/102.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/102.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1246,7 +1450,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/103.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/102.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1258,7 +1464,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/104.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/104.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1270,7 +1478,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/105.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/104.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1282,7 +1492,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/106.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/106.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1294,7 +1506,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/107.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/107.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1306,7 +1520,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/108.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/108.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1318,7 +1534,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/109.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/109.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1330,7 +1548,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/110.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/109.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1342,7 +1562,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/111.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/111.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1354,7 +1576,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/112.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/111.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1366,7 +1590,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/113.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/113.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1378,7 +1604,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/114.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/114.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1390,7 +1618,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/115.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/115.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1402,7 +1632,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/116.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/116.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1414,7 +1646,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/117.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/116.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1426,7 +1660,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/118.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/118.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1438,7 +1674,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/119.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/118.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1450,7 +1688,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/120.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/120.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1462,7 +1702,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/121.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/120.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1474,7 +1716,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/122.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/122.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1486,7 +1730,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/123.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/123.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1498,7 +1744,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/124.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/124.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1510,7 +1758,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/125.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/125.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1522,7 +1772,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/126.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/126.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1534,7 +1786,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/127.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/127.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1546,7 +1800,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/128.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/128.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1558,7 +1814,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/129.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/129.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1570,7 +1828,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/130.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/129.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1582,7 +1842,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/131.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/131.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1594,7 +1856,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/132.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/132.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1606,7 +1870,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/133.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/133.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1618,7 +1884,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/134.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/133.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1630,7 +1898,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/135.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/133.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1642,7 +1912,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/136.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/133.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1654,7 +1926,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/137.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/137.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1666,7 +1940,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/138.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/138.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1678,7 +1954,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/139.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/138.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1690,7 +1968,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/140.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/140.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1702,7 +1982,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/141.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/140.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1714,7 +1996,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/142.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/142.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1726,7 +2010,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/143.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/143.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1738,7 +2024,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/144.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/144.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1750,7 +2038,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/145.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/145.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1762,7 +2052,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/146.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/146.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1774,7 +2066,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/147.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/147.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1786,7 +2080,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/148.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/147.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1798,7 +2094,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/149.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/147.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1810,7 +2108,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/150.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/150.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 1,
@@ -1822,7 +2122,9 @@
       "gameplayEnabled": true,
       "itemAssetPath": "images/items/evolution-candy/151.svg",
       "notes": "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed",
-      "itemAssetAvailable": true
+      "itemAssetAvailable": true,
+      "providedAssetPath": "images/items/evolution-candy/151.png",
+      "providedAssetAvailable": true
     },
     {
       "generation": 2,
@@ -11401,5 +11703,17 @@
     "kantoCount": 151,
     "bodyAsset": "images/items/lgpe-candy.png",
     "runtimeExternalRequests": false
+  },
+  "providedCandy": {
+    "importedAt": "2026-10-07T21:37:28.657Z",
+    "source": "owner Pokemon_GO_Normal_Candy_Assets NORMAL PNGs",
+    "preferPngOverSvg": true,
+    "fallback": [
+      "images/items/evolution-candy/{pngIndex}.png",
+      "images/items/evolution-candy/{dex}.svg",
+      "images/items/lgpe-candy.png"
+    ],
+    "uniquePngFiles": 79,
+    "kantoMappedDex": 151
   }
 }

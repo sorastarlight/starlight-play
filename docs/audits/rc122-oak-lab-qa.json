@@ -1,0 +1,101 @@
+{
+  "account": "playtester@sorastarlight.net",
+  "mutated": false,
+  "soraMutated": false,
+  "twinkleMutated": false,
+  "harnessUsed": true,
+  "eligibleServerMirror": 0,
+  "transferFooterGaps": [
+    2,
+    2
+  ],
+  "evoFooterGaps": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "claimGeometry": [
+    {
+      "state": "is-claimable",
+      "cardH": 268,
+      "clipped": false,
+      "gap": 11
+    },
+    {
+      "state": "is-progress",
+      "cardH": 268,
+      "clipped": false,
+      "gap": 11
+    },
+    {
+      "state": "is-locked",
+      "cardH": 268,
+      "clipped": false,
+      "gap": 11
+    },
+    {
+      "state": "is-locked",
+      "cardH": 268,
+      "clipped": false,
+      "gap": 11
+    },
+    {
+      "state": "is-locked",
+      "cardH": 268,
+      "clipped": false,
+      "gap": 11
+    },
+    {
+      "state": "is-locked",
+      "cardH": 268,
+      "clipped": false,
+      "gap": 11
+    },
+    {
+      "state": "is-locked",
+      "cardH": 268,
+      "clipped": false,
+      "gap": 11
+    }
+  ],
+  "clippedClaims": [],
+  "candySrc": [
+    "images/items/evolution-candy/1.png",
+    "images/items/evolution-candy/1.png",
+    "images/items/evolution-candy/1.png",
+    "images/items/evolution-candy/1.png",
+    "images/items/evolution-candy/4.png",
+    "images/items/evolution-candy/4.png",
+    "images/items/evolution-candy/7.png",
+    "images/items/evolution-candy/7.png"
+  ],
+  "inspectOpenedWithoutSelect": true,
+  "transferConfirmOpened": false,
+  "evoConfirm1920": {
+    "scrollHeight": 288,
+    "clientHeight": 288,
+    "overflowY": "visible"
+  },
+  "evoConfirm2560": {
+    "scrollHeight": 288,
+    "clientHeight": 288,
+    "overflowY": "visible"
+  },
+  "researchHeaders": {
+    "field": "TRACK\n\nField Research\n\nUnique Kanto species registered in your Pokédex.\n\n12 / 151 registered\n\n8% complete\n\nOverall track progress",
+    "evolution": "TRACK\n\nEvolution Research\n\nSuccessful evolutions completed in the Lab.\n\n6 / 50 evolutions\n\n12% complete\n\nOverall track progress",
+    "line": "TRACK\n\nEvolution Line Research\n\nFully registered Kanto Evolution Lines.\n\n4 / 79 lines\n\n5% complete\n\nOverall track progress",
+    "transfer": "TRACK\n\nTransfer Research\n\nDuplicate Pokémon sent to Professor Oak.\n\n12 / 100 sent\n\n12% complete\n\nOverall track progress"
+  },
+  "toastSeen": true,
+  "overflow1920": false,
+  "overflow960": false,
+  "overflow390": false,
+  "candyHotlinks": [],
+  "sendStatusAfterToastHarness": ""
+}

@@ -70,31 +70,72 @@ test("Shared Oak card geometry uses reserved tracks", () => {
   assert(css.includes("cursor: pointer"));
   assert(css.includes(".oak-mon-inspect"));
   assert(css.includes("evo-send-card.is-selected"));
+  assert(js.includes("oak-card-grow"));
+  assert(js.includes("oak-evo-reqs"));
+  assert(css.includes("oak-card-grow"));
 });
 
 test("Evolution Candy item art is local and not a runtime hotlink", () => {
   assert(game.includes("playEvolutionCandyItemUrl"));
+  assert(game.includes("PLAY_EVO_CANDY_PNG"));
   assert(game.includes("images/items/evolution-candy/"));
   assert(oak.includes("candyItemArt"));
   assert(js.includes("candyArtHtml"));
   assert(!js.includes("pokeapi.co"));
   assert(!css.includes("bulbapedia"));
   const svg = path.join(__dirname, "..", "images", "items", "evolution-candy", "25.svg");
-  assert(fs.existsSync(svg), "Pikachu candy item missing — run compose-evolution-candy-art.js");
+  const png = path.join(__dirname, "..", "images", "items", "evolution-candy", "25.png");
+  assert(fs.existsSync(svg), "Pikachu candy SVG fallback missing");
+  assert(fs.existsSync(png), "Pikachu provided candy PNG missing — run import-go-candy-assets.js");
+  const pngHead = fs.readFileSync(png).subarray(0, 8).toString("hex");
+  assert(pngHead === "89504e470d0a1a0a", "provided candy must be a real PNG");
   const text = fs.readFileSync(svg, "utf8");
   assert(text.includes("lgpe-candy.png") || text.includes("rare-candy.png"), "candy body missing");
   assert(!/https?:\/\/(?!www\.w3\.org)/.test(text), "candy SVG must not hotlink");
+  const index = read("js/evolution-candy-png.js");
+  assert(index.includes("window.PLAY_EVO_CANDY_PNG"));
+  assert(!index.includes("http"), "candy index must not hotlink");
 });
 
 test("Research summary has explicit overall progress semantics", () => {
   assert(js.includes("oak-research-summary"));
-  assert(js.includes("% Complete"));
-  assert(js.includes("overall"));
-  assert(js.includes("toward this milestone"));
+  assert(js.includes("% complete"));
+  assert(js.includes("Overall track progress"));
+  assert(js.includes("remaining"));
+  assert(js.includes("oak-research-summary-identity"));
   assert(js.includes("CLAIMABLE"));
   assert(js.includes("oak-research-claim-slot"));
+  assert(js.includes("oak-research-card-grow"));
   assert(css.includes("oak-research-summary"));
-  assert(css.includes("height: 232px"));
+  assert(css.includes("height: 268px"));
+  assert(css.includes("grid-template-rows: 16px 2.4em 2.6em 1.2em 2.6em minmax(8px, 1fr) 44px"));
+});
+
+test("Transfer success uses shared playToast, not inline success copy", () => {
+  const fn = js.match(/async function transferSelected[\s\S]*?function wait\(/)?.[0] || "";
+  assert(fn.includes("playToast"));
+  assert(fn.includes("Transferred to Professor Oak"));
+  assert(fn.includes("rewardSummary"));
+  assert(!fn.includes("Sent to Professor Oak."));
+  assert(!fn.includes("Sent ${successes.length} Pokémon to Oak."));
+});
+
+test("Evolution confirm is a wide pair layout without a tall forced card", () => {
+  assert(js.includes("evo-confirm-pair"));
+  assert(js.includes("Evolution Ready"));
+  assert(css.includes("width: min(720px"));
+  assert(css.includes(".evo-preview .evo-preview-card #evo-detail { overflow: visible"));
+  assert(html.includes("Keep Pokémon"));
+  assert(html.includes("oak-transfer-confirm"));
+});
+
+test("Research complete lists milestone before reward", () => {
+  const present = read("js/play-present.js");
+  const fn = present.match(/async function presentOakResearch[\s\S]*?async function presentOne/)?.[0] || "";
+  const mile = fn.indexOf("play-present-oak-milestone");
+  const reward = fn.indexOf("oakResearchRewardGrid");
+  assert(mile > 0 && reward > mile, "milestone must precede reward grid");
+  assert(fn.includes("play-present-oak-reward-kicker"));
 });
 
 test("Research claim result path is still rc117 non-redundant enqueue", () => {

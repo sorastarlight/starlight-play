@@ -1,0 +1,100 @@
+{
+  "account": "playtester@sorastarlight.net",
+  "mutated": false,
+  "soraMutated": false,
+  "twinkleMutated": false,
+  "eligibleServerMirror": 0,
+  "ineligibleHidden": 12,
+  "ineligibleReasons": [
+    {
+      "id": "fec3c296-ddf4-4d25-8ec0-1914075d8fc4",
+      "name": "Bulbasaur",
+      "reason": "Keep for Living Dex"
+    },
+    {
+      "id": "150dcad8-1d7d-4b46-aca5-6846874a323b",
+      "name": "Ivysaur",
+      "reason": "Keep for Living Dex"
+    },
+    {
+      "id": "70c31afa-24ad-46a2-9c2b-6e6fb564786b",
+      "name": "Venusaur",
+      "reason": "On team"
+    },
+    {
+      "id": "b9fec526-1a9b-41d6-854e-e774978ce96a",
+      "name": "Charmander",
+      "reason": "Keep for Living Dex"
+    },
+    {
+      "id": "b7066d20-d363-4a01-83ad-2f46f2113fc9",
+      "name": "Charmeleon",
+      "reason": "Keep for Living Dex"
+    },
+    {
+      "id": "2d972f7b-64f4-49b0-8b6d-3ebbabf46f44",
+      "name": "Charizard",
+      "reason": "On team"
+    },
+    {
+      "id": "b618e6a8-b5dd-4738-989c-ecc9a9297244",
+      "name": "Squirtle",
+      "reason": "Keep for Living Dex"
+    },
+    {
+      "id": "6c101af9-c3d9-4c38-a7e0-844727736c84",
+      "name": "Wartortle",
+      "reason": "Keep for Living Dex"
+    },
+    {
+      "id": "2f06e1cc-b652-4328-a9a8-8f88ddc86c71",
+      "name": "Blastoise",
+      "reason": "On team"
+    },
+    {
+      "id": "c6f57bc9-0e64-4d48-b4a8-f7e4b6a8d91d",
+      "name": "Caterpie",
+      "reason": "Keep for Living Dex"
+    },
+    {
+      "id": "547a95c2-ccf8-4e40-8b5f-a5d9dbc834b3",
+      "name": "Metapod",
+      "reason": "Keep for Living Dex"
+    },
+    {
+      "id": "0390222e-f0e4-4003-916e-226848454115",
+      "name": "Butterfree",
+      "reason": "On team"
+    }
+  ],
+  "shown": 0,
+  "extraShown": [],
+  "missingShown": [],
+  "hasLevel": false,
+  "hasGender": false,
+  "hasBall": false,
+  "candySrc": [],
+  "selectChanged": true,
+  "heights": [],
+  "evoHeights": [
+    360,
+    360,
+    360,
+    360,
+    360,
+    360,
+    360,
+    360
+  ],
+  "evoHasGender": false,
+  "evoInspectOpened": true,
+  "researchSummary": "FIELD\n\nField Research\n\nUnique Kanto species registered in your Pokédex.\n\n12 / 151\n\n8% Complete\n\nKanto Pokédex Progress overall\n\nREADY TO CLAIM\n\nField Research I\n\nRegister 10 Kanto Pokémon\n\nStardust ×1",
+  "researchPct": "8% Complete",
+  "claimable": 1,
+  "overflow1920": false,
+  "overflow960": false,
+  "overflow390": false,
+  "availableCopy": "0 available · catch duplicates to research",
+  "harnessUsed": true,
+  "inspectOpenedWithoutSelect": true
+}

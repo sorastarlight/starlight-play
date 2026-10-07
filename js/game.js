@@ -948,11 +948,12 @@
     const candyMatch = raw.match(/^species-(\d+)(-l|-xl)?$/i);
     if (candyMatch) {
       const id = Number(candyMatch[1]);
-      // Line-keyed Evolution Candy: show the family mascot Pokémon art (never Rare Candy art).
-      if (typeof window.playSpriteUrl === "function") {
-        return window.playSpriteUrl(id, "normal");
+      // Line-keyed Evolution Candy: local candy ITEM art (never Rare Candy, never a raw Pokémon sprite).
+      if (typeof window.playEvolutionCandyItemUrl === "function") {
+        return window.playEvolutionCandyItemUrl(id);
       }
-      return `images/pokemon/${id}.gif`;
+      if (id >= 1 && id <= 151) return `images/items/evolution-candy/${id}.svg`;
+      return window.playEvolutionCandyFallback?.(id) || "images/items/lgpe-candy.png";
     }
     if (/^(https?:|data:|blob:)/i.test(raw)) return raw;
     if (raw.includes("/")) return raw;
@@ -964,12 +965,18 @@
     return `images/items/${slug}.png`;
   };
 
-  /** Fallback when a dedicated Evolution Candy PNG is missing: family mascot sprite. */
+  /** Local Evolution Candy ITEM art for a family / representative dex. */
+  window.playEvolutionCandyItemUrl = function playEvolutionCandyItemUrl(familyId) {
+    const id = Number(familyId);
+    if (id >= 1 && id <= 151) return `images/items/evolution-candy/${id}.svg`;
+    return "images/items/lgpe-candy.png";
+  };
+
+  /** Fallback when dedicated Evolution Candy item art is missing: generic candy item, never a raw Pokémon sprite. */
   window.playEvolutionCandyFallback = function playEvolutionCandyFallback(familyId) {
     const id = Number(familyId);
-    if (!id) return "images/items/lgpe-candy.png";
-    if (typeof window.playSpriteUrl === "function") return window.playSpriteUrl(id, "normal");
-    return `images/pokemon/${id}.gif`;
+    if (id >= 1 && id <= 151) return `images/items/evolution-candy/${id}.svg`;
+    return "images/items/lgpe-candy.png";
   };
 
   window.playItemRawUrl = function playItemRawUrl(key) {

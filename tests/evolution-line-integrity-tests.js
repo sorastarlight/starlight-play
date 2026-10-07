@@ -75,9 +75,10 @@ test("Rare Candy maps to local rare-candy.png, not lgpe-candy", () => {
   assert(fs.existsSync(path.join(__dirname, "..", "images", "items", "rare-candy.png")));
 });
 
-test("Evolution Candy species keys use family mascot sprites, not Rare Candy", () => {
+test("Evolution Candy species keys use local candy ITEM art, not Rare Candy", () => {
   assert(gameJs.includes("species-(\\d+)"));
-  assert(gameJs.includes("playSpriteUrl(id, \"normal\")") || gameJs.includes("playSpriteUrl(id, 'normal')"));
+  assert(gameJs.includes("playEvolutionCandyItemUrl"));
+  assert(gameJs.includes("images/items/evolution-candy/"));
   assert(!gameJs.includes('if (raw.startsWith("species-")) return "images/items/lgpe-candy.png"'));
 });
 

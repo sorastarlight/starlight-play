@@ -377,6 +377,43 @@ test("CSS keeps Game Boys on one horizontal axis with fixed screen geometry", ()
   assert(css.includes("grid-area: 1 / 1"), "reward must stack centered over stage");
 });
 
+test("Oak transfer eligibility mirrors play_transfer_oak", () => {
+  const owned = [
+    { id: "keep", dex: 25, name: "Pikachu" },
+    { id: "dup", dex: 25, name: "Pikachu" },
+    { id: "team", dex: 25, name: "Pikachu", onTeam: true },
+    { id: "trade", dex: 25, name: "Pikachu", listed: true },
+    { id: "lock", dex: 25, name: "Pikachu", locked: true },
+    { id: "fav", dex: 25, name: "Pikachu", favorite: true },
+    { id: "solo", dex: 133, name: "Eevee" }
+  ];
+  const eligible = oak.eligibleTransferMons(owned);
+  assert(eligible.map((m) => m.id).sort().join(",") === "dup,keep", eligible.map((m) => m.id).join(","));
+  assert(oak.transferBlockReason(owned.find((m) => m.id === "keep"), owned) === "");
+  assert(oak.transferBlockReason(owned.find((m) => m.id === "dup"), owned) === "");
+  assert(oak.transferBlockReason(owned.find((m) => m.id === "team"), owned) === "On team");
+  assert(oak.transferBlockReason(owned.find((m) => m.id === "trade"), owned) === "Listed for trade");
+  assert(oak.transferBlockReason(owned.find((m) => m.id === "lock"), owned) === "Locked");
+  assert(oak.transferBlockReason(owned.find((m) => m.id === "fav"), owned) === "Favorite");
+  assert(oak.transferBlockReason(owned.find((m) => m.id === "solo"), owned) === "Keep for Living Dex");
+});
+
+test("Living Dex shows only transferable copies when duplicates exist", () => {
+  const owned = [
+    { id: "a", dex: 4, name: "Charmander" },
+    { id: "b", dex: 4, name: "Charmander" },
+    { id: "c", dex: 4, name: "Charmander", onTeam: true }
+  ];
+  const ids = oak.eligibleTransferMons(owned).map((m) => m.id).sort();
+  assert(ids.join(",") === "a,b", ids.join(","));
+});
+
+test("candy item art is local candy asset, not a raw Pokémon sprite", () => {
+  const art = oak.candyItemArt({ candyBaseDex: 25, familyId: 25 });
+  assert(art.includes("evolution-candy/25") || art.includes("lgpe-candy"), art);
+  assert(!art.includes("images/pokemon/25"), art);
+});
+
 test("evolve page wires oak-transfer after server success path", () => {
   const fs = require("fs");
   const path = require("path");

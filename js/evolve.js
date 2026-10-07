@@ -59,7 +59,10 @@
     oakModal: document.getElementById("oak-lab-modal"),
     oakSprites: document.getElementById("oak-lab-sprites"),
     oakCopy: document.getElementById("oak-lab-copy"),
-    oakBubble: document.getElementById("evo-oak-bubble")
+    oakBubble: document.getElementById("evo-oak-bubble"),
+    inspectModal: document.getElementById("oak-inspect-modal"),
+    inspectTitle: document.getElementById("oak-inspect-title"),
+    inspectBody: document.getElementById("oak-inspect-body")
   };
   let data = null;
   let storage = null;
@@ -68,6 +71,7 @@
   let activeTab = "send";
   const selectedOak = new Set();
   let pendingOakIds = [];
+  let inspectReturnFocus = null;
   let trainerCard = null;
   const evolveGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
   const rareGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
@@ -145,37 +149,37 @@
     return Array.isArray(storage?.mons) ? storage.mons : [];
   }
 
-  function ownedCounts() {
-    const counts = new Map();
-    for (const mon of storageMons()) {
-      const dex = Number(mon.dex);
-      counts.set(dex, (counts.get(dex) || 0) + 1);
-    }
-    if (!counts.size) {
-      for (const mon of data?.owned || []) {
-        const dex = Number(mon.dex);
-        counts.set(dex, (counts.get(dex) || 0) + 1);
-      }
-    }
-    return counts;
+  function allOwnedMons() {
+    return storageMons().length ? storageMons() : (data?.owned || []);
   }
 
-  function oakBlockReason(mon, counts) {
+  function oakBlockReason(mon, owned) {
+    if (window.playOakTransfer?.transferBlockReason) {
+      return window.playOakTransfer.transferBlockReason(mon, owned || allOwnedMons());
+    }
     if (mon.onTeam) return "On team";
     if (mon.listed) return "Listed for trade";
     if (mon.locked) return "Locked";
     if (mon.favorite) return "Favorite";
-    if ((counts.get(Number(mon.dex)) || 0) <= 1) return "Keep for Living Dex";
+    const copies = (owned || allOwnedMons()).filter((row) => Number(row.dex) === Number(mon.dex)).length;
+    if (copies <= 1) return "Keep for Living Dex";
     return "";
   }
 
   function sendableMons() {
-    const counts = ownedCounts();
-    const source = storageMons().length ? storageMons() : (data?.owned || []);
-    return source.map((mon) => {
-      const reason = oakBlockReason(mon, counts);
-      return { ...mon, oakBlocked: Boolean(reason), oakReason: reason };
-    });
+    const source = allOwnedMons();
+    if (window.playOakTransfer?.eligibleTransferMons) {
+      return window.playOakTransfer.eligibleTransferMons(source).map((mon) => ({
+        ...mon,
+        oakBlocked: false,
+        oakReason: ""
+      }));
+    }
+    return source.filter((mon) => !oakBlockReason(mon, source)).map((mon) => ({
+      ...mon,
+      oakBlocked: false,
+      oakReason: ""
+    }));
   }
 
   function setOakBubble(text) {
@@ -451,7 +455,7 @@
         status = "CLAIMED";
       } else if (claimable) {
         state = "claimable";
-        status = "CLAIM REWARD";
+        status = "CLAIMABLE";
       } else if (!sawOpen) {
         state = "progress";
         status = "IN PROGRESS";
@@ -466,16 +470,14 @@
       }).join("") || `<span class="muted">Reward</span>`;
       const req = String(m.description || "").replace(/\.$/, "");
       return `<article class="oak-research-card is-${state}" data-milestone="${esc(m.id)}">
-        <header class="oak-research-card-head">
-          <h4>${claimed ? "✓ " : ""}${esc(m.title)}</h4>
-          <p class="oak-research-status" data-state="${state}">${esc(status)}</p>
-        </header>
+        <p class="oak-research-status" data-state="${state}">${esc(status)}</p>
+        <h4 class="oak-research-card-title">${esc(m.title)}</h4>
         <p class="oak-research-req">${esc(req)}</p>
         <p class="oak-research-progress-line" aria-label="Progress">${progress.toLocaleString()} / ${Number(m.threshold || 0).toLocaleString()}</p>
-        <div class="oak-research-rewards">${rewards}</div>
+        <div class="oak-research-rewards"><span class="oak-research-reward-kicker">Reward</span>${rewards}</div>
         ${claimable
           ? `<button type="button" class="gold oak-research-claim" data-claim-research="${esc(m.id)}">Claim Reward</button>`
-          : ""}
+          : `<span class="oak-research-claim-slot" aria-hidden="true"></span>`}
       </article>`;
     }).join("");
 
@@ -487,24 +489,35 @@
           ? "Evolutions Completed"
           : "Pokémon Sent to Oak";
 
+    const nextThreshold = Number((nextClaim || nextOpen || nextFocus)?.threshold || 0);
+    const towardNext = nextOpen && !nextClaim
+      ? Math.max(0, nextThreshold - progress)
+      : 0;
+    const nextReq = String(nextFocus?.description || "").replace(/\.$/, "");
     els.researchBoard.innerHTML = `<section class="oak-research-active motif-${esc(track.id)}" aria-labelledby="oak-active-track-title">
-      <header class="oak-research-active-head">
-        <div class="oak-research-active-copy">
+      <header class="oak-research-summary">
+        <div class="oak-research-summary-copy">
+          <p class="oak-research-kicker">${esc((RESEARCH_TRACK_META[track.id]?.short || track.name).toUpperCase())}</p>
           <h3 id="oak-active-track-title">${esc(track.name)}</h3>
-          <p>${esc(track.description)}</p>
+          <p>${esc(track.description || "")}</p>
         </div>
-        <div class="oak-research-active-meter" role="group" aria-label="${esc(progressTitle)}">
-          <p class="oak-research-active-meter-label"><strong>${esc(progressTitle)}</strong>
-            <span>${progress.toLocaleString()} / ${goal.toLocaleString()}</span></p>
+        <div class="oak-research-summary-progress" role="group" aria-label="${esc(progressTitle)}">
+          <p class="oak-research-progress-count"><strong>${progress.toLocaleString()}</strong><span> / ${goal.toLocaleString()}</span></p>
           <div class="oak-research-meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
+          <p class="oak-research-complete-pct">${pct}% Complete</p>
+          <p class="oak-research-progress-caption muted">${esc(progressTitle)} overall</p>
         </div>
-        <div class="oak-research-next-reward">
-          <p class="oak-research-next-label">${nextClaim ? "Ready to claim" : "Next reward"}</p>
-          <p class="oak-research-next-req">${esc(nextFocus?.title || "—")}${nextFocus ? ` · ${Number(nextFocus.threshold || 0).toLocaleString()}` : ""}</p>
+        <div class="oak-research-next-milestone">
+          <p class="oak-research-next-label">${nextClaim ? "Ready to claim" : "Next Milestone"}</p>
+          <p class="oak-research-next-req">${esc(nextFocus?.title || "—")}</p>
+          <p class="oak-research-next-desc">${esc(nextReq || "")}</p>
+          ${nextOpen && !nextClaim
+            ? `<p class="oak-research-next-toward">${progress.toLocaleString()} / ${nextThreshold.toLocaleString()} toward this milestone · ${towardNext.toLocaleString()} remaining</p>`
+            : ""}
           <div class="oak-research-rewards">${nextRewards}</div>
         </div>
       </header>
-      <div class="oak-research-cards" role="list">${cards}</div>
+      <div class="oak-research-cards oak-research-journey" role="list">${cards}</div>
     </section>`;
   }
 
@@ -592,7 +605,7 @@
       .trim();
   }
 
-  /** Authoritative line candy identity: family mascot sprite + "{Species} Evolution Candy". */
+  /** Authoritative line candy identity: local candy ITEM art + "{Species} Evolution Candy". */
   function candyIdentity(row = {}) {
     const famId = Number(row.familyId || 0);
     let fam = famId
@@ -610,24 +623,42 @@
       || (baseDex && window.playSpeciesName ? window.playSpeciesName(baseDex) : "")
       || "Evolution Line";
     const label = `${bare} Evolution Candy`;
-    const art = baseDex && typeof window.playSpriteUrl === "function"
+    const mascot = baseDex && typeof window.playSpriteUrl === "function"
       ? window.playSpriteUrl(baseDex, "normal")
-      : (window.playEvolutionCandyFallback?.(baseDex) || "images/items/poke-ball.png");
-    return { baseDex, bare, label, art, familyId: famId || Number(fam?.familyId || 0) };
+      : "";
+    const art = window.playOakTransfer?.candyItemArt
+      ? window.playOakTransfer.candyItemArt({ candyBaseDex: baseDex, familyId: famId || Number(fam?.familyId || 0) }, data?.families || [])
+      : (window.playEvolutionCandyItemUrl?.(baseDex) || window.playEvolutionCandyFallback?.(baseDex) || "images/items/lgpe-candy.png");
+    return { baseDex, bare, label, art, mascot, familyId: famId || Number(fam?.familyId || 0) };
   }
 
-  function candyChipHtml(row, { have, need, size = 28 } = {}) {
+  function candyArtHtml(id, size = 40) {
+    const item = id?.art || "images/items/lgpe-candy.png";
+    const mascot = id?.mascot || "";
+    const dedicated = /evolution-candy\//.test(item);
+    if (dedicated) {
+      return `<span class="oak-candy-art" style="--oak-candy-size:${size}px">
+        <img class="oak-candy-item" src="${esc(item)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy" onerror="this.onerror=null;this.src='images/items/lgpe-candy.png'">
+      </span>`;
+    }
+    return `<span class="oak-candy-art is-composite" style="--oak-candy-size:${size}px">
+      <img class="oak-candy-body" src="images/items/lgpe-candy.png" alt="" width="${size}" height="${size}" decoding="async" loading="lazy">
+      ${mascot ? `<img class="oak-candy-mascot" src="${esc(mascot)}" alt="" width="${Math.round(size * 0.46)}" height="${Math.round(size * 0.46)}" decoding="async" loading="lazy">` : ""}
+    </span>`;
+  }
+
+  function candyChipHtml(row, { have, need, size = 36 } = {}) {
     const id = candyIdentity(row);
     const haveN = Number(have ?? row.haveCandy ?? 0);
     const needN = Number(need ?? row.candyCost ?? 0);
     const shortfall = Math.max(0, needN - haveN);
     const ready = needN > 0 && haveN >= needN;
-    return `<span class="evo-cost-candy">
-      <img src="${esc(id.art)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy">
+    return `<span class="evo-cost-candy oak-candy-chip">
+      ${candyArtHtml(id, size)}
       <span class="evo-cost-candy-copy">
         <strong>${esc(id.label)}</strong>
-        <span>${haveN} / ${needN} required</span>
-        ${ready ? `<span class="evo-cost-state is-ready">READY TO EVOLVE</span>` : (shortfall ? `<span class="evo-cost-state is-need">Needs ${shortfall} more</span>` : "")}
+        <span>${haveN} / ${needN}</span>
+        ${ready ? "" : (shortfall ? `<span class="evo-cost-state is-need">Needs ${shortfall} more</span>` : "")}
       </span>
     </span>`;
   }
@@ -667,7 +698,7 @@
     }
     if (els.viewReady) els.viewReady.disabled = tally.ready < 1;
     if (els.strip) els.strip.hidden = true;
-    const eligible = sendableMons().filter((mon) => !mon.oakBlocked).length;
+    const eligible = sendableMons().length;
     if (els.xferAvailable) els.xferAvailable.textContent = String(eligible);
     els.filters?.querySelectorAll("[data-count]").forEach((el) => {
       el.textContent = String(tally[el.dataset.count] || 0);
@@ -683,12 +714,16 @@
   function statusFooter(row, terminal) {
     if (terminal) return `<span class="evo-foot is-done">Fully Evolved</span>`;
     const kind = view.cardKind ? view.cardKind(row) : (canEvolve(row) ? "ready" : "blocked");
-    if (kind === "ready") return `<span class="evo-foot is-ready">Ready to Evolve <i aria-hidden="true">→</i></span>`;
+    if (kind === "ready") {
+      return `<button type="button" class="evo-foot is-ready" data-evo-act="evolve">Ready to Evolve <i aria-hidden="true">→</i></button>`;
+    }
     if (kind === "locked") return `<span class="evo-foot is-warn">Locked</span>`;
     if (kind === "reserved") return `<span class="evo-foot is-warn">Trade reserved</span>`;
     if (view.matchesFilter?.(row, "candy")) {
-      const need = Number(row.candyCost || 0);
-      return `<span class="evo-foot is-candy">Needs Candy <strong>x ${need}</strong></span>`;
+      const haveN = Number(row.haveCandy || 0);
+      const needN = Number(row.candyCost || 0);
+      const shortfall = Math.max(0, needN - haveN);
+      return `<span class="evo-foot is-candy">Needs Candy ×${shortfall || needN}</span>`;
     }
     if (view.matchesFilter?.(row, "item")) {
       return `<span class="evo-foot is-item">Needs ${esc(itemLabel(row.item) || "Item")}</span>`;
@@ -703,22 +738,26 @@
     const kind = view.cardKind ? view.cardKind(row) : (canEvolve(row) ? "ready" : "blocked");
     const shiny = view.isShiny?.(row);
     const ready = kind === "ready";
-    const label = terminal
-      ? `${row.name}. No evolution currently available.`
-      : `${ready ? "Ready to evolve. " : ""}${row.name}${shiny ? " (Shiny)" : ""}${row.level ? ` level ${row.level}` : ""} into ${row.toName || ""}.`;
-    const candy = terminal ? "" : candyChipHtml(row);
-    const item = row.item ? `${itemLabel(row.item)} ${row.haveItem || row.tradeReady ? "✓" : "✕"}` : "";
+    const catchId = row.catchId || row.id || "";
+    const inspectLabel = `Inspect ${row.name || "Pokémon"}`;
+    const item = !terminal && row.item
+      ? `${itemLabel(row.item)} ${row.haveItem || row.tradeReady ? "✓" : "✕"}`
+      : "";
     return `
-      <button type="button" class="evo-mon is-${kind}${ready ? " is-ready" : ""}${terminal ? " is-terminal" : ""}" data-evo="${esc(row.catchId || row.id || "")}" data-rule="${esc(row.ruleId || "")}" data-kind="${kind}" data-dex="${row.dex || ""}" aria-label="${esc(label)}">
-        <span class="evo-mon-ball" aria-hidden="true"></span>
-        <span class="evo-mon-art">${sprite(row.dex, row.variant || "normal", 96, row.gender)}</span>
-        <strong class="evo-mon-name">${dexLabel(row.dex)} ${shiny ? "✨ " : ""}${esc(row.name)} ${genderMark(row.gender)}</strong>
-        <span class="muted">${row.level ? `Lv. ${row.level}` : ""}${row.favorite ? " ★ Favorite" : ""}</span>
-        ${row.toName ? `<span class="evo-arrow-lite" aria-hidden="true">↓</span><span class="evo-target">${esc(row.toName)}</span>` : ""}
-        ${candy || ""}
-        ${item ? `<span class="evo-cost muted">${esc(item)}</span>` : ""}
+      <article class="evo-mon oak-mon-card oak-evo-card is-${kind}${ready ? " is-ready" : ""}${terminal ? " is-terminal" : ""}" data-evo="${esc(catchId)}" data-rule="${esc(row.ruleId || "")}" data-kind="${kind}" data-dex="${row.dex || ""}">
+        <button type="button" class="oak-mon-inspect" data-evo-inspect="${esc(catchId)}" aria-label="${esc(inspectLabel)}">
+          <span class="evo-mon-art">${sprite(row.dex, row.variant || "normal", 96, row.gender)}</span>
+          <strong class="evo-mon-name oak-mon-name">${dexLabel(row.dex)} ${shiny ? "✨ " : ""}${esc(row.name)}</strong>
+        </button>
+        ${row.toName ? `<span class="oak-evo-target">
+          <span class="evo-arrow-lite" aria-hidden="true">↓</span>
+          <span class="oak-evo-target-art">${sprite(row.toDex, row.variant || "normal", 48, row.gender)}</span>
+          <span class="oak-evo-target-name">${esc(row.toName)}</span>
+        </span>` : `<span class="oak-evo-target is-empty" aria-hidden="true"></span>`}
+        ${terminal ? `<span class="oak-candy-chip is-empty" aria-hidden="true"></span>` : candyChipHtml(row, { size: 28 })}
+        ${item ? `<span class="evo-cost oak-evo-item">${esc(item)}</span>` : `<span class="evo-cost oak-evo-item is-empty" aria-hidden="true"></span>`}
         ${statusFooter(row, terminal)}
-      </button>`;
+      </article>`;
   }
 
   function sortRows(rows, mode) {
@@ -768,24 +807,23 @@
   function sendCardHtml(mon) {
     const id = String(mon.id);
     const selected = selectedOak.has(id);
-    const blocked = Boolean(mon.oakBlocked);
     const shiny = String(mon.variant || "").includes("shiny");
     const candy = candyIdentity(mon);
-    const label = blocked
-      ? `${mon.name}. ${mon.oakReason}.`
-      : `${selected ? "Selected. " : ""}${mon.name}${shiny ? " (Shiny)" : ""}. Send to Professor Oak for ${candy.label}.`;
-    const reward = blocked
-      ? ""
-      : `<span class="evo-cost-candy"><img src="${esc(candy.art)}" alt="" width="24" height="24" decoding="async" loading="lazy"><span>${esc(candy.label)}</span></span>`;
+    const name = mon.name || mon.nickname || "Pokémon";
     return `
-      <button type="button" class="evo-mon evo-send-card${selected ? " is-selected" : ""}${blocked ? " is-blocked" : ""}" data-oak-id="${esc(id)}" data-dex="${mon.dex || ""}" ${blocked ? "disabled" : ""} aria-pressed="${selected ? "true" : "false"}" aria-label="${esc(label)}">
-        <span class="evo-mon-ball" aria-hidden="true"></span>
-        <span class="evo-mon-art">${sprite(mon.dex, mon.variant || "normal", 96, mon.gender)}</span>
-        <strong class="evo-mon-name">${dexLabel(mon.dex)} ${shiny ? "✨ " : ""}${esc(mon.name || mon.nickname || "Pokémon")} ${genderMark(mon.gender)}</strong>
-        <span class="muted">${mon.level ? `Lv. ${mon.level}` : ""}${mon.favorite ? " ★" : ""}</span>
-        ${reward}
-        <span class="evo-foot ${blocked ? "is-warn" : selected ? "is-ready" : "is-candy"}">${blocked ? esc(mon.oakReason) : selected ? "Selected for Oak" : "Tap to select"}</span>
-      </button>`;
+      <article class="evo-mon evo-send-card oak-mon-card${selected ? " is-selected" : ""}" data-oak-id="${esc(id)}" data-dex="${mon.dex || ""}">
+        <button type="button" class="oak-mon-inspect" data-oak-inspect="${esc(id)}" aria-label="${esc(`Inspect ${name}`)}">
+          <span class="evo-mon-art">${sprite(mon.dex, mon.variant || "normal", 96, mon.gender)}</span>
+          <strong class="evo-mon-name oak-mon-name">${dexLabel(mon.dex)} ${shiny ? "✨ " : ""}${esc(name)}</strong>
+        </button>
+        <span class="oak-send-candy evo-cost-candy">
+          ${candyArtHtml(candy, 40)}
+          <span class="evo-cost-candy-copy"><strong>${esc(candy.label)}</strong></span>
+        </span>
+        <button type="button" class="evo-foot ${selected ? "is-ready" : "is-select"}" data-oak-select="${esc(id)}" aria-pressed="${selected ? "true" : "false"}">
+          ${selected ? "Selected ✓" : "Click here to select"}
+        </button>
+      </article>`;
   }
 
   function renderSend() {
@@ -793,22 +831,22 @@
     const q = String(els.sendSearch?.value || "").trim().toLowerCase();
     let rows = sendableMons();
     if (q) {
-      rows = rows.filter((mon) => [mon.name, mon.nickname, mon.gender, mon.variant, String(mon.dex)]
+      rows = rows.filter((mon) => [mon.name, mon.nickname, mon.variant, String(mon.dex)]
         .join(" ")
         .toLowerCase()
         .includes(q));
     }
     rows = sortRows(rows, els.sendSort?.value || "dex-asc");
-    const live = new Set(rows.map((mon) => String(mon.id)));
+    const selectedStillLive = new Set(sendableMons().map((mon) => String(mon.id)));
     for (const id of [...selectedOak]) {
-      if (!live.has(id) || rows.find((mon) => String(mon.id) === id)?.oakBlocked) selectedOak.delete(id);
+      if (!selectedStillLive.has(id)) selectedOak.delete(id);
     }
-    const eligible = rows.filter((mon) => !mon.oakBlocked).length;
-    if (els.xferAvailable) els.xferAvailable.textContent = String(eligible);
+    const shown = rows.length;
+    if (els.xferAvailable) els.xferAvailable.textContent = String(shown);
     if (els.sendNote) {
-      els.sendNote.textContent = eligible
-        ? `${eligible} available · ${selectedOak.size} selected`
-        : "0 available · catch duplicates to research";
+      els.sendNote.textContent = shown
+        ? `${shown} available · ${selectedOak.size} selected`
+        : (q ? "0 available · no matches in transferable Pokémon" : "0 available · catch duplicates to research");
     }
     if (els.sendGo) {
       els.sendGo.disabled = selectedOak.size < 1;
@@ -817,7 +855,13 @@
         : "Send 0 to Oak";
       els.sendGo.classList.toggle("is-armed", selectedOak.size > 0);
     }
-    const empty = `<div class="evo-empty evo-empty-lab">
+    const empty = q
+      ? `<div class="evo-empty evo-empty-lab">
+      <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
+      <p><strong>No transferable Pokémon match that search.</strong></p>
+      <p class="muted">Search and Sort only look at Pokémon Professor Oak can actually receive.</p>
+    </div>`
+      : `<div class="evo-empty evo-empty-lab">
       <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
       <p><strong>No duplicates to send yet.</strong></p>
       <p class="muted">Catch extra Pokémon from an Evolution Line, keep one for your Living Dex, then send the rest to Oak for Evolution Candy.</p>
@@ -868,7 +912,7 @@
       return `
         <article class="card body family-card" id="evo-line-${fam.familyId}">
           <h3>${esc(candyBareName(fam.name) || fam.name)} Evolution Line</h3>
-          <p class="evo-line-candy">${sprite(fam.baseDex, "normal", 28)}<span><strong>${esc(candyIdentity(fam).label)}:</strong> ${fam.candy || 0}</span></p>
+          <p class="evo-line-candy">${candyArtHtml(candyIdentity(fam), 28)}<span><strong>${esc(candyIdentity(fam).label)}:</strong> ${fam.candy || 0}</span></p>
           ${graph || "<p class=\"muted\">No stages to show.</p>"}
           ${lockedRelativeNote(fam)}
         </article>`;
@@ -907,7 +951,7 @@
       const id = candyIdentity(row);
       return `
       <button type="button" class="evo-candy" data-family="${row.familyId}">
-        ${sprite(row.baseDex || id.baseDex, "normal", 48)}
+        ${candyArtHtml(id, 48)}
         <strong>${esc(id.bare)} Line</strong>
         <span>${row.qty} ${esc(id.label)}</span>
       </button>`;
@@ -991,6 +1035,89 @@
     return bits.join("");
   }
 
+  function inspectStatRows(mon) {
+    const labels = [
+      ["hp", "HP"], ["atk", "Attack"], ["def", "Defense"],
+      ["spa", "Sp. Atk"], ["spd", "Sp. Def"], ["spe", "Speed"]
+    ];
+    return labels.map(([key, label]) => {
+      const value = Number(mon?.stats?.[key] || 0);
+      const pct = Math.max(8, Math.min(100, Math.round((value / 250) * 100)));
+      return `<div class="pc-stat"><span>${label}</span><i style="--pct:${pct}%"></i><strong>${value}</strong></div>`;
+    }).join("");
+  }
+
+  function inspectSpriteUrl(mon) {
+    if (window.playOakTransfer?.spriteUrl) return window.playOakTransfer.spriteUrl(mon);
+    return window.playSpriteUrl(mon.dex, mon.variant || "normal", mon.formId);
+  }
+
+  function monForInspect(id) {
+    const sid = String(id || "");
+    if (!sid) return null;
+    return allOwnedMons().find((row) => String(row.id) === sid)
+      || (data?.owned || []).find((row) => String(row.id) === sid)
+      || readyRows().find((row) => String(row.catchId || row.id) === sid)
+      || null;
+  }
+
+  function inspectHtml(mon) {
+    const shiny = String(mon.variant || "").includes("shiny") || Boolean(mon.shiny);
+    const title = window.playMonDisplayTitle?.(mon) || mon.nickname || mon.name || "Pokémon";
+    const species = mon.name && title !== mon.name ? mon.name : "";
+    const badges = typeof window.playMonIdentityBadgesHtml === "function"
+      ? window.playMonIdentityBadgesHtml(mon)
+      : "";
+    const ballName = window.playItemLabel?.(mon.ball) || mon.ball || "";
+    const metLevel = mon.metLevel || mon.level || 1;
+    const metPlace = mon.metLocation || "the wild";
+    const otName = mon.otName || "Unknown Trainer";
+    const otNo = mon.otNumber ? String(mon.otNumber).padStart(5, "0") : "-----";
+    const form = mon.formLabel && mon.formLabel !== "Base" ? mon.formLabel : "";
+    return `
+      <div class="pc-inspect-inner oak-inspect-inner">
+        <header class="pc-inspect-hero">
+          <div class="pc-inspect-art">
+            <span class="pc-inspect-platform" aria-hidden="true"></span>
+            <img src="${esc(inspectSpriteUrl(mon))}" alt="" decoding="async">
+          </div>
+          <div class="pc-inspect-id">
+            <p class="pc-inspect-kicker">Pokémon Overview</p>
+            <h2 class="pc-inspect-title">${esc(title)}${species ? `<span class="pc-pick-name-sep"> · </span><span class="pc-inspect-species">${esc(species)}</span>` : ""}</h2>
+            <p class="pc-inspect-level">Lv. ${mon.level || 1}${dexLabel(mon.dex) ? ` · ${dexLabel(mon.dex)}` : ""}${form ? ` · ${esc(form)}` : ""}${shiny ? " · Shiny" : ""}</p>
+            ${badges}
+            ${mon.favorite ? `<p class="muted">★ Favorite</p>` : ""}
+            ${mon.locked ? `<p class="muted">Locked</p>` : ""}
+          </div>
+        </header>
+        <section class="pc-module pc-capture" aria-label="Catch history">
+          <h3 class="pc-module-label">Catch History</h3>
+          <div class="pc-capture-row">
+            ${mon.ball ? `<img src="${esc(window.playItemSprite?.(mon.ball) || "images/items/poke-ball.png")}" alt="">` : ""}
+            <div>
+              <strong>${esc(ballName || "Poké Ball")}</strong>
+              <p>${esc(metPlace)} · Met at Lv. ${metLevel}</p>
+            </div>
+          </div>
+          <p class="pc-ot"><span>OT</span> <strong>${esc(otName)}</strong> <em>No. ${otNo}</em></p>
+        </section>
+        <section class="pc-module pc-stats-mod" aria-label="Stats">
+          <h3 class="pc-module-label">Stats</h3>
+          <div class="pc-stats">${inspectStatRows(mon)}</div>
+        </section>
+      </div>`;
+  }
+
+  function openOakInspect(id, trigger) {
+    const mon = monForInspect(id);
+    if (!mon || !els.inspectModal || !els.inspectBody) return;
+    inspectReturnFocus = trigger || document.activeElement;
+    const name = window.playMonDisplayTitle?.(mon) || mon.name || "Pokémon";
+    if (els.inspectTitle) els.inspectTitle.textContent = name;
+    els.inspectBody.innerHTML = inspectHtml(mon);
+    window.playShowDialog(els.inspectModal);
+  }
+
   function openPreview(row) {
     pick = row;
     const shiny = view.isShiny?.(row);
@@ -1067,7 +1194,7 @@
       const candyHtml = candyRows.length
         ? `<div class="oak-confirm-candy">${candyRows.map((row) => `
             <span class="oak-confirm-candy-row">
-              <img src="${esc(row.art)}" alt="" width="28" height="28" decoding="async">
+              ${candyArtHtml(row, 28)}
               <span>${esc(row.label)}</span>
             </span>`).join("")}</div>
             <p class="muted">Reward amounts are confirmed when Professor Oak receives each Pokémon.</p>`
@@ -1699,9 +1826,19 @@
   });
 
   els.sendGrid?.addEventListener("click", (event) => {
-    const card = event.target.closest("[data-oak-id]");
-    if (!card || card.disabled) return;
-    const id = card.dataset.oakId;
+    const inspectBtn = event.target.closest("[data-oak-inspect]");
+    if (inspectBtn) {
+      event.preventDefault();
+      event.stopPropagation(); // inspect must not toggle transfer selection
+      openOakInspect(inspectBtn.dataset.oakInspect, inspectBtn);
+      return;
+    }
+    const selectBtn = event.target.closest("[data-oak-select]");
+    if (!selectBtn) return;
+    event.preventDefault();
+    event.stopPropagation(); // select must not open inspect
+    const id = selectBtn.dataset.oakSelect;
+    if (!id) return;
     if (selectedOak.has(id)) selectedOak.delete(id);
     else selectedOak.add(id);
     renderSend();
@@ -1725,8 +1862,30 @@
     transferSelected();
   });
 
+  els.inspectModal?.addEventListener("click", (event) => {
+    if (event.target === els.inspectModal) els.inspectModal.close();
+  });
+  els.inspectModal?.addEventListener("close", () => {
+    const back = inspectReturnFocus;
+    inspectReturnFocus = null;
+    if (back && typeof back.focus === "function") {
+      try { back.focus({ preventScroll: true }); } catch (_) { back.focus(); }
+    }
+  });
+
   els.grid?.addEventListener("click", (event) => {
-    const card = event.target.closest("[data-evo]");
+    const inspectBtn = event.target.closest("[data-evo-inspect]");
+    if (inspectBtn) {
+      event.preventDefault();
+      event.stopPropagation(); // inspect must not start evolution
+      openOakInspect(inspectBtn.dataset.evoInspect, inspectBtn);
+      return;
+    }
+    const actBtn = event.target.closest("[data-evo-act]");
+    if (!actBtn) return;
+    event.preventDefault();
+    event.stopPropagation(); // evolve footer must not open inspect
+    const card = actBtn.closest("[data-evo]");
     if (!card) return;
     const kind = card.dataset.kind;
     if (kind === "terminal") {

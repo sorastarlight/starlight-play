@@ -62,16 +62,20 @@ test("Transfer, Evolution, and Research are workstation tabs", () => {
 
 test("Counters live in Evolution workspace / stations, not floating header chip", () => {
   assert(!html.includes("evo-lab-candy-res"), "floating header candy chip must be removed");
-  assert(html.includes("evo-evolve-summary"), "evolution workspace candy summary missing");
+  assert(html.includes("evo-evolve-metrics") || html.includes("evo-evolve-summary"), "evolution workspace candy summary missing");
   assert(html.includes("evo-candy-count"), "candy total counter missing");
   assert(html.includes("Total Evolution Candy"), "total candy label missing");
-  assert(html.includes("collected across your Evolution Lines"), "line-specific total semantics missing");
+  assert(html.includes("across your Evolution Lines"), "line-specific total semantics missing");
   assert(html.includes("evo-xfer-available"), "transfer available metric missing");
   assert(html.includes("evo-ready-count"), "ready metric missing");
   assert(html.includes("evo-done-count"), "evolutions completed metric missing");
   assert(js.includes("xferAvailable"), "xfer available wiring missing");
   assert(js.includes("candyIdentity"), "line candy identity helper missing");
-  assert(js.includes("playSpriteUrl"), "candy sprite resolver wiring missing");
+  assert(js.includes("playSpriteUrl"), "sprite resolver wiring missing");
+  assert(js.includes("Click here to select"), "transfer select copy missing");
+  assert(js.includes("data-oak-inspect"), "transfer inspect target missing");
+  assert(js.includes("data-oak-select"), "transfer select target missing");
+  assert(js.includes("eligibleTransferMons"), "authoritative eligibility filter missing");
 });
 
 test("Research notes are collapsed by default", () => {

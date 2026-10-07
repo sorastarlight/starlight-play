@@ -1,6 +1,7 @@
 /**
  * Prepare Evolution Candy national manifest (asset reference / future unlock).
- * Display art for Evolution Candy is the family mascot Pokémon sprite (local).
+ * Display art for Evolution Candy is local candy ITEM art
+ * (images/items/evolution-candy/{dex}.svg) composed from lgpe-candy.png + family mascot.
  * Rare Candy remains images/items/rare-candy.png (PokeAPI local import).
  * Gameplay-enabled generations: [1] only.
  *
@@ -51,8 +52,9 @@ for (let dex = 1; dex <= SPECIES.length; dex += 1) {
     assetPath: spritePath,
     assetAvailable: spriteExists,
     gameplayEnabled: gen === 1,
+    itemAssetPath: gen === 1 ? `images/items/evolution-candy/${dex}.svg` : "",
     notes: gen === 1
-      ? "Kanto Evolution Candy identity = family mascot sprite; line-keyed"
+      ? "Kanto Evolution Candy item art = local candy body + family mascot; line-keyed"
       : "Prepared for future region; gameplay locked"
   });
 }
@@ -60,7 +62,7 @@ for (let dex = 1; dex <= SPECIES.length; dex += 1) {
 const manifest = {
   generatedAt: new Date().toISOString(),
   source: "tools/prepare-evolution-candy-assets.js",
-  displayRule: "Evolution Candy uses the family mascot Pokémon sprite (local). Rare Candy uses images/items/rare-candy.png.",
+  displayRule: "Evolution Candy item art is a local candy-body asset with the family mascot nested inside (images/items/evolution-candy/{dex}.svg). Rare Candy uses images/items/rare-candy.png.",
   rareCandy: {
     key: "rarecandy",
     assetPath: "images/items/rare-candy.png",

@@ -78,6 +78,33 @@
     return `${shiny}${monName(mon)}${gender ? ` ${gender}` : ""}`.trim();
   }
 
+  /**
+   * Authoritative Oak transfer eligibility — mirrors live play_transfer_oak.
+   * Favorite / locked / team / open GTS listing / last owned copy of that dex.
+   * Presentation filter only; the RPC remains the mutating authority.
+   */
+  function transferBlockReason(mon, owned) {
+    if (!mon) return "Missing Pokémon";
+    if (mon.favorite) return "Favorite";
+    if (mon.locked) return "Locked";
+    if (mon.onTeam) return "On team";
+    if (mon.listed) return "Listed for trade";
+    const dex = Number(mon.dex);
+    const copies = (Array.isArray(owned) ? owned : []).filter((row) => Number(row?.dex) === dex).length;
+    if (copies <= 1) return "Keep for Living Dex";
+    return "";
+  }
+
+  function isTransferEligible(mon, owned) {
+    return transferBlockReason(mon, owned) === "";
+  }
+
+  function eligibleTransferMons(owned) {
+    const list = Array.isArray(owned) ? owned : [];
+    return list.filter((mon) => isTransferEligible(mon, list));
+  }
+
+  /** Transfer animation identity still uses the family mascot sprite. */
   function candyArt(rowOrFamilyId, families) {
     if (rowOrFamilyId && typeof rowOrFamilyId === "object") {
       const base = Number(rowOrFamilyId.candyBaseDex || rowOrFamilyId.baseDex || 0);
@@ -93,6 +120,26 @@
     const base = Number(match?.baseDex || 0);
     if (base && typeof root.playSpriteUrl === "function") return root.playSpriteUrl(base, "normal");
     return BALL_SPRITE;
+  }
+
+  /** Card/item presentation: local Evolution Candy item art, never a raw Pokémon sprite. */
+  function candyItemArt(rowOrFamilyId, families) {
+    let base = 0;
+    if (rowOrFamilyId && typeof rowOrFamilyId === "object") {
+      base = Number(rowOrFamilyId.candyBaseDex || rowOrFamilyId.baseDex || 0);
+      if (!base) {
+        const fam = Number(rowOrFamilyId.familyId || 0);
+        const match = (families || []).find((f) => Number(f.familyId) === fam);
+        base = Number(match?.baseDex || match?.representativeDex || fam || 0);
+      }
+    } else {
+      const fam = Number(rowOrFamilyId);
+      const match = (families || []).find((f) => Number(f.familyId) === fam);
+      base = Number(match?.baseDex || fam || 0);
+    }
+    if (typeof root.playEvolutionCandyItemUrl === "function") return root.playEvolutionCandyItemUrl(base);
+    if (base >= 1 && base <= 151) return `images/items/evolution-candy/${base}.svg`;
+    return "images/items/lgpe-candy.png";
   }
 
   function candyLabel(rowOrFamilyId, families) {
@@ -638,7 +685,11 @@
     monCaption,
     isShiny,
     genderMark,
+    transferBlockReason,
+    isTransferEligible,
+    eligibleTransferMons,
     candyArt,
+    candyItemArt,
     candyLabel,
     rewardSummary,
     confirmModel,

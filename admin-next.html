@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin Hub (preview) · Unofficial Pokémon StreamLink RPG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/play.css?v=20261008-rc129">
+<body data-page="admin-next">
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="./admin.html">
+      <img src="images/sora-starlight-logo.png" alt="Sora Starlight">
+    </a>
+    <div class="topnav-end">
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav-panel">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="visually-hidden">Open menu</span>
+      </button>
+      <div id="topnav-panel" class="topnav-panel">
+        <div id="topnav-links" class="topnav-links" aria-busy="true"></div>
+      </div>
+      <div class="topnav-actions">
+      <p id="auth-status" class="visually-hidden" role="status">Checking sign-in…</p>
+      <button id="sign-in" class="signin-btn" type="button" hidden>Sign in</button>
+      <div id="account" class="account" data-auth="unknown">
+        <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu" aria-busy="true" disabled>
+          <span class="twitch-face twitch-face-nav">
+          <img id="account-avatar" class="avatar" alt="" width="34" height="34" hidden>
+          <span id="account-fallback" class="avatar-fallback" aria-hidden="true">·</span>
+          <i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>
+        </span>
+          <span class="account-meta">
+            <span id="account-name" class="account-name">Trainer</span>
+            <span id="account-level" class="account-level">Lv. ·</span>
+          </span>
+          <span class="account-caret" aria-hidden="true"></span>
+        </button>
+        <div id="account-menu" class="account-menu" hidden role="menu">
+          <p id="account-handle" class="account-handle"></p>
+          <div id="account-trainer" class="account-trainer" hidden></div>
+          <a id="account-card" href="./trainer.html" role="menuitem">My Trainer ID</a>
+          <a id="account-settings" href="./settings.html" role="menuitem">Settings</a>
+          <a id="account-staff" href="./admin.html" hidden role="menuitem">Admin Hub</a>
+          <button id="sign-out" type="button" role="menuitem">Sign out</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="page-kicker">
+    <h1>Admin Hub (preview)</h1>
+    <p class="muted">Read-only shell. Live controls stay on the current Admin Hub. This preview does not start, stop, grant, or publish.</p>
+    <p><a href="./admin.html">Open current Admin Hub</a></p>
+  </div>
+  <p id="gate" class="notice">Sign in to open the Admin Hub preview.</p>
+  <div id="staff" hidden>
+    <div class="hub-app admin-next-app">
+      <aside class="hub-nav" id="hub-nav">
+        <p class="hub-nav-brand">Next Hub</p>
+        <button type="button" class="hub-nav-toggle" id="hub-nav-toggle" aria-expanded="false">Admin menu</button>
+        <div class="hub-nav-list" role="tablist" aria-label="Next Admin Hub">
+          <button type="button" role="tab" data-next-tab="operations" aria-selected="true">Operations</button>
+          <button type="button" role="tab" data-next-tab="trainers">Trainers</button>
+          <button type="button" role="tab" data-next-tab="support">Support &amp; Recovery</button>
+          <button type="button" role="tab" data-next-tab="mart">Mart &amp; Content</button>
+          <button type="button" role="tab" data-next-tab="config">Game Configuration</button>
+          <button type="button" role="tab" data-next-tab="analytics">Analytics &amp; Health</button>
+          <button type="button" role="tab" data-next-tab="system">System &amp; Access</button>
+        </div>
+      </aside>
+      <div class="hub-main">
+        <section id="next-panel-operations" class="hub-card admin-next-panel" data-next-panel="operations">
+          <p class="eyebrow">Operations · read only</p>
+          <h2>Stream and encounter state</h2>
+          <p class="admin-next-lifecycle">Twitch LIVE permits the Live RPG. It does not start it. Offline ends an active RPG. Start and End remain explicit staff actions on the current hub.</p>
+          <p id="next-ops-status" class="muted" role="status">Loading…</p>
+          <div id="next-ops-metrics" class="admin-next-metrics"></div>
+          <p class="muted">Need to change the session? Use the current Dashboard. This preview will not send director commands.</p>
+          <p><a class="admin-next-legacy" href="./admin.html?section=dashboard">Open live Dashboard</a></p>
+        </section>
+        <section id="next-panel-trainers" class="hub-card admin-next-panel" data-next-panel="trainers" hidden>
+          <p class="eyebrow">Trainers · Gate 2</p>
+          <h2>Unified trainer workspace</h2>
+          <p>Read-only trainer search and identity will land here after Gate 0B approval. Until then, inspect trainers on the current hub.</p>
+          <p class="admin-next-unavailable">Not available in this preview: PC, bag, coins, research, and achievement diagnostics as a unified profile.</p>
+          <p><a class="admin-next-legacy" href="./admin.html?section=trainers">Open current Trainers</a></p>
+        </section>
+        <section id="next-panel-support" class="hub-card admin-next-panel" data-next-panel="support" hidden>
+          <p class="eyebrow">Support &amp; Recovery · Gate 3</p>
+          <h2>Case-based remedies</h2>
+          <p>Grants, unlocks, and identity repairs stay on Staff tools until each action has confirmation, audit, and QA-only tests.</p>
+          <p class="admin-next-unavailable">Not available here: grants, coin/XP edits, Pokémon removal, Pass/Bits, Oak QA mutations.</p>
+          <p><a class="admin-next-legacy" href="./admin-tools.html">Open Staff tools</a></p>
+        </section>
+        <section id="next-panel-mart" class="hub-card admin-next-panel" data-next-panel="mart" hidden>
+          <p class="eyebrow">Mart &amp; Content · Gate 4</p>
+          <h2>Catalog and studio</h2>
+          <p>Mart item CRUD and Content Studio remain on their current pages so live SKUs cannot be edited from this preview.</p>
+          <p class="admin-next-unavailable">Not available here: save, duplicate, delete, publish, or asset upload.</p>
+          <p><a class="admin-next-legacy" href="./admin-store.html">Open Mart editor</a></p>
+        </section>
+        <section id="next-panel-config" class="hub-card admin-next-panel" data-next-panel="config" hidden>
+          <p class="eyebrow">Game Configuration · Gate 5</p>
+          <h2>Encounters, capture, economy, progression</h2>
+          <p>Balance editors stay on the current hub. This preview does not write `site_config` or loot tables.</p>
+          <p><a class="admin-next-legacy" href="./admin.html?section=encounters">Open Encounters</a></p>
+        </section>
+        <section id="next-panel-analytics" class="hub-card admin-next-panel" data-next-panel="analytics" hidden>
+          <p class="eyebrow">Analytics &amp; Health · read only</p>
+          <h2>Build and game health</h2>
+          <p id="next-health-status" class="muted" role="status">Loading…</p>
+          <div id="next-health" class="admin-next-metrics"></div>
+          <p><a class="admin-next-legacy" href="./admin.html?section=analytics">Open current Analytics</a></p>
+        </section>
+        <section id="next-panel-system" class="hub-card admin-next-panel" data-next-panel="system" hidden>
+          <p class="eyebrow">System &amp; Access · Gate 7</p>
+          <h2>Integrations and secrets</h2>
+          <p>Twitch secret, GitHub token, and bridge token remain owner-only on Staff tools / System. This preview cannot save secrets.</p>
+          <p class="admin-next-unavailable">Not available here: secret write, role changes, QA utilities.</p>
+          <p><a class="admin-next-legacy" href="./admin.html?section=system">Open System &amp; Integrations</a></p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js?v=20261008-rc129"></script>
+<script src="js/play-perf.js?v=20261008-rc129"></script>
+<script src="js/build.js?v=20261008-rc129"></script>
+<script src="js/build-client.js?v=20261008-rc129"></script>
+<script src="js/auth.js?v=20261008-rc129"></script>
+<script src="js/game.js?v=20261008-rc129"></script>
+<script src="js/nav.js?v=20261008-rc129"></script>
+<script src="js/admin-next.js?v=20261008-rc129"></script>
+</body>

@@ -20460,3 +20460,29 @@ html[data-perf="low"] .play-present-oak-research {
   overflow: hidden;
 }
 
+body[data-page="admin-next"] .wrap { max-width: 1480px; }
+.admin-next-lifecycle {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1px solid #e5d4a8;
+  border-radius: 10px;
+  background: #fffdf6;
+}
+.admin-next-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.admin-next-unavailable {
+  margin: 0 0 12px;
+  color: #6a7a96;
+}
+.admin-next-legacy {
+  display: inline-flex;
+  margin-top: 8px;
+}
+@media (max-width: 720px) {
+  .admin-next-app { grid-template-columns: 1fr; }
+}
+

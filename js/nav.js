@@ -235,7 +235,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       });
       els.links.dataset.ready = "1";
     }
-    const adminPage = page === "admin" || page === "admin-live" || page === "admin-tools" || page === "admin-store";
+    const adminPage = page === "admin" || page === "admin-live" || page === "admin-tools" || page === "admin-store" || page === "admin-next";
     // Admin Hub lives in the account dropdown only — never inject into primary top nav.
     const adminLink = els.links.querySelector("[data-nav=\"admin\"]");
     if (adminLink) {

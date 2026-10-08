@@ -117,7 +117,7 @@ test("card anatomy uses viewer / context / reserved footer", () => {
   assert(css.includes("grid-template-rows: auto minmax(72px, 1fr) 44px"));
   assert(css.includes("padding: 14px 14px 12px"));
   assert(css.includes("height: 292px"));
-  assert(css.includes("height: 360px"));
+  assert(css.includes("height: 328px"));
   assert(!js.includes("oak-card-grow"));
 });
 
@@ -126,7 +126,6 @@ test("requirement copy is explicit owned/required", () => {
   assert(js.includes("required ·"));
   assert(js.includes("owned ✓"));
   assert(js.includes("more needed"));
-  assert(js.includes("is-compact"));
   assert(js.includes("Needs Candy"));
   assert(js.includes("Needs Item"));
   assert(!js.includes("${have} / ${need} required"));

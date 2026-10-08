@@ -1,0 +1,9 @@
+{
+  "source": "https://gitea.sickgaming.net/CopyBot/PokemonGO-Assets/raw/commit/2a80eb3204817ef2b2e7171ebfa83da999034d73/items-icons/PokeCoin.png",
+  "dest": "images/items/pokecoin.png",
+  "bytes": 5735,
+  "width": 48,
+  "height": 48,
+  "alpha": true,
+  "note": "Installed locally during RC126 after visual inspection. Re-run tools/import-pokecoin-asset.js to refresh."
+}

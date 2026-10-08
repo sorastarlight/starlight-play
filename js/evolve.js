@@ -20,6 +20,11 @@
     sendGo: document.getElementById("evo-send-go"),
     sendNote: document.getElementById("evo-send-note"),
     sendStatus: document.getElementById("evo-send-status"),
+    sendEligible: document.getElementById("evo-send-eligible"),
+    sendSelected: document.getElementById("evo-send-selected"),
+    sendCandyTotal: document.getElementById("evo-send-candy-total"),
+    sendOakStat: document.getElementById("evo-send-oak-stat"),
+    sendOakTotal: document.getElementById("evo-send-oak-total"),
     xferAvailable: document.getElementById("evo-xfer-available"),
     candy: document.getElementById("candy-list"),
     rarePanel: document.getElementById("rare-candy-panel"),
@@ -185,6 +190,8 @@
   }
 
   const RESEARCH_TRACK_IDS = ["field", "evolution", "line", "transfer"];
+  const RESEARCH_HISTORY_ID = "history";
+  const LAB_DECO_CANDY = "images/items/evolution-candy/25.png";
   const RESEARCH_TRACK_ALIAS = {
     field: "field",
     evolution: "evolution",
@@ -192,19 +199,22 @@
     line: "line",
     lines: "line",
     transfer: "transfer",
-    transfers: "transfer"
+    transfers: "transfer",
+    history: "history"
   };
   const RESEARCH_TRACK_MSG = {
     field: "There's still so much to learn about Pokémon in Kanto!",
     evolution: "Evolution can reveal remarkable changes in Pokémon!",
     line: "Related Pokémon can teach us a great deal about evolution!",
-    transfer: "Even duplicate Pokémon can contribute to valuable research!"
+    transfer: "Even duplicate Pokémon can contribute to valuable research!",
+    history: "Every claimed discovery stays in the Lab journal!"
   };
   const RESEARCH_TRACK_META = {
     field: { short: "Field", unit: "species", motif: "field", progressUnit: "registered" },
     evolution: { short: "Evolutions", unit: "evolutions", motif: "evolution", progressUnit: "evolutions" },
     line: { short: "Lines", unit: "lines", motif: "line", progressUnit: "lines" },
-    transfer: { short: "Transfers", unit: "sent", motif: "transfer", progressUnit: "sent" }
+    transfer: { short: "Transfers", unit: "sent", motif: "transfer", progressUnit: "sent" },
+    history: { short: "History", unit: "claimed", motif: "history", progressUnit: "claimed" }
   };
   const RESEARCH_SESSION_KEY = "oakLabResearchTrack";
 
@@ -234,8 +244,13 @@
   let martEduShown = false;
   let activeResearchTrack = "field";
 
+  function isResearchHistory(id) {
+    return String(id || "").toLowerCase().trim() === RESEARCH_HISTORY_ID;
+  }
+
   function normalizeResearchTrack(id) {
     const key = String(id || "").toLowerCase().trim();
+    if (isResearchHistory(key)) return RESEARCH_HISTORY_ID;
     return RESEARCH_TRACK_ALIAS[key] || (RESEARCH_TRACK_IDS.includes(key) ? key : "field");
   }
 
@@ -258,9 +273,13 @@
     if (hash === "evolution" || hash === "evolve") return { tab: "evolve", track: null };
     if (hash === "research") return { tab: "research", track: null };
     const researchMatch = hash.match(/^research\/([a-z]+)$/);
-    if (researchMatch) return { tab: "research", track: normalizeResearchTrack(researchMatch[1]) };
+    if (researchMatch) {
+      if (isResearchHistory(researchMatch[1])) return { tab: "research", track: RESEARCH_HISTORY_ID };
+      return { tab: "research", track: normalizeResearchTrack(researchMatch[1]) };
+    }
     if (hash === "research/field" || hash.startsWith("research/")) {
       const part = hash.split("/")[1];
+      if (isResearchHistory(part)) return { tab: "research", track: RESEARCH_HISTORY_ID };
       return { tab: "research", track: normalizeResearchTrack(part) };
     }
     return { tab: "send", track: null };
@@ -388,11 +407,22 @@
     }
   }
 
+  function researchRewardHtml(rewards, size = 26) {
+    return rewardLines(rewards).map((row) => {
+      const art = window.playItemSprite?.(row.key) || "images/items/poke-ball.png";
+      return `<span class="oak-research-reward"><img src="${esc(art)}" alt="" width="${size}" height="${size}"><span>${esc(row.label)} ×${row.qty}</span></span>`;
+    }).join("") || `<span class="muted">Reward</span>`;
+  }
+
   function renderResearchRail(tracks, claimableTotal) {
     if (!els.researchTracklist) return;
+    const historyOn = isResearchHistory(activeResearchTrack);
+    const claimedTotal = tracks.reduce((sum, track) => (
+      sum + (track.milestones || []).filter((m) => m.claimed).length
+    ), 0);
     const html = tracks.map((track) => {
       const id = track.id;
-      const on = id === activeResearchTrack;
+      const on = !historyOn && id === activeResearchTrack;
       const claimable = trackClaimableCount(track);
       const meta = RESEARCH_TRACK_META[id] || { short: track.name, motif: id };
       return `<button type="button" class="oak-research-track-btn motif-${esc(meta.motif)}${on ? " is-active" : ""}${claimable ? " has-claimable" : ""}"
@@ -408,8 +438,78 @@
         <span class="visually-hidden">${esc(meta.short)}</span>
       </button>`;
     }).join("");
-    els.researchTracklist.innerHTML = html || `<p class="muted">No tracks</p>`;
+    const historyBtn = `<button type="button" class="oak-research-track-btn motif-history${historyOn ? " is-active" : ""}"
+      role="tab" id="oak-track-history" data-research-track="history"
+      aria-selected="${historyOn ? "true" : "false"}" tabindex="${historyOn ? 0 : -1}"
+      aria-controls="oak-research-board">
+      <span class="oak-research-track-dot" aria-hidden="true"></span>
+      <span class="oak-research-track-copy">
+        <strong>History</strong>
+        <span>${claimedTotal ? `${claimedTotal} claimed` : "Claimed rewards"}</span>
+      </span>
+      <span class="visually-hidden">History</span>
+    </button>`;
+    els.researchTracklist.innerHTML = (html + historyBtn) || `<p class="muted">No tracks</p>`;
     updateResearchClaimable(claimableTotal);
+    try {
+      els.researchTracklist.querySelector(".oak-research-track-btn.is-active")
+        ?.scrollIntoView({ inline: "nearest", block: "nearest" });
+    } catch (_) {}
+  }
+
+  function researchMilestoneCard(m, progress, { history = false } = {}) {
+    const complete = Boolean(m.complete);
+    const claimed = Boolean(m.claimed);
+    const claimable = complete && !claimed;
+    let state = m._state || "locked";
+    let status = m._status || "LOCKED";
+    if (history) {
+      state = "claimed";
+      status = "CLAIMED";
+    }
+    const rewards = researchRewardHtml(m.rewards);
+    const req = String(m.description || "").replace(/\.$/, "");
+    return `<article class="oak-research-card is-${state}${history ? " is-history" : ""}" data-milestone="${esc(m.id)}">
+      <p class="oak-research-status" data-state="${state}">${esc(status)}</p>
+      <h4 class="oak-research-card-title">${esc(m.title)}</h4>
+      <p class="oak-research-req">${esc(req)}</p>
+      <p class="oak-research-progress-line" aria-label="${history ? "Completed" : "Progress"}">${history ? "Completed" : `${Number(progress || 0).toLocaleString()} / ${Number(m.threshold || 0).toLocaleString()}`}</p>
+      <div class="oak-research-rewards"><span class="oak-research-reward-kicker">${history ? "Reward received" : "Reward"}</span>${rewards}</div>
+      <span class="oak-research-card-grow" aria-hidden="true"></span>
+      ${!history && claimable
+        ? `<button type="button" class="gold oak-research-claim" data-claim-research="${esc(m.id)}">Claim Reward</button>`
+        : `<span class="oak-research-claim-slot" aria-hidden="true"></span>`}
+    </article>`;
+  }
+
+  function renderResearchHistory(tracks) {
+    const groups = tracks.map((track) => {
+      const claimed = (track.milestones || []).filter((m) => m.claimed);
+      if (!claimed.length) return "";
+      const cards = claimed.map((m) => researchMilestoneCard(m, track.progress, { history: true })).join("");
+      return `<section class="oak-research-history-group" aria-labelledby="oak-history-${esc(track.id)}">
+        <h3 id="oak-history-${esc(track.id)}" class="oak-research-history-title">${esc(track.name)}</h3>
+        <div class="oak-research-cards oak-research-journey" role="list">${cards}</div>
+      </section>`;
+    }).filter(Boolean).join("");
+    const empty = `<div class="oak-research-history-empty evo-empty evo-empty-lab">
+      <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
+      <p><strong>The Lab journal is empty.</strong></p>
+      <p class="muted">Claim research rewards on an active track and they will be recorded here.</p>
+    </div>`;
+    els.researchBoard.innerHTML = `<section class="oak-research-active motif-history oak-research-history" aria-labelledby="oak-active-track-title">
+      <header class="oak-research-summary oak-research-summary-compact">
+        <div class="oak-research-summary-identity">
+          <img class="oak-research-deco" src="${esc(LAB_DECO_CANDY)}" alt="" width="40" height="40" decoding="async" aria-hidden="true">
+          <div>
+            <p class="oak-research-kicker">JOURNAL</p>
+            <h3 id="oak-active-track-title">Research History</h3>
+            <p>Claimed milestones from every Oak research track.</p>
+          </div>
+        </div>
+      </header>
+      ${groups || empty}
+    </section>`;
   }
 
   function renderResearch() {
@@ -420,12 +520,16 @@
       renderResearchRail([], 0);
       return;
     }
-    if (!tracks.some((t) => t.id === activeResearchTrack)) {
+    if (!isResearchHistory(activeResearchTrack) && !tracks.some((t) => t.id === activeResearchTrack)) {
       rememberResearchTrack(tracks[0].id);
     }
     let claimableTotal = 0;
     tracks.forEach((t) => { claimableTotal += trackClaimableCount(t); });
     renderResearchRail(tracks, claimableTotal);
+    if (isResearchHistory(activeResearchTrack)) {
+      renderResearchHistory(tracks);
+      return;
+    }
 
     const track = tracks.find((t) => t.id === activeResearchTrack) || tracks[0];
     const progress = Number(track.progress || 0);
@@ -435,48 +539,23 @@
     const nextOpen = milestones.find((m) => !m.claimed && !m.complete);
     const nextClaim = milestones.find((m) => m.complete && !m.claimed);
     const nextFocus = nextClaim || nextOpen || milestones[milestones.length - 1];
-    const nextRewards = rewardLines(nextFocus?.rewards).map((row) => {
-      const art = window.playItemSprite?.(row.key) || "images/items/poke-ball.png";
-      return `<span class="oak-research-reward"><img src="${esc(art)}" alt="" width="24" height="24">${esc(row.label)} ×${row.qty}</span>`;
-    }).join("") || `<span class="muted">—</span>`;
+    const nextRewards = researchRewardHtml(nextFocus?.rewards, 22);
 
     let sawOpen = false;
-    const cards = milestones.map((m) => {
+    const activeCards = milestones.filter((m) => !m.claimed).map((m) => {
       const complete = Boolean(m.complete);
-      const claimed = Boolean(m.claimed);
-      const claimable = complete && !claimed;
+      const claimable = complete && !m.claimed;
       let state = "locked";
       let status = "LOCKED";
-      if (claimed) {
-        state = "claimed";
-        status = "CLAIMED";
-      } else if (claimable) {
+      if (claimable) {
         state = "claimable";
         status = "CLAIMABLE";
       } else if (!sawOpen) {
         state = "progress";
         status = "IN PROGRESS";
         sawOpen = true;
-      } else {
-        state = "locked";
-        status = "LOCKED";
       }
-      const rewards = rewardLines(m.rewards).map((row) => {
-        const art = window.playItemSprite?.(row.key) || "images/items/poke-ball.png";
-        return `<span class="oak-research-reward"><img src="${esc(art)}" alt="" width="26" height="26"><span>${esc(row.label)} ×${row.qty}</span></span>`;
-      }).join("") || `<span class="muted">Reward</span>`;
-      const req = String(m.description || "").replace(/\.$/, "");
-      return `<article class="oak-research-card is-${state}" data-milestone="${esc(m.id)}">
-        <p class="oak-research-status" data-state="${state}">${esc(status)}</p>
-        <h4 class="oak-research-card-title">${esc(m.title)}</h4>
-        <p class="oak-research-req">${esc(req)}</p>
-        <p class="oak-research-progress-line" aria-label="Progress">${progress.toLocaleString()} / ${Number(m.threshold || 0).toLocaleString()}</p>
-        <div class="oak-research-rewards"><span class="oak-research-reward-kicker">Reward</span>${rewards}</div>
-        <span class="oak-research-card-grow" aria-hidden="true"></span>
-        ${claimable
-          ? `<button type="button" class="gold oak-research-claim" data-claim-research="${esc(m.id)}">Claim Reward</button>`
-          : `<span class="oak-research-claim-slot" aria-hidden="true"></span>`}
-      </article>`;
+      return researchMilestoneCard({ ...m, _state: state, _status: status }, progress);
     }).join("");
 
     const progressTitle = track.id === "field"
@@ -491,32 +570,37 @@
     const towardNext = nextOpen && !nextClaim
       ? Math.max(0, nextThreshold - progress)
       : 0;
-    const nextReq = String(nextFocus?.description || "").replace(/\.$/, "");
     const unit = RESEARCH_TRACK_META[track.id]?.progressUnit || "complete";
+    const emptyActive = `<div class="oak-research-history-empty evo-empty evo-empty-lab">
+      <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="72" height="72" decoding="async" aria-hidden="true">
+      <p><strong>Every milestone on this track is claimed.</strong></p>
+      <p class="muted">Open History to review rewards already received.</p>
+    </div>`;
     els.researchBoard.innerHTML = `<section class="oak-research-active motif-${esc(track.id)}" aria-labelledby="oak-active-track-title">
-      <header class="oak-research-summary">
+      <header class="oak-research-summary oak-research-summary-compact">
         <div class="oak-research-summary-identity">
-          <p class="oak-research-kicker">TRACK</p>
-          <h3 id="oak-active-track-title">${esc(track.name)}</h3>
-          <p>${esc(track.description || "")}</p>
-          <div class="oak-research-track-progress" role="group" aria-label="${esc(progressTitle)} overall">
-            <p class="oak-research-progress-count"><strong>${progress.toLocaleString()}</strong><span> / ${goal.toLocaleString()} ${esc(unit)}</span></p>
-            <div class="oak-research-meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
-            <p class="oak-research-complete-pct">${pct}% complete</p>
-            <p class="oak-research-progress-caption muted">Overall track progress</p>
+          <img class="oak-research-deco" src="${esc(LAB_DECO_CANDY)}" alt="" width="40" height="40" decoding="async" aria-hidden="true">
+          <div>
+            <p class="oak-research-kicker">TRACK</p>
+            <h3 id="oak-active-track-title">${esc(track.name)}</h3>
+            <p>${esc(track.description || "")}</p>
           </div>
         </div>
-        <div class="oak-research-next-milestone${nextClaim ? " is-ready" : ""}">
-          <p class="oak-research-next-label">${nextClaim ? "Ready to Claim" : "Next Milestone"}</p>
+        <div class="oak-research-track-progress" role="group" aria-label="${esc(progressTitle)} overall">
+          <p class="oak-research-progress-count"><strong>${progress.toLocaleString()}</strong><span> / ${goal.toLocaleString()} ${esc(unit)}</span></p>
+          <div class="oak-research-meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
+          <p class="oak-research-complete-pct">${pct}% complete</p>
+          <p class="oak-research-progress-caption muted">Overall track progress</p>
+        </div>
+        <div class="oak-research-next-compact${nextClaim ? " is-ready" : ""}">
+          <p class="oak-research-next-label">${nextClaim ? "Ready to Claim" : "Next Goal"}</p>
           <p class="oak-research-next-req">${esc(nextFocus?.title || "—")}</p>
-          <p class="oak-research-next-desc">${esc(nextReq || "")}</p>
           ${nextOpen && !nextClaim
             ? `<p class="oak-research-next-toward">${progress.toLocaleString()} / ${nextThreshold.toLocaleString()} · ${towardNext.toLocaleString()} remaining</p>`
-            : ""}
-          <div class="oak-research-rewards">${nextRewards}</div>
+            : (nextClaim ? `<div class="oak-research-rewards">${nextRewards}</div>` : "")}
         </div>
       </header>
-      <div class="oak-research-cards oak-research-journey" role="list">${cards}</div>
+      <div class="oak-research-cards oak-research-journey" role="list">${activeCards || emptyActive}</div>
     </section>`;
   }
 
@@ -525,6 +609,7 @@
     try {
       research = await window.playCall("play_oak_research");
       renderResearch();
+      renderHero();
       refreshOakBubble();
     } catch (error) {
       els.researchBoard.innerHTML = `<p class="muted">${esc(window.playHumanRpcError?.(error, "Research is unavailable.") || window.playRpcError?.(error, "Research is unavailable.") || "Research is unavailable.")}</p>`;
@@ -708,6 +793,18 @@
     if (els.strip) els.strip.hidden = true;
     const eligible = sendableMons().length;
     if (els.xferAvailable) els.xferAvailable.textContent = String(eligible);
+    if (els.sendEligible) els.sendEligible.textContent = String(eligible);
+    if (els.sendSelected) els.sendSelected.textContent = String(selectedOak.size);
+    if (els.sendCandyTotal) els.sendCandyTotal.textContent = String(candyTotal);
+    const sent = (research?.tracks || []).find((t) => t.id === "transfer");
+    if (els.sendOakStat && els.sendOakTotal) {
+      if (sent) {
+        els.sendOakStat.hidden = false;
+        els.sendOakTotal.textContent = String(Number(sent.progress || 0));
+      } else {
+        els.sendOakStat.hidden = true;
+      }
+    }
     els.filters?.querySelectorAll("[data-count]").forEach((el) => {
       el.textContent = String(tally[el.dataset.count] || 0);
     });
@@ -745,24 +842,20 @@
     const ready = kind === "ready";
     const catchId = row.catchId || row.id || "";
     const inspectLabel = `Inspect ${row.name || "Pokémon"}`;
-    const item = !terminal && row.item
-      ? `${itemLabel(row.item)}${row.haveItem || row.tradeReady ? " ✓" : ""}`
-      : "";
     const formId = row.formId || row.pokemonFormId || null;
+    const candy = candyIdentity(row);
     return `
       <article class="evo-mon oak-mon-card oak-evo-card is-${kind}${ready ? " is-ready" : ""}${terminal ? " is-terminal" : ""}" data-evo="${esc(catchId)}" data-rule="${esc(row.ruleId || "")}" data-kind="${kind}" data-dex="${row.dex || ""}">
         <button type="button" class="oak-mon-inspect" data-evo-inspect="${esc(catchId)}" aria-label="${esc(inspectLabel)}">
           <span class="evo-mon-art">${sprite(row.dex, row.variant || "normal", 96, row.gender, formId)}</span>
           <strong class="evo-mon-name oak-mon-name">${dexLabel(row.dex)} ${shiny ? "✨ " : ""}${esc(row.name)}</strong>
         </button>
-        <div class="oak-card-context">
-          ${row.toName ? `<span class="oak-evo-target">
-            <span class="evo-arrow-lite" aria-hidden="true">↓</span>
-            <span class="oak-evo-target-art">${sprite(row.toDex, row.variant || "normal", 64, row.gender, formId)}</span>
-            <span class="oak-evo-target-name">${esc(row.toName)}</span>
-          </span>` : ""}
-          ${terminal ? "" : candyChipHtml(row, { size: 36, compact: true })}
-          ${item ? `<span class="evo-cost oak-evo-item">${esc(item)}</span>` : ""}
+        <div class="oak-card-context oak-evo-stack">
+          <span class="oak-evo-arrow" aria-hidden="true">↓</span>
+          <span class="oak-evo-target-art">${row.toName ? sprite(row.toDex, row.variant || "normal", 56, row.gender, formId) : ""}</span>
+          <span class="oak-evo-target-name">${esc(row.toName || "")}</span>
+          <span class="oak-evo-candy">${terminal ? "" : candyArtHtml(candy, 32)}</span>
+          <span class="oak-evo-spacer" aria-hidden="true"></span>
         </div>
         ${statusFooter(row, terminal)}
       </article>`;
@@ -827,7 +920,10 @@
         <div class="oak-card-context">
           <span class="oak-candy-block">
             ${candyArtHtml(candy, 40)}
-            <strong class="oak-candy-label">${esc(candy.label)}</strong>
+            <span class="oak-candy-label">
+              <span class="oak-candy-species">${esc(candy.bare || "Evolution")}</span>
+              <span class="oak-candy-kind">Evolution Candy</span>
+            </span>
           </span>
         </div>
         <button type="button" class="evo-foot ${selected ? "is-ready" : "is-select"}" data-oak-select="${esc(id)}" aria-pressed="${selected ? "true" : "false"}">
@@ -853,6 +949,8 @@
     }
     const shown = rows.length;
     if (els.xferAvailable) els.xferAvailable.textContent = String(shown);
+    if (els.sendEligible) els.sendEligible.textContent = String(shown);
+    if (els.sendSelected) els.sendSelected.textContent = String(selectedOak.size);
     if (els.sendNote) {
       els.sendNote.textContent = shown
         ? `${shown} available · ${selectedOak.size} selected`
@@ -1787,12 +1885,14 @@
     }
     window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
     try {
-      const [collection, boxes] = await Promise.all([
+      const [collection, boxes, oakResearch] = await Promise.all([
         window.playCall("play_collection"),
-        window.playCall("play_storage").catch(() => null)
+        window.playCall("play_storage").catch(() => null),
+        window.playCall("play_oak_research").catch(() => null)
       ]);
       data = collection;
       storage = boxes;
+      if (oakResearch) research = oakResearch;
       els.gate.hidden = true;
       els.app.hidden = false;
       render();

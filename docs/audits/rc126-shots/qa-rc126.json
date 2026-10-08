@@ -1,0 +1,136 @@
+{
+  "qaAccount": "playtester@sorastarlight.net",
+  "soraMutated": false,
+  "twinkleMutated": false,
+  "liveRpc": {
+    "collection": true,
+    "research": true,
+    "readyCount": 8,
+    "sendableHint": 0
+  },
+  "transferHarness": true,
+  "transferProbe": {
+    "overviewH": 132,
+    "cards": [
+      {
+        "dex": "25",
+        "h": 292,
+        "lines": 2,
+        "species": "Pikachu",
+        "kind": "Evolution Candy",
+        "footText": "Selected ✓",
+        "overflowX": false
+      },
+      {
+        "dex": "27",
+        "h": 292,
+        "lines": 2,
+        "species": "Sandshrew",
+        "kind": "Evolution Candy",
+        "footText": "Select Pokémon",
+        "overflowX": false
+      },
+      {
+        "dex": "133",
+        "h": 292,
+        "lines": 2,
+        "species": "Eevee",
+        "kind": "Evolution Candy",
+        "footText": "Select Pokémon",
+        "overflowX": false
+      },
+      {
+        "dex": "113",
+        "h": 292,
+        "lines": 2,
+        "species": "Chansey",
+        "kind": "Evolution Candy",
+        "footText": "Select Pokémon",
+        "overflowX": false
+      }
+    ]
+  },
+  "evoProbe": {
+    "overviewH": 132,
+    "ready": "0",
+    "cards": [
+      {
+        "dex": "1",
+        "h": 328,
+        "foot": "Needs Candy",
+        "hasRequired": false,
+        "overlap": false
+      },
+      {
+        "dex": "2",
+        "h": 328,
+        "foot": "Needs Candy",
+        "hasRequired": false,
+        "overlap": false
+      },
+      {
+        "dex": "4",
+        "h": 328,
+        "foot": "Needs Candy",
+        "hasRequired": false,
+        "overlap": false
+      },
+      {
+        "dex": "5",
+        "h": 328,
+        "foot": "Needs Candy",
+        "hasRequired": false,
+        "overlap": false
+      },
+      {
+        "dex": "7",
+        "h": 328,
+        "foot": "Needs Candy",
+        "hasRequired": false,
+        "overlap": false
+      },
+      {
+        "dex": "8",
+        "h": 328,
+        "foot": "Needs Candy",
+        "hasRequired": false,
+        "overlap": false
+      }
+    ]
+  },
+  "researchProbe": {
+    "hasLargeNext": false,
+    "hasCompactNext": true,
+    "claimedOnActive": 0,
+    "claimableOnActive": 1,
+    "historyLabel": "History Claimed rewards History"
+  },
+  "historyProbe": {
+    "title": "Research History",
+    "claimButtons": 0,
+    "groups": 1,
+    "claimedCards": 0
+  },
+  "researchTracks": [
+    {
+      "id": "field",
+      "claimed": 0,
+      "claimable": 1
+    },
+    {
+      "id": "evolution",
+      "claimed": 0,
+      "claimable": 2
+    },
+    {
+      "id": "line",
+      "claimed": 0,
+      "claimable": 1
+    },
+    {
+      "id": "transfer",
+      "claimed": 0,
+      "claimable": 2
+    }
+  ]
+}

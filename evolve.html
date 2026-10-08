@@ -94,7 +94,7 @@
       </button>
       <button type="button" class="evo-station evo-station-evolve" role="tab" id="tab-evolve" data-tab="evolve" aria-controls="evo-tab-evolve" aria-selected="false" tabindex="-1">
         <span class="evo-station-lamp" aria-hidden="true"></span>
-        <img class="evo-station-glyph" src="images/items/lgpe-candy.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+        <img class="evo-station-glyph" src="images/items/evolution-candy/25.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
         <span class="evo-station-copy">
           <strong class="evo-station-name">Evolution Research</strong>
           <span class="evo-station-desc">Evolve Pokémon you already own</span>
@@ -118,7 +118,37 @@
     <div id="evo-strip" hidden aria-hidden="true"></div>
 
     <section id="evo-tab-send" class="evo-tab-panel evo-lab-bay" role="tabpanel" aria-labelledby="tab-send" data-bay="transfer">
-      <p class="evo-station-context" id="evo-send-context">Send duplicate Pokémon to Professor Oak to earn Evolution Candy.</p>
+      <section class="oak-lab-overview oak-lab-overview-transfer" aria-labelledby="evo-send-overview-title">
+        <div class="oak-lab-overview-identity">
+          <img class="oak-lab-overview-candy" src="images/items/evolution-candy/25.png" alt="" width="56" height="56" decoding="async">
+          <div>
+            <p class="oak-lab-kicker">Transfer Station</p>
+            <h2 id="evo-send-overview-title">Send Pokémon to Professor Oak</h2>
+            <p class="oak-lab-lede evo-station-context" id="evo-send-context">Duplicates become Evolution Candy for their Evolution Line.</p>
+          </div>
+        </div>
+        <div class="oak-lab-overview-stats" role="group" aria-label="Transfer Station overview">
+          <div class="oak-lab-stat">
+            <p class="oak-lab-stat-label">Eligible</p>
+            <p class="oak-lab-stat-value" id="evo-send-eligible">0</p>
+          </div>
+          <div class="oak-lab-stat">
+            <p class="oak-lab-stat-label">Selected</p>
+            <p class="oak-lab-stat-value" id="evo-send-selected">0</p>
+          </div>
+          <div class="oak-lab-stat" id="evo-send-oak-stat" hidden>
+            <p class="oak-lab-stat-label">Sent to Oak</p>
+            <p class="oak-lab-stat-value" id="evo-send-oak-total">0</p>
+          </div>
+          <div class="oak-lab-stat oak-lab-stat-candy">
+            <p class="oak-lab-stat-label">Evolution Candy</p>
+            <p class="oak-lab-stat-value">
+              <img src="images/items/evolution-candy/25.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+              <strong id="evo-send-candy-total">0</strong>
+            </p>
+          </div>
+        </div>
+      </section>
       <details class="evo-research-notes">
         <summary>Research Notes ▸</summary>
         <div class="evo-research-body">
@@ -128,7 +158,7 @@
         </div>
       </details>
       <section class="evo-block evo-collection" aria-labelledby="evo-send-mons-title">
-        <div class="evo-collection-bar">
+        <div class="evo-collection-bar oak-lab-tools">
           <div class="evo-collection-heading">
             <h2 id="evo-send-mons-title">Your Collection</h2>
             <p id="evo-send-note" class="evo-collection-meta muted"></p>
@@ -153,55 +183,46 @@
     </section>
 
     <section id="evo-tab-evolve" class="evo-tab-panel evo-lab-bay" role="tabpanel" aria-labelledby="tab-evolve" data-bay="evolve" hidden>
-      <div class="evo-evolve-board">
-        <aside class="evo-evolve-intro" aria-labelledby="evo-evolve-intro-title">
-          <div class="evo-evolve-intro-mark" aria-hidden="true">
-            <img src="images/items/lgpe-candy.png" alt="" width="56" height="56" decoding="async">
+      <section class="oak-lab-overview oak-lab-overview-evolve" aria-labelledby="evo-evolve-intro-title">
+        <div class="oak-lab-overview-identity">
+          <img class="oak-lab-overview-candy" src="images/items/evolution-candy/25.png" alt="" width="56" height="56" decoding="async">
+          <div>
+            <p class="oak-lab-kicker">Evolution Research <span class="oak-lab-spark" aria-hidden="true">✦</span></p>
+            <h2 id="evo-evolve-intro-title">Evolve Pokémon you already own</h2>
+            <p class="oak-lab-lede">Each evolution helps Professor Oak learn how Pokémon grow and adapt.</p>
           </div>
-          <h2 id="evo-evolve-intro-title">Evolution Research</h2>
-          <p class="evo-evolve-lede">Evolve Pokémon you already own.</p>
-          <p class="evo-evolve-blurb">Evolution can reveal remarkable changes in Pokémon! Each evolution helps us learn more about how Pokémon grow and adapt.</p>
-        </aside>
-        <div class="evo-evolve-collection-panel" aria-labelledby="evo-mons-title">
-          <h2 id="evo-mons-title">Your Collection</h2>
-          <div class="evo-evolve-metrics" role="group" aria-label="Evolution collection overview">
-            <div class="evo-metric evo-metric-progress">
-              <p class="evo-metric-label" id="evo-kanto-label">Kanto Evolutions</p>
-              <p class="evo-metric-value">
-                <strong id="evo-kanto-done">0</strong>
-                <span aria-hidden="true"> / </span>
-                <span id="evo-kanto-total">0</span>
-              </p>
-              <div class="evo-kanto-meter" role="progressbar" id="evo-kanto-meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="evo-kanto-label">
-                <i id="evo-kanto-fill" style="width:0%"></i>
-              </div>
-              <p class="evo-metric-pct" id="evo-kanto-pct">0%</p>
-            </div>
-            <div class="evo-metric evo-metric-candy" title="Sum of Evolution Candy across all Evolution Lines — not a single spendable wallet">
-              <p class="evo-metric-label">Total Evolution Candy</p>
-              <p class="evo-metric-value">
-                <img class="evo-candy-total-mark" src="images/items/lgpe-candy.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
-                <strong id="evo-candy-count">0</strong>
-              </p>
-              <p class="evo-metric-note muted">across your Evolution Lines</p>
-            </div>
-            <div class="evo-metric evo-metric-ready">
-              <p class="evo-metric-label">Pokémon Ready to Evolve</p>
-              <p class="evo-metric-value"><strong id="evo-ready-display">0</strong></p>
-              <button type="button" class="evo-view-ready" id="evo-view-ready">View ready Pokémon →</button>
-            </div>
-          </div>
-          <div id="evo-filters" class="evo-chips evo-evolve-filters" role="group" aria-label="Evolution filters">
-            <button type="button" class="evo-chip" data-filter="all" aria-pressed="true">All <span data-count="all">0</span></button>
-            <button type="button" class="evo-chip" data-filter="ready" aria-pressed="false">Ready <span data-count="ready">0</span></button>
-            <button type="button" class="evo-chip" data-filter="candy" aria-pressed="false">Needs Candy <span data-count="candy">0</span></button>
-            <button type="button" class="evo-chip" data-filter="item" aria-pressed="false">Needs Item <span data-count="item">0</span></button>
-            <button type="button" class="evo-chip" data-filter="trade" aria-pressed="false">Trade Evolution <span data-count="trade">0</span></button>
-          </div>
-          <p id="evo-ready-note" class="evo-collection-meta muted visually-hidden"></p>
-          <span class="visually-hidden" id="evo-evolved-count">0</span>
         </div>
-      </div>
+        <div class="oak-lab-overview-stats evo-evolve-metrics" role="group" aria-label="Evolution Research overview">
+          <div class="oak-lab-stat oak-lab-stat-progress">
+            <p class="oak-lab-stat-label" id="evo-kanto-label">Kanto Evolutions</p>
+            <p class="oak-lab-stat-value">
+              <strong id="evo-kanto-done">0</strong>
+              <span aria-hidden="true"> / </span>
+              <span id="evo-kanto-total">0</span>
+            </p>
+            <div class="evo-kanto-meter oak-lab-meter" role="progressbar" id="evo-kanto-meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="evo-kanto-label">
+              <i id="evo-kanto-fill" style="width:0%"></i>
+            </div>
+            <p class="oak-lab-stat-note" id="evo-kanto-pct">0%</p>
+          </div>
+          <div class="oak-lab-stat oak-lab-stat-ready">
+            <p class="oak-lab-stat-label">Ready to Evolve</p>
+            <p class="oak-lab-stat-value"><strong id="evo-ready-display">0</strong></p>
+            <button type="button" class="evo-view-ready" id="evo-view-ready">View ready →</button>
+          </div>
+          <div class="oak-lab-stat oak-lab-stat-candy" title="Sum of Evolution Candy across all Evolution Lines — not a single spendable wallet">
+            <p class="oak-lab-stat-label">Total Evolution Candy</p>
+            <p class="oak-lab-stat-value">
+              <img class="evo-candy-total-mark" src="images/items/evolution-candy/25.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+              <strong id="evo-candy-count">0</strong>
+            </p>
+            <p class="oak-lab-stat-note muted">across your Evolution Lines</p>
+          </div>
+        </div>
+        <h2 id="evo-mons-title" class="visually-hidden">Your Collection</h2>
+        <p id="evo-ready-note" class="evo-collection-meta muted visually-hidden"></p>
+        <span class="visually-hidden" id="evo-evolved-count">0</span>
+      </section>
 
       <details class="evo-research-notes">
         <summary>Research Notes ▸</summary>
@@ -214,7 +235,14 @@
         </div>
       </details>
 
-      <div class="evo-evolve-tools">
+      <div class="evo-collection-bar oak-lab-tools evo-evolve-tools">
+        <div id="evo-filters" class="evo-chips evo-evolve-filters" role="group" aria-label="Evolution filters">
+          <button type="button" class="evo-chip" data-filter="all" aria-pressed="true">All <span data-count="all">0</span></button>
+          <button type="button" class="evo-chip" data-filter="ready" aria-pressed="false">Ready <span data-count="ready">0</span></button>
+          <button type="button" class="evo-chip" data-filter="candy" aria-pressed="false">Needs Candy <span data-count="candy">0</span></button>
+          <button type="button" class="evo-chip" data-filter="item" aria-pressed="false">Needs Item <span data-count="item">0</span></button>
+          <button type="button" class="evo-chip" data-filter="trade" aria-pressed="false">Trade Evolution <span data-count="trade">0</span></button>
+        </div>
         <label class="evo-search-label">Search Pokémon
           <input id="evo-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
         </label>

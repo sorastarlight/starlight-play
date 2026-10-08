@@ -95,6 +95,8 @@ Preview shell **must not** call `admin_overview` (R1). Read-only Operations uses
 
 ## Approval needed
 
+Gate 1.5 re-verified this baseline against live SQL (`docs/audits/admin-hub-gate-15-contract-matrix.md`). New findings: R17 (`admin_live_dashboard` ticks/settles), R18 (moderator Pass/Bits/Oak QA), R19 (`admin_coin_ledger` missing live). Do not treat Gate 1 Operations as a true read.
+
 Owner review of this 0A/0B baseline before:
 
 - Revoking `anon` execute grants  

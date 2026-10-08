@@ -1,0 +1,22 @@
+-- REVIEW ARTIFACT ONLY. DO NOT APPLY.
+-- Gate 3 audit contract sketch. Existing table private.account_audit:
+--   id uuid, at timestamptz, actor_id uuid, target_id uuid, action text,
+--   twitch_user_id text, detail jsonb
+-- LIVE row count: 0. Writers today: twitch identity admin RPCs + player identity RPCs.
+--
+-- Example (do not attach until Gate 3 per-RPC review):
+
+-- perform private.account_audit_write(
+--   'ADMIN_GRANT_BAG',
+--   p_user,
+--   null,
+--   jsonb_build_object(
+--     'reason', p_reason,
+--     'grants', p_grants,
+--     'ok', true
+--   )
+-- );
+--
+-- Never put twitch_client_secret, github_token, or bridge tokens in detail.
+-- Prefer same transaction as the mutation.
+-- Support history UI reads this table via a staff-only RPC (see Gate 2 data contracts).

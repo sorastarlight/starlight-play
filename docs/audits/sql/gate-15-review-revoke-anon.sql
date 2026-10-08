@@ -1,0 +1,31 @@
+-- REVIEW ARTIFACT ONLY. DO NOT APPLY.
+-- Gate 1.5 / R2 / R15: revoke anon/PUBLIC EXECUTE on public.admin_* that still grant it.
+-- LIVE 2026-10-08: 85 functions include anon; 16 already authenticated-only; 1 internal.
+--
+-- Desired: GRANT authenticated only (plus postgres/service_role as owner defaults).
+-- Keep authenticated: hub JS and store-asset Edge Function use the user JWT.
+-- Do not GRANT anon to "read" health RPCs — bodies already require is_play_admin.
+--
+-- Do not revoke: public.is_play_admin() (client boolean; returns false when signed out).
+-- Do not touch: admin_loot_warnings (postgres, service_role only).
+--
+-- Affected callers: staff browser sessions. Unexpected: any anon-key admin automation (none verified).
+-- Expected failure: unsigned rpc → 42501 / permission denied at GRANT, not only in-body.
+-- Rollback: GRANT EXECUTE TO anon, authenticated; (previous live shape).
+--
+-- Apply by generating REVOKE/GRANT from live pg_proc, not from this stale name list.
+-- Names below were live on 2026-10-08 and included anon:
+
+revoke all on function public.admin_advance_phase() from public, anon;
+grant execute on function public.admin_advance_phase() to authenticated;
+-- Repeat the same revoke/grant pair for every public.admin_* where
+-- has_function_privilege('anon', oid, 'EXECUTE') is true.
+--
+-- Verification:
+-- select p.proname
+-- from pg_proc p
+-- join pg_namespace n on n.oid = p.pronamespace
+-- where n.nspname = 'public' and p.proname like 'admin_%'
+--   and has_function_privilege('anon', p.oid, 'EXECUTE')
+-- order by 1;
+-- expect 0 rows.

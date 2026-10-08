@@ -104,9 +104,9 @@ test("Oak contextual messages cover transfer, evolution, and research tracks", (
   assert(js.includes("research/"), "research hash deep-link missing");
 });
 
-test("Collection CTA uses Send N to Oak", () => {
-  assert(js.includes("Send ${selectedOak.size} to Oak") || js.includes("Send ${selectedOak.size} to Oak"), "armed CTA missing");
-  assert(js.includes("Send 0 to Oak"), "idle CTA missing");
+test("Collection CTA uses Send N Pokémon to Oak", () => {
+  assert(js.includes("Send ${n} Pokémon to Oak"), "armed CTA missing");
+  assert(js.includes("Select Pokémon to send to Professor Oak"), "idle CTA missing");
 });
 
 test("Station keyboard navigation is supported", () => {

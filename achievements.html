@@ -71,16 +71,20 @@
       <div id="ach-next" class="ach-next-grid"></div>
     </section>
     <section class="card body ach-panel" aria-label="Achievement Progress">
-      <h2 class="ach-hub-section-title">Achievement Progress</h2>
       <div class="ach-hub-toolbar">
-        <div id="ach-states" class="ach-hub-states" role="toolbar" aria-label="Completion filters"></div>
-        <div id="ach-cats" class="ach-hub-cats" role="toolbar" aria-label="Category filters"></div>
+        <div class="ach-hub-toolbar-status">
+          <h2 class="ach-hub-section-title">Achievement Progress</h2>
+          <div id="ach-states" class="ach-hub-states" role="toolbar" aria-label="Completion filters"></div>
+        </div>
         <div class="ach-hub-tools">
-          <label class="field" for="ach-search">Search
-            <input id="ach-search" type="search" placeholder="Search achievements…" autocomplete="off">
+          <label class="evo-search-label" for="ach-cats">Category
+            <select id="ach-cats" class="evo-sort" aria-label="Category filter"></select>
           </label>
-          <label class="field" for="ach-sort">Sort
-            <select id="ach-sort">
+          <label class="evo-search-label ach-hub-search" for="ach-search">Search achievements
+            <input id="ach-search" class="evo-search" type="search" placeholder="Search achievements…" autocomplete="off">
+          </label>
+          <label class="evo-search-label" for="ach-sort">Sort
+            <select id="ach-sort" class="evo-sort">
               <option value="closest">Closest to Completion</option>
               <option value="progress">Progress</option>
               <option value="recent">Recently Completed</option>

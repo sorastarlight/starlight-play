@@ -38,8 +38,8 @@ const expected = [
   ["rankings", "Rankings", "./rankings.html"],
   ["trade", "GTS", "./trade.html"],
   ["events", "Events", "./events.html"],
-  ["store", "Mart", "./store.html"],
-  ["help", "How to Play", "./help.html"]
+  ["help", "How to Play", "./help.html"],
+  ["store", "Mart", "./store.html"]
 ];
 
 test("Primary nav labels and order are exact", () => {

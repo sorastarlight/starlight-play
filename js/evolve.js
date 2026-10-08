@@ -18,6 +18,7 @@
     sendSearch: document.getElementById("evo-send-search"),
     sendSort: document.getElementById("evo-send-sort"),
     sendGo: document.getElementById("evo-send-go"),
+    sendGoLabel: document.getElementById("evo-send-go-label"),
     sendNote: document.getElementById("evo-send-note"),
     sendStatus: document.getElementById("evo-send-status"),
     sendEligible: document.getElementById("evo-send-eligible"),
@@ -217,6 +218,7 @@
     history: { short: "History", unit: "claimed", motif: "history", progressUnit: "claimed" }
   };
   const RESEARCH_SESSION_KEY = "oakLabResearchTrack";
+  const RESEARCH_NOTES_KEY = "oakLabResearchNotesOpen";
 
   function refreshOakBubble() {
     const tally = counts();
@@ -407,6 +409,40 @@
     }
   }
 
+  function researchTrackIcon(id) {
+    if (id === "field") return "images/pokedex/Kanto_PokeDex01.png";
+    if (id === "evolution" || id === "line") return LAB_DECO_CANDY;
+    if (id === "transfer") return "images/items/poke-ball.png";
+    return "images/trainers/portraits/oak-portrait.png";
+  }
+
+  function researchNotesOpen() {
+    try { return sessionStorage.getItem(RESEARCH_NOTES_KEY) === "1"; } catch (_) { return false; }
+  }
+
+  function researchNotesHtml(trackId) {
+    const hint = RESEARCH_TRACK_MSG[trackId] || "Every discovery helps with my Pokémon research!";
+    return `<details class="oak-research-notes"${researchNotesOpen() ? " open" : ""}>
+      <summary>
+        <span class="oak-research-notes-kicker">Research Notes</span>
+        <span class="oak-research-notes-hint">${esc(hint)}</span>
+      </summary>
+      <div class="oak-research-notes-body evo-research-body">
+        <p>Professor Oak tracks four research paths: Field (Pokédex), Evolution, Evolution Lines, and Transfers.</p>
+        <p>Milestones are one-time claims. Valuable item rewards can be sold at the <a href="./store.html"><strong>Mart</strong></a>.</p>
+      </div>
+    </details>`;
+  }
+
+  function bindResearchNotes() {
+    const node = els.researchBoard?.querySelector("details.oak-research-notes");
+    if (!node || node.dataset.bound === "1") return;
+    node.dataset.bound = "1";
+    node.addEventListener("toggle", () => {
+      try { sessionStorage.setItem(RESEARCH_NOTES_KEY, node.open ? "1" : "0"); } catch (_) {}
+    });
+  }
+
   function researchRewardHtml(rewards, size = 26) {
     return rewardLines(rewards).map((row) => {
       const art = window.playItemSprite?.(row.key) || "images/items/poke-ball.png";
@@ -498,18 +534,20 @@
       <p class="muted">Claim research rewards on an active track and they will be recorded here.</p>
     </div>`;
     els.researchBoard.innerHTML = `<section class="oak-research-active motif-history oak-research-history" aria-labelledby="oak-active-track-title">
-      <header class="oak-research-summary oak-research-summary-compact">
+      <header class="oak-research-summary oak-research-summary-compact oak-research-overview">
         <div class="oak-research-summary-identity">
-          <img class="oak-research-deco" src="${esc(LAB_DECO_CANDY)}" alt="" width="40" height="40" decoding="async" aria-hidden="true">
+          <img class="oak-research-deco" src="${esc(researchTrackIcon("history"))}" alt="" width="48" height="48" decoding="async" aria-hidden="true">
           <div>
             <p class="oak-research-kicker">JOURNAL</p>
             <h3 id="oak-active-track-title">Research History</h3>
             <p>Claimed milestones from every Oak research track.</p>
           </div>
         </div>
+        ${researchNotesHtml("history")}
       </header>
       ${groups || empty}
     </section>`;
+    bindResearchNotes();
   }
 
   function renderResearch() {
@@ -571,17 +609,18 @@
       ? Math.max(0, nextThreshold - progress)
       : 0;
     const unit = RESEARCH_TRACK_META[track.id]?.progressUnit || "complete";
+    const nextDesc = String(nextFocus?.description || "").replace(/\.$/, "");
     const emptyActive = `<div class="oak-research-history-empty evo-empty evo-empty-lab">
       <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="72" height="72" decoding="async" aria-hidden="true">
       <p><strong>Every milestone on this track is claimed.</strong></p>
       <p class="muted">Open History to review rewards already received.</p>
     </div>`;
     els.researchBoard.innerHTML = `<section class="oak-research-active motif-${esc(track.id)}" aria-labelledby="oak-active-track-title">
-      <header class="oak-research-summary oak-research-summary-compact">
+      <header class="oak-research-summary oak-research-summary-compact oak-research-overview">
         <div class="oak-research-summary-identity">
-          <img class="oak-research-deco" src="${esc(LAB_DECO_CANDY)}" alt="" width="40" height="40" decoding="async" aria-hidden="true">
+          <img class="oak-research-deco" src="${esc(researchTrackIcon(track.id))}" alt="" width="48" height="48" decoding="async" aria-hidden="true">
           <div>
-            <p class="oak-research-kicker">TRACK</p>
+            <p class="oak-research-kicker">Oak Research</p>
             <h3 id="oak-active-track-title">${esc(track.name)}</h3>
             <p>${esc(track.description || "")}</p>
           </div>
@@ -589,19 +628,23 @@
         <div class="oak-research-track-progress" role="group" aria-label="${esc(progressTitle)} overall">
           <p class="oak-research-progress-count"><strong>${progress.toLocaleString()}</strong><span> / ${goal.toLocaleString()} ${esc(unit)}</span></p>
           <div class="oak-research-meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
-          <p class="oak-research-complete-pct">${pct}% complete</p>
-          <p class="oak-research-progress-caption muted">Overall track progress</p>
+          <p class="oak-research-complete-pct">${pct}%</p>
         </div>
         <div class="oak-research-next-compact${nextClaim ? " is-ready" : ""}">
           <p class="oak-research-next-label">${nextClaim ? "Ready to Claim" : "Next Goal"}</p>
           <p class="oak-research-next-req">${esc(nextFocus?.title || "—")}</p>
+          ${nextDesc && nextDesc !== String(nextFocus?.title || "")
+            ? `<p class="oak-research-next-desc">${esc(nextDesc)}</p>`
+            : ""}
           ${nextOpen && !nextClaim
-            ? `<p class="oak-research-next-toward">${progress.toLocaleString()} / ${nextThreshold.toLocaleString()} · ${towardNext.toLocaleString()} remaining</p>`
+            ? `<p class="oak-research-next-toward">${towardNext.toLocaleString()} remaining</p>`
             : (nextClaim ? `<div class="oak-research-rewards">${nextRewards}</div>` : "")}
         </div>
+        ${researchNotesHtml(track.id)}
       </header>
       <div class="oak-research-cards oak-research-journey" role="list">${activeCards || emptyActive}</div>
     </section>`;
+    bindResearchNotes();
   }
 
   async function loadResearch() {
@@ -955,11 +998,15 @@
         : (q ? "0 available · no matches in transferable Pokémon" : "0 available · catch duplicates to research");
     }
     if (els.sendGo) {
-      els.sendGo.disabled = selectedOak.size < 1;
-      els.sendGo.textContent = selectedOak.size
-        ? `Send ${selectedOak.size} to Oak`
-        : "Send 0 to Oak";
-      els.sendGo.classList.toggle("is-armed", selectedOak.size > 0);
+      const n = selectedOak.size;
+      const label = n > 0
+        ? `Send ${n} Pokémon to Oak`
+        : "Select Pokémon to send to Professor Oak";
+      els.sendGo.disabled = n < 1;
+      if (els.sendGoLabel) els.sendGoLabel.textContent = label;
+      else els.sendGo.textContent = label;
+      els.sendGo.setAttribute("aria-label", label);
+      els.sendGo.classList.toggle("is-armed", n > 0);
     }
     const empty = q
       ? `<div class="evo-empty evo-empty-lab">

@@ -160,12 +160,15 @@
     }
     if (els.cats) {
       const cats = availableCategories();
+      const ids = new Set(["all", ...cats.map((row) => row.id)]);
+      if (!ids.has(catFilter)) catFilter = "all";
       els.cats.innerHTML = [
-        `<button type="button" class="ach-hub-chip${catFilter === "all" ? " is-on" : ""}" data-ach-cat="all" aria-pressed="${catFilter === "all"}">All Categories</button>`,
+        `<option value="all">All Categories</option>`,
         ...cats.map(({ id, count }) =>
-          `<button type="button" class="ach-hub-chip${catFilter === id ? " is-on" : ""}" data-ach-cat="${window.playEscapeAttr(id)}" aria-pressed="${catFilter === id}">${window.playEscapeAttr(catLabel(id))} <span class="muted">(${count})</span></button>`
+          `<option value="${window.playEscapeAttr(id)}">${window.playEscapeAttr(catLabel(id))} (${count})</option>`
         )
       ].join("");
+      els.cats.value = catFilter;
     }
   }
 
@@ -358,12 +361,6 @@
       render();
       return;
     }
-    const catBtn = event.target.closest("[data-ach-cat]");
-    if (catBtn) {
-      catFilter = catBtn.dataset.achCat || "all";
-      render();
-      return;
-    }
     const ribbonBtn = event.target.closest("[data-ach-ribbon]");
     if (ribbonBtn) {
       const row = (data?.achievements || []).find((item) => item.id === ribbonBtn.dataset.achRibbon);
@@ -381,6 +378,11 @@
         });
       }
     }
+  });
+
+  els.cats?.addEventListener("change", () => {
+    catFilter = els.cats.value || "all";
+    renderAchievements();
   });
 
   els.search?.addEventListener("input", () => {

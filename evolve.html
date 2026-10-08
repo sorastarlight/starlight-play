@@ -163,18 +163,24 @@
             <h2 id="evo-send-mons-title">Your Collection</h2>
             <p id="evo-send-note" class="evo-collection-meta muted"></p>
           </div>
-          <div class="evo-toolbar evo-send-toolbar">
+          <div class="evo-toolbar evo-send-toolbar oak-lab-collection-controls">
             <label class="evo-search-label">Search Pokémon
               <input id="evo-send-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
             </label>
-            <label class="evo-search-label">Sort
+            <label class="evo-search-label">Sort by
               <select id="evo-send-sort" class="evo-sort">
                 <option value="dex-asc" selected>Dex #</option>
                 <option value="dex-desc">Dex # ↓</option>
                 <option value="name">Name A→Z</option>
               </select>
             </label>
-            <button id="evo-send-go" class="evo-send-go" type="button" disabled>Send 0 to Oak</button>
+          </div>
+          <div class="evo-send-action" role="group" aria-label="Send to Professor Oak">
+            <p id="evo-send-hint" class="evo-send-hint muted">Selected Pokémon will be sent to Professor Oak.</p>
+            <button id="evo-send-go" class="evo-send-go" type="button" disabled aria-label="Select Pokémon to send to Professor Oak">
+              <img src="images/items/poke-ball.png" alt="" width="22" height="22" decoding="async" aria-hidden="true">
+              <span id="evo-send-go-label">Select Pokémon to send to Professor Oak</span>
+            </button>
           </div>
         </div>
         <p id="evo-send-status" class="muted" role="status"></p>
@@ -235,7 +241,7 @@
         </div>
       </details>
 
-      <div class="evo-collection-bar oak-lab-tools evo-evolve-tools">
+      <div class="evo-collection-bar oak-lab-tools evo-evolve-tools oak-lab-collection-controls">
         <div id="evo-filters" class="evo-chips evo-evolve-filters" role="group" aria-label="Evolution filters">
           <button type="button" class="evo-chip" data-filter="all" aria-pressed="true">All <span data-count="all">0</span></button>
           <button type="button" class="evo-chip" data-filter="ready" aria-pressed="false">Ready <span data-count="ready">0</span></button>
@@ -264,11 +270,6 @@
       </div>
 
       <div id="evo-grid" class="evo-mons"></div>
-
-      <section class="evo-block" aria-labelledby="evo-lines-title">
-        <h2 id="evo-lines-title">Evolution Lines</h2>
-        <div id="family-list" class="evo-lines"></div>
-      </section>
 
       <section class="evo-block" id="rare-candy-panel" hidden>
         <h2>Rare Candy</h2>
@@ -305,13 +306,6 @@
     </section>
 
     <section id="evo-tab-research" class="evo-tab-panel evo-lab-bay" role="tabpanel" aria-labelledby="tab-research" data-bay="research" hidden>
-      <details class="evo-research-notes">
-        <summary>Research Notes ▸</summary>
-        <div class="evo-research-body">
-          <p>Professor Oak tracks four research paths: Field (Pokédex), Evolution, Evolution Lines, and Transfers.</p>
-          <p>Milestones are one-time claims. Valuable item rewards can be sold at the <a href="./store.html"><strong>Mart</strong></a>.</p>
-        </div>
-      </details>
       <div class="oak-research-workspace">
         <aside class="oak-research-rail" aria-label="Research tracks">
           <p class="oak-research-rail-title">Research Tracks</p>

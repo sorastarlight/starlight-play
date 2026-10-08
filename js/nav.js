@@ -211,8 +211,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     { href: "./rankings.html", id: "rankings", label: "Rankings" },
     { href: "./trade.html", id: "trade", label: "GTS" },
     { href: "./events.html", id: "events", label: "Events" },
-    { href: "./store.html", id: "store", label: "Mart" },
-    { href: "./help.html", id: "help", label: "How to Play" }
+    { href: "./help.html", id: "help", label: "How to Play" },
+    { href: "./store.html", id: "store", label: "Mart" }
   ];
 
   function renderLinks(isAdmin) {

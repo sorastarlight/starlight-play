@@ -1,0 +1,118 @@
+{
+  "qaAccount": "playtester@sorastarlight.net",
+  "soraMutated": false,
+  "twinkleMutated": false,
+  "nav2560": {
+    "labels": [
+      "Play",
+      "My PC",
+      "My Pokédex",
+      "My Inventory",
+      "My Trainer ID",
+      "My Achievements",
+      "Prof. Oak's Lab",
+      "Rankings",
+      "GTS",
+      "Events",
+      "Mart",
+      "How to Play"
+    ],
+    "hrefs": [
+      "./",
+      "./storage.html",
+      "./pokedex.html",
+      "./inventory.html",
+      "./trainer.html",
+      "./achievements.html",
+      "./evolve.html",
+      "./rankings.html",
+      "./trade.html",
+      "./events.html",
+      "./store.html",
+      "./help.html"
+    ],
+    "overflowX": false,
+    "hamburger": false
+  },
+  "nav1920": {
+    "labels": [
+      "Play",
+      "My PC",
+      "My Pokédex",
+      "My Inventory",
+      "My Trainer ID",
+      "My Achievements",
+      "Prof. Oak's Lab",
+      "Rankings",
+      "GTS",
+      "Events",
+      "Mart",
+      "How to Play"
+    ],
+    "hamburger": false,
+    "overflowX": false,
+    "lastBehindProfile": false
+  },
+  "nav1440": {
+    "hamburger": true,
+    "overflowX": false
+  },
+  "trainerProbe": {
+    "heading": "My Trainer ID",
+    "desc": "Your public Trainer ID for all to see!",
+    "card": true,
+    "shadows": 0,
+    "glows": 4,
+    "sprites": [
+      {
+        "w": 95,
+        "h": 91,
+        "fit": "contain",
+        "render": "auto"
+      },
+      {
+        "w": 83,
+        "h": 78,
+        "fit": "contain",
+        "render": "auto"
+      },
+      {
+        "w": 106,
+        "h": 112,
+        "fit": "contain",
+        "render": "auto"
+      },
+      {
+        "w": 98,
+        "h": 71,
+        "fit": "contain",
+        "render": "auto"
+      }
+    ]
+  },
+  "evoProbe": {
+    "count": 8,
+    "heights": [
+      292,
+      292,
+      292,
+      292,
+      292,
+      292,
+      292,
+      292
+    ],
+    "candy": 0,
+    "required": 0,
+    "feet": [
+      "Needs Candy",
+      "Needs Candy",
+      "Needs Candy",
+      "Needs Candy",
+      "Needs Candy",
+      "Needs Candy",
+      "Needs Candy",
+      "Needs Candy"
+    ]
+  }
+}

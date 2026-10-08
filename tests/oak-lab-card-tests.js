@@ -66,7 +66,7 @@ test("Transfer/Evolution cards drop level, gender, and janky ball icon", () => {
 test("Shared Oak card geometry uses reserved tracks", () => {
   assert(css.includes("evo-mon.oak-mon-card"));
   assert(css.includes("height: 292px"));
-  assert(css.includes("height: 328px"));
+  assert(css.includes("height: 292px"));
   assert(css.includes("padding: 14px 14px 12px"));
   assert(css.includes("cursor: pointer"));
   assert(css.includes(".oak-mon-inspect"));

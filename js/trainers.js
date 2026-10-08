@@ -2696,69 +2696,8 @@
     else img.addEventListener("load", () => { go(); }, { once: true });
   };
 
-  window.playNormalizePartySprite = function playNormalizePartySprite(img) {
-    if (!img) return;
-    const run = () => {
-      try {
-        const figure = img.closest(".tid-party-figure");
-        if (!figure) return;
-        const w = img.naturalWidth || 0;
-        const h = img.naturalHeight || 1;
-        if (!w || !h) return;
-        const canvas = document.createElement("canvas");
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext("2d", { willReadFrequently: true });
-        if (!ctx) return;
-        ctx.drawImage(img, 0, 0);
-        let data;
-        try { data = ctx.getImageData(0, 0, w, h).data; } catch (_) { return; }
-        let left = w, right = 0, top = h, bottom = 0;
-        let sumX = 0, sumY = 0, mass = 0;
-        let coreSumX = 0, coreMass = 0;
-        for (let y = 0; y < h; y++) {
-          for (let x = 0; x < w; x++) {
-            const a = data[(y * w + x) * 4 + 3];
-            if (a < 24) continue;
-            if (x < left) left = x;
-            if (x > right) right = x;
-            if (y < top) top = y;
-            if (y > bottom) bottom = y;
-            sumX += x; sumY += y; mass += 1;
-            // Body/core band: middle 55% of visible height
-          }
-        }
-        if (!mass || right < left || bottom < top) return;
-        const vh = bottom - top + 1;
-        const coreTop = top + Math.floor(vh * 0.2);
-        const coreBot = top + Math.floor(vh * 0.75);
-        for (let y = coreTop; y <= coreBot; y++) {
-          for (let x = left; x <= right; x++) {
-            const a = data[(y * w + x) * 4 + 3];
-            if (a < 40) continue;
-            coreSumX += x;
-            coreMass += 1;
-          }
-        }
-        const alphaMid = (left + right) / 2;
-        const coreMid = coreMass ? (coreSumX / coreMass) : alphaMid;
-        const dispW = img.getBoundingClientRect().width || img.clientWidth || w;
-        const scale = dispW / w;
-        const coreShiftPx = (coreMid - alphaMid) * scale;
-        const footPad = Math.max(0, (h - 1 - bottom) * scale);
-        const visW = Math.max(1, (right - left + 1) * scale);
-        figure.style.setProperty("--party-core-x", coreShiftPx.toFixed(2) + "px");
-        figure.style.setProperty("--party-shadow-w", Math.round(Math.max(28, Math.min(90, visW * 0.72))) + "px");
-        figure.style.setProperty("--party-foot-gap", Math.max(0, Math.min(10, footPad * 0.15)).toFixed(2) + "px");
-        figure.dataset.partyNorm = "1";
-      } catch (_) {}
-    };
-    const go = async () => {
-      try { if (typeof img.decode === "function") await img.decode(); } catch (_) {}
-      run();
-    };
-    if (img.complete && img.naturalWidth) go();
-    else img.addEventListener("load", () => { go(); }, { once: true });
+  window.playNormalizePartySprite = function playNormalizePartySprite() {
+    // Presentation-only. Ground-shadow measurement was removed so sprites stay untransformed.
   };
 
   window.playRenderTrainerPartyHtml = function playRenderTrainerPartyHtml(card) {
@@ -2792,7 +2731,6 @@
       if (!mon) {
         return `<li class="tid-party-figure is-open ${row}" style="--i:${index}" data-slot="${position}">
           <span class="tid-party-stage" aria-hidden="true">
-            <span class="tid-party-shadow"></span>
             <span class="tid-party-actor is-empty"></span>
           </span>
           <span class="tid-party-ball is-empty" aria-hidden="true"></span>
@@ -2814,9 +2752,9 @@
       return `<li class="tid-party-figure is-filled ${row}${shiny ? " is-shiny" : ""}${catchId ? " is-inspectable" : ""}" style="--i:${index}" data-slot="${position}"${catchId ? ` data-catch-id="${catchId}"` : ""}>
         ${catchId ? `<button type="button" class="tid-party-hit" data-inspect-catch="${catchId}" aria-label="Inspect ${esc(primary)}"></button>` : ""}
         <span class="tid-party-stage">
-          <span class="tid-party-shadow" aria-hidden="true"></span>
+          <span class="tid-party-glow" aria-hidden="true"></span>
           <span class="tid-party-actor">
-            <img class="tid-party-sprite${animate ? " is-anim" : ""}" src="${spriteUrl}" alt="" width="96" height="96" loading="lazy" decoding="async" onload="window.playNormalizePartySprite?.(this)">
+            <img class="tid-party-sprite${animate ? " is-anim" : ""}" src="${spriteUrl}" alt="" width="96" height="96" loading="lazy" decoding="async">
             ${shiny ? `<span class="tid-party-sparkle" title="Shiny" aria-label="Shiny">✦</span>` : ""}
           </span>
         </span>

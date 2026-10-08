@@ -86,7 +86,7 @@ test("Evolution eligibility filter from RC123 is preserved", () => {
 
 test("Card geometry uses reserved tracks without hover-blur", () => {
   assert(css.includes("height: 292px"));
-  assert(css.includes("height: 328px"));
+  assert(css.includes("height: 292px"));
   assert(css.includes(".evo-mon.oak-mon-card:hover"));
   assert(css.includes("oak-candy-block"));
   assert(css.includes("width: 56px"));

@@ -117,7 +117,7 @@ test("card anatomy uses viewer / context / reserved footer", () => {
   assert(css.includes("grid-template-rows: auto minmax(72px, 1fr) 44px"));
   assert(css.includes("padding: 14px 14px 12px"));
   assert(css.includes("height: 292px"));
-  assert(css.includes("height: 328px"));
+  assert(css.includes("height: 292px"));
   assert(!js.includes("oak-card-grow"));
 });
 

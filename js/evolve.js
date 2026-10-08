@@ -843,7 +843,6 @@
     const catchId = row.catchId || row.id || "";
     const inspectLabel = `Inspect ${row.name || "Pokémon"}`;
     const formId = row.formId || row.pokemonFormId || null;
-    const candy = candyIdentity(row);
     return `
       <article class="evo-mon oak-mon-card oak-evo-card is-${kind}${ready ? " is-ready" : ""}${terminal ? " is-terminal" : ""}" data-evo="${esc(catchId)}" data-rule="${esc(row.ruleId || "")}" data-kind="${kind}" data-dex="${row.dex || ""}">
         <button type="button" class="oak-mon-inspect" data-evo-inspect="${esc(catchId)}" aria-label="${esc(inspectLabel)}">
@@ -854,7 +853,6 @@
           <span class="oak-evo-arrow" aria-hidden="true">↓</span>
           <span class="oak-evo-target-art">${row.toName ? sprite(row.toDex, row.variant || "normal", 56, row.gender, formId) : ""}</span>
           <span class="oak-evo-target-name">${esc(row.toName || "")}</span>
-          <span class="oak-evo-candy">${terminal ? "" : candyArtHtml(candy, 32)}</span>
           <span class="oak-evo-spacer" aria-hidden="true"></span>
         </div>
         ${statusFooter(row, terminal)}

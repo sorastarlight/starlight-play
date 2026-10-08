@@ -35,8 +35,8 @@ test("Evolution thumbnails drop requirement text and keep candy icon + status", 
   assert(!cardFn.includes("owned"), "thumbnail must not say owned");
   assert(!cardFn.includes("more needed"), "thumbnail must not say more needed");
   assert(!cardFn.includes("oak-evo-item"), "thumbnail must not show item requirement copy");
-  assert(cardFn.includes("candyArtHtml"), "candy icon remains");
-  assert(cardFn.includes("oak-evo-candy"), "candy has its own row");
+  assert(!cardFn.includes("candyArtHtml"), "thumbnail must not render candy art");
+  assert(!cardFn.includes("oak-evo-candy"), "thumbnail must not reserve a candy row");
   assert(cardFn.includes("oak-evo-arrow"), "evolution arrow track");
   assert(cardFn.includes("oak-evo-target-art"), "target sprite track");
   assert(cardFn.includes("oak-evo-target-name"), "target name track");
@@ -76,8 +76,8 @@ test("Candy family identity is unchanged and decorative Pikachu candy is separat
 });
 
 test("Evolution cards use one compact reserved-track height", () => {
-  assert(css.includes("height: 328px"));
-  assert(css.includes("grid-template-rows: 18px 56px 18px 36px minmax(4px, 1fr)"));
+  assert(css.includes("height: 292px"));
+  assert(css.includes("grid-template-rows: 18px 56px 18px minmax(4px, 1fr)"));
   assert(css.includes("min-height: 44px"));
   assert(!cardFn.includes("position: absolute"));
   assert(css.includes(".evo-mon.oak-evo-card"));

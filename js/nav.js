@@ -203,21 +203,21 @@ window.playBindAccountNav = function playBindAccountNav(options) {
   const links = [
     { href: "./", id: "play", label: "Play" },
     { href: "./storage.html", id: "storage", label: "My PC" },
-    { href: "./pokedex.html", id: "pokedex", label: "Pokédex" },
+    { href: "./pokedex.html", id: "pokedex", label: "My Pokédex" },
     { href: "./inventory.html", id: "inventory", label: "My Inventory" },
+    { href: "./trainer.html", id: "trainer", label: "My Trainer ID" },
+    { href: "./achievements.html", id: "achievements", label: "My Achievements" },
     { href: "./evolve.html", id: "evolve", label: "Prof. Oak's Lab" },
-    { href: "./trainer.html", id: "trainer", label: "Trainer ID" },
     { href: "./rankings.html", id: "rankings", label: "Rankings" },
-    { href: "./events.html", id: "events", label: "Events" },
-    { href: "./achievements.html", id: "achievements", label: "Achievements" },
     { href: "./trade.html", id: "trade", label: "GTS" },
+    { href: "./events.html", id: "events", label: "Events" },
+    { href: "./store.html", id: "store", label: "Mart" },
     { href: "./help.html", id: "help", label: "How to Play" }
   ];
 
   function renderLinks(isAdmin) {
     if (!els.links) return;
     const items = links.slice();
-    items.push({ href: "./store.html", id: "store", label: "Mart" });
     // Always rebuild from the canonical list so every page shares one geometry.
     // Stale baked HTML (old labels/order/count) was the root cause of nav jump.
     const html = items.map((item, index) => {

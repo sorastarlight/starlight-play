@@ -72,7 +72,7 @@ test("Counters live in Evolution workspace / stations, not floating header chip"
   assert(js.includes("xferAvailable"), "xfer available wiring missing");
   assert(js.includes("candyIdentity"), "line candy identity helper missing");
   assert(js.includes("playSpriteUrl"), "sprite resolver wiring missing");
-  assert(js.includes("Click here to select"), "transfer select copy missing");
+  assert(js.includes("Select Pokémon"), "transfer select copy missing");
   assert(js.includes("data-oak-inspect"), "transfer inspect target missing");
   assert(js.includes("data-oak-select"), "transfer select target missing");
   assert(js.includes("eligibleTransferMons"), "authoritative eligibility filter missing");

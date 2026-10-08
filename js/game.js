@@ -965,11 +965,37 @@
     return `images/items/${slug}.png`;
   };
 
+  /** Line-key dex for Evolution Candy item art / name. Uses the PNG index, never invents a family. */
+  window.playEvolutionCandyLineDex = function playEvolutionCandyLineDex(familyOrDex) {
+    const id = Number(familyOrDex);
+    if (!id) return 0;
+    const mapped = Number((window.PLAY_EVO_CANDY_PNG || {})[id] || 0);
+    if (mapped >= 1) return mapped;
+    return id >= 1 && id <= 151 ? id : 0;
+  };
+
+  /** Player-facing Candy name. Never "Evolution Line Evolution Candy". */
+  window.playEvolutionCandyLabel = function playEvolutionCandyLabel(familyOrDex, rawName) {
+    const line = window.playEvolutionCandyLineDex(familyOrDex);
+    const stripped = String(rawName || "")
+      .replace(/\s+Evolution\s+Candy$/i, "")
+      .replace(/\s+Candy$/i, "")
+      .replace(/\s+Evolution\s+Line$/i, "")
+      .trim();
+    const species = line && typeof window.playSpeciesName === "function"
+      ? window.playSpeciesName(line)
+      : "";
+    const bare = (stripped && !/^evolution line$/i.test(stripped) && !/^no\.\s*\d+$/i.test(stripped))
+      ? stripped
+      : species;
+    if (!bare) return "Evolution Candy";
+    return `${bare} Evolution Candy`;
+  };
+
   /** Local Evolution Candy ITEM art for a family / representative dex. */
   window.playEvolutionCandyItemUrl = function playEvolutionCandyItemUrl(familyId) {
     const id = Number(familyId);
-    const pngIndex = window.PLAY_EVO_CANDY_PNG || {};
-    const fileDex = Number(pngIndex[id] || 0);
+    const fileDex = window.playEvolutionCandyLineDex(id);
     if (fileDex >= 1) return `images/items/evolution-candy/${fileDex}.png`;
     if (id >= 1 && id <= 151) return `images/items/evolution-candy/${id}.svg`;
     return "images/items/lgpe-candy.png";

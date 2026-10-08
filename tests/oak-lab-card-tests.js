@@ -29,7 +29,7 @@ test("Transfer Station filters to eligible candidates only", () => {
   assert(js.includes("sendableMons()"));
   assert(!/oakReason/.test(js.match(/function sendCardHtml[\s\S]*?function renderSend/)?.[0] || ""), "blocked reason must leave transfer cards");
   assert(!js.includes("Tap to select"));
-  assert(js.includes("Click here to select"));
+  assert(js.includes("Select Pokémon"));
   assert(js.includes("Selected ✓"));
 });
 
@@ -65,9 +65,9 @@ test("Transfer/Evolution cards drop level, gender, and janky ball icon", () => {
 
 test("Shared Oak card geometry uses reserved tracks", () => {
   assert(css.includes("evo-mon.oak-mon-card"));
-  assert(css.includes("height: 286px"));
-  assert(css.includes("height: 318px"));
-  assert(css.includes("padding: 12px 12px 12px"));
+  assert(css.includes("height: 292px"));
+  assert(css.includes("height: 360px"));
+  assert(css.includes("padding: 14px 14px 12px"));
   assert(css.includes("cursor: pointer"));
   assert(css.includes(".oak-mon-inspect"));
   assert(css.includes("evo-send-card.is-selected"));
@@ -182,7 +182,8 @@ test("Chansey uses designated GO candy PNG, not generic lgpe-candy", () => {
   const a = fs.readFileSync(chansey);
   const b = fs.readFileSync(generic);
   assert(a.length !== b.length && a.compare(b) !== 0, "Chansey candy must not be the generic lgpe file");
-  assert(js.includes("is-composite"), "provided candy PNG must composite the line mascot");
+  assert(!js.includes("is-composite"), "Lab candy must not overlay a Pokémon sprite");
+  assert(!js.includes("oak-candy-mascot"), "Lab candy must be a single item sprite");
 });
 
 const failed = results.filter((row) => !row.passed);

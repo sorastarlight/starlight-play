@@ -94,13 +94,13 @@
     try { window.playEvoCue?.(name); } catch (_) {}
   }
 
-  function sprite(dex, variant, size, gender) {
+  function sprite(dex, variant, size, gender, formId) {
     const resolved = view.displayVariant
       ? view.displayVariant({ variant, gender }, dex)
       : (variant || "normal");
-    const src = window.playSpriteUrl(dex, resolved);
+    const src = window.playSpriteUrl(dex, resolved, formId);
     const px = size || 96;
-    return `<img src="${esc(src)}" alt="" width="${px}" height="${px}" loading="lazy" decoding="async" onerror="window.playSpriteOnError && window.playSpriteOnError(this)">`;
+    return `<img class="oak-sprite" src="${esc(src)}" alt="" width="${px}" height="${px}" style="width:${px}px;height:${px}px" loading="lazy" decoding="async" onerror="window.playSpriteOnError && window.playSpriteOnError(this)">`;
   }
 
   function itemLabel(key) {
@@ -604,59 +604,38 @@
       .trim();
   }
 
-  /** Authoritative line candy identity: local candy ITEM art + "{Species} Evolution Candy". */
+  /** Authoritative line candy identity: one local candy ITEM PNG + "{Species} Evolution Candy". */
   function candyIdentity(row = {}) {
     const famId = Number(row.familyId || 0);
     let fam = famId
       ? (data?.families || []).find((item) => Number(item.familyId) === famId)
       : null;
     if (!fam && row.dex) fam = familyForDex(row.dex);
-    const baseDex = Number(
+    const hint = Number(
       row.candyBaseDex
       || row.baseDex
       || fam?.baseDex
       || famId
+      || row.dex
       || 0
     );
-    const bare = candyBareName(row.familyName || row.candyName || fam?.name)
-      || (baseDex && window.playSpeciesName ? window.playSpeciesName(baseDex) : "")
-      || "Evolution Line";
-    const label = `${bare} Evolution Candy`;
-    const mascot = baseDex && typeof window.playSpriteUrl === "function"
-      ? window.playSpriteUrl(baseDex, "normal")
-      : "";
-    const art = window.playOakTransfer?.candyItemArt
-      ? window.playOakTransfer.candyItemArt({ candyBaseDex: baseDex, familyId: famId || Number(fam?.familyId || 0) }, data?.families || [])
-      : (window.playEvolutionCandyItemUrl?.(baseDex) || window.playEvolutionCandyFallback?.(baseDex) || "images/items/lgpe-candy.png");
-    const artFallback = /\.png$/i.test(art) && baseDex >= 1 && baseDex <= 151
-      ? `images/items/evolution-candy/${baseDex}.svg`
-      : "images/items/lgpe-candy.png";
-    return { baseDex, bare, label, art, artFallback, mascot, familyId: famId || Number(fam?.familyId || 0) };
+    const baseDex = window.playEvolutionCandyLineDex?.(hint) || hint;
+    const label = window.playEvolutionCandyLabel
+      ? window.playEvolutionCandyLabel(baseDex, row.candyName || row.familyName || fam?.name || "")
+      : `${window.playSpeciesName?.(baseDex) || "Evolution"} Candy`;
+    const bare = candyBareName(label);
+    const art = window.playEvolutionCandyItemUrl?.(baseDex)
+      || window.playOakTransfer?.candyItemArt?.({ candyBaseDex: baseDex, familyId: famId || Number(fam?.familyId || 0) }, data?.families || [])
+      || "images/items/lgpe-candy.png";
+    return { baseDex, bare, label, art, artFallback: "images/items/lgpe-candy.png", familyId: famId || Number(fam?.familyId || 0) };
   }
 
   function candyArtHtml(id, size = 40) {
     const item = id?.art || "images/items/lgpe-candy.png";
     const fallback = id?.artFallback || "images/items/lgpe-candy.png";
-    const mascot = id?.mascot || "";
-    const isPng = /evolution-candy\/.+\.png/i.test(item);
-    const isSvg = /evolution-candy\/.+\.svg/i.test(item);
     const onerr = `data-fallback="${esc(fallback)}" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.removeAttribute('data-fallback');this.src=f;}else{this.onerror=null;this.src='images/items/lgpe-candy.png'}"`;
-    if (isPng && mascot) {
-      return `<span class="oak-candy-art is-composite" style="--oak-candy-size:${size}px">
-        <img class="oak-candy-body" src="${esc(item)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy" ${onerr}>
-        <span class="oak-candy-mascot-plate" aria-hidden="true">
-          <img class="oak-candy-mascot" src="${esc(mascot)}" alt="" width="${Math.round(size * 0.52)}" height="${Math.round(size * 0.52)}" decoding="async" loading="lazy">
-        </span>
-      </span>`;
-    }
-    if (isPng || isSvg) {
-      return `<span class="oak-candy-art" style="--oak-candy-size:${size}px">
-        <img class="oak-candy-item" src="${esc(item)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy" ${onerr}>
-      </span>`;
-    }
-    return `<span class="oak-candy-art is-composite" style="--oak-candy-size:${size}px">
-      <img class="oak-candy-body" src="images/items/lgpe-candy.png" alt="" width="${size}" height="${size}" decoding="async" loading="lazy">
-      ${mascot ? `<img class="oak-candy-mascot" src="${esc(mascot)}" alt="" width="${Math.round(size * 0.46)}" height="${Math.round(size * 0.46)}" decoding="async" loading="lazy">` : ""}
+    return `<span class="oak-candy-art" style="--oak-candy-size:${size}px">
+      <img class="oak-candy-item" src="${esc(item)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy" ${onerr}>
     </span>`;
   }
 
@@ -769,19 +748,20 @@
     const item = !terminal && row.item
       ? `${itemLabel(row.item)}${row.haveItem || row.tradeReady ? " ✓" : ""}`
       : "";
+    const formId = row.formId || row.pokemonFormId || null;
     return `
       <article class="evo-mon oak-mon-card oak-evo-card is-${kind}${ready ? " is-ready" : ""}${terminal ? " is-terminal" : ""}" data-evo="${esc(catchId)}" data-rule="${esc(row.ruleId || "")}" data-kind="${kind}" data-dex="${row.dex || ""}">
         <button type="button" class="oak-mon-inspect" data-evo-inspect="${esc(catchId)}" aria-label="${esc(inspectLabel)}">
-          <span class="evo-mon-art">${sprite(row.dex, row.variant || "normal", 88, row.gender)}</span>
+          <span class="evo-mon-art">${sprite(row.dex, row.variant || "normal", 96, row.gender, formId)}</span>
           <strong class="evo-mon-name oak-mon-name">${dexLabel(row.dex)} ${shiny ? "✨ " : ""}${esc(row.name)}</strong>
         </button>
         <div class="oak-card-context">
           ${row.toName ? `<span class="oak-evo-target">
             <span class="evo-arrow-lite" aria-hidden="true">↓</span>
-            <span class="oak-evo-target-art">${sprite(row.toDex, row.variant || "normal", 40, row.gender)}</span>
+            <span class="oak-evo-target-art">${sprite(row.toDex, row.variant || "normal", 64, row.gender, formId)}</span>
             <span class="oak-evo-target-name">${esc(row.toName)}</span>
           </span>` : ""}
-          ${terminal ? "" : candyChipHtml(row, { size: 28, compact: true })}
+          ${terminal ? "" : candyChipHtml(row, { size: 36, compact: true })}
           ${item ? `<span class="evo-cost oak-evo-item">${esc(item)}</span>` : ""}
         </div>
         ${statusFooter(row, terminal)}
@@ -837,20 +817,21 @@
     const shiny = String(mon.variant || "").includes("shiny");
     const candy = candyIdentity(mon);
     const name = mon.name || mon.nickname || "Pokémon";
+    const formId = mon.formId || mon.pokemonFormId || null;
     return `
       <article class="evo-mon evo-send-card oak-mon-card${selected ? " is-selected" : ""}" data-oak-id="${esc(id)}" data-dex="${mon.dex || ""}">
         <button type="button" class="oak-mon-inspect" data-oak-inspect="${esc(id)}" aria-label="${esc(`Inspect ${name}`)}">
-          <span class="evo-mon-art">${sprite(mon.dex, mon.variant || "normal", 96, mon.gender)}</span>
+          <span class="evo-mon-art">${sprite(mon.dex, mon.variant || "normal", 96, mon.gender, formId)}</span>
           <strong class="evo-mon-name oak-mon-name">${dexLabel(mon.dex)} ${shiny ? "✨ " : ""}${esc(name)}</strong>
         </button>
         <div class="oak-card-context">
-          <span class="oak-send-candy evo-cost-candy">
+          <span class="oak-candy-block">
             ${candyArtHtml(candy, 40)}
-            <span class="evo-cost-candy-copy"><strong>${esc(candy.label)}</strong></span>
+            <strong class="oak-candy-label">${esc(candy.label)}</strong>
           </span>
         </div>
         <button type="button" class="evo-foot ${selected ? "is-ready" : "is-select"}" data-oak-select="${esc(id)}" aria-pressed="${selected ? "true" : "false"}">
-          ${selected ? "Selected ✓" : "Click here to select"}
+          ${selected ? "Selected ✓" : "Select Pokémon"}
         </button>
       </article>`;
   }

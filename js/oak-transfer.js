@@ -143,8 +143,21 @@
   }
 
   function candyLabel(rowOrFamilyId, families) {
+    if (rowOrFamilyId && typeof rowOrFamilyId === "object" && rowOrFamilyId.candyName) {
+      return String(rowOrFamilyId.candyName);
+    }
+    if (typeof root.playEvolutionCandyLabel === "function") {
+      if (rowOrFamilyId && typeof rowOrFamilyId === "object") {
+        const fam = Number(rowOrFamilyId.familyId || 0);
+        const match = (families || []).find((f) => Number(f.familyId) === fam);
+        const key = Number(rowOrFamilyId.candyBaseDex || rowOrFamilyId.baseDex || match?.baseDex || fam || rowOrFamilyId.dex || 0);
+        return root.playEvolutionCandyLabel(key, match?.name || "");
+      }
+      const fam = Number(rowOrFamilyId);
+      const match = (families || []).find((f) => Number(f.familyId) === fam);
+      return root.playEvolutionCandyLabel(Number(match?.baseDex || fam || 0), match?.name || "");
+    }
     if (rowOrFamilyId && typeof rowOrFamilyId === "object") {
-      if (rowOrFamilyId.candyName) return String(rowOrFamilyId.candyName);
       const fam = Number(rowOrFamilyId.familyId || 0);
       const match = (families || []).find((f) => Number(f.familyId) === fam);
       if (match?.name) {

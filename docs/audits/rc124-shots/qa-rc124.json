@@ -1,0 +1,249 @@
+{
+  "qaAccount": "playtester@sorastarlight.net",
+  "soraMutated": "NO",
+  "twinkleMutated": "NO",
+  "mutations": "none",
+  "rpcReady": 8,
+  "transferProbe": [
+    {
+      "dex": "25",
+      "h": 292,
+      "footGap": 14,
+      "footText": "Selected ✓",
+      "candySrc": "images/items/evolution-candy/25.png",
+      "candyLabel": "Pikachu Evolution Candy",
+      "overlay": false,
+      "spriteSrc": "images/pokemon/25.gif?v=20260923-home1",
+      "spriteDisplay": {
+        "w": 96,
+        "h": 96,
+        "nw": 60,
+        "nh": 60
+      },
+      "line": false
+    },
+    {
+      "dex": "27",
+      "h": 292,
+      "footGap": 14,
+      "footText": "Select Pokémon",
+      "candySrc": "images/items/evolution-candy/27.png",
+      "candyLabel": "Sandshrew Evolution Candy",
+      "overlay": false,
+      "spriteSrc": "images/pokemon/27.gif?v=20260923-home1",
+      "spriteDisplay": {
+        "w": 96,
+        "h": 96,
+        "nw": 45,
+        "nh": 47
+      },
+      "line": false
+    },
+    {
+      "dex": "27",
+      "h": 292,
+      "footGap": 14,
+      "footText": "Select Pokémon",
+      "candySrc": "images/items/evolution-candy/27.png",
+      "candyLabel": "Sandshrew Evolution Candy",
+      "overlay": false,
+      "spriteSrc": "images/pokemon/shiny/27.gif?v=20260923-home1",
+      "spriteDisplay": {
+        "w": 96,
+        "h": 96,
+        "nw": 45,
+        "nh": 47
+      },
+      "line": false
+    },
+    {
+      "dex": "113",
+      "h": 292,
+      "footGap": 14,
+      "footText": "Select Pokémon",
+      "candySrc": "images/items/evolution-candy/113.png",
+      "candyLabel": "Chansey Evolution Candy",
+      "overlay": false,
+      "spriteSrc": "images/pokemon/113.gif?v=20260923-home1",
+      "spriteDisplay": {
+        "w": 96,
+        "h": 96,
+        "nw": 74,
+        "nh": 58
+      },
+      "line": false
+    }
+  ],
+  "evoProbe": {
+    "counts": {
+      "all": "8",
+      "ready": "0",
+      "candy": "8",
+      "item": "0",
+      "trade": "0"
+    },
+    "overlay": false,
+    "cards": [
+      {
+        "dex": "1",
+        "kind": "blocked",
+        "h": 360,
+        "footGap": 14,
+        "footText": "Needs Candy",
+        "text": "#001 Bulbasaur ↓ Ivysaur 40 required 0 owned · 40 more needed Needs Candy",
+        "sprite": {
+          "src": "images/pokemon/1.gif?v=20260923-home1",
+          "w": 96,
+          "h": 96,
+          "nw": 45,
+          "nh": 49
+        },
+        "target": {
+          "w": 64,
+          "h": 64
+        },
+        "candySrc": "images/items/evolution-candy/1.png"
+      },
+      {
+        "dex": "2",
+        "kind": "blocked",
+        "h": 360,
+        "footGap": 14,
+        "footText": "Needs Candy",
+        "text": "#002 Ivysaur ↓ Venusaur 80 required 0 owned · 80 more needed Needs Candy",
+        "sprite": {
+          "src": "images/pokemon/2.gif?v=20260923-home1",
+          "w": 96,
+          "h": 96,
+          "nw": 84,
+          "nh": 66
+        },
+        "target": {
+          "w": 64,
+          "h": 64
+        },
+        "candySrc": "images/items/evolution-candy/1.png"
+      },
+      {
+        "dex": "4",
+        "kind": "blocked",
+        "h": 360,
+        "footGap": 14,
+        "footText": "Needs Candy",
+        "text": "#004 Charmander ↓ Charmeleon 40 required 0 owned · 40 more needed Needs Candy",
+        "sprite": {
+          "src": "images/pokemon/4.gif?v=20260923-home1",
+          "w": 96,
+          "h": 96,
+          "nw": 48,
+          "nh": 57
+        },
+        "target": {
+          "w": 64,
+          "h": 64
+        },
+        "candySrc": "images/items/evolution-candy/4.png"
+      },
+      {
+        "dex": "5",
+        "kind": "blocked",
+        "h": 360,
+        "footGap": 14,
+        "footText": "Needs Candy",
+        "text": "#005 Charmeleon ↓ Charizard 80 required 0 owned · 80 more needed Needs Candy",
+        "sprite": {
+          "src": "images/pokemon/5.gif?v=20260923-home1",
+          "w": 96,
+          "h": 96,
+          "nw": 60,
+          "nh": 70
+        },
+        "target": {
+          "w": 64,
+          "h": 64
+        },
+        "candySrc": "images/items/evolution-candy/4.png"
+      },
+      {
+        "dex": "7",
+        "kind": "blocked",
+        "h": 360,
+        "footGap": 14,
+        "footText": "Needs Candy",
+        "text": "#007 Squirtle ↓ Wartortle 40 required 0 owned · 40 more needed Needs Candy",
+        "sprite": {
+          "src": "images/pokemon/7.gif?v=20260923-home1",
+          "w": 96,
+          "h": 96,
+          "nw": 53,
+          "nh": 54
+        },
+        "target": {
+          "w": 64,
+          "h": 64
+        },
+        "candySrc": "images/items/evolution-candy/7.png"
+      },
+      {
+        "dex": "8",
+        "kind": "blocked",
+        "h": 360,
+        "footGap": 14,
+        "footText": "Needs Candy",
+        "text": "#008 Wartortle ↓ Blastoise 80 required 0 owned · 80 more needed Needs Candy",
+        "sprite": {
+          "src": "images/pokemon/8.gif?v=20260923-home1",
+          "w": 96,
+          "h": 96,
+          "nw": 56,
+          "nh": 73
+        },
+        "target": {
+          "w": 64,
+          "h": 64
+        },
+        "candySrc": "images/items/evolution-candy/7.png"
+      },
+      {
+        "dex": "10",
+        "kind": "blocked",
+        "h": 360,
+        "footGap": 14,
+        "footText": "Needs Candy",
+        "text": "#010 Caterpie ↓ Metapod 15 required 0 owned · 15 more needed Needs Candy",
+        "sprite": {
+          "src": "images/pokemon/10.gif?v=20260923-home1",
+          "w": 96,
+          "h": 96,
+          "nw": 46,
+          "nh": 45
+        },
+        "target": {
+          "w": 64,
+          "h": 64
+        },
+        "candySrc": "images/items/evolution-candy/10.png"
+      },
+      {
+        "dex": "11",
+        "kind": "blocked",
+        "h": 360,
+        "footGap": 14,
+        "footText": "Needs Candy",
+        "text": "#011 Metapod ↓ Butterfree 30 required 0 owned · 30 more needed Needs Candy",
+        "sprite": {
+          "src": "images/pokemon/11.gif?v=20260923-home1",
+          "w": 96,
+          "h": 96,
+          "nw": 42,
+          "nh": 54
+        },
+        "target": {
+          "w": 64,
+          "h": 64
+        },
+        "candySrc": "images/items/evolution-candy/10.png"
+      }
+    ]
+  }
+}

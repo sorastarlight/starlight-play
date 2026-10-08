@@ -76,7 +76,7 @@ test("Chansey candy key is family 113 designated PNG", () => {
   assert(Number(map[242] || 0) === 0 || Number(map[242]) === 113, "Blissey must not invent a new candy key");
   assert(pngOk("images/items/evolution-candy/113.png"), "113.png must be a real PNG");
   assert(hashFile("images/items/evolution-candy/113.png") !== genericHash, "Chansey candy must not be lgpe-candy.png");
-  assert(js.includes("is-composite"), "designated PNG composites the line mascot");
+  assert(!js.includes("is-composite"), "RC124 removes candy mascot overlays");
   const svg = read("images/items/evolution-candy/113.svg");
   assert(/113/.test(svg), "SVG fallback stays on Chansey family art");
 });
@@ -114,10 +114,10 @@ test("card anatomy uses viewer / context / reserved footer", () => {
   assert(js.includes("data-oak-inspect"));
   assert(js.includes("data-evo-act"));
   assert(js.includes("data-oak-select"));
-  assert(css.includes("grid-template-rows: auto minmax(64px, 1fr) 40px"));
-  assert(css.includes("padding: 12px 12px 12px"));
-  assert(css.includes("height: 286px"));
-  assert(css.includes("height: 318px"));
+  assert(css.includes("grid-template-rows: auto minmax(72px, 1fr) 44px"));
+  assert(css.includes("padding: 14px 14px 12px"));
+  assert(css.includes("height: 292px"));
+  assert(css.includes("height: 360px"));
   assert(!js.includes("oak-card-grow"));
 });
 

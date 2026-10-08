@@ -1,0 +1,305 @@
+{
+  "qaAccount": "playtester@sorastarlight.net",
+  "soraMutated": false,
+  "twinkleMutated": false,
+  "mutations": [],
+  "cleanup": "none — read-only / cancelled confirms / optional local transfer harness",
+  "nav2560": {
+    "labels": [
+      "Play",
+      "My PC",
+      "My Pokédex",
+      "My Inventory",
+      "My Trainer ID",
+      "My Achievements",
+      "Prof. Oak's Lab",
+      "Rankings",
+      "GTS",
+      "Events",
+      "How to Play",
+      "Mart"
+    ],
+    "hrefs": [
+      "./",
+      "./storage.html",
+      "./pokedex.html",
+      "./inventory.html",
+      "./trainer.html",
+      "./achievements.html",
+      "./evolve.html",
+      "./rankings.html",
+      "./trade.html",
+      "./events.html",
+      "./help.html",
+      "./store.html"
+    ],
+    "last": "Mart",
+    "orderOk": true,
+    "hamburger": false,
+    "overflowX": false,
+    "storeClass": true
+  },
+  "nav1920": {
+    "labels": [
+      "Play",
+      "My PC",
+      "My Pokédex",
+      "My Inventory",
+      "My Trainer ID",
+      "My Achievements",
+      "Prof. Oak's Lab",
+      "Rankings",
+      "GTS",
+      "Events",
+      "How to Play",
+      "Mart"
+    ],
+    "hrefs": [
+      "./",
+      "./storage.html",
+      "./pokedex.html",
+      "./inventory.html",
+      "./trainer.html",
+      "./achievements.html",
+      "./evolve.html",
+      "./rankings.html",
+      "./trade.html",
+      "./events.html",
+      "./help.html",
+      "./store.html"
+    ],
+    "last": "Mart",
+    "orderOk": true,
+    "hamburger": false,
+    "overflowX": false,
+    "storeClass": true
+  },
+  "nav1440": {
+    "labels": [
+      "Play",
+      "My PC",
+      "My Pokédex",
+      "My Inventory",
+      "My Trainer ID",
+      "My Achievements",
+      "Prof. Oak's Lab",
+      "Rankings",
+      "GTS",
+      "Events",
+      "How to Play",
+      "Mart"
+    ],
+    "hrefs": [
+      "./",
+      "./storage.html",
+      "./pokedex.html",
+      "./inventory.html",
+      "./trainer.html",
+      "./achievements.html",
+      "./evolve.html",
+      "./rankings.html",
+      "./trade.html",
+      "./events.html",
+      "./help.html",
+      "./store.html"
+    ],
+    "last": "Mart",
+    "orderOk": true,
+    "hamburger": true,
+    "overflowX": false,
+    "storeClass": true
+  },
+  "nav960": {
+    "labels": [
+      "Play",
+      "My PC",
+      "My Pokédex",
+      "My Inventory",
+      "My Trainer ID",
+      "My Achievements",
+      "Prof. Oak's Lab",
+      "Rankings",
+      "GTS",
+      "Events",
+      "How to Play",
+      "Mart"
+    ],
+    "hrefs": [
+      "./",
+      "./storage.html",
+      "./pokedex.html",
+      "./inventory.html",
+      "./trainer.html",
+      "./achievements.html",
+      "./evolve.html",
+      "./rankings.html",
+      "./trade.html",
+      "./events.html",
+      "./help.html",
+      "./store.html"
+    ],
+    "last": "Mart",
+    "orderOk": true,
+    "hamburger": true,
+    "overflowX": false,
+    "storeClass": true
+  },
+  "nav390": {
+    "labels": [
+      "Play",
+      "My PC",
+      "My Pokédex",
+      "My Inventory",
+      "My Trainer ID",
+      "My Achievements",
+      "Prof. Oak's Lab",
+      "Rankings",
+      "GTS",
+      "Events",
+      "How to Play",
+      "Mart"
+    ],
+    "hrefs": [
+      "./",
+      "./storage.html",
+      "./pokedex.html",
+      "./inventory.html",
+      "./trainer.html",
+      "./achievements.html",
+      "./evolve.html",
+      "./rankings.html",
+      "./trade.html",
+      "./events.html",
+      "./help.html",
+      "./store.html"
+    ],
+    "last": "Mart",
+    "orderOk": true,
+    "hamburger": true,
+    "overflowX": false,
+    "storeClass": true
+  },
+  "evoProbe": {
+    "familyList": false,
+    "linesTitle": false,
+    "linesHeading": false,
+    "grid": true,
+    "count": 8,
+    "candy": 0,
+    "filters": [
+      "all",
+      "ready",
+      "candy",
+      "item",
+      "trade"
+    ],
+    "search": true,
+    "sort": true
+  },
+  "confirmOpened": false,
+  "transferHarness": true,
+  "transferIdle": {
+    "note": "0 available · catch duplicates to research",
+    "go": "Select Pokémon to send to Professor Oak",
+    "disabled": true,
+    "ball": true,
+    "searchSortRow": true,
+    "action": true,
+    "goInToolbar": false
+  },
+  "transferSelected": {
+    "go": "Send 2 Pokémon to Oak",
+    "disabled": false,
+    "armed": true
+  },
+  "researchProbe": {
+    "disconnectedStrip": false,
+    "overview": true,
+    "notes": true,
+    "notesOpen": false,
+    "hint": "There's still so much to learn about Pokémon in Kanto!",
+    "title": "Field Research",
+    "next": "Ready to Claim",
+    "cards": [
+      "CLAIMABLE",
+      "IN PROGRESS",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED"
+    ],
+    "tracks": [
+      {
+        "id": "field",
+        "label": "Field Research"
+      },
+      {
+        "id": "evolution",
+        "label": "Evolution Research"
+      },
+      {
+        "id": "line",
+        "label": "Evolution Line Research"
+      },
+      {
+        "id": "transfer",
+        "label": "Transfer Research"
+      },
+      {
+        "id": "history",
+        "label": "History"
+      }
+    ]
+  },
+  "achProbe": {
+    "title": "Achievement Progress",
+    "states": [
+      "All",
+      "In Progress",
+      "Completed"
+    ],
+    "catTag": "SELECT",
+    "options": [
+      {
+        "value": "all",
+        "label": "All Categories"
+      },
+      {
+        "value": "trainer",
+        "label": "Adventure (6)"
+      },
+      {
+        "value": "catching",
+        "label": "Catching (17)"
+      },
+      {
+        "value": "community",
+        "label": "Community (8)"
+      },
+      {
+        "value": "encounters",
+        "label": "Encounters (6)"
+      },
+      {
+        "value": "items",
+        "label": "Items (7)"
+      },
+      {
+        "value": "pokedex",
+        "label": "Pokédex (15)"
+      },
+      {
+        "value": "shiny",
+        "label": "Shiny (7)"
+      },
+      {
+        "value": "special",
+        "label": "Special (2)"
+      }
+    ],
+    "search": true,
+    "sort": true,
+    "pills": 0
+  }
+}

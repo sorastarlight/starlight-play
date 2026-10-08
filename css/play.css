@@ -10579,7 +10579,8 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .evo-kanto-meter > i 
     -webkit-overflow-scrolling: touch;
     padding-bottom: 4px;
   }
-  .evo-evolve-tools {
+  .evo-evolve-tools,
+  .evo-evolve-tools.oak-lab-tools {
     grid-template-columns: 1fr;
   }
 }
@@ -10963,7 +10964,8 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .evo-station[aria-sel
     max-height: 36px;
   }
   .evo-lab-gameboy .oak-gameboy-standby { font-size: 7px; }
-  .evo-send-toolbar {
+  .evo-send-toolbar,
+  .evo-send-toolbar.oak-lab-collection-controls {
     grid-template-columns: 1fr;
   }
   .evo-send-action {

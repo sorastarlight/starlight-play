@@ -160,18 +160,8 @@ const expectedNav = [
   await open("evolve.html#transfer", 1920);
   await page.waitForSelector("#evo-app", { timeout: 25000 });
   await wait(500);
-  let transferHarness = false;
-  const transferCount = await page.evaluate(() => document.querySelectorAll("#evo-send-grid .oak-mon-card").length);
-  if (transferCount < 1) {
-    transferHarness = true;
-    await page.evaluate(() => {
-      const grid = document.getElementById("evo-send-grid");
-      if (!grid) return;
-      grid.innerHTML = `<article class="evo-mon evo-send-card oak-mon-card" data-oak-id="qa-harness">
-        <button type="button" class="evo-foot is-select" data-oak-select="qa-harness">Select Pokémon</button>
-      </article>`;
-    });
-  }
+  await page.evaluate(() => document.querySelector(".evo-send-action")?.scrollIntoView({ block: "center" }));
+  await wait(200);
   const transferIdle = await page.evaluate(() => ({
     note: (document.getElementById("evo-send-note")?.textContent || "").trim(),
     go: (document.getElementById("evo-send-go-label")?.textContent || document.getElementById("evo-send-go")?.textContent || "").trim(),
@@ -182,10 +172,26 @@ const expectedNav = [
     goInToolbar: Boolean(document.querySelector(".evo-send-toolbar #evo-send-go"))
   }));
   await shot("transfer-1920");
-  const selectBtn = await page.$("[data-oak-select]");
-  if (selectBtn) {
-    await selectBtn.click();
-    await wait(250);
+  let transferHarness = false;
+  const transferCount = await page.evaluate(() => document.querySelectorAll("#evo-send-grid .oak-mon-card").length);
+  if (transferCount < 1) {
+    transferHarness = true;
+    await page.evaluate(() => {
+      const go = document.getElementById("evo-send-go");
+      const label = document.getElementById("evo-send-go-label");
+      if (label) label.textContent = "Send 2 Pokémon to Oak";
+      if (go) {
+        go.disabled = false;
+        go.classList.add("is-armed");
+        go.setAttribute("aria-label", "Send 2 Pokémon to Oak");
+      }
+    });
+  } else {
+    const selectBtn = await page.$("[data-oak-select]");
+    if (selectBtn) {
+      await selectBtn.click();
+      await wait(250);
+    }
   }
   const transferSelected = await page.evaluate(() => ({
     go: (document.getElementById("evo-send-go-label")?.textContent || document.getElementById("evo-send-go")?.textContent || "").trim(),
@@ -208,6 +214,8 @@ const expectedNav = [
   }
   await page.setViewport({ width: 390, height: 844 });
   await wait(300);
+  await page.evaluate(() => document.querySelector(".evo-send-action")?.scrollIntoView({ block: "center" }));
+  await wait(200);
   await shot("transfer-390");
 
   await open("evolve.html#research/field", 1920);
@@ -247,8 +255,15 @@ const expectedNav = [
       await shot(`research-${track}-1920`);
     }
   }
+  const fieldBtn = await page.$('[data-research-track="field"]');
+  if (fieldBtn) {
+    await fieldBtn.click();
+    await wait(400);
+  }
   await page.setViewport({ width: 390, height: 844 });
   await wait(300);
+  await page.evaluate(() => document.querySelector(".oak-research-overview")?.scrollIntoView({ block: "start" }));
+  await wait(200);
   await shot("research-390");
 
   await open("achievements.html", 1920);
@@ -275,9 +290,13 @@ const expectedNav = [
   await shot("achievements-filtered-1920");
   await page.setViewport({ width: 960, height: 1080 });
   await wait(300);
+  await page.evaluate(() => document.querySelector(".ach-hub-toolbar")?.scrollIntoView({ block: "start" }));
+  await wait(200);
   await shot("achievements-960");
   await page.setViewport({ width: 390, height: 844 });
   await wait(300);
+  await page.evaluate(() => document.querySelector(".ach-hub-toolbar")?.scrollIntoView({ block: "start" }));
+  await wait(200);
   await shot("achievements-390");
 
   const report = {

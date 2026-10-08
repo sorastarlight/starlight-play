@@ -265,7 +265,7 @@
         </div>
         <strong class="ach-hub-name">${window.playEscapeAttr(row.name)}</strong>
         <div class="ach-hub-progress-block">
-          <div class="xp-bar ach-hub-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
+          <div class="xp-bar ach-hub-bar play-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="${hidden ? 0 : view.target}" aria-valuenow="${hidden ? 0 : view.shown}" aria-label="${window.playEscapeAttr(row.name || "Achievement")} progress"><i style="width:${pct}%"></i></div>
           <span class="ach-hub-progress">${window.playEscapeAttr(progressLabel)}${pctLabel}</span>
         </div>
         <p class="ach-hub-desc">${window.playEscapeAttr(row.description || "")}</p>

@@ -3,6 +3,12 @@
   --ink: #3a3f63;
   --muted: #6b6c84;
   --pearl: #f4f7ff;
+  --play-progress-h: 10px;
+  --play-progress-track: #dce7f5;
+  --play-progress-fill: linear-gradient(90deg, #6aa8ef, #c04878);
+  --play-progress-fill-lab: linear-gradient(90deg, #c46a98, #8a3d72);
+  --play-progress-fill-research: linear-gradient(90deg, #4a7ab5, #c04878);
+  --play-progress-fill-gold: linear-gradient(90deg, #f2c94c, #f08a3c);
 }
 @font-face {
   font-family: "Nunito Fallback";
@@ -10204,8 +10210,50 @@ body[data-page="evolve"] .wrap {
   color: #c46a98;
 }
 .oak-lab-meter {
-  height: 8px;
+  height: var(--play-progress-h);
   margin: 4px 0 0;
+}
+.play-progress {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.play-progress-count {
+  margin: 0;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: #243a5e;
+}
+.play-progress-track {
+  height: var(--play-progress-h);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--play-progress-track);
+  border: 0;
+  box-shadow: none;
+}
+.play-progress-track > i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--play-progress-fill);
+}
+.play-progress-pct {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  color: #4a5f7a;
+  font-variant-numeric: tabular-nums;
+}
+.xp-bar.ach-hub-bar.play-progress-track {
+  height: var(--play-progress-h);
+  border: 0;
+  box-shadow: none;
+  background: var(--play-progress-track);
+}
+.xp-bar.ach-hub-bar.play-progress-track > i {
+  background: var(--play-progress-fill);
+  box-shadow: none;
 }
 .evo-collection-bar.oak-lab-tools {
   padding: 10px 12px;
@@ -10232,6 +10280,13 @@ body[data-page="evolve"] .wrap {
   font: inherit;
   font-weight: 700;
   color: #2a3048;
+}
+.oak-lab-tools .evo-search:focus-visible,
+.oak-lab-tools .evo-sort:focus-visible,
+.ach-hub-tools .evo-search:focus-visible,
+.ach-hub-tools .evo-sort:focus-visible {
+  outline: 3px solid #4a7ab5;
+  outline-offset: 2px;
 }
 .evo-evolve-tools.oak-lab-tools .evo-evolve-filters {
   grid-column: 1 / -1;
@@ -10387,19 +10442,19 @@ body[data-page="evolve"] .wrap {
 }
 .evo-kanto-meter {
   position: relative;
-  height: 10px;
+  height: var(--play-progress-h);
   margin: 2px 0;
   border-radius: 999px;
   overflow: hidden;
-  background: #f0d8e4;
-  border: 1px solid #e0b8cc;
+  background: var(--play-progress-track);
+  border: 0;
 }
 .evo-kanto-meter > i {
   display: block;
   height: 100%;
   width: 0;
   border-radius: inherit;
-  background: linear-gradient(90deg, #c46a98, #8a3d72);
+  background: var(--play-progress-fill-lab);
 }
 html:not([data-reduced-motion="1"]):not([data-perf="low"]) .evo-kanto-meter > i {
   transition: width .45s ease-out;
@@ -10967,6 +11022,17 @@ html:not([data-reduced-motion="1"]):not([data-perf="low"]) .evo-station[aria-sel
   .evo-send-toolbar,
   .evo-send-toolbar.oak-lab-collection-controls {
     grid-template-columns: 1fr;
+  }
+  .oak-lab-tools .evo-search,
+  .oak-lab-tools .evo-sort {
+    font-size: 13px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .oak-lab-tools .evo-search::placeholder {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
   .evo-send-action {
     grid-template-columns: 1fr;
@@ -14011,16 +14077,16 @@ html[data-reduced-motion="1"] .play-present-starfield,
   color: #4a5f7a;
 }
 .oak-research-meter {
-  height: 12px;
+  height: var(--play-progress-h);
   border-radius: 999px;
-  background: #d9e4f2;
+  background: var(--play-progress-track);
   overflow: hidden;
-  box-shadow: inset 0 0 0 1px rgba(201, 162, 39, .18);
+  box-shadow: none;
 }
 .oak-research-meter > i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, #4a7ab5, #c04878 70%, #c9a227);
+  background: var(--play-progress-fill-research);
 }
 .oak-research-next-reward,
 .oak-research-next-milestone {
@@ -19895,8 +19961,8 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
 .ach-hub-name { display: block; margin: 2px 0 4px; }
 .ach-hub-desc { margin: 0 0 8px; color: #4a5a78; }
 .ach-hub-progress { font-size: 12px; font-weight: 800; color: #3a5070; }
-.ach-hub-bar { height: 8px; border-radius: 99px; background: #dce7f5; overflow: hidden; margin: 0 0 6px; }
-.ach-hub-bar i { display: block; height: 100%; background: linear-gradient(90deg, #6aa8ef, #c04878); }
+.ach-hub-bar { height: var(--play-progress-h); border-radius: 999px; background: var(--play-progress-track); overflow: hidden; margin: 0 0 6px; }
+.ach-hub-bar i { display: block; height: 100%; background: var(--play-progress-fill); }
 .ach-hub-card.is-progress { border-color: #9ebef0; }
 .ach-hub-fallback {
   display: grid;
@@ -19945,7 +20011,7 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
 .ach-hub-card.is-locked .ach-hub-name { color: #4a5670; }
 .ach-hub-card.is-locked .ach-hub-desc { color: #6a7790; }
 .ach-hub-card.is-progress { background: linear-gradient(180deg, #fff, #eef5ff); }
-.ach-hub-card.is-progress .ach-hub-bar { height: 10px; }
+.ach-hub-card.is-progress .ach-hub-bar { height: var(--play-progress-h); }
 .ach-hub-card.is-done {
   border-color: #f2c94c;
   background:
@@ -19953,7 +20019,7 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
     linear-gradient(180deg, #fffdf2, #fff4cf);
   box-shadow: 0 4px 0 #e2b93c;
 }
-.ach-hub-card.is-done .ach-hub-bar i { background: linear-gradient(90deg, #f2c94c, #f08a3c); }
+.ach-hub-card.is-done .ach-hub-bar i { background: var(--play-progress-fill-gold); }
 .ach-hub-rewards { align-items: center; padding-top: 8px; border-top: 1px dashed #d4deec; }
 .ach-hub-rewards-label {
   font-size: 10px;

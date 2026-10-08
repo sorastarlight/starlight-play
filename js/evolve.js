@@ -218,7 +218,6 @@
     history: { short: "History", unit: "claimed", motif: "history", progressUnit: "claimed" }
   };
   const RESEARCH_SESSION_KEY = "oakLabResearchTrack";
-  const RESEARCH_NOTES_KEY = "oakLabResearchNotesOpen";
 
   function refreshOakBubble() {
     const tally = counts();
@@ -416,33 +415,6 @@
     return "images/trainers/portraits/oak-portrait.png";
   }
 
-  function researchNotesOpen() {
-    try { return sessionStorage.getItem(RESEARCH_NOTES_KEY) === "1"; } catch (_) { return false; }
-  }
-
-  function researchNotesHtml(trackId) {
-    const hint = RESEARCH_TRACK_MSG[trackId] || "Every discovery helps with my Pokémon research!";
-    return `<details class="oak-research-notes"${researchNotesOpen() ? " open" : ""}>
-      <summary>
-        <span class="oak-research-notes-kicker">Research Notes</span>
-        <span class="oak-research-notes-hint">${esc(hint)}</span>
-      </summary>
-      <div class="oak-research-notes-body evo-research-body">
-        <p>Professor Oak tracks four research paths: Field (Pokédex), Evolution, Evolution Lines, and Transfers.</p>
-        <p>Milestones are one-time claims. Valuable item rewards can be sold at the <a href="./store.html"><strong>Mart</strong></a>.</p>
-      </div>
-    </details>`;
-  }
-
-  function bindResearchNotes() {
-    const node = els.researchBoard?.querySelector("details.oak-research-notes");
-    if (!node || node.dataset.bound === "1") return;
-    node.dataset.bound = "1";
-    node.addEventListener("toggle", () => {
-      try { sessionStorage.setItem(RESEARCH_NOTES_KEY, node.open ? "1" : "0"); } catch (_) {}
-    });
-  }
-
   function researchRewardHtml(rewards, size = 26) {
     return rewardLines(rewards).map((row) => {
       const art = window.playItemSprite?.(row.key) || "images/items/poke-ball.png";
@@ -543,11 +515,9 @@
             <p>Claimed milestones from every Oak research track.</p>
           </div>
         </div>
-        ${researchNotesHtml("history")}
       </header>
       ${groups || empty}
     </section>`;
-    bindResearchNotes();
   }
 
   function renderResearch() {
@@ -625,10 +595,10 @@
             <p>${esc(track.description || "")}</p>
           </div>
         </div>
-        <div class="oak-research-track-progress" role="group" aria-label="${esc(progressTitle)} overall">
-          <p class="oak-research-progress-count"><strong>${progress.toLocaleString()}</strong><span> / ${goal.toLocaleString()} ${esc(unit)}</span></p>
-          <div class="oak-research-meter" aria-hidden="true"><i style="width:${pct}%"></i></div>
-          <p class="oak-research-complete-pct">${pct}%</p>
+        <div class="oak-research-track-progress play-progress" role="group" aria-label="${esc(progressTitle)} overall">
+          <p class="oak-research-progress-count play-progress-count"><strong>${progress.toLocaleString()}</strong><span> / ${goal.toLocaleString()} ${esc(unit)}</span></p>
+          <div class="oak-research-meter play-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="${goal}" aria-valuenow="${progress}" aria-valuetext="${progress.toLocaleString()} of ${goal.toLocaleString()} ${esc(unit)}, ${pct} percent complete" aria-label="${esc(progressTitle)}"><i style="width:${pct}%"></i></div>
+          <p class="oak-research-complete-pct play-progress-pct">${pct}% complete</p>
         </div>
         <div class="oak-research-next-compact${nextClaim ? " is-ready" : ""}">
           <p class="oak-research-next-label">${nextClaim ? "Ready to Claim" : "Next Goal"}</p>
@@ -640,11 +610,9 @@
             ? `<p class="oak-research-next-toward">${towardNext.toLocaleString()} remaining</p>`
             : (nextClaim ? `<div class="oak-research-rewards">${nextRewards}</div>` : "")}
         </div>
-        ${researchNotesHtml(track.id)}
       </header>
       <div class="oak-research-cards oak-research-journey" role="list">${activeCards || emptyActive}</div>
     </section>`;
-    bindResearchNotes();
   }
 
   async function loadResearch() {
@@ -827,10 +795,12 @@
     if (els.kantoDone) els.kantoDone.textContent = String(kantoDone);
     if (els.kantoTotal) els.kantoTotal.textContent = String(kantoTotal);
     if (els.kantoFill) els.kantoFill.style.width = `${kantoPct}%`;
-    if (els.kantoPct) els.kantoPct.textContent = `${kantoPct}%`;
+    if (els.kantoPct) els.kantoPct.textContent = `${kantoPct}% complete`;
     if (els.kantoMeter) {
-      els.kantoMeter.setAttribute("aria-valuenow", String(kantoPct));
-      els.kantoMeter.setAttribute("aria-valuetext", `${kantoDone} of ${kantoTotal} Kanto evolutions complete, ${kantoPct} percent`);
+      els.kantoMeter.setAttribute("aria-valuemin", "0");
+      els.kantoMeter.setAttribute("aria-valuemax", String(kantoTotal));
+      els.kantoMeter.setAttribute("aria-valuenow", String(kantoDone));
+      els.kantoMeter.setAttribute("aria-valuetext", `${kantoDone} of ${kantoTotal} Kanto evolutions, ${kantoPct} percent complete`);
     }
     if (els.viewReady) els.viewReady.disabled = tally.ready < 1;
     if (els.strip) els.strip.hidden = true;
@@ -906,6 +876,8 @@
     const list = rows.slice();
     if (mode === "name") {
       list.sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")) || (a.dex || 0) - (b.dex || 0));
+    } else if (mode === "name-desc") {
+      list.sort((a, b) => String(b.name || "").localeCompare(String(a.name || "")) || (a.dex || 0) - (b.dex || 0));
     } else if (mode === "dex-desc") {
       list.sort((a, b) => (b.dex || 0) - (a.dex || 0));
     } else if (mode === "ready") {
@@ -975,13 +947,17 @@
 
   function renderSend() {
     if (!els.sendGrid) return;
-    const q = String(els.sendSearch?.value || "").trim().toLowerCase();
+    const q = String(els.sendSearch?.value || "").trim();
     let rows = sendableMons();
     if (q) {
-      rows = rows.filter((mon) => [mon.name, mon.nickname, mon.variant, String(mon.dex)]
-        .join(" ")
-        .toLowerCase()
-        .includes(q));
+      const match = view.matchesPokemonQuery || ((mon, query) => {
+        const needle = String(query || "").trim().toLowerCase();
+        const dex = String(mon.dex || "");
+        const pad = dex.padStart(3, "0");
+        return [mon.name, mon.nickname, dex, pad, `#${pad}`]
+          .some((bit) => String(bit || "").toLowerCase().includes(needle));
+      });
+      rows = rows.filter((mon) => match(mon, q));
     }
     rows = sortRows(rows, els.sendSort?.value || "dex-asc");
     const selectedStillLive = new Set(sendableMons().map((mon) => String(mon.id)));

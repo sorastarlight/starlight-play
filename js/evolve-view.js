@@ -40,12 +40,30 @@
     return "blocked";
   }
 
-  function matchesFilter(row, filter, query) {
+  function dexSearchKeys(dex) {
+    const n = Number(dex || 0);
+    if (!(n > 0)) return [];
+    const raw = String(n);
+    const pad = raw.padStart(3, "0");
+    return [raw, pad, `#${pad}`];
+  }
+
+  function matchesPokemonQuery(row, query) {
     const q = String(query || "").trim().toLowerCase();
-    if (q) {
-      const hay = [row.name, row.toName, row.familyName].map((bit) => String(bit || "").toLowerCase());
-      if (!hay.some((bit) => bit.includes(q))) return false;
-    }
+    if (!q) return true;
+    const bits = [
+      row?.name,
+      row?.nickname,
+      row?.toName,
+      row?.familyName,
+      ...dexSearchKeys(row?.dex),
+      ...dexSearchKeys(row?.toDex)
+    ];
+    return bits.some((bit) => String(bit || "").toLowerCase().includes(q));
+  }
+
+  function matchesFilter(row, filter, query) {
+    if (!matchesPokemonQuery(row, query)) return false;
     const mode = filter || "all";
     if (mode === "ready") return canEvolve(row);
     if (mode === "candy") return Number(row.candyCost || 0) > Number(row.haveCandy || 0);
@@ -253,6 +271,7 @@
     canEvolve,
     hasEligibleEvolution,
     cardKind,
+    matchesPokemonQuery,
     matchesFilter,
     candyNeed,
     isTradeMethod,

@@ -100,7 +100,8 @@ test("Evolution Candy item art is local and not a runtime hotlink", () => {
 test("Research summary has explicit overall progress semantics", () => {
   assert(js.includes("oak-research-summary"));
   assert(js.includes("% complete"));
-  assert(js.includes("Overall track progress"));
+  assert(js.includes("${esc(progressTitle)} overall"));
+  assert(!js.includes("Overall track progress"), "duplicate overall caption must stay gone");
   assert(js.includes("remaining"));
   assert(js.includes("oak-research-summary-identity"));
   assert(js.includes("oak-research-next-compact"));

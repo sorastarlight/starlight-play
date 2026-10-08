@@ -165,13 +165,14 @@
           </div>
           <div class="evo-toolbar evo-send-toolbar oak-lab-collection-controls">
             <label class="evo-search-label">Search Pokémon
-              <input id="evo-send-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
+              <input id="evo-send-search" class="evo-search" type="search" placeholder="Search by Pokémon name or Pokédex number..." autocomplete="off">
             </label>
             <label class="evo-search-label">Sort by
               <select id="evo-send-sort" class="evo-sort">
-                <option value="dex-asc" selected>Dex #</option>
-                <option value="dex-desc">Dex # ↓</option>
-                <option value="name">Name A→Z</option>
+                <option value="dex-asc" selected>Pokédex Number (Ascending)</option>
+                <option value="dex-desc">Pokédex Number (Descending)</option>
+                <option value="name">Name (A–Z)</option>
+                <option value="name-desc">Name (Z–A)</option>
               </select>
             </label>
           </div>
@@ -206,10 +207,10 @@
               <span aria-hidden="true"> / </span>
               <span id="evo-kanto-total">0</span>
             </p>
-            <div class="evo-kanto-meter oak-lab-meter" role="progressbar" id="evo-kanto-meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="evo-kanto-label">
+            <div class="evo-kanto-meter oak-lab-meter play-progress-track" role="progressbar" id="evo-kanto-meter" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-labelledby="evo-kanto-label">
               <i id="evo-kanto-fill" style="width:0%"></i>
             </div>
-            <p class="oak-lab-stat-note" id="evo-kanto-pct">0%</p>
+            <p class="oak-lab-stat-note play-progress-pct" id="evo-kanto-pct">0% complete</p>
           </div>
           <div class="oak-lab-stat oak-lab-stat-ready">
             <p class="oak-lab-stat-label">Ready to Evolve</p>
@@ -250,13 +251,14 @@
           <button type="button" class="evo-chip" data-filter="trade" aria-pressed="false">Trade Evolution <span data-count="trade">0</span></button>
         </div>
         <label class="evo-search-label">Search Pokémon
-          <input id="evo-search" class="evo-search" type="search" placeholder="Charmander, Eevee…">
+          <input id="evo-search" class="evo-search" type="search" placeholder="Search by Pokémon name or Pokédex number..." autocomplete="off">
         </label>
         <label class="evo-search-label">Sort by
           <select id="evo-sort" class="evo-sort">
-            <option value="dex-asc" selected>Dex # (Ascending)</option>
-            <option value="dex-desc">Dex # (Descending)</option>
-            <option value="name">Name A→Z</option>
+            <option value="dex-asc" selected>Pokédex Number (Ascending)</option>
+            <option value="dex-desc">Pokédex Number (Descending)</option>
+            <option value="name">Name (A–Z)</option>
+            <option value="name-desc">Name (Z–A)</option>
             <option value="ready">Ready first</option>
           </select>
         </label>

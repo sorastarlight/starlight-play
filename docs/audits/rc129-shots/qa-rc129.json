@@ -1,0 +1,119 @@
+{
+  "qaAccount": "playtester@sorastarlight.net",
+  "soraMutated": false,
+  "twinkleMutated": false,
+  "mutations": [],
+  "cleanup": "none — read-only",
+  "evoSearch": {
+    "label": "Search Pokémon",
+    "placeholder": "Search by Pokémon name or Pokédex number...",
+    "placeholderOk": true,
+    "options": [
+      {
+        "value": "dex-asc",
+        "text": "Pokédex Number (Ascending)"
+      },
+      {
+        "value": "dex-desc",
+        "text": "Pokédex Number (Descending)"
+      },
+      {
+        "value": "name",
+        "text": "Name (A–Z)"
+      },
+      {
+        "value": "name-desc",
+        "text": "Name (Z–A)"
+      },
+      {
+        "value": "ready",
+        "text": "Ready first"
+      }
+    ],
+    "familyList": false,
+    "notes": true,
+    "pct": "7% complete",
+    "meter": {
+      "now": "5",
+      "max": "72"
+    }
+  },
+  "evoBar": {
+    "h": 10,
+    "radius": "999px",
+    "bg": "rgb(220, 231, 245)",
+    "fill": "linear-gradient(90deg, rgb(196, 106, 152), rgb(138, 61, 114))",
+    "now": "5",
+    "max": "72"
+  },
+  "evo025": [],
+  "evo004": [
+    {
+      "dex": "4",
+      "name": "#004 Charmander"
+    }
+  ],
+  "evoChar": [
+    "#004 Charmander",
+    "#005 Charmeleon"
+  ],
+  "transferSearch": {
+    "label": "Search Pokémon",
+    "placeholder": "Search by Pokémon name or Pokédex number...",
+    "placeholderOk": true,
+    "options": [
+      {
+        "value": "dex-asc",
+        "text": "Pokédex Number (Ascending)"
+      },
+      {
+        "value": "dex-desc",
+        "text": "Pokédex Number (Descending)"
+      },
+      {
+        "value": "name",
+        "text": "Name (A–Z)"
+      },
+      {
+        "value": "name-desc",
+        "text": "Name (Z–A)"
+      }
+    ],
+    "notes": true
+  },
+  "researchProbe": {
+    "notes": false,
+    "overview": true,
+    "pct": "8% complete",
+    "count": "12 / 151 registered",
+    "tracks": [
+      "field",
+      "evolution",
+      "line",
+      "transfer",
+      "history"
+    ]
+  },
+  "researchBar": {
+    "h": 10,
+    "radius": "999px",
+    "bg": "rgb(220, 231, 245)",
+    "fill": "linear-gradient(90deg, rgb(74, 122, 181), rgb(192, 72, 120))",
+    "now": "12",
+    "max": "151"
+  },
+  "achProbe": {
+    "cat": "SELECT",
+    "height": 282,
+    "progress": "8 / 10 · 80%",
+    "barRole": "progressbar"
+  },
+  "achBar": {
+    "h": 10,
+    "radius": "999px",
+    "bg": "rgb(220, 231, 245)",
+    "fill": "linear-gradient(90deg, rgb(106, 168, 239), rgb(192, 72, 120))",
+    "now": "8",
+    "max": "10"
+  }
+}

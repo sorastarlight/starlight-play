@@ -105,18 +105,13 @@ test("Transfer collection controls match Evolution Research and Send has dedicat
   assert(css.includes("c9a227"), "gold accent missing from send action");
 });
 
-test("Research overview integrates notes and keeps tracks, History, and claims", () => {
+test("Research overview keeps tracks, History, and claims", () => {
   const researchHtml = evolveHtml.slice(evolveHtml.indexOf('id="evo-tab-research"'));
   assert(!researchHtml.includes("<details class=\"evo-research-notes\">"), "disconnected research-tab notes strip must leave");
   assert(researchFn.includes("oak-research-overview"), "research overview missing");
-  assert(researchFn.includes("researchNotesHtml"), "notes must render in the header");
-  assert(evolveJs.includes("oak-research-notes"), "notes disclosure missing");
-  assert(evolveJs.includes("There's still so much to learn about Pokémon in Kanto!"), "collapsed hint missing");
-  assert(evolveJs.includes("Professor Oak tracks four research paths"), "expanded notes copy missing");
   assert(researchFn.includes("oak-research-next-compact"), "compact next goal missing");
   assert(!researchFn.includes("oak-research-next-milestone"), "large next-milestone panel must stay gone");
   assert(!researchFn.includes("Overall track progress"), "duplicate progress caption must leave");
-  assert(historyFn.includes("researchNotesHtml(\"history\")"), "History must keep notes");
   assert(evolveJs.includes('data-research-track="history"'), "History rail missing");
   assert(evolveJs.includes('playCall("play_claim_oak_research"'), "claim RPC must remain");
   assert(evolveJs.includes("IN PROGRESS"));

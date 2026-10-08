@@ -23,6 +23,14 @@
     return candyOk && itemOk;
   }
 
+  /** Presentation: has any enabled Kanto evolution. Not a resource check. */
+  function hasEligibleEvolution(row) {
+    if (!row || row.terminal) return false;
+    const toDex = Number(row.toDex || 0);
+    if (!(toDex >= 1 && toDex <= 151)) return false;
+    return Boolean(row.ruleId || row.toName);
+  }
+
   function cardKind(row) {
     if (!row) return "blocked";
     if (row.terminal) return "terminal";
@@ -243,6 +251,7 @@
     isReserved,
     itemQty,
     canEvolve,
+    hasEligibleEvolution,
     cardKind,
     matchesFilter,
     candyNeed,

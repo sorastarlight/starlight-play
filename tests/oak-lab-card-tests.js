@@ -65,14 +65,14 @@ test("Transfer/Evolution cards drop level, gender, and janky ball icon", () => {
 
 test("Shared Oak card geometry uses reserved tracks", () => {
   assert(css.includes("evo-mon.oak-mon-card"));
-  assert(css.includes("height: 300px"));
-  assert(css.includes("height: 360px"));
+  assert(css.includes("height: 286px"));
+  assert(css.includes("height: 318px"));
+  assert(css.includes("padding: 12px 12px 12px"));
   assert(css.includes("cursor: pointer"));
   assert(css.includes(".oak-mon-inspect"));
   assert(css.includes("evo-send-card.is-selected"));
-  assert(js.includes("oak-card-grow"));
-  assert(js.includes("oak-evo-reqs"));
-  assert(css.includes("oak-card-grow"));
+  assert(js.includes("oak-card-context"));
+  assert(css.includes("oak-card-context"));
 });
 
 test("Evolution Candy item art is local and not a runtime hotlink", () => {
@@ -142,6 +142,47 @@ test("Research claim result path is still rc117 non-redundant enqueue", () => {
   assert(js.includes("Research Complete!"));
   assert(js.includes("kind: \"oak-research\""));
   assert(js.includes("playPresentEnqueue"));
+});
+
+test("Evolution Research All filter does not append fully evolved terminals", () => {
+  const render = js.match(/function renderReady[\s\S]*?function sendCardHtml/)?.[0] || "";
+  assert(!render.includes("terminal: true"), "All filter must not inject terminal cards");
+  assert(!render.includes("Fully Evolved"));
+  assert(js.includes("No Pokémon match this filter"));
+  assert(js.includes("data-evo-show-all"));
+  assert(js.includes("Professor Oak is ready when you are!"));
+  const counts = js.match(/function counts[\s\S]*?function renderHero/)?.[0] || "";
+  assert(counts.includes("all: rows.length"));
+  assert(!counts.includes("!mon.canEvolve"));
+});
+
+test("Candy requirement copy uses explicit owned/required labels", () => {
+  assert(js.includes("candyNeedCopy"));
+  assert(js.includes("required ·"));
+  assert(js.includes("owned ✓"));
+  assert(js.includes("more needed"));
+  assert(!js.includes("${have} / ${need} required"));
+  assert(!js.includes("${haveN} / ${needN}"));
+});
+
+test("Evolution confirm does not escape gender HTML into visible text", () => {
+  const preview = js.match(/function openPreview[\s\S]*?function openOakConfirm/)?.[0] || "";
+  assert(!preview.includes("genderMark(row.gender)"));
+  assert(!/function genderMark/.test(js), "unused HTML genderMark must stay removed");
+  assert(!preview.includes("evo-gender"));
+  assert(preview.includes("Lv. ${row.level}"));
+});
+
+test("Chansey uses designated GO candy PNG, not generic lgpe-candy", () => {
+  const index = read("js/evolution-candy-png.js");
+  assert(/"113"\s*:\s*113/.test(index), "Chansey must map to family-base 113 PNG");
+  const chansey = path.join(__dirname, "..", "images", "items", "evolution-candy", "113.png");
+  const generic = path.join(__dirname, "..", "images", "items", "lgpe-candy.png");
+  assert(fs.existsSync(chansey), "Chansey 113.png missing");
+  const a = fs.readFileSync(chansey);
+  const b = fs.readFileSync(generic);
+  assert(a.length !== b.length && a.compare(b) !== 0, "Chansey candy must not be the generic lgpe file");
+  assert(js.includes("is-composite"), "provided candy PNG must composite the line mascot");
 });
 
 const failed = results.filter((row) => !row.passed);

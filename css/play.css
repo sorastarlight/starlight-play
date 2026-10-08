@@ -11527,15 +11527,31 @@ html[data-perf="low"] .oak-transfer-side.is-oak.is-receive .oak-xfer-oak img {
   gap: 12px;
   align-items: stretch;
 }
+.evo-mons:has(.evo-empty) {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
 .evo-empty.evo-empty-lab {
   display: grid;
   justify-items: center;
-  gap: 8px;
-  padding: 22px 18px;
+  gap: 10px;
+  width: min(420px, 100%);
+  max-width: 28rem;
+  min-height: 0;
+  margin: 12px auto;
+  padding: 28px 22px;
   background:
     linear-gradient(180deg, #fffdf8, #f7e8f1),
     repeating-linear-gradient(90deg, transparent 0 18px, rgba(74, 122, 181, .05) 18px 19px);
   border-color: #d7c39a;
+}
+.evo-empty.evo-empty-lab p {
+  max-width: 36ch;
+  margin: 0;
+  line-height: 1.45;
+}
+.evo-empty.evo-empty-lab .button {
+  margin-top: 4px;
 }
 .evo-empty-oak {
   width: 88px;
@@ -11582,26 +11598,35 @@ html[data-perf="low"] .oak-transfer-side.is-oak.is-receive .oak-xfer-oak img {
 }
 .evo-mon.is-blocked:hover { transform: none; }
 .evo-mon.oak-mon-card {
-  grid-template-rows: 118px minmax(24px, 1fr) auto 44px;
+  grid-template-rows: auto minmax(64px, 1fr) 40px;
   align-content: stretch;
   justify-items: stretch;
-  gap: 4px;
-  height: 300px;
-  min-height: 300px;
-  max-height: 300px;
-  padding: 12px 10px 0;
-  overflow: hidden;
+  gap: 6px;
+  height: 286px;
+  min-height: 286px;
+  max-height: 286px;
+  padding: 12px 12px 12px;
+  overflow: visible;
 }
 .evo-mon.oak-evo-card {
-  grid-template-rows: 110px 68px minmax(80px, 1fr) 44px;
-  height: 360px;
-  min-height: 360px;
-  max-height: 360px;
+  grid-template-rows: auto minmax(88px, 1fr) 40px;
+  height: 318px;
+  min-height: 318px;
+  max-height: 318px;
 }
 .oak-card-grow,
 .oak-research-card-grow {
   min-height: 0;
   pointer-events: none;
+}
+.oak-card-context {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  align-self: stretch;
+  gap: 4px;
+  min-height: 0;
+  padding: 0 2px;
 }
 .oak-evo-reqs {
   display: grid;
@@ -11609,7 +11634,6 @@ html[data-perf="low"] .oak-transfer-side.is-oak.is-receive .oak-xfer-oak img {
   align-self: stretch;
   gap: 2px;
   min-height: 0;
-  overflow: hidden;
 }
 .oak-mon-inspect {
   display: grid;
@@ -11645,6 +11669,7 @@ html[data-perf="low"] .oak-transfer-side.is-oak.is-receive .oak-xfer-oak img {
   display: grid;
   place-items: center;
   flex: 0 0 auto;
+  overflow: hidden;
 }
 .oak-candy-art img.oak-candy-item,
 .oak-candy-art img.oak-candy-body {
@@ -11653,41 +11678,61 @@ html[data-perf="low"] .oak-transfer-side.is-oak.is-receive .oak-xfer-oak img {
   object-fit: contain;
   image-rendering: auto;
 }
-.oak-candy-art.is-composite .oak-candy-mascot {
+.oak-candy-art.is-composite .oak-candy-mascot-plate {
   position: absolute;
-  top: 18%;
+  top: 14%;
   left: 50%;
   transform: translateX(-50%);
-  width: 46%;
-  height: 46%;
-  object-fit: contain;
+  width: 56%;
+  height: 56%;
+  border-radius: 50%;
+  background: rgba(255, 252, 246, .72);
+  display: grid;
+  place-items: center;
   pointer-events: none;
+}
+.oak-candy-art.is-composite .oak-candy-mascot {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
 }
 .oak-send-candy,
 .oak-candy-chip {
-  min-height: 44px;
-  max-height: 72px;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
   align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+.oak-candy-chip.is-compact .evo-cost-candy-copy {
+  text-align: left;
 }
 .oak-send-candy .evo-cost-candy-copy strong,
-.oak-candy-chip .evo-cost-candy-copy strong {
+.oak-candy-chip:not(.is-compact) .evo-cost-candy-copy strong {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.oak-candy-chip.is-compact .evo-cost-candy-copy strong,
+.oak-candy-chip.is-compact .evo-cost-candy-copy span {
+  overflow: visible;
+  white-space: normal;
+}
 .oak-evo-target {
   display: grid;
   justify-items: center;
   gap: 0;
-  min-height: 72px;
-  max-height: 72px;
-  overflow: hidden;
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
 }
 .oak-evo-target-art img {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
 }
 .oak-evo-target-name {
@@ -11718,9 +11763,9 @@ html[data-perf="low"] .oak-transfer-side.is-oak.is-receive .oak-xfer-oak img {
   right: auto;
   bottom: auto;
   width: 100%;
-  min-height: 44px;
+  min-height: 40px;
   border: 0;
-  border-radius: 0 0 20px 20px;
+  border-radius: 12px;
   cursor: default;
   font: inherit;
   appearance: none;

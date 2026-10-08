@@ -1,0 +1,14 @@
+{
+  "evo": {
+    "h": 0,
+    "pad": "12px",
+    "footGap": 0,
+    "text": "#001 Bulbasaur ↓ Ivysaur 40 required 0 owned · 40 more needed Needs Candy"
+  },
+  "send": {
+    "h": 286,
+    "pad": "12px",
+    "footGap": 14,
+    "text": "#113 Chansey Chansey Evolution Candy Click here to select"
+  }
+}

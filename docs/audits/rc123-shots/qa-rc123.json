@@ -1,0 +1,715 @@
+{
+  "qaAccount": "playtester@sorastarlight.net",
+  "soraMutated": "NO",
+  "twinkleMutated": "NO",
+  "mutations": "none",
+  "cleanup": "none required — read-only inspect/filter/confirm",
+  "rpcReadyCount": 8,
+  "rpcTerminalsInReady": 0,
+  "rpcUnderResourced": 8,
+  "chanseyOwned": 0,
+  "transfer1920": {
+    "send": [],
+    "evo": [
+      {
+        "dex": "1",
+        "kind": "blocked",
+        "selected": false,
+        "height": 0,
+        "width": 0,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 0,
+          "h": 0,
+          "clipped": false
+        },
+        "contextH": 0,
+        "footTop": 0,
+        "footBottomGap": 0,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "2",
+        "kind": "blocked",
+        "selected": false,
+        "height": 0,
+        "width": 0,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 0,
+          "h": 0,
+          "clipped": false
+        },
+        "contextH": 0,
+        "footTop": 0,
+        "footBottomGap": 0,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "4",
+        "kind": "blocked",
+        "selected": false,
+        "height": 0,
+        "width": 0,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 0,
+          "h": 0,
+          "clipped": false
+        },
+        "contextH": 0,
+        "footTop": 0,
+        "footBottomGap": 0,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "5",
+        "kind": "blocked",
+        "selected": false,
+        "height": 0,
+        "width": 0,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 0,
+          "h": 0,
+          "clipped": false
+        },
+        "contextH": 0,
+        "footTop": 0,
+        "footBottomGap": 0,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "7",
+        "kind": "blocked",
+        "selected": false,
+        "height": 0,
+        "width": 0,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 0,
+          "h": 0,
+          "clipped": false
+        },
+        "contextH": 0,
+        "footTop": 0,
+        "footBottomGap": 0,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "8",
+        "kind": "blocked",
+        "selected": false,
+        "height": 0,
+        "width": 0,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 0,
+          "h": 0,
+          "clipped": false
+        },
+        "contextH": 0,
+        "footTop": 0,
+        "footBottomGap": 0,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "10",
+        "kind": "blocked",
+        "selected": false,
+        "height": 0,
+        "width": 0,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 0,
+          "h": 0,
+          "clipped": false
+        },
+        "contextH": 0,
+        "footTop": 0,
+        "footBottomGap": 0,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "11",
+        "kind": "blocked",
+        "selected": false,
+        "height": 0,
+        "width": 0,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 0,
+          "h": 0,
+          "clipped": false
+        },
+        "contextH": 0,
+        "footTop": 0,
+        "footBottomGap": 0,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      }
+    ],
+    "candyImgs": [
+      {
+        "src": "images/items/evolution-candy/1.png",
+        "composite": true,
+        "mascot": "images/pokemon/1.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/1.png",
+        "composite": true,
+        "mascot": "images/pokemon/1.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/4.png",
+        "composite": true,
+        "mascot": "images/pokemon/4.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/4.png",
+        "composite": true,
+        "mascot": "images/pokemon/4.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/7.png",
+        "composite": true,
+        "mascot": "images/pokemon/7.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/7.png",
+        "composite": true,
+        "mascot": "images/pokemon/7.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/10.png",
+        "composite": true,
+        "mascot": "images/pokemon/10.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/10.png",
+        "composite": true,
+        "mascot": "images/pokemon/10.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/1.png",
+        "composite": true,
+        "mascot": "images/pokemon/1.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/4.png",
+        "composite": true,
+        "mascot": "images/pokemon/4.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/7.png",
+        "composite": true,
+        "mascot": "images/pokemon/7.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/10.png",
+        "composite": true,
+        "mascot": "images/pokemon/10.gif?v=20260923-home1"
+      }
+    ],
+    "counts": {
+      "all": "8",
+      "ready": "0",
+      "candy": "8",
+      "item": "0",
+      "trade": "0"
+    },
+    "empty": null,
+    "inspectOpen": false,
+    "evoOpen": false,
+    "transferOpen": false,
+    "confirmText": "",
+    "confirmHtmlLeak": false,
+    "overflow": false,
+    "filter": "all"
+  },
+  "afterInspect": {
+    "inspectOpen": false,
+    "selected": false
+  },
+  "afterSelect": {
+    "inspectOpen": false,
+    "selected": false
+  },
+  "evoAll": {
+    "send": [],
+    "evo": [
+      {
+        "dex": "1",
+        "kind": "blocked",
+        "selected": false,
+        "height": 318,
+        "width": 190,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 96,
+          "h": 96,
+          "clipped": false
+        },
+        "contextH": 118,
+        "footTop": 264,
+        "footBottomGap": 14,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "2",
+        "kind": "blocked",
+        "selected": false,
+        "height": 318,
+        "width": 190,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 96,
+          "h": 96,
+          "clipped": false
+        },
+        "contextH": 118,
+        "footTop": 264,
+        "footBottomGap": 14,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "4",
+        "kind": "blocked",
+        "selected": false,
+        "height": 318,
+        "width": 190,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 96,
+          "h": 96,
+          "clipped": false
+        },
+        "contextH": 118,
+        "footTop": 264,
+        "footBottomGap": 14,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "5",
+        "kind": "blocked",
+        "selected": false,
+        "height": 318,
+        "width": 190,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 96,
+          "h": 96,
+          "clipped": false
+        },
+        "contextH": 118,
+        "footTop": 264,
+        "footBottomGap": 14,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "7",
+        "kind": "blocked",
+        "selected": false,
+        "height": 318,
+        "width": 190,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 96,
+          "h": 96,
+          "clipped": false
+        },
+        "contextH": 118,
+        "footTop": 264,
+        "footBottomGap": 14,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "8",
+        "kind": "blocked",
+        "selected": false,
+        "height": 318,
+        "width": 190,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 96,
+          "h": 96,
+          "clipped": false
+        },
+        "contextH": 118,
+        "footTop": 264,
+        "footBottomGap": 14,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "10",
+        "kind": "blocked",
+        "selected": false,
+        "height": 318,
+        "width": 190,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 96,
+          "h": 96,
+          "clipped": false
+        },
+        "contextH": 118,
+        "footTop": 264,
+        "footBottomGap": 14,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      },
+      {
+        "dex": "11",
+        "kind": "blocked",
+        "selected": false,
+        "height": 318,
+        "width": 190,
+        "overflowHidden": false,
+        "padBottom": 12,
+        "sprite": {
+          "w": 96,
+          "h": 96,
+          "clipped": false
+        },
+        "contextH": 118,
+        "footTop": 264,
+        "footBottomGap": 14,
+        "footText": "Needs Candy",
+        "clippedText": false,
+        "htmlLeak": false
+      }
+    ],
+    "candyImgs": [
+      {
+        "src": "images/items/evolution-candy/1.png",
+        "composite": true,
+        "mascot": "images/pokemon/1.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/1.png",
+        "composite": true,
+        "mascot": "images/pokemon/1.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/4.png",
+        "composite": true,
+        "mascot": "images/pokemon/4.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/4.png",
+        "composite": true,
+        "mascot": "images/pokemon/4.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/7.png",
+        "composite": true,
+        "mascot": "images/pokemon/7.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/7.png",
+        "composite": true,
+        "mascot": "images/pokemon/7.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/10.png",
+        "composite": true,
+        "mascot": "images/pokemon/10.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/10.png",
+        "composite": true,
+        "mascot": "images/pokemon/10.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/1.png",
+        "composite": true,
+        "mascot": "images/pokemon/1.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/4.png",
+        "composite": true,
+        "mascot": "images/pokemon/4.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/7.png",
+        "composite": true,
+        "mascot": "images/pokemon/7.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/10.png",
+        "composite": true,
+        "mascot": "images/pokemon/10.gif?v=20260923-home1"
+      }
+    ],
+    "counts": {
+      "all": "8",
+      "ready": "0",
+      "candy": "8",
+      "item": "0",
+      "trade": "0"
+    },
+    "empty": null,
+    "inspectOpen": false,
+    "evoOpen": false,
+    "transferOpen": false,
+    "confirmText": "",
+    "confirmHtmlLeak": false,
+    "overflow": false,
+    "filter": "all"
+  },
+  "evoInspect": {
+    "inspectOpen": true,
+    "evoOpen": false
+  },
+  "tradeEmpty": {
+    "send": [],
+    "evo": [],
+    "candyImgs": [
+      {
+        "src": "images/items/evolution-candy/1.png",
+        "composite": true,
+        "mascot": "images/pokemon/1.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/4.png",
+        "composite": true,
+        "mascot": "images/pokemon/4.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/7.png",
+        "composite": true,
+        "mascot": "images/pokemon/7.gif?v=20260923-home1"
+      },
+      {
+        "src": "images/items/evolution-candy/10.png",
+        "composite": true,
+        "mascot": "images/pokemon/10.gif?v=20260923-home1"
+      }
+    ],
+    "counts": {
+      "all": "8",
+      "ready": "0",
+      "candy": "8",
+      "item": "0",
+      "trade": "0"
+    },
+    "empty": {
+      "kind": "evo-empty evo-empty-lab evo-empty-filter",
+      "text": "No Pokémon match this filter. Try another Evolution Research filter or check back after catching more Pokémon. Show All Pokémon",
+      "w": 420,
+      "h": 301,
+      "showAll": true
+    },
+    "inspectOpen": false,
+    "evoOpen": false,
+    "transferOpen": false,
+    "confirmText": "",
+    "confirmHtmlLeak": false,
+    "overflow": false,
+    "filter": "trade"
+  },
+  "afterShowAll": {
+    "filter": "all",
+    "empty": null,
+    "evoCount": 8
+  },
+  "evoConfirm": {
+    "open": true,
+    "leak": false,
+    "text": "Sandshrew\n#027 · Lv. 12\n→\nSandslash\n#028\n\nREQUIREMENTS\n\nSandshrew Evolution Candy\n25 required · 67 owned ✓\n\nSandshrew is ready to evolve into Sandslash!"
+  },
+  "chanseyCandy": {
+    "src": "images/items/evolution-candy/113.png",
+    "composite": true,
+    "mascot": "images/pokemon/113.gif?v=20260923-home1"
+  },
+  "responsive": {
+    "390": {
+      "evoCount": 8,
+      "empty": null,
+      "overflow": false,
+      "evoHeights": [
+        318,
+        318,
+        318,
+        318,
+        318,
+        318,
+        318,
+        318
+      ],
+      "sendHeights": [
+        0
+      ],
+      "footGaps": [
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14
+      ]
+    },
+    "960": {
+      "evoCount": 0,
+      "empty": {
+        "kind": "evo-empty evo-empty-lab evo-empty-filter",
+        "text": "No Pokémon match this filter. Try another Evolution Research filter or check back after catching more Pokémon. Show All Pokémon",
+        "w": 420,
+        "h": 301,
+        "showAll": true
+      },
+      "overflow": false,
+      "evoHeights": [],
+      "sendHeights": [
+        0
+      ],
+      "footGaps": []
+    },
+    "2560": {
+      "evoCount": 0,
+      "empty": {
+        "kind": "evo-empty evo-empty-lab evo-empty-filter",
+        "text": "No Pokémon match this filter. Try another Evolution Research filter or check back after catching more Pokémon. Show All Pokémon",
+        "w": 420,
+        "h": 301,
+        "showAll": true
+      },
+      "overflow": false,
+      "evoHeights": [],
+      "sendHeights": [
+        0
+      ],
+      "footGaps": []
+    },
+    "2560-transfer": {
+      "evoCount": 8,
+      "empty": null,
+      "overflow": false,
+      "evoHeights": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sendHeights": [
+        286
+      ],
+      "footGaps": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "960-transfer": {
+      "evoCount": 8,
+      "empty": null,
+      "overflow": false,
+      "evoHeights": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sendHeights": [
+        286
+      ],
+      "footGaps": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "390-transfer": {
+      "evoCount": 8,
+      "empty": null,
+      "overflow": false,
+      "evoHeights": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sendHeights": [
+        286
+      ],
+      "footGaps": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  }
+}

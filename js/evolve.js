@@ -103,13 +103,6 @@
     return `<img src="${esc(src)}" alt="" width="${px}" height="${px}" loading="lazy" decoding="async" onerror="window.playSpriteOnError && window.playSpriteOnError(this)">`;
   }
 
-  function genderMark(gender) {
-    const g = String(gender || "").toLowerCase();
-    if (g === "female") return `<span class="evo-gender" title="Female">♀</span>`;
-    if (g === "male") return `<span class="evo-gender" title="Male">♂</span>`;
-    return "";
-  }
-
   function itemLabel(key) {
     return view.itemLabel ? view.itemLabel(key) : (window.playItemLabel ? window.playItemLabel(key) : key);
   }
@@ -144,7 +137,9 @@
   }
 
   function readyRows() {
-    return data?.ready || [];
+    return (data?.ready || []).filter((row) => (
+      view.hasEligibleEvolution ? view.hasEligibleEvolution(row) : Boolean(row && !row.terminal && Number(row.toDex) >= 1 && Number(row.toDex) <= 151)
+    ));
   }
 
   function storageMons() {
@@ -643,10 +638,20 @@
     const item = id?.art || "images/items/lgpe-candy.png";
     const fallback = id?.artFallback || "images/items/lgpe-candy.png";
     const mascot = id?.mascot || "";
-    const dedicated = /evolution-candy\//.test(item);
-    if (dedicated) {
+    const isPng = /evolution-candy\/.+\.png/i.test(item);
+    const isSvg = /evolution-candy\/.+\.svg/i.test(item);
+    const onerr = `data-fallback="${esc(fallback)}" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.removeAttribute('data-fallback');this.src=f;}else{this.onerror=null;this.src='images/items/lgpe-candy.png'}"`;
+    if (isPng && mascot) {
+      return `<span class="oak-candy-art is-composite" style="--oak-candy-size:${size}px">
+        <img class="oak-candy-body" src="${esc(item)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy" ${onerr}>
+        <span class="oak-candy-mascot-plate" aria-hidden="true">
+          <img class="oak-candy-mascot" src="${esc(mascot)}" alt="" width="${Math.round(size * 0.52)}" height="${Math.round(size * 0.52)}" decoding="async" loading="lazy">
+        </span>
+      </span>`;
+    }
+    if (isPng || isSvg) {
       return `<span class="oak-candy-art" style="--oak-candy-size:${size}px">
-        <img class="oak-candy-item" src="${esc(item)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy" data-fallback="${esc(fallback)}" onerror="if(this.dataset.fallback){const f=this.dataset.fallback;this.removeAttribute('data-fallback');this.src=f;}else{this.onerror=null;this.src='images/items/lgpe-candy.png'}">
+        <img class="oak-candy-item" src="${esc(item)}" alt="" width="${size}" height="${size}" decoding="async" loading="lazy" ${onerr}>
       </span>`;
     }
     return `<span class="oak-candy-art is-composite" style="--oak-candy-size:${size}px">
@@ -655,28 +660,44 @@
     </span>`;
   }
 
-  function candyChipHtml(row, { have, need, size = 36 } = {}) {
+  function candyNeedCopy(have, need) {
+    const haveN = Number(have || 0);
+    const needN = Number(need || 0);
+    const shortfall = Math.max(0, needN - haveN);
+    if (needN > 0 && haveN >= needN) return `${needN} required · ${haveN} owned ✓`;
+    if (shortfall) return `${needN} required · ${haveN} owned · ${shortfall} more needed`;
+    return `${needN} required · ${haveN} owned`;
+  }
+
+  function candyChipHtml(row, { have, need, size = 36, compact = false } = {}) {
     const id = candyIdentity(row);
     const haveN = Number(have ?? row.haveCandy ?? 0);
     const needN = Number(need ?? row.candyCost ?? 0);
     const shortfall = Math.max(0, needN - haveN);
     const ready = needN > 0 && haveN >= needN;
+    if (compact) {
+      return `<span class="evo-cost-candy oak-candy-chip is-compact">
+        ${candyArtHtml(id, size)}
+        <span class="evo-cost-candy-copy">
+          <strong>${needN} required</strong>
+          <span>${ready ? `${haveN} owned ✓` : `${haveN} owned${shortfall ? ` · ${shortfall} more needed` : ""}`}</span>
+        </span>
+      </span>`;
+    }
     return `<span class="evo-cost-candy oak-candy-chip">
       ${candyArtHtml(id, size)}
       <span class="evo-cost-candy-copy">
         <strong>${esc(id.label)}</strong>
-        <span>${haveN} / ${needN}</span>
-        ${ready ? "" : (shortfall ? `<span class="evo-cost-state is-need">Needs ${shortfall} more</span>` : "")}
+        <span>${candyNeedCopy(haveN, needN)}</span>
       </span>
     </span>`;
   }
 
   function counts() {
     const rows = readyRows();
-    const owned = data?.owned || [];
     return {
       ready: rows.filter(canEvolve).length,
-      all: rows.length + owned.filter((mon) => !mon.canEvolve).length,
+      all: rows.length,
       candy: rows.filter((row) => view.matchesFilter(row, "candy")).length,
       item: rows.filter((row) => view.matchesFilter(row, "item")).length,
       trade: rows.filter((row) => view.matchesFilter(row, "trade")).length
@@ -728,13 +749,10 @@
     if (kind === "locked") return `<span class="evo-foot is-warn">Locked</span>`;
     if (kind === "reserved") return `<span class="evo-foot is-warn">Trade reserved</span>`;
     if (view.matchesFilter?.(row, "candy")) {
-      const haveN = Number(row.haveCandy || 0);
-      const needN = Number(row.candyCost || 0);
-      const shortfall = Math.max(0, needN - haveN);
-      return `<span class="evo-foot is-candy">Needs Candy ×${shortfall || needN}</span>`;
+      return `<span class="evo-foot is-candy">Needs Candy</span>`;
     }
     if (view.matchesFilter?.(row, "item")) {
-      return `<span class="evo-foot is-item">Needs ${esc(itemLabel(row.item) || "Item")}</span>`;
+      return `<span class="evo-foot is-item">Needs Item</span>`;
     }
     if (view.matchesFilter?.(row, "trade")) {
       return `<span class="evo-foot is-trade">Trade Evolution</span>`;
@@ -749,22 +767,22 @@
     const catchId = row.catchId || row.id || "";
     const inspectLabel = `Inspect ${row.name || "Pokémon"}`;
     const item = !terminal && row.item
-      ? `${itemLabel(row.item)} ${row.haveItem || row.tradeReady ? "✓" : "✕"}`
+      ? `${itemLabel(row.item)}${row.haveItem || row.tradeReady ? " ✓" : ""}`
       : "";
     return `
       <article class="evo-mon oak-mon-card oak-evo-card is-${kind}${ready ? " is-ready" : ""}${terminal ? " is-terminal" : ""}" data-evo="${esc(catchId)}" data-rule="${esc(row.ruleId || "")}" data-kind="${kind}" data-dex="${row.dex || ""}">
         <button type="button" class="oak-mon-inspect" data-evo-inspect="${esc(catchId)}" aria-label="${esc(inspectLabel)}">
-          <span class="evo-mon-art">${sprite(row.dex, row.variant || "normal", 96, row.gender)}</span>
+          <span class="evo-mon-art">${sprite(row.dex, row.variant || "normal", 88, row.gender)}</span>
           <strong class="evo-mon-name oak-mon-name">${dexLabel(row.dex)} ${shiny ? "✨ " : ""}${esc(row.name)}</strong>
         </button>
-        ${row.toName ? `<span class="oak-evo-target">
-          <span class="evo-arrow-lite" aria-hidden="true">↓</span>
-          <span class="oak-evo-target-art">${sprite(row.toDex, row.variant || "normal", 48, row.gender)}</span>
-          <span class="oak-evo-target-name">${esc(row.toName)}</span>
-        </span>` : `<span class="oak-evo-target is-empty" aria-hidden="true"></span>`}
-        <div class="oak-evo-reqs">
-          ${terminal ? `<span class="oak-candy-chip is-empty" aria-hidden="true"></span>` : candyChipHtml(row, { size: 28 })}
-          ${item ? `<span class="evo-cost oak-evo-item">${esc(item)}</span>` : `<span class="evo-cost oak-evo-item is-empty" aria-hidden="true"></span>`}
+        <div class="oak-card-context">
+          ${row.toName ? `<span class="oak-evo-target">
+            <span class="evo-arrow-lite" aria-hidden="true">↓</span>
+            <span class="oak-evo-target-art">${sprite(row.toDex, row.variant || "normal", 40, row.gender)}</span>
+            <span class="oak-evo-target-name">${esc(row.toName)}</span>
+          </span>` : ""}
+          ${terminal ? "" : candyChipHtml(row, { size: 28, compact: true })}
+          ${item ? `<span class="evo-cost oak-evo-item">${esc(item)}</span>` : ""}
         </div>
         ${statusFooter(row, terminal)}
       </article>`;
@@ -792,19 +810,18 @@
       els.sort?.value || "dex-asc"
     );
     const cards = rows.map((row) => cardHtml(row, false));
-    if (filter === "all") {
-      const terminals = (data?.owned || []).filter((mon) => !mon.canEvolve).map((mon) => ({ ...mon, terminal: true, catchId: mon.id }));
-      sortRows(
-        terminals.filter((mon) => (view.matchesFilter ? view.matchesFilter(mon, "all", q) : true)),
-        els.sort?.value || "dex-asc"
-      ).forEach((mon) => cards.push(cardHtml(mon, true)));
-    }
-    const empty = `<div class="evo-empty evo-empty-lab">
+    const eligibleTotal = readyRows().length;
+    const empty = eligibleTotal
+      ? `<div class="evo-empty evo-empty-lab evo-empty-filter">
       <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
-      <p><strong>Professor Oak</strong> is ready when you are.</p>
-      <p class="muted">Catch duplicate Pokémon from the same Evolution Line, then send them to Professor Oak for Evolution Candy.</p>
-      <p class="muted">Use Candy—and Stones or Linking Cords from the <a href="./store.html#evolution">Mart</a>—to evolve Pokémon you already own.</p>
-      <p><button type="button" class="button secondary" data-switch-tab="send">Send to Oak</button></p>
+      <p><strong>No Pokémon match this filter.</strong></p>
+      <p class="muted">Try another Evolution Research filter or check back after catching more Pokémon.</p>
+      <p><button type="button" class="button secondary" data-evo-show-all>Show All Pokémon</button></p>
+    </div>`
+      : `<div class="evo-empty evo-empty-lab evo-empty-collection">
+      <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
+      <p><strong>Professor Oak is ready when you are!</strong></p>
+      <p class="muted">Catch Pokémon that can evolve, then return to continue your research.</p>
     </div>`;
     els.grid.innerHTML = cards.join("") || empty;
     let fanfare = 0;
@@ -826,11 +843,12 @@
           <span class="evo-mon-art">${sprite(mon.dex, mon.variant || "normal", 96, mon.gender)}</span>
           <strong class="evo-mon-name oak-mon-name">${dexLabel(mon.dex)} ${shiny ? "✨ " : ""}${esc(name)}</strong>
         </button>
-        <span class="oak-card-grow" aria-hidden="true"></span>
-        <span class="oak-send-candy evo-cost-candy">
-          ${candyArtHtml(candy, 40)}
-          <span class="evo-cost-candy-copy"><strong>${esc(candy.label)}</strong></span>
-        </span>
+        <div class="oak-card-context">
+          <span class="oak-send-candy evo-cost-candy">
+            ${candyArtHtml(candy, 40)}
+            <span class="evo-cost-candy-copy"><strong>${esc(candy.label)}</strong></span>
+          </span>
+        </div>
         <button type="button" class="evo-foot ${selected ? "is-ready" : "is-select"}" data-oak-select="${esc(id)}" aria-pressed="${selected ? "true" : "false"}">
           ${selected ? "Selected ✓" : "Click here to select"}
         </button>
@@ -1027,8 +1045,7 @@
       const have = Number(row.haveCandy || 0);
       const need = Number(row.candyCost || 0);
       const candy = candyIdentity(row);
-      bits.push(`<div class="evo-req-candy"><img src="${esc(candy.art)}" alt="" width="32" height="32" decoding="async"><span><strong>${esc(candy.label)}</strong><br>${have} / ${need} required ${have >= need ? "✓" : "✕"}</span></div>${meter(have, need)}`);
-      if (need > have) bits.push(`<p>You need ${need - have} more ${esc(candy.label)}.</p>`);
+      bits.push(`<div class="evo-req-candy">${candyArtHtml(candy, 32)}<span><strong>${esc(candy.label)}</strong><br>${esc(candyNeedCopy(have, need))}</span></div>`);
       if (row.item === "linkingcord") {
         const qty = view.itemQty ? view.itemQty(row) : (row.haveItem ? 1 : 0);
         bits.push(`<p>Linking Cord<br>Allows this Pokémon to evolve without trading.<br>Owned: ${qty} ${qty ? "✓" : "✕"}</p>`);
@@ -1134,11 +1151,10 @@
     const candy = candyIdentity(row);
     const have = Number(row.haveCandy || 0);
     const need = Number(row.candyCost || 0);
-    const candyOk = need > 0 && have >= need;
     const bits = [`<div class="evo-confirm-req">
       ${candyArtHtml(candy, 36)}
       <span>${esc(candy.label)}</span>
-      <strong>${have} / ${need}${candyOk ? " ✓" : ""}</strong>
+      <strong>${esc(candyNeedCopy(have, need))}</strong>
     </div>`];
     if (row.item) {
       const qty = view.itemQty ? view.itemQty(row) : (row.haveItem ? 1 : 0);
@@ -1162,7 +1178,7 @@
     els.modal?.classList.toggle("is-ready-confirm", ready);
     const fromName = `${shiny ? "✨ " : ""}${row.name}`;
     const toName = row.toName ? `${shiny ? "✨ " : ""}${row.toName}` : "";
-    const fromMeta = [row.dex != null ? dexLabel(row.dex) : "", row.level ? `Lv. ${row.level}` : "", genderMark(row.gender)]
+    const fromMeta = [row.dex != null ? dexLabel(row.dex) : "", row.level ? `Lv. ${row.level}` : ""]
       .filter(Boolean).join(" · ");
     const toMeta = row.toDex != null ? dexLabel(row.toDex) : "";
     if (ready && row.toName) {
@@ -1951,6 +1967,14 @@
   });
 
   els.grid?.addEventListener("click", (event) => {
+    const showAll = event.target.closest("[data-evo-show-all]");
+    if (showAll) {
+      event.preventDefault();
+      event.stopPropagation();
+      setFilter("all");
+      renderReady();
+      return;
+    }
     const inspectBtn = event.target.closest("[data-evo-inspect]");
     if (inspectBtn) {
       event.preventDefault();

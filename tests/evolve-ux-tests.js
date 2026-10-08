@@ -91,6 +91,33 @@ test("terminal Pokémon has no evolve action", () => {
   assert(view.cardKind(terminal) === "terminal");
   assert(!view.canEvolve(terminal));
 });
+test("fully evolved Pokémon are not evolution-eligible for Research", () => {
+  assert(!view.hasEligibleEvolution(terminal));
+  assert(!view.hasEligibleEvolution({ dex: 26, name: "Raichu" }));
+  assert(!view.hasEligibleEvolution({ dex: 28, name: "Sandslash" }));
+  assert(!view.hasEligibleEvolution({ dex: 6, name: "Charizard" }));
+});
+test("under-resourced Pokémon with an enabled Kanto evo stay eligible", () => {
+  assert(view.hasEligibleEvolution(needCandy));
+  assert(view.hasEligibleEvolution(needStone));
+  assert(view.hasEligibleEvolution(cord));
+  assert(view.hasEligibleEvolution({
+    catchId: "eevee", ruleId: "133-134", dex: 133, name: "Eevee", toDex: 134, toName: "Vaporeon",
+    haveCandy: 0, candyCost: 40, available: false
+  }));
+  assert(!view.canEvolve(needCandy));
+  assert(!view.canEvolve(needStone));
+});
+test("Kanto-only evolution boundary hides later-generation targets", () => {
+  assert(!view.hasEligibleEvolution({
+    catchId: "eevee-espeon", ruleId: "133-196", dex: 133, name: "Eevee",
+    toDex: 196, toName: "Espeon", haveCandy: 80, candyCost: 40, available: true
+  }));
+  assert(view.hasEligibleEvolution({
+    catchId: "eevee-vaporeon", ruleId: "133-134", dex: 133, name: "Eevee",
+    toDex: 134, toName: "Vaporeon", haveCandy: 0, candyCost: 40, available: false
+  }));
+});
 test("double-click prevention", () => {
   const gate = view.pendingGuard();
   assert(gate.begin() === true);

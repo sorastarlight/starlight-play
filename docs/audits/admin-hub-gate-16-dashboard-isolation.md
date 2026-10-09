@@ -97,5 +97,5 @@ Cursor browser REAL DOM (unsigned + layout-revealed Operations):
 
 - R1 `admin_overview` settle-before-guard — **OPEN** (legacy hub still calls it)
 - R17 preview invocation — **MITIGATED (preview UI)** after network verification; legacy Dashboard still ticks
-- No true-read session snapshot in production
+- No true-read session snapshot in production — Gate 1.7 S1 review package ready, not applied (`docs/audits/admin-hub-gate-17-s1-snapshot-review.md`)
 - R2/R4/R12/R18 unchanged

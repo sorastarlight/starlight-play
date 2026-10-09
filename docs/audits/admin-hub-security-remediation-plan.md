@@ -12,8 +12,8 @@ Scripts: `docs/audits/sql/gate-15-review-*.sql`.
 | **S0** | Owner decisions (below) | — | all |
 | **S1** | `admin_overview`: settle **after** `require_hub`, or remove settle | Confirm player `play_sync` still settles | R1 |
 | **S2** | Revoke `anon`/`PUBLIC` EXECUTE on `public.admin_*` except none; keep `authenticated` | S1; store-asset uses user JWT | R2, R15 |
-| **S3** | True-read Operations snapshot (dashboard **without** `director_tick_if_due`) | Must not alter tick itself | R17 |
-| **S4** | Preview `READ_RPCS` switch to true-read; stop calling tick dashboard | S3 | R17 |
+| **S3** | True-read Operations snapshot (dashboard **without** `director_tick_if_due`) | Must not alter tick itself | R17. **Gate 1.7 S1 review package ready** (`docs/audits/admin-hub-gate-17-s1-snapshot-review.md`). Not applied. |
+| **S4** | Preview `READ_RPCS` switch to true-read; stop calling tick dashboard | S3 | R17. Do not start until S3 is live. |
 | **S5** | Protected-account deny in a single helper used by QA + grants + refill | Owner UUID list | R4 |
 | **S6** | Raise Pass / Bits pack / Oak QA to `require_staff_edit` (or owner for QA) | Owner: can mods credit Bits? | R18 |
 | **S7** | Disable or rewrite `admin_refill_test` | S5 | R12 |

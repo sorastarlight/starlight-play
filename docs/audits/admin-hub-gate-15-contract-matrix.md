@@ -98,7 +98,7 @@ perform private.director_tick_if_due();
 
 **`private.director_tick()`** (LIVE SQL, truncated but sufficient): `FOR UPDATE` on `stream_director`; may expire holds; pause/resume for ads; **end RPG if known offline**; if LIVE + `rpg_session_active` + auto enabled + due + safe window, **`private.director_start_now(...)`** (queued special or AUTO random). Also updates director timestamps/status.
 
-**Callers (REPO):** `admin-live.js` dashboard poll only after Gate 1.6. **`admin-next.js` no longer calls this RPC.** Preview Operations uses an UNAVAILABLE fallback. A SELECT-only `admin_live_snapshot` is a review artifact only (`docs/audits/sql/gate-16-review-admin-live-snapshot.sql`).
+**Callers (REPO):** `admin-live.js` dashboard poll only after Gate 1.6. **`admin-next.js` no longer calls this RPC.** Preview Operations uses an UNAVAILABLE fallback. Gate 1.7 S1 proposed true-read: `docs/audits/sql/gate-17-s1-live-snapshot-up.sql` (**not applied**). Do not apply the Gate 1.6 draft (`gate-16-review-admin-live-snapshot.sql`).
 
 **Classification:** staff-gated **read-with-tick**. Safer than `admin_overview` because the guard runs **before** settle, and anon cannot EXECUTE. Still **unsuitable as a “read-only preview” poll** while a Live RPG session is active (can settle rounds and start auto encounters). Player `play_sync` / `play_state` already call `director_tick_if_due` **LIVE SQL**, so settlement is not unique to admin — but the preview must not pretend it is side-effect-free.
 
@@ -134,6 +134,10 @@ end;
 **Player-facing dependency:** Players do **not** call `admin_overview`. Encounter settlement also happens via `director_tick_if_due` (`play_sync`, `play_state`, `director_dashboard`) and `private.load_play_round` / `public.bridge_publish` **LIVE SQL**. Moving settle behind the guard does **not** stop player-driven settlement.
 
 **Remediation (DO NOT APPLY):** see `docs/audits/sql/gate-15-review-admin-overview-guard.sql`.
+
+### 3.5 `public.admin_live_snapshot()` — proposed TRUE READ (Gate 1.7 S1)
+
+**Not live.** Review SQL only. Staff check (`private.is_play_admin`) first. SELECT `stream_status`, `stream_director`, one `encounter_rounds` row. No tick, settle, or lifecycle writes. EXECUTE: authenticated + service_role after explicit PUBLIC/anon revoke. See `docs/audits/admin-hub-gate-17-s1-snapshot-review.md`.
 
 ---
 
@@ -328,7 +332,7 @@ Pokémon/bag/coin/store/config grants: **no** `account_audit` **LIVE SQL**. Econ
 
 `admin-next.js` `READ_RPCS` = `admin_build_health`, `admin_game_health` only after Gate 1.6. `readCall()` throws if any other name is requested. Tests assert no `admin_live_dashboard`, `admin_overview`, tick, settle, or director command strings.
 
-**Implication of R17:** the preview no longer ticks/settles on open. Operations shows UNAVAILABLE. Analytics may call the two TRUE-READ health RPCs once. Gate 2 must not add `admin_overview` or `admin_live_dashboard`. A SELECT-only snapshot remains a review artifact.
+**Implication of R17:** the preview no longer ticks/settles on open. Operations shows UNAVAILABLE. Analytics may call the two TRUE-READ health RPCs once. Gate 2 must not add `admin_overview` or `admin_live_dashboard`. Gate 1.7 S1 snapshot SQL is a review artifact; do not add `admin_live_snapshot` to `READ_RPCS` until it exists in production.
 
 ---
 

@@ -137,7 +137,7 @@ end;
 
 ### 3.5 `public.admin_live_snapshot()` — proposed TRUE READ (Gate 1.7 S1)
 
-**Not live.** Review SQL only. Staff check (`private.is_play_admin`) first. SELECT `stream_status`, `stream_director`, one `encounter_rounds` row. No tick, settle, or lifecycle writes. EXECUTE: authenticated + service_role after explicit PUBLIC/anon revoke. See `docs/audits/admin-hub-gate-17-s1-snapshot-review.md`.
+**Not live.** Review SQL `gate-17-s1-v2` only. Staff check (`private.is_play_admin`) first. SELECT `stream_status`, `stream_director`, `stream_sessions` by director `session_id`, `encounter_rounds` by director `last_encounter_id` only. No latest-row fallback. No tick, settle, or lifecycle writes. Settlement field is UNAVAILABLE. EXECUTE: authenticated only after PUBLIC/anon/`service_role` revoke. See `docs/audits/admin-hub-gate-17-s1-snapshot-review.md`.
 
 ---
 

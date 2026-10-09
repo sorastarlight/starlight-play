@@ -27,6 +27,7 @@ Use `docs/audits/sql/gate-17-s1-authorization-tests.sql` on a clone.
 | A1 | `anon` EXECUTE privilege | false |
 | A2 | `PUBLIC` EXECUTE privilege | false |
 | A3 | `authenticated` EXECUTE privilege | true |
+| A3b | `service_role` EXECUTE privilege | false |
 | A4 | Function `prosrc` | no tick/settle/director dashboard identifiers |
 | B1 | `SET LOCAL ROLE anon` then call | `42501`, no JSON snapshot |
 | C1 | Authenticated nonstaff JWT | `42501`, no staff fields |
@@ -36,6 +37,9 @@ Use `docs/audits/sql/gate-17-s1-authorization-tests.sql` on a clone.
 | F1 | Clone: hide director row inside a rolled-back transaction | `rpgSession.state = UNKNOWN`, `active` JSON null |
 | F2 | Clone: stale `stream_status.checked_at` | `twitch.state = STALE`, `live` null |
 | F3 | Permission-denied message | no account email, Twitch id, or trainer dossier |
+| F4 | Closed `last_encounter_id` | `currentEncounter` JSON null; `lastEncounter` present |
+| F5 | `settlement.awaiting` | JSON null, `state=UNAVAILABLE` |
+| F6 | Preflight on a different existing function | apply aborts; live function unchanged |
 
 ## Explicitly forbidden tests
 

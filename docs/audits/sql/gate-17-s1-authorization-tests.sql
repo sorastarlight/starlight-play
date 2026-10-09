@@ -11,8 +11,9 @@
 -- expect: false, false
 -- select has_function_privilege('anon', 'public.admin_live_snapshot()', 'EXECUTE');
 -- select has_function_privilege('public', 'public.admin_live_snapshot()', 'EXECUTE');
--- expect: true
+-- expect: true, false
 -- select has_function_privilege('authenticated', 'public.admin_live_snapshot()', 'EXECUTE');
+-- select has_function_privilege('service_role', 'public.admin_live_snapshot()', 'EXECUTE');
 
 -- B. Function body must not tick or settle
 -- expect: zero rows

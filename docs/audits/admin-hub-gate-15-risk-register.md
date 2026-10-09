@@ -171,7 +171,7 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 | **Severity** | High (legacy Dashboard tick remains intentional) |
 | **Impact** | Opening the **preview** no longer settles or ticks. Opening the current Dashboard still can (by design). |
 | **Affected** | admin-live poll only after Gate 1.6 |
-| **Action** | Keep preview isolated until owner applies Gate 1.7 S1 SQL (`docs/audits/sql/gate-17-s1-live-snapshot-up.sql`) and a later frontend gate adds only that name to `READ_RPCS`. Do not rewrite `director_tick`. Do not apply the Gate 1.6 draft. |
+| **Action** | Keep preview isolated until owner applies Gate 1.7 S1 **v2** SQL (`docs/audits/sql/gate-17-s1-live-snapshot-up.sql`) and a later frontend gate adds only that name to `READ_RPCS`. Do not rewrite `director_tick`. Do not apply the Gate 1.6 draft or S1 v1. |
 | **Dependencies** | Must not rewrite `director_tick` / session lifecycle |
 | **Owner approval** | **Required** before applying snapshot SQL or wiring the preview |
 | **Verification** | Preview allowlist + network capture: no `admin_live_dashboard` from admin-next. After apply: clone auth tests; `updated_at` unchanged. Do **not** invoke the tick RPC on production to “prove” it ticks. |

@@ -70,10 +70,30 @@ test("Up migration is SELECT-only and staff-gated before reads", () => {
     "admin_start_round",
     "apply_stream_status"
   ].forEach((name) => assert(!body.includes(name), `function body must not reference ${name}`));
+  assert(upSql.includes("set search_path = pg_catalog"));
+  assert(upSql.includes("alter function public.admin_live_snapshot() owner to postgres"));
   assert(upSql.includes("revoke all on function public.admin_live_snapshot() from public"));
   assert(upSql.includes("revoke all on function public.admin_live_snapshot() from anon"));
+  assert(upSql.includes("revoke all on function public.admin_live_snapshot() from service_role"));
   assert(upSql.includes("grant execute on function public.admin_live_snapshot() to authenticated"));
   assert(!/grant execute[^\n]+to anon/i.test(upSql));
+  assert(!/grant execute[^\n]+to service_role/i.test(upSql));
+});
+
+test("Up migration preflight refuses a different existing contract", () => {
+  assert(upSql.includes("$preflight$"));
+  assert(upSql.includes("already exists with a different contract"));
+  assert(upSql.includes("gate-17-s1-v2"));
+});
+
+test("Current encounter has no historical started_at fallback and settlement is unavailable", () => {
+  assert(!/order by er\.started_at desc/i.test(body));
+  assert(body.includes("last_encounter_id"));
+  assert(body.includes("'awaiting', null"));
+  assert(body.includes("'state', 'UNAVAILABLE'"));
+  assert(body.includes("'asOf', as_of"));
+  assert(body.includes("'lastTickAt', d.last_tick_at"));
+  assert(!body.includes("director_freshness"));
 });
 
 test("Twitch LIVE / RPG INACTIVE is not rendered as RPG ACTIVE", () => {
@@ -82,8 +102,9 @@ test("Twitch LIVE / RPG INACTIVE is not rendered as RPG ACTIVE", () => {
       ok: true,
       twitch: { state: "LIVE", live: true, known: true, stale: false },
       rpgSession: { state: "INACTIVE", active: false, directorRowPresent: true },
-      director: { status: "IDLE", freshness: "FRESH" },
-      encounter: { present: false, inProgress: false }
+      director: { status: "IDLE", lastTickAt: "2026-10-09T00:00:00Z" },
+      currentEncounter: null,
+      lastEncounter: null
     }
   });
   assert(card(view, "Twitch").value === "LIVE" && card(view, "Twitch").state === "active");
@@ -98,8 +119,9 @@ test("Twitch LIVE / RPG ACTIVE keeps the two states separate", () => {
       ok: true,
       twitch: { state: "LIVE", live: true, known: true, stale: false },
       rpgSession: { state: "ACTIVE", active: true, sessionId: "sess", directorRowPresent: true },
-      director: { status: "RUNNING", freshness: "FRESH" },
-      encounter: { present: true, inProgress: true, phase: "throw" }
+      director: { status: "RUNNING", lastTickAt: "2026-10-09T00:00:00Z" },
+      currentEncounter: { phase: "throw" },
+      lastEncounter: { phase: "throw", inProgress: true }
     }
   });
   assert(card(view, "Twitch").value === "LIVE");
@@ -114,8 +136,9 @@ test("Twitch OFFLINE / RPG INACTIVE is not UNKNOWN", () => {
       ok: true,
       twitch: { state: "OFFLINE", live: false, known: true, stale: false },
       rpgSession: { state: "INACTIVE", active: false, directorRowPresent: true },
-      director: { status: "OFFLINE", freshness: "FRESH" },
-      encounter: { present: false, inProgress: false }
+      director: { status: "OFFLINE", lastTickAt: "2026-10-09T00:00:00Z" },
+      currentEncounter: null,
+      lastEncounter: null
     }
   });
   assert(card(view, "Twitch").value === "OFFLINE" && card(view, "Twitch").state === "inactive");
@@ -128,8 +151,9 @@ test("Twitch UNKNOWN / RPG UNKNOWN is not rendered as INACTIVE or OFFLINE", () =
       ok: true,
       twitch: { state: "UNKNOWN", live: null, known: false, stale: false },
       rpgSession: { state: "UNKNOWN", active: null, directorRowPresent: false },
-      director: { status: null, freshness: "UNKNOWN" },
-      encounter: { present: false, inProgress: false }
+      director: { status: null, lastTickAt: null },
+      currentEncounter: null,
+      lastEncounter: null
     }
   });
   assert(card(view, "Twitch").value === "UNKNOWN" && card(view, "Twitch").state === "unknown");
@@ -144,8 +168,9 @@ test("Active encounter uses phase; no encounter is NONE", () => {
       ok: true,
       twitch: { state: "LIVE", live: true, known: true, stale: false },
       rpgSession: { state: "ACTIVE", active: true, directorRowPresent: true },
-      director: { status: "RUNNING", freshness: "FRESH" },
-      encounter: { present: true, inProgress: true, phase: "join", awaitingSettlement: false }
+      director: { status: "RUNNING", lastTickAt: "2026-10-09T00:00:00Z" },
+      currentEncounter: { phase: "join" },
+      lastEncounter: { phase: "join", inProgress: true }
     }
   });
   const none = contract.presentLiveOperations({
@@ -153,28 +178,56 @@ test("Active encounter uses phase; no encounter is NONE", () => {
       ok: true,
       twitch: { state: "LIVE", live: true, known: true, stale: false },
       rpgSession: { state: "ACTIVE", active: true, directorRowPresent: true },
-      director: { status: "RUNNING", freshness: "FRESH" },
-      encounter: { present: false, inProgress: false }
+      director: { status: "RUNNING", lastTickAt: "2026-10-09T00:00:00Z" },
+      currentEncounter: null,
+      lastEncounter: null
     }
   });
   assert(card(active, "Current encounter").value === "JOIN");
   assert(card(none, "Current encounter").value === "NONE");
 });
 
-test("Stale snapshot uses STALE, not OFFLINE", () => {
-  const view = contract.presentLiveOperations({
+test("Stale Twitch uses STALE, not OFFLINE; director lastTickAt does not mark the snapshot stale", () => {
+  const twitchStale = contract.presentLiveOperations({
     payload: {
       ok: true,
       twitch: { state: "STALE", live: null, known: false, stale: true },
       rpgSession: { state: "INACTIVE", active: false, directorRowPresent: true },
-      director: { status: "IDLE", freshness: "STALE" },
-      encounter: { present: false, inProgress: false }
+      director: { status: "IDLE", lastTickAt: "2026-01-01T00:00:00Z" },
+      currentEncounter: null,
+      lastEncounter: null
     }
   });
-  assert(card(view, "Twitch").value === "STALE");
-  assert(card(view, "Twitch").state !== "inactive");
-  assert(card(view, "Twitch").state !== "active");
-  assert(/stale/i.test(view.status));
+  const oldTick = contract.presentLiveOperations({
+    payload: {
+      ok: true,
+      twitch: { state: "LIVE", live: true, known: true, stale: false },
+      rpgSession: { state: "INACTIVE", active: false, directorRowPresent: true },
+      director: { status: "IDLE", lastTickAt: "2026-01-01T00:00:00Z" },
+      currentEncounter: null,
+      lastEncounter: null
+    }
+  });
+  assert(card(twitchStale, "Twitch").value === "STALE");
+  assert(card(twitchStale, "Twitch").state !== "inactive");
+  assert(/stale/i.test(twitchStale.status));
+  assert(card(oldTick, "Twitch").value === "LIVE");
+  assert(!/stale/i.test(oldTick.status));
+});
+
+test("Historical lastEncounter is not rendered as the current encounter", () => {
+  const view = contract.presentLiveOperations({
+    payload: {
+      ok: true,
+      twitch: { state: "LIVE", live: true, known: true, stale: false },
+      rpgSession: { state: "ACTIVE", active: true, directorRowPresent: true },
+      director: { status: "RUNNING", lastTickAt: "2026-10-09T00:00:00Z" },
+      currentEncounter: null,
+      lastEncounter: { phase: "throw", resolved: true, inProgress: false, name: "Pikachu" }
+    }
+  });
+  assert(card(view, "Current encounter").value === "NONE");
+  assert(card(view, "Current encounter").value !== "THROW");
 });
 
 test("Unauthorized and network failures stay UNAVAILABLE and do not mutate", () => {

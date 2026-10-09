@@ -1,37 +1,70 @@
 -- REVIEW ARTIFACT ONLY. DO NOT APPLY WITHOUT OWNER APPROVAL.
--- Gate 1.7 S1: public.admin_live_snapshot() — SELECT-only Live Operations status.
+-- Gate 1.7 S1 v2: public.admin_live_snapshot() — SELECT-only Live Operations status.
 --
 -- This is not a replacement for public.admin_live_dashboard().
 -- Do not call director helpers, settlement, or stream lifecycle writers.
 -- Do not bundle R1 / R2 / R4 / R12 / R18.
 --
--- After an approved apply, verify:
---   1) pg_proc.prosrc has no director_tick / settle_due_rounds / apply_stream_status
---   2) has_function_privilege('anon', 'public.admin_live_snapshot()', 'EXECUTE') is false
---   3) has_function_privilege('public', 'public.admin_live_snapshot()', 'EXECUTE') is false
---   4) admin-next.js allowlist may add this name only in a later frontend gate
+-- v2 corrections:
+--   * Current encounter is only stream_director.last_encounter_id when that
+--     row is still open. No latest-by-started_at fallback.
+--   * encounter_rounds has no session_id; do not invent a session join.
+--   * awaiting settlement is UNAVAILABLE (JSON null), not a guessed boolean.
+--   * last_tick_at is a recorded director field, not snapshot freshness.
+--   * asOf is the observation timestamp.
+--   * search_path is pg_catalog; relations are schema-qualified.
+--   * Preflight refuses a different existing contract.
+--   * No service_role EXECUTE grant.
 --
 -- Rollback: docs/audits/sql/gate-17-s1-live-snapshot-down.sql
 
+do $preflight$
+declare
+  rec record;
+begin
+  select
+    pg_catalog.pg_get_function_identity_arguments(p.oid) as args,
+    p.provolatile,
+    p.prosecdef,
+    pg_catalog.pg_get_userbyid(p.proowner) as owner,
+    p.prosrc
+    into rec
+    from pg_catalog.pg_proc p
+    join pg_catalog.pg_namespace n on n.oid = p.pronamespace
+   where n.nspname = 'public'
+     and p.proname = 'admin_live_snapshot';
+
+  if rec.prosrc is not null then
+    if rec.args is distinct from ''
+       or rec.provolatile is distinct from 's'
+       or rec.prosecdef is not true
+       or rec.owner is distinct from 'postgres'
+       or rec.prosrc not like '%gate-17-s1-v2%' then
+      raise exception 'preflight: public.admin_live_snapshot() already exists with a different contract. Inspect live SQL before replacing.';
+    end if;
+  end if;
+end;
+$preflight$;
+
 create or replace function public.admin_live_snapshot()
-returns jsonb
+returns pg_catalog.jsonb
 language plpgsql
 stable
 security definer
-set search_path = public
+set search_path = pg_catalog
 as $$
 declare
   s public.stream_status;
   d private.stream_director;
+  sess private.stream_sessions;
   r public.encounter_rounds;
   director_found boolean := false;
+  session_found boolean := false;
   twitch_known boolean := false;
   twitch_state text;
   rpg_state text;
-  as_of timestamptz := now();
-  awaiting boolean := false;
-  in_progress boolean := false;
-  director_freshness text;
+  as_of timestamptz := pg_catalog.now();
+  current_open boolean := false;
 begin
   if not private.is_play_admin() then
     raise exception 'not allowed' using errcode = '42501';
@@ -55,55 +88,34 @@ begin
   director_found := found;
   if not director_found then
     rpg_state := 'UNKNOWN';
-    director_freshness := 'UNKNOWN';
+  elsif d.rpg_session_active then
+    rpg_state := 'ACTIVE';
   else
-    if d.rpg_session_active then
-      rpg_state := 'ACTIVE';
-    else
-      rpg_state := 'INACTIVE';
-    end if;
-    if d.last_tick_at is null then
-      director_freshness := 'UNKNOWN';
-    elsif d.last_tick_at > as_of - interval '2 minutes' then
-      director_freshness := 'FRESH';
-    else
-      director_freshness := 'STALE';
-    end if;
+    rpg_state := 'INACTIVE';
   end if;
 
+  if director_found and d.session_id is not null then
+    select * into sess from private.stream_sessions where id = d.session_id;
+    session_found := found;
+  end if;
+
+  -- Authoritative current pointer is last_encounter_id only.
+  -- encounter_rounds has no session_id. Do not select the latest historical row.
   if director_found and d.last_encounter_id is not null then
-    select * into r
-      from public.encounter_rounds er
-     where er.id = d.last_encounter_id
-       and coalesce(er.source, '') is distinct from 'test';
+    select * into r from public.encounter_rounds er where er.id = d.last_encounter_id;
   end if;
-  if r.id is null then
-    select * into r
-      from public.encounter_rounds er
-     where coalesce(er.source, '') is distinct from 'test'
-     order by er.started_at desc nulls last
-     limit 1;
-  end if;
-
   if r.id is not null then
-    in_progress := coalesce(r.cancelled, false) = false
-               and coalesce(r.resolved, false) = false;
-    awaiting := in_progress
-            and r.paused_at is null
-            and r.deadlines is not null
-            and coalesce(r.started_at, r.updated_at) > as_of - interval '2 hours'
-            and as_of >= coalesce(
-              (r.deadlines->>'throw')::timestamptz,
-              (r.deadlines->>'reveal')::timestamptz,
-              '-infinity'::timestamptz
-            );
+    current_open := coalesce(r.cancelled, false) = false
+                and coalesce(r.resolved, false) = false
+                and coalesce(r.phase, '') is distinct from 'closed';
   end if;
 
-  return jsonb_build_object(
+  return pg_catalog.jsonb_build_object(
     'ok', true,
     'observation', true,
+    'contract', 'gate-17-s1-v2',
     'asOf', as_of,
-    'twitch', jsonb_build_object(
+    'twitch', pg_catalog.jsonb_build_object(
       'state', twitch_state,
       'live', case twitch_state
         when 'LIVE' then true
@@ -116,7 +128,7 @@ begin
       'source', s.source,
       'title', s.title
     ),
-    'rpgSession', jsonb_build_object(
+    'rpgSession', pg_catalog.jsonb_build_object(
       'state', rpg_state,
       'active', case
         when not director_found then null
@@ -124,36 +136,17 @@ begin
       end,
       'sessionId', d.session_id,
       'startedAt', d.session_started_at,
-      'directorRowPresent', director_found
+      'directorRowPresent', director_found,
+      'sessionRowPresent', session_found,
+      'sessionEndedAt', sess.ended_at
     ),
-    'director', jsonb_build_object(
+    'director', pg_catalog.jsonb_build_object(
       'status', d.status,
       'lastTickAt', d.last_tick_at,
-      'updatedAt', d.updated_at,
-      'freshness', director_freshness
+      'updatedAt', d.updated_at
     ),
-    'encounter', case
-      when r.id is null then jsonb_build_object(
-        'present', false,
-        'inProgress', false,
-        'awaitingSettlement', false,
-        'id', null,
-        'phase', null,
-        'name', null,
-        'dex', null,
-        'variant', null,
-        'cancelled', null,
-        'resolved', null,
-        'startedAt', null,
-        'endsAt', null,
-        'lastAction', null,
-        'paused', false,
-        'source', null
-      )
-      else jsonb_build_object(
-        'present', true,
-        'inProgress', in_progress,
-        'awaitingSettlement', awaiting,
+    'currentEncounter', case
+      when current_open then pg_catalog.jsonb_build_object(
         'id', r.id,
         'phase', r.phase,
         'name', r.name,
@@ -167,12 +160,37 @@ begin
         'paused', r.paused_at is not null,
         'source', r.source
       )
-    end
+      else null
+    end,
+    'lastEncounter', case
+      when r.id is null then null
+      else pg_catalog.jsonb_build_object(
+        'id', r.id,
+        'phase', r.phase,
+        'name', r.name,
+        'dex', r.dex,
+        'variant', r.variant,
+        'cancelled', coalesce(r.cancelled, false),
+        'resolved', coalesce(r.resolved, false),
+        'inProgress', current_open,
+        'startedAt', r.started_at,
+        'endsAt', r.ends_at,
+        'lastAction', r.last_action,
+        'paused', r.paused_at is not null,
+        'source', r.source
+      )
+    end,
+    'settlement', pg_catalog.jsonb_build_object(
+      'awaiting', null,
+      'state', 'UNAVAILABLE'
+    )
   );
 end;
 $$;
 
+alter function public.admin_live_snapshot() owner to postgres;
+
 revoke all on function public.admin_live_snapshot() from public;
 revoke all on function public.admin_live_snapshot() from anon;
+revoke all on function public.admin_live_snapshot() from service_role;
 grant execute on function public.admin_live_snapshot() to authenticated;
-grant execute on function public.admin_live_snapshot() to service_role;

@@ -8,7 +8,7 @@
   const FALLBACK_STATUS = "Live status unavailable in preview. Legacy Live Operations remains on the current Dashboard. This preview does not refresh, settle, or tick gameplay.";
   const DENIED_STATUS = "Live status is restricted to staff.";
   const LOADING_STATUS = "Loading live status…";
-  const STALE_STATUS = "Live status may be stale. This preview does not tick or settle gameplay.";
+  const STALE_STATUS = "Twitch status may be stale. Director last_tick_at is not snapshot freshness. This preview does not tick or settle gameplay.";
   const PERMISSION = "LIVE permits · OFFLINE ends · Start is explicit";
 
   function card(label, value, state) {
@@ -32,29 +32,20 @@
     return card("Live RPG session", "UNAVAILABLE", "unavailable");
   }
 
-  function encounterCard(enc) {
-    if (!enc) return card("Current encounter", "UNAVAILABLE", "unavailable");
-    if (!enc.present) return card("Current encounter", "NONE", "inactive");
-    if (enc.inProgress) {
-      const phase = enc.phase ? String(enc.phase).toUpperCase() : "IN PROGRESS";
-      return card("Current encounter", phase, "active");
+  function encounterCard(payload) {
+    if (!payload || !Object.prototype.hasOwnProperty.call(payload, "currentEncounter")) {
+      return card("Current encounter", "UNAVAILABLE", "unavailable");
     }
-    if (enc.cancelled) return card("Current encounter", "LAST RECORDED · CANCELLED", "inactive");
-    if (enc.resolved) return card("Current encounter", "LAST RECORDED · RESOLVED", "inactive");
-    return card("Current encounter", "LAST RECORDED", "unknown");
+    const cur = payload.currentEncounter;
+    if (!cur) return card("Current encounter", "NONE", "inactive");
+    const phase = cur.phase ? String(cur.phase).toUpperCase() : "IN PROGRESS";
+    return card("Current encounter", phase, "active");
   }
 
   function directorCard(director) {
-    if (!director || !director.status && !director.freshness) {
-      return card("Director", "UNAVAILABLE", "unavailable");
-    }
-    if (director.freshness === "UNKNOWN" && !director.status) {
-      return card("Director", "UNKNOWN", "unknown");
-    }
-    if (director.freshness === "STALE") {
-      return card("Director", `${director.status || "RECORDED"} · STALE`, "unknown");
-    }
-    return card("Director", director.status || "RECORDED", director.freshness === "FRESH" ? "unknown" : "unknown");
+    if (!director) return card("Director", "UNAVAILABLE", "unavailable");
+    if (!director.status) return card("Director", "UNKNOWN", "unknown");
+    return card("Director", director.status, "unknown");
   }
 
   function presentLiveOperations(input) {
@@ -104,10 +95,9 @@
     const payload = input.payload;
     const twitch = twitchCard(payload.twitch);
     const rpg = rpgCard(payload.rpgSession);
-    const encounter = encounterCard(payload.encounter);
+    const encounter = encounterCard(payload);
     const director = directorCard(payload.director);
-    const stale = payload.twitch && payload.twitch.state === "STALE"
-      || payload.director && payload.director.freshness === "STALE";
+    const stale = payload.twitch && payload.twitch.state === "STALE";
     let status = "Observation only. Twitch LIVE permits the Live RPG. It does not start it.";
     if (payload.twitch && payload.twitch.state === "LIVE" && payload.rpgSession && payload.rpgSession.state === "INACTIVE") {
       status = "Twitch is LIVE. Live RPG stays INACTIVE until staff Start it on the current Dashboard.";

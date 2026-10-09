@@ -7,8 +7,8 @@
 **Database:** starlight-play `dtflmlbjhttoewqgkujf`  
 **Latest applied migration:** `20261007183057` `rc118_pc_box_ops_stale_slots` (unchanged since Gate 1.5)  
 **Sora mutated:** NO · **Twinkle mutated:** NO  
-**SQL applied:** NO · **Frontend integration deployed:** NO  
-**Contract:** `gate-17-s1-v2`
+**SQL applied:** YES (`20261009183910` `gate_17_s1_admin_live_snapshot`) · **Frontend integration deployed:** NO  
+**Contract:** `gate-17-s1-v2` live
 
 Owner Gate 1.7 **S1** is this snapshot (remediation-plan **S3/S4**). R1 `admin_overview` is **not** in this package.
 
@@ -192,11 +192,21 @@ Presenter (unloaded): `docs/audits/admin-hub-gate-17-s1-frontend-contract.js`.
 
 ---
 
-## 8. Owner approval request
+## 8. Owner approval
 
-Apply **only** `docs/audits/sql/gate-17-s1-live-snapshot-up.sql` (`gate-17-s1-v2`).
+Owner authorized production apply of `docs/audits/sql/gate-17-s1-live-snapshot-up.sql` (`gate-17-s1-v2`). Frontend wiring remains a later gate.
 
-Do not apply Gate 1.6 SQL, S1 v1, R1, grant sweeps, or frontend wiring in the same change.
+## 9. Production apply (2026-10-09)
+
+Migration `20261009183910` `gate_17_s1_admin_live_snapshot` succeeded.
+
+Live catalog: owner `postgres`, `SECURITY DEFINER`, `STABLE` (`provolatile=s`), `search_path=pg_catalog`, `acl={postgres=X/postgres,authenticated=X/postgres}`, contract marker `gate-17-s1-v2`, no tick/settle identifiers.
+
+EXECUTE: anon false, PUBLIC false, service_role false, authenticated true.
+
+Unsigned and nonstaff JWT calls raise `42501 not allowed` at the staff check (line 16). Staff success-path read was **not** executed: the only `staff_roles` row is Twinkle; Sora is owner via Twitch. No PlayTester staff row. Do not impersonate protected accounts.
+
+Preview remains unwired. `admin_live_dashboard` / `admin_overview` still exist. Rollback file unchanged.
 
 ### Unresolved assumptions (not blockers)
 

@@ -175,7 +175,7 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 | **Dependencies** | Must not rewrite `director_tick` / session lifecycle |
 | **Owner approval** | **Required** before applying snapshot SQL or wiring the preview |
 | **Verification** | Preview allowlist + network capture: no `admin_live_dashboard` from admin-next. After apply: clone auth tests; `updated_at` unchanged. Do **not** invoke the tick RPC on production to “prove” it ticks. |
-| **Status** | **MITIGATED (preview UI)** — not closed. S1 review package ready; no production true-read snapshot yet. |
+| **Status** | **MITIGATED (preview UI)** — snapshot RPC live (`gate-17-s1-v2`, `20261009183910`). Preview still unwired. Not closed until a later frontend gate uses only this RPC. |
 
 ## R18 — Moderator-capable Pass / Bits / Oak QA (NEW)
 

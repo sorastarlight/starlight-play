@@ -1,23 +1,6 @@
--- APPLIED to production starlight-play dtflmlbjhttoewqgkujf as 20261009183910.
--- Do not re-apply. Preflight / CREATE FUNCTION will refuse if the function exists.
--- Gate 1.7 S1 v2: public.admin_live_snapshot() — SELECT-only Live Operations status.
---
--- This is not a replacement for public.admin_live_dashboard().
--- Do not call director helpers, settlement, or stream lifecycle writers.
--- Do not bundle R1 / R2 / R4 / R12 / R18.
---
--- v2 corrections:
---   * Current encounter is only stream_director.last_encounter_id when that
---     row is still open. No latest-by-started_at fallback.
---   * encounter_rounds has no session_id; do not invent a session join.
---   * awaiting settlement is UNAVAILABLE (JSON null), not a guessed boolean.
---   * last_tick_at is a recorded director field, not snapshot freshness.
---   * asOf is the observation timestamp.
---   * search_path is pg_catalog; relations are schema-qualified.
---   * Preflight aborts if the function already exists. CREATE FUNCTION, not OR REPLACE.
---   * No service_role EXECUTE grant.
---
--- Rollback: docs/audits/sql/gate-17-s1-live-snapshot-down.sql
+-- Applied to production starlight-play dtflmlbjhttoewqgkujf as 20261009183910.
+-- Source: docs/audits/sql/gate-17-s1-live-snapshot-up.sql (commit 061bf1d).
+-- CREATE FUNCTION, not OR REPLACE. Rollback: docs/audits/sql/gate-17-s1-live-snapshot-down.sql
 
 do $preflight$
 begin
@@ -86,8 +69,6 @@ begin
     session_found := found;
   end if;
 
-  -- Authoritative current pointer is last_encounter_id only.
-  -- encounter_rounds has no session_id. Do not select the latest historical row.
   if director_found and d.last_encounter_id is not null then
     select * into r from public.encounter_rounds er where er.id = d.last_encounter_id;
   end if;

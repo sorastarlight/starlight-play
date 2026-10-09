@@ -53,7 +53,7 @@ test("Preview HTML keeps the UNAVAILABLE fallback and lifecycle copy", () => {
 });
 
 test("Up migration is SELECT-only and staff-gated before reads", () => {
-  assert(upSql.includes("REVIEW ARTIFACT ONLY"));
+  assert(upSql.includes("REVIEW ARTIFACT ONLY") || upSql.includes("APPLIED to production"));
   assert(upSql.includes("if not private.is_play_admin()"));
   const guardAt = body.indexOf("if not private.is_play_admin()");
   const streamAt = body.indexOf("from public.stream_status");

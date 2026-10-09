@@ -75,12 +75,18 @@
       </aside>
       <div class="hub-main">
         <section id="next-panel-operations" class="hub-card admin-next-panel" data-next-panel="operations">
-          <p class="eyebrow">Operations · read only</p>
+          <p class="eyebrow">Operations · observation only</p>
           <h2>Stream and encounter state</h2>
           <p class="admin-next-lifecycle">Twitch LIVE permits the Live RPG. It does not start it. Offline ends an active RPG. Start and End remain explicit staff actions on the current hub.</p>
-          <p id="next-ops-status" class="muted" role="status">Loading…</p>
-          <div id="next-ops-metrics" class="admin-next-metrics"></div>
-          <p class="muted">Need to change the session? Use the current Dashboard. This preview will not send director commands.</p>
+          <p id="next-ops-status" class="muted" role="status">Live status unavailable in preview. Legacy Live Operations remains on the current Dashboard. This preview does not refresh, settle, or tick gameplay.</p>
+          <div id="next-ops-metrics" class="admin-next-metrics">
+            <div class="hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Twitch</p><p>UNAVAILABLE</p></div>
+            <div class="hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Live RPG session</p><p>UNAVAILABLE</p></div>
+            <div class="hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Current encounter</p><p>UNAVAILABLE</p></div>
+            <div class="hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Director</p><p>UNAVAILABLE</p></div>
+            <div class="hub-metric admin-next-metric"><p class="eyebrow">Permission model</p><p>LIVE permits · OFFLINE ends · Start is explicit</p></div>
+          </div>
+          <p class="admin-next-unavailable">A SELECT-only session snapshot does not exist yet. Opening or leaving this tab must not settle encounters or tick the director. Use the current Dashboard to operate the Live RPG.</p>
           <p><a class="admin-next-legacy" href="./admin.html?section=dashboard">Open live Dashboard</a></p>
         </section>
         <section id="next-panel-trainers" class="hub-card admin-next-panel" data-next-panel="trainers" hidden>

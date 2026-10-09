@@ -98,7 +98,7 @@ perform private.director_tick_if_due();
 
 **`private.director_tick()`** (LIVE SQL, truncated but sufficient): `FOR UPDATE` on `stream_director`; may expire holds; pause/resume for ads; **end RPG if known offline**; if LIVE + `rpg_session_active` + auto enabled + due + safe window, **`private.director_start_now(...)`** (queued special or AUTO random). Also updates director timestamps/status.
 
-**Callers (REPO):** `admin-next.js` Operations (`READ_RPCS`); `admin-live.js` dashboard poll.
+**Callers (REPO):** `admin-live.js` dashboard poll only after Gate 1.6. **`admin-next.js` no longer calls this RPC.** Preview Operations uses an UNAVAILABLE fallback. A SELECT-only `admin_live_snapshot` is a review artifact only (`docs/audits/sql/gate-16-review-admin-live-snapshot.sql`).
 
 **Classification:** staff-gated **read-with-tick**. Safer than `admin_overview` because the guard runs **before** settle, and anon cannot EXECUTE. Still **unsuitable as a “read-only preview” poll** while a Live RPG session is active (can settle rounds and start auto encounters). Player `play_sync` / `play_state` already call `director_tick_if_due` **LIVE SQL**, so settlement is not unique to admin — but the preview must not pretend it is side-effect-free.
 
@@ -326,9 +326,9 @@ Pokémon/bag/coin/store/config grants: **no** `account_audit` **LIVE SQL**. Econ
 
 ## 10. Frontend allowlist confirmation (REPO)
 
-`admin-next.js` `READ_RPCS` = `admin_live_dashboard`, `admin_build_health`, `admin_game_health` only. `readCall()` throws if any other name is requested. Tests assert no `admin_overview` string.
+`admin-next.js` `READ_RPCS` = `admin_build_health`, `admin_game_health` only after Gate 1.6. `readCall()` throws if any other name is requested. Tests assert no `admin_live_dashboard`, `admin_overview`, tick, settle, or director command strings.
 
-**Implication of R17:** the preview already ticks/settles when a staff member opens Operations. Gate 2 must not add `admin_overview`. Prefer a new true-read snapshot before expanding Operations polling.
+**Implication of R17:** the preview no longer ticks/settles on open. Operations shows UNAVAILABLE. Analytics may call the two TRUE-READ health RPCs once. Gate 2 must not add `admin_overview` or `admin_live_dashboard`. A SELECT-only snapshot remains a review artifact.
 
 ---
 

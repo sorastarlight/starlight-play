@@ -1,6 +1,5 @@
 (() => {
   const READ_RPCS = Object.freeze([
-    "admin_live_dashboard",
     "admin_build_health",
     "admin_game_health"
   ]);
@@ -31,8 +30,10 @@
       .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  function metric(label, value) {
-    return `<div class="hub-metric"><p class="eyebrow">${esc(label)}</p><p>${esc(value)}</p></div>`;
+  function metric(label, value, state) {
+    const tone = state ? ` is-${state}` : "";
+    const stateAttr = state ? ` data-state="${esc(state)}"` : "";
+    return `<div class="hub-metric admin-next-metric${tone}"${stateAttr}><p class="eyebrow">${esc(label)}</p><p>${esc(value)}</p></div>`;
   }
 
   function resolveTab(raw) {
@@ -61,44 +62,18 @@
     return window.playCall(name);
   }
 
-  function yn(value) {
-    if (value === true) return "Yes";
-    if (value === false) return "No";
-    return "—";
-  }
-
-  async function loadOperations() {
-    if (!els.opsStatus || !els.opsMetrics) return;
-    els.opsStatus.textContent = "Loading live state…";
-    try {
-      const data = await readCall("admin_live_dashboard");
-      const stream = data?.stream || {};
-      const director = data?.director || data || {};
-      const twitchLive = Boolean(stream.twitchLive);
-      const rpg = Boolean(stream.rpgSession);
-      const known = Boolean(stream.liveKnown);
-      const twitch = twitchLive ? "LIVE" : (known ? "OFFLINE" : "UNKNOWN");
-      const rpgLabel = rpg ? "ACTIVE" : "IDLE";
+  function renderOperationsFallback() {
+    if (els.opsStatus) {
+      els.opsStatus.textContent = "Live status unavailable in preview. Legacy Live Operations remains on the current Dashboard. This preview does not refresh, settle, or tick gameplay.";
+    }
+    if (els.opsMetrics) {
       els.opsMetrics.innerHTML = [
-        metric("Twitch", twitch),
-        metric("Live RPG session", rpgLabel),
-        metric("Director", director.status || director.directorStatus || "—"),
-        metric("Auto encounters", yn(director.autoEnabled ?? director.auto_enabled)),
-        metric("Manual hold", yn(director.manualHold ?? director.manual_hold)),
+        metric("Twitch", "UNAVAILABLE", "unavailable"),
+        metric("Live RPG session", "UNAVAILABLE", "unavailable"),
+        metric("Current encounter", "UNAVAILABLE", "unavailable"),
+        metric("Director", "UNAVAILABLE", "unavailable"),
         metric("Permission model", "LIVE permits · OFFLINE ends · Start is explicit")
       ].join("");
-      if (!twitchLive && !rpg) {
-        els.opsStatus.textContent = "Stream offline. Live RPG is inactive.";
-      } else if (twitchLive && !rpg) {
-        els.opsStatus.textContent = "Twitch is LIVE. Live RPG stays IDLE until staff Start it on the current Dashboard.";
-      } else if (twitchLive && rpg) {
-        els.opsStatus.textContent = "Twitch is LIVE and a Live RPG session is active.";
-      } else {
-        els.opsStatus.textContent = "Live RPG is marked active while Twitch is not LIVE. Use the current Dashboard.";
-      }
-    } catch (error) {
-      els.opsStatus.textContent = window.playRpcError?.(error, "Could not load operations.") || "Could not load operations.";
-      els.opsMetrics.innerHTML = "";
     }
   }
 
@@ -115,14 +90,18 @@
       const bits = [];
       if (build) {
         bits.push(metric("Client build", build.clientBuild || build.appBuild || "—"));
-        bits.push(metric("Database migration", build.migration || build.latestMigration || "—"));
+        bits.push(metric("Database migration", build.dbMigration || build.migration || build.latestMigration || "—"));
       }
       if (game) {
-        bits.push(metric("Game health", game.status || game.appStatus || "—"));
-        bits.push(metric("Twitch", game.twitchStatus || (game.twitchLive ? "LIVE" : "—")));
+        const app = game.application || {};
+        const twitch = game.twitch || {};
+        bits.push(metric("Application", app.status || game.status || game.appStatus || "UNKNOWN", "unknown"));
+        const liveKnown = Object.prototype.hasOwnProperty.call(twitch, "live");
+        const twitchLabel = liveKnown ? (twitch.live ? "LIVE" : "OFFLINE") : "UNKNOWN";
+        bits.push(metric("Twitch stream", twitchLabel, liveKnown ? (twitch.live ? "active" : "inactive") : "unknown"));
       }
       els.health.innerHTML = bits.join("") || "<p class='muted'>Health RPCs did not return a snapshot.</p>";
-      if (els.healthStatus) els.healthStatus.textContent = "Read-only snapshot. Mutation health tools stay on the current hub.";
+      if (els.healthStatus) els.healthStatus.textContent = "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub.";
     } catch (error) {
       if (els.healthStatus) {
         els.healthStatus.textContent = window.playRpcError?.(error, "Could not load health.") || "Could not load health.";
@@ -159,7 +138,7 @@
     if (els.staff) els.staff.hidden = false;
     const section = new URL(window.location.href).searchParams.get("section");
     showTab(section, false);
-    await loadOperations();
+    renderOperationsFallback();
   }
 
   els.toggle?.addEventListener("click", () => {

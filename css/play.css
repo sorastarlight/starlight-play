@@ -20478,6 +20478,24 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   margin: 0 0 12px;
   color: #6a7a96;
 }
+.admin-next-metric.is-unavailable,
+.admin-next-metric.is-unknown {
+  background: #f6f1e4;
+  border-color: #e4d3a4;
+  color: #6a5420;
+}
+.admin-next-metric.is-inactive {
+  background: #f3f5f8;
+  border-color: #d5dde8;
+  color: #4a5568;
+}
+.admin-next-metric.is-active {
+  background: #eef7f1;
+  border-color: #b7d8c4;
+}
+#next-ops-status {
+  max-width: 62ch;
+}
 .admin-next-legacy {
   display: inline-flex;
   margin-top: 8px;

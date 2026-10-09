@@ -167,15 +167,15 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 
 | | |
 |---|---|
-| **Evidence** | LIVE SQL call chain in contract matrix §3.3. EXECUTE is authenticated-only; guard **before** tick (better than R1). `admin-next.js` still calls it. |
-| **Severity** | High (contract honesty + auto-start if session active) |
-| **Impact** | Staff opening Admin Hub **preview** can settle due encounters and, if Live RPG auto is due, **start an encounter**. Does not bypass “LIVE is permission only” (tick still requires `rpg_session_active`). |
-| **Affected** | admin-next Operations, admin-live poll (same chain — legacy already ticks) |
-| **Action** | Document as TICK_READ. Gate 2: do not add more tick RPCs. Prefer `director_dashboard` without `director_tick_if_due` for preview. Owner choice: freeze preview Operations metrics vs accept shared tick with Dashboard. |
+| **Evidence** | LIVE SQL call chain in contract matrix §3.3. EXECUTE is authenticated-only; guard **before** tick (better than R1). Gate 1.6 removed `admin-next.js` from callers. Legacy `admin-live.js` still polls it. |
+| **Severity** | High (legacy Dashboard tick remains intentional) |
+| **Impact** | Opening the **preview** no longer settles or ticks. Opening the current Dashboard still can (by design). |
+| **Affected** | admin-live poll only after Gate 1.6 |
+| **Action** | Keep preview isolated. Optional SELECT-only `admin_live_snapshot` (review SQL, not applied). Do not rewrite `director_tick`. |
 | **Dependencies** | Must not rewrite `director_tick` / session lifecycle |
-| **Owner approval** | **Required** before changing preview RPC |
-| **Verification** | Static: preview allowlist. Do **not** invoke on production during a live session to “prove” tick. |
-| **Status** | **OPEN** — previously mis-labeled read-only in Gate 1 |
+| **Owner approval** | Required before applying snapshot SQL |
+| **Verification** | Preview allowlist + network capture: no `admin_live_dashboard` from admin-next. Do **not** invoke the tick RPC on production to “prove” it ticks. |
+| **Status** | **MITIGATED (preview UI)** — not closed. No production true-read snapshot yet. |
 
 ## R18 — Moderator-capable Pass / Bits / Oak QA (NEW)
 

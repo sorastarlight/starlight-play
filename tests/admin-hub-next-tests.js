@@ -37,12 +37,15 @@ test("Next hub IA labels are the seven overhaul screens", () => {
   ].forEach((label) => assert(nextHtml.includes(label), `missing ${label}`));
 });
 
-test("Preview shell only allows the three read RPCs", () => {
-  assert(nextJs.includes("admin_live_dashboard"));
+test("Preview shell only allows the two verified true-read RPCs", () => {
   assert(nextJs.includes("admin_build_health"));
   assert(nextJs.includes("admin_game_health"));
+  assert(!nextJs.includes("admin_live_dashboard"), "must not call tick-enabled admin_live_dashboard");
   assert(!nextJs.includes("admin_overview"), "must not call admin_overview settle side-effect");
   [
+    "director_dashboard",
+    "director_tick_if_due",
+    "settle_due_rounds",
     "admin_director_command",
     "admin_start_round",
     "admin_grant_pokemon",
@@ -53,6 +56,22 @@ test("Preview shell only allows the three read RPCs", () => {
     "admin_oak_qa",
     "admin_save_twitch_client_secret"
   ].forEach((name) => assert(!nextJs.includes(name), `${name} must stay off the preview shell`));
+  const allow = nextJs.match(/const READ_RPCS = Object\.freeze\(\[([\s\S]*?)\]\)/);
+  assert(allow, "READ_RPCS allowlist missing");
+  const names = [...allow[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
+  assert(names.length === 2 && names[0] === "admin_build_health" && names[1] === "admin_game_health");
+});
+
+test("Operations preview uses unavailable fallback and does not poll", () => {
+  assert(nextHtml.includes("Live status unavailable in preview"));
+  assert(nextHtml.includes("Legacy Live Operations remains on the current Dashboard") || nextHtml.includes("legacy Live Operations"));
+  assert(nextHtml.includes("UNAVAILABLE"));
+  assert(nextHtml.includes("data-state=\"unavailable\"") || nextHtml.includes("is-unavailable"));
+  assert(nextJs.includes("renderOperationsFallback"));
+  assert(!nextJs.includes("setInterval"), "preview must not poll");
+  assert(!nextJs.includes("admin_live_dashboard"));
+  assert(!/readCall\(\s*["']admin_live_dashboard["']/.test(nextJs));
+  assert(!/playCall\(\s*["']admin_live_dashboard["']/.test(nextJs));
 });
 
 test("Legacy Admin Hub and live controls remain the default", () => {

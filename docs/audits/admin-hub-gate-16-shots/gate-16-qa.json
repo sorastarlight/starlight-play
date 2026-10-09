@@ -1,0 +1,57 @@
+{
+  "unsigned": {
+    "title": "Admin Hub (preview)",
+    "gate": "Sign in to open the Admin Hub preview.",
+    "staffHidden": true,
+    "fallback": "Live status unavailable in preview. Legacy Live Operations remains on the current Dashboard. This preview does not refresh, settle, or tick gameplay.",
+    "unavailable": [
+      "TwitchUNAVAILABLE",
+      "Live RPG sessionUNAVAILABLE",
+      "Current encounterUNAVAILABLE",
+      "DirectorUNAVAILABLE"
+    ]
+  },
+  "ops": {
+    "status": "Live status unavailable in preview. Legacy Live Operations remains on the current Dashboard. This preview does not refresh, settle, or tick gameplay.",
+    "states": [
+      {
+        "state": "unavailable",
+        "text": "TwitchUNAVAILABLE"
+      },
+      {
+        "state": "unavailable",
+        "text": "Live RPG sessionUNAVAILABLE"
+      },
+      {
+        "state": "unavailable",
+        "text": "Current encounterUNAVAILABLE"
+      },
+      {
+        "state": "unavailable",
+        "text": "DirectorUNAVAILABLE"
+      }
+    ],
+    "hasHealthyGreen": 0
+  },
+  "rpc": [
+    {
+      "url": "https://dtflmlbjhttoewqgkujf.supabase.co/rest/v1/rpc/admin_build_health",
+      "method": "POST"
+    },
+    {
+      "url": "https://dtflmlbjhttoewqgkujf.supabase.co/rest/v1/rpc/admin_game_health",
+      "method": "POST"
+    },
+    {
+      "url": "https://dtflmlbjhttoewqgkujf.supabase.co/rest/v1/rpc/admin_build_health",
+      "method": "OPTIONS"
+    },
+    {
+      "url": "https://dtflmlbjhttoewqgkujf.supabase.co/rest/v1/rpc/admin_game_health",
+      "method": "OPTIONS"
+    }
+  ],
+  "unsafeHits": [],
+  "signedIn": false,
+  "staffPanel": "revealed-for-layout-only"
+}

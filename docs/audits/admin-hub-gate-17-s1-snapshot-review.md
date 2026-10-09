@@ -18,7 +18,7 @@ Owner Gate 1.7 **S1** is this snapshot (remediation-plan **S3/S4**). R1 `admin_o
 2. `settlement.awaiting` is JSON **null** and `state` is `UNAVAILABLE`. Live `settle_if_needed` writes console, phase, throws, and catches; it is not equivalent to the `settle_due_rounds` filter.
 3. `director.lastTickAt` is a recorded column. `asOf` is the observation timestamp. Twitch STALE uses `stream_status.checked_at` (15 minutes). Director tick age does not mark the snapshot stale.
 4. `SET search_path = pg_catalog`; tables/helpers schema-qualified; `OWNER TO postgres`.
-5. Preflight aborts if `admin_live_snapshot()` exists with a different contract (args, volatility, definer, owner, or missing `gate-17-s1-v2`).
+5. Preflight aborts if `admin_live_snapshot()` exists at all. The migration uses `CREATE FUNCTION`, not `CREATE OR REPLACE`, so an unexpected existing endpoint stops apply instead of being overwritten.
 6. No `service_role` EXECUTE grant. Preview uses authenticated staff JWT. `auth.uid()` is null under service_role, so the body would 42501 anyway. Owner `postgres` retains control.
 
 ---

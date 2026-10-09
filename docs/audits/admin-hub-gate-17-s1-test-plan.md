@@ -39,7 +39,7 @@ Use `docs/audits/sql/gate-17-s1-authorization-tests.sql` on a clone.
 | F3 | Permission-denied message | no account email, Twitch id, or trainer dossier |
 | F4 | Closed `last_encounter_id` | `currentEncounter` JSON null; `lastEncounter` present |
 | F5 | `settlement.awaiting` | JSON null, `state=UNAVAILABLE` |
-| F6 | Preflight on a different existing function | apply aborts; live function unchanged |
+| F6 | Preflight if `admin_live_snapshot` already exists | apply aborts; no overwrite. `CREATE FUNCTION` (not `OR REPLACE`) is a second stop. |
 
 ## Explicitly forbidden tests
 

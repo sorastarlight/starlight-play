@@ -80,10 +80,21 @@ test("Up migration is SELECT-only and staff-gated before reads", () => {
   assert(!/grant execute[^\n]+to service_role/i.test(upSql));
 });
 
-test("Up migration preflight refuses a different existing contract", () => {
+test("Up migration preflight refuses any existing function and does not replace", () => {
   assert(upSql.includes("$preflight$"));
-  assert(upSql.includes("already exists with a different contract"));
+  assert(upSql.includes("already exists. This is a new endpoint; refuse to overwrite."));
+  assert(/create function public\.admin_live_snapshot/i.test(upSql));
+  assert(!/create or replace function public\.admin_live_snapshot/i.test(upSql));
   assert(upSql.includes("gate-17-s1-v2"));
+});
+
+test("Rollback drops only the new snapshot function", () => {
+  const down = read("docs/audits/sql/gate-17-s1-live-snapshot-down.sql");
+  assert(down.includes("drop function if exists public.admin_live_snapshot()"));
+  assert(!/drop function if exists public\.admin_live_dashboard/i.test(down));
+  assert(!/drop function if exists public\.admin_overview/i.test(down));
+  assert(!/alter table/i.test(down));
+  assert(!/revoke all on function public\.admin_/i.test(down.replace("admin_live_snapshot", "")));
 });
 
 test("Current encounter has no historical started_at fallback and settlement is unavailable", () => {

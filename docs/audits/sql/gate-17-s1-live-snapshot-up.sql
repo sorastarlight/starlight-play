@@ -13,40 +13,26 @@
 --   * last_tick_at is a recorded director field, not snapshot freshness.
 --   * asOf is the observation timestamp.
 --   * search_path is pg_catalog; relations are schema-qualified.
---   * Preflight refuses a different existing contract.
+--   * Preflight aborts if the function already exists. CREATE FUNCTION, not OR REPLACE.
 --   * No service_role EXECUTE grant.
 --
 -- Rollback: docs/audits/sql/gate-17-s1-live-snapshot-down.sql
 
 do $preflight$
-declare
-  rec record;
 begin
-  select
-    pg_catalog.pg_get_function_identity_arguments(p.oid) as args,
-    p.provolatile,
-    p.prosecdef,
-    pg_catalog.pg_get_userbyid(p.proowner) as owner,
-    p.prosrc
-    into rec
-    from pg_catalog.pg_proc p
-    join pg_catalog.pg_namespace n on n.oid = p.pronamespace
-   where n.nspname = 'public'
-     and p.proname = 'admin_live_snapshot';
-
-  if rec.prosrc is not null then
-    if rec.args is distinct from ''
-       or rec.provolatile is distinct from 's'
-       or rec.prosecdef is not true
-       or rec.owner is distinct from 'postgres'
-       or rec.prosrc not like '%gate-17-s1-v2%' then
-      raise exception 'preflight: public.admin_live_snapshot() already exists with a different contract. Inspect live SQL before replacing.';
-    end if;
+  if exists (
+    select 1
+      from pg_catalog.pg_proc p
+      join pg_catalog.pg_namespace n on n.oid = p.pronamespace
+     where n.nspname = 'public'
+       and p.proname = 'admin_live_snapshot'
+  ) then
+    raise exception 'preflight: public.admin_live_snapshot() already exists. This is a new endpoint; refuse to overwrite.';
   end if;
 end;
 $preflight$;
 
-create or replace function public.admin_live_snapshot()
+create function public.admin_live_snapshot()
 returns pg_catalog.jsonb
 language plpgsql
 stable

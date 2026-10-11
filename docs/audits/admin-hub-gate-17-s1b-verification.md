@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-10  
 **Production APP before:** `20261008-rc132` · feature `3c87845` · stamp `b36d255`  
-**Production APP after:** `20261008-rc133` (preview-only stamp)  
+**Production APP after:** `20261008-rc133` · feature `bbf5405` · stamp `6d2517f`  
 **SPRITE:** `20260923-home1` · **LOCATION:** `20260916-loc1` (unchanged)  
 **Site:** https://play.sorastarlight.net  
 **Database:** starlight-play `dtflmlbjhttoewqgkujf`  
@@ -168,20 +168,35 @@ Zero hits: `admin_live_dashboard`, `admin_overview`, tick, settle, director comm
 
 ---
 
-## 6. Cleanup
+## 6. Production deployment
 
-After production staff verification, PlayTester's `staff_roles` row is deleted. Expected after cleanup:
+| Check | Result |
+|---|---|
+| Pages build | `built` 2026-10-11T01:23:53Z |
+| `js/build.js` | `20261008-rc133` · git `bbf5405` · sprite/location unchanged |
+| Deployed allowlist | `admin_build_health`, `admin_game_health`, `admin_live_snapshot` |
+| Unsigned HTML | staff gated · Operations UNAVAILABLE fallback present |
+| Staff Operations (PlayTester while still moderator) | Twitch STALE · RPG INACTIVE · Director OFFLINE · Current NONE · Last CLOSED · Settlement UNAVAILABLE |
+| Production RPCs | `is_play_admin`, `play_notices`, `admin_live_snapshot`, `admin_build_health`, `admin_game_health` |
+| Unsafe RPCs | none |
 
-- `play_staff_role(PlayTester)` = null
-- Twinkle still `moderator`
-- Sora still `owner`
-- `staff_roles` count = 1
+## 7. Cleanup
 
-Recorded in the closure report after restore.
+PlayTester `staff_roles` row deleted after production staff verification.
+
+| Check | After restore |
+|---|---|
+| `play_staff_role(PlayTester)` | `null` |
+| PlayTester snapshot JWT | `42501` `not allowed` |
+| Twinkle | still `moderator` |
+| Sora | still `owner` |
+| `staff_roles` count | 1 |
+
+No Sora/Twinkle/gameplay rows were written. Temporary scripts deleted. PlayTester sessions signed out.
 
 ---
 
-## 7. Remaining risks
+## 8. Remaining risks
 
 - R1 `admin_overview` settle-before-guard still OPEN
 - R17 preview path now uses the true-read snapshot; legacy Dashboard still ticks

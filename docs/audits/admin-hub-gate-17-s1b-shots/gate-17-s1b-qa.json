@@ -1,5 +1,6 @@
 {
   "qaAccount": "PlayTester",
+  "base": "https://play.sorastarlight.net",
   "unsigned": {
     "title": "Admin Hub (preview)",
     "gate": "Sign in to open the Admin Hub preview.",
@@ -10,7 +11,7 @@
     "gateHidden": true,
     "staffHidden": false,
     "status": "Twitch status may be stale. Director last_tick_at is not snapshot freshness. This preview does not tick or settle gameplay.",
-    "freshness": "Last observation 2026-10-11 01:20:39 UTC. Refreshes every 30 seconds while Operations is open.",
+    "freshness": "Last observation 2026-10-11 01:25:44 UTC. Refreshes every 30 seconds while Operations is open.",
     "cards": [
       {
         "state": "unknown",
@@ -22,7 +23,7 @@
       },
       {
         "state": "unknown",
-        "text": "Director OFFLINE Last tick2026-10-11 01:20:29 UTCLast update2026-10-11 01:20:29 UTC"
+        "text": "Director OFFLINE Last tick2026-10-11 01:25:41 UTCLast update2026-10-11 01:25:41 UTC"
       },
       {
         "state": "inactive",

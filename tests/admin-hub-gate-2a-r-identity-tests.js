@@ -70,9 +70,9 @@ const downFn = down.split("create or replace function public.admin_identity_insp
 const upBody = functionBody(up);
 const downBody = functionBody(down);
 
-test("SQL contract: review artifacts are not auto-apply migrations", () => {
-  assert(up.includes("REVIEW ARTIFACT ONLY"));
-  assert(up.includes("DO NOT APPLY WITHOUT OWNER APPROVAL"));
+test("SQL contract: UP is the applied artifact; DOWN stays emergency-only", () => {
+  assert(up.includes("APPLIED to production starlight-play dtflmlbjhttoewqgkujf as 20261011024514"));
+  assert(up.includes("Do not re-apply"));
   assert(down.includes("REVIEW ARTIFACT ONLY"));
   assert(down.includes("EMERGENCY ROLLBACK ONLY"));
   assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "gate-2a-r-identity-inspect-up.sql")));
@@ -172,11 +172,11 @@ test("Response compatibility: keys and SELECT helpers stay identical", () => {
 
 test("Helper volatility: catalog contract records STABLE/IMMUTABLE SELECT-only helpers", () => {
   REACHABLE_HELPERS.forEach((name) => assert(catalog.includes(name), name));
-  assert(catalog.includes("provolatile in ('s', 'i')"));
-  assert(catalog.includes("ensure_trainer_stats"));
-  assert(catalog.includes("trainer_card does not call ensure_trainer_stats"));
-  assert(audit.includes("STABLE only after helper reconfirm"));
-  assert(audit.includes("3b7e21d51467aee55a4ff3ce8a03bc5e"));
+  assert(catalog.includes("provolatile in ('s', 'i')"), "catalog volatility note");
+  assert(catalog.includes("ensure_trainer_stats"), "ensure_trainer_stats listed");
+  assert(catalog.includes("trainer_card does not call ensure_trainer_stats"), "trainer_card skip note");
+  assert(audit.includes("20261011024514"), "applied migration id");
+  assert(audit.includes("e9091c0de1b91e67a62bade78cf8edde"), "post-UP fingerprint in audit");
 });
 
 test("No-write static verification of post-UP inspect body", () => {

@@ -1,161 +1,107 @@
-# Admin Hub Gate 2A-R — identity inspect true-read remediation (review only)
+# Admin Hub Gate 2A-R — identity inspect true-read apply
 
-**Date:** 2026-10-10  
-**Production APP:** `20261008-rc133` · feature `bbf5405` · stamp `6d2517f`  
-**Database:** starlight-play `dtflmlbjhttoewqgkujf`  
-**SQL applied:** **NO**  
+**Date:** 2026-10-11  
+**Source commit:** `522adce90e6c74361844c1101026e525c00b44cd`  
+**Approved file:** `docs/audits/sql/gate-2a-r-identity-inspect-up.sql`  
+**Migration:** `20261011024514` `gate_2a_r_identity_inspect_true_read`  
+**Applied:** 2026-10-11 02:45:14 UTC  
+**Verified:** 2026-10-11 02:45:30 UTC  
+**Database:** starlight-play `dtflmlbjhttoewqgkujf` / `postgres`  
+**Production APP:** `20261008-rc133` (unchanged)  
+**DOWN:** not executed  
 **Frontend / APP stamp:** unchanged  
 **Sora mutated:** NO · **Twinkle mutated:** NO · **PlayTester role:** `null`  
-**Unsafe inspect invoked:** NO
+**Unsafe staff inspect of real trainers:** NO
 
-Final release smoke remains paused. **Wait for explicit owner approval before applying SQL.**
-
----
-
-## 1. Root cause
-
-`public.admin_identity_inspect(p_user uuid)` is staff-gated, then:
-
-```
-perform private.evaluate_cosmetics(p_user);
-```
-
-That helper is not a read. It loops enabled cosmetics and calls `private.unlock_cosmetic`, which **INSERT**s `public.trainer_cosmetics` and may `private.push_notice` → **INSERT** `public.trainer_notices`.
-
-Gate 1.5 called the public body TRUE_READ because it has no local DML. The write is in the DEFINER-reachable helper chain.
+Final release smoke remains paused. Gate 2A frontend not started.
 
 ---
 
-## 2. Corrected SQL (not applied)
+## 1. Preflight (all matched)
 
-| File | Role |
+| Check | Result |
 |---|---|
-| `docs/audits/sql/gate-2a-r-identity-inspect-up.sql` | One-transaction UP. Advisory xact lock. Catalog + md5 preflight. Replace inspect without `evaluate_cosmetics`. Mark **STABLE**. Postcondition fingerprint. |
-| `docs/audits/sql/gate-2a-r-identity-inspect-down.sql` | Emergency rollback only. Requires exact post-UP fingerprint. Restores write-read baseline and **reopens R21**. |
-| `docs/audits/sql/gate-2a-r-catalog-contract.sql` | Production-safe catalog SELECTs. Does not call inspect. |
-| `docs/audits/sql/gate-2a-r-authorization-tests.sql` | Clone-only role / missing-trainer / rollback notes. |
-
-Not copied into `supabase/migrations/`.
-
-**Not changed:** `evaluate_cosmetics`, `unlock_cosmetic`, player progression, R1/R2/R18, grants/ACLs, staff_roles.
-
----
-
-## 3. Fingerprints
-
-| State | `md5(pg_proc.prosrc)` | length | volatility |
-|---|---|---|---|
-| Live / pre-UP / post-DOWN | `50058f99f73591a9bd77d4342653cd8c` | 1542 | VOLATILE |
-| Approved post-UP | `e9091c0de1b91e67a62bade78cf8edde` | 1496 | STABLE |
-
-Bodies are LF-only (`prosrc` starts and ends with ASCII 10). Windows CRLF hashes are invalid.
-
----
-
-## 4. Catalog property checks
-
-UP preflight aborts unless all of these match the live reviewed baseline:
-
-| Property | Expected |
-|---|---|
-| Signature | `p_user uuid` |
-| Result | `jsonb` |
-| Language | `plpgsql` |
-| Security | `SECURITY DEFINER` |
-| Owner | `postgres` |
-| Volatility | `VOLATILE` (`v`) |
+| Project | `starlight-play` `dtflmlbjhttoewqgkujf` `ACTIVE_HEALTHY` |
+| Working UP vs `522adce` | exact byte match, LF, body md5 `e9091c0de1b91e67a62bade78cf8edde` / 1496 |
+| Function exists | yes `public.admin_identity_inspect(p_user uuid)` |
+| Live `md5(prosrc)` | `50058f99f73591a9bd77d4342653cd8c` |
+| Length | 1542 |
+| Volatility | VOLATILE |
+| Owner | postgres |
+| SECURITY DEFINER | true |
 | `search_path` | `{search_path=public}` |
-| `md5(prosrc)` | `50058f99f73591a9bd77d4342653cd8c` |
-| Call site | `perform private.evaluate_cosmetics(p_user);` |
-| Staff guard | `if not private.is_play_admin()` |
+| Result / language | jsonb / plpgsql |
+| Staff guard | present |
+| `evaluate_cosmetics` call | present |
 | EXECUTE | anon, authenticated, service_role, postgres |
-
-UP postcondition requires the same signature / jsonb / plpgsql / DEFINER / owner / `search_path` / EXECUTE, plus STABLE and `e9091c0de1b91e67a62bade78cf8edde`.
-
-DOWN preflight requires the approved post-UP fingerprint and STABLE. DOWN postcondition requires the live baseline fingerprint and VOLATILE.
-
----
-
-## 5. Transaction strategy
-
-Both scripts:
-
-1. `BEGIN`
-2. `pg_advisory_xact_lock(21021021, 2)` — serializes concurrent runs of this package
-3. `$preflight$` — `RAISE EXCEPTION` aborts the transaction
-4. `CREATE OR REPLACE` + `ALTER OWNER`
-5. `$post$` — `RAISE EXCEPTION` rolls back the replace
-6. `COMMIT`
-
-No statement between `BEGIN` and `COMMIT` commits. Run as one script. A failed preflight or postcondition leaves production unchanged. `CREATE OR REPLACE FUNCTION` takes an AccessExclusiveLock on the function; the advisory lock is extra protection against two apply sessions.
+| ACL | `{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}` |
+| Concurrent inspect DDL | none |
+| Latest prior migration | `20261009183910` `gate_17_s1_admin_live_snapshot` |
+| PlayTester staff row | none |
 
 ---
 
-## 6. Function body and STABLE
+## 2. SQL execution
 
-Removed only:
+`apply_migration` `gate_2a_r_identity_inspect_true_read` on `dtflmlbjhttoewqgkujf`.
 
-```
-perform private.evaluate_cosmetics(p_user);
-```
+The approved script’s preflight, `CREATE OR REPLACE`, `ALTER OWNER`, and postcondition ran in one migration transaction with `pg_advisory_xact_lock(21021021, 2)`. Outer `BEGIN`/`COMMIT` were omitted because the migration runner already wraps the script. Function body was the approved LF `$function$` text.
 
-Preserved: staff guard first, response keys, owner `postgres`, DEFINER, `search_path=public`, EXECUTE grants.
+Result: **success**. Recorded as `20261011024514`.
 
-**STABLE only after helper reconfirm.** Live catalog 2026-10-10: every remaining reachable helper is STABLE or IMMUTABLE, SELECT-only, and does not call `evaluate_cosmetics` / `unlock_cosmetic` / `push_notice` / `ensure_trainer_stats`.
+DOWN was not executed. No other function was rewritten. `evaluate_cosmetics` / `unlock_cosmetic` / `push_notice` checksums unchanged.
 
-`private.trainer_card` (`3b7e21d51467aee55a4ff3ce8a03bc5e`) SELECTs `trainer_stats` and does **not** call VOLATILE `ensure_trainer_stats`.
+---
 
-`now()` in `trainer_card` is Postgres STABLE (transaction timestamp).
+## 3. Postcondition (live catalog)
 
-Write helpers left in place for player paths:
-
-| Helper | vol | md5 |
+| Property | Expected | Live |
 |---|---|---|
-| `evaluate_cosmetics` | v | `024bb6f7d95682dc5dbd50c676afd2af` |
-| `unlock_cosmetic` | v | `90afc724cfa4362473cda04656ff432b` |
-| `push_notice` | v | `0916366cfefccd66f94f2736226f733e` |
+| exists | yes | yes |
+| `md5(prosrc)` | `e9091c0de1b91e67a62bade78cf8edde` | match |
+| length | 1496 | 1496 |
+| volatility | STABLE | `s` |
+| DEFINER | true | true |
+| owner | postgres | postgres |
+| `search_path` | public | `{search_path=public}` |
+| args | `p_user uuid` | match |
+| result | jsonb | jsonb |
+| language | plpgsql | plpgsql |
+| `evaluate_cosmetics` | absent | position 0 |
+| staff guard | first | position 10 |
+| EXECUTE / ACL | unchanged | unchanged |
+
+Response keys still in `prosrc`: `ok`, `trainer`, `rankingVisible`, `rankingEligible`, `cosmetics`, `ownedAvatarPacks`, `titles`, `badges`, `catalog`.
 
 ---
 
-## 7. DOWN warning
+## 4. Authorization (safe nonstaff only)
 
-DOWN restores `perform private.evaluate_cosmetics(p_user);` and reopens R21.
+Session: `current_user=postgres`, `auth.uid()=null`, `private.is_play_admin()=false`.
 
-DOWN is **emergency recovery only**. Do not execute it as routine cleanup after a successful UP.
-
----
-
-## 8. Response compatibility
-
-Return keys unchanged: `ok`, `trainer`, `rankingVisible`, `rankingEligible`, `cosmetics`, `ownedAvatarPacks`, `titles`, `badges`, `catalog`.
-
-`identity_cosmetics_json` already derives `unlocked` from stored `trainer_cosmetics` **or** starter **or** admin entitlement.
-
-| Case | Today (write-read) | After UP |
+| Call | Target | Result |
 |---|---|---|
-| Stored unlock / starter | shown | shown |
-| Earned but not yet evaluated | inspect **INSERTs** then shows unlocked | shows locked until the trainer’s own `play_progression` / level-up path evaluates |
-| Missing UUID | card/selects empty or null; write could still evaluate | same reads; **no** insert |
-| Null `p_user` | `Pick a trainer.` before write | same, still before any SELECT |
+| inspect as postgres / no JWT | unused `00000000-0000-0000-0000-000000000000` | **42501** `not allowed` at line 4 |
+| `set local role anon` | same unused UUID | **42501** `not allowed` at line 4 |
+| `set local role authenticated` | same unused UUID | **42501** `not allowed` at line 4 |
+
+Staff happy path was **not** tested. Sora / Twinkle were not impersonated. PlayTester was not promoted.
+
+Runtime no-write verification (staff inspect leaves `trainer_cosmetics` / notices unchanged): **not performed**.
 
 ---
 
-## 9. Tests
+## 5. Remaining QA
 
-| Suite | Result | Class |
-|---|---|---|
-| `tests/admin-hub-gate-2a-r-identity-tests.js` | run this commit | **STATIC PASS** |
-| Catalog contract on starlight-play | run this commit | **REAL CATALOG PASS** (SELECT `pg_proc` / `staff_roles` only) |
-| Clone drift / atomicity / role-switch / inspect-of-trainer | **not run** | requires clone; inspect of real trainers forbidden while write remains |
+Authorized dedicated QA staff read of PlayTester only, after a separate staff-role approval if needed. Then retry Gate 2A frontend.
 
-STATIC coverage: SQL contract, drift rejection, atomicity structure, authorization contract, response keys, helper volatility records, no-write body + exact fingerprints.
-
-Not run: staff JWT inspect of PlayTester / Sora / Twinkle.
+R21: **PENDING RUNTIME**  
+R2: **OPEN** (out of scope; anon EXECUTE unchanged)
 
 ---
 
-## 10. Production unchanged
+## 6. Production after apply
 
-No migration applied. Live inspect still `50058f99f73591a9bd77d4342653cd8c` / VOLATILE / `evaluate_cosmetics` present. APP still `20261008-rc133`. Preview allowlist unchanged. PlayTester has no `staff_roles` row. Sora/Twinkle were not mutated.
+APP remains `20261008-rc133`. Preview allowlist unchanged. No staff_roles change. No cosmetic grants. No player progression change. No legacy admin JS change.
 
-Apply only after an explicit owner order. Then retry Gate 2A frontend.
+DOWN remains emergency recovery only and would restore the write-read body and reopen R21.

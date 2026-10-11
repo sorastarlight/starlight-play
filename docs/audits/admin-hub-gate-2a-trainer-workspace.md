@@ -6,13 +6,13 @@
 **SPRITE:** `20260923-home1` · **LOCATION:** `20260916-loc1`  
 **Site:** https://play.sorastarlight.net `js/build.js` matches (`PLAY_GIT_COMMIT=bbf5405`)  
 **Database:** starlight-play `dtflmlbjhttoewqgkujf`  
-**Latest migration:** `20261009183910` `gate_17_s1_admin_live_snapshot`  
+**Latest migration:** `20261011024514` `gate_2a_r_identity_inspect_true_read`  
 **Sora mutated:** NO · **Twinkle mutated:** NO  
 **PlayTester role:** `null` (unchanged)  
-**SQL / RLS / GRANT / staff_roles:** unchanged  
+**SQL / RLS / GRANT / staff_roles:** 2A-R inspect UP applied; no staff_roles change  
 **Frontend integration:** **NOT STARTED**
 
-**Stage A:** **BLOCKED**  
+**Stage A:** **BLOCKED** pending authorized staff no-write QA  
 **Stage B:** **NOT STARTED**  
 **Stage C:** **NOT STARTED**
 
@@ -133,7 +133,7 @@ If Stage A is later cleared, the already-written design in `admin-hub-gate-2-tra
 
 | ID | Status |
 |---|---|
-| **R21** | **OPEN** — `admin_identity_inspect` writes cosmetics (this gate) |
+| **R21** | **PENDING RUNTIME** — inspect SQL applied; staff no-write QA not run |
 | R1 | OPEN — `admin_overview` settle-before-guard |
 | R2 | OPEN — broad anon EXECUTE |
 | R17 | MITIGATED for preview snapshot |

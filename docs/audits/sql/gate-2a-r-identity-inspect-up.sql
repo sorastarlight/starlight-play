@@ -1,4 +1,5 @@
--- REVIEW ARTIFACT ONLY. DO NOT APPLY WITHOUT OWNER APPROVAL.
+-- APPLIED to production starlight-play dtflmlbjhttoewqgkujf as 20261011024514.
+-- Do not re-apply. Preflight expects the previous VOLATILE write-read body.
 -- Gate 2A-R: make public.admin_identity_inspect(p_user uuid) a true read.
 --
 -- Reviewed live baseline 2026-10-10 on starlight-play dtflmlbjhttoewqgkujf:

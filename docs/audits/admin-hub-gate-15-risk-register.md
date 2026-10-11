@@ -219,10 +219,10 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 | **Severity** | High (hidden progression write on inspect) |
 | **Impact** | Staff profile open can grant cosmetics/notices to the target trainer, including Sora/Twinkle. Gate 2A preview cannot call this RPC. |
 | **Affected** | `admin-tools.js` identity inspect; proposed Gate 2 trainer profile |
-| **Action** | Corrected review SQL ready: `docs/audits/sql/gate-2a-r-identity-inspect-up.sql` + down. Preflight requires live md5 `50058f99…` plus catalog/ACL. Post-UP fingerprint `e9091c0d…`. DOWN is emergency only and reopens R21. Do **not** apply until owner approval. |
-| **Owner approval** | **Required before apply** |
-| **Verification** | After apply: inspect `prosrc` has no `evaluate_cosmetics`; PlayTester-only staff inspect leaves `trainer_cosmetics` unchanged. Not run this gate. |
-| **Status** | **OPEN** — remediation prepared, **not applied**. Blocks Gate 2A frontend. |
+| **Action** | UP applied `20261011024514` `gate_2a_r_identity_inspect_true_read` from `522adce`. Live inspect `e9091c0de1b91e67a62bade78cf8edde` STABLE. DOWN remains emergency only. |
+| **Owner approval** | Apply authorized and executed 2026-10-11. |
+| **Verification** | Catalog: `evaluate_cosmetics` absent. Staff PlayTester no-write inspect **not run**. Do not start Gate 2A frontend until that authorized QA read. |
+| **Status** | **PENDING RUNTIME** — SQL applied; staff happy-path no-write not verified. Blocks Gate 2A frontend until that QA. |
 
 ---
 

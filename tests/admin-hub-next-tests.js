@@ -37,9 +37,10 @@ test("Next hub IA labels are the seven overhaul screens", () => {
   ].forEach((label) => assert(nextHtml.includes(label), `missing ${label}`));
 });
 
-test("Preview shell only allows the two verified true-read RPCs", () => {
+test("Preview shell only allows the three verified true-read RPCs", () => {
   assert(nextJs.includes("admin_build_health"));
   assert(nextJs.includes("admin_game_health"));
+  assert(nextJs.includes("admin_live_snapshot"));
   assert(!nextJs.includes("admin_live_dashboard"), "must not call tick-enabled admin_live_dashboard");
   assert(!nextJs.includes("admin_overview"), "must not call admin_overview settle side-effect");
   [
@@ -59,16 +60,23 @@ test("Preview shell only allows the two verified true-read RPCs", () => {
   const allow = nextJs.match(/const READ_RPCS = Object\.freeze\(\[([\s\S]*?)\]\)/);
   assert(allow, "READ_RPCS allowlist missing");
   const names = [...allow[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
-  assert(names.length === 2 && names[0] === "admin_build_health" && names[1] === "admin_game_health");
+  assert(names.length === 3);
+  assert(names[0] === "admin_build_health" && names[1] === "admin_game_health" && names[2] === "admin_live_snapshot");
 });
 
-test("Operations preview uses unavailable fallback and does not poll", () => {
+test("Operations preview keeps the unavailable fallback and polls only the snapshot", () => {
   assert(nextHtml.includes("Live status unavailable in preview"));
   assert(nextHtml.includes("Legacy Live Operations remains on the current Dashboard") || nextHtml.includes("legacy Live Operations"));
   assert(nextHtml.includes("UNAVAILABLE"));
+  assert(nextHtml.includes("Last recorded encounter"));
+  assert(nextHtml.includes("Settlement"));
   assert(nextHtml.includes("data-state=\"unavailable\"") || nextHtml.includes("is-unavailable"));
   assert(nextJs.includes("renderOperationsFallback"));
-  assert(!nextJs.includes("setInterval"), "preview must not poll");
+  assert(nextJs.includes("OPS_POLL_MS"));
+  assert(nextJs.includes("setInterval"));
+  assert(nextJs.includes("30000"));
+  assert(nextJs.includes("opsInFlight"));
+  assert(nextJs.includes("visibilitychange"));
   assert(!nextJs.includes("admin_live_dashboard"));
   assert(!/readCall\(\s*["']admin_live_dashboard["']/.test(nextJs));
   assert(!/playCall\(\s*["']admin_live_dashboard["']/.test(nextJs));

@@ -1,9 +1,9 @@
 # Admin Hub Gate 1.5 — risk register
 
-**Production:** `20261008-rc132` / `3c87845` / stamp `b36d255` / record `538cc9f`  
+**Production:** `20261008-rc133` (S1B preview stamp) · sprite/location unchanged  
 **Latest applied migration:** `20261009183910` `gate_17_s1_admin_live_snapshot`  
 **Sora mutated:** NO · **Twinkle mutated:** NO  
-**S1B:** no SQL, no grants, no `staff_roles` change. Stage A BLOCKED.
+**S1B:** no SQL, no RLS, no GRANT changes. Temporary PlayTester `moderator` used then restored. Preview wires `admin_live_snapshot` only.
 
 Status vocabulary: **OPEN** · **MITIGATED (UI)** · **CLOSED** · **UNVERIFIED**.
 
@@ -172,11 +172,11 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 | **Severity** | High (legacy Dashboard tick remains intentional) |
 | **Impact** | Opening the **preview** no longer settles or ticks. Opening the current Dashboard still can (by design). |
 | **Affected** | admin-live poll only after Gate 1.6 |
-| **Action** | Keep preview isolated until Gate 1.7 S1B Stage A PASS (authorized QA staff JWT) and Stage B wires only `admin_live_snapshot` into `READ_RPCS`. Do not rewrite `director_tick`. Do not apply the Gate 1.6 draft or S1 v1. |
-| **Dependencies** | Must not rewrite `director_tick` / session lifecycle. Needs a dedicated QA staff identity that is not Sora/Twinkle (R20). |
-| **Owner approval** | **Required** before promoting PlayTester or wiring the preview |
-| **Verification** | Preview allowlist + network capture: no `admin_live_dashboard` from admin-next. After staff JWT: three snapshot reads leave gameplay rows unchanged. Do **not** invoke the tick RPC on production to “prove” it ticks. |
-| **Status** | **MITIGATED (preview UI)** — snapshot RPC live (`gate-17-s1-v2`, `20261009183910`). S1B Stage A BLOCKED. Preview still unwired. Not closed until S1B Stage B uses only this RPC. |
+| **Action** | Preview now polls only `admin_live_snapshot`. Keep legacy Dashboard on `admin_live_dashboard`. Do not rewrite `director_tick`. |
+| **Dependencies** | Must not rewrite `director_tick` / session lifecycle. |
+| **Owner approval** | Snapshot SQL already applied. Preview wiring approved by S1B continue order. |
+| **Verification** | Preview allowlist + network capture: snapshot + health only. Staff JWT three-read comparison passed. |
+| **Status** | **MITIGATED (preview UI + snapshot wired)** — legacy Dashboard still ticks. |
 
 ## R18 — Moderator-capable Pass / Bits / Oak QA (NEW)
 
@@ -208,8 +208,8 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 | **Affected** | `admin_live_snapshot` happy path; future admin-next Operations QA |
 | **Action** | Owner-approved temporary `staff_roles` row for PlayTester (`moderator` or `staff`), or a new dedicated QA staff account that is not Sora/Twinkle. Agent must not insert the row without that approval. |
 | **Owner approval** | **Required** |
-| **Verification** | PlayTester (or new QA) JWT returns `ok: true` / `contract: gate-17-s1-v2`; Sora/Twinkle unused; `staff_roles` change is explicit and recorded |
-| **Status** | **OPEN** — blocks S1B Stage A/B |
+| **Verification** | PlayTester JWT returned `ok: true` / `contract: gate-17-s1-v2`; Sora/Twinkle unused; row removed after verification |
+| **Status** | **CLOSED for S1B** — temporary PlayTester `moderator` used and restored. Future admin-preview QA still needs explicit owner approval. |
 
 ---
 

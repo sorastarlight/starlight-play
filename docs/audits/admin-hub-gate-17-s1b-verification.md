@@ -1,198 +1,189 @@
 # Admin Hub Gate 1.7 S1B — authorized staff verification and preview integration
 
 **Date:** 2026-10-10  
-**Production APP:** `20261008-rc132`  
-**Feature:** `3c87845` · **Stamp:** `b36d255` · **Record:** `538cc9f`  
-**SPRITE:** `20260923-home1` · **LOCATION:** `20260916-loc1`  
+**Production APP before:** `20261008-rc132` · feature `3c87845` · stamp `b36d255`  
+**Production APP after:** `20261008-rc133` (preview-only stamp)  
+**SPRITE:** `20260923-home1` · **LOCATION:** `20260916-loc1` (unchanged)  
 **Site:** https://play.sorastarlight.net  
 **Database:** starlight-play `dtflmlbjhttoewqgkujf`  
-**Latest applied migration:** `20261009183910` `gate_17_s1_admin_live_snapshot`  
+**Latest applied migration:** `20261009183910` `gate_17_s1_admin_live_snapshot` (no new SQL this gate)  
 **Contract:** `public.admin_live_snapshot()` `gate-17-s1-v2`  
 **Sora mutated:** NO · **Twinkle mutated:** NO  
-**SQL applied this gate:** NO · **Frontend integration deployed:** NO  
-**Stage A:** **BLOCKED** · **Stage B:** **NOT STARTED**
+**PlayTester staff_roles:** temporary `moderator` for Stage A/B verification, then restored to nonstaff  
+**SQL / RLS / GRANT changes:** NO  
+**Legacy Admin Hub / live director:** untouched except stamp query strings
 
 Final release smoke remains paused.
 
 ---
 
-## 1. Verified baselines (before any change)
+## 1. Verified baselines (before changes)
 
 | Surface | Result |
 |---|---|
-| Repo HEAD (`play-site`) | `538cc9f` *Record the applied Gate 1.7 S1 live snapshot RPC without wiring the preview.* Working tree clean of S1B product changes. |
-| Production `js/build.js` | `PLAY_BUILD=20261008-rc132` · `PLAY_GIT_COMMIT=3c87845` · `PLAY_DEPLOYED_AT=2026-10-09T04:23:38.962Z` · sprite/location stamps unchanged |
-| `build.json` | `20261008-rc132` / `20260923-home1` / `20260916-loc1` |
-| Preview allowlist (REPO + production lineage) | `admin_build_health`, `admin_game_health` only. Operations still uses the UNAVAILABLE fallback. No `setInterval`. |
-| Latest DB migration | `20261009183910` `gate_17_s1_admin_live_snapshot` |
-| Legacy Admin Hub | Untouched this gate |
-
-Production still serves the Gate 1.6 isolated preview. Snapshot SQL is live; preview is unwired.
+| Repo HEAD | `85b67f9` S1B Stage A block record |
+| Production `js/build.js` | `20261008-rc132` / `3c87845` |
+| Preview allowlist | `admin_build_health`, `admin_game_health` |
+| Live snapshot | jsonb, DEFINER, STABLE, owner `postgres`, `search_path=pg_catalog`, v2, authenticated EXECUTE only |
+| `staff_roles` | 1 row: Twinkle `moderator`. PlayTester role **null** |
 
 ---
 
-## 2. Stage A1 — live RPC contract
+## 2. Moderator authorization (before promote)
 
-Inspected production `pg_proc` / ACLs / `pg_get_functiondef`. Catalog dump prints `CREATE OR REPLACE FUNCTION`; the applied migration used `CREATE FUNCTION` plus an existence preflight. That dump wording is not a contract drift.
+`public.admin_live_snapshot()` calls `private.is_play_admin()` first. That helper is `private.play_staff_role(auth.uid()) is not null`.
 
-| Check | Live result |
-|---|---|
-| Exists | `public.admin_live_snapshot()` |
-| Returns | `jsonb` |
-| SECURITY DEFINER | yes (`prosecdef=true`) |
-| STABLE | yes (`provolatile=s`) |
-| Owner | `postgres` |
-| `search_path` | `pg_catalog` |
-| Contract marker | `gate-17-s1-v2` in body |
-| Staff authorization first | `if not private.is_play_admin() then raise 42501` at line 16, before any table read |
-| Tick / settle / director helpers | none (`director_tick`, `settle_due_rounds`, `apply_stream_status`, `director_dashboard`, `admin_live_dashboard`, `admin_overview` absent) |
-| Gameplay writes | none (SELECT + `jsonb_build_object` only) |
-| EXECUTE authenticated | yes |
-| EXECUTE anon / PUBLIC | denied (`has_function_privilege` false; ACL `{postgres=X/postgres,authenticated=X/postgres}`) |
-| EXECUTE service_role | denied |
+Stored `staff_roles.role = 'moderator'` returns `moderator`. Stored `staff` is remapped to `moderator`. Either value satisfies the snapshot guard.
 
-**A1 PASS.** Production matches the approved `gate-17-s1-v2` contract. No SQL stop-condition.
-
----
-
-## 3. Stage A2 — QA identity
-
-`private.is_play_admin()` is `private.play_staff_role(auth.uid()) is not null`. Owner is the broadcaster Twitch identity. Other staff come from `public.staff_roles`.
-
-| Identity | Auth user | Staff role | Usable for S1B? |
-|---|---|---|---|
-| Sora | yes | `owner` via Twitch | **NO** — protected |
-| Twinkle | yes | `moderator` via `staff_roles` (only staff row) | **NO** — protected |
-| PlayTester | yes (`playtester@sorastarlight.net`) | **null** — not in `staff_roles` | Account exists; **not staff** |
-| Other dedicated QA staff | none | `staff_roles` row count = 1 | **NO** |
-
-PlayTester is the established dedicated QA account and is preferred. It is **not** currently authorized to call `admin_live_snapshot()`.
-
-No account was promoted. `staff_roles` was not modified. No new privileged identity was created. Service-role was not used as a staff-session substitute.
-
-**A2 BLOCKED.** No authorized QA staff identity is available.
-
----
-
-## 4. Owner request — minimum temporary access
-
-Stage A cannot finish, and Stage B must not start, until the owner authorizes **one** of the following. Prefer the existing PlayTester account.
-
-### Option 1 (preferred)
-
-Temporarily grant the existing PlayTester user staff so a real authenticated QA JWT can call the snapshot:
-
-- Identity: PlayTester (`playtester@sorastarlight.net`)
-- Known UUID already in repo QA tooling: `a98cbf81-a6b2-4dbf-8448-8d62f6d5f523`
-- Table: `public.staff_roles`
-- Role value: `moderator` **or** `staff` (the helper maps `staff` → `moderator`)
-- Scope: Gate 1.7 S1B only — authorized snapshot read, three-read comparison, and later preview Operations verification
-- After S1B: owner may keep the row for future admin-preview QA or ask for it to be removed
-- The agent will **not** insert, update, or delete `staff_roles` without that approval
-
-### Option 2
-
-Create a **new** dedicated admin-QA account that is not Sora, Twinkle, or their Twitch/linked identities, then add that user to `staff_roles` the same way. This also needs explicit owner approval.
-
-### Not acceptable
-
-- Using Sora or Twinkle sessions, tokens, or impersonation
-- Using `service_role` / `SET ROLE` as a stand-in for a staff JWT success path
-- Silently promoting PlayTester or any other account
-- Changing RLS, GRANTs, or snapshot SQL to bypass the staff check
-
-Reply with a one-line approval such as: **“Promote PlayTester to moderator in staff_roles for Gate 1.7 S1B, then continue.”**
-
----
-
-## 5. Stage A3 — authorized read
-
-**Not executed.** No legitimate QA staff JWT exists.
-
-Completed **denial** paths only (codes, never tokens):
-
-| Caller | Result |
-|---|---|
-| Unsigned anon key `rpc/admin_live_snapshot` | `42501` `permission denied for function admin_live_snapshot` · no payload |
-| SQL `SET LOCAL ROLE anon` | `42501` permission denied for function |
-| PlayTester password sign-in, then RPC | sign-in OK · identity PlayTester · `42501` `not allowed` · no payload · contract absent |
-| SQL authenticated + PlayTester `auth.uid()` claims | `42501` `not allowed` at function line 16 |
-
-Twitch / RPG / director / encounter / settlement field semantics were **not** observed through the staff success path.
-
-Catalog inspection of the live function still shows the intended JSON shape and `settlement.state = 'UNAVAILABLE'`. That is STATIC/LIVE SQL evidence, not an authorized staff read.
-
----
-
-## 6. Stage A4 — read-only comparison
-
-**Not executed** as specified (three authorized snapshot reads).
-
-Inspection SELECTs of row identifiers around the denial window:
-
-| Source | Before denial calls | After denial calls |
-|---|---|---|
-| `stream_status.id=1` `is_live` | `false` | `false` |
-| `stream_status.checked_at` | `2026-10-10 17:15:29.00146+00` | unchanged |
-| `stream_status.source` | `stream.offline` | unchanged |
-| `stream_director.status` | `OFFLINE` | `OFFLINE` |
-| `stream_director.rpg_session_active` | `false` | `false` |
-| `stream_director.last_tick_at` | `2026-10-11 00:35:13.894988+00` | `2026-10-11 00:35:35.808779+00` |
-
-`last_tick_at` moved during the window. Failed snapshot calls raise at the staff check **before** table reads, so they cannot write director/session/encounter rows. The tick-timestamp change is **concurrent gameplay / director activity**, not a snapshot side effect.
-
-**A4 INCONCLUSIVE for the staff success path** (never run). Denial-path writes: none attributable. Do not treat this as Stage A PASS.
-
-Director pointer at inspection time (not a snapshot RPC result): no `session_id`; `last_encounter_id` present and the pointed round is `phase=closed`, `cancelled=true`, `resolved=true`. That would be last-encounter history, not a current open encounter, if a staff read were later performed.
-
----
-
-## 7. Stage A decision
+PlayTester **before** owner approval:
 
 | Check | Result |
 |---|---|
-| A1 live contract | PASS |
-| A2 safe QA staff identity | **BLOCKED** |
-| A3 authorized staff read | **NOT RUN** |
-| A4 three-read write comparison | **NOT RUN** |
+| Auth user / profile | present |
+| `staff_roles` row | none |
+| `play_staff_role(PlayTester)` | `null` |
+| Snapshot via PlayTester JWT | `42501` `not allowed` |
 
-**STAGE A BLOCKED.** Stage B was not started. No preview integration, no stamp, no deploy, no new SQL.
+Sora remained `owner` via Twitch. Twinkle remained `moderator`. Those accounts were not used.
+
+### Additional permissions a moderator grant unlocks
+
+`moderator` is hub staff, not a snapshot-only role. LIVE SQL counts:
+
+| Gate | Approx. `public.admin_*` | PlayTester as moderator |
+|---|---|---|
+| `is_play_admin` / `require_hub` | 64 | **allowed** (includes snapshot, health, live dashboard tick-read, Oak QA, Pass/Bits, many console commands) |
+| `require_staff_edit` (`owner`/`admin` only) | 32 | **denied** (Pokémon/bag/coin/XP grants, removals) |
+| `require_owner` / `can_manage_secrets` | 4 | **denied** |
+
+This gate called only `admin_live_snapshot` for Stage A, plus preview-shell `is_play_admin`, `admin_build_health`, `admin_game_health`, and incidental player `play_notices`. No tick, settle, director command, grant, or repair RPCs.
 
 ---
 
-## 8. Stage B — not started
+## 3. Stage A — authorized verification
 
-| Item | Status |
+Owner approved: *Promote PlayTester to moderator in staff_roles for Gate 1.7 S1B, then continue.*
+
+Inserted **only** PlayTester UUID `a98cbf81-a6b2-4dbf-8448-8d62f6d5f523` as `moderator`. Sora/Twinkle rows unchanged. After insert: `play_staff_role(PlayTester)=moderator`, Sora `owner`, Twinkle `moderator`, `staff_roles` count = 2.
+
+### A3 authorized reads
+
+Three PlayTester JWT calls to `admin_live_snapshot()` succeeded. Sanitized evidence: `docs/audits/admin-hub-gate-17-s1b-shots/stage-a-staff-reads.json`.
+
+| Field | All 3 reads |
 |---|---|
-| `admin-next.html` / `admin-next.js` / preview CSS | unchanged |
-| RPC allowlist | still `admin_build_health`, `admin_game_health` |
-| Polling | none |
-| Unsafe RPCs | not added |
-| Legacy `admin.html` / `admin-live.js` | untouched |
-| Tests / responsive shots | not run for S1B integration |
-| Feature / stamp commits | none this gate |
-| Production deploy | none this gate |
+| `ok` / `observation` | true |
+| `contract` | `gate-17-s1-v2` |
+| JSON keys | `asOf`, `contract`, `currentEncounter`, `director`, `lastEncounter`, `observation`, `ok`, `rpgSession`, `settlement`, `twitch` |
+| Twitch | `STALE` · `live` JSON null · `known` false · `stale` true · `checkedAt` 2026-10-10 17:15:29 · title absent |
+| RPG | `INACTIVE` · `active` false · `sessionId` null · `directorRowPresent` true · `sessionRowPresent` false |
+| Director | `OFFLINE` · last tick/update 2026-10-11 01:16:25 |
+| Current encounter | JSON null (pointer closed) |
+| Last encounter | id `4492c16e-…` · Rattata · dex 19 · female · phase `closed` · cancelled/resolved · `inProgress` false |
+| Settlement | `awaiting` null · `state` `UNAVAILABLE` |
+
+Twitch STALE is correct: `is_live` is false but `checked_at` is older than 15 minutes. STALE is not OFFLINE. RPG INACTIVE is not inferred from Twitch. Closed director pointer is last-encounter history, not current.
+
+### A4 read-only comparison
+
+| Source | Before | During 3 reads | After |
+|---|---|---|---|
+| `stream_status` id/is_live/checked_at/updated_at/source | `1` / false / 17:15:29 / 17:15:29 / `stream.offline` | same in all payloads | unchanged |
+| `stream_director` status / rpg / session_id / last_encounter_id | OFFLINE / false / null / `4492c16e-…` | same | unchanged |
+| `encounter_rounds` pointed `updated_at` / phase | 2026-09-19 00:35:01 / closed | same | unchanged |
+| `stream_sessions` | no row | `sessionRowPresent` false | no row |
+| `stream_director.last_tick_at` | 01:16:03 (pre-window) | **01:16:25 on all 3 payloads** | 01:16:35 (post-window) |
+
+The three snapshot responses reported the **same** director tick timestamp. `last_tick_at` moved before the first read and again after the third, on the existing ~10s `director_tick_if_due` cadence from unrelated player/hub activity. Snapshot body is SELECT-only and STABLE; it cannot write those columns.
+
+**A4 PASS** for “the reads themselves did not cause writes.” Concurrent director ticks are attributed, not treated as snapshot side effects.
+
+**STAGE A PASS.**
 
 ---
 
-## 9. Remaining risks
+## 4. Stage B — preview integration
 
-- R17 remains **MITIGATED (preview UI)** only. Snapshot exists; preview still must not poll `admin_live_dashboard`.
-- Staff happy-path of `admin_live_snapshot()` is still **UNVERIFIED** on a real QA staff JWT.
-- R1 `admin_overview` settle-before-guard remains OPEN.
-- No dedicated admin-QA staff row exists except Twinkle.
+Preview-only files:
 
----
-
-## 10. QA account / cleanup
-
-| | |
+| File | Change |
 |---|---|
-| QA account | PlayTester (dedicated test identity) |
-| Used for | Nonstaff denial of `admin_live_snapshot` only |
-| Staff promotion | **NO** |
-| Sora mutated | **NO** |
-| Twinkle mutated | **NO** |
-| Temporary script | deleted after the denial call |
-| PlayTester session | signed out in the denial script |
-| Intentional leftover state | none |
+| `js/admin-next-ops.js` | Presenter for Twitch / RPG / director / current / last encounter / settlement |
+| `js/admin-next.js` | Allowlist adds `admin_live_snapshot`; 30s single-flight poll; stop off Operations / hidden / sign-out |
+| `admin-next.html` | Live Operations overview cards + freshness; loads presenter |
+| `css/play.css` | Preview-only pastel Operations cards |
+| tests + QA script + this audit | focused |
+
+Legacy `admin.html` / `admin-live.js` not rewritten. No SQL.
+
+### RPC allowlist
+
+`admin_build_health`, `admin_game_health`, `admin_live_snapshot`.
+
+Not added: `admin_live_dashboard`, `admin_overview`, `admin_director_command`, `admin_start_round`, `director_tick_if_due`, `settle_due_rounds`. No generic dispatcher.
+
+### Polling
+
+- 30 seconds
+- Only `admin_live_snapshot`
+- One in-flight request
+- Starts on Operations, stops on other tabs
+- Timer cleared while the page is hidden
+- Cleaned up on sign-out
+- Failed reads show denied/unavailable; stale data is not shown as confirmed live
+- Health RPCs remain one-shot Analytics reads
+
+---
+
+## 5. Tests
+
+### STATIC PASS
+
+`tests/admin-hub-next-tests.js` (7), `tests/admin-hub-gate-17-s1-snapshot-tests.js` (16), `tests/admin-hub-gate-17-s1b-tests.js` (5).
+
+Allowlist, no unsafe RPCs, no mutation controls, no generic dispatcher, lifecycle copy, STALE≠OFFLINE, settlement UNAVAILABLE, last encounter historical, missing director = UNKNOWN.
+
+### MOCK PASS
+
+LIVE+ACTIVE, LIVE+INACTIVE, OFFLINE+INACTIVE, UNKNOWN, STALE, missing director, missing session row, open encounter, closed last encounter, settlement UNAVAILABLE, unauthorized, network/missing.
+
+### REAL DOM PASS (local harness + PlayTester)
+
+`tools/qa-admin-next-s1b.js` → `docs/audits/admin-hub-gate-17-s1b-shots/`
+
+| Check | Result |
+|---|---|
+| Unsigned gate | staff hidden · “Sign in to open the Admin Hub preview.” |
+| Operations staff | Twitch STALE, RPG INACTIVE, Director OFFLINE, Current NONE, Last CLOSED Rattata, Settlement UNAVAILABLE |
+| Analytics | one-shot health copy |
+| Refresh / tab switch | snapshot on Operations; health on Analytics |
+| Hidden | interval cleared |
+| Viewports | 1920 / 1440 / 960 / 390 |
+
+### NETWORK
+
+Requested names: `is_play_admin`, `play_notices`, `admin_live_snapshot`, `admin_build_health`, `admin_game_health`.
+
+Zero hits: `admin_live_dashboard`, `admin_overview`, tick, settle, director commands, grants, repairs.
+
+---
+
+## 6. Cleanup
+
+After production staff verification, PlayTester's `staff_roles` row is deleted. Expected after cleanup:
+
+- `play_staff_role(PlayTester)` = null
+- Twinkle still `moderator`
+- Sora still `owner`
+- `staff_roles` count = 1
+
+Recorded in the closure report after restore.
+
+---
+
+## 7. Remaining risks
+
+- R1 `admin_overview` settle-before-guard still OPEN
+- R17 preview path now uses the true-read snapshot; legacy Dashboard still ticks
+- R18 moderator-capable Pass/Bits/Oak QA still OPEN — temporary PlayTester moderator was restored so that surface is closed again
+- Temporary moderator is a standing-privilege grant, not a snapshot-only capability. Future admin QA needs the same explicit approval

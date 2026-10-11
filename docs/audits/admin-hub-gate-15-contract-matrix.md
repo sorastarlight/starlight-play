@@ -1,13 +1,13 @@
 # Admin Hub Gate 1.5 — verified security contract matrix
 
 **Date:** 2026-10-10 (S1B update)  
-**Production APP:** `20261008-rc132`  
+**Production APP:** `20261008-rc133`  
 **Feature commit:** `3c87845` · **Stamp:** `b36d255` · **Record:** `538cc9f`  
 **Database:** starlight-play `dtflmlbjhttoewqgkujf`  
 **Latest applied migration:** `20261009183910` `gate_17_s1_admin_live_snapshot`  
 **Sora mutated:** NO · **Twinkle mutated:** NO  
 **Method:** live `pg_proc` / grants / function bodies (read-only catalog). **No mutating RPC invocations. No anonymous execution tests against functions with side effects.**  
-**Gate 1.7 S1B:** Stage A **BLOCKED** — no authorized QA staff identity. Preview remains unwired. See `docs/audits/admin-hub-gate-17-s1b-verification.md`.
+**Gate 1.7 S1B:** Stage A **PASS** with temporary PlayTester `moderator`. Preview wires `admin_live_snapshot` only. See `docs/audits/admin-hub-gate-17-s1b-verification.md`.
 
 Evidence tags used below:
 
@@ -142,7 +142,7 @@ end;
 
 **S1B A1 (2026-10-10):** catalog/ACL re-verified — jsonb, DEFINER, STABLE, owner `postgres`, `search_path=pg_catalog`, v2 marker, staff guard first, no forbidden helpers, authenticated EXECUTE only.
 
-**S1B A2–A4:** unsigned and PlayTester nonstaff JWTs `42501`. Authorized staff success path **not run** — `staff_roles` has only Twinkle; PlayTester role is null; Sora/Twinkle must not be used. See `docs/audits/admin-hub-gate-17-s1b-verification.md`.
+**S1B A2–A4:** owner approved a temporary PlayTester `moderator` row. Three PlayTester JWT reads returned `gate-17-s1-v2`. Twitch STALE / RPG INACTIVE / current null / last closed / settlement UNAVAILABLE. Table identifiers unchanged across the three reads. PlayTester restored to nonstaff after verification. See `docs/audits/admin-hub-gate-17-s1b-verification.md`.
 
 ---
 
@@ -335,9 +335,9 @@ Pokémon/bag/coin/store/config grants: **no** `account_audit` **LIVE SQL**. Econ
 
 ## 10. Frontend allowlist confirmation (REPO)
 
-`admin-next.js` `READ_RPCS` = `admin_build_health`, `admin_game_health` only after Gate 1.6. `readCall()` throws if any other name is requested. Tests assert no `admin_live_dashboard`, `admin_overview`, tick, settle, or director command strings.
+`admin-next.js` `READ_RPCS` = `admin_build_health`, `admin_game_health`, `admin_live_snapshot` after Gate 1.7 S1B. `readCall()` throws if any other name is requested. Tests assert no `admin_live_dashboard`, `admin_overview`, tick, settle, or director command strings.
 
-**Implication of R17:** the preview no longer ticks/settles on open. Operations shows UNAVAILABLE. Analytics may call the two TRUE-READ health RPCs once. Gate 2 must not add `admin_overview` or `admin_live_dashboard`. `admin_live_snapshot()` exists in production (`gate-17-s1-v2`) but S1B Stage A is **BLOCKED** (no QA staff JWT). Do not add it to `READ_RPCS` until Stage A PASS.
+**Implication of R17:** the preview polls only `admin_live_snapshot` on Operations (30s, single-flight, hidden/off-tab stop). Analytics still one-shots the two health RPCs. Gate 2 must not add `admin_overview` or `admin_live_dashboard`.
 
 ---
 

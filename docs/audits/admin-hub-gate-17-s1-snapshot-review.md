@@ -206,7 +206,7 @@ EXECUTE: anon false, PUBLIC false, service_role false, authenticated true.
 
 Unsigned and nonstaff JWT calls raise `42501 not allowed` at the staff check (line 16). Staff success-path read was **not** executed: the only `staff_roles` row is Twinkle; Sora is owner via Twitch. No PlayTester staff row. Do not impersonate protected accounts.
 
-Gate 1.7 S1B (2026-10-10) re-verified A1 and the PlayTester nonstaff denial, then **stopped**. See `docs/audits/admin-hub-gate-17-s1b-verification.md`. Stage A remains BLOCKED until the owner authorizes a dedicated QA staff identity.
+Gate 1.7 S1B (2026-10-10) used an owner-approved temporary PlayTester `moderator` row, verified three staff snapshot reads, wired the preview, then restored PlayTester to nonstaff. See `docs/audits/admin-hub-gate-17-s1b-verification.md`.
 
 Preview remains unwired. `admin_live_dashboard` / `admin_overview` still exist. Rollback file unchanged.
 

@@ -1,0 +1,201 @@
+{
+  "identity": "PlayTester",
+  "roleExpected": "moderator",
+  "reads": [
+    {
+      "n": 1,
+      "ms": 131,
+      "ok": true,
+      "code": null,
+      "message": null,
+      "summary": {
+        "ok": true,
+        "observation": true,
+        "contract": "gate-17-s1-v2",
+        "asOf": "2026-10-11T01:16:30.749497+00:00",
+        "keys": [
+          "asOf",
+          "contract",
+          "currentEncounter",
+          "director",
+          "lastEncounter",
+          "observation",
+          "ok",
+          "rpgSession",
+          "settlement",
+          "twitch"
+        ],
+        "twitch": {
+          "state": "STALE",
+          "live": null,
+          "known": false,
+          "stale": true,
+          "checkedAt": "2026-10-10T17:15:29.00146+00:00",
+          "source": "stream.offline",
+          "titlePresent": false
+        },
+        "rpgSession": {
+          "state": "INACTIVE",
+          "active": false,
+          "sessionId": null,
+          "startedAt": "2026-09-20T02:38:45.213155+00:00",
+          "directorRowPresent": true,
+          "sessionRowPresent": false,
+          "sessionEndedAt": null
+        },
+        "director": {
+          "status": "OFFLINE",
+          "lastTickAt": "2026-10-11T01:16:25.357309+00:00",
+          "updatedAt": "2026-10-11T01:16:25.357309+00:00"
+        },
+        "currentEncounter": null,
+        "lastEncounter": {
+          "id": "4492c16e-b5b7-4a3a-a768-e43173d75852",
+          "name": "Rattata",
+          "dex": 19,
+          "variant": "female",
+          "phase": "closed",
+          "inProgress": false,
+          "startedAt": "2026-09-19T00:34:29.797043+00:00",
+          "paused": false,
+          "cancelled": true,
+          "resolved": true
+        },
+        "settlement": {
+          "awaiting": null,
+          "state": "UNAVAILABLE"
+        }
+      }
+    },
+    {
+      "n": 2,
+      "ms": 101,
+      "ok": true,
+      "code": null,
+      "message": null,
+      "summary": {
+        "ok": true,
+        "observation": true,
+        "contract": "gate-17-s1-v2",
+        "asOf": "2026-10-11T01:16:30.848886+00:00",
+        "keys": [
+          "asOf",
+          "contract",
+          "currentEncounter",
+          "director",
+          "lastEncounter",
+          "observation",
+          "ok",
+          "rpgSession",
+          "settlement",
+          "twitch"
+        ],
+        "twitch": {
+          "state": "STALE",
+          "live": null,
+          "known": false,
+          "stale": true,
+          "checkedAt": "2026-10-10T17:15:29.00146+00:00",
+          "source": "stream.offline",
+          "titlePresent": false
+        },
+        "rpgSession": {
+          "state": "INACTIVE",
+          "active": false,
+          "sessionId": null,
+          "startedAt": "2026-09-20T02:38:45.213155+00:00",
+          "directorRowPresent": true,
+          "sessionRowPresent": false,
+          "sessionEndedAt": null
+        },
+        "director": {
+          "status": "OFFLINE",
+          "lastTickAt": "2026-10-11T01:16:25.357309+00:00",
+          "updatedAt": "2026-10-11T01:16:25.357309+00:00"
+        },
+        "currentEncounter": null,
+        "lastEncounter": {
+          "id": "4492c16e-b5b7-4a3a-a768-e43173d75852",
+          "name": "Rattata",
+          "dex": 19,
+          "variant": "female",
+          "phase": "closed",
+          "inProgress": false,
+          "startedAt": "2026-09-19T00:34:29.797043+00:00",
+          "paused": false,
+          "cancelled": true,
+          "resolved": true
+        },
+        "settlement": {
+          "awaiting": null,
+          "state": "UNAVAILABLE"
+        }
+      }
+    },
+    {
+      "n": 3,
+      "ms": 94,
+      "ok": true,
+      "code": null,
+      "message": null,
+      "summary": {
+        "ok": true,
+        "observation": true,
+        "contract": "gate-17-s1-v2",
+        "asOf": "2026-10-11T01:16:30.948188+00:00",
+        "keys": [
+          "asOf",
+          "contract",
+          "currentEncounter",
+          "director",
+          "lastEncounter",
+          "observation",
+          "ok",
+          "rpgSession",
+          "settlement",
+          "twitch"
+        ],
+        "twitch": {
+          "state": "STALE",
+          "live": null,
+          "known": false,
+          "stale": true,
+          "checkedAt": "2026-10-10T17:15:29.00146+00:00",
+          "source": "stream.offline",
+          "titlePresent": false
+        },
+        "rpgSession": {
+          "state": "INACTIVE",
+          "active": false,
+          "sessionId": null,
+          "startedAt": "2026-09-20T02:38:45.213155+00:00",
+          "directorRowPresent": true,
+          "sessionRowPresent": false,
+          "sessionEndedAt": null
+        },
+        "director": {
+          "status": "OFFLINE",
+          "lastTickAt": "2026-10-11T01:16:25.357309+00:00",
+          "updatedAt": "2026-10-11T01:16:25.357309+00:00"
+        },
+        "currentEncounter": null,
+        "lastEncounter": {
+          "id": "4492c16e-b5b7-4a3a-a768-e43173d75852",
+          "name": "Rattata",
+          "dex": 19,
+          "variant": "female",
+          "phase": "closed",
+          "inProgress": false,
+          "startedAt": "2026-09-19T00:34:29.797043+00:00",
+          "paused": false,
+          "cancelled": true,
+          "resolved": true
+        },
+        "settlement": {
+          "awaiting": null,
+          "state": "UNAVAILABLE"
+        }
+      }
+    }
+  ]
+}

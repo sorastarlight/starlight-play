@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/play.css?v=20261008-rc132">
+<link rel="stylesheet" href="css/play.css?v=20261008-rc133">
 <body data-page="admin-next">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -74,19 +74,22 @@
         </div>
       </aside>
       <div class="hub-main">
-        <section id="next-panel-operations" class="hub-card admin-next-panel" data-next-panel="operations">
+        <section id="next-panel-operations" class="hub-card admin-next-panel admin-next-ops" data-next-panel="operations">
           <p class="eyebrow">Operations · observation only</p>
-          <h2>Stream and encounter state</h2>
+          <h2>Live Operations overview</h2>
           <p class="admin-next-lifecycle">Twitch LIVE permits the Live RPG. It does not start it. Offline ends an active RPG. Start and End remain explicit staff actions on the current hub.</p>
           <p id="next-ops-status" class="muted" role="status">Live status unavailable in preview. Legacy Live Operations remains on the current Dashboard. This preview does not refresh, settle, or tick gameplay.</p>
-          <div id="next-ops-metrics" class="admin-next-metrics">
-            <div class="hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Twitch</p><p>UNAVAILABLE</p></div>
-            <div class="hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Live RPG session</p><p>UNAVAILABLE</p></div>
-            <div class="hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Current encounter</p><p>UNAVAILABLE</p></div>
-            <div class="hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Director</p><p>UNAVAILABLE</p></div>
-            <div class="hub-metric admin-next-metric"><p class="eyebrow">Permission model</p><p>LIVE permits · OFFLINE ends · Start is explicit</p></div>
+          <p id="next-ops-freshness" class="admin-next-freshness">No confirmed observation yet.</p>
+          <div id="next-ops-metrics" class="admin-next-ops-grid admin-next-metrics">
+            <article class="admin-next-ops-card hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Twitch</p><p class="admin-next-ops-value">UNAVAILABLE</p></article>
+            <article class="admin-next-ops-card hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Live RPG session</p><p class="admin-next-ops-value">UNAVAILABLE</p></article>
+            <article class="admin-next-ops-card hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Director</p><p class="admin-next-ops-value">UNAVAILABLE</p></article>
+            <article class="admin-next-ops-card hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Current encounter</p><p class="admin-next-ops-value">UNAVAILABLE</p></article>
+            <article class="admin-next-ops-card hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Last recorded encounter</p><p class="admin-next-ops-value">UNAVAILABLE</p></article>
+            <article class="admin-next-ops-card hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Settlement</p><p class="admin-next-ops-value">UNAVAILABLE</p></article>
+            <article class="admin-next-ops-card hub-metric admin-next-metric"><p class="eyebrow">Permission model</p><p class="admin-next-ops-value">LIVE permits · OFFLINE ends · Start is explicit</p></article>
           </div>
-          <p class="admin-next-unavailable">A SELECT-only session snapshot does not exist yet. Opening or leaving this tab must not settle encounters or tick the director. Use the current Dashboard to operate the Live RPG.</p>
+          <p class="admin-next-unavailable">Observation only. Opening, refreshing, or leaving this preview must not settle encounters or tick the director. Settlement status is unavailable. Use the current Dashboard to operate the Live RPG.</p>
           <p><a class="admin-next-legacy" href="./admin.html?section=dashboard">Open live Dashboard</a></p>
         </section>
         <section id="next-panel-trainers" class="hub-card admin-next-panel" data-next-panel="trainers" hidden>
@@ -136,16 +139,17 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20261008-rc132"></script>
-<script src="js/play-perf.js?v=20261008-rc132"></script>
-<script src="js/build.js?v=20261008-rc132"></script>
-<script src="js/build-client.js?v=20261008-rc132"></script>
-<script src="js/auth.js?v=20261008-rc132"></script>
-<script src="js/variants.js?v=20261008-rc132"></script>
-<script src="js/evolution-candy-png.js?v=20261008-rc132"></script>
-<script src="js/game.js?v=20261008-rc132"></script>
-<script src="js/play-encounter-state.js?v=20261008-rc132"></script>
-<script src="js/play-present.js?v=20261008-rc132"></script>
-<script src="js/nav.js?v=20261008-rc132"></script>
-<script src="js/admin-next.js?v=20261008-rc132"></script>
+<script src="js/config.js?v=20261008-rc133"></script>
+<script src="js/play-perf.js?v=20261008-rc133"></script>
+<script src="js/build.js?v=20261008-rc133"></script>
+<script src="js/build-client.js?v=20261008-rc133"></script>
+<script src="js/auth.js?v=20261008-rc133"></script>
+<script src="js/variants.js?v=20261008-rc133"></script>
+<script src="js/evolution-candy-png.js?v=20261008-rc133"></script>
+<script src="js/game.js?v=20261008-rc133"></script>
+<script src="js/play-encounter-state.js?v=20261008-rc133"></script>
+<script src="js/play-present.js?v=20261008-rc133"></script>
+<script src="js/nav.js?v=20261008-rc133"></script>
+<script src="js/admin-next-ops.js?v=20261008-rc133"></script>
+<script src="js/admin-next.js?v=20261008-rc133"></script>
 </body>

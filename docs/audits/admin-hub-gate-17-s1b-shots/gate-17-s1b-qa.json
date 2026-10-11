@@ -1,0 +1,78 @@
+{
+  "qaAccount": "PlayTester",
+  "unsigned": {
+    "title": "Admin Hub (preview)",
+    "gate": "Sign in to open the Admin Hub preview.",
+    "staffHidden": true,
+    "fallback": "Live status unavailable in preview. Legacy Live Operations remains on the current Dashboard. This preview does not refresh, settle, or tick gameplay."
+  },
+  "staffed": {
+    "gateHidden": true,
+    "staffHidden": false,
+    "status": "Twitch status may be stale. Director last_tick_at is not snapshot freshness. This preview does not tick or settle gameplay.",
+    "freshness": "Last observation 2026-10-11 01:20:39 UTC. Refreshes every 30 seconds while Operations is open.",
+    "cards": [
+      {
+        "state": "unknown",
+        "text": "Twitch STALE Last checked2026-10-10 17:15:29 UTCTitle—"
+      },
+      {
+        "state": "inactive",
+        "text": "Live RPG session INACTIVE Session—Started2026-09-20 02:38:45 UTCSession rowmissing"
+      },
+      {
+        "state": "unknown",
+        "text": "Director OFFLINE Last tick2026-10-11 01:20:29 UTCLast update2026-10-11 01:20:29 UTC"
+      },
+      {
+        "state": "inactive",
+        "text": "Current encounter NONE NoteDirector pointer is not an open encounter"
+      },
+      {
+        "state": "inactive",
+        "text": "Last recorded encounter CLOSED SpeciesRattataPokédex#019VariantfemaleStarted2026-09-19 00:34:29 UTCPausednoNoteHistorical pointer. Not current merely because the director retains it."
+      },
+      {
+        "state": "unavailable",
+        "text": "Settlement UNAVAILABLE Awaiting—"
+      },
+      {
+        "state": null,
+        "text": "Permission model LIVE permits · OFFLINE ends · Start is explicit"
+      }
+    ]
+  },
+  "analytics": {
+    "status": "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub.",
+    "panelHidden": false
+  },
+  "hiddenPoll": {
+    "hidden": true,
+    "intervalCleared": true
+  },
+  "rpc": [
+    "is_play_admin",
+    "is_play_admin",
+    "play_notices",
+    "admin_live_snapshot",
+    "play_notices",
+    "admin_live_snapshot",
+    "admin_build_health",
+    "admin_game_health",
+    "admin_build_health",
+    "admin_game_health",
+    "admin_live_snapshot",
+    "is_play_admin",
+    "play_notices",
+    "admin_live_snapshot"
+  ],
+  "uniqueRpc": [
+    "is_play_admin",
+    "play_notices",
+    "admin_live_snapshot",
+    "admin_build_health",
+    "admin_game_health"
+  ],
+  "unsafeHits": [],
+  "signedIn": true
+}

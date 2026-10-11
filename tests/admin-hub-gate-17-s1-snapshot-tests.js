@@ -28,12 +28,11 @@ const upSql = read("docs/audits/sql/gate-17-s1-live-snapshot-up.sql");
 const bodyMatch = upSql.match(/as \$\$([\s\S]*?)\$\$;/);
 const body = bodyMatch ? bodyMatch[1] : "";
 
-test("Preview allowlist still excludes the snapshot and every mutating dashboard RPC", () => {
+test("Preview allowlist includes only the snapshot plus the two health RPCs", () => {
   const allow = nextJs.match(/const READ_RPCS = Object\.freeze\(\[([\s\S]*?)\]\)/);
   assert(allow, "READ_RPCS missing");
   const names = [...allow[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
-  assert(names.length === 2 && names[0] === "admin_build_health" && names[1] === "admin_game_health");
-  assert(!nextJs.includes("admin_live_snapshot"), "do not wire snapshot before SQL approval");
+  assert(names.length === 3 && names[0] === "admin_build_health" && names[1] === "admin_game_health" && names[2] === "admin_live_snapshot");
   [
     "admin_live_dashboard",
     "admin_overview",
@@ -239,6 +238,41 @@ test("Historical lastEncounter is not rendered as the current encounter", () => 
   });
   assert(card(view, "Current encounter").value === "NONE");
   assert(card(view, "Current encounter").value !== "THROW");
+});
+
+test("Settlement stays UNAVAILABLE and last encounter stays historical", () => {
+  const view = contract.presentLiveOperations({
+    payload: {
+      ok: true,
+      twitch: { state: "OFFLINE", live: false, known: true, stale: false },
+      rpgSession: { state: "INACTIVE", active: false, directorRowPresent: true, sessionRowPresent: false },
+      director: { status: "OFFLINE", lastTickAt: "2026-10-09T00:00:00Z" },
+      currentEncounter: null,
+      lastEncounter: { phase: "closed", resolved: true, cancelled: true, inProgress: false, name: "Rattata", dex: 19 },
+      settlement: { awaiting: null, state: "UNAVAILABLE" }
+    }
+  });
+  assert(card(view, "Current encounter").value === "NONE");
+  assert(card(view, "Last recorded encounter").value === "CLOSED");
+  assert(card(view, "Settlement").value === "UNAVAILABLE");
+  assert(card(view, "Settlement").state === "unavailable");
+});
+
+test("Missing director row is UNKNOWN, not INACTIVE", () => {
+  const view = contract.presentLiveOperations({
+    payload: {
+      ok: true,
+      twitch: { state: "UNKNOWN", live: null, known: false, stale: false },
+      rpgSession: { state: "UNKNOWN", active: null, directorRowPresent: false, sessionRowPresent: false },
+      director: { status: null, lastTickAt: null, updatedAt: null },
+      currentEncounter: null,
+      lastEncounter: null,
+      settlement: { awaiting: null, state: "UNAVAILABLE" }
+    }
+  });
+  assert(card(view, "Live RPG session").value === "UNKNOWN");
+  assert(card(view, "Director").value === "UNKNOWN");
+  assert(card(view, "Live RPG session").value !== "INACTIVE");
 });
 
 test("Unauthorized and network failures stay UNAVAILABLE and do not mutate", () => {

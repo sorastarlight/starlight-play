@@ -20461,6 +20461,13 @@ html[data-perf="low"] .play-present-oak-research {
 }
 
 body[data-page="admin-next"] .wrap { max-width: 1480px; }
+.admin-next-ops {
+  background:
+    radial-gradient(circle at 12% 18%, #ffe6f4 0 18px, transparent 19px),
+    radial-gradient(circle at 88% 12%, #d9f4ff 0 14px, transparent 15px),
+    linear-gradient(180deg, #fff8fc 0%, #eef7ff 100%);
+  border-color: #f2d27a;
+}
 .admin-next-lifecycle {
   margin: 0 0 12px;
   padding: 10px 12px;
@@ -20468,11 +20475,48 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   border-radius: 10px;
   background: #fffdf6;
 }
-.admin-next-metrics {
+.admin-next-metrics,
+.admin-next-ops-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
   margin: 12px 0;
+}
+.admin-next-ops-card {
+  min-height: 148px;
+  border-radius: 16px;
+  box-shadow: 0 6px 0 #f3d7a6;
+}
+.admin-next-ops-value {
+  margin: 4px 0 10px;
+  font-family: Fredoka, Nunito, sans-serif;
+  font-size: 26px;
+  line-height: 1.1;
+}
+.admin-next-ops-meta {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+.admin-next-ops-meta div {
+  display: grid;
+  gap: 2px;
+}
+.admin-next-ops-meta dt {
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #7a6a88;
+}
+.admin-next-ops-meta dd {
+  margin: 0;
+  font-size: 13px;
+  word-break: break-word;
+}
+.admin-next-freshness {
+  margin: 0 0 8px;
+  color: #6a7a96;
+  font-size: 13px;
 }
 .admin-next-unavailable {
   margin: 0 0 12px;
@@ -20485,13 +20529,16 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   color: #6a5420;
 }
 .admin-next-metric.is-inactive {
-  background: #f3f5f8;
+  background: linear-gradient(180deg, #f4f7fb, #e8eef6);
   border-color: #d5dde8;
   color: #4a5568;
 }
 .admin-next-metric.is-active {
-  background: #eef7f1;
-  border-color: #b7d8c4;
+  background: linear-gradient(180deg, #e7fff4, #d8f4ff);
+  border-color: #9fd7c2;
+}
+.admin-next-ops-card.is-unknown {
+  background: linear-gradient(180deg, #fff4fb, #e8f3ff);
 }
 #next-ops-status {
   max-width: 62ch;
@@ -20500,7 +20547,11 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   display: inline-flex;
   margin-top: 8px;
 }
+@media (max-width: 960px) {
+  .admin-next-ops-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+}
 @media (max-width: 720px) {
   .admin-next-app { grid-template-columns: 1fr; }
+  .admin-next-ops-value { font-size: 22px; }
 }
 

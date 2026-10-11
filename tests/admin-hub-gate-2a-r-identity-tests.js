@@ -196,12 +196,13 @@ test("Fingerprints: DOWN body is the exact live baseline", () => {
   assert(down.includes("Do not execute DOWN as routine cleanup"));
 });
 
-test("Preview allowlist still excludes identity inspect and mutations", () => {
+test("Preview allowlist includes repaired inspect and excludes mutations", () => {
   const allow = nextJs.match(/const READ_RPCS = Object\.freeze\(\[([\s\S]*?)\]\)/);
   const names = [...allow[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
-  assert(names.join(",") === "admin_build_health,admin_game_health,admin_live_snapshot");
-  assert(!nextJs.includes("admin_identity_inspect"));
-  assert(!nextJs.includes("admin_list_users"));
+  assert(names.includes("admin_identity_inspect"));
+  assert(names.includes("admin_list_users"));
+  assert(names.includes("admin_user_account"));
+  assert(!names.includes("admin_overview"));
   assert(!nextJs.includes("evaluate_cosmetics"));
 });
 

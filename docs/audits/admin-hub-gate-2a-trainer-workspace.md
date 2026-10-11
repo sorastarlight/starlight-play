@@ -10,11 +10,11 @@
 **Sora mutated:** NO · **Twinkle mutated:** NO  
 **PlayTester role:** `null` (unchanged)  
 **SQL / RLS / GRANT / staff_roles:** 2A-R inspect UP applied; PlayTester restored to nonstaff  
-**Frontend integration:** **NOT STARTED**
+**Frontend integration:** implemented on branch `gate-2a-trainer-management` — **not deployed**
 
-**Stage A:** inspect RPC is now a true read (R21 closed). Frontend **not started**  
-**Stage B:** **NOT STARTED**  
-**Stage C:** **NOT STARTED**
+**Stage A:** inspect RPC is a true read (R21 closed)  
+**Stage B:** directory + inspectors implemented in preview (this branch)  
+**Stage C:** **NOT STARTED** (no mutations)
 
 Final release smoke remains paused.
 

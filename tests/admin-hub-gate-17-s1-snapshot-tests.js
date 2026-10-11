@@ -32,7 +32,8 @@ test("Preview allowlist includes only the snapshot plus the two health RPCs", ()
   const allow = nextJs.match(/const READ_RPCS = Object\.freeze\(\[([\s\S]*?)\]\)/);
   assert(allow, "READ_RPCS missing");
   const names = [...allow[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
-  assert(names.length === 3 && names[0] === "admin_build_health" && names[1] === "admin_game_health" && names[2] === "admin_live_snapshot");
+  assert(names[0] === "admin_build_health" && names[1] === "admin_game_health" && names[2] === "admin_live_snapshot");
+  assert(names.includes("admin_list_users") && names.includes("admin_user_account") && names.includes("admin_identity_inspect"));
   [
     "admin_live_dashboard",
     "admin_overview",

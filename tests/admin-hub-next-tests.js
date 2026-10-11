@@ -37,7 +37,7 @@ test("Next hub IA labels are the seven overhaul screens", () => {
   ].forEach((label) => assert(nextHtml.includes(label), `missing ${label}`));
 });
 
-test("Preview shell only allows the three verified true-read RPCs", () => {
+test("Preview shell only allows verified true-read RPCs", () => {
   assert(nextJs.includes("admin_build_health"));
   assert(nextJs.includes("admin_game_health"));
   assert(nextJs.includes("admin_live_snapshot"));
@@ -55,13 +55,13 @@ test("Preview shell only allows the three verified true-read RPCs", () => {
     "admin_remove_pokemon",
     "admin_store_save_item",
     "admin_oak_qa",
-    "admin_save_twitch_client_secret"
+    "admin_save_twitch_client_secret",
+    "evaluate_cosmetics"
   ].forEach((name) => assert(!nextJs.includes(name), `${name} must stay off the preview shell`));
   const allow = nextJs.match(/const READ_RPCS = Object\.freeze\(\[([\s\S]*?)\]\)/);
   assert(allow, "READ_RPCS allowlist missing");
   const names = [...allow[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
-  assert(names.length === 3);
-  assert(names[0] === "admin_build_health" && names[1] === "admin_game_health" && names[2] === "admin_live_snapshot");
+  assert(names.join(",") === "admin_build_health,admin_game_health,admin_live_snapshot,admin_list_users,admin_user_account,admin_identity_inspect");
 });
 
 test("Operations preview keeps the unavailable fallback and polls only the snapshot", () => {

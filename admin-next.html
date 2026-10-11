@@ -92,12 +92,34 @@
           <p class="admin-next-unavailable">Observation only. Opening, refreshing, or leaving this preview must not settle encounters or tick the director. Settlement status is unavailable. Use the current Dashboard to operate the Live RPG.</p>
           <p><a class="admin-next-legacy" href="./admin.html?section=dashboard">Open live Dashboard</a></p>
         </section>
-        <section id="next-panel-trainers" class="hub-card admin-next-panel" data-next-panel="trainers" hidden>
-          <p class="eyebrow">Trainers · Gate 2</p>
-          <h2>Unified trainer workspace</h2>
-          <p>Read-only trainer search and identity will land here after Gate 0B approval. Until then, inspect trainers on the current hub.</p>
-          <p class="admin-next-unavailable">Not available in this preview: PC, bag, coins, research, and achievement diagnostics as a unified profile.</p>
-          <p><a class="admin-next-legacy" href="./admin.html?section=trainers">Open current Trainers</a></p>
+        <section id="next-panel-trainers" class="hub-card admin-next-panel admin-next-trainers-panel" data-next-panel="trainers" hidden>
+          <p class="eyebrow">Trainers · read only</p>
+          <h2>Trainer Management</h2>
+          <p class="muted">Browse and inspect trainers. This preview does not grant, repair, unlink, or change roles. Grants stay on the current hub.</p>
+          <div class="admin-next-trainers" id="next-trainers" data-trainers-root>
+            <div class="admin-next-trainers-dir" data-trainers-dir>
+              <form class="admin-next-trainer-search" data-trainers-search>
+                <label for="next-trainer-q">Search trainers</label>
+                <div class="admin-next-trainer-search-row">
+                  <input id="next-trainer-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Name, login, UUID, or Twitch id">
+                  <button type="submit">Find</button>
+                </div>
+              </form>
+              <p id="next-trainer-list-status" class="muted" role="status">Open this tab to load the first page of trainers.</p>
+              <div class="admin-next-trainer-pager">
+                <button type="button" data-trainers-prev disabled>Previous</button>
+                <button type="button" data-trainers-next disabled>Next</button>
+              </div>
+              <div id="next-trainer-list" class="admin-next-trainer-list" role="list"></div>
+            </div>
+            <div class="admin-next-trainers-detail" data-trainers-detail hidden>
+              <button type="button" class="secondary" data-trainers-back>Back to directory</button>
+              <p id="next-trainer-detail-status" class="muted" role="status"></p>
+              <div id="next-trainer-detail"></div>
+            </div>
+          </div>
+          <p class="admin-next-unavailable">Not available here: full PC boxes, Bits, achievement journal, Oak research, email address, and all mutation tools.</p>
+          <p><a class="admin-next-legacy" href="./admin.html?section=trainers">Open current Trainers for grants</a></p>
         </section>
         <section id="next-panel-support" class="hub-card admin-next-panel" data-next-panel="support" hidden>
           <p class="eyebrow">Support &amp; Recovery · Gate 3</p>
@@ -151,5 +173,6 @@
 <script src="js/play-present.js?v=20261008-rc133"></script>
 <script src="js/nav.js?v=20261008-rc133"></script>
 <script src="js/admin-next-ops.js?v=20261008-rc133"></script>
+<script src="js/admin-next-trainers.js?v=20261008-rc133"></script>
 <script src="js/admin-next.js?v=20261008-rc133"></script>
 </body>

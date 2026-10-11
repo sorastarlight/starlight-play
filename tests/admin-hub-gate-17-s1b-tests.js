@@ -27,7 +27,7 @@ const adminHtml = read("admin.html");
 
 test("No generic dispatcher and no unsafe mutation controls", () => {
   assert(nextJs.includes("if (!READ_RPCS.includes(name))"));
-  assert(!/playCall\(\s*name/.test(nextJs.replace("window.playCall(name)", "")));
+  assert(!/playCall\(\s*name/.test(nextJs.replace("window.playCall(name, args)", "")));
   assert(!nextHtml.includes("Start random"));
   assert(!nextHtml.includes("id=\"start-random\""));
   assert(!nextHtml.includes("admin_director_command"));

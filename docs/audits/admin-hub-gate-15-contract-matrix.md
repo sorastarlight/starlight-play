@@ -238,7 +238,7 @@ Lifecycle SQL (`apply_stream_status`, `director_begin/end_rpg_session`) is **pri
 |---|---|---|---|---|---|---|
 | `admin_list_users` | query, offset | **yes** | `require_hub` | TRUE_READ STABLE | admin-tools, oak-qa | Paginated; no email |
 | `admin_user_account` | user | **yes** | `require_hub` | TRUE_READ STABLE | admin-tools, oak-qa | 40 mons; bag; candy; connections; `emailLogin` boolean only |
-| `admin_identity_inspect` | user | **yes** | `is_play_admin` | **WRITE_READ** (R21) | admin-tools | `evaluate_cosmetics` → INSERT `trainer_cosmetics`. Not preview-safe until remediated. |
+| `admin_identity_inspect` | user | **yes** | `is_play_admin` | **WRITE_READ** (R21) | admin-tools | Live still writes. Corrected 2A-R SQL is review-only; not applied. |
 | `admin_grant_pokemon` | user, dex, name, gender, shiny, ball | **yes** | `require_staff_edit` | MUTATE | admin-tools | Dex **1–151** only LIVE; **no** `account_audit` |
 | `admin_grant_bag` | user, grants jsonb | **yes** | `require_staff_edit` | MUTATE | admin-tools | Master Ball UI confirm only |
 | `admin_grant_candy` | user, dex, amount | no | `require_staff_edit` | MUTATE | admin-tools | No anon; still no account_audit |

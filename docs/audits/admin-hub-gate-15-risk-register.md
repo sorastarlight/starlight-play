@@ -1,8 +1,9 @@
 # Admin Hub Gate 1.5 — risk register
 
-**Production:** `20261008-rc131` / `2915d82` / stamp `ba41665`  
+**Production:** `20261008-rc132` / `3c87845` / stamp `b36d255` / record `538cc9f`  
+**Latest applied migration:** `20261009183910` `gate_17_s1_admin_live_snapshot`  
 **Sora mutated:** NO · **Twinkle mutated:** NO  
-**No SQL applied. No grants changed.**
+**S1B:** no SQL, no grants, no `staff_roles` change. Stage A BLOCKED.
 
 Status vocabulary: **OPEN** · **MITIGATED (UI)** · **CLOSED** · **UNVERIFIED**.
 
@@ -171,11 +172,11 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 | **Severity** | High (legacy Dashboard tick remains intentional) |
 | **Impact** | Opening the **preview** no longer settles or ticks. Opening the current Dashboard still can (by design). |
 | **Affected** | admin-live poll only after Gate 1.6 |
-| **Action** | Keep preview isolated until owner applies Gate 1.7 S1 **v2** SQL (`docs/audits/sql/gate-17-s1-live-snapshot-up.sql`) and a later frontend gate adds only that name to `READ_RPCS`. Do not rewrite `director_tick`. Do not apply the Gate 1.6 draft or S1 v1. |
-| **Dependencies** | Must not rewrite `director_tick` / session lifecycle |
-| **Owner approval** | **Required** before applying snapshot SQL or wiring the preview |
-| **Verification** | Preview allowlist + network capture: no `admin_live_dashboard` from admin-next. After apply: clone auth tests; `updated_at` unchanged. Do **not** invoke the tick RPC on production to “prove” it ticks. |
-| **Status** | **MITIGATED (preview UI)** — snapshot RPC live (`gate-17-s1-v2`, `20261009183910`). Preview still unwired. Not closed until a later frontend gate uses only this RPC. |
+| **Action** | Keep preview isolated until Gate 1.7 S1B Stage A PASS (authorized QA staff JWT) and Stage B wires only `admin_live_snapshot` into `READ_RPCS`. Do not rewrite `director_tick`. Do not apply the Gate 1.6 draft or S1 v1. |
+| **Dependencies** | Must not rewrite `director_tick` / session lifecycle. Needs a dedicated QA staff identity that is not Sora/Twinkle (R20). |
+| **Owner approval** | **Required** before promoting PlayTester or wiring the preview |
+| **Verification** | Preview allowlist + network capture: no `admin_live_dashboard` from admin-next. After staff JWT: three snapshot reads leave gameplay rows unchanged. Do **not** invoke the tick RPC on production to “prove” it ticks. |
+| **Status** | **MITIGATED (preview UI)** — snapshot RPC live (`gate-17-s1-v2`, `20261009183910`). S1B Stage A BLOCKED. Preview still unwired. Not closed until S1B Stage B uses only this RPC. |
 
 ## R18 — Moderator-capable Pass / Bits / Oak QA (NEW)
 
@@ -196,6 +197,19 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 | **Severity** | Medium (broken analytics widget) |
 | **Action** | Either deploy the function or stop calling it. Not this gate. |
 | **Status** | **UNVERIFIED live function** / **OPEN** |
+
+## R20 — No dedicated QA staff identity for snapshot verification (NEW)
+
+| | |
+|---|---|
+| **Evidence** | LIVE SQL 2026-10-10: `staff_roles` has **1** row (Twinkle `moderator`). PlayTester auth+profile exist; `private.play_staff_role(PlayTester)` is null. Sora is `owner` via Twitch. |
+| **Severity** | High (verification blocker) |
+| **Impact** | Gate 1.7 S1B Stage A cannot complete the authorized staff read or three-read comparison without impersonating protected accounts or silently promoting PlayTester. Preview integration is blocked. |
+| **Affected** | `admin_live_snapshot` happy path; future admin-next Operations QA |
+| **Action** | Owner-approved temporary `staff_roles` row for PlayTester (`moderator` or `staff`), or a new dedicated QA staff account that is not Sora/Twinkle. Agent must not insert the row without that approval. |
+| **Owner approval** | **Required** |
+| **Verification** | PlayTester (or new QA) JWT returns `ok: true` / `contract: gate-17-s1-v2`; Sora/Twinkle unused; `staff_roles` change is explicit and recorded |
+| **Status** | **OPEN** — blocks S1B Stage A/B |
 
 ---
 

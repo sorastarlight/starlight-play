@@ -1,12 +1,13 @@
 # Admin Hub Gate 1.5 — verified security contract matrix
 
-**Date:** 2026-10-08  
-**Production APP:** `20261008-rc131`  
-**Feature commit:** `2915d82` · **Stamp:** `ba41665`  
+**Date:** 2026-10-10 (S1B update)  
+**Production APP:** `20261008-rc132`  
+**Feature commit:** `3c87845` · **Stamp:** `b36d255` · **Record:** `538cc9f`  
 **Database:** starlight-play `dtflmlbjhttoewqgkujf`  
-**Latest applied migration:** `20261007183057` `rc118_pc_box_ops_stale_slots`  
+**Latest applied migration:** `20261009183910` `gate_17_s1_admin_live_snapshot`  
 **Sora mutated:** NO · **Twinkle mutated:** NO  
-**Method:** live `pg_proc` / grants / function bodies (read-only catalog). **No mutating RPC invocations. No anonymous execution tests against functions with side effects.**
+**Method:** live `pg_proc` / grants / function bodies (read-only catalog). **No mutating RPC invocations. No anonymous execution tests against functions with side effects.**  
+**Gate 1.7 S1B:** Stage A **BLOCKED** — no authorized QA staff identity. Preview remains unwired. See `docs/audits/admin-hub-gate-17-s1b-verification.md`.
 
 Evidence tags used below:
 
@@ -98,7 +99,7 @@ perform private.director_tick_if_due();
 
 **`private.director_tick()`** (LIVE SQL, truncated but sufficient): `FOR UPDATE` on `stream_director`; may expire holds; pause/resume for ads; **end RPG if known offline**; if LIVE + `rpg_session_active` + auto enabled + due + safe window, **`private.director_start_now(...)`** (queued special or AUTO random). Also updates director timestamps/status.
 
-**Callers (REPO):** `admin-live.js` dashboard poll only after Gate 1.6. **`admin-next.js` no longer calls this RPC.** Preview Operations uses an UNAVAILABLE fallback. Gate 1.7 S1 proposed true-read: `docs/audits/sql/gate-17-s1-live-snapshot-up.sql` (**not applied**). Do not apply the Gate 1.6 draft (`gate-16-review-admin-live-snapshot.sql`).
+**Callers (REPO):** `admin-live.js` dashboard poll only after Gate 1.6. **`admin-next.js` no longer calls this RPC.** Preview Operations uses an UNAVAILABLE fallback. Gate 1.7 S1 true-read `public.admin_live_snapshot()` is **live** (`20261009183910`, `gate-17-s1-v2`) and **unwired**. Do not apply the Gate 1.6 draft (`gate-16-review-admin-live-snapshot.sql`). Do not add the snapshot to `READ_RPCS` until S1B Stage A PASS.
 
 **Classification:** staff-gated **read-with-tick**. Safer than `admin_overview` because the guard runs **before** settle, and anon cannot EXECUTE. Still **unsuitable as a “read-only preview” poll** while a Live RPG session is active (can settle rounds and start auto encounters). Player `play_sync` / `play_state` already call `director_tick_if_due` **LIVE SQL**, so settlement is not unique to admin — but the preview must not pretend it is side-effect-free.
 
@@ -135,9 +136,13 @@ end;
 
 **Remediation (DO NOT APPLY):** see `docs/audits/sql/gate-15-review-admin-overview-guard.sql`.
 
-### 3.5 `public.admin_live_snapshot()` — proposed TRUE READ (Gate 1.7 S1)
+### 3.5 `public.admin_live_snapshot()` — TRUE READ (Gate 1.7 S1 live; S1B staff path unverified)
 
-**LIVE** as of `20261009183910` `gate_17_s1_admin_live_snapshot`. Contract `gate-17-s1-v2`. `CREATE FUNCTION` (not `OR REPLACE`); preflight aborts if the name already exists. Preview still unwired. Staff check (`private.is_play_admin`) first. SELECT `stream_status`, `stream_director`, `stream_sessions` by director `session_id`, `encounter_rounds` by director `last_encounter_id` only. No latest-row fallback. No tick, settle, or lifecycle writes. Settlement field is UNAVAILABLE. EXECUTE: authenticated only after PUBLIC/anon/`service_role` revoke. See `docs/audits/admin-hub-gate-17-s1-snapshot-review.md`.
+**LIVE** as of `20261009183910` `gate_17_s1_admin_live_snapshot`. Contract `gate-17-s1-v2`. `CREATE FUNCTION` (not `OR REPLACE`); preflight aborts if the name already exists. Preview still unwired. Staff check (`private.is_play_admin`) first. SELECT `stream_status`, `stream_director`, `stream_sessions` by director `session_id`, `encounter_rounds` by director `last_encounter_id` only. No latest-row fallback. No tick, settle, or lifecycle writes. Settlement field is UNAVAILABLE. EXECUTE: authenticated only after PUBLIC/anon/`service_role` revoke.
+
+**S1B A1 (2026-10-10):** catalog/ACL re-verified — jsonb, DEFINER, STABLE, owner `postgres`, `search_path=pg_catalog`, v2 marker, staff guard first, no forbidden helpers, authenticated EXECUTE only.
+
+**S1B A2–A4:** unsigned and PlayTester nonstaff JWTs `42501`. Authorized staff success path **not run** — `staff_roles` has only Twinkle; PlayTester role is null; Sora/Twinkle must not be used. See `docs/audits/admin-hub-gate-17-s1b-verification.md`.
 
 ---
 
@@ -332,7 +337,7 @@ Pokémon/bag/coin/store/config grants: **no** `account_audit` **LIVE SQL**. Econ
 
 `admin-next.js` `READ_RPCS` = `admin_build_health`, `admin_game_health` only after Gate 1.6. `readCall()` throws if any other name is requested. Tests assert no `admin_live_dashboard`, `admin_overview`, tick, settle, or director command strings.
 
-**Implication of R17:** the preview no longer ticks/settles on open. Operations shows UNAVAILABLE. Analytics may call the two TRUE-READ health RPCs once. Gate 2 must not add `admin_overview` or `admin_live_dashboard`. Gate 1.7 S1 snapshot SQL is a review artifact; do not add `admin_live_snapshot` to `READ_RPCS` until it exists in production.
+**Implication of R17:** the preview no longer ticks/settles on open. Operations shows UNAVAILABLE. Analytics may call the two TRUE-READ health RPCs once. Gate 2 must not add `admin_overview` or `admin_live_dashboard`. `admin_live_snapshot()` exists in production (`gate-17-s1-v2`) but S1B Stage A is **BLOCKED** (no QA staff JWT). Do not add it to `READ_RPCS` until Stage A PASS.
 
 ---
 

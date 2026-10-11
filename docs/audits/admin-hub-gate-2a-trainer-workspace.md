@@ -9,10 +9,10 @@
 **Latest migration:** `20261011024514` `gate_2a_r_identity_inspect_true_read`  
 **Sora mutated:** NO · **Twinkle mutated:** NO  
 **PlayTester role:** `null` (unchanged)  
-**SQL / RLS / GRANT / staff_roles:** 2A-R inspect UP applied; no staff_roles change  
+**SQL / RLS / GRANT / staff_roles:** 2A-R inspect UP applied; PlayTester restored to nonstaff  
 **Frontend integration:** **NOT STARTED**
 
-**Stage A:** **BLOCKED** pending authorized staff no-write QA  
+**Stage A:** inspect RPC is now a true read (R21 closed). Frontend **not started**  
 **Stage B:** **NOT STARTED**  
 **Stage C:** **NOT STARTED**
 
@@ -133,7 +133,7 @@ If Stage A is later cleared, the already-written design in `admin-hub-gate-2-tra
 
 | ID | Status |
 |---|---|
-| **R21** | **PENDING RUNTIME** — inspect SQL applied; staff no-write QA not run |
+| **R21** | **CLOSED** for `admin_identity_inspect` — runtime PlayTester no-write PASS |
 | R1 | OPEN — `admin_overview` settle-before-guard |
 | R2 | OPEN — broad anon EXECUTE |
 | R17 | MITIGATED for preview snapshot |

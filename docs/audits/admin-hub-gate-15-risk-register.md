@@ -221,8 +221,8 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 | **Affected** | `admin-tools.js` identity inspect; proposed Gate 2 trainer profile |
 | **Action** | UP applied `20261011024514` `gate_2a_r_identity_inspect_true_read` from `522adce`. Live inspect `e9091c0de1b91e67a62bade78cf8edde` STABLE. DOWN remains emergency only. |
 | **Owner approval** | Apply authorized and executed 2026-10-11. |
-| **Verification** | Catalog: `evaluate_cosmetics` absent. Staff PlayTester no-write inspect **not run**. Do not start Gate 2A frontend until that authorized QA read. |
-| **Status** | **PENDING RUNTIME** — SQL applied; staff happy-path no-write not verified. Blocks Gate 2A frontend until that QA. |
+| **Verification** | Three PlayTester JWT self-inspects `ok=true`. Cosmetics/notices fingerprints unchanged. PlayTester restored to nonstaff; post-cleanup 42501. |
+| **Status** | **CLOSED** for `public.admin_identity_inspect`. Gate 2A frontend still not started. |
 
 ---
 

@@ -1,0 +1,104 @@
+{
+  "qaAccount": "PlayTester",
+  "rpc": "admin_identity_inspect",
+  "target": "self",
+  "calls": [
+    {
+      "n": 1,
+      "started": "2026-10-11T03:09:40.477Z",
+      "finished": "2026-10-11T03:09:40.706Z",
+      "error": null,
+      "result": {
+        "ok": true,
+        "keys": [
+          "badges",
+          "catalog",
+          "cosmetics",
+          "ok",
+          "ownedAvatarPacks",
+          "rankingEligible",
+          "rankingVisible",
+          "titles",
+          "trainer"
+        ],
+        "missingKeys": [],
+        "extraKeys": [],
+        "trainerPresent": true,
+        "rankingVisible": false,
+        "rankingEligible": false,
+        "cosmeticsCount": 96,
+        "cosmeticsUnlocked": 52,
+        "ownedAvatarPacksCount": 0,
+        "titlesCount": 29,
+        "badgesCount": 71,
+        "catalogCount": 96,
+        "bodyMd5": "48d6f53f852a07b4615927fcac306676"
+      }
+    },
+    {
+      "n": 2,
+      "started": "2026-10-11T03:09:40.707Z",
+      "finished": "2026-10-11T03:09:40.867Z",
+      "error": null,
+      "result": {
+        "ok": true,
+        "keys": [
+          "badges",
+          "catalog",
+          "cosmetics",
+          "ok",
+          "ownedAvatarPacks",
+          "rankingEligible",
+          "rankingVisible",
+          "titles",
+          "trainer"
+        ],
+        "missingKeys": [],
+        "extraKeys": [],
+        "trainerPresent": true,
+        "rankingVisible": false,
+        "rankingEligible": false,
+        "cosmeticsCount": 96,
+        "cosmeticsUnlocked": 52,
+        "ownedAvatarPacksCount": 0,
+        "titlesCount": 29,
+        "badgesCount": 71,
+        "catalogCount": 96,
+        "bodyMd5": "48d6f53f852a07b4615927fcac306676"
+      }
+    },
+    {
+      "n": 3,
+      "started": "2026-10-11T03:09:40.867Z",
+      "finished": "2026-10-11T03:09:41.038Z",
+      "error": null,
+      "result": {
+        "ok": true,
+        "keys": [
+          "badges",
+          "catalog",
+          "cosmetics",
+          "ok",
+          "ownedAvatarPacks",
+          "rankingEligible",
+          "rankingVisible",
+          "titles",
+          "trainer"
+        ],
+        "missingKeys": [],
+        "extraKeys": [],
+        "trainerPresent": true,
+        "rankingVisible": false,
+        "rankingEligible": false,
+        "cosmeticsCount": 96,
+        "cosmeticsUnlocked": 52,
+        "ownedAvatarPacksCount": 0,
+        "titlesCount": 29,
+        "badgesCount": 71,
+        "catalogCount": 96,
+        "bodyMd5": "48d6f53f852a07b4615927fcac306676"
+      }
+    }
+  ],
+  "signedOut": true
+}

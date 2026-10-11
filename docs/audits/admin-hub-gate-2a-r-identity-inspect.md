@@ -10,8 +10,9 @@
 **Production APP:** `20261008-rc133` (unchanged)  
 **DOWN:** not executed  
 **Frontend / APP stamp:** unchanged  
-**Sora mutated:** NO · **Twinkle mutated:** NO · **PlayTester role:** `null`  
-**Unsafe staff inspect of real trainers:** NO
+**Sora mutated:** NO · **Twinkle mutated:** NO  
+**PlayTester role:** temporary `moderator` 2026-10-11 03:09:17 UTC, then restored to `null`  
+**Runtime staff inspect:** PlayTester self only · **REAL RPC PASS**
 
 Final release smoke remains paused. Gate 2A frontend not started.
 
@@ -85,23 +86,70 @@ Session: `current_user=postgres`, `auth.uid()=null`, `private.is_play_admin()=fa
 | `set local role anon` | same unused UUID | **42501** `not allowed` at line 4 |
 | `set local role authenticated` | same unused UUID | **42501** `not allowed` at line 4 |
 
-Staff happy path was **not** tested. Sora / Twinkle were not impersonated. PlayTester was not promoted.
-
-Runtime no-write verification (staff inspect leaves `trainer_cosmetics` / notices unchanged): **not performed**.
+Apply-time staff happy path was not tested. Runtime verification is in §5.
 
 ---
 
-## 5. Remaining QA
+## 5. Authorized runtime verification (2026-10-11)
 
-Authorized dedicated QA staff read of PlayTester only, after a separate staff-role approval if needed. Then retry Gate 2A frontend.
+Owner approved temporary PlayTester `moderator` for this verification only.
 
-R21: **PENDING RUNTIME**  
-R2: **OPEN** (out of scope; anon EXECUTE unchanged)
+### 5.1 Precheck
+
+Live inspect still `e9091c0de1b91e67a62bade78cf8edde` / STABLE / `evaluate_cosmetics` absent.  
+`staff_roles` before: Twinkle `moderator` only (`2026-09-09 04:42:52+00`). PlayTester `play_staff_role` null. Sora `owner` via Twitch. Moderator satisfies `is_play_admin()` (`play_staff_role(auth.uid()) is not null`).
+
+### 5.2 Temporary authorization
+
+Inserted only PlayTester `a98cbf81-…` as `moderator` at `2026-10-11 03:09:17.415456+00`. Sora/Twinkle rows unchanged. `staff_roles` count = 2. No other admin RPCs were called.
+
+### 5.3 Baseline (SELECT-only fingerprints)
+
+Inspect remaining helpers are SELECT-only. Tables compared anyway because they were the previous write targets or adjacent trainer state:
+
+| Account | cosmetics | notices | titles | badges | achievements | stats | inventory |
+|---|---|---|---|---|---|---|---|
+| PlayTester | 52 / `112df104…` | 25 / `dc17622a…` | 2 / `c5087be0…` | 3 / `0578ad67…` | 68 / `22ebd0d9…` | 1 / `ce3d176d…` | 1 / `8cb24a1b…` |
+| Sora | 54 / `502ca79b…` | 61 / `58067569…` | 4 / `f6407a77…` | 13 / `788e14e6…` | 68 / `9113abd2…` | 1 / `a8ab0e61…` | 1 / `2ea80589…` |
+| Twinkle | 52 / `a1f801b5…` | 3 / `39bd304b…` | 0 | 0 | 0 | 1 / `7d0e95a6…` | 1 / `4379f69d…` |
+
+PlayTester stored cosmetics are all `source=starter` (52 ids). Notice kinds are existing pokedex/level/evolution/achievement rows; no new cosmetic-unlock notices.
+
+### 5.4 Three authorized inspects
+
+PlayTester legitimate JWT. Target = PlayTester self. Sanitized evidence: `docs/audits/admin-hub-gate-2a-r-shots/runtime-inspect.json`.
+
+| Call | Result | keys | cosmetics unlocked/catalog | body md5 |
+|---|---|---|---|---|
+| 1 `03:09:40.477Z` | `ok=true` | expected 9, no extras | 52 / 96 | `48d6f53f852a07b4615927fcac306676` |
+| 2 `03:09:40.707Z` | `ok=true` | same | 52 / 96 | same |
+| 3 `03:09:40.867Z` | `ok=true` | same | 52 / 96 | same |
+
+No Oak QA, Pass/Bits, director, grant, repair, `evaluate_cosmetics`, `unlock_cosmetic`, or `push_notice` RPCs. Session signed out after the three calls.
+
+### 5.5 No-write comparison
+
+After the three calls, every fingerprint in §5.3 matched exactly. No added/deleted/changed cosmetics or notices. No timestamp drift on those rows. Sora and Twinkle fingerprints unchanged. Concurrent activity: none observed on compared tables.
+
+**Detected writes:** none.
+
+### 5.6 Cleanup
+
+Deleted only the temporary PlayTester `staff_roles` row created at `03:09:17`. Remaining `staff_roles`: Twinkle `moderator` only. PlayTester `play_staff_role` = null. Temporary scripts removed.
+
+Post-cleanup PlayTester JWT `admin_identity_inspect(self)` → **42501** `not allowed`. Session signed out.
 
 ---
 
-## 6. Production after apply
+## 6. Status
 
-APP remains `20261008-rc133`. Preview allowlist unchanged. No staff_roles change. No cosmetic grants. No player progression change. No legacy admin JS change.
+| Item | Status |
+|---|---|
+| R21 | **CLOSED** for `public.admin_identity_inspect` |
+| R2 | **OPEN** (out of scope) |
+| Gate 2A frontend | **not started** |
+| Production APP | `20261008-rc133` |
 
 DOWN remains emergency recovery only and would restore the write-read body and reopen R21.
+
+Remaining risks: R2 anon EXECUTE; R18 moderator-capable Pass/Bits/Oak QA if PlayTester is ever staffed again; other `admin_*` RPCs were not re-audited in this gate.

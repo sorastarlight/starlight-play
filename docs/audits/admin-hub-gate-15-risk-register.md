@@ -211,6 +211,19 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 | **Verification** | PlayTester JWT returned `ok: true` / `contract: gate-17-s1-v2`; Sora/Twinkle unused; row removed after verification |
 | **Status** | **CLOSED for S1B** — temporary PlayTester `moderator` used and restored. Future admin-preview QA still needs explicit owner approval. |
 
+## R21 — `admin_identity_inspect` unlocks cosmetics (NEW)
+
+| | |
+|---|---|
+| **Evidence** | LIVE SQL 2026-10-10: after `is_play_admin`, body `perform private.evaluate_cosmetics(p_user)`. That loops `progression_cosmetics` and `unlock_cosmetic`, which `INSERT`s `trainer_cosmetics` and may `push_notice`. Gate 1.5 called the public body TRUE_READ because it has no local DML. |
+| **Severity** | High (hidden progression write on inspect) |
+| **Impact** | Staff profile open can grant cosmetics/notices to the target trainer, including Sora/Twinkle. Gate 2A preview cannot call this RPC. |
+| **Affected** | `admin-tools.js` identity inspect; proposed Gate 2 trainer profile |
+| **Action** | Owner-approved SQL: drop `evaluate_cosmetics` from `admin_identity_inspect`. Keep player self-evaluation on `play_progression`. Then retry Gate 2A. Do not apply in this gate. |
+| **Owner approval** | **Required** |
+| **Verification** | Function body has no `evaluate_cosmetics` / `unlock_cosmetic`; `trainer_cosmetics` unchanged across three staff inspects of PlayTester only |
+| **Status** | **OPEN** — blocks Gate 2A |
+
 ---
 
 ## Advisor note (private RLS)

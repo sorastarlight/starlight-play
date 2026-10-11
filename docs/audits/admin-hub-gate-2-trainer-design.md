@@ -35,7 +35,7 @@ Fallback: `Open current Trainers` already points at `admin.html?section=trainers
 4. Moderators may **view** directory + gameplay dossier (hub already lets them open Trainers). They must not see email.
 5. Do **not** call `admin_overview` or `admin_live_dashboard` from this tab (R1 / R17).
 
-`admin-next.js` `readCall` allowlist must be extended **only** with named TRUE_READ RPCs after they exist. Until then Gate 2 UI can reuse `admin_list_users` / `admin_user_account` / `admin_identity_inspect` which are STABLE/read after guard — **LIVE SQL**.
+`admin-next.js` `readCall` allowlist must be extended **only** with named TRUE_READ RPCs after they exist. Until then Gate 2 UI can reuse `admin_list_users` / `admin_user_account` after guard — **LIVE SQL**. `admin_identity_inspect` is **not** a true read (R21 / Gate 2A): it `evaluate_cosmetics` and can INSERT `trainer_cosmetics`. Do not add it to the preview allowlist until remediated.
 
 ---
 

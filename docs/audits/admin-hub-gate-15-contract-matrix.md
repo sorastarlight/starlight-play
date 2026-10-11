@@ -7,7 +7,8 @@
 **Latest applied migration:** `20261009183910` `gate_17_s1_admin_live_snapshot`  
 **Sora mutated:** NO · **Twinkle mutated:** NO  
 **Method:** live `pg_proc` / grants / function bodies (read-only catalog). **No mutating RPC invocations. No anonymous execution tests against functions with side effects.**  
-**Gate 1.7 S1B:** Stage A **PASS** with temporary PlayTester `moderator`. Preview wires `admin_live_snapshot` only. See `docs/audits/admin-hub-gate-17-s1b-verification.md`.
+**Gate 1.7 S1B:** Stage A **PASS** with temporary PlayTester `moderator`. Preview wires `admin_live_snapshot` only. See `docs/audits/admin-hub-gate-17-s1b-verification.md`.  
+**Gate 2A:** Stage A **BLOCKED** — `admin_identity_inspect` writes cosmetics (R21). See `docs/audits/admin-hub-gate-2a-trainer-workspace.md`.
 
 Evidence tags used below:
 
@@ -236,7 +237,7 @@ Lifecycle SQL (`apply_stream_status`, `director_begin/end_rpg_session`) is **pri
 |---|---|---|---|---|---|---|
 | `admin_list_users` | query, offset | **yes** | `require_hub` | TRUE_READ STABLE | admin-tools, oak-qa | Paginated; no email |
 | `admin_user_account` | user | **yes** | `require_hub` | TRUE_READ STABLE | admin-tools, oak-qa | 40 mons; bag; candy; connections; `emailLogin` boolean only |
-| `admin_identity_inspect` | user | **yes** | `is_play_admin` | TRUE_READ | admin-tools | trainer_card + cosmetics/titles/badges/ranking |
+| `admin_identity_inspect` | user | **yes** | `is_play_admin` | **WRITE_READ** (R21) | admin-tools | `evaluate_cosmetics` → INSERT `trainer_cosmetics`. Not preview-safe until remediated. |
 | `admin_grant_pokemon` | user, dex, name, gender, shiny, ball | **yes** | `require_staff_edit` | MUTATE | admin-tools | Dex **1–151** only LIVE; **no** `account_audit` |
 | `admin_grant_bag` | user, grants jsonb | **yes** | `require_staff_edit` | MUTATE | admin-tools | Master Ball UI confirm only |
 | `admin_grant_candy` | user, dex, amount | no | `require_staff_edit` | MUTATE | admin-tools | No anon; still no account_audit |
@@ -345,7 +346,8 @@ Pokémon/bag/coin/store/config grants: **no** `account_audit` **LIVE SQL**. Econ
 
 | Use in Gate 2 read-only Trainer workspace? | RPCs |
 |---|---|
-| **Yes, after anon revoke (optional)** | `admin_list_users`, `admin_user_account`, `admin_identity_inspect` |
+| **Yes, after anon revoke (optional)** | `admin_list_users`, `admin_user_account` |
+| **Not until R21 remediated** | `admin_identity_inspect` |
 | **Yes, Analytics only** | `admin_build_health`, `admin_game_health` |
 | **Not until true-read split** | `admin_live_dashboard` |
 | **Never** | `admin_overview`, `admin_refill_test`, `admin_oak_qa`, any grant/save |

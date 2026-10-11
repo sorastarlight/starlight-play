@@ -45,7 +45,7 @@ Page size: implementation uses offset steps of 50 **REPO** (`admin-tools.js`).
 | | |
 |---|---|
 | Guard | `is_play_admin` |
-| Volatility | VOLATILE (no DML keyword **LIVE**) |
+| Volatility | VOLATILE — **writes via `evaluate_cosmetics` → `unlock_cosmetic` INSERT** (R21, Gate 2A 2026-10-10). Not preview-safe. |
 | Returns | `ok, trainer` (`private.trainer_card`), `rankingVisible`, `rankingEligible`, `cosmetics`, `ownedAvatarPacks`, `titles[]`, `badges[]`, `catalog` |
 | Email / bag / PC | no |
 | Achievements | showcase fragment only, not full `play_progression` list |

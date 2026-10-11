@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>LOCAL FIXTURE · Trainer Management · Gate 2A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/play.css?v=20261008-rc133">
+<body data-page="admin-next">
+<div class="wrap">
+  <div class="page-kicker">
+    <p class="notice" role="status">LOCAL FIXTURE — sanitized demo data only. This page does not sign in, does not call production trainer RPCs, and does not use service-role credentials. It runs only on localhost.</p>
+    <h1>Trainer Management fixture</h1>
+    <p class="muted">Gate 2A visual preview of the next-generation Admin Hub trainers workspace. Live staff inspection stays on <a href="./admin-next.html?section=trainers">admin-next.html</a> after a real staff sign-in.</p>
+  </div>
+  <p id="fixture-gate" class="notice" hidden>This fixture is localhost-only. Open it from 127.0.0.1 or localhost.</p>
+  <div id="fixture-app" hidden>
+    <div class="hub-app admin-next-app">
+      <aside class="hub-nav" id="hub-nav">
+        <p class="hub-nav-brand">Next Hub</p>
+        <div class="hub-nav-list" role="tablist" aria-label="Next Admin Hub">
+          <button type="button" role="tab" aria-selected="false" disabled>Operations</button>
+          <button type="button" role="tab" aria-selected="true">Trainers</button>
+        </div>
+      </aside>
+      <div class="hub-main">
+        <section class="hub-card admin-next-panel admin-next-trainers-panel">
+          <p class="eyebrow">Trainers · fixture</p>
+          <h2>Trainer Management</h2>
+          <p class="muted">Sanitized directory. Search filters this local list only. Selecting a row does not inspect a real trainer.</p>
+          <div class="admin-next-trainers" id="next-trainers" data-trainers-root>
+            <div class="admin-next-trainers-dir" data-trainers-dir>
+              <form class="admin-next-trainer-search" data-trainers-search>
+                <label for="next-trainer-q">Search trainers</label>
+                <div class="admin-next-trainer-search-row">
+                  <input id="next-trainer-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Name, login, UUID, or Twitch id">
+                  <button type="submit">Find</button>
+                </div>
+              </form>
+              <p id="next-trainer-list-status" class="muted" role="status"></p>
+              <div class="admin-next-trainer-pager">
+                <button type="button" data-trainers-prev disabled>Previous</button>
+                <button type="button" data-trainers-next disabled>Next</button>
+              </div>
+              <div id="next-trainer-list" class="admin-next-trainer-list" role="list"></div>
+            </div>
+            <div class="admin-next-trainers-detail" data-trainers-detail hidden>
+              <button type="button" class="secondary" data-trainers-back>Back to directory</button>
+              <p id="next-trainer-detail-status" class="muted" role="status"></p>
+              <div id="next-trainer-detail"></div>
+            </div>
+          </div>
+          <p class="admin-next-unavailable">Fixture names are invented. They are not PlayTester, Sora, or Twinkle.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/admin-next-trainers.js?v=20261008-rc133"></script>
+<script>
+(() => {
+  const host = String(window.location.hostname || "");
+  const local = host === "127.0.0.1" || host === "localhost";
+  const gate = document.getElementById("fixture-gate");
+  const app = document.getElementById("fixture-app");
+  if (!local) {
+    if (gate) gate.hidden = false;
+    return;
+  }
+  if (app) app.hidden = false;
+
+  const ui = window.PLAY_ADMIN_NEXT_TRAINERS;
+  const users = Object.freeze([
+    { id: "11111111-1111-4111-8111-111111111111", displayName: "Fixture Oak", login: "fixtureoak", role: "player", pass: true, coins: 120, caught: 8, createdAt: "2026-01-02T00:00:00Z", lastSeenAt: "2026-10-10T12:00:00Z" },
+    { id: "22222222-2222-4222-8222-222222222222", displayName: "Fixture Blue", login: "fixtureblue", role: "player", pass: false, coins: 4, caught: 1, createdAt: "2026-03-04T00:00:00Z", lastSeenAt: "2026-09-01T08:00:00Z" }
+  ]);
+  const dossiers = Object.freeze({
+    "11111111-1111-4111-8111-111111111111": {
+      account: {
+        user: { id: "11111111-1111-4111-8111-111111111111", username: "fixtureoak", login: "fixtureoak", displayName: "Fixture Oak", role: "player", pass: true, emailLogin: false, createdAt: "2026-01-02T00:00:00Z", lastSeenAt: "2026-10-10T12:00:00Z" },
+        health: { primaryTwitch: "fixtureoak", linkedTwitch: 1, gameplayTwitch: 1, botTwitch: 0 },
+        bag: { coins: 120, pokeball: 8, greatball: 2, ultraball: 0, masterball: 0, berry: 3, bait: 1, lure: 0, used: 4, capacity: 20 },
+        candy: [{ name: "Bulbasaur Candy", familyId: "bulbasaur", qty: 12 }],
+        mons: [{ name: "Bulbasaur", dex: 1, variant: "Normal", gender: "M", ball: "poke", level: 12, caughtAt: "2026-02-01T00:00:00Z" }],
+        connections: [{ type: "twitch", displayName: "FixtureOak", login: "fixtureoak", twitchUserId: "9001", primary: true, confirmed: true, gameplayEnabled: true, loginEnabled: true, status: "linked", linkedAt: "2026-01-03T00:00:00Z" }]
+      },
+      identity: {
+        ok: true,
+        trainer: { displayName: "Fixture Oak", login: "fixtureoak", level: 14, xp: 3200, title: "Kanto Starter", coins: 120, caught: 8, seen: 11, shinyCaught: 0, kanto: { caught: 8 } },
+        rankingVisible: true,
+        rankingEligible: false,
+        cosmetics: [
+          { id: "bg-kanto", name: "Kanto", kind: "background", unlocked: true, equipped: true },
+          { id: "bg-alola", name: "Alola", kind: "background", unlocked: false }
+        ],
+        ownedAvatarPacks: ["kanto-starters"],
+        titles: [
+          { id: "starter", name: "Kanto Starter", unlocked: true, unlockedAt: "2026-02-01T00:00:00Z" },
+          { id: "champion", name: "Champion", unlocked: false }
+        ],
+        badges: [
+          { id: "boulder", name: "Boulder Badge", unlocked: true, unlockedAt: "2026-03-01T00:00:00Z" },
+          { id: "cascade", name: "Cascade Badge", unlocked: false }
+        ],
+        catalog: [
+          { id: "bg-kanto", kind: "background", name: "Kanto" },
+          { id: "bg-alola", kind: "background", name: "Alola" }
+        ]
+      }
+    },
+    "22222222-2222-4222-8222-222222222222": {
+      account: {
+        user: { id: "22222222-2222-4222-8222-222222222222", username: "fixtureblue", login: "fixtureblue", displayName: "Fixture Blue", role: "player", pass: false, emailLogin: true, createdAt: "2026-03-04T00:00:00Z", lastSeenAt: "2026-09-01T08:00:00Z" },
+        health: { primaryTwitch: "fixtureblue", linkedTwitch: 1, gameplayTwitch: 0, botTwitch: 0 },
+        bag: { coins: 4, pokeball: 2, greatball: 0, ultraball: 0, masterball: 0, berry: 0, bait: 0, lure: 0, used: 1, capacity: 20 },
+        candy: [],
+        mons: [{ name: "Squirtle", dex: 7, variant: "Normal", gender: "F", ball: "poke", level: 5, caughtAt: "2026-03-05T00:00:00Z" }],
+        connections: [{ type: "twitch", displayName: "FixtureBlue", login: "fixtureblue", twitchUserId: "9002", primary: true, confirmed: true, gameplayEnabled: false, loginEnabled: true, status: "linked", linkedAt: "2026-03-04T00:00:00Z" }]
+      },
+      identity: {
+        ok: true,
+        trainer: { displayName: "Fixture Blue", login: "fixtureblue", level: 3, xp: 80, title: "", coins: 4, caught: 1, seen: 2, shinyCaught: 0, kanto: { caught: 1 } },
+        rankingVisible: false,
+        rankingEligible: false,
+        cosmetics: [
+          { id: "bg-kanto", name: "Kanto", kind: "background", unlocked: false },
+          { id: "bg-alola", name: "Alola", kind: "background", unlocked: false }
+        ],
+        ownedAvatarPacks: [],
+        titles: [
+          { id: "starter", name: "Kanto Starter", unlocked: false },
+          { id: "champion", name: "Champion", unlocked: false }
+        ],
+        badges: [
+          { id: "boulder", name: "Boulder Badge", unlocked: false },
+          { id: "cascade", name: "Cascade Badge", unlocked: false }
+        ],
+        catalog: [
+          { id: "bg-kanto", kind: "background", name: "Kanto" },
+          { id: "bg-alola", kind: "background", name: "Alola" }
+        ]
+      }
+    }
+  });
+
+  let query = "";
+  let selectedId = "";
+  let pane = "overview";
+
+  function filtered() {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return users.slice();
+    return users.filter((row) => [row.displayName, row.login, row.id].some((value) => String(value).toLowerCase().includes(needle)));
+  }
+
+  function renderDirectory() {
+    const rows = filtered();
+    const view = ui.presentDirectory({
+      data: { ok: true, total: rows.length, offset: 0, users: rows },
+      query,
+      selectedId
+    });
+    document.getElementById("next-trainer-list-status").textContent = view.status;
+    document.getElementById("next-trainer-list").innerHTML = ui.directoryHtml(view);
+  }
+
+  function renderProfile() {
+    const wrap = document.querySelector("[data-trainers-detail]");
+    const root = document.getElementById("next-trainers");
+    if (!selectedId) {
+      wrap.hidden = true;
+      root.classList.remove("is-profile");
+      document.getElementById("next-trainer-detail").innerHTML = "";
+      document.getElementById("next-trainer-detail-status").textContent = "";
+      return;
+    }
+    const dossier = dossiers[selectedId];
+    wrap.hidden = false;
+    root.classList.add("is-profile");
+    document.getElementById("next-trainer-detail-status").textContent = "Local fixture dossier. Not a live trainer.";
+    document.getElementById("next-trainer-detail").innerHTML = ui.profileHtml(ui.presentProfile({
+      account: dossier.account,
+      identity: dossier.identity,
+      pane
+    }));
+  }
+
+  renderDirectory();
+
+  document.querySelector("[data-trainers-search]").addEventListener("submit", (event) => {
+    event.preventDefault();
+    query = String(document.getElementById("next-trainer-q").value || "");
+    renderDirectory();
+  });
+  document.getElementById("next-trainer-list").addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-open-trainer]");
+    if (!btn) return;
+    selectedId = btn.getAttribute("data-open-trainer") || "";
+    pane = "overview";
+    renderDirectory();
+    renderProfile();
+  });
+  document.getElementById("next-trainer-detail").addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-trainer-pane]");
+    if (!btn) return;
+    pane = btn.getAttribute("data-trainer-pane") || "overview";
+    renderProfile();
+  });
+  document.querySelector("[data-trainers-back]").addEventListener("click", () => {
+    selectedId = "";
+    pane = "overview";
+    renderProfile();
+    renderDirectory();
+  });
+})();
+</script>
+</body>

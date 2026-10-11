@@ -182,6 +182,8 @@ No mutating RPC names appear in the preview shell. Operations still polls only `
 | R2 | **OPEN** — anonymous EXECUTE grants |
 | R18 | **OPEN** — broad moderator privileges |
 
+**Local visual preview (not production):** serve `play-site` on localhost. Feature flag is opening `admin-next.html`. Live staff RPCs still require a real staff session. Twitch OAuth on localhost may fail if the redirect is not allowlisted; use `admin-next-trainers-fixture.html` for a localhost-only sanitized demo that never calls trainer RPCs.
+
 **Deployment:** not ready for production APP stamp. Preview URL remains feature-flagged `admin-next.html`. Do not merge this branch as an APP deploy from this gate.
 
 **Next review:** owner visual / authorized staff QA of the Trainers tab (separate PlayTester staff approval if live RPC is required), then decide whether to stamp an APP build.

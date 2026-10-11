@@ -8,7 +8,8 @@
 **Sora mutated:** NO · **Twinkle mutated:** NO  
 **Method:** live `pg_proc` / grants / function bodies (read-only catalog). **No mutating RPC invocations. No anonymous execution tests against functions with side effects.**  
 **Gate 1.7 S1B:** Stage A **PASS** with temporary PlayTester `moderator`. Preview wires `admin_live_snapshot` only. See `docs/audits/admin-hub-gate-17-s1b-verification.md`.  
-**Gate 2A:** Stage A **BLOCKED** — `admin_identity_inspect` writes cosmetics (R21). See `docs/audits/admin-hub-gate-2a-trainer-workspace.md`.
+**Gate 2A:** Stage A **BLOCKED** — `admin_identity_inspect` writes cosmetics (R21).  
+**Gate 2A-R:** review SQL prepared, **not applied**. See `docs/audits/admin-hub-gate-2a-r-identity-inspect.md`.
 
 Evidence tags used below:
 

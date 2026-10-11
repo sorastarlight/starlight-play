@@ -219,10 +219,10 @@ Owner approval is required before any row whose action is SQL/grant/RPC rewrite.
 | **Severity** | High (hidden progression write on inspect) |
 | **Impact** | Staff profile open can grant cosmetics/notices to the target trainer, including Sora/Twinkle. Gate 2A preview cannot call this RPC. |
 | **Affected** | `admin-tools.js` identity inspect; proposed Gate 2 trainer profile |
-| **Action** | Owner-approved SQL: drop `evaluate_cosmetics` from `admin_identity_inspect`. Keep player self-evaluation on `play_progression`. Then retry Gate 2A. Do not apply in this gate. |
-| **Owner approval** | **Required** |
-| **Verification** | Function body has no `evaluate_cosmetics` / `unlock_cosmetic`; `trainer_cosmetics` unchanged across three staff inspects of PlayTester only |
-| **Status** | **OPEN** — blocks Gate 2A |
+| **Action** | Review SQL ready: `docs/audits/sql/gate-2a-r-identity-inspect-up.sql` + down. Do **not** apply until owner approval. Keep player `play_progression` evaluation. Then retry Gate 2A. |
+| **Owner approval** | **Required before apply** |
+| **Verification** | After apply: inspect `prosrc` has no `evaluate_cosmetics`; PlayTester-only staff inspect leaves `trainer_cosmetics` unchanged. Not run this gate. |
+| **Status** | **OPEN** — remediation prepared, **not applied**. Blocks Gate 2A frontend. |
 
 ---
 

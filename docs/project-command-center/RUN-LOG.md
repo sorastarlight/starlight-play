@@ -3,6 +3,7 @@
 ## 2026-10-12 — command center + batches A–E
 
 - Branch created: `admin-hub-overhaul` from `gate-2a-trainer-management` (`a8e3aaf`).
+- Implementation commit: `6472b20`.
 - No merge, deploy, SQL, staff-role, or trainer mutations.
 - Sora mutated NO · Twinkle mutated NO · PlayTester nonstaff.
 - Production APP `20261008-rc133` unchanged. Smoke paused.

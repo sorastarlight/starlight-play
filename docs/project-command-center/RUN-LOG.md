@@ -2,7 +2,7 @@
 
 ## 2026-10-12 — GitHub issue #2 local visual QA
 
-- Branch: `admin-hub-overhaul`. No merge, deploy, SQL, or staff-role changes.
+- Branch: `admin-hub-overhaul` · commit `2d29e1e`. No merge, deploy, SQL, or staff-role changes.
 - Sora mutated NO · Twinkle mutated NO · PlayTester nonstaff.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - A1 visual acceptance remains **open**.

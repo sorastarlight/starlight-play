@@ -93,6 +93,37 @@ test("Progression remains the canonical ranking and cosmetic pane", () => {
   }));
   assert(html.includes("Ranking visible"));
   assert(html.includes("Available catalog"));
+  assert(html.includes("Enabled catalog matches the unlock list above"));
+});
+
+test("Directory status and pager hide when a single page is shown", () => {
+  const view = trainers.presentDirectory({
+    data: { total: 2, offset: 0, users: [{ id: "a", displayName: "Ash", login: "ash" }, { id: "b", displayName: "Blue", login: "blue" }] }
+  });
+  assert(view.status === "2 trainers.");
+  assert(view.showPager === false);
+  const empty = trainers.presentDirectory({ data: { total: 0, offset: 0, users: [] }, query: "zzz" });
+  assert(empty.empty && empty.status.includes("No trainers match"));
+});
+
+test("Overview omits username when it matches login", () => {
+  const html = trainers.profileHtml(trainers.presentProfile({
+    account: { user: { displayName: "Ash", login: "ash", username: "ash", emailLogin: false }, bag: {}, mons: [], candy: [], connections: [] },
+    identity: { ok: true, trainer: {}, cosmetics: [], titles: [], badges: [], catalog: [], ownedAvatarPacks: [] },
+    pane: "overview"
+  }));
+  assert(html.includes("Login"));
+  assert(!html.includes("<dt>Username</dt>"));
+});
+
+test("Fixture stays local, blocks live RPCs, and exposes QA states", () => {
+  assert(fixtureHtml.includes("LOCAL FIXTURE"));
+  assert(fixtureHtml.includes("data-fixture-state=\"empty\""));
+  assert(fixtureHtml.includes("data-fixture-state=\"denied\""));
+  assert(fixtureHtml.includes("data-fixture-state=\"loading\""));
+  assert(!fixtureHtml.includes("playCall("));
+  assert(!fixtureHtml.includes("service_role"));
+  assert(!fixtureHtml.includes("admin_overview"));
 });
 
 test("Support is the only next-hub grant doorway", () => {

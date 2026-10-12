@@ -7,8 +7,8 @@
 | Inspect true-read SQL contract | `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC | Runtime write probe (already done in 2A-R) |
 | Operations snapshot presenter | `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC | Production snapshot |
 | Snapshot polling isolation | `tests/admin-hub-gate-17-s1b-tests.js` | STATIC | — |
-| Overhaul dossier + canonical doorways | `tests/admin-hub-overhaul-tests.js` | STATIC | — |
-| Fixture search/select/panes | fixture page + overhaul tests | LOCAL HARNESS | — |
+| Overhaul dossier + canonical doorways | `tests/admin-hub-overhaul-tests.js` | STATIC PASS (8) | — |
+| Fixture search/select/panes/empty/denied/loading | `admin-next-trainers-fixture.html` + overhaul tests | LOCAL HARNESS / REAL DOM (unsigned fixture) | Live staff Trainers |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

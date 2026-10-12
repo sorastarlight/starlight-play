@@ -55,7 +55,7 @@
     const query = input && input.query != null ? String(input.query) : "";
     const selectedId = input && input.selectedId || "";
     if (error === "denied") {
-      return { status: "Trainer search is restricted to staff.", users: [], total: 0, offset: 0, query, selectedId, canPrev: false, canNext: false, empty: false, failed: true };
+      return { status: "Trainer search is restricted to staff.", users: [], total: 0, offset: 0, query, selectedId, canPrev: false, canNext: false, showPager: false, empty: false, failed: true };
     }
     const fallbackUsers = Array.isArray(input && input.users) ? input.users : [];
     const fallbackTotal = Number(input && input.total || 0);
@@ -71,6 +71,7 @@
         selectedId,
         canPrev: fallbackOffset > 0,
         canNext: fallbackOffset + users.length < fallbackTotal,
+        showPager: fallbackOffset > 0 || fallbackOffset + users.length < fallbackTotal,
         empty: false,
         failed: false
       };
@@ -86,6 +87,7 @@
         selectedId,
         canPrev: false,
         canNext: false,
+        showPager: false,
         empty: false,
         failed: true
       };
@@ -94,10 +96,12 @@
     const total = Number(data && data.total || 0);
     const offset = Number(data && data.offset || 0);
     const shown = users.length;
+    const canPrev = offset > 0;
+    const canNext = offset + shown < total;
     let status = "No trainers match.";
-    if (total > 0) {
-      status = `Showing ${offset + 1}–${offset + shown} of ${total}. Server page size is ${PAGE}.`;
-    }
+    if (total === 1) status = "1 trainer.";
+    else if (total > 0 && !canPrev && !canNext) status = `${total} trainers.`;
+    else if (total > 0) status = `Showing ${offset + 1}–${offset + shown} of ${total}.`;
     return {
       status,
       users,
@@ -105,8 +109,9 @@
       offset,
       query,
       selectedId,
-      canPrev: offset > 0,
-      canNext: offset + shown < total,
+      canPrev,
+      canNext,
+      showPager: canPrev || canNext,
       empty: total === 0,
       failed: false
     };
@@ -173,8 +178,47 @@
   function itemGrid(items, empty) {
     if (!items.length) return `<p class="muted">${esc(empty)}</p>`;
     return `<ul class="admin-next-trainer-pills">${items.map((item) => (
-      `<li class="${item.on ? "is-on" : "is-off"}"><strong>${esc(item.name)}</strong><span>${esc(item.meta)}</span></li>`
+      `<li class="${item.on ? "is-on" : "is-off"}" data-state="${item.on ? "unlocked" : "locked"}"><strong>${esc(item.name)}</strong><span>${esc(item.meta)}</span></li>`
     )).join("")}</ul>`;
+  }
+
+  function sameText(left, right) {
+    return String(left || "").trim().toLowerCase() === String(right || "").trim().toLowerCase();
+  }
+
+  function accountRows(user) {
+    const rows = [
+      { label: "Display name", value: text(user.displayName) },
+      { label: "Login", value: text(user.login) }
+    ];
+    if (user.username && !sameText(user.username, user.login)) {
+      rows.push({ label: "Username", value: text(user.username) });
+    }
+    rows.push(
+      { label: "Account id", value: text(user.id) },
+      { label: "Role", value: text(user.role || "player") },
+      { label: "Starlight Pass", value: yn(user.pass) },
+      { label: "Password login present", value: yn(user.emailLogin) }
+    );
+    return rows;
+  }
+
+  function catalogBlock(catalog, cosmetics) {
+    const rows = Array.isArray(catalog) ? catalog : [];
+    if (!rows.length) return `<p class="muted">No catalog items returned.</p>`;
+    const cosmeticIds = new Set((Array.isArray(cosmetics) ? cosmetics : []).map((item) => item && item.id).filter(Boolean));
+    const extras = rows.filter((row) => !cosmeticIds.has(row.id));
+    if (!extras.length) {
+      return `<p class="muted">Enabled catalog matches the unlock list above (${rows.length} items).</p>`;
+    }
+    return itemGrid(rows.map((row) => {
+      const unlocked = (cosmetics || []).some((item) => item && item.id === row.id && item.unlocked);
+      return {
+        name: row.name || row.id,
+        meta: `${row.kind || "cosmetic"} · ${unlocked ? "Unlocked" : "Locked"}`,
+        on: unlocked
+      };
+    }), "No catalog items returned.");
   }
 
   function profileHtml(view) {
@@ -253,14 +297,7 @@
         <h4>Owned avatar packs</h4>
         ${itemGrid(packs.map((id) => ({ name: id, meta: "Owned", on: true })), "No owned avatar packs.")}
         <h4>Available catalog</h4>
-        ${itemGrid((identity.catalog || []).map((row) => {
-          const unlocked = cosmetics.some((item) => item && item.id === row.id && item.unlocked);
-          return {
-            name: row.name || row.id,
-            meta: `${row.kind || "cosmetic"} · ${unlocked ? "Unlocked" : "Locked"}`,
-            on: unlocked
-          };
-        }), "No catalog items returned.")}
+        ${catalogBlock(identity.catalog || [], cosmetics)}
         <p class="admin-next-unavailable">Full achievement list, Oak research, and evolution history are not in these RPCs.</p>`;
     }
 
@@ -293,15 +330,7 @@
 
     return `${header}
       <h4>Account</h4>
-      ${dl([
-        { label: "Display name", value: text(user.displayName) },
-        { label: "Login", value: text(user.login) },
-        { label: "Username", value: text(user.username) },
-        { label: "Account id", value: text(user.id) },
-        { label: "Role", value: text(user.role || "player") },
-        { label: "Starlight Pass", value: yn(user.pass) },
-        { label: "Password login present", value: yn(user.emailLogin) }
-      ])}
+      ${dl(accountRows(user))}
       <h4>Registration</h4>
       ${dl([
         { label: "Registered", value: formatStamp(user.createdAt) },

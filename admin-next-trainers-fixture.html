@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>LOCAL FIXTURE · Trainer Management · Gate 2A</title>
+<title>LOCAL FIXTURE · Trainer Management</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
@@ -43,6 +43,13 @@
               <div class="admin-next-trainer-pager">
                 <button type="button" data-trainers-prev disabled>Previous</button>
                 <button type="button" data-trainers-next disabled>Next</button>
+              </div>
+              <p class="admin-next-unavailable">Fixture QA states. These do not call live RPCs.</p>
+              <div class="admin-next-trainer-pager" data-fixture-states>
+                <button type="button" data-fixture-state="empty">Empty results</button>
+                <button type="button" data-fixture-state="denied">Denied</button>
+                <button type="button" data-fixture-state="loading">Loading</button>
+                <button type="button" data-fixture-state="reset">Reset directory</button>
               </div>
               <div id="next-trainer-list" class="admin-next-trainer-list" role="list"></div>
             </div>
@@ -164,6 +171,8 @@
     });
     document.getElementById("next-trainer-list-status").textContent = view.status;
     document.getElementById("next-trainer-list").innerHTML = ui.directoryHtml(view);
+    const pager = document.querySelector(".admin-next-trainer-pager");
+    if (pager) pager.hidden = !view.showPager;
   }
 
   function renderProfile() {
@@ -212,6 +221,37 @@
     selectedId = "";
     pane = "overview";
     renderProfile();
+    renderDirectory();
+  });
+  document.querySelector("[data-fixture-states]").addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-fixture-state]");
+    if (!btn) return;
+    const state = btn.getAttribute("data-fixture-state");
+    selectedId = "";
+    pane = "overview";
+    renderProfile();
+    if (state === "empty") {
+      query = "zzz-no-match";
+      document.getElementById("next-trainer-q").value = query;
+      renderDirectory();
+      return;
+    }
+    if (state === "denied") {
+      const view = ui.presentDirectory({ error: "denied", query });
+      document.getElementById("next-trainer-list-status").textContent = view.status;
+      document.getElementById("next-trainer-list").innerHTML = ui.directoryHtml(view);
+      const pager = document.querySelector(".admin-next-trainer-pager");
+      if (pager) pager.hidden = true;
+      return;
+    }
+    if (state === "loading") {
+      const view = ui.presentDirectory({ error: "loading", query, users, total: users.length, offset: 0 });
+      document.getElementById("next-trainer-list-status").textContent = view.status;
+      document.getElementById("next-trainer-list").innerHTML = ui.directoryHtml(view);
+      return;
+    }
+    query = "";
+    document.getElementById("next-trainer-q").value = "";
     renderDirectory();
   });
 })();

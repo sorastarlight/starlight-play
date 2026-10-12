@@ -88,6 +88,18 @@
       "approvalRequirement": "none"
     },
     {
+      "id": "I2",
+      "status": "done",
+      "scope": "GitHub issue #2 local visual QA and Trainer dossier UX polish",
+      "dependencies": ["A", "B", "D", "E"],
+      "branch": "admin-hub-overhaul",
+      "commit": "pending-push",
+      "evidence": "docs/project-command-center/evidence/issue2-*.png, RUN-LOG.md",
+      "testResults": "overhaul 8 STATIC PASS; fixture REAL DOM empty/select/progression/mobile",
+      "nextAction": "Owner A1 remains open",
+      "approvalRequirement": "none for this issue; A1 not granted here"
+    },
+    {
       "id": "F",
       "status": "blocked",
       "scope": "Privileged operations",

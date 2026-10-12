@@ -11,6 +11,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | C | done | Duplicate-action inventory; Support is preview doorway | CC-2 | **A3** for write consolidation | Do not implement writes |
 | D | done | Trainers no longer deep-links grants; Support copy clarified | C | none | Owner visual A1 |
 | E | done | `tests/admin-hub-overhaul-tests.js` + existing hub suites | A–D | none | Re-run after further UI edits |
+| I2 | done | Issue #2 local visual QA + dossier polish | A–E | none | A1 still open |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. Implementation commit `6472b20`.
+Branch: `admin-hub-overhaul`. Issue #2 work recorded in RUN-LOG.

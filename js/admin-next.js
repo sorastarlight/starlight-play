@@ -170,6 +170,8 @@
     if (els.trainerList) els.trainerList.innerHTML = trainersUi.directoryHtml ? trainersUi.directoryHtml(view) : "";
     if (els.trainerPrev) els.trainerPrev.disabled = !view.canPrev;
     if (els.trainerNext) els.trainerNext.disabled = !view.canNext;
+    const pager = els.trainerPrev && els.trainerPrev.parentElement;
+    if (pager) pager.hidden = !view.showPager;
   }
 
   function renderTrainerProfile(view) {

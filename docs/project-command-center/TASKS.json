@@ -1,0 +1,103 @@
+{
+  "branch": "admin-hub-overhaul",
+  "productionApp": "20261008-rc133",
+  "smoke": "paused",
+  "tasks": [
+    {
+      "id": "CC-1",
+      "status": "done",
+      "scope": "Command center documentation and streamlink-project rule",
+      "dependencies": [],
+      "branch": "admin-hub-overhaul",
+      "commit": "pending-push",
+      "evidence": "docs/project-command-center/*, .cursor/rules/streamlink-project.mdc",
+      "testResults": "admin-hub-overhaul-tests command-center existence",
+      "nextAction": "Keep TASKS and RUN-LOG current",
+      "approvalRequirement": "none"
+    },
+    {
+      "id": "CC-2",
+      "status": "done",
+      "scope": "Admin Hub inventory and IA from source",
+      "dependencies": ["CC-1"],
+      "branch": "admin-hub-overhaul",
+      "commit": "pending-push",
+      "evidence": "ADMIN-HUB-INVENTORY.md, ADMIN-HUB-IA.md",
+      "testResults": "static existence",
+      "nextAction": "Owner decision A3",
+      "approvalRequirement": "none to document; A3 to implement writes"
+    },
+    {
+      "id": "A",
+      "status": "done",
+      "scope": "Gate 2A visual/UX polish on admin-next trainers",
+      "dependencies": ["CC-2"],
+      "branch": "admin-hub-overhaul",
+      "commit": "pending-push",
+      "evidence": "css/play.css Find min-width, focus-visible, directory meta lines",
+      "testResults": "pending suite run",
+      "nextAction": "Owner visual A1",
+      "approvalRequirement": "none for local CSS"
+    },
+    {
+      "id": "B",
+      "status": "done",
+      "scope": "Single trainer dossier with non-overlapping panes",
+      "dependencies": ["A"],
+      "branch": "admin-hub-overhaul",
+      "commit": "pending-push",
+      "evidence": "js/admin-next-trainers.js overview Account/Registration",
+      "testResults": "pending suite run",
+      "nextAction": "Owner visual A1",
+      "approvalRequirement": "none"
+    },
+    {
+      "id": "C",
+      "status": "done",
+      "scope": "Duplicate privileged-action inventory and consolidation design",
+      "dependencies": ["CC-2"],
+      "branch": "admin-hub-overhaul",
+      "commit": "pending-push",
+      "evidence": "ADMIN-HUB-INVENTORY.md duplicate table; DECISIONS A3",
+      "testResults": "static",
+      "nextAction": "Wait for owner A3",
+      "approvalRequirement": "A3 before any write UI"
+    },
+    {
+      "id": "D",
+      "status": "done",
+      "scope": "Navigation coherence: one Support doorway for grants",
+      "dependencies": ["C"],
+      "branch": "admin-hub-overhaul",
+      "commit": "pending-push",
+      "evidence": "admin-next.html Trainers footer + Support copy",
+      "testResults": "pending suite run",
+      "nextAction": "Owner visual A1",
+      "approvalRequirement": "none"
+    },
+    {
+      "id": "E",
+      "status": "done",
+      "scope": "Frontend regression automation for overhaul invariants",
+      "dependencies": ["A", "B", "D"],
+      "branch": "admin-hub-overhaul",
+      "commit": "pending-push",
+      "evidence": "tests/admin-hub-overhaul-tests.js",
+      "testResults": "pending suite run",
+      "nextAction": "Re-run after edits",
+      "approvalRequirement": "none"
+    },
+    {
+      "id": "F",
+      "status": "blocked",
+      "scope": "Privileged operations",
+      "dependencies": ["A3"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "not started",
+      "testResults": "not run",
+      "nextAction": "Stop until a new owner authorization",
+      "approvalRequirement": "required"
+    }
+  ]
+}

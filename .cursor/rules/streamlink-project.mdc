@@ -1,0 +1,34 @@
+---
+description: StreamLink command-center operating limits, approval gates, and batch reporting
+alwaysApply: true
+---
+
+# Pokémon StreamLink — project command center
+
+This rule guides in-session batch work. It does **not** create unattended scheduling or autonomous background execution.
+
+## Operating limits
+
+- Product: Pokémon StreamLink. Feature names stay short (Play, My PC, Admin Hub).
+- Architecture stays static HTML + vanilla JS + `play.css` + `playCall`. No React/Tailwind.
+- Do not merge to `main` or deploy. Do not stamp production APP (`20261008-rc133` until owner says otherwise).
+- No SQL migrations, grants, RLS, staff-role changes, or trainer/economy/encounter/director mutations without a new owner authorization.
+- Never impersonate or mutate Sora or Twinkle. PlayTester stays nonstaff unless a separately approved, cleaned-up test.
+- Do not edit `admin.html` or `js/admin-live.js`. Next-hub work stays in `admin-next.html` and its modules.
+- Do not call `admin_overview` or other known write-risk admin RPCs. Inspect catalogs; do not execute write-risk RPCs to discover them.
+- R1, R2, R18 stay OPEN. R21 stays CLOSED unless new evidence. Final release smoke stays paused.
+
+## Approval gates (stop and report)
+
+- Production deploy / APP stamp / merge to `main`
+- SQL, grants, RLS, staff promotion
+- Any privileged write, including grants, unlinks, role edits, Oak QA
+- Live staff RPC testing when PlayTester is nonstaff
+- Newly discovered write paths or required schema changes
+- Unclear user-facing design that would invent missing trainer data
+
+## Reporting format
+
+After a batch: completed · blocked · next batch · tests with STATIC / LOCAL HARNESS / REAL DOM / REAL RPC / PRODUCTION labels · branch/commit · Sora NO · Twinkle NO · PlayTester role · approvals needed.
+
+Keep `docs/project-command-center/TASKS.md`, `TASKS.json`, and `RUN-LOG.md` current on the feature branch.

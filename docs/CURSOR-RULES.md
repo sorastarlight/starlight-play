@@ -24,6 +24,7 @@ If you open the parent Cursor workspace (`PokemonRPG`), the same files also exis
 | `streamlink-data-kanto.mdc` | Data/asset areas | No invented Pokémon data; Kanto #001–151; Seen/Caught |
 | `streamlink-supabase.mdc` | `supabase/**` | RPC/RLS safety |
 | `streamlink-qa-release.mdc` | Always | PlayTester safety, admin QA paths, stamps, honest PASS, closure reports |
+| `streamlink-project.mdc` | Always | Command-center operating limits, approval gates, batch reporting |
 
 ## Updating
 

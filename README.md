@@ -163,6 +163,10 @@ Play compares `settings.clientBuild` from `play_sync` with `window.PLAY_BUILD`. 
 Trainer debug: `?playDebug=1` then `window.__starlightBuildInfo()` in the console.
 
 
+## Project command center
+
+Development batch tracking for the Admin Hub overhaul lives in [`docs/project-command-center/README.md`](docs/project-command-center/README.md). Historical audits stay under `docs/audits/`.
+
 ## Notes
 
 Do not commit trainer saves, Twitch secrets, or service-role keys.

@@ -1,0 +1,21 @@
+# Decision log
+
+## Recorded (this session)
+
+| ID | Decision | Why |
+|---|---|---|
+| D1 | New branch `admin-hub-overhaul` from `gate-2a-trainer-management` | Preserves Gate 2A review history; does not merge to `main` |
+| D2 | Overview holds account identity only | Removes duplicate ranking / coins / Twitch fields from the first pane |
+| D3 | Support & Recovery is the only next-hub doorway to trainer grants | Eliminates the second “Open current Trainers for grants” link |
+| D4 | No new RPCs, no legacy admin edits | Authorized batch is local frontend + docs |
+
+## Needs owner approval
+
+| ID | Question | Recommendation |
+|---|---|---|
+| A1 | Visual-approve Gate 2A / overhaul local preview? | Use fixture `admin-next-trainers-fixture.html` then staff-gated `admin-next.html` |
+| A2 | Authorize PlayTester (or another QA login) for live read-only trainer RPCs, with restore? | Only if A1 is accepted |
+| A3 | One canonical grant UI: Trainers desk, Oak QA, or a future Gate 3 Support case? | Keep both legacy tools until chosen |
+| A4 | Merge `admin-hub-overhaul` / stamp an APP build? | Not recommended until A1 |
+| A5 | Start Batch F privileged operations? | No until A3 and a separate authorization |
+| A6 | Localhost Twitch OAuth redirect for staff sign-in? | Optional; fixture covers layout without it |

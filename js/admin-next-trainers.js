@@ -149,7 +149,8 @@
         ${avatar}
         <span>
           <strong>${esc(row.displayName)}</strong>
-          <span class="muted">@${esc(row.login)} · ${esc(row.role)}${row.pass ? " · Pass" : ""} · ${esc(row.coins)} coins · ${esc(row.caught)} Pokémon · Last seen ${esc(row.lastSeenAt)}</span>
+          <span class="admin-next-trainer-handle">@${esc(row.login)} · ${esc(row.role)}${row.pass ? " · Pass" : ""}</span>
+          <span class="muted admin-next-trainer-stats">${esc(row.coins)} coins · ${esc(row.caught)} Pokémon · Last seen ${esc(row.lastSeenAt)}</span>
         </span>
       </button></div>`;
     }).join("");
@@ -291,6 +292,7 @@
     }
 
     return `${header}
+      <h4>Account</h4>
       ${dl([
         { label: "Display name", value: text(user.displayName) },
         { label: "Login", value: text(user.login) },
@@ -298,16 +300,14 @@
         { label: "Account id", value: text(user.id) },
         { label: "Role", value: text(user.role || "player") },
         { label: "Starlight Pass", value: yn(user.pass) },
-        { label: "Password login present", value: yn(user.emailLogin) },
-        { label: "Registered", value: formatStamp(user.createdAt) },
-        { label: "Last seen", value: formatStamp(user.lastSeenAt) },
-        { label: "Level", value: text(trainer.level) },
-        { label: "Title", value: text(trainer.title) },
-        { label: "Coins", value: text(trainer.coins != null ? trainer.coins : bag.coins) },
-        { label: "Ranking visible", value: yn(view.identity && view.identity.rankingVisible) },
-        { label: "Ranking eligible", value: yn(view.identity && view.identity.rankingEligible) },
-        { label: "Primary Twitch", value: text(health.primaryTwitch) }
+        { label: "Password login present", value: yn(user.emailLogin) }
       ])}
+      <h4>Registration</h4>
+      ${dl([
+        { label: "Registered", value: formatStamp(user.createdAt) },
+        { label: "Last seen", value: formatStamp(user.lastSeenAt) }
+      ])}
+      <p class="admin-next-dossier-jumps">Level, ranking, and cosmetics are under Progression. Coins and bag are under Inventory. Twitch links are under Connections.</p>
       <p class="admin-next-unavailable">Email address is not returned. Password login is a boolean only. Recent activity journal is not available.</p>`;
   }
 

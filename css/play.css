@@ -20570,6 +20570,15 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 8px;
 }
+.admin-next-trainer-search-row button {
+  min-width: 5.5rem;
+  padding: 8px 16px;
+}
+.admin-next-trainers :focus-visible,
+.admin-next-trainer-subnav :focus-visible {
+  outline: 2px solid #c9a227;
+  outline-offset: 2px;
+}
 .admin-next-trainer-pager {
   display: flex;
   gap: 8px;
@@ -20587,6 +20596,24 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
 .admin-next-trainer-row span {
   display: grid;
   gap: 2px;
+}
+.admin-next-trainer-handle {
+  font-size: 13px;
+}
+.admin-next-trainer-stats {
+  font-size: 12px;
+}
+.admin-next-dossier-jumps {
+  margin: 0 0 12px;
+  color: #4a5568;
+  font-size: 13px;
+}
+.admin-next-trainer-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-bottom: 8px;
+  background: #fffdf8;
 }
 .admin-next-trainer-avatar {
   width: 36px;

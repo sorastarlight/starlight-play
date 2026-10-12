@@ -2,7 +2,7 @@
 
 ## 2026-10-12 — GitHub issue #3 Trainer dossier redesign
 
-- Branch: `admin-hub-overhaul` from reported HEAD `2b5263e`. No merge, deploy, SQL, staff-role, or APP stamp.
+- Branch: `admin-hub-overhaul` from reported HEAD `2b5263e`. Implementation commit `7f8393b`. No merge, deploy, SQL, staff-role, or APP stamp.
 - Sora mutated NO · Twinkle mutated NO · QA account none (unsigned fixture + unsigned admin-next). PlayTester nonstaff unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - A1 visual acceptance remains **open**. This issue is not A1.

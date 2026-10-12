@@ -148,7 +148,7 @@
     return view.users.map((row) => {
       const on = row.selected ? " is-on" : "";
       const avatar = row.avatar
-        ? `<img class="admin-next-trainer-avatar" src="${esc(row.avatar)}" alt="" width="36" height="36">`
+        ? `<img class="admin-next-trainer-avatar" src="${esc(row.avatar)}" alt="" width="44" height="44">`
         : `<span class="admin-next-trainer-avatar is-empty" aria-hidden="true"></span>`;
       return `<div role="listitem"><button type="button" class="staff-user staff-user-pick admin-next-trainer-row${on}" data-open-trainer="${esc(row.id)}">
         ${avatar}
@@ -175,8 +175,21 @@
     return `<article class="admin-next-dossier-card"><h4>${esc(title)}</h4>${body}</article>`;
   }
 
+  function isZeroish(value) {
+    return value == null || value === "" || value === DASH || Number(value) === 0;
+  }
+
   function metric(label, value) {
-    return `<div class="admin-next-stat"><p class="eyebrow">${esc(label)}</p><p>${esc(value)}</p></div>`;
+    const empty = isZeroish(value);
+    return `<div class="admin-next-stat${empty ? " is-empty" : ""}"><p class="eyebrow">${esc(label)}</p><p>${esc(value)}</p></div>`;
+  }
+
+  function stack(inner) {
+    return `<div class="admin-next-dossier-stack">${inner}</div>`;
+  }
+
+  function emptyNote(message) {
+    return `<p class="admin-next-empty">${esc(message)}</p>`;
   }
 
   function paneButtons(active) {
@@ -188,7 +201,7 @@
   }
 
   function itemGrid(items, empty) {
-    if (!items.length) return `<p class="muted">${esc(empty)}</p>`;
+    if (!items.length) return emptyNote(empty);
     return `<ul class="admin-next-trainer-pills">${items.map((item) => (
       `<li class="${item.on ? "is-on" : "is-off"}" data-state="${item.on ? "unlocked" : "locked"}"><strong>${esc(item.name)}</strong><span>${esc(item.meta)}</span></li>`
     )).join("")}</ul>`;
@@ -217,11 +230,11 @@
 
   function catalogBlock(catalog, cosmetics) {
     const rows = Array.isArray(catalog) ? catalog : [];
-    if (!rows.length) return `<p class="muted">No catalog items returned.</p>`;
+    if (!rows.length) return emptyNote("No catalog items returned.");
     const cosmeticIds = new Set((Array.isArray(cosmetics) ? cosmetics : []).map((item) => item && item.id).filter(Boolean));
     const extras = rows.filter((row) => !cosmeticIds.has(row.id));
     if (!extras.length) {
-      return `<p class="muted">Enabled catalog matches the unlock list above (${rows.length} items).</p>`;
+      return emptyNote(`Enabled catalog matches the unlock list above (${rows.length} items).`);
     }
     return itemGrid(rows.map((row) => {
       const unlocked = (cosmetics || []).some((item) => item && item.id === row.id && item.unlocked);
@@ -262,29 +275,33 @@
         <p>Lv. ${esc(mon.level != null ? mon.level : DASH)} · ${esc(mon.ball || DASH)}</p>
         <p class="muted">Caught ${esc(formatStamp(mon.caughtAt))}</p>
       </article>`).join("");
-      return `${header}
+      return `${header}${stack(`
         <p class="admin-next-unavailable">Newest 40 live Pokémon only. Full PC boxes, favorites, and locked flags are not in this RPC.</p>
-        ${mons.length ? `<div class="admin-next-mon-grid">${cards}</div>` : `<p class="muted">No live Pokémon in this snapshot.</p>`}`;
+        ${mons.length ? `<div class="admin-next-mon-grid">${cards}</div>` : emptyNote("No live Pokémon in this snapshot.")}
+      `)}`;
     }
 
     if (view.pane === "inventory") {
       const candy = (Array.isArray(view.candy) ? view.candy : []).filter((row) => Number(row && row.qty || 0) > 0);
-      return `${header}
-        <div class="admin-next-stat-grid">
+      return `${header}${stack(`
+        ${card("Currency and bag", `<div class="admin-next-stat-grid">
           ${metric("Coins", text(bag.coins))}
           ${metric("Bag used / capacity", `${text(bag.used)} / ${text(bag.capacity)}`)}
-        </div>
-        ${card("Balls and items", `<div class="admin-next-stat-grid">
+        </div>`)}
+        ${card("Poké Balls", `<div class="admin-next-stat-grid">
           ${metric("Poké Balls", text(bag.pokeball))}
           ${metric("Great Balls", text(bag.greatball))}
           ${metric("Ultra Balls", text(bag.ultraball))}
           ${metric("Master Ball (display)", text(bag.masterball))}
+        </div>`)}
+        ${card("Consumables", `<div class="admin-next-stat-grid">
           ${metric("Berries", text(bag.berry))}
           ${metric("Bait", text(bag.bait))}
           ${metric("Lure", text(bag.lure))}
         </div>`)}
-        ${card("Family candy with quantity", itemGrid(candy.map((row) => ({ name: row.name || row.familyId, meta: `${row.qty} · family ${row.familyId}`, on: true })), "No family candy quantities in this snapshot."))}
-        <p class="admin-next-unavailable">Bits entitlements are not available from these RPCs.</p>`;
+        ${card("Family candy", itemGrid(candy.map((row) => ({ name: row.name || row.familyId, meta: `${row.qty} · family ${row.familyId}`, on: true })), "No family candy quantities in this snapshot."))}
+        <p class="admin-next-unavailable">Bits entitlements are not available from these RPCs.</p>
+      `)}`;
     }
 
     if (view.pane === "progression") {
@@ -293,7 +310,7 @@
       const titles = identity.titles || [];
       const badges = identity.badges || [];
       const packs = identity.ownedAvatarPacks || [];
-      return `${header}
+      return `${header}${stack(`
         <div class="admin-next-stat-grid">
           ${metric("Level", text(trainer.level))}
           ${metric("XP", text(trainer.xp))}
@@ -309,7 +326,8 @@
         ${card("Cosmetics", itemGrid(cosmetics.map((row) => ({ name: row.name || row.id, meta: `${row.kind || "cosmetic"} · ${row.unlocked ? "Unlocked" : "Locked"}${row.equipped ? " · Equipped" : ""}`, on: Boolean(row.unlocked) })), "No cosmetics returned."))}
         ${card("Owned avatar packs", itemGrid(packs.map((id) => ({ name: id, meta: "Owned", on: true })), "No owned avatar packs."))}
         ${card("Available catalog", catalogBlock(identity.catalog || [], cosmetics))}
-        <p class="admin-next-unavailable">Full achievement list, Oak research, and evolution history are not in these RPCs.</p>`;
+        <p class="admin-next-unavailable">Full achievement list, Oak research, and evolution history are not in these RPCs.</p>
+      `)}`;
     }
 
     if (view.pane === "connections") {
@@ -328,18 +346,19 @@
           { label: "Linked", value: formatStamp(row.linkedAt) }
         ])}
       </article>`).join("");
-      return `${header}
+      return `${header}${stack(`
         <div class="admin-next-stat-grid">
           ${metric("Primary Twitch", text(health.primaryTwitch))}
           ${metric("Linked Twitch rows", text(health.linkedTwitch))}
           ${metric("Gameplay Twitch", text(health.gameplayTwitch))}
           ${metric("Bot / utility", text(health.botTwitch))}
         </div>
-        <div class="admin-next-link-grid">${cards || `<p class="muted">No Twitch connections returned.</p>`}</div>
-        <p class="admin-next-unavailable">Link and unlink controls stay on the current hub. This preview is informational only.</p>`;
+        <div class="admin-next-link-grid">${cards || emptyNote("No Twitch connections returned.")}</div>
+        <p class="admin-next-unavailable">Link and unlink controls stay on the current hub. This preview is informational only.</p>
+      `)}`;
     }
 
-    return `${header}
+    return `${header}${stack(`
       <div class="admin-next-dossier-grid">
         ${card("Account", dl(accountRows(user)))}
         ${card("Registration", dl([
@@ -348,7 +367,8 @@
         ]))}
       </div>
       <p class="admin-next-dossier-jumps">Level, ranking, and cosmetics are under Progression. Coins and bag are under Inventory. Twitch links are under Connections.</p>
-      <p class="admin-next-unavailable">Email address is not returned. Password login is a boolean only. Recent activity journal is not available.</p>`;
+      <p class="admin-next-unavailable">Email address is not returned. Password login is a boolean only. Recent activity journal is not available.</p>
+    `)}`;
   }
 
   function presentProfile(input) {

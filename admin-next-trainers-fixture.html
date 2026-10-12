@@ -84,7 +84,8 @@
   const ui = window.PLAY_ADMIN_NEXT_TRAINERS;
   const users = Object.freeze([
     { id: "11111111-1111-4111-8111-111111111111", displayName: "Fixture Oak", login: "fixtureoak", role: "player", pass: true, coins: 120, caught: 8, createdAt: "2026-01-02T00:00:00Z", lastSeenAt: "2026-10-10T12:00:00Z" },
-    { id: "22222222-2222-4222-8222-222222222222", displayName: "Fixture Blue", login: "fixtureblue", role: "player", pass: false, coins: 4, caught: 1, createdAt: "2026-03-04T00:00:00Z", lastSeenAt: "2026-09-01T08:00:00Z" }
+    { id: "22222222-2222-4222-8222-222222222222", displayName: "Fixture Blue", login: "fixtureblue", role: "player", pass: false, coins: 4, caught: 1, createdAt: "2026-03-04T00:00:00Z", lastSeenAt: "2026-09-01T08:00:00Z" },
+    { id: "33333333-3333-4333-8333-333333333333", displayName: "Fixture Superlongname-McGillicuddy", login: "fixture-superlong-login-name", role: "player", pass: false, coins: 0, caught: 0, createdAt: "2026-07-07T00:00:00Z", lastSeenAt: "2026-08-08T08:00:00Z" }
   ]);
   const dossiers = Object.freeze({
     "11111111-1111-4111-8111-111111111111": {
@@ -155,6 +156,27 @@
           { id: "bg-kanto", kind: "background", name: "Kanto" },
           { id: "bg-alola", kind: "background", name: "Alola" }
         ]
+      }
+    },
+    "33333333-3333-4333-8333-333333333333": {
+      account: {
+        user: { id: "33333333-3333-4333-8333-333333333333", username: "fixture-superlong-login-name", login: "fixture-superlong-login-name", displayName: "Fixture Superlongname-McGillicuddy", role: "player", pass: false, emailLogin: false, createdAt: "2026-07-07T00:00:00Z", lastSeenAt: "2026-08-08T08:00:00Z" },
+        health: { primaryTwitch: "", linkedTwitch: 0, gameplayTwitch: 0, botTwitch: 0 },
+        bag: { coins: 0, pokeball: 0, greatball: 0, ultraball: 0, masterball: 0, berry: 0, bait: 0, lure: 0, used: 0, capacity: 20 },
+        candy: [],
+        mons: [],
+        connections: []
+      },
+      identity: {
+        ok: true,
+        trainer: { displayName: "Fixture Superlongname-McGillicuddy", login: "fixture-superlong-login-name", level: 1, xp: 0, title: "", coins: 0, caught: 0, seen: 0, shinyCaught: 0, kanto: { caught: 0 } },
+        rankingVisible: false,
+        rankingEligible: false,
+        cosmetics: [],
+        ownedAvatarPacks: [],
+        titles: [],
+        badges: [],
+        catalog: []
       }
     }
   });

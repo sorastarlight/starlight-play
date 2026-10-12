@@ -112,6 +112,18 @@
       "approvalRequirement": "none for this issue; A1 not granted here"
     },
     {
+      "id": "I4",
+      "status": "done",
+      "scope": "GitHub issue #4 directory card sizing and dossier section spacing",
+      "dependencies": ["I3"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/evidence/issue4-*.png, RUN-LOG.md",
+      "testResults": "overhaul 10; 2A 8; next 7; 2A-R 12; S1 16; S1B 5 STATIC PASS; fixture REAL DOM 300px cards and 16px section gaps",
+      "nextAction": "Owner A1 remains open; do not merge or deploy",
+      "approvalRequirement": "none for this issue; A1 not granted here"
+    },
+    {
       "id": "F",
       "status": "blocked",
       "scope": "Privileged operations",

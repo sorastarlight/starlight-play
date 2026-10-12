@@ -13,6 +13,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | E | done | `tests/admin-hub-overhaul-tests.js` + existing hub suites | A–D | none | Re-run after further UI edits |
 | I2 | done | Issue #2 local visual QA + dossier polish | A–E | none | A1 still open |
 | I3 | done | Issue #3 Trainer dossier redesign (container layout + cards) | I2 | none | Owner visual A1 still open |
+| I4 | done | Issue #4 directory sizing + dossier section spacing | I3 | none | Owner visual A1 still open |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. Issue #3 work recorded in RUN-LOG. A1 remains open.
+Branch: `admin-hub-overhaul`. Issue #4 work recorded in RUN-LOG. A1 remains open.

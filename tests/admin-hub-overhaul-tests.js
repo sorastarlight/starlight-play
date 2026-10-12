@@ -170,6 +170,39 @@ test("Dossier uses cards and container-based layout instead of overlapping colum
   assert(fixtureHtml.includes("Fixture developer tools"));
 });
 
+test("Directory cards stay bounded and dossier sections use a stacked gap token", () => {
+  const css = read("css/play.css");
+  assert(css.includes("--admin-next-section-gap: 16px"));
+  assert(css.includes("--admin-next-dir-card: 300px"));
+  assert(css.includes("repeat(auto-fill, minmax(min(100%, 260px), var(--admin-next-dir-card)))"));
+  assert(css.includes(".admin-next-dossier-stack"));
+  const inventory = trainers.profileHtml(trainers.presentProfile({
+    account: {
+      user: { displayName: "Ash" },
+      bag: { coins: 0, pokeball: 0, greatball: 0, ultraball: 0, masterball: 0, berry: 0, bait: 0, lure: 0, used: 0, capacity: 20 },
+      candy: [],
+      mons: [],
+      connections: []
+    },
+    identity: { ok: true, trainer: {}, cosmetics: [], titles: [], badges: [], catalog: [], ownedAvatarPacks: [] },
+    pane: "inventory"
+  }));
+  assert(inventory.includes("admin-next-dossier-stack"));
+  assert(inventory.includes("Currency and bag"));
+  assert(inventory.includes("Poké Balls"));
+  assert(inventory.includes("Consumables"));
+  assert(inventory.includes("Family candy"));
+  assert(inventory.includes("admin-next-empty"));
+  assert(inventory.includes("is-empty"));
+  const progression = trainers.profileHtml(trainers.presentProfile({
+    account: { user: { displayName: "Ash" }, bag: {}, mons: [], candy: [], connections: [] },
+    identity: { ok: true, trainer: {}, cosmetics: [], titles: [], badges: [], catalog: [], ownedAvatarPacks: [] },
+    pane: "progression"
+  }));
+  assert(progression.includes("admin-next-dossier-stack"));
+  assert((progression.match(/admin-next-dossier-card/g) || []).length >= 5);
+});
+
 test("Preview still has no privileged writes and legacy entry points stay put", () => {
   [
     "admin_grant_pokemon",

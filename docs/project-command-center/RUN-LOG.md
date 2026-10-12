@@ -1,5 +1,55 @@
 # Run log
 
+## 2026-10-12 — GitHub issue #4 directory sizing and dossier spacing
+
+- Branch: `admin-hub-overhaul` from `8ff495f`. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
+- Sora mutated NO · Twinkle mutated NO · QA account none (unsigned fixture). PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- A1 visual acceptance remains **open**.
+
+### Implementation
+
+Directory list uses `repeat(auto-fill, minmax(min(100%, 260px), 300px))` so browse cards stay 300px instead of full-bleed strips. Selected sidebar is the same 300px card width (`--admin-next-dir-card`). Dossier panes wrap in `.admin-next-dossier-stack` with `--admin-next-section-gap: 16px`. Inventory is Currency and bag / Poké Balls / Consumables / Family candy. Zero counts use `is-empty`. Fixture added a long-name trainer for wrap/empty-state review.
+
+No new RPCs. Legacy admin untouched.
+
+### REAL DOM (unsigned fixture)
+
+| Viewport | Directory / selected | Overflow | Overlap | Notes |
+|---|---|---|---|---|
+| 1920 selected | dir 300, cards 300 | no | no | stack gap 16 |
+| 1440 directory | three 300px cards | no | no | search 612 |
+| 1440 selected | dir 300, cards 300 | no | no | stack gap 16 |
+| 1280 / 1024 selected | dir 300 | no | no | both columns |
+| 768 / 720 selected | detail only | no | no | Back visible |
+| 390 directory | cards 300 in 330 container | no | no | no overflow |
+
+Inventory peer gaps (Currency→Balls→Consumables→Candy) all 16px. Progression Titles→Badges→Cosmetics→Packs→Catalog all 16px.
+
+### Screenshots
+
+Browser-tool webfont capture is garbled. Accessibility tree + bounding boxes are the source of truth. Owner should review at 100% zoom.
+
+- `docs/project-command-center/evidence/issue4-1440-directory.png`
+- `docs/project-command-center/evidence/issue4-1440-overview.png`
+- `docs/project-command-center/evidence/issue4-1440-inventory.png`
+- `docs/project-command-center/evidence/issue4-1440-progression.png`
+- `docs/project-command-center/evidence/issue4-1440-connections.png`
+- `docs/project-command-center/evidence/issue4-390-directory.png`
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-overhaul-tests.js` | STATIC PASS | 10 |
+| `tests/admin-hub-gate-2a-trainer-tests.js` | STATIC PASS | 8 |
+| `tests/admin-hub-next-tests.js` | STATIC PASS | 7 |
+| `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC PASS | 12 |
+| `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC PASS | 16 |
+| `tests/admin-hub-gate-17-s1b-tests.js` | STATIC PASS | 5 |
+| Live staff trainer RPCs | **not run** | needs separate approval |
+| Production | **not run** | smoke paused |
+
 ## 2026-10-12 — GitHub issue #3 Trainer dossier redesign
 
 - Branch: `admin-hub-overhaul` from reported HEAD `2b5263e`. Implementation commit `7f8393b`. No merge, deploy, SQL, staff-role, or APP stamp.

@@ -20555,6 +20555,9 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   .admin-next-ops-value { font-size: 22px; }
 }
 .admin-next-trainers-panel {
+  --admin-next-section-gap: 16px;
+  --admin-next-card-pad: 14px;
+  --admin-next-dir-card: 300px;
   container-type: inline-size;
   container-name: trainers;
   overflow: clip;
@@ -20562,23 +20565,29 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
 .admin-next-trainers {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 16px;
+  gap: var(--admin-next-section-gap);
   margin: 16px 0;
   min-width: 0;
 }
 .admin-next-trainers-dir,
 .admin-next-trainers-detail {
+  display: grid;
+  align-content: start;
+  gap: 12px;
   min-width: 0;
 }
 .admin-next-trainers.is-profile [data-trainers-dir] { display: none; }
 .admin-next-trainers:not(.is-profile) [data-trainers-detail] { display: none; }
 @container trainers (min-width: 920px) {
   .admin-next-trainers.is-profile {
-    grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+    grid-template-columns: minmax(260px, var(--admin-next-dir-card)) minmax(0, 1fr);
     align-items: start;
   }
-  .admin-next-trainers.is-profile [data-trainers-dir] { display: block; }
-  .admin-next-trainers.is-profile [data-trainers-detail] { display: block; }
+  .admin-next-trainers.is-profile [data-trainers-dir] { display: grid; }
+  .admin-next-trainers.is-profile [data-trainers-detail] { display: grid; }
+}
+.admin-next-trainers:not(.is-profile) .admin-next-trainer-search {
+  max-width: calc(var(--admin-next-dir-card) * 2 + 12px);
 }
 .admin-next-trainer-search label {
   display: block;
@@ -20604,22 +20613,40 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 8px 0 12px;
+  margin: 0;
 }
 .admin-next-trainer-list {
   display: grid;
-  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), var(--admin-next-dir-card)));
+  justify-content: start;
+  gap: 12px;
 }
-.admin-next-trainer-row {
+.admin-next-trainers.is-profile .admin-next-trainer-list {
+  grid-template-columns: minmax(0, 1fr);
+}
+.admin-next-trainer-row.staff-user {
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr);
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
   text-align: left;
   width: 100%;
   min-width: 0;
+  margin: 0;
+  padding: var(--admin-next-card-pad);
+  border: 1px solid #eadff0;
+  border-radius: 14px;
+  background: #fffdfb;
+  box-shadow: 0 3px 0 #f3e2c8;
+}
+.admin-next-trainer-row.staff-user-pick.is-on {
+  border-color: #e4b3d4;
+  background: #fff7fb;
+  box-shadow: 0 3px 0 #f3c6e2;
 }
 .admin-next-trainer-row span {
   display: grid;
-  gap: 2px;
+  gap: 3px;
   min-width: 0;
 }
 .admin-next-trainer-handle {
@@ -20627,35 +20654,37 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   overflow-wrap: anywhere;
 }
 .admin-next-trainer-stats {
-  font-size: 12px;
+  font-size: 13px;
 }
 .admin-next-dossier-jumps {
-  margin: 0 0 12px;
+  margin: 0;
   color: #4a5568;
   font-size: 14px;
 }
 .admin-next-trainer-head {
-  padding: 4px 0 8px;
+  display: grid;
+  gap: 4px;
+  padding: 0;
 }
 .admin-next-trainer-avatar {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
   background: #efe7f4;
 }
 .admin-next-trainer-avatar.is-empty { display: inline-block; }
-.admin-next-trainer-head h3 { margin: 4px 0 6px; overflow-wrap: anywhere; }
+.admin-next-trainer-head h3 { margin: 0; overflow-wrap: anywhere; }
 .admin-next-chip-row {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin: 8px 0 0;
+  margin: 4px 0 0;
 }
 .admin-next-chip {
   display: inline-flex;
   align-items: center;
-  padding: 3px 8px;
+  padding: 4px 9px;
   border-radius: 999px;
   background: #f4eef8;
   color: #5d4a68;
@@ -20663,15 +20692,20 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
 }
 .admin-next-chip.is-pass { background: #ffe3f3; color: #723d65; }
 .admin-next-chip.is-role { background: #eef6ff; color: #3d5672; }
-.admin-next-chip.is-muted { background: #f3f6fa; color: #6a7790; }
+.admin-next-chip.is-muted { background: #f3f6fa; color: #5a6578; }
 .admin-next-trainer-subnav {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin: 12px 0;
+  margin: 10px 0 0;
 }
 .admin-next-trainer-subnav [aria-selected="true"] {
   box-shadow: 0 0 0 2px #c9a227;
+}
+.admin-next-dossier-stack {
+  display: grid;
+  gap: var(--admin-next-section-gap);
+  margin-top: 14px;
 }
 .admin-next-dossier-grid,
 .admin-next-stat-grid,
@@ -20680,14 +20714,14 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
   gap: 12px;
-  margin: 0 0 16px;
+  margin: 0;
 }
 .admin-next-dossier-card,
 .admin-next-mon-card,
 .admin-next-link-card {
   min-width: 0;
   margin: 0;
-  padding: 12px;
+  padding: var(--admin-next-card-pad);
   border: 1px solid #eadff0;
   border-radius: 14px;
   background: #fffdfb;
@@ -20696,7 +20730,7 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
 .admin-next-dossier-card h4,
 .admin-next-mon-name,
 .admin-next-link-name {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   font-size: 16px;
 }
 .admin-next-stat {
@@ -20705,20 +20739,29 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   border-radius: 12px;
   background: linear-gradient(180deg, #fff8fc, #eef7ff);
 }
+.admin-next-stat.is-empty {
+  background: #f4f6f9;
+  color: #5a6578;
+}
 .admin-next-stat p { margin: 0; overflow-wrap: anywhere; }
 .admin-next-stat p:last-child { font-size: 18px; }
+.admin-next-empty {
+  margin: 0;
+  color: #5a6578;
+  font-size: 14px;
+}
 .admin-next-trainer-dl {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 8px 12px;
+  gap: 10px 12px;
   margin: 0;
 }
 .admin-next-trainer-dl div { min-width: 0; }
 .admin-next-trainer-dl dt {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: .04em;
   text-transform: uppercase;
-  color: #7a6a88;
+  color: #6a5a78;
 }
 .admin-next-trainer-dl dd {
   margin: 0;
@@ -20734,13 +20777,13 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   list-style: none;
 }
 .admin-next-trainer-pills li {
-  padding: 8px 10px;
+  padding: 10px 12px;
   border-radius: 10px;
   background: #f4f1f8;
 }
 .admin-next-trainer-pills li.is-on { background: #e7fff4; }
-.admin-next-trainer-pills li.is-off { background: #f3f5f8; color: #5a6578; }
-.admin-next-trainer-pills span { display: block; color: #6a7a96; font-size: 12px; }
+.admin-next-trainer-pills li.is-off { background: #eef1f5; color: #4a5568; }
+.admin-next-trainer-pills span { display: block; color: #5a6a80; font-size: 13px; }
 .admin-next-fixture-lab {
   margin: 18px 0 0;
   padding: 12px;

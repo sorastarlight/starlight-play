@@ -9,6 +9,8 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | C | Duplicate-action inventory and consolidation design | Design only; no writes | **DONE** this session |
 | D | Navigation and operations coherence | Local frontend | **DONE** this session |
 | E | Safe frontend regression automation | Local tests | **DONE** this session |
+| I2 | Issue #2 local visual QA | Local frontend | **DONE** |
+| I3 | Issue #3 Trainer dossier redesign | Local frontend | **DONE** — owner A1 still open |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
 
 ## Sequence

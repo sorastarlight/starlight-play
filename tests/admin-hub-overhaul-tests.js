@@ -134,6 +134,42 @@ test("Support is the only next-hub grant doorway", () => {
   assert(nextHtml.includes("Canonical Oak QA"));
 });
 
+test("Dossier uses cards and container-based layout instead of overlapping columns", () => {
+  const css = read("css/play.css");
+  assert(css.includes("container-type: inline-size"));
+  assert(css.includes("@container trainers"));
+  assert(css.includes("overflow-wrap: anywhere"));
+  const pokemon = trainers.profileHtml(trainers.presentProfile({
+    account: {
+      user: { displayName: "Ash" },
+      bag: { coins: 4, pokeball: 1, used: 1, capacity: 20 },
+      mons: [{ name: "Pikachu", dex: 25, variant: "Normal", level: 12, ball: "poke", caughtAt: "2026-01-01T00:00:00Z" }],
+      candy: [],
+      connections: [{ type: "twitch", login: "ash", displayName: "Ash", twitchUserId: "1" }]
+    },
+    identity: { ok: true, trainer: {}, cosmetics: [], titles: [], badges: [], catalog: [], ownedAvatarPacks: [] },
+    pane: "pokemon"
+  }));
+  assert(pokemon.includes("admin-next-mon-card"));
+  assert(!pokemon.includes("<table"));
+  const connections = trainers.profileHtml(trainers.presentProfile({
+    account: {
+      user: { displayName: "Ash" },
+      bag: {},
+      mons: [],
+      candy: [],
+      connections: [{ type: "twitch", login: "ash", displayName: "Ash", twitchUserId: "1" }]
+    },
+    identity: { ok: true, trainer: {}, cosmetics: [], titles: [], badges: [], catalog: [], ownedAvatarPacks: [] },
+    pane: "connections"
+  }));
+  assert(connections.includes("admin-next-link-card"));
+  assert(!connections.includes("admin-next-ops-card"));
+  const dirSplit = fixtureHtml.split('data-trainers-dir')[1].split("data-trainers-detail")[0];
+  assert(!dirSplit.includes("data-fixture-state"));
+  assert(fixtureHtml.includes("Fixture developer tools"));
+});
+
 test("Preview still has no privileged writes and legacy entry points stay put", () => {
   [
     "admin_grant_pokemon",

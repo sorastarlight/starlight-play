@@ -100,6 +100,18 @@
       "approvalRequirement": "none for this issue; A1 not granted here"
     },
     {
+      "id": "I3",
+      "status": "done",
+      "scope": "GitHub issue #3 Trainer dossier redesign: container layout, chips, cards, fixture lab",
+      "dependencies": ["I2"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/evidence/issue3-*.png, RUN-LOG.md",
+      "testResults": "overhaul 9; 2A 8; next 7; 2A-R 12; S1 16; S1B 5 STATIC PASS; fixture REAL DOM no overflow/overlap",
+      "nextAction": "Owner A1 remains open; do not merge or deploy",
+      "approvalRequirement": "none for this issue; A1 not granted here"
+    },
+    {
       "id": "F",
       "status": "blocked",
       "scope": "Privileged operations",

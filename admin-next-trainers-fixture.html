@@ -44,13 +44,6 @@
                 <button type="button" data-trainers-prev disabled>Previous</button>
                 <button type="button" data-trainers-next disabled>Next</button>
               </div>
-              <p class="admin-next-unavailable">Fixture QA states. These do not call live RPCs.</p>
-              <div class="admin-next-trainer-pager" data-fixture-states>
-                <button type="button" data-fixture-state="empty">Empty results</button>
-                <button type="button" data-fixture-state="denied">Denied</button>
-                <button type="button" data-fixture-state="loading">Loading</button>
-                <button type="button" data-fixture-state="reset">Reset directory</button>
-              </div>
               <div id="next-trainer-list" class="admin-next-trainer-list" role="list"></div>
             </div>
             <div class="admin-next-trainers-detail" data-trainers-detail hidden>
@@ -59,6 +52,16 @@
               <div id="next-trainer-detail"></div>
             </div>
           </div>
+          <aside class="admin-next-fixture-lab" data-fixture-states>
+            <h3>Fixture developer tools</h3>
+            <p class="muted">Localhost-only simulation. These buttons do not call live RPCs and are not part of the staff workspace.</p>
+            <div class="admin-next-trainer-pager">
+              <button type="button" data-fixture-state="empty">Empty results</button>
+              <button type="button" data-fixture-state="denied">Denied</button>
+              <button type="button" data-fixture-state="loading">Loading</button>
+              <button type="button" data-fixture-state="reset">Reset directory</button>
+            </div>
+          </aside>
           <p class="admin-next-unavailable">Fixture names are invented. They are not PlayTester, Sora, or Twinkle.</p>
         </section>
       </div>
@@ -90,7 +93,11 @@
         health: { primaryTwitch: "fixtureoak", linkedTwitch: 1, gameplayTwitch: 1, botTwitch: 0 },
         bag: { coins: 120, pokeball: 8, greatball: 2, ultraball: 0, masterball: 0, berry: 3, bait: 1, lure: 0, used: 4, capacity: 20 },
         candy: [{ name: "Bulbasaur Candy", familyId: "bulbasaur", qty: 12 }],
-        mons: [{ name: "Bulbasaur", dex: 1, variant: "Normal", gender: "M", ball: "poke", level: 12, caughtAt: "2026-02-01T00:00:00Z" }],
+        mons: [
+          { name: "Bulbasaur", dex: 1, variant: "Normal", gender: "M", ball: "poke", level: 12, caughtAt: "2026-02-01T00:00:00Z" },
+          { name: "Ivysaur", dex: 2, variant: "Normal", gender: "M", ball: "great", level: 18, caughtAt: "2026-04-12T00:00:00Z" },
+          { name: "Pikachu", dex: 25, variant: "Shiny", gender: "F", ball: "ultra", level: 22, caughtAt: "2026-06-20T00:00:00Z" }
+        ],
         connections: [{ type: "twitch", displayName: "FixtureOak", login: "fixtureoak", twitchUserId: "9001", primary: true, confirmed: true, gameplayEnabled: true, loginEnabled: true, status: "linked", linkedAt: "2026-01-03T00:00:00Z" }]
       },
       identity: {

@@ -162,9 +162,21 @@
   }
 
   function dl(rows) {
-    return `<dl class="admin-next-ops-meta admin-next-trainer-dl">${rows.map((row) => (
+    return `<dl class="admin-next-trainer-dl">${rows.map((row) => (
       `<div><dt>${esc(row.label)}</dt><dd>${esc(row.value)}</dd></div>`
     )).join("")}</dl>`;
+  }
+
+  function chip(label, tone) {
+    return `<span class="admin-next-chip${tone ? ` is-${tone}` : ""}">${esc(label)}</span>`;
+  }
+
+  function card(title, body) {
+    return `<article class="admin-next-dossier-card"><h4>${esc(title)}</h4>${body}</article>`;
+  }
+
+  function metric(label, value) {
+    return `<div class="admin-next-stat"><p class="eyebrow">${esc(label)}</p><p>${esc(value)}</p></div>`;
   }
 
   function paneButtons(active) {
@@ -229,45 +241,49 @@
     const trainer = view.identity && view.identity.trainer || {};
     const health = view.health || {};
     const bag = view.bag || {};
+    const chips = [
+      chip(user.role || "player", "role"),
+      user.pass ? chip("Starlight Pass", "pass") : chip("No Pass", "muted"),
+      chip(`Last seen ${formatStamp(user.lastSeenAt)}`, "muted")
+    ].join("");
     const header = `<header class="admin-next-trainer-head">
       <p class="eyebrow">Selected trainer</p>
       <h3>${esc(user.displayName || trainer.displayName || "Trainer")}</h3>
-      <p class="muted">@${esc(user.login || trainer.login || DASH)} · ${esc(user.role || "player")}${user.pass ? " · Starlight Pass" : ""}</p>
+      <p class="admin-next-trainer-handle">@${esc(user.login || trainer.login || DASH)}</p>
+      <p class="admin-next-chip-row">${chips}</p>
     </header>
     <div class="admin-next-trainer-subnav" role="tablist" aria-label="Trainer dossier">${paneButtons(view.pane)}</div>`;
 
     if (view.pane === "pokemon") {
       const mons = Array.isArray(view.mons) ? view.mons : [];
-      const rows = mons.map((mon) => `<tr>
-        <td>${esc(mon.name || DASH)}</td>
-        <td>${esc(mon.dex != null ? `#${mon.dex}` : DASH)}</td>
-        <td>${esc(mon.variant || DASH)}</td>
-        <td>${esc(mon.gender || DASH)}</td>
-        <td>${esc(mon.ball || DASH)}</td>
-        <td>${esc(mon.level != null ? mon.level : DASH)}</td>
-        <td>${esc(formatStamp(mon.caughtAt))}</td>
-      </tr>`).join("");
+      const cards = mons.map((mon) => `<article class="admin-next-mon-card">
+        <p class="admin-next-mon-name">${esc(mon.name || DASH)}</p>
+        <p class="muted">${esc(mon.dex != null ? `#${mon.dex}` : DASH)} · ${esc(mon.variant || DASH)} · ${esc(mon.gender || DASH)}</p>
+        <p>Lv. ${esc(mon.level != null ? mon.level : DASH)} · ${esc(mon.ball || DASH)}</p>
+        <p class="muted">Caught ${esc(formatStamp(mon.caughtAt))}</p>
+      </article>`).join("");
       return `${header}
-        <p class="admin-next-unavailable">Partial snapshot: newest 40 live Pokémon. Full PC boxes, favorites, and locked flags are not in this RPC.</p>
-        ${mons.length ? `<div class="admin-next-trainer-table-wrap"><table class="admin-next-trainer-table"><thead><tr><th>Name</th><th>Dex</th><th>Variant</th><th>Gender</th><th>Ball</th><th>Level</th><th>Caught</th></tr></thead><tbody>${rows}</tbody></table></div>` : `<p class="muted">No live Pokémon in this snapshot.</p>`}`;
+        <p class="admin-next-unavailable">Newest 40 live Pokémon only. Full PC boxes, favorites, and locked flags are not in this RPC.</p>
+        ${mons.length ? `<div class="admin-next-mon-grid">${cards}</div>` : `<p class="muted">No live Pokémon in this snapshot.</p>`}`;
     }
 
     if (view.pane === "inventory") {
       const candy = (Array.isArray(view.candy) ? view.candy : []).filter((row) => Number(row && row.qty || 0) > 0);
       return `${header}
-        ${dl([
-          { label: "Coins", value: text(bag.coins) },
-          { label: "Poké Balls", value: text(bag.pokeball) },
-          { label: "Great Balls", value: text(bag.greatball) },
-          { label: "Ultra Balls", value: text(bag.ultraball) },
-          { label: "Master Ball (display)", value: text(bag.masterball) },
-          { label: "Berries", value: text(bag.berry) },
-          { label: "Bait", value: text(bag.bait) },
-          { label: "Lure", value: text(bag.lure) },
-          { label: "Bag used / capacity", value: `${text(bag.used)} / ${text(bag.capacity)}` }
-        ])}
-        <h4>Family candy with quantity</h4>
-        ${itemGrid(candy.map((row) => ({ name: row.name || row.familyId, meta: `${row.qty} · family ${row.familyId}`, on: true })), "No family candy quantities in this snapshot.")}
+        <div class="admin-next-stat-grid">
+          ${metric("Coins", text(bag.coins))}
+          ${metric("Bag used / capacity", `${text(bag.used)} / ${text(bag.capacity)}`)}
+        </div>
+        ${card("Balls and items", `<div class="admin-next-stat-grid">
+          ${metric("Poké Balls", text(bag.pokeball))}
+          ${metric("Great Balls", text(bag.greatball))}
+          ${metric("Ultra Balls", text(bag.ultraball))}
+          ${metric("Master Ball (display)", text(bag.masterball))}
+          ${metric("Berries", text(bag.berry))}
+          ${metric("Bait", text(bag.bait))}
+          ${metric("Lure", text(bag.lure))}
+        </div>`)}
+        ${card("Family candy with quantity", itemGrid(candy.map((row) => ({ name: row.name || row.familyId, meta: `${row.qty} · family ${row.familyId}`, on: true })), "No family candy quantities in this snapshot."))}
         <p class="admin-next-unavailable">Bits entitlements are not available from these RPCs.</p>`;
     }
 
@@ -278,34 +294,29 @@
       const badges = identity.badges || [];
       const packs = identity.ownedAvatarPacks || [];
       return `${header}
-        ${dl([
-          { label: "Level", value: text(trainer.level) },
-          { label: "XP", value: text(trainer.xp) },
-          { label: "Title", value: text(trainer.title) },
-          { label: "Ranking visible", value: yn(identity.rankingVisible) },
-          { label: "Ranking eligible", value: yn(identity.rankingEligible) },
-          { label: "Kanto caught", value: text(trainer.kanto && trainer.kanto.caught) },
-          { label: "Caught / seen", value: `${text(trainer.caught)} / ${text(trainer.seen)}` },
-          { label: "Shiny caught", value: text(trainer.shinyCaught) }
-        ])}
-        <h4>Titles</h4>
-        ${itemGrid(titles.map((row) => ({ name: row.name || row.id, meta: row.unlocked ? `Unlocked ${formatStamp(row.unlockedAt)}` : "Locked", on: Boolean(row.unlocked) })), "No titles returned.")}
-        <h4>Badges</h4>
-        ${itemGrid(badges.map((row) => ({ name: row.name || row.id, meta: row.unlocked ? `Unlocked ${formatStamp(row.unlockedAt)}` : "Locked", on: Boolean(row.unlocked) })), "No badges returned.")}
-        <h4>Cosmetics</h4>
-        ${itemGrid(cosmetics.map((row) => ({ name: row.name || row.id, meta: `${row.kind || "cosmetic"} · ${row.unlocked ? "Unlocked" : "Locked"}${row.equipped ? " · Equipped" : ""}`, on: Boolean(row.unlocked) })), "No cosmetics returned.")}
-        <h4>Owned avatar packs</h4>
-        ${itemGrid(packs.map((id) => ({ name: id, meta: "Owned", on: true })), "No owned avatar packs.")}
-        <h4>Available catalog</h4>
-        ${catalogBlock(identity.catalog || [], cosmetics)}
+        <div class="admin-next-stat-grid">
+          ${metric("Level", text(trainer.level))}
+          ${metric("XP", text(trainer.xp))}
+          ${metric("Title", text(trainer.title))}
+          ${metric("Ranking visible", yn(identity.rankingVisible))}
+          ${metric("Ranking eligible", yn(identity.rankingEligible))}
+          ${metric("Kanto caught", text(trainer.kanto && trainer.kanto.caught))}
+          ${metric("Caught / seen", `${text(trainer.caught)} / ${text(trainer.seen)}`)}
+          ${metric("Shiny caught", text(trainer.shinyCaught))}
+        </div>
+        ${card("Titles", itemGrid(titles.map((row) => ({ name: row.name || row.id, meta: row.unlocked ? `Unlocked ${formatStamp(row.unlockedAt)}` : "Locked", on: Boolean(row.unlocked) })), "No titles returned."))}
+        ${card("Badges", itemGrid(badges.map((row) => ({ name: row.name || row.id, meta: row.unlocked ? `Unlocked ${formatStamp(row.unlockedAt)}` : "Locked", on: Boolean(row.unlocked) })), "No badges returned."))}
+        ${card("Cosmetics", itemGrid(cosmetics.map((row) => ({ name: row.name || row.id, meta: `${row.kind || "cosmetic"} · ${row.unlocked ? "Unlocked" : "Locked"}${row.equipped ? " · Equipped" : ""}`, on: Boolean(row.unlocked) })), "No cosmetics returned."))}
+        ${card("Owned avatar packs", itemGrid(packs.map((id) => ({ name: id, meta: "Owned", on: true })), "No owned avatar packs."))}
+        ${card("Available catalog", catalogBlock(identity.catalog || [], cosmetics))}
         <p class="admin-next-unavailable">Full achievement list, Oak research, and evolution history are not in these RPCs.</p>`;
     }
 
     if (view.pane === "connections") {
       const connections = Array.isArray(view.connections) ? view.connections : [];
-      const cards = connections.map((row) => `<article class="admin-next-ops-card hub-metric">
+      const cards = connections.map((row) => `<article class="admin-next-link-card">
         <p class="eyebrow">${esc(row.type || "twitch")}</p>
-        <p class="admin-next-ops-value">${esc(row.displayName || row.login || DASH)}</p>
+        <p class="admin-next-link-name">${esc(row.displayName || row.login || DASH)}</p>
         ${dl([
           { label: "Login", value: text(row.login) },
           { label: "Twitch user id", value: text(row.twitchUserId) },
@@ -318,24 +329,24 @@
         ])}
       </article>`).join("");
       return `${header}
-        ${dl([
-          { label: "Primary Twitch", value: text(health.primaryTwitch) },
-          { label: "Linked Twitch rows", value: text(health.linkedTwitch) },
-          { label: "Gameplay Twitch", value: text(health.gameplayTwitch) },
-          { label: "Bot / utility", value: text(health.botTwitch) }
-        ])}
-        <div class="admin-next-metrics">${cards || `<p class="muted">No Twitch connections returned.</p>`}</div>
+        <div class="admin-next-stat-grid">
+          ${metric("Primary Twitch", text(health.primaryTwitch))}
+          ${metric("Linked Twitch rows", text(health.linkedTwitch))}
+          ${metric("Gameplay Twitch", text(health.gameplayTwitch))}
+          ${metric("Bot / utility", text(health.botTwitch))}
+        </div>
+        <div class="admin-next-link-grid">${cards || `<p class="muted">No Twitch connections returned.</p>`}</div>
         <p class="admin-next-unavailable">Link and unlink controls stay on the current hub. This preview is informational only.</p>`;
     }
 
     return `${header}
-      <h4>Account</h4>
-      ${dl(accountRows(user))}
-      <h4>Registration</h4>
-      ${dl([
-        { label: "Registered", value: formatStamp(user.createdAt) },
-        { label: "Last seen", value: formatStamp(user.lastSeenAt) }
-      ])}
+      <div class="admin-next-dossier-grid">
+        ${card("Account", dl(accountRows(user)))}
+        ${card("Registration", dl([
+          { label: "Registered", value: formatStamp(user.createdAt) },
+          { label: "Last seen", value: formatStamp(user.lastSeenAt) }
+        ]))}
+      </div>
       <p class="admin-next-dossier-jumps">Level, ranking, and cosmetics are under Progression. Coins and bag are under Inventory. Twitch links are under Connections.</p>
       <p class="admin-next-unavailable">Email address is not returned. Password login is a boolean only. Recent activity journal is not available.</p>`;
   }

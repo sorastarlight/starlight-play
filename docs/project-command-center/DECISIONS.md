@@ -8,6 +8,7 @@
 | D2 | Overview holds account identity only | Removes duplicate ranking / coins / Twitch fields from the first pane |
 | D3 | Support & Recovery is the only next-hub doorway to trainer grants | Eliminates the second “Open current Trainers for grants” link |
 | D4 | No new RPCs, no legacy admin edits | Authorized batch is local frontend + docs |
+| D5 | Trainer workspace uses container queries, not viewport-only 960px | Owner 100% zoom overlap was caused by `minmax(280px,360px)` inside a narrower hub-main |
 
 ## Needs owner approval
 

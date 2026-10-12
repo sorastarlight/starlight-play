@@ -1,5 +1,62 @@
 # Run log
 
+## 2026-10-12 — GitHub issue #3 Trainer dossier redesign
+
+- Branch: `admin-hub-overhaul` from reported HEAD `2b5263e`. No merge, deploy, SQL, staff-role, or APP stamp.
+- Sora mutated NO · Twinkle mutated NO · QA account none (unsigned fixture + unsigned admin-next). PlayTester nonstaff unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- A1 visual acceptance remains **open**. This issue is not A1.
+
+### Implementation
+
+Container queries on `.admin-next-trainers-panel` (`@container trainers (min-width: 920px)`) replace the viewport-only 960px + `minmax(280px,360px)` pair. Directory-only is full width. Selected profile is single-column with Back below 920px of trainer container width; sidebar + dossier when the container is wide enough. Header chips, dossier/mon/link cards, compact inventory/progression metrics. Fixture QA moved to `aside.admin-next-fixture-lab` outside the directory. Oak fixture gained Ivysaur + Pikachu so the Pokémon grid is visible.
+
+No new RPCs. No writes. Legacy `admin.html` / `js/admin-live.js` untouched.
+
+### REAL DOM layout (unsigned fixture `http://127.0.0.1:4252/admin-next-trainers-fixture.html`)
+
+| Viewport | Container | Selected columns | Overflow | Overlap |
+|---|---|---|---|---|
+| 1440 | 1118 | dir 260 + detail 842 | no | no |
+| 1280 | 958 | dir 260 + detail 682 | no | no |
+| 1024 | 940 | both visible | no | no |
+| 768 | 684 | detail only | no | no |
+| 720 (200% of 1440) | 636 | detail only | no | no |
+| 390 profile | 330 | detail only | no | no |
+| 390 directory | 330 | directory only | no | no |
+
+Panes exercised: Overview (Account + Registration cards + chips), Pokémon (3 mon cards, no table), Inventory (coins / 4 of 20 + balls/items + candy), Progression (stat grid + grouped titles/badges/cosmetics; catalog collapsed), Connections (metrics + `admin-next-link-card`, 0 `admin-next-ops-card`). Directory-only has search + two rows + fixture lab, no dossier.
+
+Unsigned `admin-next.html` still shows “Sign in to open the Admin Hub preview.” Trainers stays “Open this tab to load the first page.” No live trainer RPC.
+
+### Screenshots
+
+Browser-tool webfont capture is garbled (Fredoka/Nunito subset). Accessibility tree + bounding-box overflow/overlap checks are the text/layout source of truth. Owner should review in a real browser at 100% zoom.
+
+- `docs/project-command-center/evidence/issue3-1440-directory.png`
+- `docs/project-command-center/evidence/issue3-1440-overview.png`
+- `docs/project-command-center/evidence/issue3-1440-pokemon.png`
+- `docs/project-command-center/evidence/issue3-1440-inventory.png`
+- `docs/project-command-center/evidence/issue3-1440-progression.png`
+- `docs/project-command-center/evidence/issue3-1440-connections.png`
+- `docs/project-command-center/evidence/issue3-390-directory.png`
+- `docs/project-command-center/evidence/issue3-390-overview.png`
+- `docs/project-command-center/evidence/issue3-390-pokemon.png`
+- `docs/project-command-center/evidence/issue3-390-connections.png`
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-overhaul-tests.js` | STATIC PASS | 9 |
+| `tests/admin-hub-gate-2a-trainer-tests.js` | STATIC PASS | 8 |
+| `tests/admin-hub-next-tests.js` | STATIC PASS | 7 |
+| `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC PASS | 12 |
+| `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC PASS | 16 |
+| `tests/admin-hub-gate-17-s1b-tests.js` | STATIC PASS | 5 |
+| Live staff trainer RPCs | **not run** | needs separate approval |
+| Production | **not run** | smoke paused |
+
 ## 2026-10-12 — GitHub issue #2 local visual QA
 
 - Branch: `admin-hub-overhaul` · commit `2d29e1e`. No merge, deploy, SQL, or staff-role changes.

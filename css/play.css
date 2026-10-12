@@ -20554,11 +20554,31 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   .admin-next-app { grid-template-columns: 1fr; }
   .admin-next-ops-value { font-size: 22px; }
 }
+.admin-next-trainers-panel {
+  container-type: inline-size;
+  container-name: trainers;
+  overflow: clip;
+}
 .admin-next-trainers {
   display: grid;
-  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
   margin: 16px 0;
+  min-width: 0;
+}
+.admin-next-trainers-dir,
+.admin-next-trainers-detail {
+  min-width: 0;
+}
+.admin-next-trainers.is-profile [data-trainers-dir] { display: none; }
+.admin-next-trainers:not(.is-profile) [data-trainers-detail] { display: none; }
+@container trainers (min-width: 920px) {
+  .admin-next-trainers.is-profile {
+    grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+    align-items: start;
+  }
+  .admin-next-trainers.is-profile [data-trainers-dir] { display: block; }
+  .admin-next-trainers.is-profile [data-trainers-detail] { display: block; }
 }
 .admin-next-trainer-search label {
   display: block;
@@ -20575,12 +20595,14 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   padding: 8px 16px;
 }
 .admin-next-trainers :focus-visible,
-.admin-next-trainer-subnav :focus-visible {
+.admin-next-trainer-subnav :focus-visible,
+.admin-next-fixture-lab :focus-visible {
   outline: 2px solid #c9a227;
   outline-offset: 2px;
 }
 .admin-next-trainer-pager {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin: 8px 0 12px;
 }
@@ -20589,16 +20611,20 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   gap: 8px;
 }
 .admin-next-trainer-row {
+  display: grid;
   grid-template-columns: 36px minmax(0, 1fr);
   text-align: left;
   width: 100%;
+  min-width: 0;
 }
 .admin-next-trainer-row span {
   display: grid;
   gap: 2px;
+  min-width: 0;
 }
 .admin-next-trainer-handle {
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
 .admin-next-trainer-stats {
   font-size: 12px;
@@ -20606,14 +20632,10 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
 .admin-next-dossier-jumps {
   margin: 0 0 12px;
   color: #4a5568;
-  font-size: 13px;
+  font-size: 14px;
 }
 .admin-next-trainer-head {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  padding-bottom: 8px;
-  background: #fffdf8;
+  padding: 4px 0 8px;
 }
 .admin-next-trainer-avatar {
   width: 36px;
@@ -20623,7 +20645,25 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   background: #efe7f4;
 }
 .admin-next-trainer-avatar.is-empty { display: inline-block; }
-.admin-next-trainer-head h3 { margin: 4px 0 6px; }
+.admin-next-trainer-head h3 { margin: 4px 0 6px; overflow-wrap: anywhere; }
+.admin-next-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 0;
+}
+.admin-next-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #f4eef8;
+  color: #5d4a68;
+  font-size: 12px;
+}
+.admin-next-chip.is-pass { background: #ffe3f3; color: #723d65; }
+.admin-next-chip.is-role { background: #eef6ff; color: #3d5672; }
+.admin-next-chip.is-muted { background: #f3f6fa; color: #6a7790; }
 .admin-next-trainer-subnav {
   display: flex;
   flex-wrap: wrap;
@@ -20633,12 +20673,63 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
 .admin-next-trainer-subnav [aria-selected="true"] {
   box-shadow: 0 0 0 2px #c9a227;
 }
-.admin-next-trainer-dl { margin: 0 0 16px; }
+.admin-next-dossier-grid,
+.admin-next-stat-grid,
+.admin-next-mon-grid,
+.admin-next-link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 12px;
+  margin: 0 0 16px;
+}
+.admin-next-dossier-card,
+.admin-next-mon-card,
+.admin-next-link-card {
+  min-width: 0;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #eadff0;
+  border-radius: 14px;
+  background: #fffdfb;
+  box-shadow: 0 3px 0 #f3e2c8;
+}
+.admin-next-dossier-card h4,
+.admin-next-mon-name,
+.admin-next-link-name {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+.admin-next-stat {
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fff8fc, #eef7ff);
+}
+.admin-next-stat p { margin: 0; overflow-wrap: anywhere; }
+.admin-next-stat p:last-child { font-size: 18px; }
+.admin-next-trainer-dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px 12px;
+  margin: 0;
+}
+.admin-next-trainer-dl div { min-width: 0; }
+.admin-next-trainer-dl dt {
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #7a6a88;
+}
+.admin-next-trainer-dl dd {
+  margin: 0;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
 .admin-next-trainer-pills {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
   gap: 8px;
-  margin: 0 0 16px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -20648,15 +20739,19 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
   background: #f4f1f8;
 }
 .admin-next-trainer-pills li.is-on { background: #e7fff4; }
-.admin-next-trainer-pills li.is-off { opacity: .72; }
+.admin-next-trainer-pills li.is-off { background: #f3f5f8; color: #5a6578; }
 .admin-next-trainer-pills span { display: block; color: #6a7a96; font-size: 12px; }
-.admin-next-trainer-table-wrap { overflow: auto; }
-.admin-next-trainer-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.admin-next-trainer-table th,
-.admin-next-trainer-table td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #eadff0; }
-@media (max-width: 960px) {
-  .admin-next-trainers { grid-template-columns: 1fr; }
-  .admin-next-trainers.is-profile [data-trainers-dir] { display: none; }
-  .admin-next-trainers:not(.is-profile) [data-trainers-detail] { display: none; }
+.admin-next-fixture-lab {
+  margin: 18px 0 0;
+  padding: 12px;
+  border: 1px dashed #c9a227;
+  border-radius: 12px;
+  background: #fffdf6;
+}
+.admin-next-fixture-lab h3 { margin: 0 0 8px; font-size: 15px; }
+@media (prefers-reduced-motion: reduce) {
+  .admin-next-trainers,
+  .admin-next-trainer-row,
+  .admin-next-dossier-card { transition: none; }
 }
 

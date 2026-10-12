@@ -2,7 +2,7 @@
 
 ## 2026-10-12 — GitHub issue #4 directory sizing and dossier spacing
 
-- Branch: `admin-hub-overhaul` from `8ff495f`. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
+- Branch: `admin-hub-overhaul` from `8ff495f`. Implementation commit `bc24e74`. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
 - Sora mutated NO · Twinkle mutated NO · QA account none (unsigned fixture). PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - A1 visual acceptance remains **open**.

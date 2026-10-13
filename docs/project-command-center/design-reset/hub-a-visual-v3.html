@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Hub · Proposal A visual v3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #3a3f63;
+      --muted: #6b6c84;
+      --pearl: #f4f7ff;
+      --sky: #6aa8ef;
+      --sky-soft: #d9ecff;
+      --pink: #c04878;
+      --pink-deep: #8a3d72;
+      --pink-soft: #ffe3f3;
+      --gold: #c9a227;
+      --gold-soft: #fff6d8;
+      --line: #dce3f2;
+      --white: #fff;
+      --shadow: 0 6px 18px #687bae18;
+      --press: 0 3px 0 #d7e0f2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 13px/1.45 Nunito, "Segoe UI", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% -10%, #ffe3f3 0 18%, transparent 46%),
+        radial-gradient(circle at 100% 8%, #d9ecff 0 16%, transparent 48%),
+        #f5f8ff;
+    }
+    button, input, select { font: inherit; }
+    button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before { animation: none !important; transition: none !important; }
+    }
+    .toolbar {
+      background: rgba(255,255,255,.92);
+      border-bottom: 3px solid #fff;
+      box-shadow: 0 6px 0 #f3c6e2;
+      padding: 8px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: end;
+    }
+    .toolbar h1 { font: 700 15px/1.2 Fredoka, Nunito, sans-serif; margin: 0 10px 0 0; color: var(--pink-deep); }
+    .toolbar a { color: var(--pink-deep); }
+    .toolbar label { display: grid; gap: 3px; font-size: 11px; color: var(--muted); }
+    .toolbar select { min-height: 30px; border: 2px solid #c9d4ec; border-radius: 10px; background: #fff; }
+    .stage { padding: 16px; }
+    .frame {
+      margin: 0 auto;
+      min-height: 700px;
+      display: grid;
+      grid-template-columns: 188px 1fr;
+      background: rgba(255,255,255,.55);
+      border: 1px solid #e4ecf8;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .frame.is-1440 { width: min(1440px, 100%); }
+    .frame.is-1024 { width: min(1024px, 100%); }
+    .frame.is-720 { width: min(720px, 100%); grid-template-columns: 1fr; }
+    .frame.is-390 { width: 390px; grid-template-columns: 1fr; }
+    .nav {
+      background: linear-gradient(180deg, #fff7fb, #eef6ff);
+      border-right: 1px solid #eadff0;
+      padding: 16px 12px;
+    }
+    .brand {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin: 0 6px 14px;
+      font: 700 14px/1 Fredoka, Nunito, sans-serif;
+      color: var(--pink-deep);
+    }
+    .brand i {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: linear-gradient(180deg, #ff7eb6, #6aa8ef);
+      box-shadow: 0 0 0 3px #ffe3f3;
+    }
+    .nav button {
+      display: block; width: 100%; text-align: left; border: 0;
+      background: transparent; padding: 8px 10px; border-radius: 12px;
+      color: #5d4a68; transition: background .16s ease, transform .16s ease;
+    }
+    .nav button[aria-current="page"] {
+      background: linear-gradient(180deg, #ffe3f3, #f6cde4);
+      color: #723d65; font-weight: 800;
+    }
+    .nav button:hover { background: #fff; }
+    .nav-toggle { display: none; width: 100%; margin-bottom: 8px; border: 2px solid #c9d4ec !important; background: #fff !important; }
+    .is-720 .nav, .is-390 .nav { border-right: 0; border-bottom: 1px solid #eadff0; }
+    .is-720 .nav-list, .is-390 .nav-list { display: none; }
+    .is-720 .nav.is-open .nav-list, .is-390 .nav.is-open .nav-list { display: block; }
+    .is-720 .nav-toggle, .is-390 .nav-toggle { display: block; }
+    .main { min-width: 0; padding: 20px 22px 32px; background: var(--pearl); }
+    .is-390 .main, .is-720 .main { padding: 14px; }
+    .ph { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 14px; }
+    .ph h2 { margin: 0; font: 700 22px/1.15 Fredoka, Nunito, sans-serif; color: #2a3568; }
+    .ph p, .meta { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .search { display: flex; gap: 8px; margin: 0 0 12px; }
+    .search input {
+      flex: 1; min-height: 40px; border: 2px solid #c9d4ec; border-radius: 12px;
+      padding: 0 12px; background: #fff;
+    }
+    .btn {
+      min-height: 40px; padding: 0 14px; border: 2px solid #c9d4ec; border-radius: 12px;
+      background: #fff; box-shadow: var(--press); color: var(--pink-deep); font-weight: 800;
+    }
+    .btn:active { transform: translateY(1px); box-shadow: none; }
+    .btn.primary { background: linear-gradient(180deg, #ffe3f3, #f6cde4); border-color: #dca8c9; }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left; font-size: 11px; letter-spacing: .04em; text-transform: uppercase;
+      color: var(--muted); padding: 0 10px 8px; border-bottom: 1px solid var(--line);
+    }
+    td { padding: 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    tbody tr { transition: background .14s ease; }
+    tbody tr:hover td { background: #fff7fb; }
+    tbody tr:focus-within td { background: var(--gold-soft); }
+    .who { display: flex; gap: 10px; align-items: center; }
+    .av {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: linear-gradient(180deg, #ffe3f3, #d9ecff);
+      display: grid; place-items: center; font-weight: 800; color: var(--pink-deep);
+    }
+    .av.lg { width: 52px; height: 52px; font-size: 18px; }
+    .handle { color: var(--muted); font-size: 12px; }
+    .open {
+      border: 0; background: transparent; padding: 0; font-weight: 800; color: inherit;
+      cursor: pointer; text-align: left;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 8px; border-radius: 999px; background: #eef2fb; font-size: 11px; font-weight: 700;
+    }
+    .chip.pass { background: var(--pink-soft); color: var(--pink-deep); }
+    .chip.muted { color: var(--muted); }
+    .chip.live { background: #e3f4ff; color: #2a6aa8; }
+    .chip.live::before, .dot::before {
+      content: ""; width: 7px; height: 7px; border-radius: 50%; background: #4ec8f5;
+    }
+    .chip.live::before { animation: pulse 1.6s ease infinite; }
+    .chip.idle { background: #eef2fb; }
+    .chip.off { background: #f3f0f4; color: var(--muted); }
+    @keyframes pulse { 50% { opacity: .35; transform: scale(.85); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .pane { animation: rise .18s ease; }
+    .pager { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; color: var(--muted); }
+    .back, .textlink { border: 0; background: transparent; padding: 0; color: var(--pink-deep); font-weight: 800; }
+    .id-row { display: flex; gap: 12px; align-items: center; margin: 6px 0 14px; }
+    .facts { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin: 0 0 14px; }
+    .facts div, .metric, .group {
+      background: #fff; border: 1px solid #e4ecf8; border-radius: 14px; padding: 10px 12px;
+    }
+    .facts dt, .metric dt, .group h3 { font-size: 11px; color: var(--muted); margin: 0 0 4px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
+    .facts dd, .metric dd { margin: 0; font: 700 18px/1.1 Fredoka, Nunito, sans-serif; color: #2a3568; }
+    .facts .is-empty dd, .metric.is-empty dd { color: var(--muted); font-size: 14px; }
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 14px; flex-wrap: wrap; }
+    .tabs button { border: 0; background: transparent; padding: 8px 12px; color: var(--muted); border-radius: 10px 10px 0 0; }
+    .tabs button[aria-selected="true"] { color: var(--pink-deep); font-weight: 800; box-shadow: inset 0 -3px 0 var(--pink); }
+    .kv { display: grid; grid-template-columns: 10rem 1fr; gap: 8px 14px; }
+    .kv dt { color: var(--muted); }
+    .kv dd { margin: 0; font-weight: 700; }
+    .mons { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; max-height: 360px; overflow: auto; }
+    .mon-row {
+      display: grid; grid-template-columns: 40px 1fr auto auto; gap: 10px; align-items: center;
+      width: 100%; text-align: left; cursor: pointer;
+      background: #fff; border: 1px solid #e4ecf8; border-radius: 14px; padding: 8px 10px;
+      color: inherit; transition: background .14s ease;
+    }
+    .mon-row:hover { background: #fff7fb; }
+    .mon-row:focus-visible { background: var(--gold-soft); }
+    .mon-row strong { display: block; }
+    .chevron { color: var(--muted); font-size: 18px; line-height: 1; }
+    .dex {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: linear-gradient(180deg, #e3f4ff, #fff);
+      display: grid; place-items: center; font-size: 10px; font-weight: 800; color: #2a6aa8;
+    }
+    .dex.lg { width: 52px; height: 52px; font-size: 12px; }
+    .kv dd.is-empty { color: var(--muted); font-weight: 600; }
+    .unlocks { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+    .unlock {
+      padding: 6px 10px; border-radius: 999px; border: 1px solid #e4ecf8; background: #fff; font-size: 12px;
+    }
+    .unlock.on { background: var(--pink-soft); border-color: #f3c6e2; color: var(--pink-deep); }
+    .unlock.off { color: var(--muted); }
+    .filters { display: flex; gap: 6px; margin: 0 0 10px; }
+    .filters button { border: 2px solid #c9d4ec; background: #fff; border-radius: 999px; padding: 4px 10px; }
+    .filters button[aria-pressed="true"] { background: var(--pink-soft); border-color: #dca8c9; color: var(--pink-deep); font-weight: 800; }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 10px; margin: 12px 0; }
+    .metric small { display: block; color: var(--muted); font-weight: 600; font-size: 11px; margin-top: 4px; }
+    .bar { height: 6px; border-radius: 99px; background: #dce7f5; margin-top: 8px; overflow: hidden; }
+    .bar span { display: block; height: 100%; background: linear-gradient(90deg, #6aa8ef, #c04878); }
+    .empty { color: var(--muted); }
+    .door {
+      margin-top: 18px; padding: 12px 14px; border-radius: 14px;
+      background: linear-gradient(180deg, #fff7fb, #eef6ff); border: 1px solid #eadff0;
+    }
+    .groups { display: grid; gap: 10px; }
+    .is-390 .facts, .is-720 .facts { grid-template-columns: 1fr 1fr; }
+    .is-390 .kv, .is-720 .kv { grid-template-columns: 1fr; }
+    .is-390 thead, .is-720 thead { display: none; }
+    .is-390 table, .is-390 tbody, .is-390 tr, .is-390 td,
+    .is-720 table, .is-720 tbody, .is-720 tr, .is-720 td { display: block; width: 100%; }
+    .is-390 td, .is-720 td { border: 0; padding: 2px 0; }
+    .is-390 tr, .is-720 tr { border-bottom: 1px solid var(--line); padding: 10px 0; }
+    .is-390 td[data-label]::before, .is-720 td[data-label]::before { content: attr(data-label) " · "; color: var(--muted); font-size: 11px; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>Proposal A · visual v3</h1>
+    <p><a href="./hub-a-visual-v2.html">Issue #8 comparison</a> · <a href="./index.html">Index</a> · <a href="../POKEMON-UX-ISSUE-9.md">Pokémon UX</a></p>
+    <label>Viewport
+      <select id="vp">
+        <option value="1440">1440</option>
+        <option value="1024">1024</option>
+        <option value="720">720 · 200% of 1440</option>
+        <option value="390">390</option>
+      </select>
+    </label>
+    <label>Demo
+      <select id="demo">
+        <option value="ready">Ready</option>
+        <option value="loading">Loading</option>
+        <option value="empty">Empty search</option>
+        <option value="denied">Denied</option>
+      </select>
+    </label>
+  </div>
+  <div class="stage">
+    <div class="frame is-1440" id="frame">
+      <nav class="nav" id="nav" aria-label="Admin Hub">
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false">Admin menu</button>
+        <p class="brand"><i aria-hidden="true"></i>Admin Hub</p>
+        <div class="nav-list" id="navList"></div>
+      </nav>
+      <div class="main" id="main"></div>
+    </div>
+  </div>
+  <script>
+    const SECTIONS = [
+      ["operations", "Operations"],
+      ["trainers", "Trainers"],
+      ["support", "Support"],
+      ["mart", "Mart"],
+      ["config", "Configuration"],
+      ["analytics", "Analytics"],
+      ["system", "System"]
+    ];
+    const trainers = [
+      { id: "oak", name: "Professor Oak", login: "oak", role: "staff", pass: true, caught: 37, seen: "12 Oct, 2:14 PM", full: "2026-10-12 18:14:03 UTC", initial: "O" },
+      { id: "blue", name: "Blue", login: "blue", role: "player", pass: true, caught: 12, seen: "11 Oct, 7:02 PM", full: "2026-10-11 23:02:11 UTC", initial: "B" },
+      { id: "long", name: "Superlongname-McGillicuddy", login: "superlongname", role: "player", pass: false, caught: 2, seen: "9 Oct, 10:41 AM", full: "2026-10-09 14:41:00 UTC", initial: "S" },
+      { id: "leaf", name: "Leaf", login: "leaf", role: "player", pass: false, caught: 0, seen: "unavailable", full: "", initial: "L" },
+      { id: "red", name: "Red", login: "red", role: "player", pass: true, caught: 8, seen: "8 Oct, 4:18 PM", full: "2026-10-08 20:18:44 UTC", initial: "R" },
+      { id: "yellow", name: "Yellow", login: "yellow", role: "player", pass: false, caught: 1, seen: "7 Oct, 1:05 PM", full: "2026-10-07 17:05:09 UTC", initial: "Y" },
+      { id: "green", name: "Green", login: "green", role: "player", pass: false, caught: 4, seen: "6 Oct, 9:22 AM", full: "2026-10-06 13:22:00 UTC", initial: "G" },
+      { id: "silver", name: "Silver", login: "silver", role: "player", pass: true, caught: 15, seen: "Today, 8:01 AM", full: "2026-10-12 12:01:12 UTC", initial: "V" }
+    ];
+    const unlocks = [
+      { name: "Champion", on: true, kind: "title" },
+      { name: "Rival", on: false, kind: "title" },
+      { name: "Cascade", on: true, kind: "badge" },
+      { name: "Boulder", on: false, kind: "badge" }
+    ];
+    const monsByTrainer = {
+      oak: [
+        { id: "m1", dex: 3, name: "Venusaur", nickname: "Venusaur", variant: "normal", gender: "F", ball: "poke", level: 36, caughtAt: "2026-10-01T12:00:00Z" },
+        { id: "m2", dex: 6, name: "Charizard", nickname: "", variant: "shiny", gender: "M", ball: "ultra", level: 40, caughtAt: "2026-09-22T18:11:00Z" },
+        { id: "m3", dex: 9, name: "Blastoise", nickname: "Blastoise", variant: "normal", gender: "M", ball: "great", level: 33, caughtAt: "2026-09-18T09:44:00Z" },
+        { id: "m4", dex: 25, name: "Pikachu", nickname: "Sparky", variant: "normal", gender: "M", ball: "poke", level: 18, caughtAt: "2026-09-12T16:02:00Z" },
+        { id: "m5", dex: 19, name: "Rattata", nickname: "Superlongname-McGillicuddy", variant: "normal", gender: "F", ball: "poke", level: 7, caughtAt: "2026-09-08T11:20:00Z" },
+        { id: "m6", dex: 129, name: "Magikarp", nickname: "", variant: "normal", gender: "", ball: "poke", level: 5, caughtAt: "" },
+        { id: "m7", dex: 10, name: "Caterpie", nickname: "", variant: "normal", gender: "M", ball: "", level: 4, caughtAt: "2026-08-30T07:15:00Z" },
+        { id: "m8", dex: 133, name: "Eevee", nickname: "Eevee", variant: "normal", gender: "F", ball: "great", level: 14, caughtAt: "2026-08-22T20:40:00Z" },
+        { id: "m9", dex: 143, name: "Snorlax", nickname: "", variant: "normal", gender: "M", ball: "ultra", level: 29, caughtAt: "2026-08-14T13:05:00Z" },
+        { id: "m10", dex: 130, name: "Gyarados", nickname: "", variant: "shiny", gender: "F", ball: "ultra", level: 32, caughtAt: "2026-08-02T19:28:00Z" }
+      ],
+      leaf: []
+    };
+    const state = { section: "operations", trainer: "", pane: "overview", query: "", demo: "ready", filter: "all", mon: "", collectionScroll: 0 };
+
+    function chip(t, c) { return `<span class="chip${c ? " " + c : ""}">${t}</span>`; }
+    function header(title, context) {
+      return `<div class="ph"><div><h2>${title}</h2><p>Visual prototype · not live data · ${context}</p></div><p>Signed in · staff</p></div>`;
+    }
+    function fact(label, value, empty) {
+      return `<div class="${empty ? "is-empty" : ""}"><dt>${label}</dt><dd>${value}</dd></div>`;
+    }
+    function dexLabel(dex) {
+      return dex != null && dex !== "" ? "#" + String(dex).padStart(3, "0") : "unavailable";
+    }
+    function ballLabel(ball) {
+      const names = { poke: "Poké Ball", great: "Great Ball", ultra: "Ultra Ball", master: "Master Ball" };
+      return ball ? (names[ball] || ball) : "";
+    }
+    function caughtLabel(iso) {
+      if (!iso) return { text: "unavailable", title: "", empty: true };
+      const date = new Date(iso);
+      if (Number.isNaN(date.getTime())) return { text: "unavailable", title: "", empty: true };
+      const text = date.toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+      return { text, title: iso.replace("T", " ").replace("Z", " UTC"), empty: false };
+    }
+    function variantChip(variant) {
+      if (!variant || variant === "normal") return "";
+      return chip(variant, variant === "shiny" ? "pass" : "");
+    }
+    function monTitle(mon) {
+      const nick = (mon.nickname || "").trim();
+      return nick && nick !== mon.name ? nick : mon.name;
+    }
+    function monSubtitle(mon) {
+      const nick = (mon.nickname || "").trim();
+      const dex = dexLabel(mon.dex);
+      return nick && nick !== mon.name ? `${mon.name} · ${dex}` : dex;
+    }
+    function collectionMons() {
+      if (state.trainer === "leaf") return monsByTrainer.leaf;
+      return monsByTrainer.oak;
+    }
+    function pokemonCollection() {
+      const list = collectionMons();
+      const rows = list.map((mon) => `<li>
+        <button type="button" class="mon-row" data-mon="${mon.id}">
+          <span class="dex">${dexLabel(mon.dex)}</span>
+          <span><strong>${monTitle(mon)}</strong><span class="handle">${monSubtitle(mon)}</span></span>
+          <span>${variantChip(mon.variant)}</span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </button>
+      </li>`).join("");
+      return `<div class="pane">
+        <p class="empty">Newest 40 live Pokémon only. Full PC, favorite, and locked are unavailable. Open a row for the fields this RPC returns.</p>
+        <ul class="mons" id="monList">${rows}</ul>
+      </div>`;
+    }
+    function pokemonDetail(mon) {
+      const caught = caughtLabel(mon.caughtAt);
+      const nick = (mon.nickname || "").trim();
+      const nickEmpty = !nick;
+      const genderEmpty = !mon.gender;
+      const ball = ballLabel(mon.ball);
+      const variant = mon.variant || "";
+      return `<div class="pane">
+        <button type="button" class="back" data-mon-back>← Back to Pokémon</button>
+        <div class="id-row">
+          <span class="dex lg">${dexLabel(mon.dex)}</span>
+          <div>
+            <h3 style="margin:0;font:700 20px/1 Fredoka,Nunito,sans-serif">${monTitle(mon)}</h3>
+            <p class="handle">${monSubtitle(mon)} ${variantChip(mon.variant)}</p>
+          </div>
+        </div>
+        <dl class="kv">
+          <dt>Species</dt><dd>${mon.name || "unavailable"}</dd>
+          <dt>Pokédex</dt><dd>${dexLabel(mon.dex)}</dd>
+          <dt>Nickname</dt><dd class="${nickEmpty ? "is-empty" : ""}">${nickEmpty ? "unavailable" : nick}</dd>
+          <dt>Variant</dt><dd>${variant || "unavailable"}</dd>
+          <dt>Gender</dt><dd class="${genderEmpty ? "is-empty" : ""}">${genderEmpty ? "unavailable" : mon.gender}</dd>
+          <dt>Level</dt><dd>${mon.level != null && mon.level !== "" ? mon.level : "unavailable"}</dd>
+          <dt>Ball</dt><dd class="${ball ? "" : "is-empty"}">${ball || "unavailable"}</dd>
+          <dt>Caught</dt><dd class="${caught.empty ? "is-empty" : ""}" title="${caught.title}">${caught.text}</dd>
+        </dl>
+        <p class="empty">Moves, abilities, stats, sprites, box, favorite, locked, and obtain method are not in <code>admin_user_account.mons[]</code>.</p>
+      </div>`;
+    }
+
+    function operations() {
+      if (state.demo === "denied") return header("Operations", "observation only") + `<p class="empty" role="status">Live status is restricted to staff.</p>`;
+      if (state.demo === "loading") return header("Operations", "observation only") + `<p class="empty" role="status">Loading live status…</p>`;
+      return header("Operations", "observation only · as of 12 Oct, 2:18 PM") + `
+        <p class="pane">Twitch is ${chip("LIVE", "live")}. Live RPG stays ${chip("INACTIVE", "idle")} until staff Start it on the current Dashboard.</p>
+        <dl class="metrics pane">
+          <div class="metric"><dt>Twitch</dt><dd>${chip("LIVE", "live")}</dd><small title="2026-10-12 18:18:00 UTC">Checked 2:18 PM · Stream night</small></div>
+          <div class="metric"><dt>Live RPG session</dt><dd>${chip("INACTIVE", "idle")}</dd><small>Not inferred from Twitch</small></div>
+          <div class="metric"><dt>Director</dt><dd>idle</dd><small>Last tick is not freshness</small></div>
+          <div class="metric"><dt>Current encounter</dt><dd>${chip("NONE", "off")}</dd><small>Director pointer is not an open encounter</small></div>
+          <div class="metric"><dt>Last recorded</dt><dd>CATCH</dd><small>Historical · Pikachu</small></div>
+          <div class="metric is-empty"><dt>Settlement</dt><dd>unavailable</dd></div>
+          <div class="metric"><dt>Permission</dt><dd>LIVE permits</dd><small>OFFLINE ends · Start is explicit</small></div>
+        </dl>
+        <p class="door"><a class="textlink" href="../../../admin.html?section=dashboard">Open current Dashboard</a> · this prototype does not start or tick.</p>`;
+    }
+
+    function directory() {
+      if (state.demo === "denied") return header("Trainers", "find") + `<p class="empty" role="status">Trainer search is restricted to staff.</p>`;
+      if (state.demo === "empty") {
+        return header("Trainers", "find") + `
+          <form class="search" onsubmit="return false;"><input type="search" value="zzzz" aria-label="Find trainers"><button class="btn primary" type="submit">Find</button></form>
+          <p class="empty" role="status">No trainers match.</p>`;
+      }
+      const status = state.demo === "loading" ? "Loading trainers…" : "8 trainers. Server page is 50.";
+      const rows = trainers.map((row) => `<tr>
+        <td><div class="who"><span class="av">${row.initial}</span><div>
+          <button class="open" type="button" data-open="${row.id}">${row.name}</button>
+          <div class="handle">@${row.login}</div></div></div></td>
+        <td data-label="Role">${chip(row.role)}</td>
+        <td data-label="Pass">${row.pass ? chip("Pass", "pass") : chip("—", "muted")}</td>
+        <td data-label="Pokémon">${row.caught}</td>
+        <td data-label="Last seen" title="${row.full}">${row.seen}</td>
+      </tr>`).join("");
+      return header("Trainers", "find · list RPC only") + `
+        <form class="search" onsubmit="return false;">
+          <input type="search" value="${state.query}" placeholder="Name, login, UUID, or Twitch login" aria-label="Find trainers">
+          <button class="btn primary" type="submit">Find</button>
+        </form>
+        <p class="meta" role="status">${status}</p>
+        <table><thead><tr><th>Trainer</th><th>Role</th><th>Pass</th><th>Pokémon</th><th>Last seen</th></tr></thead><tbody>${rows}</tbody></table>
+        <div class="pager"><button class="btn" type="button" disabled>Previous</button><button class="btn" type="button" disabled>Next</button></div>`;
+    }
+
+    function record() {
+      const busy = state.trainer !== "leaf";
+      const row = trainers.find((t) => t.id === state.trainer) || trainers[0];
+      const tabs = ["overview", "pokemon", "inventory", "progression", "connections"].map((id) => {
+        const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections" };
+        return `<button type="button" role="tab" data-pane="${id}" aria-selected="${id === state.pane}">${labels[id]}</button>`;
+      }).join("");
+      if (state.demo === "denied") return header("Trainers", "inspect") + `<button type="button" class="back" data-back>← All trainers</button><p class="empty">Trainer inspect is restricted to staff.</p>`;
+      if (state.demo === "loading") return header("Trainers", "inspect") + `<button type="button" class="back" data-back>← All trainers</button><p class="empty">Loading trainer…</p>`;
+      let body = "";
+      if (state.pane === "overview") {
+        body = `<div class="pane"><dl class="kv">
+          <dt>Display name</dt><dd>${row.name}</dd>
+          <dt>Login</dt><dd>${row.login}</dd>
+          <dt>Account id</dt><dd>${busy ? "aaaaaaaa-1111-2222-3333-444444444444" : "bbbbbbbb-5555-6666-7777-888888888888"}</dd>
+          <dt>Role</dt><dd>${row.role}</dd>
+          <dt>Starlight Pass</dt><dd>${row.pass ? "Yes" : "No"}</dd>
+          <dt>Password login</dt><dd>${busy ? "Yes" : "No"}</dd>
+          <dt>Registered</dt><dd title="${busy ? "2026-03-02 11:04:00 UTC" : "2026-10-11 16:02:00 UTC"}">${busy ? "2 Mar 2026" : "11 Oct 2026"}</dd>
+          <dt>Twitch</dt><dd>${busy ? "Primary @professoroak · flags on Connections" : "unavailable"}</dd>
+        </dl><p class="empty">${busy ? "Email address is not returned. Activity journal is unavailable." : "Sparse: do not invent last seen, level, or a link."}</p></div>`;
+      } else if (state.pane === "pokemon") {
+        if (!busy) {
+          body = `<p class="empty pane">No live Pokémon in this snapshot. Full PC is still unavailable.</p>`;
+        } else if (state.mon) {
+          const mon = collectionMons().find((row) => row.id === state.mon);
+          body = mon ? pokemonDetail(mon) : `<p class="empty pane">That catch is not in this 40-row snapshot.</p><button type="button" class="back" data-mon-back>← Back to Pokémon</button>`;
+        } else {
+          body = pokemonCollection();
+        }
+      } else if (state.pane === "inventory") {
+        body = `<div class="groups pane">
+          <section class="group"><h3>Currency and bag</h3>
+            <p><strong>${busy ? "4,280" : "0"}</strong> coins</p>
+            <p class="handle">Bag ${busy ? "14 / 20" : "0 / 20"}</p>
+            <div class="bar" aria-hidden="true"><span style="width:${busy ? "70%" : "0"}"></span></div>
+          </section>
+          <section class="group"><h3>Poké Balls</h3><p>${busy ? "8 Poké · 3 Great · 2 Ultra · 1 Master (display)" : "0"}</p></section>
+          <section class="group"><h3>Consumables</h3><p>${busy ? "4 berries · 2 bait · 1 lure" : "0"}</p></section>
+          <section class="group"><h3>Family candy</h3><p>${busy ? "Bulbasaur 12" : "None in this snapshot"}</p></section>
+          <p class="empty">Bits entitlements are unavailable.</p>
+        </div>`;
+      } else if (state.pane === "progression") {
+        const shown = unlocks.filter((item) => state.filter === "all" || (state.filter === "on" ? item.on : !item.on));
+        body = busy ? `<div class="pane">
+          <dl class="kv"><dt>Level / XP / title</dt><dd>28 · 14,200 · Champion</dd><dt>Caught / seen</dt><dd>37 / 41</dd><dt>Ranking</dt><dd>Visible · eligible</dd></dl>
+          <div class="filters" role="group" aria-label="Unlock filter">
+            <button type="button" data-filter="all" aria-pressed="${state.filter === "all"}">All</button>
+            <button type="button" data-filter="on" aria-pressed="${state.filter === "on"}">Unlocked</button>
+            <button type="button" data-filter="off" aria-pressed="${state.filter === "off"}">Locked</button>
+          </div>
+          <div class="unlocks">${shown.map((item) => `<span class="unlock ${item.on ? "on" : "off"}">${item.name} · ${item.on ? "unlocked" : "locked"}</span>`).join("")}</div>
+          <p class="empty">Catalog matches cosmetics — collapsed. Achievements, Oak research, and evolution history are unavailable.</p>
+        </div>` : `<p class="empty pane">Trainer card unavailable. No empty trophy wall.</p>`;
+      } else {
+        body = busy ? `<div class="pane group"><h3>Twitch</h3><p>@professoroak</p><p>${chip("Primary", "pass")} ${chip("Confirmed")} ${chip("Gameplay on")} ${chip("Login on")}</p><p class="empty">Link and unlink stay on Support → current hub.</p></div>` :
+          `<p class="empty pane">No Twitch connections returned.</p>`;
+      }
+      return header("Trainers", "inspect · " + row.name) + `
+        <button type="button" class="back" data-back>← All trainers</button>
+        <div class="id-row"><span class="av lg">${row.initial}</span>
+          <div><h2 style="margin:0;font:700 22px/1 Fredoka,Nunito,sans-serif">${row.name}</h2>
+          <p class="handle">@${row.login} · ${chip(row.role)} ${row.pass ? chip("Pass", "pass") : chip("No Pass", "muted")}</p></div></div>
+        <dl class="facts">
+          ${fact("Level", busy ? "28" : "unavailable", !busy)}
+          ${fact("Caught", busy ? String(row.caught) : "unavailable", !busy)}
+          ${fact("Coins", busy ? "4,280" : "unavailable", !busy)}
+          ${fact("Last seen", row.seen, !row.full)}
+        </dl>
+        <div class="tabs" role="tablist">${tabs}</div>${body}
+        <p class="door">Need to change this account? <button type="button" class="textlink" data-support="${row.id}">Open Support with this trainer</button> · no grant on this page.</p>`;
+    }
+
+    function support() {
+      const row = trainers.find((t) => t.id === state.trainer);
+      const context = row
+        ? `<div class="metric"><dt>About this trainer</dt><dd>${row.name}</dd><small>@${row.login} · carried from Trainers · not a write target</small></div>`
+        : `<p class="empty">No trainer context. Open a record first, or stay here as the doorway.</p>`;
+      return header("Support", "doorway · A3 still open") + `
+        <div class="pane">${context}
+        <p>This is the only next-hub door for privileged trainer actions. The current hub still performs the writes. This prototype has no grant, unlink, coin, role, or Oak QA controls.</p></div>
+        <p class="door">
+          <a class="textlink" href="../../../admin.html?section=trainers">Current grants, coins, unlinks, and roles</a><br>
+          <a class="textlink" href="../../../admin.html?section=content&amp;view=oakqa">Current Oak QA</a>
+        </p>`;
+    }
+
+    function pointer(title, context, body, href, label) {
+      return header(title, context) + `<p class="pane">${body}</p><p class="door"><a class="textlink" href="${href}">${label}</a></p>`;
+    }
+
+    function page() {
+      if (state.section === "operations") return operations();
+      if (state.section === "trainers") return state.trainer ? record() : directory();
+      if (state.section === "support") return support();
+      if (state.section === "mart") return pointer("Mart", "catalog stays on current hub", "Mart item CRUD and Content Studio remain on the current Economy catalog.", "../../../admin.html?section=economy&view=catalog", "Open current Mart editor");
+      if (state.section === "config") return pointer("Configuration", "encounters stay on current hub", "Balance editors stay on the current hub. This preview does not write site_config.", "../../../admin.html?section=encounters", "Open Encounters");
+      if (state.section === "analytics") return header("Analytics", "read only") + `<dl class="metrics pane"><div class="metric"><dt>Client build</dt><dd>20261008-rc133</dd></div><div class="metric"><dt>Twitch stream</dt><dd>${chip("LIVE", "live")}</dd></div></dl><p class="empty">Health RPCs only. Not a trainer dashboard.</p>`;
+      return pointer("System", "secrets stay on current hub", "Twitch secret, GitHub token, and bridge token remain owner-only. This preview cannot save secrets.", "../../../admin.html?section=system", "Open System & Integrations");
+    }
+
+    function render() {
+      document.getElementById("frame").className = "frame is-" + document.getElementById("vp").value;
+      document.getElementById("navList").innerHTML = SECTIONS.map(([id, label]) =>
+        `<button type="button" data-section="${id}" ${id === state.section ? 'aria-current="page"' : ""}>${label}</button>`
+      ).join("");
+      document.getElementById("main").innerHTML = page();
+      const list = document.getElementById("monList");
+      if (list) list.scrollTop = state.collectionScroll;
+    }
+
+    document.getElementById("vp").onchange = render;
+    document.getElementById("demo").onchange = function () { state.demo = this.value; render(); };
+    document.getElementById("navToggle").onclick = function () {
+      const nav = document.getElementById("nav");
+      nav.classList.toggle("is-open");
+      this.setAttribute("aria-expanded", nav.classList.contains("is-open") ? "true" : "false");
+    };
+    document.getElementById("frame").addEventListener("click", (event) => {
+      const section = event.target.closest("[data-section]");
+      const open = event.target.closest("[data-open]");
+      const back = event.target.closest("[data-back]");
+      const pane = event.target.closest("[data-pane]");
+      const support = event.target.closest("[data-support]");
+      const filter = event.target.closest("[data-filter]");
+      const mon = event.target.closest("[data-mon]");
+      const monBack = event.target.closest("[data-mon-back]");
+      if (section) { state.section = section.getAttribute("data-section"); render(); }
+      else if (open) { state.trainer = open.getAttribute("data-open"); state.pane = "overview"; state.section = "trainers"; state.mon = ""; state.collectionScroll = 0; render(); }
+      else if (back) { state.trainer = ""; state.section = "trainers"; state.mon = ""; render(); }
+      else if (monBack) { state.mon = ""; render(); }
+      else if (mon) {
+        const list = document.getElementById("monList");
+        if (list) state.collectionScroll = list.scrollTop;
+        state.mon = mon.getAttribute("data-mon");
+        state.pane = "pokemon";
+        render();
+      }
+      else if (pane) { state.pane = pane.getAttribute("data-pane"); state.mon = ""; render(); }
+      else if (support) { state.trainer = support.getAttribute("data-support"); state.section = "support"; render(); }
+      else if (filter) { state.filter = filter.getAttribute("data-filter"); render(); }
+    });
+    render();
+  </script>
+</body>
+</html>

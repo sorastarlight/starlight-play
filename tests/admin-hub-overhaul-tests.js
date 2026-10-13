@@ -48,6 +48,8 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/design-reset/hub-a.html",
     "docs/project-command-center/VISUAL-STYLE-GUIDE-ISSUE-8.md",
     "docs/project-command-center/design-reset/hub-a-visual-v2.html",
+    "docs/project-command-center/POKEMON-UX-ISSUE-9.md",
+    "docs/project-command-center/design-reset/hub-a-visual-v3.html",
     ".cursor/rules/streamlink-project.mdc"
   ].forEach((rel) => assert(fs.existsSync(path.join(__dirname, "..", rel)), rel));
   assert(commandCenter.includes("First execution boundary"));
@@ -263,6 +265,19 @@ test("Issue 8 visual v2 stays unwired and keeps Proposal A IA", () => {
   assert(v2.includes("Fredoka") && v2.includes("prefers-reduced-motion"));
   assert(guide.includes("Before / after") && guide.includes("D10"));
   assert(hub.includes("Proposal A hub prototype"));
+});
+
+test("Issue 9 Pokémon collection stays unwired and uses mons contract fields only", () => {
+  const v3 = read("docs/project-command-center/design-reset/hub-a-visual-v3.html");
+  const guide = read("docs/project-command-center/POKEMON-UX-ISSUE-9.md");
+  const v2 = read("docs/project-command-center/design-reset/hub-a-visual-v2.html");
+  ["playCall", "admin_overview", "service_role", "admin_grant_"].forEach((name) => {
+    assert(!v3.includes(name), name);
+  });
+  assert(v3.includes("Back to Pokémon") && v3.includes("data-mon") && v3.includes("Newest 40"));
+  assert(!v3.includes("Lv. 36 ·") && !v3.includes("playCall") && !v3.includes("admin_trainer_pc"));
+  assert(guide.includes("mons[]") && guide.includes("D11"));
+  assert(v2.includes("Proposal A · visual v2"));
 });
 
 const failed = results.filter((row) => !row.passed);

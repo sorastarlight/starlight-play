@@ -172,6 +172,18 @@
       "approvalRequirement": "A10 before treating v2 as the visual target; A9 still required to implement"
     },
     {
+      "id": "I9",
+      "status": "done",
+      "scope": "GitHub issue #9 Pokémon collection rows and read-only detail comparison prototype",
+      "dependencies": ["I8"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/POKEMON-UX-ISSUE-9.md, design-reset/hub-a-visual-v3.html",
+      "testResults": "overhaul existence STATIC; v3 no playCall; REAL DOM pending this commit",
+      "nextAction": "Owner A10 visual of v3 collection beside v2; do not implement into admin-next.html",
+      "approvalRequirement": "A10 before treating any visual v as the target; A9 still required to implement"
+    },
+    {
       "id": "F",
       "status": "blocked",
       "scope": "Privileged operations",

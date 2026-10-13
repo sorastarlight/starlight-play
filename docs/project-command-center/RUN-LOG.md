@@ -1,5 +1,50 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #9 Pokémon collection UX
+
+- Branch: `admin-hub-overhaul`. Design only. `hub-a-visual-v2.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D11 recorded. A10 still needed for visual target. A1 open. A8 direction stands. A9 not authorized.
+
+### Deliverables
+
+- `design-reset/hub-a-visual-v3.html` — concise clickable collection + read-only detail
+- `POKEMON-UX-ISSUE-9.md` — contract fields, before/after, progressive-disclosure notes
+
+Preview: `http://127.0.0.1:4252/docs/project-command-center/design-reset/hub-a-visual-v3.html`  
+Comparison: `http://127.0.0.1:4252/docs/project-command-center/design-reset/hub-a-visual-v2.html`
+
+### REAL DOM (unsigned prototype)
+
+Accessibility tree is the text source of truth. Browser-tool screenshots still garble Fredoka/Nunito.
+
+| Frame | Notes |
+|---|---|
+| 1440 collection | Concise rows. No Lv./date column. Shiny chip. Sparky nickname. Long Rattata nickname. Chevron. Scrollable newest-40 list. |
+| 1440 Charizard detail | Back to Pokémon. Species, #006, nickname unavailable, shiny, M, 40, Ultra Ball, 22 Sep 2026. |
+| 1440 Magikarp missing | Nickname, gender, caught **unavailable**. Level and Poké Ball present. |
+| 1440 / 390 Leaf empty | No live Pokémon. Full PC still unavailable. |
+| 1024 collection / Sparky | Same IA. Nickname Sparky · species Pikachu. |
+| 390 Sparky detail | Stacked kv. Back to Pokémon. |
+
+Rows are native buttons. Back restores the collection. Illustrative Oak / Leaf only.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-overhaul-tests.js` | STATIC PASS | 14 |
+| `tests/admin-hub-workspace-v2-tests.js` | STATIC PASS | 6 |
+| `tests/admin-hub-gate-2a-trainer-tests.js` | STATIC PASS | 8 |
+| `tests/admin-hub-next-tests.js` | STATIC PASS | 7 |
+| `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC PASS | 12 |
+| `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC PASS | 16 |
+| `tests/admin-hub-gate-17-s1b-tests.js` | STATIC PASS | 5 |
+| hub-a-visual-v3 collection / detail | REAL DOM | unsigned static HTML |
+| Live staff RPCs | **not run** | not authorized |
+| Production | **not run** | smoke paused |
+
 ## 2026-10-13 — GitHub issue #8 Proposal A visual refinement
 
 - Branch: `admin-hub-overhaul`. Design commit `fb85227`. Design only. `hub-a.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.

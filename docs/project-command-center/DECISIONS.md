@@ -23,6 +23,8 @@
 
 | D16 | Owner selects **modern mainline Pokémon mechanics** as the future mechanical foundation, rather than LGPE | Exact canonical game/version-group and strict target-game legality versus cross-generation StreamLink legality remain open; Scarlet/Violet Gen IX is a recommendation, **not yet selected**. No implementation or collection wipe authorized. |
 
+| D17 | **Owner APPROVED target architecture:** modern **cross-generation StreamLink Pokémon rules**, with Generation IX **Pokémon Scarlet/Violet** (`scarlet-violet`) as the baseline mechanics and **verified, versioned, generation-specific reference data** for species, forms, moves, abilities and exceptional mechanics outside that version group | StreamLink-valid means internally consistent with the explicit ruleset, **not necessarily legal/transferable to Scarlet/Violet, HOME, BANK or cartridges**. Do not claim strict game-specific exchange legality. This is **architecture approval only**; no code/schema/RPC changes, catch deletion/replacement, editor, merge or deployment authorized. |
+
 ## Needs owner approval
 
 | ID | Question | Recommendation |
@@ -41,7 +43,7 @@
 | A16b | New staff read RPC exposing `catch_json` (IVs/AVs/moves/stats)? | After SQL review. Not `admin_overview`. Not A9 by itself. |
 | A16c | Change catch generation mechanics after selecting the new game-accurate target? | Requires new design, reviewed migration, and separate implementation approval; existing Pokémon may be reset later by owner choice, but **not yet deleted**. |
 | A16d | Owner-only audited catch editor (dry-run, diff, reason, history, protected accounts)? | Separate write approval. Not grant/remove. Not Batch F. |
-| A16e | Choose exact modern game/version-group and legality scope? | **OPEN**: owner approved modern mainline foundation. Recommend `scarlet-violet` (Gen IX). Owner still to choose strict SV compatibility vs modern cross-generation StreamLink consistency. |
+| A16e | Choose exact modern game/version-group and legality scope? | **APPROVED for architecture**: Gen IX `scarlet-violet` as mechanics baseline, with separately pinned generation-specific reference data across generations. **Not strict Scarlet/Violet or HOME compatibility.** No implementation/reset authorization. |
 | A16f | Show IVs/moves on My PC from existing `play_storage` JSON? | Frontend only. Optional honesty UX. |
 
 ## Destructive reset boundary

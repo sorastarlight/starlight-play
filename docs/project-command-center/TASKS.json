@@ -153,7 +153,7 @@
       "scope": "GitHub issue #7 integrated Admin Hub spec and Proposal A static prototype",
       "dependencies": ["I6"],
       "branch": "admin-hub-overhaul",
-      "commit": "b12de0d",
+      "commit": "9947c97",
       "evidence": "docs/project-command-center/DESIGN-SPEC-ISSUE-7.md, design-reset/hub-a.html",
       "testResults": "overhaul existence STATIC; hub-a no playCall; REAL DOM 1440/390",
       "nextAction": "Owner reviews spec; A9 required before any admin-next.html replacement",

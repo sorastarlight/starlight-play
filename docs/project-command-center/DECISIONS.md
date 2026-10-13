@@ -21,6 +21,8 @@
 
 | D15 | Owner **rejects LGPE-inspired mechanics as the future target**; wants game-accurate Pokémon generation/individuals and permits replacing or wiping currently caught Pokémon if required | Supersedes the D14 recommendation for future direction, not its source audit of current state. A new explicit target game/version-group and legality scope must be selected; permission to plan a reset is **not an instruction to delete now**. No production writes, deletes, grants, or release approved. |
 
+| D16 | Owner selects **modern mainline Pokémon mechanics** as the future mechanical foundation, rather than LGPE | Exact canonical game/version-group and strict target-game legality versus cross-generation StreamLink legality remain open; Scarlet/Violet Gen IX is a recommendation, **not yet selected**. No implementation or collection wipe authorized. |
+
 ## Needs owner approval
 
 | ID | Question | Recommendation |
@@ -39,7 +41,7 @@
 | A16b | New staff read RPC exposing `catch_json` (IVs/AVs/moves/stats)? | After SQL review. Not `admin_overview`. Not A9 by itself. |
 | A16c | Change catch generation mechanics after selecting the new game-accurate target? | Requires new design, reviewed migration, and separate implementation approval; existing Pokémon may be reset later by owner choice, but **not yet deleted**. |
 | A16d | Owner-only audited catch editor (dry-run, diff, reason, history, protected accounts)? | Separate write approval. Not grant/remove. Not Batch F. |
-| A16e | Select exact game/version-group mechanics and what 'game-accurate' means? | **OPEN**: owner rejected LGPE target; choose a modern/FRLG/other canonical reference or scoped hybrid before implementation. |
+| A16e | Choose exact modern game/version-group and legality scope? | **OPEN**: owner approved modern mainline foundation. Recommend `scarlet-violet` (Gen IX). Owner still to choose strict SV compatibility vs modern cross-generation StreamLink consistency. |
 | A16f | Show IVs/moves on My PC from existing `play_storage` JSON? | Frontend only. Optional honesty UX. |
 
 ## Destructive reset boundary

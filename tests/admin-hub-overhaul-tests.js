@@ -53,6 +53,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/TRAINER-UX-ISSUE-10.md",
     "docs/project-command-center/design-reset/hub-a-visual-v4.html",
     "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
+    "docs/project-command-center/GEN-IX-REBUILD-PLAN-ISSUE-19.md",
     ".cursor/rules/streamlink-project.mdc"
   ].forEach((rel) => assert(fs.existsSync(path.join(__dirname, "..", rel)), rel));
   assert(commandCenter.includes("First execution boundary"));
@@ -329,6 +330,23 @@ test("Issue 16 legality audit stays design-only and does not claim PokéAPI lega
   assert(decisions.includes("D14") && decisions.includes("A16a"));
   assert(!nextHtml.includes("admin_catch_inspect"));
   assert(!nextJs.includes("admin_catch_inspect"));
+});
+
+test("Issue 19 Gen IX rebuild plan stays planning-only and records D17", () => {
+  const plan = read("docs/project-command-center/GEN-IX-REBUILD-PLAN-ISSUE-19.md");
+  const audit = read("docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  assert(plan.includes("scarlet-violet"));
+  assert(plan.includes("streamlink-gen9-xgen"));
+  assert(plan.includes("assert_streamlink_legal"));
+  assert(plan.includes("A19-RESET-GO"));
+  assert(plan.includes("BLOCKED") || plan.includes("blocked"));
+  assert(plan.includes("does not persist"));
+  assert(audit.includes("Errata") && audit.includes("does have Natures"));
+  assert(decisions.includes("D17") && decisions.includes("D18") && decisions.includes("A19-REF"));
+  assert(!plan.includes("PRODUCTION PASS"));
+  assert(!nextHtml.includes("generate_streamlink_mon"));
+  assert(!nextJs.includes("generate_streamlink_mon"));
 });
 
 const failed = results.filter((row) => !row.passed);

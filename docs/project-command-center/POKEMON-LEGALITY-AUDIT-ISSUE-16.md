@@ -4,6 +4,10 @@ Parent: epic #11. **DESIGN / SOURCE AUDIT ONLY.** This batch does not change SQL
 
 **Verdict:** StreamLink already persists **Let's Go–inspired individuals**, not empty species shells. That is **not** the same as generating official-game-legal Pokémon. PokéAPI integration is a **Pokédex encyclopedia** (`js/pokedex-reference.js`). It does not generate, validate, or stamp catch rows.
 
+### Errata (2026-10-13 — issues #18 / #19)
+
+Real Let's Go Pikachu / Let's Go Eevee **does have Natures**. This audit incorrectly treated “no nature column” as “LGPE has no natures.” StreamLink **still does not persist** natures. Owner D15–D17 reject LGPE as the **future** target. Historical evidence tables below stay as a snapshot of current code. Implementation plan: `GEN-IX-REBUILD-PLAN-ISSUE-19.md`.
+
 Do not claim FR/LG, HOME, BANK, or cartridge legality. Do not silently mix generations.
 
 | Honesty | What this audit used |

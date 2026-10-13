@@ -216,8 +216,20 @@
       "commit": "a3004d1",
       "evidence": "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
       "testResults": "overhaul 17 STATIC PASS; LIVE CATALOG catches columns; no catch-row SELECT",
-      "nextAction": "Owner A16a confirm LGPE ruleset. Do not implement inspector/editor/stamper without A16b–d. Do not rewrite stored Pokémon.",
-      "approvalRequirement": "A16a–f before SQL/RPC/editor; A9 still required for hub chrome; no merge/deploy"
+      "nextAction": "Superseded by D15–D17 / issue #19. Keep as current-state evidence.",
+      "approvalRequirement": "Historical; future work uses A19-* gates"
+    },
+    {
+      "id": "I19",
+      "status": "done",
+      "scope": "GitHub issue #19 Gen IX cross-generation rebuild plan: reference pin, generator, validator, inspector/editor, reset playbook",
+      "dependencies": ["I16", "D17"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-REBUILD-PLAN-ISSUE-19.md",
+      "testResults": "overhaul STATIC including issue 19; LIVE CATALOG FKs only; no catch-row SELECT",
+      "nextAction": "Stop for owner review. Next explicit approval: A19-REF or A19-Q1–Q6. No SQL/wipe.",
+      "approvalRequirement": "A19-REF before pin/schema/generator code; A19-RESET-GO before any delete"
     },
     {
       "id": "I13",

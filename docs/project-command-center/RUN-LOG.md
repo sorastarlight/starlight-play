@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #19 Gen IX rebuild plan
+
+- Branch: `admin-hub-overhaul`. Planning only after D17 / A16e. `admin-next.html` unchanged. No SQL, RPC, wipe, replacement, merge, deploy, or APP stamp.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D18 recorded. A19-Q1–Q6 and A19-REF…RESET-GO need owner. A1/A10 open. A9 not authorized.
+- LIVE CATALOG: FKs to `catches` are `oak_transfers`, `trade_listings`, `trade_offers`. No catch-row SELECT.
+
+### Deliverable
+
+- `GEN-IX-REBUILD-PLAN-ISSUE-19.md` — pin, generator, validator, inspector/editor, reset playbook, phased issues
+- #16 errata: real LGPE has natures
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 18 passed |
+
 ## 2026-10-13 — GitHub issue #16 Pokémon legality source audit
 
 - Branch: `admin-hub-overhaul`. Audit commit `a3004d1`. Design/audit only. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, Batch F, catch-row writes, #13, #14, #15, or #17.

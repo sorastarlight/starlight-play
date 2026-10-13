@@ -21,9 +21,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I9 | done | Issue #9 Pokémon collection rows + read-only detail | I8 | **A10** visual | Owner reviews v3; do not implement |
 | I10 | done | Issue #10 PNG art, raised nav, full-row directory | I9 | **A10** visual | Owner reviews v4; do not implement |
 | I12 | done | Issue #12 trainer record IA v5 (header, Connections, Inventory, Unlockables, Tickets) | I10, epic #11 | **A10** visual | Owner reviews v5; do not implement |
-| I16 | done | Issue #16 Pokémon legality source audit + editor design | epic #11 | **A16a–f** before any SQL/RPC | Design only; do not stamp or edit mons |
+| I16 | done | Issue #16 Pokémon legality source audit + editor design | epic #11 | superseded by D15–D17 | Historical snapshot; see #19 |
+| I19 | done | Issue #19 Gen IX rebuild architecture + reset plan | epic #18, D17 | **A19-REF** to start impl; **A19-RESET-GO** to wipe | Planning only; stop for owner review |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. Issue #16 is source audit / design only (epic #11). No SQL, RPCs, live Pokémon, or `admin-next.html` changes. A8 + D10–D14. A16a–f required before generation or editor work. A10 needed for visual target. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. Issue #19 is planning only (epic #18, D17). No SQL, RPCs, live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D17. Implementation starts only after A19-REF (or equivalent). Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

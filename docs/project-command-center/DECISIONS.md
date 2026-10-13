@@ -24,6 +24,7 @@
 | D16 | Owner selects **modern mainline Pokémon mechanics** as the future mechanical foundation, rather than LGPE | Exact canonical game/version-group and strict target-game legality versus cross-generation StreamLink legality remain open; Scarlet/Violet Gen IX is a recommendation, **not yet selected**. No implementation or collection wipe authorized. |
 
 | D17 | **Owner APPROVED target architecture:** modern **cross-generation StreamLink Pokémon rules**, with Generation IX **Pokémon Scarlet/Violet** (`scarlet-violet`) as the baseline mechanics and **verified, versioned, generation-specific reference data** for species, forms, moves, abilities and exceptional mechanics outside that version group | StreamLink-valid means internally consistent with the explicit ruleset, **not necessarily legal/transferable to Scarlet/Violet, HOME, BANK or cartridges**. Do not claim strict game-specific exchange legality. This is **architecture approval only**; no code/schema/RPC changes, catch deletion/replacement, editor, merge or deployment authorized. |
+| D18 | Issue #19 plan is the implementation blueprint for D17: versioned pin, `generate_streamlink_mon`, `assert_streamlink_legal`, inspector/editor, reset options R-A/R-B/R-C | Planning only. Does not authorize A19-REF or A19-RESET-GO. |
 
 ## Needs owner approval
 
@@ -45,6 +46,20 @@
 | A16d | Owner-only audited catch editor (dry-run, diff, reason, history, protected accounts)? | Separate write approval. Not grant/remove. Not Batch F. |
 | A16e | Choose exact modern game/version-group and legality scope? | **APPROVED for architecture**: Gen IX `scarlet-violet` as mechanics baseline, with separately pinned generation-specific reference data across generations. **Not strict Scarlet/Violet or HOME compatibility.** No implementation/reset authorization. |
 | A16f | Show IVs/moves on My PC from existing `play_storage` JSON? | Frontend only. Optional honesty UX. |
+| A19-Q1 | Shared wild specimen per community round, or per-catcher rolls? | Shared per round |
+| A19-Q2 | Ordinary hidden-ability rate? | 0% ordinary; event/grant only |
+| A19-Q3 | Reset option when authorized? | R-A (catches + team/PC/trades); keep dex/economy |
+| A19-Q4 | Fallback version-group for non-SV forms? | `sword-shield`, listed in an exceptions file |
+| A19-Q5 | Persist current HP/status before battle exists? | current = max, status null |
+| A19-Q6 | Include Sora/Twinkle in a future reset? | No unless a later protected-account go/no-go |
+| A19-REF | Build the offline reference pin and seed tables? | First implementation issue. Not granted by #19. |
+| A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | After A19-REF. No combat UPDATE of live rows. |
+| A19-GENVAL | Ship generator + validator functions? | After schema. No player-row writes. |
+| A19-WIRE | Wire launch/settle/grant/evolve to the validator? | New catches only; QA account. |
+| A19-INSPECT | Staff read RPC for full PC combat fields? | After generator exists. |
+| A19-EDIT | Owner-only audited editor? | After inspector. |
+| A19-RESET-TEST | Dry-run + restore drill on a clone? | Required before any production wipe. |
+| A19-RESET-GO | Execute production collection reset? | Separate destructive confirmation. Not now. |
 
 ## Destructive reset boundary
 

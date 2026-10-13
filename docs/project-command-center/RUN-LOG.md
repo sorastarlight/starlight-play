@@ -2,7 +2,7 @@
 
 ## 2026-10-13 — GitHub issue #6 Admin Hub design reset
 
-- Branch: `admin-hub-overhaul`. Design artifacts only. `admin-next.html` Trainers tab, Workspace 2.0 fixture, and card fixture unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
+- Branch: `admin-hub-overhaul`. Implementation commit `af437e8`. Design artifacts only. `admin-next.html` Trainers tab, Workspace 2.0 fixture, and card fixture unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
 - Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - A1 remains **open**. A7 is **not approved**. A8 (Proposal A vs B) needs owner.

@@ -141,7 +141,7 @@
       "scope": "GitHub issue #6 Admin Hub design research and two integrated IA proposals",
       "dependencies": ["I5"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "af437e8",
       "evidence": "docs/project-command-center/DESIGN-RESET-ISSUE-6.md, DESIGN-RESET-DECISION.md, design-reset/",
       "testResults": "design-reset existence STATIC; no playCall in wireframes; existing hub suites unchanged",
       "nextAction": "Owner A8 pick Proposal A or B; do not implement or replace UI",

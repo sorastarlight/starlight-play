@@ -165,7 +165,7 @@
       "scope": "GitHub issue #8 Proposal A visual refinement and StreamLink comparison prototype",
       "dependencies": ["I7"],
       "branch": "admin-hub-overhaul",
-      "commit": "56f345c",
+      "commit": "fb85227",
       "evidence": "docs/project-command-center/VISUAL-STYLE-GUIDE-ISSUE-8.md, design-reset/hub-a-visual-v2.html",
       "testResults": "overhaul existence STATIC; v2 no playCall; REAL DOM 1440/1024/390",
       "nextAction": "Owner A10 visual of polished prototype; do not implement into admin-next.html",

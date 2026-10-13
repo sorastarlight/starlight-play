@@ -2,7 +2,7 @@
 
 ## 2026-10-13 — GitHub issue #8 Proposal A visual refinement
 
-- Branch: `admin-hub-overhaul`. Design commit `56f345c`. Design only. `hub-a.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.
+- Branch: `admin-hub-overhaul`. Design commit `fb85227`. Design only. `hub-a.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.
 - Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - D10 recorded. A10 needed for visual target. A1 open. A8 direction stands. A9 not authorized.

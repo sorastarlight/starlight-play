@@ -8,7 +8,7 @@
 **A8** choose the next design direction — **APPROVED: Proposal A (Record Workspace)**. Design-direction only, not implementation, A1, merge, or deployment.  
 **A9** implement the issue #7 spec into `admin-next.html` — **NOT AUTHORIZED**.  
 **A10** accept issue #8 visual v2 as the presentation target — **OPEN**.  
-**D10** Proposal A core layout accepted in principle — presentation still under review.
+**D10** Owner approves Proposal A's core hub layout in principle, but requests a more modern, dynamic, StreamLink-fitting visual presentation. This is not A1 and not A9.
 
 No merge, deploy, APP stamp, SQL, or Batch F is requested.
 

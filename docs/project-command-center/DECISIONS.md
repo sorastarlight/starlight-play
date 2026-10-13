@@ -13,6 +13,8 @@
 | D7 | Workspace 2.0 is a separate localhost prototype, not the live Trainers tab | Owner #5 rejected further card-gallery polish; A1 stays open until a direction is chosen |
 | D8 | Issue #6 is design-only; stop Trainers UI iteration until A8 | Owner: the data layout does not make sense. A7 is not approved. |
 
+| D8 | Owner selected **Proposal A — Record Workspace** as next Admin Hub **design direction (A8)** | Proceed with design specifications/review only. A1 visual acceptance remains OPEN; no live-tab replacement, merge, or deployment authorized. |
+
 ## Needs owner approval
 
 | ID | Question | Recommendation |

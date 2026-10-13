@@ -2,7 +2,7 @@
 
 ## 2026-10-13 — GitHub issue #19 Gen IX rebuild plan
 
-- Branch: `admin-hub-overhaul`. Planning only after D17 / A16e. `admin-next.html` unchanged. No SQL, RPC, wipe, replacement, merge, deploy, or APP stamp.
+- Branch: `admin-hub-overhaul`. Plan commit `5f3dad6`. Planning only after D17 / A16e. `admin-next.html` unchanged. No SQL, RPC, wipe, replacement, merge, deploy, or APP stamp.
 - Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - D18 recorded. A19-Q1–Q6 and A19-REF…RESET-GO need owner. A1/A10 open. A9 not authorized.

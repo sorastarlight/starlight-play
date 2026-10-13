@@ -225,9 +225,9 @@
       "scope": "GitHub issue #19 Gen IX cross-generation rebuild plan: reference pin, generator, validator, inspector/editor, reset playbook",
       "dependencies": ["I16", "D17"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "5f3dad6",
       "evidence": "docs/project-command-center/GEN-IX-REBUILD-PLAN-ISSUE-19.md",
-      "testResults": "overhaul STATIC including issue 19; LIVE CATALOG FKs only; no catch-row SELECT",
+      "testResults": "overhaul 18 STATIC PASS; LIVE CATALOG FKs only; no catch-row SELECT",
       "nextAction": "Stop for owner review. Next explicit approval: A19-REF or A19-Q1–Q6. No SQL/wipe.",
       "approvalRequirement": "A19-REF before pin/schema/generator code; A19-RESET-GO before any delete"
     },

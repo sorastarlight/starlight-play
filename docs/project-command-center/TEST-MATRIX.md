@@ -13,6 +13,8 @@
 | Directory card width + dossier section gap | fixture REAL DOM: browse/sidebar cards 300px; stack gap token 16px | REAL DOM (unsigned fixture) | Live staff Trainers |
 | Workspace 2.0 prototype | `tests/admin-hub-workspace-v2-tests.js` | STATIC PASS (6) | Live staff Trainers |
 | Workspace 2.0 directory/profile/restore | `admin-next-trainers-workspace-v2.html` REAL DOM | REAL DOM (unsigned fixture) | Production / live RPCs |
+| Issue #6 design reset artifacts | `tests/admin-hub-overhaul-tests.js` existence + no `playCall` | STATIC | Not an implementation |
+| Issue #6 wireframe review | `design-reset/proposal-a.html` / `proposal-b.html` REAL DOM | REAL DOM (static HTML) | Production / live RPCs |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

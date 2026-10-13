@@ -136,6 +136,18 @@
       "approvalRequirement": "none for prototype; A1 and live-tab replacement not granted"
     },
     {
+      "id": "I6",
+      "status": "done",
+      "scope": "GitHub issue #6 Admin Hub design research and two integrated IA proposals",
+      "dependencies": ["I5"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/DESIGN-RESET-ISSUE-6.md, DESIGN-RESET-DECISION.md, design-reset/",
+      "testResults": "design-reset existence STATIC; no playCall in wireframes; existing hub suites unchanged",
+      "nextAction": "Owner A8 pick Proposal A or B; do not implement or replace UI",
+      "approvalRequirement": "A8 before any Trainers UI replacement; A1 A3 A7 not granted"
+    },
+    {
       "id": "F",
       "status": "blocked",
       "scope": "Privileged operations",

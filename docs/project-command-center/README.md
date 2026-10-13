@@ -14,7 +14,10 @@ Persistent working set for approved development batches. Historical audits stay 
 | [TEST-MATRIX.md](./TEST-MATRIX.md) | What is automated vs untested |
 | [RUN-LOG.md](./RUN-LOG.md) | Session evidence |
 | [ADMIN-HUB-INVENTORY.md](./ADMIN-HUB-INVENTORY.md) | Source-traced Admin Hub map |
-| [ADMIN-HUB-IA.md](./ADMIN-HUB-IA.md) | Proposed next-hub information architecture |
+| [ADMIN-HUB-IA.md](./ADMIN-HUB-IA.md) | Proposed next-hub information architecture (implemented preview) |
+| [DESIGN-RESET-ISSUE-6.md](./DESIGN-RESET-ISSUE-6.md) | Issue #6 research, journeys, field map |
+| [DESIGN-RESET-DECISION.md](./DESIGN-RESET-DECISION.md) | A vs B owner choice (A8) |
+| [design-reset/](./design-reset/index.html) | Annotated wireframes for proposals A and B |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

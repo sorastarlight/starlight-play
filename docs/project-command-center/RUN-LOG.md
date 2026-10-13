@@ -1,5 +1,51 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #6 Admin Hub design reset
+
+- Branch: `admin-hub-overhaul`. Design artifacts only. `admin-next.html` Trainers tab, Workspace 2.0 fixture, and card fixture unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- A1 remains **open**. A7 is **not approved**. A8 (Proposal A vs B) needs owner.
+
+### Deliverables
+
+- `DESIGN-RESET-ISSUE-6.md` — task inventory, global IA, field map, visual system, research links
+- `DESIGN-RESET-DECISION.md` — side-by-side + preferred hypothesis A
+- `design-reset/proposal-a.html` — record workspace wireframes (1440 / 390, busy / sparse)
+- `design-reset/proposal-b.html` — inbox split wireframes (1440 / 390, list / record)
+
+Preferred local preview: `http://127.0.0.1:4252/docs/project-command-center/design-reset/index.html`
+
+### REAL DOM (unsigned wireframes)
+
+| Frame | Notes |
+|---|---|
+| A 1440 directory | Persistent Admin Hub nav. Full-width table. Trainer rows are buttons. Compact dates. Leaf last seen unavailable. |
+| A 1440 Overview | Directory gone. All trainers + facts + account fields. No email address. |
+| A Pokémon | Newest-40 note; Venusaur / Charizard / Blastoise. Sparse Leaf: no live Pokémon. |
+| A 390 | Nav behind Admin menu. Stacked directory or full-width record. |
+| B 1440 | One-line scan rail + record. Not 300px cards. |
+| B 390 | List or record. Sparse Leaf facts say unavailable. |
+
+Browser-tool webfont/system capture is garbled. Accessibility tree is the text source of truth.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-overhaul-tests.js` | STATIC PASS | 11 |
+| `tests/admin-hub-workspace-v2-tests.js` | STATIC PASS | 6 |
+| `tests/admin-hub-gate-2a-trainer-tests.js` | STATIC PASS | 8 |
+| `tests/admin-hub-next-tests.js` | STATIC PASS | 7 |
+| `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC PASS | 12 |
+| `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC PASS | 16 |
+| `tests/admin-hub-gate-17-s1b-tests.js` | STATIC PASS | 5 |
+| Design-reset wireframes | REAL DOM | unsigned static HTML |
+| Live staff RPCs | **not run** | not authorized |
+| Production | **not run** | smoke paused |
+
+No implementation. No A1 / A7 close.
+
 ## 2026-10-13 — GitHub issue #5 Trainer Workspace 2.0 prototype
 
 - Branch: `admin-hub-overhaul`. Implementation commit `7fd7cbf`. Prototype only. `admin-next.html` Trainers tab unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.

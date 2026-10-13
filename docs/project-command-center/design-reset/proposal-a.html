@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proposal A — record workspace</title>
+  <style>
+    :root { --ink:#2a1f28; --muted:#6b5a66; --line:#eadfe4; --bg:#f6f1ec; --pass:#c45c7a; --focus:#c9a227; --hover:#fff7fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 13px/1.4 system-ui, sans-serif; color: var(--ink); background: #e8e0da; }
+    button, summary { font: inherit; }
+    button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    .toolbar { background: #fff; border-bottom: 1px solid var(--line); padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; }
+    .toolbar label { display: grid; gap: 4px; font-size: 11px; color: var(--muted); }
+    .toolbar select { min-height: 32px; }
+    .toolbar h1 { font-size: 15px; margin: 0 16px 0 0; }
+    .toolbar a { color: #8a3d58; }
+    .stage { padding: 16px; }
+    .frame { margin: 0 auto; background: var(--bg); border: 1px solid #d8cdc6; min-height: 640px; display: grid; grid-template-columns: 176px 1fr 240px; }
+    .frame.is-390 { width: 390px; grid-template-columns: 1fr; }
+    .frame.is-1440 { width: min(1440px, 100%); }
+    .nav { background: #fff; border-right: 1px solid var(--line); padding: 12px 10px; }
+    .nav strong { display: block; font-size: 12px; margin: 0 8px 10px; }
+    .nav button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 7px 8px; border-radius: 6px; color: var(--ink); }
+    .nav button[aria-current="page"] { background: #fff0f5; font-weight: 650; }
+    .nav-toggle { display: none; width: 100%; margin-bottom: 8px; }
+    .is-390 .nav { border-right: 0; border-bottom: 1px solid var(--line); }
+    .is-390 .nav-list { display: none; }
+    .is-390 .nav.is-open .nav-list { display: block; }
+    .is-390 .nav-toggle { display: block; }
+    .page { padding: 16px 20px 28px; min-width: 0; }
+    .page-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 12px; }
+    .page-head h2 { margin: 0; font-size: 20px; }
+    .page-head p, .wire-note { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+    .search { display: flex; gap: 8px; margin: 0 0 10px; }
+    .search input { flex: 1; min-height: 36px; border: 1px solid var(--line); padding: 0 10px; background: #fff; }
+    .search button { min-height: 36px; padding: 0 12px; border: 1px solid var(--line); background: #fff; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; font-size: 11px; color: var(--muted); font-weight: 600; padding: 0 8px 6px; border-bottom: 1px solid var(--line); }
+    td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    .row { display: contents; }
+    .who { display: flex; gap: 8px; align-items: center; }
+    .av { width: 32px; height: 32px; border-radius: 50%; background: #f0d8e2; display: grid; place-items: center; font-weight: 650; font-size: 12px; }
+    .handle { color: var(--muted); font-size: 12px; }
+    .chip { display: inline-block; padding: 1px 6px; border-radius: 999px; background: #f3e8ec; font-size: 11px; }
+    .chip.pass { background: #f8d5e0; color: #7a2d48; }
+    .chip.muted { background: #eee8ea; color: var(--muted); }
+    tr:hover td { background: var(--hover); }
+    .open { border: 0; background: transparent; padding: 0; font-weight: 650; color: inherit; cursor: pointer; text-align: left; }
+    .pager { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; color: var(--muted); }
+    .back { border: 0; background: transparent; padding: 0; color: #8a3d58; margin-bottom: 8px; }
+    .id-row { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+    .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 16px; margin: 0 0 12px; }
+    .facts div { border-top: 1px solid var(--line); padding-top: 6px; }
+    .facts dt { font-size: 11px; color: var(--muted); }
+    .facts dd { margin: 0; font-weight: 650; }
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+    .tabs button { border: 0; background: transparent; padding: 8px 10px; color: var(--muted); }
+    .tabs button[aria-selected="true"] { color: var(--ink); font-weight: 650; box-shadow: inset 0 -2px 0 var(--pass); }
+    .kv { display: grid; grid-template-columns: 10rem 1fr; gap: 6px 12px; }
+    .kv dt { color: var(--muted); }
+    .kv dd { margin: 0; }
+    .list { margin: 0; padding: 0; list-style: none; }
+    .list li { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+    .empty { color: var(--muted); }
+    .notes { background: #fff; border-left: 1px solid var(--line); padding: 12px; font-size: 12px; }
+    .notes h3 { margin: 0 0 8px; font-size: 13px; }
+    .notes ol { margin: 0; padding-left: 1.15rem; }
+    .notes li { margin: 0 0 8px; }
+    .mark { display: inline-block; min-width: 1.1rem; font-size: 10px; font-weight: 700; color: #8a3d58; }
+    .is-390 .page { padding: 12px; }
+    .is-390 .facts { grid-template-columns: 1fr 1fr; }
+    .is-390 thead { display: none; }
+    .is-390 table, .is-390 tbody, .is-390 tr, .is-390 td { display: block; width: 100%; }
+    .is-390 td { border: 0; padding: 2px 0; }
+    .is-390 tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+    .is-390 td[data-label]::before { content: attr(data-label) " · "; color: var(--muted); font-size: 11px; }
+    .is-390 .notes { border-left: 0; border-top: 1px solid var(--line); }
+    .hide-390-notes { }
+    .is-390 .kv { grid-template-columns: 1fr; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>Proposal A · record workspace</h1>
+    <p><a href="./index.html">All proposals</a> · <a href="./proposal-b.html">Proposal B</a></p>
+    <label>Viewport
+      <select id="vp"><option value="1440">1440 desktop</option><option value="390">390 mobile</option></select>
+    </label>
+    <label>Scene
+      <select id="scene">
+        <option value="directory">Directory</option>
+        <option value="overview">Record · Overview</option>
+        <option value="pokemon">Record · Pokémon</option>
+        <option value="inventory">Record · Inventory</option>
+        <option value="progression">Record · Progression</option>
+        <option value="connections">Record · Connections</option>
+      </select>
+    </label>
+    <label>Account
+      <select id="who"><option value="busy">Busy · Oak</option><option value="sparse">Sparse · Leaf</option></select>
+    </label>
+  </div>
+  <div class="stage">
+    <div class="frame is-1440" id="frame">
+      <nav class="nav" id="nav" aria-label="Admin Hub">
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false">Admin menu</button>
+        <strong>Admin Hub</strong>
+        <div class="nav-list">
+          <button type="button">Operations</button>
+          <button type="button" aria-current="page">Trainers</button>
+          <button type="button">Support</button>
+          <button type="button">Mart</button>
+          <button type="button">Configuration</button>
+          <button type="button">Analytics</button>
+          <button type="button">System</button>
+        </div>
+      </nav>
+      <div class="page" id="page"></div>
+      <aside class="notes" id="notes" aria-label="Field annotations"></aside>
+    </div>
+  </div>
+  <script>
+    const trainers = [
+      { name: "Professor Oak", login: "oak", role: "staff", pass: true, caught: 37, seen: "12 Oct, 2:14 PM", full: "2026-10-12 18:14:03 UTC", initial: "O" },
+      { name: "Blue", login: "blue", role: "player", pass: true, caught: 12, seen: "11 Oct, 7:02 PM", full: "2026-10-11 23:02:11 UTC", initial: "B" },
+      { name: "Superlongname-McGillicuddy", login: "superlongname", role: "player", pass: false, caught: 2, seen: "9 Oct, 10:41 AM", full: "2026-10-09 14:41:00 UTC", initial: "S" },
+      { name: "Leaf", login: "leaf", role: "player", pass: false, caught: 0, seen: "unavailable", full: "", initial: "L" },
+      { name: "Red", login: "red", role: "player", pass: true, caught: 8, seen: "8 Oct, 4:18 PM", full: "2026-10-08 20:18:44 UTC", initial: "R" },
+      { name: "Yellow", login: "yellow", role: "player", pass: false, caught: 1, seen: "7 Oct, 1:05 PM", full: "2026-10-07 17:05:09 UTC", initial: "Y" },
+      { name: "Green", login: "green", role: "player", pass: false, caught: 4, seen: "6 Oct, 9:22 AM", full: "2026-10-06 13:22:00 UTC", initial: "G" },
+      { name: "Silver", login: "silver", role: "player", pass: true, caught: 15, seen: "Today, 8:01 AM", full: "2026-10-12 12:01:12 UTC", initial: "V" }
+    ];
+
+    function chip(text, cls) { return `<span class="chip${cls ? " " + cls : ""}">${text}</span>`; }
+    function mark(n) { return `<span class="mark" aria-hidden="true">[${n}]</span>`; }
+
+    function directoryHtml() {
+      const rows = trainers.map((row) => `<tr>
+        <td><div class="who"><span class="av" aria-hidden="true">${row.initial}</span><div>
+          <button class="open" type="button" data-open="${row.login}">${row.name}</button>
+          <div class="handle">@${row.login}</div></div></div></td>
+        <td data-label="Role">${chip(row.role)}</td>
+        <td data-label="Pass">${row.pass ? chip("Pass", "pass") : chip("—", "muted")}</td>
+        <td data-label="Pokémon">${row.caught}</td>
+        <td data-label="Last seen" title="${row.full}">${row.seen} ${mark(3)}</td>
+      </tr>`).join("");
+      return `
+        <div class="page-head"><div>
+          <h2>Trainers ${mark(1)}</h2>
+          <p class="wire-note">Design wireframe · not live data · live page size stays 50</p>
+        </div><p>Signed in · staff</p></div>
+        <form class="search" onsubmit="return false;">
+          <input type="search" value="" placeholder="Name, login, UUID, or Twitch login" aria-label="Find trainers">
+          <button type="submit">Find ${mark(2)}</button>
+        </form>
+        <table>
+          <thead><tr><th>Trainer</th><th>Role</th><th>Pass</th><th>Pokémon</th><th>Last seen</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <div class="pager"><span>8 trainers. Server page is 50.</span><span>Previous · Next</span></div>`;
+    }
+
+    function header(account, pane) {
+      const busy = account === "busy";
+      const name = busy ? "Professor Oak" : "Leaf";
+      const login = busy ? "oak" : "leaf";
+      const role = busy ? "staff" : "player";
+      const pass = busy;
+      const seen = busy ? "12 Oct, 2:14 PM" : "unavailable";
+      const level = busy ? "28" : "unavailable";
+      const caught = busy ? "37" : "unavailable";
+      const coins = busy ? "4,280" : "unavailable";
+      const tabs = ["overview", "pokemon", "inventory", "progression", "connections"].map((id) => {
+        const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections" };
+        return `<button type="button" role="tab" data-pane="${id}" aria-selected="${id === pane}">${labels[id]}</button>`;
+      }).join("");
+      return `
+        <button type="button" class="back" data-back>← All trainers ${mark(4)}</button>
+        <div class="id-row">
+          <span class="av" style="width:44px;height:44px">${busy ? "O" : "L"}</span>
+          <div>
+            <h2 style="margin:0;font-size:20px">${name}</h2>
+            <p class="handle">@${login} · ${chip(role)} ${pass ? chip("Pass", "pass") : chip("No Pass", "muted")}</p>
+          </div>
+        </div>
+        <dl class="facts">
+          <div><dt>Level ${mark(5)}</dt><dd>${level}</dd></div>
+          <div><dt>Caught</dt><dd>${caught}</dd></div>
+          <div><dt>Coins</dt><dd>${coins}</dd></div>
+          <div><dt>Last seen</dt><dd title="${busy ? "2026-10-12 18:14:03 UTC" : ""}">${seen}</dd></div>
+        </dl>
+        <div class="tabs" role="tablist">${tabs}</div>`;
+    }
+
+    function recordHtml(account, pane) {
+      const busy = account === "busy";
+      let body = "";
+      if (pane === "overview") {
+        body = busy ? `
+          <dl class="kv">
+            <dt>Display name ${mark(6)}</dt><dd>Professor Oak</dd>
+            <dt>Login</dt><dd>oak</dd>
+            <dt>Account id</dt><dd>aaaaaaaa-1111-2222-3333-444444444444</dd>
+            <dt>Role</dt><dd>staff</dd>
+            <dt>Starlight Pass</dt><dd>Yes</dd>
+            <dt>Password login</dt><dd>Yes ${mark(7)}</dd>
+            <dt>Registered</dt><dd title="2026-03-02 11:04:00 UTC">2 Mar 2026</dd>
+            <dt>Twitch</dt><dd>Primary @professoroak · Connections tab has flags</dd>
+          </dl>
+          <p class="empty">Email address is not returned. Activity journal is unavailable.</p>` : `
+          <dl class="kv">
+            <dt>Display name</dt><dd>Leaf</dd>
+            <dt>Login</dt><dd>leaf</dd>
+            <dt>Account id</dt><dd>bbbbbbbb-5555-6666-7777-888888888888</dd>
+            <dt>Role</dt><dd>player</dd>
+            <dt>Starlight Pass</dt><dd>No</dd>
+            <dt>Password login</dt><dd>No</dd>
+            <dt>Registered</dt><dd title="2026-10-11 16:02:00 UTC">11 Oct 2026</dd>
+            <dt>Twitch</dt><dd>unavailable</dd>
+          </dl>
+          <p class="empty">Sparse account: no inventing of last seen, level, or a linked Twitch.</p>`;
+      } else if (pane === "pokemon") {
+        body = busy ? `
+          <p class="empty">Newest 40 live Pokémon only. Full PC, favorite, and locked are unavailable. ${mark(8)}</p>
+          <ul class="list">
+            <li><span>Venusaur · #003 · normal</span><span>Lv. 36 · Poke Ball</span><span title="2026-10-01 12:00:00 UTC">1 Oct</span></li>
+            <li><span>Charizard · #006 · shiny</span><span>Lv. 40 · Ultra Ball</span><span title="2026-09-22 18:11:00 UTC">22 Sep</span></li>
+            <li><span>Blastoise · #009 · normal</span><span>Lv. 33 · Great Ball</span><span title="2026-09-18 09:40:00 UTC">18 Sep</span></li>
+          </ul>` : `<p class="empty">No live Pokémon in this snapshot. Full PC is still unavailable.</p>`;
+      } else if (pane === "inventory") {
+        body = busy ? `
+          <dl class="kv">
+            <dt>Coins ${mark(9)}</dt><dd>4,280</dd>
+            <dt>Bag used / capacity</dt><dd>14 / 20</dd>
+            <dt>Poké / Great / Ultra</dt><dd>8 · 3 · 2</dd>
+            <dt>Master Ball</dt><dd>1 (display)</dd>
+            <dt>Berry / bait / lure</dt><dd>4 · 2 · 1</dd>
+            <dt>Family candy</dt><dd>Bulbasaur 12</dd>
+          </dl>
+          <p class="empty">Bits entitlements are unavailable.</p>` : `
+          <dl class="kv">
+            <dt>Coins</dt><dd>0</dd>
+            <dt>Bag used / capacity</dt><dd>0 / 20</dd>
+            <dt>Balls / consumables</dt><dd>0</dd>
+            <dt>Family candy</dt><dd>None in this snapshot</dd>
+          </dl>
+          <p class="empty">Zero is a value. Bits remain unavailable.</p>`;
+      } else if (pane === "progression") {
+        body = busy ? `
+          <dl class="kv">
+            <dt>Level / XP / title ${mark(10)}</dt><dd>28 · 14,200 · Champion</dd>
+            <dt>Caught / seen</dt><dd>37 / 41</dd>
+            <dt>Ranking</dt><dd>Visible · eligible</dd>
+          </dl>
+          <p>Titles: Champion unlocked · Rival locked<br>Badges: Cascade unlocked · Boulder locked<br>Catalog matches cosmetics — collapsed.</p>
+          <p class="empty">Achievements, Oak research, and evolution history are unavailable.</p>` : `
+          <dl class="kv">
+            <dt>Level / XP / title</dt><dd>unavailable</dd>
+            <dt>Caught / seen</dt><dd>unavailable</dd>
+            <dt>Ranking</dt><dd>unavailable</dd>
+          </dl>
+          <p class="empty">Inspect returned no trainer card. Do not draw empty trophy walls.</p>`;
+      } else {
+        body = busy ? `
+          <dl class="kv">
+            <dt>Primary Twitch ${mark(11)}</dt><dd>professoroak</dd>
+            <dt>Linked rows</dt><dd>1</dd>
+          </dl>
+          <p>@professoroak · Primary · Confirmed · Gameplay on · Login on<br>Status active · Linked 2 Mar 2026</p>
+          <p class="empty">Link and unlink stay on Support → current hub.</p>` : `<p class="empty">No Twitch connections returned.</p>`;
+      }
+      return `${header(account, pane)}${body}`;
+    }
+
+    const noteSets = {
+      directory: `<h3>A · directory</h3><ol>
+        <li>Persistent hub nav. Trainers is the find job. Not a fixture “Next Hub” strip.</li>
+        <li>Search is <code>admin_list_users.p_query</code> (name, login, UUID, Twitch login). No email search.</li>
+        <li>Columns from the list RPC only. Compact last seen; full UTC in <code>title</code>. Coins omitted — they belong on Inventory.</li>
+        <li>Page size 50 on the live RPC. This frame shows 8 invented rows so wrap and empty last-seen are visible.</li>
+      </ol>`,
+      overview: `<h3>A · overview</h3><ol>
+        <li>All trainers restores query, offset, and scroll. Directory is gone while inspecting.</li>
+        <li>Level / caught / coins come from inspect + bag. Missing → unavailable.</li>
+        <li>Account fields from <code>admin_user_account.user</code>. UUID here, not on every directory row.</li>
+        <li>Password login is the <code>emailLogin</code> boolean. Email address is never shown.</li>
+      </ol>`,
+      pokemon: `<h3>A · Pokémon</h3><ol>
+        <li><code>mons[]</code> newest 40 live catches only.</li>
+        <li>No box, favorite, locked, or obtained method in this RPC.</li>
+      </ol>`,
+      inventory: `<h3>A · inventory</h3><ol>
+        <li><code>bag</code> + <code>candy[]</code> with qty &gt; 0.</li>
+        <li>Bits are not in these RPCs.</li>
+      </ol>`,
+      progression: `<h3>A · progression</h3><ol>
+        <li><code>admin_identity_inspect.trainer</code> plus ranking flags, titles, badges, cosmetics.</li>
+        <li>Achievements / Oak / evolution = unavailable.</li>
+      </ol>`,
+      connections: `<h3>A · connections</h3><ol>
+        <li><code>health</code> + <code>connections[]</code> flags. No unlink control here.</li>
+      </ol>`
+    };
+
+    function render() {
+      const vp = document.getElementById("vp").value;
+      const scene = document.getElementById("scene").value;
+      const who = document.getElementById("who").value;
+      const frame = document.getElementById("frame");
+      frame.className = "frame is-" + vp;
+      document.getElementById("page").innerHTML = scene === "directory" ? directoryHtml() : recordHtml(who, scene);
+      document.getElementById("notes").innerHTML = noteSets[scene] || noteSets.overview;
+    }
+
+    document.getElementById("vp").onchange = render;
+    document.getElementById("scene").onchange = render;
+    document.getElementById("who").onchange = render;
+    document.getElementById("navToggle").onclick = function () {
+      const nav = document.getElementById("nav");
+      const open = !nav.classList.contains("is-open");
+      nav.classList.toggle("is-open", open);
+      this.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    document.getElementById("page").addEventListener("click", (event) => {
+      const open = event.target.closest("[data-open]");
+      const back = event.target.closest("[data-back]");
+      const pane = event.target.closest("[data-pane]");
+      if (open) {
+        document.getElementById("who").value = open.getAttribute("data-open") === "leaf" ? "sparse" : "busy";
+        document.getElementById("scene").value = "overview";
+        render();
+      } else if (back) {
+        document.getElementById("scene").value = "directory";
+        render();
+      } else if (pane) {
+        document.getElementById("scene").value = pane.getAttribute("data-pane");
+        render();
+      }
+    });
+    render();
+  </script>
+</body>
+</html>

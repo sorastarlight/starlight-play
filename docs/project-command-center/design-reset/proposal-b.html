@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proposal B — inbox split</title>
+  <style>
+    :root { --ink:#2a1f28; --muted:#6b5a66; --line:#eadfe4; --bg:#f6f1ec; --pass:#c45c7a; --focus:#c9a227; --hover:#fff7fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 13px/1.4 system-ui, sans-serif; color: var(--ink); background: #e8e0da; }
+    button { font: inherit; }
+    button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    .toolbar { background: #fff; border-bottom: 1px solid var(--line); padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; }
+    .toolbar label { display: grid; gap: 4px; font-size: 11px; color: var(--muted); }
+    .toolbar select { min-height: 32px; }
+    .toolbar h1 { font-size: 15px; margin: 0 16px 0 0; }
+    .toolbar a { color: #8a3d58; }
+    .stage { padding: 16px; }
+    .frame { margin: 0 auto; background: var(--bg); border: 1px solid #d8cdc6; min-height: 640px; display: grid; grid-template-columns: 176px 1fr 240px; }
+    .frame.is-390 { width: 390px; grid-template-columns: 1fr; }
+    .frame.is-1440 { width: min(1440px, 100%); }
+    .nav { background: #fff; border-right: 1px solid var(--line); padding: 12px 10px; }
+    .nav strong { display: block; font-size: 12px; margin: 0 8px 10px; }
+    .nav button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 7px 8px; border-radius: 6px; }
+    .nav button[aria-current="page"] { background: #fff0f5; font-weight: 650; }
+    .nav-toggle { display: none; width: 100%; margin-bottom: 8px; }
+    .is-390 .nav { border-right: 0; border-bottom: 1px solid var(--line); }
+    .is-390 .nav-list { display: none; }
+    .is-390 .nav.is-open .nav-list { display: block; }
+    .is-390 .nav-toggle { display: block; }
+    .work { min-width: 0; display: grid; grid-template-rows: auto 1fr; }
+    .page-head { display: flex; justify-content: space-between; gap: 12px; padding: 16px 16px 8px; }
+    .page-head h2 { margin: 0; font-size: 20px; }
+    .page-head p, .wire-note { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+    .split { display: grid; grid-template-columns: 260px 1fr; min-height: 520px; }
+    .is-390 .split { grid-template-columns: 1fr; }
+    .rail { border-right: 1px solid var(--line); padding: 0 0 16px; min-width: 0; }
+    .search { display: flex; gap: 6px; padding: 0 10px 8px; }
+    .search input { flex: 1; min-height: 34px; border: 1px solid var(--line); padding: 0 8px; background: #fff; }
+    .search button { min-height: 34px; padding: 0 8px; border: 1px solid var(--line); background: #fff; }
+    .scan { border: 0; background: transparent; width: 100%; text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 28px 1fr auto; gap: 8px; align-items: center; }
+    .scan:hover, .scan.is-on { background: var(--hover); }
+    .scan.is-on { box-shadow: inset 2px 0 0 var(--pass); }
+    .av { width: 28px; height: 28px; border-radius: 50%; background: #f0d8e2; display: grid; place-items: center; font-weight: 650; font-size: 11px; }
+    .handle { color: var(--muted); font-size: 11px; }
+    .chip { display: inline-block; padding: 1px 6px; border-radius: 999px; background: #f3e8ec; font-size: 11px; }
+    .chip.pass { background: #f8d5e0; color: #7a2d48; }
+    .chip.muted { background: #eee8ea; color: var(--muted); }
+    .record { padding: 8px 16px 24px; min-width: 0; }
+    .id-row { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+    .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 16px; margin: 0 0 12px; }
+    .facts div { border-top: 1px solid var(--line); padding-top: 6px; }
+    .facts dt { font-size: 11px; color: var(--muted); }
+    .facts dd { margin: 0; font-weight: 650; }
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 12px; flex-wrap: wrap; }
+    .tabs button { border: 0; background: transparent; padding: 8px 10px; color: var(--muted); }
+    .tabs button[aria-selected="true"] { color: var(--ink); font-weight: 650; box-shadow: inset 0 -2px 0 var(--pass); }
+    .kv { display: grid; grid-template-columns: 9rem 1fr; gap: 6px 12px; }
+    .kv dt { color: var(--muted); }
+    .kv dd { margin: 0; }
+    .list { margin: 0; padding: 0; list-style: none; }
+    .list li { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+    .empty { color: var(--muted); }
+    .back { display: none; border: 0; background: transparent; padding: 0 0 8px; color: #8a3d58; }
+    .is-390.is-record .rail { display: none; }
+    .is-390.is-list .record { display: none; }
+    .is-390 .back { display: inline-block; }
+    .is-390 .facts { grid-template-columns: 1fr 1fr; }
+    .is-390 .kv { grid-template-columns: 1fr; }
+    .is-390 .rail { border-right: 0; }
+    .notes { background: #fff; border-left: 1px solid var(--line); padding: 12px; font-size: 12px; }
+    .notes h3 { margin: 0 0 8px; font-size: 13px; }
+    .notes ol { margin: 0; padding-left: 1.15rem; }
+    .notes li { margin: 0 0 8px; }
+    .mark { display: inline-block; min-width: 1.1rem; font-size: 10px; font-weight: 700; color: #8a3d58; }
+    .is-390 .notes { border-left: 0; border-top: 1px solid var(--line); }
+    .pager { padding: 8px 10px; color: var(--muted); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>Proposal B · inbox split</h1>
+    <p><a href="./index.html">All proposals</a> · <a href="./proposal-a.html">Proposal A</a></p>
+    <label>Viewport
+      <select id="vp"><option value="1440">1440 desktop</option><option value="390">390 mobile</option></select>
+    </label>
+    <label>Mobile surface
+      <select id="mobile"><option value="list">List</option><option value="record">Record</option></select>
+    </label>
+    <label>Pane
+      <select id="pane">
+        <option value="overview">Overview</option>
+        <option value="pokemon">Pokémon</option>
+        <option value="inventory">Inventory</option>
+        <option value="progression">Progression</option>
+        <option value="connections">Connections</option>
+      </select>
+    </label>
+    <label>Selected
+      <select id="who"><option value="oak">Busy · Oak</option><option value="leaf">Sparse · Leaf</option></select>
+    </label>
+  </div>
+  <div class="stage">
+    <div class="frame is-1440" id="frame">
+      <nav class="nav" id="nav" aria-label="Admin Hub">
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false">Admin menu</button>
+        <strong>Admin Hub</strong>
+        <div class="nav-list">
+          <button type="button">Operations</button>
+          <button type="button" aria-current="page">Trainers</button>
+          <button type="button">Support</button>
+          <button type="button">Mart</button>
+          <button type="button">Configuration</button>
+          <button type="button">Analytics</button>
+          <button type="button">System</button>
+        </div>
+      </nav>
+      <div class="work">
+        <div class="page-head"><div>
+          <h2>Trainers <span class="mark">[1]</span></h2>
+          <p class="wire-note">Design wireframe · dense scan list, not 300px cards · live page size 50</p>
+        </div><p>Signed in · staff</p></div>
+        <div class="split">
+          <div class="rail" id="rail"></div>
+          <div class="record" id="record"></div>
+        </div>
+      </div>
+      <aside class="notes" id="notes"></aside>
+    </div>
+  </div>
+  <script>
+    const trainers = [
+      { id: "oak", name: "Professor Oak", login: "oak", role: "staff", pass: true, caught: 37, seen: "2:14 PM", initial: "O" },
+      { id: "blue", name: "Blue", login: "blue", role: "player", pass: true, caught: 12, seen: "Yesterday", initial: "B" },
+      { id: "long", name: "Superlongname-McGillicuddy", login: "superlongname", role: "player", pass: false, caught: 2, seen: "9 Oct", initial: "S" },
+      { id: "leaf", name: "Leaf", login: "leaf", role: "player", pass: false, caught: 0, seen: "—", initial: "L" },
+      { id: "red", name: "Red", login: "red", role: "player", pass: true, caught: 8, seen: "8 Oct", initial: "R" },
+      { id: "yellow", name: "Yellow", login: "yellow", role: "player", pass: false, caught: 1, seen: "7 Oct", initial: "Y" },
+      { id: "green", name: "Green", login: "green", role: "player", pass: false, caught: 4, seen: "6 Oct", initial: "G" },
+      { id: "silver", name: "Silver", login: "silver", role: "player", pass: true, caught: 15, seen: "8:01 AM", initial: "V" }
+    ];
+    function chip(text, cls) { return `<span class="chip${cls ? " " + cls : ""}">${text}</span>`; }
+    function mark(n) { return `<span class="mark">[${n}]</span>`; }
+
+    function railHtml(selected) {
+      const rows = trainers.map((row) => `<button type="button" class="scan${row.id === selected || (selected === "oak" && row.id === "oak") || (selected === "leaf" && row.id === "leaf") ? " is-on" : ""}" data-open="${row.id}">
+        <span class="av">${row.initial}</span>
+        <span><strong>${row.name}</strong><div class="handle">@${row.login} · ${row.role}${row.pass ? " · Pass" : ""}</div></span>
+        <span class="handle">${row.seen}</span>
+      </button>`).join("");
+      return `<form class="search" onsubmit="return false;">
+        <input type="search" placeholder="Find" aria-label="Find trainers">
+        <button type="submit">Find ${mark(2)}</button>
+      </form>${rows}<p class="pager">1–8 of 8 · page 50 live ${mark(3)}</p>`;
+    }
+
+    function recordHtml(who, pane) {
+      const busy = who === "oak";
+      const name = busy ? "Professor Oak" : "Leaf";
+      const login = busy ? "oak" : "leaf";
+      const tabs = ["overview", "pokemon", "inventory", "progression", "connections"].map((id) => {
+        const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections" };
+        return `<button type="button" role="tab" data-pane="${id}" aria-selected="${id === pane}">${labels[id]}</button>`;
+      }).join("");
+      let body = "";
+      if (pane === "overview") {
+        body = busy ? `<dl class="kv">
+          <dt>Display name ${mark(6)}</dt><dd>Professor Oak</dd>
+          <dt>Login</dt><dd>oak</dd>
+          <dt>Account id</dt><dd>aaaaaaaa-1111-2222-3333-444444444444</dd>
+          <dt>Password login</dt><dd>Yes ${mark(7)}</dd>
+          <dt>Registered</dt><dd title="2026-03-02 11:04:00 UTC">2 Mar 2026</dd>
+          <dt>Twitch</dt><dd>Primary @professoroak</dd>
+        </dl><p class="empty">Same fields as Proposal A. The list stays; it is a one-line scan, not cards.</p>` :
+        `<dl class="kv">
+          <dt>Display name</dt><dd>Leaf</dd>
+          <dt>Login</dt><dd>leaf</dd>
+          <dt>Password login</dt><dd>No</dd>
+          <dt>Last seen</dt><dd>unavailable</dd>
+          <dt>Twitch</dt><dd>unavailable</dd>
+        </dl><p class="empty">Sparse: empty last seen is a dash in the list and unavailable on the record.</p>`;
+      } else if (pane === "pokemon") {
+        body = busy ? `<p class="empty">Newest 40 live only. ${mark(8)}</p>
+          <ul class="list"><li><span>Venusaur</span><span>Lv. 36</span><span>1 Oct</span></li>
+          <li><span>Charizard · shiny</span><span>Lv. 40</span><span>22 Sep</span></li>
+          <li><span>Blastoise</span><span>Lv. 33</span><span>18 Sep</span></li></ul>` :
+          `<p class="empty">No live Pokémon in this snapshot.</p>`;
+      } else if (pane === "inventory") {
+        body = busy ? `<dl class="kv"><dt>Coins ${mark(9)}</dt><dd>4,280</dd><dt>Bag</dt><dd>14 / 20</dd><dt>Candy</dt><dd>Bulbasaur 12</dd></dl><p class="empty">Bits unavailable.</p>` :
+          `<dl class="kv"><dt>Coins</dt><dd>0</dd><dt>Bag</dt><dd>0 / 20</dd></dl>`;
+      } else if (pane === "progression") {
+        body = busy ? `<dl class="kv"><dt>Level / title ${mark(10)}</dt><dd>28 · Champion</dd><dt>Ranking</dt><dd>Visible · eligible</dd></dl><p class="empty">Achievements / Oak / evolution unavailable.</p>` :
+          `<p class="empty">Trainer card unavailable. No empty trophy wall.</p>`;
+      } else {
+        body = busy ? `<p>@professoroak · Primary · Confirmed · Gameplay on ${mark(11)}</p><p class="empty">Unlink is Support, not this pane.</p>` :
+          `<p class="empty">No Twitch connections returned.</p>`;
+      }
+      return `<button type="button" class="back" data-back>← All trainers ${mark(4)}</button>
+        <div class="id-row"><span class="av" style="width:44px;height:44px">${busy ? "O" : "L"}</span>
+          <div><h2 style="margin:0;font-size:20px">${name}</h2>
+          <p class="handle">@${login} · ${chip(busy ? "staff" : "player")} ${busy ? chip("Pass", "pass") : chip("No Pass", "muted")}</p></div></div>
+        <dl class="facts">
+          <div><dt>Level ${mark(5)}</dt><dd>${busy ? "28" : "unavailable"}</dd></div>
+          <div><dt>Caught</dt><dd>${busy ? "37" : "unavailable"}</dd></div>
+          <div><dt>Coins</dt><dd>${busy ? "4,280" : "unavailable"}</dd></div>
+          <div><dt>Last seen</dt><dd title="${busy ? "2026-10-12 18:14:03 UTC" : ""}">${busy ? "12 Oct, 2:14 PM" : "unavailable"}</dd></div>
+        </dl>
+        <div class="tabs" role="tablist">${tabs}</div>${body}`;
+    }
+
+    const notes = {
+      overview: `<h3>B · inbox</h3><ol>
+        <li>Same hub shell as A. Trainers is a split job: scan + inspect.</li>
+        <li>Find is still <code>p_query</code>. The rail is one line (name, role, Pass, compact time) — not 300px cards.</li>
+        <li>Pager still honors 50. Coins are not in the rail.</li>
+        <li>390: list or record. All trainers returns to the list.</li>
+        <li>Header facts: inspect + bag; missing = unavailable.</li>
+        <li>Overview = <code>admin_user_account.user</code> only.</li>
+        <li>Password login boolean. No email address.</li>
+      </ol>`,
+      pokemon: `<h3>B · Pokémon</h3><ol><li>Same <code>mons[]</code> 40-live contract as A.</li></ol>`,
+      inventory: `<h3>B · inventory</h3><ol><li>Same <code>bag</code> / <code>candy</code> contract. Bits unavailable.</li></ol>`,
+      progression: `<h3>B · progression</h3><ol><li>Same inspect trainer / unlocks. No invented achievements.</li></ol>`,
+      connections: `<h3>B · connections</h3><ol><li>Same <code>health</code> + link flags. Writes stay on Support.</li></ol>`
+    };
+
+    function render() {
+      const vp = document.getElementById("vp").value;
+      const mobile = document.getElementById("mobile").value;
+      const pane = document.getElementById("pane").value;
+      const who = document.getElementById("who").value;
+      const frame = document.getElementById("frame");
+      frame.className = "frame is-" + vp + (vp === "390" ? " is-" + mobile : "");
+      document.getElementById("rail").innerHTML = railHtml(who);
+      document.getElementById("record").innerHTML = recordHtml(who, pane);
+      document.getElementById("notes").innerHTML = notes[pane];
+    }
+
+    document.getElementById("vp").onchange = render;
+    document.getElementById("mobile").onchange = render;
+    document.getElementById("pane").onchange = render;
+    document.getElementById("who").onchange = render;
+    document.getElementById("navToggle").onclick = function () {
+      const nav = document.getElementById("nav");
+      nav.classList.toggle("is-open");
+      this.setAttribute("aria-expanded", nav.classList.contains("is-open") ? "true" : "false");
+    };
+    document.getElementById("frame").addEventListener("click", (event) => {
+      const open = event.target.closest("[data-open]");
+      const pane = event.target.closest("[data-pane]");
+      const back = event.target.closest("[data-back]");
+      if (open) {
+        document.getElementById("who").value = open.getAttribute("data-open") === "leaf" ? "leaf" : "oak";
+        document.getElementById("mobile").value = "record";
+        render();
+      } else if (pane) {
+        document.getElementById("pane").value = pane.getAttribute("data-pane");
+        render();
+      } else if (back) {
+        document.getElementById("mobile").value = "list";
+        render();
+      }
+    });
+    render();
+  </script>
+</body>
+</html>

@@ -39,6 +39,11 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/RUN-LOG.md",
     "docs/project-command-center/ADMIN-HUB-INVENTORY.md",
     "docs/project-command-center/ADMIN-HUB-IA.md",
+    "docs/project-command-center/DESIGN-RESET-ISSUE-6.md",
+    "docs/project-command-center/DESIGN-RESET-DECISION.md",
+    "docs/project-command-center/design-reset/index.html",
+    "docs/project-command-center/design-reset/proposal-a.html",
+    "docs/project-command-center/design-reset/proposal-b.html",
     ".cursor/rules/streamlink-project.mdc"
   ].forEach((rel) => assert(fs.existsSync(path.join(__dirname, "..", rel)), rel));
   assert(commandCenter.includes("First execution boundary"));
@@ -217,6 +222,18 @@ test("Preview still has no privileged writes and legacy entry points stay put", 
   assert(fixtureHtml.includes("LOCAL FIXTURE"));
   assert(fixtureHtml.includes("127.0.0.1"));
   assert(!fixtureHtml.includes("service_role"));
+});
+
+test("Issue 6 wireframes exist and stay unwired", () => {
+  const a = read("docs/project-command-center/design-reset/proposal-a.html");
+  const b = read("docs/project-command-center/design-reset/proposal-b.html");
+  const decision = read("docs/project-command-center/DESIGN-RESET-DECISION.md");
+  ["playCall", "admin_overview", "service_role", "admin_grant_"].forEach((name) => {
+    assert(!a.includes(name) && !b.includes(name), name);
+  });
+  assert(a.includes("Proposal A") && b.includes("Proposal B"));
+  assert(a.includes("admin_list_users") && b.includes("p_query"));
+  assert(decision.includes("A8") && decision.includes("NOT APPROVED"));
 });
 
 const failed = results.filter((row) => !row.passed);

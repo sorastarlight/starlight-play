@@ -1,11 +1,11 @@
 # Owner decision — Admin Hub design reset (issue #6)
 
-Stop. Pick a direction before any working preview is replaced.
+**Owner decision recorded:** Proposal A — Record Workspace selected for the next Admin Hub design stage. No existing preview is approved for replacement.
 
 **A1** visual approval of Gate 2A / card workspace — **OPEN** (not granted).  
 **A3** one canonical grant UI (Trainers desk vs Oak QA vs future Support case) — **OPEN** (not decided here).  
 **A7** adopt Workspace 2.0 as the live Trainers tab — **NOT APPROVED**.  
-**A8** implement Proposal A or Proposal B — **NEEDS OWNER**.
+**A8** choose the next design direction — **APPROVED: Proposal A (Record Workspace)**. This is design-direction approval only, not implementation, A1 visual acceptance, merge, or deployment.
 
 No merge, deploy, APP stamp, SQL, or Batch F is requested.
 
@@ -44,3 +44,7 @@ Proposal B remains the right alternative if staff’s real job during a stream i
 ## Ask
 
 Reply on issue #6 with **A**, **B**, or **neither — here is the missing workflow**.
+
+## Owner selection recorded
+
+Proposal A is the chosen design direction (A8). Prepare an integrated, implementable design specification and refined review artifacts in a separate safe design stage. Do **not** replace `admin-next.html`, merge, deploy, modify SQL or staff roles, or start privileged Batch F on the strength of this decision. A1, A3, and A7 retain their prior dispositions.

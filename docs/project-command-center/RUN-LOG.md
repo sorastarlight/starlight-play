@@ -2,7 +2,7 @@
 
 ## 2026-10-13 — GitHub issue #16 Pokémon legality source audit
 
-- Branch: `admin-hub-overhaul`. Design/audit only. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, Batch F, catch-row writes, #13, #14, #15, or #17.
+- Branch: `admin-hub-overhaul`. Audit commit `a3004d1`. Design/audit only. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, Batch F, catch-row writes, #13, #14, #15, or #17.
 - Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - D14 recorded. A16a–f need owner. A1 open. A8 direction stands. A9 not authorized.

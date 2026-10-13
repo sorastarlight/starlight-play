@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>LOCAL FIXTURE · Trainer Workspace 2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/play.css?v=20261008-rc133">
+<body data-page="admin-next">
+<div class="wrap">
+  <div class="page-kicker">
+    <p class="notice" role="status">LOCAL FIXTURE — sanitized demo data only. This page does not sign in, does not call production trainer RPCs, and does not use service-role credentials. It runs only on localhost.</p>
+    <h1>Trainer Workspace 2.0 prototype</h1>
+    <p class="muted">Searchable directory and full-width profile. This does not replace the live Admin Hub Trainers tab. Compare the current card workspace at <a href="./admin-next-trainers-fixture.html">admin-next-trainers-fixture.html</a>.</p>
+  </div>
+  <p id="fixture-gate" class="notice" hidden>This fixture is localhost-only. Open it from 127.0.0.1 or localhost.</p>
+  <div id="fixture-app" hidden>
+    <div class="hub-app admin-next-app">
+      <aside class="hub-nav" id="hub-nav">
+        <p class="hub-nav-brand">Next Hub</p>
+        <div class="hub-nav-list" role="tablist" aria-label="Next Admin Hub">
+          <button type="button" role="tab" aria-selected="false" disabled>Operations</button>
+          <button type="button" role="tab" aria-selected="true">Trainers</button>
+        </div>
+      </aside>
+      <div class="hub-main">
+        <section class="hub-card admin-next-panel admin-next-ws2-panel">
+          <p class="eyebrow">Trainers · Workspace 2.0 prototype</p>
+          <h2>Trainer Management</h2>
+          <p class="muted">Prototype directory is a compact table. Selecting a row opens a full-width workspace. Search, page, and scroll restore when you return. Privileged writes are not on this page.</p>
+          <div class="admin-next-ws2" id="ws2" data-ws2-root>
+            <div class="admin-next-ws2-dir" data-ws2-dir>
+              <form class="admin-next-ws2-search" data-ws2-search>
+                <label for="ws2-q">Search trainers</label>
+                <div class="admin-next-ws2-search-row">
+                  <input id="ws2-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Name, login, UUID, or Twitch id">
+                  <button type="submit">Find</button>
+                </div>
+              </form>
+              <p id="ws2-list-status" class="admin-next-ws2-status" role="status"></p>
+              <div class="admin-next-ws2-pager">
+                <button type="button" data-ws2-prev disabled>Previous</button>
+                <button type="button" data-ws2-next disabled>Next</button>
+              </div>
+              <div id="ws2-list"></div>
+            </div>
+            <div class="admin-next-ws2-profile" data-ws2-profile hidden>
+              <p id="ws2-detail-status" class="admin-next-ws2-status" role="status"></p>
+              <div id="ws2-detail"></div>
+            </div>
+          </div>
+          <details class="admin-next-ws2-lab" data-fixture-states>
+            <summary>Fixture developer tools</summary>
+            <p>Localhost-only simulation. These buttons do not call live RPCs and are not part of the staff workspace.</p>
+            <div class="admin-next-ws2-pager">
+              <button type="button" data-fixture-state="empty">Empty results</button>
+              <button type="button" data-fixture-state="denied">Denied</button>
+              <button type="button" data-fixture-state="loading">Loading</button>
+              <button type="button" data-fixture-state="reset">Reset directory</button>
+            </div>
+          </details>
+          <p class="admin-next-unavailable">Fixture names are invented. They are not PlayTester, Sora, or Twinkle. Live RPC page size remains 50; this fixture pages at 5 only to demonstrate restore.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/admin-next-trainers.js?v=20261008-rc133"></script>
+<script src="js/admin-next-trainers-v2.js?v=20261008-rc133"></script>
+<script>
+(() => {
+  const host = String(window.location.hostname || "");
+  const local = host === "127.0.0.1" || host === "localhost";
+  const gate = document.getElementById("fixture-gate");
+  const app = document.getElementById("fixture-app");
+  if (!local) {
+    if (gate) gate.hidden = false;
+    return;
+  }
+  if (app) app.hidden = false;
+
+  const core = window.PLAY_ADMIN_NEXT_TRAINERS;
+  const ui = window.PLAY_ADMIN_NEXT_TRAINERS_V2;
+  const FIXTURE_PAGE = 5;
+  const users = Object.freeze([
+    { id: "11111111-1111-4111-8111-111111111111", displayName: "Fixture Oak", login: "fixtureoak", role: "player", pass: true, coins: 120, caught: 8, createdAt: "2026-01-02T00:00:00Z", lastSeenAt: "2026-10-10T12:00:00Z" },
+    { id: "22222222-2222-4222-8222-222222222222", displayName: "Fixture Blue", login: "fixtureblue", role: "player", pass: false, coins: 4, caught: 1, createdAt: "2026-03-04T00:00:00Z", lastSeenAt: "2026-09-01T08:00:00Z" },
+    { id: "33333333-3333-4333-8333-333333333333", displayName: "Fixture Superlongname-McGillicuddy", login: "fixture-superlong-login-name", role: "player", pass: false, coins: 0, caught: 0, createdAt: "2026-07-07T00:00:00Z", lastSeenAt: "2026-08-08T08:00:00Z" },
+    { id: "44444444-4444-4444-8444-444444444444", displayName: "Fixture Leaf", login: "fixtureleaf", role: "player", pass: true, coins: 36, caught: 3, createdAt: "2026-04-01T00:00:00Z", lastSeenAt: "2026-10-01T09:00:00Z" },
+    { id: "55555555-5555-4555-8555-555555555555", displayName: "Fixture Red", login: "fixturered", role: "player", pass: false, coins: 12, caught: 2, createdAt: "2026-05-05T00:00:00Z", lastSeenAt: "2026-09-20T10:00:00Z" },
+    { id: "66666666-6666-4666-8666-666666666666", displayName: "Fixture Yellow", login: "fixtureyellow", role: "moderator", pass: true, coins: 80, caught: 5, createdAt: "2026-02-14T00:00:00Z", lastSeenAt: "2026-10-08T18:00:00Z" },
+    { id: "77777777-7777-4777-8777-777777777777", displayName: "Fixture Green", login: "fixturegreen", role: "player", pass: false, coins: 1, caught: 1, createdAt: "2026-06-06T00:00:00Z", lastSeenAt: "2026-08-22T11:00:00Z" },
+    { id: "88888888-8888-4888-8888-888888888888", displayName: "Fixture Silver", login: "fixturesilver", role: "player", pass: false, coins: 9, caught: 0, createdAt: "2026-08-01T00:00:00Z", lastSeenAt: "2026-08-15T07:00:00Z" }
+  ]);
+
+  function thinDossier(user, extras) {
+    extras = extras || {};
+    return {
+      account: {
+        user: {
+          id: user.id,
+          username: user.login,
+          login: user.login,
+          displayName: user.displayName,
+          role: user.role,
+          pass: user.pass,
+          emailLogin: Boolean(extras.emailLogin),
+          createdAt: user.createdAt,
+          lastSeenAt: user.lastSeenAt
+        },
+        health: extras.health || { primaryTwitch: user.login, linkedTwitch: 1, gameplayTwitch: 1, botTwitch: 0 },
+        bag: extras.bag || { coins: user.coins, pokeball: 1, greatball: 0, ultraball: 0, masterball: 0, berry: 0, bait: 0, lure: 0, used: 1, capacity: 20 },
+        candy: extras.candy || [],
+        mons: extras.mons || [],
+        connections: extras.connections || [{ type: "twitch", displayName: user.displayName.replace("Fixture ", "Fixture"), login: user.login, twitchUserId: extras.twitchUserId || "9000", primary: true, confirmed: true, gameplayEnabled: true, loginEnabled: true, status: "linked", linkedAt: user.createdAt }]
+      },
+      identity: extras.identity || {
+        ok: true,
+        trainer: { displayName: user.displayName, login: user.login, level: extras.level || 5, xp: extras.xp || 100, title: extras.title || "", coins: user.coins, caught: user.caught, seen: user.caught + 1, shinyCaught: 0, kanto: { caught: user.caught } },
+        rankingVisible: false,
+        rankingEligible: false,
+        cosmetics: [],
+        ownedAvatarPacks: [],
+        titles: [],
+        badges: [],
+        catalog: []
+      }
+    };
+  }
+
+  const dossiers = Object.freeze({
+    "11111111-1111-4111-8111-111111111111": {
+      account: {
+        user: { id: "11111111-1111-4111-8111-111111111111", username: "fixtureoak", login: "fixtureoak", displayName: "Fixture Oak", role: "player", pass: true, emailLogin: false, createdAt: "2026-01-02T00:00:00Z", lastSeenAt: "2026-10-10T12:00:00Z" },
+        health: { primaryTwitch: "fixtureoak", linkedTwitch: 1, gameplayTwitch: 1, botTwitch: 0 },
+        bag: { coins: 120, pokeball: 8, greatball: 2, ultraball: 0, masterball: 0, berry: 3, bait: 1, lure: 0, used: 4, capacity: 20 },
+        candy: [{ name: "Bulbasaur Candy", familyId: "bulbasaur", qty: 12 }],
+        mons: [
+          { name: "Bulbasaur", dex: 1, variant: "Normal", gender: "M", ball: "poke", level: 12, caughtAt: "2026-02-01T00:00:00Z" },
+          { name: "Ivysaur", dex: 2, variant: "Normal", gender: "M", ball: "great", level: 18, caughtAt: "2026-04-12T00:00:00Z" },
+          { name: "Pikachu", dex: 25, variant: "Shiny", gender: "F", ball: "ultra", level: 22, caughtAt: "2026-06-20T00:00:00Z" }
+        ],
+        connections: [{ type: "twitch", displayName: "FixtureOak", login: "fixtureoak", twitchUserId: "9001", primary: true, confirmed: true, gameplayEnabled: true, loginEnabled: true, status: "linked", linkedAt: "2026-01-03T00:00:00Z" }]
+      },
+      identity: {
+        ok: true,
+        trainer: { displayName: "Fixture Oak", login: "fixtureoak", level: 14, xp: 3200, title: "Kanto Starter", coins: 120, caught: 8, seen: 11, shinyCaught: 0, kanto: { caught: 8 } },
+        rankingVisible: true,
+        rankingEligible: false,
+        cosmetics: [
+          { id: "bg-kanto", name: "Kanto", kind: "background", unlocked: true, equipped: true },
+          { id: "bg-alola", name: "Alola", kind: "background", unlocked: false }
+        ],
+        ownedAvatarPacks: ["kanto-starters"],
+        titles: [
+          { id: "starter", name: "Kanto Starter", unlocked: true, unlockedAt: "2026-02-01T00:00:00Z" },
+          { id: "champion", name: "Champion", unlocked: false }
+        ],
+        badges: [
+          { id: "boulder", name: "Boulder Badge", unlocked: true, unlockedAt: "2026-03-01T00:00:00Z" },
+          { id: "cascade", name: "Cascade Badge", unlocked: false }
+        ],
+        catalog: [
+          { id: "bg-kanto", kind: "background", name: "Kanto" },
+          { id: "bg-alola", kind: "background", name: "Alola" }
+        ]
+      }
+    },
+    "22222222-2222-4222-8222-222222222222": thinDossier(users[1], {
+      emailLogin: true,
+      twitchUserId: "9002",
+      level: 3,
+      xp: 80,
+      mons: [{ name: "Squirtle", dex: 7, variant: "Normal", gender: "F", ball: "poke", level: 5, caughtAt: "2026-03-05T00:00:00Z" }],
+      bag: { coins: 4, pokeball: 2, greatball: 0, ultraball: 0, masterball: 0, berry: 0, bait: 0, lure: 0, used: 1, capacity: 20 },
+      health: { primaryTwitch: "fixtureblue", linkedTwitch: 1, gameplayTwitch: 0, botTwitch: 0 }
+    }),
+    "33333333-3333-4333-8333-333333333333": thinDossier(users[2], {
+      twitchUserId: "9003",
+      level: 1,
+      xp: 0,
+      bag: { coins: 0, pokeball: 0, greatball: 0, ultraball: 0, masterball: 0, berry: 0, bait: 0, lure: 0, used: 0, capacity: 20 },
+      health: { primaryTwitch: "", linkedTwitch: 0, gameplayTwitch: 0, botTwitch: 0 },
+      connections: []
+    }),
+    "44444444-4444-4444-8444-444444444444": thinDossier(users[3], { twitchUserId: "9004", level: 8, xp: 900, title: "Kanto Starter", mons: [{ name: "Oddish", dex: 43, variant: "Normal", gender: "F", ball: "poke", level: 9, caughtAt: "2026-04-02T00:00:00Z" }] }),
+    "55555555-5555-4555-8555-555555555555": thinDossier(users[4], { twitchUserId: "9005", level: 6, xp: 400, mons: [{ name: "Charmander", dex: 4, variant: "Normal", gender: "M", ball: "great", level: 10, caughtAt: "2026-05-06T00:00:00Z" }] }),
+    "66666666-6666-4666-8666-666666666666": thinDossier(users[5], { twitchUserId: "9006", level: 11, xp: 1800, title: "Staff preview" }),
+    "77777777-7777-4777-8777-777777777777": thinDossier(users[6], { twitchUserId: "9007", level: 2, xp: 40, mons: [{ name: "Caterpie", dex: 10, variant: "Normal", gender: "M", ball: "poke", level: 3, caughtAt: "2026-06-07T00:00:00Z" }] }),
+    "88888888-8888-4888-8888-888888888888": thinDossier(users[7], { twitchUserId: "9008", level: 1, xp: 10, health: { primaryTwitch: "fixturesilver", linkedTwitch: 1, gameplayTwitch: 0, botTwitch: 0 } })
+  });
+
+  let query = "";
+  let offset = 0;
+  let selectedId = "";
+  let pane = "overview";
+  let unlockFilter = "all";
+  let dirScroll = 0;
+  let sim = "";
+
+  function filtered() {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return users.slice();
+    return users.filter((row) => [row.displayName, row.login, row.id].some((value) => String(value).toLowerCase().includes(needle)));
+  }
+
+  function pageRows() {
+    return filtered().slice(offset, offset + FIXTURE_PAGE);
+  }
+
+  function renderDirectory() {
+    const all = filtered();
+    if (offset >= all.length && offset > 0) offset = Math.max(0, offset - FIXTURE_PAGE);
+    const view = core.presentDirectory({
+      data: { ok: true, total: all.length, offset, users: pageRows() },
+      query,
+      selectedId
+    });
+    document.getElementById("ws2-list-status").textContent = view.status;
+    document.getElementById("ws2-list").innerHTML = ui.directoryHtml(view);
+    const prev = document.querySelector("[data-ws2-prev]");
+    const next = document.querySelector("[data-ws2-next]");
+    const pager = document.querySelector(".admin-next-ws2-dir .admin-next-ws2-pager");
+    if (prev) prev.disabled = !view.canPrev;
+    if (next) next.disabled = !view.canNext;
+    if (pager) pager.hidden = !view.showPager;
+  }
+
+  function showDirectory() {
+    const root = document.getElementById("ws2");
+    const dir = document.querySelector("[data-ws2-dir]");
+    const profile = document.querySelector("[data-ws2-profile]");
+    root.classList.remove("is-profile");
+    dir.hidden = false;
+    profile.hidden = true;
+    document.getElementById("ws2-detail").innerHTML = "";
+    document.getElementById("ws2-detail-status").textContent = "";
+    renderDirectory();
+    window.scrollTo(0, dirScroll);
+    const q = document.getElementById("ws2-q");
+    if (q) q.value = query;
+  }
+
+  function showProfile() {
+    const dossier = dossiers[selectedId];
+    const root = document.getElementById("ws2");
+    const dir = document.querySelector("[data-ws2-dir]");
+    const profile = document.querySelector("[data-ws2-profile]");
+    root.classList.add("is-profile");
+    dir.hidden = true;
+    profile.hidden = false;
+    document.getElementById("ws2-detail-status").textContent = "Local fixture dossier. Not a live trainer.";
+    const view = core.presentProfile({
+      account: dossier.account,
+      identity: dossier.identity,
+      pane
+    });
+    view.unlockFilter = unlockFilter;
+    document.getElementById("ws2-detail").innerHTML = ui.profileHtml(view);
+    window.scrollTo(0, 0);
+  }
+
+  function render() {
+    if (selectedId && dossiers[selectedId] && !sim) {
+      showProfile();
+      return;
+    }
+    showDirectory();
+  }
+
+  render();
+
+  document.querySelector("[data-ws2-search]").addEventListener("submit", (event) => {
+    event.preventDefault();
+    query = String(document.getElementById("ws2-q").value || "");
+    offset = 0;
+    selectedId = "";
+    sim = "";
+    render();
+  });
+  document.getElementById("ws2-list").addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-open-trainer]");
+    if (!btn) return;
+    dirScroll = window.scrollY;
+    selectedId = btn.getAttribute("data-open-trainer") || "";
+    pane = "overview";
+    unlockFilter = "all";
+    sim = "";
+    render();
+  });
+  document.getElementById("ws2-detail").addEventListener("click", (event) => {
+    const back = event.target.closest("[data-ws2-back]");
+    if (back) {
+      selectedId = "";
+      pane = "overview";
+      unlockFilter = "all";
+      render();
+      return;
+    }
+    const tab = event.target.closest("[data-trainer-pane]");
+    if (tab) {
+      pane = tab.getAttribute("data-trainer-pane") || "overview";
+      render();
+      return;
+    }
+    const filter = event.target.closest("[data-ws2-filter]");
+    if (filter) {
+      unlockFilter = filter.getAttribute("data-ws2-filter") || "all";
+      render();
+    }
+  });
+  document.querySelector("[data-ws2-prev]").addEventListener("click", () => {
+    offset = Math.max(0, offset - FIXTURE_PAGE);
+    render();
+  });
+  document.querySelector("[data-ws2-next]").addEventListener("click", () => {
+    offset += FIXTURE_PAGE;
+    render();
+  });
+  document.querySelector("[data-fixture-states]").addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-fixture-state]");
+    if (!btn) return;
+    const state = btn.getAttribute("data-fixture-state");
+    selectedId = "";
+    pane = "overview";
+    const root = document.getElementById("ws2");
+    root.classList.remove("is-profile");
+    document.querySelector("[data-ws2-dir]").hidden = false;
+    document.querySelector("[data-ws2-profile]").hidden = true;
+    if (state === "empty") {
+      sim = "empty";
+      query = "zzz-no-match";
+      offset = 0;
+      document.getElementById("ws2-q").value = query;
+      renderDirectory();
+      return;
+    }
+    if (state === "denied") {
+      sim = "denied";
+      const view = core.presentDirectory({ error: "denied", query });
+      document.getElementById("ws2-list-status").textContent = view.status;
+      document.getElementById("ws2-list").innerHTML = ui.directoryHtml(view);
+      document.querySelector(".admin-next-ws2-dir .admin-next-ws2-pager").hidden = true;
+      return;
+    }
+    if (state === "loading") {
+      sim = "loading";
+      const view = core.presentDirectory({ error: "loading", query, users: pageRows(), total: filtered().length, offset });
+      document.getElementById("ws2-list-status").textContent = view.status;
+      document.getElementById("ws2-list").innerHTML = ui.directoryHtml(view);
+      return;
+    }
+    sim = "";
+    query = "";
+    offset = 0;
+    document.getElementById("ws2-q").value = "";
+    render();
+  });
+})();
+</script>
+</body>

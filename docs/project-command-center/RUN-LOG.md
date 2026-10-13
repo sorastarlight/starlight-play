@@ -1,5 +1,56 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #5 Trainer Workspace 2.0 prototype
+
+- Branch: `admin-hub-overhaul`. Prototype only. `admin-next.html` Trainers tab unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
+- Sora mutated NO · Twinkle mutated NO · QA account none (unsigned fixture). PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- A1 remains **open**. A7 (adopt 2.0 as the live tab) is a new owner decision.
+
+### Implementation
+
+New localhost fixture `admin-next-trainers-workspace-v2.html` + `js/admin-next-trainers-v2.js`. Reuses `presentDirectory` / `presentProfile` contracts. Directory is a full-width compact table (Trainer / Role / Pass / Pokémon / Last seen). Selecting a row hides the list and opens a full-width workspace. **All trainers** restores query, fixture page offset, and scroll. Progression has All / Unlocked / Locked filters. Fixture QA is a collapsed `<details>` outside the canvas. Current card fixture remains at `admin-next-trainers-fixture.html` for comparison.
+
+Live RPC page size remains 50. This fixture pages at 5 only to demonstrate restore.
+
+### REAL DOM (`http://127.0.0.1:4252/admin-next-trainers-workspace-v2.html`)
+
+| Viewport | Overflow | Notes |
+|---|---|---|
+| 1920 / 1440 / 1280 / 1024 directory | no | full-width table, not 300px cards |
+| 1440 profile | no | directory `display:none`; profile 1118px |
+| 768 / 720 directory | no | thead hidden; stacked rows (`@container ws2` 720) |
+| 390 directory / profile | no | stacked rows; All trainers; no sidebar |
+
+Pager restore: page 2 (6–8 of 8) → Yellow → All trainers still 6–8 of 8. Locked filter shows Champion / Cascade / Alola only.
+
+### Screenshots
+
+Browser-tool webfont capture is garbled. Accessibility tree + bounding boxes are the source of truth.
+
+- `docs/project-command-center/evidence/issue5-1440-directory.png`
+- `docs/project-command-center/evidence/issue5-1440-overview.png`
+- `docs/project-command-center/evidence/issue5-1440-pokemon.png`
+- `docs/project-command-center/evidence/issue5-1440-inventory.png`
+- `docs/project-command-center/evidence/issue5-1440-progression.png`
+- `docs/project-command-center/evidence/issue5-1440-connections.png`
+- `docs/project-command-center/evidence/issue5-390-directory.png`
+- `docs/project-command-center/evidence/issue5-390-profile.png`
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-workspace-v2-tests.js` | STATIC PASS | 6 |
+| `tests/admin-hub-overhaul-tests.js` | STATIC PASS | 10 |
+| `tests/admin-hub-gate-2a-trainer-tests.js` | STATIC PASS | 8 |
+| `tests/admin-hub-next-tests.js` | STATIC PASS | 7 |
+| `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC PASS | 12 |
+| `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC PASS | 16 |
+| `tests/admin-hub-gate-17-s1b-tests.js` | STATIC PASS | 5 |
+| Live staff trainer RPCs | **not run** | needs separate approval |
+| Production | **not run** | smoke paused |
+
 ## 2026-10-12 — GitHub issue #4 directory sizing and dossier spacing
 
 - Branch: `admin-hub-overhaul` from `8ff495f`. Implementation commit `bc24e74`. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.

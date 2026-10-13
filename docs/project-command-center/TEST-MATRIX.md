@@ -11,6 +11,8 @@
 | Fixture search/select/panes/empty/denied/loading | `admin-next-trainers-fixture.html` + overhaul tests | LOCAL HARNESS / REAL DOM (unsigned fixture) | Live staff Trainers |
 | Trainer workspace overflow / column overlap | fixture REAL DOM bounding boxes at 1920, 1440, 1280, 1024, 768, 720, 390 | REAL DOM (unsigned fixture) | Live staff Trainers / PRODUCTION |
 | Directory card width + dossier section gap | fixture REAL DOM: browse/sidebar cards 300px; stack gap token 16px | REAL DOM (unsigned fixture) | Live staff Trainers |
+| Workspace 2.0 prototype | `tests/admin-hub-workspace-v2-tests.js` | STATIC PASS (6) | Live staff Trainers |
+| Workspace 2.0 directory/profile/restore | `admin-next-trainers-workspace-v2.html` REAL DOM | REAL DOM (unsigned fixture) | Production / live RPCs |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

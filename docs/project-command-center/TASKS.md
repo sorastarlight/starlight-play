@@ -14,6 +14,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I2 | done | Issue #2 local visual QA + dossier polish | A–E | none | A1 still open |
 | I3 | done | Issue #3 Trainer dossier redesign (container layout + cards) | I2 | none | Owner visual A1 still open |
 | I4 | done | Issue #4 directory sizing + dossier section spacing | I3 | none | Owner visual A1 still open |
+| I5 | done | Issue #5 Trainer Workspace 2.0 prototype (table + full-width profile) | I4 | none | Owner chooses direction; A1 still open |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. Issue #4 work recorded in RUN-LOG. A1 remains open.
+Branch: `admin-hub-overhaul`. Issue #5 prototype recorded in RUN-LOG. Live Trainers tab unchanged. A1 remains open.

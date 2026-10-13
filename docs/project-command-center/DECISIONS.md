@@ -10,6 +10,7 @@
 | D4 | No new RPCs, no legacy admin edits | Authorized batch is local frontend + docs |
 | D5 | Trainer workspace uses container queries, not viewport-only 960px | Owner 100% zoom overlap was caused by `minmax(280px,360px)` inside a narrower hub-main |
 | D6 | Directory cards stay 300px in browse and inspect; dossier sections share a 16px stack gap | Owner #4: full-bleed rows and collapsed sequential card outlines |
+| D7 | Workspace 2.0 is a separate localhost prototype, not the live Trainers tab | Owner #5 rejected further card-gallery polish; A1 stays open until a direction is chosen |
 
 ## Needs owner approval
 
@@ -21,3 +22,4 @@
 | A4 | Merge `admin-hub-overhaul` / stamp an APP build? | Not recommended until A1 |
 | A5 | Start Batch F privileged operations? | No until A3 and a separate authorization |
 | A6 | Localhost Twitch OAuth redirect for staff sign-in? | Optional; fixture covers layout without it |
+| A7 | Adopt Workspace 2.0 as the live `admin-next.html` Trainers tab? | Review `admin-next-trainers-workspace-v2.html` first. Do not replace the current tab until chosen. |

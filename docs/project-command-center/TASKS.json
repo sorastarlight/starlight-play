@@ -124,6 +124,18 @@
       "approvalRequirement": "none for this issue; A1 not granted here"
     },
     {
+      "id": "I5",
+      "status": "done",
+      "scope": "GitHub issue #5 Trainer Workspace 2.0 prototype: searchable table directory and full-width profile",
+      "dependencies": ["I4"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/evidence/issue5-*.png, RUN-LOG.md",
+      "testResults": "workspace-v2 6 STATIC PASS; existing hub suites unchanged; fixture REAL DOM table + restore",
+      "nextAction": "Owner reviews prototype URL; do not replace admin-next Trainers until chosen",
+      "approvalRequirement": "none for prototype; A1 and live-tab replacement not granted"
+    },
+    {
       "id": "F",
       "status": "blocked",
       "scope": "Privileged operations",

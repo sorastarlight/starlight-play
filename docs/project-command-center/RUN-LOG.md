@@ -2,7 +2,7 @@
 
 ## 2026-10-13 — GitHub issue #12 trainer record IA
 
-- Branch: `admin-hub-overhaul`. Design only. `hub-a-visual-v4.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, Batch F, #13, or #14.
+- Branch: `admin-hub-overhaul`. Design commit `1048831`. Design only. `hub-a-visual-v4.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, Batch F, #13, or #14.
 - Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - D13 recorded. A10 still needed. A1 open. A8 direction stands. A9 not authorized. Epic #11 children #13/#14 not started.

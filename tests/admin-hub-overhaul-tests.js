@@ -52,6 +52,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/design-reset/hub-a-visual-v3.html",
     "docs/project-command-center/TRAINER-UX-ISSUE-10.md",
     "docs/project-command-center/design-reset/hub-a-visual-v4.html",
+    "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
     ".cursor/rules/streamlink-project.mdc"
   ].forEach((rel) => assert(fs.existsSync(path.join(__dirname, "..", rel)), rel));
   assert(commandCenter.includes("First execution boundary"));
@@ -310,6 +311,24 @@ test("Issue 12 trainer record IA stays unwired and keeps Proposal A layout", () 
   assert(!v5.includes('role="row"'));
   assert(guide.includes("D13") && guide.includes("newest 40") && guide.includes("Future scope"));
   assert(v4.includes("Proposal A · visual v4"));
+});
+
+test("Issue 16 legality audit stays design-only and does not claim PokéAPI legality", () => {
+  const audit = read("docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  ["implemented & persisted", "only reference source", "absent", "cannot verify"].forEach((token) => {
+    assert(audit.includes(token), token);
+  });
+  assert(audit.includes("LGPE"));
+  assert(audit.includes("stamp_catch_row"));
+  assert(audit.includes("pokeapi.co/docs/v2"));
+  assert(audit.includes("never rewrite old IVs"));
+  assert(audit.includes("A16d"));
+  assert(audit.includes("DESIGN / SOURCE AUDIT ONLY"));
+  assert(!audit.includes("PRODUCTION PASS"));
+  assert(decisions.includes("D14") && decisions.includes("A16a"));
+  assert(!nextHtml.includes("admin_catch_inspect"));
+  assert(!nextJs.includes("admin_catch_inspect"));
 });
 
 const failed = results.filter((row) => !row.passed);

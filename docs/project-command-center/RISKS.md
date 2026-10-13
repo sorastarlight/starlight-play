@@ -12,6 +12,7 @@
 | R-UI-GALLERY | **SUPERSEDED** | Owner rejected card gallery and did not approve A7. Further widget polish is the wrong layer. |
 | R-IA-LAYOUT | **DESIGN** | A8 + D10–D13: Proposal A layout accepted in principle. Visual target waits on A10. Live Trainers unchanged until A9. |
 | R-EPIC-11 | **DESIGN** | Epic #11 expands beyond current read RPCs (PC, ribbons, tickets, recovery writes). #12 is presentation-only. #13/#14 must not skip security/architecture. |
+| R-I16-LEGALITY | **DESIGN** | Catches persist LGPE-inspired IVs/AVs/moves, not official-legal Pokémon. Pokédex abilities are encyclopedia-only. Admin `mons[]` cannot inspect stats. Do not invent IVs or mix FR/LG/modern onto existing rows. Editor/stamper wait on A16a–d. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

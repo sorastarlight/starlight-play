@@ -17,6 +17,7 @@
 | D11 | Pokémon collection is summary-first; detail is on demand | Owner #9: rows should not repeat level and date. Dedicated read-only pane uses `mons[]` fields only. Not A1. Not A9. Not A10. |
 | D12 | Collection uses official PNG art; nav is raised; directory rows are full-width buttons | Owner #10 usability. Art is dex + verified shiny only. Not A1. Not A9. Not A10. |
 | D13 | Trainer record IA: simplified identity header, Starlight Pass, readable Connections, Inventory/Unlockables category managers, Tickets placement | Owner #12 / epic #11 design. Ribbons and tickets have no inspect/ticket contract. Not A1. Not A9. Not A10. Not #13/#14. |
+| D14 | Current catch persistence is LGPE-inspired StreamLink, not PokéAPI legality and not FR/LG or modern ability/nature/EV | Issue #16 source audit. IVs/AVs/moves persist via `stamp_catch_row`; abilities in the Pokédex are encyclopedia only. Do not mix generations. Do not rewrite stored IVs. Inspector/editor need A16b/A16d. |
 
 ## Needs owner approval
 
@@ -32,3 +33,9 @@
 | A8 | Implement Proposal A (record workspace) or Proposal B (inbox split)? | **APPROVED** — Proposal A is the design direction. Not a live-tab swap. |
 | A9 | Frontend-only implementation of the issue #7 spec into `admin-next.html`? | Do not start until explicitly authorized. Keep comparison fixtures. |
 | A10 | Accept a polished presentation as the visual target? | Review `hub-a-visual-v5.html` beside v4. Still not A9. |
+| A16a | Confirm LGPE-inspired StreamLink v1 as the honest current Pokémon ruleset? | Yes. Do not claim HOME/FR/LG/modern legality. |
+| A16b | New staff read RPC exposing `catch_json` (IVs/AVs/moves/stats)? | After SQL review. Not `admin_overview`. Not A9 by itself. |
+| A16c | Change `stamp_catch_row` for **new** catches only (size, friendship, learnset-safe moves, ruleset id)? | After A16a. Never rewrite old IVs. |
+| A16d | Owner-only audited catch editor (dry-run, diff, reason, history, protected accounts)? | Separate write approval. Not grant/remove. Not Batch F. |
+| A16e | Switch product to a modern or FR/LG ruleset (nature/ability/EV or DVs)? | No unless explicitly chosen. New columns, new rows only. |
+| A16f | Show IVs/moves on My PC from existing `play_storage` JSON? | Frontend only. Optional honesty UX. |

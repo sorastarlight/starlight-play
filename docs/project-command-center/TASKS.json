@@ -208,6 +208,18 @@
       "approvalRequirement": "A10 before treating any visual v as the target; A9 still required to implement; #13/#14 before recovery or tickets"
     },
     {
+      "id": "I16",
+      "status": "done",
+      "scope": "GitHub issue #16 Pokémon generation/legality source audit and audited owner editor design",
+      "dependencies": ["epic-11"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
+      "testResults": "overhaul STATIC PASS including issue 16 existence; LIVE CATALOG catches columns; no catch-row SELECT",
+      "nextAction": "Owner A16a confirm LGPE ruleset. Do not implement inspector/editor/stamper without A16b–d. Do not rewrite stored Pokémon.",
+      "approvalRequirement": "A16a–f before SQL/RPC/editor; A9 still required for hub chrome; no merge/deploy"
+    },
+    {
       "id": "I13",
       "status": "todo",
       "scope": "GitHub issue #13 owner account recovery design and security audit",

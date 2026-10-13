@@ -19,6 +19,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I9 | Issue #9 Pokémon collection + detail | Design only | **DONE** — comparison prototype only |
 | I10 | Issue #10 PNG art, raised nav, full-row directory | Design only | **DONE** — comparison prototype only |
 | I12 | Issue #12 trainer record IA v5 | Design only | **DONE** — comparison prototype only |
+| I16 | Issue #16 Pokémon legality source audit | Design / source audit | **DONE** — no SQL/RPC/mon mutation |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
@@ -31,4 +32,4 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 
 ## Out of scope until a new prompt
 
-Production APP stamp, SQL, grants, RLS, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits.
+Production APP stamp, SQL, grants, RLS, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, Pokémon inspector/editor RPCs (A16b–d).

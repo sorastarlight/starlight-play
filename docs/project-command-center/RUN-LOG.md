@@ -1,5 +1,23 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #16 Pokémon legality source audit
+
+- Branch: `admin-hub-overhaul`. Design/audit only. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, Batch F, catch-row writes, #13, #14, #15, or #17.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D14 recorded. A16a–f need owner. A1 open. A8 direction stands. A9 not authorized.
+- LIVE CATALOG: `public.catches` has IV/AV/moves columns; no nature/ability/EV. `lgpe_species` = 151. No `SELECT` of catch rows.
+
+### Deliverable
+
+- `POKEMON-LEGALITY-AUDIT-ISSUE-16.md` — pipeline, field matrix, LGPE ruleset, gaps, phased plan, audited editor design
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 17 passed (after issue 16 assertion) |
+
 ## 2026-10-13 — GitHub issue #12 trainer record IA
 
 - Branch: `admin-hub-overhaul`. Design commit `1048831`. Design only. `hub-a-visual-v4.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, Batch F, #13, or #14.

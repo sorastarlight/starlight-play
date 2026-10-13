@@ -2,7 +2,7 @@
 
 ## 2026-10-13 — GitHub issue #5 Trainer Workspace 2.0 prototype
 
-- Branch: `admin-hub-overhaul`. Prototype only. `admin-next.html` Trainers tab unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
+- Branch: `admin-hub-overhaul`. Implementation commit `7fd7cbf`. Prototype only. `admin-next.html` Trainers tab unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
 - Sora mutated NO · Twinkle mutated NO · QA account none (unsigned fixture). PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - A1 remains **open**. A7 (adopt 2.0 as the live tab) is a new owner decision.

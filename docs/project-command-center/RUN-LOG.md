@@ -1,5 +1,54 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #12 trainer record IA
+
+- Branch: `admin-hub-overhaul`. Design only. `hub-a-visual-v4.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, Batch F, #13, or #14.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D13 recorded. A10 still needed. A1 open. A8 direction stands. A9 not authorized. Epic #11 children #13/#14 not started.
+
+### Deliverables
+
+- `design-reset/hub-a-visual-v5.html` — simplified header, Starlight Pass, Connections cards, Inventory/Unlockables managers, Tickets placement
+- `TRAINER-RECORD-ISSUE-12.md` — field matrix (verified vs missing)
+
+Preview: `http://127.0.0.1:4252/docs/project-command-center/design-reset/hub-a-visual-v5.html`  
+Comparison: `http://127.0.0.1:4252/docs/project-command-center/design-reset/hub-a-visual-v4.html`
+
+### REAL DOM (unsigned prototype)
+
+Accessibility tree is the text source of truth. Browser-tool screenshots still garble Fredoka/Nunito.
+
+| Frame | Notes |
+|---|---|
+| 1440 directory | Full-row hits. Column and chips say **Starlight Pass**. |
+| 1440 Overview | Header: avatar initial, name, @login, role, Starlight Pass, last seen. No level/caught/coins facts. |
+| 1440 Inventory | Category browser (Coins, Poké Balls, Consumables, Family candy). Bits unavailable. |
+| 1440 PokéCoins detail | Quantity from bag.coins. Grant/Remove **disabled** storyboard. |
+| 1440 Progression | Level/XP/ranking kept. Unlockables groups; Ribbons labeled future scope. |
+| 1440 Connections | Per-link cards. Primary ≠ online. Confirmed ≠ Verified. Utility bot count explained. No unlink. |
+| 1440 Tickets | Open/History placement. No ticket RPC. No invented cases. |
+| 1440 collection | Official PNG, no dex overlay. Dex stays in detail (`#006`). Newest 40 ≠ PC. |
+| 1024 Charizard detail | Same IA. Dex in text only. |
+| 390 record / directory | Admin menu. Stacked Starlight Pass rows. Header without metric strip. |
+
+Illustrative Oak / Leaf / Blue only.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-overhaul-tests.js` | STATIC PASS | 16 |
+| `tests/admin-hub-workspace-v2-tests.js` | STATIC PASS | 6 |
+| `tests/admin-hub-gate-2a-trainer-tests.js` | STATIC PASS | 8 |
+| `tests/admin-hub-next-tests.js` | STATIC PASS | 7 |
+| `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC PASS | 12 |
+| `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC PASS | 16 |
+| `tests/admin-hub-gate-17-s1b-tests.js` | STATIC PASS | 5 |
+| hub-a-visual-v5 1440 / 1024 / 390 | REAL DOM | unsigned static HTML |
+| Live staff RPCs | **not run** | not authorized |
+| Production | **not run** | smoke paused |
+
 ## 2026-10-13 — GitHub issue #10 trainer UX polish
 
 - Branch: `admin-hub-overhaul`. Design commit `ed17c32`. Design only. `hub-a-visual-v3.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.

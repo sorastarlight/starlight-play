@@ -296,6 +296,22 @@ test("Issue 10 trainer UX stays unwired and keeps Proposal A IA", () => {
   assert(v3.includes("Proposal A · visual v3"));
 });
 
+test("Issue 12 trainer record IA stays unwired and keeps Proposal A layout", () => {
+  const v5 = read("docs/project-command-center/design-reset/hub-a-visual-v5.html");
+  const guide = read("docs/project-command-center/TRAINER-RECORD-ISSUE-12.md");
+  const v4 = read("docs/project-command-center/design-reset/hub-a-visual-v4.html");
+  ["playCall", "admin_overview", "service_role", "admin_grant_"].forEach((name) => {
+    assert(!v5.includes(name), name);
+  });
+  assert(v5.includes("All trainers") && v5.includes("Open Support with this trainer"));
+  assert(v5.includes("Starlight Pass") && v5.includes("Unlockables") && v5.includes("Storyboard only"));
+  assert(v5.includes("loginEnabled") && v5.includes("no ticket RPC") && v5.includes("disabled"));
+  assert(v5.includes("Newest 40") && v5.includes("no Pokédex overlay"));
+  assert(!v5.includes('role="row"'));
+  assert(guide.includes("D13") && guide.includes("newest 40") && guide.includes("Future scope"));
+  assert(v4.includes("Proposal A · visual v4"));
+});
+
 const failed = results.filter((row) => !row.passed);
 results.forEach((row) => {
   console.log(`${row.passed ? "PASS" : "FAIL"} ${row.name}${row.detail ? ` — ${row.detail}` : ""}`);

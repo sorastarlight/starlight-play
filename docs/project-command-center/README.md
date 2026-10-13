@@ -26,6 +26,8 @@ Persistent working set for approved development batches. Historical audits stay 
 | [design-reset/hub-a-visual-v3.html](./design-reset/hub-a-visual-v3.html) | Pokémon collection comparison prototype |
 | [TRAINER-UX-ISSUE-10.md](./TRAINER-UX-ISSUE-10.md) | Issue #10 art source, raised nav, full-row directory |
 | [design-reset/hub-a-visual-v4.html](./design-reset/hub-a-visual-v4.html) | Trainer UX polish comparison prototype |
+| [TRAINER-RECORD-ISSUE-12.md](./TRAINER-RECORD-ISSUE-12.md) | Issue #12 field matrix, header, Connections, Inventory, Unlockables, Tickets |
+| [design-reset/hub-a-visual-v5.html](./design-reset/hub-a-visual-v5.html) | Trainer record IA comparison prototype |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

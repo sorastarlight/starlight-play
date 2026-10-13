@@ -20,6 +20,9 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I8 | done | Issue #8 visual refinement: StreamLink-polished comparison prototype | I7 | **A10** visual | Owner reviews v2; do not implement |
 | I9 | done | Issue #9 Pokémon collection rows + read-only detail | I8 | **A10** visual | Owner reviews v3; do not implement |
 | I10 | done | Issue #10 PNG art, raised nav, full-row directory | I9 | **A10** visual | Owner reviews v4; do not implement |
+| I12 | done | Issue #12 trainer record IA v5 (header, Connections, Inventory, Unlockables, Tickets) | I10, epic #11 | **A10** visual | Owner reviews v5; do not implement |
+| I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
+| I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. Issue #10 is design only. Live Trainers tab unchanged. A8 + D10 + D11 + D12. A10 needed for visual target. A9 still required before implementation. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. Issue #12 is design only (epic #11). Live Trainers tab unchanged. A8 + D10–D13. A10 needed for visual target. A9 still required before implementation. #13/#14 not started. A1 open. A7 not approved.

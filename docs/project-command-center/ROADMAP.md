@@ -18,6 +18,9 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I8 | Issue #8 visual refinement of Proposal A | Design only | **DONE** — comparison prototype only |
 | I9 | Issue #9 Pokémon collection + detail | Design only | **DONE** — comparison prototype only |
 | I10 | Issue #10 PNG art, raised nav, full-row directory | Design only | **DONE** — comparison prototype only |
+| I12 | Issue #12 trainer record IA v5 | Design only | **DONE** — comparison prototype only |
+| I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
+| I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
 
 ## Sequence

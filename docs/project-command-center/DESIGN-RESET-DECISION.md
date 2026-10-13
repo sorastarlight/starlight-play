@@ -7,10 +7,11 @@
 **A7** adopt Workspace 2.0 as the live Trainers tab — **NOT APPROVED**.  
 **A8** choose the next design direction — **APPROVED: Proposal A (Record Workspace)**. Design-direction only, not implementation, A1, merge, or deployment.  
 **A9** implement the issue #7 spec into `admin-next.html` — **NOT AUTHORIZED**.  
-**A10** accept a polished presentation as the visual target — **OPEN**. Review v4 beside v3.  
+**A10** accept a polished presentation as the visual target — **OPEN**. Review v5 beside v4.  
 **D10** Owner approves Proposal A's core hub layout in principle, but requests a more modern, dynamic, StreamLink-fitting visual presentation. This is not A1 and not A9.  
 **D11** Pokémon collection is summary-first with a dedicated read-only detail pane. Contract fields only. Not A10.  
-**D12** Official PNG art, raised navigation, and full-row trainer selection. Prototype only. Not A10.
+**D12** Official PNG art, raised navigation, and full-row trainer selection. Prototype only. Not A10.  
+**D13** Issue #12 trainer record IA: simplified header, Starlight Pass, Connections cards, Inventory/Unlockables managers, Tickets placement. Epic #11 children #13 and #14 remain separate design tracks. Prototype only. Not A10.
 
 No merge, deploy, APP stamp, SQL, or Batch F is requested.
 

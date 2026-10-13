@@ -196,6 +196,42 @@
       "approvalRequirement": "A10 before treating any visual v as the target; A9 still required to implement"
     },
     {
+      "id": "I12",
+      "status": "done",
+      "scope": "GitHub issue #12 trainer record IA: simplified header, Connections, Inventory and Unlockables managers, Tickets placement",
+      "dependencies": ["I10"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/TRAINER-RECORD-ISSUE-12.md, design-reset/hub-a-visual-v5.html",
+      "testResults": "overhaul existence STATIC; v5 no playCall; REAL DOM pending this commit",
+      "nextAction": "Owner A10 visual of v5 beside v4; do not implement into admin-next.html. #13/#14 remain separate.",
+      "approvalRequirement": "A10 before treating any visual v as the target; A9 still required to implement; #13/#14 before recovery or tickets"
+    },
+    {
+      "id": "I13",
+      "status": "todo",
+      "scope": "GitHub issue #13 owner account recovery design and security audit",
+      "dependencies": ["I12"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "not started",
+      "testResults": "not run",
+      "nextAction": "Separate design batch. No live auth or Twitch changes.",
+      "approvalRequirement": "security design before any reset/unlink implementation"
+    },
+    {
+      "id": "I14",
+      "status": "todo",
+      "scope": "GitHub issue #14 player helpdesk and staff inbox architecture",
+      "dependencies": ["I12"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "not started",
+      "testResults": "not run",
+      "nextAction": "Separate design batch. No schema.",
+      "approvalRequirement": "architecture before any ticket table, RLS, or player form"
+    },
+    {
       "id": "F",
       "status": "blocked",
       "scope": "Privileged operations",

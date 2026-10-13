@@ -15,6 +15,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I5 | Issue #5 Trainer Workspace 2.0 prototype | Local frontend prototype | **DONE** — not wired into `admin-next.html` |
 | I6 | Issue #6 design reset / two IA proposals | Design only | **DONE** — A8 later approved A |
 | I7 | Issue #7 integrated hub spec + static prototype | Design only | **DONE** — not wired into `admin-next.html` |
+| I8 | Issue #8 visual refinement of Proposal A | Design only | **DONE** — comparison prototype only |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
 
 ## Sequence

@@ -160,6 +160,18 @@
       "approvalRequirement": "A9 before implementation; A1 A3 A7 not granted"
     },
     {
+      "id": "I8",
+      "status": "done",
+      "scope": "GitHub issue #8 Proposal A visual refinement and StreamLink comparison prototype",
+      "dependencies": ["I7"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/VISUAL-STYLE-GUIDE-ISSUE-8.md, design-reset/hub-a-visual-v2.html",
+      "testResults": "overhaul existence STATIC; v2 no playCall; REAL DOM 1440/1024/390",
+      "nextAction": "Owner A10 visual of polished prototype; do not implement into admin-next.html",
+      "approvalRequirement": "A10 before treating v2 as the visual target; A9 still required to implement"
+    },
+    {
       "id": "F",
       "status": "blocked",
       "scope": "Privileged operations",

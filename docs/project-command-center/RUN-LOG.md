@@ -1,5 +1,54 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #8 Proposal A visual refinement
+
+- Branch: `admin-hub-overhaul`. Design only. `hub-a.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D10 recorded. A10 needed for visual target. A1 open. A8 direction stands. A9 not authorized.
+
+### Deliverables
+
+- `design-reset/hub-a-visual-v2.html` — Play-site tokens, same Proposal A IA
+- `VISUAL-STYLE-GUIDE-ISSUE-8.md` — tokens, motion, before/after
+
+Preview: `http://127.0.0.1:4252/docs/project-command-center/design-reset/hub-a-visual-v2.html`  
+Comparison: `http://127.0.0.1:4252/docs/project-command-center/design-reset/hub-a.html`
+
+### REAL DOM (unsigned prototype)
+
+Accessibility tree is the text source of truth. Browser-tool screenshots still garble Fredoka/Nunito.
+
+| Frame | Notes |
+|---|---|
+| 1440 Operations | LIVE Twitch chip + pulse. RPG INACTIVE stays separate. Settlement unavailable. |
+| 1440 directory | Full-width table. Pass chips. Compact last-seen. Hover/focus rows. |
+| 1440 Overview | Oak identity + fact tiles. Email not shown. |
+| 1440 Inventory | Bag 14/20 bar. Grouped balls / consumables / candy. Bits unavailable. |
+| 1440 Progression | Unlock pills. All / Unlocked / Locked. Catalog collapsed. |
+| 1440 Connections | Twitch flags. Link/unlink stay on Support. |
+| 1440 Support | Oak context carried. Doorway only. No grants. |
+| 1024 directory / Pokémon | Nav + body. Dex tiles, not sprites. Shiny chip on Charizard. |
+| 1024 / 720 Leaf sparse | Unavailable facts. No invented last seen, level, or link. |
+| 390 directory / Overview / Pokémon / Support | Admin menu. Stacked rows. All trainers restores the directory. |
+
+Demo Ready / Loading / Empty / Denied exist in the prototype. Illustrative Oak / Leaf / Blue names only.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-overhaul-tests.js` | STATIC PASS | 13 |
+| `tests/admin-hub-workspace-v2-tests.js` | STATIC PASS | 6 |
+| `tests/admin-hub-gate-2a-trainer-tests.js` | STATIC PASS | 8 |
+| `tests/admin-hub-next-tests.js` | STATIC PASS | 7 |
+| `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC PASS | 12 |
+| `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC PASS | 16 |
+| `tests/admin-hub-gate-17-s1b-tests.js` | STATIC PASS | 5 |
+| hub-a-visual-v2 Operations / directory / record / Support | REAL DOM | unsigned static HTML |
+| Live staff RPCs | **not run** | not authorized |
+| Production | **not run** | smoke paused |
+
 ## 2026-10-13 — GitHub issue #7 Proposal A integrated spec
 
 - Branch: `admin-hub-overhaul`. Design commit `9947c97`. Design only. `admin-next.html`, Workspace 2.0, and card fixtures unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.

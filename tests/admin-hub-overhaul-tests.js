@@ -46,6 +46,8 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/design-reset/proposal-b.html",
     "docs/project-command-center/DESIGN-SPEC-ISSUE-7.md",
     "docs/project-command-center/design-reset/hub-a.html",
+    "docs/project-command-center/VISUAL-STYLE-GUIDE-ISSUE-8.md",
+    "docs/project-command-center/design-reset/hub-a-visual-v2.html",
     ".cursor/rules/streamlink-project.mdc"
   ].forEach((rel) => assert(fs.existsSync(path.join(__dirname, "..", rel)), rel));
   assert(commandCenter.includes("First execution boundary"));
@@ -248,6 +250,19 @@ test("Issue 7 hub prototype stays unwired and records A8 without A9", () => {
   assert(hub.includes("Admin Hub") && hub.includes("All trainers") && hub.includes("Open Support with this trainer"));
   assert(spec.includes("A9") && spec.includes("admin-next.html"));
   assert(decisions.includes("APPROVED") && decisions.includes("A9"));
+});
+
+test("Issue 8 visual v2 stays unwired and keeps Proposal A IA", () => {
+  const v2 = read("docs/project-command-center/design-reset/hub-a-visual-v2.html");
+  const guide = read("docs/project-command-center/VISUAL-STYLE-GUIDE-ISSUE-8.md");
+  const hub = read("docs/project-command-center/design-reset/hub-a.html");
+  ["playCall", "admin_overview", "service_role", "admin_grant_"].forEach((name) => {
+    assert(!v2.includes(name), name);
+  });
+  assert(v2.includes("All trainers") && v2.includes("Open Support with this trainer"));
+  assert(v2.includes("Fredoka") && v2.includes("prefers-reduced-motion"));
+  assert(guide.includes("Before / after") && guide.includes("D10"));
+  assert(hub.includes("Proposal A hub prototype"));
 });
 
 const failed = results.filter((row) => !row.passed);

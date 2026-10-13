@@ -13,6 +13,7 @@
 | D7 | Workspace 2.0 is a separate localhost prototype, not the live Trainers tab | Owner #5 rejected further card-gallery polish; A1 stays open until a direction is chosen |
 | D8 | Owner selected **Proposal A — Record Workspace** as next Admin Hub **design direction (A8)** | Proceed with design specifications/review only. A1 remains OPEN; no live-tab replacement, merge, or deployment. |
 | D9 | Issue #7 delivers the A8 spec and static hub prototype | Still not A1. Implementation waits on A9. |
+| D10 | Proposal A core layout accepted in principle | Owner #8: layout is good; presentation should be more modern. Not A1. Not A9. |
 
 | D10 | Owner approves Proposal A's **core hub layout in principle**, but requests a more modern, dynamic, StreamLink-fitting visual presentation | Preserve the approved structural hierarchy while refining look and feel in a static prototype. This is **not A1 full visual acceptance or A9 implementation authorization**. |
 
@@ -29,3 +30,4 @@
 | A7 | Adopt Workspace 2.0 as the live `admin-next.html` Trainers tab? | **Not approved** after owner #6 review. Keep the fixture for comparison only. |
 | A8 | Implement Proposal A (record workspace) or Proposal B (inbox split)? | **APPROVED** — Proposal A is the design direction. Not a live-tab swap. |
 | A9 | Frontend-only implementation of the issue #7 spec into `admin-next.html`? | Do not start until explicitly authorized. Keep comparison fixtures. |
+| A10 | Accept the issue #8 polished presentation as the visual target? | Review `hub-a-visual-v2.html` beside `hub-a.html`. Still not A9. |

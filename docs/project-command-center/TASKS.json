@@ -177,9 +177,9 @@
       "scope": "GitHub issue #9 Pokémon collection rows and read-only detail comparison prototype",
       "dependencies": ["I8"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "f3d95ff",
       "evidence": "docs/project-command-center/POKEMON-UX-ISSUE-9.md, design-reset/hub-a-visual-v3.html",
-      "testResults": "overhaul existence STATIC; v3 no playCall; REAL DOM pending this commit",
+      "testResults": "overhaul 14 STATIC PASS; v3 no playCall; REAL DOM 1440/1024/390",
       "nextAction": "Owner A10 visual of v3 collection beside v2; do not implement into admin-next.html",
       "approvalRequirement": "A10 before treating any visual v as the target; A9 still required to implement"
     },

@@ -2,7 +2,7 @@
 
 ## 2026-10-13 — GitHub issue #9 Pokémon collection UX
 
-- Branch: `admin-hub-overhaul`. Design only. `hub-a-visual-v2.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.
+- Branch: `admin-hub-overhaul`. Design commit `f3d95ff`. Design only. `hub-a-visual-v2.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.
 - Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - D11 recorded. A10 still needed for visual target. A1 open. A8 direction stands. A9 not authorized.

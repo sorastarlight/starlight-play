@@ -2,7 +2,7 @@
 
 ## 2026-10-13 — GitHub issue #7 Proposal A integrated spec
 
-- Branch: `admin-hub-overhaul`. Design only. `admin-next.html`, Workspace 2.0, and card fixtures unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
+- Branch: `admin-hub-overhaul`. Design commit `b12de0d`. Design only. `admin-next.html`, Workspace 2.0, and card fixtures unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
 - Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - A8 **APPROVED** as design direction. A9 needed before implementation. A1 open. A7 not approved.

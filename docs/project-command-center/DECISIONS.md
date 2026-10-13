@@ -11,9 +11,8 @@
 | D5 | Trainer workspace uses container queries, not viewport-only 960px | Owner 100% zoom overlap was caused by `minmax(280px,360px)` inside a narrower hub-main |
 | D6 | Directory cards stay 300px in browse and inspect; dossier sections share a 16px stack gap | Owner #4: full-bleed rows and collapsed sequential card outlines |
 | D7 | Workspace 2.0 is a separate localhost prototype, not the live Trainers tab | Owner #5 rejected further card-gallery polish; A1 stays open until a direction is chosen |
-| D8 | Issue #6 is design-only; stop Trainers UI iteration until A8 | Owner: the data layout does not make sense. A7 is not approved. |
-
-| D8 | Owner selected **Proposal A — Record Workspace** as next Admin Hub **design direction (A8)** | Proceed with design specifications/review only. A1 visual acceptance remains OPEN; no live-tab replacement, merge, or deployment authorized. |
+| D8 | Owner selected **Proposal A — Record Workspace** as next Admin Hub **design direction (A8)** | Proceed with design specifications/review only. A1 remains OPEN; no live-tab replacement, merge, or deployment. |
+| D9 | Issue #7 delivers the A8 spec and static hub prototype | Still not A1. Implementation waits on A9. |
 
 ## Needs owner approval
 
@@ -26,4 +25,5 @@
 | A5 | Start Batch F privileged operations? | No until A3 and a separate authorization |
 | A6 | Localhost Twitch OAuth redirect for staff sign-in? | Optional; fixture covers layout without it |
 | A7 | Adopt Workspace 2.0 as the live `admin-next.html` Trainers tab? | **Not approved** after owner #6 review. Keep the fixture for comparison only. |
-| A8 | Implement Proposal A (record workspace) or Proposal B (inbox split)? | Preferred hypothesis is A. Do not implement until chosen. |
+| A8 | Implement Proposal A (record workspace) or Proposal B (inbox split)? | **APPROVED** — Proposal A is the design direction. Not a live-tab swap. |
+| A9 | Frontend-only implementation of the issue #7 spec into `admin-next.html`? | Do not start until explicitly authorized. Keep comparison fixtures. |

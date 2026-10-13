@@ -13,7 +13,8 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I3 | Issue #3 Trainer dossier redesign | Local frontend | **DONE** — owner A1 still open |
 | I4 | Issue #4 directory sizing + section spacing | Local frontend | **DONE** — owner A1 still open |
 | I5 | Issue #5 Trainer Workspace 2.0 prototype | Local frontend prototype | **DONE** — not wired into `admin-next.html` |
-| I6 | Issue #6 design reset / two IA proposals | Design only | **DONE** — not implemented |
+| I6 | Issue #6 design reset / two IA proposals | Design only | **DONE** — A8 later approved A |
+| I7 | Issue #7 integrated hub spec + static prototype | Design only | **DONE** — not wired into `admin-next.html` |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
 
 ## Sequence

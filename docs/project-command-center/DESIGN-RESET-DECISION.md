@@ -5,7 +5,8 @@
 **A1** visual approval of Gate 2A / card workspace — **OPEN** (not granted).  
 **A3** one canonical grant UI (Trainers desk vs Oak QA vs future Support case) — **OPEN** (not decided here).  
 **A7** adopt Workspace 2.0 as the live Trainers tab — **NOT APPROVED**.  
-**A8** choose the next design direction — **APPROVED: Proposal A (Record Workspace)**. This is design-direction approval only, not implementation, A1 visual acceptance, merge, or deployment.
+**A8** choose the next design direction — **APPROVED: Proposal A (Record Workspace)**. Design-direction only, not implementation, A1, merge, or deployment.  
+**A9** implement the issue #7 spec into `admin-next.html` — **NOT AUTHORIZED**.
 
 No merge, deploy, APP stamp, SQL, or Batch F is requested.
 
@@ -24,7 +25,7 @@ No merge, deploy, APP stamp, SQL, or Batch F is requested.
 | Pattern | Shopify / Stripe customer **index then details**. Intercom “collapse list”. | Intercom Inbox default. Linear split views. |
 | Writes | Support doorway only. A3 untouched. | Same. |
 | Data | Same verified RPC mapping. Same unavailable gaps. | Same. |
-| Implementation later | New Trainers layout in `admin-next.html` **after A8**. Existing card + Workspace 2.0 fixtures stay for comparison until then. | Same rule. |
+| Implementation later | New Trainers layout in `admin-next.html` **after A9**. Existing card + Workspace 2.0 fixtures stay for comparison until then. | Same rule. |
 
 ## Preferred hypothesis
 
@@ -39,12 +40,8 @@ Proposal B remains the right alternative if staff’s real job during a stream i
 - Do not treat A or B as A1 visual acceptance of the current fixtures.
 - Do not treat A as A7 (Workspace 2.0 table is a prototype, not this IA).
 - Do not implement writes, Oak QA merge, or Batch F.
-- Do not replace `admin-next.html` until A8 is explicit.
-
-## Ask
-
-Reply on issue #6 with **A**, **B**, or **neither — here is the missing workflow**.
+- Do not replace `admin-next.html` until **A9** is explicit. A8 only approved the design direction.
 
 ## Owner selection recorded
 
-Proposal A is the chosen design direction (A8). Prepare an integrated, implementable design specification and refined review artifacts in a separate safe design stage. Do **not** replace `admin-next.html`, merge, deploy, modify SQL or staff roles, or start privileged Batch F on the strength of this decision. A1, A3, and A7 retain their prior dispositions.
+Proposal A is the chosen design direction (A8). Issue #7 delivers the integrated specification and static hub prototype. Do **not** replace `admin-next.html`, merge, deploy, modify SQL or staff roles, or start privileged Batch F on the strength of A8. A1, A3, and A7 retain their prior dispositions.

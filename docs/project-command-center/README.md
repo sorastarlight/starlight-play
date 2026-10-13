@@ -18,6 +18,8 @@ Persistent working set for approved development batches. Historical audits stay 
 | [DESIGN-RESET-ISSUE-6.md](./DESIGN-RESET-ISSUE-6.md) | Issue #6 research, journeys, field map |
 | [DESIGN-RESET-DECISION.md](./DESIGN-RESET-DECISION.md) | A vs B owner choice (A8) |
 | [design-reset/](./design-reset/index.html) | Annotated wireframes for proposals A and B |
+| [DESIGN-SPEC-ISSUE-7.md](./DESIGN-SPEC-ISSUE-7.md) | A8 Proposal A implementation spec |
+| [design-reset/hub-a.html](./design-reset/hub-a.html) | Integrated hub static prototype |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

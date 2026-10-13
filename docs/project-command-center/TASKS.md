@@ -15,7 +15,8 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I3 | done | Issue #3 Trainer dossier redesign (container layout + cards) | I2 | none | Owner visual A1 still open |
 | I4 | done | Issue #4 directory sizing + dossier section spacing | I3 | none | Owner visual A1 still open |
 | I5 | done | Issue #5 Trainer Workspace 2.0 prototype (table + full-width profile) | I4 | none | Owner chooses direction; A1 still open |
-| I6 | done | Issue #6 design reset: journeys, IA, two annotated wireframes, field map | I5 | **A8** | Owner picks A or B; do not implement |
+| I6 | done | Issue #6 design reset: journeys, IA, two annotated wireframes, field map | I5 | **A8** | A8 approved Proposal A |
+| I7 | done | Issue #7 integrated hub spec + static Proposal A prototype | I6 | **A9** to implement | Owner reviews spec; do not replace UI |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. Issue #6 is design only. Live Trainers tab unchanged. A1 open. A7 not approved. A8 needs owner.
+Branch: `admin-hub-overhaul`. Issue #7 is design only. Live Trainers tab unchanged. A8 approved as direction. A9 needed before implementation. A1 open. A7 not approved.

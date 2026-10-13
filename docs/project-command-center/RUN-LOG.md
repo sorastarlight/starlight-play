@@ -1,5 +1,38 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #7 Proposal A integrated spec
+
+- Branch: `admin-hub-overhaul`. Design only. `admin-next.html`, Workspace 2.0, and card fixtures unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- A8 **APPROVED** as design direction. A9 needed before implementation. A1 open. A7 not approved.
+
+### Deliverables
+
+- `DESIGN-SPEC-ISSUE-7.md` — shell, IA, components, states, file hazards, A9 plan
+- `design-reset/hub-a.html` — Operations / Trainers index / record / Support in one shell
+
+Preview: `http://127.0.0.1:4252/docs/project-command-center/design-reset/hub-a.html`
+
+### REAL DOM (unsigned prototype)
+
+Operations, Trainers directory, Oak record, Support-with-context at 1440. 390: nav behind Admin menu; Support context; All trainers restores stacked directory. Accessibility tree is the text source of truth (browser-tool fonts garbled).
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-overhaul-tests.js` | STATIC PASS | 12 |
+| `tests/admin-hub-workspace-v2-tests.js` | STATIC PASS | 6 |
+| `tests/admin-hub-gate-2a-trainer-tests.js` | STATIC PASS | 8 |
+| `tests/admin-hub-next-tests.js` | STATIC PASS | 7 |
+| `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC PASS | 12 |
+| `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC PASS | 16 |
+| `tests/admin-hub-gate-17-s1b-tests.js` | STATIC PASS | 5 |
+| hub-a Operations / directory / record / Support | REAL DOM | unsigned static HTML |
+| Live staff RPCs | **not run** | not authorized |
+| Production | **not run** | smoke paused |
+
 ## 2026-10-13 — GitHub issue #6 Admin Hub design reset
 
 - Branch: `admin-hub-overhaul`. Implementation commit `af437e8`. Design artifacts only. `admin-next.html` Trainers tab, Workspace 2.0 fixture, and card fixture unchanged. No merge, deploy, SQL, staff-role, APP stamp, or Batch F.

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Hub · Proposal A integrated prototype</title>
+  <style>
+    :root { --ink:#2a1f28; --muted:#6b5a66; --line:#eadfe4; --bg:#f6f1ec; --pass:#c45c7a; --focus:#c9a227; --hover:#fff7fb; --card:#fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 13px/1.4 system-ui, sans-serif; color: var(--ink); background: #e8e0da; }
+    button, input { font: inherit; }
+    button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    .toolbar { background: #fff; border-bottom: 1px solid var(--line); padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: end; }
+    .toolbar h1 { font-size: 14px; margin: 0 12px 0 0; }
+    .toolbar a { color: #8a3d58; }
+    .toolbar label { display: grid; gap: 3px; font-size: 11px; color: var(--muted); }
+    .toolbar select { min-height: 30px; }
+    .stage { padding: 14px; }
+    .frame { margin: 0 auto; background: var(--bg); border: 1px solid #d8cdc6; min-height: 680px; display: grid; grid-template-columns: 176px 1fr; }
+    .frame.is-1440 { width: min(1440px, 100%); }
+    .frame.is-390 { width: 390px; grid-template-columns: 1fr; }
+    .nav { background: var(--card); border-right: 1px solid var(--line); padding: 12px 10px; }
+    .nav strong { display: block; font-size: 12px; margin: 0 8px 10px; }
+    .nav button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 7px 8px; border-radius: 6px; }
+    .nav button[aria-current="page"] { background: #fff0f5; font-weight: 650; }
+    .nav-toggle { display: none; width: 100%; margin-bottom: 8px; }
+    .is-390 .nav { border-right: 0; border-bottom: 1px solid var(--line); }
+    .is-390 .nav-list { display: none; }
+    .is-390 .nav.is-open .nav-list { display: block; }
+    .is-390 .nav-toggle { display: block; }
+    .main { min-width: 0; padding: 16px 20px 32px; }
+    .is-390 .main { padding: 12px; }
+    .ph { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 12px; }
+    .ph h2 { margin: 0; font-size: 20px; font-weight: 650; }
+    .ph p, .meta { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+    .search { display: flex; gap: 8px; margin: 0 0 10px; }
+    .search input { flex: 1; min-height: 36px; border: 1px solid var(--line); padding: 0 10px; background: #fff; }
+    .search button, .pager button { min-height: 36px; padding: 0 12px; border: 1px solid var(--line); background: #fff; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; font-size: 11px; color: var(--muted); font-weight: 600; padding: 0 8px 6px; border-bottom: 1px solid var(--line); }
+    td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    tr:hover td { background: var(--hover); }
+    .who { display: flex; gap: 8px; align-items: center; }
+    .av { width: 32px; height: 32px; border-radius: 50%; background: #f0d8e2; display: grid; place-items: center; font-weight: 650; font-size: 12px; }
+    .handle { color: var(--muted); font-size: 12px; }
+    .open { border: 0; background: transparent; padding: 0; font-weight: 650; color: inherit; cursor: pointer; text-align: left; }
+    .chip { display: inline-block; padding: 1px 6px; border-radius: 999px; background: #f3e8ec; font-size: 11px; }
+    .chip.pass { background: #f8d5e0; color: #7a2d48; }
+    .chip.muted { background: #eee8ea; color: var(--muted); }
+    .pager { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; color: var(--muted); }
+    .back, .textlink { border: 0; background: transparent; padding: 0; color: #8a3d58; }
+    .id-row { display: flex; gap: 12px; align-items: center; margin: 8px 0 12px; }
+    .facts { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px 16px; margin: 0 0 12px; }
+    .facts div { border-top: 1px solid var(--line); padding-top: 6px; }
+    .facts dt { font-size: 11px; color: var(--muted); }
+    .facts dd { margin: 0; font-weight: 650; }
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 12px; flex-wrap: wrap; }
+    .tabs button { border: 0; background: transparent; padding: 8px 10px; color: var(--muted); }
+    .tabs button[aria-selected="true"] { color: var(--ink); font-weight: 650; box-shadow: inset 0 -2px 0 var(--pass); }
+    .kv { display: grid; grid-template-columns: 10rem 1fr; gap: 6px 12px; }
+    .kv dt { color: var(--muted); }
+    .kv dd { margin: 0; }
+    .list { margin: 0; padding: 0; list-style: none; }
+    .list li { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin: 12px 0; }
+    .metric { border-top: 1px solid var(--line); padding-top: 8px; }
+    .metric dt { font-size: 11px; color: var(--muted); }
+    .metric dd { margin: 2px 0 0; font-size: 16px; font-weight: 650; }
+    .metric small { display: block; color: var(--muted); font-weight: 400; font-size: 11px; }
+    .empty { color: var(--muted); }
+    .door { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .is-390 .facts { grid-template-columns: 1fr 1fr; }
+    .is-390 .kv { grid-template-columns: 1fr; }
+    .is-390 thead { display: none; }
+    .is-390 table, .is-390 tbody, .is-390 tr, .is-390 td { display: block; width: 100%; }
+    .is-390 td { border: 0; padding: 2px 0; }
+    .is-390 tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+    .is-390 td[data-label]::before { content: attr(data-label) " · "; color: var(--muted); font-size: 11px; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>Proposal A hub prototype</h1>
+    <p><a href="./index.html">Design index</a> · <a href="../DESIGN-SPEC-ISSUE-7.md">Spec</a></p>
+    <label>Viewport
+      <select id="vp"><option value="1440">1440</option><option value="390">390</option></select>
+    </label>
+    <label>Demo state
+      <select id="demo">
+        <option value="ready">Ready</option>
+        <option value="loading">Loading</option>
+        <option value="empty">Empty search</option>
+        <option value="denied">Denied</option>
+      </select>
+    </label>
+  </div>
+  <div class="stage">
+    <div class="frame is-1440" id="frame">
+      <nav class="nav" id="nav" aria-label="Admin Hub">
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false">Admin menu</button>
+        <strong>Admin Hub</strong>
+        <div class="nav-list" id="navList"></div>
+      </nav>
+      <div class="main" id="main"></div>
+    </div>
+  </div>
+  <script>
+    const SECTIONS = [
+      ["operations", "Operations"],
+      ["trainers", "Trainers"],
+      ["support", "Support"],
+      ["mart", "Mart"],
+      ["config", "Configuration"],
+      ["analytics", "Analytics"],
+      ["system", "System"]
+    ];
+    const trainers = [
+      { id: "oak", name: "Professor Oak", login: "oak", role: "staff", pass: true, caught: 37, seen: "12 Oct, 2:14 PM", full: "2026-10-12 18:14:03 UTC", initial: "O" },
+      { id: "blue", name: "Blue", login: "blue", role: "player", pass: true, caught: 12, seen: "11 Oct, 7:02 PM", full: "2026-10-11 23:02:11 UTC", initial: "B" },
+      { id: "long", name: "Superlongname-McGillicuddy", login: "superlongname", role: "player", pass: false, caught: 2, seen: "9 Oct, 10:41 AM", full: "2026-10-09 14:41:00 UTC", initial: "S" },
+      { id: "leaf", name: "Leaf", login: "leaf", role: "player", pass: false, caught: 0, seen: "unavailable", full: "", initial: "L" },
+      { id: "red", name: "Red", login: "red", role: "player", pass: true, caught: 8, seen: "8 Oct, 4:18 PM", full: "2026-10-08 20:18:44 UTC", initial: "R" },
+      { id: "yellow", name: "Yellow", login: "yellow", role: "player", pass: false, caught: 1, seen: "7 Oct, 1:05 PM", full: "2026-10-07 17:05:09 UTC", initial: "Y" },
+      { id: "green", name: "Green", login: "green", role: "player", pass: false, caught: 4, seen: "6 Oct, 9:22 AM", full: "2026-10-06 13:22:00 UTC", initial: "G" },
+      { id: "silver", name: "Silver", login: "silver", role: "player", pass: true, caught: 15, seen: "Today, 8:01 AM", full: "2026-10-12 12:01:12 UTC", initial: "V" }
+    ];
+    const state = { section: "operations", trainer: "", pane: "overview", query: "", demo: "ready" };
+
+    function chip(t, c) { return `<span class="chip${c ? " " + c : ""}">${t}</span>`; }
+    function header(title, context) {
+      return `<div class="ph"><div><h2>${title}</h2><p>Design prototype · not live data · ${context}</p></div><p>Signed in · staff</p></div>`;
+    }
+
+    function operations() {
+      if (state.demo === "denied") {
+        return header("Operations", "observation only") + `<p class="empty" role="status">Live status is restricted to staff.</p>`;
+      }
+      if (state.demo === "loading") {
+        return header("Operations", "observation only") + `<p class="empty" role="status">Loading live status…</p>`;
+      }
+      return header("Operations", "observation only · as of 12 Oct, 2:18 PM") + `
+        <p class="empty">Twitch is LIVE. Live RPG stays INACTIVE until staff Start it on the current Dashboard.</p>
+        <dl class="metrics">
+          <div class="metric"><dt>Twitch</dt><dd>LIVE</dd><small title="2026-10-12 18:18:00 UTC">Checked 2:18 PM · Stream night</small></div>
+          <div class="metric"><dt>Live RPG session</dt><dd>INACTIVE</dd><small>Not inferred from Twitch</small></div>
+          <div class="metric"><dt>Director</dt><dd>idle</dd><small>Last tick is not freshness</small></div>
+          <div class="metric"><dt>Current encounter</dt><dd>NONE</dd><small>Director pointer is not an open encounter</small></div>
+          <div class="metric"><dt>Last recorded</dt><dd>CATCH</dd><small>Historical · Pikachu</small></div>
+          <div class="metric"><dt>Settlement</dt><dd>UNAVAILABLE</dd></div>
+          <div class="metric"><dt>Permission</dt><dd>LIVE permits</dd><small>OFFLINE ends · Start is explicit</small></div>
+        </dl>
+        <p class="door"><a class="textlink" href="../../../admin.html?section=dashboard">Open current Dashboard</a> · this prototype does not start or tick.</p>`;
+    }
+
+    function directory() {
+      if (state.demo === "denied") {
+        return header("Trainers", "find") + `<p class="empty" role="status">Trainer search is restricted to staff.</p>`;
+      }
+      if (state.demo === "empty") {
+        return header("Trainers", "find") + `
+          <form class="search" onsubmit="return false;"><input type="search" value="zzzz" aria-label="Find trainers"><button type="submit">Find</button></form>
+          <p class="empty" role="status">No trainers match.</p>`;
+      }
+      const status = state.demo === "loading" ? "Loading trainers…" : "8 trainers. Server page is 50.";
+      const rows = trainers.map((row) => `<tr>
+        <td><div class="who"><span class="av">${row.initial}</span><div>
+          <button class="open" type="button" data-open="${row.id}">${row.name}</button>
+          <div class="handle">@${row.login}</div></div></div></td>
+        <td data-label="Role">${chip(row.role)}</td>
+        <td data-label="Pass">${row.pass ? chip("Pass", "pass") : chip("—", "muted")}</td>
+        <td data-label="Pokémon">${row.caught}</td>
+        <td data-label="Last seen" title="${row.full}">${row.seen}</td>
+      </tr>`).join("");
+      return header("Trainers", "find · list RPC only") + `
+        <form class="search" onsubmit="return false;">
+          <input type="search" value="${state.query}" placeholder="Name, login, UUID, or Twitch login" aria-label="Find trainers">
+          <button type="submit">Find</button>
+        </form>
+        <p class="meta" role="status">${status}</p>
+        <table><thead><tr><th>Trainer</th><th>Role</th><th>Pass</th><th>Pokémon</th><th>Last seen</th></tr></thead><tbody>${rows}</tbody></table>
+        <div class="pager"><span>Previous</span><span>Next</span></div>`;
+    }
+
+    function record() {
+      const busy = state.trainer !== "leaf";
+      const row = trainers.find((t) => t.id === state.trainer) || trainers[0];
+      const tabs = ["overview", "pokemon", "inventory", "progression", "connections"].map((id) => {
+        const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections" };
+        return `<button type="button" role="tab" data-pane="${id}" aria-selected="${id === state.pane}">${labels[id]}</button>`;
+      }).join("");
+      if (state.demo === "denied") {
+        return header("Trainers", "inspect") + `<button type="button" class="back" data-back>← All trainers</button><p class="empty">Trainer inspect is restricted to staff.</p>`;
+      }
+      if (state.demo === "loading") {
+        return header("Trainers", "inspect") + `<button type="button" class="back" data-back>← All trainers</button><p class="empty">Loading trainer…</p>`;
+      }
+      let body = "";
+      if (state.pane === "overview") {
+        body = busy ? `<dl class="kv">
+          <dt>Display name</dt><dd>${row.name}</dd>
+          <dt>Login</dt><dd>${row.login}</dd>
+          <dt>Account id</dt><dd>aaaaaaaa-1111-2222-3333-444444444444</dd>
+          <dt>Role</dt><dd>${row.role}</dd>
+          <dt>Starlight Pass</dt><dd>${row.pass ? "Yes" : "No"}</dd>
+          <dt>Password login</dt><dd>Yes</dd>
+          <dt>Registered</dt><dd title="2026-03-02 11:04:00 UTC">2 Mar 2026</dd>
+          <dt>Twitch</dt><dd>Primary @professoroak · flags on Connections</dd>
+        </dl><p class="empty">Email address is not returned. Activity journal is unavailable.</p>` :
+        `<dl class="kv">
+          <dt>Display name</dt><dd>Leaf</dd>
+          <dt>Login</dt><dd>leaf</dd>
+          <dt>Role</dt><dd>player</dd>
+          <dt>Starlight Pass</dt><dd>No</dd>
+          <dt>Password login</dt><dd>No</dd>
+          <dt>Twitch</dt><dd>unavailable</dd>
+        </dl><p class="empty">Sparse: do not invent last seen, level, or a link.</p>`;
+      } else if (state.pane === "pokemon") {
+        body = busy ? `<p class="empty">Newest 40 live Pokémon only. Full PC, favorite, and locked are unavailable.</p>
+          <ul class="list">
+            <li><span>Venusaur · #003</span><span>Lv. 36 · Poke Ball</span><span title="2026-10-01 12:00:00 UTC">1 Oct</span></li>
+            <li><span>Charizard · #006 · shiny</span><span>Lv. 40 · Ultra Ball</span><span>22 Sep</span></li>
+            <li><span>Blastoise · #009</span><span>Lv. 33 · Great Ball</span><span>18 Sep</span></li>
+          </ul>` : `<p class="empty">No live Pokémon in this snapshot. Full PC is still unavailable.</p>`;
+      } else if (state.pane === "inventory") {
+        body = busy ? `<dl class="kv"><dt>Coins</dt><dd>4,280</dd><dt>Bag</dt><dd>14 / 20</dd><dt>Balls</dt><dd>8 · 3 · 2</dd><dt>Candy</dt><dd>Bulbasaur 12</dd></dl><p class="empty">Bits entitlements are unavailable.</p>` :
+          `<dl class="kv"><dt>Coins</dt><dd>0</dd><dt>Bag</dt><dd>0 / 20</dd></dl><p class="empty">Zero is a value. Bits remain unavailable.</p>`;
+      } else if (state.pane === "progression") {
+        body = busy ? `<dl class="kv"><dt>Level / XP / title</dt><dd>28 · 14,200 · Champion</dd><dt>Caught / seen</dt><dd>37 / 41</dd><dt>Ranking</dt><dd>Visible · eligible</dd></dl>
+          <p>Titles Champion unlocked · Rival locked. Catalog matches cosmetics — collapsed.</p>
+          <p class="empty">Achievements, Oak research, and evolution history are unavailable.</p>` :
+          `<p class="empty">Trainer card unavailable. No empty trophy wall.</p>`;
+      } else {
+        body = busy ? `<p>@professoroak · Primary · Confirmed · Gameplay on · Login on</p><p class="empty">Link and unlink stay on Support → current hub.</p>` :
+          `<p class="empty">No Twitch connections returned.</p>`;
+      }
+      return header("Trainers", "inspect · " + row.name) + `
+        <button type="button" class="back" data-back>← All trainers</button>
+        <div class="id-row"><span class="av" style="width:44px;height:44px">${row.initial}</span>
+          <div><h2 style="margin:0;font-size:20px">${row.name}</h2>
+          <p class="handle">@${row.login} · ${chip(row.role)} ${row.pass ? chip("Pass", "pass") : chip("No Pass", "muted")}</p></div></div>
+        <dl class="facts">
+          <div><dt>Level</dt><dd>${busy ? "28" : "unavailable"}</dd></div>
+          <div><dt>Caught</dt><dd>${busy ? String(row.caught) : "unavailable"}</dd></div>
+          <div><dt>Coins</dt><dd>${busy ? "4,280" : "unavailable"}</dd></div>
+          <div><dt>Last seen</dt><dd title="${row.full}">${row.seen}</dd></div>
+        </dl>
+        <div class="tabs" role="tablist">${tabs}</div>${body}
+        <p class="door">Need to change this account? <button type="button" class="textlink" data-support="${row.id}">Open Support with this trainer</button> · no grant on this page.</p>`;
+    }
+
+    function support() {
+      const row = trainers.find((t) => t.id === state.trainer);
+      const context = row ? `<div class="metric"><dt>About this trainer</dt><dd>${row.name}</dd><small>@${row.login} · id carried from Trainers · not a write target</small></div>` : `<p class="empty">No trainer context. Open a record first, or stay here as the doorway.</p>`;
+      return header("Support", "doorway · A3 still open") + `
+        ${context}
+        <p>This is the only next-hub door for privileged trainer actions. The current hub still performs the writes. This prototype has no grant, unlink, coin, role, or Oak QA controls.</p>
+        <p class="door">
+          <a class="textlink" href="../../../admin.html?section=trainers">Current grants, coins, unlinks, and roles</a><br>
+          <a class="textlink" href="../../../admin.html?section=content&amp;view=oakqa">Current Oak QA</a>
+        </p>`;
+    }
+
+    function pointer(title, context, body, href, label) {
+      return header(title, context) + `<p>${body}</p><p class="door"><a class="textlink" href="${href}">${label}</a></p>`;
+    }
+
+    function page() {
+      if (state.section === "operations") return operations();
+      if (state.section === "trainers") return state.trainer ? record() : directory();
+      if (state.section === "support") return support();
+      if (state.section === "mart") return pointer("Mart", "catalog stays on current hub", "Mart item CRUD and Content Studio remain on the current Economy catalog.", "../../../admin.html?section=economy&view=catalog", "Open current Mart editor");
+      if (state.section === "config") return pointer("Configuration", "encounters stay on current hub", "Balance editors stay on the current hub. This preview does not write site_config.", "../../../admin.html?section=encounters", "Open Encounters");
+      if (state.section === "analytics") return header("Analytics", "read only") + `<dl class="metrics"><div class="metric"><dt>Client build</dt><dd>20261008-rc133</dd></div><div class="metric"><dt>Twitch stream</dt><dd>LIVE</dd></div></dl><p class="empty">Health RPCs only. Not a trainer dashboard.</p>`;
+      return pointer("System", "secrets stay on current hub", "Twitch secret, GitHub token, and bridge token remain owner-only. This preview cannot save secrets.", "../../../admin.html?section=system", "Open System & Integrations");
+    }
+
+    function render() {
+      document.getElementById("frame").className = "frame is-" + document.getElementById("vp").value;
+      document.getElementById("navList").innerHTML = SECTIONS.map(([id, label]) =>
+        `<button type="button" data-section="${id}" ${id === state.section ? 'aria-current="page"' : ""}>${label}</button>`
+      ).join("");
+      document.getElementById("main").innerHTML = page();
+    }
+
+    document.getElementById("vp").onchange = render;
+    document.getElementById("demo").onchange = function () { state.demo = this.value; render(); };
+    document.getElementById("navToggle").onclick = function () {
+      const nav = document.getElementById("nav");
+      nav.classList.toggle("is-open");
+      this.setAttribute("aria-expanded", nav.classList.contains("is-open") ? "true" : "false");
+    };
+    document.getElementById("frame").addEventListener("click", (event) => {
+      const section = event.target.closest("[data-section]");
+      const open = event.target.closest("[data-open]");
+      const back = event.target.closest("[data-back]");
+      const pane = event.target.closest("[data-pane]");
+      const support = event.target.closest("[data-support]");
+      if (section) { state.section = section.getAttribute("data-section"); if (state.section !== "trainers" && state.section !== "support") state.trainer = state.section === "support" ? state.trainer : state.trainer; render(); }
+      else if (open) { state.trainer = open.getAttribute("data-open"); state.pane = "overview"; state.section = "trainers"; render(); }
+      else if (back) { state.trainer = ""; state.section = "trainers"; render(); }
+      else if (pane) { state.pane = pane.getAttribute("data-pane"); render(); }
+      else if (support) { state.trainer = support.getAttribute("data-support"); state.section = "support"; render(); }
+    });
+    render();
+  </script>
+</body>
+</html>

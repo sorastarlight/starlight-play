@@ -144,8 +144,20 @@
       "commit": "af437e8",
       "evidence": "docs/project-command-center/DESIGN-RESET-ISSUE-6.md, DESIGN-RESET-DECISION.md, design-reset/",
       "testResults": "design-reset existence STATIC; no playCall in wireframes; existing hub suites unchanged",
-      "nextAction": "Owner A8 pick Proposal A or B; do not implement or replace UI",
-      "approvalRequirement": "A8 before any Trainers UI replacement; A1 A3 A7 not granted"
+      "nextAction": "A8 approved Proposal A; keep research packet",
+      "approvalRequirement": "A8 granted as design direction only"
+    },
+    {
+      "id": "I7",
+      "status": "done",
+      "scope": "GitHub issue #7 integrated Admin Hub spec and Proposal A static prototype",
+      "dependencies": ["I6"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/DESIGN-SPEC-ISSUE-7.md, design-reset/hub-a.html",
+      "testResults": "overhaul existence STATIC; hub-a no playCall; REAL DOM 1440/390",
+      "nextAction": "Owner reviews spec; A9 required before any admin-next.html replacement",
+      "approvalRequirement": "A9 before implementation; A1 A3 A7 not granted"
     },
     {
       "id": "F",

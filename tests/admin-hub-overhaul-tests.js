@@ -44,6 +44,8 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/design-reset/index.html",
     "docs/project-command-center/design-reset/proposal-a.html",
     "docs/project-command-center/design-reset/proposal-b.html",
+    "docs/project-command-center/DESIGN-SPEC-ISSUE-7.md",
+    "docs/project-command-center/design-reset/hub-a.html",
     ".cursor/rules/streamlink-project.mdc"
   ].forEach((rel) => assert(fs.existsSync(path.join(__dirname, "..", rel)), rel));
   assert(commandCenter.includes("First execution boundary"));
@@ -234,6 +236,18 @@ test("Issue 6 wireframes exist and stay unwired", () => {
   assert(a.includes("Proposal A") && b.includes("Proposal B"));
   assert(a.includes("admin_list_users") && b.includes("p_query"));
   assert(decision.includes("A8") && decision.includes("NOT APPROVED"));
+});
+
+test("Issue 7 hub prototype stays unwired and records A8 without A9", () => {
+  const hub = read("docs/project-command-center/design-reset/hub-a.html");
+  const spec = read("docs/project-command-center/DESIGN-SPEC-ISSUE-7.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  ["playCall", "admin_overview", "service_role", "admin_grant_"].forEach((name) => {
+    assert(!hub.includes(name), name);
+  });
+  assert(hub.includes("Admin Hub") && hub.includes("All trainers") && hub.includes("Open Support with this trainer"));
+  assert(spec.includes("A9") && spec.includes("admin-next.html"));
+  assert(decisions.includes("APPROVED") && decisions.includes("A9"));
 });
 
 const failed = results.filter((row) => !row.passed);

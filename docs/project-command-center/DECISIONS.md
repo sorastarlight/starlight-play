@@ -19,6 +19,8 @@
 | D13 | Trainer record IA: simplified identity header, Starlight Pass, readable Connections, Inventory/Unlockables category managers, Tickets placement | Owner #12 / epic #11 design. Ribbons and tickets have no inspect/ticket contract. Not A1. Not A9. Not A10. Not #13/#14. |
 | D14 | Current catch persistence is LGPE-inspired StreamLink, not PokéAPI legality and not FR/LG or modern ability/nature/EV | Issue #16 source audit. IVs/AVs/moves persist via `stamp_catch_row`; abilities in the Pokédex are encyclopedia only. Do not mix generations. Do not rewrite stored IVs. Inspector/editor need A16b/A16d. |
 
+| D15 | Owner **rejects LGPE-inspired mechanics as the future target**; wants game-accurate Pokémon generation/individuals and permits replacing or wiping currently caught Pokémon if required | Supersedes the D14 recommendation for future direction, not its source audit of current state. A new explicit target game/version-group and legality scope must be selected; permission to plan a reset is **not an instruction to delete now**. No production writes, deletes, grants, or release approved. |
+
 ## Needs owner approval
 
 | ID | Question | Recommendation |
@@ -33,9 +35,13 @@
 | A8 | Implement Proposal A (record workspace) or Proposal B (inbox split)? | **APPROVED** — Proposal A is the design direction. Not a live-tab swap. |
 | A9 | Frontend-only implementation of the issue #7 spec into `admin-next.html`? | Do not start until explicitly authorized. Keep comparison fixtures. |
 | A10 | Accept a polished presentation as the visual target? | Review `hub-a-visual-v5.html` beside v4. Still not A9. |
-| A16a | Confirm LGPE-inspired StreamLink v1 as the honest current Pokémon ruleset? | Yes. Do not claim HOME/FR/LG/modern legality. |
+| A16a | Confirm LGPE-inspired StreamLink v1 as the **future target**? | **REJECTED by owner**. Keep only as a factual label for the current implementation. New target: game-accurate Pokémon; exact games/version-group TBD. |
 | A16b | New staff read RPC exposing `catch_json` (IVs/AVs/moves/stats)? | After SQL review. Not `admin_overview`. Not A9 by itself. |
-| A16c | Change `stamp_catch_row` for **new** catches only (size, friendship, learnset-safe moves, ruleset id)? | After A16a. Never rewrite old IVs. |
+| A16c | Change catch generation mechanics after selecting the new game-accurate target? | Requires new design, reviewed migration, and separate implementation approval; existing Pokémon may be reset later by owner choice, but **not yet deleted**. |
 | A16d | Owner-only audited catch editor (dry-run, diff, reason, history, protected accounts)? | Separate write approval. Not grant/remove. Not Batch F. |
-| A16e | Switch product to a modern or FR/LG ruleset (nature/ability/EV or DVs)? | No unless explicitly chosen. New columns, new rows only. |
+| A16e | Select exact game/version-group mechanics and what 'game-accurate' means? | **OPEN**: owner rejected LGPE target; choose a modern/FRLG/other canonical reference or scoped hybrid before implementation. |
 | A16f | Show IVs/moves on My PC from existing `play_storage` JSON? | Frontend only. Optional honesty UX. |
+
+## Destructive reset boundary
+
+Owner is willing to delete or regenerate existing Pokémon when changing rulesets. Before any deletion, design an explicit scope (catches, PC, parties, trades, Pokédex/progression, events, related references), dependency audit, tested backup/restore and rollback, user notice, replacement semantics, preview counts, and a final, specific destructive execution confirmation. **No current approval authorizes executing a delete/reset.**

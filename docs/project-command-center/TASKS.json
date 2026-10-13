@@ -189,9 +189,9 @@
       "scope": "GitHub issue #10 PNG artwork, raised navigation, and full-row trainer selection",
       "dependencies": ["I9"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "ed17c32",
       "evidence": "docs/project-command-center/TRAINER-UX-ISSUE-10.md, design-reset/hub-a-visual-v4.html",
-      "testResults": "overhaul existence STATIC; v4 no playCall; REAL DOM pending this commit",
+      "testResults": "overhaul 15 STATIC PASS; v4 no playCall; REAL DOM 1440/390",
       "nextAction": "Owner A10 visual of v4 beside v3; do not implement into admin-next.html",
       "approvalRequirement": "A10 before treating any visual v as the target; A9 still required to implement"
     },

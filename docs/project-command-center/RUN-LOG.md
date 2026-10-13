@@ -2,7 +2,7 @@
 
 ## 2026-10-13 — GitHub issue #10 trainer UX polish
 
-- Branch: `admin-hub-overhaul`. Design only. `hub-a-visual-v3.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.
+- Branch: `admin-hub-overhaul`. Design commit `ed17c32`. Design only. `hub-a-visual-v3.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.
 - Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
 - D12 recorded. A10 still needed. A1 open. A8 direction stands. A9 not authorized.

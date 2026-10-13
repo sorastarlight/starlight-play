@@ -1,5 +1,50 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #10 trainer UX polish
+
+- Branch: `admin-hub-overhaul`. Design only. `hub-a-visual-v3.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D12 recorded. A10 still needed. A1 open. A8 direction stands. A9 not authorized.
+
+### Deliverables
+
+- `design-reset/hub-a-visual-v4.html` — official PNG art, raised nav, full-row directory
+- `TRAINER-UX-ISSUE-10.md` — artwork source, fallback, future A9 note
+
+Preview: `http://127.0.0.1:4252/docs/project-command-center/design-reset/hub-a-visual-v4.html`  
+Comparison: `http://127.0.0.1:4252/docs/project-command-center/design-reset/hub-a-visual-v3.html`
+
+### REAL DOM (unsigned prototype)
+
+Accessibility tree is the text source of truth. Browser-tool screenshots still garble Fredoka/Nunito.
+
+| Frame | Notes |
+|---|---|
+| 1440 Operations | Raised hub nav. Admin menu hidden on desktop. |
+| 1440 directory | Full-width `dir-hit` buttons. Avatar, name, last-seen, and empty space are one target. |
+| 1440 Overview | Raised **All trainers**. |
+| 1440 collection | Official PNG thumbs. Shiny Charizard is the black official art, not the normal form. |
+| 1440 Charizard detail | 128px shiny PNG. Raised **Back to Pokémon**. Contract fields only. |
+| 390 directory | Stacked labels. Full-row buttons. Admin menu. |
+
+Art URLs are dex + shiny only. Illustrative Oak / Leaf / Blue only.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/admin-hub-overhaul-tests.js` | STATIC PASS | 15 |
+| `tests/admin-hub-workspace-v2-tests.js` | STATIC PASS | 6 |
+| `tests/admin-hub-gate-2a-trainer-tests.js` | STATIC PASS | 8 |
+| `tests/admin-hub-next-tests.js` | STATIC PASS | 7 |
+| `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC PASS | 12 |
+| `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC PASS | 16 |
+| `tests/admin-hub-gate-17-s1b-tests.js` | STATIC PASS | 5 |
+| hub-a-visual-v4 directory / collection / detail | REAL DOM | unsigned static HTML |
+| Live staff RPCs | **not run** | not authorized |
+| Production | **not run** | smoke paused |
+
 ## 2026-10-13 — GitHub issue #9 Pokémon collection UX
 
 - Branch: `admin-hub-overhaul`. Design commit `f3d95ff`. Design only. `hub-a-visual-v2.html` kept for comparison. `admin-next.html` unchanged. No merge, deploy, SQL, staff-role, APP stamp, A9, or Batch F.

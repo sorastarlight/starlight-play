@@ -184,6 +184,18 @@
       "approvalRequirement": "A10 before treating any visual v as the target; A9 still required to implement"
     },
     {
+      "id": "I10",
+      "status": "done",
+      "scope": "GitHub issue #10 PNG artwork, raised navigation, and full-row trainer selection",
+      "dependencies": ["I9"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/TRAINER-UX-ISSUE-10.md, design-reset/hub-a-visual-v4.html",
+      "testResults": "overhaul existence STATIC; v4 no playCall; REAL DOM pending this commit",
+      "nextAction": "Owner A10 visual of v4 beside v3; do not implement into admin-next.html",
+      "approvalRequirement": "A10 before treating any visual v as the target; A9 still required to implement"
+    },
+    {
       "id": "F",
       "status": "blocked",
       "scope": "Privileged operations",

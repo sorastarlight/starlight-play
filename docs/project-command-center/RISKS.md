@@ -10,7 +10,7 @@
 | R-UI-OVERLAP | **MITIGATED in preview** | Viewport-only 960px + `minmax(280px,360px)` caused directory/QA overlap at 100% zoom. Container query on `.admin-next-trainers-panel` now switches at 920px of available trainer width. |
 | R-UI-DENSITY | **MITIGATED in preview** | Directory rows no longer stretch full panel width. Browse and inspect share 300px cards. Dossier sections use `--admin-next-section-gap: 16px`. |
 | R-UI-GALLERY | **SUPERSEDED** | Owner rejected card gallery and did not approve A7. Further widget polish is the wrong layer. |
-| R-IA-LAYOUT | **DESIGN** | A8 + D10 + D11: Proposal A layout accepted in principle. Collection is summary-first. Visual target waits on A10. Live Trainers unchanged until A9. |
+| R-IA-LAYOUT | **DESIGN** | A8 + D10–D12: Proposal A layout accepted in principle. Visual target waits on A10. Live Trainers unchanged until A9. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

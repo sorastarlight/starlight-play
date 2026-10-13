@@ -50,6 +50,8 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/design-reset/hub-a-visual-v2.html",
     "docs/project-command-center/POKEMON-UX-ISSUE-9.md",
     "docs/project-command-center/design-reset/hub-a-visual-v3.html",
+    "docs/project-command-center/TRAINER-UX-ISSUE-10.md",
+    "docs/project-command-center/design-reset/hub-a-visual-v4.html",
     ".cursor/rules/streamlink-project.mdc"
   ].forEach((rel) => assert(fs.existsSync(path.join(__dirname, "..", rel)), rel));
   assert(commandCenter.includes("First execution boundary"));
@@ -278,6 +280,20 @@ test("Issue 9 Pokémon collection stays unwired and uses mons contract fields on
   assert(!v3.includes("Lv. 36 ·") && !v3.includes("playCall") && !v3.includes("admin_trainer_pc"));
   assert(guide.includes("mons[]") && guide.includes("D11"));
   assert(v2.includes("Proposal A · visual v2"));
+});
+
+test("Issue 10 trainer UX stays unwired and keeps Proposal A IA", () => {
+  const v4 = read("docs/project-command-center/design-reset/hub-a-visual-v4.html");
+  const guide = read("docs/project-command-center/TRAINER-UX-ISSUE-10.md");
+  const v3 = read("docs/project-command-center/design-reset/hub-a-visual-v3.html");
+  ["playCall", "admin_overview", "service_role", "admin_grant_"].forEach((name) => {
+    assert(!v4.includes(name), name);
+  });
+  assert(v4.includes("official-artwork") && v4.includes("dir-hit") && v4.includes("btn-nav"));
+  assert(v4.includes("All trainers") && v4.includes("Back to Pokémon") && v4.includes("Newest 40"));
+  assert(!v4.includes('role="row"') && !v4.includes("admin_trainer_pc"));
+  assert(guide.includes("D12") && guide.includes("playSpriteUrl"));
+  assert(v3.includes("Proposal A · visual v3"));
 });
 
 const failed = results.filter((row) => !row.passed);

@@ -17,6 +17,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I7 | Issue #7 integrated hub spec + static prototype | Design only | **DONE** — not wired into `admin-next.html` |
 | I8 | Issue #8 visual refinement of Proposal A | Design only | **DONE** — comparison prototype only |
 | I9 | Issue #9 Pokémon collection + detail | Design only | **DONE** — comparison prototype only |
+| I10 | Issue #10 PNG art, raised nav, full-row directory | Design only | **DONE** — comparison prototype only |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
 
 ## Sequence

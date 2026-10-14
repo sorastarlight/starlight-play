@@ -11,7 +11,7 @@
 - LIVE CATALOG: natures 25 / species 151 / forms 236 / abilities 135 / form_abilities 576 / moves 556 / learnsets 14048 / evolutions 88 / obtain 236 / form_policies 16 / meta pin `sl-ref-20261013-227b573`.
 - 17 catch extension columns present, all nullable. No FK from `public.catches` to `private.ref_*`. RLS ON + zero policies (fail-closed). anon/authenticated DML all false.
 - LIVE API: `Accept-Profile: private` → HTTP 406 `PGRST106`.
-- Report: `GEN-IX-APPLY-REPORT.md`. D35 recorded. R-I22-APPLY **CLOSED**. R-I24-BACKUP **CLOSED as apply blocker** (restore still needs separate auth).
+- Report: `GEN-IX-APPLY-REPORT.md`. D35 recorded at `7cc5a1f7`. R-I22-APPLY **CLOSED**. R-I24-BACKUP **CLOSED as apply blocker** (restore still needs separate auth).
 
 ### Tests
 

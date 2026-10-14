@@ -297,7 +297,7 @@
       "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 → seed 00–10 → 002",
       "dependencies": ["I24", "D35"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "7cc5a1f7",
       "evidence": "docs/project-command-center/GEN-IX-APPLY-REPORT.md",
       "testResults": "a19-apply-report STATIC; LIVE CATALOG counts exact; LIVE API PGRST106; no catch-row SELECT",
       "nextAction": "Stop for owner review. Do not start GENVAL, WIRE, 003, restore, merge, or deploy.",

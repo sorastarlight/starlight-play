@@ -261,7 +261,7 @@
       "scope": "GitHub issue #22 A19-SCHEMA unapplied private.ref_* DDL, catch extensions, full pin seed",
       "dependencies": ["I21", "D25"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "5f891c0",
       "evidence": "docs/project-command-center/GEN-IX-SCHEMA-ISSUE-22.md, supabase/unapplied/a19-schema/, tools/emit-a19-schema-seed.js",
       "testResults": "a19-schema 8 LOCAL HARNESS PASS; gen9-ref 12 LOCAL HARNESS PASS; overhaul 21 STATIC PASS",
       "nextAction": "Stop. Owner reviews artifacts. Do not apply SQL or start A19-GENVAL.",

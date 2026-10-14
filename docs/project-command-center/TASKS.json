@@ -300,8 +300,8 @@
       "commit": "7cc5a1f7",
       "evidence": "docs/project-command-center/GEN-IX-APPLY-REPORT.md",
       "testResults": "a19-apply-report STATIC; LIVE CATALOG counts exact; LIVE API PGRST106; no catch-row SELECT",
-      "nextAction": "Superseded by I25 / D36 GENVAL specification. Implementation still unapproved.",
-      "approvalRequirement": "Historical apply; A19-GENVAL still unapproved"
+      "nextAction": "Superseded by I25 / D36 GENVAL specification. Implementation later delivered as I25A / D37.",
+      "approvalRequirement": "Historical apply; production GENVAL apply still unapproved"
     },
     {
       "id": "I25",
@@ -311,9 +311,21 @@
       "branch": "admin-hub-overhaul",
       "commit": "34f3797d",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-SPEC.md, tests/fixtures/a19-genval/matrix.json, tests/a19-genval-spec-tests.js",
-      "testResults": "a19-genval-spec STATIC/LOCAL HARNESS; no function CREATE; no catch-row SELECT",
-      "nextAction": "Stop for owner review. Do not implement generate/assert, WIRE, 003, restore, merge, or deploy.",
-      "approvalRequirement": "Separate explicit A19-GENVAL implementation authorization; A19-GV1–GV7 still open"
+      "testResults": "a19-genval-spec STATIC/LOCAL HARNESS; historical D36 snapshot",
+      "nextAction": "Superseded by I25A / D37. Spec file remains the planning snapshot.",
+      "approvalRequirement": "Historical; GV1–GV7 later locked in D37"
+    },
+    {
+      "id": "I25A",
+      "status": "done",
+      "scope": "A19-GENVAL branch-only functions + isolated local Postgres rehearsal",
+      "dependencies": ["I25", "D37"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md, supabase/unapplied/a19-genval/, tools/a19-genval-rehearsal.js, tools/lib/a19-genval-oracle.js",
+      "testResults": "a19-genval-spec STATIC; a19-genval-impl STATIC; REAL SQL 12/12 on 127.0.0.1:55433/a19_genval",
+      "nextAction": "STOP for independent review. Do not apply GENVAL to live Supabase, WIRE, 003, restore, merge, or deploy.",
+      "approvalRequirement": "Production GENVAL apply remains UNAPPROVED; A19-WIRE still blocked"
     },
     {
       "id": "I13",

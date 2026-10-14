@@ -304,3 +304,7 @@ Apply of those functions to `starlight-play` would need a **separate** go after 
 A19-GENVAL implementation is **not** authorized by this specification. Historical catches are unchanged. The old generator remains active.
 
 Next gate: explicit owner **A19-GENVAL** implementation authorization (functions + offline tests only), optionally answering A19-GV1–GV7.
+
+---
+
+**Later (D37 snapshot pointer):** Owner authorized branch-only implementation. See [GEN-IX-GENVAL-ISSUE-25.md](./GEN-IX-GENVAL-ISSUE-25.md). This file remains the D36 planning snapshot. Production apply is still **UNAPPROVED**.

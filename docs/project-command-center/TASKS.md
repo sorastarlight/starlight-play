@@ -29,9 +29,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I23 | done | Issue #23 disposable local Postgres rehearsal of A19-SCHEMA | I22, D27 | Historical REAL SQL | Live apply later delivered as D35 |
 | I24 | done | Issue #24 preflight + go/no-go handoff | I23, D29 | Historical D34 | Superseded by D35 apply |
 | I24A | done | Issue #24 owner GO schema-only apply (`001` → seed `00`–`10` → `002`) | I24, D35 | **APPLIED** schema-only | Historical; spec is I25 / D36 |
-| I25 | done | A19-GENVAL specification + offline synthetic test plan | I24A, D35 | Planning only; **UNAPPROVED** to implement | STOP. Need explicit A19-GENVAL go |
+| I25 | done | A19-GENVAL specification + offline synthetic test plan | I24A, D35 | Historical D36 | Superseded by I25A / D37 |
+| I25A | done | A19-GENVAL branch-only SQL + local REAL SQL rehearsal | I25, D37 | Branch-only; **production apply UNAPPROVED** | STOP for independent review |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D36 A19-GENVAL **spec** delivered; implementation **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. `stamp_catch_row` still active. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D36. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D37 A19-GENVAL **branch-only** delivered (12/12 local REAL SQL). Production GENVAL apply **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. `stamp_catch_row` still active. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D37. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

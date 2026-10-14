@@ -28,9 +28,10 @@ const decisions = read("docs/project-command-center/DECISIONS.md");
 const matrix = JSON.parse(read("tests/fixtures/a19-genval/matrix.json"));
 const pin = loadPin();
 const mig = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
-const unapplied = fs.existsSync(path.join(__dirname, "..", "supabase", "unapplied", "a19-genval"));
+const unappliedDir = path.join(__dirname, "..", "supabase", "unapplied", "a19-genval");
+const unapplied = fs.existsSync(unappliedDir);
 
-test("spec is planning-only and leaves GENVAL unapproved", () => {
+test("spec snapshot stays honest and D36 remains recorded", () => {
   assert(spec.includes("**Verdict: SPEC READY. A19-GENVAL implementation remains UNAPPROVED.**"));
   assert(spec.includes("generate_streamlink_mon"));
   assert(spec.includes("assert_streamlink_legal"));
@@ -53,7 +54,8 @@ test("production apply history is reconciled without copying SQL into migrations
   assert(!mig.includes("a19-schema"));
   assert(!mig.includes("a19_apply_"));
   assert(!mig.includes("generate_streamlink_mon"));
-  assert(!unapplied, "do not add unapplied GENVAL SQL until implementation is authorized");
+  assert(unapplied, "branch-only GENVAL SQL now lives under unapplied/a19-genval");
+  assert(read("supabase/unapplied/a19-genval/DO-NOT-APPLY.md").includes("DO NOT"));
   assert(sha256("supabase/unapplied/a19-schema/001_private_ref_tables.sql") ===
     "61a86ed041a3c2e51788c9cf5e49cd4bfdf06e5932f906254ea94c14e0fe9a30");
   assert(sha256("supabase/unapplied/a19-schema/002_catches_nullable_extensions.sql") ===
@@ -74,7 +76,7 @@ test("synthetic fixture matrix parses and is not live Pokémon", () => {
   assert(matrix.synthetic === true && matrix.notLivePokemon === true);
   assert(matrix.contentBuild === "sl-ref-20261013-227b573");
   const ids = matrix.cases.map((row) => row.id);
-  ["L-BULBA", "L-CHAR", "L-GMAX", "L-C1", "L-HA-NO", "I-IV", "I-EV", "I-MAREEP", "I-LEGACY"].forEach((id) => {
+  ["L-BULBA", "L-CHAR", "L-GMAX", "L-C1", "L-HA-NO", "L-HA-YES", "L-TM", "I-IV", "I-EV", "I-MAREEP", "I-LEGACY"].forEach((id) => {
     assert(ids.includes(id), id);
   });
   assert(matrix.cases.every((row) => row.mon && row.expect));

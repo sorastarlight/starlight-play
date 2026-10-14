@@ -1,5 +1,29 @@
 # Run log
 
+## 2026-10-14 — A19-GENVAL branch-only implementation (D37, production apply UNAPPROVED)
+
+- Branch: `admin-hub-overhaul`. Owner authorized **branch-only** functions + isolated local rehearsal. GV1–GV7 locked.
+- Artifacts: `supabase/unapplied/a19-genval/` (`001`, `002`, `DO-NOT-APPLY.md`). Not copied into `migrations/`. Not applied to `dtflmlbjhttoewqgkujf`.
+- Functions: `private.generate_streamlink_mon`, `private.assert_streamlink_legal`. Hidden tickets table RLS+REVOKE. `p_allow_hidden` ignored. `stamp_catch_row` not modified.
+- REAL SQL: `node tools/a19-genval-rehearsal.js` — **12/12 PASS** on embedded Postgres `127.0.0.1:55433/a19_genval`. JS oracle match. G1/C1 fail-closed. Articuno grant friendship 35. Production nonce required; seed≠round_id.
+- Corrections: PL/pgSQL name clashes; `array_append`; ticket **forces** hidden slot instead of rolling it.
+- Did **not** apply to live Supabase. Did not INSERT/UPDATE/DELETE catches. Did not start WIRE, 003, restore, merge, deploy, or APP stamp.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused. `stamp_catch_row` still the live generator.
+- Production GENVAL apply remains **UNAPPROVED**. STOP for independent review.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-genval-spec-tests.js` | STATIC + LOCAL HARNESS | 6 passed |
+| `tests/a19-genval-impl-tests.js` | STATIC | 5 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 25 passed |
+| `tools/a19-genval-rehearsal.js` | REAL SQL (127.0.0.1) | 12/12 passed |
+| Hosted Supabase / WIRE / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-14 — A19-GENVAL specification (D36, implementation UNAPPROVED)
 
 - Branch: `admin-hub-overhaul`. Planning and offline test design only.

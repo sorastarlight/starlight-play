@@ -21,7 +21,7 @@
 | R-I23-REHEARSAL | **CLOSED** | Isolated local rehearsal passed (17/17 REAL SQL). Does not close live-apply risk. `evo_uid` collision fixed on the branch. |
 | R-I24-PGRST | **CLOSED** | LIVE API: `Accept-Profile: private` → `PGRST106 Invalid schema: private`. Do not add `private` to exposed schemas. |
 | R-I24-BACKUP | **CLOSED as apply blocker** | Owner reconfirmed COMPLETED `2026-10-14 07:44:26 +0000` and issued GO (D35). PITR remains disabled. Restore is still whole-DB rewind and needs a **separate** restore authorization. |
-| R-I25-GENVAL | **OPEN** | Generator/validator specified (D36) but not implemented. `stamp_catch_row` remains the live path. Do not CREATE those functions without a separate A19-GENVAL go. |
+| R-I25-GENVAL | **MITIGATED on branch** | Functions exist under `unapplied/a19-genval/` and passed 12/12 local REAL SQL. Production apply **UNAPPROVED**. `stamp_catch_row` remains live. Hidden needs a server ticket, not a boolean. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

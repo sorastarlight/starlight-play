@@ -44,6 +44,7 @@
 | D30 | Issue #24 preflight delivered; live apply still blocked | Catalog is compatible (no `ref_*` collision; catch extensions absent). Apply remains **BLOCKED** pending PostgREST schema confirmation, a restore point, and a separate A19-APPLY. |
 | D31 | Issue #24 follow-up: PostgREST `private` exposure cleared by LIVE API; backup timestamps still owner-side | `Accept-Profile: private` returns `PGRST106`. Org is Pro (automatic 7-day daily backups per docs). PITR add-on and exact backup IDs were not listable. Does **not** authorize A19-APPLY. |
 | D32 | Issue #24 decision packet: checksums confirmed; backup gate BLOCKED | Staged DDL/seed/pin hashes match disk and are unchanged since #23 `cc66946b`. Issue #24 has no owner COMPLETED backup timestamp or PITR confirmation. A19-APPLY remains **UNAPPROVED**. |
+| D33 | Owner reported COMPLETED backup `2026-10-14 07:44:26 +0000`; PITR disabled | Backup evidence gate cleared as OWNER REPORT (not independently listed). Restore is whole-DB to that snapshot. Does **not** authorize A19-APPLY. |
 
 ## Needs owner approval
 
@@ -76,7 +77,7 @@
 | A19-C1 | Champions/Z-A megas: transform of base, shared-base learnset, or extract champions VG? | **APPROVED ARCHITECTURE — C1:** keep the four Champions/Z-A Mega form IDs fail-closed for wild/grant generation, store base Pokémon, and model Mega as a later transformation; no invented SV/SWSH learnsets. |
 | A19-F1 | Use Gen IX friendship (70→50) at generation time without rewriting the pin? | **APPROVED ARCHITECTURE — F1:** retain raw historical PokéAPI friendship source values; at eventual generation map 70→50 for Gen IX, leave other values unchanged, and do not modify source pin or existing Pokémon. |
 | A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | **APPROVED FOR OFFLINE BRANCH IMPLEMENTATION ONLY — issue #22**: review/harden `private.ref_*` schema and full pin seeds, prepare backwards-compatible nullable `catches` extensions as DO-NOT-APPLY files, validate locally. **Applying DDL to connected/live Supabase remains UNAPPROVED**, as do Pokémon writes and later phases. |
-| A19-APPLY | Apply reviewed A19-SCHEMA SQL to live/connected Supabase? | **UNAPPROVED. BLOCKED** on owner COMPLETED backup timestamp + PITR status (D32). PostgREST `private` is not exposed. Do not apply, merge, or deploy. |
+| A19-APPLY | Apply reviewed A19-SCHEMA SQL to live/connected Supabase? | **UNAPPROVED.** D33 recorded restore target `2026-10-14 07:44:26 +0000` and **PITR disabled**. Waiting for a separate explicit apply go. Do not apply, merge, or deploy. |
 | A19-GENVAL | Ship generator + validator functions? | After schema **apply**. No player-row writes. Still **UNAPPROVED**. |
 | A19-WIRE | Wire launch/settle/grant/evolve to the validator? | New catches only; QA account. |
 | A19-INSPECT | Staff read RPC for full PC combat fields? | After generator exists. |

@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-14 — GitHub issue #24 D33 owner backup evidence (apply still UNAPPROVED)
+
+- Branch: `admin-hub-overhaul`. Documentation only. No DDL/DML, catch-row SELECT, RPC, backup create/restore, copy into `migrations/`, wipe, merge, deploy, or APP stamp.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- OWNER REPORT: latest COMPLETED scheduled backup **2026-10-14 07:44:26 +0000**. **PITR disabled**.
+- Restore rewinds all Postgres writes after T. Not independently listed via Management API.
+- D33 recorded. A19-APPLY remains **UNAPPROVED** pending a separate explicit go.
+- Packet: `GEN-IX-APPLY-DECISION.md`. R-I24-BACKUP **MITIGATED**.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-apply-decision-tests.js` | STATIC | 6 passed |
+| `tests/a19-apply-preflight-tests.js` | STATIC | 5 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 23 passed |
+| Catch-row / RPC / backup / PRODUCTION apply | — | **not run** |
+
 ## 2026-10-14 — GitHub issue #24 A19-APPLY decision packet (backup BLOCKED)
 
 - Branch: `admin-hub-overhaul`. Documentation only. No DDL/DML, catch-row SELECT, RPC, backup create/restore, copy into `migrations/`, wipe, merge, deploy, or APP stamp.

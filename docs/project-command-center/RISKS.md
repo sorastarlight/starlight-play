@@ -20,7 +20,7 @@
 | R-I22-APPLY | **OPEN** | A19-SCHEMA artifacts exist but live apply is unapproved. Do not copy into `supabase/migrations/`. PostgREST must not expose `private`. |
 | R-I23-REHEARSAL | **CLOSED** | Isolated local rehearsal passed (17/17 REAL SQL). Does not close live-apply risk. `evo_uid` collision fixed on the branch. |
 | R-I24-PGRST | **CLOSED** | LIVE API: `Accept-Profile: private` → `PGRST106 Invalid schema: private`. Do not add `private` to exposed schemas. |
-| R-I24-BACKUP | **OPEN — BLOCKING A19-APPLY** | Pro daily backups are eligible (7-day retention per docs). Owner has not supplied a COMPLETED backup timestamp or PITR status. Decision packet: `GEN-IX-APPLY-DECISION.md`. |
+| R-I24-BACKUP | **MITIGATED** | Owner reported COMPLETED `2026-10-14 07:44:26 +0000`; **PITR disabled**. Restore rewinds all Postgres writes after T. Re-record if a newer daily completes before apply. Does not authorize A19-APPLY. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

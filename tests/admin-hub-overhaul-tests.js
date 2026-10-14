@@ -431,11 +431,12 @@ test("Issue 24 preflight stays read-only and does not approve apply", () => {
   const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
   assert(report.includes("LIVE CATALOG"));
   assert(report.includes("A19-APPLY remains **UNAPPROVED**"));
-  assert(decisions.includes("D29") && decisions.includes("D30") && decisions.includes("D31") && decisions.includes("D32"));
+  assert(decisions.includes("D29") && decisions.includes("D30") && decisions.includes("D31") && decisions.includes("D32") && decisions.includes("D33"));
   assert(report.includes("PGRST106"));
   assert(read("docs/project-command-center/GEN-IX-APPLY-CHECKLIST.md").includes("A19-APPLY remains **UNAPPROVED**"));
   const decision = read("docs/project-command-center/GEN-IX-APPLY-DECISION.md");
-  assert(decision.includes("**Verdict: BLOCKED.**"));
+  assert(decision.includes("**Verdict: UNAPPROVED.**"));
+  assert(decision.includes("2026-10-14 07:44:26"));
   assert(decision.includes("A19-APPLY remains **UNAPPROVED**"));
   assert(/DO NOT RUN writes/i.test(queries));
   assert(!migNames.includes("a19-schema"));

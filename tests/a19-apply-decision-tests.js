@@ -33,27 +33,28 @@ const ddl = {
   "003_rollback.sql": "54fd5c6f69239a9ef81aae7051c255a3c5f1e97b891f5045994752f5cc840208"
 };
 
-test("decision packet blocks apply and does not claim a restore point", () => {
-  assert(packet.includes("**Verdict: BLOCKED.**"));
+test("decision packet records owner backup evidence and stays unapproved", () => {
+  assert(packet.includes("**Verdict: UNAPPROVED.**"));
   assert(packet.includes("A19-APPLY remains **UNAPPROVED**"));
-  assert(packet.includes("**UNAVAILABLE**"));
-  assert(packet.includes("Backup gate **BLOCKED**"));
+  assert(packet.includes("2026-10-14 07:44:26"));
+  assert(/PITR disabled/i.test(packet));
+  assert(!packet.includes("Backup gate **BLOCKED**"));
   assert(!/PRODUCTION PASS/.test(packet));
   assert(!packet.includes("A19-APPLY **APPROVED**"));
   assert(!/SELECT \* FROM public\.catches/i.test(packet));
 });
 
-test("packet requests owner backup timestamp and PITR status", () => {
-  assert(packet.includes("database/backups/scheduled"));
-  assert(packet.includes("database/backups/pitr"));
-  assert(packet.includes("COMPLETED"));
-  assert(packet.includes("PITR disabled") || packet.includes("PITR enabled"));
+test("packet names the recorded restore target and PITR-off risk", () => {
+  assert(packet.includes("07:44:26"));
+  assert(packet.includes("+0000") || packet.includes("UTC"));
+  assert(/PITR disabled/i.test(packet));
+  assert(packet.includes("entire Postgres database"));
 });
 
 test("packet explains whole-database restore data loss", () => {
   assert(/entire Postgres database/i.test(packet));
   assert(packet.includes("Storage objects"));
-  assert(packet.includes("up to about a day") || /24h|one day/i.test(packet));
+  assert(/7\.5 hours|full day|grows/i.test(packet));
   assert(packet.includes("offline"));
 });
 

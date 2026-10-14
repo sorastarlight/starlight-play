@@ -14,7 +14,8 @@ A19-APPLY remains **UNAPPROVED**.
 | REAL SQL | **#23 only** (synthetic `127.0.0.1`). Not this preflight. |
 | LIVE API | PostgREST `Accept-Profile: private` → `PGRST106 Invalid schema: private` (no table rows read) |
 | LIVE PLATFORM | Org plan **Pro** (`wobmfnafsgfluplonnso`) via read-only project/org metadata |
-| UNKNOWN | PITR add-on enabled?; exact daily-backup timestamps (no Management API token) |
+| OWNER REPORT | COMPLETED backup `2026-10-14 07:44:26 +0000`; PITR **disabled** (D33; not independently listed) |
+| UNKNOWN | Management API backup UUID / inventory (no `backups_read` token) |
 | NOT RUN | Catch-row SELECT, `admin_overview`, function execution, PRODUCTION apply |
 
 ---
@@ -27,9 +28,9 @@ A19-APPLY remains **UNAPPROVED**.
 | 2. `public.catches` vs `002` | **PASS** | 44 live columns. None of the 17 staged extension names exist. No constraint-name collision. `reltuples=110` / `relpages=9` (planner estimate, **not** `COUNT(*)`). |
 | 3. `private.ref_*` collisions | **PASS** | `private` already exists and is in use. **No** `ref_*` tables in `public` or `private`. `lgpe_species` remains. |
 | 4. Security / exposure | **PASS** | PostgREST **does not expose `private`**. `Accept-Profile: private` returns **406 `PGRST106 Invalid schema: private`**. Default REST looks in `public` (`PGRST205` for `public.stream_bridge`). `authenticated` still has schema `USAGE`; keep 001 RLS+REVOKE. |
-| 5. Migration / rollback | **PASS** with **UNKNOWN** | #23 evo_uid fix is in `08_evolutions.sql`. Org plan is **Pro** (automatic 7-day daily backups per docs). PITR is a **paid add-on**, not confirmed. Exact backup timestamps **UNKNOWN** (no Management API token). `003` remains destructive. |
+| 5. Migration / rollback | **PASS** with owner-reported restore target | #23 evo_uid fix is in `08_evolutions.sql`. Owner reported COMPLETED `2026-10-14 07:44:26 +0000`; **PITR disabled**. `003` remains destructive. Apply still **UNAPPROVED**. |
 
-**Apply recommendation:** PostgREST `private` exposure is **cleared**. Backup evidence is **UNAVAILABLE**. D32 decision packet: **BLOCKED**. A19-APPLY remains **UNAPPROVED**. See [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md).
+**Apply recommendation:** PostgREST `private` exposure is **cleared**. D33 backup evidence **recorded** (`2026-10-14 07:44:26 +0000`, PITR disabled). A19-APPLY remains **UNAPPROVED** pending a separate explicit go. See [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md).
 
 ---
 

@@ -1,6 +1,6 @@
-# A19-APPLY decision packet (GitHub issue #24 / D32)
+# A19-APPLY decision packet (GitHub issue #24 / D33)
 
-**Verdict: BLOCKED.** A19-APPLY remains **UNAPPROVED**.
+**Verdict: UNAPPROVED.** Backup evidence is **recorded**. A19-APPLY is **not** authorized.
 
 This packet is not permission to migrate. No production SQL was executed. No backup was created or restored. Staged SQL was **not** copied into `supabase/migrations/`. GENVAL / WIRE / reset / merge / deploy were not started.
 
@@ -17,70 +17,52 @@ Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester
 | No `private.ref_*` tables | LIVE CATALOG (#24) | **Confirmed** |
 | PostgREST does not expose `private` (`PGRST106`) | LIVE API (#24 follow-up) | **Confirmed** |
 | Org plan Pro (docs: daily backups, 7-day retention) | LIVE PLATFORM (#24) | **Confirmed** (eligibility only) |
-| Pin `sl-ref-20261013-227b573` + seed checksums match disk; unchanged since #23 `cc66946b` | STATIC (this batch) | **Confirmed** |
+| Pin `sl-ref-20261013-227b573` + seed checksums match disk; unchanged since #23 `cc66946b` | STATIC | **Confirmed** |
 | Isolated rehearsal 17/17 | REAL SQL (#23, localhost) | **Confirmed** (synthetic only) |
-| Latest **COMPLETED** daily backup timestamp | Owner Dashboard | **UNAVAILABLE** |
-| PITR add-on enabled? Recovery-point range? | Owner Dashboard | **UNAVAILABLE** |
-| Named restore target for a failed apply | — | **UNAVAILABLE** |
+| Latest **COMPLETED** daily backup | OWNER REPORT (this batch) | **Recorded:** `2026-10-14 07:44:26 +0000` |
+| PITR add-on | OWNER REPORT (this batch) | **Recorded:** **PITR disabled** |
+| Named restore target | OWNER REPORT | **Recorded:** that COMPLETED snapshot |
+| Management API backup inventory / backup UUID | — | **Not independently listed** |
+| Explicit A19-APPLY go | Owner authorization | **Not given** |
 
-Backup gate **BLOCKED**. Pro eligibility is not a restore point.
-
-Issue #24 comments contain **no** owner-supplied backup timestamp or PITR screenshot.
-
----
-
-## Owner replies required (do not apply without these)
-
-Paste answers in the GitHub issue or chat. Do **not** click Restore.
-
-### 1. Latest COMPLETED backup timestamp
-
-Open [Scheduled backups](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/database/backups/scheduled).
-
-Reply with the latest row that says **COMPLETED**, including date/time (and timezone if shown).
-
-Example: `COMPLETED 2026-10-14 06:00:00 UTC`
-
-A scheduled-but-running, failed, or empty list is **not** a restore point.
-
-### 2. PITR status and recovery-point availability
-
-Open [Point in Time](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/database/backups/pitr) and, if needed, [Add-ons](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/settings/addons?panel=pitr).
-
-Reply with one of:
-
-- `PITR disabled`
-- `PITR enabled; earliest = … ; latest = …`
-
-`archive_mode=on` from catalog metadata is **not** PITR proof.
-
-### 3. Separate A19-APPLY go/no-go
-
-After 1–2, a distinct message is still required: approve apply of `001` → seed `00`–`10` → `002` only, or say **no-go**.
-
-This packet is not that message.
+Backup evidence gate is **cleared** for O2/O3. Apply authorization (O4) is **not**. This is not LIVE PLATFORM listing of backups; the agent did not open the Dashboard or call restore.
 
 ---
 
-## Data loss if an older daily backup is restored
+## Owner evidence (D33)
 
-A Dashboard restore replaces the **entire Postgres database** with the chosen snapshot. It is not a schema-only undo.
+Recorded from the owner, 2026-10-14:
 
-| Lost after backup time T | Not in that DB backup |
+- Latest COMPLETED scheduled backup: **14 Oct 2026 07:44:26 (+0000)**
+- PITR status: **PITR disabled**
+
+Checks vs the asked packet: COMPLETED (not running/failed), date, time, timezone, and an explicit PITR disabled/enabled answer. **Complete enough to name a restore target.** Residual: no backup UUID; not re-listed via Management API.
+
+Still required before any apply: a **separate** message approving `001` → seed `00`–`10` → `002` only. Do **not** click Restore now.
+
+If apply slips past the next daily backup, re-record the newest COMPLETED timestamp before that go. This snapshot is stale the moment a newer COMPLETED row appears.
+
+---
+
+## Recovery and data-loss risk
+
+PITR is **disabled**. A failed apply can be undone only by restoring the **entire Postgres database** to the named daily snapshot. There is no restore-to-a-second-before-apply.
+
+Restore target **T** = `2026-10-14 07:44:26 UTC`.
+
+| Lost if restored to T | Not in that DB backup |
 |---|---|
-| Catches, trades, Oak transfers, GTS | Storage objects (not Postgres) |
-| Inventory, PokéCoins, Pass claims | Anything older than Pro’s ~7-day window |
-| Encounter / director / stream tables | — |
-| Trainer rows stored in Postgres (including protected accounts if they had activity after T) | — |
-| Any schema applied after T | — |
+| Every committed Postgres write after T: catches, trades, Oak transfers, GTS, inventory, PokéCoins, Pass claims, encounter/director/stream rows | Storage objects |
+| Trainer rows changed after T, including protected accounts if they had activity after T | Snapshots older than Pro’s ~7-day window |
+| Any schema applied after T (including a failed A19-APPLY) | — |
 
-Without PITR you restore the last **daily** snapshot. That can discard **up to about a day** of live play, or more if the listed COMPLETED backup is older.
-
-With PITR enabled you can restore to a second **before** apply, which limits loss to in-flight work. PITR is a paid add-on and is **unconfirmed**.
+That window **grows** until restore. At packet time (2026-10-14 ~15:20 UTC) it was already **about 7.5 hours**. By the next daily backup it can approach a full day of live play.
 
 Restore takes the project **offline**. You cannot restore one table. `003_rollback.sql` only drops `private.ref_*` and the 17 new catch columns; it does not rewind player activity. After GENVAL fills those columns, `003` is data-loss. Storage can desync from a DB restore.
 
 Do not restore to “try” apply. Do not release Pokémon to compensate for a restore.
+
+**Go/no-go:** technical preflight and a named daily restore target are in place. Rollback cost is **whole-database rewind to 07:44:26 UTC**, not surgical. A19-APPLY remains **UNAPPROVED** until a separate explicit owner go.
 
 ---
 
@@ -142,7 +124,7 @@ If any later edit changes these hashes, this packet is stale.
 
 Keep files in `supabase/unapplied/a19-schema/` until a future A19-APPLY explicitly says to copy them into a **new** migration timestamp after `20261011024514_gate_2a_r_identity_inspect_true_read`. Do not reuse #20/#21 drafts.
 
-Idle the stream if practical. Then, only after owner backup evidence + A19-APPLY:
+Idle the stream if practical. Then, only after a separate explicit **A19-APPLY** go (O4). Re-check that the newest COMPLETED backup is still `2026-10-14 07:44:26 +0000` or record the newer one:
 
 1. `001_private_ref_tables.sql`
 2. `seed/00_meta.sql`
@@ -178,4 +160,4 @@ After a future approved apply, smoke with metadata only:
 
 ---
 
-A19-APPLY remains **UNAPPROVED**. Backup gate **BLOCKED**. STOP for owner go/no-go.
+A19-APPLY remains **UNAPPROVED**. STOP for a separate explicit owner go/no-go.

@@ -1,6 +1,6 @@
 # Controlled A19-APPLY checklist (not authorized to run)
 
-**Status:** A19-APPLY remains **UNAPPROVED**. Backup gate **BLOCKED** — see [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md). This is not permission to migrate.
+**Status:** A19-APPLY remains **UNAPPROVED**. Backup evidence **recorded** (`2026-10-14 07:44:26 +0000`, PITR disabled). O4 apply go is still required. See [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md).
 
 Sora mutated **NO** · Twinkle mutated **NO**. Do not start GENVAL, WIRE, or any reset.
 
@@ -13,9 +13,9 @@ This agent did **not** create a backup and could not list backup IDs (no Managem
 | # | What to open | What to record | Why |
 |---|---|---|---|
 | O1 | [Data API / Exposed schemas](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/settings/api) | Screenshot or list of **Exposed schemas**. Must **not** include `private`. | LIVE API already rejects `private` (`PGRST106`). Dashboard is the control plane; keep it that way. |
-| O2 | [Scheduled backups](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/database/backups/scheduled) | Latest **COMPLETED** daily backup timestamp (Pro keeps 7 days). | Restore target if apply misbehaves. This session did not list backups. |
-| O3 | [Point in Time](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/database/backups/pitr) | PITR **enabled or not**. If enabled, earliest/latest recovery points. | PITR is a **Pro add-on**, not automatic. `archive_mode=on` does not prove the add-on. |
-| O4 | Explicit **A19-APPLY** message | Approve apply of unapplied `001` → seed `00`–`10` → `002` only. | Catalog preflight is not apply authorization. |
+| O2 | [Scheduled backups](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/database/backups/scheduled) | **Recorded (OWNER REPORT):** COMPLETED `2026-10-14 07:44:26 +0000`. Re-record if a newer daily completes before apply. | Restore target if apply misbehaves. Not independently listed. |
+| O3 | [Point in Time](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/database/backups/pitr) | **Recorded (OWNER REPORT):** **PITR disabled**. | Restore is the daily snapshot only. |
+| O4 | Explicit **A19-APPLY** message | Still required: approve apply of unapplied `001` → seed `00`–`10` → `002` only. | Backup evidence is not apply authorization. |
 
 Do **not** click Restore unless a later apply has failed. Do **not** enable extra exposed schemas.
 
@@ -31,6 +31,8 @@ Do **not** click Restore unless a later apply has failed. Do **not** enable extr
 | PostgREST `private` | LIVE API | **not exposed** (`PGRST106`) |
 | Org plan | LIVE PLATFORM | **Pro** → docs: automatic daily backups, 7-day retention |
 | Isolated apply rehearsal | REAL SQL (#23) | 17/17 on synthetic localhost |
+| COMPLETED daily backup | OWNER REPORT | `2026-10-14 07:44:26 +0000` |
+| PITR | OWNER REPORT | **disabled** |
 
 ---
 
@@ -55,7 +57,7 @@ Do **not** click Restore unless a later apply has failed. Do **not** enable extr
 
 | Situation | Action | Do not |
 |---|---|---|
-| Apply fails mid-DDL, no seed completed | Dashboard restore to the **pre-apply** daily backup from O2 (or PITR from O3 if enabled) | Invent a partial SQL undo |
+| Apply fails mid-DDL, no seed completed | Dashboard restore to COMPLETED **2026-10-14 07:44:26 +0000**. PITR is **disabled** — no finer point. | Invent a partial SQL undo |
 | Apply succeeded, new catch columns still all NULL, `ref_*` only | Prefer Dashboard restore. `003` drops `ref_*` and the 17 columns; last resort, owner-approved | Run `003` casually |
 | Any later GENVAL/WIRE has filled new catch fields | **Dashboard restore only**. `003` would drop columns that hold data | Use `003` as a data undo |
 | Need to undo player Pokémon | That is **A19-RESET-GO**, not this checklist | Release/delete catches to “fix” schema |

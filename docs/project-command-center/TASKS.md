@@ -32,9 +32,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I25 | done | A19-GENVAL specification + offline synthetic test plan | I24A, D35 | Historical D36 | Superseded by I25A / D37 |
 | I25A | done | A19-GENVAL branch-only SQL + local REAL SQL rehearsal | I25, D37 | Historical D37 | Superseded by I25B / D38 |
 | I25B | done | A19-GENVAL security corrections (tickets, entropy, validator, moves) | I25A, D38 | Historical D38 | Superseded by I25C / D39 |
-| I25C | done | A19-GENVAL specimen binding + additive production SQL + local fixtures | I25B, D39 | Branch-only; **production apply UNAPPROVED** | STOP for independent review |
+| I25C | done | A19-GENVAL specimen binding + additive production SQL + local fixtures | I25B, D39 | Historical D39 | Superseded by I25D / D40 |
+| I25D | done | A19-GENVAL read-only production compatibility + GENVAL-APPLY checklist | I25C, D40 | **production apply UNAPPROVED** | STOP for explicit GENVAL-APPLY |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D39 A19-GENVAL **specimen-binding + additive install** delivered (15/15 local REAL SQL). Production GENVAL apply **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. `stamp_catch_row` still active. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D39. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D40 A19-GENVAL **readiness packet** delivered (catalog + 15/15 local REAL SQL). Production GENVAL apply **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. `stamp_catch_row` still active. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D40. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

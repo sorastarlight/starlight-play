@@ -40,7 +40,9 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-APPLY-HANDOFF.md](./GEN-IX-APPLY-HANDOFF.md) | Historical D34 go/no-go handoff (**BLOCKED** snapshot) |
 | [GEN-IX-APPLY-REPORT.md](./GEN-IX-APPLY-REPORT.md) | D35 owner GO schema-only apply + catalog verification |
 | [GEN-IX-GENVAL-SPEC.md](./GEN-IX-GENVAL-SPEC.md) | D36 A19-GENVAL specification snapshot |
-| [GEN-IX-GENVAL-ISSUE-25.md](./GEN-IX-GENVAL-ISSUE-25.md) | D39 specimen-binding + additive install; production apply UNAPPROVED |
+| [GEN-IX-GENVAL-ISSUE-25.md](./GEN-IX-GENVAL-ISSUE-25.md) | D39 specimen-binding + additive install snapshot; production apply UNAPPROVED |
+| [GEN-IX-GENVAL-READINESS.md](./GEN-IX-GENVAL-READINESS.md) | D40 read-only production compatibility; apply UNAPPROVED |
+| [GEN-IX-GENVAL-APPLY-CHECKLIST.md](./GEN-IX-GENVAL-APPLY-CHECKLIST.md) | D40 controlled GENVAL-APPLY runbook (not authorized to run) |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

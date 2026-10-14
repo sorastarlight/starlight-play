@@ -100,6 +100,20 @@ test("implementation report does not claim production apply", () => {
   assert(report.includes("Sora mutated **NO**"));
 });
 
+test("D40 readiness packet stays unapproved and hash-locks production 001", () => {
+  const readiness = read("docs/project-command-center/GEN-IX-GENVAL-READINESS.md");
+  const checklist = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md");
+  const hash = require("crypto").createHash("sha256").update(sql).digest("hex");
+  assert(hash === "6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a");
+  assert(readiness.includes(hash));
+  assert(checklist.includes(hash));
+  assert(readiness.includes("READINESS PACKET READY"));
+  assert(readiness.includes("UNAPPROVED"));
+  assert(checklist.includes("UNAPPROVED"));
+  assert(readiness.includes("unique persisted catch"));
+  assert(!readiness.includes("PRODUCTION PASS"));
+});
+
 const failed = results.filter((row) => !row.passed);
 results.forEach((row) => {
   console.log(`${row.passed ? "PASS" : "FAIL"} ${row.name}${row.detail ? ` — ${row.detail}` : ""}`);

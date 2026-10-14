@@ -65,6 +65,8 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-APPLY-REPORT.md",
     "docs/project-command-center/GEN-IX-GENVAL-SPEC.md",
     "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md",
+    "docs/project-command-center/GEN-IX-GENVAL-READINESS.md",
+    "docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md",
     "data/gen9-ref/meta.json",
     "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-ref-review/DO-NOT-APPLY.md",
@@ -462,6 +464,29 @@ test("Issue 24 D35 apply report records schema-only GO without starting GENVAL",
   assert(decisions.includes("D35"));
   assert(/A19-GENVAL[\s\S]{0,200}UNAPPROVED/.test(decisions));
   assert(!report.includes("PRODUCTION PASS"));
+});
+
+test("Issue 25 D40 readiness stays read-only and does not approve GENVAL apply", () => {
+  const readiness = read("docs/project-command-center/GEN-IX-GENVAL-READINESS.md");
+  const checklist = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
+  assert(readiness.includes("READINESS PACKET READY"));
+  assert(readiness.includes("A19-GENVAL production application remains UNAPPROVED"));
+  assert(readiness.includes("6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a"));
+  assert(readiness.includes("unique persisted catch"));
+  assert(readiness.includes("pgcrypto"));
+  assert(readiness.includes("LIVE CATALOG"));
+  assert(checklist.includes("A19-GENVAL production application remains **UNAPPROVED**"));
+  assert(checklist.includes("001_generate_and_assert.sql"));
+  assert(checklist.includes("local/010_fixture.sql"));
+  assert(decisions.includes("D40"));
+  assert(/A19-GENVAL[\s\S]{0,220}UNAPPROVED/.test(decisions));
+  assert(!readiness.includes("PRODUCTION PASS"));
+  assert(!checklist.includes("authorized to run now"));
+  assert(!migNames.includes("a19-genval"));
+  assert(!nextJs.includes("generate_streamlink_mon"));
+  assert(!liveJs.includes("generate_streamlink_mon"));
 });
 
 test("A19-GENVAL spec stays planning-only and does not ship generator SQL", () => {

@@ -74,3 +74,7 @@ Nothing copied into `supabase/migrations/`.
 - R2/R18 stay OPEN; this batch does not change production grants.
 
 **STOP** for independent review before any production GENVAL application.
+
+---
+
+**Later (D40 snapshot pointer):** Read-only production compatibility + GENVAL-APPLY checklist delivered. See [GEN-IX-GENVAL-READINESS.md](./GEN-IX-GENVAL-READINESS.md) and [GEN-IX-GENVAL-APPLY-CHECKLIST.md](./GEN-IX-GENVAL-APPLY-CHECKLIST.md). Production apply remains **UNAPPROVED**. This file remains the D39 branch-correction snapshot.

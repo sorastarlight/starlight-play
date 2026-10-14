@@ -51,6 +51,7 @@
 | D37 | Owner authorized A19-GENVAL **branch-only** implementation + isolated local Postgres rehearsal | Unapplied `supabase/unapplied/a19-genval/`. GV1–GV7 locked as specified. Hidden abilities require a server-owned ticket; `p_allow_hidden` ignored. Does **not** apply functions to live Supabase, replace `stamp_catch_row`, write catches, or start WIRE. Production GENVAL apply remains **UNAPPROVED**. |
 | D38 | Independent review of `b4cf2cc0` required GENVAL security corrections; still branch-only | Hidden tickets now issue/redeem/expire/replay-block; JSON `hiddenGrant` is ignored. Production entropy is `gen_random_uuid` inside SECURITY DEFINER and ignores caller seeds/GUCs. Fixture generate is a separate REVOKE'd function. Validator type-checks before cast; moves check VG/method/level/PP/duplicates. Production apply remains **UNAPPROVED**. |
 | D39 | Independent review of `67141ec3` required specimen-bound tickets, non-destructive install, and local-only fixtures | Tickets bind `specimen_digest` at redeem; assert matches digest, not JSON markers. Production `001` is additive (no DROP). Fixture generate lives in `local/010_fixture.sql`. Production apply remains **UNAPPROVED**. |
+| D40 | D39 review: read-only production compatibility + GENVAL-APPLY checklist | Catalog metadata only on `dtflmlbjhttoewqgkujf`. `pgcrypto` 1.3 already in `extensions`. No GENVAL name collisions. Local rehearsal 15/15 on exact `001`. WIRE unique-catch identity still open. Production apply remains **UNAPPROVED**. |
 
 ## Needs owner approval
 

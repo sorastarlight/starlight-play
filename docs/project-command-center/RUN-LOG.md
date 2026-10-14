@@ -1,5 +1,29 @@
 # Run log
 
+## 2026-10-14 — A19-GENVAL production compatibility + apply checklist (D40, production apply UNAPPROVED)
+
+- Branch: `admin-hub-overhaul`. Independent D39 review of `278d225c` asked for a read-only compatibility + deployment runbook. This is **not** GENVAL-APPLY.
+- Production `001` remains additive (no DROP, no fixture generate). SHA-256 `6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a`.
+- LIVE PLATFORM: `dtflmlbjhttoewqgkujf` ACTIVE_HEALTHY, Postgres 17.6.1.166. LIVE CATALOG: `pgcrypto` 1.3 in `extensions`; digest + `gen_random_uuid` present; no GENVAL functions/table; `stamp_catch_row` owner `postgres`; pin `sl-ref-20261013-227b573`. No catch-row SELECT.
+- REAL SQL reconfirm: `node tools/a19-genval-rehearsal.js` — **15/15 PASS** on `127.0.0.1:55433/a19_genval` (exact `001`, fixtures installed separately).
+- WIRE boundary documented: ticket authorization must bind a unique persisted catch/specimen identity; combat digest alone is not sufficient. WIRE not implemented.
+- Did **not** apply SQL, create functions, run the generator on hosted Supabase, write catches, start WIRE, create/restore backups, merge, deploy, or stamp APP.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused. `stamp_catch_row` still the live generator.
+- Production GENVAL apply remains **UNAPPROVED**. STOP for a separate explicit GENVAL-APPLY decision.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-genval-spec-tests.js` | STATIC + LOCAL HARNESS | 6 passed |
+| `tests/a19-genval-impl-tests.js` | STATIC | 6 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 26 passed |
+| `tools/a19-genval-rehearsal.js` | REAL SQL (127.0.0.1) | 15/15 passed |
+| Hosted writes / WIRE / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-14 — A19-GENVAL specimen binding + additive install (D39, production apply UNAPPROVED)
 
 - Branch: `admin-hub-overhaul` at `278d225c`. Independent review of `67141ec3` required digest-bound tickets, non-destructive `001`, and local-only fixtures.

@@ -312,3 +312,5 @@ Next gate: explicit owner **A19-GENVAL** implementation authorization (functions
 **Later (D38 snapshot pointer):** Independent review of `b4cf2cc0` required security corrections (tickets, entropy, validator types, move legality). Production apply is still **UNAPPROVED**.
 
 **Later (D39 snapshot pointer):** Independent review of `67141ec3` required specimen-digest binding, additive production SQL, and local-only fixtures. Production apply is still **UNAPPROVED**.
+
+**Later (D40 snapshot pointer):** Read-only production compatibility + GENVAL-APPLY checklist. Production apply is still **UNAPPROVED**.

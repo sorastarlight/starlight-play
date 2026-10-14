@@ -348,7 +348,19 @@
       "commit": "278d225c",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md, supabase/unapplied/a19-genval/, supabase/unapplied/a19-genval/local/",
       "testResults": "a19-genval-spec STATIC; a19-genval-impl STATIC; REAL SQL 15/15 on 127.0.0.1:55433/a19_genval",
-      "nextAction": "STOP for independent review. Do not apply GENVAL to live Supabase, WIRE, 003, restore, merge, or deploy.",
+      "nextAction": "Superseded by I25D / D40 readiness review.",
+      "approvalRequirement": "Historical D39; production GENVAL apply still unapproved"
+    },
+    {
+      "id": "I25D",
+      "status": "done",
+      "scope": "A19-GENVAL read-only production compatibility + GENVAL-APPLY checklist",
+      "dependencies": ["I25C", "D40"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-GENVAL-READINESS.md, docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md",
+      "testResults": "STATIC + LIVE CATALOG + LIVE PLATFORM + REAL SQL 15/15 on 127.0.0.1:55433/a19_genval; no hosted writes",
+      "nextAction": "STOP for owner review. Do not apply GENVAL, WIRE, 002, restore, merge, or deploy without a separate explicit GENVAL-APPLY.",
       "approvalRequirement": "Production GENVAL apply remains UNAPPROVED; A19-WIRE still blocked"
     },
     {

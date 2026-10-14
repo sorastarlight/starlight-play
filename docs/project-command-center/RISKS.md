@@ -21,7 +21,7 @@
 | R-I23-REHEARSAL | **CLOSED** | Isolated local rehearsal passed (17/17 REAL SQL). Does not close live-apply risk. `evo_uid` collision fixed on the branch. |
 | R-I24-PGRST | **CLOSED** | LIVE API: `Accept-Profile: private` → `PGRST106 Invalid schema: private`. Do not add `private` to exposed schemas. |
 | R-I24-BACKUP | **CLOSED as apply blocker** | Owner reconfirmed COMPLETED `2026-10-14 07:44:26 +0000` and issued GO (D35). PITR remains disabled. Restore is still whole-DB rewind and needs a **separate** restore authorization. |
-| R-I25-GENVAL | **MITIGATED on branch** | D39: specimen-digest binding, additive production `001`, local-only fixtures. 15/15 local REAL SQL. Production apply **UNAPPROVED**. `stamp_catch_row` remains live. |
+| R-I25-GENVAL | **MITIGATED on branch / READY for owner decision** | D40: live catalog compatible; `pgcrypto` already installed; no name collisions; 15/15 local REAL SQL on exact `001`. WIRE must still bind a unique persisted catch/specimen id — digest alone is not enough. Production apply **UNAPPROVED**. `stamp_catch_row` remains live. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

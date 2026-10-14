@@ -237,7 +237,7 @@
       "scope": "GitHub issue #20 offline Gen IX reference pin, checksums, fixtures, unapplied seed SQL",
       "dependencies": ["I19", "D20"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "89dac99",
       "evidence": "docs/project-command-center/GEN-IX-REF-ISSUE-20.md, data/gen9-ref/, supabase/unapplied/a19-ref/",
       "testResults": "gen9-ref 12 LOCAL HARNESS PASS; overhaul STATIC including issue 20",
       "nextAction": "Stop. Owner reviews pin. Do not start A19-SCHEMA or apply SQL.",

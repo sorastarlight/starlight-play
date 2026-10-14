@@ -1,6 +1,6 @@
 # A19-GENVAL specification (planning only)
 
-Parent: epic [#18](https://github.com/sorastarlight/starlight-play/issues/18). Architecture: D17, D18, D19 (Q1–Q6), D24 (G1/C1/F1). Schema live: D35.
+Parent: epic [#18](https://github.com/sorastarlight/starlight-play/issues/18). Tracking: [#25](https://github.com/sorastarlight/starlight-play/issues/25). Architecture: D17, D18, D19 (Q1–Q6), D24 (G1/C1/F1). Schema live: D35.
 
 **Verdict: SPEC READY. A19-GENVAL implementation remains UNAPPROVED.**
 

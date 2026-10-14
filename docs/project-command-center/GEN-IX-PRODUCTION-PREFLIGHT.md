@@ -12,7 +12,9 @@ A19-APPLY remains **UNAPPROVED**.
 | STATIC | Staged `001`/`002`/`003`/seeds, #23 rehearsal report, migrations inventory, `stamp_catch_row` source |
 | LIVE CATALOG | information_schema / pg_catalog SELECTs on `starlight-play` (`dtflmlbjhttoewqgkujf`) |
 | REAL SQL | **#23 only** (synthetic `127.0.0.1`). Not this preflight. |
-| UNKNOWN | Hosted PostgREST exposed-schema list; backup/PITR availability |
+| LIVE API | PostgREST `Accept-Profile: private` → `PGRST106 Invalid schema: private` (no table rows read) |
+| LIVE PLATFORM | Org plan **Pro** (`wobmfnafsgfluplonnso`) via read-only project/org metadata |
+| UNKNOWN | PITR add-on enabled?; exact daily-backup timestamps (no Management API token) |
 | NOT RUN | Catch-row SELECT, `admin_overview`, function execution, PRODUCTION apply |
 
 ---
@@ -24,10 +26,10 @@ A19-APPLY remains **UNAPPROVED**.
 | 1. Connection identity | **PASS** | Project `dtflmlbjhttoewqgkujf` / `starlight-play` / `us-west-1` / Postgres **17.6**. Session `current_user=postgres`. `search_path` is `"$user", public, extensions` — `private` is not on the path. |
 | 2. `public.catches` vs `002` | **PASS** | 44 live columns. None of the 17 staged extension names exist. No constraint-name collision. `reltuples=110` / `relpages=9` (planner estimate, **not** `COUNT(*)`). |
 | 3. `private.ref_*` collisions | **PASS** | `private` already exists and is in use. **No** `ref_*` tables in `public` or `private`. `lgpe_species` remains. |
-| 4. Security / exposure | **PASS** with **UNKNOWN** | 001’s RLS+REVOKE still required. `authenticated` has schema `USAGE` on `private`; `anon` does not. Existing private tables have **no** anon/authenticated SELECT. PostgREST `pgrst.db_schemas` is **NULL** here → **UNKNOWN**. |
-| 5. Migration / rollback | **PASS** with **UNKNOWN** | #23 evo_uid fix is in `08_evolutions.sql` (88 unique uids). Artifacts still outside `migrations/`. Backup/PITR **UNKNOWN**. `003` is destructive once any new values exist. |
+| 4. Security / exposure | **PASS** | PostgREST **does not expose `private`**. `Accept-Profile: private` returns **406 `PGRST106 Invalid schema: private`**. Default REST looks in `public` (`PGRST205` for `public.stream_bridge`). `authenticated` still has schema `USAGE`; keep 001 RLS+REVOKE. |
+| 5. Migration / rollback | **PASS** with **UNKNOWN** | #23 evo_uid fix is in `08_evolutions.sql`. Org plan is **Pro** (automatic 7-day daily backups per docs). PITR is a **paid add-on**, not confirmed. Exact backup timestamps **UNKNOWN** (no Management API token). `003` remains destructive. |
 
-**Apply recommendation:** **BLOCKED** until the owner (a) confirms API exposed schemas exclude `private`, (b) takes a restore point, and (c) issues a separate **A19-APPLY**. Catalog shape is compatible.
+**Apply recommendation:** PostgREST `private` exposure is **cleared**. A19-APPLY remains **UNAPPROVED**. Remaining owner actions: (1) record the latest completed daily backup on the Dashboard, (2) note whether PITR is enabled, (3) issue a separate **A19-APPLY**. Catalog shape is compatible. See [GEN-IX-APPLY-CHECKLIST.md](./GEN-IX-APPLY-CHECKLIST.md).
 
 ---
 
@@ -96,10 +98,14 @@ Default privileges (`pg_default_acl`) exist on **`public` only** (anon/authentic
 | `authenticated` USAGE on `private` | **true** (`private` ACL `{postgres=UC/postgres,authenticated=U/postgres}`) |
 | `service_role` USAGE on `private` | **false** |
 | anon/authenticated SELECT on existing private tables | **false** on all listed private tables (privilege flags only; rows not read) |
-| PostgREST `pgrst.db_schemas` | **NULL** → **UNKNOWN** |
+| PostgREST `pgrst.db_schemas` on role `postgres` | **NULL** (not how hosted PostgREST is configured) |
+| `authenticator.rolconfig` | No `pgrst.db_schemas` override — Dashboard default |
+| LIVE API `Accept-Profile: private` | **406 PGRST106 Invalid schema: private** |
+| LIVE API default `/rest/v1/stream_bridge` | **404 PGRST205** `public.stream_bridge` (not in public cache) |
+| LIVE API `Accept-Profile: storage` | **406 PGRST106 Invalid schema: storage** (Storage uses `/storage/v1`, not REST db_schemas) |
 | Local `supabase/config.toml` | No `[api] schemas` list |
 
-Postgres RLS/REVOKE ≠ API exposure. #23 proved that on a synthetic cluster. Hosted API schema config is **not** in `pg_settings` here.
+Postgres RLS/REVOKE ≠ API exposure. Hosted REST **rejects** the `private` profile. Do **not** add `private` to exposed schemas when applying 001.
 
 The platform table-list advisor claimed private tables without RLS are “fully exposed” to anon. **Table-privilege flags contradict that** (no SELECT). Do not “fix” those preexisting tables in this batch. Do **not** add `private` to exposed schemas when applying 001.
 
@@ -121,20 +127,17 @@ SQL fix that must ship with any later apply: `evo_uid` includes the pin index so
 
 **Rollback hazard:** `003` drops the 17 columns and all `private.ref_*`. Safe only before GENVAL writes values, and only with a restore point. After any new catch fields are populated, `003` is data-loss. Do not keep `003` as a casual live undo.
 
-Backup/PITR: **UNKNOWN** from catalog metadata. Owner must confirm a snapshot before apply.
+### Backup / PITR follow-up (read-only)
 
----
+| Check | Result |
+|---|---|
+| Org plan | **Pro** (`wobmfnafsgfluplonnso`) |
+| Automatic daily backups | **Eligible** per current Supabase Pro docs (7-day retention). This session **did not create** a backup. |
+| PITR add-on | **UNKNOWN**. PITR is a paid Pro add-on, not included by default. |
+| Backup inventory | **UNKNOWN**. No `SUPABASE_ACCESS_TOKEN` / Management API `backups_read`. Did not call restore. |
+| `archive_mode` / `wal_level` | `on` / `logical` — WAL flags only, **not** PITR proof |
 
-## Proposed production-apply checklist (not authorized to run)
-
-1. Owner confirms Dashboard API settings: exposed schemas **do not** include `private`.
-2. Owner confirms a PITR/backup restore point.
-3. Separate **A19-APPLY** approval. Still no GENVAL/WIRE/reset.
-4. Copy reviewed files into a **new** migration timestamp after `20261011024514` — do not reuse #20/#21 drafts. Order: `001` → seed `00`–`10` → `002`. Leave `003` unapplied.
-5. Apply during a short idle window. Expect a brief `catches` CHECK scan (`reltuples≈110`) plus ~14k learnset inserts.
-6. Post-apply **catalog** smoke only: `ref_*` counts, RLS/REVOKE flags, extension columns exist and are nullable. **No** catch-row SELECT. **No** RPCs.
-7. Keep `stamp_catch_row` unchanged. New columns stay NULL on live Pokémon.
-8. Do not add `private` to PostgREST schemas. Do not GRANT `ref_*` to `anon`/`authenticated`.
+Owner Dashboard URLs and the apply/rollback sequence live in [GEN-IX-APPLY-CHECKLIST.md](./GEN-IX-APPLY-CHECKLIST.md). A19-APPLY remains **UNAPPROVED**.
 
 ---
 

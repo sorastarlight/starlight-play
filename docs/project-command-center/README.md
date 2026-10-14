@@ -34,7 +34,8 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-REF-READINESS-REVIEW.md](./GEN-IX-REF-READINESS-REVIEW.md) | Issue #21 Gmax, Champions, friendship, secure SQL review |
 | [GEN-IX-SCHEMA-ISSUE-22.md](./GEN-IX-SCHEMA-ISSUE-22.md) | Issue #22 unapplied private.ref_* + catch extensions |
 | [GEN-IX-SCHEMA-REHEARSAL.md](./GEN-IX-SCHEMA-REHEARSAL.md) | Issue #23 disposable local Postgres rehearsal |
-| [GEN-IX-PRODUCTION-PREFLIGHT.md](./GEN-IX-PRODUCTION-PREFLIGHT.md) | Issue #24 read-only production catalog preflight |
+| [GEN-IX-PRODUCTION-PREFLIGHT.md](./GEN-IX-PRODUCTION-PREFLIGHT.md) | Issue #24 read-only production catalog + PostgREST preflight |
+| [GEN-IX-APPLY-CHECKLIST.md](./GEN-IX-APPLY-CHECKLIST.md) | Controlled A19-APPLY go/no-go (UNAPPROVED) |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

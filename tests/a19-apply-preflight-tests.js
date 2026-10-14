@@ -19,6 +19,7 @@ function read(rel) {
 }
 
 const report = read("docs/project-command-center/GEN-IX-PRODUCTION-PREFLIGHT.md");
+const checklist = read("docs/project-command-center/GEN-IX-APPLY-CHECKLIST.md");
 const queries = read("supabase/unapplied/a19-schema/preflight/000_metadata_only.sql");
 const mig = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
 const evo = read("supabase/unapplied/a19-schema/seed/08_evolutions.sql");
@@ -39,6 +40,21 @@ test("metadata script is SELECT-only and stays out of migrations", () => {
   assert(!/^\s*(INSERT|UPDATE|DELETE|TRUNCATE|ALTER|CREATE|DROP|GRANT|REVOKE)\b/im.test(queries));
   assert(!mig.includes("a19-schema"));
   assert(!mig.includes("000_metadata_only"));
+});
+
+test("PostgREST private exposure is documented as not exposed", () => {
+  assert(report.includes("PGRST106"));
+  assert(report.includes("Invalid schema: private"));
+  assert(queries.includes("authenticator"));
+  assert(!report.includes("PRODUCTION PASS"));
+});
+
+test("apply checklist stays unapproved and names owner Dashboard checks", () => {
+  assert(checklist.includes("A19-APPLY remains **UNAPPROVED**"));
+  assert(checklist.includes("database/backups/scheduled"));
+  assert(checklist.includes("database/backups/pitr"));
+  assert(checklist.includes("settings/api"));
+  assert(!/PRODUCTION PASS/.test(checklist));
 });
 
 test("issue 23 evo_uid fix is still in the staged seed", () => {

@@ -26,7 +26,7 @@
 | Issue #21 A19-REF readiness | `tests/gen9-ref-readiness-tests.js` | LOCAL HARNESS | Live SQL; accepted Gmax/mega rules |
 | Issue #22 A19-SCHEMA artifacts | `tests/a19-schema-tests.js` | STATIC / LOCAL HARNESS (9) | Live SQL apply; generator |
 | Issue #23 A19-SCHEMA rehearsal | `tools/a19-schema-rehearsal.js` + isolation tests | REAL SQL (17) on `127.0.0.1`; STATIC isolation (5) | Live Supabase; PostgREST; PRODUCTION |
-| Issue #24 A19-APPLY preflight | `tests/a19-apply-preflight-tests.js` + catalog SELECTs | STATIC + LIVE CATALOG | Catch-row SELECT; apply; PRODUCTION |
+| Issue #24 A19-APPLY preflight | `tests/a19-apply-preflight-tests.js` + catalog SELECTs + REST `Accept-Profile` | STATIC + LIVE CATALOG + LIVE API (`PGRST106`) | Dashboard backup list; PITR add-on; apply; PRODUCTION |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

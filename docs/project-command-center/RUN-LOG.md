@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-14 — GitHub issue #24 follow-up: PostgREST + backup + apply checklist
+
+- Branch: `admin-hub-overhaul`. Read-only. No DDL/DML, catch-row SELECT, RPC, backup create, restore, wipe, merge, deploy, or APP stamp.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D31: PostgREST `private` **not exposed**. LIVE API `Accept-Profile: private` → **406 PGRST106**. Default REST `PGRST205` for `public.stream_bridge`.
+- Backup: org plan **Pro** (automatic 7-day daily backups per docs). PITR add-on and exact COMPLETED timestamps **UNKNOWN** (no Management API token). `archive_mode=on` is not PITR proof.
+- A19-APPLY remains **UNAPPROVED**. Checklist: `GEN-IX-APPLY-CHECKLIST.md`.
+- R-I24-PGRST **CLOSED**. R-I24-BACKUP **OPEN**.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-apply-preflight-tests.js` | STATIC | 5 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 23 passed |
+| REST `Accept-Profile: private` | LIVE API | `PGRST106` (no row bodies) |
+| Catch-row / RPC / backup create / PRODUCTION apply | — | **not run** |
+
 ## 2026-10-14 — GitHub issue #24 A19-APPLY read-only production preflight
 
 - Branch: `admin-hub-overhaul`. Catalog metadata only on `dtflmlbjhttoewqgkujf`. No DDL/DML, catch-row SELECT, RPC, wipe, merge, deploy, or APP stamp.

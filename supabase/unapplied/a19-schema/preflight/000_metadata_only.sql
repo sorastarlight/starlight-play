@@ -81,7 +81,17 @@ FROM pg_roles r
 WHERE r.rolname IN ('anon','authenticated','service_role','authenticator','postgres')
 ORDER BY 1;
 
--- 8. PostgREST settings (often NULL on hosted; then UNKNOWN)
+-- 8. PostgREST settings (postgres role is often NULL on hosted)
 SELECT current_setting('pgrst.db_schemas', true) AS pgrst_db_schemas,
        current_setting('pgrst.db_anon_role', true) AS pgrst_anon_role,
        current_setting('pgrst.db_extra_search_path', true) AS pgrst_extra_search_path;
+
+-- 8b. Hosted PostgREST often stores db_schemas on role authenticator, not postgres.
+SELECT rolname, rolconfig
+FROM pg_roles
+WHERE rolname IN ('authenticator', 'anon', 'authenticated');
+
+-- 8c. Nonsecret WAL flags (not a backup inventory)
+SELECT name, setting
+FROM pg_settings
+WHERE name IN ('archive_mode', 'wal_level', 'max_wal_senders');

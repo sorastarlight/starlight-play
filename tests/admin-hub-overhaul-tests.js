@@ -59,6 +59,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-SCHEMA-ISSUE-22.md",
     "docs/project-command-center/GEN-IX-SCHEMA-REHEARSAL.md",
     "docs/project-command-center/GEN-IX-PRODUCTION-PREFLIGHT.md",
+    "docs/project-command-center/GEN-IX-APPLY-CHECKLIST.md",
     "data/gen9-ref/meta.json",
     "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-ref-review/DO-NOT-APPLY.md",
@@ -429,7 +430,9 @@ test("Issue 24 preflight stays read-only and does not approve apply", () => {
   const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
   assert(report.includes("LIVE CATALOG"));
   assert(report.includes("A19-APPLY remains **UNAPPROVED**"));
-  assert(decisions.includes("D29") && decisions.includes("D30"));
+  assert(decisions.includes("D29") && decisions.includes("D30") && decisions.includes("D31"));
+  assert(report.includes("PGRST106"));
+  assert(read("docs/project-command-center/GEN-IX-APPLY-CHECKLIST.md").includes("A19-APPLY remains **UNAPPROVED**"));
   assert(/DO NOT RUN writes/i.test(queries));
   assert(!migNames.includes("a19-schema"));
   assert(!nextJs.includes("generate_streamlink_mon"));

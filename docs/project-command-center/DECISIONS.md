@@ -26,6 +26,8 @@
 | D17 | **Owner APPROVED target architecture:** modern **cross-generation StreamLink Pokémon rules**, with Generation IX **Pokémon Scarlet/Violet** (`scarlet-violet`) as the baseline mechanics and **verified, versioned, generation-specific reference data** for species, forms, moves, abilities and exceptional mechanics outside that version group | StreamLink-valid means internally consistent with the explicit ruleset, **not necessarily legal/transferable to Scarlet/Violet, HOME, BANK or cartridges**. Do not claim strict game-specific exchange legality. This is **architecture approval only**; no code/schema/RPC changes, catch deletion/replacement, editor, merge or deployment authorized. |
 | D18 | Issue #19 plan is the implementation blueprint for D17: versioned pin, `generate_streamlink_mon`, `assert_streamlink_legal`, inspector/editor, reset options R-A/R-B/R-C | Planning only. Does not authorize A19-REF or A19-RESET-GO. |
 
+| D19 | Owner settled A19-Q1–Q6 as **architecture policy only**: per-catcher IV/Nature rolls; hidden abilities only via events/special grants; future reset R-A; Sword/Shield fallback only where verified with per-form exceptions; initialize current HP to full with no status; protected accounts excluded unless later separately authorized | Supersedes #19 planning recommendations where different (especially Q1). No generator, pin, SQL/RPC, catch write, reset, protected-account mutation or deploy authorized. |
+
 ## Needs owner approval
 
 | ID | Question | Recommendation |
@@ -46,12 +48,12 @@
 | A16d | Owner-only audited catch editor (dry-run, diff, reason, history, protected accounts)? | Separate write approval. Not grant/remove. Not Batch F. |
 | A16e | Choose exact modern game/version-group and legality scope? | **APPROVED for architecture**: Gen IX `scarlet-violet` as mechanics baseline, with separately pinned generation-specific reference data across generations. **Not strict Scarlet/Violet or HOME compatibility.** No implementation/reset authorization. |
 | A16f | Show IVs/moves on My PC from existing `play_storage` JSON? | Frontend only. Optional honesty UX. |
-| A19-Q1 | Shared wild specimen per community round, or per-catcher rolls? | Shared per round |
-| A19-Q2 | Ordinary hidden-ability rate? | 0% ordinary; event/grant only |
-| A19-Q3 | Reset option when authorized? | R-A (catches + team/PC/trades); keep dex/economy |
-| A19-Q4 | Fallback version-group for non-SV forms? | `sword-shield`, listed in an exceptions file |
-| A19-Q5 | Persist current HP/status before battle exists? | current = max, status null |
-| A19-Q6 | Include Sora/Twinkle in a future reset? | No unless a later protected-account go/no-go |
+| A19-Q1 | Shared wild specimen per community round, or per-catcher rolls? | **APPROVED POLICY:** generate different individual IVs and Natures **per catcher**; preserve shared encounter species/form/context without cloning IVs/Natures. No implementation authorized. |
+| A19-Q2 | Ordinary hidden-ability rate? | **APPROVED POLICY:** no ordinary encounter hidden abilities; only permitted by an explicitly authorized event or special grant, with species/form legality checks. No implementation authorized. |
+| A19-Q3 | Reset option when authorized? | **APPROVED FUTURE SCOPE:** R-A resets caught Pokémon, party/team/PC pointers and affected trades; **retains Pokédex history and economy**. Not approval to execute; impact/restore and final A19-RESET-GO required. |
+| A19-Q4 | Fallback version-group for non-SV forms? | **APPROVED POLICY:** use `sword-shield` **only where verified for that exact species/form**, with explicit per-form exceptions to other verified source groups; fail closed on missing/mismatched learnsets. Exact exception map to be derived from pinned evidence later. No implementation authorized. |
+| A19-Q5 | Persist current HP/status before battle exists? | **APPROVED POLICY:** initialize current HP to computed maximum and status to null/none until battles exist. No schema change authorized. |
+| A19-Q6 | Include Sora/Twinkle in a future reset? | **APPROVED CONDITIONAL POLICY:** inclusion may be considered **only after** a later, explicit protected-account authorization; **exclude both by default**, including all current planning/testing and any unapproved reset. No protected-account mutation authorized. |
 | A19-REF | Build the offline reference pin and seed tables? | First implementation issue. Not granted by #19. |
 | A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | After A19-REF. No combat UPDATE of live rows. |
 | A19-GENVAL | Ship generator + validator functions? | After schema. No player-row writes. |

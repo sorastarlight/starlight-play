@@ -2,7 +2,7 @@
 
 ## 2026-10-14 — A19-GENVAL specimen binding + additive install (D39, production apply UNAPPROVED)
 
-- Branch: `admin-hub-overhaul`. Independent review of `67141ec3` required digest-bound tickets, non-destructive `001`, and local-only fixtures.
+- Branch: `admin-hub-overhaul` at `278d225c`. Independent review of `67141ec3` required digest-bound tickets, non-destructive `001`, and local-only fixtures.
 - Tickets store `specimen_digest` at redeem. Assert matches digest; JSON markers ignored. Failed generate does not consume. Concurrent redeem is single-winner.
 - Production `001` has no DROP TABLE/FUNCTION. Fixture generate is `local/010_fixture.sql` only.
 - REAL SQL: `node tools/a19-genval-rehearsal.js` — **15/15 PASS** on `127.0.0.1:55433/a19_genval`.

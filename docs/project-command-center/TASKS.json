@@ -345,7 +345,7 @@
       "scope": "A19-GENVAL specimen-digest binding, additive production SQL, local-only fixtures",
       "dependencies": ["I25B", "D39"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "278d225c",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md, supabase/unapplied/a19-genval/, supabase/unapplied/a19-genval/local/",
       "testResults": "a19-genval-spec STATIC; a19-genval-impl STATIC; REAL SQL 15/15 on 127.0.0.1:55433/a19_genval",
       "nextAction": "STOP for independent review. Do not apply GENVAL to live Supabase, WIRE, 003, restore, merge, or deploy.",

@@ -191,4 +191,4 @@ If later approved, and only then:
 
 ## Stop
 
-A19-SCHEMA remains **UNAPPROVED**. Do not apply either unapplied folder. D22 records this review only.
+A19-SCHEMA remains **UNAPPROVED**. Do not apply either unapplied folder. D22 authorized the review. D23 records delivery only.

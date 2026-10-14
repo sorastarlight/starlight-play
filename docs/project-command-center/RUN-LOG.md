@@ -5,7 +5,7 @@
 - Branch: `admin-hub-overhaul`. Review only. Pin checksums unchanged (220/16). `admin-next.html` unchanged. No live SQL, RPC, wipe, merge, deploy, or APP stamp.
 - Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.
-- D22 recorded. A19-SCHEMA still blocked. Proposed G1/C1/F1 not authorized.
+- D22 authorized the review. D23 records delivery. A19-SCHEMA still blocked. Proposed G1/C1/F1 not authorized.
 - Review: `GEN-IX-REF-READINESS-REVIEW.md`. Proposed SQL: `supabase/unapplied/a19-ref-review/` (not applied).
 
 ### Tests

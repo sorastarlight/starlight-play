@@ -249,7 +249,7 @@
       "scope": "GitHub issue #21 offline A19-REF readiness review: Gmax, Champions megas, friendship, secure unapplied SQL",
       "dependencies": ["I20"],
       "branch": "admin-hub-overhaul",
-      "commit": "ab2fd53",
+      "commit": "7948099",
       "evidence": "docs/project-command-center/GEN-IX-REF-READINESS-REVIEW.md, tests/gen9-ref-readiness-tests.js, supabase/unapplied/a19-ref-review/",
       "testResults": "gen9-ref 12 LOCAL HARNESS PASS; readiness 8 LOCAL HARNESS PASS; overhaul 20 STATIC PASS",
       "nextAction": "Stop. Owner reviews G1/C1/F1 and secure SQL. Do not start A19-SCHEMA or apply SQL.",

@@ -29,4 +29,4 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. Issue #21 is review only. Pin stays 220/16. Unapplied SQL must not hit Supabase. A19-SCHEMA+ blocked. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D22. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. Issue #21 is review only. Pin stays 220/16. Unapplied SQL must not hit Supabase. A19-SCHEMA+ blocked. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D23. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

@@ -378,7 +378,7 @@ test("Issue 21 readiness review stays offline and does not authorize SCHEMA", ()
   const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
   assert(report.includes("Gigantamax") && report.includes("10278"));
   assert(report.includes("A19-SCHEMA remains **UNAPPROVED**"));
-  assert(decisions.includes("D22"));
+  assert(decisions.includes("D22") && decisions.includes("D23"));
   assert(proposed.includes("DO NOT RUN") && /row level security/i.test(proposed));
   assert(!migNames.includes("a19-ref-review"));
   assert(!nextJs.includes("generate_streamlink_mon"));

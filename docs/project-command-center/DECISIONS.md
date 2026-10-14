@@ -30,9 +30,8 @@
 
 | D20 | Owner explicitly said **proceed** following the A19-REF offer | Authorizes **A19-REF reference-pin implementation in the working branch only**: offline dataset/tooling, tests, and unapplied seed SQL for review. Does NOT authorize live schema application, generator/validator, Pokémon changes, A19-SCHEMA onward, reset, merge or deployment. |
 | D21 | A19-REF delivered an offline pin (`sl-ref-20261013-227b573`) plus unapplied `ref_*` SQL | JSON in `data/gen9-ref/`. SQL in `supabase/unapplied/a19-ref/` only. Not applied to live. A19-SCHEMA still required before DDL. |
-| D22 | Issue #21 readiness review completed; Gmax/Champions/friendship/SQL findings are proposals only | Does not authorize A19-SCHEMA, apply SQL, change the 220/16 pin, or accept G1/C1/F1. Owner still chooses those policies. |
-
 | D22 | Owner said **proceed** with the proposed A19-REF **offline readiness review** | Authorizes #21 evidence-backed review of 12 Gigantamax forms, 4 Champions Mega forms, Gen IX friendship interpretation, and proposed reference-table security/DDL hardening; **not** A19-SCHEMA, live SQL, generator implementation, data resets, or deployment. |
+| D23 | Issue #21 readiness review delivered; Gmax/Champions/friendship/SQL findings are proposals only | Does not authorize A19-SCHEMA, apply SQL, change the 220/16 pin, or accept G1/C1/F1. Owner still chooses those policies. |
 
 ## Needs owner approval
 

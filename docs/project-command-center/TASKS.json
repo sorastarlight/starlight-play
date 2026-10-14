@@ -273,7 +273,7 @@
       "scope": "GitHub issue #23 disposable local PostgreSQL rehearsal of A19-SCHEMA on synthetic data",
       "dependencies": ["I22", "D27"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "cc66946b",
       "evidence": "docs/project-command-center/GEN-IX-SCHEMA-REHEARSAL.md, tools/a19-schema-rehearsal.js, supabase/unapplied/a19-schema/rehearsal/",
       "testResults": "rehearsal isolation 5 STATIC PASS; a19-schema 9 LOCAL HARNESS PASS; REAL SQL 17 PASS on 127.0.0.1",
       "nextAction": "Stop. Owner reviews rehearsal. Do not apply SQL to live or start A19-GENVAL.",

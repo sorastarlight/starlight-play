@@ -357,7 +357,7 @@
       "scope": "A19-GENVAL read-only production compatibility + GENVAL-APPLY checklist",
       "dependencies": ["I25C", "D40"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "ec54d159",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-READINESS.md, docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md",
       "testResults": "STATIC + LIVE CATALOG + LIVE PLATFORM + REAL SQL 15/15 on 127.0.0.1:55433/a19_genval; no hosted writes",
       "nextAction": "STOP for owner review. Do not apply GENVAL, WIRE, 002, restore, merge, or deploy without a separate explicit GENVAL-APPLY.",

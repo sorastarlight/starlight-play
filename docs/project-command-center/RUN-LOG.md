@@ -2,7 +2,7 @@
 
 ## 2026-10-14 — A19-GENVAL production compatibility + apply checklist (D40, production apply UNAPPROVED)
 
-- Branch: `admin-hub-overhaul`. Independent D39 review of `278d225c` asked for a read-only compatibility + deployment runbook. This is **not** GENVAL-APPLY.
+- Branch: `admin-hub-overhaul` at `ec54d159`. Independent D39 review of `278d225c` asked for a read-only compatibility + deployment runbook. This is **not** GENVAL-APPLY.
 - Production `001` remains additive (no DROP, no fixture generate). SHA-256 `6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a`.
 - LIVE PLATFORM: `dtflmlbjhttoewqgkujf` ACTIVE_HEALTHY, Postgres 17.6.1.166. LIVE CATALOG: `pgcrypto` 1.3 in `extensions`; digest + `gen_random_uuid` present; no GENVAL functions/table; `stamp_catch_row` owner `postgres`; pin `sl-ref-20261013-227b573`. No catch-row SELECT.
 - REAL SQL reconfirm: `node tools/a19-genval-rehearsal.js` — **15/15 PASS** on `127.0.0.1:55433/a19_genval` (exact `001`, fixtures installed separately).

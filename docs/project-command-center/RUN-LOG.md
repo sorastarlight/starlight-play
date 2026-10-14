@@ -4,7 +4,7 @@
 
 - Branch: `admin-hub-overhaul`. Planning and offline test design only.
 - Reconciled LIVE CATALOG `list_migrations`: five `a19_apply_*` rows match D35; no generator/validator migration. Seeds `02`/`03`/`05`–`10` remain execute_sql-only.
-- Spec: `GEN-IX-GENVAL-SPEC.md`. Fixtures: `tests/fixtures/a19-genval/matrix.json`.
+- Spec: `GEN-IX-GENVAL-SPEC.md` at `34f3797d`. Fixtures: `tests/fixtures/a19-genval/matrix.json`.
 - Did **not** CREATE `generate_streamlink_mon` / `assert_streamlink_legal`. Did not copy SQL into `migrations/`. Did not call stamp, settle, grant, evolve, or catch-row SELECT.
 - Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused. `stamp_catch_row` still the live generator.

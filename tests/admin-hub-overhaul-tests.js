@@ -58,6 +58,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-REF-READINESS-REVIEW.md",
     "docs/project-command-center/GEN-IX-SCHEMA-ISSUE-22.md",
     "docs/project-command-center/GEN-IX-SCHEMA-REHEARSAL.md",
+    "docs/project-command-center/GEN-IX-PRODUCTION-PREFLIGHT.md",
     "data/gen9-ref/meta.json",
     "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-ref-review/DO-NOT-APPLY.md",
@@ -416,6 +417,20 @@ test("Issue 23 rehearsal stays local and does not apply live SQL", () => {
   assert(decisions.includes("D27") && decisions.includes("D28"));
   assert(harness.includes("refusing hosted Supabase"));
   assert(/SYNTHETIC DATA ONLY/i.test(baseline));
+  assert(!migNames.includes("a19-schema"));
+  assert(!nextJs.includes("generate_streamlink_mon"));
+  assert(!liveJs.includes("generate_streamlink_mon"));
+});
+
+test("Issue 24 preflight stays read-only and does not approve apply", () => {
+  const report = read("docs/project-command-center/GEN-IX-PRODUCTION-PREFLIGHT.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  const queries = read("supabase/unapplied/a19-schema/preflight/000_metadata_only.sql");
+  const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
+  assert(report.includes("LIVE CATALOG"));
+  assert(report.includes("A19-APPLY remains **UNAPPROVED**"));
+  assert(decisions.includes("D29") && decisions.includes("D30"));
+  assert(/DO NOT RUN writes/i.test(queries));
   assert(!migNames.includes("a19-schema"));
   assert(!nextJs.includes("generate_streamlink_mon"));
   assert(!liveJs.includes("generate_streamlink_mon"));

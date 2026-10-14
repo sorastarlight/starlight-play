@@ -26,9 +26,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I20 | done | Issue #20 offline Gen IX reference pin + unapplied SQL | I19, D20 | **A19-SCHEMA** still blocked | Pin delivered unapplied |
 | I21 | done | Issue #21 A19-REF readiness review (Gmax, Champions, friendship, SQL) | I20 | D24 accepted G1/C1/F1 | Historical review |
 | I22 | done | Issue #22 A19-SCHEMA unapplied private.ref_* + catch extensions | I21, D25 | **A19-APPLY** to live; do not start GENVAL | Historical artifacts |
-| I23 | done | Issue #23 disposable local Postgres rehearsal of A19-SCHEMA | I22, D27 | **A19-APPLY** still required for live | Stop for owner review |
+| I23 | done | Issue #23 disposable local Postgres rehearsal of A19-SCHEMA | I22, D27 | **A19-APPLY** still required for live | Historical REAL SQL |
+| I24 | done | Issue #24 read-only production catalog preflight | I23, D29 | **A19-APPLY** still required | Stop for owner review |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. Issue #23 rehearsed A19-SCHEMA on synthetic local Postgres only. Pin stays 220/16. Do not apply SQL to live. A19-GENVAL+ blocked. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D28. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. Issue #24 inspected production catalog only. Pin stays 220/16. Do not apply SQL to live. A19-GENVAL+ blocked. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D30. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

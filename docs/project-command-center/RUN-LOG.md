@@ -1,5 +1,23 @@
 # Run log
 
+## 2026-10-14 — GitHub issue #24 A19-APPLY read-only production preflight
+
+- Branch: `admin-hub-overhaul`. Catalog metadata only on `dtflmlbjhttoewqgkujf`. No DDL/DML, catch-row SELECT, RPC, wipe, merge, deploy, or APP stamp.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D29 authorized the preflight. D30 records delivery. A19-APPLY / GENVAL+ remain blocked.
+- Catalog compatible: no `ref_*` tables; 17 catch extensions absent; `reltuples≈110`.
+- UNKNOWN: PostgREST exposed schemas; backup/PITR.
+- Report: `GEN-IX-PRODUCTION-PREFLIGHT.md`.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-apply-preflight-tests.js` | STATIC | 3 passed |
+| Production catalog SELECTs | LIVE CATALOG | inspected; not an apply |
+| Catch-row / RPC / PRODUCTION apply | — | **not run** |
+
 ## 2026-10-13 — GitHub issue #23 A19-SCHEMA local PostgreSQL rehearsal
 
 - Branch: `admin-hub-overhaul`. Disposable embedded Postgres on `127.0.0.1:55432` only. Pin 220/16 unchanged. No live SQL, RPC, wipe, merge, deploy, or APP stamp.

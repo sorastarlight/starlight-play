@@ -24,6 +24,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I20 | Issue #20 offline Gen IX reference pin | A19-REF development | **DONE** — unapplied SQL; stop before SCHEMA |
 | I21 | Issue #21 A19-REF readiness review | Review / fixtures / proposed SQL | **DONE** — G1/C1/F1 later approved as D24 |
 | I22 | Issue #22 A19-SCHEMA unapplied artifacts | Branch-only DDL + seed | **DONE** — not applied; stop before GENVAL |
+| I23 | Issue #23 A19-SCHEMA local Postgres rehearsal | Disposable synthetic DB only | **DONE** — REAL SQL on localhost; live apply still blocked |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
@@ -36,4 +37,4 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 
 ## Out of scope until a new prompt
 
-Production APP stamp, applying A19-SCHEMA SQL, A19-GENVAL+, grants, RLS, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, generator/validator, collection reset (A19-RESET-GO).
+Production APP stamp, applying A19-SCHEMA SQL to live/connected Supabase, A19-GENVAL+, grants, RLS, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, generator/validator, collection reset (A19-RESET-GO).

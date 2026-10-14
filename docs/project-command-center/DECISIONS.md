@@ -39,6 +39,7 @@
 | D26 | Issue #22 delivered unapplied `private.ref_*` DDL, catch extensions, and full pin seed | Files in `supabase/unapplied/a19-schema/` only. Not applied. Does not authorize live DDL, A19-GENVAL, or Pokémon writes. |
 
 | D27 | Owner approved a **disposable local PostgreSQL rehearsal** of the existing A19-SCHEMA artifacts | Issue #23 may install/use **isolated synthetic local Postgres**, apply staged DDL/seeds, test idempotence, RLS/permissions, legacy compatibility and rollback **there only**. No live/connected Supabase SQL, production data reads, generator/validator, Pokémon writes/resets, merge or deploy. **A19-APPLY remains UNAPPROVED.** |
+| D28 | Issue #23 local rehearsal delivered; live apply still blocked | Embedded Postgres on `127.0.0.1:55432` applied 001→seed→002, verified counts/constraints/RLS/idempotence/legacy/rollback on synthetic data only. `evo_uid` collision fixed on the branch. Does **not** authorize A19-APPLY, GENVAL, Pokémon writes, merge or deploy. |
 
 ## Needs owner approval
 

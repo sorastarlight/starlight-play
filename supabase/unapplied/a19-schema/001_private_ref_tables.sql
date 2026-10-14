@@ -212,6 +212,30 @@ COMMENT ON TABLE private.ref_form_policies IS
 COMMENT ON TABLE private.ref_species IS
   'pokeapi_base_friendship is the pin. streamlink_base_friendship is the F1 derived value.';
 
+-- CREATE TABLE IF NOT EXISTS must not hide a mismatched older layout.
+DO $guard$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'private' AND table_name = 'ref_meta' AND column_name = 'source_kind'
+  ) THEN
+    RAISE EXCEPTION 'private.ref_meta exists without source_kind; refuse mismatched layout';
+  END IF;
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'private' AND table_name = 'ref_species' AND column_name = 'streamlink_base_friendship'
+  ) THEN
+    RAISE EXCEPTION 'private.ref_species exists without streamlink_base_friendship; refuse mismatched layout';
+  END IF;
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.tables
+    WHERE table_schema = 'private' AND table_name = 'ref_form_policies'
+  ) THEN
+    RAISE EXCEPTION 'private.ref_form_policies missing; refuse incomplete A19-SCHEMA layout';
+  END IF;
+END
+$guard$;
+
 -- Leave public.lgpe_species in place. Do not drop or rewrite it.
 -- No SECURITY DEFINER functions and no public RPCs in this file.
 

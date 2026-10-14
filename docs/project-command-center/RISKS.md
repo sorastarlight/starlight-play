@@ -18,6 +18,7 @@
 | R-I20-GAPS | **OPEN** | Pin still leaves 12 Gigantamax + 4 Champions megas unresolved. #21 proposes G1/C1/F1; none are authorized. Do not silently inherit base learnsets. |
 | R-I21-SQL | **SUPERSEDED** | #20 public draft and #21 review draft must not be applied. Use `supabase/unapplied/a19-schema/` instead — still unapplied. |
 | R-I22-APPLY | **OPEN** | A19-SCHEMA artifacts exist but live apply is unapproved. Do not copy into `supabase/migrations/`. PostgREST must not expose `private`. |
+| R-I23-REHEARSAL | **CLOSED** | Isolated local rehearsal passed (17/17 REAL SQL). Does not close live-apply risk. `evo_uid` collision fixed on the branch. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

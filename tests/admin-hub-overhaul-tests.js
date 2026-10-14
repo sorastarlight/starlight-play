@@ -57,6 +57,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-REF-ISSUE-20.md",
     "docs/project-command-center/GEN-IX-REF-READINESS-REVIEW.md",
     "docs/project-command-center/GEN-IX-SCHEMA-ISSUE-22.md",
+    "docs/project-command-center/GEN-IX-SCHEMA-REHEARSAL.md",
     "data/gen9-ref/meta.json",
     "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-ref-review/DO-NOT-APPLY.md",
@@ -399,6 +400,22 @@ test("Issue 22 schema artifacts stay unapplied and do not start GENVAL", () => {
   assert(ddl.includes("private.ref_meta") && /REVOKE ALL/i.test(ddl));
   assert(catches.includes("ADD COLUMN IF NOT EXISTS nature_id"));
   assert(!catches.includes("UPDATE public.catches"));
+  assert(!migNames.includes("a19-schema"));
+  assert(!nextJs.includes("generate_streamlink_mon"));
+  assert(!liveJs.includes("generate_streamlink_mon"));
+});
+
+test("Issue 23 rehearsal stays local and does not apply live SQL", () => {
+  const report = read("docs/project-command-center/GEN-IX-SCHEMA-REHEARSAL.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  const harness = read("tools/a19-schema-rehearsal.js");
+  const baseline = read("supabase/unapplied/a19-schema/rehearsal/000_synthetic_baseline.sql");
+  const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
+  assert(report.includes("127.0.0.1"));
+  assert(report.includes("17/17"));
+  assert(decisions.includes("D27") && decisions.includes("D28"));
+  assert(harness.includes("refusing hosted Supabase"));
+  assert(/SYNTHETIC DATA ONLY/i.test(baseline));
   assert(!migNames.includes("a19-schema"));
   assert(!nextJs.includes("generate_streamlink_mon"));
   assert(!liveJs.includes("generate_streamlink_mon"));

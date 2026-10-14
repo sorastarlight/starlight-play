@@ -1,5 +1,23 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #23 A19-SCHEMA local PostgreSQL rehearsal
+
+- Branch: `admin-hub-overhaul`. Disposable embedded Postgres on `127.0.0.1:55432` only. Pin 220/16 unchanged. No live SQL, RPC, wipe, merge, deploy, or APP stamp.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D27 authorized the rehearsal. D28 records delivery. A19-APPLY / GENVAL+ remain blocked.
+- SQL fix: `evo_uid` now includes pin index so regional-form duplicate species edges do not collide in one INSERT.
+- Report: `GEN-IX-SCHEMA-REHEARSAL.md`.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-schema-rehearsal-tests.js` | STATIC | 5 passed |
+| `tests/a19-schema-tests.js` | STATIC / LOCAL HARNESS | 9 passed |
+| `tools/a19-schema-rehearsal.js` | REAL SQL | 17 passed (embedded local) |
+| Connected Supabase | PRODUCTION | **not run** |
+
 ## 2026-10-13 — GitHub issue #22 A19-SCHEMA unapplied artifacts
 
 - Branch: `admin-hub-overhaul`. Schema files only. Pin 220/16 unchanged. No live SQL, RPC, wipe, merge, deploy, or APP stamp.

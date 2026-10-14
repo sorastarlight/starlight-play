@@ -75,7 +75,9 @@ function writeBatched(file, title, columns, rows, conflict) {
   fs.writeFileSync(file, chunks.join("\n"));
 }
 
-function evoUid(row) {
+function evoUid(row, index) {
+  // Pin keeps regional-form copies of the same species edge (e.g. 19→20 twice).
+  // Include the pin index so one INSERT cannot propose the same PK twice.
   return [
     row.fromDex,
     row.toDex,
@@ -83,7 +85,8 @@ function evoUid(row) {
     row.minLevel == null ? "" : row.minLevel,
     row.itemId == null ? "" : row.itemId,
     row.heldItemId == null ? "" : row.heldItemId,
-    row.tradeSpeciesId == null ? "" : row.tradeSpeciesId
+    row.tradeSpeciesId == null ? "" : row.tradeSpeciesId,
+    index
   ].join(":");
 }
 
@@ -187,8 +190,8 @@ function main() {
     path.join(OUT, "08_evolutions.sql"),
     "ref_evolutions",
     { table: "private.ref_evolutions", cols: "content_build, evo_uid, from_dex, to_dex, trigger, min_level, item_id, held_item_id, trade_species_id" },
-    pin.evolutions.map((e) => [
-      sqlStr(CONTENT), sqlStr(evoUid(e)), sqlNum(e.fromDex), sqlNum(e.toDex),
+    pin.evolutions.map((e, index) => [
+      sqlStr(CONTENT), sqlStr(evoUid(e, index)), sqlNum(e.fromDex), sqlNum(e.toDex),
       sqlStr(e.trigger || "unknown"), sqlNum(e.minLevel), sqlNum(e.itemId),
       sqlNum(e.heldItemId), sqlNum(e.tradeSpeciesId)
     ].join(", ")),

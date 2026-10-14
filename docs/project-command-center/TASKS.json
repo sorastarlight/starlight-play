@@ -264,7 +264,19 @@
       "commit": "5f891c0",
       "evidence": "docs/project-command-center/GEN-IX-SCHEMA-ISSUE-22.md, supabase/unapplied/a19-schema/, tools/emit-a19-schema-seed.js",
       "testResults": "a19-schema 8 LOCAL HARNESS PASS; gen9-ref 12 LOCAL HARNESS PASS; overhaul 21 STATIC PASS",
-      "nextAction": "Stop. Owner reviews artifacts. Do not apply SQL or start A19-GENVAL.",
+      "nextAction": "Superseded by issue #23 local rehearsal. Artifacts remain unapplied to live.",
+      "approvalRequirement": "A19-APPLY before live DDL; A19-GENVAL still unapproved"
+    },
+    {
+      "id": "I23",
+      "status": "done",
+      "scope": "GitHub issue #23 disposable local PostgreSQL rehearsal of A19-SCHEMA on synthetic data",
+      "dependencies": ["I22", "D27"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-SCHEMA-REHEARSAL.md, tools/a19-schema-rehearsal.js, supabase/unapplied/a19-schema/rehearsal/",
+      "testResults": "rehearsal isolation 5 STATIC PASS; a19-schema 9 LOCAL HARNESS PASS; REAL SQL 17 PASS on 127.0.0.1",
+      "nextAction": "Stop. Owner reviews rehearsal. Do not apply SQL to live or start A19-GENVAL.",
       "approvalRequirement": "A19-APPLY before live DDL; A19-GENVAL still unapproved"
     },
     {

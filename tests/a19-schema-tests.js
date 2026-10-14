@@ -128,6 +128,13 @@ test("G1 and C1 policies fail-close wild and grant on the 16 special form ids", 
   assert(pinObtain.adminTargetable === true, "pin obtain.json must stay unchanged");
 });
 
+test("evolution seed uids are unique inside a single INSERT", () => {
+  const sql = read("supabase/unapplied/a19-schema/seed/08_evolutions.sql");
+  const uids = [...sql.matchAll(/'sl-ref-20261013-227b573', '([^']+)'/g)].map((m) => m[1]);
+  assert(uids.length === 88, String(uids.length));
+  assert(new Set(uids).size === 88, "duplicate evo_uid in one INSERT");
+});
+
 test("seed files are idempotent INSERT ... ON CONFLICT and never call the network", () => {
   fs.readdirSync(seedDir).filter((n) => n.endsWith(".sql")).forEach((name) => {
     const text = fs.readFileSync(path.join(seedDir, name), "utf8");

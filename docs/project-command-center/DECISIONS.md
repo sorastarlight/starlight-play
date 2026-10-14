@@ -28,6 +28,8 @@
 
 | D19 | Owner settled A19-Q1–Q6 as **architecture policy only**: per-catcher IV/Nature rolls; hidden abilities only via events/special grants; future reset R-A; Sword/Shield fallback only where verified with per-form exceptions; initialize current HP to full with no status; protected accounts excluded unless later separately authorized | Supersedes #19 planning recommendations where different (especially Q1). No generator, pin, SQL/RPC, catch write, reset, protected-account mutation or deploy authorized. |
 
+| D20 | Owner explicitly said **proceed** following the A19-REF offer | Authorizes **A19-REF reference-pin implementation in the working branch only**: offline dataset/tooling, tests, and unapplied seed SQL for review. Does NOT authorize live schema application, generator/validator, Pokémon changes, A19-SCHEMA onward, reset, merge or deployment. |
+
 ## Needs owner approval
 
 | ID | Question | Recommendation |
@@ -54,7 +56,7 @@
 | A19-Q4 | Fallback version-group for non-SV forms? | **APPROVED POLICY:** use `sword-shield` **only where verified for that exact species/form**, with explicit per-form exceptions to other verified source groups; fail closed on missing/mismatched learnsets. Exact exception map to be derived from pinned evidence later. No implementation authorized. |
 | A19-Q5 | Persist current HP/status before battle exists? | **APPROVED POLICY:** initialize current HP to computed maximum and status to null/none until battles exist. No schema change authorized. |
 | A19-Q6 | Include Sora/Twinkle in a future reset? | **APPROVED CONDITIONAL POLICY:** inclusion may be considered **only after** a later, explicit protected-account authorization; **exclude both by default**, including all current planning/testing and any unapproved reset. No protected-account mutation authorized. |
-| A19-REF | Build the offline reference pin and seed tables? | First implementation issue. Not granted by #19. |
+| A19-REF | Build the offline reference pin and seed tables? | **APPROVED FOR DEVELOPMENT ON `admin-hub-overhaul` ONLY** by owner 'proceed': offline version-pinned reference extract, deterministic generator tooling, checksums, isolated fixtures and **reviewable, unapplied** seed-table SQL artifacts. No live database migration, deployed tables, RPC/generator wiring or production data writes. Stop for review. |
 | A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | After A19-REF. No combat UPDATE of live rows. |
 | A19-GENVAL | Ship generator + validator functions? | After schema. No player-row writes. |
 | A19-WIRE | Wire launch/settle/grant/evolve to the validator? | New catches only; QA account. |

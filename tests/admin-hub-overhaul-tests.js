@@ -54,6 +54,9 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/design-reset/hub-a-visual-v4.html",
     "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
     "docs/project-command-center/GEN-IX-REBUILD-PLAN-ISSUE-19.md",
+    "docs/project-command-center/GEN-IX-REF-ISSUE-20.md",
+    "data/gen9-ref/meta.json",
+    "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
     ".cursor/rules/streamlink-project.mdc"
   ].forEach((rel) => assert(fs.existsSync(path.join(__dirname, "..", rel)), rel));
   assert(commandCenter.includes("First execution boundary"));
@@ -347,6 +350,23 @@ test("Issue 19 Gen IX rebuild plan stays planning-only and records D17", () => {
   assert(!plan.includes("PRODUCTION PASS"));
   assert(!nextHtml.includes("generate_streamlink_mon"));
   assert(!nextJs.includes("generate_streamlink_mon"));
+});
+
+test("Issue 20 Gen IX pin stays offline and unapplied", () => {
+  const report = read("docs/project-command-center/GEN-IX-REF-ISSUE-20.md");
+  const meta = read("data/gen9-ref/meta.json");
+  const unapplied = read("supabase/unapplied/a19-ref/001_create_ref_tables.sql");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
+  assert(report.includes("unresolved"));
+  assert(report.includes("Gigantamax"));
+  assert(meta.includes("227b573712414a86ba299d322fa398fbb2893edc"));
+  assert(meta.includes("\"appliedToSupabase\": false"));
+  assert(unapplied.includes("DO NOT RUN"));
+  assert(!migNames.includes("a19-ref"));
+  assert(decisions.includes("D20") && decisions.includes("D21"));
+  assert(!nextJs.includes("generate_streamlink_mon"));
+  assert(!liveJs.includes("generate_streamlink_mon"));
 });
 
 const failed = results.filter((row) => !row.passed);

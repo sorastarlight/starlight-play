@@ -29,6 +29,7 @@
 | D19 | Owner settled A19-Q1–Q6 as **architecture policy only**: per-catcher IV/Nature rolls; hidden abilities only via events/special grants; future reset R-A; Sword/Shield fallback only where verified with per-form exceptions; initialize current HP to full with no status; protected accounts excluded unless later separately authorized | Supersedes #19 planning recommendations where different (especially Q1). No generator, pin, SQL/RPC, catch write, reset, protected-account mutation or deploy authorized. |
 
 | D20 | Owner explicitly said **proceed** following the A19-REF offer | Authorizes **A19-REF reference-pin implementation in the working branch only**: offline dataset/tooling, tests, and unapplied seed SQL for review. Does NOT authorize live schema application, generator/validator, Pokémon changes, A19-SCHEMA onward, reset, merge or deployment. |
+| D21 | A19-REF delivered an offline pin (`sl-ref-20261013-227b573`) plus unapplied `ref_*` SQL | JSON in `data/gen9-ref/`. SQL in `supabase/unapplied/a19-ref/` only. Not applied to live. A19-SCHEMA still required before DDL. |
 
 ## Needs owner approval
 

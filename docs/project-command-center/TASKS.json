@@ -228,8 +228,20 @@
       "commit": "5f3dad6",
       "evidence": "docs/project-command-center/GEN-IX-REBUILD-PLAN-ISSUE-19.md",
       "testResults": "overhaul 18 STATIC PASS; LIVE CATALOG FKs only; no catch-row SELECT",
-      "nextAction": "Stop for owner review. Next explicit approval: A19-REF or A19-Q1–Q6. No SQL/wipe.",
-      "approvalRequirement": "A19-REF before pin/schema/generator code; A19-RESET-GO before any delete"
+      "nextAction": "Superseded by issue #20 / D21. Plan remains the architecture source.",
+      "approvalRequirement": "A19-SCHEMA before live DDL; A19-RESET-GO before any delete"
+    },
+    {
+      "id": "I20",
+      "status": "done",
+      "scope": "GitHub issue #20 offline Gen IX reference pin, checksums, fixtures, unapplied seed SQL",
+      "dependencies": ["I19", "D20"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-REF-ISSUE-20.md, data/gen9-ref/, supabase/unapplied/a19-ref/",
+      "testResults": "gen9-ref 12 LOCAL HARNESS PASS; overhaul STATIC including issue 20",
+      "nextAction": "Stop. Owner reviews pin. Do not start A19-SCHEMA or apply SQL.",
+      "approvalRequirement": "A19-SCHEMA before any live table; no reset"
     },
     {
       "id": "I13",

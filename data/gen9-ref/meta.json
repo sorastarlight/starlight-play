@@ -1,0 +1,31 @@
+{
+  "contentBuild": "sl-ref-20261013-227b573",
+  "rulesetId": "streamlink-gen9-xgen",
+  "pokeapiCommit": "227b573712414a86ba299d322fa398fbb2893edc",
+  "pokeapiRepo": "https://github.com/PokeAPI/pokeapi",
+  "pokeapiDocs": "https://pokeapi.co/docs/v2",
+  "pokeapiCsvPath": "data/v2/csv",
+  "licenseNote": "PokéAPI code is MIT. The CSV extract is a fan compilation of factual game data, not a Nintendo product, and does not grant HOME/cartridge legality.",
+  "builtAt": "2026-10-14T01:00:29.309Z",
+  "extractor": "tools/build-gen9-ref.js",
+  "runtimeNetwork": false,
+  "appliedToSupabase": false,
+  "sourceCsvSha256": {
+    "version_groups.csv": "28da8d89d8eb4966941f81a9e62b3990510ed4d76dd774158246551a8e7707a7",
+    "pokemon_move_methods.csv": "78b75acfcf6dca4c82da9d4851357cbbd65e61b08154eddfc2ace0efd00e408e",
+    "types.csv": "37f039c8d722f47d51ba1c5c5ecf9b7007235b1a9a1af2827645c777b70307c8",
+    "stats.csv": "ee8c541b45b64f40f0eb2545c767294b5801ce8a1410e19d8c33a54e6f1c3b9c",
+    "natures.csv": "3536990f6adeaa1735551a6afe798649d22426e161c937da09d3ae9a5381309c",
+    "nature_names.csv": "a6bf8bedb9822d0e966a3036885e33e1306172b3a6566edc22d02ff2e7155031",
+    "abilities.csv": "4ef866a51da6230bcaad44104cce5c890aeeb9e0d2b5661923e8e1dbd414a12c",
+    "moves.csv": "d4e8292524f38c0883dafc9778264cf4a08ccbf35337422ec1677890070c9885",
+    "pokemon_species.csv": "9878f19c0637095cdd9a4134b4aac8fb2b64776d3bdc599aa68f15c3a011b87c",
+    "pokemon.csv": "16c81c33188b0eac403aa2f759fcbe9e42c611f722d263f5b5a6a5bff9f8ce6b",
+    "pokemon_stats.csv": "fa2c44263a3706468682fefc3e0b3c4f5487fe9febed7d4ebcd6939c34b16aa8",
+    "pokemon_types.csv": "f1fc4bfd657a034ea3bf6972423b10276424aa068577b304a78a08996425ba05",
+    "pokemon_abilities.csv": "9ab26eee6f508be0ea1287c5b92d8378b018b1b88facd5c5ad0c7fd92c60b5c5",
+    "pokemon_moves.csv": "22a807cef26891eeac0d0c900bd363e66baf421f7ee795bc7bc3e718f23b939e",
+    "pokemon_evolution.csv": "c323e0f8ef3d852df94beac112d2914bf7f0689ba6a25644954b8e607c817940",
+    "evolution_triggers.csv": "e279ceadb18d489d2a11ab364eb661136e688ab3df5127d0705523232369894c"
+  }
+}

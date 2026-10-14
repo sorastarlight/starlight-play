@@ -1,0 +1,177 @@
+[
+  {
+    "id": 1,
+    "slug": "hardy",
+    "name": "Hardy",
+    "upStat": null,
+    "downStat": null
+  },
+  {
+    "id": 2,
+    "slug": "bold",
+    "name": "Bold",
+    "upStat": "def",
+    "downStat": "atk"
+  },
+  {
+    "id": 3,
+    "slug": "modest",
+    "name": "Modest",
+    "upStat": "spa",
+    "downStat": "atk"
+  },
+  {
+    "id": 4,
+    "slug": "calm",
+    "name": "Calm",
+    "upStat": "spd",
+    "downStat": "atk"
+  },
+  {
+    "id": 5,
+    "slug": "timid",
+    "name": "Timid",
+    "upStat": "spe",
+    "downStat": "atk"
+  },
+  {
+    "id": 6,
+    "slug": "lonely",
+    "name": "Lonely",
+    "upStat": "atk",
+    "downStat": "def"
+  },
+  {
+    "id": 7,
+    "slug": "docile",
+    "name": "Docile",
+    "upStat": null,
+    "downStat": null
+  },
+  {
+    "id": 8,
+    "slug": "mild",
+    "name": "Mild",
+    "upStat": "spa",
+    "downStat": "def"
+  },
+  {
+    "id": 9,
+    "slug": "gentle",
+    "name": "Gentle",
+    "upStat": "spd",
+    "downStat": "def"
+  },
+  {
+    "id": 10,
+    "slug": "hasty",
+    "name": "Hasty",
+    "upStat": "spe",
+    "downStat": "def"
+  },
+  {
+    "id": 11,
+    "slug": "adamant",
+    "name": "Adamant",
+    "upStat": "atk",
+    "downStat": "spa"
+  },
+  {
+    "id": 12,
+    "slug": "impish",
+    "name": "Impish",
+    "upStat": "def",
+    "downStat": "spa"
+  },
+  {
+    "id": 13,
+    "slug": "bashful",
+    "name": "Bashful",
+    "upStat": null,
+    "downStat": null
+  },
+  {
+    "id": 14,
+    "slug": "careful",
+    "name": "Careful",
+    "upStat": "spd",
+    "downStat": "spa"
+  },
+  {
+    "id": 15,
+    "slug": "rash",
+    "name": "Rash",
+    "upStat": "spa",
+    "downStat": "spd"
+  },
+  {
+    "id": 16,
+    "slug": "jolly",
+    "name": "Jolly",
+    "upStat": "spe",
+    "downStat": "spa"
+  },
+  {
+    "id": 17,
+    "slug": "naughty",
+    "name": "Naughty",
+    "upStat": "atk",
+    "downStat": "spd"
+  },
+  {
+    "id": 18,
+    "slug": "lax",
+    "name": "Lax",
+    "upStat": "def",
+    "downStat": "spd"
+  },
+  {
+    "id": 19,
+    "slug": "quirky",
+    "name": "Quirky",
+    "upStat": null,
+    "downStat": null
+  },
+  {
+    "id": 20,
+    "slug": "naive",
+    "name": "Naive",
+    "upStat": "spe",
+    "downStat": "spd"
+  },
+  {
+    "id": 21,
+    "slug": "brave",
+    "name": "Brave",
+    "upStat": "atk",
+    "downStat": "spe"
+  },
+  {
+    "id": 22,
+    "slug": "relaxed",
+    "name": "Relaxed",
+    "upStat": "def",
+    "downStat": "spe"
+  },
+  {
+    "id": 23,
+    "slug": "quiet",
+    "name": "Quiet",
+    "upStat": "spa",
+    "downStat": "spe"
+  },
+  {
+    "id": 24,
+    "slug": "sassy",
+    "name": "Sassy",
+    "upStat": "spd",
+    "downStat": "spe"
+  },
+  {
+    "id": 25,
+    "slug": "serious",
+    "name": "Serious",
+    "upStat": null,
+    "downStat": null
+  }
+]

@@ -1,0 +1,812 @@
+[
+  {
+    "abilityId": 1,
+    "slug": "stench",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 4,
+    "slug": "battle-armor",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 5,
+    "slug": "sturdy",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 6,
+    "slug": "damp",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 7,
+    "slug": "limber",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 8,
+    "slug": "sand-veil",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 9,
+    "slug": "static",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 10,
+    "slug": "volt-absorb",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 11,
+    "slug": "water-absorb",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 12,
+    "slug": "oblivious",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 13,
+    "slug": "cloud-nine",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 14,
+    "slug": "compound-eyes",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 15,
+    "slug": "insomnia",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 17,
+    "slug": "immunity",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 18,
+    "slug": "flash-fire",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 19,
+    "slug": "shield-dust",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 20,
+    "slug": "own-tempo",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 22,
+    "slug": "intimidate",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 23,
+    "slug": "shadow-tag",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 26,
+    "slug": "levitate",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 27,
+    "slug": "effect-spore",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 28,
+    "slug": "synchronize",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 29,
+    "slug": "clear-body",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 30,
+    "slug": "natural-cure",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 31,
+    "slug": "lightning-rod",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 32,
+    "slug": "serene-grace",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 33,
+    "slug": "swift-swim",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 34,
+    "slug": "chlorophyll",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 35,
+    "slug": "illuminate",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 36,
+    "slug": "trace",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 37,
+    "slug": "huge-power",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 38,
+    "slug": "poison-point",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 39,
+    "slug": "inner-focus",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 41,
+    "slug": "water-veil",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 42,
+    "slug": "magnet-pull",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 43,
+    "slug": "soundproof",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 44,
+    "slug": "rain-dish",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 46,
+    "slug": "pressure",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 47,
+    "slug": "thick-fat",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 48,
+    "slug": "early-bird",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 49,
+    "slug": "flame-body",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 50,
+    "slug": "run-away",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 51,
+    "slug": "keen-eye",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 52,
+    "slug": "hyper-cutter",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 53,
+    "slug": "pickup",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 55,
+    "slug": "hustle",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 56,
+    "slug": "cute-charm",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 60,
+    "slug": "sticky-hold",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 61,
+    "slug": "shed-skin",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 62,
+    "slug": "guts",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 63,
+    "slug": "marvel-scale",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 64,
+    "slug": "liquid-ooze",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 65,
+    "slug": "overgrow",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 66,
+    "slug": "blaze",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 67,
+    "slug": "torrent",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 68,
+    "slug": "swarm",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 69,
+    "slug": "rock-head",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 70,
+    "slug": "drought",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 71,
+    "slug": "arena-trap",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 72,
+    "slug": "vital-spirit",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 75,
+    "slug": "shell-armor",
+    "generation": 3,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 77,
+    "slug": "tangled-feet",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 79,
+    "slug": "rivalry",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 80,
+    "slug": "steadfast",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 81,
+    "slug": "snow-cloak",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 82,
+    "slug": "gluttony",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 83,
+    "slug": "anger-point",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 84,
+    "slug": "unburden",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 87,
+    "slug": "dry-skin",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 88,
+    "slug": "download",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 89,
+    "slug": "iron-fist",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 91,
+    "slug": "adaptability",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 92,
+    "slug": "skill-link",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 93,
+    "slug": "hydration",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 94,
+    "slug": "solar-power",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 95,
+    "slug": "quick-feet",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 97,
+    "slug": "sniper",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 98,
+    "slug": "magic-guard",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 99,
+    "slug": "no-guard",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 101,
+    "slug": "technician",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 102,
+    "slug": "leaf-guard",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 104,
+    "slug": "mold-breaker",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 106,
+    "slug": "aftermath",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 107,
+    "slug": "anticipation",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 108,
+    "slug": "forewarn",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 109,
+    "slug": "unaware",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 110,
+    "slug": "tinted-lens",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 111,
+    "slug": "filter",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 113,
+    "slug": "scrappy",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 115,
+    "slug": "ice-body",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 117,
+    "slug": "snow-warning",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 119,
+    "slug": "frisk",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 120,
+    "slug": "reckless",
+    "generation": 4,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 125,
+    "slug": "sheer-force",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 127,
+    "slug": "unnerve",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 128,
+    "slug": "defiant",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 130,
+    "slug": "cursed-body",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 131,
+    "slug": "healer",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 132,
+    "slug": "friend-guard",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 133,
+    "slug": "weak-armor",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 136,
+    "slug": "multiscale",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 139,
+    "slug": "harvest",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 142,
+    "slug": "overcoat",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 143,
+    "slug": "poison-touch",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 144,
+    "slug": "regenerator",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 145,
+    "slug": "big-pecks",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 146,
+    "slug": "sand-rush",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 147,
+    "slug": "wonder-skin",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 148,
+    "slug": "analytic",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 150,
+    "slug": "imposter",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 151,
+    "slug": "infiltrator",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 153,
+    "slug": "moxie",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 154,
+    "slug": "justified",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 155,
+    "slug": "rattled",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 156,
+    "slug": "magic-bounce",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 159,
+    "slug": "sand-force",
+    "generation": 5,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 169,
+    "slug": "fur-coat",
+    "generation": 6,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 172,
+    "slug": "competitive",
+    "generation": 6,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 178,
+    "slug": "mega-launcher",
+    "generation": 6,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 181,
+    "slug": "tough-claws",
+    "generation": 6,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 184,
+    "slug": "aerilate",
+    "generation": 6,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 185,
+    "slug": "parental-bond",
+    "generation": 6,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 201,
+    "slug": "berserk",
+    "generation": 7,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 202,
+    "slug": "slush-rush",
+    "generation": 7,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 206,
+    "slug": "galvanize",
+    "generation": 7,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 207,
+    "slug": "surge-surfer",
+    "generation": 7,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 215,
+    "slug": "innards-out",
+    "generation": 7,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 221,
+    "slug": "tangling-hair",
+    "generation": 7,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 223,
+    "slug": "power-of-alchemy",
+    "generation": 7,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 228,
+    "slug": "misty-surge",
+    "generation": 7,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 251,
+    "slug": "screen-cleaner",
+    "generation": 8,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 256,
+    "slug": "neutralizing-gas",
+    "generation": 8,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 257,
+    "slug": "pastel-veil",
+    "generation": 8,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 259,
+    "slug": "quick-draw",
+    "generation": 8,
+    "isMainSeries": true
+  },
+  {
+    "abilityId": 291,
+    "slug": "cud-chew",
+    "generation": 9,
+    "isMainSeries": true
+  }
+]

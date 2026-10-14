@@ -1,0 +1,2126 @@
+[
+  {
+    "formId": 1,
+    "dex": 1,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 2,
+    "dex": 2,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 3,
+    "dex": 3,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 4,
+    "dex": 4,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 5,
+    "dex": 5,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 6,
+    "dex": 6,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 7,
+    "dex": 7,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 8,
+    "dex": 8,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 9,
+    "dex": 9,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10,
+    "dex": 10,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 11,
+    "dex": 11,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 12,
+    "dex": 12,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 13,
+    "dex": 13,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 14,
+    "dex": 14,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 15,
+    "dex": 15,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 16,
+    "dex": 16,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 17,
+    "dex": 17,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 18,
+    "dex": 18,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 19,
+    "dex": 19,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 20,
+    "dex": 20,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 21,
+    "dex": 21,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 22,
+    "dex": 22,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 23,
+    "dex": 23,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 24,
+    "dex": 24,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 25,
+    "dex": 25,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 26,
+    "dex": 26,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 27,
+    "dex": 27,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 28,
+    "dex": 28,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 29,
+    "dex": 29,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 30,
+    "dex": 30,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 31,
+    "dex": 31,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 32,
+    "dex": 32,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 33,
+    "dex": 33,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 34,
+    "dex": 34,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 35,
+    "dex": 35,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 36,
+    "dex": 36,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 37,
+    "dex": 37,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 38,
+    "dex": 38,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 39,
+    "dex": 39,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 40,
+    "dex": 40,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 41,
+    "dex": 41,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 42,
+    "dex": 42,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 43,
+    "dex": 43,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 44,
+    "dex": 44,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 45,
+    "dex": 45,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 46,
+    "dex": 46,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 47,
+    "dex": 47,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 48,
+    "dex": 48,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 49,
+    "dex": 49,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 50,
+    "dex": 50,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 51,
+    "dex": 51,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 52,
+    "dex": 52,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 53,
+    "dex": 53,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 54,
+    "dex": 54,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 55,
+    "dex": 55,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 56,
+    "dex": 56,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 57,
+    "dex": 57,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 58,
+    "dex": 58,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 59,
+    "dex": 59,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 60,
+    "dex": 60,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 61,
+    "dex": 61,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 62,
+    "dex": 62,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 63,
+    "dex": 63,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 64,
+    "dex": 64,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 65,
+    "dex": 65,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 66,
+    "dex": 66,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 67,
+    "dex": 67,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 68,
+    "dex": 68,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 69,
+    "dex": 69,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 70,
+    "dex": 70,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 71,
+    "dex": 71,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 72,
+    "dex": 72,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 73,
+    "dex": 73,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 74,
+    "dex": 74,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 75,
+    "dex": 75,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 76,
+    "dex": 76,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 77,
+    "dex": 77,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 78,
+    "dex": 78,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 79,
+    "dex": 79,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 80,
+    "dex": 80,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 81,
+    "dex": 81,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 82,
+    "dex": 82,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 83,
+    "dex": 83,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 84,
+    "dex": 84,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 85,
+    "dex": 85,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 86,
+    "dex": 86,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 87,
+    "dex": 87,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 88,
+    "dex": 88,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 89,
+    "dex": 89,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 90,
+    "dex": 90,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 91,
+    "dex": 91,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 92,
+    "dex": 92,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 93,
+    "dex": 93,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 94,
+    "dex": 94,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 95,
+    "dex": 95,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 96,
+    "dex": 96,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 97,
+    "dex": 97,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 98,
+    "dex": 98,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 99,
+    "dex": 99,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 100,
+    "dex": 100,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 101,
+    "dex": 101,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 102,
+    "dex": 102,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 103,
+    "dex": 103,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 104,
+    "dex": 104,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 105,
+    "dex": 105,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 106,
+    "dex": 106,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 107,
+    "dex": 107,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 108,
+    "dex": 108,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 109,
+    "dex": 109,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 110,
+    "dex": 110,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 111,
+    "dex": 111,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 112,
+    "dex": 112,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 113,
+    "dex": 113,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 114,
+    "dex": 114,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 115,
+    "dex": 115,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 116,
+    "dex": 116,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 117,
+    "dex": 117,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 118,
+    "dex": 118,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 119,
+    "dex": 119,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 120,
+    "dex": 120,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 121,
+    "dex": 121,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 122,
+    "dex": 122,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 123,
+    "dex": 123,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 124,
+    "dex": 124,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 125,
+    "dex": 125,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 126,
+    "dex": 126,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 127,
+    "dex": 127,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 128,
+    "dex": 128,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 129,
+    "dex": 129,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 130,
+    "dex": 130,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 131,
+    "dex": 131,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 132,
+    "dex": 132,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 133,
+    "dex": 133,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 134,
+    "dex": 134,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 135,
+    "dex": 135,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 136,
+    "dex": 136,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 137,
+    "dex": 137,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 138,
+    "dex": 138,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 139,
+    "dex": 139,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 140,
+    "dex": 140,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 141,
+    "dex": 141,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 142,
+    "dex": 142,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 143,
+    "dex": 143,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 144,
+    "dex": 144,
+    "channel": "special",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 145,
+    "dex": 145,
+    "channel": "special",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 146,
+    "dex": 146,
+    "channel": "special",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 147,
+    "dex": 147,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 148,
+    "dex": 148,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 149,
+    "dex": 149,
+    "channel": "ordinary",
+    "normalEncounterEnabled": true,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 150,
+    "dex": 150,
+    "channel": "special",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 151,
+    "dex": 151,
+    "channel": "special",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10033,
+    "dex": 3,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10034,
+    "dex": 6,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10035,
+    "dex": 6,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10036,
+    "dex": 9,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10037,
+    "dex": 65,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10038,
+    "dex": 94,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10039,
+    "dex": 115,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10040,
+    "dex": 127,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10041,
+    "dex": 130,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10042,
+    "dex": 142,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10043,
+    "dex": 150,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10044,
+    "dex": 150,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10071,
+    "dex": 80,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10073,
+    "dex": 18,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10080,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10081,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10082,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10083,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10084,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10085,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10090,
+    "dex": 15,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10091,
+    "dex": 19,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10092,
+    "dex": 20,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10093,
+    "dex": 20,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10094,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10095,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10096,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10097,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10098,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10099,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10100,
+    "dex": 26,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10101,
+    "dex": 27,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10102,
+    "dex": 28,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10103,
+    "dex": 37,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10104,
+    "dex": 38,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10105,
+    "dex": 50,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10106,
+    "dex": 51,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10107,
+    "dex": 52,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10108,
+    "dex": 53,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10109,
+    "dex": 74,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10110,
+    "dex": 75,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10111,
+    "dex": 76,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10112,
+    "dex": 88,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10113,
+    "dex": 89,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10114,
+    "dex": 103,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10115,
+    "dex": 105,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10148,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10149,
+    "dex": 105,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10158,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10159,
+    "dex": 133,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10160,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10161,
+    "dex": 52,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10162,
+    "dex": 77,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10163,
+    "dex": 78,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10164,
+    "dex": 79,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10165,
+    "dex": 80,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10166,
+    "dex": 83,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10167,
+    "dex": 110,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10168,
+    "dex": 122,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10169,
+    "dex": 144,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10170,
+    "dex": 145,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10171,
+    "dex": 146,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10195,
+    "dex": 3,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10196,
+    "dex": 6,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10197,
+    "dex": 9,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10198,
+    "dex": 12,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10199,
+    "dex": 25,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10200,
+    "dex": 52,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10201,
+    "dex": 68,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10202,
+    "dex": 94,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10203,
+    "dex": 99,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10204,
+    "dex": 131,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10205,
+    "dex": 133,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10206,
+    "dex": 143,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10229,
+    "dex": 58,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10230,
+    "dex": 59,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10231,
+    "dex": 100,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10232,
+    "dex": 101,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10250,
+    "dex": 128,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10251,
+    "dex": 128,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10252,
+    "dex": 128,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10278,
+    "dex": 36,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10279,
+    "dex": 71,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10280,
+    "dex": 121,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  },
+  {
+    "formId": 10281,
+    "dex": 149,
+    "channel": "event",
+    "normalEncounterEnabled": false,
+    "adminTargetable": true,
+    "eventTargetable": true,
+    "enabled": true
+  }
+]

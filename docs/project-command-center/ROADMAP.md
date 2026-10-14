@@ -21,6 +21,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I12 | Issue #12 trainer record IA v5 | Design only | **DONE** — comparison prototype only |
 | I16 | Issue #16 Pokémon legality source audit | Design / source audit | **DONE** — current-state snapshot; LGPE errata added |
 | I19 | Issue #19 Gen IX rebuild plan | Architecture / reset planning | **DONE** — stop for owner review; no SQL/wipe |
+| I20 | Issue #20 offline Gen IX reference pin | A19-REF development | **DONE** — unapplied SQL; stop before SCHEMA |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
@@ -33,4 +34,4 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 
 ## Out of scope until a new prompt
 
-Production APP stamp, SQL, grants, RLS, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, generator/validator implementation (A19-REF+), collection reset (A19-RESET-GO).
+Production APP stamp, applying A19-REF SQL, A19-SCHEMA+, grants, RLS, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, generator/validator, collection reset (A19-RESET-GO).

@@ -1,0 +1,3458 @@
+[
+  {
+    "formId": 1,
+    "slot": "1",
+    "abilityId": 65,
+    "isHidden": false
+  },
+  {
+    "formId": 1,
+    "slot": "hidden",
+    "abilityId": 34,
+    "isHidden": true
+  },
+  {
+    "formId": 2,
+    "slot": "1",
+    "abilityId": 65,
+    "isHidden": false
+  },
+  {
+    "formId": 2,
+    "slot": "hidden",
+    "abilityId": 34,
+    "isHidden": true
+  },
+  {
+    "formId": 3,
+    "slot": "1",
+    "abilityId": 65,
+    "isHidden": false
+  },
+  {
+    "formId": 3,
+    "slot": "hidden",
+    "abilityId": 34,
+    "isHidden": true
+  },
+  {
+    "formId": 4,
+    "slot": "1",
+    "abilityId": 66,
+    "isHidden": false
+  },
+  {
+    "formId": 4,
+    "slot": "hidden",
+    "abilityId": 94,
+    "isHidden": true
+  },
+  {
+    "formId": 5,
+    "slot": "1",
+    "abilityId": 66,
+    "isHidden": false
+  },
+  {
+    "formId": 5,
+    "slot": "hidden",
+    "abilityId": 94,
+    "isHidden": true
+  },
+  {
+    "formId": 6,
+    "slot": "1",
+    "abilityId": 66,
+    "isHidden": false
+  },
+  {
+    "formId": 6,
+    "slot": "hidden",
+    "abilityId": 94,
+    "isHidden": true
+  },
+  {
+    "formId": 7,
+    "slot": "1",
+    "abilityId": 67,
+    "isHidden": false
+  },
+  {
+    "formId": 7,
+    "slot": "hidden",
+    "abilityId": 44,
+    "isHidden": true
+  },
+  {
+    "formId": 8,
+    "slot": "1",
+    "abilityId": 67,
+    "isHidden": false
+  },
+  {
+    "formId": 8,
+    "slot": "hidden",
+    "abilityId": 44,
+    "isHidden": true
+  },
+  {
+    "formId": 9,
+    "slot": "1",
+    "abilityId": 67,
+    "isHidden": false
+  },
+  {
+    "formId": 9,
+    "slot": "hidden",
+    "abilityId": 44,
+    "isHidden": true
+  },
+  {
+    "formId": 10,
+    "slot": "1",
+    "abilityId": 19,
+    "isHidden": false
+  },
+  {
+    "formId": 10,
+    "slot": "hidden",
+    "abilityId": 50,
+    "isHidden": true
+  },
+  {
+    "formId": 11,
+    "slot": "1",
+    "abilityId": 61,
+    "isHidden": false
+  },
+  {
+    "formId": 12,
+    "slot": "1",
+    "abilityId": 14,
+    "isHidden": false
+  },
+  {
+    "formId": 12,
+    "slot": "hidden",
+    "abilityId": 110,
+    "isHidden": true
+  },
+  {
+    "formId": 13,
+    "slot": "1",
+    "abilityId": 19,
+    "isHidden": false
+  },
+  {
+    "formId": 13,
+    "slot": "hidden",
+    "abilityId": 50,
+    "isHidden": true
+  },
+  {
+    "formId": 14,
+    "slot": "1",
+    "abilityId": 61,
+    "isHidden": false
+  },
+  {
+    "formId": 15,
+    "slot": "1",
+    "abilityId": 68,
+    "isHidden": false
+  },
+  {
+    "formId": 15,
+    "slot": "hidden",
+    "abilityId": 97,
+    "isHidden": true
+  },
+  {
+    "formId": 16,
+    "slot": "1",
+    "abilityId": 51,
+    "isHidden": false
+  },
+  {
+    "formId": 16,
+    "slot": "2",
+    "abilityId": 77,
+    "isHidden": false
+  },
+  {
+    "formId": 16,
+    "slot": "hidden",
+    "abilityId": 145,
+    "isHidden": true
+  },
+  {
+    "formId": 17,
+    "slot": "1",
+    "abilityId": 51,
+    "isHidden": false
+  },
+  {
+    "formId": 17,
+    "slot": "2",
+    "abilityId": 77,
+    "isHidden": false
+  },
+  {
+    "formId": 17,
+    "slot": "hidden",
+    "abilityId": 145,
+    "isHidden": true
+  },
+  {
+    "formId": 18,
+    "slot": "1",
+    "abilityId": 51,
+    "isHidden": false
+  },
+  {
+    "formId": 18,
+    "slot": "2",
+    "abilityId": 77,
+    "isHidden": false
+  },
+  {
+    "formId": 18,
+    "slot": "hidden",
+    "abilityId": 145,
+    "isHidden": true
+  },
+  {
+    "formId": 19,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 19,
+    "slot": "2",
+    "abilityId": 62,
+    "isHidden": false
+  },
+  {
+    "formId": 19,
+    "slot": "hidden",
+    "abilityId": 55,
+    "isHidden": true
+  },
+  {
+    "formId": 20,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 20,
+    "slot": "2",
+    "abilityId": 62,
+    "isHidden": false
+  },
+  {
+    "formId": 20,
+    "slot": "hidden",
+    "abilityId": 55,
+    "isHidden": true
+  },
+  {
+    "formId": 21,
+    "slot": "1",
+    "abilityId": 51,
+    "isHidden": false
+  },
+  {
+    "formId": 21,
+    "slot": "hidden",
+    "abilityId": 97,
+    "isHidden": true
+  },
+  {
+    "formId": 22,
+    "slot": "1",
+    "abilityId": 51,
+    "isHidden": false
+  },
+  {
+    "formId": 22,
+    "slot": "hidden",
+    "abilityId": 97,
+    "isHidden": true
+  },
+  {
+    "formId": 23,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 23,
+    "slot": "2",
+    "abilityId": 61,
+    "isHidden": false
+  },
+  {
+    "formId": 23,
+    "slot": "hidden",
+    "abilityId": 127,
+    "isHidden": true
+  },
+  {
+    "formId": 24,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 24,
+    "slot": "2",
+    "abilityId": 61,
+    "isHidden": false
+  },
+  {
+    "formId": 24,
+    "slot": "hidden",
+    "abilityId": 127,
+    "isHidden": true
+  },
+  {
+    "formId": 25,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 25,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 26,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 26,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 27,
+    "slot": "1",
+    "abilityId": 8,
+    "isHidden": false
+  },
+  {
+    "formId": 27,
+    "slot": "hidden",
+    "abilityId": 146,
+    "isHidden": true
+  },
+  {
+    "formId": 28,
+    "slot": "1",
+    "abilityId": 8,
+    "isHidden": false
+  },
+  {
+    "formId": 28,
+    "slot": "hidden",
+    "abilityId": 146,
+    "isHidden": true
+  },
+  {
+    "formId": 29,
+    "slot": "1",
+    "abilityId": 38,
+    "isHidden": false
+  },
+  {
+    "formId": 29,
+    "slot": "2",
+    "abilityId": 79,
+    "isHidden": false
+  },
+  {
+    "formId": 29,
+    "slot": "hidden",
+    "abilityId": 55,
+    "isHidden": true
+  },
+  {
+    "formId": 30,
+    "slot": "1",
+    "abilityId": 38,
+    "isHidden": false
+  },
+  {
+    "formId": 30,
+    "slot": "2",
+    "abilityId": 79,
+    "isHidden": false
+  },
+  {
+    "formId": 30,
+    "slot": "hidden",
+    "abilityId": 55,
+    "isHidden": true
+  },
+  {
+    "formId": 31,
+    "slot": "1",
+    "abilityId": 38,
+    "isHidden": false
+  },
+  {
+    "formId": 31,
+    "slot": "2",
+    "abilityId": 79,
+    "isHidden": false
+  },
+  {
+    "formId": 31,
+    "slot": "hidden",
+    "abilityId": 125,
+    "isHidden": true
+  },
+  {
+    "formId": 32,
+    "slot": "1",
+    "abilityId": 38,
+    "isHidden": false
+  },
+  {
+    "formId": 32,
+    "slot": "2",
+    "abilityId": 79,
+    "isHidden": false
+  },
+  {
+    "formId": 32,
+    "slot": "hidden",
+    "abilityId": 55,
+    "isHidden": true
+  },
+  {
+    "formId": 33,
+    "slot": "1",
+    "abilityId": 38,
+    "isHidden": false
+  },
+  {
+    "formId": 33,
+    "slot": "2",
+    "abilityId": 79,
+    "isHidden": false
+  },
+  {
+    "formId": 33,
+    "slot": "hidden",
+    "abilityId": 55,
+    "isHidden": true
+  },
+  {
+    "formId": 34,
+    "slot": "1",
+    "abilityId": 38,
+    "isHidden": false
+  },
+  {
+    "formId": 34,
+    "slot": "2",
+    "abilityId": 79,
+    "isHidden": false
+  },
+  {
+    "formId": 34,
+    "slot": "hidden",
+    "abilityId": 125,
+    "isHidden": true
+  },
+  {
+    "formId": 35,
+    "slot": "1",
+    "abilityId": 56,
+    "isHidden": false
+  },
+  {
+    "formId": 35,
+    "slot": "2",
+    "abilityId": 98,
+    "isHidden": false
+  },
+  {
+    "formId": 35,
+    "slot": "hidden",
+    "abilityId": 132,
+    "isHidden": true
+  },
+  {
+    "formId": 36,
+    "slot": "1",
+    "abilityId": 56,
+    "isHidden": false
+  },
+  {
+    "formId": 36,
+    "slot": "2",
+    "abilityId": 98,
+    "isHidden": false
+  },
+  {
+    "formId": 36,
+    "slot": "hidden",
+    "abilityId": 109,
+    "isHidden": true
+  },
+  {
+    "formId": 37,
+    "slot": "1",
+    "abilityId": 18,
+    "isHidden": false
+  },
+  {
+    "formId": 37,
+    "slot": "hidden",
+    "abilityId": 70,
+    "isHidden": true
+  },
+  {
+    "formId": 38,
+    "slot": "1",
+    "abilityId": 18,
+    "isHidden": false
+  },
+  {
+    "formId": 38,
+    "slot": "hidden",
+    "abilityId": 70,
+    "isHidden": true
+  },
+  {
+    "formId": 39,
+    "slot": "1",
+    "abilityId": 56,
+    "isHidden": false
+  },
+  {
+    "formId": 39,
+    "slot": "2",
+    "abilityId": 172,
+    "isHidden": false
+  },
+  {
+    "formId": 39,
+    "slot": "hidden",
+    "abilityId": 132,
+    "isHidden": true
+  },
+  {
+    "formId": 40,
+    "slot": "1",
+    "abilityId": 56,
+    "isHidden": false
+  },
+  {
+    "formId": 40,
+    "slot": "2",
+    "abilityId": 172,
+    "isHidden": false
+  },
+  {
+    "formId": 40,
+    "slot": "hidden",
+    "abilityId": 119,
+    "isHidden": true
+  },
+  {
+    "formId": 41,
+    "slot": "1",
+    "abilityId": 39,
+    "isHidden": false
+  },
+  {
+    "formId": 41,
+    "slot": "hidden",
+    "abilityId": 151,
+    "isHidden": true
+  },
+  {
+    "formId": 42,
+    "slot": "1",
+    "abilityId": 39,
+    "isHidden": false
+  },
+  {
+    "formId": 42,
+    "slot": "hidden",
+    "abilityId": 151,
+    "isHidden": true
+  },
+  {
+    "formId": 43,
+    "slot": "1",
+    "abilityId": 34,
+    "isHidden": false
+  },
+  {
+    "formId": 43,
+    "slot": "hidden",
+    "abilityId": 50,
+    "isHidden": true
+  },
+  {
+    "formId": 44,
+    "slot": "1",
+    "abilityId": 34,
+    "isHidden": false
+  },
+  {
+    "formId": 44,
+    "slot": "hidden",
+    "abilityId": 1,
+    "isHidden": true
+  },
+  {
+    "formId": 45,
+    "slot": "1",
+    "abilityId": 34,
+    "isHidden": false
+  },
+  {
+    "formId": 45,
+    "slot": "hidden",
+    "abilityId": 27,
+    "isHidden": true
+  },
+  {
+    "formId": 46,
+    "slot": "1",
+    "abilityId": 27,
+    "isHidden": false
+  },
+  {
+    "formId": 46,
+    "slot": "2",
+    "abilityId": 87,
+    "isHidden": false
+  },
+  {
+    "formId": 46,
+    "slot": "hidden",
+    "abilityId": 6,
+    "isHidden": true
+  },
+  {
+    "formId": 47,
+    "slot": "1",
+    "abilityId": 27,
+    "isHidden": false
+  },
+  {
+    "formId": 47,
+    "slot": "2",
+    "abilityId": 87,
+    "isHidden": false
+  },
+  {
+    "formId": 47,
+    "slot": "hidden",
+    "abilityId": 6,
+    "isHidden": true
+  },
+  {
+    "formId": 48,
+    "slot": "1",
+    "abilityId": 14,
+    "isHidden": false
+  },
+  {
+    "formId": 48,
+    "slot": "2",
+    "abilityId": 110,
+    "isHidden": false
+  },
+  {
+    "formId": 48,
+    "slot": "hidden",
+    "abilityId": 50,
+    "isHidden": true
+  },
+  {
+    "formId": 49,
+    "slot": "1",
+    "abilityId": 19,
+    "isHidden": false
+  },
+  {
+    "formId": 49,
+    "slot": "2",
+    "abilityId": 110,
+    "isHidden": false
+  },
+  {
+    "formId": 49,
+    "slot": "hidden",
+    "abilityId": 147,
+    "isHidden": true
+  },
+  {
+    "formId": 50,
+    "slot": "1",
+    "abilityId": 8,
+    "isHidden": false
+  },
+  {
+    "formId": 50,
+    "slot": "2",
+    "abilityId": 71,
+    "isHidden": false
+  },
+  {
+    "formId": 50,
+    "slot": "hidden",
+    "abilityId": 159,
+    "isHidden": true
+  },
+  {
+    "formId": 51,
+    "slot": "1",
+    "abilityId": 8,
+    "isHidden": false
+  },
+  {
+    "formId": 51,
+    "slot": "2",
+    "abilityId": 71,
+    "isHidden": false
+  },
+  {
+    "formId": 51,
+    "slot": "hidden",
+    "abilityId": 159,
+    "isHidden": true
+  },
+  {
+    "formId": 52,
+    "slot": "1",
+    "abilityId": 53,
+    "isHidden": false
+  },
+  {
+    "formId": 52,
+    "slot": "2",
+    "abilityId": 101,
+    "isHidden": false
+  },
+  {
+    "formId": 52,
+    "slot": "hidden",
+    "abilityId": 127,
+    "isHidden": true
+  },
+  {
+    "formId": 53,
+    "slot": "1",
+    "abilityId": 7,
+    "isHidden": false
+  },
+  {
+    "formId": 53,
+    "slot": "2",
+    "abilityId": 101,
+    "isHidden": false
+  },
+  {
+    "formId": 53,
+    "slot": "hidden",
+    "abilityId": 127,
+    "isHidden": true
+  },
+  {
+    "formId": 54,
+    "slot": "1",
+    "abilityId": 6,
+    "isHidden": false
+  },
+  {
+    "formId": 54,
+    "slot": "2",
+    "abilityId": 13,
+    "isHidden": false
+  },
+  {
+    "formId": 54,
+    "slot": "hidden",
+    "abilityId": 33,
+    "isHidden": true
+  },
+  {
+    "formId": 55,
+    "slot": "1",
+    "abilityId": 6,
+    "isHidden": false
+  },
+  {
+    "formId": 55,
+    "slot": "2",
+    "abilityId": 13,
+    "isHidden": false
+  },
+  {
+    "formId": 55,
+    "slot": "hidden",
+    "abilityId": 33,
+    "isHidden": true
+  },
+  {
+    "formId": 56,
+    "slot": "1",
+    "abilityId": 72,
+    "isHidden": false
+  },
+  {
+    "formId": 56,
+    "slot": "2",
+    "abilityId": 83,
+    "isHidden": false
+  },
+  {
+    "formId": 56,
+    "slot": "hidden",
+    "abilityId": 128,
+    "isHidden": true
+  },
+  {
+    "formId": 57,
+    "slot": "1",
+    "abilityId": 72,
+    "isHidden": false
+  },
+  {
+    "formId": 57,
+    "slot": "2",
+    "abilityId": 83,
+    "isHidden": false
+  },
+  {
+    "formId": 57,
+    "slot": "hidden",
+    "abilityId": 128,
+    "isHidden": true
+  },
+  {
+    "formId": 58,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 58,
+    "slot": "2",
+    "abilityId": 18,
+    "isHidden": false
+  },
+  {
+    "formId": 58,
+    "slot": "hidden",
+    "abilityId": 154,
+    "isHidden": true
+  },
+  {
+    "formId": 59,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 59,
+    "slot": "2",
+    "abilityId": 18,
+    "isHidden": false
+  },
+  {
+    "formId": 59,
+    "slot": "hidden",
+    "abilityId": 154,
+    "isHidden": true
+  },
+  {
+    "formId": 60,
+    "slot": "1",
+    "abilityId": 11,
+    "isHidden": false
+  },
+  {
+    "formId": 60,
+    "slot": "2",
+    "abilityId": 6,
+    "isHidden": false
+  },
+  {
+    "formId": 60,
+    "slot": "hidden",
+    "abilityId": 33,
+    "isHidden": true
+  },
+  {
+    "formId": 61,
+    "slot": "1",
+    "abilityId": 11,
+    "isHidden": false
+  },
+  {
+    "formId": 61,
+    "slot": "2",
+    "abilityId": 6,
+    "isHidden": false
+  },
+  {
+    "formId": 61,
+    "slot": "hidden",
+    "abilityId": 33,
+    "isHidden": true
+  },
+  {
+    "formId": 62,
+    "slot": "1",
+    "abilityId": 11,
+    "isHidden": false
+  },
+  {
+    "formId": 62,
+    "slot": "2",
+    "abilityId": 6,
+    "isHidden": false
+  },
+  {
+    "formId": 62,
+    "slot": "hidden",
+    "abilityId": 33,
+    "isHidden": true
+  },
+  {
+    "formId": 63,
+    "slot": "1",
+    "abilityId": 28,
+    "isHidden": false
+  },
+  {
+    "formId": 63,
+    "slot": "2",
+    "abilityId": 39,
+    "isHidden": false
+  },
+  {
+    "formId": 63,
+    "slot": "hidden",
+    "abilityId": 98,
+    "isHidden": true
+  },
+  {
+    "formId": 64,
+    "slot": "1",
+    "abilityId": 28,
+    "isHidden": false
+  },
+  {
+    "formId": 64,
+    "slot": "2",
+    "abilityId": 39,
+    "isHidden": false
+  },
+  {
+    "formId": 64,
+    "slot": "hidden",
+    "abilityId": 98,
+    "isHidden": true
+  },
+  {
+    "formId": 65,
+    "slot": "1",
+    "abilityId": 28,
+    "isHidden": false
+  },
+  {
+    "formId": 65,
+    "slot": "2",
+    "abilityId": 39,
+    "isHidden": false
+  },
+  {
+    "formId": 65,
+    "slot": "hidden",
+    "abilityId": 98,
+    "isHidden": true
+  },
+  {
+    "formId": 66,
+    "slot": "1",
+    "abilityId": 62,
+    "isHidden": false
+  },
+  {
+    "formId": 66,
+    "slot": "2",
+    "abilityId": 99,
+    "isHidden": false
+  },
+  {
+    "formId": 66,
+    "slot": "hidden",
+    "abilityId": 80,
+    "isHidden": true
+  },
+  {
+    "formId": 67,
+    "slot": "1",
+    "abilityId": 62,
+    "isHidden": false
+  },
+  {
+    "formId": 67,
+    "slot": "2",
+    "abilityId": 99,
+    "isHidden": false
+  },
+  {
+    "formId": 67,
+    "slot": "hidden",
+    "abilityId": 80,
+    "isHidden": true
+  },
+  {
+    "formId": 68,
+    "slot": "1",
+    "abilityId": 62,
+    "isHidden": false
+  },
+  {
+    "formId": 68,
+    "slot": "2",
+    "abilityId": 99,
+    "isHidden": false
+  },
+  {
+    "formId": 68,
+    "slot": "hidden",
+    "abilityId": 80,
+    "isHidden": true
+  },
+  {
+    "formId": 69,
+    "slot": "1",
+    "abilityId": 34,
+    "isHidden": false
+  },
+  {
+    "formId": 69,
+    "slot": "hidden",
+    "abilityId": 82,
+    "isHidden": true
+  },
+  {
+    "formId": 70,
+    "slot": "1",
+    "abilityId": 34,
+    "isHidden": false
+  },
+  {
+    "formId": 70,
+    "slot": "hidden",
+    "abilityId": 82,
+    "isHidden": true
+  },
+  {
+    "formId": 71,
+    "slot": "1",
+    "abilityId": 34,
+    "isHidden": false
+  },
+  {
+    "formId": 71,
+    "slot": "hidden",
+    "abilityId": 82,
+    "isHidden": true
+  },
+  {
+    "formId": 72,
+    "slot": "1",
+    "abilityId": 29,
+    "isHidden": false
+  },
+  {
+    "formId": 72,
+    "slot": "2",
+    "abilityId": 64,
+    "isHidden": false
+  },
+  {
+    "formId": 72,
+    "slot": "hidden",
+    "abilityId": 44,
+    "isHidden": true
+  },
+  {
+    "formId": 73,
+    "slot": "1",
+    "abilityId": 29,
+    "isHidden": false
+  },
+  {
+    "formId": 73,
+    "slot": "2",
+    "abilityId": 64,
+    "isHidden": false
+  },
+  {
+    "formId": 73,
+    "slot": "hidden",
+    "abilityId": 44,
+    "isHidden": true
+  },
+  {
+    "formId": 74,
+    "slot": "1",
+    "abilityId": 69,
+    "isHidden": false
+  },
+  {
+    "formId": 74,
+    "slot": "2",
+    "abilityId": 5,
+    "isHidden": false
+  },
+  {
+    "formId": 74,
+    "slot": "hidden",
+    "abilityId": 8,
+    "isHidden": true
+  },
+  {
+    "formId": 75,
+    "slot": "1",
+    "abilityId": 69,
+    "isHidden": false
+  },
+  {
+    "formId": 75,
+    "slot": "2",
+    "abilityId": 5,
+    "isHidden": false
+  },
+  {
+    "formId": 75,
+    "slot": "hidden",
+    "abilityId": 8,
+    "isHidden": true
+  },
+  {
+    "formId": 76,
+    "slot": "1",
+    "abilityId": 69,
+    "isHidden": false
+  },
+  {
+    "formId": 76,
+    "slot": "2",
+    "abilityId": 5,
+    "isHidden": false
+  },
+  {
+    "formId": 76,
+    "slot": "hidden",
+    "abilityId": 8,
+    "isHidden": true
+  },
+  {
+    "formId": 77,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 77,
+    "slot": "2",
+    "abilityId": 18,
+    "isHidden": false
+  },
+  {
+    "formId": 77,
+    "slot": "hidden",
+    "abilityId": 49,
+    "isHidden": true
+  },
+  {
+    "formId": 78,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 78,
+    "slot": "2",
+    "abilityId": 18,
+    "isHidden": false
+  },
+  {
+    "formId": 78,
+    "slot": "hidden",
+    "abilityId": 49,
+    "isHidden": true
+  },
+  {
+    "formId": 79,
+    "slot": "1",
+    "abilityId": 12,
+    "isHidden": false
+  },
+  {
+    "formId": 79,
+    "slot": "2",
+    "abilityId": 20,
+    "isHidden": false
+  },
+  {
+    "formId": 79,
+    "slot": "hidden",
+    "abilityId": 144,
+    "isHidden": true
+  },
+  {
+    "formId": 80,
+    "slot": "1",
+    "abilityId": 12,
+    "isHidden": false
+  },
+  {
+    "formId": 80,
+    "slot": "2",
+    "abilityId": 20,
+    "isHidden": false
+  },
+  {
+    "formId": 80,
+    "slot": "hidden",
+    "abilityId": 144,
+    "isHidden": true
+  },
+  {
+    "formId": 81,
+    "slot": "1",
+    "abilityId": 42,
+    "isHidden": false
+  },
+  {
+    "formId": 81,
+    "slot": "2",
+    "abilityId": 5,
+    "isHidden": false
+  },
+  {
+    "formId": 81,
+    "slot": "hidden",
+    "abilityId": 148,
+    "isHidden": true
+  },
+  {
+    "formId": 82,
+    "slot": "1",
+    "abilityId": 42,
+    "isHidden": false
+  },
+  {
+    "formId": 82,
+    "slot": "2",
+    "abilityId": 5,
+    "isHidden": false
+  },
+  {
+    "formId": 82,
+    "slot": "hidden",
+    "abilityId": 148,
+    "isHidden": true
+  },
+  {
+    "formId": 83,
+    "slot": "1",
+    "abilityId": 51,
+    "isHidden": false
+  },
+  {
+    "formId": 83,
+    "slot": "2",
+    "abilityId": 39,
+    "isHidden": false
+  },
+  {
+    "formId": 83,
+    "slot": "hidden",
+    "abilityId": 128,
+    "isHidden": true
+  },
+  {
+    "formId": 84,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 84,
+    "slot": "2",
+    "abilityId": 48,
+    "isHidden": false
+  },
+  {
+    "formId": 84,
+    "slot": "hidden",
+    "abilityId": 77,
+    "isHidden": true
+  },
+  {
+    "formId": 85,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 85,
+    "slot": "2",
+    "abilityId": 48,
+    "isHidden": false
+  },
+  {
+    "formId": 85,
+    "slot": "hidden",
+    "abilityId": 77,
+    "isHidden": true
+  },
+  {
+    "formId": 86,
+    "slot": "1",
+    "abilityId": 47,
+    "isHidden": false
+  },
+  {
+    "formId": 86,
+    "slot": "2",
+    "abilityId": 93,
+    "isHidden": false
+  },
+  {
+    "formId": 86,
+    "slot": "hidden",
+    "abilityId": 115,
+    "isHidden": true
+  },
+  {
+    "formId": 87,
+    "slot": "1",
+    "abilityId": 47,
+    "isHidden": false
+  },
+  {
+    "formId": 87,
+    "slot": "2",
+    "abilityId": 93,
+    "isHidden": false
+  },
+  {
+    "formId": 87,
+    "slot": "hidden",
+    "abilityId": 115,
+    "isHidden": true
+  },
+  {
+    "formId": 88,
+    "slot": "1",
+    "abilityId": 1,
+    "isHidden": false
+  },
+  {
+    "formId": 88,
+    "slot": "2",
+    "abilityId": 60,
+    "isHidden": false
+  },
+  {
+    "formId": 88,
+    "slot": "hidden",
+    "abilityId": 143,
+    "isHidden": true
+  },
+  {
+    "formId": 89,
+    "slot": "1",
+    "abilityId": 1,
+    "isHidden": false
+  },
+  {
+    "formId": 89,
+    "slot": "2",
+    "abilityId": 60,
+    "isHidden": false
+  },
+  {
+    "formId": 89,
+    "slot": "hidden",
+    "abilityId": 143,
+    "isHidden": true
+  },
+  {
+    "formId": 90,
+    "slot": "1",
+    "abilityId": 75,
+    "isHidden": false
+  },
+  {
+    "formId": 90,
+    "slot": "2",
+    "abilityId": 92,
+    "isHidden": false
+  },
+  {
+    "formId": 90,
+    "slot": "hidden",
+    "abilityId": 142,
+    "isHidden": true
+  },
+  {
+    "formId": 91,
+    "slot": "1",
+    "abilityId": 75,
+    "isHidden": false
+  },
+  {
+    "formId": 91,
+    "slot": "2",
+    "abilityId": 92,
+    "isHidden": false
+  },
+  {
+    "formId": 91,
+    "slot": "hidden",
+    "abilityId": 142,
+    "isHidden": true
+  },
+  {
+    "formId": 92,
+    "slot": "1",
+    "abilityId": 26,
+    "isHidden": false
+  },
+  {
+    "formId": 93,
+    "slot": "1",
+    "abilityId": 26,
+    "isHidden": false
+  },
+  {
+    "formId": 94,
+    "slot": "1",
+    "abilityId": 130,
+    "isHidden": false
+  },
+  {
+    "formId": 95,
+    "slot": "1",
+    "abilityId": 69,
+    "isHidden": false
+  },
+  {
+    "formId": 95,
+    "slot": "2",
+    "abilityId": 5,
+    "isHidden": false
+  },
+  {
+    "formId": 95,
+    "slot": "hidden",
+    "abilityId": 133,
+    "isHidden": true
+  },
+  {
+    "formId": 96,
+    "slot": "1",
+    "abilityId": 15,
+    "isHidden": false
+  },
+  {
+    "formId": 96,
+    "slot": "2",
+    "abilityId": 108,
+    "isHidden": false
+  },
+  {
+    "formId": 96,
+    "slot": "hidden",
+    "abilityId": 39,
+    "isHidden": true
+  },
+  {
+    "formId": 97,
+    "slot": "1",
+    "abilityId": 15,
+    "isHidden": false
+  },
+  {
+    "formId": 97,
+    "slot": "2",
+    "abilityId": 108,
+    "isHidden": false
+  },
+  {
+    "formId": 97,
+    "slot": "hidden",
+    "abilityId": 39,
+    "isHidden": true
+  },
+  {
+    "formId": 98,
+    "slot": "1",
+    "abilityId": 52,
+    "isHidden": false
+  },
+  {
+    "formId": 98,
+    "slot": "2",
+    "abilityId": 75,
+    "isHidden": false
+  },
+  {
+    "formId": 98,
+    "slot": "hidden",
+    "abilityId": 125,
+    "isHidden": true
+  },
+  {
+    "formId": 99,
+    "slot": "1",
+    "abilityId": 52,
+    "isHidden": false
+  },
+  {
+    "formId": 99,
+    "slot": "2",
+    "abilityId": 75,
+    "isHidden": false
+  },
+  {
+    "formId": 99,
+    "slot": "hidden",
+    "abilityId": 125,
+    "isHidden": true
+  },
+  {
+    "formId": 100,
+    "slot": "1",
+    "abilityId": 43,
+    "isHidden": false
+  },
+  {
+    "formId": 100,
+    "slot": "2",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 100,
+    "slot": "hidden",
+    "abilityId": 106,
+    "isHidden": true
+  },
+  {
+    "formId": 101,
+    "slot": "1",
+    "abilityId": 43,
+    "isHidden": false
+  },
+  {
+    "formId": 101,
+    "slot": "2",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 101,
+    "slot": "hidden",
+    "abilityId": 106,
+    "isHidden": true
+  },
+  {
+    "formId": 102,
+    "slot": "1",
+    "abilityId": 34,
+    "isHidden": false
+  },
+  {
+    "formId": 102,
+    "slot": "hidden",
+    "abilityId": 139,
+    "isHidden": true
+  },
+  {
+    "formId": 103,
+    "slot": "1",
+    "abilityId": 34,
+    "isHidden": false
+  },
+  {
+    "formId": 103,
+    "slot": "hidden",
+    "abilityId": 139,
+    "isHidden": true
+  },
+  {
+    "formId": 104,
+    "slot": "1",
+    "abilityId": 69,
+    "isHidden": false
+  },
+  {
+    "formId": 104,
+    "slot": "2",
+    "abilityId": 31,
+    "isHidden": false
+  },
+  {
+    "formId": 104,
+    "slot": "hidden",
+    "abilityId": 4,
+    "isHidden": true
+  },
+  {
+    "formId": 105,
+    "slot": "1",
+    "abilityId": 69,
+    "isHidden": false
+  },
+  {
+    "formId": 105,
+    "slot": "2",
+    "abilityId": 31,
+    "isHidden": false
+  },
+  {
+    "formId": 105,
+    "slot": "hidden",
+    "abilityId": 4,
+    "isHidden": true
+  },
+  {
+    "formId": 106,
+    "slot": "1",
+    "abilityId": 7,
+    "isHidden": false
+  },
+  {
+    "formId": 106,
+    "slot": "2",
+    "abilityId": 120,
+    "isHidden": false
+  },
+  {
+    "formId": 106,
+    "slot": "hidden",
+    "abilityId": 84,
+    "isHidden": true
+  },
+  {
+    "formId": 107,
+    "slot": "1",
+    "abilityId": 51,
+    "isHidden": false
+  },
+  {
+    "formId": 107,
+    "slot": "2",
+    "abilityId": 89,
+    "isHidden": false
+  },
+  {
+    "formId": 107,
+    "slot": "hidden",
+    "abilityId": 39,
+    "isHidden": true
+  },
+  {
+    "formId": 108,
+    "slot": "1",
+    "abilityId": 20,
+    "isHidden": false
+  },
+  {
+    "formId": 108,
+    "slot": "2",
+    "abilityId": 12,
+    "isHidden": false
+  },
+  {
+    "formId": 108,
+    "slot": "hidden",
+    "abilityId": 13,
+    "isHidden": true
+  },
+  {
+    "formId": 109,
+    "slot": "1",
+    "abilityId": 26,
+    "isHidden": false
+  },
+  {
+    "formId": 109,
+    "slot": "2",
+    "abilityId": 256,
+    "isHidden": false
+  },
+  {
+    "formId": 109,
+    "slot": "hidden",
+    "abilityId": 1,
+    "isHidden": true
+  },
+  {
+    "formId": 110,
+    "slot": "1",
+    "abilityId": 26,
+    "isHidden": false
+  },
+  {
+    "formId": 110,
+    "slot": "2",
+    "abilityId": 256,
+    "isHidden": false
+  },
+  {
+    "formId": 110,
+    "slot": "hidden",
+    "abilityId": 1,
+    "isHidden": true
+  },
+  {
+    "formId": 111,
+    "slot": "1",
+    "abilityId": 31,
+    "isHidden": false
+  },
+  {
+    "formId": 111,
+    "slot": "2",
+    "abilityId": 69,
+    "isHidden": false
+  },
+  {
+    "formId": 111,
+    "slot": "hidden",
+    "abilityId": 120,
+    "isHidden": true
+  },
+  {
+    "formId": 112,
+    "slot": "1",
+    "abilityId": 31,
+    "isHidden": false
+  },
+  {
+    "formId": 112,
+    "slot": "2",
+    "abilityId": 69,
+    "isHidden": false
+  },
+  {
+    "formId": 112,
+    "slot": "hidden",
+    "abilityId": 120,
+    "isHidden": true
+  },
+  {
+    "formId": 113,
+    "slot": "1",
+    "abilityId": 30,
+    "isHidden": false
+  },
+  {
+    "formId": 113,
+    "slot": "2",
+    "abilityId": 32,
+    "isHidden": false
+  },
+  {
+    "formId": 113,
+    "slot": "hidden",
+    "abilityId": 131,
+    "isHidden": true
+  },
+  {
+    "formId": 114,
+    "slot": "1",
+    "abilityId": 34,
+    "isHidden": false
+  },
+  {
+    "formId": 114,
+    "slot": "2",
+    "abilityId": 102,
+    "isHidden": false
+  },
+  {
+    "formId": 114,
+    "slot": "hidden",
+    "abilityId": 144,
+    "isHidden": true
+  },
+  {
+    "formId": 115,
+    "slot": "1",
+    "abilityId": 48,
+    "isHidden": false
+  },
+  {
+    "formId": 115,
+    "slot": "2",
+    "abilityId": 113,
+    "isHidden": false
+  },
+  {
+    "formId": 115,
+    "slot": "hidden",
+    "abilityId": 39,
+    "isHidden": true
+  },
+  {
+    "formId": 116,
+    "slot": "1",
+    "abilityId": 33,
+    "isHidden": false
+  },
+  {
+    "formId": 116,
+    "slot": "2",
+    "abilityId": 97,
+    "isHidden": false
+  },
+  {
+    "formId": 116,
+    "slot": "hidden",
+    "abilityId": 6,
+    "isHidden": true
+  },
+  {
+    "formId": 117,
+    "slot": "1",
+    "abilityId": 38,
+    "isHidden": false
+  },
+  {
+    "formId": 117,
+    "slot": "2",
+    "abilityId": 97,
+    "isHidden": false
+  },
+  {
+    "formId": 117,
+    "slot": "hidden",
+    "abilityId": 6,
+    "isHidden": true
+  },
+  {
+    "formId": 118,
+    "slot": "1",
+    "abilityId": 33,
+    "isHidden": false
+  },
+  {
+    "formId": 118,
+    "slot": "2",
+    "abilityId": 41,
+    "isHidden": false
+  },
+  {
+    "formId": 118,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 119,
+    "slot": "1",
+    "abilityId": 33,
+    "isHidden": false
+  },
+  {
+    "formId": 119,
+    "slot": "2",
+    "abilityId": 41,
+    "isHidden": false
+  },
+  {
+    "formId": 119,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 120,
+    "slot": "1",
+    "abilityId": 35,
+    "isHidden": false
+  },
+  {
+    "formId": 120,
+    "slot": "2",
+    "abilityId": 30,
+    "isHidden": false
+  },
+  {
+    "formId": 120,
+    "slot": "hidden",
+    "abilityId": 148,
+    "isHidden": true
+  },
+  {
+    "formId": 121,
+    "slot": "1",
+    "abilityId": 35,
+    "isHidden": false
+  },
+  {
+    "formId": 121,
+    "slot": "2",
+    "abilityId": 30,
+    "isHidden": false
+  },
+  {
+    "formId": 121,
+    "slot": "hidden",
+    "abilityId": 148,
+    "isHidden": true
+  },
+  {
+    "formId": 122,
+    "slot": "1",
+    "abilityId": 43,
+    "isHidden": false
+  },
+  {
+    "formId": 122,
+    "slot": "2",
+    "abilityId": 111,
+    "isHidden": false
+  },
+  {
+    "formId": 122,
+    "slot": "hidden",
+    "abilityId": 101,
+    "isHidden": true
+  },
+  {
+    "formId": 123,
+    "slot": "1",
+    "abilityId": 68,
+    "isHidden": false
+  },
+  {
+    "formId": 123,
+    "slot": "2",
+    "abilityId": 101,
+    "isHidden": false
+  },
+  {
+    "formId": 123,
+    "slot": "hidden",
+    "abilityId": 80,
+    "isHidden": true
+  },
+  {
+    "formId": 124,
+    "slot": "1",
+    "abilityId": 12,
+    "isHidden": false
+  },
+  {
+    "formId": 124,
+    "slot": "2",
+    "abilityId": 108,
+    "isHidden": false
+  },
+  {
+    "formId": 124,
+    "slot": "hidden",
+    "abilityId": 87,
+    "isHidden": true
+  },
+  {
+    "formId": 125,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 125,
+    "slot": "hidden",
+    "abilityId": 72,
+    "isHidden": true
+  },
+  {
+    "formId": 126,
+    "slot": "1",
+    "abilityId": 49,
+    "isHidden": false
+  },
+  {
+    "formId": 126,
+    "slot": "hidden",
+    "abilityId": 72,
+    "isHidden": true
+  },
+  {
+    "formId": 127,
+    "slot": "1",
+    "abilityId": 52,
+    "isHidden": false
+  },
+  {
+    "formId": 127,
+    "slot": "2",
+    "abilityId": 104,
+    "isHidden": false
+  },
+  {
+    "formId": 127,
+    "slot": "hidden",
+    "abilityId": 153,
+    "isHidden": true
+  },
+  {
+    "formId": 128,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 128,
+    "slot": "2",
+    "abilityId": 83,
+    "isHidden": false
+  },
+  {
+    "formId": 128,
+    "slot": "hidden",
+    "abilityId": 125,
+    "isHidden": true
+  },
+  {
+    "formId": 129,
+    "slot": "1",
+    "abilityId": 33,
+    "isHidden": false
+  },
+  {
+    "formId": 129,
+    "slot": "hidden",
+    "abilityId": 155,
+    "isHidden": true
+  },
+  {
+    "formId": 130,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 130,
+    "slot": "hidden",
+    "abilityId": 153,
+    "isHidden": true
+  },
+  {
+    "formId": 131,
+    "slot": "1",
+    "abilityId": 11,
+    "isHidden": false
+  },
+  {
+    "formId": 131,
+    "slot": "2",
+    "abilityId": 75,
+    "isHidden": false
+  },
+  {
+    "formId": 131,
+    "slot": "hidden",
+    "abilityId": 93,
+    "isHidden": true
+  },
+  {
+    "formId": 132,
+    "slot": "1",
+    "abilityId": 7,
+    "isHidden": false
+  },
+  {
+    "formId": 132,
+    "slot": "hidden",
+    "abilityId": 150,
+    "isHidden": true
+  },
+  {
+    "formId": 133,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 133,
+    "slot": "2",
+    "abilityId": 91,
+    "isHidden": false
+  },
+  {
+    "formId": 133,
+    "slot": "hidden",
+    "abilityId": 107,
+    "isHidden": true
+  },
+  {
+    "formId": 134,
+    "slot": "1",
+    "abilityId": 11,
+    "isHidden": false
+  },
+  {
+    "formId": 134,
+    "slot": "hidden",
+    "abilityId": 93,
+    "isHidden": true
+  },
+  {
+    "formId": 135,
+    "slot": "1",
+    "abilityId": 10,
+    "isHidden": false
+  },
+  {
+    "formId": 135,
+    "slot": "hidden",
+    "abilityId": 95,
+    "isHidden": true
+  },
+  {
+    "formId": 136,
+    "slot": "1",
+    "abilityId": 18,
+    "isHidden": false
+  },
+  {
+    "formId": 136,
+    "slot": "hidden",
+    "abilityId": 62,
+    "isHidden": true
+  },
+  {
+    "formId": 137,
+    "slot": "1",
+    "abilityId": 36,
+    "isHidden": false
+  },
+  {
+    "formId": 137,
+    "slot": "2",
+    "abilityId": 88,
+    "isHidden": false
+  },
+  {
+    "formId": 137,
+    "slot": "hidden",
+    "abilityId": 148,
+    "isHidden": true
+  },
+  {
+    "formId": 138,
+    "slot": "1",
+    "abilityId": 33,
+    "isHidden": false
+  },
+  {
+    "formId": 138,
+    "slot": "2",
+    "abilityId": 75,
+    "isHidden": false
+  },
+  {
+    "formId": 138,
+    "slot": "hidden",
+    "abilityId": 133,
+    "isHidden": true
+  },
+  {
+    "formId": 139,
+    "slot": "1",
+    "abilityId": 33,
+    "isHidden": false
+  },
+  {
+    "formId": 139,
+    "slot": "2",
+    "abilityId": 75,
+    "isHidden": false
+  },
+  {
+    "formId": 139,
+    "slot": "hidden",
+    "abilityId": 133,
+    "isHidden": true
+  },
+  {
+    "formId": 140,
+    "slot": "1",
+    "abilityId": 33,
+    "isHidden": false
+  },
+  {
+    "formId": 140,
+    "slot": "2",
+    "abilityId": 4,
+    "isHidden": false
+  },
+  {
+    "formId": 140,
+    "slot": "hidden",
+    "abilityId": 133,
+    "isHidden": true
+  },
+  {
+    "formId": 141,
+    "slot": "1",
+    "abilityId": 33,
+    "isHidden": false
+  },
+  {
+    "formId": 141,
+    "slot": "2",
+    "abilityId": 4,
+    "isHidden": false
+  },
+  {
+    "formId": 141,
+    "slot": "hidden",
+    "abilityId": 133,
+    "isHidden": true
+  },
+  {
+    "formId": 142,
+    "slot": "1",
+    "abilityId": 69,
+    "isHidden": false
+  },
+  {
+    "formId": 142,
+    "slot": "2",
+    "abilityId": 46,
+    "isHidden": false
+  },
+  {
+    "formId": 142,
+    "slot": "hidden",
+    "abilityId": 127,
+    "isHidden": true
+  },
+  {
+    "formId": 143,
+    "slot": "1",
+    "abilityId": 17,
+    "isHidden": false
+  },
+  {
+    "formId": 143,
+    "slot": "2",
+    "abilityId": 47,
+    "isHidden": false
+  },
+  {
+    "formId": 143,
+    "slot": "hidden",
+    "abilityId": 82,
+    "isHidden": true
+  },
+  {
+    "formId": 144,
+    "slot": "1",
+    "abilityId": 46,
+    "isHidden": false
+  },
+  {
+    "formId": 144,
+    "slot": "hidden",
+    "abilityId": 81,
+    "isHidden": true
+  },
+  {
+    "formId": 145,
+    "slot": "1",
+    "abilityId": 46,
+    "isHidden": false
+  },
+  {
+    "formId": 145,
+    "slot": "hidden",
+    "abilityId": 9,
+    "isHidden": true
+  },
+  {
+    "formId": 146,
+    "slot": "1",
+    "abilityId": 46,
+    "isHidden": false
+  },
+  {
+    "formId": 146,
+    "slot": "hidden",
+    "abilityId": 49,
+    "isHidden": true
+  },
+  {
+    "formId": 147,
+    "slot": "1",
+    "abilityId": 61,
+    "isHidden": false
+  },
+  {
+    "formId": 147,
+    "slot": "hidden",
+    "abilityId": 63,
+    "isHidden": true
+  },
+  {
+    "formId": 148,
+    "slot": "1",
+    "abilityId": 61,
+    "isHidden": false
+  },
+  {
+    "formId": 148,
+    "slot": "hidden",
+    "abilityId": 63,
+    "isHidden": true
+  },
+  {
+    "formId": 149,
+    "slot": "1",
+    "abilityId": 39,
+    "isHidden": false
+  },
+  {
+    "formId": 149,
+    "slot": "hidden",
+    "abilityId": 136,
+    "isHidden": true
+  },
+  {
+    "formId": 150,
+    "slot": "1",
+    "abilityId": 46,
+    "isHidden": false
+  },
+  {
+    "formId": 150,
+    "slot": "hidden",
+    "abilityId": 127,
+    "isHidden": true
+  },
+  {
+    "formId": 151,
+    "slot": "1",
+    "abilityId": 28,
+    "isHidden": false
+  },
+  {
+    "formId": 10033,
+    "slot": "1",
+    "abilityId": 47,
+    "isHidden": false
+  },
+  {
+    "formId": 10034,
+    "slot": "1",
+    "abilityId": 181,
+    "isHidden": false
+  },
+  {
+    "formId": 10035,
+    "slot": "1",
+    "abilityId": 70,
+    "isHidden": false
+  },
+  {
+    "formId": 10036,
+    "slot": "1",
+    "abilityId": 178,
+    "isHidden": false
+  },
+  {
+    "formId": 10037,
+    "slot": "1",
+    "abilityId": 36,
+    "isHidden": false
+  },
+  {
+    "formId": 10038,
+    "slot": "1",
+    "abilityId": 23,
+    "isHidden": false
+  },
+  {
+    "formId": 10039,
+    "slot": "1",
+    "abilityId": 185,
+    "isHidden": false
+  },
+  {
+    "formId": 10040,
+    "slot": "1",
+    "abilityId": 184,
+    "isHidden": false
+  },
+  {
+    "formId": 10041,
+    "slot": "1",
+    "abilityId": 104,
+    "isHidden": false
+  },
+  {
+    "formId": 10042,
+    "slot": "1",
+    "abilityId": 181,
+    "isHidden": false
+  },
+  {
+    "formId": 10043,
+    "slot": "1",
+    "abilityId": 80,
+    "isHidden": false
+  },
+  {
+    "formId": 10044,
+    "slot": "1",
+    "abilityId": 15,
+    "isHidden": false
+  },
+  {
+    "formId": 10071,
+    "slot": "1",
+    "abilityId": 75,
+    "isHidden": false
+  },
+  {
+    "formId": 10073,
+    "slot": "1",
+    "abilityId": 99,
+    "isHidden": false
+  },
+  {
+    "formId": 10080,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10080,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10081,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10081,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10082,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10082,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10083,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10083,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10084,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10084,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10085,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10085,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10090,
+    "slot": "1",
+    "abilityId": 91,
+    "isHidden": false
+  },
+  {
+    "formId": 10091,
+    "slot": "1",
+    "abilityId": 82,
+    "isHidden": false
+  },
+  {
+    "formId": 10091,
+    "slot": "2",
+    "abilityId": 55,
+    "isHidden": false
+  },
+  {
+    "formId": 10091,
+    "slot": "hidden",
+    "abilityId": 47,
+    "isHidden": true
+  },
+  {
+    "formId": 10092,
+    "slot": "1",
+    "abilityId": 82,
+    "isHidden": false
+  },
+  {
+    "formId": 10092,
+    "slot": "2",
+    "abilityId": 55,
+    "isHidden": false
+  },
+  {
+    "formId": 10092,
+    "slot": "hidden",
+    "abilityId": 47,
+    "isHidden": true
+  },
+  {
+    "formId": 10093,
+    "slot": "1",
+    "abilityId": 82,
+    "isHidden": false
+  },
+  {
+    "formId": 10093,
+    "slot": "2",
+    "abilityId": 55,
+    "isHidden": false
+  },
+  {
+    "formId": 10093,
+    "slot": "hidden",
+    "abilityId": 47,
+    "isHidden": true
+  },
+  {
+    "formId": 10094,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10094,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10095,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10095,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10096,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10096,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10097,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10097,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10098,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10098,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10099,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10099,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10100,
+    "slot": "1",
+    "abilityId": 207,
+    "isHidden": false
+  },
+  {
+    "formId": 10101,
+    "slot": "1",
+    "abilityId": 81,
+    "isHidden": false
+  },
+  {
+    "formId": 10101,
+    "slot": "hidden",
+    "abilityId": 202,
+    "isHidden": true
+  },
+  {
+    "formId": 10102,
+    "slot": "1",
+    "abilityId": 81,
+    "isHidden": false
+  },
+  {
+    "formId": 10102,
+    "slot": "hidden",
+    "abilityId": 202,
+    "isHidden": true
+  },
+  {
+    "formId": 10103,
+    "slot": "1",
+    "abilityId": 81,
+    "isHidden": false
+  },
+  {
+    "formId": 10103,
+    "slot": "hidden",
+    "abilityId": 117,
+    "isHidden": true
+  },
+  {
+    "formId": 10104,
+    "slot": "1",
+    "abilityId": 81,
+    "isHidden": false
+  },
+  {
+    "formId": 10104,
+    "slot": "hidden",
+    "abilityId": 117,
+    "isHidden": true
+  },
+  {
+    "formId": 10105,
+    "slot": "1",
+    "abilityId": 8,
+    "isHidden": false
+  },
+  {
+    "formId": 10105,
+    "slot": "2",
+    "abilityId": 221,
+    "isHidden": false
+  },
+  {
+    "formId": 10105,
+    "slot": "hidden",
+    "abilityId": 159,
+    "isHidden": true
+  },
+  {
+    "formId": 10106,
+    "slot": "1",
+    "abilityId": 8,
+    "isHidden": false
+  },
+  {
+    "formId": 10106,
+    "slot": "2",
+    "abilityId": 221,
+    "isHidden": false
+  },
+  {
+    "formId": 10106,
+    "slot": "hidden",
+    "abilityId": 159,
+    "isHidden": true
+  },
+  {
+    "formId": 10107,
+    "slot": "1",
+    "abilityId": 53,
+    "isHidden": false
+  },
+  {
+    "formId": 10107,
+    "slot": "2",
+    "abilityId": 101,
+    "isHidden": false
+  },
+  {
+    "formId": 10107,
+    "slot": "hidden",
+    "abilityId": 155,
+    "isHidden": true
+  },
+  {
+    "formId": 10108,
+    "slot": "1",
+    "abilityId": 169,
+    "isHidden": false
+  },
+  {
+    "formId": 10108,
+    "slot": "2",
+    "abilityId": 101,
+    "isHidden": false
+  },
+  {
+    "formId": 10108,
+    "slot": "hidden",
+    "abilityId": 155,
+    "isHidden": true
+  },
+  {
+    "formId": 10109,
+    "slot": "1",
+    "abilityId": 42,
+    "isHidden": false
+  },
+  {
+    "formId": 10109,
+    "slot": "2",
+    "abilityId": 5,
+    "isHidden": false
+  },
+  {
+    "formId": 10109,
+    "slot": "hidden",
+    "abilityId": 206,
+    "isHidden": true
+  },
+  {
+    "formId": 10110,
+    "slot": "1",
+    "abilityId": 42,
+    "isHidden": false
+  },
+  {
+    "formId": 10110,
+    "slot": "2",
+    "abilityId": 5,
+    "isHidden": false
+  },
+  {
+    "formId": 10110,
+    "slot": "hidden",
+    "abilityId": 206,
+    "isHidden": true
+  },
+  {
+    "formId": 10111,
+    "slot": "1",
+    "abilityId": 42,
+    "isHidden": false
+  },
+  {
+    "formId": 10111,
+    "slot": "2",
+    "abilityId": 5,
+    "isHidden": false
+  },
+  {
+    "formId": 10111,
+    "slot": "hidden",
+    "abilityId": 206,
+    "isHidden": true
+  },
+  {
+    "formId": 10112,
+    "slot": "1",
+    "abilityId": 143,
+    "isHidden": false
+  },
+  {
+    "formId": 10112,
+    "slot": "2",
+    "abilityId": 82,
+    "isHidden": false
+  },
+  {
+    "formId": 10112,
+    "slot": "hidden",
+    "abilityId": 223,
+    "isHidden": true
+  },
+  {
+    "formId": 10113,
+    "slot": "1",
+    "abilityId": 143,
+    "isHidden": false
+  },
+  {
+    "formId": 10113,
+    "slot": "2",
+    "abilityId": 82,
+    "isHidden": false
+  },
+  {
+    "formId": 10113,
+    "slot": "hidden",
+    "abilityId": 223,
+    "isHidden": true
+  },
+  {
+    "formId": 10114,
+    "slot": "1",
+    "abilityId": 119,
+    "isHidden": false
+  },
+  {
+    "formId": 10114,
+    "slot": "hidden",
+    "abilityId": 139,
+    "isHidden": true
+  },
+  {
+    "formId": 10115,
+    "slot": "1",
+    "abilityId": 130,
+    "isHidden": false
+  },
+  {
+    "formId": 10115,
+    "slot": "2",
+    "abilityId": 31,
+    "isHidden": false
+  },
+  {
+    "formId": 10115,
+    "slot": "hidden",
+    "abilityId": 69,
+    "isHidden": true
+  },
+  {
+    "formId": 10148,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10148,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10149,
+    "slot": "1",
+    "abilityId": 130,
+    "isHidden": false
+  },
+  {
+    "formId": 10149,
+    "slot": "2",
+    "abilityId": 31,
+    "isHidden": false
+  },
+  {
+    "formId": 10149,
+    "slot": "hidden",
+    "abilityId": 69,
+    "isHidden": true
+  },
+  {
+    "formId": 10158,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10158,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10159,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 10159,
+    "slot": "2",
+    "abilityId": 91,
+    "isHidden": false
+  },
+  {
+    "formId": 10159,
+    "slot": "hidden",
+    "abilityId": 107,
+    "isHidden": true
+  },
+  {
+    "formId": 10160,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10160,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10161,
+    "slot": "1",
+    "abilityId": 53,
+    "isHidden": false
+  },
+  {
+    "formId": 10161,
+    "slot": "2",
+    "abilityId": 181,
+    "isHidden": false
+  },
+  {
+    "formId": 10161,
+    "slot": "hidden",
+    "abilityId": 127,
+    "isHidden": true
+  },
+  {
+    "formId": 10162,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 10162,
+    "slot": "2",
+    "abilityId": 257,
+    "isHidden": false
+  },
+  {
+    "formId": 10162,
+    "slot": "hidden",
+    "abilityId": 107,
+    "isHidden": true
+  },
+  {
+    "formId": 10163,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 10163,
+    "slot": "2",
+    "abilityId": 257,
+    "isHidden": false
+  },
+  {
+    "formId": 10163,
+    "slot": "hidden",
+    "abilityId": 107,
+    "isHidden": true
+  },
+  {
+    "formId": 10164,
+    "slot": "1",
+    "abilityId": 82,
+    "isHidden": false
+  },
+  {
+    "formId": 10164,
+    "slot": "2",
+    "abilityId": 20,
+    "isHidden": false
+  },
+  {
+    "formId": 10164,
+    "slot": "hidden",
+    "abilityId": 144,
+    "isHidden": true
+  },
+  {
+    "formId": 10165,
+    "slot": "1",
+    "abilityId": 259,
+    "isHidden": false
+  },
+  {
+    "formId": 10165,
+    "slot": "2",
+    "abilityId": 20,
+    "isHidden": false
+  },
+  {
+    "formId": 10165,
+    "slot": "hidden",
+    "abilityId": 144,
+    "isHidden": true
+  },
+  {
+    "formId": 10166,
+    "slot": "1",
+    "abilityId": 80,
+    "isHidden": false
+  },
+  {
+    "formId": 10166,
+    "slot": "hidden",
+    "abilityId": 113,
+    "isHidden": true
+  },
+  {
+    "formId": 10167,
+    "slot": "1",
+    "abilityId": 26,
+    "isHidden": false
+  },
+  {
+    "formId": 10167,
+    "slot": "2",
+    "abilityId": 256,
+    "isHidden": false
+  },
+  {
+    "formId": 10167,
+    "slot": "hidden",
+    "abilityId": 228,
+    "isHidden": true
+  },
+  {
+    "formId": 10168,
+    "slot": "1",
+    "abilityId": 72,
+    "isHidden": false
+  },
+  {
+    "formId": 10168,
+    "slot": "2",
+    "abilityId": 251,
+    "isHidden": false
+  },
+  {
+    "formId": 10168,
+    "slot": "hidden",
+    "abilityId": 115,
+    "isHidden": true
+  },
+  {
+    "formId": 10169,
+    "slot": "1",
+    "abilityId": 172,
+    "isHidden": false
+  },
+  {
+    "formId": 10170,
+    "slot": "1",
+    "abilityId": 128,
+    "isHidden": false
+  },
+  {
+    "formId": 10171,
+    "slot": "1",
+    "abilityId": 201,
+    "isHidden": false
+  },
+  {
+    "formId": 10195,
+    "slot": "1",
+    "abilityId": 65,
+    "isHidden": false
+  },
+  {
+    "formId": 10195,
+    "slot": "hidden",
+    "abilityId": 34,
+    "isHidden": true
+  },
+  {
+    "formId": 10196,
+    "slot": "1",
+    "abilityId": 66,
+    "isHidden": false
+  },
+  {
+    "formId": 10196,
+    "slot": "hidden",
+    "abilityId": 94,
+    "isHidden": true
+  },
+  {
+    "formId": 10197,
+    "slot": "1",
+    "abilityId": 67,
+    "isHidden": false
+  },
+  {
+    "formId": 10197,
+    "slot": "hidden",
+    "abilityId": 44,
+    "isHidden": true
+  },
+  {
+    "formId": 10198,
+    "slot": "1",
+    "abilityId": 14,
+    "isHidden": false
+  },
+  {
+    "formId": 10198,
+    "slot": "hidden",
+    "abilityId": 110,
+    "isHidden": true
+  },
+  {
+    "formId": 10199,
+    "slot": "1",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10199,
+    "slot": "hidden",
+    "abilityId": 31,
+    "isHidden": true
+  },
+  {
+    "formId": 10200,
+    "slot": "1",
+    "abilityId": 53,
+    "isHidden": false
+  },
+  {
+    "formId": 10200,
+    "slot": "2",
+    "abilityId": 101,
+    "isHidden": false
+  },
+  {
+    "formId": 10200,
+    "slot": "hidden",
+    "abilityId": 127,
+    "isHidden": true
+  },
+  {
+    "formId": 10201,
+    "slot": "1",
+    "abilityId": 62,
+    "isHidden": false
+  },
+  {
+    "formId": 10201,
+    "slot": "2",
+    "abilityId": 99,
+    "isHidden": false
+  },
+  {
+    "formId": 10201,
+    "slot": "hidden",
+    "abilityId": 80,
+    "isHidden": true
+  },
+  {
+    "formId": 10202,
+    "slot": "1",
+    "abilityId": 130,
+    "isHidden": false
+  },
+  {
+    "formId": 10203,
+    "slot": "1",
+    "abilityId": 52,
+    "isHidden": false
+  },
+  {
+    "formId": 10203,
+    "slot": "2",
+    "abilityId": 75,
+    "isHidden": false
+  },
+  {
+    "formId": 10203,
+    "slot": "hidden",
+    "abilityId": 125,
+    "isHidden": true
+  },
+  {
+    "formId": 10204,
+    "slot": "1",
+    "abilityId": 11,
+    "isHidden": false
+  },
+  {
+    "formId": 10204,
+    "slot": "2",
+    "abilityId": 75,
+    "isHidden": false
+  },
+  {
+    "formId": 10204,
+    "slot": "hidden",
+    "abilityId": 93,
+    "isHidden": true
+  },
+  {
+    "formId": 10205,
+    "slot": "1",
+    "abilityId": 50,
+    "isHidden": false
+  },
+  {
+    "formId": 10205,
+    "slot": "2",
+    "abilityId": 91,
+    "isHidden": false
+  },
+  {
+    "formId": 10205,
+    "slot": "hidden",
+    "abilityId": 107,
+    "isHidden": true
+  },
+  {
+    "formId": 10206,
+    "slot": "1",
+    "abilityId": 17,
+    "isHidden": false
+  },
+  {
+    "formId": 10206,
+    "slot": "2",
+    "abilityId": 47,
+    "isHidden": false
+  },
+  {
+    "formId": 10206,
+    "slot": "hidden",
+    "abilityId": 82,
+    "isHidden": true
+  },
+  {
+    "formId": 10229,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 10229,
+    "slot": "2",
+    "abilityId": 18,
+    "isHidden": false
+  },
+  {
+    "formId": 10229,
+    "slot": "hidden",
+    "abilityId": 69,
+    "isHidden": true
+  },
+  {
+    "formId": 10230,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 10230,
+    "slot": "2",
+    "abilityId": 18,
+    "isHidden": false
+  },
+  {
+    "formId": 10230,
+    "slot": "hidden",
+    "abilityId": 69,
+    "isHidden": true
+  },
+  {
+    "formId": 10231,
+    "slot": "1",
+    "abilityId": 43,
+    "isHidden": false
+  },
+  {
+    "formId": 10231,
+    "slot": "2",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10231,
+    "slot": "hidden",
+    "abilityId": 106,
+    "isHidden": true
+  },
+  {
+    "formId": 10232,
+    "slot": "1",
+    "abilityId": 43,
+    "isHidden": false
+  },
+  {
+    "formId": 10232,
+    "slot": "2",
+    "abilityId": 9,
+    "isHidden": false
+  },
+  {
+    "formId": 10232,
+    "slot": "hidden",
+    "abilityId": 106,
+    "isHidden": true
+  },
+  {
+    "formId": 10250,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 10250,
+    "slot": "2",
+    "abilityId": 83,
+    "isHidden": false
+  },
+  {
+    "formId": 10250,
+    "slot": "hidden",
+    "abilityId": 291,
+    "isHidden": true
+  },
+  {
+    "formId": 10251,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 10251,
+    "slot": "2",
+    "abilityId": 83,
+    "isHidden": false
+  },
+  {
+    "formId": 10251,
+    "slot": "hidden",
+    "abilityId": 291,
+    "isHidden": true
+  },
+  {
+    "formId": 10252,
+    "slot": "1",
+    "abilityId": 22,
+    "isHidden": false
+  },
+  {
+    "formId": 10252,
+    "slot": "2",
+    "abilityId": 83,
+    "isHidden": false
+  },
+  {
+    "formId": 10252,
+    "slot": "hidden",
+    "abilityId": 291,
+    "isHidden": true
+  },
+  {
+    "formId": 10278,
+    "slot": "1",
+    "abilityId": 156,
+    "isHidden": false
+  },
+  {
+    "formId": 10279,
+    "slot": "1",
+    "abilityId": 215,
+    "isHidden": false
+  },
+  {
+    "formId": 10280,
+    "slot": "1",
+    "abilityId": 37,
+    "isHidden": false
+  },
+  {
+    "formId": 10281,
+    "slot": "1",
+    "abilityId": 136,
+    "isHidden": false
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "contentBuild": "sl-ref-20261013-227b573",
+  "algorithm": "sha256",
+  "files": {
+    "meta.json": "4aa8c4ec4efb2a233f3e03a6050c46d5417fdf67bc585e6c9dfe3fb19395ae17",
+    "natures.json": "5b5147de6aa14702ef4850a6f089944887a73a6dc0a20d21412492d3b8f6ca92",
+    "species.json": "ef25275fdadb77ed225860d8e0c304ccfd0c62d6bb3043fcc89b33c66d6ac51e",
+    "forms.json": "96aec26e0df284470a318ed60a0c980a61ab50ee15b86c32f745c1141dc05cef",
+    "form-abilities.json": "fc34e96f3c4178878b0c032a3089d8c5ad6b7ddcf0dd033f21273d0fc6c1e702",
+    "abilities.json": "22112023de4292d13a070979caa3f2c71b8fabe26b49109316bf17b63230a58b",
+    "moves.json": "57cd755529938f2cf580e0d21175f04608d0b582f1b0a978017c3373f66accf2",
+    "learnsets.json": "d868a5b83b32ac24bb3f1a0d5c576d1b3422751ebede7d1f29079829019273f4",
+    "evolutions.json": "59b7ab1f27ae0edfdac1f66e3731b592b7090d242e6d5b48d04dbd10fd513392",
+    "obtain.json": "8546444050afa5a806e22131a013f14596a38101eb2f66eca19c42e83acf879c",
+    "exceptions.json": "84d8ee270cb4ffacd3944b121ddb140883f21527fa5ced7c1d99a259f6efc722",
+    "coverage.json": "c9edf642372f71173738decb0dc4832185a35241376a784bdbb29612ef6e5346",
+    "manifest.json": "18f7bec85375b5631fcf0814452af54b515273c4257ccc3bfd7a0a78dd99231c"
+  },
+  "bytes": {
+    "meta.json": 2093,
+    "natures.json": 2708,
+    "species.json": 33074,
+    "forms.json": 114228,
+    "form-abilities.json": 51683,
+    "abilities.json": 13752,
+    "moves.json": 87184,
+    "learnsets.json": 2000094,
+    "evolutions.json": 14416,
+    "obtain.json": 43380,
+    "exceptions.json": 234268,
+    "coverage.json": 2027
+  }
+}

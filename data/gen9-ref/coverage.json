@@ -1,0 +1,99 @@
+{
+  "roster": "kanto-1-151-plus-catalog-forms",
+  "species": 151,
+  "forms": 236,
+  "natures": 25,
+  "abilities": 135,
+  "moves": 556,
+  "learnsetRows": 14048,
+  "evolutions": 88,
+  "resolvedLearnsets": 220,
+  "unresolvedLearnsets": 16,
+  "byKind": {
+    "base": {
+      "total": 151,
+      "resolved": 151,
+      "unresolved": 0,
+      "sv": 99,
+      "swsh": 40,
+      "historical": 12,
+      "missingPokemon": 0
+    },
+    "mega": {
+      "total": 19,
+      "resolved": 15,
+      "unresolved": 4,
+      "sv": 0,
+      "swsh": 0,
+      "historical": 15,
+      "missingPokemon": 0
+    },
+    "cosplay": {
+      "total": 6,
+      "resolved": 6,
+      "unresolved": 0,
+      "sv": 0,
+      "swsh": 0,
+      "historical": 6,
+      "missingPokemon": 0
+    },
+    "regional": {
+      "total": 36,
+      "resolved": 36,
+      "unresolved": 0,
+      "sv": 29,
+      "swsh": 5,
+      "historical": 2,
+      "missingPokemon": 0
+    },
+    "other": {
+      "total": 2,
+      "resolved": 2,
+      "unresolved": 0,
+      "sv": 0,
+      "swsh": 0,
+      "historical": 2,
+      "missingPokemon": 0
+    },
+    "cap": {
+      "total": 8,
+      "resolved": 8,
+      "unresolved": 0,
+      "sv": 8,
+      "swsh": 0,
+      "historical": 0,
+      "missingPokemon": 0
+    },
+    "starter": {
+      "total": 2,
+      "resolved": 2,
+      "unresolved": 0,
+      "sv": 0,
+      "swsh": 0,
+      "historical": 2,
+      "missingPokemon": 0
+    },
+    "gigantamax": {
+      "total": 12,
+      "resolved": 0,
+      "unresolved": 12,
+      "sv": 0,
+      "swsh": 0,
+      "historical": 0,
+      "missingPokemon": 0
+    }
+  },
+  "johtoPlaceholder": {
+    "dex": 179,
+    "slug": "mareep",
+    "inV1": false,
+    "note": "Out of Kanto v1 roster. Validator must fail closed until a later region pin."
+  },
+  "rules": {
+    "neverInventMoves": true,
+    "neverInheritBaseLearnset": true,
+    "scarletVioletPreferred": true,
+    "swordShieldOnlyIfFormHasRows": true,
+    "wildSlice": "level-up at or below encounter level from chosen version-group only"
+  }
+}

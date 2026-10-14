@@ -15,6 +15,7 @@
 | R-I16-LEGALITY | **SUPERSEDED (future)** | Current rows remain LGPE-inspired (factual #16). Future target is D17 / #19, not LGPE. Do not convert old IVs in place. |
 | R-I19-RESET | **DESIGN** | Owner may later wipe or replace catches. No delete is authorized. Hard FKs: oak_transfers, trade_listings, trade_offers. Soft refs: team_ids, pc_layout, direct_trades, evolution_log. Sora/Twinkle excluded. |
 | R-I19-POKEAPI | **DESIGN** | PokéAPI VG `scarlet-violet` has an empty `move_learn_methods` array; learnsets live on pokemon move details. Runtime must not hot-fetch. Do not invent SV movesets for absent forms. |
+| R-I20-GAPS | **OPEN** | Pin leaves 12 Gigantamax + 4 Champions megas unresolved. Applying inherit-from-base would be illegal. Friendship values are PokéAPI 70, not Gen IX 50. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

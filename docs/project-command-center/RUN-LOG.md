@@ -1,5 +1,26 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #20 A19-REF offline pin
+
+- Branch: `admin-hub-overhaul`. Offline pin + unapplied SQL only. `admin-next.html` unchanged. No live SQL, RPC, wipe, replacement, merge, deploy, or APP stamp.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D21 recorded. A19-SCHEMA+ blocked. A1/A10 open. A9 not authorized.
+- Pin: `data/gen9-ref/` `sl-ref-20261013-227b573`. SQL: `supabase/unapplied/a19-ref/` (not in `migrations/`).
+
+### Deliverable
+
+- `GEN-IX-REF-ISSUE-20.md` — counts, Mega/regional/Gmax gaps, resolver
+- 220 resolved / 16 unresolved (12 Gmax + 4 Champions megas)
+- Regional 36/36; Mega 15/19 ORAS; base 151/151
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/gen9-ref-tests.js` | LOCAL HARNESS | 12 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 19 passed |
+
 ## 2026-10-13 — GitHub issue #19 Gen IX rebuild plan
 
 - Branch: `admin-hub-overhaul`. Plan commit `5f3dad6`. Planning only after D17 / A16e. `admin-next.html` unchanged. No SQL, RPC, wipe, replacement, merge, deploy, or APP stamp.

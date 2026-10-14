@@ -1,5 +1,26 @@
 # Run log
 
+## 2026-10-14 — A19-GENVAL specification (D36, implementation UNAPPROVED)
+
+- Branch: `admin-hub-overhaul`. Planning and offline test design only.
+- Reconciled LIVE CATALOG `list_migrations`: five `a19_apply_*` rows match D35; no generator/validator migration. Seeds `02`/`03`/`05`–`10` remain execute_sql-only.
+- Spec: `GEN-IX-GENVAL-SPEC.md`. Fixtures: `tests/fixtures/a19-genval/matrix.json`.
+- Did **not** CREATE `generate_streamlink_mon` / `assert_streamlink_legal`. Did not copy SQL into `migrations/`. Did not call stamp, settle, grant, evolve, or catch-row SELECT.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused. `stamp_catch_row` still the live generator.
+- A19-GENVAL remains **UNAPPROVED**. Open owner questions A19-GV1–GV7.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-genval-spec-tests.js` | STATIC + LOCAL HARNESS | 6 passed |
+| `tests/a19-apply-report-tests.js` | STATIC | 4 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 25 passed |
+| Function CREATE / catch-row / WIRE / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-14 — GitHub issue #24 D35 owner GO schema-only A19-APPLY
 
 - Branch: `admin-hub-overhaul`. Owner **GO** for `001_private_ref_tables.sql` → seed `00`–`10` → `002_catches_nullable_extensions.sql` only.

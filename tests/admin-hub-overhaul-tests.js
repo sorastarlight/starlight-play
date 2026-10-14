@@ -63,6 +63,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-APPLY-DECISION.md",
     "docs/project-command-center/GEN-IX-APPLY-HANDOFF.md",
     "docs/project-command-center/GEN-IX-APPLY-REPORT.md",
+    "docs/project-command-center/GEN-IX-GENVAL-SPEC.md",
     "data/gen9-ref/meta.json",
     "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-ref-review/DO-NOT-APPLY.md",
@@ -460,6 +461,23 @@ test("Issue 24 D35 apply report records schema-only GO without starting GENVAL",
   assert(decisions.includes("D35"));
   assert(/A19-GENVAL[\s\S]{0,200}UNAPPROVED/.test(decisions));
   assert(!report.includes("PRODUCTION PASS"));
+});
+
+test("A19-GENVAL spec stays planning-only and does not ship generator SQL", () => {
+  const spec = read("docs/project-command-center/GEN-IX-GENVAL-SPEC.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
+  assert(spec.includes("generate_streamlink_mon"));
+  assert(spec.includes("assert_streamlink_legal"));
+  assert(spec.includes("Per-catcher IVs and Natures"));
+  assert(spec.includes("A19-GV1"));
+  assert(decisions.includes("D36"));
+  assert(/A19-GENVAL[\s\S]{0,200}UNAPPROVED/.test(decisions));
+  assert(fs.existsSync(path.join(__dirname, "..", "tests", "fixtures", "a19-genval", "matrix.json")));
+  assert(!migNames.includes("generate_streamlink_mon"));
+  assert(!nextJs.includes("generate_streamlink_mon"));
+  assert(!liveJs.includes("generate_streamlink_mon"));
+  assert(!spec.includes("PRODUCTION PASS"));
 });
 
 const failed = results.filter((row) => !row.passed);

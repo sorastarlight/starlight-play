@@ -300,8 +300,20 @@
       "commit": "7cc5a1f7",
       "evidence": "docs/project-command-center/GEN-IX-APPLY-REPORT.md",
       "testResults": "a19-apply-report STATIC; LIVE CATALOG counts exact; LIVE API PGRST106; no catch-row SELECT",
-      "nextAction": "Stop for owner review. Do not start GENVAL, WIRE, 003, restore, merge, or deploy.",
-      "approvalRequirement": "A19-GENVAL still unapproved; restore needs a separate authorization"
+      "nextAction": "Superseded by I25 / D36 GENVAL specification. Implementation still unapproved.",
+      "approvalRequirement": "Historical apply; A19-GENVAL still unapproved"
+    },
+    {
+      "id": "I25",
+      "status": "done",
+      "scope": "A19-GENVAL implementation specification and offline synthetic test plan",
+      "dependencies": ["I24A", "D35"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-GENVAL-SPEC.md, tests/fixtures/a19-genval/matrix.json, tests/a19-genval-spec-tests.js",
+      "testResults": "a19-genval-spec STATIC/LOCAL HARNESS; no function CREATE; no catch-row SELECT",
+      "nextAction": "Stop for owner review. Do not implement generate/assert, WIRE, 003, restore, merge, or deploy.",
+      "approvalRequirement": "Separate explicit A19-GENVAL implementation authorization; A19-GV1–GV7 still open"
     },
     {
       "id": "I13",

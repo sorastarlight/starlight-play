@@ -1,0 +1,248 @@
+{
+  "contentBuild": "sl-ref-20261013-227b573",
+  "rulesetId": "streamlink-gen9-xgen",
+  "synthetic": true,
+  "notLivePokemon": true,
+  "cases": [
+    {
+      "id": "L-BULBA",
+      "expect": "pass",
+      "ctx": "catch",
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [33, 45, 22],
+        "gender": "Male",
+        "shiny": false,
+        "friendship": 50,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "L-CHAR",
+      "expect": "pass",
+      "ctx": "catch",
+      "mon": {
+        "formId": 6,
+        "dex": 6,
+        "level": 36,
+        "natureId": 3,
+        "abilityId": 66,
+        "abilitySlot": "1",
+        "ivs": { "hp": 31, "atk": 4, "def": 20, "spa": 28, "spd": 22, "spe": 15 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [225, 424, 163, 53],
+        "gender": "Female",
+        "shiny": false,
+        "friendship": 50,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "L-NIDORF",
+      "expect": "pass",
+      "ctx": "catch",
+      "note": "Nidoran♀ gender_rate 8",
+      "mon": {
+        "formId": 29,
+        "dex": 29,
+        "level": 8,
+        "natureId": 1,
+        "abilityId": 38,
+        "abilitySlot": "1",
+        "ivs": { "hp": 10, "atk": 10, "def": 10, "spa": 10, "spd": 10, "spe": 10 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": null,
+        "gender": "Female",
+        "friendship": 50,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "I-NIDORF-M",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "gender",
+      "mon": {
+        "formId": 29,
+        "dex": 29,
+        "level": 8,
+        "natureId": 1,
+        "abilityId": 38,
+        "abilitySlot": "1",
+        "ivs": { "hp": 10, "atk": 10, "def": 10, "spa": 10, "spd": 10, "spe": 10 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": null,
+        "gender": "Male",
+        "friendship": 50,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "L-MAGN",
+      "expect": "pass",
+      "ctx": "catch",
+      "mon": {
+        "formId": 81,
+        "dex": 81,
+        "level": 12,
+        "natureId": 1,
+        "abilityId": 42,
+        "abilitySlot": "1",
+        "ivs": { "hp": 10, "atk": 10, "def": 10, "spa": 10, "spd": 10, "spe": 10 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": null,
+        "gender": "Genderless",
+        "friendship": 50,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "L-GMAX",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "g1-unresolved",
+      "mon": {
+        "formId": 10195,
+        "dex": 3,
+        "level": 50,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 10, "atk": 10, "def": 10, "spa": 10, "spd": 10, "spe": 10 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [],
+        "gender": "Male",
+        "friendship": 50,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "L-C1",
+      "expect": "fail",
+      "ctx": "grant",
+      "reason": "c1-unresolved",
+      "mon": {
+        "formId": 10278,
+        "dex": 36,
+        "level": 50,
+        "natureId": 1,
+        "abilityId": 156,
+        "abilitySlot": "1",
+        "ivs": { "hp": 10, "atk": 10, "def": 10, "spa": 10, "spd": 10, "spe": 10 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [],
+        "gender": "Female",
+        "friendship": 140,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "L-HA-NO",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "hidden-not-authorized",
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 34,
+        "abilitySlot": "hidden",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [33, 45, 22],
+        "gender": "Male",
+        "friendship": 50,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "I-IV",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "iv-range",
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 32, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [33, 45, 22],
+        "gender": "Male",
+        "friendship": 50,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "I-EV",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "ev-total",
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 252, "atk": 252, "def": 7, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [33, 45, 22],
+        "gender": "Male",
+        "friendship": 50,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "I-MAREEP",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "out-of-roster",
+      "mon": {
+        "formId": 179,
+        "dex": 179,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 9,
+        "abilitySlot": "1",
+        "ivs": { "hp": 10, "atk": 10, "def": 10, "spa": 10, "spd": 10, "spe": 10 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [],
+        "gender": "Male",
+        "friendship": 50,
+        "allowHidden": false
+      }
+    },
+    {
+      "id": "I-LEGACY",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "legacy-row",
+      "contentBuild": null,
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": null,
+        "abilityId": null,
+        "abilitySlot": null,
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": null,
+        "moveIds": null,
+        "gender": "Male",
+        "friendship": 0,
+        "allowHidden": false
+      }
+    }
+  ]
+}

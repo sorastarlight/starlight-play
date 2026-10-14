@@ -7,7 +7,7 @@
 | Inspect true-read SQL contract | `tests/admin-hub-gate-2a-r-identity-tests.js` | STATIC | Runtime write probe (already done in 2A-R) |
 | Operations snapshot presenter | `tests/admin-hub-gate-17-s1-snapshot-tests.js` | STATIC | Production snapshot |
 | Snapshot polling isolation | `tests/admin-hub-gate-17-s1b-tests.js` | STATIC | — |
-| Overhaul dossier + canonical doorways | `tests/admin-hub-overhaul-tests.js` | STATIC PASS (24) | — |
+| Overhaul dossier + canonical doorways | `tests/admin-hub-overhaul-tests.js` | STATIC PASS (25) | — |
 | Fixture search/select/panes/empty/denied/loading | `admin-next-trainers-fixture.html` + overhaul tests | LOCAL HARNESS / REAL DOM (unsigned fixture) | Live staff Trainers |
 | Trainer workspace overflow / column overlap | fixture REAL DOM bounding boxes at 1920, 1440, 1280, 1024, 768, 720, 390 | REAL DOM (unsigned fixture) | Live staff Trainers / PRODUCTION |
 | Directory card width + dossier section gap | fixture REAL DOM: browse/sidebar cards 300px; stack gap token 16px | REAL DOM (unsigned fixture) | Live staff Trainers |
@@ -29,7 +29,8 @@
 | Issue #24 A19-APPLY preflight | `tests/a19-apply-preflight-tests.js` + catalog SELECTs + REST `Accept-Profile` | STATIC + LIVE CATALOG + LIVE API (`PGRST106`) | Dashboard backup list; PITR add-on; apply; PRODUCTION |
 | Issue #24 A19-APPLY decision packet | `tests/a19-apply-decision-tests.js` + seed/pin/DDL SHA-256 | STATIC; OWNER REPORT backup `2026-10-14 07:44:26 +0000` | Independent backup listing; PRODUCTION apply |
 | Issue #24 A19-APPLY handoff | `tests/a19-apply-handoff-tests.js` | STATIC (D34 BLOCKED snapshot; checksums unchanged) | Historical |
-| Issue #24 A19-APPLY report (D35) | `tests/a19-apply-report-tests.js` + catalog counts + REST `Accept-Profile` | STATIC + LIVE CATALOG + LIVE API (`PGRST106`) | GENVAL; WIRE; catch-row SELECT; restore; PRODUCTION smoke |
+| Issue #24 A19-APPLY report (D35) | `tests/a19-apply-report-tests.js` + catalog counts + REST `Accept-Profile` | STATIC + LIVE CATALOG + LIVE API (`PGRST106`) | WIRE; catch-row SELECT; restore; PRODUCTION smoke |
+| A19-GENVAL specification (D36) | `tests/a19-genval-spec-tests.js` + pin slice oracle + fixture matrix | STATIC + LOCAL HARNESS | Function CREATE; REAL SQL; WIRE; PRODUCTION |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

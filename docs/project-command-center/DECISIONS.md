@@ -47,6 +47,7 @@
 | D33 | Owner reported COMPLETED backup `2026-10-14 07:44:26 +0000`; PITR disabled | Backup evidence gate cleared as OWNER REPORT (not independently listed). Restore is whole-DB to that snapshot. Does **not** authorize A19-APPLY. |
 | D34 | Final A19-APPLY go/no-go handoff; apply still BLOCKED | Checksums unchanged since `cc66946b`. Owner GO/NO-GO not given. Freshest COMPLETED backup not reconfirmed. This handoff prompt is **not** A19-APPLY authorization. |
 | D35 | Owner GO applied A19-APPLY schema-only on `starlight-play` | Authorized `001` → seed `00`–`10` → `002` only against `dtflmlbjhttoewqgkujf`. Freshest COMPLETED `2026-10-14 07:44:26 +0000`; PITR disabled; whole-DB rewind understood. Catalog counts / RLS+REVOKE / 17 nullable catch columns / LIVE API `PGRST106` verified. `003`, GENVAL, WIRE, catch-row SELECT, RPCs, restore, merge, deploy, APP stamp **not** run. Existing Pokémon unchanged. |
+| D36 | A19-GENVAL specification and offline test plan delivered; implementation still blocked | Spec for `generate_streamlink_mon` / `assert_streamlink_legal` plus synthetic fixtures. Does **not** create functions, apply SQL, wire the catch pipeline, or mutate Pokémon. A19-GENVAL remains **UNAPPROVED**. |
 
 ## Needs owner approval
 
@@ -80,12 +81,19 @@
 | A19-F1 | Use Gen IX friendship (70→50) at generation time without rewriting the pin? | **APPROVED ARCHITECTURE — F1:** retain raw historical PokéAPI friendship source values; at eventual generation map 70→50 for Gen IX, leave other values unchanged, and do not modify source pin or existing Pokémon. |
 | A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | **APPROVED FOR OFFLINE BRANCH IMPLEMENTATION ONLY — issue #22**: review/harden `private.ref_*` schema and full pin seeds, prepare backwards-compatible nullable `catches` extensions as DO-NOT-APPLY files, validate locally. **Applying DDL to connected/live Supabase remains UNAPPROVED**, as do Pokémon writes and later phases. |
 | A19-APPLY | Apply reviewed A19-SCHEMA SQL to live/connected Supabase? | **APPLIED** (D35): owner GO for `001` → seed `00`–`10` → `002` only. Catalog-only verification PASS. `003` / GENVAL / WIRE / restore / merge / deploy remain unauthorized. |
-| A19-GENVAL | Ship generator + validator functions? | After schema **apply**. No player-row writes. Still **UNAPPROVED**. |
+| A19-GENVAL | Ship generator + validator functions? | After schema **apply**. Spec ready (D36). No player-row writes. Still **UNAPPROVED**. |
 | A19-WIRE | Wire launch/settle/grant/evolve to the validator? | New catches only; QA account. |
 | A19-INSPECT | Staff read RPC for full PC combat fields? | After generator exists. |
 | A19-EDIT | Owner-only audited editor? | After inspector. |
 | A19-RESET-TEST | Dry-run + restore drill on a clone? | Required before any production wipe. |
 | A19-RESET-GO | Execute production collection reset? | Separate destructive confirmation. Not now. |
+| A19-GV1 | Ordinary ability slot 1 vs per-catcher among non-hidden slots? | Recommend per-catcher among slots that exist. Spec-only; no implementation. |
+| A19-GV2 | Gender per-catcher vs shared with the round? | Recommend per-catcher (today’s stamp). Spec-only. |
+| A19-GV3 | G1/C1 requested form id: remap to base or fail? | Recommend **fail closed**. Spec-only. |
+| A19-GV4 | Validator accepts machine/egg/tutor from resolved VG while generate emits level-up only? | Recommend yes. Spec-only. |
+| A19-GV5 | Deterministic md5(seed) vs gen_random_bytes? | Recommend md5 for fixtures. Spec-only. |
+| A19-GV6 | Dual-write legacy iv_*/moves[] in generate vs WIRE-only? | Recommend WIRE writes columns; generate may preview. Spec-only. |
+| A19-GV7 | New public_id prefix SL vs keep LG? | Defer to WIRE. |
 
 ## Destructive reset boundary
 

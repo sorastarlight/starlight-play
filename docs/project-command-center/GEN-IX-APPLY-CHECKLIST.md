@@ -1,6 +1,6 @@
 # Controlled A19-APPLY checklist (not authorized to run)
 
-**Status:** A19-APPLY remains **UNAPPROVED**. This is a go/no-go packet, not permission to migrate.
+**Status:** A19-APPLY remains **UNAPPROVED**. Backup gate **BLOCKED** — see [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md). This is not permission to migrate.
 
 Sora mutated **NO** · Twinkle mutated **NO**. Do not start GENVAL, WIRE, or any reset.
 

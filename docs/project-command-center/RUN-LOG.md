@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-14 — GitHub issue #24 A19-APPLY decision packet (backup BLOCKED)
+
+- Branch: `admin-hub-overhaul`. Documentation only. No DDL/DML, catch-row SELECT, RPC, backup create/restore, copy into `migrations/`, wipe, merge, deploy, or APP stamp.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D32: pin/seed/DDL checksums match disk and are unchanged since #23 `cc66946b`. Issue #24 has no owner COMPLETED backup timestamp or PITR confirmation.
+- Verdict: backup gate **BLOCKED**. A19-APPLY remains **UNAPPROVED**.
+- Packet: `GEN-IX-APPLY-DECISION.md`.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-apply-decision-tests.js` | STATIC | 6 passed |
+| `tests/a19-apply-preflight-tests.js` | STATIC | 5 passed |
+| `tests/a19-schema-tests.js` | STATIC / LOCAL HARNESS | 9 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 23 passed |
+| Catch-row / RPC / backup / PRODUCTION apply | — | **not run** |
+
 ## 2026-10-14 — GitHub issue #24 follow-up: PostgREST + backup + apply checklist
 
 - Branch: `admin-hub-overhaul`. Read-only. No DDL/DML, catch-row SELECT, RPC, backup create, restore, wipe, merge, deploy, or APP stamp.

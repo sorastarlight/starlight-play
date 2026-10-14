@@ -7,7 +7,7 @@ A19-SCHEMA artifacts for GitHub issue #22. **Branch-only.** D25 authorizes writi
 - Must not be applied to project `dtflmlbjhttoewqgkujf`
 - Applying to live needs a **separate** owner go/no-go after review
 - Issue #23 / D27 authorizes **disposable local Postgres rehearsal only** (`rehearsal/000_synthetic_baseline.sql` + `tools/a19-schema-rehearsal.js`). That is not A19-APPLY.
-- Issue #24 / D29–D31 authorize **read-only catalog + PostgREST exposure checks**. That is not A19-APPLY.
+- Issue #24 / D29–D32 authorize **read-only catalog, PostgREST checks, and a decision packet**. Backup gate **BLOCKED**. That is not A19-APPLY.
 - A19-GENVAL / WIRE / INSPECT / EDIT / reset remain **UNAPPROVED**
 
 | File | Role |

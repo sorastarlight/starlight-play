@@ -29,7 +29,7 @@ A19-APPLY remains **UNAPPROVED**.
 | 4. Security / exposure | **PASS** | PostgREST **does not expose `private`**. `Accept-Profile: private` returns **406 `PGRST106 Invalid schema: private`**. Default REST looks in `public` (`PGRST205` for `public.stream_bridge`). `authenticated` still has schema `USAGE`; keep 001 RLS+REVOKE. |
 | 5. Migration / rollback | **PASS** with **UNKNOWN** | #23 evo_uid fix is in `08_evolutions.sql`. Org plan is **Pro** (automatic 7-day daily backups per docs). PITR is a **paid add-on**, not confirmed. Exact backup timestamps **UNKNOWN** (no Management API token). `003` remains destructive. |
 
-**Apply recommendation:** PostgREST `private` exposure is **cleared**. A19-APPLY remains **UNAPPROVED**. Remaining owner actions: (1) record the latest completed daily backup on the Dashboard, (2) note whether PITR is enabled, (3) issue a separate **A19-APPLY**. Catalog shape is compatible. See [GEN-IX-APPLY-CHECKLIST.md](./GEN-IX-APPLY-CHECKLIST.md).
+**Apply recommendation:** PostgREST `private` exposure is **cleared**. Backup evidence is **UNAVAILABLE**. D32 decision packet: **BLOCKED**. A19-APPLY remains **UNAPPROVED**. See [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md).
 
 ---
 

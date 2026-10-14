@@ -151,3 +151,7 @@ Exact SELECT shapes are in `supabase/unapplied/a19-schema/preflight/000_metadata
 ## Unchanged hard stops
 
 No live DDL. No catch writes. No Sora/Twinkle/PlayTester access. R1/R2/R18 remain OPEN. R21 CLOSED. Final release smoke **paused**.
+
+---
+
+**Later (D35 snapshot pointer):** Owner GO later applied `001` → seed `00`–`10` → `002`. See [GEN-IX-APPLY-REPORT.md](./GEN-IX-APPLY-REPORT.md). This preflight remains the D29–D34 read-only snapshot.

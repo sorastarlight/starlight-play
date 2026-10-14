@@ -264,8 +264,8 @@
       "commit": "5f891c0",
       "evidence": "docs/project-command-center/GEN-IX-SCHEMA-ISSUE-22.md, supabase/unapplied/a19-schema/, tools/emit-a19-schema-seed.js",
       "testResults": "a19-schema 8 LOCAL HARNESS PASS; gen9-ref 12 LOCAL HARNESS PASS; overhaul 21 STATIC PASS",
-      "nextAction": "Superseded by issue #23 local rehearsal. Artifacts remain unapplied to live.",
-      "approvalRequirement": "A19-APPLY before live DDL; A19-GENVAL still unapproved"
+      "nextAction": "Superseded by issue #23 local rehearsal. Live apply later delivered as D35.",
+      "approvalRequirement": "Historical; live apply is D35. A19-GENVAL still unapproved"
     },
     {
       "id": "I23",
@@ -276,8 +276,8 @@
       "commit": "cc66946b",
       "evidence": "docs/project-command-center/GEN-IX-SCHEMA-REHEARSAL.md, tools/a19-schema-rehearsal.js, supabase/unapplied/a19-schema/rehearsal/",
       "testResults": "rehearsal isolation 5 STATIC PASS; a19-schema 9 LOCAL HARNESS PASS; REAL SQL 17 PASS on 127.0.0.1",
-      "nextAction": "Superseded by issue #24 production catalog preflight. Artifacts remain unapplied to live.",
-      "approvalRequirement": "A19-APPLY before live DDL; A19-GENVAL still unapproved"
+      "nextAction": "Superseded by issue #24 preflight, then D35 live apply.",
+      "approvalRequirement": "Historical; live apply is D35. A19-GENVAL still unapproved"
     },
     {
       "id": "I24",
@@ -288,8 +288,20 @@
       "commit": "0657b0f5",
       "evidence": "docs/project-command-center/GEN-IX-APPLY-HANDOFF.md, docs/project-command-center/GEN-IX-APPLY-DECISION.md, docs/project-command-center/GEN-IX-PRODUCTION-PREFLIGHT.md",
       "testResults": "a19-apply-handoff STATIC; a19-apply-decision STATIC; no catch-row SELECT",
-      "nextAction": "Stop. BLOCKED until owner GO/NO-GO and freshest COMPLETED backup. Do not apply SQL.",
-      "approvalRequirement": "Separate explicit A19-APPLY go naming 001 → seed 00–10 → 002; reconfirm freshest backup"
+      "nextAction": "Superseded by I24A / D35 owner GO apply.",
+      "approvalRequirement": "Historical D34; live apply is D35"
+    },
+    {
+      "id": "I24A",
+      "status": "done",
+      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 → seed 00–10 → 002",
+      "dependencies": ["I24", "D35"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-APPLY-REPORT.md",
+      "testResults": "a19-apply-report STATIC; LIVE CATALOG counts exact; LIVE API PGRST106; no catch-row SELECT",
+      "nextAction": "Stop for owner review. Do not start GENVAL, WIRE, 003, restore, merge, or deploy.",
+      "approvalRequirement": "A19-GENVAL still unapproved; restore needs a separate authorization"
     },
     {
       "id": "I13",

@@ -62,6 +62,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-APPLY-CHECKLIST.md",
     "docs/project-command-center/GEN-IX-APPLY-DECISION.md",
     "docs/project-command-center/GEN-IX-APPLY-HANDOFF.md",
+    "docs/project-command-center/GEN-IX-APPLY-REPORT.md",
     "data/gen9-ref/meta.json",
     "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-ref-review/DO-NOT-APPLY.md",
@@ -432,7 +433,7 @@ test("Issue 24 preflight stays read-only and does not approve apply", () => {
   const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
   assert(report.includes("LIVE CATALOG"));
   assert(report.includes("A19-APPLY remains **UNAPPROVED**"));
-  assert(decisions.includes("D29") && decisions.includes("D30") && decisions.includes("D31") && decisions.includes("D32") && decisions.includes("D33") && decisions.includes("D34"));
+  assert(decisions.includes("D29") && decisions.includes("D30") && decisions.includes("D31") && decisions.includes("D32") && decisions.includes("D33") && decisions.includes("D34") && decisions.includes("D35"));
   assert(report.includes("PGRST106"));
   assert(read("docs/project-command-center/GEN-IX-APPLY-CHECKLIST.md").includes("A19-APPLY remains **UNAPPROVED**"));
   const decision = read("docs/project-command-center/GEN-IX-APPLY-DECISION.md");
@@ -446,6 +447,19 @@ test("Issue 24 preflight stays read-only and does not approve apply", () => {
   assert(!migNames.includes("a19-schema"));
   assert(!nextJs.includes("generate_streamlink_mon"));
   assert(!liveJs.includes("generate_streamlink_mon"));
+});
+
+test("Issue 24 D35 apply report records schema-only GO without starting GENVAL", () => {
+  const report = read("docs/project-command-center/GEN-IX-APPLY-REPORT.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  assert(report.includes("**Verdict: APPLIED.**"));
+  assert(report.includes("001_private_ref_tables.sql"));
+  assert(report.includes("002_catches_nullable_extensions.sql"));
+  assert(report.includes("PGRST106"));
+  assert(report.includes("sl-ref-20261013-227b573"));
+  assert(decisions.includes("D35"));
+  assert(/A19-GENVAL[\s\S]{0,200}UNAPPROVED/.test(decisions));
+  assert(!report.includes("PRODUCTION PASS"));
 });
 
 const failed = results.filter((row) => !row.passed);

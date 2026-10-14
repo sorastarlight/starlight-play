@@ -161,3 +161,7 @@ After a future approved apply, smoke with metadata only:
 ---
 
 A19-APPLY remains **UNAPPROVED**. Final handoff: [GEN-IX-APPLY-HANDOFF.md](./GEN-IX-APPLY-HANDOFF.md) (D34, **BLOCKED** on missing GO/NO-GO).
+
+---
+
+**Later (D35 snapshot pointer):** Owner GO applied the named sequence. See [GEN-IX-APPLY-REPORT.md](./GEN-IX-APPLY-REPORT.md). This packet remains the D33 snapshot.

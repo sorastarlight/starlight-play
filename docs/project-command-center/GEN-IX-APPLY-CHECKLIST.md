@@ -67,3 +67,7 @@ Restoration takes the project offline. Plan downtime. Storage objects are not in
 ---
 
 A19-APPLY remains **UNAPPROVED** until O4.
+
+---
+
+**Later (D35 snapshot pointer):** Owner GO satisfied O4 and applied the named sequence. See [GEN-IX-APPLY-REPORT.md](./GEN-IX-APPLY-REPORT.md). This checklist remains the D34 snapshot.

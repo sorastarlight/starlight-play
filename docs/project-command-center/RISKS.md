@@ -16,11 +16,11 @@
 | R-I19-RESET | **DESIGN** | Owner may later wipe or replace catches. No delete is authorized. Hard FKs: oak_transfers, trade_listings, trade_offers. Soft refs: team_ids, pc_layout, direct_trades, evolution_log. Sora/Twinkle excluded. |
 | R-I19-POKEAPI | **DESIGN** | PokéAPI VG `scarlet-violet` has an empty `move_learn_methods` array; learnsets live on pokemon move details. Runtime must not hot-fetch. Do not invent SV movesets for absent forms. |
 | R-I20-GAPS | **OPEN** | Pin still leaves 12 Gigantamax + 4 Champions megas unresolved. #21 proposes G1/C1/F1; none are authorized. Do not silently inherit base learnsets. |
-| R-I21-SQL | **SUPERSEDED** | #20 public draft and #21 review draft must not be applied. Use `supabase/unapplied/a19-schema/` instead — still unapplied. |
-| R-I22-APPLY | **OPEN** | A19-SCHEMA artifacts exist but live apply is unapproved. Do not copy into `supabase/migrations/`. PostgREST must not expose `private`. |
+| R-I21-SQL | **SUPERSEDED** | #20 public draft and #21 review draft must not be applied. Use `supabase/unapplied/a19-schema/` as the reviewed source pin. Live apply is D35. |
+| R-I22-APPLY | **CLOSED** | D35 applied `001` + seeds `00`–`10` + `002` on `starlight-play`. Source copies stay under `unapplied/`; do not copy into `supabase/migrations/`. |
 | R-I23-REHEARSAL | **CLOSED** | Isolated local rehearsal passed (17/17 REAL SQL). Does not close live-apply risk. `evo_uid` collision fixed on the branch. |
 | R-I24-PGRST | **CLOSED** | LIVE API: `Accept-Profile: private` → `PGRST106 Invalid schema: private`. Do not add `private` to exposed schemas. |
-| R-I24-BACKUP | **OPEN — BLOCKING APPLY** | Last known COMPLETED `2026-10-14 07:44:26 UTC`; PITR disabled. D34 requires the owner to reconfirm the **freshest** COMPLETED row before any go. Restore is whole-DB rewind. |
+| R-I24-BACKUP | **CLOSED as apply blocker** | Owner reconfirmed COMPLETED `2026-10-14 07:44:26 +0000` and issued GO (D35). PITR remains disabled. Restore is still whole-DB rewind and needs a **separate** restore authorization. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

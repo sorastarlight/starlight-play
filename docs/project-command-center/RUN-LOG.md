@@ -1,5 +1,31 @@
 # Run log
 
+## 2026-10-14 — GitHub issue #24 D35 owner GO schema-only A19-APPLY
+
+- Branch: `admin-hub-overhaul`. Owner **GO** for `001_private_ref_tables.sql` → seed `00`–`10` → `002_catches_nullable_extensions.sql` only.
+- Project `dtflmlbjhttoewqgkujf` / starlight-play / us-west-1 / PG 17.6.1.166 / ACTIVE_HEALTHY.
+- Freshest COMPLETED backup **14 Oct 2026 07:44:26 (+0000)**. PITR **disabled**. Owner told: restore rewinds the entire PostgreSQL database and discards later writes. Restore was **not** initiated.
+- `003_rollback.sql`, GENVAL, WIRE, catch-row SELECT, RPCs, merge, deploy, APP stamp: **not run**.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- LIVE CATALOG: natures 25 / species 151 / forms 236 / abilities 135 / form_abilities 576 / moves 556 / learnsets 14048 / evolutions 88 / obtain 236 / form_policies 16 / meta pin `sl-ref-20261013-227b573`.
+- 17 catch extension columns present, all nullable. No FK from `public.catches` to `private.ref_*`. RLS ON + zero policies (fail-closed). anon/authenticated DML all false.
+- LIVE API: `Accept-Profile: private` → HTTP 406 `PGRST106`.
+- Report: `GEN-IX-APPLY-REPORT.md`. D35 recorded. R-I22-APPLY **CLOSED**. R-I24-BACKUP **CLOSED as apply blocker** (restore still needs separate auth).
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-apply-report-tests.js` | STATIC | 4 passed |
+| `tests/a19-apply-handoff-tests.js` | STATIC | 4 passed |
+| `tests/a19-apply-decision-tests.js` | STATIC | 6 passed |
+| `tests/a19-apply-preflight-tests.js` | STATIC | 5 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 24 passed |
+| Catch-row / RPC / GENVAL / restore / PRODUCTION smoke | — | **not run** |
+
+---
+
 ## 2026-10-14 — GitHub issue #24 D34 A19-APPLY go/no-go handoff (BLOCKED)
 
 - Branch: `admin-hub-overhaul`. Documentation only. No DDL/DML, catch-row SELECT, RPC, backup create/restore, `003`, copy into `migrations/`, wipe, merge, deploy, or APP stamp.

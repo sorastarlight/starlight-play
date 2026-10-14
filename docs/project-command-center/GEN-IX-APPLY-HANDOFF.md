@@ -124,3 +124,7 @@ Anything else, including this handoff prompt, is **not** a go.
 ---
 
 A19-APPLY remains **UNAPPROVED**. Handoff **BLOCKED** on missing GO/NO-GO and an unreconfirmed freshest COMPLETED backup. STOP.
+
+---
+
+**Later (D35 snapshot pointer):** Owner GO applied the named sequence. See [GEN-IX-APPLY-REPORT.md](./GEN-IX-APPLY-REPORT.md). This file remains the D34 BLOCKED handoff.

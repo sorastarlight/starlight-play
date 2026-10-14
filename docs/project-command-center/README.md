@@ -35,9 +35,10 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-SCHEMA-ISSUE-22.md](./GEN-IX-SCHEMA-ISSUE-22.md) | Issue #22 unapplied private.ref_* + catch extensions |
 | [GEN-IX-SCHEMA-REHEARSAL.md](./GEN-IX-SCHEMA-REHEARSAL.md) | Issue #23 disposable local Postgres rehearsal |
 | [GEN-IX-PRODUCTION-PREFLIGHT.md](./GEN-IX-PRODUCTION-PREFLIGHT.md) | Issue #24 read-only production catalog + PostgREST preflight |
-| [GEN-IX-APPLY-CHECKLIST.md](./GEN-IX-APPLY-CHECKLIST.md) | Controlled A19-APPLY go/no-go (UNAPPROVED) |
-| [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md) | A19-APPLY packet; backup recorded; apply UNAPPROVED |
-| [GEN-IX-APPLY-HANDOFF.md](./GEN-IX-APPLY-HANDOFF.md) | Final go/no-go handoff; **BLOCKED** pending owner decision |
+| [GEN-IX-APPLY-CHECKLIST.md](./GEN-IX-APPLY-CHECKLIST.md) | Historical D34 controlled apply checklist (UNAPPROVED snapshot) |
+| [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md) | Historical D33 packet; backup recorded; apply UNAPPROVED snapshot |
+| [GEN-IX-APPLY-HANDOFF.md](./GEN-IX-APPLY-HANDOFF.md) | Historical D34 go/no-go handoff (**BLOCKED** snapshot) |
+| [GEN-IX-APPLY-REPORT.md](./GEN-IX-APPLY-REPORT.md) | D35 owner GO schema-only apply + catalog verification |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

@@ -25,11 +25,12 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I19 | done | Issue #19 Gen IX rebuild architecture + reset plan | epic #18, D17 | Superseded by #20 / D21; **A19-RESET-GO** to wipe | Plan remains architecture source |
 | I20 | done | Issue #20 offline Gen IX reference pin + unapplied SQL | I19, D20 | **A19-SCHEMA** still blocked | Pin delivered unapplied |
 | I21 | done | Issue #21 A19-REF readiness review (Gmax, Champions, friendship, SQL) | I20 | D24 accepted G1/C1/F1 | Historical review |
-| I22 | done | Issue #22 A19-SCHEMA unapplied private.ref_* + catch extensions | I21, D25 | **A19-APPLY** to live; do not start GENVAL | Historical artifacts |
-| I23 | done | Issue #23 disposable local Postgres rehearsal of A19-SCHEMA | I22, D27 | **A19-APPLY** still required for live | Historical REAL SQL |
-| I24 | done | Issue #24 preflight + go/no-go handoff | I23, D29 | **A19-APPLY BLOCKED** | Owner GO/NO-GO + freshest backup |
+| I22 | done | Issue #22 A19-SCHEMA unapplied private.ref_* + catch extensions | I21, D25 | Historical; live apply is D35 | Historical artifacts |
+| I23 | done | Issue #23 disposable local Postgres rehearsal of A19-SCHEMA | I22, D27 | Historical REAL SQL | Live apply later delivered as D35 |
+| I24 | done | Issue #24 preflight + go/no-go handoff | I23, D29 | Historical D34 | Superseded by D35 apply |
+| I24A | done | Issue #24 owner GO schema-only apply (`001` → seed `00`–`10` → `002`) | I24, D35 | **APPLIED** schema-only | STOP. A19-GENVAL still unapproved |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. Issue #24 D34 handoff: checksums unchanged. A19-APPLY **BLOCKED** (no GO/NO-GO; freshest backup unreconfirmed). Pin stays 220/16. Do not apply SQL to live. A19-GENVAL+ blocked. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D34. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. Issue #24 D35: schema-only A19-APPLY **APPLIED** (`001` → seed `00`–`10` → `002`). Catalog verification PASS. Pin `sl-ref-20261013-227b573`. A19-GENVAL+ blocked. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D35. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

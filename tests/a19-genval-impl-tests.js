@@ -43,20 +43,26 @@ test("GENVAL SQL stays unapplied and refuses live apply language", () => {
 });
 
 test("functions are hardened and hidden is not a caller flag", () => {
+  const fixture = read("supabase/unapplied/a19-genval/local/010_fixture.sql");
+  const teardown = read("supabase/unapplied/a19-genval/local/000_teardown.sql");
   assert(sql.includes("SECURITY DEFINER"));
   assert(sql.includes("SET search_path TO pg_catalog"));
   assert(sql.includes("REVOKE ALL ON FUNCTION"));
   assert(sql.includes("streamlink_hidden_tickets"));
   assert(sql.includes("p_allow_hidden is intentionally unused") || sql.includes("p_allow_hidden is ignored"));
   assert(sql.includes("issue_streamlink_hidden_ticket"));
-  assert(sql.includes("streamlink_redeem_hidden_ticket"));
-  assert(sql.includes("generate_streamlink_mon_fixture"));
+  assert(sql.includes("streamlink_bind_hidden_ticket"));
+  assert(sql.includes("specimen_digest"));
   assert(sql.includes("streamlink_secure_u32"));
   assert(sql.includes("p_hidden_auth"));
-  assert(sql.includes("hiddenGrant / allowHidden in JSON are not authorization") ||
-    sql.includes("hiddenGrant in JSON is ignored"));
+  assert(sql.includes("hiddenGrant / hiddenTicketId / hiddenSpecimenId in JSON are not authorization") ||
+    sql.includes("JSON hiddenGrant/hiddenTicketId/hiddenSpecimenId are ignored"));
   assert(!sql.includes("current_setting('starlight.genval_mode'"));
   assert(!sql.includes("starlight.catcher_nonce"));
+  assert(!sql.includes("generate_streamlink_mon_fixture"));
+  assert(!/^\s*DROP\s+(TABLE|FUNCTION)/im.test(sql));
+  assert(fixture.includes("generate_streamlink_mon_fixture"));
+  assert(teardown.includes("DROP TABLE IF EXISTS private.streamlink_hidden_tickets"));
   assert(rollback.includes("DROP FUNCTION IF EXISTS private.generate_streamlink_mon"));
   assert(rollback.includes("issue_streamlink_hidden_ticket"));
 });

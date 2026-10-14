@@ -11,7 +11,8 @@ const {
   CONTENT_BUILD,
   expectedGenerate,
   assertMonFromFixture,
-  loadPin
+  loadPin,
+  hpMax
 } = require("./lib/a19-genval-oracle");
 
 const ROOT = path.join(__dirname, "..");
@@ -122,10 +123,35 @@ async function main() {
       `SELECT p.proname
        FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
        WHERE n.nspname = 'private'
-         AND p.proname IN ('generate_streamlink_mon', 'assert_streamlink_legal')`
+         AND p.proname IN ('generate_streamlink_mon', 'assert_streamlink_legal', 'generate_streamlink_mon_fixture')`
     );
-    assert(fns.length === 2, `functions ${fns.map((r) => r.proname)}`);
-    record("GENVAL functions created", true);
+    const names = fns.map((r) => r.proname).sort();
+    assert(names.includes("generate_streamlink_mon") && names.includes("assert_streamlink_legal"), `functions ${names}`);
+    assert(!names.includes("generate_streamlink_mon_fixture"), "production 001 must not create fixture generate");
+    record("production GENVAL functions created without fixture entrypoint", true);
+
+    const { rows: issuedKeep } = await client.query(
+      `SELECT private.issue_streamlink_hidden_ticket(1, 'grant', $1, 3600) AS r`,
+      [CONTENT_BUILD]
+    );
+    const keepTicket = issuedKeep[0].r.ticketId;
+    assert(keepTicket, JSON.stringify(issuedKeep[0].r));
+    await applyFile(client, path.join(GENVAL, "001_generate_and_assert.sql"));
+    const { rows: kept } = await client.query(
+      `SELECT count(*)::int AS n, count(*) FILTER (WHERE ticket_id = $1)::int AS kept
+       FROM private.streamlink_hidden_tickets`,
+      [keepTicket]
+    );
+    assert(kept[0].kept === 1 && kept[0].n === 1, "reapply must not drop tickets");
+    record("production SQL reapply is idempotent and keeps tickets", true);
+
+    await applyFile(client, path.join(GENVAL, "local", "010_fixture.sql"));
+    const { rows: fixFn } = await client.query(
+      `SELECT count(*)::int AS n FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
+       WHERE n.nspname = 'private' AND p.proname = 'generate_streamlink_mon_fixture'`
+    );
+    assert(fixFn[0].n === 1);
+    record("local fixture helpers loaded after production install", true);
 
     const { rows: stamp } = await client.query(
       `SELECT count(*)::int AS n FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
@@ -145,7 +171,7 @@ async function main() {
               has_function_privilege('anon', 'private.assert_streamlink_legal(jsonb, text, uuid)', 'execute') AS anon_assert,
               has_function_privilege('anon', 'private.generate_streamlink_mon_fixture(integer, integer, text, text, boolean, boolean, text, text)', 'execute') AS anon_fix,
               has_function_privilege('anon', 'private.issue_streamlink_hidden_ticket(integer, text, text, integer)', 'execute') AS anon_issue,
-              has_function_privilege('authenticated', 'private.streamlink_redeem_hidden_ticket(uuid, text, integer, text)', 'execute') AS auth_redeem`
+              has_function_privilege('authenticated', 'private.streamlink_bind_hidden_ticket(uuid, uuid, bytea)', 'execute') AS auth_bind`
     );
     assert(
       priv[0].anon_gen === false &&
@@ -153,8 +179,22 @@ async function main() {
       priv[0].anon_assert === false &&
       priv[0].anon_fix === false &&
       priv[0].anon_issue === false &&
-      priv[0].auth_redeem === false
+      priv[0].auth_bind === false
     );
+    const { rows: helperPriv } = await client.query(
+      `SELECT p.proname,
+              bool_or(has_function_privilege('anon', p.oid, 'execute')) AS anon_exec,
+              bool_or(p.prosecdef) AS secdef,
+              bool_or(coalesce(c.unnest, '') LIKE 'search_path=pg_catalog') AS fixed_path
+       FROM pg_proc p
+       JOIN pg_namespace n ON n.oid = p.pronamespace
+       LEFT JOIN LATERAL unnest(coalesce(p.proconfig, ARRAY[]::text[])) c(unnest) ON true
+       WHERE n.nspname = 'private'
+         AND (p.proname LIKE 'streamlink%' OR p.proname LIKE 'generate_streamlink%' OR p.proname = 'assert_streamlink_legal')
+       GROUP BY p.proname`
+    );
+    assert(helperPriv.length > 0 && helperPriv.every((row) => row.anon_exec === false), "anon must not execute helpers");
+    assert(helperPriv.filter((row) => /generate_streamlink_mon$|assert_streamlink_legal|issue_streamlink_hidden_ticket/.test(row.proname)).every((row) => row.secdef && row.fixed_path));
     const { rows: wrappers } = await client.query(
       `SELECT count(*)::int AS n
        FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
@@ -261,6 +301,56 @@ async function main() {
       [haYes[0].r, ticketId]
     );
     assert(haLegal[0].r.ok === true, JSON.stringify(haLegal[0].r.errors));
+    const forged = JSON.parse(JSON.stringify(haYes[0].r));
+    const nextHp = (Number(forged.ivs.hp) + 1) % 32;
+    forged.ivs.hp = nextHp;
+    forged.hpMax = hpMax(pin.forms.find((row) => Number(row.formId) === 1).hp, nextHp, 0, 5);
+    forged.hpCurrent = forged.hpMax;
+    delete forged.hiddenGrant;
+    delete forged.hiddenTicketId;
+    delete forged.hiddenSpecimenId;
+    const { rows: cross } = await client.query(
+      `SELECT private.assert_streamlink_legal($1::jsonb, 'grant', $2::uuid) AS r`,
+      [forged, ticketId]
+    );
+    assert(cross[0].r.ok === false && (cross[0].r.errors || []).includes("hidden-not-authorized"), "cross-specimen reuse must fail");
+    const { rows: stillOrig } = await client.query(
+      `SELECT private.assert_streamlink_legal($1::jsonb, 'grant', $2::uuid) AS r`,
+      [haYes[0].r, ticketId]
+    );
+    assert(stillOrig[0].r.ok === true, JSON.stringify(stillOrig[0].r.errors));
+    await client.query(
+      `UPDATE private.streamlink_hidden_tickets
+          SET issued_at = now() - interval '2 hours',
+              expires_at = now() - interval '1 hour'
+        WHERE ticket_id = $1`,
+      [ticketId]
+    );
+    const { rows: postExp } = await client.query(
+      `SELECT private.assert_streamlink_legal($1::jsonb, 'grant', $2::uuid) AS r`,
+      [haYes[0].r, ticketId]
+    );
+    assert(postExp[0].r.ok === true, "already-bound specimen remains valid after ticket expiry");
+    const { rows: failThen } = await client.query(
+      `SELECT private.issue_streamlink_hidden_ticket(1, 'grant', $1, 3600) AS r`,
+      [CONTENT_BUILD]
+    );
+    const failTicket = failThen[0].r.ticketId;
+    const { rows: lvFail } = await client.query(
+      `SELECT private.generate_streamlink_mon_fixture(1, 0, 'grant', 'ha-seed', false, false, $1, $2) AS r`,
+      [CONTENT_BUILD, failTicket]
+    );
+    assert(lvFail[0].r.ok === false && (lvFail[0].r.errors || []).includes("bad-level"));
+    const { rows: unused } = await client.query(
+      `SELECT redeemed_at IS NULL AS open FROM private.streamlink_hidden_tickets WHERE ticket_id = $1`,
+      [failTicket]
+    );
+    assert(unused[0].open === true, "failed generate must not consume the ticket");
+    const { rows: afterFail } = await client.query(
+      `SELECT private.generate_streamlink_mon_fixture(1, 5, 'grant', 'ha-seed', false, false, $1, $2) AS r`,
+      [CONTENT_BUILD, failTicket]
+    );
+    assert(afterFail[0].r.ok === true && afterFail[0].r.abilitySlot === "hidden", JSON.stringify(afterFail[0].r.errors));
     const { rows: haReplay } = await client.query(
       `SELECT private.generate_streamlink_mon_fixture(1, 5, 'grant', 'ha-seed', false, false, $1, $2) AS r`,
       [CONTENT_BUILD, ticketId]
@@ -291,7 +381,25 @@ async function main() {
       [CONTENT_BUILD, issuedExp[0].r.ticketId]
     );
     assert(haExp[0].r.ok === false && (haExp[0].r.errors || []).includes("hidden-ticket-expired"));
-    record("hidden requires issued+redeemed ticket; forge/replay/wrong-ctx/expiry fail", true);
+    const { rows: issuedRace } = await client.query(
+      `SELECT private.issue_streamlink_hidden_ticket(1, 'grant', $1, 3600) AS r`,
+      [CONTENT_BUILD]
+    );
+    const raceTicket = issuedRace[0].r.ticketId;
+    const client2 = cluster.getPgClient(DB_MAIN, HOST);
+    await client2.connect();
+    const raceSql = `SELECT private.generate_streamlink_mon_fixture(1, 5, 'grant', $1, false, false, $2, $3) AS r`;
+    const raced = await Promise.all([
+      client.query(raceSql, ["race-a", CONTENT_BUILD, raceTicket]),
+      client2.query(raceSql, ["race-b", CONTENT_BUILD, raceTicket])
+    ]);
+    await client2.end();
+    const raceResults = raced.map((row) => row.rows[0].r);
+    const raceWins = raceResults.filter((row) => row.ok === true);
+    const raceFails = raceResults.filter((row) => row.ok === false &&
+      ((row.errors || []).includes("hidden-ticket-replay") || (row.errors || []).includes("hidden-not-authorized")));
+    assert(raceWins.length === 1 && raceFails.length === 1, JSON.stringify(raceResults.map((row) => row.errors || row.abilitySlot)));
+    record("hidden binds one specimen; failed generate does not consume; concurrent redeem is single-winner", true);
 
     await client.query("SELECT set_config('starlight.genval_mode', 'fixture', false)");
     await client.query("SELECT set_config('starlight.catcher_nonce', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', false)");

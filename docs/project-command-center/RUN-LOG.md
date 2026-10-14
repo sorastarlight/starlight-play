@@ -1,5 +1,28 @@
 # Run log
 
+## 2026-10-14 — A19-GENVAL specimen binding + additive install (D39, production apply UNAPPROVED)
+
+- Branch: `admin-hub-overhaul`. Independent review of `67141ec3` required digest-bound tickets, non-destructive `001`, and local-only fixtures.
+- Tickets store `specimen_digest` at redeem. Assert matches digest; JSON markers ignored. Failed generate does not consume. Concurrent redeem is single-winner.
+- Production `001` has no DROP TABLE/FUNCTION. Fixture generate is `local/010_fixture.sql` only.
+- REAL SQL: `node tools/a19-genval-rehearsal.js` — **15/15 PASS** on `127.0.0.1:55433/a19_genval`.
+- Did **not** apply to live Supabase. Did not write catches. Did not start WIRE, 003, restore, merge, deploy, or APP stamp.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused. `stamp_catch_row` still the live generator.
+- Production GENVAL apply remains **UNAPPROVED**. STOP for independent review.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-genval-spec-tests.js` | STATIC + LOCAL HARNESS | 6 passed |
+| `tests/a19-genval-impl-tests.js` | STATIC | 5 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 25 passed |
+| `tools/a19-genval-rehearsal.js` | REAL SQL (127.0.0.1) | 15/15 passed |
+| Hosted Supabase / WIRE / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-14 — A19-GENVAL security corrections (D38, production apply UNAPPROVED)
 
 - Branch: `admin-hub-overhaul` at `67141ec3`. Independent review of `b4cf2cc0` required ticket/entropy/validator/move fixes. Still **branch-only**.

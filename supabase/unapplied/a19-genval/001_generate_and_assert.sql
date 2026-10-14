@@ -1,42 +1,39 @@
--- A19-GENVAL UNAPPLIED ARTIFACT (issue #25)
+-- A19-GENVAL UNAPPLIED PRODUCTION ARTIFACT (issue #25)
 -- DO NOT RUN against live Supabase or any connected project.
--- Not a migration. Must never be copied into supabase/migrations/ without a
--- separate production GENVAL-apply authorization.
+-- Additive / idempotent. Does not DROP tables or functions.
+-- Local teardown lives in local/000_teardown.sql. Fixture helpers live in
+-- local/010_fixture.sql. Not a migration. Must never be copied into
+-- supabase/migrations/ without a separate production GENVAL-apply authorization.
 -- Does not replace private.stamp_catch_row.
 -- Does not INSERT/UPDATE/DELETE public.catches.
 
 BEGIN;
 
 CREATE SCHEMA IF NOT EXISTS private;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
--- Replace any prior branch-only GENVAL objects so this file is re-runnable
--- on a disposable local database. Never apply this to hosted Supabase.
-DROP FUNCTION IF EXISTS private.generate_streamlink_mon(integer, integer, text, text, boolean, boolean, text, text);
-DROP FUNCTION IF EXISTS private.generate_streamlink_mon_fixture(integer, integer, text, text, boolean, boolean, text, text);
-DROP FUNCTION IF EXISTS private.streamlink_generate_core(integer, integer, text, boolean, text, text, boolean, text);
-DROP FUNCTION IF EXISTS private.assert_streamlink_legal(jsonb, text);
-DROP FUNCTION IF EXISTS private.assert_streamlink_legal(jsonb, text, uuid);
-DROP FUNCTION IF EXISTS private.issue_streamlink_hidden_ticket(integer, text, text, integer);
-DROP FUNCTION IF EXISTS private.streamlink_redeem_hidden_ticket(uuid, text, integer, text);
-DROP FUNCTION IF EXISTS private.streamlink_level_up_slice(text, integer, integer);
-DROP FUNCTION IF EXISTS private.streamlink_hp_max(integer, integer, integer, integer);
-DROP FUNCTION IF EXISTS private.streamlink_stat(integer, integer, integer, integer, numeric);
-DROP FUNCTION IF EXISTS private.streamlink_gender(integer, bigint);
-DROP FUNCTION IF EXISTS private.streamlink_obtain_ok(text, text, integer);
-DROP FUNCTION IF EXISTS private.streamlink_form_blocked(text, integer);
-DROP FUNCTION IF EXISTS private.streamlink_seed_rejected(text);
-DROP FUNCTION IF EXISTS private.streamlink_hidden_ticket_ok(text, text, integer, text);
-DROP FUNCTION IF EXISTS private.streamlink_roll_u32(text, text);
-DROP FUNCTION IF EXISTS private.streamlink_secure_u32();
-DROP FUNCTION IF EXISTS private.streamlink_fixture_u32(text, text);
-DROP FUNCTION IF EXISTS private.streamlink_json_int(jsonb);
-DROP TABLE IF EXISTS private.streamlink_hidden_tickets;
+-- Fail closed if a leftover table has an incompatible ticket_id type.
+DO $compat$
+BEGIN
+  IF to_regclass('private.streamlink_hidden_tickets') IS NOT NULL THEN
+    IF NOT EXISTS (
+      SELECT 1
+      FROM pg_catalog.pg_attribute a
+      JOIN pg_catalog.pg_class c ON c.oid = a.attrelid
+      JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+      WHERE n.nspname = 'private'
+        AND c.relname = 'streamlink_hidden_tickets'
+        AND a.attname = 'ticket_id'
+        AND NOT a.attisdropped
+        AND a.atttypid = 'uuid'::regtype
+    ) THEN
+      RAISE EXCEPTION 'incompatible private.streamlink_hidden_tickets (ticket_id must be uuid)';
+    END IF;
+  END IF;
+END
+$compat$;
 
--- Server-issued, one-time hidden-ability tickets.
--- Clients cannot INSERT/SELECT/UPDATE (REVOKE + RLS, no policies).
--- Creation is only via issue_streamlink_hidden_ticket (also REVOKE'd).
--- Redemption is only via generate (atomic UPDATE). JSON hiddenGrant is ignored.
-CREATE TABLE private.streamlink_hidden_tickets (
+CREATE TABLE IF NOT EXISTS private.streamlink_hidden_tickets (
   ticket_id uuid PRIMARY KEY,
   content_build text NOT NULL,
   form_id integer NOT NULL,
@@ -45,22 +42,34 @@ CREATE TABLE private.streamlink_hidden_tickets (
   expires_at timestamptz NOT NULL,
   redeemed_at timestamptz,
   issued_by name NOT NULL DEFAULT session_user,
+  specimen_id uuid,
+  specimen_digest bytea,
   CONSTRAINT streamlink_hidden_tickets_ctx CHECK (ctx IN ('grant', 'event')),
   CONSTRAINT streamlink_hidden_tickets_expiry CHECK (expires_at > issued_at)
 );
+
+ALTER TABLE private.streamlink_hidden_tickets
+  ADD COLUMN IF NOT EXISTS specimen_id uuid;
+ALTER TABLE private.streamlink_hidden_tickets
+  ADD COLUMN IF NOT EXISTS specimen_digest bytea;
 
 ALTER TABLE private.streamlink_hidden_tickets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE private.streamlink_hidden_tickets FORCE ROW LEVEL SECURITY;
 REVOKE ALL ON TABLE private.streamlink_hidden_tickets FROM public, anon, authenticated;
 
--- Owner-only policy so SECURITY DEFINER issue/redeem/assert can use the table
--- under FORCE RLS. No policy exists for anon/authenticated.
 DO $pol$
 BEGIN
-  EXECUTE format(
-    'CREATE POLICY streamlink_hidden_tickets_owner ON private.streamlink_hidden_tickets FOR ALL TO %I USING (true) WITH CHECK (true)',
-    current_user
-  );
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_policies
+    WHERE schemaname = 'private'
+      AND tablename = 'streamlink_hidden_tickets'
+      AND policyname = 'streamlink_hidden_tickets_owner'
+  ) THEN
+    EXECUTE format(
+      'CREATE POLICY streamlink_hidden_tickets_owner ON private.streamlink_hidden_tickets FOR ALL TO %I USING (true) WITH CHECK (true)',
+      current_user
+    );
+  END IF;
 END
 $pol$;
 
@@ -83,19 +92,74 @@ EXCEPTION WHEN others THEN
 END
 $fn$;
 
-CREATE OR REPLACE FUNCTION private.streamlink_fixture_u32(p_seed text, p_label text)
-RETURNS bigint
+CREATE OR REPLACE FUNCTION private.streamlink_sha256(p_text text)
+RETURNS bytea
+LANGUAGE plpgsql
+IMMUTABLE
+SET search_path TO pg_catalog
+AS $fn$
+BEGIN
+  IF to_regprocedure('extensions.digest(bytea, text)') IS NOT NULL THEN
+    RETURN extensions.digest(convert_to(p_text, 'UTF8'), 'sha256');
+  END IF;
+  IF to_regprocedure('public.digest(bytea, text)') IS NOT NULL THEN
+    RETURN public.digest(convert_to(p_text, 'UTF8'), 'sha256');
+  END IF;
+  RAISE EXCEPTION 'pgcrypto digest(sha256) is required';
+END
+$fn$;
+
+-- Canonical combat identity. Ignores hiddenGrant, hiddenTicketId, hiddenSpecimenId, stats.
+CREATE OR REPLACE FUNCTION private.streamlink_specimen_digest(p_mon jsonb)
+RETURNS bytea
 LANGUAGE sql
 IMMUTABLE
 SET search_path TO pg_catalog
 AS $fn$
-  SELECT (
-    ('x' || substr(md5(p_seed || chr(31) || p_label), 1, 8))::bit(32)::bigint
-  ) & 4294967295;
+  SELECT private.streamlink_sha256(
+    jsonb_build_object(
+      'contentBuild', p_mon->>'contentBuild',
+      'formId', private.streamlink_json_int(p_mon->'formId'),
+      'dex', private.streamlink_json_int(p_mon->'dex'),
+      'level', private.streamlink_json_int(p_mon->'level'),
+      'natureId', private.streamlink_json_int(p_mon->'natureId'),
+      'abilityId', private.streamlink_json_int(p_mon->'abilityId'),
+      'abilitySlot', p_mon->>'abilitySlot',
+      'ivs', jsonb_build_object(
+        'hp', private.streamlink_json_int(p_mon#>'{ivs,hp}'),
+        'atk', private.streamlink_json_int(p_mon#>'{ivs,atk}'),
+        'def', private.streamlink_json_int(p_mon#>'{ivs,def}'),
+        'spa', private.streamlink_json_int(p_mon#>'{ivs,spa}'),
+        'spd', private.streamlink_json_int(p_mon#>'{ivs,spd}'),
+        'spe', private.streamlink_json_int(p_mon#>'{ivs,spe}')
+      ),
+      'evs', jsonb_build_object(
+        'hp', private.streamlink_json_int(p_mon#>'{evs,hp}'),
+        'atk', private.streamlink_json_int(p_mon#>'{evs,atk}'),
+        'def', private.streamlink_json_int(p_mon#>'{evs,def}'),
+        'spa', private.streamlink_json_int(p_mon#>'{evs,spa}'),
+        'spd', private.streamlink_json_int(p_mon#>'{evs,spd}'),
+        'spe', private.streamlink_json_int(p_mon#>'{evs,spe}')
+      ),
+      'moves', (
+        SELECT coalesce(jsonb_agg(
+          jsonb_build_object(
+            'moveId', private.streamlink_json_int(s->'moveId'),
+            'method', s->>'method',
+            'versionGroup', s->>'versionGroup'
+          ) ORDER BY private.streamlink_json_int(s->'moveId')
+        ), '[]'::jsonb)
+        FROM jsonb_array_elements(
+          CASE WHEN jsonb_typeof(p_mon->'moveSlots') = 'array' THEN p_mon->'moveSlots' ELSE '[]'::jsonb END
+        ) s
+      ),
+      'gender', p_mon->>'gender',
+      'shiny', CASE WHEN p_mon->'shiny' = 'true'::jsonb THEN true ELSE false END,
+      'friendship', private.streamlink_json_int(p_mon->'friendship')
+    )::text
+  );
 $fn$;
 
--- Production entropy. Uses core gen_random_uuid (UUIDv4 CSPRNG).
--- Does not read GUCs, p_seed, round ids, or caller-supplied nonces.
 CREATE OR REPLACE FUNCTION private.streamlink_secure_u32()
 RETURNS bigint
 LANGUAGE sql
@@ -295,7 +359,8 @@ BEGIN
 END
 $fn$;
 
-CREATE OR REPLACE FUNCTION private.streamlink_redeem_hidden_ticket(
+-- Lock + classify a ticket. Does not redeem.
+CREATE OR REPLACE FUNCTION private.streamlink_lock_hidden_ticket(
   p_ticket uuid,
   p_content_build text,
   p_form_id integer,
@@ -307,27 +372,66 @@ SECURITY DEFINER
 SET search_path TO pg_catalog
 AS $fn$
 DECLARE
-  v_id uuid;
+  v_red timestamptz;
+  v_exp timestamptz;
+  v_form integer;
+  v_ctx text;
+  v_build text;
 BEGIN
   IF p_ticket IS NULL THEN
     RETURN 'missing';
   END IF;
+  SELECT t.redeemed_at, t.expires_at, t.form_id, t.ctx, t.content_build
+    INTO v_red, v_exp, v_form, v_ctx, v_build
+  FROM private.streamlink_hidden_tickets t
+  WHERE t.ticket_id = p_ticket
+  FOR UPDATE;
+  IF NOT FOUND THEN
+    RETURN 'unknown';
+  END IF;
+  IF v_red IS NOT NULL THEN
+    RETURN 'replay';
+  END IF;
+  IF v_exp <= now() THEN
+    RETURN 'expired';
+  END IF;
+  IF v_build IS DISTINCT FROM p_content_build
+     OR v_form IS DISTINCT FROM p_form_id
+     OR v_ctx IS DISTINCT FROM p_ctx THEN
+    RETURN 'mismatch';
+  END IF;
+  RETURN 'ok';
+END
+$fn$;
+
+-- Atomic redeem + bind to one specimen digest. Ticket must already be locked.
+CREATE OR REPLACE FUNCTION private.streamlink_bind_hidden_ticket(
+  p_ticket uuid,
+  p_specimen_id uuid,
+  p_digest bytea
+) RETURNS text
+LANGUAGE plpgsql
+VOLATILE
+SECURITY DEFINER
+SET search_path TO pg_catalog
+AS $fn$
+DECLARE
+  v_id uuid;
+BEGIN
+  IF p_ticket IS NULL OR p_specimen_id IS NULL OR p_digest IS NULL THEN
+    RETURN 'missing';
+  END IF;
   UPDATE private.streamlink_hidden_tickets t
-     SET redeemed_at = now()
+     SET redeemed_at = now(),
+         specimen_id = p_specimen_id,
+         specimen_digest = p_digest
    WHERE t.ticket_id = p_ticket
-     AND t.content_build = p_content_build
-     AND t.form_id = p_form_id
-     AND t.ctx = p_ctx
      AND t.redeemed_at IS NULL
      AND t.expires_at > now()
+     AND t.specimen_digest IS NULL
   RETURNING t.ticket_id INTO v_id;
   IF v_id IS NOT NULL THEN
     RETURN 'ok';
-  END IF;
-  IF NOT EXISTS (
-    SELECT 1 FROM private.streamlink_hidden_tickets t WHERE t.ticket_id = p_ticket
-  ) THEN
-    RETURN 'unknown';
   END IF;
   IF EXISTS (
     SELECT 1 FROM private.streamlink_hidden_tickets t
@@ -345,15 +449,12 @@ BEGIN
 END
 $fn$;
 
-CREATE OR REPLACE FUNCTION private.streamlink_generate_core(
+CREATE OR REPLACE FUNCTION private.streamlink_generate_prepare(
   p_form_id integer,
   p_level integer,
   p_ctx text,
-  p_shiny boolean,
   p_content_build text,
-  p_hidden_ticket text,
-  p_use_fixture boolean,
-  p_fixture_seed text
+  p_hidden_ticket text
 ) RETURNS jsonb
 LANGUAGE plpgsql
 VOLATILE
@@ -364,29 +465,14 @@ DECLARE
   build text := coalesce(p_content_build, 'sl-ref-20261013-227b573');
   form private.ref_forms%ROWTYPE;
   spec private.ref_species%ROWTYPE;
-  nat private.ref_natures%ROWTYPE;
   errors text[] := ARRAY[]::text[];
-  hidden_ok boolean := false;
   ticket_uuid uuid;
   ticket_st text;
+  hidden_pending boolean := false;
   slots text[];
-  pick int;
-  ability_id int;
-  ability_slot text;
-  iv_hp int; iv_atk int; iv_def int; iv_spa int; iv_spd int; iv_spe int;
-  nature_id int;
-  gender text;
-  moves jsonb;
-  hp_max int;
-  n_atk numeric := 1; n_def numeric := 1; n_spa numeric := 1; n_spd numeric := 1; n_spe numeric := 1;
-  roll bigint;
-  legacy text[];
 BEGIN
   IF p_ctx IS NULL OR p_ctx NOT IN ('generate', 'catch', 'grant', 'event', 'rebuild') THEN
     errors := array_append(errors, 'bad-ctx');
-  END IF;
-  IF p_use_fixture AND (p_fixture_seed IS NULL OR btrim(p_fixture_seed) = '') THEN
-    errors := array_append(errors, 'bad-seed');
   END IF;
   IF p_level IS NULL OR p_level < 1 OR p_level > 100 THEN
     errors := array_append(errors, 'bad-level');
@@ -426,9 +512,9 @@ BEGIN
   END IF;
 
   IF ticket_uuid IS NOT NULL THEN
-    ticket_st := private.streamlink_redeem_hidden_ticket(ticket_uuid, build, p_form_id, p_ctx);
+    ticket_st := private.streamlink_lock_hidden_ticket(ticket_uuid, build, p_form_id, p_ctx);
     IF ticket_st = 'ok' THEN
-      hidden_ok := true;
+      hidden_pending := true;
     ELSIF ticket_st = 'replay' THEN
       RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('hidden-ticket-replay'));
     ELSIF ticket_st = 'expired' THEN
@@ -438,13 +524,13 @@ BEGIN
     END IF;
   END IF;
 
-  IF hidden_ok AND EXISTS (
+  IF hidden_pending AND EXISTS (
     SELECT 1 FROM private.ref_form_abilities a
     WHERE a.content_build = build AND a.form_id = p_form_id AND a.slot = 'hidden'
   ) THEN
     slots := ARRAY['hidden']::text[];
   ELSE
-    hidden_ok := false;
+    hidden_pending := false;
     ticket_uuid := NULL;
     SELECT coalesce(array_agg(a.slot ORDER BY a.slot), ARRAY[]::text[])
       INTO slots
@@ -456,93 +542,168 @@ BEGIN
     RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('no-legal-ability'));
   END IF;
 
-  IF p_use_fixture THEN
-    pick := (private.streamlink_fixture_u32(p_fixture_seed, 'ability') % array_length(slots, 1))::int;
-    nature_id := (private.streamlink_fixture_u32(p_fixture_seed, 'nature') % 25)::int + 1;
-    iv_hp := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-hp') % 32)::int;
-    iv_atk := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-atk') % 32)::int;
-    iv_def := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-def') % 32)::int;
-    iv_spa := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-spa') % 32)::int;
-    iv_spd := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-spd') % 32)::int;
-    iv_spe := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-spe') % 32)::int;
-    roll := private.streamlink_fixture_u32(p_fixture_seed, 'gender');
-  ELSE
-    pick := (private.streamlink_secure_u32() % array_length(slots, 1))::int;
-    nature_id := (private.streamlink_secure_u32() % 25)::int + 1;
-    iv_hp := (private.streamlink_secure_u32() % 32)::int;
-    iv_atk := (private.streamlink_secure_u32() % 32)::int;
-    iv_def := (private.streamlink_secure_u32() % 32)::int;
-    iv_spa := (private.streamlink_secure_u32() % 32)::int;
-    iv_spd := (private.streamlink_secure_u32() % 32)::int;
-    iv_spe := (private.streamlink_secure_u32() % 32)::int;
-    roll := private.streamlink_secure_u32();
-  END IF;
+  RETURN jsonb_build_object(
+    'ok', true,
+    'build', build,
+    'formId', form.form_id,
+    'dex', form.dex,
+    'level', p_level,
+    'ctx', p_ctx,
+    'ticketUuid', ticket_uuid,
+    'hiddenPending', hidden_pending,
+    'slots', to_jsonb(slots),
+    'genderRate', spec.gender_rate,
+    'friendship', spec.streamlink_base_friendship,
+    'hp', form.hp,
+    'atk', form.atk,
+    'def', form.def,
+    'spa', form.spa,
+    'spd', form.spd,
+    'spe', form.spe,
+    'heightM', form.height_m,
+    'weightKg', form.weight_kg
+  );
+END
+$fn$;
 
+CREATE OR REPLACE FUNCTION private.streamlink_complete_specimen(
+  p_prep jsonb,
+  p_shiny boolean,
+  p_nature_id integer,
+  p_ability_pick bigint,
+  p_iv_hp integer,
+  p_iv_atk integer,
+  p_iv_def integer,
+  p_iv_spa integer,
+  p_iv_spd integer,
+  p_iv_spe integer,
+  p_gender_roll bigint
+) RETURNS jsonb
+LANGUAGE plpgsql
+VOLATILE
+SECURITY DEFINER
+SET search_path TO pg_catalog
+AS $fn$
+DECLARE
+  v_build text;
+  v_form_id int;
+  ability_id int;
+  ability_slot text;
+  nature_id int := p_nature_id;
+  nat private.ref_natures%ROWTYPE;
+  gender text;
+  moves jsonb;
+  hp_max int;
+  n_atk numeric := 1; n_def numeric := 1; n_spa numeric := 1; n_spd numeric := 1; n_spe numeric := 1;
+  legacy text[];
+  mon jsonb;
+  ticket_uuid uuid;
+  specimen_id uuid;
+  digest bytea;
+  bind_st text;
+  slots text[];
+  pick int;
+BEGIN
+  IF p_prep IS NULL OR (p_prep->>'ok') IS DISTINCT FROM 'true' THEN
+    RETURN coalesce(p_prep, jsonb_build_object('ok', false, 'errors', jsonb_build_array('bad-prep')));
+  END IF;
+  v_build := p_prep->>'build';
+  v_form_id := private.streamlink_json_int(p_prep->'formId');
+  SELECT coalesce(array_agg(x), ARRAY[]::text[])
+    INTO slots
+  FROM jsonb_array_elements_text(p_prep->'slots') x;
+  IF slots IS NULL OR array_length(slots, 1) IS NULL THEN
+    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('no-legal-ability'));
+  END IF;
+  pick := ((p_ability_pick % array_length(slots, 1)) + array_length(slots, 1)) % array_length(slots, 1);
   ability_slot := slots[pick + 1];
   SELECT a.ability_id INTO ability_id
   FROM private.ref_form_abilities a
-  WHERE a.content_build = build AND a.form_id = p_form_id AND a.slot = ability_slot;
-
-  SELECT * INTO nat FROM private.ref_natures WHERE content_build = build AND id = nature_id;
-  gender := private.streamlink_gender(spec.gender_rate, roll);
-  moves := private.streamlink_level_up_slice(build, p_form_id, p_level);
+  WHERE a.content_build = v_build AND a.form_id = v_form_id AND a.slot = ability_slot;
+  SELECT * INTO nat FROM private.ref_natures WHERE content_build = v_build AND id = nature_id;
+  IF NOT FOUND THEN
+    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('bad-nature'));
+  END IF;
+  gender := private.streamlink_gender(private.streamlink_json_int(p_prep->'genderRate'), p_gender_roll);
+  moves := private.streamlink_level_up_slice(v_build, v_form_id, private.streamlink_json_int(p_prep->'level'));
   IF moves IS NULL THEN
     RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('unresolved-learnset'));
   END IF;
-
   IF nat.up_stat = 'atk' THEN n_atk := 1.1; ELSIF nat.down_stat = 'atk' THEN n_atk := 0.9; END IF;
   IF nat.up_stat = 'def' THEN n_def := 1.1; ELSIF nat.down_stat = 'def' THEN n_def := 0.9; END IF;
   IF nat.up_stat = 'spa' THEN n_spa := 1.1; ELSIF nat.down_stat = 'spa' THEN n_spa := 0.9; END IF;
   IF nat.up_stat = 'spd' THEN n_spd := 1.1; ELSIF nat.down_stat = 'spd' THEN n_spd := 0.9; END IF;
   IF nat.up_stat = 'spe' THEN n_spe := 1.1; ELSIF nat.down_stat = 'spe' THEN n_spe := 0.9; END IF;
-
-  hp_max := private.streamlink_hp_max(form.hp, iv_hp, 0, p_level);
-
+  hp_max := private.streamlink_hp_max(
+    private.streamlink_json_int(p_prep->'hp'), p_iv_hp, 0,
+    private.streamlink_json_int(p_prep->'level')
+  );
   SELECT coalesce(array_agg(x->>'name'), ARRAY[]::text[])
     INTO legacy
   FROM jsonb_array_elements(moves) x;
 
-  RETURN jsonb_build_object(
+  mon := jsonb_build_object(
     'ok', true,
-    'formId', form.form_id,
-    'dex', form.dex,
-    'level', p_level,
+    'formId', v_form_id,
+    'dex', private.streamlink_json_int(p_prep->'dex'),
+    'level', private.streamlink_json_int(p_prep->'level'),
     'natureId', nature_id,
     'abilityId', ability_id,
     'abilitySlot', ability_slot,
-    'ivs', jsonb_build_object('hp', iv_hp, 'atk', iv_atk, 'def', iv_def, 'spa', iv_spa, 'spd', iv_spd, 'spe', iv_spe),
+    'ivs', jsonb_build_object('hp', p_iv_hp, 'atk', p_iv_atk, 'def', p_iv_def, 'spa', p_iv_spa, 'spd', p_iv_spd, 'spe', p_iv_spe),
     'evs', jsonb_build_object('hp', 0, 'atk', 0, 'def', 0, 'spa', 0, 'spd', 0, 'spe', 0),
     'moveSlots', moves,
     'legacyMoves', to_jsonb(legacy),
     'gender', gender,
     'shiny', coalesce(p_shiny, false),
-    'friendship', spec.streamlink_base_friendship,
+    'friendship', private.streamlink_json_int(p_prep->'friendship'),
     'hpMax', hp_max,
     'hpCurrent', hp_max,
     'status', NULL,
     'heldItem', NULL,
     'gigantamaxFactor', false,
-    'heightM', form.height_m,
-    'weightKg', form.weight_kg,
+    'heightM', p_prep->'heightM',
+    'weightKg', p_prep->'weightKg',
     'rulesetId', 'streamlink-gen9-xgen',
-    'contentBuild', build,
-    'hiddenGrant', hidden_ok,
-    'hiddenTicketId', ticket_uuid,
+    'contentBuild', v_build,
+    'hiddenGrant', false,
+    'hiddenTicketId', NULL,
+    'hiddenSpecimenId', NULL,
     'stats', jsonb_build_object(
       'hp', hp_max,
-      'atk', private.streamlink_stat(form.atk, iv_atk, 0, p_level, n_atk),
-      'def', private.streamlink_stat(form.def, iv_def, 0, p_level, n_def),
-      'spa', private.streamlink_stat(form.spa, iv_spa, 0, p_level, n_spa),
-      'spd', private.streamlink_stat(form.spd, iv_spd, 0, p_level, n_spd),
-      'spe', private.streamlink_stat(form.spe, iv_spe, 0, p_level, n_spe)
+      'atk', private.streamlink_stat(private.streamlink_json_int(p_prep->'atk'), p_iv_atk, 0, private.streamlink_json_int(p_prep->'level'), n_atk),
+      'def', private.streamlink_stat(private.streamlink_json_int(p_prep->'def'), p_iv_def, 0, private.streamlink_json_int(p_prep->'level'), n_def),
+      'spa', private.streamlink_stat(private.streamlink_json_int(p_prep->'spa'), p_iv_spa, 0, private.streamlink_json_int(p_prep->'level'), n_spa),
+      'spd', private.streamlink_stat(private.streamlink_json_int(p_prep->'spd'), p_iv_spd, 0, private.streamlink_json_int(p_prep->'level'), n_spd),
+      'spe', private.streamlink_stat(private.streamlink_json_int(p_prep->'spe'), p_iv_spe, 0, private.streamlink_json_int(p_prep->'level'), n_spe)
     ),
     'errors', '[]'::jsonb
   );
+
+  IF coalesce((p_prep->>'hiddenPending')::boolean, false) THEN
+    ticket_uuid := (p_prep->>'ticketUuid')::uuid;
+    specimen_id := gen_random_uuid();
+    digest := private.streamlink_specimen_digest(mon);
+    bind_st := private.streamlink_bind_hidden_ticket(ticket_uuid, specimen_id, digest);
+    IF bind_st IS DISTINCT FROM 'ok' THEN
+      IF bind_st = 'replay' THEN
+        RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('hidden-ticket-replay'));
+      END IF;
+      IF bind_st = 'expired' THEN
+        RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('hidden-ticket-expired'));
+      END IF;
+      RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('hidden-not-authorized'));
+    END IF;
+    mon := mon || jsonb_build_object(
+      'hiddenGrant', true,
+      'hiddenTicketId', ticket_uuid,
+      'hiddenSpecimenId', specimen_id
+    );
+  END IF;
+  RETURN mon;
 END
 $fn$;
 
--- Production generator. Combat identity comes only from streamlink_secure_u32.
--- p_seed is ignored. p_allow_hidden is ignored. GUCs are ignored.
 CREATE OR REPLACE FUNCTION private.generate_streamlink_mon(
   p_form_id integer,
   p_level integer,
@@ -558,43 +719,30 @@ VOLATILE
 SECURITY DEFINER
 SET search_path TO pg_catalog
 AS $fn$
+DECLARE
+  prep jsonb;
 BEGIN
   -- p_allow_hidden is intentionally unused.
   -- p_seed is intentionally unused (not an entropy source).
   IF p_allow_hidden IS NULL OR p_seed IS NULL THEN
     NULL;
   END IF;
-  RETURN private.streamlink_generate_core(
-    p_form_id, p_level, p_ctx, p_shiny, p_content_build, p_hidden_ticket,
-    false, NULL
-  );
-END
-$fn$;
-
--- Isolated-test generator only. Deterministic md5(seed). Not a production mode.
--- REVOKE'd from client roles. No GUC can select this path on generate_streamlink_mon.
-CREATE OR REPLACE FUNCTION private.generate_streamlink_mon_fixture(
-  p_form_id integer,
-  p_level integer,
-  p_ctx text,
-  p_seed text,
-  p_allow_hidden boolean DEFAULT false,
-  p_shiny boolean DEFAULT false,
-  p_content_build text DEFAULT 'sl-ref-20261013-227b573',
-  p_hidden_ticket text DEFAULT NULL
-) RETURNS jsonb
-LANGUAGE plpgsql
-VOLATILE
-SECURITY DEFINER
-SET search_path TO pg_catalog
-AS $fn$
-BEGIN
-  IF p_allow_hidden IS NULL THEN
-    NULL;
+  prep := private.streamlink_generate_prepare(p_form_id, p_level, p_ctx, p_content_build, p_hidden_ticket);
+  IF (prep->>'ok') IS DISTINCT FROM 'true' THEN
+    RETURN prep;
   END IF;
-  RETURN private.streamlink_generate_core(
-    p_form_id, p_level, p_ctx, p_shiny, p_content_build, p_hidden_ticket,
-    true, p_seed
+  RETURN private.streamlink_complete_specimen(
+    prep,
+    p_shiny,
+    (private.streamlink_secure_u32() % 25)::int + 1,
+    (private.streamlink_secure_u32() % 2147483647)::int,
+    (private.streamlink_secure_u32() % 32)::int,
+    (private.streamlink_secure_u32() % 32)::int,
+    (private.streamlink_secure_u32() % 32)::int,
+    (private.streamlink_secure_u32() % 32)::int,
+    (private.streamlink_secure_u32() % 32)::int,
+    (private.streamlink_secure_u32() % 32)::int,
+    private.streamlink_secure_u32()
   );
 END
 $fn$;
@@ -638,6 +786,7 @@ DECLARE
   seen int[] := ARRAY[]::int[];
   evs jsonb;
   ivs jsonb;
+  v_digest bytea;
 BEGIN
   IF p_ctx IS NULL OR p_ctx NOT IN (
     'generate', 'catch', 'grant', 'event', 'evolve', 'trade', 'edit', 'rebuild'
@@ -743,8 +892,9 @@ BEGIN
   ) THEN
     errors := array_append(errors, 'illegal-ability');
   ELSIF v_ability_slot = 'hidden' THEN
-    -- hiddenGrant / allowHidden in JSON are not authorization.
-    IF p_ctx NOT IN ('grant', 'event') OR p_hidden_auth IS NULL THEN
+    -- hiddenGrant / hiddenTicketId / hiddenSpecimenId in JSON are not authorization.
+    v_digest := private.streamlink_specimen_digest(p_mon);
+    IF p_ctx NOT IN ('grant', 'event') OR p_hidden_auth IS NULL OR v_digest IS NULL THEN
       errors := array_append(errors, 'hidden-not-authorized');
     ELSIF NOT EXISTS (
       SELECT 1 FROM private.streamlink_hidden_tickets t
@@ -753,6 +903,8 @@ BEGIN
         AND t.form_id = v_form_id
         AND t.ctx = p_ctx
         AND t.redeemed_at IS NOT NULL
+        AND t.specimen_digest IS NOT NULL
+        AND t.specimen_digest = v_digest
     ) THEN
       errors := array_append(errors, 'hidden-not-authorized');
     END IF;
@@ -938,7 +1090,8 @@ DECLARE
   sig text;
   sigs text[] := ARRAY[
     'private.streamlink_json_int(jsonb)',
-    'private.streamlink_fixture_u32(text, text)',
+    'private.streamlink_sha256(text)',
+    'private.streamlink_specimen_digest(jsonb)',
     'private.streamlink_secure_u32()',
     'private.streamlink_form_blocked(text, integer)',
     'private.streamlink_obtain_ok(text, text, integer)',
@@ -947,17 +1100,18 @@ DECLARE
     'private.streamlink_stat(integer, integer, integer, integer, numeric)',
     'private.streamlink_level_up_slice(text, integer, integer)',
     'private.issue_streamlink_hidden_ticket(integer, text, text, integer)',
-    'private.streamlink_redeem_hidden_ticket(uuid, text, integer, text)',
-    'private.streamlink_generate_core(integer, integer, text, boolean, text, text, boolean, text)',
+    'private.streamlink_lock_hidden_ticket(uuid, text, integer, text)',
+    'private.streamlink_bind_hidden_ticket(uuid, uuid, bytea)',
+    'private.streamlink_generate_prepare(integer, integer, text, text, text)',
+    'private.streamlink_complete_specimen(jsonb, boolean, integer, bigint, integer, integer, integer, integer, integer, integer, bigint)',
     'private.generate_streamlink_mon(integer, integer, text, text, boolean, boolean, text, text)',
-    'private.generate_streamlink_mon_fixture(integer, integer, text, text, boolean, boolean, text, text)',
     'private.assert_streamlink_legal(jsonb, text, uuid)'
   ];
 BEGIN
   FOREACH sig IN ARRAY sigs LOOP
     EXECUTE format('ALTER FUNCTION %s OWNER TO CURRENT_USER', sig);
     EXECUTE format('REVOKE ALL ON FUNCTION %s FROM public', sig);
-    FOREACH r IN ARRAY ARRAY['anon', 'authenticated'] LOOP
+    FOREACH r IN ARRAY ARRAY['anon', 'authenticated', 'service_role'] LOOP
       IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = r) THEN
         EXECUTE format('REVOKE ALL ON FUNCTION %s FROM %I', sig, r);
       END IF;
@@ -967,14 +1121,12 @@ END
 $rev$;
 
 COMMENT ON FUNCTION private.generate_streamlink_mon(integer, integer, text, text, boolean, boolean, text, text) IS
-  'A19-GENVAL production specimen JSON. Entropy is gen_random_uuid inside this function. p_seed and p_allow_hidden are ignored. Hidden requires issue+redeem. No catch writes. Not a public RPC.';
-COMMENT ON FUNCTION private.generate_streamlink_mon_fixture(integer, integer, text, text, boolean, boolean, text, text) IS
-  'Isolated-test generator only. Deterministic md5 seed. Not selectable via GUC. REVOKE from client roles.';
+  'A19-GENVAL production specimen JSON. Entropy is gen_random_uuid. p_seed and p_allow_hidden are ignored. Hidden binds a ticket to one specimen digest. No catch writes.';
 COMMENT ON FUNCTION private.assert_streamlink_legal(jsonb, text, uuid) IS
-  'A19-GENVAL legality check. hiddenGrant in JSON is ignored. Hidden requires p_hidden_auth of a redeemed server ticket.';
+  'A19-GENVAL legality check. JSON hiddenGrant/hiddenTicketId/hiddenSpecimenId are ignored. Hidden requires p_hidden_auth bound to this specimen digest.';
 COMMENT ON FUNCTION private.issue_streamlink_hidden_ticket(integer, text, text, integer) IS
-  'Server-only HA ticket issuer. REVOKE from public/anon/authenticated. Future WIRE is the only intended caller.';
+  'Server-only HA ticket issuer. REVOKE from public/anon/authenticated/service_role.';
 COMMENT ON TABLE private.streamlink_hidden_tickets IS
-  'One-time HA tickets. RLS forced. No client DML. Redeemed atomically by generate.';
+  'One-time HA tickets bound to one specimen_digest at redeem. RLS forced. No client DML.';
 
 COMMIT;

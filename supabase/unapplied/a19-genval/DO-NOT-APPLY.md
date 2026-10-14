@@ -1,6 +1,6 @@
 # DO NOT APPLY
 
-A19-GENVAL artifacts for GitHub issue #25. **Branch-only.** D37/D38 authorize writing and **disposable local Postgres rehearsal** of these files, not live execution. Production apply remains **UNAPPROVED**.
+A19-GENVAL artifacts for GitHub issue #25. **Branch-only.** D37–D39 authorize writing and **disposable local Postgres rehearsal** of these files, not live execution. Production apply remains **UNAPPROVED**.
 
 - Not listed in `supabase/migrations/`
 - Must not be run with Supabase MCP `apply_migration` / `execute_sql`
@@ -13,7 +13,9 @@ A19-GENVAL artifacts for GitHub issue #25. **Branch-only.** D37/D38 authorize wr
 
 | File | Role |
 |---|---|
-| `001_generate_and_assert.sql` | `generate_streamlink_mon`, `assert_streamlink_legal`, helpers, REVOKE |
-| `002_rollback.sql` | DROP those functions/tables only |
+| `001_generate_and_assert.sql` | **Production-shaped install:** additive, no DROP TABLE/FUNCTION, no fixture entrypoint |
+| `002_rollback.sql` | Local/review DROP only — not a production install |
+| `local/000_teardown.sql` | Disposable-local DROP |
+| `local/010_fixture.sql` | Deterministic fixture generate — local only |
 
 Pin: `sl-ref-20261013-227b573`. Requires `private.ref_*` from A19-SCHEMA (already applied on production; loaded locally by the rehearsal).

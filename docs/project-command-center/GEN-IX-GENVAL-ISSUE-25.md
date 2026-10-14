@@ -4,6 +4,8 @@
 
 Unapplied SQL + disposable local REAL SQL rehearsal only. `stamp_catch_row` unchanged. No live Supabase execution. No catch writes. No WIRE.
 
+Commit: `b4cf2cc0` on `admin-hub-overhaul`.
+
 Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 
 | Honesty | Used |

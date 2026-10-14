@@ -2,7 +2,7 @@
 
 ## 2026-10-14 — A19-GENVAL branch-only implementation (D37, production apply UNAPPROVED)
 
-- Branch: `admin-hub-overhaul`. Owner authorized **branch-only** functions + isolated local rehearsal. GV1–GV7 locked.
+- Branch: `admin-hub-overhaul` at `b4cf2cc0`. Owner authorized **branch-only** functions + isolated local rehearsal. GV1–GV7 locked.
 - Artifacts: `supabase/unapplied/a19-genval/` (`001`, `002`, `DO-NOT-APPLY.md`). Not copied into `migrations/`. Not applied to `dtflmlbjhttoewqgkujf`.
 - Functions: `private.generate_streamlink_mon`, `private.assert_streamlink_legal`. Hidden tickets table RLS+REVOKE. `p_allow_hidden` ignored. `stamp_catch_row` not modified.
 - REAL SQL: `node tools/a19-genval-rehearsal.js` — **12/12 PASS** on embedded Postgres `127.0.0.1:55433/a19_genval`. JS oracle match. G1/C1 fail-closed. Articuno grant friendship 35. Production nonce required; seed≠round_id.

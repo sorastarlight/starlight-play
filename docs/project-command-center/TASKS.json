@@ -285,7 +285,7 @@
       "scope": "GitHub issue #24 read-only production catalog, security, and migration compatibility preflight",
       "dependencies": ["I23", "D29"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "9390b815",
       "evidence": "docs/project-command-center/GEN-IX-PRODUCTION-PREFLIGHT.md, supabase/unapplied/a19-schema/preflight/",
       "testResults": "a19-apply-preflight STATIC; LIVE CATALOG metadata SELECTs; no catch-row SELECT",
       "nextAction": "Stop. Owner reviews preflight. Do not apply SQL or start A19-GENVAL.",

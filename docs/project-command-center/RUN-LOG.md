@@ -1,5 +1,21 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #21 A19-REF readiness review
+
+- Branch: `admin-hub-overhaul`. Review only. Pin checksums unchanged (220/16). `admin-next.html` unchanged. No live SQL, RPC, wipe, merge, deploy, or APP stamp.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D22 recorded. A19-SCHEMA still blocked. Proposed G1/C1/F1 not authorized.
+- Review: `GEN-IX-REF-READINESS-REVIEW.md`. Proposed SQL: `supabase/unapplied/a19-ref-review/` (not applied).
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/gen9-ref-tests.js` | LOCAL HARNESS | 12 passed |
+| `tests/gen9-ref-readiness-tests.js` | LOCAL HARNESS | 8 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 20 passed |
+
 ## 2026-10-13 — GitHub issue #20 A19-REF offline pin
 
 - Branch: `admin-hub-overhaul`. Offline pin + unapplied SQL only. `admin-next.html` unchanged. No live SQL, RPC, wipe, replacement, merge, deploy, or APP stamp.

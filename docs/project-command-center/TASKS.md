@@ -23,9 +23,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I12 | done | Issue #12 trainer record IA v5 (header, Connections, Inventory, Unlockables, Tickets) | I10, epic #11 | **A10** visual | Owner reviews v5; do not implement |
 | I16 | done | Issue #16 Pokémon legality source audit + editor design | epic #11 | superseded by D15–D17 | Historical snapshot; see #19 |
 | I19 | done | Issue #19 Gen IX rebuild architecture + reset plan | epic #18, D17 | Superseded by #20 / D21; **A19-RESET-GO** to wipe | Plan remains architecture source |
-| I20 | done | Issue #20 offline Gen IX reference pin + unapplied SQL | I19, D20 | **A19-SCHEMA** next; do not apply SQL | Stop after A19-REF |
+| I20 | done | Issue #20 offline Gen IX reference pin + unapplied SQL | I19, D20 | **A19-SCHEMA** still blocked | Pin delivered unapplied |
+| I21 | done | Issue #21 A19-REF readiness review (Gmax, Champions, friendship, SQL) | I20 | Owner G1/C1/F1 + secure SQL; not A19-SCHEMA | Stop for owner review |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. Issue #20 is A19-REF only. Pin is offline. Unapplied SQL must not hit Supabase. A19-SCHEMA+ blocked. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D21. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. Issue #21 is review only. Pin stays 220/16. Unapplied SQL must not hit Supabase. A19-SCHEMA+ blocked. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D22. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

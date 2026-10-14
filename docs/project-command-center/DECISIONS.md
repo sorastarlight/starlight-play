@@ -30,6 +30,7 @@
 
 | D20 | Owner explicitly said **proceed** following the A19-REF offer | Authorizes **A19-REF reference-pin implementation in the working branch only**: offline dataset/tooling, tests, and unapplied seed SQL for review. Does NOT authorize live schema application, generator/validator, Pokémon changes, A19-SCHEMA onward, reset, merge or deployment. |
 | D21 | A19-REF delivered an offline pin (`sl-ref-20261013-227b573`) plus unapplied `ref_*` SQL | JSON in `data/gen9-ref/`. SQL in `supabase/unapplied/a19-ref/` only. Not applied to live. A19-SCHEMA still required before DDL. |
+| D22 | Issue #21 readiness review completed; Gmax/Champions/friendship/SQL findings are proposals only | Does not authorize A19-SCHEMA, apply SQL, change the 220/16 pin, or accept G1/C1/F1. Owner still chooses those policies. |
 
 | D22 | Owner said **proceed** with the proposed A19-REF **offline readiness review** | Authorizes #21 evidence-backed review of 12 Gigantamax forms, 4 Champions Mega forms, Gen IX friendship interpretation, and proposed reference-table security/DDL hardening; **not** A19-SCHEMA, live SQL, generator implementation, data resets, or deployment. |
 
@@ -60,7 +61,10 @@
 | A19-Q5 | Persist current HP/status before battle exists? | **APPROVED POLICY:** initialize current HP to computed maximum and status to null/none until battles exist. No schema change authorized. |
 | A19-Q6 | Include Sora/Twinkle in a future reset? | **APPROVED CONDITIONAL POLICY:** inclusion may be considered **only after** a later, explicit protected-account authorization; **exclude both by default**, including all current planning/testing and any unapproved reset. No protected-account mutation authorized. |
 | A19-REF | Build the offline reference pin and seed tables? | **APPROVED FOR DEVELOPMENT ON `admin-hub-overhaul` ONLY** by owner 'proceed': offline version-pinned reference extract, deterministic generator tooling, checksums, isolated fixtures and **reviewable, unapplied** seed-table SQL artifacts. No live database migration, deployed tables, RPC/generator wiring or production data writes. Stop for review. |
-| A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | After A19-REF. No combat UPDATE of live rows. |
+| A19-G1 | Gigantamax stored as base + factor, shared-base learnset, or unavailable? | **Recommended G1:** persist base + later factor; do not store Gmax as a distinct wild form. Review only until chosen. |
+| A19-C1 | Champions/Z-A megas: transform of base, shared-base learnset, or extract champions VG? | **Recommended C1:** fail-closed for wild/grant; persist base; mega is a later transform. Review only until chosen. |
+| A19-F1 | Use Gen IX friendship (70→50) at generation time without rewriting the pin? | **Recommended F1:** keep PokéAPI pin values; map 70→50 at generate. Review only until chosen. |
+| A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | After A19-REF **and** after accepting the #21 secure `private.ref_*` draft. No combat UPDATE of live rows. Still **UNAPPROVED**. |
 | A19-GENVAL | Ship generator + validator functions? | After schema. No player-row writes. |
 | A19-WIRE | Wire launch/settle/grant/evolve to the validator? | New catches only; QA account. |
 | A19-INSPECT | Staff read RPC for full PC combat fields? | After generator exists. |

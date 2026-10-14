@@ -31,6 +31,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [POKEMON-LEGALITY-AUDIT-ISSUE-16.md](./POKEMON-LEGALITY-AUDIT-ISSUE-16.md) | Issue #16 catch schema, legality matrix; errata: LGPE has natures |
 | [GEN-IX-REBUILD-PLAN-ISSUE-19.md](./GEN-IX-REBUILD-PLAN-ISSUE-19.md) | Issue #19 Gen IX cross-gen rebuild plan, validator, reset playbook |
 | [GEN-IX-REF-ISSUE-20.md](./GEN-IX-REF-ISSUE-20.md) | Issue #20 offline pin, checksums, Mega/regional coverage |
+| [GEN-IX-REF-READINESS-REVIEW.md](./GEN-IX-REF-READINESS-REVIEW.md) | Issue #21 Gmax, Champions, friendship, secure SQL review |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

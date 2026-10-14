@@ -55,8 +55,10 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
     "docs/project-command-center/GEN-IX-REBUILD-PLAN-ISSUE-19.md",
     "docs/project-command-center/GEN-IX-REF-ISSUE-20.md",
+    "docs/project-command-center/GEN-IX-REF-READINESS-REVIEW.md",
     "data/gen9-ref/meta.json",
     "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
+    "supabase/unapplied/a19-ref-review/DO-NOT-APPLY.md",
     ".cursor/rules/streamlink-project.mdc"
   ].forEach((rel) => assert(fs.existsSync(path.join(__dirname, "..", rel)), rel));
   assert(commandCenter.includes("First execution boundary"));
@@ -365,6 +367,20 @@ test("Issue 20 Gen IX pin stays offline and unapplied", () => {
   assert(unapplied.includes("DO NOT RUN"));
   assert(!migNames.includes("a19-ref"));
   assert(decisions.includes("D20") && decisions.includes("D21"));
+  assert(!nextJs.includes("generate_streamlink_mon"));
+  assert(!liveJs.includes("generate_streamlink_mon"));
+});
+
+test("Issue 21 readiness review stays offline and does not authorize SCHEMA", () => {
+  const report = read("docs/project-command-center/GEN-IX-REF-READINESS-REVIEW.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  const proposed = read("supabase/unapplied/a19-ref-review/001_proposed_secure_ref_tables.sql");
+  const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
+  assert(report.includes("Gigantamax") && report.includes("10278"));
+  assert(report.includes("A19-SCHEMA remains **UNAPPROVED**"));
+  assert(decisions.includes("D22"));
+  assert(proposed.includes("DO NOT RUN") && /row level security/i.test(proposed));
+  assert(!migNames.includes("a19-ref-review"));
   assert(!nextJs.includes("generate_streamlink_mon"));
   assert(!liveJs.includes("generate_streamlink_mon"));
 });

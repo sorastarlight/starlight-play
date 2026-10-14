@@ -324,6 +324,18 @@
       "commit": "b4cf2cc0",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md, supabase/unapplied/a19-genval/, tools/a19-genval-rehearsal.js, tools/lib/a19-genval-oracle.js",
       "testResults": "a19-genval-spec STATIC; a19-genval-impl STATIC; REAL SQL 12/12 on 127.0.0.1:55433/a19_genval",
+      "nextAction": "Superseded by I25B / D38 security corrections.",
+      "approvalRequirement": "Historical D37; production GENVAL apply still unapproved"
+    },
+    {
+      "id": "I25B",
+      "status": "done",
+      "scope": "A19-GENVAL security corrections: tickets, entropy, validator types, move legality",
+      "dependencies": ["I25A", "D38"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md, supabase/unapplied/a19-genval/, tools/a19-genval-rehearsal.js",
+      "testResults": "a19-genval-spec STATIC; a19-genval-impl STATIC; REAL SQL 13/13 on 127.0.0.1:55433/a19_genval",
       "nextAction": "STOP for independent review. Do not apply GENVAL to live Supabase, WIRE, 003, restore, merge, or deploy.",
       "approvalRequirement": "Production GENVAL apply remains UNAPPROVED; A19-WIRE still blocked"
     },

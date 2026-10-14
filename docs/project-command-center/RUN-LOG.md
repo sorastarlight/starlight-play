@@ -1,5 +1,29 @@
 # Run log
 
+## 2026-10-14 — A19-GENVAL security corrections (D38, production apply UNAPPROVED)
+
+- Branch: `admin-hub-overhaul`. Independent review of `b4cf2cc0` required ticket/entropy/validator/move fixes. Still **branch-only**.
+- Hidden: `issue_streamlink_hidden_ticket` + atomic redeem; JSON `hiddenGrant` ignored; replay/expiry/wrong-ctx fail.
+- Entropy: production `generate_streamlink_mon` uses `gen_random_uuid` and ignores `p_seed` and session GUCs. Fixture generate is a separate REVOKE'd function.
+- Validator: typed JSON ints; required IV/EV/HP fields; structured errors; move VG/method/level/PP/duplicates.
+- REAL SQL: `node tools/a19-genval-rehearsal.js` — **13/13 PASS** on `127.0.0.1:55433/a19_genval`.
+- Did **not** apply to live Supabase. Did not write catches. Did not start WIRE, 003, restore, merge, deploy, or APP stamp.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused. `stamp_catch_row` still the live generator.
+- Production GENVAL apply remains **UNAPPROVED**. STOP for independent review.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-genval-spec-tests.js` | STATIC + LOCAL HARNESS | 6 passed |
+| `tests/a19-genval-impl-tests.js` | STATIC | 5 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 25 passed |
+| `tools/a19-genval-rehearsal.js` | REAL SQL (127.0.0.1) | 13/13 passed |
+| Hosted Supabase / WIRE / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-14 — A19-GENVAL branch-only implementation (D37, production apply UNAPPROVED)
 
 - Branch: `admin-hub-overhaul` at `b4cf2cc0`. Owner authorized **branch-only** functions + isolated local rehearsal. GV1–GV7 locked.

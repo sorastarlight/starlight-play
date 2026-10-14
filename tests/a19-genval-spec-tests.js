@@ -76,7 +76,9 @@ test("synthetic fixture matrix parses and is not live Pokémon", () => {
   assert(matrix.synthetic === true && matrix.notLivePokemon === true);
   assert(matrix.contentBuild === "sl-ref-20261013-227b573");
   const ids = matrix.cases.map((row) => row.id);
-  ["L-BULBA", "L-CHAR", "L-GMAX", "L-C1", "L-HA-NO", "L-HA-YES", "L-TM", "I-IV", "I-EV", "I-MAREEP", "I-LEGACY"].forEach((id) => {
+  ["L-BULBA", "L-CHAR", "L-GMAX", "L-C1", "L-HA-NO", "L-HA-YES", "L-TM", "I-IV", "I-EV", "I-MAREEP", "I-LEGACY",
+    "I-FORGE-HA", "I-DUP-MOVE", "I-OVERLEVEL", "I-BAD-TYPE", "I-MISSING-HP", "I-NULL-METHOD", "I-MISSING-EV", "I-NONARRAY-MOVES"
+  ].forEach((id) => {
     assert(ids.includes(id), id);
   });
   assert(matrix.cases.every((row) => row.mon && row.expect));
@@ -105,7 +107,9 @@ test("illegal fixtures encode IV, G1, C1, hidden, and legacy-row failures", () =
   assert(iv.expect === "fail" && iv.mon.ivs.hp === 32);
   assert(gmax.expect === "fail" && gmax.mon.formId === 10195);
   assert(c1.expect === "fail" && c1.mon.formId === 10278);
+  const haYes = matrix.cases.find((row) => row.id === "L-HA-YES");
   assert(ha.expect === "fail" && ha.mon.abilitySlot === "hidden" && ha.ctx === "catch");
+  assert(haYes.expect === "fail" && haYes.mon.hiddenGrant === true);
   assert(legacy.expect === "fail" && legacy.contentBuild === null);
   assert(mareep.expect === "fail" && mareep.mon.dex === 179);
   assert(!speciesByDex(pin, 179));

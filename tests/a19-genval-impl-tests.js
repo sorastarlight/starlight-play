@@ -48,9 +48,17 @@ test("functions are hardened and hidden is not a caller flag", () => {
   assert(sql.includes("REVOKE ALL ON FUNCTION"));
   assert(sql.includes("streamlink_hidden_tickets"));
   assert(sql.includes("p_allow_hidden is intentionally unused") || sql.includes("p_allow_hidden is ignored"));
-  assert(sql.includes("starlight.catcher_nonce"));
-  assert(sql.includes("starlight.round_id"));
+  assert(sql.includes("issue_streamlink_hidden_ticket"));
+  assert(sql.includes("streamlink_redeem_hidden_ticket"));
+  assert(sql.includes("generate_streamlink_mon_fixture"));
+  assert(sql.includes("streamlink_secure_u32"));
+  assert(sql.includes("p_hidden_auth"));
+  assert(sql.includes("hiddenGrant / allowHidden in JSON are not authorization") ||
+    sql.includes("hiddenGrant in JSON is ignored"));
+  assert(!sql.includes("current_setting('starlight.genval_mode'"));
+  assert(!sql.includes("starlight.catcher_nonce"));
   assert(rollback.includes("DROP FUNCTION IF EXISTS private.generate_streamlink_mon"));
+  assert(rollback.includes("issue_streamlink_hidden_ticket"));
 });
 
 test("rehearsal target is loopback and refuses hosted Supabase", () => {

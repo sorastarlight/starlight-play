@@ -31,7 +31,8 @@
 | Issue #24 A19-APPLY handoff | `tests/a19-apply-handoff-tests.js` | STATIC (D34 BLOCKED snapshot; checksums unchanged) | Historical |
 | Issue #24 A19-APPLY report (D35) | `tests/a19-apply-report-tests.js` + catalog counts + REST `Accept-Profile` | STATIC + LIVE CATALOG + LIVE API (`PGRST106`) | WIRE; catch-row SELECT; restore; PRODUCTION smoke |
 | A19-GENVAL specification (D36) | `tests/a19-genval-spec-tests.js` + pin slice oracle + fixture matrix | STATIC + LOCAL HARNESS | Historical snapshot |
-| A19-GENVAL implementation (D37) | `tests/a19-genval-impl-tests.js` + `tools/a19-genval-rehearsal.js` | STATIC + LOCAL HARNESS + REAL SQL (12/12 on 127.0.0.1) | Live apply; WIRE; PRODUCTION |
+| A19-GENVAL implementation (D37) | `tests/a19-genval-impl-tests.js` + `tools/a19-genval-rehearsal.js` | STATIC + LOCAL HARNESS + REAL SQL | Historical snapshot |
+| A19-GENVAL security corrections (D38) | `tests/a19-genval-impl-tests.js` + `tools/a19-genval-rehearsal.js` | STATIC + LOCAL HARNESS + REAL SQL (13/13 on 127.0.0.1) | Live apply; WIRE; PRODUCTION |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

@@ -49,6 +49,7 @@
 | D35 | Owner GO applied A19-APPLY schema-only on `starlight-play` | Authorized `001` → seed `00`–`10` → `002` only against `dtflmlbjhttoewqgkujf`. Freshest COMPLETED `2026-10-14 07:44:26 +0000`; PITR disabled; whole-DB rewind understood. Catalog counts / RLS+REVOKE / 17 nullable catch columns / LIVE API `PGRST106` verified. `003`, GENVAL, WIRE, catch-row SELECT, RPCs, restore, merge, deploy, APP stamp **not** run. Existing Pokémon unchanged. |
 | D36 | A19-GENVAL specification and offline test plan delivered; implementation still blocked | Spec for `generate_streamlink_mon` / `assert_streamlink_legal` plus synthetic fixtures. Does **not** create functions, apply SQL, wire the catch pipeline, or mutate Pokémon. A19-GENVAL remains **UNAPPROVED**. |
 | D37 | Owner authorized A19-GENVAL **branch-only** implementation + isolated local Postgres rehearsal | Unapplied `supabase/unapplied/a19-genval/`. GV1–GV7 locked as specified. Hidden abilities require a server-owned ticket; `p_allow_hidden` ignored. Does **not** apply functions to live Supabase, replace `stamp_catch_row`, write catches, or start WIRE. Production GENVAL apply remains **UNAPPROVED**. |
+| D38 | Independent review of `b4cf2cc0` required GENVAL security corrections; still branch-only | Hidden tickets now issue/redeem/expire/replay-block; JSON `hiddenGrant` is ignored. Production entropy is `gen_random_uuid` inside SECURITY DEFINER and ignores caller seeds/GUCs. Fixture generate is a separate REVOKE'd function. Validator type-checks before cast; moves check VG/method/level/PP/duplicates. Production apply remains **UNAPPROVED**. |
 
 ## Needs owner approval
 
@@ -92,7 +93,7 @@
 | A19-GV2 | Gender per-catcher vs shared with the round? | **APPROVED:** per-catcher, respecting gender_rate. |
 | A19-GV3 | G1/C1 requested form id: remap to base or fail? | **APPROVED:** fail closed. Never silently remap. |
 | A19-GV4 | Validator accepts machine/egg/tutor from resolved VG while generate emits level-up only? | **APPROVED.** |
-| A19-GV5 | Deterministic md5(seed) vs gen_random_bytes? | **APPROVED:** fixture md5; production requires server `catcher_nonce`. Never seed from public round id alone. |
+| A19-GV5 | Deterministic md5(seed) vs gen_random_bytes? | **APPROVED (D38 refinement):** fixture function uses md5; production generate uses server `gen_random_uuid` and ignores caller seeds/GUCs. Never derive identity from a public round id. |
 | A19-GV6 | Dual-write legacy iv_*/moves[] in generate vs WIRE-only? | **APPROVED:** specimen JSON + optional `legacyMoves`. Writes are WIRE only. |
 | A19-GV7 | New public_id prefix SL vs keep LG? | **APPROVED:** defer to WIRE. |
 

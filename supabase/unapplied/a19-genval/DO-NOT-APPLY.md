@@ -1,6 +1,6 @@
 # DO NOT APPLY
 
-A19-GENVAL artifacts for GitHub issue #25. **Branch-only.** D37 authorizes writing and **disposable local Postgres rehearsal** of these files, not live execution.
+A19-GENVAL artifacts for GitHub issue #25. **Branch-only.** D37/D38 authorize writing and **disposable local Postgres rehearsal** of these files, not live execution. Production apply remains **UNAPPROVED**.
 
 - Not listed in `supabase/migrations/`
 - Must not be run with Supabase MCP `apply_migration` / `execute_sql`

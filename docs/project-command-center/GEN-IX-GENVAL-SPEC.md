@@ -308,3 +308,5 @@ Next gate: explicit owner **A19-GENVAL** implementation authorization (functions
 ---
 
 **Later (D37 snapshot pointer):** Owner authorized branch-only implementation. See [GEN-IX-GENVAL-ISSUE-25.md](./GEN-IX-GENVAL-ISSUE-25.md). This file remains the D36 planning snapshot. Production apply is still **UNAPPROVED**.
+
+**Later (D38 snapshot pointer):** Independent review of `b4cf2cc0` required security corrections (tickets, entropy, validator types, move legality). Production apply is still **UNAPPROVED**.

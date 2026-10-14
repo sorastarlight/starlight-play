@@ -145,9 +145,9 @@
     },
     {
       "id": "L-HA-YES",
-      "expect": "pass",
+      "expect": "fail",
       "ctx": "grant",
-      "reason": "hidden-ticket",
+      "reason": "forged-hiddenGrant-is-not-authorization",
       "mon": {
         "formId": 1,
         "dex": 1,
@@ -162,6 +162,172 @@
         "friendship": 50,
         "allowHidden": true,
         "hiddenGrant": true
+      }
+    },
+    {
+      "id": "I-FORGE-HA",
+      "expect": "fail",
+      "ctx": "grant",
+      "reason": "hidden-not-authorized",
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 34,
+        "abilitySlot": "hidden",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [33, 45, 22],
+        "gender": "Male",
+        "friendship": 50,
+        "hiddenGrant": true
+      }
+    },
+    {
+      "id": "I-DUP-MOVE",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "duplicate-move",
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [33, 33],
+        "gender": "Male",
+        "friendship": 50
+      }
+    },
+    {
+      "id": "I-OVERLEVEL",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "overlevel-move",
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [74],
+        "gender": "Male",
+        "friendship": 50
+      }
+    },
+    {
+      "id": "I-BAD-TYPE",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "bad-form-id",
+      "mon": {
+        "formId": "1",
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [33, 45, 22],
+        "gender": "Male",
+        "friendship": 50
+      }
+    },
+    {
+      "id": "I-MISSING-HP",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "missing-hp-max",
+      "omitHp": true,
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [33, 45, 22],
+        "gender": "Male",
+        "friendship": 50
+      }
+    },
+    {
+      "id": "I-NULL-METHOD",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "missing-move-method",
+      "assertPatch": {
+        "moveSlots": [
+          {
+            "moveId": 33,
+            "pp": 35,
+            "ppMax": 35,
+            "method": null,
+            "versionGroup": "scarlet-violet"
+          }
+        ]
+      },
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [33],
+        "gender": "Male",
+        "friendship": 50
+      }
+    },
+    {
+      "id": "I-MISSING-EV",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "missing-ev",
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0 },
+        "moveIds": [33, 45, 22],
+        "gender": "Male",
+        "friendship": 50
+      }
+    },
+    {
+      "id": "I-NONARRAY-MOVES",
+      "expect": "fail",
+      "ctx": "catch",
+      "reason": "bad-move-slots",
+      "assertPatch": { "moveSlots": { "moveId": 33 } },
+      "mon": {
+        "formId": 1,
+        "dex": 1,
+        "level": 5,
+        "natureId": 1,
+        "abilityId": 65,
+        "abilitySlot": "1",
+        "ivs": { "hp": 12, "atk": 8, "def": 19, "spa": 21, "spd": 14, "spe": 7 },
+        "evs": { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
+        "moveIds": [33],
+        "gender": "Male",
+        "friendship": 50
       }
     },
     {

@@ -9,18 +9,79 @@ BEGIN;
 
 CREATE SCHEMA IF NOT EXISTS private;
 
--- Server-owned hidden-ability tickets. Callers cannot INSERT (REVOKE below).
--- p_allow_hidden on generate is ignored; a matching ticket is required.
-CREATE TABLE IF NOT EXISTS private.streamlink_hidden_tickets (
-  ticket text PRIMARY KEY,
+-- Replace any prior branch-only GENVAL objects so this file is re-runnable
+-- on a disposable local database. Never apply this to hosted Supabase.
+DROP FUNCTION IF EXISTS private.generate_streamlink_mon(integer, integer, text, text, boolean, boolean, text, text);
+DROP FUNCTION IF EXISTS private.generate_streamlink_mon_fixture(integer, integer, text, text, boolean, boolean, text, text);
+DROP FUNCTION IF EXISTS private.streamlink_generate_core(integer, integer, text, boolean, text, text, boolean, text);
+DROP FUNCTION IF EXISTS private.assert_streamlink_legal(jsonb, text);
+DROP FUNCTION IF EXISTS private.assert_streamlink_legal(jsonb, text, uuid);
+DROP FUNCTION IF EXISTS private.issue_streamlink_hidden_ticket(integer, text, text, integer);
+DROP FUNCTION IF EXISTS private.streamlink_redeem_hidden_ticket(uuid, text, integer, text);
+DROP FUNCTION IF EXISTS private.streamlink_level_up_slice(text, integer, integer);
+DROP FUNCTION IF EXISTS private.streamlink_hp_max(integer, integer, integer, integer);
+DROP FUNCTION IF EXISTS private.streamlink_stat(integer, integer, integer, integer, numeric);
+DROP FUNCTION IF EXISTS private.streamlink_gender(integer, bigint);
+DROP FUNCTION IF EXISTS private.streamlink_obtain_ok(text, text, integer);
+DROP FUNCTION IF EXISTS private.streamlink_form_blocked(text, integer);
+DROP FUNCTION IF EXISTS private.streamlink_seed_rejected(text);
+DROP FUNCTION IF EXISTS private.streamlink_hidden_ticket_ok(text, text, integer, text);
+DROP FUNCTION IF EXISTS private.streamlink_roll_u32(text, text);
+DROP FUNCTION IF EXISTS private.streamlink_secure_u32();
+DROP FUNCTION IF EXISTS private.streamlink_fixture_u32(text, text);
+DROP FUNCTION IF EXISTS private.streamlink_json_int(jsonb);
+DROP TABLE IF EXISTS private.streamlink_hidden_tickets;
+
+-- Server-issued, one-time hidden-ability tickets.
+-- Clients cannot INSERT/SELECT/UPDATE (REVOKE + RLS, no policies).
+-- Creation is only via issue_streamlink_hidden_ticket (also REVOKE'd).
+-- Redemption is only via generate (atomic UPDATE). JSON hiddenGrant is ignored.
+CREATE TABLE private.streamlink_hidden_tickets (
+  ticket_id uuid PRIMARY KEY,
   content_build text NOT NULL,
   form_id integer NOT NULL,
   ctx text NOT NULL,
-  CONSTRAINT streamlink_hidden_tickets_ctx CHECK (ctx IN ('grant', 'event'))
+  issued_at timestamptz NOT NULL DEFAULT now(),
+  expires_at timestamptz NOT NULL,
+  redeemed_at timestamptz,
+  issued_by name NOT NULL DEFAULT session_user,
+  CONSTRAINT streamlink_hidden_tickets_ctx CHECK (ctx IN ('grant', 'event')),
+  CONSTRAINT streamlink_hidden_tickets_expiry CHECK (expires_at > issued_at)
 );
 
 ALTER TABLE private.streamlink_hidden_tickets ENABLE ROW LEVEL SECURITY;
+ALTER TABLE private.streamlink_hidden_tickets FORCE ROW LEVEL SECURITY;
 REVOKE ALL ON TABLE private.streamlink_hidden_tickets FROM public, anon, authenticated;
+
+-- Owner-only policy so SECURITY DEFINER issue/redeem/assert can use the table
+-- under FORCE RLS. No policy exists for anon/authenticated.
+DO $pol$
+BEGIN
+  EXECUTE format(
+    'CREATE POLICY streamlink_hidden_tickets_owner ON private.streamlink_hidden_tickets FOR ALL TO %I USING (true) WITH CHECK (true)',
+    current_user
+  );
+END
+$pol$;
+
+CREATE OR REPLACE FUNCTION private.streamlink_json_int(p jsonb)
+RETURNS integer
+LANGUAGE plpgsql
+IMMUTABLE
+SET search_path TO pg_catalog
+AS $fn$
+BEGIN
+  IF p IS NULL OR jsonb_typeof(p) IS DISTINCT FROM 'number' THEN
+    RETURN NULL;
+  END IF;
+  IF (p #>> '{}') !~ '^-?[0-9]+$' THEN
+    RETURN NULL;
+  END IF;
+  RETURN (p #>> '{}')::integer;
+EXCEPTION WHEN others THEN
+  RETURN NULL;
+END
+$fn$;
 
 CREATE OR REPLACE FUNCTION private.streamlink_fixture_u32(p_seed text, p_label text)
 RETURNS bigint
@@ -33,69 +94,17 @@ AS $fn$
   ) & 4294967295;
 $fn$;
 
--- Fixture mode: deterministic md5(seed). Production mode: requires
--- SET LOCAL starlight.catcher_nonce (32+ hex from server gen_random_bytes).
--- Never use a public round id as the only entropy (see seed_rejected).
-CREATE OR REPLACE FUNCTION private.streamlink_roll_u32(p_seed text, p_label text)
+-- Production entropy. Uses core gen_random_uuid (UUIDv4 CSPRNG).
+-- Does not read GUCs, p_seed, round ids, or caller-supplied nonces.
+CREATE OR REPLACE FUNCTION private.streamlink_secure_u32()
 RETURNS bigint
-LANGUAGE plpgsql
-STABLE
-SET search_path TO pg_catalog
-AS $fn$
-DECLARE
-  mode text;
-  nonce text;
-BEGIN
-  mode := coalesce(current_setting('starlight.genval_mode', true), '');
-  IF mode = 'fixture' THEN
-    RETURN private.streamlink_fixture_u32(p_seed, p_label);
-  END IF;
-  nonce := coalesce(current_setting('starlight.catcher_nonce', true), '');
-  IF length(nonce) < 32 THEN
-    RETURN NULL;
-  END IF;
-  RETURN private.streamlink_fixture_u32(p_seed || ':' || nonce, p_label);
-END
-$fn$;
-
-CREATE OR REPLACE FUNCTION private.streamlink_seed_rejected(p_seed text)
-RETURNS boolean
-LANGUAGE plpgsql
-STABLE
-SET search_path TO pg_catalog
-AS $fn$
-DECLARE
-  round_id text;
-BEGIN
-  IF p_seed IS NULL OR btrim(p_seed) = '' THEN
-    RETURN true;
-  END IF;
-  round_id := coalesce(current_setting('starlight.round_id', true), '');
-  IF round_id <> '' AND p_seed = round_id THEN
-    RETURN true;
-  END IF;
-  RETURN false;
-END
-$fn$;
-
-CREATE OR REPLACE FUNCTION private.streamlink_hidden_ticket_ok(
-  p_ticket text,
-  p_content_build text,
-  p_form_id integer,
-  p_ctx text
-) RETURNS boolean
 LANGUAGE sql
-STABLE
+VOLATILE
 SET search_path TO pg_catalog
 AS $fn$
-  SELECT EXISTS (
-    SELECT 1
-    FROM private.streamlink_hidden_tickets t
-    WHERE t.ticket = p_ticket
-      AND t.content_build = p_content_build
-      AND t.form_id = p_form_id
-      AND t.ctx = p_ctx
-  );
+  SELECT (
+    ('x' || substr(replace(gen_random_uuid()::text, '-', ''), 1, 8))::bit(32)::bigint
+  ) & 4294967295;
 $fn$;
 
 CREATE OR REPLACE FUNCTION private.streamlink_form_blocked(p_content_build text, p_form_id integer)
@@ -236,18 +245,118 @@ AS $fn$
   FROM last4;
 $fn$;
 
-CREATE OR REPLACE FUNCTION private.generate_streamlink_mon(
+CREATE OR REPLACE FUNCTION private.issue_streamlink_hidden_ticket(
+  p_form_id integer,
+  p_ctx text,
+  p_content_build text DEFAULT 'sl-ref-20261013-227b573',
+  p_ttl_seconds integer DEFAULT 3600
+) RETURNS jsonb
+LANGUAGE plpgsql
+VOLATILE
+SECURITY DEFINER
+SET search_path TO pg_catalog
+AS $fn$
+DECLARE
+  build text := coalesce(p_content_build, 'sl-ref-20261013-227b573');
+  v_id uuid;
+  v_exp timestamptz;
+BEGIN
+  IF p_ctx IS NULL OR p_ctx NOT IN ('grant', 'event') THEN
+    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('bad-ctx'));
+  END IF;
+  IF p_ttl_seconds IS NULL OR p_ttl_seconds < 1 OR p_ttl_seconds > 86400 THEN
+    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('bad-ttl'));
+  END IF;
+  IF NOT EXISTS (
+    SELECT 1 FROM private.ref_form_abilities a
+    WHERE a.content_build = build AND a.form_id = p_form_id AND a.slot = 'hidden'
+  ) THEN
+    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('no-hidden-slot'));
+  END IF;
+  IF private.streamlink_form_blocked(build, p_form_id)
+     OR NOT private.streamlink_obtain_ok(build, p_ctx, p_form_id) THEN
+    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('obtain-denied'));
+  END IF;
+  v_id := gen_random_uuid();
+  v_exp := now() + make_interval(secs => p_ttl_seconds);
+  INSERT INTO private.streamlink_hidden_tickets (
+    ticket_id, content_build, form_id, ctx, expires_at, issued_by
+  ) VALUES (
+    v_id, build, p_form_id, p_ctx, v_exp, session_user
+  );
+  RETURN jsonb_build_object(
+    'ok', true,
+    'ticketId', v_id,
+    'expiresAt', v_exp,
+    'formId', p_form_id,
+    'ctx', p_ctx,
+    'contentBuild', build
+  );
+END
+$fn$;
+
+CREATE OR REPLACE FUNCTION private.streamlink_redeem_hidden_ticket(
+  p_ticket uuid,
+  p_content_build text,
+  p_form_id integer,
+  p_ctx text
+) RETURNS text
+LANGUAGE plpgsql
+VOLATILE
+SECURITY DEFINER
+SET search_path TO pg_catalog
+AS $fn$
+DECLARE
+  v_id uuid;
+BEGIN
+  IF p_ticket IS NULL THEN
+    RETURN 'missing';
+  END IF;
+  UPDATE private.streamlink_hidden_tickets t
+     SET redeemed_at = now()
+   WHERE t.ticket_id = p_ticket
+     AND t.content_build = p_content_build
+     AND t.form_id = p_form_id
+     AND t.ctx = p_ctx
+     AND t.redeemed_at IS NULL
+     AND t.expires_at > now()
+  RETURNING t.ticket_id INTO v_id;
+  IF v_id IS NOT NULL THEN
+    RETURN 'ok';
+  END IF;
+  IF NOT EXISTS (
+    SELECT 1 FROM private.streamlink_hidden_tickets t WHERE t.ticket_id = p_ticket
+  ) THEN
+    RETURN 'unknown';
+  END IF;
+  IF EXISTS (
+    SELECT 1 FROM private.streamlink_hidden_tickets t
+    WHERE t.ticket_id = p_ticket AND t.redeemed_at IS NOT NULL
+  ) THEN
+    RETURN 'replay';
+  END IF;
+  IF EXISTS (
+    SELECT 1 FROM private.streamlink_hidden_tickets t
+    WHERE t.ticket_id = p_ticket AND t.expires_at <= now()
+  ) THEN
+    RETURN 'expired';
+  END IF;
+  RETURN 'mismatch';
+END
+$fn$;
+
+CREATE OR REPLACE FUNCTION private.streamlink_generate_core(
   p_form_id integer,
   p_level integer,
   p_ctx text,
-  p_seed text,
-  p_allow_hidden boolean DEFAULT false,
-  p_shiny boolean DEFAULT false,
-  p_content_build text DEFAULT 'sl-ref-20261013-227b573',
-  p_hidden_ticket text DEFAULT NULL
+  p_shiny boolean,
+  p_content_build text,
+  p_hidden_ticket text,
+  p_use_fixture boolean,
+  p_fixture_seed text
 ) RETURNS jsonb
 LANGUAGE plpgsql
-STABLE
+VOLATILE
 SECURITY DEFINER
 SET search_path TO pg_catalog
 AS $fn$
@@ -258,6 +367,8 @@ DECLARE
   nat private.ref_natures%ROWTYPE;
   errors text[] := ARRAY[]::text[];
   hidden_ok boolean := false;
+  ticket_uuid uuid;
+  ticket_st text;
   slots text[];
   pick int;
   ability_id int;
@@ -271,15 +382,10 @@ DECLARE
   roll bigint;
   legacy text[];
 BEGIN
-  -- p_allow_hidden is intentionally unused (GV hidden-harden).
-  IF p_allow_hidden IS NULL THEN
-    NULL;
-  END IF;
-
   IF p_ctx IS NULL OR p_ctx NOT IN ('generate', 'catch', 'grant', 'event', 'rebuild') THEN
     errors := array_append(errors, 'bad-ctx');
   END IF;
-  IF private.streamlink_seed_rejected(p_seed) THEN
+  IF p_use_fixture AND (p_fixture_seed IS NULL OR btrim(p_fixture_seed) = '') THEN
     errors := array_append(errors, 'bad-seed');
   END IF;
   IF p_level IS NULL OR p_level < 1 OR p_level > 100 THEN
@@ -306,16 +412,32 @@ BEGIN
     END IF;
   END IF;
 
-  roll := private.streamlink_roll_u32(p_seed, 'nature');
-  IF roll IS NULL THEN
-    errors := array_append(errors, 'missing-catcher-nonce');
+  IF p_hidden_ticket IS NOT NULL AND btrim(p_hidden_ticket) <> '' THEN
+    BEGIN
+      ticket_uuid := p_hidden_ticket::uuid;
+    EXCEPTION WHEN others THEN
+      errors := array_append(errors, 'hidden-ticket-invalid');
+      ticket_uuid := NULL;
+    END;
   END IF;
 
   IF array_length(errors, 1) IS NOT NULL THEN
     RETURN jsonb_build_object('ok', false, 'errors', to_jsonb(errors));
   END IF;
 
-  hidden_ok := private.streamlink_hidden_ticket_ok(p_hidden_ticket, build, p_form_id, p_ctx);
+  IF ticket_uuid IS NOT NULL THEN
+    ticket_st := private.streamlink_redeem_hidden_ticket(ticket_uuid, build, p_form_id, p_ctx);
+    IF ticket_st = 'ok' THEN
+      hidden_ok := true;
+    ELSIF ticket_st = 'replay' THEN
+      RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('hidden-ticket-replay'));
+    ELSIF ticket_st = 'expired' THEN
+      RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('hidden-ticket-expired'));
+    ELSE
+      RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('hidden-not-authorized'));
+    END IF;
+  END IF;
+
   IF hidden_ok AND EXISTS (
     SELECT 1 FROM private.ref_form_abilities a
     WHERE a.content_build = build AND a.form_id = p_form_id AND a.slot = 'hidden'
@@ -323,6 +445,7 @@ BEGIN
     slots := ARRAY['hidden']::text[];
   ELSE
     hidden_ok := false;
+    ticket_uuid := NULL;
     SELECT coalesce(array_agg(a.slot ORDER BY a.slot), ARRAY[]::text[])
       INTO slots
     FROM private.ref_form_abilities a
@@ -332,21 +455,36 @@ BEGIN
   IF slots IS NULL OR array_length(slots, 1) IS NULL THEN
     RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('no-legal-ability'));
   END IF;
-  pick := (private.streamlink_roll_u32(p_seed, 'ability') % array_length(slots, 1))::int;
+
+  IF p_use_fixture THEN
+    pick := (private.streamlink_fixture_u32(p_fixture_seed, 'ability') % array_length(slots, 1))::int;
+    nature_id := (private.streamlink_fixture_u32(p_fixture_seed, 'nature') % 25)::int + 1;
+    iv_hp := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-hp') % 32)::int;
+    iv_atk := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-atk') % 32)::int;
+    iv_def := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-def') % 32)::int;
+    iv_spa := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-spa') % 32)::int;
+    iv_spd := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-spd') % 32)::int;
+    iv_spe := (private.streamlink_fixture_u32(p_fixture_seed, 'iv-spe') % 32)::int;
+    roll := private.streamlink_fixture_u32(p_fixture_seed, 'gender');
+  ELSE
+    pick := (private.streamlink_secure_u32() % array_length(slots, 1))::int;
+    nature_id := (private.streamlink_secure_u32() % 25)::int + 1;
+    iv_hp := (private.streamlink_secure_u32() % 32)::int;
+    iv_atk := (private.streamlink_secure_u32() % 32)::int;
+    iv_def := (private.streamlink_secure_u32() % 32)::int;
+    iv_spa := (private.streamlink_secure_u32() % 32)::int;
+    iv_spd := (private.streamlink_secure_u32() % 32)::int;
+    iv_spe := (private.streamlink_secure_u32() % 32)::int;
+    roll := private.streamlink_secure_u32();
+  END IF;
+
   ability_slot := slots[pick + 1];
   SELECT a.ability_id INTO ability_id
   FROM private.ref_form_abilities a
   WHERE a.content_build = build AND a.form_id = p_form_id AND a.slot = ability_slot;
 
-  nature_id := (private.streamlink_roll_u32(p_seed, 'nature') % 25)::int + 1;
   SELECT * INTO nat FROM private.ref_natures WHERE content_build = build AND id = nature_id;
-  iv_hp := (private.streamlink_roll_u32(p_seed, 'iv-hp') % 32)::int;
-  iv_atk := (private.streamlink_roll_u32(p_seed, 'iv-atk') % 32)::int;
-  iv_def := (private.streamlink_roll_u32(p_seed, 'iv-def') % 32)::int;
-  iv_spa := (private.streamlink_roll_u32(p_seed, 'iv-spa') % 32)::int;
-  iv_spd := (private.streamlink_roll_u32(p_seed, 'iv-spd') % 32)::int;
-  iv_spe := (private.streamlink_roll_u32(p_seed, 'iv-spe') % 32)::int;
-  gender := private.streamlink_gender(spec.gender_rate, private.streamlink_roll_u32(p_seed, 'gender'));
+  gender := private.streamlink_gender(spec.gender_rate, roll);
   moves := private.streamlink_level_up_slice(build, p_form_id, p_level);
   IF moves IS NULL THEN
     RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('unresolved-learnset'));
@@ -389,6 +527,7 @@ BEGIN
     'rulesetId', 'streamlink-gen9-xgen',
     'contentBuild', build,
     'hiddenGrant', hidden_ok,
+    'hiddenTicketId', ticket_uuid,
     'stats', jsonb_build_object(
       'hp', hp_max,
       'atk', private.streamlink_stat(form.atk, iv_atk, 0, p_level, n_atk),
@@ -402,8 +541,69 @@ BEGIN
 END
 $fn$;
 
-CREATE OR REPLACE FUNCTION private.assert_streamlink_legal(p_mon jsonb, p_ctx text)
-RETURNS jsonb
+-- Production generator. Combat identity comes only from streamlink_secure_u32.
+-- p_seed is ignored. p_allow_hidden is ignored. GUCs are ignored.
+CREATE OR REPLACE FUNCTION private.generate_streamlink_mon(
+  p_form_id integer,
+  p_level integer,
+  p_ctx text,
+  p_seed text,
+  p_allow_hidden boolean DEFAULT false,
+  p_shiny boolean DEFAULT false,
+  p_content_build text DEFAULT 'sl-ref-20261013-227b573',
+  p_hidden_ticket text DEFAULT NULL
+) RETURNS jsonb
+LANGUAGE plpgsql
+VOLATILE
+SECURITY DEFINER
+SET search_path TO pg_catalog
+AS $fn$
+BEGIN
+  -- p_allow_hidden is intentionally unused.
+  -- p_seed is intentionally unused (not an entropy source).
+  IF p_allow_hidden IS NULL OR p_seed IS NULL THEN
+    NULL;
+  END IF;
+  RETURN private.streamlink_generate_core(
+    p_form_id, p_level, p_ctx, p_shiny, p_content_build, p_hidden_ticket,
+    false, NULL
+  );
+END
+$fn$;
+
+-- Isolated-test generator only. Deterministic md5(seed). Not a production mode.
+-- REVOKE'd from client roles. No GUC can select this path on generate_streamlink_mon.
+CREATE OR REPLACE FUNCTION private.generate_streamlink_mon_fixture(
+  p_form_id integer,
+  p_level integer,
+  p_ctx text,
+  p_seed text,
+  p_allow_hidden boolean DEFAULT false,
+  p_shiny boolean DEFAULT false,
+  p_content_build text DEFAULT 'sl-ref-20261013-227b573',
+  p_hidden_ticket text DEFAULT NULL
+) RETURNS jsonb
+LANGUAGE plpgsql
+VOLATILE
+SECURITY DEFINER
+SET search_path TO pg_catalog
+AS $fn$
+BEGIN
+  IF p_allow_hidden IS NULL THEN
+    NULL;
+  END IF;
+  RETURN private.streamlink_generate_core(
+    p_form_id, p_level, p_ctx, p_shiny, p_content_build, p_hidden_ticket,
+    true, p_seed
+  );
+END
+$fn$;
+
+CREATE OR REPLACE FUNCTION private.assert_streamlink_legal(
+  p_mon jsonb,
+  p_ctx text,
+  p_hidden_auth uuid DEFAULT NULL
+) RETURNS jsonb
 LANGUAGE plpgsql
 STABLE
 SECURITY DEFINER
@@ -432,9 +632,12 @@ DECLARE
   v_method text;
   v_pp int;
   v_pp_max int;
-  move_ok boolean;
   pin_pp int;
+  v_learn_level int;
   n_slots int;
+  seen int[] := ARRAY[]::int[];
+  evs jsonb;
+  ivs jsonb;
 BEGIN
   IF p_ctx IS NULL OR p_ctx NOT IN (
     'generate', 'catch', 'grant', 'event', 'evolve', 'trade', 'edit', 'rebuild'
@@ -449,7 +652,7 @@ BEGIN
   END IF;
 
   v_build := p_mon->>'contentBuild';
-  IF v_build IS NULL OR btrim(v_build) = '' THEN
+  IF v_build IS NULL OR btrim(v_build) = '' OR jsonb_typeof(p_mon->'contentBuild') IS DISTINCT FROM 'string' THEN
     RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('legacy-row'));
   END IF;
   IF NOT EXISTS (SELECT 1 FROM private.ref_meta m WHERE m.content_build = v_build) THEN
@@ -459,8 +662,47 @@ BEGIN
     errors := array_append(errors, 'bad-ruleset');
   END IF;
 
-  v_form_id := (p_mon->>'formId')::int;
-  v_dex := (p_mon->>'dex')::int;
+  v_form_id := private.streamlink_json_int(p_mon->'formId');
+  IF p_mon->'formId' IS NULL THEN
+    errors := array_append(errors, 'missing-form-id');
+  ELSIF v_form_id IS NULL THEN
+    errors := array_append(errors, 'bad-form-id');
+  END IF;
+  v_dex := private.streamlink_json_int(p_mon->'dex');
+  IF p_mon->'dex' IS NULL THEN
+    errors := array_append(errors, 'missing-dex');
+  ELSIF v_dex IS NULL THEN
+    errors := array_append(errors, 'bad-dex');
+  END IF;
+  v_level := private.streamlink_json_int(p_mon->'level');
+  IF p_mon->'level' IS NULL THEN
+    errors := array_append(errors, 'missing-level');
+  ELSIF v_level IS NULL OR v_level < 1 OR v_level > 100 THEN
+    errors := array_append(errors, 'bad-level');
+  END IF;
+  v_nature_id := private.streamlink_json_int(p_mon->'natureId');
+  IF p_mon->'natureId' IS NULL THEN
+    errors := array_append(errors, 'missing-nature');
+  ELSIF v_nature_id IS NULL THEN
+    errors := array_append(errors, 'bad-nature');
+  END IF;
+  v_ability_id := private.streamlink_json_int(p_mon->'abilityId');
+  IF p_mon->'abilityId' IS NULL THEN
+    errors := array_append(errors, 'missing-ability');
+  ELSIF v_ability_id IS NULL THEN
+    errors := array_append(errors, 'bad-ability');
+  END IF;
+  v_friendship := private.streamlink_json_int(p_mon->'friendship');
+  IF p_mon->'friendship' IS NULL THEN
+    errors := array_append(errors, 'missing-friendship');
+  ELSIF v_friendship IS NULL OR v_friendship < 0 OR v_friendship > 255 THEN
+    errors := array_append(errors, 'friendship');
+  END IF;
+
+  IF v_form_id IS NULL THEN
+    RETURN jsonb_build_object('ok', false, 'errors', to_jsonb(errors));
+  END IF;
+
   SELECT * INTO form FROM private.ref_forms f WHERE f.content_build = v_build AND f.form_id = v_form_id;
   IF NOT FOUND THEN
     errors := array_append(errors, 'unknown-form');
@@ -473,7 +715,7 @@ BEGIN
   IF NOT FOUND THEN
     errors := array_append(errors, 'unknown-species');
   END IF;
-  IF form.learnset_status IS DISTINCT FROM 'resolved' THEN
+  IF form.learnset_status IS DISTINCT FROM 'resolved' OR form.learnset_version_group IS NULL THEN
     errors := array_append(errors, 'unresolved-learnset');
   END IF;
   IF private.streamlink_form_blocked(v_build, v_form_id) THEN
@@ -483,93 +725,153 @@ BEGIN
     errors := array_append(errors, 'obtain-denied');
   END IF;
 
-  v_nature_id := (p_mon->>'natureId')::int;
-  IF v_nature_id IS NULL OR NOT EXISTS (
+  IF v_nature_id IS NOT NULL AND NOT EXISTS (
     SELECT 1 FROM private.ref_natures n WHERE n.content_build = v_build AND n.id = v_nature_id
   ) THEN
     errors := array_append(errors, 'bad-nature');
   END IF;
 
-  v_ability_id := (p_mon->>'abilityId')::int;
   v_ability_slot := p_mon->>'abilitySlot';
-  IF v_ability_slot IS NULL OR v_ability_slot NOT IN ('1', '2', 'hidden') THEN
+  IF p_mon->'abilitySlot' IS NULL OR jsonb_typeof(p_mon->'abilitySlot') IS DISTINCT FROM 'string' THEN
+    errors := array_append(errors, 'missing-ability-slot');
+  ELSIF v_ability_slot NOT IN ('1', '2', 'hidden') THEN
     errors := array_append(errors, 'bad-ability-slot');
-  ELSIF NOT EXISTS (
+  ELSIF v_ability_id IS NULL OR NOT EXISTS (
     SELECT 1 FROM private.ref_form_abilities a
     WHERE a.content_build = v_build AND a.form_id = v_form_id
       AND a.slot = v_ability_slot AND a.ability_id = v_ability_id
   ) THEN
     errors := array_append(errors, 'illegal-ability');
   ELSIF v_ability_slot = 'hidden' THEN
-    IF p_ctx NOT IN ('grant', 'event') THEN
+    -- hiddenGrant / allowHidden in JSON are not authorization.
+    IF p_ctx NOT IN ('grant', 'event') OR p_hidden_auth IS NULL THEN
       errors := array_append(errors, 'hidden-not-authorized');
-    ELSIF coalesce(p_mon->>'hiddenGrant', 'false') IS DISTINCT FROM 'true' THEN
+    ELSIF NOT EXISTS (
+      SELECT 1 FROM private.streamlink_hidden_tickets t
+      WHERE t.ticket_id = p_hidden_auth
+        AND t.content_build = v_build
+        AND t.form_id = v_form_id
+        AND t.ctx = p_ctx
+        AND t.redeemed_at IS NOT NULL
+    ) THEN
       errors := array_append(errors, 'hidden-not-authorized');
     END IF;
   END IF;
 
-  v_level := (p_mon->>'level')::int;
-  IF v_level IS NULL OR v_level < 1 OR v_level > 100 THEN
-    errors := array_append(errors, 'bad-level');
+  gender := CASE WHEN jsonb_typeof(p_mon->'gender') = 'string' THEN p_mon->>'gender' ELSE NULL END;
+  IF spec.gender_rate IS NOT NULL THEN
+    IF spec.gender_rate = -1 AND gender IS DISTINCT FROM 'Genderless' THEN
+      errors := array_append(errors, 'gender');
+    ELSIF spec.gender_rate = 0 AND gender IS DISTINCT FROM 'Male' THEN
+      errors := array_append(errors, 'gender');
+    ELSIF spec.gender_rate = 8 AND gender IS DISTINCT FROM 'Female' THEN
+      errors := array_append(errors, 'gender');
+    ELSIF spec.gender_rate NOT IN (-1, 0, 8) AND gender NOT IN ('Male', 'Female') THEN
+      errors := array_append(errors, 'gender');
+    END IF;
   END IF;
 
-  gender := p_mon->>'gender';
-  IF spec.gender_rate = -1 AND gender IS DISTINCT FROM 'Genderless' THEN
-    errors := array_append(errors, 'gender');
-  ELSIF spec.gender_rate = 0 AND gender IS DISTINCT FROM 'Male' THEN
-    errors := array_append(errors, 'gender');
-  ELSIF spec.gender_rate = 8 AND gender IS DISTINCT FROM 'Female' THEN
-    errors := array_append(errors, 'gender');
-  ELSIF spec.gender_rate NOT IN (-1, 0, 8) AND gender NOT IN ('Male', 'Female') THEN
-    errors := array_append(errors, 'gender');
+  ivs := p_mon->'ivs';
+  IF ivs IS NULL THEN
+    errors := array_append(errors, 'missing-ivs');
+  ELSIF jsonb_typeof(ivs) IS DISTINCT FROM 'object' THEN
+    errors := array_append(errors, 'bad-ivs');
+  ELSE
+    iv_hp := private.streamlink_json_int(ivs->'hp');
+    iv_atk := private.streamlink_json_int(ivs->'atk');
+    iv_def := private.streamlink_json_int(ivs->'def');
+    iv_spa := private.streamlink_json_int(ivs->'spa');
+    iv_spd := private.streamlink_json_int(ivs->'spd');
+    iv_spe := private.streamlink_json_int(ivs->'spe');
+    IF ivs->'hp' IS NULL OR ivs->'atk' IS NULL OR ivs->'def' IS NULL
+       OR ivs->'spa' IS NULL OR ivs->'spd' IS NULL OR ivs->'spe' IS NULL THEN
+      errors := array_append(errors, 'missing-iv');
+    ELSIF iv_hp IS NULL OR iv_atk IS NULL OR iv_def IS NULL
+       OR iv_spa IS NULL OR iv_spd IS NULL OR iv_spe IS NULL THEN
+      errors := array_append(errors, 'bad-iv');
+    ELSIF iv_hp NOT BETWEEN 0 AND 31 OR iv_atk NOT BETWEEN 0 AND 31
+       OR iv_def NOT BETWEEN 0 AND 31 OR iv_spa NOT BETWEEN 0 AND 31
+       OR iv_spd NOT BETWEEN 0 AND 31 OR iv_spe NOT BETWEEN 0 AND 31 THEN
+      errors := array_append(errors, 'iv-range');
+    END IF;
   END IF;
 
-  iv_hp := (p_mon#>>'{ivs,hp}')::int; iv_atk := (p_mon#>>'{ivs,atk}')::int;
-  iv_def := (p_mon#>>'{ivs,def}')::int; iv_spa := (p_mon#>>'{ivs,spa}')::int;
-  iv_spd := (p_mon#>>'{ivs,spd}')::int; iv_spe := (p_mon#>>'{ivs,spe}')::int;
-  IF iv_hp IS NULL OR iv_atk IS NULL OR iv_def IS NULL
-     OR iv_spa IS NULL OR iv_spd IS NULL OR iv_spe IS NULL
-     OR iv_hp NOT BETWEEN 0 AND 31 OR iv_atk NOT BETWEEN 0 AND 31
-     OR iv_def NOT BETWEEN 0 AND 31 OR iv_spa NOT BETWEEN 0 AND 31
-     OR iv_spd NOT BETWEEN 0 AND 31 OR iv_spe NOT BETWEEN 0 AND 31 THEN
-    errors := array_append(errors, 'iv-range');
+  evs := p_mon->'evs';
+  IF evs IS NULL THEN
+    errors := array_append(errors, 'missing-evs');
+  ELSIF jsonb_typeof(evs) IS DISTINCT FROM 'object' THEN
+    errors := array_append(errors, 'bad-evs');
+  ELSE
+    ev_hp := private.streamlink_json_int(evs->'hp');
+    ev_atk := private.streamlink_json_int(evs->'atk');
+    ev_def := private.streamlink_json_int(evs->'def');
+    ev_spa := private.streamlink_json_int(evs->'spa');
+    ev_spd := private.streamlink_json_int(evs->'spd');
+    ev_spe := private.streamlink_json_int(evs->'spe');
+    IF evs->'hp' IS NULL OR evs->'atk' IS NULL OR evs->'def' IS NULL
+       OR evs->'spa' IS NULL OR evs->'spd' IS NULL OR evs->'spe' IS NULL THEN
+      errors := array_append(errors, 'missing-ev');
+    ELSIF ev_hp IS NULL OR ev_atk IS NULL OR ev_def IS NULL
+       OR ev_spa IS NULL OR ev_spd IS NULL OR ev_spe IS NULL THEN
+      errors := array_append(errors, 'bad-ev');
+    ELSIF ev_hp NOT BETWEEN 0 AND 252 OR ev_atk NOT BETWEEN 0 AND 252
+       OR ev_def NOT BETWEEN 0 AND 252 OR ev_spa NOT BETWEEN 0 AND 252
+       OR ev_spd NOT BETWEEN 0 AND 252 OR ev_spe NOT BETWEEN 0 AND 252 THEN
+      errors := array_append(errors, 'ev-range');
+    ELSIF ev_hp + ev_atk + ev_def + ev_spa + ev_spd + ev_spe > 510 THEN
+      errors := array_append(errors, 'ev-total');
+    END IF;
   END IF;
 
-  ev_hp := coalesce((p_mon#>>'{evs,hp}')::int, 0);
-  ev_atk := coalesce((p_mon#>>'{evs,atk}')::int, 0);
-  ev_def := coalesce((p_mon#>>'{evs,def}')::int, 0);
-  ev_spa := coalesce((p_mon#>>'{evs,spa}')::int, 0);
-  ev_spd := coalesce((p_mon#>>'{evs,spd}')::int, 0);
-  ev_spe := coalesce((p_mon#>>'{evs,spe}')::int, 0);
-  IF ev_hp NOT BETWEEN 0 AND 252 OR ev_atk NOT BETWEEN 0 AND 252
-     OR ev_def NOT BETWEEN 0 AND 252 OR ev_spa NOT BETWEEN 0 AND 252
-     OR ev_spd NOT BETWEEN 0 AND 252 OR ev_spe NOT BETWEEN 0 AND 252 THEN
-    errors := array_append(errors, 'ev-range');
-  ELSIF ev_hp + ev_atk + ev_def + ev_spa + ev_spd + ev_spe > 510 THEN
-    errors := array_append(errors, 'ev-total');
-  END IF;
-
-  v_friendship := (p_mon->>'friendship')::int;
-  IF v_friendship IS NULL OR v_friendship < 0 OR v_friendship > 255 THEN
-    errors := array_append(errors, 'friendship');
-  END IF;
-
-  IF p_mon ? 'heldItem' AND p_mon->>'heldItem' IS NOT NULL AND p_mon->>'heldItem' <> '' THEN
+  IF p_mon ? 'heldItem' AND jsonb_typeof(p_mon->'heldItem') IS DISTINCT FROM 'null'
+     AND coalesce(p_mon->>'heldItem', '') <> '' THEN
     errors := array_append(errors, 'held-item');
   END IF;
 
-  n_slots := coalesce(jsonb_array_length(p_mon->'moveSlots'), 0);
-  IF n_slots > 4 THEN
-    errors := array_append(errors, 'too-many-moves');
-  END IF;
-  IF p_mon->'moveSlots' IS NOT NULL AND jsonb_typeof(p_mon->'moveSlots') = 'array' THEN
+  IF p_mon->'moveSlots' IS NULL THEN
+    errors := array_append(errors, 'missing-move-slots');
+  ELSIF jsonb_typeof(p_mon->'moveSlots') IS DISTINCT FROM 'array' THEN
+    errors := array_append(errors, 'bad-move-slots');
+  ELSE
+    n_slots := jsonb_array_length(p_mon->'moveSlots');
+    IF n_slots > 4 THEN
+      errors := array_append(errors, 'too-many-moves');
+    END IF;
     FOR slot IN SELECT value FROM jsonb_array_elements(p_mon->'moveSlots')
     LOOP
-      v_move_id := (slot->>'moveId')::int;
-      v_vg := slot->>'versionGroup';
+      IF jsonb_typeof(slot) IS DISTINCT FROM 'object' THEN
+        errors := array_append(errors, 'bad-move-slot');
+        CONTINUE;
+      END IF;
+      v_move_id := private.streamlink_json_int(slot->'moveId');
+      IF slot->'moveId' IS NULL THEN
+        errors := array_append(errors, 'missing-move-id');
+        CONTINUE;
+      ELSIF v_move_id IS NULL THEN
+        errors := array_append(errors, 'bad-move-id');
+        CONTINUE;
+      END IF;
+      IF v_move_id = ANY (seen) THEN
+        errors := array_append(errors, 'duplicate-move');
+      ELSE
+        seen := array_append(seen, v_move_id);
+      END IF;
+      IF jsonb_typeof(slot->'method') IS DISTINCT FROM 'string'
+         OR coalesce(slot->>'method', '') = '' THEN
+        errors := array_append(errors, 'missing-move-method');
+        CONTINUE;
+      END IF;
       v_method := slot->>'method';
-      v_pp := (slot->>'pp')::int;
-      v_pp_max := (slot->>'ppMax')::int;
+      IF v_method NOT IN ('level-up', 'machine', 'egg', 'tutor') THEN
+        errors := array_append(errors, 'illegal-move-method');
+        CONTINUE;
+      END IF;
+      v_vg := CASE WHEN jsonb_typeof(slot->'versionGroup') = 'string' THEN slot->>'versionGroup' ELSE NULL END;
+      IF v_vg IS DISTINCT FROM form.learnset_version_group THEN
+        errors := array_append(errors, 'move-vg');
+      END IF;
+      v_pp := private.streamlink_json_int(slot->'pp');
+      v_pp_max := private.streamlink_json_int(slot->'ppMax');
       SELECT m.pp INTO pin_pp
       FROM private.ref_moves m
       WHERE m.content_build = v_build AND m.move_id = v_move_id;
@@ -580,30 +882,41 @@ BEGIN
       IF v_pp_max IS DISTINCT FROM pin_pp OR v_pp IS NULL OR v_pp <= 0 OR v_pp > pin_pp THEN
         errors := array_append(errors, 'pp');
       END IF;
-      IF v_vg IS DISTINCT FROM form.learnset_version_group THEN
-        errors := array_append(errors, 'move-vg');
-      END IF;
-      SELECT EXISTS (
-        SELECT 1 FROM private.ref_learnsets l
-        WHERE l.content_build = v_build AND l.form_id = v_form_id
-          AND l.version_group = form.learnset_version_group
-          AND l.move_id = v_move_id
-          AND (v_method IS NULL OR l.method = v_method)
-      ) INTO move_ok;
-      IF NOT move_ok THEN
+      v_learn_level := NULL;
+      SELECT l.level INTO v_learn_level
+      FROM private.ref_learnsets l
+      WHERE l.content_build = v_build AND l.form_id = v_form_id
+        AND l.version_group = form.learnset_version_group
+        AND l.move_id = v_move_id
+        AND l.method = v_method
+      ORDER BY l.level
+      LIMIT 1;
+      IF NOT FOUND THEN
         errors := array_append(errors, 'illegal-move');
+      ELSIF v_method = 'level-up' AND (v_level IS NULL OR v_learn_level > v_level) THEN
+        errors := array_append(errors, 'overlevel-move');
       END IF;
     END LOOP;
   END IF;
 
-  IF form.hp IS NOT NULL AND iv_hp IS NOT NULL AND v_level IS NOT NULL
-     AND p_mon ? 'hpMax' AND p_mon->>'hpMax' IS NOT NULL THEN
+  IF p_mon->'hpMax' IS NULL THEN
+    errors := array_append(errors, 'missing-hp-max');
+  ELSIF private.streamlink_json_int(p_mon->'hpMax') IS NULL THEN
+    errors := array_append(errors, 'bad-hp-max');
+  END IF;
+  IF p_mon->'hpCurrent' IS NULL THEN
+    errors := array_append(errors, 'missing-hp-current');
+  ELSIF private.streamlink_json_int(p_mon->'hpCurrent') IS NULL THEN
+    errors := array_append(errors, 'bad-hp-current');
+  END IF;
+  IF form.hp IS NOT NULL AND iv_hp IS NOT NULL AND ev_hp IS NOT NULL AND v_level IS NOT NULL
+     AND private.streamlink_json_int(p_mon->'hpMax') IS NOT NULL THEN
     v_hp_max := private.streamlink_hp_max(form.hp, iv_hp, ev_hp, v_level);
-    IF (p_mon->>'hpMax')::int IS DISTINCT FROM v_hp_max THEN
+    IF private.streamlink_json_int(p_mon->'hpMax') IS DISTINCT FROM v_hp_max THEN
       errors := array_append(errors, 'hp-max');
     END IF;
-    IF p_mon ? 'hpCurrent' AND p_mon->>'hpCurrent' IS NOT NULL THEN
-      v_hp_cur := (p_mon->>'hpCurrent')::int;
+    IF private.streamlink_json_int(p_mon->'hpCurrent') IS NOT NULL THEN
+      v_hp_cur := private.streamlink_json_int(p_mon->'hpCurrent');
       IF v_hp_cur < 0 OR v_hp_cur > v_hp_max THEN
         errors := array_append(errors, 'hp-current');
       END IF;
@@ -614,6 +927,8 @@ BEGIN
     'ok', array_length(errors, 1) IS NULL,
     'errors', to_jsonb(coalesce(errors, ARRAY[]::text[]))
   );
+EXCEPTION WHEN others THEN
+  RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('malformed-json'));
 END
 $fn$;
 
@@ -622,21 +937,25 @@ DECLARE
   r text;
   sig text;
   sigs text[] := ARRAY[
+    'private.streamlink_json_int(jsonb)',
     'private.streamlink_fixture_u32(text, text)',
-    'private.streamlink_roll_u32(text, text)',
-    'private.streamlink_seed_rejected(text)',
-    'private.streamlink_hidden_ticket_ok(text, text, integer, text)',
+    'private.streamlink_secure_u32()',
     'private.streamlink_form_blocked(text, integer)',
     'private.streamlink_obtain_ok(text, text, integer)',
     'private.streamlink_gender(integer, bigint)',
     'private.streamlink_hp_max(integer, integer, integer, integer)',
     'private.streamlink_stat(integer, integer, integer, integer, numeric)',
     'private.streamlink_level_up_slice(text, integer, integer)',
+    'private.issue_streamlink_hidden_ticket(integer, text, text, integer)',
+    'private.streamlink_redeem_hidden_ticket(uuid, text, integer, text)',
+    'private.streamlink_generate_core(integer, integer, text, boolean, text, text, boolean, text)',
     'private.generate_streamlink_mon(integer, integer, text, text, boolean, boolean, text, text)',
-    'private.assert_streamlink_legal(jsonb, text)'
+    'private.generate_streamlink_mon_fixture(integer, integer, text, text, boolean, boolean, text, text)',
+    'private.assert_streamlink_legal(jsonb, text, uuid)'
   ];
 BEGIN
   FOREACH sig IN ARRAY sigs LOOP
+    EXECUTE format('ALTER FUNCTION %s OWNER TO CURRENT_USER', sig);
     EXECUTE format('REVOKE ALL ON FUNCTION %s FROM public', sig);
     FOREACH r IN ARRAY ARRAY['anon', 'authenticated'] LOOP
       IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = r) THEN
@@ -648,10 +967,14 @@ END
 $rev$;
 
 COMMENT ON FUNCTION private.generate_streamlink_mon(integer, integer, text, text, boolean, boolean, text, text) IS
-  'A19-GENVAL specimen JSON only. p_allow_hidden is ignored. Hidden requires a server-owned ticket. No catch writes.';
-COMMENT ON FUNCTION private.assert_streamlink_legal(jsonb, text) IS
-  'A19-GENVAL legality check. Does not write catches. Hidden needs hiddenGrant=true from a ticketed generate.';
+  'A19-GENVAL production specimen JSON. Entropy is gen_random_uuid inside this function. p_seed and p_allow_hidden are ignored. Hidden requires issue+redeem. No catch writes. Not a public RPC.';
+COMMENT ON FUNCTION private.generate_streamlink_mon_fixture(integer, integer, text, text, boolean, boolean, text, text) IS
+  'Isolated-test generator only. Deterministic md5 seed. Not selectable via GUC. REVOKE from client roles.';
+COMMENT ON FUNCTION private.assert_streamlink_legal(jsonb, text, uuid) IS
+  'A19-GENVAL legality check. hiddenGrant in JSON is ignored. Hidden requires p_hidden_auth of a redeemed server ticket.';
+COMMENT ON FUNCTION private.issue_streamlink_hidden_ticket(integer, text, text, integer) IS
+  'Server-only HA ticket issuer. REVOKE from public/anon/authenticated. Future WIRE is the only intended caller.';
 COMMENT ON TABLE private.streamlink_hidden_tickets IS
-  'Server-owned HA tickets. REVOKE INSERT from client roles. Not a caller boolean.';
+  'One-time HA tickets. RLS forced. No client DML. Redeemed atomically by generate.';
 
 COMMIT;

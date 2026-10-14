@@ -127,8 +127,6 @@ async function main() {
     assert(fns.length === 2, `functions ${fns.map((r) => r.proname)}`);
     record("GENVAL functions created", true);
 
-    await client.query("SELECT set_config('starlight.genval_mode', 'fixture', false)");
-
     const { rows: stamp } = await client.query(
       `SELECT count(*)::int AS n FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
        WHERE n.nspname = 'private' AND p.proname = 'stamp_catch_row'`
@@ -144,10 +142,27 @@ async function main() {
     const { rows: priv } = await client.query(
       `SELECT has_function_privilege('anon', 'private.generate_streamlink_mon(integer, integer, text, text, boolean, boolean, text, text)', 'execute') AS anon_gen,
               has_function_privilege('authenticated', 'private.generate_streamlink_mon(integer, integer, text, text, boolean, boolean, text, text)', 'execute') AS auth_gen,
-              has_function_privilege('anon', 'private.assert_streamlink_legal(jsonb, text)', 'execute') AS anon_assert`
+              has_function_privilege('anon', 'private.assert_streamlink_legal(jsonb, text, uuid)', 'execute') AS anon_assert,
+              has_function_privilege('anon', 'private.generate_streamlink_mon_fixture(integer, integer, text, text, boolean, boolean, text, text)', 'execute') AS anon_fix,
+              has_function_privilege('anon', 'private.issue_streamlink_hidden_ticket(integer, text, text, integer)', 'execute') AS anon_issue,
+              has_function_privilege('authenticated', 'private.streamlink_redeem_hidden_ticket(uuid, text, integer, text)', 'execute') AS auth_redeem`
     );
-    assert(priv[0].anon_gen === false && priv[0].auth_gen === false && priv[0].anon_assert === false);
-    record("anon/authenticated cannot EXECUTE generate/assert", true);
+    assert(
+      priv[0].anon_gen === false &&
+      priv[0].auth_gen === false &&
+      priv[0].anon_assert === false &&
+      priv[0].anon_fix === false &&
+      priv[0].anon_issue === false &&
+      priv[0].auth_redeem === false
+    );
+    const { rows: wrappers } = await client.query(
+      `SELECT count(*)::int AS n
+       FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
+       WHERE n.nspname = 'public'
+         AND (p.proname ILIKE '%streamlink%mon%' OR p.prosrc ILIKE '%generate_streamlink_mon%')`
+    );
+    assert(wrappers[0].n === 0, "public wrappers must not expose GENVAL");
+    record("anon/authenticated cannot EXECUTE generate/assert/issue; no public wrappers", true);
 
     for (const row of matrix.cases) {
       const mon = assertMonFromFixture(pin, row);
@@ -164,15 +179,15 @@ async function main() {
     const seedA = "catcher-alpha";
     const seedB = "catcher-beta";
     const { rows: genA } = await client.query(
-      `SELECT private.generate_streamlink_mon(1, 5, 'catch', $1, true, false, $2, NULL) AS r`,
+      `SELECT private.generate_streamlink_mon_fixture(1, 5, 'catch', $1, true, false, $2, NULL) AS r`,
       [seedA, CONTENT_BUILD]
     );
     const { rows: genA2 } = await client.query(
-      `SELECT private.generate_streamlink_mon(1, 5, 'catch', $1, true, false, $2, NULL) AS r`,
+      `SELECT private.generate_streamlink_mon_fixture(1, 5, 'catch', $1, true, false, $2, NULL) AS r`,
       [seedA, CONTENT_BUILD]
     );
     const { rows: genB } = await client.query(
-      `SELECT private.generate_streamlink_mon(1, 5, 'catch', $1, false, false, $2, NULL) AS r`,
+      `SELECT private.generate_streamlink_mon_fixture(1, 5, 'catch', $1, false, false, $2, NULL) AS r`,
       [seedB, CONTENT_BUILD]
     );
     assert(genA[0].r.ok === true && genB[0].r.ok === true, JSON.stringify(genA[0].r.errors || genB[0].r.errors));
@@ -197,11 +212,11 @@ async function main() {
     record("generate matches JS oracle; flag ignored; seeds differ", true, `seedA nature=${genA[0].r.natureId}`);
 
     const { rows: gmax } = await client.query(
-      `SELECT private.generate_streamlink_mon(10195, 50, 'grant', 'x', true, false, $1, NULL) AS r`,
+      `SELECT private.generate_streamlink_mon_fixture(10195, 50, 'grant', 'x', true, false, $1, NULL) AS r`,
       [CONTENT_BUILD]
     );
     const { rows: c1 } = await client.query(
-      `SELECT private.generate_streamlink_mon(10278, 50, 'grant', 'x', true, false, $1, NULL) AS r`,
+      `SELECT private.generate_streamlink_mon_fixture(10278, 50, 'grant', 'x', true, false, $1, NULL) AS r`,
       [CONTENT_BUILD]
     );
     assert(gmax[0].r.ok === false && (gmax[0].r.errors || []).includes("g1-c1-blocked"));
@@ -209,59 +224,124 @@ async function main() {
     record("G1/C1 generate fail closed (no remap)", true);
 
     const { rows: art } = await client.query(
-      `SELECT private.generate_streamlink_mon(144, 50, 'catch', 'x', false, false, $1, NULL) AS r`,
+      `SELECT private.generate_streamlink_mon_fixture(144, 50, 'catch', 'x', false, false, $1, NULL) AS r`,
       [CONTENT_BUILD]
     );
     const { rows: artG } = await client.query(
-      `SELECT private.generate_streamlink_mon(144, 50, 'grant', 'x', false, false, $1, NULL) AS r`,
+      `SELECT private.generate_streamlink_mon_fixture(144, 50, 'grant', 'x', false, false, $1, NULL) AS r`,
       [CONTENT_BUILD]
     );
     assert(art[0].r.ok === false && (art[0].r.errors || []).includes("obtain-denied"));
     assert(artG[0].r.ok === true && artG[0].r.friendship === 35, JSON.stringify(artG[0].r.errors));
     record("Articuno catch denied; grant friendship 35", true);
 
-    await client.query(
-      `INSERT INTO private.streamlink_hidden_tickets (ticket, content_build, form_id, ctx)
-       VALUES ('ticket-bulb-ha', $1, 1, 'grant')`,
-      [CONTENT_BUILD]
-    );
     const { rows: haNo } = await client.query(
-      `SELECT private.generate_streamlink_mon(1, 5, 'grant', 'ha-seed', true, false, $1, NULL) AS r`,
+      `SELECT private.generate_streamlink_mon_fixture(1, 5, 'grant', 'ha-seed', true, false, $1, NULL) AS r`,
       [CONTENT_BUILD]
     );
-    const { rows: haYes } = await client.query(
-      `SELECT private.generate_streamlink_mon(1, 5, 'grant', 'ha-seed', false, false, $1, 'ticket-bulb-ha') AS r`,
+    const { rows: issued } = await client.query(
+      `SELECT private.issue_streamlink_hidden_ticket(1, 'grant', $1, 3600) AS r`,
       [CONTENT_BUILD]
+    );
+    assert(issued[0].r.ok === true && issued[0].r.ticketId, JSON.stringify(issued[0].r));
+    const ticketId = issued[0].r.ticketId;
+    const { rows: haYes } = await client.query(
+      `SELECT private.generate_streamlink_mon_fixture(1, 5, 'grant', 'ha-seed', false, false, $1, $2) AS r`,
+      [CONTENT_BUILD, ticketId]
     );
     assert(haNo[0].r.ok === true && haNo[0].r.abilitySlot !== "hidden");
     assert(haYes[0].r.ok === true && haYes[0].r.abilitySlot === "hidden" && haYes[0].r.abilityId === 34, JSON.stringify(haYes[0].r));
-    const { rows: haLegal } = await client.query(
+    const { rows: haForge } = await client.query(
       `SELECT private.assert_streamlink_legal($1::jsonb, 'grant') AS r`,
       [haYes[0].r]
     );
+    assert(haForge[0].r.ok === false && (haForge[0].r.errors || []).includes("hidden-not-authorized"), "hiddenGrant in JSON must not authorize");
+    const { rows: haLegal } = await client.query(
+      `SELECT private.assert_streamlink_legal($1::jsonb, 'grant', $2::uuid) AS r`,
+      [haYes[0].r, ticketId]
+    );
     assert(haLegal[0].r.ok === true, JSON.stringify(haLegal[0].r.errors));
-    record("hidden requires server ticket; caller flag is ignored", true);
+    const { rows: haReplay } = await client.query(
+      `SELECT private.generate_streamlink_mon_fixture(1, 5, 'grant', 'ha-seed', false, false, $1, $2) AS r`,
+      [CONTENT_BUILD, ticketId]
+    );
+    assert(haReplay[0].r.ok === false && (haReplay[0].r.errors || []).includes("hidden-ticket-replay"));
+    const { rows: issuedCatch } = await client.query(
+      `SELECT private.issue_streamlink_hidden_ticket(1, 'grant', $1, 3600) AS r`,
+      [CONTENT_BUILD]
+    );
+    const { rows: haWrongCtx } = await client.query(
+      `SELECT private.generate_streamlink_mon_fixture(1, 5, 'catch', 'ha-seed', true, false, $1, $2) AS r`,
+      [CONTENT_BUILD, issuedCatch[0].r.ticketId]
+    );
+    assert(haWrongCtx[0].r.ok === false && (haWrongCtx[0].r.errors || []).includes("hidden-not-authorized"));
+    const { rows: issuedExp } = await client.query(
+      `SELECT private.issue_streamlink_hidden_ticket(1, 'grant', $1, 3600) AS r`,
+      [CONTENT_BUILD]
+    );
+    await client.query(
+      `UPDATE private.streamlink_hidden_tickets
+          SET issued_at = now() - interval '2 seconds',
+              expires_at = now() - interval '1 second'
+        WHERE ticket_id = $1`,
+      [issuedExp[0].r.ticketId]
+    );
+    const { rows: haExp } = await client.query(
+      `SELECT private.generate_streamlink_mon_fixture(1, 5, 'grant', 'ha-seed', false, false, $1, $2) AS r`,
+      [CONTENT_BUILD, issuedExp[0].r.ticketId]
+    );
+    assert(haExp[0].r.ok === false && (haExp[0].r.errors || []).includes("hidden-ticket-expired"));
+    record("hidden requires issued+redeemed ticket; forge/replay/wrong-ctx/expiry fail", true);
 
-    await client.query("SELECT set_config('starlight.genval_mode', 'production', false)");
-    await client.query("SELECT set_config('starlight.catcher_nonce', '', false)");
-    const { rows: prodFail } = await client.query(
-      `SELECT private.generate_streamlink_mon(1, 5, 'catch', 'x', false, false, $1, NULL) AS r`,
-      [CONTENT_BUILD]
-    );
-    assert(prodFail[0].r.ok === false && (prodFail[0].r.errors || []).includes("missing-catcher-nonce"));
-    await client.query("SELECT set_config('starlight.round_id', 'round-public-1', false)");
+    await client.query("SELECT set_config('starlight.genval_mode', 'fixture', false)");
     await client.query("SELECT set_config('starlight.catcher_nonce', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', false)");
-    const { rows: roundFail } = await client.query(
-      `SELECT private.generate_streamlink_mon(1, 5, 'catch', 'round-public-1', false, false, $1, NULL) AS r`,
+    await client.query("SELECT set_config('starlight.round_id', $1, false)", [seedA]);
+    const { rows: prod1 } = await client.query(
+      `SELECT private.generate_streamlink_mon(1, 5, 'catch', $1, true, false, $2, NULL) AS r`,
+      [seedA, CONTENT_BUILD]
+    );
+    const { rows: prod2 } = await client.query(
+      `SELECT private.generate_streamlink_mon(1, 5, 'catch', $1, true, false, $2, NULL) AS r`,
+      [seedA, CONTENT_BUILD]
+    );
+    assert(prod1[0].r.ok === true && prod2[0].r.ok === true, JSON.stringify(prod1[0].r.errors || prod2[0].r.errors));
+    assert(prod1[0].r.abilitySlot !== "hidden");
+    const oracleA2 = expectedGenerate(pin, 1, 5, seedA);
+    const prodMatchesOracle = prod1[0].r.natureId === oracleA2.natureId &&
+      JSON.stringify(prod1[0].r.ivs) === JSON.stringify(oracleA2.ivs);
+    assert(!prodMatchesOracle, "GUC fixture mode must not steer production generate");
+    const prodSame = JSON.stringify(prod1[0].r.ivs) === JSON.stringify(prod2[0].r.ivs) &&
+      prod1[0].r.natureId === prod2[0].r.natureId;
+    assert(!prodSame, "production generate must not be caller-seed deterministic");
+    record("production entropy ignores GUCs and caller seeds", true);
+
+    await client.query(`DROP ROLE IF EXISTS genval_untrusted`);
+    await client.query(`CREATE ROLE genval_untrusted NOLOGIN NOSUPERUSER`);
+    let insertDenied = false;
+    try {
+      await client.query("SET ROLE genval_untrusted");
+      await client.query(
+        `INSERT INTO private.streamlink_hidden_tickets (ticket_id, content_build, form_id, ctx, expires_at)
+         VALUES (gen_random_uuid(), $1, 1, 'grant', now() + interval '1 hour')`,
+        [CONTENT_BUILD]
+      );
+    } catch (error) {
+      insertDenied = /permission denied|row-level security/i.test(String(error.message));
+    } finally {
+      await client.query("RESET ROLE");
+    }
+    assert(insertDenied, "untrusted role must not insert tickets");
+    const { rows: badJson } = await client.query(
+      `SELECT private.assert_streamlink_legal($1::jsonb, 'catch') AS r`,
+      [{ contentBuild: CONTENT_BUILD, rulesetId: "streamlink-gen9-xgen", formId: "1", dex: 1, level: 5 }]
+    );
+    assert(badJson[0].r.ok === false && (badJson[0].r.errors || []).includes("bad-form-id"));
+    const { rows: lv0 } = await client.query(
+      `SELECT private.generate_streamlink_mon_fixture(1, 0, 'catch', 'x', false, false, $1, NULL) AS r`,
       [CONTENT_BUILD]
     );
-    assert(roundFail[0].r.ok === false && (roundFail[0].r.errors || []).includes("bad-seed"));
-    const { rows: prodOk } = await client.query(
-      `SELECT private.generate_streamlink_mon(1, 5, 'catch', 'catcher-1', false, false, $1, NULL) AS r`,
-      [CONTENT_BUILD]
-    );
-    assert(prodOk[0].r.ok === true, JSON.stringify(prodOk[0].r.errors));
-    record("production mode needs catcher nonce; rejects seed=round_id", true);
+    assert(lv0[0].r.ok === false && (lv0[0].r.errors || []).includes("bad-level"));
+    record("untrusted ticket insert denied; malformed JSON and level 0 fail closed", true);
 
     const { rows: after } = await client.query(
       `SELECT iv_hp, friendship, nature_id, ability_id FROM public.catches WHERE id = $1`,

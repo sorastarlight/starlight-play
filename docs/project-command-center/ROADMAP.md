@@ -28,7 +28,8 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I24 | Issue #24 A19-APPLY preflight + go/no-go handoff | Metadata + LIVE API + STATIC checksums | **DONE** — historical D34 BLOCKED snapshot |
 | I24A | Issue #24 owner GO schema-only apply | Live DDL/DML `001` → seed `00`–`10` → `002` | **DONE** — D35 APPLIED; catalog PASS |
 | I25 | A19-GENVAL specification + offline test plan | Planning / fixtures only | **DONE** — D36 spec snapshot |
-| I25A | A19-GENVAL branch-only functions + local rehearsal | Unapplied SQL + REAL SQL on 127.0.0.1 | **DONE** — D37; production apply UNAPPROVED |
+| I25A | A19-GENVAL branch-only functions + local rehearsal | Unapplied SQL + REAL SQL on 127.0.0.1 | **DONE** — D37 snapshot |
+| I25B | A19-GENVAL security corrections from independent review | Unapplied SQL + REAL SQL on 127.0.0.1 | **DONE** — D38; production apply UNAPPROVED |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
@@ -41,4 +42,4 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 
 ## Out of scope until a new prompt
 
-Production APP stamp, A19-GENVAL production apply, A19-WIRE, `003_rollback.sql`, restore of the 14 Oct 2026 backup, grants, RLS policy edits, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, collection reset (A19-RESET-GO). A19-APPLY schema-only is D35. GENVAL branch implementation is D37.
+Production APP stamp, A19-GENVAL production apply, A19-WIRE, `003_rollback.sql`, restore of the 14 Oct 2026 backup, grants, RLS policy edits, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, collection reset (A19-RESET-GO). A19-APPLY schema-only is D35. GENVAL branch implementation is D37. Security corrections are D38.

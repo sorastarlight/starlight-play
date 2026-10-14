@@ -72,7 +72,21 @@ function moveSlotsFromIds(pin, formId, moveIds, method) {
 function assertMonFromFixture(pin, row) {
   const mon = row.mon;
   const form = formById(pin, mon.formId);
-  return {
+  const evs = mon.evs === null || mon.evs === undefined
+    ? mon.evs
+    : mon.evs;
+  const evsForHp = evs && typeof evs.hp === "number" ? evs : { hp: 0 };
+  let computedHp = null;
+  if (
+    row.omitHp !== true &&
+    form &&
+    mon.ivs &&
+    Number.isFinite(Number(mon.ivs.hp)) &&
+    Number.isFinite(Number(mon.level))
+  ) {
+    computedHp = hpMax(form.hp, Number(mon.ivs.hp), Number(evsForHp.hp || 0), Number(mon.level));
+  }
+  const built = {
     contentBuild: row.contentBuild === null ? null : CONTENT_BUILD,
     rulesetId: "streamlink-gen9-xgen",
     formId: mon.formId,
@@ -82,13 +96,18 @@ function assertMonFromFixture(pin, row) {
     abilityId: mon.abilityId,
     abilitySlot: mon.abilitySlot,
     ivs: mon.ivs,
-    evs: mon.evs || { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+    evs: evs === undefined ? { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } : evs,
     moveSlots: mon.moveIds == null ? [] : moveSlotsFromIds(pin, mon.formId, mon.moveIds, mon.moveMethod || "level-up"),
     gender: mon.gender,
     friendship: mon.friendship,
     hiddenGrant: mon.hiddenGrant === true,
     heldItem: null
   };
+  if (row.omitHp !== true && computedHp != null) {
+    built.hpMax = mon.hpMax != null ? mon.hpMax : computedHp;
+    built.hpCurrent = mon.hpCurrent != null ? mon.hpCurrent : computedHp;
+  }
+  return { ...built, ...(row.assertPatch || {}) };
 }
 
 module.exports = {

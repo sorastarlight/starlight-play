@@ -35,6 +35,8 @@
 
 | D24 | Owner explicitly APPROVES architecture policies **G1, C1, F1** for the Gen IX cross-generation StreamLink plan | G1: store base individual; optional future Gigantamax factor and battle-only transformation (no separate wild Gmax form). C1: new Champions/Z-A Mega forms remain fail-closed for wild/grant; store base individual; Mega as later transformation. F1: keep historical PokéAPI base friendship in source pin, apply 70→50 at future generation, other values unchanged. **POLICY ONLY**; no A19-SCHEMA, live SQL, generated or altered Pokémon, reset, merge or deploy authorization. |
 
+| D25 | Owner said **“OK, proceed with the prompt”** after G1/C1/F1 decision and proposed A19-SCHEMA | Authorizes **#22 A19-SCHEMA branch-only development and offline/local testing of unapplied DDL/seed artifacts**, not connected Supabase execution, live schema changes, generator/validator, catch writes, resets, merge, APP stamp or deployment. Any real application requires separate approval after review. |
+
 ## Needs owner approval
 
 | ID | Question | Recommendation |
@@ -65,7 +67,7 @@
 | A19-G1 | Gigantamax stored as base + factor, shared-base learnset, or unavailable? | **APPROVED ARCHITECTURE — G1:** persist the base Pokémon, consider an optional `gigantamax_factor` in a separately approved future phase; Gigantamax is a battle-only transformation, **not** a separately generated wild form. Existing unresolved pin entries remain fail-closed until implementation approval. |
 | A19-C1 | Champions/Z-A megas: transform of base, shared-base learnset, or extract champions VG? | **APPROVED ARCHITECTURE — C1:** keep the four Champions/Z-A Mega form IDs fail-closed for wild/grant generation, store base Pokémon, and model Mega as a later transformation; no invented SV/SWSH learnsets. |
 | A19-F1 | Use Gen IX friendship (70→50) at generation time without rewriting the pin? | **APPROVED ARCHITECTURE — F1:** retain raw historical PokéAPI friendship source values; at eventual generation map 70→50 for Gen IX, leave other values unchanged, and do not modify source pin or existing Pokémon. |
-| A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | After A19-REF **and** after accepting the #21 secure `private.ref_*` draft. No combat UPDATE of live rows. Still **UNAPPROVED**. |
+| A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | **APPROVED FOR OFFLINE BRANCH IMPLEMENTATION ONLY — issue #22**: review/harden `private.ref_*` schema and full pin seeds, prepare backwards-compatible nullable `catches` extensions as DO-NOT-APPLY files, validate locally. **Applying DDL to connected/live Supabase remains UNAPPROVED**, as do Pokémon writes and later phases. |
 | A19-GENVAL | Ship generator + validator functions? | After schema. No player-row writes. |
 | A19-WIRE | Wire launch/settle/grant/evolve to the validator? | New catches only; QA account. |
 | A19-INSPECT | Staff read RPC for full PC combat fields? | After generator exists. |

@@ -1,0 +1,63 @@
+{
+  "contentBuild": "sl-ref-20261013-227b573",
+  "emitter": "tools/emit-a19-schema-seed.js",
+  "appliedToSupabase": false,
+  "counts": {
+    "natures": 25,
+    "species": 151,
+    "forms": 236,
+    "abilities": 135,
+    "formAbilities": 576,
+    "moves": 556,
+    "learnsets": 14048,
+    "evolutions": 88,
+    "obtain": 236,
+    "formPolicies": 16
+  },
+  "files": {
+    "00_meta.sql": {
+      "sha256": "0e1236efef5bd8f9f541956153efb6e3555cdc832bc049db193008619fdbb035",
+      "bytes": 1001
+    },
+    "01_natures.sql": {
+      "sha256": "2b9b56e9ce7a2ab15f518ddb68ed619b2a1da41e66d9e6baf739831550b86887",
+      "bytes": 2140
+    },
+    "02_species.sql": {
+      "sha256": "432a02d1aeadf5830c07e4c17f33dcb8304c419af7d5d2c41faef43e393e02df",
+      "bytes": 13894
+    },
+    "03_forms.sql": {
+      "sha256": "f56270f767cea9e1ee883b1a23bbc9631dd0cc2b63ef089b55b2edb7490f77eb",
+      "bytes": 47324
+    },
+    "04_abilities.sql": {
+      "sha256": "d89f364aee41847d60fd8c881e37bc78bafc5fbf9ed60e981ceebc05a6dbadad",
+      "bytes": 8285
+    },
+    "05_form_abilities.sql": {
+      "sha256": "366a194f603df3e1489f14e34d902ff7cf8020cb2b22cec992ee778a2ef64c7a",
+      "bytes": 31839
+    },
+    "06_moves.sql": {
+      "sha256": "59fc4f77d0a8035ec2a91335191162374fc6188097454afb83c069995431a7c3",
+      "bytes": 47752
+    },
+    "07_learnsets.sql": {
+      "sha256": "17a897b0c7164fb1debed99226bda7a9f320fd1f4d3decf81ece40f0662bcdcd",
+      "bytes": 1102599
+    },
+    "08_evolutions.sql": {
+      "sha256": "e9a9c1026a8f4b122f80b1c4ed2e76e05077fd4440a6a78cc224c15430b49d45",
+      "bytes": 9205
+    },
+    "09_obtain.sql": {
+      "sha256": "7d5cc899974cd2e086d79d313c9f287dd9588e02f244cd0460d25fc5ae787592",
+      "bytes": 19108
+    },
+    "10_form_policies.sql": {
+      "sha256": "6aa483ec4f468b56bc81448ae57e616fa310a5785c058f5cb925003c799c0e5a",
+      "bytes": 3122
+    }
+  }
+}

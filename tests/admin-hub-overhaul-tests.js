@@ -56,9 +56,11 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-REBUILD-PLAN-ISSUE-19.md",
     "docs/project-command-center/GEN-IX-REF-ISSUE-20.md",
     "docs/project-command-center/GEN-IX-REF-READINESS-REVIEW.md",
+    "docs/project-command-center/GEN-IX-SCHEMA-ISSUE-22.md",
     "data/gen9-ref/meta.json",
     "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-ref-review/DO-NOT-APPLY.md",
+    "supabase/unapplied/a19-schema/DO-NOT-APPLY.md",
     ".cursor/rules/streamlink-project.mdc"
   ].forEach((rel) => assert(fs.existsSync(path.join(__dirname, "..", rel)), rel));
   assert(commandCenter.includes("First execution boundary"));
@@ -381,6 +383,23 @@ test("Issue 21 readiness review stays offline and does not authorize SCHEMA", ()
   assert(decisions.includes("D22") && decisions.includes("D23"));
   assert(proposed.includes("DO NOT RUN") && /row level security/i.test(proposed));
   assert(!migNames.includes("a19-ref-review"));
+  assert(!nextJs.includes("generate_streamlink_mon"));
+  assert(!liveJs.includes("generate_streamlink_mon"));
+});
+
+test("Issue 22 schema artifacts stay unapplied and do not start GENVAL", () => {
+  const report = read("docs/project-command-center/GEN-IX-SCHEMA-ISSUE-22.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  const ddl = read("supabase/unapplied/a19-schema/001_private_ref_tables.sql");
+  const catches = read("supabase/unapplied/a19-schema/002_catches_nullable_extensions.sql");
+  const migNames = fs.readdirSync(path.join(__dirname, "..", "supabase", "migrations")).join("\n");
+  assert(report.includes("private.ref_"));
+  assert(report.includes("A19-GENVAL"));
+  assert(decisions.includes("D25") && decisions.includes("D26"));
+  assert(ddl.includes("private.ref_meta") && /REVOKE ALL/i.test(ddl));
+  assert(catches.includes("ADD COLUMN IF NOT EXISTS nature_id"));
+  assert(!catches.includes("UPDATE public.catches"));
+  assert(!migNames.includes("a19-schema"));
   assert(!nextJs.includes("generate_streamlink_mon"));
   assert(!liveJs.includes("generate_streamlink_mon"));
 });

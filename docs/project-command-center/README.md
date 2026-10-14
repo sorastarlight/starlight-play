@@ -32,6 +32,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-REBUILD-PLAN-ISSUE-19.md](./GEN-IX-REBUILD-PLAN-ISSUE-19.md) | Issue #19 Gen IX cross-gen rebuild plan, validator, reset playbook |
 | [GEN-IX-REF-ISSUE-20.md](./GEN-IX-REF-ISSUE-20.md) | Issue #20 offline pin, checksums, Mega/regional coverage |
 | [GEN-IX-REF-READINESS-REVIEW.md](./GEN-IX-REF-READINESS-REVIEW.md) | Issue #21 Gmax, Champions, friendship, secure SQL review |
+| [GEN-IX-SCHEMA-ISSUE-22.md](./GEN-IX-SCHEMA-ISSUE-22.md) | Issue #22 unapplied private.ref_* + catch extensions |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

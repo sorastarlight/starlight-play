@@ -16,7 +16,8 @@
 | R-I19-RESET | **DESIGN** | Owner may later wipe or replace catches. No delete is authorized. Hard FKs: oak_transfers, trade_listings, trade_offers. Soft refs: team_ids, pc_layout, direct_trades, evolution_log. Sora/Twinkle excluded. |
 | R-I19-POKEAPI | **DESIGN** | PokéAPI VG `scarlet-violet` has an empty `move_learn_methods` array; learnsets live on pokemon move details. Runtime must not hot-fetch. Do not invent SV movesets for absent forms. |
 | R-I20-GAPS | **OPEN** | Pin still leaves 12 Gigantamax + 4 Champions megas unresolved. #21 proposes G1/C1/F1; none are authorized. Do not silently inherit base learnsets. |
-| R-I21-SQL | **OPEN** | Current unapplied `public.ref_*` SQL has no RLS/REVOKE/`content_build` lineage. Do not apply it. Prefer `private.ref_*` draft in `a19-ref-review/`. |
+| R-I21-SQL | **SUPERSEDED** | #20 public draft and #21 review draft must not be applied. Use `supabase/unapplied/a19-schema/` instead — still unapplied. |
+| R-I22-APPLY | **OPEN** | A19-SCHEMA artifacts exist but live apply is unapproved. Do not copy into `supabase/migrations/`. PostgREST must not expose `private`. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

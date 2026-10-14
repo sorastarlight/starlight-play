@@ -1,5 +1,22 @@
 # Run log
 
+## 2026-10-13 — GitHub issue #22 A19-SCHEMA unapplied artifacts
+
+- Branch: `admin-hub-overhaul`. Schema files only. Pin 220/16 unchanged. No live SQL, RPC, wipe, merge, deploy, or APP stamp.
+- Sora mutated NO · Twinkle mutated NO · QA account none. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- D26 recorded. A19-APPLY / GENVAL+ blocked. G1/C1/F1 encoded in seed/policies only.
+- Artifacts: `supabase/unapplied/a19-schema/`. Not in `migrations/`.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-schema-tests.js` | STATIC / LOCAL HARNESS | 8 passed |
+| `tests/gen9-ref-tests.js` | LOCAL HARNESS | 12 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 21 passed |
+| Isolated Postgres | REAL SQL | **not run** — no local psql/docker |
+
 ## 2026-10-13 — GitHub issue #21 A19-REF readiness review
 
 - Branch: `admin-hub-overhaul`. Review only. Pin checksums unchanged (220/16). `admin-next.html` unchanged. No live SQL, RPC, wipe, merge, deploy, or APP stamp.

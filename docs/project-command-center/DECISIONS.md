@@ -38,6 +38,8 @@
 | D25 | Owner said **“OK, proceed with the prompt”** after G1/C1/F1 decision and proposed A19-SCHEMA | Authorizes **#22 A19-SCHEMA branch-only development and offline/local testing of unapplied DDL/seed artifacts**, not connected Supabase execution, live schema changes, generator/validator, catch writes, resets, merge, APP stamp or deployment. Any real application requires separate approval after review. |
 | D26 | Issue #22 delivered unapplied `private.ref_*` DDL, catch extensions, and full pin seed | Files in `supabase/unapplied/a19-schema/` only. Not applied. Does not authorize live DDL, A19-GENVAL, or Pokémon writes. |
 
+| D27 | Owner approved a **disposable local PostgreSQL rehearsal** of the existing A19-SCHEMA artifacts | Issue #23 may install/use **isolated synthetic local Postgres**, apply staged DDL/seeds, test idempotence, RLS/permissions, legacy compatibility and rollback **there only**. No live/connected Supabase SQL, production data reads, generator/validator, Pokémon writes/resets, merge or deploy. **A19-APPLY remains UNAPPROVED.** |
+
 ## Needs owner approval
 
 | ID | Question | Recommendation |
@@ -69,7 +71,7 @@
 | A19-C1 | Champions/Z-A megas: transform of base, shared-base learnset, or extract champions VG? | **APPROVED ARCHITECTURE — C1:** keep the four Champions/Z-A Mega form IDs fail-closed for wild/grant generation, store base Pokémon, and model Mega as a later transformation; no invented SV/SWSH learnsets. |
 | A19-F1 | Use Gen IX friendship (70→50) at generation time without rewriting the pin? | **APPROVED ARCHITECTURE — F1:** retain raw historical PokéAPI friendship source values; at eventual generation map 70→50 for Gen IX, leave other values unchanged, and do not modify source pin or existing Pokémon. |
 | A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | **APPROVED FOR OFFLINE BRANCH IMPLEMENTATION ONLY — issue #22**: review/harden `private.ref_*` schema and full pin seeds, prepare backwards-compatible nullable `catches` extensions as DO-NOT-APPLY files, validate locally. **Applying DDL to connected/live Supabase remains UNAPPROVED**, as do Pokémon writes and later phases. |
-| A19-APPLY | Apply reviewed A19-SCHEMA SQL to live/connected Supabase? | **Not granted.** Distinct from D25 permission to write the artifacts. |
+| A19-APPLY | Apply reviewed A19-SCHEMA SQL to live/connected Supabase? | **UNAPPROVED.** Owner authorized only #23 disposable local PostgreSQL rehearsal, with synthetic data and no Supabase connection; separate live-apply go/no-go required. |
 | A19-GENVAL | Ship generator + validator functions? | After schema **apply**. No player-row writes. Still **UNAPPROVED**. |
 | A19-WIRE | Wire launch/settle/grant/evolve to the validator? | New catches only; QA account. |
 | A19-INSPECT | Staff read RPC for full PC combat fields? | After generator exists. |

@@ -333,7 +333,7 @@
       "scope": "A19-GENVAL security corrections: tickets, entropy, validator types, move legality",
       "dependencies": ["I25A", "D38"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "67141ec3",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md, supabase/unapplied/a19-genval/, tools/a19-genval-rehearsal.js",
       "testResults": "a19-genval-spec STATIC; a19-genval-impl STATIC; REAL SQL 13/13 on 127.0.0.1:55433/a19_genval",
       "nextAction": "STOP for independent review. Do not apply GENVAL to live Supabase, WIRE, 003, restore, merge, or deploy.",

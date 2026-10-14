@@ -4,6 +4,8 @@
 
 Independent review of `b4cf2cc0` required changes before any production apply. This batch stays unapplied SQL + disposable local REAL SQL. `stamp_catch_row` unchanged. No live Supabase execution. No catch writes. No WIRE.
 
+Commit: `67141ec3` on `admin-hub-overhaul`.
+
 Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 
 | Honesty | Used |

@@ -2,7 +2,7 @@
 
 ## 2026-10-14 — A19-GENVAL security corrections (D38, production apply UNAPPROVED)
 
-- Branch: `admin-hub-overhaul`. Independent review of `b4cf2cc0` required ticket/entropy/validator/move fixes. Still **branch-only**.
+- Branch: `admin-hub-overhaul` at `67141ec3`. Independent review of `b4cf2cc0` required ticket/entropy/validator/move fixes. Still **branch-only**.
 - Hidden: `issue_streamlink_hidden_ticket` + atomic redeem; JSON `hiddenGrant` ignored; replay/expiry/wrong-ctx fail.
 - Entropy: production `generate_streamlink_mon` uses `gen_random_uuid` and ignores `p_seed` and session GUCs. Fixture generate is a separate REVOKE'd function.
 - Validator: typed JSON ints; required IV/EV/HP fields; structured errors; move VG/method/level/PP/duplicates.

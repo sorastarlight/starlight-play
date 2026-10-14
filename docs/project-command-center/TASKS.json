@@ -285,7 +285,7 @@
       "scope": "GitHub issue #24 read-only production catalog, PostgREST exposure, checksum pin, and A19-APPLY decision packet",
       "dependencies": ["I23", "D29"],
       "branch": "admin-hub-overhaul",
-      "commit": "a1aad14f",
+      "commit": "0657b0f5",
       "evidence": "docs/project-command-center/GEN-IX-APPLY-HANDOFF.md, docs/project-command-center/GEN-IX-APPLY-DECISION.md, docs/project-command-center/GEN-IX-PRODUCTION-PREFLIGHT.md",
       "testResults": "a19-apply-handoff STATIC; a19-apply-decision STATIC; no catch-row SELECT",
       "nextAction": "Stop. BLOCKED until owner GO/NO-GO and freshest COMPLETED backup. Do not apply SQL.",

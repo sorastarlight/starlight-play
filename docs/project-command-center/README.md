@@ -37,6 +37,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-PRODUCTION-PREFLIGHT.md](./GEN-IX-PRODUCTION-PREFLIGHT.md) | Issue #24 read-only production catalog + PostgREST preflight |
 | [GEN-IX-APPLY-CHECKLIST.md](./GEN-IX-APPLY-CHECKLIST.md) | Controlled A19-APPLY go/no-go (UNAPPROVED) |
 | [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md) | A19-APPLY packet; backup recorded; apply UNAPPROVED |
+| [GEN-IX-APPLY-HANDOFF.md](./GEN-IX-APPLY-HANDOFF.md) | Final go/no-go handoff; **BLOCKED** pending owner decision |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

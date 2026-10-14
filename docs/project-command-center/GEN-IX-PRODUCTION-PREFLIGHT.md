@@ -30,7 +30,7 @@ A19-APPLY remains **UNAPPROVED**.
 | 4. Security / exposure | **PASS** | PostgREST **does not expose `private`**. `Accept-Profile: private` returns **406 `PGRST106 Invalid schema: private`**. Default REST looks in `public` (`PGRST205` for `public.stream_bridge`). `authenticated` still has schema `USAGE`; keep 001 RLS+REVOKE. |
 | 5. Migration / rollback | **PASS** with owner-reported restore target | #23 evo_uid fix is in `08_evolutions.sql`. Owner reported COMPLETED `2026-10-14 07:44:26 +0000`; **PITR disabled**. `003` remains destructive. Apply still **UNAPPROVED**. |
 
-**Apply recommendation:** PostgREST `private` exposure is **cleared**. D33 backup evidence **recorded** (`2026-10-14 07:44:26 +0000`, PITR disabled). A19-APPLY remains **UNAPPROVED** pending a separate explicit go. See [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md).
+**Apply recommendation:** D34 handoff **BLOCKED**. Checksums unchanged. No owner GO/NO-GO. Reconfirm freshest COMPLETED backup. A19-APPLY remains **UNAPPROVED**. See [GEN-IX-APPLY-HANDOFF.md](./GEN-IX-APPLY-HANDOFF.md).
 
 ---
 

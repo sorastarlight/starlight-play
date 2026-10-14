@@ -28,6 +28,7 @@
 | Issue #23 A19-SCHEMA rehearsal | `tools/a19-schema-rehearsal.js` + isolation tests | REAL SQL (17) on `127.0.0.1`; STATIC isolation (5) | Live Supabase; PostgREST; PRODUCTION |
 | Issue #24 A19-APPLY preflight | `tests/a19-apply-preflight-tests.js` + catalog SELECTs + REST `Accept-Profile` | STATIC + LIVE CATALOG + LIVE API (`PGRST106`) | Dashboard backup list; PITR add-on; apply; PRODUCTION |
 | Issue #24 A19-APPLY decision packet | `tests/a19-apply-decision-tests.js` + seed/pin/DDL SHA-256 | STATIC; OWNER REPORT backup `2026-10-14 07:44:26 +0000` | Independent backup listing; PRODUCTION apply |
+| Issue #24 A19-APPLY handoff | `tests/a19-apply-handoff-tests.js` | STATIC (BLOCKED; checksums unchanged) | Owner GO/NO-GO; freshest backup; PRODUCTION apply |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

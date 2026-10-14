@@ -1,6 +1,6 @@
 # Controlled A19-APPLY checklist (not authorized to run)
 
-**Status:** A19-APPLY remains **UNAPPROVED**. Backup evidence **recorded** (`2026-10-14 07:44:26 +0000`, PITR disabled). O4 apply go is still required. See [GEN-IX-APPLY-DECISION.md](./GEN-IX-APPLY-DECISION.md).
+**Status:** A19-APPLY remains **UNAPPROVED**. D34 handoff **BLOCKED** — see [GEN-IX-APPLY-HANDOFF.md](./GEN-IX-APPLY-HANDOFF.md). Last known backup `2026-10-14 07:44:26 UTC`; reconfirm freshest COMPLETED before any go.
 
 Sora mutated **NO** · Twinkle mutated **NO**. Do not start GENVAL, WIRE, or any reset.
 

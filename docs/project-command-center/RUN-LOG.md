@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-14 — GitHub issue #24 D34 A19-APPLY go/no-go handoff (BLOCKED)
+
+- Branch: `admin-hub-overhaul`. Documentation only. No DDL/DML, catch-row SELECT, RPC, backup create/restore, `003`, copy into `migrations/`, wipe, merge, deploy, or APP stamp.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- STATIC: DDL/seed/pin checksums unchanged since `cc66946b`.
+- Owner GO/NO-GO: **none**. Freshest COMPLETED backup: **not reconfirmed** (last known D33 `2026-10-14 07:44:26 UTC`; PITR disabled).
+- This prompt is **not** A19-APPLY authorization. Verdict **BLOCKED**.
+- Handoff: `GEN-IX-APPLY-HANDOFF.md`. D34 recorded.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-apply-handoff-tests.js` | STATIC | 4 passed |
+| `tests/a19-apply-decision-tests.js` | STATIC | 6 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 23 passed |
+| Catch-row / RPC / backup / PRODUCTION apply | — | **not run** |
+
 ## 2026-10-14 — GitHub issue #24 D33 owner backup evidence (apply still UNAPPROVED)
 
 - Branch: `admin-hub-overhaul`. Documentation only. No DDL/DML, catch-row SELECT, RPC, backup create/restore, copy into `migrations/`, wipe, merge, deploy, or APP stamp.

@@ -286,10 +286,10 @@
       "dependencies": ["I23", "D29"],
       "branch": "admin-hub-overhaul",
       "commit": "a1aad14f",
-      "evidence": "docs/project-command-center/GEN-IX-APPLY-DECISION.md, docs/project-command-center/GEN-IX-PRODUCTION-PREFLIGHT.md, docs/project-command-center/GEN-IX-APPLY-CHECKLIST.md",
-      "testResults": "a19-apply-decision STATIC; a19-apply-preflight STATIC; LIVE API PGRST106 (prior); no catch-row SELECT",
-      "nextAction": "Stop. Backup evidence recorded. Wait for a separate explicit A19-APPLY go. Do not apply SQL.",
-      "approvalRequirement": "A19-APPLY still requires a separate explicit owner go; PITR is disabled"
+      "evidence": "docs/project-command-center/GEN-IX-APPLY-HANDOFF.md, docs/project-command-center/GEN-IX-APPLY-DECISION.md, docs/project-command-center/GEN-IX-PRODUCTION-PREFLIGHT.md",
+      "testResults": "a19-apply-handoff STATIC; a19-apply-decision STATIC; no catch-row SELECT",
+      "nextAction": "Stop. BLOCKED until owner GO/NO-GO and freshest COMPLETED backup. Do not apply SQL.",
+      "approvalRequirement": "Separate explicit A19-APPLY go naming 001 → seed 00–10 → 002; reconfirm freshest backup"
     },
     {
       "id": "I13",

@@ -160,4 +160,4 @@ After a future approved apply, smoke with metadata only:
 
 ---
 
-A19-APPLY remains **UNAPPROVED**. STOP for a separate explicit owner go/no-go.
+A19-APPLY remains **UNAPPROVED**. Final handoff: [GEN-IX-APPLY-HANDOFF.md](./GEN-IX-APPLY-HANDOFF.md) (D34, **BLOCKED** on missing GO/NO-GO).

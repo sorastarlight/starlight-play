@@ -14,4 +14,4 @@ Production activation needs a later named **A19-WIRE-APPLY** (install, switch st
 This folder is D45 persist + D46/D47 settle integration. Disposable local REAL SQL only.
 `local/040_test_inject.sql` is rehearsal-only and must never be installed live.
 
-Live installation order (later A19-WIRE-APPLY only): `001` → `002` → `003`. Switch stays false.
+**Later (D49):** Owner GO applied hashed `001`→`002`→`003` to `dtflmlbjhttoewqgkujf` via MCP. Source files stay here. Do **not** copy them into `supabase/migrations/`. `local/*` remains DO NOT APPLY. A19-WIRE-GO remains UNAPPROVED. Switch stays false.

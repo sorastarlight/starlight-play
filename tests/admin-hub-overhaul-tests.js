@@ -76,6 +76,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-WIRE-INTEGRATE-REPORT.md",
     "docs/project-command-center/GEN-IX-WIRE-PARITY-REPORT.md",
     "docs/project-command-center/GEN-IX-WIRE-APPLY-DECISION.md",
+    "docs/project-command-center/GEN-IX-WIRE-APPLY-REPORT.md",
     "supabase/unapplied/a19-wire/003_settle_integration.sql",
     "supabase/unapplied/a19-wire/local/040_test_inject.sql",
     "docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
@@ -500,6 +501,20 @@ test("Issue 18 D46 WIRE-INTEGRATE stays unapplied", () => {
   assert(!resetDoc.includes("Before A19-RESET-GO, add a null-out"));
   assert(!nextJs.includes("materialize_streamlink_catch"));
   assert(!liveJs.includes("materialize_streamlink_catch"));
+});
+
+test("Issue 18 D49 WIRE-APPLY report records catalog install without WIRE-GO", () => {
+  const report = read("docs/project-command-center/GEN-IX-WIRE-APPLY-REPORT.md");
+  assert(report.includes("**Verdict: APPLIED.**"));
+  assert(report.includes("LIVE CATALOG PASS"));
+  assert(report.includes("1bc62eb24f27204e52f01fe66a871c320da459df7d933c9054f7d67e57edfe68"));
+  assert(report.includes("a19_wire_003_settle_integration"));
+  assert(report.includes("enabled"));
+  assert(report.includes("false"));
+  assert(report.includes("Sora mutated **NO**"));
+  assert(report.includes("A19-WIRE-GO"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!report.includes("REAL RPC PASS"));
 });
 
 test("Issue 18 D48 WIRE-APPLY decision stays unapproved", () => {

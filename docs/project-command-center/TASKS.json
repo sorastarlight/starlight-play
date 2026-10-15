@@ -456,8 +456,20 @@
       "commit": "f63f56d5",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-APPLY-DECISION.md",
       "testResults": "STATIC hash re-check of 001/002/003; no hosted SQL",
-      "nextAction": "STOP for owner A19-WIRE-APPLY GO.",
-      "approvalRequirement": "A19-WIRE-APPLY and A19-RESET-GO UNAPPROVED"
+      "nextAction": "Superseded by I25M / D49.",
+      "approvalRequirement": "Historical D48; APPLY later delivered as D49"
+    },
+    {
+      "id": "I25M",
+      "status": "done",
+      "scope": "Owner GO applied hashed A19-WIRE 001-003; switch false; catalog-only verify",
+      "dependencies": ["I25L", "D49"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-WIRE-APPLY-REPORT.md",
+      "testResults": "LIVE CATALOG PASS; no REAL RPC; no hosted generate",
+      "nextAction": "STOP for independent review, then a separate A19-WIRE-GO.",
+      "approvalRequirement": "A19-WIRE-GO and A19-RESET-GO UNAPPROVED"
     },
     {
       "id": "I13",

@@ -39,7 +39,8 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I25I | A19-WIRE persist + local REAL SQL + RESET-TEST | Unapplied SQL + REAL SQL on 127.0.0.1 | **DONE** — D45 snapshot |
 | I25J | A19-WIRE settle integration | Unapplied `003` + REAL SQL on 127.0.0.1 | **DONE** — D46 snapshot |
 | I25K | A19-WIRE production-parity + hook isolation | Unapplied `003` + LIVE CATALOG + REAL SQL | **DONE** — D47 snapshot |
-| I25L | A19-WIRE-APPLY GO request | Docs only | **DONE** — D48; APPLY still unapproved |
+| I25L | A19-WIRE-APPLY GO request | Docs only | **DONE** — D48 snapshot |
+| I25M | Owner GO WIRE apply + catalog verify | Hosted `001`→`002`→`003`; switch false | **DONE** — D49 APPLIED catalog-only |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
@@ -52,4 +53,4 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 
 ## Out of scope until a new prompt
 
-Production APP stamp, A19-WIRE-APPLY, switch-on, hosted generate/assert, `003_rollback.sql`, any database restore, grants, RLS policy edits, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, collection reset (A19-RESET-GO). A19-APPLY schema-only is D35. GENVAL catalog install is D43. WIRE persist is D45 unapplied. Settle integration is D46/D47 unapplied. Local RESET-TEST is D45. Production reset remains unapplied.
+Production APP stamp, A19-WIRE-GO (switch on), hosted generate/assert, `003_rollback.sql`, any database restore, grants, RLS policy edits, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, collection reset (A19-RESET-GO). A19-APPLY schema-only is D35. GENVAL catalog install is D43. WIRE catalog install is D49 (switch false). Local RESET-TEST is D45. Production reset remains unapplied.

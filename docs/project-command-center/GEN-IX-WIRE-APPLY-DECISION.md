@@ -52,3 +52,5 @@ If apply fails: STOP. Do not run rollback scripts or restore.
 ```
 
 **STOP.** A19-WIRE-APPLY remains **UNAPPROVED** until that exact GO arrives.
+
+**Later (D49 snapshot pointer):** A complete owner GO later applied hashed `001`→`002`→`003`. This file remains the D48 handoff snapshot. See [GEN-IX-WIRE-APPLY-REPORT.md](./GEN-IX-WIRE-APPLY-REPORT.md).

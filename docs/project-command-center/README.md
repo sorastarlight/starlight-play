@@ -51,7 +51,8 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-WIRE-DEV-REPORT.md](./GEN-IX-WIRE-DEV-REPORT.md) | D45 unapplied persist + local REAL SQL + RESET-TEST |
 | [GEN-IX-WIRE-INTEGRATE-REPORT.md](./GEN-IX-WIRE-INTEGRATE-REPORT.md) | D46 unapplied settle integration + local REAL SQL |
 | [GEN-IX-WIRE-PARITY-REPORT.md](./GEN-IX-WIRE-PARITY-REPORT.md) | D47 LIVE CATALOG settle diff + hook isolation + REAL SQL |
-| [GEN-IX-WIRE-APPLY-DECISION.md](./GEN-IX-WIRE-APPLY-DECISION.md) | D48 A19-WIRE-APPLY GO request; **UNAPPROVED** |
+| [GEN-IX-WIRE-APPLY-DECISION.md](./GEN-IX-WIRE-APPLY-DECISION.md) | D48 A19-WIRE-APPLY GO request snapshot |
+| [GEN-IX-WIRE-APPLY-REPORT.md](./GEN-IX-WIRE-APPLY-REPORT.md) | D49 owner GO hashed `001`→`002`→`003` apply + LIVE CATALOG |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.

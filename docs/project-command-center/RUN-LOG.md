@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-15 — A19-WIRE-APPLY hashed 001-003 (D49)
+
+- Branch: `admin-hub-overhaul`. Complete owner GO applied hashed `001`→`002`→`003` as `postgres` on `dtflmlbjhttoewqgkujf`. One `apply_migration` per file.
+- Switch `enabled=false`. `stamp_catch_row` unchanged. No hosted generate, catch-row access, RESET-GO, merge, deploy, or APP stamp.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- STOP for A19-WIRE-GO.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Disk SHA-256 of `001`/`002`/`003` | STATIC | match GO |
+| `tests/a19-wire-impl-tests.js` | STATIC | 7 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 35 passed |
+| Catalog object/privilege/settle/stamp checks | LIVE CATALOG | **PASS** |
+| Hosted generate / WIRE-GO / RESET-GO / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-15 — A19-WIRE-APPLY decision handoff (D48)
 
 - Branch: `admin-hub-overhaul` at `f63f56d5`. Prepared the hashed `001`→`002`→`003` owner GO request. **Did not apply.**

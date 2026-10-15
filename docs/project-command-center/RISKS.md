@@ -22,7 +22,7 @@
 | R-I24-PGRST | **CLOSED** | LIVE API: `Accept-Profile: private` → `PGRST106 Invalid schema: private`. Do not add `private` to exposed schemas. |
 | R-I24-BACKUP | **CLOSED as apply blocker** | Owner reconfirmed COMPLETED `2026-10-14 07:44:26 +0000` and issued GO (D35). PITR remains disabled. Restore is still whole-DB rewind and needs a **separate** restore authorization. |
 | R-I25-GENVAL | **MITIGATED / FUNCTIONALLY EQUIVALENT** | D44: live bodies match hashed `001` semantically; not byte-for-byte (six-transaction apply + whitespace/comments). `stamp_catch_row` remains the live catch writer. Hosted generate / WIRE-APPLY / reset execution still blocked. |
-| R-I25-WIRE | **MITIGATED ON BRANCH** | D47 unapplied `settle_if_needed` matches live settle outside the catch writer; production `003` has no test hook. Switch default false. Production settle still the form-aware INSERT until A19-WIRE-APPLY. |
+| R-I25-WIRE | **APPLIED / SWITCH OFF** | D49 installed hashed `001`→`002`→`003`. Live settle calls materialize. Switch `enabled=false`. Hosted generate / WIRE-GO still blocked. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

@@ -46,7 +46,8 @@
 | A19-RESET-TEST (D45) | `tools/a19-reset-rehearsal.js` | REAL SQL 7/7 on `127.0.0.1:55435` | Production RESET-GO |
 | A19-WIRE-INTEGRATE (D46) | `tools/a19-wire-settle-rehearsal.js` + `003_settle_integration.sql` | STATIC + REAL SQL 13/13 on `127.0.0.1:55436` | Historical D46; superseded by D47 |
 | A19-WIRE parity (D47) | `tools/a19-wire-settle-rehearsal.js` + LIVE CATALOG `settle_if_needed` | STATIC + LIVE CATALOG + REAL SQL 16/16 on `127.0.0.1:55436` | WIRE-APPLY; PRODUCTION |
-| A19-WIRE-APPLY decision (D48) | `GEN-IX-WIRE-APPLY-DECISION.md` + disk SHA-256 | STATIC | Hosted APPLY; PRODUCTION |
+| A19-WIRE-APPLY decision (D48) | `GEN-IX-WIRE-APPLY-DECISION.md` + disk SHA-256 | STATIC | Historical D48 |
+| A19-WIRE-APPLY (D49) | `GEN-IX-WIRE-APPLY-REPORT.md` + catalog SELECTs | STATIC + LIVE CATALOG PASS | WIRE-GO; hosted generate; PRODUCTION |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

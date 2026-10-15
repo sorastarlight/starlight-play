@@ -41,9 +41,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I25I | done | A19-WIRE persist SQL + local REAL SQL + local RESET-TEST | I25H, D45 | Historical D45 | Superseded by I25J / D46 |
 | I25J | done | A19-WIRE settle integration + local REAL SQL | I25I, D46 | Historical D46 | Superseded by I25K / D47 |
 | I25K | done | A19-WIRE production-parity + hook isolation | I25J, D47 | Historical D47 | Superseded by I25L / D48 |
-| I25L | done | A19-WIRE-APPLY GO request (not authorization) | I25K, D48 | **WIRE-APPLY UNAPPROVED** | STOP for owner GO |
+| I25L | done | A19-WIRE-APPLY GO request (not authorization) | I25K, D48 | Historical D48 | Superseded by I25M / D49 |
+| I25M | done | Owner GO applied hashed WIRE `001`→`002`→`003` | I25L, D49 | **WIRE-GO UNAPPROVED** | STOP for A19-WIRE-GO |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001`. D45 persist + D46/D47 unapplied settle integration. D48 is the WIRE-APPLY GO request only. A19-WIRE-APPLY and A19-RESET-GO remain **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. Production catch writer is still live `stamp_catch_row` until APPLY. No merge, deploy, or APP stamp. A8 + D10–D48. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001`. D49 applied hashed WIRE `001`→`002`→`003` with switch **false**. A19-WIRE-GO and A19-RESET-GO remain **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. No merge, deploy, or APP stamp. A8 + D10–D49. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

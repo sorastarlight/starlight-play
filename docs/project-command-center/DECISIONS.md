@@ -61,6 +61,7 @@
 | D47 | Owner GO D47 WIRE production-parity review | Read-only LIVE CATALOG `pg_get_functiondef` of `private.settle_if_needed`. Production `003` no longer calls the test hook; injection is `local/040` only. Ghost `Caught` without a matching catch now RAISE/rolls back. Level fill matches live stamp. REAL SQL on `127.0.0.1:55436`. A19-WIRE-APPLY may be *considered* after independent review; this batch is **not** that GO. |
 | D48 | A19-WIRE-APPLY decision handoff prepared; not a GO | Exact hashed `001`/`002`/`003` GO request recorded. Disk hashes re-checked. Nothing applied. A19-WIRE-APPLY / GO remain **UNAPPROVED**. |
 | D49 | Owner GO applied hashed A19-WIRE `001`→`002`→`003` on `starlight-play` | Complete GO for the three D47 hashes as `postgres` on `dtflmlbjhttoewqgkujf`. One `apply_migration` per file. LIVE CATALOG PASS. Switch **false**. `stamp_catch_row` unchanged. No generate, catch-row access, RESET-GO, merge, deploy, or APP stamp. A19-WIRE-GO remains **UNAPPROVED**. |
+| D50 | A19-WIRE-GO readiness only | Catalog reconfirm: switch still false; D49 migrations present. One-catch PlayTester plan written. No flip, no RPC, no catch-row read. A19-WIRE-GO remains **UNAPPROVED**. |
 
 ## Needs owner approval
 
@@ -95,7 +96,7 @@
 | A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | **APPROVED FOR OFFLINE BRANCH IMPLEMENTATION ONLY — issue #22**: review/harden `private.ref_*` schema and full pin seeds, prepare backwards-compatible nullable `catches` extensions as DO-NOT-APPLY files, validate locally. **Applying DDL to connected/live Supabase remains UNAPPROVED**, as do Pokémon writes and later phases. |
 | A19-APPLY | Apply reviewed A19-SCHEMA SQL to live/connected Supabase? | **APPLIED** (D35): owner GO for `001` → seed `00`–`10` → `002` only. Catalog-only verification PASS. `003` / GENVAL / WIRE / restore / merge / deploy remain unauthorized. |
 | A19-GENVAL | Ship generator + validator functions? | **APPLIED** (D43): hashed `001` catalog install on `dtflmlbjhttoewqgkujf`. WIRE / hosted generate / catch writes remain unauthorized. |
-| A19-WIRE | Wire launch/settle/grant/evolve to the validator? | **APPLIED (D49)** hashed `001`→`002`→`003`, switch **false**. A19-WIRE-GO remains **UNAPPROVED**. |
+| A19-WIRE | Wire launch/settle/grant/evolve to the validator? | **APPLIED (D49)** hashed `001`→`002`→`003`, switch **false**. D50 readiness written. A19-WIRE-GO remains **UNAPPROVED**. |
 | A19-INSPECT | Staff read RPC for full PC combat fields? | After generator exists. |
 | A19-EDIT | Owner-only audited editor? | After inspector. |
 | A19-RESET-TEST | Dry-run + restore drill on a clone? | **D45 local synthetic PASS** on `127.0.0.1:55435`. Production clone drill still open. |

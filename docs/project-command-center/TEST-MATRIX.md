@@ -48,6 +48,7 @@
 | A19-WIRE parity (D47) | `tools/a19-wire-settle-rehearsal.js` + LIVE CATALOG `settle_if_needed` | STATIC + LIVE CATALOG + REAL SQL 16/16 on `127.0.0.1:55436` | WIRE-APPLY; PRODUCTION |
 | A19-WIRE-APPLY decision (D48) | `GEN-IX-WIRE-APPLY-DECISION.md` + disk SHA-256 | STATIC | Historical D48 |
 | A19-WIRE-APPLY (D49) | `GEN-IX-WIRE-APPLY-REPORT.md` + catalog SELECTs | STATIC + LIVE CATALOG PASS | WIRE-GO; hosted generate; PRODUCTION |
+| A19-WIRE-GO readiness (D50) | `GEN-IX-WIRE-GO-READINESS.md` + switch/migration catalog | STATIC + LIVE CATALOG | WIRE-GO; PRODUCTION |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

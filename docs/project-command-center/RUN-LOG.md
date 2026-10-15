@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-15 — A19-WIRE-GO readiness (D50)
+
+- Branch: `admin-hub-overhaul`. Readiness-only one-catch activation plan. **Did not flip the switch.**
+- LIVE CATALOG: switch `enabled=false`; D49 migrations `a19_wire_001`/`002`/`003` present.
+- No gameplay RPC, catch-row SELECT, account create, RESET-GO, merge, deploy, or APP stamp.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- STOP for owner **A19-WIRE-GO**.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Switch + D49 migration names | LIVE CATALOG | switch false; three migrations present |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 36 passed |
+| Hosted WIRE-GO / generate / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-15 — A19-WIRE-APPLY hashed 001-003 (D49)
 
 - Branch: `admin-hub-overhaul` at `0c7ec930`. Complete owner GO applied hashed `001`→`002`→`003` as `postgres` on `dtflmlbjhttoewqgkujf`. One `apply_migration` per file.

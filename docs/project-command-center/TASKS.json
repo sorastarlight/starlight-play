@@ -468,8 +468,20 @@
       "commit": "0c7ec930",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-APPLY-REPORT.md",
       "testResults": "LIVE CATALOG PASS; no REAL RPC; no hosted generate",
-      "nextAction": "STOP for independent review, then a separate A19-WIRE-GO.",
-      "approvalRequirement": "A19-WIRE-GO and A19-RESET-GO UNAPPROVED"
+      "nextAction": "Superseded by I25N / D50.",
+      "approvalRequirement": "Historical D49; WIRE-GO readiness later recorded as D50"
+    },
+    {
+      "id": "I25N",
+      "status": "done",
+      "scope": "A19-WIRE-GO one-catch readiness; not authorization to flip the switch",
+      "dependencies": ["I25M", "D50"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-READINESS.md",
+      "testResults": "LIVE CATALOG switch false + D49 migrations present; no RPC",
+      "nextAction": "STOP for owner A19-WIRE-GO.",
+      "approvalRequirement": "A19-WIRE-GO UNAPPROVED"
     },
     {
       "id": "I13",

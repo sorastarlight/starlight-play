@@ -2,7 +2,7 @@
 
 ## 2026-10-15 — Owner GO GENVAL apply + reset prep (D43)
 
-- Branch: `admin-hub-overhaul`. Complete owner GO applied hashed `supabase/unapplied/a19-genval/001_generate_and_assert.sql` SHA-256 `6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a` as `postgres` on `dtflmlbjhttoewqgkujf`.
+- Branch: `admin-hub-overhaul` at `e0381c02`. Complete owner GO applied hashed `supabase/unapplied/a19-genval/001_generate_and_assert.sql` SHA-256 `6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a` as `postgres` on `dtflmlbjhttoewqgkujf`.
 - Applied as six additive MCP migrations `a19_genval_001a`–`001f` (BEGIN/COMMIT stripped; source files stay under `unapplied/`).
 - LIVE CATALOG PASS: ticket table + FORCE RLS; 17 `private` functions owner `postgres`; EXECUTE revoked from public/anon/authenticated/service_role; fixture generate absent; `stamp_catch_row(c catches)` unchanged (`src_md5=716d8b76519ced3d05e3584c7869dd93`); `pgcrypto` extensions 1.3.
 - Did **not** run fixtures, `002_rollback.sql`, hosted generate/assert, A19-SCHEMA replay, WIRE, restore, merge, deploy, or APP stamp.

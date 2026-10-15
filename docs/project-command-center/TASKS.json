@@ -393,7 +393,7 @@
       "scope": "Owner GO applied hashed GENVAL 001; R-A reset packet unapplied",
       "dependencies": ["I25F", "D43"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "e0381c02",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-REPORT.md, docs/project-command-center/GEN-IX-RESET-SCOPE.md, supabase/unapplied/a19-reset/",
       "testResults": "STATIC + LIVE CATALOG PASS; no hosted generate/assert; no DELETE/TRUNCATE",
       "nextAction": "STOP for A19-WIRE or a later A19-RESET-GO. No merge, deploy, or APP stamp.",

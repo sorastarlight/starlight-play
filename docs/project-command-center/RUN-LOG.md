@@ -1,5 +1,26 @@
 # Run log
 
+## 2026-10-15 — A19-WIRE-DEV persist + local REAL SQL + RESET-TEST (D45)
+
+- Branch: `admin-hub-overhaul`. Owner GO for branch-only WIRE implementation and disposable local Postgres. GV7 SL, WIRE-BIND preallocated `catches.id`, WIRE-SORA grant/event refuse, RESET-TEST synthetic only.
+- Unapplied `supabase/unapplied/a19-wire/001` + `002`. `stamp_catch_row` not replaced. Live settle RPCs not swapped. Switch default false; `starlight.wire_genval` ignored.
+- REAL SQL WIRE 18/18 on `127.0.0.1:55434/a19_wire`. REAL SQL RESET 7/7 on `127.0.0.1:55435/a19_reset`. Showcase `shinyCatchId` cleanup added to the unapplied R-A script.
+- Did **not** apply WIRE to hosted Supabase, flip the switch, execute production reset, merge, deploy, or stamp APP.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- STOP for A19-WIRE-APPLY or A19-RESET-GO. No merge, deploy, or APP stamp.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-wire-impl-tests.js` | STATIC | 7 passed |
+| `tools/a19-wire-rehearsal.js` | REAL SQL | 18/18 PASS on `127.0.0.1:55434/a19_wire` |
+| `tools/a19-reset-rehearsal.js` | REAL SQL | 7/7 PASS on `127.0.0.1:55435/a19_reset` |
+| Hosted WIRE-APPLY / switch-on / RESET-GO / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-15 — GENVAL reconciliation + WIRE plan + reset rehearsal spec (D44)
 
 - Branch: `admin-hub-overhaul` at `a9cf2c39`. Read-only catalog compare of D43 install vs hashed `001` (`6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a`).

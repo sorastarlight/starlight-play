@@ -72,7 +72,10 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-RESET-SCOPE.md",
     "docs/project-command-center/GEN-IX-GENVAL-RECONCILIATION.md",
     "docs/project-command-center/GEN-IX-WIRE-PLAN.md",
+    "docs/project-command-center/GEN-IX-WIRE-DEV-REPORT.md",
     "docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
+    "supabase/unapplied/a19-wire/DO-NOT-APPLY.md",
+    "supabase/unapplied/a19-wire/001_wire_switch_and_persist.sql",
     "supabase/unapplied/a19-reset/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-reset/001_ra_pokemon_progression.sql",
     "data/gen9-ref/meta.json",
@@ -472,6 +475,24 @@ test("Issue 24 D35 apply report records schema-only GO without starting GENVAL",
   assert(decisions.includes("D35"));
   assert(/A19-GENVAL[\s\S]{0,200}UNAPPROVED/.test(decisions));
   assert(!report.includes("PRODUCTION PASS"));
+});
+
+test("Issue 25 D45 WIRE-DEV stays unapplied and switch-off", () => {
+  const report = read("docs/project-command-center/GEN-IX-WIRE-DEV-REPORT.md");
+  const persist = read("supabase/unapplied/a19-wire/001_wire_switch_and_persist.sql");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  assert(report.includes("BRANCH IMPLEMENTATION DELIVERED"));
+  assert(report.includes("UNAPPROVED"));
+  assert(report.includes("REAL SQL"));
+  assert(report.includes("127.0.0.1:55434"));
+  assert(report.includes("Sora mutated **NO**"));
+  assert(report.includes("Twinkle mutated **NO**"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(persist.includes("DO NOT RUN against live Supabase"));
+  assert(persist.includes("Intentionally ignore current_setting('starlight.wire_genval')"));
+  assert(decisions.includes("D45"));
+  assert(!nextJs.includes("persist_streamlink_catch"));
+  assert(!liveJs.includes("persist_streamlink_catch"));
 });
 
 test("Issue 25 D44 reconciliation and WIRE plan stay implementation-blocked", () => {

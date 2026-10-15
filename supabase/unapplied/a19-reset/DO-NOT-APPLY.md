@@ -8,5 +8,7 @@ A19-RESET R-A preparation for GitHub issue #25. **Unapplied.** This folder is in
 - Execution needs a later named **A19-RESET-GO** plus `SET starlight.reset_confirm = 'A19-RESET-GO'`
 - Sora (`sorastarlight`) and Twinkle (`twinklephoenixstar`) are excluded
 - Accounts, Twitch links, economy, Pokédex seen, site config, and `private.ref_*` are out of scope
+- `profiles.showcase.shinyCatchId` is nulled only when it points at a reset catch
+- Local RESET-TEST is authorized on synthetic data only. Production **A19-RESET-GO** remains unapproved
 
 D43 prepared this packet only. No DELETE / TRUNCATE / DROP was executed.

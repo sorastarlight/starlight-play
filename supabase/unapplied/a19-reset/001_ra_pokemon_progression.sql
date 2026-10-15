@@ -55,6 +55,18 @@ WHERE EXISTS (SELECT 1 FROM reset_protected_users u WHERE u.id = pr.id)
     SELECT 1 FROM unnest(pr.team_ids) x WHERE x IN (SELECT id FROM reset_catch_ids)
   );
 
+-- Soft ref: drop showcase.shinyCatchId when it points at a reset catch.
+-- achievementId is not a catch pointer and is left alone.
+UPDATE public.profiles pr
+SET showcase = pr.showcase - 'shinyCatchId'
+WHERE jsonb_typeof(pr.showcase) = 'object'
+  AND pr.showcase ? 'shinyCatchId'
+  AND EXISTS (
+    SELECT 1
+    FROM reset_catch_ids r
+    WHERE r.id::text = pr.showcase->>'shinyCatchId'
+  );
+
 -- Trades that reference reset catches.
 DELETE FROM public.trade_offers o
 WHERE o.catch_id IN (SELECT id FROM reset_catch_ids);

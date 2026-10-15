@@ -47,8 +47,9 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-GENVAL-APPLY-REPORT.md](./GEN-IX-GENVAL-APPLY-REPORT.md) | D43 owner GO hashed `001` apply + LIVE CATALOG verification |
 | [GEN-IX-RESET-SCOPE.md](./GEN-IX-RESET-SCOPE.md) | D43 R-A reset inventory; script unapplied |
 | [GEN-IX-GENVAL-RECONCILIATION.md](./GEN-IX-GENVAL-RECONCILIATION.md) | D44 read-only catalog vs hashed `001` |
-| [GEN-IX-WIRE-PLAN.md](./GEN-IX-WIRE-PLAN.md) | D44 A19-WIRE architecture; implementation UNAPPROVED |
-| [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D44 local reset rehearsal requirements |
+| [GEN-IX-WIRE-PLAN.md](./GEN-IX-WIRE-PLAN.md) | D44 A19-WIRE architecture; D45 branch persist; APPLY UNAPPROVED |
+| [GEN-IX-WIRE-DEV-REPORT.md](./GEN-IX-WIRE-DEV-REPORT.md) | D45 unapplied persist + local REAL SQL + RESET-TEST |
+| [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D44 spec + D45 local RESET-TEST; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

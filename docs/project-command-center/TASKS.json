@@ -408,8 +408,20 @@
       "commit": "a9cf2c39",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-RECONCILIATION.md, docs/project-command-center/GEN-IX-WIRE-PLAN.md, docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
       "testResults": "STATIC + LIVE CATALOG; no hosted generate; no DELETE",
-      "nextAction": "STOP for A19-WIRE-DEV or A19-RESET-TEST. No merge, deploy, or APP stamp.",
-      "approvalRequirement": "WIRE implementation UNAPPROVED; A19-RESET-GO UNAPPROVED"
+      "nextAction": "Superseded by I25I / D45.",
+      "approvalRequirement": "Historical D44; WIRE-DEV later delivered as D45"
+    },
+    {
+      "id": "I25I",
+      "status": "done",
+      "scope": "A19-WIRE unapplied persist SQL + isolated REAL SQL + local RESET-TEST",
+      "dependencies": ["I25H", "D45"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-WIRE-DEV-REPORT.md, supabase/unapplied/a19-wire/, tools/a19-wire-rehearsal.js, tools/a19-reset-rehearsal.js",
+      "testResults": "STATIC a19-wire-impl; REAL SQL 18/18 on 127.0.0.1:55434/a19_wire; REAL SQL 7/7 on 127.0.0.1:55435/a19_reset",
+      "nextAction": "STOP for A19-WIRE-APPLY or A19-RESET-GO. No merge, deploy, or APP stamp.",
+      "approvalRequirement": "A19-WIRE-APPLY and A19-RESET-GO UNAPPROVED"
     },
     {
       "id": "I13",

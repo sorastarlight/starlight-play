@@ -40,8 +40,10 @@
 | A19-GENVAL apply report (D43) | `GEN-IX-GENVAL-APPLY-REPORT.md` + catalog SELECTs | STATIC + LIVE CATALOG PASS | Hosted generate/assert; WIRE; A19-RESET-GO; PRODUCTION smoke |
 | A19-RESET R-A prep (D43) | `GEN-IX-RESET-SCOPE.md` + unapplied `a19-reset/001` | STATIC + LIVE CATALOG counts | Destructive execute |
 | A19-GENVAL reconciliation (D44) | `GEN-IX-GENVAL-RECONCILIATION.md` + catalog fingerprints | STATIC + LIVE CATALOG | Hosted generate; byte-identical replay |
-| A19-WIRE plan (D44) | `GEN-IX-WIRE-PLAN.md` | STATIC | Persist SQL; trigger edit; PRODUCTION |
-| A19-RESET rehearsal spec (D44) | `GEN-IX-RESET-REHEARSAL.md` | STATIC + LIVE CATALOG recount 12/98 | Local RESET-TEST; A19-RESET-GO |
+| A19-WIRE plan (D44) | `GEN-IX-WIRE-PLAN.md` | STATIC | Historical plan snapshot |
+| A19-RESET rehearsal spec (D44) | `GEN-IX-RESET-REHEARSAL.md` | STATIC + LIVE CATALOG recount 12/98 | A19-RESET-GO |
+| A19-WIRE-DEV (D45) | `tests/a19-wire-impl-tests.js` + `tools/a19-wire-rehearsal.js` | STATIC + REAL SQL 18/18 on `127.0.0.1:55434` | WIRE-APPLY; live settle swap; PRODUCTION |
+| A19-RESET-TEST (D45) | `tools/a19-reset-rehearsal.js` | REAL SQL 7/7 on `127.0.0.1:55435` | Production RESET-GO |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

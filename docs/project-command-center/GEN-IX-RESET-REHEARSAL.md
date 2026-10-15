@@ -1,8 +1,8 @@
-# A19-RESET rehearsal requirements (D44)
+# A19-RESET rehearsal requirements (D44 spec + D45 local RESET-TEST)
 
-**Verdict: REHEARSAL SPEC READY. Reset remains UNAPPLIED.**
+**Verdict: LOCAL RESET-TEST PASS. Production reset remains UNAPPLIED.**
 
-No DELETE / TRUNCATE / DROP ran. Sora/Twinkle deletion scope is **not** expanded.
+D45 ran the R-A script on disposable synthetic Postgres only. No production DELETE / TRUNCATE / DROP ran. Sora/Twinkle deletion scope is **not** expanded.
 
 Sora mutated **NO** · Twinkle mutated **NO**.
 
@@ -44,7 +44,7 @@ Do not add Sora/Twinkle catch deletion to the rehearsal or the GO.
 
 ## Disposable local rehearsal (A19-RESET-TEST)
 
-Not run this batch. When authorized:
+D45 ran this on `127.0.0.1:55435/a19_reset`. **REAL SQL 7/7 PASS.** Production A19-RESET-GO is still a later named message.
 
 1. Isolated Postgres on `127.0.0.1` only. Refuse hosted URLs.
 2. Load a **synthetic** schema copy: 2 protected users, 98 protected-shaped catches, 12 disposable catches, team/PC/showcase/trade/oak/evo/ledger rows.

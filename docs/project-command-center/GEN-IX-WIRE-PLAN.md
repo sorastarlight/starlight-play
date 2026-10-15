@@ -1,8 +1,8 @@
-# A19-WIRE architecture (D44 planning only)
+# A19-WIRE architecture (D44 plan + D45 branch implementation)
 
-**Verdict: PLAN READY. A19-WIRE implementation remains UNAPPROVED.**
+**Verdict: PLAN READY. D45 delivered unapplied persist SQL + local REAL SQL. A19-WIRE-APPLY, switch-on, and A19-WIRE-GO remain UNAPPROVED.**
 
-This is offline architecture. It does not modify `stamp_catch_row`, settle RPCs, triggers, or player rows. It does not GRANT GENVAL functions to clients.
+D44 was offline architecture. D45 added branch-only SQL under `supabase/unapplied/a19-wire/`. It does not modify production `stamp_catch_row`, live settle RPCs, or player rows. It does not GRANT GENVAL functions to clients. Production APP remains `20261008-rc133`.
 
 Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 
@@ -74,9 +74,9 @@ Odds, bag spend, honey, and berry stay in the current settle functions. WIRE onl
 | Phase | Work | Approval |
 |---|---|---|
 | W0 | This plan | D44 (done) |
-| W1 | Branch-only unapplied persist SQL + local REAL SQL | **A19-WIRE-DEV** |
-| W2 | Wire settle/grant to persist helper behind switch=false | same |
-| W3 | Isolated rehearsal: replay, HA bind, legacy row, odds unchanged | A19-WIRE-TEST |
+| W1 | Branch-only unapplied persist SQL + local REAL SQL | **A19-WIRE-DEV** — D45 delivered |
+| W2 | Unapplied materialize helper behind switch=false | same — D45 delivered; live settle RPCs not swapped |
+| W3 | Isolated rehearsal: replay, HA bind, legacy row, odds unchanged | A19-WIRE-TEST — D45 REAL SQL 18/18 |
 | W4 | Production apply persist SQL + switch still false | **A19-WIRE-APPLY** |
 | W5 | Owner flips switch for new catches only (QA first) | **A19-WIRE-GO** |
 | W6 | Optional later: stop filling stamp IVs on GENVAL rows | separate |
@@ -101,18 +101,18 @@ Do not combine W4/W5 with reset or APP stamp.
 
 ---
 
-## Owner gates (not granted by D44)
+## Owner gates
 
-| ID | Question |
-|---|---|
-| A19-WIRE-DEV | Authorize branch-only persist SQL + local rehearsal? |
-| A19-GV7 | `public_id` prefix `SL` vs keep `LG`? |
-| A19-WIRE-BIND | Reuse `ticket.specimen_id` as the catch uuid, or add `catch_id`? Recommendation: reuse `specimen_id` and pass the preallocated catch uuid into a **new** persist helper (do not change generate's signature in the first WIRE patch unless required). |
-| A19-WIRE-APPLY | Apply persist SQL to `dtflmlbjhttoewqgkujf` with switch off? |
-| A19-WIRE-GO | Flip the switch for new catches? QA account first. |
-| A19-WIRE-SORA | May live community settle write GENVAL rows onto Sora/Twinkle? Default **no special write tests**; existing encounter settle already can insert for any participant — owner should say if WIRE settle must skip them. |
+| ID | Question | Status |
+|---|---|---|
+| A19-WIRE-DEV | Authorize branch-only persist SQL + local rehearsal? | **GO (D45).** |
+| A19-GV7 | `public_id` prefix `SL` vs keep `LG`? | **GO (D45):** new rows `SL`; keep existing `LG`. |
+| A19-WIRE-BIND | Reuse `ticket.specimen_id` as the catch uuid, or add `catch_id`? | **GO (D45):** preallocate `catches.id` and bind the HA ticket to that uuid in the same transaction. |
+| A19-WIRE-APPLY | Apply persist SQL to `dtflmlbjhttoewqgkujf` with switch off? | **UNAPPROVED.** |
+| A19-WIRE-GO | Flip the switch for new catches? QA account first. | **UNAPPROVED.** |
+| A19-WIRE-SORA | May live community settle write GENVAL rows onto Sora/Twinkle? | **GO (D45):** ordinary settle follows existing encounter rules; grant/event/edit refuse those logins. No targeted live tests. |
 
-Recommendation: keep capture settle universal (fair play) and ban **staff grant/edit** against Sora/Twinkle. Confirm if that is acceptable.
+Capture settle stays universal (fair play). Staff grant/edit against Sora/Twinkle is refused.
 
 ---
 

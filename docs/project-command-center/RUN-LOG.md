@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-15 — A19-WIRE-INTEGRATE settle path (D46)
+
+- Branch: `admin-hub-overhaul`. Owner GO for branch-only settle integration. `private.settle_if_needed` now calls `materialize_streamlink_catch` in unapplied `003`.
+- Odds, `announce_throws` ball spends, capture_log, and Caught/Escaped copy unchanged. Persist errors other than `already-settled` RAISE and roll back the settle transaction.
+- REAL SQL 13/13 on `127.0.0.1:55436/a19_wire_settle` against settle, not materialize alone. Reset rehearsal docs now record D45 `shinyCatchId` cleanup as implemented.
+- Did **not** apply to hosted Supabase, flip the switch, execute RESET-GO, merge, deploy, or stamp APP.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- STOP for independent review before A19-WIRE-APPLY or A19-WIRE-GO.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-wire-impl-tests.js` | STATIC | run this batch |
+| `tools/a19-wire-settle-rehearsal.js` | REAL SQL | **13/13 PASS** on `127.0.0.1:55436/a19_wire_settle` |
+| Hosted WIRE-APPLY / switch-on / RESET-GO / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-15 — A19-WIRE-DEV persist + local REAL SQL + RESET-TEST (D45)
 
 - Branch: `admin-hub-overhaul` at `4155349c`. Owner GO for branch-only WIRE implementation and disposable local Postgres. GV7 SL, WIRE-BIND preallocated `catches.id`, WIRE-SORA grant/event refuse, RESET-TEST synthetic only.

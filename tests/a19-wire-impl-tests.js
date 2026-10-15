@@ -26,6 +26,7 @@ function read(rel) {
 const root = path.join(__dirname, "..");
 const persist = read("supabase/unapplied/a19-wire/001_wire_switch_and_persist.sql");
 const materialize = read("supabase/unapplied/a19-wire/002_materialize_hook.sql");
+const settle = read("supabase/unapplied/a19-wire/003_settle_integration.sql");
 const deny = read("supabase/unapplied/a19-wire/DO-NOT-APPLY.md");
 const resetSql = read("supabase/unapplied/a19-reset/001_ra_pokemon_progression.sql");
 const mig = fs.readdirSync(path.join(root, "supabase", "migrations")).join("\n");
@@ -35,6 +36,12 @@ test("WIRE SQL stays unapplied and refuses live apply language", () => {
   assert(deny.includes("dtflmlbjhttoewqgkujf"));
   assert(persist.includes("DO NOT RUN against live Supabase"));
   assert(materialize.includes("DO NOT RUN against live Supabase"));
+  assert(settle.includes("DO NOT RUN against live Supabase"));
+  assert(settle.includes("materialize_streamlink_catch"));
+  assert(settle.includes("announce_throws"));
+  assert(settle.includes("capture_chance"));
+  assert(settle.includes("wire-materialize-failed"));
+  assert(!settle.includes("CREATE OR REPLACE FUNCTION private.stamp_catch_row"));
   assert(persist.includes("Does not replace private.stamp_catch_row"));
   assert(!persist.includes("CREATE OR REPLACE FUNCTION private.stamp_catch_row"));
   assert(!materialize.includes("CREATE OR REPLACE FUNCTION private.stamp_catch_row"));
@@ -110,6 +117,9 @@ test("reset script strips stale showcase.shinyCatchId and stays unapplied", () =
   assert(resetSql.includes("twinklephoenixstar"));
   assert(!mig.includes("a19-reset"));
   assert(read("supabase/unapplied/a19-reset/DO-NOT-APPLY.md").includes("A19-RESET-GO"));
+  const rehearsal = read("docs/project-command-center/GEN-IX-RESET-REHEARSAL.md");
+  assert(rehearsal.includes("implemented"));
+  assert(!rehearsal.includes("Before A19-RESET-GO, add a null-out"));
 });
 
 const failed = results.filter((row) => !row.passed);

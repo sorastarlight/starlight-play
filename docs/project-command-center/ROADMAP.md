@@ -36,7 +36,8 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I25F | GENVAL-APPLY gate check | Owner GO/NO-GO evaluation | **DONE** — D42 INCOMPLETE snapshot |
 | I25G | Owner GO GENVAL apply + reset prep | Hashed `001` catalog install; reset UNAPPLIED | **DONE** — D43 APPLIED catalog-only |
 | I25H | GENVAL reconcile + WIRE plan + reset rehearsal spec | Docs only | **DONE** — D44 snapshot |
-| I25I | A19-WIRE persist + local REAL SQL + RESET-TEST | Unapplied SQL + REAL SQL on 127.0.0.1 | **DONE** — D45; APPLY/RESET-GO still unapproved |
+| I25I | A19-WIRE persist + local REAL SQL + RESET-TEST | Unapplied SQL + REAL SQL on 127.0.0.1 | **DONE** — D45 snapshot |
+| I25J | A19-WIRE settle integration | Unapplied `003` + REAL SQL on 127.0.0.1 | **DONE** — D46; APPLY still unapproved |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
@@ -49,4 +50,4 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 
 ## Out of scope until a new prompt
 
-Production APP stamp, A19-WIRE-APPLY, switch-on, hosted generate/assert, `003_rollback.sql`, any database restore, grants, RLS policy edits, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, collection reset (A19-RESET-GO). A19-APPLY schema-only is D35. GENVAL catalog install is D43 (D44 functionally equivalent). WIRE persist is D45 unapplied. Local RESET-TEST is D45. Production reset remains unapplied.
+Production APP stamp, A19-WIRE-APPLY, switch-on, hosted generate/assert, `003_rollback.sql`, any database restore, grants, RLS policy edits, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, collection reset (A19-RESET-GO). A19-APPLY schema-only is D35. GENVAL catalog install is D43. WIRE persist is D45 unapplied. Settle integration is D46 unapplied. Local RESET-TEST is D45. Production reset remains unapplied.

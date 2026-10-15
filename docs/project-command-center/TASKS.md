@@ -38,9 +38,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I25F | done | GENVAL-APPLY gate check; incomplete template STOP | I25E, D42 | Historical D42 | Superseded by I25G / D43 apply |
 | I25G | done | Owner GO applied hashed GENVAL `001`; reset packet unapplied | I25F, D43 | Historical D43 | Superseded by I25H / D44 |
 | I25H | done | GENVAL reconciliation + WIRE plan + reset rehearsal spec | I25G, D44 | Historical D44 | Superseded by I25I / D45 |
-| I25I | done | A19-WIRE persist SQL + local REAL SQL + local RESET-TEST | I25H, D45 | **WIRE-APPLY UNAPPROVED**; **RESET-GO UNAPPROVED** | STOP for A19-WIRE-APPLY or A19-RESET-GO |
+| I25I | done | A19-WIRE persist SQL + local REAL SQL + local RESET-TEST | I25H, D45 | Historical D45 | Superseded by I25J / D46 |
+| I25J | done | A19-WIRE settle integration + local REAL SQL | I25I, D46 | **WIRE-APPLY UNAPPROVED**; **RESET-GO UNAPPROVED** | STOP for independent review, then A19-WIRE-APPLY |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001`. D44: installed catalog is functionally equivalent, not byte-for-byte. D45: unapplied WIRE persist + local REAL SQL 18/18 and RESET-TEST 7/7. A19-WIRE-APPLY and A19-RESET-GO remain **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. `stamp_catch_row` still the live catch writer. No merge, deploy, or APP stamp. A8 + D10–D45. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001`. D45 persist + D46 unapplied settle integration. A19-WIRE-APPLY and A19-RESET-GO remain **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. Production catch writer is still live `stamp_catch_row` until APPLY. No merge, deploy, or APP stamp. A8 + D10–D46. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

@@ -73,6 +73,8 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-GENVAL-RECONCILIATION.md",
     "docs/project-command-center/GEN-IX-WIRE-PLAN.md",
     "docs/project-command-center/GEN-IX-WIRE-DEV-REPORT.md",
+    "docs/project-command-center/GEN-IX-WIRE-INTEGRATE-REPORT.md",
+    "supabase/unapplied/a19-wire/003_settle_integration.sql",
     "docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
     "supabase/unapplied/a19-wire/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-wire/001_wire_switch_and_persist.sql",
@@ -475,6 +477,25 @@ test("Issue 24 D35 apply report records schema-only GO without starting GENVAL",
   assert(decisions.includes("D35"));
   assert(/A19-GENVAL[\s\S]{0,200}UNAPPROVED/.test(decisions));
   assert(!report.includes("PRODUCTION PASS"));
+});
+
+test("Issue 18 D46 WIRE-INTEGRATE stays unapplied", () => {
+  const report = read("docs/project-command-center/GEN-IX-WIRE-INTEGRATE-REPORT.md");
+  const settle = read("supabase/unapplied/a19-wire/003_settle_integration.sql");
+  const resetDoc = read("docs/project-command-center/GEN-IX-RESET-REHEARSAL.md");
+  assert(report.includes("BRANCH SETTLE INTEGRATION DELIVERED"));
+  assert(report.includes("UNAPPROVED"));
+  assert(report.includes("78aefbc74128bd8b998113a65c14111df8a04e7b8551353b42328b77a03ea05f"));
+  assert(report.includes("127.0.0.1:55436"));
+  assert(report.includes("Sora mutated **NO**"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(settle.includes("materialize_streamlink_catch"));
+  assert(settle.includes("Does not replace private.stamp_catch_row"));
+  assert(!/insert into public.catches \(user_id, dex, name, variant, gender, ball, round_id, source_key, pokemon_form_id\)/i.test(settle));
+  assert(resetDoc.includes("implemented"));
+  assert(!resetDoc.includes("Before A19-RESET-GO, add a null-out"));
+  assert(!nextJs.includes("materialize_streamlink_catch"));
+  assert(!liveJs.includes("materialize_streamlink_catch"));
 });
 
 test("Issue 25 D45 WIRE-DEV stays unapplied and switch-off", () => {

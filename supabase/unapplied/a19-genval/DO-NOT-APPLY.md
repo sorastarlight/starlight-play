@@ -19,3 +19,5 @@ A19-GENVAL artifacts for GitHub issue #25. **Branch-only.** D37–D39 authorize 
 | `local/010_fixture.sql` | Deterministic fixture generate — local only |
 
 Pin: `sl-ref-20261013-227b573`. Requires `private.ref_*` from A19-SCHEMA (already applied on production; loaded locally by the rehearsal).
+
+**Later (D43):** Owner GO applied hashed `001` to `dtflmlbjhttoewqgkujf` via MCP. Source files stay here. Do **not** copy them into `supabase/migrations/`. `002` and `local/*` remain DO NOT APPLY. WIRE remains UNAPPROVED.

@@ -68,6 +68,10 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-GENVAL-READINESS.md",
     "docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md",
     "docs/project-command-center/GEN-IX-GENVAL-APPLY-DECISION.md",
+    "docs/project-command-center/GEN-IX-GENVAL-APPLY-REPORT.md",
+    "docs/project-command-center/GEN-IX-RESET-SCOPE.md",
+    "supabase/unapplied/a19-reset/DO-NOT-APPLY.md",
+    "supabase/unapplied/a19-reset/001_ra_pokemon_progression.sql",
     "data/gen9-ref/meta.json",
     "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-ref-review/DO-NOT-APPLY.md",
@@ -465,6 +469,34 @@ test("Issue 24 D35 apply report records schema-only GO without starting GENVAL",
   assert(decisions.includes("D35"));
   assert(/A19-GENVAL[\s\S]{0,200}UNAPPROVED/.test(decisions));
   assert(!report.includes("PRODUCTION PASS"));
+});
+
+test("Issue 25 D43 apply report records catalog install and unapplied reset", () => {
+  const report = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-REPORT.md");
+  const scope = read("docs/project-command-center/GEN-IX-RESET-SCOPE.md");
+  const resetSql = read("supabase/unapplied/a19-reset/001_ra_pokemon_progression.sql");
+  const resetDeny = read("supabase/unapplied/a19-reset/DO-NOT-APPLY.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  assert(report.includes("**Verdict: APPLIED.**"));
+  assert(report.includes("LIVE CATALOG PASS"));
+  assert(report.includes("6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a"));
+  assert(report.includes("a19_genval_001a_tickets_helpers"));
+  assert(report.includes("stamp_catch_row"));
+  assert(report.includes("716d8b76519ced3d05e3584c7869dd93"));
+  assert(report.includes("Sora mutated **NO**"));
+  assert(report.includes("Twinkle mutated **NO**"));
+  assert(scope.includes("Reset remains UNAPPLIED"));
+  assert(scope.includes("12"));
+  assert(scope.includes("98"));
+  assert(resetDeny.includes("DO NOT APPLY"));
+  assert(resetSql.includes("DO NOT RUN against live Supabase"));
+  assert(resetSql.includes("starlight.reset_confirm"));
+  assert(resetSql.includes("sorastarlight"));
+  assert(resetSql.includes("twinklephoenixstar"));
+  assert(resetSql.includes("DELETE FROM public.catches"));
+  assert(decisions.includes("D43"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!scope.includes("PRODUCTION PASS"));
 });
 
 test("Issue 25 D42 apply decision records incomplete GO and does not apply", () => {

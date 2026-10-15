@@ -35,9 +35,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I25C | done | A19-GENVAL specimen binding + additive production SQL + local fixtures | I25B, D39 | Historical D39 | Superseded by I25D / D40 |
 | I25D | done | A19-GENVAL read-only production compatibility + GENVAL-APPLY checklist | I25C, D40 | Historical D40 | Superseded by I25E / D41 |
 | I25E | done | A19-GENVAL recovery-runbook correction (no automatic restore) | I25D, D41 | Historical D41 | Superseded by I25F / D42 |
-| I25F | done | GENVAL-APPLY gate check; incomplete template STOP | I25E, D42 | **production apply UNAPPROVED** | STOP for a complete GENVAL-APPLY GO |
+| I25F | done | GENVAL-APPLY gate check; incomplete template STOP | I25E, D42 | Historical D42 | Superseded by I25G / D43 apply |
+| I25G | done | Owner GO applied hashed GENVAL `001`; reset packet unapplied | I25F, D43 | **GENVAL APPLIED** catalog-only; **A19-RESET-GO UNAPPROVED** | STOP for WIRE or a later reset GO |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D42 GENVAL-APPLY prompt was **incomplete** (`[GO]` template). Production GENVAL apply **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. `stamp_catch_row` still active. No live Pokémon, wipe, or `admin-next.html` changes. A8 + D10–D42. Reset needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001` (catalog-only LIVE CATALOG PASS). WIRE **UNAPPROVED**. Reset R-A script prepared and **not executed**. Pin `sl-ref-20261013-227b573`. `stamp_catch_row` still the live catch writer. No merge, deploy, or APP stamp. A8 + D10–D43. Reset still needs A19-RESET-TEST then A19-RESET-GO. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

@@ -175,3 +175,5 @@ This batch does **not** implement WIRE, does not GRANT callers, and does not rep
 Checklist: [GEN-IX-GENVAL-APPLY-CHECKLIST.md](./GEN-IX-GENVAL-APPLY-CHECKLIST.md) (D41 recovery correction).
 
 **STOP** for owner review. A later prompt that is not an explicit GENVAL-APPLY is still not authorization. Restore is not included in GENVAL-APPLY.
+
+**Later (D43 snapshot pointer):** Complete owner GO applied hashed `001`. This file remains the D40 readiness snapshot. See [GEN-IX-GENVAL-APPLY-REPORT.md](./GEN-IX-GENVAL-APPLY-REPORT.md).

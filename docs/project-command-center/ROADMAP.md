@@ -33,7 +33,8 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I25C | A19-GENVAL specimen binding + additive production SQL | Unapplied SQL + REAL SQL on 127.0.0.1 | **DONE** — D39 snapshot |
 | I25D | A19-GENVAL production compatibility + apply checklist | Metadata + local REAL SQL; no hosted writes | **DONE** — D40 snapshot |
 | I25E | A19-GENVAL recovery-runbook correction | Documentation only | **DONE** — D41 snapshot |
-| I25F | GENVAL-APPLY gate check | Owner GO/NO-GO evaluation | **DONE** — D42 INCOMPLETE; production apply UNAPPROVED |
+| I25F | GENVAL-APPLY gate check | Owner GO/NO-GO evaluation | **DONE** — D42 INCOMPLETE snapshot |
+| I25G | Owner GO GENVAL apply + reset prep | Hashed `001` catalog install; reset UNAPPLIED | **DONE** — D43 APPLIED catalog-only; A19-RESET-GO UNAPPROVED |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |
@@ -46,4 +47,4 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 
 ## Out of scope until a new prompt
 
-Production APP stamp, A19-GENVAL production apply, A19-WIRE, `003_rollback.sql`, any database restore, grants, RLS policy edits, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, collection reset (A19-RESET-GO). A19-APPLY schema-only is D35. GENVAL branch implementation is D37. Security corrections are D38/D39. D40 is the read-only readiness packet. D41 corrects recovery. D42 recorded an incomplete `[GO]` template and did **not** apply. Apply stays UNAPPROVED.
+Production APP stamp, A19-WIRE, hosted generate/assert, `003_rollback.sql`, any database restore, grants, RLS policy edits, staff promotion, live staff RPCs, Gate 3 Support mutations, encounter/director/economy writes, legacy admin edits, catch-row rewrites, collection reset (A19-RESET-GO). A19-APPLY schema-only is D35. GENVAL catalog install is D43. Reset script is prepared and unapplied. D42 remains the incomplete-template snapshot.

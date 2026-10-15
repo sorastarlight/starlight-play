@@ -54,6 +54,7 @@
 | D40 | D39 review: read-only production compatibility + GENVAL-APPLY checklist | Catalog metadata only on `dtflmlbjhttoewqgkujf`. `pgcrypto` 1.3 already in `extensions`. No GENVAL name collisions. Local rehearsal 15/15 on exact `001`. WIRE unique-catch identity still open. Production apply remains **UNAPPROVED**. |
 | D41 | Independent D40 review required GENVAL-APPLY recovery-runbook correction | Failed apply or catalog verification is STOP + owner notify, not automatic restore. All restores need a later named-timestamp authorization and data-loss assessment. Recorded backup `2026-10-14 07:44:26 UTC` predates D35. `002_rollback.sql` is not an automatic fallback. SQL hashes and catalog evidence unchanged. Production apply remains **UNAPPROVED**. |
 | D42 | Prompted GENVAL-APPLY was incomplete template text; no production apply | `[GO]` / `[14 Oct 2026 07:44:26 (+0000)]` / `[disabled]` are placeholders. G5 post-D35 snapshot status was not recorded. Same message forbids treating template text as approval. `001` hash still matches. Nothing applied. Production apply remains **UNAPPROVED**. |
+| D43 | Owner GO applied hashed A19-GENVAL `001` on `starlight-play`; reset prepared only | Complete GO for `001_generate_and_assert.sql` SHA-256 `6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a` as `postgres` on `dtflmlbjhttoewqgkujf`. Applied as six additive MCP migrations (`001a`–`001f`) whose union is hashed `001`. LIVE CATALOG PASS: 17 functions, ticket table + FORCE RLS, EXECUTE revoked, `stamp_catch_row` unchanged. No generate/assert calls, no `002`, no fixtures, no WIRE, no APP stamp. Reset R-A script written under `unapplied/a19-reset/` and **not executed**. |
 
 ## Needs owner approval
 
@@ -87,12 +88,12 @@
 | A19-F1 | Use Gen IX friendship (70→50) at generation time without rewriting the pin? | **APPROVED ARCHITECTURE — F1:** retain raw historical PokéAPI friendship source values; at eventual generation map 70→50 for Gen IX, leave other values unchanged, and do not modify source pin or existing Pokémon. |
 | A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | **APPROVED FOR OFFLINE BRANCH IMPLEMENTATION ONLY — issue #22**: review/harden `private.ref_*` schema and full pin seeds, prepare backwards-compatible nullable `catches` extensions as DO-NOT-APPLY files, validate locally. **Applying DDL to connected/live Supabase remains UNAPPROVED**, as do Pokémon writes and later phases. |
 | A19-APPLY | Apply reviewed A19-SCHEMA SQL to live/connected Supabase? | **APPLIED** (D35): owner GO for `001` → seed `00`–`10` → `002` only. Catalog-only verification PASS. `003` / GENVAL / WIRE / restore / merge / deploy remain unauthorized. |
-| A19-GENVAL | Ship generator + validator functions? | **APPROVED FOR BRANCH-ONLY IMPLEMENTATION** (D37): unapplied SQL + local rehearsal. **Production apply remains UNAPPROVED.** No player-row writes. |
+| A19-GENVAL | Ship generator + validator functions? | **APPLIED** (D43): hashed `001` catalog install on `dtflmlbjhttoewqgkujf`. WIRE / hosted generate / catch writes remain unauthorized. |
 | A19-WIRE | Wire launch/settle/grant/evolve to the validator? | New catches only; QA account. |
 | A19-INSPECT | Staff read RPC for full PC combat fields? | After generator exists. |
 | A19-EDIT | Owner-only audited editor? | After inspector. |
 | A19-RESET-TEST | Dry-run + restore drill on a clone? | Required before any production wipe. |
-| A19-RESET-GO | Execute production collection reset? | Separate destructive confirmation. Not now. |
+| A19-RESET-GO | Execute production collection reset? | **UNAPPROVED.** D43 prepared R-A scope + fail-closed unapplied SQL only. Sora/Twinkle excluded. |
 | A19-GV1 | Ordinary ability slot 1 vs per-catcher among non-hidden slots? | **APPROVED:** per-catcher among available non-hidden slots. |
 | A19-GV2 | Gender per-catcher vs shared with the round? | **APPROVED:** per-catcher, respecting gender_rate. |
 | A19-GV3 | G1/C1 requested form id: remap to base or fail? | **APPROVED:** fail closed. Never silently remap. |

@@ -384,8 +384,20 @@
       "commit": "61dc3616",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-DECISION.md",
       "testResults": "STATIC only; 001 hash match; no hosted writes; no catalog rerun",
-      "nextAction": "STOP for a complete GENVAL-APPLY GO without placeholder brackets, with G5 post-D35 snapshot status recorded.",
-      "approvalRequirement": "Production GENVAL apply remains UNAPPROVED; restore remains a separate later authorization; A19-WIRE still blocked"
+      "nextAction": "Superseded by I25G / D43 apply.",
+      "approvalRequirement": "Historical D42; production apply later delivered as D43"
+    },
+    {
+      "id": "I25G",
+      "status": "done",
+      "scope": "Owner GO applied hashed GENVAL 001; R-A reset packet unapplied",
+      "dependencies": ["I25F", "D43"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-REPORT.md, docs/project-command-center/GEN-IX-RESET-SCOPE.md, supabase/unapplied/a19-reset/",
+      "testResults": "STATIC + LIVE CATALOG PASS; no hosted generate/assert; no DELETE/TRUNCATE",
+      "nextAction": "STOP for A19-WIRE or a later A19-RESET-GO. No merge, deploy, or APP stamp.",
+      "approvalRequirement": "GENVAL catalog APPLIED; A19-WIRE UNAPPROVED; A19-RESET-GO UNAPPROVED"
     },
     {
       "id": "I13",

@@ -67,3 +67,5 @@ A later restore, if ever wanted, remains a different message: selected timestamp
 ---
 
 **STOP** for owner review. A19-GENVAL production application remains **UNAPPROVED**.
+
+**Later (D43 snapshot pointer):** A complete owner GO later applied hashed `001`. This file remains the D42 incomplete-template snapshot. See [GEN-IX-GENVAL-APPLY-REPORT.md](./GEN-IX-GENVAL-APPLY-REPORT.md).

@@ -100,6 +100,20 @@ test("implementation report does not claim production apply", () => {
   assert(report.includes("Sora mutated **NO**"));
 });
 
+test("D43 apply report hash-locks 001 and leaves WIRE and reset unapproved", () => {
+  const applyReport = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-REPORT.md");
+  const hash = require("crypto").createHash("sha256").update(sql).digest("hex");
+  assert(hash === "6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a");
+  assert(applyReport.includes(hash));
+  assert(applyReport.includes("**Verdict: APPLIED.**"));
+  assert(applyReport.includes("LIVE CATALOG"));
+  assert(applyReport.includes("A19-WIRE"));
+  assert(applyReport.includes("UNAPPROVED"));
+  assert(applyReport.includes("A19-RESET-GO"));
+  assert(!applyReport.includes("PRODUCTION PASS"));
+  assert(!mig.includes("a19-genval"));
+});
+
 test("D40 readiness packet stays unapproved and hash-locks production 001", () => {
   const readiness = read("docs/project-command-center/GEN-IX-GENVAL-READINESS.md");
   const checklist = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md");

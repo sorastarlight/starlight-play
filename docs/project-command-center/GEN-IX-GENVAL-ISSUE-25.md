@@ -82,3 +82,5 @@ Nothing copied into `supabase/migrations/`.
 **Later (D41 snapshot pointer):** Independent D40 review required a recovery-runbook correction: failed apply is STOP + owner notify, not automatic restore; `2026-10-14 07:44:26 UTC` predates D35; `002` is not an automatic fallback. Production apply remains **UNAPPROVED**.
 
 **Later (D42 snapshot pointer):** Prompted GENVAL-APPLY was incomplete template text (`[GO]`). Nothing applied. See [GEN-IX-GENVAL-APPLY-DECISION.md](./GEN-IX-GENVAL-APPLY-DECISION.md). Production apply remains **UNAPPROVED**.
+
+**Later (D43 snapshot pointer):** Complete owner GO applied hashed `001` (`6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a`) as six additive MCP migrations. LIVE CATALOG PASS. See [GEN-IX-GENVAL-APPLY-REPORT.md](./GEN-IX-GENVAL-APPLY-REPORT.md). Reset packet unapplied: [GEN-IX-RESET-SCOPE.md](./GEN-IX-RESET-SCOPE.md). WIRE and A19-RESET-GO remain **UNAPPROVED**. This file remains the D39 branch-correction snapshot.

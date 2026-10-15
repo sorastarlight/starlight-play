@@ -1,5 +1,28 @@
 # Run log
 
+## 2026-10-15 — Owner GO GENVAL apply + reset prep (D43)
+
+- Branch: `admin-hub-overhaul`. Complete owner GO applied hashed `supabase/unapplied/a19-genval/001_generate_and_assert.sql` SHA-256 `6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a` as `postgres` on `dtflmlbjhttoewqgkujf`.
+- Applied as six additive MCP migrations `a19_genval_001a`–`001f` (BEGIN/COMMIT stripped; source files stay under `unapplied/`).
+- LIVE CATALOG PASS: ticket table + FORCE RLS; 17 `private` functions owner `postgres`; EXECUTE revoked from public/anon/authenticated/service_role; fixture generate absent; `stamp_catch_row(c catches)` unchanged (`src_md5=716d8b76519ced3d05e3584c7869dd93`); `pgcrypto` extensions 1.3.
+- Did **not** run fixtures, `002_rollback.sql`, hosted generate/assert, A19-SCHEMA replay, WIRE, restore, merge, deploy, or APP stamp.
+- Reset: LIVE CATALOG inventory + unapplied `supabase/unapplied/a19-reset/001_ra_pokemon_progression.sql`. No DELETE/TRUNCATE/DROP. R-A would remove **12** non-protected catches and keep **98** on Sora/Twinkle.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- WIRE **UNAPPROVED**. A19-RESET-GO **UNAPPROVED**. STOP.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-genval-spec-tests.js` | STATIC + LOCAL HARNESS | 6 passed |
+| `tests/a19-genval-impl-tests.js` | STATIC | 7 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 29 passed |
+| `tests/a19-apply-report-tests.js` | STATIC | 4 passed |
+| Hosted generate / assert / RESET execute / WIRE / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-14 — GENVAL-APPLY gate check (D42, incomplete template, UNAPPROVED)
 
 - Branch: `admin-hub-overhaul` at `61dc3616`. Evaluated a prompted GENVAL-APPLY against D41 and the independent D41 review.

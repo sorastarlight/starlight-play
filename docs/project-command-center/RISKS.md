@@ -13,7 +13,7 @@
 | R-IA-LAYOUT | **DESIGN** | A8 + D10–D13: Proposal A layout accepted in principle. Visual target waits on A10. Live Trainers unchanged until A9. |
 | R-EPIC-11 | **DESIGN** | Epic #11 expands beyond current read RPCs (PC, ribbons, tickets, recovery writes). #12 is presentation-only. #13/#14 must not skip security/architecture. |
 | R-I16-LEGALITY | **SUPERSEDED (future)** | Current rows remain LGPE-inspired (factual #16). Future target is D17 / #19, not LGPE. Do not convert old IVs in place. |
-| R-I19-RESET | **DESIGN** | Owner may later wipe or replace catches. No delete is authorized. Hard FKs: oak_transfers, trade_listings, trade_offers. Soft refs: team_ids, pc_layout, direct_trades, evolution_log. Sora/Twinkle excluded. |
+| R-I19-RESET | **PREPARED / UNAPPLIED** | D43 wrote R-A scope + fail-closed SQL. No delete executed. LIVE CATALOG: 12 non-protected catches vs 98 protected. Hard FKs: oak_transfers, trade_listings, trade_offers. Soft refs: team_ids, pc_layout, direct_trades, evolution_log. Sora/Twinkle excluded. Needs A19-RESET-TEST then A19-RESET-GO. |
 | R-I19-POKEAPI | **DESIGN** | PokéAPI VG `scarlet-violet` has an empty `move_learn_methods` array; learnsets live on pokemon move details. Runtime must not hot-fetch. Do not invent SV movesets for absent forms. |
 | R-I20-GAPS | **OPEN** | Pin still leaves 12 Gigantamax + 4 Champions megas unresolved. G1/C1/F1 are approved policy (D24) and encoded in `ref_form_policies`. GENVAL must fail closed; do not silently inherit base learnsets. |
 | R-I21-SQL | **SUPERSEDED** | #20 public draft and #21 review draft must not be applied. Use `supabase/unapplied/a19-schema/` as the reviewed source pin. Live apply is D35. |
@@ -21,7 +21,7 @@
 | R-I23-REHEARSAL | **CLOSED** | Isolated local rehearsal passed (17/17 REAL SQL). Does not close live-apply risk. `evo_uid` collision fixed on the branch. |
 | R-I24-PGRST | **CLOSED** | LIVE API: `Accept-Profile: private` → `PGRST106 Invalid schema: private`. Do not add `private` to exposed schemas. |
 | R-I24-BACKUP | **CLOSED as apply blocker** | Owner reconfirmed COMPLETED `2026-10-14 07:44:26 +0000` and issued GO (D35). PITR remains disabled. Restore is still whole-DB rewind and needs a **separate** restore authorization. |
-| R-I25-GENVAL | **MITIGATED on branch / APPLY BLOCKED** | D42: prompted `[GO]` was incomplete template text; G5 post-D35 snapshot status missing. D41 recovery rules stand. D40 catalog + 15/15 local REAL SQL still stand. Production apply **UNAPPROVED**. `stamp_catch_row` remains live. |
+| R-I25-GENVAL | **MITIGATED / CATALOG APPLIED** | D43 applied hashed `001` as six additive MCP migrations. LIVE CATALOG PASS: 17 functions, ticket RLS, EXECUTE revoked. `stamp_catch_row` remains the live catch writer until WIRE. WIRE / hosted generate / reset execution still blocked. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

@@ -163,3 +163,5 @@ A valid GENVAL-APPLY message must all be true:
 A later restore, if ever wanted, is a **different** owner message: selected timestamp + data-loss assessment. The D33 stamp `2026-10-14 07:44:26 UTC` is not acceptable as that timestamp without an explicit statement that undoing D35 and all later writes is intended.
 
 Until the GENVAL-APPLY message exists, A19-GENVAL production application remains **UNAPPROVED**.
+
+**Later (D43 snapshot pointer):** A complete owner GO later applied hashed `001`. This file remains the D41 runbook snapshot. See [GEN-IX-GENVAL-APPLY-REPORT.md](./GEN-IX-GENVAL-APPLY-REPORT.md).

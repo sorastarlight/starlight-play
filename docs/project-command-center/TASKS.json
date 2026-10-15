@@ -405,7 +405,7 @@
       "scope": "GENVAL reconciliation + WIRE architecture + reset rehearsal spec",
       "dependencies": ["I25G", "D44"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "a9cf2c39",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-RECONCILIATION.md, docs/project-command-center/GEN-IX-WIRE-PLAN.md, docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
       "testResults": "STATIC + LIVE CATALOG; no hosted generate; no DELETE",
       "nextAction": "STOP for A19-WIRE-DEV or A19-RESET-TEST. No merge, deploy, or APP stamp.",

@@ -2,7 +2,7 @@
 
 ## 2026-10-15 — GENVAL reconciliation + WIRE plan + reset rehearsal spec (D44)
 
-- Branch: `admin-hub-overhaul`. Read-only catalog compare of D43 install vs hashed `001` (`6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a`).
+- Branch: `admin-hub-overhaul` at `a9cf2c39`. Read-only catalog compare of D43 install vs hashed `001` (`6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a`).
 - Verdict: **functionally equivalent**, not byte-for-byte. Eight functions byte-match; others whitespace-compacted or comment-omitted. Six remote migrations `001a`–`001f` documented. No hosted generate/assert. No reapply/alter/drop/restore.
 - WIRE architecture documented: persist helper, explicit switch, unique `(round_id,user_id)` / `source_key` already live, ticket must bind `catches.id`. Implementation **UNAPPROVED**. `stamp_catch_row` not modified.
 - Reset recount: **12** vs **98**. Showcase keys `achievementId` / `shinyCatchId` are unhandled soft refs. Rehearsal spec only; no DELETE.

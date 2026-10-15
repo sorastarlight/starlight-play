@@ -21,7 +21,8 @@
 | R-I23-REHEARSAL | **CLOSED** | Isolated local rehearsal passed (17/17 REAL SQL). Does not close live-apply risk. `evo_uid` collision fixed on the branch. |
 | R-I24-PGRST | **CLOSED** | LIVE API: `Accept-Profile: private` → `PGRST106 Invalid schema: private`. Do not add `private` to exposed schemas. |
 | R-I24-BACKUP | **CLOSED as apply blocker** | Owner reconfirmed COMPLETED `2026-10-14 07:44:26 +0000` and issued GO (D35). PITR remains disabled. Restore is still whole-DB rewind and needs a **separate** restore authorization. |
-| R-I25-GENVAL | **MITIGATED / CATALOG APPLIED** | D43 applied hashed `001` as six additive MCP migrations. LIVE CATALOG PASS: 17 functions, ticket RLS, EXECUTE revoked. `stamp_catch_row` remains the live catch writer until WIRE. WIRE / hosted generate / reset execution still blocked. |
+| R-I25-GENVAL | **MITIGATED / FUNCTIONALLY EQUIVALENT** | D44: live bodies match hashed `001` semantically; not byte-for-byte (six-transaction apply + whitespace/comments). `stamp_catch_row` remains the live catch writer. WIRE / hosted generate / reset execution still blocked. |
+| R-I25-WIRE | **DESIGN** | Persist helper + explicit switch required. generate binds a random `specimen_id`; WIRE must map it to `catches.id` in one transaction. Combat digest is not unique. Do not replace `stamp_catch_row` automatically. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

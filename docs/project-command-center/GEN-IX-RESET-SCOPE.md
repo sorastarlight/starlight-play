@@ -101,7 +101,7 @@ Most stored Pokémon belong to Sora or Twinkle. A default R-A therefore removes 
 
 ### Soft leftover (not mutated by the script)
 
-`public.profiles.showcase` may hold catch uuids. Shape is not a hard FK. Inspect before a future GO if a showcase still points at a deleted id.
+`public.profiles.showcase` may hold catch uuids. LIVE CATALOG keys: `achievementId`, `shinyCatchId`. Shape is not a hard FK. D44: null `shinyCatchId` when it is a reset catch **before** A19-RESET-GO. See [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md).
 
 ---
 

@@ -39,6 +39,9 @@
 | A19-GENVAL apply decision (D42) | `GEN-IX-GENVAL-APPLY-DECISION.md` + overhaul STATIC | STATIC (incomplete `[GO]` snapshot; hash match; not applied that batch) | Historical |
 | A19-GENVAL apply report (D43) | `GEN-IX-GENVAL-APPLY-REPORT.md` + catalog SELECTs | STATIC + LIVE CATALOG PASS | Hosted generate/assert; WIRE; A19-RESET-GO; PRODUCTION smoke |
 | A19-RESET R-A prep (D43) | `GEN-IX-RESET-SCOPE.md` + unapplied `a19-reset/001` | STATIC + LIVE CATALOG counts | Destructive execute |
+| A19-GENVAL reconciliation (D44) | `GEN-IX-GENVAL-RECONCILIATION.md` + catalog fingerprints | STATIC + LIVE CATALOG | Hosted generate; byte-identical replay |
+| A19-WIRE plan (D44) | `GEN-IX-WIRE-PLAN.md` | STATIC | Persist SQL; trigger edit; PRODUCTION |
+| A19-RESET rehearsal spec (D44) | `GEN-IX-RESET-REHEARSAL.md` | STATIC + LIVE CATALOG recount 12/98 | Local RESET-TEST; A19-RESET-GO |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

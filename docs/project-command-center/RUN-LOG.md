@@ -1,5 +1,27 @@
 # Run log
 
+## 2026-10-15 — GENVAL reconciliation + WIRE plan + reset rehearsal spec (D44)
+
+- Branch: `admin-hub-overhaul`. Read-only catalog compare of D43 install vs hashed `001` (`6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a`).
+- Verdict: **functionally equivalent**, not byte-for-byte. Eight functions byte-match; others whitespace-compacted or comment-omitted. Six remote migrations `001a`–`001f` documented. No hosted generate/assert. No reapply/alter/drop/restore.
+- WIRE architecture documented: persist helper, explicit switch, unique `(round_id,user_id)` / `source_key` already live, ticket must bind `catches.id`. Implementation **UNAPPROVED**. `stamp_catch_row` not modified.
+- Reset recount: **12** vs **98**. Showcase keys `achievementId` / `shinyCatchId` are unhandled soft refs. Rehearsal spec only; no DELETE.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- STOP for A19-WIRE-DEV or A19-RESET-TEST. No merge, deploy, or APP stamp.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-genval-spec-tests.js` | STATIC + LOCAL HARNESS | 6 passed |
+| `tests/a19-genval-impl-tests.js` | STATIC | 8 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 30 passed |
+| `tests/a19-apply-report-tests.js` | STATIC | 4 passed |
+| Hosted generate / WIRE SQL / RESET execute / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-15 — Owner GO GENVAL apply + reset prep (D43)
 
 - Branch: `admin-hub-overhaul` at `e0381c02`. Complete owner GO applied hashed `supabase/unapplied/a19-genval/001_generate_and_assert.sql` SHA-256 `6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a` as `postgres` on `dtflmlbjhttoewqgkujf`.

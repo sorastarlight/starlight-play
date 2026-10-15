@@ -70,6 +70,9 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-GENVAL-APPLY-DECISION.md",
     "docs/project-command-center/GEN-IX-GENVAL-APPLY-REPORT.md",
     "docs/project-command-center/GEN-IX-RESET-SCOPE.md",
+    "docs/project-command-center/GEN-IX-GENVAL-RECONCILIATION.md",
+    "docs/project-command-center/GEN-IX-WIRE-PLAN.md",
+    "docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
     "supabase/unapplied/a19-reset/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-reset/001_ra_pokemon_progression.sql",
     "data/gen9-ref/meta.json",
@@ -469,6 +472,30 @@ test("Issue 24 D35 apply report records schema-only GO without starting GENVAL",
   assert(decisions.includes("D35"));
   assert(/A19-GENVAL[\s\S]{0,200}UNAPPROVED/.test(decisions));
   assert(!report.includes("PRODUCTION PASS"));
+});
+
+test("Issue 25 D44 reconciliation and WIRE plan stay implementation-blocked", () => {
+  const recon = read("docs/project-command-center/GEN-IX-GENVAL-RECONCILIATION.md");
+  const wire = read("docs/project-command-center/GEN-IX-WIRE-PLAN.md");
+  const rehearsal = read("docs/project-command-center/GEN-IX-RESET-REHEARSAL.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  assert(recon.includes("FUNCTIONALLY EQUIVALENT"));
+  assert(recon.includes("Not byte-for-byte"));
+  assert(recon.includes("6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a"));
+  assert(recon.includes("a19_genval_001a_tickets_helpers"));
+  assert(wire.includes("PLAN READY"));
+  assert(wire.includes("UNAPPROVED"));
+  assert(wire.includes("stamp_catch_row"));
+  assert(wire.includes("starlight.wire_genval") || wire.includes("explicit"));
+  assert(rehearsal.includes("12"));
+  assert(rehearsal.includes("98"));
+  assert(rehearsal.includes("shinyCatchId"));
+  assert(rehearsal.includes("UNAPPLIED"));
+  assert(decisions.includes("D44"));
+  assert(!recon.includes("PRODUCTION PASS"));
+  assert(!wire.includes("PRODUCTION PASS"));
+  assert(!nextJs.includes("generate_streamlink_mon"));
+  assert(!liveJs.includes("generate_streamlink_mon"));
 });
 
 test("Issue 25 D43 apply report records catalog install and unapplied reset", () => {

@@ -100,6 +100,18 @@ test("implementation report does not claim production apply", () => {
   assert(report.includes("Sora mutated **NO**"));
 });
 
+test("D44 reconciliation hash-locks 001 and does not authorize WIRE", () => {
+  const recon = read("docs/project-command-center/GEN-IX-GENVAL-RECONCILIATION.md");
+  const wire = read("docs/project-command-center/GEN-IX-WIRE-PLAN.md");
+  const hash = require("crypto").createHash("sha256").update(fs.readFileSync(path.join(__dirname, "..", "supabase/unapplied/a19-genval/001_generate_and_assert.sql"))).digest("hex");
+  assert(hash === "6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a");
+  assert(recon.includes(hash));
+  assert(recon.includes("FUNCTIONALLY EQUIVALENT"));
+  assert(wire.includes("UNAPPROVED"));
+  assert(!recon.includes("PRODUCTION PASS"));
+  assert(!mig.includes("a19-wire"));
+});
+
 test("D43 apply report hash-locks 001 and leaves WIRE and reset unapproved", () => {
   const applyReport = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-REPORT.md");
   const hash = require("crypto").createHash("sha256").update(sql).digest("hex");

@@ -46,6 +46,9 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-GENVAL-APPLY-DECISION.md](./GEN-IX-GENVAL-APPLY-DECISION.md) | D42 incomplete `[GO]` template snapshot; nothing applied that batch |
 | [GEN-IX-GENVAL-APPLY-REPORT.md](./GEN-IX-GENVAL-APPLY-REPORT.md) | D43 owner GO hashed `001` apply + LIVE CATALOG verification |
 | [GEN-IX-RESET-SCOPE.md](./GEN-IX-RESET-SCOPE.md) | D43 R-A reset inventory; script unapplied |
+| [GEN-IX-GENVAL-RECONCILIATION.md](./GEN-IX-GENVAL-RECONCILIATION.md) | D44 read-only catalog vs hashed `001` |
+| [GEN-IX-WIRE-PLAN.md](./GEN-IX-WIRE-PLAN.md) | D44 A19-WIRE architecture; implementation UNAPPROVED |
+| [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D44 local reset rehearsal requirements |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 

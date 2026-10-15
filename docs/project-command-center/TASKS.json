@@ -396,8 +396,20 @@
       "commit": "e0381c02",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-REPORT.md, docs/project-command-center/GEN-IX-RESET-SCOPE.md, supabase/unapplied/a19-reset/",
       "testResults": "STATIC + LIVE CATALOG PASS; no hosted generate/assert; no DELETE/TRUNCATE",
-      "nextAction": "STOP for A19-WIRE or a later A19-RESET-GO. No merge, deploy, or APP stamp.",
-      "approvalRequirement": "GENVAL catalog APPLIED; A19-WIRE UNAPPROVED; A19-RESET-GO UNAPPROVED"
+      "nextAction": "Superseded by I25H / D44.",
+      "approvalRequirement": "Historical D43; WIRE later planned as D44"
+    },
+    {
+      "id": "I25H",
+      "status": "done",
+      "scope": "GENVAL reconciliation + WIRE architecture + reset rehearsal spec",
+      "dependencies": ["I25G", "D44"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-GENVAL-RECONCILIATION.md, docs/project-command-center/GEN-IX-WIRE-PLAN.md, docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
+      "testResults": "STATIC + LIVE CATALOG; no hosted generate; no DELETE",
+      "nextAction": "STOP for A19-WIRE-DEV or A19-RESET-TEST. No merge, deploy, or APP stamp.",
+      "approvalRequirement": "WIRE implementation UNAPPROVED; A19-RESET-GO UNAPPROVED"
     },
     {
       "id": "I13",

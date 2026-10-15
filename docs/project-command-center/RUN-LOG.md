@@ -2,7 +2,7 @@
 
 ## 2026-10-15 — A19-WIRE-GO readiness (D50)
 
-- Branch: `admin-hub-overhaul`. Readiness-only one-catch activation plan. **Did not flip the switch.**
+- Branch: `admin-hub-overhaul` at `15b4e63d`. Readiness-only one-catch activation plan. **Did not flip the switch.**
 - LIVE CATALOG: switch `enabled=false`; D49 migrations `a19_wire_001`/`002`/`003` present.
 - No gameplay RPC, catch-row SELECT, account create, RESET-GO, merge, deploy, or APP stamp.
 - Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.

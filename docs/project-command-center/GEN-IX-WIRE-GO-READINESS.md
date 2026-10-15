@@ -1,6 +1,6 @@
 # A19-WIRE-GO readiness (D50)
 
-**Verdict: READY TO ASK. This is not A19-WIRE-GO.** Nothing was flipped, generated, or caught.
+**Verdict: READY TO ASK. This is not A19-WIRE-GO.** Nothing was flipped, generated, or caught. Commit: `15b4e63d`.
 
 Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 

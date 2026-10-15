@@ -477,7 +477,7 @@
       "scope": "A19-WIRE-GO one-catch readiness; not authorization to flip the switch",
       "dependencies": ["I25M", "D50"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "15b4e63d",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-READINESS.md",
       "testResults": "LIVE CATALOG switch false + D49 migrations present; no RPC",
       "nextAction": "STOP for owner A19-WIRE-GO.",

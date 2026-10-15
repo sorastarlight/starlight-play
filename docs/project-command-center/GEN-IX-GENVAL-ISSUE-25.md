@@ -78,3 +78,5 @@ Nothing copied into `supabase/migrations/`.
 ---
 
 **Later (D40 snapshot pointer):** Read-only production compatibility + GENVAL-APPLY checklist delivered. See [GEN-IX-GENVAL-READINESS.md](./GEN-IX-GENVAL-READINESS.md) and [GEN-IX-GENVAL-APPLY-CHECKLIST.md](./GEN-IX-GENVAL-APPLY-CHECKLIST.md). Production apply remains **UNAPPROVED**. This file remains the D39 branch-correction snapshot.
+
+**Later (D41 snapshot pointer):** Independent D40 review required a recovery-runbook correction: failed apply is STOP + owner notify, not automatic restore; `2026-10-14 07:44:26 UTC` predates D35; `002` is not an automatic fallback. Production apply remains **UNAPPROVED**.

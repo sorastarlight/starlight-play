@@ -1,5 +1,27 @@
 # Run log
 
+## 2026-10-14 — A19-GENVAL recovery-runbook correction (D41, production apply UNAPPROVED)
+
+- Branch: `admin-hub-overhaul`. Independent D40 review of `ec54d159` required the GENVAL-APPLY recovery runbook to stop automatic-restore language.
+- Failed apply or catalog verification is now **STOP + owner notification**. Every restore needs a later named-timestamp authorization and data-loss assessment.
+- Recorded backup `2026-10-14 07:44:26 UTC` **predates D35**; restoring it would undo A19-SCHEMA and all later database activity. `002_rollback.sql` is not an automatic fallback.
+- SQL artifacts and SHA-256 values unchanged. No hosted catalog rerun. No local rehearsal rerun (D40 15/15 still the last REAL SQL).
+- Did **not** apply SQL, restore, write catches, start WIRE, merge, deploy, or stamp APP.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- Production GENVAL apply remains **UNAPPROVED**. STOP for a separate explicit GENVAL-APPLY decision.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-genval-spec-tests.js` | STATIC + LOCAL HARNESS | 6 passed |
+| `tests/a19-genval-impl-tests.js` | STATIC | 6 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 27 passed |
+| Hosted writes / restore / WIRE / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-14 — A19-GENVAL production compatibility + apply checklist (D40, production apply UNAPPROVED)
 
 - Branch: `admin-hub-overhaul` at `ec54d159`. Independent D39 review of `278d225c` asked for a read-only compatibility + deployment runbook. This is **not** GENVAL-APPLY.

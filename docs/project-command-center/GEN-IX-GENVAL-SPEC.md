@@ -314,3 +314,5 @@ Next gate: explicit owner **A19-GENVAL** implementation authorization (functions
 **Later (D39 snapshot pointer):** Independent review of `67141ec3` required specimen-digest binding, additive production SQL, and local-only fixtures. Production apply is still **UNAPPROVED**.
 
 **Later (D40 snapshot pointer):** Read-only production compatibility + GENVAL-APPLY checklist. Production apply is still **UNAPPROVED**.
+
+**Later (D41 snapshot pointer):** Recovery runbook correction — no automatic restore; D33 backup predates D35. Production apply is still **UNAPPROVED**.

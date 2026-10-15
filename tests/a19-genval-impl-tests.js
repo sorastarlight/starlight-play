@@ -112,6 +112,9 @@ test("D40 readiness packet stays unapproved and hash-locks production 001", () =
   assert(checklist.includes("UNAPPROVED"));
   assert(readiness.includes("unique persisted catch"));
   assert(!readiness.includes("PRODUCTION PASS"));
+  assert(checklist.includes("predates D35"));
+  assert(checklist.includes("not an automatically authorized fallback"));
+  assert(!/Dashboard restore to the G1 COMPLETED snapshot/.test(checklist));
 });
 
 const failed = results.filter((row) => !row.passed);

@@ -466,6 +466,24 @@ test("Issue 24 D35 apply report records schema-only GO without starting GENVAL",
   assert(!report.includes("PRODUCTION PASS"));
 });
 
+test("Issue 25 D41 recovery runbook forbids automatic restore", () => {
+  const checklist = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  assert(checklist.includes("A19-GENVAL production application remains **UNAPPROVED**"));
+  assert(checklist.includes("6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a"));
+  assert(checklist.includes("predates D35"));
+  assert(checklist.includes("2026-10-14 07:44:26 UTC"));
+  assert(checklist.includes("STOP") && checklist.includes("owner notification"));
+  assert(checklist.includes("separate owner authorization"));
+  assert(checklist.includes("data-loss assessment") || checklist.includes("assessment of potential data loss"));
+  assert(checklist.includes("not an automatically authorized fallback"));
+  assert(!/Do \*\*not\*\* click Restore unless a later apply has failed/.test(checklist));
+  assert(!/Dashboard restore to the G1 COMPLETED snapshot/.test(checklist));
+  assert(decisions.includes("D41"));
+  assert(/A19-GENVAL[\s\S]{0,220}UNAPPROVED/.test(decisions));
+  assert(!checklist.includes("PRODUCTION PASS"));
+});
+
 test("Issue 25 D40 readiness stays read-only and does not approve GENVAL apply", () => {
   const readiness = read("docs/project-command-center/GEN-IX-GENVAL-READINESS.md");
   const checklist = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md");

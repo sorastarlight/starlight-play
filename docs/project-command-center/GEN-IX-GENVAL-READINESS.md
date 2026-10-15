@@ -166,10 +166,12 @@ This batch does **not** implement WIRE, does not GRANT callers, and does not rep
 | Live name / pin / PG / pgcrypto compatibility | PASS (LIVE CATALOG + LIVE PLATFORM) |
 | Local exact-SQL rehearsal | PASS (REAL SQL 15/15) |
 | WIRE unique-identity binding | **OPEN** — documented, not built |
-| Freshest COMPLETED backup reconfirm | **OWNER** — last named stamp is `2026-10-14 07:44:26 +0000` |
-| PITR | **disabled** (OWNER REPORT) |
+| Freshest COMPLETED backup reconfirm | **OWNER** — last named stamp `2026-10-14 07:44:26 +0000` **predates D35** and is not a safe default restore target |
+| PITR | **disabled** (OWNER REPORT); reconfirm immediately before any future GENVAL-APPLY |
+| Restore | **never automatic** — failed apply/catalog check is STOP + owner notify; restore needs a later named-timestamp authorization and data-loss assessment |
+| `002_rollback.sql` | **not** an automatically authorized fallback |
 | Explicit GENVAL-APPLY | **missing** |
 
-Checklist: [GEN-IX-GENVAL-APPLY-CHECKLIST.md](./GEN-IX-GENVAL-APPLY-CHECKLIST.md).
+Checklist: [GEN-IX-GENVAL-APPLY-CHECKLIST.md](./GEN-IX-GENVAL-APPLY-CHECKLIST.md) (D41 recovery correction).
 
-**STOP** for owner review. A later prompt that is not an explicit GENVAL-APPLY is still not authorization.
+**STOP** for owner review. A later prompt that is not an explicit GENVAL-APPLY is still not authorization. Restore is not included in GENVAL-APPLY.

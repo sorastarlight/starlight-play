@@ -360,8 +360,20 @@
       "commit": "ec54d159",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-READINESS.md, docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md",
       "testResults": "STATIC + LIVE CATALOG + LIVE PLATFORM + REAL SQL 15/15 on 127.0.0.1:55433/a19_genval; no hosted writes",
+      "nextAction": "Superseded by I25E / D41 recovery-runbook correction.",
+      "approvalRequirement": "Historical D40; production GENVAL apply still unapproved"
+    },
+    {
+      "id": "I25E",
+      "status": "done",
+      "scope": "A19-GENVAL recovery-runbook correction: no automatic restore; D33 backup predates D35",
+      "dependencies": ["I25D", "D41"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md, docs/project-command-center/GEN-IX-GENVAL-READINESS.md",
+      "testResults": "STATIC only; SQL hashes unchanged; no hosted catalog rerun; no REAL SQL rerun",
       "nextAction": "STOP for owner review. Do not apply GENVAL, WIRE, 002, restore, merge, or deploy without a separate explicit GENVAL-APPLY.",
-      "approvalRequirement": "Production GENVAL apply remains UNAPPROVED; A19-WIRE still blocked"
+      "approvalRequirement": "Production GENVAL apply remains UNAPPROVED; restore remains a separate later authorization; A19-WIRE still blocked"
     },
     {
       "id": "I13",

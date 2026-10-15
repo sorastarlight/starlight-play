@@ -2,9 +2,9 @@
 
 **Status:** A19-GENVAL production application remains **UNAPPROVED**.
 
-This file is a runbook for a **future** explicit owner GENVAL-APPLY. Reading it, committing it, or completing D40 is **not** that decision.
+This file is a runbook for a **future** explicit owner GENVAL-APPLY. Reading it, committing it, or completing D40/D41 is **not** that decision. D41 corrects recovery: failed apply or catalog verification is an immediate **STOP** and owner notification. It is **not** automatic restoration.
 
-Sora mutated **NO** · Twinkle mutated **NO**. Do not start WIRE, grants, resets, merge, deploy, or APP stamp.
+Sora mutated **NO** · Twinkle mutated **NO**. Do not start WIRE, grants, resets, merge, deploy, restore, or APP stamp.
 
 ---
 
@@ -20,7 +20,7 @@ Do **not** apply:
 
 | Path | SHA-256 | Why |
 |---|---|---|
-| `002_rollback.sql` | `4e47147f1a633029563d87ed5805c2a3f13c65d1aca84d808260831aa3252a3f` | DROP of GENVAL objects; local/review only |
+| `002_rollback.sql` | `4e47147f1a633029563d87ed5805c2a3f13c65d1aca84d808260831aa3252a3f` | DROP of GENVAL objects; local/review only. **Not** an automatically authorized fallback |
 | `local/000_teardown.sql` | `1ad86265d6affec4cf999f9df74ad4d9e2e86bf05ca77b62a45559ce76278171` | disposable-local DROP |
 | `local/010_fixture.sql` | `b2df5c7bd13a534f37ac0725d05fed00e97506811413bcfb03ea60215160aab3` | fixture generate + md5 entropy |
 
@@ -38,13 +38,14 @@ This agent did **not** create or restore a backup and cannot list backup IDs (no
 
 | # | What to open | What to record | Why |
 |---|---|---|---|
-| G1 | [Scheduled backups](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/database/backups/scheduled) | Freshest **COMPLETED** daily timestamp. Last named OWNER REPORT: `2026-10-14 07:44:26 +0000`. Reconfirm if a newer daily exists. | Whole-DB rewind target if apply misbehaves |
-| G2 | [Point in Time](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/database/backups/pitr) | Confirm PITR still **disabled** (or newly enabled). | If still disabled, restore is the daily snapshot only |
+| G1 | [Scheduled backups](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/database/backups/scheduled) | Reconfirm the **freshest COMPLETED** daily timestamp **immediately before** any future GENVAL-APPLY. Last named OWNER REPORT: `2026-10-14 07:44:26 +0000`. | That stamp **predates D35**. Restoring it would undo applied A19-SCHEMA and all later database activity. It is not a safe default restore target. |
+| G2 | [Point in Time](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/database/backups/pitr) | Reconfirm PITR **immediately before** any future GENVAL-APPLY (last OWNER REPORT: **disabled**). | If still disabled, any later restore can only use a named daily snapshot. |
 | G3 | [Data API / Exposed schemas](https://supabase.com/dashboard/project/dtflmlbjhttoewqgkujf/settings/api) | Exposed schemas must **not** include `private` | Keep D35 `PGRST106` |
 | G4 | Apply role | Must be **`postgres`** (same owner as `stamp_catch_row` and the D40 catalog session) | Owner-only ticket policy is `TO current_user` |
-| G5 | Explicit **GENVAL-APPLY** message | Approve apply of **hashed `001` only**, as `postgres`, after G1–G4 | This checklist is not GO |
+| G5 | Restore readiness | Record whether a **post-D35** COMPLETED snapshot exists, and that restore remains a **later** decision | GENVAL-APPLY does not authorize restore |
+| G6 | Explicit **GENVAL-APPLY** message | Approve apply of **hashed `001` only**, as `postgres`, after G1–G5 | This checklist is not GO. Restore is not included. |
 
-Do **not** click Restore unless a later apply has failed. Do **not** enable extra exposed schemas. Do **not** GRANT GENVAL functions.
+Do **not** click Restore as part of GENVAL-APPLY, a failed apply, or a failed catalog check. Every database restore needs a **separate** owner authorization that names the restore timestamp and accepts the data-loss assessment. Do **not** enable extra exposed schemas. Do **not** GRANT GENVAL functions. Do **not** run `002_rollback.sql` as a routine workaround.
 
 ---
 
@@ -90,10 +91,10 @@ Do **not** click Restore unless a later apply has failed. Do **not** enable extr
 
 ## If GENVAL-APPLY is later approved — apply window
 
-1. Confirm G1–G5. Idle stream / no encounter settlement if practical.
+1. Reconfirm G1–G6 **immediately before** apply (freshest COMPLETED backup, PITR status, restore readiness). Idle stream / no encounter settlement if practical.
 2. Re-hash `001`. Confirm catalog: tickets table still absent; GENVAL function names still absent; `stamp_catch_row` still present and not in the script.
 3. Apply **only** `001_generate_and_assert.sql` as `postgres`. One transaction (`BEGIN`/`COMMIT` already in the file).
-4. Do **not** apply `002`, `local/000`, or `local/010`.
+4. Do **not** apply `002`, `local/000`, or `local/010`. `002_rollback.sql` is **not** an automatically authorized fallback.
 5. Do **not** `SELECT` catch rows. Do **not** `SELECT private.generate_streamlink_mon(...)` on hosted Supabase.
 6. Do **not** start WIRE, replace `stamp_catch_row`, GRANT EXECUTE, or expose `private`.
 
@@ -131,15 +132,21 @@ Stop and do **not** retry inventively if:
 
 ## Recovery limitations
 
+A failed production apply or failed catalog verification triggers an immediate **STOP** and owner notification. Inspect catalog-only facts. Do **not** restore, do **not** run `002_rollback.sql`, and do **not** invent a partial undo.
+
+**Every database restore requires a separate owner authorization.** That later message must name the selected restore timestamp and include an assessment of potential data loss. GENVAL-APPLY never includes restore permission. `002_rollback.sql` is likewise not an automatically authorized fallback; it needs its own explicit owner approval if it is ever considered.
+
+The previously recorded backup `2026-10-14 07:44:26 UTC` **predates D35**. Restoring it would undo the applied A19-SCHEMA migration (`private.ref_*` and the nullable catch extensions) and **all subsequent database activity**. Do not treat that stamp as the default recovery target. Do not presume any rollback can recreate D35.
+
 | Situation | Action | Do not |
 |---|---|---|
-| Apply fails inside the `001` transaction | Transaction rolls back. Confirm catalog unchanged. | Invent a partial undo |
-| Apply committed, then catalog verification fails | Dashboard restore to the G1 COMPLETED snapshot. PITR is **disabled** unless G2 changed. | Run `002_rollback.sql` casually on production |
-| Apply succeeded and catalog verification PASS, but owner wants it gone **before WIRE** | Prefer Dashboard restore. `002` drops empty GENVAL objects only if separately authorized | Treat `002` as a data undo |
-| Any later WIRE has issued tickets or written catch fields | **Dashboard restore only** (separate restore authorization). `002` would drop tickets | Use `002` after WIRE |
+| Apply fails inside the `001` transaction | Transaction should roll back. Confirm catalog-only that GENVAL objects are still absent. **STOP** and notify the owner. | Restore. Retry inventively. Run `002`. |
+| Apply committed, then catalog verification fails | **STOP**. Record catalog-only facts. Notify the owner. Wait for a separate restore (or `002`) authorization if the owner chooses one. | Click Restore. Assume G1 is `2026-10-14 07:44:26 UTC`. Run `002` as a workaround. |
+| Apply succeeded and catalog verification PASS, but owner later wants GENVAL gone **before WIRE** | **STOP**. Request a separate restore or `002` authorization with named timestamp and data-loss assessment. | Treat GENVAL-APPLY as restore permission. Treat `002` as automatic. |
+| Any later WIRE has issued tickets or written catch fields | **STOP**. Restore/`002` would need a new authorization that accepts ticket and catch loss. That is not this checklist. | Use `002` after WIRE. Release/delete catches. |
 | Need to undo player Pokémon | That is **A19-RESET-GO**, not GENVAL-APPLY | Release/delete catches to “fix” functions |
 
-Restoration takes the project offline. Plan downtime. Storage objects are not in DB backups. Whole-DB rewind also rewinds D35 `ref_*` and any later play if the restore target is the 14 Oct 07:44 UTC daily — owner must accept that cost.
+Restoration takes the project offline. Storage objects are not in DB backups. Whole-database rewind discards every write after the chosen snapshot. If someone later authorized restore to `2026-10-14 07:44:26 UTC`, that cost includes D35 and all later play.
 
 ---
 
@@ -149,8 +156,10 @@ A valid GENVAL-APPLY message must all be true:
 
 1. Names **GENVAL-APPLY** (not “continue”, “ready”, or this checklist).
 2. Names hashed `001` only (or repeats the SHA-256 above).
-3. Confirms G1 freshest COMPLETED backup and G2 PITR state.
-4. Accepts whole-database rewind as the recovery path.
-5. Forbids WIRE, fixture SQL, `002`, catch-row SELECT, hosted generate, grants, merge, deploy, and APP stamp in the same go.
+3. Reconfirms, immediately before apply, the freshest COMPLETED backup, PITR status, and restore readiness (G1, G2, G5).
+4. States that restore is **not** authorized by this go, and that `002_rollback.sql` is **not** an automatic fallback.
+5. Forbids WIRE, fixture SQL, catch-row SELECT, hosted generate, grants, merge, deploy, restore, and APP stamp in the same go.
 
-Until that message exists, A19-GENVAL production application remains **UNAPPROVED**.
+A later restore, if ever wanted, is a **different** owner message: selected timestamp + data-loss assessment. The D33 stamp `2026-10-14 07:44:26 UTC` is not acceptable as that timestamp without an explicit statement that undoing D35 and all later writes is intended.
+
+Until the GENVAL-APPLY message exists, A19-GENVAL production application remains **UNAPPROVED**.

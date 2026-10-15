@@ -2,7 +2,7 @@
 
 ## 2026-10-14 — A19-GENVAL recovery-runbook correction (D41, production apply UNAPPROVED)
 
-- Branch: `admin-hub-overhaul`. Independent D40 review of `ec54d159` required the GENVAL-APPLY recovery runbook to stop automatic-restore language.
+- Branch: `admin-hub-overhaul` at `110b4f9f`. Independent D40 review of `ec54d159` required the GENVAL-APPLY recovery runbook to stop automatic-restore language.
 - Failed apply or catalog verification is now **STOP + owner notification**. Every restore needs a later named-timestamp authorization and data-loss assessment.
 - Recorded backup `2026-10-14 07:44:26 UTC` **predates D35**; restoring it would undo A19-SCHEMA and all later database activity. `002_rollback.sql` is not an automatic fallback.
 - SQL artifacts and SHA-256 values unchanged. No hosted catalog rerun. No local rehearsal rerun (D40 15/15 still the last REAL SQL).

@@ -369,7 +369,7 @@
       "scope": "A19-GENVAL recovery-runbook correction: no automatic restore; D33 backup predates D35",
       "dependencies": ["I25D", "D41"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "110b4f9f",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md, docs/project-command-center/GEN-IX-GENVAL-READINESS.md",
       "testResults": "STATIC only; SQL hashes unchanged; no hosted catalog rerun; no REAL SQL rerun",
       "nextAction": "STOP for owner review. Do not apply GENVAL, WIRE, 002, restore, merge, or deploy without a separate explicit GENVAL-APPLY.",

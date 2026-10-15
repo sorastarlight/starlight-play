@@ -6,7 +6,7 @@ Nothing was applied. Hosted Supabase was not written. The switch was not flipped
 
 Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 
-Disk SHA-256 re-checked this batch on `admin-hub-overhaul` `f46be2cc`. All three match.
+Disk SHA-256 re-checked this batch on `admin-hub-overhaul` `f63f56d5`. All three match.
 
 ---
 

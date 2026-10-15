@@ -2,7 +2,7 @@
 
 ## 2026-10-15 — A19-WIRE-APPLY decision handoff (D48)
 
-- Branch: `admin-hub-overhaul`. Prepared the hashed `001`→`002`→`003` owner GO request. **Did not apply.**
+- Branch: `admin-hub-overhaul` at `f63f56d5`. Prepared the hashed `001`→`002`→`003` owner GO request. **Did not apply.**
 - Disk SHA-256 re-checked: all three match D47. No hosted SQL, switch flip, generate, catch-row access, restore, merge, deploy, or APP stamp.
 - Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.

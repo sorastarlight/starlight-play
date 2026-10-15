@@ -453,7 +453,7 @@
       "scope": "A19-WIRE-APPLY GO request; not authorization to install",
       "dependencies": ["I25K", "D48"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "f63f56d5",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-APPLY-DECISION.md",
       "testResults": "STATIC hash re-check of 001/002/003; no hosted SQL",
       "nextAction": "STOP for owner A19-WIRE-APPLY GO.",

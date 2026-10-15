@@ -2,7 +2,7 @@
 
 ## 2026-10-15 — A19-WIRE-APPLY hashed 001-003 (D49)
 
-- Branch: `admin-hub-overhaul`. Complete owner GO applied hashed `001`→`002`→`003` as `postgres` on `dtflmlbjhttoewqgkujf`. One `apply_migration` per file.
+- Branch: `admin-hub-overhaul` at `0c7ec930`. Complete owner GO applied hashed `001`→`002`→`003` as `postgres` on `dtflmlbjhttoewqgkujf`. One `apply_migration` per file.
 - Switch `enabled=false`. `stamp_catch_row` unchanged. No hosted generate, catch-row access, RESET-GO, merge, deploy, or APP stamp.
 - Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 - Production APP `20261008-rc133` unchanged. Smoke paused.

@@ -2,7 +2,7 @@
 
 **Verdict: APPLIED.** Catalog-only verification **LIVE CATALOG PASS**. Not REAL RPC. Not production gameplay smoke. Switch remains **false**.
 
-Owner GO authorized hashed `001` → `002` → `003` as role `postgres` on project `dtflmlbjhttoewqgkujf` only. A19-WIRE-GO (switch on) is **not** authorized.
+Owner GO authorized hashed `001` → `002` → `003` as role `postgres` on project `dtflmlbjhttoewqgkujf` only. Implementation commit: `0c7ec930`. A19-WIRE-GO (switch on) is **not** authorized.
 
 Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused. Catch rows were not read or written.
 

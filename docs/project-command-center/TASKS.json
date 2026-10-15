@@ -465,7 +465,7 @@
       "scope": "Owner GO applied hashed A19-WIRE 001-003; switch false; catalog-only verify",
       "dependencies": ["I25L", "D49"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "0c7ec930",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-APPLY-REPORT.md",
       "testResults": "LIVE CATALOG PASS; no REAL RPC; no hosted generate",
       "nextAction": "STOP for independent review, then a separate A19-WIRE-GO.",

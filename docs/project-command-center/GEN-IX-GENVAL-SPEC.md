@@ -316,3 +316,5 @@ Next gate: explicit owner **A19-GENVAL** implementation authorization (functions
 **Later (D40 snapshot pointer):** Read-only production compatibility + GENVAL-APPLY checklist. Production apply is still **UNAPPROVED**.
 
 **Later (D41 snapshot pointer):** Recovery runbook correction — no automatic restore; D33 backup predates D35. Production apply is still **UNAPPROVED**.
+
+**Later (D42 snapshot pointer):** Incomplete `[GO]` template; nothing applied. Production apply is still **UNAPPROVED**.

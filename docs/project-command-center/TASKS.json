@@ -372,7 +372,19 @@
       "commit": "110b4f9f",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md, docs/project-command-center/GEN-IX-GENVAL-READINESS.md",
       "testResults": "STATIC only; SQL hashes unchanged; no hosted catalog rerun; no REAL SQL rerun",
-      "nextAction": "STOP for owner review. Do not apply GENVAL, WIRE, 002, restore, merge, or deploy without a separate explicit GENVAL-APPLY.",
+      "nextAction": "Superseded by I25F / D42 incomplete-GO stop.",
+      "approvalRequirement": "Historical D41; production GENVAL apply still unapproved"
+    },
+    {
+      "id": "I25F",
+      "status": "done",
+      "scope": "GENVAL-APPLY gate check: template [GO] incomplete; no production apply",
+      "dependencies": ["I25E", "D42"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-DECISION.md",
+      "testResults": "STATIC only; 001 hash match; no hosted writes; no catalog rerun",
+      "nextAction": "STOP for a complete GENVAL-APPLY GO without placeholder brackets, with G5 post-D35 snapshot status recorded.",
       "approvalRequirement": "Production GENVAL apply remains UNAPPROVED; restore remains a separate later authorization; A19-WIRE still blocked"
     },
     {

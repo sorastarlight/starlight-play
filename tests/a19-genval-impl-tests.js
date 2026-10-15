@@ -115,6 +115,10 @@ test("D40 readiness packet stays unapproved and hash-locks production 001", () =
   assert(checklist.includes("predates D35"));
   assert(checklist.includes("not an automatically authorized fallback"));
   assert(!/Dashboard restore to the G1 COMPLETED snapshot/.test(checklist));
+  const applyDecision = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-DECISION.md");
+  assert(applyDecision.includes("UNAPPROVED"));
+  assert(applyDecision.includes("INCOMPLETE"));
+  assert(applyDecision.includes("Nothing was applied"));
 });
 
 const failed = results.filter((row) => !row.passed);

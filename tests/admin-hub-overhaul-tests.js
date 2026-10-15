@@ -67,6 +67,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md",
     "docs/project-command-center/GEN-IX-GENVAL-READINESS.md",
     "docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md",
+    "docs/project-command-center/GEN-IX-GENVAL-APPLY-DECISION.md",
     "data/gen9-ref/meta.json",
     "supabase/unapplied/a19-ref/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-ref-review/DO-NOT-APPLY.md",
@@ -464,6 +465,22 @@ test("Issue 24 D35 apply report records schema-only GO without starting GENVAL",
   assert(decisions.includes("D35"));
   assert(/A19-GENVAL[\s\S]{0,200}UNAPPROVED/.test(decisions));
   assert(!report.includes("PRODUCTION PASS"));
+});
+
+test("Issue 25 D42 apply decision records incomplete GO and does not apply", () => {
+  const decision = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-DECISION.md");
+  const decisions = read("docs/project-command-center/DECISIONS.md");
+  const checklist = read("docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md");
+  assert(decision.includes("**Verdict: INCOMPLETE. A19-GENVAL production application remains UNAPPROVED.**"));
+  assert(decision.includes("[GO]"));
+  assert(decision.includes("G5 is missing") || decision.includes("G5 is missing:"));
+  assert(decision.includes("predates D35"));
+  assert(decision.includes("6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a"));
+  assert(decision.includes("Nothing was applied"));
+  assert(decisions.includes("D42"));
+  assert(/A19-GENVAL[\s\S]{0,220}UNAPPROVED/.test(decisions));
+  assert(checklist.includes("A19-GENVAL production application remains **UNAPPROVED**"));
+  assert(!decision.includes("PRODUCTION PASS"));
 });
 
 test("Issue 25 D41 recovery runbook forbids automatic restore", () => {

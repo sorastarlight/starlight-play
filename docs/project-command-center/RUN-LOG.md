@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-15 — A19-WIRE-APPLY decision handoff (D48)
+
+- Branch: `admin-hub-overhaul`. Prepared the hashed `001`→`002`→`003` owner GO request. **Did not apply.**
+- Disk SHA-256 re-checked: all three match D47. No hosted SQL, switch flip, generate, catch-row access, restore, merge, deploy, or APP stamp.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- STOP for owner **A19-WIRE-APPLY GO**.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Disk SHA-256 of `001`/`002`/`003` | STATIC | match D47 |
+| `tests/a19-wire-impl-tests.js` | STATIC | 7 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 34 passed |
+| Hosted WIRE-APPLY / switch-on / RESET-GO / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-15 — A19-WIRE production-parity review (D47)
 
 - Branch: `admin-hub-overhaul` at `84825b4f`. Owner GO for branch-only hook isolation + LIVE CATALOG settle diff + disposable REAL SQL.

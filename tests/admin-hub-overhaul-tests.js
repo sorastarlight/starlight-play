@@ -75,6 +75,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-WIRE-DEV-REPORT.md",
     "docs/project-command-center/GEN-IX-WIRE-INTEGRATE-REPORT.md",
     "docs/project-command-center/GEN-IX-WIRE-PARITY-REPORT.md",
+    "docs/project-command-center/GEN-IX-WIRE-APPLY-DECISION.md",
     "supabase/unapplied/a19-wire/003_settle_integration.sql",
     "supabase/unapplied/a19-wire/local/040_test_inject.sql",
     "docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
@@ -499,6 +500,19 @@ test("Issue 18 D46 WIRE-INTEGRATE stays unapplied", () => {
   assert(!resetDoc.includes("Before A19-RESET-GO, add a null-out"));
   assert(!nextJs.includes("materialize_streamlink_catch"));
   assert(!liveJs.includes("materialize_streamlink_catch"));
+});
+
+test("Issue 18 D48 WIRE-APPLY decision stays unapproved", () => {
+  const decision = read("docs/project-command-center/GEN-IX-WIRE-APPLY-DECISION.md");
+  assert(decision.includes("UNAPPROVED"));
+  assert(decision.includes("A19-WIRE-APPLY GO"));
+  assert(decision.includes("efca33ea6757e308262d0f3aec781fa0cb71e1ac907bb90fa2d142beb32d8d4e"));
+  assert(decision.includes("1e21ba666bce44c24567d9e9b8404d8e39a683005432b419a3b1bcfe9afd8ce4"));
+  assert(decision.includes("1bc62eb24f27204e52f01fe66a871c320da459df7d933c9054f7d67e57edfe68"));
+  assert(decision.includes("001 → 002 → 003"));
+  assert(decision.includes("STOP on drift"));
+  assert(!decision.includes("PRODUCTION PASS"));
+  assert(!decision.includes("**Verdict: APPLIED.**"));
 });
 
 test("Issue 18 D47 WIRE parity stays unapplied", () => {

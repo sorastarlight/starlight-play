@@ -429,7 +429,7 @@
       "scope": "A19-WIRE settle integration: settle_if_needed calls materialize",
       "dependencies": ["I25I", "D46"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "fefbf362",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-INTEGRATE-REPORT.md, supabase/unapplied/a19-wire/003_settle_integration.sql, tools/a19-wire-settle-rehearsal.js",
       "testResults": "STATIC a19-wire-impl; REAL SQL 13/13 on 127.0.0.1:55436/a19_wire_settle",
       "nextAction": "STOP for independent review before A19-WIRE-APPLY or A19-WIRE-GO.",

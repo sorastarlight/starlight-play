@@ -2,7 +2,7 @@
 
 ## 2026-10-15 — A19-WIRE-INTEGRATE settle path (D46)
 
-- Branch: `admin-hub-overhaul`. Owner GO for branch-only settle integration. `private.settle_if_needed` now calls `materialize_streamlink_catch` in unapplied `003`.
+- Branch: `admin-hub-overhaul` at `fefbf362`. Owner GO for branch-only settle integration. `private.settle_if_needed` now calls `materialize_streamlink_catch` in unapplied `003`.
 - Odds, `announce_throws` ball spends, capture_log, and Caught/Escaped copy unchanged. Persist errors other than `already-settled` RAISE and roll back the settle transaction.
 - REAL SQL 13/13 on `127.0.0.1:55436/a19_wire_settle` against settle, not materialize alone. Reset rehearsal docs now record D45 `shinyCatchId` cleanup as implemented.
 - Did **not** apply to hosted Supabase, flip the switch, execute RESET-GO, merge, deploy, or stamp APP.
@@ -14,7 +14,8 @@
 
 | Suite | Class | Result |
 |---|---|---|
-| `tests/a19-wire-impl-tests.js` | STATIC | run this batch |
+| `tests/a19-wire-impl-tests.js` | STATIC | 7 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 32 passed |
 | `tools/a19-wire-settle-rehearsal.js` | REAL SQL | **13/13 PASS** on `127.0.0.1:55436/a19_wire_settle` |
 | Hosted WIRE-APPLY / switch-on / RESET-GO / PRODUCTION | — | **not run** |
 

@@ -2,7 +2,7 @@
 
 **Verdict: BRANCH SETTLE INTEGRATION DELIVERED. A19-WIRE-APPLY, switch-on, A19-WIRE-GO, A19-RESET-GO, merge, deploy, and APP stamp remain UNAPPROVED.**
 
-Owner authorized branch-only settlement integration + disposable local PostgreSQL. Baseline D45 `4155349c` / `b0670a1c`.
+Owner authorized branch-only settlement integration + disposable local PostgreSQL. Baseline D45 `4155349c` / `b0670a1c`. Implementation commit: `fefbf362`.
 
 Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 

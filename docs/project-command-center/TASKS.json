@@ -492,7 +492,19 @@
       "commit": "7f2b32b1",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-PROPOSAL.md",
       "testResults": "LIVE CATALOG + REAL DOM reset + auth recover/mail.send; login not confirmed",
-      "nextAction": "STOP until owner finishes PlayTester reset mail, then A19-WIRE-GO.",
+      "nextAction": "Superseded by I25P / D52.",
+      "approvalRequirement": "Historical D51"
+    },
+    {
+      "id": "I25P",
+      "status": "done",
+      "scope": "Cursor browser Play probe. No join, throw, settle, or WIRE flip.",
+      "dependencies": ["I25O", "D52"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "tools/qa-play-e2e-gate.js",
+      "testResults": "REAL DOM signed-out Play and Pokedex; gameplay blocked",
+      "nextAction": "Owner signs PlayTester in once in the Cursor browser, then A19-WIRE-GO.",
       "approvalRequirement": "A19-WIRE-GO UNAPPROVED"
     },
     {

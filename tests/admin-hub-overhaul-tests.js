@@ -505,6 +505,15 @@ test("Issue 18 D46 WIRE-INTEGRATE stays unapplied", () => {
   assert(!liveJs.includes("materialize_streamlink_catch"));
 });
 
+test("Play E2E gate refuses gameplay and session files", () => {
+  const gate = read("tools/qa-play-e2e-gate.js");
+  assert(gate.includes("A19_WIRE_GO"));
+  assert(gate.includes("_qa-session.tmp.json"));
+  assert(gate.includes("process.exit(2)"));
+  assert(!gate.includes("signInWithPassword"));
+  assert(!gate.includes("localStorage.setItem"));
+});
+
 test("Issue 18 D51 WIRE-GO proposal stays unapproved and has no secrets", () => {
   const go = read("docs/project-command-center/GEN-IX-WIRE-GO-PROPOSAL.md");
   assert(go.includes("not A19-WIRE-GO") || go.includes("not approved"));

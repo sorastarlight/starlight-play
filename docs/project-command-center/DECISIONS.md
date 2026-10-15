@@ -63,6 +63,7 @@
 | D49 | Owner GO applied hashed A19-WIRE `001`→`002`→`003` on `starlight-play` | Complete GO for the three D47 hashes as `postgres` on `dtflmlbjhttoewqgkujf`. One `apply_migration` per file. LIVE CATALOG PASS. Switch **false**. `stamp_catch_row` unchanged. No generate, catch-row access, RESET-GO, merge, deploy, or APP stamp. A19-WIRE-GO remains **UNAPPROVED**. |
 | D50 | A19-WIRE-GO readiness only | Catalog reconfirm: switch still false; D49 migrations present. One-catch PlayTester plan written. No flip, no RPC, no catch-row read. A19-WIRE-GO remains **UNAPPROVED**. |
 | D51 | Fast-track PlayTester access + WIRE-GO proposal | PlayTester is site email/password, nonstaff, no Twitch. Ordinary Sign in reset queued recovery mail. Login not confirmed until owner finishes that mail. Switch still false. A19-WIRE-GO remains **UNAPPROVED**. |
+| D52 | Cursor browser E2E probe, gameplay not run | Same Cursor tab survived across turns and kept a non-secret local probe across Play and Pokédex. Cookie export is denied. No PlayTester session, so join/berry/ball/settle was not automated. WIRE stays false. |
 
 ## Needs owner approval
 

@@ -42,7 +42,8 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I25L | A19-WIRE-APPLY GO request | Docs only | **DONE** — D48 snapshot |
 | I25M | Owner GO WIRE apply + catalog verify | Hosted `001`→`002`→`003`; switch false | **DONE** — D49 snapshot |
 | I25N | A19-WIRE-GO one-catch readiness | Docs + catalog reconfirm | **DONE** — D50 snapshot |
-| I25O | PlayTester access + WIRE-GO proposal | Site reset + copy-paste GO | **DONE** — D51; login pending owner mail |
+| I25O | PlayTester access + WIRE-GO proposal | Site reset + copy-paste GO | **DONE** — D51 snapshot |
+| I25P | Cursor browser E2E probe | Play + Pokédex, no gameplay | **DONE** — D52; no PlayTester session |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

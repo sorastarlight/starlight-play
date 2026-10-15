@@ -1,5 +1,29 @@
 # Run log
 
+## 2026-10-15 — Cursor browser E2E probe (D52)
+
+- Reused Cursor browser tab `0b0156` from the D51 reset page. It was still open.
+- REAL DOM: `https://play.sorastarlight.net/` shows **Not signed in.** No join, berry, honey, or Poké Ball control. Encounter copy: stream offline / waiting. Pokédex asks for sign-in.
+- A non-secret `sl-e2e-probe` value survived Play reload and Play → Pokédex, then was deleted.
+- Browser console hook recorded no page errors. Stream iframe reported no HTTP status. Cookie export CDP is denied.
+- Supabase auth record in that tab has no access token and is not PlayTester.
+- Did **not** join, throw, settle, read catch rows, or flip WIRE.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. Smoke paused.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Open Play + Pokédex in Cursor browser | REAL DOM | signed out; no encounter actions |
+| Same-tab local probe across pages | REAL DOM | persisted, then deleted |
+| Cookie/token export | — | CDP denied; nothing stored |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 38 passed |
+| `tools/qa-play-e2e-gate.js` | STATIC | exit 2, gameplay blocked |
+| Join / berry / ball / settle | — | **not run** (no PlayTester session; WIRE-GO unapproved) |
+
+---
+
 ## 2026-10-15 — PlayTester access + WIRE-GO proposal (D51)
 
 - Branch: `admin-hub-overhaul` at `7f2b32b1`. Recovered the ordinary Sign in reset path. **Did not flip WIRE.**

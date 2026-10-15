@@ -2,7 +2,7 @@
 
 ## 2026-10-15 — PlayTester access + WIRE-GO proposal (D51)
 
-- Branch: `admin-hub-overhaul`. Recovered the ordinary Sign in reset path. **Did not flip WIRE.**
+- Branch: `admin-hub-overhaul` at `7f2b32b1`. Recovered the ordinary Sign in reset path. **Did not flip WIRE.**
 - PlayTester: site email/password only, confirmed, nonstaff, no Twitch identity. Last prior sign-in 2026-10-11.
 - REAL DOM: `https://play.sorastarlight.net/signin.html?reset=1` queued recovery mail. Auth `/recover` 200 and `mail.send` recovery. No password printed.
 - Login not confirmed. Owner must finish the mail, then **Update password** on My Account.

@@ -489,7 +489,7 @@
       "scope": "Recover PlayTester site login path and propose A19-WIRE-GO; do not flip the switch",
       "dependencies": ["I25N", "D51"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "7f2b32b1",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-PROPOSAL.md",
       "testResults": "LIVE CATALOG + REAL DOM reset + auth recover/mail.send; login not confirmed",
       "nextAction": "STOP until owner finishes PlayTester reset mail, then A19-WIRE-GO.",

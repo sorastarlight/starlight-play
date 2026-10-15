@@ -78,6 +78,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-WIRE-APPLY-DECISION.md",
     "docs/project-command-center/GEN-IX-WIRE-APPLY-REPORT.md",
     "docs/project-command-center/GEN-IX-WIRE-GO-READINESS.md",
+    "docs/project-command-center/GEN-IX-WIRE-GO-PROPOSAL.md",
     "supabase/unapplied/a19-wire/003_settle_integration.sql",
     "supabase/unapplied/a19-wire/local/040_test_inject.sql",
     "docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
@@ -502,6 +503,16 @@ test("Issue 18 D46 WIRE-INTEGRATE stays unapplied", () => {
   assert(!resetDoc.includes("Before A19-RESET-GO, add a null-out"));
   assert(!nextJs.includes("materialize_streamlink_catch"));
   assert(!liveJs.includes("materialize_streamlink_catch"));
+});
+
+test("Issue 18 D51 WIRE-GO proposal stays unapproved and has no secrets", () => {
+  const go = read("docs/project-command-center/GEN-IX-WIRE-GO-PROPOSAL.md");
+  assert(go.includes("not A19-WIRE-GO") || go.includes("not approved"));
+  assert(go.includes("PlayTester"));
+  assert(go.includes("streamlink_wire_set_enabled"));
+  assert(go.includes("UNAPPROVED") || go.includes("not approved"));
+  assert(!/QaRc|password\s*[:=]/i.test(go));
+  assert(!go.includes("PRODUCTION PASS"));
 });
 
 test("Issue 18 D50 WIRE-GO readiness stays unapproved", () => {

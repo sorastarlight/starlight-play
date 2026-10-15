@@ -41,7 +41,8 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I25K | A19-WIRE production-parity + hook isolation | Unapplied `003` + LIVE CATALOG + REAL SQL | **DONE** — D47 snapshot |
 | I25L | A19-WIRE-APPLY GO request | Docs only | **DONE** — D48 snapshot |
 | I25M | Owner GO WIRE apply + catalog verify | Hosted `001`→`002`→`003`; switch false | **DONE** — D49 snapshot |
-| I25N | A19-WIRE-GO one-catch readiness | Docs + catalog reconfirm | **DONE** — D50; GO still unapproved |
+| I25N | A19-WIRE-GO one-catch readiness | Docs + catalog reconfirm | **DONE** — D50 snapshot |
+| I25O | PlayTester access + WIRE-GO proposal | Site reset + copy-paste GO | **DONE** — D51; login pending owner mail |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

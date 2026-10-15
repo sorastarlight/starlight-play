@@ -1,5 +1,29 @@
 # Run log
 
+## 2026-10-15 — PlayTester access + WIRE-GO proposal (D51)
+
+- Branch: `admin-hub-overhaul`. Recovered the ordinary Sign in reset path. **Did not flip WIRE.**
+- PlayTester: site email/password only, confirmed, nonstaff, no Twitch identity. Last prior sign-in 2026-10-11.
+- REAL DOM: `https://play.sorastarlight.net/signin.html?reset=1` queued recovery mail. Auth `/recover` 200 and `mail.send` recovery. No password printed.
+- Login not confirmed. Owner must finish the mail, then **Update password** on My Account.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **PlayTester** · mutation **recovery mail only**.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- STOP for owner inbox, then A19-WIRE-GO.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| PlayTester auth/profile/staff metadata | LIVE CATALOG | email/password, nonstaff, not banned |
+| WIRE switch | LIVE CATALOG | `enabled=false` |
+| Sign in reset form | REAL DOM | generic success copy; mail queued |
+| Auth recover + mail.send | LIVE CATALOG / auth logs | PlayTester recovery only |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 37 passed |
+| PlayTester password login | — | **not confirmed** |
+| Hosted WIRE-GO / generate / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-15 — A19-WIRE-GO readiness (D50)
 
 - Branch: `admin-hub-overhaul` at `15b4e63d`. Readiness-only one-catch activation plan. **Did not flip the switch.**

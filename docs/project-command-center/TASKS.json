@@ -480,7 +480,19 @@
       "commit": "15b4e63d",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-READINESS.md",
       "testResults": "LIVE CATALOG switch false + D49 migrations present; no RPC",
-      "nextAction": "STOP for owner A19-WIRE-GO.",
+      "nextAction": "Superseded by I25O / D51.",
+      "approvalRequirement": "Historical D50"
+    },
+    {
+      "id": "I25O",
+      "status": "done",
+      "scope": "Recover PlayTester site login path and propose A19-WIRE-GO; do not flip the switch",
+      "dependencies": ["I25N", "D51"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-PROPOSAL.md",
+      "testResults": "LIVE CATALOG + REAL DOM reset + auth recover/mail.send; login not confirmed",
+      "nextAction": "STOP until owner finishes PlayTester reset mail, then A19-WIRE-GO.",
       "approvalRequirement": "A19-WIRE-GO UNAPPROVED"
     },
     {

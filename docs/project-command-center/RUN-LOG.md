@@ -2,7 +2,7 @@
 
 ## 2026-10-15 — Cursor browser E2E probe (D52)
 
-- Reused Cursor browser tab `0b0156` from the D51 reset page. It was still open.
+- Branch: `admin-hub-overhaul` at `d38d5d6d`. Reused Cursor browser tab `0b0156` from the D51 reset page. It was still open.
 - REAL DOM: `https://play.sorastarlight.net/` shows **Not signed in.** No join, berry, honey, or Poké Ball control. Encounter copy: stream offline / waiting. Pokédex asks for sign-in.
 - A non-secret `sl-e2e-probe` value survived Play reload and Play → Pokédex, then was deleted.
 - Browser console hook recorded no page errors. Stream iframe reported no HTTP status. Cookie export CDP is denied.

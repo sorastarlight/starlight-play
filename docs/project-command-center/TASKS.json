@@ -501,7 +501,7 @@
       "scope": "Cursor browser Play probe. No join, throw, settle, or WIRE flip.",
       "dependencies": ["I25O", "D52"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "d38d5d6d",
       "evidence": "tools/qa-play-e2e-gate.js",
       "testResults": "REAL DOM signed-out Play and Pokedex; gameplay blocked",
       "nextAction": "Owner signs PlayTester in once in the Cursor browser, then A19-WIRE-GO.",

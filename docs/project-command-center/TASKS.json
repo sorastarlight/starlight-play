@@ -417,7 +417,7 @@
       "scope": "A19-WIRE unapplied persist SQL + isolated REAL SQL + local RESET-TEST",
       "dependencies": ["I25H", "D45"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "4155349c",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-DEV-REPORT.md, supabase/unapplied/a19-wire/, tools/a19-wire-rehearsal.js, tools/a19-reset-rehearsal.js",
       "testResults": "STATIC a19-wire-impl; REAL SQL 18/18 on 127.0.0.1:55434/a19_wire; REAL SQL 7/7 on 127.0.0.1:55435/a19_reset",
       "nextAction": "STOP for A19-WIRE-APPLY or A19-RESET-GO. No merge, deploy, or APP stamp.",

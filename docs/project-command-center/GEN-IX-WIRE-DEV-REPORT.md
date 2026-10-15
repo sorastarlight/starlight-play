@@ -2,7 +2,7 @@
 
 **Verdict: BRANCH IMPLEMENTATION DELIVERED. A19-WIRE-APPLY, switch-on, A19-WIRE-GO, A19-RESET-GO, merge, deploy, and APP stamp remain UNAPPROVED.**
 
-Owner authorized A19-WIRE-DEV GO: unapplied persist SQL + disposable local PostgreSQL testing on `admin-hub-overhaul` from D44 / `3562f6e2`. Locked decisions: **GV7 SL**, **WIRE-BIND** preallocated `catches.id`, **WIRE-SORA** ordinary settle allowed / grant-edit forbidden, **RESET-TEST** synthetic local only.
+Owner authorized A19-WIRE-DEV GO: unapplied persist SQL + disposable local PostgreSQL testing on `admin-hub-overhaul` from D44 / `3562f6e2`. Implementation commit: `4155349c`. Locked decisions: **GV7 SL**, **WIRE-BIND** preallocated `catches.id`, **WIRE-SORA** ordinary settle allowed / grant-edit forbidden, **RESET-TEST** synthetic local only.
 
 Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 

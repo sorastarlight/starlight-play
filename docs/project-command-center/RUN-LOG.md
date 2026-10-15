@@ -2,7 +2,7 @@
 
 ## 2026-10-15 — A19-WIRE-DEV persist + local REAL SQL + RESET-TEST (D45)
 
-- Branch: `admin-hub-overhaul`. Owner GO for branch-only WIRE implementation and disposable local Postgres. GV7 SL, WIRE-BIND preallocated `catches.id`, WIRE-SORA grant/event refuse, RESET-TEST synthetic only.
+- Branch: `admin-hub-overhaul` at `4155349c`. Owner GO for branch-only WIRE implementation and disposable local Postgres. GV7 SL, WIRE-BIND preallocated `catches.id`, WIRE-SORA grant/event refuse, RESET-TEST synthetic only.
 - Unapplied `supabase/unapplied/a19-wire/001` + `002`. `stamp_catch_row` not replaced. Live settle RPCs not swapped. Switch default false; `starlight.wire_genval` ignored.
 - REAL SQL WIRE 18/18 on `127.0.0.1:55434/a19_wire`. REAL SQL RESET 7/7 on `127.0.0.1:55435/a19_reset`. Showcase `shinyCatchId` cleanup added to the unapplied R-A script.
 - Did **not** apply WIRE to hosted Supabase, flip the switch, execute production reset, merge, deploy, or stamp APP.

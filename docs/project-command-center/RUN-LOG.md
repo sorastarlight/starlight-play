@@ -2,7 +2,7 @@
 
 ## 2026-10-15 — A19-WIRE production-parity review (D47)
 
-- Branch: `admin-hub-overhaul`. Owner GO for branch-only hook isolation + LIVE CATALOG settle diff + disposable REAL SQL.
+- Branch: `admin-hub-overhaul` at `84825b4f`. Owner GO for branch-only hook isolation + LIVE CATALOG settle diff + disposable REAL SQL.
 - Production `003` no longer calls `streamlink_after_materialize_hook`. Injection is `local/040_test_inject.sql` only.
 - LIVE CATALOG `pg_get_functiondef` of `private.settle_if_needed` matches `003` outside the successful-catch writer. Ghost `Caught` without a matching catch now RAISE/rolls back.
 - Did **not** apply to hosted Supabase, flip the switch, execute RESET-GO, merge, deploy, or stamp APP.

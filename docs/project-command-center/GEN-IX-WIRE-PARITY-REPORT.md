@@ -2,7 +2,7 @@
 
 **Verdict: BRANCH PARITY CORRECTIONS DELIVERED. Production settlement body outside the successful-catch writer matches LIVE CATALOG. A19-WIRE-APPLY, switch-on, A19-WIRE-GO, A19-RESET-GO, merge, deploy, and APP stamp remain UNAPPROVED.**
 
-Owner authorized branch-only corrections, read-only live catalog comparison, and disposable local PostgreSQL. Baseline D46 `fefbf362` / `c3c27951`. Independent D46 review: [#18 comment 6183042133](https://github.com/sorastarlight/starlight-play/issues/18#issuecomment-6183042133).
+Owner authorized branch-only corrections, read-only live catalog comparison, and disposable local PostgreSQL. Baseline D46 `fefbf362` / `c3c27951`. Implementation commit: `84825b4f`. Independent D46 review: [#18 comment 6183042133](https://github.com/sorastarlight/starlight-play/issues/18#issuecomment-6183042133).
 
 Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
 

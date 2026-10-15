@@ -441,7 +441,7 @@
       "scope": "A19-WIRE production-parity review: strip test hook, LIVE CATALOG settle diff, duplicate-result REAL SQL",
       "dependencies": ["I25J", "D47"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "84825b4f",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-PARITY-REPORT.md, supabase/unapplied/a19-wire/003_settle_integration.sql, supabase/unapplied/a19-wire/local/040_test_inject.sql, tools/a19-wire-settle-rehearsal.js",
       "testResults": "STATIC a19-wire-impl + overhaul; REAL SQL 16/16 on 127.0.0.1:55436/a19_wire_settle",
       "nextAction": "STOP for independent review before A19-WIRE-APPLY or A19-WIRE-GO.",

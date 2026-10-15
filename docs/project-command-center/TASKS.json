@@ -381,7 +381,7 @@
       "scope": "GENVAL-APPLY gate check: template [GO] incomplete; no production apply",
       "dependencies": ["I25E", "D42"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "61dc3616",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-DECISION.md",
       "testResults": "STATIC only; 001 hash match; no hosted writes; no catalog rerun",
       "nextAction": "STOP for a complete GENVAL-APPLY GO without placeholder brackets, with G5 post-D35 snapshot status recorded.",

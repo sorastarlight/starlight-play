@@ -2,7 +2,7 @@
 
 ## 2026-10-14 — GENVAL-APPLY gate check (D42, incomplete template, UNAPPROVED)
 
-- Branch: `admin-hub-overhaul`. Evaluated a prompted GENVAL-APPLY against D41 and the independent D41 review.
+- Branch: `admin-hub-overhaul` at `61dc3616`. Evaluated a prompted GENVAL-APPLY against D41 and the independent D41 review.
 - Decision field was `[GO]` with backup `[14 Oct 2026 07:44:26 (+0000)]` and PITR `[disabled]`. Same message forbids treating template/placeholder text as approval.
 - G5 missing: no record whether a post-D35 COMPLETED snapshot exists. The named stamp predates D35.
 - STATIC re-hash of `001`: `6f7bca74c4fe57cc50cd65978d8b96c0936078c2b9bdca0ddc21d93e75e0d58a` (match). Catalog not rerun. SQL not applied.

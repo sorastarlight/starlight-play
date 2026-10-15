@@ -1,6 +1,7 @@
-/* Isolated A19-WIRE settle integration rehearsal (epic #18, D46).
+/* Isolated A19-WIRE settle integration rehearsal (epic #18, D47).
  * Disposable LOCAL cluster only. Synthetic accounts only.
  * Exercises private.settle_if_needed, not just materialize in isolation.
+ * Failure injection lives in local/040_test_inject.sql, never in 003.
  */
 const fs = require("fs");
 const path = require("path");
@@ -162,8 +163,21 @@ async function main() {
        WHERE n.nspname = 'private' AND p.proname = 'settle_if_needed'`
     );
     assert(settleSrc[0].prosrc.includes("materialize_streamlink_catch"));
+    assert(settleSrc[0].prosrc.includes("already-settled-without-catch"));
+    assert(!settleSrc[0].prosrc.includes("streamlink_after_materialize_hook"));
     assert(!/insert into public.catches \(user_id, dex, name, variant, gender, ball, round_id, source_key, pokemon_form_id\)/i.test(settleSrc[0].prosrc));
-    record("003 wired settle_if_needed to materialize_streamlink_catch", true);
+    record("003 wired settle_if_needed to materialize; no production test hook", true);
+    await applyFile(client, path.join(WIRE, "local", "040_test_inject.sql"));
+    const { rows: hookOnly } = await client.query(
+      `SELECT to_regprocedure('private.streamlink_after_materialize_hook()') IS NOT NULL AS hook`
+    );
+    assert(hookOnly[0].hook === true);
+    const { rows: settleAfterHook } = await client.query(
+      `SELECT prosrc FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
+       WHERE n.nspname = 'private' AND p.proname = 'settle_if_needed'`
+    );
+    assert(!settleAfterHook[0].prosrc.includes("streamlink_after_materialize_hook"));
+    record("local 040 inject is installed without rewriting production settle", true);
 
     const { rows: odds } = await client.query(
       `SELECT
@@ -248,6 +262,8 @@ async function main() {
     assert(escPlayer[0].result === "Escaped");
     record("escape still spends the ball, grants join XP only, writes Escaped", true);
 
+    const leafXpAfterOn = await xp(client, USER_LEAF);
+    const leafInvAfterOn = await inv(client, USER_LEAF);
     const replay = await settle(client, onRound);
     assert(replay.resolved === true);
     const { rows: replayN } = await client.query(
@@ -255,7 +271,90 @@ async function main() {
       [onRound]
     );
     assert(replayN[0].n === 1);
-    record("duplicate settle is exactly-once", true);
+    const { rows: replayPlayer } = await client.query(
+      `SELECT result, caught FROM public.encounter_players WHERE round_id = $1 AND user_id = $2`,
+      [onRound, USER_LEAF]
+    );
+    assert(replayPlayer[0].result === "Caught" && replayPlayer[0].caught === true);
+    assert((await xp(client, USER_LEAF)) === leafXpAfterOn);
+    assert((await inv(client, USER_LEAF)).greatball === leafInvAfterOn.greatball);
+    record("duplicate settle is exactly-once with stable Caught + no extra XP/spend", true);
+
+    const existRound = "10000000-0000-0000-0000-00000000000a";
+    await openRound(client, existRound);
+    await joinThrow(client, USER_BLUE, existRound);
+    const blueXpPre = await xp(client, USER_BLUE);
+    const blueBallsPre = (await inv(client, USER_BLUE)).pokeball;
+    await client.query(
+      `INSERT INTO public.catches (user_id, dex, name, variant, gender, ball, round_id, source_key, pokemon_form_id)
+       VALUES ($1, 1, 'Bulbasaur', 'normal', 'Male', 'pokeball', $2, $3, 1)`,
+      [USER_BLUE, existRound, `play:${existRound}:${USER_BLUE}`]
+    );
+    const blueXpAfterPre = await xp(client, USER_BLUE);
+    assert(blueXpAfterPre > blueXpPre, "pre-insert must grant catch XP once");
+    const exist = await settle(client, existRound);
+    assert(exist.resolved === true);
+    const { rows: existCatch } = await client.query(
+      `SELECT count(*)::int AS n FROM public.catches WHERE round_id = $1 AND user_id = $2`,
+      [existRound, USER_BLUE]
+    );
+    const { rows: existPlayer } = await client.query(
+      `SELECT result, caught FROM public.encounter_players WHERE round_id = $1 AND user_id = $2`,
+      [existRound, USER_BLUE]
+    );
+    assert(existCatch[0].n === 1);
+    assert(existPlayer[0].result === "Caught" && existPlayer[0].caught === true);
+    assert((await xp(client, USER_BLUE)) === blueXpAfterPre);
+    assert((await inv(client, USER_BLUE)).pokeball === blueBallsPre - 1);
+    record("pre-existing matching catch: Caught has a row, no duplicate XP", true);
+
+    const collideRound = "10000000-0000-0000-0000-00000000000b";
+    const collideKey = `play:${collideRound}:${USER_OAK}`;
+    await client.query(
+      `INSERT INTO public.catches (user_id, dex, name, variant, gender, ball, round_id, source_key, pokemon_form_id)
+       VALUES ($1, 1, 'Bulbasaur', 'normal', 'Male', 'pokeball', 'ffffffff-ffff-ffff-ffff-ffffffffffff', $2, 1)`,
+      [USER_OAK, collideKey]
+    );
+    const { rows: issuedCollide } = await client.query(
+      `SELECT private.issue_streamlink_hidden_ticket(1, 'grant', $1, 3600) AS r`,
+      [CONTENT_BUILD]
+    );
+    const collideTicket = issuedCollide[0].r.ticketId;
+    const oakBeforeCollide = await inv(client, USER_OAK);
+    const oakXpBeforeCollide = await xp(client, USER_OAK);
+    await openRound(client, collideRound);
+    await joinThrow(client, USER_OAK, collideRound);
+    let collided = false;
+    try {
+      await settle(client, collideRound);
+    } catch (error) {
+      collided = /already-settled-without-catch/i.test(String(error.message || error));
+      try { await client.query("ROLLBACK"); } catch (_) { /* ignore */ }
+    }
+    assert(collided, "source-key collision without matching catch must raise");
+    const { rows: collideCatch } = await client.query(
+      `SELECT count(*)::int AS n FROM public.catches WHERE round_id = $1`,
+      [collideRound]
+    );
+    const { rows: collidePlayer } = await client.query(
+      `SELECT result, caught FROM public.encounter_players WHERE round_id = $1 AND user_id = $2`,
+      [collideRound, USER_OAK]
+    );
+    const { rows: collideRoundRow } = await client.query(
+      `SELECT resolved FROM public.encounter_rounds WHERE id = $1`,
+      [collideRound]
+    );
+    const { rows: collideTicketRow } = await client.query(
+      `SELECT redeemed_at IS NOT NULL AS redeemed FROM private.streamlink_hidden_tickets WHERE ticket_id = $1`,
+      [collideTicket]
+    );
+    assert(collideCatch[0].n === 0);
+    assert(collidePlayer[0].result === null && collidePlayer[0].caught === null);
+    assert(collideRoundRow[0].resolved === false);
+    assert(collideTicketRow[0].redeemed === false);
+    assert((await inv(client, USER_OAK)).pokeball === oakBeforeCollide.pokeball);
+    assert((await xp(client, USER_OAK)) === oakXpBeforeCollide + 10);
+    record("source-key conflict without a matching catch rolls back Caught/spend/ticket", true);
 
     const twoRound = "10000000-0000-0000-0000-000000000004";
     await openRound(client, twoRound);
@@ -333,17 +432,14 @@ async function main() {
       [CONTENT_BUILD]
     );
     const ticketId = issued[0].r.ticketId;
+    await client.query("SELECT set_config('starlight.wire_test_fail', 'after-materialize', false)");
     await client.query("BEGIN");
-    const { rows: ha } = await client.query(
-      `SELECT private.materialize_streamlink_catch($1,1,12,'grant',$2,'poke',null,false,$3,$4,'normal',null,null) AS r`,
-      [USER_BLUE, `grant:ha:${ticketId}`, CONTENT_BUILD, ticketId]
-    );
-    assert(ha[0].r.ok === true, JSON.stringify(ha[0].r));
-    assert(ha[0].r.mon.abilitySlot === "hidden");
-    await client.query("SELECT set_config('starlight.wire_test_fail', 'after-materialize', true)");
     let haRolled = false;
     try {
-      await client.query("SELECT private.streamlink_after_materialize_hook()");
+      await client.query(
+        `SELECT private.materialize_streamlink_catch($1,1,12,'grant',$2,'poke',null,false,$3,$4,'normal',null,null) AS r`,
+        [USER_BLUE, `grant:ha:${ticketId}`, CONTENT_BUILD, ticketId]
+      );
       await client.query("COMMIT");
     } catch (error) {
       haRolled = /injected-after-materialize/i.test(String(error.message || error));

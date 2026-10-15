@@ -2,6 +2,8 @@
 
 **Verdict: BRANCH SETTLE INTEGRATION DELIVERED. A19-WIRE-APPLY, switch-on, A19-WIRE-GO, A19-RESET-GO, merge, deploy, and APP stamp remain UNAPPROVED.**
 
+Superseded for production-artifact review by D47 (`GEN-IX-WIRE-PARITY-REPORT.md`): the test hook was removed from `003`, and LIVE CATALOG parity is documented there. D46 hashes below are historical.
+
 Owner authorized branch-only settlement integration + disposable local PostgreSQL. Baseline D45 `4155349c` / `b0670a1c`. Implementation commit: `fefbf362`.
 
 Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.

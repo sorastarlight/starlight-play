@@ -1,5 +1,28 @@
 # Run log
 
+## 2026-10-15 — A19-WIRE production-parity review (D47)
+
+- Branch: `admin-hub-overhaul`. Owner GO for branch-only hook isolation + LIVE CATALOG settle diff + disposable REAL SQL.
+- Production `003` no longer calls `streamlink_after_materialize_hook`. Injection is `local/040_test_inject.sql` only.
+- LIVE CATALOG `pg_get_functiondef` of `private.settle_if_needed` matches `003` outside the successful-catch writer. Ghost `Caught` without a matching catch now RAISE/rolls back.
+- Did **not** apply to hosted Supabase, flip the switch, execute RESET-GO, merge, deploy, or stamp APP.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**. PlayTester unused.
+- Production APP `20261008-rc133` unchanged. Smoke paused.
+- STOP for independent review before A19-WIRE-APPLY or A19-WIRE-GO.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/a19-wire-impl-tests.js` | STATIC | 7 passed |
+| `tests/a19-genval-impl-tests.js` | STATIC | 8 passed |
+| `tests/a19-genval-spec-tests.js` | STATIC | 6 passed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 33 passed |
+| `tools/a19-wire-settle-rehearsal.js` | REAL SQL | **16/16 PASS** on `127.0.0.1:55436/a19_wire_settle` |
+| Hosted WIRE-APPLY / switch-on / RESET-GO / PRODUCTION | — | **not run** |
+
+---
+
 ## 2026-10-15 — A19-WIRE-INTEGRATE settle path (D46)
 
 - Branch: `admin-hub-overhaul` at `fefbf362`. Owner GO for branch-only settle integration. `private.settle_if_needed` now calls `materialize_streamlink_catch` in unapplied `003`.

@@ -536,18 +536,6 @@ BEGIN
 END
 $$;
 
-CREATE OR REPLACE FUNCTION private.streamlink_after_materialize_hook()
-RETURNS void
-LANGUAGE plpgsql
-SET search_path TO pg_catalog
-AS $$
-BEGIN
-  IF current_setting('starlight.wire_test_fail', true) = 'after-materialize' THEN
-    RAISE EXCEPTION 'injected-after-materialize';
-  END IF;
-END
-$$;
-
 COMMENT ON FUNCTION public.rehearsal_open_round(uuid, integer, integer, text, text, text, integer) IS
   'Local-only encounter opener. Not a production RPC.';
 

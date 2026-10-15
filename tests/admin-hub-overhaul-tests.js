@@ -74,7 +74,9 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-WIRE-PLAN.md",
     "docs/project-command-center/GEN-IX-WIRE-DEV-REPORT.md",
     "docs/project-command-center/GEN-IX-WIRE-INTEGRATE-REPORT.md",
+    "docs/project-command-center/GEN-IX-WIRE-PARITY-REPORT.md",
     "supabase/unapplied/a19-wire/003_settle_integration.sql",
+    "supabase/unapplied/a19-wire/local/040_test_inject.sql",
     "docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
     "supabase/unapplied/a19-wire/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-wire/001_wire_switch_and_persist.sql",
@@ -491,11 +493,29 @@ test("Issue 18 D46 WIRE-INTEGRATE stays unapplied", () => {
   assert(!report.includes("PRODUCTION PASS"));
   assert(settle.includes("materialize_streamlink_catch"));
   assert(settle.includes("Does not replace private.stamp_catch_row"));
+  assert(!settle.includes("streamlink_after_materialize_hook"));
   assert(!/insert into public.catches \(user_id, dex, name, variant, gender, ball, round_id, source_key, pokemon_form_id\)/i.test(settle));
   assert(resetDoc.includes("implemented"));
   assert(!resetDoc.includes("Before A19-RESET-GO, add a null-out"));
   assert(!nextJs.includes("materialize_streamlink_catch"));
   assert(!liveJs.includes("materialize_streamlink_catch"));
+});
+
+test("Issue 18 D47 WIRE parity stays unapplied", () => {
+  const report = read("docs/project-command-center/GEN-IX-WIRE-PARITY-REPORT.md");
+  const settle = read("supabase/unapplied/a19-wire/003_settle_integration.sql");
+  const inject = read("supabase/unapplied/a19-wire/local/040_test_inject.sql");
+  assert(report.includes("BRANCH PARITY CORRECTIONS DELIVERED"));
+  assert(report.includes("UNAPPROVED"));
+  assert(report.includes("1bc62eb24f27204e52f01fe66a871c320da459df7d933c9054f7d67e57edfe68"));
+  assert(report.includes("already-settled-without-catch"));
+  assert(report.includes("127.0.0.1:55436"));
+  assert(report.includes("Sora mutated **NO**"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!settle.includes("streamlink_after_materialize_hook"));
+  assert(settle.includes("already-settled-without-catch"));
+  assert(inject.includes("LOCAL HARNESS ONLY"));
+  assert(inject.includes("streamlink_test_after_catch_inject"));
 });
 
 test("Issue 25 D45 WIRE-DEV stays unapplied and switch-off", () => {

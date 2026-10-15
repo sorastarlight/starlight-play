@@ -44,7 +44,8 @@
 | A19-RESET rehearsal spec (D44) | `GEN-IX-RESET-REHEARSAL.md` | STATIC + LIVE CATALOG recount 12/98 | A19-RESET-GO |
 | A19-WIRE-DEV (D45) | `tests/a19-wire-impl-tests.js` + `tools/a19-wire-rehearsal.js` | STATIC + REAL SQL 18/18 on `127.0.0.1:55434` | WIRE-APPLY; live settle swap; PRODUCTION |
 | A19-RESET-TEST (D45) | `tools/a19-reset-rehearsal.js` | REAL SQL 7/7 on `127.0.0.1:55435` | Production RESET-GO |
-| A19-WIRE-INTEGRATE (D46) | `tools/a19-wire-settle-rehearsal.js` + `003_settle_integration.sql` | STATIC + REAL SQL 13/13 on `127.0.0.1:55436` | WIRE-APPLY; PRODUCTION |
+| A19-WIRE-INTEGRATE (D46) | `tools/a19-wire-settle-rehearsal.js` + `003_settle_integration.sql` | STATIC + REAL SQL 13/13 on `127.0.0.1:55436` | Historical D46; superseded by D47 |
+| A19-WIRE parity (D47) | `tools/a19-wire-settle-rehearsal.js` + LIVE CATALOG `settle_if_needed` | STATIC + LIVE CATALOG + REAL SQL 16/16 on `127.0.0.1:55436` | WIRE-APPLY; PRODUCTION |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

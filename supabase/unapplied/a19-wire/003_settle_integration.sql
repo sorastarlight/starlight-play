@@ -1,12 +1,13 @@
--- A19-WIRE UNAPPLIED settle integration (epic #18, D46)
+-- A19-WIRE UNAPPLIED settle integration (epic #18, D47)
 -- DO NOT RUN against live Supabase or project dtflmlbjhttoewqgkujf.
 -- Not a migration. Must never be copied into supabase/migrations/.
 -- Replaces only the successful-catch INSERT inside private.settle_if_needed
 -- with private.materialize_streamlink_catch. Odds, announce_throws spends,
 -- capture_log, console copy, and result labels stay as the live form-aware
--- body (20260918050200_form_aware_rpcs.sql).
+-- body (LIVE CATALOG D47 / 20260918050200_form_aware_rpcs.sql).
 -- Does not replace private.stamp_catch_row.
 -- Does not flip private.streamlink_wire_switch.
+-- Does not call local-only test injection functions.
 
 BEGIN;
 
@@ -122,11 +123,8 @@ BEGIN
       WHERE NOT EXISTS (SELECT 1 FROM public.play_console_log l WHERE l.round_id = r.id AND l.user_id = rec.user_id AND l.kind = 'escaped') ON CONFLICT DO NOTHING;
     END IF;
     IF v_caught AND NOT EXISTS (SELECT 1 FROM public.catches c WHERE c.round_id = rec.round_id AND c.user_id = rec.user_id) THEN
-      v_level := coalesce(
-        nullif(r.pokemon->>'level', '')::int,
-        private.encounter_pokemon_level(r.dex, r.id),
-        5
-      );
+      -- Same level fill as live stamp_catch_row when INSERT omits level.
+      v_level := coalesce(private.encounter_pokemon_level(r.dex, r.id), 5);
       v_mat := private.materialize_streamlink_catch(
         rec.user_id,
         form_id,
@@ -145,13 +143,15 @@ BEGIN
       IF coalesce(v_mat->>'ok', 'false') IS DISTINCT FROM 'true' THEN
         IF coalesce((v_mat->>'replay')::boolean, false)
            OR coalesce(v_mat->'errors', '[]'::jsonb) ? 'already-settled' THEN
-          NULL;
+          IF NOT EXISTS (
+            SELECT 1 FROM public.catches c
+            WHERE c.round_id = rec.round_id AND c.user_id = rec.user_id
+          ) THEN
+            RAISE EXCEPTION 'wire-materialize-failed: already-settled-without-catch';
+          END IF;
         ELSE
           RAISE EXCEPTION 'wire-materialize-failed: %', coalesce(v_mat->>'errors', v_mat::text);
         END IF;
-      END IF;
-      IF to_regprocedure('private.streamlink_after_materialize_hook()') IS NOT NULL THEN
-        PERFORM private.streamlink_after_materialize_hook();
       END IF;
     END IF;
   END LOOP;
@@ -161,6 +161,6 @@ END;
 $function$;
 
 COMMENT ON FUNCTION private.settle_if_needed(encounter_rounds) IS
-  'A19-WIRE D46: successful captures call materialize_streamlink_catch. Odds, bag spends, and result copy stay in this function. stamp_catch_row is unchanged.';
+  'A19-WIRE D47: successful captures call materialize_streamlink_catch. Odds, bag spends, and result copy stay in this function. stamp_catch_row is unchanged. No test hooks.';
 
 COMMIT;

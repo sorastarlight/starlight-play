@@ -1,6 +1,8 @@
 -- A19-WIRE local teardown. Disposable clusters only.
 -- Does not touch GENVAL generate/assert, ref_*, or production stamp_catch_row.
 
+DROP TRIGGER IF EXISTS streamlink_test_after_catch_inject ON public.catches;
+DROP FUNCTION IF EXISTS private.streamlink_test_after_catch_inject();
 DROP FUNCTION IF EXISTS private.streamlink_after_materialize_hook();
 DROP FUNCTION IF EXISTS private.materialize_streamlink_catch(uuid, integer, integer, text, text, text, uuid, boolean, text, text, text, text, text);
 DROP FUNCTION IF EXISTS private.persist_streamlink_catch(uuid, integer, integer, text, text, text, uuid, boolean, text, text, text, text, text);

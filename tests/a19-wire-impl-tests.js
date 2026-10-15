@@ -41,7 +41,12 @@ test("WIRE SQL stays unapplied and refuses live apply language", () => {
   assert(settle.includes("announce_throws"));
   assert(settle.includes("capture_chance"));
   assert(settle.includes("wire-materialize-failed"));
+  assert(settle.includes("already-settled-without-catch"));
+  assert(!settle.includes("streamlink_after_materialize_hook"));
+  assert(!settle.includes("to_regprocedure"));
   assert(!settle.includes("CREATE OR REPLACE FUNCTION private.stamp_catch_row"));
+  assert(read("supabase/unapplied/a19-wire/local/040_test_inject.sql").includes("LOCAL HARNESS ONLY"));
+  assert(read("tools/a19-wire-settle-rehearsal.js").includes("040_test_inject.sql"));
   assert(persist.includes("Does not replace private.stamp_catch_row"));
   assert(!persist.includes("CREATE OR REPLACE FUNCTION private.stamp_catch_row"));
   assert(!materialize.includes("CREATE OR REPLACE FUNCTION private.stamp_catch_row"));

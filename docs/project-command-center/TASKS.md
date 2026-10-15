@@ -39,9 +39,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I25G | done | Owner GO applied hashed GENVAL `001`; reset packet unapplied | I25F, D43 | Historical D43 | Superseded by I25H / D44 |
 | I25H | done | GENVAL reconciliation + WIRE plan + reset rehearsal spec | I25G, D44 | Historical D44 | Superseded by I25I / D45 |
 | I25I | done | A19-WIRE persist SQL + local REAL SQL + local RESET-TEST | I25H, D45 | Historical D45 | Superseded by I25J / D46 |
-| I25J | done | A19-WIRE settle integration + local REAL SQL | I25I, D46 | **WIRE-APPLY UNAPPROVED**; **RESET-GO UNAPPROVED** | STOP for independent review, then A19-WIRE-APPLY |
+| I25J | done | A19-WIRE settle integration + local REAL SQL | I25I, D46 | Historical D46 | Superseded by I25K / D47 |
+| I25K | done | A19-WIRE production-parity + hook isolation | I25J, D47 | **WIRE-APPLY UNAPPROVED**; **RESET-GO UNAPPROVED** | STOP for independent review, then consider A19-WIRE-APPLY |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001`. D45 persist + D46 unapplied settle integration. A19-WIRE-APPLY and A19-RESET-GO remain **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. Production catch writer is still live `stamp_catch_row` until APPLY. No merge, deploy, or APP stamp. A8 + D10–D46. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001`. D45 persist + D46/D47 unapplied settle integration. A19-WIRE-APPLY and A19-RESET-GO remain **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. Production catch writer is still live `stamp_catch_row` until APPLY. No merge, deploy, or APP stamp. A8 + D10–D47. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

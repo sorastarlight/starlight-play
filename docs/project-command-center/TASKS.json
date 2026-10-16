@@ -573,7 +573,7 @@
       "scope": "D58 PlayTester live economy test. Three encounters. WIRE off after.",
       "dependencies": ["I25U", "D58"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "f758fdce",
       "evidence": "docs/project-command-center/GEN-IX-D58-LIVE-TEST.md",
       "testResults": "REAL DOM + REAL gameplay + LIVE catalog; two catches kept; WIRE false",
       "nextAction": "STOP. No further gameplay.",

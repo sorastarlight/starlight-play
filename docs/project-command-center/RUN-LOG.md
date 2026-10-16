@@ -2,7 +2,7 @@
 
 ## 2026-10-16 — D58 PlayTester live economy test
 
-- Branch: `admin-hub-overhaul`. PlayTester signed in. D57 fingerprints unchanged. WIRE began false, was enabled for three rounds, then confirmed false.
+- Branch: `admin-hub-overhaul` at `f758fdce`. PlayTester signed in. D57 fingerprints unchanged. WIRE began false, was enabled for three rounds, then confirmed false.
 - Berry catch `1ae877c7-8d70-4809-9652-e17aa29761bb`. Honey catch `63b2c8fa-9ba8-404f-b3a0-533f10023fcc`. No-item escape `996dbdac-eeb8-4f6f-9443-062cbd539586`.
 - Each owned throw wrote one Poké Ball `BAG_SPEND` −1. The escape spent the ball and created no catch. Attendance was one separate +1 on the first round.
 - Bag 13/5/1 → 11/4/0. Replay left those rows in place. My PC showed 15 / 30. D53 Bulbasaur source row remains one level-4 Poké Ball row.

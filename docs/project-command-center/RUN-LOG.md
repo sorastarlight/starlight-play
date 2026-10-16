@@ -2,7 +2,7 @@
 
 ## 2026-10-16 — D59 New Trainer onboarding
 
-- Branch: `admin-hub-overhaul`. Baseline D58 / `f758fdce`. Guide is local to the branch.
+- Branch: `admin-hub-overhaul` at `f2153444`. Baseline D58 / `f758fdce`. Guide is local to the branch.
 - Reused How to Play, the existing phase tips, Register, and Settings. Added one six-step Trainer guide with skip and resume in browser storage.
 - Twitch stays optional. Join is not gated. Catch odds, economy, generation, and settlement were not edited. WIRE was not switched.
 - Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**.

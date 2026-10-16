@@ -39,7 +39,9 @@ test("guide covers the first-time loop in one place", () => {
   assert(copy.includes("Other capture berries"));
   assert(copy.includes("Honey"));
   assert(copy.includes("does not replace your Poké Ball"));
-  assert(copy.includes("Poké Ball you own"));
+  assert(copy.includes("owned ball is spent"));
+  assert(copy.includes("borrowed standard throw"));
+  assert(copy.includes("not added to your inventory"));
   assert(copy.includes("escapes"));
   assert(copy.includes("not guaranteed"));
   assert(copy.includes("My PC"));
@@ -69,7 +71,21 @@ test("next, back, skip, and resume keep the step", () => {
   assert(window.playOnboardingAppearance(state, { catches: 0 }) === "chip");
   state = window.playOnboardingReduce(state, "reopen");
   assert(state.status === "active" && state.step === 1);
-  assert(window.playOnboardingAppearance(state, { holdOpen: true, liveRound: true }) === "expanded");
+  assert(window.playOnboardingAppearance(state, { place: "play", known: true, holdOpen: true, liveRound: true }) === "chip");
+  assert(window.playOnboardingAppearance(state, { place: "play", known: true, holdOpen: true, liveRound: false }) === "expanded");
+});
+
+test("live Play always collapses even after forced reopen", () => {
+  const fresh = window.playOnboardingLoad(memoryStore(), "anon");
+  for (const options of [
+    { place: "play", known: true, catches: 0, liveRound: true, holdOpen: true },
+    { place: "play", known: true, catches: 0, liveRound: true, force: true },
+    { place: "play", known: true, catches: 3, liveRound: true, holdOpen: true }
+  ]) {
+    assert(window.playOnboardingAppearance(fresh, options) === "chip");
+  }
+  assert(window.playOnboardingAppearance(fresh, { place: "play", known: false, liveRound: true, holdOpen: true }) === "hidden");
+  assert(window.playOnboardingAppearance(fresh, { place: "help", force: true, liveRound: true }) === "expanded");
 });
 
 test("finish marks the guide done and reopen starts at the first step", () => {

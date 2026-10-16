@@ -609,7 +609,7 @@
       "scope": "D64 species mastery event ledger. Unapplied SQL and disposable local rehearsal.",
       "dependencies": ["I27", "D64"],
       "branch": "admin-hub-overhaul",
-      "commit": "f9fee21e",
+      "commit": "b32a0be0",
       "evidence": "docs/project-command-center/D64-MASTERY-SCHEMA-REPORT.md",
       "testResults": "STATIC pass. REAL SQL 19/19 on 127.0.0.1:55439 PostgreSQL 17.5. Not applied.",
       "nextAction": "STOP. Do not start D65. Do not apply the draft.",

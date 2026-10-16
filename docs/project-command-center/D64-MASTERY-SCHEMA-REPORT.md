@@ -3,6 +3,7 @@
 **Status:** BRANCH DRAFT + DISPOSABLE LOCAL REHEARSAL. Not applied to hosted Supabase. Not connected to encounters.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `f9fee21e` (D63 work `fb211e9b`).  
+**Work commit:** `b32a0be0`.  
 **Production APP:** `20261008-rc133` (unchanged).  
 **WIRE:** not switched. D63 catalog read was `enabled=false`. This batch did not query the switch.
 

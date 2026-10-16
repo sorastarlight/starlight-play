@@ -2,7 +2,7 @@
 
 ## 2026-10-16 — D64 mastery event ledger
 
-- Started at `f9fee21e` (D63 work `fb211e9b`). Draft only. No hosted SQL.
+- Started at `f9fee21e` (D63 work `fb211e9b`). Draft commit `b32a0be0`. No hosted SQL.
 - `node tools/d64-mastery-rehearsal.js`: 19/19 REAL SQL on `127.0.0.1:55439`, PostgreSQL 17.5. Data directory removed.
 - `node tests/d64-mastery-static-tests.js`: passed. The draft does not alter points mastery, settlement, or odds.
 - Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**.

@@ -47,9 +47,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I25O | done | Recover PlayTester login path + propose WIRE-GO | I25N, D51 | Historical D51 | Superseded by I25P / D52 |
 | I25P | done | Cursor browser E2E probe; gameplay not run | I25O, D52 | Historical D52 | Superseded by I25Q / D53 |
 | I25Q | done | A19-WIRE-GO PlayTester Bulbasaur catch, then switch off | I25P, D53 | Catch kept; switch **false** | Superseded by I25R / D54 |
-| I25R | done | D54 encounter economy branch fix + local REAL SQL | I25Q, D54 | Not applied | STOP before any live apply |
+| I25R | done | D54 encounter economy branch fix + local REAL SQL | I25Q, D54 | Not applied | Superseded by I25S / D55 |
+| I25S | done | D55 economy final review; safety-net kept | I25R, D55 | Not applied | STOP before any live apply |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001`. D49 applied hashed WIRE `001`→`002`→`003`. D53 ran one PlayTester Bulbasaur catch and turned the switch **false**. Catch kept. D54 economy SQL is unapplied. A19-RESET-GO remains **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. No merge, deploy, or APP stamp. A8 + D10–D54. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001`. D49 applied hashed WIRE `001`→`002`→`003`. D53 ran one PlayTester Bulbasaur catch and turned the switch **false**. Catch kept. D55 economy SQL is unapplied. A19-RESET-GO remains **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. No merge, deploy, or APP stamp. A8 + D10–D55. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

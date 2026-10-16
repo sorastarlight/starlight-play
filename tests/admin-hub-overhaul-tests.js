@@ -81,6 +81,9 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-WIRE-GO-PROPOSAL.md",
     "docs/project-command-center/GEN-IX-WIRE-GO-REPORT.md",
     "docs/project-command-center/GEN-IX-ECONOMY-D54.md",
+    "docs/project-command-center/GEN-IX-ECONOMY-D55.md",
+    "supabase/unapplied/d55-economy/001_spend_rules.sql",
+    "supabase/unapplied/d55-economy/DO-NOT-APPLY.md",
     "supabase/unapplied/d54-economy/001_spend_ledger.sql",
     "supabase/unapplied/d54-economy/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-wire/003_settle_integration.sql",
@@ -527,6 +530,19 @@ test("Issue 18 D54 economy SQL stays unapplied", () => {
   assert(report.includes("SL00025376"));
   assert(sql.includes("BAG_SPEND"));
   assert(!sql.includes("is distinct from 'standard_throw'"));
+  assert(!sql.includes("capture_chance"));
+  assert(!sql.includes("streamlink_wire_set_enabled"));
+});
+
+test("Issue 18 D55 economy review keeps the safety-net throw", () => {
+  const report = read("docs/project-command-center/GEN-IX-ECONOMY-D55.md");
+  const sql = read("supabase/unapplied/d55-economy/001_spend_rules.sql");
+  assert(report.includes("fdf5fffb50ed333d860711d127423364331de1dc0c0b7a1690b893908f36d1aa"));
+  assert(report.includes("standard_throw"));
+  assert(report.includes("SL00025376"));
+  assert(sql.includes("IS DISTINCT FROM 'standard_throw'"));
+  assert(sql.includes("ERRCODE = 'NB001'"));
+  assert(!sql.includes("WHEN OTHERS"));
   assert(!sql.includes("capture_chance"));
   assert(!sql.includes("streamlink_wire_set_enabled"));
 });

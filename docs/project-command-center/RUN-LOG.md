@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-16 — Economy final review (D55)
+
+- Branch: `admin-hub-overhaul`. Unapplied `supabase/unapplied/d55-economy/001_spend_rules.sql`.
+- SHA-256 `fdf5fffb50ed333d860711d127423364331de1dc0c0b7a1690b893908f36d1aa`.
+- Borrowed `standard_throw` stays free. Owned throws still write `BAG_SPEND` −1. Ledger errors other than SQLSTATE `NB001` abort. Extra-ball spends are one locked update.
+- REAL SQL on `127.0.0.1:55438/d55_economy`: 13/13. Borrow rules are a synthetic fixture, not a browser.
+- Not applied. WIRE stays off. `SL00025376` unchanged. No inventory backfill. APP `20261008-rc133`.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **PlayTester** was not written.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tools/d55-economy-rehearsal.js` | REAL SQL | 13/13 on `127.0.0.1:55438` |
+| `tests/d55-economy-static-tests.js` | STATIC + synthetic borrow rules | PASS |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 41 passed |
+| Production apply | — | **not run** |
+
+---
+
 ## 2026-10-16 — Encounter economy branch fix (D54)
 
 - Branch: `admin-hub-overhaul` at `a9625613`. Unapplied `supabase/unapplied/d54-economy/001_spend_ledger.sql`.

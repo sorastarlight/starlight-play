@@ -40,8 +40,9 @@ test("guide covers the first-time loop in one place", () => {
   assert(copy.includes("Honey"));
   assert(copy.includes("does not replace your Poké Ball"));
   assert(copy.includes("owned ball is spent"));
-  assert(copy.includes("borrowed standard throw"));
-  assert(copy.includes("not added to your inventory"));
+  assert(copy.includes("does not offer a throw"));
+  assert(copy.includes("restock at the Mart"));
+  assert(!copy.includes("borrowed standard throw"));
   assert(copy.includes("escapes"));
   assert(copy.includes("not guaranteed"));
   assert(copy.includes("My PC"));

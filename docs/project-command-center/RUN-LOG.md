@@ -1,5 +1,28 @@
 # Run log
 
+## 2026-10-16 — D63 onboarding verification and mastery audit
+
+- Started at local `6b29b591`, fast-forwarded to `75c1b285` (D60–D62). No reset.
+- `node tests/onboarding-tests.js`: 8 passed. `node tests/species-mastery-tests.js`: 9/9 passed. `node tests/admin-hub-overhaul-tests.js`: 46 passed.
+- Local harness: live round stays a chip after reopen; experienced trainers see no card; skip/resume keeps the Poké Ball step. No encounter started.
+- Narrow copy fix: the guide no longer says Play offers a borrowed throw. The server safety net remains. Play still requires an owned ball.
+- Catalog only. WIRE `enabled=false`. No catch-row read. Existing `species_mastery.points` is not the D61 ladder.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, RESET-GO, or D64.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/onboarding-tests.js` | STATIC | 8 passed |
+| `tests/species-mastery-tests.js` | STATIC | 9/9 passed |
+| Harness live round, reopen, skip, experienced | LOCAL HARNESS | PASS |
+| Catalog columns, indexes, functions, WIRE | LIVE CATALOG | Read only |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 46 passed |
+| Hosted mastery or backfill | — | **not run** |
+
+---
+
 ## 2026-10-16 — D59 New Trainer onboarding
 
 - Branch: `admin-hub-overhaul` at `f2153444`. Baseline D58 / `f758fdce`. Guide is local to the branch.

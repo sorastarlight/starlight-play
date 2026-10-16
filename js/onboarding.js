@@ -27,7 +27,7 @@
     {
       id: "ball",
       title: "Choose a Poké Ball",
-      body: "Choose a Poké Ball from your bag. An owned ball is spent whether you catch the Pokémon or it escapes. If you have none, the game may provide a borrowed standard throw as a safety net; it is not added to your inventory. A catch is not guaranteed."
+      body: "Choose a Poké Ball you own. An owned ball is spent whether you catch the Pokémon or it escapes. If your bag is empty, Play does not offer a throw; restock at the Mart. A catch is not guaranteed."
     },
     {
       id: "after",

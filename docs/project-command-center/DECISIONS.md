@@ -71,6 +71,10 @@
 | D57 | Owner D55-ECONOMY-APPLY GO | Installed hashed `001_spend_rules.sql` as migration `20261016042345` `d55_economy_001_spend_rules`. Catalog verification passed. Borrowed-ball skip, capture odds, attendance, and settle stayed. WIRE stayed false. No throw, catch read, or inventory backfill. |
 | D58 | Owner D58-LIVE-TEST GO | Three PlayTester encounters with WIRE on, then WIRE off. Berry catch, Honey catch, and a no-item escape each spent one owned Poké Ball with a `BAG_SPEND` −1. Attendance was a separate +1. Replay did not duplicate. Catches kept. |
 | D59 | New Trainer onboarding | One skippable six-step guide reuses How to Play, phase tips, and Settings. Twitch stays optional. Join is not gated. Progress is browser-local. No catch, economy, generation, or settlement change. Not deployed. |
+| D60 | Encounter tutorial protection | Play keeps the guide collapsed during a live round, including reopen. Branch verified in D63. Not deployed. |
+| D61 | Species Mastery proposal | Cosmetic catch ladder 1/3/6/12/20. Not implemented. Distinct from the live points mastery. |
+| D62 | Offline mastery prototype | Synthetic model and tests only. D63 recorded 9/9. Not a hosted ledger. |
+| D63 | Compatibility audit | Live `species_mastery.points` is a different ladder and must not be reused. A separate play-catch event is the proposed path. No SQL applied. D64 not started. |
 
 ## Needs owner approval
 

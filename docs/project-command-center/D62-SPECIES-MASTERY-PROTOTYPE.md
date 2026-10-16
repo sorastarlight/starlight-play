@@ -1,6 +1,6 @@
 # D62 — Species Mastery offline prototype
 
-**Status:** BRANCH-ONLY PROTOTYPE / TEST EXECUTION PENDING. No implementation approval for hosted work.  
+**Status:** BRANCH-ONLY PROTOTYPE. D63 ran the offline tests: 9/9 passed. Hosted work is still not approved. See [D63-MASTERY-COMPATIBILITY-REPORT.md](./D63-MASTERY-COMPATIBILITY-REPORT.md).  
 **Source:** D61-SPECIES-MASTERY-DESIGN.md; five-tier cosmetic-only ladder accepted as working baseline.
 
 ## Artifacts

@@ -86,6 +86,9 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-ECONOMY-APPLY-REPORT.md",
     "docs/project-command-center/GEN-IX-D58-LIVE-TEST.md",
     "docs/project-command-center/GEN-IX-D59-ONBOARDING.md",
+    "docs/project-command-center/D61-SPECIES-MASTERY-DESIGN.md",
+    "docs/project-command-center/D62-SPECIES-MASTERY-PROTOTYPE.md",
+    "docs/project-command-center/D63-MASTERY-COMPATIBILITY-REPORT.md",
     "supabase/unapplied/d55-economy/001_spend_rules.sql",
     "supabase/unapplied/d55-economy/DO-NOT-APPLY.md",
     "supabase/unapplied/d54-economy/001_spend_ledger.sql",
@@ -549,6 +552,18 @@ test("Issue 18 D55 economy review keeps the safety-net throw", () => {
   assert(!sql.includes("WHEN OTHERS"));
   assert(!sql.includes("capture_chance"));
   assert(!sql.includes("streamlink_wire_set_enabled"));
+});
+
+test("Issue 18 D63 mastery audit stays unimplemented", () => {
+  const report = read("docs/project-command-center/D63-MASTERY-COMPATIBILITY-REPORT.md");
+  assert(report.includes("75c1b285"));
+  assert(report.includes("9/9 passed"));
+  assert(report.includes("enabled=false"));
+  assert(report.includes("species_mastery.points"));
+  assert(report.includes("Do not start D64") || report.includes("D64 is not authorized"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!read("js/play.js").includes("species-mastery-model"));
+  assert(!read("js/onboarding.js").includes("borrowed standard throw"));
 });
 
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {

@@ -56,6 +56,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-WIRE-GO-READINESS.md](./GEN-IX-WIRE-GO-READINESS.md) | D50 one-catch activation plan; **WIRE-GO UNAPPROVED** |
 | [GEN-IX-WIRE-GO-PROPOSAL.md](./GEN-IX-WIRE-GO-PROPOSAL.md) | D51 PlayTester access + copy-paste WIRE-GO |
 | [GEN-IX-WIRE-GO-REPORT.md](./GEN-IX-WIRE-GO-REPORT.md) | D53 PlayTester Bulbasaur catch; switch off again |
+| [GEN-IX-ECONOMY-D54.md](./GEN-IX-ECONOMY-D54.md) | D54 unapplied ball debit; local REAL SQL |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.

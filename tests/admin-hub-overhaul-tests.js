@@ -80,6 +80,9 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-WIRE-GO-READINESS.md",
     "docs/project-command-center/GEN-IX-WIRE-GO-PROPOSAL.md",
     "docs/project-command-center/GEN-IX-WIRE-GO-REPORT.md",
+    "docs/project-command-center/GEN-IX-ECONOMY-D54.md",
+    "supabase/unapplied/d54-economy/001_spend_ledger.sql",
+    "supabase/unapplied/d54-economy/DO-NOT-APPLY.md",
     "supabase/unapplied/a19-wire/003_settle_integration.sql",
     "supabase/unapplied/a19-wire/local/040_test_inject.sql",
     "docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
@@ -514,6 +517,18 @@ test("Issue 18 D53 WIRE-GO report records the catch and switch off", () => {
   assert(report.includes("PlayTester"));
   assert(report.includes("not release") || report.includes("no release") || report.includes("Catch kept"));
   assert(!report.includes("PRODUCTION APP `20261008-rc134`"));
+});
+
+test("Issue 18 D54 economy SQL stays unapplied", () => {
+  const report = read("docs/project-command-center/GEN-IX-ECONOMY-D54.md");
+  const sql = read("supabase/unapplied/d54-economy/001_spend_ledger.sql");
+  assert(report.includes("0a9ac044f687d359fbfd815c7e34527f49710ec59ac965df372e1929444d3c6b"));
+  assert(report.includes("not applied") || report.includes("Not applied") || report.includes("**not** applied"));
+  assert(report.includes("SL00025376"));
+  assert(sql.includes("BAG_SPEND"));
+  assert(!sql.includes("is distinct from 'standard_throw'"));
+  assert(!sql.includes("capture_chance"));
+  assert(!sql.includes("streamlink_wire_set_enabled"));
 });
 
 test("Play E2E gate refuses gameplay and session files", () => {

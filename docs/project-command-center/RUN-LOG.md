@@ -1,5 +1,26 @@
 # Run log
 
+## 2026-10-16 — Encounter economy branch fix (D54)
+
+- Branch: `admin-hub-overhaul`. Unapplied `supabase/unapplied/d54-economy/001_spend_ledger.sql`.
+- SHA-256 `0a9ac044f687d359fbfd815c7e34527f49710ec59ac965df372e1929444d3c6b`.
+- Root cause: D53 decremented `inventories.pokeball` without a ledger row, then `STREAM_ATTENDANCE` added one ball back. Net bag stayed 13.
+- REAL SQL on `127.0.0.1:55437/d54_economy`: 12/12. Phase driver is a synthetic fixture, not a browser.
+- Not applied. WIRE stays off. `SL00025376` unchanged. No inventory backfill.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **PlayTester** was read earlier this investigation and not written in this batch.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tools/d54-economy-rehearsal.js` | REAL SQL | 12/12 on `127.0.0.1:55437` |
+| `tests/encounter-phase-driver-tests.js` | STATIC synthetic fixture | 5 passed |
+| `tests/d54-economy-static-tests.js` | STATIC | PASS |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 40 passed |
+| Production apply | — | **not run** |
+
+---
+
 ## 2026-10-16 — A19-WIRE-GO PlayTester Bulbasaur (D53)
 
 - Branch: `admin-hub-overhaul` at `f9c7b3c5`. PlayTester session confirmed in the Cursor browser. No password, cookie, or token was stored.

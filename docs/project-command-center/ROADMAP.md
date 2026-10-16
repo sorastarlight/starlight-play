@@ -45,6 +45,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I25O | PlayTester access + WIRE-GO proposal | Site reset + copy-paste GO | **DONE** — D51 snapshot |
 | I25P | Cursor browser E2E probe | Play + Pokédex, no gameplay | **DONE** — D52 snapshot |
 | I25Q | A19-WIRE-GO Bulbasaur catch | PlayTester, switch off after | **DONE** — D53; catch kept |
+| I25R | Encounter economy ledger | Unapplied spend debit + local REAL SQL | **DONE** — D54; not applied |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

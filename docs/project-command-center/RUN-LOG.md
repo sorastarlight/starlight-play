@@ -2,7 +2,7 @@
 
 ## 2026-10-16 — A19-WIRE-GO PlayTester Bulbasaur (D53)
 
-- Branch: `admin-hub-overhaul`. PlayTester session confirmed in the Cursor browser. No password, cookie, or token was stored.
+- Branch: `admin-hub-overhaul` at `f9c7b3c5`. PlayTester session confirmed in the Cursor browser. No password, cookie, or token was stored.
 - WIRE enabled `2026-10-16 02:00:53+00`, then disabled `2026-10-16 02:08:21+00`. Final `enabled=false`.
 - Ordinary Bulbasaur form 1 round `d92354d3-b661-4b42-99c5-7adfeba8e2a5`. Caught `SL00025376`. Catch kept.
 - REAL DOM join and Poké Ball. Prepare window closed before a berry click. My PC shows Lv. 4 Bulbasaur, OT Play Tester.

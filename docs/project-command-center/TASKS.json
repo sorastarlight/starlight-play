@@ -513,7 +513,7 @@
       "scope": "A19-WIRE-GO one PlayTester Bulbasaur catch, then switch off",
       "dependencies": ["I25P", "D53"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "f9c7b3c5",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-REPORT.md",
       "testResults": "REAL DOM + REAL gameplay + LIVE catalog; berry click missed; switch false",
       "nextAction": "STOP. No RESET-GO.",

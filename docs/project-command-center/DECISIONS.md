@@ -67,6 +67,7 @@
 | D53 | Owner A19-WIRE-GO | PlayTester caught Bulbasaur `SL00025376` while the switch was on. Switch is false again. Catch kept. No Sora or Twinkle access. |
 | D54 | Encounter economy branch fix | D53 consumed the Poké Ball in `inventories` and then granted a separate attendance ball, so the bag stayed 13 and only the award was ledgered. Unapplied `001_spend_ledger.sql` writes `BAG_SPEND` −1 and spends even when the throw was marked `standard_throw`. SHA-256 `0a9ac044f687d359fbfd815c7e34527f49710ec59ac965df372e1929444d3c6b`. REAL SQL 12/12 on `127.0.0.1:55437`. Not applied. Superseded by D55 for the safety-net throw. |
 | D55 | Economy final review | Borrowed `standard_throw` stays free. Owned throws still write `BAG_SPEND` −1. Insufficient inventory is SQLSTATE `NB001` only; other ledger errors abort. Extra balls and capture berries decrement in one locked update. SHA-256 `fdf5fffb50ed333d860711d127423364331de1dc0c0b7a1690b893908f36d1aa`. REAL SQL 13/13 on `127.0.0.1:55438`. Not applied. |
+| D56 | D55-ECONOMY-APPLY handoff | Catalog checks passed for the hashed D55 file, project `dtflmlbjhttoewqgkujf`, role `postgres`, and the two live function MD5s. `item_ledger` already accepts the debit. Nothing installed. D55-ECONOMY-APPLY remains **UNAPPROVED**. |
 
 ## Needs owner approval
 
@@ -101,7 +102,7 @@
 | A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | **APPROVED FOR OFFLINE BRANCH IMPLEMENTATION ONLY — issue #22**: review/harden `private.ref_*` schema and full pin seeds, prepare backwards-compatible nullable `catches` extensions as DO-NOT-APPLY files, validate locally. **Applying DDL to connected/live Supabase remains UNAPPROVED**, as do Pokémon writes and later phases. |
 | A19-APPLY | Apply reviewed A19-SCHEMA SQL to live/connected Supabase? | **APPLIED** (D35): owner GO for `001` → seed `00`–`10` → `002` only. Catalog-only verification PASS. `003` / GENVAL / WIRE / restore / merge / deploy remain unauthorized. |
 | A19-GENVAL | Ship generator + validator functions? | **APPLIED** (D43): hashed `001` catalog install on `dtflmlbjhttoewqgkujf`. WIRE / hosted generate / catch writes remain unauthorized. |
-| A19-WIRE | Wire launch/settle/grant/evolve to the validator? | **APPLIED (D49)**. D53 ran one PlayTester Bulbasaur catch with the switch on, then turned it **false**. Catch kept. D55 economy SQL is branch-only and **not applied**. |
+| A19-WIRE | Wire launch/settle/grant/evolve to the validator? | **APPLIED (D49)**. D53 ran one PlayTester Bulbasaur catch with the switch on, then turned it **false**. Catch kept. D55 economy SQL is branch-only. D55-ECONOMY-APPLY remains **UNAPPROVED**. |
 | A19-INSPECT | Staff read RPC for full PC combat fields? | After generator exists. |
 | A19-EDIT | Owner-only audited editor? | After inspector. |
 | A19-RESET-TEST | Dry-run + restore drill on a clone? | **D45 local synthetic PASS** on `127.0.0.1:55435`. Production clone drill still open. |

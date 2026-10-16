@@ -82,6 +82,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-WIRE-GO-REPORT.md",
     "docs/project-command-center/GEN-IX-ECONOMY-D54.md",
     "docs/project-command-center/GEN-IX-ECONOMY-D55.md",
+    "docs/project-command-center/GEN-IX-ECONOMY-APPLY-DECISION.md",
     "supabase/unapplied/d55-economy/001_spend_rules.sql",
     "supabase/unapplied/d55-economy/DO-NOT-APPLY.md",
     "supabase/unapplied/d54-economy/001_spend_ledger.sql",
@@ -545,6 +546,19 @@ test("Issue 18 D55 economy review keeps the safety-net throw", () => {
   assert(!sql.includes("WHEN OTHERS"));
   assert(!sql.includes("capture_chance"));
   assert(!sql.includes("streamlink_wire_set_enabled"));
+});
+
+test("Issue 18 D56 economy apply decision stays unapproved", () => {
+  const decision = read("docs/project-command-center/GEN-IX-ECONOMY-APPLY-DECISION.md");
+  assert(decision.includes("UNAPPROVED"));
+  assert(decision.includes("D55-ECONOMY-APPLY GO"));
+  assert(decision.includes("fdf5fffb50ed333d860711d127423364331de1dc0c0b7a1690b893908f36d1aa"));
+  assert(decision.includes("adb53e0a30a06224d85fa79a50d1f433"));
+  assert(decision.includes("6abe25af4ac01e2e9c97707c3d8e44cf"));
+  assert(decision.includes("0a9ac044f687d359fbfd815c7e34527f49710ec59ac965df372e1929444d3c6b"));
+  assert(decision.includes("STOP on drift"));
+  assert(!decision.includes("PRODUCTION PASS"));
+  assert(!decision.includes("**Verdict: APPLIED.**"));
 });
 
 test("Play E2E gate refuses gameplay and session files", () => {

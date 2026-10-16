@@ -540,8 +540,20 @@
       "commit": "3753ddf9",
       "evidence": "docs/project-command-center/GEN-IX-ECONOMY-D55.md",
       "testResults": "STATIC borrow rules PASS; REAL SQL 13/13 on 127.0.0.1:55438",
-      "nextAction": "STOP before any live apply.",
+      "nextAction": "Superseded by I25T / D56.",
       "approvalRequirement": "Owner review before applying 001_spend_rules.sql"
+    },
+    {
+      "id": "I25T",
+      "status": "done",
+      "scope": "D55-ECONOMY-APPLY handoff. Catalog verification only. Not a GO.",
+      "dependencies": ["I25S", "D56"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-ECONOMY-APPLY-DECISION.md",
+      "testResults": "STATIC + LIVE CATALOG; hash and both function MD5s matched",
+      "nextAction": "STOP until the owner sends D55-ECONOMY-APPLY GO.",
+      "approvalRequirement": "D55-ECONOMY-APPLY remains UNAPPROVED"
     },
     {
       "id": "I13",

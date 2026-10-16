@@ -27,7 +27,7 @@
     {
       id: "ball",
       title: "Choose a Poké Ball",
-      body: "Pick a Poké Ball you own. The ball is used if you catch the Pokémon and if it escapes. A catch is not guaranteed."
+      body: "Choose a Poké Ball from your bag. An owned ball is spent whether you catch the Pokémon or it escapes. If you have none, the game may provide a borrowed standard throw as a safety net; it is not added to your inventory. A catch is not guaranteed."
     },
     {
       id: "after",
@@ -139,8 +139,9 @@
   root.playOnboardingAppearance = function playOnboardingAppearance(state, options) {
     const opts = options || {};
     const current = normalize(state);
-    if (opts.force || opts.holdOpen) return "expanded";
     if (opts.place === "play" && opts.known === false) return "hidden";
+    if (opts.place === "play" && opts.liveRound) return "chip";
+    if (opts.force || opts.holdOpen) return "expanded";
     if (opts.place === "help") return "chip";
     if (current.status === "active" && !opts.liveRound && !(Number(opts.catches) > 0)) return "expanded";
     if (!current.touched && Number(opts.catches) > 0) return "hidden";

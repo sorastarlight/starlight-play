@@ -549,7 +549,7 @@
       "scope": "D55-ECONOMY-APPLY handoff. Catalog verification only. Not a GO.",
       "dependencies": ["I25S", "D56"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "6a9f8fa1",
       "evidence": "docs/project-command-center/GEN-IX-ECONOMY-APPLY-DECISION.md",
       "testResults": "STATIC + LIVE CATALOG; hash and both function MD5s matched",
       "nextAction": "STOP until the owner sends D55-ECONOMY-APPLY GO.",

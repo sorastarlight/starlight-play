@@ -2,7 +2,7 @@
 
 ## 2026-10-16 — D55-ECONOMY-APPLY handoff (D56)
 
-- Branch: `admin-hub-overhaul`. No SQL installed.
+- Branch: `admin-hub-overhaul` at `6a9f8fa1`. No SQL installed.
 - Candidate SHA-256 `fdf5fffb50ed333d860711d127423364331de1dc0c0b7a1690b893908f36d1aa` matches `001_spend_rules.sql`.
 - LIVE CATALOG on `dtflmlbjhttoewqgkujf` as `postgres`: `spend_bag_item` `adb53e0a30a06224d85fa79a50d1f433`, `announce_throws` `6abe25af4ac01e2e9c97707c3d8e44cf`. `item_ledger` accepts the debit. WIRE `enabled=false`.
 - D54 SQL remains forbidden. Its hash is `0a9ac044f687d359fbfd815c7e34527f49710ec59ac965df372e1929444d3c6b`.

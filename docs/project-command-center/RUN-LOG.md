@@ -2,7 +2,7 @@
 
 ## 2026-10-16 — Encounter economy branch fix (D54)
 
-- Branch: `admin-hub-overhaul`. Unapplied `supabase/unapplied/d54-economy/001_spend_ledger.sql`.
+- Branch: `admin-hub-overhaul` at `a9625613`. Unapplied `supabase/unapplied/d54-economy/001_spend_ledger.sql`.
 - SHA-256 `0a9ac044f687d359fbfd815c7e34527f49710ec59ac965df372e1929444d3c6b`.
 - Root cause: D53 decremented `inventories.pokeball` without a ledger row, then `STREAM_ATTENDANCE` added one ball back. Net bag stayed 13.
 - REAL SQL on `127.0.0.1:55437/d54_economy`: 12/12. Phase driver is a synthetic fixture, not a browser.

@@ -525,7 +525,7 @@
       "scope": "D54 encounter economy branch fix. Ledger debit on spend. No live apply.",
       "dependencies": ["I25Q", "D54"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "a9625613",
       "evidence": "docs/project-command-center/GEN-IX-ECONOMY-D54.md",
       "testResults": "STATIC phase driver PASS; REAL SQL 12/12 on 127.0.0.1:55437",
       "nextAction": "STOP before any live apply.",

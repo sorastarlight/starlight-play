@@ -83,6 +83,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-ECONOMY-D54.md",
     "docs/project-command-center/GEN-IX-ECONOMY-D55.md",
     "docs/project-command-center/GEN-IX-ECONOMY-APPLY-DECISION.md",
+    "docs/project-command-center/GEN-IX-ECONOMY-APPLY-REPORT.md",
     "supabase/unapplied/d55-economy/001_spend_rules.sql",
     "supabase/unapplied/d55-economy/DO-NOT-APPLY.md",
     "supabase/unapplied/d54-economy/001_spend_ledger.sql",
@@ -546,6 +547,18 @@ test("Issue 18 D55 economy review keeps the safety-net throw", () => {
   assert(!sql.includes("WHEN OTHERS"));
   assert(!sql.includes("capture_chance"));
   assert(!sql.includes("streamlink_wire_set_enabled"));
+});
+
+test("Issue 18 D57 economy apply report records the catalog install", () => {
+  const report = read("docs/project-command-center/GEN-IX-ECONOMY-APPLY-REPORT.md");
+  assert(report.includes("20261016042345"));
+  assert(report.includes("5419a99d0c1735f44564b84338e32578"));
+  assert(report.includes("0cd4a8e2a647ba388ce19b14b6f5a8c4"));
+  assert(report.includes("fdf5fffb50ed333d860711d127423364331de1dc0c0b7a1690b893908f36d1aa"));
+  assert(report.includes("enabled=false") || report.includes("`enabled=false`") || report.includes("WIRE `enabled=false`"));
+  assert(report.includes("c88c65372df551e1e06e7d819af2f167"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!report.includes("SL00025376` was released"));
 });
 
 test("Issue 18 D56 economy apply decision stays unapproved", () => {

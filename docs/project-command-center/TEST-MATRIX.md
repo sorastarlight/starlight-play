@@ -54,7 +54,8 @@
 | A19-WIRE-GO (D53) | Cursor browser Play + My PC, plus catch/capture_log/switch catalog | REAL DOM + REAL gameplay + LIVE catalog | Berry click missed the prepare window; no ball-debit ledger row |
 | Encounter economy (D54) | `tools/d54-economy-rehearsal.js` + phase-driver fixture | STATIC + REAL SQL 12/12 on `127.0.0.1:55437` | Superseded by D55 for the safety-net throw |
 | Economy final review (D55) | `tools/d55-economy-rehearsal.js` + borrowed-ball rules | STATIC + REAL SQL 13/13 on `127.0.0.1:55438` | Apply handoff is D56 |
-| D55-ECONOMY-APPLY decision (D56) | `GEN-IX-ECONOMY-APPLY-DECISION.md` + disk SHA-256 + live catalog | STATIC + LIVE CATALOG | Apply still UNAPPROVED |
+| D55-ECONOMY-APPLY decision (D56) | `GEN-IX-ECONOMY-APPLY-DECISION.md` + disk SHA-256 + live catalog | STATIC + LIVE CATALOG | Historical handoff |
+| D55-ECONOMY-APPLY (D57) | migration `20261016042345` + function MD5 catalog | LIVE CATALOG PASS | No throw, catch read, or backfill |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-16 — D55-ECONOMY-APPLY install (D57)
+
+- Branch: `admin-hub-overhaul`. Migration `20261016042345` `d55_economy_001_spend_rules` on `dtflmlbjhttoewqgkujf` as `postgres`.
+- Pre-install SHA-256 and both live MD5s matched. D54 SQL was not applied.
+- Post-install: `spend_bag_item` `5419a99d0c1735f44564b84338e32578`, `announce_throws` `0cd4a8e2a647ba388ce19b14b6f5a8c4`. Borrowed-ball skip remains. `play_throw`, `capture_chance`, `grant_items`, and `settle_if_needed` unchanged.
+- WIRE `enabled=false`. No throw, catch-row read, or inventory backfill.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, or RESET-GO.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Pre-install hash, role, and function MD5s | LIVE CATALOG | PASS |
+| Post-install function fingerprints | LIVE CATALOG | PASS |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 43 passed |
+| Production throw / catch read | — | **not run** |
+
+---
+
 ## 2026-10-16 — D55-ECONOMY-APPLY handoff (D56)
 
 - Branch: `admin-hub-overhaul` at `6a9f8fa1`. No SQL installed.

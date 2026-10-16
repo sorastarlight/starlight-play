@@ -1,5 +1,5 @@
-# Do not apply
+# Applied
 
-`001_spend_rules.sql` supersedes `supabase/unapplied/d54-economy/001_spend_ledger.sql`. Neither file is authorized for `dtflmlbjhttoewqgkujf`.
+Migration `20261016042345` `d55_economy_001_spend_rules` is installed on `dtflmlbjhttoewqgkujf`. Do not apply this file again.
 
-Do not backfill PlayTester inventory. Do not modify catch `SL00025376`. Leave WIRE off.
+Do not apply `supabase/unapplied/d54-economy/001_spend_ledger.sql`. Do not backfill inventories. Do not modify catch `SL00025376`. Leave WIRE off.

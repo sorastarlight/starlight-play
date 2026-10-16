@@ -552,8 +552,20 @@
       "commit": "6a9f8fa1",
       "evidence": "docs/project-command-center/GEN-IX-ECONOMY-APPLY-DECISION.md",
       "testResults": "STATIC + LIVE CATALOG; hash and both function MD5s matched",
-      "nextAction": "STOP until the owner sends D55-ECONOMY-APPLY GO.",
+      "nextAction": "Superseded by I25U / D57.",
       "approvalRequirement": "D55-ECONOMY-APPLY remains UNAPPROVED"
+    },
+    {
+      "id": "I25U",
+      "status": "done",
+      "scope": "Owner D55-ECONOMY-APPLY GO. One migration. Catalog verification only.",
+      "dependencies": ["I25T", "D57"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-ECONOMY-APPLY-REPORT.md",
+      "testResults": "LIVE CATALOG PASS; WIRE false; no catch read",
+      "nextAction": "STOP. No further gameplay.",
+      "approvalRequirement": "D55-ECONOMY-APPLY completed for this file"
     },
     {
       "id": "I13",

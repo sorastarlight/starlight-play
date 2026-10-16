@@ -77,3 +77,5 @@ If apply fails: STOP. Do not run rollback scripts or restore.
 ```
 
 **STOP.** D55-ECONOMY-APPLY remains **UNAPPROVED** until that exact GO arrives.
+
+**Later (D57 snapshot pointer):** The owner GO installed this hashed file as migration `20261016042345`. This file remains the D56 handoff snapshot. See [GEN-IX-ECONOMY-APPLY-REPORT.md](./GEN-IX-ECONOMY-APPLY-REPORT.md).

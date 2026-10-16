@@ -60,6 +60,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-ECONOMY-D55.md](./GEN-IX-ECONOMY-D55.md) | D55 safety-net kept; NB001; atomic JSON debit |
 | [GEN-IX-ECONOMY-APPLY-DECISION.md](./GEN-IX-ECONOMY-APPLY-DECISION.md) | D56 D55-ECONOMY-APPLY request snapshot |
 | [GEN-IX-ECONOMY-APPLY-REPORT.md](./GEN-IX-ECONOMY-APPLY-REPORT.md) | D57 owner GO install + LIVE CATALOG |
+| [GEN-IX-D58-LIVE-TEST.md](./GEN-IX-D58-LIVE-TEST.md) | D58 three PlayTester encounters; WIRE off again |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.

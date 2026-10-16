@@ -49,6 +49,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I25S | Economy final review | Safety-net kept; NB001; atomic JSON debit | **DONE** — D55; not applied |
 | I25T | D55-ECONOMY-APPLY handoff | Catalog checks; GO text only | **DONE** — D56 snapshot |
 | I25U | D55 economy install | Migration `20261016042345`; catalog only | **DONE** — D57; WIRE false |
+| I25V | D58 live economy test | Three PlayTester encounters | **DONE** — catches kept; WIRE false |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

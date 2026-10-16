@@ -1,5 +1,26 @@
 # Run log
 
+## 2026-10-16 — D58 PlayTester live economy test
+
+- Branch: `admin-hub-overhaul`. PlayTester signed in. D57 fingerprints unchanged. WIRE began false, was enabled for three rounds, then confirmed false.
+- Berry catch `1ae877c7-8d70-4809-9652-e17aa29761bb`. Honey catch `63b2c8fa-9ba8-404f-b3a0-533f10023fcc`. No-item escape `996dbdac-eeb8-4f6f-9443-062cbd539586`.
+- Each owned throw wrote one Poké Ball `BAG_SPEND` −1. The escape spent the ball and created no catch. Attendance was one separate +1 on the first round.
+- Bag 13/5/1 → 11/4/0. Replay left those rows in place. My PC showed 15 / 30. D53 Bulbasaur source row remains one level-4 Poké Ball row.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **PlayTester**. Catches kept.
+- Production APP `20261008-rc133`. No merge, deploy, or RESET-GO.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Play join, berry, honey, no item, Poké Ball, results | REAL DOM + REAL gameplay | Berry catch, Honey catch, escape |
+| My PC box count | REAL DOM | 15 / 30 |
+| Ledger, inventory, catch and capture-log counts, replay | LIVE catalog | 3 ball debits, 1 attendance, no duplicates |
+| Browser console hook | — | **not attached**; no error banner |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 44 passed |
+
+---
+
 ## 2026-10-16 — D55-ECONOMY-APPLY install (D57)
 
 - Branch: `admin-hub-overhaul` at `f63e2b17`. Migration `20261016042345` `d55_economy_001_spend_rules` on `dtflmlbjhttoewqgkujf` as `postgres`.

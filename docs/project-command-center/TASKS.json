@@ -564,8 +564,20 @@
       "commit": "f63e2b17",
       "evidence": "docs/project-command-center/GEN-IX-ECONOMY-APPLY-REPORT.md",
       "testResults": "LIVE CATALOG PASS; WIRE false; no catch read",
-      "nextAction": "STOP. No further gameplay.",
+      "nextAction": "Superseded by I25V / D58.",
       "approvalRequirement": "D55-ECONOMY-APPLY completed for this file"
+    },
+    {
+      "id": "I25V",
+      "status": "done",
+      "scope": "D58 PlayTester live economy test. Three encounters. WIRE off after.",
+      "dependencies": ["I25U", "D58"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-D58-LIVE-TEST.md",
+      "testResults": "REAL DOM + REAL gameplay + LIVE catalog; two catches kept; WIRE false",
+      "nextAction": "STOP. No further gameplay.",
+      "approvalRequirement": "D58-LIVE-TEST completed; WIRE is false"
     },
     {
       "id": "I13",

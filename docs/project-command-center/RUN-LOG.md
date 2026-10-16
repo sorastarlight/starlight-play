@@ -2,7 +2,7 @@
 
 ## 2026-10-16 — Economy final review (D55)
 
-- Branch: `admin-hub-overhaul`. Unapplied `supabase/unapplied/d55-economy/001_spend_rules.sql`.
+- Branch: `admin-hub-overhaul` at `3753ddf9`. Unapplied `supabase/unapplied/d55-economy/001_spend_rules.sql`.
 - SHA-256 `fdf5fffb50ed333d860711d127423364331de1dc0c0b7a1690b893908f36d1aa`.
 - Borrowed `standard_throw` stays free. Owned throws still write `BAG_SPEND` −1. Ledger errors other than SQLSTATE `NB001` abort. Extra-ball spends are one locked update.
 - REAL SQL on `127.0.0.1:55438/d55_economy`: 13/13. Borrow rules are a synthetic fixture, not a browser.

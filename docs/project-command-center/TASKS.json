@@ -537,7 +537,7 @@
       "scope": "D55 economy final review. Safety-net throw kept. NB001 and atomic JSON debit. No live apply.",
       "dependencies": ["I25R", "D55"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "3753ddf9",
       "evidence": "docs/project-command-center/GEN-IX-ECONOMY-D55.md",
       "testResults": "STATIC borrow rules PASS; REAL SQL 13/13 on 127.0.0.1:55438",
       "nextAction": "STOP before any live apply.",

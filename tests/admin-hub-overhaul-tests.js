@@ -85,6 +85,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-ECONOMY-APPLY-DECISION.md",
     "docs/project-command-center/GEN-IX-ECONOMY-APPLY-REPORT.md",
     "docs/project-command-center/GEN-IX-D58-LIVE-TEST.md",
+    "docs/project-command-center/GEN-IX-D59-ONBOARDING.md",
     "supabase/unapplied/d55-economy/001_spend_rules.sql",
     "supabase/unapplied/d55-economy/DO-NOT-APPLY.md",
     "supabase/unapplied/d54-economy/001_spend_ledger.sql",
@@ -548,6 +549,20 @@ test("Issue 18 D55 economy review keeps the safety-net throw", () => {
   assert(!sql.includes("WHEN OTHERS"));
   assert(!sql.includes("capture_chance"));
   assert(!sql.includes("streamlink_wire_set_enabled"));
+});
+
+test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
+  const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
+  const src = read("js/onboarding.js");
+  assert(report.includes("Twitch"));
+  assert(report.includes("Skip"));
+  assert(report.includes("WIRE was not"));
+  assert(report.includes("20261008-rc133"));
+  assert(src.includes("Skip guide"));
+  assert(src.includes("Oran Berry"));
+  assert(!src.includes("playCall"));
+  assert(!src.includes("capture_chance"));
+  assert(!report.includes("PRODUCTION PASS"));
 });
 
 test("Issue 18 D58 live test records three encounters and WIRE off", () => {

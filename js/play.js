@@ -1053,6 +1053,11 @@
     });
     const welcome = document.querySelector(".welcome-links");
     if (welcome) welcome.hidden = Boolean(window._playSession);
+    window.playOnboardingControl?.sync({
+      catches: catchCount(state),
+      userId: window._playSession?.user?.id || "",
+      liveRound: Boolean(round && round.phase && round.phase !== "closed")
+    });
     const required = data?.settings?.clientBuild;
     window.__playServerBuild = required || "";
     const update = document.getElementById("play-update");

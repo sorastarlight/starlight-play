@@ -580,6 +580,18 @@
       "approvalRequirement": "D58-LIVE-TEST completed; WIRE is false"
     },
     {
+      "id": "I26",
+      "status": "done",
+      "scope": "D59 New Trainer onboarding. Skippable local guide. No gameplay changes.",
+      "dependencies": ["I25V", "D59"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-D59-ONBOARDING.md",
+      "testResults": "STATIC 7 onboarding + LOCAL HARNESS + REAL DOM. Not deployed.",
+      "nextAction": "STOP for owner review. No deploy.",
+      "approvalRequirement": "Deploy remains unauthorized"
+    },
+    {
       "id": "I13",
       "status": "todo",
       "scope": "GitHub issue #13 owner account recovery design and security audit",

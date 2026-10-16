@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-16 — D59 New Trainer onboarding
+
+- Branch: `admin-hub-overhaul`. Baseline D58 / `f758fdce`. Guide is local to the branch.
+- Reused How to Play, the existing phase tips, Register, and Settings. Added one six-step Trainer guide with skip and resume in browser storage.
+- Twitch stays optional. Join is not gated. Catch odds, economy, generation, and settlement were not edited. WIRE was not switched.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, or RESET-GO.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/onboarding-tests.js` | STATIC | 7 passed |
+| Harness desktop and 390px | LOCAL HARNESS | Skip/resume, Join stayed available, experienced hidden, live round collapsed |
+| Local Play, How to Play, Register | REAL DOM | Signed out. Nav usable. No encounter started |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 45 passed |
+| Production deploy | — | **not run** |
+
+---
+
 ## 2026-10-16 — D58 PlayTester live economy test
 
 - Branch: `admin-hub-overhaul` at `f758fdce`. PlayTester signed in. D57 fingerprints unchanged. WIRE began false, was enabled for three rounds, then confirmed false.

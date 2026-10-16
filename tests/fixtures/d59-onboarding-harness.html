@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D59 Trainer guide harness</title>
+<link rel="stylesheet" href="../../css/play.css?v=20261008-rc133">
+<body data-page="harness">
+<main class="wrap">
+  <div class="page-kicker">
+    <h1>Play</h1>
+    <p class="muted">Local harness for the Trainer guide. No account, encounter, or inventory is changed.</p>
+    <div id="trainer-guide" class="trainer-guide-mount" hidden aria-live="polite"></div>
+  </div>
+  <section class="card body">
+    <p class="eyebrow">Encounter actions stay reachable</p>
+    <div class="links">
+      <button type="button" id="join-sample">JOIN ENCOUNTER</button>
+      <a class="button secondary" href="../../storage.html">My PC</a>
+      <a class="button secondary" href="../../pokedex.html">My Pokédex</a>
+      <a class="button secondary" href="../../store.html">Mart</a>
+    </div>
+    <p id="join-result" class="muted" role="status"></p>
+    <div class="links">
+      <button type="button" class="secondary" id="scene-new">New trainer</button>
+      <button type="button" class="secondary" id="scene-return">Returning skipped</button>
+      <button type="button" class="secondary" id="scene-experienced">Experienced trainer</button>
+      <button type="button" class="secondary" id="scene-live">Live encounter</button>
+    </div>
+  </section>
+</main>
+<script src="../../js/onboarding.js?v=20261008-rc133"></script>
+<script>
+  const store = window.localStorage;
+  const prefix = "play-onboarding:v1:";
+  function clearGuide() {
+    for (let i = store.length - 1; i >= 0; i -= 1) {
+      const key = store.key(i);
+      if (key && key.indexOf(prefix) === 0) store.removeItem(key);
+    }
+  }
+  function boot(options) {
+    clearGuide();
+    const previous = document.getElementById("trainer-guide");
+    const mount = previous.cloneNode(false);
+    previous.replaceWith(mount);
+    if (options.state) window.playOnboardingSave(store, "anon", options.state);
+    window.playOnboardingControl = window.playOnboardingBoot({
+      root: mount,
+      store,
+      place: "play",
+      catches: options.catches,
+      liveRound: Boolean(options.liveRound)
+    });
+  }
+  document.getElementById("scene-new").addEventListener("click", () => boot({ catches: 0 }));
+  document.getElementById("scene-return").addEventListener("click", () => boot({
+    catches: 0,
+    state: { version: 1, step: 2, status: "skipped", touched: true }
+  }));
+  document.getElementById("scene-experienced").addEventListener("click", () => boot({ catches: 12 }));
+  document.getElementById("scene-live").addEventListener("click", () => boot({ catches: 0, liveRound: true }));
+  document.getElementById("join-sample").addEventListener("click", () => {
+    document.getElementById("join-result").textContent = "Join stayed available. This harness does not start an encounter.";
+  });
+  boot({ catches: 0 });
+</script>
+</body>

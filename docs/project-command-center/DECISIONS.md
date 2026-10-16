@@ -70,6 +70,7 @@
 | D56 | D55-ECONOMY-APPLY handoff | Catalog checks passed for the hashed D55 file, project `dtflmlbjhttoewqgkujf`, role `postgres`, and the two live function MD5s. `item_ledger` already accepts the debit. Nothing installed in D56. |
 | D57 | Owner D55-ECONOMY-APPLY GO | Installed hashed `001_spend_rules.sql` as migration `20261016042345` `d55_economy_001_spend_rules`. Catalog verification passed. Borrowed-ball skip, capture odds, attendance, and settle stayed. WIRE stayed false. No throw, catch read, or inventory backfill. |
 | D58 | Owner D58-LIVE-TEST GO | Three PlayTester encounters with WIRE on, then WIRE off. Berry catch, Honey catch, and a no-item escape each spent one owned Poké Ball with a `BAG_SPEND` −1. Attendance was a separate +1. Replay did not duplicate. Catches kept. |
+| D59 | New Trainer onboarding | One skippable six-step guide reuses How to Play, phase tips, and Settings. Twitch stays optional. Join is not gated. Progress is browser-local. No catch, economy, generation, or settlement change. Not deployed. |
 
 ## Needs owner approval
 

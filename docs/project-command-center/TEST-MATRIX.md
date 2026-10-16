@@ -57,6 +57,7 @@
 | D55-ECONOMY-APPLY decision (D56) | `GEN-IX-ECONOMY-APPLY-DECISION.md` + disk SHA-256 + live catalog | STATIC + LIVE CATALOG | Historical handoff |
 | D55-ECONOMY-APPLY (D57) | migration `20261016042345` + function MD5 catalog | LIVE CATALOG PASS | No throw, catch read, or backfill |
 | D58 live test | Cursor browser Play + My PC, PlayTester rounds only | REAL DOM + REAL gameplay + LIVE catalog | Berry catch, Honey catch, no-item escape; WIRE off |
+| D59 onboarding | `tests/onboarding-tests.js` + local harness and local Play/How to Play/Register | STATIC + LOCAL HARNESS + REAL DOM | Guide only. No encounter, account, or WIRE change. Not deployed |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

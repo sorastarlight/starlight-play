@@ -8769,6 +8769,59 @@ html[data-play-soft-refresh="1"] .enc-hud-in {
 .play-first-guide {
   margin: 10px 0 0;
 }
+.trainer-guide-mount { margin: 12px 0 0; }
+.trainer-guide {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #eef7ff;
+  border: 2px solid #b9d8f3;
+  color: #16324f;
+}
+.trainer-guide h2 {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  color: #1f4f8a;
+}
+.trainer-guide p { margin: 0 0 8px; }
+.trainer-guide-progress {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #1f4f8a;
+}
+.trainer-guide-actions,
+.trainer-guide-go {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.trainer-guide-actions { margin-top: 4px; }
+.trainer-guide-actions button,
+.trainer-guide-go a { min-height: 44px; }
+.trainer-guide.is-collapsed {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+.trainer-guide-resume {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  margin: 0;
+}
+.trainer-guide button:focus-visible,
+.trainer-guide a:focus-visible,
+.trainer-guide h2:focus-visible {
+  outline: 3px solid #1f4f8a;
+  outline-offset: 2px;
+}
+@media (max-width: 520px) {
+  .trainer-guide-actions button,
+  .trainer-guide-go a { flex: 1 1 100%; }
+}
 .dex-idle.is-offline .dex-idle-mark {
   background: #c9d6e8;
   color: #3a5070;

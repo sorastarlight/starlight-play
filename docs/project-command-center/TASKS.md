@@ -53,9 +53,10 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I25U | done | Owner GO installed D55 spend rules | I25T, D57 | Installed | Superseded by I25V / D58 |
 | I25V | done | D58 PlayTester live economy test | I25U, D58 | Catches kept; WIRE **false** | STOP. No further gameplay |
 | I26 | done | D59 New Trainer onboarding | I25V, D59 | Branch only | Deploy still unauthorized |
-| I27 | done | D63 onboarding verification and mastery schema audit | I26, D63 | Report only | STOP. Do not start D64 |
+| I27 | done | D63 onboarding verification and mastery schema audit | I26, D63 | Report only | Superseded by I28 |
+| I28 | done | D64 mastery event ledger draft and local rehearsal | I27, D64 | Not applied | STOP. Do not start D65 |
 | I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 
-Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001`. D49 applied hashed WIRE `001`→`002`→`003`. D53 ran one PlayTester Bulbasaur catch and turned the switch **false**. Catch kept. D58 ran three PlayTester encounters and turned WIRE **false**. D59 added a skippable Trainer guide on the branch only. D63 verified D59–D62 and audited mastery compatibility. Species Mastery is not implemented. A19-RESET-GO remains **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. No merge, deploy, or APP stamp. A8 + D10–D63. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.
+Branch: `admin-hub-overhaul`. D35 schema-only apply is live. D43 applied hashed GENVAL `001`. D49 applied hashed WIRE `001`→`002`→`003`. D53 ran one PlayTester Bulbasaur catch and turned the switch **false**. Catch kept. D58 ran three PlayTester encounters and turned WIRE **false**. D59 added a skippable Trainer guide on the branch only. D63 verified D59–D62 and audited mastery compatibility. D64 drafted an unapplied capture-event ledger and rehearsed it on local Postgres only. Species Mastery is not live. A19-RESET-GO remains **UNAPPROVED**. Pin `sl-ref-20261013-227b573`. No merge, deploy, or APP stamp. A8 + D10–D64. A10 visual still open. A9 still required before hub implementation. #13/#14/#15/#17 not started. A1 open. A7 not approved.

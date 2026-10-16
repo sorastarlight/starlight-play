@@ -59,7 +59,8 @@
 | D58 live test | Cursor browser Play + My PC, PlayTester rounds only | REAL DOM + REAL gameplay + LIVE catalog | Berry catch, Honey catch, no-item escape; WIRE off |
 | D59 onboarding | `tests/onboarding-tests.js` + local harness and local Play/How to Play/Register | STATIC + LOCAL HARNESS + REAL DOM | Guide only. No encounter, account, or WIRE change. Not deployed |
 | D62 mastery prototype | `node tests/species-mastery-tests.js` | STATIC | 9/9. Not connected to settlement |
-| D63 compatibility | onboarding, mastery, and hub tests plus catalog reads | STATIC + LOCAL HARNESS + LIVE CATALOG | WIRE false. No catch-row read. D64 not started |
+| D63 compatibility | onboarding, mastery, and hub tests plus catalog reads | STATIC + LOCAL HARNESS + LIVE CATALOG | WIRE false. No catch-row read |
+| D64 event ledger | `tools/d64-mastery-rehearsal.js` + `tests/d64-mastery-static-tests.js` | STATIC + REAL SQL 19/19 on `127.0.0.1:55439` | PostgreSQL 17.5. Not applied. Not production |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

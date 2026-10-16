@@ -1,0 +1,45 @@
+const assert = require("assert");
+const fs = require("fs");
+const path = require("path");
+
+const root = path.join(__dirname, "..");
+const draft = fs.readFileSync(path.join(root, "supabase", "unapplied", "d64-mastery", "001_species_mastery_events.sql"), "utf8");
+const rollback = fs.readFileSync(path.join(root, "supabase", "unapplied", "d64-mastery", "rollback.sql"), "utf8");
+const note = fs.readFileSync(path.join(root, "supabase", "unapplied", "d64-mastery", "DO-NOT-APPLY.md"), "utf8");
+
+assert(fs.existsSync(path.join(root, "supabase", "unapplied", "d64-mastery", "001_species_mastery_events.sql")));
+assert(!fs.existsSync(path.join(root, "supabase", "migrations", "001_species_mastery_events.sql")));
+assert(!draft.toLowerCase().includes("grant_mastery"));
+assert(!draft.toLowerCase().includes("capture_chance"));
+assert(!draft.toLowerCase().includes("settle_if_needed"));
+assert(!draft.toLowerCase().includes("streamlink_wire"));
+assert(!draft.includes("provenanceVerified"));
+assert(!/insert\s+into\s+public\.species_mastery_events\s+select/i.test(draft));
+assert(!/alter\s+table\s+public\.species_mastery\b/i.test(draft));
+assert(!/alter\s+table\s+public\.mastery_ledger\b/i.test(draft));
+assert(!/alter\s+table\s+public\.catches\b/i.test(draft));
+assert(draft.includes("PRIMARY KEY"));
+assert(draft.includes("catch_id uuid PRIMARY KEY"));
+assert(draft.includes("REFERENCES public.profiles(id) ON DELETE CASCADE"));
+assert(!/catch_id uuid[\s\S]{0,80}REFERENCES public\.catches/i.test(draft));
+assert(draft.includes("ENABLE ROW LEVEL SECURITY"));
+assert(draft.includes("FORCE ROW LEVEL SECURITY"));
+assert(draft.includes("trainer_id = (SELECT auth.uid())"));
+assert(draft.includes("security_invoker = true"));
+assert(draft.includes("Familiar"));
+assert(draft.includes("Acquainted"));
+assert(draft.includes("Experienced"));
+assert(draft.includes("Specialist"));
+assert(draft.includes("Expert"));
+assert(draft.includes("split_part(specimen.source_key, ':', 1) <> 'play'"));
+assert(draft.includes("success IS TRUE"));
+assert(draft.includes("REVOKE ALL ON FUNCTION private.record_species_mastery_event(uuid) FROM anon, authenticated"));
+assert(rollback.includes("DROP TABLE IF EXISTS public.species_mastery_events"));
+assert(!/drop\s+table[^;]*public\.species_mastery\s/i.test(rollback));
+assert(!/alter\s+table\s+public\.(species_mastery|mastery_ledger|catches)\b/i.test(rollback));
+assert(!/update\s+public\.(species_mastery|mastery_ledger|catches)\b/i.test(rollback));
+assert(!/delete\s+from\s+public\.(species_mastery|mastery_ledger|catches)\b/i.test(rollback));
+assert(note.includes("DO NOT APPLY"));
+assert(note.includes("dtflmlbjhttoewqgkujf"));
+
+console.log("d64 static checks passed");

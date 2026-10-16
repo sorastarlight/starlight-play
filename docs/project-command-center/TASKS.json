@@ -600,8 +600,20 @@
       "commit": "fb211e9b",
       "evidence": "docs/project-command-center/D63-MASTERY-COMPATIBILITY-REPORT.md",
       "testResults": "STATIC onboarding 8, mastery 9/9, hub 46. LOCAL HARNESS. LIVE CATALOG. WIRE false.",
-      "nextAction": "STOP. Do not start D64.",
+      "nextAction": "Superseded by I28.",
       "approvalRequirement": "Owner decisions before any mastery SQL"
+    },
+    {
+      "id": "I28",
+      "status": "done",
+      "scope": "D64 species mastery event ledger. Unapplied SQL and disposable local rehearsal.",
+      "dependencies": ["I27", "D64"],
+      "branch": "admin-hub-overhaul",
+      "commit": "f9fee21e",
+      "evidence": "docs/project-command-center/D64-MASTERY-SCHEMA-REPORT.md",
+      "testResults": "STATIC pass. REAL SQL 19/19 on 127.0.0.1:55439 PostgreSQL 17.5. Not applied.",
+      "nextAction": "STOP. Do not start D65. Do not apply the draft.",
+      "approvalRequirement": "Independent review before any hosted apply or settlement hook"
     },
     {
       "id": "I13",

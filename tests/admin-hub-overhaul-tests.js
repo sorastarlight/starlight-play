@@ -566,6 +566,22 @@ test("Issue 18 D63 mastery audit stays unimplemented", () => {
   assert(!read("js/onboarding.js").includes("borrowed standard throw"));
 });
 
+test("Issue 18 D64 mastery ledger stays unapplied", () => {
+  const report = read("docs/project-command-center/D64-MASTERY-SCHEMA-REPORT.md");
+  const sql = read("supabase/unapplied/d64-mastery/001_species_mastery_events.sql");
+  assert(report.includes("f9fee21e"));
+  assert(report.includes("19/19"));
+  assert(report.includes("17.5"));
+  assert(report.includes("PostgreSQL"));
+  assert(report.includes("Not applied"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(sql.includes("catch_id uuid PRIMARY KEY"));
+  assert(!sql.includes("grant_mastery"));
+  assert(!sql.includes("settle_if_needed"));
+  assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "001_species_mastery_events.sql")));
+  assert(!read("js/play.js").includes("record_species_mastery_event"));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

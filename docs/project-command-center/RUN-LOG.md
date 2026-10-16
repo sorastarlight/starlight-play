@@ -1,5 +1,23 @@
 # Run log
 
+## 2026-10-16 — D64 mastery event ledger
+
+- Started at `f9fee21e` (D63 work `fb211e9b`). Draft only. No hosted SQL.
+- `node tools/d64-mastery-rehearsal.js`: 19/19 REAL SQL on `127.0.0.1:55439`, PostgreSQL 17.5. Data directory removed.
+- `node tests/d64-mastery-static-tests.js`: passed. The draft does not alter points mastery, settlement, or odds.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, backfill, or D65.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/d64-mastery-static-tests.js` | STATIC | passed |
+| `tools/d64-mastery-rehearsal.js` | REAL SQL | 19/19 on loopback PostgreSQL 17.5 |
+| Hosted apply or live encounter | — | **not run** |
+
+---
+
 ## 2026-10-16 — D63 onboarding verification and mastery audit
 
 - Started at local `6b29b591`, fast-forwarded to `75c1b285` (D60–D62). Audit commit `fb211e9b`. No reset.

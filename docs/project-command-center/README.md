@@ -64,7 +64,8 @@ Persistent working set for approved development batches. Historical audits stay 
 | [GEN-IX-D59-ONBOARDING.md](./GEN-IX-D59-ONBOARDING.md) | D59 skippable Trainer guide; branch only |
 | [D61-SPECIES-MASTERY-DESIGN.md](./D61-SPECIES-MASTERY-DESIGN.md) | D61 Species Mastery proposal; not implemented |
 | [D62-SPECIES-MASTERY-PROTOTYPE.md](./D62-SPECIES-MASTERY-PROTOTYPE.md) | D62 offline mastery model; not hosted |
-| [D63-MASTERY-COMPATIBILITY-REPORT.md](./D63-MASTERY-COMPATIBILITY-REPORT.md) | D63 verification and schema audit; D64 not started |
+| [D63-MASTERY-COMPATIBILITY-REPORT.md](./D63-MASTERY-COMPATIBILITY-REPORT.md) | D63 verification and schema audit |
+| [D64-MASTERY-SCHEMA-REPORT.md](./D64-MASTERY-SCHEMA-REPORT.md) | D64 unapplied event ledger; local rehearsal only |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.

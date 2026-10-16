@@ -74,7 +74,8 @@
 | D60 | Encounter tutorial protection | Play keeps the guide collapsed during a live round, including reopen. Branch verified in D63. Not deployed. |
 | D61 | Species Mastery proposal | Cosmetic catch ladder 1/3/6/12/20. Not implemented. Distinct from the live points mastery. |
 | D62 | Offline mastery prototype | Synthetic model and tests only. D63 recorded 9/9. Not a hosted ledger. |
-| D63 | Compatibility audit | Live `species_mastery.points` is a different ladder and must not be reused. A separate play-catch event is the proposed path. No SQL applied. D64 not started. |
+| D63 | Compatibility audit | Live `species_mastery.points` is a different ladder and must not be reused. A separate play-catch event is the proposed path. No SQL applied in D63. |
+| D64 | Event ledger draft | Unapplied `species_mastery_events`. Primary key is `catch_id`. No catch foreign key. Local REAL SQL 19/19 on PostgreSQL 17.5. Not applied. D65 not started. |
 
 ## Needs owner approval
 

@@ -50,7 +50,8 @@
 | A19-WIRE-APPLY (D49) | `GEN-IX-WIRE-APPLY-REPORT.md` + catalog SELECTs | STATIC + LIVE CATALOG PASS | WIRE-GO; hosted generate; PRODUCTION |
 | A19-WIRE-GO readiness (D50) | `GEN-IX-WIRE-GO-READINESS.md` + switch/migration catalog | STATIC + LIVE CATALOG | WIRE-GO; PRODUCTION |
 | PlayTester reset (D51) | production `signin.html?reset=1` + auth recover/mail.send | REAL DOM + LIVE CATALOG | PlayTester password login; WIRE-GO |
-| Play browser probe (D52) | Cursor browser Play + Pokédex | REAL DOM | Join, berry, ball, settle until PlayTester session + WIRE-GO |
+| Play browser probe (D52) | Cursor browser Play + Pokédex | REAL DOM | Historical signed-out probe |
+| A19-WIRE-GO (D53) | Cursor browser Play + My PC, plus catch/capture_log/switch catalog | REAL DOM + REAL gameplay + LIVE catalog | Berry click missed the prepare window; no ball-debit ledger row |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

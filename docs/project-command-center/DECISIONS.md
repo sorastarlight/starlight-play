@@ -64,6 +64,7 @@
 | D50 | A19-WIRE-GO readiness only | Catalog reconfirm: switch still false; D49 migrations present. One-catch PlayTester plan written. No flip, no RPC, no catch-row read. A19-WIRE-GO remains **UNAPPROVED**. |
 | D51 | Fast-track PlayTester access + WIRE-GO proposal | PlayTester is site email/password, nonstaff, no Twitch. Ordinary Sign in reset queued recovery mail. Login not confirmed until owner finishes that mail. Switch still false. A19-WIRE-GO remains **UNAPPROVED**. |
 | D52 | Cursor browser E2E probe, gameplay not run | Same Cursor tab survived across turns and kept a non-secret local probe across Play and Pokédex. Cookie export is denied. No PlayTester session, so join/berry/ball/settle was not automated. WIRE stays false. |
+| D53 | Owner A19-WIRE-GO | PlayTester caught Bulbasaur `SL00025376` while the switch was on. Switch is false again. Catch kept. No Sora or Twinkle access. |
 
 ## Needs owner approval
 
@@ -98,7 +99,7 @@
 | A19-SCHEMA | Add nature/ability/EV/move/ruleset columns? | **APPROVED FOR OFFLINE BRANCH IMPLEMENTATION ONLY — issue #22**: review/harden `private.ref_*` schema and full pin seeds, prepare backwards-compatible nullable `catches` extensions as DO-NOT-APPLY files, validate locally. **Applying DDL to connected/live Supabase remains UNAPPROVED**, as do Pokémon writes and later phases. |
 | A19-APPLY | Apply reviewed A19-SCHEMA SQL to live/connected Supabase? | **APPLIED** (D35): owner GO for `001` → seed `00`–`10` → `002` only. Catalog-only verification PASS. `003` / GENVAL / WIRE / restore / merge / deploy remain unauthorized. |
 | A19-GENVAL | Ship generator + validator functions? | **APPLIED** (D43): hashed `001` catalog install on `dtflmlbjhttoewqgkujf`. WIRE / hosted generate / catch writes remain unauthorized. |
-| A19-WIRE | Wire launch/settle/grant/evolve to the validator? | **APPLIED (D49)** hashed `001`→`002`→`003`, switch **false**. D51 PlayTester reset queued. A19-WIRE-GO remains **UNAPPROVED**. |
+| A19-WIRE | Wire launch/settle/grant/evolve to the validator? | **APPLIED (D49)**. D53 ran one PlayTester Bulbasaur catch with the switch on, then turned it **false**. Catch kept. |
 | A19-INSPECT | Staff read RPC for full PC combat fields? | After generator exists. |
 | A19-EDIT | Owner-only audited editor? | After inspector. |
 | A19-RESET-TEST | Dry-run + restore drill on a clone? | **D45 local synthetic PASS** on `127.0.0.1:55435`. Production clone drill still open. |

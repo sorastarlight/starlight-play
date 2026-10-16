@@ -504,8 +504,20 @@
       "commit": "d38d5d6d",
       "evidence": "tools/qa-play-e2e-gate.js",
       "testResults": "REAL DOM signed-out Play and Pokedex; gameplay blocked",
-      "nextAction": "Owner signs PlayTester in once in the Cursor browser, then A19-WIRE-GO.",
-      "approvalRequirement": "A19-WIRE-GO UNAPPROVED"
+      "nextAction": "Superseded by I25Q / D53.",
+      "approvalRequirement": "Historical D52"
+    },
+    {
+      "id": "I25Q",
+      "status": "done",
+      "scope": "A19-WIRE-GO one PlayTester Bulbasaur catch, then switch off",
+      "dependencies": ["I25P", "D53"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-REPORT.md",
+      "testResults": "REAL DOM + REAL gameplay + LIVE catalog; berry click missed; switch false",
+      "nextAction": "STOP. No RESET-GO.",
+      "approvalRequirement": "A19-WIRE-GO completed for this catch; switch is false"
     },
     {
       "id": "I13",

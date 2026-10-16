@@ -79,6 +79,7 @@ test("Command center documents and project rule exist", () => {
     "docs/project-command-center/GEN-IX-WIRE-APPLY-REPORT.md",
     "docs/project-command-center/GEN-IX-WIRE-GO-READINESS.md",
     "docs/project-command-center/GEN-IX-WIRE-GO-PROPOSAL.md",
+    "docs/project-command-center/GEN-IX-WIRE-GO-REPORT.md",
     "supabase/unapplied/a19-wire/003_settle_integration.sql",
     "supabase/unapplied/a19-wire/local/040_test_inject.sql",
     "docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
@@ -503,6 +504,16 @@ test("Issue 18 D46 WIRE-INTEGRATE stays unapplied", () => {
   assert(!resetDoc.includes("Before A19-RESET-GO, add a null-out"));
   assert(!nextJs.includes("materialize_streamlink_catch"));
   assert(!liveJs.includes("materialize_streamlink_catch"));
+});
+
+test("Issue 18 D53 WIRE-GO report records the catch and switch off", () => {
+  const report = read("docs/project-command-center/GEN-IX-WIRE-GO-REPORT.md");
+  assert(report.includes("SL00025376"));
+  assert(report.includes("enabled"));
+  assert(report.includes("false"));
+  assert(report.includes("PlayTester"));
+  assert(report.includes("not release") || report.includes("no release") || report.includes("Catch kept"));
+  assert(!report.includes("PRODUCTION APP `20261008-rc134`"));
 });
 
 test("Play E2E gate refuses gameplay and session files", () => {

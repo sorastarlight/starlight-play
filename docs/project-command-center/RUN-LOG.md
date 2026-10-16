@@ -1,5 +1,29 @@
 # Run log
 
+## 2026-10-16 — A19-WIRE-GO PlayTester Bulbasaur (D53)
+
+- Branch: `admin-hub-overhaul`. PlayTester session confirmed in the Cursor browser. No password, cookie, or token was stored.
+- WIRE enabled `2026-10-16 02:00:53+00`, then disabled `2026-10-16 02:08:21+00`. Final `enabled=false`.
+- Ordinary Bulbasaur form 1 round `d92354d3-b661-4b42-99c5-7adfeba8e2a5`. Caught `SL00025376`. Catch kept.
+- REAL DOM join and Poké Ball. Prepare window closed before a berry click. My PC shows Lv. 4 Bulbasaur, OT Play Tester.
+- LIVE catalog: one catch, one capture log, replay did not duplicate. Ledger shows attendance +1 Poké Ball and no throw debit.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **PlayTester**.
+- Production APP `20261008-rc133`. No merge, deploy, or RESET-GO.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Play join, Poké Ball, catch feed | REAL DOM + REAL gameplay | Caught Bulbasaur |
+| My PC Lv. 4 Bulbasaur | REAL DOM | OT Play Tester, HP 18, Poké Ball |
+| Catch row, capture log, replay counts | LIVE catalog | 1 catch, 1 log, replay unchanged |
+| Berry prepare | REAL DOM | **missed** — window closed first |
+| Ball debit | LIVE catalog | **not written**; attendance +1 Poké Ball |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 39 passed |
+| WIRE switch after | LIVE catalog | `enabled=false` |
+
+---
+
 ## 2026-10-15 — Cursor browser E2E probe (D52)
 
 - Branch: `admin-hub-overhaul` at `d38d5d6d`. Reused Cursor browser tab `0b0156` from the D51 reset page. It was still open.

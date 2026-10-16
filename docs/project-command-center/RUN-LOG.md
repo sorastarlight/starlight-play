@@ -2,7 +2,7 @@
 
 ## 2026-10-16 — D63 onboarding verification and mastery audit
 
-- Started at local `6b29b591`, fast-forwarded to `75c1b285` (D60–D62). No reset.
+- Started at local `6b29b591`, fast-forwarded to `75c1b285` (D60–D62). Audit commit `fb211e9b`. No reset.
 - `node tests/onboarding-tests.js`: 8 passed. `node tests/species-mastery-tests.js`: 9/9 passed. `node tests/admin-hub-overhaul-tests.js`: 46 passed.
 - Local harness: live round stays a chip after reopen; experienced trainers see no card; skip/resume keeps the Poké Ball step. No encounter started.
 - Narrow copy fix: the guide no longer says Play offers a borrowed throw. The server safety net remains. Play still requires an owned ball.

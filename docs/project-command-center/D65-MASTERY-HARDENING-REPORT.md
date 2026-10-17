@@ -3,6 +3,7 @@
 **Status:** BRANCH DRAFT + DISPOSABLE LOCAL REHEARSAL. Not applied. Not connected to encounters.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `ae042fa4`  
+**Work commit:** `fbb09981`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **WIRE:** not switched. No hosted SQL.
 

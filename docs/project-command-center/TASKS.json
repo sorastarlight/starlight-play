@@ -621,7 +621,7 @@
       "scope": "D65 mastery cutoff, outbox recovery, and rollback design. Unapplied.",
       "dependencies": ["I28", "D65"],
       "branch": "admin-hub-overhaul",
-      "commit": "ae042fa4",
+      "commit": "fbb09981",
       "evidence": "docs/project-command-center/D65-MASTERY-HARDENING-REPORT.md",
       "testResults": "STATIC pass. REAL SQL 19/19 on 127.0.0.1:55440 and D64 19/19 on 55439. PostgreSQL 17.5. Not applied.",
       "nextAction": "STOP. Do not start D66. Do not apply the draft.",

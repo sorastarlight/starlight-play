@@ -2,7 +2,7 @@
 
 ## 2026-10-17 — D65 mastery hardening
 
-- Started at `ae042fa4`. Draft only. No hosted SQL.
+- Started at `ae042fa4`. Draft commit `fbb09981`. No hosted SQL.
 - `node tools/d65-mastery-rehearsal.js`: 19/19 REAL SQL on `127.0.0.1:55440`, PostgreSQL 17.5.
 - `node tools/d64-mastery-rehearsal.js`: 19/19 REAL SQL on `127.0.0.1:55439`. D64 SQL was not changed.
 - `node tests/d65-mastery-static-tests.js`: passed.

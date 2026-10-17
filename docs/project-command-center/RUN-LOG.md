@@ -1,5 +1,27 @@
 # Run log
 
+## 2026-10-17 — D73 familiarity install readiness
+
+- Started at `df803a82`. Read-only catalog on `dtflmlbjhttoewqgkujf`. `settle_if_needed` was not executed there.
+- Verdict: D73 GO PACKET READY — NOT AUTHORIZED TO INSTALL. Stripped draft body md5 matches live `0c6bf2fb2ca740415fffc567c362192a`.
+- Lifecycle is `inactive`. Event rows are 0. WIRE `enabled = false`.
+- `node tools/d73-readiness-rehearsal.js`: 8/8 REAL SQL on `127.0.0.1:55446`, PostgreSQL 17.5. A failed `006` transaction restored the previous settle body.
+- D72 18/18, D64 19/19, D65 19/19, D66 14/14, D67 20/20, D68 14/14, D71 7/7 re-run. Odds and spends were stubbed.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, activation, install, or D74.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted settle attributes, lifecycle, WIRE, and view grants | READ-ONLY LIVE CATALOG | Inactive. Live md5 unchanged. Function not executed |
+| `tools/d73-settle-diff.js` | STATIC | Stripped body matches the live source |
+| `tools/d73-readiness-rehearsal.js` | REAL SQL | 8/8 on loopback PostgreSQL 17.5 |
+| D64–D68, D71, and D72 rehearsals | REAL SQL | 19/19, 19/19, 14/14, 20/20, 14/14, 7/7, 18/18 |
+| Hosted settlement or live encounter | REAL RPC | **not run** |
+
+---
+
 ## 2026-10-17 — D72 familiarity settlement draft
 
 - Started at `d7ee640c`. Draft commit `ff346146`. No hosted writes. Live `settle_if_needed` source md5 `0c6bf2fb2ca740415fffc567c362192a` was the base of the unapplied note.

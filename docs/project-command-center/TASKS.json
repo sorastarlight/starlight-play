@@ -708,8 +708,20 @@
       "commit": "ff346146",
       "evidence": "docs/project-command-center/D72-MASTERY-SETTLEMENT-DRAFT.md",
       "testResults": "REAL SQL D72 18/18 on 127.0.0.1:55445. D64 19/19, D65 19/19, D66 14/14, D67 20/20, D68 14/14, D71 7/7. Not installed.",
-      "nextAction": "STOP. Do not start D73. Do not install the draft or activate recording.",
+      "nextAction": "Superseded by I37. The draft is ready for a separate install GO.",
       "approvalRequirement": "Separate owner GO before installing 005, 006, or 007, and before activation."
+    },
+    {
+      "id": "I37",
+      "status": "done",
+      "scope": "D73 familiarity install readiness. Read-only catalog and local rehearsal. Not an install GO.",
+      "dependencies": ["I36", "D73"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D73-FAMILIARITY-INSTALL-READINESS.md",
+      "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D73 8/8, D72 18/18, D64 19/19, D65 19/19, D66 14/14, D67 20/20, D68 14/14, D71 7/7. Not installed.",
+      "nextAction": "STOP. Do not start D74. Do not install 005-007 until the owner pastes the GO.",
+      "approvalRequirement": "Owner must paste the GO. This packet is not that GO."
     },
     {
       "id": "I13",

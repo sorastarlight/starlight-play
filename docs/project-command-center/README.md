@@ -74,6 +74,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [D70-MASTERY-SCHEMA-INSTALL-REPORT.md](./D70-MASTERY-SCHEMA-INSTALL-REPORT.md) | D70 schema installed; mastery inactive |
 | [D71-MASTERY-INTEGRATION-PLAN.md](./D71-MASTERY-INTEGRATION-PLAN.md) | D71 integration plan; ledger stays inactive |
 | [D72-MASTERY-SETTLEMENT-DRAFT.md](./D72-MASTERY-SETTLEMENT-DRAFT.md) | D72 settlement draft; unapplied |
+| [D73-FAMILIARITY-INSTALL-READINESS.md](./D73-FAMILIARITY-INSTALL-READINESS.md) | D73 install packet; not authorized |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.

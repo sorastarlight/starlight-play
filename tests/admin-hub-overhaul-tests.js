@@ -710,6 +710,20 @@ test("Issue 18 D72 familiarity settlement draft stays unapplied", () => {
   assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "006_settle_familiarity_note.sql")));
 });
 
+test("Issue 18 D73 familiarity packet is not an install GO", () => {
+  const report = read("docs/project-command-center/D73-FAMILIARITY-INSTALL-READINESS.md");
+  assert(report.includes("df803a82"));
+  assert(report.includes("D73 GO PACKET READY — NOT AUTHORIZED TO INSTALL"));
+  assert(report.includes("2c6c245a5f825a6612283e0a912d6600cb32f2635d37ee02feaecfa6d606d63d"));
+  assert(report.includes("400cc429162808422730cbc343449caabb81b6f9e5243110bf3a48f7384aebc1"));
+  assert(report.includes("8603912808d1f23e2581ecef00976fc1c0e449ab109b5fc965b0756d93b484bf"));
+  assert(report.includes("0c6bf2fb2ca740415fffc567c362192a"));
+  assert(report.includes("Do not start D74"));
+  assert(report.includes("8/8"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "006_settle_familiarity_note.sql")));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

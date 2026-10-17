@@ -3,6 +3,7 @@
 **Status:** BRANCH DRAFT + READ-ONLY HOSTED CATALOG + DISPOSABLE LOCAL REHEARSAL. Not applied. Not activated.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `13ba51a1`  
+**Work commit:** `9601f429`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **WIRE:** not switched. No hosted writes. No catch-row reads.
 

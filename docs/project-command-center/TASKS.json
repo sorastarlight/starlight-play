@@ -633,7 +633,7 @@
       "scope": "D66 timestamp authority and outbox lifecycle. Catalog read and unapplied draft.",
       "dependencies": ["I29", "D66"],
       "branch": "admin-hub-overhaul",
-      "commit": "13ba51a1",
+      "commit": "9601f429",
       "evidence": "docs/project-command-center/D66-MASTERY-LIFECYCLE-REPORT.md",
       "testResults": "LIVE CATALOG read only. REAL SQL 14/14 on 127.0.0.1:55441. D65 19/19 and D64 19/19 re-run. Not applied.",
       "nextAction": "STOP. Do not start D67. Do not apply the draft.",

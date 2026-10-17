@@ -2,7 +2,7 @@
 
 ## 2026-10-17 — D66 mastery lifecycle
 
-- Started at `13ba51a1`. Catalog read only. No hosted writes and no catch-row reads.
+- Started at `13ba51a1`. Draft commit `9601f429`. Catalog read only. No hosted writes and no catch-row reads.
 - `public.catches.caught_at` is `timestamptz NOT NULL DEFAULT now()`. No catch trigger rewrites it. Play persist omits it. `bridge_import_catches` passes JSON `caughtAt` into `record_stream_catch`.
 - `node tools/d66-mastery-rehearsal.js`: 14/14 REAL SQL on `127.0.0.1:55441`, PostgreSQL 17.5.
 - `node tools/d65-mastery-rehearsal.js`: 19/19. `node tools/d64-mastery-rehearsal.js`: 19/19.

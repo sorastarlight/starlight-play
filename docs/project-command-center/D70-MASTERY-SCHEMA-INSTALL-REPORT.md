@@ -4,7 +4,7 @@
 **Status:** Schema-only install of the four approved files. Recording is inactive. Settlement is not hooked.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `76ac2a94`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `8adbd363`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **WIRE:** remains disabled (`enabled = false`).

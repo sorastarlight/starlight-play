@@ -681,7 +681,7 @@
       "scope": "D70 schema-only install of mastery 001-004. Recording stays inactive.",
       "dependencies": ["I33", "D70"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "8adbd363",
       "evidence": "docs/project-command-center/D70-MASTERY-SCHEMA-INSTALL-REPORT.md",
       "testResults": "LIVE CATALOG PostgreSQL 17.6. Four files COMMIT. activated_at null. lifecycle inactive. WIRE false. 0 event rows.",
       "nextAction": "STOP. Do not start D71. Do not activate Species Mastery.",

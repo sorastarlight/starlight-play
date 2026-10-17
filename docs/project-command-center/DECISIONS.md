@@ -80,6 +80,7 @@
 | D66 | Timestamp authority and lifecycle | Hosted catalog read only. Unapplied insert clock and outbox states. Local REAL SQL 14/14. Not applied. D67 not started. |
 | D67 | Catch preservation | Unapplied specimen insert clock. Authority insert no longer sits on the catch. Local REAL SQL 20/20. Not applied. D68 not started. |
 | D68 | Install readiness | Unapplied 001–004 reviewed. Local REAL SQL 14/14. Ready for a separate owner GO. Not applied. D69 not started. |
+| D69 | Schema GO packet | Read-only catalog. Hashes unchanged. GO packet ready. Not installed. D70 not started. |
 
 ## Needs owner approval
 

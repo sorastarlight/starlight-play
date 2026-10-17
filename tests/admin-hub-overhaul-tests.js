@@ -648,6 +648,21 @@ test("Issue 18 D68 mastery install review stays unapplied", () => {
   assert(!read("js/play.js").includes("stamp_catch_server_inserted_at"));
 });
 
+test("Issue 18 D69 mastery GO packet stays unapplied", () => {
+  const report = read("docs/project-command-center/D69-MASTERY-SCHEMA-GO-PACKET.md");
+  assert(report.includes("237c66a7"));
+  assert(report.includes("GO PACKET READY"));
+  assert(report.includes("f343c9bf318d8cdd12fb3331f29fd3eb7990ad491b3c096af773e1e6d4e0a9ce"));
+  assert(report.includes("0f7f27a0acfb13fea0c1bfb0f9a43c322af02577dd43b7ff2aae586cf7aeaa3c"));
+  assert(report.includes("Not installed"));
+  assert(report.includes("Do not start D70"));
+  assert(report.includes("17.6"));
+  assert(report.includes("enabled = false"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "004_species_mastery_catch_safety.sql")));
+  assert(!read("js/play.js").includes("activate_species_mastery_events"));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

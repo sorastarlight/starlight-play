@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-17 — D69 mastery GO packet
+
+- Started at `237c66a7`. Draft commit filled after the work commit. Catalog read only. No hosted writes and no catch-row reads.
+- Verdict: GO PACKET READY. The four SHA-256 hashes match D68. PostgreSQL 17.6. WIRE `enabled = false`.
+- Hosted `catches_before_write` assigns `NEW := stamp_catch_row(NEW)`. `stamp_catch_row` returns the same composite and does not mention `server_inserted_at`.
+- No proposed mastery object exists. Recording was not activated.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, backfill, settlement hook, installation, or D70.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted catalog for version, catches shape, triggers, privileges, and WIRE | LIVE CATALOG | Read only. PostgreSQL 17.6. WIRE false |
+| Packet hash check against the four unapplied files | STATIC | Matches D68 prefixes |
+| Hosted install or live encounter | — | **not run** |
+
+---
+
 ## 2026-10-17 — D68 mastery install review
 
 - Started at `cd53abe4`. Draft commit `8a7cbe1a`. No hosted SQL and no catch-row reads.

@@ -2,7 +2,7 @@
 
 ## 2026-10-17 — D68 mastery install review
 
-- Started at `cd53abe4`. Draft commit filled after the work commit. No hosted SQL and no catch-row reads.
+- Started at `cd53abe4`. Draft commit `8a7cbe1a`. No hosted SQL and no catch-row reads.
 - Recommendation: READY FOR OWNER GO. That is not permission to execute the SQL. Recording stays inactive.
 - The shipped stamp kept play, import, and grant inserts. A replaced stamp body that raised aborted one insert; rollback restored the shipped function.
 - A failed `004` transaction restored the D66 authority trigger. Statement-by-statement application left the new column, and the inactive rollback recovered it.

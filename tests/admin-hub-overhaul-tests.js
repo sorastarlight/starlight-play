@@ -614,6 +614,24 @@ test("Issue 18 D66 mastery lifecycle stays unapplied", () => {
   assert(!read("js/play.js").includes("catch_insert_authority"));
 });
 
+test("Issue 18 D67 mastery catch safety stays unapplied", () => {
+  const report = read("docs/project-command-center/D67-MASTERY-CATCH-SAFETY-REPORT.md");
+  const sql = read("supabase/unapplied/d67-mastery/004_species_mastery_catch_safety.sql");
+  const earlier = read("supabase/unapplied/d66-mastery/003_species_mastery_lifecycle.sql");
+  assert(report.includes("97943055"));
+  assert(report.includes("20/20"));
+  assert(report.includes("Not applied"));
+  assert(report.includes("Do not start D68"));
+  assert(report.includes("17.5"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(sql.includes("DROP TRIGGER IF EXISTS catch_insert_authority ON public.catches"));
+  assert(!sql.includes("settle_if_needed"));
+  assert(!sql.includes("INSERT INTO private.catch_insert_authority"));
+  assert(earlier.includes("CREATE TRIGGER catch_insert_authority"));
+  assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "004_species_mastery_catch_safety.sql")));
+  assert(!read("js/play.js").includes("server_inserted_at"));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

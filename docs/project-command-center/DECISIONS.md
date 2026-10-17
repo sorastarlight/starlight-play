@@ -78,6 +78,7 @@
 | D64 | Event ledger draft | Unapplied `species_mastery_events`. Primary key is `catch_id`. No catch foreign key. Local REAL SQL 19/19 on PostgreSQL 17.5. Not applied. |
 | D65 | Ledger hardening | Inactive server cutoff, outbox retry, and split rollback. Local REAL SQL 19/19. Not applied. |
 | D66 | Timestamp authority and lifecycle | Hosted catalog read only. Unapplied insert clock and outbox states. Local REAL SQL 14/14. Not applied. D67 not started. |
+| D67 | Catch preservation | Unapplied specimen insert clock. Authority insert no longer sits on the catch. Local REAL SQL 20/20. Not applied. D68 not started. |
 
 ## Needs owner approval
 

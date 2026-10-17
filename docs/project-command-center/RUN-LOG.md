@@ -1,5 +1,29 @@
 # Run log
 
+## 2026-10-17 — D67 mastery catch safety
+
+- Started at `97943055`. Draft commit filled after the work commit. No hosted SQL and no catch-row reads.
+- D66’s authority insert can abort a catch. A plain `xmin` comparison matched only at epoch 0 (`985 = 985`). An exception block did not (`986` versus `987`) and the catch was absent.
+- `004` drops that trigger and stamps `server_inserted_at` on the specimen. Optional outbox failure no longer removes the catch.
+- `node tools/d67-mastery-rehearsal.js`: 20/20 REAL SQL on `127.0.0.1:55442`, PostgreSQL 17.5.
+- `node tools/d66-mastery-rehearsal.js`: 14/14. `node tools/d65-mastery-rehearsal.js`: 19/19. `node tools/d64-mastery-rehearsal.js`: 19/19.
+- `node tests/d67-mastery-static-tests.js`: passed.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, backfill, settlement hook, or D68.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/d67-mastery-static-tests.js` | STATIC | passed |
+| `tools/d67-mastery-rehearsal.js` | REAL SQL | 20/20 on loopback PostgreSQL 17.5 |
+| `tools/d66-mastery-rehearsal.js` | REAL SQL | 14/14 retained |
+| `tools/d65-mastery-rehearsal.js` | REAL SQL | 19/19 retained |
+| `tools/d64-mastery-rehearsal.js` | REAL SQL | 19/19 retained |
+| Hosted apply or live encounter | — | **not run** |
+
+---
+
 ## 2026-10-17 — D66 mastery lifecycle
 
 - Started at `13ba51a1`. Draft commit `9601f429`. Catalog read only. No hosted writes and no catch-row reads.

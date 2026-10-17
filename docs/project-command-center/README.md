@@ -68,6 +68,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [D64-MASTERY-SCHEMA-REPORT.md](./D64-MASTERY-SCHEMA-REPORT.md) | D64 unapplied event ledger; local rehearsal only |
 | [D65-MASTERY-HARDENING-REPORT.md](./D65-MASTERY-HARDENING-REPORT.md) | D65 cutoff and recovery draft; not applied |
 | [D66-MASTERY-LIFECYCLE-REPORT.md](./D66-MASTERY-LIFECYCLE-REPORT.md) | D66 insert clock and outbox lifecycle; not applied |
+| [D67-MASTERY-CATCH-SAFETY-REPORT.md](./D67-MASTERY-CATCH-SAFETY-REPORT.md) | D67 catch preservation draft; not applied |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.

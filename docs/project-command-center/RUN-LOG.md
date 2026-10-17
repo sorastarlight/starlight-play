@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-17 — D65 mastery hardening
+
+- Started at `ae042fa4`. Draft only. No hosted SQL.
+- `node tools/d65-mastery-rehearsal.js`: 19/19 REAL SQL on `127.0.0.1:55440`, PostgreSQL 17.5.
+- `node tools/d64-mastery-rehearsal.js`: 19/19 REAL SQL on `127.0.0.1:55439`. D64 SQL was not changed.
+- `node tests/d65-mastery-static-tests.js`: passed.
+- Sora mutated **NO** · Twinkle mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, backfill, settlement hook, or D66.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/d65-mastery-static-tests.js` | STATIC | passed |
+| `tools/d65-mastery-rehearsal.js` | REAL SQL | 19/19 on loopback PostgreSQL 17.5 |
+| `tools/d64-mastery-rehearsal.js` | REAL SQL | 19/19 retained |
+| Hosted apply or live encounter | — | **not run** |
+
+---
+
 ## 2026-10-16 — D64 mastery event ledger
 
 - Started at `f9fee21e` (D63 work `fb211e9b`). Draft commit `b32a0be0`. No hosted SQL.

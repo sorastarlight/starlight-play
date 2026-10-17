@@ -52,7 +52,8 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I25V | D58 live economy test | Three PlayTester encounters | **DONE** — catches kept; WIRE false |
 | I26 | D59 New Trainer onboarding | Skippable local guide; no gameplay changes | **DONE** — branch only; not deployed |
 | I27 | D63 mastery compatibility audit | Verify D59–D62; read-only schema; no SQL | **DONE** — report only |
-| I28 | D64 mastery event ledger | Unapplied SQL + local rehearsal | **DONE** — not applied; D65 not started |
+| I28 | D64 mastery event ledger | Unapplied SQL + local rehearsal | **DONE** — not applied |
+| I29 | D65 mastery hardening | Cutoff, outbox, local rehearsal | **DONE** — not applied; D66 not started |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

@@ -4,7 +4,7 @@
 **Status:** Branch-only SQL. Nothing was installed or activated.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `d7ee640c`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `ff346146`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf` was not written.  
 **WIRE:** not changed. The hosted switch was not read or written in this batch.

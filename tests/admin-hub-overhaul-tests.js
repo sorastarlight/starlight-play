@@ -598,6 +598,22 @@ test("Issue 18 D65 mastery hardening stays unapplied", () => {
   assert(!read("js/play.js").includes("note_species_mastery_catch"));
 });
 
+test("Issue 18 D66 mastery lifecycle stays unapplied", () => {
+  const report = read("docs/project-command-center/D66-MASTERY-LIFECYCLE-REPORT.md");
+  const sql = read("supabase/unapplied/d66-mastery/003_species_mastery_lifecycle.sql");
+  assert(report.includes("13ba51a1"));
+  assert(report.includes("14/14"));
+  assert(report.includes("NOT NULL DEFAULT now()"));
+  assert(report.includes("Not applied"));
+  assert(report.includes("Do not start D67"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(sql.includes("catch_insert_authority"));
+  assert(!sql.includes("settle_if_needed"));
+  assert(!sql.includes("CREATE OR REPLACE FUNCTION private.record_stream_catch"));
+  assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "003_species_mastery_lifecycle.sql")));
+  assert(!read("js/play.js").includes("catch_insert_authority"));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

@@ -1,5 +1,28 @@
 # Run log
 
+## 2026-10-17 — D66 mastery lifecycle
+
+- Started at `13ba51a1`. Catalog read only. No hosted writes and no catch-row reads.
+- `public.catches.caught_at` is `timestamptz NOT NULL DEFAULT now()`. No catch trigger rewrites it. Play persist omits it. `bridge_import_catches` passes JSON `caughtAt` into `record_stream_catch`.
+- `node tools/d66-mastery-rehearsal.js`: 14/14 REAL SQL on `127.0.0.1:55441`, PostgreSQL 17.5.
+- `node tools/d65-mastery-rehearsal.js`: 19/19. `node tools/d64-mastery-rehearsal.js`: 19/19.
+- `node tests/d66-mastery-static-tests.js`: passed.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, backfill, settlement hook, or D67.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted catalog for `caught_at`, triggers, and writers | LIVE CATALOG | Read only |
+| `tests/d66-mastery-static-tests.js` | STATIC | passed |
+| `tools/d66-mastery-rehearsal.js` | REAL SQL | 14/14 on loopback PostgreSQL 17.5 |
+| `tools/d65-mastery-rehearsal.js` | REAL SQL | 19/19 retained |
+| `tools/d64-mastery-rehearsal.js` | REAL SQL | 19/19 retained |
+| Hosted apply or live encounter | — | **not run** |
+
+---
+
 ## 2026-10-17 — D65 mastery hardening
 
 - Started at `ae042fa4`. Draft commit `fbb09981`. No hosted SQL.

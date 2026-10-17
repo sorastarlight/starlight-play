@@ -62,6 +62,7 @@
 | D63 compatibility | onboarding, mastery, and hub tests plus catalog reads | STATIC + LOCAL HARNESS + LIVE CATALOG | WIRE false. No catch-row read |
 | D64 event ledger | `tools/d64-mastery-rehearsal.js` + `tests/d64-mastery-static-tests.js` | STATIC + REAL SQL 19/19 on `127.0.0.1:55439` | PostgreSQL 17.5. Not applied. Not production |
 | D65 mastery hardening | `tools/d65-mastery-rehearsal.js` + `tests/d65-mastery-static-tests.js` | STATIC + REAL SQL 19/19 on `127.0.0.1:55440` | PostgreSQL 17.5. D64 suite re-run 19/19. Not applied |
+| D66 mastery lifecycle | `tools/d66-mastery-rehearsal.js` + `tests/d66-mastery-static-tests.js` | STATIC + REAL SQL 14/14 on `127.0.0.1:55441` + LIVE CATALOG | PostgreSQL 17.5. D64 19/19 and D65 19/19 re-run. Not applied |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

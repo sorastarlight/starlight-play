@@ -1,5 +1,30 @@
 # Run log
 
+## 2026-10-17 — D68 mastery install review
+
+- Started at `cd53abe4`. Draft commit filled after the work commit. No hosted SQL and no catch-row reads.
+- Recommendation: READY FOR OWNER GO. That is not permission to execute the SQL. Recording stays inactive.
+- The shipped stamp kept play, import, and grant inserts. A replaced stamp body that raised aborted one insert; rollback restored the shipped function.
+- A failed `004` transaction restored the D66 authority trigger. Statement-by-statement application left the new column, and the inactive rollback recovered it.
+- `node tools/d68-mastery-rehearsal.js`: 14/14 REAL SQL on `127.0.0.1:55443`, PostgreSQL 17.5.
+- D67 20/20, D66 14/14, D65 19/19, D64 19/19 re-run. Static checks passed.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, backfill, settlement hook, activation, or D69.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tests/d68-mastery-static-tests.js` | STATIC | passed |
+| `tools/d68-mastery-rehearsal.js` | REAL SQL | 14/14 on loopback PostgreSQL 17.5 |
+| `tools/d67-mastery-rehearsal.js` | REAL SQL | 20/20 retained |
+| `tools/d66-mastery-rehearsal.js` | REAL SQL | 14/14 retained |
+| `tools/d65-mastery-rehearsal.js` | REAL SQL | 19/19 retained |
+| `tools/d64-mastery-rehearsal.js` | REAL SQL | 19/19 retained |
+| Hosted apply or live encounter | — | **not run** |
+
+---
+
 ## 2026-10-17 — D67 mastery catch safety
 
 - Started at `97943055`. Draft commit `7d5272c4`. No hosted SQL and no catch-row reads.

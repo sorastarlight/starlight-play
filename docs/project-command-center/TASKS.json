@@ -648,8 +648,20 @@
       "commit": "7d5272c4",
       "evidence": "docs/project-command-center/D67-MASTERY-CATCH-SAFETY-REPORT.md",
       "testResults": "REAL SQL 20/20 on 127.0.0.1:55442. D66 14/14, D65 19/19, and D64 19/19 re-run. Not applied.",
-      "nextAction": "STOP. Do not start D68. Do not apply the draft.",
+      "nextAction": "Superseded by I32. Do not apply the draft.",
       "approvalRequirement": "Independent review before any hosted apply, activation, or settlement hook"
+    },
+    {
+      "id": "I32",
+      "status": "done",
+      "scope": "D68 install readiness review of unapplied mastery 001-004. No hosted apply.",
+      "dependencies": ["I31", "D68"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D68-MASTERY-INSTALL-READINESS.md",
+      "testResults": "REAL SQL 14/14 on 127.0.0.1:55443. D67 20/20, D66 14/14, D65 19/19, D64 19/19 re-run. Not applied.",
+      "nextAction": "STOP. Do not start D69. Do not apply the draft until a separate owner GO.",
+      "approvalRequirement": "Separate owner GO before any hosted schema install. This review is not that GO."
     },
     {
       "id": "I13",

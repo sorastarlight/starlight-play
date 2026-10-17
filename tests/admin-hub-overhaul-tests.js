@@ -632,6 +632,22 @@ test("Issue 18 D67 mastery catch safety stays unapplied", () => {
   assert(!read("js/play.js").includes("server_inserted_at"));
 });
 
+test("Issue 18 D68 mastery install review stays unapplied", () => {
+  const report = read("docs/project-command-center/D68-MASTERY-INSTALL-READINESS.md");
+  const sql = read("supabase/unapplied/d67-mastery/004_species_mastery_catch_safety.sql");
+  assert(report.includes("cd53abe4"));
+  assert(report.includes("READY FOR OWNER GO"));
+  assert(report.includes("14/14"));
+  assert(report.includes("Not applied"));
+  assert(report.includes("Do not start D69"));
+  assert(report.includes("17.5"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(sql.includes("NEW.server_inserted_at := clock_timestamp()"));
+  assert(!sql.includes("settle_if_needed"));
+  assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "004_species_mastery_catch_safety.sql")));
+  assert(!read("js/play.js").includes("stamp_catch_server_inserted_at"));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

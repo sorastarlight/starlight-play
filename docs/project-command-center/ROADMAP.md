@@ -56,6 +56,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I29 | D65 mastery hardening | Cutoff, outbox, local rehearsal | **DONE** — not applied |
 | I30 | D66 mastery lifecycle | Insert clock, outbox states, local rehearsal | **DONE** — not applied; D67 not started |
 | I31 | D67 mastery catch safety | Separate the insert clock from catch-loss bookkeeping | **DONE** — not applied; D68 not started |
+| I32 | D68 mastery install review | Readiness of the unapplied 001–004 chain | **DONE** — ready for a separate owner GO; not applied |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

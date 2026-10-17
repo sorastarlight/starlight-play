@@ -2,7 +2,7 @@
 
 ## 2026-10-17 — D75 familiarity activation readiness
 
-- Started at `aade8a6e`. Read-only catalog on `dtflmlbjhttoewqgkujf`. Activation was not called there.
+- Started at `aade8a6e`. Draft commit `f9643d2d`. Read-only catalog on `dtflmlbjhttoewqgkujf`. Activation was not called there.
 - Verdict: D75 ACTIVATION PLAN READY — OWNER GO REQUIRED. Lifecycle is `inactive`. Event rows are 0. Outbox rows are 0. WIRE `enabled = false`.
 - `node tools/d75-activation-rehearsal.js`: 19/19 REAL SQL on `127.0.0.1:55447`, PostgreSQL 17.5. Odds and spends were stubbed.
 - Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.

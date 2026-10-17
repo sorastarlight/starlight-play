@@ -4,7 +4,7 @@
 **Status:** Plan and local rehearsal only. Recording is inactive. This document is not an activation GO.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `aade8a6e`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `f9643d2d`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **PostgreSQL:** 17.6 hosted. Local rehearsal 17.5.  

@@ -741,7 +741,7 @@
       "scope": "D75 familiarity activation readiness. Read-only catalog and local rehearsal. Not an activation GO.",
       "dependencies": ["I38", "D75"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "f9643d2d",
       "evidence": "docs/project-command-center/D75-FAMILIARITY-ACTIVATION-READINESS.md",
       "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D75 19/19 on 127.0.0.1:55447. Lifecycle inactive. No encounter.",
       "nextAction": "STOP. Do not start D76. Do not activate Species Familiarity.",

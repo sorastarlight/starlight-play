@@ -694,6 +694,22 @@ test("Issue 18 D71 mastery integration plan stays inactive", () => {
   assert(!read("supabase/unapplied/a19-wire/003_settle_integration.sql").includes("note_species_mastery_catch"));
 });
 
+test("Issue 18 D72 familiarity settlement draft stays unapplied", () => {
+  const report = read("docs/project-command-center/D72-MASTERY-SETTLEMENT-DRAFT.md");
+  const note = read("supabase/unapplied/d72-mastery/006_settle_familiarity_note.sql");
+  assert(report.includes("d7ee640c"));
+  assert(report.includes("D72 SETTLEMENT DRAFT READY — UNAPPLIED"));
+  assert(report.includes("Do not start D73"));
+  assert(report.includes("18/18"));
+  assert(report.includes("0c6bf2fb2ca740415fffc567c362192a"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(note.includes("EXCEPTION WHEN OTHERS"));
+  assert(note.indexOf("wire-materialize-failed") < note.indexOf("EXCEPTION WHEN OTHERS"));
+  assert(!read("supabase/unapplied/a19-wire/003_settle_integration.sql").includes("note_species_mastery_catch"));
+  assert(!read("js/play.js").includes("note_species_mastery_catch"));
+  assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "006_settle_familiarity_note.sql")));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

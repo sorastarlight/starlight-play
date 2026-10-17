@@ -68,6 +68,7 @@
 | D69 mastery GO packet | hosted catalog plus packet review | LIVE CATALOG + STATIC | PostgreSQL 17.6. WIRE false. No catch-row read. Not installed |
 | D70 mastery schema install | hosted `execute_sql` plus catalog verification | LIVE CATALOG | PostgreSQL 17.6. Four COMMITs. Inactive. WIRE false. No catch-row read |
 | D71 mastery integration plan | hosted catalog plus `tools/d71-mastery-integration-rehearsal.js` | LIVE CATALOG + REAL SQL 7/7 on `127.0.0.1:55444` | PostgreSQL 17.5 local, 17.6 hosted. D64–D68 re-run. Not activated |
+| D72 familiarity settlement draft | `tools/d72-mastery-settlement-rehearsal.js` | REAL SQL 18/18 on `127.0.0.1:55445` | PostgreSQL 17.5. Odds and spends are stubs. Not installed |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

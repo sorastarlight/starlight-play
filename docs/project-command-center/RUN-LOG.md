@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-17 — D72 familiarity settlement draft
+
+- Started at `d7ee640c`. No hosted writes. Live `settle_if_needed` source md5 `0c6bf2fb2ca740415fffc567c362192a` was the base of the unapplied note.
+- Verdict: D72 SETTLEMENT DRAFT READY — UNAPPLIED. Files `005`, `006`, and `007` stay under `supabase/unapplied/d72-mastery/`.
+- `node tools/d72-mastery-settlement-rehearsal.js`: 18/18 REAL SQL on `127.0.0.1:55445`, PostgreSQL 17.5. `capture_chance` and `announce_throws` were stubs. The settle body was the draft.
+- D64 19/19, D65 19/19, D66 14/14, D67 20/20, D68 14/14, D71 7/7 re-run on loopback PostgreSQL 17.5.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, activation, hosted install, or D73.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| `tools/d72-mastery-settlement-rehearsal.js` | REAL SQL | 18/18 on loopback PostgreSQL 17.5 |
+| `tools/d64-mastery-rehearsal.js` through `tools/d71-mastery-integration-rehearsal.js` | REAL SQL | 19/19, 19/19, 14/14, 20/20, 14/14, 7/7 retained |
+| Hosted install, activation, or live encounter | — | **not run** |
+
+---
+
 ## 2026-10-17 — D71 mastery integration plan
 
 - Started at `233a368e`. Draft commit `eacf8a9d`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted writes and no catch-row reads.

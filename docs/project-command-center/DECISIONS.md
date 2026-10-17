@@ -83,6 +83,7 @@
 | D69 | Schema GO packet | Read-only catalog. Hashes unchanged. GO packet ready. Not installed. D70 not started. |
 | D70 | Schema install | Four hashed files committed on `dtflmlbjhttoewqgkujf`. Recording inactive. WIRE false. D71 not started. |
 | D71 | Integration plan | Read-only catalog confirmed the inactive install. Settlement was not hooked. D72 not started. |
+| D72 | Settlement draft | Unapplied note, enqueue lifecycle gate, and progress-view grant fix. Local REAL SQL 18/18. Not installed. D73 not started. |
 
 ## Needs owner approval
 

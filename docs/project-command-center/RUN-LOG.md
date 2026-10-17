@@ -2,7 +2,7 @@
 
 ## 2026-10-17 — D67 mastery catch safety
 
-- Started at `97943055`. Draft commit filled after the work commit. No hosted SQL and no catch-row reads.
+- Started at `97943055`. Draft commit `7d5272c4`. No hosted SQL and no catch-row reads.
 - D66’s authority insert can abort a catch. A plain `xmin` comparison matched only at epoch 0 (`985 = 985`). An exception block did not (`986` versus `987`) and the catch was absent.
 - `004` drops that trigger and stamps `server_inserted_at` on the specimen. Optional outbox failure no longer removes the catch.
 - `node tools/d67-mastery-rehearsal.js`: 20/20 REAL SQL on `127.0.0.1:55442`, PostgreSQL 17.5.

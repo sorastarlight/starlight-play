@@ -645,7 +645,7 @@
       "scope": "D67 catch preservation. Unapplied specimen insert clock. Authority insert removed from the catch path.",
       "dependencies": ["I30", "D67"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "7d5272c4",
       "evidence": "docs/project-command-center/D67-MASTERY-CATCH-SAFETY-REPORT.md",
       "testResults": "REAL SQL 20/20 on 127.0.0.1:55442. D66 14/14, D65 19/19, and D64 19/19 re-run. Not applied.",
       "nextAction": "STOP. Do not start D68. Do not apply the draft.",

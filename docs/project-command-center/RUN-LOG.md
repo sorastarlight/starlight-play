@@ -2,7 +2,7 @@
 
 ## 2026-10-17 — D71 mastery integration plan
 
-- Started at `233a368e`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted writes and no catch-row reads.
+- Started at `233a368e`. Draft commit `eacf8a9d`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted writes and no catch-row reads.
 - Verdict: D71 INTEGRATION PLAN READY. Objects match D70. `lifecycle` is `inactive`. Event rows are 0. WIRE `enabled = false`.
 - Settlement does not call `note_species_mastery_catch`. The proposed later hook is a nested, error-swallowing note after materialize returns `catchId`, with reconcile as recovery.
 - `node tools/d71-mastery-integration-rehearsal.js`: 7/7 REAL SQL on `127.0.0.1:55444`, PostgreSQL 17.5. `settle_if_needed` was not called.

@@ -4,7 +4,7 @@
 **Status:** Read-only hosted verification and branch-only design. The ledger stayed inactive. Settlement was not changed.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `233a368e`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `eacf8a9d`  
 **Production APP:** `20261008-rc133` (unchanged in `build.json`). This batch did not deploy.  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **WIRE:** remains disabled (`enabled = false`).

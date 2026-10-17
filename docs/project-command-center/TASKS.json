@@ -693,7 +693,7 @@
       "scope": "D71 mastery post-install audit and integration design. No hosted writes and no activation.",
       "dependencies": ["I34", "D71"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "eacf8a9d",
       "evidence": "docs/project-command-center/D71-MASTERY-INTEGRATION-PLAN.md",
       "testResults": "LIVE CATALOG PostgreSQL 17.6. Local REAL SQL D71 7/7, D64 19/19, D65 19/19, D66 14/14, D67 20/20, D68 14/14. Not activated.",
       "nextAction": "STOP. Do not start D72. Do not activate Species Mastery or edit settlement.",

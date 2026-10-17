@@ -732,8 +732,20 @@
       "commit": "d6b3e927",
       "evidence": "docs/project-command-center/D74-FAMILIARITY-INSTALL-REPORT.md",
       "testResults": "LIVE CATALOG. 005, 006, and 007 committed. Lifecycle inactive. Event rows 0. WIRE false. No encounter.",
-      "nextAction": "STOP. Do not start D75. Do not activate Species Familiarity.",
+      "nextAction": "Superseded by I39. The activation plan is ready and is not a GO.",
       "approvalRequirement": "A new owner GO is required before activation, delivery, backfill, or an encounter."
+    },
+    {
+      "id": "I39",
+      "status": "done",
+      "scope": "D75 familiarity activation readiness. Read-only catalog and local rehearsal. Not an activation GO.",
+      "dependencies": ["I38", "D75"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D75-FAMILIARITY-ACTIVATION-READINESS.md",
+      "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D75 19/19 on 127.0.0.1:55447. Lifecycle inactive. No encounter.",
+      "nextAction": "STOP. Do not start D76. Do not activate Species Familiarity.",
+      "approvalRequirement": "Each future action needs its own GO. This plan is not that GO."
     },
     {
       "id": "I13",

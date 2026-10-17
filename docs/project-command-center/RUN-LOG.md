@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-17 — D75 familiarity activation readiness
+
+- Started at `aade8a6e`. Read-only catalog on `dtflmlbjhttoewqgkujf`. Activation was not called there.
+- Verdict: D75 ACTIVATION PLAN READY — OWNER GO REQUIRED. Lifecycle is `inactive`. Event rows are 0. Outbox rows are 0. WIRE `enabled = false`.
+- `node tools/d75-activation-rehearsal.js`: 19/19 REAL SQL on `127.0.0.1:55447`, PostgreSQL 17.5. Odds and spends were stubbed.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, activation, encounter, or D76.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted activation, privileges, WIRE, and empty ledger | READ-ONLY LIVE CATALOG | Inactive. Functions were not executed |
+| `tools/d75-activation-rehearsal.js` | REAL SQL | 19/19 on loopback PostgreSQL 17.5 |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 58 passed |
+| Hosted settlement or live encounter | REAL RPC | **not run** |
+
+---
+
 ## 2026-10-17 — D74 familiarity integration install
 
 - Started at `35bd889a`. Draft commit `d6b3e927`. Owner GO installed the three hashed files on `dtflmlbjhttoewqgkujf`. Each file ran as its own `BEGIN` / `COMMIT`.

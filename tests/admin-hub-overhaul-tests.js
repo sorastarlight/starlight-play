@@ -739,6 +739,18 @@ test("Issue 18 D74 familiarity integration is installed and inactive", () => {
   assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "006_settle_familiarity_note.sql")));
 });
 
+test("Issue 18 D75 familiarity activation plan is not a GO", () => {
+  const report = read("docs/project-command-center/D75-FAMILIARITY-ACTIVATION-READINESS.md");
+  assert(report.includes("aade8a6e"));
+  assert(report.includes("D75 ACTIVATION PLAN READY — OWNER GO REQUIRED"));
+  assert(report.includes("565c102d0a8c84a3dfd036653aca307c"));
+  assert(report.includes("19/19"));
+  assert(report.includes("Do not start D76"));
+  assert(report.includes("`activate_species_mastery_events()` was not called"));
+  assert(report.includes("Familiar"));
+  assert(!report.includes("PRODUCTION PASS"));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

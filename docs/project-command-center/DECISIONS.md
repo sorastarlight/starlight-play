@@ -86,6 +86,7 @@
 | D72 | Settlement draft | Unapplied note, enqueue lifecycle gate, and progress-view grant fix. Local REAL SQL 18/18. Not installed. D73 not started. |
 | D73 | Install readiness | Live settle body matches the draft except the intended note. Packet ready. Not installed. D74 not started. |
 | D74 | Integration install | 005, 006, and 007 committed on the host. Lifecycle stays inactive. D75 not started. |
+| D75 | Activation readiness | Local rehearsal 19/19. Hosted lifecycle stays inactive. Plan is not an activation GO. D76 not started. |
 
 ## Needs owner approval
 

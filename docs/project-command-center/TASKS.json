@@ -717,7 +717,7 @@
       "scope": "D73 familiarity install readiness. Read-only catalog and local rehearsal. Not an install GO.",
       "dependencies": ["I36", "D73"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "99211cbd",
       "evidence": "docs/project-command-center/D73-FAMILIARITY-INSTALL-READINESS.md",
       "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D73 8/8, D72 18/18, D64 19/19, D65 19/19, D66 14/14, D67 20/20, D68 14/14, D71 7/7. Not installed.",
       "nextAction": "STOP. Do not start D74. Do not install 005-007 until the owner pastes the GO.",

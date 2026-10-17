@@ -2,7 +2,7 @@
 
 ## 2026-10-17 — D73 familiarity install readiness
 
-- Started at `df803a82`. Read-only catalog on `dtflmlbjhttoewqgkujf`. `settle_if_needed` was not executed there.
+- Started at `df803a82`. Draft commit `99211cbd`. Read-only catalog on `dtflmlbjhttoewqgkujf`. `settle_if_needed` was not executed there.
 - Verdict: D73 GO PACKET READY — NOT AUTHORIZED TO INSTALL. Stripped draft body md5 matches live `0c6bf2fb2ca740415fffc567c362192a`.
 - Lifecycle is `inactive`. Event rows are 0. WIRE `enabled = false`.
 - `node tools/d73-readiness-rehearsal.js`: 8/8 REAL SQL on `127.0.0.1:55446`, PostgreSQL 17.5. A failed `006` transaction restored the previous settle body.

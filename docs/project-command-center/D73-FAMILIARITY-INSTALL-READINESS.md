@@ -4,7 +4,7 @@
 **Status:** Read-only hosted preflight and local rehearsal. The drafts are not installed. Recording stays inactive.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `df803a82`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `99211cbd`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **WIRE:** `enabled = false` on the read-only catalog check. This batch did not change it.

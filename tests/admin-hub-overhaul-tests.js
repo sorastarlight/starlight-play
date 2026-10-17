@@ -724,6 +724,21 @@ test("Issue 18 D73 familiarity packet is not an install GO", () => {
   assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "006_settle_familiarity_note.sql")));
 });
 
+test("Issue 18 D74 familiarity integration is installed and inactive", () => {
+  const report = read("docs/project-command-center/D74-FAMILIARITY-INSTALL-REPORT.md");
+  assert(report.includes("35bd889a"));
+  assert(report.includes("D74 INTEGRATION INSTALLED — SPECIES FAMILIARITY INACTIVE"));
+  assert(report.includes("2c6c245a5f825a6612283e0a912d6600cb32f2635d37ee02feaecfa6d606d63d"));
+  assert(report.includes("400cc429162808422730cbc343449caabb81b6f9e5243110bf3a48f7384aebc1"));
+  assert(report.includes("8603912808d1f23e2581ecef00976fc1c0e449ab109b5fc965b0756d93b484bf"));
+  assert(report.includes("0c6bf2fb2ca740415fffc567c362192a"));
+  assert(report.includes("lifecycle = inactive") || report.includes("`inactive`"));
+  assert(report.includes("Do not start D75"));
+  assert(report.includes("`activate_species_mastery_events()` was not called"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "006_settle_familiarity_note.sql")));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

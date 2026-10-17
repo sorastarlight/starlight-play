@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-17 — D74 familiarity integration install
+
+- Started at `35bd889a`. Owner GO installed the three hashed files on `dtflmlbjhttoewqgkujf`. Each file ran as its own `BEGIN` / `COMMIT`.
+- `005` committed by `2026-10-17 17:49:59.760293+00`. `006` committed by `2026-10-17 17:50:49.814872+00`. `007` committed by `2026-10-17 17:51:29.745677+00`.
+- Verdict: D74 INTEGRATION INSTALLED — SPECIES FAMILIARITY INACTIVE. Stripped settle body md5 remains `0c6bf2fb2ca740415fffc567c362192a`.
+- Lifecycle is `inactive`. Event rows are 0. WIRE `enabled = false`. `pg_cron` is absent.
+- No encounter, settlement execution, catch-row read, activation, reconcile, or delivery.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, or D75.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted preflight and post-install catalog | LIVE CATALOG | Hashes matched. Three commits. Inactive. Function not executed |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 57 passed |
+| Hosted settlement or live encounter | REAL RPC | **not run** |
+
+---
+
 ## 2026-10-17 — D73 familiarity install readiness
 
 - Started at `df803a82`. Draft commit `99211cbd`. Read-only catalog on `dtflmlbjhttoewqgkujf`. `settle_if_needed` was not executed there.

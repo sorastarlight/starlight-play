@@ -70,6 +70,7 @@
 | D71 mastery integration plan | hosted catalog plus `tools/d71-mastery-integration-rehearsal.js` | LIVE CATALOG + REAL SQL 7/7 on `127.0.0.1:55444` | PostgreSQL 17.5 local, 17.6 hosted. D64–D68 re-run. Not activated |
 | D72 familiarity settlement draft | `tools/d72-mastery-settlement-rehearsal.js` | REAL SQL 18/18 on `127.0.0.1:55445` | PostgreSQL 17.5. Odds and spends are stubs. Not installed |
 | D73 familiarity install readiness | hosted catalog plus `tools/d73-readiness-rehearsal.js` | READ-ONLY LIVE CATALOG + REAL SQL 8/8 on `127.0.0.1:55446` | PostgreSQL 17.6 hosted, 17.5 local. Not installed |
+| D74 familiarity integration install | hosted `execute_sql` of hashed 005, 006, and 007 | LIVE CATALOG | All three committed. Lifecycle inactive. No encounter |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

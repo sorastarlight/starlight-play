@@ -62,6 +62,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I35 | D71 mastery integration plan | Read-only catalog plus local design rehearsal | **DONE** — plan ready; not activated |
 | I36 | D72 familiarity settlement draft | Unapplied note, lifecycle gate, and view grants | **DONE** — draft ready; not installed |
 | I37 | D73 familiarity install readiness | Read-only catalog and local rollback rehearsal | **DONE** — packet ready; not authorized to install |
+| I38 | D74 familiarity integration install | Three hashed files, each in its own transaction | **DONE** — installed; Species Familiarity inactive |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

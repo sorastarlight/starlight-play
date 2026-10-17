@@ -672,8 +672,20 @@
       "commit": "25309d98",
       "evidence": "docs/project-command-center/D69-MASTERY-SCHEMA-GO-PACKET.md",
       "testResults": "LIVE CATALOG PostgreSQL 17.6. WIRE false. Hashes match D68. Not installed.",
-      "nextAction": "STOP. Do not start D70. Do not install until the owner pastes the GO.",
+      "nextAction": "Superseded by I34. The owner GO was executed as schema-only.",
       "approvalRequirement": "Owner must paste the GO in the packet. This batch is not that GO."
+    },
+    {
+      "id": "I34",
+      "status": "done",
+      "scope": "D70 schema-only install of mastery 001-004. Recording stays inactive.",
+      "dependencies": ["I33", "D70"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D70-MASTERY-SCHEMA-INSTALL-REPORT.md",
+      "testResults": "LIVE CATALOG PostgreSQL 17.6. Four files COMMIT. activated_at null. lifecycle inactive. WIRE false. 0 event rows.",
+      "nextAction": "STOP. Do not start D71. Do not activate Species Mastery.",
+      "approvalRequirement": "Separate owner GO before activation, settlement, backfill, or a live encounter."
     },
     {
       "id": "I13",

@@ -663,6 +663,24 @@ test("Issue 18 D69 mastery GO packet stays unapplied", () => {
   assert(!read("js/play.js").includes("activate_species_mastery_events"));
 });
 
+test("Issue 18 D70 mastery schema is installed and inactive", () => {
+  const report = read("docs/project-command-center/D70-MASTERY-SCHEMA-INSTALL-REPORT.md");
+  assert(report.includes("76ac2a94"));
+  assert(report.includes("D70 SCHEMA INSTALLED — MASTERY INACTIVE"));
+  assert(report.includes("f343c9bf318d8cdd12fb3331f29fd3eb7990ad491b3c096af773e1e6d4e0a9ce"));
+  assert(report.includes("2d094864e6872f6c85e66d29c0c5f36fa662a588b34e8f540601efb64bfb9f76"));
+  assert(report.includes("1f488477de5e6c021ea74061dfcfede21b51057eb5e852e1f387269d1db41e3f"));
+  assert(report.includes("0f7f27a0acfb13fea0c1bfb0f9a43c322af02577dd43b7ff2aae586cf7aeaa3c"));
+  assert(report.includes("lifecycle"));
+  assert(report.includes("inactive"));
+  assert(report.includes("Do not start D71"));
+  assert(report.includes("enabled = false"));
+  assert(report.includes("d5c11cc672f2cb16ae0210023a8dd91b"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!fs.existsSync(path.join(__dirname, "..", "supabase", "migrations", "004_species_mastery_catch_safety.sql")));
+  assert(!read("js/play.js").includes("activate_species_mastery_events"));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

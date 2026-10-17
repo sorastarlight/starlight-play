@@ -4,7 +4,7 @@
 **Status:** READ-ONLY PREFLIGHT. Not installed. Not activated. This packet is not the owner GO.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `237c66a7`  
-**Work commit:** filled after the work commit  
+**Work commit:** `25309d98`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **WIRE:** remains disabled (`enabled = false`).

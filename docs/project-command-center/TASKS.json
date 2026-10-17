@@ -669,7 +669,7 @@
       "scope": "D69 read-only mastery schema GO packet. No hosted install.",
       "dependencies": ["I32", "D69"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "25309d98",
       "evidence": "docs/project-command-center/D69-MASTERY-SCHEMA-GO-PACKET.md",
       "testResults": "LIVE CATALOG PostgreSQL 17.6. WIRE false. Hashes match D68. Not installed.",
       "nextAction": "STOP. Do not start D70. Do not install until the owner pastes the GO.",

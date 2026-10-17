@@ -2,7 +2,7 @@
 
 ## 2026-10-17 — D69 mastery GO packet
 
-- Started at `237c66a7`. Draft commit filled after the work commit. Catalog read only. No hosted writes and no catch-row reads.
+- Started at `237c66a7`. Draft commit `25309d98`. Catalog read only. No hosted writes and no catch-row reads.
 - Verdict: GO PACKET READY. The four SHA-256 hashes match D68. PostgreSQL 17.6. WIRE `enabled = false`.
 - Hosted `catches_before_write` assigns `NEW := stamp_catch_row(NEW)`. `stamp_catch_row` returns the same composite and does not mention `server_inserted_at`.
 - No proposed mastery object exists. Recording was not activated.

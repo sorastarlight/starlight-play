@@ -2,7 +2,7 @@
 
 ## 2026-10-17 — D74 familiarity integration install
 
-- Started at `35bd889a`. Owner GO installed the three hashed files on `dtflmlbjhttoewqgkujf`. Each file ran as its own `BEGIN` / `COMMIT`.
+- Started at `35bd889a`. Draft commit `d6b3e927`. Owner GO installed the three hashed files on `dtflmlbjhttoewqgkujf`. Each file ran as its own `BEGIN` / `COMMIT`.
 - `005` committed by `2026-10-17 17:49:59.760293+00`. `006` committed by `2026-10-17 17:50:49.814872+00`. `007` committed by `2026-10-17 17:51:29.745677+00`.
 - Verdict: D74 INTEGRATION INSTALLED — SPECIES FAMILIARITY INACTIVE. Stripped settle body md5 remains `0c6bf2fb2ca740415fffc567c362192a`.
 - Lifecycle is `inactive`. Event rows are 0. WIRE `enabled = false`. `pg_cron` is absent.

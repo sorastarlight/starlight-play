@@ -729,7 +729,7 @@
       "scope": "D74 familiarity integration install. Three hashed files. Recording stays inactive.",
       "dependencies": ["I37", "D74"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "d6b3e927",
       "evidence": "docs/project-command-center/D74-FAMILIARITY-INSTALL-REPORT.md",
       "testResults": "LIVE CATALOG. 005, 006, and 007 committed. Lifecycle inactive. Event rows 0. WIRE false. No encounter.",
       "nextAction": "STOP. Do not start D75. Do not activate Species Familiarity.",

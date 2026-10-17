@@ -4,7 +4,7 @@
 **Status:** The three approved files are installed. Recording is inactive. No encounter ran.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `35bd889a`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `d6b3e927`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **PostgreSQL:** 17.6  

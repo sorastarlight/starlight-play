@@ -1,5 +1,26 @@
 # Run log
 
+## 2026-10-17 — D71 mastery integration plan
+
+- Started at `233a368e`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted writes and no catch-row reads.
+- Verdict: D71 INTEGRATION PLAN READY. Objects match D70. `lifecycle` is `inactive`. Event rows are 0. WIRE `enabled = false`.
+- Settlement does not call `note_species_mastery_catch`. The proposed later hook is a nested, error-swallowing note after materialize returns `catchId`, with reconcile as recovery.
+- `node tools/d71-mastery-integration-rehearsal.js`: 7/7 REAL SQL on `127.0.0.1:55444`, PostgreSQL 17.5. `settle_if_needed` was not called.
+- D64 19/19, D65 19/19, D66 14/14, D67 20/20, D68 14/14 re-run on loopback PostgreSQL 17.5.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, activation, settlement edit, or D72.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted catalog for objects, triggers, privileges, hashes, and WIRE | LIVE CATALOG | Inactive. 0 event rows. WIRE false. Rankings hashes unchanged |
+| `tools/d71-mastery-integration-rehearsal.js` | REAL SQL | 7/7 on loopback PostgreSQL 17.5 |
+| `tools/d64-mastery-rehearsal.js` through `tools/d68-mastery-rehearsal.js` | REAL SQL | 19/19, 19/19, 14/14, 20/20, 14/14 retained |
+| Hosted activation, settlement, or live encounter | — | **not run** |
+
+---
+
 ## 2026-10-17 — D70 mastery schema install
 
 - Started at `76ac2a94`. Draft commit `8adbd363`. Owner GO authorized the four hashed files only, each in one transaction, on `dtflmlbjhttoewqgkujf`.

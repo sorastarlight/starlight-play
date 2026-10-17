@@ -684,8 +684,20 @@
       "commit": "8adbd363",
       "evidence": "docs/project-command-center/D70-MASTERY-SCHEMA-INSTALL-REPORT.md",
       "testResults": "LIVE CATALOG PostgreSQL 17.6. Four files COMMIT. activated_at null. lifecycle inactive. WIRE false. 0 event rows.",
-      "nextAction": "STOP. Do not start D71. Do not activate Species Mastery.",
+      "nextAction": "Superseded by I35. Schema remains installed and inactive.",
       "approvalRequirement": "Separate owner GO before activation, settlement, backfill, or a live encounter."
+    },
+    {
+      "id": "I35",
+      "status": "done",
+      "scope": "D71 mastery post-install audit and integration design. No hosted writes and no activation.",
+      "dependencies": ["I34", "D71"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D71-MASTERY-INTEGRATION-PLAN.md",
+      "testResults": "LIVE CATALOG PostgreSQL 17.6. Local REAL SQL D71 7/7, D64 19/19, D65 19/19, D66 14/14, D67 20/20, D68 14/14. Not activated.",
+      "nextAction": "STOP. Do not start D72. Do not activate Species Mastery or edit settlement.",
+      "approvalRequirement": "Separate owner GO before any settle hook, privilege change, activation, or live encounter."
     },
     {
       "id": "I13",

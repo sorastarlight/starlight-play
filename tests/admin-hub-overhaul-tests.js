@@ -681,6 +681,19 @@ test("Issue 18 D70 mastery schema is installed and inactive", () => {
   assert(!read("js/play.js").includes("activate_species_mastery_events"));
 });
 
+test("Issue 18 D71 mastery integration plan stays inactive", () => {
+  const report = read("docs/project-command-center/D71-MASTERY-INTEGRATION-PLAN.md");
+  assert(report.includes("233a368e"));
+  assert(report.includes("D71 INTEGRATION PLAN READY"));
+  assert(report.includes("Species Familiarity"));
+  assert(report.includes("Do not start D72"));
+  assert(report.includes("7/7"));
+  assert(report.includes("enabled = false"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!read("js/play.js").includes("note_species_mastery_catch"));
+  assert(!read("supabase/unapplied/a19-wire/003_settle_integration.sql").includes("note_species_mastery_catch"));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

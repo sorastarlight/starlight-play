@@ -82,6 +82,7 @@
 | D68 | Install readiness | Unapplied 001–004 reviewed. Local REAL SQL 14/14. Ready for a separate owner GO. Not applied. D69 not started. |
 | D69 | Schema GO packet | Read-only catalog. Hashes unchanged. GO packet ready. Not installed. D70 not started. |
 | D70 | Schema install | Four hashed files committed on `dtflmlbjhttoewqgkujf`. Recording inactive. WIRE false. D71 not started. |
+| D71 | Integration plan | Read-only catalog confirmed the inactive install. Settlement was not hooked. D72 not started. |
 
 ## Needs owner approval
 

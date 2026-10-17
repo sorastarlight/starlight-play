@@ -59,6 +59,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I32 | D68 mastery install review | Readiness of the unapplied 001–004 chain | **DONE** — ready for a separate owner GO; not applied |
 | I33 | D69 mastery GO packet | Read-only preflight and owner GO text | **DONE** — packet ready; superseded by I34 |
 | I34 | D70 mastery schema install | Four hashed files, each in one transaction | **DONE** — schema installed; mastery inactive |
+| I35 | D71 mastery integration plan | Read-only catalog plus local design rehearsal | **DONE** — plan ready; not activated |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

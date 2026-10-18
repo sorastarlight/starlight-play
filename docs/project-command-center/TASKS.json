@@ -801,7 +801,7 @@
       "scope": "D78 PlayerQA stamp smoke. Stopped before any encounter.",
       "dependencies": ["I43", "D78"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "9cf2f6e1",
       "evidence": "docs/project-command-center/D78-PLAYERQA-STAMP-SMOKE-REPORT.md",
       "testResults": "READ-ONLY LIVE CATALOG. Identity and inactive ledger passed. Public round cannot be limited to PlayerQA. No encounter.",
       "nextAction": "STOP. Do not start D79. Do not activate Species Familiarity.",

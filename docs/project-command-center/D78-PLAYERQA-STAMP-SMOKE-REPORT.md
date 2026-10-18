@@ -4,7 +4,7 @@
 **Status:** Preflight identity and familiarity checks passed. No encounter ran.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `3c6c44d9`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `9cf2f6e1`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **Checked:** `2026-10-18 04:46:44.906271+00`

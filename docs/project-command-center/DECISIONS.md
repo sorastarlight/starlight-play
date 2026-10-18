@@ -95,6 +95,7 @@
 | D79 | QA isolation no-go | One `latest_round` selector. `round_is_active` is false for an ordinary open row. No QA SQL. |
 | D80 | Launch guard confirmed | Ordinary open rounds fail the composite `IS NOT NULL` test. The id check is a draft. QA lane is not the next install. |
 | D81 | Launch-guard packet | Unapplied `001_round_is_active.sql`. Hosted body md5 `5732cc462502e346843eedb76fada494`. Not installed. |
+| D82 | Launch-guard security gate | No new remote mutation path. `private` is not an exposed schema. File still unapplied. |
 
 ## Needs owner approval
 

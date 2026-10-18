@@ -72,6 +72,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I45 | D79 QA encounter isolation | Design a one-trainer round without changing public play | **NO-GO** — the selector is global; no prototype |
 | I46 | D80 encounter safety review | Launch-guard defect and QA lane options | **READY** — owner decision; nothing installed |
 | I47 | D81 launch-guard readiness | One unapplied `round_is_active` replacement | **READY** — install not authorized |
+| I48 | D82 launch-guard security gate | Grants and PostgREST exposure only | **PASSED** — install still needs an owner GO |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

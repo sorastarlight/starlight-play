@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-18 — D82 launch-guard security gate
+
+- Work commit pending pointer, started at `6b400e63`. Read-only catalog and one non-mutating GET on `dtflmlbjhttoewqgkujf`. No hosted SQL write.
+- Verdict: D82 SECURITY GATE PASSED — INSTALL OWNER GO REQUIRED.
+- `Accept-Profile: private` returned HTTP 406 `PGRST106`. Exposed schemas: `public`, `graphql_public`.
+- Staff wrappers still check `is_play_admin` or `require_hub` before pause, cancel, launch, or gift. The D81 file adds no grant.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · PlayerQA mutated **NO**.
+- Production APP `20261008-rc133`. No merge, deploy, install, encounter, or activation.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted grants and public caller heads | READ-ONLY LIVE CATALOG | Staff gate before mutation |
+| `Accept-Profile: private` | LIVE API | HTTP 406 PGRST106 |
+| Hosted install of `001_round_is_active.sql` | REAL RPC | **not run** |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 67 passed |
+
+---
+
 ## 2026-10-18 — D81 launch-guard readiness
 
 - Work commit `fe2db375`, started at `a256076d`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.

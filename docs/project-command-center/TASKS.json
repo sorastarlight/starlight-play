@@ -840,8 +840,20 @@
       "commit": "fe2db375",
       "evidence": "docs/project-command-center/D81-LAUNCH-GUARD-INSTALL-READINESS.md",
       "testResults": "READ-ONLY LIVE CATALOG. Local REAL SQL 17/17 on 127.0.0.1:55451. File not installed on the host.",
-      "nextAction": "STOP. Do not start D82. Do not install 001_round_is_active.sql.",
+      "nextAction": "Superseded by I48. The file is still not installed.",
       "approvalRequirement": "The GO in the D81 report is not authorization."
+    },
+    {
+      "id": "I48",
+      "status": "done",
+      "scope": "D82 launch-guard security gate. No install.",
+      "dependencies": ["I47", "D82"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D82-LAUNCH-GUARD-SECURITY-GATE.md",
+      "testResults": "READ-ONLY LIVE CATALOG. LIVE API PGRST106 for schema private. No hosted mutation.",
+      "nextAction": "STOP. Do not start D83. Do not install 001_round_is_active.sql until a separate owner GO.",
+      "approvalRequirement": "The D82 pass is not an install GO."
     },
     {
       "id": "I13",

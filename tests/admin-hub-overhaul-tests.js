@@ -825,6 +825,18 @@ test("Issue 18 D79 QA isolation stays a design no-go", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
+test("Issue 18 D80 launch guard stays a draft", () => {
+  const report = read("docs/project-command-center/D80-ENCOUNTER-SAFETY-ARCHITECTURE.md");
+  assert(report.includes("aa4c9243"));
+  assert(report.includes("D80 ARCHITECTURE REVIEW READY — OWNER DECISION REQUIRED"));
+  assert(report.includes("565c102d0a8c84a3dfd036653aca307c"));
+  assert(report.includes("r.id IS NOT NULL"));
+  assert(report.includes("Not approved"));
+  assert(report.includes("Do not start D81"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

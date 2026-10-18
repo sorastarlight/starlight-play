@@ -78,6 +78,7 @@
 | D77-R2 PlayerQA verification | hosted PlayerQA row plus the open Play page | READ-ONLY LIVE CATALOG + REAL DOM | Signed in as playerqa. No encounter |
 | D78 PlayerQA stamp smoke | hosted round, director, and PlayerQA catalog | READ-ONLY LIVE CATALOG + REAL DOM | No open round. Encounter not started |
 | D79 QA encounter isolation | hosted selector, RLS, and a local selector model | READ-ONLY LIVE CATALOG + REAL SQL | 8/8 local model. No prototype |
+| D80 encounter safety review | hosted active-row probe and a local guard model | READ-ONLY LIVE CATALOG + REAL SQL | 15/15 local model. Draft not installed |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

@@ -1,5 +1,26 @@
 # Run log
 
+## 2026-10-18 — D80 encounter safety review
+
+- Work commit pending, started at `aa4c9243`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.
+- Verdict: D80 ARCHITECTURE REVIEW READY — OWNER DECISION REQUIRED.
+- An in-memory reopen of the latest round shape, with `paused_at` and `source_id` null, stayed phase `join` and `round_is_active` false. Settlement md5 `565c102d0a8c84a3dfd036653aca307c`. Lifecycle `inactive`. WIRE disabled.
+- `node tools/d80-launch-guard-rehearsal.js`: 15/15 REAL SQL on `127.0.0.1:55450`, PostgreSQL 17.5. The launch body is a model. Production `settle_if_needed`, odds, and spending were not executed.
+- Preferred split: a later GO for the id check alone, and a disposable database for the stamp smoke. No production QA lane in this batch.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · PlayerQA mutated **NO**.
+- Production APP `20261008-rc133`. No merge, deploy, install, encounter, or activation.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted `round_is_active` on an in-memory open row | READ-ONLY LIVE CATALOG | Phase `join`, active false |
+| `tools/d80-launch-guard-rehearsal.js` | REAL SQL | 15/15 on loopback |
+| Production catch or QA install | REAL RPC | **not run** |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 65 passed |
+
+---
+
 ## 2026-10-18 — D79 QA encounter isolation
 
 - Work commit `b67789fc`, started at `0f1acb23`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.

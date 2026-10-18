@@ -93,6 +93,7 @@
 | D77-R2 | PlayerQA verified | Owner-registered account `1d36e67c-298d-4657-8685-19363af9b7cc`. Encounter GO is not approved. |
 | D78 | Stamp smoke blocked | PlayerQA was eligible, but `launch_community_round` is public and cancel restores every participant's bag. No encounter ran. |
 | D79 | QA isolation no-go | One `latest_round` selector. `round_is_active` is false for an ordinary open row. No QA SQL. |
+| D80 | Launch guard confirmed | Ordinary open rounds fail the composite `IS NOT NULL` test. The id check is a draft. QA lane is not the next install. |
 
 ## Needs owner approval
 

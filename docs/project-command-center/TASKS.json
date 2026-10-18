@@ -816,8 +816,20 @@
       "commit": "b67789fc",
       "evidence": "docs/project-command-center/D79-QA-ENCOUNTER-ISOLATION-DESIGN.md",
       "testResults": "READ-ONLY LIVE CATALOG. Local selector model 8/8 on 127.0.0.1:55449. No QA SQL and no encounter.",
-      "nextAction": "STOP. Do not start D80. Do not install a QA encounter.",
+      "nextAction": "Superseded by I46. The launch guard and the QA lane stay separate.",
       "approvalRequirement": "A selector split needs its own design GO. This report is not that GO."
+    },
+    {
+      "id": "I46",
+      "status": "done",
+      "scope": "D80 launch-guard audit and QA architecture review. Nothing installed.",
+      "dependencies": ["I45", "D80"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D80-ENCOUNTER-SAFETY-ARCHITECTURE.md",
+      "testResults": "READ-ONLY LIVE CATALOG. Local guard model 15/15 on 127.0.0.1:55450. No install and no encounter.",
+      "nextAction": "STOP. Do not start D81. Do not install the draft expression.",
+      "approvalRequirement": "The launch-guard draft and any staging stamp smoke each need their own GO."
     },
     {
       "id": "I13",

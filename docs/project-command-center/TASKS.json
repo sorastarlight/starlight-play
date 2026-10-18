@@ -813,7 +813,7 @@
       "scope": "D79 QA encounter isolation design. No prototype and no encounter.",
       "dependencies": ["I44", "D79"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "b67789fc",
       "evidence": "docs/project-command-center/D79-QA-ENCOUNTER-ISOLATION-DESIGN.md",
       "testResults": "READ-ONLY LIVE CATALOG. Local selector model 8/8 on 127.0.0.1:55449. No QA SQL and no encounter.",
       "nextAction": "STOP. Do not start D80. Do not install a QA encounter.",

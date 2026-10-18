@@ -2,7 +2,7 @@
 
 ## 2026-10-18 — D79 QA encounter isolation
 
-- Started at `0f1acb23`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.
+- Work commit `b67789fc`, started at `0f1acb23`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.
 - Verdict: D79 NO-GO — EXISTING ARCHITECTURE REQUIRES FURTHER DESIGN.
 - `latest_round` returns one row. A synthetic open composite returned `round_is_active = false`. RLS still exposes non-cancelled rounds, activity, and the console.
 - `node tools/d79-selector-collision-rehearsal.js`: 8/8 REAL SQL on `127.0.0.1:55449`, PostgreSQL 17.5. SIMULATED selector model. Odds, spending, settlement, and the stamp were not executed.

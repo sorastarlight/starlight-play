@@ -4,7 +4,7 @@
 **Status:** Read-only catalog plus a local selector model. No prototype SQL. No encounter.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `0f1acb23`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `b67789fc`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **Catalog check:** `2026-10-18 04:56:27.972967+00`

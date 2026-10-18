@@ -789,7 +789,7 @@
       "scope": "D77-R2 PlayerQA verification and a proposed encounter GO. No encounter.",
       "dependencies": ["I42", "D77-R2"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "9a639507",
       "evidence": "docs/project-command-center/D77-R2-PLAYERQA-VERIFICATION.md",
       "testResults": "READ-ONLY LIVE CATALOG plus REAL DOM sign-in label. UUID 1d36e67c-298d-4657-8685-19363af9b7cc. Lifecycle inactive. No encounter.",
       "nextAction": "STOP. Do not run the encounter until the owner pastes the D78 GO.",

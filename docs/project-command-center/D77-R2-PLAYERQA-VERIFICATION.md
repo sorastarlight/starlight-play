@@ -4,7 +4,7 @@
 **Status:** The existing account was verified. No encounter ran. The D78 text below is not authorization.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `f87e66fc`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `9a639507`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **WIRE:** remains disabled (`enabled = false`).

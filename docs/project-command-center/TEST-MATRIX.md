@@ -82,6 +82,7 @@
 | D81 launch-guard readiness | hosted function catalog and the unapplied file on local Postgres | READ-ONLY LIVE CATALOG + REAL SQL | 17/17 local. File not installed |
 | D82 launch-guard security gate | hosted grants and a non-mutating private-schema request | READ-ONLY LIVE CATALOG + LIVE API | PGRST106. No mutation. File not installed |
 | D83 launch-guard install | hosted function catalog before and after the unchanged file | REAL SQL | md5 `53d7e8a3f3894212e854618dc0663101`. No gameplay RPC |
+| D84 verification plan | existing D81 rehearsal and D83 fingerprint | STATIC | No new hosted call. Stamp still blocked |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

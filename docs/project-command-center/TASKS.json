@@ -12,7 +12,7 @@
       "commit": null,
       "evidence": "COORDINATION.md; .github/ISSUE_TEMPLATE/agent-job.md; .cursor/rules/streamlink-coordination.mdc; implementation commit is introducing commit in git history",
       "testResults": "STATIC: JSON parsed; existing task entries preserved; seven approved paths only. No live tests.",
-      "nextAction": "Await separate monitoring/pilot approval. The later owner GO installed D83; do not start D84.",
+      "nextAction": "Await separate monitoring/pilot approval. D84 is a plan only; do not start D85.",
       "approvalRequirement": "Owner Proceed in coordination chat on 2026-10-18 approves repository handoff only; no issue post, monitoring, installation, Cursor run, spending or production action"
     },
     {
@@ -876,8 +876,20 @@
       "commit": "876ab322",
       "evidence": "docs/project-command-center/D83-LAUNCH-GUARD-INSTALL-REPORT.md",
       "testResults": "REAL SQL catalog before and after. prosrc md5 53d7e8a3f3894212e854618dc0663101. No gameplay RPC.",
-      "nextAction": "STOP. Do not start D84. No encounter.",
+      "nextAction": "Superseded by I50. The owner asked for a verification plan.",
       "approvalRequirement": "This install is complete. A later encounter needs its own GO."
+    },
+    {
+      "id": "I50",
+      "status": "done",
+      "scope": "D84 post-install verification plan. No hosted check.",
+      "dependencies": ["I49", "D84"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D84-VERIFICATION-PLAN.md",
+      "testResults": "STATIC plan. Reuses D81 17/17 and the D83 fingerprint. No hosted call.",
+      "nextAction": "STOP. Do not start D85. Production stamp remains blocked.",
+      "approvalRequirement": "The disposable-stamp paragraph in the D84 report is not a GO."
     },
     {
       "id": "I13",

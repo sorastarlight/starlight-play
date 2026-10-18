@@ -891,6 +891,20 @@ test("Issue 18 D83 launch-guard install does not open an encounter", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
+test("Issue 18 D84 verification plan does not authorize a stamp", () => {
+  const report = read("docs/project-command-center/D84-VERIFICATION-PLAN.md");
+  const d83 = read("docs/project-command-center/D83-LAUNCH-GUARD-INSTALL-REPORT.md");
+  assert(report.includes("677b7b9c"));
+  assert(report.includes("D84 VERIFICATION PLAN READY — PRODUCTION STAMP STILL BLOCKED"));
+  assert(report.includes("53d7e8a3f3894212e854618dc0663101"));
+  assert(report.includes("Not yet approved"));
+  assert(report.includes("not dtflmlbjhttoewqgkujf"));
+  assert(report.includes("Do not start D85"));
+  assert(d83.includes("Do not start D84"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

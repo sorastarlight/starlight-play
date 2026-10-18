@@ -6,6 +6,25 @@ COORD-1 completed with owner approval (Proceed in coordination chat). Base: a832
 
 # Run log
 
+## 2026-10-18 — D84 verification plan
+
+- Work commit pending pointer, started at `677b7b9c`. Planning only. No hosted call.
+- Verdict: D84 VERIFICATION PLAN READY — PRODUCTION STAMP STILL BLOCKED.
+- D83 proves the hosted body md5 `53d7e8a3f3894212e854618dc0663101`, matching the D81 local rehearsal. D81 17/17 is reused and not repeated.
+- PlayerQA stamp stays blocked. The proposed next proof is a disposable database, not a live round. That paragraph is not a GO.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · PlayerQA mutated **NO**.
+- Production APP `20261008-rc133`. No merge, deploy, encounter, or activation.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| D81 launch-guard rehearsal | REAL SQL | Reused 17/17. Not re-run |
+| Hosted function call | REAL SQL | **not run** |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 69 passed |
+
+---
+
 ## 2026-10-18 — D83 launch-guard install
 
 - Work commit `876ab322`, started at `a8320107`. Owner authorized the unchanged D81 file on `dtflmlbjhttoewqgkujf`.

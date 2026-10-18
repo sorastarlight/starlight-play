@@ -74,6 +74,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I47 | D81 launch-guard readiness | One unapplied `round_is_active` replacement | **READY** — install not authorized |
 | I48 | D82 launch-guard security gate | Grants and PostgREST exposure only | **PASSED** — install still needs an owner GO |
 | I49 | D83 launch-guard install | Unchanged `round_is_active` replacement | **INSTALLED** — no encounter |
+| I50 | D84 verification plan | What the install proved and what the stamp still needs | **PLAN** — production stamp still blocked |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

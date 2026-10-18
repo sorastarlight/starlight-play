@@ -768,8 +768,20 @@
       "commit": "6eda99a5",
       "evidence": "docs/project-command-center/D77-PLAYERQA-ACCOUNT-REPORT.md",
       "testResults": "READ-ONLY LIVE CATALOG. PlayerQA does not exist. No account created. Lifecycle inactive.",
-      "nextAction": "STOP. Do not start D78. Supply an email and a secure password before any retry.",
+      "nextAction": "Superseded by I42. The retry still needs a secure password channel.",
       "approvalRequirement": "Email is missing. Password was not provided through a secure channel."
+    },
+    {
+      "id": "I42",
+      "status": "done",
+      "scope": "D77-R1 PlayerQA registration. Blocked before signup because the password was not securely available.",
+      "dependencies": ["I41", "D77-R1"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D77-R1-PLAYERQA-PROVISIONING.md",
+      "testResults": "READ-ONLY LIVE CATALOG. Username and email are free. No Auth write. Lifecycle inactive.",
+      "nextAction": "STOP. Do not start D78. Provide the password through a secure channel, not chat.",
+      "approvalRequirement": "Owner password must be available without entering the transcript, git, or tool arguments."
     },
     {
       "id": "I13",

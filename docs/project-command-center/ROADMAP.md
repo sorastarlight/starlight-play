@@ -66,6 +66,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I39 | D75 familiarity activation readiness | Local rehearsal and separate future GO templates | **DONE** — plan ready; owner GO required |
 | I40 | D76 stamp-smoke readiness | One future Play catch, QA identity still required | **DONE** — packet ready; not approved |
 | I41 | D77 PlayerQA provisioning | One nonstaff account, then a later encounter GO | **BLOCKED** — email and password were not supplied |
+| I42 | D77-R1 PlayerQA registration | Same account once a secure password channel exists | **BLOCKED** — password was not securely available |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

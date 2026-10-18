@@ -79,6 +79,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [D75-FAMILIARITY-ACTIVATION-READINESS.md](./D75-FAMILIARITY-ACTIVATION-READINESS.md) | D75 activation plan; owner GO required |
 | [D76-FAMILIARITY-STAMP-SMOKE-GO-PACKET.md](./D76-FAMILIARITY-STAMP-SMOKE-GO-PACKET.md) | D76 stamp-smoke packet; not approved |
 | [D77-PLAYERQA-ACCOUNT-REPORT.md](./D77-PLAYERQA-ACCOUNT-REPORT.md) | D77 PlayerQA provisioning blocked |
+| [D77-R1-PLAYERQA-PROVISIONING.md](./D77-R1-PLAYERQA-PROVISIONING.md) | D77-R1 registration blocked; password channel missing |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.

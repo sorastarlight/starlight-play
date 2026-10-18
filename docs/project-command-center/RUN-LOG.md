@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-18 — D77-R1 PlayerQA registration
+
+- Started at `0d1a8224`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No Auth write.
+- Verdict: D77-R1 BLOCKED — REGISTRATION REQUIREMENT. Username `playerqa` and email `fetkun@gmail.com` are unused. The password was not available through a secure channel.
+- Lifecycle is `inactive`. Event rows are 0. Outbox rows are 0. WIRE `enabled = false`.
+- No password was written to the repo, fixtures, logs, or the report.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, encounter, activation, or D78.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted lifecycle, username, and email existence | READ-ONLY LIVE CATALOG | Inactive. Username and email free |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 61 passed |
+| Account creation or login | REAL RPC | **not run** |
+
+---
+
 ## 2026-10-18 — D77 PlayerQA provisioning
 
 - Started at `725709b4`. Draft commit `6eda99a5`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No Auth write.

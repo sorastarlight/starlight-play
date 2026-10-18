@@ -775,6 +775,18 @@ test("Issue 18 D77 PlayerQA provisioning stays blocked", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
+test("Issue 18 D77-R1 PlayerQA registration stays blocked", () => {
+  const report = read("docs/project-command-center/D77-R1-PLAYERQA-PROVISIONING.md");
+  assert(report.includes("0d1a8224"));
+  assert(report.includes("D77-R1 BLOCKED — REGISTRATION REQUIREMENT"));
+  assert(report.includes("playerqa"));
+  assert(report.includes("fetkun@gmail.com"));
+  assert(report.includes("Do not start D78"));
+  assert(report.includes("secure"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

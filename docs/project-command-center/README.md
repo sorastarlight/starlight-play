@@ -91,3 +91,7 @@ Persistent working set for approved development batches. Historical audits stay 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 
 **Safety defaults:** no merge, no production deploy, APP `20261008-rc133`, smoke paused, Sora/Twinkle protected, PlayTester nonstaff, legacy `admin.html` / `js/admin-live.js` untouched.
+
+## Agent coordination
+
+[COORDINATION.md](./COORDINATION.md) defines GitHub handoffs and approval gates. Repository protocol only; monitoring and Cursor execution are disabled. D82 STOP remains in force.

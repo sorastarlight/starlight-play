@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "COORD-1",
+      "status": "done",
+      "scope": "Owner-approved GitHub coordination protocol, issue template, Cursor rule and tracking only",
+      "dependencies": [],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "COORDINATION.md; .github/ISSUE_TEMPLATE/agent-job.md; .cursor/rules/streamlink-coordination.mdc; implementation commit is introducing commit in git history",
+      "testResults": "STATIC: JSON parsed; existing task entries preserved; seven approved paths only. No live tests.",
+      "nextAction": "Await separate monitoring/pilot approval. Preserve I48 STOP; do not start D83.",
+      "approvalRequirement": "Owner Proceed in coordination chat on 2026-10-18 approves repository handoff only; no issue post, monitoring, installation, Cursor run, spending or production action"
+    },
+    {
       "id": "CC-1",
       "status": "done",
       "scope": "Command center documentation and streamlink-project rule",

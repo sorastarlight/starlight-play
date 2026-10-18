@@ -2,7 +2,7 @@
 
 ## 2026-10-18 — D76 stamp-smoke readiness
 
-- Started at `8a48eb56`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted catch was created.
+- Started at `8a48eb56`. Draft commit `74d726a1`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted catch was created.
 - Verdict: D76 STAMP SMOKE GO PACKET READY — OWNER APPROVAL REQUIRED. Lifecycle is `inactive`. Event rows are 0. Outbox rows are 0. WIRE `enabled = false`.
 - Recommended smoke is one canonical Play encounter. A bare insert is not the smoke. QA identity is REQUIRED — UNSPECIFIED.
 - `node tools/d76-stamp-smoke-rehearsal.js`: 8/8 REAL SQL on `127.0.0.1:55448`, PostgreSQL 17.5. Odds and spends were stubbed. The bare insert is SIMULATED contrast.

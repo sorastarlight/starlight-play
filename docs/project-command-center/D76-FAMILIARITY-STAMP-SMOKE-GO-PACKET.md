@@ -4,7 +4,7 @@
 **Status:** Packet only. The proposed GO below is not approved. No hosted Pokémon was created.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `8a48eb56`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `74d726a1`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **PostgreSQL:** 17.6 hosted. Local rehearsal 17.5.  

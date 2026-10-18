@@ -753,7 +753,7 @@
       "scope": "D76 stamp-smoke readiness. Read-only catalog and local rehearsal. Not a catch GO.",
       "dependencies": ["I39", "D76"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "74d726a1",
       "evidence": "docs/project-command-center/D76-FAMILIARITY-STAMP-SMOKE-GO-PACKET.md",
       "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D76 8/8 on 127.0.0.1:55448. Lifecycle inactive. No hosted catch.",
       "nextAction": "STOP. Do not start D77. Do not run the stamp smoke until the owner names a QA account and pastes the GO.",

@@ -897,7 +897,7 @@
       "scope": "D85 local stamp rehearsal. Stopped before any write.",
       "dependencies": ["I50", "D85"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "1d1f9ec2",
       "evidence": "docs/project-command-center/D85-STAMP-REHEARSAL.md",
       "testResults": "READ-ONLY LIVE CATALOG. spend, announce, and capture_chance drifted from recorded md5s. No local database.",
       "nextAction": "STOP. Do not start D86. Name the authoritative spend, announce, and capture-chance bodies before another rehearsal.",

@@ -874,6 +874,23 @@ test("Issue 18 D82 launch-guard security gate is not an install", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
+test("Issue 18 D83 launch-guard install does not open an encounter", () => {
+  const report = read("docs/project-command-center/D83-LAUNCH-GUARD-INSTALL-REPORT.md");
+  const file = read("supabase/unapplied/d81-encounter/001_round_is_active.sql");
+  assert(report.includes("a8320107"));
+  assert(report.includes("D83 LAUNCH-GUARD INSTALLED"));
+  assert(report.includes("d1a408c5687f817a056a103eba1767ff971e4538355d43958e48e5c1936ffc8d"));
+  assert(report.includes("5732cc462502e346843eedb76fada494"));
+  assert(report.includes("53d7e8a3f3894212e854618dc0663101"));
+  assert(report.includes("565c102d0a8c84a3dfd036653aca307c"));
+  assert(report.includes("inactive"));
+  assert(file.includes("DO NOT APPLY"));
+  assert(file.includes("r.id is not null"));
+  assert(report.includes("Do not start D84"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

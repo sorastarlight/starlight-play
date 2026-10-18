@@ -1,5 +1,26 @@
 # Run log
 
+## 2026-10-18 — D83 launch-guard install
+
+- Work commit pending pointer, started at `a8320107`. Owner authorized the unchanged D81 file on `dtflmlbjhttoewqgkujf`.
+- Verdict: D83 LAUNCH-GUARD INSTALLED.
+- File SHA-256 `d1a408c5687f817a056a103eba1767ff971e4538355d43958e48e5c1936ffc8d`. Before prosrc md5 `5732cc462502e346843eedb76fada494` at `2026-10-18 05:58:06.640731+00`. After `53d7e8a3f3894212e854618dc0663101` at `2026-10-18 05:58:36.032014+00`.
+- Owner, signature, language, invoker, stable, parallel unsafe, null config, and null ACL stayed. Lifecycle `inactive`. WIRE false. `settle_if_needed` md5 `565c102d0a8c84a3dfd036653aca307c`.
+- Not a migration. Rollback was not run. No gameplay RPC.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · PlayerQA mutated **NO**.
+- Production APP `20261008-rc133`. No merge, deploy, encounter, or activation.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted catalog before install | READ-ONLY LIVE CATALOG | Expected baseline |
+| `001_round_is_active.sql` | REAL SQL | Installed; md5 matched |
+| Hosted catalog after install | REAL SQL | Attributes unchanged |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 68 passed |
+
+---
+
 ## 2026-10-18 — D82 launch-guard security gate
 
 - Work commit `2628fdbd`, started at `6b400e63`. Read-only catalog and one non-mutating GET on `dtflmlbjhttoewqgkujf`. No hosted SQL write.

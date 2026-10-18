@@ -96,6 +96,7 @@
 | D80 | Launch guard confirmed | Ordinary open rounds fail the composite `IS NOT NULL` test. The id check is a draft. QA lane is not the next install. |
 | D81 | Launch-guard packet | Unapplied `001_round_is_active.sql`. Hosted body md5 `5732cc462502e346843eedb76fada494`. Not installed. |
 | D82 | Launch-guard security gate | No new remote mutation path. `private` is not an exposed schema. File still unapplied. |
+| D83 | Launch-guard installed | Unchanged file SHA `d1a408c5687f817a056a103eba1767ff971e4538355d43958e48e5c1936ffc8d`. prosrc md5 `53d7e8a3f3894212e854618dc0663101`. No encounter. |
 
 ## Needs owner approval
 

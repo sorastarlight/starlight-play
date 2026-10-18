@@ -86,6 +86,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [D80-ENCOUNTER-SAFETY-ARCHITECTURE.md](./D80-ENCOUNTER-SAFETY-ARCHITECTURE.md) | D80 launch guard confirmed; QA lane not chosen |
 | [D81-LAUNCH-GUARD-INSTALL-READINESS.md](./D81-LAUNCH-GUARD-INSTALL-READINESS.md) | D81 launch-guard packet; install not authorized |
 | [D82-LAUNCH-GUARD-SECURITY-GATE.md](./D82-LAUNCH-GUARD-SECURITY-GATE.md) | D82 security gate passed; install still needs a GO |
+| [D83-LAUNCH-GUARD-INSTALL-REPORT.md](./D83-LAUNCH-GUARD-INSTALL-REPORT.md) | D83 launch-guard installed; no encounter |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.

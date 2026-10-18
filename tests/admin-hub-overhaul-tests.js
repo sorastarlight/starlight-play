@@ -905,6 +905,25 @@ test("Issue 18 D84 verification plan does not authorize a stamp", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
+test("Issue 18 D85 stamp rehearsal stops on a definition mismatch", () => {
+  const report = read("docs/project-command-center/D85-STAMP-REHEARSAL.md");
+  const d84 = read("docs/project-command-center/D84-VERIFICATION-PLAN.md");
+  assert(report.includes("a76a6234"));
+  assert(report.includes("D85 BLOCKED — DEFINITION MISMATCH"));
+  assert(report.includes("565c102d0a8c84a3dfd036653aca307c"));
+  assert(report.includes("b66ad1b961b3573a2c48947dfe0413ea"));
+  assert(report.includes("53d7e8a3f3894212e854618dc0663101"));
+  assert(report.includes("5419a99d0c1735f44564b84338e32578"));
+  assert(report.includes("b30712a5a082f00ce45fd2c214e7029d"));
+  assert(report.includes("8fa515e574a89165c0adf11339ed73ba"));
+  assert(report.includes("205d43359e90971f790816cf6e45c889"));
+  assert(report.includes("No Poké Ball was spent"));
+  assert(report.includes("Do not start D86"));
+  assert(d84.includes("Do not start D85"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

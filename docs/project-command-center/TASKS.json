@@ -12,7 +12,7 @@
       "commit": null,
       "evidence": "COORDINATION.md; .github/ISSUE_TEMPLATE/agent-job.md; .cursor/rules/streamlink-coordination.mdc; implementation commit is introducing commit in git history",
       "testResults": "STATIC: JSON parsed; existing task entries preserved; seven approved paths only. No live tests.",
-      "nextAction": "Await separate monitoring/pilot approval. D84 is a plan only; do not start D85.",
+      "nextAction": "Await separate monitoring/pilot approval. D85 stopped on a definition mismatch; do not start D86.",
       "approvalRequirement": "Owner Proceed in coordination chat on 2026-10-18 approves repository handoff only; no issue post, monitoring, installation, Cursor run, spending or production action"
     },
     {
@@ -888,8 +888,20 @@
       "commit": "5b4f57cc",
       "evidence": "docs/project-command-center/D84-VERIFICATION-PLAN.md",
       "testResults": "STATIC plan. Reuses D81 17/17 and the D83 fingerprint. No hosted call.",
-      "nextAction": "STOP. Do not start D85. Production stamp remains blocked.",
+      "nextAction": "Superseded by I51. The owner authorized the local rehearsal.",
       "approvalRequirement": "The disposable-stamp paragraph in the D84 report is not a GO."
+    },
+    {
+      "id": "I51",
+      "status": "blocked",
+      "scope": "D85 local stamp rehearsal. Stopped before any write.",
+      "dependencies": ["I50", "D85"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D85-STAMP-REHEARSAL.md",
+      "testResults": "READ-ONLY LIVE CATALOG. spend, announce, and capture_chance drifted from recorded md5s. No local database.",
+      "nextAction": "STOP. Do not start D86. Name the authoritative spend, announce, and capture-chance bodies before another rehearsal.",
+      "approvalRequirement": "This report does not choose the drifted bodies or restore the recorded ones."
     },
     {
       "id": "I13",

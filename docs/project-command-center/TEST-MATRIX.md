@@ -83,6 +83,7 @@
 | D82 launch-guard security gate | hosted grants and a non-mutating private-schema request | READ-ONLY LIVE CATALOG + LIVE API | PGRST106. No mutation. File not installed |
 | D83 launch-guard install | hosted function catalog before and after the unchanged file | REAL SQL | md5 `53d7e8a3f3894212e854618dc0663101`. No gameplay RPC |
 | D84 verification plan | existing D81 rehearsal and D83 fingerprint | STATIC | No new hosted call. Stamp still blocked |
+| D85 local stamp rehearsal | hosted function fingerprints before any local write | READ-ONLY LIVE CATALOG | Mismatch. No database started |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

@@ -98,6 +98,7 @@
 | D82 | Launch-guard security gate | No new remote mutation path. `private` is not an exposed schema. File still unapplied. |
 | D83 | Launch-guard installed | Unchanged file SHA `d1a408c5687f817a056a103eba1767ff971e4538355d43958e48e5c1936ffc8d`. prosrc md5 `53d7e8a3f3894212e854618dc0663101`. No encounter. |
 | D84 | Verification plan | Installed body matches the D81 rehearsal. Production stamp stays blocked. Disposable-database GO is not approved. |
+| D85 | Stamp rehearsal blocked | Settlement, stamp, and launch guard match. Spend, announce, and capture chance do not match their recorded fingerprints. No catch. |
 
 ## Needs owner approval
 

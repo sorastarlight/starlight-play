@@ -6,6 +6,25 @@ COORD-1 completed with owner approval (Proceed in coordination chat). Base: a832
 
 # Run log
 
+## 2026-10-18 — D85 stamp rehearsal
+
+- Work commit pending pointer, started at `a76a6234`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted write and no local database.
+- Verdict: D85 BLOCKED — DEFINITION MISMATCH.
+- Matched: settle `565c102d0a8c84a3dfd036653aca307c`, stamp `b66ad1b961b3573a2c48947dfe0413ea`, `round_is_active` `53d7e8a3f3894212e854618dc0663101`.
+- Drifted: spend `b30712a5a082f00ce45fd2c214e7029d` versus recorded `5419a99d0c1735f44564b84338e32578`; announce `1145a36f2a1a2e93f9d99e91c4d24916` versus `0cd4a8e2a647ba388ce19b14b6f5a8c4`; capture chance `205d43359e90971f790816cf6e45c889` versus `8fa515e574a89165c0adf11339ed73ba`.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · PlayerQA mutated **NO**.
+- Production APP `20261008-rc133`. No merge, deploy, encounter, or activation.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted function fingerprints | READ-ONLY LIVE CATALOG | Three required bodies drifted |
+| Local catch | REAL SQL | **not run** |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 70 passed |
+
+---
+
 ## 2026-10-18 — D84 verification plan
 
 - Work commit `5b4f57cc`, started at `677b7b9c`. Planning only. No hosted call.

@@ -2,7 +2,7 @@
 
 ## 2026-10-18 — D80 encounter safety review
 
-- Work commit pending, started at `aa4c9243`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.
+- Work commit `be9ce449`, started at `aa4c9243`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.
 - Verdict: D80 ARCHITECTURE REVIEW READY — OWNER DECISION REQUIRED.
 - An in-memory reopen of the latest round shape, with `paused_at` and `source_id` null, stayed phase `join` and `round_is_active` false. Settlement md5 `565c102d0a8c84a3dfd036653aca307c`. Lifecycle `inactive`. WIRE disabled.
 - `node tools/d80-launch-guard-rehearsal.js`: 15/15 REAL SQL on `127.0.0.1:55450`, PostgreSQL 17.5. The launch body is a model. Production `settle_if_needed`, odds, and spending were not executed.

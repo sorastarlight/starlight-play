@@ -4,7 +4,7 @@
 **Status:** Read-only catalog and a local model. Nothing installed.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `aa4c9243`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `be9ce449`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **Catalog check:** `2026-10-18 05:09:46.061694+00`

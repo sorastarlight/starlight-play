@@ -787,6 +787,19 @@ test("Issue 18 D77-R1 PlayerQA registration stays blocked", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
+test("Issue 18 D77-R2 PlayerQA verification is not an encounter GO", () => {
+  const report = read("docs/project-command-center/D77-R2-PLAYERQA-VERIFICATION.md");
+  assert(report.includes("f87e66fc"));
+  assert(report.includes("D77-R2 PLAYERQA VERIFIED — ENCOUNTER OWNER GO REQUIRED"));
+  assert(report.includes("1d36e67c-298d-4657-8685-19363af9b7cc"));
+  assert(report.includes("565c102d0a8c84a3dfd036653aca307c"));
+  assert(report.includes("b66ad1b961b3573a2c48947dfe0413ea"));
+  assert(report.includes("not approved"));
+  assert(report.includes("A failed throw does not validate"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

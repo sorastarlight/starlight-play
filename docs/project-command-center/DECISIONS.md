@@ -90,6 +90,7 @@
 | D76 | Stamp-smoke packet | Canonical Play catch is the recommended smoke. QA identity unspecified. Not approved. D77 not started. |
 | D77 | PlayerQA account | Creation blocked. Email and password were not supplied. No Auth write. D78 not started. |
 | D77-R1 | PlayerQA retry | Email `fetkun@gmail.com` is unused. Password was not securely available. No Auth write. |
+| D77-R2 | PlayerQA verified | Owner-registered account `1d36e67c-298d-4657-8685-19363af9b7cc`. Encounter GO is not approved. |
 
 ## Needs owner approval
 

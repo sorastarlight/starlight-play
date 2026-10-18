@@ -780,8 +780,20 @@
       "commit": "d3251583",
       "evidence": "docs/project-command-center/D77-R1-PLAYERQA-PROVISIONING.md",
       "testResults": "READ-ONLY LIVE CATALOG. Username and email are free. No Auth write. Lifecycle inactive.",
-      "nextAction": "STOP. Do not start D78. Provide the password through a secure channel, not chat.",
+      "nextAction": "Superseded by I43. PlayerQA now exists and was verified without an encounter.",
       "approvalRequirement": "Owner password must be available without entering the transcript, git, or tool arguments."
+    },
+    {
+      "id": "I43",
+      "status": "done",
+      "scope": "D77-R2 PlayerQA verification and a proposed encounter GO. No encounter.",
+      "dependencies": ["I42", "D77-R2"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D77-R2-PLAYERQA-VERIFICATION.md",
+      "testResults": "READ-ONLY LIVE CATALOG plus REAL DOM sign-in label. UUID 1d36e67c-298d-4657-8685-19363af9b7cc. Lifecycle inactive. No encounter.",
+      "nextAction": "STOP. Do not run the encounter until the owner pastes the D78 GO.",
+      "approvalRequirement": "The D78 text in the report is not authorization."
     },
     {
       "id": "I13",

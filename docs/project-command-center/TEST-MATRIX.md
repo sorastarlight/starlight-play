@@ -75,6 +75,7 @@
 | D76 stamp-smoke readiness | hosted catalog plus `tools/d76-stamp-smoke-rehearsal.js` | READ-ONLY LIVE CATALOG + REAL SQL 8/8 on `127.0.0.1:55448` | PostgreSQL 17.6 hosted, 17.5 local. No hosted catch |
 | D77 PlayerQA provisioning | hosted identity lookup and registration source | READ-ONLY LIVE CATALOG | PlayerQA absent. Account not created |
 | D77-R1 PlayerQA registration | hosted username and email existence check | READ-ONLY LIVE CATALOG | Both free. Signup not run |
+| D77-R2 PlayerQA verification | hosted PlayerQA row plus the open Play page | READ-ONLY LIVE CATALOG + REAL DOM | Signed in as playerqa. No encounter |
 | Unsigned admin-next gate | local HTTP | REAL DOM | Staff-open Trainers |
 | Live `admin_list_users` / account / inspect | — | **not run** | Needs staff authorization |
 | Legacy admin regressions | static “untouched” asserts | STATIC | Full Dashboard click-through |

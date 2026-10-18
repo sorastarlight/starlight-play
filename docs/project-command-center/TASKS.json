@@ -861,7 +861,7 @@
       "scope": "D83 install of the unchanged round_is_active replacement.",
       "dependencies": ["I48", "D83"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "876ab322",
       "evidence": "docs/project-command-center/D83-LAUNCH-GUARD-INSTALL-REPORT.md",
       "testResults": "REAL SQL catalog before and after. prosrc md5 53d7e8a3f3894212e854618dc0663101. No gameplay RPC.",
       "nextAction": "STOP. Do not start D84. No encounter.",

@@ -88,6 +88,7 @@
 | D74 | Integration install | 005, 006, and 007 committed on the host. Lifecycle stays inactive. D75 not started. |
 | D75 | Activation readiness | Local rehearsal 19/19. Hosted lifecycle stays inactive. Plan is not an activation GO. D76 not started. |
 | D76 | Stamp-smoke packet | Canonical Play catch is the recommended smoke. QA identity unspecified. Not approved. D77 not started. |
+| D77 | PlayerQA account | Creation blocked. Email and password were not supplied. No Auth write. D78 not started. |
 
 ## Needs owner approval
 

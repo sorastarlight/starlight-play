@@ -1,5 +1,24 @@
 # Run log
 
+## 2026-10-18 — D77 PlayerQA provisioning
+
+- Started at `725709b4`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No Auth write.
+- Verdict: D77 BLOCKED — ACCOUNT DETAILS OR AUTH REQUIREMENTS. The canonical signup requires an email and a password. Neither was supplied. No email was invented.
+- PlayerQA does not already exist. Lifecycle is `inactive`. Event rows are 0. Outbox rows are 0. WIRE `enabled = false`.
+- No password was written to the repo, fixtures, logs, or the report.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, encounter, activation, or D78.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted lifecycle and PlayerQA identity lookup | READ-ONLY LIVE CATALOG | Inactive. No matching account |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 60 passed |
+| Account creation or login | REAL RPC | **not run** |
+
+---
+
 ## 2026-10-18 — D76 stamp-smoke readiness
 
 - Started at `8a48eb56`. Draft commit `74d726a1`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted catch was created.

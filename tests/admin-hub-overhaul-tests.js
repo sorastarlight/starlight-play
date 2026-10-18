@@ -763,6 +763,18 @@ test("Issue 18 D76 stamp smoke packet is not a catch GO", () => {
   assert(!report.includes("PRODUCTION PASS"));
 });
 
+test("Issue 18 D77 PlayerQA provisioning stays blocked", () => {
+  const report = read("docs/project-command-center/D77-PLAYERQA-ACCOUNT-REPORT.md");
+  assert(report.includes("725709b4"));
+  assert(report.includes("D77 BLOCKED — ACCOUNT DETAILS OR AUTH REQUIREMENTS"));
+  assert(report.includes("PlayerQA"));
+  assert(report.includes("email"));
+  assert(report.includes("Do not start D78"));
+  assert(report.includes("No password was supplied"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

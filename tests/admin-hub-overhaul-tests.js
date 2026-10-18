@@ -751,6 +751,18 @@ test("Issue 18 D75 familiarity activation plan is not a GO", () => {
   assert(!report.includes("PRODUCTION PASS"));
 });
 
+test("Issue 18 D76 stamp smoke packet is not a catch GO", () => {
+  const report = read("docs/project-command-center/D76-FAMILIARITY-STAMP-SMOKE-GO-PACKET.md");
+  assert(report.includes("8a48eb56"));
+  assert(report.includes("D76 STAMP SMOKE GO PACKET READY — OWNER APPROVAL REQUIRED"));
+  assert(report.includes("565c102d0a8c84a3dfd036653aca307c"));
+  assert(report.includes("REQUIRED — UNSPECIFIED"));
+  assert(report.includes("8/8"));
+  assert(report.includes("Do not start D77"));
+  assert(report.includes("not approved"));
+  assert(!report.includes("PRODUCTION PASS"));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

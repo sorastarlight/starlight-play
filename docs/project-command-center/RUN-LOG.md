@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-18 — D76 stamp-smoke readiness
+
+- Started at `8a48eb56`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted catch was created.
+- Verdict: D76 STAMP SMOKE GO PACKET READY — OWNER APPROVAL REQUIRED. Lifecycle is `inactive`. Event rows are 0. Outbox rows are 0. WIRE `enabled = false`.
+- Recommended smoke is one canonical Play encounter. A bare insert is not the smoke. QA identity is REQUIRED — UNSPECIFIED.
+- `node tools/d76-stamp-smoke-rehearsal.js`: 8/8 REAL SQL on `127.0.0.1:55448`, PostgreSQL 17.5. Odds and spends were stubbed. The bare insert is SIMULATED contrast.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · QA account **none**.
+- Production APP `20261008-rc133`. No merge, deploy, WIRE change, activation, encounter, or D77.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted lifecycle, stamp, settle, WIRE, and empty ledger | READ-ONLY LIVE CATALOG | Inactive. No catch read |
+| `tools/d76-stamp-smoke-rehearsal.js` | REAL SQL | 8/8 on loopback PostgreSQL 17.5 |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 59 passed |
+| Hosted encounter or catch insert | REAL RPC | **not run** |
+
+---
+
 ## 2026-10-17 — D75 familiarity activation readiness
 
 - Started at `aade8a6e`. Draft commit `f9643d2d`. Read-only catalog on `dtflmlbjhttoewqgkujf`. Activation was not called there.

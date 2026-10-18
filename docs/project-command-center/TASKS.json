@@ -744,8 +744,20 @@
       "commit": "f9643d2d",
       "evidence": "docs/project-command-center/D75-FAMILIARITY-ACTIVATION-READINESS.md",
       "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D75 19/19 on 127.0.0.1:55447. Lifecycle inactive. No encounter.",
-      "nextAction": "STOP. Do not start D76. Do not activate Species Familiarity.",
+      "nextAction": "Superseded by I40. The stamp-smoke packet is ready and is not a GO.",
       "approvalRequirement": "Each future action needs its own GO. This plan is not that GO."
+    },
+    {
+      "id": "I40",
+      "status": "done",
+      "scope": "D76 stamp-smoke readiness. Read-only catalog and local rehearsal. Not a catch GO.",
+      "dependencies": ["I39", "D76"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D76-FAMILIARITY-STAMP-SMOKE-GO-PACKET.md",
+      "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D76 8/8 on 127.0.0.1:55448. Lifecycle inactive. No hosted catch.",
+      "nextAction": "STOP. Do not start D77. Do not run the stamp smoke until the owner names a QA account and pastes the GO.",
+      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED — UNSPECIFIED."
     },
     {
       "id": "I13",

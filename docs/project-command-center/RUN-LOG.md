@@ -2,7 +2,7 @@
 
 ## 2026-10-18 — D81 launch-guard readiness
 
-- Work commit pending, started at `a256076d`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.
+- Work commit `fe2db375`, started at `a256076d`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.
 - Verdict: D81 LAUNCH-GUARD GO PACKET READY — INSTALL NOT AUTHORIZED.
 - Hosted `round_is_active` prosrc md5 `5732cc462502e346843eedb76fada494`. Signature `r encounter_rounds`, boolean, owner `postgres`, security invoker, stable, null search_path.
 - File `supabase/unapplied/d81-encounter/001_round_is_active.sql` SHA-256 `d1a408c5687f817a056a103eba1767ff971e4538355d43958e48e5c1936ffc8d`. Local prosrc md5 after apply `53d7e8a3f3894212e854618dc0663101`.

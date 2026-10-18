@@ -4,7 +4,7 @@
 **Status:** The replacement is an unapplied file. It was not run on the hosted database.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `a256076d`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `fe2db375`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **Catalog check:** `2026-10-18 05:16:05.278991+00`

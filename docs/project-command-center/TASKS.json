@@ -837,7 +837,7 @@
       "scope": "D81 launch-guard readiness. Unapplied SQL only.",
       "dependencies": ["I46", "D81"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "fe2db375",
       "evidence": "docs/project-command-center/D81-LAUNCH-GUARD-INSTALL-READINESS.md",
       "testResults": "READ-ONLY LIVE CATALOG. Local REAL SQL 17/17 on 127.0.0.1:55451. File not installed on the host.",
       "nextAction": "STOP. Do not start D82. Do not install 001_round_is_active.sql.",

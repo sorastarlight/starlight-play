@@ -84,6 +84,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [D78-PLAYERQA-STAMP-SMOKE-REPORT.md](./D78-PLAYERQA-STAMP-SMOKE-REPORT.md) | D78 stamp smoke blocked; no encounter |
 | [D79-QA-ENCOUNTER-ISOLATION-DESIGN.md](./D79-QA-ENCOUNTER-ISOLATION-DESIGN.md) | D79 isolation design is a no-go |
 | [D80-ENCOUNTER-SAFETY-ARCHITECTURE.md](./D80-ENCOUNTER-SAFETY-ARCHITECTURE.md) | D80 launch guard confirmed; QA lane not chosen |
+| [D81-LAUNCH-GUARD-INSTALL-READINESS.md](./D81-LAUNCH-GUARD-INSTALL-READINESS.md) | D81 launch-guard packet; install not authorized |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.

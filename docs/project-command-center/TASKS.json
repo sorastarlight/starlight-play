@@ -828,8 +828,20 @@
       "commit": "be9ce449",
       "evidence": "docs/project-command-center/D80-ENCOUNTER-SAFETY-ARCHITECTURE.md",
       "testResults": "READ-ONLY LIVE CATALOG. Local guard model 15/15 on 127.0.0.1:55450. No install and no encounter.",
-      "nextAction": "STOP. Do not start D81. Do not install the draft expression.",
+      "nextAction": "Superseded by I47. The launch-guard file is drafted and not installed.",
       "approvalRequirement": "The launch-guard draft and any staging stamp smoke each need their own GO."
+    },
+    {
+      "id": "I47",
+      "status": "done",
+      "scope": "D81 launch-guard readiness. Unapplied SQL only.",
+      "dependencies": ["I46", "D81"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D81-LAUNCH-GUARD-INSTALL-READINESS.md",
+      "testResults": "READ-ONLY LIVE CATALOG. Local REAL SQL 17/17 on 127.0.0.1:55451. File not installed on the host.",
+      "nextAction": "STOP. Do not start D82. Do not install 001_round_is_active.sql.",
+      "approvalRequirement": "The GO in the D81 report is not authorization."
     },
     {
       "id": "I13",

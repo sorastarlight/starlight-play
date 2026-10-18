@@ -1,5 +1,27 @@
 # Run log
 
+## 2026-10-18 — D81 launch-guard readiness
+
+- Work commit pending, started at `a256076d`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.
+- Verdict: D81 LAUNCH-GUARD GO PACKET READY — INSTALL NOT AUTHORIZED.
+- Hosted `round_is_active` prosrc md5 `5732cc462502e346843eedb76fada494`. Signature `r encounter_rounds`, boolean, owner `postgres`, security invoker, stable, null search_path.
+- File `supabase/unapplied/d81-encounter/001_round_is_active.sql` SHA-256 `d1a408c5687f817a056a103eba1767ff971e4538355d43958e48e5c1936ffc8d`. Local prosrc md5 after apply `53d7e8a3f3894212e854618dc0663101`.
+- `node tools/d81-launch-guard-rehearsal.js`: 17/17 REAL SQL on `127.0.0.1:55451`, PostgreSQL 17.5. Pause, cancel, dashboard status, and gift-joined are control-flow models. Production `settle_if_needed` was not called.
+- Rollback file restores md5 `5732cc462502e346843eedb76fada494`. It was not applied on the host.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · PlayerQA mutated **NO**.
+- Production APP `20261008-rc133`. No merge, deploy, install, encounter, or activation.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted function identity, grants, and caller list | READ-ONLY LIVE CATALOG | No drift from D80 |
+| `tools/d81-launch-guard-rehearsal.js` | REAL SQL | 17/17 on loopback |
+| Hosted install of `001_round_is_active.sql` | REAL RPC | **not run** |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 66 passed |
+
+---
+
 ## 2026-10-18 — D80 encounter safety review
 
 - Work commit `be9ce449`, started at `aa4c9243`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.

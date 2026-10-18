@@ -837,6 +837,27 @@ test("Issue 18 D80 launch guard stays a draft", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
+test("Issue 18 D81 launch-guard file stays unapplied", () => {
+  const crypto = require("crypto");
+  const report = read("docs/project-command-center/D81-LAUNCH-GUARD-INSTALL-READINESS.md");
+  const file = read("supabase/unapplied/d81-encounter/001_round_is_active.sql");
+  const rollback = read("supabase/unapplied/d81-encounter/002_round_is_active_rollback.sql");
+  const hash = crypto.createHash("sha256").update(file).digest("hex");
+  assert(report.includes("a256076d"));
+  assert(report.includes("D81 LAUNCH-GUARD GO PACKET READY — INSTALL NOT AUTHORIZED"));
+  assert(report.includes("5732cc462502e346843eedb76fada494"));
+  assert(report.includes("53d7e8a3f3894212e854618dc0663101"));
+  assert(report.includes(hash));
+  assert(file.includes("DO NOT APPLY"));
+  assert(file.includes("r.id is not null"));
+  assert(!file.includes("round_phase(r public.encounter_rounds)"));
+  assert(rollback.includes("DO NOT APPLY"));
+  assert(rollback.includes("r is not null"));
+  assert(report.includes("Do not start D82"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

@@ -4,7 +4,7 @@
 **Status:** No account was created. PlayerQA does not already exist.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `725709b4`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `6eda99a5`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **WIRE:** remains disabled (`enabled = false`).

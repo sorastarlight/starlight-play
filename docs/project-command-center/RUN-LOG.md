@@ -2,7 +2,7 @@
 
 ## 2026-10-18 — D77 PlayerQA provisioning
 
-- Started at `725709b4`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No Auth write.
+- Started at `725709b4`. Draft commit `6eda99a5`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No Auth write.
 - Verdict: D77 BLOCKED — ACCOUNT DETAILS OR AUTH REQUIREMENTS. The canonical signup requires an email and a password. Neither was supplied. No email was invented.
 - PlayerQA does not already exist. Lifecycle is `inactive`. Event rows are 0. Outbox rows are 0. WIRE `enabled = false`.
 - No password was written to the repo, fixtures, logs, or the report.

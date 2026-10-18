@@ -765,7 +765,7 @@
       "scope": "D77 PlayerQA provisioning. Blocked before any Auth write.",
       "dependencies": ["I40", "D77"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "6eda99a5",
       "evidence": "docs/project-command-center/D77-PLAYERQA-ACCOUNT-REPORT.md",
       "testResults": "READ-ONLY LIVE CATALOG. PlayerQA does not exist. No account created. Lifecycle inactive.",
       "nextAction": "STOP. Do not start D78. Supply an email and a secure password before any retry.",

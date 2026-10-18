@@ -4,7 +4,7 @@
 **Status:** Read-only. Neither D81 SQL file was installed.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `6b400e63`  
-**Work commit:** pending pointer  
+**Work commit:** `2628fdbd`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **Catalog:** `2026-10-18 05:36–05:37+00`. Exposed-schema probe: `2026-10-18 05:39:51 GMT`.

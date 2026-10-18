@@ -849,7 +849,7 @@
       "scope": "D82 launch-guard security gate. No install.",
       "dependencies": ["I47", "D82"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "2628fdbd",
       "evidence": "docs/project-command-center/D82-LAUNCH-GUARD-SECURITY-GATE.md",
       "testResults": "READ-ONLY LIVE CATALOG. LIVE API PGRST106 for schema private. No hosted mutation.",
       "nextAction": "STOP. Do not start D83. Do not install 001_round_is_active.sql until a separate owner GO.",

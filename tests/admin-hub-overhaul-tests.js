@@ -813,6 +813,18 @@ test("Issue 18 D78 stamp smoke stops before a public encounter", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
+test("Issue 18 D79 QA isolation stays a design no-go", () => {
+  const report = read("docs/project-command-center/D79-QA-ENCOUNTER-ISOLATION-DESIGN.md");
+  assert(report.includes("0f1acb23"));
+  assert(report.includes("D79 NO-GO — EXISTING ARCHITECTURE REQUIRES FURTHER DESIGN"));
+  assert(report.includes("565c102d0a8c84a3dfd036653aca307c"));
+  assert(report.includes("round_is_active"));
+  assert(report.includes("Do not start D80"));
+  assert(report.includes("No SQL file was added"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

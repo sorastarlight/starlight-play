@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-18 — D79 QA encounter isolation
+
+- Started at `0f1acb23`. Read-only catalog on `dtflmlbjhttoewqgkujf`. No hosted SQL write.
+- Verdict: D79 NO-GO — EXISTING ARCHITECTURE REQUIRES FURTHER DESIGN.
+- `latest_round` returns one row. A synthetic open composite returned `round_is_active = false`. RLS still exposes non-cancelled rounds, activity, and the console.
+- `node tools/d79-selector-collision-rehearsal.js`: 8/8 REAL SQL on `127.0.0.1:55449`, PostgreSQL 17.5. SIMULATED selector model. Odds, spending, settlement, and the stamp were not executed.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · PlayerQA mutated **NO**.
+- Production APP `20261008-rc133`. No merge, deploy, prototype install, encounter, or activation.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| Hosted round selector, RLS, and realtime catalog | READ-ONLY LIVE CATALOG | One latest row; guard fails open; public reads |
+| `tools/d79-selector-collision-rehearsal.js` | REAL SQL | 8/8 on loopback. SIMULATED phase stub |
+| QA gameplay checks from the D79 request | REAL RPC | **not run** |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 64 passed |
+
+---
+
 ## 2026-10-18 — D78 PlayerQA stamp smoke
 
 - Work commit `9cf2f6e1`, started at `3c6c44d9`. Read-only catalog on `dtflmlbjhttoewqgkujf`. The open Play page was read and not clicked.

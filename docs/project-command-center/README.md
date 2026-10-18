@@ -82,6 +82,7 @@ Persistent working set for approved development batches. Historical audits stay 
 | [D77-R1-PLAYERQA-PROVISIONING.md](./D77-R1-PLAYERQA-PROVISIONING.md) | D77-R1 registration blocked; password channel missing |
 | [D77-R2-PLAYERQA-VERIFICATION.md](./D77-R2-PLAYERQA-VERIFICATION.md) | D77-R2 PlayerQA verified; encounter GO required |
 | [D78-PLAYERQA-STAMP-SMOKE-REPORT.md](./D78-PLAYERQA-STAMP-SMOKE-REPORT.md) | D78 stamp smoke blocked; no encounter |
+| [D79-QA-ENCOUNTER-ISOLATION-DESIGN.md](./D79-QA-ENCOUNTER-ISOLATION-DESIGN.md) | D79 isolation design is a no-go |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.

@@ -804,8 +804,20 @@
       "commit": "9cf2f6e1",
       "evidence": "docs/project-command-center/D78-PLAYERQA-STAMP-SMOKE-REPORT.md",
       "testResults": "READ-ONLY LIVE CATALOG. Identity and inactive ledger passed. Public round cannot be limited to PlayerQA. No encounter.",
-      "nextAction": "STOP. Do not start D79. Do not activate Species Familiarity.",
+      "nextAction": "Superseded by I45. Isolation still needs a design review before any smoke.",
       "approvalRequirement": "A later smoke needs a separate GO and a way to exclude every other trainer."
+    },
+    {
+      "id": "I45",
+      "status": "done",
+      "scope": "D79 QA encounter isolation design. No prototype and no encounter.",
+      "dependencies": ["I44", "D79"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/D79-QA-ENCOUNTER-ISOLATION-DESIGN.md",
+      "testResults": "READ-ONLY LIVE CATALOG. Local selector model 8/8 on 127.0.0.1:55449. No QA SQL and no encounter.",
+      "nextAction": "STOP. Do not start D80. Do not install a QA encounter.",
+      "approvalRequirement": "A selector split needs its own design GO. This report is not that GO."
     },
     {
       "id": "I13",

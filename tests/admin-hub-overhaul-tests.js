@@ -800,6 +800,19 @@ test("Issue 18 D77-R2 PlayerQA verification is not an encounter GO", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
+test("Issue 18 D78 stamp smoke stops before a public encounter", () => {
+  const report = read("docs/project-command-center/D78-PLAYERQA-STAMP-SMOKE-REPORT.md");
+  assert(report.includes("3c6c44d9"));
+  assert(report.includes("D78 BLOCKED — SAFE ENCOUNTER NOT AVAILABLE"));
+  assert(report.includes("1d36e67c-298d-4657-8685-19363af9b7cc"));
+  assert(report.includes("565c102d0a8c84a3dfd036653aca307c"));
+  assert(report.includes("b66ad1b961b3573a2c48947dfe0413ea"));
+  assert(report.includes("An encounter did not run"));
+  assert(report.includes("Do not start D79"));
+  assert(!report.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

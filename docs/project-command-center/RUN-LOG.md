@@ -1,5 +1,25 @@
 # Run log
 
+## 2026-10-18 — D78 PlayerQA stamp smoke
+
+- Started at `3c6c44d9`. Read-only catalog on `dtflmlbjhttoewqgkujf`. The open Play page was read and not clicked.
+- Verdict: D78 BLOCKED — SAFE ENCOUNTER NOT AVAILABLE. PlayerQA `1d36e67c-298d-4657-8685-19363af9b7cc` is nonstaff and holds 10 Poké Balls. Lifecycle is `inactive`.
+- No open round. No rounds in six hours. Director RPG session is inactive. A new round would be public, and cancel restores every participant's bag.
+- Specimens created: 0. No ball spent. Stamp not exercised.
+- Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · PlayerQA mutated **NO**.
+- Production APP `20261008-rc133`. No merge, deploy, encounter, or activation.
+
+### Tests
+
+| Suite | Class | Result |
+|---|---|---|
+| PlayerQA, director, and familiarity catalog | READ-ONLY LIVE CATALOG | Eligible account, no exclusive round |
+| Play page account label | REAL DOM | Signed in as playerqa. Stream offline |
+| `tests/admin-hub-overhaul-tests.js` | STATIC | 63 passed |
+| Encounter or catch insert | REAL RPC | **not run** |
+
+---
+
 ## 2026-10-18 — D77-R2 PlayerQA verification
 
 - Work commit `9a639507`, started at `f87e66fc`. Read-only catalog on `dtflmlbjhttoewqgkujf`. The open Play page was read and not clicked.

@@ -4,7 +4,7 @@
 **Status:** Planning only. No hosted call and no SQL change.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `677b7b9c`  
-**Work commit:** pending pointer  
+**Work commit:** `5b4f57cc`  
 **Production APP:** `20261008-rc133` (unchanged).
 
 Sora mutated **NO** · Twinkle mutated **NO** · PlayTester mutated **NO** · PlayerQA mutated **NO**.

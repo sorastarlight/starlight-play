@@ -8,7 +8,7 @@ COORD-1 completed with owner approval (Proceed in coordination chat). Base: a832
 
 ## 2026-10-18 — D84 verification plan
 
-- Work commit pending pointer, started at `677b7b9c`. Planning only. No hosted call.
+- Work commit `5b4f57cc`, started at `677b7b9c`. Planning only. No hosted call.
 - Verdict: D84 VERIFICATION PLAN READY — PRODUCTION STAMP STILL BLOCKED.
 - D83 proves the hosted body md5 `53d7e8a3f3894212e854618dc0663101`, matching the D81 local rehearsal. D81 17/17 is reused and not repeated.
 - PlayerQA stamp stays blocked. The proposed next proof is a disposable database, not a live round. That paragraph is not a GO.

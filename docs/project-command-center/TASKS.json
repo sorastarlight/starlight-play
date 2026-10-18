@@ -885,7 +885,7 @@
       "scope": "D84 post-install verification plan. No hosted check.",
       "dependencies": ["I49", "D84"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "5b4f57cc",
       "evidence": "docs/project-command-center/D84-VERIFICATION-PLAN.md",
       "testResults": "STATIC plan. Reuses D81 17/17 and the D83 fingerprint. No hosted call.",
       "nextAction": "STOP. Do not start D85. Production stamp remains blocked.",

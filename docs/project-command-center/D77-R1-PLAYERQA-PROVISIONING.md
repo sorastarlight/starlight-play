@@ -4,7 +4,7 @@
 **Status:** No account was created. The username and email are free. The password could not be read securely.  
 **Branch:** `admin-hub-overhaul`  
 **Starting commit:** `0d1a8224`  
-**Work commit:** filled by the pointer commit after this report lands.  
+**Work commit:** `d3251583`  
 **Production APP:** `20261008-rc133` (unchanged).  
 **Project:** `dtflmlbjhttoewqgkujf`  
 **WIRE:** remains disabled (`enabled = false`).

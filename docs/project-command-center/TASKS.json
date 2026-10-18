@@ -777,7 +777,7 @@
       "scope": "D77-R1 PlayerQA registration. Blocked before signup because the password was not securely available.",
       "dependencies": ["I41", "D77-R1"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "d3251583",
       "evidence": "docs/project-command-center/D77-R1-PLAYERQA-PROVISIONING.md",
       "testResults": "READ-ONLY LIVE CATALOG. Username and email are free. No Auth write. Lifecycle inactive.",
       "nextAction": "STOP. Do not start D78. Provide the password through a secure channel, not chat.",

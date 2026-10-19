@@ -2,6 +2,8 @@
 
 Current runner: [Codex runner trial](./CODEX-RUNNER.md). The owner's later instructions supersede the Gemini/Cursor handoff pause for routine development and GitHub publication; D86 and database/gameplay changes remain gated.
 
+SMTP connection in progress: [Resend DNS records](./RESEND-DNS-SETUP.md) — owner DNS entry pending; no SMTP credential created or saved.
+
 Recovery email staging: [guarded sender and branded template](./CODEX-RECOVERY-EMAIL.md) — sending disabled pending delivery setup.
 
 Latest recovery implementation: [owner-only masked diagnostics](./CODEX-ACCOUNT-DIAGNOSTICS.md). Prior phase: [password recovery foundation](./CODEX-PASSWORD-RECOVERY.md).

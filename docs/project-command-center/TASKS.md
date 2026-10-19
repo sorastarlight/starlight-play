@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-13 | blocked | Resend free SMTP setup; dedicated auth sending domain | CODEX-12 | Owner authorized Resend setup | Owner adds three DNS records; then verify domain and scoped SMTP credential |
 | CODEX-12 | done | Guarded recovery email; branded template; recipient support; mail setup audit | CODEX-11 | Owner continuation and email customization request | Published; template installed; sending disabled pending mail setup |
 | CODEX-11 | done | Owner-only masked account diagnostics in Connections | CODEX-10 | Owner confirmed proceeding | Recovery-email safeguards; real Auth inspection unverified |
 | CODEX-10 | done | Isolated password recovery; accurate username guidance | CODEX-9 | Owner accepted proposal and proceeded | Owner-only masked diagnostics; real email QA pending |

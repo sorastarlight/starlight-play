@@ -1,5 +1,9 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-13 — Resend SMTP setup awaiting DNS (2026-10-19)
+
+Owner authorized Resend and signed in. Verified free transactional plan (3000/month, 100/day, paid overages off). Added auth.sorastarlight.net as an unverified Resend sending domain (us-east-1); receiving off, tracking not configured. Exact public DKIM/CNAME records captured in RESEND-DNS-SETUP.md. GoDaddy embedded-browser block requires owner DNS entry in regular browser. Public lookup currently finds none of the three required records. Prepared Supabase non-secret SMTP fields without saving. Domain-restricted key creation cannot finish until verification; no API key created, no email sent, no Auth user inspected or changed, no gameplay/D86/activation/stamp/spending. No application code changed or tests needed for this docs/setup-only batch.
+
 ## CODEX-12 — recovery email staged (2026-10-19)
 
 Installed disabled owner email boundary and private receipt/challenge tables; recipient token verification and explicit confirmation added. 75 STATIC suites/build, 23 LOCAL REAL SQL checks, 13 synthetic mail checks, 20 recovery checks and REAL DOM sanitized fixtures passed. Corrected hosted localhost Auth fallback and added two exact live recovery callbacks. Recipient support published as 08cd43b7, Pages 39252515663 succeeded; served files matched. Branded template saved in Supabase after full source verification. Built-in SMTP is not configured for production delivery; GoDaddy DNS inspection read-only; account login rejected by GoDaddy unusual-browser check, so email entitlement remains unknown. No real mail/password/account changes, gameplay, protected targets, activation, D86, APP stamp or spending. See CODEX-RECOVERY-EMAIL.md.

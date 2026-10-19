@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-13",
+      "status": "blocked",
+      "scope": "Resend free-plan SMTP setup with auth.sorastarlight.net sending domain",
+      "dependencies": [
+        "CODEX-12"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "RESEND-DNS-SETUP.md; live Resend UI and public DNS lookup",
+      "testResults": "READ ONLY account shows Free 3000/month, 100/day, paid overages off; DNS records absent. No mail or Auth test.",
+      "nextAction": "Owner adds exact three DNS records in regular GoDaddy browser; verify Resend domain, confirm domain-restricted sending credential and save Supabase SMTP settings",
+      "approvalRequirement": "Owner authorized Resend setup. Browser security requires action-time confirmation before creating the persistent SMTP credential. No credential created or SMTP settings saved; no spending."
+    },
+    {
       "id": "CODEX-12",
       "status": "done",
       "scope": "Guarded owner recovery-email boundary, branded template, recipient-browser recovery, mail setup investigation",

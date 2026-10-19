@@ -1,5 +1,9 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-13 completion — Resend connected (2026-10-19)
+
+Owner added DNS and confirmed scoped key creation/Supabase storage/one simulator test. Domain verified; sending-only auth.sorastarlight.net restriction confirmed; Supabase SMTP enabled and persisted (smtp.resend.com:465, no-reply@auth.sorastarlight.net). Auth cap visually verified at 30/hour; Resend Free 100/day, 3000/month, overages off. One Resend dashboard test to delivered@resend.dev recorded Sent and Delivered. This was not a Supabase SMTP/Auth or real-mailbox round trip. No secrets in files/logs; transient clipboard/key cleared. An explicitly unpublished test draft remains. Staff recovery flag remains false with zero receipts; no Auth user/protected trainer/gameplay changes, D86, activation, APP stamp or spending. Configuration/docs-only; no repeated static tests. See RESEND-SMTP-CONNECTION.md.
+
 ## CODEX-13 — Resend SMTP setup awaiting DNS (2026-10-19)
 
 Owner authorized Resend and signed in. Verified free transactional plan (3000/month, 100/day, paid overages off). Added auth.sorastarlight.net as an unverified Resend sending domain (us-east-1); receiving off, tracking not configured. Exact public DKIM/CNAME records captured in RESEND-DNS-SETUP.md. GoDaddy embedded-browser block requires owner DNS entry in regular browser. Public lookup currently finds none of the three required records. Prepared Supabase non-secret SMTP fields without saving. Domain-restricted key creation cannot finish until verification; no API key created, no email sent, no Auth user inspected or changed, no gameplay/D86/activation/stamp/spending. No application code changed or tests needed for this docs/setup-only batch.

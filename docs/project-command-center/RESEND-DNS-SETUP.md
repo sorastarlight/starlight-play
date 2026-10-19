@@ -1,6 +1,6 @@
 # Resend sending domain setup
 
-Prepared 2026-10-19 for auth.sorastarlight.net in region us-east-1. These are public DNS records, not API credentials. Verification is pending.
+Prepared 2026-10-19 for auth.sorastarlight.net in region us-east-1. These are public DNS records, not API credentials. Owner added the records; public DNS and Resend verification are complete.
 
 GoDaddy zone: sorastarlight.net. Enter the relative names below, preserving existing unrelated records. TTL: default/Auto (one hour is suitable if Auto is unavailable).
 
@@ -14,6 +14,6 @@ Resend domain: https://resend.com/domains/9175abd8-7ac3-487d-9a48-33dc63ce5601
 
 Only sending is needed; do not enable receiving or add an inbound MX. No root DMARC change is required by this three-record setup. Tracking is not configured.
 
-Planned Supabase sender: no-reply@auth.sorastarlight.net, name Sora Starlight. SMTP host smtp.resend.com, port 465, username resend. Password will be a sending-only API key restricted to this verified domain, stored only in Supabase SMTP settings after confirmation. No key has been created.
+Connected Supabase sender: no-reply@auth.sorastarlight.net, name Sora Starlight. SMTP host smtp.resend.com, port 465, username resend. A sending-only API key restricted to this verified domain was created after explicit confirmation and stored in Supabase SMTP settings. No secret is recorded here.
 
-GoDaddy blocks the embedded browser; the owner must add these records in a regular browser. After DNS verifies, finish the domain-restricted credential and SMTP connection, then test delivery without touching protected trainer accounts.
+GoDaddy blocked the embedded browser; the owner added these records in a regular browser. SMTP is now connected and one provider simulator message was delivered. Full Supabase Auth recovery delivery remains untested. See RESEND-SMTP-CONNECTION.md.

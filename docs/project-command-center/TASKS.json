@@ -5,17 +5,17 @@
   "tasks": [
     {
       "id": "CODEX-13",
-      "status": "blocked",
+      "status": "done",
       "scope": "Resend free-plan SMTP setup with auth.sorastarlight.net sending domain",
       "dependencies": [
         "CODEX-12"
       ],
       "branch": "admin-hub-overhaul",
       "commit": null,
-      "evidence": "RESEND-DNS-SETUP.md; live Resend UI and public DNS lookup",
-      "testResults": "READ ONLY account shows Free 3000/month, 100/day, paid overages off; DNS records absent. No mail or Auth test.",
-      "nextAction": "Owner adds exact three DNS records in regular GoDaddy browser; verify Resend domain, confirm domain-restricted sending credential and save Supabase SMTP settings",
-      "approvalRequirement": "Owner authorized Resend setup. Browser security requires action-time confirmation before creating the persistent SMTP credential. No credential created or SMTP settings saved; no spending."
+      "evidence": "RESEND-SMTP-CONNECTION.md; RESEND-DNS-SETUP.md; live saved SMTP/scope UI and provider delivery event",
+      "testResults": "REAL DNS/domain verified; SMTP persisted after reload; sending-only domain restriction confirmed; one Resend dashboard simulator message Sent and Delivered. No Supabase Auth mail test.",
+      "nextAction": "Dedicated approved full Supabase recovery QA and receipt-retention/privacy resolution before staff-send activation",
+      "approvalRequirement": "Owner explicitly confirmed scoped key creation, Supabase storage and one simulator test; completed on free plan, paid overages off. No protected-account tests or spending."
     },
     {
       "id": "CODEX-12",

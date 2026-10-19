@@ -2,9 +2,9 @@
 
 Current runner: [Codex runner trial](./CODEX-RUNNER.md). The owner's later instructions supersede the Gemini/Cursor handoff pause for routine development and GitHub publication; D86 and database/gameplay changes remain gated.
 
-SMTP connection in progress: [Resend DNS records](./RESEND-DNS-SETUP.md) — owner DNS entry pending; no SMTP credential created or saved.
+SMTP connected: [Resend configuration and delivery evidence](./RESEND-SMTP-CONNECTION.md) — domain verified, scoped credential saved, one provider simulator message delivered. Full Supabase Auth recovery QA remains separate.
 
-Recovery email staging: [guarded sender and branded template](./CODEX-RECOVERY-EMAIL.md) — sending disabled pending delivery setup.
+Recovery email staging: [guarded sender and branded template](./CODEX-RECOVERY-EMAIL.md) — staff sending disabled pending dedicated Auth QA and receipt policy.
 
 Latest recovery implementation: [owner-only masked diagnostics](./CODEX-ACCOUNT-DIAGNOSTICS.md). Prior phase: [password recovery foundation](./CODEX-PASSWORD-RECOVERY.md).
 

@@ -30,3 +30,7 @@ Publication: 08cd43b7, Pages run 39252515663 succeeded; all four reset/sender ap
 Next: inspect existing GoDaddy email entitlement using the owner's regular browser or supplied product name; choose an existing suitable sender without spending. Do not enable the staff sender until SMTP and isolated live QA/receipt policy are resolved.
 
 Live boundary smoke: unauthenticated POST HTTP 401; OPTIONS booted the deployed handler and returned HTTP 204 with the exact production CORS origin and no-store. No target or Auth user lookup was used for that smoke.
+
+## SMTP prerequisite resolved
+
+CODEX-13 connected Resend after the owner added DNS and confirmed scoped credential creation/storage. See RESEND-SMTP-CONNECTION.md for persisted settings and one provider simulator Delivered event. This supersedes the earlier absent-SMTP snapshot only; staff sends remain disabled pending actual Supabase Auth recovery QA and receipt-retention/privacy resolution.

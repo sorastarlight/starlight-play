@@ -95,3 +95,7 @@ Owner accepted this proposal and instructed proceeding. Phase 1 is implemented i
 ## Approved phase 2 — owner diagnostics
 
 Owner confirmed proceeding. CODEX-ACCOUNT-DIAGNOSTICS.md records the installed read-only owner context/Edge Function and Connections control. This supersedes the original snapshot for diagnostics only. Staff sends and identity mutations remain unimplemented.
+
+## Approved phase 3 — email boundary staged, template installed
+
+Owner requested continuing and customized emails. CODEX-RECOVERY-EMAIL.md records the guarded sender, recipient token flow, saved branded recovery template and corrected hosted callbacks. Staff sending remains disabled: custom SMTP is absent, GoDaddy email entitlement could not be inspected due its browser check, and isolated real delivery QA/receipt retention remain prerequisites. No actual emails or account changes were tested.

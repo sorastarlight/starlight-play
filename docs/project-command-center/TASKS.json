@@ -5,16 +5,16 @@
   "tasks": [
     {
       "id": "CODEX-12",
-      "status": "doing",
+      "status": "done",
       "scope": "Guarded owner recovery-email boundary, branded template, recipient-browser recovery, mail setup investigation",
       "dependencies": [
         "CODEX-11"
       ],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "08cd43b7",
       "evidence": "CODEX-RECOVERY-EMAIL.md; supabase/templates/recovery.html",
       "testResults": "75 static suites/build; 23 real local SQL checks; 13 mocked email checks; 20 recovery checks; local DOM fixtures",
-      "nextAction": "Publish recipient support, install branded template; staff sends remain disabled pending SMTP, receipt policy and approved live QA",
+      "nextAction": "Mail delivery blocked pending an existing sender/product, receipt policy and approved live QA; branded template saved and callbacks corrected",
       "approvalRequirement": "Owner continued accepted recovery work and explicitly requested email customization; no purchases or real email tests."
     },
     {

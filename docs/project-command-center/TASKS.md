@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-2 | done | Live guide review; restore Trainer dossier keyboard focus | CODEX-1 | Routine maintenance | Owner visual acceptance; authenticated staff not exercised |
 | CODEX-1 | done | Codex runner trial; reconcile legacy static checks | Owner instruction | Routine maintenance authorized | Visual/interaction review of published guide and read-only hub; D86 remains unauthorized |
 | CC-1 | done | Command center docs + `streamlink-project.mdc` | — | none | Maintain on each batch |
 | CC-2 | done | Admin Hub inventory + IA | CC-1 | none | Owner reads A3 grant-canonical question |

@@ -1,3 +1,12 @@
+# Codex UI verification and focus repair — 2026-10-18
+
+- Base `0ef7972c`; previous Pages deployment run `39191691832` succeeded.
+- REAL DOM, live signed-out How to Play: six guide steps, Finish, reopen and Skip work; focus moves to guide headings and the collapsed control. At 390px, no horizontal overflow; guide buttons about 47px tall. This is browser-local guide state only, not account/gameplay verification.
+- REAL DOM, localhost sanitized Trainer fixture: selecting a trainer and changing panes lost focus to the document body. Added focus to Back when opening, the selected pane after re-render, and the original directory row on return. Applied the same handling to the actual read-only controller; existing request generation guards preserved.
+- Verified fixture opening, Inventory selection, return to Fixture Oak, and long-name dossier at 390px. Focus followed expected controls, and document width remained within the viewport. No authenticated staff or production trainer RPC ran.
+- STATIC / LOCAL HARNESS: 69 non-writing suites and build validation passed. APP unchanged; no build stamp, SQL, gameplay RPC, account mutation or spending. Sora NO; Twinkle NO; PlayTester NO; PlayerQA NO. Roles unverified.
+- Next: owner visual acceptance remains distinct from these functional checks. A10/A9 and D86 are not inferred approvals. Work/result SHA is the introducing commit in git history.
+
 # Codex runner trial — 2026-10-18
 
 - Owner replaced the Gemini/Cursor handoff with Codex in this existing checkout and requested minimal prompts for routine work. See CODEX-RUNNER.md for scope.

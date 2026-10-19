@@ -239,18 +239,24 @@
     pane = "overview";
     renderDirectory();
     renderProfile();
+    document.querySelector("[data-trainers-back]").focus();
   });
   document.getElementById("next-trainer-detail").addEventListener("click", (event) => {
     const btn = event.target.closest("[data-trainer-pane]");
     if (!btn) return;
     pane = btn.getAttribute("data-trainer-pane") || "overview";
     renderProfile();
+    document.querySelector('[data-trainer-pane][aria-selected="true"]')?.focus();
   });
   document.querySelector("[data-trainers-back]").addEventListener("click", () => {
+    const previousId = selectedId;
     selectedId = "";
     pane = "overview";
     renderProfile();
     renderDirectory();
+    const previousRow = Array.from(document.querySelectorAll("[data-open-trainer]"))
+      .find((row) => row.getAttribute("data-open-trainer") === previousId);
+    (previousRow || document.getElementById("next-trainer-q")).focus();
   });
   document.querySelector("[data-fixture-states]").addEventListener("click", (event) => {
     const btn = event.target.closest("[data-fixture-state]");

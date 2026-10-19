@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-2",
+      "status": "done",
+      "scope": "Guide interaction review and Trainer workspace focus restoration",
+      "dependencies": ["CODEX-1"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "RUN-LOG.md; introducing commit in git history",
+      "testResults": "REAL DOM: live guide six steps, finish/reopen/skip; sanitized Trainer fixture open/tab/back focus and 390px overflow. STATIC / LOCAL HARNESS: 69 suites; build validation.",
+      "nextAction": "Owner visual acceptance of published guide and Admin Hub design direction; authenticated staff remains untested",
+      "approvalRequirement": "Routine focus fix authorized. Major feature/design changes need owner input; D86 and database/gameplay changes remain gated."
+    },
+    {
       "id": "CODEX-1",
       "status": "done",
       "scope": "Codex sole-runner trial and legacy static-test reconciliation; tests and records only",

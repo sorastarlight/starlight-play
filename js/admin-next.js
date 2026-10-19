@@ -242,6 +242,7 @@
       selectedId: trainerSelectedId
     }));
     renderTrainerProfile(trainersUi.presentProfile({ error: "loading", pane: trainerPane }));
+    els.trainerBack?.focus();
     try {
       const [account, identity] = await Promise.all([
         readCall("admin_user_account", { p_user: userId }),
@@ -272,6 +273,7 @@
   }
 
   function closeTrainerProfile() {
+    const previousId = trainerSelectedId;
     trainerSelectedId = "";
     trainerPane = "overview";
     trainerProfileGen += 1;
@@ -286,6 +288,9 @@
       query: trainerQuery,
       selectedId: ""
     }));
+    const previousRow = Array.from(els.trainerList?.querySelectorAll("[data-open-trainer]") || [])
+      .find((row) => row.getAttribute("data-open-trainer") === previousId);
+    (previousRow || els.trainerQuery)?.focus();
   }
 
   function classifyOpsError(error) {
@@ -469,6 +474,7 @@
         identity: trainerIdentity,
         pane: trainerPane
       }));
+      els.trainerDetail?.querySelector('[data-trainer-pane][aria-selected="true"]')?.focus();
       return;
     }
     if (trainerSelectedId) loadTrainerProfile(trainerSelectedId);

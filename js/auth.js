@@ -260,7 +260,7 @@
 
   window.playResetPassword = async function playResetPassword(email) {
     const value = String(email || "").trim();
-    const message = "If email recovery is available for that address, check your inbox for a reset link. Open it in this browser.";
+    const message = "If email recovery is available for that address, check your inbox for a reset link. Check your spam folder too.";
     if (!value || !value.includes("@")) return { ok: true, message };
     const redirectTo = `${window.location.origin}${window.location.pathname.replace(/[^/]+$/, "")}signin.html`;
     try {

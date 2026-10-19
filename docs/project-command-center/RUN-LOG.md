@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-14 — friendly account emails (2026-10-19)
+
+Saved branded signup verification, email-change and improved password-reset templates in hosted Supabase. Full source compared with repository files before saving; rendered previews checked. Preserved ConfirmationURL for signup/email-change and dedicated token-hash recovery link. No personal metadata, remote images or tracking added. Existing security notification toggles remain off. Corrected obsolete same-browser reset instruction. STATIC: 20 recovery checks and build passed, APP rc133 unchanged. REAL AUTH/MAIL: no new message; awaiting an owner-provided nonprotected test inbox. Staff recovery remains disabled; Sora NO, Twinkle NO, PlayTester unchanged/nonstaff; no gameplay, D86, stamp or spending. See ACCOUNT-EMAIL-TEMPLATES.md.
+
+
 ## CODEX-13 completion — Resend connected (2026-10-19)
 
 Owner added DNS and confirmed scoped key creation/Supabase storage/one simulator test. Domain verified; sending-only auth.sorastarlight.net restriction confirmed; Supabase SMTP enabled and persisted (smtp.resend.com:465, no-reply@auth.sorastarlight.net). Auth cap visually verified at 30/hour; Resend Free 100/day, 3000/month, overages off. One Resend dashboard test to delivered@resend.dev recorded Sent and Delivered. This was not a Supabase SMTP/Auth or real-mailbox round trip. No secrets in files/logs; transient clipboard/key cleared. An explicitly unpublished test draft remains. Staff recovery flag remains false with zero receipts; no Auth user/protected trainer/gameplay changes, D86, activation, APP stamp or spending. Configuration/docs-only; no repeated static tests. See RESEND-SMTP-CONNECTION.md.

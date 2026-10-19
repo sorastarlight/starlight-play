@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-14",
+      "status": "done",
+      "scope": "Friendly signup, email-change and password-reset emails",
+      "dependencies": [
+        "CODEX-13"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/",
+      "testResults": "REAL DOM hosted template source matched and saved; rendered previews reviewed. 20 recovery checks and build passed. No live Auth message sent.",
+      "nextAction": "Await owner-provided nonprotected test inbox for real recovery round trip",
+      "approvalRequirement": "Owner explicitly requested friendly emails and continued SMTP/recovery work. User must enter and submit any new password."
+    },
+    {
       "id": "CODEX-13",
       "status": "done",
       "scope": "Resend free-plan SMTP setup with auth.sorastarlight.net sending domain",

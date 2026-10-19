@@ -2,6 +2,8 @@
 
 Current runner: [Codex runner trial](./CODEX-RUNNER.md). The owner's later instructions supersede the Gemini/Cursor handoff pause for routine development and GitHub publication; D86 and database/gameplay changes remain gated.
 
+Account email copy: [friendly hosted templates](./ACCOUNT-EMAIL-TEMPLATES.md) — signup, email-change and reset templates saved; real inbox QA pending.
+
 SMTP connected: [Resend configuration and delivery evidence](./RESEND-SMTP-CONNECTION.md) — domain verified, scoped credential saved, one provider simulator message delivered. Full Supabase Auth recovery QA remains separate.
 
 Recovery email staging: [guarded sender and branded template](./CODEX-RECOVERY-EMAIL.md) — staff sending disabled pending dedicated Auth QA and receipt policy.

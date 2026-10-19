@@ -1,3 +1,9 @@
+# Codex gift categories and candy audit - 2026-10-19
+
+- Explicit owner corrections: separated item/currency/space and appearance kinds; candy family PNG/name; mapped ribbon PNG. See CODEX-GIFT-CANDY-AUDIT.md.
+- Live read-only audit: 151 species / 79 families / zero presentation mismatches. Charizard transfer resolves family 4; ordinary stage-3 reward 3; both evolution steps spend same balance (40/80). No RPC executed or mechanics changed.
+- 72 non-writing suites/build; 14 UI checks; sanitized REAL DOM candy/ribbon art and Charizard family search. No account/Pass/reward/schema mutation, gameplay, D86, activation, stamp or spending. Actual staff grant unverified; owner visual review open.
+
 # Codex gift selection and confirmation - 2026-10-19
 
 - Explicit owner UI refinements implemented. See CODEX-GIFT-PICKER.md. Shared Pokémon/candy sprite picker, released-generation selector, normalized name/dex search, public item labels, specific appearance kinds, Ribbons separate from future Gym Badges, reason inside visual review.

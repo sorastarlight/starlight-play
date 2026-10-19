@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-6 | done | Separate gift types; candy/ribbon art; candy/Oak audit | CODEX-5 | Explicit owner request | Owner visual/function review |
 | CODEX-5 | done | Sprite picker/search/generations; accurate labels; visual confirmation with reason | CODEX-4 | Explicit owner UI request | Owner visual/function review |
 | CODEX-4 | done | Trainer UI fixes; Pass monitoring/overrides/re-grants; audited gifts | CODEX-3 | Explicit owner feature request | Owner visual/function review; authenticated action unverified |
 | CODEX-3 | done | Implement and publish owner-selected v5 Trainer record direction | CODEX-2 | Owner selected proposed layout | Visual/functional acceptance remains open; no database or write scope |

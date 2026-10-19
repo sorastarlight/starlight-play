@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-6",
+      "status": "done",
+      "scope": "Separate gift categories; family candy/ribbon artwork; read-only candy/Oak audit",
+      "dependencies": [
+        "CODEX-5"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "CODEX-GIFT-CANDY-AUDIT.md; introducing Git commit",
+      "testResults": "72 non-writing suites/build; 14 reward UI checks; live read-only candy mapping audit; sanitized REAL DOM",
+      "nextAction": "Owner visual/function review; actual staff grant unverified",
+      "approvalRequirement": "Explicit owner UI corrections; candy mechanics inspected only."
+    },
+    {
       "id": "CODEX-5",
       "status": "done",
       "scope": "Visual searchable Pok\u00e9mon/candy picker, accurate gift labels, modal staff reasons and visual review",

@@ -18,8 +18,22 @@
     const names=globalThis.PLAY_SPECIES||[];
     return Array.from({length:Math.max(0,generation.max-generation.min+1)},(_,i)=>generation.min+i).filter(dex=>names[dex-1]).filter(dex=>words.every(word=>/^\d+$/.test(word)?dex===Number(word):normalize(`${speciesName(dex)} ${generation.name}`).includes(word)));
   }
+  const candyLine=(dex)=>Number(globalThis.PLAY_EVO_CANDY_PNG?.[dex]||dex);
+  const candyName=(dex)=>`${speciesName(candyLine(dex))} Evolution Candy`;
+  const candyArt=(dex)=>globalThis.playEvolutionCandyItemUrl?.(candyLine(dex))||`images/items/evolution-candy/${candyLine(dex)}.png`;
+  const appearanceKinds={background:"background",team_background:"team_background",frame:"frame"};
+  function ribbonArt(id){
+    const mapped=globalThis.playRibbonForBadge?.({id});
+    const entry=globalThis.PLAY_ACHIEVEMENT_RIBBON_MAP?.mappings?.find(row=>row.badgeId===id);
+    return mapped?.icon||mapped?.localIcon||entry?.localIcon||null;
+  }
+  function reviewArt(intent){
+    const p=intent.p_payload;
+    const url=intent.p_action==="candy"?candyArt(p.dex):intent.p_action==="pokemon"?speciesArt(p.dex,p.shiny):intent.p_action==="badge"?ribbonArt(p.id):intent.p_action==="item"?globalThis.playItemSprite?.(p.key):null;
+    return url?`<img src="${esc(url)}" width="96" height="96" alt="">`:'<span class="reward-star" aria-hidden="true">✦</span>';
+  }
   const speciesArt=(dex,shiny=false)=>`images/pokemon/home/${shiny?"shiny/":""}${Number(dex)}.png`;
-  const speciesChoice=(dex)=>`<img src="${speciesArt(dex)}" width="64" height="64" loading="lazy" alt=""><span><strong>${esc(speciesName(dex))}</strong><small>#${String(dex).padStart(3,"0")}</small></span>`;
+  const speciesChoice=(dex,candy=false)=>`<img src="${candy?candyArt(dex):speciesArt(dex)}" width="64" height="64" loading="lazy" alt=""><span><strong>${esc(candy?candyName(dex):speciesName(dex))}</strong><small>#${String(dex).padStart(3,"0")}</small></span>`;
   let openDialog=null;
   function modal(content,label,opener){
     openDialog?.close();
@@ -30,16 +44,17 @@
     dialog.showModal();return dialog;
   }
   function chooseSpecies(form,current){
+    const candy=form.elements.namedItem("gift_kind")?.value==="candy";
     const opener=form.querySelector('[data-species-picker]');
-    const dialog=modal(`<header><div><p class="eyebrow">Choose a Pokémon</p><h3>Find your gift</h3></div><button type="button" data-modal-cancel>Cancel</button></header><div class="reward-picker-filters"><label>Generation<select data-generation>${generations().map(g=>`<option value="${esc(g.id)}">${esc(g.name)}</option>`).join("")}</select></label><label>Search Pokémon<input type="search" data-species-search placeholder="Name or Pokédex number" autocomplete="off"></label></div><p class="record-note">Only released generations are available. More generations will appear here when enabled for gifts.</p><p role="status" data-picker-count></p><div class="reward-species-grid" data-species-grid></div>`,"Choose a Pokémon",opener);
-    const draw=()=>{const generation=generations().find(g=>g.id===dialog.querySelector('[data-generation]').value);const matches=searchSpecies(dialog.querySelector('[data-species-search]').value,generation);dialog.querySelector('[data-picker-count]').textContent=`${matches.length} Pokémon`;dialog.querySelector('[data-species-grid]').innerHTML=matches.length?matches.map(dex=>`<button type="button" data-pick-dex="${dex}" aria-label="${esc(speciesName(dex))}, number ${dex}">${speciesChoice(dex)}</button>`).join(""):"<p>No Pokémon match. Try a name or dex number.</p>";};
+    const dialog=modal(`<header><div><p class="eyebrow">${candy?"Choose a candy family":"Choose a Pokémon"}</p><h3>Find your gift</h3></div><button type="button" data-modal-cancel>Cancel</button></header><div class="reward-picker-filters"><label>Generation<select data-generation>${generations().map(g=>`<option value="${esc(g.id)}">${esc(g.name)}</option>`).join("")}</select></label><label>Search Pokémon<input type="search" data-species-search placeholder="Name or Pokédex number" autocomplete="off"></label></div><p class="record-note">${candy?"Evolution Candy is shared by the whole family. Searching an evolved Pokémon finds its family candy. ":""}Only released generations are available. More generations will appear here when enabled for gifts.</p><p role="status" data-picker-count></p><div class="reward-species-grid" data-species-grid></div>`,candy?"Choose a candy family":"Choose a Pokémon",opener);
+    const draw=()=>{const generation=generations().find(g=>g.id===dialog.querySelector('[data-generation]').value);const found=searchSpecies(dialog.querySelector('[data-species-search]').value,generation);const matches=candy?[...new Set(found.map(candyLine))]:found;dialog.querySelector('[data-picker-count]').textContent=`${matches.length} ${candy?(matches.length===1?"candy family":"candy families"):"Pokémon"}`;dialog.querySelector('[data-species-grid]').innerHTML=matches.length?matches.map(dex=>`<button type="button" data-pick-dex="${dex}" aria-label="${esc(candy?candyName(dex):speciesName(dex))}, number ${dex}">${speciesChoice(dex,candy)}</button>`).join(""):"<p>No Pokémon match. Try a name or dex number.</p>";};
     dialog.addEventListener('input',draw);dialog.addEventListener('change',draw);
-    dialog.addEventListener('click',event=>{const choice=event.target.closest('[data-pick-dex]');if(!choice)return;if(!current()){dialog.close();return;}form.elements.namedItem('dex').value=choice.dataset.pickDex;opener.innerHTML=speciesChoice(choice.dataset.pickDex)+"<span>Change Pokémon</span>";dialog.close();});
+    dialog.addEventListener('click',event=>{const choice=event.target.closest('[data-pick-dex]');if(!choice)return;if(!current()){dialog.close();return;}form.elements.namedItem('dex').value=choice.dataset.pickDex;opener.innerHTML=speciesChoice(choice.dataset.pickDex,candy)+`<span>${candy?"Change candy family":"Change Pokémon"}</span>`;dialog.close();});
     draw();dialog.querySelector('[data-species-search]').focus();
   }
   function reviewIntent(intent,data,user,previewOnly=false){
-    const opener=document.activeElement,p=intent.p_payload,mon=intent.p_action==="pokemon"||intent.p_action==="candy";
-    const art=mon?`<img src="${speciesArt(p.dex,p.shiny)}" width="112" height="112" alt="">`:intent.p_action==="item"&&globalThis.playItemSprite?`<img src="${esc(globalThis.playItemSprite(p.key))}" width="80" height="80" alt="">`:'<span class="reward-star" aria-hidden="true">✦</span>';
+    const opener=document.activeElement;
+    const art=reviewArt(intent);
     const dialog=modal(`<form class="reward-review-form"><header><div><p class="eyebrow">${intent.p_action.startsWith('pass_')?'Starlight Pass':'Special delivery'}</p><h3>${esc(actionNames[intent.p_action]||"Review staff action")}</h3></div><button type="button" data-modal-cancel>Cancel</button></header><div class="reward-review-hero">${art}<strong>${esc(intentSummary(intent,data))}</strong><span>For ${esc(user.displayName||user.login||"Trainer")}</span></div><details><summary>Trainer account</summary><small>${esc(user.id)}</small></details><label>Staff reason<textarea name="reason" rows="2" required minlength="3" maxlength="500" placeholder="Why are you making this change?"></textarea></label><p class="record-note">This action and reason will be saved in staff history.</p><button class="reward-deliver" type="submit" ${previewOnly?'disabled':''}>${previewOnly?'Preview only — no gifts sent':intent.p_action.startsWith('pass_')?'Confirm Pass action':'Send gift ✦'}</button></form>`,"Review staff action",opener);
     return new Promise(resolve=>{dialog.addEventListener('close',()=>resolve(null),{once:true});dialog.querySelector('form').addEventListener('submit',event=>{event.preventDefault();if(previewOnly)return;const reason=dialog.querySelector('textarea').value.trim();if(reason.length<3){dialog.querySelector('textarea').setCustomValidity('Enter at least 3 characters.');dialog.querySelector('textarea').reportValidity();return;}resolve(reason);dialog.close();});dialog.querySelector('textarea').addEventListener('input',event=>event.target.setCustomValidity(''));});
   }
@@ -49,7 +64,7 @@
     const p=intent.p_payload;
     if(intent.p_action==="item")return `${p.qty} ${itemName((data.catalog?.items||[]).find(row=>row.id===p.key)||{id:p.key})}`;
     if(intent.p_action==="pokemon")return `${speciesName(p.dex)} · #${p.dex}, level ${p.level}${p.shiny?", Shiny":""}`;
-    if(intent.p_action==="candy")return `${p.qty} Evolution Candy for ${speciesName(p.dex)} (#${p.dex})`;
+    if(intent.p_action==="candy")return `${p.qty} ${candyName(p.dex)}`;
     if(intent.p_action==="pass_daily"||intent.p_action==="pass_weekly")return bundleText(data.bundles?.[intent.p_action==="pass_daily"?"daily":"weekly"]);
     if(intent.p_action==="pass_sync")return "Resume subscription syncing using the last recorded result.";
     if(p.id){const row=(data.catalog?.[intent.p_action==="title"?"titles":intent.p_action==="badge"?"badges":"cosmetics"]||[]).find(row=>row.id===p.id);return intent.p_action==="cosmetic"?`${kindName(row?.kind)} · ${row?.name||p.id}`:row?.name||p.id;}
@@ -75,16 +90,18 @@
   }
   const options=(rows,format=(r)=>r.name||r.id)=>(rows||[]).map(row=>`<option value="${esc(row.id)}">${esc(format(row))}</option>`).join("");
   function giftFields(data,kind){
-    if(kind==="item")return `<label>Item<select name="key" required>${options(data.catalog?.items,itemName)}</select></label><label>Quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`;
-    if(kind==="pokemon"||kind==="candy")return `<input name="dex" type="hidden" value=""><button type="button" class="reward-species-choice" data-species-picker>Choose Pokémon</button>${kind==="pokemon"?`<label>Level<input name="level" type="number" min="1" max="100" value="5" required></label><label class="reward-check"><input name="shiny" type="checkbox"> Shiny</label><p class="record-note">Base form, ordinary ability and server-generated individual stats. No hidden abilities or invented specimen data.</p>`:`<label>Evolution Candy quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`}`;
-    return `<label>${kind==="title"?"Title":kind==="badge"?"Ribbon":"Appearance unlock"}<select name="id" required>${options(data.catalog?.[kind==="title"?"titles":kind==="badge"?"badges":"cosmetics"],row=>kind==="cosmetic"?`${kindName(row.kind)} · ${row.name}`:row.name)}</select></label>`;
+    if(kind==="coins"||kind==="space")return `<label>${kind==="coins"?"PokéCoins":"Inventory Space slots"}<input name="qty" type="number" min="1" max="10000" value="1" required></label>`;
+    if(kind==="item")return `<label>Item<select name="key" required>${options((data.catalog?.items||[]).filter(row=>!["coins","bag_bonus"].includes(row.id)),itemName)}</select></label><label>Quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`;
+    if(kind==="pokemon"||kind==="candy")return `<input name="dex" type="hidden" value=""><button type="button" class="reward-species-choice" data-species-picker>${kind==="candy"?"Choose candy family":"Choose Pokémon"}</button>${kind==="pokemon"?`<label>Level<input name="level" type="number" min="1" max="100" value="5" required></label><label class="reward-check"><input name="shiny" type="checkbox"> Shiny</label><p class="record-note">Base form, ordinary ability and server-generated individual stats. No hidden abilities or invented specimen data.</p>`:`<label>Evolution Candy quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`}`;
+    return `<label>${appearanceKinds[kind]?kindName(kind):kind==="title"?"Title":kind==="badge"?"Ribbon":"Appearance unlock"}<select name="id" required>${options((data.catalog?.[kind==="title"?"titles":kind==="badge"?"badges":"cosmetics"]||[]).filter(row=>!appearanceKinds[kind]||row.kind===appearanceKinds[kind]),row=>kind==="cosmetic"?`${kindName(row.kind)} · ${row.name}`:row.name)}</select></label>`;
   }
-  function giftHtml(data,kind="item"){return `<h4>Special gifts</h4><form data-reward-form="gift" class="reward-form"><label>Gift type<select name="gift_kind"><option value="item">Items, PokéCoins or Inventory Space</option><option value="pokemon">Pokémon</option><option value="candy">Evolution Candy</option><option value="title">Title</option><option value="cosmetic">Trainer ID &amp; team appearance</option><option value="badge">Ribbon</option></select></label><div data-gift-fields>${giftFields(data,kind)}</div><button type="submit">Review gift</button></form><p class="record-note">Gym Badges are earned by defeating Gym Leaders. Gym Badge grants are not available yet. Ribbons are separate achievement awards.</p>${auditHtml(data)}`;}
+  function giftHtml(data,kind="item"){return `<h4>Special gifts</h4><form data-reward-form="gift" class="reward-form"><label>Gift type<select name="gift_kind"><option value="item">Items</option><option value="coins">PokéCoins</option><option value="space">Inventory Space</option><option value="pokemon">Pokémon</option><option value="candy">Evolution Candy</option><option value="title">Title</option><option value="background">Trainer ID Backgrounds</option><option value="team_background">Pokémon Team Backgrounds</option><option value="frame">Trainer ID Frames</option><option value="badge">Ribbon</option></select></label><div data-gift-fields>${giftFields(data,kind)}</div><button type="submit">Review gift</button></form><p class="record-note">Gym Badges are earned by defeating Gym Leaders. Gym Badge grants are not available yet. Ribbons are separate achievement awards.</p>${auditHtml(data)}`;}
   function makeIntent(form,submitter,userId,requestId){
     const fields=form.elements;
     const get=(name)=>fields.namedItem(name)?.value;
-    const action=form.dataset.rewardForm==="pass"?submitter?.dataset.passAction:get("gift_kind");
-    const payload=action==="item"?{key:get("key"),qty:Number(get("qty"))}:action==="pokemon"?{dex:Number(get("dex")),level:Number(get("level")),shiny:fields.namedItem("shiny").checked}:action==="candy"?{dex:Number(get("dex")),qty:Number(get("qty"))}:action?.startsWith("pass_")?{}:{id:get("id")};
+    const kind=get("gift_kind");
+    const action=form.dataset.rewardForm==="pass"?submitter?.dataset.passAction:["coins","space"].includes(kind)?"item":appearanceKinds[kind]?"cosmetic":kind;
+    const payload=action==="item"?{key:kind==="coins"?"coins":kind==="space"?"bag_bonus":get("key"),qty:Number(get("qty"))}:action==="pokemon"?{dex:Number(get("dex")),level:Number(get("level")),shiny:fields.namedItem("shiny").checked}:action==="candy"?{dex:Number(get("dex")),qty:Number(get("qty"))}:action?.startsWith("pass_")?{}:{id:get("id")};
     return {p_user:userId,p_request:requestId,p_action:action,p_payload:payload,p_reason:get("reason")?.trim()};
   }
   let contexts=new WeakMap();
@@ -142,5 +159,5 @@
       await send(intent);
     });
   }
-  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName};
+  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName};
 }));

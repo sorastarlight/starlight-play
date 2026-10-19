@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-7",
+      "status": "done",
+      "scope": "Searchable gift catalog choices with explicit selection and no-match handling",
+      "dependencies": [
+        "CODEX-6"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "CODEX-GIFT-SEARCH.md; introducing Git commit",
+      "testResults": "72 non-writing suites/build; sanitized REAL DOM hidden-selection clearing and empty results",
+      "nextAction": "Continue routine Admin Hub maintenance; actual staff grant remains unverified",
+      "approvalRequirement": "Owner accepted current gift UI and authorized continuing routine work."
+    },
+    {
       "id": "CODEX-6",
       "status": "done",
       "scope": "Separate gift categories; family candy/ribbon artwork; read-only candy/Oak audit",
@@ -14,7 +28,7 @@
       "commit": null,
       "evidence": "CODEX-GIFT-CANDY-AUDIT.md; introducing Git commit",
       "testResults": "72 non-writing suites/build; 14 reward UI checks; live read-only candy mapping audit; sanitized REAL DOM",
-      "nextAction": "Owner visual/function review; actual staff grant unverified",
+      "nextAction": "Visual direction accepted by owner; authenticated staff grant remains unverified",
       "approvalRequirement": "Explicit owner UI corrections; candy mechanics inspected only."
     },
     {

@@ -1,3 +1,8 @@
+# Codex gift catalog search - 2026-10-19
+
+- Owner accepted current UI and authorized continuing routine work. Added public-name search to remaining gift lists, alphabetical results, explicit required choice, match/no-match feedback and clearing of selections hidden by search. See CODEX-GIFT-SEARCH.md.
+- 72 non-writing suites/build; REAL DOM sanitized fixture verified hidden-selection clearing and empty results. No Supabase/account/reward mutation, gameplay, protected accounts, D86, activation, stamp or spending. Authenticated grant unverified.
+
 # Codex gift categories and candy audit - 2026-10-19
 
 - Explicit owner corrections: separated item/currency/space and appearance kinds; candy family PNG/name; mapped ribbon PNG. See CODEX-GIFT-CANDY-AUDIT.md.

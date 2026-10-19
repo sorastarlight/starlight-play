@@ -88,12 +88,23 @@
       <form data-reward-form="pass" class="reward-form"><div class="reward-actions"><button type="submit" data-pass-action="pass_on">Turn Pass on</button><button type="submit" data-pass-action="pass_off">Turn Pass off</button><button type="submit" data-pass-action="pass_sync" ${pass.override==null?"disabled":""}>Clear staff override</button><button type="submit" data-pass-action="pass_daily">Give daily rewards again</button><button type="submit" data-pass-action="pass_weekly">Give weekly rewards again</button></div></form>
       <p class="record-note">Staff overrides remain until cleared. Re-grants bypass Pass eligibility and claim cooldowns without changing the player's next claim time. Normal inventory limits and server validation still apply.</p>${claimHtml(data)}${auditHtml(data)}`;
   }
-  const options=(rows,format=(r)=>r.name||r.id)=>(rows||[]).map(row=>`<option value="${esc(row.id)}">${esc(format(row))}</option>`).join("");
+  function giftChoices(data,kind,query=""){
+    const rows=kind==="item"?(data.catalog?.items||[]).filter(row=>!["coins","bag_bonus"].includes(row.id)):(data.catalog?.[kind==="title"?"titles":kind==="badge"?"badges":"cosmetics"]||[]).filter(row=>!appearanceKinds[kind]||row.kind===appearanceKinds[kind]);
+    const words=normalize(query).split(/\s+/).filter(Boolean);
+    return rows.map(row=>({...row,label:kind==="item"?itemName(row):row.name||row.id})).filter(row=>words.every(word=>normalize(`${row.label} ${row.id}`).includes(word))).sort((a,b)=>a.label.localeCompare(b.label));
+  }
+  function choiceOptions(rows,selected=""){
+    return `<option value="" ${selected?"":"selected"} disabled>${rows.length?"Choose a reward":"No matching rewards"}</option>`+rows.map(row=>`<option value="${esc(row.id)}" ${row.id===selected?"selected":""}>${esc(row.label)}</option>`).join("");
+  }
+  function searchableChoice(data,kind,label,name){
+    const rows=giftChoices(data,kind);
+    return `<label>Search ${esc(label.toLowerCase())}<input type="search" name="gift_search" data-gift-search placeholder="Search by name" autocomplete="off"></label><label>${esc(label)}<select name="${name}" data-gift-choice required>${choiceOptions(rows)}</select></label><small role="status" data-choice-count>${rows.length} available</small>`;
+  }
   function giftFields(data,kind){
     if(kind==="coins"||kind==="space")return `<label>${kind==="coins"?"PokéCoins":"Inventory Space slots"}<input name="qty" type="number" min="1" max="10000" value="1" required></label>`;
-    if(kind==="item")return `<label>Item<select name="key" required>${options((data.catalog?.items||[]).filter(row=>!["coins","bag_bonus"].includes(row.id)),itemName)}</select></label><label>Quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`;
+    if(kind==="item")return `${searchableChoice(data,kind,"Items","key")}<label>Quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`;
     if(kind==="pokemon"||kind==="candy")return `<input name="dex" type="hidden" value=""><button type="button" class="reward-species-choice" data-species-picker>${kind==="candy"?"Choose candy family":"Choose Pokémon"}</button>${kind==="pokemon"?`<label>Level<input name="level" type="number" min="1" max="100" value="5" required></label><label class="reward-check"><input name="shiny" type="checkbox"> Shiny</label><p class="record-note">Base form, ordinary ability and server-generated individual stats. No hidden abilities or invented specimen data.</p>`:`<label>Evolution Candy quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`}`;
-    return `<label>${appearanceKinds[kind]?kindName(kind):kind==="title"?"Title":kind==="badge"?"Ribbon":"Appearance unlock"}<select name="id" required>${options((data.catalog?.[kind==="title"?"titles":kind==="badge"?"badges":"cosmetics"]||[]).filter(row=>!appearanceKinds[kind]||row.kind===appearanceKinds[kind]),row=>kind==="cosmetic"?`${kindName(row.kind)} · ${row.name}`:row.name)}</select></label>`;
+    return searchableChoice(data,kind,appearanceKinds[kind]?kindName(kind):kind==="title"?"Titles":kind==="badge"?"Ribbons":"Appearance unlocks","id");
   }
   function giftHtml(data,kind="item"){return `<h4>Special gifts</h4><form data-reward-form="gift" class="reward-form"><label>Gift type<select name="gift_kind"><option value="item">Items</option><option value="coins">PokéCoins</option><option value="space">Inventory Space</option><option value="pokemon">Pokémon</option><option value="candy">Evolution Candy</option><option value="title">Title</option><option value="background">Trainer ID Backgrounds</option><option value="team_background">Pokémon Team Backgrounds</option><option value="frame">Trainer ID Frames</option><option value="badge">Ribbon</option></select></label><div data-gift-fields>${giftFields(data,kind)}</div><button type="submit">Review gift</button></form><p class="record-note">Gym Badges are earned by defeating Gym Leaders. Gym Badge grants are not available yet. Ribbons are separate achievement awards.</p>${auditHtml(data)}`;}
   function makeIntent(form,submitter,userId,requestId){
@@ -139,6 +150,14 @@
       if(current())slot.innerHTML=`<h4>${pane==="pass"?"Starlight Pass":"Gifts"}</h4><p class="record-note">${error?.code==="42501"?"These tools require owner or admin permission.":"Reward history and audited controls are awaiting server setup. No account changes are available here yet."}</p>`;
       return;
     }
+    slot.addEventListener('input',event=>{
+      if(!event.target.matches('[data-gift-search]')||ctx.busy||ctx.pending||!current())return;
+      const form=event.target.form,select=form.querySelector('[data-gift-choice]');
+      const rows=giftChoices(ctx.data,form.elements.namedItem('gift_kind').value,event.target.value);
+      const selected=rows.some(row=>row.id===select.value)?select.value:"";
+      select.innerHTML=choiceOptions(rows,selected);
+      form.querySelector('[data-choice-count]').textContent=rows.length?`Matches: ${rows.length}`:"No matching rewards. Try another name.";
+    });
     slot.addEventListener('change',(event)=>{
       if(event.target.name!=="gift_kind"||ctx.busy)return;
       slot.querySelector('[data-gift-fields]').innerHTML=giftFields(ctx.data,event.target.value);
@@ -159,5 +178,5 @@
       await send(intent);
     });
   }
-  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName};
+  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName,giftChoices};
 }));

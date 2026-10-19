@@ -904,6 +904,18 @@
       "approvalRequirement": "This report does not choose the drifted bodies or restore the recorded ones."
     },
     {
+      "id": "HANDOFF-1",
+      "status": "done",
+      "scope": "Documentation-only Gemini planning handoff. RPG development paused.",
+      "dependencies": ["I51"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "docs/project-command-center/GEMINI-HANDOFF.md",
+      "testResults": "STATIC. JSON parsed. No production call.",
+      "nextAction": "STOP. Wait for a scoped owner or Gemini task. Do not start D86.",
+      "approvalRequirement": "This handoff is not a database decision and not a D86 GO."
+    },
+    {
       "id": "I13",
       "status": "todo",
       "scope": "GitHub issue #13 owner account recovery design and security audit",

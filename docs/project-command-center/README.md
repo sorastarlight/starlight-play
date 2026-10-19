@@ -97,4 +97,6 @@ Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does 
 
 ## Agent coordination
 
+[GEMINI-HANDOFF.md](./GEMINI-HANDOFF.md) is the current planning handoff. RPG development is paused. D83 is installed, D85 is blocked, and D86 is not authorized.
+
 [COORDINATION.md](./COORDINATION.md) defines GitHub handoffs and approval gates. Repository protocol only; monitoring and Cursor execution are disabled. A later owner GO installed the launch-guard function as D83.

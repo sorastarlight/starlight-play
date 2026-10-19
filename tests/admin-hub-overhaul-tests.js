@@ -924,6 +924,24 @@ test("Issue 18 D85 stamp rehearsal stops on a definition mismatch", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
+test("Gemini handoff pauses development and keeps D85 blocked", () => {
+  const handoff = read("docs/project-command-center/GEMINI-HANDOFF.md");
+  const d85 = read("docs/project-command-center/D85-STAMP-REHEARSAL.md");
+  const d84 = read("docs/project-command-center/D84-VERIFICATION-PLAN.md");
+  const tasks = JSON.parse(read("docs/project-command-center/TASKS.json"));
+  const i51 = tasks.tasks.find((item) => item.id === "I51");
+  assert(handoff.includes("cd3303b7494ac58270d381ac5c2376cfce6924c1"));
+  assert(handoff.includes("D86 is not authorized"));
+  assert(handoff.includes("b30712a5a082f00ce45fd2c214e7029d"));
+  assert(handoff.includes("5419a99d0c1735f44564b84338e32578"));
+  assert(d85.includes("D85 BLOCKED — DEFINITION MISMATCH"));
+  assert(d84.includes("Do not start D85"));
+  assert(i51.status === "blocked");
+  assert(i51.nextAction.includes("Do not start D86"));
+  assert(!handoff.includes("PRODUCTION PASS"));
+  assert(!/password\s*[:=]\s*\S{8,}/i.test(handoff));
+});
+
 test("Issue 18 D59 onboarding stays local and does not change gameplay", () => {
   const report = read("docs/project-command-center/GEN-IX-D59-ONBOARDING.md");
   const src = read("js/onboarding.js");

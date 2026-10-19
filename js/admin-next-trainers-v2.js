@@ -222,13 +222,13 @@
         meta: row.unlocked ? `Unlocked ${formatStamp(row.unlockedAt)}` : "Locked",
         on: Boolean(row.unlocked)
       }));
-      const cosmetics = (identity.cosmetics || []).map((row) => ({
+      const cosmetics = (identity.cosmetics || []).filter((row) => row.kind !== "frame").map((row) => ({
         name: row.name || row.id,
         meta: `${row.kind || "cosmetic"} · ${row.unlocked ? "Unlocked" : "Locked"}${row.equipped ? " · Equipped" : ""}`,
         on: Boolean(row.unlocked)
       }));
       const packs = (identity.ownedAvatarPacks || []).map((id) => ({ name: id, meta: "Owned", on: true }));
-      const catalog = Array.isArray(identity.catalog) ? identity.catalog : [];
+      const catalog = Array.isArray(identity.catalog) ? identity.catalog.filter((row) => row.kind !== "frame") : [];
       const extras = catalog.filter((row) => !(identity.cosmetics || []).some((item) => item && item.id === row.id));
       const catalogBody = !catalog.length
         ? emptyNote("No catalog items returned.")

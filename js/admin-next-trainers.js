@@ -306,7 +306,7 @@
 
     if (view.pane === "progression") {
       const identity = view.identity || presentIdentity(null);
-      const cosmetics = identity.cosmetics || [];
+      const cosmetics = (identity.cosmetics || []).filter((row) => row.kind !== "frame");
       const titles = identity.titles || [];
       const badges = identity.badges || [];
       const packs = identity.ownedAvatarPacks || [];
@@ -325,7 +325,7 @@
         ${card("Badges", itemGrid(badges.map((row) => ({ name: row.name || row.id, meta: row.unlocked ? `Unlocked ${formatStamp(row.unlockedAt)}` : "Locked", on: Boolean(row.unlocked) })), "No badges returned."))}
         ${card("Cosmetics", itemGrid(cosmetics.map((row) => ({ name: row.name || row.id, meta: `${row.kind || "cosmetic"} · ${row.unlocked ? "Unlocked" : "Locked"}${row.equipped ? " · Equipped" : ""}`, on: Boolean(row.unlocked) })), "No cosmetics returned."))}
         ${card("Owned avatar packs", itemGrid(packs.map((id) => ({ name: id, meta: "Owned", on: true })), "No owned avatar packs."))}
-        ${card("Available catalog", catalogBlock(identity.catalog || [], cosmetics))}
+        ${card("Available catalog", catalogBlock((identity.catalog || []).filter((row) => row.kind !== "frame"), cosmetics))}
         <p class="admin-next-unavailable">Full achievement list, Oak research, and evolution history are not in these RPCs.</p>
       `)}`;
     }

@@ -13106,10 +13106,6 @@ html[data-perf="low"] .topnav {
   font-size: 12px;
   font-weight: 800;
 }
-.id-card-frame-bronze { border-color: #c08a4a; outline-color: #7a4a18; }
-.id-card-frame-silver { border-color: #d8dee8; outline-color: #6a7384; }
-.id-card-frame-gold { border-color: #f2d27a; outline-color: #b88820; box-shadow: 0 16px 36px rgba(26, 34, 56, .26), inset 0 0 0 3px #fff4c4; }
-.id-card-frame-kanto { border-color: #ef5350; outline-color: #2a6ad6; }
 .id-state {
   display: inline-block;
   margin-top: 4px;
@@ -14439,10 +14435,6 @@ html[data-perf="low"] .tid-hero .tid-card {
   box-shadow: 0 18px 40px rgba(26, 34, 56, .22);
   color: var(--tid-ink);
 }
-.tid-card.id-card-frame-bronze { border-color: #c08a4a; outline-color: #7a4a18; }
-.tid-card.id-card-frame-silver { border-color: #d8dee8; outline-color: #6a7384; }
-.tid-card.id-card-frame-gold { border-color: #f2d27a; outline-color: #b88820; }
-.tid-card.id-card-frame-kanto { border-color: #ef5350; outline-color: #2a6ad6; }
 .tid-art {
   position: absolute; inset: 0;
   background-size: cover;

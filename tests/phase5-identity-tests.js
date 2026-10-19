@@ -93,7 +93,7 @@ assert(ranks.includes("row.title"), "rankings show title");
 assert(ranks.includes("evolutions"), "evolutions board");
 assert(ranks.includes("trainer.html?u="), "rankings open profile");
 
-assert(css.includes("id-card-frame-kanto"), "kanto frame CSS");
+assert(!css.includes("id-card-frame-kanto"), "retired Trainer ID frame styles removed");
 assert(css.includes(".id-state"), "owned/locked/equipped labels");
 assert(css.includes("scc-subnav") || css.includes("id-customize-tabs"), "profile customize tabs");
 assert(css.includes("tid-card") || css.includes("tid-hero"), "Trainer ID profile hero styles");

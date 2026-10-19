@@ -1146,8 +1146,6 @@
     const opts = options || {};
     const look = window.playTrainerLook(card?.trainerSprite);
     const bg = window.playCardBg(card?.cardBg);
-    // Trainer ID Frames are retired; legacy saved card_frame values must not change the card.
-    const frame = "plain";
     const title = String(card?.title || "").trim();
     const badges = (card?.badges || []).slice(0, window.PLAY_FEATURED_RIBBON_MAX || 5);
     const twitch = Boolean(card?.twitchLinked);
@@ -1199,7 +1197,7 @@
             </div>
           </div>`;
     return `
-      <article class="tid-card tid-card-bdsp id-card-${bg.tone} id-card-${bg.group} id-card-frame-${esc(frame)}" data-tid-mode="${mode}" data-tid-variant="${esc(variant)}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk}">
+      <article class="tid-card tid-card-bdsp id-card-${bg.tone} id-card-${bg.group}" data-tid-mode="${mode}" data-tid-variant="${esc(variant)}" style="--id-chip:${bg.chip};--id-ink:${bg.ink};--id-head:${bg.head};--id-shadow:${bg.shadow};--id-slot:${bg.slot};--id-slot-ink:${bg.slotInk}">
         <div class="tid-art" style="background-image:url('${window.playCardBgUrl(bg.id)}')" aria-hidden="true"></div>
         <div class="tid-art-scrim" aria-hidden="true"></div>
         <div class="tid-ball-watermark" aria-hidden="true"></div>

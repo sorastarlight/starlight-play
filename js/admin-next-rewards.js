@@ -8,7 +8,7 @@
   const source=(v)=>({admin:"Staff gift","twitch-sub":"Twitch subscription",broadcaster:"Broadcaster entitlement"}[v]||v||"Not recorded");
   const fallbackItemName=(row)=>({coins:"PokéCoins",bag_bonus:"Inventory Space",berry:"Berries",bait:"Bait",lure:"Lure",pokeball:"Poké Ball",greatball:"Great Ball",ultraball:"Ultra Ball"}[row.id]||row.name||row.id);
   const itemName=(row)=>({coins:"PokéCoins",bag_bonus:"Inventory Space"}[row.id]||globalThis.playItemLabel?.(row.id)||fallbackItemName(row));
-  const kindName=(kind)=>({background:"Trainer ID background",team_background:"Pokémon team background",frame:"Trainer ID frame",avatar:"Trainer avatar"}[kind]||"Appearance unlock");
+  const kindName=(kind)=>({background:"Trainer ID background",team_background:"Pokémon team background",avatar:"Trainer avatar"}[kind]||"Appearance unlock");
   const speciesName=(dex)=>globalThis.PLAY_SPECIES?.[Number(dex)-1]||`Pokémon #${dex}`;
   const normalize=(value)=>String(value).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/♀/g," female ").replace(/♂/g," male ").replace(/[^a-z0-9]+/g," ").trim();
   // Explicit release list: adding reference species alone must never enable grants.
@@ -21,7 +21,7 @@
   const candyLine=(dex)=>Number(globalThis.PLAY_EVO_CANDY_PNG?.[dex]||dex);
   const candyName=(dex)=>`${speciesName(candyLine(dex))} Evolution Candy`;
   const candyArt=(dex)=>globalThis.playEvolutionCandyItemUrl?.(candyLine(dex))||`images/items/evolution-candy/${candyLine(dex)}.png`;
-  const appearanceKinds={background:"background",team_background:"team_background",frame:"frame"};
+  const appearanceKinds={background:"background",team_background:"team_background"};
   function ribbonArt(id){
     const mapped=globalThis.playRibbonForBadge?.({id});
     const entry=globalThis.PLAY_ACHIEVEMENT_RIBBON_MAP?.mappings?.find(row=>row.badgeId===id);
@@ -89,7 +89,7 @@
       <p class="record-note">Staff overrides remain until cleared. Re-grants bypass Pass eligibility and claim cooldowns without changing the player's next claim time. Normal inventory limits and server validation still apply.</p>${claimHtml(data)}${auditHtml(data)}`;
   }
   function giftChoices(data,kind,query=""){
-    const rows=kind==="item"?(data.catalog?.items||[]).filter(row=>!["coins","bag_bonus"].includes(row.id)):(data.catalog?.[kind==="title"?"titles":kind==="badge"?"badges":"cosmetics"]||[]).filter(row=>!appearanceKinds[kind]||row.kind===appearanceKinds[kind]);
+    const rows=kind==="item"?(data.catalog?.items||[]).filter(row=>!["coins","bag_bonus"].includes(row.id)):(data.catalog?.[kind==="title"?"titles":kind==="badge"?"badges":"cosmetics"]||[]).filter(row=>row.kind!=="frame"&&(!appearanceKinds[kind]||row.kind===appearanceKinds[kind]));
     const words=normalize(query).split(/\s+/).filter(Boolean);
     return rows.map(row=>({...row,label:kind==="item"?itemName(row):row.name||row.id})).filter(row=>words.every(word=>normalize(`${row.label} ${row.id}`).includes(word))).sort((a,b)=>a.label.localeCompare(b.label));
   }
@@ -106,7 +106,7 @@
     if(kind==="pokemon"||kind==="candy")return `<input name="dex" type="hidden" value=""><button type="button" class="reward-species-choice" data-species-picker>${kind==="candy"?"Choose candy family":"Choose Pokémon"}</button>${kind==="pokemon"?`<label>Level<input name="level" type="number" min="1" max="100" value="5" required></label><label class="reward-check"><input name="shiny" type="checkbox"> Shiny</label><p class="record-note">Base form, ordinary ability and server-generated individual stats. No hidden abilities or invented specimen data.</p>`:`<label>Evolution Candy quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`}`;
     return searchableChoice(data,kind,appearanceKinds[kind]?kindName(kind):kind==="title"?"Titles":kind==="badge"?"Ribbons":"Appearance unlocks","id");
   }
-  function giftHtml(data,kind="item"){return `<h4>Special gifts</h4><form data-reward-form="gift" class="reward-form"><label>Gift type<select name="gift_kind"><option value="item">Items</option><option value="coins">PokéCoins</option><option value="space">Inventory Space</option><option value="pokemon">Pokémon</option><option value="candy">Evolution Candy</option><option value="title">Title</option><option value="background">Trainer ID Backgrounds</option><option value="team_background">Pokémon Team Backgrounds</option><option value="frame">Trainer ID Frames</option><option value="badge">Ribbon</option></select></label><div data-gift-fields>${giftFields(data,kind)}</div><button type="submit">Review gift</button></form><p class="record-note">Gym Badges are earned by defeating Gym Leaders. Gym Badge grants are not available yet. Ribbons are separate achievement awards.</p>${auditHtml(data)}`;}
+  function giftHtml(data,kind="item"){return `<h4>Special gifts</h4><form data-reward-form="gift" class="reward-form"><label>Gift type<select name="gift_kind"><option value="item">Items</option><option value="coins">PokéCoins</option><option value="space">Inventory Space</option><option value="pokemon">Pokémon</option><option value="candy">Evolution Candy</option><option value="title">Title</option><option value="background">Trainer ID Backgrounds</option><option value="team_background">Pokémon Team Backgrounds</option><option value="badge">Ribbon</option></select></label><div data-gift-fields>${giftFields(data,kind)}</div><button type="submit">Review gift</button></form><p class="record-note">Gym Badges are earned by defeating Gym Leaders. Gym Badge grants are not available yet. Ribbons are separate achievement awards.</p>${auditHtml(data)}`;}
   function makeIntent(form,submitter,userId,requestId){
     const fields=form.elements;
     const get=(name)=>fields.namedItem(name)?.value;

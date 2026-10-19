@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-8 | done | Retire Trainer ID frames sitewide; disable frame catalog | CODEX-7 | Explicit owner removal request | Frames remain retired |
 | CODEX-7 | done | Search remaining gift lists; explicit selection; empty results | CODEX-6 | Routine continuation authorized | Continue routine maintenance; actual grant unverified |
 | CODEX-6 | done | Separate gift types; candy/ribbon art; candy/Oak audit | CODEX-5 | Explicit owner request | Visual direction accepted; actual grant unverified |
 | CODEX-5 | done | Sprite picker/search/generations; accurate labels; visual confirmation with reason | CODEX-4 | Explicit owner UI request | Owner visual/function review |

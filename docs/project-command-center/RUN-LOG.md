@@ -1,3 +1,9 @@
+# Trainer ID frame retirement - 2026-10-19
+
+- Owner scrapped feature; removed runtime UI/renderer/styles and disabled remaining frame catalog via migration retire_trainer_id_frames. See CODEX-FRAME-RETIREMENT.md. Existing compatibility/audit history retained, not exposed as a feature.
+- Live postcheck: zero enabled/starter frames and frame achievement rewards. Existing guards reject disabled cosmetic grants. No trainer/account mutation.
+- 72 non-writing suites/build and sanitized REAL DOM menu pass; no gameplay, D86, protected-account changes, activation, stamp or spending. Introducing commit and Pages record publication.
+
 # Codex gift catalog search - 2026-10-19
 
 - Owner accepted current UI and authorized continuing routine work. Added public-name search to remaining gift lists, alphabetical results, explicit required choice, match/no-match feedback and clearing of selections hidden by search. See CODEX-GIFT-SEARCH.md.

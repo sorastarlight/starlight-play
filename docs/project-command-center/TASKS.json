@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-8",
+      "status": "done",
+      "scope": "Retire scrapped Trainer ID frames sitewide and disable catalog",
+      "dependencies": [
+        "CODEX-7"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "CODEX-FRAME-RETIREMENT.md; introducing Git commit",
+      "testResults": "72 non-writing suites/build; REAL DOM menu; live catalog flags verified zero",
+      "nextAction": "Continue routine maintenance; frames remain retired",
+      "approvalRequirement": "Owner explicitly requested removal from Gifts and site overall."
+    },
+    {
       "id": "CODEX-7",
       "status": "done",
       "scope": "Searchable gift catalog choices with explicit selection and no-match handling",

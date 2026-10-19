@@ -536,7 +536,6 @@
 
   function unlockKindLabel(kind) {
     if (kind === "background") return "Trainer ID Background";
-    if (kind === "frame") return "Trainer ID Frame";
     if (kind === "title") return "Trainer Title";
     if (kind === "badge") return "Ribbon";
     if (kind === "avatar") return "Trainer Avatar";

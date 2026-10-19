@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-1",
+      "status": "done",
+      "scope": "Codex sole-runner trial and legacy static-test reconciliation; tests and records only",
+      "dependencies": [],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "CODEX-RUNNER.md; introducing commit in git history",
+      "testResults": "69 non-writing suites passed; build validation passed. STATIC / LOCAL HARNESS only.",
+      "nextAction": "Targeted visual and interaction review of published guide and read-only hub",
+      "approvalRequirement": "Owner authorized routine maintenance and GitHub publication; major features and visual/function acceptance require input. D86, database/gameplay changes and spending remain gated."
+    },
+    {
       "id": "COORD-1",
       "status": "done",
       "scope": "Owner-approved GitHub coordination protocol, issue template, Cursor rule and tracking only",

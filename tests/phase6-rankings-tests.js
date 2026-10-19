@@ -18,6 +18,8 @@ const trainer = read("js/trainer.js");
 const ach = read("js/achievements.js");
 const admin = read("js/admin.js");
 const adminTools = read("js/admin-tools.js");
+const settings = read("js/settings.js");
+const ribbonsSql = read("supabase/migrations/20261006120000_rc114_ribbons_pass_featured.sql");
 
 assert(sql.includes("ranking_visible"), "eligibility flag missing");
 assert(sql.includes("private.ranking_eligible_uid"), "eligibility function missing");
@@ -50,7 +52,7 @@ assert(!ranks.includes("setInterval"), "no polling");
 assert(!ranks.includes("channel(") && !ranks.includes(".on(\"postgres"), "no realtime leaderboard");
 assert(ranks.includes("RANKINGS UNAVAILABLE"), "shared error");
 assert(ranks.includes("TRY AGAIN"), "retry");
-assert(html.includes("Honey contributed"), "honey board labeled contribution");
+assert(html.includes('data-board="honey"') && ranks.includes('honey: "Honey contributed"') && ranks.includes('boardTitleEl.textContent = BOARD_LABELS[board]'), "Honey board title identifies contributions when selected");
 assert(html.includes("Discover Trainers"), "discovery");
 assert(html.includes("data-board=\"mastery\""), "mastery board");
 assert(html.includes("data-board=\"achievements\""), "achievements board");
@@ -62,12 +64,12 @@ assert(css.includes("@media (max-width: 720px)"), "mobile cards");
 assert(css.includes("html[data-perf=\"high\"] .rank-row.is-top-1"), "high-mode sparkle");
 assert(css.includes("html[data-perf=\"low\"] .rank-row.is-top-1"), "low-mode no sparkle");
 
-assert(trainer.includes("pcCatches"), "showcase uses full PC");
-assert(trainer.includes("full PC"), "showcase copy mentions PC");
-assert(!/recentLog \|\| \[\]\)\.filter\(\(row\) => String\(row.variant/.test(trainer), "shiny picker must not use adventure log only");
+assert(settings.includes("catches = data.catches || data.caughtOptions || []"), "Settings loads owned catch options from trainer response");
+assert(settings.includes('(catches || []).filter((row) => String(row.variant || "").includes("shiny"))'), "shiny showcase picker uses owned catches");
+assert(!/recentLog \|\| \[\]\)\.filter\(\(row\) => String\(row.variant/.test(settings), "shiny picker must not use adventure log only");
 
-assert(ach.includes("slice(0, 3)"), "achievements featured cap 3");
-assert(!ach.includes("slice(0, 5)"), "achievements must not cap at 5");
+assert(ribbonsSql.includes("featured max 5"), "rc114 supersedes historical three-ribbon limit");
+assert(settings.includes("window.PLAY_FEATURED_RIBBON_MAX || 5") && settings.includes("featured.slice(0, 5)"), "Settings uses current five-ribbon limit");
 
 assert(admin.includes("Rankings"), "game health rankings row");
 assert(adminTools.includes("admin_set_ranking_visible"), "identity ranking toggle");

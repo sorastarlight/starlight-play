@@ -1,3 +1,12 @@
+# Codex runner trial — 2026-10-18
+
+- Owner replaced the Gemini/Cursor handoff with Codex in this existing checkout and requested minimal prompts for routine work. See CODEX-RUNNER.md for scope.
+- Base `6db041af`; prior owner-authorized Pages publication run `39191328672` succeeded, with six served files matching the checkout. APP remains `20261008-rc133`.
+- Reconciled legacy phase4/phase6/phase10 assertions with current PC confirmation, reward labels, dynamic Honey title, Settings showcase, rc114 ribbon limit and Pokédex discovery gates. Tests and records only; no player-facing implementation changed.
+- STATIC / LOCAL HARNESS: 69 non-writing suites passed; build validation passed. Two artifact-writing suites excluded. No REAL DOM, REAL RPC, SQL or authenticated admin checks.
+- Sora NO; Twinkle NO; PlayTester NO; PlayerQA NO. Roles unverified. No database change, gameplay call, activation, build stamp or spending. D85 remains blocked and D86 unauthorized.
+- Next: visual/interaction review of the published guide and read-only Admin Hub. Work/result commit is the introducing commit in git history.
+
 # Coordination update — 2026-10-18
 
 COORD-1 completed with owner approval (Proceed in coordination chat). Base: a8320107ac8ac310dd2bd68cf2e8229b77c30272. Implementation SHA: introducing commit in git history. Added protocol/template/rule and tracking only. STATIC: existing task entries preserved, JSON parsed, seven approved paths. LOCAL HARNESS / REAL DOM / REAL RPC / PRODUCTION: not run. No live Supabase access or writes, catches, activation, deploy, merge, stamp, spending or Cursor invocation. Sora NO; Twinkle NO; PlayTester role unverified this session. D82 STOP remains; no D83. Blocked/next: monitoring and Cursor pilot require separate owner decisions.

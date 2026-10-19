@@ -140,10 +140,14 @@ test("client uses Phase 3 presentation instead of a new modal system", () => {
 });
 
 test("Pokédex does not spoil hidden Mew", () => {
-  assert(pokedex.includes("announcedEvents"));
+  const grid = pokedex.split("function renderGrid()")[1].split("function ")[0];
+  assert(grid.includes('const label = entry.seen ? window.playEscapeAttr(entry.name) : "???"'), "unseen species names stay hidden");
+  assert(grid.includes("const openable = entry.seen"), "unseen species cannot open from the grid");
   assert(pokedex.includes("144, 145, 146, 150"));
   assert(!pokedex.includes("new Set([144, 145, 146, 150, 151])"));
-  assert(pokedex.includes("EVENT ENCOUNTER"));
+  const detail = pokedex.split('await window.playCall("play_pokedex_entry", { p_dex: id })')[1];
+  assert(detail.includes("if (!entry?.unlocked)"), "server discovery gate required");
+  assert(detail.indexOf("closeDetail({ clearRoute: true, fromPop });") < detail.indexOf("detailState = {"), "locked entries close before detail rendering");
 });
 
 test("overlay and Live Ops distinguish special vs normal", () => {

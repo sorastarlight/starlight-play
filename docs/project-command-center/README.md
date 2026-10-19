@@ -1,5 +1,7 @@
 # Pokémon StreamLink — project command center
 
+Current runner: [Codex runner trial](./CODEX-RUNNER.md). The owner's later instructions supersede the Gemini/Cursor handoff pause for routine development and GitHub publication; D86 and database/gameplay changes remain gated.
+
 Persistent working set for approved development batches. Historical audits stay in `docs/audits/` and are not rewritten here.
 
 **Bootstrap source:** [`STREAMLINK_CURSOR_COMMAND_CENTER.md`](../../STREAMLINK_CURSOR_COMMAND_CENTER.md)

@@ -6,7 +6,7 @@ The owner added the DNS records and explicitly confirmed creating a domain-restr
 
 - Resend domain auth.sorastarlight.net verified. Public DKIM and both CNAME values match RESEND-DNS-SETUP.md; Resend shows Domain verified. Region us-east-1. Receiving remains off; tracking is not configured. No root mail/DNS records were changed by Codex.
 - API key name: Supabase Auth · Starlight Play. Sending access only, restricted to auth.sorastarlight.net. Key ID a9e6c1f4-9c9b-4904-a44c-9282248c02dd (not a secret). The key value was transferred directly into Supabase SMTP through the UI, never written to repository/files/chat output. Temporary browser clipboard and in-memory key variable cleared after use.
-- Supabase custom SMTP enabled and persisted after reload. Host smtp.resend.com; port 465; username resend; sender no-reply@auth.sorastarlight.net; display name Sora Starlight. Dashboard confirmed successful save and indicates the stored password is hidden/encrypted.
+- Supabase custom SMTP enabled and persisted after reload. Host smtp.resend.com; port 465; username resend; sender no-reply@auth.sorastarlight.net; display name Pokémon StreamLink (updated at owner request). Dashboard confirmed successful save and indicates the stored password is hidden/encrypted.
 - Supabase Auth rate limit: 30 emails/hour, confirmed visually on Rate Limits. No additional rate-limit settings changed. Resend free transactional limits remain 100/day and 3000/month; paid overages remain off. No purchase, upgrade or spending.
 - Existing branded Supabase recovery template and recipient reset page remain in place. The domain setup does not install a receiving mailbox.
 

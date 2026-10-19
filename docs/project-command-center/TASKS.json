@@ -12,7 +12,7 @@
       ],
       "branch": "admin-hub-overhaul",
       "commit": "a3a0da20",
-      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/; owner-requested Pok\u00e9mon StreamLink reset email naming",
+      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/; owner-requested Pok\u00e9mon StreamLink reset email naming; signup/email-change and shared sender use game title",
       "testResults": "REAL DOM hosted template source matched and saved; rendered previews reviewed. 20 recovery checks and build passed. No live Auth message sent. Owner-authorized EmailQA reset sent once; Resend Delivered. Signup confirmation also Delivered. Pages succeeded. Owner reported successful EmailQA password-reset completion on 2026-10-19.",
       "nextAction": "Resolve staff recovery audit receipt retention/privacy policy and privileged-path verification before activation",
       "approvalRequirement": "Owner explicitly requested friendly emails and continued SMTP/recovery work. User must enter and submit any new password."

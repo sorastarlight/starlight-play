@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## Account email game branding (2026-10-19)
+
+Owner requested registration and all account-email wording use Pokémon StreamLink. Updated signup/email-change subjects and templates plus shared SMTP display name. Verified source matches, save success, registration rendering and persisted sender name; sender address/credentials unchanged. No emails sent, tests repeated, protected-account/gameplay actions, D86, APP stamp or spending.
+
+
 ## Reset email game title (2026-10-19)
 
 Owner requested game title instead of Sora Starlight Trainer wording. Updated reset subject/header/body to Pokémon StreamLink in repository, sanitized preview and hosted Supabase. Source matched before save; rendered preview checked. Link unchanged, no mail sent, no tests repeated for copy-only change. No protected-account/gameplay/configuration authority changes.

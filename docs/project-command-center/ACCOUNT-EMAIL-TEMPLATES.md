@@ -4,8 +4,8 @@ Owner requested user-friendly emails while proceeding with recovery QA. Supabase
 
 | Template | Subject | Source |
 |---|---|---|
-| Confirm signup | Confirm your Trainer Account email | supabase/templates/confirmation.html |
-| Change email | Confirm your Trainer Account email change | supabase/templates/email-change.html |
+| Confirm signup | Confirm your Pokémon StreamLink email | supabase/templates/confirmation.html |
+| Change email | Confirm your Pokémon StreamLink email change | supabase/templates/email-change.html |
 | Reset password | Reset your Pokémon StreamLink password | supabase/templates/recovery.html |
 
 Existing signup and email-change sources are backed up alongside these files as *.previous.html. Their prior subjects were Confirm your email address and Confirm your new email address. Recovery's earlier backup remains unchanged.
@@ -27,3 +27,5 @@ Published a3a0da20; GitHub Pages run 39261673136 succeeded. Updated reset reques
 Owner reported success after completing EmailQA password reset on 2026-10-19. Combined evidence: public reset request accepted, Resend Delivered, and owner-confirmed recipient/password completion. This is one successful real recovery round trip; independent sign-in after reset was not separately observed by Codex. Staff-assisted sender remains disabled pending receipt-retention/privacy resolution and its separate privileged-path verification. No additional email sent or password handled by Codex.
 
 Owner wording revision: reset email now names Pokémon StreamLink in its subject, header and account description, replacing Sora Starlight Trainer Account. Recovery link and behavior unchanged. Hosted source matched before save; rendered preview checked. Copy-only; no new email sent.
+
+Registration/email-change branding follow-up: owner requested no personal-brand wording in account emails. Both active templates now name Pokémon StreamLink in subjects and headers; signup introduction names the game. Shared SMTP sender display name is Pokémon StreamLink. Sender address remains no-reply@auth.sorastarlight.net (verified sending domain); credentials unchanged. Historical backups and simulator evidence remain historical. No additional email sent. Full source matches checked before save; saved previews/configuration verified. Copy/display-only change; no tests repeated.

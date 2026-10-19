@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-14 | done | Friendly signup, email-change and recovery emails; reset uses game title | CODEX-13 | Owner requested friendly emails | EmailQA real reset successful per owner; staff audit policy and privileged-path verification remain |
+| CODEX-14 | done | Friendly signup, email-change and recovery emails; all active templates and sender use game title | CODEX-13 | Owner requested friendly emails | EmailQA real reset successful per owner; staff audit policy and privileged-path verification remain |
 | CODEX-13 | done | Resend free SMTP setup; dedicated auth sending domain | CODEX-12 | Owner authorized Resend setup | Domain verified; SMTP saved; simulator delivered. Full Auth recovery QA remains separate |
 | CODEX-12 | done | Guarded recovery email; branded template; recipient support; mail setup audit | CODEX-11 | Owner continuation and email customization request | Published; template installed; sending disabled pending mail setup |
 | CODEX-11 | done | Owner-only masked account diagnostics in Connections | CODEX-10 | Owner confirmed proceeding | Recovery-email safeguards; real Auth inspection unverified |

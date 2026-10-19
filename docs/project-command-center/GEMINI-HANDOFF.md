@@ -26,7 +26,7 @@ Cursor must re-read current branch HEAD, local working state, rules and reports 
 
 ## Cursor verification — 2026-10-18
 
-Local checkout `play-site` on `admin-hub-overhaul` matches the attached snapshot. `git rev-parse HEAD` is `cd3303b7494ac58270d381ac5c2376cfce6924c1`, even with `origin/admin-hub-overhaul`. The working tree was clean before this handoff file. No newer commit exists after the D85 pointer `cd3303b7`. Work commit for D85 remains `1d1f9ec2`.
+Local checkout `play-site` on `admin-hub-overhaul` matched the attached snapshot at the start of this handoff. Base `cd3303b7494ac58270d381ac5c2376cfce6924c1` was even with `origin/admin-hub-overhaul`. The working tree was clean before this handoff file. No newer development commit existed after the D85 pointer `cd3303b7`. Work commit for D85 remains `1d1f9ec2`. This handoff's work commit is `1183e9d4`.
 
 `gh pr list --repo sorastarlight/starlight-play --state open` returned no open pull requests. This checkout has no `AGENTS.md` and no checked-in `.github/workflows`. The only GitHub template found is `.github/ISSUE_TEMPLATE/agent-job.md`. No repository development monitor or running terminal job was found. Nothing was paused because nothing development-side was running. The live site, Supabase, and the Twitch bridge were not touched.
 

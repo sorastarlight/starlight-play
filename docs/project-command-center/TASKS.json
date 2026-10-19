@@ -909,7 +909,7 @@
       "scope": "Documentation-only Gemini planning handoff. RPG development paused.",
       "dependencies": ["I51"],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "1183e9d4",
       "evidence": "docs/project-command-center/GEMINI-HANDOFF.md",
       "testResults": "STATIC. JSON parsed. No production call.",
       "nextAction": "STOP. Wait for a scoped owner or Gemini task. Do not start D86.",

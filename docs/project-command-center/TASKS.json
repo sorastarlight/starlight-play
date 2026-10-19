@@ -6,16 +6,16 @@
     {
       "id": "CODEX-15",
       "status": "doing",
-      "scope": "Staff recovery activation safeguards and I14 helpdesk review",
+      "scope": "Activated owner recovery with90-day retention; I14 design and prototype review",
       "dependencies": [
         "CODEX-14"
       ],
       "branch": "admin-hub-overhaul",
       "commit": null,
       "evidence": "HELPDESK-ISSUE-14.md; design-reset/helpdesk-review.html; supabase/owner-recovery-retention.sql",
-      "testResults": "75 static suites/build; 29 local SQL recovery checks; 13 synthetic endpoint checks; real DOM synthetic create/internal-note/escaped-text checks; desktop and 390px frame reviewed",
-      "nextAction": "Owner retention decision and fresh owner sign-in for real EmailQA staff test; owner visual review before live helpdesk implementation",
-      "approvalRequirement": "Owner authorized all planned recovery and helpdesk progress; accepted recovery design reserves retention decision to owner. No protected-account mutations or role promotions."
+      "testResults": "75 static suites/build; 29 local SQL recovery checks; 13 synthetic endpoint checks; real DOM synthetic create/internal-note/escaped-text checks; desktop and 390px frame reviewed Real EmailQA staff send accepted/receipt recorded; Resend Delivered; ACL/RLS checked; daily cleanup installed and initial0-row cleanup verified.",
+      "nextAction": "Owner helpdesk visual/functional approval and closed-ticket retention choice before live implementation",
+      "approvalRequirement": "Owner approved90-day completed recovery audit retention and owner sign-in; initial EmailQA-only test passed; eligible-target recovery enabled under existing owner-only guards."
     },
     {
       "id": "CODEX-14",

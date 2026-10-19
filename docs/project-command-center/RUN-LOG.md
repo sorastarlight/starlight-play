@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-15 recovery activation (2026-10-19)
+
+Owner approved90-day completed recovery audit retention; fresh existing owner session used normal published confirmation to send one EmailQA recovery email. Accepted UI, exactly1 accepted DB receipt, provider Delivered01a1557a-e3c3-711e-8e49-83e750aa7496. No token/password read. Installed retention/QA guard migrations and daily04:17UTC cleanup; initial0-row cleanup verified. Tested EmailQA-only then cleared qa_target to enable eligible targets under unchanged owner/recent-login/protected-target gates. ACLs and3 RLS tables verified; advisors reviewed, broader historical warnings remain. Local SQL29/synthetic13/static75/build pass. No second recipient password completion or hosted replay claimed. Sora caller only, no protected targets or PlayTester role changes; no gameplay/D86/stamp/spending. Helpdesk prototype published4c5db508, Pages39267404497 succeeded; visual/closed-ticket retention review pending.
+
+
 ## CODEX-15 — recovery lifecycle and helpdesk review (2026-10-19)
 
 Owner authorized planned recovery completion and helpdesk progress with minimal prompts. Staged (not applied) recovery retention/QA-target migration with unset policy; completed accepted/failed receipts can expire while uncertain/dispatching holds remain. Real local SQL regression expanded to29 checks including policy-unset fail-closed, wrong QA-target denial, unresolved preservation and cleanup ACLs. No hosted settings changed; SELECT confirmed disabled/zero receipts, pg_cron absent. Owner retention choice and fresh owner sign-in requested; no secrets/tokens read or mail sent.

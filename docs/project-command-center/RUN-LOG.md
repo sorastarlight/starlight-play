@@ -1,3 +1,9 @@
+# Codex gift selection and confirmation - 2026-10-19
+
+- Explicit owner UI refinements implemented. See CODEX-GIFT-PICKER.md. Shared Pokémon/candy sprite picker, released-generation selector, normalized name/dex search, public item labels, specific appearance kinds, Ribbons separate from future Gym Badges, reason inside visual review.
+- 72 non-writing suites/build pass; sanitized REAL DOM selection/review/Escape and 390px layout checked. Live read-only catalog confirmed naming; no database/account/reward/Pass mutations in this batch.
+- APP rc133 unchanged; no gameplay, D86, activation or spending. Authenticated grant unverified; owner visual/function review remains open. Introducing commit and Pages run record publication.
+
 # Codex Trainer Pass and gifts - 2026-10-18/19
 
 - Explicit owner feature request and persistent override decision. See CODEX-STAFF-REWARDS.md for narrow authority, migration/hash and disable procedure.

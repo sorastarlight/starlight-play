@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-5",
+      "status": "done",
+      "scope": "Visual searchable Pok\u00e9mon/candy picker, accurate gift labels, modal staff reasons and visual review",
+      "dependencies": [
+        "CODEX-4"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "CODEX-GIFT-PICKER.md; introducing commit in Git history",
+      "testResults": "72 non-writing suites/build; REAL DOM desktop/mobile sanitized fixture",
+      "nextAction": "Owner visual/function review; authenticated grant unverified",
+      "approvalRequirement": "Explicit owner requested these UI refinements; existing GitHub publication authorized."
+    },
+    {
       "id": "CODEX-4",
       "status": "done",
       "scope": "Trainer UI corrections, Pass monitoring and persistent overrides, audited direct gifts",

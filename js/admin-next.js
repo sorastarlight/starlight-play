@@ -191,7 +191,6 @@
     if (els.trainerDetail && view.user) window.PLAY_ADMIN_REWARDS?.mount(els.trainerDetail,view.user,view.pane,{
       read: (userId) => readCall("admin_trainer_rewards",{p_user:userId}),
       write: (intent) => window.playCall("admin_trainer_reward_action",intent),
-      confirm: (options) => typeof window.playPresentConfirm === "function" ? window.playPresentConfirm(options) : Promise.resolve(false),
       changed: (userId) => staffOpen && trainerSelectedId===userId ? loadTrainerProfile(userId,true,true) : undefined
     });
   }

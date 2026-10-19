@@ -43,15 +43,15 @@
     const status = (row) => ({ ...row, status: row.equipped === true ? "Equipped" : row.unlocked === true ? "Owned" : row.unlocked === false ? "Locked" : "Unavailable" });
     const groups = [
       { id: "titles", name: "Titles", items: (identity.titles || []).map(status) },
-      { id: "badges", name: "Badges", items: (identity.badges || []).map(status) },
+      { id: "badges", name: "Ribbons", items: (identity.badges || []).map(status) },
       ...kinds.map((kind) => {
         const catalog = (identity.catalog || []).filter((row) => row.kind === kind);
         const combined = new Map(catalog.map((row) => [row.id, row]));
         cosmetics.filter((row) => row.kind === kind).forEach((row) => combined.set(row.id, { ...combined.get(row.id), ...row }));
-        return { id: kind, name: kind === "background" ? "Trainer ID Backgrounds" : kind === "avatar" ? "Avatars" : kind.replace(/_/g, " "), items: [...combined.values()].map(status) };
+        return { id: kind, name: kind === "background" ? "Trainer ID Backgrounds" : kind === "avatar" ? "Avatars" : kind === "team_background" ? "Pokémon team backgrounds" : kind === "frame" ? "Trainer ID frames" : kind.replace(/_/g, " "), items: [...combined.values()].map(status) };
       }),
       { id: "packs", name: "Owned avatar packs", items: (identity.ownedAvatarPacks || []).map((id) => ({ id, name: id, status: "Owned" })) },
-      { id: "ribbons-future", name: "Ribbons", items: [], unavailable: "A distinct ribbon catalog is unavailable from this inspect contract." }
+      { id: "gym-badges-future", name: "Gym Badges", items: [], unavailable: "Gym Badges are earned by defeating Gym Leaders. Ownership is not available yet." }
     ];
     return groups;
   }

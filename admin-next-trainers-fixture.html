@@ -71,6 +71,9 @@
 </div>
 <script src="js/admin-next-trainers.js?v=20261008-rc133"></script>
 <script src="js/admin-next-record.js?v=20261008-rc133"></script>
+<script src="js/play-present.js?v=20261008-rc133"></script>
+<script src="js/game.js?v=20261008-rc133"></script>
+<script src="js/species.js?v=20261008-rc133"></script>
 <script src="js/admin-next-rewards.js?v=20261008-rc133"></script>
 <script>
 (() => {
@@ -230,7 +233,7 @@
     window.PLAY_ADMIN_REWARDS.mount(document.getElementById("next-trainer-detail"),dossier.account.user,pane,{
       read:async()=>({ok:true,pass:{active:dossier.account.user.pass,source:"twitch-sub",override:dossier.account.user.pass?null:false,sourceBeforeOverride:"twitch-sub",subscriptionActive:true,dailyAt:"2026-10-16T12:00:00Z"},claims:[{kind:"pass-daily",at:"2026-10-16T12:00:00Z",requested:{berry:2,coins:20},items:{berry:2},coins:20}],actions:[],catalog:{items:[{id:"pokeball",name:"Poké Ball"},{id:"coins",name:"PokéCoins"}],titles:dossier.identity.titles,cosmetics:dossier.identity.cosmetics,badges:dossier.identity.badges}}),
       write:async()=>({ok:true,message:"Fixture only: no account changed."}),
-      confirm:async()=>false
+      previewOnly:true
     });
   }
 

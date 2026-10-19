@@ -25,11 +25,11 @@ test("Missing login is omitted instead of shown as @Unavailable",()=>{
  const html=record.profileHtml(record.presentProfile({account:{user:{id:"fixture",displayName:"Trainer"}},pane:"overview"}));
  assert(!html.includes("@Unavailable"));assert(html.includes("record-account-meta"));
 });
-test("Confirmed request binds target, UUID, action, reason and payload",()=>{
- const values={gift_kind:{value:"pokemon"},dex:{value:"25"},level:{value:"5"},shiny:{checked:true},reason:{value:"Gift reward"}};
+test("Draft request binds target, UUID, action and payload before modal reason",()=>{
+ const values={gift_kind:{value:"pokemon"},dex:{value:"25"},level:{value:"5"},shiny:{checked:true}};
  const intent=ui.makeIntent({dataset:{rewardForm:"gift"},elements:{namedItem:key=>values[key]}},null,"target","request");
- assert.deepEqual(intent,{p_user:"target",p_request:"request",p_action:"pokemon",p_payload:{dex:25,level:5,shiny:true},p_reason:"Gift reward"});
- assert(ui.intentSummary(intent,{}).includes("Kanto #25"));
+ assert.deepEqual(intent,{p_user:"target",p_request:"request",p_action:"pokemon",p_payload:{dex:25,level:5,shiny:true},p_reason:undefined});
+ assert(ui.intentSummary(intent,{}).includes("#25"));
 });
 test("Reward writes stay separate from the read allowlist and refresh is scoped",()=>{
  const source=fs.readFileSync(path.join(__dirname,"../js/admin-next.js"),"utf8");
@@ -39,4 +39,11 @@ test("Reward writes stay separate from the read allowlist and refresh is scoped"
  const client=fs.readFileSync(path.join(__dirname,"../js/admin-next-rewards.js"),"utf8");
  assert(client.includes("contexts.get(root)===ctx"));assert(client.includes("ctx.pending=intent"));assert(client.includes("send(ctx.pending)"));
 });
+
+
+const vm=require('node:vm');const namesContext={window:{}};vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../js/species.js'),'utf8'),namesContext);global.PLAY_SPECIES=namesContext.window.PLAY_SPECIES;
+test('Sprite picker search matches names, padded dex and punctuation',()=>{const gen={min:1,max:151,name:'Generation I Kanto'};assert.deepEqual(ui.searchSpecies('Pika',gen),[25]);assert.deepEqual(ui.searchSpecies('#025',gen),[25]);assert.deepEqual(ui.searchSpecies('Mr Mime',gen),[122]);assert.deepEqual(ui.searchSpecies('nidoran female',gen),[29]);assert.deepEqual(ui.searchSpecies('Chikorita',gen),[]);});
+test('Appearance and ribbons are correctly named; reasons only in review',()=>{const html=ui.giftHtml({catalog:{}});assert(html.includes('Ribbon'));assert(html.includes('Gym Badge grants are not available'));assert(!html.includes('Cosmetic / other'));assert(!html.includes('name="reason"'));assert(!ui.passHtml({}).includes('name="reason"'));assert.equal(ui.kindName('team_background'),'Pokémon team background');});
+test('Player item labels are reused instead of storage keys',()=>{global.playItemLabel=key=>({firestone:'Fire Stone',bait:'Honey'}[key]||key);assert.equal(ui.itemName({id:'firestone'}),'Fire Stone');assert.equal(ui.itemName({id:'bait'}),'Honey');delete global.playItemLabel;});
+
 console.log(`${count} passed`);

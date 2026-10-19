@@ -91,3 +91,7 @@ Static review validation: desktop rendering inspected; at 390px viewport the doc
 ## Subsequent owner approval and implementation
 
 Owner accepted this proposal and instructed proceeding. Phase 1 is implemented in CODEX-PASSWORD-RECOVERY.md, superseding the original snapshot above for reset completion and username-reminder wording. New staff diagnostics/send/identity-recovery controls are still not implemented; phased work continues under the accepted direction. Real provider email round-trip requires dedicated approved QA.
+
+## Approved phase 2 — owner diagnostics
+
+Owner confirmed proceeding. CODEX-ACCOUNT-DIAGNOSTICS.md records the installed read-only owner context/Edge Function and Connections control. This supersedes the original snapshot for diagnostics only. Staff sends and identity mutations remain unimplemented.

@@ -95,7 +95,7 @@
         const trainer = identity.trainer || {};
         body = `<section class="record-surface"><h4>Progression</h4>${rows([["Level", trainer.level], ["XP", trainer.xp], ["Title", trainer.title], ["Ranking visible", yes(identity.rankingVisible)], ["Ranking eligible", yes(identity.rankingEligible)], ["Caught", trainer.caught], ["Seen", trainer.seen], ["Shiny caught", trainer.shinyCaught]])}</section>` + manager(view, "unlocks") + note("Achievement journals, Oak research and evolution history are unavailable here.");
       }
-      if (view.pane === "connections") body += note("Primary: main identity. Confirmed: identity-confirmation flag. Login enabled: may sign in. Gameplay enabled: may earn rewards. Link status does not indicate online presence. Bot/utility links do not classify the trainer as a bot.");
+      if (view.pane === "connections") body += `<section class="record-surface" data-trainer-diagnostics></section>` + note("Primary: main identity. Confirmed: identity-confirmation flag. Login enabled: may sign in. Gameplay enabled: may earn rewards. Link status does not indicate online presence. Bot/utility links do not classify the trainer as a bot.");
     }
     return `${header}<div class="record-body">${body}</div><footer class="record-footer">Need to change this account? <a data-record-support href="./admin-next.html?section=support&amp;trainer=${encodeURIComponent(user.id || "")}">Open Support &amp; Recovery</a></footer>`;
   }

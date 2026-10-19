@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-11",
+      "status": "done",
+      "scope": "Read-only owner account diagnostics with masked Auth details",
+      "dependencies": [
+        "CODEX-10"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "CODEX-ACCOUNT-DIAGNOSTICS.md",
+      "testResults": "74 nonwriting suites; 12 synthetic endpoint/UI checks; 10 real local SQL checks; local browser fixture; hosted ACL/source/401 verification",
+      "nextAction": "Recovery-email safeguards; real owner Auth inspection remains unverified",
+      "approvalRequirement": "Owner explicitly confirmed proceeding with accepted phased recovery proposal; no email send or identity mutation in this slice."
+    },
+    {
       "id": "CODEX-10",
       "status": "done",
       "scope": "Approved recovery phase 1: isolated browser-bound password-reset completion and truthful username guidance",

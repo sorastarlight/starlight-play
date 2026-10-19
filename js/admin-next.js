@@ -146,6 +146,7 @@
 
   function resetTrainers() {
     window.PLAY_ADMIN_REWARDS?.clear();
+    window.PLAY_ADMIN_DIAGNOSTICS?.clear();
     const supportContext = document.getElementById("next-support-context");
     if (supportContext) { supportContext.textContent = ""; supportContext.hidden = true; }
     trainerQuery = "";
@@ -188,6 +189,8 @@
         : (view.denied || view.error ? (view.error || "Trainer inspect is restricted to staff.") : "Trainer record.");
     }
     if (els.trainerDetail) trainersUi.renderRecord(els.trainerDetail, view);
+    if (els.trainerDetail && view.user) window.PLAY_ADMIN_DIAGNOSTICS?.mount(els.trainerDetail,view.user,view.pane,
+      targetUuid => window.playSupabase.functions.invoke("owner-account-diagnostics",{body:{targetUuid}}));
     if (els.trainerDetail && view.user) window.PLAY_ADMIN_REWARDS?.mount(els.trainerDetail,view.user,view.pane,{
       read: (userId) => readCall("admin_trainer_rewards",{p_user:userId}),
       write: (intent) => window.playCall("admin_trainer_reward_action",intent),

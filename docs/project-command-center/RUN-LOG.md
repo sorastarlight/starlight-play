@@ -1,5 +1,11 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-11 — owner diagnostics (2026-10-19)
+
+- Completed approved read-only masked diagnostics; installed owner context migration and JWT-verified Edge Function; Connections control published in introducing commit.
+- STATIC: 74 suites/build; LOCAL HARNESS: 12 synthetic endpoint/UI checks, 10 real PostgreSQL guard checks; REAL DOM: local sanitized fixture. Hosted verification: definitions/ACL/source, unauthenticated HTTP 401 only. No real trainer Auth inspection.
+- Sora NO; Twinkle NO; PlayTester unchanged/nonstaff, not inspected. No mail/password/identity changes, gameplay, D86, activation, stamp or spending. Next recovery-email safeguards remain unimplemented. See CODEX-ACCOUNT-DIAGNOSTICS.md.
+
 - Owner accepted recovery design and proceeded. Added early browser-bound PKCE routing, dedicated memory-session reset page, required verified user/expiry, duplicate/race guards, cross-tab logout/account-change invalidation and URL secret cleanup. No game bootstrap on recovery page.
 - Removed pretend username-reminder email UI; message-only hosted migration corrects cached-client response. Function definition verified; no reminder/email/password/account mutator invoked in production.
 - 73 non-writing suites/build; 16 recovery checks include real Supabase SDK under mocked HTTP. REAL DOM synthetic ready/success/expired states and 390px layout. See CODEX-PASSWORD-RECOVERY.md. Actual mail round trip remains unverified; no auth settings/provider templates changed.

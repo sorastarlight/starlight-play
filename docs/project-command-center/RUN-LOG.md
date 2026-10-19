@@ -1,3 +1,9 @@
+# Recovery audit/design and owner-disconnect repair - 2026-10-19
+
+- Completed I13 source/catalog audit, owner-only contract/threat model/QA phases and static sanitized review. No new recovery actions implemented. Found missing dedicated recovery landing and username-reminder sent-mail claim without mail transport; documented, not falsely tested. Corrected stale Support copy about Pass/gifts.
+- Reproduced existing nullable owner-check bypass in disposable SQL only; applied prerequisite-pinned harden_owner_twitch_disconnect. Anonymous execute now false; explicit non-null signed-in owner guard. Nine real local SQL authorization checks pass; live definition/ACL verified. No hosted disconnect, reset email, auth user read, role/account change or impersonation.
+- See ACCOUNT-RECOVERY-ISSUE-13.md and OWNER-DISCONNECT-SECURITY-FIX.md. New diagnostics/email/recovery controls remain proposed. No D86, gameplay, protected accounts, activation, stamp or spending. Publication evidence in introducing Git commit/Pages run.
+
 # Trainer ID frame retirement - 2026-10-19
 
 - Owner scrapped feature; removed runtime UI/renderer/styles and disabled remaining frame catalog via migration retire_trainer_id_frames. See CODEX-FRAME-RETIREMENT.md. Existing compatibility/audit history retained, not exposed as a feature.

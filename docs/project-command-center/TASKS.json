@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-9",
+      "status": "done",
+      "scope": "I13 account-recovery audit/design; narrow existing owner-disconnect authorization repair; accurate Support copy",
+      "dependencies": [
+        "CODEX-8"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "ACCOUNT-RECOVERY-ISSUE-13.md; OWNER-DISCONNECT-SECURITY-FIX.md; design-reset/account-recovery-review.html",
+      "testResults": "72 non-writing suites/build; 9 real local SQL authorization checks; hosted definition/ACL reads only",
+      "nextAction": "I14 helpdesk design; separately approve new recovery capability implementation",
+      "approvalRequirement": "Routine continuation; no new auth/recovery capability or account mutation authorized."
+    },
+    {
       "id": "CODEX-8",
       "status": "done",
       "scope": "Retire scrapped Trainer ID frames sitewide and disable catalog",
@@ -1235,16 +1249,16 @@
     },
     {
       "id": "I13",
-      "status": "todo",
+      "status": "done",
       "scope": "GitHub issue #13 owner account recovery design and security audit",
       "dependencies": [
         "I12"
       ],
       "branch": "admin-hub-overhaul",
       "commit": null,
-      "evidence": "not started",
+      "evidence": "ACCOUNT-RECOVERY-ISSUE-13.md; OWNER-DISCONNECT-SECURITY-FIX.md",
       "testResults": "not run",
-      "nextAction": "Separate design batch. No live auth or Twitch changes.",
+      "nextAction": "Design complete; new recovery implementation needs owner review",
       "approvalRequirement": "security design before any reset/unlink implementation"
     },
     {

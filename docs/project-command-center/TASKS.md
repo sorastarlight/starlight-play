@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-9 | done | I13 recovery design; existing owner-disconnect guard repair; Support copy | CODEX-8 | Routine continuation; no new recovery capability | I14 design; review recovery proposal |
 | CODEX-8 | done | Retire Trainer ID frames sitewide; disable frame catalog | CODEX-7 | Explicit owner removal request | Frames remain retired |
 | CODEX-7 | done | Search remaining gift lists; explicit selection; empty results | CODEX-6 | Routine continuation authorized | Continue routine maintenance; actual grant unverified |
 | CODEX-6 | done | Separate gift types; candy/ribbon art; candy/Oak audit | CODEX-5 | Explicit owner request | Visual direction accepted; actual grant unverified |
@@ -87,7 +88,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I50 | done | D84 verification plan | I49, D84 | Plan only; stamp still blocked | Superseded by I51 |
 | I51 | blocked | D85 local stamp rehearsal | I50, D85 | Stopped; debit and odds fingerprints drifted | STOP. Do not start D86 |
 | HANDOFF-1 | done | Gemini planning handoff | I51 | Documentation only; development paused | Wait for an owner or Gemini task |
-| I13 | todo | Issue #13 owner account recovery design | epic #11 | security design | Not started this batch |
+| I13 | done | Issue #13 owner account recovery design | epic #11 | security design | Design complete; see ACCOUNT-RECOVERY-ISSUE-13.md |
 | I14 | todo | Issue #14 helpdesk architecture | epic #11 | architecture | Not started this batch |
 | F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
 

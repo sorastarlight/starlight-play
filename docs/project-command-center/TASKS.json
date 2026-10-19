@@ -11,10 +11,10 @@
         "CODEX-13"
       ],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "a3a0da20",
       "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/",
-      "testResults": "REAL DOM hosted template source matched and saved; rendered previews reviewed. 20 recovery checks and build passed. No live Auth message sent.",
-      "nextAction": "Await owner-provided nonprotected test inbox for real recovery round trip",
+      "testResults": "REAL DOM hosted template source matched and saved; rendered previews reviewed. 20 recovery checks and build passed. No live Auth message sent. Owner-authorized EmailQA reset sent once; Resend Delivered. Signup confirmation also Delivered. Pages succeeded.",
+      "nextAction": "Owner opens EmailQA reset email and personally completes password change; staff sender stays disabled",
       "approvalRequirement": "Owner explicitly requested friendly emails and continued SMTP/recovery work. User must enter and submit any new password."
     },
     {

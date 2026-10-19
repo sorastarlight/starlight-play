@@ -6,7 +6,7 @@ Owner requested user-friendly emails while proceeding with recovery QA. Supabase
 |---|---|---|
 | Confirm signup | Confirm your Trainer Account email | supabase/templates/confirmation.html |
 | Change email | Confirm your Trainer Account email change | supabase/templates/email-change.html |
-| Reset password | Reset your Trainer Account password | supabase/templates/recovery.html |
+| Reset password | Reset your Pokémon StreamLink password | supabase/templates/recovery.html |
 
 Existing signup and email-change sources are backed up alongside these files as *.previous.html. Their prior subjects were Confirm your email address and Confirm your new email address. Recovery's earlier backup remains unchanged.
 
@@ -25,3 +25,5 @@ Published a3a0da20; GitHub Pages run 39261673136 succeeded. Updated reset reques
 ## Owner-confirmed completion
 
 Owner reported success after completing EmailQA password reset on 2026-10-19. Combined evidence: public reset request accepted, Resend Delivered, and owner-confirmed recipient/password completion. This is one successful real recovery round trip; independent sign-in after reset was not separately observed by Codex. Staff-assisted sender remains disabled pending receipt-retention/privacy resolution and its separate privileged-path verification. No additional email sent or password handled by Codex.
+
+Owner wording revision: reset email now names Pokémon StreamLink in its subject, header and account description, replacing Sora Starlight Trainer Account. Recovery link and behavior unchanged. Hosted source matched before save; rendered preview checked. Copy-only; no new email sent.

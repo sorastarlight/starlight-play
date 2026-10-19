@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## Reset email game title (2026-10-19)
+
+Owner requested game title instead of Sora Starlight Trainer wording. Updated reset subject/header/body to Pokémon StreamLink in repository, sanitized preview and hosted Supabase. Source matched before save; rendered preview checked. Link unchanged, no mail sent, no tests repeated for copy-only change. No protected-account/gameplay/configuration authority changes.
+
+
 ## EmailQA recovery success — owner confirmation (2026-10-19)
 
 Owner reported successful password-reset completion after the approved single real EmailQA send. Provider delivery plus owner-confirmed completion establishes a successful real recovery round trip. No password handled or additional email sent by Codex; independent post-reset sign-in not separately observed. Staff recovery remains disabled pending receipt-retention/privacy policy and separate privileged-path verification. Sora NO, Twinkle NO, PlayTester unchanged/nonstaff; no gameplay, D86, stamp or spending. Documentation-only; no tests repeated.

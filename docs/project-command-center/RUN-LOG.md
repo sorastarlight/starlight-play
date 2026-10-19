@@ -1,3 +1,10 @@
+# Codex Trainer Pass and gifts - 2026-10-18/19
+
+- Explicit owner feature request and persistent override decision. See CODEX-STAFF-REWARDS.md for narrow authority, migration/hash and disable procedure.
+- Migration 20261019034158 applied; refresh-pass v5 ACTIVE, JWT retained. Live catalog checked; new audit/override tables empty. No live rewards issued or accounts changed during verification.
+- 72 non-writing suites/build; 21 disposable SQL checks; 8 mocked Edge handler cases; responsive sanitized DOM and scroll preservation pass. Authenticated production action unverified.
+- APP rc133 unchanged; WIRE false; canonical encounter persister unchanged; D85 blocked; D86 unauthorized. No gameplay, protected-account mutations or spending. Publication evidence in Git/Pages.
+
 # Codex Trainer record implementation — 2026-10-18
 
 - Base `1d42e8d5`. Owner selected **Advance proposed Trainer record layout**. See CODEX-TRAINER-RECORD.md for implemented scope, evidence and limits.

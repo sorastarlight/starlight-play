@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-4 | done | Trainer UI fixes; Pass monitoring/overrides/re-grants; audited gifts | CODEX-3 | Explicit owner feature request | Owner visual/function review; authenticated action unverified |
 | CODEX-3 | done | Implement and publish owner-selected v5 Trainer record direction | CODEX-2 | Owner selected proposed layout | Visual/functional acceptance remains open; no database or write scope |
 | CODEX-2 | done | Live guide review; restore Trainer dossier keyboard focus | CODEX-1 | Routine maintenance | Owner visual acceptance; authenticated staff not exercised |
 | CODEX-1 | done | Codex runner trial; reconcile legacy static checks | Owner instruction | Routine maintenance authorized | Visual/interaction review of published guide and read-only hub; D86 remains unauthorized |

@@ -61,7 +61,8 @@ test("Preview shell only allows verified true-read RPCs", () => {
   const allow = nextJs.match(/const READ_RPCS = Object\.freeze\(\[([\s\S]*?)\]\)/);
   assert(allow, "READ_RPCS allowlist missing");
   const names = [...allow[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
-  assert(names.join(",") === "admin_build_health,admin_game_health,admin_live_snapshot,admin_list_users,admin_user_account,admin_identity_inspect");
+  assert(names.join(",") === "admin_build_health,admin_game_health,admin_live_snapshot,admin_list_users,admin_user_account,admin_identity_inspect,admin_trainer_rewards");
+  assert(!names.includes("admin_trainer_reward_action"), "Mutating reward action must not be in read allowlist");
 });
 
 test("Operations preview keeps the unavailable fallback and polls only the snapshot", () => {

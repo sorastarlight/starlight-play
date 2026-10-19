@@ -23,6 +23,9 @@
 .record-header h3 { margin: 0; font-size: 23px; }
 .record-header .eyebrow { margin: 0 0 4px; }
 .record-header p.admin-next-trainer-handle { margin: 4px 0 0; }
+.record-account-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.record-account-meta .record-date { margin: 0; }
+.record-workspace { overflow-anchor: none; }
 .record-workspace .record-tabs { display: flex; gap: 8px; flex-wrap: wrap; padding: 14px 0; margin: 0; border-bottom: 1px solid #dce3f2; }
 .record-tabs button { min-height: 44px; padding: 8px 16px; border: 2px solid #c9d4ec; border-radius: 12px; box-shadow: 0 3px 0 #d7e0f2; background: #fff; }
 .record-tabs button[aria-selected="true"] { background: #ffe3f3; border-color: #dca8c9; box-shadow: 0 3px 0 #dca8c9; }
@@ -44,6 +47,16 @@
 .record-footer a { color: #8a3d72; font-weight: 800; }
 .record-workspace [data-trainers-back] { justify-self: start; min-height: 44px; }
 .record-workspace :is(button,a,input):focus-visible { outline: 3px solid #aa8116; outline-offset: 3px; }
+.reward-form { display: grid; gap: 16px; margin: 20px 0; }
+.reward-form label, [data-gift-fields] { display: grid; gap: 8px; }
+.reward-form input, .reward-form select { width: 100%; min-width: 0; min-height: 44px; padding: 10px; border: 1px solid #c9d4ec; border-radius: 10px; background: #fff; color: #3a3f63; }
+.reward-form .reward-check { display: flex; align-items: center; gap: 10px; }
+.reward-check input { width: 20px; }
+.reward-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.reward-actions button, .reward-form > button { min-height: 44px; padding: 10px 14px; }
+.reward-history { display: grid; gap: 12px; margin: 12px 0 24px; }
+.reward-history article { display: grid; gap: 5px; padding: 14px; border: 1px solid #dce3f2; border-radius: 12px; overflow-wrap: anywhere; }
+[data-trainer-rewards] > h4 { margin-top: 24px; }
 @container trainers (max-width: 850px) {
   .record-directory-head { display: none; }
   .record-directory-row { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }

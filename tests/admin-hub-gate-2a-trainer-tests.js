@@ -25,10 +25,11 @@ const trainerJs = read("js/admin-next-trainers.js");
 const liveJs = read("js/admin-live.js");
 const adminHtml = read("admin.html");
 
-test("Trainer RPCs are allowlisted and mutations stay off", () => {
+test("Trainer reads are allowlisted and legacy mutations stay off", () => {
   const allow = nextJs.match(/const READ_RPCS = Object\.freeze\(\[([\s\S]*?)\]\)/);
   const names = [...allow[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
-  assert(names.join(",") === "admin_build_health,admin_game_health,admin_live_snapshot,admin_list_users,admin_user_account,admin_identity_inspect");
+  assert(names.join(",") === "admin_build_health,admin_game_health,admin_live_snapshot,admin_list_users,admin_user_account,admin_identity_inspect,admin_trainer_rewards");
+  assert(!names.includes("admin_trainer_reward_action"));
   [
     "admin_overview",
     "admin_live_dashboard",

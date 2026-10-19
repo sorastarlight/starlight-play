@@ -17,3 +17,7 @@ Reconcile the three failing legacy test suites against current implementations. 
 Validation: run the 69 non-writing test suites and `node tools/validate-build.js`. Exclude `a19-schema-tests.js`, which regenerates SQL seed files, and `special-events-ux-tests.js`, which rewrites a CSV artifact. No REAL DOM, REAL RPC or SQL execution is implied by passing static/source or local-model checks.
 
 Next useful task: targeted visual and interaction review of the newly published Trainer guide and read-only Admin Hub. Obtain owner acceptance before a major redesign; do not use gameplay RPCs merely to inspect a page.
+
+## Subsequent narrow authorization
+
+Owner-requested Pass and direct-gift work is recorded in CODEX-STAFF-REWARDS.md. That explicit request authorizes its additive backend and publication. The earlier trial paragraphs describe the original scope; other database/gameplay and D86 restrictions remain.

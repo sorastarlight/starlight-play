@@ -4,10 +4,26 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-4",
+      "status": "done",
+      "scope": "Trainer UI corrections, Pass monitoring and persistent overrides, audited direct gifts",
+      "dependencies": [
+        "CODEX-3"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "CODEX-STAFF-REWARDS.md; introducing commit in git history",
+      "testResults": "72 non-writing suites/build; 21 disposable SQL checks; 8 mocked Edge handler cases; sanitized REAL DOM",
+      "nextAction": "Owner visual/function review; authenticated production actions unverified",
+      "approvalRequirement": "Explicit owner feature request and persistent override decision; D86/gameplay/protected-account mutations/spending remain gated."
+    },
+    {
       "id": "CODEX-3",
       "status": "done",
       "scope": "Owner-selected Proposal A v5 Trainer record frontend implementation and GitHub publication",
-      "dependencies": ["CODEX-2"],
+      "dependencies": [
+        "CODEX-2"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": null,
       "evidence": "CODEX-TRAINER-RECORD.md; introducing commit in git history",
@@ -19,7 +35,9 @@
       "id": "CODEX-2",
       "status": "done",
       "scope": "Guide interaction review and Trainer workspace focus restoration",
-      "dependencies": ["CODEX-1"],
+      "dependencies": [
+        "CODEX-1"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": null,
       "evidence": "RUN-LOG.md; introducing commit in git history",
@@ -67,7 +85,9 @@
       "id": "CC-2",
       "status": "done",
       "scope": "Admin Hub inventory and IA from source",
-      "dependencies": ["CC-1"],
+      "dependencies": [
+        "CC-1"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "6472b20",
       "evidence": "ADMIN-HUB-INVENTORY.md, ADMIN-HUB-IA.md",
@@ -79,7 +99,9 @@
       "id": "A",
       "status": "done",
       "scope": "Gate 2A visual/UX polish on admin-next trainers",
-      "dependencies": ["CC-2"],
+      "dependencies": [
+        "CC-2"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "6472b20",
       "evidence": "css/play.css Find min-width, focus-visible, directory meta lines",
@@ -91,7 +113,9 @@
       "id": "B",
       "status": "done",
       "scope": "Single trainer dossier with non-overlapping panes",
-      "dependencies": ["A"],
+      "dependencies": [
+        "A"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "6472b20",
       "evidence": "js/admin-next-trainers.js overview Account/Registration",
@@ -103,7 +127,9 @@
       "id": "C",
       "status": "done",
       "scope": "Duplicate privileged-action inventory and consolidation design",
-      "dependencies": ["CC-2"],
+      "dependencies": [
+        "CC-2"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "6472b20",
       "evidence": "ADMIN-HUB-INVENTORY.md duplicate table; DECISIONS A3",
@@ -115,7 +141,9 @@
       "id": "D",
       "status": "done",
       "scope": "Navigation coherence: one Support doorway for grants",
-      "dependencies": ["C"],
+      "dependencies": [
+        "C"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "6472b20",
       "evidence": "admin-next.html Trainers footer + Support copy",
@@ -127,7 +155,11 @@
       "id": "E",
       "status": "done",
       "scope": "Frontend regression automation for overhaul invariants",
-      "dependencies": ["A", "B", "D"],
+      "dependencies": [
+        "A",
+        "B",
+        "D"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "6472b20",
       "evidence": "tests/admin-hub-overhaul-tests.js",
@@ -139,7 +171,12 @@
       "id": "I2",
       "status": "done",
       "scope": "GitHub issue #2 local visual QA and Trainer dossier UX polish",
-      "dependencies": ["A", "B", "D", "E"],
+      "dependencies": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "2d29e1e",
       "evidence": "docs/project-command-center/evidence/issue2-*.png, RUN-LOG.md",
@@ -151,7 +188,9 @@
       "id": "I3",
       "status": "done",
       "scope": "GitHub issue #3 Trainer dossier redesign: container layout, chips, cards, fixture lab",
-      "dependencies": ["I2"],
+      "dependencies": [
+        "I2"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "7f8393b",
       "evidence": "docs/project-command-center/evidence/issue3-*.png, RUN-LOG.md",
@@ -163,7 +202,9 @@
       "id": "I4",
       "status": "done",
       "scope": "GitHub issue #4 directory card sizing and dossier section spacing",
-      "dependencies": ["I3"],
+      "dependencies": [
+        "I3"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "bc24e74",
       "evidence": "docs/project-command-center/evidence/issue4-*.png, RUN-LOG.md",
@@ -175,7 +216,9 @@
       "id": "I5",
       "status": "done",
       "scope": "GitHub issue #5 Trainer Workspace 2.0 prototype: searchable table directory and full-width profile",
-      "dependencies": ["I4"],
+      "dependencies": [
+        "I4"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "7fd7cbf",
       "evidence": "docs/project-command-center/evidence/issue5-*.png, RUN-LOG.md",
@@ -187,7 +230,9 @@
       "id": "I6",
       "status": "done",
       "scope": "GitHub issue #6 Admin Hub design research and two integrated IA proposals",
-      "dependencies": ["I5"],
+      "dependencies": [
+        "I5"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "af437e8",
       "evidence": "docs/project-command-center/DESIGN-RESET-ISSUE-6.md, DESIGN-RESET-DECISION.md, design-reset/",
@@ -199,7 +244,9 @@
       "id": "I7",
       "status": "done",
       "scope": "GitHub issue #7 integrated Admin Hub spec and Proposal A static prototype",
-      "dependencies": ["I6"],
+      "dependencies": [
+        "I6"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "9947c97",
       "evidence": "docs/project-command-center/DESIGN-SPEC-ISSUE-7.md, design-reset/hub-a.html",
@@ -211,7 +258,9 @@
       "id": "I8",
       "status": "done",
       "scope": "GitHub issue #8 Proposal A visual refinement and StreamLink comparison prototype",
-      "dependencies": ["I7"],
+      "dependencies": [
+        "I7"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "fb85227",
       "evidence": "docs/project-command-center/VISUAL-STYLE-GUIDE-ISSUE-8.md, design-reset/hub-a-visual-v2.html",
@@ -222,8 +271,10 @@
     {
       "id": "I9",
       "status": "done",
-      "scope": "GitHub issue #9 Pokémon collection rows and read-only detail comparison prototype",
-      "dependencies": ["I8"],
+      "scope": "GitHub issue #9 Pok\u00e9mon collection rows and read-only detail comparison prototype",
+      "dependencies": [
+        "I8"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "f3d95ff",
       "evidence": "docs/project-command-center/POKEMON-UX-ISSUE-9.md, design-reset/hub-a-visual-v3.html",
@@ -235,7 +286,9 @@
       "id": "I10",
       "status": "done",
       "scope": "GitHub issue #10 PNG artwork, raised navigation, and full-row trainer selection",
-      "dependencies": ["I9"],
+      "dependencies": [
+        "I9"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "ed17c32",
       "evidence": "docs/project-command-center/TRAINER-UX-ISSUE-10.md, design-reset/hub-a-visual-v4.html",
@@ -247,7 +300,9 @@
       "id": "I12",
       "status": "done",
       "scope": "GitHub issue #12 trainer record IA: simplified header, Connections, Inventory and Unlockables managers, Tickets placement",
-      "dependencies": ["I10"],
+      "dependencies": [
+        "I10"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "1048831",
       "evidence": "docs/project-command-center/TRAINER-RECORD-ISSUE-12.md, design-reset/hub-a-visual-v5.html",
@@ -258,20 +313,25 @@
     {
       "id": "I16",
       "status": "done",
-      "scope": "GitHub issue #16 Pokémon generation/legality source audit and audited owner editor design",
-      "dependencies": ["epic-11"],
+      "scope": "GitHub issue #16 Pok\u00e9mon generation/legality source audit and audited owner editor design",
+      "dependencies": [
+        "epic-11"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "a3004d1",
       "evidence": "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
       "testResults": "overhaul 17 STATIC PASS; LIVE CATALOG catches columns; no catch-row SELECT",
-      "nextAction": "Superseded by D15–D17 / issue #19. Keep as current-state evidence.",
+      "nextAction": "Superseded by D15\u2013D17 / issue #19. Keep as current-state evidence.",
       "approvalRequirement": "Historical; future work uses A19-* gates"
     },
     {
       "id": "I19",
       "status": "done",
       "scope": "GitHub issue #19 Gen IX cross-generation rebuild plan: reference pin, generator, validator, inspector/editor, reset playbook",
-      "dependencies": ["I16", "D17"],
+      "dependencies": [
+        "I16",
+        "D17"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "5f3dad6",
       "evidence": "docs/project-command-center/GEN-IX-REBUILD-PLAN-ISSUE-19.md",
@@ -283,7 +343,10 @@
       "id": "I20",
       "status": "done",
       "scope": "GitHub issue #20 offline Gen IX reference pin, checksums, fixtures, unapplied seed SQL",
-      "dependencies": ["I19", "D20"],
+      "dependencies": [
+        "I19",
+        "D20"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "89dac99",
       "evidence": "docs/project-command-center/GEN-IX-REF-ISSUE-20.md, data/gen9-ref/, supabase/unapplied/a19-ref/",
@@ -295,7 +358,9 @@
       "id": "I21",
       "status": "done",
       "scope": "GitHub issue #21 offline A19-REF readiness review: Gmax, Champions megas, friendship, secure unapplied SQL",
-      "dependencies": ["I20"],
+      "dependencies": [
+        "I20"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "7948099",
       "evidence": "docs/project-command-center/GEN-IX-REF-READINESS-REVIEW.md, tests/gen9-ref-readiness-tests.js, supabase/unapplied/a19-ref-review/",
@@ -307,7 +372,10 @@
       "id": "I22",
       "status": "done",
       "scope": "GitHub issue #22 A19-SCHEMA unapplied private.ref_* DDL, catch extensions, full pin seed",
-      "dependencies": ["I21", "D25"],
+      "dependencies": [
+        "I21",
+        "D25"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "5f891c0",
       "evidence": "docs/project-command-center/GEN-IX-SCHEMA-ISSUE-22.md, supabase/unapplied/a19-schema/, tools/emit-a19-schema-seed.js",
@@ -319,7 +387,10 @@
       "id": "I23",
       "status": "done",
       "scope": "GitHub issue #23 disposable local PostgreSQL rehearsal of A19-SCHEMA on synthetic data",
-      "dependencies": ["I22", "D27"],
+      "dependencies": [
+        "I22",
+        "D27"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "cc66946b",
       "evidence": "docs/project-command-center/GEN-IX-SCHEMA-REHEARSAL.md, tools/a19-schema-rehearsal.js, supabase/unapplied/a19-schema/rehearsal/",
@@ -331,7 +402,10 @@
       "id": "I24",
       "status": "done",
       "scope": "GitHub issue #24 read-only production catalog, PostgREST exposure, checksum pin, and A19-APPLY decision packet",
-      "dependencies": ["I23", "D29"],
+      "dependencies": [
+        "I23",
+        "D29"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "0657b0f5",
       "evidence": "docs/project-command-center/GEN-IX-APPLY-HANDOFF.md, docs/project-command-center/GEN-IX-APPLY-DECISION.md, docs/project-command-center/GEN-IX-PRODUCTION-PREFLIGHT.md",
@@ -342,8 +416,11 @@
     {
       "id": "I24A",
       "status": "done",
-      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 → seed 00–10 → 002",
-      "dependencies": ["I24", "D35"],
+      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 \u2192 seed 00\u201310 \u2192 002",
+      "dependencies": [
+        "I24",
+        "D35"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "7cc5a1f7",
       "evidence": "docs/project-command-center/GEN-IX-APPLY-REPORT.md",
@@ -355,19 +432,25 @@
       "id": "I25",
       "status": "done",
       "scope": "A19-GENVAL implementation specification and offline synthetic test plan",
-      "dependencies": ["I24A", "D35"],
+      "dependencies": [
+        "I24A",
+        "D35"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "34f3797d",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-SPEC.md, tests/fixtures/a19-genval/matrix.json, tests/a19-genval-spec-tests.js",
       "testResults": "a19-genval-spec STATIC/LOCAL HARNESS; historical D36 snapshot",
       "nextAction": "Superseded by I25A / D37. Spec file remains the planning snapshot.",
-      "approvalRequirement": "Historical; GV1–GV7 later locked in D37"
+      "approvalRequirement": "Historical; GV1\u2013GV7 later locked in D37"
     },
     {
       "id": "I25A",
       "status": "done",
       "scope": "A19-GENVAL branch-only functions + isolated local Postgres rehearsal",
-      "dependencies": ["I25", "D37"],
+      "dependencies": [
+        "I25",
+        "D37"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "b4cf2cc0",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md, supabase/unapplied/a19-genval/, tools/a19-genval-rehearsal.js, tools/lib/a19-genval-oracle.js",
@@ -379,7 +462,10 @@
       "id": "I25B",
       "status": "done",
       "scope": "A19-GENVAL security corrections: tickets, entropy, validator types, move legality",
-      "dependencies": ["I25A", "D38"],
+      "dependencies": [
+        "I25A",
+        "D38"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "67141ec3",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md, supabase/unapplied/a19-genval/, tools/a19-genval-rehearsal.js",
@@ -391,7 +477,10 @@
       "id": "I25C",
       "status": "done",
       "scope": "A19-GENVAL specimen-digest binding, additive production SQL, local-only fixtures",
-      "dependencies": ["I25B", "D39"],
+      "dependencies": [
+        "I25B",
+        "D39"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "278d225c",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-ISSUE-25.md, supabase/unapplied/a19-genval/, supabase/unapplied/a19-genval/local/",
@@ -403,7 +492,10 @@
       "id": "I25D",
       "status": "done",
       "scope": "A19-GENVAL read-only production compatibility + GENVAL-APPLY checklist",
-      "dependencies": ["I25C", "D40"],
+      "dependencies": [
+        "I25C",
+        "D40"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "ec54d159",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-READINESS.md, docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md",
@@ -415,7 +507,10 @@
       "id": "I25E",
       "status": "done",
       "scope": "A19-GENVAL recovery-runbook correction: no automatic restore; D33 backup predates D35",
-      "dependencies": ["I25D", "D41"],
+      "dependencies": [
+        "I25D",
+        "D41"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "110b4f9f",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-CHECKLIST.md, docs/project-command-center/GEN-IX-GENVAL-READINESS.md",
@@ -427,7 +522,10 @@
       "id": "I25F",
       "status": "done",
       "scope": "GENVAL-APPLY gate check: template [GO] incomplete; no production apply",
-      "dependencies": ["I25E", "D42"],
+      "dependencies": [
+        "I25E",
+        "D42"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "61dc3616",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-DECISION.md",
@@ -439,7 +537,10 @@
       "id": "I25G",
       "status": "done",
       "scope": "Owner GO applied hashed GENVAL 001; R-A reset packet unapplied",
-      "dependencies": ["I25F", "D43"],
+      "dependencies": [
+        "I25F",
+        "D43"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "e0381c02",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-APPLY-REPORT.md, docs/project-command-center/GEN-IX-RESET-SCOPE.md, supabase/unapplied/a19-reset/",
@@ -451,7 +552,10 @@
       "id": "I25H",
       "status": "done",
       "scope": "GENVAL reconciliation + WIRE architecture + reset rehearsal spec",
-      "dependencies": ["I25G", "D44"],
+      "dependencies": [
+        "I25G",
+        "D44"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "a9cf2c39",
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-RECONCILIATION.md, docs/project-command-center/GEN-IX-WIRE-PLAN.md, docs/project-command-center/GEN-IX-RESET-REHEARSAL.md",
@@ -463,7 +567,10 @@
       "id": "I25I",
       "status": "done",
       "scope": "A19-WIRE unapplied persist SQL + isolated REAL SQL + local RESET-TEST",
-      "dependencies": ["I25H", "D45"],
+      "dependencies": [
+        "I25H",
+        "D45"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "4155349c",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-DEV-REPORT.md, supabase/unapplied/a19-wire/, tools/a19-wire-rehearsal.js, tools/a19-reset-rehearsal.js",
@@ -475,7 +582,10 @@
       "id": "I25J",
       "status": "done",
       "scope": "A19-WIRE settle integration: settle_if_needed calls materialize",
-      "dependencies": ["I25I", "D46"],
+      "dependencies": [
+        "I25I",
+        "D46"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "fefbf362",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-INTEGRATE-REPORT.md, supabase/unapplied/a19-wire/003_settle_integration.sql, tools/a19-wire-settle-rehearsal.js",
@@ -487,7 +597,10 @@
       "id": "I25K",
       "status": "done",
       "scope": "A19-WIRE production-parity review: strip test hook, LIVE CATALOG settle diff, duplicate-result REAL SQL",
-      "dependencies": ["I25J", "D47"],
+      "dependencies": [
+        "I25J",
+        "D47"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "84825b4f",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-PARITY-REPORT.md, supabase/unapplied/a19-wire/003_settle_integration.sql, supabase/unapplied/a19-wire/local/040_test_inject.sql, tools/a19-wire-settle-rehearsal.js",
@@ -499,7 +612,10 @@
       "id": "I25L",
       "status": "done",
       "scope": "A19-WIRE-APPLY GO request; not authorization to install",
-      "dependencies": ["I25K", "D48"],
+      "dependencies": [
+        "I25K",
+        "D48"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "f63f56d5",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-APPLY-DECISION.md",
@@ -511,7 +627,10 @@
       "id": "I25M",
       "status": "done",
       "scope": "Owner GO applied hashed A19-WIRE 001-003; switch false; catalog-only verify",
-      "dependencies": ["I25L", "D49"],
+      "dependencies": [
+        "I25L",
+        "D49"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "0c7ec930",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-APPLY-REPORT.md",
@@ -523,7 +642,10 @@
       "id": "I25N",
       "status": "done",
       "scope": "A19-WIRE-GO one-catch readiness; not authorization to flip the switch",
-      "dependencies": ["I25M", "D50"],
+      "dependencies": [
+        "I25M",
+        "D50"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "15b4e63d",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-READINESS.md",
@@ -535,7 +657,10 @@
       "id": "I25O",
       "status": "done",
       "scope": "Recover PlayTester site login path and propose A19-WIRE-GO; do not flip the switch",
-      "dependencies": ["I25N", "D51"],
+      "dependencies": [
+        "I25N",
+        "D51"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "7f2b32b1",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-PROPOSAL.md",
@@ -547,7 +672,10 @@
       "id": "I25P",
       "status": "done",
       "scope": "Cursor browser Play probe. No join, throw, settle, or WIRE flip.",
-      "dependencies": ["I25O", "D52"],
+      "dependencies": [
+        "I25O",
+        "D52"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "d38d5d6d",
       "evidence": "tools/qa-play-e2e-gate.js",
@@ -559,7 +687,10 @@
       "id": "I25Q",
       "status": "done",
       "scope": "A19-WIRE-GO one PlayTester Bulbasaur catch, then switch off",
-      "dependencies": ["I25P", "D53"],
+      "dependencies": [
+        "I25P",
+        "D53"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "f9c7b3c5",
       "evidence": "docs/project-command-center/GEN-IX-WIRE-GO-REPORT.md",
@@ -571,7 +702,10 @@
       "id": "I25R",
       "status": "done",
       "scope": "D54 encounter economy branch fix. Ledger debit on spend. No live apply.",
-      "dependencies": ["I25Q", "D54"],
+      "dependencies": [
+        "I25Q",
+        "D54"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "a9625613",
       "evidence": "docs/project-command-center/GEN-IX-ECONOMY-D54.md",
@@ -583,7 +717,10 @@
       "id": "I25S",
       "status": "done",
       "scope": "D55 economy final review. Safety-net throw kept. NB001 and atomic JSON debit. No live apply.",
-      "dependencies": ["I25R", "D55"],
+      "dependencies": [
+        "I25R",
+        "D55"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "3753ddf9",
       "evidence": "docs/project-command-center/GEN-IX-ECONOMY-D55.md",
@@ -595,7 +732,10 @@
       "id": "I25T",
       "status": "done",
       "scope": "D55-ECONOMY-APPLY handoff. Catalog verification only. Not a GO.",
-      "dependencies": ["I25S", "D56"],
+      "dependencies": [
+        "I25S",
+        "D56"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "6a9f8fa1",
       "evidence": "docs/project-command-center/GEN-IX-ECONOMY-APPLY-DECISION.md",
@@ -607,7 +747,10 @@
       "id": "I25U",
       "status": "done",
       "scope": "Owner D55-ECONOMY-APPLY GO. One migration. Catalog verification only.",
-      "dependencies": ["I25T", "D57"],
+      "dependencies": [
+        "I25T",
+        "D57"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "f63e2b17",
       "evidence": "docs/project-command-center/GEN-IX-ECONOMY-APPLY-REPORT.md",
@@ -619,7 +762,10 @@
       "id": "I25V",
       "status": "done",
       "scope": "D58 PlayTester live economy test. Three encounters. WIRE off after.",
-      "dependencies": ["I25U", "D58"],
+      "dependencies": [
+        "I25U",
+        "D58"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "f758fdce",
       "evidence": "docs/project-command-center/GEN-IX-D58-LIVE-TEST.md",
@@ -631,7 +777,10 @@
       "id": "I26",
       "status": "done",
       "scope": "D59 New Trainer onboarding. Skippable local guide. No gameplay changes.",
-      "dependencies": ["I25V", "D59"],
+      "dependencies": [
+        "I25V",
+        "D59"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "f2153444",
       "evidence": "docs/project-command-center/GEN-IX-D59-ONBOARDING.md",
@@ -643,7 +792,10 @@
       "id": "I27",
       "status": "done",
       "scope": "D63 verify D59-D62 and audit mastery schema. No implementation.",
-      "dependencies": ["I26", "D63"],
+      "dependencies": [
+        "I26",
+        "D63"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "fb211e9b",
       "evidence": "docs/project-command-center/D63-MASTERY-COMPATIBILITY-REPORT.md",
@@ -655,7 +807,10 @@
       "id": "I28",
       "status": "done",
       "scope": "D64 species mastery event ledger. Unapplied SQL and disposable local rehearsal.",
-      "dependencies": ["I27", "D64"],
+      "dependencies": [
+        "I27",
+        "D64"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "b32a0be0",
       "evidence": "docs/project-command-center/D64-MASTERY-SCHEMA-REPORT.md",
@@ -667,7 +822,10 @@
       "id": "I29",
       "status": "done",
       "scope": "D65 mastery cutoff, outbox recovery, and rollback design. Unapplied.",
-      "dependencies": ["I28", "D65"],
+      "dependencies": [
+        "I28",
+        "D65"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "fbb09981",
       "evidence": "docs/project-command-center/D65-MASTERY-HARDENING-REPORT.md",
@@ -679,7 +837,10 @@
       "id": "I30",
       "status": "done",
       "scope": "D66 timestamp authority and outbox lifecycle. Catalog read and unapplied draft.",
-      "dependencies": ["I29", "D66"],
+      "dependencies": [
+        "I29",
+        "D66"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "9601f429",
       "evidence": "docs/project-command-center/D66-MASTERY-LIFECYCLE-REPORT.md",
@@ -691,7 +852,10 @@
       "id": "I31",
       "status": "done",
       "scope": "D67 catch preservation. Unapplied specimen insert clock. Authority insert removed from the catch path.",
-      "dependencies": ["I30", "D67"],
+      "dependencies": [
+        "I30",
+        "D67"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "7d5272c4",
       "evidence": "docs/project-command-center/D67-MASTERY-CATCH-SAFETY-REPORT.md",
@@ -703,7 +867,10 @@
       "id": "I32",
       "status": "done",
       "scope": "D68 install readiness review of unapplied mastery 001-004. No hosted apply.",
-      "dependencies": ["I31", "D68"],
+      "dependencies": [
+        "I31",
+        "D68"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "8a7cbe1a",
       "evidence": "docs/project-command-center/D68-MASTERY-INSTALL-READINESS.md",
@@ -715,7 +882,10 @@
       "id": "I33",
       "status": "done",
       "scope": "D69 read-only mastery schema GO packet. No hosted install.",
-      "dependencies": ["I32", "D69"],
+      "dependencies": [
+        "I32",
+        "D69"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "25309d98",
       "evidence": "docs/project-command-center/D69-MASTERY-SCHEMA-GO-PACKET.md",
@@ -727,7 +897,10 @@
       "id": "I34",
       "status": "done",
       "scope": "D70 schema-only install of mastery 001-004. Recording stays inactive.",
-      "dependencies": ["I33", "D70"],
+      "dependencies": [
+        "I33",
+        "D70"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "8adbd363",
       "evidence": "docs/project-command-center/D70-MASTERY-SCHEMA-INSTALL-REPORT.md",
@@ -739,7 +912,10 @@
       "id": "I35",
       "status": "done",
       "scope": "D71 mastery post-install audit and integration design. No hosted writes and no activation.",
-      "dependencies": ["I34", "D71"],
+      "dependencies": [
+        "I34",
+        "D71"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "eacf8a9d",
       "evidence": "docs/project-command-center/D71-MASTERY-INTEGRATION-PLAN.md",
@@ -751,7 +927,10 @@
       "id": "I36",
       "status": "done",
       "scope": "D72 unapplied Species Familiarity settlement draft. No hosted install and no activation.",
-      "dependencies": ["I35", "D72"],
+      "dependencies": [
+        "I35",
+        "D72"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "ff346146",
       "evidence": "docs/project-command-center/D72-MASTERY-SETTLEMENT-DRAFT.md",
@@ -763,7 +942,10 @@
       "id": "I37",
       "status": "done",
       "scope": "D73 familiarity install readiness. Read-only catalog and local rehearsal. Not an install GO.",
-      "dependencies": ["I36", "D73"],
+      "dependencies": [
+        "I36",
+        "D73"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "99211cbd",
       "evidence": "docs/project-command-center/D73-FAMILIARITY-INSTALL-READINESS.md",
@@ -775,7 +957,10 @@
       "id": "I38",
       "status": "done",
       "scope": "D74 familiarity integration install. Three hashed files. Recording stays inactive.",
-      "dependencies": ["I37", "D74"],
+      "dependencies": [
+        "I37",
+        "D74"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "d6b3e927",
       "evidence": "docs/project-command-center/D74-FAMILIARITY-INSTALL-REPORT.md",
@@ -787,7 +972,10 @@
       "id": "I39",
       "status": "done",
       "scope": "D75 familiarity activation readiness. Read-only catalog and local rehearsal. Not an activation GO.",
-      "dependencies": ["I38", "D75"],
+      "dependencies": [
+        "I38",
+        "D75"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "f9643d2d",
       "evidence": "docs/project-command-center/D75-FAMILIARITY-ACTIVATION-READINESS.md",
@@ -799,19 +987,25 @@
       "id": "I40",
       "status": "done",
       "scope": "D76 stamp-smoke readiness. Read-only catalog and local rehearsal. Not a catch GO.",
-      "dependencies": ["I39", "D76"],
+      "dependencies": [
+        "I39",
+        "D76"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "74d726a1",
       "evidence": "docs/project-command-center/D76-FAMILIARITY-STAMP-SMOKE-GO-PACKET.md",
       "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D76 8/8 on 127.0.0.1:55448. Lifecycle inactive. No hosted catch.",
       "nextAction": "Superseded by I41. Account creation stopped for missing email and password.",
-      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED — UNSPECIFIED."
+      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED \u2014 UNSPECIFIED."
     },
     {
       "id": "I41",
       "status": "done",
       "scope": "D77 PlayerQA provisioning. Blocked before any Auth write.",
-      "dependencies": ["I40", "D77"],
+      "dependencies": [
+        "I40",
+        "D77"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "6eda99a5",
       "evidence": "docs/project-command-center/D77-PLAYERQA-ACCOUNT-REPORT.md",
@@ -823,7 +1017,10 @@
       "id": "I42",
       "status": "done",
       "scope": "D77-R1 PlayerQA registration. Blocked before signup because the password was not securely available.",
-      "dependencies": ["I41", "D77-R1"],
+      "dependencies": [
+        "I41",
+        "D77-R1"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "d3251583",
       "evidence": "docs/project-command-center/D77-R1-PLAYERQA-PROVISIONING.md",
@@ -835,7 +1032,10 @@
       "id": "I43",
       "status": "done",
       "scope": "D77-R2 PlayerQA verification and a proposed encounter GO. No encounter.",
-      "dependencies": ["I42", "D77-R2"],
+      "dependencies": [
+        "I42",
+        "D77-R2"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "9a639507",
       "evidence": "docs/project-command-center/D77-R2-PLAYERQA-VERIFICATION.md",
@@ -847,7 +1047,10 @@
       "id": "I44",
       "status": "done",
       "scope": "D78 PlayerQA stamp smoke. Stopped before any encounter.",
-      "dependencies": ["I43", "D78"],
+      "dependencies": [
+        "I43",
+        "D78"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "9cf2f6e1",
       "evidence": "docs/project-command-center/D78-PLAYERQA-STAMP-SMOKE-REPORT.md",
@@ -859,7 +1062,10 @@
       "id": "I45",
       "status": "done",
       "scope": "D79 QA encounter isolation design. No prototype and no encounter.",
-      "dependencies": ["I44", "D79"],
+      "dependencies": [
+        "I44",
+        "D79"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "b67789fc",
       "evidence": "docs/project-command-center/D79-QA-ENCOUNTER-ISOLATION-DESIGN.md",
@@ -871,7 +1077,10 @@
       "id": "I46",
       "status": "done",
       "scope": "D80 launch-guard audit and QA architecture review. Nothing installed.",
-      "dependencies": ["I45", "D80"],
+      "dependencies": [
+        "I45",
+        "D80"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "be9ce449",
       "evidence": "docs/project-command-center/D80-ENCOUNTER-SAFETY-ARCHITECTURE.md",
@@ -883,7 +1092,10 @@
       "id": "I47",
       "status": "done",
       "scope": "D81 launch-guard readiness. Unapplied SQL only.",
-      "dependencies": ["I46", "D81"],
+      "dependencies": [
+        "I46",
+        "D81"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "fe2db375",
       "evidence": "docs/project-command-center/D81-LAUNCH-GUARD-INSTALL-READINESS.md",
@@ -895,7 +1107,10 @@
       "id": "I48",
       "status": "done",
       "scope": "D82 launch-guard security gate. No install.",
-      "dependencies": ["I47", "D82"],
+      "dependencies": [
+        "I47",
+        "D82"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "2628fdbd",
       "evidence": "docs/project-command-center/D82-LAUNCH-GUARD-SECURITY-GATE.md",
@@ -907,7 +1122,10 @@
       "id": "I49",
       "status": "done",
       "scope": "D83 install of the unchanged round_is_active replacement.",
-      "dependencies": ["I48", "D83"],
+      "dependencies": [
+        "I48",
+        "D83"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "876ab322",
       "evidence": "docs/project-command-center/D83-LAUNCH-GUARD-INSTALL-REPORT.md",
@@ -919,7 +1137,10 @@
       "id": "I50",
       "status": "done",
       "scope": "D84 post-install verification plan. No hosted check.",
-      "dependencies": ["I49", "D84"],
+      "dependencies": [
+        "I49",
+        "D84"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "5b4f57cc",
       "evidence": "docs/project-command-center/D84-VERIFICATION-PLAN.md",
@@ -931,7 +1152,10 @@
       "id": "I51",
       "status": "blocked",
       "scope": "D85 local stamp rehearsal. Stopped before any write.",
-      "dependencies": ["I50", "D85"],
+      "dependencies": [
+        "I50",
+        "D85"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "1d1f9ec2",
       "evidence": "docs/project-command-center/D85-STAMP-REHEARSAL.md",
@@ -943,7 +1167,9 @@
       "id": "HANDOFF-1",
       "status": "done",
       "scope": "Documentation-only Gemini planning handoff. RPG development paused.",
-      "dependencies": ["I51"],
+      "dependencies": [
+        "I51"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": "1183e9d4",
       "evidence": "docs/project-command-center/GEMINI-HANDOFF.md",
@@ -955,7 +1181,9 @@
       "id": "I13",
       "status": "todo",
       "scope": "GitHub issue #13 owner account recovery design and security audit",
-      "dependencies": ["I12"],
+      "dependencies": [
+        "I12"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": null,
       "evidence": "not started",
@@ -967,7 +1195,9 @@
       "id": "I14",
       "status": "todo",
       "scope": "GitHub issue #14 player helpdesk and staff inbox architecture",
-      "dependencies": ["I12"],
+      "dependencies": [
+        "I12"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": null,
       "evidence": "not started",
@@ -979,7 +1209,9 @@
       "id": "F",
       "status": "blocked",
       "scope": "Privileged operations",
-      "dependencies": ["A3"],
+      "dependencies": [
+        "A3"
+      ],
       "branch": "admin-hub-overhaul",
       "commit": null,
       "evidence": "not started",

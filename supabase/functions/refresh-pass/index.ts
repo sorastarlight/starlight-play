@@ -39,7 +39,7 @@ Deno.serve(async (req) => {
     .maybeSingle();
   const { data: profile } = await admin
     .from("profiles")
-    .select("twitch_login")
+    .select("twitch_login, starlight_pass, pass_source")
     .eq("id", userData.user.id)
     .maybeSingle();
   const { data: connection } = await admin
@@ -67,16 +67,22 @@ Deno.serve(async (req) => {
   const channelLogin = (config?.broadcaster_twitch_login || "").trim().toLowerCase();
   let broadcasterId = (config?.twitch_broadcaster_id || "").trim();
 
-  async function grantOwner() {
-    await admin.from("profiles").update({
-      starlight_pass: true,
-      pass_source: "broadcaster",
+  async function saveSubscription(active: boolean, source: string | null, message: string) {
+    const { data: saved, error: saveError } = await admin.from("profiles").update({
+      starlight_pass: active,
+      pass_source: source,
       pass_checked_at: new Date().toISOString()
-    }).eq("id", userData.user.id);
-    return json({
-      active: true,
-      message: "Starlight Pass is active because this is the channel account. Twitch does not list the broadcaster as a subscriber."
-    });
+    }).eq("id", userData.user.id).select("starlight_pass, pass_source").single();
+    if (saveError || !saved) {
+      return json({ active: Boolean(profile?.starlight_pass), message: "Could not save the subscription check. Try again." }, 500);
+    }
+    const effective = Boolean(saved.starlight_pass);
+    return json({ active: effective, message: effective === active ? message :
+      `Subscription checked. Starlight Pass remains ${effective ? "active" : "off"} under staff control.` });
+  }
+
+  async function grantOwner() {
+    return saveSubscription(true, "broadcaster", "Starlight Pass is active because this is the channel account. Twitch does not list the broadcaster as a subscriber.");
   }
 
   if (channelLogin && userLogin && channelLogin === userLogin) {
@@ -85,14 +91,14 @@ Deno.serve(async (req) => {
 
   if (!accessToken) {
     return json({
-      active: false,
+      active: Boolean(profile?.starlight_pass),
       message: "Twitch did not keep a session token. Sign out, sign in with Twitch again, then check immediately."
     });
   }
 
   if (!clientId) {
     return json({
-      active: false,
+      active: Boolean(profile?.starlight_pass),
       needsStaffSetup: true,
       message: "Staff still needs to save the Play Twitch Client ID on the staff hub. Until then, staff can grant Starlight Pass by login."
     });
@@ -110,7 +116,7 @@ Deno.serve(async (req) => {
     return await grantOwner();
   }
   if (!broadcasterId || !twitchUserId) {
-    return json({ active: false, message: "Could not match Twitch user IDs. Sign in again, or save the broadcaster ID in the staff hub." });
+    return json({ active: Boolean(profile?.starlight_pass), message: "Could not match Twitch user IDs. Sign in again, or save the broadcaster ID in the staff hub." });
   }
 
   const subRes = await fetch(
@@ -118,21 +124,11 @@ Deno.serve(async (req) => {
     { headers: { "Client-Id": clientId, Authorization: `Bearer ${accessToken}` } }
   );
   if (subRes.status === 404) {
-    await admin.from("profiles").update({
-      starlight_pass: false,
-      pass_source: null,
-      pass_checked_at: new Date().toISOString()
-    }).eq("id", userData.user.id);
-    return json({ active: false, message: "Twitch says you are not subscribed right now." });
+    return saveSubscription(false, null, "Twitch says you are not subscribed right now.");
   }
   if (!subRes.ok) {
-    return json({ active: false, message: "Twitch could not check the subscription. Try signing in again." });
+    return json({ active: Boolean(profile?.starlight_pass), message: "Twitch could not check the subscription. Try signing in again." });
   }
 
-  await admin.from("profiles").update({
-    starlight_pass: true,
-    pass_source: "twitch-sub",
-    pass_checked_at: new Date().toISOString()
-  }).eq("id", userData.user.id);
-  return json({ active: true, message: "Starlight Pass is active from your Twitch subscription." });
+  return saveSubscription(true, "twitch-sub", "Starlight Pass is active from your Twitch subscription.");
 });

@@ -10,8 +10,8 @@
   const note = (text) => `<p class="record-note">${esc(text)}</p>`;
   const button = (label, action, id = "") => `<button type="button" class="record-hit" data-record-action="${action}" data-record-id="${esc(id)}">${esc(label)}<span aria-hidden="true">›</span></button>`;
   const back = (label, action) => `<button type="button" class="secondary record-back" data-record-action="${action}">← ${esc(label)}</button>`;
-  const PANES = [...base.PANES, "tickets"];
-  const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections", tickets: "Tickets" };
+  const PANES = [...base.PANES, "pass", "gifts", "tickets"];
+  const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections", pass: "Starlight Pass", gifts: "Gifts", tickets: "Tickets" };
   const stamp = (input) => !input || !Number.isFinite(new Date(input).getTime()) ? "Unavailable" : new Date(input).toISOString().replace("T", " ").replace(/\.\d+Z$/, " UTC");
   const safeImage = (src) => /^(https?:\/\/|images\/)/i.test(String(src || "")) ? esc(src) : "";
   function avatar(user) {
@@ -30,10 +30,10 @@
     const bag = view.bag || {};
     const items = (keys) => keys.map(([id, name]) => ({ id, name, qty: bag[id] }));
     return [
-      { id: "currency", name: "Currency and space", items: items([["coins", "PokéCoins"], ["used", "Bag used"], ["capacity", "Bag capacity"]]) },
+      { id: "currency", name: "PokéCoins and Inventory Space", items: items([["coins", "PokéCoins"], ["used", "Inventory used"], ["capacity", "Inventory capacity"]]) },
       { id: "balls", name: "Poké Balls", items: items([["pokeball", "Poké Ball"], ["greatball", "Great Ball"], ["ultraball", "Ultra Ball"], ["masterball", "Master Ball (display only)"]]) },
       { id: "consumables", name: "Consumables", items: items([["berry", "Berries"], ["bait", "Bait"], ["lure", "Lure"]]) },
-      { id: "candy", name: "Family candy", items: (view.candy || []).filter((row) => Number(row.qty) > 0).map((row) => ({ id: row.familyId, name: row.name || row.familyId, qty: row.qty })) }
+      { id: "candy", name: "Evolution Candy", items: (view.candy || []).filter((row) => Number(row.qty) > 0).map((row) => ({ id: row.familyId, name: row.name || row.familyId, qty: row.qty })) }
     ];
   }
   function unlockGroups(view) {
@@ -62,7 +62,7 @@
     const item = group?.items.find((row) => String(row.id) === state.item);
     if (item) return `${back(group.name, "items")}<section class="record-surface"><h4 tabindex="-1" data-record-heading>${esc(item.name || item.id)}</h4>${rows(kind === "inventory" ? [["Quantity", item.qty], ["Item / family id", item.id]] : [["Status", item.status], ["Id", item.id], ["Unlocked at", stamp(item.unlockedAt)]])}${note("Read only. Changes to this account belong in Support & Recovery.")}</section>`;
     if (group) return `${back(kind === "inventory" ? "Inventory categories" : "Unlockable groups", "groups")}<section class="record-surface"><h4 tabindex="-1" data-record-heading>${esc(group.name)}</h4>${group.unavailable ? note(group.unavailable) : group.items.length ? `<div class="record-list">${group.items.map((row) => button(`${row.name || row.id} · ${kind === "inventory" ? value(row.qty) : row.status}`, "item", row.id)).join("")}</div>` : note("No items returned in this snapshot.")}</section>`;
-    return `<section class="record-surface"><h4 tabindex="-1" data-record-heading>${kind === "inventory" ? "Inventory" : "Unlockables"}</h4><div class="record-groups">${groups.map((group) => button(`${group.name} · ${group.unavailable ? "Unavailable" : `${group.items.length} in snapshot`}`, "group", group.id)).join("")}</div></section>`;
+    return `<section class="record-surface"><h4 tabindex="-1" data-record-heading>${kind === "inventory" ? "Inventory" : "Unlockables"}</h4><div class="record-groups">${groups.map((group) => button(group.name, "group", group.id)).join("")}</div></section>`;
   }
   function pokemon(view) {
     const mons = view.mons || [];
@@ -79,11 +79,12 @@
   function profileHtml(view) {
     if (view.loading || view.denied || view.error) return base.profileHtml(view);
     const user = view.user || {};
-    const header = `<header class="record-header"><span class="record-identity">${avatar(user)}<span><p class="eyebrow">Trainer record</p><h3>${esc(user.displayName || user.login || "Trainer")}</h3><p class="admin-next-trainer-handle">@${esc(user.login || "Unavailable")}</p></span></span><div><span class="admin-next-chip">${esc(user.role || "player")}</span> <span class="admin-next-chip${user.pass ? " is-pass" : ""}">${user.pass ? "Starlight Pass" : "No Pass"}</span><p class="record-date">Last seen ${esc(stamp(user.lastSeenAt))}</p></div></header>
+    const header = `<header class="record-header"><span class="record-identity">${avatar(user)}<span><p class="eyebrow">Trainer record</p><h3>${esc(user.displayName || user.login || "Trainer")}</h3>${user.login ? `<p class="admin-next-trainer-handle">@${esc(user.login)}</p>` : ""}<span class="record-account-meta"><span class="admin-next-chip">${esc(user.role || "player")}</span> <span data-record-pass class="admin-next-chip${user.pass ? " is-pass" : ""}">${user.pass ? "Starlight Pass" : "No Pass"}</span><span class="record-date">Last seen ${esc(stamp(user.lastSeenAt))}</span></span></span></span></header>
       <div class="admin-next-trainer-subnav record-tabs" role="tablist" aria-label="Trainer dossier">${PANES.map((pane) => `<button type="button" role="tab" data-trainer-pane="${pane}" aria-selected="${view.pane === pane}">${labels[pane]}</button>`).join("")}</div>`;
     let body;
     if (view.pane === "pokemon") body = pokemon(view);
     else if (view.pane === "inventory") body = manager(view, "inventory") + note("Bits, the complete item catalog and grant/remove controls are unavailable here.");
+    else if (view.pane === "pass" || view.pane === "gifts") body = `<section class="record-surface" data-trainer-rewards><h4>${labels[view.pane]}</h4>${note("Loading staff reward tools…")}</section>`;
     else if (view.pane === "tickets") body = `<section class="record-surface"><h4>Tickets</h4>${note("Open cases and ticket history are unavailable in this workspace. No ticket count is inferred.")}</section>`;
     else {
       const legacy = base.profileHtml(view);
@@ -108,6 +109,10 @@
     const previous = mounts.get(root);
     const same = previous?.user?.id === view.user?.id && previous?.pane === view.pane;
     view.recordState = same ? previous.recordState : {};
+    const preserveHeight = previous?.user?.id && previous.user.id === view.user?.id;
+    // Keep enough document height for the current viewport, without retaining
+    // the full height of a previously long claim/history pane.
+    root.style.minHeight = preserveHeight ? `${Math.max(0, window.innerHeight-root.getBoundingClientRect().top)}px` : "";
     mounts.set(root, view);
     root.innerHTML = profileHtml(view);
     if (root.dataset.recordBound) return;
@@ -122,8 +127,9 @@
       else if (action === "groups") { state.group = ""; state.item = ""; }
       else if (action === "mon") state.mon = id;
       else if (action === "mons") state.mon = "";
+      root.style.minHeight = `${Math.max(0, window.innerHeight-root.getBoundingClientRect().top)}px`;
       root.innerHTML = profileHtml(current);
-      root.querySelector("[data-record-heading], [data-record-action]")?.focus();
+      root.querySelector("[data-record-heading], [data-record-action]")?.focus({ preventScroll: true });
     }
     root.addEventListener("click", (event) => {
       const hit = event.target.closest("[data-record-action]");

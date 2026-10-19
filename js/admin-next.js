@@ -5,7 +5,8 @@
     "admin_live_snapshot",
     "admin_list_users",
     "admin_user_account",
-    "admin_identity_inspect"
+    "admin_identity_inspect",
+    "admin_trainer_rewards"
   ]);
   const TABS = Object.freeze([
     "operations",
@@ -144,6 +145,7 @@
   }
 
   function resetTrainers() {
+    window.PLAY_ADMIN_REWARDS?.clear();
     const supportContext = document.getElementById("next-support-context");
     if (supportContext) { supportContext.textContent = ""; supportContext.hidden = true; }
     trainerQuery = "";
@@ -183,9 +185,15 @@
     if (els.trainerDetailStatus) {
       els.trainerDetailStatus.textContent = view.loading
         ? "Loading trainer…"
-        : (view.denied || view.error ? (view.error || "Trainer inspect is restricted to staff.") : "Read-only dossier.");
+        : (view.denied || view.error ? (view.error || "Trainer inspect is restricted to staff.") : "Trainer record.");
     }
     if (els.trainerDetail) trainersUi.renderRecord(els.trainerDetail, view);
+    if (els.trainerDetail && view.user) window.PLAY_ADMIN_REWARDS?.mount(els.trainerDetail,view.user,view.pane,{
+      read: (userId) => readCall("admin_trainer_rewards",{p_user:userId}),
+      write: (intent) => window.playCall("admin_trainer_reward_action",intent),
+      confirm: (options) => typeof window.playPresentConfirm === "function" ? window.playPresentConfirm(options) : Promise.resolve(false),
+      changed: (userId) => staffOpen && trainerSelectedId===userId ? loadTrainerProfile(userId,true,true) : undefined
+    });
   }
 
   async function loadTrainerDirectory() {
@@ -233,20 +241,21 @@
     }
   }
 
-  async function loadTrainerProfile(userId) {
+  async function loadTrainerProfile(userId,refresh=false,cacheOnly=false) {
     if (!staffOpen || !userId) return;
     if (!trainerSelectedId) trainerDirectoryScroll = window.scrollY;
     trainerSelectedId = userId;
-    trainerAccount = null;
-    trainerIdentity = null;
+    if (!refresh) { trainerAccount = null; trainerIdentity = null; }
     const gen = ++trainerProfileGen;
     renderTrainerDirectory(trainersUi.presentDirectory({
       data: { users: trainerUsers, total: trainerTotal, offset: trainerOffset },
       query: trainerQuery,
       selectedId: trainerSelectedId
     }));
-    renderTrainerProfile(trainersUi.presentProfile({ error: "loading", pane: trainerPane }));
-    els.trainerBack?.focus();
+    if (!refresh) {
+      renderTrainerProfile(trainersUi.presentProfile({ error: "loading", pane: trainerPane }));
+      els.trainerBack?.focus({preventScroll:true});
+    }
     try {
       const [account, identity] = await Promise.all([
         readCall("admin_user_account", { p_user: userId }),
@@ -255,6 +264,11 @@
       if (gen !== trainerProfileGen) return;
       trainerAccount = account;
       trainerIdentity = identity;
+      if (cacheOnly) {
+        const passChip=els.trainerDetail?.querySelector("[data-record-pass]");
+        if(passChip){passChip.textContent=account.user?.pass?"Starlight Pass":"No Pass";passChip.classList.toggle("is-pass",Boolean(account.user?.pass));}
+        return;
+      }
       renderTrainerProfile(trainersUi.presentProfile({
         account,
         identity,
@@ -262,6 +276,7 @@
       }));
     } catch (error) {
       if (gen !== trainerProfileGen) return;
+      if (cacheOnly) return;
       const kind = classifyTrainerError(error);
       if (kind === "denied") {
         resetTrainers();
@@ -495,7 +510,7 @@
         identity: trainerIdentity,
         pane: trainerPane
       }));
-      els.trainerDetail?.querySelector('[data-trainer-pane][aria-selected="true"]')?.focus();
+      els.trainerDetail?.querySelector('[data-trainer-pane][aria-selected="true"]')?.focus({ preventScroll: true });
       return;
     }
     if (trainerSelectedId) loadTrainerProfile(trainerSelectedId);

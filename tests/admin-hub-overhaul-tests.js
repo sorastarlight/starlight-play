@@ -268,7 +268,7 @@ test("Directory cards stay bounded and dossier sections use a stacked gap token"
   assert((progression.match(/admin-next-dossier-card/g) || []).length >= 5);
 });
 
-test("Preview still has no privileged writes and legacy entry points stay put", () => {
+test("Legacy mutations stay isolated from the new audited reward route", () => {
   [
     "admin_grant_pokemon",
     "admin_set_coins",

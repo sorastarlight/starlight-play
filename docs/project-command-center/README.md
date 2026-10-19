@@ -2,6 +2,8 @@
 
 Current runner: [Codex runner trial](./CODEX-RUNNER.md). The owner's later instructions supersede the Gemini/Cursor handoff pause for routine development and GitHub publication; D86 and database/gameplay changes remain gated.
 
+Recovery email staging: [guarded sender and branded template](./CODEX-RECOVERY-EMAIL.md) — sending disabled pending delivery setup.
+
 Latest recovery implementation: [owner-only masked diagnostics](./CODEX-ACCOUNT-DIAGNOSTICS.md). Prior phase: [password recovery foundation](./CODEX-PASSWORD-RECOVERY.md).
 
 Prior design: [account-recovery audit/design](./ACCOUNT-RECOVERY-ISSUE-13.md) and [existing owner-disconnect security repair](./OWNER-DISCONNECT-SECURITY-FIX.md). Trainer gifts/Pass controls are published; frames are retired. Current gift visual direction is accepted; authenticated grant verification remains separate. Owner accepted the recovery proposal; reset completion and read-only diagnostics are implemented. Staff sends and identity changes remain future phases.

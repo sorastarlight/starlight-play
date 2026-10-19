@@ -12,5 +12,11 @@
   form.addEventListener('submit',async event=>{event.preventDefault();await controller.submit(password.value,confirm.value);if(currentPhase==='done'||currentPhase==='invalid')storage.clear();});
   const storageChanged=event=>{if(api.appAccountChanged(event,key)){controller.invalidate();storage.clear();}};
   window.addEventListener('storage',storageChanged);
-  window.addEventListener('pagehide',()=>{window.removeEventListener('storage',storageChanged);controller.dispose();storage.clear();});controller.start();
+  window.addEventListener('pagehide',()=>{window.removeEventListener('storage',storageChanged);controller.dispose();storage.clear();flow.tokenHash=null;});
+  // Email scanners must not consume a recipient recovery token merely by opening the page.
+  if(flow.tokenHash){
+    const begin=document.getElementById('recovery-begin');begin.hidden=false;
+    status.textContent='Continue to verify your password-reset link. Staff will never ask you to share this link.';
+    begin.onclick=()=>{begin.hidden=true;controller.start();};
+  }else controller.start();
 })();

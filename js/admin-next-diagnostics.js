@@ -3,13 +3,14 @@
   let generation=0;
   const esc=v=>String(v??'Unknown').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const yes=v=>v===true?'Yes':v===false?'No':'Unknown';
-  function clear(){generation++;}
-  function mount(container,user,pane,inspect){
+  function clear(){generation++;root.PLAY_ADMIN_RECOVERY_EMAIL?.clear();}
+  function mount(container,user,pane,inspect,recovery){
     clear();
     const host=container.querySelector('[data-trainer-diagnostics]');
     if(pane!=='connections'||!host)return;
     const gen=generation;
-    host.innerHTML='<h4>Account support · owner only</h4><p>Inspect masked sign-in details without changing this account.</p><button type="button">Inspect sign-in methods</button><div role="status" aria-live="polite"></div>';
+    host.innerHTML='<h4>Account support · owner only</h4><p>Inspect masked sign-in details without changing this account.</p><button type="button">Inspect sign-in methods</button><div role="status" aria-live="polite"></div><section class="record-recovery" data-recovery-email></section>';
+    root.PLAY_ADMIN_RECOVERY_EMAIL?.mount(host.querySelector('[data-recovery-email]'),user,recovery);
     const button=host.querySelector('button'),status=host.querySelector('[role="status"]');
     button.onclick=async()=>{
       button.disabled=true;status.textContent='Inspecting…';

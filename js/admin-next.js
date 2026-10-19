@@ -190,7 +190,8 @@
     }
     if (els.trainerDetail) trainersUi.renderRecord(els.trainerDetail, view);
     if (els.trainerDetail && view.user) window.PLAY_ADMIN_DIAGNOSTICS?.mount(els.trainerDetail,view.user,view.pane,
-      targetUuid => window.playSupabase.functions.invoke("owner-account-diagnostics",{body:{targetUuid}}));
+      targetUuid => window.playSupabase.functions.invoke("owner-account-diagnostics",{body:{targetUuid}}),
+      body => window.playSupabase.functions.invoke("owner-recovery-email",{body}));
     if (els.trainerDetail && view.user) window.PLAY_ADMIN_REWARDS?.mount(els.trainerDetail,view.user,view.pane,{
       read: (userId) => readCall("admin_trainer_rewards",{p_user:userId}),
       write: (intent) => window.playCall("admin_trainer_reward_action",intent),

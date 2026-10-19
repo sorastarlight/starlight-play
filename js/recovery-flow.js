@@ -1,6 +1,6 @@
 /* Password-recovery routing and state machine. No game RPCs or persistent sessions. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else{root.PLAY_RECOVERY=api;if(root.document.documentElement.dataset.recoveryRoute==='signin')api.routeSignIn(root);if(root.document.documentElement.dataset.recoveryPage==='true'){root.PLAY_RECOVERY_INPUT=api.readInput(root.location.href);root.history.replaceState(null,'',root.location.pathname);}}})(typeof window!=='undefined'?window:globalThis,function(){
-  function readInput(url){const parsed=new URL(url),hash=new URLSearchParams(parsed.hash.slice(1));return {code:parsed.searchParams.get('code'),type:hash.get('type')||parsed.searchParams.get('type'),accessToken:hash.get('access_token'),refreshToken:hash.get('refresh_token'),error:Boolean(hash.get('error')||parsed.searchParams.get('error'))};}
+  function readInput(url){const parsed=new URL(url),hash=new URLSearchParams(parsed.hash.slice(1));return {code:parsed.searchParams.get('code'),tokenHash:hash.get('token_hash')||parsed.searchParams.get('token_hash'),type:hash.get('type')||parsed.searchParams.get('type'),accessToken:hash.get('access_token'),refreshToken:hash.get('refresh_token'),error:Boolean(hash.get('error')||parsed.searchParams.get('error'))};}
   function authKey(url){return `sb-${new URL(url).hostname.split('.')[0]}-auth-token`;}
   function recoveryVerifier(storage,key){try{const raw=storage.getItem(key+'-code-verifier');return typeof JSON.parse(raw)==='string'&&JSON.parse(raw).endsWith('/PASSWORD_RECOVERY');}catch(_){return false;}}
   function routeSignIn(win){
@@ -26,7 +26,8 @@
       try{
         if(flow.error)throw new Error('invalid');
         let result;
-        if(flow.code&&hasVerifier)result=await auth.exchangeCodeForSession(flow.code);
+        if(flow.tokenHash&&flow.type==='recovery'&&/^[a-zA-Z0-9_-]{20,512}$/.test(flow.tokenHash))result=await auth.verifyOtp({token_hash:flow.tokenHash,type:'recovery'});
+        else if(flow.code&&hasVerifier)result=await auth.exchangeCodeForSession(flow.code);
         else throw new Error('invalid');
         if(run!==epoch)return;
         if(result.error||!result.data?.session?.user?.id)throw new Error('invalid');
@@ -35,7 +36,7 @@
         expires=Number(result.data.session.expires_at)*1000;if(!Number.isFinite(expires)||expires<=now())throw new Error('expired');
         expected=verified.data.user.id;emit('ready','Choose a new password for your Trainer Account.');
       }catch(_){if(run===epoch)invalid();}
-      finally{flow.code=null;flow.accessToken=null;flow.refreshToken=null;}
+      finally{flow.code=null;flow.tokenHash=null;flow.accessToken=null;flow.refreshToken=null;}
     }
     async function submit(password,confirm){
       if(phase!=='ready')return;

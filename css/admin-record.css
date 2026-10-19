@@ -35,6 +35,7 @@
 .record-diagnostics { display: grid; grid-template-columns: minmax(120px, 1fr) minmax(0, 2fr); gap: 10px 16px; margin: 20px 0; }
 .record-diagnostics dt { color: #777b96; }
 .record-diagnostics dd { margin: 0; overflow-wrap: anywhere; font-weight: 800; }
+.record-recovery { border-top: 1px solid #dce3f2; margin-top: 24px; padding-top: 24px; }
 @media (max-width: 480px) { .record-diagnostics { grid-template-columns: 1fr; gap: 5px; } .record-diagnostics dd { margin-bottom: 10px; } }
 .record-facts { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px 24px; margin: 0; }
 .record-facts dt { color: #656881; font-size: 12px; margin-bottom: 5px; }

@@ -1,5 +1,9 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-12 — recovery email staged (2026-10-19)
+
+Installed disabled owner email boundary and private receipt/challenge tables; recipient token verification and explicit confirmation added. 75 STATIC suites/build, 23 LOCAL REAL SQL checks, 13 synthetic mail checks, 20 recovery checks and REAL DOM sanitized fixtures passed. Corrected hosted localhost Auth fallback and added two exact live recovery callbacks. Branded template awaits verified recipient-code publication. Built-in SMTP is not configured for production delivery; GoDaddy DNS inspection read-only, account login pending. No real mail/password/account changes, gameplay, protected targets, activation, D86, APP stamp or spending. See CODEX-RECOVERY-EMAIL.md.
+
 ## CODEX-11 — owner diagnostics (2026-10-19)
 
 - Completed approved read-only masked diagnostics; installed owner context migration and JWT-verified Edge Function; Connections control published in introducing commit.

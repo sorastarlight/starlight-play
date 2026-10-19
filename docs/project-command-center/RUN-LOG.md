@@ -1,5 +1,12 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-15 — recovery lifecycle and helpdesk review (2026-10-19)
+
+Owner authorized planned recovery completion and helpdesk progress with minimal prompts. Staged (not applied) recovery retention/QA-target migration with unset policy; completed accepted/failed receipts can expire while uncertain/dispatching holds remain. Real local SQL regression expanded to29 checks including policy-unset fail-closed, wrong QA-target denial, unresolved preservation and cleanup ACLs. No hosted settings changed; SELECT confirmed disabled/zero receipts, pg_cron absent. Owner retention choice and fresh owner sign-in requested; no secrets/tokens read or mail sent.
+
+I14 issue read; its design/prototype gate preserved. Added implementable storage/API/state/security/rollout specification and synthetic clickable Player Support/Staff Helpdesk/Trainer history review plus390px frame. REAL DOM synthetic creation, internal-note exclusion and HTML-text escaping passed; desktop/mobile screenshots reviewed. Prototype does not enforce production permissions/state/rate/retention (explicit spec for backend), uses no SDK/network/live tickets. STATIC75 suites/build passed, APPrc133 unchanged;13 synthetic email checks passed. Sora NO, Twinkle NO, PlayTester unchanged/nonstaff; no gameplay/D86/activation/stamp/spending. Work remains doing pending retention/fresh owner QA and helpdesk acceptance.
+
+
 ## Account email game branding (2026-10-19)
 
 Owner requested registration and all account-email wording use Pokémon StreamLink. Updated signup/email-change subjects and templates plus shared SMTP display name. Verified source matches, save success, registration rendering and persisted sender name; sender address/credentials unchanged. No emails sent, tests repeated, protected-account/gameplay actions, D86, APP stamp or spending.

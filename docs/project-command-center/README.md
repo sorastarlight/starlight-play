@@ -1,5 +1,7 @@
 # Pokémon StreamLink — project command center
 
+Helpdesk review: [specification](./HELPDESK-ISSUE-14.md), [interactive desktop/player/staff review](./design-reset/helpdesk-review.html), [390px mobile review](./design-reset/helpdesk-mobile-review.html). Fictional data only; live ticket storage remains pending design acceptance. Staff recovery lifecycle source is staged, awaiting owner retention choice and fresh owner QA.
+
 Current runner: [Codex runner trial](./CODEX-RUNNER.md). The owner's later instructions supersede the Gemini/Cursor handoff pause for routine development and GitHub publication; D86 and database/gameplay changes remain gated.
 
 Account email copy: [friendly hosted templates](./ACCOUNT-EMAIL-TEMPLATES.md) — signup, email-change and reset templates saved; EmailQA real reset completed successfully per owner.

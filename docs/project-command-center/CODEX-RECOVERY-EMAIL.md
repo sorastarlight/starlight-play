@@ -34,3 +34,7 @@ Live boundary smoke: unauthenticated POST HTTP 401; OPTIONS booted the deployed 
 ## SMTP prerequisite resolved
 
 CODEX-13 connected Resend after the owner added DNS and confirmed scoped credential creation/storage. See RESEND-SMTP-CONNECTION.md for persisted settings and one provider simulator Delivered event. This supersedes the earlier absent-SMTP snapshot only; staff sends remain disabled pending actual Supabase Auth recovery QA and receipt-retention/privacy resolution.
+
+## CODEX-15 staged lifecycle safeguards
+
+Owner authorized completing recovery and continuing helpdesk. Public EmailQA recovery succeeded per ACCOUNT-EMAIL-TEMPLATES.md. Staff path remains disabled. owner-recovery-retention.sql is source only, not applied: unset retention fails gate closed, optional qa_target constrains gate/prepare/reserve to EmailQA during rollout, prune function never removes uncertain/dispatching receipts and is not client-callable. Expanded local harness29 checks passed. No scheduled cleanup installed; hosted pg_cron absent. Owner retention choice and fresh owner authentication are pending, so no real staff email or activation attempted. Next apply approved policy with actual cleanup scheduling, enable EmailQA-only, verify one actual privileged send and replay, then activate general eligible targets after successful evidence. No global owner sign-in bypass or role promotion.

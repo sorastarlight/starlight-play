@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-15",
+      "status": "doing",
+      "scope": "Staff recovery activation safeguards and I14 helpdesk review",
+      "dependencies": [
+        "CODEX-14"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "HELPDESK-ISSUE-14.md; design-reset/helpdesk-review.html; supabase/owner-recovery-retention.sql",
+      "testResults": "75 static suites/build; 29 local SQL recovery checks; 13 synthetic endpoint checks; real DOM synthetic create/internal-note/escaped-text checks; desktop and 390px frame reviewed",
+      "nextAction": "Owner retention decision and fresh owner sign-in for real EmailQA staff test; owner visual review before live helpdesk implementation",
+      "approvalRequirement": "Owner authorized all planned recovery and helpdesk progress; accepted recovery design reserves retention decision to owner. No protected-account mutations or role promotions."
+    },
+    {
       "id": "CODEX-14",
       "status": "done",
       "scope": "Friendly signup, email-change and password-reset emails",
@@ -1333,7 +1347,7 @@
     },
     {
       "id": "I14",
-      "status": "todo",
+      "status": "doing",
       "scope": "GitHub issue #14 player helpdesk and staff inbox architecture",
       "dependencies": [
         "I12"
@@ -1342,7 +1356,7 @@
       "commit": null,
       "evidence": "not started",
       "testResults": "not run",
-      "nextAction": "Separate design batch. No schema.",
+      "nextAction": "Design/spec and synthetic desktop/mobile prototype ready; owner review before connected implementation",
       "approvalRequirement": "architecture before any ticket table, RLS, or player form"
     },
     {

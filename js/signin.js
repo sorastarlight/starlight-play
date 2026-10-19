@@ -1,4 +1,5 @@
 (() => {
+  if (window.PLAY_RECOVERY_REDIRECTING) return;
   const params = new URLSearchParams(location.search);
   const banner = document.getElementById("signin-banner");
   const status = document.getElementById("signin-status");

@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-10 | done | Isolated password recovery; accurate username guidance | CODEX-9 | Owner accepted proposal and proceeded | Owner-only masked diagnostics; real email QA pending |
 | CODEX-9 | done | I13 recovery design; existing owner-disconnect guard repair; Support copy | CODEX-8 | Routine continuation; no new recovery capability | I14 design; review recovery proposal |
 | CODEX-8 | done | Retire Trainer ID frames sitewide; disable frame catalog | CODEX-7 | Explicit owner removal request | Frames remain retired |
 | CODEX-7 | done | Search remaining gift lists; explicit selection; empty results | CODEX-6 | Routine continuation authorized | Continue routine maintenance; actual grant unverified |

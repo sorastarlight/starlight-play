@@ -1,4 +1,5 @@
 (() => {
+  if (window.PLAY_RECOVERY_REDIRECTING) return;
   const { supabaseUrl, supabaseKey } = window.PLAY_CONFIG;
   window.playSupabase = window.supabase.createClient(supabaseUrl, supabaseKey, {
     auth: {
@@ -259,24 +260,18 @@
 
   window.playResetPassword = async function playResetPassword(email) {
     const value = String(email || "").trim();
-    const message = "If an account exists for that email address, a password reset link has been sent.";
+    const message = "If email recovery is available for that address, check your inbox for a reset link. Open it in this browser.";
     if (!value || !value.includes("@")) return { ok: true, message };
     const redirectTo = `${window.location.origin}${window.location.pathname.replace(/[^/]+$/, "")}signin.html`;
     try {
-      await window.playSupabase.auth.resetPasswordForEmail(value, { redirectTo });
-    } catch (_) {}
+      const { error } = await window.playSupabase.auth.resetPasswordForEmail(value, { redirectTo });
+      if (error) return { ok: false, message: "Could not request a reset link. Please try again later." };
+    } catch (_) { return { ok: false, message: "Could not request a reset link. Please try again later." }; }
     return { ok: true, message };
   };
 
-  window.playRequestUsername = async function playRequestUsername(email) {
-    const value = String(email || "").trim();
-    const fallback = "If an account exists for that email address, we sent recovery mail. After you sign in, your Trainer username is on My Account.";
-    try {
-      const data = await playRpc("play_request_username_reminder", { p_email: value });
-      return { ok: true, message: data?.message || fallback };
-    } catch (_) {
-      return { ok: true, message: fallback };
-    }
+  window.playRequestUsername = async function playRequestUsername() {
+    return { ok: true, message: "Username reminder emails are not available. Sign in with your email address and password, or use your linked Twitch account. Your username is on My Account." };
   };
 
   window.playClaimEmailPassword = async function playClaimEmailPassword(email, password) {

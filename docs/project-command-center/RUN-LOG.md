@@ -1,3 +1,10 @@
+# Password recovery foundation - 2026-10-19
+
+- Owner accepted recovery design and proceeded. Added early browser-bound PKCE routing, dedicated memory-session reset page, required verified user/expiry, duplicate/race guards, cross-tab logout/account-change invalidation and URL secret cleanup. No game bootstrap on recovery page.
+- Removed pretend username-reminder email UI; message-only hosted migration corrects cached-client response. Function definition verified; no reminder/email/password/account mutator invoked in production.
+- 73 non-writing suites/build; 16 recovery checks include real Supabase SDK under mocked HTTP. REAL DOM synthetic ready/success/expired states and 390px layout. See CODEX-PASSWORD-RECOVERY.md. Actual mail round trip remains unverified; no auth settings/provider templates changed.
+- APP rc133; no gameplay, D86, protected accounts, activation, stamp or spending. Publication evidence in introducing Git commit/Pages run.
+
 # Recovery audit/design and owner-disconnect repair - 2026-10-19
 
 - Completed I13 source/catalog audit, owner-only contract/threat model/QA phases and static sanitized review. No new recovery actions implemented. Found missing dedicated recovery landing and username-reminder sent-mail claim without mail transport; documented, not falsely tested. Corrected stale Support copy about Pass/gifts.

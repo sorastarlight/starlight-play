@@ -87,3 +87,7 @@ Readiness: design ready; implementation of new recovery capabilities remains una
 - [generateLink](https://supabase.com/docs/reference/javascript/auth-admin-generatelink): administrative link generation belongs server-side; no raw link returned to staff.
 
 Static review validation: desktop rendering inspected; at 390px viewport the document width was 375px (no horizontal overflow), and every proposed action button was disabled. This is prototype evidence, not authenticated recovery verification. Standard 72 non-writing suites and build validation passed.
+
+## Subsequent owner approval and implementation
+
+Owner accepted this proposal and instructed proceeding. Phase 1 is implemented in CODEX-PASSWORD-RECOVERY.md, superseding the original snapshot above for reset completion and username-reminder wording. New staff diagnostics/send/identity-recovery controls are still not implemented; phased work continues under the accepted direction. Real provider email round-trip requires dedicated approved QA.

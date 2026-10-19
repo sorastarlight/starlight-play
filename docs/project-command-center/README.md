@@ -2,7 +2,9 @@
 
 Current runner: [Codex runner trial](./CODEX-RUNNER.md). The owner's later instructions supersede the Gemini/Cursor handoff pause for routine development and GitHub publication; D86 and database/gameplay changes remain gated.
 
-Latest work: [account-recovery audit/design](./ACCOUNT-RECOVERY-ISSUE-13.md) and [existing owner-disconnect security repair](./OWNER-DISCONNECT-SECURITY-FIX.md). Trainer gifts/Pass controls are published; frames are retired. Current gift visual direction is accepted; authenticated grant verification remains separate. New recovery capabilities are proposals.
+Latest recovery implementation: [password recovery foundation](./CODEX-PASSWORD-RECOVERY.md).
+
+Prior design: [account-recovery audit/design](./ACCOUNT-RECOVERY-ISSUE-13.md) and [existing owner-disconnect security repair](./OWNER-DISCONNECT-SECURITY-FIX.md). Trainer gifts/Pass controls are published; frames are retired. Current gift visual direction is accepted; authenticated grant verification remains separate. New recovery capabilities are proposals.
 
 Persistent working set for approved development batches. Historical audits stay in `docs/audits/` and are not rewritten here.
 

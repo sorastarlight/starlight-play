@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-10",
+      "status": "done",
+      "scope": "Approved recovery phase 1: isolated browser-bound password-reset completion and truthful username guidance",
+      "dependencies": [
+        "CODEX-9"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "CODEX-PASSWORD-RECOVERY.md; tests/password-recovery-tests.js",
+      "testResults": "73 non-writing suites/build; 16 recovery checks with actual SDK and mocked HTTP; REAL DOM local fixture",
+      "nextAction": "Owner-only masked diagnostics; dedicated approved QA required for real email round trip",
+      "approvalRequirement": "Owner accepted recovery proposal and instructed proceeding. No real test emails/password changes authorized or performed."
+    },
+    {
       "id": "CODEX-9",
       "status": "done",
       "scope": "I13 account-recovery audit/design; narrow existing owner-disconnect authorization repair; accurate Support copy",

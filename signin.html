@@ -1,8 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-recovery-route="signin">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex,nofollow">
+<script src="js/config.js?v=20261008-rc133"></script>
+<script src="js/recovery-flow.js?v=20261008-rc133"></script>
 <title>Sign in · Unofficial Pokémon StreamLink RPG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,13 +84,8 @@
   </section>
   <section id="username-box" class="card body trainer-login-card" hidden>
     <h2>Forgot username</h2>
-    <form id="username-form">
-      <label class="field" for="username-email">Email
-        <input id="username-email" type="email" autocomplete="email" required>
-      </label>
-      <button type="submit">Send recovery mail</button>
-      <p id="username-status" class="muted" role="status"></p>
-    </form>
+    <p>Sign in with your email address and password, or use your linked Twitch account. Your Trainer username is shown on My Account after you sign in.</p>
+    <p>Username reminder emails are not available. If you also forgot your password, use <a href="./signin.html?reset=1">Reset password</a>.</p>
   </section>
 </div>
 <dialog id="twitch-warn" class="modal">
@@ -101,7 +99,6 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20261008-rc133"></script>
 <script src="js/play-perf.js?v=20261008-rc133"></script>
 <script src="js/build.js?v=20261008-rc133"></script>
 <script src="js/build-client.js?v=20261008-rc133"></script>

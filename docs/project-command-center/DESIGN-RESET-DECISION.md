@@ -1,5 +1,7 @@
 # Owner decision — Admin Hub design reset (issue #6)
 
+**Later owner direction — Codex trial:** “Advance proposed Trainer record layout” authorizes frontend implementation and GitHub publication of the v5 direction under the current runner scope. See [implementation and evidence](./CODEX-TRAINER-RECORD.md). Historical gates below are retained as provenance; final visual acceptance and write/security gates remain separate.
+
 **Owner decision recorded:** Proposal A — Record Workspace selected for the next Admin Hub design stage. No existing preview is approved for replacement.
 
 **A1** visual approval of Gate 2A / card workspace — **OPEN** (not granted).  

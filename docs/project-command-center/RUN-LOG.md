@@ -1,3 +1,11 @@
+# Codex Trainer record implementation — 2026-10-18
+
+- Base `1d42e8d5`. Owner selected **Advance proposed Trainer record layout**. See CODEX-TRAINER-RECORD.md for implemented scope, evidence and limits.
+- Full-width index/record swap, simplified header, Pokémon detail, Inventory and Unlockable category browsers, connection explanations, unavailable Tickets, contextual Support doorway, scroll/focus restoration. Established read allowlist unchanged; no new backend.
+- STATIC / LOCAL HARNESS: 70 non-writing suites and build validation passed. REAL DOM: sanitized fixture at 1440/1024/720/390; no horizontal overflow; inventory, Escape, unlocks, specimen detail, shiny artwork, Tickets and Connections checked.
+- APP `20261008-rc133` unchanged. Authenticated staff and production trainer runtime not tested. Sora NO; Twinkle NO; PlayTester NO; PlayerQA NO; roles unverified. No SQL, gameplay RPC, activation, build stamp or spending. D86 unauthorized.
+- Next: owner visual/functional review. Final visual acceptance is not inferred. Work/result SHA is the introducing commit in git history.
+
 # Codex UI verification and focus repair — 2026-10-18
 
 - Base `0ef7972c`; previous Pages deployment run `39191691832` succeeded.

@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/play.css?v=20261008-rc133">
+<link rel="stylesheet" href="css/admin-record.css?v=20261008-rc133">
 <body data-page="admin-next">
 <div class="wrap">
   <div class="page-kicker">
@@ -19,7 +20,7 @@
   <div id="fixture-app" hidden>
     <div class="hub-app admin-next-app">
       <aside class="hub-nav" id="hub-nav">
-        <p class="hub-nav-brand">Next Hub</p>
+        <p class="hub-nav-brand">Admin Hub</p>
         <div class="hub-nav-list" role="tablist" aria-label="Next Admin Hub">
           <button type="button" role="tab" aria-selected="false" disabled>Operations</button>
           <button type="button" role="tab" aria-selected="true">Trainers</button>
@@ -30,7 +31,7 @@
           <p class="eyebrow">Trainers · fixture</p>
           <h2>Trainer Management</h2>
           <p class="muted">Sanitized directory. Search filters this local list only. Selecting a row does not inspect a real trainer.</p>
-          <div class="admin-next-trainers" id="next-trainers" data-trainers-root>
+          <div class="admin-next-trainers record-workspace" id="next-trainers" data-trainers-root>
             <div class="admin-next-trainers-dir" data-trainers-dir>
               <form class="admin-next-trainer-search" data-trainers-search>
                 <label for="next-trainer-q">Search trainers</label>
@@ -47,7 +48,7 @@
               <div id="next-trainer-list" class="admin-next-trainer-list" role="list"></div>
             </div>
             <div class="admin-next-trainers-detail" data-trainers-detail hidden>
-              <button type="button" class="secondary" data-trainers-back>Back to directory</button>
+              <button type="button" class="secondary" data-trainers-back>All trainers</button>
               <p id="next-trainer-detail-status" class="muted" role="status"></p>
               <div id="next-trainer-detail"></div>
             </div>
@@ -69,6 +70,7 @@
   </div>
 </div>
 <script src="js/admin-next-trainers.js?v=20261008-rc133"></script>
+<script src="js/admin-next-record.js?v=20261008-rc133"></script>
 <script>
 (() => {
   const host = String(window.location.hostname || "");
@@ -204,6 +206,7 @@
     if (pager) pager.hidden = !view.showPager;
   }
 
+  let directoryScroll = 0;
   function renderProfile() {
     const wrap = document.querySelector("[data-trainers-detail]");
     const root = document.getElementById("next-trainers");
@@ -218,7 +221,7 @@
     wrap.hidden = false;
     root.classList.add("is-profile");
     document.getElementById("next-trainer-detail-status").textContent = "Local fixture dossier. Not a live trainer.";
-    document.getElementById("next-trainer-detail").innerHTML = ui.profileHtml(ui.presentProfile({
+    ui.renderRecord(document.getElementById("next-trainer-detail"), ui.presentProfile({
       account: dossier.account,
       identity: dossier.identity,
       pane
@@ -235,6 +238,7 @@
   document.getElementById("next-trainer-list").addEventListener("click", (event) => {
     const btn = event.target.closest("[data-open-trainer]");
     if (!btn) return;
+    directoryScroll = window.scrollY;
     selectedId = btn.getAttribute("data-open-trainer") || "";
     pane = "overview";
     renderDirectory();
@@ -256,7 +260,8 @@
     renderDirectory();
     const previousRow = Array.from(document.querySelectorAll("[data-open-trainer]"))
       .find((row) => row.getAttribute("data-open-trainer") === previousId);
-    (previousRow || document.getElementById("next-trainer-q")).focus();
+    (previousRow || document.getElementById("next-trainer-q")).focus({ preventScroll: true });
+    window.scrollTo({ top: directoryScroll, behavior: "instant" });
   });
   document.querySelector("[data-fixture-states]").addEventListener("click", (event) => {
     const btn = event.target.closest("[data-fixture-state]");

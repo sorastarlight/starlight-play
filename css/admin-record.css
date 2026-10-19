@@ -1,0 +1,61 @@
+/* Proposal A: directory OR full-width trainer record. Scoped to this workspace. */
+.record-workspace.admin-next-trainers,
+.record-workspace.admin-next-trainers.is-profile { grid-template-columns: minmax(0, 1fr); }
+.record-workspace.is-profile [data-trainers-dir] { display: none; }
+.record-workspace .admin-next-trainer-list { display: block; max-width: none; width: 100%; }
+.record-workspace .admin-next-trainer-search { max-width: none; }
+.record-workspace .admin-next-trainer-search-row { display: flex; gap: 8px; }
+.record-workspace .admin-next-trainer-search-row input { flex: 1; min-width: 0; }
+.record-directory-head,
+.record-directory-row { display: grid; grid-template-columns: minmax(220px, 2fr) minmax(160px, 1.2fr) minmax(85px, .65fr) minmax(160px, 1.2fr); gap: 16px; align-items: center; }
+.record-directory-head { padding: 12px 16px; font-size: 12px; color: #656881; }
+.record-workspace .record-directory-row { width: 100%; min-height: 80px; padding: 14px 16px; margin: 0 0 8px; text-align: left; border: 1px solid #dce3f2; border-radius: 14px; background: #fff; box-shadow: 0 3px 0 #e8edf8; color: #3a3f63; white-space: normal; }
+.record-workspace .record-directory-row:hover { background: #fff7fb; border-color: #dca8c9; }
+.record-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.record-identity > span { min-width: 0; }
+.record-identity .admin-next-trainer-handle { display: block; margin-top: 3px; }
+.record-avatar { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 14px; background: #eaf1ff; color: #834d78; object-fit: cover; font-weight: 800; }
+.record-workspace strong,
+.record-workspace .admin-next-trainer-handle,
+.record-workspace dd { overflow-wrap: anywhere; }
+.record-date { color: #656881; font-size: 12px; margin: 8px 0 0; }
+.record-header { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px; background: linear-gradient(110deg,#fff7fb,#eef6ff); border: 1px solid #dce3f2; border-radius: 16px; }
+.record-header h3 { margin: 0; font-size: 23px; }
+.record-header .eyebrow { margin: 0 0 4px; }
+.record-header p.admin-next-trainer-handle { margin: 4px 0 0; }
+.record-workspace .record-tabs { display: flex; gap: 8px; flex-wrap: wrap; padding: 14px 0; margin: 0; border-bottom: 1px solid #dce3f2; }
+.record-tabs button { min-height: 44px; padding: 8px 16px; border: 2px solid #c9d4ec; border-radius: 12px; box-shadow: 0 3px 0 #d7e0f2; background: #fff; }
+.record-tabs button[aria-selected="true"] { background: #ffe3f3; border-color: #dca8c9; box-shadow: 0 3px 0 #dca8c9; }
+.record-body { display: grid; gap: 16px; padding-top: 18px; }
+.record-surface { padding: 20px; border: 1px solid #dce3f2; border-radius: 14px; background: #fff; min-width: 0; }
+.record-surface h4 { margin: 0 0 16px; font-size: 16px; }
+.record-facts { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px 24px; margin: 0; }
+.record-facts dt { color: #656881; font-size: 12px; margin-bottom: 5px; }
+.record-facts dd { margin: 0; font-weight: 800; }
+.record-note { color: #656881; font-size: 13px; line-height: 1.6; margin: 0; }
+.record-groups { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.record-list { display: grid; gap: 8px; }
+.record-workspace .record-hit { display: flex; align-items: center; gap: 12px; justify-content: space-between; min-width: 0; min-height: 60px; padding: 14px; border: 1px solid #dce3f2; border-radius: 12px; background: #f7faff; color: #3a3f63; text-align: left; white-space: normal; overflow-wrap: anywhere; }
+.record-hit > span:not([aria-hidden]) { flex: 1; min-width: 0; }
+.record-workspace .record-hit:hover { background: #fff7fb; border-color: #dca8c9; }
+.record-mon-art { object-fit: contain; flex: 0 0 64px; }
+.record-back { justify-self: start; min-height: 44px; }
+.record-footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #dce3f2; color: #656881; font-size: 13px; }
+.record-footer a { color: #8a3d72; font-weight: 800; }
+.record-workspace [data-trainers-back] { justify-self: start; min-height: 44px; }
+.record-workspace :is(button,a,input):focus-visible { outline: 3px solid #aa8116; outline-offset: 3px; }
+@container trainers (max-width: 850px) {
+  .record-directory-head { display: none; }
+  .record-directory-row { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+}
+@media (max-width: 720px) {
+  .record-header { align-items: flex-start; flex-direction: column; padding: 16px; gap: 12px; }
+  .record-directory-row,
+  .record-facts,
+  .record-groups { grid-template-columns: minmax(0,1fr); }
+  .record-surface { padding: 16px; }
+  .record-workspace .record-tabs { gap: 8px; }
+  .record-tabs button { flex: 1 1 100px; }
+  .record-directory-head { display: none; }
+}
+

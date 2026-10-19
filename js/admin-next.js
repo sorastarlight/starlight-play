@@ -54,6 +54,7 @@
   let trainerTotal = 0;
   let trainerUsers = [];
   let trainerSelectedId = "";
+  let trainerDirectoryScroll = 0;
   let trainerPane = "overview";
   let trainerListGen = 0;
   let trainerProfileGen = 0;
@@ -143,6 +144,8 @@
   }
 
   function resetTrainers() {
+    const supportContext = document.getElementById("next-support-context");
+    if (supportContext) { supportContext.textContent = ""; supportContext.hidden = true; }
     trainerQuery = "";
     trainerOffset = 0;
     trainerTotal = 0;
@@ -182,7 +185,7 @@
         ? "Loading trainer…"
         : (view.denied || view.error ? (view.error || "Trainer inspect is restricted to staff.") : "Read-only dossier.");
     }
-    if (els.trainerDetail) els.trainerDetail.innerHTML = trainersUi.profileHtml ? trainersUi.profileHtml(view) : "";
+    if (els.trainerDetail) trainersUi.renderRecord(els.trainerDetail, view);
   }
 
   async function loadTrainerDirectory() {
@@ -232,6 +235,7 @@
 
   async function loadTrainerProfile(userId) {
     if (!staffOpen || !userId) return;
+    if (!trainerSelectedId) trainerDirectoryScroll = window.scrollY;
     trainerSelectedId = userId;
     trainerAccount = null;
     trainerIdentity = null;
@@ -290,7 +294,8 @@
     }));
     const previousRow = Array.from(els.trainerList?.querySelectorAll("[data-open-trainer]") || [])
       .find((row) => row.getAttribute("data-open-trainer") === previousId);
-    (previousRow || els.trainerQuery)?.focus();
+    (previousRow || els.trainerQuery)?.focus({ preventScroll: true });
+    window.scrollTo({ top: trainerDirectoryScroll, behavior: "instant" });
   }
 
   function classifyOpsError(error) {
@@ -465,6 +470,22 @@
     loadTrainerProfile(btn.getAttribute("data-open-trainer"));
   });
   els.trainerDetail?.addEventListener("click", (event) => {
+    const supportLink = event.target.closest("[data-record-support]");
+    if (supportLink && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+      event.preventDefault();
+      const user = trainerAccount?.user;
+      const context = document.getElementById("next-support-context");
+      if (context && user) {
+        context.textContent = `Selected trainer: ${user.displayName || user.login || "Trainer"} · @${user.login || "Unavailable"} · ${user.id || "Unavailable"}. Read-only context from the last account snapshot.`;
+        context.hidden = false;
+      }
+      history.pushState({ section: "support" }, "", supportLink.getAttribute("href"));
+      showTab("support", false);
+      const heading = document.querySelector('#next-panel-support h2');
+      heading?.setAttribute("tabindex", "-1");
+      heading?.focus();
+      return;
+    }
     const btn = event.target.closest("[data-trainer-pane]");
     if (!btn) return;
     trainerPane = btn.getAttribute("data-trainer-pane") || "overview";

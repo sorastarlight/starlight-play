@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-3",
+      "status": "done",
+      "scope": "Owner-selected Proposal A v5 Trainer record frontend implementation and GitHub publication",
+      "dependencies": ["CODEX-2"],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "CODEX-TRAINER-RECORD.md; introducing commit in git history",
+      "testResults": "70 non-writing suites and build validation pass; REAL DOM sanitized fixture at 1440/1024/720/390. No authenticated RPC verification.",
+      "nextAction": "Owner visual and functional review; final acceptance remains open",
+      "approvalRequirement": "Owner selected Advance proposed Trainer record layout. No database/gameplay, ticket writes, recovery writes, D86 or spending authorization."
+    },
+    {
       "id": "CODEX-2",
       "status": "done",
       "scope": "Guide interaction review and Trainer workspace focus restoration",

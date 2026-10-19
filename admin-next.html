@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/play.css?v=20261008-rc133">
+<link rel="stylesheet" href="css/admin-record.css?v=20261008-rc133">
 <body data-page="admin-next">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -61,7 +62,7 @@
   <div id="staff" hidden>
     <div class="hub-app admin-next-app">
       <aside class="hub-nav" id="hub-nav">
-        <p class="hub-nav-brand">Next Hub</p>
+        <p class="hub-nav-brand">Admin Hub</p>
         <button type="button" class="hub-nav-toggle" id="hub-nav-toggle" aria-expanded="false">Admin menu</button>
         <div class="hub-nav-list" role="tablist" aria-label="Next Admin Hub">
           <button type="button" role="tab" data-next-tab="operations" aria-selected="true">Operations</button>
@@ -96,7 +97,7 @@
           <p class="eyebrow">Trainers · read only</p>
           <h2>Trainer Management</h2>
           <p class="muted">Browse and inspect trainers. This tab does not grant, repair, unlink, or change roles.</p>
-          <div class="admin-next-trainers" id="next-trainers" data-trainers-root>
+          <div class="admin-next-trainers record-workspace" id="next-trainers" data-trainers-root>
             <div class="admin-next-trainers-dir" data-trainers-dir>
               <form class="admin-next-trainer-search" data-trainers-search>
                 <label for="next-trainer-q">Search trainers</label>
@@ -113,7 +114,7 @@
               <div id="next-trainer-list" class="admin-next-trainer-list" role="list"></div>
             </div>
             <div class="admin-next-trainers-detail" data-trainers-detail hidden>
-              <button type="button" class="secondary" data-trainers-back>Back to directory</button>
+              <button type="button" class="secondary" data-trainers-back>All trainers</button>
               <p id="next-trainer-detail-status" class="muted" role="status"></p>
               <div id="next-trainer-detail"></div>
             </div>
@@ -124,6 +125,7 @@
         <section id="next-panel-support" class="hub-card admin-next-panel" data-next-panel="support" hidden>
           <p class="eyebrow">Support &amp; Recovery · Gate 3</p>
           <h2>Case-based remedies</h2>
+          <p id="next-support-context" class="record-note" hidden></p>
           <p>This is the only next-hub doorway for privileged trainer actions. The current hub still performs the writes.</p>
           <p class="admin-next-unavailable">Not available here: grants, coin/XP edits, Pokémon removal, Pass/Bits, Oak QA mutations. Those controls stay on the current hub so this preview cannot grow a second grant desk.</p>
           <p><a class="admin-next-legacy" href="./admin.html?section=trainers">Canonical grants, coins, unlinks, and roles</a></p>
@@ -174,5 +176,6 @@
 <script src="js/nav.js?v=20261008-rc133"></script>
 <script src="js/admin-next-ops.js?v=20261008-rc133"></script>
 <script src="js/admin-next-trainers.js?v=20261008-rc133"></script>
+<script src="js/admin-next-record.js?v=20261008-rc133"></script>
 <script src="js/admin-next.js?v=20261008-rc133"></script>
 </body>

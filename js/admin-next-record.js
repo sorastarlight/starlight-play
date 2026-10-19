@@ -85,7 +85,7 @@
     if (view.pane === "pokemon") body = pokemon(view);
     else if (view.pane === "inventory") body = manager(view, "inventory") + note("Bits, the complete item catalog and grant/remove controls are unavailable here.");
     else if (view.pane === "pass" || view.pane === "gifts") body = `<section class="record-surface" data-trainer-rewards><h4>${labels[view.pane]}</h4>${note("Loading staff reward tools…")}</section>`;
-    else if (view.pane === "tickets") body = `<section class="record-surface"><h4>Tickets</h4>${note("Open cases and ticket history are unavailable in this workspace. No ticket count is inferred.")}</section>`;
+    else if (view.pane === "tickets") body = `<section class="record-surface"><h4>Tickets</h4><div data-support-trainer></div></section>`;
     else {
       const legacy = base.profileHtml(view);
       const legacyHeader = /^<header class="admin-next-trainer-head">[\s\S]*?<\/header>\s*<div class="admin-next-trainer-subnav"[^>]*>[\s\S]*?<\/div>/;

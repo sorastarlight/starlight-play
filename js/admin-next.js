@@ -188,7 +188,9 @@
         ? "Loading trainer…"
         : (view.denied || view.error ? (view.error || "Trainer inspect is restricted to staff.") : "Trainer record.");
     }
+    if (els.trainerDetail) window.PLAY_SUPPORT?.unmount(els.trainerDetail.querySelector("[data-support-trainer]"));
     if (els.trainerDetail) trainersUi.renderRecord(els.trainerDetail, view);
+    if (view.pane === "tickets" && view.user) window.PLAY_SUPPORT?.mount(els.trainerDetail?.querySelector("[data-support-trainer]"),{staff:true,playerId:view.user.id});
     if (els.trainerDetail && view.user) window.PLAY_ADMIN_DIAGNOSTICS?.mount(els.trainerDetail,view.user,view.pane,
       targetUuid => window.playSupabase.functions.invoke("owner-account-diagnostics",{body:{targetUuid}}),
       body => window.playSupabase.functions.invoke("owner-recovery-email",{body}));
@@ -377,6 +379,7 @@
     const href = `${url.pathname}${url.search}${url.hash}`;
     if (push) history.pushState({ section: next }, "", href);
     else history.replaceState({ section: next }, "", href);
+    if (next === "support" && staffOpen) window.PLAY_SUPPORT?.mount(document.getElementById("owner-support"),{staff:true,playerId:new URL(location.href).searchParams.get("trainer")||""});
     if (next === "analytics") loadHealth();
     if (next === "operations") startOpsPoll();
     else stopOpsPoll();

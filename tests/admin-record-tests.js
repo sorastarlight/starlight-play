@@ -40,9 +40,9 @@ test("Presentation layer introduces no network or authority calls", () => {
   const html = ui.profileHtml(view("overview"));
   assert(html.includes("data-record-support")); assert(!html.includes("data-grant"));
 });
-test("Tickets report missing contract without invented cases", () => {
+test("Tickets wait for authorized data without invented cases", () => {
   const html = ui.profileHtml(view("tickets"));
-  assert(html.includes("No ticket count is inferred")); assert(!html.includes("Submit ticket"));
+  assert(html.includes("data-support-trainer")); assert(!html.includes("Submit ticket")); assert(!html.includes("open tickets"));
 });
 test("Snapshot-only row keys do not fabricate specimen ids", () => {
   const missingIdAccount = { ...account, mons: [{ name: "First" }, { name: "Second" }] };

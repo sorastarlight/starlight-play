@@ -4,8 +4,22 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-15",
+      "id": "CODEX-16",
       "status": "doing",
+      "scope": "Connected player Support and owner Helpdesk with90-day retention",
+      "dependencies": [
+        "CODEX-15"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "HELPDESK-IMPLEMENTATION.md; supabase/support-helpdesk.sql; support.html; js/support.js",
+      "testResults": "35 local real SQL checks;75 static suites/build; connected synthetic DOM and desktop/mobile review; hosted ACL/RLS/advisors inspected",
+      "nextAction": "Publish connected UI; EmailQA player sign-in and isolated live player/staff verification; then general availability",
+      "approvalRequirement": "Owner approved workflow with90-day retention; owner-only staff access; no attachments or ticket mail"
+    },
+    {
+      "id": "CODEX-15",
+      "status": "done",
       "scope": "Activated owner recovery with90-day retention; I14 design and prototype review",
       "dependencies": [
         "CODEX-14"
@@ -14,7 +28,7 @@
       "commit": null,
       "evidence": "HELPDESK-ISSUE-14.md; design-reset/helpdesk-review.html; supabase/owner-recovery-retention.sql",
       "testResults": "75 static suites/build; 29 local SQL recovery checks; 13 synthetic endpoint checks; real DOM synthetic create/internal-note/escaped-text checks; desktop and 390px frame reviewed Real EmailQA staff send accepted/receipt recorded; Resend Delivered; ACL/RLS checked; daily cleanup installed and initial0-row cleanup verified.",
-      "nextAction": "Owner helpdesk visual/functional approval and closed-ticket retention choice before live implementation",
+      "nextAction": "Recovery activated; continue connected helpdesk in CODEX-16",
       "approvalRequirement": "Owner approved90-day completed recovery audit retention and owner sign-in; initial EmailQA-only test passed; eligible-target recovery enabled under existing owner-only guards."
     },
     {

@@ -1,6 +1,6 @@
 # Player Support and Staff Helpdesk — I14
 
-Status: implementable design and synthetic interactive prototype. Proposed APIs below do not exist yet. No live ticket storage or email notifications enabled by this document. GitHub issue #14 requests design before connected implementation; this review is the next product acceptance step.
+Status: owner approved workflow with90-day retention; connected implementation in HELPDESK-IMPLEMENTATION.md is in EmailQA-only rollout. Proposed APIs below do not exist yet. No live ticket storage or email notifications enabled by this document. GitHub issue #14 requests design before connected implementation; this review is the next product acceptance step.
 
 ## Product flows
 
@@ -53,7 +53,7 @@ Recovery remains owner-recovery-email Edge API; ticket integration passes only a
 
 Create cap proposed 3/player/hour and 10/day, max5 open; replies10/player/10min, staff60/hour, server transaction lock and per-actor counters. Return retryAfter without losing draft. Public login/account help can link self-service recovery; unsigned visitors cannot create tickets. No email notifications initially: future opt-in notifications contain only generic update notice and fixed site link, no ticket content or tokens; outbox idempotency and preferences required. No new vendor/spending.
 
-Proposed ticket retention: closed cases180 days from last closure, active cases reviewed after90 days inactivity, audit180 days, unresolved safety holds explicitly reviewed. These ticket periods need owner approval before real storage; recovery audit uses its separate approved policy. Account erasure must reconcile references and applicable holds, with explicit anonymization/purge plan. Do not store identity documents. Attachments later require private bucket, scoped expiring URLs, quota/type/magic-byte limits, malware scan/quarantine, metadata stripping and no SVG/HTML/executable previews; do not implement upload now.
+Proposed ticket retention: closed cases90 days from last closure, active cases reviewed after90 days inactivity, audit90 days, unresolved safety holds explicitly reviewed. These ticket periods need owner approval before real storage; recovery audit uses its separate approved policy. Account erasure must reconcile references and applicable holds, with explicit anonymization/purge plan. Do not store identity documents. Attachments later require private bucket, scoped expiring URLs, quota/type/magic-byte limits, malware scan/quarantine, metadata stripping and no SVG/HTML/executable previews; do not implement upload now.
 
 ## Test and rollout gates
 
@@ -62,3 +62,5 @@ Proposed ticket retention: closed cases180 days from last closure, active cases 
 3. Separate source migration/API/frontend implementation with local real PostgreSQL isolation tests: anonymous denial; other player list/get/reply; admin/moderator denial; internal-note exclusion; UUID substitution; request replay; stale revision; concurrent state/reply; quota reset; pagination ties; malicious HTML; long fields; active-session invalidation.
 4. Install disabled feature; inspect hosted definitions, ACL/RLS/advisors, unauthenticated boundary. Isolated EmailQA own-ticket and real-owner staff path; no protected trainers or role promotions.
 5. Owner acceptance, enable narrow ticket feature, verify production loading/empty/denied. No automatic grants, identity changes, attachments or notification sends. APP remains rc133; final release smoke/D86 separate.
+
+Implementation contract note: the connected first release uses one support_call RPC with action/payload dispatch, rather than separate endpoint names proposed above. See HELPDESK-IMPLEMENTATION.md for installed surfaces and explicitly deferred phases.

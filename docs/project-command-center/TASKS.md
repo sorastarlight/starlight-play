@@ -4,7 +4,8 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-15 | doing | Staff recovery activated; I14 helpdesk review | CODEX-14 | Owner approved90-day recovery retention | Recovery verified; helpdesk visual/retention review pending |
+| CODEX-16 | doing | Connected player Support and owner Helpdesk | CODEX-15 | Workflow approved with90-day retention | EmailQA-only live verification pending |
+| CODEX-15 | done | Staff recovery activated; I14 helpdesk review | CODEX-14 | Owner approved90-day recovery retention | Recovery verified; helpdesk approved; implementation in CODEX-16 |
 | CODEX-14 | done | Friendly signup, email-change and recovery emails; all active templates and sender use game title | CODEX-13 | Owner requested friendly emails | EmailQA real reset successful per owner; staff audit policy and privileged-path verification remain |
 | CODEX-13 | done | Resend free SMTP setup; dedicated auth sending domain | CODEX-12 | Owner authorized Resend setup | Domain verified; SMTP saved; simulator delivered. Full Auth recovery QA remains separate |
 | CODEX-12 | done | Guarded recovery email; branded template; recipient support; mail setup audit | CODEX-11 | Owner continuation and email customization request | Published; template installed; sending disabled pending mail setup |

@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-16 — connected helpdesk EmailQA rollout (2026-10-19)
+
+Owner approved workflow and90-day retention. Installed private actor-bound support dispatcher/storage and daily retention; enabled only dedicated EmailQA player + owner staff. Connected player page, Account link, owner inbox and Trainer Tickets.35 real local SQL checks including concurrency, replay, pagination, account isolation/private notes/retention passed;75 static suites/build, synthetic connected DOM passed. Hosted ACL/RLS/advisors inspected. No live tickets yet; next isolated player sign-in and real staff/reply/private-note checks before general enable. No protected targets, promotions, gameplay,D86,stamp or spending. See HELPDESK-IMPLEMENTATION.md.
+
+
 ## CODEX-15 recovery activation (2026-10-19)
 
 Owner approved90-day completed recovery audit retention; fresh existing owner session used normal published confirmation to send one EmailQA recovery email. Accepted UI, exactly1 accepted DB receipt, provider Delivered01a1557a-e3c3-711e-8e49-83e750aa7496. No token/password read. Installed retention/QA guard migrations and daily04:17UTC cleanup; initial0-row cleanup verified. Tested EmailQA-only then cleared qa_target to enable eligible targets under unchanged owner/recent-login/protected-target gates. ACLs and3 RLS tables verified; advisors reviewed, broader historical warnings remain. Local SQL29/synthetic13/static75/build pass. No second recipient password completion or hosted replay claimed. Sora caller only, no protected targets or PlayTester role changes; no gameplay/D86/stamp/spending. Helpdesk prototype published4c5db508, Pages39267404497 succeeded; visual/closed-ticket retention review pending.

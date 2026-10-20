@@ -1,0 +1,112 @@
+{
+  "authorizedMaximum": 10,
+  "stopAtFirstCatch": true,
+  "localOnly": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "roundId": "4f437bba-d2cf-475c-b28a-96aa97762077",
+      "result": "Escaped",
+      "chance": "0.160000",
+      "roll": "0.97756996520079653124",
+      "stampObserved": false,
+      "checks": 8,
+      "evidence": "attempt-1.json"
+    },
+    {
+      "attempt": 2,
+      "roundId": "a82b2698-60e4-4d0c-b508-eaa3b8f12e75",
+      "result": "Escaped",
+      "chance": "0.160000",
+      "roll": "0.73658148425774783163",
+      "stampObserved": false,
+      "checks": 8,
+      "evidence": "attempt-2.json"
+    },
+    {
+      "attempt": 3,
+      "roundId": "5397ceb4-8dcb-4d9f-a9ee-22ac3982a23a",
+      "result": "Escaped",
+      "chance": "0.160000",
+      "roll": "0.88928974163922802632",
+      "stampObserved": false,
+      "checks": 8,
+      "evidence": "attempt-3.json"
+    },
+    {
+      "attempt": 4,
+      "roundId": "9de1027e-43bb-4223-a22b-61579c2ef454",
+      "result": "Escaped",
+      "chance": "0.160000",
+      "roll": "0.36121781375138084513",
+      "stampObserved": false,
+      "checks": 8,
+      "evidence": "attempt-4.json"
+    },
+    {
+      "attempt": 5,
+      "roundId": "9deada6c-1110-479d-86b7-845c48d3c366",
+      "result": "Escaped",
+      "chance": "0.160000",
+      "roll": "0.96958083366761016464",
+      "stampObserved": false,
+      "checks": 8,
+      "evidence": "attempt-5.json"
+    },
+    {
+      "attempt": 6,
+      "roundId": "820125cf-8b80-484b-aa67-295e667227df",
+      "result": "Escaped",
+      "chance": "0.160000",
+      "roll": "0.63879928553160070237",
+      "stampObserved": false,
+      "checks": 8,
+      "evidence": "attempt-6.json"
+    },
+    {
+      "attempt": 7,
+      "result": "Error",
+      "phase": "canonical settlement/materializer",
+      "error": "Missing local private.streamlink_protected_trainer(uuid)",
+      "stampObserved": false,
+      "checks": 3,
+      "evidence": "attempt-7.log",
+      "outcomeNotPersisted": true
+    },
+    {
+      "attempt": 8,
+      "roundId": "d8d1c071-59db-49af-971e-7c7bbd94a00a",
+      "result": "Escaped",
+      "chance": "0.160000",
+      "roll": "0.39803358611132111378",
+      "stampObserved": false,
+      "checks": 8,
+      "evidence": "attempt-8.json"
+    },
+    {
+      "attempt": 9,
+      "roundId": "990f612e-95a6-4ca0-a4fa-c3d9b309fec2",
+      "result": "Escaped",
+      "chance": "0.160000",
+      "roll": "0.48481895234851890564",
+      "stampObserved": false,
+      "checks": 8,
+      "evidence": "attempt-9.json"
+    },
+    {
+      "attempt": 10,
+      "roundId": "a02bbeea-b9d7-493b-bfa3-59f096b8b490",
+      "result": "Caught",
+      "chance": "0.160000",
+      "roll": "0.15808739928268167318",
+      "stampObserved": true,
+      "checks": 8,
+      "evidence": "attempt-10.json"
+    }
+  ],
+  "status": "stopped-at-first-completed-catch",
+  "completedAttempts": 9,
+  "errors": 1,
+  "stampCriterionSatisfiedLocally": true,
+  "D86Authorized": false
+}

@@ -1,5 +1,7 @@
 # D85 — Isolated stamp rehearsal
 
+Current status,2026-10-20: this is the preserved original stop report. CODEX-17 reconciled the hash metric mismatch; CODEX-26 later satisfied the focused local stamp criterion. See [current local rehearsal evidence](./D85-LOCAL-REHEARSAL.md). D86 remains unauthorized; no production readiness is implied.
+
 **2026-10-19 correction:** [fingerprint reconciliation](./D85-FINGERPRINT-RECONCILIATION.md) proves the old values are full-definition hashes while this report compared body hashes. The mismatch explanation is resolved; the rehearsal below still did not run. Original findings preserved as historical evidence.
 
 **Verdict:** **D85 BLOCKED — DEFINITION MISMATCH**  

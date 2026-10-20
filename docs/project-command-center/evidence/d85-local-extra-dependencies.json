@@ -1,0 +1,11 @@
+{
+  "classification": "READ-ONLY catalog dependency snapshot; no trainer data",
+  "project": "dtflmlbjhttoewqgkujf",
+  "functions": [
+    {
+      "name": "streamlink_protected_trainer",
+      "definition": "CREATE OR REPLACE FUNCTION private.streamlink_protected_trainer(p_user_id uuid)\n RETURNS boolean\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\nBEGIN\n  IF p_user_id IS NULL THEN\n    RETURN false;\n  END IF;\n  IF to_regclass('public.profiles') IS NULL THEN\n    RETURN false;\n  END IF;\n  RETURN EXISTS (\n    SELECT 1\n    FROM public.profiles p\n    WHERE p.id = p_user_id\n      AND (\n        lower(coalesce(p.twitch_login, '')) IN ('sorastarlight', 'twinklephoenixstar')\n        OR lower(coalesce(p.username, '')) IN ('sorastarlight', 'twinklephoenixstar')\n      )\n  );\nEND\n$function$\n",
+      "body_md5": "0fa172fb089bf52959bbbbee3703ccdf"
+    }
+  ]
+}

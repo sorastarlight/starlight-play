@@ -13,6 +13,8 @@ const ROOT = path.resolve(__dirname, '..');
 const CACHE = path.resolve(__dirname, '.cache/d54-pg-harness');
 const INPUT = require('../docs/project-command-center/evidence/d85-local-replica-inputs.json');
 const TIMING = require('../docs/project-command-center/evidence/d85-local-timings.json');
+const EXTRA = require('../docs/project-command-center/evidence/d85-local-extra-dependencies.json');
+const FUNCTIONS = [...INPUT.functions, ...EXTRA.functions];
 const HOST = '127.0.0.1';
 const PORT = 55465;
 const A = 'aaaaaaaa-0085-4085-8085-000000000085';
@@ -20,7 +22,7 @@ function assert(ok, msg) { if (!ok) throw new Error(msg); }
 function quote(s) { return '"' + s.replaceAll('"', '""') + '"'; }
 async function main() {
   refuseHosted();
-  assert(process.argv.includes('--one-local-throw'), 'Explicit --one-local-throw required; this script never rerolls automatically');
+  assert(process.argv.includes('--one-local-throw') || process.argv.includes('--preflight-only'), 'Explicit --one-local-throw or --preflight-only required; this script never rerolls automatically');
   const Embedded = (await import(pathToFileURL(path.join(CACHE, 'node_modules/embedded-postgres/dist/index.js')).href)).default;
   const dir = fs.mkdtempSync(path.join(CACHE, 'd85-'));
   assert(dir.startsWith(CACHE + path.sep), 'Temporary path outside harness cache');
@@ -54,15 +56,17 @@ async function main() {
       INSERT INTO private.streamlink_wire_switch(id,enabled) VALUES(1,false);
       INSERT INTO private.species_mastery_activation(singleton,lifecycle) VALUES(true,'inactive');`);
     const excluded = new Set(['capture_self_test','capture_table_for_tier','capture_items_json','capture_round_context']);
-    for (const f of INPUT.functions) if (!excluded.has(f.name)) await db.query(f.definition);
+    for (const f of FUNCTIONS) if (!excluded.has(f.name)) await db.query(f.definition);
     await db.query(TIMING.definition);
     await db.query('CREATE TRIGGER catch_server_inserted_at BEFORE INSERT ON public.catches FOR EACH ROW EXECUTE FUNCTION private.stamp_catch_server_inserted_at()');
     // Check every loaded body, including spending/odds/timer helpers, before any throw.
-    for (const f of INPUT.functions.filter(f=>!excluded.has(f.name))) {
+    for (const f of FUNCTIONS.filter(f=>!excluded.has(f.name))) {
       const found = await db.query(`SELECT md5(p.prosrc) hash FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='private' AND p.proname=$1`,[f.name]);
       assert(found.rows.some(r=>r.hash===f.body_md5), 'Body mismatch: '+f.name);
     }
     pass('All loaded function body hashes equal hosted catalog snapshot');
+    assert((await db.query("SELECT to_regprocedure('private.streamlink_protected_trainer(uuid)') IS NOT NULL ok")).rows[0].ok, 'Materializer protection helper missing');
+    if (process.argv.includes('--preflight-only')) { console.log('PREFLIGHT ONLY: no trainer, round or throw seeded'); return; }
     async function seed(table, row) {
       const keys = Object.keys(row);
       await db.query('INSERT INTO '+table+' ('+keys.map(quote).join(',')+') VALUES ('+keys.map((_,i)=>'$'+(i+1)).join(',')+')', keys.map(k=>Array.isArray(row[k])?row[k]:typeof row[k]==='object'&&row[k]!==null?JSON.stringify(row[k]):row[k]));
@@ -108,7 +112,7 @@ async function main() {
     const state = (await db.query('SELECT private.streamlink_wire_is_enabled() wire,(SELECT lifecycle FROM private.species_mastery_activation WHERE singleton) lifecycle')).rows[0];
     assert(state.wire===false&&state.lifecycle==='inactive','Activation changed');
     pass('WIRE and Familiarity remain inactive');
-    const report = {classification:'REAL SQL: disposable loopback Postgres only',postgres:target.version,observedAt:new Date().toISOString(),roundId:id,syntheticTrainer:A,timings:TIMING.timings,player,stampObserved:player.caught,checks,limitations:['Catalog-shaped tables use local constraints, not full production schema.','Only insertion stamp trigger installed; specimen generation, XP and presentation triggers excluded.','No hosted gameplay; no D86 authority; escape is not stamp proof.']};
+    const report = {classification:'REAL SQL: disposable loopback Postgres only',postgres:target.version,observedAt:new Date().toISOString(),roundId:id,syntheticTrainer:A,timings:TIMING.timings,player,stampObserved:player.caught,settlementWindow:{before,after},catches,checks,limitations:['Catalog-shaped tables use local constraints, not full production schema.','Only insertion stamp trigger installed; specimen generation, XP and presentation triggers excluded.','No hosted gameplay; no D86 authority; escape is not stamp proof.']};
     const out = path.join(CACHE,'d85-latest-result.json');
     fs.writeFileSync(out, JSON.stringify(report,null,2)+'\n');
     console.log(JSON.stringify(report,null,2));

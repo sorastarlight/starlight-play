@@ -1,0 +1,10 @@
+{
+  "reason": "Attempt7 missing local dependency; exact catalog helper added, canonical gameplay bodies unchanged",
+  "preflight": "Loopback/body-hash/dependency existence passed; no trainer/round/throw seeded",
+  "attemptsConsumed": 7,
+  "maximumRemaining": 3,
+  "sourceHashes": {
+    "tools/d85-stamp-rehearsal.js": "83a4668d3e443dbff660ae67cf250ea7f402ee358144bc557cbe9f44e14272df",
+    "docs/project-command-center/evidence/d85-local-extra-dependencies.json": "c31b2b769234f217b9010fbdf12ac415d71f0f086ccda3de26c2c8930c9e08d8"
+  }
+}

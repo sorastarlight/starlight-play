@@ -10,11 +10,11 @@ Trainer UI: [v6 static draft](./design-reset/hub-a-visual-v6.html), [checks and 
 
 Twitch policy [installed disabled](./TWITCH-LINKING-HOSTED-STAGING.md) after owner approval. Provider QA has no separate Twitch test identity; owner/protected identities stay excluded. General activation remains held.
 
-Twitch linking: [issue17 audit and proposed policy](./TWITCH-LINKING-ISSUE-17.md) completed read-only; [local enforcement core](./TWITCH-LINKING-IMPLEMENTATION.md) passes65 SQL checks. Full workflow and hosted activation remain incomplete. D85: [one local ordinary throw](./D85-LOCAL-REHEARSAL.md) escaped naturally; spending/replay checks passed, stamp branch unobserved.
+Twitch linking: [issue17 audit and proposed policy](./TWITCH-LINKING-ISSUE-17.md) completed read-only; [local enforcement core](./TWITCH-LINKING-IMPLEMENTATION.md) passes65 SQL checks. Full workflow and hosted activation remain incomplete. D85: [bounded local rehearsal](./D85-LOCAL-REHEARSAL.md) now proves the focused stamp criterion;8 escapes,1 replica error and1 natural catch. D86 held.
 
 Helpdesk review: [specification](./HELPDESK-ISSUE-14.md), [interactive desktop/player/staff review](./design-reset/helpdesk-review.html), [390px mobile review](./design-reset/helpdesk-mobile-review.html). Prototype uses fictional data; [connected implementation](./HELPDESK-IMPLEMENTATION.md) is live for signed-in players after real EmailQA player/staff/privacy verification; staff access remains owner-only, completed retention90 days. Staff recovery is enabled owner-only after approved90-day audit retention and real EmailQA staff delivery verification.
 
-D85 investigation: [fingerprint reconciliation](./D85-FINGERPRINT-RECONCILIATION.md) — all three historical hashes match current full definitions; the earlier comparison used body hashes. One local rehearsal escaped naturally; stamp proof remains pending, D86 unauthorized.
+D85 investigation: [fingerprint reconciliation](./D85-FINGERPRINT-RECONCILIATION.md) — all three historical hashes match current full definitions; the earlier comparison used body hashes. The later bounded local batch proved the stamp criterion; D86 remains unauthorized.
 
 Current runner: [Codex runner trial](./CODEX-RUNNER.md). The owner's later instructions supersede the Gemini/Cursor handoff pause for routine development and GitHub publication; D86 and database/gameplay changes remain gated.
 
@@ -125,6 +125,6 @@ Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does 
 
 ## Agent coordination
 
-[GEMINI-HANDOFF.md](./GEMINI-HANDOFF.md) is archival. Codex is the active sole runner. D83 is installed; D85 hash mismatch is explained, its rehearsal pending; D86 not authorized.
+[GEMINI-HANDOFF.md](./GEMINI-HANDOFF.md) is archival. Codex is the active sole runner. D83 is installed; D85 hash mismatch is explained and its focused local stamp rehearsal passed; D86 not authorized.
 
 [COORDINATION.md](./COORDINATION.md) defines GitHub handoffs and approval gates. Repository protocol only; monitoring and Cursor execution are disabled. A later owner GO installed the launch-guard function as D83.

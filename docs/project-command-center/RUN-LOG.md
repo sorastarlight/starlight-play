@@ -1,5 +1,9 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-26 — Bounded local D85 stamp proof (2026-10-20)
+
+CODEX-26 completed the approved bounded local batch:8 escapes,1 replica error,1 natural catch with stamp/replay proof. D85's focused local criterion is satisfied; full production readiness is not established and D86 remains unauthorized. Attempt7 missing local protection-helper dependency was fixed using its exact catalog definition, then preflighted without throwing. It remains counted as an error. Attempt10 stamped at16:27:36.578Z inside565–580ms settlement window; replay/one debit passed. No leftover clusters; opt-in/hosted-target guards exit1. No hosted gameplay/DDL/data or protected-account mutation; APPrc133. See D85-LOCAL-REHEARSAL.md and per-attempt evidence.
+
 ## CODEX-25 — Trainer keyboard and narrow stats (2026-10-20)
 
 Added manual tab focus navigation, single tab stop and focus retention after rendering. Real DOM keyboard/disabled/mobile stats review and21 focused checks passed; build31/422 APPrc133. No backend or account mutation. See TRAINER-KEYBOARD-ACCESSIBILITY.md.

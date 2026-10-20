@@ -1,0 +1,8 @@
+{
+  "finiteStampWithinWindow": true,
+  "uniqueCompletedRounds": 9,
+  "unauthorizedFlagExit": 1,
+  "hostedTargetRefusalExit": 1,
+  "leftoverLocalClusterDirectories": [],
+  "additionalThrowsRunDuringValidation": 0
+}

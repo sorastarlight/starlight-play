@@ -1,0 +1,40 @@
+{
+  "classification": "REAL SQL: disposable loopback Postgres only",
+  "postgres": "17.5",
+  "observedAt": "2026-10-20T16:23:55.248Z",
+  "roundId": "d8d1c071-59db-49af-971e-7c7bbd94a00a",
+  "syntheticTrainer": "aaaaaaaa-0085-4085-8085-000000000085",
+  "timings": {
+    "joinSeconds": 30,
+    "throwSeconds": 30,
+    "revealSeconds": 15,
+    "prepareSeconds": 30
+  },
+  "player": {
+    "chance": "0.160000",
+    "roll": "0.39803358611132111378",
+    "caught": false,
+    "result": "Escaped"
+  },
+  "stampObserved": false,
+  "settlementWindow": {
+    "before": "2026-10-20T16:23:55.210Z",
+    "after": "2026-10-20T16:23:55.245Z"
+  },
+  "catches": [],
+  "checks": [
+    "Disposable loopback database confirmed",
+    "All loaded function body hashes equal hosted catalog snapshot",
+    "One synthetic trainer, ordinary ball, canonical guard and full 105-second deadlines",
+    "Canonical odds and cryptographic roll settled naturally",
+    "Canonical spending consumed exactly one ball with one ledger debit",
+    "Natural escape preserved; no specimen created, stamp path remains unobserved",
+    "Replay adds neither debit nor specimen",
+    "WIRE and Familiarity remain inactive"
+  ],
+  "limitations": [
+    "Catalog-shaped tables use local constraints, not full production schema.",
+    "Only insertion stamp trigger installed; specimen generation, XP and presentation triggers excluded.",
+    "No hosted gameplay; no D86 authority; escape is not stamp proof."
+  ]
+}

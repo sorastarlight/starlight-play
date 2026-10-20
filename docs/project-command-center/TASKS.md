@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-26 | done | Bounded local D85 stamp rehearsal | CODEX-18 |10 max; stop first catch |8 escapes/1 replica error/1 natural catch; local stamp proof passed; D86 held |
 | CODEX-25 | done | Trainer keyboard and narrow stats QA | CODEX-24 | Routine frontend work | 21 checks + real DOM passed; zoom/motion emulation remains open |
 | CODEX-24 | done | Stored Pokémon stats read/display | CODEX-23 | Owner approved read-only patch | 14 SQL/37 JS checks; nulls preserved; no editing/backfill |
 | CODEX-23 | done | Reviewed Trainer v6 presentation slice | CODEX-22 | Owner proceeded | 36 checks and local DOM passed; full issue15 matrix remains open |
@@ -102,7 +103,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I48 | done | D82 launch-guard security gate | I47, D82 | Gate passed; install still needs a GO | Superseded by I49 |
 | I49 | done | D83 launch-guard install | I48, D83 | Installed; no encounter | Superseded by I50 |
 | I50 | done | D84 verification plan | I49, D84 | Plan only; stamp still blocked | Superseded by I51 |
-| I51 | todo | D85 isolated stamp rehearsal | I50, CODEX-17 | Hash metric mismatch reconciled; gameplay boundary unchanged | Local escape observed; stamp criterion incomplete; do not start D86 |
+| I51 | done | D85 isolated local stamp rehearsal | I50, CODEX-17, CODEX-26 | Explicit bounded local batch | Local criterion proved; no production readiness or D86 authority |
 | HANDOFF-1 | done | Historical Gemini planning handoff | I51 | Archival; superseded by owner | Codex is current sole runner |
 | I13 | done | Issue #13 owner account recovery design | epic #11 | security design | Design complete; see ACCOUNT-RECOVERY-ISSUE-13.md |
 | I14 | done | Issue #14 helpdesk architecture | epic #11 | visual review | Approved design implemented and verified in CODEX-16 |
@@ -112,7 +113,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 Branch admin-hub-overhaul. Codex is the sole active runner. Owner authorized routine development and GitHub publication; later feature approvals delivered Trainer management, audited gifts/Pass, recovery and helpdesk. CODEX entries above are current; older table rows retain historical approval snapshots and are not fresh execution instructions. I13/I14 are complete; open GitHub issues may lag the implemented work. Issue#15 UI cleanup and#17 Twitch-linking policy remain follow-up candidates.
 
-D83 launch guard installed. CODEX-17 explains D85's three apparent mismatches: historical full-definition hashes were compared to body hashes. Source/migration comparisons agree. CODEX-18 executed one local throw with a natural escape; D85 stamp criterion remains incomplete, D86 is not authorized. WIRE/Familiarity activation, production collection reset, protected-account testing and APP stamp remain outside current approval. APP20261008-rc133; final gameplay smoke pending. Existing D53/D58 catches and historical install evidence are preserved. Broad generic BatchF remains gated; individually approved later features are documented by their CODEX scopes.
+D83 launch guard installed. CODEX-17 explains D85's three apparent mismatches: historical full-definition hashes were compared to body hashes. Source/migration comparisons agree. CODEX-18 first escaped. CODEX-26 completed the bounded local batch:8 escapes,1 replica error,1 natural catch with a finite stamp inside settlement. The focused local D85 criterion is complete; D86 is not authorized. WIRE/Familiarity activation, production collection reset, protected-account testing and APP stamp remain outside current approval. APP20261008-rc133; final gameplay smoke pending. Existing D53/D58 catches and historical install evidence are preserved. Broad generic BatchF remains gated; individually approved later features are documented by their CODEX scopes.
 
 ## COORD-1 — repository handoff setup (2026-10-18)
 

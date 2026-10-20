@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-26",
+      "status": "done",
+      "scope": "Owner-approved up to10 isolated local D85 ordinary attempts; stop first catch",
+      "dependencies": [
+        "CODEX-18"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "evidence/d85-approved-batch-20261020/",
+      "testResults": "10 consumed attempts:8 escapes,1 replica error,1 natural catch;8 checks on each completed attempt; finite stamp/replay/guards/cleanup verified",
+      "nextAction": "Focused local D85 stamp criterion satisfied; D86 and hosted gameplay remain held",
+      "approvalRequirement": "Explicit owner approval up to10 local attempts; no hosted gameplay or D86"
+    },
+    {
       "id": "CODEX-25",
       "status": "done",
       "scope": "Trainer tab keyboard navigation and mobile stats review",
@@ -1445,18 +1459,20 @@
     },
     {
       "id": "I51",
-      "status": "todo",
-      "scope": "D85 isolated stamp rehearsal; original stop preserved, hash inputs reconciled",
+      "status": "done",
+      "scope": "D85 isolated local stamp rehearsal; original stop preserved, local criterion now proved",
       "dependencies": [
         "I50",
-        "D85"
+        "D85",
+        "CODEX-26"
       ],
       "branch": "admin-hub-overhaul",
-      "commit": "1d1f9ec2",
-      "evidence": "D85-STAMP-REHEARSAL.md; D85-FINGERPRINT-RECONCILIATION.md; D85-LOCAL-REHEARSAL.md",
-      "testResults": "One natural local escape; spending/replay/guards passed; stamp branch unobserved, D86 unauthorized",
-      "nextAction": "Stamp criterion incomplete after natural escape; no automatic reroll; D86 held",
-      "approvalRequirement": "No production function change needed to reconcile hashes; gameplay/stamp authorization unchanged"
+      "commit": null,
+      "evidence": "D85-LOCAL-REHEARSAL.md; evidence/d85-approved-batch-20261020/summary.json",
+      "testResults": "CODEX-26:8 natural escapes,1 local dependency error,1 natural catch; finite insertion stamp inside settlement; one debit and replay checks passed",
+      "nextAction": "Local stamp criterion proved in CODEX-26; not full production readiness; D86 unauthorized",
+      "approvalRequirement": "Explicit up to10 local attempts approved; no hosted gameplay/D86 authority",
+      "historicalStopCommit": "1d1f9ec2"
     },
     {
       "id": "HANDOFF-1",

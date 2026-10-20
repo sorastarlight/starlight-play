@@ -1,0 +1,12 @@
+{
+  "classification": "STATIC source lock for owner-approved local batch",
+  "sourceHashes": {
+    "tools/d85-stamp-rehearsal.js": "896c8654080e1b1aead40ae4f5b8509871da947bd0917c5c331e97335ec8767c",
+    "docs/project-command-center/evidence/d85-local-replica-inputs.json": "baadc2b91cebd616ce5c09d509a6b631f4d04979436a530abcf0896783ff8c7e",
+    "docs/project-command-center/evidence/d85-local-timings.json": "62be4a32368ff0672bebd268ade39ae3ddab3ec5d2ebe0ac8eb31f84804dd1bd"
+  },
+  "authorizedMaximum": 10,
+  "stopAtFirstCatch": true,
+  "productionGameplayAuthorized": false,
+  "D86Authorized": false
+}

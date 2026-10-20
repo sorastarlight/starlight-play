@@ -1,5 +1,9 @@
 # Pokémon StreamLink — project command center
 
+Trainer UI: [v6 static draft](./design-reset/hub-a-visual-v6.html), [checks and remaining limits](./TRAINER-UI-V6-REVIEW.md). Product integration remains held for visual review.
+
+Twitch policy [installed disabled](./TWITCH-LINKING-HOSTED-STAGING.md) after owner approval. Provider QA has no separate Twitch test identity; owner/protected identities stay excluded. General activation remains held.
+
 Twitch linking: [issue17 audit and proposed policy](./TWITCH-LINKING-ISSUE-17.md) completed read-only; [local enforcement core](./TWITCH-LINKING-IMPLEMENTATION.md) passes65 SQL checks. Full workflow and hosted activation remain incomplete. D85: [one local ordinary throw](./D85-LOCAL-REHEARSAL.md) escaped naturally; spending/replay checks passed, stamp branch unobserved.
 
 Helpdesk review: [specification](./HELPDESK-ISSUE-14.md), [interactive desktop/player/staff review](./design-reset/helpdesk-review.html), [390px mobile review](./design-reset/helpdesk-mobile-review.html). Prototype uses fictional data; [connected implementation](./HELPDESK-IMPLEMENTATION.md) is live for signed-in players after real EmailQA player/staff/privacy verification; staff access remains owner-only, completed retention90 days. Staff recovery is enabled owner-only after approved90-day audit retention and real EmailQA staff delivery verification.

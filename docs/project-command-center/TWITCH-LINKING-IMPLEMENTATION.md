@@ -1,5 +1,7 @@
 # Twitch link policy — local guard implementation
 
+Current status: owner later authorized disabled installation; see [CODEX-21 hosted report](./TWITCH-LINKING-HOSTED-STAGING.md). Policy remains disabled; separate provider QA identity unavailable. Earlier local-only/staging descriptions below retain their batch scope.
+
 Owner approved implementation and local tests on 2026-10-19. CODEX-20 covers the first server-enforcement layer. It does **not** declare all of issue #17 complete or authorize hosted installation/activation.
 
 ## Implemented

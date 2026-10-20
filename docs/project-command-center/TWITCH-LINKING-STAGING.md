@@ -1,5 +1,7 @@
 # Proposed limited hosted stage — not yet authorized
 
+Current status: owner later authorized disabled installation; see [CODEX-21 hosted report](./TWITCH-LINKING-HOSTED-STAGING.md). Policy remains disabled; separate provider QA identity unavailable. Earlier local-only/staging descriptions below retain their batch scope.
+
 Reviewable implementation: `TWITCH-LINKING-IMPLEMENTATION.md`, unapplied SQL001/002 plus rollback files, local SQL rehearsal and staged disconnect controller.65 REAL LOCAL SQL checks and19 SYNTHETIC SDK/RPC contract checks pass. No hosted installation or provider actions have occurred.
 
 ## Concrete next stage

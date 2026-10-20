@@ -1,5 +1,13 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-22 — Trainer UI v6 static draft (2026-10-19)
+
+Separate fictional prototype; focused real DOM navigation/filter/detail checks and44px targets verified. Constrained390/1024 frames inspected. Actual viewport/zoom/keyboard/motion checks and owner visual acceptance remain. Product presenters unchanged. See TRAINER-UI-V6-REVIEW.md. Prior7d8b6828 Pages39351613665 succeeded.
+
+## CODEX-21 — disabled hosted Twitch policy install (2026-10-19)
+
+Owner approved disabled install and EmailQA-only provider testing. Applied20261020010913/20261020010922; verified flagfalse/qaNULL/zero exceptions, receipts and mutex rows; RLS/no player direct grants/anon denial/private delegate denied; original disconnect body9eb6275c39191242b6789697a6e419ce and ACL preserved. Aggregate3 connections/3 Auth identities/1 trainer with multiple/0 numeric collisions or missing counterparts. Advisors inspected; expected private deny-policy infos and authenticated-definer warnings, historical backlog unchanged. Owner then clarified no separate Twitch test accounts exist. No provider QA, enforcement enable, OAuth redirect/config change, account links, roles, protected-account/economy/gameplay writes, emails, spending or stamp. Keep disabled and continue static UI cleanup. See TWITCH-LINKING-HOSTED-STAGING.md.
+
 ## CODEX-20 — Twitch linking local guard (2026-10-19)
 
 Owner approved implementation/local tests. Unapplied SQL starts disabled; one numeric Twitch slot for ordinary trainers, count at Auth ingress and connection confirmation, alias collision checks, owner-approved bounded staff exceptions with current role/recent AMR/revision/audit, existing multi-links preserved.65 REAL LOCAL SQL checks cover concurrent links, REPEATABLE READ, concurrent demotion, denied identity rollback and rollback preservation. Actual captured identity trigger/recent-owner guard; synthetic Auth/session/roles, no provider OAuth. Post-start failure verified exit1; fixed async-exit-hook false-green risk in both new harnesses. Hosted dependency SELECT only. No hosted DDL/data/OAuth/link/role/gameplay/protected-account changes; APPrc133, build31/422. Added local verified provider-disconnect staging and19 synthetic SDK/RPC checks; full policy remains incomplete pending real provider callback/UI/intent/legacy fallback work and separate hosted staging/activation decisions. See TWITCH-LINKING-IMPLEMENTATION.md. Earlier records/tool commit6ac20b7e published; Pages39349645700 success.

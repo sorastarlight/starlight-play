@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Hub · Trainer UI v6 review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #3a3f63;
+      --muted: #6b6c84;
+      --pearl: #f4f7ff;
+      --sky: #6aa8ef;
+      --sky-soft: #d9ecff;
+      --pink: #c04878;
+      --pink-deep: #8a3d72;
+      --pink-soft: #ffe3f3;
+      --gold: #c9a227;
+      --gold-soft: #fff6d8;
+      --line: #dce3f2;
+      --white: #fff;
+      --shadow: 0 6px 18px #687bae18;
+      --press: 0 3px 0 #d7e0f2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 13px/1.45 Nunito, "Segoe UI", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% -10%, #ffe3f3 0 18%, transparent 46%),
+        radial-gradient(circle at 100% 8%, #d9ecff 0 16%, transparent 48%),
+        #f5f8ff;
+    }
+    button, input, select { font: inherit; }
+    button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before { animation: none !important; transition: none !important; }
+    }
+    .toolbar {
+      background: rgba(255,255,255,.92);
+      border-bottom: 3px solid #fff;
+      box-shadow: 0 6px 0 #f3c6e2;
+      padding: 8px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: end;
+    }
+    .toolbar h1 { font: 700 15px/1.2 Fredoka, Nunito, sans-serif; margin: 0 10px 0 0; color: var(--pink-deep); }
+    .toolbar a { color: var(--pink-deep); }
+    .toolbar label { display: grid; gap: 3px; font-size: 11px; color: var(--muted); }
+    .toolbar select { min-height: 30px; border: 2px solid #c9d4ec; border-radius: 10px; background: #fff; }
+    .stage { padding: 16px; }
+    .frame {
+      margin: 0 auto;
+      min-height: 700px;
+      display: grid;
+      grid-template-columns: 188px 1fr;
+      background: rgba(255,255,255,.55);
+      border: 1px solid #e4ecf8;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .frame.is-1440 { width: min(1440px, 100%); }
+    .frame.is-1024 { width: min(1024px, 100%); }
+    .frame.is-720 { width: min(720px, 100%); grid-template-columns: 1fr; }
+    .frame.is-390 { width: 390px; grid-template-columns: 1fr; }
+    .nav {
+      background: linear-gradient(180deg, #fff7fb, #eef6ff);
+      border-right: 1px solid #eadff0;
+      padding: 16px 12px;
+    }
+    .brand {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin: 0 6px 14px;
+      font: 700 14px/1 Fredoka, Nunito, sans-serif;
+      color: var(--pink-deep);
+    }
+    .brand i {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: linear-gradient(180deg, #ff7eb6, #6aa8ef);
+      box-shadow: 0 0 0 3px #ffe3f3;
+    }
+    .nav button {
+      display: block; width: 100%; text-align: left; border: 2px solid transparent;
+      background: #fff; padding: 8px 10px; border-radius: 12px; margin-bottom: 6px;
+      color: #5d4a68; cursor: pointer; box-shadow: 0 2px 0 #eadff0;
+      transition: background .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+    .nav button[aria-current="page"] {
+      background: linear-gradient(180deg, #ffe3f3, #f6cde4);
+      border-color: #dca8c9; color: #723d65; font-weight: 800; box-shadow: 0 3px 0 #dca8c9;
+    }
+    .nav button:hover { background: #fff; transform: translateY(-1px); }
+    .nav button:active { transform: translateY(1px); box-shadow: none; }
+    .nav-toggle { display: none !important; width: 100%; margin-bottom: 8px; border: 2px solid #c9d4ec !important; background: #fff !important; box-shadow: var(--press) !important; cursor: pointer; }
+    .is-720 .nav, .is-390 .nav { border-right: 0; border-bottom: 1px solid #eadff0; }
+    .is-720 .nav-list, .is-390 .nav-list { display: none; }
+    .is-720 .nav.is-open .nav-list, .is-390 .nav.is-open .nav-list { display: block; }
+    .is-720 .nav-toggle, .is-390 .nav-toggle { display: block !important; }
+    .main { min-width: 0; padding: 20px 22px 32px; background: var(--pearl); }
+    .is-390 .main, .is-720 .main { padding: 14px; }
+    .ph { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 14px; }
+    .ph h2 { margin: 0; font: 700 22px/1.15 Fredoka, Nunito, sans-serif; color: #2a3568; }
+    .ph p, .meta { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .search { display: flex; gap: 8px; margin: 0 0 12px; }
+    .search input {
+      flex: 1; min-height: 40px; border: 2px solid #c9d4ec; border-radius: 12px;
+      padding: 0 12px; background: #fff;
+    }
+    .btn, .btn-nav {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      min-height: 44px; padding: 0 14px; border: 2px solid #c9d4ec; border-radius: 12px;
+      background: linear-gradient(180deg, #fff, #f4f7ff); box-shadow: var(--press);
+      color: var(--pink-deep); font-weight: 800; cursor: pointer;
+      transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+    }
+    .btn:hover, .btn-nav:hover { transform: translateY(-1px); box-shadow: 0 4px 0 #d7e0f2; background: #fff; }
+    .btn:active, .btn-nav:active { transform: translateY(1px); box-shadow: none; }
+    .btn.primary { background: linear-gradient(180deg, #ffe3f3, #f6cde4); border-color: #dca8c9; box-shadow: 0 3px 0 #dca8c9; }
+    .btn.primary:hover { box-shadow: 0 4px 0 #dca8c9; }
+    .btn:disabled, .btn-nav:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: var(--press); }
+    .btn-nav { margin: 0 0 12px; }
+    .dir-head, .dir-hit {
+      display: grid; grid-template-columns: minmax(0,2.1fr) 6.2rem 8.4rem 4.8rem 8.5rem;
+      gap: 8px; align-items: center;
+    }
+    .dir-head {
+      font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted);
+      padding: 0 12px 8px; border-bottom: 1px solid var(--line);
+    }
+    .dir { margin: 0; padding: 0; list-style: none; max-height: 420px; overflow: auto; }
+    .dir-hit {
+      width: 100%; text-align: left; min-height: 52px; padding: 8px 12px; margin: 2px 0;
+      border: 1px solid transparent; border-radius: 14px; background: transparent;
+      color: inherit; cursor: pointer; transition: background .14s ease, transform .14s ease;
+    }
+    .dir-hit:hover { background: #fff7fb; }
+    .dir-hit:focus-visible { background: var(--gold-soft); }
+    .dir-hit strong { font-weight: 800; }
+    .who { display: flex; gap: 10px; align-items: center; min-width: 0; }
+    .av {
+      width: 34px; height: 34px; border-radius: 50%; flex: 0 0 auto;
+      background: linear-gradient(180deg, #ffe3f3, #d9ecff);
+      display: grid; place-items: center; font-weight: 800; color: var(--pink-deep);
+    }
+    .av.lg { width: 52px; height: 52px; font-size: 18px; }
+    .av img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+    .handle { display: block; color: var(--muted); font-size: 12px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 8px; border-radius: 999px; background: #eef2fb; font-size: 11px; font-weight: 700;
+    }
+    .chip.pass { background: var(--pink-soft); color: var(--pink-deep); }
+    .chip.muted { color: var(--muted); }
+    .chip.live { background: #e3f4ff; color: #2a6aa8; }
+    .chip.live::before, .dot::before {
+      content: ""; width: 7px; height: 7px; border-radius: 50%; background: #4ec8f5;
+    }
+    .chip.live::before { animation: pulse 1.6s ease infinite; }
+    .chip.idle { background: #eef2fb; }
+    .chip.off { background: #f3f0f4; color: var(--muted); }
+    @keyframes pulse { 50% { opacity: .35; transform: scale(.85); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .pane { animation: rise .18s ease; }
+    .pager { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; color: var(--muted); }
+    .textlink { border: 0; background: transparent; padding: 0; color: var(--pink-deep); font-weight: 800; cursor: pointer; }
+    .id-row { display: flex; gap: 12px; align-items: flex-start; margin: 6px 0 14px; }
+    .id-copy h3, .id-copy h2 { margin: 0; font: 700 22px/1.1 Fredoka, Nunito, sans-serif; color: #2a3568; }
+    .id-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .id-seen { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .id-note { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+    .facts { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin: 0 0 14px; }
+    .facts div, .metric, .group {
+      background: #fff; border: 1px solid #e4ecf8; border-radius: 14px; padding: 10px 12px;
+    }
+    .facts dt, .metric dt, .group h3 { font-size: 11px; color: var(--muted); margin: 0 0 4px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
+    .facts dd, .metric dd { margin: 0; font: 700 18px/1.1 Fredoka, Nunito, sans-serif; color: #2a3568; }
+    .facts .is-empty dd, .metric.is-empty dd { color: var(--muted); font-size: 14px; }
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 14px; flex-wrap: wrap; }
+    .tabs button { border: 0; background: transparent; padding: 8px 12px; color: var(--muted); border-radius: 10px 10px 0 0; }
+    .tabs button[aria-selected="true"] { color: var(--pink-deep); font-weight: 800; box-shadow: inset 0 -3px 0 var(--pink); }
+    .kv { display: grid; grid-template-columns: 10rem 1fr; gap: 8px 14px; }
+    .kv dt { color: var(--muted); }
+    .kv dd { margin: 0; font-weight: 700; }
+    .mons { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; max-height: 360px; overflow: auto; }
+    .mon-row {
+      display: grid; grid-template-columns: 48px 1fr auto auto; gap: 10px; align-items: center;
+      width: 100%; text-align: left; cursor: pointer; min-height: 52px;
+      background: #fff; border: 1px solid #e4ecf8; border-radius: 14px; padding: 8px 10px;
+      color: inherit; transition: background .14s ease;
+    }
+    .mon-row:hover { background: #fff7fb; }
+    .mon-row:focus-visible { background: var(--gold-soft); }
+    .mon-row strong { display: block; }
+    .chevron { color: var(--muted); font-size: 18px; line-height: 1; }
+    .art, .dex {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: linear-gradient(180deg, #e3f4ff, #fff);
+      display: grid; place-items: center; position: relative; overflow: hidden;
+    }
+    .art { aspect-ratio: 1; }
+    .art img {
+      width: 40px; height: 40px; object-fit: contain; image-rendering: auto;
+    }
+    .art.lg, .dex.lg { width: 128px; height: 128px; border-radius: 18px; }
+    .art.lg img { width: 128px; height: 128px; }
+    .dex {
+      font-size: 10px; font-weight: 800; color: #2a6aa8;
+    }
+    .dex.lg { font-size: 16px; }
+    .art .dex-fallback { display: grid; place-items: center; width: 100%; height: 100%; font-size: 10px; font-weight: 800; color: #2a6aa8; }
+    .art.lg .dex-fallback { font-size: 16px; }
+    .art img:not([hidden]) + .dex-fallback { display: none !important; }
+    .kv dd.is-empty { color: var(--muted); font-weight: 600; }
+    .unlocks { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+    .unlock {
+      padding: 6px 10px; border-radius: 999px; border: 1px solid #e4ecf8; background: #fff; font-size: 12px;
+    }
+    .unlock.on { background: var(--pink-soft); border-color: #f3c6e2; color: var(--pink-deep); }
+    .unlock.off { color: var(--muted); }
+    .filters { display: flex; gap: 6px; margin: 0 0 10px; }
+    .filters button { border: 2px solid #c9d4ec; background: #fff; border-radius: 999px; padding: 4px 10px; }
+    .filters button[aria-pressed="true"] { background: var(--pink-soft); border-color: #dca8c9; color: var(--pink-deep); font-weight: 800; }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 10px; margin: 12px 0; }
+    .metric small { display: block; color: var(--muted); font-weight: 600; font-size: 11px; margin-top: 4px; }
+    .bar { height: 6px; border-radius: 99px; background: #dce7f5; margin-top: 8px; overflow: hidden; }
+    .bar span { display: block; height: 100%; background: linear-gradient(90deg, #6aa8ef, #c04878); }
+    .empty { color: var(--muted); }
+    .door {
+      margin-top: 18px; padding: 12px 14px; border-radius: 14px;
+      background: linear-gradient(180deg, #fff7fb, #eef6ff); border: 1px solid #eadff0;
+    }
+    .groups { display: grid; gap: 10px; }
+    .is-390 .facts, .is-720 .facts { grid-template-columns: 1fr 1fr; }
+    .is-390 .kv, .is-720 .kv { grid-template-columns: 1fr; }
+    .is-390 .dir-head, .is-720 .dir-head { display: none; }
+    .is-390 .dir-hit, .is-720 .dir-hit { grid-template-columns: 1fr; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--line); border-radius: 0; }
+    .is-390 .dir-hit [data-label]::before, .is-720 .dir-hit [data-label]::before { content: attr(data-label) " · "; color: var(--muted); font-size: 11px; }
+    .cats, .items { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+    .cats { grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); }
+    .cat-hit, .item-hit, .conn-card {
+      width: 100%; text-align: left; min-height: 52px; padding: 10px 12px;
+      border: 1px solid #e4ecf8; border-radius: 14px; background: #fff; color: inherit;
+    }
+    .cat-hit, .item-hit { cursor: pointer; }
+    .cat-hit:hover, .item-hit:hover { background: #fff7fb; }
+    .cat-hit:focus-visible, .item-hit:focus-visible { background: var(--gold-soft); }
+    .cat-hit strong, .item-hit strong { display: block; }
+    .item-hit { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; }
+    .conn-card { display: grid; gap: 6px; margin: 0 0 10px; }
+    .conn-card h3 { margin: 0; font: 700 16px/1.2 Fredoka, Nunito, sans-serif; }
+    .help { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+    .storyboard {
+      margin-top: 14px; padding: 12px; border: 1px dashed #dca8c9; border-radius: 14px; background: #fffafd;
+    }
+    .storyboard p { margin: 0 0 8px; }
+    .future { padding: 12px; border-radius: 14px; background: #eef2fb; color: var(--muted); }
+    .ticket-box { background: #fff; border: 1px solid #e4ecf8; border-radius: 14px; padding: 12px; }
+    .rank { margin: 0 0 14px; }
+  .nav button,.tabs button,.filters button,.toolbar select,.textlink{min-height:44px;cursor:pointer}
+.nav button:not([aria-current]):hover,.tabs button:not([aria-selected="true"]):hover{background:#e8edff;transform:translateY(-2px)}
+.nav button[aria-current]:hover{background:#f6cde4}.tabs button[aria-selected="true"]{background:#ffe3f3}
+.tabs button{transition:background .15s,transform .15s}.tabs button:disabled{cursor:not-allowed;transform:none;opacity:.45}
+.cats{grid-template-columns:minmax(0,1fr)}.cat-hit{display:grid;grid-template-columns:44px minmax(0,1fr) 20px;align-items:center;gap:12px;min-height:76px}
+.cat-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:#edf2ff;color:#8a3d72;font-size:24px}
+.cat-icon img{object-fit:contain}.cat-hit:hover,.item-hit:hover{background:#eef3ff}.cat-hit .handle{margin-top:3px}
+.mon-row{grid-template-columns:48px minmax(0,1fr) 20px}.mon-title-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0}
+.mon-title-line strong{display:inline}.mon-identity{min-width:0;overflow-wrap:anywhere}.id-copy{min-width:0;overflow-wrap:anywhere}
+.stats-panel{margin-top:24px;padding:18px;background:#fff;border:1px solid #dce3f2;border-radius:16px}.stats-panel h3{margin-top:0}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.stats-grid dt{color:#6b6c84}.stats-grid dd{margin:4px 0 0}
+.storyboard summary{min-height:44px;cursor:pointer}.toolbar h1{font-size:16px}.toolbar p{margin:0;max-width:46rem}
+.frame.is-390{max-width:100%}.main h3{font-family:Fredoka,Nunito,sans-serif}.kv dd{overflow-wrap:anywhere;min-width:0}
+@media(max-width:800px){.frame{grid-template-columns:1fr}.nav{border-right:0}.nav-list{display:none}.nav.is-open .nav-list{display:block}.nav-toggle{display:block!important}.main{padding:14px}.kv{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.toolbar{align-items:start}}
+@media(prefers-reduced-motion:reduce){.nav button:hover,.tabs button:hover{transform:none!important}}
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>LOCAL DESIGN DEMO · Trainer UI v6</h1>
+    <p>Fictional records · no staff sign-in or account changes. <a href="./hub-a-visual-v5.html">Compare v5</a> · <a href="./index.html">Index</a> · <a href="../TRAINER-RECORD-ISSUE-12.md">Trainer record IA</a></p>
+    <label>Viewport
+      <select id="vp">
+        <option value="1440">1440</option>
+        <option value="1024">1024</option>
+        <option value="720">720 · narrow layout</option>
+        <option value="390">390</option>
+      </select>
+    </label>
+    <label>Demo
+      <select id="demo">
+        <option value="ready">Ready</option>
+        <option value="loading">Loading</option>
+        <option value="empty">Empty search</option>
+        <option value="denied">Denied</option>
+      </select>
+    </label>
+  </div>
+  <div class="stage">
+    <div class="frame is-1440" id="frame">
+      <nav class="nav" id="nav" aria-label="Admin Hub">
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false">Admin menu</button>
+        <p class="brand"><i aria-hidden="true"></i>Admin Hub</p>
+        <div class="nav-list" id="navList"></div>
+      </nav>
+      <div class="main" id="main"></div>
+    </div>
+  </div>
+  <script>
+    const SECTIONS = [
+      ["operations", "Operations"],
+      ["trainers", "Trainers"],
+      ["support", "Support"],
+      ["mart", "Mart"],
+      ["config", "Configuration"],
+      ["analytics", "Analytics"],
+      ["system", "System"]
+    ];
+    const trainers = [
+      { id: "oak", name: "Professor Oak", login: "oak", role: "staff", pass: true, caught: 37, seen: "12 Oct, 2:14 PM", full: "2026-10-12 18:14:03 UTC", initial: "O" },
+      { id: "blue", name: "Blue", login: "blue", role: "player", pass: true, caught: 12, seen: "11 Oct, 7:02 PM", full: "2026-10-11 23:02:11 UTC", initial: "B" },
+      { id: "long", name: "Superlongname-McGillicuddy", login: "superlongname", role: "player", pass: false, caught: 2, seen: "9 Oct, 10:41 AM", full: "2026-10-09 14:41:00 UTC", initial: "S" },
+      { id: "leaf", name: "Leaf", login: "leaf", role: "player", pass: false, caught: 0, seen: "unavailable", full: "", initial: "L" },
+      { id: "red", name: "Red", login: "red", role: "player", pass: true, caught: 8, seen: "8 Oct, 4:18 PM", full: "2026-10-08 20:18:44 UTC", initial: "R" },
+      { id: "yellow", name: "Yellow", login: "yellow", role: "player", pass: false, caught: 1, seen: "7 Oct, 1:05 PM", full: "2026-10-07 17:05:09 UTC", initial: "Y" },
+      { id: "green", name: "Green", login: "green", role: "player", pass: false, caught: 4, seen: "6 Oct, 9:22 AM", full: "2026-10-06 13:22:00 UTC", initial: "G" },
+      { id: "silver", name: "Silver", login: "silver", role: "player", pass: true, caught: 15, seen: "Today, 8:01 AM", full: "2026-10-12 12:01:12 UTC", initial: "V" }
+    ];
+    const identityByTrainer = {
+      oak: {
+        trainer: { level: 28, xp: 14200, title: "Champion", caught: 37, seen: 41, shinyCaught: 2, kanto: { caught: 41 } },
+        rankingVisible: true,
+        rankingEligible: true,
+        titles: [
+          { id: "champion", name: "Champion", unlocked: true, unlockedAt: "2026-09-01T12:00:00Z" },
+          { id: "rival", name: "Rival", unlocked: false, unlockedAt: "" }
+        ],
+        badges: [
+          { id: "cascade", name: "Cascade", unlocked: true, unlockedAt: "2026-08-12T16:00:00Z" },
+          { id: "boulder", name: "Boulder", unlocked: false, unlockedAt: "" }
+        ],
+        cosmetics: [
+          { id: "bg-kanto", name: "Kanto", kind: "background", unlocked: true, equipped: true },
+          { id: "bg-alola", name: "Alola", kind: "background", unlocked: false, equipped: false }
+        ],
+        ownedAvatarPacks: ["starter-red"],
+        catalog: [
+          { id: "bg-kanto", kind: "background", name: "Kanto" },
+          { id: "bg-alola", kind: "background", name: "Alola" }
+        ]
+      },
+      leaf: {
+        trainer: {},
+        rankingVisible: null,
+        rankingEligible: null,
+        titles: [],
+        badges: [],
+        cosmetics: [],
+        ownedAvatarPacks: [],
+        catalog: []
+      }
+    };
+    const bagByTrainer = {
+      oak: { coins: 4280, used: 14, capacity: 20, pokeball: 8, greatball: 3, ultraball: 2, masterball: 1, berry: 4, bait: 2, lure: 1 },
+      leaf: { coins: 0, used: 0, capacity: 20, pokeball: 0, greatball: 0, ultraball: 0, masterball: 0, berry: 0, bait: 0, lure: 0 }
+    };
+    const candyByTrainer = {
+      oak: [{ familyId: "bulbasaur", name: "Bulbasaur", qty: 12 }],
+      leaf: []
+    };
+    const connectionsByTrainer = {
+      oak: {
+        health: { primaryTwitch: "professoroak", linkedTwitch: 2, gameplayTwitch: 1, botTwitch: 1 },
+        connections: [
+          { type: "twitch", displayName: "Professor Oak", login: "professoroak", twitchUserId: "10001", primary: true, confirmed: true, gameplayEnabled: true, loginEnabled: true, status: "linked", linkedAt: "2026-03-02T11:04:00Z" },
+          { type: "twitch", displayName: "Oak Lab Bot", login: "oakbot", twitchUserId: "10002", primary: false, confirmed: false, gameplayEnabled: false, loginEnabled: false, status: "utility", linkedAt: "2026-04-01T08:00:00Z" }
+        ]
+      },
+      leaf: { health: {}, connections: [] }
+    };
+    const monsByTrainer = {
+      oak: [
+        { id: "m1", dex: 3, name: "Venusaur", nickname: "Venusaur", variant: "normal", gender: "F", ball: "poke", level: 36, caughtAt: "2026-10-01T12:00:00Z" },
+        { id: "m2", dex: 6, name: "Charizard", nickname: "", variant: "shiny", gender: "M", ball: "ultra", level: 40, caughtAt: "2026-09-22T18:11:00Z" },
+        { id: "m3", dex: 9, name: "Blastoise", nickname: "Blastoise", variant: "normal", gender: "M", ball: "great", level: 33, caughtAt: "2026-09-18T09:44:00Z" },
+        { id: "m4", dex: 25, name: "Pikachu", nickname: "Sparky", variant: "normal", gender: "M", ball: "poke", level: 18, caughtAt: "2026-09-12T16:02:00Z" },
+        { id: "m5", dex: 19, name: "Rattata", nickname: "Superlongname-McGillicuddy", variant: "normal", gender: "F", ball: "poke", level: 7, caughtAt: "2026-09-08T11:20:00Z" },
+        { id: "m6", dex: 129, name: "Magikarp", nickname: "", variant: "normal", gender: "", ball: "poke", level: 5, caughtAt: "" },
+        { id: "m7", dex: 10, name: "Caterpie", nickname: "", variant: "normal", gender: "M", ball: "", level: 4, caughtAt: "2026-08-30T07:15:00Z" },
+        { id: "m8", dex: 133, name: "Eevee", nickname: "Eevee", variant: "normal", gender: "F", ball: "great", level: 14, caughtAt: "2026-08-22T20:40:00Z" },
+        { id: "m9", dex: 143, name: "Snorlax", nickname: "", variant: "normal", gender: "M", ball: "ultra", level: 29, caughtAt: "2026-08-14T13:05:00Z" },
+        { id: "m10", dex: 130, name: "Gyarados", nickname: "", variant: "shiny", gender: "F", ball: "ultra", level: 32, caughtAt: "2026-08-02T19:28:00Z" }
+      ],
+      leaf: []
+    };
+    const state = {
+      section: "trainers", trainer: "oak", pane: "overview", query: "", demo: "ready",
+      filter: "all", mon: "", collectionScroll: 0, directoryScroll: 0,
+      unlockCat: "", unlockId: "", invCat: "", invItem: "", ticketFilter: "open"
+    };
+    const ART_BASE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork";
+
+    function chip(t, c) { return `<span class="chip${c ? " " + c : ""}">${t}</span>`; }
+    function header(title){return `<div class="ph"><h2>${title}</h2></div>`;}
+    function fact(label, value, empty) {
+      return `<div class="${empty ? "is-empty" : ""}"><dt>${label}</dt><dd>${value}</dd></div>`;
+    }
+    function dexLabel(dex) {
+      return dex != null && dex !== "" ? "#" + String(dex).padStart(3, "0") : "unavailable";
+    }
+    function ballLabel(ball) {
+      const names = { poke: "Poké Ball", great: "Great Ball", ultra: "Ultra Ball", master: "Master Ball" };
+      return ball ? (names[ball] || ball) : "";
+    }
+    function caughtLabel(iso) {
+      if (!iso) return { text: "unavailable", title: "", empty: true };
+      const date = new Date(iso);
+      if (Number.isNaN(date.getTime())) return { text: "unavailable", title: "", empty: true };
+      const text = date.toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+      return { text, title: iso.replace("T", " ").replace("Z", " UTC"), empty: false };
+    }
+    function variantChip(variant) {
+      if (!variant || variant === "normal") return "";
+      return chip(variant, variant === "shiny" ? "pass" : "");
+    }
+    function monTitle(mon) {
+      const nick = (mon.nickname || "").trim();
+      return nick && nick !== mon.name ? nick : mon.name;
+    }
+    function monSubtitle(mon) {
+      const nick = (mon.nickname || "").trim();
+      return nick && nick !== mon.name ? mon.name : "";
+    }
+    function profileFor() {
+      if (state.trainer === "leaf") return identityByTrainer.leaf;
+      return identityByTrainer.oak;
+    }
+    function bagFor() {
+      return state.trainer === "leaf" ? bagByTrainer.leaf : bagByTrainer.oak;
+    }
+    function candyFor() {
+      return state.trainer === "leaf" ? candyByTrainer.leaf : candyByTrainer.oak;
+    }
+    function linksFor() {
+      return state.trainer === "leaf" ? connectionsByTrainer.leaf : connectionsByTrainer.oak;
+    }
+    function avatarHtml(row, large) {
+      const cls = `av${large ? " lg" : ""}`;
+      const alt = row.name || "Trainer";
+      if (row.avatar) {
+        return `<span class="${cls}"><img src="${row.avatar}" alt="${alt}" width="${large ? 52 : 34}" height="${large ? 52 : 34}" onerror="this.remove(); this.parentElement.textContent='${row.initial}'"></span>`;
+      }
+      return `<span class="${cls}" aria-hidden="true">${row.initial}</span>`;
+    }
+    function passChip(on) {
+      return on ? chip("Starlight Pass", "pass") : chip("No Pass", "muted");
+    }
+    function storyboard(actions){return `<details class="storyboard"><summary>About these controls</summary><p>Changes require validation, confirmation and a staff audit record.</p><p>${actions}</p></details>`;}
+    function collectionMons() {
+      if (state.trainer === "leaf") return monsByTrainer.leaf;
+      return monsByTrainer.oak;
+    }
+    function isShiny(mon) {
+      return String(mon.variant || "").toLowerCase().includes("shiny");
+    }
+    function officialArt(mon) {
+      const id = Number(mon.dex);
+      if (!id) return "";
+      return isShiny(mon) ? `${ART_BASE}/shiny/${id}.png` : `${ART_BASE}/${id}.png`;
+    }
+    function localSprite(mon) {
+      const id = Number(mon.dex);
+      if (!id) return "";
+      return isShiny(mon) ? `/images/pokemon/shiny/${id}.gif` : `/images/pokemon/${id}.gif`;
+    }
+    function artFrame(mon, large) {
+      const dex = dexLabel(mon.dex);
+      const src = officialArt(mon);
+      const fallback = localSprite(mon);
+      const alt = `${monTitle(mon)}${isShiny(mon) ? " shiny" : ""}`;
+      if (!src) return `<span class="dex${large ? " lg" : ""}">${dex}</span>`;
+      return `<span class="art${large ? " lg" : ""}">
+        <img src="${src}" alt="${alt}" width="${large ? 128 : 40}" height="${large ? 128 : 40}" loading="lazy" decoding="async" data-fallback="${fallback}" onerror="window.hubArtError(this)">
+        <span class="dex-fallback" hidden>${dex}</span>
+      </span>`;
+    }
+    function pokemonCollection(){const list=collectionMons();return `<section class="pane"><h3>Recent Pokémon</h3><ul class="mons" id="monList">${list.map(mon=>`<li><button type="button" class="mon-row" data-mon="${mon.id}">${artFrame(mon,false)}<span class="mon-identity"><span class="mon-title-line"><strong>${monTitle(mon)}</strong>${isShiny(mon)?variantChip(mon.variant):''}</span>${monSubtitle(mon)?`<span class="handle">${monSubtitle(mon)}</span>`:''}</span><span class="chevron" aria-hidden="true">›</span></button></li>`).join('')}</ul></section>`;}
+    function pokemonDetail(mon){const caught=caughtLabel(mon.caughtAt);return `<section class="pane"><button type="button" class="btn-nav" data-mon-back>← Back to Pokémon</button><div class="id-row">${artFrame(mon,true)}<div><h3 class="mon-title-line">${monTitle(mon)} ${isShiny(mon)?variantChip(mon.variant):''}</h3>${monSubtitle(mon)?`<p class="handle">${monSubtitle(mon)}</p>`:''}<p class="handle">${dexLabel(mon.dex)} · ${mon.gender||'Gender unavailable'}</p></div></div><dl class="kv"><dt>Level</dt><dd>${mon.level??'Not available'}</dd><dt>Poké Ball</dt><dd>${ballLabel(mon.ball)||'Not available'}</dd><dt>Caught</dt><dd title="${caught.title}">${caught.empty?'Not available':caught.text}</dd></dl><section class="stats-panel" aria-labelledby="statsTitle" data-state="unavailable"><h3 id="statsTitle">Stats &amp; Battle Data</h3><p>Not available</p><dl class="stats-grid"><div><dt>Moves</dt><dd>Not available</dd></div><div><dt>Ability</dt><dd>Not available</dd></div><div><dt>Nature</dt><dd>Not available</dd></div><div><dt>Individual stats</dt><dd>Not available</dd></div></dl><button class="btn" type="button" disabled title="Editing needs a verified data contract, validation, confirmation and audit">Edit stats</button></section></section>`;}
+    function operations() {
+      if (state.demo === "denied") return header("Operations", "observation only") + `<p class="empty" role="status">Live status is restricted to staff.</p>`;
+      if (state.demo === "loading") return header("Operations", "observation only") + `<p class="empty" role="status">Loading live status…</p>`;
+      return header("Operations", "observation only · as of 12 Oct, 2:18 PM") + `
+        <p class="pane">Twitch is ${chip("LIVE", "live")}. Live RPG stays ${chip("INACTIVE", "idle")} until staff Start it on the current Dashboard.</p>
+        <dl class="metrics pane">
+          <div class="metric"><dt>Twitch</dt><dd>${chip("LIVE", "live")}</dd><small title="2026-10-12 18:18:00 UTC">Checked 2:18 PM · Stream night</small></div>
+          <div class="metric"><dt>Live RPG session</dt><dd>${chip("INACTIVE", "idle")}</dd><small>Not inferred from Twitch</small></div>
+          <div class="metric"><dt>Director</dt><dd>idle</dd><small>Last tick is not freshness</small></div>
+          <div class="metric"><dt>Current encounter</dt><dd>${chip("NONE", "off")}</dd><small>Director pointer is not an open encounter</small></div>
+          <div class="metric"><dt>Last recorded</dt><dd>CATCH</dd><small>Historical · Pikachu</small></div>
+          <div class="metric is-empty"><dt>Settlement</dt><dd>unavailable</dd></div>
+          <div class="metric"><dt>Permission</dt><dd>LIVE permits</dd><small>OFFLINE ends · Start is explicit</small></div>
+        </dl>
+        <p class="door"><a class="textlink" href="../../../admin.html?section=dashboard">Open current Dashboard</a> · this prototype does not start or tick.</p>`;
+    }
+
+    function directory() {
+      if (state.demo === "denied") return header("Trainers", "find") + `<p class="empty" role="status">Trainer search is restricted to staff.</p>`;
+      if (state.demo === "empty") {
+        return header("Trainers", "find") + `
+          <form class="search" onsubmit="return false;"><input type="search" value="zzzz" aria-label="Find trainers"><button class="btn primary" type="submit">Find</button></form>
+          <p class="empty" role="status">No trainers match.</p>`;
+      }
+      const status = state.demo === "loading" ? "Loading trainers…" : "8 trainers.";
+      const rows = trainers.map((row) => `<li>
+        <button type="button" class="dir-hit" data-open="${row.id}">
+          <span class="who">${avatarHtml(row, false)}<span><strong>${row.name}</strong><span class="handle">@${row.login}</span></span></span>
+          <span data-label="Role">${chip(row.role)}</span>
+          <span data-label="Starlight Pass">${row.pass ? chip("Starlight Pass", "pass") : chip("No Pass", "muted")}</span>
+          <span data-label="Pokémon">${row.caught}</span>
+          <span data-label="Last seen" title="${row.full}">${row.seen}</span>
+        </button>
+      </li>`).join("");
+      return header("Trainers", "find · list RPC only") + `
+        <form class="search" onsubmit="return false;">
+          <input type="search" value="${state.query}" placeholder="Name or Twitch login" aria-label="Find trainers">
+          <button class="btn primary" type="submit">Find</button>
+        </form>
+        <p class="meta" role="status">${status}</p>
+        <div class="dir-head" aria-hidden="true"><span>Trainer</span><span>Role</span><span>Starlight Pass</span><span>Pokémon</span><span>Last seen</span></div>
+        <ul class="dir" id="dirList">${rows}</ul>
+        <div class="pager"><button class="btn" type="button" disabled>Previous</button><button class="btn" type="button" disabled>Next</button></div>`;
+    }
+
+    function invCategories(){const b=bagFor(),c=candyFor().filter(x=>Number(x.qty)>0);return [
+ {id:'coins',name:'PokéCoins & Inventory Space',summary:`${Number(b.coins).toLocaleString('en-US')} PokéCoins · ${b.used} / ${b.capacity} slots`,icon:'pokecoin.png',items:[{id:'coins',name:'PokéCoins',qty:b.coins},{id:'bag',name:'Inventory Space',qty:`${b.used} / ${b.capacity}`} ]},
+ {id:'balls',name:'Poké Balls',summary:`${b.pokeball+b.greatball+b.ultraball+b.masterball} owned`,icon:'poke-ball.png',items:[{id:'pokeball',name:'Poké Ball',qty:b.pokeball},{id:'greatball',name:'Great Ball',qty:b.greatball},{id:'ultraball',name:'Ultra Ball',qty:b.ultraball},{id:'masterball',name:'Master Ball',qty:b.masterball}]},
+ {id:'consumables',name:'Consumables',summary:`${b.berry+b.bait+b.lure} owned`,icon:'inventory-bag.png',items:[{id:'berry',name:'Berry',qty:b.berry},{id:'bait',name:'Honey',qty:b.bait},{id:'lure',name:'Poké Radar',qty:b.lure}]},
+ {id:'candy',name:'Evolution Candy',summary:c.length?`${c.reduce((n,x)=>n+Number(x.qty),0)} owned`:'None owned',icon:'rare-candy.png',items:c.map(x=>({id:x.familyId,name:x.name+' Candy',qty:x.qty}))}
+ ];}
+    function inventoryPane(){const cats=invCategories();if(state.invItem&&state.invCat){const cat=cats.find(x=>x.id===state.invCat),item=cat?.items.find(x=>x.id===state.invItem);if(!item)return '<p class="empty">Item unavailable</p>';return `<section class="pane"><button type="button" class="btn-nav" data-inv-back>← Back to ${cat.name}</button><h3>${item.name}</h3><dl class="kv"><dt>${item.id==='bag'?'Used / available slots':'Quantity'}</dt><dd>${item.qty}</dd></dl>${storyboard('<button type="button" class="btn" disabled>Give</button> <button type="button" class="btn" disabled>Remove</button>')}</section>`;}if(state.invCat){const cat=cats.find(x=>x.id===state.invCat);return `<section class="pane"><button type="button" class="btn-nav" data-inv-cats>← Inventory categories</button><h3>${cat.name}</h3><ul class="items">${cat.items.length?cat.items.map(x=>`<li><button type="button" class="item-hit" data-inv-item="${x.id}"><strong>${x.name}</strong><span>${x.qty}</span><span class="chevron" aria-hidden="true">›</span></button></li>`).join(''):'<li class="empty">None owned</li>'}</ul></section>`;}return `<section class="pane"><h3>Inventory</h3><ul class="cats">${cats.map(cat=>`<li><button type="button" class="cat-hit" data-inv-cat="${cat.id}"><span class="cat-icon"><img src="../../../images/items/${cat.icon}" width="32" height="32" alt=""></span><span><strong>${cat.name}</strong><span class="handle">${cat.summary}</span></span><span class="chevron" aria-hidden="true">›</span></button></li>`).join('')}</ul></section>`;}
+    function unlockCategories(){const i=profileFor();return [
+ {id:'titles',name:'Titles',glyph:'★',items:(i.titles||[]).map(x=>({...x,status:x.unlocked?(x.id===(i.trainer?.title||'').toLowerCase()?'equipped':'owned'):'locked'}))},
+ {id:'badges',name:'Gym Badges',glyph:'✦',items:(i.badges||[]).map(x=>({...x,name:x.name+' Badge',status:x.unlocked?'owned':'locked'}))},
+ {id:'backgrounds',name:'Trainer ID Backgrounds',glyph:'▧',items:(i.cosmetics||[]).filter(x=>x.kind==='background').map(x=>({...x,status:x.equipped?'equipped':x.unlocked?'owned':'locked'}))},
+ {id:'team-backgrounds',name:'Pokémon Team Backgrounds',glyph:'▥',future:true,items:[]},
+ {id:'avatars',name:'Avatars',glyph:'☺',items:(i.ownedAvatarPacks||[]).map(id=>({id,name:'Starter avatar pack',status:'owned'}))},
+ {id:'ribbons',name:'Ribbons',glyph:'✧',future:true,items:[]}
+ ];}
+    function matchesFilter(item) {
+      if (state.filter === "all") return true;
+      if (state.filter === "owned") return item.status === "owned" || item.status === "equipped";
+      if (state.filter === "locked") return item.status === "locked";
+      if (state.filter === "equipped") return item.status === "equipped";
+      return true;
+    }
+    function progressionPane(busy){const ident=profileFor(),t=ident.trainer||{};if(!busy)return '<p class="pane empty">Progression is not available.</p>';const rank=`<dl class="facts"><div><dt>Level</dt><dd>${t.level}</dd></div><div><dt>Trainer XP</dt><dd>${Number(t.xp).toLocaleString('en-US')}</dd></div><div><dt>Caught / seen</dt><dd>${t.caught} / ${t.seen}</dd></div><div><dt>Ranking</dt><dd>${ident.rankingVisible?'Visible':'Hidden'}</dd></div></dl>`;const cats=unlockCategories();if(state.unlockCat){const cat=cats.find(x=>x.id===state.unlockCat);if(state.unlockId){const item=cat.items.find(x=>x.id===state.unlockId);return `<section class="pane">${rank}<button type="button" class="btn-nav" data-unlock-back>← Back to ${cat.name}</button><h3>${item.name}</h3><dl class="kv"><dt>Status</dt><dd>${item.status}</dd><dt>Unlocked on</dt><dd>${item.unlockedAt?caughtLabel(item.unlockedAt).text:'Not available'}</dd></dl>${storyboard('<button type="button" class="btn" disabled>Give</button> <button type="button" class="btn" disabled>Revoke</button>')}</section>`;}const shown=cat.items.filter(matchesFilter);return `<section class="pane">${rank}<button type="button" class="btn-nav" data-unlock-cats>← Unlockable categories</button><h3>${cat.name}</h3>${cat.future?'<p class="empty">Ownership information is not available.</p>':`<div class="filters" role="group" aria-label="Unlock filter">${['all','owned','locked','equipped'].map(f=>`<button type="button" data-filter="${f}" aria-pressed="${state.filter===f}">${f[0].toUpperCase()+f.slice(1)}</button>`).join('')}</div><ul class="items">${shown.length?shown.map(x=>`<li><button type="button" class="item-hit" data-unlock-item="${x.id}"><strong>${x.name}</strong>${chip(x.status,x.status==='locked'?'muted':'pass')}<span class="chevron" aria-hidden="true">›</span></button></li>`).join(''):'<li class="empty">No items match this filter.</li>'}</ul>`}</section>`;}return `<section class="pane">${rank}<h3>Unlockables</h3><ul class="cats">${cats.map(cat=>`<li><button type="button" class="cat-hit" data-unlock-cat="${cat.id}"><span class="cat-icon" aria-hidden="true">${cat.glyph}</span><span><strong>${cat.name}</strong><span class="handle">${cat.future?'Ownership unavailable':`${cat.items.filter(x=>['owned','equipped'].includes(x.status)).length} owned`}</span></span><span class="chevron" aria-hidden="true">›</span></button></li>`).join('')}</ul></section>`;}
+    function flagHelp(flag) {
+      const text = {
+        primary: "Primary is the account’s main Twitch identity for this trainer. It is not “online”.",
+        confirmed: "Confirmed is the connection’s identity-confirmation flag. It is not a social Verified badge.",
+        loginEnabled: "Login enabled means this Twitch login can sign the trainer in.",
+        gameplayEnabled: "Gameplay enabled means this link can earn in-game rewards.",
+        status: "Status is the raw connection status field. Do not read it as live presence.",
+        utility: "Bot / utility comes from health.botTwitch. It counts utility links, not “this player is a bot”."
+      };
+      return text[flag] || "";
+    }
+    function connectionsPane(){const pack=linksFor(),rows=pack.connections||[];if(!rows.length)return '<p class="pane empty">No Twitch account is connected.</p>';return `<section class="pane"><h3>Connected Twitch accounts</h3>${rows.map(r=>`<article class="conn-card"><h3>${r.displayName||r.login}</h3><p class="handle">@${r.login}</p><p class="id-chips">${r.primary?chip('Primary Twitch','pass'):''}${chip(r.confirmed?'Confirmed':'Awaiting verification',r.confirmed?'':'muted')}</p><dl class="kv"><dt>Can sign in</dt><dd>${r.loginEnabled?'Yes':'No'}</dd><dt>Gameplay rewards</dt><dd>${r.gameplayEnabled?'Enabled':'Off'}</dd><dt>Connected on</dt><dd>${caughtLabel(r.linkedAt).text}</dd></dl></article>`).join('')}</section>`;}
+    function ticketsPane(){return '<section class="pane"><h3>Support tickets</h3><p class="empty">No ticket information is available in this sample.</p></section>';}
+    function record() {
+      const busy = state.trainer !== "leaf";
+      const row = trainers.find((t) => t.id === state.trainer) || trainers[0];
+      const tabs = ["overview", "pokemon", "inventory", "progression", "connections", "tickets"].map((id) => {
+        const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections", tickets: "Tickets" };
+        return `<button type="button" role="tab" data-pane="${id}" aria-selected="${id === state.pane}">${labels[id]}</button>`;
+      }).join("");
+      if (state.demo === "denied") return header("Trainers", "inspect") + `<button type="button" class="btn-nav" data-back>← All trainers</button><p class="empty">Trainer inspect is restricted to staff.</p>`;
+      if (state.demo === "loading") return header("Trainers", "inspect") + `<button type="button" class="btn-nav" data-back>← All trainers</button><p class="empty">Loading trainer…</p>`;
+      let body = "";
+      if (state.pane === "overview") {
+        const pack = linksFor();
+        const confirmed = (pack.connections || []).some((item) => item.confirmed);
+        body = `<div class="pane"><dl class="kv">
+          
+          
+          <dt>Account id</dt><dd>${busy ? "aaaaaaaa-1111-2222-3333-444444444444" : "bbbbbbbb-5555-6666-7777-888888888888"}</dd>
+          
+          
+          <dt>Password login</dt><dd>${busy ? "Yes" : "No"}</dd>
+          <dt>Registered</dt><dd title="${busy ? "2026-03-02 11:04:00 UTC" : "2026-10-11 16:02:00 UTC"}">${busy ? "2 Mar 2026" : "11 Oct 2026"}</dd>
+          <dt>Twitch</dt><dd>${busy ? "Primary @professoroak · details on Connections" : "unavailable"}</dd>
+        </dl>
+        
+        
+        </div>`;
+      } else if (state.pane === "pokemon") {
+        if (!busy) {
+          body = `<p class="empty pane">No live Pokémon in this snapshot. Full PC is still unavailable.</p>`;
+        } else if (state.mon) {
+          const mon = collectionMons().find((item) => item.id === state.mon);
+          body = mon ? pokemonDetail(mon) : `<p class="empty pane">That catch is not in this 40-row snapshot.</p><button type="button" class="btn-nav" data-mon-back>← Back to Pokémon</button>`;
+        } else {
+          body = pokemonCollection();
+        }
+      } else if (state.pane === "inventory") {
+        body = inventoryPane();
+      } else if (state.pane === "progression") {
+        body = progressionPane(busy);
+      } else if (state.pane === "connections") {
+        body = connectionsPane();
+      } else {
+        body = ticketsPane();
+      }
+      const identNote = "";
+      return header("Trainers", "inspect · " + row.name) + `
+        <button type="button" class="btn-nav" data-back>← All trainers</button>
+        <div class="id-row">${avatarHtml(row, true)}
+          <div class="id-copy">
+            <h2>${row.name}</h2>
+            <p class="handle">@${row.login}</p>
+            <div class="id-chips">${chip(row.role)} ${passChip(row.pass)}</div>
+            <p class="id-seen" title="${row.full}">Last seen ${row.seen}</p>
+            ${identNote}
+          </div>
+        </div>
+        <div class="tabs" role="tablist">${tabs}</div>${body}
+        <p class="door">Need to change this account? <button type="button" class="textlink" data-support="${row.id}">Open Support with this trainer</button></p>`;
+    }
+
+    function support() {
+      const row = trainers.find((t) => t.id === state.trainer);
+      const context = row
+        ? `<div class="metric"><dt>About this trainer</dt><dd>${row.name}</dd><small>@${row.login} · carried from Trainers · not a write target</small></div>`
+        : `<p class="empty">No trainer context. Open a record first, or stay here as the doorway.</p>`;
+      return header("Support", "doorway · A3 still open") + `
+        <div class="pane">${context}
+        <p>This is the only next-hub door for privileged trainer actions. The current hub still performs the writes. This prototype has no grant, unlink, coin, role, or Oak QA controls.</p></div>
+        <p class="door">
+          <a class="textlink" href="../../../admin.html?section=trainers">Current grants, coins, unlinks, and roles</a><br>
+          <a class="textlink" href="../../../admin.html?section=content&amp;view=oakqa">Current Oak QA</a>
+        </p>`;
+    }
+
+    function pointer(title, context, body, href, label) {
+      return header(title, context) + `<p class="pane">${body}</p><p class="door"><a class="textlink" href="${href}">${label}</a></p>`;
+    }
+
+    function page() {
+      if (state.section === "operations") return operations();
+      if (state.section === "trainers") return state.trainer ? record() : directory();
+      if (state.section === "support") return support();
+      if (state.section === "mart") return pointer("Mart", "catalog stays on current hub", "Mart item CRUD and Content Studio remain on the current Economy catalog.", "../../../admin.html?section=economy&view=catalog", "Open current Mart editor");
+      if (state.section === "config") return pointer("Configuration", "encounters stay on current hub", "Balance editors stay on the current hub. This preview does not write site_config.", "../../../admin.html?section=encounters", "Open Encounters");
+      if (state.section === "analytics") return header("Analytics", "read only") + `<dl class="metrics pane"><div class="metric"><dt>Client build</dt><dd>20261008-rc133</dd></div><div class="metric"><dt>Twitch stream</dt><dd>${chip("LIVE", "live")}</dd></div></dl><p class="empty">Health RPCs only. Not a trainer dashboard.</p>`;
+      return pointer("System", "secrets stay on current hub", "Twitch secret, GitHub token, and bridge token remain owner-only. This preview cannot save secrets.", "../../../admin.html?section=system", "Open System & Integrations");
+    }
+
+    function render() {
+      document.getElementById("frame").className = "frame is-" + document.getElementById("vp").value;
+      document.getElementById("navList").innerHTML = SECTIONS.map(([id, label]) =>
+        `<button type="button" data-section="${id}" ${id === state.section ? 'aria-current="page"' : ""}>${label}</button>`
+      ).join("");
+      document.getElementById("main").innerHTML = page();
+      const list = document.getElementById("monList");
+      if (list) list.scrollTop = state.collectionScroll;
+      const dir = document.getElementById("dirList");
+      if (dir) dir.scrollTop = state.directoryScroll;
+    }
+
+    document.getElementById("vp").onchange = render;
+    document.getElementById("demo").onchange = function () { state.demo = this.value; render(); };
+    document.getElementById("navToggle").onclick = function () {
+      const nav = document.getElementById("nav");
+      nav.classList.toggle("is-open");
+      this.setAttribute("aria-expanded", nav.classList.contains("is-open") ? "true" : "false");
+    };
+    function resetRecordDrill() {
+      state.mon = "";
+      state.unlockCat = "";
+      state.unlockId = "";
+      state.invCat = "";
+      state.invItem = "";
+      state.ticketFilter = "open";
+      state.filter = "all";
+      state.collectionScroll = 0;
+    }
+    document.getElementById("frame").addEventListener("click", (event) => {
+      const section = event.target.closest("[data-section]");
+      const open = event.target.closest("[data-open]");
+      const back = event.target.closest("[data-back]");
+      const pane = event.target.closest("[data-pane]");
+      const support = event.target.closest("[data-support]");
+      const filter = event.target.closest("[data-filter]");
+      const mon = event.target.closest("[data-mon]");
+      const monBack = event.target.closest("[data-mon-back]");
+      const invCat = event.target.closest("[data-inv-cat]");
+      const invItem = event.target.closest("[data-inv-item]");
+      const invBack = event.target.closest("[data-inv-back]");
+      const invCats = event.target.closest("[data-inv-cats]");
+      const unlockCat = event.target.closest("[data-unlock-cat]");
+      const unlockItem = event.target.closest("[data-unlock-item]");
+      const unlockBack = event.target.closest("[data-unlock-back]");
+      const unlockCats = event.target.closest("[data-unlock-cats]");
+      const tickets = event.target.closest("[data-tickets]");
+      if (section) { state.section = section.getAttribute("data-section"); render(); }
+      else if (open) {
+        const dir = document.getElementById("dirList");
+        if (dir) state.directoryScroll = dir.scrollTop;
+        state.trainer = open.getAttribute("data-open");
+        state.pane = "overview";
+        state.section = "trainers";
+        resetRecordDrill();
+        render();
+      }
+      else if (back) { state.trainer = ""; state.section = "trainers"; resetRecordDrill(); render(); }
+      else if (monBack) { state.mon = ""; render(); }
+      else if (mon) {
+        const list = document.getElementById("monList");
+        if (list) state.collectionScroll = list.scrollTop;
+        state.mon = mon.getAttribute("data-mon");
+        state.pane = "pokemon";
+        render();
+      }
+      else if (pane) {
+        state.pane = pane.getAttribute("data-pane");
+        resetRecordDrill();
+        render();
+      }
+      else if (support) { state.trainer = support.getAttribute("data-support"); state.section = "support"; render(); }
+      else if (filter) { state.filter = filter.getAttribute("data-filter"); render(); }
+      else if (invCat) { state.invCat = invCat.getAttribute("data-inv-cat"); state.invItem = ""; render(); }
+      else if (invItem) { state.invItem = invItem.getAttribute("data-inv-item"); render(); }
+      else if (invBack) { state.invItem = ""; render(); }
+      else if (invCats) { state.invCat = ""; state.invItem = ""; render(); }
+      else if (unlockCat) { state.unlockCat = unlockCat.getAttribute("data-unlock-cat"); state.unlockId = ""; render(); }
+      else if (unlockItem) { state.unlockId = unlockItem.getAttribute("data-unlock-item"); render(); }
+      else if (unlockBack) { state.unlockId = ""; render(); }
+      else if (unlockCats) { state.unlockCat = ""; state.unlockId = ""; render(); }
+      else if (tickets) { state.ticketFilter = tickets.getAttribute("data-tickets"); render(); }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      if (state.mon) { state.mon = ""; render(); }
+      else if (state.unlockId) { state.unlockId = ""; render(); }
+      else if (state.unlockCat) { state.unlockCat = ""; render(); }
+      else if (state.invItem) { state.invItem = ""; render(); }
+      else if (state.invCat) { state.invCat = ""; render(); }
+    });
+    window.hubArtError = function (img) {
+      if (!(img instanceof HTMLImageElement) || img.dataset.artDone) return;
+      const next = img.getAttribute("data-fallback");
+      if (next && img.dataset.artStep !== "local") {
+        img.dataset.artStep = "local";
+        img.src = next;
+        return;
+      }
+      img.dataset.artDone = "1";
+      img.hidden = true;
+      const tile = img.nextElementSibling;
+      if (tile) tile.hidden = false;
+    };
+    const reviewParams = new URLSearchParams(location.search);
+    if (["1440","1024","720","390"].includes(reviewParams.get("viewport"))) document.getElementById("vp").value = reviewParams.get("viewport");
+    if (["overview","pokemon","inventory","progression","connections","tickets"].includes(reviewParams.get("pane"))) state.pane = reviewParams.get("pane");
+    render();
+  </script>
+</body>
+</html>

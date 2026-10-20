@@ -1,0 +1,32 @@
+{
+  "migrations": [
+    {
+      "version": "20261020010913",
+      "name": "twitch_link_policy_disabled_guard"
+    },
+    {
+      "version": "20261020010922",
+      "name": "twitch_verified_disconnect_disabled_staging"
+    }
+  ],
+  "state": {
+    "enabled": false,
+    "qa_user": null,
+    "qa_active": false,
+    "original_body_md5": "9eb6275c39191242b6789697a6e419ce",
+    "exceptions": 0,
+    "disconnect_requests": 0,
+    "mutex_rows": 0
+  },
+  "aggregates": {
+    "connection_rows": 3,
+    "auth_twitch_rows": 3,
+    "trainers_with_multiple_identities": 1,
+    "cross_trainer_numeric_collisions": 0,
+    "auth_without_connection": 0,
+    "connection_without_auth": 0,
+    "nonnumeric_legacy_connections": 0
+  },
+  "providerQA": "Not performed: owner has no separate Twitch test identity; owner/protected identity excluded",
+  "scope": "Owner-authorized disabled hosted install; no actor links or gameplay changed"
+}

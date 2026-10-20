@@ -4,6 +4,34 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-22",
+      "status": "doing",
+      "scope": "Issue15 separate static Trainer UI v6 review",
+      "dependencies": [
+        "CODEX-21"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "TRAINER-UI-V6-REVIEW.md; design-reset/hub-a-visual-v6.html",
+      "testResults": "Focused real DOM drilldowns,44px targets and constrained390/1024 frame review passed; build31/422",
+      "nextAction": "Complete actual viewport/zoom/keyboard/motion checks, then owner visual acceptance before product integration",
+      "approvalRequirement": "Static prototype authorized; product visual direction review remains open"
+    },
+    {
+      "id": "CODEX-21",
+      "status": "done",
+      "scope": "Owner-authorized disabled hosted Twitch policy installation and aggregate inspection",
+      "dependencies": [
+        "CODEX-20"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "TWITCH-LINKING-HOSTED-STAGING.md; evidence/twitch-policy-disabled-install.json",
+      "testResults": "Two migrations installed disabled; RLS/ACL/backup-body/empty-state verified; aggregate3 connections/3 identities/1 multi-link trainer/0 collisions; advisors inspected; provider QA not run",
+      "nextAction": "Keep policy disabled: owner has no separate Twitch test account. Continue issue15 static UI cleanup; general activation and D86 held",
+      "approvalRequirement": "Owner approved disabled install/EmailQA-only testing; clarified only owner Twitch is available, which is excluded from QA"
+    },
+    {
       "id": "CODEX-20",
       "status": "done",
       "scope": "Local Twitch one-link guard plus verified disconnect/replacement staging",

@@ -11,9 +11,9 @@
         "CODEX-32"
       ],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "4b26c3a0",
       "evidence": "POKEDEX-FAMILIARITY-DISPLAY.md; evidence/pokedex-familiarity-ui-qa.json",
-      "testResults": "11 reader LOCAL HARNESS;26 STATIC;build31/423;real DOM1280x720/390px;empty/error/account/dex-race/sign-out fixtures",
+      "testResults": "11 reader LOCAL HARNESS;26 STATIC;build31/423;real DOM1280x720/390px;empty/error/account/dex-race/sign-out fixtures;Pages39481327850 success;4 hosted static assets match",
       "nextAction": "My PC species-wide display remains planned; hosted authenticated Familiarity flow still unverified",
       "approvalRequirement": "Routine UI/publication authorized; no delivery/scheduling or new gameplay authority"
     },

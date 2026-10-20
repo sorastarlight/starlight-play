@@ -1,0 +1,33 @@
+{
+  "classification": "PUBLIC STATIC HTTP ASSETS ONLY; no scripts executed or authenticated request",
+  "commit": "4b26c3a0",
+  "pagesRun": 39481327850,
+  "pagesConclusion": "success",
+  "checkedAt": "2026-10-20T19:13:54.481Z",
+  "results": [
+    {
+      "path": "pokedex.html",
+      "status": 200,
+      "match": true,
+      "sha256": "7499d766306ef6593244c98a8a308d277db9875b311f237432c90a3e16bfbb1e"
+    },
+    {
+      "path": "js/pokedex.js",
+      "status": 200,
+      "match": true,
+      "sha256": "7c1650133a609c19b4878b06113cadb204ea1feaabb9f295e07007457ee58de0"
+    },
+    {
+      "path": "js/species-familiarity.js",
+      "status": 200,
+      "match": true,
+      "sha256": "47a114abf7dd7922d46892b6883b8b22eaeb0a981a205dad26ddf074cdd103f7"
+    },
+    {
+      "path": "css/play.css",
+      "status": 200,
+      "match": true,
+      "sha256": "10438236d2dfdaa2bb8d137dadcac3b27e13bbb89e11e1b13ffbdbf7bf2a1440"
+    }
+  ]
+}

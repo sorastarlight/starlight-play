@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-20",
+      "status": "done",
+      "scope": "Local Twitch one-link guard plus verified disconnect/replacement staging",
+      "dependencies": [
+        "CODEX-19"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "TWITCH-LINKING-IMPLEMENTATION.md; supabase/unapplied/account-link-policy/; tools/twitch-link-policy-rehearsal.js",
+      "testResults": "65 REAL LOCAL SQL checks;19 synthetic SDK/RPC checks; injected failure exits1; build31/422; no real provider tests",
+      "nextAction": "Host disabled installation and dedicated QA phase need authorization; frontend/intent/legacy attribution/general activation remain incomplete",
+      "approvalRequirement": "Owner approved implementation and local tests; no hosted installation or activation"
+    },
+    {
       "id": "CODEX-19",
       "status": "done",
       "scope": "Issue17 source-grounded Twitch linking policy research/design",

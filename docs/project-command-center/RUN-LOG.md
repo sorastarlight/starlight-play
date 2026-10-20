@@ -1,5 +1,9 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-20 — Twitch linking local guard (2026-10-19)
+
+Owner approved implementation/local tests. Unapplied SQL starts disabled; one numeric Twitch slot for ordinary trainers, count at Auth ingress and connection confirmation, alias collision checks, owner-approved bounded staff exceptions with current role/recent AMR/revision/audit, existing multi-links preserved.65 REAL LOCAL SQL checks cover concurrent links, REPEATABLE READ, concurrent demotion, denied identity rollback and rollback preservation. Actual captured identity trigger/recent-owner guard; synthetic Auth/session/roles, no provider OAuth. Post-start failure verified exit1; fixed async-exit-hook false-green risk in both new harnesses. Hosted dependency SELECT only. No hosted DDL/data/OAuth/link/role/gameplay/protected-account changes; APPrc133, build31/422. Added local verified provider-disconnect staging and19 synthetic SDK/RPC checks; full policy remains incomplete pending real provider callback/UI/intent/legacy fallback work and separate hosted staging/activation decisions. See TWITCH-LINKING-IMPLEMENTATION.md. Earlier records/tool commit6ac20b7e published; Pages39349645700 success.
+
 ## CODEX-19 — Twitch linking policy audit/design (2026-10-19)
 
 Read-only hosted catalog/source/index/RLS/ACL inspection: raw Twitch ID uniqueness and one confirmed primary enforced; inspected ingress/confirmation do not cap ordinary trainers at one link. Player direct writes denied. Documented callback/intent and Auth/application unlink separation, concurrency, legacy fallback, demotion, recovery and non-destructive migration requirements; R18 unchanged. Official identity-linking docs/changelog checked. No account rows read, account RPCs executed, provider flow tested or SQL/OAuth/links/roles changed. Policy implementation awaits owner decision. See TWITCH-LINKING-ISSUE-17.md.

@@ -121,4 +121,4 @@ async function main() {
     fs.rmSync(resolved,{recursive:true,force:true});
   }
 }
-if(require.main===module) main().catch(e=>{console.error('D85 STOP:',e.message);process.exitCode=1;});
+if(require.main===module) main().catch(e=>{console.error('D85 STOP:',e.message);process.exit(1);});

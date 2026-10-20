@@ -1,5 +1,7 @@
 # Coordination setup — approval packet
 
+Current narrow exception,2026-10-20: CODEX-28 completed explicitly owner-approved Familiarity recording activation only. See FAMILIARITY-RECORDING-ACTIVATION.md. The local D85 proof did not itself authorize this; the owner gave a separate decision. All other held gameplay/D86/delivery/WIRE/scheduling boundaries remain.
+
 Prepared 2026-10-18. Status: stage 1 repository handoff approved by the owner in this chat on 2026-10-18. Monitoring and execution remain disabled.
 
 ## Current status — 2026-10-19 Codex runner

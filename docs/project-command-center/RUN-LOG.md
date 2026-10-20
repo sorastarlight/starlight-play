@@ -1,5 +1,9 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-28 — Recording-only activation (2026-10-20)
+
+Owner explicitly approved activation only. One guarded existing-function call committed cutoff16:55:59.896904Z; lifecycle active, events0/outbox0, WIRE off. Independent read confirmed the same cutoff and0 Familiarity jobs. No encounter, delivery, scheduler, WIRE, schema/role or protected-account mutation. Operator stopped as approved. See FAMILIARITY-RECORDING-ACTIVATION.md.
+
 ## CODEX-27 — Post-D85 readiness review (2026-10-20)
 
 Read-only hosted singleton/aggregate/catalog checks confirmed inactive Familiarity, no cutoff/events/outbox, WIRE off and unchanged recorded core/stamp/freeze hashes. Cron now exists for other approved features;0 Familiarity jobs. Prepared activation-only decision packet; no mutating function or gameplay call. No protected/account rows read or changed. See POST-D85-NEXT-STEP.md.

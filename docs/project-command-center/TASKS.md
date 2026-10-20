@@ -4,7 +4,8 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-27 | done | Post-D85 readiness/activation-only packet | CODEX-26 | Read-only review | Await explicit one-time activation decision; no D86 execution |
+| CODEX-28 | done | Species Familiarity recording activation only | CODEX-27 | Explicit owner approval | Active cutoff16:55:59.896904Z;0 events/outbox;WIRE off; stop |
+| CODEX-27 | done | Post-D85 readiness/activation-only packet | CODEX-26 | Read-only review | Recording-only approval received; completed in CODEX-28 |
 | CODEX-26 | done | Bounded local D85 stamp rehearsal | CODEX-18 |10 max; stop first catch |8 escapes/1 replica error/1 natural catch; local stamp proof passed; D86 held |
 | CODEX-25 | done | Trainer keyboard and narrow stats QA | CODEX-24 | Routine frontend work | 21 checks + real DOM passed; zoom/motion emulation remains open |
 | CODEX-24 | done | Stored Pokémon stats read/display | CODEX-23 | Owner approved read-only patch | 14 SQL/37 JS checks; nulls preserved; no editing/backfill |
@@ -114,7 +115,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 Branch admin-hub-overhaul. Codex is the sole active runner. Owner authorized routine development and GitHub publication; later feature approvals delivered Trainer management, audited gifts/Pass, recovery and helpdesk. CODEX entries above are current; older table rows retain historical approval snapshots and are not fresh execution instructions. I13/I14 are complete; open GitHub issues may lag the implemented work. Issue#15 UI cleanup and#17 Twitch-linking policy remain follow-up candidates.
 
-D83 launch guard installed. CODEX-17 explains D85's three apparent mismatches: historical full-definition hashes were compared to body hashes. Source/migration comparisons agree. CODEX-18 first escaped. CODEX-26 completed the bounded local batch:8 escapes,1 replica error,1 natural catch with a finite stamp inside settlement. The focused local D85 criterion is complete; D86 is not authorized. WIRE/Familiarity activation, production collection reset, protected-account testing and APP stamp remain outside current approval. APP20261008-rc133; final gameplay smoke pending. Existing D53/D58 catches and historical install evidence are preserved. Broad generic BatchF remains gated; individually approved later features are documented by their CODEX scopes.
+D83 launch guard installed. CODEX-17 explains D85's three apparent mismatches: historical full-definition hashes were compared to body hashes. Source/migration comparisons agree. CODEX-18 first escaped. CODEX-26 completed the bounded local batch:8 escapes,1 replica error,1 natural catch with a finite stamp inside settlement. The focused local D85 criterion is complete; D86 is not authorized. CODEX-28 separately activated Familiarity recording only after explicit owner approval; WIRE, encounter tests, delivery, scheduling, production collection reset, protected-account testing and APP stamp remain outside current approval. APP20261008-rc133; final gameplay smoke pending. Existing D53/D58 catches and historical install evidence are preserved. Broad generic BatchF remains gated; individually approved later features are documented by their CODEX scopes.
 
 ## COORD-1 — repository handoff setup (2026-10-18)
 

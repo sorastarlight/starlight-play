@@ -1,5 +1,7 @@
 # Post-D85 next-stage decision
 
+Current status: the owner subsequently approved recording-only activation; CODEX-28 completed and verified it. This document preserves the pre-activation review. See [executed activation record](./FAMILIARITY-RECORDING-ACTIVATION.md). No additional scope is authorized.
+
 CODEX-27, 2026-10-20. Read-only readiness review only. **No D86 execution or activation performed.**
 
 ## What is complete

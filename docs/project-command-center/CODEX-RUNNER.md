@@ -1,5 +1,7 @@
 # Codex runner trial
 
+Current narrow exception,2026-10-20: owner explicitly approved Species Familiarity recording activation only. CODEX-28 committed and verified its one-time cutoff. Earlier inactive/activation-held statements remain historical except for this operation. No encounter, delivery, scheduling, WIRE or broader D86 action is authorized.
+
 Owner instructions received October 18, 2026 supersede the Gemini/Cursor handoff for current work. Codex uses this existing checkout as the sole project runner. Historical approvals and reports remain intact.
 
 ## Operating scope

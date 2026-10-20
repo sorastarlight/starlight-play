@@ -1,0 +1,22 @@
+{
+  "classification": "HOSTED OWNER-APPROVED RECORDING ACTIVATION; no encounter/delivery",
+  "activationCalls": 1,
+  "scope": "recording only",
+  "activation": {
+    "singleton": true,
+    "activated_at": "2026-10-20T16:55:59.896904+00:00",
+    "disabled_at": null,
+    "lifecycle": "active",
+    "paused_at": null,
+    "drain_started_at": null,
+    "closed_at": null
+  },
+  "events": 0,
+  "outbox": 0,
+  "wire_enabled": false,
+  "encounterRun": false,
+  "deliveryRun": false,
+  "wireActivated": false,
+  "schedulingAdded": false,
+  "protectedAccountMutation": false
+}

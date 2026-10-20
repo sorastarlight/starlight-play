@@ -1,5 +1,7 @@
 # Pokémon StreamLink — project command center
 
+**Species Familiarity recording is active**, with cutoff2026-10-20T16:55:59.896904Z, after [explicit recording-only approval](./FAMILIARITY-RECORDING-ACTIVATION.md). Verified0 events/outbox; no delivery or scheduling. WIRE remains off; further gameplay/D86 actions remain held.
+
 Post-D85 [next-stage decision](./POST-D85-NEXT-STEP.md): current inactive/empty/off baseline verified read-only. Activation-only proposal remains pending; no D86 execution.
 
 Trainer [keyboard navigation and390px stats review](./TRAINER-KEYBOARD-ACCESSIBILITY.md) completed. Arrow/Home/End focus navigation and retained activation focus; zoom/motion emulation remains open.

@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-28",
+      "status": "done",
+      "scope": "Single owner-approved Species Familiarity recording activation",
+      "dependencies": [
+        "CODEX-27"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "FAMILIARITY-RECORDING-ACTIVATION.md; evidence/familiarity-activation-result.json; evidence/familiarity-activation-executed.sql",
+      "testResults": "One committed call;active/finite cutoff;events0/outbox0;WIRE false;0 Familiarity jobs;independent read verified",
+      "nextAction": "Stop as approved; post-activation encounters/delivery/scheduling/WIRE remain held",
+      "approvalRequirement": "Explicit Approve activation only received; no broader D86 authority"
+    },
+    {
       "id": "CODEX-27",
       "status": "done",
       "scope": "Post-D85 read-only readiness and activation-only decision packet",
@@ -14,8 +28,8 @@
       "commit": null,
       "evidence": "POST-D85-NEXT-STEP.md; evidence/post-d85-readiness.json",
       "testResults": "Inactive/empty/off baseline; function/trigger hashes match; restricted EXECUTE; cron present but0 Familiarity jobs",
-      "nextAction": "Owner decision on one-time nonretroactive activation only; no D86 action taken",
-      "approvalRequirement": "Explicit approval needed for cutoff/activation; current proceed covered readiness review"
+      "nextAction": "Owner approved activation-only; completed and verified in CODEX-28",
+      "approvalRequirement": "Recording-only approval received; broader actions remain held"
     },
     {
       "id": "CODEX-26",

@@ -1,5 +1,11 @@
 # Pokémon authenticity and legality audit (GitHub issue #16)
 
+## Current status —2026-10-20
+
+The original audit below is a historical snapshot, not the current schema contract. Subsequent owner-approved work installed nullable Gen IX fields and generation/validation infrastructure; ordinary gameplay activation remains separately gated. [Stored admin stats](./ADMIN-POKEMON-STATS.md) now expose recorded moves, nature/ability, HP, IVs, EVs and legacy Awakening values through the existing staff response. Older catches can still lack newer fields; no blanket backfill occurred. The inspector does not calculate battle totals or permit edits. [D85](./D85-LOCAL-REHEARSAL.md) stamp proof remains incomplete, D86 unauthorized, and WIRE/Familiarity activation held. No claim of cartridge/HOME exchange legality follows from the inspector.
+
+Issue16's original source audit was already completed (I16) and superseded by the Gen IX architecture/reconciliation records. Do not restart the full historical audit because the GitHub issue remains open; scope any new editor or gameplay activation separately.
+
 Parent: epic #11. **DESIGN / SOURCE AUDIT ONLY.** This batch does not change SQL, RPCs, live Pokémon, production, `admin-next.html`, or privileged permissions.
 
 **Verdict:** StreamLink already persists **Let's Go–inspired individuals**, not empty species shells. That is **not** the same as generating official-game-legal Pokémon. PokéAPI integration is a **Pokédex encyclopedia** (`js/pokedex-reference.js`). It does not generate, validate, or stamp catch rows.

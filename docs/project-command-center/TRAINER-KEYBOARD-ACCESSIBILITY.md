@@ -9,3 +9,5 @@ REAL DOM local QA with the actual presenter and fictional records verified: Pok√
 A390px iframe viewport was visually checked with all6 stats rows and IV/EV/Awakening columns fitting inside the panel. Screenshot trainer-stats-mobile-checked.png in task visualization folder. This is browser layout evidence, not physical-device or200% browser-zoom evidence. Browser controls still lack zoom/reduced-motion emulation; those checks remain open. Existing reduced-motion CSS is unchanged.
 
 Validation:13 presenter +8 trainer-contract checks passed; build31 pages/422 references with APP20261008-rc133. No SQL, roles, identity links, grants, player records, build stamps or spending. Sora mutated NO; Twinkle mutated NO; PlayTester/PlayerQA unchanged. Twitch policy remains disabled; D85 stamp proof and D86 remain held.
+
+Queue reconciliation: issue16 source audit is already done (I16), with later Gen IX work superseding its original schema snapshot. Added a current-status note linking stored admin stats and held gameplay gates; no new editor or generation work started.

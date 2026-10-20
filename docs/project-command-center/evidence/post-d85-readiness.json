@@ -1,0 +1,18 @@
+{
+  "classification": "READ-ONLY HOSTED CATALOG / AGGREGATES",
+  "lifecycle": "inactive",
+  "activatedAt": null,
+  "events": 0,
+  "outbox": 0,
+  "wireEnabled": false,
+  "cronInstalled": true,
+  "familiarityJobs": 0,
+  "activationBodyMd5": "75abaf722451fbc4b1818986ce6cbd71",
+  "settlementBodyMd5": "565c102d0a8c84a3dfd036653aca307c",
+  "stampBodyMd5": "b66ad1b961b3573a2c48947dfe0413ea",
+  "stampFreezeBodyMd5": "ae884032419d5162ead315d0f216d76c",
+  "caughtAtFreezeBodyMd5": "046fb0fe991c2aa28f3b8fcbe39b42e9",
+  "activationCalled": false,
+  "gameplayCalled": false,
+  "trainerRowsSelected": 0
+}

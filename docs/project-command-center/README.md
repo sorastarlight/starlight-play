@@ -1,5 +1,7 @@
 # Pokémon StreamLink — project command center
 
+Post-D85 [next-stage decision](./POST-D85-NEXT-STEP.md): current inactive/empty/off baseline verified read-only. Activation-only proposal remains pending; no D86 execution.
+
 Trainer [keyboard navigation and390px stats review](./TRAINER-KEYBOARD-ACCESSIBILITY.md) completed. Arrow/Home/End focus navigation and retained activation focus; zoom/motion emulation remains open.
 
 Trainer Pokémon [stored stats](./ADMIN-POKEMON-STATS.md) connected after explicit owner approval: moves, nature/ability, HP and IV/EV/Awakening values. Missing older fields remain unavailable; editing disabled.

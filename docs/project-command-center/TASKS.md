@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-27 | done | Post-D85 readiness/activation-only packet | CODEX-26 | Read-only review | Await explicit one-time activation decision; no D86 execution |
 | CODEX-26 | done | Bounded local D85 stamp rehearsal | CODEX-18 |10 max; stop first catch |8 escapes/1 replica error/1 natural catch; local stamp proof passed; D86 held |
 | CODEX-25 | done | Trainer keyboard and narrow stats QA | CODEX-24 | Routine frontend work | 21 checks + real DOM passed; zoom/motion emulation remains open |
 | CODEX-24 | done | Stored Pokémon stats read/display | CODEX-23 | Owner approved read-only patch | 14 SQL/37 JS checks; nulls preserved; no editing/backfill |

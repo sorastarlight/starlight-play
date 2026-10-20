@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-27",
+      "status": "done",
+      "scope": "Post-D85 read-only readiness and activation-only decision packet",
+      "dependencies": [
+        "CODEX-26"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "POST-D85-NEXT-STEP.md; evidence/post-d85-readiness.json",
+      "testResults": "Inactive/empty/off baseline; function/trigger hashes match; restricted EXECUTE; cron present but0 Familiarity jobs",
+      "nextAction": "Owner decision on one-time nonretroactive activation only; no D86 action taken",
+      "approvalRequirement": "Explicit approval needed for cutoff/activation; current proceed covered readiness review"
+    },
+    {
       "id": "CODEX-26",
       "status": "done",
       "scope": "Owner-approved up to10 isolated local D85 ordinary attempts; stop first catch",

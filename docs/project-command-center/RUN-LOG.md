@@ -1,5 +1,9 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-27 — Post-D85 readiness review (2026-10-20)
+
+Read-only hosted singleton/aggregate/catalog checks confirmed inactive Familiarity, no cutoff/events/outbox, WIRE off and unchanged recorded core/stamp/freeze hashes. Cron now exists for other approved features;0 Familiarity jobs. Prepared activation-only decision packet; no mutating function or gameplay call. No protected/account rows read or changed. See POST-D85-NEXT-STEP.md.
+
 ## CODEX-26 — Bounded local D85 stamp proof (2026-10-20)
 
 CODEX-26 completed the approved bounded local batch:8 escapes,1 replica error,1 natural catch with stamp/replay proof. D85's focused local criterion is satisfied; full production readiness is not established and D86 remains unauthorized. Attempt7 missing local protection-helper dependency was fixed using its exact catalog definition, then preflighted without throwing. It remains counted as an error. Attempt10 stamped at16:27:36.578Z inside565–580ms settlement window; replay/one debit passed. No leftover clusters; opt-in/hosted-target guards exit1. No hosted gameplay/DDL/data or protected-account mutation; APPrc133. See D85-LOCAL-REHEARSAL.md and per-attempt evidence.

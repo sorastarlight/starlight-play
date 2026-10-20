@@ -1,5 +1,7 @@
 # Pokémon StreamLink — project command center
 
+Trainer v6 [presentation slice](./TRAINER-UI-V6-IMPLEMENTATION.md) applied after owner proceeded; Gym Badges remain unavailable. Full viewport/motion QA remains open.
+
 Trainer UI: [v6 static draft](./design-reset/hub-a-visual-v6.html), [checks and remaining limits](./TRAINER-UI-V6-REVIEW.md). Product integration remains held for visual review.
 
 Twitch policy [installed disabled](./TWITCH-LINKING-HOSTED-STAGING.md) after owner approval. Provider QA has no separate Twitch test identity; owner/protected identities stay excluded. General activation remains held.

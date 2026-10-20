@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-23",
+      "status": "done",
+      "scope": "Reviewed Trainer v6 presentation slice",
+      "dependencies": [
+        "CODEX-22"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "TRAINER-UI-V6-IMPLEMENTATION.md",
+      "testResults": "36 focused checks; build31/422; real DOM local actual-presenter checks",
+      "nextAction": "Finish remaining issue15 viewport/motion matrix; Gym Badges stay unavailable",
+      "approvalRequirement": "Owner proceeded after visual review; no new authority changes"
+    },
+    {
       "id": "CODEX-22",
       "status": "doing",
       "scope": "Issue15 separate static Trainer UI v6 review",

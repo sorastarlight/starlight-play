@@ -1,0 +1,9 @@
+# Trainer UI v6 presentation slice
+
+CODEX-23, 2026-10-19. Owner proceeded after reviewing v6 and confirming Gym Badges remain unavailable. Applied a bounded presentation slice to js/admin-next-record.js and css/admin-record.css. No backend, RPC allowlist, Auth, staff gift/Pass mutation controller or legacy admin changes.
+
+Changes: Shiny beside Pokémon identity; nickname/species shown once; removed duplicate Species/Variant rows; unavailable Stats & Battle Data panel with disabled edit; one-column Inventory/Unlockable category rows with local icons/status/chevrons; Master Ball friendly name; consistent background labels; connection cards describe sign-in/reward capabilities without technical linked-row counts. Sidebar/tab hover, pointer and keyboard-focus styling,44px minimum, reduced-motion CSS. Existing unknown ownership and zero-vs-unavailable rules preserved. Gym Badges remain an unavailable empty group; no earning/granting/equipping feature was enabled. Ribbons remain separate.
+
+Validation:12 presenter checks,8 trainer-contract checks,16 reward checks passed (36 focused checks); build31 pages/422 references, APP20261008-rc133. REAL DOM local fixture uses the actual production presenter and CSS, no Auth/network gameplay calls. Shiny detail/artwork, unavailable stats/disabled edit, Escape/back focus, Inventory icons/targets, keyboard focus and Gym Badge unavailable notice checked. All4 category images loaded; category controls measured73.6px at the local browser scale with pointer cursors. The fixture is ignored tools/.cache/trainer-presenter-qa.html and is not published.
+
+Limits: no authenticated hosted account was opened/tested in this slice. Actual200% browser zoom and reduced-motion emulation remain unverified; full issue15 matrix remains open in CODEX-22. No stats editor or ownership data was invented. Sora mutated NO; Twinkle mutated NO; QA fictional records only. Twitch policy disabled; D85 stamp proof incomplete; D86 held.

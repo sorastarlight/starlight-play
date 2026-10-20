@@ -103,3 +103,21 @@
 @keyframes reward-arrive { from { opacity:0; transform:translateY(8px) scale(.98); } to { opacity:1; transform:none; } }
 @media(prefers-reduced-motion:reduce) { .reward-review-hero { animation:none; } }
 @media(max-width:520px) { .reward-dialog { padding:16px; } .reward-picker-filters { grid-template-columns:1fr; } .reward-species-choice { flex-wrap:wrap; } }
+/* Reviewed Trainer v6: linear categories and clear identity/status. */
+.record-groups { grid-template-columns:minmax(0,1fr); }
+.record-category-icon { display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px!important;border-radius:12px;background:#eaf1ff;color:#834d78;font-size:24px; }
+.record-category-icon img { object-fit:contain; }
+.record-category strong,.record-category small { display:block; }
+.record-category small { margin-top:5px;color:#656881;font-weight:600; }
+.record-mon-identity { display:flex;gap:16px;align-items:center;margin-bottom:20px; }
+.record-mon-identity h4 { display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0; }
+.record-shiny { background:#fff0bf;color:#715210; }
+.record-stats { border-top:1px solid #dce3f2;margin-top:24px;padding-top:20px; }
+.record-stats .record-note { margin:16px 0; }
+.record-stats button:disabled { min-height:44px;opacity:.55;cursor:not-allowed; }
+.hub-nav button,.record-tabs button,.record-hit { cursor:pointer;min-height:44px; }
+.hub-nav button,.record-tabs button { transition:background .15s,transform .15s; }
+.hub-nav button:not(:disabled):hover,.record-tabs button:not(:disabled):hover { transform:translateY(-2px);background:#eef3ff; }
+.record-tabs button[aria-selected="true"]:hover { background:#ffe3f3; }
+.hub-nav button:focus-visible { outline:3px solid #aa8116;outline-offset:3px; }
+@media(prefers-reduced-motion:reduce) { .hub-nav button,.record-tabs button { transition:none; } .hub-nav button:hover,.record-tabs button:hover { transform:none; } }

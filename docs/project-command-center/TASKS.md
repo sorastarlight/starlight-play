@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-23 | done | Reviewed Trainer v6 presentation slice | CODEX-22 | Owner proceeded | 36 checks and local DOM passed; full issue15 matrix remains open |
 | CODEX-22 | doing | Issue15 static Trainer UI v6 review | CODEX-21 | Prototype authorized | Draft published; finish viewport/zoom/a11y checks, then visual acceptance |
 | CODEX-21 | done | Disabled hosted Twitch policy install | CODEX-20 | Disabled install/QA approved | Verified disabled; no separate test Twitch identity, provider QA unperformed; continue UI cleanup |
 | CODEX-20 | done | Issue17 local server-enforcement core | CODEX-19 | Implementation/local tests approved | 65 SQL checks; full workflow and hosted activation incomplete |

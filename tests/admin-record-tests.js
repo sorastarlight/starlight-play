@@ -31,7 +31,7 @@ test("Unlocks never infer ownership from catalog presence", () => {
 });
 test("Pokemon details show only returned specimen data", () => {
   const html = ui.profileHtml(view("pokemon", { mon: "mon1" }));
-  assert(html.includes("Bulbasaur")); assert(ui.profileHtml(view("pokemon")).includes("not the full PC")); assert(html.includes("stats, box, favorite and locked status are unavailable"));
+  assert(html.includes("Bulbasaur")); assert(ui.profileHtml(view("pokemon")).includes("not the full PC")); assert(html.includes("Battle data is not available"));
   assert(!html.includes("playCall"));
 });
 test("Presentation layer introduces no network or authority calls", () => {
@@ -48,10 +48,30 @@ test("Snapshot-only row keys do not fabricate specimen ids", () => {
   const missingIdAccount = { ...account, mons: [{ name: "First" }, { name: "Second" }] };
   const snapshot = { ...ui.presentProfile({ account: missingIdAccount, pane: "pokemon" }), recordState: { mon: "snapshot-row-1" } };
   const html = ui.profileHtml(snapshot);
-  assert(html.includes(">Second</h4>")); assert(html.includes("<dt>Specimen id</dt><dd>Unavailable</dd>"));
+  assert(/>Second\s*<\/h4>/.test(html)); assert(html.includes("<dt>Specimen id</dt><dd>Unavailable</dd>"));
 });
 test("Loading and denied do not expose prior dossier data", () => {
   assert(!ui.profileHtml(ui.presentProfile({ error: "denied" })).includes("fixture"));
   assert(ui.profileHtml(ui.presentProfile({ error: "loading" })).includes("Loading trainer"));
+});
+test("Gym Badge ownership stays unavailable and separate from ribbons", () => {
+  const group = ui.unlockGroups(view("progression")).find(row => row.id === "gym-badges-future");
+  assert.equal(group.items.length, 0); assert(group.unavailable);
+  const html = ui.profileHtml(view("progression", {group: group.id}));
+  assert(html.includes("Ownership is not available yet")); assert(!html.includes("data-record-action=\"item\""));
+});
+test("Shiny identity, honest stats and human item labels", () => {
+  const shiny = { ...account, mons: [{...account.mons[0], variant: "shiny"}] };
+  const html = ui.profileHtml({...ui.presentProfile({account:shiny,pane:"pokemon"}),recordState:{mon:"mon1"}});
+  assert(html.includes("record-shiny")); assert(!html.includes("<dt>Variant</dt>")); assert(!html.includes("<dt>Species</dt>"));
+  assert(html.includes("disabled>Edit stats")); assert(html.includes("<dt>Ability</dt><dd>Unavailable</dd>"));
+  assert.equal(ui.inventoryGroups(view("inventory")).find(g=>g.id==="balls").items.find(i=>i.id==="masterball").name,"Master Ball");
+});
+test("Connections preserve unknown capabilities and escape provider labels", () => {
+  const accountWithLink = {...account,connections:[{displayName:'<script>bad</script>',login:'test',primary:true,gameplayEnabled:false}]};
+  const html=ui.profileHtml(ui.presentProfile({account:accountWithLink,pane:"connections"}));
+  assert(html.includes('&lt;script&gt;bad&lt;/script&gt;'));assert(!html.includes('<script>bad'));
+  assert(html.includes('<dt>Can sign in</dt><dd>Unavailable</dd>'));assert(html.includes('<dt>Gameplay rewards</dt><dd>No</dd>'));
+  assert(!html.includes('Linked Twitch rows'));assert(html.includes('data-trainer-diagnostics'));
 });
 console.log(`${checks} passed`);

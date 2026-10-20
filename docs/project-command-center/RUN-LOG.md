@@ -1,5 +1,9 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-23 — Trainer v6 presentation slice (2026-10-19)
+
+Owner proceeded after reviewing the prototype and Gym Badge limitation.36 focused checks and actual-presenter local DOM checks passed; build31/422 APPrc133. No backend/Auth/gameplay/protected account mutations. See TRAINER-UI-V6-IMPLEMENTATION.md.
+
 ## CODEX-22 — Trainer UI v6 static draft (2026-10-19)
 
 Separate fictional prototype; focused real DOM navigation/filter/detail checks and44px targets verified. Constrained390/1024 frames inspected. Actual viewport/zoom/keyboard/motion checks and owner visual acceptance remain. Product presenters unchanged. See TRAINER-UI-V6-REVIEW.md. Prior7d8b6828 Pages39351613665 succeeded.

@@ -2,9 +2,9 @@
 
 Prepared 2026-10-18. Status: stage 1 repository handoff approved by the owner in this chat on 2026-10-18. Monitoring and execution remain disabled.
 
-## Current status — 2026-10-18 Gemini handoff
+## Current status — 2026-10-19 Codex runner
 
-D83 installed the unchanged launch-guard function. D85 is blocked because `spend_bag_item`, `announce_throws`, and `capture_chance` fingerprints drifted from the recorded ones. D86 is not authorized. RPG development is paused for the Gemini planning handoff. The D82 STOP in the findings below is historical and is not the current queue. This file does not schedule work. Live services were not stopped.
+Codex is the sole runner; the Gemini/Cursor handoff is archival. Routine development and GitHub publication are owner-authorized, with later feature approvals recorded in CODEX tasks. D83 is installed. CODEX-17 reconciled D85's full-definition/body hash mix-up; the isolated stamp rehearsal remains pending and D86 unauthorized. No gameplay activation or stamp authority is implied. Historical findings below retain their original inspection dates and are not the current queue. This document does not schedule work or stop live services.
 
 Repository: sorastarlight/starlight-play. Working branch: admin-hub-overhaul.
 Inspected branch head: a8320107ac8ac310dd2bd68cf2e8229b77c30272. Recheck before publishing.

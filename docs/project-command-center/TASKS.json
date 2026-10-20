@@ -4,6 +4,21 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-17",
+      "status": "done",
+      "scope": "Read-only D85 fingerprint reconciliation and tracker precedence cleanup",
+      "dependencies": [
+        "CODEX-16",
+        "I51"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "D85-FINGERPRINT-RECONCILIATION.md; evidence/d85-current-function-catalog.json; tools/d85-fingerprint-reconcile.js",
+      "testResults": "3/3 snapshot/source/migration comparisons passed; live catalog full-definition hashes match historical values exactly; no gameplay calls",
+      "nextAction": "Isolated D85 stamp rehearsal remains pending; D86 unauthorized",
+      "approvalRequirement": "Owner proceeded with read-only investigation and record reconciliation; no gameplay authority expanded"
+    },
+    {
       "id": "CODEX-16",
       "status": "done",
       "scope": "Connected player Support and owner Helpdesk with90-day retention",
@@ -1318,18 +1333,18 @@
     },
     {
       "id": "I51",
-      "status": "blocked",
-      "scope": "D85 local stamp rehearsal. Stopped before any write.",
+      "status": "todo",
+      "scope": "D85 isolated stamp rehearsal; original stop preserved, hash inputs reconciled",
       "dependencies": [
         "I50",
         "D85"
       ],
       "branch": "admin-hub-overhaul",
       "commit": "1d1f9ec2",
-      "evidence": "docs/project-command-center/D85-STAMP-REHEARSAL.md",
-      "testResults": "READ-ONLY LIVE CATALOG. spend, announce, and capture_chance drifted from recorded md5s. No local database.",
-      "nextAction": "STOP. Do not start D86. Name the authoritative spend, announce, and capture-chance bodies before another rehearsal.",
-      "approvalRequirement": "This report does not choose the drifted bodies or restore the recorded ones."
+      "evidence": "D85-STAMP-REHEARSAL.md; D85-FINGERPRINT-RECONCILIATION.md",
+      "testResults": "Original rehearsal did not run; CODEX-17 proved historical full-definition hashes match current definitions and repository bodies",
+      "nextAction": "Fingerprint metric mismatch reconciled by CODEX-17; isolated stamp rehearsal still pending; D86 held",
+      "approvalRequirement": "No production function change needed to reconcile hashes; gameplay/stamp authorization unchanged"
     },
     {
       "id": "HANDOFF-1",
@@ -1342,7 +1357,7 @@
       "commit": "1183e9d4",
       "evidence": "docs/project-command-center/GEMINI-HANDOFF.md",
       "testResults": "STATIC. JSON parsed. No production call.",
-      "nextAction": "STOP. Wait for a scoped owner or Gemini task. Do not start D86.",
+      "nextAction": "Archival; owner replaced Gemini/Cursor handoff with Codex sole runner",
       "approvalRequirement": "This handoff is not a database decision and not a D86 GO."
     },
     {

@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-17 — D85 read-only reconciliation (2026-10-19)
+
+Three alleged drift hashes exactly equal current md5(pg_get_functiondef), while D85 compared md5(prosrc). Body/source equality verified against D55 file, installed D55 migration statements, and capture-service migration source. Current body hashes unchanged from D85 live column. No production function replacement needed. Added public-code catalog snapshots and read-only verifier3/3 PASS; noted simplified local capture fixture is not production odds. Reconciled active queue/README/coordination precedence while preserving original D85 report/history. D85 rehearsal remains pending, D86 unauthorized. Catalog/migration-history SELECT only; no gameplay/data/schema writes, local cluster, activation, reset, protected-account action,stamp,email or spending. APPrc133 retained.
+
+
 ## CODEX-16 completion — real privacy QA and general availability (2026-10-19)
 
 Normal EmailQA player login created1 labeled case, replied, resolved and reopened. Existing owner login posted public reply and internal note, assigned low priority/self, verified filters and Trainer Tickets, then closed case with reason. Final EmailQA login saw3 public messages/public staff reply; private marker absent (0 DOM matches), staff audit/triage absent. DB case#1 closed/revision8/3 public+1 private message/8 audit events. Cleared QA-player restriction after checks; signed-in player Support now enabled, staff stays owner-only. Both90-day retention jobs active; scheduled runs not yet observed.75 static suites,35 real local SQL checks, source fingerprint, real DOM/RPC and screenshots support scoped completion. Stylesheet omission corrected caf751a5; Pages39309575313 succeeded; build31 pages/422 refs, APPrc133. No protected targets, roles, gameplay,D86,extra email,stamp or spending. Initial scope done; attachments/notifications/broader staff roles deferred as agreed.

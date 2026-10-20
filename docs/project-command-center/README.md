@@ -2,6 +2,8 @@
 
 Helpdesk review: [specification](./HELPDESK-ISSUE-14.md), [interactive desktop/player/staff review](./design-reset/helpdesk-review.html), [390px mobile review](./design-reset/helpdesk-mobile-review.html). Prototype uses fictional data; [connected implementation](./HELPDESK-IMPLEMENTATION.md) is live for signed-in players after real EmailQA player/staff/privacy verification; staff access remains owner-only, completed retention90 days. Staff recovery is enabled owner-only after approved90-day audit retention and real EmailQA staff delivery verification.
 
+D85 investigation: [fingerprint reconciliation](./D85-FINGERPRINT-RECONCILIATION.md) — all three historical hashes match current full definitions; the earlier comparison used body hashes. Isolated stamp rehearsal remains pending, D86 unauthorized.
+
 Current runner: [Codex runner trial](./CODEX-RUNNER.md). The owner's later instructions supersede the Gemini/Cursor handoff pause for routine development and GitHub publication; D86 and database/gameplay changes remain gated.
 
 Account email copy: [friendly hosted templates](./ACCOUNT-EMAIL-TEMPLATES.md) — signup, email-change and reset templates saved; EmailQA real reset completed successfully per owner.
@@ -102,15 +104,15 @@ Persistent working set for approved development batches. Historical audits stay 
 | [D82-LAUNCH-GUARD-SECURITY-GATE.md](./D82-LAUNCH-GUARD-SECURITY-GATE.md) | D82 security gate passed; install still needs a GO |
 | [D83-LAUNCH-GUARD-INSTALL-REPORT.md](./D83-LAUNCH-GUARD-INSTALL-REPORT.md) | D83 launch-guard installed; no encounter |
 | [D84-VERIFICATION-PLAN.md](./D84-VERIFICATION-PLAN.md) | D84 verification plan; production stamp still blocked |
-| [D85-STAMP-REHEARSAL.md](./D85-STAMP-REHEARSAL.md) | D85 stopped; debit and odds fingerprints drifted |
+| [D85-STAMP-REHEARSAL.md](./D85-STAMP-REHEARSAL.md) | D85 historical stop; see CODEX-17 hash reconciliation |
 | [GEN-IX-RESET-REHEARSAL.md](./GEN-IX-RESET-REHEARSAL.md) | D45 local RESET-TEST; showcase cleanup implemented; production UNAPPLIED |
 
 Cursor operating limits: `.cursor/rules/streamlink-project.mdc`. That file does not schedule unattended work.
 
-**Safety defaults:** no merge, no production deploy, APP `20261008-rc133`, smoke paused, Sora/Twinkle protected, PlayTester nonstaff, legacy `admin.html` / `js/admin-live.js` untouched.
+**Current boundaries:** routine GitHub publication authorized by owner; APP `20261008-rc133`, final gameplay smoke pending, protected-account testing and gameplay activation/reset remain gated, PlayTester nonstaff, legacy `admin.html` / `js/admin-live.js` untouched.
 
 ## Agent coordination
 
-[GEMINI-HANDOFF.md](./GEMINI-HANDOFF.md) is the current planning handoff. RPG development is paused. D83 is installed, D85 is blocked, and D86 is not authorized.
+[GEMINI-HANDOFF.md](./GEMINI-HANDOFF.md) is archival. Codex is the active sole runner. D83 is installed; D85 hash mismatch is explained, its rehearsal pending; D86 not authorized.
 
 [COORDINATION.md](./COORDINATION.md) defines GitHub handoffs and approval gates. Repository protocol only; monitoring and Cursor execution are disabled. A later owner GO installed the launch-guard function as D83.

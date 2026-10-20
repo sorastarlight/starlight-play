@@ -1,5 +1,7 @@
 # D85 — Isolated stamp rehearsal
 
+**2026-10-19 correction:** [fingerprint reconciliation](./D85-FINGERPRINT-RECONCILIATION.md) proves the old values are full-definition hashes while this report compared body hashes. The mismatch explanation is resolved; the rehearsal below still did not run. Original findings preserved as historical evidence.
+
 **Verdict:** **D85 BLOCKED — DEFINITION MISMATCH**  
 **Status:** No local database was started. No catch was attempted.  
 **Branch:** `admin-hub-overhaul`  

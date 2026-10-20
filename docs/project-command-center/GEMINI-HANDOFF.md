@@ -1,5 +1,7 @@
 # Pokémon StreamLink — Gemini project handoff
 
+**ARCHIVAL — superseded by owner instructions on2026-10-19.** Codex is the sole active runner; this document is historical context, not current pause/runner instructions. See TASKS.md and D85-FINGERPRINT-RECONCILIATION.md. The original handoff is preserved below.
+
 Prepared October 18, 2026 for the owner to give to Gemini and Cursor.
 
 ## Handoff status and authority

@@ -1,6 +1,6 @@
 # Roadmap
 
-Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not merge or deploy.
+Working branch: `admin-hub-overhaul`. Current CODEX tasks and owner approvals supersede historical frontend publication restrictions below. Routine GitHub publication is authorized; gameplay activation/reset/APP stamp remain separately gated. D85 fingerprint inputs reconciled in CODEX-17; isolated rehearsal pending, D86 unauthorized.
 
 | Batch | Name | Authorization | Status |
 |---|---|---|---|
@@ -75,7 +75,7 @@ Working branch: `admin-hub-overhaul` (from `gate-2a-trainer-management`). Do not
 | I48 | D82 launch-guard security gate | Grants and PostgREST exposure only | **PASSED** — install still needs an owner GO |
 | I49 | D83 launch-guard install | Unchanged `round_is_active` replacement | **INSTALLED** — no encounter |
 | I50 | D84 verification plan | What the install proved and what the stamp still needs | **PLAN** — production stamp still blocked |
-| I51 | D85 local stamp rehearsal | One disposable catch with the canonical bodies | **BLOCKED** — spend, announce, and odds fingerprints drifted |
+| I51 | D85 local stamp rehearsal | One disposable catch with the canonical bodies | **PENDING REHEARSAL** — CODEX-17 reconciled full-definition/body hash mismatch |
 | I13 | Issue #13 owner recovery design | Design / security | **TODO** — not this batch |
 | I14 | Issue #14 helpdesk architecture | Design | **TODO** — not this batch |
 | F | Privileged operations | **NOT AUTHORIZED** | Blocked pending owner approval |

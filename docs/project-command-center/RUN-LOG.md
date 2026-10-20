@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-33 — Pokédex Familiarity display (2026-10-20)
+
+Own-trainer read-only view reader, explicit empty/error states, owner/entry race guards and a species-wide Research card.37 focused checks/build31-423 passed; actual DOM desktop/390px fictional fixtures verified. Research heading now scrolls rather than clipping. Initial local Play visit incident documented: signed-out sync possible; read-only check found no encounter rows changed sinceOct18. No authenticated gameplay or delivery requested. See POKEDEX-FAMILIARITY-DISPLAY.md.
+
+
 ## CODEX-32 — Current Familiarity delivery local readiness (2026-10-20)
 
 33 REAL LOCAL SQL checks cover current event/outbox guards, bounded/concurrent delivery, missed-note reconciliation, retries/exhaustion/rejects, tier thresholds and synthetic-claim RLS.19 default regression,D71/D72 static,9 model and3 guard checks passed. Hosted aggregate snapshot: WIRE enabled,Familiarity active,empty outbox,0 events/jobs;restricted client execution/read privileges verified. No hosted write or account/catch-row read. See FAMILIARITY-DELIVERY-LOCAL-READINESS.md.

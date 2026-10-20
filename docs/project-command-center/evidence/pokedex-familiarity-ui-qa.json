@@ -1,0 +1,15 @@
+{
+  "classification": "LOCAL HARNESS / STATIC / REAL DOM with fictional controllers",
+  "readerChecks": 11,
+  "kantoStaticChecks": 5,
+  "discoveryStaticChecks": 21,
+  "build": { "app": "20261008-rc133", "pages": 31, "firstPartyReferences": 423 },
+  "desktop": { "width": 1280, "height": 720, "panelHorizontalOverflow": false },
+  "mobile": { "iframeWidth": 390, "iframeHeight": 900, "cardAndActionsReadableAfterScroll": true },
+  "observedStates": ["Experienced · 6 recorded catches", "Not recorded yet", "Unavailable", "Loading…", "Expert · 20 recorded catches after account switch", "Pikachu: Acquainted · 3 recorded catches after delayed navigation", "Sign out: gate shown and modal hidden"],
+  "fixtureJavaScriptErrors": [],
+  "fixtureNetworkIsolation": "No Supabase SDK/config/Auth scripts; CSP connect-src none",
+  "screenshots": ["familiarity-pokedex-desktop.png", "familiarity-pokedex-mobile.png"],
+  "limitations": ["Fictional controllers; no authenticated hosted progress read", "No realtime progress refresh", "My PC display not included", "Initial local Play visit may issue signed-out play_sync; see report incident record"],
+  "incidentReadOnlyCheck": { "checkedAt": "2026-10-20T19:09:58.409683Z", "anonymousPlaySyncExecute": true, "unresolvedRounds": 0, "latestEncounterUpdatedAt": "2026-10-18T16:30:18.236701Z", "directorInternalStateAudited": false }
+}

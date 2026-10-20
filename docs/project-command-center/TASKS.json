@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-33",
+      "status": "done",
+      "scope": "Read-only species-wide Familiarity metric in Pokédex Your Research",
+      "dependencies": [
+        "CODEX-32"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "POKEDEX-FAMILIARITY-DISPLAY.md; evidence/pokedex-familiarity-ui-qa.json",
+      "testResults": "11 reader LOCAL HARNESS;26 STATIC;build31/423;real DOM1280x720/390px;empty/error/account/dex-race/sign-out fixtures",
+      "nextAction": "My PC species-wide display remains planned; hosted authenticated Familiarity flow still unverified",
+      "approvalRequirement": "Routine UI/publication authorized; no delivery/scheduling or new gameplay authority"
+    },
+    {
       "id": "CODEX-32",
       "status": "done",
       "scope": "Current Familiarity delivery/reconciliation, event guards and progress RLS local rehearsal",

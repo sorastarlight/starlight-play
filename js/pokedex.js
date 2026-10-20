@@ -18,6 +18,9 @@
   let dexData = null;
   let detailState = null;
   let collectionCache = null;
+  const familiarity = window.PlaySpeciesFamiliarity.create(supabase);
+  let loadGeneration = 0;
+  let detailRequest = 0;
   let openerEl = null;
   let scrollLockY = 0;
   let scrollLocked = false;
@@ -184,6 +187,9 @@
 
   window.playBindAccountNav({
     onSignOut() {
+      loadGeneration++;
+      familiarity.reset(null);
+      collectionCache = null;
       els.app.hidden = true;
       closeDetail({ clearRoute: true, fromAuth: true });
       window.playRestoreGate(els.gate, "Sign in to open your Pokédex.");
@@ -969,6 +975,7 @@
       || collectionCache?.families?.find((f) => Number(f.baseDex) === entry.dex);
     const mastery = (collectionCache?.mastery || []).find((m) => Number(m.dex) === entry.dex);
     const candy = fam ? Number(fam.candy || 0) : null;
+    const familiarityCopy = window.PlaySpeciesFamiliarity.presentation(familiarity.get(entry.dex));
     const metric = (label, value, tone = "") =>
       `<div class="dex-metric${tone ? ` ${tone}` : ""}"><dt>${label}</dt><dd>${value}</dd></div>`;
     return `
@@ -999,6 +1006,10 @@
               <dl class="dex-research-secondary">
                 ${metric("Mastery", mastery ? `${mastery.rank || mastery.stars || "—"} · ${mastery.points || 0} pts` : "—", "is-primary")}
                 ${metric("Evolution Candy", candy != null ? String(candy) : "—")}
+                <div class="dex-metric dex-familiarity">
+                  <dt>Species Familiarity</dt>
+                  <dd><span class="dex-familiarity-value" role="status" aria-live="polite">${window.playEscapeAttr(familiarityCopy.label)}</span><small class="dex-familiarity-note">${window.playEscapeAttr(familiarityCopy.note)}</small></dd>
+                </div>
               </dl>
             </section>
             <section class="dex-research-group" aria-label="Actions">
@@ -1011,6 +1022,15 @@
           </div>
         </div>
       </div>`;
+  }
+
+  function paintFamiliarityCopy() {
+    if (!detailState) return;
+    const copy = window.PlaySpeciesFamiliarity.presentation(familiarity.get(detailState.entry.dex));
+    const value = bodyEl.querySelector('.dex-familiarity-value');
+    const note = bodyEl.querySelector('.dex-familiarity-note');
+    if (value) value.textContent = copy.label;
+    if (note) note.textContent = copy.note;
   }
 
   function paintDetail() {
@@ -1095,6 +1115,7 @@
   }
 
   function closeDetail(opts = {}) {
+    detailRequest++;
     const { clearRoute = true, fromPop = false, fromAuth = false } = opts;
     if (!detailState && overlay.hidden) {
       if (clearRoute && !fromPop) setRouteDex(null, "replace");
@@ -1119,16 +1140,20 @@
 
   async function ensureCollection() {
     if (collectionCache) return collectionCache;
+    const generation = loadGeneration;
     try {
-      collectionCache = await window.playCall("play_collection");
+      const result = await window.playCall("play_collection");
+      if (generation === loadGeneration) collectionCache = result;
     } catch (_) {
-      collectionCache = { families: [], mastery: [] };
+      if (generation === loadGeneration) collectionCache = { families: [], mastery: [] };
     }
     return collectionCache;
   }
 
   async function openDetail(dex, opts = {}) {
     const id = Number(dex);
+    const generation = loadGeneration;
+    const request = ++detailRequest;
     const { fromPop = false, opener = null } = opts;
     if (!isReleasedDex(id)) {
       showNotice("This Pokédex entry isn't currently available.");
@@ -1158,6 +1183,7 @@
 
     try {
       const entry = await window.playCall("play_pokedex_entry", { p_dex: id });
+      if (generation !== loadGeneration || request !== detailRequest || overlay.hidden) return;
       if (!entry?.unlocked) {
         showNotice(entry?.message || (entry?.reason === "unreleased"
           ? "This Pokédex entry isn't currently available."
@@ -1183,22 +1209,28 @@
         tab: normalizeTab(routeTabHint() || "overview")
       };
       ensureCollection().then(() => {
-        if (detailState?.entry?.dex === id && detailState.tab === "research") paintDetail();
+        if (generation === loadGeneration && request === detailRequest && detailState?.entry?.dex === id && detailState.tab === "research") paintDetail();
+      });
+      const shownDetail = detailState;
+      familiarity.load(id).then(() => {
+        if (generation !== loadGeneration || request !== detailRequest || detailState !== shownDetail || detailState.tab !== "research") return;
+        paintFamiliarityCopy();
       });
       paintDetail();
       const closeBtn = overlay.querySelector(".dex-overlay-close");
       (closeBtn || panel)?.focus({ preventScroll: true });
     } catch (error) {
+      if (generation !== loadGeneration || request !== detailRequest) return;
       showNotice(window.playRpcError?.(error, "Could not open that Pokédex entry.") || "Could not open that Pokédex entry.");
       closeDetail({ clearRoute: true, fromPop });
     }
   }
 
-  async function loadNav() {
+  async function loadNav(generation) {
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
     if (!session) {
-      window.playSetAccountNav(null);
+      if (generation === loadGeneration) window.playSetAccountNav(null);
       return session;
     }
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
@@ -1207,12 +1239,19 @@
       const snapshot = await window.playCall("play_state");
       extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer };
     } catch (_) {}
-    window.playSetAccountNav(session, profile, extras);
+    if (generation === loadGeneration) window.playSetAccountNav(session, profile, extras);
     return session;
   }
 
   async function load() {
-    const session = await loadNav();
+    const generation = ++loadGeneration;
+    detailRequest++;
+    familiarity.reset(null);
+    paintFamiliarityCopy();
+    collectionCache = null;
+    const session = await loadNav(generation);
+    if (generation !== loadGeneration) return;
+    familiarity.reset(session?.user?.id || null);
     if (!session) {
       els.app.hidden = true;
       closeDetail({ clearRoute: true, fromAuth: true });
@@ -1222,7 +1261,9 @@
     window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
     try {
       clearUnreleasedRoute();
-      dexData = await window.playCall("play_pokedex", { p_login: null });
+      const result = await window.playCall("play_pokedex", { p_login: null });
+      if (generation !== loadGeneration) return;
+      dexData = result;
       collectionCache = null;
       els.gate.hidden = true;
       els.app.hidden = false;
@@ -1230,6 +1271,7 @@
       const deep = routeDex();
       if (deep) await openDetail(deep, { fromPop: true });
     } catch (error) {
+      if (generation !== loadGeneration) return;
       els.gate.hidden = false;
       els.app.hidden = true;
       els.gate.textContent = window.playRpcError(error, "Pokédex is not live yet.");

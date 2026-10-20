@@ -1,6 +1,6 @@
 # Pokémon StreamLink — project command center
 
-[Current Familiarity delivery rehearsal](./FAMILIARITY-DELIVERY-LOCAL-READINESS.md) passed33 local SQL checks. Hosted queue/events remained empty at the read-only snapshot; no delivery or scheduling ran. Player-facing Familiarity display is still planned.
+[Current Familiarity delivery rehearsal](./FAMILIARITY-DELIVERY-LOCAL-READINESS.md) passed33 local SQL checks. Hosted queue/events remained empty at the read-only snapshot; no delivery or scheduling ran. The [Pokédex Familiarity display](./POKEDEX-FAMILIARITY-DISPLAY.md) is implemented; My PC remains planned. Authenticated hosted display is not yet verified.
 
 
 **WIRE is enabled** after [explicit activation-only approval](./WIRE-ACTIVATION.md), independently verified2026-10-20T18:11:12Z. No encounter or delivery followed.

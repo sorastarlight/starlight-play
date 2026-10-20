@@ -1,5 +1,8 @@
 # Coordination setup — approval packet
 
+Current narrow approval,2026-10-20: CODEX-31 enabled WIRE once after explicit owner approval and independently verified it. See WIRE-ACTIVATION.md. Familiarity remains active with its unchanged cutoff. Older WIRE-off/activation-held snapshots below are historical. No encounter, delivery, scheduling, reset, stamp or broader D86 authority follows; operator stopped after verification and audit publication.
+
+
 Current narrow exception,2026-10-20: CODEX-28 completed explicitly owner-approved Familiarity recording activation only. See FAMILIARITY-RECORDING-ACTIVATION.md. The local D85 proof did not itself authorize this; the owner gave a separate decision. All other held gameplay/D86/delivery/WIRE/scheduling boundaries remain.
 
 Prepared 2026-10-18. Status: stage 1 repository handoff approved by the owner in this chat on 2026-10-18. Monitoring and execution remain disabled.

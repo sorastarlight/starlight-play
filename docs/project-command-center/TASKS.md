@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-31 | done | Owner-approved WIRE activation only | CODEX-30 | Explicit Approve WIRE activation only |Enabled18:11:02.180774Z; independently verified; Familiarity unchanged; stop |
 | CODEX-30 | done | Combined current WIRE, catch triggers and Familiarity rehearsal | CODEX-29 | Local work/read-only catalog authorized |19 REAL LOCAL SQL +3 process guards; activation-only packet tested locally; hosted WIRE off |
 | CODEX-29 | done | WIRE current catalog/source and local regression review | CODEX-28 | Read-only hosted/local scope |21 static +47 local SQL passes; current combined trigger/Familiarity rehearsal next; WIRE off |
 | CODEX-28 | done | Species Familiarity recording activation only | CODEX-27 | Explicit owner approval | Active cutoff16:55:59.896904Z;0 events/outbox;WIRE off; stop |
@@ -117,7 +118,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 Branch admin-hub-overhaul. Codex is the sole active runner. Owner authorized routine development and GitHub publication; later feature approvals delivered Trainer management, audited gifts/Pass, recovery and helpdesk. CODEX entries above are current; older table rows retain historical approval snapshots and are not fresh execution instructions. I13/I14 are complete; open GitHub issues may lag the implemented work. Issue#15 UI cleanup and#17 Twitch-linking policy remain follow-up candidates.
 
-D83 launch guard installed. CODEX-17 explains D85's three apparent mismatches: historical full-definition hashes were compared to body hashes. Source/migration comparisons agree. CODEX-18 first escaped. CODEX-26 completed the bounded local batch:8 escapes,1 replica error,1 natural catch with a finite stamp inside settlement. The focused local D85 criterion is complete; D86 is not authorized. CODEX-28 separately activated Familiarity recording only after explicit owner approval; WIRE, encounter tests, delivery, scheduling, production collection reset, protected-account testing and APP stamp remain outside current approval. APP20261008-rc133; final gameplay smoke pending. Existing D53/D58 catches and historical install evidence are preserved. Broad generic BatchF remains gated; individually approved later features are documented by their CODEX scopes.
+D83 launch guard installed. CODEX-17 explains D85's three apparent mismatches: historical full-definition hashes were compared to body hashes. Source/migration comparisons agree. CODEX-18 first escaped. CODEX-26 completed the bounded local batch:8 escapes,1 replica error,1 natural catch with a finite stamp inside settlement. The focused local D85 criterion is complete; D86 is not authorized. CODEX-28 separately activated Familiarity recording only; CODEX-31 then enabled WIRE after its own explicit owner approval. Encounter tests, delivery, scheduling, production collection reset, protected-account testing and APP stamp remain outside current approval. APP20261008-rc133; final gameplay smoke pending. Existing D53/D58 catches and historical install evidence are preserved. Broad generic BatchF remains gated; individually approved later features are documented by their CODEX scopes.
 
 ## COORD-1 — repository handoff setup (2026-10-18)
 

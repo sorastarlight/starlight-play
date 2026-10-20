@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-31",
+      "status": "done",
+      "scope": "Single owner-approved global WIRE activation then verify and stop",
+      "dependencies": [
+        "CODEX-30"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "WIRE-ACTIVATION.md; evidence/wire-activation-result.json; evidence/wire-activation-executed.sql",
+      "testResults": "9 reference checksums refreshed;112 function hashes/6 triggers guarded;one setter call committed;independent enabled=true;Familiarity unchanged;0 unresolved rounds",
+      "nextAction": "Stop as approved; no encounter/delivery/scheduling/stamp follows",
+      "approvalRequirement": "Explicit Approve WIRE activation only received; no broader gameplay or D86 authority"
+    },
+    {
       "id": "CODEX-30",
       "status": "done",
       "scope": "Current-catalog WIRE/catch-trigger/Familiarity local integration and concrete activation-only packet",
@@ -14,7 +28,7 @@
       "commit": null,
       "evidence": "WIRE-CURRENT-STACK-REHEARSAL.md; evidence/wire-current-stack-result.json; evidence/wire-current-stack-guards.json; evidence/wire-activation-proposal.sql",
       "testResults": "19 REAL LOCAL SQL checks;112 exact function bodies;6 actual catch triggers;9 reference checksums;3 process/cleanup guards",
-      "nextAction": "Important owner decision: WIRE activation only, with no encounter/delivery/scheduling/stamp",
+      "nextAction": "Owner explicitly approved activation only; completed and verified in CODEX-31",
       "approvalRequirement": "No hosted switch or gameplay authorized; concrete activation-only proposal awaits decision"
     },
     {

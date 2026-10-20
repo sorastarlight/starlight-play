@@ -1,5 +1,8 @@
 # Codex runner trial
 
+Current narrow approval,2026-10-20: CODEX-31 enabled WIRE once after explicit owner approval and independently verified it. See WIRE-ACTIVATION.md. Familiarity remains active with its unchanged cutoff. Older WIRE-off/activation-held snapshots below are historical. No encounter, delivery, scheduling, reset, stamp or broader D86 authority follows; operator stopped after verification and audit publication.
+
+
 Current narrow exception,2026-10-20: owner explicitly approved Species Familiarity recording activation only. CODEX-28 committed and verified its one-time cutoff. Earlier inactive/activation-held statements remain historical except for this operation. No encounter, delivery, scheduling, WIRE or broader D86 action is authorized.
 
 Owner instructions received October 18, 2026 supersede the Gemini/Cursor handoff for current work. Codex uses this existing checkout as the sole project runner. Historical approvals and reports remain intact.

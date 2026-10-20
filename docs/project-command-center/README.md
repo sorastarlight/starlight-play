@@ -1,8 +1,10 @@
 # Pokémon StreamLink — project command center
 
-**Species Familiarity recording is active**, with cutoff2026-10-20T16:55:59.896904Z, after [explicit recording-only approval](./FAMILIARITY-RECORDING-ACTIVATION.md). Verified0 events/outbox; no delivery or scheduling. WIRE remains off; further gameplay/D86 actions remain held.
+**WIRE is enabled** after [explicit activation-only approval](./WIRE-ACTIVATION.md), independently verified2026-10-20T18:11:12Z. No encounter or delivery followed.
 
-Post-D85 [next-stage decision](./POST-D85-NEXT-STEP.md): current inactive/empty/off baseline verified read-only. Activation-only proposal remains pending; no D86 execution.
+**Species Familiarity recording is active**, with cutoff2026-10-20T16:55:59.896904Z, after [explicit recording-only approval](./FAMILIARITY-RECORDING-ACTIVATION.md). Its original activation verification found0 events/outbox; no delivery or scheduling was enabled. Its cutoff/state remained unchanged during WIRE activation. Further gameplay/D86 actions remain held.
+
+Historical Post-D85 [decision packet](./POST-D85-NEXT-STEP.md): its recording-only proposal was approved and completed in CODEX-28. Subsequent WIRE activation is separately recorded in CODEX-31; no broader D86 execution.
 
 Trainer [keyboard navigation and390px stats review](./TRAINER-KEYBOARD-ACCESSIBILITY.md) completed. Arrow/Home/End focus navigation and retained activation focus; zoom/motion emulation remains open.
 

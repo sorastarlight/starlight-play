@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-31 — Owner-approved WIRE activation only (2026-10-20)
+
+Refreshed reference checksums/client denial; one guarded existing-setter call enabled WIRE at18:11:02.180774Z.112 function hashes and6 triggers checked within transaction. Independent read confirmed enabled, unchanged active Familiarity cutoff/singleton,0 unresolved rounds. No gameplay, trainer read/mutation, delivery, scheduling, schema/role change or stamp. Stopped after verification and audit publication. See WIRE-ACTIVATION.md.
+
+
 ## CODEX-30 — Combined current-stack WIRE rehearsal (2026-10-20)
 
 19 REAL LOCAL SQL checks passed with112 exact catalog bodies, all6 catch triggers and9 matching reference-table checksums. Concurrency, replay, XP/notices, candy/mastery, Familiarity queue, freeze and failure rollback/retry passed.3 process/cleanup guards passed. Replica-only setup defects and canonical serialization differences corrected; production bodies untouched. Concrete activation-only packet tested locally including stale-hash rollback. Hosted read-only snapshot: WIRE off,0 unresolved rounds, Familiarity active. WIRE activation remains an important owner decision; no hosted write/gameplay/account access. See WIRE-CURRENT-STACK-REHEARSAL.md.

@@ -100,7 +100,7 @@
     if (view.loading || view.denied || view.error) return base.profileHtml(view);
     const user = view.user || {};
     const header = `<header class="record-header"><span class="record-identity">${avatar(user)}<span><p class="eyebrow">Trainer record</p><h3>${esc(user.displayName || user.login || "Trainer")}</h3>${user.login ? `<p class="admin-next-trainer-handle">@${esc(user.login)}</p>` : ""}<span class="record-account-meta"><span class="admin-next-chip">${esc(user.role || "player")}</span> <span data-record-pass class="admin-next-chip${user.pass ? " is-pass" : ""}">${user.pass ? "Starlight Pass" : "No Pass"}</span><span class="record-date">Last seen ${esc(stamp(user.lastSeenAt))}</span></span></span></span></header>
-      <div class="admin-next-trainer-subnav record-tabs" role="tablist" aria-label="Trainer dossier">${PANES.map((pane) => `<button type="button" role="tab" data-trainer-pane="${pane}" aria-selected="${view.pane === pane}">${labels[pane]}</button>`).join("")}</div>`;
+      <div class="admin-next-trainer-subnav record-tabs" role="tablist" aria-label="Trainer dossier">${PANES.map((pane) => `<button type="button" role="tab" data-trainer-pane="${pane}" aria-selected="${view.pane === pane}" tabindex="${view.pane === pane ? 0 : -1}">${labels[pane]}</button>`).join("")}</div>`;
     let body;
     if (view.pane === "pokemon") body = pokemon(view);
     else if (view.pane === "inventory") body = manager(view, "inventory") + note("Bits, the complete item catalog and grant/remove controls are unavailable here.");
@@ -134,7 +134,9 @@
     // the full height of a previously long claim/history pane.
     root.style.minHeight = preserveHeight ? `${Math.max(0, window.innerHeight-root.getBoundingClientRect().top)}px` : "";
     mounts.set(root, view);
+    const restoreTabFocus = previous?.user?.id === view.user?.id && root.contains(document.activeElement) && document.activeElement?.matches("[data-trainer-pane]");
     root.innerHTML = profileHtml(view);
+    if (restoreTabFocus) root.querySelector('[data-trainer-pane][aria-selected="true"]')?.focus({ preventScroll: true });
     if (root.dataset.recordBound) return;
     root.dataset.recordBound = "true";
     function paint(action, id) {
@@ -156,6 +158,17 @@
       if (hit && root.contains(hit)) paint(hit.dataset.recordAction, hit.dataset.recordId);
     });
     root.addEventListener("keydown", (event) => {
+      const tab = event.target.closest("[data-trainer-pane]");
+      if (tab && root.contains(tab) && ["ArrowLeft","ArrowRight","Home","End"].includes(event.key)) {
+        const tabs = [...root.querySelectorAll("[data-trainer-pane]:not(:disabled)")];
+        const index = tabs.indexOf(tab);
+        if (index < 0 || !tabs.length) return;
+        const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+        event.preventDefault();
+        tabs.forEach((item, i) => item.tabIndex = i === next ? 0 : -1);
+        tabs[next].focus({ preventScroll: true });
+        return;
+      }
       const state = mounts.get(root)?.recordState;
       if (event.key !== "Escape" || !state) return;
       const action = state.mon ? "mons" : state.item ? "items" : state.group ? "groups" : "";

@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-25",
+      "status": "done",
+      "scope": "Trainer tab keyboard navigation and mobile stats review",
+      "dependencies": [
+        "CODEX-24"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "TRAINER-KEYBOARD-ACCESSIBILITY.md",
+      "testResults": "21 focused checks; real DOM manual keyboard/disabled/focus checks;390px stats table; build31/422",
+      "nextAction": "Remaining issue15 browser zoom and motion emulation when available",
+      "approvalRequirement": "Routine frontend work authorized; no authority changes"
+    },
+    {
       "id": "CODEX-24",
       "status": "done",
       "scope": "Read-only stored Pokémon stats in Trainer record",
@@ -42,8 +56,8 @@
       "commit": null,
       "evidence": "TRAINER-UI-V6-REVIEW.md; design-reset/hub-a-visual-v6.html",
       "testResults": "Focused real DOM drilldowns,44px targets and constrained390/1024 frame review passed; build31/422",
-      "nextAction": "Complete actual viewport/zoom/keyboard/motion checks, then owner visual acceptance before product integration",
-      "approvalRequirement": "Static prototype authorized; product visual direction review remains open"
+      "nextAction": "Direction accepted; CODEX-23/24 implemented and CODEX-25 verified keyboard/mobile stats.200% browser zoom and reduced-motion emulation remain unverified",
+      "approvalRequirement": "Owner visual direction accepted; no renewed direction prompt needed"
     },
     {
       "id": "CODEX-21",

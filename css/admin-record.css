@@ -126,3 +126,4 @@
 .record-stat-table caption { text-align:left;font-weight:800;margin-bottom:12px; }
 .record-stat-table th,.record-stat-table td { padding:10px 8px;border-bottom:1px solid #dce3f2;overflow-wrap:normal; }
 .record-stat-table thead th { color:#656881; }
+.record-tabs button:disabled { cursor:not-allowed;opacity:.55;transform:none; }

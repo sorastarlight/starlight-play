@@ -1,5 +1,7 @@
 # Pokémon StreamLink — project command center
 
+Trainer [keyboard navigation and390px stats review](./TRAINER-KEYBOARD-ACCESSIBILITY.md) completed. Arrow/Home/End focus navigation and retained activation focus; zoom/motion emulation remains open.
+
 Trainer Pokémon [stored stats](./ADMIN-POKEMON-STATS.md) connected after explicit owner approval: moves, nature/ability, HP and IV/EV/Awakening values. Missing older fields remain unavailable; editing disabled.
 
 Trainer v6 [presentation slice](./TRAINER-UI-V6-IMPLEMENTATION.md) applied after owner proceeded; Gym Badges remain unavailable. Full viewport/motion QA remains open.

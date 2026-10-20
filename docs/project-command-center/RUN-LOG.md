@@ -1,5 +1,9 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-25 — Trainer keyboard and narrow stats (2026-10-20)
+
+Added manual tab focus navigation, single tab stop and focus retention after rendering. Real DOM keyboard/disabled/mobile stats review and21 focused checks passed; build31/422 APPrc133. No backend or account mutation. See TRAINER-KEYBOARD-ACCESSIBILITY.md.
+
 ## CODEX-24 — Read-only stored Pokémon stats (2026-10-20)
 
 Owner approved guarded Supabase patch; migration20261020014622 installed.14 local SQL/37 JS checks passed; actual presenter DOM and hosted synthetic/catalog checks verified. Public wrapper/staff gate unchanged; new helper direct execution denied. No actual trainer/catch selected or mutated; no gameplay calls. See ADMIN-POKEMON-STATS.md.

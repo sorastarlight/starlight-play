@@ -1,5 +1,7 @@
 # Trainer UI v6 static review — issue15
 
+Current status,2026-10-20: owner accepted the direction; CODEX-23/24 implemented the reviewed presentation and stored stats. CODEX-25 verified keyboard navigation and390px stats layout. The historical draft limits below describe the original review;200% browser zoom and reduced-motion emulation remain open.
+
 CODEX-22, 2026-10-19 local. Separate fictional-data prototype in design-reset/hub-a-visual-v6.html; accepted v5 and all product presenters/backend remain unchanged.
 
 Changes: Shiny beside Pokémon identity; simplified detail without duplicate species/variant fields; Stats & Battle Data unavailable panel with disabled editing; vertical Inventory/Unlockable categories with friendly names, icons, status and chevrons; category → item drilldown; Evolution Candy label; Master Ball suffix removed; separate Gym Badges/Ribbons and Trainer ID/Pokémon Team backgrounds; clearer connection capabilities; 44px navigation/tab targets, hover/selected/focus treatment and reduced-motion CSS. Demo notice lives above the product canvas. No Trainer ID frames.

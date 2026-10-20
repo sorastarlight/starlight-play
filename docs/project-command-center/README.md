@@ -1,5 +1,8 @@
 # Pokémon StreamLink — project command center
 
+[Current Familiarity delivery rehearsal](./FAMILIARITY-DELIVERY-LOCAL-READINESS.md) passed33 local SQL checks. Hosted queue/events remained empty at the read-only snapshot; no delivery or scheduling ran. Player-facing Familiarity display is still planned.
+
+
 **WIRE is enabled** after [explicit activation-only approval](./WIRE-ACTIVATION.md), independently verified2026-10-20T18:11:12Z. No encounter or delivery followed.
 
 **Species Familiarity recording is active**, with cutoff2026-10-20T16:55:59.896904Z, after [explicit recording-only approval](./FAMILIARITY-RECORDING-ACTIVATION.md). Its original activation verification found0 events/outbox; no delivery or scheduling was enabled. Its cutoff/state remained unchanged during WIRE activation. Further gameplay/D86 actions remain held.

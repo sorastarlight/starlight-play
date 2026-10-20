@@ -1,7 +1,8 @@
 /* Current-catalog WIRE + catch triggers + Familiarity recording integration.
  * Fictional data, disposable loopback PostgreSQL only. No hosted connection.
  * Local TEST outcomes and expired deadlines are deliberate integration fixtures,
- * not ordinary-catch odds or D85 timing proof. No event delivery is performed.
+ * not ordinary-catch odds or D85 timing proof. Default mode does not deliver;
+ * --with-familiarity-delivery opts into additional LOCAL delivery fixtures.
  */
 const fs = require('fs');
 const path = require('path');
@@ -13,8 +14,10 @@ const CACHE = path.resolve(__dirname, '.cache/d54-pg-harness');
 const EVIDENCE = path.join(ROOT, 'docs/project-command-center/evidence');
 const CATALOG = require('../docs/project-command-center/evidence/wire-combined-catalog-20261020.json');
 const INDEX_DEPS = require('../docs/project-command-center/evidence/wire-combined-index-dependencies-20261020.json');
-const FUNCTIONS = [...CATALOG.functions, ...INDEX_DEPS.functions];
-const TABLES = require('../docs/project-command-center/evidence/wire-combined-tables-20261020.json');
+const WITH_DELIVERY = process.argv.includes('--with-familiarity-delivery');
+const DELIVERY = require('../docs/project-command-center/evidence/familiarity-delivery-catalog-20261020.json');
+const FUNCTIONS = [...CATALOG.functions, ...INDEX_DEPS.functions, ...(WITH_DELIVERY ? DELIVERY.functions : [])];
+const TABLES = [...require('../docs/project-command-center/evidence/wire-combined-tables-20261020.json'), ...(WITH_DELIVERY ? DELIVERY.tables : [])];
 const IDENTITIES = require('../docs/project-command-center/evidence/wire-combined-identities-20261020.json');
 const REF = require('../docs/project-command-center/evidence/wire-combined-reference-20261020.json');
 const REF_CHECKSUMS = require('../docs/project-command-center/evidence/wire-reference-checksums-20261020.json');
@@ -96,6 +99,19 @@ async function main() {
       for(const idx of t.indexes||[]) await query(idx);
     }
     for(const tr of CATALOG.triggers) await query(tr.definition);
+    if(WITH_DELIVERY) {
+      for(const tr of DELIVERY.metadata.triggers) await query(tr.definition);
+      await query('CREATE VIEW public.species_mastery_progress WITH (security_invoker=true) AS '+DELIVERY.metadata.view);
+      // Local JWT-claim fixture only; does not model real Supabase sessions.
+      await query(`CREATE SCHEMA auth;
+        CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
+        GRANT USAGE ON SCHEMA auth,private TO authenticated;
+        GRANT SELECT ON public.species_mastery_events,public.species_mastery_progress TO authenticated;
+        ALTER TABLE public.species_mastery_events ENABLE ROW LEVEL SECURITY;
+        ALTER TABLE public.species_mastery_events FORCE ROW LEVEL SECURITY;
+        CREATE POLICY species_mastery_events_own ON public.species_mastery_events FOR SELECT USING (trainer_id=(SELECT auth.uid()));`);
+      for(const f of DELIVERY.functions) await query('REVOKE ALL ON FUNCTION private.'+quote(f.name)+'('+f.identity+') FROM PUBLIC,anon,authenticated');
+    }
     for(const f of FUNCTIONS) {
       const hashes=(await query(`SELECT md5(p.prosrc) hash FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname=$1 AND p.proname=$2`,[f.schema,f.name])).rows;
       assert(hashes.some(r=>r.hash===f.body_md5),'Loaded body differs: '+f.name);
@@ -224,9 +240,11 @@ async function main() {
     await query('SELECT private.streamlink_wire_set_enabled(false)');
     assert((await value('SELECT enabled FROM private.streamlink_wire_switch WHERE id=1')).enabled===false,'Local rollback did not disable');
     pass('Concrete activation-only packet and existing-function rollback both verified locally');
+    let deliveryResult=null;
+    if(WITH_DELIVERY) deliveryResult=await require('./familiarity-delivery-local-cases')({db,db2,query,value,snapshot,round,settle,TRAINER,pass,mustReject});
     completed=true;
-    const report={classification:'REAL SQL — disposable loopback PostgreSQL; synthetic integration fixtures',observedAt:new Date().toISOString(),postgres:target.version,checks,final:await snapshot(),functions:FUNCTIONS.length,catchTriggers:CATALOG.triggers.length,limitations:['No hosted gameplay or production WIRE toggle.','Forced local TEST outcomes and expired deadlines: not ordinary odds/timing proof.','Catalog-shaped tables include NOT NULL/defaults, identities, non-FK constraints and indexes; foreign keys, RLS, auth sessions and nested triggers on other tables are excluded.','Reference pin seed plus limited public reference snapshot; default progression settings for this fixture.','No Familiarity reconciliation, event delivery, scheduler or browser UI test.']};
-    fs.writeFileSync(path.join(EVIDENCE,'wire-current-stack-result.json'),JSON.stringify(report,null,2)+'\n');
+    const report={classification:'REAL SQL — disposable loopback PostgreSQL; synthetic integration fixtures',observedAt:new Date().toISOString(),postgres:target.version,checks,final:await snapshot(),deliveryResult,functions:FUNCTIONS.length,catchTriggers:CATALOG.triggers.length,limitations:['No hosted gameplay or production WIRE toggle.','Forced local TEST outcomes and expired deadlines: not ordinary odds/timing proof.','Catalog-shaped tables include NOT NULL/defaults, identities, non-FK constraints and indexes; foreign keys and nested triggers on unrelated tables are excluded. Real authentication is not modeled.','Reference pin seed plus limited public reference snapshot; default progression settings for this fixture.',WITH_DELIVERY?'Familiarity delivery/reconcile/event guards and view RLS tested locally with synthetic auth.uid claims only; no hosted delivery, scheduler or browser UI test.':'No Familiarity reconciliation, event delivery, scheduler or browser UI test.']};
+    fs.writeFileSync(path.join(EVIDENCE,WITH_DELIVERY?'familiarity-current-stack-result.json':'wire-current-stack-result.json'),JSON.stringify(report,null,2)+'\n');
     console.log(JSON.stringify(report,null,2));
   } finally {
     if(db2) await db2.end().catch(()=>{});

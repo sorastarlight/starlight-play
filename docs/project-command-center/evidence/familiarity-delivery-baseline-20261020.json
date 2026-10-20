@@ -1,0 +1,46 @@
+{
+  "wire": true,
+  "outbox": [],
+  "lifecycle": "active",
+  "checked_at": "2026-10-20T18:18:48.991825+00:00",
+  "events_rls": {
+    "forced": true,
+    "enabled": true
+  },
+  "view_write": false,
+  "event_count": 0,
+  "permissions": [
+    {
+      "anon": false,
+      "name": "deliver_species_mastery_outbox",
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "name": "reconcile_species_mastery_outbox",
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "name": "record_species_mastery_event",
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "name": "species_mastery_events_guard",
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "name": "species_mastery_outbox_admit",
+      "authenticated": false
+    }
+  ],
+  "view_select": true,
+  "familiarity_jobs": 0,
+  "additionalPrivilegeCheck": {
+    "authenticated_event_select": true,
+    "authenticated_event_write": false,
+    "anonymous_view_select": false
+  }
+}

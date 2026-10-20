@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-32 | done | Current Familiarity delivery/reconcile/event/RLS local integration | CODEX-31 | Local development/read-only status |33 SQL +19 default regression; queue empty hosted; no delivery or scheduler |
 | CODEX-31 | done | Owner-approved WIRE activation only | CODEX-30 | Explicit Approve WIRE activation only |Enabled18:11:02.180774Z; independently verified; Familiarity unchanged; stop |
 | CODEX-30 | done | Combined current WIRE, catch triggers and Familiarity rehearsal | CODEX-29 | Local work/read-only catalog authorized |19 REAL LOCAL SQL +3 process guards; activation-only packet tested locally; hosted WIRE off |
 | CODEX-29 | done | WIRE current catalog/source and local regression review | CODEX-28 | Read-only hosted/local scope |21 static +47 local SQL passes; current combined trigger/Familiarity rehearsal next; WIRE off |

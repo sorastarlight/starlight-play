@@ -1,6 +1,6 @@
 {
   "classification": "REAL SQL — disposable loopback PostgreSQL; synthetic integration fixtures",
-  "observedAt": "2026-10-20T17:48:12.722Z",
+  "observedAt": "2026-10-20T18:23:23.175Z",
   "postgres": "17.5",
   "checks": [
     "Disposable loopback PostgreSQL confirmed",
@@ -34,12 +34,13 @@
     "notices": 1,
     "outbox": 7
   },
+  "deliveryResult": null,
   "functions": 112,
   "catchTriggers": 6,
   "limitations": [
     "No hosted gameplay or production WIRE toggle.",
     "Forced local TEST outcomes and expired deadlines: not ordinary odds/timing proof.",
-    "Catalog-shaped tables include NOT NULL/defaults, identities, non-FK constraints and indexes; foreign keys, RLS, auth sessions and nested triggers on other tables are excluded.",
+    "Catalog-shaped tables include NOT NULL/defaults, identities, non-FK constraints and indexes; foreign keys and nested triggers on unrelated tables are excluded. Real authentication is not modeled.",
     "Reference pin seed plus limited public reference snapshot; default progression settings for this fixture.",
     "No Familiarity reconciliation, event delivery, scheduler or browser UI test."
   ]

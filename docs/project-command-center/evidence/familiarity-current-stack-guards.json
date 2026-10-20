@@ -1,0 +1,19 @@
+{
+  "classification": "LOCAL process checks",
+  "cases": [
+    {
+      "name": "delivery mode still requires local opt-in",
+      "exit": 1,
+      "passed": true
+    },
+    {
+      "name": "delivery mode rejects hosted environment",
+      "exit": 1,
+      "passed": true
+    },
+    {
+      "name": "all temporary clusters removed",
+      "passed": true
+    }
+  ]
+}

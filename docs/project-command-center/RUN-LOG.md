@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-32 — Current Familiarity delivery local readiness (2026-10-20)
+
+33 REAL LOCAL SQL checks cover current event/outbox guards, bounded/concurrent delivery, missed-note reconciliation, retries/exhaustion/rejects, tier thresholds and synthetic-claim RLS.19 default regression,D71/D72 static,9 model and3 guard checks passed. Hosted aggregate snapshot: WIRE enabled,Familiarity active,empty outbox,0 events/jobs;restricted client execution/read privileges verified. No hosted write or account/catch-row read. See FAMILIARITY-DELIVERY-LOCAL-READINESS.md.
+
+
 ## CODEX-31 — Owner-approved WIRE activation only (2026-10-20)
 
 Refreshed reference checksums/client denial; one guarded existing-setter call enabled WIRE at18:11:02.180774Z.112 function hashes and6 triggers checked within transaction. Independent read confirmed enabled, unchanged active Familiarity cutoff/singleton,0 unresolved rounds. No gameplay, trainer read/mutation, delivery, scheduling, schema/role change or stamp. Stopped after verification and audit publication. See WIRE-ACTIVATION.md.

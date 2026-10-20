@@ -1,0 +1,90 @@
+{
+  "classification": "REAL SQL — disposable loopback PostgreSQL; synthetic integration fixtures",
+  "observedAt": "2026-10-20T18:22:30.231Z",
+  "postgres": "17.5",
+  "checks": [
+    "Disposable loopback PostgreSQL confirmed",
+    "All catalog body hashes and all six catch triggers verified",
+    "All nine used reference tables match hosted row counts and canonical content checksums",
+    "Only fictional trainer and reference data seeded; local Familiarity active",
+    "WIRE off: legacy fields, ball debit, XP, Pokédex notice, insertion stamp and Familiarity outbox coexist",
+    "WIRE-off replay adds no specimen, debit, XP, notice, candy, mastery or outbox row",
+    "WIRE on: generated fields survive actual stamp/XP/presentation triggers and queue Familiarity",
+    "WIRE-on replay is exactly once across all recorded side effects",
+    "Both actual timestamp freeze triggers reject edits",
+    "Owned escape spends one ball and creates no catch, catch XP or Familiarity row",
+    "Borrowed catch remains free while generation and Familiarity recording run",
+    "Injected persistence failure rolls back catch, XP, debit, notices, candy, mastery and queue; no ghost result",
+    "After removing local failure injection, the same unresolved round settles once and replay stays stable",
+    "Concurrent current-stack settlement produces exactly one specimen, debit and queue row",
+    "Queue failure leaves successful catch intact; explicit local note retry queues once without duplicate rewards",
+    "Disabling WIRE restores legacy writes and preserves already generated specimens",
+    "All recorded catches have one pending outbox row; no orphan, delivered or attempted row",
+    "Proposed activation transaction rejects fingerprint drift without switching on",
+    "Concrete activation-only packet and existing-function rollback both verified locally",
+    "Actual queue admission/event guard and bounded delivery write two events and Familiar progress",
+    "Delivery advances 3/6-catch tiers without changing Pokémon, XP, candy, mastery points, items or notices",
+    "Repeated delivery and reconciliation add no duplicate events or rewards",
+    "Event trigger rejects mutation and forged trainer identity",
+    "A missed note is reconciled and delivered once without repeating the catch or its rewards",
+    "Paused lifecycle accepts notes and blocks delivery; active fixture resumes the same queue",
+    "Actual admission trigger blocks new work in a draining fixture; successful catch still survives",
+    "Transient event failure preserves pending work and a later retry inserts exactly one event",
+    "Concurrent bounded delivery workers write each event once without changing gameplay rewards",
+    "Eight transient failures mark work exhausted without creating events or changing the catch",
+    "Event guard rejects a test-reward catch while preserving its specimen",
+    "Server insertion before a fixture cutoff is rejected; the cutoff fixture is rolled back",
+    "Actual progress view reaches Specialist at12 and Expert at20 eligible catches",
+    "Security-invoker view/RLS isolate synthetic trainers; authenticated cannot deliver, reconcile or delete events"
+  ],
+  "final": {
+    "xp": 100340,
+    "balls": 8,
+    "catches": 22,
+    "item_rows": 12,
+    "xp_rows": 43,
+    "mastery_rows": 21,
+    "candy_rows": 21,
+    "notices": 1,
+    "outbox": 22
+  },
+  "deliveryResult": {
+    "events": 20,
+    "progress": {
+      "eligible_captures": 20,
+      "tier_level": 5,
+      "tier_name": "Expert"
+    },
+    "statuses": [
+      {
+        "status": "delivered",
+        "rows": 20,
+        "max_attempts": 1
+      },
+      {
+        "status": "exhausted",
+        "rows": 1,
+        "max_attempts": 8
+      },
+      {
+        "status": "rejected",
+        "rows": 1,
+        "max_attempts": 1
+      }
+    ],
+    "limitations": [
+      "Pause/resume states are local fixtures, not lifecycle operator-function tests.",
+      "auth.uid is a synthetic local claim fixture, not a real Supabase login.",
+      "No live delivery or queue modification."
+    ]
+  },
+  "functions": 117,
+  "catchTriggers": 6,
+  "limitations": [
+    "No hosted gameplay or production WIRE toggle.",
+    "Forced local TEST outcomes and expired deadlines: not ordinary odds/timing proof.",
+    "Catalog-shaped tables include NOT NULL/defaults, identities, non-FK constraints and indexes; foreign keys and nested triggers on unrelated tables are excluded. Real authentication is not modeled.",
+    "Reference pin seed plus limited public reference snapshot; default progression settings for this fixture.",
+    "Familiarity delivery/reconcile/event guards and view RLS tested locally with synthetic auth.uid claims only; no hosted delivery, scheduler or browser UI test."
+  ]
+}

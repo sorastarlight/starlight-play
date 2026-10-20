@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-32",
+      "status": "done",
+      "scope": "Current Familiarity delivery/reconciliation, event guards and progress RLS local rehearsal",
+      "dependencies": [
+        "CODEX-31"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "FAMILIARITY-DELIVERY-LOCAL-READINESS.md; evidence/familiarity-current-stack-result.json; evidence/familiarity-current-stack-guards.json; evidence/familiarity-delivery-baseline-20261020.json",
+      "testResults": "33 REAL LOCAL SQL;117 exact function bodies;6 catch and2 Familiarity triggers;19 default regression;D71/D72 static;9 model;3 process guards",
+      "nextAction": "Planned player-facing Familiarity display/review; no queued hosted delivery work at current snapshot",
+      "approvalRequirement": "Hosted capture/delivery/scheduling remain separate decisions; none performed"
+    },
+    {
       "id": "CODEX-31",
       "status": "done",
       "scope": "Single owner-approved global WIRE activation then verify and stop",

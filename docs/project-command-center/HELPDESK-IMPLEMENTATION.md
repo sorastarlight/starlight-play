@@ -1,5 +1,7 @@
 # Connected Support — CODEX-16
 
+Current status: **live for signed-in players; staff inbox owner-only**. Owner-approved90-day completed-ticket retention. Real EmailQA player/staff/private-note QA passed. Historical rollout snapshots below document the activation sequence.
+
 Owner approved the reviewed workflow with90-day retention, owner-only initial staff access, attachments and ticket email deferred. Implemented My Account → Support at support.html; Admin Hub Support & Recovery inbox; Trainer Tickets history. All counts come from authorized database queries. Plain text public replies, distinct internal notes, reason-required staff triage/status changes, assignment to self/unassigned, canned response drafts, search/filters, keyset ticket/message pagination, revision conflicts, idempotent writes and account-change teardown.
 
 ## Authority and storage
@@ -16,10 +18,22 @@ Daily cleanup04:37UTC removes resolved/closed tickets older than90 days from com
 
 Hosted ACL/RLS inspected: anon cannot execute support_call; authenticated cannot run cleanup; all5 private tables RLS enabled. Advisors: intentional private no-policy and authenticated SECURITY DEFINER entry reported; fixed search paths on new functions. Broad historical project advisories remain separate. See https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy and https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable .
 
-Currently enabled only for dedicated EmailQA player plus verified owner staff; no real ticket created yet. Live player/staff reply, triage, private-note visibility and reopening QA remain pending. General player availability remains gated on these checks. No protected target mutation, role promotion, gameplay,D86,APP stamp or spending. Recovery email tested separately; ticket escalation only opens its existing guarded target-bound confirmation and does not send automatically. Case references there remain manual external references, not verified ticket-ownership proof. Attachments, ticket notification preferences/mail, bulk actions and audit-event pagination beyond latest25 are deferred.
+Initial rollout was restricted to dedicated EmailQA player plus verified owner staff. The completed real QA and general activation are recorded below. No protected target mutation, role promotion, gameplay,D86,APP stamp or spending. Recovery email tested separately; ticket escalation only opens its existing guarded target-bound confirmation and does not send automatically. Case references there remain manual external references, not verified ticket-ownership proof. Attachments, ticket notification preferences/mail, bulk actions and audit-event pagination beyond latest25 are deferred.
 
 Publication:36843ecc, GitHub Pages39306735810 succeeded. Hosted dispatcher body MD5 matches source:7ba1dbaf3aaf050c611b8f1a3f28e65d. Player gate correctly returns unavailable for the owner account while QA-player restriction remains active. New-ticket control is disabled when list access/configuration is unavailable; no inferred counts shown. Awaiting EmailQA sign-in for real creation/reply test.
 
 ## Real player QA — in progress
 
 EmailQA signed in through the normal site flow. Created exactly one labeled case#1, reference CODEX-16-QA; submitted one player follow-up; resolved and reopened via confirmation dialogs. UI counts changed1→0→1 with state transitions. Read-only DB verification: waiting_staff, revision4, exactly2 messages/4 audit events/4 recorded requests. No second ticket, reward, identity change or mail. Owner sign-in handoff requested for staff half of QA; general rollout remains restricted.
+
+## Real owner QA — completed
+
+Existing owner session opened only EmailQA case#1. Posted one public staff reply (waiting_player), one clearly labeled internal note (state preserved), assigned case to self with low priority and audited reason; verified Assigned to me + Low filters. Trainer Management → EmailQA → Tickets showed the same authorized case/open count. Closed the QA case with an audit reason. DB verification: closed, low priority, assigned, revision8,3 public messages,1 internal note,8 audit events. Owner remains caller only; no protected trainer target mutation. Staff screenshot visually reviewed with corrected Admin Hub stylesheet. Final actual EmailQA read is pending to verify public reply visible/private marker absent before removing QA-only gate.
+
+## Final real privacy verification and general activation
+
+EmailQA signed back in and opened closed case#1 through normal Support. The public staff reply was visible alongside the two player messages. Internal marker CODEX16-PRIVATE had0 DOM matches; no internal-note label, triage or staff-audit control appeared. Local real SQL tests separately verify private data is excluded from player RPC results, and hosted dispatcher body matched that tested source. No impersonation, token extraction or synthetic claims used for hosted checks.
+
+After this passed, qa_player cleared while enabled remained true. Signed-in players can now use My Account → Support; owner-only staff inbox and Trainer Tickets remain role guarded. QA case remains closed under normal90-day retention; no manual deletion. Both retention jobs active, scheduled execution not yet observed. Player/staff functionality passed on EmailQA only; no protected account used as test target, no role promotion, gameplay, extra mail, APP stamp or spending. Existing owner account used as caller only.
+
+Publication: Admin Hub stylesheet correction caf751a5, Pages39309575313 succeeded. Final build validation retained APP20261008-rc133,31 root pages,422 stamped references. Prior75 suites and35 real SQL checks passed; no application changes after the verified styling fix. Scope complete for agreed initial release. Attachments, ticket notifications, wider staff roles and full audit-event pagination remain explicitly deferred.

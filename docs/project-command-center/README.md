@@ -1,6 +1,6 @@
 # Pokémon StreamLink — project command center
 
-Helpdesk review: [specification](./HELPDESK-ISSUE-14.md), [interactive desktop/player/staff review](./design-reset/helpdesk-review.html), [390px mobile review](./design-reset/helpdesk-mobile-review.html). Prototype uses fictional data; [connected implementation](./HELPDESK-IMPLEMENTATION.md) is approved and in EmailQA-only live verification. Staff recovery is enabled owner-only after approved90-day audit retention and real EmailQA staff delivery verification.
+Helpdesk review: [specification](./HELPDESK-ISSUE-14.md), [interactive desktop/player/staff review](./design-reset/helpdesk-review.html), [390px mobile review](./design-reset/helpdesk-mobile-review.html). Prototype uses fictional data; [connected implementation](./HELPDESK-IMPLEMENTATION.md) is live for signed-in players after real EmailQA player/staff/privacy verification; staff access remains owner-only, completed retention90 days. Staff recovery is enabled owner-only after approved90-day audit retention and real EmailQA staff delivery verification.
 
 Current runner: [Codex runner trial](./CODEX-RUNNER.md). The owner's later instructions supersede the Gemini/Cursor handoff pause for routine development and GitHub publication; D86 and database/gameplay changes remain gated.
 

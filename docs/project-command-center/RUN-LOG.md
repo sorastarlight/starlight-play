@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-16 completion — real privacy QA and general availability (2026-10-19)
+
+Normal EmailQA player login created1 labeled case, replied, resolved and reopened. Existing owner login posted public reply and internal note, assigned low priority/self, verified filters and Trainer Tickets, then closed case with reason. Final EmailQA login saw3 public messages/public staff reply; private marker absent (0 DOM matches), staff audit/triage absent. DB case#1 closed/revision8/3 public+1 private message/8 audit events. Cleared QA-player restriction after checks; signed-in player Support now enabled, staff stays owner-only. Both90-day retention jobs active; scheduled runs not yet observed.75 static suites,35 real local SQL checks, source fingerprint, real DOM/RPC and screenshots support scoped completion. Stylesheet omission corrected caf751a5; Pages39309575313 succeeded; build31 pages/422 refs, APPrc133. No protected targets, roles, gameplay,D86,extra email,stamp or spending. Initial scope done; attachments/notifications/broader staff roles deferred as agreed.
+
+
 ## CODEX-16 — connected helpdesk EmailQA rollout (2026-10-19)
 
 Owner approved workflow and90-day retention. Installed private actor-bound support dispatcher/storage and daily retention; enabled only dedicated EmailQA player + owner staff. Connected player page, Account link, owner inbox and Trainer Tickets.35 real local SQL checks including concurrency, replay, pagination, account isolation/private notes/retention passed;75 static suites/build, synthetic connected DOM passed. Hosted ACL/RLS/advisors inspected. No live tickets yet; next isolated player sign-in and real staff/reply/private-note checks before general enable. No protected targets, promotions, gameplay,D86,stamp or spending. See HELPDESK-IMPLEMENTATION.md.

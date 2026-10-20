@@ -5,16 +5,16 @@
   "tasks": [
     {
       "id": "CODEX-16",
-      "status": "doing",
+      "status": "done",
       "scope": "Connected player Support and owner Helpdesk with90-day retention",
       "dependencies": [
         "CODEX-15"
       ],
       "branch": "admin-hub-overhaul",
-      "commit": null,
+      "commit": "36843ecc",
       "evidence": "HELPDESK-IMPLEMENTATION.md; supabase/support-helpdesk.sql; support.html; js/support.js",
-      "testResults": "35 local real SQL checks;75 static suites/build; connected synthetic DOM and desktop/mobile review; hosted ACL/RLS/advisors inspected",
-      "nextAction": "Publish connected UI; EmailQA player sign-in and isolated live player/staff verification; then general availability",
+      "testResults": "35 local real SQL checks;75 static suites/build; connected synthetic DOM and desktop/mobile review; hosted ACL/RLS/advisors inspected REAL EmailQA create/reply/resolve/reopen; owner public reply/internal note/assignment/filter/Trainer history/closure; final EmailQA public reply visible and private marker absent. General signed-in player access enabled; owner-only staff retained.",
+      "nextAction": "Initial agreed scope complete; attachments, ticket mail and broader staff roles deferred",
       "approvalRequirement": "Owner approved workflow with90-day retention; owner-only staff access; no attachments or ticket mail"
     },
     {
@@ -1361,7 +1361,7 @@
     },
     {
       "id": "I14",
-      "status": "doing",
+      "status": "done",
       "scope": "GitHub issue #14 player helpdesk and staff inbox architecture",
       "dependencies": [
         "I12"
@@ -1370,7 +1370,7 @@
       "commit": null,
       "evidence": "not started",
       "testResults": "not run",
-      "nextAction": "Design/spec and synthetic desktop/mobile prototype ready; owner review before connected implementation",
+      "nextAction": "Approved90-day workflow implemented and verified in CODEX-16",
       "approvalRequirement": "architecture before any ticket table, RLS, or player form"
     },
     {

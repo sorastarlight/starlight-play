@@ -4,6 +4,34 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-19",
+      "status": "done",
+      "scope": "Issue17 source-grounded Twitch linking policy research/design",
+      "dependencies": [
+        "CODEX-18"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "TWITCH-LINKING-ISSUE-17.md; evidence/issue17-current-functions.json; evidence/issue17-current-structure.json; evidence/issue17-current-acl.json",
+      "testResults": "Hosted catalog/source and ACL inspection only; no account RPCs, OAuth flows, link changes or provider tests",
+      "nextAction": "Owner decision on proposed server-enforcement implementation; no Auth/RPC/schema changes made",
+      "approvalRequirement": "Issue17 research/design only; major account-link policy implementation requires owner decision"
+    },
+    {
+      "id": "CODEX-18",
+      "status": "done",
+      "scope": "One isolated D85 ordinary throw with canonical installed bodies",
+      "dependencies": [
+        "CODEX-17"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "D85-LOCAL-REHEARSAL.md; evidence/d85-local-result.json; tools/d85-stamp-rehearsal.js",
+      "testResults": "8 REAL LOCAL SQL checks passed; natural escape at16 percent chance; exactly one ball debit, replay safe; stamp not observed",
+      "nextAction": "Issue17 research/design while awaiting decision on further ordinary local attempts; D86 held",
+      "approvalRequirement": "Owner continued isolated local rehearsal; no hosted gameplay authority"
+    },
+    {
       "id": "CODEX-17",
       "status": "done",
       "scope": "Read-only D85 fingerprint reconciliation and tracker precedence cleanup",
@@ -55,7 +83,7 @@
       ],
       "branch": "admin-hub-overhaul",
       "commit": "a3a0da20",
-      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/; owner-requested Pok\u00e9mon StreamLink reset email naming; signup/email-change and shared sender use game title",
+      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/; owner-requested Pokémon StreamLink reset email naming; signup/email-change and shared sender use game title",
       "testResults": "REAL DOM hosted template source matched and saved; rendered previews reviewed. 20 recovery checks and build passed. No live Auth message sent. Owner-authorized EmailQA reset sent once; Resend Delivered. Signup confirmation also Delivered. Pages succeeded. Owner reported successful EmailQA password-reset completion on 2026-10-19.",
       "nextAction": "Resolve staff recovery audit receipt retention/privacy policy and privileged-path verification before activation",
       "approvalRequirement": "Owner explicitly requested friendly emails and continued SMTP/recovery work. User must enter and submit any new password."
@@ -175,7 +203,7 @@
     {
       "id": "CODEX-5",
       "status": "done",
-      "scope": "Visual searchable Pok\u00e9mon/candy picker, accurate gift labels, modal staff reasons and visual review",
+      "scope": "Visual searchable Pokémon/candy picker, accurate gift labels, modal staff reasons and visual review",
       "dependencies": [
         "CODEX-4"
       ],
@@ -454,7 +482,7 @@
     {
       "id": "I9",
       "status": "done",
-      "scope": "GitHub issue #9 Pok\u00e9mon collection rows and read-only detail comparison prototype",
+      "scope": "GitHub issue #9 Pokémon collection rows and read-only detail comparison prototype",
       "dependencies": [
         "I8"
       ],
@@ -496,7 +524,7 @@
     {
       "id": "I16",
       "status": "done",
-      "scope": "GitHub issue #16 Pok\u00e9mon generation/legality source audit and audited owner editor design",
+      "scope": "GitHub issue #16 Pokémon generation/legality source audit and audited owner editor design",
       "dependencies": [
         "epic-11"
       ],
@@ -504,7 +532,7 @@
       "commit": "a3004d1",
       "evidence": "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
       "testResults": "overhaul 17 STATIC PASS; LIVE CATALOG catches columns; no catch-row SELECT",
-      "nextAction": "Superseded by D15\u2013D17 / issue #19. Keep as current-state evidence.",
+      "nextAction": "Superseded by D15–D17 / issue #19. Keep as current-state evidence.",
       "approvalRequirement": "Historical; future work uses A19-* gates"
     },
     {
@@ -599,7 +627,7 @@
     {
       "id": "I24A",
       "status": "done",
-      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 \u2192 seed 00\u201310 \u2192 002",
+      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 → seed 00–10 → 002",
       "dependencies": [
         "I24",
         "D35"
@@ -624,7 +652,7 @@
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-SPEC.md, tests/fixtures/a19-genval/matrix.json, tests/a19-genval-spec-tests.js",
       "testResults": "a19-genval-spec STATIC/LOCAL HARNESS; historical D36 snapshot",
       "nextAction": "Superseded by I25A / D37. Spec file remains the planning snapshot.",
-      "approvalRequirement": "Historical; GV1\u2013GV7 later locked in D37"
+      "approvalRequirement": "Historical; GV1–GV7 later locked in D37"
     },
     {
       "id": "I25A",
@@ -1179,7 +1207,7 @@
       "evidence": "docs/project-command-center/D76-FAMILIARITY-STAMP-SMOKE-GO-PACKET.md",
       "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D76 8/8 on 127.0.0.1:55448. Lifecycle inactive. No hosted catch.",
       "nextAction": "Superseded by I41. Account creation stopped for missing email and password.",
-      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED \u2014 UNSPECIFIED."
+      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED — UNSPECIFIED."
     },
     {
       "id": "I41",
@@ -1341,9 +1369,9 @@
       ],
       "branch": "admin-hub-overhaul",
       "commit": "1d1f9ec2",
-      "evidence": "D85-STAMP-REHEARSAL.md; D85-FINGERPRINT-RECONCILIATION.md",
-      "testResults": "Original rehearsal did not run; CODEX-17 proved historical full-definition hashes match current definitions and repository bodies",
-      "nextAction": "Fingerprint metric mismatch reconciled by CODEX-17; isolated stamp rehearsal still pending; D86 held",
+      "evidence": "D85-STAMP-REHEARSAL.md; D85-FINGERPRINT-RECONCILIATION.md; D85-LOCAL-REHEARSAL.md",
+      "testResults": "One natural local escape; spending/replay/guards passed; stamp branch unobserved, D86 unauthorized",
+      "nextAction": "Stamp criterion incomplete after natural escape; no automatic reroll; D86 held",
       "approvalRequirement": "No production function change needed to reconcile hashes; gameplay/stamp authorization unchanged"
     },
     {

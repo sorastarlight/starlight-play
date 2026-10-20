@@ -1,0 +1,10 @@
+[
+  {
+    "rls": true,
+    "anon_select": false,
+    "player_select": true,
+    "player_insert": false,
+    "player_update": false,
+    "player_delete": false
+  }
+]

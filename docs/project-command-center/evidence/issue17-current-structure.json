@@ -1,0 +1,37 @@
+[
+  {
+    "kind": "index",
+    "name": "twitch_connections_login_idx",
+    "definition": "CREATE INDEX twitch_connections_login_idx ON public.twitch_connections USING btree (lower(twitch_login))"
+  },
+  {
+    "kind": "index",
+    "name": "twitch_connections_one_primary_uidx",
+    "definition": "CREATE UNIQUE INDEX twitch_connections_one_primary_uidx ON public.twitch_connections USING btree (user_id) WHERE (is_primary AND confirmed)"
+  },
+  {
+    "kind": "index",
+    "name": "twitch_connections_pkey",
+    "definition": "CREATE UNIQUE INDEX twitch_connections_pkey ON public.twitch_connections USING btree (id)"
+  },
+  {
+    "kind": "index",
+    "name": "twitch_connections_twitch_user_uidx",
+    "definition": "CREATE UNIQUE INDEX twitch_connections_twitch_user_uidx ON public.twitch_connections USING btree (twitch_user_id)"
+  },
+  {
+    "kind": "index",
+    "name": "twitch_connections_user_idx",
+    "definition": "CREATE INDEX twitch_connections_user_idx ON public.twitch_connections USING btree (user_id)"
+  },
+  {
+    "kind": "policy",
+    "name": "trainers read own twitch connections",
+    "definition": "roles={authenticated} cmd=SELECT qual=(user_id = ( SELECT auth.uid() AS uid)) check="
+  },
+  {
+    "kind": "trigger",
+    "name": "on_auth_identity_created",
+    "definition": "CREATE TRIGGER on_auth_identity_created AFTER INSERT ON auth.identities FOR EACH ROW EXECUTE FUNCTION private.handle_new_identity()"
+  }
+]

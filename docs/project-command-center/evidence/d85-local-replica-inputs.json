@@ -1,0 +1,2365 @@
+{
+  "description": "Catalog columns and code plus public Bulbasaur/Poke Ball reference data and captureBalance only. No hosted trainer rows, credentials or gameplay.",
+  "columns": [
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "content_build",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "form_id",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "dex",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "form_key",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "form_label",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "kind",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "is_base",
+      "type": "boolean"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "pokeapi_pokemon_id",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "mapping_status",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "types",
+      "type": "text[]"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "height_m",
+      "type": "numeric"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "weight_kg",
+      "type": "numeric"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "hp",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "atk",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "def",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "spa",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "spd",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "spe",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "learnset_status",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "learnset_version_group",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "ref_forms",
+      "column": "learnset_resolution",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "content_build",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "dex",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "slug",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "gender_rate",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "pokeapi_base_friendship",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "streamlink_base_friendship",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "capture_rate",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "hatch_counter",
+      "type": "integer"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "is_legendary",
+      "type": "boolean"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "is_mythical",
+      "type": "boolean"
+    },
+    {
+      "schema": "private",
+      "name": "ref_species",
+      "column": "mapping_status",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "species_mastery_activation",
+      "column": "singleton",
+      "type": "boolean"
+    },
+    {
+      "schema": "private",
+      "name": "species_mastery_activation",
+      "column": "activated_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "private",
+      "name": "species_mastery_activation",
+      "column": "disabled_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "private",
+      "name": "species_mastery_activation",
+      "column": "lifecycle",
+      "type": "text"
+    },
+    {
+      "schema": "private",
+      "name": "species_mastery_activation",
+      "column": "paused_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "private",
+      "name": "species_mastery_activation",
+      "column": "drain_started_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "private",
+      "name": "species_mastery_activation",
+      "column": "closed_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "private",
+      "name": "streamlink_wire_switch",
+      "column": "id",
+      "type": "smallint"
+    },
+    {
+      "schema": "private",
+      "name": "streamlink_wire_switch",
+      "column": "enabled",
+      "type": "boolean"
+    },
+    {
+      "schema": "private",
+      "name": "streamlink_wire_switch",
+      "column": "updated_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "key",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "name",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "category",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "base_multiplier",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "conditional_multiplier",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "condition_type",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "condition_config",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "guaranteed_capture",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "shop_price",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "sell_price",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "rarity",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "enabled",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "image",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "description",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "sort_order",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "updated_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "economic_tier",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_balls",
+      "column": "store_enabled",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "key",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "slug",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "berry_id",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "item_id",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "item_slug",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "name",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "firmness",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "natural_gift_type",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "natural_gift_power",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "flavors",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "sprite",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "canonical_effect",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "canonical_flavor_text",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "capture_multiplier",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "capture_rule",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "reward_bonus",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "rpg_description",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "tier",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "rarity",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "shop_price",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "sell_price",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "enabled",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "capture_enabled",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "store_available",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "sort_order",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "updated_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "capture_berries",
+      "column": "economic_tier",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "id",
+      "type": "bigint"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "created_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "round_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "user_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "dex",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "species_name",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "variant",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "gender",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "is_shiny",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "is_female",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "canonical_catch_rate",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "base_chance",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "ball_key",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "ball_multiplier",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "ball_condition_met",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "berry_key",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "berry_multiplier",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "honey_contributors",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "honey_participants",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "honey_multiplier",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "honey_contributor_multiplier",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "shiny_multiplier",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "event_multiplier",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "other_multiplier",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "raw_chance",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "final_chance",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "capture_roll",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "success",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "capture_log",
+      "column": "detail",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "user_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "dex",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "name",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "variant",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "gender",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ball",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "caught_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "round_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "source_key",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "public_id",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "nickname",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "level",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "iv_hp",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "iv_atk",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "iv_def",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "iv_spa",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "iv_spd",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "iv_spe",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "av_hp",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "av_atk",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "av_def",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "av_spa",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "av_spd",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "av_spe",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "moves",
+      "type": "text[]"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "size_class",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "transferred_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ot_user_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ot_name",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ot_number",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "met_level",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "met_location",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "height_m",
+      "type": "numeric(6,2)"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "weight_kg",
+      "type": "numeric(6,1)"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "friendship",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "is_alpha",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "favorite",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "locked",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "obtained_method",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "trade_evo_ready",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "trade_locked_until",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "reserved_trade_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "pokemon_form_id",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "nature_id",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ability_id",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ability_slot",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ev_hp",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ev_atk",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ev_def",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ev_spa",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ev_spd",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ev_spe",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "move_slots",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "ruleset_id",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "content_build",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "hp_current",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "hp_max",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "status",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "held_item",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "gigantamax_factor",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "catches",
+      "column": "server_inserted_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "round_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "user_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "prep",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "ball",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "result",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "chance",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "roll",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "caught",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "joined_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "prep_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "ball_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "throw_processed",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_players",
+      "column": "result_reason",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "source_id",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "phase",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "ends_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "hidden",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "pokemon",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "updated_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "dex",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "name",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "variant",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "gender",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "started_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "deadlines",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "players",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "rules",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "resolved",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "cancelled",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "last_action",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "source",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "paused_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "trigger_source",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "pause_reasons",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "encounter_rounds",
+      "column": "pokemon_form_id",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "user_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "berry",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "bait",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "pokeball",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "greatball",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "ultraball",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "updated_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "lure",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "coins",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "bag_bonus",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "lure_armed",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "pass_daily_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "pass_weekly_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "balls",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "lure_until",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "berries",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "starter_granted",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "daily_supply_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "inventories",
+      "column": "items",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "item_ledger",
+      "column": "id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "item_ledger",
+      "column": "user_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "item_ledger",
+      "column": "item_key",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "item_ledger",
+      "column": "amount",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "item_ledger",
+      "column": "reason",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "item_ledger",
+      "column": "source_id",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "item_ledger",
+      "column": "idempotency",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "item_ledger",
+      "column": "created_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "play_console_log",
+      "column": "id",
+      "type": "bigint"
+    },
+    {
+      "schema": "public",
+      "name": "play_console_log",
+      "column": "created_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "play_console_log",
+      "column": "round_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "play_console_log",
+      "column": "user_id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "play_console_log",
+      "column": "display_name",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "play_console_log",
+      "column": "kind",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "play_console_log",
+      "column": "item",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "play_console_log",
+      "column": "message",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "play_console_log",
+      "column": "source_activity_id",
+      "type": "bigint"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "pokemon_form_id",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "dex",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "form_key",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "form_label",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "kind",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "is_base",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "has_front",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "has_shiny_front",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "has_female_front",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "has_back",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "admin_targetable",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "event_targetable",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "normal_encounter_enabled",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "asset_status",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "origin_gen1",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "catch_rate",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "pokemon_forms",
+      "column": "forced_gender",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "id",
+      "type": "uuid"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "twitch_user_id",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "twitch_login",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "display_name",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "avatar_url",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "created_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "updated_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "starlight_pass",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "pass_source",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "pass_checked_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "watch_seconds",
+      "type": "bigint"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "xp",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "last_heartbeat_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "last_seen_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "favorite_dex",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "favorite_variant",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "trainer_title",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "trainer_sprite",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "team_ids",
+      "type": "uuid[]"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "card_bg",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "owned_avatar_packs",
+      "type": "text[]"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "pc_layout",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "encounter_settings",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "active_title_id",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "featured_badge_ids",
+      "type": "text[]"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "username",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "card_frame",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "showcase",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "ranking_visible",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "column": "team_bg",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "site_config",
+      "column": "id",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "site_config",
+      "column": "broadcaster_twitch_login",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "site_config",
+      "column": "updated_at",
+      "type": "timestamp with time zone"
+    },
+    {
+      "schema": "public",
+      "name": "site_config",
+      "column": "game_settings",
+      "type": "jsonb"
+    },
+    {
+      "schema": "public",
+      "name": "site_config",
+      "column": "twitch_client_id",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "site_config",
+      "column": "twitch_broadcaster_id",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "site_config",
+      "column": "bits_store_enabled",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "dex",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "name",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "slug",
+      "type": "text"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "catch_rate",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "types",
+      "type": "text[]"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "base_speed",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "weight_kg",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "height_m",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "moon_stone_family",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "is_legendary",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "spawn_weight",
+      "type": "numeric"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "generation",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "family_id",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "evo_stage",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "tradable",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "mythical",
+      "type": "boolean"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "family_candy_species_id",
+      "type": "integer"
+    },
+    {
+      "schema": "public",
+      "name": "species",
+      "column": "spawn_band_override",
+      "type": "text"
+    }
+  ],
+  "functions": [
+    {
+      "schema": "private",
+      "name": "announce_throws",
+      "arguments": "p_round uuid",
+      "body_md5": "1145a36f2a1a2e93f9d99e91c4d24916",
+      "definition": "CREATE OR REPLACE FUNCTION private.announce_throws(p_round uuid)\n RETURNS text\n LANGUAGE plpgsql\nAS $function$\nDECLARE\n  rec public.encounter_players%ROWTYPE;\n  who text;\n  line text;\n  last_line text;\nBEGIN\n  FOR rec IN\n    SELECT ep.*\n    FROM public.encounter_players ep\n    WHERE ep.round_id = p_round\n      AND ep.ball IS NOT NULL\n      AND ep.throw_processed = false\n    ORDER BY coalesce(private.trainer_label(ep.user_id), 'Trainer'), ep.user_id\n    FOR UPDATE\n  LOOP\n    who := coalesce(private.trainer_label(rec.user_id), 'A trainer');\n    IF rec.result_reason IS DISTINCT FROM 'standard_throw' THEN\n      BEGIN\n        PERFORM private.spend_bag_item(rec.user_id, rec.ball);\n      EXCEPTION\n        WHEN SQLSTATE 'NB001' THEN\n          UPDATE public.encounter_players ep\n            SET throw_processed = true, result_reason = 'no_ball_left'\n            WHERE ep.round_id = rec.round_id AND ep.user_id = rec.user_id;\n          INSERT INTO public.play_console_log (round_id, user_id, display_name, kind, item, message)\n          SELECT p_round, rec.user_id, who, 'timeout', rec.ball,\n                 '⌛ ' || who || ' ran out of ' || private.item_label(rec.ball) || 's before the throw.'\n          WHERE NOT EXISTS (\n            SELECT 1 FROM public.play_console_log l\n            WHERE l.round_id = p_round AND l.user_id = rec.user_id AND l.kind = 'timeout'\n          )\n          ON CONFLICT DO NOTHING;\n          CONTINUE;\n      END;\n    END IF;\n    UPDATE public.encounter_players ep\n      SET throw_processed = true\n      WHERE ep.round_id = rec.round_id AND ep.user_id = rec.user_id;\n    line := who || ' has thrown ' || private.a_or_an(private.item_label(rec.ball)) || '!';\n    PERFORM private.log_activity(p_round, rec.user_id, 'threw', rec.ball);\n    UPDATE public.play_console_log l\n      SET message = line\n      WHERE l.round_id = p_round\n        AND l.user_id = rec.user_id\n        AND l.kind = 'threw'\n        AND coalesce(l.message, '') = '';\n    last_line := line;\n  END LOOP;\n\n  FOR rec IN\n    SELECT ep.*\n    FROM public.encounter_players ep\n    WHERE ep.round_id = p_round AND ep.ball IS NULL AND ep.result IS NULL\n  LOOP\n    who := coalesce(private.trainer_label(rec.user_id), 'A trainer');\n    INSERT INTO public.play_console_log (round_id, user_id, display_name, kind, item, message)\n    SELECT p_round, rec.user_id, who, 'timeout', NULL,\n           '⌛ ' || who || ' did not choose a Poké Ball in time.'\n    WHERE NOT EXISTS (\n      SELECT 1 FROM public.play_console_log l\n      WHERE l.round_id = p_round AND l.user_id = rec.user_id AND l.kind = 'timeout'\n    )\n    ON CONFLICT DO NOTHING;\n  END LOOP;\n\n  RETURN last_line;\nEND;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "canonical_form_id",
+      "arguments": "p_dex integer, p_form_id integer",
+      "body_md5": "2b4136c01d09706f1b631f8b8b4c280e",
+      "definition": "CREATE OR REPLACE FUNCTION private.canonical_form_id(p_dex integer, p_form_id integer)\n RETURNS integer\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  f public.pokemon_forms;\nbegin\n  if p_dex is null or p_dex < 1 then\n    raise exception 'Invalid species.';\n  end if;\n  if p_form_id is null or p_form_id = p_dex then\n    if not exists (select 1 from public.pokemon_forms where pokemon_form_id = p_dex and is_base) then\n      -- Base row missing: still treat NationalDex as base identity.\n      return p_dex;\n    end if;\n    return p_dex;\n  end if;\n  select * into f from public.pokemon_forms where pokemon_form_id = p_form_id;\n  if f.pokemon_form_id is null then\n    raise exception 'Unknown form id %.', p_form_id;\n  end if;\n  if f.dex is distinct from p_dex then\n    raise exception 'Form % does not belong to species %.', p_form_id, p_dex;\n  end if;\n  return f.pokemon_form_id;\nend;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_ball_modifier",
+      "arguments": "p_ball text, p_dex integer, p_owns_species boolean, p_at timestamp with time zone, p_config jsonb",
+      "body_md5": "8feff897b7f1686588b027233b4a34b5",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_ball_modifier(p_ball text, p_dex integer, p_owns_species boolean DEFAULT false, p_at timestamp with time zone DEFAULT now(), p_config jsonb DEFAULT NULL::jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  cfg jsonb := coalesce(p_config, private.capture_config());\n  ctx jsonb := coalesce(cfg->'_context', '{}'::jsonb);\n  b public.capture_balls%rowtype;\n  s public.species%rowtype;\n  mult numeric;\n  met boolean := false;\n  tier jsonb;\n  zone text := coalesce(cfg->>'timezone', 'UTC');\n  local_hour int;\n  start_hour int;\n  end_hour int;\n  progress numeric := coalesce((ctx->>'throwProgress')::numeric, 0.5);\n  trainer_level int := coalesce((ctx->>'trainerLevel')::int, 1);\n  gender text := lower(coalesce(ctx->>'gender', ''));\nbegin\n  if p_ball is null then\n    return jsonb_build_object('key', null, 'name', null, 'multiplier', 1.0,\n                              'conditionMet', false, 'guaranteed', false, 'condition', 'NONE');\n  end if;\n  select * into b from public.capture_balls where key = p_ball;\n  if not found then\n    return jsonb_build_object('key', p_ball, 'name', private.item_label(p_ball), 'multiplier', 1.0,\n                              'conditionMet', false, 'guaranteed', false, 'condition', 'UNKNOWN');\n  end if;\n  select * into s from public.species where dex = p_dex;\n  mult := b.base_multiplier;\n  case b.condition_type\n    when 'TARGET_TYPE' then\n      met := coalesce(s.types, '{}'::text[]) && (\n        select coalesce(array_agg(value), '{}'::text[])\n        from jsonb_array_elements_text(coalesce(b.condition_config->'types', '[]'::jsonb))\n      );\n    when 'NIGHT' then\n      start_hour := coalesce((b.condition_config->>'startHour')::int, 18);\n      end_hour := coalesce((b.condition_config->>'endHour')::int, 6);\n      local_hour := extract(hour from (p_at at time zone zone))::int;\n      met := case\n        when start_hour > end_hour then local_hour >= start_hour or local_hour < end_hour\n        else local_hour >= start_hour and local_hour < end_hour\n      end;\n    when 'PLAYER_OWNS_SPECIES' then\n      met := coalesce(p_owns_species, false);\n    when 'SPECIES_CATCH_RATE_MIN' then\n      met := coalesce(s.catch_rate, 0) >= coalesce((b.condition_config->>'min')::int, 999);\n    when 'SPECIES_BASE_SPEED_MIN' then\n      met := coalesce(s.base_speed, 0) >= coalesce((b.condition_config->>'min')::int, 999);\n    when 'MOON_STONE_FAMILY' then\n      met := coalesce(s.moon_stone_family, false);\n    when 'SPECIES_WEIGHT_TIERS' then\n      select t into tier\n      from jsonb_array_elements(coalesce(b.condition_config->'tiers', '[]'::jsonb)) t\n      where coalesce(s.weight_kg, 0) >= (t->>'minKg')::numeric\n      order by (t->>'minKg')::numeric desc\n      limit 1;\n      if tier is not null then\n        met := true;\n        mult := (tier->>'multiplier')::numeric;\n      end if;\n    when 'THROW_EARLY' then\n      met := progress <= coalesce((b.condition_config->>'maxProgress')::numeric, 0.34);\n    when 'THROW_LATE' then\n      met := progress >= coalesce((b.condition_config->>'minProgress')::numeric, 0.66);\n    when 'TRAINER_LEVEL_GTE' then\n      met := trainer_level >= coalesce((b.condition_config->>'minLevel')::int, 8);\n    when 'TARGET_GENDERED' then\n      met := gender in ('male', 'female');\n    else\n      met := false;\n  end case;\n  if met and b.conditional_multiplier is not null and b.condition_type <> 'SPECIES_WEIGHT_TIERS' then\n    mult := b.conditional_multiplier;\n  end if;\n  return jsonb_build_object(\n    'key', b.key, 'name', b.name, 'multiplier', mult,\n    'conditionMet', met, 'condition', b.condition_type, 'guaranteed', b.guaranteed_capture\n  );\nend;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_base_chance",
+      "arguments": "p_catch_rate integer, p_config jsonb",
+      "body_md5": "22d975611f036503f188d0da83088cc7",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_base_chance(p_catch_rate integer, p_config jsonb DEFAULT NULL::jsonb)\n RETURNS numeric\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce(\n    (\n      select (t->>'chance')::numeric\n      from jsonb_array_elements(\n        coalesce(\n          nullif(coalesce(p_config, private.capture_config())->'baseChanceTiers', 'null'::jsonb),\n          '[]'::jsonb\n        )\n      ) t\n      where coalesce(p_catch_rate, 45) >= (t->>'minCatchRate')::int\n      order by (t->>'minCatchRate')::int desc\n      limit 1\n    ),\n    0.16\n  );\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_berry_keys",
+      "arguments": "",
+      "body_md5": "ef78f633a2a4d2a01797138305fc8493",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_berry_keys()\n RETURNS text[]\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce(array_agg(key order by sort_order, key), '{}'::text[])\n  from public.capture_berries\n  where key <> all (private.core_item_keys());\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_berry_modifier",
+      "arguments": "p_item text",
+      "body_md5": "b644dd00db34d16ccfc9e318372a7084",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_berry_modifier(p_item text)\n RETURNS jsonb\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce(\n    (\n      select jsonb_build_object(\n        'key', b.key, 'name', b.name, 'multiplier', b.capture_multiplier,\n        'rewardBonus', b.reward_bonus\n      )\n      from public.capture_berries b\n      where b.key = p_item and b.enabled and b.capture_enabled\n    ),\n    jsonb_build_object('key', null, 'name', null, 'multiplier', 1.0, 'rewardBonus', 0)\n  );\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_chance",
+      "arguments": "p_dex integer, p_ball text, p_berry text, p_honey_contributors integer, p_honey_participants integer, p_contributed_honey boolean, p_owns_species boolean, p_is_shiny boolean, p_other_multiplier numeric, p_at timestamp with time zone, p_config jsonb",
+      "body_md5": "205d43359e90971f790816cf6e45c889",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_chance(p_dex integer, p_ball text, p_berry text DEFAULT NULL::text, p_honey_contributors integer DEFAULT 0, p_honey_participants integer DEFAULT 0, p_contributed_honey boolean DEFAULT false, p_owns_species boolean DEFAULT false, p_is_shiny boolean DEFAULT false, p_other_multiplier numeric DEFAULT 1.0, p_at timestamp with time zone DEFAULT now(), p_config jsonb DEFAULT NULL::jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  cfg jsonb := coalesce(p_config, private.capture_config());\n  s public.species%rowtype;\n  base numeric;\n  ball jsonb;\n  berry jsonb;\n  honey jsonb;\n  contributor numeric;\n  shiny numeric;\n  event numeric;\n  other numeric := coalesce(p_other_multiplier, 1.0);\n  raw numeric;\n  final numeric;\n  min_chance numeric := coalesce((cfg->>'minChance')::numeric, 0.02);\n  max_chance numeric := coalesce((cfg->>'maxChance')::numeric, 0.85);\nbegin\n  select * into s from public.species where dex = p_dex;\n  base := private.capture_base_chance(s.catch_rate, cfg);\n  ball := private.capture_ball_modifier(p_ball, p_dex, p_owns_species, p_at, cfg);\n  berry := private.capture_berry_modifier(p_berry);\n  honey := private.capture_honey_modifier(p_honey_contributors, p_honey_participants, cfg);\n  contributor := case\n    when coalesce(p_contributed_honey, false) then coalesce((cfg->>'honeyContributorBonus')::numeric, 1.0)\n    else 1.0\n  end;\n  shiny := case when coalesce(p_is_shiny, false)\n    then coalesce((cfg->>'shinyMultiplier')::numeric, 1.0) else 1.0 end;\n  event := coalesce((cfg->>'eventMultiplier')::numeric, 1.0);\n\n  raw := base\n       * (ball->>'multiplier')::numeric\n       * (berry->>'multiplier')::numeric\n       * (honey->>'multiplier')::numeric\n       * contributor\n       * shiny\n       * event\n       * other;\n\n  if coalesce((ball->>'guaranteed')::boolean, false) then\n    final := 1.0;\n  else\n    final := least(max_chance, greatest(min_chance, raw));\n  end if;\n\n  return jsonb_build_object(\n    'dex', p_dex,\n    'species', s.name,\n    'catchRate', s.catch_rate,\n    'baseChance', base,\n    'ball', ball,\n    'berry', berry,\n    'honey', honey,\n    'honeyContributorMultiplier', contributor,\n    'shinyMultiplier', shiny,\n    'eventMultiplier', event,\n    'otherMultiplier', other,\n    'rawChance', raw,\n    'finalChance', final,\n    'guaranteed', coalesce((ball->>'guaranteed')::boolean, false),\n    'minChance', min_chance,\n    'maxChance', max_chance\n  );\nend;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_config",
+      "arguments": "",
+      "body_md5": "45e7729b2f09b90a81ff4b821abd4a0b",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_config()\n RETURNS jsonb\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce(private.game_settings()->'captureBalance', '{}'::jsonb);\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_honey_modifier",
+      "arguments": "p_contributors integer, p_participants integer, p_config jsonb",
+      "body_md5": "537de86df94f942b158519844cac0da7",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_honey_modifier(p_contributors integer, p_participants integer, p_config jsonb DEFAULT NULL::jsonb)\n RETURNS jsonb\n LANGUAGE sql\n STABLE\nAS $function$\n  with cfg as (select coalesce(p_config, private.capture_config()) as c),\n  rate as (\n    select least(1.0,\n      greatest(0, coalesce(p_contributors, 0))::numeric / greatest(coalesce(p_participants, 0), 1)::numeric\n    ) as r\n  )\n  select jsonb_build_object(\n    'contributors', greatest(0, coalesce(p_contributors, 0)),\n    'participants', greatest(0, coalesce(p_participants, 0)),\n    'rate', rate.r,\n    'multiplier', coalesce((\n      select (t->>'multiplier')::numeric\n      from cfg, jsonb_array_elements(coalesce(nullif(cfg.c->'honeyTiers', 'null'::jsonb), '[]'::jsonb)) t\n      where rate.r >= (t->>'minRate')::numeric\n      order by (t->>'minRate')::numeric desc\n      limit 1\n    ), 1.0)\n  )\n  from rate;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_items_json",
+      "arguments": "",
+      "body_md5": "536ecf5490a96f4b763c1346f113ecf2",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_items_json()\n RETURNS jsonb\n LANGUAGE sql\n STABLE\nAS $function$\n  select jsonb_build_object(\n    'berries', coalesce((\n      select jsonb_agg(jsonb_build_object(\n        'key', b.key, 'name', b.name, 'sprite', b.sprite, 'tier', b.tier, 'rarity', b.rarity,\n        'description', coalesce(b.rpg_description, b.canonical_flavor_text),\n        'storeAvailable', b.store_available, 'price', b.shop_price\n      ) order by b.sort_order, b.name)\n      from public.capture_berries b where b.enabled and b.capture_enabled\n    ), '[]'::jsonb),\n    'balls', coalesce((\n      select jsonb_agg(jsonb_build_object(\n        'key', b.key, 'name', b.name,\n        'description', coalesce(b.description, 'A Poké Ball for catching wild Pokémon.'),\n        'storeAvailable', coalesce(b.store_enabled, false),\n        'tier', coalesce(b.economic_tier, 'basic'),\n        'guaranteed', coalesce(b.guaranteed_capture, false)\n      ) order by b.sort_order, b.name)\n      from public.capture_balls b where b.enabled\n    ), '[]'::jsonb),\n    'honey', jsonb_build_object(\n      'key', 'bait', 'name', 'Honey', 'sprite', 'honey.png',\n      'description', 'Contribute during the item phase to improve the community catch bonus for every participating Trainer. More participating Trainers contributing Honey increases the bonus, up to a cap.'\n    )\n  );\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_round_context",
+      "arguments": "p_round uuid, p_uid uuid",
+      "body_md5": "cbc2235c51c7d8d196f032fda33b126f",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_round_context(p_round uuid, p_uid uuid)\n RETURNS jsonb\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  r public.encounter_rounds%rowtype;\n  ep public.encounter_players%rowtype;\n  contributors int;\n  participants int;\n  owns boolean;\nbegin\n  select * into r from public.encounter_rounds where id = p_round;\n  if not found then\n    return null;\n  end if;\n  select * into ep from public.encounter_players where round_id = p_round and user_id = p_uid;\n  select count(*)::int, count(*) filter (where prep = 'bait')::int\n    into participants, contributors\n    from public.encounter_players where round_id = p_round;\n  select exists (\n    select 1 from public.catches c where c.user_id = p_uid and c.dex = r.dex\n  ) into owns;\n  return private.capture_chance(\n    r.dex,\n    ep.ball,\n    case when ep.prep = 'bait' then null else ep.prep end,\n    contributors,\n    participants,\n    ep.prep = 'bait',\n    owns,\n    private.variant_is_shiny(r.variant),\n    1.0,\n    now()\n  );\nend;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_self_test",
+      "arguments": "",
+      "body_md5": "7504ad338e1d97b2d179616af5a27dbc",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_self_test()\n RETURNS TABLE(name text, passed boolean, detail text)\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  cfg jsonb := private.capture_config();\n  pidgey int := 16;\n  vaporeon int := 134;\n  caterpie int := 10;\n  snorlax int := 143;\n  jolteon int := 135;\n  clefairy int := 35;\n  mewtwo int := 150;\n  base numeric;\nbegin\n  base := private.capture_base_chance(255, cfg);\n\n  name := 'Poke Ball is 1.00x';\n  passed := (private.capture_chance(pidgey, 'pokeball')->>'finalChance')::numeric = base;\n  detail := (private.capture_chance(pidgey, 'pokeball')->>'finalChance');\n  return next;\n\n  name := 'Hisui Poke Ball is 1.00x';\n  passed := (private.capture_chance(pidgey, 'hisuipokeball')->'ball'->>'multiplier')::numeric = 1.00;\n  detail := (private.capture_chance(pidgey, 'hisuipokeball')->'ball'->>'multiplier');\n  return next;\n\n  name := 'Great Ball is 1.25x';\n  passed := (private.capture_chance(pidgey, 'greatball')->'ball'->>'multiplier')::numeric = 1.25;\n  detail := (private.capture_chance(pidgey, 'greatball')->'ball'->>'multiplier');\n  return next;\n\n  name := 'Ultra Ball is 1.50x';\n  passed := (private.capture_chance(pidgey, 'ultraball')->'ball'->>'multiplier')::numeric = 1.50;\n  detail := (private.capture_chance(pidgey, 'ultraball')->'ball'->>'multiplier');\n  return next;\n\n  name := 'Master Ball always succeeds';\n  passed := (private.capture_chance(mewtwo, 'masterball')->>'finalChance')::numeric = 1.0\n        and (private.capture_chance(mewtwo, 'masterball')->>'guaranteed')::boolean;\n  detail := (private.capture_chance(mewtwo, 'masterball')->>'finalChance');\n  return next;\n\n  name := 'Maximum chance is never exceeded';\n  passed := (private.capture_chance(caterpie, 'ultraball', 'goldenrazz', 10, 10, true, true)->>'finalChance')::numeric\n            <= coalesce((cfg->>'maxChance')::numeric, 0.85);\n  detail := (private.capture_chance(caterpie, 'ultraball', 'goldenrazz', 10, 10, true, true)->>'finalChance');\n  return next;\n\n  name := 'Minimum chance is never breached';\n  passed := (private.capture_chance(mewtwo, 'beastball')->>'finalChance')::numeric\n            >= coalesce((cfg->>'minChance')::numeric, 0.02);\n  detail := (private.capture_chance(mewtwo, 'beastball')->>'finalChance');\n  return next;\n\n  name := 'Net Ball helps against Water types';\n  passed := (private.capture_chance(vaporeon, 'netball')->'ball'->>'multiplier')::numeric = 1.55;\n  detail := (private.capture_chance(vaporeon, 'netball')->'ball'->>'multiplier');\n  return next;\n\n  name := 'Net Ball helps against Bug types';\n  passed := (private.capture_chance(caterpie, 'netball')->'ball'->>'multiplier')::numeric = 1.55;\n  detail := (private.capture_chance(caterpie, 'netball')->'ball'->>'multiplier');\n  return next;\n\n  name := 'Net Ball does nothing against unrelated types';\n  passed := (private.capture_chance(pidgey, 'netball')->'ball'->>'multiplier')::numeric = 1.00;\n  detail := (private.capture_chance(pidgey, 'netball')->'ball'->>'multiplier');\n  return next;\n\n  name := 'Repeat Ball checks species ownership';\n  passed := (private.capture_chance(pidgey, 'repeatball', null, 0, 0, false, true)->'ball'->>'multiplier')::numeric = 1.55\n        and (private.capture_chance(pidgey, 'repeatball', null, 0, 0, false, false)->'ball'->>'multiplier')::numeric = 1.00;\n  detail := (private.capture_chance(pidgey, 'repeatball', null, 0, 0, false, true)->'ball'->>'multiplier');\n  return next;\n\n  name := 'Dusk Ball uses the game timezone';\n  passed := (private.capture_chance(pidgey, 'duskball', null, 0, 0, false, false, false, 1.0,\n               (current_date + time '23:00') at time zone coalesce(cfg->>'timezone', 'UTC'))->'ball'->>'multiplier')::numeric = 1.50\n        and (private.capture_chance(pidgey, 'duskball', null, 0, 0, false, false, false, 1.0,\n               (current_date + time '12:00') at time zone coalesce(cfg->>'timezone', 'UTC'))->'ball'->>'multiplier')::numeric = 1.00;\n  detail := coalesce(cfg->>'timezone', 'UTC');\n  return next;\n\n  name := 'Fast Ball checks base speed';\n  passed := (private.capture_chance(jolteon, 'fastball')->'ball'->>'multiplier')::numeric = 1.55\n        and (private.capture_chance(snorlax, 'fastball')->'ball'->>'multiplier')::numeric = 1.00;\n  detail := (private.capture_chance(jolteon, 'fastball')->'ball'->>'multiplier');\n  return next;\n\n  name := 'Heavy Ball scales with weight';\n  passed := (private.capture_chance(snorlax, 'heavyball')->'ball'->>'multiplier')::numeric = 1.55\n        and (private.capture_chance(pidgey, 'heavyball')->'ball'->>'multiplier')::numeric = 1.00;\n  detail := (private.capture_chance(snorlax, 'heavyball')->'ball'->>'multiplier');\n  return next;\n\n  name := 'Moon Ball uses evolution metadata';\n  passed := (private.capture_chance(clefairy, 'moonball')->'ball'->>'multiplier')::numeric = 1.60\n        and (private.capture_chance(pidgey, 'moonball')->'ball'->>'multiplier')::numeric = 1.00;\n  detail := (private.capture_chance(clefairy, 'moonball')->'ball'->>'multiplier');\n  return next;\n\n  name := 'Nest Ball checks canonical catch rate';\n  passed := (private.capture_chance(caterpie, 'nestball')->'ball'->>'multiplier')::numeric = 1.45\n        and (private.capture_chance(vaporeon, 'nestball')->'ball'->>'multiplier')::numeric = 1.00;\n  detail := (private.capture_chance(caterpie, 'nestball')->'ball'->>'multiplier');\n  return next;\n\n  name := 'Berry modifier is applied once';\n  passed := abs((private.capture_chance(pidgey, 'pokeball', 'razz')->>'rawChance')::numeric - base * 1.15) < 0.000001;\n  detail := (private.capture_chance(pidgey, 'pokeball', 'razz')->>'rawChance');\n  return next;\n\n  name := 'Unreleased Berries do not apply';\n  passed := (private.capture_chance(pidgey, 'pokeball', 'figy')->'berry'->>'multiplier')::numeric = 1.0;\n  detail := (private.capture_chance(pidgey, 'pokeball', 'figy')->'berry'->>'multiplier');\n  return next;\n\n  name := 'Honey modifier is applied once';\n  passed := abs((private.capture_chance(pidgey, 'pokeball', null, 6, 10)->>'rawChance')::numeric - base * 1.10) < 0.000001;\n  detail := (private.capture_chance(pidgey, 'pokeball', null, 6, 10)->>'rawChance');\n  return next;\n\n  name := 'Honey does not scale infinitely';\n  passed := (private.capture_chance(pidgey, 'pokeball', null, 100, 100)->'honey'->>'multiplier')::numeric\n            = (private.capture_chance(pidgey, 'pokeball', null, 10, 10)->'honey'->>'multiplier')::numeric;\n  detail := (private.capture_chance(pidgey, 'pokeball', null, 100, 100)->'honey'->>'multiplier');\n  return next;\n\n  name := 'Zero Honey is 1.00x';\n  passed := (private.capture_chance(pidgey, 'pokeball', null, 0, 12)->'honey'->>'multiplier')::numeric = 1.0;\n  detail := (private.capture_chance(pidgey, 'pokeball', null, 0, 12)->'honey'->>'multiplier');\n  return next;\n\n  name := 'Full Honey participation uses the configured maximum';\n  passed := (private.capture_chance(pidgey, 'pokeball', null, 12, 12)->'honey'->>'multiplier')::numeric\n            = coalesce((select (t->>'multiplier')::numeric from jsonb_array_elements(cfg->'honeyTiers') t\n                        where (t->>'minRate')::numeric >= 1), 1.22);\n  detail := (private.capture_chance(pidgey, 'pokeball', null, 12, 12)->'honey'->>'multiplier');\n  return next;\n\n  name := 'Non contributors still get the community bonus';\n  passed := (private.capture_chance(pidgey, 'pokeball', 'razz', 6, 10, false)->'honey'->>'multiplier')::numeric > 1.0\n        and (private.capture_chance(pidgey, 'pokeball', 'razz', 6, 10, false)->>'honeyContributorMultiplier')::numeric = 1.0;\n  detail := (private.capture_chance(pidgey, 'pokeball', 'razz', 6, 10, false)->>'honeyContributorMultiplier');\n  return next;\n\n  name := 'Contributors get the personal bonus';\n  passed := (private.capture_chance(pidgey, 'pokeball', null, 6, 10, true)->>'honeyContributorMultiplier')::numeric\n            = coalesce((cfg->>'honeyContributorBonus')::numeric, 1.03);\n  detail := (private.capture_chance(pidgey, 'pokeball', null, 6, 10, true)->>'honeyContributorMultiplier');\n  return next;\n\n  name := 'Shiny modifier defaults to 1.00x';\n  passed := (private.capture_chance(pidgey, 'pokeball', null, 0, 0, false, false, true)->>'finalChance')::numeric\n            = (private.capture_chance(pidgey, 'pokeball')->>'finalChance')::numeric;\n  detail := (private.capture_chance(pidgey, 'pokeball', null, 0, 0, false, false, true)->>'shinyMultiplier');\n  return next;\n\n  name := 'Female variants use the species base rate';\n  passed := private.capture_base_chance((select catch_rate from public.species where dex = 29))\n            = private.capture_base_chance((select catch_rate from public.species where dex = 32));\n  detail := (select catch_rate::text from public.species where dex = 29);\n  return next;\n\n  name := 'Two Trainers roll independently';\n  passed := private.secure_random() <> private.secure_random();\n  detail := 'distinct secure rolls';\n  return next;\n\n  name := 'One capture row per Trainer per encounter';\n  passed := exists (select 1 from pg_indexes where indexname = 'capture_log_once_idx');\n  detail := 'capture_log_once_idx';\n  return next;\n\n  name := 'Duplicate throws cannot spend two Poke Balls';\n  passed := exists (\n    select 1 from information_schema.columns\n    where table_schema = 'public' and table_name = 'encounter_players' and column_name = 'throw_processed'\n  );\n  detail := 'encounter_players.throw_processed';\n  return next;\n\n  name := 'Berries are never treated as throwable Poke Balls';\n  passed := not private.is_throw_ball('razz') and not private.is_throw_ball('goldenrazz')\n        and private.is_throw_ball('ultraball');\n  detail := 'razz, goldenrazz';\n  return next;\n\n  name := 'Spec example: catch rate 45 with Ultra, Razz and 60 percent Honey';\n  passed := abs((private.capture_chance(vaporeon, 'ultraball', 'razz', 6, 10)->>'finalChance')::numeric - 0.2087) < 0.0005;\n  detail := (private.capture_chance(vaporeon, 'ultraball', 'razz', 6, 10)->>'finalChance');\n  return next;\n\n  name := 'Spec example: catch rate 3 with Ultra, Golden Razz, full Honey';\n  passed := abs((private.capture_chance(mewtwo, 'ultraball', 'goldenrazz', 10, 10, true)->>'finalChance')::numeric - 0.0980) < 0.0005;\n  detail := (private.capture_chance(mewtwo, 'ultraball', 'goldenrazz', 10, 10, true)->>'finalChance');\n  return next;\nend;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_table_for_tier",
+      "arguments": "p_tier text",
+      "body_md5": "311a536512e59ce772c8c9809a4acf63",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_table_for_tier(p_tier text)\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case upper(coalesce(p_tier, 'COMMON'))\n    when 'UNCOMMON' then 'CAPTURE_UNCOMMON'\n    when 'RARE' then 'CAPTURE_RARE'\n    when 'VERY_RARE' then 'CAPTURE_VERY_RARE'\n    else 'CAPTURE_COMMON'\n  end;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "capture_throw_context",
+      "arguments": "p_round encounter_rounds, p_uid uuid, p_ball_at timestamp with time zone",
+      "body_md5": "24ad3ef224ff57379230117297c0e3cb",
+      "definition": "CREATE OR REPLACE FUNCTION private.capture_throw_context(p_round encounter_rounds, p_uid uuid, p_ball_at timestamp with time zone DEFAULT NULL::timestamp with time zone)\n RETURNS jsonb\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  prepare_at timestamptz;\n  throw_at timestamptz;\n  used timestamptz := coalesce(p_ball_at, now());\n  progress numeric := 0.5;\n  lvl int := 1;\n  g text := '';\nbegin\n  if p_round.deadlines is not null then\n    prepare_at := (p_round.deadlines->>'prepare')::timestamptz;\n    throw_at := coalesce((p_round.deadlines->>'throw')::timestamptz, (p_round.deadlines->>'reveal')::timestamptz);\n    if prepare_at is not null and throw_at is not null and throw_at > prepare_at then\n      progress := extract(epoch from (used - prepare_at)) / extract(epoch from (throw_at - prepare_at));\n    end if;\n  end if;\n  select private.trainer_level(xp) into lvl from public.profiles where id = p_uid;\n  g := coalesce(p_round.gender, '');\n  return jsonb_build_object('throwProgress', progress, 'trainerLevel', coalesce(lvl, 1), 'gender', g);\nend;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "deadlines_complete",
+      "arguments": "d jsonb",
+      "body_md5": "1127b8fd38f4ce79c0c16e2eadbaf45f",
+      "definition": "CREATE OR REPLACE FUNCTION private.deadlines_complete(d jsonb)\n RETURNS boolean\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select d is not null\n    and nullif(d->>'join', '') is not null\n    and nullif(d->>'prepare', '') is not null\n    and nullif(d->>'throw', '') is not null\n    and nullif(d->>'reveal', '') is not null;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "encounter_pokemon_level",
+      "arguments": "p_dex integer, p_round_id uuid",
+      "body_md5": "825320525ce7e795607acbfdde4c71ac",
+      "definition": "CREATE OR REPLACE FUNCTION private.encounter_pokemon_level(p_dex integer, p_round_id uuid)\n RETURNS integer\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case\n    when p_dex is null or p_round_id is null then null\n    else bounds[1] + (\n      abs(('x' || substr(md5(p_round_id::text), 1, 8))::bit(32)::int)\n      % (greatest(bounds[2] - bounds[1], 0) + 1)\n    )\n  end\n  from (select private.lgpe_level_bounds(p_dex) as bounds) s;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "form_display_name",
+      "arguments": "p_dex integer, p_form_id integer",
+      "body_md5": "3a46152129a51fc555b5d6a1c18af207",
+      "definition": "CREATE OR REPLACE FUNCTION private.form_display_name(p_dex integer, p_form_id integer)\n RETURNS text\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  f public.pokemon_forms;\n  species_name text;\n  fid int;\nbegin\n  select name into species_name from public.species where dex = p_dex;\n  species_name := coalesce(species_name, 'Pokémon');\n  fid := private.canonical_form_id(p_dex, p_form_id);\n  select * into f from public.pokemon_forms where pokemon_form_id = fid;\n  if f.pokemon_form_id is null or f.is_base then\n    return species_name;\n  end if;\n  return species_name || ' — ' || f.form_label;\nend;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "game_settings",
+      "arguments": "",
+      "body_md5": "2f532f8384feaa461b73d3ca8d736c4a",
+      "definition": "CREATE OR REPLACE FUNCTION private.game_settings()\n RETURNS jsonb\n LANGUAGE sql\n STABLE\nAS $function$\n  select game_settings from public.site_config where id = 1;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "item_label",
+      "arguments": "item text",
+      "body_md5": "50d8623a87cec84e3ed43f4f9e550c50",
+      "definition": "CREATE OR REPLACE FUNCTION private.item_label(item text)\n RETURNS text\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce(\n    (select b.name from public.capture_balls b where b.key = item),\n    (select b.name from public.capture_berries b where b.key = item),\n    case item\n      when 'none' then 'no item'\n      when 'bait' then 'Honey'\n      when 'lure' then 'Poké Radar'\n      when 'coins' then 'PokéCoins'\n      when 'bag_bonus' then 'Bag Upgrade'\n      when 'firestone' then 'Fire Stone'\n      when 'waterstone' then 'Water Stone'\n      when 'thunderstone' then 'Thunder Stone'\n      when 'leafstone' then 'Leaf Stone'\n      when 'moonstone' then 'Moon Stone'\n      when 'linkingcord' then 'Linking Cord'\n      when 'rarecandy' then 'Rare Candy'\n      when 'choice_stone' then 'Evolution Stone'\n      else coalesce(item, '')\n    end\n  );\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "materialize_streamlink_catch",
+      "arguments": "p_user_id uuid, p_form_id integer, p_level integer, p_ctx text, p_source_key text, p_ball text, p_round_id uuid, p_shiny boolean, p_content_build text, p_hidden_ticket text, p_variant text, p_name text, p_gender text",
+      "body_md5": "e88c6cbec313a4cc0b81a5df1f5691b3",
+      "definition": "CREATE OR REPLACE FUNCTION private.materialize_streamlink_catch(p_user_id uuid, p_form_id integer, p_level integer, p_ctx text, p_source_key text, p_ball text DEFAULT 'poke'::text, p_round_id uuid DEFAULT NULL::uuid, p_shiny boolean DEFAULT false, p_content_build text DEFAULT 'sl-ref-20261013-227b573'::text, p_hidden_ticket text DEFAULT NULL::text, p_variant text DEFAULT 'normal'::text, p_name text DEFAULT NULL::text, p_gender text DEFAULT NULL::text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\nDECLARE\n  v_dex int;\n  v_name text;\n  inserted uuid;\n  v_public text;\nBEGIN\n  IF private.streamlink_wire_is_enabled() THEN\n    RETURN private.persist_streamlink_catch(\n      p_user_id, p_form_id, p_level, p_ctx, p_source_key, p_ball, p_round_id,\n      p_shiny, p_content_build, p_hidden_ticket, p_variant, p_name, p_gender\n    );\n  END IF;\n\n  IF p_user_id IS NULL THEN\n    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('missing-user'), 'path', 'stamp');\n  END IF;\n  IF p_ctx IS NULL OR p_ctx NOT IN ('catch', 'grant', 'event') THEN\n    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('bad-ctx'), 'path', 'stamp');\n  END IF;\n  IF p_source_key IS NULL OR btrim(p_source_key) = '' THEN\n    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('missing-source-key'), 'path', 'stamp');\n  END IF;\n  IF p_ctx IN ('grant', 'event') AND private.streamlink_protected_trainer(p_user_id) THEN\n    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('protected-trainer'), 'path', 'stamp');\n  END IF;\n\n  SELECT f.dex, initcap(replace(s.slug, '-', ' '))\n    INTO v_dex, v_name\n  FROM private.ref_forms f\n  JOIN private.ref_species s\n    ON s.content_build = f.content_build AND s.dex = f.dex\n  WHERE f.content_build = coalesce(p_content_build, 'sl-ref-20261013-227b573')\n    AND f.form_id = p_form_id;\n  v_dex := coalesce(v_dex, p_form_id);\n  v_name := coalesce(nullif(btrim(p_name), ''), v_name, 'Pokemon');\n\n  BEGIN\n    INSERT INTO public.catches (\n      user_id, dex, name, variant, gender, ball, round_id, source_key, level, pokemon_form_id\n    ) VALUES (\n      p_user_id,\n      v_dex,\n      v_name,\n      coalesce(nullif(btrim(p_variant), ''), 'normal'),\n      coalesce(nullif(btrim(p_gender), ''), 'M'),\n      coalesce(nullif(btrim(p_ball), ''), 'poke'),\n      p_round_id,\n      p_source_key,\n      p_level,\n      p_form_id\n    )\n    RETURNING id, public_id INTO inserted, v_public;\n  EXCEPTION WHEN unique_violation THEN\n    RETURN jsonb_build_object(\n      'ok', false,\n      'errors', jsonb_build_array('already-settled'),\n      'replay', true,\n      'path', 'stamp'\n    );\n  END;\n\n  RETURN jsonb_build_object(\n    'ok', true,\n    'catchId', inserted,\n    'publicId', v_public,\n    'path', 'stamp'\n  );\nEND\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "note_species_mastery_catch",
+      "arguments": "p_catch_id uuid",
+      "body_md5": "313944ac139f33465e57d86c0a1c5678",
+      "definition": "CREATE OR REPLACE FUNCTION private.note_species_mastery_catch(p_catch_id uuid)\n RETURNS boolean\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nBEGIN\n  PERFORM private.enqueue_species_mastery_event(p_catch_id);\n  RETURN true;\nEXCEPTION\n  WHEN OTHERS THEN\n    RETURN false;\nEND;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "round_is_active",
+      "arguments": "r encounter_rounds",
+      "body_md5": "53d7e8a3f3894212e854618dc0663101",
+      "definition": "CREATE OR REPLACE FUNCTION private.round_is_active(r encounter_rounds)\n RETURNS boolean\n LANGUAGE sql\n STABLE\nAS $function$\n  select r.id is not null\n     and not r.cancelled\n     and private.round_phase(r) <> 'closed';\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "round_is_test",
+      "arguments": "p_round uuid",
+      "body_md5": "a33d9b63f44df44771b7d2d9a43cb2af",
+      "definition": "CREATE OR REPLACE FUNCTION private.round_is_test(p_round uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce((select rules->>'rewardMode' from public.encounter_rounds where id = p_round), 'live') = 'test'\n     and coalesce((select (rules->>'testRewards') from public.encounter_rounds where id = p_round), '') is distinct from 'true';\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "round_phase",
+      "arguments": "r encounter_rounds",
+      "body_md5": "9c78775fc62dd1d90f8e6434cecde028",
+      "definition": "CREATE OR REPLACE FUNCTION private.round_phase(r encounter_rounds)\n RETURNS text\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  clk timestamptz;\nbegin\n  if r is null or r.cancelled then\n    return 'closed';\n  end if;\n  if not private.deadlines_complete(r.deadlines) then\n    return coalesce(nullif(r.phase, ''), 'closed');\n  end if;\n  clk := coalesce(r.paused_at, now());\n  return case\n    when clk < (r.deadlines->>'join')::timestamptz then 'join'\n    when clk < (r.deadlines->>'prepare')::timestamptz then 'prepare'\n    when clk < (r.deadlines->>'throw')::timestamptz then 'throw'\n    when clk < (r.deadlines->>'reveal')::timestamptz then 'reveal'\n    else 'closed'\n  end;\nend;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "secure_random",
+      "arguments": "",
+      "body_md5": "63b23e60485e69fdbfe567f987bc41c5",
+      "definition": "CREATE OR REPLACE FUNCTION private.secure_random()\n RETURNS numeric\n LANGUAGE sql\nAS $function$\n  select (('x' || encode(extensions.gen_random_bytes(6), 'hex'))::bit(48)::bigint)::numeric\n         / 281474976710656::numeric;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "settle_if_needed",
+      "arguments": "r encounter_rounds",
+      "body_md5": "565c102d0a8c84a3dfd036653aca307c",
+      "definition": "CREATE OR REPLACE FUNCTION private.settle_if_needed(r encounter_rounds)\n RETURNS encounter_rounds\n LANGUAGE plpgsql\nAS $function$\nDECLARE\n  rec public.encounter_players%ROWTYPE;\n  cfg jsonb;\n  calc jsonb;\n  bait_count int;\n  player_count int;\n  owns boolean;\n  v_odds numeric;\n  v_roll numeric;\n  v_caught boolean;\n  pending boolean;\n  clk timestamptz;\n  join_at timestamptz;\n  prepare_at timestamptz;\n  throw_at timestamptz;\n  reveal_at timestamptz;\n  throw_line text;\n  who text;\n  species text;\n  test_out text;\n  form_id int;\n  v_level int;\n  v_mat jsonb;\n  v_catch_id uuid;\n  v_life text;\nBEGIN\n  IF r IS NULL OR r.cancelled THEN RETURN r; END IF;\n  IF r.paused_at IS NOT NULL THEN RETURN r; END IF;\n  IF NOT pg_try_advisory_xact_lock(hashtextextended(r.id::text, 0)) THEN RETURN r; END IF;\n  SELECT * INTO r FROM public.encounter_rounds WHERE id = r.id;\n  IF r IS NULL OR r.cancelled OR r.paused_at IS NOT NULL THEN RETURN r; END IF;\n  SELECT EXISTS (SELECT 1 FROM public.encounter_players ep WHERE ep.round_id = r.id AND ep.result IS NULL) INTO pending;\n  IF pending = false AND r.resolved THEN RETURN r; END IF;\n  clk := now();\n  form_id := private.canonical_form_id(r.dex, coalesce(r.pokemon_form_id, r.dex));\n  species := coalesce(nullif(btrim(r.name), ''), private.form_display_name(r.dex, form_id), 'the Pokémon');\n  IF r.deadlines IS NOT NULL THEN\n    join_at := (r.deadlines->>'join')::timestamptz;\n    prepare_at := (r.deadlines->>'prepare')::timestamptz;\n    throw_at := coalesce((r.deadlines->>'throw')::timestamptz, (r.deadlines->>'reveal')::timestamptz);\n    reveal_at := (r.deadlines->>'reveal')::timestamptz;\n  END IF;\n  IF join_at IS NOT NULL AND clk >= join_at THEN\n    IF NOT EXISTS (SELECT 1 FROM public.encounter_players WHERE round_id = r.id) THEN\n      INSERT INTO public.play_console_log (round_id, kind, message)\n      SELECT r.id, 'cancelled', 'No Trainers joined the encounter. The wild ' || species || ' wandered away!'\n      WHERE NOT EXISTS (SELECT 1 FROM public.play_console_log l WHERE l.round_id = r.id AND l.kind = 'cancelled')\n      ON CONFLICT DO NOTHING;\n      UPDATE public.encounter_rounds SET cancelled = true, hidden = true, phase = 'closed', resolved = true, paused_at = null,\n        last_action = 'No Trainers joined. The wild ' || species || ' wandered away!', updated_at = now() WHERE id = r.id RETURNING * INTO r;\n      RETURN r;\n    END IF;\n    PERFORM private.phase_banner(r.id, 'prepare', 'Trainers are preparing their items…');\n  END IF;\n  IF prepare_at IS NOT NULL AND clk >= prepare_at THEN\n    PERFORM private.phase_banner(r.id, 'throw', 'Trainers are choosing their Poké Balls!');\n  END IF;\n  IF r.deadlines IS NOT NULL THEN\n    IF throw_at IS NOT NULL AND clk < throw_at THEN RETURN r; END IF;\n  ELSIF private.round_phase(r) IN ('join', 'prepare', 'throw') THEN\n    RETURN r;\n  END IF;\n  throw_line := private.announce_throws(r.id);\n  IF throw_line IS NOT NULL THEN\n    UPDATE public.encounter_rounds SET last_action = throw_line, updated_at = now() WHERE id = r.id RETURNING * INTO r;\n  END IF;\n  IF reveal_at IS NOT NULL AND clk < reveal_at THEN RETURN r; END IF;\n  IF r.deadlines IS NULL AND private.round_phase(r) = 'reveal' THEN RETURN r; END IF;\n  cfg := private.capture_config();\n  test_out := CASE\n    WHEN coalesce(r.trigger_source, '') = 'TEST' THEN nullif(btrim(coalesce(r.rules->>'testOutcome', '')), '')\n    ELSE NULL\n  END;\n  SELECT count(*)::int, count(*) FILTER (WHERE prep = 'bait')::int INTO player_count, bait_count FROM public.encounter_players WHERE round_id = r.id;\n  FOR rec IN SELECT * FROM public.encounter_players WHERE round_id = r.id AND result IS NULL FOR UPDATE LOOP\n    who := coalesce(private.trainer_label(rec.user_id), 'A trainer');\n    IF rec.ball IS NULL OR rec.result_reason = 'no_ball_left' THEN\n      UPDATE public.encounter_players ep SET result = 'No throw', caught = false, result_reason = coalesce(ep.result_reason, 'no_ball')\n      WHERE ep.round_id = rec.round_id AND ep.user_id = rec.user_id;\n      CONTINUE;\n    END IF;\n    SELECT EXISTS (SELECT 1 FROM public.catches c WHERE c.user_id = rec.user_id AND c.dex = r.dex) INTO owns;\n    cfg := private.capture_config() || jsonb_build_object(\n      '_context', private.capture_throw_context(r, rec.user_id, rec.ball_at)\n    );\n    calc := private.capture_chance(r.dex, rec.ball, CASE WHEN rec.prep = 'bait' THEN NULL ELSE rec.prep END, bait_count, player_count, rec.prep = 'bait', owns, private.variant_is_shiny(r.variant), 1.0, clk, cfg);\n    v_odds := (calc->>'finalChance')::numeric;\n    IF test_out = 'catch' THEN\n      v_roll := 0; v_caught := true;\n    ELSIF test_out = 'escape' THEN\n      v_roll := 1; v_caught := false;\n    ELSIF coalesce((calc->>'guaranteed')::boolean, false) THEN\n      v_roll := 0; v_caught := true;\n    ELSE\n      v_roll := private.secure_random(); v_caught := v_roll < v_odds;\n    END IF;\n    UPDATE public.encounter_players ep SET chance = v_odds, roll = v_roll, caught = v_caught, result = CASE WHEN v_caught THEN 'Caught' ELSE 'Escaped' END, result_reason = CASE WHEN v_caught THEN 'caught' ELSE 'escaped' END WHERE ep.round_id = rec.round_id AND ep.user_id = rec.user_id;\n    INSERT INTO public.capture_log (round_id, user_id, dex, species_name, variant, gender, is_shiny, is_female, canonical_catch_rate, base_chance, ball_key, ball_multiplier, ball_condition_met, berry_key, berry_multiplier, honey_contributors, honey_participants, honey_multiplier, honey_contributor_multiplier, shiny_multiplier, event_multiplier, other_multiplier, raw_chance, final_chance, capture_roll, success, detail)\n    VALUES (r.id, rec.user_id, r.dex, r.name, r.variant, r.gender, private.variant_is_shiny(r.variant), r.gender = 'Female', (calc->>'catchRate')::int, (calc->>'baseChance')::numeric, calc->'ball'->>'key', (calc->'ball'->>'multiplier')::numeric, (calc->'ball'->>'conditionMet')::boolean, calc->'berry'->>'key', (calc->'berry'->>'multiplier')::numeric, (calc->'honey'->>'contributors')::int, (calc->'honey'->>'participants')::int, (calc->'honey'->>'multiplier')::numeric, (calc->>'honeyContributorMultiplier')::numeric, (calc->>'shinyMultiplier')::numeric, (calc->>'eventMultiplier')::numeric, (calc->>'otherMultiplier')::numeric, (calc->>'rawChance')::numeric, v_odds, v_roll, v_caught, calc || jsonb_build_object('testOutcome', test_out, 'formId', form_id))\n    ON CONFLICT (round_id, user_id) DO NOTHING;\n    IF v_caught THEN\n      INSERT INTO public.play_console_log (round_id, user_id, display_name, kind, item, message)\n      SELECT r.id, rec.user_id, who, 'caught', species, '⭐ ' || who || ' caught ' || species || '!'\n      WHERE NOT EXISTS (SELECT 1 FROM public.play_console_log l WHERE l.round_id = r.id AND l.user_id = rec.user_id AND l.kind = 'caught') ON CONFLICT DO NOTHING;\n    ELSE\n      INSERT INTO public.play_console_log (round_id, user_id, display_name, kind, item, message)\n      SELECT r.id, rec.user_id, who, 'escaped', species, '✖ ' || who || ' was unable to catch ' || species || '. Better luck next encounter!'\n      WHERE NOT EXISTS (SELECT 1 FROM public.play_console_log l WHERE l.round_id = r.id AND l.user_id = rec.user_id AND l.kind = 'escaped') ON CONFLICT DO NOTHING;\n    END IF;\n    IF v_caught AND NOT EXISTS (SELECT 1 FROM public.catches c WHERE c.round_id = rec.round_id AND c.user_id = rec.user_id) THEN\n      v_level := coalesce(private.encounter_pokemon_level(r.dex, r.id), 5);\n      v_mat := private.materialize_streamlink_catch(\n        rec.user_id,\n        form_id,\n        v_level,\n        'catch',\n        'play:' || rec.round_id::text || ':' || rec.user_id::text,\n        rec.ball,\n        rec.round_id,\n        private.variant_is_shiny(r.variant),\n        'sl-ref-20261013-227b573',\n        NULL,\n        r.variant,\n        species,\n        r.gender\n      );\n      IF coalesce(v_mat->>'ok', 'false') IS DISTINCT FROM 'true' THEN\n        IF coalesce((v_mat->>'replay')::boolean, false)\n           OR coalesce(v_mat->'errors', '[]'::jsonb) ? 'already-settled' THEN\n          IF NOT EXISTS (\n            SELECT 1 FROM public.catches c\n            WHERE c.round_id = rec.round_id AND c.user_id = rec.user_id\n          ) THEN\n            RAISE EXCEPTION 'wire-materialize-failed: already-settled-without-catch';\n          END IF;\n        ELSE\n          RAISE EXCEPTION 'wire-materialize-failed: %', coalesce(v_mat->>'errors', v_mat::text);\n        END IF;\n      END IF;\n      IF coalesce(v_mat->>'ok', 'false') = 'true' THEN\n        BEGIN\n          v_catch_id := NULL;\n          v_life := NULL;\n          IF nullif(btrim(v_mat->>'catchId'), '') ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' THEN\n            v_catch_id := (v_mat->>'catchId')::uuid;\n          END IF;\n          IF v_catch_id IS NOT NULL THEN\n            SELECT a.lifecycle INTO v_life\n            FROM private.species_mastery_activation AS a\n            WHERE a.singleton\n            FOR SHARE;\n            IF v_life IN ('active', 'paused') THEN\n              PERFORM private.note_species_mastery_catch(v_catch_id);\n            END IF;\n          END IF;\n        EXCEPTION WHEN OTHERS THEN\n          NULL;\n        END;\n      END IF;\n    END IF;\n  END LOOP;\n  UPDATE public.encounter_rounds SET resolved = true, paused_at = null, last_action = coalesce(throw_line, last_action, 'Results locked in'), updated_at = now() WHERE id = r.id RETURNING * INTO r;\n  RETURN r;\nEND;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "spend_bag_item",
+      "arguments": "p_uid uuid, p_item text",
+      "body_md5": "b30712a5a082f00ce45fd2c214e7029d",
+      "definition": "CREATE OR REPLACE FUNCTION private.spend_bag_item(p_uid uuid, p_item text)\n RETURNS void\n LANGUAGE plpgsql\nAS $function$\nDECLARE\n  spent int;\nBEGIN\n  IF p_item = 'berry' THEN\n    UPDATE public.inventories SET berry = berry - 1, updated_at = now()\n      WHERE user_id = p_uid AND berry > 0;\n  ELSIF p_item = 'bait' THEN\n    UPDATE public.inventories SET bait = bait - 1, updated_at = now()\n      WHERE user_id = p_uid AND bait > 0;\n  ELSIF p_item = 'pokeball' THEN\n    UPDATE public.inventories SET pokeball = pokeball - 1, updated_at = now()\n      WHERE user_id = p_uid AND pokeball > 0;\n  ELSIF p_item = 'greatball' THEN\n    UPDATE public.inventories SET greatball = greatball - 1, updated_at = now()\n      WHERE user_id = p_uid AND greatball > 0;\n  ELSIF p_item = 'ultraball' THEN\n    UPDATE public.inventories SET ultraball = ultraball - 1, updated_at = now()\n      WHERE user_id = p_uid AND ultraball > 0;\n  ELSIF private.is_capture_berry(p_item) THEN\n    UPDATE public.inventories\n      SET berries = jsonb_set(\n            coalesce(berries, '{}'::jsonb),\n            ARRAY[p_item],\n            to_jsonb(coalesce((berries->>p_item)::int, 0) - 1)\n          ),\n          updated_at = now()\n      WHERE user_id = p_uid\n        AND coalesce((berries->>p_item)::int, 0) > 0;\n  ELSIF p_item = ANY (private.extra_ball_keys()) THEN\n    UPDATE public.inventories\n      SET balls = jsonb_set(\n            coalesce(balls, '{}'::jsonb),\n            ARRAY[p_item],\n            to_jsonb(coalesce((balls->>p_item)::int, 0) - 1)\n          ),\n          updated_at = now()\n      WHERE user_id = p_uid\n        AND coalesce((balls->>p_item)::int, 0) > 0;\n  ELSE\n    RAISE EXCEPTION 'Unknown item.';\n  END IF;\n  GET DIAGNOSTICS spent = ROW_COUNT;\n  IF spent = 0 THEN\n    RAISE EXCEPTION 'You have no % left. No item spent.', private.item_label(p_item)\n      USING ERRCODE = 'NB001';\n  END IF;\n  INSERT INTO public.item_ledger (user_id, item_key, amount, reason, source_id, idempotency)\n  VALUES (\n    p_uid, p_item, -1, 'BAG_SPEND', NULL,\n    'bag-spend:' || p_uid::text || ':' || p_item || ':' || gen_random_uuid()::text\n  );\nEND;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "stamp_catch_server_inserted_at",
+      "arguments": "",
+      "body_md5": "b66ad1b961b3573a2c48947dfe0413ea",
+      "definition": "CREATE OR REPLACE FUNCTION private.stamp_catch_server_inserted_at()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog'\nAS $function$\nBEGIN\n  NEW.server_inserted_at := clock_timestamp();\n  RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "streamlink_wire_is_enabled",
+      "arguments": "",
+      "body_md5": "aa1e54f33255ff249d809fdba2efbfb4",
+      "definition": "CREATE OR REPLACE FUNCTION private.streamlink_wire_is_enabled()\n RETURNS boolean\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\nDECLARE\n  v_on boolean;\nBEGIN\n  -- Intentionally ignore current_setting('starlight.wire_genval') and every\n  -- other GUC / client flag. Only the named switch table can enable WIRE.\n  SELECT s.enabled INTO v_on\n  FROM private.streamlink_wire_switch s\n  WHERE s.id = 1;\n  RETURN coalesce(v_on, false);\nEND\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "trainer_label",
+      "arguments": "p_uid uuid",
+      "body_md5": "d552aa730b39c895d034e44aa01fc31e",
+      "definition": "CREATE OR REPLACE FUNCTION private.trainer_label(p_uid uuid)\n RETURNS text\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce(nullif(btrim(p.display_name), ''), nullif(p.twitch_login, ''), 'Trainer')\n  from public.profiles p\n  where p.id = p_uid;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "variant_is_shiny",
+      "arguments": "p_variant text",
+      "body_md5": "691aa5ab3acf14218413208d0a1a0c21",
+      "definition": "CREATE OR REPLACE FUNCTION private.variant_is_shiny(p_variant text)\n RETURNS boolean\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select coalesce(p_variant, '') ilike '%shiny%';\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "a_or_an",
+      "arguments": "p_label text",
+      "body_md5": "caedd2414e0f887f379416b46ceea0d0",
+      "definition": "CREATE OR REPLACE FUNCTION private.a_or_an(p_label text)\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case\n    when coalesce(p_label, '') = '' then ''\n    when left(lower(p_label), 1) in ('a', 'e', 'i', 'o', 'u') then 'an ' || p_label\n    else 'a ' || p_label\n  end;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "extra_ball_keys",
+      "arguments": "",
+      "body_md5": "bf310997b2900296268684fd122ff673",
+      "definition": "CREATE OR REPLACE FUNCTION private.extra_ball_keys()\n RETURNS text[]\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce(array_agg(distinct k), '{}'::text[])\n  from (\n    select unnest(array[\n      'masterball',\n      'premierball','luxuryball','healball','friendball','loveball','nestball','netball',\n      'repeatball','timerball','diveball','duskball','quickball','fastball','lureball',\n      'moonball','heavyball','levelball','safariball','sportball','cherishball',\n      'gsball','ashball','cloneball','darkball','oldball',\n      'hisuipokeball','hisuigreatball','hisuiultraball','hisuiheavyball',\n      'featherball','wingball','jetball','leadenball','gigatonball','originball','strangeball'\n    ]) as k\n    union\n    select jsonb_object_keys(coalesce(grants, '{}'::jsonb))\n    from private.store_items\n  ) s\n  where k <> all (private.core_item_keys())\n    and k not in (select key from public.capture_berries)\n    and k <> 'bait'\n    and k <> all (private.evo_item_keys());\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "is_capture_berry",
+      "arguments": "item text",
+      "body_md5": "753b66d6bc5255ae6d3b7c94b1fbfdbc",
+      "definition": "CREATE OR REPLACE FUNCTION private.is_capture_berry(item text)\n RETURNS boolean\n LANGUAGE sql\n STABLE\nAS $function$\n  select exists (select 1 from public.capture_berries b where b.key = item and b.enabled);\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "lgpe_level_bounds",
+      "arguments": "p_dex integer",
+      "body_md5": "4f1bcd0ba6545382474b1e23dd1388c2",
+      "definition": "CREATE OR REPLACE FUNCTION private.lgpe_level_bounds(p_dex integer)\n RETURNS integer[]\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case private.lgpe_habitat(p_dex)\n    when 'Pallet Town' then array[3,5]\n    when 'Route 1' then array[2,5]\n    when 'Viridian Forest' then array[3,7]\n    when 'Route 2' then array[3,7]\n    when 'Route 3' then array[6,10]\n    when 'Mt. Moon' then array[6,12]\n    when 'Route 4' then array[6,12]\n    when 'Route 22' then array[3,8]\n    when 'Diglett''s Cave' then array[15,22]\n    when 'Route 5' then array[7,12]\n    when 'Route 6' then array[7,13]\n    when 'Route 7' then array[14,17]\n    when 'Route 8' then array[15,20]\n    when 'Route 11' then array[12,16]\n    when 'Rock Tunnel' then array[13,18]\n    when 'Route 19' then array[15,25]\n    when 'Route 17' then array[16,22]\n    when 'Seafoam Islands' then array[22,30]\n    when 'Power Plant' then array[22,32]\n    when 'Route 12' then array[22,27]\n    when 'Pokémon Mansion' then array[26,32]\n    when 'Pokémon Tower' then array[13,18]\n    when 'Victory Road' then array[36,42]\n    when 'Safari Zone' then array[22,30]\n    when 'Saffron City' then array[5,10]\n    when 'Route 18' then array[22,28]\n    when 'Route 10' then array[16,20]\n    when 'Route 13' then array[24,29]\n    when 'Silph Co.' then array[16,20]\n    when 'Cinnabar Lab' then array[5,15]\n    when 'Cerulean Cave' then array[46,56]\n    when 'Faraway place' then array[30,30]\n    else array[5,20]\n  end;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "log_activity",
+      "arguments": "p_round uuid, p_uid uuid, p_kind text, p_item text",
+      "body_md5": "2d82a8871801db260e3a75cefb4d742b",
+      "definition": "CREATE OR REPLACE FUNCTION private.log_activity(p_round uuid, p_uid uuid, p_kind text, p_item text DEFAULT NULL::text)\n RETURNS void\n LANGUAGE plpgsql\nAS $function$\nbegin\n  insert into public.encounter_activity (round_id, user_id, display_name, kind, item)\n  values (p_round, p_uid, coalesce(private.trainer_label(p_uid), 'Trainer'), p_kind, p_item);\nend;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "phase_banner",
+      "arguments": "p_round uuid, p_key text, p_message text",
+      "body_md5": "2b8d17c22cae3437e654e77d3b5fc381",
+      "definition": "CREATE OR REPLACE FUNCTION private.phase_banner(p_round uuid, p_key text, p_message text)\n RETURNS void\n LANGUAGE plpgsql\nAS $function$\nbegin\n  insert into public.play_console_log (round_id, kind, item, message)\n  select p_round, 'phase', p_key, p_message\n  where not exists (\n    select 1 from public.play_console_log l\n    where l.round_id = p_round and l.kind = 'phase' and l.item = p_key\n  )\n  on conflict do nothing;\nend;\n$function$\n"
+    },
+    {
+      "schema": "private",
+      "name": "trainer_level",
+      "arguments": "p_xp integer",
+      "body_md5": "1991bd9372ec037cac3a616128970c00",
+      "definition": "CREATE OR REPLACE FUNCTION private.trainer_level(p_xp integer)\n RETURNS integer\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  cap int := greatest(1, least(coalesce((private.progression_config()->>'maxLevel')::int, 100), 200));\n  xp int := greatest(coalesce(p_xp, 0), 0);\n  lvl int := 1;\nbegin\n  while lvl < cap and xp >= private.xp_to_reach_level(lvl + 1) loop\n    lvl := lvl + 1;\n  end loop;\n  return lvl;\nend;\n$function$\n"
+    },
+    {
+      "name": "core_item_keys",
+      "arguments": "",
+      "body_md5": "41f1dfe86b521e876e5f8081c7ff171c",
+      "definition": "CREATE OR REPLACE FUNCTION private.core_item_keys()\n RETURNS text[]\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select array['berry','bait','pokeball','greatball','ultraball','lure','coins','bag_bonus'];\n$function$\n"
+    },
+    {
+      "name": "evo_item_keys",
+      "arguments": "",
+      "body_md5": "e6c6a8da99db2361da668898b1931743",
+      "definition": "CREATE OR REPLACE FUNCTION private.evo_item_keys()\n RETURNS text[]\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select array['firestone','waterstone','thunderstone','leafstone','moonstone','linkingcord','rarecandy'];\n$function$\n"
+    },
+    {
+      "name": "lgpe_habitat",
+      "arguments": "p_dex integer",
+      "body_md5": "3023d8a828cee722b376447f8187c49a",
+      "definition": "CREATE OR REPLACE FUNCTION private.lgpe_habitat(p_dex integer)\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case\n    when p_dex between 1 and 9 then 'Pallet Town'\n    when p_dex in (10,11,12,13,14,15,25,26) then 'Viridian Forest'\n    when p_dex in (16,17,18,19,20) then 'Route 1'\n    when p_dex in (21,22,39,40) then 'Route 3'\n    when p_dex in (23,24,27,28) then 'Route 4'\n    when p_dex in (29,30,31,32,33,34,56,57) then 'Route 22'\n    when p_dex in (35,36,41,42,46,47,74,75,76) then 'Mt. Moon'\n    when p_dex in (37,38,58,59) then 'Route 7'\n    when p_dex in (43,44,45,69,70,71,48,49) then 'Route 2'\n    when p_dex in (50,51) then 'Diglett''s Cave'\n    when p_dex in (52,53) then 'Route 8'\n    when p_dex in (54,55,60,61,62,118,119,129,130) then 'Route 6'\n    when p_dex in (63,64,65,96,97) then 'Route 11'\n    when p_dex in (66,67,68,104,105,115) then 'Rock Tunnel'\n    when p_dex in (72,73,90,91,98,99,116,117,120,121) then 'Route 19'\n    when p_dex in (77,78,133,134) then 'Route 17'\n    when p_dex in (79,80,86,87,131,144) then 'Seafoam Islands'\n    when p_dex in (81,82,100,101,125,135,145) then 'Power Plant'\n    when p_dex in (83,84,85,123,143) then 'Route 12'\n    when p_dex in (88,89,109,110) then 'Pokémon Mansion'\n    when p_dex in (92,93,94) then 'Pokémon Tower'\n    when p_dex in (95,111,112,126,136,146) then 'Victory Road'\n    when p_dex in (102,103,147,148,149) then 'Safari Zone'\n    when p_dex in (106,107) then 'Saffron City'\n    when p_dex in (108,114,127,128) then 'Route 18'\n    when p_dex in (113,124) then 'Route 10'\n    when p_dex = 122 then 'Route 2'\n    when p_dex = 132 then 'Route 13'\n    when p_dex = 137 then 'Silph Co.'\n    when p_dex in (138,139,140,141,142) then 'Cinnabar Lab'\n    when p_dex = 150 then 'Cerulean Cave'\n    when p_dex = 151 then 'Faraway place'\n    else 'Kanto'\n  end;\n$function$\n"
+    },
+    {
+      "name": "progression_config",
+      "arguments": "",
+      "body_md5": "2eeec805c6edd5ca07cd47873da73411",
+      "definition": "CREATE OR REPLACE FUNCTION private.progression_config()\n RETURNS jsonb\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce(private.game_settings()->'progressionBalance', '{}'::jsonb)\n    || jsonb_build_object(\n      'progressionBalanceVersion', coalesce((private.game_settings()->'progressionBalance'->>'progressionBalanceVersion')::int, 1),\n      'xpBase', coalesce((private.game_settings()->'progressionBalance'->>'xpBase')::int, 100),\n      'xpExponent', coalesce((private.game_settings()->'progressionBalance'->>'xpExponent')::numeric, 1.35),\n      'maxLevel', coalesce((private.game_settings()->'progressionBalance'->>'maxLevel')::int, 100),\n      'joinXp', coalesce((private.game_settings()->'progressionBalance'->>'joinXp')::int, 5),\n      'catchXp', coalesce((private.game_settings()->'progressionBalance'->>'catchXp')::int, 10),\n      'newDexXp', coalesce((private.game_settings()->'progressionBalance'->>'newDexXp')::int, 25),\n      'firstFemaleXp', coalesce((private.game_settings()->'progressionBalance'->>'firstFemaleXp')::int, 5),\n      'shinyXp', coalesce((private.game_settings()->'progressionBalance'->>'shinyXp')::int, 50),\n      'rareXp', coalesce((private.game_settings()->'progressionBalance'->>'rareXp')::int, 5),\n      'veryRareXp', coalesce((private.game_settings()->'progressionBalance'->>'veryRareXp')::int, 10),\n      'ultraRareXp', coalesce((private.game_settings()->'progressionBalance'->>'ultraRareXp')::int, 15),\n      'legendaryXp', coalesce((private.game_settings()->'progressionBalance'->>'legendaryXp')::int, 25),\n      'levelCatchBonus', false,\n      'femaleVisualDex', coalesce(private.game_settings()->'progressionBalance'->'femaleVisualDex',\n        '[3,12,19,20,25,26,41,42,44,45,64,65,84,85,97,111,112,118,119,123,129,130,133]'::jsonb),\n      'levelRewards', coalesce(private.game_settings()->'progressionBalance'->'levelRewards',\n        '[\n          {\"level\":5,\"label\":\"Level 5\",\"grants\":{\"greatball\":5},\"title\":\"rising-trainer\"},\n          {\"level\":10,\"label\":\"Level 10\",\"title\":\"trainer\"},\n          {\"level\":15,\"label\":\"Level 15\",\"grants\":{\"coins\":500}},\n          {\"level\":20,\"label\":\"Level 20\",\"badge\":\"level-20\"},\n          {\"level\":25,\"label\":\"Level 25\",\"grants\":{\"ultraball\":3}},\n          {\"level\":30,\"label\":\"Level 30\",\"title\":\"seasoned-trainer\"},\n          {\"level\":40,\"label\":\"Level 40\",\"title\":\"elite-trainer\"},\n          {\"level\":50,\"label\":\"Level 50\",\"title\":\"starlight-veteran\",\"badge\":\"level-50\"}\n        ]'::jsonb)\n    );\n$function$\n"
+    },
+    {
+      "name": "xp_to_reach_level",
+      "arguments": "p_level integer",
+      "body_md5": "9728299208695989c60a0d9af968c5f2",
+      "definition": "CREATE OR REPLACE FUNCTION private.xp_to_reach_level(p_level integer)\n RETURNS integer\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  total int := 0;\n  i int;\n  cap int := greatest(1, least(coalesce((private.progression_config()->>'maxLevel')::int, 100), 200));\n  target int := greatest(1, least(coalesce(p_level, 1), cap));\nbegin\n  if target <= 1 then\n    return 0;\n  end if;\n  for i in 1 .. target - 1 loop\n    total := total + private.xp_for_level(i);\n  end loop;\n  return total;\nend;\n$function$\n"
+    },
+    {
+      "name": "xp_for_level",
+      "arguments": "p_level integer",
+      "body_md5": "3347b846206bc59f0a580d78145d6462",
+      "definition": "CREATE OR REPLACE FUNCTION private.xp_for_level(p_level integer)\n RETURNS integer\n LANGUAGE sql\n STABLE\nAS $function$\n  select greatest(1, round(\n    coalesce((private.progression_config()->>'xpBase')::numeric, 100)\n    * power(greatest(p_level, 1)::numeric,\n            coalesce((private.progression_config()->>'xpExponent')::numeric, 1.35))\n  )::int);\n$function$\n"
+    }
+  ],
+  "reference": {
+    "settings": {
+      "captureBalance": {
+        "timezone": "America/New_York",
+        "maxChance": 0.85,
+        "minChance": 0.02,
+        "honeyTiers": [
+          {
+            "minRate": 1,
+            "multiplier": 1.22
+          },
+          {
+            "minRate": 0.81,
+            "multiplier": 1.18
+          },
+          {
+            "minRate": 0.61,
+            "multiplier": 1.14
+          },
+          {
+            "minRate": 0.41,
+            "multiplier": 1.1
+          },
+          {
+            "minRate": 0.21,
+            "multiplier": 1.06
+          },
+          {
+            "minRate": 0.01,
+            "multiplier": 1.03
+          },
+          {
+            "minRate": 0,
+            "multiplier": 1
+          }
+        ],
+        "baseChanceTiers": [
+          {
+            "chance": 0.34,
+            "minCatchRate": 201
+          },
+          {
+            "chance": 0.3,
+            "minCatchRate": 151
+          },
+          {
+            "chance": 0.25,
+            "minCatchRate": 101
+          },
+          {
+            "chance": 0.21,
+            "minCatchRate": 76
+          },
+          {
+            "chance": 0.16,
+            "minCatchRate": 45
+          },
+          {
+            "chance": 0.11,
+            "minCatchRate": 25
+          },
+          {
+            "chance": 0.07,
+            "minCatchRate": 10
+          },
+          {
+            "chance": 0.04,
+            "minCatchRate": 1
+          }
+        ],
+        "eventMultiplier": 1,
+        "shinyMultiplier": 1,
+        "criticalCaptureChance": 0,
+        "honeyContributorBonus": 1.03
+      }
+    },
+    "species": [
+      {
+        "dex": 1,
+        "name": "Bulbasaur",
+        "slug": "bulbasaur",
+        "types": [
+          "grass",
+          "poison"
+        ],
+        "height_m": 0.7,
+        "mythical": false,
+        "tradable": true,
+        "evo_stage": 1,
+        "family_id": 1,
+        "weight_kg": 6.9,
+        "base_speed": 45,
+        "catch_rate": 45,
+        "generation": 1,
+        "is_legendary": false,
+        "spawn_weight": 45,
+        "moon_stone_family": false,
+        "spawn_band_override": "ULTRA_RARE",
+        "family_candy_species_id": 1
+      }
+    ],
+    "balls": [
+      {
+        "key": "pokeball",
+        "name": "Poké Ball",
+        "image": "poke-ball.png",
+        "rarity": "common",
+        "enabled": true,
+        "category": "standard",
+        "sell_price": 40,
+        "shop_price": 100,
+        "sort_order": 10,
+        "updated_at": "2026-09-13T03:02:05.478708+00:00",
+        "description": "A standard Poké Ball for catching wild Pokémon.",
+        "economic_tier": "basic",
+        "store_enabled": true,
+        "condition_type": "NONE",
+        "base_multiplier": 1,
+        "condition_config": {},
+        "guaranteed_capture": false,
+        "conditional_multiplier": null
+      }
+    ]
+  }
+}

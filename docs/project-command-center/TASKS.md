@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-19 | done | Issue17 Twitch linking policy audit/design | CODEX-18 | Research/design only | Source-grounded policy ready; account-link implementation decision pending |
+| CODEX-18 | done | One isolated D85 ordinary throw | CODEX-17 | Owner continued local rehearsal | One natural local escape; spending/replay/guards passed; stamp branch unobserved, D86 unauthorized |
 | CODEX-17 | done | Read-only D85 hash reconciliation; tracker cleanup | I51 | Owner authorized investigation | Full/body hash mix-up resolved; isolated rehearsal pending, D86 held |
 | CODEX-16 | done | Connected player Support and owner Helpdesk | CODEX-15 | Workflow approved with90-day retention | Real EmailQA player/staff/privacy QA passed; general player access enabled |
 | CODEX-15 | done | Staff recovery activated; I14 helpdesk review | CODEX-14 | Owner approved90-day recovery retention | Recovery verified; helpdesk approved; implementation in CODEX-16 |
@@ -94,7 +96,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | I48 | done | D82 launch-guard security gate | I47, D82 | Gate passed; install still needs a GO | Superseded by I49 |
 | I49 | done | D83 launch-guard install | I48, D83 | Installed; no encounter | Superseded by I50 |
 | I50 | done | D84 verification plan | I49, D84 | Plan only; stamp still blocked | Superseded by I51 |
-| I51 | todo | D85 isolated stamp rehearsal | I50, CODEX-17 | Hash metric mismatch reconciled; gameplay boundary unchanged | Rehearsal still pending; do not start D86 |
+| I51 | todo | D85 isolated stamp rehearsal | I50, CODEX-17 | Hash metric mismatch reconciled; gameplay boundary unchanged | Local escape observed; stamp criterion incomplete; do not start D86 |
 | HANDOFF-1 | done | Historical Gemini planning handoff | I51 | Archival; superseded by owner | Codex is current sole runner |
 | I13 | done | Issue #13 owner account recovery design | epic #11 | security design | Design complete; see ACCOUNT-RECOVERY-ISSUE-13.md |
 | I14 | done | Issue #14 helpdesk architecture | epic #11 | visual review | Approved design implemented and verified in CODEX-16 |
@@ -104,7 +106,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 Branch admin-hub-overhaul. Codex is the sole active runner. Owner authorized routine development and GitHub publication; later feature approvals delivered Trainer management, audited gifts/Pass, recovery and helpdesk. CODEX entries above are current; older table rows retain historical approval snapshots and are not fresh execution instructions. I13/I14 are complete; open GitHub issues may lag the implemented work. Issue#15 UI cleanup and#17 Twitch-linking policy remain follow-up candidates.
 
-D83 launch guard installed. CODEX-17 explains D85's three apparent mismatches: historical full-definition hashes were compared to body hashes. Source/migration comparisons agree. D85 isolated stamp rehearsal remains unperformed; D86 is not authorized. WIRE/Familiarity activation, production collection reset, protected-account testing and APP stamp remain outside current approval. APP20261008-rc133; final gameplay smoke pending. Existing D53/D58 catches and historical install evidence are preserved. Broad generic BatchF remains gated; individually approved later features are documented by their CODEX scopes.
+D83 launch guard installed. CODEX-17 explains D85's three apparent mismatches: historical full-definition hashes were compared to body hashes. Source/migration comparisons agree. CODEX-18 executed one local throw with a natural escape; D85 stamp criterion remains incomplete, D86 is not authorized. WIRE/Familiarity activation, production collection reset, protected-account testing and APP stamp remain outside current approval. APP20261008-rc133; final gameplay smoke pending. Existing D53/D58 catches and historical install evidence are preserved. Broad generic BatchF remains gated; individually approved later features are documented by their CODEX scopes.
 
 ## COORD-1 — repository handoff setup (2026-10-18)
 

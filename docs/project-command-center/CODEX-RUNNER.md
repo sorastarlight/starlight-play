@@ -8,7 +8,7 @@ Proceed through routine fixes, maintenance, regression checks, commits and GitHu
 
 The owner authorized publishing the existing branch live through GitHub. Main was fast-forwarded from `c2bb456a` to `6db041af`; Pages run `39191328672` succeeded. HTTP checks matched the checkout for index, help, admin-next, onboarding, play and shared CSS. APP remains `20261008-rc133`; no build stamp or Supabase change occurred. Existing caches may require a hard refresh.
 
-D83 remains report-confirmed installed. D85 remains blocked on three dependency fingerprints. D86, database changes, gameplay RPCs, activation, resets, protected-account mutations and spending are not authorized by this runner trial. No automatic monitor or background runner was enabled. Preserve the existing architecture and legacy admin files.
+D83 remains report-confirmed installed. CODEX-17 reconciled the three D85 fingerprint inputs. CODEX-18 executed one ordinary local throw: natural escape; stamp proof incomplete. Further local attempts await the owner decision. D86, database changes, gameplay RPCs, activation, resets, protected-account mutations and spending are not authorized by this runner trial. No automatic monitor or background runner was enabled. Preserve the existing architecture and legacy admin files.
 
 ## First maintenance slice
 

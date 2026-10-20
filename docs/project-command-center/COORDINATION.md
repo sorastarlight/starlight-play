@@ -4,7 +4,7 @@ Prepared 2026-10-18. Status: stage 1 repository handoff approved by the owner in
 
 ## Current status — 2026-10-19 Codex runner
 
-Codex is the sole runner; the Gemini/Cursor handoff is archival. Routine development and GitHub publication are owner-authorized, with later feature approvals recorded in CODEX tasks. D83 is installed. CODEX-17 reconciled D85's full-definition/body hash mix-up; the isolated stamp rehearsal remains pending and D86 unauthorized. No gameplay activation or stamp authority is implied. Historical findings below retain their original inspection dates and are not the current queue. This document does not schedule work or stop live services.
+Codex is the sole runner; the Gemini/Cursor handoff is archival. Routine development and GitHub publication are owner-authorized, with later feature approvals recorded in CODEX tasks. D83 is installed. CODEX-17 reconciled D85's full-definition/body hash mix-up; CODEX-18 ran one local ordinary throw: natural escape, stamp unobserved and D86 unauthorized. No gameplay activation or stamp authority is implied. Historical findings below retain their original inspection dates and are not the current queue. This document does not schedule work or stop live services.
 
 Repository: sorastarlight/starlight-play. Working branch: admin-hub-overhaul.
 Inspected branch head: a8320107ac8ac310dd2bd68cf2e8229b77c30272. Recheck before publishing.

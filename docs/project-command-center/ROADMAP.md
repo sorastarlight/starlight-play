@@ -1,6 +1,6 @@
 # Roadmap
 
-Working branch: `admin-hub-overhaul`. Current CODEX tasks and owner approvals supersede historical frontend publication restrictions below. Routine GitHub publication is authorized; gameplay activation/reset/APP stamp remain separately gated. D85 fingerprint inputs reconciled in CODEX-17; isolated rehearsal pending, D86 unauthorized.
+Working branch: `admin-hub-overhaul`. Current CODEX tasks and owner approvals supersede historical frontend publication restrictions below. Routine GitHub publication is authorized; gameplay activation/reset/APP stamp remain separately gated. D85 fingerprint inputs reconciled in CODEX-17; local rehearsal escaped; stamp proof pending, D86 unauthorized.
 
 | Batch | Name | Authorization | Status |
 |---|---|---|---|

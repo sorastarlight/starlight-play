@@ -1,0 +1,9 @@
+{
+  "timings": {
+    "joinSeconds": 30,
+    "throwSeconds": 30,
+    "revealSeconds": 15,
+    "prepareSeconds": 30
+  },
+  "definition": "CREATE OR REPLACE FUNCTION private.round_deadlines(p_settings jsonb, p_start timestamp with time zone)\n RETURNS jsonb\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select jsonb_build_object(\n    'join',    p_start + make_interval(secs => s.j),\n    'prepare', p_start + make_interval(secs => s.j + s.p),\n    'throw',   p_start + make_interval(secs => s.j + s.p + s.b),\n    'reveal',  p_start + make_interval(secs => s.j + s.p + s.b + s.c)\n  )\n  from (\n    select\n      coalesce((p_settings->>'joinSeconds')::double precision, 30) as j,\n      coalesce((p_settings->>'prepareSeconds')::double precision, 30) as p,\n      coalesce((p_settings->>'throwSeconds')::double precision, 30) as b,\n      coalesce((p_settings->>'revealSeconds')::double precision, 15) as c\n  ) s;\n$function$\n"
+}

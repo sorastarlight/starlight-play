@@ -1,5 +1,13 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-19 — Twitch linking policy audit/design (2026-10-19)
+
+Read-only hosted catalog/source/index/RLS/ACL inspection: raw Twitch ID uniqueness and one confirmed primary enforced; inspected ingress/confirmation do not cap ordinary trainers at one link. Player direct writes denied. Documented callback/intent and Auth/application unlink separation, concurrency, legacy fallback, demotion, recovery and non-destructive migration requirements; R18 unchanged. Official identity-linking docs/changelog checked. No account rows read, account RPCs executed, provider flow tested or SQL/OAuth/links/roles changed. Policy implementation awaits owner decision. See TWITCH-LINKING-ISSUE-17.md.
+
+## CODEX-18 — isolated D85 ordinary throw (2026-10-19)
+
+8 REAL LOCAL SQL checks passed with unchanged hosted function bodies and full105-second phases. One synthetic trainer, one ordinary Poké Ball, natural escape (chance0.16, roll0.96509424164274548730). Exactly one debit; replay safe; WIRE false/Familiarity inactive. Stamp branch unobserved, D85 criterion incomplete. No reroll. Disposable loopback cluster stopped and checked directory removed. Catalog-shaped schema and insertion stamp only; specimen-generation/XP/presentation triggers outside scope. Snapshot/source reconciliation3/3 and explicit-flag refusal verified. Hosted SELECT catalogs/public reference only; no live gameplay/data changes, protected accounts, roles, D86, stamp, emails or spending. APPrc133. See D85-LOCAL-REHEARSAL.md. Next: issue17 research/design while further-local-attempt decision pending.
+
 ## CODEX-17 — D85 read-only reconciliation (2026-10-19)
 
 Three alleged drift hashes exactly equal current md5(pg_get_functiondef), while D85 compared md5(prosrc). Body/source equality verified against D55 file, installed D55 migration statements, and capture-service migration source. Current body hashes unchanged from D85 live column. No production function replacement needed. Added public-code catalog snapshots and read-only verifier3/3 PASS; noted simplified local capture fixture is not production odds. Reconciled active queue/README/coordination precedence while preserving original D85 report/history. D85 rehearsal remains pending, D86 unauthorized. Catalog/migration-history SELECT only; no gameplay/data/schema writes, local cluster, activation, reset, protected-account action,stamp,email or spending. APPrc133 retained.

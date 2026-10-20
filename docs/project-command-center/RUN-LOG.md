@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-29 — WIRE readiness refresh (2026-10-20)
+
+Read-only hosted catalog confirmed WIRE off, restricted writer/switch execution and six enabled catch triggers. Five normalized source bodies match exactly; generator difference is comment-only; current settlement preserves later Familiarity integration.21 static and47 separate local SQL checks passed. D58 supersedes D53 economy defect. Combined current-trigger/Familiarity rehearsal remains necessary; no hosted writes, gameplay or account access. See WIRE-READINESS-20261020.md.
+
+
 ## CODEX-28 — Recording-only activation (2026-10-20)
 
 Owner explicitly approved activation only. One guarded existing-function call committed cutoff16:55:59.896904Z; lifecycle active, events0/outbox0, WIRE off. Independent read confirmed the same cutoff and0 Familiarity jobs. No encounter, delivery, scheduler, WIRE, schema/role or protected-account mutation. Operator stopped as approved. See FAMILIARITY-RECORDING-ACTIVATION.md.

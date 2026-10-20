@@ -1,0 +1,59 @@
+[
+  {
+    "name": "announce_throws",
+    "source": "supabase/unapplied/d55-economy/001_spend_rules.sql",
+    "sourceBodyMd5": "1145a36f2a1a2e93f9d99e91c4d24916",
+    "hostedBodyMd5": "1145a36f2a1a2e93f9d99e91c4d24916",
+    "exactBodyMatch": true,
+    "normalization": "CRLF to LF only"
+  },
+  {
+    "name": "generate_streamlink_mon",
+    "source": "supabase/unapplied/a19-genval/001_generate_and_assert.sql",
+    "sourceBodyMd5": "591508b6a1b6ab3511b32b644b8822a0",
+    "hostedBodyMd5": "69d99f2ec933c6cfdc500844774acc23",
+    "exactBodyMatch": false,
+    "normalization": "CRLF to LF only",
+    "commentWhitespaceEquivalent": true
+  },
+  {
+    "name": "materialize_streamlink_catch",
+    "source": "supabase/unapplied/a19-wire/002_materialize_hook.sql",
+    "sourceBodyMd5": "e88c6cbec313a4cc0b81a5df1f5691b3",
+    "hostedBodyMd5": "e88c6cbec313a4cc0b81a5df1f5691b3",
+    "exactBodyMatch": true,
+    "normalization": "CRLF to LF only"
+  },
+  {
+    "name": "persist_streamlink_catch",
+    "source": "supabase/unapplied/a19-wire/001_wire_switch_and_persist.sql",
+    "sourceBodyMd5": "0d1724fb07b156d6124b2f0f556303a4",
+    "hostedBodyMd5": "0d1724fb07b156d6124b2f0f556303a4",
+    "exactBodyMatch": true,
+    "normalization": "CRLF to LF only"
+  },
+  {
+    "name": "settle_if_needed",
+    "source": "supabase/unapplied/a19-wire/003_settle_integration.sql",
+    "sourceBodyMd5": "e2947645ed517864a3a899d2418285a6",
+    "hostedBodyMd5": "565c102d0a8c84a3dfd036653aca307c",
+    "exactBodyMatch": false,
+    "normalization": "CRLF to LF only"
+  },
+  {
+    "name": "spend_bag_item",
+    "source": "supabase/unapplied/d55-economy/001_spend_rules.sql",
+    "sourceBodyMd5": "b30712a5a082f00ce45fd2c214e7029d",
+    "hostedBodyMd5": "b30712a5a082f00ce45fd2c214e7029d",
+    "exactBodyMatch": true,
+    "normalization": "CRLF to LF only"
+  },
+  {
+    "name": "streamlink_wire_set_enabled",
+    "source": "supabase/unapplied/a19-wire/001_wire_switch_and_persist.sql",
+    "sourceBodyMd5": "851717f6de5bdb67ec916559c2d75e67",
+    "hostedBodyMd5": "851717f6de5bdb67ec916559c2d75e67",
+    "exactBodyMatch": true,
+    "normalization": "CRLF to LF only"
+  }
+]

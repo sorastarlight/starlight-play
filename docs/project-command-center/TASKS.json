@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-29",
+      "status": "done",
+      "scope": "WIRE current catalog/source and isolated regression readiness review",
+      "dependencies": [
+        "CODEX-28"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "WIRE-READINESS-20261020.md; evidence/wire-readiness-20261020.json; evidence/wire-source-comparison-20261020.json",
+      "testResults": "21 STATIC;47 REAL LOCAL SQL;5 exact source matches;generator comment-only;later settlement integration preserved",
+      "nextAction": "Dedicated current-stack local WIRE/Familiarity/trigger rehearsal; no hosted activation yet",
+      "approvalRequirement": "Local development/read-only inspection authorized; hosted toggle/gameplay separate"
+    },
+    {
       "id": "CODEX-28",
       "status": "done",
       "scope": "Single owner-approved Species Familiarity recording activation",

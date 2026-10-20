@@ -1,0 +1,5441 @@
+[
+  {
+    "name": "mastery_ledger",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "amount",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "reason",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "idempotency",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX mastery_ledger_idem_uidx ON public.mastery_ledger USING btree (user_id, idempotency) WHERE (idempotency IS NOT NULL)"
+    ],
+    "constraints": [
+      {
+        "name": "mastery_ledger_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ]
+  },
+  {
+    "name": "trainer_stats",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "encounters",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "captures",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "fails",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "honey",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "optimal_catches",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "catch_streak",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "fail_streak",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "best_catch_streak",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "best_fail_streak",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "first_pokemon_dex",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "first_shiny_dex",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "evolved",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "trades_done",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "traded_away",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "traded_in",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "released",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "candy_earned",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "candy_spent",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "species_mastered",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "trainer_stats_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id)"
+      },
+      {
+        "name": "trainer_stats_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "capture_balls",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "key",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "category",
+        "type": "text",
+        "default": "'standard'::text",
+        "notnull": true
+      },
+      {
+        "name": "base_multiplier",
+        "type": "numeric",
+        "default": "1.0",
+        "notnull": true
+      },
+      {
+        "name": "conditional_multiplier",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "condition_type",
+        "type": "text",
+        "default": "'NONE'::text",
+        "notnull": true
+      },
+      {
+        "name": "condition_config",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "guaranteed_capture",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "shop_price",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "sell_price",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "rarity",
+        "type": "text",
+        "default": "'common'::text",
+        "notnull": true
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "image",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "sort_order",
+        "type": "integer",
+        "default": "100",
+        "notnull": true
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "economic_tier",
+        "type": "text",
+        "default": "'standard'::text",
+        "notnull": true
+      },
+      {
+        "name": "store_enabled",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "capture_balls_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (key)"
+      }
+    ]
+  },
+  {
+    "name": "species_mastery",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "points",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "rank",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "species_mastery_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id, dex)"
+      },
+      {
+        "name": "species_mastery_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "capture_berries",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "key",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "slug",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "berry_id",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "item_id",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "item_slug",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "firmness",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "natural_gift_type",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "natural_gift_power",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "flavors",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "sprite",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "canonical_effect",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "canonical_flavor_text",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "capture_multiplier",
+        "type": "numeric",
+        "default": "1.0",
+        "notnull": true
+      },
+      {
+        "name": "capture_rule",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "reward_bonus",
+        "type": "numeric",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "rpg_description",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "tier",
+        "type": "text",
+        "default": "'common'::text",
+        "notnull": true
+      },
+      {
+        "name": "rarity",
+        "type": "text",
+        "default": "'common'::text",
+        "notnull": true
+      },
+      {
+        "name": "shop_price",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "sell_price",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "capture_enabled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "store_available",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "sort_order",
+        "type": "integer",
+        "default": "100",
+        "notnull": true
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "economic_tier",
+        "type": "text",
+        "default": "'basic'::text",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "capture_berries_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (key)"
+      },
+      {
+        "name": "capture_berries_slug_key",
+        "type": "u",
+        "definition": "UNIQUE (slug)"
+      }
+    ]
+  },
+  {
+    "name": "capture_log",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "round_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "species_name",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "variant",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "gender",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "is_shiny",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "is_female",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "canonical_catch_rate",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "base_chance",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ball_key",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ball_multiplier",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ball_condition_met",
+        "type": "boolean",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "berry_key",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "berry_multiplier",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "honey_contributors",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "honey_participants",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "honey_multiplier",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "honey_contributor_multiplier",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "shiny_multiplier",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "event_multiplier",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "other_multiplier",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "raw_chance",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "final_chance",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "capture_roll",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "success",
+        "type": "boolean",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "detail",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX capture_log_dex_idx ON public.capture_log USING btree (dex)",
+      "CREATE INDEX capture_log_round_idx ON public.capture_log USING btree (round_id)",
+      "CREATE INDEX capture_log_user_idx ON public.capture_log USING btree (user_id, created_at DESC)",
+      "CREATE UNIQUE INDEX capture_log_once_idx ON public.capture_log USING btree (round_id, user_id)"
+    ],
+    "constraints": [
+      {
+        "name": "capture_log_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ]
+  },
+  {
+    "name": "family_candy",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "family_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "qty",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "family_candy_family_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (family_id) REFERENCES evolution_families(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "family_candy_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id, family_id)"
+      },
+      {
+        "name": "family_candy_qty_ck",
+        "type": "c",
+        "definition": "CHECK ((qty >= 0))"
+      },
+      {
+        "name": "family_candy_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "evolution_rules",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "from_dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "to_dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "family_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "candy_cost",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "required_item",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "condition_type",
+        "type": "text",
+        "default": "'CANDY_ONLY'::text",
+        "notnull": true
+      },
+      {
+        "name": "condition_value",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "sort_order",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "rpg_method",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "canonical_trigger",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "canonical_min_level",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "canonical_item",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "canonical_trade_required",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "generation_introduced",
+        "type": "integer",
+        "default": "1",
+        "notnull": true
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "evolution_rules_family_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (family_id) REFERENCES evolution_families(id)"
+      },
+      {
+        "name": "evolution_rules_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ]
+  },
+  {
+    "name": "evolution_config",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "integer",
+        "default": "1",
+        "notnull": true
+      },
+      {
+        "name": "balance_version",
+        "type": "integer",
+        "default": "1",
+        "notnull": true
+      },
+      {
+        "name": "enabled_generations",
+        "type": "integer[]",
+        "default": "'{1}'::integer[]",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "evolution_config_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ]
+  },
+  {
+    "name": "profiles",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "twitch_user_id",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "twitch_login",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "display_name",
+        "type": "text",
+        "default": "'Trainer'::text",
+        "notnull": true
+      },
+      {
+        "name": "avatar_url",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "starlight_pass",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "pass_source",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "pass_checked_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "watch_seconds",
+        "type": "bigint",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "xp",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "last_heartbeat_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "last_seen_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "favorite_dex",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "favorite_variant",
+        "type": "text",
+        "default": "'normal'::text",
+        "notnull": true
+      },
+      {
+        "name": "trainer_title",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "trainer_sprite",
+        "type": "text",
+        "default": "'red-gen1'::text",
+        "notnull": true
+      },
+      {
+        "name": "team_ids",
+        "type": "uuid[]",
+        "default": "'{}'::uuid[]",
+        "notnull": true
+      },
+      {
+        "name": "card_bg",
+        "type": "text",
+        "default": "'hoenn'::text",
+        "notnull": true
+      },
+      {
+        "name": "owned_avatar_packs",
+        "type": "text[]",
+        "default": "'{}'::text[]",
+        "notnull": true
+      },
+      {
+        "name": "pc_layout",
+        "type": "jsonb",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "encounter_settings",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "active_title_id",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "featured_badge_ids",
+        "type": "text[]",
+        "default": "'{}'::text[]",
+        "notnull": true
+      },
+      {
+        "name": "username",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "card_frame",
+        "type": "text",
+        "default": "'plain'::text",
+        "notnull": true
+      },
+      {
+        "name": "showcase",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "ranking_visible",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "team_bg",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX profiles_ranking_xp_idx ON public.profiles USING btree (xp DESC) WHERE ranking_visible",
+      "CREATE INDEX profiles_display_name_lower_idx ON public.profiles USING btree (lower(display_name))",
+      "CREATE UNIQUE INDEX profiles_username_lower_uidx ON public.profiles USING btree (lower(username)) WHERE (username IS NOT NULL)"
+    ],
+    "constraints": [
+      {
+        "name": "profiles_favorite_dex_check",
+        "type": "c",
+        "definition": "CHECK (((favorite_dex IS NULL) OR ((favorite_dex >= 1) AND (favorite_dex <= 1025))))"
+      },
+      {
+        "name": "profiles_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "profiles_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "profiles_team_ids_len",
+        "type": "c",
+        "definition": "CHECK ((cardinality(team_ids) <= 6))"
+      },
+      {
+        "name": "profiles_twitch_user_id_key",
+        "type": "u",
+        "definition": "UNIQUE (twitch_user_id)"
+      }
+    ]
+  },
+  {
+    "name": "inventories",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "berry",
+        "type": "integer",
+        "default": "10",
+        "notnull": true
+      },
+      {
+        "name": "bait",
+        "type": "integer",
+        "default": "10",
+        "notnull": true
+      },
+      {
+        "name": "pokeball",
+        "type": "integer",
+        "default": "10",
+        "notnull": true
+      },
+      {
+        "name": "greatball",
+        "type": "integer",
+        "default": "5",
+        "notnull": true
+      },
+      {
+        "name": "ultraball",
+        "type": "integer",
+        "default": "3",
+        "notnull": true
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "lure",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "coins",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "bag_bonus",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "lure_armed",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "pass_daily_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "pass_weekly_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "balls",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "lure_until",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "berries",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "starter_granted",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "daily_supply_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "items",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "inventories_bag_bonus_check",
+        "type": "c",
+        "definition": "CHECK ((bag_bonus >= 0))"
+      },
+      {
+        "name": "inventories_bait_check",
+        "type": "c",
+        "definition": "CHECK ((bait >= 0))"
+      },
+      {
+        "name": "inventories_berry_check",
+        "type": "c",
+        "definition": "CHECK ((berry >= 0))"
+      },
+      {
+        "name": "inventories_coins_check",
+        "type": "c",
+        "definition": "CHECK ((coins >= 0))"
+      },
+      {
+        "name": "inventories_greatball_check",
+        "type": "c",
+        "definition": "CHECK ((greatball >= 0))"
+      },
+      {
+        "name": "inventories_lure_check",
+        "type": "c",
+        "definition": "CHECK ((lure >= 0))"
+      },
+      {
+        "name": "inventories_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id)"
+      },
+      {
+        "name": "inventories_pokeball_check",
+        "type": "c",
+        "definition": "CHECK ((pokeball >= 0))"
+      },
+      {
+        "name": "inventories_ultraball_check",
+        "type": "c",
+        "definition": "CHECK ((ultraball >= 0))"
+      },
+      {
+        "name": "inventories_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "streamlink_hidden_tickets",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "ticket_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "ctx",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "issued_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "expires_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "redeemed_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "issued_by",
+        "type": "name",
+        "default": "SESSION_USER",
+        "notnull": true
+      },
+      {
+        "name": "specimen_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "specimen_digest",
+        "type": "bytea",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "streamlink_hidden_tickets_ctx",
+        "type": "c",
+        "definition": "CHECK ((ctx = ANY (ARRAY['grant'::text, 'event'::text])))"
+      },
+      {
+        "name": "streamlink_hidden_tickets_expiry",
+        "type": "c",
+        "definition": "CHECK ((expires_at > issued_at))"
+      },
+      {
+        "name": "streamlink_hidden_tickets_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (ticket_id)"
+      }
+    ]
+  },
+  {
+    "name": "coin_ledger",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "amount",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "type",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "reason",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "related_item",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "related_sku",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "related_round",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "order_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "idempotency",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "balance_before",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "balance_after",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "detail",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "economy_version",
+        "type": "integer",
+        "default": "1",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX coin_ledger_type_idx ON public.coin_ledger USING btree (type, created_at DESC)",
+      "CREATE UNIQUE INDEX coin_ledger_idem_idx ON public.coin_ledger USING btree (user_id, idempotency) WHERE (idempotency IS NOT NULL)",
+      "CREATE INDEX coin_ledger_user_idx ON public.coin_ledger USING btree (user_id, created_at DESC)"
+    ],
+    "constraints": [
+      {
+        "name": "coin_ledger_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "coin_ledger_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "site_config",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "integer",
+        "default": "1",
+        "notnull": true
+      },
+      {
+        "name": "broadcaster_twitch_login",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "game_settings",
+        "type": "jsonb",
+        "default": "'{\"berryBonus\": 0.1, \"ballChances\": {\"pokeball\": 0.45, \"greatball\": 0.6, \"ultraball\": 0.75}, \"joinSeconds\": 30, \"maxBaitBonus\": 0.15, \"starterItems\": {\"bait\": 10, \"berry\": 10, \"pokeball\": 10, \"greatball\": 5, \"ultraball\": 3}, \"throwSeconds\": 15, \"revealSeconds\": 12, \"maxCatchChance\": 0.9, \"prepareSeconds\": 20}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "twitch_client_id",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "twitch_broadcaster_id",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "bits_store_enabled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "site_config_id_check",
+        "type": "c",
+        "definition": "CHECK ((id = 1))"
+      },
+      {
+        "name": "site_config_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ]
+  },
+  {
+    "name": "trainer_milestones",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "key",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "granted_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "trainer_milestones_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id, key)"
+      },
+      {
+        "name": "trainer_milestones_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "item_ledger",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "item_key",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "amount",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "reason",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "source_id",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "idempotency",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX item_ledger_user_idx ON public.item_ledger USING btree (user_id, created_at DESC)",
+      "CREATE INDEX item_ledger_item_idx ON public.item_ledger USING btree (item_key, reason, created_at DESC)",
+      "CREATE UNIQUE INDEX item_ledger_idem_uidx ON public.item_ledger USING btree (user_id, idempotency) WHERE (idempotency IS NOT NULL)"
+    ],
+    "constraints": [
+      {
+        "name": "item_ledger_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "item_ledger_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "streamlink_wire_switch",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "id",
+        "type": "smallint",
+        "default": "1",
+        "notnull": true
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "streamlink_wire_switch_id_check",
+        "type": "c",
+        "definition": "CHECK ((id = 1))"
+      },
+      {
+        "name": "streamlink_wire_switch_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ]
+  },
+  {
+    "name": "reward_choices",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "reward_key",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "options",
+        "type": "text[]",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "remaining",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "reward_choices_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "reward_choices_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "reward_choices_user_id_reward_key_key",
+        "type": "u",
+        "definition": "UNIQUE (user_id, reward_key)"
+      }
+    ]
+  },
+  {
+    "name": "reward_events",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "idempotency",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "reason",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "source_id",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "grants",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX reward_events_reason_idx ON public.reward_events USING btree (reason, created_at DESC)"
+    ],
+    "constraints": [
+      {
+        "name": "reward_events_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "reward_events_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "reward_events_user_id_idempotency_key",
+        "type": "u",
+        "definition": "UNIQUE (user_id, idempotency)"
+      }
+    ]
+  },
+  {
+    "name": "encounter_rounds",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "source_id",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "phase",
+        "type": "text",
+        "default": "'closed'::text",
+        "notnull": true
+      },
+      {
+        "name": "ends_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "hidden",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "pokemon",
+        "type": "jsonb",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "variant",
+        "type": "text",
+        "default": "'normal'::text",
+        "notnull": true
+      },
+      {
+        "name": "gender",
+        "type": "text",
+        "default": "'Unknown'::text",
+        "notnull": true
+      },
+      {
+        "name": "started_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "deadlines",
+        "type": "jsonb",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "players",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "rules",
+        "type": "jsonb",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "resolved",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "cancelled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "last_action",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "source",
+        "type": "text",
+        "default": "'play'::text",
+        "notnull": true
+      },
+      {
+        "name": "paused_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "trigger_source",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "pause_reasons",
+        "type": "jsonb",
+        "default": "'[]'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "pokemon_form_id",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX encounter_rounds_form_idx ON public.encounter_rounds USING btree (pokemon_form_id)"
+    ],
+    "constraints": [
+      {
+        "name": "encounter_rounds_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "encounter_rounds_pokemon_form_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (pokemon_form_id) REFERENCES pokemon_forms(pokemon_form_id)"
+      },
+      {
+        "name": "encounter_rounds_source_check",
+        "type": "c",
+        "definition": "CHECK ((source = ANY (ARRAY['play'::text, 'mixitup'::text])))"
+      },
+      {
+        "name": "encounter_rounds_source_id_key",
+        "type": "u",
+        "definition": "UNIQUE (source_id)"
+      }
+    ]
+  },
+  {
+    "name": "encounter_players",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "round_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "prep",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ball",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "result",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "chance",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "roll",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "caught",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "joined_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "prep_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ball_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "throw_processed",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "result_reason",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX encounter_players_user_id_idx ON public.encounter_players USING btree (user_id)"
+    ],
+    "constraints": [
+      {
+        "name": "encounter_players_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (round_id, user_id)"
+      },
+      {
+        "name": "encounter_players_round_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (round_id) REFERENCES encounter_rounds(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "encounter_players_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "species",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "slug",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "catch_rate",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "types",
+        "type": "text[]",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "base_speed",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "weight_kg",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "height_m",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "moon_stone_family",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "is_legendary",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "spawn_weight",
+        "type": "numeric",
+        "default": "1",
+        "notnull": true
+      },
+      {
+        "name": "generation",
+        "type": "integer",
+        "default": "1",
+        "notnull": true
+      },
+      {
+        "name": "family_id",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "evo_stage",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "tradable",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "mythical",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "family_candy_species_id",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "spawn_band_override",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX species_catch_rate_idx ON public.species USING btree (catch_rate)"
+    ],
+    "constraints": [
+      {
+        "name": "species_dex_check",
+        "type": "c",
+        "definition": "CHECK (((dex >= 1) AND (dex <= 1025)))"
+      },
+      {
+        "name": "species_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (dex)"
+      },
+      {
+        "name": "species_spawn_band_override_chk",
+        "type": "c",
+        "definition": "CHECK (((spawn_band_override IS NULL) OR (spawn_band_override = ANY (ARRAY['COMMON'::text, 'UNCOMMON'::text, 'RARE'::text, 'VERY_RARE'::text, 'ULTRA_RARE'::text, 'LEGENDARY'::text, 'EVENT'::text]))))"
+      }
+    ]
+  },
+  {
+    "name": "species_seen",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "first_seen_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "species_seen_dex_check",
+        "type": "c",
+        "definition": "CHECK (((dex >= 1) AND (dex <= 1025)))"
+      },
+      {
+        "name": "species_seen_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id, dex)"
+      },
+      {
+        "name": "species_seen_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "lgpe_species",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "types",
+        "type": "text[]",
+        "default": "'{}'::text[]",
+        "notnull": true
+      },
+      {
+        "name": "hp",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "atk",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "def",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "spa",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "spd",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "spe",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "moves",
+        "type": "jsonb",
+        "default": "'[]'::jsonb",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "lgpe_species_dex_check",
+        "type": "c",
+        "definition": "CHECK (((dex >= 1) AND (dex <= 151)))"
+      },
+      {
+        "name": "lgpe_species_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (dex)"
+      }
+    ]
+  },
+  {
+    "name": "bits_events",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "event_id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "twitch_login",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "sku",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "granted",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "detail",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "twitch_user_id",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "bits",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "title",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "status",
+        "type": "text",
+        "default": "'received'::text",
+        "notnull": true
+      },
+      {
+        "name": "trainer_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "grants",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "pack_name",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "anonymous",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "bits_events_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (event_id)"
+      }
+    ]
+  },
+  {
+    "name": "encounter_activity",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "round_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "display_name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "kind",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "item",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX encounter_activity_round_idx ON public.encounter_activity USING btree (round_id, created_at DESC)"
+    ],
+    "constraints": [
+      {
+        "name": "encounter_activity_kind_check",
+        "type": "c",
+        "definition": "CHECK ((kind = ANY (ARRAY['joined'::text, 'prepared'::text, 'selected'::text, 'threw'::text, 'pause'::text, 'resume'::text, 'gift'::text])))"
+      },
+      {
+        "name": "encounter_activity_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "encounter_activity_round_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (round_id) REFERENCES encounter_rounds(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "encounter_activity_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE SET NULL"
+      }
+    ]
+  },
+  {
+    "name": "bits_pending",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "event_id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "twitch_login",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "sku",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "twitch_user_id",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "bits",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "title",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX bits_pending_login_idx ON private.bits_pending USING btree (lower(twitch_login))"
+    ],
+    "constraints": [
+      {
+        "name": "bits_pending_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (event_id)"
+      }
+    ]
+  },
+  {
+    "name": "xp_ledger",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "amount",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "type",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "reason",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "idempotency",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "related_round",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "xp_before",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "xp_after",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX xp_ledger_idem_uidx ON public.xp_ledger USING btree (user_id, idempotency) WHERE (idempotency IS NOT NULL)",
+      "CREATE INDEX xp_ledger_user_idx ON public.xp_ledger USING btree (user_id, created_at DESC)"
+    ],
+    "constraints": [
+      {
+        "name": "xp_ledger_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "xp_ledger_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "trainer_titles",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "title_id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "unlocked_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "seen_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "trainer_titles_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id, title_id)"
+      },
+      {
+        "name": "trainer_titles_title_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (title_id) REFERENCES progression_titles(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "trainer_titles_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "trainer_badges",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "badge_id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "unlocked_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "seen_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "trainer_badges_badge_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (badge_id) REFERENCES progression_badges(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "trainer_badges_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id, badge_id)"
+      },
+      {
+        "name": "trainer_badges_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "progression_badges",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "rarity",
+        "type": "text",
+        "default": "'common'::text",
+        "notnull": true
+      },
+      {
+        "name": "sort_order",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "ribbon_id",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ribbon_origin",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "ribbon_flavor",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "icon_path",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "progression_badges_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ]
+  },
+  {
+    "name": "play_console_log",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "round_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "display_name",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "kind",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "item",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "message",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "source_activity_id",
+        "type": "bigint",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX play_console_log_round_result_uniq ON public.play_console_log USING btree (round_id, user_id, kind) WHERE (kind = ANY (ARRAY['caught'::text, 'escaped'::text, 'timeout'::text]))",
+      "CREATE UNIQUE INDEX play_console_log_round_phase_uniq ON public.play_console_log USING btree (round_id, kind, item) WHERE (kind = 'phase'::text)",
+      "CREATE INDEX play_console_log_created_idx ON public.play_console_log USING btree (created_at DESC, id DESC)",
+      "CREATE UNIQUE INDEX play_console_log_round_cancelled_uniq ON public.play_console_log USING btree (round_id, kind) WHERE (kind = 'cancelled'::text)",
+      "CREATE UNIQUE INDEX play_console_log_activity_uidx ON public.play_console_log USING btree (source_activity_id) WHERE (source_activity_id IS NOT NULL)"
+    ],
+    "constraints": [
+      {
+        "name": "play_console_log_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "play_console_log_round_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (round_id) REFERENCES encounter_rounds(id) ON DELETE SET NULL"
+      },
+      {
+        "name": "play_console_log_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE SET NULL"
+      }
+    ]
+  },
+  {
+    "name": "trainer_achievements",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "achievement_id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "progress",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "unlocked_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "reward_granted_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX trainer_achievements_unlocked_user_idx ON public.trainer_achievements USING btree (user_id) WHERE (unlocked_at IS NOT NULL)"
+    ],
+    "constraints": [
+      {
+        "name": "trainer_achievements_achievement_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (achievement_id) REFERENCES progression_achievements(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "trainer_achievements_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id, achievement_id)"
+      },
+      {
+        "name": "trainer_achievements_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "trainer_notices",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "kind",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "title",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "payload",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "seen_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX trainer_notices_unseen_idx ON public.trainer_notices USING btree (user_id, created_at DESC) WHERE (seen_at IS NULL)"
+    ],
+    "constraints": [
+      {
+        "name": "trainer_notices_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "trainer_notices_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "progression_titles",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "rarity",
+        "type": "text",
+        "default": "'common'::text",
+        "notnull": true
+      },
+      {
+        "name": "sort_order",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "progression_titles_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ]
+  },
+  {
+    "name": "store_categories",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "key",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "blurb",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "icon",
+        "type": "text",
+        "default": "'poke-ball.png'::text",
+        "notnull": true
+      },
+      {
+        "name": "sort",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "kind",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "visible",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "system",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "extra",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "store_categories_key_key",
+        "type": "u",
+        "definition": "UNIQUE (key)"
+      },
+      {
+        "name": "store_categories_kind_check",
+        "type": "c",
+        "definition": "CHECK ((kind = ANY (ARRAY['pass'::text, 'coins'::text, 'balls'::text, 'avatars'::text, 'bits'::text])))"
+      },
+      {
+        "name": "store_categories_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ]
+  },
+  {
+    "name": "store_items",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "sku",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "category_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "blurb",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "cost",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "bits",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "grants",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "sprite",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "thumb",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "featured",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "sort",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "visible",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "extra",
+        "type": "jsonb",
+        "default": "'{}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "status",
+        "type": "text",
+        "default": "'published'::text",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "store_items_category_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (category_id) REFERENCES private.store_categories(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "store_items_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (sku)"
+      }
+    ]
+  },
+  {
+    "name": "candy_ledger",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "family_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "amount",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "type",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "reason",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "idempotency",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "related_catch",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "qty_before",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "qty_after",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX candy_ledger_idem_uidx ON public.candy_ledger USING btree (user_id, idempotency) WHERE (idempotency IS NOT NULL)"
+    ],
+    "constraints": [
+      {
+        "name": "candy_ledger_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "candy_ledger_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "twitch_connections",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "twitch_user_id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "twitch_login",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "twitch_display_name",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "avatar_url",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "is_primary",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "gameplay_enabled",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "login_enabled",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "connection_type",
+        "type": "text",
+        "default": "'player'::text",
+        "notnull": true
+      },
+      {
+        "name": "authorization_status",
+        "type": "text",
+        "default": "'connected'::text",
+        "notnull": true
+      },
+      {
+        "name": "confirmed",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "linked_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "last_verified_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX twitch_connections_user_idx ON public.twitch_connections USING btree (user_id)",
+      "CREATE INDEX twitch_connections_login_idx ON public.twitch_connections USING btree (lower(twitch_login))",
+      "CREATE INDEX twitch_connections_numeric_id_idx ON public.twitch_connections USING btree (private.twitch_numeric_id(twitch_user_id))",
+      "CREATE UNIQUE INDEX twitch_connections_one_primary_uidx ON public.twitch_connections USING btree (user_id) WHERE (is_primary AND confirmed)",
+      "CREATE UNIQUE INDEX twitch_connections_twitch_user_uidx ON public.twitch_connections USING btree (twitch_user_id)"
+    ],
+    "constraints": [
+      {
+        "name": "twitch_connections_authorization_status_check",
+        "type": "c",
+        "definition": "CHECK ((authorization_status = ANY (ARRAY['connected'::text, 'needs_reauthorization'::text])))"
+      },
+      {
+        "name": "twitch_connections_connection_type_check",
+        "type": "c",
+        "definition": "CHECK ((connection_type = ANY (ARRAY['player'::text, 'secondary'::text, 'bot'::text, 'utility'::text])))"
+      },
+      {
+        "name": "twitch_connections_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "twitch_connections_twitch_login_check",
+        "type": "c",
+        "definition": "CHECK ((twitch_login <> ''::text))"
+      },
+      {
+        "name": "twitch_connections_twitch_user_id_check",
+        "type": "c",
+        "definition": "CHECK ((twitch_user_id <> ''::text))"
+      },
+      {
+        "name": "twitch_connections_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "species_forms",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_key",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_label",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "kind",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "gender",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "shiny",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "source_set",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "filename",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "enabled_in_play",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "species_forms_dex_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (dex) REFERENCES species(dex)"
+      },
+      {
+        "name": "species_forms_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (dex, form_key, gender, shiny)"
+      }
+    ]
+  },
+  {
+    "name": "bits_support_totals",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "bits_total",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "bits_support_totals_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id)"
+      },
+      {
+        "name": "bits_support_totals_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "trainer_cosmetics",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "cosmetic_id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "source",
+        "type": "text",
+        "default": "'progress'::text",
+        "notnull": true
+      },
+      {
+        "name": "unlocked_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "seen_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX trainer_cosmetics_user_idx ON public.trainer_cosmetics USING btree (user_id, unlocked_at DESC)"
+    ],
+    "constraints": [
+      {
+        "name": "trainer_cosmetics_cosmetic_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (cosmetic_id) REFERENCES progression_cosmetics(id) ON DELETE CASCADE"
+      },
+      {
+        "name": "trainer_cosmetics_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id, cosmetic_id)"
+      },
+      {
+        "name": "trainer_cosmetics_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "progression_cosmetics",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "kind",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "how_to",
+        "type": "text",
+        "default": "''::text",
+        "notnull": true
+      },
+      {
+        "name": "requirement",
+        "type": "jsonb",
+        "default": "'{\"type\": \"starter\"}'::jsonb",
+        "notnull": true
+      },
+      {
+        "name": "sort_order",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "starter",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "progression_cosmetics_kind_check",
+        "type": "c",
+        "definition": "CHECK ((kind = ANY (ARRAY['background'::text, 'frame'::text, 'team_background'::text])))"
+      },
+      {
+        "name": "progression_cosmetics_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ]
+  },
+  {
+    "name": "pokemon_forms",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "pokemon_form_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_key",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_label",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "kind",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "is_base",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "has_front",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "has_shiny_front",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "has_female_front",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "has_back",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "admin_targetable",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "event_targetable",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "normal_encounter_enabled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "asset_status",
+        "type": "text",
+        "default": "'catalog_only'::text",
+        "notnull": true
+      },
+      {
+        "name": "origin_gen1",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "catch_rate",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "forced_gender",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX pokemon_forms_admin_idx ON public.pokemon_forms USING btree (dex) WHERE admin_targetable",
+      "CREATE INDEX pokemon_forms_dex_idx ON public.pokemon_forms USING btree (dex)",
+      "CREATE INDEX pokemon_forms_event_idx ON public.pokemon_forms USING btree (dex) WHERE event_targetable"
+    ],
+    "constraints": [
+      {
+        "name": "pokemon_forms_dex_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (dex) REFERENCES species(dex)"
+      },
+      {
+        "name": "pokemon_forms_dex_form_key_key",
+        "type": "u",
+        "definition": "UNIQUE (dex, form_key)"
+      },
+      {
+        "name": "pokemon_forms_forced_gender_check",
+        "type": "c",
+        "definition": "CHECK (((forced_gender IS NULL) OR (forced_gender = ANY (ARRAY['Male'::text, 'Female'::text, 'Genderless'::text]))))"
+      },
+      {
+        "name": "pokemon_forms_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (pokemon_form_id)"
+      }
+    ]
+  },
+  {
+    "name": "species_mastery_activation",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "singleton",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      },
+      {
+        "name": "activated_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "disabled_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "lifecycle",
+        "type": "text",
+        "default": "'inactive'::text",
+        "notnull": true
+      },
+      {
+        "name": "paused_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "drain_started_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "closed_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "species_mastery_activation_lifecycle_check",
+        "type": "c",
+        "definition": "CHECK ((lifecycle = ANY (ARRAY['inactive'::text, 'active'::text, 'paused'::text, 'draining'::text, 'closed'::text])))"
+      },
+      {
+        "name": "species_mastery_activation_order",
+        "type": "c",
+        "definition": "CHECK (((disabled_at IS NULL) OR ((activated_at IS NOT NULL) AND (disabled_at >= activated_at))))"
+      },
+      {
+        "name": "species_mastery_activation_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (singleton)"
+      },
+      {
+        "name": "species_mastery_activation_singleton_check",
+        "type": "c",
+        "definition": "CHECK (singleton)"
+      }
+    ]
+  },
+  {
+    "name": "item_policy",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "item_slug",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "inventory_enabled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "obtainable",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "usable",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "mart_buy_enabled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "mart_sell_enabled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "research_reward_enabled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "admin_grant_enabled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "bits_enabled",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "release_generation",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "canonical_sell_price",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "game_sell_price",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "item_policy_item_slug_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (item_slug) REFERENCES item_catalog(slug) ON DELETE CASCADE"
+      },
+      {
+        "name": "item_policy_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (item_slug)"
+      }
+    ]
+  },
+  {
+    "name": "species_mastery_outbox",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "catch_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "enqueued_at",
+        "type": "timestamp with time zone",
+        "default": "clock_timestamp()",
+        "notnull": true
+      },
+      {
+        "name": "status",
+        "type": "text",
+        "default": "'pending'::text",
+        "notnull": true
+      },
+      {
+        "name": "attempts",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "last_error",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "delivered_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "species_mastery_outbox_attempts_check",
+        "type": "c",
+        "definition": "CHECK ((attempts >= 0))"
+      },
+      {
+        "name": "species_mastery_outbox_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (catch_id)"
+      },
+      {
+        "name": "species_mastery_outbox_status_check",
+        "type": "c",
+        "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'delivered'::text, 'rejected'::text, 'exhausted'::text])))"
+      }
+    ]
+  },
+  {
+    "name": "form_seen",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "first_seen_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX form_seen_user_dex_idx ON public.form_seen USING btree (user_id, dex)"
+    ],
+    "constraints": [
+      {
+        "name": "form_seen_dex_check",
+        "type": "c",
+        "definition": "CHECK (((dex >= 1) AND (dex <= 1025)))"
+      },
+      {
+        "name": "form_seen_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (user_id, form_id)"
+      },
+      {
+        "name": "form_seen_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "catches",
+    "schema": "public",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "default": "gen_random_uuid()",
+        "notnull": true
+      },
+      {
+        "name": "user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "variant",
+        "type": "text",
+        "default": "'normal'::text",
+        "notnull": true
+      },
+      {
+        "name": "gender",
+        "type": "text",
+        "default": "'Unknown'::text",
+        "notnull": true
+      },
+      {
+        "name": "ball",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "caught_at",
+        "type": "timestamp with time zone",
+        "default": "now()",
+        "notnull": true
+      },
+      {
+        "name": "round_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "source_key",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "public_id",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "nickname",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "level",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "iv_hp",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "iv_atk",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "iv_def",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "iv_spa",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "iv_spd",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "iv_spe",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "av_hp",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "av_atk",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "av_def",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "av_spa",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "av_spd",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "av_spe",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "moves",
+        "type": "text[]",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "size_class",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "transferred_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ot_user_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ot_name",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ot_number",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "met_level",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "met_location",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "height_m",
+        "type": "numeric(6,2)",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "weight_kg",
+        "type": "numeric(6,1)",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "friendship",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "is_alpha",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "favorite",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "locked",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "obtained_method",
+        "type": "text",
+        "default": "'CAPTURE'::text",
+        "notnull": true
+      },
+      {
+        "name": "trade_evo_ready",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "trade_locked_until",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "reserved_trade_id",
+        "type": "uuid",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "pokemon_form_id",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "nature_id",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ability_id",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ability_slot",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ev_hp",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ev_atk",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ev_def",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ev_spa",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ev_spd",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ev_spe",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "move_slots",
+        "type": "jsonb",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "ruleset_id",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "hp_current",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "hp_max",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "status",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "held_item",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "gigantamax_factor",
+        "type": "boolean",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "server_inserted_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX catches_rank_shiny_idx ON public.catches USING btree (user_id, dex) WHERE (variant ~~ '%shiny%'::text)",
+      "CREATE UNIQUE INDEX catches_round_user_uidx ON public.catches USING btree (round_id, user_id) WHERE (round_id IS NOT NULL)",
+      "CREATE INDEX catches_rank_kanto_idx ON public.catches USING btree (user_id, dex) WHERE ((dex >= 1) AND (dex <= 151))",
+      "CREATE INDEX catches_rank_capture_idx ON public.catches USING btree (user_id) WHERE (round_id IS NOT NULL)",
+      "CREATE INDEX catches_form_idx ON public.catches USING btree (pokemon_form_id)",
+      "CREATE INDEX catches_user_id_idx ON public.catches USING btree (user_id)",
+      "CREATE UNIQUE INDEX catches_source_key_uidx ON public.catches USING btree (source_key) WHERE (source_key IS NOT NULL)"
+    ],
+    "constraints": [
+      {
+        "name": "catches_ability_slot_ok",
+        "type": "c",
+        "definition": "CHECK (((ability_slot IS NULL) OR (ability_slot = ANY (ARRAY['1'::text, '2'::text, 'hidden'::text]))))"
+      },
+      {
+        "name": "catches_dex_check",
+        "type": "c",
+        "definition": "CHECK (((dex >= 1) AND (dex <= 1025)))"
+      },
+      {
+        "name": "catches_ev_atk_range",
+        "type": "c",
+        "definition": "CHECK (((ev_atk IS NULL) OR ((ev_atk >= 0) AND (ev_atk <= 252))))"
+      },
+      {
+        "name": "catches_ev_def_range",
+        "type": "c",
+        "definition": "CHECK (((ev_def IS NULL) OR ((ev_def >= 0) AND (ev_def <= 252))))"
+      },
+      {
+        "name": "catches_ev_hp_range",
+        "type": "c",
+        "definition": "CHECK (((ev_hp IS NULL) OR ((ev_hp >= 0) AND (ev_hp <= 252))))"
+      },
+      {
+        "name": "catches_ev_spa_range",
+        "type": "c",
+        "definition": "CHECK (((ev_spa IS NULL) OR ((ev_spa >= 0) AND (ev_spa <= 252))))"
+      },
+      {
+        "name": "catches_ev_spd_range",
+        "type": "c",
+        "definition": "CHECK (((ev_spd IS NULL) OR ((ev_spd >= 0) AND (ev_spd <= 252))))"
+      },
+      {
+        "name": "catches_ev_spe_range",
+        "type": "c",
+        "definition": "CHECK (((ev_spe IS NULL) OR ((ev_spe >= 0) AND (ev_spe <= 252))))"
+      },
+      {
+        "name": "catches_ev_total_ok",
+        "type": "c",
+        "definition": "CHECK (((ev_hp IS NULL) OR (ev_atk IS NULL) OR (ev_def IS NULL) OR (ev_spa IS NULL) OR (ev_spd IS NULL) OR (ev_spe IS NULL) OR ((((((ev_hp + ev_atk) + ev_def) + ev_spa) + ev_spd) + ev_spe) <= 510)))"
+      },
+      {
+        "name": "catches_hp_ok",
+        "type": "c",
+        "definition": "CHECK (((hp_current IS NULL) OR (hp_max IS NULL) OR ((hp_max > 0) AND ((hp_current >= 0) AND (hp_current <= hp_max)))))"
+      },
+      {
+        "name": "catches_move_slots_ok",
+        "type": "c",
+        "definition": "CHECK (((move_slots IS NULL) OR ((jsonb_typeof(move_slots) = 'array'::text) AND (jsonb_array_length(move_slots) <= 4))))"
+      },
+      {
+        "name": "catches_nature_id_range",
+        "type": "c",
+        "definition": "CHECK (((nature_id IS NULL) OR ((nature_id >= 1) AND (nature_id <= 25))))"
+      },
+      {
+        "name": "catches_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "name": "catches_pokemon_form_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (pokemon_form_id) REFERENCES pokemon_forms(pokemon_form_id)"
+      },
+      {
+        "name": "catches_public_id_key",
+        "type": "u",
+        "definition": "UNIQUE (public_id)"
+      },
+      {
+        "name": "catches_round_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (round_id) REFERENCES encounter_rounds(id)"
+      },
+      {
+        "name": "catches_user_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id) ON DELETE CASCADE"
+      }
+    ]
+  },
+  {
+    "name": "ref_meta",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "ruleset_id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "pokeapi_commit",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "built_at",
+        "type": "timestamp with time zone",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "source_kind",
+        "type": "text",
+        "default": "'offline-pin'::text",
+        "notnull": true
+      },
+      {
+        "name": "pin_manifest_sha256",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "license_note",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "ref_meta_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (content_build)"
+      },
+      {
+        "name": "ref_meta_source_kind",
+        "type": "c",
+        "definition": "CHECK ((source_kind = ANY (ARRAY['offline-pin'::text, 'loaded-unwired'::text])))"
+      }
+    ]
+  },
+  {
+    "name": "ref_natures",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "slug",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "up_stat",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "down_stat",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "ref_natures_content_build_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build) REFERENCES private.ref_meta(content_build) ON DELETE CASCADE"
+      },
+      {
+        "name": "ref_natures_content_build_slug_key",
+        "type": "u",
+        "definition": "UNIQUE (content_build, slug)"
+      },
+      {
+        "name": "ref_natures_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (content_build, id)"
+      },
+      {
+        "name": "ref_natures_stats",
+        "type": "c",
+        "definition": "CHECK ((((up_stat IS NULL) AND (down_stat IS NULL)) OR ((up_stat IS NOT NULL) AND (down_stat IS NOT NULL) AND (up_stat <> down_stat))))"
+      }
+    ]
+  },
+  {
+    "name": "ref_species",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "slug",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "gender_rate",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "pokeapi_base_friendship",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "streamlink_base_friendship",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "capture_rate",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "hatch_counter",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "is_legendary",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "is_mythical",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "mapping_status",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "ref_species_content_build_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build) REFERENCES private.ref_meta(content_build) ON DELETE CASCADE"
+      },
+      {
+        "name": "ref_species_content_build_slug_key",
+        "type": "u",
+        "definition": "UNIQUE (content_build, slug)"
+      },
+      {
+        "name": "ref_species_friendship",
+        "type": "c",
+        "definition": "CHECK ((((pokeapi_base_friendship >= 0) AND (pokeapi_base_friendship <= 255)) AND ((streamlink_base_friendship >= 0) AND (streamlink_base_friendship <= 255))))"
+      },
+      {
+        "name": "ref_species_gender_rate",
+        "type": "c",
+        "definition": "CHECK ((gender_rate = ANY (ARRAY['-1'::integer, 0, 1, 2, 4, 6, 8])))"
+      },
+      {
+        "name": "ref_species_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (content_build, dex)"
+      }
+    ]
+  },
+  {
+    "name": "ref_forms",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_key",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_label",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "kind",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "is_base",
+        "type": "boolean",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "pokeapi_pokemon_id",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "mapping_status",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "types",
+        "type": "text[]",
+        "default": "'{}'::text[]",
+        "notnull": true
+      },
+      {
+        "name": "height_m",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "weight_kg",
+        "type": "numeric",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "hp",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "atk",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "def",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "spa",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "spd",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "spe",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "learnset_status",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "learnset_version_group",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "learnset_resolution",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX ref_forms_dex_idx ON private.ref_forms USING btree (content_build, dex)"
+    ],
+    "constraints": [
+      {
+        "name": "ref_forms_content_build_dex_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build, dex) REFERENCES private.ref_species(content_build, dex)"
+      },
+      {
+        "name": "ref_forms_content_build_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build) REFERENCES private.ref_meta(content_build) ON DELETE CASCADE"
+      },
+      {
+        "name": "ref_forms_learnset_status",
+        "type": "c",
+        "definition": "CHECK ((learnset_status = ANY (ARRAY['resolved'::text, 'unresolved'::text])))"
+      },
+      {
+        "name": "ref_forms_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (content_build, form_id)"
+      },
+      {
+        "name": "ref_forms_stats",
+        "type": "c",
+        "definition": "CHECK (((hp IS NULL) OR ((hp > 0) AND (atk > 0) AND (def > 0) AND (spa > 0) AND (spd > 0) AND (spe > 0))))"
+      }
+    ]
+  },
+  {
+    "name": "ref_form_abilities",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "slot",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "ability_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "is_hidden",
+        "type": "boolean",
+        "default": null,
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX ref_form_abilities_form_idx ON private.ref_form_abilities USING btree (content_build, form_id)"
+    ],
+    "constraints": [
+      {
+        "name": "ref_form_abilities_content_build_ability_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build, ability_id) REFERENCES private.ref_abilities(content_build, ability_id)"
+      },
+      {
+        "name": "ref_form_abilities_content_build_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build) REFERENCES private.ref_meta(content_build) ON DELETE CASCADE"
+      },
+      {
+        "name": "ref_form_abilities_content_build_form_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build, form_id) REFERENCES private.ref_forms(content_build, form_id)"
+      },
+      {
+        "name": "ref_form_abilities_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (content_build, form_id, slot)"
+      },
+      {
+        "name": "ref_form_abilities_slot",
+        "type": "c",
+        "definition": "CHECK ((slot = ANY (ARRAY['1'::text, '2'::text, 'hidden'::text])))"
+      }
+    ]
+  },
+  {
+    "name": "ref_moves",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "move_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "slug",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "type",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "damage_class",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "pp",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "power",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "accuracy",
+        "type": "integer",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "ref_moves_content_build_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build) REFERENCES private.ref_meta(content_build) ON DELETE CASCADE"
+      },
+      {
+        "name": "ref_moves_content_build_slug_key",
+        "type": "u",
+        "definition": "UNIQUE (content_build, slug)"
+      },
+      {
+        "name": "ref_moves_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (content_build, move_id)"
+      },
+      {
+        "name": "ref_moves_pp",
+        "type": "c",
+        "definition": "CHECK (((pp IS NULL) OR (pp > 0)))"
+      }
+    ]
+  },
+  {
+    "name": "ref_learnsets",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "version_group",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "method",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "level",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      },
+      {
+        "name": "move_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "sort_order",
+        "type": "integer",
+        "default": "0",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX ref_learnsets_form_vg_idx ON private.ref_learnsets USING btree (content_build, form_id, version_group)"
+    ],
+    "constraints": [
+      {
+        "name": "ref_learnsets_content_build_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build) REFERENCES private.ref_meta(content_build) ON DELETE CASCADE"
+      },
+      {
+        "name": "ref_learnsets_content_build_form_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build, form_id) REFERENCES private.ref_forms(content_build, form_id)"
+      },
+      {
+        "name": "ref_learnsets_content_build_move_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build, move_id) REFERENCES private.ref_moves(content_build, move_id)"
+      },
+      {
+        "name": "ref_learnsets_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (content_build, form_id, version_group, method, level, move_id, sort_order)"
+      }
+    ]
+  },
+  {
+    "name": "ref_obtain",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "dex",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "channel",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "normal_encounter_enabled",
+        "type": "boolean",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "admin_targetable",
+        "type": "boolean",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "event_targetable",
+        "type": "boolean",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "default": "true",
+        "notnull": true
+      }
+    ],
+    "indexes": [
+      "CREATE INDEX ref_obtain_channel_idx ON private.ref_obtain USING btree (content_build, channel)"
+    ],
+    "constraints": [
+      {
+        "name": "ref_obtain_content_build_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build) REFERENCES private.ref_meta(content_build) ON DELETE CASCADE"
+      },
+      {
+        "name": "ref_obtain_content_build_form_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build, form_id) REFERENCES private.ref_forms(content_build, form_id)"
+      },
+      {
+        "name": "ref_obtain_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (content_build, form_id)"
+      }
+    ]
+  },
+  {
+    "name": "ref_form_policies",
+    "schema": "private",
+    "columns": [
+      {
+        "name": "content_build",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "form_id",
+        "type": "integer",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "policy_id",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "persist_as",
+        "type": "text",
+        "default": null,
+        "notnull": true
+      },
+      {
+        "name": "wild_allowed",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "grant_allowed",
+        "type": "boolean",
+        "default": "false",
+        "notnull": true
+      },
+      {
+        "name": "transform",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "default": null,
+        "notnull": false
+      }
+    ],
+    "indexes": null,
+    "constraints": [
+      {
+        "name": "ref_form_policies_content_build_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build) REFERENCES private.ref_meta(content_build) ON DELETE CASCADE"
+      },
+      {
+        "name": "ref_form_policies_content_build_form_id_fkey",
+        "type": "f",
+        "definition": "FOREIGN KEY (content_build, form_id) REFERENCES private.ref_forms(content_build, form_id)"
+      },
+      {
+        "name": "ref_form_policies_id",
+        "type": "c",
+        "definition": "CHECK ((policy_id = ANY (ARRAY['G1'::text, 'C1'::text])))"
+      },
+      {
+        "name": "ref_form_policies_persist",
+        "type": "c",
+        "definition": "CHECK ((persist_as = ANY (ARRAY['base'::text, 'self'::text])))"
+      },
+      {
+        "name": "ref_form_policies_pkey",
+        "type": "p",
+        "definition": "PRIMARY KEY (content_build, form_id)"
+      }
+    ]
+  }
+]

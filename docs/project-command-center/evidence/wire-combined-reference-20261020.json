@@ -1,0 +1,90 @@
+{
+  "lgpe_species": [
+    {
+      "hp": 45,
+      "atk": 49,
+      "def": 49,
+      "dex": 1,
+      "spa": 65,
+      "spd": 65,
+      "spe": 45,
+      "moves": [
+        {
+          "l": 1,
+          "m": "level-up",
+          "n": "Growl"
+        },
+        {
+          "l": 1,
+          "m": "level-up",
+          "n": "Tackle"
+        },
+        {
+          "l": 5,
+          "m": "level-up",
+          "n": "Vine Whip"
+        },
+        {
+          "l": 9,
+          "m": "level-up",
+          "n": "Leech Seed"
+        }
+      ],
+      "types": [
+        "Grass",
+        "Poison"
+      ]
+    }
+  ],
+  "pokemon_forms": [
+    {
+      "dex": 1,
+      "kind": "base",
+      "is_base": true,
+      "form_key": "base",
+      "has_back": true,
+      "has_front": true,
+      "catch_rate": null,
+      "form_label": "Base",
+      "origin_gen1": true,
+      "asset_status": "ready",
+      "forced_gender": null,
+      "has_shiny_front": true,
+      "pokemon_form_id": 1,
+      "admin_targetable": true,
+      "event_targetable": true,
+      "has_female_front": false,
+      "normal_encounter_enabled": true
+    }
+  ],
+  "evolution_rules": [
+    {
+      "id": "1-2",
+      "notes": "Starter first stage",
+      "to_dex": 2,
+      "enabled": true,
+      "from_dex": 1,
+      "family_id": 1,
+      "candy_cost": 40,
+      "rpg_method": "CANDY",
+      "sort_order": 10,
+      "required_item": null,
+      "canonical_item": null,
+      "condition_type": "CANDY_ONLY",
+      "condition_value": {},
+      "canonical_trigger": "level",
+      "canonical_min_level": 16,
+      "generation_introduced": 1,
+      "canonical_trade_required": false
+    }
+  ],
+  "evolution_config": [
+    {
+      "id": 1,
+      "balance_version": 1,
+      "enabled_generations": [
+        1
+      ]
+    }
+  ]
+}

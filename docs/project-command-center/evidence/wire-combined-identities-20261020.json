@@ -1,0 +1,50 @@
+[
+  {
+    "schema": "private",
+    "name": "director_events",
+    "column": "id",
+    "identity": "a"
+  },
+  {
+    "schema": "private",
+    "name": "support_tickets",
+    "column": "case_no",
+    "identity": "a"
+  },
+  {
+    "schema": "public",
+    "name": "capture_log",
+    "column": "id",
+    "identity": "a"
+  },
+  {
+    "schema": "public",
+    "name": "coin_ledger",
+    "column": "id",
+    "identity": "a"
+  },
+  {
+    "schema": "public",
+    "name": "encounter_activity",
+    "column": "id",
+    "identity": "a"
+  },
+  {
+    "schema": "public",
+    "name": "mart_sales",
+    "column": "id",
+    "identity": "a"
+  },
+  {
+    "schema": "public",
+    "name": "oak_transfers",
+    "column": "id",
+    "identity": "a"
+  },
+  {
+    "schema": "public",
+    "name": "play_console_log",
+    "column": "id",
+    "identity": "a"
+  }
+]

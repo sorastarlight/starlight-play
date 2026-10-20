@@ -1,0 +1,19 @@
+{
+  "classification": "LOCAL process/cleanup checks",
+  "cases": [
+    {
+      "name": "no explicit local opt-in",
+      "exit": 1,
+      "passed": true
+    },
+    {
+      "name": "hosted URL rejected before cluster startup",
+      "exit": 1,
+      "passed": true
+    },
+    {
+      "name": "all temporary current-stack clusters removed",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "functions": [
+    {
+      "name": "twitch_numeric_id",
+      "schema": "private",
+      "body_md5": "22e10f2828b60194b1e12d4ea09e2bc5",
+      "identity": "p_id text",
+      "definition": "CREATE OR REPLACE FUNCTION private.twitch_numeric_id(p_id text)\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\n SET search_path TO 'pg_catalog'\nAS $function$\n  SELECT CASE WHEN btrim(coalesce(p_id,'')) ~ '^(miu:)?[0-9]+$'\n    THEN coalesce(nullif(ltrim(regexp_replace(btrim(p_id),'^miu:',''),'0'),''),'0') END;\n$function$\n"
+    }
+  ]
+}

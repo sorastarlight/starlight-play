@@ -1,0 +1,46 @@
+{
+  "classification": "REAL SQL — disposable loopback PostgreSQL; synthetic integration fixtures",
+  "observedAt": "2026-10-20T17:48:12.722Z",
+  "postgres": "17.5",
+  "checks": [
+    "Disposable loopback PostgreSQL confirmed",
+    "All catalog body hashes and all six catch triggers verified",
+    "All nine used reference tables match hosted row counts and canonical content checksums",
+    "Only fictional trainer and reference data seeded; local Familiarity active",
+    "WIRE off: legacy fields, ball debit, XP, Pokédex notice, insertion stamp and Familiarity outbox coexist",
+    "WIRE-off replay adds no specimen, debit, XP, notice, candy, mastery or outbox row",
+    "WIRE on: generated fields survive actual stamp/XP/presentation triggers and queue Familiarity",
+    "WIRE-on replay is exactly once across all recorded side effects",
+    "Both actual timestamp freeze triggers reject edits",
+    "Owned escape spends one ball and creates no catch, catch XP or Familiarity row",
+    "Borrowed catch remains free while generation and Familiarity recording run",
+    "Injected persistence failure rolls back catch, XP, debit, notices, candy, mastery and queue; no ghost result",
+    "After removing local failure injection, the same unresolved round settles once and replay stays stable",
+    "Concurrent current-stack settlement produces exactly one specimen, debit and queue row",
+    "Queue failure leaves successful catch intact; explicit local note retry queues once without duplicate rewards",
+    "Disabling WIRE restores legacy writes and preserves already generated specimens",
+    "All recorded catches have one pending outbox row; no orphan, delivered or attempted row",
+    "Proposed activation transaction rejects fingerprint drift without switching on",
+    "Concrete activation-only packet and existing-function rollback both verified locally"
+  ],
+  "final": {
+    "xp": 100130,
+    "balls": 13,
+    "catches": 7,
+    "item_rows": 7,
+    "xp_rows": 15,
+    "mastery_rows": 7,
+    "candy_rows": 7,
+    "notices": 1,
+    "outbox": 7
+  },
+  "functions": 112,
+  "catchTriggers": 6,
+  "limitations": [
+    "No hosted gameplay or production WIRE toggle.",
+    "Forced local TEST outcomes and expired deadlines: not ordinary odds/timing proof.",
+    "Catalog-shaped tables include NOT NULL/defaults, identities, non-FK constraints and indexes; foreign keys, RLS, auth sessions and nested triggers on other tables are excluded.",
+    "Reference pin seed plus limited public reference snapshot; default progression settings for this fixture.",
+    "No Familiarity reconciliation, event delivery, scheduler or browser UI test."
+  ]
+}

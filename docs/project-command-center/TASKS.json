@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-30",
+      "status": "done",
+      "scope": "Current-catalog WIRE/catch-trigger/Familiarity local integration and concrete activation-only packet",
+      "dependencies": [
+        "CODEX-29"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "WIRE-CURRENT-STACK-REHEARSAL.md; evidence/wire-current-stack-result.json; evidence/wire-current-stack-guards.json; evidence/wire-activation-proposal.sql",
+      "testResults": "19 REAL LOCAL SQL checks;112 exact function bodies;6 actual catch triggers;9 reference checksums;3 process/cleanup guards",
+      "nextAction": "Important owner decision: WIRE activation only, with no encounter/delivery/scheduling/stamp",
+      "approvalRequirement": "No hosted switch or gameplay authorized; concrete activation-only proposal awaits decision"
+    },
+    {
       "id": "CODEX-29",
       "status": "done",
       "scope": "WIRE current catalog/source and isolated regression readiness review",
@@ -14,7 +28,7 @@
       "commit": null,
       "evidence": "WIRE-READINESS-20261020.md; evidence/wire-readiness-20261020.json; evidence/wire-source-comparison-20261020.json",
       "testResults": "21 STATIC;47 REAL LOCAL SQL;5 exact source matches;generator comment-only;later settlement integration preserved",
-      "nextAction": "Dedicated current-stack local WIRE/Familiarity/trigger rehearsal; no hosted activation yet",
+      "nextAction": "Current-stack rehearsal completed in CODEX-30; hosted activation remains a separate decision",
       "approvalRequirement": "Local development/read-only inspection authorized; hosted toggle/gameplay separate"
     },
     {

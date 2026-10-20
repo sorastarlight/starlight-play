@@ -1,5 +1,10 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-30 — Combined current-stack WIRE rehearsal (2026-10-20)
+
+19 REAL LOCAL SQL checks passed with112 exact catalog bodies, all6 catch triggers and9 matching reference-table checksums. Concurrency, replay, XP/notices, candy/mastery, Familiarity queue, freeze and failure rollback/retry passed.3 process/cleanup guards passed. Replica-only setup defects and canonical serialization differences corrected; production bodies untouched. Concrete activation-only packet tested locally including stale-hash rollback. Hosted read-only snapshot: WIRE off,0 unresolved rounds, Familiarity active. WIRE activation remains an important owner decision; no hosted write/gameplay/account access. See WIRE-CURRENT-STACK-REHEARSAL.md.
+
+
 ## CODEX-29 — WIRE readiness refresh (2026-10-20)
 
 Read-only hosted catalog confirmed WIRE off, restricted writer/switch execution and six enabled catch triggers. Five normalized source bodies match exactly; generator difference is comment-only; current settlement preserves later Familiarity integration.21 static and47 separate local SQL checks passed. D58 supersedes D53 economy defect. Combined current-trigger/Familiarity rehearsal remains necessary; no hosted writes, gameplay or account access. See WIRE-READINESS-20261020.md.

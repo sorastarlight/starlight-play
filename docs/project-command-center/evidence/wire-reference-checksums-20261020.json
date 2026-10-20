@@ -1,0 +1,47 @@
+[
+  {
+    "name": "ref_meta",
+    "rows": 1,
+    "content_md5": "f861ae3a12b6104bdce2a7f996cb15db"
+  },
+  {
+    "name": "ref_natures",
+    "rows": 25,
+    "content_md5": "faeec0ce14de70bea144f96b222199d8"
+  },
+  {
+    "name": "ref_species",
+    "rows": 151,
+    "content_md5": "4d0dd8d38214a062f4b8032ef689b1cc"
+  },
+  {
+    "name": "ref_forms",
+    "rows": 236,
+    "content_md5": "8f854614fc58332aa2120cf253403cd7"
+  },
+  {
+    "name": "ref_form_abilities",
+    "rows": 576,
+    "content_md5": "c4ab6591ec4a5ad220d689a03b7a2ac6"
+  },
+  {
+    "name": "ref_moves",
+    "rows": 556,
+    "content_md5": "830da3dc7976fdff520afc94ff6649a4"
+  },
+  {
+    "name": "ref_learnsets",
+    "rows": 14048,
+    "content_md5": "34171e850ad6aaf03361446561f748ab"
+  },
+  {
+    "name": "ref_obtain",
+    "rows": 236,
+    "content_md5": "b2e799a073535cc953df78ef249a4ac1"
+  },
+  {
+    "name": "ref_form_policies",
+    "rows": 16,
+    "content_md5": "aeb27066e1c643b5b9f321c14d3dff1a"
+  }
+]

@@ -1,5 +1,7 @@
 # WIRE readiness refresh — CODEX-29
 
+Current follow-up: CODEX-30 completed the combined local rehearsal and prepared an activation-only decision packet. See WIRE-CURRENT-STACK-REHEARSAL.md. The recommendations below are the earlier CODEX-29 snapshot.
+
 2026-10-20. Owner requested the most appropriate next steps after discussing WIRE. This batch is read-only hosted inspection and disposable local regression, not switch-on approval.
 
 ## Verdict

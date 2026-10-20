@@ -1,0 +1,15 @@
+{
+  "migrationVersion": "20261020014622",
+  "name": "admin_pokemon_stored_stats",
+  "accountDefinitionMd5": "b4a01359724baa0cd3f82a7c645af1ae",
+  "wrapperMd5": "b873ae8652672154805420d069d0065b",
+  "gateMd5": "0d3c14b0c96fbc20f27ca4a85cab5d25",
+  "directAnonExecute": false,
+  "directAuthenticatedExecute": false,
+  "stableSecurityInvoker": true,
+  "syntheticOnly": true,
+  "actualTrainerRowsRead": 0,
+  "actualTrainerRowsChanged": 0,
+  "localSqlChecks": 14,
+  "focusedJsChecks": 37
+}

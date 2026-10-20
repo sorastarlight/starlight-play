@@ -121,3 +121,8 @@
 .record-tabs button[aria-selected="true"]:hover { background:#ffe3f3; }
 .hub-nav button:focus-visible { outline:3px solid #aa8116;outline-offset:3px; }
 @media(prefers-reduced-motion:reduce) { .hub-nav button,.record-tabs button { transition:none; } .hub-nav button:hover,.record-tabs button:hover { transform:none; } }
+.record-stat-scroll { overflow-x:auto;margin:20px 0; }
+.record-stat-table { width:100%;border-collapse:collapse;font-size:13px;text-align:left; }
+.record-stat-table caption { text-align:left;font-weight:800;margin-bottom:12px; }
+.record-stat-table th,.record-stat-table td { padding:10px 8px;border-bottom:1px solid #dce3f2;overflow-wrap:normal; }
+.record-stat-table thead th { color:#656881; }

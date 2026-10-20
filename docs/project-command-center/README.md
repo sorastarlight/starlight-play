@@ -1,5 +1,7 @@
 # Pokémon StreamLink — project command center
 
+Trainer Pokémon [stored stats](./ADMIN-POKEMON-STATS.md) connected after explicit owner approval: moves, nature/ability, HP and IV/EV/Awakening values. Missing older fields remain unavailable; editing disabled.
+
 Trainer v6 [presentation slice](./TRAINER-UI-V6-IMPLEMENTATION.md) applied after owner proceeded; Gym Badges remain unavailable. Full viewport/motion QA remains open.
 
 Trainer UI: [v6 static draft](./design-reset/hub-a-visual-v6.html), [checks and remaining limits](./TRAINER-UI-V6-REVIEW.md). Product integration remains held for visual review.

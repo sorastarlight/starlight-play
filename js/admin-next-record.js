@@ -72,13 +72,21 @@
     return '<button type="button" class="record-hit record-category" data-record-action="group" data-record-id="' + esc(group.id) + '"><span class="record-category-icon" aria-hidden="true">' + icon + '</span><span><strong>' + esc(group.name) + '</strong><small>' + esc(status) + '</small></span><span aria-hidden="true">›</span></button>';
   }
   const shinyChip = (mon) => String(mon.variant).toLowerCase() === "shiny" ? '<span class="admin-next-chip record-shiny">Shiny</span>' : "";
-  function statsPanel() {
-    return '<section class="record-stats" aria-label="Stats and Battle Data"><h4>Stats &amp; Battle Data</h4>' + rows([["Moves", null], ["Ability", null], ["Nature", null], ["Individual stats", null]]) + '<p class="record-note">Battle data is not available in this record.</p><button type="button" disabled>Edit stats</button></section>';
+  function statsPanel(mon) {
+    const data = mon.battleData || {};
+    const friendly = input => typeof input === "string" ? input.replace(/[-_]+/g," ").replace(/\b\w/g, ch => ch.toUpperCase()) : null;
+    const moves = Array.isArray(data.moves) ? (data.moves.length ? data.moves.map(move => friendly(typeof move === "string" ? move : move?.name) || "Unavailable").join(", ") : "No moves recorded") : null;
+    const numeric = input => typeof input === "number" && Number.isFinite(input) ? input : null;
+    const stats = [["hp","HP"],["atk","Attack"],["def","Defense"],["spa","Sp. Attack"],["spd","Sp. Defense"],["spe","Speed"]];
+    const hasValues = stats.some(([key]) => [data.ivs, data.evs, data.avs].some(group => numeric(group?.[key]) !== null));
+    const table = hasValues ? '<div class="record-stat-scroll"><table class="record-stat-table"><caption>Stored individual and training values</caption><thead><tr><th scope="col">Stat</th><th scope="col">IV</th><th scope="col">EV</th><th scope="col">Awakening value</th></tr></thead><tbody>' + stats.map(([key,label]) => '<tr><th scope="row">' + label + '</th>' + [data.ivs,data.evs,data.avs].map(group => '<td>' + esc(value(numeric(group?.[key]))) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>' : note("Individual stats are unavailable in this record.");
+    const hp = numeric(data.hpCurrent) !== null || numeric(data.hpMax) !== null ? value(numeric(data.hpCurrent)) + " / " + value(numeric(data.hpMax)) : null;
+    return '<section class="record-stats" aria-label="Stats and Battle Data"><h4>Stats &amp; Battle Data</h4>' + rows([["Moves", moves], ["Ability", friendly(data.ability)], ["Nature", data.nature], ["HP current / maximum", hp]]) + table + '<button type="button" disabled>Edit stats</button></section>';
   }
   function pokemon(view) {
     const mons = view.mons || [];
     const mon = mons.find((row, index) => String(row.id || `snapshot-row-${index}`) === view.recordState?.mon);
-    if (mon) return `${back("Pokémon collection", "mons")}<section class="record-surface"><div class="record-mon-identity">${monArt(mon)}<div><h4 tabindex="-1" data-record-heading>${esc(mon.nickname || mon.name)} ${shinyChip(mon)}</h4>${mon.nickname && mon.nickname !== mon.name ? note(mon.name) : ""}</div></div>${rows([["Pokédex", mon.dex], ["Level", mon.level], ["Gender", mon.gender], ["Poké Ball", mon.ball], ["Caught", stamp(mon.caughtAt)], ["Specimen id", mon.id]])}${statsPanel()}</section>`;
+    if (mon) return `${back("Pokémon collection", "mons")}<section class="record-surface"><div class="record-mon-identity">${monArt(mon)}<div><h4 tabindex="-1" data-record-heading>${esc(mon.nickname || mon.name)} ${shinyChip(mon)}</h4>${mon.nickname && mon.nickname !== mon.name ? note(mon.name) : ""}</div></div>${rows([["Pokédex", mon.dex], ["Level", mon.level], ["Gender", mon.gender], ["Poké Ball", mon.ball], ["Caught", stamp(mon.caughtAt)], ["Specimen id", mon.id]])}${statsPanel(mon)}</section>`;
     return `${note("Newest 40 live Pokémon only. This is not the full PC.")}<div class="record-list">${mons.length ? mons.map((row, index) => `<button type="button" class="record-hit" data-record-action="mon" data-record-id="${esc(row.id || `snapshot-row-${index}`)}">${monArt(row)}<span><strong>${esc(row.nickname || row.name || "Pokémon")}</strong> ${shinyChip(row)}<span class="admin-next-trainer-handle">Lv. ${esc(value(row.level))}${row.nickname && row.nickname !== row.name ? " · " + esc(row.name) : ""}</span></span><span aria-hidden="true">›</span></button>`).join("") : note("No live Pokémon returned.")}</div>`;
   }
 

@@ -1,5 +1,9 @@
 # Password recovery foundation - 2026-10-19
 
+## CODEX-24 — Read-only stored Pokémon stats (2026-10-20)
+
+Owner approved guarded Supabase patch; migration20261020014622 installed.14 local SQL/37 JS checks passed; actual presenter DOM and hosted synthetic/catalog checks verified. Public wrapper/staff gate unchanged; new helper direct execution denied. No actual trainer/catch selected or mutated; no gameplay calls. See ADMIN-POKEMON-STATS.md.
+
 ## CODEX-23 — Trainer v6 presentation slice (2026-10-19)
 
 Owner proceeded after reviewing the prototype and Gym Badge limitation.36 focused checks and actual-presenter local DOM checks passed; build31/422 APPrc133. No backend/Auth/gameplay/protected account mutations. See TRAINER-UI-V6-IMPLEMENTATION.md.

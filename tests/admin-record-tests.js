@@ -31,7 +31,7 @@ test("Unlocks never infer ownership from catalog presence", () => {
 });
 test("Pokemon details show only returned specimen data", () => {
   const html = ui.profileHtml(view("pokemon", { mon: "mon1" }));
-  assert(html.includes("Bulbasaur")); assert(ui.profileHtml(view("pokemon")).includes("not the full PC")); assert(html.includes("Battle data is not available"));
+  assert(html.includes("Bulbasaur")); assert(ui.profileHtml(view("pokemon")).includes("not the full PC")); assert(html.includes("Individual stats are unavailable"));
   assert(!html.includes("playCall"));
 });
 test("Presentation layer introduces no network or authority calls", () => {
@@ -73,5 +73,13 @@ test("Connections preserve unknown capabilities and escape provider labels", () 
   assert(html.includes('&lt;script&gt;bad&lt;/script&gt;'));assert(!html.includes('<script>bad'));
   assert(html.includes('<dt>Can sign in</dt><dd>Unavailable</dd>'));assert(html.includes('<dt>Gameplay rewards</dt><dd>No</dd>'));
   assert(!html.includes('Linked Twitch rows'));assert(html.includes('data-trainer-diagnostics'));
+});
+test("Stored battle data preserves zero, missing fields and escaped move names", () => {
+  const mon={...account.mons[0],battleData:{ivs:{hp:0,atk:31},evs:{hp:0},avs:{hp:0},hpCurrent:0,hpMax:20,nature:'Hardy',ability:'solar-power',moves:[{name:'<img onerror=bad>'}]}};
+  const html=ui.profileHtml({...ui.presentProfile({account:{...account,mons:[mon]},pane:'pokemon'}),recordState:{mon:'mon1'}});
+  assert(html.includes('<td>0</td>'));assert(html.includes('<td>31</td>'));assert(html.includes('<td>Unavailable</td>'));
+  assert(html.includes('<dd>0 / 20</dd>'));assert(html.includes('Solar Power'));assert(html.includes('Hardy'));
+  assert(!html.includes('<img onerror=bad>'));assert(html.includes('&lt;Img Onerror=Bad&gt;'));
+  assert(html.includes('disabled>Edit stats'));assert(!html.includes('streamlink_stat'));
 });
 console.log(`${checks} passed`);

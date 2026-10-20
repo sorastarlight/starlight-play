@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-24",
+      "status": "done",
+      "scope": "Read-only stored Pokémon stats in Trainer record",
+      "dependencies": [
+        "CODEX-23"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "ADMIN-POKEMON-STATS.md; evidence/admin-pokemon-stats-installed.json",
+      "testResults": "14 REAL LOCAL SQL checks;37 focused JS checks; local DOM and hosted synthetic/catalog verification; build31/422",
+      "nextAction": "Refresh Trainer record to read stored values; calculated battle totals/editing remain outside this slice",
+      "approvalRequirement": "Owner explicitly approved read-only Supabase patch; no specimen mutations"
+    },
+    {
       "id": "CODEX-23",
       "status": "done",
       "scope": "Reviewed Trainer v6 presentation slice",

@@ -200,6 +200,7 @@
       mon.metLocation,
       dex,
       dexPad,
+      "#" + dex,
       "#" + dexPad,
       typeText,
       shiny ? "shiny" : "",

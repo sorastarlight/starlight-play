@@ -2010,3 +2010,6 @@ CODEX-45,2026-10-21: owner approved original-capture semantics; migration2026102
 
 
 CODEX-46,2026-10-21: bounded Familiarity worker activation/stop/health packets prepared, not installed. Once/minute,25 reconcile+25 deliver, lifecycle/overlap/time limits,7-day bounded own-job log retention.10 additional real local SQL worker/log checks (38 combined),79 regression suites/build pass. Existing pg_cron/API signatures verified;no live scheduler execution. Important activation decision required after CODEX-45 explicitly excluded worker. See supabase/unapplied/familiarity-worker/README.md.
+
+
+CODEX-46 VERIFIED,2026-10-21: owner approved bounded worker activation. Migration20261021120836 installed exact owner-only worker and job3 streamlink-species-familiarity, once/minute,25 reconcile+25 deliver. Scheduled idle runs12:09/12:10/12:11 UTC succeeded; exact source/ACL/command verified;15 protected dataset hashes unchanged and existing retention jobs intact. No new gameplay, reset or APP stamp. See evidence/familiarity-worker-hosted-verification.json and supabase/unapplied/familiarity-worker/README.md.

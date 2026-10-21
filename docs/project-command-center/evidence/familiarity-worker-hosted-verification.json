@@ -1,0 +1,206 @@
+{
+  "verifiedAt": "2026-10-21",
+  "live": [
+    {
+      "verification": {
+        "jobs": [
+          {
+            "jobid": 1,
+            "active": true,
+            "command": "SELECT private.prune_owner_recovery_history(); DELETE FROM cron.job_run_details WHERE jobid=(SELECT jobid FROM cron.job WHERE jobname='owner-recovery-history-retention') AND end_time<now()-interval '90 days';",
+            "jobname": "owner-recovery-history-retention",
+            "database": "postgres",
+            "nodename": "localhost",
+            "nodeport": 5432,
+            "schedule": "17 4 * * *",
+            "username": "postgres"
+          },
+          {
+            "jobid": 2,
+            "active": true,
+            "command": "SELECT private.prune_support_history(); DELETE FROM cron.job_run_details WHERE jobid=(SELECT jobid FROM cron.job WHERE jobname='support-ticket-retention') AND end_time<now()-interval '90 days';",
+            "jobname": "support-ticket-retention",
+            "database": "postgres",
+            "nodename": "localhost",
+            "nodeport": 5432,
+            "schedule": "37 4 * * *",
+            "username": "postgres"
+          },
+          {
+            "jobid": 3,
+            "active": true,
+            "command": "set statement_timeout='15s';set lock_timeout='1s';select private.process_species_familiarity();delete from cron.job_run_details where runid in (select d.runid from cron.job_run_details d where d.jobid=(select jobid from cron.job where jobname='streamlink-species-familiarity') and d.end_time<now()-interval '7 days' order by d.runid limit 1000);",
+            "jobname": "streamlink-species-familiarity",
+            "database": "postgres",
+            "nodename": "localhost",
+            "nodeport": 5432,
+            "schedule": "* * * * *",
+            "username": "postgres"
+          }
+        ],
+        "runs": [
+          {
+            "status": "succeeded",
+            "end_time": "2026-10-21T12:11:00.026729+00:00",
+            "start_time": "2026-10-21T12:11:00.013578+00:00",
+            "return_message": "DELETE 0"
+          },
+          {
+            "status": "succeeded",
+            "end_time": "2026-10-21T12:10:00.02613+00:00",
+            "start_time": "2026-10-21T12:10:00.013338+00:00",
+            "return_message": "DELETE 0"
+          },
+          {
+            "status": "succeeded",
+            "end_time": "2026-10-21T12:09:00.055292+00:00",
+            "start_time": "2026-10-21T12:09:00.041814+00:00",
+            "return_message": "DELETE 0"
+          }
+        ],
+        "migration": [
+          {
+            "name": "enable_bounded_species_familiarity_worker",
+            "version": "20261021120836"
+          }
+        ]
+      }
+    }
+  ],
+  "protectedBefore": [
+    {
+      "protected": {
+        "public.form_seen": {
+          "hash": "fad40e5bc954c407025371ec2f88e9a4",
+          "count": 42
+        },
+        "public.xp_ledger": {
+          "hash": "5c6bbba7d97c7a0d37257ae0b646f164",
+          "count": 387
+        },
+        "public.coin_ledger": {
+          "hash": "74902379cef3a860300ef4e7763d9d12",
+          "count": 47
+        },
+        "public.inventories": {
+          "hash": "81aa0de2d57eb627b508daebae4c3eff",
+          "count": 7
+        },
+        "public.item_ledger": {
+          "hash": "009cfc41a6a48fa204da8834ef8a47e8",
+          "count": 102
+        },
+        "public.candy_ledger": {
+          "hash": "ec813d6fc56d809ef49989298bd464aa",
+          "count": 116
+        },
+        "public.species_seen": {
+          "hash": "9233d7858c79c61793bc6eed3ad10a38",
+          "count": 42
+        },
+        "public.evolution_log": {
+          "hash": "4d83b70b344027ef1e4b2b4ae8e6d2a1",
+          "count": 35
+        },
+        "public.trainer_stats": {
+          "hash": "53caee89275de81def76fa2d5e915d1f",
+          "count": 6
+        },
+        "public.mastery_ledger": {
+          "hash": "dafa7754f4aaf610d52c50a9903c0e18",
+          "count": 89
+        },
+        "public.species_mastery": {
+          "hash": "a400791f5420b711576debd94a99e99b",
+          "count": 28
+        },
+        "public.species_mastery_events": {
+          "hash": "a476c4feb92914658c40b77b8185bbd4",
+          "count": 1
+        },
+        "private.catch_insert_authority": {
+          "hash": "d41d8cd98f00b204e9800998ecf8427e",
+          "count": 0
+        },
+        "private.species_mastery_outbox": {
+          "hash": "a89c1cbdaa3cfdeda2add89160194e43",
+          "count": 1
+        },
+        "private.species_mastery_activation": {
+          "hash": "2b02a40f4950dbf15f39b568bfbfd712",
+          "count": 1
+        }
+      }
+    }
+  ],
+  "protectedAfter": [
+    {
+      "protected": {
+        "public.form_seen": {
+          "hash": "fad40e5bc954c407025371ec2f88e9a4",
+          "count": 42
+        },
+        "public.xp_ledger": {
+          "hash": "5c6bbba7d97c7a0d37257ae0b646f164",
+          "count": 387
+        },
+        "public.coin_ledger": {
+          "hash": "74902379cef3a860300ef4e7763d9d12",
+          "count": 47
+        },
+        "public.inventories": {
+          "hash": "81aa0de2d57eb627b508daebae4c3eff",
+          "count": 7
+        },
+        "public.item_ledger": {
+          "hash": "009cfc41a6a48fa204da8834ef8a47e8",
+          "count": 102
+        },
+        "public.candy_ledger": {
+          "hash": "ec813d6fc56d809ef49989298bd464aa",
+          "count": 116
+        },
+        "public.species_seen": {
+          "hash": "9233d7858c79c61793bc6eed3ad10a38",
+          "count": 42
+        },
+        "public.evolution_log": {
+          "hash": "4d83b70b344027ef1e4b2b4ae8e6d2a1",
+          "count": 35
+        },
+        "public.trainer_stats": {
+          "hash": "53caee89275de81def76fa2d5e915d1f",
+          "count": 6
+        },
+        "public.mastery_ledger": {
+          "hash": "dafa7754f4aaf610d52c50a9903c0e18",
+          "count": 89
+        },
+        "public.species_mastery": {
+          "hash": "a400791f5420b711576debd94a99e99b",
+          "count": 28
+        },
+        "public.species_mastery_events": {
+          "hash": "a476c4feb92914658c40b77b8185bbd4",
+          "count": 1
+        },
+        "private.catch_insert_authority": {
+          "hash": "d41d8cd98f00b204e9800998ecf8427e",
+          "count": 0
+        },
+        "private.species_mastery_outbox": {
+          "hash": "a89c1cbdaa3cfdeda2add89160194e43",
+          "count": 1
+        },
+        "private.species_mastery_activation": {
+          "hash": "2b02a40f4950dbf15f39b568bfbfd712",
+          "count": 1
+        }
+      }
+    }
+  ],
+  "protectedUnchanged": true,
+  "workerMd5": "8a0744ad845bbe99639b01b307a41712",
+  "acl": "postgres only",
+  "idleRunOnly": true
+}

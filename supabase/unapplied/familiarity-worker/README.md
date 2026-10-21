@@ -1,6 +1,6 @@
-# CODEX-46 — Bounded automatic Familiarity processing proposal
+# CODEX-46 — Bounded automatic Familiarity processing
 
-Prepared after the owner-approved CODEX-45 original-capture correction. NOT installed, scheduled or activated. Previous approval explicitly excluded a worker. This is the separate persistent global-processing decision required for launch.
+Owner separately approved bounded worker activation. Installed migration20261021120836; job3 is active. Exact worker hash/owner-only ACL/job command verified; scheduled idle runs at12:09,12:10 and12:11 UTC succeeded. All15 protected dataset hashes match pre-activation; existing retention jobs unchanged. See docs/project-command-center/evidence/familiarity-worker-hosted-verification.json. The proposal and local limitations below describe preparation; hosted scheduler dispatch is now independently verified, while new-catch processing remains locally tested only.
 
 ## Concrete operation
 
@@ -20,4 +20,4 @@ Ten REAL LOCAL SQL worker/log tests pass in addition to28 immutable-capture chec
 
 After approval: recheck source/queue/job guards, apply exact packet, independently verify ACL/source/job schedule/command/role, observe one scheduled success without creating an encounter, and confirm gameplay/event/queue invariance while idle. If errors occur, stop this exact job and preserve evidence; do not manufacture a catch, bulk requeue terminal work, move the activation cutoff or change paid settings.
 
-Reproduce: node tools/prepare-familiarity-worker.js; node tools/familiarity-capture-identity-rehearsal.js --with-worker. Evidence: docs/project-command-center/evidence/familiarity-worker-local-result.json. WORKER.sql and HEALTH.sql are not activation instructions by themselves. No production job exists from this preparation.
+Reproduce: node tools/prepare-familiarity-worker.js; node tools/familiarity-capture-identity-rehearsal.js --with-worker. Evidence: docs/project-command-center/evidence/familiarity-worker-local-result.json. WORKER.sql and HEALTH.sql are not activation instructions by themselves. The approved production job is now installed; do not replay ACTIVATE.sql.

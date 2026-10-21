@@ -5,17 +5,17 @@
   "tasks": [
     {
       "id": "CODEX-46",
-      "status": "blocked",
-      "scope": "Bounded automatic Familiarity processing proposal",
+      "status": "done",
+      "scope": "Approved bounded automatic Familiarity processing",
       "dependencies": [
         "CODEX-45"
       ],
       "branch": "admin-hub-overhaul",
       "commit": null,
-      "evidence": "supabase/unapplied/familiarity-worker/README.md;evidence/familiarity-worker-local-result.json",
-      "testResults": "10 new real local SQL worker/log cases;38 combined;79 suites/build31/423;hosted pg_cron signature/idle queue checks;no live job",
-      "nextAction": "Owner decision on permanent periodic reconcile/delivery, then guarded activation and idle-run verification.",
-      "approvalRequirement": "Explicit worker/scheduling decision required; CODEX-45 approval excluded both"
+      "evidence": "supabase/unapplied/familiarity-worker/README.md;evidence/familiarity-worker-local-result.json;evidence/familiarity-worker-hosted-verification.json",
+      "testResults": "38 combined local SQL checks;79 suites/build;exact hosted source/ACL/job verified;three scheduled idle successes;15 protected datasets unchanged",
+      "nextAction": "Continue launch acceptance and remaining bounded QA; inspect HEALTH.sql for operational failures.",
+      "approvalRequirement": "Owner explicitly approved bounded worker activation; no gameplay/reset/stamp authorized"
     },
     {
       "id": "CODEX-45",

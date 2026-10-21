@@ -1,0 +1,140 @@
+{
+  "outbox": [
+    {
+      "n": 1,
+      "status": "delivered"
+    }
+  ],
+  "trigger": [
+    "CREATE TRIGGER species_mastery_outbox_admit BEFORE INSERT ON private.species_mastery_outbox FOR EACH ROW EXECUTE FUNCTION private.species_mastery_outbox_admit()"
+  ],
+  "functions": [
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "c3e2401751521a93e3c98bd858e1cae9",
+      "name": "deliver_species_mastery_outbox",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.deliver_species_mastery_outbox(integer)",
+      "definition": "CREATE OR REPLACE FUNCTION private.deliver_species_mastery_outbox(p_limit integer DEFAULT 25)\n RETURNS integer\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  pending record;\n  lifecycle text;\n  drain_started_at timestamptz;\n  delivered integer := 0;\n  next_attempts integer;\nBEGIN\n  IF p_limit IS NULL OR p_limit < 1 OR p_limit > 200 THEN\n    p_limit := 25;\n  END IF;\n  SELECT a.lifecycle, a.drain_started_at INTO lifecycle, drain_started_at\n  FROM private.species_mastery_activation AS a\n  WHERE a.singleton\n  FOR SHARE;\n  IF lifecycle NOT IN ('active', 'draining') THEN\n    RETURN 0;\n  END IF;\n  FOR pending IN\n    SELECT o.catch_id, o.attempts\n    FROM private.species_mastery_outbox AS o\n    WHERE o.status = 'pending'\n      AND o.attempts < 8\n      AND (lifecycle <> 'draining' OR o.enqueued_at <= drain_started_at)\n    ORDER BY o.enqueued_at, o.catch_id\n    LIMIT p_limit\n    FOR UPDATE SKIP LOCKED\n  LOOP\n    BEGIN\n      PERFORM private.record_species_mastery_event(pending.catch_id);\n      UPDATE private.species_mastery_outbox\n      SET status = 'delivered',\n          delivered_at = clock_timestamp(),\n          last_error = NULL\n      WHERE catch_id = pending.catch_id;\n      delivered := delivered + 1;\n    EXCEPTION\n      WHEN SQLSTATE '23514' THEN\n        UPDATE private.species_mastery_outbox\n        SET status = 'rejected',\n            attempts = attempts + 1,\n            last_error = SQLERRM\n        WHERE catch_id = pending.catch_id;\n      WHEN OTHERS THEN\n        next_attempts := pending.attempts + 1;\n        UPDATE private.species_mastery_outbox\n        SET attempts = next_attempts,\n            status = CASE WHEN next_attempts >= 8 THEN 'exhausted' ELSE 'pending' END,\n            last_error = SQLERRM\n        WHERE catch_id = pending.catch_id;\n    END;\n  END LOOP;\n  RETURN delivered;\nEND;\n$function$\n",
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "49e59ca336a343a2765ab811c06c96b6",
+      "name": "enqueue_species_mastery_event",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.enqueue_species_mastery_event(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION private.enqueue_species_mastery_event(p_catch_id uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  lifecycle text;\nBEGIN\n  IF p_catch_id IS NULL THEN\n    RAISE EXCEPTION 'mastery outbox rejected: missing specimen' USING ERRCODE = '23514';\n  END IF;\n  PERFORM 1 FROM public.catches WHERE id = p_catch_id FOR SHARE;\n  IF NOT FOUND THEN\n    RAISE EXCEPTION 'mastery outbox rejected: specimen is not on file' USING ERRCODE = '23514';\n  END IF;\n  SELECT a.lifecycle INTO lifecycle\n  FROM private.species_mastery_activation AS a\n  WHERE a.singleton\n  FOR SHARE;\n  IF lifecycle IS DISTINCT FROM 'active' AND lifecycle IS DISTINCT FROM 'paused' THEN\n    RAISE EXCEPTION 'mastery outbox rejected: recording is not open' USING ERRCODE = '23514';\n  END IF;\n  INSERT INTO private.species_mastery_outbox (catch_id)\n  VALUES (p_catch_id)\n  ON CONFLICT (catch_id) DO NOTHING;\n  RETURN p_catch_id;\nEND;\n$function$\n",
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "313944ac139f33465e57d86c0a1c5678",
+      "name": "note_species_mastery_catch",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.note_species_mastery_catch(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION private.note_species_mastery_catch(p_catch_id uuid)\n RETURNS boolean\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nBEGIN\n  PERFORM private.enqueue_species_mastery_event(p_catch_id);\n  RETURN true;\nEXCEPTION\n  WHEN OTHERS THEN\n    RETURN false;\nEND;\n$function$\n",
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "6668eeadf1f98c2798595f826489e23e",
+      "name": "reconcile_species_mastery_outbox",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.reconcile_species_mastery_outbox(integer)",
+      "definition": "CREATE OR REPLACE FUNCTION private.reconcile_species_mastery_outbox(p_limit integer DEFAULT 25)\n RETURNS integer\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  opened timestamptz;\n  lifecycle text;\n  inserted integer;\nBEGIN\n  IF p_limit IS NULL OR p_limit < 1 OR p_limit > 200 THEN\n    p_limit := 25;\n  END IF;\n  SELECT activated_at, a.lifecycle INTO opened, lifecycle\n  FROM private.species_mastery_activation AS a\n  WHERE a.singleton\n  FOR SHARE;\n  IF opened IS NULL OR lifecycle NOT IN ('active', 'paused') THEN\n    RETURN 0;\n  END IF;\n  INSERT INTO private.species_mastery_outbox (catch_id)\n  SELECT c.id\n  FROM public.catches AS c\n  WHERE c.server_inserted_at IS NOT NULL\n    AND c.server_inserted_at >= opened\n    AND c.server_inserted_at <= clock_timestamp() + interval '2 minutes'\n    AND c.source_key IS NOT NULL\n    AND split_part(c.source_key, ':', 1) = 'play'\n    AND split_part(c.source_key, ':', 2) = c.round_id::text\n    AND split_part(c.source_key, ':', 3) = c.user_id::text\n    AND split_part(c.source_key, ':', 4) = ''\n    AND c.round_id IS NOT NULL\n    AND NOT private.round_is_test(c.round_id)\n    AND EXISTS (\n      SELECT 1\n      FROM public.capture_log AS log\n      WHERE log.round_id = c.round_id\n        AND log.user_id = c.user_id\n        AND log.success IS TRUE\n        AND (log.dex IS NULL OR log.dex = c.dex)\n    )\n    AND NOT EXISTS (\n      SELECT 1 FROM private.species_mastery_outbox AS queued WHERE queued.catch_id = c.id\n    )\n    AND NOT EXISTS (\n      SELECT 1 FROM public.species_mastery_events AS earned WHERE earned.catch_id = c.id\n    )\n  ORDER BY c.server_inserted_at, c.id\n  LIMIT p_limit\n  ON CONFLICT (catch_id) DO NOTHING;\n  GET DIAGNOSTICS inserted = ROW_COUNT;\n  RETURN inserted;\nEND;\n$function$\n",
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "5e1402915cf10cfd0ca556eceaec4c7f",
+      "name": "record_species_mastery_event",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.record_species_mastery_event(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION private.record_species_mastery_event(p_catch_id uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  specimen public.catches%ROWTYPE;\nBEGIN\n  IF p_catch_id IS NULL THEN\n    RAISE EXCEPTION 'mastery event rejected: missing specimen' USING ERRCODE = '23514';\n  END IF;\n  SELECT * INTO specimen FROM public.catches WHERE id = p_catch_id FOR SHARE;\n  IF NOT FOUND THEN\n    RAISE EXCEPTION 'mastery event rejected: specimen is not on file' USING ERRCODE = '23514';\n  END IF;\n  INSERT INTO public.species_mastery_events (catch_id, trainer_id, dex, round_id, source_key)\n  VALUES (specimen.id, specimen.user_id, specimen.dex, specimen.round_id, specimen.source_key);\n  RETURN specimen.id;\nEXCEPTION\n  WHEN unique_violation THEN\n    IF EXISTS (\n      SELECT 1 FROM public.species_mastery_events WHERE catch_id = p_catch_id\n    ) THEN\n      RETURN p_catch_id;\n    END IF;\n    RAISE;\nEND;\n$function$\n",
+      "security_definer": true
+    },
+    {
+      "acl": null,
+      "md5": "a33d9b63f44df44771b7d2d9a43cb2af",
+      "name": "round_is_test",
+      "owner": "postgres",
+      "config": null,
+      "signature": "private.round_is_test(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION private.round_is_test(p_round uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce((select rules->>'rewardMode' from public.encounter_rounds where id = p_round), 'live') = 'test'\n     and coalesce((select (rules->>'testRewards') from public.encounter_rounds where id = p_round), '') is distinct from 'true';\n$function$\n",
+      "security_definer": false
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "18fe5a1d2d139aeddda60fc0c6db3713",
+      "name": "species_mastery_events_guard",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.species_mastery_events_guard()",
+      "definition": "CREATE OR REPLACE FUNCTION private.species_mastery_events_guard()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  specimen public.catches%ROWTYPE;\n  activated_at timestamptz;\n  lifecycle text;\n  drain_started_at timestamptz;\n  inserted_at timestamptz;\n  queued_at timestamptz;\n  logged boolean;\nBEGIN\n  IF TG_OP = 'UPDATE' THEN\n    RAISE EXCEPTION 'mastery events are immutable' USING ERRCODE = '55000';\n  END IF;\n\n  SELECT * INTO specimen FROM public.catches WHERE id = NEW.catch_id FOR SHARE;\n  IF NOT FOUND THEN\n    RAISE EXCEPTION 'mastery event rejected: specimen is not on file' USING ERRCODE = '23514';\n  END IF;\n  IF NEW.trainer_id IS DISTINCT FROM specimen.user_id\n     OR NEW.dex IS DISTINCT FROM specimen.dex\n     OR NEW.round_id IS DISTINCT FROM specimen.round_id\n     OR NEW.source_key IS DISTINCT FROM specimen.source_key THEN\n    RAISE EXCEPTION 'mastery event rejected: event does not match the specimen' USING ERRCODE = '23514';\n  END IF;\n  IF specimen.round_id IS NULL THEN\n    RAISE EXCEPTION 'mastery event rejected: no encounter round' USING ERRCODE = '23514';\n  END IF;\n\n  SELECT a.activated_at, a.lifecycle, a.drain_started_at\n    INTO activated_at, lifecycle, drain_started_at\n  FROM private.species_mastery_activation AS a\n  WHERE a.singleton\n  FOR SHARE;\n  IF activated_at IS NULL OR lifecycle IS DISTINCT FROM 'active' AND lifecycle IS DISTINCT FROM 'draining' THEN\n    RAISE EXCEPTION 'mastery event rejected: recording is not active' USING ERRCODE = '23514';\n  END IF;\n\n  inserted_at := specimen.server_inserted_at;\n  IF inserted_at IS NULL\n     OR inserted_at = 'infinity'::timestamptz\n     OR inserted_at = '-infinity'::timestamptz\n     OR inserted_at > clock_timestamp() + interval '2 minutes' THEN\n    RAISE EXCEPTION 'mastery event rejected: insertion time is not server-authoritative' USING ERRCODE = '23514';\n  END IF;\n  IF inserted_at < activated_at THEN\n    RAISE EXCEPTION 'mastery event rejected: specimen predates activation' USING ERRCODE = '23514';\n  END IF;\n  IF lifecycle = 'draining' THEN\n    SELECT o.enqueued_at INTO queued_at\n    FROM private.species_mastery_outbox AS o\n    WHERE o.catch_id = specimen.id\n      AND o.status = 'pending'\n      AND o.enqueued_at <= drain_started_at;\n    IF queued_at IS NULL THEN\n      RAISE EXCEPTION 'mastery event rejected: recording is closed to new work' USING ERRCODE = '23514';\n    END IF;\n  END IF;\n\n  IF specimen.source_key IS NULL\n     OR split_part(specimen.source_key, ':', 1) <> 'play'\n     OR split_part(specimen.source_key, ':', 2) IS DISTINCT FROM specimen.round_id::text\n     OR split_part(specimen.source_key, ':', 3) IS DISTINCT FROM specimen.user_id::text\n     OR split_part(specimen.source_key, ':', 4) <> '' THEN\n    RAISE EXCEPTION 'mastery event rejected: source key is not this play capture' USING ERRCODE = '23514';\n  END IF;\n  IF private.round_is_test(specimen.round_id) THEN\n    RAISE EXCEPTION 'mastery event rejected: test round' USING ERRCODE = '23514';\n  END IF;\n\n  PERFORM 1\n  FROM public.capture_log\n  WHERE round_id = specimen.round_id\n    AND user_id = specimen.user_id\n  FOR SHARE;\n  SELECT true INTO logged\n  FROM public.capture_log\n  WHERE round_id = specimen.round_id\n    AND user_id = specimen.user_id\n    AND success IS TRUE\n    AND (dex IS NULL OR dex = specimen.dex);\n  IF logged IS DISTINCT FROM TRUE THEN\n    RAISE EXCEPTION 'mastery event rejected: capture was not successful' USING ERRCODE = '23514';\n  END IF;\n  RETURN NEW;\nEND;\n$function$\n",
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "38cb51432739644e6d45077f852b1fa9",
+      "name": "species_mastery_outbox_admit",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.species_mastery_outbox_admit()",
+      "definition": "CREATE OR REPLACE FUNCTION private.species_mastery_outbox_admit()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  lifecycle text;\nBEGIN\n  SELECT a.lifecycle INTO lifecycle\n  FROM private.species_mastery_activation AS a\n  WHERE a.singleton\n  FOR SHARE;\n  IF lifecycle IS DISTINCT FROM 'active' AND lifecycle IS DISTINCT FROM 'paused' THEN\n    RAISE EXCEPTION 'mastery outbox rejected: recording is not open' USING ERRCODE = '23514';\n  END IF;\n  RETURN NEW;\nEND;\n$function$\n",
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "0ccce9747f3b20c2f99b07a8883651a6",
+      "name": "requeue_species_mastery_outbox",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.requeue_species_mastery_outbox(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION private.requeue_species_mastery_outbox(p_catch_id uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  lifecycle text;\nBEGIN\n  SELECT a.lifecycle INTO lifecycle\n  FROM private.species_mastery_activation AS a\n  WHERE a.singleton\n  FOR SHARE;\n  IF lifecycle NOT IN ('active', 'paused', 'draining') THEN\n    RAISE EXCEPTION 'mastery outbox cannot be requeued in this state' USING ERRCODE = '55000';\n  END IF;\n  UPDATE private.species_mastery_outbox\n  SET status = 'pending',\n      attempts = 0,\n      last_error = NULL\n  WHERE catch_id = p_catch_id\n    AND status = 'exhausted';\n  IF NOT FOUND THEN\n    RAISE EXCEPTION 'mastery outbox row is not exhausted' USING ERRCODE = '23514';\n  END IF;\n  RETURN p_catch_id;\nEND;\n$function$\n",
+      "security_definer": true
+    }
+  ],
+  "activation": {
+    "closed_at": null,
+    "lifecycle": "active",
+    "paused_at": null,
+    "singleton": true,
+    "disabled_at": null,
+    "activated_at": "2026-10-20T16:55:59.896904+00:00",
+    "drain_started_at": null
+  },
+  "event_hash": "a476c4feb92914658c40b77b8185bbd4",
+  "outbox_hash": "481d252a68c0fb2a45ada0d85e06f466",
+  "outbox_access": {
+    "anon": false,
+    "service_role": false,
+    "authenticated": false
+  },
+  "capture_unique": [
+    "PRIMARY KEY (id)"
+  ],
+  "other_hash_sql": "select md5(coalesce(string_agg(jsonb_build_array(p.oid::regprocedure::text,md5(p.prosrc),p.proacl::text,p.prosecdef,p.provolatile,p.proconfig,pg_get_userbyid(p.proowner))::text,chr(10) order by p.oid::regprocedure::text collate \"C\"),'')) hash from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname in('public','private') and p.prokind='f' and not(n.nspname='private' and p.proname in('species_mastery_outbox_admit','record_species_mastery_event','species_mastery_events_guard','reconcile_species_mastery_outbox','familiarity_capture_identity','freeze_familiarity_capture_identity'))",
+  "other_hash": "449267b257935b30703c517e35f34295"
+}

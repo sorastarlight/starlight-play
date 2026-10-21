@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-21T11:56:06.424Z",
+  "classification": "REAL LOCAL SQL: exact old/current worker and new snapshot definitions; relevant column types and event/outbox constraints; fictional direct mutation outcomes, not gameplay RPCs or real Auth",
+  "checks": [
+    "Install refuses source drift before schema change",
+    "Injected install failure rolls schema and functions back atomically",
+    "Install preserves every original specimen/event/queue field without historical snapshot backfill",
+    "Pre-use rollback restores exact prior function bodies and original datasets",
+    "Historical delivered event replay stays safe without an invented snapshot",
+    "evolution before delivery credits original trainer/Caterpie once and leaves specimens unchanged",
+    "trade before delivery credits original trainer/Caterpie once and leaves specimens unchanged",
+    "release before delivery credits original trainer/Caterpie once and leaves specimens unchanged",
+    "Snapshot and admission time cannot be rewritten during status updates",
+    "Forged recipient or evolved-species event is rejected",
+    "Admission rejects {\"gift\":true} without an event or queued snapshot",
+    "Admission rejects {\"test\":true} without an event or queued snapshot",
+    "Admission rejects {\"old\":true} without an event or queued snapshot",
+    "Admission rejects {\"success\":false} without an event or queued snapshot",
+    "Admission rejects {\"logDex\":null} without an event or queued snapshot",
+    "Ambiguous successful capture logs fail closed",
+    "Reconciliation recovers provable original identity after evolution/trade without crediting recipient",
+    "Missing specimen plus missed queue admission is not invented from unbound logs",
+    "Pause admits snapshots but delivery waits for resume",
+    "Drain delivers admitted work and refuses new admission",
+    "Closed lifecycle never delivers pending snapshots",
+    "Delivery during a second-client evolution lock uses snapshot without blocking on the specimen",
+    "Concurrent workers skip locked queue rows and later deliver exactly once",
+    "Eight transient failures exhaust safely; established requeue helper restores one eventual delivery",
+    "anon has no new helper or queue access",
+    "authenticated has no new helper or queue access",
+    "service_role has no new helper or queue access",
+    "Rollback refuses to discard snapshots after new captures use them"
+  ],
+  "limitations": [
+    "No hosted delivery, reconciliation or gameplay call.",
+    "Other table triggers/FKs and full production economy are not cloned.",
+    "A missing specimen and missing queue identity cannot be reconstructed from logs lacking catch_id."
+  ]
+}

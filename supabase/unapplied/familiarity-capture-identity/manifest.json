@@ -1,0 +1,73 @@
+{
+  "oldNames": [
+    "species_mastery_outbox_admit",
+    "record_species_mastery_event",
+    "species_mastery_events_guard",
+    "reconcile_species_mastery_outbox"
+  ],
+  "fresh": [
+    "familiarity_capture_identity",
+    "freeze_familiarity_capture_identity"
+  ],
+  "before": [
+    {
+      "name": "deliver_species_mastery_outbox",
+      "md5": "c3e2401751521a93e3c98bd858e1cae9",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "name": "enqueue_species_mastery_event",
+      "md5": "49e59ca336a343a2765ab811c06c96b6",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "name": "note_species_mastery_catch",
+      "md5": "313944ac139f33465e57d86c0a1c5678",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "name": "reconcile_species_mastery_outbox",
+      "md5": "6668eeadf1f98c2798595f826489e23e",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "name": "record_species_mastery_event",
+      "md5": "5e1402915cf10cfd0ca556eceaec4c7f",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "name": "round_is_test",
+      "md5": "a33d9b63f44df44771b7d2d9a43cb2af",
+      "acl": null
+    },
+    {
+      "name": "species_mastery_events_guard",
+      "md5": "18fe5a1d2d139aeddda60fc0c6db3713",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "name": "species_mastery_outbox_admit",
+      "md5": "38cb51432739644e6d45077f852b1fa9",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "name": "requeue_species_mastery_outbox",
+      "md5": "0ccce9747f3b20c2f99b07a8883651a6",
+      "acl": "{postgres=X/postgres}"
+    }
+  ],
+  "after": {
+    "familiarity_capture_identity": "c78768599888d786e781ec18a7000c33",
+    "species_mastery_outbox_admit": "efd7d332b2ab9f3d0283accd08a6f02a",
+    "freeze_familiarity_capture_identity": "eefcec159767d8366b6805645db2b829",
+    "record_species_mastery_event": "639f65cdaac61ff00604481bcad0a71f",
+    "species_mastery_events_guard": "b42d8a354c079ddc9f56e4f86e930950",
+    "reconcile_species_mastery_outbox": "90390247a30521352ddb9dbe9710160b"
+  },
+  "hashes": {
+    "events": "a476c4feb92914658c40b77b8185bbd4",
+    "outbox": "481d252a68c0fb2a45ada0d85e06f466",
+    "specimens": "62a30076d38ae7c0cec63621ffe6a32e"
+  },
+  "cutoff": "2026-10-20T16:55:59.896904+00:00"
+}

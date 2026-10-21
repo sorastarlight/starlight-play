@@ -1,0 +1,63 @@
+{
+  "migration": "20261021133711",
+  "classification": "Hosted source/ACL and unchanged data verification; no hosted trade",
+  "before": [
+    {
+      "invariants": {
+        "roles": "c67a78013569879fd67d53f814a55baa",
+        "offers": null,
+        "catches": "f3353f4efc4b53ae1df68620a27f93e3",
+        "listings": null,
+        "inventories": "f9137c509bbc3db4f00e4e7c4aca9129",
+        "direct_trades": null
+      }
+    }
+  ],
+  "after": [
+    {
+      "invariants": {
+        "roles": "c67a78013569879fd67d53f814a55baa",
+        "offers": null,
+        "catches": "f3353f4efc4b53ae1df68620a27f93e3",
+        "listings": null,
+        "inventories": "f9137c509bbc3db4f00e4e7c4aca9129",
+        "direct_trades": null
+      }
+    }
+  ],
+  "functions": [
+    {
+      "signature": "play_direct_trade_confirm(uuid)",
+      "hash": "6891ce5cd8826fd0b5124da476ba8b7b",
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "provolatile": "v",
+      "prosecdef": true,
+      "owner": "postgres"
+    },
+    {
+      "signature": "play_direct_trade_create(text,uuid)",
+      "hash": "6eb4befc951b90ac826f0a88a3433f93",
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "provolatile": "v",
+      "prosecdef": true,
+      "owner": "postgres"
+    },
+    {
+      "signature": "play_direct_trade_set(uuid,uuid)",
+      "hash": "88164c5ff63ac0a02512de7aa8572e33",
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "provolatile": "v",
+      "prosecdef": true,
+      "owner": "postgres"
+    }
+  ]
+}

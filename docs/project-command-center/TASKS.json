@@ -4,13 +4,22 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-53",
+      "id": "CODEX-54",
       "status": "blocked",
+      "scope": "Auth security readiness and proposed leaked-password protection",
+      "evidence": "AUTH-LAUNCH-SECURITY-REVIEW.md",
+      "testResults": "REAL dashboard read-only policy inspection;3 mocked registration outcomes and20 recovery checks pass;build passes. No real signup, password handling or Auth mutation.",
+      "nextAction": "Owner decision on enabling only leaked-password protection using the existing plan, then reopen/verify advisor. Other password-change settings remain untouched.",
+      "approvalRequirement": "New account password policy; important owner decision before activation."
+    },
+    {
+      "id": "CODEX-53",
+      "status": "done",
       "scope": "Direct-trade server validation: existing received-catch cooldown and final species tradability",
       "evidence": "supabase/unapplied/direct-trade-validation/README.md;evidence/direct-trade-validation-local.json",
       "testResults": "16 REAL LOCAL SQL checks; exact old bodies reproduce cooldown bypass and tradability drift; guarded replacement/rollback and preserved protections pass.",
-      "nextAction": "Owner production decision required for exact three-function correction, then independent source/ACL/data verification. No hosted trade included.",
-      "approvalRequirement": "Changes production trade validation; repository streamlink-project.mdc reserves consequential gameplay changes for explicit owner decision."
+      "nextAction": "Owner approved; migration20261021133711 installed. Exact source/ACL verified; catches/inventory/trade/role hashes unchanged. Hosted two-party QA remains separate.",
+      "approvalRequirement": "Approved correction completed; no hosted trade or further gameplay authorization follows."
     },
     {
       "id": "CODEX-52",

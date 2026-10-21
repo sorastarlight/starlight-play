@@ -226,6 +226,9 @@
       }
     });
     if (error) {
+      if (error.code === "weak_password") {
+        return { ok: false, message: "Choose a stronger password that you haven't used elsewhere, then try again." };
+      }
       return { ok: false, message: "Could not create that Trainer account. Try a different email." };
     }
     if (data?.user && !data.session) {

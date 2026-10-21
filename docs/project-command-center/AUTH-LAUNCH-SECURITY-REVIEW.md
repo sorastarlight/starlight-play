@@ -1,0 +1,15 @@
+# CODEX-54 — Auth launch security review
+
+Read-only dashboard inspection October 21, 2026. Project starlight-play / dtflmlbjhttoewqgkujf, main production, existing Pro organization. No credential values, password hashes, tokens or recovery links were read. No Auth setting changed.
+
+New user signups and email confirmation are enabled. Email and Twitch providers are enabled; anonymous sign-in and manual linking are disabled. Secure email change is enabled. Secure password change, current-password requirement and leaked-password protection are off. This review does not propose turning on the other password-change requirements, which need compatible reauthentication/recovery UX first.
+
+Leaked-password protection is an available toggle in the current project. Proposed change: turn on only Prevent use of leaked passwords, save, reopen to verify and check the security advisor. Use the existing plan; do not accept an upgrade or purchase. Do not change any user's password, invalidate sessions, alter providers, email delivery or unrelated policy. Rollback is turning that same toggle off; it cannot restore a rejected password choice and should not be performed automatically.
+
+Supabase documents that it checks the HaveIBeenPwned Pwned Passwords API to reject known leaked passwords. Existing users can still sign in with current passwords; the SDK may also return weakness information. New signups and password updates must meet the active requirements. See https://supabase.com/docs/guides/auth/password-security . This changes account password policy and needs the owner's important decision before activation.
+
+Registration's weak_password error previously told the user to try a different email. The frontend now asks for a stronger password not reused elsewhere; unknown failures retain the existing generic response. Three mocked SDK outcomes verify weak/generic/success handling with no network or account creation. Existing recovery already handles weak_password by keeping the form available for correction; its 20 checks pass. No real password is handled by the runner.
+
+Other read-only rate limits: sign-in/sign-up 30 requests per 5 minutes per IP, refresh 150 per 5 minutes, verification 30 per 5 minutes, per-user email interval 60 seconds. Email-per-hour and password-minimum values were redacted by the browser and were not read around that restriction; those numeric capacities are not independently certified in this review. Prior Resend delivery/recovery success remains historical evidence, not a new sending test.
+
+Remaining release gates include complete security triage, broader staff Pass acceptance, hosted two-party/provider QA, full mobile/zoom/motion acceptance, an adequate post-change recovery point and reviewed replay/restore procedure, and final owner launch/build-stamp decision. None is inferred from this Auth inspection.

@@ -1,4 +1,4 @@
-# CODEX-39 — WIRE stat display correction prepared; SQL unapplied
+# CODEX-39 — WIRE stat display correction installed and verified
 
 CODEX-37 found an actual My PC display mismatch: the new Caterpie had stored HP22 but displayed HP23. The shared `private.catch_json(public.catches)` unconditionally uses LGPE base/stat logic even when `ruleset_id='streamlink-gen9-xgen'`. No stored catch is corrupt or being converted.
 
@@ -22,3 +22,13 @@ Routine frontend adjustment in `js/storage.js` shows missing/non-finite stats as
 Evidence: `wire-stat-formatter-local-result.json`, `wire-stat-formatter-static-regressions.json`, `wire-stat-formatter-qa-comparison.json`, `wire-stat-formatter-dependencies.json`. Reproduce: `node tools/prepare-wire-stat-formatter.js`, `node tools/wire-stat-formatter-rehearsal.js`, `node tests/pc-stat-values-tests.js`. Rehearsal refuses hosted environment and uses disposable loopback PostgreSQL; no packages installed.
 
 Limitations: full production reference data, actual Supabase roles/REST and every indirect caller are not cloned locally. Public frontend publication does not install the database patch. R-PC-STATS stays open until approval, guarded install, independent function/specimen checks and actual My PC refresh confirm the corrected response. Do not modify the retained catch to mask the formatter bug.
+
+## Approved hosted installation — October20,2026 EDT
+
+Owner explicitly approved the read-only stat correction. Migration `20261021021746` (`wire_catch_read_stat_correction`) installed the exact guarded packet. The packet in `supabase/unapplied/` is retained as the reviewed historical source; it is now applied and must not be rerun. Independent catalog query confirms body MD5 `ec15d532dd58053ee4ac6c24e5e901de`, STABLE/security-invoker and null explicit ACL. Actual Caterpie response is22/7/9/7/7/12; stored HP22. Full specimen JSON MD5 remained `8e2a7c293887f076766b7c7b781a1048` before/after.
+
+Actual authenticated EmailQA My PC loaded the corrected six stats22/7/9/7/7/12. Screenshot: task visualization `emailqa-caterpie-pc-corrected.png`. No Pokémon management or trade controls invoked. GTS shares the corrected formatter, but no actual listing/trade mutation was tested. R-PC-STATS closed for this formatter mismatch. Historical preparation/limitations above describe pre-install evidence.
+
+Owner clarified that preservation of old Let's Go/CP Pokémon data is no longer a product requirement. This approval installed the scoped read correction only; no legacy data conversion/deletion or CP removal occurred. Plan any legacy model retirement as a distinct scoped change.
+
+Post-install security advisor counts match the prior audit:270 mutable-search-path,78 anon/196 authenticated security-definer notices,46 RLS-without-policy info and1 leaked-password-protection notice. The formatter retains its pre-existing mutable-search-path notice and security-invoker status; this patch introduces no search-path or permission change. Wider security triage remains open. Remediation reference: https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable

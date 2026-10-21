@@ -36,3 +36,5 @@ Next useful task: targeted visual and interaction review of the newly published 
 ## Subsequent narrow authorization
 
 Owner-requested Pass and direct-gift work is recorded in CODEX-STAFF-REWARDS.md. That explicit request authorizes its additive backend and publication. The earlier trial paragraphs describe the original scope; other database/gameplay and D86 restrictions remain.
+
+CODEX-39 hosted completion,2026-10-20 EDT: owner approved read-only stat patch; migration20261021021746 installed, exact formatter hash/specimen invariance verified, actual EmailQA My PC22/7/9/7/7/12. R-PC-STATS closed. Owner no longer requires old Let's Go/CP data preservation; no conversion/deletion occurred. See WIRE-STAT-FORMATTER-FIX.md.

@@ -5,7 +5,7 @@ Current October20,2026 EDT. Existing command-center checklist; not a new queue o
 | Order | Objective | Exit criteria/status |
 |---|---|---|
 |1|Security|R1/R2/four legacy R18 endpoints remediated/catalog-verified in CODEX-34. Wider advisor triage remains; not a blanket sign-off.|
-|2|Hosted gameplay|CODEX-37 batch stopped at first catch after3: two escapes/one Caterpie, WIRE/stamp/outbox admission verified. My PC/Pokédex catch visible. Open HP23-vs22 shared formatter bug; other gameplay checks remain. No further encounters implied.|
+|2|Hosted gameplay|CODEX-37 batch stopped at first catch after3: two escapes/one Caterpie, WIRE/stamp/outbox admission verified. My PC/Pokédex catch visible. CODEX-39 approved formatter patch installed; actual PC corrected and specimen unchanged; other gameplay checks remain. No further encounters implied.|
 |3|Familiarity delivery|CODEX-38 explicitly approved one event: delivered once, Familiar1 confirmed in actual Pokédex;queue0. Future reliable processing/scheduler remains unapproved. My PC Familiarity display planned.|
 |4|Twitch policy|New one-link policy disabled; no separate provider identity available. Defer new restriction until actual provider QA/intent/exception workflow and rollout decision. Do not borrow protected identity.|
 |5|Staff actions|QA gift delivery, Pass override/regrant/history and permission/audit/replay checks. Legacy Pass QA grants to actor: never test success with an owner session.|

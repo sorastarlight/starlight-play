@@ -1,0 +1,17 @@
+{
+  "migration": "20261021021746",
+  "name": "wire_catch_read_stat_correction",
+  "approved": true,
+  "formatterBodyMd5": "ec15d532dd58053ee4ac6c24e5e901de",
+  "securityDefiner": false,
+  "volatility": "s",
+  "explicitAcl": null,
+  "qaSpecimenMd5BeforeAndAfter": "8e2a7c293887f076766b7c7b781a1048",
+  "storedHp": 22,
+  "oldStats": [23,11,11,11,11,12],
+  "correctedStats": [22,7,9,7,7,12],
+  "actualAuthenticatedMyPcVerified": true,
+  "screenshot": "emailqa-caterpie-pc-corrected.png",
+  "gtsMutationTested": false,
+  "legacyConversionPerformed": false
+}

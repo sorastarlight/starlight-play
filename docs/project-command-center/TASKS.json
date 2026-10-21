@@ -13,9 +13,9 @@
       "branch": "admin-hub-overhaul",
       "commit": null,
       "evidence": "WIRE-STAT-FORMATTER-FIX.md;evidence/wire-stat-formatter-local-result.json",
-      "testResults": "14 REAL LOCAL SQL;3 actual renderer cases;78 non-writing suites;build31/423;read-only hosted comparison/preflight",
-      "nextAction": "Separate SQL installation approval then actual PC refresh;R-PC-STATS remains open",
-      "approvalRequirement": "Local/read-only/routine frontend only;no SQL install authorized"
+      "testResults": "14 REAL LOCAL SQL;3 actual renderer cases;78 non-writing suites;build31/423;read-only hosted comparison/preflight;hosted exact hash/specimen unchanged;actual PC22/7/9/7/7/12",
+      "nextAction": "Installed migration20261021021746; actual EmailQA PC corrected;R-PC-STATS closed. Legacy CP preservation no longer a product requirement; no conversion performed.",
+      "approvalRequirement": "Owner approved read-only stat correction; no gameplay/data conversion authorization implied"
     },
     {
       "id": "CODEX-38",
@@ -90,7 +90,7 @@
     {
       "id": "CODEX-33",
       "status": "done",
-      "scope": "Read-only species-wide Familiarity metric in Pokédex Your Research",
+      "scope": "Read-only species-wide Familiarity metric in Pok\u00e9dex Your Research",
       "dependencies": [
         "CODEX-32"
       ],
@@ -216,7 +216,7 @@
     {
       "id": "CODEX-24",
       "status": "done",
-      "scope": "Read-only stored Pokémon stats in Trainer record",
+      "scope": "Read-only stored Pok\u00e9mon stats in Trainer record",
       "dependencies": [
         "CODEX-23"
       ],
@@ -363,7 +363,7 @@
       ],
       "branch": "admin-hub-overhaul",
       "commit": "a3a0da20",
-      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/; owner-requested Pokémon StreamLink reset email naming; signup/email-change and shared sender use game title",
+      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/; owner-requested Pok\u00e9mon StreamLink reset email naming; signup/email-change and shared sender use game title",
       "testResults": "REAL DOM hosted template source matched and saved; rendered previews reviewed. 20 recovery checks and build passed. No live Auth message sent. Owner-authorized EmailQA reset sent once; Resend Delivered. Signup confirmation also Delivered. Pages succeeded. Owner reported successful EmailQA password-reset completion on 2026-10-19.",
       "nextAction": "Resolve staff recovery audit receipt retention/privacy policy and privileged-path verification before activation",
       "approvalRequirement": "Owner explicitly requested friendly emails and continued SMTP/recovery work. User must enter and submit any new password."
@@ -483,7 +483,7 @@
     {
       "id": "CODEX-5",
       "status": "done",
-      "scope": "Visual searchable Pokémon/candy picker, accurate gift labels, modal staff reasons and visual review",
+      "scope": "Visual searchable Pok\u00e9mon/candy picker, accurate gift labels, modal staff reasons and visual review",
       "dependencies": [
         "CODEX-4"
       ],
@@ -762,7 +762,7 @@
     {
       "id": "I9",
       "status": "done",
-      "scope": "GitHub issue #9 Pokémon collection rows and read-only detail comparison prototype",
+      "scope": "GitHub issue #9 Pok\u00e9mon collection rows and read-only detail comparison prototype",
       "dependencies": [
         "I8"
       ],
@@ -804,7 +804,7 @@
     {
       "id": "I16",
       "status": "done",
-      "scope": "GitHub issue #16 Pokémon generation/legality source audit and audited owner editor design",
+      "scope": "GitHub issue #16 Pok\u00e9mon generation/legality source audit and audited owner editor design",
       "dependencies": [
         "epic-11"
       ],
@@ -812,7 +812,7 @@
       "commit": "a3004d1",
       "evidence": "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
       "testResults": "overhaul 17 STATIC PASS; LIVE CATALOG catches columns; no catch-row SELECT",
-      "nextAction": "Superseded by D15–D17 / issue #19. Keep as current-state evidence.",
+      "nextAction": "Superseded by D15\u2013D17 / issue #19. Keep as current-state evidence.",
       "approvalRequirement": "Historical; future work uses A19-* gates"
     },
     {
@@ -907,7 +907,7 @@
     {
       "id": "I24A",
       "status": "done",
-      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 → seed 00–10 → 002",
+      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 \u2192 seed 00\u201310 \u2192 002",
       "dependencies": [
         "I24",
         "D35"
@@ -932,7 +932,7 @@
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-SPEC.md, tests/fixtures/a19-genval/matrix.json, tests/a19-genval-spec-tests.js",
       "testResults": "a19-genval-spec STATIC/LOCAL HARNESS; historical D36 snapshot",
       "nextAction": "Superseded by I25A / D37. Spec file remains the planning snapshot.",
-      "approvalRequirement": "Historical; GV1–GV7 later locked in D37"
+      "approvalRequirement": "Historical; GV1\u2013GV7 later locked in D37"
     },
     {
       "id": "I25A",
@@ -1487,7 +1487,7 @@
       "evidence": "docs/project-command-center/D76-FAMILIARITY-STAMP-SMOKE-GO-PACKET.md",
       "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D76 8/8 on 127.0.0.1:55448. Lifecycle inactive. No hosted catch.",
       "nextAction": "Superseded by I41. Account creation stopped for missing email and password.",
-      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED — UNSPECIFIED."
+      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED \u2014 UNSPECIFIED."
     },
     {
       "id": "I41",

@@ -31,4 +31,4 @@ Do not reopen R21 without fingerprint or write-helper evidence.
 
 CODEX-42: legacy fallback/AV schema retirement verified. Full selective schema/source/specimen recovery tested locally; retain both private archives. Hosted evolution still untested; unsupported hidden/costume mappings deliberately stop before cost. Security advisor search-path notices268 (down2), other categories unchanged; wider security triage remains open. See LEGACY-RUNTIME-SCHEMA-EXECUTION.md.
 
-| R-FAMILIARITY-MUTATION | **OPEN / LAUNCH BLOCKER** | Exact current delivery/record/guard/reconciliation bodies reject valid catch credit after delayed evolution/trade/release.5 local SQL cases reproduce; live pending0. Immutable original-capture identity proposed; worker remains held. See FAMILIARITY-CAPTURE-IDENTITY-REVIEW.md. |
+| R-FAMILIARITY-MUTATION | **FIX INSTALLED / LOCAL INTEGRATION PASS** | Approved CODEX-45 immutable snapshot correction installed20261021115744;28 local SQL/32 runtime SQL checks and exact hosted source/data verification. No live delivery. Worker remains held; missing specimen plus missing queue identity cannot be invented. See FAMILIARITY-CAPTURE-IDENTITY-FIX.md. |

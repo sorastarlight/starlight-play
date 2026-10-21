@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-45",
+      "status": "done",
+      "scope": "Approved immutable original-capture Familiarity correction",
+      "dependencies": [
+        "CODEX-44"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "FAMILIARITY-CAPTURE-IDENTITY-FIX.md;evidence/familiarity-capture-identity-hosted-verification.json",
+      "testResults": "28 real local SQL;32 real runtime SQL; hosted exact functions/ACL/data/cutoff verified;no live delivery",
+      "nextAction": "Prepare bounded worker proposal; no automatic delivery or reconciliation authorized yet.",
+      "approvalRequirement": "Explicit original-capture correction approved; no backfill/scheduling/gameplay included"
+    },
+    {
       "id": "CODEX-44",
       "status": "done",
       "scope": "Launch self-test permission hardening and current progression race audit",

@@ -155,3 +155,6 @@ CODEX-43,2026-10-21: October30 Data API grant change audited:64 public relations
 
 
 CODEX-44,2026-10-21: migration20261021113931 retires browser EXECUTE on6 unused private self-tests;27 real local SQL checks and exact hosted ACL/source/unrelated-function verification pass. No gameplay/data mutation. Found Familiarity delivery race after evolution/trade/release;5 local SQL reproductions. Original-capture correction needs owner decision;worker held. See LAUNCH-SECURITY-FOLLOWUP.md and FAMILIARITY-CAPTURE-IDENTITY-REVIEW.md.
+
+
+CODEX-45,2026-10-21: owner approved original-capture semantics; migration20261021115744 installed immutable queue identity and corrected event delivery/guard/reconciliation.28 local SQL/32 runtime SQL checks; exact hosted source/attributes and original event/queue/specimen data verified.14 other protected datasets identical. No snapshot backfill, delivery, worker or gameplay. See FAMILIARITY-CAPTURE-IDENTITY-FIX.md.

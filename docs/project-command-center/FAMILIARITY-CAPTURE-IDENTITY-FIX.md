@@ -1,0 +1,20 @@
+# CODEX-45 — Original-capture credit correction installed
+
+Owner approved original-catcher/original-species credit despite later evolution, trade or release, with existing events/cutoff unchanged and no backfill/worker/gameplay test. Migration `20261021115744` (`preserve_original_capture_identity_for_familiarity`) installed the tested packet at preparation commit d408eaee.
+
+Private queue admission now retains the original capture identity, bound to its exact Play source key and one successful server log. Delivery validates that immutable snapshot and existing lifecycle/cutoff rules, so a Caterpie evolved into Metapod still earns one Caterpie event for its original trainer. Credit does not transfer to a trade recipient or duplicate through replay. New snapshot/catch ID/admission time cannot be rewritten. Invalid/test/gift/pre-cutoff/ambiguous evidence is refused; no species is guessed from a later form.
+
+Reconciliation is updated to recover only provable original identities from a surviving specimen's source and authoritative log. No reconciliation was run. If both the specimen and its queued identity are absent, logs without a catch-ID binding cannot reconstruct the event; the correction deliberately does not invent one. Capture-note admission still fails open so a progression problem cannot discard a successful catch; this residual dual-loss case remains an explicit limitation for monitoring and future design.
+
+Four routines replaced; two private owner-only helpers, one immutable JSON queue field and freeze trigger added. Existing enqueue, note, delivery, requeue and settlement bodies unchanged. No browser/service helper grants, table exposure or public schema change. Existing private RLS remains. Existing delivered row receives a null column rather than an invented historical snapshot. No event or progress backfill was performed.
+
+## Evidence
+
+-28 REAL LOCAL SQL checks: all three delayed mutation outcomes; original recipient/species; tamper and invalid-capture rejection; idempotency; lifecycle; reconciliation proof/absence; second-client locks; eight-attempt exhaustion and actual requeue; role denials; source drift; atomic failure and pre-use rollback.
+-32 REAL LOCAL SQL runtime checks: actual generator, final post-AV stamp, actual settlement/note/enqueue, snapshot, actual WIRE evolution and actual event delivery. Generated Caterpie becomes Metapod before delivery and earns exactly one original Caterpie event. Chance/spend/economy interfaces remain fixtures; not a natural throw, real Auth session or hosted gameplay.
+-READ-ONLY HOSTED: six replacement/helper hashes match; original nine routine ACL/config/owner/security attributes preserved; all unrelated function metadata hash unchanged `449267b257935b30703c517e35f34295`. Existing event hash `a476c4feb92914658c40b77b8185bbd4`, original queue-field hash `481d252a68c0fb2a45ada0d85e06f466`, specimen hash `62a30076d38ae7c0cec63621ffe6a32e`.14 other protected dataset hashes identical. The queue's full-row hash necessarily changes with its added null column; excluding only that new key proves all original fields identical.
+-Snapshot count0; pending/rejected/exhausted count0; Familiarity cron jobs0. Cutoff remains `2026-10-20T16:55:59.896904Z`, lifecycle active. Security advisor categories unchanged268/78/196/48/1; broader triage remains open.
+
+Evidence: familiarity-capture-identity-hosted-verification.json, familiarity-capture-identity-local-result.json, familiarity-capture-runtime-local-result.json. Packet: supabase/unapplied/familiarity-capture-identity/. `INSTALL.sql` is now applied despite its archival directory name. FUNCTIONS.sql must never be applied alone. Strict rollback is tested before new snapshot use and refuses to discard later capture history. No production rollback or delivery test was run.
+
+Sora mutated NO; Twinkle NO; EmailQA NO; PlayTester unchanged/nonstaff. No new encounter, gift, evolution, event delivery, scheduler, reset, spending or APP stamp. Remaining important step is an explicitly reviewed bounded delivery worker; do not mistake recording or this fix for automatic progress processing.

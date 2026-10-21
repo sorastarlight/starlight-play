@@ -1,0 +1,308 @@
+{
+  "at": "2026-10-21T12:01:04.296Z",
+  "classification": "READ-ONLY HOSTED verification after approved DDL; no event delivery, reconciliation or gameplay",
+  "pending": 0,
+  "new_jobs": 0,
+  "functions": [
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "c3e2401751521a93e3c98bd858e1cae9",
+      "anon": false,
+      "name": "deliver_species_mastery_outbox",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.deliver_species_mastery_outbox(integer)",
+      "service_role": false,
+      "authenticated": false,
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "49e59ca336a343a2765ab811c06c96b6",
+      "anon": false,
+      "name": "enqueue_species_mastery_event",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.enqueue_species_mastery_event(uuid)",
+      "service_role": false,
+      "authenticated": false,
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "c78768599888d786e781ec18a7000c33",
+      "anon": false,
+      "name": "familiarity_capture_identity",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.familiarity_capture_identity(uuid)",
+      "service_role": false,
+      "authenticated": false,
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "eefcec159767d8366b6805645db2b829",
+      "anon": false,
+      "name": "freeze_familiarity_capture_identity",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog"
+      ],
+      "signature": "private.freeze_familiarity_capture_identity()",
+      "service_role": false,
+      "authenticated": false,
+      "security_definer": false
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "313944ac139f33465e57d86c0a1c5678",
+      "anon": false,
+      "name": "note_species_mastery_catch",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.note_species_mastery_catch(uuid)",
+      "service_role": false,
+      "authenticated": false,
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "90390247a30521352ddb9dbe9710160b",
+      "anon": false,
+      "name": "reconcile_species_mastery_outbox",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.reconcile_species_mastery_outbox(integer)",
+      "service_role": false,
+      "authenticated": false,
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "639f65cdaac61ff00604481bcad0a71f",
+      "anon": false,
+      "name": "record_species_mastery_event",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.record_species_mastery_event(uuid)",
+      "service_role": false,
+      "authenticated": false,
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "0ccce9747f3b20c2f99b07a8883651a6",
+      "anon": false,
+      "name": "requeue_species_mastery_outbox",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.requeue_species_mastery_outbox(uuid)",
+      "service_role": false,
+      "authenticated": false,
+      "security_definer": true
+    },
+    {
+      "acl": null,
+      "md5": "a33d9b63f44df44771b7d2d9a43cb2af",
+      "anon": true,
+      "name": "round_is_test",
+      "owner": "postgres",
+      "config": null,
+      "signature": "private.round_is_test(uuid)",
+      "service_role": true,
+      "authenticated": true,
+      "security_definer": false
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "b42d8a354c079ddc9f56e4f86e930950",
+      "anon": false,
+      "name": "species_mastery_events_guard",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.species_mastery_events_guard()",
+      "service_role": false,
+      "authenticated": false,
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "md5": "efd7d332b2ab9f3d0283accd08a6f02a",
+      "anon": false,
+      "name": "species_mastery_outbox_admit",
+      "owner": "postgres",
+      "config": [
+        "search_path=pg_catalog, public, private"
+      ],
+      "signature": "private.species_mastery_outbox_admit()",
+      "service_role": false,
+      "authenticated": false,
+      "security_definer": true
+    }
+  ],
+  "migration": "20261021115744",
+  "specimens": "62a30076d38ae7c0cec63621ffe6a32e",
+  "activation": {
+    "closed_at": null,
+    "lifecycle": "active",
+    "paused_at": null,
+    "singleton": true,
+    "disabled_at": null,
+    "activated_at": "2026-10-20T16:55:59.896904+00:00",
+    "drain_started_at": null
+  },
+  "event_hash": "a476c4feb92914658c40b77b8185bbd4",
+  "other_hash": "449267b257935b30703c517e35f34295",
+  "outbox_hash": "481d252a68c0fb2a45ada0d85e06f466",
+  "snapshot_count": 0,
+  "protectedDatasets": {
+    "identical": 14,
+    "outboxOriginalFieldsUnchanged": true,
+    "outboxShapeChange": "Added capture_identity=null to the one already-delivered row; no historical snapshot backfill"
+  },
+  "protectedBefore": {
+    "protected": {
+      "public.form_seen": {
+        "hash": "fad40e5bc954c407025371ec2f88e9a4",
+        "count": 42
+      },
+      "public.xp_ledger": {
+        "hash": "5c6bbba7d97c7a0d37257ae0b646f164",
+        "count": 387
+      },
+      "public.coin_ledger": {
+        "hash": "74902379cef3a860300ef4e7763d9d12",
+        "count": 47
+      },
+      "public.inventories": {
+        "hash": "81aa0de2d57eb627b508daebae4c3eff",
+        "count": 7
+      },
+      "public.item_ledger": {
+        "hash": "009cfc41a6a48fa204da8834ef8a47e8",
+        "count": 102
+      },
+      "public.candy_ledger": {
+        "hash": "ec813d6fc56d809ef49989298bd464aa",
+        "count": 116
+      },
+      "public.species_seen": {
+        "hash": "9233d7858c79c61793bc6eed3ad10a38",
+        "count": 42
+      },
+      "public.evolution_log": {
+        "hash": "4d83b70b344027ef1e4b2b4ae8e6d2a1",
+        "count": 35
+      },
+      "public.trainer_stats": {
+        "hash": "53caee89275de81def76fa2d5e915d1f",
+        "count": 6
+      },
+      "public.mastery_ledger": {
+        "hash": "dafa7754f4aaf610d52c50a9903c0e18",
+        "count": 89
+      },
+      "public.species_mastery": {
+        "hash": "a400791f5420b711576debd94a99e99b",
+        "count": 28
+      },
+      "public.species_mastery_events": {
+        "hash": "a476c4feb92914658c40b77b8185bbd4",
+        "count": 1
+      },
+      "private.catch_insert_authority": {
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "count": 0
+      },
+      "private.species_mastery_outbox": {
+        "hash": "481d252a68c0fb2a45ada0d85e06f466",
+        "count": 1
+      },
+      "private.species_mastery_activation": {
+        "hash": "2b02a40f4950dbf15f39b568bfbfd712",
+        "count": 1
+      }
+    }
+  },
+  "protectedAfter": {
+    "protected": {
+      "public.form_seen": {
+        "hash": "fad40e5bc954c407025371ec2f88e9a4",
+        "count": 42
+      },
+      "public.xp_ledger": {
+        "hash": "5c6bbba7d97c7a0d37257ae0b646f164",
+        "count": 387
+      },
+      "public.coin_ledger": {
+        "hash": "74902379cef3a860300ef4e7763d9d12",
+        "count": 47
+      },
+      "public.inventories": {
+        "hash": "81aa0de2d57eb627b508daebae4c3eff",
+        "count": 7
+      },
+      "public.item_ledger": {
+        "hash": "009cfc41a6a48fa204da8834ef8a47e8",
+        "count": 102
+      },
+      "public.candy_ledger": {
+        "hash": "ec813d6fc56d809ef49989298bd464aa",
+        "count": 116
+      },
+      "public.species_seen": {
+        "hash": "9233d7858c79c61793bc6eed3ad10a38",
+        "count": 42
+      },
+      "public.evolution_log": {
+        "hash": "4d83b70b344027ef1e4b2b4ae8e6d2a1",
+        "count": 35
+      },
+      "public.trainer_stats": {
+        "hash": "53caee89275de81def76fa2d5e915d1f",
+        "count": 6
+      },
+      "public.mastery_ledger": {
+        "hash": "dafa7754f4aaf610d52c50a9903c0e18",
+        "count": 89
+      },
+      "public.species_mastery": {
+        "hash": "a400791f5420b711576debd94a99e99b",
+        "count": 28
+      },
+      "public.species_mastery_events": {
+        "hash": "a476c4feb92914658c40b77b8185bbd4",
+        "count": 1
+      },
+      "private.catch_insert_authority": {
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "count": 0
+      },
+      "private.species_mastery_outbox": {
+        "hash": "a89c1cbdaa3cfdeda2add89160194e43",
+        "count": 1
+      },
+      "private.species_mastery_activation": {
+        "hash": "2b02a40f4950dbf15f39b568bfbfd712",
+        "count": 1
+      }
+    }
+  }
+}

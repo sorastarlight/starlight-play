@@ -15,3 +15,5 @@ ROLLBACK.sql is a strict pre-use recovery packet: exact prior bodies/attributes/
 32 separate REAL LOCAL SQL integration checks run the actual current generator, stamp, settlement, original note/enqueue, new snapshot admission, actual WIRE evolution and actual delivery in the final post-AV schema. A generated Caterpie becomes Metapod before delivery and earns exactly one Caterpie event for its original trainer. Chance/spend and broader economy/notice interfaces remain deterministic local fixtures; no hosted gameplay or ordinary-odds proof.
 
 Reproduce: node tools/prepare-familiarity-capture-identity.js; node tools/familiarity-capture-identity-rehearsal.js; node tools/legacy-runtime-rehearsal.js --without-av --with-capture-identity. Evidence: familiarity-capture-identity-local-result.json and familiarity-capture-runtime-local-result.json. Source/data baseline and manifest are supplied. New routines remain private; do not expose private through PostgREST. No paid service or credential is needed.
+
+Installed migration20261021115744; independently verified. See FAMILIARITY-CAPTURE-IDENTITY-FIX.md. No delivery or worker activated.

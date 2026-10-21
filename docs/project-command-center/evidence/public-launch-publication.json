@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-21T15:58:35.497Z",
+  "checkedAt": "2026-10-21T16:35:59.850Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -47,8 +47,8 @@
       "file": "help.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "4407e95f386d6b5b1a29ab2419c06ae27c57862b5ccacef4a5370f80739dceee",
-      "publishedSha256": "4407e95f386d6b5b1a29ab2419c06ae27c57862b5ccacef4a5370f80739dceee",
+      "localSha256": "4379dfa8fd4776914ec597e7107b9aa50b8483a3e6677c82498222914d6cda65",
+      "publishedSha256": "4379dfa8fd4776914ec597e7107b9aa50b8483a3e6677c82498222914d6cda65",
       "matches": true
     },
     {
@@ -180,6 +180,14 @@
       "matches": true
     },
     {
+      "file": "js/help.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "24110a176a5c4b811fe8a07a42674fc5e1a4d7f8a01d6d55d022961b37bb0936",
+      "publishedSha256": "24110a176a5c4b811fe8a07a42674fc5e1a4d7f8a01d6d55d022961b37bb0936",
+      "matches": true
+    },
+    {
       "file": "js/support.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
@@ -191,8 +199,8 @@
       "file": "js/admin-next-rewards.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "e1ce816382149bf744c81d5915855cd550c2837ce258c90bfe11e64454dfc3e5",
-      "publishedSha256": "e1ce816382149bf744c81d5915855cd550c2837ce258c90bfe11e64454dfc3e5",
+      "localSha256": "b33ee1da30db271904ebb69b1774fdb64e1bf27138fcd97b76cac81a3264fcba",
+      "publishedSha256": "b33ee1da30db271904ebb69b1774fdb64e1bf27138fcd97b76cac81a3264fcba",
       "matches": true
     },
     {

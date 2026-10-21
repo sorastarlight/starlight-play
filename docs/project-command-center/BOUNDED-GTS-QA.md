@@ -1,6 +1,12 @@
 # Proposed bounded hosted GTS acceptance
 
-CODEX-62 proposal only. No gift, listing, offer or trade has run under this packet. General launch work and the earlier direct/GTS validation installs did not authorize hosted two-party trading.
+CODEX-62 explicitly approved by owner: one retained gift and one swap. Gift completed; listing, offer and swap remain unexecuted pending human sign-in switches. General launch work does not authorize additional trades.
+
+## Execution checkpoint — 2026-10-21 16:39 UTC
+
+EmailQA2 is ordinary nonstaff trainer `ba4dcf17-da1f-4de6-8e48-31f8d93acab8`, initially zero catches/XP. Actual owner Trainer Gifts delivered one normal level5 female Caterpie `1876076e-d0c2-448d-a4e0-88b5094e5a14` (public ID SL00025384), receipt `d92f7f6c-2a6a-41bb-a66c-34cca701bd32`, succeeded at16:38:54UTC. Normal generation supplied full WIRE fields,20/20HP and distinct Tackle/String Shot moves. Normal grant hooks awarded35XP; inventory unchanged,zero Familiarity events. All other catches/inventories match preflight hashes. Gift allowance is spent; never repeat it.
+
+Next: human switches IAB to EmailQA, then list the pinned Metapod for Caterpie. No listing/offer/acceptance has occurred. Read-only director preflight: manual hold true, RPG session inactive,queued null,zero unresolved rounds. Recheck before opening GTS because its navigation calls play_state, which can tick the director. Do not change director settings or trigger encounters.
 
 ## Accounts and fixed scope
 

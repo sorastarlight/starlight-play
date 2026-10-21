@@ -1,0 +1,54 @@
+{
+  "classification": "REAL hosted read-only idle worker health snapshot;not new capture delivery QA",
+  "result": [
+    {
+      "health": {
+        "job": [
+          {
+            "jobid": 3,
+            "active": true,
+            "schedule": "* * * * *"
+          }
+        ],
+        "queue": [
+          {
+            "rows": 1,
+            "status": "delivered",
+            "max_attempts": 0
+          }
+        ],
+        "activation": {
+          "lifecycle": "active",
+          "activated_at": "2026-10-20T16:55:59.896904+00:00"
+        },
+        "recentRuns": [
+          {
+            "status": "succeeded",
+            "end_time": "2026-10-21T16:18:00.026057+00:00",
+            "start_time": "2026-10-21T16:18:00.012905+00:00"
+          },
+          {
+            "status": "succeeded",
+            "end_time": "2026-10-21T16:17:00.027539+00:00",
+            "start_time": "2026-10-21T16:17:00.013976+00:00"
+          },
+          {
+            "status": "succeeded",
+            "end_time": "2026-10-21T16:16:00.029172+00:00",
+            "start_time": "2026-10-21T16:16:00.013785+00:00"
+          },
+          {
+            "status": "succeeded",
+            "end_time": "2026-10-21T16:15:00.029718+00:00",
+            "start_time": "2026-10-21T16:15:00.014275+00:00"
+          },
+          {
+            "status": "succeeded",
+            "end_time": "2026-10-21T16:14:00.029514+00:00",
+            "start_time": "2026-10-21T16:14:00.013881+00:00"
+          }
+        ]
+      }
+    }
+  ]
+}

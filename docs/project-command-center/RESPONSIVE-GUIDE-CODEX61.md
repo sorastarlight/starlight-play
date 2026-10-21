@@ -1,5 +1,7 @@
 # CODEX-61 — Responsive guide and release health
 
+Final verification supersedes historical caveats below: fresh published guide copy verified at390/768/1280 with the same no-overflow measurements. Fixed help navigation's unresolved sign-in display using session plus read-only own-profile lookup, without play_state/gameplay RPCs. Real frame shows Signed in as Sora Starlight. Six new navigation tests cover sign-out/account-switch races and failures. Fixed species search blur redrawing the picker before the first click; actual #010 search followed by one click selected Caterpie during the approved CODEX-62 gift. Published46622e17,Pages39635899441 succeeded;26/26 selected static files match.80 non-writing regression suites/build pass;APP unchanged. Evidence: evidence/codex61-regressions.json, evidence/responsive61-health.json and evidence/public-launch-publication.json. These bounded checks complete CODEX-61; broader device/Auth acceptance remains open.
+
 Actual published help.html rendered in a same-origin iframe, using its real assets, CSS, navigation and guide code. Review harness: `design-reset/responsive-guide-review.html`. This is browser-frame responsive-layout evidence, not a physical-phone/user-agent emulation or a replacement for authenticated player flow tests.
 
 | Frame width | Document client width | Content width | Result |

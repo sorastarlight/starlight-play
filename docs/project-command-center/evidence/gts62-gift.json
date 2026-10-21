@@ -1,0 +1,254 @@
+{
+  "before": [
+    {
+      "preflight": {
+        "role": null,
+        "target": {
+          "id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+          "xp": 0,
+          "team": [],
+          "username": "emailqa2"
+        },
+        "inventory": {
+          "bait": 10,
+          "lure": 0,
+          "balls": {},
+          "berry": 10,
+          "coins": 0,
+          "items": {},
+          "berries": {},
+          "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+          "pokeball": 10,
+          "bag_bonus": 0,
+          "greatball": 5,
+          "ultraball": 3,
+          "lure_armed": false,
+          "lure_until": null,
+          "updated_at": "2026-10-21T16:29:32.694606+00:00",
+          "pass_daily_at": null,
+          "pass_weekly_at": null,
+          "daily_supply_at": null,
+          "starter_granted": false
+        },
+        "activeCatches": 0,
+        "otherCatchesHash": "21f54d7b053f85c7c1adf2133117803b",
+        "otherInventoriesHash": "390b74d87514c911afea03f15b098262"
+      }
+    }
+  ],
+  "after": [
+    {
+      "result": {
+        "catches": [
+          {
+            "id": "1876076e-d0c2-448d-a4e0-88b5094e5a14",
+            "dex": 10,
+            "ball": "poke",
+            "name": "Caterpie",
+            "ev_hp": 0,
+            "iv_hp": 28,
+            "level": 5,
+            "moves": [
+              "tackle",
+              "string-shot"
+            ],
+            "ev_atk": 0,
+            "ev_def": 0,
+            "ev_spa": 0,
+            "ev_spd": 0,
+            "ev_spe": 0,
+            "gender": "Female",
+            "hp_max": 20,
+            "iv_atk": 12,
+            "iv_def": 20,
+            "iv_spa": 30,
+            "iv_spd": 26,
+            "iv_spe": 25,
+            "locked": false,
+            "status": null,
+            "ot_name": "emailqa2",
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "variant": "normal",
+            "favorite": false,
+            "height_m": 0.3,
+            "is_alpha": false,
+            "nickname": null,
+            "round_id": null,
+            "caught_at": "2026-10-21T16:38:54.883343+00:00",
+            "held_item": null,
+            "met_level": 5,
+            "nature_id": 1,
+            "ot_number": 22213,
+            "public_id": "SL00025384",
+            "weight_kg": 2.9,
+            "ability_id": 19,
+            "friendship": 50,
+            "hp_current": 20,
+            "move_slots": [
+              {
+                "pp": 35,
+                "name": "tackle",
+                "ppMax": 35,
+                "method": "level-up",
+                "moveId": 33,
+                "versionGroup": "sword-shield"
+              },
+              {
+                "pp": 40,
+                "name": "string-shot",
+                "ppMax": 40,
+                "method": "level-up",
+                "moveId": 81,
+                "versionGroup": "sword-shield"
+              }
+            ],
+            "ot_user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "ruleset_id": "streamlink-gen9-xgen",
+            "size_class": "M",
+            "source_key": "grant:staff-reward:d92f7f6c-2a6a-41bb-a66c-34cca701bd32",
+            "ability_slot": "1",
+            "met_location": "Viridian Forest",
+            "content_build": "sl-ref-20261013-227b573",
+            "transferred_at": null,
+            "obtained_method": "CAPTURE",
+            "pokemon_form_id": 10,
+            "trade_evo_ready": false,
+            "gigantamax_factor": false,
+            "reserved_trade_id": null,
+            "server_inserted_at": "2026-10-21T16:38:54.907605+00:00",
+            "trade_locked_until": null
+          }
+        ],
+        "receipts": [
+          {
+            "action": "pokemon",
+            "reason": "CODEX-62 approved bounded GTS QA: one normal level-5 Caterpie for EmailQA2, retained for the single EmailQA Metapod swap.",
+            "result": {
+              "ok": true,
+              "mon": {
+                "ok": true,
+                "dex": 10,
+                "evs": {
+                  "hp": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ivs": {
+                  "hp": 28,
+                  "atk": 12,
+                  "def": 20,
+                  "spa": 30,
+                  "spd": 26,
+                  "spe": 25
+                },
+                "hpMax": 20,
+                "level": 5,
+                "shiny": false,
+                "stats": {
+                  "hp": 20,
+                  "atk": 8,
+                  "def": 9,
+                  "spa": 8,
+                  "spd": 8,
+                  "spe": 10
+                },
+                "errors": [],
+                "formId": 10,
+                "gender": "Female",
+                "status": null,
+                "catchId": "1876076e-d0c2-448d-a4e0-88b5094e5a14",
+                "heightM": 0.3,
+                "heldItem": null,
+                "natureId": 1,
+                "weightKg": 2.9,
+                "abilityId": 19,
+                "hpCurrent": 20,
+                "moveSlots": [
+                  {
+                    "pp": 35,
+                    "name": "tackle",
+                    "ppMax": 35,
+                    "method": "level-up",
+                    "moveId": 33,
+                    "versionGroup": "sword-shield"
+                  },
+                  {
+                    "pp": 40,
+                    "name": "string-shot",
+                    "ppMax": 40,
+                    "method": "level-up",
+                    "moveId": 81,
+                    "versionGroup": "sword-shield"
+                  }
+                ],
+                "rulesetId": "streamlink-gen9-xgen",
+                "friendship": 50,
+                "abilitySlot": "1",
+                "hiddenGrant": false,
+                "legacyMoves": [
+                  "tackle",
+                  "string-shot"
+                ],
+                "contentBuild": "sl-ref-20261013-227b573",
+                "hiddenTicketId": null,
+                "gigantamaxFactor": false,
+                "hiddenSpecimenId": null
+              },
+              "path": "wire",
+              "catchId": "1876076e-d0c2-448d-a4e0-88b5094e5a14",
+              "message": "Pokémon delivered through canonical generation.",
+              "publicId": "SL00025384"
+            },
+            "status": "succeeded",
+            "payload": {
+              "dex": 10,
+              "level": 5,
+              "shiny": false
+            },
+            "actor_id": "60ff5211-6ef8-40e6-8daa-095b5600bf4c",
+            "target_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "created_at": "2026-10-21T16:38:54.883343+00:00",
+            "error_code": null,
+            "request_id": "d92f7f6c-2a6a-41bb-a66c-34cca701bd32",
+            "finished_at": "2026-10-21T16:38:54.883343+00:00"
+          }
+        ],
+        "unresolved": 0
+      }
+    }
+  ],
+  "verification": [
+    {
+      "verification": {
+        "xp": 35,
+        "events": 0,
+        "inventory": {
+          "bait": 10,
+          "lure": 0,
+          "balls": {},
+          "berry": 10,
+          "coins": 0,
+          "items": {},
+          "berries": {},
+          "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+          "pokeball": 10,
+          "bag_bonus": 0,
+          "greatball": 5,
+          "ultraball": 3,
+          "lure_armed": false,
+          "lure_until": null,
+          "updated_at": "2026-10-21T16:29:32.694606+00:00",
+          "pass_daily_at": null,
+          "pass_weekly_at": null,
+          "daily_supply_at": null,
+          "starter_granted": false
+        },
+        "otherCatchesHash": "21f54d7b053f85c7c1adf2133117803b",
+        "otherInventoriesHash": "390b74d87514c911afea03f15b098262"
+      }
+    }
+  ]
+}

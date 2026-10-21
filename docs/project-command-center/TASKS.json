@@ -5,20 +5,20 @@
   "tasks": [
     {
       "id": "CODEX-62",
-      "status": "blocked",
+      "status": "in_progress",
       "scope": "Bounded hosted two-account GTS functional acceptance proposal",
       "evidence": "BOUNDED-GTS-QA.md",
-      "testResults": "Read-only preflight:EmailQA sole normalLv5Metapod unlocked/notfavorite/no cooldown;0 open listings/0 pending offers. Existing GTS local tests pass;no hosted test executed.",
-      "nextAction": "Request one-gift/one-swap approval and second controlled email QA account. Human handles credentials/sign-in switches;no Twitch test account required.",
+      "testResults": "Owner approved one gift/one swap. EmailQA2 verified ordinary/nonstaff; one Lv5 Caterpie delivered, succeeded receipt d92f7f6c-2a6a-41bb-a66c-34cca701bd32. Normal +35XP; inventory unchanged; no Familiarity event; unrelated catches/inventories unchanged. No listing/offer/swap yet.",
+      "nextAction": "Await human IAB sign-in as EmailQA; list pinned Metapod for Caterpie, then B offer and A acceptance with required actor switches. Gift allowance spent.",
       "approvalRequirement": "Explicit hosted grant/trade approval and real actor sessions required. No retries/refunds/reset/cancellation/stamp included."
     },
     {
       "id": "CODEX-61",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Actual guide responsive layout, terminology cleanup and release health",
       "evidence": "RESPONSIVE-GUIDE-CODEX61.md;design-reset/responsive-guide-review.html",
-      "testResults": "Actual guide frame390/768/1280 no horizontal overflow;390 expandednavfits.35 playUX/8 onboarding checks/buildpass.25 publicfilesmatch.5 Familiarity runs idle-success;queue0 pending. New guidecopy published;fresh-frame wording verification pending due cached HTML.",
-      "nextAction": "Verify final guide wording/fresh-frame layout and capture screenshot;then record bounded responsive evidence without claiming physical-device/Auth-flow certification.",
+      "testResults": "Fresh published guide fits390/768/1280. Session/profile-only help nav resolves correctly; six race/error tests added. Picker first-click after dex search verified.80 regression suites/build pass;26 static files match;worker idle health passed.",
+      "nextAction": "Bounded guide acceptance complete. Continue hosted GTS and remaining broader device/provider/recovery acceptance;APP stamp held.",
       "approvalRequirement": "Routine presentation/read-only checks authorized;no gameplay/DB write/APP stamp."
     },
     {

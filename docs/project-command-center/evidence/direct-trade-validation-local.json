@@ -1,0 +1,22 @@
+{
+  "classification": "REAL LOCAL SQL, exact hosted RPC bodies, fictional trainers; counted reward and receive stubs",
+  "checks": [
+    "Baseline direct trade bypasses future five-minute cooldown and swaps specimens",
+    "Baseline final confirmation permits species disabled after offer",
+    "Guarded three-function replacement installs with unchanged privileges",
+    "Request creation denies cooldown specimen",
+    "Offer replacement denies cooldown specimen",
+    "Final confirmation rechecks cooldown on requester without swap or rewards",
+    "Final confirmation rechecks cooldown on partner without swap or rewards",
+    "Final confirmation rechecks current species tradability",
+    "Expired cooldown and sole-copy trades still succeed with one reward per participant",
+    "Completed-trade replay remains denied without repeat rewards",
+    "Existing locked protection survives final confirmation",
+    "Existing favorite protection survives final confirmation",
+    "Third party cannot alter or confirm another trade",
+    "Unauthenticated callers denied",
+    "Guarded rollback restores original cooldown-bypass behavior",
+    "Unexpected ACL drift refuses installation"
+  ],
+  "limitations": "No hosted trading, full RLS/JWT/trigger/economy pipeline, provider or natural concurrency workload exercised."
+}

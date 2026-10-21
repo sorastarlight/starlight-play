@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-53",
+      "status": "blocked",
+      "scope": "Direct-trade server validation: existing received-catch cooldown and final species tradability",
+      "evidence": "supabase/unapplied/direct-trade-validation/README.md;evidence/direct-trade-validation-local.json",
+      "testResults": "16 REAL LOCAL SQL checks; exact old bodies reproduce cooldown bypass and tradability drift; guarded replacement/rollback and preserved protections pass.",
+      "nextAction": "Owner production decision required for exact three-function correction, then independent source/ACL/data verification. No hosted trade included.",
+      "approvalRequirement": "Changes production trade validation; repository streamlink-project.mdc reserves consequential gameplay changes for explicit owner decision."
+    },
+    {
       "id": "CODEX-52",
       "status": "done",
       "scope": "Owner-directed optional Living Dex: last-copy Oak transfers and releases with confirmation warnings",

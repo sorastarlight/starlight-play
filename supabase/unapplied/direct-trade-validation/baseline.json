@@ -1,0 +1,35 @@
+[
+  {
+    "signature": "play_direct_trade_confirm(uuid)",
+    "hash": "46e61eba05d2df8530226586f6af1db5",
+    "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "proconfig": [
+      "search_path=public"
+    ],
+    "provolatile": "v",
+    "prosecdef": true,
+    "owner": "postgres"
+  },
+  {
+    "signature": "play_direct_trade_create(text,uuid)",
+    "hash": "f822bdec2fcf365dbede48ed65478857",
+    "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "proconfig": [
+      "search_path=public"
+    ],
+    "provolatile": "v",
+    "prosecdef": true,
+    "owner": "postgres"
+  },
+  {
+    "signature": "play_direct_trade_set(uuid,uuid)",
+    "hash": "0720c82931a4757148bf48e59e3f04dc",
+    "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "proconfig": [
+      "search_path=public"
+    ],
+    "provolatile": "v",
+    "prosecdef": true,
+    "owner": "postgres"
+  }
+]

@@ -8,7 +8,7 @@ const files = [
   'help.html','storage.html','pokedex.html','inventory.html','settings.html',
   'trainer.html','rankings.html','evolve.html','store.html','trade.html','events.html',
   'achievements.html','admin-next.html','css/play.css','js/build.js','js/game.js',
-  'js/auth.js','js/support.js','js/admin-next-rewards.js','js/trade.js'
+  'js/auth.js','js/help.js','js/support.js','js/admin-next-rewards.js','js/trade.js'
 ];
 const normalize = value => value.replace(/\r\n/g, '\n');
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');

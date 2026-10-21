@@ -2013,3 +2013,5 @@ CODEX-46,2026-10-21: bounded Familiarity worker activation/stop/health packets p
 
 
 CODEX-46 VERIFIED,2026-10-21: owner approved bounded worker activation. Migration20261021120836 installed exact owner-only worker and job3 streamlink-species-familiarity, once/minute,25 reconcile+25 deliver. Scheduled idle runs12:09/12:10/12:11 UTC succeeded; exact source/ACL/command verified;15 protected dataset hashes unchanged and existing retention jobs intact. No new gameplay, reset or APP stamp. See evidence/familiarity-worker-hosted-verification.json and supabase/unapplied/familiarity-worker/README.md.
+
+CODEX-46 publication90e26d30: Pages run39597760280 succeeded. Actual EmailQA My PC verifies #10, #010, 10 and mixed-case Caterpie each return one match; nonsense returns0, clearing restores1/30. Read-only search only; no management action. Seven specimen rows retain hash62a30076d38ae7c0cec63621ffe6a32e; unrelated routine catalog retains449267b257935b30703c517e35f34295 excluding the reviewed correction and new worker. APP remains20261008-rc133.

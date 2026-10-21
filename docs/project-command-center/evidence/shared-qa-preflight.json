@@ -1,0 +1,26 @@
+[
+  {
+    "at": "2026-10-21 01:33:03.184403+00",
+    "wire": {
+      "id": 1,
+      "enabled": true,
+      "updated_at": "2026-10-20T18:11:02.180774+00:00"
+    },
+    "familiarity": {
+      "closed_at": null,
+      "lifecycle": "active",
+      "paused_at": null,
+      "singleton": true,
+      "disabled_at": null,
+      "activated_at": "2026-10-20T16:55:59.896904+00:00",
+      "drain_started_at": null
+    },
+    "unresolved_rounds": 0,
+    "qa_inventory": {
+      "pokeball": 10,
+      "greatball": 5,
+      "ultraball": 3
+    },
+    "launcher_definition": "CREATE OR REPLACE FUNCTION private.director_start_now(p_dex integer, p_gender text, p_shiny boolean, p_source text, p_test boolean DEFAULT false, p_form_id integer DEFAULT NULL::integer)\n RETURNS encounter_rounds\n LANGUAGE plpgsql\nAS $function$\ndeclare\n  r public.encounter_rounds;\n  d private.stream_director;\nbegin\n  r := private.launch_community_round(p_dex, p_gender, p_shiny, p_source, p_test, p_form_id);\n  select * into d from private.stream_director where id = 1;\n  update private.stream_director\n    set last_encounter_started_at = now(),\n        last_encounter_id = r.id,\n        last_encounter_source = p_source,\n        queued = case when p_test then queued else null end,\n        encounters_auto = encounters_auto + case when p_source = 'AUTO' then 1 else 0 end,\n        encounters_manual = encounters_manual + case when p_source in ('ADMIN', 'ADMIN_SPECIFIC') then 1 else 0 end,\n        encounters_event = encounters_event + case when p_source in ('QUEUED_SPECIAL', 'SPECIAL_EVENT') then 1 else 0 end,\n        updated_at = now()\n    where id = 1;\n  if not p_test then\n    perform private.director_schedule_next('normal');\n  end if;\n  perform private.director_log(\n    'AUTO_ENCOUNTER_STARTED',\n    p_source,\n    jsonb_build_object(\n      'roundId', r.id, 'dex', r.dex, 'name', r.name, 'variant', r.variant,\n      'formId', r.pokemon_form_id, 'test', p_test\n    )\n  );\n  return r;\nend;\n$function$\n"
+  }
+]

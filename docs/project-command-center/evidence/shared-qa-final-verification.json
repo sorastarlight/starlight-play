@@ -1,0 +1,42 @@
+[
+  {
+    "at": "2026-10-21 01:37:22.130279+00",
+    "encounter": {
+      "id": "a7fcaeae-896d-4376-a892-250cdd831744",
+      "dex": 1,
+      "name": "Bulbasaur",
+      "phase": "closed",
+      "resolved": true,
+      "cancelled": true,
+      "started_at": "2026-10-21T01:35:34.580426+00:00",
+      "updated_at": "2026-10-21T01:36:06.044978+00:00",
+      "last_action": "No Trainers joined. The wild Bulbasaur wandered away!",
+      "trigger_source": "ADMIN_SPECIFIC"
+    },
+    "participants": 0,
+    "catches": 0,
+    "throw_logs": 0,
+    "qa_inventory": {
+      "pokeball": 10,
+      "greatball": 5,
+      "ultraball": 3
+    },
+    "director": {
+      "status": "OFFLINE",
+      "has_queue": false,
+      "manual_hold": true,
+      "session_active": false,
+      "next_encounter_at": null
+    },
+    "wire_enabled": true,
+    "familiarity": {
+      "closed_at": null,
+      "lifecycle": "active",
+      "paused_at": null,
+      "singleton": true,
+      "disabled_at": null,
+      "activated_at": "2026-10-20T16:55:59.896904+00:00",
+      "drain_started_at": null
+    }
+  }
+]

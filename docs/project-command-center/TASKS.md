@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-35 | done | Approved single shared encounter attempt, incomplete player smoke | CODEX-34 | Explicit one encounter/one EmailQA throw | Allowance spent;0 participants/throws/catches; needs QA sign-in and explicit replacement approval |
 | CODEX-34 | done | Targeted launch security hardening/readiness packet | CODEX-33 | Owner: proceed in launch order autonomously | R1/R2/recorded R18 fixed live;33 local SQL/77 suites/build pass; shared gameplay decision pending |
 | CODEX-33 | done | Read-only Pokédex Species Familiarity display | CODEX-32 | Routine presentation continuation |37 checks/build31-423; actual desktop/390px fixture states; hosted auth flow unverified |
 | CODEX-32 | done | Current Familiarity delivery/reconcile/event/RLS local integration | CODEX-31 | Local development/read-only status |33 SQL +19 default regression; queue empty hosted; no delivery or scheduler |

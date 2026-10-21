@@ -1,5 +1,7 @@
 # Pokémon StreamLink — project command center
 
+CODEX-35 [shared QA attempt](./SHARED-QA-ENCOUNTER-ATTEMPT.md): approved single encounter launched and expired empty after browser identity switched to owner.0 participants/throws/catches; QA inventory unchanged; no schedule. Hosted player smoke is incomplete. Another encounter is not authorized by the spent allowance.
+
 [Ordered launch readiness](./LAUNCH-READINESS.md): CODEX-34 installed/verified [R1/R2/R18 security fixes](./LAUNCH-SECURITY-HARDENING.md). Anonymous admin EXECUTE is0;77 non-writing suites/33 local SQL checks passed. Wider advisor triage and hosted gameplay remain open; one shared-encounter decision pending.
 
 [Current Familiarity delivery rehearsal](./FAMILIARITY-DELIVERY-LOCAL-READINESS.md) passed33 local SQL checks. Hosted queue/events remained empty at the read-only snapshot; no delivery or scheduling ran. The [Pokédex Familiarity display](./POKEDEX-FAMILIARITY-DISPLAY.md) is implemented; My PC remains planned. Authenticated hosted display is not yet verified.

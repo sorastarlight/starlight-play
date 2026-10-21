@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-35",
+      "status": "done",
+      "scope": "Approved single shared QA encounter attempt; player smoke incomplete",
+      "dependencies": [
+        "CODEX-34"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "SHARED-QA-ENCOUNTER-ATTEMPT.md;evidence/shared-qa-final-verification.json",
+      "testResults": "PRODUCTION one ordinary encounter and empty-join expiry;0 participants/throws/catches;inventory unchanged;no schedule",
+      "nextAction": "EmailQA sign-in and explicit one replacement encounter approval; do not reuse spent allowance",
+      "approvalRequirement": "One approved encounter used; no second launch, delivery, scheduling, reset or stamp"
+    },
+    {
       "id": "CODEX-34",
       "status": "done",
       "scope": "Targeted launch security hardening and readiness packet",

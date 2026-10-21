@@ -1,3 +1,7 @@
+## CODEX-35 — One shared QA encounter attempt (2026-10-20 EDT)
+
+Owner approved one encounter/one EmailQA throw. Existing canonical launcher called through authenticated DB operator with guarded director-row equality to avoid ordinary wrapper's scheduling side effect. Encounter a7fcaeae-896d-4376-a892-250cdd831744 started01:35:34 UTC. Browser changed from EmailQA to owner; no player action clicked. Empty round auto-expired01:36:06;0 participants/catches/throws, QA inventory10/5/3 unchanged, director held/offline/inactive/no next time. No explicit protected gameplay action, delivery, reset, stamp or spending. Allowance used; replacement not approved. See SHARED-QA-ENCOUNTER-ATTEMPT.md.
+
 ## CODEX-34 — Launch security hardening (2026-10-20 EDT)
 
 Owner directed ordered launch work autonomously. Installed/verified migration20261021011358: R1 auth-before-settle,84 anonymous admin ACL removals,4 legacy tools require owner/admin edit. Independent112-function diff matches expected changes. Migration20261021011646 retires browser access to unused frame self-test without executing it.33 LOCAL SQL checks,77 non-writing suites andbuild31/423 pass. No gameplay/trainer/protected-account mutations, spending or APP stamp. Shared hosted-smoke decision pending; broader advisor triage open. See LAUNCH-SECURITY-HARDENING.md and LAUNCH-READINESS.md.

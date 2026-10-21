@@ -63,6 +63,8 @@
     gigatonball: "Gigaton Ball",
     originball: "Origin Ball",
     strangeball: "Strange Ball",
+    dreamball: "Dream Ball",
+    beastball: "Beast Ball",
     lure: "Poké Radar",
     coins: "PokéCoins",
     bag_bonus: "inventory space",

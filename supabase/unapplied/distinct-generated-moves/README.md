@@ -1,6 +1,8 @@
 # CODEX-51: distinct generated moves
 
-Prepared October 21, 2026. Not installed. Changes a shared generation helper used by future Pokémon creation, so production installation needs the owner's important gameplay decision.
+Owner approved and installed October 21, 2026, migration 20261021125125 (select_distinct_generated_pokemon_moves). Earlier proposal statements below are historical. Independent verification matches corrected source 4b04ec23b7f75ec87993bfe957a032d2 and unchanged owner-only ACL, stable/invoker attributes and pg_catalog search path. All seven existing catch rows retain aggregate hash 130f7f2b8cfe71cace55cbac38ed421a across installation.
+
+Actual authenticated owner gift retry succeeded once: request ff96d709-0029-4853-9b0e-5aef5a519eaf created Metapod 9419c4d5-5fab-49ff-9632-5c89e6b8f97c, level 5, one Harden move. EmailQA now owns two Metapod; existing Caterpie Familiarity remains one event and family candy remains 3. Waiting for EmailQA sign-in to execute the already-approved original level-6 Metapod transfer. No other gift or encounter is authorized by this completion.
 
 The authorized EmailQA Metapod gift failed once through the real owner Trainer Gifts flow (request a73a5347-4cac-46ac-b4ec-d46fed212a3d, SQLSTATE P0001). No specimen was added, and no Oak transfer was attempted. The receipt contains only a generic error, so it does not itself prove the nested cause. Current reference rows and a real local generator/validator reproduction demonstrate that Metapod's Harden entries at levels 0 and 1 become duplicate moves and are rejected by the existing validator. Fix this confirmed defect before attempting the already-authorized single gift again; do not repeatedly retry the unchanged generator.
 

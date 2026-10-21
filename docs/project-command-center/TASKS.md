@@ -230,3 +230,6 @@ CODEX-68 frontend Achievements loading correction:invalidates cached progress im
 
 
 CODEX-69 COMPLETE (bounded acceptance/operations):Rankings782px overflow corrected;actual final320/390/768/1280 frames fit. PC/Pokedex/TrainerID/Achievements/Helpdesk320px loaded views fit. Focused nullable-guard/dynamic-SQL catalog review found no new confirmed defect in sampled paths;not full security sign-off. Worker60 last-hour successes/0 pending;15 Data API privileges/RLS/invoker contract pass.82 non-writing suites/build31HTML464refs;29 published files match. Recovery/password unchanged,APP unchanged;no new gameplay/backend mutation. See PLAYER-REFLOW-CODEX69.md.
+
+
+CODEX-70 READ-ONLY PASSWORD IMPACT AUDIT COMPLETE:only confirmed manual password consumer is protected local recovery preflight. Frontend,nine deployed Edge Functions and checked sibling MixItUp bridge use HTTPS/API credentials;GitHub repo/Pages environment secrets and variables empty;CLI pooler URL passwordless. No additional postgres client backend or local5432/6543 connection observed. Dormant/remote clients remain outside this bounded check. Current password unchanged;no credential decryption/replacement/native retry/export/reset/restore/production change. See DATABASE-PASSWORD-IMPACT-CODEX70.md.

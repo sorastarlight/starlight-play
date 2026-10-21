@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-70",
+      "status": "done",
+      "scope": "Read-only dependency audit before any owner database-password reset",
+      "evidence": "DATABASE-PASSWORD-IMPACT-CODEX70.md;evidence/database-password-impact-codex70.json",
+      "testResults": "Source/config names for nine deployed functions and sibling bridge;GitHub secret/variable names;masked live connection metadata;standard local-client/environment presence checks. No credential-value or native-auth test.",
+      "nextAction": "Report impact. Password remains unchanged;reset and native credential replacement/access need separate explicit owner instruction.",
+      "approvalRequirement": "Read-only audit approved. No password reset,rotation,credential replacement or recovery resume implied."
+    },
+    {
       "id": "CODEX-69",
       "status": "done",
       "scope": "Rankings narrow-grid correction,broader responsive acceptance and read-only launch operations",

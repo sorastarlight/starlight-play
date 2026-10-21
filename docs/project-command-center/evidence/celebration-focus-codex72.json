@@ -1,0 +1,35 @@
+{
+  "classification": "REAL DOM isolated local preview plus LOCAL HARNESS;no account/backend connected",
+  "baseline": {
+    "origin": "hosted milestone preview",
+    "finding": "Tab from Continue eventually focuses background Preview level 2 while popup remains visible"
+  },
+  "corrected": {
+    "origin": "http://127.0.0.1:8769/tools/milestone-review.html",
+    "level": [
+      "initial Continue focus",
+      "Tab/Tab/Shift+Tab remain on Continue",
+      "Escape restores Preview level 2",
+      "background controls absent from accessibility tree while modal open"
+    ],
+    "achievement": [
+      "reduced-motion preview",
+      "Tab/Shift+Tab remain on Continue",
+      "Continue restores Preview Pokemon Trader"
+    ],
+    "screenshot": "celebration-focus-codex72.png"
+  },
+  "harnessCases": 9,
+  "regressionSuites": 83,
+  "build": {
+    "html": 31,
+    "references": 464,
+    "app": "20261008-rc133"
+  },
+  "hostedFixVerified": false,
+  "limitations": [
+    "Local browser preview only;frontend fix not deployed",
+    "Not physical mobile/browser zoom or screen-reader certification",
+    "Native ribbon dialog browser-chrome focus behavior was not treated as a product defect"
+  ]
+}

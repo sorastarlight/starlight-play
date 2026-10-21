@@ -4,6 +4,30 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-73",
+      "status": "blocked",
+      "scope": "Separate security permission correction prepared locally",
+      "dependencies": [
+        "CODEX-72"
+      ],
+      "evidence": "Local reviewed packet;not published pending remediation",
+      "testResults": "14 REAL LOCAL SQL checks;fictional data only",
+      "nextAction": "Await explicit owner installation decision;continue independent authorized work",
+      "approvalRequirement": "Production SQL/grants require explicit owner decision per streamlink-project.mdc"
+    },
+    {
+      "id": "CODEX-72",
+      "status": "done",
+      "scope": "Shared celebration keyboard containment and reset cleanup",
+      "dependencies": [
+        "CODEX-71"
+      ],
+      "evidence": "CELEBRATION-FOCUS-CODEX72.md;evidence/celebration-focus-codex72.json",
+      "testResults": "REAL DOM isolated local level/achievement;9 actual-source harness cases;83 suites/build pass",
+      "nextAction": "Feature branch only;hosted publication/acceptance remains separate",
+      "approvalRequirement": "Routine local frontend maintenance authorized;no deployment/backend/gameplay"
+    },
+    {
       "id": "CODEX-71",
       "status": "done",
       "scope": "Actual bounded logical recovery drill and password-reset service verification",

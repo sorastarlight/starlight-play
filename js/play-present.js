@@ -513,7 +513,28 @@
 
   function bindBlockingKeys(stage, onContinue, onSkip) {
     const d = doc();
+    // aria-modal describes the dialog to assistive technology; it does not
+    // prevent keyboard focus from reaching the page behind this custom modal.
+    const background = Array.from(d?.body?.children || []).filter((el) => el !== overlayEl && !el.inert);
+    background.forEach((el) => { el.inert = true; });
+    const focusable = () => Array.from(stage.querySelectorAll(
+      'button, a[href], input, select, textarea, [tabindex]'
+    )).filter((el) => el.tabIndex >= 0 && !el.matches(':disabled') && !el.closest('[hidden], [inert]') && el.getClientRects().length);
+    const focusInside = () => (focusable()[0] || stage).focus({ preventScroll: true });
+    const onFocus = (event) => {
+      if (!stage.contains(event.target)) focusInside();
+    };
     const onKey = (event) => {
+      if (event.key === "Tab") {
+        const targets = focusable();
+        const first = targets[0], last = targets[targets.length - 1];
+        if (!targets.includes(d.activeElement) ||
+            (event.shiftKey ? d.activeElement === first || d.activeElement === stage : d.activeElement === last)) {
+          event.preventDefault();
+          (event.shiftKey ? last || stage : first || stage).focus({ preventScroll: true });
+        }
+        return;
+      }
       if (event.key === "Escape") {
         event.preventDefault();
         (onSkip || onContinue)();
@@ -525,7 +546,12 @@
       }
     };
     d?.addEventListener("keydown", onKey);
-    return () => d?.removeEventListener("keydown", onKey);
+    d?.addEventListener("focusin", onFocus);
+    return () => {
+      d?.removeEventListener("keydown", onKey);
+      d?.removeEventListener("focusin", onFocus);
+      background.forEach((el) => { el.inert = false; });
+    };
   }
 
   function continueHtml(label) {
@@ -1235,10 +1261,9 @@
     env.preview = false;
     const stop = settlePanel;
     settlePanel = null;
-    closeBlocking();
     if (stop) {
       try { stop(); } catch (_) {}
-    }
+    } else closeBlocking();
     if (allSeen) {
       seenMem.clear();
       try { root.sessionStorage?.removeItem(SEEN_KEY); } catch (_) {}

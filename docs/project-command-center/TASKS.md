@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-73 | blocked | Separate security permission correction | CODEX-72 | Owner SQL decision pending | Local packet tested;hold hosted changes |
+| CODEX-72 | done | Celebration keyboard containment | CODEX-71 | Routine frontend/local acceptance | Local DOM+9 harness cases;83 suites;feature branch only |
 | CODEX-71 | done | Actual isolated logical recovery and service health | CODEX-65/70 | Existing bounded recovery approval;owner-managed reset | PASS;retain private artifacts;see RECOVERY-DRILL-CODEX71.md |
 | CODEX-42 | done | Legacy route/schema retirement and conservative WIRE evolution | CODEX-40/41 | Explicit cleanup/routes/evolution | Installed and verified; recovery archives retained; see execution report |
 | CODEX-41 | done | Approved110 archive/removal | CODEX-40 | Explicit reviewed packet | Complete; private recovery retained |
@@ -237,3 +239,6 @@ CODEX-70 READ-ONLY PASSWORD IMPACT AUDIT COMPLETE:only confirmed manual password
 
 
 CODEX-71 COMPLETE (October21): owner reset the database password and updated the protected helper credential. Actual bounded logical export/isolated PG17 restore passed:111 table projections/digests,585 functions,143 relations,56 policies,322 indexes,30 triggers and444 constraints verified. One exact PG17 CHECK parenthesization difference is archive-confirmed and passes49 boundary/NULL cases;default owner-only ACL representation normalized narrowly.31 omitted table data sets remain empty. Private artifacts retained outsideGit,user+SYSTEM ACL;runtime stopped. Auth/DataAPI HTTP200 and actual EmailQA Inventory pass. Physical restore/full Auth service recovery remain unverified;no new gameplay,hosted SQL,spending or APP stamp. See RECOVERY-DRILL-CODEX71.md.
+
+
+CODEX-72 COMPLETE LOCALLY:celebration keyboard background-focus leak reproduced in hosted isolated preview;shared modal now contains Tab/Shift+Tab,isolates background and cleans up focus/inert state on reset/dismissal. REAL DOM local level/achievement with reduced-motion setting pass;9 actual-source harness cases,83 nonwriting suites/build31HTML464refs pass. Feature branch only;no hosted deploy/SQL/gameplay/APPstamp. CODEX-73 separate important security permission decision requested for tested local packet;details remain local pending remediation.

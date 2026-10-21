@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-37 | done | Approved bounded catch batch and one-event delivery proposal | CODEX-36 | Explicit up to10;stop first catch | Stopped3:2 escapes/1 catch;WIRE/stamp/queue verified;HP formatter bug open;delivery not approved |
 | CODEX-36 | done | Approved EmailQA retry: ordinary escape/economy verification | CODEX-35 | Explicit one replacement/one throw | Escape path verified;1 debit/1 attendance ball;0 catch/events; further encounters require new allowance |
 | CODEX-35 | done | Approved single shared encounter attempt, incomplete player smoke | CODEX-34 | Explicit one encounter/one EmailQA throw | Allowance spent;0 participants/throws/catches; needs QA sign-in and explicit replacement approval |
 | CODEX-34 | done | Targeted launch security hardening/readiness packet | CODEX-33 | Owner: proceed in launch order autonomously | R1/R2/recorded R18 fixed live;33 local SQL/77 suites/build pass; shared gameplay decision pending |

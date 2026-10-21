@@ -1,0 +1,50 @@
+[
+  {
+    "id": "875c6f48-60b3-42c8-b540-370407839281",
+    "dex": 10,
+    "round_id": "a4716fd6-2b68-42bf-93f7-07a75e27b2fc",
+    "source_key": "play:a4716fd6-2b68-42bf-93f7-07a75e27b2fc:15372f80-c560-4486-bf68-e997a73ac2b8",
+    "server_inserted_at": "2026-10-21 01:53:33.408818+00",
+    "caught_at": "2026-10-21 01:53:33.267993+00",
+    "level": 6,
+    "content_build": "sl-ref-20261013-227b573",
+    "nature_id": 5,
+    "ability_id": 19,
+    "move_slots": [
+      {
+        "pp": 35,
+        "name": "tackle",
+        "ppMax": 35,
+        "method": "level-up",
+        "moveId": 33,
+        "versionGroup": "sword-shield"
+      },
+      {
+        "pp": 40,
+        "name": "string-shot",
+        "ppMax": 40,
+        "method": "level-up",
+        "moveId": 81,
+        "versionGroup": "sword-shield"
+      }
+    ],
+    "iv_hp": 20,
+    "iv_atk": 4,
+    "iv_def": 12,
+    "iv_spa": 7,
+    "iv_spd": 9,
+    "iv_spe": 23,
+    "ev_hp": 0,
+    "ev_atk": 0,
+    "ev_def": 0,
+    "ev_spa": 0,
+    "ev_spd": 0,
+    "ev_spe": 0,
+    "av_hp": 0,
+    "av_atk": 0,
+    "av_def": 0,
+    "av_spa": 0,
+    "av_spd": 0,
+    "av_spe": 0
+  }
+]

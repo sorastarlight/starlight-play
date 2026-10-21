@@ -1,0 +1,51 @@
+[
+  {
+    "at": "2026-10-21 01:54:30.426658+00",
+    "outbox": [
+      {
+        "status": "pending",
+        "attempts": 0,
+        "catch_id": "875c6f48-60b3-42c8-b540-370407839281",
+        "enqueued_at": "2026-10-21T01:53:33.460645+00:00",
+        "delivered_at": null
+      }
+    ],
+    "events": 0,
+    "finite_eligible_stamp": true,
+    "director": {
+      "status": "OFFLINE",
+      "has_queue": false,
+      "manual_hold": true,
+      "session_active": false,
+      "next_encounter_at": null
+    },
+    "inventory": {
+      "pokeball": 7,
+      "greatball": 5,
+      "ultraball": 3
+    },
+    "item_ledger": [
+      {
+        "at": "2026-10-21T01:48:38.745835+00:00",
+        "item": "pokeball",
+        "amount": -1,
+        "reason": "BAG_SPEND",
+        "source_id": null
+      },
+      {
+        "at": "2026-10-21T01:50:53.542574+00:00",
+        "item": "pokeball",
+        "amount": -1,
+        "reason": "BAG_SPEND",
+        "source_id": null
+      },
+      {
+        "at": "2026-10-21T01:53:17.347802+00:00",
+        "item": "pokeball",
+        "amount": -1,
+        "reason": "BAG_SPEND",
+        "source_id": null
+      }
+    ]
+  }
+]

@@ -6,6 +6,7 @@
 | R2 | **CLOSED for current admin catalog** | CODEX-34 revoked PUBLIC/anon on84 functions;0 anonymous admin functions verified. Future/non-admin RPCs require review. |
 | R18 | **CLOSED for recorded four legacy tools** | CODEX-34 requires owner/admin staff-edit permission for Pass/Bits/Oak QA/Pass QA; roles unchanged. Wider audit remains separate. |
 | R21 | **CLOSED** | `admin_identity_inspect` fingerprint `e9091c0de1b91e67a62bade78cf8edde`, STABLE, no `evaluate_cosmetics`. |
+| R-PC-STATS | **OPEN — LAUNCH DISPLAY BUG** | CODEX-37 actual My PC HP23 vs stored WIRE HP22. Shared catch_json still uses LGPE formula for all rows. Preserve stored catches/legacy behavior; prepare focused read correction. See SHARED-QA-CATCH-BATCH.md. |
 | R-UI-DUP | **MITIGATED in preview** | Duplicate grant deep-link removed from Trainers tab. Legacy still has two grant desks. |
 | R-UI-OVERLAP | **MITIGATED in preview** | Viewport-only 960px + `minmax(280px,360px)` caused directory/QA overlap at 100% zoom. Container query on `.admin-next-trainers-panel` now switches at 920px of available trainer width. |
 | R-UI-DENSITY | **MITIGATED in preview** | Directory rows no longer stretch full panel width. Browse and inspect share 300px cards. Dossier sections use `--admin-next-section-gap: 16px`. |

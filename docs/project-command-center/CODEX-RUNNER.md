@@ -1,5 +1,7 @@
 # Codex runner trial
 
+CODEX-37,2026-10-20: owner approved up to10 ordinary shared EmailQA encounters with first-catch/error/session/other-participant stop. Stopped after3 at first natural Caterpie catch. WIRE/stamp/queue admission verified; no further encounters implied. One outbox event remains pending. Delivery packet prepared/tested locally only. New My PC stat formatter mismatch is open. See SHARED-QA-CATCH-BATCH.md; no delivery/reconciliation/scheduling/reset/stamp/spending authorization.
+
 CODEX-36 current scope,2026-10-20: owner approved one replacement shared encounter/one EmailQA throw. Completed with natural escape, correct owned-ball debit plus normal attendance reward,0 catch/events and no schedule. The replacement allowance is spent. Further encounters, successful-catch proof, delivery and broader D86 actions remain separate; see SHARED-QA-ENCOUNTER-RETRY.md.
 
 CODEX-35 current gameplay scope,2026-10-20: owner approved one shared encounter/one EmailQA throw. One encounter launched; browser identity changed to owner before join, so0 player actions. Canonical empty-round expiry closed it. Allowance spent; replacement needs EmailQA sign-in and fresh one-encounter approval. No schedule/delivery/reset/stamp. See SHARED-QA-ENCOUNTER-ATTEMPT.md. Earlier pending-decision statements below are historical.

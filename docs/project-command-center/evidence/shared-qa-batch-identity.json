@@ -1,0 +1,14 @@
+[
+  {
+    "id": "a4716fd6-2b68-42bf-93f7-07a75e27b2fc",
+    "encounter_gender": "Female",
+    "displayed_gender": "Female",
+    "displayed_level": "6",
+    "catch_id": "875c6f48-60b3-42c8-b540-370407839281",
+    "catch_gender": "Female",
+    "catch_level": 6,
+    "catch_variant": "normal",
+    "encounter_variant": "normal",
+    "ruleset_id": "streamlink-gen9-xgen"
+  }
+]

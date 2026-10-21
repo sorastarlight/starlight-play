@@ -5,8 +5,8 @@ Current October20,2026 EDT. Existing command-center checklist; not a new queue o
 | Order | Objective | Exit criteria/status |
 |---|---|---|
 |1|Security|R1/R2/four legacy R18 endpoints remediated/catalog-verified in CODEX-34. Wider advisor triage remains; not a blanket sign-off.|
-|2|Hosted gameplay|CODEX-36 approved retry verified real EmailQA join/no item/one owned ball/natural escape. One debit plus normal attendance reward,0 catches/events, no next schedule. Successful hosted catch/WIRE/stamp and remaining gameplay still unverified; further encounters need a new allowance. See SHARED-QA-ENCOUNTER-RETRY.md.|
-|3|Familiarity delivery|Recording/WIRE active; Pokédex display published. Hosted eligible catch/bounded delivery and reliable operation needed before advertising live progress. Delivery/scheduling separate. My PC display planned.|
+|2|Hosted gameplay|CODEX-37 batch stopped at first catch after3: two escapes/one Caterpie, WIRE/stamp/outbox admission verified. My PC/Pokédex catch visible. Open HP23-vs22 shared formatter bug; other gameplay checks remain. No further encounters implied.|
+|3|Familiarity delivery|One actual QA Caterpie entry pending. Concrete one-event packet passed38 local SQL checks/read-only hosted preflight; delivery not approved/applied. No scheduler. Actual authenticated pending display verified; My PC Familiarity display planned.|
 |4|Twitch policy|New one-link policy disabled; no separate provider identity available. Defer new restriction until actual provider QA/intent/exception workflow and rollout decision. Do not borrow protected identity.|
 |5|Staff actions|QA gift delivery, Pass override/regrant/history and permission/audit/replay checks. Legacy Pass QA grants to actor: never test success with an owner session.|
 |6|Player acceptance|Core desktop/mobile/error/loading/keyboard/zoom/motion paths and final owner review. No gym earning system, later-gen exposure or retired frames.|

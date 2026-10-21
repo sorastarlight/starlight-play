@@ -117,6 +117,37 @@ module.exports = async function run({db,db2,query,value,snapshot,round,settle,TR
     await mustReject('DELETE FROM public.species_mastery_events',[],'42501');
   } finally { await query('RESET ROLE'); }
   pass('Security-invoker view/RLS isolate synthetic trainers; authenticated cannot deliver, reconcile or delete events');
+  // Rehearse the concrete one-event proposal with fictional identities only.
+  await query('BEGIN');
+  try {
+    const proposalCatch=await catchOne(true);
+    const localRound=(await value('SELECT round_id FROM public.catches WHERE id=$1',[proposalCatch])).round_id;
+    const cutoff=(await value('SELECT activated_at::text cutoff FROM private.species_mastery_activation WHERE singleton')).cutoff;
+    let proposal=require('node:fs').readFileSync(require('node:path').join(__dirname,'../docs/project-command-center/evidence/familiarity-one-event-proposal.sql'),'utf8')
+      .replace(/^begin;\s*$/m,'').replace(/^commit;\s*$/m,'')
+      .replaceAll('875c6f48-60b3-42c8-b540-370407839281',proposalCatch)
+      .replaceAll('15372f80-c560-4486-bf68-e997a73ac2b8',TRAINER)
+      .replaceAll('a4716fd6-2b68-42bf-93f7-07a75e27b2fc',localRound)
+      .replaceAll('2026-10-20T16:55:59.896904Z',cutoff).replaceAll('dex=10','dex=1');
+    async function rejectProposal(sql,pattern){
+      await query('SAVEPOINT proposal_case');let error;
+      try{await query(sql);}catch(e){error=e;}
+      await query('ROLLBACK TO SAVEPOINT proposal_case');await query('RELEASE SAVEPOINT proposal_case');
+      assert(error&&pattern.test(error.message),'Proposal did not reject expected condition: '+String(error));
+    }
+    await rejectProposal(proposal.replaceAll(TRAINER,'bbbbbbbb-0032-4032-8032-000000000032'),/QA identity changed/);
+    pass('One-event proposal rejects wrong trainer before delivery');
+    await query('SAVEPOINT extra_pending');await catchOne(true);
+    await rejectProposal(proposal,/Pending scope changed/);await query('ROLLBACK TO SAVEPOINT extra_pending');
+    pass('One-event proposal rejects additional pending scope');
+    await rejectProposal(proposal.replace('c3e2401751521a93e3c98bd858e1cae9','00000000000000000000000000000000'),/Worker drift/);
+    pass('One-event proposal rejects worker fingerprint drift');
+    const preProposal=await snapshot(),preEvents=await count();await query(proposal);
+    assert(await count()===preEvents+1,'One-event proposal count mismatch');await unchanged(preProposal);
+    pass('Concrete one-event proposal delivers only expected fictional catch and preserves gameplay state');
+    await rejectProposal(proposal,/Pending scope changed|Already delivered/);assert(await count()===preEvents+1,'Proposal replay added an event');
+    pass('Completed one-event proposal refuses a second execution');
+  } finally {await query('ROLLBACK');}
   return {events:await count(),progress:await progress(),statuses:(await query('SELECT status,count(*)::int rows,max(attempts) max_attempts FROM private.species_mastery_outbox GROUP BY status ORDER BY status')).rows,
     limitations:['Pause/resume states are local fixtures, not lifecycle operator-function tests.','auth.uid is a synthetic local claim fixture, not a real Supabase login.','No live delivery or queue modification.']};
 };

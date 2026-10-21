@@ -1,3 +1,7 @@
+## CODEX-37 — Bounded hosted catch batch (2026-10-20 EDT)
+
+Explicit max10 approval stopped after3 at first natural catch:2 Bulbasaur escapes,1 Caterpie catch875c6f48-60b3-42c8-b540-370407839281. Actual EmailQA UI, no items, one owned ball each, no other participants.3 debit ledger rows;balance7/5/3. WIRE fields/finite stamp/one pending outbox verified;real PC/Pokédex caught display verified. Found shared catch_json LGPE stat bug(HP23 vs stored22);risk open. Prepared exact one-event delivery packet,38 local SQL checks and read-only hosted preflight pass;no delivery run. No further encounter/schedule/reset/stamp/spending. See SHARED-QA-CATCH-BATCH.md.
+
 ## CODEX-36 — Approved EmailQA retry (2026-10-20 EDT)
 
 Verified actual EmailQA UI immediately before launch. Approved replacement round02fadd5c-7493-4570-9e3f-eabd6fed706a ran01:39:14–01:41:02 UTC: join, no item, one owned Poké Ball, natural escape. One capture log/chance0.16/roll0.76178958501729;0 catches/other participants/Familiarity events/outbox. Ledger BAG_SPEND-1 then normal STREAM_ATTENDANCE+1;balance10/5/3. No operator refund, cancellation, schedule, reset, delivery or stamp. Single replacement allowance spent; no further encounter approved. See SHARED-QA-ENCOUNTER-RETRY.md.

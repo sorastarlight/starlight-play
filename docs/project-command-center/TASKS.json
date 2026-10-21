@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-37",
+      "status": "done",
+      "scope": "Approved bounded hosted catch batch;one-event delivery proposal",
+      "dependencies": [
+        "CODEX-36"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "SHARED-QA-CATCH-BATCH.md;evidence/shared-qa-batch-final.json",
+      "testResults": "PRODUCTION3 ordinary throws:2 escapes/1 catch;WIRE/stamp/outbox;real PC/Pokedex;38 LOCAL SQL proposal/regr checks;read-only hosted guard preflight",
+      "nextAction": "Fix LGPE shared formatter on WIRE rows;one-event delivery awaits separate approval",
+      "approvalRequirement": "Batch stops at first catch, now ended;no delivery/scheduler/reset/stamp/spending"
+    },
+    {
       "id": "CODEX-36",
       "status": "done",
       "scope": "Approved EmailQA replacement encounter: ordinary escape/economy verified",

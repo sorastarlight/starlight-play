@@ -1,0 +1,49 @@
+[
+  {
+    "audit": {
+      "schemaCreate": {
+        "anonPublic": false,
+        "authPublic": false
+      },
+      "catchPolicies": [
+        {
+          "cmd": "SELECT",
+          "qual": "(user_id = ( SELECT auth.uid() AS uid))",
+          "roles": [
+            "authenticated"
+          ],
+          "tablename": "catches",
+          "permissive": "PERMISSIVE",
+          "policyname": "users can read own catches",
+          "schemaname": "public",
+          "with_check": null
+        },
+        {
+          "cmd": "SELECT",
+          "qual": "(user_id = ( SELECT auth.uid() AS uid))",
+          "roles": [
+            "authenticated"
+          ],
+          "tablename": "inventories",
+          "permissive": "PERMISSIVE",
+          "policyname": "users can read own inventory",
+          "schemaname": "public",
+          "with_check": null
+        },
+        {
+          "cmd": "SELECT",
+          "qual": "(id = ( SELECT auth.uid() AS uid))",
+          "roles": [
+            "authenticated"
+          ],
+          "tablename": "profiles",
+          "permissive": "PERMISSIVE",
+          "policyname": "users can read own profile",
+          "schemaname": "public",
+          "with_check": null
+        }
+      ],
+      "mutablePublicDefiners": null
+    }
+  }
+]

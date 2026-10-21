@@ -2074,3 +2074,5 @@ CODEX-62 COMPLETE: approved one-gift/one-GTS-swap executed through real actor se
 Post-GTS presentation maintenance: shared achievement reward label Badge changed to Ribbon,matching established separation from Gym Badges.19 presenter/7RC129 checks and build31HTML/424refs pass;no server/storage/APP change. Hosted received Caterpie PC display verified;no further gameplay submitted.
 
 CODEX-63: owner requested two milestone popup redesigns. Shared level medallion/achievement seal,reward cards,duplicate copy removal,ribbon imports added.38 checks/build31/463 pass,APPunchanged. Isolated DOM previews only;no new XP/gift/gameplay. See MILESTONE-CELEBRATIONS-CODEX63.md.
+
+CODEX-64:actual GTS/Inventory responsive390/768/1280 allfit;LinkingCordsearch/detail pass,noitemuse. Caller/own-row/select-only RLS/publicCREATEdenial review no new confirmed authorization flaw. Latest backup still07:44:55UTC;0Storageobjects;3activecronjobs. Official physicalclone documentation says copiedjobs run immediately,so no clone initiated. Local logical drill proposal prepared;private export/restore method decision held. No gameplay/SQLmutation/reset/stamp/spending.

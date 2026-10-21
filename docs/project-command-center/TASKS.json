@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-64",
+      "status": "done",
+      "scope": "Additional read-only security,actual player responsive acceptance and recovery review",
+      "evidence": "LAUNCH-ACCEPTANCE-CODEX64.md;evidence/security64-readonly.json",
+      "testResults": "Actual authenticated GTS/Inventory390/768/1280 fit;Inventorysearch/LinkingCorddetail fit without use. Read-only ownership/RLS/schemaCreate review no new confirmed defect. Dashboard latest backup07:44:55UTC;three active jobs;no Storageobjects.",
+      "nextAction": "Recovery-drill method/private local export decision required;no restore/export/spending performed. Wider security/device/provider/final-release limits remain.",
+      "approvalRequirement": "Local private production/Auth data copy and restore method require explicit owner decision."
+    },
+    {
       "id": "CODEX-63",
       "status": "done",
       "scope": "Owner-requested level-up and achievement fanfare redesign",

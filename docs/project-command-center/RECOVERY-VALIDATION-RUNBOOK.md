@@ -40,3 +40,5 @@ Record the chosen recovery point, target/method, actual commands or dashboard st
 Release recovery remains OPEN until this procedure has an actual approved target/method and successful restore evidence. No RPO/RTO guarantee is claimed.
 
 Supabase's [backup documentation](https://supabase.com/docs/guides/platform/backups) explains daily backup restoration/downtime and that Storage object contents are outside database backups. This plan does not enable paid PITR or choose a paid clone.
+
+CODEX-64 current-source correction:physical Restore to New Project can start copied extensions/cron immediately,without pre-start pause. Do not assume a dashboard clone satisfies the isolation gate above. Latest backup reverified07:44:55UTC;still predates10migrations/11packets. See RECOVERY-DRILL-LOCAL-PROPOSAL.md for the pending local logical method/private-data-copy decision.

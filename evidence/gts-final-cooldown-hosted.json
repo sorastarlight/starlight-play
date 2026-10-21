@@ -1,0 +1,42 @@
+{
+  "migration": "20261021142746",
+  "before": {
+    "stats": "6b0c8aab85c7493b2da03a18aeab42f0",
+    "offers": "d751713988987e9331980363e24189ce",
+    "catches": "21f54d7b053f85c7c1adf2133117803b",
+    "function": {
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "owner": "postgres",
+      "config": [
+        "search_path=public"
+      ],
+      "definer": true,
+      "source_md5": "389f4c2ff00d0bf1666380bf6059cf09",
+      "volatility": "v"
+    },
+    "listings": "d751713988987e9331980363e24189ce",
+    "profiles": "bfbe5817881e2e947d0a7855746ebc76",
+    "inventories": "390b74d87514c911afea03f15b098262",
+    "other_functions": "03faf92d2828ac3ed92ad52fe8d0582c"
+  },
+  "after": {
+    "stats": "6b0c8aab85c7493b2da03a18aeab42f0",
+    "offers": "d751713988987e9331980363e24189ce",
+    "catches": "21f54d7b053f85c7c1adf2133117803b",
+    "function": {
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "owner": "postgres",
+      "config": [
+        "search_path=public"
+      ],
+      "definer": true,
+      "source_md5": "cea3f018dac4478dc7d756b430b6e778",
+      "volatility": "v"
+    },
+    "listings": "d751713988987e9331980363e24189ce",
+    "profiles": "bfbe5817881e2e947d0a7855746ebc76",
+    "inventories": "390b74d87514c911afea03f15b098262",
+    "other_functions": "03faf92d2828ac3ed92ad52fe8d0582c"
+  },
+  "verification": "Exact tested source; unchanged attributes, seven dataset/function hashes; no hosted trade test"
+}

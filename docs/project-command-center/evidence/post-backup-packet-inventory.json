@@ -46,6 +46,11 @@
       "version": "20261021142149",
       "path": "supabase/unapplied/showcase-active-ownership/INSTALL.sql",
       "sha256": "012faf7a6455ecf63e54a0be79b05b4dcd29419f62d5818d8a34e7aff1013956"
+    },
+    {
+      "version": "20261021142746",
+      "path": "supabase/unapplied/gts-final-cooldown/INSTALL.sql",
+      "sha256": "be0baaba57dee42b6d17b7f3c3a4bf7f87902fe1152e69c1a345b46796753dcc"
     }
   ]
 }

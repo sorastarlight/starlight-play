@@ -1,5 +1,7 @@
 # CODEX-58 — GTS final acceptance cooldown
 
+Installed with explicit owner approval in migration20261021142746. Exact candidate source MD5 `cea3f018dac4478dc7d756b430b6e778` and unchanged ACL/owner/config/security/volatility verified independently. Profiles, inventories, catches, listings, offers, trainer stats and unrelated function hashes unchanged. No hosted trade test. Evidence:`evidence/gts-final-cooldown-hosted.json`. Preparation notes below are historical.
+
 Prepared, not installed. Hosted source/trigger inspection confirms listing and offer creation already invoke `private.assert_catch_tradable`, which rejects a future trade_locked_until. Final `play_trade_accept(uuid)` locks/rechecks current ownership, transfer state, lock/favorite flags and species tradability, but omits the received-Pokémon cooldown before swapping owners.
 
 REAL LOCAL SQL reproduces a stale queued offer accepted while one/both specimens have a future trade_locked_until. The fixture first creates a valid listing/offer through the captured RPCs with exact initial tradability triggers, then injects the later cooldown state. This demonstrates a missing final invariant, not a hosted exploit or a complete multi-route/concurrency reproduction. Current live catches/offers were not changed or traded.

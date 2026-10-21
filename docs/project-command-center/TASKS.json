@@ -5,12 +5,12 @@
   "tasks": [
     {
       "id": "CODEX-58",
-      "status": "blocked",
+      "status": "done",
       "scope": "Recheck existing received-Pokemon cooldown at final GTS acceptance",
       "evidence": "supabase/unapplied/gts-final-cooldown/README.md; evidence/gts-final-cooldown-local.json",
       "testResults": "14 REAL LOCAL SQL checks pass with exact initial tradability triggers and GTS bodies. Stale queued cooldown bypass reproduced; one-function correction rejects either current cooldown without swap/rewards; normal/replay/protection/role/rollback/drift checks pass.",
-      "nextAction": "Concrete install/rollback ready;request production gameplay-validation decision. No hosted trade test included.",
-      "approvalRequirement": "Explicit SQL/gameplay correction authorization required under streamlink-project.mdc;prepared only."
+      "nextAction": "Explicitly approved migration20261021142746 installed. Exact source/attributes verified;profiles/inventories/catches/listings/offers/stats/unrelated functions unchanged. No hosted trade test;continue remaining launch acceptance and recovery work.",
+      "approvalRequirement": "Approved correction completed;no further hosted trade or economy authority implied."
     },
     {
       "id": "CODEX-57",

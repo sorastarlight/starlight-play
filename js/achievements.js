@@ -20,6 +20,7 @@
     loadGeneration++;
     data = null;
     els.app.hidden = true;
+    window.playCloseRibbonDetail?.();
     for (const node of [els.overview, els.next, els.grid, els.states, els.cats]) {
       if (node) node.innerHTML = "";
     }

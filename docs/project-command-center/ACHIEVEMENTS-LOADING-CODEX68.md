@@ -1,0 +1,9 @@
+# CODEX-68 - Account-safe Achievements loading
+
+Frontend maintenance only. A late navigation/profile/progression response could reopen or replace progress after sign-out or account change. The page now invalidates its cache immediately, closes its ribbon detail, checks each asynchronous response against the current load generation, ignores stale errors, and performs reload work outside the Supabase Auth callback. A real failure has escaped feedback and a Try again button rather than appearing as absent progress.
+
+LOCAL HARNESS: 8 actual-source mocked cases cover signed-out access, late progression, account changes, stale navigation/profile responses, escaped failures/retry, obsolete errors and cleared-cache filter interaction. All 82 non-writing regression suites pass; build validation passes for 31 HTML pages/463 references before any final documentation-only edits. APP remains 20261008-rc133.
+
+REAL DOM: actual hosted EmailQA view shows 2 completed achievements,30 in progress,2 ribbons and2 titles. Search Pokemon Trader finds one completed card with title,History Ribbon and Linking Cord. Its ribbon detail opens;Close restores focus to the triggering ribbon button. A missing search shows the dedicated no-match message;clearing restores68 cards. This is ordinary read/navigation acceptance,not an actual account-switch test or a reward/grant test. Race/failure evidence is mocked locally,not induced in the live account. Screenshot:achievements-codex68.png in the task visualization directory.
+
+The initial frontend correction was published8a9e6338,Pages39654985685 succeeded;28 selected public files matched that source before the final ribbon-close refinement. Final publication equality is recorded separately in evidence/public-launch-publication.json. Database password,Auth settings,progression functions,gameplay and APP stamp unchanged. Sora/Twinkle not targeted;PlayTester role unchanged.

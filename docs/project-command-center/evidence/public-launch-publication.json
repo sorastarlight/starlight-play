@@ -1,0 +1,207 @@
+{
+  "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
+  "checkedAt": "2026-10-21T15:58:35.497Z",
+  "appBuild": "20261008-rc133",
+  "results": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "78ef5b02816558c5cf7313420851056df70ca592a3fd5207fb050db597afaaf7",
+      "publishedSha256": "78ef5b02816558c5cf7313420851056df70ca592a3fd5207fb050db597afaaf7",
+      "matches": true
+    },
+    {
+      "file": "signin.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "b182aaceef4c9e1981a27f591380949db921ed7f5c2ee9179b25b98ea17732a6",
+      "publishedSha256": "b182aaceef4c9e1981a27f591380949db921ed7f5c2ee9179b25b98ea17732a6",
+      "matches": true
+    },
+    {
+      "file": "register.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "c98630383eba5bed379a491790fbf062ab76b0777bb6564e33b8a77bbda391ba",
+      "publishedSha256": "c98630383eba5bed379a491790fbf062ab76b0777bb6564e33b8a77bbda391ba",
+      "matches": true
+    },
+    {
+      "file": "reset-password.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "cd003917e56dfdc3719a66f9c73eec620cd98bc85216af30b9db34a7f5f96595",
+      "publishedSha256": "cd003917e56dfdc3719a66f9c73eec620cd98bc85216af30b9db34a7f5f96595",
+      "matches": true
+    },
+    {
+      "file": "support.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "7e2297fab570637d616b103fc1296ba70ebd12fbcfc78dd5b5d571ed55de73c0",
+      "publishedSha256": "7e2297fab570637d616b103fc1296ba70ebd12fbcfc78dd5b5d571ed55de73c0",
+      "matches": true
+    },
+    {
+      "file": "help.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "4407e95f386d6b5b1a29ab2419c06ae27c57862b5ccacef4a5370f80739dceee",
+      "publishedSha256": "4407e95f386d6b5b1a29ab2419c06ae27c57862b5ccacef4a5370f80739dceee",
+      "matches": true
+    },
+    {
+      "file": "storage.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "bbd78bc639c69ea7acf8eddd263f5b77bebf7722ddaa8c0896d0c6ce1aabb4f7",
+      "publishedSha256": "bbd78bc639c69ea7acf8eddd263f5b77bebf7722ddaa8c0896d0c6ce1aabb4f7",
+      "matches": true
+    },
+    {
+      "file": "pokedex.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "7499d766306ef6593244c98a8a308d277db9875b311f237432c90a3e16bfbb1e",
+      "publishedSha256": "7499d766306ef6593244c98a8a308d277db9875b311f237432c90a3e16bfbb1e",
+      "matches": true
+    },
+    {
+      "file": "inventory.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "9634b26ad4df211137618408d12bc6d3286b33d315ed14c628b6e47c23e23d1d",
+      "publishedSha256": "9634b26ad4df211137618408d12bc6d3286b33d315ed14c628b6e47c23e23d1d",
+      "matches": true
+    },
+    {
+      "file": "settings.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "082377be7fdc583307d7b00085289d648190b55969314bdfe7ff1175a6a7f28b",
+      "publishedSha256": "082377be7fdc583307d7b00085289d648190b55969314bdfe7ff1175a6a7f28b",
+      "matches": true
+    },
+    {
+      "file": "trainer.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "03b8a54225d328c540daec859ef3490b1b7fabd24c1f72af2206df535f8210dc",
+      "publishedSha256": "03b8a54225d328c540daec859ef3490b1b7fabd24c1f72af2206df535f8210dc",
+      "matches": true
+    },
+    {
+      "file": "rankings.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "2990dec24fde6bc5c8edb26780427076a1397b73bf1750d6289c75566fd6e6fa",
+      "publishedSha256": "2990dec24fde6bc5c8edb26780427076a1397b73bf1750d6289c75566fd6e6fa",
+      "matches": true
+    },
+    {
+      "file": "evolve.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "2e1ac3a583a4d09469b350e564738486250545aad809e39ce9e1363ea3192d60",
+      "publishedSha256": "2e1ac3a583a4d09469b350e564738486250545aad809e39ce9e1363ea3192d60",
+      "matches": true
+    },
+    {
+      "file": "store.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "148df0e539acc1a28c83a7ab3e518f10e399aa44ad0354708cceaa151517c0b9",
+      "publishedSha256": "148df0e539acc1a28c83a7ab3e518f10e399aa44ad0354708cceaa151517c0b9",
+      "matches": true
+    },
+    {
+      "file": "trade.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "decc815378162a6c1c41df43964479c4c6a219fb940c4ddfde26ed01b29514b8",
+      "publishedSha256": "decc815378162a6c1c41df43964479c4c6a219fb940c4ddfde26ed01b29514b8",
+      "matches": true
+    },
+    {
+      "file": "events.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "7042170b1f41a35bfaf673bd66766e4a055b1cf2508f6aef7387e57f30f78bf9",
+      "publishedSha256": "7042170b1f41a35bfaf673bd66766e4a055b1cf2508f6aef7387e57f30f78bf9",
+      "matches": true
+    },
+    {
+      "file": "achievements.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "ce9d9d0fab8f55418224758da3dff0e063dc287cc19745192f8ed0fcf6763876",
+      "publishedSha256": "ce9d9d0fab8f55418224758da3dff0e063dc287cc19745192f8ed0fcf6763876",
+      "matches": true
+    },
+    {
+      "file": "admin-next.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "15f82bbe3da66f64251fe1b9b38a919b7fdccfe416233c1216d1b153927c7a1b",
+      "publishedSha256": "15f82bbe3da66f64251fe1b9b38a919b7fdccfe416233c1216d1b153927c7a1b",
+      "matches": true
+    },
+    {
+      "file": "css/play.css",
+      "status": 200,
+      "contentType": "text/css; charset=utf-8",
+      "localSha256": "10438236d2dfdaa2bb8d137dadcac3b27e13bbb89e11e1b13ffbdbf7bf2a1440",
+      "publishedSha256": "10438236d2dfdaa2bb8d137dadcac3b27e13bbb89e11e1b13ffbdbf7bf2a1440",
+      "matches": true
+    },
+    {
+      "file": "js/build.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "9f44b9861a67c5a7bb42fc609498c41c8998f93c2b7162f1d22923ef6dc061f7",
+      "publishedSha256": "9f44b9861a67c5a7bb42fc609498c41c8998f93c2b7162f1d22923ef6dc061f7",
+      "matches": true
+    },
+    {
+      "file": "js/game.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "ebf0ddc3ab42e532bd4c0dba133bf776cfc7ab3f0d30a7034781a04499a37c2a",
+      "publishedSha256": "ebf0ddc3ab42e532bd4c0dba133bf776cfc7ab3f0d30a7034781a04499a37c2a",
+      "matches": true
+    },
+    {
+      "file": "js/auth.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "f632fa369b5204910cc957b4266f9e304a55b608fb027f5502c635831331e52b",
+      "publishedSha256": "f632fa369b5204910cc957b4266f9e304a55b608fb027f5502c635831331e52b",
+      "matches": true
+    },
+    {
+      "file": "js/support.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "1938e0fdf3a78d4180215fbf73ff109ab4bc4a4e1e416a48a58207fb80b787c3",
+      "publishedSha256": "1938e0fdf3a78d4180215fbf73ff109ab4bc4a4e1e416a48a58207fb80b787c3",
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-rewards.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "e1ce816382149bf744c81d5915855cd550c2837ce258c90bfe11e64454dfc3e5",
+      "publishedSha256": "e1ce816382149bf744c81d5915855cd550c2837ce258c90bfe11e64454dfc3e5",
+      "matches": true
+    },
+    {
+      "file": "js/trade.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "73380d67c1605c5c44bdb244df654fbbe303548410c1664fb3b794531b0c32f9",
+      "publishedSha256": "73380d67c1605c5c44bdb244df654fbbe303548410c1664fb3b794531b0c32f9",
+      "matches": true
+    }
+  ]
+}

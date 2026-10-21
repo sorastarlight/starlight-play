@@ -1,5 +1,7 @@
 # Recovery validation before release
 
+Owner accepted daily backups for public launch. Use that accepted loss-window requirement when selecting a recovery point;no shorter-window/PITR requirement is imposed. A completed suitable backup and actual restore evidence remain outstanding. Acceptance of the policy is not authorization to restore or spend.
+
 CODEX-59 preparation, October21,2026. Operator plan only: no restore/export, new project, worker change, DNS, credential entry or spending is authorized by this document. Current project is starlight-play (`dtflmlbjhttoewqgkujf`). Preserve the private legacy archives and existing approved activation cutoffs.
 
 ## Current evidence and limits

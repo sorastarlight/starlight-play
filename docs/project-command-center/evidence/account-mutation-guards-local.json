@@ -1,0 +1,36 @@
+{
+  "classification": "REAL LOCAL SQL with simultaneous transactions;exact captured mutation/helper bodies;fictional auth rows/account response/audit/storage wrappers",
+  "checks": [
+    "Baseline implicit bot conversion disables sole login",
+    "Baseline implicit utility conversion disables sole login",
+    "Baseline concurrent flag updates can disable both remaining logins",
+    "Baseline former owner can rename after concurrent ownership transfer commits",
+    "Guarded two-function correction installs with original helper dependencies",
+    "Implicit bot conversion cannot disable sole login",
+    "Implicit utility conversion cannot disable sole login",
+    "Existing explicit last-login protection retained",
+    "Concurrent flag changes preserve one login under read committed",
+    "Concurrent flag changes preserve one login under repeatable read",
+    "Bot conversion with another login remains available",
+    "Existing password-account fallback still permits utility conversion",
+    "Explicit retained login flag preserves existing behavior",
+    "Foreign identity and anonymous mutation denied",
+    "Owned nickname trim/save/clear preserved",
+    "Nickname validation and anonymous denial preserved",
+    "Former-owner nickname race rejected after transfer lock wait",
+    "Nickname race rejected after release lock wait",
+    "Rollback restores exact two original sources",
+    "Install refuses serialization-helper configuration drift"
+  ],
+  "functions": [
+    {
+      "signature": "play_set_nickname(uuid,text)",
+      "sourceMd5": "22626f4b7f13b465a9ccb0a92fd36543"
+    },
+    {
+      "signature": "play_set_twitch_flags(text,boolean,boolean,text)",
+      "sourceMd5": "a9ad783164e1022dcb846f5884afb663"
+    }
+  ],
+  "limitations": "No hosted identity/nickname mutation,OAuth exchange,email delivery,real JWT/RLS integration or broad concurrency workload."
+}

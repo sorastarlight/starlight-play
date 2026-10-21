@@ -1,0 +1,23 @@
+# CODEX-60 — Account mutation guards
+
+Prepared, not installed. Read-only audit of player-callable mutation bodies found two independent gaps. All reproductions use fictional accounts, connections and catches in a disposable localhost PostgreSQL cluster; no hosted identity, Auth user, nickname or account state was changed.
+
+## Twitch sign-in preservation
+
+`play_set_twitch_flags(text,boolean,boolean,text)` protects the last login only when p_login_enabled is explicitly false. A caller supplying null with connection type bot/utility implicitly disables that login in the second UPDATE without passing the guard. Existing My Account Bot UI sends explicit false, so that particular UI request is already guarded; the public RPC still accepts the implicit bypass. Two concurrent explicit disable requests against two remaining connections also both pass the unlocked count and can leave zero login methods.
+
+The candidate invokes the existing `private.twitch_link_serial(uuid,text)` with the current trainer before evaluating/changing flags. Its written mutex is already used by the disconnect flow and protects stale REPEATABLE READ snapshots with serialization failure. The guard also treats null login_enabled plus bot/utility type as an effective disable. No change to explicit true, password fallback, other-connection eligibility, connection-type list, normal audit payload or return shape. It does not enable the staged one-link policy or alter OAuth provider settings. Serialization may cause a concurrent stale request to fail safely and require the user to retry; do not blindly auto-retry mutations.
+
+## Nickname ownership
+
+`play_set_nickname(uuid,text)` reads an owned active row, then updates by catch ID alone. The baseline local two-session test transfers ownership while the nickname UPDATE waits; after transfer commits, the old owner's update renames the new owner's Pokémon. The candidate adds FOR UPDATE to the existing ownership SELECT. PostgreSQL rechecks the owned/active predicate after a wait; a completed transfer/release rejects the old-owner nickname action. Normal nickname save, clear, length/character validation and response remain unchanged. No nickname data is backfilled or repaired.
+
+## Exact packet and verification
+
+INSTALL.sql/ROLLBACK.sql transactionally replace exactly the two public functions. Both guard exact source/ACL/owner/search_path/security/volatility for the targets and unchanged password-check/login-count/serialization helpers. No grant, table, RLS, Auth credential/session, profile/catch record, reward, provider policy or build-stamp change at installation. Future valid flag operations use the existing mutex bookkeeping, as intended by that helper. On any drift stop; do not regenerate or weaken guards.
+
+Run `node tools/account-mutation-guards-rehearsal.js`:20 REAL LOCAL SQL checks pass, including baseline implicit bot/utility lockouts, concurrent two-login lockout, former-owner nickname race, corrected last-login refusal, concurrent READ COMMITTED/REPEATABLE READ safety, other-login/password/explicit-true compatibility, foreign/anonymous rejection, nickname trim/clear/validation, post-transfer/post-release rejection, exact rollback and helper-drift refusal. Captured password/login-count/serial helper bodies run against fictional auth rows; account response/audit/storage wrappers are simplified fixtures. No live JWT/RLS, actual OAuth disconnect, staff override concurrency or broad workload certification. An initial local install guard refused the fixture's incorrect helper ACL; fixture was corrected to match the captured owner-only ACL before the complete20-check pass. No production installation was attempted.
+
+Caller trace: My Account (`js/settings.js`) calls flag mutation; My PC (`js/storage.js`) calls nickname mutation. `play_finish_twitch_disconnect` already calls the serial helper with its default second parameter; full helper identity is `(uuid,text)`, not a separate `(uuid)` overload. The proposal does not modify disconnect or helper code.
+
+Evidence:`docs/project-command-center/evidence/account-mutation-guards-local.json`, captured baseline.json and serial-dependency.json. Proposed hosted scope: recheck guards, capture protected data/source hashes, install two replacements, independently verify source/attributes and unchanged player/connection/identity/mutex/audit state. No hosted flag/nickname/gameplay test, account unlink, password handling, session revoke or spending is included. Production installation requires the explicit SQL/account-authority decision in `.cursor/rules/streamlink-project.mdc`.

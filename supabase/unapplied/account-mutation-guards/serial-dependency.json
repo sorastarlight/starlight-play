@@ -1,0 +1,12 @@
+{
+  "signature": "private.twitch_link_serial(uuid,text)",
+  "definition": "CREATE OR REPLACE FUNCTION private.twitch_link_serial(p_user uuid, p_id text DEFAULT NULL::text)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\nBEGIN\n  -- A written mutex row makes REPEATABLE READ races fail with serialization\n  -- errors instead of allowing a count from a stale snapshot after a lock wait.\n  INSERT INTO private.twitch_link_mutex(key) VALUES('user:'||p_user::text)\n    ON CONFLICT(key) DO UPDATE SET revision=private.twitch_link_mutex.revision+1;\n  IF p_id IS NOT NULL THEN\n    INSERT INTO private.twitch_link_mutex(key) VALUES('identity:'||p_id)\n      ON CONFLICT(key) DO UPDATE SET revision=private.twitch_link_mutex.revision+1;\n  END IF;\nEND;\n$function$\n",
+  "source_md5": "bd33762ce70084cd40477d17d5a07271",
+  "acl": "{postgres=X/postgres}",
+  "proconfig": [
+    "search_path=pg_catalog"
+  ],
+  "security_definer": true,
+  "volatility": "v",
+  "owner": "postgres"
+}

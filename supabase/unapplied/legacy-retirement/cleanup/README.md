@@ -1,6 +1,6 @@
-# CODEX-41 — Proposal only: all 110 legacy Pokémon
+# CODEX-41 — Approved cleanup executed: all 110 legacy Pokémon
 
-The owner approved including all 110 specimens in this proposal, including Sora's 95. **Execution is not authorized and neither SQL packet has been applied.** Do not infer permission from the enclosing dependency-removal migration, which is a separate completed operation.
+Owner subsequently approved reviewed cleanup/recovery scope. ARCHIVE_AND_REMOVE.sql was applied unchanged as migration20261021030704; do not rerun it. RESTORE.sql was not needed or executed. The proposal wording below records the reviewed operation; see docs/project-command-center/LEGACY-CLEANUP-EXECUTION.md for verified outcome. No archive purge or further mutation is implied.
 
 ## Exact proposed operation
 

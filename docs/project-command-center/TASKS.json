@@ -5,17 +5,17 @@
   "tasks": [
     {
       "id": "CODEX-41",
-      "status": "prepared",
-      "scope": "All110 legacy specimens, including Sora95: private archive/removal and selective-restore proposal",
+      "status": "done",
+      "scope": "Approved private archive/removal of all110 legacy specimens and scoped linked data",
       "dependencies": [
         "CODEX-40"
       ],
       "branch": "admin-hub-overhaul",
       "commit": null,
-      "evidence": "supabase/unapplied/legacy-retirement/cleanup/README.md; evidence/legacy-cleanup-local-result.json; evidence/legacy-cleanup-manifest.json",
-      "testResults": "19 REAL LOCAL SQL checks; exact specimen/linked-row restoration, pointer recovery, source/tamper/replay/concurrency guards; syntax/build checks",
-      "nextAction": "Obtain separate reviewed-packet execution decision; no live cleanup or archive tables installed",
-      "approvalRequirement": "Owner approved including all110 in proposal only; deletion of protected specimens/open listing and pointer changes still need execution authorization"
+      "evidence": "supabase/unapplied/legacy-retirement/cleanup/README.md; evidence/legacy-cleanup-local-result.json; evidence/legacy-cleanup-manifest.json;LEGACY-CLEANUP-EXECUTION.md;evidence/legacy-cleanup-hosted-verification.json",
+      "testResults": "19 REAL LOCAL SQL checks; exact specimen/linked-row restoration, pointer recovery, source/tamper/replay/concurrency guards; syntax/build checks;production exact archive/survivor hashes,0 stale pointers,actual QA PC pass",
+      "nextAction": "Cleanup complete; retain private recovery archive. Continue CODEX-40 fallback/schema retirement within separate reviewed scope.",
+      "approvalRequirement": "Explicit reviewed cleanup/recovery approval spent by migration20261021030704; no further destructive scope"
     },
     {
       "id": "CODEX-40",
@@ -28,7 +28,7 @@
       "commit": null,
       "evidence": "LEGACY-DATA-RETIREMENT.md",
       "testResults": "14 REAL LOCAL SQL;78 regression suites;build31/423;read-only reference/dependency inventory;migration20261021023001;117 specimen hash unchanged;actual EmailQA PC pass;attributes unchanged",
-      "nextAction": "CODEX-41 archive/removal packet tested; execution held. Learnset/fallback and column/table retirement remain.",
+      "nextAction": "CODEX-41 archival/removal complete. Prepare remaining learnset/WIRE-off fallback and AV-column/table retirement; do not purge recovery archive.",
       "approvalRequirement": "Cleanup requested; irreversible deletion/conversion requires concrete scoped owner decision"
     },
     {

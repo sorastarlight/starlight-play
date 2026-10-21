@@ -1,0 +1,57 @@
+[
+  {
+    "verification": {
+      "run": {
+        "status": "archived",
+        "created_at": "2026-10-21T03:07:04.988225+00:00",
+        "archive_integrity_ok": true
+      },
+      "director": {
+        "held": true,
+        "next": null,
+        "queued": null,
+        "status": "OFFLINE",
+        "session_active": false
+      },
+      "migration": "20261021030704",
+      "archive_acl": [
+        {
+          "rls": true,
+          "table": "legacy_retirement_runs",
+          "anon_select": false,
+          "auth_select": false
+        },
+        {
+          "rls": true,
+          "table": "legacy_retirement_rows",
+          "anon_select": false,
+          "auth_select": false
+        }
+      ],
+      "history_links": {
+        "candy_specimens": 63,
+        "evolution_specimens": 30
+      },
+      "archive_counts": {
+        "catches": 110,
+        "oak_transfers": 55,
+        "trade_listings": 1,
+        "profile_pointers": 2
+      },
+      "archived_specimens": {
+        "hash": "47123088724a5f1b56e2217df4dcedf7",
+        "count": 110
+      },
+      "remaining_oak_links": 0,
+      "remaining_specimens": {
+        "hash": "63b6a3794b396c66107e6ae7d35a2824",
+        "count": 7,
+        "legacy_count": 0
+      },
+      "profile_after_matches": true,
+      "catch_triggers_enabled": true,
+      "remaining_profile_refs": 0,
+      "remaining_listing_links": 0
+    }
+  }
+]

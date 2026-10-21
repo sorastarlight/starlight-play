@@ -1,5 +1,7 @@
 # Codex runner trial
 
+CODEX-41 current completion,2026-10-20 EDT: owner approved reviewed52f7621b cleanup/recovery. Migration20261021030704 archived/retired all110 (Sora95,PlayTester12,Twinkle3),55 Oak rows,1 listing and2 pointer sets. All7 WIRE specimens/economy/history preserved. Recovery not needed. Earlier proposal-held statements are historical; no further protected mutation/purge/gameplay authority follows. See LEGACY-CLEANUP-EXECUTION.md.
+
 CODEX-41 current scope,2026-10-20 EDT: owner approved including all110 legacy specimens, including Sora95, in the archive/removal proposal only. Proposal and exact selective restore prepared;19 REAL LOCAL SQL checks pass. No production removal/archive/schema change authorized by this scope decision. Execution needs the reviewed packet decision; see supabase/unapplied/legacy-retirement/cleanup/README.md.
 
 CODEX-38/39,2026-10-20: owner approved one-event delivery only; Caterpie event delivered and actual Pokédex Familiar1 verified. Allowance spent; no reconciliation/scheduler/further encounters. Separate shared WIRE-stat read patch prepared and locally tested, not installed; see FAMILIARITY-ONE-EVENT-DELIVERY.md and WIRE-STAT-FORMATTER-FIX.md. The frontend missing-stat display is routine maintenance; no SQL authority follows from its publication.

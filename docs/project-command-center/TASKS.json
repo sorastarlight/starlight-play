@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-52",
+      "status": "done",
+      "scope": "Owner-directed optional Living Dex: last-copy Oak transfers and releases with confirmation warnings",
+      "evidence": "supabase/unapplied/optional-living-dex/README.md;evidence/optional-living-dex-local.json;evidence/optional-living-dex-hosted.json;evidence/optional-living-dex-regressions.json",
+      "testResults": "14 REAL LOCAL SQL checks;79 regression suites/build pass. Hosted migration20261021132411 source/ACL/data invariance verified.",
+      "nextAction": "Published38cc4b94 Pages39607750647 succeeded. Actual EmailQA Oak Lab, My PC Oak and release confirmations show last-owned warning;Keep/Escape canceled, one remaining Metapod retained. Continue remaining launch readiness.",
+      "approvalRequirement": "Owner explicitly authorized policy removal and warning; no additional hosted gameplay test implied."
+    },
+    {
       "id": "CODEX-51",
       "status": "done",
       "scope": "Correct duplicate generated move selection discovered by Metapod gift QA",

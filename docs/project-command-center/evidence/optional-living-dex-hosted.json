@@ -1,0 +1,22 @@
+{
+  "migration": "20261021132411",
+  "before": {
+    "invariants": {
+      "candy": "cb0b4b605c6473763ddc350a8dfead85",
+      "catches": "f3353f4efc4b53ae1df68620a27f93e3",
+      "inventory": "f9137c509bbc3db4f00e4e7c4aca9129",
+      "oak_count": 1,
+      "staff_roles": "c67a78013569879fd67d53f814a55baa"
+    }
+  },
+  "after": {
+    "invariants": {
+      "candy": "cb0b4b605c6473763ddc350a8dfead85",
+      "catches": "f3353f4efc4b53ae1df68620a27f93e3",
+      "inventory": "f9137c509bbc3db4f00e4e7c4aca9129",
+      "oak_count": 1,
+      "staff_roles": "c67a78013569879fd67d53f814a55baa"
+    }
+  },
+  "classification": "Hosted source/ACL and data-invariance verification; no new hosted gameplay action"
+}

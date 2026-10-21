@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-21T02:28:49.634Z",
+  "classification": "REAL LOCAL SQL with fictional data and small presentation stubs",
+  "checks": [
+    "Source drift aborts packet before replacing any functions",
+    "All five actual function replacements install behind exact source guards",
+    "Actual catch writer persists modern specimen without explicit AV values",
+    "Actual catch writer retains source-key replay handling",
+    "Actual staff writer still invokes authorization before insertion",
+    "Actual staff writer persists modern fields without AV under fictional allowed staff",
+    "WIRE stats preserved, pinned types used, CP and AV response fields removed",
+    "Other payload fields and specimen row unchanged",
+    "Actual staff serializer removes AV while keeping IV/EV",
+    "New serializer works with legacy species table absent",
+    "Missing exact WIRE reference stays unavailable without borrowing legacy data",
+    "Unpinned legacy specimens are not fabricated into WIRE stats",
+    "Rollback restores exact original full payload",
+    "All five rollback bodies match baseline hashes"
+  ],
+  "limitations": "Actual writer success/replay/authorization hook tested with fictional generation and authorization stubs. Actual before-write trigger and stamp executed for writer fixtures. After-insert XP/presentation/outbox triggers, real generator legality, real Supabase roles and hosted UI not exercised."
+}

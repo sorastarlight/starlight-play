@@ -80,6 +80,7 @@ test("Stored battle data preserves zero, missing fields and escaped move names",
   assert(html.includes('<td>0</td>'));assert(html.includes('<td>31</td>'));assert(html.includes('<td>Unavailable</td>'));
   assert(html.includes('<dd>0 / 20</dd>'));assert(html.includes('Solar Power'));assert(html.includes('Hardy'));
   assert(!html.includes('<img onerror=bad>'));assert(html.includes('&lt;Img Onerror=Bad&gt;'));
+  assert(!html.includes('Awakening value'));assert.equal((html.match(/<th scope="col">/g)||[]).length,3);
   assert(html.includes('disabled>Edit stats'));assert(!html.includes('streamlink_stat'));
 });
 console.log(`${checks} passed`);

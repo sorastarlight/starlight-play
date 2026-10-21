@@ -1,0 +1,25 @@
+[
+  {
+    "audit": {
+      "legacy_count": 110,
+      "reference_counts": {
+        "oak": 44,
+        "candy": 63,
+        "offer": 0,
+        "locked": 0,
+        "outbox": 0,
+        "listing": 1,
+        "mastery": 0,
+        "favorite": 1,
+        "showcase": 1,
+        "authority": 0,
+        "evolution": 30,
+        "direct_trade": 0
+      },
+      "provisional_unreferenced": {
+        "count": 46,
+        "digest": "bf92b652da6e061172b280b6d2300817"
+      }
+    }
+  }
+]

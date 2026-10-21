@@ -1,0 +1,67 @@
+[
+  {
+    "dependent": "constraint lgpe_species_dex_check on table lgpe_species",
+    "referenced": "column dex of table lgpe_species",
+    "deptype": "a"
+  },
+  {
+    "dependent": "constraint lgpe_species_dex_check on table lgpe_species",
+    "referenced": "column dex of table lgpe_species",
+    "deptype": "n"
+  },
+  {
+    "dependent": "constraint lgpe_species_pkey on table lgpe_species",
+    "referenced": "column dex of table lgpe_species",
+    "deptype": "a"
+  },
+  {
+    "dependent": "default value for column moves of table lgpe_species",
+    "referenced": "column moves of table lgpe_species",
+    "deptype": "a"
+  },
+  {
+    "dependent": "default value for column types of table lgpe_species",
+    "referenced": "column types of table lgpe_species",
+    "deptype": "a"
+  },
+  {
+    "dependent": "toast table pg_toast.pg_toast_18014",
+    "referenced": "table lgpe_species",
+    "deptype": "i"
+  },
+  {
+    "dependent": "trigger catches_before_write on table catches",
+    "referenced": "column av_atk of table catches",
+    "deptype": "n"
+  },
+  {
+    "dependent": "trigger catches_before_write on table catches",
+    "referenced": "column av_def of table catches",
+    "deptype": "n"
+  },
+  {
+    "dependent": "trigger catches_before_write on table catches",
+    "referenced": "column av_hp of table catches",
+    "deptype": "n"
+  },
+  {
+    "dependent": "trigger catches_before_write on table catches",
+    "referenced": "column av_spa of table catches",
+    "deptype": "n"
+  },
+  {
+    "dependent": "trigger catches_before_write on table catches",
+    "referenced": "column av_spd of table catches",
+    "deptype": "n"
+  },
+  {
+    "dependent": "trigger catches_before_write on table catches",
+    "referenced": "column av_spe of table catches",
+    "deptype": "n"
+  },
+  {
+    "dependent": "type lgpe_species",
+    "referenced": "table lgpe_species",
+    "deptype": "i"
+  }
+]

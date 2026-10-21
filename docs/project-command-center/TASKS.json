@@ -13,8 +13,8 @@
       "branch": "admin-hub-overhaul",
       "commit": null,
       "evidence": "LEGACY-DATA-RETIREMENT.md",
-      "testResults": "Read-only hosted aggregate inventory;unused CP helper caller audit",
-      "nextAction": "Prepare coherent current-reference replacement and exact legacy-row disposition packet with local tests",
+      "testResults": "14 REAL LOCAL SQL;78 regression suites;build31/423;read-only reference/dependency inventory",
+      "nextAction": "Apply authorized dependency-only five-function phase; then finish learnset/fallback retirement and archive/restore rehearsal before destructive decision",
       "approvalRequirement": "Cleanup requested; irreversible deletion/conversion requires concrete scoped owner decision"
     },
     {

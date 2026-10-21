@@ -1,0 +1,44 @@
+[
+  {
+    "audit": {
+      "av_defaults": [
+        {
+          "column_name": "av_atk",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "column_name": "av_def",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "column_name": "av_hp",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "column_name": "av_spa",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "column_name": "av_spd",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "column_name": "av_spe",
+          "is_nullable": "YES",
+          "column_default": null
+        }
+      ],
+      "legacy_references": {
+        "oak": 55,
+        "offers": 0,
+        "listings": 1
+      },
+      "legacy_type_coverage": 110
+    }
+  }
+]

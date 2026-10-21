@@ -23,3 +23,11 @@ Removed unused window.playMonCp from js/game.js. Repository-wide caller search f
 Exit criterion: current runtime uses only the supported stat model; no obsolete CP/AV feature or unnecessary legacy records remain; any temporarily retained legacy dependency has a named removal task. Never DROP CASCADE as a shortcut. No deletion, conversion, table drop, protected-account mutation, gameplay, scheduler, reset or stamp occurred in CODEX-40.
 
 Validation: STATIC source/caller audit; JS syntax check;61 focused checks passed (35 Play UX,19 presentation,7 WIRE source checks). Build passed31 HTML/423 references; APP20261008-rc133 unchanged. Read-only hosted inventory evidence: evidence/legacy-retirement-inventory.json. No gameplay RPC or hosted mutation test performed.
+
+## CODEX-40 dependency replacement phase — prepared October20 EDT
+
+Owner explicitly requested replacing legacy dependencies and preparing cleanup, autonomously. Five-function guarded packet and exact rollback are in supabase/unapplied/legacy-retirement; current execution status will be recorded below. No blanket specimen deletion follows. Frontend removes obsolete Awakening column; IV/EV remain.
+
+14 REAL LOCAL SQL checks pass, including actual catch/gift writer and before-write trigger with fictional generator/authorization stubs, WIRE stat preservation, missing pins, old rows unavailable, removal of legacy species table for formatter execution, source-drift rejection and exact five-function rollback.78 non-writing regression suites and31 HTML/423 reference build pass; APP unchanged. Hosted writes/gameplay were not used as tests.
+
+Deeper aggregate audit:110 legacy specimens across3 owners,65 not transferred;55 Oak rows reference44 specimens;63 specimens have candy ledger references,30 evolution history,1 listing,1 favorite,1 showcase.46 provisional unreferenced rows are NOT a deletion allow-list. See CLEANUP_PLAN.md and read-only CLEANUP_REVIEW.sql. Managed backup availability unverified; no secret/profile dump committed. Habitat/level/gender remain required configuration; move fallback and WIRE-off legacy generation still need coordinated retirement before dropping old tables/columns.

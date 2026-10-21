@@ -1,0 +1,37 @@
+[
+  {
+    "audit": {
+      "functions": [
+        {
+          "name": "catches_before_write",
+          "body_md5": "80bf0cb05129d9b3f3066249e5019bff",
+          "definition": "CREATE OR REPLACE FUNCTION private.catches_before_write()\n RETURNS trigger\n LANGUAGE plpgsql\nAS $function$\nbegin\n  if tg_op = 'INSERT' then\n    if new.id is null then\n      new.id := gen_random_uuid();\n    end if;\n    new.is_alpha := (abs(hashtext(new.id::text || 'alpha')) % 128) = 0;\n  end if;\n  new := private.stamp_catch_row(new);\n  return new;\nend;\n$function$\n"
+        },
+        {
+          "name": "lgpe_gender_rate",
+          "body_md5": "1a36d403ef1f50ed4e4841eb73d316ec",
+          "definition": "CREATE OR REPLACE FUNCTION private.lgpe_gender_rate(p_dex integer)\n RETURNS integer\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case\n    when p_dex between 1 and 151 then (ARRAY[\n      1,1,1,1,1,1,1,1,1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,8,8,0,0,0,6,6,6,6,6,6,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,2,2,2,2,2,2,4,4,4,4,4,4,4,4,4,4,4,4,-1,-1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,-1,-1,4,4,4,4,0,0,4,4,4,4,4,8,4,8,4,4,4,4,-1,-1,4,4,8,2,2,4,0,4,4,4,-1,1,1,1,1,-1,1,1,1,1,1,1,-1,-1,-1,4,4,4,-1,-1\n    ])[p_dex]\n    else 4\n  end;\n$function$\n"
+        },
+        {
+          "name": "lgpe_habitat",
+          "body_md5": "3023d8a828cee722b376447f8187c49a",
+          "definition": "CREATE OR REPLACE FUNCTION private.lgpe_habitat(p_dex integer)\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case\n    when p_dex between 1 and 9 then 'Pallet Town'\n    when p_dex in (10,11,12,13,14,15,25,26) then 'Viridian Forest'\n    when p_dex in (16,17,18,19,20) then 'Route 1'\n    when p_dex in (21,22,39,40) then 'Route 3'\n    when p_dex in (23,24,27,28) then 'Route 4'\n    when p_dex in (29,30,31,32,33,34,56,57) then 'Route 22'\n    when p_dex in (35,36,41,42,46,47,74,75,76) then 'Mt. Moon'\n    when p_dex in (37,38,58,59) then 'Route 7'\n    when p_dex in (43,44,45,69,70,71,48,49) then 'Route 2'\n    when p_dex in (50,51) then 'Diglett''s Cave'\n    when p_dex in (52,53) then 'Route 8'\n    when p_dex in (54,55,60,61,62,118,119,129,130) then 'Route 6'\n    when p_dex in (63,64,65,96,97) then 'Route 11'\n    when p_dex in (66,67,68,104,105,115) then 'Rock Tunnel'\n    when p_dex in (72,73,90,91,98,99,116,117,120,121) then 'Route 19'\n    when p_dex in (77,78,133,134) then 'Route 17'\n    when p_dex in (79,80,86,87,131,144) then 'Seafoam Islands'\n    when p_dex in (81,82,100,101,125,135,145) then 'Power Plant'\n    when p_dex in (83,84,85,123,143) then 'Route 12'\n    when p_dex in (88,89,109,110) then 'Pokémon Mansion'\n    when p_dex in (92,93,94) then 'Pokémon Tower'\n    when p_dex in (95,111,112,126,136,146) then 'Victory Road'\n    when p_dex in (102,103,147,148,149) then 'Safari Zone'\n    when p_dex in (106,107) then 'Saffron City'\n    when p_dex in (108,114,127,128) then 'Route 18'\n    when p_dex in (113,124) then 'Route 10'\n    when p_dex = 122 then 'Route 2'\n    when p_dex = 132 then 'Route 13'\n    when p_dex = 137 then 'Silph Co.'\n    when p_dex in (138,139,140,141,142) then 'Cinnabar Lab'\n    when p_dex = 150 then 'Cerulean Cave'\n    when p_dex = 151 then 'Faraway place'\n    else 'Kanto'\n  end;\n$function$\n"
+        },
+        {
+          "name": "lgpe_level_bounds",
+          "body_md5": "4f1bcd0ba6545382474b1e23dd1388c2",
+          "definition": "CREATE OR REPLACE FUNCTION private.lgpe_level_bounds(p_dex integer)\n RETURNS integer[]\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case private.lgpe_habitat(p_dex)\n    when 'Pallet Town' then array[3,5]\n    when 'Route 1' then array[2,5]\n    when 'Viridian Forest' then array[3,7]\n    when 'Route 2' then array[3,7]\n    when 'Route 3' then array[6,10]\n    when 'Mt. Moon' then array[6,12]\n    when 'Route 4' then array[6,12]\n    when 'Route 22' then array[3,8]\n    when 'Diglett''s Cave' then array[15,22]\n    when 'Route 5' then array[7,12]\n    when 'Route 6' then array[7,13]\n    when 'Route 7' then array[14,17]\n    when 'Route 8' then array[15,20]\n    when 'Route 11' then array[12,16]\n    when 'Rock Tunnel' then array[13,18]\n    when 'Route 19' then array[15,25]\n    when 'Route 17' then array[16,22]\n    when 'Seafoam Islands' then array[22,30]\n    when 'Power Plant' then array[22,32]\n    when 'Route 12' then array[22,27]\n    when 'Pokémon Mansion' then array[26,32]\n    when 'Pokémon Tower' then array[13,18]\n    when 'Victory Road' then array[36,42]\n    when 'Safari Zone' then array[22,30]\n    when 'Saffron City' then array[5,10]\n    when 'Route 18' then array[22,28]\n    when 'Route 10' then array[16,20]\n    when 'Route 13' then array[24,29]\n    when 'Silph Co.' then array[16,20]\n    when 'Cinnabar Lab' then array[5,15]\n    when 'Cerulean Cave' then array[46,56]\n    when 'Faraway place' then array[30,30]\n    else array[5,20]\n  end;\n$function$\n"
+        },
+        {
+          "name": "lgpe_roll_gender",
+          "body_md5": "d720bd6d2916d4d0711ba150c2be8f37",
+          "definition": "CREATE OR REPLACE FUNCTION private.lgpe_roll_gender(p_dex integer, p_seed integer, p_current text)\n RETURNS text\n LANGUAGE plpgsql\n IMMUTABLE\nAS $function$\ndeclare\n  rate int := private.lgpe_gender_rate(p_dex);\n  cur text := coalesce(p_current, '');\nbegin\n  if rate = -1 then\n    return 'Genderless';\n  end if;\n  if rate = 0 then\n    return 'Male';\n  end if;\n  if rate = 8 then\n    return 'Female';\n  end if;\n  if cur in ('Male', 'Female') then\n    return cur;\n  end if;\n  if (abs(p_seed) % 8) < rate then\n    return 'Female';\n  end if;\n  return 'Male';\nend;\n$function$\n"
+        }
+      ],
+      "legacy_owners": {
+        "owners": 3,
+        "not_transferred": 65
+      }
+    }
+  }
+]

@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-68",
+      "status": "in_progress",
+      "scope": "Achievements account-bound loading and expanded responsive acceptance",
+      "evidence": "tests/achievements-loading-tests.js;evidence/codex68-regressions.json",
+      "testResults": "8 actual-source mocked race/error cases;82/82 non-writing suites;build passes",
+      "nextAction": "Verify published Achievements and broader narrow-page layouts",
+      "approvalRequirement": "Routine frontend/read-only acceptance authorized;no backend or gameplay mutation"
+    },
+    {
       "id": "CODEX-67",
       "status": "done",
       "scope": "Fail-closed owner authorization guard",

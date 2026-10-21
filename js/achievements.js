@@ -15,6 +15,15 @@
     equipHint: document.getElementById("ach-equip-hint")
   };
   let data = null;
+  let loadGeneration = 0;
+  function invalidateProgress() {
+    loadGeneration++;
+    data = null;
+    els.app.hidden = true;
+    for (const node of [els.overview, els.next, els.grid, els.states, els.cats]) {
+      if (node) node.innerHTML = "";
+    }
+  }
   let stateFilter = "all";
   let catFilter = "all";
   let query = "";
@@ -39,24 +48,27 @@
 
   window.playBindAccountNav({
     onSignOut() {
-      els.app.hidden = true;
+      invalidateProgress();
       window.playRestoreGate(els.gate, "Sign in to open your trainer progress.");
     }
   });
 
-  async function loadNav() {
+  async function loadNav(generation) {
     const { data: sessionData } = await supabase.auth.getSession();
+    if (generation !== loadGeneration) return null;
     const session = sessionData.session;
     if (!session) {
       window.playSetAccountNav(null);
       return session;
     }
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
+    if (generation !== loadGeneration) return null;
     let extras = {};
     try {
       const snapshot = await window.playCall("play_state");
       extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer };
     } catch (_) {}
+    if (generation !== loadGeneration) return null;
     window.playSetAccountNav(session, profile, extras);
     return session;
   }
@@ -335,22 +347,27 @@
   }
 
   async function load() {
-    const session = await loadNav();
-    if (!session) {
-      els.app.hidden = true;
-      window.playRestoreGate(els.gate, "Sign in to open your trainer progress.");
-      return;
-    }
-    window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
+    invalidateProgress();
+    const generation = loadGeneration;
+    window.playSetLoadingGate(els.gate, els.app);
     try {
-      data = await window.playCall("play_progression");
+      const session = await loadNav(generation);
+      if (generation !== loadGeneration) return;
+      if (!session) {
+        window.playRestoreGate(els.gate, "Sign in to open your trainer progress.");
+        return;
+      }
+      const progress = await window.playCall("play_progression");
+      if (generation !== loadGeneration) return;
+      data = progress;
       els.gate.hidden = true;
       els.app.hidden = false;
       render();
     } catch (error) {
+      if (generation !== loadGeneration) return;
       els.gate.hidden = false;
       els.app.hidden = true;
-      els.gate.textContent = window.playRpcError(error, "Progress is not live yet.");
+      els.gate.innerHTML = `<p>${window.playEscapeAttr(window.playRpcError(error, "Your achievements could not be loaded."))}</p><button type="button" class="secondary" data-progress-retry>Try again</button>`;
     }
   }
 
@@ -380,6 +397,10 @@
     }
   });
 
+  els.gate?.addEventListener("click", (event) => {
+    if (event.target.closest("[data-progress-retry]")) load();
+  });
+
   els.cats?.addEventListener("change", () => {
     catFilter = els.cats.value || "all";
     renderAchievements();
@@ -397,7 +418,10 @@
 
   supabase.auth.onAuthStateChange((event, session) => {
     if (window.playAuthNoise(event, session)) return;
-    load();
+    invalidateProgress();
+    if (!session) window.playRestoreGate(els.gate, "Sign in to open your trainer progress.");
+    // Keep network work outside Supabase's synchronous auth callback.
+    else window.setTimeout(load, 0);
   });
   load();
 })();

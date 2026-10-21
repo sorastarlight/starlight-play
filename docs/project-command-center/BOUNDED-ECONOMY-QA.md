@@ -14,3 +14,7 @@ No other trainer, public encounter, director/worker change, inventory provisioni
 Before each action, verify EmailQA session and exact target/state. Stop on errors or identity/state drift and retain evidence. Protected balances/specimens/trainer state outside EmailQA must remain unchanged. Owner may approve the whole bounded packet once; missing access is an access gate, not authority to invent a staff session. Hosted trade and broader staff Pass tests need a later concrete scope. No second controlled QA account is currently available for a two-party trade.
 
 This is an important gameplay/economy decision under .cursor/rules/streamlink-project.mdc, separate from routine read-only development or the approved heartbeat function replacement.
+
+## Execution so far
+
+Owner approved this packet. The one Mart purchase passed via actual UI and SQL verification:300→200 coins,7→8 Poké Balls,one debit/order,other profiles/inventories unchanged. No purchase retry was performed. Remaining three actions have not run because no authenticated owner session is accessible. Owner sign-in requested;no further permission required for the approved actions. See evidence/qa50-mart-purchase.json.

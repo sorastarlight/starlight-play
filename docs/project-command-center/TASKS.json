@@ -6,17 +6,17 @@
     {
       "id": "CODEX-50",
       "status": "blocked",
-      "scope": "Bounded EmailQA hosted Mart/evolution/Oak acceptance proposal",
+      "scope": "Approved bounded EmailQA hosted Mart/evolution/Oak acceptance",
       "dependencies": [
         "CODEX-47",
         "CODEX-48"
       ],
       "branch": "admin-hub-overhaul",
       "commit": "d77bb3b9",
-      "evidence": "BOUNDED-ECONOMY-QA.md",
-      "testResults": "Read-only QA/catalog preflight only;no action executed",
-      "nextAction": "Await owner bounded economy/QA decision;actual staff session required for candy gift",
-      "approvalRequirement": "Explicit approval requested for100-coin purchase,15-candy gift,one evolution and one Oak transfer;no other actions"
+      "evidence": "BOUNDED-ECONOMY-QA.md;evidence/qa50-mart-purchase.json",
+      "testResults": "REAL DOM/SQL purchase PASS:300→200 coins,7→8 Poké Balls,one debit/order,other profiles/inventories unchanged. Candy/evolution/Oak not run.",
+      "nextAction": "Owner sign-in access needed for approved15-candy Trainer Gift;then EmailQA sign-in for evolution/Oak. Stop at access gate.",
+      "approvalRequirement": "Owner approved complete bounded packet;no renewed permission needed within scope"
     },
     {
       "id": "CODEX-49",

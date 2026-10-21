@@ -1,0 +1,79 @@
+{
+  "classification": "Actual EmailQA Mart UI purchase plus independent read-only SQL verification",
+  "before": {
+    "qa_inventory": {
+      "bait": 10,
+      "lure": 0,
+      "balls": {},
+      "berry": 10,
+      "coins": 300,
+      "items": {},
+      "berries": {},
+      "pokeball": 7,
+      "bag_bonus": 0,
+      "greatball": 5,
+      "ultraball": 3,
+      "lure_armed": false,
+      "lure_until": null,
+      "updated_at": "2026-10-21T01:53:33.267993+00:00",
+      "pass_daily_at": null,
+      "pass_weekly_at": null,
+      "daily_supply_at": null,
+      "starter_granted": false
+    },
+    "other_profiles": "3cd8499aa59eb6d1917d4b585b98d960",
+    "qa_ledger_counts": {
+      "coins": 8,
+      "items": 5
+    },
+    "other_inventories": "cb0708514fc85ec9fe907533e26195d0"
+  },
+  "after": {
+    "qa_inventory": {
+      "bait": 10,
+      "lure": 0,
+      "balls": {},
+      "berry": 10,
+      "coins": 200,
+      "items": {},
+      "berries": {},
+      "pokeball": 8,
+      "bag_bonus": 0,
+      "greatball": 5,
+      "ultraball": 3,
+      "lure_armed": false,
+      "lure_until": null,
+      "updated_at": "2026-10-21T12:30:41.945274+00:00",
+      "pass_daily_at": null,
+      "pass_weekly_at": null,
+      "daily_supply_at": null,
+      "starter_granted": false
+    },
+    "other_profiles": "3cd8499aa59eb6d1917d4b585b98d960",
+    "qa_ledger_counts": {
+      "coins": 9,
+      "items": 5
+    },
+    "other_inventories": "cb0708514fc85ec9fe907533e26195d0"
+  },
+  "orders": [
+    {
+      "cost": 100,
+      "items": [
+        {
+          "qty": 1,
+          "sku": "poke5"
+        }
+      ],
+      "premier_bonus": 0
+    }
+  ],
+  "checks": {
+    "coinsDebited100": true,
+    "oneBall": true,
+    "oneCoinLedger": true,
+    "otherProfilesUnchanged": true,
+    "otherInventoriesUnchanged": true
+  },
+  "note": "Existing grant_known changes the legacy Poké Ball inventory column; it creates no item_ledger grant entry. Verified actual inventory delta and store order; latest prior BAG_SPEND entry was not mistaken for this purchase. Remaining candy/evolution/Oak steps await authenticated owner access."
+}

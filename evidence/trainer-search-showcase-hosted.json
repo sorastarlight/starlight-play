@@ -1,0 +1,83 @@
+{
+  "migration": "20261021142149",
+  "name": "bound_trainer_search_and_enforce_active_shiny_showcase",
+  "before": {
+    "functions": [
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "owner": "postgres",
+        "config": [
+          "search_path=public"
+        ],
+        "definer": true,
+        "signature": "play_save_trainer_id(text,text,text,text,text[],jsonb,integer,text,text)",
+        "source_md5": "a58c91666d73e9128d2c94f7d4895664",
+        "volatility": "v"
+      },
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "owner": "postgres",
+        "config": [
+          "search_path=public"
+        ],
+        "definer": true,
+        "signature": "play_trainer_search(text)",
+        "source_md5": "66a41e80371ef80410d455820ad7a33b",
+        "volatility": "s"
+      },
+      {
+        "acl": null,
+        "owner": "postgres",
+        "config": null,
+        "definer": false,
+        "signature": "private.catch_brief(uuid,uuid)",
+        "source_md5": "82771304276698b6d3265ae71c1e708a",
+        "volatility": "s"
+      }
+    ],
+    "catches_hash": "21f54d7b053f85c7c1adf2133117803b",
+    "profiles_hash": "bfbe5817881e2e947d0a7855746ebc76",
+    "inventories_hash": "390b74d87514c911afea03f15b098262",
+    "other_functions_hash": "f87d77c985c3627f0bfe8fd005ae657e"
+  },
+  "after": {
+    "functions": [
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "owner": "postgres",
+        "config": [
+          "search_path=public"
+        ],
+        "definer": true,
+        "signature": "play_save_trainer_id(text,text,text,text,text[],jsonb,integer,text,text)",
+        "source_md5": "a2a39d377fece7ab05934d9fa5939003",
+        "volatility": "v"
+      },
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "owner": "postgres",
+        "config": [
+          "search_path=public"
+        ],
+        "definer": true,
+        "signature": "play_trainer_search(text)",
+        "source_md5": "0eaeb25e679e1985556e056dcbb0d46f",
+        "volatility": "s"
+      },
+      {
+        "acl": null,
+        "owner": "postgres",
+        "config": null,
+        "definer": false,
+        "signature": "private.catch_brief(uuid,uuid)",
+        "source_md5": "5e00d3106b9f06c5d629e287a02113ad",
+        "volatility": "s"
+      }
+    ],
+    "catches_hash": "21f54d7b053f85c7c1adf2133117803b",
+    "profiles_hash": "bfbe5817881e2e947d0a7855746ebc76",
+    "inventories_hash": "390b74d87514c911afea03f15b098262",
+    "other_functions_hash": "f87d77c985c3627f0bfe8fd005ae657e"
+  },
+  "verdict": "Exact source and attributes verified; player datasets and unrelated functions unchanged. No hosted profile-save or gameplay test."
+}

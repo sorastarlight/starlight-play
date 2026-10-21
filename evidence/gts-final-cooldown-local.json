@@ -1,0 +1,21 @@
+{
+  "label": "REAL LOCAL SQL; exact GTS bodies and initial triggers; fictional data/reward helpers; no hosted trade",
+  "checks": [
+    "Exact existing listing trigger already rejects cooldown",
+    "Exact existing offer trigger already rejects cooldown",
+    "Baseline final acceptance swaps stale offers despite current cooldown",
+    "Guarded one-function correction installs",
+    "Final acceptance rejects current cooldown on listed Pokemon without swap/rewards",
+    "Final acceptance rejects current cooldown on offered Pokemon without swap/rewards",
+    "Expired cooldown and sole-copy trade succeeds with two receive locks and one reward per trainer",
+    "Completed-offer replay denied without repeated rewards",
+    "Final locked protection preserved",
+    "Final favorite protection preserved",
+    "Final species tradability recheck preserved",
+    "Other trainer and unauthenticated acceptance denied",
+    "Rollback restores exact original source",
+    "Install refuses ACL drift"
+  ],
+  "newSourceMd5": "cea3f018dac4478dc7d756b430b6e778",
+  "limitations": "Stale queued state is injected locally after valid offer creation, not a full hosted race or multi-route acquisition reproduction."
+}

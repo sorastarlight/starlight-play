@@ -4,22 +4,31 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-57",
+      "id": "CODEX-58",
       "status": "blocked",
+      "scope": "Recheck existing received-Pokemon cooldown at final GTS acceptance",
+      "evidence": "supabase/unapplied/gts-final-cooldown/README.md; evidence/gts-final-cooldown-local.json",
+      "testResults": "14 REAL LOCAL SQL checks pass with exact initial tradability triggers and GTS bodies. Stale queued cooldown bypass reproduced; one-function correction rejects either current cooldown without swap/rewards; normal/replay/protection/role/rollback/drift checks pass.",
+      "nextAction": "Concrete install/rollback ready;request production gameplay-validation decision. No hosted trade test included.",
+      "approvalRequirement": "Explicit SQL/gameplay correction authorization required under streamlink-project.mdc;prepared only."
+    },
+    {
+      "id": "CODEX-57",
+      "status": "done",
       "scope": "Featured Shiny save/read must require active ownership",
       "evidence": "supabase/unapplied/showcase-active-ownership/README.md; evidence/showcase-active-ownership-local.json",
       "testResults": "11 REAL LOCAL SQL checks pass. Baseline released-shiny save/read reproduced;active/foreign/normal/released/traded/cleared/anonymous cases,XP invariance,exact rollback and drift refusal covered. Read-only hosted count finds zero currently affected pointers.",
-      "nextAction": "Prepared two-function correction. Request bounded installation together with CODEX-56;verify exact sources/attributes and unchanged hosted data. No gameplay/profile-save test included.",
-      "approvalRequirement": "New production SQL authorization required under streamlink-project.mdc. No hosted writes performed."
+      "nextAction": "Approved migration20261021142149 installed. Exact3 source hashes and unchanged permissions/attributes verified;profiles/inventories/catches/unrelated functions unchanged. Actual name search and email exclusion pass. No hosted profile save/gameplay test.",
+      "approvalRequirement": "Both corrections explicitly approved and completed. No additional database or gameplay authority implied."
     },
     {
       "id": "CODEX-56",
-      "status": "blocked",
+      "status": "done",
       "scope": "Correct trainer search's intended 12-result bound before aggregation",
       "evidence": "supabase/unapplied/trainer-search-bound/README.md; evidence/trainer-search-bound-local.json",
       "testResults": "9 REAL LOCAL SQL checks pass; baseline20-result bug reproduced; fixed cap, privacy exclusions, eligibility, public projection, anonymous access, rollback and ACL drift refusal verified with fictional fixtures.",
-      "nextAction": "Prepared maintenance packet; hold hosted install until explicit SQL authorization. Do not interrupt owner urgently for this routine candidate; continue independent launch work.",
-      "approvalRequirement": "streamlink-project.mdc requires explicit owner approval before SQL installation; no hosted change yet."
+      "nextAction": "Approved migration20261021142149 installed. Exact3 source hashes and unchanged permissions/attributes verified;profiles/inventories/catches/unrelated functions unchanged. Actual name search and email exclusion pass. No hosted profile save/gameplay test.",
+      "approvalRequirement": "Both corrections explicitly approved and completed. No additional database or gameplay authority implied."
     },
     {
       "id": "CODEX-55",

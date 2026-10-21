@@ -1,5 +1,7 @@
 # CODEX-56 — Trainer search result bound
 
+Installed with explicit owner approval in migration20261021142149 alongside CODEX-57. Exact hosted source `0eaeb25e679e1985556e056dcbb0d46f`, ACL/config/owner/security/volatility independently verified;profiles/inventories/catches and unrelated functions unchanged. Actual Rankings name search returns EmailQA;email input returns no public match. The12-result cap is proved by the local20-row fixture, not a production population expansion. Evidence:`evidence/trainer-search-showcase-hosted.json`. Preparation notes below are historical.
+
 Prepared, not installed. Current `play_trainer_search(text)` places LIMIT12 after jsonb_agg, so it limits aggregate result rows rather than matching trainers. The captured baseline returns20 fictional trainers in the local reproduction. Corrected code orders eligible profile rows by display name, username and ID, limits those rows to12, then builds the existing public projection.
 
 This changes only the search result bound and adds an ID tie-break for deterministic ordering. Existing name/title matching, two-character minimum, email/UUID rejection, public fields, eligibility helper, sprite fallback and EXECUTE permissions are preserved. No gameplay, profile data, grant or RLS changes. Wildcards retain existing behavior. Limiting returned results does not eliminate the need to scan matching candidates; this is not a query-plan performance certification.

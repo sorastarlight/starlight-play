@@ -36,6 +36,16 @@
       "version": "20261021133711",
       "path": "supabase/unapplied/direct-trade-validation/INSTALL.sql",
       "sha256": "82b0f89067794b3f8871c5430dcb19f9bfcdbea90422488bd36821f703348e0c"
+    },
+    {
+      "version": "20261021142149",
+      "path": "supabase/unapplied/trainer-search-bound/INSTALL.sql",
+      "sha256": "bf1658d4ed844f4dc4bbe9826de2851769b614eff8907f974f3015905bff7741"
+    },
+    {
+      "version": "20261021142149",
+      "path": "supabase/unapplied/showcase-active-ownership/INSTALL.sql",
+      "sha256": "012faf7a6455ecf63e54a0be79b05b4dcd29419f62d5818d8a34e7aff1013956"
     }
   ]
 }

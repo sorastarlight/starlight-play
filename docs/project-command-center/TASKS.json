@@ -4,6 +4,21 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-50",
+      "status": "blocked",
+      "scope": "Bounded EmailQA hosted Mart/evolution/Oak acceptance proposal",
+      "dependencies": [
+        "CODEX-47",
+        "CODEX-48"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": "d77bb3b9",
+      "evidence": "BOUNDED-ECONOMY-QA.md",
+      "testResults": "Read-only QA/catalog preflight only;no action executed",
+      "nextAction": "Await owner bounded economy/QA decision;actual staff session required for candy gift",
+      "approvalRequirement": "Explicit approval requested for100-coin purchase,15-candy gift,one evolution and one Oak transfer;no other actions"
+    },
+    {
       "id": "CODEX-49",
       "status": "done",
       "scope": "Read-only current backup and asset recovery inventory",

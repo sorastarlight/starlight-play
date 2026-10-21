@@ -26,6 +26,8 @@ Read only QA/round evidence needed for spending/result/replay and, if caught, WI
 
 Recovery real-email/helpdesk privacy tests already passed. Attachments/ticket email notifications, earned gym badges and later generations are deferrable features.
 
+Current CODEX-50 update: owner explicitly authorized one additional Metapod for EmailQA. The earlier duplicate-provisioning hold in the table is superseded; authenticated owner access is pending. No additional grant or Oak transfer has executed yet. Read-only table access review confirms all 63 public base tables have RLS and the public view is security-invoker; see LAUNCH-TABLE-ACCESS-REVIEW.md. This is not a full security sign-off.
+
 CODEX-42 completion: legacy retirement milestone is closed; conservative evolution is locally validated, not hosted gameplay-tested. Current remaining work and boundaries: LEGACY-RUNTIME-SCHEMA-EXECUTION.md.
 
 CODEX-43: October30 new-table Data API grant readiness audited; existing required grants pass; future SQL access preflight integrated into build validation. See DATA-API-OCT30.md. Full schema reset/provisioning replay remains unverified.

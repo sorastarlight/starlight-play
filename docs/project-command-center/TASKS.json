@@ -15,8 +15,8 @@
       "commit": "d77bb3b9",
       "evidence": "BOUNDED-ECONOMY-QA.md;evidence/qa50-mart-purchase.json;evidence/qa50-gift-evolution.json",
       "testResults": "REAL DOM/SQL Mart purchase and audited15-candy gift PASS;one Caterpie→Metapod evolution PASS;level/IV/EV/nature/moves/stamp retained,15 candy spent once;Caterpie Familiar1 unchanged. Oak0 eligible/last-copy protection;not executed.",
-      "nextAction": "Oak success remains held:EmailQA owns only one Metapod. Do not invent a duplicate or reuse encounter allowances. Further controlled provisioning needs a new scoped decision.",
-      "approvalRequirement": "Bounded packet approved;purchase/gift/evolution completed. No more grants/catches/evolutions authorized."
+      "nextAction": "Owner authorized one additional Metapod through Trainer Gifts. Await actual owner sign-in, grant once, then EmailQA sign-in and approved original Metapod Oak transfer.",
+      "approvalRequirement": "One additional ordinary Metapod approved explicitly; original Oak transfer remains approved. No extra catches/evolutions or last-copy bypass."
     },
     {
       "id": "CODEX-49",

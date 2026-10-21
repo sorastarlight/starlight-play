@@ -20,11 +20,11 @@
     <button type="button" id="measure">Measure current layout</button>
   </div>
   <p id="result" role="status">Loading the current player page…</p>
-  <div class="stage"><iframe id="guide" width="390" title="Actual player page at selected width" src="../trade.html?review=codex64"></iframe></div>
+  <div class="stage"><iframe id="guide" width="390" title="Actual player page at selected width" src="../trade.html?review=codex69"></iframe></div>
   <small>Measurements cover the current rendered document only. This desktop-browser frame does not emulate a physical phone, touch input, browser zoom, reduced-motion preferences or every expanded menu/state. No gameplay action is submitted by the review controls. These are actual account pages. Review controls change frame size or page only; gameplay buttons inside remain real.</small>
 </main>
 <script>
-  document.getElementById('page').addEventListener('change',event=>{document.getElementById('result').textContent='Loading selected player page…';document.getElementById('guide').src='../'+event.target.value+'?review=codex64';});
+  document.getElementById('page').addEventListener('change',event=>{document.getElementById('result').textContent='Loading selected player page…';document.getElementById('guide').src='../'+event.target.value+'?review=codex69';});
   const frame=document.getElementById('guide'),width=document.getElementById('width'),result=document.getElementById('result');
   function measure(){
     try{

@@ -1,0 +1,49 @@
+{
+  "classification": "READ-ONLY hosted catalogs;no job,queue,grant,Auth or gameplay execution",
+  "observedAt": "2026-10-21T18:54:00Z",
+  "worker": {
+    "job": [
+      {
+        "jobid": 3,
+        "active": true,
+        "schedule": "* * * * *"
+      }
+    ],
+    "runs": [
+      {
+        "runs": 60,
+        "status": "succeeded",
+        "latest_end": "2026-10-21T18:54:00.030141+00:00"
+      }
+    ],
+    "queue": [
+      {
+        "rows": 1,
+        "status": "delivered",
+        "max_attempts": 0
+      }
+    ],
+    "activation": [
+      {
+        "lifecycle": "active",
+        "activated_at": "2026-10-20T16:55:59.896904+00:00",
+        "drain_started_at": null
+      }
+    ]
+  },
+  "dataApi": {
+    "checked": 15,
+    "missing": [],
+    "public_schema_usage": {
+      "anon": true,
+      "service_role": true,
+      "authenticated": true
+    },
+    "required_tables_without_rls": [],
+    "familiarity_view_security_invoker": true
+  },
+  "dynamicSqlReview": {
+    "admin_grant_bag": "899d51d9b5d30afece0a10a1f9db4dac",
+    "finding": "require_staff_edit before work;dynamic identifier comes from fixed allowlist and uses %I;values use USING parameters. Two other regex hits are disabled private self-tests or descriptive strings. No new confirmed dynamic-SQL injection by this source scan."
+  }
+}

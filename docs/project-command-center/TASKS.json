@@ -4,13 +4,22 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-54",
+      "id": "CODEX-55",
       "status": "blocked",
+      "scope": "Bounded hosted EmailQA staff Pass override/regrant acceptance",
+      "evidence": "BOUNDED-PASS-QA.md",
+      "testResults": "Read-only exact target/bundle preflight;21 existing local staff module checks rerun pass with documented fixture limits. No hosted action.",
+      "nextAction": "Owner approval for five scoped actions and actual owner session, then verify exact outcomes and unchanged claim clocks/unrelated economy.",
+      "approvalRequirement": "Explicit hosted privileged override and reward-grant QA decision; no existing spent grant/catch allowances reused."
+    },
+    {
+      "id": "CODEX-54",
+      "status": "done",
       "scope": "Auth security readiness and proposed leaked-password protection",
       "evidence": "AUTH-LAUNCH-SECURITY-REVIEW.md",
       "testResults": "REAL dashboard read-only policy inspection;3 mocked registration outcomes and20 recovery checks pass;build passes. No real signup, password handling or Auth mutation.",
-      "nextAction": "Owner decision on enabling only leaked-password protection using the existing plan, then reopen/verify advisor. Other password-change settings remain untouched.",
-      "approvalRequirement": "New account password policy; important owner decision before activation."
+      "nextAction": "Owner approved; leaked-password protection saved and verified on after reopening. Advisor leaked-password warning cleared. Other Auth switches unchanged;no real password/signup test.",
+      "approvalRequirement": "Explicitly approved toggle completed; no other Auth policy or credential change implied."
     },
     {
       "id": "CODEX-53",

@@ -1,5 +1,7 @@
 # CODEX-54 — Auth launch security review
 
+Completion: owner explicitly approved enabling leaked-password protection. The one toggle was saved and verified enabled after reloading/reopening the Email provider settings. Secure email change stayed on; secure password change/current-password requirement stayed off; email provider stayed enabled. Security advisor no longer reports auth_leaked_password_protection; remaining counts48 RLS/no-policy,268 mutable paths,78 anon definers,196 authenticated definers unchanged. No password, session, provider, plan, spending or email-send action occurred. Earlier proposal/unchanged-setting descriptions below are historical. Screenshot: leaked-password-protection-enabled.png.
+
 Read-only dashboard inspection October 21, 2026. Project starlight-play / dtflmlbjhttoewqgkujf, main production, existing Pro organization. No credential values, password hashes, tokens or recovery links were read. No Auth setting changed.
 
 New user signups and email confirmation are enabled. Email and Twitch providers are enabled; anonymous sign-in and manual linking are disabled. Secure email change is enabled. Secure password change, current-password requirement and leaked-password protection are off. This review does not propose turning on the other password-change requirements, which need compatible reauthentication/recovery UX first.

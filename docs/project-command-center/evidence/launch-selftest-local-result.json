@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-21T11:39:03.259Z",
+  "classification": "REAL LOCAL SQL; exact six function definitions; fictional roles; privileged bodies never invoked",
+  "checks": [
+    "Source mismatch aborts before permissions change",
+    "ACL mismatch refuses to overwrite a concurrent permission decision",
+    "anon denied before phase10_special_selftest body executes",
+    "anon denied before phase4_catch_candy_selftest body executes",
+    "anon denied before phase6_rankings_selftest body executes",
+    "anon denied before phase7_content_selftest body executes",
+    "anon denied before phase8_bits_selftest body executes",
+    "anon denied before phase9_balance_selftest body executes",
+    "authenticated denied before phase10_special_selftest body executes",
+    "authenticated denied before phase4_catch_candy_selftest body executes",
+    "authenticated denied before phase6_rankings_selftest body executes",
+    "authenticated denied before phase7_content_selftest body executes",
+    "authenticated denied before phase8_bits_selftest body executes",
+    "authenticated denied before phase9_balance_selftest body executes",
+    "fixture_member denied before phase10_special_selftest body executes",
+    "fixture_member denied before phase4_catch_candy_selftest body executes",
+    "fixture_member denied before phase6_rankings_selftest body executes",
+    "fixture_member denied before phase7_content_selftest body executes",
+    "fixture_member denied before phase8_bits_selftest body executes",
+    "fixture_member denied before phase9_balance_selftest body executes",
+    "phase10_special_selftest exact source and backend access preserved",
+    "phase4_catch_candy_selftest exact source and backend access preserved",
+    "phase6_rankings_selftest exact source and backend access preserved",
+    "phase7_content_selftest exact source and backend access preserved",
+    "phase8_bits_selftest exact source and backend access preserved",
+    "phase9_balance_selftest exact source and backend access preserved",
+    "Every unrelated function attribute remains unchanged"
+  ]
+}

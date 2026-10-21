@@ -1,0 +1,64 @@
+{
+  "audit": {
+    "cohorts": [
+      {
+        "count": 110,
+        "missing_hp": 110,
+        "ruleset_id": null,
+        "content_build": null,
+        "missing_nature": 110
+      },
+      {
+        "count": 7,
+        "missing_hp": 0,
+        "ruleset_id": "streamlink-gen9-xgen",
+        "content_build": "sl-ref-20261013-227b573",
+        "missing_nature": 0
+      }
+    ],
+    "legacy_function_references": [
+      {
+        "md5": "137ba9ca645e2c27d23e72dd596bb1ae",
+        "args": "c catches",
+        "name": "admin_catch_battle_json",
+        "schema": "private"
+      },
+      {
+        "md5": "ec15d532dd58053ee4ac6c24e5e901de",
+        "args": "c catches",
+        "name": "catch_json",
+        "schema": "private"
+      },
+      {
+        "md5": "faa2757753e14d77b977086896cfbd9c",
+        "args": "p_dex integer, p_level integer",
+        "name": "lgpe_pick_moves",
+        "schema": "private"
+      },
+      {
+        "md5": "bf06a84998f069a9fcd31178ebae7f1d",
+        "args": "p_user_id uuid, p_form_id integer, p_level integer, p_ctx text, p_source_key text, p_ball text, p_round_id uuid, p_shiny boolean, p_content_build text, p_hidden_ticket text, p_variant text, p_name text, p_gender text",
+        "name": "persist_staff_gift",
+        "schema": "private"
+      },
+      {
+        "md5": "0d1724fb07b156d6124b2f0f556303a4",
+        "args": "p_user_id uuid, p_form_id integer, p_level integer, p_ctx text, p_source_key text, p_ball text, p_round_id uuid, p_shiny boolean, p_content_build text, p_hidden_ticket text, p_variant text, p_name text, p_gender text",
+        "name": "persist_streamlink_catch",
+        "schema": "private"
+      },
+      {
+        "md5": "5f306e56d4ba4fe46b59370c2977131a",
+        "args": "",
+        "name": "public_ledger_lockdown_self_test",
+        "schema": "private"
+      },
+      {
+        "md5": "716d8b76519ced3d05e3584c7869dd93",
+        "args": "c catches",
+        "name": "stamp_catch_row",
+        "schema": "private"
+      }
+    ]
+  }
+}

@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-40",
+      "status": "in_progress",
+      "scope": "Retire obsolete CP/AV runtime and unnecessary legacy data before launch",
+      "dependencies": [
+        "CODEX-39"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "LEGACY-DATA-RETIREMENT.md",
+      "testResults": "Read-only hosted aggregate inventory;unused CP helper caller audit",
+      "nextAction": "Prepare coherent current-reference replacement and exact legacy-row disposition packet with local tests",
+      "approvalRequirement": "Cleanup requested; irreversible deletion/conversion requires concrete scoped owner decision"
+    },
+    {
       "id": "CODEX-39",
       "status": "done",
       "scope": "Shared WIRE-stat read correction packet and missing-stat renderer",

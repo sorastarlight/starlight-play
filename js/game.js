@@ -1296,17 +1296,6 @@
     return `${Math.round(hours)}h`;
   };
 
-  window.playMonCp = function playMonCp(mon) {
-    if (Number(mon?.cp) > 0) return Number(mon.cp);
-    const stats = mon?.stats || {};
-    const atk = Math.max(1, Number(stats.atk || 10));
-    const def = Math.max(1, Number(stats.def || 10));
-    const hp = Math.max(1, Number(stats.hp || 10));
-    const level = Math.max(1, Number(mon?.level || 1));
-    const cpm = 0.094 + 0.0176 * Math.min(level, 40);
-    return Math.max(10, Math.floor((atk * Math.sqrt(def) * Math.sqrt(hp) * cpm * cpm) / 10));
-  };
-
   function noticeHost() {
     let host = document.getElementById("play-notice-host");
     if (host) return host;

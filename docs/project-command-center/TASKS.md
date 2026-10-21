@@ -133,3 +133,5 @@ D83 launch guard installed. CODEX-17 explains D85's three apparent mismatches: h
 Done: owner-approved protocol, issue template, Cursor coordination rule and command-center links/tracking. Branch: admin-hub-overhaul; implementation commit: commit adding this entry (git history). STATIC validation only. No shared job posted, monitor enabled or Cursor run. Next: separate approval for monitoring/pilot. A later owner message authorized the unchanged launch-guard install, recorded as D83.
 
 CODEX-39 hosted completion,2026-10-20 EDT: owner approved read-only stat patch; migration20261021021746 installed, exact formatter hash/specimen invariance verified, actual EmailQA My PC22/7/9/7/7/12. R-PC-STATS closed. Owner no longer requires old Let's Go/CP data preservation; no conversion/deletion occurred. See WIRE-STAT-FORMATTER-FIX.md.
+
+CODEX-40,2026-10-20 EDT: owner requires unnecessary legacy data retirement before launch. Read-only inventory110 unpinned/7 WIRE rows; active lgpe helper dependencies remain. Removed unused browser CP calculator. See LEGACY-DATA-RETIREMENT.md for staged removal and concrete deletion gate; no database mutation occurred.

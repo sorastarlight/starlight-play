@@ -10,7 +10,7 @@ Current October20,2026 EDT. Existing command-center checklist; not a new queue o
 |4|Twitch policy|New one-link policy disabled; no separate provider identity available. Defer new restriction until actual provider QA/intent/exception workflow and rollout decision. Do not borrow protected identity.|
 |5|Staff actions|QA gift delivery, Pass override/regrant/history and permission/audit/replay checks. Legacy Pass QA grants to actor: never test success with an owner session.|
 |6|Player acceptance|Core desktop/mobile/error/loading/keyboard/zoom/motion paths and final owner review. No gym earning system, later-gen exposure or retired frames.|
-|7|Release operations|Backup/restore readiness, configuration/scheduling/email capacity, regressions, explicit release go/no-go, approved APP stamp, publication/cache verification. No automatic reset.|
+|7|Release operations|Required legacy model/data retirement per LEGACY-DATA-RETIREMENT.md before final release;Backup/restore readiness, configuration/scheduling/email capacity, regressions, explicit release go/no-go, approved APP stamp, publication/cache verification. No automatic reset.|
 
 ## Bounded hosted smoke — first allowance spent, replacement not approved
 

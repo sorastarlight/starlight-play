@@ -1989,3 +1989,5 @@ CODEX-39 hosted completion,2026-10-20 EDT: owner approved read-only stat patch; 
 CODEX-40,2026-10-20 EDT: owner requires unnecessary legacy data retirement before launch. Read-only inventory110 unpinned/7 WIRE rows; active lgpe helper dependencies remain. Removed unused browser CP calculator. See LEGACY-DATA-RETIREMENT.md for staged removal and concrete deletion gate; no database mutation occurred.
 
 CODEX-40 dependency packet: five-function CP/AV replacement plus rollback;14 REAL LOCAL SQL checks and78 suites pass. Cleanup review includes ledger/evolution/showcase references; backup and destructive disposition still held. See LEGACY-DATA-RETIREMENT.md and supabase/unapplied/legacy-retirement/CLEANUP_PLAN.md.
+
+CODEX-40 dependency phase installed20261021023001 under current replacement instruction:CP/AV response and explicit writes retired, WIRE refs replace legacy type/stat reads.117 stored Pokémon unchanged;actual PC verified.95 legacy specimens match protected owner;cleanup proposal scope needs owner direction;no deletion/reset/gameplay. See LEGACY-DATA-RETIREMENT.md.

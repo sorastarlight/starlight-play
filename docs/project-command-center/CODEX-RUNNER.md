@@ -40,3 +40,5 @@ Owner-requested Pass and direct-gift work is recorded in CODEX-STAFF-REWARDS.md.
 CODEX-39 hosted completion,2026-10-20 EDT: owner approved read-only stat patch; migration20261021021746 installed, exact formatter hash/specimen invariance verified, actual EmailQA My PC22/7/9/7/7/12. R-PC-STATS closed. Owner no longer requires old Let's Go/CP data preservation; no conversion/deletion occurred. See WIRE-STAT-FORMATTER-FIX.md.
 
 CODEX-40,2026-10-20 EDT: owner requires unnecessary legacy data retirement before launch. Read-only inventory110 unpinned/7 WIRE rows; active lgpe helper dependencies remain. Removed unused browser CP calculator. See LEGACY-DATA-RETIREMENT.md for staged removal and concrete deletion gate; no database mutation occurred.
+
+CODEX-40 dependency phase installed20261021023001 under current replacement instruction:CP/AV response and explicit writes retired, WIRE refs replace legacy type/stat reads.117 stored Pokémon unchanged;actual PC verified.95 legacy specimens match protected owner;cleanup proposal scope needs owner direction;no deletion/reset/gameplay. See LEGACY-DATA-RETIREMENT.md.

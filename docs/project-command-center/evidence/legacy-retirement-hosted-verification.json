@@ -1,0 +1,137 @@
+{
+  "before": {
+    "functions": [
+      {
+        "args": "c catches",
+        "hash": "137ba9ca645e2c27d23e72dd596bb1ae",
+        "name": "admin_catch_battle_json",
+        "proacl": "{postgres=X/postgres}",
+        "proconfig": [
+          "search_path=pg_catalog, public, private"
+        ],
+        "prosecdef": false,
+        "provolatile": "s"
+      },
+      {
+        "args": "c catches",
+        "hash": "ec15d532dd58053ee4ac6c24e5e901de",
+        "name": "catch_json",
+        "proacl": null,
+        "proconfig": null,
+        "prosecdef": false,
+        "provolatile": "s"
+      },
+      {
+        "args": "p_user_id uuid, p_form_id integer, p_level integer, p_ctx text, p_source_key text, p_ball text, p_round_id uuid, p_shiny boolean, p_content_build text, p_hidden_ticket text, p_variant text, p_name text, p_gender text",
+        "hash": "bf06a84998f069a9fcd31178ebae7f1d",
+        "name": "persist_staff_gift",
+        "proacl": "{postgres=X/postgres}",
+        "proconfig": [
+          "search_path=pg_catalog"
+        ],
+        "prosecdef": true,
+        "provolatile": "v"
+      },
+      {
+        "args": "p_user_id uuid, p_form_id integer, p_level integer, p_ctx text, p_source_key text, p_ball text, p_round_id uuid, p_shiny boolean, p_content_build text, p_hidden_ticket text, p_variant text, p_name text, p_gender text",
+        "hash": "0d1724fb07b156d6124b2f0f556303a4",
+        "name": "persist_streamlink_catch",
+        "proacl": "{postgres=X/postgres}",
+        "proconfig": [
+          "search_path=pg_catalog"
+        ],
+        "prosecdef": true,
+        "provolatile": "v"
+      },
+      {
+        "args": "c catches",
+        "hash": "716d8b76519ced3d05e3584c7869dd93",
+        "name": "stamp_catch_row",
+        "proacl": null,
+        "proconfig": null,
+        "prosecdef": false,
+        "provolatile": "v"
+      }
+    ],
+    "specimens": {
+      "hash": "643c21b94d5a008b8f0584c1ef26468d",
+      "count": 117
+    }
+  },
+  "after": {
+    "functions": [
+      {
+        "args": "c catches",
+        "hash": "f349c952d34e818b0378daaedf3c7736",
+        "name": "admin_catch_battle_json",
+        "proacl": "{postgres=X/postgres}",
+        "proconfig": [
+          "search_path=pg_catalog, public, private"
+        ],
+        "prosecdef": false,
+        "provolatile": "s"
+      },
+      {
+        "args": "c catches",
+        "hash": "3813498aa56a443fa8d922ee3500c64c",
+        "name": "catch_json",
+        "proacl": null,
+        "proconfig": null,
+        "prosecdef": false,
+        "provolatile": "s"
+      },
+      {
+        "args": "p_user_id uuid, p_form_id integer, p_level integer, p_ctx text, p_source_key text, p_ball text, p_round_id uuid, p_shiny boolean, p_content_build text, p_hidden_ticket text, p_variant text, p_name text, p_gender text",
+        "hash": "28c7f95e313cac286d3268a1f6b9b875",
+        "name": "persist_staff_gift",
+        "proacl": "{postgres=X/postgres}",
+        "proconfig": [
+          "search_path=pg_catalog"
+        ],
+        "prosecdef": true,
+        "provolatile": "v"
+      },
+      {
+        "args": "p_user_id uuid, p_form_id integer, p_level integer, p_ctx text, p_source_key text, p_ball text, p_round_id uuid, p_shiny boolean, p_content_build text, p_hidden_ticket text, p_variant text, p_name text, p_gender text",
+        "hash": "b7de6c0648c81f91288c2433dea818c5",
+        "name": "persist_streamlink_catch",
+        "proacl": "{postgres=X/postgres}",
+        "proconfig": [
+          "search_path=pg_catalog"
+        ],
+        "prosecdef": true,
+        "provolatile": "v"
+      },
+      {
+        "args": "c catches",
+        "hash": "97f28530a6df3887702a9d9962cfb6e2",
+        "name": "stamp_catch_row",
+        "proacl": null,
+        "proconfig": null,
+        "prosecdef": false,
+        "provolatile": "v"
+      }
+    ],
+    "migration": "20261021023001",
+    "specimens": {
+      "hash": "643c21b94d5a008b8f0584c1ef26468d",
+      "count": 117
+    },
+    "qa_response": {
+      "stats": {
+        "hp": 22,
+        "atk": 7,
+        "def": 9,
+        "spa": 7,
+        "spd": 7,
+        "spe": 12
+      },
+      "types": [
+        "bug"
+      ],
+      "cp_present": false,
+      "avs_present": false
+    }
+  },
+  "comparison": "117 full specimen rows unchanged; signatures ACLs security volatility search_paths unchanged"
+}

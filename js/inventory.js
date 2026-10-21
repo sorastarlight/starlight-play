@@ -23,6 +23,17 @@
   let lastLedgerOrder = [];
   let tab = "all";
   let selectedKey = "";
+  let loadGeneration = 0;
+  function invalidateInventory() {
+    loadGeneration++;
+    els.trainer.hidden = true;
+    if (els.detail?.open) els.detail.close();
+    if (invChannel) { supabase.removeChannel(invChannel); invChannel = null; }
+    lastBag = {}; lastCapture = null; lastCollection = null; lastLedgerOrder = [];
+    selectedKey = "";
+    if (els.status) els.status.textContent = "";
+    if (els.ledger) els.ledger.innerHTML = "";
+  }
   const TABS = [
     ["all", "All"],
     ["balls", "Poké Balls"],
@@ -39,7 +50,7 @@
 
   window.playBindAccountNav({
     onSignOut() {
-      els.trainer.hidden = true;
+      invalidateInventory();
       window.playRestoreGate(els.gate, "Sign in to open your inventory.");
     }
   });
@@ -178,6 +189,7 @@
       ? `<div class="bag-item-list">${rows.map((row) => itemCardHtml(row)).join("")}</div>`
       : `<p class="muted bag-empty">${showUnowned
         ? "No items match this filter."
+        : query ? "No items match your search. Try another name."
         : tab === "all"
           ? "Your bag is empty. Visit the Mart or join encounters to fill it."
           : `Nothing in the ${pocketLabel} pocket yet.`}</p>`;
@@ -218,7 +230,15 @@
   }
 
   async function load() {
-    const { data: sessionData } = await supabase.auth.getSession();
+    invalidateInventory();
+    const generation = loadGeneration;
+    const current = () => generation === loadGeneration;
+    window.playSetLoadingGate(els.gate, els.trainer, { soft: false });
+    try {
+    const sessionResult = await supabase.auth.getSession();
+    if (!current()) return;
+    if (sessionResult.error) throw new Error("Session unavailable");
+    const sessionData = sessionResult.data;
     const session = sessionData.session;
     if (!session) {
       els.trainer.hidden = true;
@@ -228,19 +248,23 @@
     }
     window.playSetLoadingGate(els.gate, els.trainer, { soft: !els.trainer?.hidden });
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
+    if (!current()) return;
     let snapshot = null;
     try {
       snapshot = await window.playCall("play_state");
-    } catch (_) {
-      snapshot = null;
-    }
+    } catch (_) { throw new Error("Inventory unavailable"); }
+    if (!current()) return;
+    if (!snapshot?.bag) throw new Error("Inventory unavailable");
     window.playSetAccountNav(session, profile, { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer });
     lastCapture = snapshot?.captureItems || null;
     let bag = snapshot?.bag || {};
     try {
-      lastCollection = await window.playCall("play_collection");
+      const collection = await window.playCall("play_collection");
+      if (!current()) return;
+      if (!collection?.items) throw new Error("Inventory unavailable");
+      lastCollection = collection;
       bag = { ...bag, ...(lastCollection?.items || {}) };
-    } catch (_) {}
+    } catch (_) { throw new Error("Inventory unavailable"); }
     window.playSeedSeenBag?.(bag);
     renderBag(bag);
     const candyFirst = (lastCollection?.candy || []).find((row) => Number(row.qty || 0) > 0);
@@ -249,6 +273,7 @@
     }
     try {
       const hist = await window.playCall("play_item_ledger", { p_limit: 20 });
+      if (!current()) return;
       const rows = hist?.rows || [];
       lastLedgerOrder = [...new Set(rows.map((row) => row.item).filter(Boolean))];
       if (els.ledger) {
@@ -260,30 +285,44 @@
       }
       renderBag(bag);
     } catch (_) {
-      if (els.ledger) els.ledger.innerHTML = "";
+      if (!current()) return;
+      if (els.ledger) els.ledger.innerHTML = '<p class="muted">Item history is temporarily unavailable. Reload to try again.</p>';
     }
     els.gate.hidden = true;
     els.trainer.hidden = false;
     if (invChannel) supabase.removeChannel(invChannel);
+    let refreshGeneration = 0;
     invChannel = supabase.channel("play-inv")
       .on("postgres_changes", { event: "*", schema: "public", table: "inventories", filter: `user_id=eq.${session.user.id}` }, async () => {
+        const refresh = ++refreshGeneration;
+        if (!current()) return;
         try {
           const snap = await window.playCall("play_state");
-          lastCapture = snap?.captureItems || lastCapture;
-          let nextBag = snap?.bag || {};
-          try {
-            const collection = await window.playCall("play_collection");
-            nextBag = { ...nextBag, ...(collection?.items || {}) };
-          } catch (_) {}
+          if (!current() || refresh !== refreshGeneration) return;
+          if (!snap?.bag) throw new Error("Inventory unavailable");
+          const collection = await window.playCall("play_collection");
+          if (!current() || refresh !== refreshGeneration) return;
+          if (!collection?.items) throw new Error("Inventory unavailable");
+          const nextBag = { ...snap.bag, ...(collection?.items || {}) };
+          lastCapture = snap.captureItems || null;
+          lastCollection = collection;
           renderBag(nextBag);
-        } catch (_) {}
+        } catch (_) {
+          if (current() && refresh === refreshGeneration && els.status) els.status.textContent = "Inventory refresh unavailable. Showing your last loaded bag; reload to try again.";
+        }
       })
       .subscribe();
+    } catch (_) {
+      if (!current()) return;
+      els.trainer.hidden = true;
+      window.playRestoreGate(els.gate, "We couldn’t load your inventory. Please try again.");
+      els.gate.innerHTML = 'We couldn’t load your inventory. Please try again. <button type="button" data-inventory-retry>Try again</button>';
+    }
   }
+  els.gate.addEventListener("click", event => { if (event.target.closest("[data-inventory-retry]")) load(); });
 
-  window.playBindLureButton((data) => {
-    renderBag(data.bag);
-  });
+  // Resolve the current session again; an action response may arrive after an account switch.
+  window.playBindLureButton(() => load());
   window.playBindTips?.(document.body);
 
   els.tabs?.addEventListener("click", (event) => {
@@ -312,6 +351,10 @@
     openDetail(pin.dataset.pinItem);
   });
 
-  supabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return; load(); });
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (window.playAuthNoise(event, session)) return;
+    invalidateInventory();
+    window.setTimeout(load, 0);
+  });
   load();
 })();

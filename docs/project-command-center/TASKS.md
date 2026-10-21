@@ -219,3 +219,5 @@ CODEX-63 complete: requested level-up/achievement fanfare and deduplicated copy;
 CODEX-64 complete:read-only security spot review and actual GTS/Inventory390/768/1280 acceptance,search/itemdetail without itemuse. Recovery physical clone runtime hazard documented;local logical drill proposal awaits important owner decision.
 
 CODEX-65 approved local logical drill in progress:restricted workspace/tooling/offline preflight prepared,secret-column catalog reviewed. No export/runtime. Await human secure existing-database-password access step;no new approval needed.
+
+CODEX-65 held at owner direction:no database password changes/retries/export/restore. CODEX-66 frontend Inventory false-empty/stale-account render correction prepared;9mocked load/race tests,35UX/6help/build pass. Actual hosted normal-view verification next.

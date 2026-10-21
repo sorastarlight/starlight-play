@@ -4,12 +4,21 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-65",
+      "id": "CODEX-66",
       "status": "in_progress",
+      "scope": "Inventory failure states and obsolete account/refresh response guards",
+      "evidence": "INVENTORY-LOAD-CODEX66.md;tests/inventory-loading-tests.js",
+      "testResults": "9 actual-source mocked load/error/account/realtime tests;35playUX/6help checks/build31/463 pass. No hosted failure or mutation test.",
+      "nextAction": "Publish presentation/client fix and verify normal actual Inventory view plus source equality.",
+      "approvalRequirement": "Routine frontend correctness authorized;no SQL/gameplay/APP stamp."
+    },
+    {
+      "id": "CODEX-65",
+      "status": "held",
       "scope": "Approved isolated local logical recovery drill",
       "evidence": "RECOVERY-DRILL-CODEX65.md;RECOVERY-DRILL-LOCAL-PROPOSAL.md",
       "testResults": "Restricted outside-Git workspace ACL verified user+SYSTEM;PG17.11 tools verified versus source17.6;offline native preflight passes;PowerShell helpers parse. Catalog-only sensitive-token omission inventory prepared. No private rows exported or runtime started.",
-      "nextAction": "Await human corrected existing DB credential via secure local helper -ReplaceStoredCredential. Native TLS verified with official CA;server28P01 rejected authentication;dashboard endpoint/user independently match. No export/runtime/no password reset.",
+      "nextAction": "Owner does not know native DB password and explicitly directs leaving it unchanged. Stop native auth retries/reset/export/restore. Continue other launch readiness;recovery remains unverified. Existing protected blob stays inactive;do not request correction again.",
       "approvalRequirement": "Bounded local drill approved. Missing native credential is access step;no spending/hosted restore/production changes allowed."
     },
     {

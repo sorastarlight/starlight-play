@@ -1,0 +1,30 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync(require('node:path').join(__dirname,'../js/inventory.js'),'utf8');
+const flush=async()=>{for(let i=0;i<16;i++)await Promise.resolve();};
+const A={user:{id:'fictional-a'}},B={user:{id:'fictional-b'}};
+function fixture(initial=A){
+ let session=initial,authChange,navOptions;const nodes={},calls=[],timers=[],paints=[],channels=[];
+ const node=id=>nodes[id]||(nodes[id]={hidden:id==='trainer',open:false,value:'',style:{},dataset:{},innerHTML:'',textContent:'',events:{},addEventListener(k,f){this.events[k]=f;},close(){this.open=false;}});
+ const client={auth:{getSession:async()=>({data:{session}}),onAuthStateChange:fn=>authChange=fn},from:()=>({select:()=>({eq:()=>({maybeSingle:async()=>({data:{display_name:session?.user.id}})})})}),removeChannel:c=>{c.removed=true;},channel:()=>{const c={on(k,filter,cb){this.cb=cb;return this;},subscribe(){return this;}};channels.push(c);return c;}};
+ const window={playSupabase:client,setTimeout:fn=>timers.push(fn),playBindAccountNav:o=>navOptions=o,playAuthNoise:e=>e==='TOKEN_REFRESHED',playSetAccountNav:()=>{},playSetLoadingGate:(g,t)=>{g.hidden=false;t.hidden=true;},playRestoreGate:(g,text)=>{g.hidden=false;g.textContent=text;},playCall:rpc=>new Promise((resolve,reject)=>calls.push({rpc,resolve,reject})),playBindLureButton:()=>{},playFillBagMeter:bag=>paints.push({...bag}),playFillLurePanel:()=>{},playItemCategory:()=> 'special',playItemLabel:k=>k,playItemPlayerText:()=>'',playItemSprite:()=>'',playEscapeAttr:x=>String(x),playSeedSeenBag:()=>{}};
+ vm.runInNewContext(source,{window,document:{getElementById:node,body:node('body')}});
+ return{nodes,calls,paints,channels,change(next){session=next;authChange(next?'SIGNED_IN':'SIGNED_OUT',next);},runTimers(){while(timers.length)timers.shift()();},signOut(){navOptions.onSignOut();},retry(){node('gate').events.click({target:{closest:()=>true}});}};
+}
+async function resolveLoad(f,coins=12,items={linkingcord:1}){
+ const state=f.calls.filter(x=>x.rpc==='play_state').at(-1);state.resolve({bag:{coins,capacity:50,used:1}});await flush();
+ f.calls.filter(x=>x.rpc==='play_collection').at(-1).resolve({items,candy:[]});await flush();
+ f.calls.filter(x=>x.rpc==='play_item_ledger').at(-1).resolve({rows:[]});await flush();
+}
+async function main(){
+ let f=fixture(null);await flush();assert.equal(f.calls.length,0);assert.equal(f.nodes.trainer.hidden,true);console.log('PASS Signed-out inventory makes no RPC and hides account data');
+ f=fixture();await flush();f.calls[0].reject(Error('offline'));await flush();assert.equal(f.nodes.trainer.hidden,true);assert.match(f.nodes.gate.innerHTML,/Try again/);assert.equal(f.paints.length,0);f.retry();await flush();await resolveLoad(f);assert.equal(f.nodes.trainer.hidden,false);assert.equal(f.paints.at(-1).coins,12);console.log('PASS State failure shows retry,not empty bag;retry recovers');
+ f=fixture();await flush();f.calls[0].resolve({bag:{coins:12}});await flush();f.calls[1].reject(Error('collection offline'));await flush();assert.equal(f.nodes.trainer.hidden,true);assert.equal(f.paints.length,0);console.log('PASS Partial collection failure cannot present incomplete inventory');
+ f=fixture();await flush();const oldState=f.calls[0];f.change(B);assert.equal(f.nodes.trainer.hidden,true);f.runTimers();await flush();await resolveLoad(f,99);oldState.resolve({bag:{coins:777}});await flush();assert.equal(f.paints.at(-1).coins,99);assert(!f.paints.some(b=>b.coins===777));console.log('PASS Late prior-account state cannot repaint current inventory');
+ f=fixture();await flush();f.calls[0].resolve({bag:{coins:777}});await flush();const oldCollection=f.calls[1];f.change(B);f.runTimers();await flush();await resolveLoad(f,99,{linkingcord:2});oldCollection.resolve({items:{oldsecretitem:50},candy:[]});await flush();assert.equal(f.paints.at(-1).coins,99);assert(!f.nodes['bag-grid'].innerHTML.includes('oldsecretitem'));console.log('PASS Late prior-account collection cannot repopulate cached items');
+ f=fixture();await flush();await resolveLoad(f);const channel=f.channels[0];channel.cb();await flush();const refresh=f.calls.at(-1);f.change(null);refresh.resolve({bag:{coins:777}});await flush();f.runTimers();await flush();assert.equal(f.nodes.trainer.hidden,true);assert.equal(channel.removed,true);assert(!f.paints.some(b=>b.coins===777));console.log('PASS Sign-out cancels subscription and suppresses in-flight refresh');
+ f=fixture();await flush();f.calls[0].resolve({bag:{coins:12}});await flush();f.calls[1].resolve({items:{linkingcord:1},candy:[]});await flush();f.calls[2].reject(Error('ledger offline'));await flush();assert.equal(f.nodes.trainer.hidden,false);assert.match(f.nodes['item-ledger'].innerHTML,/temporarily unavailable/);console.log('PASS History failure is distinguished from no item history');
+ f.nodes['bag-search'].value='no-match';f.nodes['bag-search'].events.input();assert.match(f.nodes['bag-grid'].innerHTML,/No items match your search/);assert(!f.nodes['bag-grid'].innerHTML.includes('Your bag is empty'));console.log('PASS Search misses do not claim that owned bag is empty');
+ f=fixture();await flush();await resolveLoad(f);f.channels[0].cb();await flush();const olderRefresh=f.calls.at(-1);f.channels[0].cb();await flush();f.calls.at(-1).resolve({bag:{coins:22}});await flush();f.calls.at(-1).resolve({items:{linkingcord:2},candy:[]});await flush();olderRefresh.resolve({bag:{coins:777}});await flush();assert.equal(f.paints.at(-1).coins,22);assert(!f.paints.some(b=>b.coins===777));console.log('PASS Reordered realtime responses cannot overwrite newer inventory');
+ console.log('9 LOCAL mocked Inventory load/race checks passed;no Auth/network/gameplay mutation');
+}
+main().catch(error=>{console.error(error);process.exitCode=1;});

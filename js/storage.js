@@ -1,5 +1,6 @@
 (() => {
   const supabase = window.playSupabase;
+  const familiarity = window.PlaySpeciesFamiliarity.create(supabase);
   const els = {
     gate: document.getElementById("gate"),
     app: document.getElementById("box-app"),
@@ -35,6 +36,7 @@
 
   window.playBindAccountNav({
     onSignOut() {
+      familiarity.reset(null);
       data = null;
       trainerCard = null;
       els.app.hidden = true;
@@ -362,6 +364,7 @@
     const otName = mon.otName || "Unknown Trainer";
     const otNo = mon.otNumber ? String(mon.otNumber).padStart(5, "0") : "-----";
     const art = pcStyle(mon, "inspect");
+    const familiarityCopy = window.PlaySpeciesFamiliarity.presentation(familiarity.get(Number(mon.dex)));
     const tradeDisabled = mon.listed || mon.locked || mon.favorite || mon.tradable === false;
     const oakDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite || oakBusy;
     const releaseDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite;
@@ -408,6 +411,12 @@
           <div class="pc-stats">${statRows(mon)}</div>
         </section>
 
+        <section class="pc-module pc-familiarity" aria-label="Species Familiarity">
+          <h3 class="pc-module-label">Species Familiarity</h3>
+          <p class="pc-familiarity-value" role="status" aria-live="polite">${window.playEscapeAttr(familiarityCopy.label)}</p>
+          <p class="muted pc-familiarity-note">${window.playEscapeAttr(familiarityCopy.note)}</p>
+        </section>
+
         <section class="pc-module pc-manage" aria-label="Management">
           <h3 class="pc-module-label">Nickname</h3>
           <div class="pc-nick-row">
@@ -434,6 +443,15 @@
           </div>
         </section>
       </div>`;
+
+    familiarity.load(Number(mon.dex)).then((state) => {
+      if (state.status === "stale" || String(lastDetailId) !== String(mon.id) || !data) return;
+      const copy = window.PlaySpeciesFamiliarity.presentation(state);
+      const value = els.detail.querySelector(".pc-familiarity-value");
+      const note = els.detail.querySelector(".pc-familiarity-note");
+      if (value) value.textContent = copy.label;
+      if (note) note.textContent = copy.note;
+    });
 
     document.getElementById("save-nick")?.addEventListener("click", () => act("play_set_nickname", {
       p_catch_id: mon.id,
@@ -883,6 +901,7 @@
   async function load() {
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
+    familiarity.reset(session?.user?.id || null);
     if (!session) {
       els.app.hidden = true;
       trainerCard = null;

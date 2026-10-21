@@ -1,0 +1,16 @@
+{
+  "classification": "REAL LOCAL SQL; pinned reference seeds; fictional generator inputs; no hosted writes",
+  "checks": [
+    "Actual baseline generator produces duplicate Harden and validator rejects Metapod",
+    "Guarded install preserves source attributes and owner-only ACL",
+    "Corrected Metapod has exactly one legal Harden",
+    "All 15,100 Kanto base-form/level combinations contain at most four distinct moves; other outputs unchanged",
+    "28 actual generated specimens pass unchanged legality validator",
+    "Baseline restoration reproduces original rejection",
+    "Install refuses unexpected privilege drift"
+  ],
+  "matrixCases": 15100,
+  "changedCases": 260,
+  "oldDuplicateCases": 260,
+  "limitations": "Does not exercise hosted authenticated gift persistence, row triggers, staff audit, or Oak transfer."
+}

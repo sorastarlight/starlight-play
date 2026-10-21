@@ -1,0 +1,10 @@
+{
+  "signature": "private.streamlink_level_up_slice(text,integer,integer)",
+  "before": "dda453431a59560c46fa9cb8fecfd159",
+  "after": "4b04ec23b7f75ec87993bfe957a032d2",
+  "acl": "{postgres=X/postgres}",
+  "owner": "postgres",
+  "securityDefiner": false,
+  "volatility": "stable",
+  "searchPath": "pg_catalog"
+}

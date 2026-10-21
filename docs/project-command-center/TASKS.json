@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-51",
+      "status": "blocked",
+      "scope": "Correct duplicate generated move selection discovered by Metapod gift QA",
+      "evidence": "supabase/unapplied/distinct-generated-moves/README.md;evidence/distinct-generated-moves-local.json",
+      "testResults": "7 REAL LOCAL SQL checks;15,100 Kanto species/level cases;28 generated legality checks. Guarded install/rollback/drift refusal pass.",
+      "nextAction": "Obtain important production generation-helper approval, install and verify, then finish the already-authorized one Metapod gift and Oak transfer.",
+      "approvalRequirement": "Shared helper affects future catches and gifts; no hosted install yet."
+    },
+    {
       "id": "CODEX-50",
       "status": "blocked",
       "scope": "Approved bounded EmailQA hosted Mart/evolution/Oak acceptance",
@@ -15,7 +24,7 @@
       "commit": "d77bb3b9",
       "evidence": "BOUNDED-ECONOMY-QA.md;evidence/qa50-mart-purchase.json;evidence/qa50-gift-evolution.json",
       "testResults": "REAL DOM/SQL Mart purchase and audited15-candy gift PASS;one Caterpie→Metapod evolution PASS;level/IV/EV/nature/moves/stamp retained,15 candy spent once;Caterpie Familiar1 unchanged. Oak0 eligible/last-copy protection;not executed.",
-      "nextAction": "Owner authorized one additional Metapod through Trainer Gifts. Await actual owner sign-in, grant once, then EmailQA sign-in and approved original Metapod Oak transfer.",
+      "nextAction": "Owner signed in; Metapod gift failed once with no specimen. CODEX-51 reproduces duplicate Harden rejection. Correct generator before retry; owner session currently available.",
       "approvalRequirement": "One additional ordinary Metapod approved explicitly; original Oak transfer remains approved. No extra catches/evolutions or last-copy bypass."
     },
     {

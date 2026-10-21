@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-36",
+      "status": "done",
+      "scope": "Approved EmailQA replacement encounter: ordinary escape/economy verified",
+      "dependencies": [
+        "CODEX-35"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "SHARED-QA-ENCOUNTER-RETRY.md;evidence/shared-qa-retry-result.json;evidence/shared-qa-retry-ledger.json",
+      "testResults": "PRODUCTION one real UI throw;natural escape;1 capture log;BAG_SPEND-1/attendance+1;0 catch/events/outbox;no schedule",
+      "nextAction": "Successful hosted catch/WIRE/stamp evidence still missing; further encounters need explicit allowance",
+      "approvalRequirement": "One replacement approval consumed; no further encounters/delivery/scheduling/reset/stamp"
+    },
+    {
       "id": "CODEX-35",
       "status": "done",
       "scope": "Approved single shared QA encounter attempt; player smoke incomplete",

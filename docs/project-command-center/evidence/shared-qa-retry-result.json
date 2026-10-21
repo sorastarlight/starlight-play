@@ -1,0 +1,52 @@
+[
+  {
+    "at": "2026-10-21 01:41:37.598031+00",
+    "encounter": {
+      "id": "02fadd5c-7493-4570-9e3f-eabd6fed706a",
+      "phase": "closed",
+      "resolved": true,
+      "cancelled": false,
+      "started_at": "2026-10-21T01:39:14.843794+00:00",
+      "last_action": "emailqa has thrown a Poké Ball!"
+    },
+    "qa_player": [
+      {
+        "ball": "pokeball",
+        "prep": "none",
+        "roll": 0.76178958501729,
+        "caught": false,
+        "chance": 0.16,
+        "result": "Escaped",
+        "ball_at": "2026-10-21T01:40:28.514545+00:00",
+        "prep_at": "2026-10-21T01:39:55.292463+00:00",
+        "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+        "round_id": "02fadd5c-7493-4570-9e3f-eabd6fed706a",
+        "joined_at": "2026-10-21T01:39:24.052581+00:00",
+        "result_reason": "escaped",
+        "throw_processed": true
+      }
+    ],
+    "other_participants": 0,
+    "capture_logs": [
+      {
+        "ball": "pokeball",
+        "roll": 0.76178958501729,
+        "chance": 0.16,
+        "success": false
+      }
+    ],
+    "catches": 0,
+    "inventory": {
+      "pokeball": 10,
+      "greatball": 5,
+      "ultraball": 3
+    },
+    "director": {
+      "status": "OFFLINE",
+      "has_queue": false,
+      "manual_hold": true,
+      "session_active": false,
+      "next_encounter_at": null
+    }
+  }
+]

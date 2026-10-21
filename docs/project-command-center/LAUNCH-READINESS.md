@@ -5,7 +5,7 @@ Current October20,2026 EDT. Existing command-center checklist; not a new queue o
 | Order | Objective | Exit criteria/status |
 |---|---|---|
 |1|Security|R1/R2/four legacy R18 endpoints remediated/catalog-verified in CODEX-34. Wider advisor triage remains; not a blanket sign-off.|
-|2|Hosted gameplay|CODEX-35 used the approved one encounter; it expired empty after the browser changed from EmailQA to owner.0 participants/throws/catches. Needs EmailQA sign-in and explicit one-replacement allowance; no gameplay pass. See SHARED-QA-ENCOUNTER-ATTEMPT.md.|
+|2|Hosted gameplay|CODEX-36 approved retry verified real EmailQA join/no item/one owned ball/natural escape. One debit plus normal attendance reward,0 catches/events, no next schedule. Successful hosted catch/WIRE/stamp and remaining gameplay still unverified; further encounters need a new allowance. See SHARED-QA-ENCOUNTER-RETRY.md.|
 |3|Familiarity delivery|Recording/WIRE active; Pokédex display published. Hosted eligible catch/bounded delivery and reliable operation needed before advertising live progress. Delivery/scheduling separate. My PC display planned.|
 |4|Twitch policy|New one-link policy disabled; no separate provider identity available. Defer new restriction until actual provider QA/intent/exception workflow and rollout decision. Do not borrow protected identity.|
 |5|Staff actions|QA gift delivery, Pass override/regrant/history and permission/audit/replay checks. Legacy Pass QA grants to actor: never test success with an owner session.|

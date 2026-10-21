@@ -1,0 +1,16 @@
+[
+  {
+    "item_key": "pokeball",
+    "amount": -1,
+    "reason": "BAG_SPEND",
+    "source_id": null,
+    "created_at": "2026-10-21 01:40:45.167589+00"
+  },
+  {
+    "item_key": "pokeball",
+    "amount": 1,
+    "reason": "STREAM_ATTENDANCE",
+    "source_id": "02fadd5c-7493-4570-9e3f-eabd6fed706a",
+    "created_at": "2026-10-21 01:41:02.076033+00"
+  }
+]

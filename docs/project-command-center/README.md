@@ -1,5 +1,7 @@
 # Pokémon StreamLink — project command center
 
+CODEX-36 [EmailQA retry](./SHARED-QA-ENCOUNTER-RETRY.md): approved replacement completed with one ordinary throw/natural escape; one ball debited and one normal attendance ball awarded.0 catches/events, director still held/no next schedule. Escape case verified; positive hosted catch/WIRE/stamp remains unverified. Single retry allowance spent.
+
 CODEX-35 [shared QA attempt](./SHARED-QA-ENCOUNTER-ATTEMPT.md): approved single encounter launched and expired empty after browser identity switched to owner.0 participants/throws/catches; QA inventory unchanged; no schedule. Hosted player smoke is incomplete. Another encounter is not authorized by the spent allowance.
 
 [Ordered launch readiness](./LAUNCH-READINESS.md): CODEX-34 installed/verified [R1/R2/R18 security fixes](./LAUNCH-SECURITY-HARDENING.md). Anonymous admin EXECUTE is0;77 non-writing suites/33 local SQL checks passed. Wider advisor triage and hosted gameplay remain open; one shared-encounter decision pending.

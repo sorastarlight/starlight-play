@@ -1,3 +1,7 @@
+## CODEX-36 — Approved EmailQA retry (2026-10-20 EDT)
+
+Verified actual EmailQA UI immediately before launch. Approved replacement round02fadd5c-7493-4570-9e3f-eabd6fed706a ran01:39:14–01:41:02 UTC: join, no item, one owned Poké Ball, natural escape. One capture log/chance0.16/roll0.76178958501729;0 catches/other participants/Familiarity events/outbox. Ledger BAG_SPEND-1 then normal STREAM_ATTENDANCE+1;balance10/5/3. No operator refund, cancellation, schedule, reset, delivery or stamp. Single replacement allowance spent; no further encounter approved. See SHARED-QA-ENCOUNTER-RETRY.md.
+
 ## CODEX-35 — One shared QA encounter attempt (2026-10-20 EDT)
 
 Owner approved one encounter/one EmailQA throw. Existing canonical launcher called through authenticated DB operator with guarded director-row equality to avoid ordinary wrapper's scheduling side effect. Encounter a7fcaeae-896d-4376-a892-250cdd831744 started01:35:34 UTC. Browser changed from EmailQA to owner; no player action clicked. Empty round auto-expired01:36:06;0 participants/catches/throws, QA inventory10/5/3 unchanged, director held/offline/inactive/no next time. No explicit protected gameplay action, delivery, reset, stamp or spending. Allowance used; replacement not approved. See SHARED-QA-ENCOUNTER-ATTEMPT.md.

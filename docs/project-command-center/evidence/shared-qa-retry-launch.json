@@ -1,0 +1,17 @@
+[
+  {
+    "id": "02fadd5c-7493-4570-9e3f-eabd6fed706a",
+    "dex": 1,
+    "name": "Bulbasaur",
+    "phase": "join",
+    "started_at": "2026-10-21 01:39:14.843794+00",
+    "deadlines": {
+      "join": "2026-10-21T01:39:44.843794+00:00",
+      "throw": "2026-10-21T01:40:44.843794+00:00",
+      "reveal": "2026-10-21T01:40:59.843794+00:00",
+      "prepare": "2026-10-21T01:40:14.843794+00:00"
+    },
+    "reward_mode": null,
+    "trigger_source": "ADMIN_SPECIFIC"
+  }
+]

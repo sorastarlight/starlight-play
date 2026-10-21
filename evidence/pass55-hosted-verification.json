@@ -1,0 +1,173 @@
+{
+  "scope": "CODEX-55 approved five-action EmailQA Pass QA",
+  "before": [
+    {
+      "preflight": {
+        "target": {
+          "id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+          "pass": false,
+          "source": null,
+          "checked": null
+        },
+        "override": null,
+        "inventory": {
+          "bait": 10,
+          "lure": 0,
+          "balls": {},
+          "berry": 10,
+          "coins": 300,
+          "items": {},
+          "berries": {},
+          "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+          "pokeball": 8,
+          "bag_bonus": 0,
+          "greatball": 5,
+          "ultraball": 3,
+          "lure_armed": false,
+          "lure_until": null,
+          "updated_at": "2026-10-21T12:35:43.254661+00:00",
+          "pass_daily_at": null,
+          "pass_weekly_at": null,
+          "daily_supply_at": null,
+          "starter_granted": false
+        },
+        "catches_hash": "f3353f4efc4b53ae1df68620a27f93e3",
+        "familiarity_hash": "a476c4feb92914658c40b77b8185bbd4",
+        "other_inventory_hash": "cb0708514fc85ec9fe907533e26195d0"
+      }
+    }
+  ],
+  "after": [
+    {
+      "preflight": {
+        "target": {
+          "id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+          "pass": false,
+          "source": null,
+          "checked": null
+        },
+        "override": null,
+        "inventory": {
+          "bait": 11,
+          "lure": 1,
+          "balls": {},
+          "berry": 15,
+          "coins": 470,
+          "items": {},
+          "berries": {},
+          "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+          "pokeball": 13,
+          "bag_bonus": 0,
+          "greatball": 5,
+          "ultraball": 3,
+          "lure_armed": false,
+          "lure_until": null,
+          "updated_at": "2026-10-21T14:06:18.091592+00:00",
+          "pass_daily_at": null,
+          "pass_weekly_at": null,
+          "daily_supply_at": null,
+          "starter_granted": false
+        },
+        "catches_hash": "f3353f4efc4b53ae1df68620a27f93e3",
+        "familiarity_hash": "a476c4feb92914658c40b77b8185bbd4",
+        "other_inventory_hash": "cb0708514fc85ec9fe907533e26195d0"
+      }
+    }
+  ],
+  "receipts": [
+    {
+      "request_id": "d6545112-61b5-4f33-82fc-7c6b7db90ce5",
+      "action": "pass_on",
+      "status": "succeeded",
+      "payload": {},
+      "result": {
+        "ok": true,
+        "message": "Staff Pass override saved. It remains until cleared.",
+        "activeBefore": false,
+        "sourceBefore": null
+      },
+      "reason": "CODEX-55 approved EmailQA Pass QA 1/5: enable staff gift override; restore original subscription control after the bounded test."
+    },
+    {
+      "request_id": "bfc6c8d2-5562-415d-94f7-a44876c72f6b",
+      "action": "pass_off",
+      "status": "succeeded",
+      "payload": {},
+      "result": {
+        "ok": true,
+        "message": "Staff Pass override saved. It remains until cleared.",
+        "activeBefore": true,
+        "sourceBefore": "admin"
+      },
+      "reason": "CODEX-55 approved EmailQA Pass QA 2/5: turn staff override off; verify origin and retain override until final clear."
+    },
+    {
+      "request_id": "301c0acd-366c-45c3-8e7c-60ad89ee280a",
+      "action": "pass_daily",
+      "status": "succeeded",
+      "payload": {},
+      "result": {
+        "ok": true,
+        "full": false,
+        "coins": 20,
+        "granted": {
+          "bait": 1,
+          "berry": 2
+        },
+        "message": "Rewards delivered. Player claim cooldowns were not changed.",
+        "requested": {
+          "bait": 1,
+          "berry": 2,
+          "coins": 20
+        }
+      },
+      "reason": "CODEX-55 approved EmailQA Pass QA 3/5: one daily re-grant while Pass is off; retain rewards and preserve player claim clocks."
+    },
+    {
+      "request_id": "6be00330-e8b8-4d37-896e-d4d5e4f5f4a6",
+      "action": "pass_weekly",
+      "status": "succeeded",
+      "payload": {},
+      "result": {
+        "ok": true,
+        "full": false,
+        "coins": 150,
+        "granted": {
+          "lure": 1,
+          "berry": 3,
+          "pokeball": 5
+        },
+        "message": "Rewards delivered. Player claim cooldowns were not changed.",
+        "requested": {
+          "lure": 1,
+          "berry": 3,
+          "coins": 150,
+          "pokeball": 5
+        }
+      },
+      "reason": "CODEX-55 approved EmailQA Pass QA 4/5: one weekly re-grant while Pass is off; retain rewards and preserve player claim clocks."
+    },
+    {
+      "request_id": "bc639ea5-a8cc-4db5-bf7a-efb4e76ccec6",
+      "action": "pass_sync",
+      "status": "succeeded",
+      "payload": {},
+      "result": {
+        "ok": true,
+        "message": "Override cleared. Last recorded subscription state restored; a fresh Twitch check may still be needed."
+      },
+      "reason": "CODEX-55 approved EmailQA Pass QA 5/5: clear temporary staff override and restore original subscription-controlled off state; retain approved rewards."
+    }
+  ],
+  "otherProfilesBefore": [
+    {
+      "hash": "55920912bc406d0d6d58b00e8705d7f1"
+    }
+  ],
+  "otherProfilesAfter": [
+    {
+      "hash": "55920912bc406d0d6d58b00e8705d7f1"
+    }
+  ],
+  "verification": "Actual Admin Hub UI; independent read-only SQL. Item deltas and succeeded receipts verified; no assertion of item-ledger rows. Claim clocks unchanged. No Twitch callback test."
+}

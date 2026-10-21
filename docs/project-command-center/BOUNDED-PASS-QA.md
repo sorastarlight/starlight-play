@@ -1,4 +1,16 @@
-# CODEX-55 — Bounded hosted staff Pass acceptance proposal
+# CODEX-55 — Bounded hosted staff Pass acceptance
+
+## Completed October 21, 2026
+
+Owner supplied the actual owner application session after the access hold below. All five approved actions succeeded through Admin Hub targeting EmailQA only: Pass on, Pass off, daily re-grant, weekly re-grant, clear override. Five succeeded receipts and independent before/after SQL are in `evidence/pass55-hosted-verification.json`.
+
+Final Pass false, source/checked null and no override match the original subscription-controlled state. Exact retained rewards:170 PokéCoins,5 berries,1 bait,5 Poké Balls,1 lure. Inventory ends470 coins and48/50 bag usage. Player daily/weekly/supply claim clocks remain null. Pokémon, Familiarity, unrelated inventories and other profiles' Pass/XP/watch fields are unchanged. Item delivery is proved by actual inventory deltas and succeeded receipts; no item-ledger-row assertion is made.
+
+Pass-on displayed Staff gift. While off, the current origin and original pre-override origin displayed Not recorded because the baseline source was null; the off receipt retains sourceBefore=admin and the staff history retains both actions. Thus historical staff provenance is available in audit history, not a retained Staff gift status label while off. No hosted Twitch refresh occurred. Persistent override behavior across refresh remains local-test evidence only.
+
+The approved allowance is spent. No additional grant, player claim, encounter, trade, refund, reset, protected-target mutation, spending or APP stamp occurred. Screenshot: `emailqa-pass-qa-complete.png` in the task visualization folder.
+
+## Historical proposal and authentication hold
 
 Current status: owner approved the five-action packet. Repeated read-only preflight matches the state and bundle values below. The actual in-app site session still identifies EmailQA; Admin Hub correctly denies staff access. No Pass action has run. Owner site sign-in was requested as an access step only; no new approval is required for this same approved sequence. Do not use the separate Supabase dashboard login as an application staff session.
 

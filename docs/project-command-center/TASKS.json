@@ -5,12 +5,12 @@
   "tasks": [
     {
       "id": "CODEX-55",
-      "status": "blocked",
+      "status": "done",
       "scope": "Bounded hosted EmailQA staff Pass override/regrant acceptance",
-      "evidence": "BOUNDED-PASS-QA.md",
-      "testResults": "Packet approved. Exact preflight still matches. Actual in-app browser remains EmailQA and Admin Hub correctly denies staff access;no Pass action executed.21 local staff module checks pass with declared limits.",
-      "nextAction": "Await owner sign-in in the site in-app browser;five approved actions remain available. Access request sent;do not invent a staff session or use SQL to bypass authorization.",
-      "approvalRequirement": "Five-action packet explicitly approved;only authentication access is pending. No further approval needed for that same scope."
+      "evidence": "BOUNDED-PASS-QA.md; evidence/pass55-hosted-verification.json",
+      "testResults": "REAL authenticated Admin Hub UI: five actions succeeded. Exact retained rewards +170 coins,5 berries,1 bait,5 Poke Balls,1 lure. Final Pass off/no override;claim clocks unchanged. Independent SQL confirms catches, Familiarity and unrelated economy unchanged.",
+      "nextAction": "Continue launch security and player acceptance review. Twitch callback/persistent-off refresh remains locally tested only;no hosted callback test.",
+      "approvalRequirement": "Approved five-action allowance completed and spent. No extra grants or hosted gameplay implied."
     },
     {
       "id": "CODEX-54",

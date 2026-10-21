@@ -2072,3 +2072,5 @@ CODEX-61 COMPLETE: fresh guide layout/copy and owner nav verified; picker first-
 CODEX-62 COMPLETE: approved one-gift/one-GTS-swap executed through real actor sessions. Exact ownership/battlefields/cooldowns/rewardledgers/counters verified;unrelated catches/inventories and Familiarity unchanged. All allowances spent. See BOUNDED-GTS-QA.md;evidence/gts62-swap.json.
 
 Post-GTS presentation maintenance: shared achievement reward label Badge changed to Ribbon,matching established separation from Gym Badges.19 presenter/7RC129 checks and build31HTML/424refs pass;no server/storage/APP change. Hosted received Caterpie PC display verified;no further gameplay submitted.
+
+CODEX-63: owner requested two milestone popup redesigns. Shared level medallion/achievement seal,reward cards,duplicate copy removal,ribbon imports added.38 checks/build31/463 pass,APPunchanged. Isolated DOM previews only;no new XP/gift/gameplay. See MILESTONE-CELEBRATIONS-CODEX63.md.

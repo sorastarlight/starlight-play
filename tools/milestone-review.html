@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><base href="../"><title>Milestone celebration review</title><link rel="stylesheet" href="css/play.css"><style>body{padding:28px;background:linear-gradient(135deg,#fce3f2,#e2efff);min-height:100vh}main{max-width:800px;margin:auto}button{margin:8px}iframe{border:0} </style>
+<main><h1>Milestone celebrations</h1><p>Presentation preview only. No account connection, XP, rewards or gameplay calls.</p><button id="level">Preview level 2</button><button id="achievement">Preview Pokémon Trader</button><label><input id="motion" type="checkbox"> Reduced motion</label></main>
+<script src="js/ribbon-catalog.js"></script><script src="js/achievement-ribbon-map.js"></script><script src="js/play-ribbons.js"></script><script src="js/play-present.js"></script>
+<script>
+window.playItemLabel=key=>key==='linkingcord'?'Linking Cord':key;
+window.playItemSprite=key=>key==='linkingcord'?'images/items/linking-cord.png':'';
+function show(type){playPresentReset();playPresentSetEnv({preview:true,reducedMotion:document.getElementById('motion').checked});playPresentEnqueue([type==='level'?{id:'preview:level',type:'level',from:1,to:2,preview:true}:{id:'preview:trade',type:'achievement',subtitle:'Pokémon Trader',body:'Pokémon Trader',payload:{id:'trade-1',name:'Pokémon Trader',description:'Complete your first Pokémon trade.',rewards:{badge:'trade-1',title:'trader'}},rewards:[{type:'badge'},{type:'title'},{type:'linkingcord',amount:1}],preview:true}],{preview:true,noSummary:true});}
+document.getElementById('level').onclick=()=>show('level');document.getElementById('achievement').onclick=()=>show('achievement');
+</script></html>

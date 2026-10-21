@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-63",
+      "status": "done",
+      "scope": "Owner-requested level-up and achievement fanfare redesign",
+      "evidence": "MILESTONE-CELEBRATIONS-CODEX63.md;tools/milestone-review.html",
+      "testResults": "38 presentation checks/build pass. Isolated actual DOM desktop/narrow390/reduced-motion preference,correct ribbon/item art,dismissal/focus restoration. No hosted reward generated.",
+      "nextAction": "Publish routine presentation and provide visual review;then remaining launch readiness.",
+      "approvalRequirement": "Owner explicitly requested presentation changes;no gameplay/SQL/APP authority implied."
+    },
+    {
       "id": "CODEX-62",
       "status": "done",
       "scope": "Bounded hosted two-account GTS functional acceptance proposal",

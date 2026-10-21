@@ -801,15 +801,12 @@
       : "";
     const html = `<article class="play-present-moment play-present-level" data-present-panel>
       ${fxHtml()}
-      <p class="play-present-kicker">Trainer</p>
-      <h2>TRAINER LEVEL UP!</h2>
-      <div class="play-present-levels" aria-hidden="true">
-        <span data-level-from>${esc(from)}</span>
-        <span class="play-present-levels-arrow">→</span>
-        <span data-level-to>${esc(to)}</span>
-      </div>
+      <div class="celebration-rays" aria-hidden="true"></div>
+      <p class="play-present-kicker">A new milestone</p>
+      <h2>Level up!</h2>
+      <div class="celebration-medallion" aria-label="Trainer level ${esc(to)}"><span>LEVEL</span><strong data-level-to>${esc(to)}</strong></div>
+      <p class="celebration-caption">From level ${esc(from)} to your next adventure.</p>
       <div class="play-present-xp" aria-hidden="true"><i data-level-bar></i></div>
-      <p class="play-present-sub">LEVEL ${esc(to)}</p>
       ${unlockHtml}
       ${rewardHtml(event)}
       ${continueHtml()}
@@ -830,6 +827,7 @@
   }
 
   async function presentCard(event) {
+    if (event.type === "achievement") return presentAchievement(event);
     if (event.type === "achievement") cue("achievement.unlock");
     else if (event.type === "support") cue("support.thankyou");
     else if (event.rare || event.type === "item") cue(event.rare ? "item.rare" : "reward.small");
@@ -869,6 +867,27 @@
       ${event.type === "unlock" ? unlockActions(event) : continueHtml()}
     </article>`;
     await runPanel(event, html);
+  }
+
+  async function presentAchievement(event) {
+    cue("achievement.unlock");
+    const name = event.payload?.name || event.unlockName || event.subtitle || event.title;
+    const description = event.payload?.description || event.body;
+    const ribbon = root.playRibbonForAchievement?.(event.payload) || root.playRibbonForBadge?.({id:event.payload?.rewards?.badge});
+    const rewards = asArray(event.rewards).map(row => {
+      if (row.type === "badge" || row.type === "ribbon") {
+        return `<li><span class="celebration-reward-art">${ribbon ? root.playRibbonIconHtml?.(ribbon,{size:48}) || "✦" : "✦"}</span><span><small>Ribbon earned</small><strong>${esc(ribbon?.name || "Achievement Ribbon")}</strong></span></li>`;
+      }
+      const src = itemSprite(row.type);
+      return `<li><span class="celebration-reward-art">${src ? `<img src="${esc(src)}" alt="" width="48" height="48">` : row.type === "title" ? "✧" : "✦"}</span><span><small>${row.type === "title" ? "Title unlocked" : "Reward received"}</small><strong>${esc(row.type === "title" ? event.payload?.rewards?.titleName || "New Trainer Title" : rewardLine(row))}</strong></span></li>`;
+    }).join("");
+    await runPanel(event, `<article class="play-present-card celebration-achievement" data-present-panel data-type="achievement">
+      ${fxHtml("achievement")}<div class="celebration-rays" aria-hidden="true"></div>
+      <div class="celebration-seal" aria-hidden="true">✦</div>
+      <p class="play-present-kicker">Achievement unlocked</p><h2>${esc(name)}</h2>
+      ${description && description.trim().toLowerCase() !== String(name).trim().toLowerCase() ? `<p class="play-present-sub">${esc(description)}</p>` : ""}
+      ${rewards ? `<ul class="celebration-rewards">${rewards}</ul>` : ""}
+      ${continueHtml()}</article>`);
   }
 
   function oakResearchRewardGrid(event) {

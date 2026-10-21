@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Milestone responsive review · Pokémon StreamLink</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;padding:24px;font:16px/1.5 system-ui,sans-serif;background:#f4f5fc;color:#243250}
+  main{max-width:1440px;margin:auto}h1{font-size:1.6rem;margin:0 0 8px}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:20px 0}
+  select,button{font:inherit;padding:9px 12px;border:1px solid #a6b5d2;border-radius:10px;background:white;color:inherit}button{cursor:pointer}:focus-visible{outline:3px solid #835cbb;outline-offset:3px}
+  .stage{overflow:auto;border:1px solid #c8d3e7;border-radius:14px;background:#e8edf7;padding:12px}iframe{display:block;border:1px solid #bac9e2;background:white;max-width:none;height:844px}
+  #result{padding:12px;background:white;border-radius:10px}small{display:block;max-width:85ch;margin-top:16px}
+</style>
+<main>
+  <h1>Milestone celebrations · Responsive review</h1>
+  <p>This frame loads the isolated milestone preview itself. Choose a viewport width, then inspect popup layout, reward text and animation preferences.</p>
+  <div class="controls">
+    <label for="width">Frame width</label>
+    <select id="width"><option value="390">390 px · mobile layout</option><option value="768">768 px · tablet layout</option><option value="1280">1280 px · desktop layout</option></select>
+    <button type="button" id="measure">Measure current layout</button>
+  </div>
+  <p id="result" role="status">Loading the isolated milestone preview…</p>
+  <div class="stage"><iframe id="guide" width="390" title="Isolated milestone preview at selected width" src="milestone-review.html"></iframe></div>
+  <small>Measurements cover the current rendered document only. This desktop-browser frame does not emulate a physical phone, touch input, browser zoom, reduced-motion preferences or every expanded menu/state. No gameplay action is submitted by the review controls. The embedded preview contains no backend connection.</small>
+</main>
+<script>
+  const frame=document.getElementById('guide'),width=document.getElementById('width'),result=document.getElementById('result');
+  function measure(){
+    try{
+      const doc=frame.contentDocument,element=doc?.documentElement;
+      if(!element||doc.readyState!=='complete'){result.textContent='Guide is still loading. Measure again after it appears.';return;}
+      const visibleWidth=element.clientWidth,contentWidth=Math.max(element.scrollWidth,doc.body?.scrollWidth||0);
+      result.textContent=`Frame ${frame.width} px · document ${visibleWidth} px · content ${contentWidth} px · ${contentWidth<=visibleWidth?'No document-wide horizontal overflow':'Horizontal overflow detected'}.`;
+    }catch(_){result.textContent='Measurement unavailable for the current frame destination. Return to the isolated milestone preview to measure.';}
+  }
+  width.addEventListener('change',()=>{frame.width=width.value;requestAnimationFrame(()=>requestAnimationFrame(measure));});
+  document.getElementById('measure').addEventListener('click',measure);frame.addEventListener('load',measure);
+</script>
+</html>
+

@@ -1,0 +1,263 @@
+{
+  "before": {
+    "wire": true,
+    "functions": [
+      {
+        "acl": null,
+        "hash": "e3d15b55873bb307c17c09f74859654a",
+        "signature": "private.evolve_catch(uuid,uuid,text,text)",
+        "volatility": "v",
+        "search_path": null,
+        "security_definer": false
+      },
+      {
+        "acl": null,
+        "hash": "7ec7f1fd0902ba7315f2b926194ab78e",
+        "signature": "private.launch_community_round(integer,text,boolean,text,boolean,integer)",
+        "volatility": "v",
+        "search_path": null,
+        "security_definer": false
+      },
+      {
+        "acl": "{postgres=X/postgres}",
+        "hash": "e88c6cbec313a4cc0b81a5df1f5691b3",
+        "signature": "private.materialize_streamlink_catch(uuid,integer,integer,text,text,text,uuid,boolean,text,text,text,text,text)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=pg_catalog"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": "{postgres=X/postgres}",
+        "hash": "b7de6c0648c81f91288c2433dea818c5",
+        "signature": "private.persist_streamlink_catch(uuid,integer,integer,text,text,text,uuid,boolean,text,text,text,text,text)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=pg_catalog"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": "{postgres=X/postgres}",
+        "hash": "0786904741d9eb6466d57fc90ce60ad0",
+        "signature": "private.phase2_evolution_selftest()",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": null,
+        "hash": "aaaad7e953f22302edc42e6ea5bc4fcc",
+        "signature": "private.phase4_catch_candy_selftest()",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": null,
+        "hash": "a3ff5a3e38fd3c6319f11057866b86c1",
+        "signature": "private.record_stream_catch(text,text,integer,text,text,text,text,uuid,text,timestamp with time zone)",
+        "volatility": "v",
+        "search_path": null,
+        "security_definer": false
+      },
+      {
+        "acl": null,
+        "hash": "97f28530a6df3887702a9d9962cfb6e2",
+        "signature": "private.stamp_catch_row(catches)",
+        "volatility": "v",
+        "search_path": null,
+        "security_definer": false
+      },
+      {
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "hash": "194355d874ec8c8d2f35897636397279",
+        "signature": "public.admin_grant_pokemon(uuid,integer,text,text,boolean,text)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "hash": "b73928e98acf8e3e8414936f3fc97281",
+        "signature": "public.admin_oak_qa(text,uuid,jsonb)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "hash": "68dceb5714de0d669a65e4fde3e9a3a4",
+        "signature": "public.bridge_import_catches(text,jsonb)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "hash": "5b233fd0df065ae301c9efd570468455",
+        "signature": "public.bridge_publish(text,jsonb)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      }
+    ],
+    "specimens": {
+      "hash": "63b6a3794b396c66107e6ae7d35a2824",
+      "count": 7
+    },
+    "activation": {
+      "closed_at": null,
+      "lifecycle": "active",
+      "paused_at": null,
+      "singleton": true,
+      "disabled_at": null,
+      "activated_at": "2026-10-20T16:55:59.896904+00:00",
+      "drain_started_at": null
+    }
+  },
+  "after": {
+    "wire": true,
+    "functions": [
+      {
+        "acl": null,
+        "hash": "ad697b4521d1b1daa5ee600a3d0d4009",
+        "signature": "private.evolve_catch(uuid,uuid,text,text)",
+        "volatility": "v",
+        "search_path": null,
+        "security_definer": false
+      },
+      {
+        "acl": null,
+        "hash": "cfd818a2f0c8a6aba9fae4b784b32279",
+        "signature": "private.launch_community_round(integer,text,boolean,text,boolean,integer)",
+        "volatility": "v",
+        "search_path": null,
+        "security_definer": false
+      },
+      {
+        "acl": "{postgres=X/postgres}",
+        "hash": "df3d2b52205ab6036867dd941bbd7bbc",
+        "signature": "private.materialize_streamlink_catch(uuid,integer,integer,text,text,text,uuid,boolean,text,text,text,text,text)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=pg_catalog"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": "{postgres=X/postgres}",
+        "hash": "4c95b87155b21a636605a5a3a18e5533",
+        "signature": "private.persist_streamlink_catch(uuid,integer,integer,text,text,text,uuid,boolean,text,text,text,text,text)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=pg_catalog"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": "{postgres=X/postgres}",
+        "hash": "27e804637ea224d60787b2ea76d38e0c",
+        "signature": "private.phase2_evolution_selftest()",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": null,
+        "hash": "27e804637ea224d60787b2ea76d38e0c",
+        "signature": "private.phase4_catch_candy_selftest()",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": null,
+        "hash": "b2ea9d6911f8944450e7317a0066ecd6",
+        "signature": "private.record_stream_catch(text,text,integer,text,text,text,text,uuid,text,timestamp with time zone)",
+        "volatility": "v",
+        "search_path": null,
+        "security_definer": false
+      },
+      {
+        "acl": null,
+        "hash": "b66f9a12964b8c96342aba797e1711f1",
+        "signature": "private.stamp_catch_row(catches)",
+        "volatility": "v",
+        "search_path": null,
+        "security_definer": false
+      },
+      {
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "hash": "d60aa6523243fc1ba2cbe892978d38c2",
+        "signature": "public.admin_grant_pokemon(uuid,integer,text,text,boolean,text)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "hash": "03c579446c6ace33705263a2be292b30",
+        "signature": "public.admin_oak_qa(text,uuid,jsonb)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "hash": "3bd8ec57508c8217695a7371e749f174",
+        "signature": "public.bridge_import_catches(text,jsonb)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      },
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "hash": "1f81cede1066cdf836d5309c4d7b9a75",
+        "signature": "public.bridge_publish(text,jsonb)",
+        "volatility": "v",
+        "search_path": [
+          "search_path=public"
+        ],
+        "security_definer": true
+      }
+    ],
+    "specimens": {
+      "hash": "63b6a3794b396c66107e6ae7d35a2824",
+      "count": 7
+    },
+    "activation": {
+      "closed_at": null,
+      "lifecycle": "active",
+      "paused_at": null,
+      "singleton": true,
+      "disabled_at": null,
+      "activated_at": "2026-10-20T16:55:59.896904+00:00",
+      "drain_started_at": null
+    }
+  },
+  "comparisons": "Exact12 source hashes; signatures ACL/security/volatility/search_path, full specimen dataset, WIRE flag and Familiarity activation unchanged"
+}

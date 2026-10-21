@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-21T03:39:34.426Z",
+  "at": "2026-10-21T03:45:38.803Z",
   "classification": "REAL LOCAL SQL, fictional linked rows, actual relevant column types and trigger bodies/core FKs",
   "checks": [
     "Source row drift refuses deletion and rolls archive DDL back",

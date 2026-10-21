@@ -29,7 +29,8 @@ function makeSchemaPacket(s,options={}){
  const begin="begin;set local lock_timeout='5s';set local statement_timeout='30s';\nlock table public.catches,private.legacy_retirement_runs,private.legacy_retirement_rows in access exclusive mode;\n";
  const supportedHash=`(select md5(coalesce(string_agg((to_jsonb(c)-array[${av.map(k=>`'${k}'`).join(',')}])::text,E'\\n' order by (to_jsonb(c)-array[${av.map(k=>`'${k}'`).join(',')}])::text),'')) from public.catches c)`;
  const archiveHash=`(select md5(coalesce(string_agg(relation||':'||row_key||':'||payload::text,E'\\n' order by relation,row_key),'')) from private.legacy_retirement_rows where run_key='legacy-schema-v1')`;
- const install=begin+`do $guard$ begin
+ const install=begin+`lock table public.lgpe_species in access exclusive mode;
+do $guard$ begin
  if ${schemaSql} is distinct from '${s.schema_hash}' then raise exception 'Schema/source drift before AV retirement';end if;
  if ${supportedHash} is distinct from '${s.specimens.supported_hash}' or (select count(*) from public.catches)<>${s.specimens.count} or exists(select 1 from public.catches where ruleset_id is distinct from 'streamlink-gen9-xgen' or ${av.map(k=>`coalesce(${k},0)<>0`).join(' or ')}) then raise exception 'Modern specimen scope changed';end if;
  if exists(select 1 from private.legacy_retirement_runs where run_key='legacy-schema-v1') or to_regclass('private.retired_lgpe_species') is not null then raise exception 'Schema archive already exists';end if;
@@ -53,9 +54,10 @@ revoke all on private.retired_lgpe_species from public,anon,authenticated;
 do $verify$ begin
  if ${schemaSql} is distinct from '${s.after_hash}' or ${supportedHash} is distinct from '${s.specimens.supported_hash}' then raise exception 'Supported schema/data verification failed';end if;
  if has_table_privilege('anon','private.retired_lgpe_species','SELECT') or has_table_privilege('authenticated','private.retired_lgpe_species','SELECT') then raise exception 'Retired reference access';end if;
- if exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname in('public','private') and p.prokind='f' and p.prosrc ~ '(public[.]lgpe_species|private[.]lgpe_stat[(]|private[.]lgpe_pick_moves[(]|[.]av_hp)') then raise exception 'Live legacy source reference remains';end if;
+ if exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname in('public','private') and p.prokind='f' and p.prosrc ~* '(public[.]lgpe_species|private[.]lgpe_stat[(]|private[.]lgpe_pick_moves[(]|(^|[^a-z0-9_])av_(hp|atk|def|spa|spd|spe)([^a-z0-9_]|$))') then raise exception 'Live legacy source reference remains';end if;
 end $verify$;commit;\n`;
- const rollback=begin+`do $guard$ begin
+ const rollback=begin+`lock table private.retired_lgpe_species in access exclusive mode;
+do $guard$ begin
  if ${schemaSql} is distinct from '${s.after_hash}' or ${supportedHash} is distinct from '${s.specimens.supported_hash}' then raise exception 'Schema rollback drift';end if;
  if not exists(select 1 from private.legacy_retirement_runs where run_key='legacy-schema-v1' and status='archived' and archive_hash=${archiveHash}) then raise exception 'Schema archive integrity/state';end if;
 end $guard$;

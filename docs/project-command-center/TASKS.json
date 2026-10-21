@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "CODEX-66",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Inventory failure states and obsolete account/refresh response guards",
       "evidence": "INVENTORY-LOAD-CODEX66.md;tests/inventory-loading-tests.js",
-      "testResults": "9 actual-source mocked load/error/account/realtime tests;35playUX/6help checks/build31/463 pass. No hosted failure or mutation test.",
-      "nextAction": "Publish presentation/client fix and verify normal actual Inventory view plus source equality.",
+      "testResults": "9 actual-source mocked error/race checks;81 non-writing regression suites/build pass. Pages39649429756 succeeded;27public files match. Actual EmailQA49/50space,470coins,7items;search miss/clear verified without item use.",
+      "nextAction": "Completed. Recovery stays held with password unchanged. Separate owner-authorization guard correction locally tested;important SQL decision pending.",
       "approvalRequirement": "Routine frontend correctness authorized;no SQL/gameplay/APP stamp."
     },
     {

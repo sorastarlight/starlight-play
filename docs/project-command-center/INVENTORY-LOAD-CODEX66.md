@@ -1,5 +1,7 @@
 # CODEX-66 — Inventory load and account-response correctness
 
+VERIFIED:published d660db6c,Pages39649429756 succeeded. All81 non-writing regression suites pass;27 selected public files match checkout. Actual EmailQA Inventory loads49/50space,470coins and7item rows;search miss shows No items match your search while holdings stay visible,clearing search restores7items. No item activated or spent. evidence/codex66-regressions.json and public-launch-publication.json retain the bounded checks.
+
 Player acceptance follow-up found primary/collection RPC failures were swallowed and rendered default/partial inventory as an empty bag. Shared caches and delayed initial/realtime responses could also repaint after sign-out/account switch. This is a client rendering flaw;no hosted unauthorized table read or server mutation was demonstrated.
 
 Inventory now invalidates/hides the prior account view immediately,closes its detail dialog,clears cached collection/history and removes its subscription. Generation guards after awaited responses suppress obsolete loads;Auth callbacks defer reloading outside the callback. Both primary snapshot and collection must load before showing the bag. Failure shows a retry control rather than invented zero holdings;history-only failure has an explicit unavailable message. Realtime failures retain last loaded data with a warning,and older refreshes cannot replace a newer result. Radar completion reloads the current session instead of painting its potentially stale action response. Search misses distinguish no matches from no owned items.

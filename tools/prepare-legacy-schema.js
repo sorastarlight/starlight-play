@@ -52,7 +52,7 @@ alter table private.lgpe_species rename to retired_lgpe_species;
 alter table private.retired_lgpe_species enable row level security;
 revoke all on private.retired_lgpe_species from public,anon,authenticated;
 do $verify$ begin
- if ${schemaSql} is distinct from '${s.after_hash}' or ${supportedHash} is distinct from '${s.specimens.supported_hash}' then raise exception 'Supported schema/data verification failed';end if;
+ if ${schemaSql} is distinct from '${s.after_hash}' or ${supportedHash} is distinct from '${s.specimens.supported_hash}' then raise exception 'Supported schema/data verification failed: schema %, data %, changed lines %',${schemaSql},${supportedHash},(select jsonb_agg(value) from ((select value from jsonb_array_elements_text(${linesSql}) except select value from jsonb_array_elements_text(${quote(proposedLines(s).after)})) union all (select value from jsonb_array_elements_text(${quote(proposedLines(s).after)}) except select value from jsonb_array_elements_text(${linesSql}))) delta);end if;
  if has_table_privilege('anon','private.retired_lgpe_species','SELECT') or has_table_privilege('authenticated','private.retired_lgpe_species','SELECT') then raise exception 'Retired reference access';end if;
  if exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname in('public','private') and p.prokind='f' and p.prosrc ~* '(public[.]lgpe_species|private[.]lgpe_stat[(]|private[.]lgpe_pick_moves[(]|(^|[^a-z0-9_])av_(hp|atk|def|spa|spd|spe)([^a-z0-9_]|$))') then raise exception 'Live legacy source reference remains';end if;
 end $verify$;commit;\n`;

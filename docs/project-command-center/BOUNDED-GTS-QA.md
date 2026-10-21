@@ -38,3 +38,5 @@ Stop on missing authority,wrong/session-changed actor,unknown target/catch,lock/
 This tests the actual two-account GTS UI/backend path. It does not test direct-trade UI (no current caller),provider OAuth,repeated trading,race workload or all staff permissions. CODEX-53/58 local SQL checks cover the specific validation/replay/cooldown guards without needing another live swap.
 
 16:41UTC checkpoint: actual EmailQA GTS UI created listing fd8ba920-aab3-43cd-a5b1-a4f86057c1f0 for pinned Metapod, want_dex10,accept_any=false,want_gender=null,want_shiny=false. UI and independent SQL agree:open,zero offers. Listing allowance spent;do not create another. Await human EmailQA2 sign-in to offer only gifted Caterpie1876076e-d0c2-448d-a4e0-88b5094e5a14. No offer/swap yet.
+
+16:58UTC checkpoint: actual IAB verified Signed in as emailqa2. Submitted exactly one Caterpie offer e8aa7dd1-d506-48cf-a3ae-9302d8b86ec9 on listing fd8ba920-aab3-43cd-a5b1-a4f86057c1f0. UI shows1offer;independent SQL confirms pending,correct B/catch/listing. Offer allowance spent;no retry or additional offer. Await human EmailQA sign-in for exact one acceptance. No swap yet.

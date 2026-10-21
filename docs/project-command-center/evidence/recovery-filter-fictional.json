@@ -1,0 +1,17 @@
+{
+  "classification": "REAL LOCAL PG17 SQL and native schema restore using fictional records only",
+  "checks": [
+    "Reviewed sensitive-column allowlist accepts known fixture",
+    "Source projection strips live secrets from auth.identities",
+    "Source projection strips live secrets from auth.users",
+    "Source projection strips live secrets from private.owner_recovery_challenges",
+    "Explicitly approved credential hash survives filtering",
+    "Unknown sensitive column refuses export",
+    "Recovery audit parent retains FK identity with expired synthetic authorization",
+    "Scheduling/network extensions absent and background workers disabled",
+    "Native PG17 schema restore and filtered parameterized imports match source projections",
+    "Explicit owner-only table ACL and NULL PostgreSQL default have equivalent privileges",
+    "Pinned friendship CHECK expressions agree across 49 NULL and boundary combinations"
+  ],
+  "reviewedManifestSha256": "a1228023aa1edd06a0c81121e22f026696784e8d49a4571cbf5d3432118f69f9"
+}

@@ -1,5 +1,7 @@
 # CODEX-65 — Approved local recovery drill preflight
 
+> Current status: CODEX-71 COMPLETE (October21): owner reset the database password and updated the protected helper credential. Actual bounded logical export/isolated PG17 restore passed:111 table projections/digests,585 functions,143 relations,56 policies,322 indexes,30 triggers and444 constraints verified. One exact PG17 CHECK parenthesization difference is archive-confirmed and passes49 boundary/NULL cases;default owner-only ACL representation normalized narrowly.31 omitted table data sets remain empty. Private artifacts retained outsideGit,user+SYSTEM ACL;runtime stopped. Auth/DataAPI HTTP200 and actual EmailQA Inventory pass. Physical restore/full Auth service recovery remain unverified;no new gameplay,hosted SQL,spending or APP stamp. See RECOVERY-DRILL-CODEX71.md. Earlier access holds are historical.
+
 Owner explicitly approved the bounded local drill/private application and Auth user data copy proposed in RECOVERY-DRILL-LOCAL-PROPOSAL.md. No export/restore has run yet. Native database access is the current hold;approval is already recorded and must not be requested again for the same scope.
 
 Restricted workspace prepared outside Git under current Windows LocalAppData/PokemonStreamLink/recovery/codex65-20261021. ACL inheritance disabled;only current user and SYSTEM have access. Metadata only so far,no production data files or runtime. Initial icacls grant failed because SID syntax lacked its literal-SID prefix;corrected before writing metadata,then ACL verified.

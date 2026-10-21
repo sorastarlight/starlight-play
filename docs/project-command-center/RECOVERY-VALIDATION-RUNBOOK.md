@@ -1,5 +1,7 @@
 # Recovery validation before release
 
+> Current status: CODEX-71 COMPLETE (October21): owner reset the database password and updated the protected helper credential. Actual bounded logical export/isolated PG17 restore passed:111 table projections/digests,585 functions,143 relations,56 policies,322 indexes,30 triggers and444 constraints verified. One exact PG17 CHECK parenthesization difference is archive-confirmed and passes49 boundary/NULL cases;default owner-only ACL representation normalized narrowly.31 omitted table data sets remain empty. Private artifacts retained outsideGit,user+SYSTEM ACL;runtime stopped. Auth/DataAPI HTTP200 and actual EmailQA Inventory pass. Physical restore/full Auth service recovery remain unverified;no new gameplay,hosted SQL,spending or APP stamp. See RECOVERY-DRILL-CODEX71.md. Earlier access holds are historical.
+
 Owner accepted daily backups for public launch. Use that accepted loss-window requirement when selecting a recovery point;no shorter-window/PITR requirement is imposed. A completed suitable backup and actual restore evidence remain outstanding. Acceptance of the policy is not authorization to restore or spend.
 
 CODEX-59 preparation, October21,2026. Operator plan only: no restore/export, new project, worker change, DNS, credential entry or spending is authorized by this document. Current project is starlight-play (`dtflmlbjhttoewqgkujf`). Preserve the private legacy archives and existing approved activation cutoffs.

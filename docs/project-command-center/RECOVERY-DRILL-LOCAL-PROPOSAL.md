@@ -1,5 +1,7 @@
 # Proposed isolated local recovery drill
 
+> Current status: CODEX-71 COMPLETE (October21): owner reset the database password and updated the protected helper credential. Actual bounded logical export/isolated PG17 restore passed:111 table projections/digests,585 functions,143 relations,56 policies,322 indexes,30 triggers and444 constraints verified. One exact PG17 CHECK parenthesization difference is archive-confirmed and passes49 boundary/NULL cases;default owner-only ACL representation normalized narrowly.31 omitted table data sets remain empty. Private artifacts retained outsideGit,user+SYSTEM ACL;runtime stopped. Auth/DataAPI HTTP200 and actual EmailQA Inventory pass. Physical restore/full Auth service recovery remain unverified;no new gameplay,hosted SQL,spending or APP stamp. See RECOVERY-DRILL-CODEX71.md. Earlier access holds are historical.
+
 APPROVED by owner for the bounded local recovery drill. Native dump credential access is pending;no export/restore/provisioning has run. See RECOVERY-DRILL-CODEX65.md. Current daily-backup loss-window policy remains accepted;this approval concerns local logical recovery evidence and the specified private data copy,not hosted restore or spending.
 
 ## Recommended bounded method

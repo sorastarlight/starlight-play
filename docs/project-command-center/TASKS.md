@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-71 | done | Actual isolated logical recovery and service health | CODEX-65/70 | Existing bounded recovery approval;owner-managed reset | PASS;retain private artifacts;see RECOVERY-DRILL-CODEX71.md |
 | CODEX-42 | done | Legacy route/schema retirement and conservative WIRE evolution | CODEX-40/41 | Explicit cleanup/routes/evolution | Installed and verified; recovery archives retained; see execution report |
 | CODEX-41 | done | Approved110 archive/removal | CODEX-40 | Explicit reviewed packet | Complete; private recovery retained |
 | CODEX-40 | done | Obsolete CP/AV/fallback retirement | CODEX-39 | Owner cleanup instruction | Complete through CODEX-41/42 |
@@ -233,3 +234,6 @@ CODEX-69 COMPLETE (bounded acceptance/operations):Rankings782px overflow correct
 
 
 CODEX-70 READ-ONLY PASSWORD IMPACT AUDIT COMPLETE:only confirmed manual password consumer is protected local recovery preflight. Frontend,nine deployed Edge Functions and checked sibling MixItUp bridge use HTTPS/API credentials;GitHub repo/Pages environment secrets and variables empty;CLI pooler URL passwordless. No additional postgres client backend or local5432/6543 connection observed. Dormant/remote clients remain outside this bounded check. Current password unchanged;no credential decryption/replacement/native retry/export/reset/restore/production change. See DATABASE-PASSWORD-IMPACT-CODEX70.md.
+
+
+CODEX-71 COMPLETE (October21): owner reset the database password and updated the protected helper credential. Actual bounded logical export/isolated PG17 restore passed:111 table projections/digests,585 functions,143 relations,56 policies,322 indexes,30 triggers and444 constraints verified. One exact PG17 CHECK parenthesization difference is archive-confirmed and passes49 boundary/NULL cases;default owner-only ACL representation normalized narrowly.31 omitted table data sets remain empty. Private artifacts retained outsideGit,user+SYSTEM ACL;runtime stopped. Auth/DataAPI HTTP200 and actual EmailQA Inventory pass. Physical restore/full Auth service recovery remain unverified;no new gameplay,hosted SQL,spending or APP stamp. See RECOVERY-DRILL-CODEX71.md.

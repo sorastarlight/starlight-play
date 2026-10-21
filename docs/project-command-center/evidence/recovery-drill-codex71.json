@@ -1,0 +1,38 @@
+{
+  "classification": "Actual production logical export and isolated local restore; not physical backup recovery",
+  "status": "PASS",
+  "project": "dtflmlbjhttoewqgkujf",
+  "sourceMajor": 17,
+  "localVersion": "17.11",
+  "snapshotWindow": {
+    "from": "2026-10-21T21:05:00.422Z",
+    "to": "2026-10-21T21:06:35.092Z",
+    "exactSnapshotTimestampRecorded": false
+  },
+  "verifiedAt": "2026-10-21T21:15:45.364Z",
+  "tablesCompared": 111,
+  "functions": 585,
+  "relations": 143,
+  "policies": 56,
+  "indexes": 322,
+  "triggers": 30,
+  "constraints": 444,
+  "constraintException": {
+    "name": "private.ref_species.ref_species_friendship",
+    "reason": "PG17.6 to17.11 parser/deparser AND parenthesization only;exact original archive checked",
+    "cases": 49
+  },
+  "omittedTables": 31,
+  "omittedTablesEmpty": true,
+  "isolationVerified": true,
+  "localRuntimeStopped": true,
+  "aclUnexpectedPrincipals": 0,
+  "aclPathsChecked": 2714,
+  "productionWrites": false,
+  "limitations": [
+    "Full Auth service/provider/session recovery excluded",
+    "Physical Supabase backup restore not performed",
+    "Cron/network/SMTP/Vault credentials not restored or activated",
+    "Source data verification uses shared repeatable-read snapshot; supplemental structure comparison recorded afterward"
+  ]
+}

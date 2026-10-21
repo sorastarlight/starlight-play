@@ -1,6 +1,6 @@
-# Uses only the human-provided DPAPI credential. No export/restore or credential output.
+# Uses only the human-provided DPAPI credential. Preflight is default; Plan/Drill are explicit.
 [CmdletBinding()]
-param()
+param([ValidateSet('Preflight','Plan','Drill')][string]$Operation = 'Preflight')
 $ErrorActionPreference = 'Stop'
 $recoveryRoot = Join-Path $env:LOCALAPPDATA 'PokemonStreamLink\recovery\codex65-20261021'
 $credentialFile = Join-Path $recoveryRoot 'database-password.dpapi'
@@ -18,8 +18,14 @@ $secretPointer = [IntPtr]::Zero
 try {
   $secretPointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secret)
   $env:CODEX65_DB_PASSWORD = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($secretPointer)
-  & node (Join-Path $PSScriptRoot 'local-recovery-preflight.js')
-  if ($LASTEXITCODE -ne 0) { throw 'Native read-only preflight failed. No export attempted.' }
+  if ($Operation -eq 'Preflight') {
+    & node (Join-Path $PSScriptRoot 'local-recovery-preflight.js')
+  } elseif ($Operation -eq 'Plan') {
+    & node (Join-Path $PSScriptRoot 'local-recovery-drill.js') --plan
+  } else {
+    & node (Join-Path $PSScriptRoot 'local-recovery-drill.js') --run
+  }
+  if ($LASTEXITCODE -ne 0) { throw 'Recovery operation stopped. Inspect its safe status; no credentials are printed.' }
 } finally {
   Remove-Item Env:CODEX65_DB_PASSWORD -ErrorAction SilentlyContinue
   if ($secretPointer -ne [IntPtr]::Zero) { [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($secretPointer) }

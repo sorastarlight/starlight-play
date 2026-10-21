@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-41",
+      "status": "prepared",
+      "scope": "All110 legacy specimens, including Sora95: private archive/removal and selective-restore proposal",
+      "dependencies": [
+        "CODEX-40"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "supabase/unapplied/legacy-retirement/cleanup/README.md; evidence/legacy-cleanup-local-result.json; evidence/legacy-cleanup-manifest.json",
+      "testResults": "19 REAL LOCAL SQL checks; exact specimen/linked-row restoration, pointer recovery, source/tamper/replay/concurrency guards; syntax/build checks",
+      "nextAction": "Obtain separate reviewed-packet execution decision; no live cleanup or archive tables installed",
+      "approvalRequirement": "Owner approved including all110 in proposal only; deletion of protected specimens/open listing and pointer changes still need execution authorization"
+    },
+    {
       "id": "CODEX-40",
       "status": "in_progress",
       "scope": "Retire obsolete CP/AV runtime and unnecessary legacy data before launch",
@@ -14,7 +28,7 @@
       "commit": null,
       "evidence": "LEGACY-DATA-RETIREMENT.md",
       "testResults": "14 REAL LOCAL SQL;78 regression suites;build31/423;read-only reference/dependency inventory;migration20261021023001;117 specimen hash unchanged;actual EmailQA PC pass;attributes unchanged",
-      "nextAction": "Dependency phase installed/verified; obtain protected95-specimen cleanup proposal scope, then archive/restore rehearsal and learnset/fallback retirement",
+      "nextAction": "CODEX-41 archive/removal packet tested; execution held. Learnset/fallback and column/table retirement remain.",
       "approvalRequirement": "Cleanup requested; irreversible deletion/conversion requires concrete scoped owner decision"
     },
     {

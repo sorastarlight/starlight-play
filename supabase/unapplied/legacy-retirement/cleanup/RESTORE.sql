@@ -1,0 +1,67 @@
+begin;set local lock_timeout='5s';set local statement_timeout='30s';
+lock table public.catches,public.profiles,public.oak_transfers,public.trade_listings,public.trade_offers,public.direct_trades,public.encounter_rounds,public.inventories,public.candy_ledger,public.evolution_log,public.coin_ledger,public.item_ledger,public.xp_ledger,public.mastery_ledger,public.trainer_stats,public.species_seen,public.form_seen,public.species_mastery,public.species_mastery_events,private.species_mastery_outbox,private.species_mastery_activation,private.catch_insert_authority,private.stream_director in share row exclusive mode;
+
+create or replace function pg_temp.legacy_row_hash(rel regclass,predicate text default 'true') returns jsonb language plpgsql as $h$
+declare result jsonb;begin execute format('select jsonb_build_object(''count'',count(*),''hash'',md5(coalesce(string_agg(to_jsonb(t)::text,E''\n'' order by to_jsonb(t)::text),''''))) from %s t where %s',rel,predicate) into result;return result;end $h$;
+create or replace function pg_temp.legacy_strip_refs(value jsonb,ids text[]) returns jsonb language plpgsql as $h$
+declare result jsonb;begin
+ if value is null then return null;end if;
+ if jsonb_typeof(value)='string' then if (value#>>'{}')=any(ids) then return 'null'::jsonb;end if;return value;
+ elsif jsonb_typeof(value)='array' then select coalesce(jsonb_agg(pg_temp.legacy_strip_refs(v,ids) order by ord),'[]'::jsonb) into result from jsonb_array_elements(value) with ordinality a(v,ord);return result;
+ elsif jsonb_typeof(value)='object' then
+  if value->>'id'=any(ids) then return 'null'::jsonb;end if;
+  select coalesce(jsonb_object_agg(k,pg_temp.legacy_strip_refs(v,ids)),'{}'::jsonb) into result from jsonb_each(value) a(k,v) where not(k=any(ids));return result;
+ end if;return value;end $h$;
+
+-- PROPOSAL ONLY: selective restore; exact archived IDs; no catch rewards or stamp replay.
+do $restore$ declare expected jsonb:='{"oak":{"hash":"e1f442998af11e7191db7f5fb2176fed","count":55},"legacy":{"hash":"47123088724a5f1b56e2217df4dcedf7","count":110},"listings":{"hash":"ff839753873cf1e64973a49564cda117","count":1},"survivors":{"hash":"63b6a3794b396c66107e6ae7d35a2824","count":7},"schema_hash":"f385ec7f47b1841e782d2dceee149fcd","profile_count":2}'::jsonb;ids uuid[];id_text text[];rec record;rel text;protected_before jsonb:='{}';profiles_before text;before_ptr jsonb;after_ptr jsonb;n bigint;begin
+ if (select md5(coalesce(string_agg(s,E'\n' order by s),'')) from (
+ select 'column:'||n.nspname||'.'||c.relname||':'||a.attnum||':'||a.attname||':'||format_type(a.atttypid,a.atttypmod)||':'||a.attnotnull||':'||a.attidentity::text||':'||a.attgenerated::text||':'||coalesce(pg_get_expr(d.adbin,d.adrelid),'') s from pg_attribute a join pg_class c on c.oid=a.attrelid join pg_namespace n on n.oid=c.relnamespace left join pg_attrdef d on d.adrelid=a.attrelid and d.adnum=a.attnum where a.attnum>0 and not a.attisdropped and (n.nspname||'.'||c.relname)=any(array['public.catches','public.profiles','public.oak_transfers','public.trade_listings','public.trade_offers','public.direct_trades'])
+ union all select 'constraint:'||conrelid::regclass::text||':'||conname||':'||pg_get_constraintdef(oid) from pg_constraint where conrelid=any(array['public.catches'::regclass,'public.profiles'::regclass,'public.oak_transfers'::regclass,'public.trade_listings'::regclass,'public.trade_offers'::regclass,'public.direct_trades'::regclass]) or confrelid=any(array['public.catches'::regclass,'public.profiles'::regclass,'public.oak_transfers'::regclass,'public.trade_listings'::regclass,'public.trade_offers'::regclass,'public.direct_trades'::regclass])
+ union all select 'trigger:'||pg_get_triggerdef(t.oid)||':'||t.tgenabled::text||':'||md5(p.prosrc) from pg_trigger t join pg_proc p on p.oid=t.tgfoid where not t.tgisinternal and tgrelid=any(array['public.catches'::regclass,'public.profiles'::regclass,'public.oak_transfers'::regclass,'public.trade_listings'::regclass,'public.trade_offers'::regclass,'public.direct_trades'::regclass])
+ union all select 'runtime:'||p.proname||':'||md5(p.prosrc) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='private' and p.proname in ('stamp_catch_row','catch_json','admin_catch_battle_json','persist_streamlink_catch','persist_staff_gift')
+) fingerprints) is distinct from expected->>'schema_hash' then raise exception 'Schema or trigger source drift';end if;if not exists(select 1 from private.stream_director where status='OFFLINE' and manual_hold and not rpg_session_active and queued is null and next_encounter_at is null) then raise exception 'Director is not held offline';end if;
+if exists(select 1 from public.encounter_rounds r where not coalesce((to_jsonb(r)->>'cancelled')::boolean,false) and coalesce((to_jsonb(r)->>'ends_at')::timestamptz,'infinity'::timestamptz)>clock_timestamp()) then raise exception 'Active or unrecognized encounter';end if;for rel in select unnest(array['public.inventories','public.candy_ledger','public.evolution_log','public.coin_ledger','public.item_ledger','public.xp_ledger','public.mastery_ledger','public.trainer_stats','public.species_seen','public.form_seen','public.species_mastery','public.species_mastery_events','private.species_mastery_outbox','private.species_mastery_activation','private.catch_insert_authority','private.stream_director']) loop protected_before:=protected_before||jsonb_build_object(rel,pg_temp.legacy_row_hash(rel::regclass));end loop;
+select md5(coalesce(string_agg((to_jsonb(p)-array['team_ids','pc_layout','showcase','updated_at'])::text,E'\n' order by id),'')) into profiles_before from public.profiles p;
+ create temporary table legacy_restore_snapshot(protected jsonb,profiles text,survivors jsonb) on commit drop;
+ insert into legacy_restore_snapshot values(protected_before,profiles_before,pg_temp.legacy_row_hash('public.catches','not (ruleset_id is null and content_build is null and hp_max is null and nature_id is null)'));
+ if not exists(select 1 from private.legacy_retirement_runs where run_key='legacy110-v1' and status='archived' and manifest=expected and archive_hash=(select md5(coalesce(string_agg(relation||':'||row_key||':'||payload::text,E'\n' order by relation,row_key),'')) from private.legacy_retirement_rows where run_key='legacy110-v1')) then raise exception 'Archive absent, modified, or already restored';end if;
+ if exists(select 1 from public.catches c join private.legacy_retirement_rows a on a.run_key='legacy110-v1' and a.relation='catches' and a.row_key=c.id::text) then raise exception 'Restoration ID conflict';end if;
+ for rec in select * from private.legacy_retirement_rows where run_key='legacy110-v1' and relation='profile_pointers' loop
+  if (select jsonb_build_object('team_ids',to_jsonb(p.team_ids),'pc_layout',p.pc_layout,'showcase',p.showcase) from public.profiles p where id=rec.row_key::uuid) is distinct from rec.payload->'after' then raise exception 'Profile pointers changed after cleanup';end if;
+ end loop;
+end $restore$;
+alter table public.catches disable trigger catch_server_inserted_at;
+alter table public.catches disable trigger catch_server_inserted_at_freeze;
+alter table public.catches disable trigger catches_after_present;
+alter table public.catches disable trigger catches_before_write;
+alter table public.catches disable trigger catches_xp;
+alter table public.catches disable trigger species_mastery_caught_at_freeze;
+alter table public.trade_listings disable trigger trade_listings_tradable;
+insert into public.catches overriding system value select (jsonb_populate_record(null::public.catches,payload)).* from private.legacy_retirement_rows where run_key='legacy110-v1' and relation='catches';
+insert into public.oak_transfers overriding system value select (jsonb_populate_record(null::public.oak_transfers,payload)).* from private.legacy_retirement_rows where run_key='legacy110-v1' and relation='oak_transfers';
+insert into public.trade_listings overriding system value select (jsonb_populate_record(null::public.trade_listings,payload)).* from private.legacy_retirement_rows where run_key='legacy110-v1' and relation='trade_listings';
+alter table public.catches enable trigger catch_server_inserted_at;
+alter table public.catches enable trigger catch_server_inserted_at_freeze;
+alter table public.catches enable trigger catches_after_present;
+alter table public.catches enable trigger catches_before_write;
+alter table public.catches enable trigger catches_xp;
+alter table public.catches enable trigger species_mastery_caught_at_freeze;
+alter table public.trade_listings enable trigger trade_listings_tradable;
+do $restore$ declare expected jsonb:='{"oak":{"hash":"e1f442998af11e7191db7f5fb2176fed","count":55},"legacy":{"hash":"47123088724a5f1b56e2217df4dcedf7","count":110},"listings":{"hash":"ff839753873cf1e64973a49564cda117","count":1},"survivors":{"hash":"63b6a3794b396c66107e6ae7d35a2824","count":7},"schema_hash":"f385ec7f47b1841e782d2dceee149fcd","profile_count":2}'::jsonb;ids uuid[];id_text text[];rec record;rel text;protected_before jsonb:='{}';profiles_before text;before_ptr jsonb;after_ptr jsonb;n bigint;begin
+ for rec in select * from private.legacy_retirement_rows where run_key='legacy110-v1' and relation='profile_pointers' loop
+  update public.profiles p set team_ids=x.team_ids,pc_layout=x.pc_layout,showcase=x.showcase from jsonb_populate_record(null::public.profiles,rec.payload->'before') x where p.id=rec.row_key::uuid;
+ end loop;
+ if pg_temp.legacy_row_hash('public.catches','ruleset_id is null and content_build is null and hp_max is null and nature_id is null') is distinct from expected->'legacy' or pg_temp.legacy_row_hash('public.oak_transfers','catch_id in(select id from public.catches where ruleset_id is null and content_build is null and hp_max is null and nature_id is null)') is distinct from expected->'oak' or pg_temp.legacy_row_hash('public.trade_listings','catch_id in(select id from public.catches where ruleset_id is null and content_build is null and hp_max is null and nature_id is null)') is distinct from expected->'listings' then raise exception 'Restored row mismatch';end if;
+ select protected,profiles into protected_before,profiles_before from legacy_restore_snapshot;
+ for rel in select unnest(array['public.inventories','public.candy_ledger','public.evolution_log','public.coin_ledger','public.item_ledger','public.xp_ledger','public.mastery_ledger','public.trainer_stats','public.species_seen','public.form_seen','public.species_mastery','public.species_mastery_events','private.species_mastery_outbox','private.species_mastery_activation','private.catch_insert_authority','private.stream_director']) loop if pg_temp.legacy_row_hash(rel::regclass) is distinct from protected_before->rel then raise exception 'Protected state changed: %',rel;end if;end loop;
+if (select md5(coalesce(string_agg((to_jsonb(p)-array['team_ids','pc_layout','showcase','updated_at'])::text,E'\n' order by id),'')) from public.profiles p) is distinct from profiles_before then raise exception 'Profile non-pointer data changed';end if;
+ if pg_temp.legacy_row_hash('public.catches','not (ruleset_id is null and content_build is null and hp_max is null and nature_id is null)') is distinct from (select survivors from legacy_restore_snapshot) then raise exception 'Survivors changed during restore';end if;
+ if (select md5(coalesce(string_agg(s,E'\n' order by s),'')) from (
+ select 'column:'||n.nspname||'.'||c.relname||':'||a.attnum||':'||a.attname||':'||format_type(a.atttypid,a.atttypmod)||':'||a.attnotnull||':'||a.attidentity::text||':'||a.attgenerated::text||':'||coalesce(pg_get_expr(d.adbin,d.adrelid),'') s from pg_attribute a join pg_class c on c.oid=a.attrelid join pg_namespace n on n.oid=c.relnamespace left join pg_attrdef d on d.adrelid=a.attrelid and d.adnum=a.attnum where a.attnum>0 and not a.attisdropped and (n.nspname||'.'||c.relname)=any(array['public.catches','public.profiles','public.oak_transfers','public.trade_listings','public.trade_offers','public.direct_trades'])
+ union all select 'constraint:'||conrelid::regclass::text||':'||conname||':'||pg_get_constraintdef(oid) from pg_constraint where conrelid=any(array['public.catches'::regclass,'public.profiles'::regclass,'public.oak_transfers'::regclass,'public.trade_listings'::regclass,'public.trade_offers'::regclass,'public.direct_trades'::regclass]) or confrelid=any(array['public.catches'::regclass,'public.profiles'::regclass,'public.oak_transfers'::regclass,'public.trade_listings'::regclass,'public.trade_offers'::regclass,'public.direct_trades'::regclass])
+ union all select 'trigger:'||pg_get_triggerdef(t.oid)||':'||t.tgenabled::text||':'||md5(p.prosrc) from pg_trigger t join pg_proc p on p.oid=t.tgfoid where not t.tgisinternal and tgrelid=any(array['public.catches'::regclass,'public.profiles'::regclass,'public.oak_transfers'::regclass,'public.trade_listings'::regclass,'public.trade_offers'::regclass,'public.direct_trades'::regclass])
+ union all select 'runtime:'||p.proname||':'||md5(p.prosrc) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='private' and p.proname in ('stamp_catch_row','catch_json','admin_catch_battle_json','persist_streamlink_catch','persist_staff_gift')
+) fingerprints) is distinct from expected->>'schema_hash' then raise exception 'Schema or trigger source drift';end if;
+ update private.legacy_retirement_runs set status='restored',restored_at=clock_timestamp() where run_key='legacy110-v1';
+end $restore$;commit;

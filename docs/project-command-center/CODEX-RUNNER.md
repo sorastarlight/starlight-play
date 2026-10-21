@@ -1,5 +1,7 @@
 # Codex runner trial
 
+CODEX-41 current scope,2026-10-20 EDT: owner approved including all110 legacy specimens, including Sora95, in the archive/removal proposal only. Proposal and exact selective restore prepared;19 REAL LOCAL SQL checks pass. No production removal/archive/schema change authorized by this scope decision. Execution needs the reviewed packet decision; see supabase/unapplied/legacy-retirement/cleanup/README.md.
+
 CODEX-38/39,2026-10-20: owner approved one-event delivery only; Caterpie event delivered and actual Pokédex Familiar1 verified. Allowance spent; no reconciliation/scheduler/further encounters. Separate shared WIRE-stat read patch prepared and locally tested, not installed; see FAMILIARITY-ONE-EVENT-DELIVERY.md and WIRE-STAT-FORMATTER-FIX.md. The frontend missing-stat display is routine maintenance; no SQL authority follows from its publication.
 
 CODEX-37,2026-10-20: owner approved up to10 ordinary shared EmailQA encounters with first-catch/error/session/other-participant stop. Stopped after3 at first natural Caterpie catch. WIRE/stamp/queue admission verified; no further encounters implied. One outbox event remains pending. Delivery packet prepared/tested locally only. New My PC stat formatter mismatch is open. See SHARED-QA-CATCH-BATCH.md; no delivery/reconciliation/scheduling/reset/stamp/spending authorization.

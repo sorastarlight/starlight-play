@@ -43,3 +43,13 @@ Recovery dashboard inspection:7 scheduled physical backups visible, latest Octob
 Important cleanup scope finding:95 legacy specimens belong to1 protected-name-matching owner;15 to2 other owners. Protected identity match is an initial aggregate name check, not an authorization or complete identity audit. Owner direction is needed on whether to include these95 specimens in the destructive cleanup proposal. No deletion requested/executed yet. History must not be erased accidentally.
 
 Follow-up read-only identity verification confirmed the95 protected legacy specimens belong to Sora Starlight (Twitch login SoraStarlight). Owner asked whether to include them in the archive/removal proposal or preserve them; this is proposal scope, not deletion execution approval. Required by explicit protected-account repository rule.
+
+## CODEX-41 — All110 included in tested cleanup proposal
+
+Owner chose to include all110 legacy Pokémon, including Sora95. This is proposal scope only. Exact archive/removal and selective restore are prepared in supabase/unapplied/legacy-retirement/cleanup/, with schema/source/full-row-set hashes. Neither is applied.
+
+New profile audit found10 legacy team entries across2 profiles and2 PC layouts, plus1 showcase reference. The proposal privately archives110 specimens,55 linked Oak rows and1 open listing; cleans only old team/layout/showcase pointers; preserves all7 current WIRE rows and protected economy/discovery/progression/configuration tables. Candy/evolution history remains live and archive identities remain available. No full profile/specimen dump was committed.
+
+19 REAL LOCAL SQL checks pass: archive/RLS/privileges, exact selective recovery, trigger suppression during restore (no reward replay), source/row drift rejection, active round/director refusal, competing offer, archive tampering, profile edits, repeat operation rejection, mid-restore atomic rollback and cross-client locking. Actual relevant column types, trigger bodies and core FKs; fictional linked rows only. Not a full Supabase/RLS clone or disaster recovery test. Profile updated_at follows normal touch behavior; specimen JSON restores exactly.
+
+Manifest:110 legacy /55 Oak /1 listing /7 surviving modern /2 pointer profiles. Schema hash f385ec7f47b1841e782d2dceee149fcd; all specimen/linked-row hashes recorded separately. Archive/removal execution remains a consequential separate decision because scope approval explicitly excluded deletion. Existing backup predates evening QA; PITR remains off; no restore/spending. Current runtime preserved and no protected account mutation occurred in this preparation.

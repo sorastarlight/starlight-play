@@ -1991,3 +1991,5 @@ CODEX-40,2026-10-20 EDT: owner requires unnecessary legacy data retirement befor
 CODEX-40 dependency packet: five-function CP/AV replacement plus rollback;14 REAL LOCAL SQL checks and78 suites pass. Cleanup review includes ledger/evolution/showcase references; backup and destructive disposition still held. See LEGACY-DATA-RETIREMENT.md and supabase/unapplied/legacy-retirement/CLEANUP_PLAN.md.
 
 CODEX-40 dependency phase installed20261021023001 under current replacement instruction:CP/AV response and explicit writes retired, WIRE refs replace legacy type/stat reads.117 stored Pokémon unchanged;actual PC verified.95 legacy specimens match protected owner;cleanup proposal scope needs owner direction;no deletion/reset/gameplay. See LEGACY-DATA-RETIREMENT.md.
+
+CODEX-41,2026-10-20 EDT: owner included all110 legacy Pokémon (Sora95) in proposal only. Archive/removal and exact selective restore prepared;19 REAL LOCAL SQL checks. Includes55 Oak rows,1 open listing and2 profile pointer sets; preserves7 WIRE specimens and economy/progression. No production cleanup performed. See supabase/unapplied/legacy-retirement/cleanup/README.md.

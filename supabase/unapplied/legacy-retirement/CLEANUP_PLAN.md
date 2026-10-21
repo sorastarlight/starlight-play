@@ -28,3 +28,5 @@ CLEANUP_REVIEW.sql is read-only and reproducible. It deliberately contains no DE
 This packet is a staged retirement; it does not claim all legacy dependencies are gone. No paid service, gameplay RPC, scheduler, reset or build stamp is needed for this preparation.
 
 Runtime packet applied as migration20261021023001; full117-specimen table hash unchanged.95 of110 legacy specimens match a protected owner name;15 belong to2 others. Do not include protected specimen removal without explicit scope decision and exact-ID validation.
+
+Superseding proposal-scope decision: owner included all110, including Sora95. CODEX-41 now supplies cleanup/ARCHIVE_AND_REMOVE.sql and RESTORE.sql;19 local SQL checks pass. These are unapplied proposals, not deletion approval. Includes team and PC-layout pointers newly inventoried. See cleanup/README.md for exact behavior, preserved history and recovery limits.

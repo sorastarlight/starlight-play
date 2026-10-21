@@ -1,0 +1,1380 @@
+[
+  {
+    "audit": {
+      "tables": [
+        {
+          "name": "director_events",
+          "schema": "private"
+        },
+        {
+          "name": "species_mastery_activation",
+          "schema": "private"
+        },
+        {
+          "name": "species_mastery_outbox",
+          "schema": "private"
+        },
+        {
+          "name": "stream_director",
+          "schema": "private"
+        },
+        {
+          "name": "candy_ledger",
+          "schema": "public"
+        },
+        {
+          "name": "coin_ledger",
+          "schema": "public"
+        },
+        {
+          "name": "evolution_config",
+          "schema": "public"
+        },
+        {
+          "name": "item_ledger",
+          "schema": "public"
+        },
+        {
+          "name": "mastery_ledger",
+          "schema": "public"
+        },
+        {
+          "name": "site_config",
+          "schema": "public"
+        },
+        {
+          "name": "species_mastery",
+          "schema": "public"
+        },
+        {
+          "name": "species_mastery_events",
+          "schema": "public"
+        },
+        {
+          "name": "trainer_stats",
+          "schema": "public"
+        },
+        {
+          "name": "xp_ledger",
+          "schema": "public"
+        }
+      ],
+      "clone_columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "family_id",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "amount",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "type",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "reason",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "idempotency",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "related_catch",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "qty_before",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "qty_after",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "candy_ledger",
+          "generated": ""
+        },
+        {
+          "name": "id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "dex",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "variant",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "gender",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ball",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "caught_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "round_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "source_key",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "public_id",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "nickname",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "level",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "iv_hp",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "iv_atk",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "iv_def",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "iv_spa",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "iv_spd",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "iv_spe",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "av_hp",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "av_atk",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "av_def",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "av_spa",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "av_spd",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "av_spe",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "moves",
+          "type": "text[]",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "size_class",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "transferred_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ot_user_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ot_name",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ot_number",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "met_level",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "met_location",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "height_m",
+          "type": "numeric(6,2)",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "weight_kg",
+          "type": "numeric(6,1)",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "friendship",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "is_alpha",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "favorite",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "locked",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "obtained_method",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "trade_evo_ready",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "trade_locked_until",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "reserved_trade_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "pokemon_form_id",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "nature_id",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ability_id",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ability_slot",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ev_hp",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ev_atk",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ev_def",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ev_spa",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ev_spd",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ev_spe",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "move_slots",
+          "type": "jsonb",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "ruleset_id",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "content_build",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "hp_current",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "hp_max",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "held_item",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "gigantamax_factor",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "server_inserted_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "catches",
+          "generated": ""
+        },
+        {
+          "name": "id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "a_user",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "b_user",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "a_catch",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "b_catch",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "a_confirmed",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "b_confirmed",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "direct_trades",
+          "generated": ""
+        },
+        {
+          "name": "id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "evolution_log",
+          "generated": ""
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "evolution_log",
+          "generated": ""
+        },
+        {
+          "name": "catch_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "evolution_log",
+          "generated": ""
+        },
+        {
+          "name": "from_dex",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "evolution_log",
+          "generated": ""
+        },
+        {
+          "name": "to_dex",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "evolution_log",
+          "generated": ""
+        },
+        {
+          "name": "candy_spent",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "evolution_log",
+          "generated": ""
+        },
+        {
+          "name": "item_spent",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "evolution_log",
+          "generated": ""
+        },
+        {
+          "name": "method",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "evolution_log",
+          "generated": ""
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "evolution_log",
+          "generated": ""
+        },
+        {
+          "name": "trade_used",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "evolution_log",
+          "generated": ""
+        },
+        {
+          "name": "id",
+          "type": "bigint",
+          "schema": "public",
+          "identity": "a",
+          "not_null": true,
+          "relation": "oak_transfers",
+          "generated": ""
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "oak_transfers",
+          "generated": ""
+        },
+        {
+          "name": "dex",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "oak_transfers",
+          "generated": ""
+        },
+        {
+          "name": "catch_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "oak_transfers",
+          "generated": ""
+        },
+        {
+          "name": "candy_key",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "oak_transfers",
+          "generated": ""
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "oak_transfers",
+          "generated": ""
+        },
+        {
+          "name": "id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "twitch_user_id",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "twitch_login",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "display_name",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "avatar_url",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "starlight_pass",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "pass_source",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "pass_checked_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "watch_seconds",
+          "type": "bigint",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "xp",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "last_heartbeat_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "last_seen_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "favorite_dex",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "favorite_variant",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "trainer_title",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "trainer_sprite",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "team_ids",
+          "type": "uuid[]",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "card_bg",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "owned_avatar_packs",
+          "type": "text[]",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "pc_layout",
+          "type": "jsonb",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "encounter_settings",
+          "type": "jsonb",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "active_title_id",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "featured_badge_ids",
+          "type": "text[]",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "username",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "card_frame",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "showcase",
+          "type": "jsonb",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "ranking_visible",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "team_bg",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "profiles",
+          "generated": ""
+        },
+        {
+          "name": "id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_listings",
+          "generated": ""
+        },
+        {
+          "name": "catch_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_listings",
+          "generated": ""
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_listings",
+          "generated": ""
+        },
+        {
+          "name": "want_dex",
+          "type": "integer",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "trade_listings",
+          "generated": ""
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "trade_listings",
+          "generated": ""
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_listings",
+          "generated": ""
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_listings",
+          "generated": ""
+        },
+        {
+          "name": "accept_any",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_listings",
+          "generated": ""
+        },
+        {
+          "name": "want_gender",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": false,
+          "relation": "trade_listings",
+          "generated": ""
+        },
+        {
+          "name": "want_shiny",
+          "type": "boolean",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_listings",
+          "generated": ""
+        },
+        {
+          "name": "id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_offers",
+          "generated": ""
+        },
+        {
+          "name": "listing_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_offers",
+          "generated": ""
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_offers",
+          "generated": ""
+        },
+        {
+          "name": "catch_id",
+          "type": "uuid",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_offers",
+          "generated": ""
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_offers",
+          "generated": ""
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "schema": "public",
+          "identity": "",
+          "not_null": true,
+          "relation": "trade_offers",
+          "generated": ""
+        }
+      ]
+    }
+  }
+]

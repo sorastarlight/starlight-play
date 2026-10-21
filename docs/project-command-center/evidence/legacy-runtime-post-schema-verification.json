@@ -1,0 +1,168 @@
+{
+  "at": "2026-10-21T03:54:21.633Z",
+  "classification": "READ-ONLY HOSTED",
+  "wire": true,
+  "functions": [
+    {
+      "acl": null,
+      "hash": "ad697b4521d1b1daa5ee600a3d0d4009",
+      "signature": "private.evolve_catch(uuid,uuid,text,text)",
+      "volatility": "v",
+      "search_path": null,
+      "security_definer": false
+    },
+    {
+      "acl": null,
+      "hash": "cfd818a2f0c8a6aba9fae4b784b32279",
+      "signature": "private.launch_community_round(integer,text,boolean,text,boolean,integer)",
+      "volatility": "v",
+      "search_path": null,
+      "security_definer": false
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "df3d2b52205ab6036867dd941bbd7bbc",
+      "signature": "private.materialize_streamlink_catch(uuid,integer,integer,text,text,text,uuid,boolean,text,text,text,text,text)",
+      "volatility": "v",
+      "search_path": [
+        "search_path=pg_catalog"
+      ],
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "4c95b87155b21a636605a5a3a18e5533",
+      "signature": "private.persist_streamlink_catch(uuid,integer,integer,text,text,text,uuid,boolean,text,text,text,text,text)",
+      "volatility": "v",
+      "search_path": [
+        "search_path=pg_catalog"
+      ],
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "27e804637ea224d60787b2ea76d38e0c",
+      "signature": "private.phase2_evolution_selftest()",
+      "volatility": "v",
+      "search_path": [
+        "search_path=public"
+      ],
+      "security_definer": true
+    },
+    {
+      "acl": null,
+      "hash": "27e804637ea224d60787b2ea76d38e0c",
+      "signature": "private.phase4_catch_candy_selftest()",
+      "volatility": "v",
+      "search_path": [
+        "search_path=public"
+      ],
+      "security_definer": true
+    },
+    {
+      "acl": null,
+      "hash": "b2ea9d6911f8944450e7317a0066ecd6",
+      "signature": "private.record_stream_catch(text,text,integer,text,text,text,text,uuid,text,timestamp with time zone)",
+      "volatility": "v",
+      "search_path": null,
+      "security_definer": false
+    },
+    {
+      "acl": null,
+      "hash": "b66f9a12964b8c96342aba797e1711f1",
+      "signature": "private.stamp_catch_row(catches)",
+      "volatility": "v",
+      "search_path": null,
+      "security_definer": false
+    },
+    {
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "d60aa6523243fc1ba2cbe892978d38c2",
+      "signature": "public.admin_grant_pokemon(uuid,integer,text,text,boolean,text)",
+      "volatility": "v",
+      "search_path": [
+        "search_path=public"
+      ],
+      "security_definer": true
+    },
+    {
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "03c579446c6ace33705263a2be292b30",
+      "signature": "public.admin_oak_qa(text,uuid,jsonb)",
+      "volatility": "v",
+      "search_path": [
+        "search_path=public"
+      ],
+      "security_definer": true
+    },
+    {
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "3bd8ec57508c8217695a7371e749f174",
+      "signature": "public.bridge_import_catches(text,jsonb)",
+      "volatility": "v",
+      "search_path": [
+        "search_path=public"
+      ],
+      "security_definer": true
+    },
+    {
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "1f81cede1066cdf836d5309c4d7b9a75",
+      "signature": "public.bridge_publish(text,jsonb)",
+      "volatility": "v",
+      "search_path": [
+        "search_path=public"
+      ],
+      "security_definer": true
+    }
+  ],
+  "specimens": {
+    "hash": "62a30076d38ae7c0cec63621ffe6a32e",
+    "count": 7
+  },
+  "activation": {
+    "closed_at": null,
+    "lifecycle": "active",
+    "paused_at": null,
+    "singleton": true,
+    "disabled_at": null,
+    "activated_at": "2026-10-20T16:55:59.896904+00:00",
+    "drain_started_at": null
+  },
+  "director": {
+    "id": 1,
+    "queued": null,
+    "status": "OFFLINE",
+    "hold_until": null,
+    "session_id": null,
+    "updated_at": "2026-10-21T03:54:06.652741+00:00",
+    "hold_reason": "Manual hold",
+    "manual_hold": true,
+    "stream_mode": "NORMAL",
+    "auto_enabled": true,
+    "delay_reason": "STREAM_STATUS_UNKNOWN",
+    "last_tick_at": "2026-10-21T03:54:06.652741+00:00",
+    "overdue_from": null,
+    "post_ad_until": "2026-10-18T19:05:53.971379+00:00",
+    "encounters_auto": 17,
+    "encounters_event": 0,
+    "encounters_manual": 10,
+    "last_encounter_id": "996dbdac-eeb8-4f6f-9443-062cbd539586",
+    "next_encounter_at": null,
+    "rpg_session_active": false,
+    "session_started_at": "2026-09-20T02:38:45.213155+00:00",
+    "encounters_paused_ads": 0,
+    "last_encounter_source": "ADMIN_SPECIFIC",
+    "encounters_delayed_ads": 0,
+    "last_encounter_started_at": "2026-10-16T04:37:43.593152+00:00",
+    "last_encounter_completed_at": null
+  },
+  "legacy_sources": 0,
+  "remaining_lgpe_helpers": [
+    "lgpe_gender_rate",
+    "lgpe_habitat",
+    "lgpe_level_bounds",
+    "lgpe_roll_gender"
+  ],
+  "functionAttributesUnchanged": true
+}

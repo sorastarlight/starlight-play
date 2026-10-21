@@ -57,3 +57,6 @@ Manifest:110 legacy /55 Oak /1 listing /7 surviving modern /2 pointer profiles. 
 ## CODEX-41 executed under explicit cleanup approval
 
 Migration20261021030704 archived/retired110 (Sora95,PlayTester12,Twinkle3),55 Oak rows,1 open listing and2 profile pointer sets. Active legacy count0; all7 WIRE specimens unchanged. Protected economy/history verified; actual EmailQA PC passes. Restore not needed. Earlier protected-name filter missed Twinkle; audit corrected and operator disclosed. See LEGACY-CLEANUP-EXECUTION.md and evidence/legacy-cleanup-hosted-verification.json. No archive purge or legacy schema drop; remaining CODEX-40 work is still open.
+
+
+CODEX-42 PRODUCTION VERIFIED,2026-10-20 EDT: approved legacy route retirement and conservative evolution installed20261021034225; AV/helper/public-reference retirement installed20261021035222.7 WIRE specimens retain all supported data,15 protected datasets unchanged,private archives valid.29 runtime/31 recovery SQL checks;78 suites;build31/423;actual EmailQA PC pass. Two schema attempts rolled back on collation fingerprint mismatch; corrected guarded packet installed. No hosted gameplay or new protected-account mutation. See LEGACY-RUNTIME-SCHEMA-EXECUTION.md.

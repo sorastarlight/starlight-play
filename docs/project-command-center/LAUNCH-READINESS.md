@@ -10,7 +10,7 @@ Current October20,2026 EDT. Existing command-center checklist; not a new queue o
 |4|Twitch policy|New one-link policy disabled; no separate provider identity available. Defer new restriction until actual provider QA/intent/exception workflow and rollout decision. Do not borrow protected identity.|
 |5|Staff actions|QA gift delivery, Pass override/regrant/history and permission/audit/replay checks. Legacy Pass QA grants to actor: never test success with an owner session.|
 |6|Player acceptance|Core desktop/mobile/error/loading/keyboard/zoom/motion paths and final owner review. No gym earning system, later-gen exposure or retired frames.|
-|7|Release operations|Required legacy model/data retirement per LEGACY-DATA-RETIREMENT.md before final release;CODEX-41 approved110 legacy archive/removal completed/verified;remaining fallback/schema retirement open;Backup/restore readiness, configuration/scheduling/email capacity, regressions, explicit release go/no-go, approved APP stamp, publication/cache verification. No automatic reset.|
+|7|Release operations|Required legacy model/data retirement per LEGACY-DATA-RETIREMENT.md before final release;CODEX-41 approved110 legacy archive/removal completed/verified;CODEX-42 remaining fallback/schema retirement complete and verified;Backup/restore readiness, configuration/scheduling/email capacity, regressions, explicit release go/no-go, approved APP stamp, publication/cache verification. No automatic reset.|
 
 ## Bounded hosted smoke — first allowance spent, replacement not approved
 
@@ -25,3 +25,5 @@ Use existing `admin_start_round` and actual EmailQA join/throw UI, retaining ret
 Read only QA/round evidence needed for spending/result/replay and, if caught, WIRE specimen fields/stamp/PC/Pokédex/outbox admission. No progress delivery in this stage. One encounter does not establish all gameplay readiness; Mart/evolution/Oak/trades remain separately bounded checks.
 
 Recovery real-email/helpdesk privacy tests already passed. Attachments/ticket email notifications, earned gym badges and later generations are deferrable features.
+
+CODEX-42 completion: legacy retirement milestone is closed; conservative evolution is locally validated, not hosted gameplay-tested. Current remaining work and boundaries: LEGACY-RUNTIME-SCHEMA-EXECUTION.md.

@@ -13,7 +13,7 @@
 | R-UI-GALLERY | **SUPERSEDED** | Owner rejected card gallery and did not approve A7. Further widget polish is the wrong layer. |
 | R-IA-LAYOUT | **DESIGN** | A8 + D10–D13: Proposal A layout accepted in principle. Visual target waits on A10. Live Trainers unchanged until A9. |
 | R-EPIC-11 | **DESIGN** | Epic #11 expands beyond current read RPCs (PC, ribbons, tickets, recovery writes). #12 is presentation-only. #13/#14 must not skip security/architecture. |
-| R-I16-LEGALITY | **SUPERSEDED (future)** | Current rows remain LGPE-inspired (factual #16). Future target is D17 / #19, not LGPE. Do not convert old IVs in place. |
+| R-I16-LEGALITY | **RETIRED LEGACY MODEL** | CODEX-41 privately archived/removed110 legacy specimens; CODEX-42 retired AV schema/fallbacks.7 supported WIRE specimens preserved; no in-place IV conversion. |
 | R-I19-RESET | **PREPARED / LOCAL TEST PASS / UNAPPLIED** | D45 local RESET-TEST PASS (7/7). Showcase `shinyCatchId` now stripped when it points at a reset catch. Production DELETE still unapplied. Sora/Twinkle excluded. Needs A19-RESET-GO. |
 | R-I19-POKEAPI | **DESIGN** | PokéAPI VG `scarlet-violet` has an empty `move_learn_methods` array; learnsets live on pokemon move details. Runtime must not hot-fetch. Do not invent SV movesets for absent forms. |
 | R-I20-GAPS | **OPEN** | Pin still leaves 12 Gigantamax + 4 Champions megas unresolved. G1/C1/F1 are approved policy (D24) and encoded in `ref_form_policies`. GENVAL must fail closed; do not silently inherit base learnsets. |
@@ -23,8 +23,10 @@
 | R-I24-PGRST | **CLOSED** | LIVE API: `Accept-Profile: private` → `PGRST106 Invalid schema: private`. Do not add `private` to exposed schemas. |
 | R-I24-BACKUP | **CLOSED as apply blocker** | Owner reconfirmed COMPLETED `2026-10-14 07:44:26 +0000` and issued GO (D35). PITR remains disabled. Restore is still whole-DB rewind and needs a **separate** restore authorization. |
 | R-I25-GENVAL | **MITIGATED / FUNCTIONALLY EQUIVALENT** | D44: live bodies match hashed `001` semantically; not byte-for-byte (six-transaction apply + whitespace/comments). `stamp_catch_row` remains the live catch writer. Hosted generate / WIRE-APPLY / reset execution still blocked. |
-| R-I25-WIRE | **ENABLED / HOSTED SMOKE PENDING** | CODEX-31 enabled/verified the existing switch. CODEX-30/32 local combined checks passed. No current hosted catch/delivery proof; broader D86 held. |
+| R-I25-WIRE | **ENABLED / BOUNDED HOSTED CATCH VERIFIED** | CODEX-37 natural QA catch/stamp/queue and CODEX-38 one-event delivery verified. CODEX-42 removed legacy fallbacks; local post-schema integration passed. Other hosted gameplay coverage and broader D86 remain held. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 
 Do not reopen R21 without fingerprint or write-helper evidence.
+
+CODEX-42: legacy fallback/AV schema retirement verified. Full selective schema/source/specimen recovery tested locally; retain both private archives. Hosted evolution still untested; unsupported hidden/costume mappings deliberately stop before cost. Security advisor search-path notices268 (down2), other categories unchanged; wider security triage remains open. See LEGACY-RUNTIME-SCHEMA-EXECUTION.md.

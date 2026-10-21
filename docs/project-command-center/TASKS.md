@@ -4,6 +4,9 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-42 | done | Legacy route/schema retirement and conservative WIRE evolution | CODEX-40/41 | Explicit cleanup/routes/evolution | Installed and verified; recovery archives retained; see execution report |
+| CODEX-41 | done | Approved110 archive/removal | CODEX-40 | Explicit reviewed packet | Complete; private recovery retained |
+| CODEX-40 | done | Obsolete CP/AV/fallback retirement | CODEX-39 | Owner cleanup instruction | Complete through CODEX-41/42 |
 | CODEX-39 | done | Shared WIRE-stat read correction packet and missing-stat renderer | CODEX-37 | Local/read-only/routine frontend |14 SQL/3 renderer/78 suites;SQL unapplied;owner install decision needed |
 | CODEX-38 | done | Approved one-event Familiarity delivery and actual UI verification | CODEX-37 | Explicit one-event delivery only |Familiar1/queue0 verified;no further worker call or scheduler |
 | CODEX-37 | done | Approved bounded catch batch and one-event delivery proposal | CODEX-36 | Explicit up to10;stop first catch | Stopped3:2 escapes/1 catch;WIRE/stamp/queue verified;HP formatter bug open;delivery not approved |
@@ -143,3 +146,6 @@ CODEX-40 dependency phase installed20261021023001 under current replacement inst
 CODEX-41,2026-10-20 EDT: owner included all110 legacy Pokémon (Sora95) in proposal only. Archive/removal and exact selective restore prepared;19 REAL LOCAL SQL checks. Includes55 Oak rows,1 open listing and2 profile pointer sets; preserves7 WIRE specimens and economy/progression. No production cleanup performed. See supabase/unapplied/legacy-retirement/cleanup/README.md.
 
 CODEX-41 PRODUCTION PASS,2026-10-20 EDT: approved cleanup52f7621b executed migration20261021030704.110 legacy specimens (Sora95,PlayTester12,Twinkle3),55 Oak rows,1 listing privately archived/retired;2 profile pointer sets cleaned.7 WIRE specimens and protected economy/history unchanged;actual QA PC pass. Restore not needed. Protected-name audit correction disclosed. See LEGACY-CLEANUP-EXECUTION.md.
+
+
+CODEX-42 PRODUCTION VERIFIED,2026-10-20 EDT: approved legacy route retirement and conservative evolution installed20261021034225; AV/helper/public-reference retirement installed20261021035222.7 WIRE specimens retain all supported data,15 protected datasets unchanged,private archives valid.29 runtime/31 recovery SQL checks;78 suites;build31/423;actual EmailQA PC pass. Two schema attempts rolled back on collation fingerprint mismatch; corrected guarded packet installed. No hosted gameplay or new protected-account mutation. See LEGACY-RUNTIME-SCHEMA-EXECUTION.md.

@@ -1,0 +1,133 @@
+{
+  "at": "2026-10-21T03:53:41.578Z",
+  "classification": "READ-ONLY HOSTED; full datasets compared before first failed attempt and after successful schema installation",
+  "before": {
+    "protected": {
+      "public.form_seen": {
+        "hash": "fad40e5bc954c407025371ec2f88e9a4",
+        "count": 42
+      },
+      "public.xp_ledger": {
+        "hash": "5c6bbba7d97c7a0d37257ae0b646f164",
+        "count": 387
+      },
+      "public.coin_ledger": {
+        "hash": "74902379cef3a860300ef4e7763d9d12",
+        "count": 47
+      },
+      "public.inventories": {
+        "hash": "81aa0de2d57eb627b508daebae4c3eff",
+        "count": 7
+      },
+      "public.item_ledger": {
+        "hash": "009cfc41a6a48fa204da8834ef8a47e8",
+        "count": 102
+      },
+      "public.candy_ledger": {
+        "hash": "ec813d6fc56d809ef49989298bd464aa",
+        "count": 116
+      },
+      "public.species_seen": {
+        "hash": "9233d7858c79c61793bc6eed3ad10a38",
+        "count": 42
+      },
+      "public.evolution_log": {
+        "hash": "4d83b70b344027ef1e4b2b4ae8e6d2a1",
+        "count": 35
+      },
+      "public.trainer_stats": {
+        "hash": "53caee89275de81def76fa2d5e915d1f",
+        "count": 6
+      },
+      "public.mastery_ledger": {
+        "hash": "dafa7754f4aaf610d52c50a9903c0e18",
+        "count": 89
+      },
+      "public.species_mastery": {
+        "hash": "a400791f5420b711576debd94a99e99b",
+        "count": 28
+      },
+      "public.species_mastery_events": {
+        "hash": "a476c4feb92914658c40b77b8185bbd4",
+        "count": 1
+      },
+      "private.catch_insert_authority": {
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "count": 0
+      },
+      "private.species_mastery_outbox": {
+        "hash": "481d252a68c0fb2a45ada0d85e06f466",
+        "count": 1
+      },
+      "private.species_mastery_activation": {
+        "hash": "2b02a40f4950dbf15f39b568bfbfd712",
+        "count": 1
+      }
+    }
+  },
+  "after": {
+    "protected": {
+      "public.form_seen": {
+        "hash": "fad40e5bc954c407025371ec2f88e9a4",
+        "count": 42
+      },
+      "public.xp_ledger": {
+        "hash": "5c6bbba7d97c7a0d37257ae0b646f164",
+        "count": 387
+      },
+      "public.coin_ledger": {
+        "hash": "74902379cef3a860300ef4e7763d9d12",
+        "count": 47
+      },
+      "public.inventories": {
+        "hash": "81aa0de2d57eb627b508daebae4c3eff",
+        "count": 7
+      },
+      "public.item_ledger": {
+        "hash": "009cfc41a6a48fa204da8834ef8a47e8",
+        "count": 102
+      },
+      "public.candy_ledger": {
+        "hash": "ec813d6fc56d809ef49989298bd464aa",
+        "count": 116
+      },
+      "public.species_seen": {
+        "hash": "9233d7858c79c61793bc6eed3ad10a38",
+        "count": 42
+      },
+      "public.evolution_log": {
+        "hash": "4d83b70b344027ef1e4b2b4ae8e6d2a1",
+        "count": 35
+      },
+      "public.trainer_stats": {
+        "hash": "53caee89275de81def76fa2d5e915d1f",
+        "count": 6
+      },
+      "public.mastery_ledger": {
+        "hash": "dafa7754f4aaf610d52c50a9903c0e18",
+        "count": 89
+      },
+      "public.species_mastery": {
+        "hash": "a400791f5420b711576debd94a99e99b",
+        "count": 28
+      },
+      "public.species_mastery_events": {
+        "hash": "a476c4feb92914658c40b77b8185bbd4",
+        "count": 1
+      },
+      "private.catch_insert_authority": {
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "count": 0
+      },
+      "private.species_mastery_outbox": {
+        "hash": "481d252a68c0fb2a45ada0d85e06f466",
+        "count": 1
+      },
+      "private.species_mastery_activation": {
+        "hash": "2b02a40f4950dbf15f39b568bfbfd712",
+        "count": 1
+      }
+    }
+  },
+  "unchanged": true
+}

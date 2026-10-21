@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-21T03:53:34.441Z",
+  "classification": "READ-ONLY HOSTED verification after approved DDL; no hosted gameplay test",
+  "archives": [
+    {
+      "run": "legacy110-v1",
+      "count": 168,
+      "status": "archived",
+      "integrity": true
+    },
+    {
+      "run": "legacy-schema-v1",
+      "count": 7,
+      "status": "archived",
+      "integrity": true
+    }
+  ],
+  "specimens": {
+    "hash": "62a30076d38ae7c0cec63621ffe6a32e",
+    "count": 7
+  },
+  "av_columns": 0,
+  "migrations": [
+    {
+      "name": "retire_legacy_writers_and_correct_wire_evolution",
+      "version": "20261021034225"
+    },
+    {
+      "name": "retire_av_columns_and_legacy_reference_runtime",
+      "version": "20261021035222"
+    }
+  ],
+  "schema_hash": "d323eb5bcaf331c375056a216bfd1c66",
+  "old_reference": null,
+  "old_stat_helper": null,
+  "old_moves_helper": null,
+  "retired_reference": "private.retired_lgpe_species",
+  "anon_reference_access": false,
+  "player_reference_access": false,
+  "retired_reference_count": 151,
+  "guardedFailures": {
+    "attempts": 2,
+    "rolledBack": true,
+    "cause": "Catalog identifiers use C collation; JSON text defaults differed. Identical schema-line sets; generator now checks baseline using explicit C ordering."
+  }
+}

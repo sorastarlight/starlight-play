@@ -164,8 +164,6 @@
     if (mon.listed) return "Listed for trade";
     if (mon.locked) return "Locked";
     if (mon.favorite) return "Favorite";
-    const copies = (owned || allOwnedMons()).filter((row) => Number(row.dex) === Number(mon.dex)).length;
-    if (copies <= 1) return "Keep for Living Dex";
     return "";
   }
 
@@ -226,7 +224,7 @@
         setOakBubble("Excellent! These Pokémon are ready for transfer.");
         return;
       }
-      setOakBubble("Send me duplicate Pokémon and I'll study their Evolution Line!");
+      setOakBubble("Send me Pokémon and I'll study their Evolution Line!");
       return;
     }
     if (activeTab === "research") {
@@ -971,7 +969,7 @@
     if (els.sendNote) {
       els.sendNote.textContent = shown
         ? `${shown} available · ${selectedOak.size} selected`
-        : (q ? "0 available · no matches in transferable Pokémon" : "0 available · catch duplicates to research");
+        : (q ? "0 available · no matches in transferable Pokémon" : "0 available · no eligible Pokémon");
     }
     if (els.sendGo) {
       const n = selectedOak.size;
@@ -992,8 +990,8 @@
     </div>`
       : `<div class="evo-empty evo-empty-lab">
       <img class="evo-empty-oak" src="images/trainers/portraits/oak-portrait.png" alt="" width="88" height="88" decoding="async" aria-hidden="true">
-      <p><strong>No duplicates to send yet.</strong></p>
-      <p class="muted">Catch extra Pokémon from an Evolution Line, keep one for your Living Dex, then send the rest to Oak for Evolution Candy.</p>
+      <p><strong>No Pokémon available to send.</strong></p>
+      <p class="muted">Favorites, locked Pokémon, team members and open trade listings cannot be sent to Oak.</p>
       <p><a class="button secondary" href="./">Play</a></p>
     </div>`;
     els.sendGrid.innerHTML = rows.map(sendCardHtml).join("") || empty;
@@ -1381,7 +1379,8 @@
       const warn = multi
         ? `Sending these Pokémon to Professor Oak permanently removes them from your collection. Professor Oak will provide Evolution Candy for each Evolution Line after receiving them. This cannot be undone.`
         : `Sending this Pokémon to Professor Oak permanently removes it from your collection. Professor Oak will provide Evolution Candy for its Evolution Line after receiving it. This cannot be undone.`;
-      els.oakCopy.innerHTML = `${candyHtml}<div class="oak-confirm-warn"><p>${esc(warn)}</p></div>`;
+      const lastCopy = window.playOakTransfer?.lastCopyWarning?.(mons, allOwnedMons()) || "";
+      els.oakCopy.innerHTML = `${candyHtml}<div class="oak-confirm-warn"><p>${esc(warn)}</p>${lastCopy ? `<p>${esc(lastCopy)}</p>` : ""}</div>`;
     }
     if (typeof els.oakModal.showModal === "function") els.oakModal.showModal();
     else els.oakModal.setAttribute("open", "");

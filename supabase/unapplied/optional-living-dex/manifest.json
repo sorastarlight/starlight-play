@@ -1,0 +1,26 @@
+[
+  {
+    "signature": "play_transfer_oak(uuid)",
+    "hash": "ae335d0fb0aeee2a4cdf48e9c9d4fcb5",
+    "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "proconfig": [
+      "search_path=public"
+    ],
+    "provolatile": "v",
+    "prosecdef": true,
+    "owner": "postgres",
+    "afterHash": "c2572ac178fa890132854f4794203c5f"
+  },
+  {
+    "signature": "play_release(uuid,text)",
+    "hash": "1e39c46baf93af4c42c5e3d0e20bbfd1",
+    "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "proconfig": [
+      "search_path=public"
+    ],
+    "provolatile": "v",
+    "prosecdef": true,
+    "owner": "postgres",
+    "afterHash": "e0974326b6a4663bf5de93f31f45997e"
+  }
+]

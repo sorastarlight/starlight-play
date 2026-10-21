@@ -388,17 +388,17 @@ test("Oak transfer eligibility mirrors play_transfer_oak", () => {
     { id: "solo", dex: 133, name: "Eevee" }
   ];
   const eligible = oak.eligibleTransferMons(owned);
-  assert(eligible.map((m) => m.id).sort().join(",") === "dup,keep", eligible.map((m) => m.id).join(","));
+  assert(eligible.map((m) => m.id).sort().join(",") === "dup,keep,solo", eligible.map((m) => m.id).join(","));
   assert(oak.transferBlockReason(owned.find((m) => m.id === "keep"), owned) === "");
   assert(oak.transferBlockReason(owned.find((m) => m.id === "dup"), owned) === "");
   assert(oak.transferBlockReason(owned.find((m) => m.id === "team"), owned) === "On team");
   assert(oak.transferBlockReason(owned.find((m) => m.id === "trade"), owned) === "Listed for trade");
   assert(oak.transferBlockReason(owned.find((m) => m.id === "lock"), owned) === "Locked");
   assert(oak.transferBlockReason(owned.find((m) => m.id === "fav"), owned) === "Favorite");
-  assert(oak.transferBlockReason(owned.find((m) => m.id === "solo"), owned) === "Keep for Living Dex");
+  assert(oak.transferBlockReason(owned.find((m) => m.id === "solo"), owned) === "");
 });
 
-test("Living Dex shows only transferable copies when duplicates exist", () => {
+test("Team members remain excluded when other copies are transferable", () => {
   const owned = [
     { id: "a", dex: 4, name: "Charmander" },
     { id: "b", dex: 4, name: "Charmander" },
@@ -406,6 +406,15 @@ test("Living Dex shows only transferable copies when duplicates exist", () => {
   ];
   const ids = oak.eligibleTransferMons(owned).map((m) => m.id).sort();
   assert(ids.join(",") === "a,b", ids.join(","));
+});
+
+test("Last-copy confirmation warns for singles and batches without blocking", () => {
+  const a = {id:"a",dex:11,name:"Metapod"}, b = {id:"b",dex:11,name:"Metapod"};
+  assert(oak.confirmModel([a],[a]).lastCopyWarning.includes("last owned Metapod"));
+  assert(oak.confirmModel([a],[a,b]).lastCopyWarning === "");
+  assert(oak.confirmModel([a,b],[a,b]).lastCopyWarning.includes("last owned Metapod"));
+  assert(oak.confirmModel([a,a],[a,b]).lastCopyWarning === "", "duplicate selection IDs cannot create a false warning");
+  assert(oak.isTransferEligible(a,[a]), "warning must not become a transfer block");
 });
 
 test("candy item art is local candy asset, not a raw Pokémon sprite", () => {

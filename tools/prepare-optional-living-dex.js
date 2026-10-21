@@ -1,0 +1,11 @@
+const fs=require('fs'),path=require('path'),crypto=require('crypto');
+const folder=path.resolve(__dirname,'../supabase/unapplied/optional-living-dex');
+const baseline=JSON.parse(fs.readFileSync(path.join(folder,'baseline.json'),'utf8'));
+const before=fs.readFileSync(path.join(folder,'BASELINE.sql'),'utf8'),after=fs.readFileSync(path.join(folder,'FUNCTIONS.sql'),'utf8');
+const hashes=sql=>[...sql.matchAll(/AS \$function\$([\s\S]*?)\$function\$/g)].map(m=>crypto.createHash('md5').update(m[1]).digest('hex'));
+const old=hashes(before),next=hashes(after);if(old.length!==2||next.length!==2)throw Error('Expected two functions');
+const guard=values=>'DO $guard$ BEGIN\n'+baseline.map((row,i)=>` IF NOT EXISTS(SELECT 1 FROM pg_proc WHERE oid='public.${row.signature}'::regprocedure AND md5(prosrc)='${values[i]}' AND proacl::text='${row.acl}' AND proconfig=ARRAY['search_path=public'] AND prosecdef AND provolatile='v' AND pg_get_userbyid(proowner)='postgres') THEN RAISE EXCEPTION 'Last-copy source or privilege drift: ${row.signature}'; END IF;`).join('\n')+'\nEND $guard$;\n';
+baseline.forEach((row,i)=>{if(row.hash!==old[i])throw Error('Baseline hash mismatch');});
+fs.writeFileSync(path.join(folder,'INSTALL.sql'),'BEGIN;\n'+guard(old)+after+'\n'+guard(next)+'COMMIT;\n');
+fs.writeFileSync(path.join(folder,'ROLLBACK.sql'),'BEGIN;\n'+guard(next)+before+'\n'+guard(old)+'COMMIT;\n');
+fs.writeFileSync(path.join(folder,'manifest.json'),JSON.stringify(baseline.map((row,i)=>({...row,afterHash:next[i]})),null,2)+'\n');

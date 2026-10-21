@@ -1,0 +1,20 @@
+{
+  "classification": "REAL LOCAL SQL: actual old/new RPC bodies; fictional rows; counted reward/team/snapshot interfaces",
+  "checks": [
+    "Actual old Oak and release bodies block the sole specimen",
+    "Guarded two-function install preserves ACL and attributes",
+    "Sole specimen transfers once with existing two-candy reward and history",
+    "Repeated Oak request cannot award twice",
+    "Sole specimen releases once with unchanged reward; repeat denied",
+    "locked still blocks both operations before rewards",
+    "favorite still blocks both operations before rewards",
+    "Open trade listing still blocks both operations",
+    "Oak team protection retained",
+    "Shiny release confirmation is still required and accepted",
+    "Unauthenticated caller denied",
+    "Wrong owner denied",
+    "Guarded rollback restores last-copy policy",
+    "Install refuses ACL drift"
+  ],
+  "limitations": "Hosted gameplay mutation not performed; full live triggers and real reward helper internals are not exercised here."
+}

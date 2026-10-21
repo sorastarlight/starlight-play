@@ -32,7 +32,7 @@ test("family rebuild migration exists and asserts Pikachu/Sandshrew", () => {
 });
 
 test("approved Oak research copy is exact", () => {
-  assert(evoHtml.includes("Catch duplicate Pokémon from the same <strong>Evolution Line</strong> and send them to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong>."));
+  assert(evoHtml.includes("Send Pokémon to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong> for their <strong>Evolution Line</strong>."));
   assert(evoHtml.includes("<strong>Evolution transforms that Pokémon into its evolved form—it does not create an additional copy.</strong>"));
   assert(evoHtml.includes("<strong>Evolution Stones</strong> and <strong>Linking Cords</strong>"));
   assert(evoHtml.includes('href="./store.html#evolution"'));

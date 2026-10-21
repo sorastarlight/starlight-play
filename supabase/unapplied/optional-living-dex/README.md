@@ -1,0 +1,11 @@
+# CODEX-52 — Optional Living Dex
+
+Owner explicitly approved removing last-copy restrictions for Oak transfers and releases, retaining confirmation warnings and lock/favorite protections. The approved two-function install has been applied and independently verified. Source fingerprints: play_transfer_oak c2572ac178fa890132854f4794203c5f; play_release e0974326b6a4663bf5de93f31f45997e. Existing ACLs/owner/security/configuration remain unchanged. INSTALL and ROLLBACK pin both functions and their privilege attributes.
+
+The only server behavior removed is the same-species copy-count rejection. Existing ownership, locked/favorite, listing and shiny-release checks remain. Oak still rejects on-team Pokémon. Release retains its existing pull-from-team behavior; this packet does not broaden or rewrite that unrelated path. Candy/reward rates, ledger keys, history and replay behavior remain. The release ledger reason now says Released a Pokémon rather than Released a duplicate.
+
+Frontend eligibility admits the last copy. My PC Oak/release and Oak Lab confirmations display an explicit last-owned warning. Batch warnings account for selecting all copies, including when a protected copy is kept; the warning is informational and does not enforce a Living Dex. Old duplicate-only instructions and empty states are updated. Existing shiny typed confirmation remains.
+
+Fourteen REAL LOCAL SQL checks exercise actual old/new RPC bodies with fictional rows and counted reward/team/snapshot interfaces: baseline refusal, single-copy success, exact reward count, repeat denial, locks/favorites, listings, Oak team, shiny confirmation, unsigned/wrong owner, guarded rollback and ACL drift. Frontend helper tests cover single/batch warnings and duplicate selected IDs. No additional hosted transfer or release was performed to test the new policy; EmailQA's remaining gifted Metapod is retained.
+
+Independent hosted before/after hashes match for catches, inventories, family candy and staff roles; Oak row count remains one. Installation changes behavior for future requests without migrating Pokémon or balances. Rollback restores the old restriction without reversing transfers/releases performed under the new policy. No reset, encounter, spending, schedule or APP stamp.

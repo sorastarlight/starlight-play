@@ -491,11 +491,6 @@
     });
     document.getElementById("release-mon")?.addEventListener("click", async () => {
       const isShiny = String(mon.variant || "").includes("shiny") || mon.shiny;
-      const copies = (data?.mons || []).filter((row) => Number(row.dex) === Number(mon.dex)).length;
-      if (copies <= 1) {
-        els.status.textContent = `This is your only currently owned ${mon.name}. Keep it for your Living Dex.`;
-        return;
-      }
       const choice = await confirmRelease(mon);
       if (choice === "oak") {
         openOakModal(mon);
@@ -558,7 +553,7 @@
     if (!els.oakModal || !mon || oakBusy) return;
     pendingOakId = String(mon.id);
     const model = window.playOakTransfer?.confirmModel
-      ? window.playOakTransfer.confirmModel([mon])
+      ? window.playOakTransfer.confirmModel([mon], data?.mons || [])
       : {
         rewardHint: "You'll get Evolution Candy for this Evolution Line.",
         leaveHint: "It leaves your collection. This can't be undone."
@@ -575,7 +570,8 @@
       els.oakCopy.innerHTML = `
         <p><strong>${shiny ? "✨ " : ""}${window.playEscapeAttr(identityTitle(mon))}</strong> · Lv. ${mon.level || 1}</p>
         <p>${window.playEscapeAttr(model.rewardHint)}</p>
-        <p class="muted">${window.playEscapeAttr(model.leaveHint)}</p>`;
+        <p class="muted">${window.playEscapeAttr(model.leaveHint)}</p>
+        ${model.lastCopyWarning ? `<p class="pc-dialog-warn">${window.playEscapeAttr(model.lastCopyWarning)}</p>` : ""}`;
     }
     if (typeof els.oakModal.showModal === "function") els.oakModal.showModal();
     else els.oakModal.setAttribute("open", "");
@@ -693,7 +689,7 @@
     const canOak = oakEligible(mon);
     const art = monArtUrl(mon);
     const model = window.playOakTransfer?.confirmModel
-      ? window.playOakTransfer.confirmModel([mon])
+      ? window.playOakTransfer.confirmModel([mon], data?.mons || [])
       : { rewardHint: "You'll get Evolution Candy for this Evolution Line if eligible." };
     const monHtml = `<div class="pc-dialog-mon">
       <img src="${window.playEscapeAttr(art)}" alt="">
@@ -702,7 +698,7 @@
         <p class="muted">Lv. ${mon.level || 1}</p>
       </div>
     </div>`;
-    const warn = `<div class="pc-dialog-warn">Releasing permanently removes this Pokémon from your PC.</div>`;
+    const warn = `<div class="pc-dialog-warn">Releasing permanently removes this Pokémon from your PC.${model.lastCopyWarning ? `<p>${window.playEscapeAttr(model.lastCopyWarning)}</p>` : ""}</div>`;
     const oakNote = canOak
       ? `<p class="pc-dialog-body">Before releasing it, you may instead transfer it to Professor Oak for Evolution Candy if it is eligible.<br><span class="muted">${window.playEscapeAttr(model.rewardHint || "")}</span></p>`
       : `<p class="pc-dialog-body muted">Transfer to Oak is unavailable for this Pokémon (favorite, lock, team, or trade listing).</p>`;

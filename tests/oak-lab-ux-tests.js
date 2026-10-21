@@ -94,7 +94,7 @@ test("Collection toolbar is cohesive", () => {
 });
 
 test("Oak contextual messages cover transfer, evolution, and research tracks", () => {
-  assert(js.includes("Send me duplicate Pokémon and I'll study their Evolution Line!"), "transfer idle missing");
+  assert(js.includes("Send me Pokémon and I'll study their Evolution Line!"), "transfer idle missing");
   assert(js.includes("Excellent! These Pokémon are ready for transfer."), "transfer selection missing");
   assert(js.includes("Let's see what your Pokémon can become!"), "evolution idle missing");
   assert(js.includes("Ah! One of your Pokémon is ready to evolve!"), "evolution ready missing");

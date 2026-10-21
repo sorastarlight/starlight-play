@@ -80,7 +80,7 @@
 
   /**
    * Authoritative Oak transfer eligibility — mirrors live play_transfer_oak.
-   * Favorite / locked / team / open GTS listing / last owned copy of that dex.
+   * Favorite / locked / team / open GTS listing.
    * Presentation filter only; the RPC remains the mutating authority.
    */
   function transferBlockReason(mon, owned) {
@@ -89,9 +89,6 @@
     if (mon.locked) return "Locked";
     if (mon.onTeam) return "On team";
     if (mon.listed) return "Listed for trade";
-    const dex = Number(mon.dex);
-    const copies = (Array.isArray(owned) ? owned : []).filter((row) => Number(row?.dex) === dex).length;
-    if (copies <= 1) return "Keep for Living Dex";
     return "";
   }
 
@@ -210,12 +207,22 @@
   }
 
   /** Pure helper: confirmation copy never invents candy totals. */
-  function confirmModel(mons) {
+  function lastCopyWarning(mons, owned) {
+    const selected = [...new Map((mons || []).map(mon => [String(mon.id), mon])).values()];
+    const names = [...new Set(selected.map(mon => Number(mon.dex)))].filter(dex => {
+      const count = (owned || []).filter(mon => Number(mon.dex) === dex).length;
+      return count > 0 && selected.filter(mon => Number(mon.dex) === dex).length >= count;
+    }).map(dex => selected.find(mon => Number(mon.dex) === dex)?.name || root.playSpeciesName?.(dex) || `Pokémon #${dex}`);
+    return names.length ? `This removes your last owned ${names.join(", ")} from your collection. You can choose whether to keep a Living Dex.` : "";
+  }
+
+  function confirmModel(mons, owned) {
     const list = Array.isArray(mons) ? mons : [];
     return {
       count: list.length,
       title: "Transfer to Professor Oak?",
       names: list.map(monName),
+      lastCopyWarning: lastCopyWarning(list, owned),
       rewardHint: list.length > 1
         ? "You'll get Evolution Candy for each Evolution Line."
         : "You'll get Evolution Candy for this Evolution Line.",
@@ -706,6 +713,7 @@
     candyLabel,
     rewardSummary,
     confirmModel,
+    lastCopyWarning,
     resolvePlayerLabel,
     planSequence,
     stageOrder,

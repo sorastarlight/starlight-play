@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "CODEX-62",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Bounded hosted two-account GTS functional acceptance proposal",
       "evidence": "BOUNDED-GTS-QA.md",
-      "testResults": "Owner approved one gift/one swap. EmailQA2 verified ordinary/nonstaff; one Lv5 Caterpie delivered, succeeded receipt d92f7f6c-2a6a-41bb-a66c-34cca701bd32. Normal +35XP; inventory unchanged; no Familiarity event; unrelated catches/inventories unchanged. No listing/offer/swap yet.",
-      "nextAction": "Await human IAB sign-in as EmailQA for final exact acceptance. Gift,listing and offer allowances spent. Pending offer e8aa7dd1-d506-48cf-a3ae-9302d8b86ec9;listing fd8ba920-aab3-43cd-a5b1-a4f86057c1f0. No swap yet.",
+      "testResults": "Actual two-account GTS swap completed once;exact ownership,unchanged battle fields,5minute cooldowns,normal XP/coin/first-trade Linking Cord ledgers/counters verified. Other catches/inventories and Familiarity unchanged. evidence/gts62-swap.json.",
+      "nextAction": "All bounded mutation allowances spent. Continue read-only responsive/security/recovery acceptance;no more trades implied.",
       "approvalRequirement": "Explicit hosted grant/trade approval and real actor sessions required. No retries/refunds/reset/cancellation/stamp included."
     },
     {

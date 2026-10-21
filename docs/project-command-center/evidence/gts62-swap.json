@@ -1,0 +1,597 @@
+{
+  "before": [
+    {
+      "state": {
+        "events": [
+          {
+            "dex": 10,
+            "catch_id": "875c6f48-60b3-42c8-b540-370407839281",
+            "round_id": "a4716fd6-2b68-42bf-93f7-07a75e27b2fc",
+            "created_at": "2026-10-21T02:07:27.030914+00:00",
+            "source_key": "play:a4716fd6-2b68-42bf-93f7-07a75e27b2fc:15372f80-c560-4486-bf68-e997a73ac2b8",
+            "trainer_id": "15372f80-c560-4486-bf68-e997a73ac2b8"
+          }
+        ],
+        "offers": [
+          {
+            "id": "e8aa7dd1-d506-48cf-a3ae-9302d8b86ec9",
+            "status": "pending",
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "catch_id": "1876076e-d0c2-448d-a4e0-88b5094e5a14",
+            "created_at": "2026-10-21T16:58:06.401721+00:00",
+            "listing_id": "fd8ba920-aab3-43cd-a5b1-a4f86057c1f0"
+          }
+        ],
+        "catches": [
+          {
+            "id": "1876076e-d0c2-448d-a4e0-88b5094e5a14",
+            "dex": 10,
+            "ball": "poke",
+            "name": "Caterpie",
+            "ev_hp": 0,
+            "iv_hp": 28,
+            "level": 5,
+            "moves": [
+              "tackle",
+              "string-shot"
+            ],
+            "ev_atk": 0,
+            "ev_def": 0,
+            "ev_spa": 0,
+            "ev_spd": 0,
+            "ev_spe": 0,
+            "gender": "Female",
+            "hp_max": 20,
+            "iv_atk": 12,
+            "iv_def": 20,
+            "iv_spa": 30,
+            "iv_spd": 26,
+            "iv_spe": 25,
+            "locked": false,
+            "status": null,
+            "ot_name": "emailqa2",
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "variant": "normal",
+            "favorite": false,
+            "height_m": 0.3,
+            "is_alpha": false,
+            "nickname": null,
+            "round_id": null,
+            "caught_at": "2026-10-21T16:38:54.883343+00:00",
+            "held_item": null,
+            "met_level": 5,
+            "nature_id": 1,
+            "ot_number": 22213,
+            "public_id": "SL00025384",
+            "weight_kg": 2.9,
+            "ability_id": 19,
+            "friendship": 50,
+            "hp_current": 20,
+            "move_slots": [
+              {
+                "pp": 35,
+                "name": "tackle",
+                "ppMax": 35,
+                "method": "level-up",
+                "moveId": 33,
+                "versionGroup": "sword-shield"
+              },
+              {
+                "pp": 40,
+                "name": "string-shot",
+                "ppMax": 40,
+                "method": "level-up",
+                "moveId": 81,
+                "versionGroup": "sword-shield"
+              }
+            ],
+            "ot_user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "ruleset_id": "streamlink-gen9-xgen",
+            "size_class": "M",
+            "source_key": "grant:staff-reward:d92f7f6c-2a6a-41bb-a66c-34cca701bd32",
+            "ability_slot": "1",
+            "met_location": "Viridian Forest",
+            "content_build": "sl-ref-20261013-227b573",
+            "transferred_at": null,
+            "obtained_method": "CAPTURE",
+            "pokemon_form_id": 10,
+            "trade_evo_ready": false,
+            "gigantamax_factor": false,
+            "reserved_trade_id": null,
+            "server_inserted_at": "2026-10-21T16:38:54.907605+00:00",
+            "trade_locked_until": null
+          },
+          {
+            "id": "9419c4d5-5fab-49ff-9632-5c89e6b8f97c",
+            "dex": 11,
+            "ball": "poke",
+            "name": "Metapod",
+            "ev_hp": 0,
+            "iv_hp": 1,
+            "level": 5,
+            "moves": [
+              "harden"
+            ],
+            "ev_atk": 0,
+            "ev_def": 0,
+            "ev_spa": 0,
+            "ev_spd": 0,
+            "ev_spe": 0,
+            "gender": "Female",
+            "hp_max": 20,
+            "iv_atk": 11,
+            "iv_def": 31,
+            "iv_spa": 29,
+            "iv_spd": 7,
+            "iv_spe": 14,
+            "locked": false,
+            "status": null,
+            "ot_name": "emailqa",
+            "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "variant": "normal",
+            "favorite": false,
+            "height_m": 0.7,
+            "is_alpha": false,
+            "nickname": null,
+            "round_id": null,
+            "caught_at": "2026-10-21T12:51:47.352898+00:00",
+            "held_item": null,
+            "met_level": 5,
+            "nature_id": 11,
+            "ot_number": 15185,
+            "public_id": "SL00025383",
+            "weight_kg": 9.9,
+            "ability_id": 61,
+            "friendship": 50,
+            "hp_current": 20,
+            "move_slots": [
+              {
+                "pp": 30,
+                "name": "harden",
+                "ppMax": 30,
+                "method": "level-up",
+                "moveId": 106,
+                "versionGroup": "sword-shield"
+              }
+            ],
+            "ot_user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "ruleset_id": "streamlink-gen9-xgen",
+            "size_class": "L",
+            "source_key": "grant:staff-reward:ff96d709-0029-4853-9b0e-5aef5a519eaf",
+            "ability_slot": "1",
+            "met_location": "Viridian Forest",
+            "content_build": "sl-ref-20261013-227b573",
+            "transferred_at": null,
+            "obtained_method": "CAPTURE",
+            "pokemon_form_id": 11,
+            "trade_evo_ready": false,
+            "gigantamax_factor": false,
+            "reserved_trade_id": null,
+            "server_inserted_at": "2026-10-21T12:51:47.382236+00:00",
+            "trade_locked_until": null
+          }
+        ],
+        "listing": {
+          "id": "fd8ba920-aab3-43cd-a5b1-a4f86057c1f0",
+          "note": "CODEX-62 controlled QA swap",
+          "status": "open",
+          "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+          "catch_id": "9419c4d5-5fab-49ff-9632-5c89e6b8f97c",
+          "want_dex": 10,
+          "accept_any": false,
+          "created_at": "2026-10-21T16:41:09.397238+00:00",
+          "want_shiny": false,
+          "want_gender": null
+        },
+        "profiles": [
+          {
+            "id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "xp": 100,
+            "team": []
+          },
+          {
+            "id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "xp": 35,
+            "team": []
+          }
+        ],
+        "inventories": [
+          {
+            "bait": 11,
+            "lure": 1,
+            "balls": {},
+            "berry": 15,
+            "coins": 470,
+            "items": {},
+            "berries": {},
+            "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "pokeball": 13,
+            "bag_bonus": 0,
+            "greatball": 5,
+            "ultraball": 3,
+            "lure_armed": false,
+            "lure_until": null,
+            "updated_at": "2026-10-21T14:06:18.091592+00:00",
+            "pass_daily_at": null,
+            "pass_weekly_at": null,
+            "daily_supply_at": null,
+            "starter_granted": false
+          },
+          {
+            "bait": 10,
+            "lure": 0,
+            "balls": {},
+            "berry": 10,
+            "coins": 0,
+            "items": {},
+            "berries": {},
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "pokeball": 10,
+            "bag_bonus": 0,
+            "greatball": 5,
+            "ultraball": 3,
+            "lure_armed": false,
+            "lure_until": null,
+            "updated_at": "2026-10-21T16:29:32.694606+00:00",
+            "pass_daily_at": null,
+            "pass_weekly_at": null,
+            "daily_supply_at": null,
+            "starter_granted": false
+          }
+        ],
+        "otherCatchesHash": "6f19a5883d42ed851cf0edcd78006045",
+        "otherInventoriesHash": "0efea1d05105cd1eccf2a1e7e59c76a7"
+      }
+    }
+  ],
+  "after": [
+    {
+      "state": {
+        "events": [
+          {
+            "dex": 10,
+            "catch_id": "875c6f48-60b3-42c8-b540-370407839281",
+            "round_id": "a4716fd6-2b68-42bf-93f7-07a75e27b2fc",
+            "created_at": "2026-10-21T02:07:27.030914+00:00",
+            "source_key": "play:a4716fd6-2b68-42bf-93f7-07a75e27b2fc:15372f80-c560-4486-bf68-e997a73ac2b8",
+            "trainer_id": "15372f80-c560-4486-bf68-e997a73ac2b8"
+          }
+        ],
+        "offers": [
+          {
+            "id": "e8aa7dd1-d506-48cf-a3ae-9302d8b86ec9",
+            "status": "accepted",
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "catch_id": "1876076e-d0c2-448d-a4e0-88b5094e5a14",
+            "created_at": "2026-10-21T16:58:06.401721+00:00",
+            "listing_id": "fd8ba920-aab3-43cd-a5b1-a4f86057c1f0"
+          }
+        ],
+        "catches": [
+          {
+            "id": "1876076e-d0c2-448d-a4e0-88b5094e5a14",
+            "dex": 10,
+            "ball": "poke",
+            "name": "Caterpie",
+            "ev_hp": 0,
+            "iv_hp": 28,
+            "level": 5,
+            "moves": [
+              "tackle",
+              "string-shot"
+            ],
+            "ev_atk": 0,
+            "ev_def": 0,
+            "ev_spa": 0,
+            "ev_spd": 0,
+            "ev_spe": 0,
+            "gender": "Female",
+            "hp_max": 20,
+            "iv_atk": 12,
+            "iv_def": 20,
+            "iv_spa": 30,
+            "iv_spd": 26,
+            "iv_spe": 25,
+            "locked": false,
+            "status": null,
+            "ot_name": "emailqa2",
+            "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "variant": "normal",
+            "favorite": false,
+            "height_m": 0.3,
+            "is_alpha": false,
+            "nickname": null,
+            "round_id": null,
+            "caught_at": "2026-10-21T16:38:54.883343+00:00",
+            "held_item": null,
+            "met_level": 5,
+            "nature_id": 1,
+            "ot_number": 22213,
+            "public_id": "SL00025384",
+            "weight_kg": 2.9,
+            "ability_id": 19,
+            "friendship": 50,
+            "hp_current": 20,
+            "move_slots": [
+              {
+                "pp": 35,
+                "name": "tackle",
+                "ppMax": 35,
+                "method": "level-up",
+                "moveId": 33,
+                "versionGroup": "sword-shield"
+              },
+              {
+                "pp": 40,
+                "name": "string-shot",
+                "ppMax": 40,
+                "method": "level-up",
+                "moveId": 81,
+                "versionGroup": "sword-shield"
+              }
+            ],
+            "ot_user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "ruleset_id": "streamlink-gen9-xgen",
+            "size_class": "M",
+            "source_key": "grant:staff-reward:d92f7f6c-2a6a-41bb-a66c-34cca701bd32",
+            "ability_slot": "1",
+            "met_location": "Viridian Forest",
+            "content_build": "sl-ref-20261013-227b573",
+            "transferred_at": null,
+            "obtained_method": "TRADE",
+            "pokemon_form_id": 10,
+            "trade_evo_ready": false,
+            "gigantamax_factor": false,
+            "reserved_trade_id": null,
+            "server_inserted_at": "2026-10-21T16:38:54.907605+00:00",
+            "trade_locked_until": "2026-10-21T17:10:18.578451+00:00"
+          },
+          {
+            "id": "9419c4d5-5fab-49ff-9632-5c89e6b8f97c",
+            "dex": 11,
+            "ball": "poke",
+            "name": "Metapod",
+            "ev_hp": 0,
+            "iv_hp": 1,
+            "level": 5,
+            "moves": [
+              "harden"
+            ],
+            "ev_atk": 0,
+            "ev_def": 0,
+            "ev_spa": 0,
+            "ev_spd": 0,
+            "ev_spe": 0,
+            "gender": "Female",
+            "hp_max": 20,
+            "iv_atk": 11,
+            "iv_def": 31,
+            "iv_spa": 29,
+            "iv_spd": 7,
+            "iv_spe": 14,
+            "locked": false,
+            "status": null,
+            "ot_name": "emailqa",
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "variant": "normal",
+            "favorite": false,
+            "height_m": 0.7,
+            "is_alpha": false,
+            "nickname": null,
+            "round_id": null,
+            "caught_at": "2026-10-21T12:51:47.352898+00:00",
+            "held_item": null,
+            "met_level": 5,
+            "nature_id": 11,
+            "ot_number": 15185,
+            "public_id": "SL00025383",
+            "weight_kg": 9.9,
+            "ability_id": 61,
+            "friendship": 50,
+            "hp_current": 20,
+            "move_slots": [
+              {
+                "pp": 30,
+                "name": "harden",
+                "ppMax": 30,
+                "method": "level-up",
+                "moveId": 106,
+                "versionGroup": "sword-shield"
+              }
+            ],
+            "ot_user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "ruleset_id": "streamlink-gen9-xgen",
+            "size_class": "L",
+            "source_key": "grant:staff-reward:ff96d709-0029-4853-9b0e-5aef5a519eaf",
+            "ability_slot": "1",
+            "met_location": "Viridian Forest",
+            "content_build": "sl-ref-20261013-227b573",
+            "transferred_at": null,
+            "obtained_method": "TRADE",
+            "pokemon_form_id": 11,
+            "trade_evo_ready": false,
+            "gigantamax_factor": false,
+            "reserved_trade_id": null,
+            "server_inserted_at": "2026-10-21T12:51:47.382236+00:00",
+            "trade_locked_until": "2026-10-21T17:10:18.578451+00:00"
+          }
+        ],
+        "listing": {
+          "id": "fd8ba920-aab3-43cd-a5b1-a4f86057c1f0",
+          "note": "CODEX-62 controlled QA swap",
+          "status": "completed",
+          "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+          "catch_id": "9419c4d5-5fab-49ff-9632-5c89e6b8f97c",
+          "want_dex": 10,
+          "accept_any": false,
+          "created_at": "2026-10-21T16:41:09.397238+00:00",
+          "want_shiny": false,
+          "want_gender": null
+        },
+        "profiles": [
+          {
+            "id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "xp": 105,
+            "team": []
+          },
+          {
+            "id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "xp": 65,
+            "team": []
+          }
+        ],
+        "inventories": [
+          {
+            "bait": 11,
+            "lure": 1,
+            "balls": {},
+            "berry": 15,
+            "coins": 470,
+            "items": {
+              "linkingcord": 1
+            },
+            "berries": {},
+            "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "pokeball": 13,
+            "bag_bonus": 0,
+            "greatball": 5,
+            "ultraball": 3,
+            "lure_armed": false,
+            "lure_until": null,
+            "updated_at": "2026-10-21T17:05:18.578451+00:00",
+            "pass_daily_at": null,
+            "pass_weekly_at": null,
+            "daily_supply_at": null,
+            "starter_granted": false
+          },
+          {
+            "bait": 10,
+            "lure": 0,
+            "balls": {},
+            "berry": 10,
+            "coins": 100,
+            "items": {
+              "linkingcord": 1
+            },
+            "berries": {},
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "pokeball": 10,
+            "bag_bonus": 0,
+            "greatball": 5,
+            "ultraball": 3,
+            "lure_armed": false,
+            "lure_until": null,
+            "updated_at": "2026-10-21T17:05:18.578451+00:00",
+            "pass_daily_at": null,
+            "pass_weekly_at": null,
+            "daily_supply_at": null,
+            "starter_granted": false
+          }
+        ],
+        "otherCatchesHash": "6f19a5883d42ed851cf0edcd78006045",
+        "otherInventoriesHash": "0efea1d05105cd1eccf2a1e7e59c76a7"
+      }
+    }
+  ],
+  "rewards": [
+    {
+      "rewards": {
+        "xp": [
+          {
+            "id": "232e7d58-fe9e-4972-b629-ddf303782301",
+            "type": "TRADE",
+            "amount": 5,
+            "reason": "Completed a trade",
+            "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "xp_after": 105,
+            "xp_before": 100,
+            "created_at": "2026-10-21T17:05:18.578451+00:00",
+            "idempotency": "xp-trade:15372f80-c560-4486-bf68-e997a73ac2b8:gts:fd8ba920-aab3-43cd-a5b1-a4f86057c1f0",
+            "related_round": null
+          },
+          {
+            "id": "b6f7fbee-e59e-47af-815b-8bc01049730c",
+            "type": "NEW_DEX",
+            "amount": 25,
+            "reason": "New Pokédex species",
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "xp_after": 60,
+            "xp_before": 35,
+            "created_at": "2026-10-21T17:05:18.578451+00:00",
+            "idempotency": "xp-dex:ba4dcf17-da1f-4de6-8e48-31f8d93acab8:11",
+            "related_round": null
+          },
+          {
+            "id": "9a85641a-4ef1-4db8-827c-d187cf04cd10",
+            "type": "TRADE",
+            "amount": 5,
+            "reason": "Completed a trade",
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "xp_after": 65,
+            "xp_before": 60,
+            "created_at": "2026-10-21T17:05:18.578451+00:00",
+            "idempotency": "xp-trade:ba4dcf17-da1f-4de6-8e48-31f8d93acab8:gts:fd8ba920-aab3-43cd-a5b1-a4f86057c1f0",
+            "related_round": null
+          }
+        ],
+        "coins": [
+          {
+            "id": 270,
+            "type": "NEW_DEX_ENTRY",
+            "amount": 100,
+            "detail": {
+              "idempotency": "dex:ba4dcf17-da1f-4de6-8e48-31f8d93acab8:11"
+            },
+            "reason": "First time owning this species",
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "order_id": null,
+            "created_at": "2026-10-21T17:05:18.578451+00:00",
+            "idempotency": "dex:ba4dcf17-da1f-4de6-8e48-31f8d93acab8:11",
+            "related_sku": null,
+            "related_item": null,
+            "balance_after": 100,
+            "related_round": null,
+            "balance_before": 0,
+            "economy_version": 1
+          }
+        ],
+        "items": [
+          {
+            "id": "5b5aecd2-5e83-4ba3-853e-4e57e340dc12",
+            "amount": 1,
+            "reason": "ACHIEVEMENT_REWARD",
+            "user_id": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "item_key": "linkingcord",
+            "source_id": "trade-1",
+            "created_at": "2026-10-21T17:05:18.578451+00:00",
+            "idempotency": "ach:15372f80-c560-4486-bf68-e997a73ac2b8:trade-1:linkingcord"
+          },
+          {
+            "id": "88b3e56b-4ba0-46fd-9cee-8d170f6b9662",
+            "amount": 1,
+            "reason": "ACHIEVEMENT_REWARD",
+            "user_id": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "item_key": "linkingcord",
+            "source_id": "trade-1",
+            "created_at": "2026-10-21T17:05:18.578451+00:00",
+            "idempotency": "ach:ba4dcf17-da1f-4de6-8e48-31f8d93acab8:trade-1:linkingcord"
+          }
+        ],
+        "stats": [
+          {
+            "in": 1,
+            "out": 1,
+            "user": "15372f80-c560-4486-bf68-e997a73ac2b8",
+            "trades": 1
+          },
+          {
+            "in": 1,
+            "out": 1,
+            "user": "ba4dcf17-da1f-4de6-8e48-31f8d93acab8",
+            "trades": 1
+          }
+        ]
+      }
+    }
+  ]
+}

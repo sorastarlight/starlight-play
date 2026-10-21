@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-39 | done | Shared WIRE-stat read correction packet and missing-stat renderer | CODEX-37 | Local/read-only/routine frontend |14 SQL/3 renderer/78 suites;SQL unapplied;owner install decision needed |
+| CODEX-38 | done | Approved one-event Familiarity delivery and actual UI verification | CODEX-37 | Explicit one-event delivery only |Familiar1/queue0 verified;no further worker call or scheduler |
 | CODEX-37 | done | Approved bounded catch batch and one-event delivery proposal | CODEX-36 | Explicit up to10;stop first catch | Stopped3:2 escapes/1 catch;WIRE/stamp/queue verified;HP formatter bug open;delivery not approved |
 | CODEX-36 | done | Approved EmailQA retry: ordinary escape/economy verification | CODEX-35 | Explicit one replacement/one throw | Escape path verified;1 debit/1 attendance ball;0 catch/events; further encounters require new allowance |
 | CODEX-35 | done | Approved single shared encounter attempt, incomplete player smoke | CODEX-34 | Explicit one encounter/one EmailQA throw | Allowance spent;0 participants/throws/catches; needs QA sign-in and explicit replacement approval |

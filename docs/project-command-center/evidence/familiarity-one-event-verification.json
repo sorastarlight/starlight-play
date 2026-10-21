@@ -1,0 +1,24 @@
+[
+  {
+    "at": "2026-10-21 02:07:37.158523+00",
+    "queue": {
+      "status": "delivered",
+      "attempts": 0,
+      "delivered_at": "2026-10-21T02:07:27.047154+00:00"
+    },
+    "events": 1,
+    "progress": {
+      "tier": "Familiar",
+      "count": 1,
+      "level": 1
+    },
+    "pending": 0,
+    "director": {
+      "status": "OFFLINE",
+      "has_queue": false,
+      "manual_hold": true,
+      "session_active": false,
+      "next_encounter_at": null
+    }
+  }
+]

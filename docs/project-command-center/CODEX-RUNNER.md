@@ -1,5 +1,7 @@
 # Codex runner trial
 
+CODEX-38/39,2026-10-20: owner approved one-event delivery only; Caterpie event delivered and actual Pokédex Familiar1 verified. Allowance spent; no reconciliation/scheduler/further encounters. Separate shared WIRE-stat read patch prepared and locally tested, not installed; see FAMILIARITY-ONE-EVENT-DELIVERY.md and WIRE-STAT-FORMATTER-FIX.md. The frontend missing-stat display is routine maintenance; no SQL authority follows from its publication.
+
 CODEX-37,2026-10-20: owner approved up to10 ordinary shared EmailQA encounters with first-catch/error/session/other-participant stop. Stopped after3 at first natural Caterpie catch. WIRE/stamp/queue admission verified; no further encounters implied. One outbox event remains pending. Delivery packet prepared/tested locally only. New My PC stat formatter mismatch is open. See SHARED-QA-CATCH-BATCH.md; no delivery/reconciliation/scheduling/reset/stamp/spending authorization.
 
 CODEX-36 current scope,2026-10-20: owner approved one replacement shared encounter/one EmailQA throw. Completed with natural escape, correct owned-ball debit plus normal attendance reward,0 catch/events and no schedule. The replacement allowance is spent. Further encounters, successful-catch proof, delivery and broader D86 actions remain separate; see SHARED-QA-ENCOUNTER-RETRY.md.

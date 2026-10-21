@@ -335,7 +335,9 @@
       ["spa", "Sp. Atk"], ["spd", "Sp. Def"], ["spe", "Speed"]
     ];
     return labels.map(([key, label]) => {
-      const value = Number(mon.stats?.[key] || 0);
+      const raw = mon.stats?.[key];
+      const value = raw === null || raw === undefined || raw === "" ? NaN : Number(raw);
+      if (!Number.isFinite(value)) return `<div class="pc-stat"><span>${label}</span><i style="--pct:0%"></i><strong title="Stat unavailable" aria-label="${label} unavailable">—</strong></div>`;
       const pct = Math.max(8, Math.min(100, Math.round((value / 250) * 100)));
       return `<div class="pc-stat"><span>${label}</span><i style="--pct:${pct}%"></i><strong>${value}</strong></div>`;
     }).join("");

@@ -1,0 +1,12 @@
+[
+  {
+    "proname": "lgpe_stat",
+    "definition": "CREATE OR REPLACE FUNCTION private.lgpe_stat(p_base integer, p_iv integer, p_av integer, p_level integer, p_hp boolean)\n RETURNS integer\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case when p_hp\n    then floor(((2 * coalesce(p_base, 50) + coalesce(p_iv, 0) + coalesce(p_av, 0)) * coalesce(p_level, 1)) / 100.0)::int + coalesce(p_level, 1) + 10\n    else floor(((2 * coalesce(p_base, 50) + coalesce(p_iv, 0) + coalesce(p_av, 0)) * coalesce(p_level, 1)) / 100.0)::int + 5\n  end;\n$function$\n",
+    "body_md5": "e3ec3d20ee4b5b593789f3447f746bd8"
+  },
+  {
+    "proname": "streamlink_stat",
+    "definition": "CREATE OR REPLACE FUNCTION private.streamlink_stat(p_base integer, p_iv integer, p_ev integer, p_level integer, p_nature numeric)\n RETURNS integer\n LANGUAGE sql\n IMMUTABLE\n SET search_path TO 'pg_catalog'\nAS $function$\n  SELECT floor((floor((2 * p_base + p_iv + floor(p_ev / 4.0)) * p_level / 100.0) + 5) * p_nature)::int;\n$function$\n",
+    "body_md5": "2f2c6b077f6afb56811c099311fd68cf"
+  }
+]

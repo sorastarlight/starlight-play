@@ -1,3 +1,7 @@
+## CODEX-38/39 — One-event delivery complete; stat formatter patch prepared (2026-10-20 EDT)
+
+Explicit one-event approval used02:07:27 UTC;Caterpie event delivered once,profile/inventory/specimen/lifecycle unchanged by guarded transaction. Independent queue0/events1/Familiar1 and actual Pokédex UI verified. No scheduler/reconcile/new encounter. Separate read formatter patch prepared/unapplied:storedHP plus pinned WIRE stats, legacy/non-stat/CP preserved.14 SQL/3 renderer/78 non-writing suites pass;build31/423. Frontend missing stats use accessible dash. See FAMILIARITY-ONE-EVENT-DELIVERY.md and WIRE-STAT-FORMATTER-FIX.md.
+
 ## CODEX-37 — Bounded hosted catch batch (2026-10-20 EDT)
 
 Explicit max10 approval stopped after3 at first natural catch:2 Bulbasaur escapes,1 Caterpie catch875c6f48-60b3-42c8-b540-370407839281. Actual EmailQA UI, no items, one owned ball each, no other participants.3 debit ledger rows;balance7/5/3. WIRE fields/finite stamp/one pending outbox verified;real PC/Pokédex caught display verified. Found shared catch_json LGPE stat bug(HP23 vs stored22);risk open. Prepared exact one-event delivery packet,38 local SQL checks and read-only hosted preflight pass;no delivery run. No further encounter/schedule/reset/stamp/spending. See SHARED-QA-CATCH-BATCH.md.

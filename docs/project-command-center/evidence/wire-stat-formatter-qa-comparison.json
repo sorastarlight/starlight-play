@@ -1,0 +1,22 @@
+[
+  {
+    "id": "875c6f48-60b3-42c8-b540-370407839281",
+    "current_display": {
+      "hp": 23,
+      "atk": 11,
+      "def": 11,
+      "spa": 11,
+      "spd": 11,
+      "spe": 12
+    },
+    "proposed_display": {
+      "hp": 22,
+      "atk": 7,
+      "def": 9,
+      "spa": 7,
+      "spd": 7,
+      "spe": 12
+    },
+    "nature": "Timid"
+  }
+]

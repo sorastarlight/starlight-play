@@ -1,5 +1,7 @@
 # Pokémon StreamLink — project command center
 
+CODEX-38 [one-event delivery](./FAMILIARITY-ONE-EVENT-DELIVERY.md) completed after explicit approval: actual Pokédex **Familiar ·1 recorded catch**,queue0;no scheduler. CODEX-39 [shared WIRE-stat correction](./WIRE-STAT-FORMATTER-FIX.md) passes14 local SQL/3 renderer checks/78 suites; **SQL unapplied**, R-PC-STATS open.
+
 CODEX-37 [bounded catch batch](./SHARED-QA-CATCH-BATCH.md) stopped after3 at first natural catch. WIRE/specimen/stamp/outbox admission and actual My PC/Pokédex catch verified. **Open launch bug:** My PC HP23 vs stored22; old shared formatter. One Familiarity event pending; delivery proposal passed38 local SQL checks but remains unapplied.
 
 CODEX-36 [EmailQA retry](./SHARED-QA-ENCOUNTER-RETRY.md): approved replacement completed with one ordinary throw/natural escape; one ball debited and one normal attendance ball awarded.0 catches/events, director still held/no next schedule. Escape case verified; positive hosted catch/WIRE/stamp remains unverified. Single retry allowance spent.

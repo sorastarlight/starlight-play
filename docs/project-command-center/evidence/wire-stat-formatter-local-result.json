@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-21T02:08:58.840Z",
+  "classification": "REAL LOCAL SQL; fictional specimens and presentation dependency stubs",
+  "checks": [
+    "Actual legacy formatter reproduces HP23 on fictional WIRE HP22",
+    "WIRE display uses stored HP and pinned form/nature with existing stat helper",
+    "All non-stat fields including CP retain identical payload",
+    "Read formatter changes no stored specimen field",
+    "Legacy catch payload remains exactly identical",
+    "Nature modifiers use correct floors while HP remains stored",
+    "Stored EV contribution is included by existing server helper",
+    "Missing nature is unavailable instead of an invented neutral nature",
+    "Missing reference pin does not borrow another build or legacy base",
+    "Missing IV stays null while known zero remains valid",
+    "Missing EV does not become an invented zero",
+    "Stored HP missing/zero distinction preserved",
+    "Pinned alternate form uses its own base stats",
+    "Rollback restores exact original body and payload"
+  ],
+  "limitations": "Does not exercise real Supabase sessions, REST permissions, all formatter callers or full production reference data."
+}

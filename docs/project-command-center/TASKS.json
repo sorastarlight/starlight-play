@@ -4,6 +4,34 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-39",
+      "status": "done",
+      "scope": "Shared WIRE-stat read correction packet and missing-stat renderer",
+      "dependencies": [
+        "CODEX-37"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "WIRE-STAT-FORMATTER-FIX.md;evidence/wire-stat-formatter-local-result.json",
+      "testResults": "14 REAL LOCAL SQL;3 actual renderer cases;78 non-writing suites;build31/423;read-only hosted comparison/preflight",
+      "nextAction": "Separate SQL installation approval then actual PC refresh;R-PC-STATS remains open",
+      "approvalRequirement": "Local/read-only/routine frontend only;no SQL install authorized"
+    },
+    {
+      "id": "CODEX-38",
+      "status": "done",
+      "scope": "Explicit one-event Familiarity delivery and real UI verification",
+      "dependencies": [
+        "CODEX-37"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "FAMILIARITY-ONE-EVENT-DELIVERY.md;evidence/familiarity-one-event-verification.json",
+      "testResults": "PRODUCTION one delivered event/queue0/Familiar1;actual authenticated Pokedex display;transaction preserves QA profile/inventory/specimen/lifecycle",
+      "nextAction": "Reliable future delivery operation/scheduling separately gated",
+      "approvalRequirement": "One-event approval consumed;no further delivery/reconcile/scheduler/encounters/reset/stamp"
+    },
+    {
       "id": "CODEX-37",
       "status": "done",
       "scope": "Approved bounded hosted catch batch;one-event delivery proposal",

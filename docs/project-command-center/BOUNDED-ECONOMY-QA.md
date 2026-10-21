@@ -18,3 +18,9 @@ This is an important gameplay/economy decision under .cursor/rules/streamlink-pr
 ## Execution so far
 
 Owner approved this packet. The one Mart purchase passed via actual UI and SQL verification:300→200 coins,7→8 Poké Balls,one debit/order,other profiles/inventories unchanged. No purchase retry was performed. Remaining three actions have not run because no authenticated owner session is accessible. Owner sign-in requested;no further permission required for the approved actions. See evidence/qa50-mart-purchase.json.
+
+## Gift/evolution completion and Oak prerequisite
+
+CODEX-50 continuation: actual owner Trainer Gifts delivered exactly15 Caterpie Candy with QA reason and succeeded audit; actual EmailQA evolution10-11 succeeded once. Preserved level6/IVs/EVs/nature/moves/stamp;Metapod form11/ability61/HP23;family18→3;one evolution row;original Caterpie Familiar1 unchanged. Normal+35XP/+100coin/+2 mastery each retained,finalcoins300/balls8. Initial preflight public.candies was obsolete:authoritative family_candy had3 prior,not0;corrected and original3 preserved. Oak not attempted:onlyoneMetapod,0 eligible and server last-copy guard;no duplicate grant/bypass/extra encounter. Other profile XP/watch/team and inventory hashes unchanged;other new candy entries0. Sora/Twinkle gameplay mutations NO;owner sign-in activity is user initiated.
+
+The proposal missed the Oak duplicate prerequisite during preparation. Both its UI and server deliberately keep the last owned copy of each species. No transfer RPC was invoked after discovering0 eligible. A successful hosted Oak test still needs a legitimate duplicate and separately scoped provisioning; the existing approved packet does not authorize another grant or catch. Do not weaken the protection to finish QA.

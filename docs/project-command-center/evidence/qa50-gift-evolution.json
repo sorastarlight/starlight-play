@@ -1,0 +1,154 @@
+{
+  "classification": "Actual owner Trainer Gift UI and EmailQA evolution UI; independently verified SQL; no Oak transfer attempted",
+  "gift": {
+    "quantity": 15,
+    "family": 10,
+    "before": 3,
+    "after": 18,
+    "auditStatus": "succeeded",
+    "reason": "CODEX-50 approved launch QA: 15 Caterpie Candy for one evolution and Oak transfer; retain normal outcomes."
+  },
+  "before": {
+    "dex": 10,
+    "pokemon_form_id": 10,
+    "name": "Caterpie",
+    "level": 6,
+    "nature_id": 5,
+    "ability_id": 19,
+    "ability_slot": "1",
+    "hp_max": 22,
+    "hp_current": 22,
+    "moves": [
+      "tackle",
+      "string-shot"
+    ],
+    "move_slots": [
+      {
+        "pp": 35,
+        "name": "tackle",
+        "ppMax": 35,
+        "method": "level-up",
+        "moveId": 33,
+        "versionGroup": "sword-shield"
+      },
+      {
+        "pp": 40,
+        "name": "string-shot",
+        "ppMax": 40,
+        "method": "level-up",
+        "moveId": 81,
+        "versionGroup": "sword-shield"
+      }
+    ],
+    "iv_hp": 20,
+    "iv_atk": 4,
+    "iv_def": 12,
+    "iv_spa": 7,
+    "iv_spd": 9,
+    "iv_spe": 23,
+    "ev_hp": 0,
+    "ev_atk": 0,
+    "ev_def": 0,
+    "ev_spa": 0,
+    "ev_spd": 0,
+    "ev_spe": 0
+  },
+  "after": {
+    "dex": 11,
+    "pokemon_form_id": 11,
+    "name": "Metapod",
+    "level": 6,
+    "nature_id": 5,
+    "ability_id": 61,
+    "ability_slot": "1",
+    "hp_max": 23,
+    "hp_current": 23,
+    "moves": [
+      "tackle",
+      "string-shot"
+    ],
+    "move_slots": [
+      {
+        "pp": 35,
+        "name": "tackle",
+        "ppMax": 35,
+        "method": "level-up",
+        "moveId": 33,
+        "versionGroup": "sword-shield"
+      },
+      {
+        "pp": 40,
+        "name": "string-shot",
+        "ppMax": 40,
+        "method": "level-up",
+        "moveId": 81,
+        "versionGroup": "sword-shield"
+      }
+    ],
+    "iv_hp": 20,
+    "iv_atk": 4,
+    "iv_def": 12,
+    "iv_spa": 7,
+    "iv_spd": 9,
+    "iv_spe": 23,
+    "ev_hp": 0,
+    "ev_atk": 0,
+    "ev_def": 0,
+    "ev_spa": 0,
+    "ev_spd": 0,
+    "ev_spe": 0
+  },
+  "checks": {
+    "preserved": true,
+    "preservedKeys": [
+      "id",
+      "user_id",
+      "level",
+      "nature_id",
+      "moves",
+      "move_slots",
+      "iv_hp",
+      "iv_atk",
+      "iv_def",
+      "iv_spa",
+      "iv_spd",
+      "iv_spe",
+      "ev_hp",
+      "ev_atk",
+      "ev_def",
+      "ev_spa",
+      "ev_spd",
+      "ev_spe",
+      "server_inserted_at",
+      "source_key",
+      "round_id",
+      "content_build",
+      "ruleset_id"
+    ],
+    "candySpent": 15,
+    "evolutionCountDelta": 1,
+    "familiarityUnchanged": true
+  },
+  "candyAfter": 3,
+  "evolutionCount": 1,
+  "oakCount": 0,
+  "originalCaptureFamiliarity": {
+    "dex": 10,
+    "count": 1,
+    "tier": "Familiar"
+  },
+  "normalRewards": {
+    "xp": 35,
+    "coins": 100,
+    "mastery": {
+      "Caterpie": 2,
+      "Metapod": 2
+    }
+  },
+  "finalWallet": {
+    "coins": 300,
+    "pokeball": 8
+  },
+  "oakHeld": "Only one Metapod owned; actual UI has0 eligible and server refuses last-copy transfer. No duplicate grant, extra catch, transfer, refund or override.",
+  "preflightCorrection": "Initial preflight queried obsolete public.candies and incorrectly reported0 candy. Authoritative family_candy/ledger show3 prior; exactly15 granted and15 spent; original3 preserved."
+}

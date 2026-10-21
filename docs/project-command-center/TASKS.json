@@ -13,10 +13,10 @@
       ],
       "branch": "admin-hub-overhaul",
       "commit": "d77bb3b9",
-      "evidence": "BOUNDED-ECONOMY-QA.md;evidence/qa50-mart-purchase.json",
-      "testResults": "REAL DOM/SQL purchase PASS:300→200 coins,7→8 Poké Balls,one debit/order,other profiles/inventories unchanged. Candy/evolution/Oak not run.",
-      "nextAction": "Owner sign-in access needed for approved15-candy Trainer Gift;then EmailQA sign-in for evolution/Oak. Stop at access gate.",
-      "approvalRequirement": "Owner approved complete bounded packet;no renewed permission needed within scope"
+      "evidence": "BOUNDED-ECONOMY-QA.md;evidence/qa50-mart-purchase.json;evidence/qa50-gift-evolution.json",
+      "testResults": "REAL DOM/SQL Mart purchase and audited15-candy gift PASS;one Caterpie→Metapod evolution PASS;level/IV/EV/nature/moves/stamp retained,15 candy spent once;Caterpie Familiar1 unchanged. Oak0 eligible/last-copy protection;not executed.",
+      "nextAction": "Oak success remains held:EmailQA owns only one Metapod. Do not invent a duplicate or reuse encounter allowances. Further controlled provisioning needs a new scoped decision.",
+      "approvalRequirement": "Bounded packet approved;purchase/gift/evolution completed. No more grants/catches/evolutions authorized."
     },
     {
       "id": "CODEX-49",

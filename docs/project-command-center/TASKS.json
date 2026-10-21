@@ -27,7 +27,7 @@
       "scope": "Inventory failure states and obsolete account/refresh response guards",
       "evidence": "INVENTORY-LOAD-CODEX66.md;tests/inventory-loading-tests.js",
       "testResults": "9 actual-source mocked error/race checks;81 non-writing regression suites/build pass. Pages39649429756 succeeded;27public files match. Actual EmailQA49/50space,470coins,7items;search miss/clear verified without item use.",
-      "nextAction": "Completed. Recovery stays held with password unchanged. Separate owner-authorization guard correction locally tested;important SQL decision pending.",
+      "nextAction": "Completed. CODEX-67 approved owner guard is now installed and verified;recovery remains held with password unchanged.",
       "approvalRequirement": "Routine frontend correctness authorized;no SQL/gameplay/APP stamp."
     },
     {
@@ -45,7 +45,7 @@
       "scope": "Additional read-only security,actual player responsive acceptance and recovery review",
       "evidence": "LAUNCH-ACCEPTANCE-CODEX64.md;evidence/security64-readonly.json",
       "testResults": "Actual authenticated GTS/Inventory390/768/1280 fit;Inventorysearch/LinkingCorddetail fit without use. Read-only ownership/RLS/schemaCreate review no new confirmed defect. Dashboard latest backup07:44:55UTC;three active jobs;no Storageobjects.",
-      "nextAction": "Recovery-drill method/private local export decision required;no restore/export/spending performed. Wider security/device/provider/final-release limits remain.",
+      "nextAction": "Completed bounded acceptance. CODEX-65 approved logical drill remains held for missing native access at owner direction;no password changes or new export attempts.",
       "approvalRequirement": "Local private production/Auth data copy and restore method require explicit owner decision."
     },
     {
@@ -54,7 +54,7 @@
       "scope": "Owner-requested level-up and achievement fanfare redesign",
       "evidence": "MILESTONE-CELEBRATIONS-CODEX63.md;tools/milestone-review.html",
       "testResults": "38 presentation checks/build pass. Isolated actual DOM desktop/narrow390/reduced-motion preference,correct ribbon/item art,dismissal/focus restoration. No hosted reward generated.",
-      "nextAction": "Publish routine presentation and provide visual review;then remaining launch readiness.",
+      "nextAction": "Published and accepted by owner;remaining launch readiness continues.",
       "approvalRequirement": "Owner explicitly requested presentation changes;no gameplay/SQL/APP authority implied."
     },
     {

@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-21T18:06:15.556Z",
+  "checkedAt": "2026-10-21T18:43:37.137Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -217,6 +217,14 @@
       "contentType": "application/javascript; charset=utf-8",
       "localSha256": "b143e9e228145cf88bb54bcffd4bbdf5930bf70bcf99f16dd70b3937020f8f7d",
       "publishedSha256": "b143e9e228145cf88bb54bcffd4bbdf5930bf70bcf99f16dd70b3937020f8f7d",
+      "matches": true
+    },
+    {
+      "file": "js/achievements.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "2ebbe844e92f8cf2a4e03d3693b467c150ed43d3c991e888b61448a1f4b0605b",
+      "publishedSha256": "2ebbe844e92f8cf2a4e03d3693b467c150ed43d3c991e888b61448a1f4b0605b",
       "matches": true
     }
   ]

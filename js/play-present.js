@@ -185,7 +185,7 @@
         .filter(([key, value]) => value && !["idempotency", "key", "label", "reason"].includes(key))
         .map(([type, amount]) => {
           if (type === "title") return { type, amount: 0, label: "Title" };
-          if (type === "badge") return { type, amount: 0, label: "Badge" };
+          if (type === "badge") return { type, amount: 0, label: "Ribbon" };
           if (type === "cosmetic") return { type, amount: 0, label: "Trainer ID cosmetic" };
           return { type, amount: Number(amount) || 0, label: "" };
         });

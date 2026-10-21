@@ -158,3 +158,6 @@ CODEX-44,2026-10-21: migration20261021113931 retires browser EXECUTE on6 unused 
 
 
 CODEX-45,2026-10-21: owner approved original-capture semantics; migration20261021115744 installed immutable queue identity and corrected event delivery/guard/reconciliation.28 local SQL/32 runtime SQL checks; exact hosted source/attributes and original event/queue/specimen data verified.14 other protected datasets identical. No snapshot backfill, delivery, worker or gameplay. See FAMILIARITY-CAPTURE-IDENTITY-FIX.md.
+
+
+CODEX-46,2026-10-21: bounded Familiarity worker activation/stop/health packets prepared, not installed. Once/minute,25 reconcile+25 deliver, lifecycle/overlap/time limits,7-day bounded own-job log retention.10 additional real local SQL worker/log checks (38 combined),79 regression suites/build pass. Existing pg_cron/API signatures verified;no live scheduler execution. Important activation decision required after CODEX-45 explicitly excluded worker. See supabase/unapplied/familiarity-worker/README.md.

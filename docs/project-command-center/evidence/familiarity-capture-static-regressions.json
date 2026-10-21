@@ -1,0 +1,322 @@
+{
+  "at": "2026-10-21T12:06:50.356Z",
+  "classification": "STATIC or LOCAL HARNESS by suite; no hosted gameplay",
+  "results": [
+    {
+      "name": "a19-apply-decision-tests.js",
+      "ok": true
+    },
+    {
+      "name": "a19-apply-handoff-tests.js",
+      "ok": true
+    },
+    {
+      "name": "a19-apply-preflight-tests.js",
+      "ok": true
+    },
+    {
+      "name": "a19-apply-report-tests.js",
+      "ok": true
+    },
+    {
+      "name": "a19-genval-impl-tests.js",
+      "ok": true
+    },
+    {
+      "name": "a19-genval-spec-tests.js",
+      "ok": true
+    },
+    {
+      "name": "a19-schema-rehearsal-tests.js",
+      "ok": true
+    },
+    {
+      "name": "a19-wire-impl-tests.js",
+      "ok": true
+    },
+    {
+      "name": "account-diagnostics-tests.js",
+      "ok": true
+    },
+    {
+      "name": "achievement-card-geometry-tests.js",
+      "ok": true
+    },
+    {
+      "name": "admin-hub-gate-17-s1-snapshot-tests.js",
+      "ok": true
+    },
+    {
+      "name": "admin-hub-gate-17-s1b-tests.js",
+      "ok": true
+    },
+    {
+      "name": "admin-hub-gate-2a-r-identity-tests.js",
+      "ok": true
+    },
+    {
+      "name": "admin-hub-gate-2a-trainer-tests.js",
+      "ok": true
+    },
+    {
+      "name": "admin-hub-next-tests.js",
+      "ok": true
+    },
+    {
+      "name": "admin-hub-overhaul-tests.js",
+      "ok": true
+    },
+    {
+      "name": "admin-hub-workspace-v2-tests.js",
+      "ok": true
+    },
+    {
+      "name": "admin-oak-qa-tests.js",
+      "ok": true
+    },
+    {
+      "name": "admin-record-tests.js",
+      "ok": true
+    },
+    {
+      "name": "admin-rewards-tests.js",
+      "ok": true
+    },
+    {
+      "name": "build-hygiene-tests.js",
+      "ok": true
+    },
+    {
+      "name": "classic-gba-evolution-tests.js",
+      "ok": true
+    },
+    {
+      "name": "console-tests.js",
+      "ok": true
+    },
+    {
+      "name": "d54-economy-static-tests.js",
+      "ok": true
+    },
+    {
+      "name": "d55-economy-static-tests.js",
+      "ok": true
+    },
+    {
+      "name": "d64-mastery-static-tests.js",
+      "ok": true
+    },
+    {
+      "name": "d65-mastery-static-tests.js",
+      "ok": true
+    },
+    {
+      "name": "d66-mastery-static-tests.js",
+      "ok": true
+    },
+    {
+      "name": "d67-mastery-static-tests.js",
+      "ok": true
+    },
+    {
+      "name": "d68-mastery-static-tests.js",
+      "ok": true
+    },
+    {
+      "name": "d71-mastery-static-tests.js",
+      "ok": true
+    },
+    {
+      "name": "d72-mastery-static-tests.js",
+      "ok": true
+    },
+    {
+      "name": "director-tests.js",
+      "ok": true
+    },
+    {
+      "name": "encounter-phase-driver-tests.js",
+      "ok": true
+    },
+    {
+      "name": "encounter-stability-tests.js",
+      "ok": true
+    },
+    {
+      "name": "encounter-stage-tests.js",
+      "ok": true
+    },
+    {
+      "name": "evolution-candy-integrity-tests.js",
+      "ok": true
+    },
+    {
+      "name": "evolution-line-integrity-tests.js",
+      "ok": true
+    },
+    {
+      "name": "evolve-ux-tests.js",
+      "ok": true
+    },
+    {
+      "name": "form-aware-identity-tests.js",
+      "ok": true
+    },
+    {
+      "name": "gen9-ref-readiness-tests.js",
+      "ok": true
+    },
+    {
+      "name": "gen9-ref-tests.js",
+      "ok": true
+    },
+    {
+      "name": "identity-tests.js",
+      "ok": true
+    },
+    {
+      "name": "kanto-release-containment-tests.js",
+      "ok": true
+    },
+    {
+      "name": "live-rpg-session-lifecycle-tests.js",
+      "ok": true
+    },
+    {
+      "name": "location-visual-tests.js",
+      "ok": true
+    },
+    {
+      "name": "oak-lab-card-tests.js",
+      "ok": true
+    },
+    {
+      "name": "oak-lab-rc123-tests.js",
+      "ok": true
+    },
+    {
+      "name": "oak-lab-rc124-tests.js",
+      "ok": true
+    },
+    {
+      "name": "oak-lab-rc126-tests.js",
+      "ok": true
+    },
+    {
+      "name": "oak-lab-ux-tests.js",
+      "ok": true
+    },
+    {
+      "name": "oak-transfer-tests.js",
+      "ok": true
+    },
+    {
+      "name": "onboarding-tests.js",
+      "ok": true
+    },
+    {
+      "name": "owner-recovery-email-tests.js",
+      "ok": true
+    },
+    {
+      "name": "password-recovery-tests.js",
+      "ok": true
+    },
+    {
+      "name": "pc-box-ops-tests.js",
+      "ok": true
+    },
+    {
+      "name": "pc-stat-values-tests.js",
+      "ok": true
+    },
+    {
+      "name": "phase10-special-tests.js",
+      "ok": true
+    },
+    {
+      "name": "phase4-hardening-tests.js",
+      "ok": true
+    },
+    {
+      "name": "phase5-identity-tests.js",
+      "ok": true
+    },
+    {
+      "name": "phase6-rankings-tests.js",
+      "ok": true
+    },
+    {
+      "name": "phase7-content-tests.js",
+      "ok": true
+    },
+    {
+      "name": "phase8-bits-tests.js",
+      "ok": true
+    },
+    {
+      "name": "phase9-balance-tests.js",
+      "ok": true
+    },
+    {
+      "name": "pikachu-cosplay-gender-tests.js",
+      "ok": true
+    },
+    {
+      "name": "play-perf-tests.js",
+      "ok": true
+    },
+    {
+      "name": "play-present-tests.js",
+      "ok": true
+    },
+    {
+      "name": "play-ux-tests.js",
+      "ok": true
+    },
+    {
+      "name": "pokedex-discovery-tests.js",
+      "ok": true
+    },
+    {
+      "name": "pokedex-kanto-boundary-tests.js",
+      "ok": true
+    },
+    {
+      "name": "rc127-presentation-tests.js",
+      "ok": true
+    },
+    {
+      "name": "rc128-presentation-tests.js",
+      "ok": true
+    },
+    {
+      "name": "rc129-presentation-tests.js",
+      "ok": true
+    },
+    {
+      "name": "refresh-pass-override-tests.js",
+      "ok": true
+    },
+    {
+      "name": "species-familiarity-reader-tests.js",
+      "ok": true
+    },
+    {
+      "name": "species-mastery-tests.js",
+      "ok": true
+    },
+    {
+      "name": "sprite-variant-tests.js",
+      "ok": true
+    },
+    {
+      "name": "twitch-disconnect-controller-tests.js",
+      "ok": true
+    },
+    {
+      "name": "new-table-access-tests.js",
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-21T12:05:17.211Z",
+  "classification": "REAL LOCAL SQL worker body with current snapshot/worker dependencies; fictional records. Cron log pruning uses fixture cron tables; scheduler API/dispatch not locally exercised.",
+  "checks": [
+    "Worker delivers at most25 and leaves remaining queued work without changing specimens",
+    "Next run finishes backlog once without duplicate credit",
+    "Reconciliation and delivery each obey the25-row bound",
+    "Another active worker causes a non-blocking busy result",
+    "Paused worker performs neither reconciliation nor delivery and resumes safely",
+    "Drain only delivers pre-admitted work and never reconciles new captures",
+    "Closed recording yields no worker writes",
+    "Health reports exhausted work and the worker does not silently retry terminal rows",
+    "Browser and service roles cannot invoke the owner-only worker",
+    "Job-log pruning is bounded1000, older-than7-days and limited to this exact job"
+  ],
+  "limitations": [
+    "No live worker, reconciliation, delivery or cron job.",
+    "Cron activation/stop APIs are checked against hosted signatures/docs, not run as local pg_cron.",
+    "No alerting service is provisioned; operator health query exposes terminal/errors."
+  ]
+}

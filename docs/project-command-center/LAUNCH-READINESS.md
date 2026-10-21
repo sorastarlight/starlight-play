@@ -29,3 +29,5 @@ Recovery real-email/helpdesk privacy tests already passed. Attachments/ticket em
 CODEX-42 completion: legacy retirement milestone is closed; conservative evolution is locally validated, not hosted gameplay-tested. Current remaining work and boundaries: LEGACY-RUNTIME-SCHEMA-EXECUTION.md.
 
 CODEX-43: October30 new-table Data API grant readiness audited; existing required grants pass; future SQL access preflight integrated into build validation. See DATA-API-OCT30.md. Full schema reset/provisioning replay remains unverified.
+
+CODEX-46 bounded processing proposal is prepared/tested but uninstalled; owner worker activation decision is the next important gate. Remaining hosted gameplay/staff QA, Twitch provider QA, acceptance and final release checks still remain.

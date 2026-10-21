@@ -1,0 +1,111 @@
+{
+  "classification": "REAL hosted DOM at desktop-browser iframe widths;no physical touch/zoom/emulation certification",
+  "checks": [
+    {
+      "page": "storage.html",
+      "width": 390,
+      "result": "Frame 390 px · document 389 px · content 374 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "pokedex.html",
+      "width": 390,
+      "result": "Frame 390 px · document 389 px · content 374 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "trainer.html",
+      "width": 390,
+      "result": "Frame 390 px · document 389 px · content 374 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "rankings.html",
+      "width": 390,
+      "result": "Frame 390 px · document 374 px · content 782 px · Horizontal overflow detected."
+    },
+    {
+      "page": "support.html",
+      "width": 390,
+      "result": "Frame 390 px · document 389 px · content 374 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "storage.html",
+      "width": 390,
+      "result": "Frame 390 px · document 389 px · content 374 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "pokedex.html",
+      "width": 390,
+      "result": "Frame 390 px · document 389 px · content 374 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "trainer.html",
+      "width": 390,
+      "result": "Frame 390 px · document 389 px · content 374 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "achievements.html",
+      "width": 390,
+      "result": "Frame 390 px · document 389 px · content 374 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "support.html",
+      "width": 390,
+      "result": "Frame 390 px · document 374 px · content 374 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "storage.html",
+      "width": 320,
+      "result": "Frame 320 px · document 303 px · content 303 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "pokedex.html",
+      "width": 320,
+      "result": "Frame 320 px · document 303 px · content 303 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "trainer.html",
+      "width": 320,
+      "result": "Frame 320 px · document 303 px · content 303 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "achievements.html",
+      "width": 320,
+      "result": "Frame 320 px · document 303 px · content 303 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "support.html",
+      "width": 320,
+      "result": "Frame 320 px · document 303 px · content 303 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "rankings.html",
+      "width": 320,
+      "result": "Frame 320 px · document 303 px · content 782 px · Horizontal overflow detected."
+    },
+    {
+      "page": "rankings.html",
+      "width": 320,
+      "result": "Frame 320 px · document 303 px · content 303 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "rankings.html",
+      "width": 390,
+      "result": "Frame 390 px · document 374 px · content 374 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "rankings.html",
+      "width": 768,
+      "result": "Frame 768 px · document 751 px · content 751 px · No document-wide horizontal overflow."
+    },
+    {
+      "page": "rankings.html",
+      "width": 1280,
+      "result": "Frame 1280 px · document 1263 px · content 1263 px · No document-wide horizontal overflow."
+    }
+  ],
+  "notes": [
+    "Earlier Rankings overflow rows show the defect and cached stylesheet,not final results. Final four Rankings rows are successful.",
+    "Five other pages were visually inspected loaded at320px:PC,Pokedex,TrainerID,Achievements,Helpdesk.",
+    "Dialog Escape/focus restoration verified. A full focus-cycle/accessibility audit remains unverified.",
+    "Temporary viewport override was reset;returned viewport measurements did not reflect its requested size and are excluded."
+  ]
+}

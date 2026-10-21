@@ -227,3 +227,6 @@ CODEX-67 VERIFIED: owner approved one-function null-owner guard correction. Migr
 
 
 CODEX-68 frontend Achievements loading correction:invalidates cached progress immediately on Auth change,guards session/profile/state/progression responses and stale errors,defers network work outside Auth callback,adds escaped retry.8 actual-source mocked race/error checks;82 non-writing regression suites and build31HTML/463refs pass;APP20261008-rc133 unchanged. Responsive review tool expanded to PC/dex/achievements/trainer/rankings/helpdesk and320px. Hosted acceptance next;no SQL/gameplay/Auth configuration or database password change.
+
+
+CODEX-69 COMPLETE (bounded acceptance/operations):Rankings782px overflow corrected;actual final320/390/768/1280 frames fit. PC/Pokedex/TrainerID/Achievements/Helpdesk320px loaded views fit. Focused nullable-guard/dynamic-SQL catalog review found no new confirmed defect in sampled paths;not full security sign-off. Worker60 last-hour successes/0 pending;15 Data API privileges/RLS/invoker contract pass.82 non-writing suites/build31HTML464refs;29 published files match. Recovery/password unchanged,APP unchanged;no new gameplay/backend mutation. See PLAYER-REFLOW-CODEX69.md.

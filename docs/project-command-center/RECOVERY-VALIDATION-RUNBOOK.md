@@ -31,7 +31,7 @@ Later EmailQA gifts/evolution/Oak/Pass grants, audit records and Auth configurat
 
 ## If an older point needs migration replay
 
-Compare its actual installed signatures/data/cron state with each reviewed packet in chronological order. Do not concatenate or bulk-run the10 inventory paths. Each original guard represents an approved baseline, not permission to override drift. The worker activation packet in particular must not start processing merely to recreate a job definition. Prepare a destination-specific replay plan, test it transactionally/local where possible, and obtain the required hosted decision before executing it. Record which later player actions cannot be recovered from the chosen backup; never fabricate replacements.
+Compare its actual installed signatures/data/cron state with each reviewed packet in chronological order. Do not concatenate or bulk-run the reviewed inventory paths. Each original guard represents an approved baseline, not permission to override drift. The worker activation packet in particular must not start processing merely to recreate a job definition. Prepare a destination-specific replay plan, test it transactionally/local where possible, and obtain the required hosted decision before executing it. Record which later player actions cannot be recovered from the chosen backup; never fabricate replacements.
 
 ## Acceptance record
 
@@ -42,3 +42,5 @@ Release recovery remains OPEN until this procedure has an actual approved target
 Supabase's [backup documentation](https://supabase.com/docs/guides/platform/backups) explains daily backup restoration/downtime and that Storage object contents are outside database backups. This plan does not enable paid PITR or choose a paid clone.
 
 CODEX-64 current-source correction:physical Restore to New Project can start copied extensions/cron immediately,without pre-start pause. Do not assume a dashboard clone satisfies the isolation gate above. Latest backup reverified07:44:55UTC;still predates10migrations/11packets. See RECOVERY-DRILL-LOCAL-PROPOSAL.md for the pending local logical method/private-data-copy decision.
+
+Current CODEX-69 state:owner holds native recovery access with database password unchanged. No further credential retries/export/restore. Inventory11 post-backup migrations/12 packet paths;this is not replay certification. Earlier pending-method/private-copy text is historical;bounded drill was approved then explicitly held.

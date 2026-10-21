@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-21T18:43:37.137Z",
+  "checkedAt": "2026-10-21T18:57:53.638Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -95,8 +95,8 @@
       "file": "rankings.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "2990dec24fde6bc5c8edb26780427076a1397b73bf1750d6289c75566fd6e6fa",
-      "publishedSha256": "2990dec24fde6bc5c8edb26780427076a1397b73bf1750d6289c75566fd6e6fa",
+      "localSha256": "ed66f2b36128ccb1e8efc21b4b8a6c8588a1b5437eac289ac211894ad6947f43",
+      "publishedSha256": "ed66f2b36128ccb1e8efc21b4b8a6c8588a1b5437eac289ac211894ad6947f43",
       "matches": true
     },
     {
@@ -153,6 +153,14 @@
       "contentType": "text/css; charset=utf-8",
       "localSha256": "72b2f785464e9fb489b89ef48d85396ee05c4ba08f410655a13be26d2e42b0c1",
       "publishedSha256": "72b2f785464e9fb489b89ef48d85396ee05c4ba08f410655a13be26d2e42b0c1",
+      "matches": true
+    },
+    {
+      "file": "css/rankings-reflow.css",
+      "status": 200,
+      "contentType": "text/css; charset=utf-8",
+      "localSha256": "73a6488171f154ac272ec66df3bf7281354c1e4042c3a1896dc00ca7f6266037",
+      "publishedSha256": "73a6488171f154ac272ec66df3bf7281354c1e4042c3a1896dc00ca7f6266037",
       "matches": true
     },
     {
@@ -223,8 +231,8 @@
       "file": "js/achievements.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "2ebbe844e92f8cf2a4e03d3693b467c150ed43d3c991e888b61448a1f4b0605b",
-      "publishedSha256": "2ebbe844e92f8cf2a4e03d3693b467c150ed43d3c991e888b61448a1f4b0605b",
+      "localSha256": "abdf61d67b7639cdf47f19e6c101e953ff94d99441878aaa7fbcdc362930fc21",
+      "publishedSha256": "abdf61d67b7639cdf47f19e6c101e953ff94d99441878aaa7fbcdc362930fc21",
       "matches": true
     }
   ]

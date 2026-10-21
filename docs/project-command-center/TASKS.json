@@ -4,12 +4,21 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-69",
+      "status": "done",
+      "scope": "Rankings narrow-grid correction,broader responsive acceptance and read-only launch operations",
+      "evidence": "PLAYER-REFLOW-CODEX69.md;evidence/player-reflow-codex69.json;evidence/launch69-operations.json",
+      "testResults": "REAL DOM final Rankings320/390/768/1280 fits;five other loaded320px views fit;82 STATIC/LOCAL HARNESS suites/build pass;29 static HTTP source matches;worker60 successes/0 pending;15 privilege contract checks pass",
+      "nextAction": "Continue broader security and device/focus acceptance within approvals. Recovery/native password unchanged;new Twitch policy disabled;final release/APP stamp held.",
+      "approvalRequirement": "No new decision needed for this bounded read-only/frontend batch. Database/gameplay/Auth changes and final release remain separate decisions."
+    },
+    {
       "id": "CODEX-68",
       "status": "done",
       "scope": "Achievements account-bound loading and expanded responsive acceptance",
       "evidence": "ACHIEVEMENTS-LOADING-CODEX68.md;tests/achievements-loading-tests.js;evidence/codex68-regressions.json",
       "testResults": "8 actual-source mocked race/error checks;82/82 non-writing regression suites/build pass. Hosted EmailQA overview/search/no-match recovery/ribbon detail/focus restoration verified.",
-      "nextAction": "Complete final publication equality and responsive acceptance evidence;recovery remains held.",
+      "nextAction": "Completed and published;29 selected public files match. Wider device/security/recovery/final release gates remain.",
       "approvalRequirement": "Routine frontend/read-only acceptance authorized;no backend or gameplay mutation"
     },
     {

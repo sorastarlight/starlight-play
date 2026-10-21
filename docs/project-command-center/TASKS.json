@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-56",
+      "status": "blocked",
+      "scope": "Correct trainer search's intended 12-result bound before aggregation",
+      "evidence": "supabase/unapplied/trainer-search-bound/README.md; evidence/trainer-search-bound-local.json",
+      "testResults": "9 REAL LOCAL SQL checks pass; baseline20-result bug reproduced; fixed cap, privacy exclusions, eligibility, public projection, anonymous access, rollback and ACL drift refusal verified with fictional fixtures.",
+      "nextAction": "Prepared maintenance packet; hold hosted install until explicit SQL authorization. Do not interrupt owner urgently for this routine candidate; continue independent launch work.",
+      "approvalRequirement": "streamlink-project.mdc requires explicit owner approval before SQL installation; no hosted change yet."
+    },
+    {
       "id": "CODEX-55",
       "status": "done",
       "scope": "Bounded hosted EmailQA staff Pass override/regrant acceptance",

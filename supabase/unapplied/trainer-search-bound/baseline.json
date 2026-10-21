@@ -1,0 +1,10 @@
+{
+  "signature": "play_trainer_search(text)",
+  "definition": "CREATE OR REPLACE FUNCTION public.play_trainer_search(p_q text DEFAULT ''::text)\n RETURNS jsonb\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare\n  q text := btrim(coalesce(p_q, ''));\n  rows jsonb := '[]'::jsonb;\nbegin\n  if char_length(q) < 2 then\n    return jsonb_build_object('ok', true, 'trainers', '[]'::jsonb, 'message', 'Type at least two letters.');\n  end if;\n  if position('@' in q) > 0 or q ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' then\n    return jsonb_build_object('ok', true, 'trainers', '[]'::jsonb);\n  end if;\n  q := left(q, 40);\n  select coalesce(jsonb_agg(jsonb_build_object(\n    'login', coalesce(nullif(p.twitch_login, ''), nullif(p.username, ''), 'trainer'),\n    'displayName', coalesce(nullif(p.display_name, ''), nullif(p.username, ''), nullif(p.twitch_login, ''), 'Trainer'),\n    'trainerSprite', case when private.trainer_sprite_ok(p.trainer_sprite) then p.trainer_sprite else 'red-gen1' end,\n    'title', coalesce((select t.name from public.progression_titles t where t.id = p.active_title_id), p.trainer_title, ''),\n    'level', private.trainer_level(p.xp),\n    'twitchLinked', exists (\n      select 1 from public.twitch_connections c\n       where c.user_id = p.id and c.confirmed and c.connection_type in ('player', 'secondary')\n    )\n  ) order by p.display_name, p.username), '[]'::jsonb)\n    into rows\n    from public.profiles p\n   where private.ranking_eligible_uid(p.id)\n     and (\n       coalesce(p.display_name, '') ilike '%' || q || '%'\n       or coalesce((select t.name from public.progression_titles t where t.id = p.active_title_id), '') ilike '%' || q || '%'\n     )\n   limit 12;\n  return jsonb_build_object('ok', true, 'trainers', coalesce(rows, '[]'::jsonb));\nend;\n$function$\n",
+  "fingerprint": "2a126ca3412e9916e3a9d19d0fd553fa",
+  "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+  "proconfig": [
+    "search_path=public"
+  ],
+  "owner": "postgres"
+}

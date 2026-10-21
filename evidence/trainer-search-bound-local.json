@@ -1,0 +1,16 @@
+{
+  "label": "REAL LOCAL SQL with fictional helpers/profiles; no hosted install",
+  "checks": [
+    "Baseline reproduces 20 results despite LIMIT 12",
+    "Ordered result cap applies to trainer rows before aggregation",
+    "Short, email and UUID input exclusions preserved",
+    "Public-only projection and sprite fallback preserved",
+    "Eligibility applies before limit",
+    "Title search and no-match behavior preserved",
+    "Existing anonymous read access preserved",
+    "Guarded rollback restores original function",
+    "Install refuses privilege drift"
+  ],
+  "oldSourceMd5": "66a41e80371ef80410d455820ad7a33b",
+  "newSourceMd5": "0eaeb25e679e1985556e056dcbb0d46f"
+}

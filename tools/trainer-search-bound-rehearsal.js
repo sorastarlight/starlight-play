@@ -1,0 +1,61 @@
+// Disposable localhost PostgreSQL only; captured function, fictional profiles/helpers.
+const fs = require('fs'), path = require('path'), crypto = require('crypto');
+const assert = require('node:assert/strict');
+const {pathToFileURL} = require('node:url');
+const {refuseHosted} = require('./a19-schema-rehearsal');
+async function main() {
+  refuseHosted();
+  const root = path.resolve(__dirname, '..');
+  const folder = path.join(root, 'supabase/unapplied/trainer-search-bound');
+  const baseline = JSON.parse(fs.readFileSync(path.join(folder, 'baseline.json')));
+  const old = baseline.definition;
+  const oldFrom = old.slice(old.indexOf('    from public.profiles p'), old.lastIndexOf('  return jsonb_build_object'));
+  assert.ok(oldFrom.endsWith('   limit 12;\n'));
+  const boundedFrom = oldFrom.replace('    from public.profiles p', '    from (select p.* from public.profiles p').replace('   limit 12;\n', '   order by p.display_name, p.username, p.id\n   limit 12) p;\n');
+  const fixed = old.replace(oldFrom, boundedFrom).replace('order by p.display_name, p.username)', 'order by p.display_name, p.username, p.id)');
+  assert.notEqual(fixed, old);
+  const body = def => def.split('AS $function$')[1].split('$function$')[0];
+  const md5 = value => crypto.createHash('md5').update(value).digest('hex');
+  const guard = def => `DO $guard$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_proc WHERE oid='public.play_trainer_search(text)'::regprocedure AND md5(prosrc)='${md5(body(def))}' AND proacl::text='${baseline.acl}' AND proconfig=ARRAY['search_path=public'] AND prosecdef AND provolatile='s' AND pg_get_userbyid(proowner)='postgres') THEN RAISE EXCEPTION 'Trainer search source or privilege drift'; END IF; END $guard$;\n`;
+  const install = 'BEGIN;\n' + guard(old) + fixed + ';\nCOMMIT;\n';
+  const rollback = 'BEGIN;\n' + guard(fixed) + old + ';\nCOMMIT;\n';
+  fs.writeFileSync(path.join(folder, 'INSTALL.sql'), install);
+  fs.writeFileSync(path.join(folder, 'ROLLBACK.sql'), rollback);
+  const cache = path.join(__dirname, '.cache/d54-pg-harness');
+  const Embedded = (await import(pathToFileURL(path.join(cache, 'node_modules/embedded-postgres/dist/index.js')).href)).default;
+  const cluster = new Embedded({databaseDir:fs.mkdtempSync(path.join(cache, 'search-bound-')),user:'postgres',password:'fictional-only',port:55482,persistent:false,initdbFlags:['--encoding=UTF8','--no-locale'],postgresFlags:['-c','listen_addresses=127.0.0.1'],onLog:()=>{}});
+  let db; const checks=[]; const pass = value => {checks.push(value);console.log('PASS '+value);};
+  try {
+    await cluster.initialise(); await cluster.start();
+    db = cluster.getPgClient('postgres', '127.0.0.1'); await db.connect();
+    assert.equal((await db.query('select host(inet_server_addr()) h')).rows[0].h, '127.0.0.1');
+    await db.query(`create schema private; create role anon; create role authenticated; create role service_role;
+      create table public.profiles(id uuid primary key, twitch_login text, username text, display_name text, trainer_sprite text, active_title_id int, trainer_title text, xp int, eligible bool);
+      create table public.progression_titles(id int, name text);
+      create table public.twitch_connections(user_id uuid, confirmed bool, connection_type text);
+      create function private.trainer_sprite_ok(text) returns bool language sql immutable as $$ select $1='red-gen1' $$;
+      create function private.trainer_level(int) returns int language sql immutable as $$ select 1 $$;
+      create function private.ranking_eligible_uid(uuid) returns bool language sql stable as $$ select eligible from public.profiles where id=$1 $$;
+      insert into public.profiles select ('00000000-0000-4000-8000-'||lpad(i::text,12,'0'))::uuid,null,'fictional'||lpad(i::text,2,'0'),'Match '||lpad(i::text,2,'0'),'invalid',null,'',0,true from generate_series(1,20) i;`);
+    await db.query(old);
+    await db.query('grant execute on function public.play_trainer_search(text) to anon,authenticated,service_role');
+    const search = async q => (await db.query('select public.play_trainer_search($1) r',[q])).rows[0].r;
+    assert.equal((await search('Match')).trainers.length,20); pass('Baseline reproduces 20 results despite LIMIT 12');
+    await db.query(install);
+    const capped = (await search('Match')).trainers;
+    assert.equal(capped.length,12);assert.equal(capped[0].login,'fictional01');assert.equal(capped[11].login,'fictional12');pass('Ordered result cap applies to trainer rows before aggregation');
+    for(const q of ['','M','someone@example.test','00000000-0000-4000-8000-000000000001']) assert.deepEqual((await search(q)).trainers,[]);
+    pass('Short, email and UUID input exclusions preserved');
+    assert.deepEqual(Object.keys(capped[0]).sort(),['displayName','level','login','title','trainerSprite','twitchLinked'].sort());assert.equal(capped[0].trainerSprite,'red-gen1');pass('Public-only projection and sprite fallback preserved');
+    await db.query("update profiles set eligible=false where username='fictional01'");
+    const filtered=(await search('Match')).trainers;assert.equal(filtered.length,12);assert.equal(filtered[0].login,'fictional02');assert.equal(filtered[11].login,'fictional13');pass('Eligibility applies before limit');
+    await db.query("insert into progression_titles values(1,'Unique title'); update profiles set active_title_id=1 where username='fictional20'");
+    assert.equal((await search('Unique')).trainers[0].login,'fictional20');assert.deepEqual((await search('absent')).trainers,[]);pass('Title search and no-match behavior preserved');
+    await db.query('set role anon');assert.equal((await search('Match')).trainers.length,12);await db.query('reset role');pass('Existing anonymous read access preserved');
+    await db.query(rollback);assert.equal((await search('Match')).trainers.length,19);pass('Guarded rollback restores original function');
+    await db.query('revoke execute on function public.play_trainer_search(text) from anon');
+    await assert.rejects(db.query(install), /source or privilege drift/);await db.query('rollback');pass('Install refuses privilege drift');
+    fs.writeFileSync(path.join(root,'evidence/trainer-search-bound-local.json'),JSON.stringify({label:'REAL LOCAL SQL with fictional helpers/profiles; no hosted install',checks,oldSourceMd5:md5(body(old)),newSourceMd5:md5(body(fixed))},null,2)+'\n');
+  } finally {if(db) await db.end(); await cluster.stop();}
+}
+main().catch(error=>{console.error(error);process.exitCode=1;});

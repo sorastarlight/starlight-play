@@ -1,0 +1,36 @@
+[
+  {
+    "name": "rls_enabled_no_policy",
+    "level": "INFO",
+    "count": 46,
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy",
+    "observedAt": "2026-10-21T01:14:08.435Z"
+  },
+  {
+    "name": "function_search_path_mutable",
+    "level": "WARN",
+    "count": 270,
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable",
+    "observedAt": "2026-10-21T01:14:08.435Z"
+  },
+  {
+    "name": "anon_security_definer_function_executable",
+    "level": "WARN",
+    "count": 79,
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+    "observedAt": "2026-10-21T01:14:08.435Z"
+  },
+  {
+    "name": "authenticated_security_definer_function_executable",
+    "level": "WARN",
+    "count": 197,
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+    "observedAt": "2026-10-21T01:14:08.435Z"
+  },
+  {
+    "name": "auth_leaked_password_protection",
+    "level": "WARN",
+    "count": 1,
+    "remediation": "https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection"
+  }
+]

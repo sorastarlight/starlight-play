@@ -924,7 +924,7 @@ test("Issue 18 D85 stamp rehearsal stops on a definition mismatch", () => {
   assert(!/password\s*[:=]\s*\S{8,}/i.test(report));
 });
 
-test("Gemini handoff pauses development and keeps D85 blocked", () => {
+test("Historical handoff preserves D85 evidence while current runner records its local completion", () => {
   const handoff = read("docs/project-command-center/GEMINI-HANDOFF.md");
   const d85 = read("docs/project-command-center/D85-STAMP-REHEARSAL.md");
   const d84 = read("docs/project-command-center/D84-VERIFICATION-PLAN.md");
@@ -936,8 +936,11 @@ test("Gemini handoff pauses development and keeps D85 blocked", () => {
   assert(handoff.includes("5419a99d0c1735f44564b84338e32578"));
   assert(d85.includes("D85 BLOCKED — DEFINITION MISMATCH"));
   assert(d84.includes("Do not start D85"));
-  assert(i51.status === "blocked");
-  assert(i51.nextAction.includes("Do not start D86"));
+  assert(i51.status === "done");
+  const runner = read("docs/project-command-center/CODEX-RUNNER.md");
+  assert(runner.includes("Codex is the sole active runner") || runner.includes("Codex is the sole") || runner.includes("sole project runner"));
+  assert(runner.includes("focused local criterion is satisfied"));
+  assert(runner.includes("D86 remains unauthorized"));
   assert(!handoff.includes("PRODUCTION PASS"));
   assert(!/password\s*[:=]\s*\S{8,}/i.test(handoff));
 });

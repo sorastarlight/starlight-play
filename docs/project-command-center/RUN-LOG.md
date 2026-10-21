@@ -1,3 +1,7 @@
+## CODEX-34 — Launch security hardening (2026-10-20 EDT)
+
+Owner directed ordered launch work autonomously. Installed/verified migration20261021011358: R1 auth-before-settle,84 anonymous admin ACL removals,4 legacy tools require owner/admin edit. Independent112-function diff matches expected changes. Migration20261021011646 retires browser access to unused frame self-test without executing it.33 LOCAL SQL checks,77 non-writing suites andbuild31/423 pass. No gameplay/trainer/protected-account mutations, spending or APP stamp. Shared hosted-smoke decision pending; broader advisor triage open. See LAUNCH-SECURITY-HARDENING.md and LAUNCH-READINESS.md.
+
 # Password recovery foundation - 2026-10-19
 
 ## CODEX-33 — Pokédex Familiarity display (2026-10-20)

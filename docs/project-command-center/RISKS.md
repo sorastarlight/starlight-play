@@ -2,9 +2,9 @@
 
 | ID | Status | Notes |
 |---|---|---|
-| R1 | **OPEN** | `admin_overview` authorization ordering. Preview does not call it. |
-| R2 | **OPEN** | Anonymous EXECUTE on some admin RPCs. Grants unchanged this branch. |
-| R18 | **OPEN** | Broad moderator privileges. Preview still uses `is_play_admin` only. |
+| R1 | **CLOSED** | CODEX-34 migration20261021011358 puts require_hub before settlement; independent catalog verification. See LAUNCH-SECURITY-HARDENING.md. |
+| R2 | **CLOSED for current admin catalog** | CODEX-34 revoked PUBLIC/anon on84 functions;0 anonymous admin functions verified. Future/non-admin RPCs require review. |
+| R18 | **CLOSED for recorded four legacy tools** | CODEX-34 requires owner/admin staff-edit permission for Pass/Bits/Oak QA/Pass QA; roles unchanged. Wider audit remains separate. |
 | R21 | **CLOSED** | `admin_identity_inspect` fingerprint `e9091c0de1b91e67a62bade78cf8edde`, STABLE, no `evaluate_cosmetics`. |
 | R-UI-DUP | **MITIGATED in preview** | Duplicate grant deep-link removed from Trainers tab. Legacy still has two grant desks. |
 | R-UI-OVERLAP | **MITIGATED in preview** | Viewport-only 960px + `minmax(280px,360px)` caused directory/QA overlap at 100% zoom. Container query on `.admin-next-trainers-panel` now switches at 920px of available trainer width. |
@@ -22,7 +22,7 @@
 | R-I24-PGRST | **CLOSED** | LIVE API: `Accept-Profile: private` → `PGRST106 Invalid schema: private`. Do not add `private` to exposed schemas. |
 | R-I24-BACKUP | **CLOSED as apply blocker** | Owner reconfirmed COMPLETED `2026-10-14 07:44:26 +0000` and issued GO (D35). PITR remains disabled. Restore is still whole-DB rewind and needs a **separate** restore authorization. |
 | R-I25-GENVAL | **MITIGATED / FUNCTIONALLY EQUIVALENT** | D44: live bodies match hashed `001` semantically; not byte-for-byte (six-transaction apply + whitespace/comments). `stamp_catch_row` remains the live catch writer. Hosted generate / WIRE-APPLY / reset execution still blocked. |
-| R-I25-WIRE | **APPLIED / SWITCH OFF** | D49 installed hashed `001`→`002`→`003`. Live settle calls materialize. Switch `enabled=false`. Hosted generate / WIRE-GO still blocked. |
+| R-I25-WIRE | **ENABLED / HOSTED SMOKE PENDING** | CODEX-31 enabled/verified the existing switch. CODEX-30/32 local combined checks passed. No current hosted catch/delivery proof; broader D86 held. |
 | R-AUTH-LOCAL | **OPEN** | Twitch OAuth on localhost may not return to the preview. Fixture is the layout path. |
 | R-DEPLOY | **CONTROLLED** | Feature flag remains `admin-next.html`. No APP stamp. |
 

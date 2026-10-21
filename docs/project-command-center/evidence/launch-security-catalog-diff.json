@@ -1,0 +1,798 @@
+{
+  "snapshotCount": 112,
+  "afterCount": 112,
+  "expectedChangedWrappers": [
+    "public.admin_overview()",
+    "public.admin_set_pass(text, boolean)",
+    "public.admin_grant_bits_pack(text, text)",
+    "public.admin_oak_qa(text, uuid, jsonb)",
+    "public.admin_qa_grant_pass_reward(text)"
+  ],
+  "problems": [],
+  "after": [
+    {
+      "identity": "public.admin_live_snapshot()",
+      "body_md5": "eeaa0da1c25aea0777e9141d00585797",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_overview()",
+      "body_md5": "5264734e168952d4b85bab7aa4f13d5d",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "private.is_play_admin()",
+      "body_md5": "5dec088fc6372699343e924773106f9c",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_unlock_catch(uuid, text)",
+      "body_md5": "603cf683df79fd5f0ae1ace792ec898c",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_issue_bridge_token()",
+      "body_md5": "4ccfaa96210594ab90c49f4460a5b617",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_queue_stream_command(text, jsonb)",
+      "body_md5": "d06f7e3add36c39f4cb9b70c60cb2d1b",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_cancel_round()",
+      "body_md5": "1d1664e3b3a1ac2a2e901b12e01b12a8",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_hide_round(boolean)",
+      "body_md5": "07eb8c8d689bab3ef4694e5739edb36a",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.is_play_admin()",
+      "body_md5": "147ec402e09d173203d079d6e58b419c",
+      "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_save_channel(text, text, text)",
+      "body_md5": "a76d9f5e4f42c87bbafa6768bdbd98c4",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_save_github_token(text)",
+      "body_md5": "c8807a70c8761cb32fa82a8248864f55",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_grant_bits_pack(text, text)",
+      "body_md5": "a66514613d39d7aa161c2b5b8b6916b5",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_refill_test()",
+      "body_md5": "0e6bda2362d0069263089f6db0b9a455",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_save_twitch_client_secret(text)",
+      "body_md5": "dd03ef4fa4166fe60c45b0a22ea19316",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_delete_event(uuid)",
+      "body_md5": "b85fed6383b1505d72f770733d4886cd",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "private.require_hub()",
+      "body_md5": "2700659516eebbcd14df359253d7985f",
+      "acl": null,
+      "anon_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "private.require_owner()",
+      "body_md5": "66c8e48e91f75dfb0f88854ed75140ce",
+      "acl": null,
+      "anon_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_set_role(uuid, text)",
+      "body_md5": "8a2c9e664ead37e4ed76562ca58c7df9",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_list_users(text, integer)",
+      "body_md5": "4044aa5ba8238efa9b6dbce02f5288db",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_set_coins(uuid, integer)",
+      "body_md5": "802a2ca366499502b1d19e9c8dfd1f8a",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_store_get()",
+      "body_md5": "efe208fa8fa8e57cabee32f2a9e01942",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "private.require_staff_edit()",
+      "body_md5": "07d2e855eefa8da56e99f32441bde2fd",
+      "acl": null,
+      "anon_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_grant_pokemon(uuid, integer, text, text, boolean, text)",
+      "body_md5": "194355d874ec8c8d2f35897636397279",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_remove_pokemon(uuid, uuid)",
+      "body_md5": "dbeb623c7e95d5ed12cf56812b709fdb",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "private.admin_overview()",
+      "body_md5": "0fe99f4de1ff20a799f2472ef63a54ab",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_store_delete_item(text)",
+      "body_md5": "b0d08e770d86e4cccf14c8673db277fc",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_store_delete_category(uuid)",
+      "body_md5": "4fae0cbee1b27d63d695348a0792490a",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_store_reorder(text, jsonb)",
+      "body_md5": "dd75c3042e2e67d90e2965ba1d83fcf1",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_store_save_look(jsonb)",
+      "body_md5": "6d9438c81c34fa4858c8688ae0fb6402",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_gift_joined(text)",
+      "body_md5": "c50fbe8b31b0fb0995924e05240afae6",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_pause_round()",
+      "body_md5": "564deea18569550f01ac74dc2795918d",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_clear_console()",
+      "body_md5": "93acd3dcc3f81a8c91b12ac5f74630c2",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_gift_catalog()",
+      "body_md5": "b14aabd8267462c78a0b03443bc247d7",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.play_sync(uuid)",
+      "body_md5": "5e3c739d3ffb5a8425470d16be71bdbf",
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_clear_round()",
+      "body_md5": "b23ae3547f05eddfbed080a8ed3e78c2",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_resume_round()",
+      "body_md5": "fa3f43d49f9f8120b9dc0e59adb25b5f",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_advance_phase()",
+      "body_md5": "3aed6a3208976f4f94d574182d34bded",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_trainer_rewards(uuid)",
+      "body_md5": "04b58d18d56913408ae94cde5dda81f3",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_trainer_reward_action(uuid, uuid, text, jsonb, text)",
+      "body_md5": "60584b0879b209d8bb4f6ce8bdc34f15",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_disconnect_twitch(uuid, text)",
+      "body_md5": "df3260e967a875cee832f3083285a8da",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_capture_save_balance(jsonb)",
+      "body_md5": "bdb4c159047abf7f0fa8ffd990513a98",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_capture_simulate(integer, text, text, integer, integer, boolean, boolean, boolean, integer)",
+      "body_md5": "96594b02aceb98d6a7226c540f6cb5eb",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_economy_save(jsonb)",
+      "body_md5": "258ad1627053821b655065f468bc61bd",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_economy_overview()",
+      "body_md5": "4df0964a9f8f3d9fa8dba096da978c79",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_progression_overview()",
+      "body_md5": "feab0073dc038e392877483a8e665c1d",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_loot_save_entry(uuid, integer, integer, integer, boolean)",
+      "body_md5": "b82a9fc9ebb3cd52bd74476b7fb7cd3b",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_grant_candy(uuid, integer, integer)",
+      "body_md5": "83798742753dc6810480ec1ef89adef1",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_grant_badge(uuid, text, text)",
+      "body_md5": "8f6e1e1b1676a1418ef311f0c45dd4c4",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_loot_warnings()",
+      "body_md5": "7f6a033712d306f53d3d7ddd98119ce6",
+      "acl": "{postgres=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "identity": "public.admin_loot_tables()",
+      "body_md5": "a08ea231a114b29bd0ea5097d65f3f8e",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_loot_overview()",
+      "body_md5": "74080fc887b528d641c01fea390279cc",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_director_command(text, jsonb)",
+      "body_md5": "17ccf4b473defb94477dba9a8300712b",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_live_dashboard()",
+      "body_md5": "235f5252658e7725c79f1a72f4db3575",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_director_simulate(numeric, numeric, numeric)",
+      "body_md5": "94055f8c987875a57aeff97f783bfb3a",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_capture_health()",
+      "body_md5": "12e6cdce0ab0b766fd81f663b0fcbfff",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_bits_events(text, integer)",
+      "body_md5": "de06ead1cf678fe87a6ebebe36a95bbb",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_bits_retry(text)",
+      "body_md5": "5344bc06de66906bfa9ab4ca592f3d76",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_capture_inspect(uuid)",
+      "body_md5": "5292937fa1b8d8315bc3ef079eccdd41",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_build_health()",
+      "body_md5": "f2d0c8bee4a7e838e436fc4a2d13c6bf",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_test_start(jsonb)",
+      "body_md5": "3a0d0e54bf92a672080b7e2db9c750db",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_candy_simulate(integer, integer)",
+      "body_md5": "f64cc9435c0d3db88bffab0c61cda4d8",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_capture_overview()",
+      "body_md5": "0436691cb4f0af0d2179d12e52bc444c",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_capture_report(integer)",
+      "body_md5": "80b09501a6e06ad07b2ee0bc9f56ba53",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_capture_round(uuid)",
+      "body_md5": "81f6c19b4804b879f2eb5a5a702c1ca4",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_capture_save_ball(text, jsonb)",
+      "body_md5": "0243c86fc5042fa187478fc55f432981",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_capture_save_berry(text, jsonb)",
+      "body_md5": "7b6a1f12b6ef4ee471e69ef4896821cc",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_collection_overview()",
+      "body_md5": "f7c6e40ecfddadae1e33b172a4158930",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_content_health()",
+      "body_md5": "a0d7599f8fb26cafeecf926cc3a89ae4",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_economy_simulate(integer, integer, numeric, numeric, numeric, text)",
+      "body_md5": "d750ff2075128e6cdd8db651ce9282ef",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_evolution_validate()",
+      "body_md5": "f134265ed3bf8be6d648c9cd96642f77",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_game_health()",
+      "body_md5": "cba47f19a27496031dbcb13ca571691d",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_grant_achievement(uuid, text)",
+      "body_md5": "d420e884e2440bfa91b729fed9ffc325",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_content_studio()",
+      "body_md5": "50038ae8e8c14c052fcc5a08be7c628a",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_grant_cosmetic(uuid, text, text)",
+      "body_md5": "5e22fc11972a950b8c19d815daaef6a4",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_grant_title(uuid, text, text)",
+      "body_md5": "56ab6f85e76259887b215d28a6f1c6c2",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_save_pass_rewards(jsonb, jsonb)",
+      "body_md5": "553fd4b8bdda7e537937a2652de935e1",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_content_picker(text, text)",
+      "body_md5": "5ff2b586279b20aa75d57c5b901534e2",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_identity_inspect(uuid)",
+      "body_md5": "e9091c0de1b91e67a62bade78cf8edde",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_item_library(text, text)",
+      "body_md5": "9f00b7bbbdfd63a29e74a4253991950a",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_loot_save_config(jsonb)",
+      "body_md5": "65815040a7ce576fdc0a656242758c35",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_loot_self_test()",
+      "body_md5": "ca5d2e49a69f0842a40ad2fdfd74663d",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_loot_simulate(integer, numeric, numeric, numeric)",
+      "body_md5": "5317916904a5836a91a7dbc3fe2c8390",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_progression_save(jsonb)",
+      "body_md5": "af591db7048f63a2f218d5a1c45da6ee",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_revoke_cosmetic(uuid, text, text)",
+      "body_md5": "9a357a7fecd595b015718f5c8c2242b7",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_save_event(uuid, text, text, text, timestamp with time zone, timestamp with time zone)",
+      "body_md5": "6ac6d989ac5548f126d53c7b84677672",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_bits_health()",
+      "body_md5": "c6657813772f888baef34f6926db7c19",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_save_game_settings(jsonb)",
+      "body_md5": "fcebcd0546b7ec748ee2a5c506ed7466",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_save_item_identity(text, jsonb)",
+      "body_md5": "0705f775ecb0f2c79eaf3982ff636522",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_save_look_portrait(text, text, jsonb, text)",
+      "body_md5": "37e40745bc274b112ee95b87a70a8c45",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_set_pass(text, boolean)",
+      "body_md5": "51128383c83a3e611264729d9c0543f5",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_bits_qa_redemption(text, text, integer, text)",
+      "body_md5": "21956bec47954f7b05236632008c9ea3",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_economy_health()",
+      "body_md5": "b502600c978bf345f3ca57ecc9d6a964",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_set_ranking_visible(uuid, boolean, text)",
+      "body_md5": "0821e28c7872d10f9513252ea4c0b49c",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_set_twitch_flags(uuid, text, boolean, boolean, text)",
+      "body_md5": "5a308b9a213bd396511189b3d848065e",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_set_twitch_primary(uuid, text)",
+      "body_md5": "e54c836e0718318f290c58ac3e0b6441",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_set_xp(uuid, integer)",
+      "body_md5": "5b3098f9236f5e2702d6de041ec8a800",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_store_duplicate_item(text)",
+      "body_md5": "f47a27a27a51b89603a8214343c6d221",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_store_register_asset(text, text, text)",
+      "body_md5": "83182f9fada5a0cd993cce56cf9bbf22",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_store_save_category(jsonb)",
+      "body_md5": "7e53b348f2d546ddc7c1137857228a03",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_store_save_item(jsonb)",
+      "body_md5": "ad5519ed15317864c42f7e34f9c3389e",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_special_event_analytics(uuid)",
+      "body_md5": "573f36898c04a1ff46b6d87147d9c617",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_special_event_command(text, jsonb)",
+      "body_md5": "b8c5a8b07fa64f8eb1022007e167b465",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_user_account(uuid)",
+      "body_md5": "88f488058dc6f56d827666bee497b531",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_test_act(uuid, text, text, uuid)",
+      "body_md5": "01794683115ab87c096939e7eb26145d",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_special_event_health()",
+      "body_md5": "4c05da864d3e430c0e073825e0bc1f5c",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_start_round(integer, text, boolean, integer)",
+      "body_md5": "ddb78de21a82f37547646558f87cb9b7",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_pokemon_forms(integer)",
+      "body_md5": "468d39ffc7c2844f6ae6afdceff230ba",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_oak_qa(text, uuid, jsonb)",
+      "body_md5": "b73928e98acf8e3e8414936f3fc97281",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_grant_bag(uuid, jsonb)",
+      "body_md5": "899d51d9b5d30afece0a10a1f9db4dac",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_oak_research_reset(uuid)",
+      "body_md5": "25fa4f4ef4cee2432610c2929c1633c1",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_grant_valuable(uuid, text, integer)",
+      "body_md5": "58d1bbc8761ff50cae2b8c2f466a6894",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "identity": "public.admin_qa_grant_pass_reward(text)",
+      "body_md5": "3ec17ebe7cd7320782808f956016a013",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "anon_execute": false,
+      "authenticated_execute": true
+    }
+  ]
+}

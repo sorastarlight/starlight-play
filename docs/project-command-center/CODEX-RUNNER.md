@@ -1,5 +1,7 @@
 # Codex runner trial
 
+Current owner instruction,2026-10-20: proceed through seven launch objectives in order with minimal prompts. CODEX-34 applied/verified R1/R2/R18 security remediation and retired browser access to unused frame QA. See LAUNCH-SECURITY-HARDENING.md and LAUNCH-READINESS.md. This is the current narrow database authorization; historical restrictions below apply outside it. Shared encounters require a bounded gameplay decision, currently pending. No delivery/scheduler/reset/stamp follows automatically.
+
 Current narrow approval,2026-10-20: CODEX-31 enabled WIRE once after explicit owner approval and independently verified it. See WIRE-ACTIVATION.md. Familiarity remains active with its unchanged cutoff. Older WIRE-off/activation-held snapshots below are historical. No encounter, delivery, scheduling, reset, stamp or broader D86 authority follows; operator stopped after verification and audit publication.
 
 

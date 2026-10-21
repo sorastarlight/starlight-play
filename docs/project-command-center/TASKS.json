@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-34",
+      "status": "done",
+      "scope": "Targeted launch security hardening and readiness packet",
+      "dependencies": [
+        "CODEX-33"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "LAUNCH-SECURITY-HARDENING.md;LAUNCH-READINESS.md;evidence/launch-security-hosted-verification.json",
+      "testResults": "33 REAL LOCAL SQL;77 non-writing suites;build31/423;112-function hosted diff;0 anonymous admin EXECUTE",
+      "nextAction": "Bounded shared hosted gameplay decision pending; wider security advisor triage remains",
+      "approvalRequirement": "Owner directed security-first launch work; no encounter/delivery/scheduling/reset/stamp authority implied"
+    },
+    {
       "id": "CODEX-33",
       "status": "done",
       "scope": "Read-only species-wide Familiarity metric in Pokédex Your Research",

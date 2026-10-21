@@ -1,0 +1,15 @@
+-- Example only. Substitute the reviewed relation, columns, policies and grants.
+-- No executable placeholders; never run this file as a production migration.
+-- For a new public table use the following pattern IN THE CREATING MIGRATION:
+-- begin;
+-- create table public.example(id uuid primary key, user_id uuid not null);
+-- revoke all on public.example from PUBLIC, anon, authenticated, service_role;
+-- alter table public.example enable row level security;
+-- create policy example_owner_read on public.example for select
+--   to authenticated using (user_id = (select auth.uid()));
+-- grant select on public.example to authenticated;
+-- commit;
+-- Add service_role privileges only for a traced backend use. No anon grant is
+-- necessary for a player-owned table. RPC-only internals should live in private.
+-- Identity/serial columns also require explicitly scoped sequence privileges
+-- for direct inserts. RLS does not grant access; GRANT does not filter rows.

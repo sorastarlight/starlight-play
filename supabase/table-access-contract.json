@@ -1,0 +1,18 @@
+{
+  "note": "Minimum traced direct Data API access, not the full RPC permission model. Existing grants may be broader; this contract does not widen or revoke them.",
+  "roles": {
+    "anon": {"species": ["SELECT"], "site_config": ["SELECT"]},
+    "authenticated": {
+      "profiles": ["SELECT"], "catches": ["SELECT"],
+      "species": ["SELECT"], "evolution_families": ["SELECT"],
+      "evolution_rules": ["SELECT"], "twitch_connections": ["SELECT"],
+      "species_mastery_progress": ["SELECT"],
+      "species_mastery_events": ["SELECT"]
+    },
+    "service_role": {
+      "profiles": ["SELECT", "UPDATE"],
+      "site_config": ["SELECT", "UPDATE"],
+      "twitch_connections": ["SELECT"]
+    }
+  }
+}

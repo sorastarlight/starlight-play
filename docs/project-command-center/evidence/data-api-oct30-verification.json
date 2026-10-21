@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-21T04:01:26.385Z",
+  "classification": "READ-ONLY HOSTED metadata and zero-row public REST reads; no production DDL or grant changes",
+  "checked": 15,
+  "missing": [],
+  "public_schema_usage": {
+    "anon": true,
+    "service_role": true,
+    "authenticated": true
+  },
+  "required_tables_without_rls": [],
+  "familiarity_view_security_invoker": true,
+  "publicRelationsAudited": 64,
+  "anonymousRest": [
+    {
+      "relation": "species",
+      "status": 200,
+      "limit": 0
+    },
+    {
+      "relation": "site_config",
+      "status": 200,
+      "limit": 0
+    }
+  ],
+  "localChecks": 7,
+  "sourceChecks": 16,
+  "limits": "Not a full migration replay, all-RPC audit, or authenticated hosted workflow test. Existing broader grants were observed, not changed.",
+  "privateRest": {
+    "status": 406,
+    "code": "PGRST106"
+  }
+}

@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-43",
+      "status": "done",
+      "scope": "Prepare for October30 explicit Data API grants requirement",
+      "dependencies": [
+        "CODEX-42"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "DATA-API-OCT30.md;evidence/data-api-oct30-verification.json",
+      "testResults": "64 relations/15 required role-privileges pass;zero-row REST reads;16 source checks;7 real local SQL role/RLS checks",
+      "nextAction": "Require explicit per-table grants/revokes for new schemas; preserve historical snapshots; provisioning replay remains separately unverified.",
+      "approvalRequirement": "Owner asked to act on notice; read-only hosted audit and routine build safeguards only; no production permission change needed"
+    },
+    {
       "id": "CODEX-42",
       "status": "done",
       "scope": "Retire legacy catch/grant routes and AV schema; conservatively correct WIRE evolution",

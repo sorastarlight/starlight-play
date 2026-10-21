@@ -1998,3 +1998,6 @@ CODEX-41 PRODUCTION PASS,2026-10-20 EDT: approved cleanup52f7621b executed migra
 
 
 CODEX-42 PRODUCTION VERIFIED,2026-10-20 EDT: approved legacy route retirement and conservative evolution installed20261021034225; AV/helper/public-reference retirement installed20261021035222.7 WIRE specimens retain all supported data,15 protected datasets unchanged,private archives valid.29 runtime/31 recovery SQL checks;78 suites;build31/423;actual EmailQA PC pass. Two schema attempts rolled back on collation fingerprint mismatch; corrected guarded packet installed. No hosted gameplay or new protected-account mutation. See LEGACY-RUNTIME-SCHEMA-EXECUTION.md.
+
+
+CODEX-43,2026-10-21: October30 Data API grant change audited:64 public relations,15 required privileges present,required RLS/invoker view verified,anonymous catalog reads200/private schema406. No production grant change needed. Added build-integrated future-table access preflight,contract,template and rule.16 source/7 REAL LOCAL SQL checks. See DATA-API-OCT30.md.

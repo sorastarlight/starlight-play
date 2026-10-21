@@ -19,3 +19,20 @@ Avoid ambiguous column/variable collisions (e.g. `grants = grants`).
 - Do not weaken RLS for convenience
 - Grant/revoke execute deliberately for `authenticated` / public
 - Prefer transactional mutations for multi-step inventory/PC changes
+
+## Explicit new-table access (CODEX-43 / October30,2026 change)
+
+New public tables must declare access in the same creating migration; never rely
+on Supabase default grants. First revoke all on the specific table from
+PUBLIC, anon, authenticated, service_role, then grant only traced operations to
+the necessary roles. Enable RLS and scoped policies for player access. RPC-only
+storage belongs in private with deliberate function EXECUTE permissions. Do not
+copy blanket authenticated CRUD grants from a generic example.
+
+Run node tools/check-new-table-access.js and node tools/validate-build.js.
+Historical SQL hashes are evidence snapshots, not a replay-safe baseline; do not
+refresh supabase/table-access-history.json to silence a failure. New/changed SQL
+needs review. Dynamic DDL, view security, sequence permissions, grant order and
+policy correctness also need manual/real-role validation; the source check is
+not a complete SQL security parser. Use tools/data-api-access-audit.js for the
+read-only live contract check. See docs/project-command-center/DATA-API-OCT30.md.

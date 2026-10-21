@@ -1,6 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 
+const tableAccess = require('./check-new-table-access').check();
+if (tableAccess.errors.length) {
+  console.error('TABLE ACCESS PREFLIGHT FAILED\n' + tableAccess.errors.join('\n'));
+  process.exit(1);
+}
+
 const dir = path.join(__dirname, "..");
 const config = JSON.parse(fs.readFileSync(path.join(dir, "build.json"), "utf8"));
 const APP = String(config.appBuild || "").trim();

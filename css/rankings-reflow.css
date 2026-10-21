@@ -1,0 +1,3 @@
+/* Constrain the outer grid while its board tabs retain their own scrolling. */
+.rank-page { grid-template-columns: minmax(0, 1fr); }
+.rank-page > * { min-width: 0; }

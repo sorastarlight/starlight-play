@@ -7,7 +7,7 @@ const files = [
   'index.html','signin.html','register.html','reset-password.html','support.html',
   'help.html','storage.html','pokedex.html','inventory.html','settings.html',
   'trainer.html','rankings.html','evolve.html','store.html','trade.html','events.html',
-  'achievements.html','admin-next.html','css/play.css','js/build.js','js/game.js',
+  'achievements.html','admin-next.html','css/play.css','css/rankings-reflow.css','js/build.js','js/game.js',
   'js/auth.js','js/help.js','js/support.js','js/admin-next-rewards.js','js/trade.js','js/inventory.js','js/achievements.js'
 ];
 const normalize = value => value.replace(/\r\n/g, '\n');

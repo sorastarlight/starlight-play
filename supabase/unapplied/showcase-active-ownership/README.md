@@ -1,0 +1,15 @@
+# CODEX-57 — Featured Shiny active ownership
+
+Prepared, not installed. Read-only hosted audit confirms `play_save_trainer_id` checks user ID, catch ID and shiny variant but omits transferred_at; `private.catch_brief` likewise omits transferred_at. Oak/release retain the former user ID on soft-transferred rows. The baseline local test therefore saves and displays a released Shiny as an owned Featured Shiny. A read-only hosted count found zero currently affected profile pointers; no player state was changed to demonstrate this.
+
+The candidate adds `c.transferred_at is null` to exactly two predicates: the Featured Shiny save guard and the owned catch brief reader. Save rejects released/Oak-transferred specimens. Reads suppress stale pointers after release or trade without updating any stored profile pointer. Public `play_save_trainer_id` is called by My Account's Trainer ID save. The only current catalog caller of `private.catch_brief` is `private.trainer_card(uuid)`, used in Trainer ID responses. Existing active-owned Shiny behavior and authentication/entitlement checks stay intact. Favorite-species historical eligibility is unchanged; this packet concerns the explicitly owned Featured Shiny only.
+
+INSTALL.sql and ROLLBACK.sql retain exact captured signatures, owner, ACL, security mode, volatility and configuration. Both packets check both source hashes and attributes before replacing either function, inside one transaction. No new relation, grant, RLS, profile/catch edit, reward, ownership transfer, gameplay test, archive cleanup or build stamp. A failed guard stops the packet. No auto-install/rollback.
+
+Run `node tools/showcase-active-ownership-rehearsal.js`:11 REAL LOCAL SQL checks with captured definitions and fictional profiles/helpers. Baseline exploit reproduced; released/foreign/non-shiny rejection, active-owned success, post-trade read suppression, clearing, anonymous denial, XP invariance, exact two-function rollback and configuration-drift refusal pass. Helpers for cosmetics/card packaging are explicitly fictional; this does not certify all entitlement internals or concurrent production gameplay. The active-row filter applies to each read snapshot; it does not lock a specimen against a later transfer.
+
+Evidence: `evidence/showcase-active-ownership-local.json`; baseline.json retains the read-only catalog snapshot. No live save/grant/transfer was invoked. Initial local run passed all11 checks.
+
+Production installation requires the explicit SQL decision in `.cursor/rules/streamlink-project.mdc`. Suggested bounded approval can include CODEX-56's separate search-bound function:3 replacements total, with original ACLs preserved, independent catalog/unchanged-data verification, and no hosted gameplay or profile-save test. These packets must not be confused with a general migration/reset or launch GO.
+
+References: [PostgreSQL function replacement](https://www.postgresql.org/docs/current/sql-createfunction.html), [Supabase changelog](https://supabase.com/changelog). No new Supabase feature or SDK is introduced.

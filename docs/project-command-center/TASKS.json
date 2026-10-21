@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-57",
+      "status": "blocked",
+      "scope": "Featured Shiny save/read must require active ownership",
+      "evidence": "supabase/unapplied/showcase-active-ownership/README.md; evidence/showcase-active-ownership-local.json",
+      "testResults": "11 REAL LOCAL SQL checks pass. Baseline released-shiny save/read reproduced;active/foreign/normal/released/traded/cleared/anonymous cases,XP invariance,exact rollback and drift refusal covered. Read-only hosted count finds zero currently affected pointers.",
+      "nextAction": "Prepared two-function correction. Request bounded installation together with CODEX-56;verify exact sources/attributes and unchanged hosted data. No gameplay/profile-save test included.",
+      "approvalRequirement": "New production SQL authorization required under streamlink-project.mdc. No hosted writes performed."
+    },
+    {
       "id": "CODEX-56",
       "status": "blocked",
       "scope": "Correct trainer search's intended 12-result bound before aggregation",

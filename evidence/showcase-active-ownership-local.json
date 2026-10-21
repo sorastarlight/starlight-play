@@ -1,0 +1,26 @@
+{
+  "label": "REAL LOCAL SQL;fictional helpers/data;no hosted writes",
+  "checks": [
+    "Baseline accepts and displays released shiny retained under former owner ID",
+    "Released shiny rejected on save and hidden from existing stale pointer",
+    "Other trainer shiny rejected and hidden",
+    "Normal Pokemon still rejected as Featured Shiny",
+    "Active owned shiny saves and remains visible",
+    "Subsequent trade ownership change hides former showcase",
+    "Clearing showcase still works",
+    "Unauthenticated mutation rejected",
+    "No XP changes in fixture",
+    "Rollback restores both exact original sources",
+    "Install refuses helper configuration drift"
+  ],
+  "functions": [
+    {
+      "signature": "play_save_trainer_id(text,text,text,text,text[],jsonb,integer,text,text)",
+      "sourceMd5": "a2a39d377fece7ab05934d9fa5939003"
+    },
+    {
+      "signature": "private.catch_brief(uuid,uuid)",
+      "sourceMd5": "5e00d3106b9f06c5d629e287a02113ad"
+    }
+  ]
+}

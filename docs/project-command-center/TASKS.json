@@ -5,12 +5,12 @@
   "tasks": [
     {
       "id": "CODEX-60",
-      "status": "blocked",
+      "status": "done",
       "scope": "Preserve last Twitch sign-in under implicit/concurrent flag changes; serialize nickname ownership validation",
       "evidence": "supabase/unapplied/account-mutation-guards/README.md; evidence/account-mutation-guards-local.json",
       "testResults": "20 REAL LOCAL SQL checks reproduce baseline account lockouts and former-owner nickname race,then validate corrections including simultaneous READ COMMITTED/REPEATABLE READ transactions,compatible valid operations,denials,rollback and helper drift refusal.12 diagnostics/19 disconnect synthetic checks and9 form identity tests pass;build passes.25 public static files match checkout.",
-      "nextAction": "Two-function install/rollback ready for important production account/ownership decision. No hosted mutation test included. Daily-backup launch policy accepted and recorded;actual restore remains unverified.",
-      "approvalRequirement": "Explicit SQL/account-authority approval required;prepared only. No Auth credential/session/provider changes or staged one-link activation."
+      "nextAction": "Approved migration20261021161057 installed;exact source/attributes and unchanged player/connection/identity/mutex/audit/unrelated-function hashes verified. No hosted mutation test. Continue remaining launch readiness.",
+      "approvalRequirement": "Both protections explicitly approved and completed;no provider/credential/session change,staged one-link activation or hosted gameplay authority implied."
     },
     {
       "id": "CODEX-59",

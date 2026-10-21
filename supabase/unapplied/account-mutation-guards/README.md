@@ -1,5 +1,7 @@
 # CODEX-60 — Account mutation guards
 
+Installed with explicit owner approval as migration20261021161057. Both exact candidate sources and unchanged ACL/owner/config/security/volatility independently verified. Profiles, inventories, catches, Twitch connection flags, identity mappings, existing mutex rows, account audit and unrelated functions unchanged. No hosted nickname/flag mutation or OAuth flow tested. No credential/password hash/token/session payload read;identity verification uses mapping fields only. Evidence:`docs/project-command-center/evidence/account-mutation-guards-hosted.json`. Preparation notes below are historical.
+
 Prepared, not installed. Read-only audit of player-callable mutation bodies found two independent gaps. All reproductions use fictional accounts, connections and catches in a disposable localhost PostgreSQL cluster; no hosted identity, Auth user, nickname or account state was changed.
 
 ## Twitch sign-in preservation

@@ -1,6 +1,6 @@
 {
   "classification": "LOCAL repository byte inventory;not hosted replay/restore",
-  "checkedAt": "2026-10-21T15:20:19.9207097Z",
+  "checkedAt": "2026-10-21T16:12:11.2849358Z",
   "results": [
     {
       "version": "20261021113931",
@@ -70,6 +70,13 @@
       "path": "supabase/unapplied/gts-final-cooldown/INSTALL.sql",
       "expectedSha256": "be0baaba57dee42b6d17b7f3c3a4bf7f87902fe1152e69c1a345b46796753dcc",
       "actualSha256": "be0baaba57dee42b6d17b7f3c3a4bf7f87902fe1152e69c1a345b46796753dcc",
+      "matches": true
+    },
+    {
+      "version": "20261021161057",
+      "path": "supabase/unapplied/account-mutation-guards/INSTALL.sql",
+      "expectedSha256": "424fe77e7dd9eba9b856faf94074113d9128641a8f60e315184d851b617700dd",
+      "actualSha256": "424fe77e7dd9eba9b856faf94074113d9128641a8f60e315184d851b617700dd",
       "matches": true
     }
   ]

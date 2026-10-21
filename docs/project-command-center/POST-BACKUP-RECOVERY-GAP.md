@@ -13,3 +13,5 @@ Final recovery readiness still requires an adequate post-change recovery point p
 Additional security spot check: current public admin_* catalog still has zero routines executable by anon. Actual EmailQA Admin Hub denies staff access. These are read-only/denial observations, not a replacement for authenticated staff QA or full authorization testing.
 
 CODEX-58 update: approved migration20261021142746 adds final GTS cooldown validation. Inventory now9 post-backup migration records/10 packet paths. No new backup or restore/replay certification is implied.
+
+CODEX-60 update: approved migration20261021161057 adds account mutation protections. Inventory now10 post-backup migrations/11 packet paths. Daily backups accepted for launch;no new backup/restore certification.

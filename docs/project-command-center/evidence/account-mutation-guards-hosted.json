@@ -1,0 +1,81 @@
+{
+  "classification": "REAL hosted catalog and read-only unchanged-state verification;no hosted flags/nickname test",
+  "migration": "20261021161057",
+  "before": {
+    "mutex": "d751713988987e9331980363e24189ce",
+    "catches": "21f54d7b053f85c7c1adf2133117803b",
+    "profiles": "bfbe5817881e2e947d0a7855746ebc76",
+    "functions": [
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "owner": "postgres",
+        "config": [
+          "search_path=public"
+        ],
+        "definer": true,
+        "signature": "play_set_nickname(uuid,text)",
+        "source_md5": "5b028d2c134862c2a43aa5bdf3f6feb2",
+        "volatility": "v"
+      },
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "owner": "postgres",
+        "config": [
+          "search_path=public"
+        ],
+        "definer": true,
+        "signature": "play_set_twitch_flags(text,boolean,boolean,text)",
+        "source_md5": "70d6d7fe01ae7cbd8b9e1614d5a09bde",
+        "volatility": "v"
+      }
+    ],
+    "inventories": "390b74d87514c911afea03f15b098262",
+    "other_functions": "d87d86c17f89810a18a9a5f8a5a055a5",
+    "connection_flags": "bb75588378e87b2c614815e07a06f9d2",
+    "identity_mappings": "1130f2e461c1882b44bfccc94322755e"
+  },
+  "after": {
+    "mutex": "d751713988987e9331980363e24189ce",
+    "catches": "21f54d7b053f85c7c1adf2133117803b",
+    "profiles": "bfbe5817881e2e947d0a7855746ebc76",
+    "functions": [
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "owner": "postgres",
+        "config": [
+          "search_path=public"
+        ],
+        "definer": true,
+        "signature": "play_set_nickname(uuid,text)",
+        "source_md5": "22626f4b7f13b465a9ccb0a92fd36543",
+        "volatility": "v"
+      },
+      {
+        "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "owner": "postgres",
+        "config": [
+          "search_path=public"
+        ],
+        "definer": true,
+        "signature": "play_set_twitch_flags(text,boolean,boolean,text)",
+        "source_md5": "a9ad783164e1022dcb846f5884afb663",
+        "volatility": "v"
+      }
+    ],
+    "inventories": "390b74d87514c911afea03f15b098262",
+    "other_functions": "d87d86c17f89810a18a9a5f8a5a055a5",
+    "connection_flags": "bb75588378e87b2c614815e07a06f9d2",
+    "identity_mappings": "1130f2e461c1882b44bfccc94322755e"
+  },
+  "auditBefore": [
+    {
+      "audit_hash": "d751713988987e9331980363e24189ce"
+    }
+  ],
+  "auditAfter": [
+    {
+      "audit_hash": "d751713988987e9331980363e24189ce"
+    }
+  ],
+  "limitations": "No credential/password hash or token/session payload was read;identity comparison includes only IDs/provider mappings. Packet contains function replacements only."
+}

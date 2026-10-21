@@ -19047,9 +19047,11 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
 .rank-page {
   max-width: min(1180px, 100%);
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 22px;
   padding-bottom: 28px;
 }
+.rank-page > * { min-width: 0; }
 .rank-hero {
   padding: 8px 4px 0;
   background: transparent;

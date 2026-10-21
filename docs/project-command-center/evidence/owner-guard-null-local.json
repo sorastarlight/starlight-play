@@ -1,0 +1,22 @@
+{
+  "classification": "REAL LOCAL SQL: exact captured role/helper/guard/four caller bodies;fictional data,UID context,hash/random/snapshot stand-ins;not hosted RPC testing",
+  "checks": [
+    "Baseline ordinary authenticated trainer bypasses all four owner-only wrappers in fictional data",
+    "Baseline channel write can promote a matching confirmed Twitch identity to owner without a staff assignment",
+    "Guarded single-function install matches strict boolean source",
+    "All four secret/channel writes denied before side effects for unassigned trainer",
+    "All four secret/channel writes denied before side effects for moderator",
+    "All four secret/channel writes denied before side effects for admin",
+    "All four secret/channel writes denied before side effects for staff",
+    "No-subject service context cannot pass owner guard",
+    "Existing anonymous EXECUTE denial remains intact",
+    "Assigned owner retains all four permitted operations",
+    "Confirmed broadcaster ownership remains permitted through exact role helper",
+    "Rollback restores exact baseline source",
+    "Install refuses permission/configuration drift in guard dependency",
+    "Install refuses anonymous caller-permission drift",
+    "Install refuses target source drift rather than silently overwriting it"
+  ],
+  "targetBefore": "66c8e48e91f75dfb0f88854ed75140ce",
+  "targetAfter": "e20b1b2f24e047a83e9a33a47737e38c"
+}

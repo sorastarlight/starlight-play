@@ -1,0 +1,98 @@
+[
+  {
+    "signature": "private.can_manage_secrets()",
+    "schema": "private",
+    "prosrc": "\n  select private.play_staff_role(auth.uid()) = 'owner';\n",
+    "definition": "CREATE OR REPLACE FUNCTION private.can_manage_secrets()\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  select private.play_staff_role(auth.uid()) = 'owner';\n$function$\n",
+    "acl": null,
+    "proconfig": [
+      "search_path=public"
+    ],
+    "owner": "postgres",
+    "prosecdef": true,
+    "provolatile": "s",
+    "hash": "80885dfc198813a58af32b0ef4c366a1"
+  },
+  {
+    "signature": "private.require_owner()",
+    "schema": "private",
+    "prosrc": "\nbegin\n  if not private.can_manage_secrets() then\n    raise exception 'not allowed' using errcode = '42501';\n  end if;\nend;\n",
+    "definition": "CREATE OR REPLACE FUNCTION private.require_owner()\n RETURNS void\n LANGUAGE plpgsql\n STABLE\nAS $function$\nbegin\n  if not private.can_manage_secrets() then\n    raise exception 'not allowed' using errcode = '42501';\n  end if;\nend;\n$function$\n",
+    "acl": null,
+    "proconfig": null,
+    "owner": "postgres",
+    "prosecdef": false,
+    "provolatile": "s",
+    "hash": "66c8e48e91f75dfb0f88854ed75140ce"
+  },
+  {
+    "signature": "admin_issue_bridge_token()",
+    "schema": "public",
+    "prosrc": "\ndeclare\n  token text;\nbegin\n  perform private.require_owner();\n  token := 'play_' || encode(extensions.gen_random_bytes(24), 'hex');\n  insert into private.stream_bridge (id, token_hash, last_error)\n  values (1, private.token_hash(token), null)\n  on conflict (id) do update\n    set token_hash = excluded.token_hash, last_error = null;\n  return jsonb_build_object(\n    'ok', true,\n    'token', token,\n    'message', 'Copy this token into Data/play-bridge.json on the stream PC. It will not be shown again.'\n  );\nend;\n",
+    "definition": "CREATE OR REPLACE FUNCTION public.admin_issue_bridge_token()\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare\n  token text;\nbegin\n  perform private.require_owner();\n  token := 'play_' || encode(extensions.gen_random_bytes(24), 'hex');\n  insert into private.stream_bridge (id, token_hash, last_error)\n  values (1, private.token_hash(token), null)\n  on conflict (id) do update\n    set token_hash = excluded.token_hash, last_error = null;\n  return jsonb_build_object(\n    'ok', true,\n    'token', token,\n    'message', 'Copy this token into Data/play-bridge.json on the stream PC. It will not be shown again.'\n  );\nend;\n$function$\n",
+    "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "proconfig": [
+      "search_path=public"
+    ],
+    "owner": "postgres",
+    "prosecdef": true,
+    "provolatile": "v",
+    "hash": "4ccfaa96210594ab90c49f4460a5b617"
+  },
+  {
+    "signature": "admin_save_channel(text,text,text)",
+    "schema": "public",
+    "prosrc": "\nbegin\n  perform private.require_owner();\n  update public.site_config\n    set broadcaster_twitch_login = lower(btrim(coalesce(p_login, ''))),\n        twitch_client_id = coalesce(p_client_id, twitch_client_id),\n        twitch_broadcaster_id = coalesce(p_broadcaster_id, twitch_broadcaster_id),\n        updated_at = now()\n    where id = 1;\n  return private.play_snapshot(auth.uid()) || jsonb_build_object('ok', true, 'message', 'Stream channel settings saved.');\nend;\n",
+    "definition": "CREATE OR REPLACE FUNCTION public.admin_save_channel(p_login text, p_client_id text DEFAULT NULL::text, p_broadcaster_id text DEFAULT NULL::text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\nbegin\n  perform private.require_owner();\n  update public.site_config\n    set broadcaster_twitch_login = lower(btrim(coalesce(p_login, ''))),\n        twitch_client_id = coalesce(p_client_id, twitch_client_id),\n        twitch_broadcaster_id = coalesce(p_broadcaster_id, twitch_broadcaster_id),\n        updated_at = now()\n    where id = 1;\n  return private.play_snapshot(auth.uid()) || jsonb_build_object('ok', true, 'message', 'Stream channel settings saved.');\nend;\n$function$\n",
+    "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "proconfig": [
+      "search_path=public"
+    ],
+    "owner": "postgres",
+    "prosecdef": true,
+    "provolatile": "v",
+    "hash": "a76d9f5e4f42c87bbafa6768bdbd98c4"
+  },
+  {
+    "signature": "admin_save_github_token(text)",
+    "schema": "public",
+    "prosrc": "\nbegin\n  perform private.require_owner();\n  if btrim(coalesce(p_token, '')) = '' then\n    raise exception 'Paste a GitHub token with Contents write on the Play repo.';\n  end if;\n  update private.stream_bridge\n    set github_token = btrim(p_token)\n    where id = 1;\n  return jsonb_build_object('ok', true, 'message', 'GitHub token saved. It will not be shown again.');\nend;\n",
+    "definition": "CREATE OR REPLACE FUNCTION public.admin_save_github_token(p_token text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\nbegin\n  perform private.require_owner();\n  if btrim(coalesce(p_token, '')) = '' then\n    raise exception 'Paste a GitHub token with Contents write on the Play repo.';\n  end if;\n  update private.stream_bridge\n    set github_token = btrim(p_token)\n    where id = 1;\n  return jsonb_build_object('ok', true, 'message', 'GitHub token saved. It will not be shown again.');\nend;\n$function$\n",
+    "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "proconfig": [
+      "search_path=public"
+    ],
+    "owner": "postgres",
+    "prosecdef": true,
+    "provolatile": "v",
+    "hash": "c8807a70c8761cb32fa82a8248864f55"
+  },
+  {
+    "signature": "admin_save_twitch_client_secret(text)",
+    "schema": "public",
+    "prosrc": "\nbegin\n  perform private.require_owner();\n  if btrim(coalesce(p_secret, '')) = '' then\n    raise exception 'Paste the Play Twitch Client Secret from the Starlight Play app.';\n  end if;\n  update private.stream_bridge\n    set twitch_client_secret = btrim(p_secret)\n    where id = 1;\n  return jsonb_build_object('ok', true, 'message', 'Play Twitch Client Secret saved. It will not be shown again.');\nend;\n",
+    "definition": "CREATE OR REPLACE FUNCTION public.admin_save_twitch_client_secret(p_secret text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\nbegin\n  perform private.require_owner();\n  if btrim(coalesce(p_secret, '')) = '' then\n    raise exception 'Paste the Play Twitch Client Secret from the Starlight Play app.';\n  end if;\n  update private.stream_bridge\n    set twitch_client_secret = btrim(p_secret)\n    where id = 1;\n  return jsonb_build_object('ok', true, 'message', 'Play Twitch Client Secret saved. It will not be shown again.');\nend;\n$function$\n",
+    "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "proconfig": [
+      "search_path=public"
+    ],
+    "owner": "postgres",
+    "prosecdef": true,
+    "provolatile": "v",
+    "hash": "dd03ef4fa4166fe60c45b0a22ea19316"
+  },
+  {
+    "signature": "private.play_staff_role(uuid)",
+    "schema": "private",
+    "prosrc": " declare channel text; broadcaster_id text; assigned text; begin if p_uid is null then return null; end if; select c.broadcaster_twitch_login, c.twitch_broadcaster_id into channel, broadcaster_id from public.site_config c where c.id = 1; if exists (select 1 from public.twitch_connections t where t.user_id = p_uid and t.confirmed and ((broadcaster_id is not null and btrim(broadcaster_id) <> '' and t.twitch_user_id = btrim(broadcaster_id)) or (channel is not null and btrim(channel) <> '' and lower(t.twitch_login) = lower(channel)))) then return 'owner'; end if; if exists (select 1 from auth.identities i where i.user_id = p_uid and i.provider = 'twitch' and ((broadcaster_id is not null and btrim(broadcaster_id) <> '' and coalesce(i.identity_data->>'sub', i.provider_id) = btrim(broadcaster_id)) or (channel is not null and btrim(channel) <> '' and lower(coalesce(i.identity_data->>'preferred_username', i.identity_data->>'nickname', i.identity_data->>'name', '')) = lower(channel)))) then return 'owner'; end if; select r.role into assigned from public.staff_roles r where r.user_id = p_uid; if assigned = 'staff' then return 'moderator'; end if; return assigned; end; ",
+    "definition": "CREATE OR REPLACE FUNCTION private.play_staff_role(p_uid uuid DEFAULT auth.uid())\n RETURNS text\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$ declare channel text; broadcaster_id text; assigned text; begin if p_uid is null then return null; end if; select c.broadcaster_twitch_login, c.twitch_broadcaster_id into channel, broadcaster_id from public.site_config c where c.id = 1; if exists (select 1 from public.twitch_connections t where t.user_id = p_uid and t.confirmed and ((broadcaster_id is not null and btrim(broadcaster_id) <> '' and t.twitch_user_id = btrim(broadcaster_id)) or (channel is not null and btrim(channel) <> '' and lower(t.twitch_login) = lower(channel)))) then return 'owner'; end if; if exists (select 1 from auth.identities i where i.user_id = p_uid and i.provider = 'twitch' and ((broadcaster_id is not null and btrim(broadcaster_id) <> '' and coalesce(i.identity_data->>'sub', i.provider_id) = btrim(broadcaster_id)) or (channel is not null and btrim(channel) <> '' and lower(coalesce(i.identity_data->>'preferred_username', i.identity_data->>'nickname', i.identity_data->>'name', '')) = lower(channel)))) then return 'owner'; end if; select r.role into assigned from public.staff_roles r where r.user_id = p_uid; if assigned = 'staff' then return 'moderator'; end if; return assigned; end; $function$\n",
+    "acl": null,
+    "proconfig": [
+      "search_path=public"
+    ],
+    "owner": "postgres",
+    "prosecdef": true,
+    "provolatile": "s",
+    "hash": "56cd588e9e8affdb6a29e7225b92919a"
+  }
+]

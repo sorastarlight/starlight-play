@@ -1,0 +1,52 @@
+{
+  "classification": "PRODUCTION catalog and aggregate hashes only; no hosted secret-management RPC execution",
+  "migration": "20261021181614",
+  "before": {
+    "site": "156a676f5931f26b17d57a2f7409174b",
+    "roles": "c67a78013569879fd67d53f814a55baa",
+    "target": {
+      "acl": null,
+      "hash": "66c8e48e91f75dfb0f88854ed75140ce",
+      "owner": "postgres",
+      "config": null,
+      "volatility": "s",
+      "security_definer": false
+    },
+    "catches": "c0ff0de54ead7702a04b287d3b2991b6",
+    "functions": "9e49e2e995e63c66f32a9d9ec06e8101"
+  },
+  "after": {
+    "site": "156a676f5931f26b17d57a2f7409174b",
+    "roles": "c67a78013569879fd67d53f814a55baa",
+    "target": {
+      "acl": null,
+      "hash": "e20b1b2f24e047a83e9a33a47737e38c",
+      "owner": "postgres",
+      "config": null,
+      "volatility": "s",
+      "security_definer": false
+    },
+    "catches": "c0ff0de54ead7702a04b287d3b2991b6",
+    "functions": "9e49e2e995e63c66f32a9d9ec06e8101"
+  },
+  "checks": [
+    {
+      "name": "site",
+      "unchanged": true
+    },
+    {
+      "name": "roles",
+      "unchanged": true
+    },
+    {
+      "name": "catches",
+      "unchanged": true
+    },
+    {
+      "name": "functions",
+      "unchanged": true
+    }
+  ],
+  "localSqlChecks": 15,
+  "limitations": "No incident/exploitation assessment. Bridge secret values not read or compared. Database password unchanged; recovery drill held."
+}

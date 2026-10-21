@@ -56,6 +56,11 @@
       "version": "20261021161057",
       "path": "supabase/unapplied/account-mutation-guards/INSTALL.sql",
       "sha256": "424fe77e7dd9eba9b856faf94074113d9128641a8f60e315184d851b617700dd"
+    },
+    {
+      "version": "20261021181614",
+      "path": "supabase/unapplied/owner-guard-null/INSTALL.sql",
+      "sha256": "7794e2131f854d5aedbff0c74d0aea37f4cfa114b39004e663df0a8cf790a76a"
     }
   ]
 }

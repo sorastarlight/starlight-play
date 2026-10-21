@@ -38,3 +38,5 @@ CODEX-42: legacy fallback/AV schema retirement verified. Full selective schema/s
 CODEX-53 PREPARED: deeper direct-trade audit reproduces bypass of existing5-minute received-catch cooldown and missing final species tradability check. Exact3-function correction/guarded rollback passes16 REAL LOCAL SQL checks;fictional rows only. Existing last-copy trading,consent,expiry,locks/favorites,rewards preserved. Not installed;important production trade-validation decision required. No hosted trade/grant/encounter/account mutation/spending/stamp. Review:supabase/unapplied/direct-trade-validation/README.md.
 
 CODEX-53 status correction: approved direct-trade validation installed20261021133711 and exact catalog/data checks passed. The earlier PREPARED paragraph is historical;two-party hosted trade remains untested.
+
+| R-OWNER-NULL | **CORRECTION INSTALLED / VERIFIED** | CODEX-67 rejects NULL owner permission results. Exact migration20261021181614 verified,15 local SQL cases; no live endpoint exploitation test or incident assessment. |

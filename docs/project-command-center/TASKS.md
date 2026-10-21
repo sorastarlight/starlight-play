@@ -221,3 +221,6 @@ CODEX-64 complete:read-only security spot review and actual GTS/Inventory390/768
 CODEX-65 approved local logical drill in progress:restricted workspace/tooling/offline preflight prepared,secret-column catalog reviewed. No export/runtime. Await human secure existing-database-password access step;no new approval needed.
 
 CODEX-65 held at owner direction:no database password changes/retries/export/restore. CODEX-66 frontend Inventory false-empty/stale-account render correction prepared;9mocked load/race tests,35UX/6help/build pass. Actual hosted normal-view verification next.
+
+
+CODEX-67 VERIFIED: owner approved one-function null-owner guard correction. Migration20261021181614 installed exact source e20b1b2f24e047a83e9a33a47737e38c;15 REAL LOCAL SQL checks. Hosted ACL/owner/config/security/volatility and all other public/private function fingerprints unchanged;site configuration,staff roles,catches unchanged. No secret-management RPC,credential/password change,gameplay or APP stamp. No incident assessment. Recovery drill remains held. See supabase/unapplied/owner-guard-null/README.md and evidence/owner-guard-null-hosted.json.

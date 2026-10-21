@@ -15,3 +15,5 @@ Additional security spot check: current public admin_* catalog still has zero ro
 CODEX-58 update: approved migration20261021142746 adds final GTS cooldown validation. Inventory now9 post-backup migration records/10 packet paths. No new backup or restore/replay certification is implied.
 
 CODEX-60 update: approved migration20261021161057 adds account mutation protections. Inventory now10 post-backup migrations/11 packet paths. Daily backups accepted for launch;no new backup/restore certification.
+
+CODEX-67 update: approved owner-guard migration20261021181614 adds the fail-closed authorization correction. Inventory now11 post-backup migrations/12 packet paths;all12 repository hashes match. Recovery drill remains held at owner direction;database password unchanged. No restore/replay certification.

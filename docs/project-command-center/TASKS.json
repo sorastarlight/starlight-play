@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-67",
+      "status": "done",
+      "scope": "Fail-closed owner authorization guard",
+      "evidence": "supabase/unapplied/owner-guard-null/README.md;evidence/owner-guard-null-hosted.json",
+      "testResults": "15 REAL LOCAL SQL checks;PRODUCTION exact source,attributes and unchanged unrelated functions/configuration/roles/catches",
+      "nextAction": "Continue launch readiness;native recovery drill held and database password unchanged",
+      "approvalRequirement": "Explicit owner SQL approval received and consumed by this installation"
+    },
+    {
       "id": "CODEX-66",
       "status": "done",
       "scope": "Inventory failure states and obsolete account/refresh response guards",
@@ -158,7 +167,7 @@
       "branch": "admin-hub-overhaul",
       "commit": "d77bb3b9",
       "evidence": "BOUNDED-ECONOMY-QA.md;evidence/qa50-mart-purchase.json;evidence/qa50-gift-evolution.json",
-      "testResults": "REAL DOM/SQL Mart purchase and audited15-candy gift PASS;one Caterpie→Metapod evolution PASS;level/IV/EV/nature/moves/stamp retained,15 candy spent once;Caterpie Familiar1 unchanged. Oak0 eligible/last-copy protection;not executed.",
+      "testResults": "REAL DOM/SQL Mart purchase and audited15-candy gift PASS;one Caterpie\u2192Metapod evolution PASS;level/IV/EV/nature/moves/stamp retained,15 candy spent once;Caterpie Familiar1 unchanged. Oak0 eligible/last-copy protection;not executed.",
       "nextAction": "Bounded packet complete: actual EmailQA Oak transfer succeeded once,2 Caterpie Candy granted (3 to5),original Familiarity unchanged, gifted level5 copy retained. Continue remaining launch readiness; no more gameplay implied.",
       "approvalRequirement": "One additional ordinary Metapod approved explicitly; original Oak transfer remains approved. No extra catches/evolutions or last-copy bypass."
     },
@@ -390,7 +399,7 @@
     {
       "id": "CODEX-33",
       "status": "done",
-      "scope": "Read-only species-wide Familiarity metric in Pokédex Your Research",
+      "scope": "Read-only species-wide Familiarity metric in Pok\u00e9dex Your Research",
       "dependencies": [
         "CODEX-32"
       ],
@@ -516,7 +525,7 @@
     {
       "id": "CODEX-24",
       "status": "done",
-      "scope": "Read-only stored Pokémon stats in Trainer record",
+      "scope": "Read-only stored Pok\u00e9mon stats in Trainer record",
       "dependencies": [
         "CODEX-23"
       ],
@@ -663,7 +672,7 @@
       ],
       "branch": "admin-hub-overhaul",
       "commit": "a3a0da20",
-      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/; owner-requested Pokémon StreamLink reset email naming; signup/email-change and shared sender use game title",
+      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/; owner-requested Pok\u00e9mon StreamLink reset email naming; signup/email-change and shared sender use game title",
       "testResults": "REAL DOM hosted template source matched and saved; rendered previews reviewed. 20 recovery checks and build passed. No live Auth message sent. Owner-authorized EmailQA reset sent once; Resend Delivered. Signup confirmation also Delivered. Pages succeeded. Owner reported successful EmailQA password-reset completion on 2026-10-19.",
       "nextAction": "Resolve staff recovery audit receipt retention/privacy policy and privileged-path verification before activation",
       "approvalRequirement": "Owner explicitly requested friendly emails and continued SMTP/recovery work. User must enter and submit any new password."
@@ -783,7 +792,7 @@
     {
       "id": "CODEX-5",
       "status": "done",
-      "scope": "Visual searchable Pokémon/candy picker, accurate gift labels, modal staff reasons and visual review",
+      "scope": "Visual searchable Pok\u00e9mon/candy picker, accurate gift labels, modal staff reasons and visual review",
       "dependencies": [
         "CODEX-4"
       ],
@@ -1062,7 +1071,7 @@
     {
       "id": "I9",
       "status": "done",
-      "scope": "GitHub issue #9 Pokémon collection rows and read-only detail comparison prototype",
+      "scope": "GitHub issue #9 Pok\u00e9mon collection rows and read-only detail comparison prototype",
       "dependencies": [
         "I8"
       ],
@@ -1104,7 +1113,7 @@
     {
       "id": "I16",
       "status": "done",
-      "scope": "GitHub issue #16 Pokémon generation/legality source audit and audited owner editor design",
+      "scope": "GitHub issue #16 Pok\u00e9mon generation/legality source audit and audited owner editor design",
       "dependencies": [
         "epic-11"
       ],
@@ -1112,7 +1121,7 @@
       "commit": "a3004d1",
       "evidence": "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
       "testResults": "overhaul 17 STATIC PASS; LIVE CATALOG catches columns; no catch-row SELECT",
-      "nextAction": "Superseded by D15–D17 / issue #19. Keep as current-state evidence.",
+      "nextAction": "Superseded by D15\u2013D17 / issue #19. Keep as current-state evidence.",
       "approvalRequirement": "Historical; future work uses A19-* gates"
     },
     {
@@ -1207,7 +1216,7 @@
     {
       "id": "I24A",
       "status": "done",
-      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 → seed 00–10 → 002",
+      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 \u2192 seed 00\u201310 \u2192 002",
       "dependencies": [
         "I24",
         "D35"
@@ -1232,7 +1241,7 @@
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-SPEC.md, tests/fixtures/a19-genval/matrix.json, tests/a19-genval-spec-tests.js",
       "testResults": "a19-genval-spec STATIC/LOCAL HARNESS; historical D36 snapshot",
       "nextAction": "Superseded by I25A / D37. Spec file remains the planning snapshot.",
-      "approvalRequirement": "Historical; GV1–GV7 later locked in D37"
+      "approvalRequirement": "Historical; GV1\u2013GV7 later locked in D37"
     },
     {
       "id": "I25A",
@@ -1787,7 +1796,7 @@
       "evidence": "docs/project-command-center/D76-FAMILIARITY-STAMP-SMOKE-GO-PACKET.md",
       "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D76 8/8 on 127.0.0.1:55448. Lifecycle inactive. No hosted catch.",
       "nextAction": "Superseded by I41. Account creation stopped for missing email and password.",
-      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED — UNSPECIFIED."
+      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED \u2014 UNSPECIFIED."
     },
     {
       "id": "I41",

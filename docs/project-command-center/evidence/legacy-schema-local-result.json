@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-21T03:45:38.803Z",
+  "at": "2026-10-21T03:52:13.819Z",
   "classification": "REAL LOCAL SQL, fictional linked rows, actual relevant column types and trigger bodies/core FKs",
   "checks": [
     "Source row drift refuses deletion and rolls archive DDL back",
@@ -22,6 +22,7 @@
     "Restoration replay fails closed",
     "Second client cannot race a catch update across cleanup table lock",
     "Old specimen restore correctly refuses a newer runtime instead of bypassing source guards",
+    "Predicted signatures use catalog C ordering and refuse a mismatched baseline",
     "All six AV columns removed with rebuilt before-write trigger; no CASCADE",
     "Legacy reference table leaves public runtime and remains privately recoverable without player grants",
     "Unused legacy stat/move functions retired with RESTRICT",

@@ -236,7 +236,7 @@
     "lgpe_stat": "grant execute on function private.lgpe_stat(integer,integer,integer,integer,boolean) to PUBLIC;\ngrant execute on function private.lgpe_stat(integer,integer,integer,integer,boolean) to postgres;",
     "lgpe_pick_moves": "grant execute on function private.lgpe_pick_moves(integer,integer) to PUBLIC;\ngrant execute on function private.lgpe_pick_moves(integer,integer) to postgres;"
   },
-  "after_hash": "45e3e3649ea953a68e2a654deb7f1a94",
-  "rollback_hash": "c9bc5838a02c5d466c51824d9641e835",
-  "recovery_hash": "80391089fb1d57103864192afdc5a409"
+  "after_hash": "d323eb5bcaf331c375056a216bfd1c66",
+  "rollback_hash": "21045bcec042067f2248ad33ff3c5de6",
+  "recovery_hash": "f1603abda9b70ba45dd313e6f7eb8205"
 }

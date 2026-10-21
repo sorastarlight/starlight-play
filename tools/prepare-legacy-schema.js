@@ -18,7 +18,7 @@ function proposedLines(s){
  const rollback=s.schema_lines.map(x=>{if(!x.startsWith('column:public.catches:'))return x;const a=x.split(':'),i=av.indexOf(a[3]);if(i<0)return x;a[2]=String(s.max_attribute+i+1);return a.join(':');});
  const recovery=rollback.map(x=>{for(const f of changes){if(x===`runtime:${f.name}:${f.after}`)return `runtime:${f.name}:${f.before}`;}return x;});return {after,rollback,recovery};
 }
-const md5Sql=lines=>`select md5(coalesce(string_agg(value,E'\\n' order by value),'')) hash from jsonb_array_elements_text(${quote(lines)})`;
+const md5Sql=lines=>`select md5(coalesce(string_agg(value,E'\\n' order by value collate "C"),'')) hash from jsonb_array_elements_text(${quote(lines)})`;
 function makeSchemaPacket(s,options={}){
  const manifest={...s};delete manifest.schema_lines;const lit=quote(manifest),newTrigger=s.trigger.replace(', av_hp, av_atk, av_def, av_spa, av_spd, av_spe','');
  if(newTrigger===s.trigger)throw Error('Expected AV trigger dependency not found');
@@ -90,6 +90,6 @@ update private.legacy_retirement_runs set status='schema-restored',restored_at=c
  const recover="-- Emergency selective recovery only: schema rollback, source rollback, then reviewed specimen restore.\nbegin;\n"+strip(rollback)+strip(coreRollback)+strip(adaptedRestore)+'\ncommit;\n';
  return {install,rollback,recover};
 }
-async function addHashes(state,query){const lines=proposedLines(state);for(const [k,v] of Object.entries(lines))state[k+'_hash']=(await query(md5Sql(v))).rows[0].hash;return state;}
+async function addHashes(state,query){const baseline=(await query(md5Sql(state.schema_lines))).rows[0].hash;if(baseline!==state.schema_hash)throw Error('Catalog ordering does not match signature ordering');const lines=proposedLines(state);for(const [k,v] of Object.entries(lines))state[k+'_hash']=(await query(md5Sql(v))).rows[0].hash;return state;}
 if(require.main===module){if(process.argv.includes('--preflight'))process.stdout.write(stateSql);else{const s=JSON.parse(fs.readFileSync(path.join(root,'docs/project-command-center/evidence/legacy-schema-manifest.json')));const p=makeSchemaPacket(s),folder=path.join(root,'supabase/unapplied/legacy-schema-retirement');fs.mkdirSync(folder,{recursive:true});for(const [file,key] of [['INSTALL.sql','install'],['ROLLBACK.sql','rollback'],['RECOVER_SCHEMA_AND_SPECIMENS.sql','recover']])fs.writeFileSync(path.join(folder,file),p[key]);fs.writeFileSync(path.join(folder,'manifest.json'),JSON.stringify(s,null,2)+'\n');console.log('Prepared guarded schema/archive and compatible recovery packets.');}}
 module.exports={stateSql,proposedLines,md5Sql,makeSchemaPacket,addHashes,av};

@@ -19,7 +19,10 @@ async function run({db,root,pass,originalHash,specimenHash,profile,originalProfi
  const cleanupManifest=await get(PREFLIGHT_SQL,'manifest'),cleanup=makePacket(cleanupManifest);await db.query(cleanup.install);
  const runtimeFolder=path.join(root,'supabase/unapplied/legacy-runtime-retirement');await db.query(fs.readFileSync(path.join(runtimeFolder,'INSTALL.sql'),'utf8'));
  await reject(cleanup.restore,/Schema or trigger source drift/);pass('Old specimen restore correctly refuses a newer runtime instead of bypassing source guards');
- let state=await addHashes(await get(stateSql,'state'),q=>db.query(q));let packet=makeSchemaPacket(state,{originalRestoreSQL:cleanup.restore});
+ const rawState=await get(stateSql,'state');
+ await assert.rejects(()=>addHashes({...rawState,schema_hash:'incorrect-ordering'},q=>db.query(q)),/Catalog ordering/);
+ pass('Predicted signatures use catalog C ordering and refuse a mismatched baseline');
+ let state=await addHashes(rawState,q=>db.query(q));let packet=makeSchemaPacket(state,{originalRestoreSQL:cleanup.restore});
  const tableAcl=async()=>(await db.query("select has_table_privilege('anon','public.lgpe_species','SELECT') a,has_table_privilege('authenticated','public.lgpe_species','SELECT') b")).rows[0];const oldAcl=await tableAcl();
  const helperAcl=async()=>(await db.query("select p.proname,has_function_privilege('anon',p.oid,'EXECUTE') anon,has_function_privilege('authenticated',p.oid,'EXECUTE') auth from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='private' and p.proname in ('lgpe_stat','lgpe_pick_moves') order by p.proname")).rows;
  const oldHelperAcl=await helperAcl();

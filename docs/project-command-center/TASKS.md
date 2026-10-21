@@ -152,3 +152,6 @@ CODEX-42 PRODUCTION VERIFIED,2026-10-20 EDT: approved legacy route retirement an
 
 
 CODEX-43,2026-10-21: October30 Data API grant change audited:64 public relations,15 required privileges present,required RLS/invoker view verified,anonymous catalog reads200/private schema406. No production grant change needed. Added build-integrated future-table access preflight,contract,template and rule.16 source/7 REAL LOCAL SQL checks. See DATA-API-OCT30.md.
+
+
+CODEX-44,2026-10-21: migration20261021113931 retires browser EXECUTE on6 unused private self-tests;27 real local SQL checks and exact hosted ACL/source/unrelated-function verification pass. No gameplay/data mutation. Found Familiarity delivery race after evolution/trade/release;5 local SQL reproductions. Original-capture correction needs owner decision;worker held. See LAUNCH-SECURITY-FOLLOWUP.md and FAMILIARITY-CAPTURE-IDENTITY-REVIEW.md.

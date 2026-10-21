@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-21T11:42:29.043Z",
+  "classification": "REAL LOCAL SQL reproduction; exact hosted delivery/record/guard/reconciliation bodies; fictional rows and direct mutation fixtures, not real evolution/trade/release RPCs",
+  "checks": [
+    "Unchanged queued capture delivers its original Caterpie event",
+    "Reproduced loss: evolution before delivery permanently rejects the valid queued capture",
+    "Reproduced loss: trade before delivery permanently rejects the valid queued capture",
+    "Reproduced loss: release before delivery permanently rejects the valid queued capture",
+    "Current reconciliation cannot recover an evolved capture whose queue admission was missed"
+  ],
+  "observed": [
+    {
+      "case": "evolution",
+      "status": "rejected",
+      "last_error": "mastery event rejected: capture was not successful"
+    },
+    {
+      "case": "trade",
+      "status": "rejected",
+      "last_error": "mastery event rejected: source key is not this play capture"
+    },
+    {
+      "case": "release",
+      "status": "rejected",
+      "last_error": "mastery event rejected: specimen is not on file"
+    }
+  ],
+  "verdict": "Launch blocker for reliable delivery: immutable capture identity is not retained independently of the mutable specimen."
+}

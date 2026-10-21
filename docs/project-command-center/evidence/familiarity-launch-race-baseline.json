@@ -1,0 +1,967 @@
+{
+  "tables": [
+    {
+      "udt": "int8",
+      "name": "capture_log",
+      "type": "bigint",
+      "column": "id",
+      "schema": "public"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "capture_log",
+      "type": "timestamp with time zone",
+      "column": "created_at",
+      "schema": "public"
+    },
+    {
+      "udt": "uuid",
+      "name": "capture_log",
+      "type": "uuid",
+      "column": "round_id",
+      "schema": "public"
+    },
+    {
+      "udt": "uuid",
+      "name": "capture_log",
+      "type": "uuid",
+      "column": "user_id",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "capture_log",
+      "type": "integer",
+      "column": "dex",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "capture_log",
+      "type": "text",
+      "column": "species_name",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "capture_log",
+      "type": "text",
+      "column": "variant",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "capture_log",
+      "type": "text",
+      "column": "gender",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "capture_log",
+      "type": "boolean",
+      "column": "is_shiny",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "capture_log",
+      "type": "boolean",
+      "column": "is_female",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "capture_log",
+      "type": "integer",
+      "column": "canonical_catch_rate",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "base_chance",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "capture_log",
+      "type": "text",
+      "column": "ball_key",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "ball_multiplier",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "capture_log",
+      "type": "boolean",
+      "column": "ball_condition_met",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "capture_log",
+      "type": "text",
+      "column": "berry_key",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "berry_multiplier",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "capture_log",
+      "type": "integer",
+      "column": "honey_contributors",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "capture_log",
+      "type": "integer",
+      "column": "honey_participants",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "honey_multiplier",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "honey_contributor_multiplier",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "shiny_multiplier",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "event_multiplier",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "other_multiplier",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "raw_chance",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "final_chance",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "capture_log",
+      "type": "numeric",
+      "column": "capture_roll",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "capture_log",
+      "type": "boolean",
+      "column": "success",
+      "schema": "public"
+    },
+    {
+      "udt": "jsonb",
+      "name": "capture_log",
+      "type": "jsonb",
+      "column": "detail",
+      "schema": "public"
+    },
+    {
+      "udt": "uuid",
+      "name": "encounter_rounds",
+      "type": "uuid",
+      "column": "id",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "encounter_rounds",
+      "type": "text",
+      "column": "source_id",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "encounter_rounds",
+      "type": "text",
+      "column": "phase",
+      "schema": "public"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "encounter_rounds",
+      "type": "timestamp with time zone",
+      "column": "ends_at",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "encounter_rounds",
+      "type": "boolean",
+      "column": "hidden",
+      "schema": "public"
+    },
+    {
+      "udt": "jsonb",
+      "name": "encounter_rounds",
+      "type": "jsonb",
+      "column": "pokemon",
+      "schema": "public"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "encounter_rounds",
+      "type": "timestamp with time zone",
+      "column": "updated_at",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "encounter_rounds",
+      "type": "integer",
+      "column": "dex",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "encounter_rounds",
+      "type": "text",
+      "column": "name",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "encounter_rounds",
+      "type": "text",
+      "column": "variant",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "encounter_rounds",
+      "type": "text",
+      "column": "gender",
+      "schema": "public"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "encounter_rounds",
+      "type": "timestamp with time zone",
+      "column": "started_at",
+      "schema": "public"
+    },
+    {
+      "udt": "jsonb",
+      "name": "encounter_rounds",
+      "type": "jsonb",
+      "column": "deadlines",
+      "schema": "public"
+    },
+    {
+      "udt": "jsonb",
+      "name": "encounter_rounds",
+      "type": "jsonb",
+      "column": "players",
+      "schema": "public"
+    },
+    {
+      "udt": "jsonb",
+      "name": "encounter_rounds",
+      "type": "jsonb",
+      "column": "rules",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "encounter_rounds",
+      "type": "boolean",
+      "column": "resolved",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "encounter_rounds",
+      "type": "boolean",
+      "column": "cancelled",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "encounter_rounds",
+      "type": "text",
+      "column": "last_action",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "encounter_rounds",
+      "type": "text",
+      "column": "source",
+      "schema": "public"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "encounter_rounds",
+      "type": "timestamp with time zone",
+      "column": "paused_at",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "encounter_rounds",
+      "type": "text",
+      "column": "trigger_source",
+      "schema": "public"
+    },
+    {
+      "udt": "jsonb",
+      "name": "encounter_rounds",
+      "type": "jsonb",
+      "column": "pause_reasons",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "encounter_rounds",
+      "type": "integer",
+      "column": "pokemon_form_id",
+      "schema": "public"
+    },
+    {
+      "udt": "uuid",
+      "name": "species_mastery_events",
+      "type": "uuid",
+      "column": "catch_id",
+      "schema": "public"
+    },
+    {
+      "udt": "uuid",
+      "name": "species_mastery_events",
+      "type": "uuid",
+      "column": "trainer_id",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "species_mastery_events",
+      "type": "integer",
+      "column": "dex",
+      "schema": "public"
+    },
+    {
+      "udt": "uuid",
+      "name": "species_mastery_events",
+      "type": "uuid",
+      "column": "round_id",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "species_mastery_events",
+      "type": "text",
+      "column": "source_key",
+      "schema": "public"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "species_mastery_events",
+      "type": "timestamp with time zone",
+      "column": "created_at",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "species_mastery_activation",
+      "type": "boolean",
+      "column": "singleton",
+      "schema": "private"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "species_mastery_activation",
+      "type": "timestamp with time zone",
+      "column": "activated_at",
+      "schema": "private"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "species_mastery_activation",
+      "type": "timestamp with time zone",
+      "column": "disabled_at",
+      "schema": "private"
+    },
+    {
+      "udt": "text",
+      "name": "species_mastery_activation",
+      "type": "text",
+      "column": "lifecycle",
+      "schema": "private"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "species_mastery_activation",
+      "type": "timestamp with time zone",
+      "column": "paused_at",
+      "schema": "private"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "species_mastery_activation",
+      "type": "timestamp with time zone",
+      "column": "drain_started_at",
+      "schema": "private"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "species_mastery_activation",
+      "type": "timestamp with time zone",
+      "column": "closed_at",
+      "schema": "private"
+    },
+    {
+      "udt": "uuid",
+      "name": "species_mastery_outbox",
+      "type": "uuid",
+      "column": "catch_id",
+      "schema": "private"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "species_mastery_outbox",
+      "type": "timestamp with time zone",
+      "column": "enqueued_at",
+      "schema": "private"
+    },
+    {
+      "udt": "text",
+      "name": "species_mastery_outbox",
+      "type": "text",
+      "column": "status",
+      "schema": "private"
+    },
+    {
+      "udt": "int4",
+      "name": "species_mastery_outbox",
+      "type": "integer",
+      "column": "attempts",
+      "schema": "private"
+    },
+    {
+      "udt": "text",
+      "name": "species_mastery_outbox",
+      "type": "text",
+      "column": "last_error",
+      "schema": "private"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "species_mastery_outbox",
+      "type": "timestamp with time zone",
+      "column": "delivered_at",
+      "schema": "private"
+    },
+    {
+      "udt": "uuid",
+      "name": "catches",
+      "type": "uuid",
+      "column": "id",
+      "schema": "public"
+    },
+    {
+      "udt": "uuid",
+      "name": "catches",
+      "type": "uuid",
+      "column": "user_id",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "dex",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "name",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "variant",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "gender",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "ball",
+      "schema": "public"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "catches",
+      "type": "timestamp with time zone",
+      "column": "caught_at",
+      "schema": "public"
+    },
+    {
+      "udt": "uuid",
+      "name": "catches",
+      "type": "uuid",
+      "column": "round_id",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "source_key",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "public_id",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "nickname",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "level",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "iv_hp",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "iv_atk",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "iv_def",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "iv_spa",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "iv_spd",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "iv_spe",
+      "schema": "public"
+    },
+    {
+      "udt": "_text",
+      "name": "catches",
+      "type": "ARRAY",
+      "column": "moves",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "size_class",
+      "schema": "public"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "catches",
+      "type": "timestamp with time zone",
+      "column": "transferred_at",
+      "schema": "public"
+    },
+    {
+      "udt": "uuid",
+      "name": "catches",
+      "type": "uuid",
+      "column": "ot_user_id",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "ot_name",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "ot_number",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "met_level",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "met_location",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "catches",
+      "type": "numeric",
+      "column": "height_m",
+      "schema": "public"
+    },
+    {
+      "udt": "numeric",
+      "name": "catches",
+      "type": "numeric",
+      "column": "weight_kg",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "friendship",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "catches",
+      "type": "boolean",
+      "column": "is_alpha",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "catches",
+      "type": "boolean",
+      "column": "favorite",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "catches",
+      "type": "boolean",
+      "column": "locked",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "obtained_method",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "catches",
+      "type": "boolean",
+      "column": "trade_evo_ready",
+      "schema": "public"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "catches",
+      "type": "timestamp with time zone",
+      "column": "trade_locked_until",
+      "schema": "public"
+    },
+    {
+      "udt": "uuid",
+      "name": "catches",
+      "type": "uuid",
+      "column": "reserved_trade_id",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "pokemon_form_id",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "nature_id",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "ability_id",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "ability_slot",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "ev_hp",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "ev_atk",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "ev_def",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "ev_spa",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "ev_spd",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "ev_spe",
+      "schema": "public"
+    },
+    {
+      "udt": "jsonb",
+      "name": "catches",
+      "type": "jsonb",
+      "column": "move_slots",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "ruleset_id",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "content_build",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "hp_current",
+      "schema": "public"
+    },
+    {
+      "udt": "int4",
+      "name": "catches",
+      "type": "integer",
+      "column": "hp_max",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "status",
+      "schema": "public"
+    },
+    {
+      "udt": "text",
+      "name": "catches",
+      "type": "text",
+      "column": "held_item",
+      "schema": "public"
+    },
+    {
+      "udt": "bool",
+      "name": "catches",
+      "type": "boolean",
+      "column": "gigantamax_factor",
+      "schema": "public"
+    },
+    {
+      "udt": "timestamptz",
+      "name": "catches",
+      "type": "timestamp with time zone",
+      "column": "server_inserted_at",
+      "schema": "public"
+    }
+  ],
+  "functions": [
+    {
+      "md5": "c3e2401751521a93e3c98bd858e1cae9",
+      "name": "deliver_species_mastery_outbox",
+      "signature": "private.deliver_species_mastery_outbox(integer)",
+      "definition": "CREATE OR REPLACE FUNCTION private.deliver_species_mastery_outbox(p_limit integer DEFAULT 25)\n RETURNS integer\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  pending record;\n  lifecycle text;\n  drain_started_at timestamptz;\n  delivered integer := 0;\n  next_attempts integer;\nBEGIN\n  IF p_limit IS NULL OR p_limit < 1 OR p_limit > 200 THEN\n    p_limit := 25;\n  END IF;\n  SELECT a.lifecycle, a.drain_started_at INTO lifecycle, drain_started_at\n  FROM private.species_mastery_activation AS a\n  WHERE a.singleton\n  FOR SHARE;\n  IF lifecycle NOT IN ('active', 'draining') THEN\n    RETURN 0;\n  END IF;\n  FOR pending IN\n    SELECT o.catch_id, o.attempts\n    FROM private.species_mastery_outbox AS o\n    WHERE o.status = 'pending'\n      AND o.attempts < 8\n      AND (lifecycle <> 'draining' OR o.enqueued_at <= drain_started_at)\n    ORDER BY o.enqueued_at, o.catch_id\n    LIMIT p_limit\n    FOR UPDATE SKIP LOCKED\n  LOOP\n    BEGIN\n      PERFORM private.record_species_mastery_event(pending.catch_id);\n      UPDATE private.species_mastery_outbox\n      SET status = 'delivered',\n          delivered_at = clock_timestamp(),\n          last_error = NULL\n      WHERE catch_id = pending.catch_id;\n      delivered := delivered + 1;\n    EXCEPTION\n      WHEN SQLSTATE '23514' THEN\n        UPDATE private.species_mastery_outbox\n        SET status = 'rejected',\n            attempts = attempts + 1,\n            last_error = SQLERRM\n        WHERE catch_id = pending.catch_id;\n      WHEN OTHERS THEN\n        next_attempts := pending.attempts + 1;\n        UPDATE private.species_mastery_outbox\n        SET attempts = next_attempts,\n            status = CASE WHEN next_attempts >= 8 THEN 'exhausted' ELSE 'pending' END,\n            last_error = SQLERRM\n        WHERE catch_id = pending.catch_id;\n    END;\n  END LOOP;\n  RETURN delivered;\nEND;\n$function$\n"
+    },
+    {
+      "md5": "6668eeadf1f98c2798595f826489e23e",
+      "name": "reconcile_species_mastery_outbox",
+      "signature": "private.reconcile_species_mastery_outbox(integer)",
+      "definition": "CREATE OR REPLACE FUNCTION private.reconcile_species_mastery_outbox(p_limit integer DEFAULT 25)\n RETURNS integer\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  opened timestamptz;\n  lifecycle text;\n  inserted integer;\nBEGIN\n  IF p_limit IS NULL OR p_limit < 1 OR p_limit > 200 THEN\n    p_limit := 25;\n  END IF;\n  SELECT activated_at, a.lifecycle INTO opened, lifecycle\n  FROM private.species_mastery_activation AS a\n  WHERE a.singleton\n  FOR SHARE;\n  IF opened IS NULL OR lifecycle NOT IN ('active', 'paused') THEN\n    RETURN 0;\n  END IF;\n  INSERT INTO private.species_mastery_outbox (catch_id)\n  SELECT c.id\n  FROM public.catches AS c\n  WHERE c.server_inserted_at IS NOT NULL\n    AND c.server_inserted_at >= opened\n    AND c.server_inserted_at <= clock_timestamp() + interval '2 minutes'\n    AND c.source_key IS NOT NULL\n    AND split_part(c.source_key, ':', 1) = 'play'\n    AND split_part(c.source_key, ':', 2) = c.round_id::text\n    AND split_part(c.source_key, ':', 3) = c.user_id::text\n    AND split_part(c.source_key, ':', 4) = ''\n    AND c.round_id IS NOT NULL\n    AND NOT private.round_is_test(c.round_id)\n    AND EXISTS (\n      SELECT 1\n      FROM public.capture_log AS log\n      WHERE log.round_id = c.round_id\n        AND log.user_id = c.user_id\n        AND log.success IS TRUE\n        AND (log.dex IS NULL OR log.dex = c.dex)\n    )\n    AND NOT EXISTS (\n      SELECT 1 FROM private.species_mastery_outbox AS queued WHERE queued.catch_id = c.id\n    )\n    AND NOT EXISTS (\n      SELECT 1 FROM public.species_mastery_events AS earned WHERE earned.catch_id = c.id\n    )\n  ORDER BY c.server_inserted_at, c.id\n  LIMIT p_limit\n  ON CONFLICT (catch_id) DO NOTHING;\n  GET DIAGNOSTICS inserted = ROW_COUNT;\n  RETURN inserted;\nEND;\n$function$\n"
+    },
+    {
+      "md5": "5e1402915cf10cfd0ca556eceaec4c7f",
+      "name": "record_species_mastery_event",
+      "signature": "private.record_species_mastery_event(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION private.record_species_mastery_event(p_catch_id uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  specimen public.catches%ROWTYPE;\nBEGIN\n  IF p_catch_id IS NULL THEN\n    RAISE EXCEPTION 'mastery event rejected: missing specimen' USING ERRCODE = '23514';\n  END IF;\n  SELECT * INTO specimen FROM public.catches WHERE id = p_catch_id FOR SHARE;\n  IF NOT FOUND THEN\n    RAISE EXCEPTION 'mastery event rejected: specimen is not on file' USING ERRCODE = '23514';\n  END IF;\n  INSERT INTO public.species_mastery_events (catch_id, trainer_id, dex, round_id, source_key)\n  VALUES (specimen.id, specimen.user_id, specimen.dex, specimen.round_id, specimen.source_key);\n  RETURN specimen.id;\nEXCEPTION\n  WHEN unique_violation THEN\n    IF EXISTS (\n      SELECT 1 FROM public.species_mastery_events WHERE catch_id = p_catch_id\n    ) THEN\n      RETURN p_catch_id;\n    END IF;\n    RAISE;\nEND;\n$function$\n"
+    },
+    {
+      "md5": "a33d9b63f44df44771b7d2d9a43cb2af",
+      "name": "round_is_test",
+      "signature": "private.round_is_test(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION private.round_is_test(p_round uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE\nAS $function$\n  select coalesce((select rules->>'rewardMode' from public.encounter_rounds where id = p_round), 'live') = 'test'\n     and coalesce((select (rules->>'testRewards') from public.encounter_rounds where id = p_round), '') is distinct from 'true';\n$function$\n"
+    },
+    {
+      "md5": "18fe5a1d2d139aeddda60fc0c6db3713",
+      "name": "species_mastery_events_guard",
+      "signature": "private.species_mastery_events_guard()",
+      "definition": "CREATE OR REPLACE FUNCTION private.species_mastery_events_guard()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog', 'public', 'private'\nAS $function$\nDECLARE\n  specimen public.catches%ROWTYPE;\n  activated_at timestamptz;\n  lifecycle text;\n  drain_started_at timestamptz;\n  inserted_at timestamptz;\n  queued_at timestamptz;\n  logged boolean;\nBEGIN\n  IF TG_OP = 'UPDATE' THEN\n    RAISE EXCEPTION 'mastery events are immutable' USING ERRCODE = '55000';\n  END IF;\n\n  SELECT * INTO specimen FROM public.catches WHERE id = NEW.catch_id FOR SHARE;\n  IF NOT FOUND THEN\n    RAISE EXCEPTION 'mastery event rejected: specimen is not on file' USING ERRCODE = '23514';\n  END IF;\n  IF NEW.trainer_id IS DISTINCT FROM specimen.user_id\n     OR NEW.dex IS DISTINCT FROM specimen.dex\n     OR NEW.round_id IS DISTINCT FROM specimen.round_id\n     OR NEW.source_key IS DISTINCT FROM specimen.source_key THEN\n    RAISE EXCEPTION 'mastery event rejected: event does not match the specimen' USING ERRCODE = '23514';\n  END IF;\n  IF specimen.round_id IS NULL THEN\n    RAISE EXCEPTION 'mastery event rejected: no encounter round' USING ERRCODE = '23514';\n  END IF;\n\n  SELECT a.activated_at, a.lifecycle, a.drain_started_at\n    INTO activated_at, lifecycle, drain_started_at\n  FROM private.species_mastery_activation AS a\n  WHERE a.singleton\n  FOR SHARE;\n  IF activated_at IS NULL OR lifecycle IS DISTINCT FROM 'active' AND lifecycle IS DISTINCT FROM 'draining' THEN\n    RAISE EXCEPTION 'mastery event rejected: recording is not active' USING ERRCODE = '23514';\n  END IF;\n\n  inserted_at := specimen.server_inserted_at;\n  IF inserted_at IS NULL\n     OR inserted_at = 'infinity'::timestamptz\n     OR inserted_at = '-infinity'::timestamptz\n     OR inserted_at > clock_timestamp() + interval '2 minutes' THEN\n    RAISE EXCEPTION 'mastery event rejected: insertion time is not server-authoritative' USING ERRCODE = '23514';\n  END IF;\n  IF inserted_at < activated_at THEN\n    RAISE EXCEPTION 'mastery event rejected: specimen predates activation' USING ERRCODE = '23514';\n  END IF;\n  IF lifecycle = 'draining' THEN\n    SELECT o.enqueued_at INTO queued_at\n    FROM private.species_mastery_outbox AS o\n    WHERE o.catch_id = specimen.id\n      AND o.status = 'pending'\n      AND o.enqueued_at <= drain_started_at;\n    IF queued_at IS NULL THEN\n      RAISE EXCEPTION 'mastery event rejected: recording is closed to new work' USING ERRCODE = '23514';\n    END IF;\n  END IF;\n\n  IF specimen.source_key IS NULL\n     OR split_part(specimen.source_key, ':', 1) <> 'play'\n     OR split_part(specimen.source_key, ':', 2) IS DISTINCT FROM specimen.round_id::text\n     OR split_part(specimen.source_key, ':', 3) IS DISTINCT FROM specimen.user_id::text\n     OR split_part(specimen.source_key, ':', 4) <> '' THEN\n    RAISE EXCEPTION 'mastery event rejected: source key is not this play capture' USING ERRCODE = '23514';\n  END IF;\n  IF private.round_is_test(specimen.round_id) THEN\n    RAISE EXCEPTION 'mastery event rejected: test round' USING ERRCODE = '23514';\n  END IF;\n\n  PERFORM 1\n  FROM public.capture_log\n  WHERE round_id = specimen.round_id\n    AND user_id = specimen.user_id\n  FOR SHARE;\n  SELECT true INTO logged\n  FROM public.capture_log\n  WHERE round_id = specimen.round_id\n    AND user_id = specimen.user_id\n    AND success IS TRUE\n    AND (dex IS NULL OR dex = specimen.dex);\n  IF logged IS DISTINCT FROM TRUE THEN\n    RAISE EXCEPTION 'mastery event rejected: capture was not successful' USING ERRCODE = '23514';\n  END IF;\n  RETURN NEW;\nEND;\n$function$\n"
+    }
+  ],
+  "constraints": [
+    {
+      "name": "species_mastery_events_dex_check",
+      "table": "species_mastery_events",
+      "definition": "CHECK (((dex >= 1) AND (dex <= 1025)))"
+    },
+    {
+      "name": "species_mastery_events_pkey",
+      "table": "species_mastery_events",
+      "definition": "PRIMARY KEY (catch_id)"
+    },
+    {
+      "name": "species_mastery_events_round_trainer_key",
+      "table": "species_mastery_events",
+      "definition": "UNIQUE (round_id, trainer_id)"
+    },
+    {
+      "name": "species_mastery_events_source_key_key",
+      "table": "species_mastery_events",
+      "definition": "UNIQUE (source_key)"
+    },
+    {
+      "name": "species_mastery_events_trainer_id_fkey",
+      "table": "species_mastery_events",
+      "definition": "FOREIGN KEY (trainer_id) REFERENCES profiles(id) ON DELETE CASCADE"
+    },
+    {
+      "name": "species_mastery_outbox_attempts_check",
+      "table": "private.species_mastery_outbox",
+      "definition": "CHECK ((attempts >= 0))"
+    },
+    {
+      "name": "species_mastery_outbox_pkey",
+      "table": "private.species_mastery_outbox",
+      "definition": "PRIMARY KEY (catch_id)"
+    },
+    {
+      "name": "species_mastery_outbox_status_check",
+      "table": "private.species_mastery_outbox",
+      "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'delivered'::text, 'rejected'::text, 'exhausted'::text])))"
+    }
+  ]
+}

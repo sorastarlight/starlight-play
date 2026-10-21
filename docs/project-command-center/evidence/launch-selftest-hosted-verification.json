@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-21T11:39:49.797Z",
+  "classification": "READ-ONLY HOSTED verification after targeted ACL migration; no self-test body invoked",
+  "targets": [
+    {
+      "acl": "{postgres=X/postgres,service_role=X/postgres}",
+      "md5": "9607d98749489e020909ed1e060aac2e",
+      "anon": false,
+      "signature": "private.phase10_special_selftest()",
+      "service_role": true,
+      "authenticated": false
+    },
+    {
+      "acl": "{postgres=X/postgres,service_role=X/postgres}",
+      "md5": "27e804637ea224d60787b2ea76d38e0c",
+      "anon": false,
+      "signature": "private.phase4_catch_candy_selftest()",
+      "service_role": true,
+      "authenticated": false
+    },
+    {
+      "acl": "{postgres=X/postgres,service_role=X/postgres}",
+      "md5": "f8e4b2be371fc84a16f167e9acfded4a",
+      "anon": false,
+      "signature": "private.phase6_rankings_selftest()",
+      "service_role": true,
+      "authenticated": false
+    },
+    {
+      "acl": "{postgres=X/postgres,service_role=X/postgres}",
+      "md5": "0f481fd1d7052b0923503b1fe545f797",
+      "anon": false,
+      "signature": "private.phase7_content_selftest()",
+      "service_role": true,
+      "authenticated": false
+    },
+    {
+      "acl": "{postgres=X/postgres,service_role=X/postgres}",
+      "md5": "a445a390b3b0932ea492bb16343cc1fb",
+      "anon": false,
+      "signature": "private.phase8_bits_selftest()",
+      "service_role": true,
+      "authenticated": false
+    },
+    {
+      "acl": "{postgres=X/postgres,service_role=X/postgres}",
+      "md5": "924c1739284772a60317bc242a3060ff",
+      "anon": false,
+      "signature": "private.phase9_balance_selftest()",
+      "service_role": true,
+      "authenticated": false
+    }
+  ],
+  "migration": "20261021113931",
+  "other_hash": "99992dfde9c2981902c89d8077b0c24f"
+}

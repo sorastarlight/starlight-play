@@ -4,6 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-44",
+      "status": "done",
+      "scope": "Launch self-test permission hardening and current progression race audit",
+      "dependencies": [
+        "CODEX-43"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "LAUNCH-SECURITY-FOLLOWUP.md;FAMILIARITY-CAPTURE-IDENTITY-REVIEW.md;evidence/launch-selftest-hosted-verification.json",
+      "testResults": "27 real local SQL ACL checks; exact hosted6 body/ACL checks; unrelated function catalog unchanged;5 real local SQL defect reproductions",
+      "nextAction": "Owner decision on permanent original-capture Familiarity credit; implement/test correction before automatic delivery proposal.",
+      "approvalRequirement": "Continued launch security maintenance; progression behavior/schema correction and worker activation remain separate important decisions"
+    },
+    {
       "id": "CODEX-43",
       "status": "done",
       "scope": "Prepare for October30 explicit Data API grants requirement",

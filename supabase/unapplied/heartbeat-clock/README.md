@@ -1,4 +1,6 @@
-# CODEX-48 — Server-bounded watch credit (not installed)
+# CODEX-48 — Server-bounded watch credit (installed and verified)
+
+Owner explicitly approved the correction. Migration20261021122347 installed the exact packet; independent body MD5 2acdcfb54812b9f17d672c27a2404859 and unchanged ACL/owner/configuration verified. Profile watch/XP, inventory, XP-ledger and specimen hashes match before/after. No production heartbeat test or retroactive adjustment occurred. See docs/project-command-center/evidence/heartbeat-clock-hosted-verification.json. Do not replay INSTALL.sql.
 
 Read-only catalog review found that public.play_heartbeat(integer) caps each client request at45 seconds but does not check elapsed time. The actual hosted body (MD5 5bae000402269cfebe4b2f1ea3c53ba7) reproduced1800 watch seconds and10 XP from40 immediate requests in one local transaction. No production heartbeat was invoked to test this. Anonymous calls already reject without a user; an ordinary signed-in client can still submit requests rapidly. Removing anonymous EXECUTE alone would not fix this.
 
@@ -10,4 +12,4 @@ INSTALL.sql changes only this function, inside one transaction, pinning exact or
 
 15 REAL LOCAL SQL checks pass: exact baseline reproduction; guarded install; bounded burst; initial baseline; ordinary20-second interval and XP threshold;45-second long-gap cap; null/negative/future timestamps; offline status; two concurrent connections; signed-out/missing-profile denial; repeated-install refusal; rollback; ACL-drift refusal. The actual baseline/proposed heartbeat bodies execute against fictional local profiles/stream state. XP/snapshot helpers are fixture interfaces, not full gameplay/Auth integration. No hosted success test is included in this packet.
 
-Reproduce: node tools/heartbeat-clock-rehearsal.js. Evidence: docs/project-command-center/evidence/heartbeat-clock-local-result.json. Launch risk: R-HEARTBEAT-CLOCK. Production remains unchanged pending the important progression decision.
+Reproduce: node tools/heartbeat-clock-rehearsal.js. Evidence: docs/project-command-center/evidence/heartbeat-clock-local-result.json. Launch risk: R-HEARTBEAT-CLOCK. The approved function replacement is installed; broader hosted gameplay testing remains outside this approval.

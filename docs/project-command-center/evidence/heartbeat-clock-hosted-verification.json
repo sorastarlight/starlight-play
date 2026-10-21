@@ -1,0 +1,35 @@
+{
+  "migration": "20261021122347",
+  "classification": "Independent read-only hosted verification after approved function replacement; no heartbeat/XP test call",
+  "before": {
+    "profiles": "b472a904909ca1dbf5f42826dfd78a06",
+    "heartbeat": {
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "5bae000402269cfebe4b2f1ea3c53ba7",
+      "owner": "postgres",
+      "config": [
+        "search_path=public"
+      ],
+      "security_definer": true
+    },
+    "inventory": "a4e69102e248778e85f3c5e9e5c95217",
+    "specimens": "62a30076d38ae7c0cec63621ffe6a32e",
+    "xp_ledger": "5c6bbba7d97c7a0d37257ae0b646f164"
+  },
+  "after": {
+    "profiles": "b472a904909ca1dbf5f42826dfd78a06",
+    "heartbeat": {
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "2acdcfb54812b9f17d672c27a2404859",
+      "owner": "postgres",
+      "config": [
+        "search_path=public"
+      ],
+      "security_definer": true
+    },
+    "inventory": "a4e69102e248778e85f3c5e9e5c95217",
+    "specimens": "62a30076d38ae7c0cec63621ffe6a32e",
+    "xp_ledger": "5c6bbba7d97c7a0d37257ae0b646f164"
+  },
+  "dataUnchanged": true
+}

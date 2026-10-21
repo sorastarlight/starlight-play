@@ -4,22 +4,36 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-49",
+      "status": "done",
+      "scope": "Read-only current backup and asset recovery inventory",
+      "dependencies": [
+        "CODEX-48"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "RELEASE-RECOVERY-READINESS.md",
+      "testResults": "REAL DOM latest physical backup Oct21 07:44:55 UTC;PITR off;SQL0 Storage buckets/0 Supabase avatar references",
+      "nextAction": "Final release needs recovery point after final accepted changes;full reset/replay still unverified",
+      "approvalRequirement": "Inspection only;restore/reset/paid add-on remain separate important decisions"
+    },
+    {
       "id": "CODEX-48",
-      "status": "blocked",
-      "scope": "Server-clock watch credit correction proposal",
+      "status": "done",
+      "scope": "Approved server-clock watch credit correction",
       "dependencies": [
         "CODEX-46"
       ],
       "branch": "admin-hub-overhaul",
       "commit": null,
-      "evidence": "PC-FAMILIARITY-AND-HEARTBEAT-REVIEW.md;supabase/unapplied/heartbeat-clock/README.md",
-      "testResults": "15 REAL LOCAL SQL checks;actual old-body burst defect reproduced;guarded install/rollback prepared;no production mutation",
-      "nextAction": "Owner decision before production progression correction",
-      "approvalRequirement": "Routine frontend/read-only review authorized;production heartbeat correction requires separate decision"
+      "evidence": "PC-FAMILIARITY-AND-HEARTBEAT-REVIEW.md;supabase/unapplied/heartbeat-clock/README.md;evidence/heartbeat-clock-hosted-verification.json",
+      "testResults": "15 real local SQL; exact hosted body/ACL/owner/config verified;watch/XP/inventory/specimen/XP ledger unchanged",
+      "nextAction": "Continue launch readiness;no hosted heartbeat XP test implied",
+      "approvalRequirement": "Owner explicitly approved server-clock correction"
     },
     {
       "id": "CODEX-47",
-      "status": "doing",
+      "status": "done",
       "scope": "Read-only species Familiarity in My PC",
       "dependencies": [
         "CODEX-46"
@@ -27,8 +41,8 @@
       "branch": "admin-hub-overhaul",
       "commit": null,
       "evidence": "PC-FAMILIARITY-AND-HEARTBEAT-REVIEW.md;supabase/unapplied/heartbeat-clock/README.md",
-      "testResults": "79 suites/build31/424;shared11 reader state/race checks;published7e4ef360 Pages success",
-      "nextAction": "Actual browser still serves cached prior asset; origin source and Pages verified; do not claim live Familiarity UI acceptance yet.",
+      "testResults": "79 suites/build31/424;actual EmailQA DOM Familiar1 after cache expiry;no gameplay action",
+      "nextAction": "Continue remaining acceptance;mobile/zoom not yet verified",
       "approvalRequirement": "Routine frontend/read-only review authorized;production heartbeat correction requires separate decision"
     },
     {

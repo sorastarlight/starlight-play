@@ -1,0 +1,41 @@
+{
+  "classification": "Read-only hosted migration inventory matched to current repository packets; not an executable replay or restore certification",
+  "backupUtc": "2026-10-21T07:44:55Z",
+  "entries": [
+    {
+      "version": "20261021113931",
+      "path": "supabase/unapplied/launch-selftest-retirement/INSTALL.sql",
+      "sha256": "9fe22f01db742aa533ec870328229479cf995c812022618b5d63f98105cb0273"
+    },
+    {
+      "version": "20261021115744",
+      "path": "supabase/unapplied/familiarity-capture-identity/INSTALL.sql",
+      "sha256": "1a13a5e62eafa0d78b44857e31fcbc20729adc9e173a83c919ea58a277eb8778"
+    },
+    {
+      "version": "20261021120836",
+      "path": "supabase/unapplied/familiarity-worker/ACTIVATE.sql",
+      "sha256": "b93e053c4fb178d37862bf2f3ef17e2bf9a3ecf3c17d9e8fcf8be62f59f163b8"
+    },
+    {
+      "version": "20261021122347",
+      "path": "supabase/unapplied/heartbeat-clock/INSTALL.sql",
+      "sha256": "796b534558e2a4b09d45dce4fc49ce492989840dcd034b5420c76d84776c71ae"
+    },
+    {
+      "version": "20261021125125",
+      "path": "supabase/unapplied/distinct-generated-moves/INSTALL.sql",
+      "sha256": "57d74bc9fdedd0d44909a34fc3f3c21d2046a1fe8babfdda802dff1756fa7914"
+    },
+    {
+      "version": "20261021132411",
+      "path": "supabase/unapplied/optional-living-dex/INSTALL.sql",
+      "sha256": "a9cd2a02142c438c7cd0a08ce60ae7ce0fb07444d1c974c0c0157e9a4b5d7916"
+    },
+    {
+      "version": "20261021133711",
+      "path": "supabase/unapplied/direct-trade-validation/INSTALL.sql",
+      "sha256": "82b0f89067794b3f8871c5430dcb19f9bfcdbea90422488bd36821f703348e0c"
+    }
+  ]
+}

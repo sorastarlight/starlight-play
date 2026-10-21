@@ -24,6 +24,7 @@
     goldenrazz: "Golden Razz Berry",
     silverpinap: "Silver Pinap Berry",
     pokeball: "Poké Ball",
+    poke: "Poké Ball",
     greatball: "Great Ball",
     ultraball: "Ultra Ball",
     masterball: "Master Ball",

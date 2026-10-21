@@ -1,5 +1,7 @@
 # CODEX-55 — Bounded hosted staff Pass acceptance proposal
 
+Current status: owner approved the five-action packet. Repeated read-only preflight matches the state and bundle values below. The actual in-app site session still identifies EmailQA; Admin Hub correctly denies staff access. No Pass action has run. Owner site sign-in was requested as an access step only; no new approval is required for this same approved sequence. Do not use the separate Supabase dashboard login as an application staff session.
+
 Prepared October 21, 2026. Not executed. Owner's general launch-readiness direction does not authorize extra hosted reward grants. The remaining Pass workflow needs a specific economy/override QA decision and an actual owner/admin application session; do not bypass it with SQL or use legacy actor-targeted QA tools.
 
 Target only existing EmailQA, UUID15372f80-c560-4486-bf68-e997a73ac2b8. Current read-only preflight: Pass false, pass_source/pass_checked_at null, no staff override, daily/weekly claim timestamps null. Inventory300 coins;8 Poké Balls,5 Great,3 Ultra,10 berries,10 bait,0 lure; bag_bonus0. Existing UI capacity50 and current used36. Recheck actual UI/state immediately before each write and stop on changed target/configuration, missing authority or insufficient full-bundle space.

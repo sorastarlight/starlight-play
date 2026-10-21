@@ -8,9 +8,9 @@
       "status": "blocked",
       "scope": "Bounded hosted EmailQA staff Pass override/regrant acceptance",
       "evidence": "BOUNDED-PASS-QA.md",
-      "testResults": "Read-only exact target/bundle preflight;21 existing local staff module checks rerun pass with documented fixture limits. No hosted action.",
-      "nextAction": "Owner approval for five scoped actions and actual owner session, then verify exact outcomes and unchanged claim clocks/unrelated economy.",
-      "approvalRequirement": "Explicit hosted privileged override and reward-grant QA decision; no existing spent grant/catch allowances reused."
+      "testResults": "Packet approved. Exact preflight still matches. Actual in-app browser remains EmailQA and Admin Hub correctly denies staff access;no Pass action executed.21 local staff module checks pass with declared limits.",
+      "nextAction": "Await owner sign-in in the site in-app browser;five approved actions remain available. Access request sent;do not invent a staff session or use SQL to bypass authorization.",
+      "approvalRequirement": "Five-action packet explicitly approved;only authentication access is pending. No further approval needed for that same scope."
     },
     {
       "id": "CODEX-54",

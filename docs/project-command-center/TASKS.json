@@ -14,7 +14,7 @@
     },
     {
       "id": "CODEX-50",
-      "status": "blocked",
+      "status": "done",
       "scope": "Approved bounded EmailQA hosted Mart/evolution/Oak acceptance",
       "dependencies": [
         "CODEX-47",
@@ -24,7 +24,7 @@
       "commit": "d77bb3b9",
       "evidence": "BOUNDED-ECONOMY-QA.md;evidence/qa50-mart-purchase.json;evidence/qa50-gift-evolution.json",
       "testResults": "REAL DOM/SQL Mart purchase and audited15-candy gift PASS;one Caterpie→Metapod evolution PASS;level/IV/EV/nature/moves/stamp retained,15 candy spent once;Caterpie Familiar1 unchanged. Oak0 eligible/last-copy protection;not executed.",
-      "nextAction": "Correction installed; one additional Metapod gift succeeded. Await EmailQA sign-in for original level-6 Metapod Oak transfer; retain gifted level-5 copy.",
+      "nextAction": "Bounded packet complete: actual EmailQA Oak transfer succeeded once,2 Caterpie Candy granted (3 to5),original Familiarity unchanged, gifted level5 copy retained. Continue remaining launch readiness; no more gameplay implied.",
       "approvalRequirement": "One additional ordinary Metapod approved explicitly; original Oak transfer remains approved. No extra catches/evolutions or last-copy bypass."
     },
     {

@@ -1,0 +1,26 @@
+{
+  "classification": "REAL DOM authenticated EmailQA transfer and independent hosted SQL",
+  "migration": "20261021125125",
+  "giftRequest": "ff96d709-0029-4853-9b0e-5aef5a519eaf",
+  "reward": {
+    "after": 5,
+    "amount": 2,
+    "before": 3,
+    "family": 10
+  },
+  "oak_rows": 1,
+  "retained": true,
+  "familiarity": [
+    {
+      "dex": 10,
+      "catch_id": "875c6f48-60b3-42c8-b540-370407839281"
+    }
+  ],
+  "transferred": true,
+  "ui": {
+    "eligibleAfter": 0,
+    "sentToOak": 1,
+    "candyAfter": 5
+  },
+  "limits": "One successful additional Metapod gift and one original level-6 Metapod transfer. No extra encounter, transfer retry, refund, reset or stamp."
+}

@@ -33,3 +33,5 @@ CODEX-42 completion: legacy retirement milestone is closed; conservative evoluti
 CODEX-43: October30 new-table Data API grant readiness audited; existing required grants pass; future SQL access preflight integrated into build validation. See DATA-API-OCT30.md. Full schema reset/provisioning replay remains unverified.
 
 CODEX-46 bounded processing is approved and installed (20261021120836); three scheduled idle successes and data invariance verified. Remaining hosted gameplay/staff QA, Twitch provider QA, acceptance and final release checks still remain.
+
+CODEX-50 COMPLETE: actual EmailQA UI transferred original evolved Metapod875c6f48-60b3-42c8-b540-370407839281 once; SQL confirms transferred_at set,one Oak row,one OAK_TRANSFER+2 family10 ledger (3 to5). Gifted Lv5 Metapod9419c4d5-5fab-49ff-9632-5c89e6b8f97c retained;original Caterpie Familiarity event unchanged. Refreshed UI0 eligible/1 sent/5 candy confirms last-copy protection restored. Evidence:evidence/qa50-oak-completion.json. No extra encounter/refund/reset/stamp. Wider launch readiness remains open.

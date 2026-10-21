@@ -1,0 +1,137 @@
+[
+  {
+    "schema": "private",
+    "name": "lgpe_gender_rate",
+    "args": "p_dex integer",
+    "body_md5": "1a36d403ef1f50ed4e4841eb73d316ec",
+    "definition": "CREATE OR REPLACE FUNCTION private.lgpe_gender_rate(p_dex integer)\n RETURNS integer\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case\n    when p_dex between 1 and 151 then (ARRAY[\n      1,1,1,1,1,1,1,1,1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,8,8,0,0,0,6,6,6,6,6,6,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,2,2,4,4,4,2,2,2,2,2,2,4,4,4,4,4,4,4,4,4,4,4,4,-1,-1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,-1,-1,4,4,4,4,0,0,4,4,4,4,4,8,4,8,4,4,4,4,-1,-1,4,4,8,2,2,4,0,4,4,4,-1,1,1,1,1,-1,1,1,1,1,1,1,-1,-1,-1,4,4,4,-1,-1\n    ])[p_dex]\n    else 4\n  end;\n$function$\n",
+    "acl": null,
+    "prosecdef": false,
+    "proconfig": null,
+    "provolatile": "i"
+  },
+  {
+    "schema": "private",
+    "name": "lgpe_habitat",
+    "args": "p_dex integer",
+    "body_md5": "3023d8a828cee722b376447f8187c49a",
+    "definition": "CREATE OR REPLACE FUNCTION private.lgpe_habitat(p_dex integer)\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case\n    when p_dex between 1 and 9 then 'Pallet Town'\n    when p_dex in (10,11,12,13,14,15,25,26) then 'Viridian Forest'\n    when p_dex in (16,17,18,19,20) then 'Route 1'\n    when p_dex in (21,22,39,40) then 'Route 3'\n    when p_dex in (23,24,27,28) then 'Route 4'\n    when p_dex in (29,30,31,32,33,34,56,57) then 'Route 22'\n    when p_dex in (35,36,41,42,46,47,74,75,76) then 'Mt. Moon'\n    when p_dex in (37,38,58,59) then 'Route 7'\n    when p_dex in (43,44,45,69,70,71,48,49) then 'Route 2'\n    when p_dex in (50,51) then 'Diglett''s Cave'\n    when p_dex in (52,53) then 'Route 8'\n    when p_dex in (54,55,60,61,62,118,119,129,130) then 'Route 6'\n    when p_dex in (63,64,65,96,97) then 'Route 11'\n    when p_dex in (66,67,68,104,105,115) then 'Rock Tunnel'\n    when p_dex in (72,73,90,91,98,99,116,117,120,121) then 'Route 19'\n    when p_dex in (77,78,133,134) then 'Route 17'\n    when p_dex in (79,80,86,87,131,144) then 'Seafoam Islands'\n    when p_dex in (81,82,100,101,125,135,145) then 'Power Plant'\n    when p_dex in (83,84,85,123,143) then 'Route 12'\n    when p_dex in (88,89,109,110) then 'Pokémon Mansion'\n    when p_dex in (92,93,94) then 'Pokémon Tower'\n    when p_dex in (95,111,112,126,136,146) then 'Victory Road'\n    when p_dex in (102,103,147,148,149) then 'Safari Zone'\n    when p_dex in (106,107) then 'Saffron City'\n    when p_dex in (108,114,127,128) then 'Route 18'\n    when p_dex in (113,124) then 'Route 10'\n    when p_dex = 122 then 'Route 2'\n    when p_dex = 132 then 'Route 13'\n    when p_dex = 137 then 'Silph Co.'\n    when p_dex in (138,139,140,141,142) then 'Cinnabar Lab'\n    when p_dex = 150 then 'Cerulean Cave'\n    when p_dex = 151 then 'Faraway place'\n    else 'Kanto'\n  end;\n$function$\n",
+    "acl": null,
+    "prosecdef": false,
+    "proconfig": null,
+    "provolatile": "i"
+  },
+  {
+    "schema": "private",
+    "name": "lgpe_pick_moves",
+    "args": "p_dex integer, p_level integer",
+    "body_md5": "faa2757753e14d77b977086896cfbd9c",
+    "definition": "CREATE OR REPLACE FUNCTION private.lgpe_pick_moves(p_dex integer, p_level integer)\n RETURNS text[]\n LANGUAGE plpgsql\n STABLE\nAS $function$\ndeclare\n  picked text[];\nbegin\n  select coalesce(array_agg(x.n order by x.ord), '{}'::text[])\n    into picked\n    from (\n      select m->>'n' as n, row_number() over (order by coalesce((m->>'l')::int, 0) desc, m->>'n') as ord\n      from public.lgpe_species s\n      cross join lateral jsonb_array_elements(s.moves) m\n      where s.dex = p_dex\n        and coalesce(m->>'m', 'level-up') = 'level-up'\n        and coalesce((m->>'l')::int, 0) <= greatest(coalesce(p_level, 1), 1)\n      limit 4\n    ) x;\n  if coalesce(cardinality(picked), 0) = 0 then\n    select coalesce(array_agg(x.n order by x.ord), '{}'::text[])\n      into picked\n      from (\n        select m->>'n' as n, row_number() over (order by coalesce((m->>'l')::int, 0), m->>'n') as ord\n        from public.lgpe_species s\n        cross join lateral jsonb_array_elements(s.moves) m\n        where s.dex = p_dex\n        limit 4\n      ) x;\n  end if;\n  if coalesce(cardinality(picked), 0) = 0 then\n    picked := array['Tackle'];\n  end if;\n  return picked;\nend;\n$function$\n",
+    "acl": null,
+    "prosecdef": false,
+    "proconfig": null,
+    "provolatile": "s"
+  },
+  {
+    "schema": "private",
+    "name": "lgpe_stat",
+    "args": "p_base integer, p_iv integer, p_av integer, p_level integer, p_hp boolean",
+    "body_md5": "e3ec3d20ee4b5b593789f3447f746bd8",
+    "definition": "CREATE OR REPLACE FUNCTION private.lgpe_stat(p_base integer, p_iv integer, p_av integer, p_level integer, p_hp boolean)\n RETURNS integer\n LANGUAGE sql\n IMMUTABLE\nAS $function$\n  select case when p_hp\n    then floor(((2 * coalesce(p_base, 50) + coalesce(p_iv, 0) + coalesce(p_av, 0)) * coalesce(p_level, 1)) / 100.0)::int + coalesce(p_level, 1) + 10\n    else floor(((2 * coalesce(p_base, 50) + coalesce(p_iv, 0) + coalesce(p_av, 0)) * coalesce(p_level, 1)) / 100.0)::int + 5\n  end;\n$function$\n",
+    "acl": null,
+    "prosecdef": false,
+    "proconfig": null,
+    "provolatile": "i"
+  },
+  {
+    "schema": "private",
+    "name": "streamlink_hp_max",
+    "args": "p_base integer, p_iv integer, p_ev integer, p_level integer",
+    "body_md5": "6d49530a73138778cdc48cb6701475b7",
+    "definition": "CREATE OR REPLACE FUNCTION private.streamlink_hp_max(p_base integer, p_iv integer, p_ev integer, p_level integer)\n RETURNS integer\n LANGUAGE sql\n IMMUTABLE\n SET search_path TO 'pg_catalog'\nAS $function$\n  SELECT floor((2 * p_base + p_iv + floor(p_ev / 4.0)) * p_level / 100.0)::int + p_level + 10;\n$function$\n",
+    "acl": "{postgres=X/postgres}",
+    "prosecdef": false,
+    "proconfig": [
+      "search_path=pg_catalog"
+    ],
+    "provolatile": "i"
+  },
+  {
+    "schema": "private",
+    "name": "streamlink_level_up_slice",
+    "args": "p_content_build text, p_form_id integer, p_level integer",
+    "body_md5": "dda453431a59560c46fa9cb8fecfd159",
+    "definition": "CREATE OR REPLACE FUNCTION private.streamlink_level_up_slice(p_content_build text, p_form_id integer, p_level integer)\n RETURNS jsonb\n LANGUAGE sql\n STABLE\n SET search_path TO 'pg_catalog'\nAS $function$\n  WITH form AS (\n    SELECT learnset_version_group AS vg, learnset_status\n    FROM private.ref_forms WHERE content_build = p_content_build AND form_id = p_form_id\n  ),\n  ranked AS (\n    SELECT l.move_id, l.level, l.sort_order, m.slug, m.pp, f.vg,\n           row_number() OVER (ORDER BY l.level, l.sort_order, l.move_id) AS rn,\n           count(*) OVER () AS n\n    FROM form f\n    JOIN private.ref_learnsets l ON l.content_build = p_content_build AND l.form_id = p_form_id\n     AND l.version_group = f.vg AND l.method = 'level-up' AND l.level <= p_level\n    JOIN private.ref_moves m ON m.content_build = p_content_build AND m.move_id = l.move_id\n    WHERE f.learnset_status = 'resolved' AND f.vg IS NOT NULL\n  ),\n  last4 AS (SELECT * FROM ranked WHERE rn > n - 4)\n  SELECT coalesce(jsonb_agg(jsonb_build_object(\n    'moveId', move_id, 'pp', pp, 'ppMax', pp, 'method', 'level-up', 'versionGroup', vg, 'name', slug\n  ) ORDER BY level, sort_order, move_id), '[]'::jsonb)\n  FROM last4;\n$function$\n",
+    "acl": "{postgres=X/postgres}",
+    "prosecdef": false,
+    "proconfig": [
+      "search_path=pg_catalog"
+    ],
+    "provolatile": "s"
+  },
+  {
+    "schema": "private",
+    "name": "streamlink_next_public_id",
+    "args": "p_prefix text",
+    "body_md5": "04c1c8336b24494c5f132749de4bec2a",
+    "definition": "CREATE OR REPLACE FUNCTION private.streamlink_next_public_id(p_prefix text)\n RETURNS text\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\nDECLARE\n  prefix text := upper(coalesce(nullif(btrim(p_prefix), ''), 'SL'));\nBEGIN\n  IF prefix NOT IN ('SL', 'LG') THEN\n    RAISE EXCEPTION 'bad-public-id-prefix';\n  END IF;\n  RETURN prefix || lpad(nextval('public.catch_serial')::text, 8, '0');\nEND\n$function$\n",
+    "acl": "{postgres=X/postgres}",
+    "prosecdef": true,
+    "proconfig": [
+      "search_path=pg_catalog"
+    ],
+    "provolatile": "v"
+  },
+  {
+    "schema": "private",
+    "name": "streamlink_protected_trainer",
+    "args": "p_user_id uuid",
+    "body_md5": "0fa172fb089bf52959bbbbee3703ccdf",
+    "definition": "CREATE OR REPLACE FUNCTION private.streamlink_protected_trainer(p_user_id uuid)\n RETURNS boolean\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\nBEGIN\n  IF p_user_id IS NULL THEN\n    RETURN false;\n  END IF;\n  IF to_regclass('public.profiles') IS NULL THEN\n    RETURN false;\n  END IF;\n  RETURN EXISTS (\n    SELECT 1\n    FROM public.profiles p\n    WHERE p.id = p_user_id\n      AND (\n        lower(coalesce(p.twitch_login, '')) IN ('sorastarlight', 'twinklephoenixstar')\n        OR lower(coalesce(p.username, '')) IN ('sorastarlight', 'twinklephoenixstar')\n      )\n  );\nEND\n$function$\n",
+    "acl": "{postgres=X/postgres}",
+    "prosecdef": true,
+    "proconfig": [
+      "search_path=pg_catalog"
+    ],
+    "provolatile": "s"
+  },
+  {
+    "schema": "private",
+    "name": "streamlink_wire_is_enabled",
+    "args": "",
+    "body_md5": "aa1e54f33255ff249d809fdba2efbfb4",
+    "definition": "CREATE OR REPLACE FUNCTION private.streamlink_wire_is_enabled()\n RETURNS boolean\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\nDECLARE\n  v_on boolean;\nBEGIN\n  -- Intentionally ignore current_setting('starlight.wire_genval') and every\n  -- other GUC / client flag. Only the named switch table can enable WIRE.\n  SELECT s.enabled INTO v_on\n  FROM private.streamlink_wire_switch s\n  WHERE s.id = 1;\n  RETURN coalesce(v_on, false);\nEND\n$function$\n",
+    "acl": "{postgres=X/postgres}",
+    "prosecdef": true,
+    "proconfig": [
+      "search_path=pg_catalog"
+    ],
+    "provolatile": "s"
+  },
+  {
+    "schema": "public",
+    "name": "bridge_import_catches",
+    "args": "p_token text, p_catches jsonb",
+    "body_md5": "68dceb5714de0d669a65e4fde3e9a3a4",
+    "definition": "CREATE OR REPLACE FUNCTION public.bridge_import_catches(p_token text, p_catches jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare\n  rec record;\n  round_id uuid;\n  imported int := 0;\nbegin\n  if not private.bridge_ok(p_token) then\n    raise exception 'not allowed' using errcode = '42501';\n  end if;\n  update private.stream_bridge set seen_at = now() where id = 1;\n  for rec in select value from jsonb_array_elements(coalesce(p_catches, '[]'::jsonb)) as t(value)\n  loop\n    round_id := null;\n    if coalesce(rec.value->>'round', '') <> '' then\n      select id into round_id from public.encounter_rounds where source_id = 'mixitup:' || (rec.value->>'round');\n    end if;\n    if private.record_stream_catch(\n      rec.value->>'user', rec.value->>'name', nullif(rec.value->>'dex', '')::int,\n      coalesce(rec.value->>'species', rec.value->>'name'), coalesce(rec.value->>'variant', 'normal'),\n      coalesce(rec.value->>'gender', 'Unknown'), rec.value->>'ball', round_id,\n      coalesce(nullif(rec.value->>'id', ''), 'mixitup-catch:' || coalesce(rec.value->>'round', '') || ':' || coalesce(rec.value->>'user', '')),\n      nullif(rec.value->>'caughtAt', '')::timestamptz\n    ) then\n      imported := imported + 1;\n    end if;\n  end loop;\n  return jsonb_build_object('ok', true, 'imported', imported);\nend;\n$function$\n",
+    "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "prosecdef": true,
+    "proconfig": [
+      "search_path=public"
+    ],
+    "provolatile": "v"
+  },
+  {
+    "schema": "public",
+    "name": "bridge_publish",
+    "args": "p_token text, p_round jsonb",
+    "body_md5": "5b233fd0df065ae301c9efd570468455",
+    "definition": "CREATE OR REPLACE FUNCTION public.bridge_publish(p_token text, p_round jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\ndeclare\n  source_key text;\n  round_id uuid;\n  rec record;\n  v_phase text;\n  v_hidden boolean;\n  v_cancelled boolean;\n  v_resolved boolean;\n  existing public.encounter_rounds;\nbegin\n  if not private.bridge_ok(p_token) then\n    raise exception 'not allowed' using errcode = '42501';\n  end if;\n  update private.stream_bridge set seen_at = now() where id = 1;\n  perform private.settle_due_rounds();\n  if p_round is null or coalesce(p_round->>'id', '') = '' then\n    update public.encounter_rounds\n      set hidden = true, phase = 'closed', last_action = coalesce(p_round->>'lastAction', last_action), updated_at = now()\n      where source = 'mixitup'\n        and coalesce(cancelled, false) = false\n        and paused_at is null\n        and coalesce(resolved, false) = true\n        and phase <> 'closed'\n        and (\n          deadlines is null\n          or coalesce((deadlines->>'reveal')::timestamptz, '-infinity'::timestamptz) <= now()\n        );\n    return jsonb_build_object('ok', true);\n  end if;\n  source_key := 'mixitup:' || (p_round->>'id');\n  select * into existing from public.encounter_rounds where source_id = source_key;\n  v_phase := coalesce(p_round->>'phase', 'closed');\n  v_cancelled := coalesce((p_round->>'cancelled')::boolean, false);\n  v_resolved := coalesce((p_round->>'resolved')::boolean, false);\n  v_hidden := coalesce((p_round->>'hidden')::boolean, false);\n  if not v_cancelled then\n    v_hidden := false;\n  end if;\n  if existing.paused_at is not null and not v_cancelled and not v_resolved then\n    return jsonb_build_object('ok', true, 'id', existing.id, 'paused', true);\n  end if;\n  insert into public.encounter_rounds (\n    source_id, source, phase, hidden, pokemon, dex, name, variant, gender,\n    started_at, deadlines, rules, resolved, cancelled, last_action, ends_at, players\n  ) values (\n    source_key, 'mixitup', v_phase,\n    v_hidden,\n    jsonb_build_object('dex', (p_round->>'dex')::int, 'name', p_round->>'name', 'variant', coalesce(p_round->>'variant', 'normal'), 'gender', coalesce(p_round->>'gender', 'Unknown')),\n    nullif(p_round->>'dex', '')::int, p_round->>'name', coalesce(p_round->>'variant', 'normal'), coalesce(p_round->>'gender', 'Unknown'),\n    nullif(p_round->>'startedAt', '')::timestamptz, p_round->'deadlines', p_round->'rules',\n    v_resolved, v_cancelled,\n    coalesce(p_round->>'lastAction', ''), nullif(p_round->>'endsAt', '')::timestamptz, '{}'::jsonb\n  )\n  on conflict (source_id) do update set\n    source = 'mixitup',\n    phase = excluded.phase,\n    hidden = excluded.hidden, pokemon = excluded.pokemon,\n    dex = excluded.dex, name = excluded.name, variant = excluded.variant, gender = excluded.gender,\n    started_at = coalesce(public.encounter_rounds.started_at, excluded.started_at),\n    deadlines = case\n      when private.deadlines_complete(public.encounter_rounds.deadlines) then public.encounter_rounds.deadlines\n      else coalesce(excluded.deadlines, public.encounter_rounds.deadlines)\n    end,\n    rules = excluded.rules,\n    resolved = case\n      when public.encounter_rounds.deadlines is not null\n           and now() < coalesce((public.encounter_rounds.deadlines->>'throw')::timestamptz, now())\n           and not excluded.cancelled\n        then public.encounter_rounds.resolved\n      else excluded.resolved or public.encounter_rounds.resolved\n    end,\n    cancelled = excluded.cancelled,\n    last_action = case\n      when excluded.last_action is null or btrim(excluded.last_action) = '' then public.encounter_rounds.last_action\n      when excluded.last_action ~* 'joined'\n           and exists (\n             select 1 from public.encounter_players ep\n             where ep.round_id = public.encounter_rounds.id\n               and (ep.prep is not null or ep.ball is not null)\n           )\n           and not v_cancelled then public.encounter_rounds.last_action\n      when exists (\n        select 1 from public.encounter_players ep\n        where ep.round_id = public.encounter_rounds.id and ep.ball is not null\n      ) and excluded.last_action ~* 'berry|honey|bait' and not v_resolved then public.encounter_rounds.last_action\n      else excluded.last_action\n    end,\n    paused_at = case\n      when excluded.cancelled or (\n        excluded.resolved\n        and (\n          public.encounter_rounds.deadlines is null\n          or now() >= coalesce((public.encounter_rounds.deadlines->>'throw')::timestamptz, now())\n        )\n      ) then null\n      else public.encounter_rounds.paused_at\n    end,\n    ends_at = excluded.ends_at, updated_at = now()\n  returning id into round_id;\n  select * into existing from public.encounter_rounds where id = round_id;\n  existing := coalesce(private.settle_if_needed(existing), existing);\n  if v_resolved then\n    for rec in select value from jsonb_array_elements(coalesce(p_round->'results', '[]'::jsonb)) as t(value)\n    loop\n      if coalesce((rec.value->>'caught')::boolean, false) then\n        perform private.record_stream_catch(\n          rec.value->>'user', rec.value->>'name', nullif(p_round->>'dex', '')::int, p_round->>'name',\n          coalesce(p_round->>'variant', 'normal'), coalesce(p_round->>'gender', 'Unknown'), rec.value->>'ball',\n          round_id, 'mixitup:' || (p_round->>'id') || ':' || coalesce(rec.value->>'user', rec.value->>'name', ''), now()\n        );\n      end if;\n    end loop;\n  end if;\n  return jsonb_build_object('ok', true, 'id', round_id);\nend;\n$function$\n",
+    "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "prosecdef": true,
+    "proconfig": [
+      "search_path=public"
+    ],
+    "provolatile": "v"
+  }
+]

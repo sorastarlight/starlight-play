@@ -7,3 +7,5 @@ Reward data, amounts, queue ordering, persistence, staff permissions and server 
 LOCAL/STATIC:19 presenter,6 RC127,6 RC128 and7 RC129 checks pass;build31HTML/463first-party refs passes with APP20261008-rc133 unchanged;git diff check clean. REAL DOM isolated preview: both dialogs render/dismiss, opener focus restored;390px frame achievement with reduced-motion selected has no document-wide horizontal overflow. Desktop screenshots captured for both. This is frame-based responsive evidence, not physical phone certification or a new earned-reward test.
 
 Review tools/milestone-review.html (no Auth/client/backend imports) and tools/milestone-layout-review.html. Broader launch gates remain in LAUNCH-READINESS.md. Sora/Twinkle not mutation targets;no further gameplay,SQL,reset,spending or stamp.
+
+Publication verified:b7faab18,Pages39643145073 succeeded.26/26 selected public files match checkout. Actual hosted isolated review renders History Ribbon/name,Linking Cord sprite/friendly name,and one achievement heading;preview grants nothing. Both level and achievement checked at390px with static preference. Existing cached game tabs may need reload;APP stamp remains held.

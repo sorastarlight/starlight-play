@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-21T16:35:59.850Z",
+  "checkedAt": "2026-10-21T17:23:21.917Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -15,16 +15,16 @@
       "file": "signin.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "b182aaceef4c9e1981a27f591380949db921ed7f5c2ee9179b25b98ea17732a6",
-      "publishedSha256": "b182aaceef4c9e1981a27f591380949db921ed7f5c2ee9179b25b98ea17732a6",
+      "localSha256": "d310980fb584266ad2f91c0c9649a761b320640caca71fb5be522e93b11156b1",
+      "publishedSha256": "d310980fb584266ad2f91c0c9649a761b320640caca71fb5be522e93b11156b1",
       "matches": true
     },
     {
       "file": "register.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "c98630383eba5bed379a491790fbf062ab76b0777bb6564e33b8a77bbda391ba",
-      "publishedSha256": "c98630383eba5bed379a491790fbf062ab76b0777bb6564e33b8a77bbda391ba",
+      "localSha256": "206db25f15b8ab8f10edc37273b1d65ac0e2e202dec2d68fbcba5b2f73e8a49b",
+      "publishedSha256": "206db25f15b8ab8f10edc37273b1d65ac0e2e202dec2d68fbcba5b2f73e8a49b",
       "matches": true
     },
     {
@@ -47,32 +47,32 @@
       "file": "help.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "4379dfa8fd4776914ec597e7107b9aa50b8483a3e6677c82498222914d6cda65",
-      "publishedSha256": "4379dfa8fd4776914ec597e7107b9aa50b8483a3e6677c82498222914d6cda65",
+      "localSha256": "eb8ab5a58f0ab879ad88122c6615c39fd264807a668ee100398c4ae09d2d317b",
+      "publishedSha256": "eb8ab5a58f0ab879ad88122c6615c39fd264807a668ee100398c4ae09d2d317b",
       "matches": true
     },
     {
       "file": "storage.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "bbd78bc639c69ea7acf8eddd263f5b77bebf7722ddaa8c0896d0c6ce1aabb4f7",
-      "publishedSha256": "bbd78bc639c69ea7acf8eddd263f5b77bebf7722ddaa8c0896d0c6ce1aabb4f7",
+      "localSha256": "d8aab911f408ae30ece8f1f7b44c5ffa78f3852b667ebed3e45999cae50b3073",
+      "publishedSha256": "d8aab911f408ae30ece8f1f7b44c5ffa78f3852b667ebed3e45999cae50b3073",
       "matches": true
     },
     {
       "file": "pokedex.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "7499d766306ef6593244c98a8a308d277db9875b311f237432c90a3e16bfbb1e",
-      "publishedSha256": "7499d766306ef6593244c98a8a308d277db9875b311f237432c90a3e16bfbb1e",
+      "localSha256": "f6a8497c759fb261ee69b88acfe46c7f9067de3bf2e434e9a027c7499ece7803",
+      "publishedSha256": "f6a8497c759fb261ee69b88acfe46c7f9067de3bf2e434e9a027c7499ece7803",
       "matches": true
     },
     {
       "file": "inventory.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "9634b26ad4df211137618408d12bc6d3286b33d315ed14c628b6e47c23e23d1d",
-      "publishedSha256": "9634b26ad4df211137618408d12bc6d3286b33d315ed14c628b6e47c23e23d1d",
+      "localSha256": "c010de4676d7dfad9c4945fb7fb915eb6d44778027227f548cf9128662e8c559",
+      "publishedSha256": "c010de4676d7dfad9c4945fb7fb915eb6d44778027227f548cf9128662e8c559",
       "matches": true
     },
     {
@@ -103,32 +103,32 @@
       "file": "evolve.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "2e1ac3a583a4d09469b350e564738486250545aad809e39ce9e1363ea3192d60",
-      "publishedSha256": "2e1ac3a583a4d09469b350e564738486250545aad809e39ce9e1363ea3192d60",
+      "localSha256": "8eb6850fc174ad85bc38e904b6f8706633041aad71ed8365671b6832546c4d5b",
+      "publishedSha256": "8eb6850fc174ad85bc38e904b6f8706633041aad71ed8365671b6832546c4d5b",
       "matches": true
     },
     {
       "file": "store.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "148df0e539acc1a28c83a7ab3e518f10e399aa44ad0354708cceaa151517c0b9",
-      "publishedSha256": "148df0e539acc1a28c83a7ab3e518f10e399aa44ad0354708cceaa151517c0b9",
+      "localSha256": "eb4e7f5970626ffa0a8d1a066da9a36048be1634fdeffcf617eef5d0fb522f68",
+      "publishedSha256": "eb4e7f5970626ffa0a8d1a066da9a36048be1634fdeffcf617eef5d0fb522f68",
       "matches": true
     },
     {
       "file": "trade.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "decc815378162a6c1c41df43964479c4c6a219fb940c4ddfde26ed01b29514b8",
-      "publishedSha256": "decc815378162a6c1c41df43964479c4c6a219fb940c4ddfde26ed01b29514b8",
+      "localSha256": "25a12e86c59d650f5c26492765f0b195292b46495af147c357bcfcbbe9bf95a8",
+      "publishedSha256": "25a12e86c59d650f5c26492765f0b195292b46495af147c357bcfcbbe9bf95a8",
       "matches": true
     },
     {
       "file": "events.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "7042170b1f41a35bfaf673bd66766e4a055b1cf2508f6aef7387e57f30f78bf9",
-      "publishedSha256": "7042170b1f41a35bfaf673bd66766e4a055b1cf2508f6aef7387e57f30f78bf9",
+      "localSha256": "69a4c7e1b393430a610481b4b073a3f28a77d562368a2ef06fb048b876ed2daa",
+      "publishedSha256": "69a4c7e1b393430a610481b4b073a3f28a77d562368a2ef06fb048b876ed2daa",
       "matches": true
     },
     {
@@ -151,8 +151,8 @@
       "file": "css/play.css",
       "status": 200,
       "contentType": "text/css; charset=utf-8",
-      "localSha256": "10438236d2dfdaa2bb8d137dadcac3b27e13bbb89e11e1b13ffbdbf7bf2a1440",
-      "publishedSha256": "10438236d2dfdaa2bb8d137dadcac3b27e13bbb89e11e1b13ffbdbf7bf2a1440",
+      "localSha256": "72b2f785464e9fb489b89ef48d85396ee05c4ba08f410655a13be26d2e42b0c1",
+      "publishedSha256": "72b2f785464e9fb489b89ef48d85396ee05c4ba08f410655a13be26d2e42b0c1",
       "matches": true
     },
     {

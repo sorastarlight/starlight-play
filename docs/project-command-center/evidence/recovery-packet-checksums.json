@@ -1,0 +1,76 @@
+{
+  "classification": "LOCAL repository byte inventory;not hosted replay/restore",
+  "checkedAt": "2026-10-21T15:20:19.9207097Z",
+  "results": [
+    {
+      "version": "20261021113931",
+      "path": "supabase/unapplied/launch-selftest-retirement/INSTALL.sql",
+      "expectedSha256": "9fe22f01db742aa533ec870328229479cf995c812022618b5d63f98105cb0273",
+      "actualSha256": "9fe22f01db742aa533ec870328229479cf995c812022618b5d63f98105cb0273",
+      "matches": true
+    },
+    {
+      "version": "20261021115744",
+      "path": "supabase/unapplied/familiarity-capture-identity/INSTALL.sql",
+      "expectedSha256": "1a13a5e62eafa0d78b44857e31fcbc20729adc9e173a83c919ea58a277eb8778",
+      "actualSha256": "1a13a5e62eafa0d78b44857e31fcbc20729adc9e173a83c919ea58a277eb8778",
+      "matches": true
+    },
+    {
+      "version": "20261021120836",
+      "path": "supabase/unapplied/familiarity-worker/ACTIVATE.sql",
+      "expectedSha256": "b93e053c4fb178d37862bf2f3ef17e2bf9a3ecf3c17d9e8fcf8be62f59f163b8",
+      "actualSha256": "b93e053c4fb178d37862bf2f3ef17e2bf9a3ecf3c17d9e8fcf8be62f59f163b8",
+      "matches": true
+    },
+    {
+      "version": "20261021122347",
+      "path": "supabase/unapplied/heartbeat-clock/INSTALL.sql",
+      "expectedSha256": "796b534558e2a4b09d45dce4fc49ce492989840dcd034b5420c76d84776c71ae",
+      "actualSha256": "796b534558e2a4b09d45dce4fc49ce492989840dcd034b5420c76d84776c71ae",
+      "matches": true
+    },
+    {
+      "version": "20261021125125",
+      "path": "supabase/unapplied/distinct-generated-moves/INSTALL.sql",
+      "expectedSha256": "57d74bc9fdedd0d44909a34fc3f3c21d2046a1fe8babfdda802dff1756fa7914",
+      "actualSha256": "57d74bc9fdedd0d44909a34fc3f3c21d2046a1fe8babfdda802dff1756fa7914",
+      "matches": true
+    },
+    {
+      "version": "20261021132411",
+      "path": "supabase/unapplied/optional-living-dex/INSTALL.sql",
+      "expectedSha256": "a9cd2a02142c438c7cd0a08ce60ae7ce0fb07444d1c974c0c0157e9a4b5d7916",
+      "actualSha256": "a9cd2a02142c438c7cd0a08ce60ae7ce0fb07444d1c974c0c0157e9a4b5d7916",
+      "matches": true
+    },
+    {
+      "version": "20261021133711",
+      "path": "supabase/unapplied/direct-trade-validation/INSTALL.sql",
+      "expectedSha256": "82b0f89067794b3f8871c5430dcb19f9bfcdbea90422488bd36821f703348e0c",
+      "actualSha256": "82b0f89067794b3f8871c5430dcb19f9bfcdbea90422488bd36821f703348e0c",
+      "matches": true
+    },
+    {
+      "version": "20261021142149",
+      "path": "supabase/unapplied/trainer-search-bound/INSTALL.sql",
+      "expectedSha256": "bf1658d4ed844f4dc4bbe9826de2851769b614eff8907f974f3015905bff7741",
+      "actualSha256": "bf1658d4ed844f4dc4bbe9826de2851769b614eff8907f974f3015905bff7741",
+      "matches": true
+    },
+    {
+      "version": "20261021142149",
+      "path": "supabase/unapplied/showcase-active-ownership/INSTALL.sql",
+      "expectedSha256": "012faf7a6455ecf63e54a0be79b05b4dcd29419f62d5818d8a34e7aff1013956",
+      "actualSha256": "012faf7a6455ecf63e54a0be79b05b4dcd29419f62d5818d8a34e7aff1013956",
+      "matches": true
+    },
+    {
+      "version": "20261021142746",
+      "path": "supabase/unapplied/gts-final-cooldown/INSTALL.sql",
+      "expectedSha256": "be0baaba57dee42b6d17b7f3c3a4bf7f87902fe1152e69c1a345b46796753dcc",
+      "actualSha256": "be0baaba57dee42b6d17b7f3c3a4bf7f87902fe1152e69c1a345b46796753dcc",
+      "matches": true
+    }
+  ]
+}

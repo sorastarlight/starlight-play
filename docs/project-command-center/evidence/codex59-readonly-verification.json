@@ -1,0 +1,34 @@
+{
+  "classification": "REAL hosted read-only contract and cancellation observations; no hosted mutation",
+  "emailqa": [
+    {
+      "verification": {
+        "inventory": {
+          "bait": 11,
+          "lure": 1,
+          "berry": 15,
+          "coins": 470,
+          "pokeball": 13,
+          "bag_bonus": 0
+        },
+        "staffActions": 8,
+        "latestStaffAction": "2026-10-21T14:06:45.052408+00:00"
+      }
+    }
+  ],
+  "dataApi": [
+    {
+      "verification": {
+        "checked": 15,
+        "missing": [],
+        "public_schema_usage": {
+          "anon": true,
+          "service_role": true,
+          "authenticated": true
+        },
+        "required_tables_without_rls": [],
+        "familiarity_view_security_invoker": true
+      }
+    }
+  ]
+}

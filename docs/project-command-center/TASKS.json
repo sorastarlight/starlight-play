@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-59",
+      "status": "done",
+      "scope": "Cancellation-only keyboard acceptance, recovery checksum validation and operator runbook",
+      "evidence": "PLAYER-ACCEPTANCE-CODEX59.md; RECOVERY-VALIDATION-RUNBOOK.md; evidence/recovery-packet-checksums.json; evidence/codex59-readonly-verification.json",
+      "testResults": "REAL hosted constrained-desktop picker name/dex search, Escape cancellation and focus restoration verified without submit;EmailQA latest receipt/inventory unchanged.10 repository packet hashes match;live15-privilege Data API contract passes. No mobile/zoom/motion/full-restore certification.",
+      "nextAction": "Continue independent acceptance/security work. Actual restore target/method,provider/two-party QA,mobile/zoom/motion and final owner release review remain open;runbook does not authorize restore/export/spending.",
+      "approvalRequirement": "No new decision for completed read-only/cancellation scope. Hosted restore or new gameplay requires separate concrete approval."
+    },
+    {
       "id": "CODEX-58",
       "status": "done",
       "scope": "Recheck existing received-Pokemon cooldown at final GTS acceptance",

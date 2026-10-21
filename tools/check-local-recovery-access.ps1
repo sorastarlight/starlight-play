@@ -13,7 +13,7 @@ if (!$acl.AreAccessRulesProtected) { throw 'Recovery workspace must disable inhe
 foreach ($rule in $acl.Access) {
   if ($rule.AccessControlType -eq 'Allow' -and $rule.IdentityReference.Translate([Security.Principal.SecurityIdentifier]).Value -notin $allowed) { throw 'Unexpected workspace access principal.' }
 }
-$secret = Get-Content -LiteralPath $credentialFile -Raw | ConvertTo-SecureString
+$secret = (Get-Content -LiteralPath $credentialFile -Raw).Trim() | ConvertTo-SecureString
 $secretPointer = [IntPtr]::Zero
 try {
   $secretPointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secret)

@@ -1,6 +1,6 @@
 # Human-run access step only. Does not export data, reset a password or change Supabase.
 [CmdletBinding()]
-param([switch]$CheckOnly)
+param([switch]$CheckOnly,[switch]$ReplaceStoredCredential)
 $ErrorActionPreference = 'Stop'
 $recoveryRoot = Join-Path $env:LOCALAPPDATA 'PokemonStreamLink\recovery\codex65-20261021'
 $recoverySid = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
@@ -26,12 +26,17 @@ Write-Host "Recovery workspace: $recoveryRoot"
 Write-Host "Computer: $env:COMPUTERNAME; Windows account: $([Security.Principal.WindowsIdentity]::GetCurrent().Name)"
 if ($CheckOnly) { Write-Host 'Restricted workspace check passed. No credential requested or stored.'; return }
 $credentialFile = Join-Path $recoveryRoot 'database-password.dpapi'
-if (Test-Path -LiteralPath $credentialFile) { throw 'A credential file already exists; do not overwrite it.' }
+if ((Test-Path -LiteralPath $credentialFile) -and !$ReplaceStoredCredential) { throw 'A credential file already exists. Use -ReplaceStoredCredential only to correct a rejected local value.' }
 Write-Host 'Enter the EXISTING starlight-play database password locally. Do not paste it into chat.'
+Write-Host 'Use the database password, not your website/Supabase account password or API key. Enter it literally, without URL encoding.'
 Write-Host 'This only stores a current-Windows-user DPAPI-protected credential outside Git. No database call runs.'
 $databaseSecret = Read-Host 'Existing database password (blank cancels)' -AsSecureString
 if ($databaseSecret.Length -eq 0) { throw 'Cancelled; no credential stored.' }
 try {
+  if (Test-Path -LiteralPath $credentialFile) {
+    $previousFile = Join-Path $recoveryRoot ('database-password.previous-' + [DateTime]::UtcNow.ToString('yyyyMMddHHmmssfffffff') + '.dpapi')
+    Copy-Item -LiteralPath $credentialFile -Destination $previousFile -ErrorAction Stop
+  }
   $databaseSecret | ConvertFrom-SecureString | Set-Content -LiteralPath $credentialFile -Encoding ASCII
   Write-Host 'Protected credential saved. Tell Codex the local access step is ready; do not send the password.'
 } finally { $databaseSecret.Dispose() }

@@ -20,7 +20,8 @@ async function main() {
   }
   if (!process.env.CODEX65_DB_PASSWORD) throw new Error('NATIVE_DUMP_CREDENTIAL_UNAVAILABLE');
   const { Client } = require(path.join(moduleRoot, 'pg'));
-  const client = new Client({host:'aws-0-us-west-1.pooler.supabase.com',port:5432,database:'postgres',user:'postgres.'+ref,password:process.env.CODEX65_DB_PASSWORD,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000,statement_timeout:10000,application_name:'codex65-readonly-preflight'});
+  const ca = fs.readFileSync(path.join(workspace, 'supabase-ca.crt'), 'utf8');
+  const client = new Client({host:'aws-0-us-west-1.pooler.supabase.com',port:5432,database:'postgres',user:'postgres.'+ref,password:process.env.CODEX65_DB_PASSWORD,ssl:{ca,rejectUnauthorized:true},connectionTimeoutMillis:10000,statement_timeout:10000,application_name:'codex65-readonly-preflight'});
   try {
     await client.connect();
     await client.query('BEGIN READ ONLY');

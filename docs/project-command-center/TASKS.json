@@ -9,7 +9,7 @@
       "scope": "Approved isolated local logical recovery drill",
       "evidence": "RECOVERY-DRILL-CODEX65.md;RECOVERY-DRILL-LOCAL-PROPOSAL.md",
       "testResults": "Restricted outside-Git workspace ACL verified user+SYSTEM;PG17.11 tools verified versus source17.6;offline native preflight passes;PowerShell helpers parse. Catalog-only sensitive-token omission inventory prepared. No private rows exported or runtime started.",
-      "nextAction": "Human supplies existing DB password through secure local DPAPI helper;then native read-only probe and exact filtered export/restore preparation. Do not request duplicate approval or reset password.",
+      "nextAction": "Await human corrected existing DB credential via secure local helper -ReplaceStoredCredential. Native TLS verified with official CA;server28P01 rejected authentication;dashboard endpoint/user independently match. No export/runtime/no password reset.",
       "approvalRequirement": "Bounded local drill approved. Missing native credential is access step;no spending/hosted restore/production changes allowed."
     },
     {

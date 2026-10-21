@@ -1,0 +1,19 @@
+# CODEX-65 — Approved local recovery drill preflight
+
+Owner explicitly approved the bounded local drill/private application and Auth user data copy proposed in RECOVERY-DRILL-LOCAL-PROPOSAL.md. No export/restore has run yet. Native database access is the current hold;approval is already recorded and must not be requested again for the same scope.
+
+Restricted workspace prepared outside Git under current Windows LocalAppData/PokemonStreamLink/recovery/codex65-20261021. ACL inheritance disabled;only current user and SYSTEM have access. Metadata only so far,no production data files or runtime. Initial icacls grant failed because SID syntax lacked its literal-SID prefix;corrected before writing metadata,then ACL verified.
+
+Native PostgreSQL17.11 tools already installed at C:/Program Files/PostgreSQL/17/bin;production server17.6. No new server service or cluster started. Existing rehearsal harness was18;its runtime is not used for this drill. A pinned npm17.6 wrapper/pg driver was staged in gitignored cache during discovery;its embedded distribution lacks pg_dump,so the installed matching-major tools are selected instead. Offline tool/project/outside-Git preflight passes.
+
+Linked pooler endpoint pins dtflmlbjhttoewqgkujf,session port5432. No embedded DB password,PGPASSWORD/database URL environment or pgpass file found. Existing .env.local contains API/service-role configuration only;no values read or logged. API credentials are not substituted for database credentials. No password reset or hosted-role change is permitted as an access shortcut.
+
+Human access helper:tools/prepare-local-recovery-access.ps1. It prompts via Read-Host -AsSecureString and stores a current-user DPAPI blob in the restricted directory. No connection/export is performed. tools/check-local-recovery-access.ps1 verifies ACL,loads the protected credential only into its child process environment,and clears it/BSTR afterward. tools/local-recovery-preflight.js pins project/host/user,TLS verification,10-second limits and a READ ONLY transaction;prints only safe status/version. Never print/decrypt the credential through a tool response. PowerShell helpers parse;offline Node preflight passes. Native connection remains untested until human access step is ready.
+
+## Export exclusions discovered before any copy
+
+Catalog names only inspected,no row/secret values. auth.users itself has confirmation/recovery/email-change/phone-change/reauthentication token columns. Therefore merely excluding auth.sessions/refresh_tokens is insufficient. Do not pg_dump raw auth.users data. A separately reviewed column-selective export must omit those fields at source while retaining approved password hashes. Also omit live session/refresh/one-time/flow/OAuth authorization state,MFA credentials/recovery material,custom provider secrets and Vault data.
+
+Private stream_bridge contains eventsub_secret,github_token,token_hash,twitch_client_secret;private twitch_ad_auth contains access_token. Omit their table data rather than copying provider credentials. Record all omissions and resulting coverage limits;do not fabricate credential replacements. Preserve runtime/job definitions only inertly,without installing/activating pg_cron/Vault/network integrations. Stop on unexpected sensitive columns or unresolved dependencies before exporting anything.
+
+Next after human access:run native read-only probe,prepare/review exact schema/data commands and source-side filtering manifest,prove filtering/isolation with fictional local data,then execute approved bounded export/restore only if every guard passes. No schema-only or synthetic test will be reported as a completed production recovery. Physical-backup recovery remains a separate unverified limitation.

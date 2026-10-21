@@ -217,3 +217,5 @@ CODEX-60 VERIFIED: owner approved both protections; migration20261021161057 inst
 CODEX-63 complete: requested level-up/achievement fanfare and deduplicated copy;illustrated reward cards and missing ribbon assets wired.38 checks/build,actual isolated desktop/390px/reduced-motion review passed. See MILESTONE-CELEBRATIONS-CODEX63.md.
 
 CODEX-64 complete:read-only security spot review and actual GTS/Inventory390/768/1280 acceptance,search/itemdetail without itemuse. Recovery physical clone runtime hazard documented;local logical drill proposal awaits important owner decision.
+
+CODEX-65 approved local logical drill in progress:restricted workspace/tooling/offline preflight prepared,secret-column catalog reviewed. No export/runtime. Await human secure existing-database-password access step;no new approval needed.

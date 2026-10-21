@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-65",
+      "status": "in_progress",
+      "scope": "Approved isolated local logical recovery drill",
+      "evidence": "RECOVERY-DRILL-CODEX65.md;RECOVERY-DRILL-LOCAL-PROPOSAL.md",
+      "testResults": "Restricted outside-Git workspace ACL verified user+SYSTEM;PG17.11 tools verified versus source17.6;offline native preflight passes;PowerShell helpers parse. Catalog-only sensitive-token omission inventory prepared. No private rows exported or runtime started.",
+      "nextAction": "Human supplies existing DB password through secure local DPAPI helper;then native read-only probe and exact filtered export/restore preparation. Do not request duplicate approval or reset password.",
+      "approvalRequirement": "Bounded local drill approved. Missing native credential is access step;no spending/hosted restore/production changes allowed."
+    },
+    {
       "id": "CODEX-64",
       "status": "done",
       "scope": "Additional read-only security,actual player responsive acceptance and recovery review",

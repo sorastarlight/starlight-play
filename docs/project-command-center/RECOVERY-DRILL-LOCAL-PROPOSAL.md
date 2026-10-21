@@ -1,6 +1,6 @@
 # Proposed isolated local recovery drill
 
-Decision pending. Current daily-backup loss-window policy is accepted;this proposal concerns actual recovery evidence and moving private data to a local test database. No export/restore/provisioning has run.
+APPROVED by owner for the bounded local recovery drill. Native dump credential access is pending;no export/restore/provisioning has run. See RECOVERY-DRILL-CODEX65.md. Current daily-backup loss-window policy remains accepted;this approval concerns local logical recovery evidence and the specified private data copy,not hosted restore or spending.
 
 ## Recommended bounded method
 

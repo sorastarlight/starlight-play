@@ -1,6 +1,15 @@
 (() => {
   const supabase = window.playSupabase;
-  const familiarity = window.PlaySpeciesFamiliarity.create(supabase);
+  // Older cached HTML may not include the new reader yet. Keep storage usable.
+  const familiarityApi = window.PlaySpeciesFamiliarity;
+  const familiarity = familiarityApi?.create(supabase) || {
+    reset() {},
+    get() { return { status: "unavailable" }; },
+    load() { return Promise.resolve({ status: "unavailable" }); }
+  };
+  const familiarityPresentation = (state) => familiarityApi?.presentation(state) || {
+    label: "Unavailable", note: "Refresh to try loading your Familiarity progress again."
+  };
   const els = {
     gate: document.getElementById("gate"),
     app: document.getElementById("box-app"),
@@ -364,7 +373,7 @@
     const otName = mon.otName || "Unknown Trainer";
     const otNo = mon.otNumber ? String(mon.otNumber).padStart(5, "0") : "-----";
     const art = pcStyle(mon, "inspect");
-    const familiarityCopy = window.PlaySpeciesFamiliarity.presentation(familiarity.get(Number(mon.dex)));
+    const familiarityCopy = familiarityPresentation(familiarity.get(Number(mon.dex)));
     const tradeDisabled = mon.listed || mon.locked || mon.favorite || mon.tradable === false;
     const oakDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite || oakBusy;
     const releaseDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite;
@@ -446,7 +455,7 @@
 
     familiarity.load(Number(mon.dex)).then((state) => {
       if (state.status === "stale" || String(lastDetailId) !== String(mon.id) || !data) return;
-      const copy = window.PlaySpeciesFamiliarity.presentation(state);
+      const copy = familiarityPresentation(state);
       const value = els.detail.querySelector(".pc-familiarity-value");
       const note = els.detail.querySelector(".pc-familiarity-note");
       if (value) value.textContent = copy.label;

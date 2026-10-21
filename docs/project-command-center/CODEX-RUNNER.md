@@ -66,3 +66,5 @@ CODEX-46,2026-10-21: bounded Familiarity worker activation/stop/health packets p
 
 
 CODEX-46 VERIFIED,2026-10-21: owner approved bounded worker activation. Migration20261021120836 installed exact owner-only worker and job3 streamlink-species-familiarity, once/minute,25 reconcile+25 deliver. Scheduled idle runs12:09/12:10/12:11 UTC succeeded; exact source/ACL/command verified;15 protected dataset hashes unchanged and existing retention jobs intact. No new gameplay, reset or APP stamp. See evidence/familiarity-worker-hosted-verification.json and supabase/unapplied/familiarity-worker/README.md.
+
+CODEX-47/48,2026-10-21: read-only PC Familiarity published7e4ef360 (79 suites/build31/424); current watch-credit heartbeat defect reproduced with actual source in isolated SQL. Guarded server-time correction/rollback passes15 local SQL checks, uninstalled pending progression decision. See PC-FAMILIARITY-AND-HEARTBEAT-REVIEW.md and supabase/unapplied/heartbeat-clock/README.md. No new hosted gameplay/staff action/reset/stamp.

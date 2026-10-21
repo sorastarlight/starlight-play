@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-21T12:19:27.869Z",
+  "classification": "REAL LOCAL SQL: exact hosted baseline heartbeat and proposed function; fictional schema and XP/snapshot fixtures; no hosted mutation",
+  "checks": [
+    "Baseline defect:40 immediate requests create1800 watch seconds and10 XP in one transaction",
+    "Guarded install accepts exact baseline source and permissions",
+    "Proposed body caps the identical burst at20 actual elapsed seconds",
+    "First heartbeat establishes time without inventing credit",
+    "Ordinary20-second interval crosses existing180-second XP threshold once",
+    "Long absence and huge request retain existing45-second ceiling",
+    "Null/negative request never adds watch time",
+    "Future timestamp cannot earn credit or be rewound",
+    "Offline stream awards neither time nor XP",
+    "Concurrent tab serializes on trainer row and cannot duplicate elapsed credit",
+    "Signed-out request rejected before mutation",
+    "Missing trainer profile rejected",
+    "Repeated installation refuses changed source",
+    "Exact rollback restores original source without changing watch records",
+    "Installation refuses ACL drift"
+  ]
+}

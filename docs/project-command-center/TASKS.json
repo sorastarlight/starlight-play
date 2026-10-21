@@ -4,6 +4,34 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-48",
+      "status": "blocked",
+      "scope": "Server-clock watch credit correction proposal",
+      "dependencies": [
+        "CODEX-46"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "PC-FAMILIARITY-AND-HEARTBEAT-REVIEW.md;supabase/unapplied/heartbeat-clock/README.md",
+      "testResults": "15 REAL LOCAL SQL checks;actual old-body burst defect reproduced;guarded install/rollback prepared;no production mutation",
+      "nextAction": "Owner decision before production progression correction",
+      "approvalRequirement": "Routine frontend/read-only review authorized;production heartbeat correction requires separate decision"
+    },
+    {
+      "id": "CODEX-47",
+      "status": "doing",
+      "scope": "Read-only species Familiarity in My PC",
+      "dependencies": [
+        "CODEX-46"
+      ],
+      "branch": "admin-hub-overhaul",
+      "commit": null,
+      "evidence": "PC-FAMILIARITY-AND-HEARTBEAT-REVIEW.md;supabase/unapplied/heartbeat-clock/README.md",
+      "testResults": "79 suites/build31/424;shared11 reader state/race checks;published7e4ef360 Pages success",
+      "nextAction": "Actual browser still serves cached prior asset; origin source and Pages verified; do not claim live Familiarity UI acceptance yet.",
+      "approvalRequirement": "Routine frontend/read-only review authorized;production heartbeat correction requires separate decision"
+    },
+    {
       "id": "CODEX-46",
       "status": "done",
       "scope": "Approved bounded automatic Familiarity processing",

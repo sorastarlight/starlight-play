@@ -1,0 +1,6 @@
+{
+  "baselineMd5": "5bae000402269cfebe4b2f1ea3c53ba7",
+  "proposedMd5": "2acdcfb54812b9f17d672c27a2404859",
+  "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+  "scope": "single heartbeat function; no data repair or gameplay call"
+}

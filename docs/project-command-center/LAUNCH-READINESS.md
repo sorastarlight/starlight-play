@@ -4,9 +4,9 @@ Current October21,2026 EDT. Existing command-center checklist; not a new queue o
 
 | Order | Objective | Exit criteria/status |
 |---|---|---|
-|1|Security|R1/R2/four legacy R18 endpoints remediated/catalog-verified in CODEX-34. CODEX-44 additionally retired6 unused private self-test permissions; wider advisor triage remains, not a blanket sign-off.|
+|1|Security|R1/R2/four legacy R18 endpoints remediated/catalog-verified in CODEX-34. CODEX-44 additionally retired6 unused private self-test permissions; CODEX-48 finds heartbeat watch-credit launch blocker; tested correction awaits decision. Wider advisor triage remains.|
 |2|Hosted gameplay|CODEX-37 batch stopped at first catch after3: two escapes/one Caterpie, WIRE/stamp/outbox admission verified. My PC/Pokédex catch visible. CODEX-39 approved formatter patch installed; actual PC corrected and specimen unchanged; other gameplay checks remain. No further encounters implied.|
-|3|Familiarity delivery|CODEX-38 explicitly approved one event: delivered once, Familiar1 confirmed in actual Pokédex;queue0. CODEX-45 approved original-capture correction installed/verified; delayed-mutation race fixed. CODEX-46 bounded minute worker approved, installed and idle-run verified. My PC Familiarity display planned.|
+|3|Familiarity delivery|CODEX-38 explicitly approved one event: delivered once, Familiar1 confirmed in actual Pokédex;queue0. CODEX-45 approved original-capture correction installed/verified; delayed-mutation race fixed. CODEX-46 bounded minute worker approved, installed and idle-run verified. CODEX-47 My PC Familiarity display published; actual DOM verification follows.|
 |4|Twitch policy|New one-link policy disabled; no separate provider identity available. Defer new restriction until actual provider QA/intent/exception workflow and rollout decision. Do not borrow protected identity.|
 |5|Staff actions|QA gift delivery, Pass override/regrant/history and permission/audit/replay checks. Legacy Pass QA grants to actor: never test success with an owner session.|
 |6|Player acceptance|Core desktop/mobile/error/loading/keyboard/zoom/motion paths and final owner review. No gym earning system, later-gen exposure or retired frames.|

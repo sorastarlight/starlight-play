@@ -2021,3 +2021,5 @@ CODEX-47/48,2026-10-21: read-only PC Familiarity published7e4ef360 (79 suites/bu
 CODEX-48 VERIFIED: owner approved server-clock correction; migration20261021122347 installed exact heartbeat body2acdcfb54812b9f17d672c27a2404859 with unchanged ACL/owner/config. Profile watch/XP, inventory, XP ledger and7 specimen hashes unchanged.15 local SQL checks;no hosted heartbeat XP test. Worker15 successes/0 failures;queue has1 delivered row and0 outstanding.
 
 CODEX-47 REAL DOM PASS: EmailQA My PC displays Familiar1 and original22/7/9/7/7/12 stats after cache expiry;no management action. CODEX-49 backup inspection: latest physical Oct21 03:44:55 EDT (predates later changes),PITR off,0 Storage buckets. No restore/reset/spending/stamp. See RELEASE-RECOVERY-READINESS.md.79 regression suites/build31/424 pass;APP unchanged.
+
+CODEX-50 proposal only: EmailQA300 coins/0 candy/one off-team Caterpie; bounded100-coin Mart purchase,15-candy audited staff gift,one evolution and one Oak transfer packet prepared. No hosted action; separate important economy/QA decision required. See BOUNDED-ECONOMY-QA.md.

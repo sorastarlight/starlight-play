@@ -22,3 +22,12 @@ CODEX-85 read-only dashboard check still lists21Oct202607:44:55UTC as latest PHY
 ## CODEX-94 current backup observation
 
 October22 read-only dashboard now lists PHYSICAL backup22Oct202607:44:04UTC, after CODEX-73 migration20261022014528 (catalog entry verified). Local guarded INSTALL.sql SHA-256 still matches the table above. The pending newer-snapshot observation is satisfied; older CODEX-85 statements are historical. Backup contents/physical restore/full Auth recovery are not certified. Original logical archive still needs its CODEX-73 replay delta; Edge7/5 dependencies remain. No Restore/export/credentials action. Evidence:evidence/codex94-backup-observation.json.
+
+## CODEX-96 approved deltas after the new physical backup
+
+| Migration | Guarded install | SHA256 |
+|---|---|---|
+|20261022084110 codex96_purchase_unlock_atomicity|supabase/unapplied/purchase-unlock-atomicity/INSTALL.sql|f1b7c6e2f12c60fae47e1329f51ac6b877f8339bf73b451eee3e07390a398b94|
+|20261022084115 codex96_username_reminder_no_write|supabase/unapplied/username-reminder-no-write/INSTALL.sql|db08f88bf6eca02eda89b13a728476f1e0a8ced7dc4f93b61dddae3ccf045022|
+
+Installed and independently source/attribute verified after explicit owner approval. Both original logical archive and latest observed22Oct07:44:04UTC physical snapshot predate these changes. Replay guarded deltas before admitting trainers or use a later verified backup; do not automatically rollback. Next daily snapshot may be checked when due, without polling unchanged state. No extra export/restore/schedule authorized.

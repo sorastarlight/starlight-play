@@ -4,6 +4,19 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-96",
+      "status": "done",
+      "scope": "Owner-approved purchase atomicity and obsolete reminder write corrections",
+      "dependencies": [
+        "CODEX-87",
+        "CODEX-88"
+      ],
+      "evidence": "LAUNCH-CODEX96-CORRECTIONS.md; evidence/codex96-install-verification.json; two guarded recovery directories",
+      "testResults": "17+11 prior REAL LOCAL SQL checks; PRODUCTION3 exact source/attribute matches;6 unchanged dependencies/wrapper; no hosted endpoint tests",
+      "nextAction": "Retain replay deltas until post-change backup; continue device/provider/configuration acceptance",
+      "approvalRequirement": "Both exact installations approved; no further gameplay/provider/restore/stamp/final-launch authority"
+    },
+    {
       "id": "CODEX-95",
       "status": "done",
       "scope": "Selected public text rendering safety review",

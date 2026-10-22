@@ -6,19 +6,19 @@ Current October 22, 2026 EDT. Latest runtime main is 735385ed (Pages 39734361572
 
 | Step | Concrete next action | Decision or evidence needed |
 |---|---|---|
-| 1 | Review the two prepared private SQL packets below; recommend correcting the confirmed purchase fault before public launch | Owner approval of the exact installation scope. Fresh source/ACL/dependency fingerprints must match; no hosted purchase or other gameplay test follows automatically |
+| 1 | Review the two prepared private SQL packets below; recommend correcting the confirmed purchase fault before public launch | Completed CODEX-96 after explicit approval and fresh fingerprint checks; no hosted purchase or other gameplay test follows automatically |
 | 2 | Verify a completed database backup after CODEX-73's October 22 01:45 UTC installation | Completed in CODEX-94: dashboard lists October22 07:44:04UTC physical backup, after the migration. No contents/physical restore certification; new approved changes would require updating recovery evidence |
 | 3 | Review the remaining acceptance limits below | Obtain actual evidence, or explicitly accept named deferrals. Local mocks and CSS-width fixtures cannot silently substitute for real devices/providers |
 | 4 | Review final configuration and an exact release packet against the then-current main, backend and recovery state | Separate owner go/no-go; APP stamp only if explicitly approved. Historical D86 is not automatically authorized |
 
-## Prepared SQL decisions
+## Prepared SQL decisions — completed in CODEX-96
 
 | Packet | Prepared evidence | Proposed scope |
 |---|---|---|
 | LOCALAPPDATA/PokemonStreamLink/security/codex87-cart/README.md | 17 REAL LOCAL SQL checks, including exact captured helper bodies, overlapping transactions, normal purchases, retry behavior, guarded rollback and drift refusal | Only the two reviewed purchase-function replacements in INSTALL-BOTH.sql; ROLLBACK-BOTH.sql is prepared. Earlier cart-only packets are superseded. No historical data cleanup, rewards, refund or hosted QA |
 | LOCALAPPDATA/PokemonStreamLink/security/codex87/README.md | 11 REAL LOCAL SQL checks, exact rollback and source/permission drift refusal | One obsolete write-removal replacement; existing public response and permissions preserved. No email, account or staff action |
 
-Neither packet is installed. Reproductions and unresolved details remain outside Git. Approval of one need not imply the other. Any approved new SQL must be added to the recovery-delta inventory; a snapshot predating that installation does not suddenly contain it. Verification can compare metadata/source without invoking write-risk RPCs.
+Both packets were explicitly approved and installed in CODEX-96 (20261022084110/20261022084115). Earlier preparation/decision wording is historical; see LAUNCH-CODEX96-CORRECTIONS.md. No further installation decision is pending for these exact candidates. Reproductions and unresolved details remain outside Git. Approval of one need not imply the other. Any approved new SQL must be added to the recovery-delta inventory; a snapshot predating that installation does not suddenly contain it. Verification can compare metadata/source without invoking write-risk RPCs.
 
 ## Remaining acceptance choices
 

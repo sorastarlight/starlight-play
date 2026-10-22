@@ -1,0 +1,60 @@
+{
+  "checkedAt": "2026-10-22T08:42:00Z",
+  "classification": "PRODUCTION DDL installed after explicit owner approval; exact source/attribute verification; no endpoint invocation",
+  "migrations": [
+    {
+      "version": "20261022084110",
+      "name": "codex96_purchase_unlock_atomicity",
+      "installSha256": "f1b7c6e2f12c60fae47e1329f51ac6b877f8339bf73b451eee3e07390a398b94"
+    },
+    {
+      "version": "20261022084115",
+      "name": "codex96_username_reminder_no_write",
+      "installSha256": "db08f88bf6eca02eda89b13a728476f1e0a8ced7dc4f93b61dddae3ccf045022"
+    }
+  ],
+  "targets": [
+    {
+      "name": "public.play_buy_cart",
+      "exactSource": true,
+      "acl": true,
+      "config": true,
+      "owner": true,
+      "securityDefiner": true,
+      "volatile": true
+    },
+    {
+      "name": "public.play_buy_sku",
+      "exactSource": true,
+      "acl": true,
+      "config": true,
+      "owner": true,
+      "securityDefiner": true,
+      "volatile": true
+    },
+    {
+      "name": "public.play_request_username_reminder",
+      "exactSource": true,
+      "acl": true,
+      "config": true,
+      "owner": true,
+      "securityDefiner": true,
+      "volatile": true
+    }
+  ],
+  "unchangedDependenciesAndWrapper": 6,
+  "localEvidence": {
+    "purchaseChecks": 17,
+    "reminderChecks": 11,
+    "rerunThisTurn": false
+  },
+  "hostedPurchases": 0,
+  "reminderRPCs": 0,
+  "realEmails": 0,
+  "limits": [
+    "No hosted concurrency/gameplay test",
+    "No historical purchase cleanup or refunds",
+    "Current physical backup predates these migrations; guarded packets retained as replay deltas",
+    "Local fixtures do not certify real Bits/provider integration"
+  ]
+}

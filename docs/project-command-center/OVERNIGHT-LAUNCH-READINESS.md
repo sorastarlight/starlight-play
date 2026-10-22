@@ -25,7 +25,9 @@ The owner requested sustained autonomous work while asleep, with a high bar for 
 
 - CODEX-95: selected public text/source review;20 exact Trainer rendering cases pass, browser20samples/0 injected probe elements. Simplified non-network fixture; no production change. See OVERNIGHT-CODEX95.md.
 
-## Important decisions held for morning
+## Formerly held decisions — now completed CODEX-96
+
+Owner explicitly approved both packets; installed/source verified20261022084110/20261022084115. The preparation descriptions below are historical, not current holds. See LAUNCH-CODEX96-CORRECTIONS.md.
 
 1. An obsolete public write-removal proposal: `LOCALAPPDATA/PokemonStreamLink/security/codex87/README.md`. Eleven local SQL checks pass, including exact rollback and drift refusal.
 2. A checkout concurrency correction: `LOCALAPPDATA/PokemonStreamLink/security/codex87-cart/README.md`. Seventeen local SQL checks pass with exact captured dependencies. The combined two-function INSTALL-BOTH/ROLLBACK-BOTH packet is ready for review; earlier cart-only packets are superseded. No hosted purchase or correction installation performed.
@@ -34,8 +36,8 @@ Private reproductions and unresolved details remain outside Git. No hosted SQL, 
 
 ## Next continuation
 
-1. Continue concrete unreviewed security and rendered UI surfaces. Purchase packet preparation, nine-predicate guard sample and the remaining-dialog naming batch are complete. SDK exact-artifact maintenance is complete for the twenty permitted floating-tag pages. The consolidated morning packet and direct table/RLS review are complete. The selected public serializer review is complete (CODEX-93); selected Trainer text rendering checks are also complete (CODEX-95); continue other genuinely unreviewed source or rendered UI surfaces. Do not invoke play_trainer as read-only: its own-card path evaluates cosmetics. Keep the two private SQL proposals held, protected admin.html untouched and all authority/privileged-flow gates intact. Do not repeat unchanged suites as a substitute for new coverage.
-2. Post-change scheduled backup check is complete in CODEX-94: latest observed physical snapshot22Oct07:44:04UTC follows CODEX-73. Do not repeat unchanged polling. Physical restore remains uncertified; retain logical-archive SQL delta and secure Edge7/5 recovery dependencies. No restore/export/credentials authority.
+1. Continue concrete unreviewed security and rendered UI surfaces. Purchase packet preparation, nine-predicate guard sample and the remaining-dialog naming batch are complete. SDK exact-artifact maintenance is complete for the twenty permitted floating-tag pages. The consolidated morning packet and direct table/RLS review are complete. The selected public serializer review is complete (CODEX-93); selected Trainer text rendering checks are also complete (CODEX-95); continue other genuinely unreviewed source or rendered UI surfaces. Do not invoke play_trainer as read-only: its own-card path evaluates cosmetics. Both formerly held SQL proposals are now installed under the explicit CODEX-96 decision; keep protected admin.html untouched and all authority/privileged-flow gates intact. Do not repeat unchanged suites as a substitute for new coverage.
+2. CODEX-94 backup observation remains valid for CODEX-73 but predates the two new CODEX-96 deltas. Retain those guarded replay packets; do not repeatedly poll before the next daily snapshot. Earlier check: latest observed physical snapshot22Oct07:44:04UTC follows CODEX-73. Do not repeat unchanged polling. Physical restore remains uncertified; retain logical-archive SQL delta and secure Edge7/5 recovery dependencies. No restore/export/credentials authority.
 3. Preserve intentional main/feature history separation. Routine frontend publication uses a scoped branch from origin/main and exact reviewed files, then returns to admin-hub-overhaul. Exclude unrelated queued changes.
 4. Update this handoff and acceptance matrix with actual evidence and consolidated morning decisions. Physical devices, real browser zoom and provider OAuth remain open; mocks cannot certify them.
 

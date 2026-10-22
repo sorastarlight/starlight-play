@@ -2171,3 +2171,5 @@ CODEX-93 COMPLETE: public serializer source review and 28 REAL LOCAL SQL project
 CODEX-94 COMPLETE: read-only dashboard lists22Oct07:44:04UTC PHYSICAL backup after CODEX-73. Migration catalog and local guarded delta hash verified. Pending newer-backup observation closed; no physical restore certification. See OVERNIGHT-CODEX94.md. No production change; APP unchanged; Sora NO; Twinkle NO; PlayTester unchanged.
 
 CODEX-95 COMPLETE:20 exact Trainer rendering cases pass; isolated browser20samples/0 injected elements. Simplified CSS/assets; no full-page/provider certification or runtime change. See OVERNIGHT-CODEX95.md. APP unchanged; Sora NO; Twinkle NO; PlayTester unchanged.
+
+CODEX-96 VERIFIED: owner-approved migrations20261022084110/20261022084115 install3 exact candidates;source/ACL/config/owner/definer/volatility preserved;5helpers+wrapper unchanged. No purchase/reminder endpoint/email invoked. Guarded recovery deltas retained.31page/107link STATIC file-target check passes;6dynamic fragments source-accounted. APP unchanged;Sora NO;Twinkle NO;PlayTester unchanged. See LAUNCH-CODEX96-CORRECTIONS.md.

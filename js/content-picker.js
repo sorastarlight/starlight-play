@@ -31,6 +31,7 @@
     if (dialog) return dialog;
     dialog = document.createElement("dialog");
     dialog.id = "content-picker";
+    dialog.setAttribute("aria-labelledby", "picker-title");
     dialog.className = "play-modal play-modal-wide studio-picker";
     dialog.innerHTML = `
       <form class="play-modal-card" method="dialog">

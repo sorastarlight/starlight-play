@@ -3,6 +3,7 @@
     if (document.getElementById("play-picker")) return document.getElementById("play-picker");
     const dialog = document.createElement("dialog");
     dialog.id = "play-picker";
+    dialog.setAttribute("aria-labelledby", "play-picker-title");
     dialog.className = "play-modal";
     dialog.innerHTML = `
       <form class="play-modal-card" method="dialog">

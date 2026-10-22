@@ -88,9 +88,9 @@
     <p>Username reminder emails are not available. If you also forgot your password, use <a href="./signin.html?reset=1">Reset password</a>.</p>
   </section>
 </div>
-<dialog id="twitch-warn" class="modal">
+<dialog id="twitch-warn" class="modal" aria-labelledby="twitch-warn-title">
   <form method="dialog" class="modal-card">
-    <h3>Continue to Twitch</h3>
+    <h3 id="twitch-warn-title">Continue to Twitch</h3>
     <p>Twitch may automatically use whichever account is currently signed in there. Make sure you are signed into the Twitch account you want before continuing.</p>
     <div class="links">
       <button id="twitch-warn-go" value="yes">Continue to Twitch</button>

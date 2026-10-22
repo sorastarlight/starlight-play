@@ -646,6 +646,7 @@
     return new Promise((resolve) => {
       const dialog = d.createElement("dialog");
       const danger = Boolean(opts?.danger);
+      dialog.setAttribute("aria-label", opts?.title || "Confirm");
       dialog.className = `play-modal play-modal-confirm pc-dialog${danger ? " is-danger" : ""}`;
       dialog.innerHTML = `<form class="play-modal-card" method="dialog">
         <header class="play-modal-head">
@@ -1034,11 +1035,12 @@
     existing?.remove();
     const dialog = document.createElement("dialog");
     dialog.id = "pc-move-dialog";
+    dialog.setAttribute("aria-labelledby", "pc-move-title");
     dialog.className = "modal pc-move-modal";
     dialog.innerHTML = `
       <form method="dialog" class="modal-card pc-move-card">
         <button type="submit" class="pc-move-close" value="cancel" aria-label="Close">×</button>
-        <h3>Move ${window.playEscapeAttr(name)}</h3>
+        <h3 id="pc-move-title">Move ${window.playEscapeAttr(name)}</h3>
         <p class="muted">Choose a destination box.</p>
         <div class="pc-move-list" role="listbox" aria-label="Destination boxes">
           ${boxes.map((box, i) => {

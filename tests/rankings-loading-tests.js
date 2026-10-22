@@ -1,0 +1,23 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync(require('node:path').join(__dirname,'../js/rankings.js'),'utf8');
+const flush=async()=>{for(let i=0;i<12;i++)await Promise.resolve();};
+function fixture(){
+ const nodes={},calls=[];const node=id=>nodes[id]||(nodes[id]={id,hidden:false,disabled:false,textContent:'',innerHTML:'',value:'',attrs:{},events:{},setAttribute(k,v){this.attrs[k]=v;},querySelectorAll:()=>[],querySelector:()=>null,addEventListener(k,f){this.events[k]=f;}});
+ const auth={getSession:async()=>({data:{session:null}}),onAuthStateChange(){}};
+ const window={playSupabase:{auth},playBindAccountNav(){},playSetAccountNav(){},playEscapeAttr:v=>String(v??'').replaceAll('<','&lt;'),playTrainerPortraitUrl:()=>'',playTwitchFaceHtml:()=>'',playRpcError:e=>e.message,playAuthNoise:()=>false,playCall:(name,args)=>new Promise((resolve,reject)=>calls.push({name,args,resolve,reject}))};
+ vm.runInNewContext(source,{window,document:{getElementById:node},location:{search:'',hash:'',href:'https://fixture.invalid/rankings.html'},history:{replaceState(){}},URL,URLSearchParams,console});
+ return {nodes,calls,switch(board){nodes['rank-boards'].events.click({target:{closest:()=>({dataset:{board}})}});},search(q){nodes['rank-search'].value=q;return nodes['rank-search-form'].events.submit({preventDefault(){}});}};
+}
+const payload=(name,more=false)=>({trainers:[{login:name,displayName:name,place:1,level:5,metricText:'5'}],total:1,hasMore:more});
+(async()=>{let checks=0;const pass=()=>checks++;
+ let f=fixture();f.switch('shinies');f.calls[1].resolve(payload('New shiny'));await flush();f.calls[0].resolve(payload('Old level'));await flush();assert(f.nodes['rank-list'].innerHTML.includes('New shiny'));assert(!f.nodes['rank-list'].innerHTML.includes('Old level'));pass();
+ f=fixture();f.switch('shinies');f.calls[0].reject(Error('Old failure'));await flush();assert.equal(f.nodes['rank-list'].attrs['aria-busy'],'true');assert(!f.nodes['rank-fail'].innerHTML.includes('Old failure'));f.calls[1].resolve(payload('Current'));await flush();pass();
+ f=fixture();f.calls[0].resolve(payload('First',true));await flush();f.nodes['rank-more'].events.click();f.switch('shinies');f.calls[2].resolve(payload('New board'));await flush();f.calls[1].resolve(payload('Old extra'));await flush();assert(f.nodes['rank-list'].innerHTML.includes('New board'));assert(!f.nodes['rank-list'].innerHTML.includes('Old extra'));pass();
+ f=fixture();f.calls[0].resolve(payload('First',true));await flush();f.nodes['rank-more'].events.click();f.calls[1].reject(Error('Offline'));await flush();assert.equal(f.nodes['rank-more'].disabled,false);assert.equal(f.nodes['rank-status'].textContent,'Offline');pass();
+ f=fixture();f.calls[0].resolve(payload('First',true));await flush();f.nodes['rank-more'].events.click();f.calls[1].resolve(payload('Second'));await flush();assert(f.nodes['rank-list'].innerHTML.includes('First'));assert(f.nodes['rank-list'].innerHTML.includes('Second'));pass();
+ f=fixture();f.calls[0].resolve(payload('Cached level'));await flush();f.switch('shinies');f.calls[1].resolve(payload('Cached shiny'));await flush();f.switch('level');await flush();assert.equal(f.calls.length,2);assert(f.nodes['rank-list'].innerHTML.includes('Cached level'));assert.equal(f.nodes['rank-list'].attrs['aria-busy'],'false');pass();
+ f=fixture();f.calls[0].resolve(payload('First'));await flush();const a=f.search('old'),b=f.search('new');f.calls[2].resolve({trainers:[{login:'new',displayName:'New result'}]});await b;f.calls[1].resolve({trainers:[{login:'old',displayName:'Old result'}]});await a;assert(f.nodes['rank-search-results'].innerHTML.includes('New result'));assert(!f.nodes['rank-search-results'].innerHTML.includes('Old result'));pass();
+ f=fixture();f.calls[0].resolve(payload('First'));await flush();const pending=f.search('older');await f.search('x');f.calls[1].resolve({trainers:[{login:'old',displayName:'Old result'}]});await pending;assert.equal(f.nodes['rank-search-results'].innerHTML,'');assert.equal(f.nodes['rank-search-status'].textContent,'Type at least two letters of a Trainer name.');pass();
+ f=fixture();f.calls[0].resolve(payload('First'));await flush();const old=f.search('older'),current=f.search('newer');f.calls[2].resolve({trainers:[]});await current;f.calls[1].reject(Error('Old search error'));await old;assert.equal(f.nodes['rank-search-status'].textContent,'No public Trainers match that name.');pass();
+ console.log(checks+' LOCAL actual-source Rankings loading/search cases pass');
+})().catch(error=>{console.error(error);process.exitCode=1;});

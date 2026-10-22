@@ -69,6 +69,7 @@
     dlg = document.createElement("dialog");
     dlg.id = "ribbon-detail";
     dlg.className = "play-modal ribbon-detail";
+    dlg.setAttribute("aria-labelledby", "ribbon-detail-title");
     dlg.innerHTML = `<form class="play-modal-card ribbon-detail-card" method="dialog">
       <header class="play-modal-head">
         <h2 id="ribbon-detail-title">Ribbon</h2>

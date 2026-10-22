@@ -1,0 +1,12 @@
+{
+  "classification": "LOCAL actual-source fictional dependencies plus READ-ONLY hosted static equality",
+  "baseline": "Session lookup rejection prevented public calendar request",
+  "focusedCases": 3,
+  "regressionSuites": 99,
+  "featureCommit": "3022d771",
+  "mainCommit": "9b708c6c60feb11b9de3487430b384f0ef8bf4a3",
+  "pagesRun": 39795730899,
+  "pagesReportedStatus": "queued;not claimed successful",
+  "hostedSourceMatches": 56,
+  "productionRpcCalls": 0
+}

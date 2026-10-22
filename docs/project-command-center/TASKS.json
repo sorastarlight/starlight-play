@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-112",
+      "status": "done",
+      "scope": "Public Events navigation-failure isolation",
+      "dependencies": [
+        "CODEX-111"
+      ],
+      "evidence": "LAUNCH-CODEX112-EVENTS-RECOVERY.md; evidence/codex112-regressions.json",
+      "testResults": "Baseline zero-calendar-call failure reproduced;3LOCAL actual-source cases;99/99suites/build31/464",
+      "nextAction": "Recheck Pages39795730899 conclusion;56hosted sources already match. Real acceptance remains required;Twitch held.",
+      "approvalRequirement": "CODEX-78 routine loading-error frontend publication only"
+    },
+    {
       "id": "CODEX-111",
       "status": "done",
       "scope": "Static public navigation and search label review while Twitch test held",

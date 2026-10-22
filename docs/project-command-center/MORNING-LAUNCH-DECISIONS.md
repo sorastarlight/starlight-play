@@ -1,6 +1,6 @@
 # Morning launch decisions — draft, not a launch authorization
 
-Current October 22, 2026 EDT. Latest runtime main is dd7cf58c (Pages 39786057926); APP remains 20261008-rc133. Latest regression evidence is 98/98 STATIC/LOCAL suites in CODEX-110, with 56 hosted source matches and isolated SDK integrity loading/rejection checks. This packet consolidates the important decisions instead of interrupting for routine work.
+Current October 22, 2026 EDT. Latest runtime main is 9b708c6c (56 hosted matches;Pages39795730899 reported queued); APP remains 20261008-rc133. Latest regression evidence is 99/99 STATIC/LOCAL suites in CODEX-112, with 56 hosted source matches and isolated SDK integrity loading/rejection checks. This packet consolidates the important decisions instead of interrupting for routine work.
 
 ## Recommended order
 

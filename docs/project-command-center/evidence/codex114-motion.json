@@ -1,0 +1,43 @@
+{
+  "classification": "LOCAL actual-source mocked preference and isolated REAL BROWSER computed CSS;not physical OS acceptance",
+  "focusedAssertions": 14,
+  "newAssertions": 7,
+  "regressionSuites": 100,
+  "featureCommit": "03ed369f",
+  "mainCommit": "bb18025a1dbd3744aad49b4b34d21d4faefb998b",
+  "priorPagesRun": 39796866472,
+  "priorPagesConclusion": "success",
+  "pagesRun": 39799034917,
+  "browserStates": [
+    {
+      "pref": "auto",
+      "reduced": false,
+      "mode": "high",
+      "animation": "dex-hero-float",
+      "sparks": "block"
+    },
+    {
+      "pref": "auto",
+      "reduced": true,
+      "mode": "low",
+      "animation": "none",
+      "sparks": "none"
+    },
+    {
+      "pref": "high",
+      "reduced": true,
+      "mode": "high",
+      "animation": "none"
+    },
+    {
+      "pref": "high",
+      "reduced": false,
+      "mode": "high",
+      "animation": "dex-hero-float",
+      "sparks": "block"
+    }
+  ],
+  "loopbackStopped": true,
+  "realRpcCalls": 0,
+  "blockedStorage": "Manual preference preserved using current DOM pref;baseline failed before follow-up"
+}

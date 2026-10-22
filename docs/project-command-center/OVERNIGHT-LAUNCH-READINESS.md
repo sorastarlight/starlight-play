@@ -65,3 +65,5 @@ CODEX-113:two Trainer presentation/error fixes locally/browser validated;100suit
 Publication tooling follow-through:the checker now discovers same-origin script dependencies from reviewed HTML,including base href resolution,and confines local paths to the checkout. Actual run covers100public files:98match;only queued Events/Trainer candidates differ. No new runtime publication or provider call. This replaces the intermediate58filecoverage;it does not clear the deployment hold.
 
 Latest workflow snapshot:39795730899completed/cancelled;39796866472queued and contains both Events and Trainer commits. No manual cancellation/rerun performed. Await latest run and actual hosted-source equality;do not restart the older run.
+
+CODEX-114:prior Pages39796866472success and actual Events/Trainer source equality verified;112/113closed. Fixed live reduced-motion updates with listener/legacyfallback;13LOCAL performance assertions,100suites/build31/464 and isolated REAL BROWSER computed ON/OFF/manualHIGH cases pass. Only js/play-perf.js to mainbb18025a under CODEX-78;verify its deployment next. No production SQL/RPC/provider/gameplay/APP actions. See LAUNCH-CODEX114-MOTION.md.

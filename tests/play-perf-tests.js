@@ -33,11 +33,11 @@ assert(window.playPerfMode() === "balanced");
 const src = require("fs").readFileSync(require("path").join(__dirname, "../js/play-perf.js"), "utf8");
 assert(/memKnown && mem >= 8 && cores >= 6/.test(src), "HIGH requires known memory and cores");
 const vm = require('node:vm');
-function motionFixture(legacy = false, unavailable = false) {
+function motionFixture(legacy = false, unavailable = false, blockedStorage = false) {
   const media = { matches: false };
   const tokens = {};
   media[legacy ? 'addListener' : 'addEventListener'] = (...args) => { media.listener = args.at(-1); };
-  const storage = { value: 'auto', getItem() { return this.value; }, setItem(_key, value) { this.value = value; } };
+  const storage = { value: 'auto', getItem() { return this.value; }, setItem(_key, value) { if (blockedStorage) throw Error('Storage blocked'); this.value = value; } };
   const doc = { readyState: 'complete', documentElement: { dataset: {} }, body: { classList: { toggle(key, value) { tokens[key] = value; } } } };
   const win = { matchMedia() { if (unavailable) throw Error('Unavailable'); return media; } };
   vm.runInNewContext(src, { window: win, document: doc, navigator: { hardwareConcurrency: 8 }, localStorage: storage });
@@ -50,4 +50,5 @@ f.change(false); assert(f.doc.documentElement.dataset.reducedMotion === '0' && f
 f.win.playSetPerfPref('high'); f.change(true); assert(f.doc.documentElement.dataset.perf === 'high' && f.doc.documentElement.dataset.reducedMotion === '1', 'Explicit HIGH preference preserved while reduced-motion flag updates');
 f = motionFixture(true); f.change(true); assert(f.doc.documentElement.dataset.reducedMotion === '1', 'Legacy media listener supported');
 f = motionFixture(false, true); assert(f.doc.documentElement.dataset.perf === 'balanced', 'Unavailable media API preserves safe initial rendering');
-console.log("play-perf tests: 13 passed; mocked preference changes, not OS/device acceptance");
+f = motionFixture(false, false, true); f.win.playSetPerfPref('high'); f.change(true); assert(f.doc.documentElement.dataset.perf === 'high' && f.doc.documentElement.dataset.reducedMotion === '1', 'Blocked storage must not discard manual selection on media change');
+console.log("play-perf tests: 14 passed; mocked preference changes, not OS/device acceptance");

@@ -17,3 +17,6 @@ CODEX-58 update: approved migration20261021142746 adds final GTS cooldown valida
 CODEX-60 update: approved migration20261021161057 adds account mutation protections. Inventory now10 post-backup migrations/11 packet paths. Daily backups accepted for launch;no new backup/restore certification.
 
 CODEX-67 update: approved owner-guard migration20261021181614 adds the fail-closed authorization correction. Inventory now11 post-backup migrations/12 packet paths;all12 repository hashes match. Recovery drill remains held at owner direction;database password unchanged. No restore/replay certification.
+
+
+Current CODEX-71/73 update:bounded actual local logical recovery succeeded;earlier native-password/access holds are historical. Latest approved privilege-only correction postdates that logical archive. See RECOVERY-POST-DRILL-DELTAS.md for exact migration/packet hash;physical restore and full Auth service recovery remain unverified.

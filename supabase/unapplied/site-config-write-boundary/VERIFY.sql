@@ -1,0 +1,14 @@
+select jsonb_build_object(
+'functions',(select md5(jsonb_agg(jsonb_build_object('signature',p.oid::regprocedure::text,'body',md5(p.prosrc),'acl',p.proacl::text,'config',p.proconfig,'owner',p.proowner,'security',p.prosecdef,'volatility',p.provolatile) order by p.oid)::text) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname in ('public','private')),
+'policies',(select md5(jsonb_agg(to_jsonb(x) order by x.schemaname,x.tablename,x.policyname)::text) from pg_policies x where x.schemaname in ('public','private')),
+'otherTablePrivileges',(select md5(jsonb_agg(jsonb_build_object('oid',c.oid,'acl',c.relacl::text,'owner',c.relowner,'rls',c.relrowsecurity,'force',c.relforcerowsecurity) order by c.oid)::text) from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname in ('public','private') and c.relkind in ('r','v','p') and c.oid<>'public.site_config'::regclass),
+'configuration',(select md5(jsonb_agg(to_jsonb(t) order by t.id)::text) from public.site_config t),
+'roles',(select md5(coalesce(jsonb_agg(to_jsonb(t) order by t.user_id)::text,'[]')) from public.staff_roles t),
+'connections',(select md5(coalesce(string_agg(md5(to_jsonb(t)::text),'' order by md5(to_jsonb(t)::text)),'')) from public.twitch_connections t),
+'profiles',(select md5(coalesce(string_agg(md5(to_jsonb(t)::text),'' order by md5(to_jsonb(t)::text)),'')) from public.profiles t),
+'inventories',(select md5(coalesce(string_agg(md5(to_jsonb(t)::text),'' order by md5(to_jsonb(t)::text)),'')) from public.inventories t),
+'catches',(select md5(coalesce(string_agg(md5(to_jsonb(t)::text),'' order by md5(to_jsonb(t)::text)),'')) from public.catches t),
+'configurationPrivileges',(select jsonb_build_object('acl',c.relacl::text,'owner',pg_get_userbyid(c.relowner),'rls',c.relrowsecurity,'force',c.relforcerowsecurity,'columnAcls',(select jsonb_agg(jsonb_build_object('name',a.attname,'acl',a.attacl::text) order by a.attnum) from pg_attribute a where a.attrelid=c.oid and a.attnum>0 and not a.attisdropped)) from pg_class c where c.oid='public.site_config'::regclass),
+'browserPrivileges',(select jsonb_agg(jsonb_build_object('role',r.role,'select',has_table_privilege(r.role,'public.site_config','SELECT'),'tableUpdate',has_table_privilege(r.role,'public.site_config','UPDATE'),'columnUpdate',has_any_column_privilege(r.role,'public.site_config','UPDATE'))) from (values('anon'),('authenticated'),('service_role'))r(role)),
+'ownerRpcs',(select jsonb_agg(jsonb_build_object('signature',p.oid::regprocedure::text,'securityDefiner',p.prosecdef,'owner',pg_get_userbyid(p.proowner),'authenticatedExecute',has_function_privilege('authenticated',p.oid,'EXECUTE'),'hash',md5(p.prosrc)) order by p.oid) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname in ('admin_save_channel','admin_issue_bridge_token','admin_save_twitch_client_secret','admin_save_github_token'))
+) as state;

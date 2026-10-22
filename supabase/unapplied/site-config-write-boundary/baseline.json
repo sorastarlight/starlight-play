@@ -1,0 +1,141 @@
+[
+  {
+    "kind": "function",
+    "signature": "private.can_manage_secrets()",
+    "metadata": {
+      "acl": null,
+      "hash": "80885dfc198813a58af32b0ef4c366a1",
+      "owner": "postgres",
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "private",
+      "definition": "CREATE OR REPLACE FUNCTION private.can_manage_secrets()\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  select private.play_staff_role(auth.uid()) = 'owner';\n$function$\n",
+      "volatility": "s",
+      "securityDefiner": true
+    }
+  },
+  {
+    "kind": "function",
+    "signature": "private.is_play_admin()",
+    "metadata": {
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "hash": "5dec088fc6372699343e924773106f9c",
+      "owner": "postgres",
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "private",
+      "definition": "CREATE OR REPLACE FUNCTION private.is_play_admin()\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  select private.play_staff_role(auth.uid()) is not null;\n$function$\n",
+      "volatility": "s",
+      "securityDefiner": true
+    }
+  },
+  {
+    "kind": "function",
+    "signature": "private.keep_bits_off()",
+    "metadata": {
+      "acl": null,
+      "hash": "a650e91936aa44b7d5bca7c3751a8022",
+      "owner": "postgres",
+      "config": null,
+      "schema": "private",
+      "definition": "CREATE OR REPLACE FUNCTION private.keep_bits_off()\n RETURNS trigger\n LANGUAGE plpgsql\nAS $function$\nbegin\n  new.bits_store_enabled := false;\n  return new;\nend;\n$function$\n",
+      "volatility": "v",
+      "securityDefiner": false
+    }
+  },
+  {
+    "kind": "function",
+    "signature": "private.play_staff_role(uuid)",
+    "metadata": {
+      "acl": null,
+      "hash": "56cd588e9e8affdb6a29e7225b92919a",
+      "owner": "postgres",
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "private",
+      "definition": "CREATE OR REPLACE FUNCTION private.play_staff_role(p_uid uuid DEFAULT auth.uid())\n RETURNS text\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$ declare channel text; broadcaster_id text; assigned text; begin if p_uid is null then return null; end if; select c.broadcaster_twitch_login, c.twitch_broadcaster_id into channel, broadcaster_id from public.site_config c where c.id = 1; if exists (select 1 from public.twitch_connections t where t.user_id = p_uid and t.confirmed and ((broadcaster_id is not null and btrim(broadcaster_id) <> '' and t.twitch_user_id = btrim(broadcaster_id)) or (channel is not null and btrim(channel) <> '' and lower(t.twitch_login) = lower(channel)))) then return 'owner'; end if; if exists (select 1 from auth.identities i where i.user_id = p_uid and i.provider = 'twitch' and ((broadcaster_id is not null and btrim(broadcaster_id) <> '' and coalesce(i.identity_data->>'sub', i.provider_id) = btrim(broadcaster_id)) or (channel is not null and btrim(channel) <> '' and lower(coalesce(i.identity_data->>'preferred_username', i.identity_data->>'nickname', i.identity_data->>'name', '')) = lower(channel)))) then return 'owner'; end if; select r.role into assigned from public.staff_roles r where r.user_id = p_uid; if assigned = 'staff' then return 'moderator'; end if; return assigned; end; $function$\n",
+      "volatility": "s",
+      "securityDefiner": true
+    }
+  },
+  {
+    "kind": "function",
+    "signature": "private.touch_updated_at()",
+    "metadata": {
+      "acl": "{postgres=X/postgres}",
+      "hash": "9b1889f56258bf9d6554213c05019c76",
+      "owner": "postgres",
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "private",
+      "definition": "CREATE OR REPLACE FUNCTION private.touch_updated_at()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'public'\nAS $function$\nbegin\n  new.updated_at = now();\n  return new;\nend;\n$function$\n",
+      "volatility": "v",
+      "securityDefiner": false
+    }
+  },
+  {
+    "kind": "table",
+    "signature": "site_config",
+    "metadata": {
+      "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}",
+      "rls": true,
+      "owner": "postgres",
+      "columns": [
+        {
+          "acl": null,
+          "name": "id"
+        },
+        {
+          "acl": "{authenticated=w/postgres}",
+          "name": "broadcaster_twitch_login"
+        },
+        {
+          "acl": null,
+          "name": "updated_at"
+        },
+        {
+          "acl": "{authenticated=w/postgres}",
+          "name": "game_settings"
+        },
+        {
+          "acl": "{authenticated=w/postgres}",
+          "name": "twitch_client_id"
+        },
+        {
+          "acl": "{authenticated=w/postgres}",
+          "name": "twitch_broadcaster_id"
+        },
+        {
+          "acl": null,
+          "name": "bits_store_enabled"
+        }
+      ],
+      "forceRls": false,
+      "policies": [
+        {
+          "cmd": "UPDATE",
+          "name": "admins can update site config",
+          "check": "private.is_play_admin()",
+          "roles": [
+            "authenticated"
+          ],
+          "using": "private.is_play_admin()"
+        },
+        {
+          "cmd": "SELECT",
+          "name": "public can read site config",
+          "check": null,
+          "roles": [
+            "anon",
+            "authenticated"
+          ],
+          "using": "true"
+        }
+      ]
+    }
+  }
+]

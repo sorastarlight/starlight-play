@@ -1,0 +1,255 @@
+{
+  "classification": "PRODUCTION guarded privilege-only migration and independent read-only catalog/data fingerprint verification;no hosted write-risk RPC test",
+  "project": "dtflmlbjhttoewqgkujf",
+  "migration": {
+    "version": "20261022014528",
+    "name": "codex73_site_config_browser_update_boundary"
+  },
+  "checkedAt": "2026-10-22T01:45:53.597Z",
+  "checks": [
+    {
+      "key": "functions",
+      "unchanged": true
+    },
+    {
+      "key": "policies",
+      "unchanged": true
+    },
+    {
+      "key": "otherTablePrivileges",
+      "unchanged": true
+    },
+    {
+      "key": "configuration",
+      "unchanged": true
+    },
+    {
+      "key": "roles",
+      "unchanged": true
+    },
+    {
+      "key": "connections",
+      "unchanged": true
+    },
+    {
+      "key": "profiles",
+      "unchanged": true
+    },
+    {
+      "key": "inventories",
+      "unchanged": true
+    },
+    {
+      "key": "catches",
+      "unchanged": true
+    },
+    {
+      "key": "ownerRpcs",
+      "unchanged": true
+    }
+  ],
+  "before": {
+    "roles": "5c8e7a007701da5cdb5b2589d069d84f",
+    "catches": "d24c2d048c4143897cb4c0ef6c8cdf8a",
+    "policies": "d26dd05f6b8b13a989a9292f78b9ccd6",
+    "profiles": "dc3667d0253151df40bbc18d5fcbed32",
+    "functions": "9b4a6c0daf48d757ffc3245da2010c67",
+    "ownerRpcs": [
+      {
+        "hash": "a76d9f5e4f42c87bbafa6768bdbd98c4",
+        "owner": "postgres",
+        "signature": "admin_save_channel(text,text,text)",
+        "securityDefiner": true,
+        "authenticatedExecute": true
+      },
+      {
+        "hash": "4ccfaa96210594ab90c49f4460a5b617",
+        "owner": "postgres",
+        "signature": "admin_issue_bridge_token()",
+        "securityDefiner": true,
+        "authenticatedExecute": true
+      },
+      {
+        "hash": "dd03ef4fa4166fe60c45b0a22ea19316",
+        "owner": "postgres",
+        "signature": "admin_save_twitch_client_secret(text)",
+        "securityDefiner": true,
+        "authenticatedExecute": true
+      },
+      {
+        "hash": "c8807a70c8761cb32fa82a8248864f55",
+        "owner": "postgres",
+        "signature": "admin_save_github_token(text)",
+        "securityDefiner": true,
+        "authenticatedExecute": true
+      }
+    ],
+    "connections": "80db4a981528097f4ca5fa793df0a2f9",
+    "inventories": "206137a08e38d5d6462d2ef0438bab83",
+    "configuration": "843df0d299819253d891e1fe1917eb30",
+    "browserPrivileges": [
+      {
+        "role": "anon",
+        "select": true,
+        "tableUpdate": true,
+        "columnUpdate": true
+      },
+      {
+        "role": "authenticated",
+        "select": true,
+        "tableUpdate": true,
+        "columnUpdate": true
+      },
+      {
+        "role": "service_role",
+        "select": true,
+        "tableUpdate": true,
+        "columnUpdate": true
+      }
+    ],
+    "otherTablePrivileges": "85090a8c53c81d9c1aa6d1ad594ef119",
+    "configurationPrivileges": {
+      "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}",
+      "rls": true,
+      "force": false,
+      "owner": "postgres",
+      "columnAcls": [
+        {
+          "acl": null,
+          "name": "id"
+        },
+        {
+          "acl": "{authenticated=w/postgres}",
+          "name": "broadcaster_twitch_login"
+        },
+        {
+          "acl": null,
+          "name": "updated_at"
+        },
+        {
+          "acl": "{authenticated=w/postgres}",
+          "name": "game_settings"
+        },
+        {
+          "acl": "{authenticated=w/postgres}",
+          "name": "twitch_client_id"
+        },
+        {
+          "acl": "{authenticated=w/postgres}",
+          "name": "twitch_broadcaster_id"
+        },
+        {
+          "acl": null,
+          "name": "bits_store_enabled"
+        }
+      ]
+    }
+  },
+  "after": {
+    "roles": "5c8e7a007701da5cdb5b2589d069d84f",
+    "catches": "d24c2d048c4143897cb4c0ef6c8cdf8a",
+    "policies": "d26dd05f6b8b13a989a9292f78b9ccd6",
+    "profiles": "dc3667d0253151df40bbc18d5fcbed32",
+    "functions": "9b4a6c0daf48d757ffc3245da2010c67",
+    "ownerRpcs": [
+      {
+        "hash": "a76d9f5e4f42c87bbafa6768bdbd98c4",
+        "owner": "postgres",
+        "signature": "admin_save_channel(text,text,text)",
+        "securityDefiner": true,
+        "authenticatedExecute": true
+      },
+      {
+        "hash": "4ccfaa96210594ab90c49f4460a5b617",
+        "owner": "postgres",
+        "signature": "admin_issue_bridge_token()",
+        "securityDefiner": true,
+        "authenticatedExecute": true
+      },
+      {
+        "hash": "dd03ef4fa4166fe60c45b0a22ea19316",
+        "owner": "postgres",
+        "signature": "admin_save_twitch_client_secret(text)",
+        "securityDefiner": true,
+        "authenticatedExecute": true
+      },
+      {
+        "hash": "c8807a70c8761cb32fa82a8248864f55",
+        "owner": "postgres",
+        "signature": "admin_save_github_token(text)",
+        "securityDefiner": true,
+        "authenticatedExecute": true
+      }
+    ],
+    "connections": "80db4a981528097f4ca5fa793df0a2f9",
+    "inventories": "206137a08e38d5d6462d2ef0438bab83",
+    "configuration": "843df0d299819253d891e1fe1917eb30",
+    "browserPrivileges": [
+      {
+        "role": "anon",
+        "select": true,
+        "tableUpdate": false,
+        "columnUpdate": false
+      },
+      {
+        "role": "authenticated",
+        "select": true,
+        "tableUpdate": false,
+        "columnUpdate": false
+      },
+      {
+        "role": "service_role",
+        "select": true,
+        "tableUpdate": true,
+        "columnUpdate": true
+      }
+    ],
+    "otherTablePrivileges": "85090a8c53c81d9c1aa6d1ad594ef119",
+    "configurationPrivileges": {
+      "acl": "{postgres=arwdDxtm/postgres,anon=ardDxtm/postgres,authenticated=ardDxtm/postgres,service_role=arwdDxtm/postgres}",
+      "rls": true,
+      "force": false,
+      "owner": "postgres",
+      "columnAcls": [
+        {
+          "acl": null,
+          "name": "id"
+        },
+        {
+          "acl": null,
+          "name": "broadcaster_twitch_login"
+        },
+        {
+          "acl": null,
+          "name": "updated_at"
+        },
+        {
+          "acl": null,
+          "name": "game_settings"
+        },
+        {
+          "acl": null,
+          "name": "twitch_client_id"
+        },
+        {
+          "acl": null,
+          "name": "twitch_broadcaster_id"
+        },
+        {
+          "acl": null,
+          "name": "bits_store_enabled"
+        }
+      ]
+    }
+  },
+  "columnAclsCleared": true,
+  "productionRowWrites": false,
+  "permissionsChangedOnly": "public.site_config UPDATE table grants and four existing column UPDATE grants for browser roles",
+  "incidentAssessmentPerformed": false,
+  "dataApiContract": {
+    "checked": 15,
+    "missing": [],
+    "requiredTablesWithoutRls": [],
+    "familiarityViewSecurityInvoker": true
+  }
+}

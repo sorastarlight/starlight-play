@@ -5,15 +5,15 @@
   "tasks": [
     {
       "id": "CODEX-73",
-      "status": "blocked",
-      "scope": "Separate security permission correction prepared locally",
+      "status": "done",
+      "scope": "Direct browser configuration UPDATE boundary",
       "dependencies": [
         "CODEX-72"
       ],
-      "evidence": "Local reviewed packet;not published pending remediation",
-      "testResults": "14 REAL LOCAL SQL checks;fictional data only",
-      "nextAction": "Await explicit owner installation decision;continue independent authorized work",
-      "approvalRequirement": "Production SQL/grants require explicit owner decision per streamlink-project.mdc"
+      "evidence": "supabase/unapplied/site-config-write-boundary/README.md;evidence/site-config-write-boundary-hosted.json",
+      "testResults": "14 REAL LOCAL SQL checks;PRODUCTION exact table/column privileges and unchanged data/function/policy/RPC fingerprints",
+      "nextAction": "Continue launch readiness;retain guarded post-drill recovery delta",
+      "approvalRequirement": "Owner approved configuration-access correction;installed and verified"
     },
     {
       "id": "CODEX-72",

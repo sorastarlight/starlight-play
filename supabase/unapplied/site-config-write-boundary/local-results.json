@@ -1,0 +1,21 @@
+{
+  "classification": "REAL LOCAL SQL;fictional data;exact captured policy/authorization helpers;minimal table shape and fictional owner-RPC stand-in",
+  "passed": 14,
+  "checks": [
+    "Baseline exact policy/helpers allow moderator direct configuration update and derived owner escalation",
+    "Baseline ordinary trainer denied by existing RLS",
+    "Guarded UPDATE revocation installs with exact helper/policy/ACL checks",
+    "Direct table update denied for moderator",
+    "Direct table update denied for owner",
+    "Direct table update denied for ordinary",
+    "Anonymous direct table update denied",
+    "All four previous column UPDATE grants removed, closing column-only bypass",
+    "Public/authenticated configuration reads preserved",
+    "Service-role configuration update preserved",
+    "Owner-guarded SECURITY DEFINER write remains possible;nonowner denied (fictional RPC stand-in)",
+    "Exact rollback restores original ACLs and reproduces baseline risk",
+    "Unexpected column grant refuses installation without permission changes",
+    "Authorization dependency drift refuses installation"
+  ],
+  "installedHosted": false
+}

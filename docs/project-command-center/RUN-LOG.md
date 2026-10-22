@@ -2102,3 +2102,6 @@ CODEX-71 COMPLETE (October21): owner reset the database password and updated the
 
 
 CODEX-72 COMPLETE LOCALLY:celebration keyboard background-focus leak reproduced in hosted isolated preview;shared modal now contains Tab/Shift+Tab,isolates background and cleans up focus/inert state on reset/dismissal. REAL DOM local level/achievement with reduced-motion setting pass;9 actual-source harness cases,83 nonwriting suites/build31HTML464refs pass. Feature branch only;no hosted deploy/SQL/gameplay/APPstamp. CODEX-73 separate important security permission decision requested for tested local packet;details remain local pending remediation.
+
+
+CODEX-73 VERIFIED:owner approved configuration-access correction;migration20261022014528 removes direct browser site_config UPDATE including4 column grants. Public reads/service-role updates/owner RPC permissions retained;all function/policy/other table privilege and relevant data fingerprints unchanged.14 REAL LOCAL SQL checks;no live privileged RPC/gameplay,password,role,record,spending or APP change. See supabase/unapplied/site-config-write-boundary/README.md and evidence/site-config-write-boundary-hosted.json. The CODEX-71 archive predates this permission correction;retain this guarded packet as post-drill recovery delta,not a full replay certificate.

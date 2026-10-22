@@ -41,3 +41,11 @@ CODEX-104:four new packet paths are pinned text eol=lf in .gitattributes. Window
 |20261022162826 codex116_trade_state_recheck|supabase/unapplied/trade-state-recheck/INSTALL.sql|2e1657bdfd0d05bdcfe39f580dc8f2b326b5f813ae0b96e8c1e6444a8427c901|
 
 Owner-approved and exact-source/attribute verified. Two functions only;no player mutation/history repair or hosted trade test. Both observed older recovery points predate this delta. Replay only on matching guarded baseline or use a verified newer snapshot;no automatic rollback (it restores the race). Exact INSTALL/ROLLBACKbytes pinned LF and verified after Git checkout-index. No new backup,restore,export or job authority. See LAUNCH-CODEX116-TRADE-STATE.md.
+
+## CODEX-118 approved notice delta
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261022171505 codex118_atomic_notice_claim|supabase/unapplied/atomic-notice-claim/INSTALL.sql|145fef9bbf6b78f79c84518e308707322e235d3ed285a19e532306e46f2b7ea5|
+
+Owner-approved and exact-source/attribute verified;one function only,no notice endpoint or player repair. Older observed logical/physical recovery points predate this delta. Retain matching guarded replay or verify a newer snapshot;no automatic rollback,new export,restore or scheduling authorized.

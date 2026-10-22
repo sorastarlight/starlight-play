@@ -24,5 +24,5 @@
   "rollbackSHA256": "0fe6375d82779a3fed5969f588d183a8b43390331e9e8b7a83995ff51563302f",
   "productionApplicationCalls": 0,
   "productionChanges": 0,
-  "status": "prepared;owner installation decision requested;not installed"
+  "status": "owner-approved;installed20261022171505;exact source/attributes verified;approval spent"
 }

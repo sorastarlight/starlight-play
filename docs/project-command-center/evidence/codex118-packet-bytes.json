@@ -1,0 +1,15 @@
+{
+  "classification": "Exact raw SHA256 after Git checkout-index on Windows",
+  "results": [
+    {
+      "file": "INSTALL.sql",
+      "sha256": "145fef9bbf6b78f79c84518e308707322e235d3ed285a19e532306e46f2b7ea5",
+      "reviewedBytesMatch": true
+    },
+    {
+      "file": "ROLLBACK.sql",
+      "sha256": "0fe6375d82779a3fed5969f588d183a8b43390331e9e8b7a83995ff51563302f",
+      "reviewedBytesMatch": true
+    }
+  ]
+}

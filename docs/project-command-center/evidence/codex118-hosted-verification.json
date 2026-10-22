@@ -1,0 +1,19 @@
+{
+  "classification": "Owner-approved production function replacement with read-only source/attribute verification;no application invocation",
+  "migration": "20261022171505",
+  "name": "codex118_atomic_notice_claim",
+  "fullDefinitionMatches": true,
+  "bodyMd5": "c9d487e0a8e6bb244fca4d8848989e51",
+  "unchangedAttributes": [
+    "acl",
+    "proconfig",
+    "owner",
+    "prosecdef",
+    "provolatile",
+    "proisstrict",
+    "proparallel"
+  ],
+  "baselineBody": "ab96a8ba4d521d7fa2ffc8baf0b093f5",
+  "applicationInvocations": 0,
+  "rollbackUsed": false
+}

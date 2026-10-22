@@ -8,3 +8,5 @@ supabase/unapplied/username-reminder-no-write/INSTALL.sql text eol=lf
 supabase/unapplied/username-reminder-no-write/ROLLBACK.sql text eol=lf
 supabase/unapplied/trade-state-recheck/INSTALL.sql text eol=lf
 supabase/unapplied/trade-state-recheck/ROLLBACK.sql text eol=lf
+supabase/unapplied/atomic-notice-claim/INSTALL.sql text eol=lf
+supabase/unapplied/atomic-notice-claim/ROLLBACK.sql text eol=lf

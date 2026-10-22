@@ -5,15 +5,15 @@
   "tasks": [
     {
       "id": "CODEX-118",
-      "status": "blocked",
+      "status": "done",
       "scope": "Read-only security-advisor triage and locally tested notice claim packet",
       "dependencies": [
         "CODEX-117"
       ],
-      "evidence": "LAUNCH-CODEX118-READINESS.md; evidence/codex118-advisor-triage.json; evidence/codex118-notice-packet.json; evidence/codex118-cosmetic-review.json",
-      "testResults": "15REAL LOCAL concurrent/packet/ownership/order/rollback/drift cases;advisor catalog follow-up;no hosted application call;17independent cosmetic ownership SQL cases",
-      "nextAction": "Owner decision requested for one-function SQL install;continue independent work while held",
-      "approvalRequirement": "Production SQL requires separate explicit owner approval;prepared only"
+      "evidence": "LAUNCH-CODEX118-READINESS.md; evidence/codex118-advisor-triage.json; evidence/codex118-notice-packet.json; evidence/codex118-cosmetic-review.json; evidence/codex118-hosted-verification.json; evidence/codex118-packet-bytes.json",
+      "testResults": "15REAL LOCAL concurrent/packet/ownership/order/rollback/drift cases;advisor catalog follow-up;no hosted application call;17independent cosmetic ownership SQL cases;fresh exact hosted source/attribute verification;2Git-recreated packet hashes;build31/464",
+      "nextAction": "Retain guarded recovery delta;real acceptance remains open;no hosted notice test",
+      "approvalRequirement": "Owner explicitly approved one-function install/read-only verification;installed20261022171505;approval spent"
     },
     {
       "id": "CODEX-117",

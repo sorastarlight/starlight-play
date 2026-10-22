@@ -66,6 +66,19 @@
           "sha256": "0fe6375d82779a3fed5969f588d183a8b43390331e9e8b7a83995ff51563302f"
         }
       ]
+    },
+    {
+      "version": "20261022185226",
+      "files": [
+        {
+          "file": "supabase/unapplied/shiny-release-confirmation/INSTALL.sql",
+          "sha256": "4598cffd04b99167f6dd31e3e2228ddea3cdc5ef02618df1340a2b9311347fbd"
+        },
+        {
+          "file": "supabase/unapplied/shiny-release-confirmation/ROLLBACK.sql",
+          "sha256": "60a8b47fa32aa00765f982a78b23e7ad74bef53ce4b94cfeacbdc48b198b647a"
+        }
+      ]
     }
   ]
 }

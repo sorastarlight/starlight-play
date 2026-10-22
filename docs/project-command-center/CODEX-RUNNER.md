@@ -1,5 +1,7 @@
 # Codex runner trial
 
+CODEX-121 current narrow completion:owner-approved migration20261022185226 changes only play_release shiny confirmation null handling;exact source/attributes verified without release/gameplay calls. Radar/Rare Candy controls unchanged. Recovery packet retained and approval spent;see LAUNCH-CODEX121-INVENTORY-BOUNDARIES.md.
+
 CODEX-118 current narrow completion:owner-approved migration20261022171505 replaces only play_notices with atomic notice claiming;exact definition and unchanged attributes verified without invoking endpoint. Guarded recovery bytes2/2match after Git checkout-index;approval spent. See LAUNCH-CODEX118-READINESS.md.
 
 CODEX-116 current narrow completion:owner explicitly approved only the tested trade-state correction and read-only verification. Migration20261022162826 replaces play_trade_cancel/decline;exact source/attributes verified,two control definitions/attributes unchanged. No hosted trade/app endpoint invoked. Approval spent;no further SQL,gameplay,history repair or release authority. See LAUNCH-CODEX116-TRADE-STATE.md.

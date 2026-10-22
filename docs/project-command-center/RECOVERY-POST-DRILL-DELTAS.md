@@ -53,3 +53,11 @@ Owner-approved and exact-source/attribute verified;one function only,no notice e
 ## Local integrity preflight — CODEX-119
 
 Run `node tools/check-recovery-packets.js` or normal build validation before reviewing a recovery operation. recovery-packets.json pins both reviewed files for every migration table above; raw hashes, LF bytes, safe paths and migration versions/order must match. New approved deltas require an explicit reviewed manifest entry. Do not replace expected hashes on unexplained drift. This check reads local files only and never executes SQL or authorizes a restore.
+
+## CODEX-121 approved release confirmation delta
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261022185226 codex121_shiny_release_confirmation|supabase/unapplied/shiny-release-confirmation/INSTALL.sql|4598cffd04b99167f6dd31e3e2228ddea3cdc5ef02618df1340a2b9311347fbd|
+
+Owner-approved and exact source/attribute verified;one expression in one function. No release,player repair or other gameplay call. Older observed snapshots predate this delta. Preserve matching guarded replay or verify a newer snapshot;no automatic rollback,new export,restore or scheduling authorized.

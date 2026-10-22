@@ -5,15 +5,15 @@
   "tasks": [
     {
       "id": "CODEX-121",
-      "status": "blocked",
+      "status": "done",
       "scope": "Locally tested release-confirmation packet and independent Radar consumption review",
       "dependencies": [
         "CODEX-120"
       ],
-      "evidence": "LAUNCH-CODEX121-INVENTORY-BOUNDARIES.md; evidence/codex121-release-packet.json; evidence/codex121-radar-review.json",
-      "testResults": "21REAL LOCAL release packet/protection cases;10REAL LOCAL Radar concurrency/ownership cases;no application RPC",
-      "nextAction": "Owner decision requested for narrow SQL correction;independent Radar review complete;Twitch held",
-      "approvalRequirement": "Production SQL/gameplay validation requires separate explicit owner approval;prepared only"
+      "evidence": "LAUNCH-CODEX121-INVENTORY-BOUNDARIES.md; evidence/codex121-release-packet.json; evidence/codex121-radar-review.json; evidence/codex121-hosted-verification.json; evidence/codex121-packet-bytes.json",
+      "testResults": "21REAL LOCAL release packet/protection cases;10REAL LOCAL Radar concurrency/ownership cases;no application RPC;fresh exact hosted source/attributes;2control definitions/attributes unchanged;12Git-recreated recovery packet hashes;build31/464",
+      "nextAction": "Preserve sixth guarded recovery delta;remaining real acceptance gates unchanged",
+      "approvalRequirement": "Owner explicitly approved one-function correction/read-only verification;installed20261022185226;approval spent"
     },
     {
       "id": "CODEX-120",

@@ -1,0 +1,25 @@
+{
+  "classification": "Owner-approved one-function production SQL correction;read-only pg_proc verification;no gameplay invocation",
+  "migration": {
+    "version": "20261022185226",
+    "name": "codex121_shiny_release_confirmation"
+  },
+  "target": "play_release(uuid,text)",
+  "fullDefinitionMatches": true,
+  "bodyMd5": "efcb9200fbd34359176436da1f15b552",
+  "attributesUnchanged": [
+    "acl",
+    "proconfig",
+    "owner",
+    "prosecdef",
+    "provolatile",
+    "proisstrict",
+    "proparallel"
+  ],
+  "controlsUnchanged": [
+    "play_use_lure()",
+    "play_use_rare_candy(integer,text)"
+  ],
+  "applicationInvocations": 0,
+  "rollbackUsed": false
+}

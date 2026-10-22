@@ -12,3 +12,5 @@ supabase/unapplied/atomic-notice-claim/INSTALL.sql text eol=lf
 supabase/unapplied/atomic-notice-claim/ROLLBACK.sql text eol=lf
 supabase/unapplied/site-config-write-boundary/INSTALL.sql text eol=lf
 supabase/unapplied/site-config-write-boundary/ROLLBACK.sql text eol=lf
+supabase/unapplied/shiny-release-confirmation/INSTALL.sql text eol=lf
+supabase/unapplied/shiny-release-confirmation/ROLLBACK.sql text eol=lf

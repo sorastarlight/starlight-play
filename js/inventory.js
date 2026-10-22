@@ -292,6 +292,7 @@
     els.trainer.hidden = false;
     if (invChannel) supabase.removeChannel(invChannel);
     let refreshGeneration = 0;
+    const refreshWarning = "Inventory refresh unavailable. Showing your last loaded bag; reload to try again.";
     invChannel = supabase.channel("play-inv")
       .on("postgres_changes", { event: "*", schema: "public", table: "inventories", filter: `user_id=eq.${session.user.id}` }, async () => {
         const refresh = ++refreshGeneration;
@@ -307,8 +308,9 @@
           lastCapture = snap.captureItems || null;
           lastCollection = collection;
           renderBag(nextBag);
+          if (els.status?.textContent === refreshWarning) els.status.textContent = "";
         } catch (_) {
-          if (current() && refresh === refreshGeneration && els.status) els.status.textContent = "Inventory refresh unavailable. Showing your last loaded bag; reload to try again.";
+          if (current() && refresh === refreshGeneration && els.status) els.status.textContent = refreshWarning;
         }
       })
       .subscribe();

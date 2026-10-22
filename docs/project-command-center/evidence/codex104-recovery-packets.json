@@ -1,0 +1,49 @@
+{
+  "classification": "REAL LOCAL SQL repository recovery packets; fictional PG fixtures; four-file Git checkout-index byte verification",
+  "packetChecks": 28,
+  "purchase": 17,
+  "reminder": 11,
+  "files": [
+    {
+      "file": "supabase/unapplied/purchase-unlock-atomicity/INSTALL.sql",
+      "beforeSha256": "10e6baa4358feb9b82b13245af4e8645123dc09b2c8e9b381506c19b26c5a79e",
+      "normalizedSha256": "f1b7c6e2f12c60fae47e1329f51ac6b877f8339bf73b451eee3e07390a398b94",
+      "originalSha256": "f1b7c6e2f12c60fae47e1329f51ac6b877f8339bf73b451eee3e07390a398b94",
+      "onlyEolChanged": true,
+      "afterGitCheckoutSha256": "f1b7c6e2f12c60fae47e1329f51ac6b877f8339bf73b451eee3e07390a398b94"
+    },
+    {
+      "file": "supabase/unapplied/purchase-unlock-atomicity/ROLLBACK.sql",
+      "beforeSha256": "b65960551ee447f4eb5579265f63b4679acb69de9c645e847cfe4223422455e2",
+      "normalizedSha256": "0c968513679d2ded6751140c1dc75b42f136ff6e1466f8c7bf8755e9e42e51ab",
+      "originalSha256": "0c968513679d2ded6751140c1dc75b42f136ff6e1466f8c7bf8755e9e42e51ab",
+      "onlyEolChanged": true,
+      "afterGitCheckoutSha256": "0c968513679d2ded6751140c1dc75b42f136ff6e1466f8c7bf8755e9e42e51ab"
+    },
+    {
+      "file": "supabase/unapplied/username-reminder-no-write/INSTALL.sql",
+      "beforeSha256": "8f950c90810007290a022c918199a8c0745f3e5854a9d7184a8a56b25b1abf0b",
+      "normalizedSha256": "db08f88bf6eca02eda89b13a728476f1e0a8ced7dc4f93b61dddae3ccf045022",
+      "originalSha256": "db08f88bf6eca02eda89b13a728476f1e0a8ced7dc4f93b61dddae3ccf045022",
+      "onlyEolChanged": true,
+      "afterGitCheckoutSha256": "db08f88bf6eca02eda89b13a728476f1e0a8ced7dc4f93b61dddae3ccf045022"
+    },
+    {
+      "file": "supabase/unapplied/username-reminder-no-write/ROLLBACK.sql",
+      "beforeSha256": "6f2ce83eac08398057de745032b48e264eb3bfd75195eabd6201fe472eb636a4",
+      "normalizedSha256": "7600863682baf77e97e6e35a82f2d0dbd5ac14f35305896a6ff6b093bdcc8ee2",
+      "originalSha256": "7600863682baf77e97e6e35a82f2d0dbd5ac14f35305896a6ff6b093bdcc8ee2",
+      "onlyEolChanged": true,
+      "afterGitCheckoutSha256": "7600863682baf77e97e6e35a82f2d0dbd5ac14f35305896a6ff6b093bdcc8ee2"
+    }
+  ],
+  "limits": [
+    "No real archive or full hosted schema replay",
+    "No hosted SQL, rollback, restore, export or credentials",
+    "Synthetic grant/catalog helpers and no real Bits/provider fulfillment"
+  ],
+  "checkedAt": "2026-10-22T10:58:04.342Z",
+  "privateArtifacts": "LOCALAPPDATA/PokemonStreamLink/security/codex104/",
+  "purchaseHarnessSha256": "75d069b433159fa5682cd4e5a7a394c0f999e3df83829a91a5d59560255accf6",
+  "reminderHarnessSha256": "0a64a8b95bb89c66cd169e94cebc211dd8604ab8ca65f5afbd26c63d802f05b0"
+}

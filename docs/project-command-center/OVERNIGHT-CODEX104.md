@@ -1,0 +1,9 @@
+# CODEX-104 — Recovery packet byte stability
+
+Confirmed repository packaging fault: a Windows branch checkout converted the new CODEX-96 recovery SQL files from LF to CRLF. Working-tree SHA-256 values differed from the reviewed/deployed packet inventory solely by line endings. SQL dollar-quoted body hashes are exact, so arbitrary line-ending conversion must not be accepted silently for guarded recovery. Deployed functions were not changed by checkout.
+
+Added four narrow text eol=lf entries to .gitattributes for purchase-unlock-atomicity and username-reminder-no-write INSTALL/ROLLBACK files. Restored their exact reviewed LF bytes; Git blob content/SQL semantics are unchanged. Recreated all four paths via git checkout-index and independently verified no CR bytes plus exact SHA-256 equality to private originals. Both installed packet hashes again match RECOVERY-POST-DRILL-DELTAS.md.
+
+Fresh fictional local PostgreSQL rehearsals read the repository INSTALL/ROLLBACK packets directly rather than regenerating equivalent SQL:17purchase concurrency/compatibility/rollback/drift-refusal checks and11reminder no-write/roles/rollback/drift checks pass. This new run is justified by actual checkout packaging drift. It is not a full restored archive, real Bits/provider or hosted mutation test. Test servers stopped;private original recovery archive/credentials untouched. Rehearsal source/results/hashes remain at LOCALAPPDATA/PokemonStreamLink/security/codex104 and evidence/codex104-recovery-packets.json.
+
+Only repository metadata/documentation changed; no new production SQL, rollback, restore/export, gameplay, provider, real email, protected-account action, spending, scheduler or APP stamp. No frontend runtime publication needed. Existing maina51bcbbf unchanged;Sora NO;Twinkle NO;PlayTester unchanged. Real device/assistive/provider evidence remains required and pending. No repeat backup/worker polling.

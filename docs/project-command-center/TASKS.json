@@ -4,6 +4,19 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-104",
+      "status": "done",
+      "scope": "Preserve exact recovery SQL bytes across Windows checkout",
+      "dependencies": [
+        "CODEX-96",
+        "CODEX-103"
+      ],
+      "evidence": "OVERNIGHT-CODEX104.md; evidence/codex104-recovery-packets.json; .gitattributes",
+      "testResults": "4post-Git-checkout hashes match reviewed LF originals;28REAL LOCAL SQL tests execute actual repo install/rollback packets;no hosted/archive mutation",
+      "nextAction": "Keep exact recovery metadata;continue genuinely unreviewed work while real-device/provider evidence pending",
+      "approvalRequirement": "Repository packaging maintenance only;no production SQL/restore/rollback/provider/gameplay/launch authority"
+    },
+    {
       "id": "CODEX-103",
       "status": "done",
       "scope": "Retained email source review and real-provider identity/branch prerequisites",

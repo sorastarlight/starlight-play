@@ -56,3 +56,5 @@ CODEX-101:12isolated recovery-bootstrap privacy cases pass;no runtime change. Ow
 CODEX-102:Helpdesk selected text/attachment boundary review complete;10LOCAL cases pass and hosted dispatcher body/ACL/config verified without invocation. No production change. Continue other unreviewed work while real acceptance is pending;do not rescan identical renderers or poll unchanged backup/worker. Existing hard stop unchanged.
 
 CODEX-103:retained email source/color review and real-provider prerequisites prepared. Broadcaster exemption cannot certify ordinary subscription path. No runtime/real email/provider action;real acceptance remains pending. Continue other useful independent work;do not keep repeating synthetic provider/rendering tests as substitutes. Existing hard stop unchanged.
+
+CODEX-104:recovery packaging fault fixed;Windows checkout EOL changed CODEX-96 raw packet hashes. Four narrow LF attributes now preserve bytes;4post-checkout hash checks and28fresh repo-packet local SQL cases pass. No production changes/restore/archive access. Continue other unreviewed work;real acceptance remains pending;hard stop unchanged.

@@ -31,3 +31,5 @@ October22 read-only dashboard now lists PHYSICAL backup22Oct202607:44:04UTC, aft
 |20261022084115 codex96_username_reminder_no_write|supabase/unapplied/username-reminder-no-write/INSTALL.sql|db08f88bf6eca02eda89b13a728476f1e0a8ced7dc4f93b61dddae3ccf045022|
 
 Installed and independently source/attribute verified after explicit owner approval. Both original logical archive and latest observed22Oct07:44:04UTC physical snapshot predate these changes. Replay guarded deltas before admitting trainers or use a later verified backup; do not automatically rollback. Next daily snapshot may be checked when due, without polling unchanged state. No extra export/restore/schedule authorized.
+
+CODEX-104:four new packet paths are pinned text eol=lf in .gitattributes. Windows checkout had changed raw hashes through CRLF;only EOL drift was found and original LF bytes restored. All4post-Git-checkout hashes match reviewed originals;28fresh local cases execute the repository install/rollback copies. Preserve exact files/attributes before any guarded recovery. This is not a new hosted/full-archive restore certificate. See OVERNIGHT-CODEX104.md.

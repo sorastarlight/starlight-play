@@ -2,3 +2,7 @@ docs/audits/sql/gate-2a-r-identity-inspect-up.sql text eol=lf
 docs/audits/sql/gate-2a-r-identity-inspect-down.sql text eol=lf
 supabase/unapplied/d81-encounter/001_round_is_active.sql text eol=lf
 supabase/unapplied/d81-encounter/002_round_is_active_rollback.sql text eol=lf
+supabase/unapplied/purchase-unlock-atomicity/INSTALL.sql text eol=lf
+supabase/unapplied/purchase-unlock-atomicity/ROLLBACK.sql text eol=lf
+supabase/unapplied/username-reminder-no-write/INSTALL.sql text eol=lf
+supabase/unapplied/username-reminder-no-write/ROLLBACK.sql text eol=lf

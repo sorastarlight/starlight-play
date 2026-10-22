@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T02:35:10.998Z",
+  "checkedAt": "2026-10-22T02:43:55.229Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -223,8 +223,24 @@
       "file": "js/auth.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "f632fa369b5204910cc957b4266f9e304a55b608fb027f5502c635831331e52b",
-      "publishedSha256": "f632fa369b5204910cc957b4266f9e304a55b608fb027f5502c635831331e52b",
+      "localSha256": "f3771bd712754bf9c3bfd743cb10b9b608390c3fd7bee871ab178997262b8ca5",
+      "publishedSha256": "f3771bd712754bf9c3bfd743cb10b9b608390c3fd7bee871ab178997262b8ca5",
+      "matches": true
+    },
+    {
+      "file": "js/register.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "b7bfcbaa281a46f79bcc5ba8cfa3bfb1a8aa86f8976c363f9f2f1e780fb6b517",
+      "publishedSha256": "b7bfcbaa281a46f79bcc5ba8cfa3bfb1a8aa86f8976c363f9f2f1e780fb6b517",
+      "matches": true
+    },
+    {
+      "file": "tools/registration-feedback-review.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "0d23e1f4d99a66e0538c4772568a3cb2bf949ca1c8ef2444a501837a25cad3b6",
+      "publishedSha256": "0d23e1f4d99a66e0538c4772568a3cb2bf949ca1c8ef2444a501837a25cad3b6",
       "matches": true
     },
     {

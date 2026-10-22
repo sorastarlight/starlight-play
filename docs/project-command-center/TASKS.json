@@ -5,15 +5,16 @@
   "tasks": [
     {
       "id": "CODEX-79",
-      "status": "doing",
+      "status": "done",
       "scope": "Routine signup feedback and pending-submit maintenance",
       "dependencies": [
         "CODEX-78"
       ],
       "evidence": "SIGNUP-FEEDBACK-CODEX79.md;evidence/codex79-regressions.json",
-      "testResults": "86 suites pass;build31HTML464references;REAL DOM local mocked throttle/network pending/retry pass",
-      "nextAction": "Publish reviewed frontend and verify hosted isolated fixture without real signup",
-      "approvalRequirement": "Within approved CODEX-78 routine frontend scope;no Auth authority or backend changes"
+      "testResults": "86 suites/build pass;Pages39712851801 success;36source matches;REAL DOM hosted mocked pending/throttle/network/retry pass",
+      "nextAction": "Continue bounded readiness review;final launch and excluded authority gates remain",
+      "approvalRequirement": "Within approved CODEX-78 routine frontend scope;no Auth authority or backend changes",
+      "commit": "43de14ed45a2bf587ba25fd128e4578906d1c366"
     },
     {
       "id": "CODEX-78",

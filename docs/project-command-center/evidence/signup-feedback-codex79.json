@@ -1,0 +1,26 @@
+{
+  "classification": "REAL DOM isolated mocked SDK only;read-only static public-source verification",
+  "checkedAt": "2026-10-22T02:44:51.620Z",
+  "commit": "43de14ed45a2bf587ba25fd128e4578906d1c366",
+  "pagesRun": "39712851801",
+  "publicFilesMatched": 36,
+  "regressionSuites": 86,
+  "localBrowser": [
+    "pending disabled",
+    "throttle wait/inbox feedback",
+    "network generic feedback",
+    "manual retry restored"
+  ],
+  "hostedBrowser": [
+    "pending disabled",
+    "throttle wait/inbox feedback",
+    "network generic feedback",
+    "manual retry restored"
+  ],
+  "screenshot": "signup-feedback-hosted-codex79.png",
+  "actualSignup": false,
+  "emailSent": false,
+  "authSettingsChanged": false,
+  "gameplay": false,
+  "appBuild": "20261008-rc133"
+}

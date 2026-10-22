@@ -269,3 +269,5 @@ CODEX-78 AUTHORIZED:owner approves nav-fix publication and scoped routine-fronte
 CODEX-78 COMPLETE:owner-approved scoped routine frontend publication policy active;nav correction publisheda4df175d Pages39712061719 success.34filesmatch,actual EmailQA guide nav/account keyboard Escape opener restoration pass. No SQL/Authauthority/gameplay/spending/APP/final-launch change.
 
 CODEX-79 LOCAL PASS:signup throttle/network/username-check feedback and pending duplicate-submit maintenance;86 suites/build/REAL DOM mocked fixture pass. Publishing under CODEX-78 scope;no real signup/email/Auth authority/SQL/gameplay/APP change.
+
+CODEX-79 COMPLETE:43de14ed Pages39712851801 success;86 suites/build pass,36public source matches,REAL DOM hosted isolated mocked pending/throttle/network/retry pass. Signup browser feedback only;no actual signup/email/Auth authority/SQL/gameplay/APP/final-launch change. Standing routine scope active;broader security/provider/device/physical recovery limits remain.

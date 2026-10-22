@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-82",
+      "status": "done",
+      "scope": "Webhook/login boundary mocks and celebration viewport acceptance",
+      "dependencies": [
+        "CODEX-81"
+      ],
+      "evidence": "PROVIDER-DEVICE-CODEX82.md;evidence/provider-device-codex82.json;evidence/codex82-regressions.json",
+      "testResults": "14 webhook+9 login cases;90 suites/build pass;36public source matches;2 previews x4 CSS widths fit",
+      "nextAction": "Continue security triage;physical-device/real-provider coverage and final launch limits remain explicit",
+      "approvalRequirement": "Read-only/local existing scope;no live provider,account,SQL or gameplay authority added"
+    },
+    {
       "id": "CODEX-81",
       "status": "done",
       "scope": "Bounded Bits/ads and dynamic-SQL review;hosted isolated reduced-motion acceptance",

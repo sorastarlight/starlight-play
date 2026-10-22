@@ -1,0 +1,43 @@
+{
+  "classification": "READ-ONLY deployed source comparison;LOCAL actual handler mocks;REAL DOM isolated CSS viewport checks",
+  "checkedAt": "2026-10-22T03:43:41.738Z",
+  "providers": [
+    {
+      "name": "twitch-eventsub",
+      "version": 5,
+      "jwt": false,
+      "sourceMatches": true,
+      "authentication": "HMAC-SHA256 and timestamp window;mocked checks only"
+    },
+    {
+      "name": "trainer-session",
+      "version": 2,
+      "jwt": false,
+      "sourceMatches": true,
+      "authentication": "Supabase password verification;fictional mocks only"
+    }
+  ],
+  "webhookCases": 14,
+  "trainerLoginCases": 9,
+  "regressionSuites": 90,
+  "publicFilesMatched": 36,
+  "viewports": [
+    320,
+    390,
+    768,
+    1280
+  ],
+  "presentation": "Level and achievement panels and Continue horizontally inside frame at all4 widths;no horizontal document overflow",
+  "screenshot": "celebration-320-codex82.png",
+  "limitations": [
+    "not physical mobile hardware",
+    "not browser zoom",
+    "not real OAuth consent/token refresh",
+    "not a real signed Twitch delivery",
+    "no database reward/idempotency integration claim",
+    "no sign-in timing/enumeration or rate-limit certification"
+  ],
+  "productionChanged": false,
+  "providerInvocations": false,
+  "appBuild": "20261008-rc133"
+}

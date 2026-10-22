@@ -49,3 +49,7 @@ Owner-approved and exact-source/attribute verified. Two functions only;no player
 |20261022171505 codex118_atomic_notice_claim|supabase/unapplied/atomic-notice-claim/INSTALL.sql|145fef9bbf6b78f79c84518e308707322e235d3ed285a19e532306e46f2b7ea5|
 
 Owner-approved and exact-source/attribute verified;one function only,no notice endpoint or player repair. Older observed logical/physical recovery points predate this delta. Retain matching guarded replay or verify a newer snapshot;no automatic rollback,new export,restore or scheduling authorized.
+
+## Local integrity preflight — CODEX-119
+
+Run `node tools/check-recovery-packets.js` or normal build validation before reviewing a recovery operation. recovery-packets.json pins both reviewed files for every migration table above; raw hashes, LF bytes, safe paths and migration versions/order must match. New approved deltas require an explicit reviewed manifest entry. Do not replace expected hashes on unexplained drift. This check reads local files only and never executes SQL or authorizes a restore.

@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-119 | done | Automatic recovery packet integrity | CODEX-118 | Local tooling only |20filesystem cases;10Git-recreated packet hashes;build31/464 |
 | CODEX-118 | done | Advisor/cosmetic review and approved notice claim correction | CODEX-117 | Explicit owner approval spent |Installed20261022171505;exact source/attributes verified;no endpoint call |
 | CODEX-117 | done | Trigger-aware offer protections/readiness | CODEX-116 | Read-only/local |13SQLchecks;hypothesis rejected;no production fix;Pages success |
 | CODEX-77 | done | Navigation Escape opener focus | CODEX-76 | Local maintenance |6cases/85suites/localDOM;publication decision pending |

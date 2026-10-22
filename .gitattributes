@@ -10,3 +10,5 @@ supabase/unapplied/trade-state-recheck/INSTALL.sql text eol=lf
 supabase/unapplied/trade-state-recheck/ROLLBACK.sql text eol=lf
 supabase/unapplied/atomic-notice-claim/INSTALL.sql text eol=lf
 supabase/unapplied/atomic-notice-claim/ROLLBACK.sql text eol=lf
+supabase/unapplied/site-config-write-boundary/INSTALL.sql text eol=lf
+supabase/unapplied/site-config-write-boundary/ROLLBACK.sql text eol=lf

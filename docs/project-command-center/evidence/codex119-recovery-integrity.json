@@ -1,0 +1,72 @@
+{
+  "classification": "LOCAL filesystem/Git reconstruction integrity;no SQL/network/provider/restore operation",
+  "files": [
+    {
+      "file": "supabase/unapplied/site-config-write-boundary/INSTALL.sql",
+      "sha256": "e776607a90e6e59cd941c964eacb6649dcd22df291fe8887fc3dd032490c31bf",
+      "migration": "20261022014528"
+    },
+    {
+      "file": "supabase/unapplied/site-config-write-boundary/ROLLBACK.sql",
+      "sha256": "53d85caacd0a401ac8872df02f5ad6eb8e8f78a1589f19dccdb2f29a74d06df4",
+      "migration": "20261022014528"
+    },
+    {
+      "file": "supabase/unapplied/purchase-unlock-atomicity/INSTALL.sql",
+      "sha256": "f1b7c6e2f12c60fae47e1329f51ac6b877f8339bf73b451eee3e07390a398b94",
+      "migration": "20261022084110"
+    },
+    {
+      "file": "supabase/unapplied/purchase-unlock-atomicity/ROLLBACK.sql",
+      "sha256": "0c968513679d2ded6751140c1dc75b42f136ff6e1466f8c7bf8755e9e42e51ab",
+      "migration": "20261022084110"
+    },
+    {
+      "file": "supabase/unapplied/username-reminder-no-write/INSTALL.sql",
+      "sha256": "db08f88bf6eca02eda89b13a728476f1e0a8ced7dc4f93b61dddae3ccf045022",
+      "migration": "20261022084115"
+    },
+    {
+      "file": "supabase/unapplied/username-reminder-no-write/ROLLBACK.sql",
+      "sha256": "7600863682baf77e97e6e35a82f2d0dbd5ac14f35305896a6ff6b093bdcc8ee2",
+      "migration": "20261022084115"
+    },
+    {
+      "file": "supabase/unapplied/trade-state-recheck/INSTALL.sql",
+      "sha256": "2e1657bdfd0d05bdcfe39f580dc8f2b326b5f813ae0b96e8c1e6444a8427c901",
+      "migration": "20261022162826"
+    },
+    {
+      "file": "supabase/unapplied/trade-state-recheck/ROLLBACK.sql",
+      "sha256": "45482d9032d5bdbcfbb9bb8eec370dec8d9cae5923a84d19dc2c35428100087e",
+      "migration": "20261022162826"
+    },
+    {
+      "file": "supabase/unapplied/atomic-notice-claim/INSTALL.sql",
+      "sha256": "145fef9bbf6b78f79c84518e308707322e235d3ed285a19e532306e46f2b7ea5",
+      "migration": "20261022171505"
+    },
+    {
+      "file": "supabase/unapplied/atomic-notice-claim/ROLLBACK.sql",
+      "sha256": "0fe6375d82779a3fed5969f588d183a8b43390331e9e8b7a83995ff51563302f",
+      "migration": "20261022171505"
+    }
+  ],
+  "configurationPacketProvenance": [
+    {
+      "file": "supabase/unapplied/site-config-write-boundary/INSTALL.sql",
+      "originalCommit": "dc8e1c7d",
+      "sha256": "e776607a90e6e59cd941c964eacb6649dcd22df291fe8887fc3dd032490c31bf",
+      "unchanged": true
+    },
+    {
+      "file": "supabase/unapplied/site-config-write-boundary/ROLLBACK.sql",
+      "originalCommit": "dc8e1c7d",
+      "sha256": "53d85caacd0a401ac8872df02f5ad6eb8e8f78a1589f19dccdb2f29a74d06df4",
+      "unchanged": true
+    }
+  ],
+  "localFixtureChecks": 20,
+  "usernameCatalogReview": "Read-only index definition confirms unique lower(username) index where username not null;no account RPC invoked",
+  "cliFailureChecks": "Standalone CLI and actual build preflight both exit1 on fictional packet drift"
+}

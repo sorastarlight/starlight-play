@@ -1,4 +1,4 @@
-# Launch readiness handoff — consolidated through CODEX-118
+# Launch readiness handoff — consolidated through CODEX-119
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
@@ -85,3 +85,5 @@ CODEX-118:read-only security advisor/catalog triage records48no-policyRLS/268mut
 Independent cosmetic review while notice install held:17REAL LOCAL SQL cases execute exact title/sprite setters and three exact catalog/pack ownership helpers. Foreign/unowned/disabled title and hidden/missing/unowned premium sprite denials preserve profiles;owned selections/free sprite/title clearing work for current trainer only;missing identity denied. Fictional minimal tables and stub trainer_card serializer;not full RLS/UI/provider/concurrency certification. No new defect or production correction. Loopback cluster stopped/fixture removed. Evidence:evidence/codex118-cosmetic-review.json.
 
 CODEX-118 CURRENT COMPLETION:owner approved only the one-function correction/read-only verification. Migration20261022171505 codex118_atomic_notice_claim installed;full definition/candidate body and unchanged ACL/config/owner/behavior attributes independently verified. No notice endpoint invoked,reward/gameplay/provider/email/APPaction or player repair. Guarded INSTALL/ROLLBACK retained in supabase/unapplied/atomic-notice-claim;15local packet checks remain valid. Earlier held statements are historical;approval spent.
+
+CODEX-119: build-integrated, read-only recovery integrity now verifies 10 files across five post-drill migrations against raw hashes, LF bytes, safe paths and documented versions/order. 20 LOCAL filesystem cases and 10 Git-recreated packet hashes pass; original CODEX-73 packet bytes unchanged. No SQL source/execution, runtime or provider change. Read-only username unique-index metadata confirmed; no account mutation. See LAUNCH-CODEX119-RECOVERY-INTEGRITY.md.

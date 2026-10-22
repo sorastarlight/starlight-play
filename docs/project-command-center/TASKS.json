@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-119",
+      "status": "done",
+      "scope": "Read-only build-integrated recovery packet integrity and username index metadata review",
+      "dependencies": [
+        "CODEX-118"
+      ],
+      "evidence": "LAUNCH-CODEX119-RECOVERY-INTEGRITY.md; recovery-packets.json; evidence/codex119-recovery-integrity.json",
+      "testResults": "20LOCAL filesystem cases;10actual packet hashes;10Git-recreated hashes;2original configuration packet hashes;build31/464;no SQL execution",
+      "nextAction": "Use integrity preflight for future reviewed recovery deltas;real acceptance remains open and Twitch held",
+      "approvalRequirement": "Local tooling/documentation only;no production mutation or new SQL authority"
+    },
+    {
       "id": "CODEX-118",
       "status": "done",
       "scope": "Read-only security-advisor triage and locally tested notice claim packet",

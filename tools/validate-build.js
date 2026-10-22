@@ -1,6 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 
+const recoveryPackets = require('./check-recovery-packets').check();
+if (recoveryPackets.errors.length) {
+  console.error('RECOVERY PACKET PREFLIGHT FAILED\n' + recoveryPackets.errors.join('\n'));
+  process.exit(1);
+}
+
 const tableAccess = require('./check-new-table-access').check();
 if (tableAccess.errors.length) {
   console.error('TABLE ACCESS PREFLIGHT FAILED\n' + tableAccess.errors.join('\n'));

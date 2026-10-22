@@ -1,0 +1,27 @@
+{
+  "classification": "LOCAL actual early-route and page-bootstrap source in VM with fictional Auth/client/DOM; no real email/token/account",
+  "passed": 12,
+  "checks": [
+    "Actual page scrubs fragment before SDK and waits for recipient click",
+    "Explicit recipient click verifies once and exposes recovery form",
+    "Recovery session storage remains isolated from app localStorage",
+    "Page hide disposes recovery client and clears memory",
+    "Actual page scrubs query before SDK and waits for recipient click",
+    "Explicit recipient click verifies once and exposes recovery form",
+    "Recovery session storage remains isolated from app localStorage",
+    "Page hide disposes recovery client and clears memory",
+    "Missing/error link stops before client creation",
+    "Missing/error link stops before client creation",
+    "Referrer policy and early scrub script precede external SDK",
+    "Recovery page contains no console logging path"
+  ],
+  "limits": [
+    "Not a real browser or screen-reader/provider test",
+    "Auth provider methods are mocked; no real password update",
+    "Does not replace required Android/iOS/assistive/Twitch acceptance"
+  ],
+  "checkedAt": "2026-10-22T09:27:29.862Z",
+  "privateArtifacts": "LOCALAPPDATA/PokemonStreamLink/security/codex101/",
+  "rehearsalSha256": "cee4d9a0cdb7dd93a994102332af4c576b5f7b58e9f06397120390055b2f6288",
+  "resultSha256": "061fe4bf0f5d6b58b859bc60303ff6e0951b411486dae6907c3acf61606333f3"
+}

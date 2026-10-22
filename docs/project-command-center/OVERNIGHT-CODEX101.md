@@ -1,0 +1,9 @@
+# CODEX-101 — Recovery bootstrap privacy review
+
+Independent review while required real acceptance is pending. Executed actual recovery-flow.js early route and reset-password.js page bootstrap in isolated VM contexts with fictional Auth, localStorage and DOM. Twelve LOCAL checks pass: fragment/query tokens scrub before client creation, recipient links wait for explicit click, one verification/form exposure after click, in-memory session isolation, pagehide disposal/clearing, missing/error links stopping before client creation, no-referrer/early-scrub load ordering, and no console logging path in the recovery page script.
+
+This is new bootstrap integration coverage beyond prior controller tests; it does not replay or certify actual email/Auth, browser history behavior, screen readers or physical phones. No real recovery token, password, user payload, provider request, email or account update. No runtime fix was necessary in the reviewed scope. Private fictional rehearsal/result remain outsideGit;summary/hashes:evidence/codex101-recovery-bootstrap.json.
+
+Owner device inventory is now known: PC and Android phone. Model/browser/version and actual results remain pending; iOS/reviewer and real screen-reader access are unconfirmed. Owner has been given a small Help/Register portrait/landscape/menu/keyboard check without form submission. No device result is inferred from availability. The accepted requirement remains real mobile/assistive/Twitch-provider acceptance before launch; no beta deferral.
+
+No production/source/SQL/permissions, provider/credential/gameplay/grant/spending/scheduling or APP change. Existing maina51bcbbf and full95-suite evidence remain unchanged. CODEX-96 guarded recovery deltas remain required; do not poll another daily backup prematurely. Sora NO;Twinkle NO;PlayTester unchanged.

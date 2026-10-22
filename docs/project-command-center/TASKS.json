@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-101",
+      "status": "done",
+      "scope": "Recovery bootstrap privacy and real device availability record",
+      "dependencies": [
+        "CODEX-100"
+      ],
+      "evidence": "OVERNIGHT-CODEX101.md; evidence/codex101-recovery-bootstrap.json",
+      "testResults": "12LOCAL actual route/page source checks with fictional Auth/DOM/storage pass;no real device/provider result",
+      "nextAction": "Continue independent unreviewed work;Android model/browser/results pending;no synthetic substitution",
+      "approvalRequirement": "No Auth/provider/email/gameplay/protected-account/restore/final-launch authority"
+    },
+    {
       "id": "CODEX-100",
       "status": "in_progress",
       "scope": "Required real mobile/assistive/provider acceptance",
@@ -13,7 +25,7 @@
       ],
       "evidence": "Owner explicitly selected Require real acceptance before launch; REAL-ACCEPTANCE-CHECKLIST.md prepared",
       "testResults": "No new real-device/provider result yet; existing synthetic evidence not substituted",
-      "nextAction": "Collect available real device/screen-reader inventory; prepare exact provider target/action before any separate consequential approval",
+      "nextAction": "PC and Android phone available; await real model/browser/results and identify iOS/screen-reader access; prepare exact provider target/action before separate consequential approval",
       "approvalRequirement": "Requirement accepted, not provider/protected-account/upload/gameplay/restore/stamp/final-launch execution authority"
     },
     {

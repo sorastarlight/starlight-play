@@ -2181,3 +2181,5 @@ CODEX-98 COMPLETE:explicit trainer-look search name published exact1file at main
 CODEX-99 COMPLETE:scoped dynamic SQL review and21REAL LOCAL SQL exact-branch checks pass;no newly confirmed injection flaw or production change. Source-only staff guard review is not an Auth integration test. Acceptance-scope prompt remains pending. See OVERNIGHT-CODEX99.md. APP unchanged;Sora NO;Twinkle NO;PlayTester unchanged.
 
 CODEX-100 IN PROGRESS:owner requires real mobile/assistive/Twitch-provider acceptance before launch;no desktop-beta deferral. REAL-ACCEPTANCE-CHECKLIST.md prepared;device/reader availability requested. No new real result or provider/protected-account/restore/gameplay authorization. APP unchanged;Sora NO;Twinkle NO;PlayTester unchanged.
+
+CODEX-101 COMPLETE:12LOCAL actual recovery early-route/page-bootstrap privacy checks pass with fictional dependencies;no real Auth/email/account action or runtime change. PC+Android availability recorded;actual device/provider evidence pending. See OVERNIGHT-CODEX101.md. APP unchanged;Sora NO;Twinkle NO;PlayTester unchanged.

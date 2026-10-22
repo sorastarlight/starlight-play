@@ -50,3 +50,5 @@ CODEX-98 human-directed continuation:explicit catalog-search label published exa
 CODEX-99:dynamic SQL review plus21isolated exact inventory-branch cases pass;no production changes/newly confirmed injection fault. Launch-scope prompt remains unanswered. Continue other independent review;do not recheck unchanged worker/backup data or present more fixtures as physical/provider evidence. Hard stop remains12:25UTC. See OVERNIGHT-CODEX99.md.
 
 CODEX-100:owner answered acceptance-scope prompt:require real mobile/assistive/Twitch-provider evidence before launch. Beta deferral not accepted. Device/reader availability requested; REAL-ACCEPTANCE-CHECKLIST.md prepared. Do not ask for scope decision again or substitute synthetic fixtures. Continue independent work while access/evidence pending. Schedule/hard stop unchanged.
+
+CODEX-101:12isolated recovery-bootstrap privacy cases pass;no runtime change. Owner reports PC+Android, small physical review instructions provided;no result inferred. Continue independent work;real acceptance remains required and hard stop unchanged. See OVERNIGHT-CODEX101.md.

@@ -4,7 +4,7 @@ Owner decision October22,2026: require real mobile/assistive and Twitch-provider
 
 ## Reviewer evidence to collect
 
-Record actual device/model, OS/browser version, assistive technology/version where applicable, date, page, action and observed result. Mark unavailable or not tested honestly. Device inventory is requested from the owner; no account password, recovery link or token should be shared.
+Record actual device/model, OS/browser version, assistive technology/version where applicable, date, page, action and observed result. Mark unavailable or not tested honestly. Owner reports a PC and Android phone are available; model/browser and real results are pending. iOS/reviewer and real screen-reader access remain unconfirmed; no account password, recovery link or token should be shared.
 
 ### Physical mobile: iOS Safari and Android Chrome
 

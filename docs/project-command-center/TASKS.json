@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-105",
+      "status": "done",
+      "scope": "Consolidate overnight state and validate command-center evidence records",
+      "dependencies": [
+        "CODEX-104"
+      ],
+      "evidence": "OVERNIGHT-LAUNCH-READINESS.md; evidence/codex105-record-consistency.json",
+      "testResults": "202existing evidence JSON files parse;0duplicate task IDs;remote refs confirmed;protected published files unchanged vs pre-overnight baseline",
+      "nextAction": "Continue only genuinely independent new coverage;required real device/provider access and owner results remain open",
+      "approvalRequirement": "No new production/runtime/provider/SQL/gameplay/restore/launch authority"
+    },
+    {
       "id": "CODEX-104",
       "status": "done",
       "scope": "Preserve exact recovery SQL bytes across Windows checkout",

@@ -1,60 +1,46 @@
-# Overnight launch-readiness work
+# Overnight launch readiness — consolidated through CODEX-105
 
-The owner requested sustained autonomous work while asleep, with a high bar for interruptions. A bounded same-chat continuation runs every 30 minutes for eight hours, ending October 22 at 08:25 America/New_York (12:25 UTC). Automation ID: `pok-monrpg-overnight-launch-readiness`. Keep the computer on and app running. This local continuation does not waive production SQL, security authority, account, gameplay or release gates.
+Current October22,2026. Owner requested sustained autonomous progress. Existing same-chat heartbeat ends at08:25 America/New_York /12:25UTC; do not extend it or start/continue a scheduled cycle after that boundary without new human instruction. Automation:pok-monrpg-overnight-launch-readiness. No delegation or extra background systems.
 
-## Completed during this overnight run
+## Current state
 
-- Expanded source triage of public security-definer functions. Eleven no-inline-auth candidates were inspected as wrappers or projections; bridge guards reject missing/empty tokens and missing expected hashes. No live invocation or blanket security clearance is claimed.
-- Helpdesk's isolated preview now loads production support.css. Its new-ticket dialog fits 320, 390, 768 and 1280 CSS pixels; Escape returns focus to New ticket. A fictional submission conflict preserves the reply draft. No production ticket submitted.
-- Escaped 13 staff error-text interpolations in three frontend files. Fifteen actual-source template checks pass. The isolated hosted preview renders 15 templates with zero injected markup nodes. No Admin Hub bootstrap or privileged RPC invoked.
-- All 93 STATIC/LOCAL suites and the build pass. Exact eight-file routine frontend publication completed at main `d668924e`, feature source `e2c00eef`, Pages run `39723252132`. All 44 hosted source files match. Hosted screenshot: `staff-errors-hosted-codex87.png` in this chat's visualization folder.
-- CODEX-88: expanded the private purchase proposal to both entry points and seven exact captured helper/function bodies. All 17 local SQL checks pass; neither database proposal is installed.
-- CODEX-88: eight more Bits message interpolations escaped without provider behavior changes. All 94 suites/build pass; three reviewed files published at main `184e0d5c`, Pages `39725500008` succeeded. All 44 hosted sources match and 26 isolated rendered samples show zero injected markup nodes. See OVERNIGHT-CODEX88.md.
+- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Maina51bcbbf; latest runtime Pages39750745599success. Main/feature histories intentionally separate.
+- APP20261008-rc133 unchanged. Legacy admin.html and js/admin-live.js have no published diff from the pre-overnight baseline. Sora/Twinkle not mutated;PlayTester role unchanged.
+- Both formerly held SQL proposals explicitly approved and installed in CODEX-96:20261022084110 purchase unlock atomicity and20261022084115 obsolete reminder audit-write removal. Exact3candidate sources/attributes verified;5helpers+wrapper unchanged. No hosted purchase or reminder endpoint invoked. No SQL proposal from these packets remains pending.
+- Owner explicitly requires real mobile/assistive/Twitch-provider acceptance before launch. Desktop-first beta deferrals were NOT accepted. Owner has PC+Android;model/browser/results pending. iOS and real screen-reader access unconfirmed.
+- New Twitch one-link policy remains disabled;WIRE/Familiarity original cutoff preserved. CODEX-97 read-only worker sample:1237successes,no failed-status group,0outstanding. Do not repeat unchanged polling.
 
-- CODEX-89: reviewed nine guard predicates and bounded status-only logs; no newly confirmed authorization defect in that sample. Confirmation and Ribbon dialogs now have accessible names, verified locally and hosted, with native Escape/opener restoration. All 94 suites/build pass; main `dd37da9d`, Pages `39728399451`, 46 hosted source matches. See OVERNIGHT-CODEX89.md.
+## Completed work and evidence
 
-- CODEX-90: twelve more existing dialogs now have accessible names. All twelve hosted exact-name checks and 48 local CSS-width cases pass (Helpdesk production CSS scope corrected and its eight cases repeated). 94 suites/build pass; final main `804929f3`, Pages `39731939105`, 51 hosted source matches. See OVERNIGHT-CODEX90.md.
+| Work | Actual evidence | Record |
+|---|---|---|
+| Staff/Bits error escaping |13staff templates +8Bits interpolations corrected;local/hosted isolated markup tests |OVERNIGHT-CODEX87.md,OVERNIGHT-CODEX88.md|
+| Dialog accessibility |Confirmation/Ribbon names plus12more dialogs;native Escape/opener checks and48CSS-width cases |OVERNIGHT-CODEX89.md,OVERNIGHT-CODEX90.md|
+| SDK loading |20permitted pages pinned to byte-identical2.118.0 with integrity;good/bad SRI sandbox checks;protected Admin and existing Helpdesk2.117.2 exceptions retained |OVERNIGHT-CODEX91.md,vendor-lock.json|
+| Direct DB/read scope |64public relations reviewed;121fictional local RLS checks;15public/helper definitions and28projection cases |OVERNIGHT-CODEX92.md,OVERNIGHT-CODEX93.md|
+| Public text/dynamic SQL |20Trainer-render cases with0browser probe nodes;21exact dynamic inventory-branch SQL cases |OVERNIGHT-CODEX95.md,OVERNIGHT-CODEX99.md|
+| Operational configuration |Read-only original flags/cutoff/job/source/ACL and aggregate queue/run sample |LAUNCH-CODEX97-CONFIGURATION.md|
+| Catalog search |Single explicit label published;7relevant checks/build;isolated control name/focus/entry;56hosted sources match |LAUNCH-CODEX98-ACCEPTANCE.md|
+| Recovery/privacy/Helpdesk |12actual route/page bootstrap cases;10Helpdesk renderer cases plus exact hosted dispatcher metadata |OVERNIGHT-CODEX101.md,OVERNIGHT-CODEX102.md|
+| Email/provider prerequisites |3retained templates/colors reviewed;owner-channel exemption distinguished from subscriber integration |OVERNIGHT-CODEX103.md,PROVIDER-REAL-ACCEPTANCE-PREREQUISITES.md|
+| Recovery packaging |Fixed Windows checkout CRLF drift with4LF attributes;4recreated hashes match;28fresh local tests read actual repo packets |OVERNIGHT-CODEX104.md|
+| Record consistency |202existing evidence JSON files parse;no duplicate task IDs;Git remote and protected-file diff checked |evidence/codex105-record-consistency.json|
 
-- CODEX-91: twenty permitted runtime pages pin the same currently served SDK bytes with SHA-384 integrity. Protected admin.html and Helpdesk's separate existing 2.117.2 pin are unchanged. All 95 suites/build and local/hosted sandbox load/rejection checks pass; main `735385ed`, Pages `39734361572`, 56 hosted sources match. See OVERNIGHT-CODEX91.md and vendor-lock.json.
+Latest full regression remains95/95STATIC/LOCAL suites in CODEX-91;do not combine later focused checks into an invented full-suite count. Latest published routine maintenance had7relevant checks and build31HTML/464refs,with56hosted source matches. Static/fictional tests are not real provider/device certification.
 
-- CODEX-92: reviewed direct access across 64 public relations, with no new direct client write path in scope. A fresh fictional local RLS rehearsal passed 121 row-scope/write-denial/state checks and was cleaned up. MORNING-LAUNCH-DECISIONS.md consolidates remaining decisions and acceptance limits; no runtime or production data changed. See OVERNIGHT-CODEX92.md.
+## Recovery status
 
-- CODEX-93: reviewed 15 public/helper definitions and passed 28 isolated SQL projection/owner-gate checks without user payloads. Own-card Trainer endpoint has cosmetic side effects and remains excluded from read-only probes. No production changes. See OVERNIGHT-CODEX93.md.
+CODEX-71 actual logical recovery passed within its recorded scope;original private archive remains unchanged/stopped. Dashboard CODEX-94 lists22Oct07:44:04UTC physical backup after CODEX-73, but BEFORE the two08:41UTC CODEX-96 changes. Both old recovery points require applicable guarded SQL deltas;secure Edge refresh-pass7/store-asset5 and JWTtrue remain separate dependencies. See RECOVERY-POST-DRILL-DELTAS.md. Four new recovery SQL files are pinned to exactLF;do not normalize hashes away. Physical restore/full Auth/storage recovery is not certified. Daily RPO accepted;no new restore/export/credential authority. Check next daily snapshot only when due;do not poll unchanged state tonight.
 
-- CODEX-94: dashboard lists22Oct07:44:04UTC PHYSICAL backup after CODEX-73; migration metadata/local delta hash verified. Pending post-change snapshot observation closed. No restore/export/credentials action; physical restore remains untested. See OVERNIGHT-CODEX94.md.
+## Remaining launch-critical access/evidence
 
-- CODEX-95: selected public text/source review;20 exact Trainer rendering cases pass, browser20samples/0 injected probe elements. Simplified non-network fixture; no production change. See OVERNIGHT-CODEX95.md.
+1. Actual Android review is with owner:Help portrait/landscape/touch navigation and Register keyboard without submitting. Record real model/browser/results;availability is not a pass.
+2. Real desktop200%zoom/screen reader and iOS reviewer access/results remain unresolved. Follow REAL-ACCEPTANCE-CHECKLIST.md;do not silently defer.
+3. Real Twitch/provider acceptance needs suitable controlled identity/context and exact bounded action approvals. Broadcaster exemption returns before subscription lookup,so owner-channel-only testing cannot close ordinary subscriber coverage. Extra test identities were unavailable;do not ask owner to manufacture them again or borrow protected identities. No signed-event/economy/upload probe is authorized.
+4. Final configuration/recovery review and owner launch go/no-go/APP stamp remain separate. No final release declaration.
 
-## Formerly held decisions — now completed CODEX-96
+## Next independent work
 
-Owner explicitly approved both packets; installed/source verified20261022084110/20261022084115. The preparation descriptions below are historical, not current holds. See LAUNCH-CODEX96-CORRECTIONS.md.
+Prefer concrete unreviewed source or actual rendered acceptance that adds coverage. Do not repeat the completed SDK/RLS/serializer/dynamic-SQL/Helpdesk/recovery-template/bootstrap reviews as synthetic substitutes for missing access. Preserve exact scoped frontend publication under CODEX-78;exclude unrelated queued changes and return to canonical branch. Keep private artifacts/secrets outsideGit. Stay quiet for unchanged limitations;notify only meaningful completion,failure,confirmed defect or required owner action.
 
-1. An obsolete public write-removal proposal: `LOCALAPPDATA/PokemonStreamLink/security/codex87/README.md`. Eleven local SQL checks pass, including exact rollback and drift refusal.
-2. A checkout concurrency correction: `LOCALAPPDATA/PokemonStreamLink/security/codex87-cart/README.md`. Seventeen local SQL checks pass with exact captured dependencies. The combined two-function INSTALL-BOTH/ROLLBACK-BOTH packet is ready for review; earlier cart-only packets are superseded. No hosted purchase or correction installation performed.
-
-Private reproductions and unresolved details remain outside Git. No hosted SQL, real purchase, refund or grant performed. Continue independent work instead of interrupting for these while useful work remains.
-
-## Next continuation
-
-1. Continue concrete unreviewed security and rendered UI surfaces. Purchase packet preparation, nine-predicate guard sample and the remaining-dialog naming batch are complete. SDK exact-artifact maintenance is complete for the twenty permitted floating-tag pages. The consolidated morning packet and direct table/RLS review are complete. The selected public serializer review is complete (CODEX-93); selected Trainer text rendering checks are also complete (CODEX-95); continue other genuinely unreviewed source or rendered UI surfaces. Do not invoke play_trainer as read-only: its own-card path evaluates cosmetics. Both formerly held SQL proposals are now installed under the explicit CODEX-96 decision; keep protected admin.html untouched and all authority/privileged-flow gates intact. Do not repeat unchanged suites as a substitute for new coverage.
-2. CODEX-94 backup observation remains valid for CODEX-73 but predates the two new CODEX-96 deltas. Retain those guarded replay packets; do not repeatedly poll before the next daily snapshot. Earlier check: latest observed physical snapshot22Oct07:44:04UTC follows CODEX-73. Do not repeat unchanged polling. Physical restore remains uncertified; retain logical-archive SQL delta and secure Edge7/5 recovery dependencies. No restore/export/credentials authority.
-3. Preserve intentional main/feature history separation. Routine frontend publication uses a scoped branch from origin/main and exact reviewed files, then returns to admin-hub-overhaul. Exclude unrelated queued changes.
-4. Update this handoff and acceptance matrix with actual evidence and consolidated morning decisions. Physical devices, real browser zoom and provider OAuth remain open; mocks cannot certify them.
-
-Stop scheduled work after 08:25 EDT without a new instruction. No spending, protected-account changes, real email, provider/DNS/credential changes, gameplay, extra scheduling, APP stamp or final launch. Sora and Twinkle untouched; PlayTester role unchanged. APP remains `20261008-rc133`.
-
-Human-directed continuation CODEX-97: partial read-only WIRE/Familiarity/link-policy/worker configuration acceptance completed;1237successes/0failed group/0outstanding. No changes or manual job invocation. See LAUNCH-CODEX97-CONFIGURATION.md. Next avoid repeating unchanged worker/source checks;real-device/provider coverage remains unavailable, and CODEX-96 deltas must accompany old backups. Existing overnight schedule remains bounded;new human continuation does not extend it.
-
-CODEX-98 human-directed continuation:explicit catalog-search label published exact one-file diff at maina51bcbbf,Pages39750745599success,56source matches. Important owner acceptance-scope question pending;see FINAL-ACCEPTANCE-REVIEW.md. Do not repeat synthetic fixtures to pretend unavailable physical/provider gaps are closed. Existing overnight schedule/hard stop unchanged.
-
-CODEX-99:dynamic SQL review plus21isolated exact inventory-branch cases pass;no production changes/newly confirmed injection fault. Launch-scope prompt remains unanswered. Continue other independent review;do not recheck unchanged worker/backup data or present more fixtures as physical/provider evidence. Hard stop remains12:25UTC. See OVERNIGHT-CODEX99.md.
-
-CODEX-100:owner answered acceptance-scope prompt:require real mobile/assistive/Twitch-provider evidence before launch. Beta deferral not accepted. Device/reader availability requested; REAL-ACCEPTANCE-CHECKLIST.md prepared. Do not ask for scope decision again or substitute synthetic fixtures. Continue independent work while access/evidence pending. Schedule/hard stop unchanged.
-
-CODEX-101:12isolated recovery-bootstrap privacy cases pass;no runtime change. Owner reports PC+Android, small physical review instructions provided;no result inferred. Continue independent work;real acceptance remains required and hard stop unchanged. See OVERNIGHT-CODEX101.md.
-
-CODEX-102:Helpdesk selected text/attachment boundary review complete;10LOCAL cases pass and hosted dispatcher body/ACL/config verified without invocation. No production change. Continue other unreviewed work while real acceptance is pending;do not rescan identical renderers or poll unchanged backup/worker. Existing hard stop unchanged.
-
-CODEX-103:retained email source/color review and real-provider prerequisites prepared. Broadcaster exemption cannot certify ordinary subscription path. No runtime/real email/provider action;real acceptance remains pending. Continue other useful independent work;do not keep repeating synthetic provider/rendering tests as substitutes. Existing hard stop unchanged.
-
-CODEX-104:recovery packaging fault fixed;Windows checkout EOL changed CODEX-96 raw packet hashes. Four narrow LF attributes now preserve bytes;4post-checkout hash checks and28fresh repo-packet local SQL cases pass. No production changes/restore/archive access. Continue other unreviewed work;real acceptance remains pending;hard stop unchanged.
+No new SQL/Auth authority/provider/DNS/credential/gameplay/grant/real-email/protected-account/spending/scheduling/APP-stamp/final-launch authority is granted by this handoff.

@@ -1,10 +1,10 @@
-# Current launch acceptance matrix — CODEX-104 real acceptance required
+# Current launch acceptance matrix — CODEX-105 real acceptance required
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 95/95 suites in CODEX-91. Routine staff error/Bits feedback escaping is published and verified against 56 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
 | Area | Evidence completed | Remaining condition |
 |---|---|---|
-| Confirmed security defects | Recorded owner-approved corrections through CODEX-83 deployed/source verified;CODEX-80 Pass7 and CODEX-83 uploader5 included | Both CODEX-87 proposals owner-approved and installed/source verified in CODEX-96; no hosted purchase/email test. Broader nested authorization/search-path warnings remain residual review, not blanket clearance |
+| Confirmed security defects | Recorded owner-approved corrections through CODEX-83 deployed/source verified;CODEX-80 Pass7/CODEX-83 uploader5 plus owner-approved CODEX-96 purchase/reminder corrections installed and source verified | Broader nested authorization/search-path review remains bounded;no blanket clearance. Required real provider coverage remains open |
 | Dependency loading | Twenty byte-identical current SDK pins with integrity; correct/mismatched load tests pass locally/hosted; offline 22-page contract | Protected legacy Admin floating tag and existing Helpdesk exact 2.117.2 tag unchanged; no new authenticated integration test |
 | Provider entry points | Bits/ads/live staff denials;HMAC webhook and trainer-login mocks;diagnostics/recovery source matches and existing12+13 synthetic cases pass | No new real Twitch consent,token refresh,signed event or post-fix Pass/upload integration test;do not infer production provider success from mocks |
 | Gameplay and staff workflows | Actual bounded catching,purchase,evolution,Oak,GTS,Helpdesk,recovery delivery,gifts and staff Pass QA recorded | Earlier test allowances spent;future mutations require bounded approval |

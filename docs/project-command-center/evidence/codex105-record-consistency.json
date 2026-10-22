@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-10-22T11:27:04.910Z",
+  "classification": "Read-only Git remote/source diff plus local command-center JSON consistency; not runtime acceptance",
+  "main": "a51bcbbf52e47e04591d548332656b685c8d6839",
+  "featureBeforeHandoff": "767198f3204839a2cf6401c4acbdf86ad862ddaa",
+  "jsonFilesParsed": 202,
+  "jsonParseFailures": 0,
+  "duplicateTaskIds": 0,
+  "protectedFilesChangedSinceOvernightBaseline": [],
+  "protectedComparison": "d668924e^..origin/main -- admin.html js/admin-live.js",
+  "limits": [
+    "JSON validity and task uniqueness do not validate every historical assertion",
+    "No new device/provider/restore/runtime test",
+    "Published and feature histories intentionally remain separate"
+  ]
+}

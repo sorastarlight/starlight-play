@@ -2153,3 +2153,5 @@ CODEX-86 VERIFIED:only4reviewed frontend/test/tool files published maincd4d9392 
 CODEX-87 OVERNIGHT ACTIVE:owner requests sustained work;bounded local thread heartbeat until08:25EDT. Independent security and UI work proceeds despite one held private SQL proposal.13frontend error text sinks escaped,15template cases/93suites/build pass;Helpdesk4width dialog/Escape/draft-conflict acceptance. Scoped main d668924e Pages39723252132 pending. No live RPC/gameplay/SQL/credentials/APP change.
 
 CODEX-87 VERIFIED FRONTEND: Pages 39723252132 succeeded for main d668924e; 44 hosted source files match, isolated hosted DOM renders 15 actual error templates with zero injected nodes. Two private SQL proposals remain held: 11 reminder checks and 9 cart concurrency/guard/rollback checks. No hosted RPC invocation or database change. Overnight continuation remains active until 08:25 EDT.
+
+CODEX-87 FOLLOW-UP: related callable checkout path reproduced locally too; private purchase proposal now has 12 local checks. Legacy guarded packet and exact dependency review remain for the next continuation. No hosted purchase or SQL.

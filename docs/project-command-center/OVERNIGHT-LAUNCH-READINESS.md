@@ -13,13 +13,13 @@ The owner requested sustained autonomous work while asleep, with a high bar for 
 ## Important decisions held for morning
 
 1. An obsolete public write-removal proposal: `LOCALAPPDATA/PokemonStreamLink/security/codex87/README.md`. Eleven local SQL checks pass, including exact rollback and drift refusal.
-2. A checkout concurrency correction: `LOCALAPPDATA/PokemonStreamLink/security/codex87-cart/README.md`. Nine local SQL checks pass, including overlapping transactions, retry behavior, rollback and source/ACL drift refusal. Further dependency and related-path review remains before proposing installation.
+2. A checkout concurrency correction: `LOCALAPPDATA/PokemonStreamLink/security/codex87-cart/README.md`. Twelve local SQL checks pass, including overlapping transactions, retry behavior, rollback and source/ACL drift refusal. The callable older SKU path also reproduces the issue and a local candidate prevents it; its guarded packet and exact dependency review still remain before proposing installation.
 
 Private reproductions and unresolved details remain outside Git. No hosted SQL, real purchase, refund or grant performed. Continue independent work instead of interrupting for these while useful work remains.
 
 ## Next continuation
 
-1. Continue concrete unreviewed security and rendered UI surfaces. Prioritize the related checkout path and exact dependency checks for the private cart proposal. Do not repeat unchanged suites as a substitute for new coverage.
+1. Continue concrete unreviewed security and rendered UI surfaces. Prioritize completing the legacy SKU guarded packet and exact checkout dependency checks for the private cart proposal. Do not repeat unchanged suites as a substitute for new coverage.
 2. Recheck scheduled backups after 03:50 EDT or later. Latest observed physical snapshot is October 21 at 07:44:55 UTC and predates CODEX-73. Read dashboard only; no restore, export or credentials. Retain secure Edge versions 7/5 recovery dependencies.
 3. Preserve intentional main/feature history separation. Routine frontend publication uses a scoped branch from origin/main and exact reviewed files, then returns to admin-hub-overhaul. Exclude unrelated queued changes.
 4. Update this handoff and acceptance matrix with actual evidence and consolidated morning decisions. Physical devices, real browser zoom and provider OAuth remain open; mocks cannot certify them.

@@ -1,6 +1,6 @@
 # Morning launch decisions — draft, not a launch authorization
 
-Current October 22, 2026 EDT. Latest runtime main is d13b7868 (Events/Trainer awaiting hosted deployment;2runsqueued during GitHub incident); APP remains 20261008-rc133. Latest regression evidence is 100/100 STATIC/LOCAL suites in CODEX-113, with 56 hosted source matches and isolated SDK integrity loading/rejection checks. This packet consolidates the important decisions instead of interrupting for routine work.
+Current October 22, 2026 EDT. Latest runtime main is 739fbc19 (Events/Trainer confirmed live;first motion revision live;storage fallback deploy39799569389pending); APP remains 20261008-rc133. Latest regression evidence is 100/100 STATIC/LOCAL suites in CODEX-114, with 56 hosted source matches and isolated SDK integrity loading/rejection checks. This packet consolidates the important decisions instead of interrupting for routine work.
 
 ## Recommended order
 

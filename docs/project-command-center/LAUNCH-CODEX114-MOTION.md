@@ -15,3 +15,7 @@ Run39796866472completed/success. Expanded checker verified both Events and Train
 APP20261008-rc133 unchanged. Sora NO;Twinkle NO;PlayTester role unchanged. No SQL,provider,Auth,grant,email,gameplay,spending,scheduling or final-launch action. Real acceptance remains required;Twitch remains held.
 
 Follow-through:14focused assertions now pass,including blocked localStorage. A new baseline caught the media listener rereading AUTO after a failed preference save. It now reapplies the current DOM-selected preference so manual HIGH survives for this page. All100suites/build repassed for this changed edge case. First motion candidate hosted bytes matched100/100while run39799034917stillreportedqueued;the storage-fallback follow-up is separately published/verified below.
+
+Final storage fallback:feature8c3c1546;main739fbc19;Pages39799569389. Actual hosted Events/Trainer match;motion source currently matches first revisionbb18025a while followup awaits. No success claimed for followup yet.
+
+Last check:39799569389stillqueued;build completed,deploy waiting. Actual page script URL with existingAPPquery returns200and first motion revision,not final storage fallback. No manual workflow retry/cancel;local watcher stopped. Keep CODEX-114pending final hosted equality.

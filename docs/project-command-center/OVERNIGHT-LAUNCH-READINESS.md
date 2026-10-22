@@ -67,3 +67,5 @@ Publication tooling follow-through:the checker now discovers same-origin script 
 Latest workflow snapshot:39795730899completed/cancelled;39796866472queued and contains both Events and Trainer commits. No manual cancellation/rerun performed. Await latest run and actual hosted-source equality;do not restart the older run.
 
 CODEX-114:prior Pages39796866472success and actual Events/Trainer source equality verified;112/113closed. Fixed live reduced-motion updates with listener/legacyfallback;13LOCAL performance assertions,100suites/build31/464 and isolated REAL BROWSER computed ON/OFF/manualHIGH cases pass. Only js/play-perf.js to mainbb18025a under CODEX-78;verify its deployment next. No production SQL/RPC/provider/gameplay/APP actions. See LAUNCH-CODEX114-MOTION.md.
+
+CODEX-114 latest:100suites/build and14performance assertions pass;first motion revision and prior Events/Trainer confirmed live. Final manual-preference fallback main739fbc19/build completed;deploy39799569389waiting,actual script stillfirstrevision. Local watcher/server stopped;no schedule extension or workflow retry. Continue final hosted verification when queue advances.

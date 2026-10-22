@@ -39,5 +39,17 @@
   ],
   "loopbackStopped": true,
   "realRpcCalls": 0,
-  "blockedStorage": "Manual preference preserved using current DOM pref;baseline failed before follow-up"
+  "blockedStorage": "Manual preference preserved using current DOM pref;baseline failed before follow-up",
+  "followupFeatureCommit": "8c3c1546",
+  "followupMainCommit": "739fbc193a30463ad36473dff0de5cbe6ba1f52d",
+  "followupPagesRun": 39799569389,
+  "currentHostedMatches": 99,
+  "currentHostedNote": "Events/Trainer live;first motion revision live;storage-fallback followup pending",
+  "followupWorkflowStatus": "queued;build completed,deploy waiting",
+  "actualPageScriptCheck": {
+    "url": "https://play.sorastarlight.net/js/play-perf.js?v=20261008-rc133",
+    "status": 200,
+    "matchesFinalCandidate": false
+  },
+  "localWatcherStopped": true
 }

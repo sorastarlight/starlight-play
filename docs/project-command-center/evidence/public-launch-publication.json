@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T14:51:01.968Z",
+  "checkedAt": "2026-10-22T14:53:50.710Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -479,9 +479,9 @@
       "file": "js/play-perf.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "8694c1ab13b1d824a5852c377d3c6ee75080b9ed09a6c66afcc9a34f02b2b2c9",
+      "localSha256": "f93b460819cdd90624d08404cb62d4c3fa1655534341483c7613073b4fbc9c5d",
       "publishedSha256": "8694c1ab13b1d824a5852c377d3c6ee75080b9ed09a6c66afcc9a34f02b2b2c9",
-      "matches": true
+      "matches": false
     },
     {
       "file": "js/build-client.js",

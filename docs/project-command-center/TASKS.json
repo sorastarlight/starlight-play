@@ -11,8 +11,8 @@
         "CODEX-113"
       ],
       "evidence": "LAUNCH-CODEX114-MOTION.md; evidence/codex114-regressions.json",
-      "testResults": "Baseline failed;13LOCAL performance assertions;100/100suites/build31/464;isolated browser computed-style ON/OFF/manualHIGH checks;prior Pages39796866472success",
-      "nextAction": "Verify latest motion publication source/workflow;real acceptance unchanged",
+      "testResults": "14LOCAL performance assertions;100/100suites/build31/464;isolated browser ON/OFF/manualHIGH;Events/Trainer run39796866472success;latest motion fallback awaiting hosted check",
+      "nextAction": "Verify Pages39799569389 and motion source739fbc19;first motion revision and Events/Trainer already serving. Required real acceptance unchanged.",
       "approvalRequirement": "CODEX-78 routine frontend maintenance only"
     },
     {

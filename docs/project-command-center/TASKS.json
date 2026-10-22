@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-95",
+      "status": "done",
+      "scope": "Selected public text rendering safety review",
+      "dependencies": [
+        "CODEX-94"
+      ],
+      "evidence": "OVERNIGHT-CODEX95.md; evidence/codex95-public-rendering.json",
+      "testResults": "20 LOCAL exact renderer cases; REAL BROWSER20samples/0 injected probe nodes; simplified non-network fixture",
+      "nextAction": "Continue other genuinely unreviewed security/UI paths; held consequential packets remain for owner decision",
+      "approvalRequirement": "No production change, hosted bootstrap, Auth/provider/gameplay or final-release authority"
+    },
+    {
       "id": "CODEX-94",
       "status": "done",
       "scope": "Observe next post-change scheduled physical backup",

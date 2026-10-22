@@ -1,0 +1,18 @@
+{
+  "classification": "LOCAL actual renderer source executed in VM; simplified non-network helpers; rendered HTML fixture",
+  "passed": 20,
+  "renderers": 5,
+  "payloads": 4,
+  "sourceSha256": "c6ef1eeea7e24e2fbd6d6b2da01a1544fe083e1f7d0a509214b7cbfd7120ea68",
+  "limits": "No full page bootstrap, real Auth, provider, physical device, dynamic handler or numeric schema-invalid payload certification",
+  "checkedAt": "2026-10-22T08:29:12.243Z",
+  "browser": {
+    "samples": 20,
+    "injectedProbeNodes": 0,
+    "literalTextObserved": true
+  },
+  "privateArtifacts": "LOCALAPPDATA/PokemonStreamLink/security/codex95/",
+  "rehearsalSha256": "d26e8fc45dcf4db3c14c0e8d1af3a10db64ae10abf16d250f334dc97deaf158f",
+  "fixtureSha256": "0deeea063d779386ac0940389a9660229cff77917e495b41181a4ecfb75c6824",
+  "screenshot": "C:/Users/FET/.codex/visualizations/2026/10/19/01a15207-ca1f-7800-95d6-9fb36dc377d5/public-text-render-codex95.png"
+}

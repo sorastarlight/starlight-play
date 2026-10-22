@@ -1,0 +1,9 @@
+# CODEX-95 — Isolated public text rendering review
+
+Reviewed Rankings, GTS and Trainer rendering sources, then executed the current full trainers.js definitions with the actual nav.js escaping helper in a local VM. Five selected contexts (identity name/title, party nickname, featured Shiny name, journal title and capture location) each received four fictional markup/quote/ampersand/Unicode inputs. All20 LOCAL source-render checks pass. Browser parsing of those exact outputs shows20 samples and0 injected data-probe elements; literal markup remains text, including party accessible names.
+
+This is a scoped current-code review, not a confirmed new exploit or a production fix. Rankings/GTS source review does not gain the same runtime coverage from the Trainer fixture. Numeric IDs/ranks/levels are schema-controlled in the reviewed server paths; malformed out-of-contract numeric payloads were not tested. Whole-page bootstrap, dynamic handlers, authentic sessions/provider behavior and physical devices remain outside this evidence.
+
+The private fixture uses simplified CSS/assets and safe deterministic presentation helpers, with no SDK and CSP blocking scripts/connect requests. It is a browser parse/text safety fixture, not production layout/visual acceptance. Screenshot/evidence are recorded in evidence/codex95-public-rendering.json. Temporary loopback server stopped after checks. No hosted RPC, account data, real email, gameplay, SQL, permission, runtime publication, provider or credential change. Existing95-suite/build evidence remains CODEX-91 and was not repeated unchanged. APP20261008-rc133; Sora NO; Twinkle NO; PlayTester unchanged.
+
+Overnight work continues within the existing hard stop. Two privately tested SQL proposals remain held for morning; newer physical backup observation is complete in CODEX-94. No final launch declaration.

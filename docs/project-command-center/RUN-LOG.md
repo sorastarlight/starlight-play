@@ -2169,3 +2169,5 @@ CODEX-92 COMPLETE: 64-relation catalog boundary review and 121 REAL LOCAL SQL fi
 CODEX-93 COMPLETE: public serializer source review and 28 REAL LOCAL SQL projection/owner-boundary checks pass. See OVERNIGHT-CODEX93.md and evidence/codex93-serializer-summary.json. No user payload or hosted RPC; no production changes. APP unchanged; Sora NO; Twinkle NO; PlayTester unchanged.
 
 CODEX-94 COMPLETE: read-only dashboard lists22Oct07:44:04UTC PHYSICAL backup after CODEX-73. Migration catalog and local guarded delta hash verified. Pending newer-backup observation closed; no physical restore certification. See OVERNIGHT-CODEX94.md. No production change; APP unchanged; Sora NO; Twinkle NO; PlayTester unchanged.
+
+CODEX-95 COMPLETE:20 exact Trainer rendering cases pass; isolated browser20samples/0 injected elements. Simplified CSS/assets; no full-page/provider certification or runtime change. See OVERNIGHT-CODEX95.md. APP unchanged; Sora NO; Twinkle NO; PlayTester unchanged.

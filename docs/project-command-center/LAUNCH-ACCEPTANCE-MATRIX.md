@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-94 overnight
+# Current launch acceptance matrix — CODEX-95 overnight
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 95/95 suites in CODEX-91. Routine staff error/Bits feedback escaping is published and verified against 56 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -27,3 +27,5 @@ CODEX-92 direct-access review found no direct client write-policy/grant intersec
 CODEX-85 diagnostics version2 and recovery-email version2 retain JWTtrue;all5 returned file projections match repository source after newline normalization. No endpoints invoked,email sent,credential/token/password handled or user record changed. Backup dashboard read-only screenshot:backup-readiness-codex85.png. Evidence:evidence/acceptance-matrix-codex85.json. Sora NO;Twinkle NO;PlayTester role unchanged.
 
 CODEX-93 reviewed 15 selected public/related helper definitions without user payloads. Twenty-eight fictional local SQL projection/ownership checks pass; no credential-field projection found in scope. This is not a complete RPC/privacy certification. Own-card Trainer reads can evaluate cosmetics and remain excluded from read-only probes. See OVERNIGHT-CODEX93.md.
+
+CODEX-95:20 selected exact Trainer text-rendering cases pass, with isolated real-browser20samples/0 injected probe elements. Simplified CSS/assets/helper fixture, not whole-page/provider/device acceptance. No runtime changes. See OVERNIGHT-CODEX95.md.

@@ -716,7 +716,7 @@
           : `<p class="muted">No Bits events in this view.</p>`;
       }
     } catch (error) {
-      if (els.bitsEvents) els.bitsEvents.innerHTML = `<p class="muted">${window.playRpcError(error, "Bits fulfillment is unavailable.")}</p>`;
+      if (els.bitsEvents) els.bitsEvents.innerHTML = `<p class="muted">${window.playEscapeAttr(window.playRpcError(error, "Bits fulfillment is unavailable."))}</p>`;
     }
   }
 

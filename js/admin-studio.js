@@ -271,7 +271,7 @@
           <a class="button" href="./admin.html?section=encounters&view=special">Schedule / start events</a>
         </div>`;
     } catch (error) {
-      el.innerHTML = `<p class="muted">${window.playHumanRpcError ? window.playHumanRpcError(error) : esc(error.message || error)}</p>`;
+      el.innerHTML = `<p class="muted">${esc(window.playHumanRpcError ? window.playHumanRpcError(error) : (error.message || error))}</p>`;
     }
   }
 

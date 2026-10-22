@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-22T14:38:14.838Z",
+  "rows": [
+    {
+      "file": "js/events.js",
+      "status": 200,
+      "matchesPreviousPublishedCommit": true,
+      "matchesCandidate": false
+    },
+    {
+      "file": "js/trainer.js",
+      "status": 200,
+      "matchesPreviousPublishedCommit": true,
+      "matchesCandidate": false
+    }
+  ]
+}

@@ -8,5 +8,6 @@
   "pagesRun": 39795730899,
   "pagesReportedStatus": "queued;not claimed successful",
   "hostedSourceMatches": 56,
-  "productionRpcCalls": 0
+  "productionRpcCalls": 0,
+  "verificationCorrection": "Original56fileallowlist omitted changed Events script;56matches was not Events deployment proof. CODEX113 expandedcheck shows old Events source;hosted acceptance pending."
 }

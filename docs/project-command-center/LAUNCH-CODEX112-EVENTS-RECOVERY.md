@@ -7,3 +7,5 @@ Validation:3LOCAL actual-source cases cover session failure with successful publ
 CODEX-78 scoped publication:feature3022d771;only js/events.js to main9b708c6c. APP20261008-rc133 unchanged. Sora NO;Twinkle NO;PlayTester role unchanged. No SQL,gameplay,grant,email,spending,scheduling or final-launch action. Evidence:evidence/codex112-regressions.json.
 
 Hosted static verification:56/56 files match checkout,including the changed Events source. GitHub run39795730899 API still reports queued for all jobs;workflow success is not claimed. The local status watcher was stopped,not the workflow. Recheck workflow conclusion on the next meaningful continuation;do not redeploy or retry merely due to stale queue reporting. Evidence:evidence/codex112-events-recovery.json.
+
+CORRECTION CODEX-113:the original56-file checker omitted js/events.js. Its56matches did not verify the changed Events source. Expanded58-filecheck confirms Events still matches old publisheddd7cf58c;workflow39795730899 reportsqueued during GitHub Actions incident. CODEX-112 remains pending hosted acceptance.

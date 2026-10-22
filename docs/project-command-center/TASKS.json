@@ -4,15 +4,27 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-113",
+      "status": "in_progress",
+      "scope": "Trainer current-team/error fixes,expanded hosted checker,and scoped database metadata review",
+      "dependencies": [
+        "CODEX-112"
+      ],
+      "evidence": "LAUNCH-CODEX113-BATCH.md; evidence/codex113-regressions.json; evidence/codex113-searchpath-review.json; evidence/codex113-publication-hold.json",
+      "testResults": "4LOCAL Trainer cases;isolated browser current-team pass;100/100suites/build31/464;286definer metadata/5gate helpers reviewed;56/58hosted matches,2queued candidates",
+      "nextAction": "Await GitHub incident recovery then verify Events/Trainer source and run conclusions;required real acceptance remains open",
+      "approvalRequirement": "CODEX-78 scoped frontend maintenance;no SQL/Auth/provider/gameplay/launch authority"
+    },
+    {
       "id": "CODEX-112",
-      "status": "done",
+      "status": "in_progress",
       "scope": "Public Events navigation-failure isolation",
       "dependencies": [
         "CODEX-111"
       ],
       "evidence": "LAUNCH-CODEX112-EVENTS-RECOVERY.md; evidence/codex112-regressions.json",
       "testResults": "Baseline zero-calendar-call failure reproduced;3LOCAL actual-source cases;99/99suites/build31/464",
-      "nextAction": "Recheck Pages39795730899 conclusion;56hosted sources already match. Real acceptance remains required;Twitch held.",
+      "nextAction": "Correction:old56file check omitted Events source. Candidate committed but still old hosted source;await Pages39795730899 and expanded58filecheck.",
       "approvalRequirement": "CODEX-78 routine loading-error frontend publication only"
     },
     {

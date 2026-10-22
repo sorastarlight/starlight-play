@@ -9,7 +9,7 @@ const baseFiles = [
   'trainer.html','rankings.html','evolve.html','store.html','trade.html','events.html',
   'achievements.html','admin-next.html','css/play.css','css/rankings-reflow.css','js/build.js','js/game.js',
   'js/nav.js','js/settings.js','js/storage.js','js/team.js','js/content-picker.js','tools/remaining-dialog-review.html','js/play-ribbons.js','tools/dialog-acceptance-review.html','tools/nav-focus-review.html','js/play-present.js','tools/milestone-review.html','tools/support-loading-review.html',
-  'js/auth.js','js/register.js','js/signin.js','tools/signin-pending-review.html','js/admin.js','js/admin-tools.js','js/admin-studio.js','tools/staff-error-review.html','css/support.css','tools/device-acceptance-review.html','tools/registration-feedback-review.html','js/help.js','js/support.js','js/admin-next-rewards.js','js/trade.js','js/inventory.js','js/achievements.js'
+  'js/auth.js','js/register.js','js/signin.js','tools/signin-pending-review.html','js/admin.js','js/admin-tools.js','js/admin-studio.js','tools/staff-error-review.html','css/support.css','tools/device-acceptance-review.html','tools/registration-feedback-review.html','js/help.js','js/support.js','js/admin-next-rewards.js','js/trade.js','js/inventory.js','js/achievements.js','js/events.js','js/trainer.js'
 ];
 const files = [...new Set([...baseFiles,...JSON.parse(fs.readFileSync(path.join(root,'vendor-lock.json'),'utf8')).sdk.pages,'vendor-lock.json','tools/sdk-integrity-review.html'])];
 const normalize = value => value.replace(/\r\n/g, '\n');

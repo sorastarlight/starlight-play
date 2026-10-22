@@ -1,0 +1,35 @@
+{
+  "classification": "READ-ONLY hosted pg_proc/schema privilege inspection;no application rows or RPC execution",
+  "definerFunctions": 286,
+  "unsetSearchPaths": 0,
+  "paths": {
+    "search_path=public": 225,
+    "search_path=pg_catalog, public, private": 15,
+    "search_path=pg_catalog": 45,
+    "search_path=public, pg_temp": 1
+  },
+  "schemaCreateDeniedToBrowserRoles": [
+    "public",
+    "private",
+    "auth",
+    "extensions"
+  ],
+  "guardMatches": 127,
+  "guardFunctions": 97,
+  "reviewedHelpers": [
+    "bridge_ok",
+    "is_play_admin",
+    "require_hub",
+    "require_owner",
+    "require_staff_edit"
+  ],
+  "notes": [
+    "is_play_admin uses IS NOT NULL",
+    "require_owner uses IS NOT TRUE",
+    "require_staff_edit coalesces missing role",
+    "bridge_ok rejects null/empty token and requires configured hash",
+    "configured paths are not proof of complete search_path safety;implicit temporary schemas and nested functions remain outside certification"
+  ],
+  "newConfirmedAuthorizationDefects": 0,
+  "productionChanges": 0
+}

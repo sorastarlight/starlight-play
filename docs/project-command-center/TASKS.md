@@ -305,3 +305,5 @@ CODEX-91 COMPLETE: twenty runtime SDK tags pin byte-identical captured 2.118.0 a
 CODEX-92 COMPLETE: 64-relation catalog boundary review and 121 REAL LOCAL SQL fictional row-scope/write-denial/state checks pass; no newly confirmed direct-write defect. Morning decision packet consolidates two held SQL proposals, backup/acceptance limits and separate release gate. No runtime publication, hosted DML/RPC, app-data copy, Auth/provider/credential change, spending or APP stamp. Latest 95-suite evidence remains CODEX-91; see OVERNIGHT-CODEX92.md.
 
 CODEX-93 COMPLETE: public serializer source review and 28 REAL LOCAL SQL projection/owner-boundary checks pass. See OVERNIGHT-CODEX93.md and evidence/codex93-serializer-summary.json. No user payload or hosted RPC; no production changes. APP unchanged; Sora NO; Twinkle NO; PlayTester unchanged.
+
+CODEX-94 COMPLETE: read-only dashboard lists22Oct07:44:04UTC PHYSICAL backup after CODEX-73. Migration catalog and local guarded delta hash verified. Pending newer-backup observation closed; no physical restore certification. See OVERNIGHT-CODEX94.md. No production change; APP unchanged; Sora NO; Twinkle NO; PlayTester unchanged.

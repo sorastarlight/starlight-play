@@ -4,6 +4,19 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-94",
+      "status": "done",
+      "scope": "Observe next post-change scheduled physical backup",
+      "dependencies": [
+        "CODEX-93",
+        "CODEX-73"
+      ],
+      "evidence": "OVERNIGHT-CODEX94.md; evidence/codex94-backup-observation.json",
+      "testResults": "Read-only dashboard22Oct07:44:04UTC PHYSICAL snapshot; migration catalog entry and local delta SHA-256 verified; no restore/content validation",
+      "nextAction": "Continue independent security/UI review; hold two private SQL packets and device/provider/final-release gates",
+      "approvalRequirement": "No restore/export/credential/runtime/production mutation authorized"
+    },
+    {
       "id": "CODEX-93",
       "status": "done",
       "scope": "Public response projection review without user payloads",

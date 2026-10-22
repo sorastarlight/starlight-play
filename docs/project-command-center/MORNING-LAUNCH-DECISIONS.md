@@ -7,7 +7,7 @@ Current October 22, 2026 EDT. Latest runtime main is 735385ed (Pages 39734361572
 | Step | Concrete next action | Decision or evidence needed |
 |---|---|---|
 | 1 | Review the two prepared private SQL packets below; recommend correcting the confirmed purchase fault before public launch | Owner approval of the exact installation scope. Fresh source/ACL/dependency fingerprints must match; no hosted purchase or other gameplay test follows automatically |
-| 2 | Verify a completed database backup after CODEX-73's October 22 01:45 UTC installation | Agent can inspect the next daily snapshot after 03:50 EDT. Latest observation still predates this change. No restore/export/password action is needed for that check |
+| 2 | Verify a completed database backup after CODEX-73's October 22 01:45 UTC installation | Completed in CODEX-94: dashboard lists October22 07:44:04UTC physical backup, after the migration. No contents/physical restore certification; new approved changes would require updating recovery evidence |
 | 3 | Review the remaining acceptance limits below | Obtain actual evidence, or explicitly accept named deferrals. Local mocks and CSS-width fixtures cannot silently substitute for real devices/providers |
 | 4 | Review final configuration and an exact release packet against the then-current main, backend and recovery state | Separate owner go/no-go; APP stamp only if explicitly approved. Historical D86 is not automatically authorized |
 

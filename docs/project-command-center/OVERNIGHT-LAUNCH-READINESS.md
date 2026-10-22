@@ -21,6 +21,8 @@ The owner requested sustained autonomous work while asleep, with a high bar for 
 
 - CODEX-93: reviewed 15 public/helper definitions and passed 28 isolated SQL projection/owner-gate checks without user payloads. Own-card Trainer endpoint has cosmetic side effects and remains excluded from read-only probes. No production changes. See OVERNIGHT-CODEX93.md.
 
+- CODEX-94: dashboard lists22Oct07:44:04UTC PHYSICAL backup after CODEX-73; migration metadata/local delta hash verified. Pending post-change snapshot observation closed. No restore/export/credentials action; physical restore remains untested. See OVERNIGHT-CODEX94.md.
+
 ## Important decisions held for morning
 
 1. An obsolete public write-removal proposal: `LOCALAPPDATA/PokemonStreamLink/security/codex87/README.md`. Eleven local SQL checks pass, including exact rollback and drift refusal.
@@ -31,7 +33,7 @@ Private reproductions and unresolved details remain outside Git. No hosted SQL, 
 ## Next continuation
 
 1. Continue concrete unreviewed security and rendered UI surfaces. Purchase packet preparation, nine-predicate guard sample and the remaining-dialog naming batch are complete. SDK exact-artifact maintenance is complete for the twenty permitted floating-tag pages. The consolidated morning packet and direct table/RLS review are complete. The selected public serializer review is complete (CODEX-93); continue other genuinely unreviewed source or rendered UI surfaces. Do not invoke play_trainer as read-only: its own-card path evaluates cosmetics. Keep the two private SQL proposals held, protected admin.html untouched and all authority/privileged-flow gates intact. Do not repeat unchanged suites as a substitute for new coverage.
-2. Recheck scheduled backups after 03:50 EDT or later. Latest observed physical snapshot is October 21 at 07:44:55 UTC and predates CODEX-73. Read dashboard only; no restore, export or credentials. Retain secure Edge versions 7/5 recovery dependencies.
+2. Post-change scheduled backup check is complete in CODEX-94: latest observed physical snapshot22Oct07:44:04UTC follows CODEX-73. Do not repeat unchanged polling. Physical restore remains uncertified; retain logical-archive SQL delta and secure Edge7/5 recovery dependencies. No restore/export/credentials authority.
 3. Preserve intentional main/feature history separation. Routine frontend publication uses a scoped branch from origin/main and exact reviewed files, then returns to admin-hub-overhaul. Exclude unrelated queued changes.
 4. Update this handoff and acceptance matrix with actual evidence and consolidated morning decisions. Physical devices, real browser zoom and provider OAuth remain open; mocks cannot certify them.
 

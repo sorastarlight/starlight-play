@@ -18,3 +18,7 @@ Database backups do not replace deployed Edge source/configuration recovery. Pre
 |store-asset|5|3b6303df53bf911ddd44f570bf0a9655f2d8c89da80971db6ad8842ab5578753|verify_jwt=true|CODEX-83 retrieved-source verification|
 
 CODEX-85 read-only dashboard check still lists21Oct202607:44:55UTC as latest PHYSICAL snapshot;it predates CODEX-73 SQL installed22Oct01:45UTC. A newer post-change snapshot has not been verified. Storage objects are excluded from database backup per dashboard notice. No Restore control clicked,new export,physical recovery or integration replay performed.
+
+## CODEX-94 current backup observation
+
+October22 read-only dashboard now lists PHYSICAL backup22Oct202607:44:04UTC, after CODEX-73 migration20261022014528 (catalog entry verified). Local guarded INSTALL.sql SHA-256 still matches the table above. The pending newer-snapshot observation is satisfied; older CODEX-85 statements are historical. Backup contents/physical restore/full Auth recovery are not certified. Original logical archive still needs its CODEX-73 replay delta; Edge7/5 dependencies remain. No Restore/export/credentials action. Evidence:evidence/codex94-backup-observation.json.

@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-22T07:57:15.005Z",
+  "classification": "READ-ONLY HOSTED DASHBOARD plus migration metadata/local packet hash",
+  "project": "dtflmlbjhttoewqgkujf",
+  "latestListedPhysicalBackup": "2026-10-22T07:44:04Z",
+  "migration": {
+    "version": "20261022014528",
+    "name": "codex73_site_config_browser_update_boundary",
+    "timestampFromVersion": "2026-10-22T01:45:28Z"
+  },
+  "backupAfterMigration": true,
+  "elapsedSeconds": 21516,
+  "localInstallSha256": "e776607a90e6e59cd941c964eacb6649dcd22df291fe8887fc3dd032490c31bf",
+  "screenshot": "C:/Users/FET/.codex/visualizations/2026/10/19/01a15207-ca1f-7800-95d6-9fb36dc377d5/backup-post-change-codex94.png",
+  "restoreClicked": false,
+  "exports": 0,
+  "credentialsHandled": false,
+  "productionChanges": 0,
+  "limits": [
+    "Dashboard lists a physical recovery point; its contents and physical restore are not tested",
+    "Logical recovery archive still predates CODEX-73 and needs the recorded guarded delta",
+    "Database backups exclude Storage object contents",
+    "Secure Edge code/configuration remains a separate recovery dependency"
+  ]
+}

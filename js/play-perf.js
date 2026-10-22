@@ -70,6 +70,11 @@
   };
 
   if (typeof document !== "undefined") {
+    try {
+      const media = root.matchMedia?.("(prefers-reduced-motion: reduce)");
+      if (typeof media?.addEventListener === "function") media.addEventListener("change", () => apply());
+      else if (typeof media?.addListener === "function") media.addListener(() => apply());
+    } catch (_) {}
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", () => apply());
     }

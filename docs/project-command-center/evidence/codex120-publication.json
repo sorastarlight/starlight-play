@@ -1,0 +1,12 @@
+{
+  "classification": "READ-ONLY hosted static GET/source equality;not authenticated staff acceptance",
+  "main": "54465ae2e79e51c2786c13ff90c1412e5e6ba4e6",
+  "workflow": 39832712529,
+  "workflowConclusion": "success",
+  "versionedURL": "https://play.sorastarlight.net/js/content-picker.js?v=20261008-rc133",
+  "versionedSourceMatches": true,
+  "sha256": "68e51753b7de593a3afac704dbb4f22a4bfc4d27374f5f51f9d62b1cfb50b885",
+  "expandedSourceMatches": 100,
+  "applicationRPCs": 0,
+  "backendChanges": 0
+}

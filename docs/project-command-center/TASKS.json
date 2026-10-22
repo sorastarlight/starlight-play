@@ -5,14 +5,14 @@
   "tasks": [
     {
       "id": "CODEX-120",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Routine content picker request/lifecycle correction and literal asset acceptance",
       "dependencies": [
         "CODEX-119"
       ],
-      "evidence": "LAUNCH-CODEX120-CONTENT-PICKER.md; evidence/codex120-asset-review.json; evidence/codex120-picker-review.json; evidence/codex120-regressions.json",
-      "testResults": "7actual-source cases;baseline reproduction;isolated real browser;102suites;build31/464;78static paths/18hosted HEAD assets",
-      "nextAction": "Publish only reviewed content-picker.js under CODEX-78;verify Pages and actual source",
+      "evidence": "LAUNCH-CODEX120-CONTENT-PICKER.md; evidence/codex120-asset-review.json; evidence/codex120-picker-review.json; evidence/codex120-regressions.json; evidence/codex120-publication.json; evidence/public-launch-publication.json",
+      "testResults": "7actual-source cases;baseline reproduction;isolated real browser;102suites;build31/464;78static paths/18hosted HEAD assets;Pages39832712529success;100hosted sources and versioned picker source match",
+      "nextAction": "Continue bounded independent review;real device/assistive/provider acceptance remains open;Twitch held",
       "approvalRequirement": "Existing CODEX-78 routine frontend scope;no backend/gameplay/provider authority"
     },
     {

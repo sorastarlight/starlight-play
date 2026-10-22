@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T15:14:04.703Z",
+  "checkedAt": "2026-10-22T18:37:46.727Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -215,8 +215,8 @@
       "file": "js/content-picker.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "319d39cf56d28d9f1416388b85c0456728e9947cfc1f5e3f1a93ac71d582edad",
-      "publishedSha256": "319d39cf56d28d9f1416388b85c0456728e9947cfc1f5e3f1a93ac71d582edad",
+      "localSha256": "68e51753b7de593a3afac704dbb4f22a4bfc4d27374f5f51f9d62b1cfb50b885",
+      "publishedSha256": "68e51753b7de593a3afac704dbb4f22a4bfc4d27374f5f51f9d62b1cfb50b885",
       "matches": true
     },
     {

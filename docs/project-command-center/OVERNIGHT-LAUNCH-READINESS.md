@@ -1,10 +1,10 @@
-# Launch readiness handoff — consolidated through CODEX-119
+# Launch readiness handoff — consolidated through CODEX-120
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
 ## Current state
 
-- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Main739fbc19; latest runtime Pages39799569389success;100/100expanded hosted sources and actual versioned motion script match. Main/feature histories intentionally separate.
+- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Main54465ae2; latest runtime Pages39832712529success;100/100expanded hosted sources and actual versioned picker script match. Main/feature histories intentionally separate.
 - APP20261008-rc133 unchanged. Legacy admin.html and js/admin-live.js have no published diff from the pre-overnight baseline. Sora/Twinkle not mutated;PlayTester role unchanged.
 - Both formerly held SQL proposals explicitly approved and installed in CODEX-96:20261022084110 purchase unlock atomicity and20261022084115 obsolete reminder audit-write removal. Exact3candidate sources/attributes verified;5helpers+wrapper unchanged. No hosted purchase or reminder endpoint invoked. No SQL proposal from these packets remains pending. CODEX-116 trade-state correction is also owner-approved/installed20261022162826;its guarded recovery delta is retained.
 - Owner explicitly requires real mobile/assistive/Twitch-provider acceptance before launch. Desktop-first beta deferrals were NOT accepted. Owner has PC+Android;model/browser/results pending. iOS and real screen-reader access unconfirmed.
@@ -87,3 +87,5 @@ Independent cosmetic review while notice install held:17REAL LOCAL SQL cases exe
 CODEX-118 CURRENT COMPLETION:owner approved only the one-function correction/read-only verification. Migration20261022171505 codex118_atomic_notice_claim installed;full definition/candidate body and unchanged ACL/config/owner/behavior attributes independently verified. No notice endpoint invoked,reward/gameplay/provider/email/APPaction or player repair. Guarded INSTALL/ROLLBACK retained in supabase/unapplied/atomic-notice-claim;15local packet checks remain valid. Earlier held statements are historical;approval spent.
 
 CODEX-119: build-integrated, read-only recovery integrity now verifies 10 files across five post-drill migrations against raw hashes, LF bytes, safe paths and documented versions/order. 20 LOCAL filesystem cases and 10 Git-recreated packet hashes pass; original CODEX-73 packet bytes unchanged. No SQL source/execution, runtime or provider change. Read-only username unique-index metadata confirmed; no account mutation. See LAUNCH-CODEX119-RECOVERY-INTEGRITY.md.
+
+CODEX-120 CURRENT COMPLETION:only js/content-picker.js published under CODEX-78 at main54465ae2;Pages39832712529success.100expanded hosted source files and actual versioned picker URL equal the reviewed checkout.7focused cases/102non-writing suites/build31localHTML/464refs and isolated REAL BROWSER pass;30tracked-page asset scope/78exact references/18HEAD assets pass. No production SQL/Auth/provider/gameplay/email/APP action. Screenshot and limits recorded in LAUNCH-CODEX120-CONTENT-PICKER.md. Prior candidate-held text is historical.

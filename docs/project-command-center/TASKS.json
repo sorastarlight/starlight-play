@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-81",
+      "status": "done",
+      "scope": "Bounded Bits/ads and dynamic-SQL review;hosted isolated reduced-motion acceptance",
+      "dependencies": [
+        "CODEX-80"
+      ],
+      "evidence": "SECURITY-ACCEPTANCE-CODEX81.md;evidence/security-acceptance-codex81.json",
+      "testResults": "10 new mocked Edge denials;88 suites/build;36public source matches;REAL DOM static animation/focus restoration for2 previews",
+      "nextAction": "Continue risk-based nested authorization and broader device/provider acceptance;no full security/final-launch declaration",
+      "approvalRequirement": "No important decision requested;read-only/local work within existing scope;production gates retained"
+    },
+    {
       "id": "CODEX-80",
       "status": "done",
       "scope": "Bounded Pass authorization review and private tested correction",

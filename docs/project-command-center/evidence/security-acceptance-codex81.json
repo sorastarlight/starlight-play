@@ -1,0 +1,77 @@
+{
+  "classification": "READ-ONLY catalog/deployed source review plus LOCAL actual handler denials and REAL DOM isolated presentation acceptance;not full security signoff",
+  "checkedAt": "2026-10-22T03:07:52.935Z",
+  "advisors": [
+    {
+      "name": "rls_enabled_no_policy",
+      "level": "INFO",
+      "count": 48,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy"
+    },
+    {
+      "name": "function_search_path_mutable",
+      "level": "WARN",
+      "count": 268,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable"
+    },
+    {
+      "name": "anon_security_definer_function_executable",
+      "level": "WARN",
+      "count": 78,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable"
+    },
+    {
+      "name": "authenticated_security_definer_function_executable",
+      "level": "WARN",
+      "count": 196,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable"
+    }
+  ],
+  "edgeReview": [
+    {
+      "name": "bits-connect",
+      "version": 5,
+      "jwt": true,
+      "normalizedSourceMatches": true
+    },
+    {
+      "name": "twitch-ads",
+      "version": 2,
+      "jwt": true,
+      "normalizedSourceMatches": true
+    }
+  ],
+  "review": {
+    "serviceHelpers": "Five sampled secret/director helpers deny browser execution;three director wrappers additionally require service_role. No helpers invoked.",
+    "schemaCreate": "anon/authenticated denied CREATE on public/private/extensions",
+    "dynamicSQL": "Only sampled executable public definer with EXECUTE is admin_grant_bag;staff guard precedes writes;dynamic identifiers allow-listed and quoted with %I;values bound with USING. Not invoked.",
+    "permissions": "is_play_admin delegates server-side role;candidate untrusted user_metadata did not bypass either Edge entrypoint in local mocks"
+  },
+  "localDenialCases": 10,
+  "regressionSuites": 88,
+  "build": {
+    "html": 31,
+    "references": 464,
+    "app": "20261008-rc133"
+  },
+  "publicFilesMatch": 36,
+  "presentation": {
+    "page": "tools/milestone-review.html",
+    "scope": "Preview explicitly sets reducedMotion=true,not OS preference emulation,real gameplay or screenreader test",
+    "level": {
+      "motion": "static",
+      "medallionAnimation": "none",
+      "initialFocus": "Continue",
+      "escapeFocus": "Preview level 2"
+    },
+    "achievement": {
+      "motion": "static",
+      "sealAndRewardAnimation": "none",
+      "initialFocus": "Continue",
+      "escapeFocus": "Preview Pokémon Trader"
+    },
+    "screenshot": "reduced-motion-codex81.png"
+  },
+  "newConfirmedDefect": false,
+  "productionChanged": false
+}

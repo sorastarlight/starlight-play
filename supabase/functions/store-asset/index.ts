@@ -22,7 +22,9 @@ function sanitizeFilename(name: string, mime: string) {
     const ext = mime.includes("webp") ? ".webp" : mime.includes("gif") ? ".gif" : mime.includes("jpeg") || mime.includes("jpg") ? ".jpg" : ".png";
     base = `${base.replace(/\.[^.]+$/, "") || "sprite"}${ext}`;
   }
-  return base.slice(0, 80);
+  const extension = base.match(/\.(png|webp|gif|jpe?g)$/)?.[0] || ".png";
+  const stem = base.slice(0, -extension.length).slice(0, 80 - extension.length) || "sprite";
+  return stem + extension;
 }
 
 Deno.serve(async (req) => {
@@ -43,6 +45,12 @@ Deno.serve(async (req) => {
     const { data: catalog, error: staffError } = await userClient.rpc("admin_store_get");
     if (staffError || !catalog) {
       return json({ ok: false, message: "Only staff can upload store sprites." });
+    }
+
+    // Check the existing server edit decision before any credential access or GitHub work.
+    const { data: permission, error: permissionError } = await userClient.rpc("admin_user_account", { p_user: userData.user.id });
+    if (permissionError || permission?.canEdit !== true) {
+      return json({ ok: false, message: "Only admins can upload store sprites." }, 403);
     }
 
     const body = await req.json().catch(() => ({}));

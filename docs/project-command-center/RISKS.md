@@ -43,3 +43,5 @@ CODEX-53 status correction: approved direct-trade validation installed2026102113
 | R-OWNER-NULL | **CORRECTION INSTALLED / VERIFIED** | CODEX-67 rejects NULL owner permission results. Exact migration20261021181614 verified,15 local SQL cases; no live endpoint exploitation test or incident assessment. |
 
 | R-PASS-IDENTITY | **CORRECTION DEPLOYED / SOURCE VERIFIED** | CODEX-80 owner-approved refresh-pass version7 replaces editable identity fallbacks with confirmed connection IDs and token client/user binding.22 mocked identity/8 override checks;87 suites pass. No hosted invocation,existing-account repair or incident assessment. |
+
+| R-ASSET-UPLOAD | **CORRECTION DEPLOYED / SOURCE VERIFIED** | CODEX-83 store-asset5 checks existing owner/admin edit permission before GitHub work and preserves raster extensions when bounding names.21 mocked cases/91 suites pass;no live upload or incident assessment. |

@@ -5,15 +5,15 @@
   "tasks": [
     {
       "id": "CODEX-83",
-      "status": "doing",
+      "status": "done",
       "scope": "Private asset upload boundary review and tested candidate",
       "dependencies": [
         "CODEX-82"
       ],
       "evidence": "ASSET-UPLOAD-REVIEW-CODEX83.md;private local codex83 packet",
-      "testResults": "Deployed baseline4/source/JWT inspected;catalog guard chain;21 LOCAL mocked candidate checks pass",
-      "nextAction": "Important owner approval required before one-function deployment",
-      "approvalRequirement": "Production upload/security authority gate;no credential/provider/upload execution authorized"
+      "testResults": "21 LOCAL uploader cases;91 suites/build pass;hosted store-asset5 ACTIVE exact source/JWT verified without invocation",
+      "nextAction": "Continue broader security/provider/device acceptance;no upload or final launch authority added",
+      "approvalRequirement": "Owner explicitly approved one store-asset correction;deployed/verified;no real upload or credential read"
     },
     {
       "id": "CODEX-82",

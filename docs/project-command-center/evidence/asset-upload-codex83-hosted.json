@@ -1,0 +1,13 @@
+{
+  "project": "dtflmlbjhttoewqgkujf",
+  "function": "store-asset",
+  "version": 5,
+  "status": "ACTIVE",
+  "verifyJwt": true,
+  "exactSourceMatches": true,
+  "candidateSha256": "3b6303df53bf911ddd44f570bf0a9655f2d8c89da80971db6ad8842ab5578753",
+  "checkedAt": "2026-10-22T03:48:07.165Z",
+  "invoked": false,
+  "filesUploaded": 0,
+  "credentialsRead": false
+}

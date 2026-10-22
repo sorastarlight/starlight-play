@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-111",
+      "status": "done",
+      "scope": "Static public navigation and search label review while Twitch test held",
+      "dependencies": [
+        "CODEX-110"
+      ],
+      "evidence": "evidence/codex111-navigation-review.json",
+      "testResults": "156local targets/0missing;7fragment links reviewed against static IDs and dynamic routers;nested search labels verified",
+      "nextAction": "Real device/assistive/provider evidence remains open;avoid repeated unchanged synthetic checks",
+      "approvalRequirement": "No runtime,provider,SQL,gameplay or launch action authorized"
+    },
+    {
       "id": "CODEX-110",
       "status": "done",
       "scope": "Inventory realtime recovery status correction",

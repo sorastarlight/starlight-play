@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-75 | done | Approved frontend publication/hosted acceptance | CODEX-72/74 | Explicit owner approval |Pages39709312817;32files;hosted preview+actual QA case read pass |
 | CODEX-74 | done | Helpdesk case-bound request/loading correction | CODEX-73 | Routine local frontend maintenance |11 harness cases,isolated real DOM,84 suites;hosted publication held |
 | CODEX-73 | done | Direct browser configuration UPDATE boundary | CODEX-72 | Explicit owner approval | Installed20261022014528;privileges/data/functions independently verified |
 | CODEX-72 | done | Celebration keyboard containment | CODEX-71 | Routine frontend/local acceptance | Local DOM+9 harness cases;83 suites;feature branch only |
@@ -249,3 +250,6 @@ CODEX-73 VERIFIED:owner approved configuration-access correction;migration202610
 
 
 CODEX-74 COMPLETE LOCALLY:actual-source reproduction of old-case form/new-case target race;case-bound payloads,immediate stale-case clearing,independent request revisions and in-modal conflict feedback corrected.11 LOCAL HARNESS cases,REAL DOM isolated mock review and84 nonwriting suites/build pass. No hosted support or gameplay mutation,SQL,email,spending or APP stamp. Current main bbb13708;runtime frontend diff is only play-present.js/support.js. Hosted publication and acceptance of CODEX-72/74 remain separate decision.
+
+
+CODEX-75 COMPLETE:owner approved exactc7f5366a publication;Pages39709312817 succeeded.32/32 public files match. REAL DOM hosted celebration level/achievement focus wrapping/restoration pass;isolated Helpdesk delayed-case/list independence/cancel pass;actual QA case1 list/read/reload pass with immediate stale-control clearing. No hosted submission,SQL,gameplay,spending or APP stamp. This closes72/74 hosted acceptance only;final launch gates remain.

@@ -1,5 +1,7 @@
 # CODEX-74 — Helpdesk request isolation and draft preservation
 
+> Current hosted status:approved publication c7f5366a and scoped read-only acceptance complete in CODEX-75. Earlier local-only/publication-held statements below are historical.
+
 The actual-source local harness reproduced an old case's form submitting a reply against a newly selected case while that case's GET was still pending. The old code assigned selected immediately but retained the old ticket/form,then built mutation payloads from selected and the old revision. Matching revisions could allow a wrong-case request to reach the server;no hosted wrong-case submission was attempted.
 
 Conversation changes now clear old data,controls and recovery context immediately. Independent list/detail request revisions reject stale responses without cancelling unrelated requests. Submissions require rendered/selected identity agreement and bind the case/revision before awaiting authentication. Late save receipts cannot navigate away from a newer case. Stop/sign-out clears cached case content. Transition confirmations remain open after conflicts,limits or errors,and display feedback inside the modal so the preserved reason is usable.

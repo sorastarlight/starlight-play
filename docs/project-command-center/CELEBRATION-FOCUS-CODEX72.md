@@ -1,5 +1,7 @@
 # CODEX-72 — Celebration keyboard containment
 
+> Current hosted status:approved publication c7f5366a and scoped read-only acceptance complete in CODEX-75. Earlier local-only/publication-held statements below are historical.
+
 The hosted isolated milestone preview reproduced Tab leaving the open celebration: after Continue, focus reached the background Preview level2 control. The custom aria-modal container described its intended behavior but did not prevent background focus.
 
 The shared presentation engine now makes existing background siblings inert while a blocking panel is open, wraps Tab/Shift+Tab across its currently visible enabled controls and redirects stray background focus into the panel. It preserves preexisting inert state and removes listeners on dismissal. Reset settles the panel before restoring focus, so it also releases inert background controls. Queue ordering,animations,preview flags,reward/equip RPCs and progression authority are unchanged.

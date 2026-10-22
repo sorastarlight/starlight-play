@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-21T21:17:02.053Z",
+  "checkedAt": "2026-10-22T02:05:48.222Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -180,6 +180,30 @@
       "matches": true
     },
     {
+      "file": "js/play-present.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "9349423991012cfc816b4df3b407be611bb260c76cd8201c7291e545aa8b29ca",
+      "publishedSha256": "9349423991012cfc816b4df3b407be611bb260c76cd8201c7291e545aa8b29ca",
+      "matches": true
+    },
+    {
+      "file": "tools/milestone-review.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "b2f86f49a1594c37fabffe774feaff8851ba5e0b26145d3c88a9c49aeb36bf68",
+      "publishedSha256": "b2f86f49a1594c37fabffe774feaff8851ba5e0b26145d3c88a9c49aeb36bf68",
+      "matches": true
+    },
+    {
+      "file": "tools/support-loading-review.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "bb400eb471c92cffa3eebd667fdfb89be0e9425668e51a414cf7bd46d070dced",
+      "publishedSha256": "bb400eb471c92cffa3eebd667fdfb89be0e9425668e51a414cf7bd46d070dced",
+      "matches": true
+    },
+    {
       "file": "js/auth.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
@@ -199,8 +223,8 @@
       "file": "js/support.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "1938e0fdf3a78d4180215fbf73ff109ab4bc4a4e1e416a48a58207fb80b787c3",
-      "publishedSha256": "1938e0fdf3a78d4180215fbf73ff109ab4bc4a4e1e416a48a58207fb80b787c3",
+      "localSha256": "493b52fa64680b1d478b1e943a32b234ff95fb530529d474faaf28470b17b390",
+      "publishedSha256": "493b52fa64680b1d478b1e943a32b234ff95fb530529d474faaf28470b17b390",
       "matches": true
     },
     {

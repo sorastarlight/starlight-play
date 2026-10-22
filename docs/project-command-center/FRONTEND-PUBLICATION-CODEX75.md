@@ -1,0 +1,13 @@
+# CODEX-75 — Approved frontend publication and hosted acceptance
+
+Owner approved publishing the reviewed feature branch at c7f5366a and read-only hosted acceptance. Main fast-forwarded from bbb13708 to exactly c7f5366a74101329dbeb70fa58909154a121e089. GitHub Pages run39709312817 succeeded. Only js/play-present.js and js/support.js changed among runtime JS/CSS/HTML relative to the prior main;other changes were reviewed documentation,tests and recovery tooling. No SQL migration was replayed by this publication.
+
+The expanded public source checker verifies32/32 selected files,including the shared celebration script and both review pages,using exact newline-normalized content equality. APP20261008-rc133 remains unchanged. Prior84 non-writing suites and build31HTML/464references remain the validation baseline for this runtime source;build validation was repeated for publication. Existing tabs were reloaded before claiming corrected behavior;this does not guarantee every unrefreshed cached client has the new script.
+
+REAL DOM hosted celebration preview:level Continue retains focus under Tab/Tab/Shift+Tab;Escape restores its opener. Achievement reduced-motion preview retains focus under Tab/Shift+Tab;Continue restores its opener. The preview does not connect an account or grant rewards. Screenshot:celebration-hosted-codex75.png.
+
+REAL DOM hosted isolated Helpdesk:case1 content and controls disappear while fictional case2 is held. List refresh does not invalidate the pending conversation;completion displays only case2 and focuses its heading. A transition confirmation was opened and cancelled;no confirmation was submitted,even in the mock. Conflict/rate-limit behavior remains covered by the earlier local DOM/harness tests,not a new hosted mutation test. Screenshot:helpdesk-hosted-codex75.png.
+
+Actual player support list and existing closed QA case1 load normally,showing its three public messages. Reselecting the real case clears old content/controls while pending and then restores the conversation/heading focus. No reply,ticket creation,status change,internal note,recovery email or account switch was submitted. No gameplay,SQL,scheduler,role,credential,password,protected-account mutation,spending or build stamp.
+
+This closes hosted acceptance of CODEX-72/74 within its approved scope. It does not declare final launch readiness,enable the deferred Twitch policy,certify physical/Auth-service recovery or replace remaining device/zoom/security/owner release review. Evidence:evidence/frontend-publication-codex75.json and evidence/public-launch-publication.json. Deployment:https://github.com/sorastarlight/starlight-play/actions/runs/39709312817.

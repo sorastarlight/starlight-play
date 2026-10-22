@@ -2108,3 +2108,6 @@ CODEX-73 VERIFIED:owner approved configuration-access correction;migration202610
 
 
 CODEX-74 COMPLETE LOCALLY:actual-source reproduction of old-case form/new-case target race;case-bound payloads,immediate stale-case clearing,independent request revisions and in-modal conflict feedback corrected.11 LOCAL HARNESS cases,REAL DOM isolated mock review and84 nonwriting suites/build pass. No hosted support or gameplay mutation,SQL,email,spending or APP stamp. Current main bbb13708;runtime frontend diff is only play-present.js/support.js. Hosted publication and acceptance of CODEX-72/74 remain separate decision.
+
+
+CODEX-75 COMPLETE:owner approved exactc7f5366a publication;Pages39709312817 succeeded.32/32 public files match. REAL DOM hosted celebration level/achievement focus wrapping/restoration pass;isolated Helpdesk delayed-case/list independence/cancel pass;actual QA case1 list/read/reload pass with immediate stale-control clearing. No hosted submission,SQL,gameplay,spending or APP stamp. This closes72/74 hosted acceptance only;final launch gates remain.

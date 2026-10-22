@@ -1,0 +1,61 @@
+{
+  "classification": "PRODUCTION publication plus static HTTP equality and REAL DOM read-only acceptance;isolated previews use fictional data",
+  "commit": "c7f5366a74101329dbeb70fa58909154a121e089",
+  "previousMain": "bbb13708433337ff80b7b41390f4198de56eda11",
+  "deployment": {
+    "id": 39709312817,
+    "status": "success",
+    "url": "https://github.com/sorastarlight/starlight-play/actions/runs/39709312817"
+  },
+  "appBuild": "20261008-rc133",
+  "publicFilesMatched": 32,
+  "celebration": {
+    "url": "https://play.sorastarlight.net/tools/milestone-review.html",
+    "level": [
+      "Continue initially focused",
+      "Tab/Tab/Shift+Tab stay inside",
+      "Escape restores level preview opener"
+    ],
+    "achievement": [
+      "Reduced-motion option checked",
+      "Tab/Shift+Tab stay inside",
+      "Continue restores achievement preview opener"
+    ],
+    "screenshot": "celebration-hosted-codex75.png"
+  },
+  "helpdeskMock": {
+    "url": "https://play.sorastarlight.net/tools/support-loading-review.html",
+    "checks": [
+      "Case1 controls removed while case2 held",
+      "List refresh does not cancel pending case2",
+      "Case2 alone displayed after completion;heading focused",
+      "Transition confirmation opened and cancelled;opener focus restored"
+    ],
+    "submitted": false,
+    "screenshot": "helpdesk-hosted-codex75.png"
+  },
+  "actualHelpdesk": {
+    "url": "https://play.sorastarlight.net/support.html?review=codex75",
+    "case": 1,
+    "status": "closed",
+    "publicMessageCount": 3,
+    "checks": [
+      "Existing QA list loads",
+      "Case1 loads and heading receives focus",
+      "Reselecting case clears old content/mutation controls while GET pending",
+      "Reload completes normally"
+    ],
+    "submitted": false
+  },
+  "sqlExecuted": false,
+  "ticketsChanged": false,
+  "gameplayInvoked": false,
+  "spending": false,
+  "stampChanged": false,
+  "limitations": [
+    "Hosted delayed-case behavior uses an isolated in-memory fixture;real account has one retained QA case",
+    "No hosted reply/transition/error injection",
+    "Not full mobile/zoom/screen-reader or security signoff",
+    "Final launch/go-no-go remains separate"
+  ]
+}

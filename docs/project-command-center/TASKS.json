@@ -4,15 +4,29 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-75",
+      "status": "done",
+      "scope": "Approved exact frontend publication and read-only hosted acceptance",
+      "dependencies": [
+        "CODEX-72",
+        "CODEX-74"
+      ],
+      "commit": "c7f5366a74101329dbeb70fa58909154a121e089",
+      "evidence": "FRONTEND-PUBLICATION-CODEX75.md;evidence/frontend-publication-codex75.json",
+      "testResults": "Pages39709312817 success;32 source matches;REAL DOM hosted preview focus/delayed-case;actual existing QA case read/reload",
+      "nextAction": "Remaining broader security/device/zoom/recovery limitations and final owner release review",
+      "approvalRequirement": "Explicit publication/read-only acceptance approved and consumed;no new SQL/gameplay/final launch authority"
+    },
+    {
       "id": "CODEX-74",
       "status": "done",
       "scope": "Helpdesk case-bound loading/submission correction and read-only security follow-up",
       "dependencies": [
         "CODEX-73"
       ],
-      "evidence": "HELPDESK-LOADING-CODEX74.md;evidence/helpdesk-loading-codex74.json;evidence/security-followup-codex74.json",
+      "evidence": "HELPDESK-LOADING-CODEX74.md;evidence/helpdesk-loading-codex74.json;evidence/security-followup-codex74.json;FRONTEND-PUBLICATION-CODEX75.md",
       "testResults": "11 actual-source LOCAL HARNESS cases;REAL DOM isolated pending case/conflict;84 suites/build31HTML464refs pass",
-      "nextAction": "Publish reviewed frontend pair for read-only hosted acceptance only after owner production-publication decision",
+      "nextAction": "Approved publication and read-only hosted acceptance completed in CODEX-75",
       "approvalRequirement": "Local/frontend maintenance authorized;production publication remains its separate gate"
     },
     {
@@ -34,9 +48,9 @@
       "dependencies": [
         "CODEX-71"
       ],
-      "evidence": "CELEBRATION-FOCUS-CODEX72.md;evidence/celebration-focus-codex72.json",
+      "evidence": "CELEBRATION-FOCUS-CODEX72.md;evidence/celebration-focus-codex72.json;FRONTEND-PUBLICATION-CODEX75.md",
       "testResults": "REAL DOM isolated local level/achievement;9 actual-source harness cases;83 suites/build pass",
-      "nextAction": "Feature branch only;hosted publication/acceptance remains separate",
+      "nextAction": "Approved publication and read-only hosted acceptance completed in CODEX-75",
       "approvalRequirement": "Routine local frontend maintenance authorized;no deployment/backend/gameplay"
     },
     {

@@ -1,0 +1,15 @@
+{
+  "classification": "REAL LOCAL SQL; exact 12 SELECT predicates and observed role scopes; synthetic schema/identities; deliberately broad modeled DML grants to exercise RLS; no production records or RPCs",
+  "checkedAt": "2026-10-22T07:05:49.473Z",
+  "passed": 121,
+  "categories": {
+    "signedReadScopes": 36,
+    "anonymousReadScopes": 12,
+    "writeDenials": 72,
+    "allFictionalRowsUnchanged": 1
+  },
+  "artifacts": "LOCALAPPDATA/PokemonStreamLink/security/codex92/",
+  "rehearsalSha256": "19d54aa8cd720d593e35070ad420673b05729a098b8c867789d9300cc8f60607",
+  "resultSha256": "7465f475498e8c90d6659479529643e9a4f7dd26e6f3b88b994ee746207f19a1",
+  "limits": "Not an exact full-schema/ACL replay, SECURITY DEFINER function or real Auth/JWT/provider certification. Service-role behavior not tested. Current hosted catalogs separately show zero INSERT/UPDATE/DELETE grant+RLS-policy candidates and no writable public views."
+}

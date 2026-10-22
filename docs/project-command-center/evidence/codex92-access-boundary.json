@@ -1,0 +1,60 @@
+{
+  "classification": "READ-ONLY hosted catalog review; no application records or RPC payloads selected",
+  "checkedAt": "2026-10-22T07:05:49.197Z",
+  "schemaPrivileges": [
+    {
+      "role": "authenticated",
+      "privateUsage": true,
+      "publicCreate": false,
+      "privateCreate": false
+    },
+    {
+      "role": "anon",
+      "privateUsage": false,
+      "publicCreate": false,
+      "privateCreate": false
+    }
+  ],
+  "roles": [
+    {
+      "role": "authenticated",
+      "canLogin": false,
+      "bypassRls": false,
+      "superuser": false
+    },
+    {
+      "role": "anon",
+      "canLogin": false,
+      "bypassRls": false,
+      "superuser": false
+    }
+  ],
+  "publicRelations": 64,
+  "clientGrantAndWritePolicyCandidates": 0,
+  "writablePublicViews": [],
+  "rlsOffWritablePublicTables": 0,
+  "siteConfigUpdate": {
+    "anon": {
+      "table": false,
+      "anyColumn": false
+    },
+    "authenticated": {
+      "table": false,
+      "anyColumn": false
+    }
+  },
+  "writePolicies": [
+    {
+      "name": "admins can update site config",
+      "check": "private.is_play_admin()",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "site_config",
+      "using": "private.is_play_admin()",
+      "command": "w"
+    }
+  ],
+  "graphQLExtensionInstalled": false,
+  "limits": "Direct DML boundary only. Existing broad grants do not imply API write permission when RLS denies it. SECURITY DEFINER RPC authorization and all SELECT projections are separate review surfaces. No grant/RLS changes performed."
+}

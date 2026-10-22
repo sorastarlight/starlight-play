@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-91 overnight
+# Current launch acceptance matrix — CODEX-92 overnight
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 95/95 suites in CODEX-91. Routine staff error/Bits feedback escaping is published and verified against 56 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -14,6 +14,8 @@ This is the consolidated review target,not a launch declaration. Current October
 | Recovery | Actual CODEX-71 logical restore111projections and schema metadata;daily RPO accepted;CODEX-73 guarded SQL delta and Edge7/5 source dependencies recorded | Latest visible physical snapshot21Oct07:44:55UTC predates later SQL;post-change snapshot not verified;physical restore/full Auth/storage recovery not certified |
 | Email | Domain/send/reset/signup evidence recorded;100/day3000/month free capacity accepted | Observe quotas during operation;no paid upgrade or new email test authority |
 | Publication/release | Existing Pages published routine frontend;source checks and guarded backend installs recorded | Final configuration review,go/no-go and APP stamp explicitly require owner decision;no new release smoke inferred |
+
+CODEX-92 direct-access review found no direct client write-policy/grant intersection or writable public view; 121 fictional local RLS checks pass. This does not certify every RPC/serializer. The conditional owner decision packet is [MORNING-LAUNCH-DECISIONS.md](./MORNING-LAUNCH-DECISIONS.md). No new runtime change or regression rerun in CODEX-92.
 
 ## Next actionable work
 

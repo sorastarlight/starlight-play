@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-92",
+      "status": "done",
+      "scope": "Direct table access/RLS review and consolidated morning release decisions",
+      "dependencies": [
+        "CODEX-91"
+      ],
+      "evidence": "OVERNIGHT-CODEX92.md; MORNING-LAUNCH-DECISIONS.md; evidence/codex92-access-boundary.json; evidence/codex92-rls-summary.json",
+      "testResults": "64 public relations catalog-reviewed; zero direct client write-policy+grant candidates/writable views/RLS-off writable tables; 121 REAL LOCAL SQL read-scope/write-denial/state checks; no production records copied",
+      "nextAction": "Review unexamined public serializers without retrieving user payloads; verify next daily backup after 03:50 EDT; keep two SQL proposals and final launch held",
+      "approvalRequirement": "Read-only hosted catalogs and fictional local tests only. Neither SQL packet, rollout, physical restore or final release is authorized."
+    },
+    {
       "id": "CODEX-91",
       "status": "done",
       "scope": "Pin byte-identical current browser SDK artifact on twenty permitted runtime pages",

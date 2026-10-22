@@ -15,6 +15,8 @@ The owner requested sustained autonomous work while asleep, with a high bar for 
 
 - CODEX-90: twelve more existing dialogs now have accessible names. All twelve hosted exact-name checks and 48 local CSS-width cases pass (Helpdesk production CSS scope corrected and its eight cases repeated). 94 suites/build pass; final main `804929f3`, Pages `39731939105`, 51 hosted source matches. See OVERNIGHT-CODEX90.md.
 
+- CODEX-91: twenty permitted runtime pages pin the same currently served SDK bytes with SHA-384 integrity. Protected admin.html and Helpdesk's separate existing 2.117.2 pin are unchanged. All 95 suites/build and local/hosted sandbox load/rejection checks pass; main `735385ed`, Pages `39734361572`, 56 hosted sources match. See OVERNIGHT-CODEX91.md and vendor-lock.json.
+
 ## Important decisions held for morning
 
 1. An obsolete public write-removal proposal: `LOCALAPPDATA/PokemonStreamLink/security/codex87/README.md`. Eleven local SQL checks pass, including exact rollback and drift refusal.
@@ -24,7 +26,7 @@ Private reproductions and unresolved details remain outside Git. No hosted SQL, 
 
 ## Next continuation
 
-1. Continue concrete unreviewed security and rendered UI surfaces. Purchase packet preparation, nine-predicate guard sample and the remaining-dialog naming batch are complete. Next review exact SDK pinning/browser-load options from evidence/codex90-sdk-inventory.json: current floating distribution and exact 2.118.0 artifact were byte-identical. Recheck captured SHA before any candidate; investigate drift. Keep protected admin.html untouched and preserve authority/privileged-flow gates. Do not repeat unchanged suites as a substitute for new coverage.
+1. Continue concrete unreviewed security and rendered UI surfaces. Purchase packet preparation, nine-predicate guard sample and the remaining-dialog naming batch are complete. SDK exact-artifact maintenance is complete for the twenty permitted floating-tag pages. Next consolidate a concrete morning release decision packet separating required fixes, unverified physical/provider acceptance and accepted requirements; review genuinely unexamined server/RLS authority where useful. Keep the two private SQL proposals held, protected admin.html untouched and all authority/privileged-flow gates intact. Do not repeat unchanged suites as a substitute for new coverage.
 2. Recheck scheduled backups after 03:50 EDT or later. Latest observed physical snapshot is October 21 at 07:44:55 UTC and predates CODEX-73. Read dashboard only; no restore, export or credentials. Retain secure Edge versions 7/5 recovery dependencies.
 3. Preserve intentional main/feature history separation. Routine frontend publication uses a scoped branch from origin/main and exact reviewed files, then returns to admin-hub-overhaul. Exclude unrelated queued changes.
 4. Update this handoff and acceptance matrix with actual evidence and consolidated morning decisions. Physical devices, real browser zoom and provider OAuth remain open; mocks cannot certify them.

@@ -1,38 +1,38 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T06:08:52.226Z",
+  "checkedAt": "2026-10-22T06:32:35.764Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
       "file": "index.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "78ef5b02816558c5cf7313420851056df70ca592a3fd5207fb050db597afaaf7",
-      "publishedSha256": "78ef5b02816558c5cf7313420851056df70ca592a3fd5207fb050db597afaaf7",
+      "localSha256": "bc121f8779aea7787bf74a8d4a8fd084f517e033538a4de1f53dbe1c72b00c35",
+      "publishedSha256": "bc121f8779aea7787bf74a8d4a8fd084f517e033538a4de1f53dbe1c72b00c35",
       "matches": true
     },
     {
       "file": "signin.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "a8d72233be6328691603cf4d20579fd22b7f13ae726ac9d6455709d94300ed94",
-      "publishedSha256": "a8d72233be6328691603cf4d20579fd22b7f13ae726ac9d6455709d94300ed94",
+      "localSha256": "5ab5ca4fa792a0abf69b2186e40d3e3669fcbf35317d3cbe44e85c55475b9969",
+      "publishedSha256": "5ab5ca4fa792a0abf69b2186e40d3e3669fcbf35317d3cbe44e85c55475b9969",
       "matches": true
     },
     {
       "file": "register.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "206db25f15b8ab8f10edc37273b1d65ac0e2e202dec2d68fbcba5b2f73e8a49b",
-      "publishedSha256": "206db25f15b8ab8f10edc37273b1d65ac0e2e202dec2d68fbcba5b2f73e8a49b",
+      "localSha256": "6dd04be333f575a53423fa486a43824d72593cba98b7cf77cb8943f6deb1815f",
+      "publishedSha256": "6dd04be333f575a53423fa486a43824d72593cba98b7cf77cb8943f6deb1815f",
       "matches": true
     },
     {
       "file": "reset-password.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "cd003917e56dfdc3719a66f9c73eec620cd98bc85216af30b9db34a7f5f96595",
-      "publishedSha256": "cd003917e56dfdc3719a66f9c73eec620cd98bc85216af30b9db34a7f5f96595",
+      "localSha256": "8b39f4e9fff658e07630475dedd89e4cb1b8103a56f2dd1d3430cd8fb2f23402",
+      "publishedSha256": "8b39f4e9fff658e07630475dedd89e4cb1b8103a56f2dd1d3430cd8fb2f23402",
       "matches": true
     },
     {
@@ -47,104 +47,104 @@
       "file": "help.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "eb8ab5a58f0ab879ad88122c6615c39fd264807a668ee100398c4ae09d2d317b",
-      "publishedSha256": "eb8ab5a58f0ab879ad88122c6615c39fd264807a668ee100398c4ae09d2d317b",
+      "localSha256": "6023702ff6d32a27694c47a446554070532276db0ddd9602a003faeddc3e0ac9",
+      "publishedSha256": "6023702ff6d32a27694c47a446554070532276db0ddd9602a003faeddc3e0ac9",
       "matches": true
     },
     {
       "file": "storage.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "d8aab911f408ae30ece8f1f7b44c5ffa78f3852b667ebed3e45999cae50b3073",
-      "publishedSha256": "d8aab911f408ae30ece8f1f7b44c5ffa78f3852b667ebed3e45999cae50b3073",
+      "localSha256": "da657eee1f8deff3e645359c2ff66f36be29254c049f4ac5c9c431600f90c8e0",
+      "publishedSha256": "da657eee1f8deff3e645359c2ff66f36be29254c049f4ac5c9c431600f90c8e0",
       "matches": true
     },
     {
       "file": "pokedex.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "f6a8497c759fb261ee69b88acfe46c7f9067de3bf2e434e9a027c7499ece7803",
-      "publishedSha256": "f6a8497c759fb261ee69b88acfe46c7f9067de3bf2e434e9a027c7499ece7803",
+      "localSha256": "0a4e41de19fdba67e4854ac3ed7a20d93050f950426ca6bc270cf2bc22183c11",
+      "publishedSha256": "0a4e41de19fdba67e4854ac3ed7a20d93050f950426ca6bc270cf2bc22183c11",
       "matches": true
     },
     {
       "file": "inventory.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "c010de4676d7dfad9c4945fb7fb915eb6d44778027227f548cf9128662e8c559",
-      "publishedSha256": "c010de4676d7dfad9c4945fb7fb915eb6d44778027227f548cf9128662e8c559",
+      "localSha256": "eee2ff7099a69a7b356ac7aaedf7f469c59c902016e0e9d2e47f3f1c24940759",
+      "publishedSha256": "eee2ff7099a69a7b356ac7aaedf7f469c59c902016e0e9d2e47f3f1c24940759",
       "matches": true
     },
     {
       "file": "settings.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "bdced46a5477bb8e4f3fe8546a56b436d33490e704fa6c3e015f6cd83c433b9c",
-      "publishedSha256": "bdced46a5477bb8e4f3fe8546a56b436d33490e704fa6c3e015f6cd83c433b9c",
+      "localSha256": "ec299e6f7a4c9bdfcd6face194f485bf4daac9b1a13f0ec508fa84a1b32c2ae8",
+      "publishedSha256": "ec299e6f7a4c9bdfcd6face194f485bf4daac9b1a13f0ec508fa84a1b32c2ae8",
       "matches": true
     },
     {
       "file": "trainer.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "03b8a54225d328c540daec859ef3490b1b7fabd24c1f72af2206df535f8210dc",
-      "publishedSha256": "03b8a54225d328c540daec859ef3490b1b7fabd24c1f72af2206df535f8210dc",
+      "localSha256": "5303ef7e23f7d8e6503be8a00e729faa2fcf9df50e0721455aeed4bd17e4b55e",
+      "publishedSha256": "5303ef7e23f7d8e6503be8a00e729faa2fcf9df50e0721455aeed4bd17e4b55e",
       "matches": true
     },
     {
       "file": "rankings.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "ed66f2b36128ccb1e8efc21b4b8a6c8588a1b5437eac289ac211894ad6947f43",
-      "publishedSha256": "ed66f2b36128ccb1e8efc21b4b8a6c8588a1b5437eac289ac211894ad6947f43",
+      "localSha256": "d288307b06012e7ab0565f6552e10d9c752ed68c5b9a1cfab6b21645411f37bc",
+      "publishedSha256": "d288307b06012e7ab0565f6552e10d9c752ed68c5b9a1cfab6b21645411f37bc",
       "matches": true
     },
     {
       "file": "evolve.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "8eb6850fc174ad85bc38e904b6f8706633041aad71ed8365671b6832546c4d5b",
-      "publishedSha256": "8eb6850fc174ad85bc38e904b6f8706633041aad71ed8365671b6832546c4d5b",
+      "localSha256": "75511854326b01f3921972fe0aa7fe0acef9f05ab2ff4a7721696ce2189cfaf0",
+      "publishedSha256": "75511854326b01f3921972fe0aa7fe0acef9f05ab2ff4a7721696ce2189cfaf0",
       "matches": true
     },
     {
       "file": "store.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "eb4e7f5970626ffa0a8d1a066da9a36048be1634fdeffcf617eef5d0fb522f68",
-      "publishedSha256": "eb4e7f5970626ffa0a8d1a066da9a36048be1634fdeffcf617eef5d0fb522f68",
+      "localSha256": "4ea63ab84d549ece293bdfb4a18484d23046ba161b0866e153182bd1adc15827",
+      "publishedSha256": "4ea63ab84d549ece293bdfb4a18484d23046ba161b0866e153182bd1adc15827",
       "matches": true
     },
     {
       "file": "trade.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "25a12e86c59d650f5c26492765f0b195292b46495af147c357bcfcbbe9bf95a8",
-      "publishedSha256": "25a12e86c59d650f5c26492765f0b195292b46495af147c357bcfcbbe9bf95a8",
+      "localSha256": "3bd32aa3f3d2ff5e3af3af014aafd9bacf8235729d8df7cd565f061a61f22bb5",
+      "publishedSha256": "3bd32aa3f3d2ff5e3af3af014aafd9bacf8235729d8df7cd565f061a61f22bb5",
       "matches": true
     },
     {
       "file": "events.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "69a4c7e1b393430a610481b4b073a3f28a77d562368a2ef06fb048b876ed2daa",
-      "publishedSha256": "69a4c7e1b393430a610481b4b073a3f28a77d562368a2ef06fb048b876ed2daa",
+      "localSha256": "d1a843714aa159603f3f1316fa4527ef4c894dbae066bce45cc4aa8ababc31e8",
+      "publishedSha256": "d1a843714aa159603f3f1316fa4527ef4c894dbae066bce45cc4aa8ababc31e8",
       "matches": true
     },
     {
       "file": "achievements.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "ce9d9d0fab8f55418224758da3dff0e063dc287cc19745192f8ed0fcf6763876",
-      "publishedSha256": "ce9d9d0fab8f55418224758da3dff0e063dc287cc19745192f8ed0fcf6763876",
+      "localSha256": "b599b676d478c2a2eb984ed2812606140eb266af335a8da90c2d28be1c88fa6c",
+      "publishedSha256": "b599b676d478c2a2eb984ed2812606140eb266af335a8da90c2d28be1c88fa6c",
       "matches": true
     },
     {
       "file": "admin-next.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "15f82bbe3da66f64251fe1b9b38a919b7fdccfe416233c1216d1b153927c7a1b",
-      "publishedSha256": "15f82bbe3da66f64251fe1b9b38a919b7fdccfe416233c1216d1b153927c7a1b",
+      "localSha256": "66851ac42f5768614ac824378b6b8409629bd96dab83f4349c05d018f1f639c0",
+      "publishedSha256": "66851ac42f5768614ac824378b6b8409629bd96dab83f4349c05d018f1f639c0",
       "matches": true
     },
     {
@@ -409,6 +409,46 @@
       "contentType": "application/javascript; charset=utf-8",
       "localSha256": "abdf61d67b7639cdf47f19e6c101e953ff94d99441878aaa7fbcdc362930fc21",
       "publishedSha256": "abdf61d67b7639cdf47f19e6c101e953ff94d99441878aaa7fbcdc362930fc21",
+      "matches": true
+    },
+    {
+      "file": "admin-store.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "b62f26787f8bd876c6d76300d67b57b6c1f5c41f0880971cd297c5afcf3420ad",
+      "publishedSha256": "b62f26787f8bd876c6d76300d67b57b6c1f5c41f0880971cd297c5afcf3420ad",
+      "matches": true
+    },
+    {
+      "file": "admin-tools.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "4a9e1442d482b9addbc74deab824250db9b5f21b8b8e7b401217a657c344df75",
+      "publishedSha256": "4a9e1442d482b9addbc74deab824250db9b5f21b8b8e7b401217a657c344df75",
+      "matches": true
+    },
+    {
+      "file": "bits-connect.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "a672058575a27224313e41ea1f31dd74300716a00d0d6296034cad7589086d70",
+      "publishedSha256": "a672058575a27224313e41ea1f31dd74300716a00d0d6296034cad7589086d70",
+      "matches": true
+    },
+    {
+      "file": "vendor-lock.json",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "localSha256": "b12725baabf75b08e55250f2900da35c4a69047906563360482777ef8cf24a24",
+      "publishedSha256": "b12725baabf75b08e55250f2900da35c4a69047906563360482777ef8cf24a24",
+      "matches": true
+    },
+    {
+      "file": "tools/sdk-integrity-review.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "d2b1751ba07626f959ffbd86f759bee0e196a50764460a07f423a69f01698f20",
+      "publishedSha256": "d2b1751ba07626f959ffbd86f759bee0e196a50764460a07f423a69f01698f20",
       "matches": true
     }
   ]

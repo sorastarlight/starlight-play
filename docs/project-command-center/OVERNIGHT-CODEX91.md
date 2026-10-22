@@ -1,0 +1,13 @@
+# CODEX-91 — Exact browser SDK artifact lock
+
+Twenty runtime pages now request the exact Supabase SDK artifact already returned by the floating major-version URL, with SHA-384 subresource integrity and anonymous CORS. This pins currently served bytes; it is not an SDK version upgrade or an Auth configuration change. Every runtime diff was mechanically compared against HEAD after reversing that one script-tag replacement; no other runtime text changed.
+
+Read-only public distribution checks reverified the earlier SHA-256 bee24fc29228ed5a370f76a2ba1ca3c399549edad2fef23453c80148856a49af for both @2 and exact @2.118.0, 218,544 bytes. The CDN returns Access-Control-Allow-Origin: *. The isolated sandbox browser test loads the correct integrity value and finds createClient available without calling it; a deliberately mismatched integrity value blocks the SDK. No project config, account SDK initialization, session, Auth request, RPC or gameplay was used.
+
+The [official installation guide](https://supabase.com/docs/reference/javascript/installing) documents CDN loading. The current changelog was inspected; this task changes no SDK bytes, TypeScript build or database version. Artifact and CORS evidence: evidence/codex91-sdk-artifact.json.
+
+vendor-lock.json records the artifact, page scope and two unchanged exceptions: protected admin.html retains its existing floating tag under the repository prohibition; support.html retains its separately pinned 2.117.2 version to avoid silently upgrading Helpdesk. Neither file nor js/admin-live.js changed. This is not a claim that every external resource or every page now has integrity protection.
+
+A new offline contract checks all 22 root-page SDK tags, the twenty exact/integrity pins and both documented exceptions. 95/95 STATIC/LOCAL suites pass; build validation passes 31 HTML pages/464 first-party stamps. Browser evidence tests library loading only, not a new authenticated/provider flow. APP remains 20261008-rc133.
+
+Feature source c9abbd0c; exact 24-file routine frontend publication at main 735385ed completed through Pages 39734361572. All 56 hosted source files match. Hosted sandbox correct-integrity load and mismatched-integrity rejection both pass without client initialization. Screenshot: sdk-integrity-hosted-codex91.png in this chat's visualization folder. The publication includes the twenty HTML script tags, manifest, contract test, isolated review and static checker. No SQL, privileges, provider/DNS settings, credentials, account mutation, real email, gameplay, spending, APP stamp or final launch. Sora NO; Twinkle NO; PlayTester role unchanged. Two private SQL proposals remain held; backup check stays due after 03:50 EDT.

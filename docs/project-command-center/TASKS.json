@@ -4,6 +4,19 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-91",
+      "status": "done",
+      "scope": "Pin byte-identical current browser SDK artifact on twenty permitted runtime pages",
+      "dependencies": [
+        "CODEX-90"
+      ],
+      "commit": "c9abbd0c6c8b5e90316ff07412f4a77e5e4615b0",
+      "evidence": "OVERNIGHT-CODEX91.md; vendor-lock.json; evidence/codex91-sdk-artifact.json; evidence/codex91-regressions.json",
+      "testResults": "Captured SDK SHA reverified; correct-integrity load/mismatched-integrity block pass LOCAL and HOSTED without client init; 22-tag offline contract; 95/95 suites/build; Pages 39734361572 success; 56 hosted source matches",
+      "nextAction": "Prepare consolidated release decision/evidence gaps; review remaining concrete server/RLS surfaces; post-change backup after 03:50 EDT",
+      "approvalRequirement": "CODEX-78 maintenance preserves currently served SDK bytes and server/Auth authority; protected admin and separately pinned Helpdesk unchanged"
+    },
+    {
       "id": "CODEX-90",
       "status": "done",
       "scope": "Remaining existing-dialog accessible names and isolated responsive acceptance",

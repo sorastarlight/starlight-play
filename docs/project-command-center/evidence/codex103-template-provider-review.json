@@ -1,0 +1,32 @@
+{
+  "classification": "STATIC retained template source review and calculated specified color ratios; not live editor/email-client acceptance",
+  "templates": [
+    {
+      "file": "supabase/templates/confirmation.html",
+      "sha256": "bef4b28cfb6438b7ca54497a04e448de24df8e8d8c80c95d95cfa9a0f7935843"
+    },
+    {
+      "file": "supabase/templates/email-change.html",
+      "sha256": "ca1ffdc1621ea02a0f7ad6852c54129d05ec44b60de9b473e7877d701845a7ad"
+    },
+    {
+      "file": "supabase/templates/recovery.html",
+      "sha256": "3950f9ccd556f92615f1d4001e4b1abfe6c384d7293306dbb46ad464175ba3d2"
+    }
+  ],
+  "colorRatios": {
+    "body": 9.06,
+    "heading": 8.75,
+    "kicker": 4.76,
+    "button": 6.55,
+    "footer": 4.65
+  },
+  "limits": [
+    "No hosted template reread or email sent",
+    "Email clients/dark mode may change rendered colors/layout",
+    "Provider acceptance still requires suitable real identities and explicit bounded authority"
+  ],
+  "checkedAt": "2026-10-22T10:27:44.728Z",
+  "privateArtifacts": "LOCALAPPDATA/PokemonStreamLink/security/codex103/",
+  "rehearsalSha256": "44bf8522e265678d64987219da89e7c893bf7044e33b9535e72c96cd45049ee8"
+}

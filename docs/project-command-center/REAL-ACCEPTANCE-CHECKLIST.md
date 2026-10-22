@@ -28,3 +28,5 @@ Exact target identity, intended operation and retained effects must be reviewabl
 ## Completion gate
 
 All required real results must be recorded and any material defect fixed/retested before launch recommendation. Remaining physical backup/full Auth restore limits are still separately documented; this decision neither authorizes a restore nor adds an unrequested production restore test. Daily RPO acceptance remains. CODEX-96 deltas must accompany recovery from older snapshots. Final owner go/no-go/APP stamp remain separate.
+
+CODEX-103 provider planning:see PROVIDER-REAL-ACCEPTANCE-PREREQUISITES.md. A trusted broadcaster-ID exemption returns before subscription lookup;owner-channel acceptance alone cannot close ordinary subscriber/non-subscriber coverage. Extra test identities were unavailable;do not request manufactured accounts or silently use protected identities.

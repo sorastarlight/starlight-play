@@ -13,5 +13,8 @@
       "matchesPreviousPublishedCommit": true,
       "matchesCandidate": false
     }
-  ]
+  ],
+  "expandedPublicationCoverage": 100,
+  "expandedPublicationMatches": 98,
+  "scriptDiscovery": "Same-origin local scripts parsed from reviewed HTML;base href honored;local paths constrained to checkout"
 }

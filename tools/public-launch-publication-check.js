@@ -11,7 +11,23 @@ const baseFiles = [
   'js/nav.js','js/settings.js','js/storage.js','js/team.js','js/content-picker.js','tools/remaining-dialog-review.html','js/play-ribbons.js','tools/dialog-acceptance-review.html','tools/nav-focus-review.html','js/play-present.js','tools/milestone-review.html','tools/support-loading-review.html',
   'js/auth.js','js/register.js','js/signin.js','tools/signin-pending-review.html','js/admin.js','js/admin-tools.js','js/admin-studio.js','tools/staff-error-review.html','css/support.css','tools/device-acceptance-review.html','tools/registration-feedback-review.html','js/help.js','js/support.js','js/admin-next-rewards.js','js/trade.js','js/inventory.js','js/achievements.js','js/events.js','js/trainer.js'
 ];
-const files = [...new Set([...baseFiles,...JSON.parse(fs.readFileSync(path.join(root,'vendor-lock.json'),'utf8')).sdk.pages,'vendor-lock.json','tools/sdk-integrity-review.html'])];
+const reviewedFiles = [...baseFiles,...JSON.parse(fs.readFileSync(path.join(root,'vendor-lock.json'),'utf8')).sdk.pages,'vendor-lock.json','tools/sdk-integrity-review.html'];
+const scriptFiles = [];
+for (const page of new Set(reviewedFiles.filter(file => file.endsWith('.html')))) {
+  const html = fs.readFileSync(path.join(root,page),'utf8');
+  const pageUrl = new URL('https://play.sorastarlight.net/'+page);
+  const baseHref = html.match(/<base\b[^>]*\bhref\s*=\s*["']([^"']+)["']/i)?.[1];
+  const baseUrl = baseHref ? new URL(baseHref,pageUrl) : pageUrl;
+  for (const match of html.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/gi)) {
+    const url = new URL(match[1], baseUrl);
+    if (url.origin !== 'https://play.sorastarlight.net') continue;
+    const file = decodeURIComponent(url.pathname).replace(/^\//,'');
+    const resolved = path.resolve(root,file);
+    if (!resolved.startsWith(root+path.sep)) throw new Error('Script path escapes checkout: '+file);
+    scriptFiles.push(file);
+  }
+}
+const files = [...new Set([...reviewedFiles,...scriptFiles])];
 const normalize = value => value.replace(/\r\n/g, '\n');
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 async function main() {

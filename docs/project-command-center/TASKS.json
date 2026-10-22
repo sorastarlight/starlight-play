@@ -11,7 +11,7 @@
         "CODEX-112"
       ],
       "evidence": "LAUNCH-CODEX113-BATCH.md; evidence/codex113-regressions.json; evidence/codex113-searchpath-review.json; evidence/codex113-publication-hold.json",
-      "testResults": "4LOCAL Trainer cases;isolated browser current-team pass;100/100suites/build31/464;286definer metadata/5gate helpers reviewed;56/58hosted matches,2queued candidates",
+      "testResults": "4LOCAL Trainer cases;isolated browser current-team;100/100regression suites/build31/464;286definer metadata/5gate helpers reviewed;expanded100filepublicationcheck:98match,2queued candidates",
       "nextAction": "Await GitHub incident recovery then verify Events/Trainer source and run conclusions;required real acceptance remains open",
       "approvalRequirement": "CODEX-78 scoped frontend maintenance;no SQL/Auth/provider/gameplay/launch authority"
     },

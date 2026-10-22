@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T14:36:39.936Z",
+  "checkedAt": "2026-10-22T14:41:00.429Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -465,6 +465,342 @@
       "contentType": "text/html; charset=utf-8",
       "localSha256": "d2b1751ba07626f959ffbd86f759bee0e196a50764460a07f423a69f01698f20",
       "publishedSha256": "d2b1751ba07626f959ffbd86f759bee0e196a50764460a07f423a69f01698f20",
+      "matches": true
+    },
+    {
+      "file": "js/config.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "ad5fea6a310373bbc8da4982b3c03717b9d376948fa99c816b92b082feb86789",
+      "publishedSha256": "ad5fea6a310373bbc8da4982b3c03717b9d376948fa99c816b92b082feb86789",
+      "matches": true
+    },
+    {
+      "file": "js/play-perf.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "47969a39e0f54eeb7b04e7098df336ed1fa519f5a3f6a0e5daf83a58ac49ea56",
+      "publishedSha256": "47969a39e0f54eeb7b04e7098df336ed1fa519f5a3f6a0e5daf83a58ac49ea56",
+      "matches": true
+    },
+    {
+      "file": "js/build-client.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "cf952200a4408d23bb5f758e6c3222e8ebb38d02dc97baed200b10e635473085",
+      "publishedSha256": "cf952200a4408d23bb5f758e6c3222e8ebb38d02dc97baed200b10e635473085",
+      "matches": true
+    },
+    {
+      "file": "js/variants.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "4017c45430048eb1d2af2e68ce1ce2ba7b6211bd203e4ed939dc42029076c87e",
+      "publishedSha256": "4017c45430048eb1d2af2e68ce1ce2ba7b6211bd203e4ed939dc42029076c87e",
+      "matches": true
+    },
+    {
+      "file": "js/forms.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "276fc0905a2cbc22c8135b162647d3e57834798424d5d0abe14b465ff06fc9e8",
+      "publishedSha256": "276fc0905a2cbc22c8135b162647d3e57834798424d5d0abe14b465ff06fc9e8",
+      "matches": true
+    },
+    {
+      "file": "js/evolution-candy-png.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "5ffd7817224620050a3379f5a215ec655d2d9ca3edf78ec85da9a0f9b3310ae0",
+      "publishedSha256": "5ffd7817224620050a3379f5a215ec655d2d9ca3edf78ec85da9a0f9b3310ae0",
+      "matches": true
+    },
+    {
+      "file": "js/ribbon-catalog.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "4d2e6f80802b27bd27675366533b7778b4dcfc1e1857fb36786ce7ab735719df",
+      "publishedSha256": "4d2e6f80802b27bd27675366533b7778b4dcfc1e1857fb36786ce7ab735719df",
+      "matches": true
+    },
+    {
+      "file": "js/achievement-ribbon-map.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "b89e66b3cca7093f2203f41804b62a1623643af1a7a38942f991b39872b8233f",
+      "publishedSha256": "b89e66b3cca7093f2203f41804b62a1623643af1a7a38942f991b39872b8233f",
+      "matches": true
+    },
+    {
+      "file": "js/play-encounter-state.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "f5150d297c4d0b5156a19e3ebdc95d8f3b5cb6249414530841df1b9f2d40f850",
+      "publishedSha256": "f5150d297c4d0b5156a19e3ebdc95d8f3b5cb6249414530841df1b9f2d40f850",
+      "matches": true
+    },
+    {
+      "file": "js/play-ux.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "02a1bba6803eb0d4596e4bc8909b87abd69e38c0f5122f133099ed2d338e2e3e",
+      "publishedSha256": "02a1bba6803eb0d4596e4bc8909b87abd69e38c0f5122f133099ed2d338e2e3e",
+      "matches": true
+    },
+    {
+      "file": "js/location-visuals-data.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "bf6e45be6d6bfb813ecbd4ccac88e3010321e40e87f393ff0f9cf2c64a8af1ae",
+      "publishedSha256": "bf6e45be6d6bfb813ecbd4ccac88e3010321e40e87f393ff0f9cf2c64a8af1ae",
+      "matches": true
+    },
+    {
+      "file": "js/location-visuals.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "3c8cfc6690d0eb941b0a2d1ddd056fbb413a3e26c1fa8f04b63e75ecc603ef80",
+      "publishedSha256": "3c8cfc6690d0eb941b0a2d1ddd056fbb413a3e26c1fa8f04b63e75ecc603ef80",
+      "matches": true
+    },
+    {
+      "file": "js/hud.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "2f418e6df69df6b4e8963513e36b788565efa220f668ee7f72b64781694e942e",
+      "publishedSha256": "2f418e6df69df6b4e8963513e36b788565efa220f668ee7f72b64781694e942e",
+      "matches": true
+    },
+    {
+      "file": "js/special-events.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "9366b16fdd8829326f51c04179c78dcfd1b969b2ca0540b0ca8f8d35af961159",
+      "publishedSha256": "9366b16fdd8829326f51c04179c78dcfd1b969b2ca0540b0ca8f8d35af961159",
+      "matches": true
+    },
+    {
+      "file": "js/onboarding.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "5d31c6e4466b4980798550b49958c53108b080b5fc137badffd2c6b43f5d771b",
+      "publishedSha256": "5d31c6e4466b4980798550b49958c53108b080b5fc137badffd2c6b43f5d771b",
+      "matches": true
+    },
+    {
+      "file": "js/play.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "27c29804e32a123512330ce7aaae7eb5274c061f90b77b1c5da499cb5532047d",
+      "publishedSha256": "27c29804e32a123512330ce7aaae7eb5274c061f90b77b1c5da499cb5532047d",
+      "matches": true
+    },
+    {
+      "file": "js/recovery-flow.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "7262e798cc42e7b2024d2d58a3cef206a0f15fe42491885c4af931730a6cd0f5",
+      "publishedSha256": "7262e798cc42e7b2024d2d58a3cef206a0f15fe42491885c4af931730a6cd0f5",
+      "matches": true
+    },
+    {
+      "file": "js/reset-password.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "5a8321e1a3a2c6d2112e6ba8db8603720f0d13f4496654b5f35d844c7c103f91",
+      "publishedSha256": "5a8321e1a3a2c6d2112e6ba8db8603720f0d13f4496654b5f35d844c7c103f91",
+      "matches": true
+    },
+    {
+      "file": "js/species.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "d43662bece36823b1a8f2a9fff87bfd0b55976733433b727f17a33b4cde69669",
+      "publishedSha256": "d43662bece36823b1a8f2a9fff87bfd0b55976733433b727f17a33b4cde69669",
+      "matches": true
+    },
+    {
+      "file": "js/types.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "701a804916ef9cb543ae0a1d559017e1181480d0db3a2cf9c91f2b6084cc06f7",
+      "publishedSha256": "701a804916ef9cb543ae0a1d559017e1181480d0db3a2cf9c91f2b6084cc06f7",
+      "matches": true
+    },
+    {
+      "file": "js/pokedex-presentation.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "640b4e60cd296ae470d2f3dbca2c7589e0d4e0e945f4a138d904727ba6121451",
+      "publishedSha256": "640b4e60cd296ae470d2f3dbca2c7589e0d4e0e945f4a138d904727ba6121451",
+      "matches": true
+    },
+    {
+      "file": "js/pokedex-presentation-resolve.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "c9d9607e2737d8d63255d1bdcd17bd40f9270b6e35eeac29e8311ac574e36468",
+      "publishedSha256": "c9d9607e2737d8d63255d1bdcd17bd40f9270b6e35eeac29e8311ac574e36468",
+      "matches": true
+    },
+    {
+      "file": "js/pc-presentation.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "201cfb58e2bb2d5e48524c7c1521b1c6d12f436e01a80e18996051fc6f1e27e6",
+      "publishedSha256": "201cfb58e2bb2d5e48524c7c1521b1c6d12f436e01a80e18996051fc6f1e27e6",
+      "matches": true
+    },
+    {
+      "file": "js/trainers.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "ec7c0dba4d0ea9e46582c8e6ed8218a2e579434eb972b61a8ed20865b1aaf714",
+      "publishedSha256": "ec7c0dba4d0ea9e46582c8e6ed8218a2e579434eb972b61a8ed20865b1aaf714",
+      "matches": true
+    },
+    {
+      "file": "js/oak-transfer.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "dfe7efcd0c4ff6cc4c0f9649d3dc10c5d070f9cc949e81266acd176393bf010a",
+      "publishedSha256": "dfe7efcd0c4ff6cc4c0f9649d3dc10c5d070f9cc949e81266acd176393bf010a",
+      "matches": true
+    },
+    {
+      "file": "js/species-familiarity.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "47a114abf7dd7922d46892b6883b8b22eaeb0a981a205dad26ddf074cdd103f7",
+      "publishedSha256": "47a114abf7dd7922d46892b6883b8b22eaeb0a981a205dad26ddf074cdd103f7",
+      "matches": true
+    },
+    {
+      "file": "js/pokedex-reference.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "bd82aa5d8c56b5b5556c3d61eabb4476c350f0cefbc45e58bc218b3cd92fead9",
+      "publishedSha256": "bd82aa5d8c56b5b5556c3d61eabb4476c350f0cefbc45e58bc218b3cd92fead9",
+      "matches": true
+    },
+    {
+      "file": "js/pokedex.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "7c1650133a609c19b4878b06113cadb204ea1feaabb9f295e07007457ee58de0",
+      "publishedSha256": "7c1650133a609c19b4878b06113cadb204ea1feaabb9f295e07007457ee58de0",
+      "matches": true
+    },
+    {
+      "file": "js/gym-badge-catalog.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "6d6deeab5b5162a9e7e951c781484ccacda07690d1f640242d1ce6afa73daeb7",
+      "publishedSha256": "6d6deeab5b5162a9e7e951c781484ccacda07690d1f640242d1ce6afa73daeb7",
+      "matches": true
+    },
+    {
+      "file": "js/rankings.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "8d5bf59393628043fa0ca4295960e679ac17aa1a90878ee2eb21fedf7a97cf07",
+      "publishedSha256": "8d5bf59393628043fa0ca4295960e679ac17aa1a90878ee2eb21fedf7a97cf07",
+      "matches": true
+    },
+    {
+      "file": "js/evolve-view.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "12fdc5e0194db81b1f985e72d990940ad68da9e7fcdff977bd9924966568164d",
+      "publishedSha256": "12fdc5e0194db81b1f985e72d990940ad68da9e7fcdff977bd9924966568164d",
+      "matches": true
+    },
+    {
+      "file": "js/evolve.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "11b325a574674ab2ca05358025c3c4d880bf5bf05c7a1fb5d7c2c757cd04b614",
+      "publishedSha256": "11b325a574674ab2ca05358025c3c4d880bf5bf05c7a1fb5d7c2c757cd04b614",
+      "matches": true
+    },
+    {
+      "file": "js/store.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "0f146c570e0fc0a6fddaff52528dea95f0ec04aeae2a8363d4c07b5737b7dfd1",
+      "publishedSha256": "0f146c570e0fc0a6fddaff52528dea95f0ec04aeae2a8363d4c07b5737b7dfd1",
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-ops.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "1a96dd4009570ae5670570a1128f3f2f30c8c1005cb00a5785a5f6b94e8facc5",
+      "publishedSha256": "1a96dd4009570ae5670570a1128f3f2f30c8c1005cb00a5785a5f6b94e8facc5",
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-trainers.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "c2df2bc372d353f15a556965dae513058fe04256a26021c87d3f5a1f33413063",
+      "publishedSha256": "c2df2bc372d353f15a556965dae513058fe04256a26021c87d3f5a1f33413063",
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-record.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "85bf9f41d6e5b8c727e20f0b0f18fb737027920706253b61773cafa63d848464",
+      "publishedSha256": "85bf9f41d6e5b8c727e20f0b0f18fb737027920706253b61773cafa63d848464",
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-recovery-email.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "0417b7cd2ff85b4e868b0e6ae237cfb77713961e68101e9d8fc842d487d9df44",
+      "publishedSha256": "0417b7cd2ff85b4e868b0e6ae237cfb77713961e68101e9d8fc842d487d9df44",
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-diagnostics.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "a87b0dfadcde08c640cbb3f07807153fd27a66f0f0731db47032ea1e4efc8159",
+      "publishedSha256": "a87b0dfadcde08c640cbb3f07807153fd27a66f0f0731db47032ea1e4efc8159",
+      "matches": true
+    },
+    {
+      "file": "js/admin-next.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "9a27f7c42c8f0306c1a8bb3f0db852a94404730594003e6201077432e2e6ba23",
+      "publishedSha256": "9a27f7c42c8f0306c1a8bb3f0db852a94404730594003e6201077432e2e6ba23",
+      "matches": true
+    },
+    {
+      "file": "js/play-portrait.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "43c92fa4b288050e63405bca4a9d80aa1d2ec3696f172b8e241727f3e75a25bc",
+      "publishedSha256": "43c92fa4b288050e63405bca4a9d80aa1d2ec3696f172b8e241727f3e75a25bc",
+      "matches": true
+    },
+    {
+      "file": "js/admin-store.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "61bb98d277cd1c031c89072d24c547ff069b100640418531edcfb384299c0b70",
+      "publishedSha256": "61bb98d277cd1c031c89072d24c547ff069b100640418531edcfb384299c0b70",
+      "matches": true
+    },
+    {
+      "file": "js/bits-connect.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "fe1d52e9c3f5ebcac97088909566033de326f094bdb4a2ce57d04926893dc48d",
+      "publishedSha256": "fe1d52e9c3f5ebcac97088909566033de326f094bdb4a2ce57d04926893dc48d",
       "matches": true
     }
   ]

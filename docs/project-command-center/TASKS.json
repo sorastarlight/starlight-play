@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-98",
+      "status": "done",
+      "scope": "Explicit catalog-search name and reviewable remaining launch scope",
+      "dependencies": [
+        "CODEX-97"
+      ],
+      "evidence": "LAUNCH-CODEX98-ACCEPTANCE.md; FINAL-ACCEPTANCE-REVIEW.md; evidence/codex98-catalog-search-label.json",
+      "testResults": "7relevant checks/build31/464;isolated named search/focus/entry pass;Pages39750745599success;56hosted source matches",
+      "nextAction": "Await important owner acceptance-scope decision; do not silently defer unavailable real device/provider evidence",
+      "approvalRequirement": "Runtime publication covered CODEX-78; final launch/stamp/provider/SQL/gameplay/restore remain unapproved"
+    },
+    {
       "id": "CODEX-97",
       "status": "done",
       "scope": "Partial read-only configuration and existing worker operational acceptance",

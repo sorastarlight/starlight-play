@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-97 continuation
+# Current launch acceptance matrix — CODEX-98 continuation
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 95/95 suites in CODEX-91. Routine staff error/Bits feedback escaping is published and verified against 56 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -31,3 +31,5 @@ CODEX-93 reviewed 15 selected public/related helper definitions without user pay
 CODEX-95:20 selected exact Trainer text-rendering cases pass, with isolated real-browser20samples/0 injected probe elements. Simplified CSS/assets/helper fixture, not whole-page/provider/device acceptance. No runtime changes. See OVERNIGHT-CODEX95.md.
 
 CODEX-97 partial configuration acceptance: WIRE and original Familiarity cutoff unchanged;new Twitch policy disabled;existing once/minute worker source/ACL match.1237successful recorded runs/no failed-status group and0outstanding queue rows. No endpoint invocation or configuration change. This does not close physical device/provider/final release gates. See LAUNCH-CODEX97-CONFIGURATION.md.
+
+CODEX-98 routine catalog search naming maintenance is live at maina51bcbbf;Pages39750745599success;7relevant checks/build and56hosted source matches. Latest full95suites remains CODEX-91. FINAL-ACCEPTANCE-REVIEW.md contains the pending important owner decision on real-device/provider launch requirements;no deferrals or final go/no-go inferred.

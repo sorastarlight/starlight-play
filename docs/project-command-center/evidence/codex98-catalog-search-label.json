@@ -1,0 +1,31 @@
+{
+  "classification": "Routine frontend accessibility maintenance; isolated REAL BROWSER control plus STATIC/build and hosted source equality",
+  "featureCommit": "20e26e2c",
+  "mainCommit": "a51bcbbf52e47e04591d548332656b685c8d6839",
+  "pagesRun": 39750745599,
+  "pagesConclusion": "success",
+  "runtimeFiles": [
+    "admin-store.html"
+  ],
+  "change": "Add aria-label Search trainer looks to existing look-filter input",
+  "checks": {
+    "relevantSuite": 7,
+    "buildPages": 31,
+    "buildRefs": 464,
+    "staticLabelScanPages": 30,
+    "staticLabelScanControls": 91,
+    "staticMissingExplicitLabelCandidates": 0,
+    "browserNamedControl": true,
+    "browserTextEntry": "Leaf",
+    "browserFocusedControl": "look-filter",
+    "hostedSourceMatches": 56
+  },
+  "screenshot": "C:/Users/FET/.codex/visualizations/2026/10/19/01a15207-ca1f-7800-95d6-9fb36dc377d5/catalog-search-label-codex98.png",
+  "limits": [
+    "Isolated control, no staff page bootstrap or filtering/catalog mutation test",
+    "Placeholder previously provided a browser fallback; not reported as a proven inaccessible control",
+    "Static label scan is heuristic and excludes protected admin.html/hidden controls",
+    "No physical device/screenreader/provider certification"
+  ],
+  "APP": "20261008-rc133"
+}

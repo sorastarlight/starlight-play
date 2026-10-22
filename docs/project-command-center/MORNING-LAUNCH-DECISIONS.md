@@ -1,6 +1,6 @@
 # Morning launch decisions — draft, not a launch authorization
 
-Current October 22, 2026 EDT. Latest runtime main is 735385ed (Pages 39734361572); APP remains 20261008-rc133. Latest regression evidence is 95/95 STATIC/LOCAL suites in CODEX-91, with 56 hosted source matches and isolated SDK integrity loading/rejection checks. This packet consolidates the important decisions instead of interrupting for routine work.
+Current October 22, 2026 EDT. Latest runtime main is a51bcbbf (Pages 39750745599); APP remains 20261008-rc133. Latest regression evidence is 95/95 STATIC/LOCAL suites in CODEX-91, with 56 hosted source matches and isolated SDK integrity loading/rejection checks. This packet consolidates the important decisions instead of interrupting for routine work.
 
 ## Recommended order
 
@@ -43,3 +43,5 @@ Before recommending go, verify the then-current approved flags/jobs/provider con
 A restored environment needs the CODEX-73 access boundary and secure refresh-pass version 7/store-asset version 5 code with JWT verification retained. See RECOVERY-POST-DRILL-DELTAS.md. Do not execute rollback or restore as a readiness probe. Credentials and private archives stay outside Git.
 
 No production release declaration, APP stamp, gameplay, SQL, spending, password reset, provider/DNS setting, protected-account mutation or new scheduler is authorized by this document.
+
+CODEX-98: remaining real-device/provider launch-requirement choice is presented in FINAL-ACCEPTANCE-REVIEW.md. Owner answer pending;neither accepted deferrals nor final launch may be inferred.

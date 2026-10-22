@@ -1,4 +1,4 @@
-# Launch readiness handoff — consolidated through CODEX-115
+# Launch readiness handoff — consolidated through CODEX-116
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
@@ -6,7 +6,7 @@ Current October22,2026. The eight-hour overnight authorization ended at08:25 Ame
 
 - Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Main739fbc19; latest runtime Pages39799569389success;100/100expanded hosted sources and actual versioned motion script match. Main/feature histories intentionally separate.
 - APP20261008-rc133 unchanged. Legacy admin.html and js/admin-live.js have no published diff from the pre-overnight baseline. Sora/Twinkle not mutated;PlayTester role unchanged.
-- Both formerly held SQL proposals explicitly approved and installed in CODEX-96:20261022084110 purchase unlock atomicity and20261022084115 obsolete reminder audit-write removal. Exact3candidate sources/attributes verified;5helpers+wrapper unchanged. No hosted purchase or reminder endpoint invoked. No SQL proposal from these packets remains pending.
+- Both formerly held SQL proposals explicitly approved and installed in CODEX-96:20261022084110 purchase unlock atomicity and20261022084115 obsolete reminder audit-write removal. Exact3candidate sources/attributes verified;5helpers+wrapper unchanged. No hosted purchase or reminder endpoint invoked. No SQL proposal from these packets remains pending. CODEX-116 trade-state correction is also owner-approved/installed20261022162826;its guarded recovery delta is retained.
 - Owner explicitly requires real mobile/assistive/Twitch-provider acceptance before launch. Desktop-first beta deferrals were NOT accepted. Owner has PC+Android;model/browser/results pending. iOS and real screen-reader access unconfirmed.
 - New Twitch one-link policy remains disabled;WIRE/Familiarity original cutoff preserved. CODEX-97 read-only worker sample:1237successes,no failed-status group,0outstanding. Do not repeat unchanged polling.
 
@@ -73,3 +73,5 @@ CODEX-114 latest:100suites/build and14performance assertions pass;first motion r
 CODEX-115 complete:final motion deploy39799569389success;100/100expanded hosted files plus actual versioned script match.4/4reviewed recovery packet raw hashes unchanged after branch switches. Expired heartbeat PAUSED,verified via tool and saved status. Ledger87closed;22remaining real acceptance consolidated under100. No runtime,SQL,provider,gameplay or APP change in this batch.
 
 CODEX-115 scoped PC ownership review adds16REAL LOCAL SQL grouped checks using six captured definitions and fictional data;no hosted function/data action. Cluster/port closed;source stays private. No new ownership bypass confirmed in scope;full RLS/concurrency/deletion remain outside these checks. See LAUNCH-CODEX115-READINESS.md.
+
+CODEX-116 VERIFIED:owner-approved two-function trade state correction installed20261022162826;exact full source/attributes match,2control definitions/attributes unchanged.2baseline races and16REAL LOCAL SQL actual packet checks;2Git-recreated raw hashes/build31/464pass. No hosted application RPC/trade/history repair/grant/provider/APP action. Recovery delta added. See LAUNCH-CODEX116-TRADE-STATE.md.

@@ -1,0 +1,32 @@
+{
+  "classification": "Owner-approved production function replacement and read-only pg_proc verification;no gameplay invocation",
+  "migration": "20261022162826",
+  "name": "codex116_trade_state_recheck",
+  "verified": [
+    {
+      "name": "play_trade_cancel",
+      "exactSourceMatch": true,
+      "attributesUnchanged": true,
+      "bodyMd5": "7ff854362261ec3181b399df5902240b"
+    },
+    {
+      "name": "play_trade_decline",
+      "exactSourceMatch": true,
+      "attributesUnchanged": true,
+      "bodyMd5": "c3377551a8c760c2961c2ece73053ed3"
+    },
+    {
+      "name": "play_direct_trade_cancel",
+      "definitionUnchanged": true
+    },
+    {
+      "name": "play_trade_withdraw",
+      "definitionUnchanged": true
+    }
+  ],
+  "installSha256": "2e1657bdfd0d05bdcfe39f580dc8f2b326b5f813ae0b96e8c1e6444a8427c901",
+  "rollbackSha256": "45482d9032d5bdbcfbb9bb8eec370dec8d9cae5923a84d19dc2c35428100087e",
+  "hostedApplicationCalls": 0,
+  "rollbackUsed": false,
+  "appBuild": "20261008-rc133"
+}

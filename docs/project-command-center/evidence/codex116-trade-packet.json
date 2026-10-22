@@ -1,0 +1,30 @@
+{
+  "classification": "REAL LOCAL concurrent SQL;actual guarded install/rollback;four captured functions;fictional trade rows/auth.uid;acceptance modeled as committed status only;no full acceptance/specimen/reward or hosted test",
+  "baselineReproductions": 2,
+  "checks": [
+    "Actual install packet passes baseline/post guards and installs both candidate bodies",
+    "Concurrent play_trade_cancel refuses stale update and preserves committed acceptance state",
+    "Concurrent play_trade_decline refuses stale update and preserves committed acceptance state",
+    "Normal owner cancellation still cancels listing and pending offers",
+    "Repeated cancellation rejected",
+    "Normal listing-owner decline still changes only offer",
+    "Repeated decline rejected",
+    "Foreign trainer denied by play_trade_cancel with rows preserved",
+    "Foreign trainer denied by play_trade_decline with rows preserved",
+    "Both corrected actions still require authenticated identity",
+    "Unchanged owner withdrawal control still works",
+    "Unchanged direct-trade participant cancellation control works",
+    "Actual rollback packet restores both exact baseline body fingerprints",
+    "Install refuses mixed baseline/candidate state",
+    "Install refuses source drift",
+    "Install refuses permission drift"
+  ],
+  "packetSha256": {
+    "install": "2e1657bdfd0d05bdcfe39f580dc8f2b326b5f813ae0b96e8c1e6444a8427c901",
+    "rollback": "45482d9032d5bdbcfbb9bb8eec370dec8d9cae5923a84d19dc2c35428100087e"
+  },
+  "harnessSha256": "a86c22b5213795facd78d4478182fff2a90de02f88e2afac3440eeb227cb82b8",
+  "status": "Owner-approved;installed migration20261022162826;read-only source/attribute verification passed",
+  "privateReview": "LOCALAPPDATA/PokemonStreamLink/security/codex116/README.md",
+  "limits": "No full acceptance/specimen/reward/trigger/RLS integration or hosted mutation test;no history audit"
+}

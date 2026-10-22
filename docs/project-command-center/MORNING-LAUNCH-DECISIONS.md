@@ -49,3 +49,5 @@ CODEX-98: remaining real-device/provider launch-requirement choice is presented 
 CODEX-100 decision received:real mobile/assistive/Twitch-provider acceptance required;no beta deferrals accepted. Earlier pending-scope wording is historical. Follow REAL-ACCEPTANCE-CHECKLIST.md;device inventory pending. No new test-mutation/final-release authority.
 
 CODEX-115:all queued frontend changes verified live;expired overnight heartbeat paused. Remaining tracked gates include real acceptance,appropriately scoped future provider tests and final release/configuration review;no new owner decision is requested for completed maintenance. Next daily backup after CODEX-96stillneeds observation when due;no redundant same-day polling or restore.
+
+CODEX-116 current:owner-approved trade state correction installed20261022162826,exact source/attributes verified;16local SQL checks and inverse rollback retained. Older backups also require this guarded delta before reopening. No additional decision is pending for these two functions;approval spent and no hosted trade action followed. See LAUNCH-CODEX116-TRADE-STATE.md.

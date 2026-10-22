@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-115 real acceptance required
+# Current launch acceptance matrix — CODEX-116 real acceptance required
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 100/100 suites in CODEX-114. Routine staff error/Bits feedback escaping is published and verified against 56 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -55,3 +55,5 @@ CODEX-113 publication hold:Events/Trainer commits are on main but NOT yet verifi
 CODEX-114 supersedes prior deployment hold:39796866472success;actual Events/Trainer candidate equality verified. Motion listener fix tested and scoped publication underway;physical OS switching still not certified.
 
 CODEX-115 current publication state:latest739fbc19/Pages39799569389success;100/100expanded hosted sources and actual versioned motion script match. The CODEX-113/114queued statements above are historical. Expired eight-hour automation PAUSED;4/4reviewed recovery packet hashes unchanged. Real physical/assistive/provider acceptance and final launch decision remain open.
+
+CODEX-116 approved trade-state correction installed/sourceverified20261022162826.16new REAL LOCAL SQL packet cases,2baseline reproductions;no live gameplay. Recovery inventory includes this newer delta;last observed physical backup predates it. Full frontend100suites remain CODEX-114;100hosted source matches remain verified in115.

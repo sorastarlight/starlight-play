@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-116",
+      "status": "done",
+      "scope": "Owner-approved two-function trade state correction and exact recovery packet",
+      "dependencies": [
+        "CODEX-115"
+      ],
+      "evidence": "LAUNCH-CODEX116-TRADE-STATE.md; evidence/codex116-trade-packet.json; evidence/codex116-hosted-verification.json; evidence/codex116-packet-bytes.json",
+      "testResults": "2baseline concurrent reproductions;16REAL LOCAL SQL packet cases;fresh preflight/exact hosted source+attributes;2controls unchanged;2Git-recreated packet hashes;build31/464",
+      "nextAction": "Maintain recovery delta inventory;real acceptance and broader bounded review remain open;no hosted gameplay allowance",
+      "approvalRequirement": "Owner explicitly approved installation/read-only verification;installed20261022162826;approval spent"
+    },
+    {
       "id": "CODEX-115",
       "status": "done",
       "scope": "Final motion deployment,expired heartbeat,ledger/recovery and scoped PC ownership review",

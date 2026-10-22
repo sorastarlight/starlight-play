@@ -1,0 +1,15 @@
+{
+  "classification": "Raw byte comparison after Git checkout-index;no SQL replay",
+  "results": [
+    {
+      "file": "INSTALL.sql",
+      "gitCheckoutSha256": "2e1657bdfd0d05bdcfe39f580dc8f2b326b5f813ae0b96e8c1e6444a8427c901",
+      "matchesReviewedBytes": true
+    },
+    {
+      "file": "ROLLBACK.sql",
+      "gitCheckoutSha256": "45482d9032d5bdbcfbb9bb8eec370dec8d9cae5923a84d19dc2c35428100087e",
+      "matchesReviewedBytes": true
+    }
+  ]
+}

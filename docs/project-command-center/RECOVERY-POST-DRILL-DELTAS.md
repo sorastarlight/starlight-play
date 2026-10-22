@@ -33,3 +33,11 @@ October22 read-only dashboard now lists PHYSICAL backup22Oct202607:44:04UTC, aft
 Installed and independently source/attribute verified after explicit owner approval. Both original logical archive and latest observed22Oct07:44:04UTC physical snapshot predate these changes. Replay guarded deltas before admitting trainers or use a later verified backup; do not automatically rollback. Next daily snapshot may be checked when due, without polling unchanged state. No extra export/restore/schedule authorized.
 
 CODEX-104:four new packet paths are pinned text eol=lf in .gitattributes. Windows checkout had changed raw hashes through CRLF;only EOL drift was found and original LF bytes restored. All4post-Git-checkout hashes match reviewed originals;28fresh local cases execute the repository install/rollback copies. Preserve exact files/attributes before any guarded recovery. This is not a new hosted/full-archive restore certificate. See OVERNIGHT-CODEX104.md.
+
+## CODEX-116 approved trade state delta
+
+| Migration | Guarded install | SHA256 |
+|---|---|---|
+|20261022162826 codex116_trade_state_recheck|supabase/unapplied/trade-state-recheck/INSTALL.sql|2e1657bdfd0d05bdcfe39f580dc8f2b326b5f813ae0b96e8c1e6444a8427c901|
+
+Owner-approved and exact-source/attribute verified. Two functions only;no player mutation/history repair or hosted trade test. Both observed older recovery points predate this delta. Replay only on matching guarded baseline or use a verified newer snapshot;no automatic rollback (it restores the race). Exact INSTALL/ROLLBACKbytes pinned LF and verified after Git checkout-index. No new backup,restore,export or job authority. See LAUNCH-CODEX116-TRADE-STATE.md.

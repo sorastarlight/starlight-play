@@ -1,10 +1,10 @@
-# Launch readiness handoff — consolidated through CODEX-121
+# Launch readiness handoff — consolidated through CODEX-122
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
 ## Current state
 
-- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Main54465ae2; latest runtime Pages39832712529success;100/100expanded hosted sources and actual versioned picker script match. Main/feature histories intentionally separate.
+- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Main4d6ed6dc; latest runtime Pages39838654675success;100/100expanded hosted sources and actual versioned Mart script match. Main/feature histories intentionally separate.
 - APP20261008-rc133 unchanged. Legacy admin.html and js/admin-live.js have no published diff from the pre-overnight baseline. Sora/Twinkle not mutated;PlayTester role unchanged.
 - Both formerly held SQL proposals explicitly approved and installed in CODEX-96:20261022084110 purchase unlock atomicity and20261022084115 obsolete reminder audit-write removal. Exact3candidate sources/attributes verified;5helpers+wrapper unchanged. No hosted purchase or reminder endpoint invoked. No SQL proposal from these packets remains pending. CODEX-116 trade-state correction is also owner-approved/installed20261022162826;its guarded recovery delta is retained.
 - Owner explicitly requires real mobile/assistive/Twitch-provider acceptance before launch. Desktop-first beta deferrals were NOT accepted. Owner has PC+Android;model/browser/results pending. iOS and real screen-reader access unconfirmed.
@@ -93,3 +93,5 @@ CODEX-120 CURRENT COMPLETION:only js/content-picker.js published under CODEX-78 
 CODEX-121: read-only release/inventory function and trigger review; release-confirmation boundary reproduced and privately prepared one-function guarded correction passes21REAL LOCAL SQL cases. Installation decision requested;not installed. Independent exact Radar function10REAL LOCAL consumption/ownership/concurrency cases pass;no new Radar defect. No applicationRPC/player mutation/provider/gameplay/APP action. See LAUNCH-CODEX121-INVENTORY-BOUNDARIES.md.
 
 CODEX-121 CURRENT COMPLETION:owner approved the one-expression shiny confirmation correction/read-only verification. Migration20261022185226 installed only play_release;exact full source/attributes independently verified and Radar/Rare Candy control definitions/attributes unchanged. No release or gameplay invocation.21local packet cases plus10independent Radar cases retained. Guarded recovery files and sixth manifest delta preserved;approval spent. Earlier held statements are historical.
+
+CODEX-122 COMPLETE:only js/store.js published under CODEX-78 at main4d6ed6dc;Pages39838654675success.100expanded hosted source files and actual versioned Mart source equal reviewed checkout.10selected-source cases/103non-writing suites/build31localHTML/464refs/12recovery hashes plus isolated browser error/retry/secondary-refresh cases pass. No real Auth/provider/RPC/backend/gameplay/email/APP action. Real Twitch testing remains held. See LAUNCH-CODEX122-MART-FEEDBACK.md.

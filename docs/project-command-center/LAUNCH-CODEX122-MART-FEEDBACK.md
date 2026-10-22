@@ -8,7 +8,7 @@ Ten LOCAL cases execute the actual selected helpers and click-handler body with 
 
 Isolated REAL BROWSER review uses the actual selected helper/handler source and play.css in a simplified component fixture. Native button disabled while pending; simulated connection failure showed retry copy and restored the button; retry/simulated success updated status and refreshed the mocked catalog once. connect-src none and a loopback-only static allowlist prevent real network/provider actions. Review tab closed and local server stopped. Screenshot: C:/Users/FET/.codex/visualizations/2026/10/19/01a15207-ca1f-7800-95d6-9fb36dc377d5/mart-pass-recovery-codex122.png.
 
-Candidate publication uses existing CODEX-78 routine loading/error maintenance authority. Publish only js/store.js, preserving separate main/feature histories, then verify Pages and the actual versioned script plus expanded source check. No success claim before that evidence.
+Published and verified under existing CODEX-78 routine loading/error maintenance authority: only js/store.js to main4d6ed6dc. Pages39838654675 succeeded;100expanded hosted files and the actual versioned Mart script match the reviewed checkout. Main/feature histories remain separate. Evidence:evidence/codex122-publication.json.
 
 No SQL/Auth policy/provider configuration, grant, subscription check, account/player mutation, real email, gameplay, spending, scheduling, APP stamp or final launch. Sora/Twinkle not mutated; PlayTester role unchanged. Real Twitch testing stays held; physical-mobile/assistive/provider launch requirements remain open. Evidence:evidence/codex122-feedback-review.json and evidence/codex122-regressions.json.
 

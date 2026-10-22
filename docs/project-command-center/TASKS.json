@@ -5,14 +5,14 @@
   "tasks": [
     {
       "id": "CODEX-122",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Routine Mart Pass button pending/error/retry maintenance",
       "dependencies": [
         "CODEX-121"
       ],
-      "evidence": "LAUNCH-CODEX122-MART-FEEDBACK.md; evidence/codex122-feedback-review.json; evidence/codex122-regressions.json",
-      "testResults": "10actual-source cases;baseline reproduction;isolated real browser;103suites;build31/464;12recovery hashes",
-      "nextAction": "Publish only js/store.js under CODEX-78 then verify Pages/versioned source",
+      "evidence": "LAUNCH-CODEX122-MART-FEEDBACK.md; evidence/codex122-feedback-review.json; evidence/codex122-regressions.json; evidence/codex122-publication.json; evidence/public-launch-publication.json",
+      "testResults": "10actual-source cases;baseline reproduction;isolated real browser;103suites;build31/464;12recovery hashes;Pages39838654675success;100hosted sources and actual versioned store source match",
+      "nextAction": "Required real-device/assistive/provider acceptance remains open;Twitch testing held;no consequential action authority",
       "approvalRequirement": "Existing CODEX-78 routine frontend maintenance;real Twitch testing remains held"
     },
     {

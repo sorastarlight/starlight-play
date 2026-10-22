@@ -1,0 +1,13 @@
+{
+  "classification": "READ-ONLY hosted static GET/source equality;not real Auth/provider/staff/gameplay acceptance",
+  "main": "4d6ed6dcd3b9f2cf7780574cbaf9699d15888aad",
+  "workflow": 39838654675,
+  "workflowConclusion": "success",
+  "versionedURL": "https://play.sorastarlight.net/js/store.js?v=20261008-rc133",
+  "versionedSourceMatches": true,
+  "sha256": "a887b10786fa540016ca3d5e6fd945c528c8b3d08fa4eaa11bc5888163c4e6ef",
+  "expandedSourceMatches": 100,
+  "realProviderCalls": 0,
+  "applicationRPCs": 0,
+  "backendChanges": 0
+}

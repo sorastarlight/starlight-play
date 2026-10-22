@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T04:14:49.761Z",
+  "checkedAt": "2026-10-22T04:37:30.040Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -215,8 +215,8 @@
       "file": "tools/support-loading-review.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "bb400eb471c92cffa3eebd667fdfb89be0e9425668e51a414cf7bd46d070dced",
-      "publishedSha256": "bb400eb471c92cffa3eebd667fdfb89be0e9425668e51a414cf7bd46d070dced",
+      "localSha256": "77f385c52b12c834af2b84dea0ef3093f9a473ed4f79b35c2aa3fc8d74af7717",
+      "publishedSha256": "77f385c52b12c834af2b84dea0ef3093f9a473ed4f79b35c2aa3fc8d74af7717",
       "matches": true
     },
     {
@@ -249,6 +249,54 @@
       "contentType": "text/html; charset=utf-8",
       "localSha256": "804c99bb37309ad65cbc7e486a5dc8230a503ecd6a9038e242bb3d6e55fc934f",
       "publishedSha256": "804c99bb37309ad65cbc7e486a5dc8230a503ecd6a9038e242bb3d6e55fc934f",
+      "matches": true
+    },
+    {
+      "file": "js/admin.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "7c36e9c2f33215f3e81c723ac8e5ea36ceed7c3989528017c1338fdfed32f42f",
+      "publishedSha256": "7c36e9c2f33215f3e81c723ac8e5ea36ceed7c3989528017c1338fdfed32f42f",
+      "matches": true
+    },
+    {
+      "file": "js/admin-tools.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "c93d5e385ecbf4a7c1a7cc62051a63bd3bf322593a91e565187799e10ccfdf29",
+      "publishedSha256": "c93d5e385ecbf4a7c1a7cc62051a63bd3bf322593a91e565187799e10ccfdf29",
+      "matches": true
+    },
+    {
+      "file": "js/admin-studio.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "a365a7b211230c2b50f1bd396c0f9b8a14276b264fdbba564a73d87af9f95fc9",
+      "publishedSha256": "a365a7b211230c2b50f1bd396c0f9b8a14276b264fdbba564a73d87af9f95fc9",
+      "matches": true
+    },
+    {
+      "file": "tools/staff-error-review.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "35871aac94908a2dbff9d64e16e7e5c02a863deffa3f1af5ae0d283477bcfa9a",
+      "publishedSha256": "35871aac94908a2dbff9d64e16e7e5c02a863deffa3f1af5ae0d283477bcfa9a",
+      "matches": true
+    },
+    {
+      "file": "css/support.css",
+      "status": 200,
+      "contentType": "text/css; charset=utf-8",
+      "localSha256": "bafd09bd5cb67a2cf5a46f9df49dbdd4b1dd80a64bde52b5f43b9ea3a1f5e4a8",
+      "publishedSha256": "bafd09bd5cb67a2cf5a46f9df49dbdd4b1dd80a64bde52b5f43b9ea3a1f5e4a8",
+      "matches": true
+    },
+    {
+      "file": "tools/device-acceptance-review.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "e92e71d3532f6fb0bb98643043aec50c7b79dbdff97f503a2aab59eb339dd83b",
+      "publishedSha256": "e92e71d3532f6fb0bb98643043aec50c7b79dbdff97f503a2aab59eb339dd83b",
       "matches": true
     },
     {

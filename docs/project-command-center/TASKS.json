@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-87",
+      "status": "doing",
+      "scope": "Owner-requested bounded overnight readiness work and consolidated handoff",
+      "dependencies": [
+        "CODEX-86"
+      ],
+      "evidence": "OVERNIGHT-LAUNCH-READINESS.md; evidence/codex87-regressions.json; evidence/public-launch-publication.json; two private held packets",
+      "testResults": "93 suites/build; 15 actual-source error templates; 44 hosted source matches; hosted isolated DOM 15 templates/0 injected nodes; 11+9 REAL LOCAL SQL held-proposal checks; Helpdesk dialog/focus/draft preservation at four widths",
+      "nextAction": "Continue independent review queue; check next daily backup after 03:50 EDT; finish private cart dependency review; consolidate important proposals for morning",
+      "approvalRequirement": "Owner requested overnight continuation; configured eight-hour bound. Consequential SQL/economy/security gates remain; private packets held."
+    },
+    {
       "id": "CODEX-86",
       "status": "done",
       "scope": "Sign-in/recovery/reminder pending-state maintenance",

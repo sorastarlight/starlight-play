@@ -1,0 +1,41 @@
+{
+  "classification": "LOCAL exact Helpdesk detail-rendering assignment and helpers from current source; fictional staff-readonly state/DOM sink",
+  "passed": 10,
+  "checks": [
+    "subject escapes markup and quote input",
+    "reference escapes markup and quote input",
+    "author escapes markup and quote input",
+    "body escapes markup and quote input",
+    "reason escapes markup and quote input",
+    "subject escapes markup and quote input",
+    "reference escapes markup and quote input",
+    "author escapes markup and quote input",
+    "body escapes markup and quote input",
+    "reason escapes markup and quote input"
+  ],
+  "sourceSha256": "d531be0c7bd4b2acae68d864b101c70f3c3d6102d6d6751570c7ffc361515ca3",
+  "limits": [
+    "No full mounting/events/real browser or Auth test",
+    "Does not test new SQL visibility;existing actual two-account Helpdesk evidence remains separate",
+    "Does not replace required physical/device/provider acceptance"
+  ],
+  "checkedAt": "2026-10-22T09:57:42.742Z",
+  "privateArtifacts": "LOCALAPPDATA/PokemonStreamLink/security/codex102/",
+  "rehearsalSha256": "a4a7021651ed4c9e7ccaedbe83f8823680270d331a7622d275db6dd91162ef40",
+  "hostedCatalog": {
+    "supportCallBodyMd5": "214b4d7e2a47205fdce51760ff2dc849",
+    "matchesLocalSQLBody": true,
+    "anonExecute": false,
+    "authenticatedExecute": true,
+    "securityDefiner": true,
+    "searchPath": [
+      "pg_catalog"
+    ],
+    "invoked": false
+  },
+  "sourceReview": {
+    "ownerStaffGuard": true,
+    "internalReadPredicate": true,
+    "attachmentActionInDispatcher": false
+  }
+}

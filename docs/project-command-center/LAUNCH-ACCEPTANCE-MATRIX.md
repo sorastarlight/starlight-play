@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-101 real acceptance required
+# Current launch acceptance matrix — CODEX-102 real acceptance required
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 95/95 suites in CODEX-91. Routine staff error/Bits feedback escaping is published and verified against 56 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -39,3 +39,5 @@ CODEX-99:dynamic SQL statement-pattern review and21fictional local exact-branch 
 CODEX-100 OWNER DECISION:real mobile/assistive and Twitch-provider acceptance is required before launch;desktop-beta deferral not selected. REAL-ACCEPTANCE-CHECKLIST.md is prepared;device/reader inventory requested. No new physical/provider evidence yet. This does not authorize protected-account/provider mutations, uploads, gameplay, restore or final launch.
 
 CODEX-101:12LOCAL recovery bootstrap privacy checks pass with fictional dependencies. Owner has PC/Android;actual results and iOS/screen-reader access remain pending. This adds no real device/provider certification or beta deferral.
+
+CODEX-102:10selected Helpdesk renderer checks pass;read-only hosted dispatcher source/permissions match retained SQL. No ticket action, new defect or real provider/device result. Attachments remain unavailable under approved scope.

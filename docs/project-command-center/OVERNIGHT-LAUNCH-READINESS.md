@@ -52,3 +52,5 @@ CODEX-99:dynamic SQL review plus21isolated exact inventory-branch cases pass;no 
 CODEX-100:owner answered acceptance-scope prompt:require real mobile/assistive/Twitch-provider evidence before launch. Beta deferral not accepted. Device/reader availability requested; REAL-ACCEPTANCE-CHECKLIST.md prepared. Do not ask for scope decision again or substitute synthetic fixtures. Continue independent work while access/evidence pending. Schedule/hard stop unchanged.
 
 CODEX-101:12isolated recovery-bootstrap privacy cases pass;no runtime change. Owner reports PC+Android, small physical review instructions provided;no result inferred. Continue independent work;real acceptance remains required and hard stop unchanged. See OVERNIGHT-CODEX101.md.
+
+CODEX-102:Helpdesk selected text/attachment boundary review complete;10LOCAL cases pass and hosted dispatcher body/ACL/config verified without invocation. No production change. Continue other unreviewed work while real acceptance is pending;do not rescan identical renderers or poll unchanged backup/worker. Existing hard stop unchanged.

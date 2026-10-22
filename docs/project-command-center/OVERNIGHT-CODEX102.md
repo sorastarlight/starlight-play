@@ -1,0 +1,9 @@
+# CODEX-102 — Helpdesk text and attachment boundary review
+
+Ten LOCAL cases execute the actual detail-rendering assignment and current escaping/helpers from support.js with fictional staff/read-only state and a modeled DOM sink. Subject, related reference, author, body and staff audit reason each receive two markup/quote/ampersand payloads. All remain escaped text with no raw probe attribute. This is selected rendering coverage, not full mount/handler/Auth or real browser certification.
+
+Read-only hosted catalog confirms support_call(text,jsonb) bodyMD5 214b4d7e2a47205fdce51760ff2dc849 exactly matches the retained support-helpdesk.sql body. Anon EXECUTE is denied; authenticated EXECUTE remains allowed behind source guards; SECURITY DEFINER and search_path=pg_catalog retained. Source requires explicit owner for staff mode and excludes internal messages from player reads. Existing actual EmailQA/owner private-note visibility evidence remains separate; no ticket or dispatcher action was invoked now.
+
+Helpdesk source still offers no file input/attachment dispatcher action and explicitly says attachments are unavailable. That is consistent with the approved deferred-attachments scope; this does not audit every other site's asset upload route. No new defect was confirmed or runtime fix needed in scope. Evidence/hashes:evidence/codex102-helpdesk-review.json;fictional rehearsal private at LOCALAPPDATA/PokemonStreamLink/security/codex102.
+
+No hosted user/ticket payload retrieved, submission, staff write, SQL/permission/source deployment, provider/credential/gameplay/spending/scheduling change or APP stamp. No unchanged suite rerun. Required real Android/iOS/assistive/provider evidence remains pending; these tests do not substitute for it. No repeated backup/worker polling. Sora NO;Twinkle NO;PlayTester unchanged. Maina51bcbbf remains unchanged.

@@ -1,0 +1,13 @@
+# CODEX-93 — Public response projection review
+
+Read-only hosted source/catalog inspection covered five public entry points and ten helper definitions: Rankings, Trainer search, Trainer card, GTS board/listing, and their selected projection/eligibility/team/showcase helpers. No application rows or actual endpoint responses were retrieved. No credential-field projection was found in these reviewed definitions. Explicit JSON fields, not whole profile rows, form the outgoing projections; the Rankings row_to_json and team to_jsonb uses wrap explicitly selected columns.
+
+A fresh isolated loopback PostgreSQL rehearsal passed 28 REAL LOCAL SQL checks. Exact ranking_public_row, play_trade_listing, catch_brief and team_mons bodies ran against fictional tables. Trainer private-field subtraction and four owner-only response expressions were extracted from actual source and exercised as SQL fragments. Listing/catch payload helpers were stubbed for the listing visibility tests; this is not a whole-function Trainer or full-schema/Auth test.
+
+Checks cover the twelve-key Rankings projection/defaults, removal of five private Trainer fields for non-owners, empty private arrays for non-owners, pending offers visible only to listing owners, missing listing rejection, unchanged offer rows, active-owned showcase specimens and team pointer filtering. Sources/results stay privately under LOCALAPPDATA/PokemonStreamLink/security/codex93. Sanitized fingerprints, counts and SHA-256 values are in evidence/codex93-serializer-summary.json. The local server stopped and ephemeral directory cleanup was verified.
+
+The existing public contract still contains selected activity/statistics/specimen identifiers and original-trainer identity, including an original-trainer UUID in the GTS catch serializer. Their presence is recorded as a privacy/product scope limit, not evidence of credential leakage or a newly authorized contract change. This review does not certify every nested serializer, RPC authorization path, real Auth identity, physical device or provider integration.
+
+Important operational finding: play_trainer evaluates cosmetics when viewing one's own card. It must not be invoked as a read-only readiness probe. No such invocation occurred. Source-only review preserved that boundary.
+
+No runtime, SQL, permissions, data, provider, account, credentials, gameplay or scheduling changed. Latest frontend evidence remains CODEX-91: 95 suites and build, 56 hosted source matches. APP20261008-rc133. Two private SQL decisions remain held; post-change backup check is still due after 03:50 EDT. Sora NO; Twinkle NO; PlayTester role unchanged.

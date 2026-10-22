@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-93",
+      "status": "done",
+      "scope": "Public response projection review without user payloads",
+      "dependencies": [
+        "CODEX-92"
+      ],
+      "evidence": "OVERNIGHT-CODEX93.md; evidence/codex93-serializer-summary.json",
+      "testResults": "28 REAL LOCAL SQL checks on exact selected functions/response fragments; fictional schema, stubbed listing payload helpers; 15 function definitions reviewed",
+      "nextAction": "Continue unreviewed security or real rendered UI surfaces; check scheduled backup after 03:50 EDT; hold SQL decisions",
+      "approvalRequirement": "No hosted RPC/data retrieval, SQL install, privacy contract change, provider test or release authority"
+    },
+    {
       "id": "CODEX-92",
       "status": "done",
       "scope": "Direct table access/RLS review and consolidated morning release decisions",

@@ -1,0 +1,87 @@
+{
+  "checkedAt": "2026-10-22T07:29:37.283Z",
+  "classification": "REAL LOCAL SQL with exact ranking helper and listing function; exact extracted Trainer response expressions; fictional schema and stubbed listing/catch helper payloads; no hosted RPC",
+  "passed": 28,
+  "categories": {
+    "rankingHelper": 6,
+    "nonOwnerCardSubtraction": 1,
+    "ownerOnlyResponseFragments": 8,
+    "listingVisibilityAndPreservation": 6,
+    "catchBrief": 5,
+    "teamProjection": 2
+  },
+  "sourceFingerprints": [
+    {
+      "function": "play_rankings",
+      "md5": "a0f912b067f413df29d0c1c5ec811927"
+    },
+    {
+      "function": "play_trade_board",
+      "md5": "90ec7d9280771fcd16be6543a02e6f6f"
+    },
+    {
+      "function": "play_trade_listing",
+      "md5": "b590eebedc4a3d5db26bae966211c647"
+    },
+    {
+      "function": "play_trainer",
+      "md5": "0be407fb12ddb91c78318b7bc102f3c4"
+    },
+    {
+      "function": "play_trainer_search",
+      "md5": "c6be959355aa033d47dafbdf949d452d"
+    },
+    {
+      "function": "catch_json",
+      "md5": "62fc25f80384ce560a8a868cedb9fb37"
+    },
+    {
+      "function": "trade_listing_json",
+      "md5": "f879e49e7e85cd166f0f5584dd0b3709"
+    },
+    {
+      "function": "trainer_card",
+      "md5": "6863c38c4b65333d9250ea5951145dfc"
+    },
+    {
+      "function": "ranking_eligible_uid",
+      "md5": "a76faf9991a9610c0ca34788fde20ad0"
+    },
+    {
+      "function": "ranking_public_row",
+      "md5": "3473eb542cf271cb24e2cc7f08914ff3"
+    },
+    {
+      "function": "catch_brief",
+      "md5": "d18ef9025a70127d1aef4e7f76c85e9e"
+    },
+    {
+      "function": "collection_variant_stats",
+      "md5": "503467690880554dc5b520b58f1fc71f"
+    },
+    {
+      "function": "mastery_top_json",
+      "md5": "ff3da6bc226e9e170e57581487a07304"
+    },
+    {
+      "function": "resolve_profile_login",
+      "md5": "e9eb19d3d4bf8026d539ef2e6257810b"
+    },
+    {
+      "function": "team_mons",
+      "md5": "47eb033b5152617b57196bc17050ab12"
+    }
+  ],
+  "privateArtifacts": "LOCALAPPDATA/PokemonStreamLink/security/codex93/",
+  "scriptSha256": "0fd2179f299c5da7f58aa19e7f76a81ce69720cd61c4c66eea673847de02cf42",
+  "resultSha256": "b9614dada9753e6ea18624b3452584eb23a35505f5bc791b4de133d7b5b56bc3",
+  "limits": [
+    "Not a whole-schema or real Auth/JWT/provider test",
+    "No live response or application rows retrieved",
+    "Full trainer_card, catch_json, eligibility and remaining nested helpers reviewed as source only; catch_brief/team_mons exact functions tested on fictional rows",
+    "Existing public specimen IDs/original-trainer UUID and activity fields are not certified as a privacy policy decision"
+  ],
+  "hostedRPCsInvoked": 0,
+  "applicationRowsRetrieved": 0,
+  "productionChanges": 0
+}

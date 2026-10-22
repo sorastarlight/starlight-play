@@ -15,3 +15,5 @@ For each future packet, pin the exact trainer/confirmed identity, expected subsc
 Real OAuth consent/refresh requires the user/reviewer to handle sign-in/consent. Signed EventSub/Bits receipt checks may affect real economy or need provider delivery; do not synthesize production events or buy Bits. Asset-uploader acceptance writes GitHub/assets; requires an exact harmless image/destination/cleanup packet and explicit bounded approval before any upload. Existing handler mocks/source/JWT verification remain useful separate evidence.
 
 Prepare concrete packets once access exists. Current full real-provider requirement is retained; neither inability to access an identity nor another mock run counts as acceptance. This document grants no protected-account, provider, upload, gameplay, spending or final-release authority.
+
+CODEX-106 update:owner explicitly reports no tester available currently. Treat ordinary subscriber acceptance as blocked on access;do not repeatedly ask the same availability question. No launch deferral or protected identity permission follows.

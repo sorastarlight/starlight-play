@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-22T12:00:25.026Z",
+  "classification": "LOCAL tracked current snapshot heuristic credential-artifact/pattern audit; no values emitted",
+  "trackedFiles": 7349,
+  "scannedTextFiles": 1407,
+  "maxTextBytes": 5000000,
+  "credentialArtifactCandidates": [
+    ".env.example"
+  ],
+  "candidateDisposition": "Intentional template: two public URLs plus empty publishable key; no private credential file candidate",
+  "patternFamilies": [
+    "Supabase secret-key prefix",
+    "AWS access-key ID",
+    "PEM private-key header",
+    "password-bearing PostgreSQL URL",
+    "service_role JWT payload",
+    "GitHub token prefixes",
+    "Resend token prefix"
+  ],
+  "patternFlags": 0,
+  "limits": [
+    "Not a complete secret detection certificate",
+    "Git history, untracked files, large/binary assets and unknown credential formats not scanned",
+    "No private recovery archive/credentials read or uploaded"
+  ],
+  "guide": {
+    "page": "help.html",
+    "action": "Opened existing Evolution & Evolution Lines disclosure",
+    "result": "Evolution Candy/Prof Oak Lab wording agrees with retained current UI",
+    "screenshot": "C:/Users/FET/.codex/visualizations/2026/10/19/01a15207-ca1f-7800-95d6-9fb36dc377d5/guide-evolution-readonly-codex106.png",
+    "realZoom": "Control+Equal produced no observed viewport/device ratio change;200% browser zoom NOT certified"
+  }
+}

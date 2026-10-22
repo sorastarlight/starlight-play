@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-106",
+      "status": "done",
+      "scope": "Independent tracked release artifact/legacy-copy audit and safe guide review",
+      "dependencies": [
+        "CODEX-105"
+      ],
+      "evidence": "LAUNCH-CODEX106-INDEPENDENT-REVIEW.md; evidence/codex106-release-artifact-audit.json",
+      "testResults": "1407tracked text files/selected credential patterns:0flags;intentional public .env.example only path candidate;safe guide disclosure read;actual zoom attempt unsupported,not passed",
+      "nextAction": "Continue only concrete unreviewed work;real subscriber test blocked by confirmed absent tester,physical Android/PC evidence still pending",
+      "approvalRequirement": "No private export/provider/SQL/gameplay/launch authority;no new credential exposure confirmed"
+    },
+    {
       "id": "CODEX-105",
       "status": "done",
       "scope": "Consolidate overnight state and validate command-center evidence records",
@@ -74,7 +86,7 @@
       ],
       "evidence": "Owner explicitly selected Require real acceptance before launch; REAL-ACCEPTANCE-CHECKLIST.md prepared",
       "testResults": "No new real-device/provider result yet; existing synthetic evidence not substituted",
-      "nextAction": "PC and Android phone available; await real model/browser/results and identify iOS/screen-reader access; prepare exact provider target/action before separate consequential approval",
+      "nextAction": "Owner confirms no non-broadcaster tester available:subscriber acceptance blocked. Android/PC results and iOS/screen-reader access pending;do not manufacture identities or infer beta deferral",
       "approvalRequirement": "Requirement accepted, not provider/protected-account/upload/gameplay/restore/stamp/final-launch execution authority"
     },
     {

@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-83",
+      "status": "doing",
+      "scope": "Private asset upload boundary review and tested candidate",
+      "dependencies": [
+        "CODEX-82"
+      ],
+      "evidence": "ASSET-UPLOAD-REVIEW-CODEX83.md;private local codex83 packet",
+      "testResults": "Deployed baseline4/source/JWT inspected;catalog guard chain;21 LOCAL mocked candidate checks pass",
+      "nextAction": "Important owner approval required before one-function deployment",
+      "approvalRequirement": "Production upload/security authority gate;no credential/provider/upload execution authorized"
+    },
+    {
       "id": "CODEX-82",
       "status": "done",
       "scope": "Webhook/login boundary mocks and celebration viewport acceptance",

@@ -2137,3 +2137,5 @@ CODEX-81 COMPLETE (bounded review):Bits/ads deployed source/JWT and sampled serv
 CODEX-81 additional target-boundary catalog sample completed:five account/role/unlink/diagnostic/recovery endpoints and nested hub/edit/recent-owner guards;no new confirmed defect. No live invocation. Exact hashes in security-acceptance-codex81.json;R21 not reopened.
 
 CODEX-82 COMPLETE:deployed webhook/login source matches;14 LOCAL HMAC and9 mocked login boundary cases pass. REAL DOM isolated level/achievement fit320/390/768/1280CSSpx.90 suites/build and36public source matches. No provider invocation/settings/data/deployment/APP change. Physical-device/zoom/real-OAuth and broader security coverage remain open;see PROVIDER-DEVICE-CODEX82.md.
+
+CODEX-83 PREPARED:confirmed upload-boundary issues;private exact candidate/rollback and21 mocked checks pass. No live upload,credential read or mutation. Important authorization-change decision required;unresolved details kept outside Git. See ASSET-UPLOAD-REVIEW-CODEX83.md.

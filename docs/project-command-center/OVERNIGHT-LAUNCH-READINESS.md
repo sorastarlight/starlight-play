@@ -14,7 +14,7 @@ Current October22,2026. Owner requested sustained autonomous progress. Existing 
 
 | Work | Actual evidence | Record |
 |---|---|---|
-| Staff/Bits error escaping |13staff templates +8Bits interpolations corrected;local/hosted isolated markup tests |OVERNIGHT-CODEX87.md,OVERNIGHT-CODEX88.md|
+| Staff/Bits error escaping |13staff templates +8Bits interpolations corrected;local/hosted isolated markup tests |RUN-LOG.md (CODEX-87),OVERNIGHT-CODEX88.md|
 | Dialog accessibility |Confirmation/Ribbon names plus12more dialogs;native Escape/opener checks and48CSS-width cases |OVERNIGHT-CODEX89.md,OVERNIGHT-CODEX90.md|
 | SDK loading |20permitted pages pinned to byte-identical2.118.0 with integrity;good/bad SRI sandbox checks;protected Admin and existing Helpdesk2.117.2 exceptions retained |OVERNIGHT-CODEX91.md,vendor-lock.json|
 | Direct DB/read scope |64public relations reviewed;121fictional local RLS checks;15public/helper definitions and28projection cases |OVERNIGHT-CODEX92.md,OVERNIGHT-CODEX93.md|
@@ -44,3 +44,4 @@ CODEX-71 actual logical recovery passed within its recorded scope;original priva
 Prefer concrete unreviewed source or actual rendered acceptance that adds coverage. Do not repeat the completed SDK/RLS/serializer/dynamic-SQL/Helpdesk/recovery-template/bootstrap reviews as synthetic substitutes for missing access. Preserve exact scoped frontend publication under CODEX-78;exclude unrelated queued changes and return to canonical branch. Keep private artifacts/secrets outsideGit. Stay quiet for unchanged limitations;notify only meaningful completion,failure,confirmed defect or required owner action.
 
 No new SQL/Auth authority/provider/DNS/credential/gameplay/grant/real-email/protected-account/spending/scheduling/APP-stamp/final-launch authority is granted by this handoff.
+

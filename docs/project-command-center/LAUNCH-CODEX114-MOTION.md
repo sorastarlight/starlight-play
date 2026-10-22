@@ -19,3 +19,5 @@ Follow-through:14focused assertions now pass,including blocked localStorage. A n
 Final storage fallback:feature8c3c1546;main739fbc19;Pages39799569389. Actual hosted Events/Trainer match;motion source currently matches first revisionbb18025a while followup awaits. No success claimed for followup yet.
 
 Last check:39799569389stillqueued;build completed,deploy waiting. Actual page script URL with existingAPPquery returns200and first motion revision,not final storage fallback. No manual workflow retry/cancel;local watcher stopped. Keep CODEX-114pending final hosted equality.
+
+VERIFIED CODEX-115:39799569389completed/success;expanded100/100hosted files match checkout,including final motion fallback739fbc19. All previous queued/first-revision-only states above are historical. Physical OS/device acceptance remains separate.

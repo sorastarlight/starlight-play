@@ -1,6 +1,6 @@
 # Morning launch decisions — draft, not a launch authorization
 
-Current October 22, 2026 EDT. Latest runtime main is 739fbc19 (Events/Trainer confirmed live;first motion revision live;storage fallback deploy39799569389pending); APP remains 20261008-rc133. Latest regression evidence is 100/100 STATIC/LOCAL suites in CODEX-114, with 56 hosted source matches and isolated SDK integrity loading/rejection checks. This packet consolidates the important decisions instead of interrupting for routine work.
+Current October 22, 2026 EDT. Latest runtime main is 739fbc19 (Pages39799569389success;final motion/Events/Trainer verified live); APP remains 20261008-rc133. Latest regression evidence is 100/100 STATIC/LOCAL suites in CODEX-114, with 100 expanded hosted source matches and isolated SDK integrity loading/rejection checks. This packet consolidates the important decisions instead of interrupting for routine work.
 
 ## Recommended order
 
@@ -47,3 +47,5 @@ No production release declaration, APP stamp, gameplay, SQL, spending, password 
 CODEX-98: remaining real-device/provider launch-requirement choice is presented in FINAL-ACCEPTANCE-REVIEW.md. Owner answer pending;neither accepted deferrals nor final launch may be inferred.
 
 CODEX-100 decision received:real mobile/assistive/Twitch-provider acceptance required;no beta deferrals accepted. Earlier pending-scope wording is historical. Follow REAL-ACCEPTANCE-CHECKLIST.md;device inventory pending. No new test-mutation/final-release authority.
+
+CODEX-115:all queued frontend changes verified live;expired overnight heartbeat paused. Remaining tracked gates include real acceptance,appropriately scoped future provider tests and final release/configuration review;no new owner decision is requested for completed maintenance. Next daily backup after CODEX-96stillneeds observation when due;no redundant same-day polling or restore.

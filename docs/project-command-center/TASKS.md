@@ -1,6 +1,6 @@
 # Task queue
 
-Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](./TASKS.json).
+Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy: [TASKS.json](./TASKS.json).
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
@@ -31,7 +31,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 | CODEX-25 | done | Trainer keyboard and narrow stats QA | CODEX-24 | Routine frontend work | 21 checks + real DOM passed; zoom/motion emulation remains open |
 | CODEX-24 | done | Stored Pokémon stats read/display | CODEX-23 | Owner approved read-only patch | 14 SQL/37 JS checks; nulls preserved; no editing/backfill |
 | CODEX-23 | done | Reviewed Trainer v6 presentation slice | CODEX-22 | Owner proceeded | 36 checks and local DOM passed; full issue15 matrix remains open |
-| CODEX-22 | doing | Issue15 static Trainer UI v6 review | CODEX-21 | Prototype authorized | Draft published; finish viewport/zoom/a11y checks, then visual acceptance |
+| CODEX-22 | blocked | Issue15 Trainer v6 remaining real acceptance | CODEX-100 | Direction accepted/implemented | Real zoom/device/OS-motion evidence tracked under CODEX-100; no new visual direction prompt |
 | CODEX-21 | done | Disabled hosted Twitch policy install | CODEX-20 | Disabled install/QA approved | Verified disabled; no separate test Twitch identity, provider QA unperformed; continue UI cleanup |
 | CODEX-20 | done | Issue17 local server-enforcement core | CODEX-19 | Implementation/local tests approved | 65 SQL checks; full workflow and hosted activation incomplete |
 | CODEX-19 | done | Issue17 Twitch linking policy audit/design | CODEX-18 | Research/design only | Source-grounded policy ready; account-link implementation decision pending |
@@ -292,7 +292,7 @@ CODEX-86 LOCAL PASS:signin/reset/reminder duplicate pending submissions reproduc
 
 CODEX-86 VERIFIED:only4reviewed frontend/test/tool files published maincd4d9392 via Pages39721165393 success;38public source matches;92suites/build and REAL DOM hosted3mocked forms pending/error/retry pass. Authauthority/request payload/success redirects preserved;no real signin/email/account/provider/SQL/gameplay/APP change. D86 remains unauthorized.
 
-CODEX-87 OVERNIGHT ACTIVE: 93 suites/build pass; scoped staff error maintenance published at main d668924e, Pages 39723252132 success, 44 hosted sources match and 15 actual template DOM cases show zero injected nodes. Helpdesk four-width dialog/Escape/draft checks pass using fictional data. Two private SQL proposals remain held (11+9 local checks); independent work continues through bounded overnight automation until 08:25 EDT. See OVERNIGHT-LAUNCH-READINESS.md. No gameplay, SQL, credentials, APP stamp or final-launch change.
+CODEX-87 HISTORICAL OVERNIGHT REPORT (bounded run ended;automation now PAUSED): 93 suites/build pass; scoped staff error maintenance published at main d668924e, Pages 39723252132 success, 44 hosted sources match and 15 actual template DOM cases show zero injected nodes. Helpdesk four-width dialog/Escape/draft checks pass using fictional data. Two private SQL proposals remain held (11+9 local checks); independent work continues through bounded overnight automation until 08:25 EDT. See OVERNIGHT-LAUNCH-READINESS.md. No gameplay, SQL, credentials, APP stamp or final-launch change.
 
 CODEX-88 COMPLETE: 17 exact-dependency REAL LOCAL SQL checks prepare combined private purchase correction/rollback; not installed. Eight Bits feedback text interpolations escaped; 11 actual-source checks and 94 suites/build pass. Only three reviewed files published main 184e0d5c, Pages 39725500008 success, 44 hosted sources match; hosted isolated DOM 26 samples/0 injected nodes. Advisors unchanged; no gameplay, SQL, credentials, provider/account mutation or APP stamp. See OVERNIGHT-CODEX88.md. Overnight queue remains active.
 
@@ -347,3 +347,5 @@ CODEX-112:public Events now loads despite account navigation lookup failure;exis
 CODEX-113:two Trainer presentation/error fixes locally/browser validated;100suites/build pass;candidate maind13b7868. Expanded publication checker to58files exposes Events/Trainer still old:56/58matches. CODEX-112 prior56match claim omitted its changed script;not live proof. Both workflow results queued during official GitHub Actions incident q29p76qtnkyk. No rerun/cancel;hosted acceptance pending. Scoped catalog review286definers/allpathsconfigured,CREATEdeniedbrowserrolesin4schemas;no new confirmed auth defect. No production SQL/RPC/provider/gameplay/APP changes. See LAUNCH-CODEX113-BATCH.md.
 
 CODEX-114:prior Pages39796866472success and actual Events/Trainer source equality verified;112/113closed. Fixed live reduced-motion updates with listener/legacyfallback;13LOCAL performance assertions,100suites/build31/464 and isolated REAL BROWSER computed ON/OFF/manualHIGH cases pass. Only js/play-perf.js to mainbb18025a under CODEX-78;verify its deployment next. No production SQL/RPC/provider/gameplay/APP actions. See LAUNCH-CODEX114-MOTION.md.
+
+CODEX-115 COMPLETE:verified final motion deployment and actual script bytes;4/4recovery packet hashes;expired heartbeat paused through app tool. No new runtime/backend/player/provider/APP changes. See evidence/codex115-readiness-reconciliation.json.

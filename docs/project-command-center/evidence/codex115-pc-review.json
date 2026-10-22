@@ -1,0 +1,63 @@
+{
+  "classification": "REAL LOCAL SQL;exact six captured definitions;fictional profiles/catches/auth.uid and stub play_storage;not full schema/RLS/concurrent trade/delete execution",
+  "checks": [
+    "Missing authenticated identity denied",
+    "Foreign specimen flag update denied without foreign changes",
+    "Transferred specimen flag update denied",
+    "Owned flags change only supplied field",
+    "Exact live-slot helper filters malformed/foreign/transferred pointers",
+    "Save rejects foreign/transferred/malformed/duplicate slots before layout write",
+    "Empty box list rejected",
+    "More than twenty boxes rejected",
+    "Save normalizes owned layout to thirty slots and bounded name;foreign profile unchanged",
+    "Arrange compacts valid owned slots and drops stale/duplicate pointers in selected box",
+    "Move rejects foreign specimen without layout change",
+    "Move places owned specimen exactly once in destination",
+    "Invalid destination denied before write",
+    "Same-box move is unchanged",
+    "Preflight prevents deletion of final box and performs no write",
+    "Preflight reports protected occupant and available relocation space without mutation"
+  ],
+  "definitions": [
+    {
+      "schema": "private",
+      "name": "pc_live_catch_id",
+      "args": "p_uid uuid, p_slot_val text",
+      "md5": "c68182b813da58f4bd7de3a9a437954b"
+    },
+    {
+      "schema": "public",
+      "name": "play_move_pc_mon",
+      "args": "p_catch_id uuid, p_to_box integer",
+      "md5": "28d6b1c813e39403daa6ac8a0824df10"
+    },
+    {
+      "schema": "public",
+      "name": "play_pc_auto_arrange",
+      "args": "p_box integer",
+      "md5": "bf1668f08e30199bc3f96bbaa8664ffe"
+    },
+    {
+      "schema": "public",
+      "name": "play_pc_delete_box_preflight",
+      "args": "p_box integer",
+      "md5": "068d6ee434f6722719ca8d3d7e5ecab3"
+    },
+    {
+      "schema": "public",
+      "name": "play_save_pc",
+      "args": "p_layout jsonb",
+      "md5": "ebe72a4bd225f43ddf54e1b99cb3944f"
+    },
+    {
+      "schema": "public",
+      "name": "play_set_mon_flags",
+      "args": "p_catch uuid, p_favorite boolean, p_locked boolean",
+      "md5": "3a7a2ecca3d990b78211e4db36fd1310"
+    }
+  ],
+  "harnessSha256": "0843cb983fb9513e2baa300ba87ac6b44c90f6d1eb53bd1cd4a4b20fb2f6db36",
+  "privateArtifacts": "LOCALAPPDATA/PokemonStreamLink/security/codex115/",
+  "fixtureDirectoryRemoved": true,
+  "loopbackPortClosed": true
+}

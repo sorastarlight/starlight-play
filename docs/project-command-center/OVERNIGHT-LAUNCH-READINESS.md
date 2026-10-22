@@ -1,10 +1,10 @@
-# Overnight launch readiness — consolidated through CODEX-105
+# Launch readiness handoff — consolidated through CODEX-115
 
-Current October22,2026. Owner requested sustained autonomous progress. Existing same-chat heartbeat ends at08:25 America/New_York /12:25UTC; do not extend it or start/continue a scheduled cycle after that boundary without new human instruction. Automation:pok-monrpg-overnight-launch-readiness. No delegation or extra background systems.
+Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
 ## Current state
 
-- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Main6146039d; latest runtime Pages39775548558success. Main/feature histories intentionally separate.
+- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Main739fbc19; latest runtime Pages39799569389success;100/100expanded hosted sources and actual versioned motion script match. Main/feature histories intentionally separate.
 - APP20261008-rc133 unchanged. Legacy admin.html and js/admin-live.js have no published diff from the pre-overnight baseline. Sora/Twinkle not mutated;PlayTester role unchanged.
 - Both formerly held SQL proposals explicitly approved and installed in CODEX-96:20261022084110 purchase unlock atomicity and20261022084115 obsolete reminder audit-write removal. Exact3candidate sources/attributes verified;5helpers+wrapper unchanged. No hosted purchase or reminder endpoint invoked. No SQL proposal from these packets remains pending.
 - Owner explicitly requires real mobile/assistive/Twitch-provider acceptance before launch. Desktop-first beta deferrals were NOT accepted. Owner has PC+Android;model/browser/results pending. iOS and real screen-reader access unconfirmed.
@@ -26,7 +26,7 @@ Current October22,2026. Owner requested sustained autonomous progress. Existing 
 | Recovery packaging |Fixed Windows checkout CRLF drift with4LF attributes;4recreated hashes match;28fresh local tests read actual repo packets |OVERNIGHT-CODEX104.md|
 | Record consistency |202existing evidence JSON files parse;no duplicate task IDs;Git remote and protected-file diff checked |evidence/codex105-record-consistency.json|
 
-Latest full regression is96/96STATIC/LOCAL suites in CODEX-107 (including the new Rankings loading suite),build31HTML/464refs and56hosted source matches. Do not combine independent case counts into an invented suite count. Static/fictional tests are not real provider/device certification.
+Latest full regression is100/100STATIC/LOCAL suites in CODEX-114,build31HTML/464refs;14focused performance assertions and isolated browser CSS checks. CODEX-115 verifies100/100hosted sources. Do not combine independent case counts into an invented suite count;mocked preference changes are not physical OS/device certification.
 
 ## Recovery status
 
@@ -69,3 +69,7 @@ Latest workflow snapshot:39795730899completed/cancelled;39796866472queued and co
 CODEX-114:prior Pages39796866472success and actual Events/Trainer source equality verified;112/113closed. Fixed live reduced-motion updates with listener/legacyfallback;13LOCAL performance assertions,100suites/build31/464 and isolated REAL BROWSER computed ON/OFF/manualHIGH cases pass. Only js/play-perf.js to mainbb18025a under CODEX-78;verify its deployment next. No production SQL/RPC/provider/gameplay/APP actions. See LAUNCH-CODEX114-MOTION.md.
 
 CODEX-114 latest:100suites/build and14performance assertions pass;first motion revision and prior Events/Trainer confirmed live. Final manual-preference fallback main739fbc19/build completed;deploy39799569389waiting,actual script stillfirstrevision. Local watcher/server stopped;no schedule extension or workflow retry. Continue final hosted verification when queue advances.
+
+CODEX-115 complete:final motion deploy39799569389success;100/100expanded hosted files plus actual versioned script match.4/4reviewed recovery packet raw hashes unchanged after branch switches. Expired heartbeat PAUSED,verified via tool and saved status. Ledger87closed;22remaining real acceptance consolidated under100. No runtime,SQL,provider,gameplay or APP change in this batch.
+
+CODEX-115 scoped PC ownership review adds16REAL LOCAL SQL grouped checks using six captured definitions and fictional data;no hosted function/data action. Cluster/port closed;source stays private. No new ownership bypass confirmed in scope;full RLS/concurrency/deletion remain outside these checks. See LAUNCH-CODEX115-READINESS.md.

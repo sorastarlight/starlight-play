@@ -4,15 +4,27 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-115",
+      "status": "done",
+      "scope": "Final motion deployment,expired heartbeat,ledger/recovery and scoped PC ownership review",
+      "dependencies": [
+        "CODEX-114"
+      ],
+      "evidence": "LAUNCH-CODEX115-READINESS.md; evidence/codex115-readiness-reconciliation.json; evidence/codex115-pc-review.json; evidence/public-launch-publication.json",
+      "testResults": "Pages39799569389success;100/100hosted matches plus actual scriptURL;4/4packet raw hashes;PAUSEDexpiry verified;16fresh REAL LOCAL SQL PC checks using six captured definitions",
+      "nextAction": "Required real mobile/assistive/provider evidence remains open;final configuration/release decision remains separate",
+      "approvalRequirement": "Original overnight expiry enforced;no schedule extension,SQL,Auth,gameplay or launch action"
+    },
+    {
       "id": "CODEX-114",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Live reduced-motion listener and prior queued deployment verification",
       "dependencies": [
         "CODEX-113"
       ],
       "evidence": "LAUNCH-CODEX114-MOTION.md; evidence/codex114-regressions.json",
       "testResults": "14LOCAL performance assertions;100/100suites/build31/464;isolated browser ON/OFF/manualHIGH;Events/Trainer run39796866472success;latest motion fallback awaiting hosted check",
-      "nextAction": "Verify Pages39799569389 and motion source739fbc19;first motion revision and Events/Trainer already serving. Required real acceptance unchanged.",
+      "nextAction": "Final workflow success and100hosted source matches verified in CODEX-115;real acceptance remains open.",
       "approvalRequirement": "CODEX-78 routine frontend maintenance only"
     },
     {
@@ -337,15 +349,15 @@
     },
     {
       "id": "CODEX-87",
-      "status": "doing",
+      "status": "done",
       "scope": "Owner-requested bounded overnight readiness work and consolidated handoff",
       "dependencies": [
         "CODEX-86"
       ],
       "evidence": "OVERNIGHT-LAUNCH-READINESS.md; evidence/codex87-regressions.json; evidence/public-launch-publication.json; two private held packets",
       "testResults": "93 suites/build; 15 actual-source error templates; 44 hosted source matches; hosted isolated DOM 15 templates/0 injected nodes; 11+17 REAL LOCAL SQL held-proposal checks; Helpdesk dialog/focus/draft preservation at four widths",
-      "nextAction": "Overnight continuation active; CODEX-88 completes combined private purchase packet; next independent review and scheduled-backup check",
-      "approvalRequirement": "Owner requested overnight continuation; configured eight-hour bound. Consequential SQL/economy/security gates remain; private packets held."
+      "nextAction": "Bounded overnight work ended08:25EDT;automation explicitly paused in CODEX-115 to enforce expiry. Later human-directed work is separate.",
+      "approvalRequirement": "Expired eight-hour authority;no extension. Former SQL packets separately approved/installed in CODEX-96."
     },
     {
       "id": "CODEX-86",
@@ -1122,16 +1134,17 @@
     },
     {
       "id": "CODEX-22",
-      "status": "doing",
+      "status": "blocked",
       "scope": "Issue15 separate static Trainer UI v6 review",
       "dependencies": [
-        "CODEX-21"
+        "CODEX-21",
+        "CODEX-100"
       ],
       "branch": "admin-hub-overhaul",
       "commit": null,
       "evidence": "TRAINER-UI-V6-REVIEW.md; design-reset/hub-a-visual-v6.html",
       "testResults": "Focused real DOM drilldowns,44px targets and constrained390/1024 frame review passed; build31/422",
-      "nextAction": "Direction accepted; CODEX-23/24 implemented and CODEX-25 verified keyboard/mobile stats.200% browser zoom and reduced-motion emulation remain unverified",
+      "nextAction": "Accepted direction implemented in CODEX-23/24;remaining real zoom/OS-motion/device evidence tracked centrally in CODEX-100. No renewed design prompt.",
       "approvalRequirement": "Owner visual direction accepted; no renewed direction prompt needed"
     },
     {

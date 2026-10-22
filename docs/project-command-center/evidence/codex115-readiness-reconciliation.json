@@ -1,0 +1,38 @@
+{
+  "classification": "READ-ONLY hosted source/workflow verification and local recovery byte integrity;no SQL replay",
+  "checkedAt": "2026-10-22T15:16:42.068Z",
+  "pagesRun": 39799569389,
+  "pagesConclusion": "success",
+  "mainCommit": "739fbc193a30463ad36473dff0de5cbe6ba1f52d",
+  "hostedSourceMatches": 100,
+  "hostedSourceTotal": 100,
+  "recoveryPackets": [
+    {
+      "file": "supabase/unapplied/purchase-unlock-atomicity/INSTALL.sql",
+      "sha256": "f1b7c6e2f12c60fae47e1329f51ac6b877f8339bf73b451eee3e07390a398b94",
+      "matchesReviewedOriginal": true
+    },
+    {
+      "file": "supabase/unapplied/purchase-unlock-atomicity/ROLLBACK.sql",
+      "sha256": "0c968513679d2ded6751140c1dc75b42f136ff6e1466f8c7bf8755e9e42e51ab",
+      "matchesReviewedOriginal": true
+    },
+    {
+      "file": "supabase/unapplied/username-reminder-no-write/INSTALL.sql",
+      "sha256": "db08f88bf6eca02eda89b13a728476f1e0a8ced7dc4f93b61dddae3ccf045022",
+      "matchesReviewedOriginal": true
+    },
+    {
+      "file": "supabase/unapplied/username-reminder-no-write/ROLLBACK.sql",
+      "sha256": "7600863682baf77e97e6e35a82f2d0dbd5ac14f35305896a6ff6b093bdcc8ee2",
+      "matchesReviewedOriginal": true
+    }
+  ],
+  "expiredAutomation": {
+    "id": "pok-monrpg-overnight-launch-readiness",
+    "status": "PAUSED",
+    "originalCutoff": "2026-10-22T12:25:00Z",
+    "promptAndSchedulePreserved": true
+  },
+  "unchangedApp": "20261008-rc133"
+}

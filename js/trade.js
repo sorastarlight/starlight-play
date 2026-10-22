@@ -59,6 +59,7 @@
   let gtsChannel = null;
   let pollTimer = 0;
   let filterTimer = 0;
+  let boardRequest = 0;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -251,6 +252,7 @@
   }
 
   async function loadBoard(options) {
+    const request = ++boardRequest;
     const quiet = Boolean(options?.quiet);
     if (!quiet && els.status) els.status.textContent = "Scanning the GTS…";
     try {
@@ -259,10 +261,12 @@
         p_dex: null,
         p_login: null
       });
+      if (request !== boardRequest) return;
       listings = data.listings || [];
       renderBoard();
       if (els.status) els.status.textContent = "";
     } catch (error) {
+      if (request !== boardRequest) return;
       if (els.status) els.status.textContent = window.playRpcError(error);
     }
   }

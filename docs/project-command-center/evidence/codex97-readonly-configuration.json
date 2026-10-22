@@ -1,0 +1,49 @@
+{
+  "classification": "READ-ONLY hosted configuration/aggregate operational records; no RPC execution",
+  "checkedAt": "2026-10-22T08:45:00Z",
+  "wire": {
+    "enabled": true,
+    "updatedAt": "2026-10-20T18:11:02.180774+00:00"
+  },
+  "queue": [
+    {
+      "rows": 1,
+      "status": "delivered",
+      "max_attempts": 0
+    }
+  ],
+  "worker": [
+    {
+      "name": "streamlink-species-familiarity",
+      "jobid": 3,
+      "active": true,
+      "schedule": "* * * * *"
+    }
+  ],
+  "linkPolicy": {
+    "enabled": false,
+    "qaScopeSet": false
+  },
+  "workerRuns": [
+    {
+      "runs": 1237,
+      "status": "succeeded",
+      "latest_end": "2026-10-22T08:45:00.03026+00:00"
+    }
+  ],
+  "familiarity": {
+    "lifecycle": "active",
+    "activatedAt": "2026-10-20T16:55:59.896904+00:00",
+    "drainStartedAt": null
+  },
+  "workerSource": {
+    "acl": "{postgres=X/postgres}",
+    "md5": "8a0744ad845bbe99639b01b307a41712"
+  },
+  "limits": [
+    "Does not invoke or test a new catch/delivery/provider action",
+    "Successful idle worker runs do not certify every future event",
+    "One-link policy intentionally remains disabled",
+    "Final configuration review is partial: real device/provider acceptance and final owner go/no-go remain open"
+  ]
+}

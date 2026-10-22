@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-97",
+      "status": "done",
+      "scope": "Partial read-only configuration and existing worker operational acceptance",
+      "dependencies": [
+        "CODEX-96"
+      ],
+      "evidence": "LAUNCH-CODEX97-CONFIGURATION.md; evidence/codex97-readonly-configuration.json",
+      "testResults": "WIRE/cutoff/policy scope preserved;job3 once/minute active;1237successes/no failed-status group;1delivered/0outstanding;worker source and postgres-only ACL match",
+      "nextAction": "Continue remaining concrete device/provider/security acceptance within available access; retain CODEX-96 replay deltas; no final go/no-go inferred",
+      "approvalRequirement": "No activation, gameplay/provider test, scheduling, SQL, restore, spending or launch authority"
+    },
+    {
       "id": "CODEX-96",
       "status": "done",
       "scope": "Owner-approved purchase atomicity and obsolete reminder write corrections",

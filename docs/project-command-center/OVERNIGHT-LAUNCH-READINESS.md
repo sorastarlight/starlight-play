@@ -42,3 +42,5 @@ Private reproductions and unresolved details remain outside Git. No hosted SQL, 
 4. Update this handoff and acceptance matrix with actual evidence and consolidated morning decisions. Physical devices, real browser zoom and provider OAuth remain open; mocks cannot certify them.
 
 Stop scheduled work after 08:25 EDT without a new instruction. No spending, protected-account changes, real email, provider/DNS/credential changes, gameplay, extra scheduling, APP stamp or final launch. Sora and Twinkle untouched; PlayTester role unchanged. APP remains `20261008-rc133`.
+
+Human-directed continuation CODEX-97: partial read-only WIRE/Familiarity/link-policy/worker configuration acceptance completed;1237successes/0failed group/0outstanding. No changes or manual job invocation. See LAUNCH-CODEX97-CONFIGURATION.md. Next avoid repeating unchanged worker/source checks;real-device/provider coverage remains unavailable, and CODEX-96 deltas must accompany old backups. Existing overnight schedule remains bounded;new human continuation does not extend it.

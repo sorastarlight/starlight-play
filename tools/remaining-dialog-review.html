@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><base href="../"><title>Isolated remaining dialog review</title><link rel="stylesheet" href="css/play.css"><link rel="stylesheet" href="css/support.css"><style>main{max-width:900px;margin:24px auto;padding:20px}button,select{margin:8px}</style>
+<main><h1>Remaining dialog accessibility review</h1><p>Actual markup and creation fragments only. No account SDK, original action handlers, provider consent, saves, tickets, grants or gameplay calls.</p><label for="sample">Dialog preview</label><select id="sample"></select><button id="open">Open selected preview</button><p id="result" role="status"></p></main>
+<script>
+const specs=[
+ {name:'Helpdesk new ticket',file:'js/support.js',anchor:'function newTicket()',start:"const modal=document.createElement('dialog')",end:'host.append(modal)',variable:'modal',title:'New support ticket'},
+ {name:'Helpdesk status',file:'js/support.js',anchor:'function transition(next)',start:"const modal=document.createElement('dialog')",end:'host.append(modal)',variable:'modal',title:'Change ticket status'},
+ {name:'Team backgrounds',file:'js/settings.js',anchor:'function openTeamBgModal()',start:'const dialog = document.createElement("dialog")',end:'document.body.appendChild(dialog)',variable:'dialog',title:'Team Backgrounds'},
+ {name:'PC confirmation',file:'js/storage.js',anchor:'function openPcDialog(opts)',start:'const dialog = d.createElement("dialog")',end:'d.body.append(dialog)',variable:'dialog',title:'Preview PC confirmation'},
+ {name:'PC move',file:'js/storage.js',anchor:'const existing = document.getElementById("pc-move-dialog")',start:'const dialog = document.createElement("dialog")',end:'document.body.appendChild(dialog)',variable:'dialog',title:'Move Preview Pokémon'},
+ {name:'Studio item',file:'js/admin-studio.js',anchor:'if (!document.getElementById("studio-item-modal"))',start:'const itemModal = document.createElement("dialog")',end:'document.body.appendChild(itemModal)',variable:'itemModal',title:'Item'},
+ {name:'Studio crop',file:'js/admin-studio.js',anchor:'if (!document.getElementById("studio-crop-modal"))',start:'const crop = document.createElement("dialog")',end:'document.body.appendChild(crop)',variable:'crop',title:'Portrait crop'},
+ {name:'Content picker',file:'js/content-picker.js',anchor:'function ensureDialog()',start:'dialog = document.createElement("dialog")',end:'document.body.appendChild(dialog)',variable:'dialog',prefix:'let dialog;',title:'Add content'},
+ {name:'Team picker',file:'js/team.js',anchor:'function ensureModals()',start:'const dialog = document.createElement("dialog")',end:'document.body.appendChild(dialog)',variable:'dialog',title:'Choose'},
+ {name:'Settings unsaved warning',file:'settings.html',id:'dirty-warn',title:'You have unsaved Trainer ID changes.'},
+ {name:'Settings Twitch warning',file:'settings.html',id:'twitch-warn',title:'Link a Twitch account'},
+ {name:'Sign-in Twitch warning',file:'signin.html',id:'twitch-warn',title:'Continue to Twitch'}
+];
+const select=document.getElementById('sample'),output=document.getElementById('result');
+for(let i=0;i<specs.length;i++){const option=document.createElement('option');option.value=String(i);option.textContent=specs[i].name;select.append(option)}
+const esc=v=>String(v||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const options=values=>Object.entries(values).map(([value,text])=>'<option value="'+esc(value)+'">'+esc(text)+'</option>').join('');
+const sources=new Map();let current=null;
+async function build(spec){let source=sources.get(spec.file);if(!source){const response=await fetch(spec.file+'?review=codex90-fixed');if(!response.ok)throw Error('Preview source unavailable');source=await response.text();sources.set(spec.file,source)}
+ if(spec.id){const doc=new DOMParser().parseFromString(source,'text/html'),node=doc.getElementById(spec.id);if(!node||node.tagName!=='DIALOG')throw Error('Expected dialog missing');return document.importNode(node,true)}
+ const anchor=source.indexOf(spec.anchor),start=source.indexOf(spec.start,anchor),end=source.indexOf(spec.end,start);if(anchor<0||start<anchor||end<start)throw Error('Preview extraction boundary changed');
+ const code=(spec.prefix||'')+source.slice(start,end)+';return '+spec.variable+';';
+ const names=['document','d','window','opts','staff','next','label','esc','options','categories','renderTeamBgModalBody','name','boxes','currentBox','BOX_SLOTS','boxFillCount'];
+ const values=[document,document,{playEscapeAttr:esc},{title:'Preview PC confirmation',body:'Fictional preview only.',actionsHtml:'<button value="cancel">Cancel preview</button>'},false,'resolved',v=>String(v),esc,options,{bug:'Bug report'},()=>'<p>Fictional background preview.</p>','Preview Pokémon',[],0,30,()=>0];
+ return new Function(...names,code)(...values);
+}
+document.getElementById('open').onclick=async()=>{try{if(current){current.close();current.remove()}const spec=specs[Number(select.value)];current=await build(spec);document.body.append(current);const modal=current;modal.addEventListener('submit',event=>{event.preventDefault();modal.close()});modal.addEventListener('close',()=>{modal.remove();if(current===modal)current=null;document.getElementById('open').focus()},{once:true});modal.showModal();output.textContent='Preview: '+spec.name+'; expected accessible name: '+spec.title;}catch(error){output.textContent=error.message}};
+</script></html>

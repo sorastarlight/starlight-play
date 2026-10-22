@@ -1000,11 +1000,12 @@
     if (existing) existing.remove();
     const dialog = document.createElement("dialog");
     dialog.id = "team-bg-modal";
+    dialog.setAttribute("aria-labelledby", "team-bg-modal-title");
     dialog.className = "play-modal play-modal-wide scc-team-bg-modal";
     dialog.innerHTML = `
       <form method="dialog" class="play-modal-card scc-team-bg-modal-card">
         <header class="play-modal-head">
-          <h2>Team Backgrounds</h2>
+          <h2 id="team-bg-modal-title">Team Backgrounds</h2>
           <button type="submit" class="play-modal-close" value="cancel" aria-label="Close">×</button>
         </header>
         <div class="play-modal-body scc-team-bg-modal-body" id="team-bg-modal-body">${renderTeamBgModalBody()}</div>

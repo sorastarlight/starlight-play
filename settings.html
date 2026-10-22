@@ -211,9 +211,9 @@
     </div>
   </div>
 </div>
-<dialog id="dirty-warn" class="modal">
+<dialog id="dirty-warn" class="modal" aria-labelledby="dirty-warn-title">
   <form method="dialog" class="modal-card">
-    <h3>You have unsaved Trainer ID changes.</h3>
+    <h3 id="dirty-warn-title">You have unsaved Trainer ID changes.</h3>
     <p>Keep editing, discard your draft, or save it before you go.</p>
     <div class="links">
       <button value="keep">Keep Editing</button>
@@ -222,9 +222,9 @@
     </div>
   </form>
 </dialog>
-<dialog id="twitch-warn" class="modal">
+<dialog id="twitch-warn" class="modal" aria-labelledby="twitch-warn-title">
   <form method="dialog" class="modal-card">
-    <h3>Link a Twitch account</h3>
+    <h3 id="twitch-warn-title">Link a Twitch account</h3>
     <p>You'll be sent to Twitch to authorize an account. Twitch may automatically use whichever account is currently signed in there. Make sure you're signed into the Twitch account you want to connect before continuing.</p>
     <div class="links">
       <button id="twitch-warn-go" value="yes">Continue to Twitch</button>

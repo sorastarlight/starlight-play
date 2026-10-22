@@ -170,6 +170,7 @@
     if (!document.getElementById("studio-item-modal")) {
       const itemModal = document.createElement("dialog");
       itemModal.id = "studio-item-modal";
+      itemModal.setAttribute("aria-labelledby", "studio-item-title");
       itemModal.className = "play-modal";
       itemModal.innerHTML = `<form class="play-modal-card" method="dialog"><header class="play-modal-head"><h3 id="studio-item-title">Item</h3><button class="secondary" value="cancel">Close</button></header><div id="studio-item-body"></div></form>`;
       document.body.appendChild(itemModal);
@@ -177,9 +178,10 @@
     if (!document.getElementById("studio-crop-modal")) {
       const crop = document.createElement("dialog");
       crop.id = "studio-crop-modal";
+      crop.setAttribute("aria-labelledby", "studio-crop-title");
       crop.className = "play-modal play-modal-wide";
       crop.innerHTML = `<form class="play-modal-card" method="dialog">
-        <header class="play-modal-head"><h3>Portrait crop</h3><button class="secondary" value="cancel">Close</button></header>
+        <header class="play-modal-head"><h3 id="studio-crop-title">Portrait crop</h3><button class="secondary" value="cancel">Close</button></header>
         <div class="studio-crop-split">
           <figure><figcaption>Full sprite</figcaption><img id="crop-full" alt=""></figure>
           <figure><figcaption>Profile portrait</figcaption><canvas id="crop-preview" width="256" height="256"></canvas></figure>

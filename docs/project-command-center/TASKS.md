@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-122 | in_progress | Mart Pass request feedback | CODEX-121 | CODEX-78 routine frontend |10cases/103suites/browser;publish exact store JS and verify |
 | CODEX-121 | done | Release safeguard/Radar boundaries | CODEX-120 | Explicit owner approval spent |Installed20261022185226;exact source/attributes;2controls unchanged |
 | CODEX-120 | done | Picker response ownership/assets | CODEX-119 | CODEX-78 routine frontend |Main54465ae2;Pages39832712529success;100sources/versioned picker match |
 | CODEX-119 | done | Automatic recovery packet integrity | CODEX-118 | Local tooling only |20filesystem cases;10Git-recreated packet hashes;build31/464 |

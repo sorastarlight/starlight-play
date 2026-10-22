@@ -1,0 +1,15 @@
+# CODEX-122 — Mart Pass-check failure recovery
+
+The Mart's Pass-check click handler did not catch rejected session reads or transport requests. A rejected mock reproduced the handler rejecting instead of replacing its “Checking Twitch…” status. Repeated clicks could also start overlapping checks.
+
+The routine frontend correction wraps the existing action in recoverable loading/error handling, permits one in-flight check, marks the button busy and restores its prior disabled state when the request finishes. Unexpected failures show a retry message; structured server messages remain available. Signed-out and missing-provider-token behavior, Edge function name/body, provider-token selection, eligibility, permissions and server authority are unchanged. No real provider test was run.
+
+Ten LOCAL cases execute the actual selected helpers and click-handler body with fictional Auth/provider dependencies: transport/session rejection, signed-out/missing-token controls, single-flight behavior with unchanged call arguments, structured/fallback errors, inactive result, successful retry and preservation of a checked result when the Mart refresh fails. A fixture syntax typo was corrected before the meaningful baseline failure and green run. All 103 known non-writing regression suites pass; build remains31localHTML/464references and12recovery packet hashes pass. Tests do not certify the full Mart bootstrap, real Auth/subscription delivery or physical devices.
+
+Isolated REAL BROWSER review uses the actual selected helper/handler source and play.css in a simplified component fixture. Native button disabled while pending; simulated connection failure showed retry copy and restored the button; retry/simulated success updated status and refreshed the mocked catalog once. connect-src none and a loopback-only static allowlist prevent real network/provider actions. Review tab closed and local server stopped. Screenshot: C:/Users/FET/.codex/visualizations/2026/10/19/01a15207-ca1f-7800-95d6-9fb36dc377d5/mart-pass-recovery-codex122.png.
+
+Candidate publication uses existing CODEX-78 routine loading/error maintenance authority. Publish only js/store.js, preserving separate main/feature histories, then verify Pages and the actual versioned script plus expanded source check. No success claim before that evidence.
+
+No SQL/Auth policy/provider configuration, grant, subscription check, account/player mutation, real email, gameplay, spending, scheduling, APP stamp or final launch. Sora/Twinkle not mutated; PlayTester role unchanged. Real Twitch testing stays held; physical-mobile/assistive/provider launch requirements remain open. Evidence:evidence/codex122-feedback-review.json and evidence/codex122-regressions.json.
+
+Final-source isolated browser also verified that a successful mocked check is retained when its catalog refresh fails, with reload guidance and the button restored. Screenshot: C:/Users/FET/.codex/visualizations/2026/10/19/01a15207-ca1f-7800-95d6-9fb36dc377d5/mart-pass-refresh-codex122.png.

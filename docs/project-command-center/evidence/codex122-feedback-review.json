@@ -1,0 +1,21 @@
+{
+  "classification": "LOCAL actual selected helpers/click-handler and isolated REAL BROWSER with fictional dependencies;not real provider acceptance",
+  "baselineReproduced": true,
+  "focusedCases": 10,
+  "providerArgumentsPreserved": true,
+  "browserObserved": [
+    "button disabled during pending mock",
+    "transport rejection shows retry copy",
+    "button restored after error",
+    "retry allowed",
+    "mock success updates status/catalog once",
+    "final-source success retained when mocked catalog refresh fails"
+  ],
+  "screenshot": "C:/Users/FET/.codex/visualizations/2026/10/19/01a15207-ca1f-7800-95d6-9fb36dc377d5/mart-pass-recovery-codex122.png",
+  "serverStopped": true,
+  "realAuthCalls": 0,
+  "realProviderCalls": 0,
+  "applicationRPCs": 0,
+  "backendChanges": 0,
+  "secondaryScreenshot": "C:/Users/FET/.codex/visualizations/2026/10/19/01a15207-ca1f-7800-95d6-9fb36dc377d5/mart-pass-refresh-codex122.png"
+}

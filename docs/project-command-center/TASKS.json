@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-122",
+      "status": "in_progress",
+      "scope": "Routine Mart Pass button pending/error/retry maintenance",
+      "dependencies": [
+        "CODEX-121"
+      ],
+      "evidence": "LAUNCH-CODEX122-MART-FEEDBACK.md; evidence/codex122-feedback-review.json; evidence/codex122-regressions.json",
+      "testResults": "10actual-source cases;baseline reproduction;isolated real browser;103suites;build31/464;12recovery hashes",
+      "nextAction": "Publish only js/store.js under CODEX-78 then verify Pages/versioned source",
+      "approvalRequirement": "Existing CODEX-78 routine frontend maintenance;real Twitch testing remains held"
+    },
+    {
       "id": "CODEX-121",
       "status": "done",
       "scope": "Locally tested release-confirmation packet and independent Radar consumption review",

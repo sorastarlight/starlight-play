@@ -4,7 +4,7 @@ Current October22,2026. Owner requested sustained autonomous progress. Existing 
 
 ## Current state
 
-- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Maina51bcbbf; latest runtime Pages39750745599success. Main/feature histories intentionally separate.
+- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Main6146039d; latest runtime Pages39775548558success. Main/feature histories intentionally separate.
 - APP20261008-rc133 unchanged. Legacy admin.html and js/admin-live.js have no published diff from the pre-overnight baseline. Sora/Twinkle not mutated;PlayTester role unchanged.
 - Both formerly held SQL proposals explicitly approved and installed in CODEX-96:20261022084110 purchase unlock atomicity and20261022084115 obsolete reminder audit-write removal. Exact3candidate sources/attributes verified;5helpers+wrapper unchanged. No hosted purchase or reminder endpoint invoked. No SQL proposal from these packets remains pending.
 - Owner explicitly requires real mobile/assistive/Twitch-provider acceptance before launch. Desktop-first beta deferrals were NOT accepted. Owner has PC+Android;model/browser/results pending. iOS and real screen-reader access unconfirmed.
@@ -26,7 +26,7 @@ Current October22,2026. Owner requested sustained autonomous progress. Existing 
 | Recovery packaging |Fixed Windows checkout CRLF drift with4LF attributes;4recreated hashes match;28fresh local tests read actual repo packets |OVERNIGHT-CODEX104.md|
 | Record consistency |202existing evidence JSON files parse;no duplicate task IDs;Git remote and protected-file diff checked |evidence/codex105-record-consistency.json|
 
-Latest full regression remains95/95STATIC/LOCAL suites in CODEX-91;do not combine later focused checks into an invented full-suite count. Latest published routine maintenance had7relevant checks and build31HTML/464refs,with56hosted source matches. Static/fictional tests are not real provider/device certification.
+Latest full regression is96/96STATIC/LOCAL suites in CODEX-107 (including the new Rankings loading suite),build31HTML/464refs and56hosted source matches. Do not combine independent case counts into an invented suite count. Static/fictional tests are not real provider/device certification.
 
 ## Recovery status
 
@@ -47,3 +47,5 @@ No new SQL/Auth authority/provider/DNS/credential/gameplay/grant/real-email/prot
 
 
 CODEX-106 human continuation:owner confirms no Twitch tester currently;required subscriber acceptance blocked. Independent release artifact/legacy-copy audit and safe guide review complete (1407text files/0selected credential flags). Actual zoom shortcut had no effect,not certified. No runtime changes. Continue only concrete new work;do not reprompt for tester availability or substitute broadcaster/mock checks.
+
+CODEX-107 human continuation:confirmed and fixed Rankings board/search response ordering and Load more retry.9focused cases and96suites/build pass;isolated browser delayed order/retry pass. Published ONLY js/rankings.js at main6146039d,Pages39775548558success;56hosted matches. No live RPC/backend/provider/gameplay changes. Real acceptance requirements unchanged;original automation cutoff not extended.

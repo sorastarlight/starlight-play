@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-107",
+      "status": "done",
+      "scope": "Rankings stale board/search completion and pagination retry correction",
+      "dependencies": [
+        "CODEX-106"
+      ],
+      "evidence": "LAUNCH-CODEX107-RANKINGS-LOADING.md; evidence/codex107-regressions.json; evidence/codex107-rankings-loading.json",
+      "testResults": "Baseline first-case failure reproduced;9actual-source delayed cases pass;96/96suites/build31/464;isolated browser stale-board and retry checks;Pages39775548558success;56hosted matches",
+      "nextAction": "Continue other concrete independent work;real Android/PC/iOS/assistive/provider evidence remains pending,not substituted by this fixture",
+      "approvalRequirement": "Routine frontend fix published under CODEX-78;no backend/provider/gameplay/launch authority"
+    },
+    {
       "id": "CODEX-106",
       "status": "done",
       "scope": "Independent tracked release artifact/legacy-copy audit and safe guide review",

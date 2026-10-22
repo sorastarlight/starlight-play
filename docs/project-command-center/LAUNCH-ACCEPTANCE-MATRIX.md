@@ -1,6 +1,6 @@
-# Current launch acceptance matrix — CODEX-106 real acceptance required
+# Current launch acceptance matrix — CODEX-107 real acceptance required
 
-This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 95/95 suites in CODEX-91. Routine staff error/Bits feedback escaping is published and verified against 56 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
+This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 96/96 suites in CODEX-107. Routine staff error/Bits feedback escaping is published and verified against 56 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
 | Area | Evidence completed | Remaining condition |
 |---|---|---|
@@ -47,3 +47,5 @@ CODEX-103:retained email template/color review is source-only,not new mailbox ac
 CODEX-104 recovery packaging fix:4LF attributes preserve exact reviewed SQL packet bytes on Windows checkout;4recreated hashes match and28fresh local SQL cases execute repository install/rollback packets. No hosted restore/SQL or new physical recovery evidence.
 
 CODEX-106 independent tracked-artifact heuristic:1407text files,0selected credential-pattern flags;not full history/secret certification. Owner confirms no non-broadcaster Twitch tester;subscriber acceptance blocked. Physical Android/PC results and iOS/screen-reader access remain open;actual browser zoom shortcut did not change metrics,not a pass.
+
+CODEX-107 Rankings loading fix is live at main6146039d,Pages39775548558success;9new actual-source delayed-response cases and96suites/build pass;56hosted sources match. Isolated browser confirms late-board rejection and pagination retry. No live bootstrap/RPC;real-device/provider gates unchanged.

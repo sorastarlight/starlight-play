@@ -1073,9 +1073,10 @@
       const dialog = d.createElement("dialog");
       const danger = Boolean(opts?.danger);
       dialog.className = `play-modal play-modal-confirm${danger ? " is-danger" : ""}`;
+      dialog.setAttribute("aria-labelledby", "play-confirm-title");
       dialog.innerHTML = `<form class="play-modal-card" method="dialog">
         <header class="play-modal-head">
-          <h3>${esc(opts?.title || "Confirm")}</h3>
+          <h3 id="play-confirm-title">${esc(opts?.title || "Confirm")}</h3>
           <button class="secondary" value="cancel" type="submit">${esc(opts?.cancelLabel || "Cancel")}</button>
         </header>
         <p>${esc(opts?.body || "")}</p>

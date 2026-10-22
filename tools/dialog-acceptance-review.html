@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><base href="../"><title>Isolated dialog acceptance</title><link rel="stylesheet" href="css/play.css"><style>main{max-width:760px;margin:32px auto;padding:20px}button{margin:8px}</style>
+<main><h1>Dialog accessibility review</h1><p>Actual presentation and ribbon dialogs with fictional preview choices. No account, backend, item grant or gameplay connection.</p><button id="confirm">Preview confirmation</button><button id="ribbon">Preview Alert Ribbon</button><p id="result" role="status"></p></main>
+<script>window.playEscapeAttr=value=>String(value||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');</script>
+<script src="js/ribbon-catalog.js"></script><script src="js/achievement-ribbon-map.js"></script><script src="js/play-ribbons.js?review=codex89"></script><script src="js/play-present.js?review=codex89"></script>
+<script>
+document.getElementById('confirm').onclick=async()=>{const ok=await playPresentConfirm({title:'Review preview choice',body:'This preview makes no account changes.',confirmLabel:'Choose preview',cancelLabel:'Cancel preview'});document.getElementById('result').textContent=ok?'Preview confirmed; no account action.':'Preview cancelled; no account action.';};
+document.getElementById('ribbon').onclick=()=>playOpenRibbonDetail({ribbonId:'alert-ribbon',achievementName:'Preview achievement',requirement:'Fictional preview requirement.'});
+</script></html>

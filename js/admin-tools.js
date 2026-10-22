@@ -675,15 +675,15 @@
     } else if ((info.status || "").includes("pending")) {
       els.bitsAutoStatus.innerHTML = `Twitch is confirming the webhook. Wait a few seconds. Do not click Turn on again yet.`;
     } else if (info.status) {
-      els.bitsAutoStatus.innerHTML = `<span class="status-bad">Twitch status: ${info.status}.</span> Click the button to connect again.`;
+      els.bitsAutoStatus.innerHTML = `<span class="status-bad">Twitch status: ${window.playEscapeAttr(info.status)}.</span> Click the button to connect again.`;
     } else {
       els.bitsAutoStatus.innerHTML = `<span class="status-bad">Auto-credit is off.</span> Connect once after the Power-Ups exist on Twitch.`;
     }
     if (info.lastDetail && !(info.status || "").includes("pending")) {
-      els.bitsAutoStatus.innerHTML += ` Last grant: ${info.lastDetail}`;
+      els.bitsAutoStatus.innerHTML += ` Last grant: ${window.playEscapeAttr(info.lastDetail)}`;
     }
     if (info.pending) {
-      els.bitsAutoStatus.innerHTML += ` ${info.pending} pack${info.pending === 1 ? "" : "s"} waiting for a Play sign-in.`;
+      els.bitsAutoStatus.innerHTML += ` ${window.playEscapeAttr(info.pending)} pack${info.pending === 1 ? "" : "s"} waiting for a Play sign-in.`;
     }
   }
 
@@ -763,14 +763,14 @@
       });
       if (error) {
         const info = await functionMessage(error, "Twitch would not enable Bits auto-credit.");
-        bitsSticky = `<span class="status-bad">${info.message}</span>`;
+        bitsSticky = `<span class="status-bad">${window.playEscapeAttr(info.message)}</span>`;
         renderBitsStatus({});
         return info;
       }
       const ok = Boolean(data?.ok);
       bitsSticky = ok
-        ? `<span class="status-ok">${data.message || "Bits auto-credit is on."}</span>`
-        : `<span class="status-bad">${data?.message || "Twitch would not enable Bits auto-credit."}</span>`;
+        ? `<span class="status-ok">${window.playEscapeAttr(data.message || "Bits auto-credit is on.")}</span>`
+        : `<span class="status-bad">${window.playEscapeAttr(data?.message || "Twitch would not enable Bits auto-credit.")}</span>`;
       renderBitsStatus({});
       if (ok) {
         sessionStorage.removeItem("playBitsConnect");
@@ -779,7 +779,7 @@
       }
       return { ok, needsScope: Boolean(data?.needsScope), message: data?.message || "" };
     } catch (error) {
-      bitsSticky = `<span class="status-bad">${error?.message || "Could not connect Bits auto-credit."}</span>`;
+      bitsSticky = `<span class="status-bad">${window.playEscapeAttr(error?.message || "Could not connect Bits auto-credit.")}</span>`;
       renderBitsStatus({});
       return { ok: false, needsScope: false, message: error?.message || "Could not connect Bits auto-credit." };
     } finally {
@@ -905,7 +905,7 @@
     });
     if (error) {
       sessionStorage.removeItem("playBitsConnect");
-      bitsSticky = `<span class="status-bad">${error.message || "Twitch sign-in is not enabled yet."}</span>`;
+      bitsSticky = `<span class="status-bad">${window.playEscapeAttr(error.message || "Twitch sign-in is not enabled yet.")}</span>`;
       renderBitsStatus({});
     }
   });

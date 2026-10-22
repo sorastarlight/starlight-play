@@ -53,8 +53,28 @@
     return true;
   }
 
-  form?.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  function bindPendingSubmit(target, node, fallback, action) {
+    if (!target) return;
+    let pending = false;
+    target.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (pending) return;
+      pending = true;
+      const buttons = Array.from(target.querySelectorAll('button[type="submit"],button:not([type]),input[type="submit"]'));
+      const disabled = buttons.map(button => button.disabled);
+      buttons.forEach(button => { button.disabled = true; });
+      target.setAttribute("aria-busy", "true");
+      try { await action(); }
+      catch (_) { if (node) node.textContent = fallback; }
+      finally {
+        pending = false;
+        target.setAttribute("aria-busy", "false");
+        if (target.isConnected) buttons.forEach((button, index) => { button.disabled = disabled[index]; });
+      }
+    });
+  }
+
+  bindPendingSubmit(form, status, "We couldn't sign you in right now. Please try again.", async () => {
     if (status) status.textContent = "Signing in…";
     const identifier = document.getElementById("signin-id")?.value;
     const password = document.getElementById("signin-password")?.value;
@@ -83,8 +103,7 @@
     if (result && !result.ok && status) status.textContent = result.message;
   }
 
-  document.getElementById("reset-form")?.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  bindPendingSubmit(document.getElementById("reset-form"), document.getElementById("reset-status"), "We couldn't request the recovery email right now. Please try again.", async () => {
     const email = document.getElementById("reset-email")?.value;
     const node = document.getElementById("reset-status");
     if (node) node.textContent = "Sending…";
@@ -92,8 +111,7 @@
     if (node) node.textContent = result.message;
   });
 
-  document.getElementById("username-form")?.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  bindPendingSubmit(document.getElementById("username-form"), document.getElementById("username-status"), "We couldn't request the username reminder right now. Please try again.", async () => {
     const email = document.getElementById("username-email")?.value;
     const node = document.getElementById("username-status");
     if (node) node.textContent = "Sending…";

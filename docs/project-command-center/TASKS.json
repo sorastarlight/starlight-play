@@ -10,8 +10,8 @@
       "dependencies": [
         "CODEX-116"
       ],
-      "evidence": "LAUNCH-CODEX117-TRIGGER-REVIEW.md; evidence/codex117-trigger-review.json",
-      "testResults": "13REAL LOCAL SQL cases with exact enabled trigger wiring;initial trigger-free hypothesis rejected;Pages39799569389success rechecked",
+      "evidence": "LAUNCH-CODEX117-TRIGGER-REVIEW.md; evidence/codex117-trigger-review.json; evidence/codex117-direct-review.json",
+      "testResults": "13REAL LOCAL SQL cases with exact enabled trigger wiring;initial trigger-free hypothesis rejected;Pages39799569389success rechecked;24adjacent direct-trade setup SQL cases",
       "nextAction": "Real mobile/assistive acceptance remains required;Twitch testing held;independent risk-based review remains bounded",
       "approvalRequirement": "Read-only catalog/local fictional SQL/docs only;no production correction warranted"
     },

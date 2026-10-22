@@ -59,3 +59,5 @@ CODEX-115 current publication state:latest739fbc19/Pages39799569389success;100/1
 CODEX-116 approved trade-state correction installed/sourceverified20261022162826.16new REAL LOCAL SQL packet cases,2baseline reproductions;no live gameplay. Recovery inventory includes this newer delta;last observed physical backup predates it. Full frontend100suites remain CODEX-114;100hosted source matches remain verified in115.
 
 CODEX-117:13fresh REAL LOCAL offer/team/trigger cases pass;initial trigger-free defect hypothesis rejected. Enabled trigger refusals roll back team removal/timestamp writes. No new production correction. Pages39799569389success rechecked;no frontend regression rerun/new source fetch claimed. Required real acceptance and held Twitch tests unchanged. See LAUNCH-CODEX117-TRIGGER-REVIEW.md.
+
+CODEX-117 adjacent direct-trade setup:24REAL LOCAL SQL ownership/protection/expiry/confirmation-reset cases pass within minimal-schema limits;no hosted operation or new defect. Trigger-aware offer13cases remain distinct;37total new local cases.

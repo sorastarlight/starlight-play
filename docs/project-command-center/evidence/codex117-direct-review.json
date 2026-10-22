@@ -1,0 +1,32 @@
+{
+  "classification": "REAL LOCAL SQL with exact captured create/set definitions;fictional minimal schema;not full RLS/triggers/concurrent swaps/provider identity certification",
+  "checks": 24,
+  "results": [
+    "creation resolves trimmed case-insensitive partner and starts unconfirmed",
+    "create refuses self without creating session",
+    "create refuses unknown partner without creating session",
+    "create refuses foreign catch without creating session",
+    "create refuses released catch without creating session",
+    "create refuses locked catch without creating session",
+    "create refuses favorite catch without creating session",
+    "create refuses received cooldown without creating session",
+    "create refuses untradable without creating session",
+    "create refuses missing identity",
+    "participant a selection clears both confirmations",
+    "participant b selection clears both confirmations",
+    "set refuses outsider without changing session",
+    "set refuses foreign catch without changing session",
+    "set refuses expired without changing session",
+    "set refuses completed without changing session",
+    "set refuses cancelled without changing session",
+    "set refuses released without changing session",
+    "set refuses locked without changing session",
+    "set refuses favorite without changing session",
+    "set refuses received cooldown without changing session",
+    "set refuses untradable without changing session",
+    "set refuses missing identity without changing session",
+    "expired receive cooldown permits selection"
+  ],
+  "productionApplicationCalls": 0,
+  "productionChanges": 0
+}

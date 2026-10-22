@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-108",
+      "status": "done",
+      "scope": "GTS overlapping board refresh ordering correction",
+      "dependencies": [
+        "CODEX-107"
+      ],
+      "evidence": "LAUNCH-CODEX108-GTS-LOADING.md; evidence/codex108-regressions.json; evidence/codex108-gts-loading.json",
+      "testResults": "Baseline failure reproduced;6actual-source cases;97/97suites/build31/464;isolated real browser retains newest snapshot",
+      "nextAction": "Continue concrete independent work;real mobile/assistive/provider acceptance remains required",
+      "approvalRequirement": "Scoped routine frontend publication under CODEX-78 only"
+    },
+    {
       "id": "CODEX-107",
       "status": "done",
       "scope": "Rankings stale board/search completion and pagination retry correction",

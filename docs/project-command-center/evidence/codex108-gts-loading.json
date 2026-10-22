@@ -1,0 +1,17 @@
+{
+  "classification": "LOCAL actual-source VM and isolated REAL BROWSER; fictional read replies only",
+  "baseline": "Newest snapshot assertion failed before fix",
+  "checks": 6,
+  "browser": "Resolved snapshot 3, then older snapshot 2; board and ticker retain snapshot 3",
+  "runtimeFiles": [
+    "js/trade.js"
+  ],
+  "featureCommit": "8a8f9029",
+  "mainCommit": "5c6873f49ff30f0bbb2348a54a3c98f5f5f5c6cd",
+  "pagesRun": 39780889663,
+  "productionRpcCalls": 0,
+  "serverStopped": true,
+  "pagesConclusion": "success",
+  "hostedSourcesMatched": 56,
+  "preDeploymentCheck": "55/56 while deploy pending; after successful deployment 56/56"
+}

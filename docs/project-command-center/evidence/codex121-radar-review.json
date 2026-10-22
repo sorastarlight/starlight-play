@@ -1,0 +1,18 @@
+{
+  "classification": "REAL LOCAL concurrent SQL using exact captured Radar function;fictional minimal inventory and read-only snapshot stand-in;not full triggers/RLS/encounter admission/hosted certification",
+  "checks": 10,
+  "results": [
+    "ordinary use debits once,arms30minutes and preserves other trainer",
+    "repeat while active refused without second debit",
+    "none refusal leaves inventories unchanged",
+    "null quantity refusal leaves inventories unchanged",
+    "future expiry refusal leaves inventories unchanged",
+    "missing identity refused before writes",
+    "expired scan can be rearmed with one debit",
+    "transaction rollback restores quantity and scan state",
+    "two independently blocked same-trainer requests collectively debit one Radar",
+    "different trainers each consume only their own Radar"
+  ],
+  "productionApplicationCalls": 0,
+  "productionChanges": 0
+}

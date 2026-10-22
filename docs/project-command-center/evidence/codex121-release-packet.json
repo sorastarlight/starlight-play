@@ -1,0 +1,12 @@
+{
+  "classification": "REAL LOCAL SQL packet/protection checks;unremediated source/details private;no hosted invocation",
+  "status": "prepared;owner SQL decision requested;not installed",
+  "baselineReproduced": true,
+  "checks": 21,
+  "scope": "one-function release confirmation boundary;UI guard unchanged",
+  "installSHA256": "4598cffd04b99167f6dd31e3e2228ddea3cdc5ef02618df1340a2b9311347fbd",
+  "rollbackSHA256": "60a8b47fa32aa00765f982a78b23e7ad74bef53ce4b94cfeacbdc48b198b647a",
+  "limits": "fictional minimal schema;false family eligibility/team helper stand-ins;not candy rewards/full triggers/RLS/browser/hosted certification",
+  "productionApplicationCalls": 0,
+  "productionChanges": 0
+}

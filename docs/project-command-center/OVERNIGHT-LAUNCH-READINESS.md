@@ -1,4 +1,4 @@
-# Launch readiness handoff — consolidated through CODEX-120
+# Launch readiness handoff — consolidated through CODEX-121
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
@@ -89,3 +89,5 @@ CODEX-118 CURRENT COMPLETION:owner approved only the one-function correction/rea
 CODEX-119: build-integrated, read-only recovery integrity now verifies 10 files across five post-drill migrations against raw hashes, LF bytes, safe paths and documented versions/order. 20 LOCAL filesystem cases and 10 Git-recreated packet hashes pass; original CODEX-73 packet bytes unchanged. No SQL source/execution, runtime or provider change. Read-only username unique-index metadata confirmed; no account mutation. See LAUNCH-CODEX119-RECOVERY-INTEGRITY.md.
 
 CODEX-120 CURRENT COMPLETION:only js/content-picker.js published under CODEX-78 at main54465ae2;Pages39832712529success.100expanded hosted source files and actual versioned picker URL equal the reviewed checkout.7focused cases/102non-writing suites/build31localHTML/464refs and isolated REAL BROWSER pass;30tracked-page asset scope/78exact references/18HEAD assets pass. No production SQL/Auth/provider/gameplay/email/APP action. Screenshot and limits recorded in LAUNCH-CODEX120-CONTENT-PICKER.md. Prior candidate-held text is historical.
+
+CODEX-121: read-only release/inventory function and trigger review; release-confirmation boundary reproduced and privately prepared one-function guarded correction passes21REAL LOCAL SQL cases. Installation decision requested;not installed. Independent exact Radar function10REAL LOCAL consumption/ownership/concurrency cases pass;no new Radar defect. No applicationRPC/player mutation/provider/gameplay/APP action. See LAUNCH-CODEX121-INVENTORY-BOUNDARIES.md.

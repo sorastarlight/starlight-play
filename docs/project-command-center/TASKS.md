@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-121 | blocked | Release packet/Radar boundaries | CODEX-120 | Explicit SQL decision requested |21release/10Radar local cases;private install held |
 | CODEX-120 | done | Picker response ownership/assets | CODEX-119 | CODEX-78 routine frontend |Main54465ae2;Pages39832712529success;100sources/versioned picker match |
 | CODEX-119 | done | Automatic recovery packet integrity | CODEX-118 | Local tooling only |20filesystem cases;10Git-recreated packet hashes;build31/464 |
 | CODEX-118 | done | Advisor/cosmetic review and approved notice claim correction | CODEX-117 | Explicit owner approval spent |Installed20261022171505;exact source/attributes verified;no endpoint call |

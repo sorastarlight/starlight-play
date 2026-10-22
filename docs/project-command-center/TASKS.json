@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-121",
+      "status": "blocked",
+      "scope": "Locally tested release-confirmation packet and independent Radar consumption review",
+      "dependencies": [
+        "CODEX-120"
+      ],
+      "evidence": "LAUNCH-CODEX121-INVENTORY-BOUNDARIES.md; evidence/codex121-release-packet.json; evidence/codex121-radar-review.json",
+      "testResults": "21REAL LOCAL release packet/protection cases;10REAL LOCAL Radar concurrency/ownership cases;no application RPC",
+      "nextAction": "Owner decision requested for narrow SQL correction;independent Radar review complete;Twitch held",
+      "approvalRequirement": "Production SQL/gameplay validation requires separate explicit owner approval;prepared only"
+    },
+    {
       "id": "CODEX-120",
       "status": "done",
       "scope": "Routine content picker request/lifecycle correction and literal asset acceptance",

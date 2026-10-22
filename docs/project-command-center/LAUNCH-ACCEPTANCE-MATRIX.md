@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-120 real acceptance required
+# Current launch acceptance matrix — CODEX-121 real acceptance required
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 102/102 suites in CODEX-120. Routine staff error/Bits feedback escaping is published;current expanded checker verified100hosted source files in CODEX-120; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -71,3 +71,5 @@ CODEX-118 CURRENT COMPLETION:owner approved only the one-function correction/rea
 CODEX-119: build-integrated, read-only recovery integrity now verifies 10 files across five post-drill migrations against raw hashes, LF bytes, safe paths and documented versions/order. 20 LOCAL filesystem cases and 10 Git-recreated packet hashes pass; original CODEX-73 packet bytes unchanged. No SQL source/execution, runtime or provider change. Read-only username unique-index metadata confirmed; no account mutation. See LAUNCH-CODEX119-RECOVERY-INTEGRITY.md.
 
 CODEX-120 CURRENT COMPLETION:only js/content-picker.js published under CODEX-78 at main54465ae2;Pages39832712529success.100expanded hosted source files and actual versioned picker URL equal the reviewed checkout.7focused cases/102non-writing suites/build31localHTML/464refs and isolated REAL BROWSER pass;30tracked-page asset scope/78exact references/18HEAD assets pass. No production SQL/Auth/provider/gameplay/email/APP action. Screenshot and limits recorded in LAUNCH-CODEX120-CONTENT-PICKER.md. Prior candidate-held text is historical.
+
+CODEX-121: read-only release/inventory function and trigger review; release-confirmation boundary reproduced and privately prepared one-function guarded correction passes21REAL LOCAL SQL cases. Installation decision requested;not installed. Independent exact Radar function10REAL LOCAL consumption/ownership/concurrency cases pass;no new Radar defect. No applicationRPC/player mutation/provider/gameplay/APP action. See LAUNCH-CODEX121-INVENTORY-BOUNDARIES.md.

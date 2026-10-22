@@ -83,6 +83,8 @@
       qtyEl.value = String(options.qty || 1);
       qtyEl.closest(".field").hidden = options.qty === false;
       let cache = { items: [], avatars: [], avatarPacks: [], cosmetics: [] };
+      let active = true;
+      let refreshId = 0;
       const draw = () => {
         const q = String(qEl.value || "").toLowerCase();
         const rows = flatten(cache, kindEl.value).filter((row) => {
@@ -99,17 +101,24 @@
           : `<p class="muted">No matching content.</p>`;
       };
       const refresh = async () => {
+        const requestId = ++refreshId;
         status.textContent = "Loading…";
         try {
-          cache = await root.playContentPicker.load(qEl.value, kindEl.value);
+          const result = await root.playContentPicker.load(qEl.value, kindEl.value);
+          if (!active || requestId !== refreshId) return;
+          cache = result;
           status.textContent = "";
           draw();
         } catch (error) {
+          if (!active || requestId !== refreshId) return;
           status.textContent = root.playRpcError?.(error, "Could not load content.") || String(error);
         }
       };
       return new Promise((resolve) => {
         const finish = (row) => {
+          if (!active) return;
+          active = false;
+          refreshId++;
           cleanup();
           try { dialog.close(); } catch (_) {}
           resolve(row || null);

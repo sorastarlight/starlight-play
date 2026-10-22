@@ -1,0 +1,770 @@
+{
+  "static": {
+    "classification": "STATIC literal asset paths against case-sensitive Git index;not browser/network/dynamic asset certification",
+    "pages": 30,
+    "stylesheets": 5,
+    "references": 78,
+    "exact": 78,
+    "issues": [],
+    "skipped": 22,
+    "caseCollisions": [],
+    "details": [
+      {
+        "source": "achievements.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "achievements.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "admin-next-trainers-fixture.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "admin-next-trainers-fixture.html",
+        "target": "css/admin-record.css",
+        "status": "exact",
+        "candidates": [
+          "css/admin-record.css"
+        ]
+      },
+      {
+        "source": "admin-next-trainers-workspace-v2.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "admin-next.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "admin-next.html",
+        "target": "css/admin-record.css",
+        "status": "exact",
+        "candidates": [
+          "css/admin-record.css"
+        ]
+      },
+      {
+        "source": "admin-next.html",
+        "target": "css/support.css",
+        "status": "exact",
+        "candidates": [
+          "css/support.css"
+        ]
+      },
+      {
+        "source": "admin-next.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "admin-store.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "admin-store.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "admin-store.html",
+        "target": "images/items/poke-ball.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/poke-ball.png"
+        ]
+      },
+      {
+        "source": "admin-store.html",
+        "target": "images/items/poke-ball.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/poke-ball.png"
+        ]
+      },
+      {
+        "source": "admin-store.html",
+        "target": "images/items/pack-thumb.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/pack-thumb.png"
+        ]
+      },
+      {
+        "source": "admin-tools.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "admin-tools.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "admin.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "admin.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "bits-connect.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "bits-connect.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "events.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "events.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/trainers/portraits/oak-portrait.png",
+        "status": "exact",
+        "candidates": [
+          "images/trainers/portraits/oak-portrait.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/items/poke-ball.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/poke-ball.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/items/evolution-candy/25.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/evolution-candy/25.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/items/pokeapi/nugget.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/pokeapi/nugget.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/items/poke-ball.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/poke-ball.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/items/evolution-candy/25.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/evolution-candy/25.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/items/evolution-candy/25.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/evolution-candy/25.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/items/poke-ball.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/poke-ball.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/items/evolution-candy/25.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/evolution-candy/25.png"
+        ]
+      },
+      {
+        "source": "evolve.html",
+        "target": "images/items/evolution-candy/25.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/evolution-candy/25.png"
+        ]
+      },
+      {
+        "source": "help.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "help.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "index.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "index.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "index.html",
+        "target": "images/items/poke-radar.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/poke-radar.png"
+        ]
+      },
+      {
+        "source": "inventory.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "inventory.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "inventory.html",
+        "target": "images/items/inventory-bag.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/inventory-bag.png"
+        ]
+      },
+      {
+        "source": "inventory.html",
+        "target": "images/items/poke-radar.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/poke-radar.png"
+        ]
+      },
+      {
+        "source": "password-recovery-fixture.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "password-recovery-fixture.html",
+        "target": "css/password-recovery.css",
+        "status": "exact",
+        "candidates": [
+          "css/password-recovery.css"
+        ]
+      },
+      {
+        "source": "pokedex.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "pokedex.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "pokedex.html",
+        "target": "images/pokedex/Kanto_PokeDex01.png",
+        "status": "exact",
+        "candidates": [
+          "images/pokedex/Kanto_PokeDex01.png"
+        ]
+      },
+      {
+        "source": "rankings.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "rankings.html",
+        "target": "css/rankings-reflow.css",
+        "status": "exact",
+        "candidates": [
+          "css/rankings-reflow.css"
+        ]
+      },
+      {
+        "source": "rankings.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "register.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "register.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "reset-password.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "reset-password.html",
+        "target": "css/password-recovery.css",
+        "status": "exact",
+        "candidates": [
+          "css/password-recovery.css"
+        ]
+      },
+      {
+        "source": "settings.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "settings.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "signin.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "signin.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "storage.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "storage.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "storage.html",
+        "target": "images/pc-terminal-icon.png",
+        "status": "exact",
+        "candidates": [
+          "images/pc-terminal-icon.png"
+        ]
+      },
+      {
+        "source": "store.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "store.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "store.html",
+        "target": "images/items/pokecoin.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/pokecoin.png"
+        ]
+      },
+      {
+        "source": "store.html",
+        "target": "images/items/inventory-bag.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/inventory-bag.png"
+        ]
+      },
+      {
+        "source": "support.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "support.html",
+        "target": "css/support.css",
+        "status": "exact",
+        "candidates": [
+          "css/support.css"
+        ]
+      },
+      {
+        "source": "trade.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "trade.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "trade.html",
+        "target": "images/items/poke-ball.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/poke-ball.png"
+        ]
+      },
+      {
+        "source": "trade.html",
+        "target": "images/items/great-ball.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/great-ball.png"
+        ]
+      },
+      {
+        "source": "trade.html",
+        "target": "images/items/poke-ball.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/poke-ball.png"
+        ]
+      },
+      {
+        "source": "trainer.html",
+        "target": "css/play.css",
+        "status": "exact",
+        "candidates": [
+          "css/play.css"
+        ]
+      },
+      {
+        "source": "trainer.html",
+        "target": "images/sora-starlight-logo.png",
+        "status": "exact",
+        "candidates": [
+          "images/sora-starlight-logo.png"
+        ]
+      },
+      {
+        "source": "css/play.css",
+        "target": "images/ui/evolution-stage-bg.jpg",
+        "status": "exact",
+        "candidates": [
+          "images/ui/evolution-stage-bg.jpg"
+        ]
+      },
+      {
+        "source": "css/play.css",
+        "target": "images/ui/evolution-stage-bg.jpg",
+        "status": "exact",
+        "candidates": [
+          "images/ui/evolution-stage-bg.jpg"
+        ]
+      },
+      {
+        "source": "css/play.css",
+        "target": "images/items/poke-ball.png",
+        "status": "exact",
+        "candidates": [
+          "images/items/poke-ball.png"
+        ]
+      }
+    ]
+  },
+  "hosted": {
+    "classification": "READ-ONLY public static HEAD;no cookies/Auth/browser/RPC;not rendered or dynamic-asset acceptance",
+    "checkedAt": "2026-10-22T18:28:19.982Z",
+    "results": [
+      {
+        "file": "css/play.css",
+        "status": 200,
+        "contentType": "text/css; charset=utf-8",
+        "contentLength": "102673",
+        "pass": true
+      },
+      {
+        "file": "images/sora-starlight-logo.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "213212",
+        "pass": true
+      },
+      {
+        "file": "css/admin-record.css",
+        "status": 200,
+        "contentType": "text/css; charset=utf-8",
+        "contentLength": "2915",
+        "pass": true
+      },
+      {
+        "file": "css/support.css",
+        "status": 200,
+        "contentType": "text/css; charset=utf-8",
+        "contentLength": "878",
+        "pass": true
+      },
+      {
+        "file": "images/items/poke-ball.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "256",
+        "pass": true
+      },
+      {
+        "file": "images/items/pack-thumb.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "199249",
+        "pass": true
+      },
+      {
+        "file": "images/trainers/portraits/oak-portrait.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "4306",
+        "pass": true
+      },
+      {
+        "file": "images/items/evolution-candy/25.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "48507",
+        "pass": true
+      },
+      {
+        "file": "images/items/pokeapi/nugget.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "229",
+        "pass": true
+      },
+      {
+        "file": "images/items/poke-radar.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "325",
+        "pass": true
+      },
+      {
+        "file": "images/items/inventory-bag.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "58528",
+        "pass": true
+      },
+      {
+        "file": "css/password-recovery.css",
+        "status": 200,
+        "contentType": "text/css; charset=utf-8",
+        "contentLength": "290",
+        "pass": true
+      },
+      {
+        "file": "images/pokedex/Kanto_PokeDex01.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "98789",
+        "pass": true
+      },
+      {
+        "file": "css/rankings-reflow.css",
+        "status": 200,
+        "contentType": "text/css; charset=utf-8",
+        "contentLength": "167",
+        "pass": true
+      },
+      {
+        "file": "images/pc-terminal-icon.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "49034",
+        "pass": true
+      },
+      {
+        "file": "images/items/pokecoin.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "5735",
+        "pass": true
+      },
+      {
+        "file": "images/items/great-ball.png",
+        "status": 200,
+        "contentType": "image/png",
+        "contentLength": "301",
+        "pass": true
+      },
+      {
+        "file": "images/ui/evolution-stage-bg.jpg",
+        "status": 200,
+        "contentType": "image/jpeg",
+        "contentLength": "110191",
+        "pass": true
+      }
+    ]
+  }
+}

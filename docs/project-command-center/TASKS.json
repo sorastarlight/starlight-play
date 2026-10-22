@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-120",
+      "status": "in_progress",
+      "scope": "Routine content picker request/lifecycle correction and literal asset acceptance",
+      "dependencies": [
+        "CODEX-119"
+      ],
+      "evidence": "LAUNCH-CODEX120-CONTENT-PICKER.md; evidence/codex120-asset-review.json; evidence/codex120-picker-review.json; evidence/codex120-regressions.json",
+      "testResults": "7actual-source cases;baseline reproduction;isolated real browser;102suites;build31/464;78static paths/18hosted HEAD assets",
+      "nextAction": "Publish only reviewed content-picker.js under CODEX-78;verify Pages and actual source",
+      "approvalRequirement": "Existing CODEX-78 routine frontend scope;no backend/gameplay/provider authority"
+    },
+    {
       "id": "CODEX-119",
       "status": "done",
       "scope": "Read-only build-integrated recovery packet integrity and username index metadata review",

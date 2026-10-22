@@ -39,6 +39,8 @@
   let payload = null;
   let signedIn = false;
   let focusLogin = "";
+  let rankRequest = 0;
+  let searchRequest = 0;
 
   window.playBindAccountNav();
 
@@ -295,24 +297,30 @@
     }
   }
 
-  async function fetchBoard(nextOffset, append) {
-    const key = `${board}:${nextOffset}`;
+  async function fetchBoard(nextOffset, append, request) {
+    const requestedBoard = board;
+    const key = `${requestedBoard}:${nextOffset}`;
     const hit = cache.get(key);
     if (hit && Date.now() - hit.at < FRESH_MS) {
+      if (request !== rankRequest) return false;
       applyPayload(hit.data, append);
-      return;
+      return true;
     }
     const data = await window.playCall("play_rankings", {
-      p_board: board,
+      p_board: requestedBoard,
       p_limit: PAGE,
       p_offset: nextOffset
     });
+    if (request !== rankRequest) return false;
     cache.set(key, { at: Date.now(), data });
     applyPayload(data, append);
+    return true;
   }
 
   async function loadRanks(opts = {}) {
+    const request = ++rankRequest;
     const append = Boolean(opts.append);
+    const nextOffset = append ? offset : 0;
     if (!append) {
       offset = 0;
       rows = [];
@@ -322,18 +330,22 @@
         list.innerHTML = skeleton();
       }
       if (status) status.textContent = "Loading rankings…";
+      if (moreBtn) { moreBtn.hidden = true; moreBtn.disabled = true; }
     } else if (moreBtn) {
       moreBtn.disabled = true;
     }
     try {
-      await fetchBoard(append ? offset : 0, append);
-      if (append) offset += PAGE;
-      else offset = PAGE;
+      if (!await fetchBoard(nextOffset, append, request) || request !== rankRequest) return;
+      offset = nextOffset + PAGE;
     } catch (error) {
+      if (request !== rankRequest) return;
       if (!append) showFail(error);
       else if (status) status.textContent = window.playRpcError(error, "Could not load more Trainers.");
     } finally {
-      list?.setAttribute("aria-busy", "false");
+      if (request === rankRequest) {
+        list?.setAttribute("aria-busy", "false");
+        if (moreBtn) moreBtn.disabled = false;
+      }
     }
   }
 
@@ -370,6 +382,7 @@
 
   searchForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const request = ++searchRequest;
     const q = String(searchInput?.value || "").trim();
     if (q.length < 2) {
       if (searchStatus) searchStatus.textContent = "Type at least two letters of a Trainer name.";
@@ -379,6 +392,7 @@
     if (searchStatus) searchStatus.textContent = "Searching…";
     try {
       const data = await window.playCall("play_trainer_search", { p_q: q });
+      if (request !== searchRequest) return;
       const found = data?.trainers || [];
       if (searchStatus) {
         searchStatus.textContent = found.length
@@ -394,6 +408,7 @@
           </a>`).join("");
       }
     } catch (error) {
+      if (request !== searchRequest) return;
       if (searchStatus) {
         searchStatus.textContent = window.playHumanRpcError
           ? window.playHumanRpcError(error, "Search is unavailable right now.")

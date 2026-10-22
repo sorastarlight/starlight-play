@@ -106,7 +106,12 @@
   }
 
   async function load() {
-    await loadNav();
+    try {
+      await loadNav();
+    } catch (_) {
+      // Public events remain available when account navigation cannot load.
+      window.playSetAccountNav(null);
+    }
     try {
       const data = await window.playCall("play_events");
       events = data?.events || [];

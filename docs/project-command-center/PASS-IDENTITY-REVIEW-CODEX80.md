@@ -1,0 +1,7 @@
+# CODEX-80 — Bounded Pass authorization review
+
+Read-only deployed source/catalog review identified a confirmed authorization issue in the current Pass checker. Exact baseline behavior was reproduced in a fictional local actual-handler fixture. A narrow candidate and baseline rollback are held outside Git under LOCALAPPDATA/PokemonStreamLink/security/codex80;README.md and manifest.json contain the review scope and source pins. No unresolved implementation details or exploit fixture are published.
+
+22 LOCAL mocked cases pass,covering rejected unauthorized inputs,legitimate subscription/broadcaster behavior,staff effective override responses and failure preservation. Deployed baseline matches tracked source except trailing newline. Catalog confirms browser connection access is SELECT-only/own-row;verified identity creation and synchronization chain inspected without execution. Build31HTML464refs passes with APP20261008-rc133 unchanged. Real provider and database-trigger integration are not newly certified.
+
+No Edge Function deployed or invoked,no SQL applied,no account/Pass/reward/provider/credential change,and no secret or token read. Sora NO;Twinkle NO;PlayTester role unchanged. Important owner approval is required under streamlink-project.mdc and CODEX-RUNNER.md because production security/account authority is excluded from CODEX-78 routine frontend autonomy. Final launch remains held pending this finding and existing acceptance limits.

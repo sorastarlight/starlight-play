@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-80",
+      "status": "doing",
+      "scope": "Bounded Pass authorization review and private tested correction",
+      "dependencies": [
+        "CODEX-79"
+      ],
+      "evidence": "PASS-IDENTITY-REVIEW-CODEX80.md;private local packet outside Git",
+      "testResults": "22 LOCAL actual-handler mocked cases pass;deployed baseline source comparison and read-only connection access catalog checked;build31HTML464refs pass",
+      "nextAction": "Important owner decision needed before one Edge Function authorization correction;no hosted invocation allowed",
+      "approvalRequirement": "Explicit production Auth/security authority decision under streamlink-project.mdc;routine frontend policy excludes this change"
+    },
+    {
       "id": "CODEX-79",
       "status": "done",
       "scope": "Routine signup feedback and pending-submit maintenance",

@@ -7,7 +7,7 @@ async function check(name,{user,staff,error=null}){
  const response=await handler(new Request('https://fictional.invalid',{method:'POST',body:JSON.stringify({action:'connect',accessToken:'fictional-only'})}));
  assert.equal(response.status,user?403:401);assert.equal(adminClients,0);assert.equal(networkCalls,0);assert.equal(permissionChecks,user?1:0);
 }
-(async()=>{let count=0;for(const name of ['bits-connect','twitch-ads'])for(const entry of [
+(async()=>{let count=0;for(const name of ['bits-connect','twitch-ads','twitch-live'])for(const entry of [
  {label:'no session',user:null,staff:true},
  {label:'ordinary trainer',user:{id:'fictional'},staff:false},
  {label:'nullable staff result',user:{id:'fictional'},staff:null},

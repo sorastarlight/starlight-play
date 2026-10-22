@@ -283,3 +283,5 @@ CODEX-82 COMPLETE:deployed webhook/login source matches;14 LOCAL HMAC and9 mocke
 CODEX-83 PREPARED:confirmed upload-boundary issues;private exact candidate/rollback and21 mocked checks pass. No live upload,credential read or mutation. Important authorization-change decision required;unresolved details kept outside Git. See ASSET-UPLOAD-REVIEW-CODEX83.md.
 
 CODEX-83 VERIFIED:owner-approved store-asset correction deployed version5 ACTIVE/JWTtrue/exact source verified.21 mocked cases and91 suites/build pass. No actual upload,credential read,SQL/account/reward/provider-settings change or APP stamp. Earlier pending status historical;broader acceptance/security/final-launch gates remain.
+
+CODEX-84 COMPLETE:live-status source/JWT and5additional mocked denials;no browser-writable public table with RLS off/no writable public views/site_config UPDATE revocations retained. REAL DOM isolated nav/signup fit4widths and320nav/account keyboard restoration.91suites/build pass;no production change. Remaining real-provider/physical-device/zoom/nested security limits open;see PROVIDER-ACCESS-CODEX84.md.

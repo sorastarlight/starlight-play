@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-84",
+      "status": "done",
+      "scope": "Live-status denial boundary,public direct-write catalog and navigation/signup viewport acceptance",
+      "dependencies": [
+        "CODEX-83"
+      ],
+      "evidence": "PROVIDER-ACCESS-CODEX84.md;evidence/provider-access-codex84.json;evidence/codex84-regressions.json",
+      "testResults": "5new live-status denials;91suites/build pass;2isolated pages fit4widths;320nav/account focus restored",
+      "nextAction": "Broader nested authorization/real-provider/physical-device coverage remains;no full launch signoff",
+      "approvalRequirement": "Read-only/local scope only;no important decision needed in this batch"
+    },
+    {
       "id": "CODEX-83",
       "status": "done",
       "scope": "Private asset upload boundary review and tested candidate",

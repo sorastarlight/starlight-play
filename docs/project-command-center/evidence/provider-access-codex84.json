@@ -1,0 +1,54 @@
+{
+  "classification": "READ-ONLY deployed source/catalog plus LOCAL denial cases and REAL DOM isolated frame acceptance",
+  "checkedAt": "2026-10-22T03:56:28.250Z",
+  "provider": {
+    "name": "twitch-live",
+    "version": 2,
+    "jwt": true,
+    "normalizedSourceMatches": true,
+    "newDenialCases": 5,
+    "totalSharedDenialCases": 15,
+    "invoked": false
+  },
+  "database": {
+    "rlsOffBrowserWritableTables": [],
+    "browserWritableViews": [],
+    "publicWritePolicies": [
+      {
+        "table": "site_config",
+        "command": "UPDATE"
+      }
+    ],
+    "siteConfigAuthenticatedTableUpdate": false,
+    "siteConfigAuthenticatedUpdateColumns": 0,
+    "scope": "Direct table/view grants plus RLS policy catalog;not all nested RPCs or runtime role tests"
+  },
+  "frames": {
+    "pages": [
+      "Isolated signup feedback review",
+      "Isolated navigation focus review"
+    ],
+    "widths": [
+      320,
+      390,
+      768,
+      1280
+    ],
+    "horizontalOverflow": false,
+    "overflowingVisibleInputButtonSelectControls": 0,
+    "navigationKeyboard320": [
+      "primary Tab/Escape opener restored",
+      "account Tab/Escape opener restored"
+    ],
+    "screenshot": "navigation-320-codex84.png",
+    "limitations": [
+      "isolated fixtures,not complete signed-in pages",
+      "CSS frame widths,not physical devices",
+      "not browser zoom or screenreader",
+      "no real OAuth/provider consent"
+    ]
+  },
+  "regressionSuites": 91,
+  "appBuild": "20261008-rc133",
+  "productionChanged": false
+}

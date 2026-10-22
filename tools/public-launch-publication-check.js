@@ -9,7 +9,7 @@ const files = [
   'trainer.html','rankings.html','evolve.html','store.html','trade.html','events.html',
   'achievements.html','admin-next.html','css/play.css','css/rankings-reflow.css','js/build.js','js/game.js',
   'js/nav.js','tools/nav-focus-review.html','js/play-present.js','tools/milestone-review.html','tools/support-loading-review.html',
-  'js/auth.js','js/register.js','tools/registration-feedback-review.html','js/help.js','js/support.js','js/admin-next-rewards.js','js/trade.js','js/inventory.js','js/achievements.js'
+  'js/auth.js','js/register.js','js/signin.js','tools/signin-pending-review.html','tools/registration-feedback-review.html','js/help.js','js/support.js','js/admin-next-rewards.js','js/trade.js','js/inventory.js','js/achievements.js'
 ];
 const normalize = value => value.replace(/\r\n/g, '\n');
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');

@@ -1261,6 +1261,53 @@
     return error?.message || fallback;
   }
 
+  let passCheckBusy = false;
+  async function checkPass(button) {
+    if (passCheckBusy) return;
+    passCheckBusy = true;
+    const note = document.querySelector("[data-pass-status]") || els.status;
+    const wasDisabled = Boolean(button?.disabled);
+    const fallback = "Could not check Starlight Pass right now. Please try again.";
+    if (button) {
+      button.disabled = true;
+      button.setAttribute("aria-busy", "true");
+    }
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const session = sessionData.session;
+      if (!session) {
+        if (note) note.textContent = "Sign in first.";
+        return;
+      }
+      if (!session.provider_token) {
+        if (note) note.textContent = "Twitch did not keep a session token. Sign out, sign in again, then check immediately.";
+        return;
+      }
+      if (note) note.textContent = "Checking Twitch…";
+      const { data, error } = await supabase.functions.invoke("refresh-pass", {
+        body: { accessToken: session.provider_token }
+      });
+      if (error) {
+        if (note) note.textContent = await functionMessage(error, fallback);
+        return;
+      }
+      if (note) note.textContent = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
+      try {
+        await load();
+      } catch (_) {
+        if (note) note.textContent += " The Mart could not refresh. Reload the page for the latest display.";
+      }
+    } catch (_) {
+      if (note) note.textContent = fallback;
+    } finally {
+      passCheckBusy = false;
+      if (button?.isConnected) {
+        button.disabled = wasDisabled;
+        button.removeAttribute("aria-busy");
+      }
+    }
+  }
+
   async function refreshStore() {
     try {
       const data = await window.playCall("play_store");
@@ -1458,28 +1505,9 @@
       else els.ballModal?.setAttribute("open", "");
       return;
     }
-    if (event.target.closest("#check-pass")) {
-      const note = document.querySelector("[data-pass-status]") || els.status;
-      const { data: sessionData } = await supabase.auth.getSession();
-      const session = sessionData.session;
-      if (!session) {
-        if (note) note.textContent = "Sign in first.";
-        return;
-      }
-      if (!session.provider_token) {
-        if (note) note.textContent = "Twitch did not keep a session token. Sign out, sign in again, then check immediately.";
-        return;
-      }
-      if (note) note.textContent = "Checking Twitch…";
-      const { data, error } = await supabase.functions.invoke("refresh-pass", {
-        body: { accessToken: session.provider_token }
-      });
-      if (error) {
-        if (note) note.textContent = await functionMessage(error, "Staff still needs to save the Play Twitch Client ID, or grant the pass by login.");
-        return;
-      }
-      if (note) note.textContent = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
-      await load();
+    const passButton = event.target.closest("#check-pass");
+    if (passButton) {
+      await checkPass(passButton);
       return;
     }
     const choiceBtn = event.target.closest("[data-choice-item]");

@@ -1,0 +1,53 @@
+{
+  "classification": "REAL DOM hosted isolated exact-source fragments; no original action handlers, SDK or backend calls",
+  "samples": [
+    {
+      "title": "New support ticket",
+      "named": 1
+    },
+    {
+      "title": "Change ticket status",
+      "named": 1
+    },
+    {
+      "title": "Team Backgrounds",
+      "named": 1
+    },
+    {
+      "title": "Preview PC confirmation",
+      "named": 1
+    },
+    {
+      "title": "Move Preview Pokémon",
+      "named": 1
+    },
+    {
+      "title": "Item",
+      "named": 1
+    },
+    {
+      "title": "Portrait crop",
+      "named": 1
+    },
+    {
+      "title": "Add content",
+      "named": 1
+    },
+    {
+      "title": "Choose",
+      "named": 1
+    },
+    {
+      "title": "You have unsaved Trainer ID changes.",
+      "named": 1
+    },
+    {
+      "title": "Link a Twitch account",
+      "named": 1
+    },
+    {
+      "title": "Continue to Twitch",
+      "named": 1
+    }
+  ]
+}

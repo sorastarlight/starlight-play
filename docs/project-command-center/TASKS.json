@@ -4,6 +4,19 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-90",
+      "status": "done",
+      "scope": "Remaining existing-dialog accessible names and isolated responsive acceptance",
+      "dependencies": [
+        "CODEX-89"
+      ],
+      "commit": "6289469ee7bfa1ec48214cb27311d76a9d156529",
+      "evidence": "OVERNIGHT-CODEX90.md; evidence/codex90-dialog-names.json; evidence/codex90-dialog-widths.json; evidence/codex90-regressions.json",
+      "testResults": "12 baseline unnamed -> 12 named native dialogs locally and hosted; 48 CSS-width cases including corrected Helpdesk CSS scope, no horizontal overflow; 94/94 suites/build; two Pages runs succeeded, 51 hosted source matches",
+      "nextAction": "Review captured SDK artifact and safe browser loading before considering exact pin; protected admin.html untouched; post-change backup check after 03:50 EDT",
+      "approvalRequirement": "CODEX-78 routine a11y labels only; no Auth/security authority or privileged flow change"
+    },
+    {
       "id": "CODEX-89",
       "status": "done",
       "scope": "Bounded nullable-guard source review, aggregate log health and existing dialog names",

@@ -1,0 +1,581 @@
+{
+  "classification": "REAL DOM exact creation/markup fragments; Helpdesk production support-workspace scope included; fictional content/no original handlers; CSS widths only",
+  "cases": [
+    {
+      "sample": "New support ticket",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 285.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "New support ticket",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 356.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "New support ticket",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 76.4000015258789,
+        "right": 676.4000015258789
+      },
+      "button": null
+    },
+    {
+      "sample": "New support ticket",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 332.3999938964844,
+        "right": 932.3999938964844
+      },
+      "button": null
+    },
+    {
+      "sample": "Change ticket status",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 285.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Change ticket status",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 356.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "Change ticket status",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 76.4000015258789,
+        "right": 676.4000015258789
+      },
+      "button": null
+    },
+    {
+      "sample": "Change ticket status",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 332.3999938964844,
+        "right": 932.3999938964844
+      },
+      "button": null
+    },
+    {
+      "sample": "Team Backgrounds",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 304.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Team Backgrounds",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 375.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "Team Backgrounds",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 752.7999877929688
+      },
+      "button": null
+    },
+    {
+      "sample": "Team Backgrounds",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 1264.800048828125
+      },
+      "button": null
+    },
+    {
+      "sample": "Preview PC confirmation",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 304.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Preview PC confirmation",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 375.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "Preview PC confirmation",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 752.7999877929688
+      },
+      "button": null
+    },
+    {
+      "sample": "Preview PC confirmation",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 1264.800048828125
+      },
+      "button": null
+    },
+    {
+      "sample": "Move Preview Pokémon",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 285.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Move Preview Pokémon",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 356.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "Move Preview Pokémon",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 148,
+        "right": 604.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Move Preview Pokémon",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 404,
+        "right": 860.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Item",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 304.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Item",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 375.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "Item",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 752.7999877929688
+      },
+      "button": null
+    },
+    {
+      "sample": "Item",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 1264.800048828125
+      },
+      "button": null
+    },
+    {
+      "sample": "Portrait crop",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 304.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Portrait crop",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 375.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "Portrait crop",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 752.7999877929688
+      },
+      "button": null
+    },
+    {
+      "sample": "Portrait crop",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 1264.800048828125
+      },
+      "button": null
+    },
+    {
+      "sample": "Add content",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 304.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Add content",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 375.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "Add content",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 752.7999877929688
+      },
+      "button": null
+    },
+    {
+      "sample": "Add content",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 1264.800048828125
+      },
+      "button": null
+    },
+    {
+      "sample": "Choose",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 304.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Choose",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 375.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "Choose",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 752.7999877929688
+      },
+      "button": null
+    },
+    {
+      "sample": "Choose",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 1264.800048828125
+      },
+      "button": null
+    },
+    {
+      "sample": "You have unsaved Trainer ID changes.",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 285.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "You have unsaved Trainer ID changes.",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 356.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "You have unsaved Trainer ID changes.",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 100.0250015258789,
+        "right": 652.7624893188477
+      },
+      "button": null
+    },
+    {
+      "sample": "You have unsaved Trainer ID changes.",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 356.0249938964844,
+        "right": 908.7624816894531
+      },
+      "button": null
+    },
+    {
+      "sample": "Link a Twitch account",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 285.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Link a Twitch account",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 356.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "Link a Twitch account",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 733.7999877929688
+      },
+      "button": null
+    },
+    {
+      "sample": "Link a Twitch account",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 1245.800048828125
+      },
+      "button": null
+    },
+    {
+      "sample": "Continue to Twitch",
+      "page": "Isolated remaining dialog review",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 285.8000183105469
+      },
+      "button": null
+    },
+    {
+      "sample": "Continue to Twitch",
+      "page": "Isolated remaining dialog review",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 356.20001220703125
+      },
+      "button": null
+    },
+    {
+      "sample": "Continue to Twitch",
+      "page": "Isolated remaining dialog review",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 19,
+        "right": 733.7999877929688
+      },
+      "button": null
+    },
+    {
+      "sample": "Continue to Twitch",
+      "page": "Isolated remaining dialog review",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 37.337501525878906,
+        "right": 1227.450050354004
+      },
+      "button": null
+    }
+  ]
+}

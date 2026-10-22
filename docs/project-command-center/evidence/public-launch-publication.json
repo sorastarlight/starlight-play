@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T05:32:52.931Z",
+  "checkedAt": "2026-10-22T06:08:52.226Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -15,8 +15,8 @@
       "file": "signin.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "d310980fb584266ad2f91c0c9649a761b320640caca71fb5be522e93b11156b1",
-      "publishedSha256": "d310980fb584266ad2f91c0c9649a761b320640caca71fb5be522e93b11156b1",
+      "localSha256": "a8d72233be6328691603cf4d20579fd22b7f13ae726ac9d6455709d94300ed94",
+      "publishedSha256": "a8d72233be6328691603cf4d20579fd22b7f13ae726ac9d6455709d94300ed94",
       "matches": true
     },
     {
@@ -79,8 +79,8 @@
       "file": "settings.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "082377be7fdc583307d7b00085289d648190b55969314bdfe7ff1175a6a7f28b",
-      "publishedSha256": "082377be7fdc583307d7b00085289d648190b55969314bdfe7ff1175a6a7f28b",
+      "localSha256": "bdced46a5477bb8e4f3fe8546a56b436d33490e704fa6c3e015f6cd83c433b9c",
+      "publishedSha256": "bdced46a5477bb8e4f3fe8546a56b436d33490e704fa6c3e015f6cd83c433b9c",
       "matches": true
     },
     {
@@ -188,6 +188,46 @@
       "matches": true
     },
     {
+      "file": "js/settings.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "dd1cdaf67102e5377ac932ddcf2036758784b41a4407b6d49f200ea078e6ffa9",
+      "publishedSha256": "dd1cdaf67102e5377ac932ddcf2036758784b41a4407b6d49f200ea078e6ffa9",
+      "matches": true
+    },
+    {
+      "file": "js/storage.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "944d9303694bb2d5d4dd3bc05325561677c44e1c330bac02fb020801b41921c7",
+      "publishedSha256": "944d9303694bb2d5d4dd3bc05325561677c44e1c330bac02fb020801b41921c7",
+      "matches": true
+    },
+    {
+      "file": "js/team.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "e66645d6b11ef651232c767ef25243b93c4f19afb91536ace3f5383d6acb6c85",
+      "publishedSha256": "e66645d6b11ef651232c767ef25243b93c4f19afb91536ace3f5383d6acb6c85",
+      "matches": true
+    },
+    {
+      "file": "js/content-picker.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "319d39cf56d28d9f1416388b85c0456728e9947cfc1f5e3f1a93ac71d582edad",
+      "publishedSha256": "319d39cf56d28d9f1416388b85c0456728e9947cfc1f5e3f1a93ac71d582edad",
+      "matches": true
+    },
+    {
+      "file": "tools/remaining-dialog-review.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "4b09e66a7cf52903fba572998cdc3b26bc3f32608f69b5b6637b00b22056b7d0",
+      "publishedSha256": "4b09e66a7cf52903fba572998cdc3b26bc3f32608f69b5b6637b00b22056b7d0",
+      "matches": true
+    },
+    {
       "file": "js/play-ribbons.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
@@ -287,8 +327,8 @@
       "file": "js/admin-studio.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "a365a7b211230c2b50f1bd396c0f9b8a14276b264fdbba564a73d87af9f95fc9",
-      "publishedSha256": "a365a7b211230c2b50f1bd396c0f9b8a14276b264fdbba564a73d87af9f95fc9",
+      "localSha256": "60410b01c23e8fba83378d4d32c5da9b3609b3a376ec97c9e82de064e8f9b684",
+      "publishedSha256": "60410b01c23e8fba83378d4d32c5da9b3609b3a376ec97c9e82de064e8f9b684",
       "matches": true
     },
     {
@@ -311,8 +351,8 @@
       "file": "tools/device-acceptance-review.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "60d91f8232184b57ad21151ec2a41e8f9e1c16580da25ff01b847f18a30af16b",
-      "publishedSha256": "60d91f8232184b57ad21151ec2a41e8f9e1c16580da25ff01b847f18a30af16b",
+      "localSha256": "794736c74d1d793df2ee793dce4ce3977ec6c13d38938eba19696e4e7e19708c",
+      "publishedSha256": "794736c74d1d793df2ee793dce4ce3977ec6c13d38938eba19696e4e7e19708c",
       "matches": true
     },
     {
@@ -335,8 +375,8 @@
       "file": "js/support.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "493b52fa64680b1d478b1e943a32b234ff95fb530529d474faaf28470b17b390",
-      "publishedSha256": "493b52fa64680b1d478b1e943a32b234ff95fb530529d474faaf28470b17b390",
+      "localSha256": "a203b55a48d1c7f1b74e490957d2c8b762a08a8da827000e7127ab4bed422371",
+      "publishedSha256": "a203b55a48d1c7f1b74e490957d2c8b762a08a8da827000e7127ab4bed422371",
       "matches": true
     },
     {

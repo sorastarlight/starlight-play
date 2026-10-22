@@ -1,0 +1,103 @@
+{
+  "classification": "REAL DOM exact creation/markup fragments; original action handlers and SDK excluded; native Escape dismisses fixture",
+  "baseline": [
+    {
+      "title": "New support ticket",
+      "named": 0
+    },
+    {
+      "title": "Change ticket status",
+      "named": 0
+    },
+    {
+      "title": "Team Backgrounds",
+      "named": 0
+    },
+    {
+      "title": "Preview PC confirmation",
+      "named": 0
+    },
+    {
+      "title": "Move Preview Pokémon",
+      "named": 0
+    },
+    {
+      "title": "Item",
+      "named": 0
+    },
+    {
+      "title": "Portrait crop",
+      "named": 0
+    },
+    {
+      "title": "Add content",
+      "named": 0
+    },
+    {
+      "title": "Choose",
+      "named": 0
+    },
+    {
+      "title": "You have unsaved Trainer ID changes.",
+      "named": 0
+    },
+    {
+      "title": "Link a Twitch account",
+      "named": 0
+    },
+    {
+      "title": "Continue to Twitch",
+      "named": 0
+    }
+  ],
+  "corrected": [
+    {
+      "title": "New support ticket",
+      "named": 1
+    },
+    {
+      "title": "Change ticket status",
+      "named": 1
+    },
+    {
+      "title": "Team Backgrounds",
+      "named": 1
+    },
+    {
+      "title": "Preview PC confirmation",
+      "named": 1
+    },
+    {
+      "title": "Move Preview Pokémon",
+      "named": 1
+    },
+    {
+      "title": "Item",
+      "named": 1
+    },
+    {
+      "title": "Portrait crop",
+      "named": 1
+    },
+    {
+      "title": "Add content",
+      "named": 1
+    },
+    {
+      "title": "Choose",
+      "named": 1
+    },
+    {
+      "title": "You have unsaved Trainer ID changes.",
+      "named": 1
+    },
+    {
+      "title": "Link a Twitch account",
+      "named": 1
+    },
+    {
+      "title": "Continue to Twitch",
+      "named": 1
+    }
+  ]
+}

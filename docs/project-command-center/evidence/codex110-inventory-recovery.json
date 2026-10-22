@@ -1,0 +1,16 @@
+{
+  "classification": "LOCAL actual-source mocked Inventory;no network/account/gameplay action",
+  "baseline": "Successful-refresh warning assertion failed before fix",
+  "inventoryCases": 11,
+  "regressionSuites": 98,
+  "build": {
+    "html": 31,
+    "references": 464
+  },
+  "featureCommit": "f8051ed5",
+  "mainCommit": "dd7cf58c58cb03cd19b003f25ebb3fad9b4eb04d",
+  "pagesRun": 39786057926,
+  "productionRpcCalls": 0,
+  "pagesConclusion": "success",
+  "hostedSourceMatches": 56
+}

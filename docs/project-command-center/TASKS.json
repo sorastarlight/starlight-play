@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-110",
+      "status": "done",
+      "scope": "Inventory realtime recovery status correction",
+      "dependencies": [
+        "CODEX-109"
+      ],
+      "evidence": "LAUNCH-CODEX110-INVENTORY-RECOVERY.md; evidence/codex110-regressions.json",
+      "testResults": "Baseline obsolete warning reproduced;11LOCAL Inventory checks;98/98suites/build31/464",
+      "nextAction": "Required real device/assistive/provider acceptance remains open;continue only concrete independent work",
+      "approvalRequirement": "CODEX-78 routine frontend publication only"
+    },
+    {
       "id": "CODEX-109",
       "status": "done",
       "scope": "GTS selected listing detail response ordering",

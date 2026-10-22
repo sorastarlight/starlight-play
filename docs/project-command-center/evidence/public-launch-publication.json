@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T12:54:41.316Z",
+  "checkedAt": "2026-10-22T13:22:40.824Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -399,8 +399,8 @@
       "file": "js/inventory.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "b143e9e228145cf88bb54bcffd4bbdf5930bf70bcf99f16dd70b3937020f8f7d",
-      "publishedSha256": "b143e9e228145cf88bb54bcffd4bbdf5930bf70bcf99f16dd70b3937020f8f7d",
+      "localSha256": "90e7387da8f5817cab7fc32ea340b059160a74f30d208ea6c2051b789b3b2d1e",
+      "publishedSha256": "90e7387da8f5817cab7fc32ea340b059160a74f30d208ea6c2051b789b3b2d1e",
       "matches": true
     },
     {

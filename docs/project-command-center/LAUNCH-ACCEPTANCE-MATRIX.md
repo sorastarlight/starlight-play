@@ -1,6 +1,6 @@
-# Current launch acceptance matrix — CODEX-88 overnight
+# Current launch acceptance matrix — CODEX-89 overnight
 
-This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 94/94 suites in CODEX-88. Routine staff error/Bits feedback escaping is published and verified against 44 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
+This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 94/94 suites in CODEX-89. Routine staff error/Bits feedback escaping is published and verified against 46 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
 | Area | Evidence completed | Remaining condition |
 |---|---|---|
@@ -8,7 +8,7 @@ This is the consolidated review target,not a launch declaration. Current October
 | Provider entry points | Bits/ads/live staff denials;HMAC webhook and trainer-login mocks;diagnostics/recovery source matches and existing12+13 synthetic cases pass | No new real Twitch consent,token refresh,signed event or post-fix Pass/upload integration test;do not infer production provider success from mocks |
 | Gameplay and staff workflows | Actual bounded catching,purchase,evolution,Oak,GTS,Helpdesk,recovery delivery,gifts and staff Pass QA recorded | Earlier test allowances spent;future mutations require bounded approval |
 | Device layout | Core page responsive checks plus isolated celebrations/nav/signup/Helpdesk dialogs at 320/390/768/1280 CSSpx | Physical iOS/Android,touch/virtual keyboard,browser zoom and screenreader not certified |
-| Motion and keyboard | Actual hosted guide/nav;celebration preview static computed animations and focus;isolated narrow nav/account opener restoration | OS preference switching and full-site motion/keyboard matrix incomplete |
+| Motion and keyboard | Actual hosted guide/nav;celebration preview static computed animations and focus;isolated narrow nav/account opener restoration; named confirmation/Ribbon dialogs with native Escape/opener checks | OS preference switching and full-site motion/keyboard matrix incomplete |
 | Twitch restriction | Installed disabled;current provider behavior preserved | New one-link restriction stays disabled pending real-provider identity/rollout decision;not a silent launch activation |
 | Recovery | Actual CODEX-71 logical restore111projections and schema metadata;daily RPO accepted;CODEX-73 guarded SQL delta and Edge7/5 source dependencies recorded | Latest visible physical snapshot21Oct07:44:55UTC predates later SQL;post-change snapshot not verified;physical restore/full Auth/storage recovery not certified |
 | Email | Domain/send/reset/signup evidence recorded;100/day3000/month free capacity accepted | Observe quotas during operation;no paid upgrade or new email test authority |

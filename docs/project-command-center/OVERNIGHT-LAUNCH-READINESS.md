@@ -11,6 +11,8 @@ The owner requested sustained autonomous work while asleep, with a high bar for 
 - CODEX-88: expanded the private purchase proposal to both entry points and seven exact captured helper/function bodies. All 17 local SQL checks pass; neither database proposal is installed.
 - CODEX-88: eight more Bits message interpolations escaped without provider behavior changes. All 94 suites/build pass; three reviewed files published at main `184e0d5c`, Pages `39725500008` succeeded. All 44 hosted sources match and 26 isolated rendered samples show zero injected markup nodes. See OVERNIGHT-CODEX88.md.
 
+- CODEX-89: reviewed nine guard predicates and bounded status-only logs; no newly confirmed authorization defect in that sample. Confirmation and Ribbon dialogs now have accessible names, verified locally and hosted, with native Escape/opener restoration. All 94 suites/build pass; main `dd37da9d`, Pages `39728399451`, 46 hosted source matches. See OVERNIGHT-CODEX89.md.
+
 ## Important decisions held for morning
 
 1. An obsolete public write-removal proposal: `LOCALAPPDATA/PokemonStreamLink/security/codex87/README.md`. Eleven local SQL checks pass, including exact rollback and drift refusal.
@@ -20,7 +22,7 @@ Private reproductions and unresolved details remain outside Git. No hosted SQL, 
 
 ## Next continuation
 
-1. Continue concrete unreviewed security and rendered UI surfaces. Purchase packet preparation is complete. Next inspect concrete nullable authorization helper dependencies and useful unreviewed rendered feedback paths. Do not repeat unchanged suites as a substitute for new coverage.
+1. Continue concrete unreviewed security and rendered UI surfaces. Purchase packet preparation and nine-predicate guard sample are complete. Inspect remaining runtime/static dialogs for accessible names, starting with Helpdesk create/status and settings/sign-in warning dialogs. CODEX-89 confirmation/ribbon naming publication passed hosted acceptance. Do not repeat unchanged suites as a substitute for new coverage.
 2. Recheck scheduled backups after 03:50 EDT or later. Latest observed physical snapshot is October 21 at 07:44:55 UTC and predates CODEX-73. Read dashboard only; no restore, export or credentials. Retain secure Edge versions 7/5 recovery dependencies.
 3. Preserve intentional main/feature history separation. Routine frontend publication uses a scoped branch from origin/main and exact reviewed files, then returns to admin-hub-overhaul. Exclude unrelated queued changes.
 4. Update this handoff and acceptance matrix with actual evidence and consolidated morning decisions. Physical devices, real browser zoom and provider OAuth remain open; mocks cannot certify them.

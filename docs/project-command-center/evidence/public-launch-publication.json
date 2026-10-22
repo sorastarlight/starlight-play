@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T05:01:18.542Z",
+  "checkedAt": "2026-10-22T05:32:52.931Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -188,6 +188,22 @@
       "matches": true
     },
     {
+      "file": "js/play-ribbons.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "df9b7b172bde77d7ce3ebb7da6bd8f20ffe1bb9854f59fc838971ea06b282973",
+      "publishedSha256": "df9b7b172bde77d7ce3ebb7da6bd8f20ffe1bb9854f59fc838971ea06b282973",
+      "matches": true
+    },
+    {
+      "file": "tools/dialog-acceptance-review.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "e09c779406e5cc2c92cc6b8e6895637d0b825d6677c574bf10bb84a54dd5dc51",
+      "publishedSha256": "e09c779406e5cc2c92cc6b8e6895637d0b825d6677c574bf10bb84a54dd5dc51",
+      "matches": true
+    },
+    {
       "file": "tools/nav-focus-review.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
@@ -199,8 +215,8 @@
       "file": "js/play-present.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "9349423991012cfc816b4df3b407be611bb260c76cd8201c7291e545aa8b29ca",
-      "publishedSha256": "9349423991012cfc816b4df3b407be611bb260c76cd8201c7291e545aa8b29ca",
+      "localSha256": "59745a734bf37196ddacb5b63b1f94c577807e94cb6ae6fb2506e0a7299573aa",
+      "publishedSha256": "59745a734bf37196ddacb5b63b1f94c577807e94cb6ae6fb2506e0a7299573aa",
       "matches": true
     },
     {
@@ -295,8 +311,8 @@
       "file": "tools/device-acceptance-review.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "e92e71d3532f6fb0bb98643043aec50c7b79dbdff97f503a2aab59eb339dd83b",
-      "publishedSha256": "e92e71d3532f6fb0bb98643043aec50c7b79dbdff97f503a2aab59eb339dd83b",
+      "localSha256": "60d91f8232184b57ad21151ec2a41e8f9e1c16580da25ff01b847f18a30af16b",
+      "publishedSha256": "60d91f8232184b57ad21151ec2a41e8f9e1c16580da25ff01b847f18a30af16b",
       "matches": true
     },
     {

@@ -1,0 +1,95 @@
+{
+  "classification": "REAL DOM isolated actual presentation/ribbon dialogs; CSS widths only, not physical device or screenreader certification",
+  "confirm": [
+    {
+      "page": "Isolated dialog acceptance",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 304.8000183105469
+      },
+      "button": null
+    },
+    {
+      "page": "Isolated dialog acceptance",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 375.20001220703125
+      },
+      "button": null
+    },
+    {
+      "page": "Isolated dialog acceptance",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 752.7999877929688
+      },
+      "button": null
+    },
+    {
+      "page": "Isolated dialog acceptance",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 1264.800048828125
+      },
+      "button": null
+    }
+  ],
+  "ribbon": [
+    {
+      "page": "Isolated dialog acceptance",
+      "viewport": 320,
+      "scrollWidth": 305,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 304.8000183105469
+      },
+      "button": null
+    },
+    {
+      "page": "Isolated dialog acceptance",
+      "viewport": 390,
+      "scrollWidth": 375,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 375.20001220703125
+      },
+      "button": null
+    },
+    {
+      "page": "Isolated dialog acceptance",
+      "viewport": 768,
+      "scrollWidth": 753,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 752.7999877929688
+      },
+      "button": null
+    },
+    {
+      "page": "Isolated dialog acceptance",
+      "viewport": 1280,
+      "scrollWidth": 1265,
+      "overflowControls": [],
+      "panel": {
+        "left": 0,
+        "right": 1264.800048828125
+      },
+      "button": null
+    }
+  ]
+}

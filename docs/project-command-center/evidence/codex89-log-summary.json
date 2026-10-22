@@ -1,0 +1,15 @@
+{
+  "classification": "READ-ONLY aggregate provider/database logs; no identities, request URLs, tokens or message bodies fetched",
+  "window": {
+    "start": "2026-10-22T05:00:00Z",
+    "end": "2026-10-22T05:30:00Z"
+  },
+  "http": {
+    "101": 1,
+    "200": 1636
+  },
+  "postgres": {
+    "LOG_00000": 162
+  },
+  "limits": "One bounded observed log window. No 4xx/5xx or ERROR/FATAL entry returned in these aggregates; not uptime or provider integration certification. Ingestion can lag."
+}

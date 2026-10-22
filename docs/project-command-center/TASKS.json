@@ -4,6 +4,19 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-89",
+      "status": "done",
+      "scope": "Bounded nullable-guard source review, aggregate log health and existing dialog names",
+      "dependencies": [
+        "CODEX-88"
+      ],
+      "commit": "cb831d079adb3b963962edea4176a8dabf8b98ec",
+      "evidence": "OVERNIGHT-CODEX89.md; evidence/codex89-guard-review.json; evidence/codex89-log-summary.json; evidence/codex89-dialog-widths.json; evidence/codex89-regressions.json",
+      "testResults": "Nine predicates sampled/22 helper names enumerated; bounded aggregate logs; named-dialog matches 0 baseline to 1 corrected each; native Escape/opener and four CSS widths; 94/94 suites/build; Pages 39728399451 success; 46 hosted source matches",
+      "nextAction": "Continue remaining dialog naming audit; next scheduled-backup check after 03:50 EDT; two private SQL proposals held for morning",
+      "approvalRequirement": "CODEX-78 routine a11y publication only; no SQL, Auth/security authority, gameplay or final launch"
+    },
+    {
       "id": "CODEX-88",
       "status": "done",
       "scope": "Overnight exact-dependency checkout rehearsal and routine Bits feedback escaping",

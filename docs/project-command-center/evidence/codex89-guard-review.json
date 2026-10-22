@@ -1,0 +1,50 @@
+{
+  "classification": "READ-ONLY function source and schema metadata review; no guard/RPC invocation",
+  "checkedAt": "2026-10-22T05:31:59.370Z",
+  "enumeratedDirectNegatedHelpers": 22,
+  "sampledHelpers": [
+    {
+      "signature": "private.director_has_reason(jsonb,text)",
+      "hash": "f7f8ff0a3542fd59c161761b24817d0f"
+    },
+    {
+      "signature": "private.is_play_admin()",
+      "hash": "5dec088fc6372699343e924773106f9c"
+    },
+    {
+      "signature": "private.owns_cosmetic(uuid,text)",
+      "hash": "fda84337a8b87f163d0d9c18f169184a"
+    },
+    {
+      "signature": "private.recovery_target_enabled(uuid)",
+      "hash": "6ca8e368ccce392dfaa1940765f01d89"
+    },
+    {
+      "signature": "private.streamlink_obtain_ok(text,text,integer)",
+      "hash": "1aeea44c94039dbbf89e68899d4ee47f"
+    },
+    {
+      "signature": "private.target_variant_ok(catches,integer)",
+      "hash": "54b77c6820c0ab9e041355cc7ff4698d"
+    },
+    {
+      "signature": "private.team_bg_ok(text)",
+      "hash": "e2d5134c2b6f3bf52abc34643f8fbc75"
+    },
+    {
+      "signature": "private.trainer_sprite_ok(text)",
+      "hash": "dcf89a7480534f2c877edbe7f74f739a"
+    },
+    {
+      "signature": "private.twitch_link_policy_active(uuid)",
+      "hash": "43c662a90b2ac40540783ed3d8cf48ed"
+    }
+  ],
+  "findings": [
+    "EXISTS predicates return a boolean for missing/NULL lookups.",
+    "Recovery and Twitch policy setting helpers coalesce missing or indeterminate settings to false.",
+    "Obtain policy returns false for missing mappings or unsupported context; all four returned permission flags are NOT NULL.",
+    "Director reason helper can return NULL for a NULL reason, but all three currently observed pause callers pass fixed AD or ADMIN strings.",
+    "No newly confirmed authorization defect in this sample; wider caller and authority review remains open."
+  ]
+}

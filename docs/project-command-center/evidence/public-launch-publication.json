@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T04:37:30.040Z",
+  "checkedAt": "2026-10-22T05:01:18.542Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -263,8 +263,8 @@
       "file": "js/admin-tools.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "c93d5e385ecbf4a7c1a7cc62051a63bd3bf322593a91e565187799e10ccfdf29",
-      "publishedSha256": "c93d5e385ecbf4a7c1a7cc62051a63bd3bf322593a91e565187799e10ccfdf29",
+      "localSha256": "a2ef87e875534f70a427a4a37ec7b7311c34d5ed27e677884e62bb51fbda2991",
+      "publishedSha256": "a2ef87e875534f70a427a4a37ec7b7311c34d5ed27e677884e62bb51fbda2991",
       "matches": true
     },
     {
@@ -279,8 +279,8 @@
       "file": "tools/staff-error-review.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "35871aac94908a2dbff9d64e16e7e5c02a863deffa3f1af5ae0d283477bcfa9a",
-      "publishedSha256": "35871aac94908a2dbff9d64e16e7e5c02a863deffa3f1af5ae0d283477bcfa9a",
+      "localSha256": "fbdeb10533b9edf085920e297a873d1c23c37d211541bfb138c751a88d1b57f2",
+      "publishedSha256": "fbdeb10533b9edf085920e297a873d1c23c37d211541bfb138c751a88d1b57f2",
       "matches": true
     },
     {

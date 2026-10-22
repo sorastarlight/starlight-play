@@ -8,18 +8,19 @@ The owner requested sustained autonomous work while asleep, with a high bar for 
 - Helpdesk's isolated preview now loads production support.css. Its new-ticket dialog fits 320, 390, 768 and 1280 CSS pixels; Escape returns focus to New ticket. A fictional submission conflict preserves the reply draft. No production ticket submitted.
 - Escaped 13 staff error-text interpolations in three frontend files. Fifteen actual-source template checks pass. The isolated hosted preview renders 15 templates with zero injected markup nodes. No Admin Hub bootstrap or privileged RPC invoked.
 - All 93 STATIC/LOCAL suites and the build pass. Exact eight-file routine frontend publication completed at main `d668924e`, feature source `e2c00eef`, Pages run `39723252132`. All 44 hosted source files match. Hosted screenshot: `staff-errors-hosted-codex87.png` in this chat's visualization folder.
-- Prepared two private database proposals with fictional local PostgreSQL evidence. Neither is installed.
+- CODEX-88: expanded the private purchase proposal to both entry points and seven exact captured helper/function bodies. All 17 local SQL checks pass; neither database proposal is installed.
+- CODEX-88: eight more Bits message interpolations escaped without provider behavior changes. All 94 suites/build pass; three reviewed files published at main `184e0d5c`, Pages `39725500008` succeeded. All 44 hosted sources match and 26 isolated rendered samples show zero injected markup nodes. See OVERNIGHT-CODEX88.md.
 
 ## Important decisions held for morning
 
 1. An obsolete public write-removal proposal: `LOCALAPPDATA/PokemonStreamLink/security/codex87/README.md`. Eleven local SQL checks pass, including exact rollback and drift refusal.
-2. A checkout concurrency correction: `LOCALAPPDATA/PokemonStreamLink/security/codex87-cart/README.md`. Twelve local SQL checks pass, including overlapping transactions, retry behavior, rollback and source/ACL drift refusal. The callable older SKU path also reproduces the issue and a local candidate prevents it; its guarded packet and exact dependency review still remain before proposing installation.
+2. A checkout concurrency correction: `LOCALAPPDATA/PokemonStreamLink/security/codex87-cart/README.md`. Seventeen local SQL checks pass with exact captured dependencies. The combined two-function INSTALL-BOTH/ROLLBACK-BOTH packet is ready for review; earlier cart-only packets are superseded. No hosted purchase or correction installation performed.
 
 Private reproductions and unresolved details remain outside Git. No hosted SQL, real purchase, refund or grant performed. Continue independent work instead of interrupting for these while useful work remains.
 
 ## Next continuation
 
-1. Continue concrete unreviewed security and rendered UI surfaces. Prioritize completing the legacy SKU guarded packet and exact checkout dependency checks for the private cart proposal. Do not repeat unchanged suites as a substitute for new coverage.
+1. Continue concrete unreviewed security and rendered UI surfaces. Purchase packet preparation is complete. Next inspect concrete nullable authorization helper dependencies and useful unreviewed rendered feedback paths. Do not repeat unchanged suites as a substitute for new coverage.
 2. Recheck scheduled backups after 03:50 EDT or later. Latest observed physical snapshot is October 21 at 07:44:55 UTC and predates CODEX-73. Read dashboard only; no restore, export or credentials. Retain secure Edge versions 7/5 recovery dependencies.
 3. Preserve intentional main/feature history separation. Routine frontend publication uses a scoped branch from origin/main and exact reviewed files, then returns to admin-hub-overhaul. Exclude unrelated queued changes.
 4. Update this handoff and acceptance matrix with actual evidence and consolidated morning decisions. Physical devices, real browser zoom and provider OAuth remain open; mocks cannot certify them.

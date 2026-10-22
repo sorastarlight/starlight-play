@@ -1,6 +1,6 @@
-# Current launch acceptance matrix — CODEX-87 overnight
+# Current launch acceptance matrix — CODEX-88 overnight
 
-This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 93/93 suites in CODEX-87. Routine staff error escaping is published and verified against 44 hosted source files; isolated hosted rendering shows 15 templates and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
+This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 94/94 suites in CODEX-88. Routine staff error/Bits feedback escaping is published and verified against 44 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
 | Area | Evidence completed | Remaining condition |
 |---|---|---|

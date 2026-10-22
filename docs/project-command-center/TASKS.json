@@ -4,6 +4,19 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-88",
+      "status": "done",
+      "scope": "Overnight exact-dependency checkout rehearsal and routine Bits feedback escaping",
+      "dependencies": [
+        "CODEX-87"
+      ],
+      "evidence": "OVERNIGHT-CODEX88.md; evidence/codex88-regressions.json; evidence/codex88-advisory-summary.json; evidence/public-launch-publication.json; private combined purchase packet",
+      "testResults": "17 REAL LOCAL SQL held correction checks; 11 Bits actual-source checks; 94/94 suites/build; Pages 39725500008 success; 44 hosted sources match; REAL DOM hosted 26 samples/0 injected nodes",
+      "nextAction": "Continue bounded overnight queue; backup check after 03:50 EDT; private SQL remains held for morning",
+      "approvalRequirement": "CODEX-78 routine frontend scope only; two-function economy SQL remains held for owner decision",
+      "commit": "52f5ff52af8357681de8bd7699fad4c3ca90f7bb"
+    },
+    {
       "id": "CODEX-87",
       "status": "doing",
       "scope": "Owner-requested bounded overnight readiness work and consolidated handoff",
@@ -11,8 +24,8 @@
         "CODEX-86"
       ],
       "evidence": "OVERNIGHT-LAUNCH-READINESS.md; evidence/codex87-regressions.json; evidence/public-launch-publication.json; two private held packets",
-      "testResults": "93 suites/build; 15 actual-source error templates; 44 hosted source matches; hosted isolated DOM 15 templates/0 injected nodes; 11+12 REAL LOCAL SQL held-proposal checks; Helpdesk dialog/focus/draft preservation at four widths",
-      "nextAction": "Continue independent review queue; check next daily backup after 03:50 EDT; finish private cart dependency review; consolidate important proposals for morning",
+      "testResults": "93 suites/build; 15 actual-source error templates; 44 hosted source matches; hosted isolated DOM 15 templates/0 injected nodes; 11+17 REAL LOCAL SQL held-proposal checks; Helpdesk dialog/focus/draft preservation at four widths",
+      "nextAction": "Overnight continuation active; CODEX-88 completes combined private purchase packet; next independent review and scheduled-backup check",
       "approvalRequirement": "Owner requested overnight continuation; configured eight-hour bound. Consequential SQL/economy/security gates remain; private packets held."
     },
     {

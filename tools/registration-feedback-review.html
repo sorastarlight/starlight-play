@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><base href="../"><title>Isolated signup feedback review</title><link rel="stylesheet" href="css/play.css">
+<main class="page" style="max-width:720px;padding:32px;margin:auto"><h1>Signup feedback review</h1><p>Fictional form only. All SDK calls are mocked; no account, email or backend connection.</p><label>Mock response<select id="response"><option value="over_email_send_rate_limit">Email throttle</option><option value="network">Network failure</option><option value="weak_password">Weak password</option><option value="unknown">Other failure</option></select></label><button id="finish" type="button" disabled>Complete mocked request</button>
+<section class="card"><form id="register-form"><label>Fictional username<input id="reg-username" value="fictional" required></label><label>Fictional email<input id="reg-email" type="email" value="trainer@example.invalid" required></label><label>Fictional password<input id="reg-password" value="fictional-password" required></label><label>Confirm fictional password<input id="reg-confirm" value="fictional-password" required></label><button type="submit">Create Trainer Account</button></form><p id="register-status" role="status"></p></section></main>
+<script>
+window.PLAY_CONFIG={supabaseUrl:'https://auth-fixture.invalid',supabaseKey:'fictional-public-key'};
+window.playBindAccountNav=()=>{};window.playSetAccountNav=()=>{};
+window.playCall=async name=>{if(name==='play_username_available')return {available:true};throw Error('Unexpected fictional request');};
+window.supabase={createClient:()=>({auth:{getSession:async()=>({data:{session:null}}),onAuthStateChange:()=>({data:{subscription:{unsubscribe(){}}}}),signUp:()=>new Promise((resolve,reject)=>{
+ const button=document.getElementById('finish'),response=document.getElementById('response').value;button.disabled=false;button.onclick=()=>{button.disabled=true;button.onclick=null;if(response==='network')reject(Error('fictional offline'));else resolve({error:{code:response}});};
+})}})};
+</script><script src="js/auth.js"></script><script src="js/register.js"></script></html>

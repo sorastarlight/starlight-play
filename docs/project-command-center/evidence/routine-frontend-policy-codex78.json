@@ -1,0 +1,30 @@
+{
+  "classification": "PRODUCTION publication and REAL DOM read-only guide keyboard acceptance",
+  "commit": "a4df175dcdab5e0bd339dd44c771a07185fcfa74",
+  "deployment": {
+    "id": 39712061719,
+    "status": "success",
+    "url": "https://github.com/sorastarlight/starlight-play/actions/runs/39712061719"
+  },
+  "standingPolicy": "Owner explicitly approved scoped routine frontend publication;recorded in CODEX-RUNNER.md and streamlink-project.mdc",
+  "publicSourceMatches": 34,
+  "app": "20261008-rc133",
+  "guide": {
+    "account": "EmailQA",
+    "url": "https://play.sorastarlight.net/help.html?review=codex78",
+    "checks": [
+      "Tab enters navigation first link",
+      "Escape closes navigation and returns to Open menu",
+      "Tab enters account first item",
+      "Escape closes account menu and returns to account button"
+    ],
+    "screenshot": "nav-focus-hosted-codex78.png"
+  },
+  "linksActivated": false,
+  "sqlOrGameplay": false,
+  "spending": false,
+  "limitations": [
+    "No final launch or APP stamp authority",
+    "Not physical-device/200%zoom/screen-reader certification"
+  ]
+}

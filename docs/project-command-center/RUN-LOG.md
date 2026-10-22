@@ -2120,3 +2120,8 @@ CODEX-76/77:owner accepts free100messages/day3000/month launch email capacity;no
 
 
 CODEX-78 AUTHORIZED:owner approves nav-fix publication and scoped routine-frontend standing policy. CODEX-RUNNER.md and streamlink-project.mdc amended;SQL/Authauthority/gameplay/provider/spending/scheduling/APP/final-launch gates retained. Publication/read-only hosted acceptance now executing.
+
+
+CODEX-78 COMPLETE:owner-approved scoped routine frontend publication policy active;nav correction publisheda4df175d Pages39712061719 success.34filesmatch,actual EmailQA guide nav/account keyboard Escape opener restoration pass. No SQL/Authauthority/gameplay/spending/APP/final-launch change.
+
+CODEX-79 LOCAL PASS:signup throttle/network/username-check feedback and pending duplicate-submit maintenance;86 suites/build/REAL DOM mocked fixture pass. Publishing under CODEX-78 scope;no real signup/email/Auth authority/SQL/gameplay/APP change.

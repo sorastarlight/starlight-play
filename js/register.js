@@ -36,20 +36,35 @@
       </div>`;
   }
 
+  let submitting = false;
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (submitting) return;
+    submitting = true;
+    const buttons = Array.from(form.querySelectorAll('button[type="submit"], button:not([type]), input[type="submit"]'));
+    const disabled = buttons.map(button => button.disabled);
+    buttons.forEach(button => { button.disabled = true; });
+    form.setAttribute("aria-busy", "true");
     if (status) status.textContent = "Creating your Trainer Account…";
-    const result = await window.playRegisterTrainer({
+    try {
+      const result = await window.playRegisterTrainer({
       username: document.getElementById("reg-username")?.value,
       email: document.getElementById("reg-email")?.value,
       password: document.getElementById("reg-password")?.value,
       confirm: document.getElementById("reg-confirm")?.value
-    });
-    if (!result.ok) {
-      if (status) status.textContent = result.message;
-      return;
+      });
+      if (!result.ok) {
+        if (status) status.textContent = result.message;
+        return;
+      }
+      showCreated(Boolean(result.verify));
+    } catch (_) {
+      if (status) status.textContent = "We couldn't create your Trainer Account right now. Please try again later.";
+    } finally {
+      submitting = false;
+      form.setAttribute("aria-busy", "false");
+      if (form.isConnected) buttons.forEach((button, index) => { button.disabled = disabled[index]; });
     }
-    showCreated(Boolean(result.verify));
   });
 
   window.playSupabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return;

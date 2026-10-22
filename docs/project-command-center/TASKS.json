@@ -4,16 +4,29 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-78",
+      "id": "CODEX-79",
       "status": "doing",
+      "scope": "Routine signup feedback and pending-submit maintenance",
+      "dependencies": [
+        "CODEX-78"
+      ],
+      "evidence": "SIGNUP-FEEDBACK-CODEX79.md;evidence/codex79-regressions.json",
+      "testResults": "86 suites pass;build31HTML464references;REAL DOM local mocked throttle/network pending/retry pass",
+      "nextAction": "Publish reviewed frontend and verify hosted isolated fixture without real signup",
+      "approvalRequirement": "Within approved CODEX-78 routine frontend scope;no Auth authority or backend changes"
+    },
+    {
+      "id": "CODEX-78",
+      "status": "done",
       "scope": "Approved routine frontend publication policy and navigation hosted acceptance",
       "dependencies": [
         "CODEX-77"
       ],
-      "evidence": "FRONTEND-PUBLICATION-POLICY-PROPOSAL.md;CODEX-RUNNER.md;.cursor/rules/streamlink-project.mdc",
-      "testResults": "85 suites/local DOM baseline retained;publication/hosted checks pending",
-      "nextAction": "Publish reviewed runtime nav-only diff;verify Pages/source and read-only keyboard behavior",
-      "approvalRequirement": "Owner explicitly approved publication plus scoped standing frontend policy;all excluded gates remain"
+      "evidence": "ROUTINE-FRONTEND-POLICY-CODEX78.md;evidence/routine-frontend-policy-codex78.json",
+      "testResults": "Pages39712061719 success;34 source matches;REAL DOM actual guide nav/account focus returns",
+      "nextAction": "Proceed routine maintenance within standing scope;consequential gates unchanged",
+      "approvalRequirement": "Owner explicitly approved publication plus scoped standing frontend policy;all excluded gates remain",
+      "commit": "a4df175dcdab5e0bd339dd44c771a07185fcfa74"
     },
     {
       "id": "CODEX-77",
@@ -24,7 +37,7 @@
       ],
       "evidence": "NAVIGATION-FOCUS-CODEX77.md;evidence/nav-focus-codex77.json",
       "testResults": "REAL DOM baseline/fixed local keyboard;6 harness cases;85 suites/build pass",
-      "nextAction": "Pending publication decision;standing routine-frontend publication scope proposed",
+      "nextAction": "Approved publication/hosted acceptance completed in CODEX-78",
       "approvalRequirement": "Routine local maintenance authorized;production/standing-policy choice remains owner decision"
     },
     {

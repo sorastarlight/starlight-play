@@ -191,6 +191,16 @@
     }
   };
 
+  function registrationErrorMessage(error) {
+    if (error?.code === "weak_password") {
+      return "Choose a stronger password that you haven't used elsewhere, then try again.";
+    }
+    if (Number(error?.status) === 429 || ["over_email_send_rate_limit", "over_request_rate_limit"].includes(error?.code)) {
+      return "Please wait a little before trying again. If you already requested a verification email, check your inbox and spam folder.";
+    }
+    return "We couldn't create your Trainer Account right now. Please try again later.";
+  }
+
   window.playRegisterTrainer = async function playRegisterTrainer(fields) {
     const email = String(fields?.email || "").trim();
     const password = String(fields?.password || "");
@@ -212,24 +222,28 @@
         if (error) throw error;
         return data;
       })
-    ).catch(() => ({ available: false }));
+    ).catch(() => null);
+    if (available === null) {
+      return { ok: false, message: "We couldn't check that username. Please try again." };
+    }
     if (!available?.available) {
       return { ok: false, message: "That username is not available." };
     }
     const redirectTo = `${window.location.origin}${window.location.pathname.replace(/[^/]+$/, "")}signin.html`;
-    const { data, error } = await window.playSupabase.auth.signUp({
+    let result;
+    try { result = await window.playSupabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: redirectTo,
         data: { username, name: displayName || username, preferred_username: username }
       }
-    });
+    }); } catch (error) {
+      return { ok: false, message: registrationErrorMessage(error) };
+    }
+    const { data, error } = result;
     if (error) {
-      if (error.code === "weak_password") {
-        return { ok: false, message: "Choose a stronger password that you haven't used elsewhere, then try again." };
-      }
-      return { ok: false, message: "Could not create that Trainer account. Try a different email." };
+      return { ok: false, message: registrationErrorMessage(error) };
     }
     if (data?.user && !data.session) {
       return { ok: true, verify: true, message: "Trainer account created. Check your email to verify, then sign in." };

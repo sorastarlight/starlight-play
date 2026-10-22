@@ -1,0 +1,5 @@
+# CODEX-79 — Signup feedback maintenance
+
+Mail throttling previously suggested trying a different email address; a failed username availability check also appeared as an unavailable username. Browser feedback now distinguishes temporary checks, throttles, weak passwords and other failures without exposing SDK messages. Pending submissions disable submit controls and suppress duplicate clicks, then restore manual retry on failure. Signup payload, redirects, validation and success semantics are unchanged. No Auth settings, server authority, accounts, emails or gameplay changed.
+
+Validation:86 STATIC/LOCAL actual-source harness suites pass, including11 new signup cases;build31HTML464references passes, APP20261008-rc133 unchanged. REAL DOM local isolated fixture confirms disabled pending state, wait/inbox throttle feedback, generic network failure and restored retry. Fixture uses fictional inputs and a mocked SDK only, never real signup. Exact runtime diff is js/auth.js and js/register.js. Publication and hosted mocked acceptance pending under approved CODEX-78 standing scope.

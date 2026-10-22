@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T02:05:48.222Z",
+  "checkedAt": "2026-10-22T02:35:10.998Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -177,6 +177,22 @@
       "contentType": "application/javascript; charset=utf-8",
       "localSha256": "ebf0ddc3ab42e532bd4c0dba133bf776cfc7ab3f0d30a7034781a04499a37c2a",
       "publishedSha256": "ebf0ddc3ab42e532bd4c0dba133bf776cfc7ab3f0d30a7034781a04499a37c2a",
+      "matches": true
+    },
+    {
+      "file": "js/nav.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "localSha256": "037c767799f8618e304f4869e8aa197d3864b9cc4d358476f152102bf1d33e74",
+      "publishedSha256": "037c767799f8618e304f4869e8aa197d3864b9cc4d358476f152102bf1d33e74",
+      "matches": true
+    },
+    {
+      "file": "tools/nav-focus-review.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "localSha256": "752239e2bd745d6040b3fc6a2daf6b82ef5f00b6fd3466a7e502ddf168660a18",
+      "publishedSha256": "752239e2bd745d6040b3fc6a2daf6b82ef5f00b6fd3466a7e502ddf168660a18",
       "matches": true
     },
     {

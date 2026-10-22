@@ -1,0 +1,7 @@
+# CODEX-78 — Approved frontend autonomy and navigation publication
+
+Owner selected Publish and allow scoped routine frontend. The exact proposed maintenance exception is now active in CODEX-RUNNER.md and .cursor/rules/streamlink-project.mdc. Tested/reviewed copy,layout,accessibility,loading/error and maintenance preserving already-approved behavior/server authority may use existing main/Pages without repeated prompts. Major features/visual direction,Auth/security/account authority,privileged flows,SQL,gameplay,providers/DNS/credentials/settings,spending,scheduling,APP stamps,destructive cleanup and final launch remain separately gated. No background automation created.
+
+The nav fix plus policy records published at a4df175d;Pages39712061719 succeeded.34/34 selected public assets match reviewed source. Actual live guide signed in as EmailQA:Tab into primary link then Escape returns to Open menu;Tab into account item then Escape returns to account button. No links,sign-out,account action or gameplay control activated. Screenshot:nav-focus-hosted-codex78.png. Prior85 suite/local DOM baseline retained;6 focus cases/build31HTML464references rerunpass. APP20261008-rc133 unchanged.
+
+This closes CODEX-77 hosted acceptance and the workflow decision. The final public-launch gate and remaining device/zoom/security/recovery limits remain. Evidence:evidence/routine-frontend-policy-codex78.json;public-launch-publication.json.

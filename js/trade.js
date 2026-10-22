@@ -60,6 +60,7 @@
   let pollTimer = 0;
   let filterTimer = 0;
   let boardRequest = 0;
+  let detailRequest = 0;
 
   window.playBindAccountNav({
     onSignOut() {
@@ -498,8 +499,10 @@
   }
 
   async function openListing(id) {
+    const request = ++detailRequest;
     try {
       const data = await window.playCall("play_trade_listing", { p_id: id });
+      if (request !== detailRequest) return;
       const listing = data.listing;
       const mon = listing.mon || {};
       const offers = listing.offerRows || [];
@@ -574,6 +577,7 @@
       }
       showTradeDialog(els.detailModal);
     } catch (error) {
+      if (request !== detailRequest) return;
       if (els.status) els.status.textContent = window.playRpcError(error);
     }
   }

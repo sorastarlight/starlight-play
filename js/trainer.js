@@ -79,7 +79,7 @@
     });
   }
 
-  function bindTeamInspect(view) {
+  function bindTeamInspect() {
     const teamBody = document.getElementById("trainer-team-body");
     if (!teamBody || teamBody.dataset.inspectBound === "1") return;
     teamBody.dataset.inspectBound = "1";
@@ -87,7 +87,7 @@
       const hit = event.target.closest("[data-inspect-catch]");
       if (!hit) return;
       const id = hit.getAttribute("data-inspect-catch");
-      const mon = (view?.team || card?.team || []).find((row) => String(row?.id) === String(id));
+      const mon = (card?.team || []).find((row) => String(row?.id) === String(id));
       if (!mon) return;
       window.playOpenTeamMonInspect?.(mon, {
         mode: mine ? "owner" : "public",
@@ -128,20 +128,20 @@
     if (teamBody) teamBody.innerHTML = window.playRenderTrainerPartyHtml(view);
     renderJournal();
     bindJournalInteractions();
-    bindTeamInspect(view);
+    bindTeamInspect();
   }
 
   async function load() {
-    const nav = await loadNav();
-    const login = new URLSearchParams(location.search).get("u")
-      || nav?.profile?.twitch_login
-      || nav?.profile?.username
-      || "";
-    if (!login) {
-      gate.textContent = "Sign in, or open a trainer from Rankings.";
-      return;
-    }
     try {
+      const nav = await loadNav();
+      const login = new URLSearchParams(location.search).get("u")
+        || nav?.profile?.twitch_login
+        || nav?.profile?.username
+        || "";
+      if (!login) {
+        gate.textContent = "Sign in, or open a trainer from Rankings.";
+        return;
+      }
       if (window.playTrainerCatalogReady) await window.playTrainerCatalogReady;
       const data = await window.playCall("play_trainer", { p_login: login });
       card = data.trainer;

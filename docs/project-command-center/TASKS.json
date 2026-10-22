@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-85",
+      "status": "done",
+      "scope": "Consolidated acceptance matrix,diagnostics/recovery source verification and recovery dependencies",
+      "dependencies": [
+        "CODEX-84"
+      ],
+      "evidence": "LAUNCH-ACCEPTANCE-MATRIX.md;evidence/acceptance-matrix-codex85.json;RECOVERY-POST-DRILL-DELTAS.md",
+      "testResults": "2deployed handlers/5files match/JWTtrue;12diagnostics+13recovery targeted mocks pass;REAL DOM latest physical backup21Oct07:44:55UTC",
+      "nextAction": "Post-change backup verification and explicit real-device/provider evidence or requirement decisions;no repeated mock substitute",
+      "approvalRequirement": "Read-only/local/docs scope;no production or final-launch authority added"
+    },
+    {
       "id": "CODEX-84",
       "status": "done",
       "scope": "Live-status denial boundary,public direct-write catalog and navigation/signup viewport acceptance",

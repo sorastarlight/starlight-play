@@ -1,0 +1,56 @@
+{
+  "classification": "READ-ONLY deployed source and backup dashboard;LOCAL targeted synthetic tests",
+  "checkedAt": "2026-10-22T04:00:58.314Z",
+  "handlers": [
+    {
+      "name": "owner-account-diagnostics",
+      "version": 2,
+      "jwt": true,
+      "files": [
+        {
+          "file": "owner-account-diagnostics/index.ts",
+          "matches": true
+        },
+        {
+          "file": "owner-account-diagnostics/handler.mjs",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "name": "owner-recovery-email",
+      "version": 2,
+      "jwt": true,
+      "files": [
+        {
+          "file": "owner-recovery-email/index.ts",
+          "matches": true
+        },
+        {
+          "file": "owner-recovery-email/handler.mjs",
+          "matches": true
+        },
+        {
+          "file": "owner-account-diagnostics/handler.mjs",
+          "matches": true
+        }
+      ]
+    }
+  ],
+  "targetedCases": {
+    "diagnostics": 12,
+    "recoveryEmail": 13
+  },
+  "backup": {
+    "project": "dtflmlbjhttoewqgkujf",
+    "latestVisible": "2026-10-21T07:44:55Z",
+    "type": "PHYSICAL",
+    "predatesCodex73Sql": true,
+    "restoreClicked": false,
+    "newExport": false,
+    "storageObjectsIncluded": false,
+    "screenshot": "backup-readiness-codex85.png"
+  },
+  "runtimeChanged": false,
+  "appBuild": "20261008-rc133"
+}

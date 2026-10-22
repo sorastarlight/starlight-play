@@ -1,0 +1,55 @@
+{
+  "classification": "READ-ONLY hosted catalog/operational metadata;no worker invocation,queue delivery,setting or credential change",
+  "observedAt": "2026-10-22T02:20:27.092Z",
+  "state": {
+    "jobs": [
+      {
+        "name": "owner-recovery-history-retention",
+        "active": true,
+        "schedule": "17 4 * * *"
+      },
+      {
+        "name": "support-ticket-retention",
+        "active": true,
+        "schedule": "37 4 * * *"
+      },
+      {
+        "name": "streamlink-species-familiarity",
+        "active": true,
+        "schedule": "* * * * *"
+      }
+    ],
+    "queue": [
+      {
+        "rows": 1,
+        "status": "delivered",
+        "maxattempts": 0
+      }
+    ],
+    "activation": {
+      "draining": false,
+      "lifecycle": "active",
+      "activatedAt": "2026-10-20T16:55:59.896904+00:00"
+    },
+    "workerRuns": [
+      {
+        "runs": 30,
+        "status": "succeeded",
+        "latestend": "2026-10-22T02:15:00.03001+00:00"
+      }
+    ],
+    "bridgeRecent": true,
+    "browserConfigUpdate": [
+      {
+        "role": "anon",
+        "tableUpdate": false,
+        "columnUpdate": false
+      },
+      {
+        "role": "authenticated",
+        "tableUpdate": false,
+        "columnUpdate": false
+      }
+    ]
+  }
+}

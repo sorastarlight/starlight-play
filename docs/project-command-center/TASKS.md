@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-77 | done | Navigation Escape opener focus | CODEX-76 | Local maintenance |6cases/85suites/localDOM;publication decision pending |
+| CODEX-76 | done | Email capacity/public DNS readiness | CODEX-75 | Read-only |Domain verified;free quotas recorded;launch demand choice remains |
 | CODEX-75 | done | Approved frontend publication/hosted acceptance | CODEX-72/74 | Explicit owner approval |Pages39709312817;32files;hosted preview+actual QA case read pass |
 | CODEX-74 | done | Helpdesk case-bound request/loading correction | CODEX-73 | Routine local frontend maintenance |11 harness cases,isolated real DOM,84 suites;hosted publication held |
 | CODEX-73 | done | Direct browser configuration UPDATE boundary | CODEX-72 | Explicit owner approval | Installed20261022014528;privileges/data/functions independently verified |
@@ -253,3 +255,9 @@ CODEX-74 COMPLETE LOCALLY:actual-source reproduction of old-case form/new-case t
 
 
 CODEX-75 COMPLETE:owner approved exactc7f5366a publication;Pages39709312817 succeeded.32/32 public files match. REAL DOM hosted celebration level/achievement focus wrapping/restoration pass;isolated Helpdesk delayed-case/list independence/cancel pass;actual QA case1 list/read/reload pass with immediate stale-control clearing. No hosted submission,SQL,gameplay,spending or APP stamp. This closes72/74 hosted acceptance only;final launch gates remain.
+
+
+CODEX-76 READ-ONLY CAPACITY REVIEW COMPLETE:Resend domain Verified;Free5/3000month,0/100day,paid overages off;3 required publicDNS records match. Supabase hourly email value redacted/not bypassed;historical30/h not current certification. Visible per-user interval60s/sign-in-signup30per5minIP. DMARC absent on sender/root;no DNS change. Launch demand versus free quota remains a requirement decision;no email,upgrade,settings,SQL/gameplay or spending.
+
+
+CODEX-76/77:owner accepts free100messages/day3000/month launch email capacity;no plan/settings/email/DNS change. Read-only worker30successes/0pending,bridgefresh,configbrowserUPDATEdenied. Hosted guide Escape focus loss reproduced;navigation/account opener restoration fixed locally,6 harness/REALDOMlocal/85 suites/build pass. Actual200%zoom not measurable and not certified. Standing narrowly scoped frontend publication policy proposed,not activated;navfix unpublished. No gameplay/SQL/spending/APPstamp.

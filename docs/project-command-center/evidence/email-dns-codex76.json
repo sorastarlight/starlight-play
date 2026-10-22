@@ -1,0 +1,38 @@
+﻿[
+    {
+        "name":  "resend._domainkey.auth.sorastarlight.net",
+        "type":  "TXT",
+        "answers":  [
+                        "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDRPJEDNZE8CcG9f5qd0mHAWH7P1Cp0BvFZ5x/kPidCP1UYCJAxsfkEkw75Jq4JLVG4OP/RKUSrGwbhVvhCnTSp1AMJNGqc4APmocM1Gw9aBY8Ue8nflxekDoFP17c/oWVL9TEODVCKchNsa0VYSDXB+tOXlTX+Rn8dX534C7dDoQIDAQAB"
+                    ],
+        "status":  "resolved"
+    },
+    {
+        "name":  "rsend.auth.sorastarlight.net",
+        "type":  "CNAME",
+        "answers":  [
+                        "rsend.forge.rmta.net"
+                    ],
+        "status":  "resolved"
+    },
+    {
+        "name":  "send.auth.sorastarlight.net",
+        "type":  "CNAME",
+        "answers":  [
+                        "send.forge.rmta.net"
+                    ],
+        "status":  "resolved"
+    },
+    {
+        "name":  "_dmarc.auth.sorastarlight.net",
+        "type":  "TXT",
+        "status":  "no-answer",
+        "error":  "DNS_ERROR_RCODE_NAME_ERROR"
+    },
+    {
+        "name":  "_dmarc.sorastarlight.net",
+        "type":  "TXT",
+        "status":  "no-answer",
+        "error":  "DNS_ERROR_RCODE_NAME_ERROR"
+    }
+]

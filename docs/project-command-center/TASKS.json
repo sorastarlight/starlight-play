@@ -4,6 +4,30 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-77",
+      "status": "done",
+      "scope": "Navigation Escape focus maintenance and explicit zoom-coverage limit",
+      "dependencies": [
+        "CODEX-76"
+      ],
+      "evidence": "NAVIGATION-FOCUS-CODEX77.md;evidence/nav-focus-codex77.json",
+      "testResults": "REAL DOM baseline/fixed local keyboard;6 harness cases;85 suites/build pass",
+      "nextAction": "Pending publication decision;standing routine-frontend publication scope proposed",
+      "approvalRequirement": "Routine local maintenance authorized;production/standing-policy choice remains owner decision"
+    },
+    {
+      "id": "CODEX-76",
+      "status": "done",
+      "scope": "Read-only Auth email capacity and sending DNS review",
+      "dependencies": [
+        "CODEX-75"
+      ],
+      "evidence": "EMAIL-LAUNCH-CAPACITY-CODEX76.md;evidence/email-capacity-codex76.json;evidence/email-dns-codex76.json",
+      "testResults": "REAL DOM domain Verified/Free5of3000month/0of100day/overagesoff;3 DNS matches;no current hourly quota certification",
+      "nextAction": "Free-capacity launch requirement accepted;no settings/spending changes;continue other gates",
+      "approvalRequirement": "Read-only review authorized;no email test,DNS/plan/settings change or spending"
+    },
+    {
       "id": "CODEX-75",
       "status": "done",
       "scope": "Approved exact frontend publication and read-only hosted acceptance",

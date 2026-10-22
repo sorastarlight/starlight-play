@@ -1,0 +1,35 @@
+{
+  "classification": "REAL DOM hosted baseline plus isolated local correction and LOCAL HARNESS;no account/network mutation",
+  "baseline": "Hosted guide Escape from first navigation link hid panel and left document focus",
+  "fixed": [
+    "Navigation Escape restores Open menu toggle",
+    "Account-menu Escape restores Demo account button",
+    "Unrelated focus is not stolen"
+  ],
+  "harnessChecks": 6,
+  "regressionSuites": 85,
+  "build": {
+    "html": 31,
+    "references": 464,
+    "app": "20261008-rc133"
+  },
+  "screenshot": "nav-focus-codex77.png",
+  "hostedFixVerified": false,
+  "zoomAttempt": {
+    "before": {
+      "width": 1265,
+      "scroll": 1265,
+      "font": "16px"
+    },
+    "after": {
+      "width": 1265,
+      "scroll": 1265,
+      "font": "16px"
+    },
+    "result": "Ctrl+equal did not change measured document dimensions;inverse shortcuts issued;not counted as 200% zoom acceptance"
+  },
+  "limitations": [
+    "Isolated local correction,not yet hosted",
+    "Not full screen-reader/physical-device/zoom certification"
+  ]
+}

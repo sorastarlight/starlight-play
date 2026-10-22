@@ -462,8 +462,14 @@ window.playBindAccountNav = function playBindAccountNav(options) {
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
+      const active = document.activeElement;
+      const restore = els.menu && !els.menu.hidden && (els.menu.contains(active) || active === els.button)
+        ? els.button
+        : els.nav?.classList.contains("is-open") && (els.links?.contains(active) || active === els.toggle)
+          ? els.toggle : null;
       closeMenu();
       closeNavPanel();
+      restore?.focus({ preventScroll: true });
     }
   });
 

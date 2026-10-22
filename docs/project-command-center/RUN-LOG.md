@@ -2111,3 +2111,9 @@ CODEX-74 COMPLETE LOCALLY:actual-source reproduction of old-case form/new-case t
 
 
 CODEX-75 COMPLETE:owner approved exactc7f5366a publication;Pages39709312817 succeeded.32/32 public files match. REAL DOM hosted celebration level/achievement focus wrapping/restoration pass;isolated Helpdesk delayed-case/list independence/cancel pass;actual QA case1 list/read/reload pass with immediate stale-control clearing. No hosted submission,SQL,gameplay,spending or APP stamp. This closes72/74 hosted acceptance only;final launch gates remain.
+
+
+CODEX-76 READ-ONLY CAPACITY REVIEW COMPLETE:Resend domain Verified;Free5/3000month,0/100day,paid overages off;3 required publicDNS records match. Supabase hourly email value redacted/not bypassed;historical30/h not current certification. Visible per-user interval60s/sign-in-signup30per5minIP. DMARC absent on sender/root;no DNS change. Launch demand versus free quota remains a requirement decision;no email,upgrade,settings,SQL/gameplay or spending.
+
+
+CODEX-76/77:owner accepts free100messages/day3000/month launch email capacity;no plan/settings/email/DNS change. Read-only worker30successes/0pending,bridgefresh,configbrowserUPDATEdenied. Hosted guide Escape focus loss reproduced;navigation/account opener restoration fixed locally,6 harness/REALDOMlocal/85 suites/build pass. Actual200%zoom not measurable and not certified. Standing narrowly scoped frontend publication policy proposed,not activated;navfix unpublished. No gameplay/SQL/spending/APPstamp.

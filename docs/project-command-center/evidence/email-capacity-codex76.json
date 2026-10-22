@@ -1,0 +1,41 @@
+{
+  "classification": "READ-ONLY authenticated provider/dashboard review and public DNS;no mail sent or settings changed",
+  "checkedAt": "2026-10-22T02:14:57.807Z",
+  "resend": {
+    "domain": "auth.sorastarlight.net",
+    "domainStatus": "Verified",
+    "region": "us-east-1",
+    "plan": "Free",
+    "monthly": {
+      "used": 5,
+      "limit": 3000
+    },
+    "daily": {
+      "used": 0,
+      "limit": 100
+    },
+    "paidTransactionalOveragesEnabled": false,
+    "usageUrl": "https://resend.com/settings/usage"
+  },
+  "supabase": {
+    "project": "dtflmlbjhttoewqgkujf",
+    "emailHourlyLimit": "Current value redacted;not bypassed or independently certified",
+    "historicalEmailHourlyLimit": 30,
+    "historicalSource": "RESEND-SMTP-CONNECTION.md (October19)",
+    "perUserEmailIntervalSeconds": 60,
+    "signInAndSignUpRequestsPerFiveMinutesPerIp": 30,
+    "rateLimitChanges": false
+  },
+  "dns": {
+    "requiredRecordsMatched": 3,
+    "dmarcAuth": "NXDOMAIN",
+    "dmarcRoot": "NXDOMAIN",
+    "changes": false
+  },
+  "remainingDecision": "Expected launch email traffic versus unchanged free daily/monthly capacity;no upgrade authorized",
+  "sources": [
+    "https://resend.com/pricing",
+    "https://supabase.com/docs/guides/auth/rate-limits"
+  ],
+  "launchRequirement": "Owner approved keeping free capacity for launch;no upgrade/settings/spending authorized"
+}

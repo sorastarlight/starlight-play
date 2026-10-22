@@ -1,0 +1,348 @@
+{
+  "classification": "STATIC/LOCAL HARNESS non-writing suites;no hosted mutation",
+  "checkedAt": "2026-10-22T02:20:26.751Z",
+  "passed": 85,
+  "total": 85,
+  "results": [
+    {
+      "file": "a19-apply-decision-tests.js",
+      "passed": true
+    },
+    {
+      "file": "a19-apply-handoff-tests.js",
+      "passed": true
+    },
+    {
+      "file": "a19-apply-preflight-tests.js",
+      "passed": true
+    },
+    {
+      "file": "a19-apply-report-tests.js",
+      "passed": true
+    },
+    {
+      "file": "a19-genval-impl-tests.js",
+      "passed": true
+    },
+    {
+      "file": "a19-genval-spec-tests.js",
+      "passed": true
+    },
+    {
+      "file": "a19-schema-rehearsal-tests.js",
+      "passed": true
+    },
+    {
+      "file": "a19-wire-impl-tests.js",
+      "passed": true
+    },
+    {
+      "file": "account-diagnostics-tests.js",
+      "passed": true
+    },
+    {
+      "file": "achievement-card-geometry-tests.js",
+      "passed": true
+    },
+    {
+      "file": "achievements-loading-tests.js",
+      "passed": true
+    },
+    {
+      "file": "admin-hub-gate-17-s1-snapshot-tests.js",
+      "passed": true
+    },
+    {
+      "file": "admin-hub-gate-17-s1b-tests.js",
+      "passed": true
+    },
+    {
+      "file": "admin-hub-gate-2a-r-identity-tests.js",
+      "passed": true
+    },
+    {
+      "file": "admin-hub-gate-2a-trainer-tests.js",
+      "passed": true
+    },
+    {
+      "file": "admin-hub-next-tests.js",
+      "passed": true
+    },
+    {
+      "file": "admin-hub-overhaul-tests.js",
+      "passed": true
+    },
+    {
+      "file": "admin-hub-workspace-v2-tests.js",
+      "passed": true
+    },
+    {
+      "file": "admin-oak-qa-tests.js",
+      "passed": true
+    },
+    {
+      "file": "admin-record-tests.js",
+      "passed": true
+    },
+    {
+      "file": "admin-rewards-tests.js",
+      "passed": true
+    },
+    {
+      "file": "build-hygiene-tests.js",
+      "passed": true
+    },
+    {
+      "file": "classic-gba-evolution-tests.js",
+      "passed": true
+    },
+    {
+      "file": "console-tests.js",
+      "passed": true
+    },
+    {
+      "file": "d54-economy-static-tests.js",
+      "passed": true
+    },
+    {
+      "file": "d55-economy-static-tests.js",
+      "passed": true
+    },
+    {
+      "file": "d64-mastery-static-tests.js",
+      "passed": true
+    },
+    {
+      "file": "d65-mastery-static-tests.js",
+      "passed": true
+    },
+    {
+      "file": "d66-mastery-static-tests.js",
+      "passed": true
+    },
+    {
+      "file": "d67-mastery-static-tests.js",
+      "passed": true
+    },
+    {
+      "file": "d68-mastery-static-tests.js",
+      "passed": true
+    },
+    {
+      "file": "d71-mastery-static-tests.js",
+      "passed": true
+    },
+    {
+      "file": "d72-mastery-static-tests.js",
+      "passed": true
+    },
+    {
+      "file": "director-tests.js",
+      "passed": true
+    },
+    {
+      "file": "encounter-phase-driver-tests.js",
+      "passed": true
+    },
+    {
+      "file": "encounter-stability-tests.js",
+      "passed": true
+    },
+    {
+      "file": "encounter-stage-tests.js",
+      "passed": true
+    },
+    {
+      "file": "evolution-candy-integrity-tests.js",
+      "passed": true
+    },
+    {
+      "file": "evolution-line-integrity-tests.js",
+      "passed": true
+    },
+    {
+      "file": "evolve-ux-tests.js",
+      "passed": true
+    },
+    {
+      "file": "form-aware-identity-tests.js",
+      "passed": true
+    },
+    {
+      "file": "gen9-ref-readiness-tests.js",
+      "passed": true
+    },
+    {
+      "file": "gen9-ref-tests.js",
+      "passed": true
+    },
+    {
+      "file": "help-navigation-tests.js",
+      "passed": true
+    },
+    {
+      "file": "identity-tests.js",
+      "passed": true
+    },
+    {
+      "file": "inventory-loading-tests.js",
+      "passed": true
+    },
+    {
+      "file": "kanto-release-containment-tests.js",
+      "passed": true
+    },
+    {
+      "file": "live-rpg-session-lifecycle-tests.js",
+      "passed": true
+    },
+    {
+      "file": "location-visual-tests.js",
+      "passed": true
+    },
+    {
+      "file": "new-table-access-tests.js",
+      "passed": true
+    },
+    {
+      "file": "oak-lab-card-tests.js",
+      "passed": true
+    },
+    {
+      "file": "oak-lab-rc123-tests.js",
+      "passed": true
+    },
+    {
+      "file": "oak-lab-rc124-tests.js",
+      "passed": true
+    },
+    {
+      "file": "oak-lab-rc126-tests.js",
+      "passed": true
+    },
+    {
+      "file": "oak-lab-ux-tests.js",
+      "passed": true
+    },
+    {
+      "file": "oak-transfer-tests.js",
+      "passed": true
+    },
+    {
+      "file": "onboarding-tests.js",
+      "passed": true
+    },
+    {
+      "file": "owner-recovery-email-tests.js",
+      "passed": true
+    },
+    {
+      "file": "password-recovery-tests.js",
+      "passed": true
+    },
+    {
+      "file": "pc-box-ops-tests.js",
+      "passed": true
+    },
+    {
+      "file": "pc-stat-values-tests.js",
+      "passed": true
+    },
+    {
+      "file": "phase10-special-tests.js",
+      "passed": true
+    },
+    {
+      "file": "phase4-hardening-tests.js",
+      "passed": true
+    },
+    {
+      "file": "phase5-identity-tests.js",
+      "passed": true
+    },
+    {
+      "file": "phase6-rankings-tests.js",
+      "passed": true
+    },
+    {
+      "file": "phase7-content-tests.js",
+      "passed": true
+    },
+    {
+      "file": "phase8-bits-tests.js",
+      "passed": true
+    },
+    {
+      "file": "phase9-balance-tests.js",
+      "passed": true
+    },
+    {
+      "file": "pikachu-cosplay-gender-tests.js",
+      "passed": true
+    },
+    {
+      "file": "play-perf-tests.js",
+      "passed": true
+    },
+    {
+      "file": "play-present-tests.js",
+      "passed": true
+    },
+    {
+      "file": "play-ux-tests.js",
+      "passed": true
+    },
+    {
+      "file": "pokedex-discovery-tests.js",
+      "passed": true
+    },
+    {
+      "file": "pokedex-kanto-boundary-tests.js",
+      "passed": true
+    },
+    {
+      "file": "rc127-presentation-tests.js",
+      "passed": true
+    },
+    {
+      "file": "rc128-presentation-tests.js",
+      "passed": true
+    },
+    {
+      "file": "rc129-presentation-tests.js",
+      "passed": true
+    },
+    {
+      "file": "refresh-pass-override-tests.js",
+      "passed": true
+    },
+    {
+      "file": "species-familiarity-reader-tests.js",
+      "passed": true
+    },
+    {
+      "file": "species-mastery-tests.js",
+      "passed": true
+    },
+    {
+      "file": "sprite-variant-tests.js",
+      "passed": true
+    },
+    {
+      "file": "twitch-disconnect-controller-tests.js",
+      "passed": true
+    },
+    {
+      "file": "play-present-focus-tests.js",
+      "passed": true
+    },
+    {
+      "file": "support-loading-tests.js",
+      "passed": true
+    },
+    {
+      "file": "nav-focus-tests.js",
+      "passed": true
+    }
+  ]
+}

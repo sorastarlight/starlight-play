@@ -73,5 +73,17 @@
     "screenshot": "reduced-motion-codex81.png"
   },
   "newConfirmedDefect": false,
-  "productionChanged": false
+  "productionChanged": false,
+  "additionalTargetBoundarySample": {
+    "admin_user_account": "88f488058dc6f56d827666bee497b531",
+    "admin_set_role": "8a2c9e664ead37e4ed76562ca58c7df9",
+    "admin_disconnect_twitch": "df3260e967a875cee832f3083285a8da",
+    "owner_account_diagnostics_context": "f4f1363675b5b3e185747c17bb91cd8f",
+    "owner_recovery_email_gate": "fa2a47ebe457f5243730a8bcdd847941",
+    "require_hub": "2700659516eebbcd14df359253d7985f",
+    "require_staff_edit": "07d2e855eefa8da56e99f32441bde2fd",
+    "require_recent_recovery_owner": "e543c217d214bb49a4eb6bafdbf0569f",
+    "classification": "Catalog source only;not endpoint or role integration execution",
+    "newConfirmedDefect": false
+  }
 }

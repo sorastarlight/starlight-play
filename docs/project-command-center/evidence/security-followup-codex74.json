@@ -1,0 +1,48 @@
+{
+  "classification": "READ-ONLY security advisor/catalog source triage;not live adversarial endpoint execution or full security signoff",
+  "checkedAt": "2026-10-22T01:56:12.440Z",
+  "advisors": [
+    {
+      "name": "rls_enabled_no_policy",
+      "level": "INFO",
+      "count": 48,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy"
+    },
+    {
+      "name": "function_search_path_mutable",
+      "level": "WARN",
+      "count": 268,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable"
+    },
+    {
+      "name": "anon_security_definer_function_executable",
+      "level": "WARN",
+      "count": 78,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable"
+    },
+    {
+      "name": "authenticated_security_definer_function_executable",
+      "level": "WARN",
+      "count": 196,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable"
+    }
+  ],
+  "review": {
+    "supportCall": {
+      "signature": "public.support_call(text,jsonb)",
+      "hash": "214b4d7e2a47205fdce51760ff2dc849",
+      "source": "actor is verified by support_actor;actorId must match;staff mode owner-only;ticket predicates constrain player;internal messages excluded for player;pg_catalog search_path"
+    },
+    "supportActor": {
+      "hash": "8c759cb9573761a0840e126babb5412a",
+      "source": "auth.uid and session_id cross-check against active auth.sessions/user;deleted/banned users denied"
+    },
+    "supportSummary": {
+      "hash": "1179894b6307c26fe2b29feb1f65b7ac",
+      "source": "explicit field projection;private event/assignee visibility conditioned in wrapper"
+    },
+    "anonymousWrapperCaution": "play_state and play_sync call director_tick_if_due;not invoked as read-only probes"
+  },
+  "conclusion": "No additional confirmed server authorization defect in the sampled Helpdesk chain;frontend wrong-case loading race reproduced and corrected separately",
+  "limitations": "Heuristic candidate search does not prove all nested authorization,search-path,concurrency or role boundaries;advisor counts are not a direct list of exploitable defects"
+}

@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-74",
+      "status": "done",
+      "scope": "Helpdesk case-bound loading/submission correction and read-only security follow-up",
+      "dependencies": [
+        "CODEX-73"
+      ],
+      "evidence": "HELPDESK-LOADING-CODEX74.md;evidence/helpdesk-loading-codex74.json;evidence/security-followup-codex74.json",
+      "testResults": "11 actual-source LOCAL HARNESS cases;REAL DOM isolated pending case/conflict;84 suites/build31HTML464refs pass",
+      "nextAction": "Publish reviewed frontend pair for read-only hosted acceptance only after owner production-publication decision",
+      "approvalRequirement": "Local/frontend maintenance authorized;production publication remains its separate gate"
+    },
+    {
       "id": "CODEX-73",
       "status": "done",
       "scope": "Direct browser configuration UPDATE boundary",

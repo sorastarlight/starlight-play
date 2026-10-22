@@ -2105,3 +2105,6 @@ CODEX-72 COMPLETE LOCALLY:celebration keyboard background-focus leak reproduced 
 
 
 CODEX-73 VERIFIED:owner approved configuration-access correction;migration20261022014528 removes direct browser site_config UPDATE including4 column grants. Public reads/service-role updates/owner RPC permissions retained;all function/policy/other table privilege and relevant data fingerprints unchanged.14 REAL LOCAL SQL checks;no live privileged RPC/gameplay,password,role,record,spending or APP change. See supabase/unapplied/site-config-write-boundary/README.md and evidence/site-config-write-boundary-hosted.json. The CODEX-71 archive predates this permission correction;retain this guarded packet as post-drill recovery delta,not a full replay certificate.
+
+
+CODEX-74 COMPLETE LOCALLY:actual-source reproduction of old-case form/new-case target race;case-bound payloads,immediate stale-case clearing,independent request revisions and in-modal conflict feedback corrected.11 LOCAL HARNESS cases,REAL DOM isolated mock review and84 nonwriting suites/build pass. No hosted support or gameplay mutation,SQL,email,spending or APP stamp. Current main bbb13708;runtime frontend diff is only play-present.js/support.js. Hosted publication and acceptance of CODEX-72/74 remain separate decision.

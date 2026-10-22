@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<base href="../"><title>Isolated Helpdesk loading review</title><link rel="stylesheet" href="css/play.css">
+<style>body{padding:24px}main{max-width:1200px;margin:auto}.review-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:20px 0}</style>
+<main><h1>Helpdesk loading review</h1><p>Fictional local cases only. No account, network client, ticket delivery or backend connection.</p>
+<div class="review-controls"><label><input id="hold" type="checkbox" checked> Hold case 2 while loading</label><button id="finish" disabled>Complete pending case load</button><label>Mock save outcome <select id="outcome"><option value="conflict">Conflict</option><option value="limited">Rate limit</option></select></label></div>
+<div id="player-support"></div></main>
+<script>
+const cases=[1,2].map(n=>({id:'fictional-case-'+n,caseNo:n,subject:'Fictional case '+n,playerId:'fictional-trainer',category:'bug',subcategory:'general',state:'open',revision:1,createdAt:'2026-10-21T12:00:00Z',updatedAt:'2026-10-21T12:00:00Z'}));
+function conversation(ticket){return {state:'ready',ticket,messages:[{author:'Trainer',body:'This is the conversation for fictional case '+ticket.caseNo+'.',createdAt:ticket.createdAt}],events:[],nextCursor:null};}
+window.playSupabase={auth:{getUser:async()=>({data:{user:{id:'fictional-trainer'}}}),onAuthStateChange:()=>({data:{subscription:{unsubscribe(){}}}})},rpc:async(name,{p_action,p_payload})=>{
+ if(name!=='support_call')throw Error('Unsupported fictional request');
+ if(p_action==='list')return {data:{state:'ready',tickets:cases,openCount:2,nextCursor:null}};
+ if(p_action==='get'){const ticket=cases.find(t=>t.id===p_payload.ticketId);if(!ticket)throw Error('Unknown fictional case');
+  if(ticket.caseNo===2&&document.getElementById('hold').checked){const button=document.getElementById('finish');button.disabled=false;return new Promise(resolve=>{button.onclick=()=>{button.disabled=true;button.onclick=null;resolve({data:conversation(ticket)});};});}
+  return {data:conversation(ticket)};
+ }
+ return {data:{state:document.getElementById('outcome').value}};
+}};
+</script><script src="js/support.js"></script></html>

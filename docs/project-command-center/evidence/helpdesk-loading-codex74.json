@@ -1,0 +1,27 @@
+{
+  "classification": "Actual-source LOCAL HARNESS and REAL DOM isolated fictional Helpdesk;no hosted ticket/reply/transition sent",
+  "baseline": "Original source reproduced a case-A form sending reply payload for case B while B GET was pending",
+  "checks": 11,
+  "dom": {
+    "review": "http://127.0.0.1:8769/tools/support-loading-review.html",
+    "observed": [
+      "Case-A conversation and reply controls disappear immediately while case B is held",
+      "Find tickets does not cancel a held case-B load",
+      "Completing held request displays only case B and focuses its heading",
+      "Mock conflict keeps transition dialog open and displays feedback inside it",
+      "Cancel restores the transition opener"
+    ],
+    "screenshot": "helpdesk-conflict-codex74.png"
+  },
+  "regressions": 84,
+  "build": {
+    "html": 31,
+    "references": 464,
+    "app": "20261008-rc133"
+  },
+  "hostedFixVerified": false,
+  "limitations": [
+    "Fictional in-memory backend;not production support mutation QA",
+    "No full screen-reader,device or browser-zoom certification"
+  ]
+}

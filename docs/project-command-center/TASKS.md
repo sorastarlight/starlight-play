@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` · `done` · `blocked`. Machine copy: [TASKS.json](.
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-74 | done | Helpdesk case-bound request/loading correction | CODEX-73 | Routine local frontend maintenance |11 harness cases,isolated real DOM,84 suites;hosted publication held |
 | CODEX-73 | done | Direct browser configuration UPDATE boundary | CODEX-72 | Explicit owner approval | Installed20261022014528;privileges/data/functions independently verified |
 | CODEX-72 | done | Celebration keyboard containment | CODEX-71 | Routine frontend/local acceptance | Local DOM+9 harness cases;83 suites;feature branch only |
 | CODEX-71 | done | Actual isolated logical recovery and service health | CODEX-65/70 | Existing bounded recovery approval;owner-managed reset | PASS;retain private artifacts;see RECOVERY-DRILL-CODEX71.md |
@@ -245,3 +246,6 @@ CODEX-72 COMPLETE LOCALLY:celebration keyboard background-focus leak reproduced 
 
 
 CODEX-73 VERIFIED:owner approved configuration-access correction;migration20261022014528 removes direct browser site_config UPDATE including4 column grants. Public reads/service-role updates/owner RPC permissions retained;all function/policy/other table privilege and relevant data fingerprints unchanged.14 REAL LOCAL SQL checks;no live privileged RPC/gameplay,password,role,record,spending or APP change. See supabase/unapplied/site-config-write-boundary/README.md and evidence/site-config-write-boundary-hosted.json. The CODEX-71 archive predates this permission correction;retain this guarded packet as post-drill recovery delta,not a full replay certificate.
+
+
+CODEX-74 COMPLETE LOCALLY:actual-source reproduction of old-case form/new-case target race;case-bound payloads,immediate stale-case clearing,independent request revisions and in-modal conflict feedback corrected.11 LOCAL HARNESS cases,REAL DOM isolated mock review and84 nonwriting suites/build pass. No hosted support or gameplay mutation,SQL,email,spending or APP stamp. Current main bbb13708;runtime frontend diff is only play-present.js/support.js. Hosted publication and acceptance of CODEX-72/74 remain separate decision.

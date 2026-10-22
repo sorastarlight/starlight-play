@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-117 real acceptance required
+# Current launch acceptance matrix — CODEX-118 real acceptance required
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 100/100 suites in CODEX-114. Routine staff error/Bits feedback escaping is published;current expanded checker verified100hosted source files in CODEX-115; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -61,3 +61,7 @@ CODEX-116 approved trade-state correction installed/sourceverified20261022162826
 CODEX-117:13fresh REAL LOCAL offer/team/trigger cases pass;initial trigger-free defect hypothesis rejected. Enabled trigger refusals roll back team removal/timestamp writes. No new production correction. Pages39799569389success rechecked;no frontend regression rerun/new source fetch claimed. Required real acceptance and held Twitch tests unchanged. See LAUNCH-CODEX117-TRIGGER-REVIEW.md.
 
 CODEX-117 adjacent direct-trade setup:24REAL LOCAL SQL ownership/protection/expiry/confirmation-reset cases pass within minimal-schema limits;no hosted operation or new defect. Trigger-aware offer13cases remain distinct;37total new local cases.
+
+CODEX-118:read-only security advisor/catalog triage records48no-policyRLS/268mutable-path/78anon-definer/196authenticated-definer entries;no blanket clearance. All mutable-path entries private invokers,48no-policyrelations RLS enabled,browser roles noBYPASSRLS. Notice delivery concurrency defect confirmed locally;one-function guarded correction/rollback passes15REAL LOCAL SQL cases and stays private/uninstalled pending explicit SQL decision. No hosted applicationRPC/player/provider/reward/email/APPaction. play_notices added to write-risk probe exclusions. See LAUNCH-CODEX118-READINESS.md.
+
+Independent cosmetic review while notice install held:17REAL LOCAL SQL cases execute exact title/sprite setters and three exact catalog/pack ownership helpers. Foreign/unowned/disabled title and hidden/missing/unowned premium sprite denials preserve profiles;owned selections/free sprite/title clearing work for current trainer only;missing identity denied. Fictional minimal tables and stub trainer_card serializer;not full RLS/UI/provider/concurrency certification. No new defect or production correction. Loopback cluster stopped/fixture removed. Evidence:evidence/codex118-cosmetic-review.json.

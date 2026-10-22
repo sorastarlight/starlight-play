@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-118",
+      "status": "blocked",
+      "scope": "Read-only security-advisor triage and locally tested notice claim packet",
+      "dependencies": [
+        "CODEX-117"
+      ],
+      "evidence": "LAUNCH-CODEX118-READINESS.md; evidence/codex118-advisor-triage.json; evidence/codex118-notice-packet.json; evidence/codex118-cosmetic-review.json",
+      "testResults": "15REAL LOCAL concurrent/packet/ownership/order/rollback/drift cases;advisor catalog follow-up;no hosted application call;17independent cosmetic ownership SQL cases",
+      "nextAction": "Owner decision requested for one-function SQL install;continue independent work while held",
+      "approvalRequirement": "Production SQL requires separate explicit owner approval;prepared only"
+    },
+    {
       "id": "CODEX-117",
       "status": "done",
       "scope": "Trigger-aware GTS offer review and current readiness reconciliation",

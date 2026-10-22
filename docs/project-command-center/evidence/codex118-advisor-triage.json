@@ -1,0 +1,64 @@
+{
+  "classification": "Read-only advisor and catalog metadata;not security certification",
+  "observedAt": "2026-10-22T17:07:09.444Z",
+  "lints": [
+    {
+      "name": "rls_enabled_no_policy",
+      "level": "INFO",
+      "count": 48,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy"
+    },
+    {
+      "name": "function_search_path_mutable",
+      "level": "WARN",
+      "count": 268,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0011_function_search_path_mutable"
+    },
+    {
+      "name": "anon_security_definer_function_executable",
+      "level": "WARN",
+      "count": 78,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable"
+    },
+    {
+      "name": "authenticated_security_definer_function_executable",
+      "level": "WARN",
+      "count": 196,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable"
+    }
+  ],
+  "mutablePaths": {
+    "privateInvoker": 268,
+    "definer": 0
+  },
+  "noPolicyRelations": [
+    {
+      "schema": "private",
+      "relations": 38,
+      "all_rls_enabled": true,
+      "anon_select_grant": 0,
+      "authenticated_select_grant": 0
+    },
+    {
+      "schema": "public",
+      "relations": 10,
+      "all_rls_enabled": true,
+      "anon_select_grant": 2,
+      "authenticated_select_grant": 2
+    }
+  ],
+  "browserRoles": [
+    {
+      "role": "anon",
+      "superuser": false,
+      "bypassrls": false
+    },
+    {
+      "role": "authenticated",
+      "superuser": false,
+      "bypassrls": false
+    }
+  ],
+  "applicationCalls": 0,
+  "changes": 0
+}

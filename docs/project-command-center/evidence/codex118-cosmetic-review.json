@@ -1,0 +1,25 @@
+{
+  "classification": "REAL LOCAL SQL exact title/sprite setters plus three exact ownership/catalog helpers;fictional minimal tables and stub trainer_card serializer;not full RLS/concurrency/provider/UI certification",
+  "checks": 17,
+  "results": [
+    "title refuses other without profile changes",
+    "title refuses disabled without profile changes",
+    "title refuses missing without profile changes",
+    "owned enabled title changes only current trainer",
+    "empty/null title clears own selection",
+    "empty/null title clears own selection",
+    "sprite refuses missing without profile changes",
+    "sprite refuses hidden without profile changes",
+    "sprite refuses premium without profile changes",
+    "sprite refuses fallback without profile changes",
+    "sprite refuses null without profile changes",
+    "sprite refuses  without profile changes",
+    "owned premium mapping permits own selection only",
+    "owned fallback mapping permits own selection only",
+    "trimmed free sprite allowed",
+    "title missing identity denied",
+    "sprite missing identity denied"
+  ],
+  "productionApplicationCalls": 0,
+  "productionChanges": 0
+}

@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-118 | blocked | Advisor triage/notice claim packet | CODEX-117 | Explicit SQL decision requested |15localSQLcases;private guarded install/rollback held |
 | CODEX-117 | done | Trigger-aware offer protections/readiness | CODEX-116 | Read-only/local |13SQLchecks;hypothesis rejected;no production fix;Pages success |
 | CODEX-77 | done | Navigation Escape opener focus | CODEX-76 | Local maintenance |6cases/85suites/localDOM;publication decision pending |
 | CODEX-76 | done | Email capacity/public DNS readiness | CODEX-75 | Read-only |Domain verified;free quotas recorded;launch demand choice remains |

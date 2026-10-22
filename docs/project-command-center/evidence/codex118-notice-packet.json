@@ -1,0 +1,28 @@
+{
+  "classification": "REAL LOCAL concurrent SQL;exact captured baseline and actual guarded INSTALL/ROLLBACK;fictional notice records;not hosted delivery/UI/RLS certification",
+  "checks": 15,
+  "results": [
+    "baseline:two overlapping callers receive same notice",
+    "actual guarded install executes",
+    "candidate:overlapping callers collectively receive exactly one notice",
+    "same response field values and payload preserved",
+    "sequential read does not repeat claimed notice",
+    "other trainer notice remains unseen",
+    "missing identity returns empty without marking notices",
+    "multiple notices retain chronological order",
+    "rolled-back claim is still available",
+    "later inserted notice delivered on next read",
+    "previously seen notices remain excluded",
+    "actual guarded rollback restores exact baseline",
+    "install refuses ACL drift",
+    "install refuses source drift",
+    "rollback refuses noncandidate state"
+  ],
+  "baselineBody": "ab96a8ba4d521d7fa2ffc8baf0b093f5",
+  "candidateBody": "c9d487e0a8e6bb244fca4d8848989e51",
+  "installSHA256": "145fef9bbf6b78f79c84518e308707322e235d3ed285a19e532306e46f2b7ea5",
+  "rollbackSHA256": "0fe6375d82779a3fed5969f588d183a8b43390331e9e8b7a83995ff51563302f",
+  "productionApplicationCalls": 0,
+  "productionChanges": 0,
+  "status": "prepared;owner installation decision requested;not installed"
+}

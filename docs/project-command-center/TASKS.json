@@ -4,6 +4,19 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-100",
+      "status": "in_progress",
+      "scope": "Required real mobile/assistive/provider acceptance",
+      "dependencies": [
+        "CODEX-98",
+        "CODEX-99"
+      ],
+      "evidence": "Owner explicitly selected Require real acceptance before launch; REAL-ACCEPTANCE-CHECKLIST.md prepared",
+      "testResults": "No new real-device/provider result yet; existing synthetic evidence not substituted",
+      "nextAction": "Collect available real device/screen-reader inventory; prepare exact provider target/action before any separate consequential approval",
+      "approvalRequirement": "Requirement accepted, not provider/protected-account/upload/gameplay/restore/stamp/final-launch execution authority"
+    },
+    {
       "id": "CODEX-99",
       "status": "done",
       "scope": "Dynamic SQL inventory and exact staff inventory branch boundary rehearsal",
@@ -12,7 +25,7 @@
       ],
       "evidence": "OVERNIGHT-CODEX99.md; evidence/codex99-dynamic-sql.json",
       "testResults": "2statement-pattern function matches reviewed;21REAL LOCAL SQL allowlist/binding/clamp/rollback checks pass;not full staff/Auth integration",
-      "nextAction": "Continue genuinely unreviewed security boundaries while owner acceptance-scope prompt remains pending",
+      "nextAction": "Owner now requires real acceptance; continue independent review while device inventory is requested",
       "approvalRequirement": "No SQL install/grant/gameplay/provider/launch authority; no accepted deferrals inferred"
     },
     {
@@ -24,7 +37,7 @@
       ],
       "evidence": "LAUNCH-CODEX98-ACCEPTANCE.md; FINAL-ACCEPTANCE-REVIEW.md; evidence/codex98-catalog-search-label.json",
       "testResults": "7relevant checks/build31/464;isolated named search/focus/entry pass;Pages39750745599success;56hosted source matches",
-      "nextAction": "Await important owner acceptance-scope decision; do not silently defer unavailable real device/provider evidence",
+      "nextAction": "Decision received: real acceptance required; follow CODEX-100 checklist, no beta deferral",
       "approvalRequirement": "Runtime publication covered CODEX-78; final launch/stamp/provider/SQL/gameplay/restore remain unapproved"
     },
     {

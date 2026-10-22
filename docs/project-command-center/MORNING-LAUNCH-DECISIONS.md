@@ -45,3 +45,5 @@ A restored environment needs the CODEX-73 access boundary and secure refresh-pas
 No production release declaration, APP stamp, gameplay, SQL, spending, password reset, provider/DNS setting, protected-account mutation or new scheduler is authorized by this document.
 
 CODEX-98: remaining real-device/provider launch-requirement choice is presented in FINAL-ACCEPTANCE-REVIEW.md. Owner answer pending;neither accepted deferrals nor final launch may be inferred.
+
+CODEX-100 decision received:real mobile/assistive/Twitch-provider acceptance required;no beta deferrals accepted. Earlier pending-scope wording is historical. Follow REAL-ACCEPTANCE-CHECKLIST.md;device inventory pending. No new test-mutation/final-release authority.

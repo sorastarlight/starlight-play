@@ -1,6 +1,6 @@
-# Remaining acceptance — owner launch-scope decision
+# Remaining acceptance — owner requires real evidence
 
-Current October22,2026. This is a review packet, not permission to launch or stamp APP. Current matrix is LAUNCH-ACCEPTANCE-MATRIX.md; recovery deltas are RECOVERY-POST-DRILL-DELTAS.md.
+Current October22,2026. OWNER DECISION: Require real mobile/assistive and Twitch-provider acceptance before launch. Desktop-first beta deferrals were not accepted. See REAL-ACCEPTANCE-CHECKLIST.md. This is a review packet, not permission to launch or stamp APP. Current matrix is LAUNCH-ACCEPTANCE-MATRIX.md; recovery deltas are RECOVERY-POST-DRILL-DELTAS.md.
 
 ## Evidence already recorded
 
@@ -15,7 +15,7 @@ Bounded hosted catch/WIRE/Familiarity, economy/evolution/Oak, gifts/Pass, Helpde
 | Real provider | Twitch consent/refresh/signed event and post-correction Pass/uploader integration | Needs separately bounded provider/account/asset authority and suitable access. New one-link restriction stays disabled; do not borrow a protected identity or send uploads/events as a probe |
 | Physical restore | Supabase physical backup/full Auth service recovery | Existing daily RPO accepted; actual logical restore plus guarded deltas available. No production restore or paid project is proposed. Treat physical restore as unverified unless explicitly deferred or separately authorized |
 
-## Two possible launch requirements
+## Historical comparison — option1 selected
 
 1. Full acceptance before launch: obtain the real device/provider evidence above. The agent can prepare and inspect evidence, but cannot substitute another isolated fixture for the missing access. Separate consequential test permissions are still required.
 2. Controlled desktop-first beta preparation: keep new Twitch one-link policy disabled, disclose unverified mobile/assistive/provider integration/physical-restore coverage, retain current rate/capacity/recovery constraints and a clear support route. This accepts named deferrals only; it does not certify those features, change account/provider policy or authorize final publication/stamp/gameplay.

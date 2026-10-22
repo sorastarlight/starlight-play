@@ -317,3 +317,5 @@ CODEX-97 COMPLETE: read-only partial configuration acceptance verifies WIRE/cuto
 CODEX-98 COMPLETE:explicit trainer-look search name published exact1file at maina51bcbbf;Pages39750745599success;7relevant checks/build31/464 and56hosted source matches. Isolated REAL BROWSER name/focus/entry pass. Remaining launch-scope decision pending at FINAL-ACCEPTANCE-REVIEW.md;no implicit deferral/launch authority. APP unchanged;Sora NO;Twinkle NO;PlayTester unchanged.
 
 CODEX-99 COMPLETE:scoped dynamic SQL review and21REAL LOCAL SQL exact-branch checks pass;no newly confirmed injection flaw or production change. Source-only staff guard review is not an Auth integration test. Acceptance-scope prompt remains pending. See OVERNIGHT-CODEX99.md. APP unchanged;Sora NO;Twinkle NO;PlayTester unchanged.
+
+CODEX-100 IN PROGRESS:owner requires real mobile/assistive/Twitch-provider acceptance before launch;no desktop-beta deferral. REAL-ACCEPTANCE-CHECKLIST.md prepared;device/reader availability requested. No new real result or provider/protected-account/restore/gameplay authorization. APP unchanged;Sora NO;Twinkle NO;PlayTester unchanged.

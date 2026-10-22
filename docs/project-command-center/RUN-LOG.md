@@ -2117,3 +2117,6 @@ CODEX-76 READ-ONLY CAPACITY REVIEW COMPLETE:Resend domain Verified;Free5/3000mon
 
 
 CODEX-76/77:owner accepts free100messages/day3000/month launch email capacity;no plan/settings/email/DNS change. Read-only worker30successes/0pending,bridgefresh,configbrowserUPDATEdenied. Hosted guide Escape focus loss reproduced;navigation/account opener restoration fixed locally,6 harness/REALDOMlocal/85 suites/build pass. Actual200%zoom not measurable and not certified. Standing narrowly scoped frontend publication policy proposed,not activated;navfix unpublished. No gameplay/SQL/spending/APPstamp.
+
+
+CODEX-78 AUTHORIZED:owner approves nav-fix publication and scoped routine-frontend standing policy. CODEX-RUNNER.md and streamlink-project.mdc amended;SQL/Authauthority/gameplay/provider/spending/scheduling/APP/final-launch gates retained. Publication/read-only hosted acceptance now executing.

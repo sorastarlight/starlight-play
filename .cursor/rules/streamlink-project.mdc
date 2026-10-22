@@ -11,7 +11,7 @@ This rule guides in-session batch work. It does **not** create unattended schedu
 
 - Product: Pokémon StreamLink. Feature names stay short (Play, My PC, Admin Hub).
 - Architecture stays static HTML + vanilla JS + `play.css` + `playCall`. No React/Tailwind.
-- Do not merge to `main` or deploy. Do not stamp production APP (`20261008-rc133` until owner says otherwise).
+- Owner-approved CODEX-78 exception: tested, reviewed routine frontend maintenance may fast-forward to `main` and existing GitHub Pages under the scoped policy in `docs/project-command-center/CODEX-RUNNER.md`. Other merges/deployments need explicit approval. Do not stamp production APP (`20261008-rc133` until owner says otherwise).
 - No SQL migrations, grants, RLS, staff-role changes, or trainer/economy/encounter/director mutations without a new owner authorization.
 - Never impersonate or mutate Sora or Twinkle. PlayTester stays nonstaff unless a separately approved, cleaned-up test.
 - Do not edit `admin.html` or `js/admin-live.js`. Next-hub work stays in `admin-next.html` and its modules.
@@ -20,7 +20,7 @@ This rule guides in-session batch work. It does **not** create unattended schedu
 
 ## Approval gates (stop and report)
 
-- Production deploy / APP stamp / merge to `main`
+- Production deploy / merge to `main` outside the CODEX-78 routine frontend scope; APP stamps always require approval
 - SQL, grants, RLS, staff promotion
 - Any privileged write, including grants, unlinks, role edits, Oak QA
 - Live staff RPC testing when PlayTester is nonstaff

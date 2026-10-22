@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T14:41:00.429Z",
+  "checkedAt": "2026-10-22T14:48:10.111Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -416,16 +416,16 @@
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
       "localSha256": "8bf99318c2381d1f672b693e96431bb25deb82c92d47c20f9ce708ecb32466e0",
-      "publishedSha256": "2724b8ca7472a59a14bac3f325793c258e7c18f80b88aa0e0fd31e0831676e17",
-      "matches": false
+      "publishedSha256": "8bf99318c2381d1f672b693e96431bb25deb82c92d47c20f9ce708ecb32466e0",
+      "matches": true
     },
     {
       "file": "js/trainer.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
       "localSha256": "54fc9755b41804d57365f3371e3d6571825eec4cdfa0a9cf66422fa05ab13cf5",
-      "publishedSha256": "2b2abd1a3a56decbd8e006c7d5f0b4897a26bfd6c8f8c6a5a66bebe543dfe8f7",
-      "matches": false
+      "publishedSha256": "54fc9755b41804d57365f3371e3d6571825eec4cdfa0a9cf66422fa05ab13cf5",
+      "matches": true
     },
     {
       "file": "admin-store.html",
@@ -479,9 +479,9 @@
       "file": "js/play-perf.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "47969a39e0f54eeb7b04e7098df336ed1fa519f5a3f6a0e5daf83a58ac49ea56",
+      "localSha256": "8694c1ab13b1d824a5852c377d3c6ee75080b9ed09a6c66afcc9a34f02b2b2c9",
       "publishedSha256": "47969a39e0f54eeb7b04e7098df336ed1fa519f5a3f6a0e5daf83a58ac49ea56",
-      "matches": true
+      "matches": false
     },
     {
       "file": "js/build-client.js",

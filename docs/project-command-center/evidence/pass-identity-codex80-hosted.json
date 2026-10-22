@@ -1,0 +1,12 @@
+{
+  "project": "dtflmlbjhttoewqgkujf",
+  "function": "refresh-pass",
+  "version": 7,
+  "status": "ACTIVE",
+  "verifyJwt": true,
+  "exactCandidateSourceMatches": true,
+  "candidateSha256": "145799c1499259185e6538b0f2dd2d6791856a6cd39e6405259af31cf1fbba1c",
+  "checkedAt": "2026-10-22T03:00:51.346Z",
+  "invoked": false,
+  "hostedAccountMutations": false
+}

@@ -75,3 +75,5 @@ CODEX-69 COMPLETE (bounded acceptance/operations):Rankings782px overflow correct
 CODEX-79 COMPLETE:43de14ed Pages39712851801 success;86 suites/build pass,36public source matches,REAL DOM hosted isolated mocked pending/throttle/network/retry pass. Signup browser feedback only;no actual signup/email/Auth authority/SQL/gameplay/APP/final-launch change. Standing routine scope active;broader security/provider/device/physical recovery limits remain.
 
 CODEX-80 current security gate:confirmed Pass authorization issue;private one-function candidate and22 local mocked checks prepared. No production correction or live probe performed. Important owner approval required before installation;launch security sign-off remains held. See PASS-IDENTITY-REVIEW-CODEX80.md.
+
+CODEX-80 VERIFIED:owner approved Pass checker authorization correction;refresh-pass version7 ACTIVE,JWTtrue,exact candidate source verified.87 suites/build pass;22 identity/8 override mocked cases. No live checker invocation,account/reward/SQL/provider settings mutation or APP stamp. Earlier held status is historical;broader provider/security/acceptance/final-launch limits remain.

@@ -32,17 +32,17 @@ Deno.serve(async (req) => {
   const accessToken = typeof body.accessToken === "string" ? body.accessToken : "";
 
   const admin = createClient(supabaseUrl, service);
-  const { data: config } = await admin
+  const { data: config, error: configError } = await admin
     .from("site_config")
     .select("broadcaster_twitch_login, twitch_client_id, twitch_broadcaster_id")
     .eq("id", 1)
     .maybeSingle();
-  const { data: profile } = await admin
+  const { data: profile, error: profileError } = await admin
     .from("profiles")
     .select("twitch_login, starlight_pass, pass_source")
     .eq("id", userData.user.id)
     .maybeSingle();
-  const { data: connection } = await admin
+  const { data: connection, error: connectionError } = await admin
     .from("twitch_connections")
     .select("twitch_user_id, twitch_login, is_primary, gameplay_enabled")
     .eq("user_id", userData.user.id)
@@ -52,20 +52,14 @@ Deno.serve(async (req) => {
     .limit(1)
     .maybeSingle();
   const clientId = (config?.twitch_client_id || "").trim();
-  const twitchUserId =
-    connection?.twitch_user_id ||
-    userData.user.identities?.find((identity) => identity.provider === "twitch")?.id ||
-    userData.user.user_metadata?.provider_id ||
-    userData.user.user_metadata?.sub;
-  const userLogin = String(
-    connection?.twitch_login ||
-    profile?.twitch_login ||
-    userData.user.user_metadata?.preferred_username ||
-    userData.user.user_metadata?.login ||
-    ""
-  ).trim().toLowerCase();
-  const channelLogin = (config?.broadcaster_twitch_login || "").trim().toLowerCase();
+  const twitchUserId = String(connection?.twitch_user_id || "").trim();
   let broadcasterId = (config?.twitch_broadcaster_id || "").trim();
+  if (configError || profileError || connectionError || !profile) {
+    return json({ active: Boolean(profile?.starlight_pass), message: "Could not load the subscription check. Try again." }, 503);
+  }
+  if (!/^[1-9][0-9]*$/.test(twitchUserId)) {
+    return json({ active: Boolean(profile.starlight_pass), message: "Confirm a Twitch connection in account settings before checking Starlight Pass." }, 403);
+  }
 
   async function saveSubscription(active: boolean, source: string | null, message: string) {
     const { data: saved, error: saveError } = await admin.from("profiles").update({
@@ -85,7 +79,7 @@ Deno.serve(async (req) => {
     return saveSubscription(true, "broadcaster", "Starlight Pass is active because this is the channel account. Twitch does not list the broadcaster as a subscriber.");
   }
 
-  if (channelLogin && userLogin && channelLogin === userLogin) {
+  if (broadcasterId === twitchUserId) {
     return await grantOwner();
   }
 
@@ -104,11 +98,21 @@ Deno.serve(async (req) => {
     });
   }
 
+  try {
+    const validationRes = await fetch("https://id.twitch.tv/oauth2/validate", {
+      headers: { Authorization: `Bearer ${accessToken}` }, signal: AbortSignal.timeout(10000)
+    });
+    const validation = await validationRes.json();
+    if (!validationRes.ok || validation.client_id !== clientId || validation.user_id !== twitchUserId) {
+      return json({ active: Boolean(profile.starlight_pass), message: "Reconnect the confirmed Twitch account, then try again." }, 403);
+    }
+
   if (!broadcasterId && accessToken) {
     const login = (config?.broadcaster_twitch_login || "").trim();
     const usersRes = await fetch(`https://api.twitch.tv/helix/users?login=${encodeURIComponent(login)}`, {
       headers: { "Client-Id": clientId, Authorization: `Bearer ${accessToken}` }
     });
+    if (!usersRes.ok) return json({ active: Boolean(profile.starlight_pass), message: "Twitch could not check the channel. Try again." }, 503);
     const usersJson = await usersRes.json();
     broadcasterId = usersJson.data?.[0]?.id || "";
   }
@@ -130,5 +134,12 @@ Deno.serve(async (req) => {
     return json({ active: Boolean(profile?.starlight_pass), message: "Twitch could not check the subscription. Try signing in again." });
   }
 
+  const subscription = await subRes.json();
+  if (!Array.isArray(subscription.data) || subscription.data.length !== 1 || subscription.data[0]?.broadcaster_id !== broadcasterId) {
+    return json({ active: Boolean(profile.starlight_pass), message: "Twitch returned an incomplete subscription check. Try again." }, 503);
+  }
   return saveSubscription(true, "twitch-sub", "Starlight Pass is active from your Twitch subscription.");
+  } catch (_) {
+    return json({ active: Boolean(profile.starlight_pass), message: "Twitch could not check the subscription. Try again." }, 503);
+  }
 });

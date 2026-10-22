@@ -41,3 +41,5 @@ CODEX-53 PREPARED: deeper direct-trade audit reproduces bypass of existing5-minu
 CODEX-53 status correction: approved direct-trade validation installed20261021133711 and exact catalog/data checks passed. The earlier PREPARED paragraph is historical;two-party hosted trade remains untested.
 
 | R-OWNER-NULL | **CORRECTION INSTALLED / VERIFIED** | CODEX-67 rejects NULL owner permission results. Exact migration20261021181614 verified,15 local SQL cases; no live endpoint exploitation test or incident assessment. |
+
+| R-PASS-IDENTITY | **CORRECTION DEPLOYED / SOURCE VERIFIED** | CODEX-80 owner-approved refresh-pass version7 replaces editable identity fallbacks with confirmed connection IDs and token client/user binding.22 mocked identity/8 override checks;87 suites pass. No hosted invocation,existing-account repair or incident assessment. |

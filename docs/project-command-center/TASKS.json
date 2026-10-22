@@ -5,15 +5,15 @@
   "tasks": [
     {
       "id": "CODEX-80",
-      "status": "doing",
+      "status": "done",
       "scope": "Bounded Pass authorization review and private tested correction",
       "dependencies": [
         "CODEX-79"
       ],
       "evidence": "PASS-IDENTITY-REVIEW-CODEX80.md;private local packet outside Git",
-      "testResults": "22 LOCAL actual-handler mocked cases pass;deployed baseline source comparison and read-only connection access catalog checked;build31HTML464refs pass",
-      "nextAction": "Important owner decision needed before one Edge Function authorization correction;no hosted invocation allowed",
-      "approvalRequirement": "Explicit production Auth/security authority decision under streamlink-project.mdc;routine frontend policy excludes this change"
+      "testResults": "87 STATIC/LOCAL suites/build pass;22 identity and8 override mocked cases;hosted version7 exact source/JWT verified without invocation",
+      "nextAction": "Continue remaining bounded launch review;real provider QA and final launch remain separate",
+      "approvalRequirement": "Owner approved one refresh-pass correction;deployed and verified,allowance consumed;no live invocation/account mutation"
     },
     {
       "id": "CODEX-79",

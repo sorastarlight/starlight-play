@@ -1,0 +1,14 @@
+{
+  "classification": "LOCAL actual-source and isolated REAL BROWSER;fictional read replies only",
+  "baseline": "Newest selected listing assertion fails before fix",
+  "focusedCases": 4,
+  "regressionSuites": 98,
+  "browser": "Second chosen listing opened;closed dialog remained closed when obsolete first reply arrived",
+  "featureCommit": "69197b98",
+  "mainCommit": "e9336469e4287d93184216dae5e9069fa2ffe14e",
+  "pagesRun": 39782035313,
+  "productionRpcCalls": 0,
+  "loopbackServerStopped": true,
+  "pagesConclusion": "success",
+  "hostedSourceMatches": 56
+}

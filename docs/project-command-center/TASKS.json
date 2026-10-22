@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-109",
+      "status": "done",
+      "scope": "GTS selected listing detail response ordering",
+      "dependencies": [
+        "CODEX-108"
+      ],
+      "evidence": "LAUNCH-CODEX109-GTS-DETAILS.md; evidence/codex109-regressions.json",
+      "testResults": "Baseline reproduced;4actual-source cases;98/98suites/build31/464;isolated real browser selection and close pass",
+      "nextAction": "Continue concrete independent work;required real device/assistive/provider acceptance still pending",
+      "approvalRequirement": "CODEX-78 routine frontend scope only"
+    },
+    {
       "id": "CODEX-108",
       "status": "done",
       "scope": "GTS overlapping board refresh ordering correction",

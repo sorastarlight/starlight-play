@@ -393,7 +393,7 @@
         els.bridgeStatus.innerHTML = `<span class="status-bad">Stream bridge offline.</span> Commands wait until the Play bridge is running.`;
       }
       if (bridge.lastError && !/must join this encounter/i.test(bridge.lastError)) {
-        els.bridgeStatus.innerHTML += ` Last stream note: ${bridge.lastError}`;
+        els.bridgeStatus.innerHTML += ` Last stream note: ${esc(bridge.lastError)}`;
       }
     }
     if (typeof window.playApplyStaffOverview === "function") window.playApplyStaffOverview(data, fillForms);
@@ -406,7 +406,7 @@
     } catch (error) {
       const message = window.playRpcError(error, "Could not load staff overview.");
       if (els.bridgeStatus && !/failed to fetch|networkerror|load failed/i.test(message)) {
-        els.bridgeStatus.innerHTML = `<span class="status-bad">${message}</span>`;
+        els.bridgeStatus.innerHTML = `<span class="status-bad">${esc(message)}</span>`;
       }
     }
   }
@@ -889,7 +889,7 @@
         <div><dt>Trials</dt><dd>${money(trials)}</dd></div>
       </dl>`;
     } catch (error) {
-      els.simOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+      els.simOut.innerHTML = `<p class="muted">${esc(window.playRpcError(error))}</p>`;
     }
   });
 
@@ -1096,7 +1096,7 @@
       }
       renderGameHealthBoard(data, buildView);
     } catch (error) {
-      board.innerHTML = `<p class="muted">${window.playRpcError(error, "Game Health is unavailable.")}</p>`;
+      board.innerHTML = `<p class="muted">${esc(window.playRpcError(error, "Game Health is unavailable."))}</p>`;
     }
   }
 
@@ -1121,7 +1121,7 @@
         <p>Missing capture_log (14d committed throws): ${data?.missingLogs || 0}</p>
         ${failed.length ? `<pre>${failed.map((row) => `${row.name}: ${row.detail || ""}`).join("\n")}</pre>` : ""}`;
     } catch (error) {
-      healthOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+      healthOut.innerHTML = `<p class="muted">${esc(window.playRpcError(error))}</p>`;
     }
   });
 
@@ -1234,7 +1234,7 @@
       if (els.reportMeta) els.reportMeta.textContent = `Updated. Last refreshed: ${clockTime(lastReportAt)} · Time range: ${els.reportDays.value} days`;
       renderAnalyticsOverview();
     } catch (error) {
-      els.reportOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+      els.reportOut.innerHTML = `<p class="muted">${esc(window.playRpcError(error))}</p>`;
       if (els.reportMeta) els.reportMeta.textContent = window.playRpcError(error);
     }
   }
@@ -1340,7 +1340,7 @@
         <div><dt>Weekly Ultra Balls</dt><dd>${week.ultraBallsAffordable}</dd></div>
       </dl><p class="muted">${week.note || "Dry run only."}</p>`;
     } catch (error) {
-      els.ecoSimOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+      els.ecoSimOut.innerHTML = `<p class="muted">${esc(window.playRpcError(error))}</p>`;
     }
   });
 
@@ -1420,7 +1420,7 @@
         <div><dt>Linking Cords / 100 catches</dt><dd>${per.cordsPer100Catches}</dd></div>
       </dl><p class="muted">${data.note || ""}</p>`;
     } catch (error) {
-      els.lootSimOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+      els.lootSimOut.innerHTML = `<p class="muted">${esc(window.playRpcError(error))}</p>`;
     }
   });
 
@@ -1450,7 +1450,7 @@
            </tr>`).join("")}</tbody></table>`
         : `<p class="muted">No ledger rows yet.</p>`;
     } catch (error) {
-      els.ecoLedger.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+      els.ecoLedger.innerHTML = `<p class="muted">${esc(window.playRpcError(error))}</p>`;
     }
   });
 
@@ -1592,7 +1592,7 @@
       ${first?.range ? `<p class="muted">${window.playEscapeAttr(first.range)}</p>` : ""}
       ${last?.range ? `<p class="muted">${window.playEscapeAttr(last.range)}</p>` : ""}`;
     } catch (error) {
-      if (els.candySimOut) els.candySimOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+      if (els.candySimOut) els.candySimOut.innerHTML = `<p class="muted">${esc(window.playRpcError(error))}</p>`;
     }
   });
 
@@ -1934,7 +1934,7 @@
           <div><dt>Average gap</dt><dd>${data.averageGapMinutes ?? "—"} min</dd></div>
         </dl>`;
     } catch (error) {
-      if (els.dirSimOut) els.dirSimOut.innerHTML = `<p class="muted">${window.playRpcError(error)}</p>`;
+      if (els.dirSimOut) els.dirSimOut.innerHTML = `<p class="muted">${esc(window.playRpcError(error))}</p>`;
     }
   });
   document.addEventListener("click", (event) => {

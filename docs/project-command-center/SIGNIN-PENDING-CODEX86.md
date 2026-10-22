@@ -1,0 +1,9 @@
+# CODEX-86 — Sign-in page request-state maintenance
+
+The actual signin.js baseline issued two helper requests for two submissions while the first was pending. Its sign-in,reset-email and username-reminder listeners also lacked a caught error state. The baseline sign-in duplication was reproduced;seven LOCAL actual-source cases verify pending dedupe,disabled submit controls,aria-busy,restored manual retry,safe error text and unchanged successful sign-in redirect/helper arguments after correction.
+
+This browser-only maintenance preserves all authentication helpers,request payloads,provider flows,server rules and success destinations. It adds no automatic retry or account authority. Existing CODEX-78 routine frontend publication scope applies. No real sign-in,email,reset,username request or protected-account mutation was tested. LOCAL real browser fixture tests all3 forms with fictional helpers only.92 STATIC/LOCAL suites and build31HTML464refs pass,APP20261008-rc133 unchanged.
+
+Only4 reviewed files are cherry-picked onto main:js/signin.js,tests/signin-pending-tests.js,tools/signin-pending-review.html and the public source checker. Feature source9388f82d;publicationcd4d9392,Pages39721165393. Unrelated queued branch changes are excluded. Hosted acceptance complete:Pages39721165393 succeeded;38public files match;all3 hosted mocked forms disable while pending and restore manual retry after errors. No actual Auth/mail call. Evidence:evidence/signin-pending-codex86.json. Local HTTP server stopped.
+
+Additional read-only OAuth/link-source sample found caller-bound predicates in cancellation and Primary selection and authentication requirement for link/reauthorize intents. No RPC invoked. This does not certify provider OAuth intent replay,real consent or callbacks. Historical D86 gameplay milestone remains unauthorized;CODEX-86 is a separate frontend maintenance record.

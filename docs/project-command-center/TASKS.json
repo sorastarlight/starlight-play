@@ -4,6 +4,19 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-86",
+      "status": "done",
+      "scope": "Sign-in/recovery/reminder pending-state maintenance",
+      "dependencies": [
+        "CODEX-85"
+      ],
+      "commit": "9388f82dcfd6e93c4b7cf08805578761e3b049e9",
+      "evidence": "SIGNIN-PENDING-CODEX86.md;evidence/codex86-regressions.json",
+      "testResults": "7new actual-source cases;92suites/build;Pages39721165393 success;38source matches;REAL DOM hosted3mocked forms pending/retry",
+      "nextAction": "Continue matrix;real-provider/device/post-change backup/final release limits retained",
+      "approvalRequirement": "CODEX-78 routine frontend scope;no Auth/server/provider authority change;D86 remains unauthorized"
+    },
+    {
       "id": "CODEX-85",
       "status": "done",
       "scope": "Consolidated acceptance matrix,diagnostics/recovery source verification and recovery dependencies",

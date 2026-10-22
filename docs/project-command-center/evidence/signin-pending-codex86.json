@@ -1,0 +1,26 @@
+{
+  "classification": "STATIC/LOCAL source tests and REAL DOM isolated mocked browser acceptance;not real Auth/mail test",
+  "checkedAt": "2026-10-22T04:15:30.996Z",
+  "featureCommit": "9388f82dcfd6e93c4b7cf08805578761e3b049e9",
+  "publicationCommit": "cd4d93920287d8545699e4bddd7218ed7ef9dcb3",
+  "pagesRun": "39721165393",
+  "publicFilesMatched": 38,
+  "regressionSuites": 92,
+  "newCases": 7,
+  "baselineReproduced": "Two pending sign-in submits called helper twice",
+  "browserLocal": [
+    "signin pending/error/retry",
+    "recovery pending/error/retry",
+    "username pending/error/retry"
+  ],
+  "browserHosted": [
+    "signin pending/error/retry",
+    "recovery pending/error/retry",
+    "username pending/error/retry"
+  ],
+  "screenshot": "signin-retry-hosted-codex86.png",
+  "actualSignIn": false,
+  "emailsSent": 0,
+  "authAuthorityChanged": false,
+  "appBuild": "20261008-rc133"
+}

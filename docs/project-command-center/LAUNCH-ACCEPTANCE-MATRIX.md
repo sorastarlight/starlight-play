@@ -1,6 +1,6 @@
 # Current launch acceptance matrix — CODEX-85
 
-This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run:91/91 suites in CODEX-84;no runtime change since. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
+This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run:92/92 suites in CODEX-86. Routine sign-in pending/retry maintenance published and isolated hosted mocks verified;no Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
 | Area | Evidence completed | Remaining condition |
 |---|---|---|

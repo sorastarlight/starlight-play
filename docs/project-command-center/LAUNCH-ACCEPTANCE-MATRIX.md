@@ -1,6 +1,6 @@
-# Current launch acceptance matrix — CODEX-116 real acceptance required
+# Current launch acceptance matrix — CODEX-117 real acceptance required
 
-This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 100/100 suites in CODEX-114. Routine staff error/Bits feedback escaping is published and verified against 56 hosted source files; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
+This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 100/100 suites in CODEX-114. Routine staff error/Bits feedback escaping is published;current expanded checker verified100hosted source files in CODEX-115; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
 | Area | Evidence completed | Remaining condition |
 |---|---|---|
@@ -57,3 +57,5 @@ CODEX-114 supersedes prior deployment hold:39796866472success;actual Events/Trai
 CODEX-115 current publication state:latest739fbc19/Pages39799569389success;100/100expanded hosted sources and actual versioned motion script match. The CODEX-113/114queued statements above are historical. Expired eight-hour automation PAUSED;4/4reviewed recovery packet hashes unchanged. Real physical/assistive/provider acceptance and final launch decision remain open.
 
 CODEX-116 approved trade-state correction installed/sourceverified20261022162826.16new REAL LOCAL SQL packet cases,2baseline reproductions;no live gameplay. Recovery inventory includes this newer delta;last observed physical backup predates it. Full frontend100suites remain CODEX-114;100hosted source matches remain verified in115.
+
+CODEX-117:13fresh REAL LOCAL offer/team/trigger cases pass;initial trigger-free defect hypothesis rejected. Enabled trigger refusals roll back team removal/timestamp writes. No new production correction. Pages39799569389success rechecked;no frontend regression rerun/new source fetch claimed. Required real acceptance and held Twitch tests unchanged. See LAUNCH-CODEX117-TRIGGER-REVIEW.md.

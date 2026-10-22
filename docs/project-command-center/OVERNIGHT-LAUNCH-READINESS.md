@@ -1,4 +1,4 @@
-# Launch readiness handoff — consolidated through CODEX-116
+# Launch readiness handoff — consolidated through CODEX-117
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
@@ -75,3 +75,5 @@ CODEX-115 complete:final motion deploy39799569389success;100/100expanded hosted 
 CODEX-115 scoped PC ownership review adds16REAL LOCAL SQL grouped checks using six captured definitions and fictional data;no hosted function/data action. Cluster/port closed;source stays private. No new ownership bypass confirmed in scope;full RLS/concurrency/deletion remain outside these checks. See LAUNCH-CODEX115-READINESS.md.
 
 CODEX-116 VERIFIED:owner-approved two-function trade state correction installed20261022162826;exact full source/attributes match,2control definitions/attributes unchanged.2baseline races and16REAL LOCAL SQL actual packet checks;2Git-recreated raw hashes/build31/464pass. No hosted application RPC/trade/history repair/grant/provider/APP action. Recovery delta added. See LAUNCH-CODEX116-TRADE-STATE.md.
+
+CODEX-117:trigger-aware GTS offer review13REAL LOCAL SQL cases;initial function-only hypothesis rejected,no correction needed. Exact trigger failures roll back team/timestamp writes. Workflow success rechecked;current acceptance summaries reconciled. No hosted mutation/provider/gameplay/APP action. Private exploratory candidate explicitly not installable;see LAUNCH-CODEX117-TRIGGER-REVIEW.md.

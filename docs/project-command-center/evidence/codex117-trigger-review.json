@@ -1,0 +1,29 @@
+{
+  "classification": "REAL LOCAL SQL: exact captured offer/team/trigger definitions and enabled trigger wiring; fictional minimal schema; not full RLS/concurrency/trade acceptance",
+  "checks": 13,
+  "results": [
+    "locked: refusal preserves team, timestamp and offers",
+    "favorite: refusal preserves team, timestamp and offers",
+    "received cooldown: refusal preserves team, timestamp and offers",
+    "untradable: refusal preserves team, timestamp and offers",
+    "foreign specimen: refusal preserves team, timestamp and offers",
+    "own listing: refusal preserves team, timestamp and offers",
+    "closed listing: refusal preserves team, timestamp and offers",
+    "wrong species: refusal preserves team, timestamp and offers",
+    "wrong gender: refusal preserves team, timestamp and offers",
+    "missing shiny: refusal preserves team, timestamp and offers",
+    "ordinary offer: existing success preserved",
+    "expired cooldown: existing success preserved",
+    "missing identity denied without changes"
+  ],
+  "conclusion": "Initial trigger-free hypothesis rejected. Existing trigger denies protected offers and rolls back prior team update. No production correction warranted by these cases.",
+  "productionApplicationCalls": 0,
+  "productionChanges": 0,
+  "workflow": {
+    "id": 39799569389,
+    "status": "completed",
+    "conclusion": "success",
+    "head": "739fbc193a30463ad36473dff0de5cbe6ba1f52d"
+  },
+  "initialHypothesis": "Rejected after including actual enabled triggers; exploratory17cases not production evidence"
+}

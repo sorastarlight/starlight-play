@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-117",
+      "status": "done",
+      "scope": "Trigger-aware GTS offer review and current readiness reconciliation",
+      "dependencies": [
+        "CODEX-116"
+      ],
+      "evidence": "LAUNCH-CODEX117-TRIGGER-REVIEW.md; evidence/codex117-trigger-review.json",
+      "testResults": "13REAL LOCAL SQL cases with exact enabled trigger wiring;initial trigger-free hypothesis rejected;Pages39799569389success rechecked",
+      "nextAction": "Real mobile/assistive acceptance remains required;Twitch testing held;independent risk-based review remains bounded",
+      "approvalRequirement": "Read-only catalog/local fictional SQL/docs only;no production correction warranted"
+    },
+    {
       "id": "CODEX-116",
       "status": "done",
       "scope": "Owner-approved two-function trade state correction and exact recovery packet",

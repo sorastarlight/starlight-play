@@ -4,7 +4,7 @@ Current October22,2026. OWNER DECISION: Require real mobile/assistive and Twitch
 
 ## Evidence already recorded
 
-Bounded hosted catch/WIRE/Familiarity, economy/evolution/Oak, gifts/Pass, Helpdesk/recovery email and two-account GTS checks passed within recorded scopes. Confirmed purchase/reminder faults corrected in CODEX-96; exact installed source/attributes verified. Latest full regression95suites is CODEX-91. CODEX-97 verifies existing WIRE/cutoff/worker/disabled-link-policy records. Actual logical recovery passed; current07:44UTC physical backup predates CODEX-96, with guarded replay deltas retained. No new gameplay or restore is required merely to inspect this packet.
+Bounded hosted catch/WIRE/Familiarity, economy/evolution/Oak, gifts/Pass, Helpdesk/recovery email and two-account GTS checks passed within recorded scopes. Confirmed purchase/reminder faults corrected in CODEX-96 and trade state races corrected in CODEX-116; exact installed source/attributes verified. Latest full regression100suites is CODEX-114. CODEX-115 verifies100hosted sources and successful final motion deployment;CODEX-117 rechecks workflow success. CODEX-97 verifies existing WIRE/cutoff/worker/disabled-link-policy records. Actual logical recovery passed; observed October22 07:44UTC physical backup predates CODEX-96/116, with guarded replay deltas retained. No new gameplay or restore is required merely to inspect this packet.
 
 ## What needs external evidence or an explicit deferral
 

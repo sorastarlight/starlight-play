@@ -1,0 +1,48 @@
+{
+  "classification": "REAL LOCAL SQL exact extracted allowlist/dynamic-UPDATE branch; fictional inventory; no production invocation",
+  "passed": 21,
+  "sourceBodyMd5": "899d51d9b5d30afece0a10a1f9db4dac",
+  "checks": [
+    "berry decrement is bound and affects selected trainer/column only",
+    "berry clamps at zero",
+    "bait decrement is bound and affects selected trainer/column only",
+    "bait clamps at zero",
+    "pokeball decrement is bound and affects selected trainer/column only",
+    "pokeball clamps at zero",
+    "greatball decrement is bound and affects selected trainer/column only",
+    "greatball clamps at zero",
+    "ultraball decrement is bound and affects selected trainer/column only",
+    "ultraball clamps at zero",
+    "lure decrement is bound and affects selected trainer/column only",
+    "lure clamps at zero",
+    "bag_bonus decrement is bound and affects selected trainer/column only",
+    "bag_bonus clamps at zero",
+    "Unsupported key rejected with no state change: pokeball\"; DROP TABLE inventories;--",
+    "Unsupported key rejected with no state change: updated_at",
+    "Unsupported key rejected with no state change: user_id",
+    "Unsupported key rejected with no state change: coins",
+    "Malformed/overflow quantity rejected without writes",
+    "Malformed/overflow quantity rejected without writes",
+    "Later unsupported key rolls back earlier branch update"
+  ],
+  "limits": [
+    "Not full admin_grant_bag or staff Auth/RLS integration",
+    "Other grant branches/ledger rewards not exercised",
+    "No staff or protected trainer mutation"
+  ],
+  "checkedAt": "2026-10-22T08:58:11.040Z",
+  "privateArtifacts": "LOCALAPPDATA/PokemonStreamLink/security/codex99/",
+  "rehearsalSha256": "70a5c14a2ae377763220f797f665b6e1acd5eef070e841d13b0addde6146df70",
+  "resultSha256": "4b1d910d341f54c4a4963e51ca1e4d960961c91031c416a7e77caa0a316d7453",
+  "catalogScope": {
+    "schemas": [
+      "public",
+      "private"
+    ],
+    "broadExecuteWordMatches": 4,
+    "statementAnchoredMatches": 2,
+    "statementPattern": "newline whitespace EXECUTE whitespace",
+    "privateLedgerSelftestBrowserExecute": false,
+    "adminGrantAnonymousExecute": false
+  }
+}

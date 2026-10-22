@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-99",
+      "status": "done",
+      "scope": "Dynamic SQL inventory and exact staff inventory branch boundary rehearsal",
+      "dependencies": [
+        "CODEX-98"
+      ],
+      "evidence": "OVERNIGHT-CODEX99.md; evidence/codex99-dynamic-sql.json",
+      "testResults": "2statement-pattern function matches reviewed;21REAL LOCAL SQL allowlist/binding/clamp/rollback checks pass;not full staff/Auth integration",
+      "nextAction": "Continue genuinely unreviewed security boundaries while owner acceptance-scope prompt remains pending",
+      "approvalRequirement": "No SQL install/grant/gameplay/provider/launch authority; no accepted deferrals inferred"
+    },
+    {
       "id": "CODEX-98",
       "status": "done",
       "scope": "Explicit catalog-search name and reviewable remaining launch scope",

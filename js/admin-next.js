@@ -50,6 +50,17 @@
   let opsInFlight = false;
   let opsActive = false;
   let staffOpen = false;
+  let hubGeneration = 0;
+  let martIdentity = "";
+  const mart = window.PLAY_ADMIN_NEXT_MART?.mount(document.getElementById("next-mart"), async (name, args) => {
+    if (!["admin_store_get", "admin_store_save_item"].includes(name)) throw new Error("Unsupported Mart operation.");
+    const identity = martIdentity;
+    const { data, error } = await supabase.auth.getSession();
+    if (error || !staffOpen || !identity || data?.session?.user?.id !== identity || martIdentity !== identity) throw new Error("Staff session changed.");
+    return name === "admin_store_get"
+      ? window.playCall("admin_store_get")
+      : window.playCall("admin_store_save_item", args);
+  });
   let trainerQuery = "";
   let trainerOffset = 0;
   let trainerTotal = 0;
@@ -384,6 +395,7 @@
     if (next === "operations") startOpsPoll();
     else stopOpsPoll();
     if (next === "trainers" && staffOpen && !trainerDirLoaded) loadTrainerDirectory();
+    if (next === "mart" && staffOpen && mart?.state.phase === "closed") mart.open();
   }
 
   async function loadHealth() {
@@ -418,6 +430,9 @@
   }
 
   function setSignedOut() {
+    hubGeneration++;
+    martIdentity = "";
+    mart?.reset();
     staffOpen = false;
     stopOpsPoll();
     healthLoaded = false;
@@ -431,16 +446,25 @@
   }
 
   async function loadHub(passedSession) {
+    const generation = ++hubGeneration;
     const session = passedSession || (await supabase.auth.getSession()).data.session;
+    if (generation !== hubGeneration) return;
+    if (martIdentity !== (session?.user?.id || "")) {
+      martIdentity = "";
+      mart?.reset();
+    }
     if (!session) {
       setSignedOut();
       return;
     }
     const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
     const { data: isAdmin, error } = await supabase.rpc("is_play_admin");
+    if (generation !== hubGeneration) return;
     window.playSetAccountNav?.(session, profile, { isAdmin: Boolean(isAdmin) });
       if (error || !isAdmin) {
       staffOpen = false;
+      martIdentity = "";
+      mart?.reset();
       stopOpsPoll();
       resetTrainers();
       if (els.staff) els.staff.hidden = true;
@@ -454,6 +478,7 @@
     if (els.gate) els.gate.hidden = true;
     if (els.staff) els.staff.hidden = false;
     staffOpen = true;
+    martIdentity = session.user.id;
     const section = new URL(window.location.href).searchParams.get("section");
     showTab(section, false);
   }

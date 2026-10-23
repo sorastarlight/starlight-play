@@ -1,0 +1,21 @@
+.mart-layout{display:grid;grid-template-columns:minmax(200px,.7fr) minmax(0,1.6fr);gap:18px;margin-top:18px}
+.mart-card{min-width:0;border:1px solid #e4ddef;border-radius:20px;padding:20px;background:#fff;overflow-wrap:anywhere;align-self:start}
+.mart-card h3{margin-top:0}.mart-card label{display:block;font-weight:800;margin:10px 0}
+.mart-card input:not([type=checkbox]),.mart-card textarea,.mart-card select{display:block;width:100%;min-width:0;min-height:44px;margin-top:6px;padding:10px 12px;border:2px solid #d2dced;border-radius:12px;background:#fff;color:inherit;font:inherit;box-sizing:border-box}
+.mart-card textarea{resize:vertical}.mart-card fieldset{min-width:0;margin:0;padding:0;border:0}
+.mart-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 14px}.mart-wide{grid-column:1/-1}
+.mart-card .mart-check{display:flex;align-items:center;gap:10px;min-height:44px}.mart-check input{width:20px;height:20px;flex:none}
+.mart-product{display:block;width:100%;text-align:left;margin:10px 0;background:#f6f8ff;border:2px solid #d2dced;border-radius:12px;padding:12px;white-space:normal;overflow-wrap:anywhere}
+.mart-product strong,.mart-product small{display:block}.mart-product[aria-pressed=true]{background:#fff0fa;border-color:#d897c2}
+.mart-preview{margin:18px 0;padding:20px;border-radius:18px;background:linear-gradient(125deg,#fbe5f4,#fff5d1,#e7f1ff)}
+.mart-preview h4{font-family:Fredoka,sans-serif;font-size:23px;margin:8px 0}.mart-preview p{margin:8px 0}
+.mart-actions{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 0}.mart-actions button{flex:1;min-width:140px}
+#next-mart button{font:inherit;font-weight:800;color:#604666;min-height:44px;cursor:pointer}
+#next-mart button:not(.mart-product){padding:10px 14px;border:2px solid #d2dced;border-radius:12px;background:#f4f8ff}
+#next-mart button:disabled{cursor:default;opacity:.55}
+#next-mart :is(button,input,textarea,select):focus-visible{outline:3px solid #725cc6;outline-offset:3px}
+.mart-dialog{box-sizing:border-box;width:min(760px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:24px;border:2px solid #d2dced;border-radius:24px;color:#49465e;background:#fff;overflow-wrap:anywhere}
+.mart-dialog::backdrop{background:#27253eaa}.mart-dialog h3{font-family:Fredoka,sans-serif;font-size:24px;margin-top:0}
+.mart-comparison{margin:16px 0}.mart-comparison>div{padding:12px 0;border-bottom:1px solid #e4ddef}.mart-comparison dt{font-weight:800}.mart-comparison dd{margin:8px 0}.mart-comparison span,.mart-comparison strong{display:block;white-space:pre-wrap}
+@media(max-width:850px){.mart-layout{grid-template-columns:minmax(0,1fr)}.mart-card{padding:16px}}
+@media(max-width:440px){.mart-fields{grid-template-columns:minmax(0,1fr)}.mart-wide{grid-column:auto}.mart-dialog{padding:18px}.mart-actions button{min-width:100%;}}

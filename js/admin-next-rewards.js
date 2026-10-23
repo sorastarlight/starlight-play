@@ -29,7 +29,7 @@
   }
   function reviewArt(intent){
     const p=intent.p_payload;
-    const url=intent.p_action==="candy"?candyArt(p.dex):intent.p_action==="pokemon"?speciesArt(p.dex,p.shiny):intent.p_action==="badge"?ribbonArt(p.id):intent.p_action==="item"?globalThis.playItemSprite?.(p.key):null;
+    const url=intent.p_action==="candy"?candyArt(p.dex):["pokemon","pokemon_batch"].includes(intent.p_action)?speciesArt(p.dex,p.shiny):intent.p_action==="badge"?ribbonArt(p.id):intent.p_action==="item"?globalThis.playItemSprite?.(p.key):null;
     return url?`<img src="${esc(url)}" width="96" height="96" alt="">`:'<span class="reward-star" aria-hidden="true">✦</span>';
   }
   const speciesArt=(dex,shiny=false)=>`images/pokemon/home/${shiny?"shiny/":""}${Number(dex)}.png`;
@@ -59,12 +59,12 @@
     const dialog=modal(`<form class="reward-review-form"><header><div><p class="eyebrow">${intent.p_action.startsWith('pass_')?'Starlight Pass':'Special delivery'}</p><h3>${esc(actionNames[intent.p_action]||"Review staff action")}</h3></div><button type="button" data-modal-cancel>Cancel</button></header><div class="reward-review-hero">${art}<strong>${esc(intentSummary(intent,data))}</strong><span>For ${esc(user.displayName||user.login||"Trainer")}</span></div><details><summary>Trainer account</summary><small>${esc(user.id)}</small></details><label>Staff reason<textarea name="reason" rows="2" required minlength="3" maxlength="500" placeholder="Why are you making this change?"></textarea></label><p class="record-note">This action and reason will be saved in staff history.</p><button class="reward-deliver" type="submit" ${previewOnly?'disabled':''}>${previewOnly?'Preview only — no gifts sent':intent.p_action.startsWith('pass_')?'Confirm Pass action':'Send gift ✦'}</button></form>`,"Review staff action",opener);
     return new Promise(resolve=>{dialog.addEventListener('close',()=>resolve(null),{once:true});dialog.querySelector('form').addEventListener('submit',event=>{event.preventDefault();if(previewOnly)return;const reason=dialog.querySelector('textarea').value.trim();if(reason.length<3){dialog.querySelector('textarea').setCustomValidity('Enter at least 3 characters.');dialog.querySelector('textarea').reportValidity();return;}resolve(reason);dialog.close();});dialog.querySelector('textarea').addEventListener('input',event=>event.target.setCustomValidity(''));});
   }
-  const actionNames={pass_on:"Turn Pass on",pass_off:"Turn Pass off",pass_sync:"Clear staff override",pass_daily:"Give daily rewards again",pass_weekly:"Give weekly rewards again",item:"Give items",pokemon:"Give a Pokémon",candy:"Give Evolution Candy",title:"Give a title",cosmetic:"Give a cosmetic",badge:"Give a ribbon"};
+  const actionNames={pass_on:"Turn Pass on",pass_off:"Turn Pass off",pass_sync:"Clear staff override",pass_daily:"Give daily rewards again",pass_weekly:"Give weekly rewards again",item:"Give items",pokemon:"Give a Pokémon",pokemon_batch:"Give Pokémon",candy:"Give Evolution Candy",title:"Give a title",cosmetic:"Give a cosmetic",badge:"Give a ribbon"};
   const bundleText=(items)=>Object.entries(items||{}).map(([id,qty])=>`${qty} ${itemName({id,name:id})}`).join(", ")||"None recorded";
   function intentSummary(intent,data){
     const p=intent.p_payload;
     if(intent.p_action==="item")return `${p.qty} ${itemName((data.catalog?.items||[]).find(row=>row.id===p.key)||{id:p.key})}`;
-    if(intent.p_action==="pokemon")return `${speciesName(p.dex)} · #${p.dex}, level ${p.level}${p.shiny?", Shiny":""}`;
+    if(["pokemon","pokemon_batch"].includes(intent.p_action))return `${intent.p_action==="pokemon_batch"?p.qty+" × ":""}${speciesName(p.dex)} · #${p.dex}, level ${p.level}${p.shiny?", Shiny":""}`;
     if(intent.p_action==="candy")return `${p.qty} ${candyName(p.dex)}`;
     if(intent.p_action==="pass_daily"||intent.p_action==="pass_weekly")return bundleText(data.bundles?.[intent.p_action==="pass_daily"?"daily":"weekly"]);
     if(intent.p_action==="pass_sync")return "Resume subscription syncing using the last recorded result.";
@@ -104,16 +104,19 @@
   function giftFields(data,kind){
     if(kind==="coins"||kind==="space")return `<label>${kind==="coins"?"PokéCoins":"Inventory Space slots"}<input name="qty" type="number" min="1" max="10000" value="1" required></label>`;
     if(kind==="item")return `${searchableChoice(data,kind,"Items","key")}<label>Quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`;
-    if(kind==="pokemon"||kind==="candy")return `<input name="dex" type="hidden" value=""><button type="button" class="reward-species-choice" data-species-picker>${kind==="candy"?"Choose candy family":"Choose Pokémon"}</button>${kind==="pokemon"?`<label>Level<input name="level" type="number" min="1" max="100" value="5" required></label><label class="reward-check"><input name="shiny" type="checkbox"> Shiny</label><p class="record-note">Base form, ordinary ability and server-generated individual stats. No hidden abilities or invented specimen data.</p>`:`<label>Evolution Candy quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`}`;
+    if(kind==="pokemon"||kind==="candy")return `<input name="dex" type="hidden" value=""><button type="button" class="reward-species-choice" data-species-picker>${kind==="candy"?"Choose candy family":"Choose Pokémon"}</button>${kind==="pokemon"?`<label>Pokémon quantity<input name="qty" type="number" min="1" max="${pokemonMax(data)}" step="1" value="1" required ${pokemonMax(data)===1?"disabled":""}></label>${pokemonMax(data)===1?`<p class="record-note">Multiple Pokémon gifts are awaiting server setup. Single gifts remain available.</p>`:`<p class="record-note">Give 1–${pokemonMax(data)} Pokémon in one audited batch. Each receives separately generated stats; if any gift fails, none from this batch are granted.</p>`}<label>Level<input name="level" type="number" min="1" max="100" value="5" required></label><label class="reward-check"><input name="shiny" type="checkbox"> Shiny</label><p class="record-note">Base form, ordinary ability and server-generated individual stats. No hidden abilities or invented specimen data.</p>`:`<label>Evolution Candy quantity<input name="qty" type="number" min="1" max="10000" value="1" required></label>`}`;
     return searchableChoice(data,kind,appearanceKinds[kind]?kindName(kind):kind==="title"?"Titles":kind==="badge"?"Ribbons":"Appearance unlocks","id");
   }
   function giftHtml(data,kind="item"){return `<h4>Special gifts</h4><form data-reward-form="gift" class="reward-form"><label>Gift type<select name="gift_kind"><option value="item">Items</option><option value="coins">PokéCoins</option><option value="space">Inventory Space</option><option value="pokemon">Pokémon</option><option value="candy">Evolution Candy</option><option value="title">Title</option><option value="background">Trainer ID Backgrounds</option><option value="team_background">Pokémon Team Backgrounds</option><option value="badge">Ribbon</option></select></label><div data-gift-fields>${giftFields(data,kind)}</div><button type="submit">Review gift</button></form><p class="record-note">Gym Badges are earned by defeating Gym Leaders. Gym Badge grants are not available yet. Ribbons are separate achievement awards.</p>${auditHtml(data)}`;}
+  function pokemonMax(data){return Number.isInteger(data?.pokemonGiftMaxQty)&&data.pokemonGiftMaxQty>=2?Math.min(data.pokemonGiftMaxQty,100):1;}
+  function pokemonQuantity(value,max=100){if(!/^\d+$/.test(String(value))||!Number.isSafeInteger(Number(value))||Number(value)<1||Number(value)>max)throw Error(`Choose 1–${max} Pokémon.`);return Number(value);}
   function makeIntent(form,submitter,userId,requestId){
     const fields=form.elements;
     const get=(name)=>fields.namedItem(name)?.value;
     const kind=get("gift_kind");
-    const action=form.dataset.rewardForm==="pass"?submitter?.dataset.passAction:["coins","space"].includes(kind)?"item":appearanceKinds[kind]?"cosmetic":kind;
-    const payload=action==="item"?{key:kind==="coins"?"coins":kind==="space"?"bag_bonus":get("key"),qty:Number(get("qty"))}:action==="pokemon"?{dex:Number(get("dex")),level:Number(get("level")),shiny:fields.namedItem("shiny").checked}:action==="candy"?{dex:Number(get("dex")),qty:Number(get("qty"))}:action?.startsWith("pass_")?{}:{id:get("id")};
+    const qty=kind==="pokemon"?pokemonQuantity(get("qty")??1,Number(fields.namedItem("qty")?.max)||100):1;
+    const action=kind==="pokemon"&&qty>1?"pokemon_batch":form.dataset.rewardForm==="pass"?submitter?.dataset.passAction:["coins","space"].includes(kind)?"item":appearanceKinds[kind]?"cosmetic":kind;
+    const payload=action==="item"?{key:kind==="coins"?"coins":kind==="space"?"bag_bonus":get("key"),qty:Number(get("qty"))}:(["pokemon","pokemon_batch"].includes(action))?{dex:Number(get("dex")),level:Number(get("level")),shiny:fields.namedItem("shiny").checked,...(qty>1?{qty}:{})}:action==="candy"?{dex:Number(get("dex")),qty:Number(get("qty"))}:action?.startsWith("pass_")?{}:{id:get("id")};
     return {p_user:userId,p_request:requestId,p_action:action,p_payload:payload,p_reason:get("reason")?.trim()};
   }
   let contexts=new WeakMap();
@@ -169,8 +172,9 @@
       const form=event.target.closest('[data-reward-form]');if(!form)return;event.preventDefault();
       if(ctx.busy||ctx.pending||!current())return;
       if(["pokemon","candy"].includes(form.elements.namedItem("gift_kind")?.value)&&!form.elements.namedItem("dex")?.value){chooseSpecies(form,current);return;}
+      let intent;
+      try{intent=makeIntent(form,event.submitter,user.id,crypto.randomUUID());}catch(error){status(error.message);return;}
       ctx.busy=true;
-      const intent=makeIntent(form,event.submitter,user.id,crypto.randomUUID());
       try{
         const reason=await reviewIntent(intent,ctx.data,user,transport.previewOnly);
         if(!reason||!current())return;
@@ -179,5 +183,5 @@
       await send(intent);
     });
   }
-  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName,giftChoices};
+  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName,giftChoices,pokemonMax,pokemonQuantity};
 }));

@@ -14,8 +14,8 @@ Owner requested a sustained site-wide rendered inspection and routine fixes,incl
 |Inventory says grant controls unavailable despite Gifts tab|Fixed/live CODEX-144|Clarify current view limits and direct staff to Gifts|
 |Original Admin Hub inventory/IA describe obsolete read-only state|Completed CODEX-144|Preserve initial design history;link current implementation summary|
 |Protected legacy admin contains remaining corrupted copy|Held exception|Not silently editing protected admin.html;record for a later consolidated legacy-tool decision|
-|Populated public-page and expanded state consistency|Continue inspection|PC,inventory,Mart,Oak,progression,Trainer,Helpdesk;use actual presenters with fictional data,not live mutations|
-|Search term consistency|Continue inspection|Check names,dex numbers,clear/empty/error states against actual supported behavior;never advertise unsupported filters|
+|Populated public-page and expanded state consistency|Scoped pass complete;deeper variants remain|Actual PC,Inventory,Rankings,Lab,Mart,Pokédex and Trainer-record fixtures reviewed;full coverage limits in CODEX-150 handoff|
+|Search term consistency|GTS/Pokédex corrections live146/149;deeper variants remain|Check names,dex numbers,clear/empty/error states against actual supported behavior;never advertise unsupported filters|
 |Remaining Admin Hub tools still use legacy screens|Separate overhaul completion phase|Operations controls,Mart/Content editors,configuration,full analytics,system/account mutations need scoped workflow designs;not completed by copy/CSS polish|
 
 ## First rendered pass
@@ -39,3 +39,5 @@ CODEX-147 VERIFIED:main1f2dce52/Pages39900646934success;100monitored+1versioned 
 CODEX-148 VERIFIED:main5af1d64b/Pages39901146424success;100monitored+3versioned sources match. CODEX-149 adds24Mart/Pokedex page-state cases and12Mart mode-width cases,0overflow/undersized mobile controls. Numeric #dex parser consistency corrected with invalid/unreleased/mismatched-name guards;107suites/build pass. Exact3runtime publication follows;no purchase/sale/claim/backend/provider/APP change. Total visual measurements through149:240,with stated shell/fixture limits.
 
 CODEX-149 VERIFIED:mainbc6c1bd3/Pages39901952232success;100monitored+3versioned sources match. CODEX-150 closes remaining mobile My Account/Achievements control targets;final21shells×4widths:84complete,0document overflow/undersized mobile controls/unexpected control fonts.107suites/build pass. Exact CSS-only publication follows;no backend/provider/player/APP change. See LAUNCH-CODEX150-VISUAL-PASS-HANDOFF.md.
+
+CODEX-150 VERIFIED:CSS-only mainfdfaf2a8/Pages39902411273success;100monitored+1changed versioned source match. All143–150routine slices live/source verified;107suites/build31/464;final84shell measurements clear,156selected-state measurements separately scoped.20recovery packet files verified without SQL. Protected legacy files unchanged;temporary tabs/servers closed. No SQL/Auth/provider/gameplay/player mutation/APP stamp/final launch. Handoff: LAUNCH-CODEX150-VISUAL-PASS-HANDOFF.md.

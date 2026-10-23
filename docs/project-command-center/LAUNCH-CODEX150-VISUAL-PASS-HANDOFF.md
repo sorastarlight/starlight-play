@@ -32,3 +32,7 @@ Current implemented Trainer/Pass/Gifts/Helpdesk/recovery workspace remains. Oper
 Deeper populated variants remain unreviewed,including complete Mart Pass/avatar/Bits states,full research milestones/evolution dialogs,public Trainer/achievement variants and every staff error/permission state. Existing prior bounded evidence remains useful but is not replaced with a blanket pass. Scope those follow-ups against actual data contracts;use fictional local fixtures before any separately authorized hosted action.
 
 Private fixtures/screenshots retained under LOCALAPPDATA/PokemonStreamLink/security/codex143–150. Temporary local review servers/tabs are cleaned up at handoff. Sora NO;Twinkle NO;PlayTester unchanged. No SQL,grants,Auth/provider/DNS/credential change,gameplay,rewards,real email,spending,scheduling,APP stamp or final launch declaration.
+
+## Final publication
+
+CSS-only main fdfaf2a8; Pages run39902411273 succeeded. Read-only source comparison confirms100/100monitored files and1/1changed versioned CSS match the exact published commit. All eight routine slices143–150 are now published and source verified. Evidence: evidence/codex150-publication.json. Temporary review tabs/servers are closed;private artifacts retained. No pending deployment or owner decision for these fixes.

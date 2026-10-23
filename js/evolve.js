@@ -1897,14 +1897,14 @@
   }
 
   async function load() {
-    const session = await loadNav();
-    if (!session) {
-      els.app.hidden = true;
-      window.playRestoreGate(els.gate, "Sign in to visit Prof. Oak's Lab.");
-      return;
-    }
-    window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
     try {
+      const session = await loadNav();
+      if (!session) {
+        els.app.hidden = true;
+        window.playRestoreGate(els.gate, "Sign in to visit Prof. Oak's Lab.");
+        return;
+      }
+      window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
       const [collection, boxes, oakResearch] = await Promise.all([
         window.playCall("play_collection"),
         window.playCall("play_storage").catch(() => null),

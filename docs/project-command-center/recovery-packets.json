@@ -105,6 +105,19 @@
           "sha256": "5c92ff11f4a56693a33761f6a6dfaa2cd31b8a82dbc500c1428e38ef7f07660b"
         }
       ]
+    },
+    {
+      "version": "20261023020246",
+      "files": [
+        {
+          "file": "supabase/unapplied/pass-delivery-result/INSTALL.sql",
+          "sha256": "f0a6b92afb314b954538dbdea303be29930cd668cf5e71c008016753835b465a"
+        },
+        {
+          "file": "supabase/unapplied/pass-delivery-result/ROLLBACK.sql",
+          "sha256": "bf0be2bdaecb7f172fc79a5bbed98468530594e78e2dc7cde82e7e0257502859"
+        }
+      ]
     }
   ]
 }

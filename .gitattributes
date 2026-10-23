@@ -19,3 +19,5 @@ supabase/unapplied/daily-supply-serialization/INSTALL.sql text eol=lf
 supabase/unapplied/daily-supply-serialization/ROLLBACK.sql text eol=lf
 supabase/unapplied/pass-claim-serialization/INSTALL.sql text eol=lf
 supabase/unapplied/pass-claim-serialization/ROLLBACK.sql text eol=lf
+supabase/unapplied/pass-delivery-result/INSTALL.sql text eol=lf
+supabase/unapplied/pass-delivery-result/ROLLBACK.sql text eol=lf

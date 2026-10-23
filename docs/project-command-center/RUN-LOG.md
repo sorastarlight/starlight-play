@@ -2263,3 +2263,7 @@ Two local defects privately confirmed;18/23source/actual-packet cases. Owner exp
 ## CODEX-129 — Follow-up Pass delivery-result packet held
 
 Separate exact-source defect confirmed after approved concurrency fixes.24REAL LOCAL source/actual-packet cases preserve existing serialization;guarded correction/rollback private and ready. New explicit SQL decision requested;no hosted claim/grant/install/player repair.8installed recovery deltas/16files remain;runtime/main/APPunchanged. Real acceptance open/Twitch held. Sora NO;Twinkle NO;PlayTester role unchanged.
+
+## CODEX-129 — Approved delivery-result correction installed (2026-10-22 EDT)
+
+Owner-approved one-function migration20261023020246;4fresh guards/reviewed hashes matched. Exact candidate/attributes and6control definitions/attributes unchanged verified without claims/grants/player repair.24local packet cases remain valid;20filesystem cases/build31/464;9installed recovery deltas/18Git-recreated raw hashes pass. Source approval spent. Main150c69e6/APPunchanged;real acceptance required/Twitch held. Sora NO;Twinkle NO;PlayTester role unchanged.

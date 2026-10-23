@@ -2,7 +2,7 @@
 
 | ID | Status | Notes |
 |---|---|---|
-| R-PASS-DELIVERY-RESULT | **CONFIRMED LOCALLY / FIX HELD** | CODEX-129 private one-function correction/rollback pass24local cases. New SQL decision pending;no hosted claim/install. Existing serialization corrections remain installed. See LAUNCH-CODEX129-PASS-DELIVERY-REVIEW.md. |
+| R-PASS-DELIVERY-RESULT | **CLOSED — HOSTED SOURCE VERIFIED** | Owner-approved CODEX-129 migration20261023020246;exact candidate/attributes and6unchanged controls verified without claims.24local cases;guarded recovery retained. Existing serialization preserved. See LAUNCH-CODEX129-PASS-DELIVERY-REVIEW.md. |
 | R-CLAIM-SERIALIZATION | **CLOSED — HOSTED SOURCE VERIFIED** | Owner-approved CODEX-127/128 migrations20261023012959/20261023013015;exact candidates/attributes and7unchanged controls verified without claims.18/23local cases;guarded recovery retained. See LAUNCH-CODEX127-128-HELD-CLAIMS.md. |
 | R-CONFIG-WRITE | **CLOSED — HOSTED VERIFIED** | CODEX-73 approved migration20261022014528 removes direct browser configuration UPDATE table and column grants;public reads/service-role/owner RPC access preserved. No incident assessment. |
 | R1 | **CLOSED** | CODEX-34 migration20261021011358 puts require_hub before settlement; independent catalog verification. See LAUNCH-SECURITY-HARDENING.md. |

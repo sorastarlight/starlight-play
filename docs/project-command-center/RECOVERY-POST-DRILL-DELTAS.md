@@ -70,3 +70,11 @@ Owner-approved and exact source/attribute verified;one expression in one functio
 |20261023013015 codex128_pass_claim_serialization|supabase/unapplied/pass-claim-serialization/INSTALL.sql|6cc5979cbcd228264fafa4ff387bf159f1179511e2d168b977cc962637b8d0b6|
 
 Both explicitly approved and installed;exact source/attributes verified and seven control definitions/attributes unchanged. Old logical/observed physical snapshots predate both deltas. Preserve guarded replay or verify a newer snapshot before admitting trainers. No hosted claim,player repair,new export/restore,scheduler or stamp.
+
+## CODEX-129 approved Pass delivery-result delta
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261023020246 codex129_pass_duplicate_delivery_clock|supabase/unapplied/pass-delivery-result/INSTALL.sql|f0a6b92afb314b954538dbdea303be29930cd668cf5e71c008016753835b465a|
+
+Owner-approved one-function replacement;exact candidate/attributes verified,6controls unchanged,no claims/grants/player repair. This builds on CODEX-128:replay in recorded order,and review rollback in reverse dependency order. Historical CODEX-128 candidate fingerprints are superseded by CODEX-129 on the current database. Old snapshots require the9reviewed deltas or a verified newer snapshot;no new export/restore is authorized.

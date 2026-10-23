@@ -5,15 +5,15 @@
   "tasks": [
     {
       "id": "CODEX-129",
-      "status": "blocked",
+      "status": "done",
       "scope": "Pass duplicate-delivery result/clock correction prepared locally",
       "dependencies": [
         "CODEX-128"
       ],
-      "evidence": "LAUNCH-CODEX129-PASS-DELIVERY-REVIEW.md; evidence/codex129-local-packet-review.json",
-      "testResults": "24REAL LOCAL source/actual-packet cases;exact installed source and grant helper;guarded rollback/drift checks;no hosted claim/install",
-      "nextAction": "Await new one-function SQL decision;do not treat CODEX-127/128 approval as authority",
-      "approvalRequirement": "Explicit owner SQL/economy decision requested;private packet ready"
+      "evidence": "LAUNCH-CODEX129-PASS-DELIVERY-REVIEW.md; evidence/codex129-local-packet-review.json; evidence/codex129-hosted-verification.json; evidence/codex129-packet-bytes.json",
+      "testResults": "24REAL LOCAL source/actual-packet cases;exact installed source and grant helper;guarded rollback/drift checks;no hosted claim/install;installed20261023020246;exact candidate/attributes;6unchanged controls;18Git-recreated recovery hashes;20filesystem cases/build31/464",
+      "nextAction": "Retain ninth recovery delta;real acceptance open/Twitch held;no further SQL or claims authorized",
+      "approvalRequirement": "Owner explicitly approved correction/source-only verification;installed20261023020246;approval spent"
     },
     {
       "id": "CODEX-128",

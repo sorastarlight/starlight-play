@@ -1,0 +1,37 @@
+{
+  "classification": "Owner-approved one-function replacement;source/catalog verification only;no claims or grants",
+  "checkedAt": "2026-10-23T02:03:42.100Z",
+  "migration": {
+    "version": "20261023020246",
+    "name": "codex129_pass_duplicate_delivery_clock"
+  },
+  "target": {
+    "signature": "play_claim_pass(text)",
+    "bodyHash": "39959e5ff3c8a324a35e1fea9e61f4d8",
+    "exactCandidate": true,
+    "attributesUnchanged": true
+  },
+  "freshGuards": [
+    {
+      "guard": 0,
+      "matches": true
+    },
+    {
+      "guard": 1,
+      "matches": true
+    },
+    {
+      "guard": 2,
+      "matches": true
+    },
+    {
+      "guard": 3,
+      "matches": true
+    }
+  ],
+  "sixControlsUnchanged": true,
+  "productionApplicationCalls": 0,
+  "playerDataRepair": false,
+  "permissionsChanged": false,
+  "appStamped": false
+}

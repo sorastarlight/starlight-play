@@ -23,3 +23,5 @@ Bounded hosted catch/WIRE/Familiarity, economy/evolution/Oak, gifts/Pass, Helpde
 Either path still ends with an exact final configuration/recovery review and a separate owner go/no-go. No final public-launch claim should be inferred from current static or isolated evidence. Broad security review remains bounded, never a claim that every possible fault has been ruled out.
 
 CODEX-126 retained local recovery reverified111projections/schema with unchanged8archive/source files and0unexpected ACLentries over2721paths. CODEX-127/128 two owner-approved claim corrections installed/source verified without invoking claims;8post-drill migrations/16reviewed recovery files retained. Current main150c69e6,Pages39881130370success,APPunchanged. Real acceptance remains required.
+
+CODEX-129 owner-approved Pass delivery-result correction installed20261023020246 and exact source/attributes verified without claims;6controls unchanged. Recovery now9post-drill migrations/18reviewed files. No pending SQL decision for CODEX-127/128/129;remaining real acceptance and final configuration/release gates stay open.

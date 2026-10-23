@@ -114,6 +114,12 @@
   }
 
   function render(view) {
+    const title = document.getElementById("page-title");
+    const description = document.getElementById("page-description");
+    const teamTitle = document.getElementById("tid-team-h");
+    if (title) title.textContent = mine ? "My Trainer ID" : "Trainer ID";
+    if (description) description.textContent = mine ? "Your public profile, team and adventure journal." : "This trainer's public profile, team and adventure journal.";
+    if (teamTitle) teamTitle.textContent = mine ? "My Team" : "Team";
     if (ownerCustomize) ownerCustomize.hidden = !mine;
     if (hero) {
       hero.innerHTML = window.playRenderIdCard(view, { mode: "public", variant: "hero" });

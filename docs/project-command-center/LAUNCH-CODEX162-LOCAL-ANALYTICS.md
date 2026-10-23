@@ -31,3 +31,7 @@ Only these four runtime files belong in a possible later scoped publication:
 Tests, fixtures, evidence and records stay on the feature history. Do not merge the whole feature branch. Review the exact diff against then-current main before publication, preserve separate histories, and verify deployed source bytes without navigating an authenticated application page or invoking reports/notices. Publication requires a new owner decision because the explicit approval excluded it and this is a new multi-report workflow outside CODEX-78. No SQL, saves, hosted report calls, provider test, gameplay, grants, credentials, spending, APP stamp or final launch is authorized here.
 
 Sora NO · Twinkle NO · PlayTester role unchanged. Local implementation complete; production publication held.
+
+## Publication — owner approved and verified
+
+The owner separately approved exact four-file publication and source-only verification. Main7f0bd440 / Pages39981888624 completed successfully. All100monitored sources and4changed versioned URLs match the exact published commit (CRLF normalized). Main build31/468 passed;APP20261008-rc133 unchanged. Candidate runtime bytes match featurec04f6704. No authenticated application navigation, production report call, notice, save, SQL, provider/gameplay, grant or protected-account action occurred. Evidence:evidence/codex162-publication.json. Publication approval spent; real report/owner acceptance remains separate. Earlier local-only/publication-held language above records the state before this subsequent decision.

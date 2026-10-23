@@ -10,7 +10,7 @@ This replaces the original inventory as the current-state summary;older design p
 |Operations|Observation workspace and handoff|Live encounter/director controls remain on current Dashboard|
 |Mart & Content|CODEX-155 existing single-reward PokéCoin editor published; current editors/Content Studio retained|Authenticated editor/save acceptance unproven; new products, floors, Bits/avatar products, uploads/deletion remain in current tools|
 |Game Configuration|Handoff to current encounter/balance tools|Configuration editors not migrated|
-|Analytics & Health|Published build/game health; CODEX-162 five-view reporting workspace locally complete and tested|Exact four-file publication and hosted report acceptance remain held|
+|Analytics & Health|CODEX-162 five-view reporting workspace published/source verified;113suites and responsive/keyboard/empty/error checks pass locally|Authenticated report results/performance and owner acceptance remain unverified|
 |System & Access|Owner-tool handoff|Credential/integration/role/identity operations not consolidated into new workspace|
 
 Accepted Trainer direction was implemented through CODEX-3/23/24 and subsequent approved Pass/Gift/Helpdesk/recovery work. Earlier statements that the entire next hub is read-only,Support is links only,or no stat fields exist are obsolete. Visual/routine frontend authority does not authorize migrating privileged workflows or broadening access. See SITEWIDE-VISUAL-CONSISTENCY.md for the active presentation inspection. Real mobile/assistive/provider acceptance and final launch remain separate.
@@ -23,3 +23,5 @@ CODEX-151–154 deeper review:stored Pokémon detail labels,public-versus-owner 
 CODEX-156–159 routine maintenance published/source verified:Mart keyboard focus;vertical section tabs/named panels;distinct permission-lookup error copy;health retry,partial/unavailable and stale-response handling. CODEX-160 source audit/design preserves actual report populations and avoids legacy unknown-as-zero labels. Full report connection remains held.
 
 CODEX-162 LOCAL COMPLETE:owner-approved five-view read-only Analytics workspace;113/113 suites,20 REAL DOM layouts+6empty/error/denied/escaped cases and keyboard/range checks;build31/468. Four runtime files prepared for separate publication decision. No production report call,SQL,save,provider/gameplay,protected-account action,spending or APP stamp. See LAUNCH-CODEX162-LOCAL-ANALYTICS.md.
+
+CODEX-162 PUBLISHED by separate owner decision:exact4runtime main7f0bd440 / Pages39981888624success;100monitored+4versioned sources match;113local/static suites and20REAL DOM layouts+6states. No authenticated application navigation/report/notice/save or SQL action. New reports are published but authenticated production acceptance remains unverified. APPunchanged;Twitch/device/final-launch gates remain.

@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-162 | done | Local read-only Analytics workspace | CODEX-160 | Local approval complete; publication held | 113 suites;20 layouts+6 states;exact4runtime review ready |
+| CODEX-162 | done | Read-only Analytics workspace published | CODEX-160 | Explicit publication approval spent | Main7f0bd440/Pages39981888624;100+4source matches;hosted report acceptance open |
 | CODEX-160 | done | Analytics audit/design prepared | CODEX-159 | Owner approved local implementation | Implement in CODEX-162 |
 | CODEX-156–159 | done | Hub focus/tabs/gates/health retry | CODEX-155 | CODEX-78 | Live50d4a53e;112suites;100+3sources match |
 | CODEX-145 | done | Populated PC/Inventory/mobile control polish | CODEX-144 | CODEX-78 | Published main058ee3fe; historical details below |

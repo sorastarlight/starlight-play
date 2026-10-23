@@ -10,10 +10,10 @@
       "dependencies": [
         "CODEX-160"
       ],
-      "evidence": "LAUNCH-CODEX162-LOCAL-ANALYTICS.md; evidence/codex162-real-dom.json; evidence/codex162-regressions.json",
+      "evidence": "LAUNCH-CODEX162-LOCAL-ANALYTICS.md; evidence/codex162-real-dom.json; evidence/codex162-regressions.json; evidence/codex162-publication.json",
       "testResults": "113/113 STATIC/LOCAL suites;20 REAL DOM layouts+6states and keyboard checks;build31/468;no hosted application calls",
-      "nextAction": "Separate owner decision for exact four-file publication/source-only verification",
-      "approvalRequirement": "Owner approved design/local implementation only; SQL, hosted reports, publication and saves held"
+      "nextAction": "Published/source verified; authenticated report acceptance remains separate",
+      "approvalRequirement": "Explicit four-file publication/source-only approval spent; no production report/SQL/save/provider authority"
     },
     {
       "id": "CODEX-161",

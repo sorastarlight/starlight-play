@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-23T00:48:28.188Z",
+  "checkedAt": "2026-10-23T00:52:44.653Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -688,8 +688,8 @@
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
       "localSha256": "2099007a2f0525a9b3c5b0a5d6cd5284ad17d7c8dda357fdb5c08a8fe747cddf",
-      "publishedSha256": "7c1650133a609c19b4878b06113cadb204ea1feaabb9f295e07007457ee58de0",
-      "matches": false
+      "publishedSha256": "2099007a2f0525a9b3c5b0a5d6cd5284ad17d7c8dda357fdb5c08a8fe747cddf",
+      "matches": true
     },
     {
       "file": "js/gym-badge-catalog.js",
@@ -719,8 +719,8 @@
       "file": "js/evolve.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "11b325a574674ab2ca05358025c3c4d880bf5bf05c7a1fb5d7c2c757cd04b614",
-      "publishedSha256": "11b325a574674ab2ca05358025c3c4d880bf5bf05c7a1fb5d7c2c757cd04b614",
+      "localSha256": "bb411a62266dad4c57c46a6c01e8436748d66d141f825203f1804d572ec37aef",
+      "publishedSha256": "bb411a62266dad4c57c46a6c01e8436748d66d141f825203f1804d572ec37aef",
       "matches": true
     },
     {

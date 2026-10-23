@@ -1,10 +1,10 @@
-# Launch readiness handoff — consolidated through CODEX-123
+# Launch readiness handoff — consolidated through CODEX-124
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
 ## Current state
 
-- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Main4d6ed6dc; latest runtime Pages39838654675success;100/100expanded hosted sources and actual versioned Mart script match. Main/feature histories intentionally separate.
+- Canonical checkout:S:/NewVTuberProject/Stream Assets/Games/PokemonRPG/play-site; branch admin-hub-overhaul. Main5e15eb0c;latest runtime Pages39880564592success;100/100expanded hosted sources and actual versioned Pokédex/Oak scripts match. Main/feature histories intentionally separate.
 - APP20261008-rc133 unchanged. Legacy admin.html and js/admin-live.js have no published diff from the pre-overnight baseline. Sora/Twinkle not mutated;PlayTester role unchanged.
 - Both formerly held SQL proposals explicitly approved and installed in CODEX-96:20261022084110 purchase unlock atomicity and20261022084115 obsolete reminder audit-write removal. Exact3candidate sources/attributes verified;5helpers+wrapper unchanged. No hosted purchase or reminder endpoint invoked. No SQL proposal from these packets remains pending. CODEX-116 trade-state correction is also owner-approved/installed20261022162826;its guarded recovery delta is retained.
 - Owner explicitly requires real mobile/assistive/Twitch-provider acceptance before launch. Desktop-first beta deferrals were NOT accepted. Owner has PC+Android;model/browser/results pending. iOS and real screen-reader access unconfirmed.
@@ -97,3 +97,5 @@ CODEX-121 CURRENT COMPLETION:owner approved the one-expression shiny confirmatio
 CODEX-122 COMPLETE:only js/store.js published under CODEX-78 at main4d6ed6dc;Pages39838654675success.100expanded hosted source files and actual versioned Mart source equal reviewed checkout.10selected-source cases/103non-writing suites/build31localHTML/464refs/12recovery hashes plus isolated browser error/retry/secondary-refresh cases pass. No real Auth/provider/RPC/backend/gameplay/email/APP action. Real Twitch testing remains held. See LAUNCH-CODEX122-MART-FEEDBACK.md.
 
 CODEX-123:Pokédex navigation lookup errors now use the existing gate;5actual-source cases and isolated browser recovery pass;104suites/build31/464/12recovery hashes. Exact runtime main5130c349 published;Pages39880218451 pending. An early source check while deployment was pending returned99/100 (old Pokédex);repeat after completion before claiming acceptance. No real state/catalog/provider call. See LAUNCH-CODEX123-POKEDEX-LOADING.md.
+
+CODEX-123/124 completion:Pages39880218451 and39880564592success. Exact versioned js/pokedex.js and js/evolve.js match main5e15eb0c. First post-deployment expanded check had one503 on unchanged presentation-resolve script;repeat100/100passed. Early pending99/100 is superseded. Oak5actual-source cases/isolated browser pass;105suites/build31/464/12recovery hashes. No actual Auth/provider/gameplay calls.

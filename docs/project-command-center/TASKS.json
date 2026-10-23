@@ -4,15 +4,27 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-124",
+      "status": "done",
+      "scope": "Routine Oak Lab navigation failure boundary",
+      "dependencies": [
+        "CODEX-123"
+      ],
+      "evidence": "LAUNCH-CODEX124-OAK-LOADING.md; evidence/codex124-regressions.json; evidence/codex124-publication.json",
+      "testResults": "5actual-source cases;baseline reproduction;isolated real browser;105suites;build31/464;12recovery hashes;Pages39880564592success;100sources and both changed versioned sources match",
+      "nextAction": "Continue independent source review;real acceptance remains open;Twitch held",
+      "approvalRequirement": "Existing CODEX-78 routine frontend only"
+    },
+    {
       "id": "CODEX-123",
-      "status": "implemented",
+      "status": "done",
       "scope": "Routine Pokédex navigation failure boundary",
       "dependencies": [
         "CODEX-122"
       ],
-      "evidence": "LAUNCH-CODEX123-POKEDEX-LOADING.md; evidence/codex123-regressions.json",
-      "testResults": "5actual-source cases;baseline reproduction;isolated real browser;104suites;build31/464;12recovery hashes",
-      "nextAction": "Await Pages39880218451,then repeat hosted source acceptance;real acceptance remains open and Twitch held",
+      "evidence": "LAUNCH-CODEX123-POKEDEX-LOADING.md; evidence/codex123-regressions.json; evidence/codex124-publication.json",
+      "testResults": "5actual-source cases;baseline reproduction;isolated real browser;104suites;build31/464;12recovery hashes;Pages39880218451success;both changed versioned sources match latest main5e15eb0c",
+      "nextAction": "Preserve live source evidence;real acceptance remains open;Twitch held",
       "approvalRequirement": "Existing CODEX-78 routine frontend maintenance only"
     },
     {

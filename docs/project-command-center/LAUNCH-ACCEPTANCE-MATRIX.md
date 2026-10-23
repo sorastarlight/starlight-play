@@ -1,6 +1,6 @@
-# Current launch acceptance matrix — CODEX-123 real acceptance required
+# Current launch acceptance matrix — CODEX-124 real acceptance required
 
-This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 104/104 suites in CODEX-123. Routine staff error/Bits feedback escaping is published;current expanded checker verified100hosted source files in CODEX-122; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
+This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 105/105 suites in CODEX-124. Routine staff error/Bits feedback escaping is published;current expanded checker verified100hosted source files in CODEX-122; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
 | Area | Evidence completed | Remaining condition |
 |---|---|---|
@@ -79,3 +79,5 @@ CODEX-121 CURRENT COMPLETION:owner approved the one-expression shiny confirmatio
 CODEX-122 COMPLETE:only js/store.js published under CODEX-78 at main4d6ed6dc;Pages39838654675success.100expanded hosted source files and actual versioned Mart source equal reviewed checkout.10selected-source cases/103non-writing suites/build31localHTML/464refs/12recovery hashes plus isolated browser error/retry/secondary-refresh cases pass. No real Auth/provider/RPC/backend/gameplay/email/APP action. Real Twitch testing remains held. See LAUNCH-CODEX122-MART-FEEDBACK.md.
 
 CODEX-123:Pokédex navigation lookup errors now use the existing gate;5actual-source cases and isolated browser recovery pass;104suites/build31/464/12recovery hashes. Exact runtime main5130c349 published;Pages39880218451 pending. An early source check while deployment was pending returned99/100 (old Pokédex);repeat after completion before claiming acceptance. No real state/catalog/provider call. See LAUNCH-CODEX123-POKEDEX-LOADING.md.
+
+CODEX-123/124 completion:Pages39880218451 and39880564592success. Exact versioned js/pokedex.js and js/evolve.js match main5e15eb0c. First post-deployment expanded check had one503 on unchanged presentation-resolve script;repeat100/100passed. Early pending99/100 is superseded. Oak5actual-source cases/isolated browser pass;105suites/build31/464/12recovery hashes. No actual Auth/provider/gameplay calls.

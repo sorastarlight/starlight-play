@@ -1,0 +1,47 @@
+{
+  "classification": "Production catalog-only verification; no reward RPC or gift",
+  "migration": "20261023173738",
+  "functions": [
+    {
+      "nspname": "private",
+      "proname": "persist_staff_gift",
+      "fingerprint": "9266f4b080ff9e661d5305c0943af257",
+      "acl": "{postgres=X/postgres}",
+      "prosecdef": true,
+      "proconfig": [
+        "search_path=pg_catalog"
+      ]
+    },
+    {
+      "nspname": "private",
+      "proname": "require_staff_edit",
+      "fingerprint": "c84c975f7872dad626813afd273c43f8",
+      "acl": null,
+      "prosecdef": false,
+      "proconfig": null
+    },
+    {
+      "nspname": "public",
+      "proname": "admin_trainer_reward_action",
+      "fingerprint": "7e58b6d5f7cb647e5f414d53ccb27d87",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "prosecdef": true,
+      "proconfig": [
+        "search_path=pg_catalog"
+      ]
+    },
+    {
+      "nspname": "public",
+      "proname": "admin_trainer_rewards",
+      "fingerprint": "5be46a3ecf0f489b4864fb714a433319",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "prosecdef": true,
+      "proconfig": [
+        "search_path=pg_catalog"
+      ]
+    }
+  ],
+  "approvedFiles": [
+    "js/admin-next-rewards.js"
+  ]
+}

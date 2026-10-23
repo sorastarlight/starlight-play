@@ -16,3 +16,9 @@ INSTALL.sql: 0fc7922ed1e2a169dad484244a7cfd97cf6f5562259ad5ea7fd843e417799440
 ROLLBACK.sql: c1250aa679209775149c6e8ef73ba383b83870a7250d8a06f9ee8104ba83dece
 
 Publication scope: js/admin-next-rewards.js only. Database scope: public.admin_trainer_reward_action(uuid,uuid,text,jsonb,text) and public.admin_trainer_rewards(uuid) only. Recheck exact public source hashes and unchanged canonical helper/permission controls before install; preserve ACLs/security attributes and verify source afterward without invoking rewards. No live gift test is included.
+
+## Approved installation and publication
+
+Owner approved the exact packet and 1–100 limit. Migration20261023173738 installed;both source fingerprints match tested candidates;public ACLs/security/search_path and generation/permission helper fingerprints unchanged. Main dfbd135d publishes only js/admin-next-rewards.js. Pages39996660440/source comparison pending at this snapshot. No gift RPC or account mutation invoked.
+
+CODEX-168 VERIFIED:owner-approved migration20261023173738 installed exact2functions;candidate hashes/ACL/security/search_path verified,canonical generator/permission helpers unchanged. Exact1runtime publication maindfbd135d/Pages39996660440success;100monitored+1versioned source matches.117suites/23fictionalSQL/build31/470. Native Pokémon quantity1–100/default1,atomic batch/receipt/capability fallback live. No hosted grant/application RPC/APP stamp/protected-account mutation. Recovery delta recorded;no new backup coverage claimed.

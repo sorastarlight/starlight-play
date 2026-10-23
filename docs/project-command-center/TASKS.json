@@ -5,15 +5,15 @@
   "tasks": [
     {
       "id": "CODEX-168",
-      "status": "blocked",
-      "scope": "Pokémon gift quantity locally complete; exact production decision held",
+      "status": "done",
+      "scope": "Pokémon gift quantity installed/published/source verified",
       "dependencies": [
         "CODEX-167"
       ],
-      "evidence": "LAUNCH-CODEX168-POKEMON-GIFT-QUANTITY.md; evidence/codex168-regressions.json; evidence/codex168-sql-results.json",
+      "evidence": "LAUNCH-CODEX168-POKEMON-GIFT-QUANTITY.md; evidence/codex168-regressions.json; evidence/codex168-sql-results.json; evidence/codex168-installed.json; evidence/codex168-publication.json",
       "testResults": "117 suites;23 fictional SQL checks;real local spinner/review/simulated receipt;build31/470",
-      "nextAction": "Owner decision on exact two-function install and one-file publication, proposed limit100",
-      "approvalRequirement": "Explicit production SQL/privileged-flow publication;no live grants"
+      "nextAction": "Complete;live gift acceptance not performed or authorized",
+      "approvalRequirement": "Owner approved exact two-function install and one-file publication/source-only;no grant authority"
     },
     {
       "id": "CODEX-167",

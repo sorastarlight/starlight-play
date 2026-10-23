@@ -9,7 +9,7 @@ This replaces the original inventory as the current-state summary;older design p
 |Support & Recovery|Connected owner Helpdesk,player Support,ticket history,masked account diagnostics/recovery confirmation|Attachments/notifications remain deferred;guided identity recovery remains separate|
 |Operations|Observation workspace and handoff|Live encounter/director controls remain on current Dashboard|
 |Mart & Content|CODEX-155 existing single-reward PokéCoin editor published; current editors/Content Studio retained|Authenticated editor/save acceptance unproven; new products, floors, Bits/avatar products, uploads/deletion remain in current tools|
-|Game Configuration|CODEX-167 six-field PokéCoin editor locally complete/tested|Publication and hosted settings acceptance held;capture/timing/XP/other configuration remain in current tools|
+|Game Configuration|CODEX-167 six-field PokéCoin editor published/source verified;local review/save-state tests pass|Authenticated editor/live save acceptance unproven;capture/timing/XP/other configuration remain in current tools|
 |Analytics & Health|CODEX-162 five-view reporting workspace published/source verified;113suites and responsive/keyboard/empty/error checks pass locally|Authenticated report results/performance and owner acceptance remain unverified|
 |System & Access|Owner-tool handoff|Credential/integration/role/identity operations not consolidated into new workspace|
 
@@ -29,3 +29,5 @@ CODEX-162 PUBLISHED by separate owner decision:exact4runtime main7f0bd440 / Page
 CODEX-165 PREPARED:catalog-only mapping of4configuration saves+4helpers;identified timing-save Bits-disable side effect and excluded it from first migration. Fictional six-field PokéCoin reward editor/comparison reviewed at4widths (8states),zero/negative/unavailable/focus cases. No configuration values or application endpoints read/saved;no runtime change. Design/local-implementation decision required for proposed privileged workflow;see ADMIN-HUB-CONFIGURATION-MIGRATION-REVIEW.md.
 
 CODEX-166 VERIFIED:Settings tab accessibility exact2runtime main84f8ff6e/Pages39990990365success;115suites;100+2source matches;no account action. CODEX-167 LOCAL COMPLETE:approved six-field reward editor;116suites,12REAL DOM layouts/dialog/cancel states+9load/save states;build31/470. Exact4runtime publication and all live settings calls held. See LAUNCH-CODEX166-SETTINGS-KEYBOARD.md and LAUNCH-CODEX167-LOCAL-REWARD-EDITOR.md.
+
+CODEX-167 publication VERIFIED after explicit owner approval:exact4runtime mainfbe1f17a / Pages39992391579success;100monitored sources and4changed versioned URLs match published Git. Main build31/470 and116local/static suites pass. No hosted application navigation,configuration read/save,SQL,provider,reward or protected-account action. APP20261008-rc133 unchanged;approval spent. Authenticated editor acceptance and any live save remain separate.

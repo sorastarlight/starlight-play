@@ -23,3 +23,9 @@ Evidence:evidence/codex167-real-dom.json and evidence/codex167-regressions.json.
 The only proposed runtime publication files are admin-next.html, js/admin-next.js, js/admin-next-config.js and css/admin-config.css. Tests/fixtures/records stay on feature history. Compare these exact files against then-current main; do not merge the entire feature branch. New privileged editor publication is outside CODEX-78 and was explicitly excluded from the local-implementation approval. Publication requires its separate decision; live reads/saves and reward changes remain separately held. A future rollback restores the configuration handoff/removes this editor without writing configuration or player data.
 
 Sora NO · Twinkle NO · PlayTester role unchanged. No encounter, provider, reward, SQL, spending, APP stamp or final-launch action occurred.
+
+## Subsequent owner publication decision
+
+Owner separately approved only exact four-file publication and deployed-source verification,excluding all live configuration reads/saves/rewards/SQL/provider tests. Mainfbe1f17a contains those four files only;main build31/470 passed. Pages/source outcome is recorded below after verification. Earlier local-only/held wording is historical for this subsequent publication decision;it does not authorize live settings acceptance.
+
+CODEX-167 publication VERIFIED after explicit owner approval:exact4runtime mainfbe1f17a / Pages39992391579success;100monitored sources and4changed versioned URLs match published Git. Main build31/470 and116local/static suites pass. No hosted application navigation,configuration read/save,SQL,provider,reward or protected-account action. APP20261008-rc133 unchanged;approval spent. Authenticated editor acceptance and any live save remain separate.

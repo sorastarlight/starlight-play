@@ -10,10 +10,10 @@
       "dependencies": [
         "CODEX-165"
       ],
-      "evidence": "LAUNCH-CODEX167-LOCAL-REWARD-EDITOR.md; evidence/codex167-real-dom.json; evidence/codex167-regressions.json",
+      "evidence": "LAUNCH-CODEX167-LOCAL-REWARD-EDITOR.md; evidence/codex167-real-dom.json; evidence/codex167-regressions.json; evidence/codex167-publication.json",
       "testResults": "116/116suites;12REAL DOM widths/dialog/cancel states+9load/save states;build31/470;fictional transport only",
-      "nextAction": "Separate owner decision for exact4runtime publication/source verification;live configuration calls held",
-      "approvalRequirement": "Local implementation approval complete;publication,live reads/saves,SQL/provider/rewards excluded"
+      "nextAction": "Published/source verified;authenticated editor acceptance/live save remain separate",
+      "approvalRequirement": "Explicit four-file publication/source-only approval spent;no live settings/SQL/provider/reward authority"
     },
     {
       "id": "CODEX-166",

@@ -440,7 +440,7 @@
           </div>
 
           <div class="pc-action-group" aria-label="Trade">
-            <button id="list-trade" class="pc-action pc-action-trade" type="button" ${tradeDisabled ? "disabled" : ""}>${mon.listed ? "Already listed" : "Put Up for Trade"}</button>
+            <button id="list-trade" class="pc-action pc-action-trade" type="button" ${tradeDisabled ? "disabled" : ""}>${mon.listed ? "Already listed" : "Put up for trade"}</button>
           </div>
 
           <div class="pc-action-group" aria-label="Professor Oak">
@@ -730,7 +730,7 @@
     if (boxOpBusy) return;
     if (searching()) {
       if (typeof window.playToast === "function") {
-        window.playToast({ kind: "warning", title: "Clear search first", body: "Auto-Arrange works on the current box view." });
+        window.playToast({ kind: "warning", title: "Clear search first", body: "Auto-arrange works on the current box view." });
       }
       return;
     }
@@ -791,7 +791,7 @@
           : "",
         actionsHtml: `
           <button class="pc-btn-keep" value="cancel" type="submit">Cancel</button>
-          <button class="pc-btn-destroy" value="delete" type="submit">Delete Box</button>`,
+          <button class="pc-btn-destroy" value="delete" type="submit">Delete box</button>`,
         focusSelector: "button.pc-btn-keep"
       });
       if (ok !== "delete") return;
@@ -828,14 +828,14 @@
     if (first !== "continue") return;
 
     const second = await openPcDialog({
-      title: "Permanent Release Warning",
+      title: "Permanent release warning",
       danger: true,
       bodyHtml: `<p class="pc-dialog-body">Deleting <strong>${window.playEscapeAttr(name)}</strong> will permanently release <strong>${releaseCount}</strong> Pokémon.</p>
         <p class="pc-dialog-body">To continue, type: <strong>YES</strong></p>`,
       extraHtml: `<input class="pc-confirm-input" id="pc-delete-yes" type="text" autocomplete="off" spellcheck="false" aria-label="Type YES to confirm">`,
       actionsHtml: `
         <button class="pc-btn-keep" value="cancel" type="submit">Cancel</button>
-        <button class="pc-btn-destroy" value="confirm" type="submit" disabled id="pc-delete-confirm">Confirm Delete</button>`,
+        <button class="pc-btn-destroy" value="confirm" type="submit" disabled id="pc-delete-confirm">Confirm deletion</button>`,
       focusSelector: "#pc-delete-yes",
       onMount(dialog) {
         const input = dialog.querySelector("#pc-delete-yes");

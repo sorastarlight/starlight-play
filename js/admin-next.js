@@ -83,6 +83,7 @@
   let trainerSelectedId = "";
   let trainerDirectoryScroll = 0;
   let trainerPane = "overview";
+  let roster = null;
   let trainerListGen = 0;
   let trainerProfileGen = 0;
   let trainerDirLoaded = false;
@@ -171,6 +172,7 @@
   }
 
   function resetTrainers() {
+    roster?.reset(); roster = null;
     window.PLAY_ADMIN_REWARDS?.clear();
     window.PLAY_ADMIN_DIAGNOSTICS?.clear();
     const supportContext = document.getElementById("next-support-context");
@@ -207,6 +209,7 @@
   }
 
   function renderTrainerProfile(view) {
+    roster?.reset(); roster = null;
     if (els.trainerDetailWrap) els.trainerDetailWrap.hidden = !trainerSelectedId;
     if (els.trainerRoot) els.trainerRoot.classList.toggle("is-profile", Boolean(trainerSelectedId));
     if (els.trainerDetailStatus) {
@@ -216,6 +219,7 @@
     }
     if (els.trainerDetail) window.PLAY_SUPPORT?.unmount(els.trainerDetail.querySelector("[data-support-trainer]"));
     if (els.trainerDetail) trainersUi.renderRecord(els.trainerDetail, view);
+    if (view.pane === "pokemon" && view.user && window.PLAY_ADMIN_ROSTER) roster = window.PLAY_ADMIN_ROSTER.mount(els.trainerDetail?.querySelector('[data-trainer-roster]'),view.user.id,window.PLAY_ADMIN_ROSTER.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:target=>staffOpen&&trainerSelectedId===target,call:(_name,args)=>window.playCall("admin_trainer_pokemon",args)}),trainersUi);
     if (view.pane === "tickets" && view.user) window.PLAY_SUPPORT?.mount(els.trainerDetail?.querySelector("[data-support-trainer]"),{staff:true,playerId:view.user.id});
     if (els.trainerDetail && view.user) window.PLAY_ADMIN_DIAGNOSTICS?.mount(els.trainerDetail,view.user,view.pane,
       targetUuid => window.playSupabase.functions.invoke("owner-account-diagnostics",{body:{targetUuid}}),

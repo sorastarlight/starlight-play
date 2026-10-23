@@ -17,3 +17,5 @@ This is a major new read workflow outside CODEX-78 routine maintenance; do not s
 Visual preparation:fictional design inspected at320/390/768/1280 iframe CSS widths;phone layouts stack,tablet/desktop show three sample cards. Local Next advances3→6,nickname Cloud finds Eevee across the sample roster,details show unavailable fields honestly,and Escape restores Inspect Eevee focus. This is a standalone design review,not actual device or implemented server paging acceptance.
 
 Catalog fingerprints at review:public.admin_user_account b873ae8652672154805420d069d0065b;private.admin_account_json b4a01359724baa0cd3f82a7c645af1ae. No public staff roster endpoint found by name inventory;no claim that every possible internal function was audited.
+
+Owner approved design and local implementation. CODEX-174 is locally complete;see LAUNCH-CODEX174-LOCAL-TRAINER-ROSTER.md. Earlier implementation-held wording is historical for that local scope;production remains held.

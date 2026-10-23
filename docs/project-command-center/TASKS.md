@@ -4,7 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-173 | blocked | Read-only full roster design prepared | CODEX-168 | Design/local implementation decision | Existing40-row cap confirmed;fictional4width/paging/search review |
+| CODEX-174 | blocked | Full roster local complete | CODEX-173 | Exact production decision | 118suites;29localSQL;12step schema rehearsal;5runtime files |
+| CODEX-173 | done | Read-only full roster design prepared | CODEX-168 | Owner-approved local scope spent | Implemented in CODEX-174 |
 | CODEX-172 | done | Mart flexible search consistency | CODEX-169 | CODEX-78 | Live6446b326;117suites;100+1source matches |
 | CODEX-170 | done | Recovery replay through gift quantities | CODEX-168 | Local empty schema only | 11forward/reverse;exact metadata restore;no production connection |
 | CODEX-169 | done | Gift confirmation cleanup | CODEX-168 | CODEX-78 | Livebdd2e07f;117suites;100+2source matches |

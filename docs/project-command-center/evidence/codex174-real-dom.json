@@ -1,0 +1,39 @@
+{
+  "classification": "REAL DOM actual roster module/existing record presenters;fictional85-row transport;connections blocked;not hosted staff/device acceptance",
+  "checks": [
+    "Page1=1–40;Next=41–80 with unchanged timestamp cursor string",
+    "FarAway search returns fictional row80 beyond first page",
+    "Existing identity/stats renderer shows missing values as Unavailable and stored zero IV/EV as0",
+    "Escape restores record opener",
+    "Denied load clears rows",
+    "Pending load disables filters/search/pagers/reload",
+    "Account reset discards pending response"
+  ],
+  "widths": [
+    {
+      "requested": 1280,
+      "client": 1280,
+      "scroll": 1265,
+      "minRosterControlHeight": 44
+    },
+    {
+      "requested": 768,
+      "client": 753,
+      "scroll": 753,
+      "minRosterControlHeight": 44
+    },
+    {
+      "requested": 390,
+      "client": 375,
+      "scroll": 375,
+      "minRosterControlHeight": 44
+    },
+    {
+      "requested": 320,
+      "client": 305,
+      "scroll": 305,
+      "minRosterControlHeight": 44
+    }
+  ],
+  "limitations": "Scrollbar width changes client measurements. Width-only local frames,not physical phone/zoom/screenreader or full authenticated Hub acceptance. Detail also visually inspected at320."
+}

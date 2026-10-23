@@ -4,16 +4,28 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-173",
+      "id": "CODEX-174",
       "status": "blocked",
+      "scope": "Full read-only Trainer roster locally complete;production decision held",
+      "dependencies": [
+        "CODEX-173"
+      ],
+      "evidence": "LAUNCH-CODEX174-LOCAL-TRAINER-ROSTER.md;evidence/codex174-regressions.json;evidence/codex174-sql.json;evidence/codex174-real-dom.json;evidence/codex174-schema-replay.json",
+      "testResults": "118suites;29localSQL;125-row pagination;4REAL DOM widths;12proposed forward/reverse schema steps;build31/471",
+      "nextAction": "Exact new endpoint install and5runtime-file publication/source-only decision",
+      "approvalRequirement": "Production SQL/new privileged read workflow explicitly gated;no live roster calls/grants"
+    },
+    {
+      "id": "CODEX-173",
+      "status": "done",
       "scope": "Read-only full Trainer Pokémon roster design prepared",
       "dependencies": [
         "CODEX-168"
       ],
       "evidence": "ADMIN-HUB-TRAINER-ROSTER-REVIEW.md;design-reset/trainer-roster-review.html",
       "testResults": "Catalog-only40-row limit confirmed;fictional paging/search/detail/Escape and4width visual review",
-      "nextAction": "Owner decision:design and local implementation/tests including read-contract preparation",
-      "approvalRequirement": "New read workflow outside CODEX-78;production SQL/publication/live roster calls excluded"
+      "nextAction": "Owner-approved design/local scope implemented in CODEX-174",
+      "approvalRequirement": "Local approval spent;production SQL/publication/live reads excluded"
     },
     {
       "id": "CODEX-172",
@@ -841,7 +853,7 @@
         "CODEX-103"
       ],
       "evidence": "OVERNIGHT-CODEX104.md; evidence/codex104-recovery-packets.json; .gitattributes",
-      "testResults": "4post-Git-checkout hashes match reviewed LF originals;28REAL LOCAL SQL tests execute actual repo install/rollback packets;no hosted/archive mutation",
+      "testResults": "4post-Git-checkout hashes match reviewed LF originals;29REAL LOCAL SQL tests execute actual repo install/rollback packets;no hosted/archive mutation",
       "nextAction": "Keep exact recovery metadata;continue genuinely unreviewed work while real-device/provider evidence pending",
       "approvalRequirement": "Repository packaging maintenance only;no production SQL/restore/rollback/provider/gameplay/launch authority"
     },

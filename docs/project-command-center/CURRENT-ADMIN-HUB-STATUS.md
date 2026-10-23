@@ -33,3 +33,7 @@ CODEX-166 VERIFIED:Settings tab accessibility exact2runtime main84f8ff6e/Pages39
 CODEX-167 publication VERIFIED after explicit owner approval:exact4runtime mainfbe1f17a / Pages39992391579success;100monitored sources and4changed versioned URLs match published Git. Main build31/470 and116local/static suites pass. No hosted application navigation,configuration read/save,SQL,provider,reward or protected-account action. APP20261008-rc133 unchanged;approval spent. Authenticated editor acceptance and any live save remain separate.
 
 CODEX-168/169 published:Pokémon quantities1–100 use an audited atomic batch;confirmation omits account disclosure/dex number and separates name/quantity/level.117suites;source verification mainbdd2e07f/Pages39997890946success. No live batch acceptance or grants performed.
+
+CODEX-172 VERIFIED:Mart product search now matches independent words,accent-free names,SKU tokens and full descriptions while preserving floor filters.117suites/build31/470;REAL DOM fictional bundle poke→Poké Ball Bundle and floor exclusion/reset pass. Scoped routine1file publication main6446b326/Pages40002401454success;100monitored+1versioned URL matches. No catalog/application RPC or save.
+
+CODEX-173 proposes a read-only paginated Trainer roster to replace the current40-row inspection window;design/local implementation decision held. See ADMIN-HUB-TRAINER-ROSTER-REVIEW.md. No application/SQL implementation or production trainer read occurred.

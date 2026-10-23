@@ -4,6 +4,30 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-173",
+      "status": "blocked",
+      "scope": "Read-only full Trainer Pokémon roster design prepared",
+      "dependencies": [
+        "CODEX-168"
+      ],
+      "evidence": "ADMIN-HUB-TRAINER-ROSTER-REVIEW.md;design-reset/trainer-roster-review.html",
+      "testResults": "Catalog-only40-row limit confirmed;fictional paging/search/detail/Escape and4width visual review",
+      "nextAction": "Owner decision:design and local implementation/tests including read-contract preparation",
+      "approvalRequirement": "New read workflow outside CODEX-78;production SQL/publication/live roster calls excluded"
+    },
+    {
+      "id": "CODEX-172",
+      "status": "done",
+      "scope": "Routine Mart flexible search consistency",
+      "dependencies": [
+        "CODEX-169"
+      ],
+      "evidence": "evidence/codex172-regressions.json;evidence/codex172-publication.json;RUN-LOG.md",
+      "testResults": "117suites/build31/470;REAL DOM local multiword/floor checks;100+1hosted source matches",
+      "nextAction": "Published main6446b326/Pages40002401454success",
+      "approvalRequirement": "Routine CODEX-78;no saves/SQL"
+    },
+    {
       "id": "CODEX-171",
       "status": "done",
       "scope": "Record owner-reported S25 Ultra visual/touch/keyboard acceptance",

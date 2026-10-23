@@ -2259,3 +2259,7 @@ CODEX-122 COMPLETE:only js/store.js published under CODEX-78 at main4d6ed6dc;Pag
 ## CODEX-127/128 — Approved claim corrections installed (2026-10-22 EDT)
 
 Two local defects privately confirmed;18/23source/actual-packet cases. Owner explicitly approved both exact corrections/source-only verification. Fresh7guards matched;installed20261023012959/20261023013015. Exact2candidate definitions/checked attributes and7unchanged control definitions/attributes verified;no claim/grant/player repair.8post-drill migrations/16Git-recreated packet hashes,20filesystem checks/build31/464pass. Prior106-suite frontend evidence unchanged;main150c69e6/APPunchanged. Sora NO;Twinkle NO;PlayTester role unchanged. Approvals spent;real acceptance open/Twitch held.
+
+## CODEX-129 — Follow-up Pass delivery-result packet held
+
+Separate exact-source defect confirmed after approved concurrency fixes.24REAL LOCAL source/actual-packet cases preserve existing serialization;guarded correction/rollback private and ready. New explicit SQL decision requested;no hosted claim/grant/install/player repair.8installed recovery deltas/16files remain;runtime/main/APPunchanged. Real acceptance open/Twitch held. Sora NO;Twinkle NO;PlayTester role unchanged.

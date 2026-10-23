@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-129 | blocked | Pass delivery-result/clock packet | CODEX-128 | New SQL decision needed |24local cases;private packet ready;no install |
 | CODEX-128 | done | Pass claim serialization/exposure review | CODEX-127 | Explicit owner approval spent |Installed20261023013015;exact source/attrs;16recovery files |
 | CODEX-127 | done | Daily-supply claim serialization | CODEX-126 | Explicit owner approval spent |Installed20261023012959;exact source/attrs;no claim invoked |
 | CODEX-126 | done | Claim/account boundaries and retained recovery | CODEX-125 | Catalog/local checks only |45SQL cases;17guards;111retained projections;0ACL surprises |

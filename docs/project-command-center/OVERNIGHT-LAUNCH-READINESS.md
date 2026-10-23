@@ -1,4 +1,4 @@
-# Launch readiness handoff — consolidated through CODEX-128
+# Launch readiness handoff — consolidated through CODEX-129
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
@@ -105,3 +105,5 @@ CODEX-125:Settings unexpected session/profile/readiness loading failures use exi
 CODEX-126:45new fictional local SQL claim/account cases pass;17current recovery function guards/6migration entries/15DataAPI checks match. Documented retained local restore reverified111projections and schema;0unexpected ACL entries over2721paths;8archive/source hashes unchanged.12packet hashes pass. No fresh export/restore/production credential or application call. Main150c69e6 and106-suite prior evidence unchanged;Twitch held. See LAUNCH-CODEX126-SECURITY-RECOVERY.md.
 
 CODEX-127/128 CURRENT COMPLETION:owner explicitly approved both exact claim corrections and read-only source verification. Installed20261023012959 daily supply and20261023013015 Pass claim;full candidate definitions/checked attributes match,7control definitions/attributes unchanged. No hosted claim/grant/player repair.18/23local packet cases;20filesystem checks/build31/464;8post-drill migrations/16reviewed Git-recreated hashes pass. Next daily snapshot still not due;physical restore/full Auth/storage not certified. Main150c69e6/Pages39881130370/APPunchanged. Approvals spent;real acceptance required/Twitch held. See LAUNCH-CODEX127-128-HELD-CLAIMS.md.
+
+CODEX-129 HELD:follow-up delivery-result/clock defect confirmed separately;one-function private correction/rollback pass24local source/actual-packet cases,including preserved installed serialization. New explicit SQL decision requested;CODEX-127/128 approval spent. No production claim/install. Recovery stays8migrations/16files;main150c69e6 unchanged. See LAUNCH-CODEX129-PASS-DELIVERY-REVIEW.md.

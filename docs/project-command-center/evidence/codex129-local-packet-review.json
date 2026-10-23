@@ -1,0 +1,10 @@
+{
+  "classification": "REAL LOCAL exact installed Pass endpoint and grant_items/ensure_inventory/flush_bits_pending;fictional unique-event/minimal inventory tables and instrumented item/coin/config/serializer helpers;duplicate-key controls;not provider or real-clock integration certification",
+  "localChecks": 24,
+  "guardedInstallRollback": true,
+  "existingSerializationPreserved": true,
+  "productionChanges": 0,
+  "productionApplicationCalls": 0,
+  "status": "prepared;explicit SQL decision pending",
+  "privateReview": "LOCALAPPDATA/PokemonStreamLink/security/codex129/README.md"
+}

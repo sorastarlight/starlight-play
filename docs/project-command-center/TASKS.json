@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-129",
+      "status": "blocked",
+      "scope": "Pass duplicate-delivery result/clock correction prepared locally",
+      "dependencies": [
+        "CODEX-128"
+      ],
+      "evidence": "LAUNCH-CODEX129-PASS-DELIVERY-REVIEW.md; evidence/codex129-local-packet-review.json",
+      "testResults": "24REAL LOCAL source/actual-packet cases;exact installed source and grant helper;guarded rollback/drift checks;no hosted claim/install",
+      "nextAction": "Await new one-function SQL decision;do not treat CODEX-127/128 approval as authority",
+      "approvalRequirement": "Explicit owner SQL/economy decision requested;private packet ready"
+    },
+    {
       "id": "CODEX-128",
       "status": "done",
       "scope": "Ordinary Pass claim serialization and selected exposure review",

@@ -15,3 +15,6 @@ Existing targeted recovery: both private legacy-retirement archives remain prese
 Remaining release gate: full schema replay/reset is not certified; do not bulk-replay historical migrations or files under unapplied. No reset, restore, backup deletion, Storage mutation, spending or build stamp occurred during this inspection. Sora NO; Twinkle NO; PlayTester role unchanged; EmailQA no account/gameplay mutation by this inspection.
 
 CODEX-94 CURRENT,October22: the scheduled dashboard now lists PHYSICAL backup22Oct07:44:04UTC (03:44:04EDT), after CODEX-73. The pending post-change recovery-point observation is complete. Earlier October21 snapshot descriptions above are historical; physical restore/full Auth service certification remains open. See OVERNIGHT-CODEX94.md and RECOVERY-POST-DRILL-DELTAS.md. No Restore/export/password/runtime action.
+
+
+CODEX-161 recovery observation:scheduled dashboard lists PHYSICAL23Oct07:44:31UTC/03:44:31EDT,after latest recorded migration20261023025714/CODEX-135. Storage metadata0buckets. No Restore/export/password/settings/player action;not physical/full Auth/storage certification. Older logical archive still needs10guarded deltas. See LAUNCH-CODEX161-POST-CORRECTION-BACKUP.md.

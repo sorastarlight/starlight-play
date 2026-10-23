@@ -1,0 +1,14 @@
+{
+  "classification": "REAL DOM vendor dashboard plus read-only migration/Storage metadata; no restore or application endpoint",
+  "observedAtUtc": "2026-10-23T15:30:45Z",
+  "latestVisiblePhysicalBackupUtc": "2026-10-23T07:44:31Z",
+  "latestVisiblePhysicalBackupLocal": "2026-10-23 03:44:31 EDT",
+  "latestRecordedMigration": {"version":"20261023025714","name":"codex135_team_active_ownership_serialization"},
+  "nextRecordedMigrations": ["20261023020246 codex129_pass_duplicate_delivery_clock","20261023013015 codex128_pass_claim_serialization"],
+  "storageBucketCount": 0,
+  "restorePerformed": false,
+  "exportPerformed": false,
+  "passwordOrSettingsChanged": false,
+  "limitations": ["Listed availability is not physical restore/integrity certification","Older retained logical archive still needs ten guarded deltas","No new full Auth/Storage recovery certification","PITR setting not rechecked","No player/application rows queried"],
+  "vendorStatusContext": {"incident":"https://status.supabase.com/incidents/01M5J8ZQ04EZXAYF10Q75MGC1T","state":"Monitoring","projectOutageInferred":false}
+}

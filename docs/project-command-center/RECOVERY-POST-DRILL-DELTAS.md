@@ -90,3 +90,6 @@ All9reviewed installs replay in order on a separate empty PG17 schema fixture fr
 |20261023025714 codex135_team_active_ownership_serialization|supabase/unapplied/team-active-ownership/INSTALL.sql|d0df06fc6fab4439ccea0e4d74e800efcf1f29f053b51b957d2cf90edd6a624f|
 
 Owner explicitly approved one-function replacement and source-only verification. Exact candidate and unchanged attributes verified without a team/trade/release call. This is the tenth post-drill delta;older snapshots need ordered replay or verified newer coverage. No player-pointer repair,restore or new gameplay authority.
+
+
+CODEX-161 recovery observation:scheduled dashboard lists PHYSICAL23Oct07:44:31UTC/03:44:31EDT,after latest recorded migration20261023025714/CODEX-135. Storage metadata0buckets. No Restore/export/password/settings/player action;not physical/full Auth/storage certification. Older logical archive still needs10guarded deltas. See LAUNCH-CODEX161-POST-CORRECTION-BACKUP.md.

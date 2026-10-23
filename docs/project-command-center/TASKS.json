@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-161",
+      "status": "done",
+      "scope": "Read-only observation of post-correction physical backup",
+      "dependencies": [
+        "CODEX-135"
+      ],
+      "evidence": "LAUNCH-CODEX161-POST-CORRECTION-BACKUP.md; evidence/codex161-backup.json",
+      "testResults": "Newest visible PHYSICAL23Oct07:44:31UTC;latest migration135;Storage0buckets;no restore/export/settings action",
+      "nextAction": "Preserve older logical archive replay packet;physical restore/full Auth/device/provider gates remain",
+      "approvalRequirement": "Read-only only;no restore,spending,password or settings authority"
+    },
+    {
       "id": "CODEX-160",
       "status": "done",
       "scope": "Read-only Analytics dependency audit and fictional reporting design preparation",

@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-140",
+      "scope": "Mart sales replay/concurrency/rollback boundaries",
+      "evidence": "LAUNCH-CODEX140-MART-SALES.md; evidence/codex140-mart-sales.json",
+      "testResults": "21REAL LOCAL endpoint/helper cases;2concurrent pairs with actual inventory-lock waits;no new defect confirmed",
+      "dependencies": [
+        "CODEX-139"
+      ],
+      "status": "done",
+      "nextAction": "Real acceptance required;Twitch held;next physical backup when due",
+      "approvalRequirement": "Catalog/local fictional tests only;no new production authority"
+    },
+    {
       "id": "CODEX-139",
       "scope": "Staff diagnostic early-denial boundaries",
       "evidence": "LAUNCH-CODEX139-HEALTH-GATES.md; evidence/codex139-health-gates.json",

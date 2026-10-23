@@ -1,0 +1,29 @@
+{
+  "classification": "REAL LOCAL captured sale and4ledger/item helpers;fictional minimal tables,catalog-matched unique indexes;ensure/config/uuid/Auth stand-ins;not full economy/trigger/RLS certification",
+  "count": 21,
+  "checks": [
+    "normal sale debits3 and credits30",
+    "sequential replay leaves inventory and ledgers unchanged",
+    "invalid quantity null atomic refusal",
+    "invalid quantity 0 atomic refusal",
+    "invalid quantity -1 atomic refusal",
+    "invalid quantity 100 atomic refusal",
+    "invalid item null atomic refusal",
+    "invalid item  atomic refusal",
+    "invalid item missing atomic refusal",
+    "mart_sell_enabled false blocks sale",
+    "inventory_enabled false blocks sale",
+    "insufficient items refuses",
+    "missing actor refuses",
+    "overlapping distinct sales cannot oversell remaining stock",
+    "overlapping duplicate sale rolls back competing debit",
+    "nonpositive/null price null refuses atomically",
+    "nonpositive/null price 0 refuses atomically",
+    "nonpositive/null price -2 refuses atomically",
+    "trimmed case-normalized valid item accepted",
+    "explicit non-idempotent sales each debit and pay once",
+    "payout error rolls back item debit and every ledger/sale write"
+  ],
+  "productionChanges": 0,
+  "hostedApplicationCalls": 0
+}

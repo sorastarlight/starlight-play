@@ -1,0 +1,9 @@
+# CODEX-140 — Mart sale atomicity and replay
+
+21 REAL LOCAL SQL cases execute the captured play_sell_item endpoint and four captured item/coin helpers. Fictional minimal schema reproduces catalog-confirmed per-trainer idempotency unique indexes on mart_sales,coin_ledger and item_ledger,and relevant NOT NULL fields. ensure_inventory,economy configuration,UUID parsing and Auth are scoped stand-ins;this is not complete hosted economy/trigger/RLS certification.
+
+Checks cover ordinary item debit/payout,sequential replay,quantity bounds/null,missing/invalid item,disabled sell/inventory policies,insufficient stock,missing actor,null/zero/negative price,input normalization,explicit non-idempotent sales and payout-error rollback. Two concurrent groups explicitly observe both peers waiting on the inventory lock. Distinct sale IDs cannot oversell five items with two three-item sales;identical IDs leave one item debit,payout,sale and ledger pair after the competing transaction fails/rolls back. A forced coin-ledger failure preserves all inventory and ledger/sale counts.
+
+No new defect confirmed in scope. A competing identical request may receive a database conflict rather than the ordinary sequential duplicate response;this review claims transactional conservation,not identical concurrent UX responses. Private source/harness/results:LOCALAPPDATA/PokemonStreamLink/security/codex140. Loopback55540 stopped and temporary fictional fixture removed.
+
+No hosted sale,inventory read,coin grant,gameplay,provider/email,credential,SQL,APP or player-repair operation. Sora NO;Twinkle NO;PlayTester role unchanged.20recovery packet files remain verified;10-delta schema replay/inverse proof remains CODEX-135. Real device/assistive/provider acceptance and full physical/Auth/storage recovery remain open;Twitch held. Prior106frontend suites retained without an unchanged rerun.

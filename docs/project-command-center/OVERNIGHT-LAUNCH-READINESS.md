@@ -139,3 +139,7 @@ Explicit owner approval;fresh source/attributes/2packet hashes matched. Installe
 ## CODEX-139 — Staff diagnostic gates
 
 32REAL LOCAL captured7health-endpoint/actual-role-gate checks pass;no ordinary/unconfirmed/non-Twitch/signed-out diagnostic access in scope. Fictional fixture stopped/removed;no hosted health call/player/provider/SQL/APP action or new defect. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX139-HEALTH-GATES.md.
+
+## CODEX-140 — Mart sale conservation/replay
+
+21REAL LOCAL captured endpoint/4helper cases pass;2overlapping pairs explicitly wait on inventory locks. No oversell,duplicate net debit or partial payout confirmed in scope. Catalog indexes/nullability inspected;fixture stopped/removed,no hosted sale/player/coin/SQL/APP action. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX140-MART-SALES.md.

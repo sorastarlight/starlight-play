@@ -33,3 +33,5 @@ CODEX-144live:mainc9d29ff9/Pages39898025421success;100sources and2changed versio
 CODEX-145 live:main058ee3fe/Pages39899357051success;100monitored+4versioned sources match. CODEX-146 actual GTS picker numeric search/accurate empty-state candidate passes12local cases and107suites;isolated actual-controller browser verified. Publication tracked separately.
 
 CODEX-146 VERIFIED:main98876e6c/Pages39900131418success;100monitored+2versioned sources match. CODEX-147 reviewed24Rankings/Lab page-state widths+12Lab station widths;mobile board tabs/search/sort/View ready targets aligned to44px;107suites/build pass. Exact CSS-only publication follows;no hosted mutation/backend/provider/APP change.
+
+CODEX-147 VERIFIED:main1f2dce52/Pages39900646934success;100monitored+1versioned source match. CODEX-148:28Admin section-width shell cases,0overflow/undersized mobile controls;staff-facing Operations wording and duplicate recovery guidance simplified;directory mobile fields44px.107suites/build pass. Exact3runtime publication follows;no hosted staff/RPC/backend/provider/APP changes.

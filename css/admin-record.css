@@ -67,6 +67,8 @@
   .record-directory-row { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
 }
 @media (max-width: 720px) {
+  .record-workspace .admin-next-trainer-search-row input,
+  .record-workspace .admin-next-trainer-search-row button { min-height: 44px; }
   .record-header { align-items: flex-start; flex-direction: column; padding: 16px; gap: 12px; }
   .record-directory-row,
   .record-facts,

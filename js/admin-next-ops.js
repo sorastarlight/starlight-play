@@ -3,10 +3,10 @@
   if (typeof module === "object" && module.exports) module.exports = factory();
   else root.PLAY_ADMIN_NEXT_SNAPSHOT = factory();
 }(typeof globalThis !== "undefined" ? globalThis : this, function () {
-  const FALLBACK_STATUS = "Live status unavailable in preview. Legacy Live Operations remains on the current Dashboard. This preview does not refresh, settle, or tick gameplay.";
+  const FALLBACK_STATUS = "Live status unavailable in preview. Use the current Dashboard to view and manage the Live RPG.";
   const DENIED_STATUS = "Live status is restricted to staff.";
   const LOADING_STATUS = "Loading live status…";
-  const STALE_STATUS = "Twitch status may be stale. Director last_tick_at is not snapshot freshness. This preview does not tick or settle gameplay.";
+  const STALE_STATUS = "Twitch status may be out of date. Check the observation time before acting; the director's last activity does not confirm current Twitch status.";
   const PERMISSION = "LIVE permits · OFFLINE ends · Start is explicit";
   const DASH = "—";
 

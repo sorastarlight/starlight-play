@@ -67,7 +67,7 @@ test("Preview shell only allows verified true-read RPCs", () => {
 
 test("Operations preview keeps the unavailable fallback and polls only the snapshot", () => {
   assert(nextHtml.includes("Live status unavailable in preview"));
-  assert(nextHtml.includes("Legacy Live Operations remains on the current Dashboard") || nextHtml.includes("legacy Live Operations"));
+  assert(nextHtml.includes("Use the current Dashboard to view and manage the Live RPG"));
   assert(nextHtml.includes("UNAVAILABLE"));
   assert(nextHtml.includes("Last recorded encounter"));
   assert(nextHtml.includes("Settlement"));

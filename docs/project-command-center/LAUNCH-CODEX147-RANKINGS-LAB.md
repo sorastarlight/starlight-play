@@ -7,3 +7,5 @@ Routine CSS-only correction: mobile Rankings board buttons were38px;Lab search/s
 107/107non-writing STATIC/LOCAL suites and build31HTML/464references pass. Actual browser render uses localhost only,SDK/config removed,CSPconnect-src none;all mutations and unknown RPCs denied. No claim,transfer,evolution,trade,player/profile/provider/Auth/SQL/APP action. No real device or screen-reader certification follows.
 
 Private fixture/results/screenshots retained under LOCALAPPDATA/PokemonStreamLink/security/codex147. Exact CSS-only publication tracked separately under CODEX-78. Sora NO;Twinkle NO;PlayTester unchanged.
+
+Published exactCSS to main1f2dce52;Pages39900646934success;100monitored+1versioned source matches exact published commit. See evidence/codex147-publication.json.

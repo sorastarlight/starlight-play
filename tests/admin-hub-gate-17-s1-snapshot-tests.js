@@ -221,9 +221,9 @@ test("Stale Twitch uses STALE, not OFFLINE; director lastTickAt does not mark th
   });
   assert(card(twitchStale, "Twitch").value === "STALE");
   assert(card(twitchStale, "Twitch").state !== "inactive");
-  assert(/stale/i.test(twitchStale.status));
+  assert(/stale|out of date/i.test(twitchStale.status));
   assert(card(oldTick, "Twitch").value === "LIVE");
-  assert(!/stale/i.test(oldTick.status));
+  assert(!/stale|out of date/i.test(oldTick.status));
 });
 
 test("Historical lastEncounter is not rendered as the current encounter", () => {
@@ -282,7 +282,7 @@ test("Unauthorized and network failures stay UNAVAILABLE and do not mutate", () 
   const missing = contract.presentLiveOperations({ error: "missing" });
   assert(denied.status.includes("restricted to staff"));
   assert(network.status.includes("Live status unavailable in preview"));
-  assert(missing.status.includes("Legacy Live Operations"));
+  assert(missing.status.includes("current Dashboard to view and manage the Live RPG"));
   [denied, network, missing].forEach((view) => {
     assert(card(view, "Twitch").value === "UNAVAILABLE");
     assert(card(view, "Live RPG session").value === "UNAVAILABLE");

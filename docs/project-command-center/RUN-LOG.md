@@ -2391,3 +2391,9 @@ CODEX-174 publication VERIFIED after exact owner approval: migration202610231903
 
 
 CODEX-175 VERIFIED: routine Analytics roving focus and Unicode Mart search;118/118 suites/build31HTML/471refs;actual local keyboard exit/re-entry and delayed response focus plus Japanese match/no-match. Exact2runtime main d7082278 / Pages40021246367 success;100monitored+2versioned source matches. No production application/report/save/SQL/Auth/provider/grant/APP action. See LAUNCH-CODEX175-HUB-KEYBOARD-SEARCH.md.
+
+
+CODEX-176 VERIFIED: Unicode gift/Pokémon queries retain text and the picker no-results message spans the grid.118/118 suites/build31/471;actual rendered fictional matching/unmatched choices and empty picker checked. Exact2runtime main bae76909 / Pages40021856876 success;100monitored+2versioned sources match. No real catalog/application/grant/SQL/Auth/provider/APP action. See LAUNCH-CODEX176-GIFT-SEARCH.md.
+
+
+CODEX-177:19REAL LOCAL role/RLS boundary cases passed using five exact installed definitions and fictional identities;catalog-only production review. No new defect in scope;no production mutation or broad certification. See LAUNCH-CODEX177-ROLE-BOUNDARIES.md.

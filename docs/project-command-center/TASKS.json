@@ -4,6 +4,24 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-177",
+      "status": "done",
+      "scope": "Bounded role/connection catalog review and fictional local RLS checks",
+      "evidence": "LAUNCH-CODEX177-ROLE-BOUNDARIES.md;evidence/codex177-role-boundaries.json",
+      "testResults": "19 real local PostgreSQL checks;five exact installed functions;no new defect in scope",
+      "nextAction": "System integrations/roles remain current tools;no new workflow authority",
+      "approvalRequirement": "No production mutation or new privilege authorized"
+    },
+    {
+      "id": "CODEX-176",
+      "status": "done",
+      "scope": "International gift search and full-width empty picker",
+      "evidence": "LAUNCH-CODEX176-GIFT-SEARCH.md;evidence/codex176-regressions.json;evidence/codex176-publication.json",
+      "testResults": "118suites;fictional rendered matching/empty cases;build31/471;100+2hosted source matches",
+      "nextAction": "Actual authenticated acceptance remains separate",
+      "approvalRequirement": "CODEX-78 routine frontend standing authority"
+    },
+    {
       "id": "CODEX-175",
       "status": "done",
       "scope": "Analytics keyboard focus and international Mart search",

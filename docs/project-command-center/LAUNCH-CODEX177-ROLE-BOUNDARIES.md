@@ -1,0 +1,7 @@
+# CODEX-177: bounded role and integration boundary review
+
+Catalog-only review of five installed role functions and four related relations. No application function was invoked on production;no credential values,Auth records or trainer payloads were selected.
+
+19 REAL LOCAL PostgreSQL checks passed with fictional identities/tables and exact installed play_staff_role,can_manage_secrets,is_play_admin,require_hub,admin_set_role definitions. The directory serializer was stubbed;this does not certify its projection. Null/ordinary/moderator denial,admin grant ceiling,self/owner protection,invalid role,owner grant and player demotion preserved the existing contract. Reconstructed staff SELECT-only and Twitch own-row policies plus observed grants denied browser insertion/update/deletion or foreign reads in the tested cases. RLS is essential:table grants alone are not access certification. The site_config browser UPDATE privilege remains absent;its older UPDATE policy alone does not restore access. No new defect confirmed in this scope;no blanket role/RLS/nested-authority clearance.
+
+Private source/rehearsal:LOCALAPPDATA/PokemonStreamLink/security/codex177. Loopback-only cluster stopped and disposable fictional data removed. No live role mutation,provider/secret action,SQL installation,reward,spending,APP stamp or new recovery export. Next daily physical backup is not yet due;no newer backup coverage is claimed. System & Access remains a handoff,not a new privileged workflow.

@@ -1,0 +1,82 @@
+{
+  "classification": "REAL LOCAL PG17;fictional identities/tables;five exact installed functions;stubbed list response;no production roles or app calls",
+  "passed": 19,
+  "results": [
+    {
+      "name": "Null identity has no staff role",
+      "passed": true
+    },
+    {
+      "name": "Null identity rejected before role mutation",
+      "passed": true
+    },
+    {
+      "name": "Ordinary trainer rejected before role mutation",
+      "passed": true
+    },
+    {
+      "name": "Moderator cannot assign roles",
+      "passed": true
+    },
+    {
+      "name": "Admin cannot grant admin",
+      "passed": true
+    },
+    {
+      "name": "Admin can grant moderator under existing contract",
+      "passed": true
+    },
+    {
+      "name": "Self role changes denied",
+      "passed": true
+    },
+    {
+      "name": "Owner target cannot be demoted",
+      "passed": true
+    },
+    {
+      "name": "Owner role cannot be assigned by this endpoint",
+      "passed": true
+    },
+    {
+      "name": "Owner can grant admin",
+      "passed": true
+    },
+    {
+      "name": "Null role rejected",
+      "passed": true
+    },
+    {
+      "name": "Player assignment removes explicit staff entry",
+      "passed": true
+    },
+    {
+      "name": "RLS denies browser staff insertion despite table grant",
+      "passed": true
+    },
+    {
+      "name": "RLS hides other staff rows",
+      "passed": true
+    },
+    {
+      "name": "RLS browser update cannot alter a staff role",
+      "passed": true
+    },
+    {
+      "name": "RLS browser deletion cannot remove staff rows",
+      "passed": true
+    },
+    {
+      "name": "Twitch connections expose only own rows",
+      "passed": true
+    },
+    {
+      "name": "Twitch connection browser writes denied by grant",
+      "passed": true
+    },
+    {
+      "name": "Own staff row remains readable",
+      "passed": true
+    }
+  ]
+}

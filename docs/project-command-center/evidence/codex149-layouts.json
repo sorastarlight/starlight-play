@@ -1,0 +1,1242 @@
+[
+  {
+    "page": "store.html",
+    "state": "populated",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "headings": [
+      "Mart",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 64,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 34,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "populated",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "Mart",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 58,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 34,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 37,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "populated",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "Mart",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 58,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "populated",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "Mart",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 58,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "empty",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "headings": [
+      "Mart",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 64,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "empty",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "Mart",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 58,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "empty",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "Mart",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 58,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "empty",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "Mart",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 58,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "error",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "headings": [
+      "Mart",
+      "Starlight Pass Inactive",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-supply",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-daily",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-weekly",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "check-pass",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 64,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-balls",
+        "height": 64,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-premium-avatars",
+        "height": 64,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-bits",
+        "height": 64,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "error",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "Mart",
+      "Starlight Pass Inactive",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-supply",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-daily",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-weekly",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "check-pass",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 58,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-balls",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-premium-avatars",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-bits",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "error",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "Mart",
+      "Starlight Pass Inactive",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-supply",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-daily",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-weekly",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "check-pass",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 58,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-balls",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-premium-avatars",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-bits",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "state": "error",
+    "path": "/store.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "Mart",
+      "Starlight Pass Inactive",
+      "Field Kit"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-supply",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-daily",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "claim-weekly",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "check-pass",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-field-kit",
+        "height": 58,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-balls",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-premium-avatars",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-bits",
+        "height": 52,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "mart-tab-checkout",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "populated",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "populated",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "populated",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "populated",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "empty",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "empty",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "empty",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "empty",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "error",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "headings": [
+      "My Pokédex"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "error",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 768,
+    "scrollWidth": 753,
+    "headings": [
+      "My Pokédex"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "error",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 390,
+    "scrollWidth": 375,
+    "headings": [
+      "My Pokédex"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "state": "error",
+    "path": "/pokedex.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 320,
+    "scrollWidth": 305,
+    "headings": [
+      "My Pokédex"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  }
+]

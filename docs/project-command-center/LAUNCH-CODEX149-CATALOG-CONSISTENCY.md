@@ -1,0 +1,9 @@
+# CODEX-149 — Catalog visual and search consistency
+
+Actual Mart/Pokédex controllers run on loopback with fictional data,SDK/config removed,CSPconnect-src none and all mutations denied.24populated/empty/error cases at1280/768/390/320CSSpx;additional12Mart Buy/Sell/empty-Checkout cases.0document-wide overflow and0measured visible mobile controls below44px after correction. Fictional Mart includes two supply/space products and one owned sellable;no actual catalog,Pass claim,avatar,Bits or checkout completion certification. Sell fixture initially used incorrect owned/price field names;corrected before mode inspection,not a product defect. No purchase/sale submitted.
+
+Routine fixes: mobile Mart quantity/add/detail controls and Pokédex search/status controls aligned to44px. Sell guidance now explains what the trainer reviews instead of exposing client/server trust implementation.
+
+Actual Pokédex search accepted025 but rejected#025. Shared species parser now accepts optional#and whitespace before numeric queries. Existing release/existence and number/name matching remain. Added baseline-failing assertions to the existing boundary suite:25/025/#25/#025/# 025/#025 Pikachu/#025 Pika match;#000,#025 Bulbasaur,#152,#1000,##025 and unknown text do not match released search. Existing later-generation name blocks remain. Final107/107non-writing STATIC/LOCAL suites and build31HTML/464references pass. Isolated browser verifies025,#025,#025 Pika yield Pikachu only,#152/no-match remain empty.
+
+Publication is exact css/play.css,js/store.js,js/game.js under CODEX-78. No RPC parameters,eligibility,price,reward,server authority,SQL,Auth,provider,APP or protected-account change. Sora NO;Twinkle NO;PlayTester unchanged. Private fixture/results/screenshots retained in LOCALAPPDATA/PokemonStreamLink/security/codex149. Real device/assistive/provider and remaining new-hub workflow acceptance remain open.

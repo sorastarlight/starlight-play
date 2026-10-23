@@ -60,6 +60,13 @@ test("released-only parse blocks Chikorita and #152", () => {
   const parse = context.window.playParseSpeciesQuery;
   assert(typeof parse === "function");
   assert(parse("Pikachu", { releasedOnly: true }).some((row) => row.dex === 25));
+  for (const query of ["25", "025", "#25", "#025", "# 025", "#025 Pikachu", "#025 Pika"]) {
+    const hits = parse(query, { releasedOnly: true });
+    assert(hits.length === 1 && hits[0].dex === 25, `numeric search failed: ${query}`);
+  }
+  for (const query of ["#000", "#025 Bulbasaur", "#152", "#1000", "##025", "zz-no-match"]) {
+    assert(parse(query, { releasedOnly: true }).length === 0, `invalid or unreleased query matched: ${query}`);
+  }
   assert(parse("Mew", { releasedOnly: true }).some((row) => row.dex === 151));
   assert(parse("Bulbasaur", { releasedOnly: true }).some((row) => row.dex === 1));
   assert(parse("Chikorita", { releasedOnly: true }).length === 0, "Chikorita leaked");

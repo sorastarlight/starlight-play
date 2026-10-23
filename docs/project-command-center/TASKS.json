@@ -4,15 +4,27 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-148",
+      "id": "CODEX-149",
       "status": "in_progress",
+      "scope": "Mart/Pokedex visual states, mobile targets and #dex search consistency",
+      "dependencies": [
+        "CODEX-148"
+      ],
+      "evidence": "LAUNCH-CODEX149-CATALOG-CONSISTENCY.md; evidence/codex149-layouts.json; evidence/codex149-mart-modes.json",
+      "testResults": "24page states+12Mart modes;5browser search queries;107suites/build;release-boundary assertions pass",
+      "nextAction": "Publish exact3runtime files and verify source",
+      "approvalRequirement": "CODEX-78 routine frontend exception;no purchases/claims/gameplay/authority"
+    },
+    {
+      "id": "CODEX-148",
+      "status": "done",
       "scope": "Admin Hub section review and staff-facing status/directory polish",
       "dependencies": [
         "CODEX-147"
       ],
       "evidence": "LAUNCH-CODEX148-ADMIN-SECTION-POLISH.md; evidence/codex148-admin-sections.json",
-      "testResults": "28REAL DOM isolated shell cases;0overflow/undersized mobile controls;107suites;ops7+snapshot16",
-      "nextAction": "Publish exact3runtime files and verify source",
+      "testResults": "28REAL DOM isolated shell cases;0overflow/undersized mobile controls;107suites;ops7+snapshot16;main5af1d64b/Pages39901146424success;100monitored+3versioned sources match",
+      "nextAction": "Remaining overhaul workflow migration stays separate",
       "approvalRequirement": "CODEX-78 routine frontend exception;no admin authority/backend changes"
     },
     {

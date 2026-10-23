@@ -1127,7 +1127,7 @@
       return window.playDexExists(dex);
     };
     const names = window.PLAY_SPECIES || [];
-    const numbered = raw.match(/^0*(\d{1,4})(?:\s+(.+))?$/);
+    const numbered = raw.match(/^#?\s*0*(\d{1,4})(?:\s+(.+))?$/);
     if (numbered) {
       const n = Number(numbered[1]);
       if (allow(n)) {

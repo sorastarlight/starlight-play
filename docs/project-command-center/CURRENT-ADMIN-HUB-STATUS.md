@@ -14,3 +14,5 @@ This replaces the original inventory as the current-state summary;older design p
 |System & Access|Owner-tool handoff|Credential/integration/role/identity operations not consolidated into new workspace|
 
 Accepted Trainer direction was implemented through CODEX-3/23/24 and subsequent approved Pass/Gift/Helpdesk/recovery work. Earlier statements that the entire next hub is read-only,Support is links only,or no stat fields exist are obsolete. Visual/routine frontend authority does not authorize migrating privileged workflows or broadening access. See SITEWIDE-VISUAL-CONSISTENCY.md for the active presentation inspection. Real mobile/assistive/provider acceptance and final launch remain separate.
+
+CODEX-143–148 presentation review:internal Gate/CRUD/database status wording simplified;Trainer directory/gift typography aligned;mobile search/Find targets44px;inventory capability disclaimer corrected. All7section shells×4widths and8Trainer panes×4widths reviewed locally with fictional data. This is visual polish of current workflows,not completion of the remaining editor/operations migration. Protected legacy Admin sources unchanged.

@@ -1,0 +1,7 @@
+# CODEX-139 — Staff diagnostic gates
+
+32 REAL LOCAL SQL cases execute seven captured health endpoints with the actual captured is_play_admin and play_staff_role helpers. Signed-out,ordinary-trainer,unconfirmed broadcaster connection and non-Twitch identity cases receive42501 from all seven endpoints before unavailable diagnostic queries. Four authoritative staff assignments retain the existing staff gate;authorized diagnostic output was not exercised. All identities/config/role rows are fictional.
+
+Endpoints:admin_bits_health,admin_build_health,admin_capture_health,admin_content_health,admin_economy_health,admin_game_health and admin_special_event_health. No hosted endpoint was invoked. These are selected early-denial proofs,not complete nested helper/output/privacy/provider/RLS or signed-JWT certification. The local fixture deliberately omits diagnostic data tables so denial cannot be mistaken for a successful diagnostic read.
+
+No new defect confirmed in scope. Private source/harness/results:LOCALAPPDATA/PokemonStreamLink/security/codex139. Loopback55539 stopped and temporary fixture removed. No production health/gameplay query,player record read,provider/email,credential,SQL,APP or role change. Sora NO;Twinkle NO;PlayTester role unchanged. Recovery10deltas/20files and prior106frontend suites retained. Required real acceptance/full physical recovery remain open;Twitch held. No new decision needed.

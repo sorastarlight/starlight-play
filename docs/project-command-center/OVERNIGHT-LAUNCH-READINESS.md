@@ -135,3 +135,7 @@ Explicit owner approval;fresh source/attributes/2packet hashes matched. Installe
 ## CODEX-138 — Box-delete transaction boundaries
 
 21REAL LOCAL exact delete/removal helper cases pass;late protected refusal rolls back tentative release/stats/team/layout updates. Existing bulk last-copy safeguard unchanged. No new defect confirmed;fictional fixture stopped/removed,no hosted deletion/release/SQL/player/APP action. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX138-BOX-DELETE.md.
+
+## CODEX-139 — Staff diagnostic gates
+
+32REAL LOCAL captured7health-endpoint/actual-role-gate checks pass;no ordinary/unconfirmed/non-Twitch/signed-out diagnostic access in scope. Fictional fixture stopped/removed;no hosted health call/player/provider/SQL/APP action or new defect. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX139-HEALTH-GATES.md.

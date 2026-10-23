@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-139",
+      "scope": "Staff diagnostic early-denial boundaries",
+      "evidence": "LAUNCH-CODEX139-HEALTH-GATES.md; evidence/codex139-health-gates.json",
+      "testResults": "32REAL LOCAL captured7endpoint/actual-gate cases;no new defect confirmed",
+      "dependencies": [
+        "CODEX-138"
+      ],
+      "status": "done",
+      "nextAction": "Real acceptance required;Twitch held;next physical backup when due",
+      "approvalRequirement": "Catalog/local fictional tests only;no new production authority"
+    },
+    {
       "id": "CODEX-138",
       "scope": "Destructive PC box-delete transaction/protection boundaries",
       "evidence": "LAUNCH-CODEX138-BOX-DELETE.md; evidence/codex138-box-delete.json",

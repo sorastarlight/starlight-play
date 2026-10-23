@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-138 real acceptance required
+# Current launch acceptance matrix — CODEX-139 real acceptance required
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 106/106 suites in CODEX-125. Routine staff error/Bits feedback escaping is published;current expanded checker verified100hosted source files in CODEX-125; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -105,3 +105,5 @@ CODEX-136:18REAL LOCAL captured PC flag/arrange/live-slot cases pass,including3o
 CODEX-137:12REAL LOCAL signup/username/normalization trigger cases pass;metadata-shaped privilege/identity/economy inputs ignored in selected path. Enabled Auth trigger/defaults inspected;no real signup/email/provider action,new defect or production change. See LAUNCH-CODEX137-SIGNUP-METADATA.md.
 
 CODEX-138:21REAL LOCAL box-delete cases pass including late protected refusal/full transaction rollback and existing confirmation/protection boundaries. No live deletion/release,policy change or new defect confirmed. See LAUNCH-CODEX138-BOX-DELETE.md.
+
+CODEX-139:32REAL LOCAL seven-health-endpoint/actual-staff-gate cases pass. Ordinary/unconfirmed/non-Twitch/signed-out cases deny before unavailable diagnostic data;authorized output remains outside scope. No hosted health call or new defect. See LAUNCH-CODEX139-HEALTH-GATES.md.

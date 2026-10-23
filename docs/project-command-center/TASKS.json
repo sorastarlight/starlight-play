@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-163",
+      "status": "done",
+      "scope": "Owner-approved enabling of Supabase manual identity linking",
+      "dependencies": [
+        "CODEX-162"
+      ],
+      "evidence": "LAUNCH-CODEX163-MANUAL-LINKING.md; private before/after dashboard screenshots",
+      "testResults": "REAL DASHBOARD: persisted after reload; three companion switches unchanged; no account/report/gameplay RPCs",
+      "nextAction": "Wait for willing tester real Firefox OAuth/link confirmation and subscriber result",
+      "approvalRequirement": "Single setting approval spent; no other Auth/provider/account action"
+    },
+    {
       "id": "CODEX-162",
       "status": "done",
       "scope": "Owner-approved local read-only Analytics workspace implementation",

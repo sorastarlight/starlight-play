@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-163 | done | Enable manual identity linking | CODEX-162 | Exact setting approval spent | Persisted after reload; real tester linking/subscriber acceptance pending |
 | CODEX-162 | done | Read-only Analytics workspace published | CODEX-160 | Explicit publication approval spent | Main7f0bd440/Pages39981888624;100+4source matches;hosted report acceptance open |
 | CODEX-160 | done | Analytics audit/design prepared | CODEX-159 | Owner approved local implementation | Implement in CODEX-162 |
 | CODEX-156–159 | done | Hub focus/tabs/gates/health retry | CODEX-155 | CODEX-78 | Live50d4a53e;112suites;100+3sources match |

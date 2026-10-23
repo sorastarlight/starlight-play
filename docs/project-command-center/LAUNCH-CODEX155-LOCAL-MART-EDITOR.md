@@ -1,4 +1,4 @@
-# CODEX-155 — Existing Mart product editor, local candidate
+# CODEX-155 — Existing Mart product editor, published after explicit approval
 
 Owner decision on October 23: **Approve design and local implementation** of ADMIN-HUB-MART-NEXT-SLICE.md. This authorizes local implementation and tests only. Production publication, hosted saves, SQL, uploads, deletion, new products and Bits/avatar workflow changes remain held.
 
@@ -25,8 +25,17 @@ Final integration check used the actual admin-next.html and admin-next.js with o
 
 ## Exact publication boundary and rollback
 
-Candidate runtime files are **admin-next.html**, **js/admin-next.js**, **js/admin-next-mart.js** and **css/admin-mart.css**. They have not been published. Tests, local fixture and command-center records are not runtime publication scope. No protected legacy source changed.
+Candidate runtime files are **admin-next.html**, **js/admin-next.js**, **js/admin-next-mart.js** and **css/admin-mart.css**. They were subsequently published under the separate owner decision below. Tests, local fixture and command-center records are not runtime publication scope. No protected legacy source changed.
 
 Frontend rollback restores admin-next.html and js/admin-next.js from pre-candidate feature commit `5dbf054f`, removes their new module/style references, and removes the unused new Mart module/style from any eventual scoped publication. Apply only the Mart hunks to a publication branch; do not whole-merge feature or replace unrelated main history. No catalog/data rollback is needed because no hosted save ran.
 
 Before any publication, review exact runtime diff against the then-current main and revalidate existing Pages histories. Hosted save acceptance requires a separate bounded catalog decision; publication alone must not be treated as permission to edit a live product. Sora NO; Twinkle NO; PlayTester role unchanged; no gameplay, SQL, provider, real email, spending, APP stamp or final launch.
+
+
+## Owner-approved publication and hosted result
+
+October23 owner approved exactly the four runtime files and read-only hosted acceptance. Main `4dad4117b621a83ee851891dd93554d0030c315a` contains only those files; Pages `39964649209` succeeded. All100 monitored sources and all4 changed versioned URLs match that exact commit. Main build31/466 passes and APP remains20261008-rc133. Feature/main histories remain separate; no feature-branch merge occurred.
+
+REAL DOM hosted: initial page gate transitioned to the restored ordinary EmailQA session and correctly denied staff access. Staff root hidden, zero Mart input/forms, zero visible Save product buttons, new module/style linked. No catalog save or owner login was attempted. This proves viewer denial, not authenticated owner editing or hosted save behavior. Private screenshot: codex155/hosted-viewer-denied.png.
+
+Acceptance caveat: the existing legacy tab displayed Not signed in, which was stale. The newly loaded page restored EmailQA and the shared navigation first-signed-in-paint path invokes playShowNotices/play_notices. That endpoint can mark notices seen. The automatic path is inferred from the deployed source; its response and any notice-row changes were not inspected. Further hosted navigation was stopped and no write-risk endpoint was used to investigate. Do not label this as zero-RPC or fully side-effect-free acceptance. No catalog save, gameplay test, SQL, provider change, spending or APP stamp ran. Future authenticated acceptance must account for this shared navigation behavior.

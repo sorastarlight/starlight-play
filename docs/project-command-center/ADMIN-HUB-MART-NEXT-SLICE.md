@@ -1,6 +1,6 @@
 # Next Admin Hub slice: existing Mart product editing
 
-Status: owner approved design and local implementation on October 23. CODEX-155 implements and locally tests this slice; it is not published and no hosted save ran. See LAUNCH-CODEX155-LOCAL-MART-EDITOR.md. The existing Content Studio and current Mart handoff remain available.
+Status: owner approved design and local implementation on October 23. CODEX-155 implements and locally tests this slice; it was subsequently published under separate explicit approval; no hosted catalog save ran. See LAUNCH-CODEX155-LOCAL-MART-EDITOR.md. The existing Content Studio and current Mart handoff remain available.
 
 ## Concrete review
 

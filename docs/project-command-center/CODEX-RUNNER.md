@@ -101,3 +101,6 @@ Explicit owner approval;fresh source/attributes/2packet hashes matched. Installe
 
 
 October23 CODEX-155 owner decision: "Approve design and local implementation" for ADMIN-HUB-MART-NEXT-SLICE.md. Existing single-reward PokeCoin products only. Production publication, hosted saves, SQL, uploads/deletion/new products/Bits/avatar workflows remain excluded. Candidate and exact four-file scope: LAUNCH-CODEX155-LOCAL-MART-EDITOR.md. This is not a new standing publication exception.
+
+
+October23 CODEX-155 publication decision: owner explicitly approved only admin-next.html, js/admin-next.js, js/admin-next-mart.js and css/admin-mart.css, followed by read-only hosted acceptance. Published main4dad4117; Pages39964649209 succeeded;100monitored+4versioned sources match. Hosted viewer-denial and automatic notice-path caveat recorded in CODEX-155 report. This authorizes no hosted catalog save, SQL, new permission or standing publication expansion.

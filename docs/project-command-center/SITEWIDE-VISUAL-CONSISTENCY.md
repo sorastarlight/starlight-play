@@ -52,3 +52,6 @@ CODEX-153 VERIFIED:maine45f7adc/Pages39957022394success;100monitored+2versioned 
 
 
 CODEX-154 VERIFIED:CSS-only main927b2f48/Pages39958731032success;100monitored+1versioned source match. Owner approved Mart design/local implementation. CODEX-155 local candidate complete:existing single-reward PokeCoin products,search/filter,preview,change review,field preservation,session reset,one-shot writes and uncertain-receipt reload.109suites/20measured REAL DOM width cases/build31/466/recovery20 pass. No hosted save or155publication;exact4runtime files held for review. See LAUNCH-CODEX155-LOCAL-MART-EDITOR.md. Sora NO;Twinkle NO;PlayTester unchanged;no SQL/provider/gameplay/spending/APP/final launch.
+
+
+CODEX-155 PUBLISHED by explicit owner approval:exact4runtime files main4dad4117/Pages39964649209success;100monitored+4versioned sources match;mainbuild31/466. Hosted restored EmailQA viewer correctly denied,zero Mart forms/save controls. Acceptance caveat:legacy signed-out tab was stale;shared navigation can invoke notice acknowledgement on session restoration. No catalog save;automatic notice response/data effects not inspected;further hosted navigation stopped. Owner editor/save acceptance remains unproven. See LAUNCH-CODEX155-LOCAL-MART-EDITOR.md and evidence/codex155-publication.json.

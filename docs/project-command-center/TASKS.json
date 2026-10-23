@@ -11,9 +11,9 @@
         "CODEX-154"
       ],
       "evidence": "LAUNCH-CODEX155-LOCAL-MART-EDITOR.md; evidence/codex155-widths.json; evidence/codex155-regressions.json",
-      "testResults": "109suites;20REAL DOM width cases;fictional success/lost receipt/denial/reset/cancel;build31/466;recovery20",
-      "nextAction": "Review exact four-file runtime publication;hosted save QA remains separate",
-      "approvalRequirement": "Design and local implementation approved;production publication/hosted saves/SQL excluded"
+      "testResults": "109suites;20REAL DOM width cases;fictional success/lost receipt/denial/reset/cancel;build31/466;recovery20;main4dad4117/Pages39964649209success;100+4sources match;hosted viewer denial",
+      "nextAction": "Future authenticated editor/save acceptance needs bounded scope and navigation notice-side-effect planning",
+      "approvalRequirement": "Exact4runtime publication/read-only acceptance approved;catalog saves/SQL excluded;automatic notice path caveat recorded"
     },
     {
       "id": "CODEX-154",

@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-123",
+      "status": "implemented",
+      "scope": "Routine Pokédex navigation failure boundary",
+      "dependencies": [
+        "CODEX-122"
+      ],
+      "evidence": "LAUNCH-CODEX123-POKEDEX-LOADING.md; evidence/codex123-regressions.json",
+      "testResults": "5actual-source cases;baseline reproduction;isolated real browser;104suites;build31/464;12recovery hashes",
+      "nextAction": "Await Pages39880218451,then repeat hosted source acceptance;real acceptance remains open and Twitch held",
+      "approvalRequirement": "Existing CODEX-78 routine frontend maintenance only"
+    },
+    {
       "id": "CODEX-122",
       "status": "done",
       "scope": "Routine Mart Pass button pending/error/retry maintenance",

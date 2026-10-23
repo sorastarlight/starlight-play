@@ -2239,3 +2239,7 @@ CODEX-121 CURRENT COMPLETION:owner approved the one-expression shiny confirmatio
 CODEX-122 candidate:actual Mart Pass handler transport failure reproduced;recoverable pending/error/retry guard prepared.10selected-source cases/isolated REAL BROWSER/103non-writing suites/build31/464 pass. Mocked dependencies only;no actual Auth/provider/RPC/backend/gameplay/APP changes. Publish only js/store.js under CODEX-78 then verify. See LAUNCH-CODEX122-MART-FEEDBACK.md.
 
 CODEX-122 COMPLETE:only js/store.js published under CODEX-78 at main4d6ed6dc;Pages39838654675success.100expanded hosted source files and actual versioned Mart source equal reviewed checkout.10selected-source cases/103non-writing suites/build31localHTML/464refs/12recovery hashes plus isolated browser error/retry/secondary-refresh cases pass. No real Auth/provider/RPC/backend/gameplay/email/APP action. Real Twitch testing remains held. See LAUNCH-CODEX122-MART-FEEDBACK.md.
+
+## CODEX-123 — Pokédex lookup failure recovery (2026-10-22)
+
+5 LOCAL actual-source cases and isolated REAL BROWSER error/recovery pass;104suites/build31/464. Main5130c349 runtime-only diff;Pages39880218451 pending and initial99/100 during deployment is not acceptance. No real Auth/state/catalog/provider/gameplay call;APP unchanged;Sora NO;Twinkle NO;PlayTester role unchanged.

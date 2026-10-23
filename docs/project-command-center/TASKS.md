@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-123 | implemented | Pokédex lookup failure boundary | CODEX-122 | CODEX-78 routine frontend | Main5130c349;Pages39880218451 pending |
 | CODEX-122 | done | Mart Pass request feedback | CODEX-121 | CODEX-78 routine frontend |Main4d6ed6dc;Pages39838654675success;100sources/versioned Mart match |
 | CODEX-121 | done | Release safeguard/Radar boundaries | CODEX-120 | Explicit owner approval spent |Installed20261022185226;exact source/attributes;2controls unchanged |
 | CODEX-120 | done | Picker response ownership/assets | CODEX-119 | CODEX-78 routine frontend |Main54465ae2;Pages39832712529success;100sources/versioned picker match |

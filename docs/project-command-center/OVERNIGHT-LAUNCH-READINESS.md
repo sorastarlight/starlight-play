@@ -1,4 +1,4 @@
-# Launch readiness handoff — consolidated through CODEX-122
+# Launch readiness handoff — consolidated through CODEX-123
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
@@ -95,3 +95,5 @@ CODEX-121: read-only release/inventory function and trigger review; release-conf
 CODEX-121 CURRENT COMPLETION:owner approved the one-expression shiny confirmation correction/read-only verification. Migration20261022185226 installed only play_release;exact full source/attributes independently verified and Radar/Rare Candy control definitions/attributes unchanged. No release or gameplay invocation.21local packet cases plus10independent Radar cases retained. Guarded recovery files and sixth manifest delta preserved;approval spent. Earlier held statements are historical.
 
 CODEX-122 COMPLETE:only js/store.js published under CODEX-78 at main4d6ed6dc;Pages39838654675success.100expanded hosted source files and actual versioned Mart source equal reviewed checkout.10selected-source cases/103non-writing suites/build31localHTML/464refs/12recovery hashes plus isolated browser error/retry/secondary-refresh cases pass. No real Auth/provider/RPC/backend/gameplay/email/APP action. Real Twitch testing remains held. See LAUNCH-CODEX122-MART-FEEDBACK.md.
+
+CODEX-123:Pokédex navigation lookup errors now use the existing gate;5actual-source cases and isolated browser recovery pass;104suites/build31/464/12recovery hashes. Exact runtime main5130c349 published;Pages39880218451 pending. An early source check while deployment was pending returned99/100 (old Pokédex);repeat after completion before claiming acceptance. No real state/catalog/provider call. See LAUNCH-CODEX123-POKEDEX-LOADING.md.

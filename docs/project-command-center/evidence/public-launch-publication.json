@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-22T19:18:32.590Z",
+  "checkedAt": "2026-10-23T00:48:28.188Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -687,9 +687,9 @@
       "file": "js/pokedex.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "7c1650133a609c19b4878b06113cadb204ea1feaabb9f295e07007457ee58de0",
+      "localSha256": "2099007a2f0525a9b3c5b0a5d6cd5284ad17d7c8dda357fdb5c08a8fe747cddf",
       "publishedSha256": "7c1650133a609c19b4878b06113cadb204ea1feaabb9f295e07007457ee58de0",
-      "matches": true
+      "matches": false
     },
     {
       "file": "js/gym-badge-catalog.js",

@@ -1,0 +1,26 @@
+{
+  "classification": "REAL LOCAL captured2PC endpoints/live-slot helper;fictional tables and Auth/storage stand-ins;not full storage/trigger/RLS certification",
+  "count": 18,
+  "checks": [
+    "favorite only preserves lock",
+    "lock only and null preserve existing flags",
+    "explicit false clears own flags",
+    "foreign/missing/null flag target 55555555-5555-4555-8555-555555555555",
+    "foreign/missing/null flag target 22222222-2222-4222-8222-222222222222",
+    "foreign/missing/null flag target null",
+    "released flag target refused",
+    "unsigned flag edit refused",
+    "concurrent trade refuses former-owner flags after actual lock wait",
+    "concurrent release refuses former-owner flags after actual lock wait",
+    "arrange filters invalid/foreign/duplicate slots,compacts30,preserves other box and trainer",
+    "invalid box null refuses without layout change",
+    "invalid box -1 refuses without layout change",
+    "invalid box 2 refuses without layout change",
+    "invalid box 999 refuses without layout change",
+    "arrange omits released specimen",
+    "unsigned arrange refused",
+    "arrange observes concurrent committed layout after actual profile lock wait"
+  ],
+  "productionChanges": 0,
+  "hostedApplicationCalls": 0
+}

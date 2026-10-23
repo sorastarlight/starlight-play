@@ -2283,3 +2283,7 @@ Owner-approved one-function migration20261023020246;4fresh guards/reviewed hashe
 ## CODEX-135 — Approved team correction installed
 
 Explicit owner approval;fresh source/attributes/2packet hashes matched. Installed20261023025714;exact candidate/attributes and removal-helper control verified without application calls/player repair.17local cases;10forward/10reverse empty-schema recovery packets,21guards,585/143/56baseline matches;142tables empty/runtime stopped/archive unchanged.20recovery files retained;approval spent. Real acceptance required/Twitch held;APPunchanged. See LAUNCH-CODEX135-TEAM-SERIALIZATION.md.
+
+## CODEX-136 — PC ownership/layout boundaries
+
+18REAL LOCAL exact-source cases;3actual concurrent peer lock waits demonstrate flag ownership recheck and arrangement fresh layout. No new defect confirmed;fictional fixture stopped/removed,no hosted application/player/provider/SQL/APP action. Recovery10deltas/20files remains;real acceptance required/Twitch held. See LAUNCH-CODEX136-PC-BOUNDARIES.md.

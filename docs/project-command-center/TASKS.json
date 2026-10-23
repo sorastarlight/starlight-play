@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-136",
+      "scope": "PC flag ownership and box layout boundaries",
+      "evidence": "LAUNCH-CODEX136-PC-BOUNDARIES.md; evidence/codex136-pc-boundaries.json",
+      "testResults": "18REAL LOCAL exact-source cases;3observed concurrent row-lock waits;no new defect confirmed",
+      "dependencies": [
+        "CODEX-135"
+      ],
+      "status": "done",
+      "nextAction": "Real acceptance required;Twitch held;physical backup observation when due",
+      "approvalRequirement": "Catalog/local fictional checks only;no new production authority"
+    },
+    {
       "id": "CODEX-135",
       "scope": "Approved team active-ownership serialization and extended schema recovery",
       "evidence": "LAUNCH-CODEX135-TEAM-SERIALIZATION.md; evidence/codex135-team-verification.json",

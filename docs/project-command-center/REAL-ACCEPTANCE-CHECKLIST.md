@@ -4,7 +4,7 @@ Owner decision October22,2026: require real mobile/assistive and Twitch-provider
 
 ## Reviewer evidence to collect
 
-Record actual device/model, OS/browser version, assistive technology/version where applicable, date, page, action and observed result. Mark unavailable or not tested honestly. Owner reports a PC and Android phone are available; model/browser and real results are pending. iOS/reviewer and real screen-reader access remain unconfirmed; no account password, recovery link or token should be shared.
+Record actual device/model, OS/browser version, assistive technology/version where applicable, date, page, action and observed result. Mark unavailable or not tested honestly. Owner reports a PC and Samsung Galaxy S25 Ultra are available;the bounded Android visual/touch/keyboard check passed by owner report in CODEX-171. Browser/OS versions remain unrecorded. iOS/reviewer and real screen-reader access remain unconfirmed; no account password, recovery link or token should be shared.
 
 ### Physical mobile: iOS Safari and Android Chrome
 
@@ -30,3 +30,7 @@ Exact target identity, intended operation and retained effects must be reviewabl
 All required real results must be recorded and any material defect fixed/retested before launch recommendation. Remaining physical backup/full Auth restore limits are still separately documented; this decision neither authorizes a restore nor adds an unrequested production restore test. Daily RPO acceptance remains. CODEX-96 deltas must accompany recovery from older snapshots. Final owner go/no-go/APP stamp remain separate.
 
 CODEX-103 provider planning:see PROVIDER-REAL-ACCEPTANCE-PREREQUISITES.md. A trusted broadcaster-ID exemption returns before subscription lookup;owner-channel acceptance alone cannot close ordinary subscriber/non-subscriber coverage. Extra test identities were unavailable;do not request manufactured accounts or silently use protected identities.
+
+## Recorded Android result
+
+CODEX-171 — HUMAN-REPORTED Android acceptance, October23,2026:owner confirms requested Help portrait/landscape, touch navigation open/close and Register field/virtual-keyboard checks look good on Samsung Galaxy S25 Ultra. No clipping, obstruction or difficult touch action reported. Browser/OS versions were not supplied;Chrome was requested but browser/version not independently verified. Scope is these pages/actions only,not whole-site/device/provider certification. iOS Safari,real desktop zoom/screenreader and broader provider coverage remain open. No application operation or runtime change performed by agent.

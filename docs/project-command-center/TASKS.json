@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-171",
+      "status": "done",
+      "scope": "Record owner-reported S25 Ultra visual/touch/keyboard acceptance",
+      "dependencies": [
+        "CODEX-100"
+      ],
+      "evidence": "REAL-ACCEPTANCE-CHECKLIST.md;LAUNCH-ACCEPTANCE-MATRIX.md",
+      "testResults": "HUMAN-REPORTED Help portrait/landscape/navigation and Register virtual keyboard pass;versions unrecorded",
+      "nextAction": "Other device/assistive/provider gates remain open",
+      "approvalRequirement": "Evidence update only;no runtime or application actions"
+    },
+    {
       "id": "CODEX-170",
       "status": "done",
       "scope": "Empty-schema recovery extended through Pokémon gift quantity",

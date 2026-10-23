@@ -97,7 +97,6 @@
 
   async function twitchOAuthUrl(options) {
     const redirectTo = options?.redirectTo || window.playRedirectTo();
-    const method = options?.link ? "linkIdentity" : "signInWithOAuth";
     const args = {
       provider: "twitch",
       options: {
@@ -112,13 +111,6 @@
     if (error || !data?.url) {
       return { ok: false, message: error?.message || "Twitch sign-in is not enabled yet." };
     }
-    try {
-      const probe = await fetch(data.url, { redirect: "manual" });
-      const body = await probe.text();
-      if (body.includes("provider is not enabled") || body.includes("validation_failed")) {
-        return { ok: false, message: "Twitch sign-in is not enabled yet." };
-      }
-    } catch (_) {}
     return { ok: true, url: data.url };
   }
 

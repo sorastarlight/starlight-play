@@ -49,3 +49,15 @@ const defer = () => { let resolve, reject; const promise = new Promise((a, b) =>
   identity = "staff-A"; await adapter("admin_store_get"); await adapter("admin_store_save_item", { p_row: row }); assert.deepEqual(actualCalls.map(x => x[0]), ["admin_store_get", "admin_store_save_item"]); assert.deepEqual(actualCalls[1][1], { p_row: row });
   console.log("Mart local model/controller: payload preservation, validation, denial, stale reads, account reset, uncertain writes and no automatic retry pass.");
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+const searchApi=require('../js/admin-next-mart.js');
+const searchRows=[{sku:'ball-kit-1',name:'Poké Ball Bundle',blurb:'Five balls',categoryId:'balls',detail:'Adventure supplies'},{sku:'berry-kit',name:'Berry Bundle',categoryId:'kit',extra:{detail:'Supply for adventure'}}];
+assert.deepEqual(searchApi.searchProducts(searchRows,'bundle poke').map(r=>r.sku),['ball-kit-1']);
+assert.deepEqual(searchApi.searchProducts(searchRows,'POKÉ   ball').map(r=>r.sku),['ball-kit-1']);
+assert.deepEqual(searchApi.searchProducts(searchRows,'kit-1').map(r=>r.sku),['ball-kit-1']);
+assert.equal(searchApi.searchProducts(searchRows,'adventure','balls').length,1);
+assert.equal(searchApi.searchProducts(searchRows,'poke','kit').length,0);
+assert.equal(searchApi.searchProducts(searchRows,'missing').length,0);
+assert.equal(searchApi.searchProducts(searchRows,'  ').length,2);
+assert.equal(searchRows[0].name,'Poké Ball Bundle');
+console.log('Mart multiword/accent/SKU/detail search and floor isolation pass.');

@@ -87,6 +87,11 @@
     }
     return { state, reset, load, select, dirty, save, open() { active = true; return load(); } };
   }
+  const searchText = value => String(value ?? "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  function searchProducts(items, query = "", floor = "") {
+    const words = searchText(query).split(/\s+/).filter(Boolean);
+    return items.filter(row => (!floor || row.categoryId === floor) && words.every(word => searchText([row.name,row.sku,row.blurb,row.detail ?? row.extra?.detail].join(" ")).includes(word)));
+  }
   function mount(root, transport) {
     if (!root) return null;
     let query = "", floor = "", focusReturn = null;
@@ -112,7 +117,7 @@
     }
     function list() {
       const s = controller.state, host = root.querySelector("[data-mart-list]"); if (!host) return;
-      const rows = s.catalog.items.filter(p => (!floor || p.categoryId === floor) && [p.name, p.sku, p.blurb].join(" ").toLowerCase().includes(query.toLowerCase().trim()));
+      const rows = searchProducts(s.catalog.items, query, floor);
       host.innerHTML = `<p class="muted">${rows.length} ${rows.length === 1 ? "product" : "products"}</p>` + rows.map(p => `<button type="button" class="mart-product" data-mart-sku="${esc(p.sku)}" aria-pressed="${p.sku === s.row?.sku}" ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><strong>${esc(p.name || p.sku)}</strong><small>${eligible(p, s.catalog.categories) ? esc(p.cost) + " PokéCoins" : "Current editor required"}</small></button>`).join("") + (!rows.length ? "<p>No products match these filters.</p>" : "");
     }
     function editor() {
@@ -187,6 +192,6 @@
     root.ownerDocument.defaultView.addEventListener("beforeunload", unload);
     render(); return controller;
   }
-  return { eligible, draft, payload, createController, mount };
+  return { eligible, draft, payload, createController, mount, searchProducts };
 });
 

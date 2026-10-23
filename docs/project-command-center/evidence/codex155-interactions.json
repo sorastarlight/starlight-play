@@ -1,0 +1,53 @@
+{
+  "classification": "REAL DOM fictional local module only",
+  "keyboard": [
+    {
+      "dialog": true,
+      "focus": "Save product",
+      "key": "Tab"
+    },
+    {
+      "dialog": true,
+      "focus": "Return to editor",
+      "key": "Tab"
+    },
+    {
+      "dialog": true,
+      "focus": "Save product",
+      "key": "shift+Tab"
+    },
+    {
+      "dialog": false,
+      "focus": "Review changes",
+      "key": "Escape"
+    }
+  ],
+  "observed": [
+    "SKU search narrows to mixed product",
+    "Unsupported product offers handoff with no editable form",
+    "Empty catalog has no product form",
+    "Denied catalog clears product form",
+    "One fictional success acknowledgment disables further writes until reload",
+    "One lost receipt retains disabled draft without retry",
+    "Explicit reload discard confirmation",
+    "Account reset clears product data"
+  ],
+  "network": "CSP connect-src none; mocked transport only",
+  "actualShell": {
+    "classification": "REAL DOM actual Admin Hub HTML/controller with fictional staff/catalog transport; connect none",
+    "martMounted": true,
+    "draftRetainedAcrossSectionChange": "price125",
+    "components": [
+      {
+        "width": 284,
+        "scroll": 284
+      },
+      {
+        "width": 652,
+        "scroll": 652
+      }
+    ],
+    "hostedRpc": false
+  },
+  "keyboardCorrection": "Explicit forward/backward wrapping added after iframe boundary observation; final Tab,Tab,Shift+Tab,Escape passed"
+}

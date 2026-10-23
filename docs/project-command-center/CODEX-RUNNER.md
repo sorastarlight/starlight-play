@@ -98,3 +98,6 @@ CODEX-118 CURRENT COMPLETION:owner approved only the one-function correction/rea
 ## CODEX-135 — Approved team correction installed
 
 Explicit owner approval;fresh source/attributes/2packet hashes matched. Installed20261023025714;exact candidate/attributes and removal-helper control verified without application calls/player repair.17local cases;10forward/10reverse empty-schema recovery packets,21guards,585/143/56baseline matches;142tables empty/runtime stopped/archive unchanged.20recovery files retained;approval spent. Real acceptance required/Twitch held;APPunchanged. See LAUNCH-CODEX135-TEAM-SERIALIZATION.md.
+
+
+October23 CODEX-155 owner decision: "Approve design and local implementation" for ADMIN-HUB-MART-NEXT-SLICE.md. Existing single-reward PokeCoin products only. Production publication, hosted saves, SQL, uploads/deletion/new products/Bits/avatar workflows remain excluded. Candidate and exact four-file scope: LAUNCH-CODEX155-LOCAL-MART-EDITOR.md. This is not a new standing publication exception.

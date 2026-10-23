@@ -1,0 +1,849 @@
+{
+  "classification": "REAL DOM isolated fictional module; no hosted RPC",
+  "cases": [
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 344,
+          "width": 344
+        },
+        {
+          "class": "mart-card",
+          "scroll": 787,
+          "width": 787
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 747,
+          "width": 747
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 747,
+          "width": 747
+        }
+      ],
+      "controls": [
+        {
+          "height": 44.79999923706055,
+          "label": "Reload catalog"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": ""
+        },
+        {
+          "height": 46.400001525878906,
+          "label": "All floorsField KitPoké BallsBits"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Berry Bundle80 PokéCoins"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Poké Ball Bundle100 PokéCoins"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Mixed Supply BundleCurrent editor required"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Bits-only RewardCurrent editor required"
+        },
+        {
+          "height": 110.4000015258789,
+          "label": "An extraordinarily long fictional product name to check narrow screens and graceful text wrapping80 PokéCoins"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "name"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "cost"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "quantity"
+        },
+        {
+          "height": 46.400001525878906,
+          "label": "DraftPublished"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "Discard local edits"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "Review changes"
+        }
+      ],
+      "scroll": 1265,
+      "state": "editor",
+      "width": 1280
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 655,
+          "width": 655
+        },
+        {
+          "class": "mart-card",
+          "scroll": 655,
+          "width": 655
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 623,
+          "width": 623
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 623,
+          "width": 623
+        }
+      ],
+      "controls": [
+        {
+          "height": 44.79999923706055,
+          "label": "Reload catalog"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": ""
+        },
+        {
+          "height": 46.400001525878906,
+          "label": "All floorsField KitPoké BallsBits"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Berry Bundle80 PokéCoins"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Poké Ball Bundle100 PokéCoins"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Mixed Supply BundleCurrent editor required"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Bits-only RewardCurrent editor required"
+        },
+        {
+          "height": 88.80000305175781,
+          "label": "An extraordinarily long fictional product name to check narrow screens and graceful text wrapping80 PokéCoins"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "name"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "cost"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "quantity"
+        },
+        {
+          "height": 46.400001525878906,
+          "label": "DraftPublished"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "Discard local edits"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "Review changes"
+        }
+      ],
+      "scroll": 753,
+      "state": "editor",
+      "width": 753
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 334,
+          "width": 334
+        },
+        {
+          "class": "mart-card",
+          "scroll": 334,
+          "width": 334
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 302,
+          "width": 302
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 302,
+          "width": 302
+        }
+      ],
+      "controls": [
+        {
+          "height": 44.79999923706055,
+          "label": "Reload catalog"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": ""
+        },
+        {
+          "height": 46.400001525878906,
+          "label": "All floorsField KitPoké BallsBits"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Berry Bundle80 PokéCoins"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Poké Ball Bundle100 PokéCoins"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Mixed Supply BundleCurrent editor required"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Bits-only RewardCurrent editor required"
+        },
+        {
+          "height": 110.4000015258789,
+          "label": "An extraordinarily long fictional product name to check narrow screens and graceful text wrapping80 PokéCoins"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "name"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "cost"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "quantity"
+        },
+        {
+          "height": 46.400001525878906,
+          "label": "DraftPublished"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "Discard local edits"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "Review changes"
+        }
+      ],
+      "scroll": 375,
+      "state": "editor",
+      "width": 375
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 263,
+          "width": 263
+        },
+        {
+          "class": "mart-card",
+          "scroll": 263,
+          "width": 263
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 231,
+          "width": 231
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 231,
+          "width": 231
+        }
+      ],
+      "controls": [
+        {
+          "height": 44.79999923706055,
+          "label": "Reload catalog"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": ""
+        },
+        {
+          "height": 46.400001525878906,
+          "label": "All floorsField KitPoké BallsBits"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Berry Bundle80 PokéCoins"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Poké Ball Bundle100 PokéCoins"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Mixed Supply BundleCurrent editor required"
+        },
+        {
+          "height": 67.20000457763672,
+          "label": "Bits-only RewardCurrent editor required"
+        },
+        {
+          "height": 132,
+          "label": "An extraordinarily long fictional product name to check narrow screens and graceful text wrapping80 PokéCoins"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "name"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "cost"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "quantity"
+        },
+        {
+          "height": 46.400001525878906,
+          "label": "DraftPublished"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "Discard local edits"
+        },
+        {
+          "height": 44.79999923706055,
+          "label": "Review changes"
+        }
+      ],
+      "scroll": 305,
+      "state": "editor",
+      "width": 305
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 344,
+          "width": 344
+        },
+        {
+          "class": "mart-card",
+          "scroll": 787,
+          "width": 787
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 747,
+          "width": 747
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 747,
+          "width": 747
+        }
+      ],
+      "dialogOpen": false,
+      "focus": "Isolated local acceptance · no network or real savesMart & C",
+      "scroll": 1265,
+      "state": "long text",
+      "width": 1280
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 655,
+          "width": 655
+        },
+        {
+          "class": "mart-card",
+          "scroll": 655,
+          "width": 655
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 623,
+          "width": 623
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 623,
+          "width": 623
+        }
+      ],
+      "dialogOpen": false,
+      "focus": "Isolated local acceptance · no network or real savesMart & C",
+      "scroll": 753,
+      "state": "long text",
+      "width": 753
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 334,
+          "width": 334
+        },
+        {
+          "class": "mart-card",
+          "scroll": 334,
+          "width": 334
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 302,
+          "width": 302
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 302,
+          "width": 302
+        }
+      ],
+      "dialogOpen": false,
+      "focus": "Isolated local acceptance · no network or real savesMart & C",
+      "scroll": 375,
+      "state": "long text",
+      "width": 375
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 263,
+          "width": 263
+        },
+        {
+          "class": "mart-card",
+          "scroll": 263,
+          "width": 263
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 231,
+          "width": 231
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 231,
+          "width": 231
+        }
+      ],
+      "dialogOpen": false,
+      "focus": "Isolated local acceptance · no network or real savesMart & C",
+      "scroll": 305,
+      "state": "long text",
+      "width": 305
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 344,
+          "width": 344
+        },
+        {
+          "class": "mart-card",
+          "scroll": 787,
+          "width": 787
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 747,
+          "width": 747
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 747,
+          "width": 747
+        },
+        {
+          "class": "mart-dialog",
+          "scroll": 757,
+          "width": 757
+        }
+      ],
+      "dialogOpen": true,
+      "focus": "Return to editor",
+      "scroll": 1265,
+      "state": "review dialog",
+      "width": 1280
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 655,
+          "width": 655
+        },
+        {
+          "class": "mart-card",
+          "scroll": 655,
+          "width": 655
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 623,
+          "width": 623
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 623,
+          "width": 623
+        },
+        {
+          "class": "mart-dialog",
+          "scroll": 712,
+          "width": 712
+        }
+      ],
+      "dialogOpen": true,
+      "focus": "Return to editor",
+      "scroll": 753,
+      "state": "review dialog",
+      "width": 753
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 334,
+          "width": 334
+        },
+        {
+          "class": "mart-card",
+          "scroll": 334,
+          "width": 334
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 302,
+          "width": 302
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 302,
+          "width": 302
+        },
+        {
+          "class": "mart-dialog",
+          "scroll": 334,
+          "width": 334
+        }
+      ],
+      "dialogOpen": true,
+      "focus": "Return to editor",
+      "scroll": 375,
+      "state": "review dialog",
+      "width": 375
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 263,
+          "width": 263
+        },
+        {
+          "class": "mart-card",
+          "scroll": 263,
+          "width": 263
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 231,
+          "width": 231
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 231,
+          "width": 231
+        },
+        {
+          "class": "mart-dialog",
+          "scroll": 264,
+          "width": 264
+        }
+      ],
+      "dialogOpen": true,
+      "focus": "Return to editor",
+      "scroll": 305,
+      "state": "review dialog",
+      "width": 305
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 344,
+          "width": 344
+        },
+        {
+          "class": "mart-card",
+          "scroll": 787,
+          "width": 787
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 747,
+          "width": 747
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 747,
+          "width": 747
+        }
+      ],
+      "dialogOpen": false,
+      "focus": "Isolated local acceptance · no network or real savesMart & C",
+      "scroll": 1265,
+      "state": "final editor",
+      "width": 1280
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 655,
+          "width": 655
+        },
+        {
+          "class": "mart-card",
+          "scroll": 655,
+          "width": 655
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 623,
+          "width": 623
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 623,
+          "width": 623
+        }
+      ],
+      "dialogOpen": false,
+      "focus": "Isolated local acceptance · no network or real savesMart & C",
+      "scroll": 753,
+      "state": "final editor",
+      "width": 753
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 334,
+          "width": 334
+        },
+        {
+          "class": "mart-card",
+          "scroll": 334,
+          "width": 334
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 302,
+          "width": 302
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 302,
+          "width": 302
+        }
+      ],
+      "dialogOpen": false,
+      "focus": "Isolated local acceptance · no network or real savesMart & C",
+      "scroll": 375,
+      "state": "final editor",
+      "width": 375
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 263,
+          "width": 263
+        },
+        {
+          "class": "mart-card",
+          "scroll": 263,
+          "width": 263
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 231,
+          "width": 231
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 231,
+          "width": 231
+        }
+      ],
+      "dialogOpen": false,
+      "focus": "Isolated local acceptance · no network or real savesMart & C",
+      "scroll": 305,
+      "state": "final editor",
+      "width": 305
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 344,
+          "width": 344
+        },
+        {
+          "class": "mart-card",
+          "scroll": 787,
+          "width": 787
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 747,
+          "width": 747
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 747,
+          "width": 747
+        },
+        {
+          "class": "mart-dialog",
+          "scroll": 757,
+          "width": 757
+        }
+      ],
+      "dialogOpen": true,
+      "focus": "Return to editor",
+      "scroll": 1265,
+      "state": "final review dialog",
+      "width": 1280
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 655,
+          "width": 655
+        },
+        {
+          "class": "mart-card",
+          "scroll": 655,
+          "width": 655
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 623,
+          "width": 623
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 623,
+          "width": 623
+        },
+        {
+          "class": "mart-dialog",
+          "scroll": 712,
+          "width": 712
+        }
+      ],
+      "dialogOpen": true,
+      "focus": "Return to editor",
+      "scroll": 753,
+      "state": "final review dialog",
+      "width": 753
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 334,
+          "width": 334
+        },
+        {
+          "class": "mart-card",
+          "scroll": 334,
+          "width": 334
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 302,
+          "width": 302
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 302,
+          "width": 302
+        },
+        {
+          "class": "mart-dialog",
+          "scroll": 334,
+          "width": 334
+        }
+      ],
+      "dialogOpen": true,
+      "focus": "Return to editor",
+      "scroll": 375,
+      "state": "final review dialog",
+      "width": 375
+    },
+    {
+      "components": [
+        {
+          "class": "mart-card",
+          "scroll": 263,
+          "width": 263
+        },
+        {
+          "class": "mart-card",
+          "scroll": 263,
+          "width": 263
+        },
+        {
+          "class": "mart-fields",
+          "scroll": 231,
+          "width": 231
+        },
+        {
+          "class": "mart-preview",
+          "scroll": 231,
+          "width": 231
+        },
+        {
+          "class": "mart-dialog",
+          "scroll": 264,
+          "width": 264
+        }
+      ],
+      "dialogOpen": true,
+      "focus": "Return to editor",
+      "scroll": 305,
+      "state": "final review dialog",
+      "width": 305
+    }
+  ]
+}

@@ -159,3 +159,6 @@ Explicit owner approval;fresh source/attributes/2packet hashes matched. Installe
 ## CODEX-144 published / CODEX-145 populated review
 
 144exact2runtime files live mainc9d29ff9/Pages39898025421success;100sources/2changed versioned sources match.145candidate24loaded PC/Inventory states and PC search/direct confirmation inspection;106suites after correcting one old prompt expectation,PC12/Lab7/build pass. No hosted gameplay/RPC/SQL/Auth/provider/APP action.
+
+
+CODEX-154 VERIFIED:CSS-only main927b2f48/Pages39958731032success;100monitored+1versioned source match. Owner approved Mart design/local implementation. CODEX-155 local candidate complete:existing single-reward PokeCoin products,search/filter,preview,change review,field preservation,session reset,one-shot writes and uncertain-receipt reload.109suites/20measured REAL DOM width cases/build31/466/recovery20 pass. No hosted save or155publication;exact4runtime files held for review. See LAUNCH-CODEX155-LOCAL-MART-EDITOR.md. Sora NO;Twinkle NO;PlayTester unchanged;no SQL/provider/gameplay/spending/APP/final launch.

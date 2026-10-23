@@ -37,7 +37,7 @@ test("Next hub IA labels are the seven overhaul screens", () => {
   ].forEach((label) => assert(nextHtml.includes(label), `missing ${label}`));
 });
 
-test("Preview shell only allows verified true-read RPCs", () => {
+test("Generic reads stay read-only; approved Mart adapter stays separate", () => {
   assert(nextJs.includes("admin_build_health"));
   assert(nextJs.includes("admin_game_health"));
   assert(nextJs.includes("admin_live_snapshot"));
@@ -53,7 +53,6 @@ test("Preview shell only allows verified true-read RPCs", () => {
     "admin_grant_bag",
     "admin_set_coins",
     "admin_remove_pokemon",
-    "admin_store_save_item",
     "admin_oak_qa",
     "admin_save_twitch_client_secret",
     "evaluate_cosmetics"
@@ -63,6 +62,9 @@ test("Preview shell only allows verified true-read RPCs", () => {
   const names = [...allow[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
   assert(names.join(",") === "admin_build_health,admin_game_health,admin_live_snapshot,admin_list_users,admin_user_account,admin_identity_inspect,admin_trainer_rewards");
   assert(!names.includes("admin_trainer_reward_action"), "Mutating reward action must not be in read allowlist");
+  assert(!names.includes("admin_store_save_item"));
+  assert(nextJs.includes('["admin_store_get", "admin_store_save_item"].includes(name)'));
+  assert(nextJs.includes('data?.session?.user?.id !== identity'));
 });
 
 test("Operations preview keeps the unavailable fallback and polls only the snapshot", () => {

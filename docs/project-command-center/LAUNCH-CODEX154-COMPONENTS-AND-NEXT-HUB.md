@@ -17,3 +17,5 @@ The proposed implementation edits existing single-reward PokéCoin products usin
 This is a new privileged workflow, outside CODEX-78 routine publication. Owner design/scope approval is required before connecting and implementing its save flow. No production publication, hosted save/QA or SQL is included in that design decision. The review page and proposal are deliberately excluded from main's routine CSS-only publication.
 
 Private screenshots and measurements: LOCALAPPDATA/PokemonStreamLink/security/codex154. Prototype and component evidence are distinct from production acceptance. Real devices/provider checks and the remaining overhaul migrations remain open.
+
+Publication verified: CSS-only main `927b2f48`, Pages run `39958731032` completed successfully; 100 monitored and one versioned changed source match that exact commit. Owner subsequently approved design/local implementation of the separate Mart proposal; CODEX-155 records the resulting local candidate. That approval does not include production publication or hosted saves.

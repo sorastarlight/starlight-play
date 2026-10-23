@@ -4,16 +4,28 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-155",
+      "status": "done",
+      "scope": "Owner-approved existing single-reward PokeCoin Mart editor local implementation",
+      "dependencies": [
+        "CODEX-154"
+      ],
+      "evidence": "LAUNCH-CODEX155-LOCAL-MART-EDITOR.md; evidence/codex155-widths.json; evidence/codex155-regressions.json",
+      "testResults": "109suites;20REAL DOM width cases;fictional success/lost receipt/denial/reset/cancel;build31/466;recovery20",
+      "nextAction": "Review exact four-file runtime publication;hosted save QA remains separate",
+      "approvalRequirement": "Design and local implementation approved;production publication/hosted saves/SQL excluded"
+    },
+    {
       "id": "CODEX-154",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Component clipping sweep, directory correction and next Mart workflow review",
       "dependencies": [
         "CODEX-153"
       ],
       "evidence": "LAUNCH-CODEX154-COMPONENTS-AND-NEXT-HUB.md; ADMIN-HUB-MART-NEXT-SLICE.md; evidence/codex154-component-sweep.json",
-      "testResults": "24component cases+4focused directory widths;8prototype widths;108suites/build;recovery20",
-      "nextAction": "Publish CSS-only directory fix and verify;owner review needed for new editor workflow",
-      "approvalRequirement": "CODEX-78 covers CSS only;prototype connection/implementation needs design decision"
+      "testResults": "24component+4focused directory+8prototype widths;108suites/build/recovery20;main927b2f48 Pages39958731032success;100+1sources match",
+      "nextAction": "Owner approved CODEX-155 local implementation;publication and hosted saves held",
+      "approvalRequirement": "CODEX-78 CSS published;new editor local design/implementation approved October23"
     },
     {
       "id": "CODEX-153",

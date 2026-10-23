@@ -294,12 +294,21 @@
     const rows = availableMons().filter((mon) => {
       if (dupesOnly && ownedCount(mon.dex) <= 1) return false;
       if (!q) return true;
-      const hay = [mon.name, mon.nickname, mon.gender, shinyLabel(mon)].join(" ").toLowerCase();
+      const dex = Number(mon.dex);
+      const dexTerms = Number.isInteger(dex) && dex > 0
+        ? [String(dex), String(dex).padStart(3, "0"), `#${dex}`, `#${String(dex).padStart(3, "0")}`]
+        : [];
+      const hay = [mon.name, mon.nickname, mon.gender, shinyLabel(mon), ...dexTerms].join(" ").toLowerCase();
       return hay.includes(q);
     });
     if (!els.listPcGrid) return;
     if (!rows.length) {
-      els.listPcGrid.innerHTML = `<p class="muted">No Pokémon in your PC match that. Catch more on Play, or take one down from the GTS first.</p>`;
+      const message = q
+        ? "No Pokémon match this search. Try another name or Pokédex number."
+        : dupesOnly
+          ? "No duplicate Pokémon are available. Turn off Show duplicates to see other eligible Pokémon."
+          : "No Pokémon are available to list. Catch one on Play or review your existing listings and protections.";
+      els.listPcGrid.innerHTML = `<p class="muted">${message}</p>`;
       return;
     }
     els.listPcGrid.innerHTML = rows.map((mon) => pcTile(mon, listingMon?.id)).join("");

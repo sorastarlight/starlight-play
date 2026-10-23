@@ -1,0 +1,33 @@
+{
+  "fictional": true,
+  "actualCanonicalGeneration": false,
+  "candidateHashes": [
+    "7e58b6d5f7cb647e5f414d53ccb27d87",
+    "5be46a3ecf0f489b4864fb714a433319"
+  ],
+  "checks": [
+    "Exact installed public sources reproduced",
+    "Four distinct fictional specimens and aggregate receipt",
+    "Exact retry grants no duplicates",
+    "Changed quantity cannot reuse receipt",
+    "Invalid quantity rejected: 0",
+    "Invalid quantity rejected: 1",
+    "Invalid quantity rejected: 101",
+    "Invalid quantity rejected: 1.5",
+    "Invalid quantity rejected: null",
+    "Invalid quantity rejected: \"2\"",
+    "Invalid quantity rejected: -1",
+    "Invalid quantity rejected: 1000000000000",
+    "Maximum batch 100",
+    "Late generation failure rolls back entire batch",
+    "Failed batch keeps failed audit receipt",
+    "Original one-Pokémon action unchanged",
+    "Protected trainer denied",
+    "Ordinary trainer denied",
+    "Read response advertises capability",
+    "Concurrent duplicate request grants exactly one batch",
+    "Rollback restores exact original fingerprints",
+    "Rolled-back server refuses batch without partial gift",
+    "Guard rejects stale rollback"
+  ]
+}

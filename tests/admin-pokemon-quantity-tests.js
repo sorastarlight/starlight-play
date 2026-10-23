@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict'),ui=require('../js/admin-next-rewards.js');
+const values={gift_kind:{value:'pokemon'},dex:{value:'11'},level:{value:'5'},shiny:{checked:false},qty:{value:'4',max:'100'}};
+const form={dataset:{rewardForm:'gift'},elements:{namedItem:k=>values[k]}};
+assert.equal(ui.pokemonMax({}),1);assert.equal(ui.pokemonMax({pokemonGiftMaxQty:100}),100);assert.equal(ui.pokemonMax({pokemonGiftMaxQty:1000}),100);
+assert(ui.giftFields({},'pokemon').includes('disabled'));
+assert(ui.giftFields({pokemonGiftMaxQty:100},'pokemon').includes('step="1"'));
+let intent=ui.makeIntent(form,null,'fictional-target','fictional-request');assert.equal(intent.p_action,'pokemon_batch');assert.equal(intent.p_payload.qty,4);assert(ui.intentSummary(intent,{}).startsWith('4 ×'));
+values.qty.value='1';intent=ui.makeIntent(form,null,'target','request');assert.equal(intent.p_action,'pokemon');assert(!('qty' in intent.p_payload));
+for(const value of ['','0','-1','1.5','101','Infinity','2e1',' 2'])assert.throws(()=>ui.pokemonQuantity(value));
+values.qty.max='1';values.qty.value='2';assert.throws(()=>ui.makeIntent(form,null,'target','request'));
+console.log('PASS quantity capability, spinner, batch confirmation, single compatibility and invalid quantities');

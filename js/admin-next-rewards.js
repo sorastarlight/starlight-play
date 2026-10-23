@@ -53,10 +53,15 @@
     dialog.addEventListener('click',event=>{const choice=event.target.closest('[data-pick-dex]');if(!choice)return;if(!current()){dialog.close();return;}form.elements.namedItem('dex').value=choice.dataset.pickDex;opener.innerHTML=speciesChoice(choice.dataset.pickDex,candy)+`<span>${candy?"Change candy family":"Change Pokémon"}</span>`;dialog.close();});
     draw();dialog.querySelector('[data-species-search]').focus();
   }
+  function reviewSummary(intent,data){
+    const p=intent.p_payload||{};
+    if(["pokemon","pokemon_batch"].includes(intent.p_action))return '<strong>'+esc(speciesName(p.dex))+'</strong><span class="reward-review-meta"><span>Quantity '+esc(p.qty||1)+'</span><span>Level '+esc(p.level)+'</span>'+(p.shiny?'<span>Shiny ✦</span>':'')+'</span>';
+    return '<strong>'+esc(intentSummary(intent,data))+'</strong>';
+  }
   function reviewIntent(intent,data,user,previewOnly=false){
     const opener=document.activeElement;
     const art=reviewArt(intent);
-    const dialog=modal(`<form class="reward-review-form"><header><div><p class="eyebrow">${intent.p_action.startsWith('pass_')?'Starlight Pass':'Special delivery'}</p><h3>${esc(actionNames[intent.p_action]||"Review staff action")}</h3></div><button type="button" data-modal-cancel>Cancel</button></header><div class="reward-review-hero">${art}<strong>${esc(intentSummary(intent,data))}</strong><span>For ${esc(user.displayName||user.login||"Trainer")}</span></div><details><summary>Trainer account</summary><small>${esc(user.id)}</small></details><label>Staff reason<textarea name="reason" rows="2" required minlength="3" maxlength="500" placeholder="Why are you making this change?"></textarea></label><p class="record-note">This action and reason will be saved in staff history.</p><button class="reward-deliver" type="submit" ${previewOnly?'disabled':''}>${previewOnly?'Preview only — no gifts sent':intent.p_action.startsWith('pass_')?'Confirm Pass action':'Send gift ✦'}</button></form>`,"Review staff action",opener);
+    const dialog=modal(`<form class="reward-review-form"><header><div><p class="eyebrow">${intent.p_action.startsWith('pass_')?'Starlight Pass':'Special delivery'}</p><h3>${esc(actionNames[intent.p_action]||"Review staff action")}</h3></div><button type="button" data-modal-cancel>Cancel</button></header><div class="reward-review-hero">${art}${reviewSummary(intent,data)}<span class="reward-review-recipient">For ${esc(user.displayName||user.login||"Trainer")}</span></div><label>Staff reason<textarea name="reason" rows="2" required minlength="3" maxlength="500" placeholder="Why are you making this change?"></textarea></label><p class="record-note">This action and reason will be saved in staff history.</p><button class="reward-deliver" type="submit" ${previewOnly?'disabled':''}>${previewOnly?'Preview only — no gifts sent':intent.p_action.startsWith('pass_')?'Confirm Pass action':'Send gift ✦'}</button></form>`,"Review staff action",opener);
     return new Promise(resolve=>{dialog.addEventListener('close',()=>resolve(null),{once:true});dialog.querySelector('form').addEventListener('submit',event=>{event.preventDefault();if(previewOnly)return;const reason=dialog.querySelector('textarea').value.trim();if(reason.length<3){dialog.querySelector('textarea').setCustomValidity('Enter at least 3 characters.');dialog.querySelector('textarea').reportValidity();return;}resolve(reason);dialog.close();});dialog.querySelector('textarea').addEventListener('input',event=>event.target.setCustomValidity(''));});
   }
   const actionNames={pass_on:"Turn Pass on",pass_off:"Turn Pass off",pass_sync:"Clear staff override",pass_daily:"Give daily rewards again",pass_weekly:"Give weekly rewards again",item:"Give items",pokemon:"Give a Pokémon",pokemon_batch:"Give Pokémon",candy:"Give Evolution Candy",title:"Give a title",cosmetic:"Give a cosmetic",badge:"Give a ribbon"};
@@ -183,5 +188,5 @@
       await send(intent);
     });
   }
-  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName,giftChoices,pokemonMax,pokemonQuantity};
+  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName,giftChoices,pokemonMax,pokemonQuantity,reviewSummary};
 }));

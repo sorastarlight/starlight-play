@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-134",
+      "scope": "Recovery reservation concurrency and unresolved-send retention",
+      "evidence": "LAUNCH-CODEX134-RECOVERY-RESERVATIONS.md; evidence/codex134-recovery-reservations.json",
+      "testResults": "29existing sequential plus3new REAL LOCAL concurrency/lifecycle groups;actual peer advisory-lock waits observed",
+      "dependencies": [
+        "CODEX-133"
+      ],
+      "status": "done",
+      "nextAction": "Real acceptance required;Twitch held;next daily backup when due",
+      "approvalRequirement": "Catalog/local fictional tests only;no new production authority"
+    },
+    {
       "id": "CODEX-133",
       "scope": "Recovery recent-authentication boundary",
       "evidence": "LAUNCH-CODEX133-RECOVERY-AUTH.md; evidence/codex133-recovery-auth.json",

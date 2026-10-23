@@ -1,0 +1,11 @@
+{
+  "classification": "REAL LOCAL captured eight function definitions;repository table constraints;fictional Auth owner/session stand-ins;no email/provider",
+  "existingSequentialChecks": 29,
+  "newChecks": [
+    "overlapping identical request emits one dispatch",
+    "overlapping different requests cannot consume one challenge twice",
+    "old uncertain receipt survives retention and blocks another dispatch"
+  ],
+  "hostedApplicationCalls": 0,
+  "productionChanges": 0
+}

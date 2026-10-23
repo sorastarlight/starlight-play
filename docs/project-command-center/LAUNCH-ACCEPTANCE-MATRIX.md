@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-133 real acceptance required
+# Current launch acceptance matrix — CODEX-134 real acceptance required
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 106/106 suites in CODEX-125. Routine staff error/Bits feedback escaping is published;current expanded checker verified100hosted source files in CODEX-125; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -95,3 +95,5 @@ CODEX-129 CURRENT COMPLETION:owner-approved migration20261023020246 installed;ex
 CODEX-130/131/132:29new exact-source Helpdesk live-session/actual-role cases pass;17bridge boundary groups include30invalid-token denials,no real bridge/ticket actions. Separate empty PG17 schema fixture replays all9reviewed deltas forward and reverse;20final function guards match,reverse585function/143relation-permission/56policy metadata matches baseline,142tables stay empty. No new data export/import or production connection;original archive unchanged,runtimes stopped. No new confirmed defect. Main150c69e6/Pages39881130370/APP and prior106-suite frontend evidence unchanged. Physical backup not due yet;real acceptance remains required/Twitch held. See LAUNCH-CODEX130-HELPDESK-BOUNDARIES.md,LAUNCH-CODEX131-SCHEMA-REPLAY.md,LAUNCH-CODEX132-BRIDGE-BOUNDARIES.md.
 
 CODEX-133:25REAL LOCAL captured recent-owner authentication cases pass;8recovery/diagnostics function source/ACL review. No hosted recovery action/email/new defect confirmed. Signed JWT/provider/full recovery certification remains open. See LAUNCH-CODEX133-RECOVERY-AUTH.md.
+
+CODEX-134:29existing recovery checks plus3new REAL LOCAL reservation concurrency/lifecycle groups pass with8captured definitions;actual advisory-lock waits observed. Hosted constraint catalog matches relevant receipt/settings boundaries. No mail/production change or new defect confirmed. See LAUNCH-CODEX134-RECOVERY-RESERVATIONS.md.

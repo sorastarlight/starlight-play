@@ -115,3 +115,7 @@ CODEX-130/131/132:29new exact-source Helpdesk live-session/actual-role cases pas
 ## CODEX-133 — Recovery authentication review
 
 25REAL LOCAL captured recent-owner AMR cases pass;8function catalog source/ACL inspection;no hosted recovery action/email/credential/player/SQL change. Fictional loopback fixture stopped/removed. Next physical backup not yet due at02:45UTC. Main/APP unchanged;real acceptance required/Twitch held. See LAUNCH-CODEX133-RECOVERY-AUTH.md.
+
+## CODEX-134 — Recovery reservation concurrency
+
+29existing sequential checks plus3new REAL LOCAL overlap/uncertain-retention groups pass;peer advisory-lock waits explicitly observed.8captured definitions;hosted constraint catalog confirms relevant receipt/settings constraints.18recovery files verify;fictional fixture stopped/removed. No hosted application call/email/credential/player/SQL/APP change. Real acceptance remains required;Twitch held. See LAUNCH-CODEX134-RECOVERY-RESERVATIONS.md.

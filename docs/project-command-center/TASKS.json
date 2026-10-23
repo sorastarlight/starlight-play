@@ -4,15 +4,27 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-146",
+      "status": "in_progress",
+      "scope": "GTS picker Pokédex search and accurate empty states",
+      "dependencies": [
+        "CODEX-145"
+      ],
+      "evidence": "LAUNCH-CODEX146-GTS-PICKER.md; evidence/codex146-regressions.json",
+      "testResults": "12LOCAL actual-source cases;107suites;isolated REAL BROWSER search/message verified",
+      "nextAction": "Publish exact js/trade.js and trade.html;verify source",
+      "approvalRequirement": "CODEX-78 routine frontend exception;no backend/gameplay authority"
+    },
+    {
       "id": "CODEX-145",
       "scope": "Populated PC/Inventory/mobile-control consistency",
       "evidence": "LAUNCH-CODEX145-POPULATED-PC-INVENTORY.md; evidence/codex145-populated-layouts.json",
-      "testResults": "24actual-controller cases;4search queries;native release dialog cancelled;106suites;PC12/Lab7",
+      "testResults": "24actual-controller cases;4search queries;native release dialog cancelled;106suites;PC12/Lab7;main058ee3fe/Pages39899357051success;100monitored+4versioned sources match",
       "dependencies": [
         "CODEX-144"
       ],
-      "status": "in_progress",
-      "nextAction": "Publish exact4runtime files and verify source",
+      "status": "done",
+      "nextAction": "Continue populated public-state consistency review",
       "approvalRequirement": "CODEX-78 routine frontend exception;no gameplay/backend authority"
     },
     {

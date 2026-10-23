@@ -380,3 +380,5 @@ CODEX-114:prior Pages39796866472success and actual Events/Trainer source equalit
 CODEX-115 COMPLETE:verified final motion deployment and actual script bytes;4/4recovery packet hashes;expired heartbeat paused through app tool. No new runtime/backend/player/provider/APP changes. See evidence/codex115-readiness-reconciliation.json.
 
 CODEX-116 VERIFIED:owner-approved two-function trade state correction installed20261022162826;exact full source/attributes match,2control definitions/attributes unchanged.2baseline races and16REAL LOCAL SQL actual packet checks;2Git-recreated raw hashes/build31/464pass. No hosted application RPC/trade/history repair/grant/provider/APP action. Recovery delta added. See LAUNCH-CODEX116-TRADE-STATE.md.
+
+CODEX-145 VERIFIED:main058ee3fe/Pages39899357051success;100monitored+4versioned sources match. CODEX-146:actual GTS picker numeric search and distinct empty states corrected;12LOCAL cases/107suites/build pass;isolated browser verified. Exact2runtime publication follows;no hosted mutation/SQL/provider/APP change.

@@ -11,7 +11,7 @@ Owner requested a sustained site-wide rendered inspection and routine fixes,incl
 |Password-reset document title uses creator name instead of game|Fixed/live CODEX-143|Game title aligned;Auth behavior untouched|
 |Internal Gate/CRUD/database terminology in new Admin Hub|Fixed/live CODEX-143|Plain staff-facing handoff copy;legacy destinations and permissions unchanged|
 |Trainer search and gift fields fall back to Arial|Fixed/live CODEX-144|Rendered populated fixture confirmed;inherit existing site typography|
-|Inventory says grant controls unavailable despite Gifts tab|CODEX-144 routine fix in progress|Clarify current view limits and direct staff to Gifts|
+|Inventory says grant controls unavailable despite Gifts tab|Fixed/live CODEX-144|Clarify current view limits and direct staff to Gifts|
 |Original Admin Hub inventory/IA describe obsolete read-only state|Completed CODEX-144|Preserve initial design history;link current implementation summary|
 |Protected legacy admin contains remaining corrupted copy|Held exception|Not silently editing protected admin.html;record for a later consolidated legacy-tool decision|
 |Populated public-page and expanded state consistency|Continue inspection|PC,inventory,Mart,Oak,progression,Trainer,Helpdesk;use actual presenters with fictional data,not live mutations|
@@ -29,3 +29,5 @@ Additional visual inspection covers mobile primary/account menus,Escape dismissa
 CODEX-143:feature895e7b3c;exact11runtime files to main200499f4;Pages39897398820success;106non-writing suites/build31HTML/464references;100monitored source matches and11explicit changed versioned source matches. No JavaScript logic/backend/APP/provider/gameplay change. Routine fixes preserve accepted functionality;cache may require a refresh.
 
 CODEX-144live:mainc9d29ff9/Pages39898025421success;100sources and2changed versioned sources match.32populated Trainer pane/width states pass. CODEX-145adds24actual-controller PC/Inventory populated/empty/error width cases,PC search/dialog inspection and routine mobile-target/copy candidate;106suites after updating one old copy expectation. New Admin Hub still a partial replacement;full legacy workflow migration not claimed.
+
+CODEX-145 live:main058ee3fe/Pages39899357051success;100monitored+4versioned sources match. CODEX-146 actual GTS picker numeric search/accurate empty-state candidate passes12local cases and107suites;isolated actual-controller browser verified. Publication tracked separately.

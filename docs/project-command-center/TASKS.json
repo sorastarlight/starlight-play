@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-165",
+      "status": "done",
+      "scope": "Game Configuration dependency audit and fictional first-slice design",
+      "dependencies": [
+        "CODEX-164"
+      ],
+      "evidence": "ADMIN-HUB-CONFIGURATION-MIGRATION-REVIEW.md; design-reset/hub-config-review.html; evidence/codex165-config-contracts.json; evidence/codex165-config-prototype.json",
+      "testResults": "8catalog definitions only;8REAL DOM editor/review widths+unavailable/negative/zero/focus checks;no application/config read/save",
+      "nextAction": "Owner decision for six-field reward editor design and local implementation only",
+      "approvalRequirement": "New privileged workflow outside CODEX-78;no SQL/live settings/publication authority"
+    },
+    {
       "id": "CODEX-164",
       "status": "done",
       "scope": "Firefox investigation,subscriber evidence and approved OAuth probe correction",

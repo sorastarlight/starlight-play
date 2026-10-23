@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-165 | done | Configuration audit/six-field reward editor proposal | CODEX-164 | Design/local implementation decision held | Review concrete fictional design; no live settings action |
 | CODEX-164 | done | OAuth redirect correction/source verification | CODEX-163 | Explicit one-file approval spent | Main0cb9c0d8/Pages39988525257;114suites;100+1source matches;Firefox acceptance open |
 | CODEX-163 | done | Enable manual identity linking | CODEX-162 | Exact setting approval spent | Persisted after reload; real tester linking/subscriber acceptance pending |
 | CODEX-162 | done | Read-only Analytics workspace published | CODEX-160 | Explicit publication approval spent | Main7f0bd440/Pages39981888624;100+4source matches;hosted report acceptance open |

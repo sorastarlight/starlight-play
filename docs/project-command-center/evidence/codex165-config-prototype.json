@@ -1,0 +1,98 @@
+{
+  "classification": "REAL DOM; fictional isolated proposal only; no transport or persistence",
+  "widths": [
+    {
+      "width": "1280",
+      "state": "review",
+      "minControl": 46.79999923706055,
+      "open": true,
+      "overflow": false,
+      "rect": {
+        "left": 282.3999938964844,
+        "right": 982.3999938964844
+      },
+      "text": "Review reward changes\n\nThese are fictional values. No reward configuration will be saved.\n\nEncounter participation\nCurrent: 25 PokéCoins\nProposed: 0 PokéCoins\n\nAn eventual save changes site-wide rules. Another staff member may have edited since loading; the current server has no revision check. Save once, then reload to verify. A lost receipt must not trigger an automatic retry.\n\nBack to editing\nApply to this demo only",
+      "viewport": 1280
+    },
+    {
+      "width": "1280",
+      "state": "editor",
+      "clipped": 0,
+      "focus": "review",
+      "minControl": 44,
+      "overflow": false
+    },
+    {
+      "width": "768",
+      "state": "review",
+      "minControl": 46.79999923706055,
+      "open": true,
+      "overflow": false,
+      "rect": {
+        "left": 26.399999618530273,
+        "right": 726.3999996185303
+      },
+      "text": "Review reward changes\n\nThese are fictional values. No reward configuration will be saved.\n\nEncounter participation\nCurrent: 25 PokéCoins\nProposed: 0 PokéCoins\n\nAn eventual save changes site-wide rules. Another staff member may have edited since loading; the current server has no revision check. Save once, then reload to verify. A lost receipt must not trigger an automatic retry.\n\nBack to editing\nApply to this demo only",
+      "viewport": 768
+    },
+    {
+      "width": "768",
+      "state": "editor",
+      "clipped": 0,
+      "focus": "review",
+      "minControl": 44,
+      "overflow": false
+    },
+    {
+      "width": "390",
+      "state": "review",
+      "minControl": 46.79999923706055,
+      "open": true,
+      "overflow": false,
+      "rect": {
+        "left": 19,
+        "right": 356.20001220703125
+      },
+      "text": "Review reward changes\n\nThese are fictional values. No reward configuration will be saved.\n\nEncounter participation\nCurrent: 25 PokéCoins\nProposed: 0 PokéCoins\n\nAn eventual save changes site-wide rules. Another staff member may have edited since loading; the current server has no revision check. Save once, then reload to verify. A lost receipt must not trigger an automatic retry.\n\nBack to editing\nApply to this demo only",
+      "viewport": 375
+    },
+    {
+      "width": "390",
+      "state": "editor",
+      "clipped": 0,
+      "focus": "review",
+      "minControl": 44,
+      "overflow": false
+    },
+    {
+      "width": "320",
+      "state": "review",
+      "minControl": 46.79999923706055,
+      "open": true,
+      "overflow": false,
+      "rect": {
+        "left": 19,
+        "right": 285.8000183105469
+      },
+      "text": "Review reward changes\n\nThese are fictional values. No reward configuration will be saved.\n\nEncounter participation\nCurrent: 25 PokéCoins\nProposed: 0 PokéCoins\n\nAn eventual save changes site-wide rules. Another staff member may have edited since loading; the current server has no revision check. Save once, then reload to verify. A lost receipt must not trigger an automatic retry.\n\nBack to editing\nApply to this demo only",
+      "viewport": 305
+    },
+    {
+      "width": "320",
+      "state": "editor",
+      "clipped": 0,
+      "focus": "review",
+      "minControl": 44,
+      "overflow": false
+    }
+  ],
+  "unavailable": {
+    "disabled": true,
+    "inputsHidden": true,
+    "text": "PROPOSED FIRST EDITOR\n\nPokéCoin rewards\n\nReview the existing six reward amounts together. Changes affect reward rules site-wide. This editor would preserve other settings; it does not grant PokéCoins or repair past rewards.\n\nDemo state\nAvailable\nUnavailable\nReset fictional values\nDiscard local edits\nReview changes\n\nConfiguration unavailable. No defaults are substituted; editing is disabled.\n\nCapture balance, encounter timing, XP, daily supplies, milestones, prices, sale rates and rarity bonuses remain in their current tools. Current permissions still apply."
+  },
+  "negativeInput": {
+    "dialogOpen": false,
+    "valid": false
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "classification": "Catalog definitions only; no configuration values queried and no application endpoint executed",
+  "functions": [
+    {
+      "schema": "public",
+      "name": "admin_capture_save_balance",
+      "args": "p_balance jsonb",
+      "fingerprint": "574dd075b1e8666565fa836691b7d1fa",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "admin_economy_save",
+      "args": "p_balance jsonb",
+      "fingerprint": "083772eaea180e295a384573d2a7ca91",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "admin_progression_save",
+      "args": "p_balance jsonb",
+      "fingerprint": "3f48a8ae235e8b906cc5aa510284be02",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "admin_save_game_settings",
+      "args": "p_settings jsonb",
+      "fingerprint": "04370512580090a4962d47c3385326a6",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "private",
+      "name": "economy_config",
+      "args": "",
+      "fingerprint": "8141e79016d553fae08e08c306f80111",
+      "acl": null
+    },
+    {
+      "schema": "private",
+      "name": "game_settings",
+      "args": "",
+      "fingerprint": "3963b75b9790583ba5aab40e2d120eae",
+      "acl": null
+    },
+    {
+      "schema": "private",
+      "name": "is_play_admin",
+      "args": "",
+      "fingerprint": "e1449c28be1cd6f6c5208638d5a1df6f",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "schema": "private",
+      "name": "progression_config",
+      "args": "",
+      "fingerprint": "f319a2f1b07fb31b1d67098ad78946a6",
+      "acl": null
+    }
+  ]
+}

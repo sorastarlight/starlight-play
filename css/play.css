@@ -19458,6 +19458,13 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
   color: #8a3030;
   box-shadow: 0 2px 0 #c07070;
 }
+@media (max-width: 640px) {
+  .pc-tab, .pc-tool-btn, .pc-action, .pc-nick-row input, .pc-nick-row button { min-height: 44px; }
+  .pc-tab-add { width: 44px; min-width: 44px; }
+  .bag-tools input, .bag-tools select,
+  .gts-filters input, .gts-filters select,
+  .gts-wizard .dex-search, .gts-want-toolbar .dex-search { min-height: 44px; }
+}
 .pc-nick-row.is-saved #save-nick::after {
   content: " ✓";
   color: #1f6a48;

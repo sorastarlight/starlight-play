@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-169",
+      "status": "done",
+      "scope": "Owner-requested confirmation presentation cleanup",
+      "dependencies": [
+        "CODEX-168"
+      ],
+      "evidence": "RUN-LOG.md; evidence/codex169-publication.json;private clean-confirmation.png",
+      "testResults": "117suites/build31/470;REAL DOM fictional quantity50 review/cancel",
+      "nextAction": "Published mainbdd2e07f/Pages39997890946success;100+2source matches",
+      "approvalRequirement": "Routine presentation under CODEX-78;no SQL or grants"
+    },
+    {
       "id": "CODEX-168",
       "status": "done",
       "scope": "Pokémon gift quantity installed/published/source verified",

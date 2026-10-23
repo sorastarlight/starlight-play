@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-169 | done | Gift confirmation cleanup | CODEX-168 | CODEX-78 | Livebdd2e07f;117suites;100+2source matches |
 | CODEX-168 | done | Pokémon quantity installed/published/source verified | CODEX-167 | Exact approval spent;no live gifts | Main dfbd135d/Pages39996660440;117suites;23localSQL;100+1source matches |
 | CODEX-167 | done | Six-field reward editor published/source verified | CODEX-165 | Explicit publication approval spent | Mainfbe1f17a/Pages39992391579;116suites;100+4source matches;live settings acceptance open |
 | CODEX-166 | done | Settings tab keyboard semantics | CODEX-165 | CODEX-78 | Live84f8ff6e;115suites;100+2source matches |

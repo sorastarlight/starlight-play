@@ -1220,7 +1220,9 @@
       const on = btn.dataset.profileTab === profileTab;
       btn.classList.toggle("is-on", on);
       btn.setAttribute("aria-selected", on ? "true" : "false");
+      btn.tabIndex = on ? 0 : -1;
     });
+    els.workspace?.setAttribute("aria-labelledby", `profile-tab-${profileTab}`);
   }
 
   function setHash() {
@@ -1812,6 +1814,18 @@
     profileTab = btn.dataset.profileTab;
     renderProfileWorkspace();
     setHash();
+  });
+
+  document.querySelector(".scc-subnav")?.addEventListener("keydown", (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const tabs = [...document.querySelectorAll("[data-profile-tab]")];
+    const index = tabs.indexOf(event.target);
+    if (index < 0) return;
+    const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1
+      : event.key === "ArrowRight" ? (index + 1) % tabs.length
+        : event.key === "ArrowLeft" ? (index + tabs.length - 1) % tabs.length : -1;
+    // Focus movement alone does not render a pane or change the local draft.
+    if (next >= 0) { event.preventDefault(); tabs[next].focus(); }
   });
 
   els.workspace?.addEventListener("keydown", (event) => {

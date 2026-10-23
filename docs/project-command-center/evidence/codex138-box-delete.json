@@ -1,0 +1,29 @@
+{
+  "classification": "REAL LOCAL exact box-delete/removal helper;fictional minimal tables/Auth/storage stand-ins;not full trigger/RLS/storage integration",
+  "count": 21,
+  "checks": [
+    "ordinary delete moves occupant without release",
+    "missing confirmation false preserves all fixture rows",
+    "missing confirmation null preserves all fixture rows",
+    "invalid confirmation text  preserves all fixture rows",
+    "invalid confirmation text null preserves all fixture rows",
+    "invalid confirmation text NO preserves all fixture rows",
+    "increased release count preserves all fixture rows",
+    "favorite overflow preserves all fixture rows",
+    "locked overflow preserves all fixture rows",
+    "shiny overflow preserves all fixture rows",
+    "open listing overflow preserves all fixture rows",
+    "bulk last copy preserves all fixture rows",
+    "late protected refusal rolls back earlier tentative release preserves all fixture rows",
+    "invalid box null preserves all fixture rows",
+    "invalid box -1 preserves all fixture rows",
+    "invalid box 2 preserves all fixture rows",
+    "final box preserves all fixture rows",
+    "invalid UUID slot preserves all fixture rows",
+    "missing identity preserves all fixture rows",
+    "confirmed one overflow updates release counter/team once and preserves foreign trainer",
+    "foreign source slot never releases foreign specimen"
+  ],
+  "productionChanges": 0,
+  "hostedApplicationCalls": 0
+}

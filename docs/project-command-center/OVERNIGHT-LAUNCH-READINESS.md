@@ -131,3 +131,7 @@ Explicit owner approval;fresh source/attributes/2packet hashes matched. Installe
 ## CODEX-137 — Signup metadata boundary
 
 12REAL LOCAL captured trigger/helper cases pass;enabled hosted Auth trigger/default catalog inspected. No privilege grant from role/Pass/coin/alternate-ID/provider-shaped metadata in selected initialization path. No new defect confirmed;fictional fixture stopped/removed,no hosted signup/email/SQL/player/APP action. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX137-SIGNUP-METADATA.md.
+
+## CODEX-138 — Box-delete transaction boundaries
+
+21REAL LOCAL exact delete/removal helper cases pass;late protected refusal rolls back tentative release/stats/team/layout updates. Existing bulk last-copy safeguard unchanged. No new defect confirmed;fictional fixture stopped/removed,no hosted deletion/release/SQL/player/APP action. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX138-BOX-DELETE.md.

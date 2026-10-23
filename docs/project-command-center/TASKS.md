@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-138 | done | Destructive box-delete boundaries | CODEX-137 | Catalog/local only |21cases;late-failure rollback;no new defect confirmed |
 | CODEX-137 | done | Signup metadata boundary | CODEX-136 | Catalog/local only |12exact-source trigger cases;no new defect confirmed |
 | CODEX-136 | done | PC ownership/layout boundaries | CODEX-135 | Catalog/local only |18cases;3actual peer lock waits;no production change |
 | CODEX-135 | done | Team active-ownership serialization | CODEX-134 | Explicit owner approval spent |Installed20261023025714;17cases;10delta recovery proof |

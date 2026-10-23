@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-138",
+      "scope": "Destructive PC box-delete transaction/protection boundaries",
+      "evidence": "LAUNCH-CODEX138-BOX-DELETE.md; evidence/codex138-box-delete.json",
+      "testResults": "21REAL LOCAL captured delete/removal helper cases including late-failure full rollback",
+      "dependencies": [
+        "CODEX-137"
+      ],
+      "status": "done",
+      "nextAction": "Real acceptance required;Twitch held;next physical backup when due",
+      "approvalRequirement": "Catalog/local fictional tests only;no new production authority"
+    },
+    {
       "id": "CODEX-137",
       "scope": "Signup user-metadata boundary",
       "evidence": "LAUNCH-CODEX137-SIGNUP-METADATA.md; evidence/codex137-signup-metadata.json",

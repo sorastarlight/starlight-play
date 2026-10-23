@@ -1664,6 +1664,16 @@
   }
 
   async function load() {
+    try {
+      await loadContent();
+    } catch (error) {
+      els.gate.textContent = window.playRpcError(error, "Could not load your settings. Please try again.");
+      els.box.hidden = true;
+      els.gate.hidden = false;
+    }
+  }
+
+  async function loadContent() {
     const keepDraft = profileDirty() ? { ...draft } : null;
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
@@ -2170,27 +2180,45 @@
     }
   });
 
+  let passCheckBusy = false;
   els.check?.addEventListener("click", async () => {
-    const { data: sessionData } = await supabase.auth.getSession();
-    const session = sessionData.session;
-    if (!session) {
-      if (els.pass) els.pass.textContent = "Sign in first.";
-      return;
+    if (passCheckBusy) return;
+    passCheckBusy = true;
+    const wasDisabled = Boolean(els.check?.disabled);
+    if (els.check) {
+      els.check.disabled = true;
+      els.check.setAttribute("aria-busy", "true");
     }
-    if (!session.provider_token) {
-      if (els.pass) els.pass.textContent = "Twitch did not keep a session token. Sign out, sign in again, then check immediately.";
-      return;
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const session = sessionData.session;
+      if (!session) {
+        if (els.pass) els.pass.textContent = "Sign in first.";
+        return;
+      }
+      if (!session.provider_token) {
+        if (els.pass) els.pass.textContent = "Twitch did not keep a session token. Sign out, sign in again, then check immediately.";
+        return;
+      }
+      if (els.pass) els.pass.textContent = "Checking Twitch…";
+      const { data, error } = await supabase.functions.invoke("refresh-pass", {
+        body: { accessToken: session.provider_token }
+      });
+      if (error) {
+        if (els.pass) els.pass.textContent = await functionMessage(error, "Could not check your subscription right now.");
+        return;
+      }
+      if (els.pass) els.pass.textContent = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
+      await load();
+    } catch (_) {
+      if (els.pass) els.pass.textContent = "Could not check Starlight Pass right now. Please try again.";
+    } finally {
+      passCheckBusy = false;
+      if (els.check) {
+        els.check.disabled = wasDisabled;
+        els.check.removeAttribute("aria-busy");
+      }
     }
-    if (els.pass) els.pass.textContent = "Checking Twitch…";
-    const { data, error } = await supabase.functions.invoke("refresh-pass", {
-      body: { accessToken: session.provider_token }
-    });
-    if (error) {
-      if (els.pass) els.pass.textContent = await functionMessage(error, "Could not check your subscription right now.");
-      return;
-    }
-    if (els.pass) els.pass.textContent = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
-    await load();
   });
 
   els.perfPicks?.addEventListener("change", (event) => {

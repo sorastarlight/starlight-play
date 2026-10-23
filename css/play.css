@@ -7613,6 +7613,9 @@ body[data-page="admin"] .play-stage {
 }
 .gts-floor { position: relative; }
 .gts-filters { margin: 8px 0 4px; }
+@media (max-width: 600px) {
+  .gts-filters { grid-template-columns: minmax(0, 1fr); }
+}
 .gts-board {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));

@@ -1,6 +1,6 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-23T03:55:30.137Z",
+  "checkedAt": "2026-10-23T04:02:55.581Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
@@ -751,8 +751,8 @@
       "file": "js/admin-next-record.js",
       "status": 200,
       "contentType": "application/javascript; charset=utf-8",
-      "localSha256": "85bf9f41d6e5b8c727e20f0b0f18fb737027920706253b61773cafa63d848464",
-      "publishedSha256": "85bf9f41d6e5b8c727e20f0b0f18fb737027920706253b61773cafa63d848464",
+      "localSha256": "2c9053bb38e9d8d54d81e918dbcf043275e6a239f6ce3c01217ec9ab00b1b55e",
+      "publishedSha256": "2c9053bb38e9d8d54d81e918dbcf043275e6a239f6ce3c01217ec9ab00b1b55e",
       "matches": true
     },
     {

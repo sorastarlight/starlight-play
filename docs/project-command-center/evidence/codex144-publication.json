@@ -1,0 +1,17 @@
+{
+  "classification": "Read-only hosted full-source comparison;no RPC/session",
+  "main": "c9d29ff9",
+  "pagesRun": 39898025421,
+  "results": [
+    {
+      "file": "css/admin-record.css",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-record.js",
+      "status": 200,
+      "matches": true
+    }
+  ]
+}

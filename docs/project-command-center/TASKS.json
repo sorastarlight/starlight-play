@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-145",
+      "scope": "Populated PC/Inventory/mobile-control consistency",
+      "evidence": "LAUNCH-CODEX145-POPULATED-PC-INVENTORY.md; evidence/codex145-populated-layouts.json",
+      "testResults": "24actual-controller cases;4search queries;native release dialog cancelled;106suites;PC12/Lab7",
+      "dependencies": [
+        "CODEX-144"
+      ],
+      "status": "in_progress",
+      "nextAction": "Publish exact4runtime files and verify source",
+      "approvalRequirement": "CODEX-78 routine frontend exception;no gameplay/backend authority"
+    },
+    {
       "id": "CODEX-143",
       "scope": "Site-wide shell/copy/search-control review and routine publication",
       "evidence": "LAUNCH-CODEX143-144-VISUAL-CONSISTENCY.md; evidence/codex143-publication.json",
@@ -19,12 +31,12 @@
       "id": "CODEX-144",
       "scope": "Trainer control typography/current capabilities and overhaul-status reconciliation",
       "evidence": "LAUNCH-CODEX143-144-VISUAL-CONSISTENCY.md; evidence/codex143-144-rendered.json",
-      "testResults": "32populated Trainer pane-width states;106suites;record13/rewards16",
+      "testResults": "32populated Trainer pane-width states;106suites;record13/rewards16;mainc9d29ff9/Pages39898025421success;100sources/2changed versioned sources match",
       "dependencies": [
         "CODEX-143"
       ],
-      "status": "in_progress",
-      "nextAction": "Publish exact2runtime files then verify hosted sources",
+      "status": "done",
+      "nextAction": "Continue populated public-state inspection",
       "approvalRequirement": "CODEX-78 routine frontend exception;no new backend authority"
     },
     {

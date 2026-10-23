@@ -155,3 +155,7 @@ Explicit owner approval;fresh source/attributes/2packet hashes matched. Installe
 ## CODEX-143/144 — Visual consistency workstream
 
 143live main200499f4/Pages39897398820success;106suites/build31/464;100sources and11changed versioned sources match.84completed-load isolated page shells;144candidate32populated Trainer states and typography/capability-copy fixes pass. Current overhaul status reconciled;scope/limits/remaining review in SITEWIDE-VISUAL-CONSISTENCY.md. No gameplay/SQL/Auth/provider/APP change.
+
+## CODEX-144 published / CODEX-145 populated review
+
+144exact2runtime files live mainc9d29ff9/Pages39898025421success;100sources/2changed versioned sources match.145candidate24loaded PC/Inventory states and PC search/direct confirmation inspection;106suites after correcting one old prompt expectation,PC12/Lab7/build pass. No hosted gameplay/RPC/SQL/Auth/provider/APP action.

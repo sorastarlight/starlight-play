@@ -31,7 +31,7 @@ const historyFn = evolveJs.match(/function renderResearchHistory[\s\S]*?function
 const sendTab = evolveHtml.slice(evolveHtml.indexOf('id="evo-tab-send"'), evolveHtml.indexOf('id="evo-tab-evolve"'));
 const evolveTab = evolveHtml.slice(evolveHtml.indexOf('id="evo-tab-evolve"'), evolveHtml.indexOf('id="evo-tab-research"'));
 const researchTab = evolveHtml.slice(evolveHtml.indexOf('id="evo-tab-research"'));
-const placeholder = "Search by Pokémon name or Pokédex number...";
+const placeholder = "Pokémon name or Pokédex number";
 
 const ctx = { window: {}, globalThis: {} };
 ctx.window = ctx;

@@ -1,0 +1,10 @@
+.config-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:20px 0}
+.config-fields label{font-weight:800;min-width:0}.config-fields small{display:block;font-size:13px;font-weight:600;margin-top:6px}
+.config-fields input{display:block;box-sizing:border-box;min-height:44px;padding:10px 12px;border:2px solid #d2dced;border-radius:12px;background:white;color:inherit;font:inherit;width:100%;max-width:100%;margin-top:6px}
+.config-actions{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0}.config-actions button,#next-config>button{min-height:44px;font:inherit;font-weight:800;max-width:100%;overflow-wrap:anywhere}
+#next-config fieldset{padding:0;border:0;margin:0;min-width:0}.config-status{overflow-wrap:anywhere}
+#next-config :is(input,button):focus-visible{outline:3px solid #725cc6;outline-offset:3px}
+.config-dialog{box-sizing:border-box;width:min(700px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;border:2px solid #d2dced;border-radius:24px;padding:24px;color:#49465e;background:white;overflow-wrap:anywhere}
+.config-dialog::backdrop{background:#27253eaa}.config-dialog h3{font-family:Fredoka,Nunito,sans-serif;font-size:24px;margin-top:0}
+.config-comparison>div{padding:14px 0;border-bottom:1px solid #e4ddef}.config-comparison dt{font-weight:800}.config-comparison dd{margin:6px 0 0;display:flex;flex-wrap:wrap;gap:8px 20px}.config-comparison dd strong{color:#70466b}
+@media(max-width:600px){.config-fields{grid-template-columns:minmax(0,1fr)}.config-dialog{padding:18px}}

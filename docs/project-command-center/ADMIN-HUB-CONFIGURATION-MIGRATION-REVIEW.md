@@ -38,3 +38,7 @@ The proposed decision is **design and local implementation/tests only** for thes
 No SQL, reward-policy change, live configuration read/save, player/economy action, encounter/provider test, production publication, APP stamp or final-launch authority follows. The new privileged workflow is outside CODEX-78 routine maintenance and needs owner approval before local implementation. Publication and hosted saves remain later distinct decisions. Encounter timings, capture balance, XP, loot, simulations, Bits and owner credentials remain held in their current tools. Do not silently broaden this slice after approval.
 
 Rollback for an eventual frontend implementation restores the Game Configuration handoff and removes the new editor/module; it does not undo settings, repair rewards or change players. The current review changes only documentation and an isolated fictional prototype.
+
+## Owner decision
+
+Owner approved the exact proposed six-field design and local implementation/tests. CODEX-167 is locally complete. Earlier implementation-held wording is historical for that narrow scope;publication and live operations remain held.

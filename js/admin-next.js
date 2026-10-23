@@ -56,6 +56,12 @@
   let hubGeneration = 0;
   let martIdentity = "";
   let analyticsIdentity = "";
+  let configIdentity = "";
+  const configApi = window.PLAY_ADMIN_NEXT_CONFIG;
+  const config = configApi?.mount(document.getElementById("next-config"), configApi.adapter({
+    session: () => supabase.auth.getSession(), identity: () => configIdentity,
+    allowed: () => staffOpen, call: (command, args) => window.playCall(command, args)
+  }));
   const analyticsApi = window.PLAY_ADMIN_NEXT_ANALYTICS;
   const analytics = analyticsApi?.mount(document.getElementById("next-analytics-reports"), analyticsApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => analyticsIdentity,
@@ -409,9 +415,12 @@
     else stopOpsPoll();
     if (next === "trainers" && staffOpen && !trainerDirLoaded) loadTrainerDirectory();
     if (next === "mart" && staffOpen && mart?.state.phase === "closed") mart.open();
+    if (next === "config" && staffOpen && config?.state.phase === "closed") config.open();
   }
 
   function resetHealth() {
+    configIdentity = "";
+    config?.reset();
     analyticsIdentity = "";
     analytics?.reset();
     healthGeneration++;
@@ -531,6 +540,7 @@
     staffOpen = true;
     martIdentity = session.user.id;
     analyticsIdentity = session.user.id;
+    configIdentity = session.user.id;
     const section = new URL(window.location.href).searchParams.get("section");
     showTab(section, false);
   }

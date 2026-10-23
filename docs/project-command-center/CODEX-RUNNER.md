@@ -116,3 +116,5 @@ CODEX-163:owner approved only Allow manual linking. Dashboard setting changed of
 CODEX-164:owner explicitly approved only the tested one-file OAuth navigation correction and source verification. Exact candidate removes the extra OAuth URL fetch probe;scopes,PKCE,intent,link/login choice and redirect targets unchanged. No account/provider test or other Auth setting is authorized.
 
 CODEX-164 publication VERIFIED:main0cb9c0d8 / Pages39988525257success;100monitored sources and the actual versioned js/auth.js URL match published Git bytes.114/114suites/build31/468 pass. Only js/auth.js published;APPunchanged. No authenticated application navigation,link/login/subscription call,account/provider test,SQL or settings action. Exact guarded rollback retained;approval spent. Firefox-specific resolution remains unverified;human-reported Chrome link/Pass success remains valid.
+
+CODEX-167 current scope:owner explicitly approved CODEX-165 six-field PokéCoin editor design and local implementation/tests. No SQL,live configuration read/save,rewards,provider test or publication. Local candidate complete;see LAUNCH-CODEX167-LOCAL-REWARD-EDITOR.md.

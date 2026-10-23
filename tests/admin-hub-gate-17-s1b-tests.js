@@ -28,8 +28,11 @@ const adminHtml = read("admin.html");
 test("No generic dispatcher and no unsafe mutation controls", () => {
   assert(nextJs.includes("if (!READ_RPCS.includes(name))"));
   const reportTransport = 'allowed: () => staffOpen, call: (name, args) => window.playCall(name, args)';
+  const configTransport = 'allowed: () => staffOpen, call: (command, args) => window.playCall(command, args)';
   assert(nextJs.includes(reportTransport), "reviewed Analytics adapter transport missing");
-  assert(!/playCall\(\s*name/.test(nextJs.replace(reportTransport, "").replace("window.playCall(name, args)", "")));
+  assert(nextJs.includes(configTransport), "reviewed configuration adapter transport missing");
+  assert(!/playCall\(\s*(name|command)/.test(nextJs.replace(configTransport, "").replace(reportTransport, "").replace("window.playCall(name, args)", "")));
+  assert(JSON.stringify(require("../js/admin-next-config.js").commands) === JSON.stringify(["admin_economy_overview", "admin_economy_save"]), "configuration adapter must stay restricted");
   const analytics = require("../js/admin-next-analytics.js");
   assert(JSON.stringify(Object.values(analytics.commands)) === JSON.stringify(["admin_capture_report", "admin_progression_overview", "admin_collection_overview", "admin_economy_overview"]), "report adapter must stay restricted");
   assert(!nextHtml.includes("Start random"));

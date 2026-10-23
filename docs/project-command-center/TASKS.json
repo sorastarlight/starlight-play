@@ -4,6 +4,30 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-167",
+      "status": "done",
+      "scope": "Owner-approved local six-field reward configuration editor",
+      "dependencies": [
+        "CODEX-165"
+      ],
+      "evidence": "LAUNCH-CODEX167-LOCAL-REWARD-EDITOR.md; evidence/codex167-real-dom.json; evidence/codex167-regressions.json",
+      "testResults": "116/116suites;12REAL DOM widths/dialog/cancel states+9load/save states;build31/470;fictional transport only",
+      "nextAction": "Separate owner decision for exact4runtime publication/source verification;live configuration calls held",
+      "approvalRequirement": "Local implementation approval complete;publication,live reads/saves,SQL/provider/rewards excluded"
+    },
+    {
+      "id": "CODEX-166",
+      "status": "done",
+      "scope": "Routine Settings Trainer ID tab keyboard semantics",
+      "dependencies": [
+        "CODEX-165"
+      ],
+      "evidence": "LAUNCH-CODEX166-SETTINGS-KEYBOARD.md; evidence/codex166-publication.json",
+      "testResults": "115suites;actual handler REAL DOM;main84f8ff6e/Pages39990990365success;100+2source matches",
+      "nextAction": "Real device/assistive acceptance remains separate",
+      "approvalRequirement": "Routine CODEX-78 publication complete;no account/provider action"
+    },
+    {
       "id": "CODEX-165",
       "status": "done",
       "scope": "Game Configuration dependency audit and fictional first-slice design",
@@ -12,7 +36,7 @@
       ],
       "evidence": "ADMIN-HUB-CONFIGURATION-MIGRATION-REVIEW.md; design-reset/hub-config-review.html; evidence/codex165-config-contracts.json; evidence/codex165-config-prototype.json",
       "testResults": "8catalog definitions only;8REAL DOM editor/review widths+unavailable/negative/zero/focus checks;no application/config read/save",
-      "nextAction": "Owner decision for six-field reward editor design and local implementation only",
+      "nextAction": "Owner approved local implementation; completed in CODEX-167",
       "approvalRequirement": "New privileged workflow outside CODEX-78;no SQL/live settings/publication authority"
     },
     {

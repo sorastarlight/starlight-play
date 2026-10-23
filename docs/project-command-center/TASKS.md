@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-167 | done | Local six-field reward configuration editor | CODEX-165 | Local implementation approved;publication held | 116suites;12layouts+9states;exact4runtime review ready |
+| CODEX-166 | done | Settings tab keyboard semantics | CODEX-165 | CODEX-78 | Live84f8ff6e;115suites;100+2source matches |
 | CODEX-165 | done | Configuration audit/six-field reward editor proposal | CODEX-164 | Design/local implementation decision held | Review concrete fictional design; no live settings action |
 | CODEX-164 | done | OAuth redirect correction/source verification | CODEX-163 | Explicit one-file approval spent | Main0cb9c0d8/Pages39988525257;114suites;100+1source matches;Firefox acceptance open |
 | CODEX-163 | done | Enable manual identity linking | CODEX-162 | Exact setting approval spent | Persisted after reload; real tester linking/subscriber acceptance pending |

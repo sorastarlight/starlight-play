@@ -1,0 +1,155 @@
+{
+  "classification": "REAL DOM actual Hub/module; fictional Auth/config/save transports; CSP connect none",
+  "layouts": [
+    {
+      "width": "1280",
+      "state": "editor",
+      "inputs": 6,
+      "minControl": 44.79999923706055,
+      "overflow": false
+    },
+    {
+      "width": "1280",
+      "state": "comparison",
+      "focus": "Back to editing",
+      "minControl": 46.79999923706055,
+      "open": true,
+      "overflow": false,
+      "text": "Review reward changes\n\nThis updates site-wide reward rules. It does not grant PokéCoins or repair past rewards.\n\nEncounter participation\nCurrent: 25 PokéCoins\nProposed: 0 PokéCoins\n\nAnother staff member may have edited since loading. This editor does not lock settings. Save once, then reload to verify.\n\nBack to editing\nSave reward settings"
+    },
+    {
+      "width": "1280",
+      "state": "cancel",
+      "dialogs": 0,
+      "focus": "Review changes",
+      "value": "0"
+    },
+    {
+      "width": "768",
+      "state": "editor",
+      "inputs": 6,
+      "minControl": 44.79999923706055,
+      "overflow": false
+    },
+    {
+      "width": "768",
+      "state": "comparison",
+      "focus": "Back to editing",
+      "minControl": 46.79999923706055,
+      "open": true,
+      "overflow": false,
+      "text": "Review reward changes\n\nThis updates site-wide reward rules. It does not grant PokéCoins or repair past rewards.\n\nEncounter participation\nCurrent: 25 PokéCoins\nProposed: 0 PokéCoins\n\nAnother staff member may have edited since loading. This editor does not lock settings. Save once, then reload to verify.\n\nBack to editing\nSave reward settings"
+    },
+    {
+      "width": "768",
+      "state": "cancel",
+      "dialogs": 0,
+      "focus": "Review changes",
+      "value": "0"
+    },
+    {
+      "width": "390",
+      "state": "editor",
+      "inputs": 6,
+      "minControl": 44.79999923706055,
+      "overflow": false
+    },
+    {
+      "width": "390",
+      "state": "comparison",
+      "focus": "Back to editing",
+      "minControl": 46.79999923706055,
+      "open": true,
+      "overflow": false,
+      "text": "Review reward changes\n\nThis updates site-wide reward rules. It does not grant PokéCoins or repair past rewards.\n\nEncounter participation\nCurrent: 25 PokéCoins\nProposed: 0 PokéCoins\n\nAnother staff member may have edited since loading. This editor does not lock settings. Save once, then reload to verify.\n\nBack to editing\nSave reward settings"
+    },
+    {
+      "width": "390",
+      "state": "cancel",
+      "dialogs": 0,
+      "focus": "Review changes",
+      "value": "0"
+    },
+    {
+      "width": "320",
+      "state": "editor",
+      "inputs": 6,
+      "minControl": 44.79999923706055,
+      "overflow": false
+    },
+    {
+      "width": "320",
+      "state": "comparison",
+      "focus": "Back to editing",
+      "minControl": 46.79999923706055,
+      "open": true,
+      "overflow": false,
+      "text": "Review reward changes\n\nThis updates site-wide reward rules. It does not grant PokéCoins or repair past rewards.\n\nEncounter participation\nCurrent: 25 PokéCoins\nProposed: 0 PokéCoins\n\nAnother staff member may have edited since loading. This editor does not lock settings. Save once, then reload to verify.\n\nBack to editing\nSave reward settings"
+    },
+    {
+      "width": "320",
+      "state": "cancel",
+      "dialogs": 0,
+      "focus": "Review changes",
+      "value": "0"
+    }
+  ],
+  "states": [
+    {
+      "mode": "unavailable",
+      "calls": "Simulated calls: admin_economy_overview {}",
+      "inputs": 0,
+      "staffHidden": false,
+      "status": "Reward configuration unavailable or access denied. No defaults were substituted. Reload to try again.Reload reward settings"
+    },
+    {
+      "mode": "missing",
+      "calls": "Simulated calls: admin_economy_overview {}",
+      "inputs": 0,
+      "staffHidden": false,
+      "status": "Reward configuration unavailable or access denied. No defaults were substituted. Reload to try again.Reload reward settings"
+    },
+    {
+      "mode": "denied",
+      "calls": "Simulated calls:",
+      "inputs": 0,
+      "staffHidden": true,
+      "status": "Reload reward settings"
+    },
+    {
+      "mode": "pending",
+      "calls": "Simulated calls: admin_economy_overview {}",
+      "inputs": 0,
+      "staffHidden": false,
+      "status": "Loading reward configuration…Reload reward settings"
+    },
+    {
+      "mode": "pending-completed",
+      "inputs": 6,
+      "status": "Current reward amounts loaded. Review changes before saving."
+    },
+    {
+      "mode": "save-pending",
+      "calls": "Simulated calls: admin_economy_overview {} admin_economy_save {\"p_balance\":{\"captureReward\":26}}",
+      "disabled": true,
+      "focus": "config-status",
+      "status": "Saving once…"
+    },
+    {
+      "mode": "save-acknowledged",
+      "disabled": true,
+      "status": "Save acknowledged. Reload to verify the stored reward settings before editing again."
+    },
+    {
+      "mode": "lostsave",
+      "disabled": true,
+      "inputs": 6,
+      "status": "Save could not be confirmed. Do not retry: reload and compare the stored settings first. Your local draft remains below."
+    },
+    {
+      "mode": "deniedsave",
+      "inputs": 0,
+      "status": "Access denied or session changed. Configuration data was cleared. Reload after checking your staff access."
+    }
+  ]
+}

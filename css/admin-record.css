@@ -5,7 +5,7 @@
 .record-workspace .admin-next-trainer-list { display: block; max-width: none; width: 100%; }
 .record-workspace .admin-next-trainer-search { max-width: none; }
 .record-workspace .admin-next-trainer-search-row { display: flex; gap: 8px; }
-.record-workspace .admin-next-trainer-search-row input { flex: 1; min-width: 0; }
+.record-workspace .admin-next-trainer-search-row input { flex: 1; min-width: 0; min-height: 42px; padding: 8px 12px; border: 2px solid #c9d4ec; border-radius: 10px; font: inherit; color: inherit; background: #fff; }
 .record-directory-head,
 .record-directory-row { display: grid; grid-template-columns: minmax(220px, 2fr) minmax(160px, 1.2fr) minmax(85px, .65fr) minmax(160px, 1.2fr); gap: 16px; align-items: center; }
 .record-directory-head { padding: 12px 16px; font-size: 12px; color: #656881; }
@@ -54,7 +54,7 @@
 .record-workspace :is(button,a,input):focus-visible { outline: 3px solid #aa8116; outline-offset: 3px; }
 .reward-form { display: grid; gap: 16px; margin: 20px 0; }
 .reward-form label, [data-gift-fields] { display: grid; gap: 8px; }
-.reward-form input, .reward-form select { width: 100%; min-width: 0; min-height: 44px; padding: 10px; border: 1px solid #c9d4ec; border-radius: 10px; background: #fff; color: #3a3f63; }
+.reward-form input, .reward-form select { width: 100%; min-width: 0; min-height: 44px; padding: 10px; border: 1px solid #c9d4ec; border-radius: 10px; font: inherit; background: #fff; color: #3a3f63; }
 .reward-form .reward-check { display: flex; align-items: center; gap: 10px; }
 .reward-check input { width: 20px; }
 .reward-actions { display: flex; flex-wrap: wrap; gap: 10px; }

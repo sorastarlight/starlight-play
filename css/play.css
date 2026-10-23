@@ -19462,6 +19462,7 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
   .pc-tab, .pc-tool-btn, .pc-action, .pc-nick-row input, .pc-nick-row button { min-height: 44px; }
   .pc-tab-add { width: 44px; min-width: 44px; }
   .bag-tools input, .bag-tools select,
+  .oak-lab-tools .evo-search, .oak-lab-tools .evo-sort, .evo-view-ready, .rank-board-tab,
   .gts-filters input, .gts-filters select,
   .gts-wizard .dex-search, .gts-want-toolbar .dex-search { min-height: 44px; }
 }

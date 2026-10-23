@@ -1,0 +1,61 @@
+{
+  "classification": "REAL DOM isolated fictional actual Hub; no physical device or hosted API certification",
+  "cases": [
+    {
+      "button": {
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif",
+        "height": 46.79999923706055
+      },
+      "cards": 4,
+      "panel": {
+        "scroll": 990,
+        "width": 990
+      },
+      "scroll": 1265,
+      "status": "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub.",
+      "width": 1280
+    },
+    {
+      "button": {
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif",
+        "height": 46.79999923706055
+      },
+      "cards": 4,
+      "panel": {
+        "scroll": 716,
+        "width": 716
+      },
+      "scroll": 753,
+      "status": "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub.",
+      "width": 768
+    },
+    {
+      "button": {
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif",
+        "height": 46.79999923706055
+      },
+      "cards": 4,
+      "panel": {
+        "scroll": 346,
+        "width": 346
+      },
+      "scroll": 375,
+      "status": "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub.",
+      "width": 390
+    },
+    {
+      "button": {
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif",
+        "height": 46.79999923706055
+      },
+      "cards": 4,
+      "panel": {
+        "scroll": 276,
+        "width": 276
+      },
+      "scroll": 305,
+      "status": "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub.",
+      "width": 320
+    }
+  ]
+}

@@ -31,6 +31,7 @@
     opsMetrics: document.getElementById("next-ops-metrics"),
     opsFreshness: document.getElementById("next-ops-freshness"),
     healthStatus: document.getElementById("next-health-status"),
+    healthRefresh: document.getElementById("next-health-refresh"),
     health: document.getElementById("next-health"),
     trainerRoot: document.getElementById("next-trainers"),
     trainerList: document.getElementById("next-trainer-list"),
@@ -46,6 +47,8 @@
   };
 
   let healthLoaded = false;
+  let healthInFlight = false;
+  let healthGeneration = 0;
   let opsTimer = null;
   let opsInFlight = false;
   let opsActive = false;
@@ -384,6 +387,7 @@
     });
     document.querySelectorAll("[data-next-tab]").forEach((btn) => {
       btn.setAttribute("aria-selected", btn.dataset.nextTab === next ? "true" : "false");
+      btn.tabIndex = btn.dataset.nextTab === next ? 0 : -1;
     });
     const url = new URL(window.location.href);
     url.searchParams.set("section", next);
@@ -398,15 +402,36 @@
     if (next === "mart" && staffOpen && mart?.state.phase === "closed") mart.open();
   }
 
-  async function loadHealth() {
-    if (!els.health || healthLoaded) return;
+  function resetHealth() {
+    healthGeneration++;
+    healthLoaded = false;
+    healthInFlight = false;
+    if (els.health) els.health.innerHTML = "";
+    if (els.healthStatus) els.healthStatus.textContent = "No health snapshot loaded.";
+    if (els.healthRefresh) {
+      els.healthRefresh.setAttribute("aria-disabled", "false");
+      els.healthRefresh.textContent = "Refresh health";
+    }
+  }
+
+  async function loadHealth(force = false) {
+    if (!els.health || !staffOpen || healthInFlight || (healthLoaded && !force)) return;
+    const generation = ++healthGeneration;
+    healthInFlight = true;
+    if (els.healthRefresh) {
+      // Keep keyboard focus on the control; single-flight rejects repeat requests.
+      els.healthRefresh.setAttribute("aria-disabled", "true");
+      els.healthRefresh.textContent = "Refreshing…";
+    }
+    els.health.innerHTML = "";
     if (els.healthStatus) els.healthStatus.textContent = "Loading health…";
     try {
       const [build, game] = await Promise.all([
         readCall("admin_build_health").catch(() => null),
         readCall("admin_game_health").catch(() => null)
       ]);
-      healthLoaded = true;
+      if (generation !== healthGeneration || !staffOpen) return;
+      healthLoaded = Boolean(build && game);
       const bits = [];
       if (build) {
         bits.push(metric("Client build", build.clientBuild || build.appBuild || "—"));
@@ -420,11 +445,22 @@
         const twitchLabel = liveKnown ? (twitch.live ? "LIVE" : "OFFLINE") : "UNKNOWN";
         bits.push(metric("Twitch stream", twitchLabel, liveKnown ? (twitch.live ? "active" : "inactive") : "unknown"));
       }
-      els.health.innerHTML = bits.join("") || "<p class='muted'>Health RPCs did not return a snapshot.</p>";
-      if (els.healthStatus) els.healthStatus.textContent = "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub.";
+      els.health.innerHTML = bits.join("");
+      if (els.healthStatus) els.healthStatus.textContent = !build && !game
+        ? "Health is unavailable. Refresh to try again."
+        : !build || !game ? "Partial health snapshot. Some checks are unavailable; refresh to try again."
+          : "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub.";
     } catch (error) {
-      if (els.healthStatus) {
+      if (generation === healthGeneration && staffOpen && els.healthStatus) {
         els.healthStatus.textContent = window.playRpcError?.(error, "Could not load health.") || "Could not load health.";
+      }
+    } finally {
+      if (generation === healthGeneration) {
+        healthInFlight = false;
+        if (els.healthRefresh) {
+          els.healthRefresh.setAttribute("aria-disabled", "false");
+          els.healthRefresh.textContent = "Refresh health";
+        }
       }
     }
   }
@@ -435,7 +471,7 @@
     mart?.reset();
     staffOpen = false;
     stopOpsPoll();
-    healthLoaded = false;
+    resetHealth();
     resetTrainers();
     if (els.staff) els.staff.hidden = true;
     if (els.gate) {
@@ -452,6 +488,7 @@
     if (martIdentity !== (session?.user?.id || "")) {
       martIdentity = "";
       mart?.reset();
+      resetHealth();
     }
     if (!session) {
       setSignedOut();
@@ -465,12 +502,15 @@
       staffOpen = false;
       martIdentity = "";
       mart?.reset();
+      resetHealth();
       stopOpsPoll();
       resetTrainers();
       if (els.staff) els.staff.hidden = true;
       if (els.gate) {
         els.gate.hidden = false;
-        els.gate.textContent = "This preview is for moderators and admins. Viewer logins cannot open it.";
+        els.gate.textContent = error
+          ? "Staff access could not be verified. Reload this page to try again."
+          : "This workspace is for staff. Your trainer account does not have access.";
       }
       renderOperationsFallback();
       return;
@@ -487,10 +527,25 @@
     const open = els.nav?.classList.toggle("is-open");
     els.toggle.setAttribute("aria-expanded", open ? "true" : "false");
   });
+  els.healthRefresh?.addEventListener("click", () => loadHealth(true));
   document.querySelector(".hub-nav-list")?.addEventListener("click", (event) => {
     const btn = event.target.closest("[data-next-tab]");
     if (!btn) return;
     showTab(btn.dataset.nextTab, true);
+  });
+  document.querySelector(".hub-nav-list")?.addEventListener("keydown", (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const btn = event.target.closest("[data-next-tab]");
+    const tabs = [...document.querySelectorAll("[data-next-tab]")];
+    const index = tabs.indexOf(btn);
+    if (index < 0 || !["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1
+      : (index + (event.key === "ArrowDown" ? 1 : -1) + tabs.length) % tabs.length;
+    tabs.forEach((tab, i) => { tab.tabIndex = i === next ? 0 : -1; });
+    tabs[next].focus({ preventScroll: true });
+    // Manual activation: arrow navigation never loads a section or starts polling.
+    // Native Enter/Space activates the existing button click handler.
   });
   els.trainerSearch?.addEventListener("submit", (event) => {
     event.preventDefault();

@@ -65,19 +65,20 @@
     <div class="hub-app admin-next-app">
       <aside class="hub-nav" id="hub-nav">
         <p class="hub-nav-brand">Admin Hub</p>
-        <button type="button" class="hub-nav-toggle" id="hub-nav-toggle" aria-expanded="false">Admin menu</button>
-        <div class="hub-nav-list" role="tablist" aria-label="Next Admin Hub">
-          <button type="button" role="tab" data-next-tab="operations" aria-selected="true">Operations</button>
-          <button type="button" role="tab" data-next-tab="trainers">Trainers</button>
-          <button type="button" role="tab" data-next-tab="support">Support &amp; Recovery</button>
-          <button type="button" role="tab" data-next-tab="mart">Mart &amp; Content</button>
-          <button type="button" role="tab" data-next-tab="config">Game Configuration</button>
-          <button type="button" role="tab" data-next-tab="analytics">Analytics &amp; Health</button>
-          <button type="button" role="tab" data-next-tab="system">System &amp; Access</button>
+        <button type="button" class="hub-nav-toggle" id="hub-nav-toggle" aria-expanded="false" aria-controls="next-hub-tabs">Admin menu</button>
+        <p id="next-hub-tabs-help" class="visually-hidden">Use Up and Down arrows to choose a section, then Enter or Space to open it.</p>
+        <div class="hub-nav-list" id="next-hub-tabs" role="tablist" aria-label="Next Admin Hub" aria-orientation="vertical" aria-describedby="next-hub-tabs-help">
+          <button type="button" role="tab" id="next-tab-operations" aria-controls="next-panel-operations" tabindex="0" data-next-tab="operations" aria-selected="true">Operations</button>
+          <button type="button" role="tab" id="next-tab-trainers" aria-controls="next-panel-trainers" tabindex="-1" data-next-tab="trainers">Trainers</button>
+          <button type="button" role="tab" id="next-tab-support" aria-controls="next-panel-support" tabindex="-1" data-next-tab="support">Support &amp; Recovery</button>
+          <button type="button" role="tab" id="next-tab-mart" aria-controls="next-panel-mart" tabindex="-1" data-next-tab="mart">Mart &amp; Content</button>
+          <button type="button" role="tab" id="next-tab-config" aria-controls="next-panel-config" tabindex="-1" data-next-tab="config">Game Configuration</button>
+          <button type="button" role="tab" id="next-tab-analytics" aria-controls="next-panel-analytics" tabindex="-1" data-next-tab="analytics">Analytics &amp; Health</button>
+          <button type="button" role="tab" id="next-tab-system" aria-controls="next-panel-system" tabindex="-1" data-next-tab="system">System &amp; Access</button>
         </div>
       </aside>
       <div class="hub-main">
-        <section id="next-panel-operations" class="hub-card admin-next-panel admin-next-ops" data-next-panel="operations">
+        <section id="next-panel-operations" role="tabpanel" aria-labelledby="next-tab-operations" tabindex="0" class="hub-card admin-next-panel admin-next-ops" data-next-panel="operations">
           <p class="eyebrow">Operations · observation only</p>
           <h2>Live Operations overview</h2>
           <p class="admin-next-lifecycle">Twitch LIVE permits the Live RPG. It does not start it. Offline ends an active RPG. Start and End remain explicit staff actions on the current hub.</p>
@@ -95,7 +96,7 @@
           <p class="admin-next-unavailable">View status here. To start or end the Live RPG and manage encounters, open the current Dashboard.</p>
           <p><a class="admin-next-legacy" href="./admin.html?section=dashboard">Open live Dashboard</a></p>
         </section>
-        <section id="next-panel-trainers" class="hub-card admin-next-panel admin-next-trainers-panel" data-next-panel="trainers" hidden>
+        <section id="next-panel-trainers" role="tabpanel" aria-labelledby="next-tab-trainers" tabindex="0" class="hub-card admin-next-panel admin-next-trainers-panel" data-next-panel="trainers" hidden>
           <p class="eyebrow">Trainers</p>
           <h2>Trainer Management</h2>
           <p class="muted">Browse trainers, review their records, manage Starlight Pass and send audited gifts.</p>
@@ -124,7 +125,7 @@
           <p class="admin-next-unavailable">Full PC boxes, Bits, achievement journals, Oak research and email addresses are not available here. Account recovery and identity changes remain in Support &amp; Recovery.</p>
           <p><a class="admin-next-legacy" href="./admin-next.html?section=support">Open Support &amp; Recovery</a></p>
         </section>
-        <section id="next-panel-support" class="hub-card admin-next-panel" data-next-panel="support" hidden>
+        <section id="next-panel-support" role="tabpanel" aria-labelledby="next-tab-support" tabindex="0" class="hub-card admin-next-panel" data-next-panel="support" hidden>
           <p class="eyebrow">Support &amp; Recovery</p>
           <h2>Support &amp; Recovery</h2>
           <p>Review tickets, reply to trainers and keep internal notes. Helpdesk access is owner-only.</p>
@@ -135,27 +136,28 @@
           <p><a class="admin-next-legacy" href="./admin.html?section=trainers">Open legacy account tools</a></p>
           <p><a class="admin-next-legacy" href="./admin.html?section=content&amp;view=oakqa">Open legacy Oak QA</a></p>
         </section>
-        <section id="next-panel-mart" class="hub-card admin-next-panel" data-next-panel="mart" hidden>
+        <section id="next-panel-mart" role="tabpanel" aria-labelledby="next-tab-mart" tabindex="0" class="hub-card admin-next-panel" data-next-panel="mart" hidden>
           <p class="eyebrow">Mart &amp; Content</p>
           <h2>Catalog and studio</h2>
             <p>Edit existing single-reward PokéCoin products. Other product types, new products and uploads remain in the current editor.</p>
             <div id="next-mart"></div>
           <p><a class="admin-next-legacy" href="./admin.html?section=economy&amp;view=catalog">Open current Mart editor</a></p>
         </section>
-        <section id="next-panel-config" class="hub-card admin-next-panel" data-next-panel="config" hidden>
+        <section id="next-panel-config" role="tabpanel" aria-labelledby="next-tab-config" tabindex="0" class="hub-card admin-next-panel" data-next-panel="config" hidden>
           <p class="eyebrow">Game Configuration</p>
           <h2>Encounters, capture, economy, progression</h2>
           <p>Manage encounter rules, rewards and progression in the current Admin Hub.</p>
           <p><a class="admin-next-legacy" href="./admin.html?section=encounters">Open Encounters</a></p>
         </section>
-        <section id="next-panel-analytics" class="hub-card admin-next-panel" data-next-panel="analytics" hidden>
+        <section id="next-panel-analytics" role="tabpanel" aria-labelledby="next-tab-analytics" tabindex="0" class="hub-card admin-next-panel" data-next-panel="analytics" hidden>
           <p class="eyebrow">Analytics &amp; Health · read only</p>
           <h2>Build and game health</h2>
           <p id="next-health-status" class="muted" role="status">Loading…</p>
+          <button type="button" id="next-health-refresh">Refresh health</button>
           <div id="next-health" class="admin-next-metrics"></div>
           <p><a class="admin-next-legacy" href="./admin.html?section=analytics">Open current Analytics</a></p>
         </section>
-        <section id="next-panel-system" class="hub-card admin-next-panel" data-next-panel="system" hidden>
+        <section id="next-panel-system" role="tabpanel" aria-labelledby="next-tab-system" tabindex="0" class="hub-card admin-next-panel" data-next-panel="system" hidden>
           <p class="eyebrow">System &amp; Access</p>
           <h2>Integrations and secrets</h2>
           <p>Manage Twitch, GitHub and bridge connections in the current Admin Hub. Connection credentials are available only to the owner.</p>

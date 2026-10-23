@@ -4,6 +4,54 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-159",
+      "status": "in_progress",
+      "scope": "Read-only health retry and truthful partial/unavailable states",
+      "dependencies": [
+        "CODEX-158"
+      ],
+      "evidence": "LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md; evidence/codex156-159-regressions.json",
+      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline",
+      "nextAction": "Exact3runtime publication and hosted source comparison;continue Analytics dependency review",
+      "approvalRequirement": "CODEX-78 routine frontend;no new privileged workflow/server/API authority"
+    },
+    {
+      "id": "CODEX-158",
+      "status": "in_progress",
+      "scope": "Staff access failure and denial copy",
+      "dependencies": [
+        "CODEX-157"
+      ],
+      "evidence": "LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md; evidence/codex156-159-regressions.json",
+      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline",
+      "nextAction": "Exact3runtime publication and hosted source comparison;continue Analytics dependency review",
+      "approvalRequirement": "CODEX-78 routine frontend;no new privileged workflow/server/API authority"
+    },
+    {
+      "id": "CODEX-157",
+      "status": "in_progress",
+      "scope": "Admin Hub vertical tabs and panel associations",
+      "dependencies": [
+        "CODEX-156"
+      ],
+      "evidence": "LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md; evidence/codex156-159-regressions.json",
+      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline",
+      "nextAction": "Exact3runtime publication and hosted source comparison;continue Analytics dependency review",
+      "approvalRequirement": "CODEX-78 routine frontend;no new privileged workflow/server/API authority"
+    },
+    {
+      "id": "CODEX-156",
+      "status": "in_progress",
+      "scope": "Mart keyboard focus continuity and pending-state focus",
+      "dependencies": [
+        "CODEX-155"
+      ],
+      "evidence": "LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md; evidence/codex156-159-regressions.json",
+      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline",
+      "nextAction": "Exact3runtime publication and hosted source comparison;continue Analytics dependency review",
+      "approvalRequirement": "CODEX-78 routine frontend;no new privileged workflow/server/API authority"
+    },
+    {
       "id": "CODEX-155",
       "status": "done",
       "scope": "Owner-approved existing single-reward PokeCoin Mart editor local implementation",

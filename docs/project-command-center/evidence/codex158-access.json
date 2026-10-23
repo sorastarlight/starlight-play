@@ -1,0 +1,20 @@
+{
+  "classification": "REAL DOM actual HTML/controller; fictional Auth; network blocked",
+  "cases": [
+    {
+      "calls": "Simulated calls:",
+      "forms": 0,
+      "gate": "Staff access could not be verified. Reload this page to try again.",
+      "staffHidden": true,
+      "state": "Unavailable"
+    },
+    {
+      "calls": "Simulated calls:",
+      "forms": 0,
+      "gate": "This workspace is for staff. Your trainer account does not have access.",
+      "staffHidden": true,
+      "state": "Denied"
+    }
+  ],
+  "fixtureNote": "Initial private harness loaded an unrelated missing fixture control; repaired before retained measurements. Not a production defect."
+}

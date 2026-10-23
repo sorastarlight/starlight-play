@@ -1,0 +1,47 @@
+{
+  "classification": "REAL DOM isolated fictional data; no hosted RPC",
+  "baseline": {
+    "focusTag": "BODY",
+    "focusedName": null,
+    "heading": "Berry Bundle"
+  },
+  "cases": [
+    {
+      "name": "name",
+      "state": "Tab after selection",
+      "tag": "INPUT"
+    },
+    {
+      "repeatDisabled": true,
+      "state": "Fictional save receipt",
+      "tag": "P",
+      "text": "Save acknowledged. Reload the catalog to verify the stored product before editing again."
+    },
+    {
+      "focus": "Loading catalog…",
+      "martFields": 0,
+      "state": "Pending load"
+    },
+    {
+      "focusId": "complete",
+      "focusWithinMart": false,
+      "state": "Load complete does not steal external focus"
+    },
+    {
+      "disabled": true,
+      "focus": "Saving once…",
+      "repeatDisabled": true,
+      "state": "Pending fictional save"
+    },
+    {
+      "disabled": true,
+      "focusId": "complete",
+      "state": "Save response preserves external focus"
+    },
+    {
+      "fields": 0,
+      "focus": "Save denied. Product data was cleared; reload after checking your staff access.",
+      "state": "Denied save"
+    }
+  ]
+}

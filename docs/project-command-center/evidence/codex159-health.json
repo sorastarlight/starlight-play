@@ -1,0 +1,52 @@
+{
+  "classification": "REAL DOM actual Hub with fictional health reads; network blocked",
+  "baseline": {
+    "body": "Health RPCs did not return a snapshot.",
+    "calls": "Simulated calls: admin_store_get admin_build_health admin_game_health",
+    "retry": false,
+    "status": "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub."
+  },
+  "cases": [
+    {
+      "calls": "Simulated calls: admin_build_health admin_game_health",
+      "cards": "",
+      "refreshDisabled": false,
+      "state": "Initial failures",
+      "status": "Health is unavailable. Refresh to try again."
+    },
+    {
+      "calls": "Simulated calls: admin_build_health admin_game_health admin_build_health admin_game_health",
+      "cards": "CLIENT BUILD\n\nfixture-build\n\nDATABASE MIGRATION\n\nfixture-migration\n\nAPPLICATION\n\nOK\n\nTWITCH STREAM\n\nOFFLINE",
+      "refreshDisabled": false,
+      "state": "Successful refresh after failure",
+      "status": "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub."
+    },
+    {
+      "calls": "Simulated calls: admin_build_health admin_game_health",
+      "cards": "APPLICATION\n\nOK\n\nTWITCH STREAM\n\nOFFLINE",
+      "refreshDisabled": false,
+      "state": "Partial snapshot",
+      "status": "Partial health snapshot. Some checks are unavailable; refresh to try again."
+    },
+    {
+      "ariaDisabled": "true",
+      "calls": "Simulated calls: admin_build_health admin_game_health admin_build_health admin_game_health",
+      "focus": "next-health-refresh",
+      "nativeDisabled": false,
+      "state": "Manual pending refresh",
+      "status": "Loading health…"
+    },
+    {
+      "calls": "Simulated calls: admin_build_health admin_game_health admin_build_health admin_game_health",
+      "focus": "next-health-refresh",
+      "state": "Repeat key during pending"
+    },
+    {
+      "calls": "Simulated calls: admin_build_health admin_game_health admin_build_health admin_game_health",
+      "cards": "CLIENT BUILD\n\nfixture-build\n\nDATABASE MIGRATION\n\nfixture-migration\n\nAPPLICATION\n\nOK\n\nTWITCH STREAM\n\nOFFLINE",
+      "refreshDisabled": false,
+      "state": "Pending refresh completed",
+      "status": "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub."
+    }
+  ]
+}

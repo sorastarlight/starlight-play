@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-145 | doing | Populated PC/Inventory/mobile control polish | CODEX-144 | CODEX-78 |24rendered states/106suites;exact4file publication next |
+| CODEX-145 | done | Populated PC/Inventory/mobile control polish | CODEX-144 | CODEX-78 | Published main058ee3fe; historical details below |
 | CODEX-144 | done | Trainer typography/capability copy/status | CODEX-143 | CODEX-78 |Mainc9d29ff9/Pages39898025421success;32states/106suites;2sources match |
 | CODEX-143 | done | Site-wide shells/copy/search styling | CODEX-142 | CODEX-78 |Main200499f4/Pages39897398820success;84layouts;11changed sources |
 | CODEX-142 | done | Cosmetic equip ownership | CODEX-141 | Catalog/local only |16REAL LOCAL selected ownership/entitlement/equip cases;no production change |
@@ -406,3 +406,6 @@ CODEX-154 VERIFIED:CSS-only main927b2f48/Pages39958731032success;100monitored+1v
 
 
 CODEX-155 PUBLISHED by explicit owner approval:exact4runtime files main4dad4117/Pages39964649209success;100monitored+4versioned sources match;mainbuild31/466. Hosted restored EmailQA viewer correctly denied,zero Mart forms/save controls. Acceptance caveat:legacy signed-out tab was stale;shared navigation can invoke notice acknowledgement on session restoration. No catalog save;automatic notice response/data effects not inspected;further hosted navigation stopped. Owner editor/save acceptance remains unproven. See LAUNCH-CODEX155-LOCAL-MART-EDITOR.md and evidence/codex155-publication.json.
+
+
+CODEX-156–159:Mart selection/result focus;vertical Hub tabs/manual activation and named panels;distinct access verification failure/denial copy;retryable unavailable/partial health snapshots using only existing2reads.112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline. Exact3runtime publication next. No hosted app navigation/staff action/SQL/provider/gameplay/spending/APP change. Report:LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md.

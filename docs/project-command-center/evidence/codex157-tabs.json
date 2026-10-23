@@ -1,0 +1,257 @@
+{
+  "classification": "REAL DOM actual Hub HTML/controller with fictional read transport; no hosted RPC",
+  "keyboard": [
+    {
+      "calls": "Simulated calls: admin_store_get",
+      "case": "ArrowDown focus only",
+      "focus": "next-tab-config",
+      "panel": "next-panel-mart",
+      "selected": "next-tab-mart",
+      "tabStops": [
+        "next-tab-config"
+      ]
+    },
+    {
+      "calls": "Simulated calls: admin_store_get",
+      "case": "Enter activates config",
+      "focus": "next-tab-config",
+      "panel": "next-panel-config",
+      "selected": "next-tab-config",
+      "tabStops": [
+        "next-tab-config"
+      ]
+    },
+    {
+      "calls": "Simulated calls: admin_store_get",
+      "case": "End focus only",
+      "focus": "next-tab-system",
+      "panel": "next-panel-config",
+      "selected": "next-tab-config",
+      "tabStops": [
+        "next-tab-system"
+      ]
+    },
+    {
+      "calls": "Simulated calls: admin_store_get",
+      "case": "Home focus only",
+      "focus": "next-tab-operations",
+      "panel": "next-panel-config",
+      "selected": "next-tab-config",
+      "tabStops": [
+        "next-tab-operations"
+      ]
+    },
+    {
+      "calls": "Simulated calls: admin_store_get",
+      "case": "ArrowUp focus only",
+      "focus": "next-tab-system",
+      "panel": "next-panel-config",
+      "selected": "next-tab-config",
+      "tabStops": [
+        "next-tab-system"
+      ]
+    },
+    {
+      "calls": "Simulated calls: admin_store_get",
+      "case": "ArrowDown focus only",
+      "focus": "next-tab-operations",
+      "panel": "next-panel-config",
+      "selected": "next-tab-config",
+      "tabStops": [
+        "next-tab-operations"
+      ]
+    },
+    {
+      "calls": "Simulated calls: admin_store_get",
+      "case": "Tab enters active panel",
+      "focus": "next-panel-mart",
+      "panel": "next-panel-mart",
+      "selected": "next-tab-mart",
+      "tabStops": [
+        "next-tab-mart"
+      ]
+    }
+  ],
+  "widths": [
+    {
+      "menuExpanded": "false",
+      "orientation": "vertical",
+      "relationships": [
+        {
+          "named": true,
+          "panel": "next-panel-operations",
+          "tab": "next-tab-operations"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-trainers",
+          "tab": "next-tab-trainers"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-support",
+          "tab": "next-tab-support"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-mart",
+          "tab": "next-tab-mart"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-config",
+          "tab": "next-tab-config"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-analytics",
+          "tab": "next-tab-analytics"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-system",
+          "tab": "next-tab-system"
+        }
+      ],
+      "scroll": 1265,
+      "tabStops": 1,
+      "tabsVisible": 7,
+      "width": 1280
+    },
+    {
+      "menuExpanded": "true",
+      "orientation": "vertical",
+      "relationships": [
+        {
+          "named": true,
+          "panel": "next-panel-operations",
+          "tab": "next-tab-operations"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-trainers",
+          "tab": "next-tab-trainers"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-support",
+          "tab": "next-tab-support"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-mart",
+          "tab": "next-tab-mart"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-config",
+          "tab": "next-tab-config"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-analytics",
+          "tab": "next-tab-analytics"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-system",
+          "tab": "next-tab-system"
+        }
+      ],
+      "scroll": 753,
+      "tabStops": 1,
+      "tabsVisible": 7,
+      "width": 753
+    },
+    {
+      "menuExpanded": "true",
+      "orientation": "vertical",
+      "relationships": [
+        {
+          "named": true,
+          "panel": "next-panel-operations",
+          "tab": "next-tab-operations"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-trainers",
+          "tab": "next-tab-trainers"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-support",
+          "tab": "next-tab-support"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-mart",
+          "tab": "next-tab-mart"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-config",
+          "tab": "next-tab-config"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-analytics",
+          "tab": "next-tab-analytics"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-system",
+          "tab": "next-tab-system"
+        }
+      ],
+      "scroll": 375,
+      "tabStops": 1,
+      "tabsVisible": 7,
+      "width": 375
+    },
+    {
+      "menuExpanded": "true",
+      "orientation": "vertical",
+      "relationships": [
+        {
+          "named": true,
+          "panel": "next-panel-operations",
+          "tab": "next-tab-operations"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-trainers",
+          "tab": "next-tab-trainers"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-support",
+          "tab": "next-tab-support"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-mart",
+          "tab": "next-tab-mart"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-config",
+          "tab": "next-tab-config"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-analytics",
+          "tab": "next-tab-analytics"
+        },
+        {
+          "named": true,
+          "panel": "next-panel-system",
+          "tab": "next-tab-system"
+        }
+      ],
+      "scroll": 305,
+      "tabStops": 1,
+      "tabsVisible": 7,
+      "width": 305
+    }
+  ]
+}

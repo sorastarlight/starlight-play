@@ -55,3 +55,6 @@ CODEX-154 VERIFIED:CSS-only main927b2f48/Pages39958731032success;100monitored+1v
 
 
 CODEX-155 PUBLISHED by explicit owner approval:exact4runtime files main4dad4117/Pages39964649209success;100monitored+4versioned sources match;mainbuild31/466. Hosted restored EmailQA viewer correctly denied,zero Mart forms/save controls. Acceptance caveat:legacy signed-out tab was stale;shared navigation can invoke notice acknowledgement on session restoration. No catalog save;automatic notice response/data effects not inspected;further hosted navigation stopped. Owner editor/save acceptance remains unproven. See LAUNCH-CODEX155-LOCAL-MART-EDITOR.md and evidence/codex155-publication.json.
+
+
+CODEX-156–159:Mart selection/result focus;vertical Hub tabs/manual activation and named panels;distinct access verification failure/denial copy;retryable unavailable/partial health snapshots using only existing2reads.112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline. Exact3runtime publication next. No hosted app navigation/staff action/SQL/provider/gameplay/spending/APP change. Report:LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md.

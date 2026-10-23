@@ -73,14 +73,14 @@
       <section id="panel-trainer-id" class="scc-panel" data-scc-panel="trainer-id">
         <div class="scc-editor">
           <div class="scc-subnav" role="tablist" aria-label="Trainer ID customization">
-            <button type="button" class="scc-subnav-btn is-on" role="tab" data-profile-tab="identity" aria-selected="true">Identity</button>
-            <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="avatar" aria-selected="false">Avatar</button>
-            <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="card-style" aria-selected="false">Card Style</button>
-            <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="titles" aria-selected="false">Titles &amp; Ribbons</button>
-            <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="showcase" aria-selected="false">Showcase</button>
-            <button type="button" class="scc-subnav-btn" role="tab" data-profile-tab="team" aria-selected="false">Team</button>
+            <button type="button" class="scc-subnav-btn is-on" role="tab" id="profile-tab-identity" aria-controls="profile-workspace" tabindex="0" data-profile-tab="identity" aria-selected="true">Identity</button>
+            <button type="button" class="scc-subnav-btn" role="tab" id="profile-tab-avatar" aria-controls="profile-workspace" tabindex="-1" data-profile-tab="avatar" aria-selected="false">Avatar</button>
+            <button type="button" class="scc-subnav-btn" role="tab" id="profile-tab-card-style" aria-controls="profile-workspace" tabindex="-1" data-profile-tab="card-style" aria-selected="false">Card Style</button>
+            <button type="button" class="scc-subnav-btn" role="tab" id="profile-tab-titles" aria-controls="profile-workspace" tabindex="-1" data-profile-tab="titles" aria-selected="false">Titles &amp; Ribbons</button>
+            <button type="button" class="scc-subnav-btn" role="tab" id="profile-tab-showcase" aria-controls="profile-workspace" tabindex="-1" data-profile-tab="showcase" aria-selected="false">Showcase</button>
+            <button type="button" class="scc-subnav-btn" role="tab" id="profile-tab-team" aria-controls="profile-workspace" tabindex="-1" data-profile-tab="team" aria-selected="false">Team</button>
           </div>
-          <div id="profile-workspace" class="scc-workspace"></div>
+          <div id="profile-workspace" class="scc-workspace" role="tabpanel" aria-labelledby="profile-tab-identity" tabindex="0"></div>
           <p id="edit-status" class="muted" role="status"></p>
         </div>
       </section>

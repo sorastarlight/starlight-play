@@ -1,0 +1,16 @@
+{
+  "classification": "REAL DOM actual extracted Settings synchronization/navigation handlers; fictional panel; no SDK/transport",
+  "arrow": {
+    "focus": "profile-tab-team",
+    "panelName": "profile-tab-identity",
+    "selected": "profile-tab-identity"
+  },
+  "activated": {
+    "focus": "profile-tab-team",
+    "panelName": "profile-tab-team",
+    "selected": "profile-tab-team",
+    "tabStops": [
+      "profile-tab-team"
+    ]
+  }
+}

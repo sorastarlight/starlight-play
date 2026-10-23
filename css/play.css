@@ -19465,6 +19465,7 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
   .oak-lab-tools .evo-search, .oak-lab-tools .evo-sort, .evo-view-ready, .rank-board-tab,
   .ach-hub-tools .evo-search, .ach-hub-tools .evo-sort, .scc-nav-btn, .scc-subnav-btn,
   #ach-states .ach-hub-chip, button.ach-hub-reward, .tid-journal-tab, .tid-ribbon-btn,
+  #oak-research-board .oak-research-claim,
   #mart-floors button, #mart-floors input[type="number"], #dex-search, #filter-status,
   .gts-filters input, .gts-filters select,
   .gts-wizard .dex-search, .gts-want-toolbar .dex-search { min-height: 44px; }

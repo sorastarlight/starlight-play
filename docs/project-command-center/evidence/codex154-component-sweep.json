@@ -1,0 +1,586 @@
+[
+  {
+    "page": "trainer.html",
+    "width": 1265,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "tid-module",
+        "client": 1045,
+        "overflow": "visible",
+        "scroll": 1045,
+        "width": 1048
+      },
+      {
+        "class": "tid-module",
+        "client": 1045,
+        "overflow": "visible",
+        "scroll": 1045,
+        "width": 1048
+      },
+      {
+        "class": "tid-module tid-journal-module",
+        "client": 1045,
+        "overflow": "visible",
+        "scroll": 1045,
+        "width": 1048
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "width": 753,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "tid-module",
+        "client": 718,
+        "overflow": "visible",
+        "scroll": 718,
+        "width": 720.7999877929688
+      },
+      {
+        "class": "tid-module",
+        "client": 718,
+        "overflow": "visible",
+        "scroll": 718,
+        "width": 720.7999877929688
+      },
+      {
+        "class": "tid-module tid-journal-module",
+        "client": 718,
+        "overflow": "visible",
+        "scroll": 718,
+        "width": 720.7999877929688
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "width": 375,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "tid-module",
+        "client": 348,
+        "overflow": "visible",
+        "scroll": 348,
+        "width": 351.20001220703125
+      },
+      {
+        "class": "tid-module",
+        "client": 348,
+        "overflow": "visible",
+        "scroll": 348,
+        "width": 351.20001220703125
+      },
+      {
+        "class": "tid-module tid-journal-module",
+        "client": 348,
+        "overflow": "visible",
+        "scroll": 348,
+        "width": 351.20001220703125
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "width": 305,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "tid-module",
+        "client": 278,
+        "overflow": "visible",
+        "scroll": 278,
+        "width": 280.8000183105469
+      },
+      {
+        "class": "tid-module",
+        "client": 278,
+        "overflow": "visible",
+        "scroll": 278,
+        "width": 280.8000183105469
+      },
+      {
+        "class": "tid-module tid-journal-module",
+        "client": 278,
+        "overflow": "visible",
+        "scroll": 278,
+        "width": 280.8000183105469
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "width": 1265,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "ach-next-card",
+        "client": 266,
+        "overflow": "visible",
+        "scroll": 266,
+        "width": 268.70001220703125
+      },
+      {
+        "class": "ach-hub-card is-progress",
+        "client": 357,
+        "overflow": "visible",
+        "scroll": 357,
+        "width": 360.26251220703125
+      },
+      {
+        "class": "ach-hub-card is-locked is-hidden",
+        "client": 357,
+        "overflow": "visible",
+        "scroll": 357,
+        "width": 360.26251220703125
+      },
+      {
+        "class": "ach-hub-card is-done",
+        "client": 357,
+        "overflow": "visible",
+        "scroll": 357,
+        "width": 360.2749938964844
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "width": 753,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "ach-next-card",
+        "client": 331,
+        "overflow": "visible",
+        "scroll": 331,
+        "width": 333.8000183105469
+      },
+      {
+        "class": "ach-hub-card is-progress",
+        "client": 674,
+        "overflow": "visible",
+        "scroll": 674,
+        "width": 677.6000366210938
+      },
+      {
+        "class": "ach-hub-card is-locked is-hidden",
+        "client": 674,
+        "overflow": "visible",
+        "scroll": 674,
+        "width": 677.6000366210938
+      },
+      {
+        "class": "ach-hub-card is-done",
+        "client": 674,
+        "overflow": "visible",
+        "scroll": 674,
+        "width": 677.6000366210938
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "width": 375,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "ach-next-card",
+        "client": 317,
+        "overflow": "visible",
+        "scroll": 317,
+        "width": 320
+      },
+      {
+        "class": "ach-hub-card is-progress",
+        "client": 317,
+        "overflow": "visible",
+        "scroll": 317,
+        "width": 320
+      },
+      {
+        "class": "ach-hub-card is-locked is-hidden",
+        "client": 317,
+        "overflow": "visible",
+        "scroll": 317,
+        "width": 320
+      },
+      {
+        "class": "ach-hub-card is-done",
+        "client": 317,
+        "overflow": "visible",
+        "scroll": 317,
+        "width": 320
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "width": 305,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "ach-next-card",
+        "client": 246,
+        "overflow": "visible",
+        "scroll": 246,
+        "width": 249.6000061035156
+      },
+      {
+        "class": "ach-hub-card is-progress",
+        "client": 246,
+        "overflow": "visible",
+        "scroll": 246,
+        "width": 249.6000061035156
+      },
+      {
+        "class": "ach-hub-card is-locked is-hidden",
+        "client": 246,
+        "overflow": "visible",
+        "scroll": 246,
+        "width": 249.6000061035156
+      },
+      {
+        "class": "ach-hub-card is-done",
+        "client": 246,
+        "overflow": "visible",
+        "scroll": 246,
+        "width": 249.6000061035156
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "width": 1265,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "pass-reward-card pass-supply-card is-ready",
+        "client": 361,
+        "overflow": "visible",
+        "scroll": 361,
+        "width": 363.7250061035156
+      },
+      {
+        "class": "pass-reward-card pass-gift-card is-ready",
+        "client": 361,
+        "overflow": "visible",
+        "scroll": 361,
+        "width": 363.7375183105469
+      },
+      {
+        "class": "pass-reward-card pass-weekly-card is-ready",
+        "client": 361,
+        "overflow": "visible",
+        "scroll": 361,
+        "width": 363.7250061035156
+      },
+      {
+        "class": "mart-card",
+        "client": 257,
+        "overflow": "visible",
+        "scroll": 257,
+        "width": 260.6000061035156
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "width": 753,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "pass-reward-card pass-supply-card is-ready",
+        "client": 681,
+        "overflow": "visible",
+        "scroll": 681,
+        "width": 684
+      },
+      {
+        "class": "pass-reward-card pass-gift-card is-ready",
+        "client": 681,
+        "overflow": "visible",
+        "scroll": 681,
+        "width": 684
+      },
+      {
+        "class": "pass-reward-card pass-weekly-card is-ready",
+        "client": 681,
+        "overflow": "visible",
+        "scroll": 681,
+        "width": 684
+      },
+      {
+        "class": "mart-card",
+        "client": 316,
+        "overflow": "visible",
+        "scroll": 316,
+        "width": 319.6000061035156
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "width": 375,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "pass-reward-card pass-supply-card is-ready",
+        "client": 311,
+        "overflow": "visible",
+        "scroll": 311,
+        "width": 314.3999938964844
+      },
+      {
+        "class": "pass-reward-card pass-gift-card is-ready",
+        "client": 311,
+        "overflow": "visible",
+        "scroll": 311,
+        "width": 314.3999938964844
+      },
+      {
+        "class": "pass-reward-card pass-weekly-card is-ready",
+        "client": 311,
+        "overflow": "visible",
+        "scroll": 311,
+        "width": 314.3999938964844
+      },
+      {
+        "class": "mart-card",
+        "client": 278,
+        "overflow": "visible",
+        "scroll": 278,
+        "width": 281.6000061035156
+      }
+    ]
+  },
+  {
+    "page": "store.html",
+    "width": 305,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "pass-reward-card pass-supply-card is-ready",
+        "client": 241,
+        "overflow": "visible",
+        "scroll": 241,
+        "width": 244
+      },
+      {
+        "class": "pass-reward-card pass-gift-card is-ready",
+        "client": 241,
+        "overflow": "visible",
+        "scroll": 241,
+        "width": 244
+      },
+      {
+        "class": "pass-reward-card pass-weekly-card is-ready",
+        "client": 241,
+        "overflow": "visible",
+        "scroll": 241,
+        "width": 244
+      },
+      {
+        "class": "mart-card",
+        "client": 208,
+        "overflow": "visible",
+        "scroll": 208,
+        "width": 211.1999969482422
+      }
+    ]
+  },
+  {
+    "page": "evolve.html",
+    "width": 1265,
+    "ready": "complete",
+    "cards": []
+  },
+  {
+    "page": "evolve.html",
+    "width": 753,
+    "ready": "complete",
+    "cards": []
+  },
+  {
+    "page": "evolve.html",
+    "width": 375,
+    "ready": "complete",
+    "cards": []
+  },
+  {
+    "page": "evolve.html",
+    "width": 305,
+    "ready": "complete",
+    "cards": []
+  },
+  {
+    "page": "pokedex.html",
+    "width": 1265,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "card body dex-toolbar",
+        "client": 1145,
+        "overflow": "visible",
+        "scroll": 1145,
+        "width": 1148
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "width": 753,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "card body dex-toolbar",
+        "client": 718,
+        "overflow": "visible",
+        "scroll": 718,
+        "width": 720.7999877929688
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "width": 375,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "card body dex-toolbar",
+        "client": 348,
+        "overflow": "visible",
+        "scroll": 348,
+        "width": 351.20001220703125
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "width": 305,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "card body dex-toolbar",
+        "client": 278,
+        "overflow": "visible",
+        "scroll": 278,
+        "width": 280.8000183105469
+      }
+    ]
+  },
+  {
+    "page": "admin-next-trainers-fixture.html",
+    "width": 1265,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "record-directory-row",
+        "client": 956,
+        "overflow": "visible",
+        "scroll": 956,
+        "width": 958
+      },
+      {
+        "class": "record-directory-row",
+        "client": 956,
+        "overflow": "visible",
+        "scroll": 956,
+        "width": 958
+      },
+      {
+        "class": "record-directory-row",
+        "client": 956,
+        "overflow": "visible",
+        "scroll": 956,
+        "width": 958
+      }
+    ]
+  },
+  {
+    "page": "admin-next-trainers-fixture.html",
+    "width": 753,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "record-directory-row",
+        "client": 682,
+        "overflow": "visible",
+        "scroll": 682,
+        "width": 684
+      },
+      {
+        "class": "record-directory-row",
+        "client": 682,
+        "overflow": "visible",
+        "scroll": 682,
+        "width": 684
+      },
+      {
+        "class": "record-directory-row",
+        "client": 682,
+        "overflow": "visible",
+        "scroll": 682,
+        "width": 684
+      }
+    ]
+  },
+  {
+    "page": "admin-next-trainers-fixture.html",
+    "width": 375,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "record-directory-row",
+        "client": 313,
+        "overflow": "visible",
+        "scroll": 313,
+        "width": 314.3999938964844
+      },
+      {
+        "class": "record-directory-row",
+        "client": 313,
+        "overflow": "visible",
+        "scroll": 313,
+        "width": 314.3999938964844
+      },
+      {
+        "class": "record-directory-row",
+        "client": 313,
+        "overflow": "visible",
+        "scroll": 313,
+        "width": 314.3999938964844
+      }
+    ]
+  },
+  {
+    "page": "admin-next-trainers-fixture.html",
+    "width": 305,
+    "ready": "complete",
+    "cards": [
+      {
+        "class": "record-directory-row",
+        "client": 242,
+        "overflow": "visible",
+        "scroll": 242,
+        "width": 244
+      },
+      {
+        "class": "record-directory-row",
+        "client": 242,
+        "overflow": "visible",
+        "scroll": 242,
+        "width": 244
+      },
+      {
+        "class": "record-directory-row",
+        "client": 242,
+        "overflow": "visible",
+        "scroll": 242,
+        "width": 244
+      }
+    ]
+  }
+]

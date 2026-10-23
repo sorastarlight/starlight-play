@@ -1,0 +1,98 @@
+[
+  {
+    "width": 1265,
+    "rows": [
+      {
+        "client": 956,
+        "scroll": 956,
+        "width": 958
+      },
+      {
+        "client": 956,
+        "scroll": 956,
+        "width": 958
+      },
+      {
+        "client": 956,
+        "scroll": 956,
+        "width": 958
+      }
+    ],
+    "directory": {
+      "columns": "958px",
+      "width": 958
+    }
+  },
+  {
+    "width": 753,
+    "rows": [
+      {
+        "client": 682,
+        "scroll": 682,
+        "width": 684
+      },
+      {
+        "client": 682,
+        "scroll": 682,
+        "width": 684
+      },
+      {
+        "client": 682,
+        "scroll": 682,
+        "width": 684
+      }
+    ],
+    "directory": {
+      "columns": "684px",
+      "width": 684
+    }
+  },
+  {
+    "width": 375,
+    "rows": [
+      {
+        "client": 313,
+        "scroll": 313,
+        "width": 314.3999938964844
+      },
+      {
+        "client": 313,
+        "scroll": 313,
+        "width": 314.3999938964844
+      },
+      {
+        "client": 313,
+        "scroll": 313,
+        "width": 314.3999938964844
+      }
+    ],
+    "directory": {
+      "columns": "314.4px",
+      "width": 314.3999938964844
+    }
+  },
+  {
+    "width": 305,
+    "rows": [
+      {
+        "client": 242,
+        "scroll": 242,
+        "width": 244
+      },
+      {
+        "client": 242,
+        "scroll": 242,
+        "width": 244
+      },
+      {
+        "client": 242,
+        "scroll": 242,
+        "width": 244
+      }
+    ],
+    "directory": {
+      "columns": "244px",
+      "width": 244
+    }
+  }
+]

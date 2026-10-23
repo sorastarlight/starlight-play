@@ -2,6 +2,7 @@
 .record-workspace.admin-next-trainers,
 .record-workspace.admin-next-trainers.is-profile { grid-template-columns: minmax(0, 1fr); }
 .record-workspace.is-profile [data-trainers-dir] { display: none; }
+.record-workspace [data-trainers-dir] { grid-template-columns: minmax(0, 1fr); }
 .record-workspace .admin-next-trainer-list { display: block; max-width: none; width: 100%; }
 .record-workspace .admin-next-trainer-search { max-width: none; }
 .record-workspace .admin-next-trainer-search-row { display: flex; gap: 8px; }

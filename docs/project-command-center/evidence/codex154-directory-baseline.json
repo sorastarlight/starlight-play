@@ -1,0 +1,8 @@
+{
+  "classification": "REAL DOM fictional directory before correction",
+  "viewport": 305,
+  "directoryWidth": 244,
+  "directoryTrack": "311.2px",
+  "rowWidth": 311.20001220703125,
+  "note": "Implicit auto track expanded beyond its grid container despite document-level width pass"
+}

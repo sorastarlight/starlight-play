@@ -17,3 +17,5 @@ Initial fixture script had a newline quoting error, corrected before measurement
 108/108 non-writing STATIC/LOCAL suites, 11 Helpdesk race/mutation-boundary scenarios and build 31 HTML/464 references pass. Runtime publication scope is only `css/support.css` and `js/support.js` under CODEX-78. Private artifact directory: LOCALAPPDATA/PokemonStreamLink/security/codex153. No SQL, permissions, ticket/recovery action, provider, spending or APP stamp. Sora NO; Twinkle NO; PlayTester unchanged.
 
 Follow-up visual reviews should check component bounds as well as page scroll width. Existing earlier shell evidence remains accurately scoped; it is not a blanket clipping certification.
+
+Published maine45f7adc;Pages39957022394success;100monitored+2changed versioned sources match. Evidence: evidence/codex153-publication.json.

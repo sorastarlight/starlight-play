@@ -1,0 +1,461 @@
+[
+  {
+    "page": "docs/project-command-center/design-reset/hub-mart-editor-review.html",
+    "state": "populated",
+    "path": "/docs/project-command-center/design-reset/hub-mart-editor-review.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "headings": [
+      "Admin Hub",
+      "Products",
+      "Poké Ball Bundle",
+      "Included reward",
+      "Presentation",
+      "Poké Ball Bundle"
+    ],
+    "controls": [
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 66,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 66,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 66,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 66,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 66,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "floor",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 63,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 63,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 63,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reset",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "cards": [
+      {
+        "client": 328,
+        "scroll": 328,
+        "width": 329.6000061035156
+      },
+      {
+        "client": 658,
+        "scroll": 658,
+        "width": 659.2000122070312
+      },
+      {
+        "client": 1005,
+        "scroll": 1005,
+        "width": 1006.7999877929688
+      }
+    ],
+    "screen": "editor"
+  },
+  {
+    "page": "docs/project-command-center/design-reset/hub-mart-editor-review.html",
+    "state": "populated",
+    "path": "/docs/project-command-center/design-reset/hub-mart-editor-review.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "Admin Hub",
+      "Products",
+      "Poké Ball Bundle",
+      "Included reward",
+      "Presentation",
+      "Poké Ball Bundle"
+    ],
+    "controls": [
+      {
+        "id": "search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "floor",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 77,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 77,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 63,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reset",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "cards": [
+      {
+        "client": 273,
+        "scroll": 273,
+        "width": 274.7124938964844
+      },
+      {
+        "client": 410,
+        "scroll": 410,
+        "width": 412.0874938964844
+      },
+      {
+        "client": 703,
+        "scroll": 703,
+        "width": 704.7999877929688
+      }
+    ],
+    "screen": "editor"
+  },
+  {
+    "page": "docs/project-command-center/design-reset/hub-mart-editor-review.html",
+    "state": "populated",
+    "path": "/docs/project-command-center/design-reset/hub-mart-editor-review.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "Admin Hub",
+      "Products",
+      "Poké Ball Bundle",
+      "Included reward",
+      "Presentation",
+      "Poké Ball Bundle"
+    ],
+    "controls": [
+      {
+        "id": "search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "floor",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 63,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 63,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 63,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reset",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "cards": [
+      {
+        "client": 346,
+        "scroll": 346,
+        "width": 347.20001220703125
+      },
+      {
+        "client": 346,
+        "scroll": 346,
+        "width": 347.20001220703125
+      },
+      {
+        "client": 346,
+        "scroll": 346,
+        "width": 347.20001220703125
+      }
+    ],
+    "screen": "editor"
+  },
+  {
+    "page": "docs/project-command-center/design-reset/hub-mart-editor-review.html",
+    "state": "populated",
+    "path": "/docs/project-command-center/design-reset/hub-mart-editor-review.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "Admin Hub",
+      "Products",
+      "Poké Ball Bundle",
+      "Included reward",
+      "Presentation",
+      "Poké Ball Bundle"
+    ],
+    "controls": [
+      {
+        "id": "search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "floor",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 63,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 63,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 63,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reset",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "cards": [
+      {
+        "client": 275,
+        "scroll": 275,
+        "width": 276.8000183105469
+      },
+      {
+        "client": 275,
+        "scroll": 275,
+        "width": 276.8000183105469
+      },
+      {
+        "client": 275,
+        "scroll": 275,
+        "width": 276.8000183105469
+      }
+    ],
+    "screen": "editor"
+  },
+  {
+    "screen": "comparison",
+    "width": 1280,
+    "dialog": {
+      "client": 657,
+      "scroll": 657,
+      "width": 660
+    }
+  },
+  {
+    "screen": "comparison",
+    "width": 768,
+    "dialog": {
+      "client": 657,
+      "scroll": 657,
+      "width": 660
+    }
+  },
+  {
+    "screen": "comparison",
+    "width": 390,
+    "dialog": {
+      "client": 334,
+      "scroll": 334,
+      "width": 337.20001220703125
+    }
+  },
+  {
+    "screen": "comparison",
+    "width": 320,
+    "dialog": {
+      "client": 264,
+      "scroll": 264,
+      "width": 266.8000183105469
+    }
+  }
+]

@@ -2255,3 +2255,7 @@ CODEX-122 COMPLETE:only js/store.js published under CODEX-78 at main4d6ed6dc;Pag
 ## CODEX-126 — Selected security and retained recovery verification
 
 45REAL LOCAL SQL cases;17catalog source/attribute guards/6migration entries/15DataAPI contract checks. Retained recovery111projections/schema match;2721ACL paths0unexpected;8retained archive/source files unchanged;local server stopped.12packet hashes/build31/464pass. No new export/restore/production application/credential use. APP unchanged;Sora NO;Twinkle NO;PlayTester role unchanged. Twitch held;real acceptance open.
+
+## CODEX-127/128 — Approved claim corrections installed (2026-10-22 EDT)
+
+Two local defects privately confirmed;18/23source/actual-packet cases. Owner explicitly approved both exact corrections/source-only verification. Fresh7guards matched;installed20261023012959/20261023013015. Exact2candidate definitions/checked attributes and7unchanged control definitions/attributes verified;no claim/grant/player repair.8post-drill migrations/16Git-recreated packet hashes,20filesystem checks/build31/464pass. Prior106-suite frontend evidence unchanged;main150c69e6/APPunchanged. Sora NO;Twinkle NO;PlayTester role unchanged. Approvals spent;real acceptance open/Twitch held.

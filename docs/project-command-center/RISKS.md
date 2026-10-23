@@ -2,6 +2,7 @@
 
 | ID | Status | Notes |
 |---|---|---|
+| R-CLAIM-SERIALIZATION | **CLOSED — HOSTED SOURCE VERIFIED** | Owner-approved CODEX-127/128 migrations20261023012959/20261023013015;exact candidates/attributes and7unchanged controls verified without claims.18/23local cases;guarded recovery retained. See LAUNCH-CODEX127-128-HELD-CLAIMS.md. |
 | R-CONFIG-WRITE | **CLOSED — HOSTED VERIFIED** | CODEX-73 approved migration20261022014528 removes direct browser configuration UPDATE table and column grants;public reads/service-role/owner RPC access preserved. No incident assessment. |
 | R1 | **CLOSED** | CODEX-34 migration20261021011358 puts require_hub before settlement; independent catalog verification. See LAUNCH-SECURITY-HARDENING.md. |
 | R2 | **CLOSED for current admin catalog** | CODEX-34 revoked PUBLIC/anon on84 functions;0 anonymous admin functions verified. Future/non-admin RPCs require review. |

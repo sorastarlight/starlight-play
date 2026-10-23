@@ -1,4 +1,4 @@
-# Launch readiness handoff — consolidated through CODEX-126
+# Launch readiness handoff — consolidated through CODEX-128
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
@@ -103,3 +103,5 @@ CODEX-123/124 completion:Pages39880218451 and39880564592success. Exact versioned
 CODEX-125:Settings unexpected session/profile/readiness loading failures use existing gate;Pass button catches transport/session rejection and prevents overlap with busy/restoration feedback.7actual-source cases/isolated browser mock retry pass;106suites/build31/464/12recovery hashes. Runtime-only main150c69e6;Pages39881130370success;100sources and actual versioned Settings script match. No real Auth/provider/account/gameplay action. UTC clock00:57Oct23;next daily backup around07:44UTC is not yet due,so no repeated snapshot polling. See LAUNCH-CODEX125-SETTINGS-LOADING.md.
 
 CODEX-126:45new fictional local SQL claim/account cases pass;17current recovery function guards/6migration entries/15DataAPI checks match. Documented retained local restore reverified111projections and schema;0unexpected ACL entries over2721paths;8archive/source hashes unchanged.12packet hashes pass. No fresh export/restore/production credential or application call. Main150c69e6 and106-suite prior evidence unchanged;Twitch held. See LAUNCH-CODEX126-SECURITY-RECOVERY.md.
+
+CODEX-127/128 CURRENT COMPLETION:owner explicitly approved both exact claim corrections and read-only source verification. Installed20261023012959 daily supply and20261023013015 Pass claim;full candidate definitions/checked attributes match,7control definitions/attributes unchanged. No hosted claim/grant/player repair.18/23local packet cases;20filesystem checks/build31/464;8post-drill migrations/16reviewed Git-recreated hashes pass. Next daily snapshot still not due;physical restore/full Auth/storage not certified. Main150c69e6/Pages39881130370/APPunchanged. Approvals spent;real acceptance required/Twitch held. See LAUNCH-CODEX127-128-HELD-CLAIMS.md.

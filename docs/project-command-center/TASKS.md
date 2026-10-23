@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-128 | done | Pass claim serialization/exposure review | CODEX-127 | Explicit owner approval spent |Installed20261023013015;exact source/attrs;16recovery files |
+| CODEX-127 | done | Daily-supply claim serialization | CODEX-126 | Explicit owner approval spent |Installed20261023012959;exact source/attrs;no claim invoked |
 | CODEX-126 | done | Claim/account boundaries and retained recovery | CODEX-125 | Catalog/local checks only |45SQL cases;17guards;111retained projections;0ACL surprises |
 | CODEX-125 | done | Settings load/Pass failure feedback | CODEX-124 | CODEX-78 routine frontend | Main150c69e6;Pages39881130370success;100sources/versioned Settings match |
 | CODEX-124 | done | Oak lookup failure boundary | CODEX-123 | CODEX-78 routine frontend |Main5e15eb0c;Pages39880564592success;100sources/versioned scripts match |

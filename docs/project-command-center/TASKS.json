@@ -4,6 +4,30 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-128",
+      "status": "done",
+      "scope": "Ordinary Pass claim serialization and selected exposure review",
+      "dependencies": [
+        "CODEX-127"
+      ],
+      "evidence": "LAUNCH-CODEX127-128-HELD-CLAIMS.md; evidence/codex127-128-held-review.json; evidence/codex127-128-hosted-verification.json; evidence/codex127-128-packet-bytes.json",
+      "testResults": "23REAL LOCAL source/packet cases;exact hosted candidate/attributes;7controls unchanged;16Git-recreated packet hashes;20filesystem checks;build31/464",
+      "nextAction": "Retain eighth recovery delta;real acceptance open/Twitch held;no further SQL or hosted claims authorized",
+      "approvalRequirement": "Owner explicitly approved both exact corrections/source-only verification;installed20261023012959/20261023013015;approval spent"
+    },
+    {
+      "id": "CODEX-127",
+      "status": "done",
+      "scope": "Ordinary daily-supply claim serialization",
+      "dependencies": [
+        "CODEX-126"
+      ],
+      "evidence": "LAUNCH-CODEX127-128-HELD-CLAIMS.md; evidence/codex127-128-held-review.json; evidence/codex127-128-hosted-verification.json; evidence/codex127-128-packet-bytes.json",
+      "testResults": "18REAL LOCAL actual-packet cases;exact hosted candidate/attributes;7controls unchanged;16Git-recreated packet hashes;20filesystem checks;build31/464",
+      "nextAction": "Retain eighth recovery delta;real acceptance open/Twitch held;no further SQL or hosted claims authorized",
+      "approvalRequirement": "Owner explicitly approved both exact corrections/source-only verification;installed20261023012959/20261023013015;approval spent"
+    },
+    {
       "id": "CODEX-126",
       "status": "done",
       "scope": "Selected claim/account SQL boundaries and retained recovery/catalog verification",

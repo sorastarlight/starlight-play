@@ -61,3 +61,12 @@ Run `node tools/check-recovery-packets.js` or normal build validation before rev
 |20261022185226 codex121_shiny_release_confirmation|supabase/unapplied/shiny-release-confirmation/INSTALL.sql|4598cffd04b99167f6dd31e3e2228ddea3cdc5ef02618df1340a2b9311347fbd|
 
 Owner-approved and exact source/attribute verified;one expression in one function. No release,player repair or other gameplay call. Older observed snapshots predate this delta. Preserve matching guarded replay or verify a newer snapshot;no automatic rollback,new export,restore or scheduling authorized.
+
+## CODEX-127/128 approved claim serialization deltas
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261023012959 codex127_daily_supply_serialization|supabase/unapplied/daily-supply-serialization/INSTALL.sql|131b454a521e652b5a1138653b28f59e7798e86a2b617a77b7d5d41e069dd4cd|
+|20261023013015 codex128_pass_claim_serialization|supabase/unapplied/pass-claim-serialization/INSTALL.sql|6cc5979cbcd228264fafa4ff387bf159f1179511e2d168b977cc962637b8d0b6|
+
+Both explicitly approved and installed;exact source/attributes verified and seven control definitions/attributes unchanged. Old logical/observed physical snapshots predate both deltas. Preserve guarded replay or verify a newer snapshot before admitting trainers. No hosted claim,player repair,new export/restore,scheduler or stamp.

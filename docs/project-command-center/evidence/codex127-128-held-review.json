@@ -1,0 +1,78 @@
+{
+  "classification": "Private local packet preparation; no production endpoint invocation or installation",
+  "checkedAt": "2026-10-23T01:28:29.894Z",
+  "dailySupply": {
+    "id": "CODEX-127",
+    "packetChecks": 18,
+    "privateReview": "LOCALAPPDATA/PokemonStreamLink/security/codex127/README.md",
+    "status": "held for explicit SQL decision",
+    "guardedRollback": true
+  },
+  "passRewards": {
+    "id": "CODEX-128",
+    "localAndPacketChecks": 23,
+    "privateReview": "LOCALAPPDATA/PokemonStreamLink/security/codex128/README.md",
+    "status": "held for explicit SQL decision",
+    "guardedRollback": true
+  },
+  "storageAndExposure": {
+    "storagePolicies": [],
+    "storageBucketCounts": {
+      "total": 0,
+      "public": 0
+    },
+    "publicMaterializedViews": [],
+    "browserPrivateSchemaUsage": {
+      "anon": false,
+      "authenticated": true
+    }
+  },
+  "rewardConstraints": [
+    {
+      "relation": "item_ledger",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "reward_events",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "reward_events",
+      "definition": "UNIQUE (user_id, idempotency)"
+    }
+  ],
+  "rewardIndexes": [
+    {
+      "tablename": "item_ledger",
+      "indexdef": "CREATE UNIQUE INDEX item_ledger_idem_uidx ON public.item_ledger USING btree (user_id, idempotency) WHERE (idempotency IS NOT NULL)"
+    },
+    {
+      "tablename": "item_ledger",
+      "indexdef": "CREATE INDEX item_ledger_item_idx ON public.item_ledger USING btree (item_key, reason, created_at DESC)"
+    },
+    {
+      "tablename": "item_ledger",
+      "indexdef": "CREATE UNIQUE INDEX item_ledger_pkey ON public.item_ledger USING btree (id)"
+    },
+    {
+      "tablename": "item_ledger",
+      "indexdef": "CREATE INDEX item_ledger_user_idx ON public.item_ledger USING btree (user_id, created_at DESC)"
+    },
+    {
+      "tablename": "reward_events",
+      "indexdef": "CREATE UNIQUE INDEX reward_events_pkey ON public.reward_events USING btree (id)"
+    },
+    {
+      "tablename": "reward_events",
+      "indexdef": "CREATE INDEX reward_events_reason_idx ON public.reward_events USING btree (reason, created_at DESC)"
+    },
+    {
+      "tablename": "reward_events",
+      "indexdef": "CREATE UNIQUE INDEX reward_events_user_id_idempotency_key ON public.reward_events USING btree (user_id, idempotency)"
+    }
+  ],
+  "productionChanges": 0,
+  "productionApplicationCalls": 0,
+  "productionCredentialUsed": false,
+  "temporaryRuntimesStopped": true
+}

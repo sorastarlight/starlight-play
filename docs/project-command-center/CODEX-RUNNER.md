@@ -1,5 +1,7 @@
 # Codex runner trial
 
+CODEX-127/128 current completion:owner explicitly approved both exact claim corrections/source-only verification. Migrations20261023012959/20261023013015 installed;full candidate definitions/checked attributes and7unchanged controls verified without claiming rewards.8post-drill migrations/16reviewed recovery files retained. Approval spent;no further SQL,claims/grants,provider/gameplay,player repair,APPstamp or final-launch authority. See LAUNCH-CODEX127-128-HELD-CLAIMS.md.
+
 CODEX-121 current narrow completion:owner-approved migration20261022185226 changes only play_release shiny confirmation null handling;exact source/attributes verified without release/gameplay calls. Radar/Rare Candy controls unchanged. Recovery packet retained and approval spent;see LAUNCH-CODEX121-INVENTORY-BOUNDARIES.md.
 
 CODEX-118 current narrow completion:owner-approved migration20261022171505 replaces only play_notices with atomic notice claiming;exact definition and unchanged attributes verified without invoking endpoint. Guarded recovery bytes2/2match after Git checkout-index;approval spent. See LAUNCH-CODEX118-READINESS.md.

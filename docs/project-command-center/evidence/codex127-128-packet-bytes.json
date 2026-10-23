@@ -1,0 +1,6 @@
+{
+  "classification": "LOCAL Git checkout-index raw bytes and reviewed recovery manifest;no SQL",
+  "migrations": 8,
+  "filesChecked": 16,
+  "allMatch": true
+}

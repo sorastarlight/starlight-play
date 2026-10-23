@@ -1,0 +1,72 @@
+{
+  "classification": "Owner-approved two function replacements; catalog/source verification only; no reward claims or player-data mutation",
+  "checkedAt": "2026-10-23T01:31:16.445Z",
+  "migrations": [
+    {
+      "version": "20261023012959",
+      "name": "codex127_daily_supply_serialization"
+    },
+    {
+      "version": "20261023013015",
+      "name": "codex128_pass_claim_serialization"
+    }
+  ],
+  "targets": [
+    {
+      "id": 128,
+      "signature": "play_claim_pass(text)",
+      "exactCandidate": true,
+      "bodyHash": "e0eec42e9cedbee74ac1ae3aa6e0cf83",
+      "attributesUnchanged": true
+    },
+    {
+      "id": 127,
+      "signature": "play_claim_daily_supply()",
+      "exactCandidate": true,
+      "bodyHash": "53d4ad720eb4f611dea4c25c16134f72",
+      "attributesUnchanged": true
+    }
+  ],
+  "freshPreflightGuards": [
+    {
+      "packet": 127,
+      "guard": 0,
+      "matches": true
+    },
+    {
+      "packet": 127,
+      "guard": 1,
+      "matches": true
+    },
+    {
+      "packet": 127,
+      "guard": 2,
+      "matches": true
+    },
+    {
+      "packet": 128,
+      "guard": 0,
+      "matches": true
+    },
+    {
+      "packet": 128,
+      "guard": 1,
+      "matches": true
+    },
+    {
+      "packet": 128,
+      "guard": 2,
+      "matches": true
+    },
+    {
+      "packet": 128,
+      "guard": 3,
+      "matches": true
+    }
+  ],
+  "sevenControlsUnchanged": true,
+  "productionApplicationCalls": 0,
+  "playerDataRepair": false,
+  "permissionsChanged": false,
+  "appStamped": false
+}

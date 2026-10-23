@@ -881,7 +881,7 @@
           <p class="mart-dept-blurb">Trade valuables from your Bag for PokéCoins.</p>
         </div>
       </header>
-      <p class="muted mart-sell-help">Only items you own that are marked sellable appear here. Sale prices are set by the Mart server — your client total is never trusted.</p>
+      <p class="muted mart-sell-help">Only items you own that can be sold appear here. Review the quantity and PokéCoins you will receive before confirming.</p>
       <p class="mart-checkout-note" data-sell-status${sellNote ? "" : " hidden"}>${esc(sellNote)}</p>
       <div class="mart-shelf mart-sell-grid">${cards}</div>
     </section>`;

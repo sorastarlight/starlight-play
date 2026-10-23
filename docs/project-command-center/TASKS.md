@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-133 | done | Recovery recent-authentication boundary | CODEX-132 | Catalog/local only |25AMR SQL cases;no email/hosted action |
 | CODEX-132 | done | Bridge token/command boundaries | CODEX-131 | Catalog/local only |17groups;30invalid-token denials;no real calls |
 | CODEX-131 | done | Schema-only recovery chain/inverse | CODEX-130 | Empty local fixture only |9forward/9reverse;20guards;585/143/56baseline match |
 | CODEX-130 | done | Helpdesk live-session/owner boundaries | CODEX-129 | Catalog/local only |29exact-source cases;no new defect confirmed |

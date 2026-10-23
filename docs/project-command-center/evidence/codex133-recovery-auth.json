@@ -1,0 +1,32 @@
+{
+  "classification": "REAL LOCAL captured recent-owner function;fictional live session and owner/auth claim stand-ins;not signed JWT or provider acceptance",
+  "count": 25,
+  "cases": [
+    "password fresh allowed",
+    "oauth fresh allowed",
+    "totp fresh allowed",
+    "webauthn fresh allowed",
+    "token_refresh not recent authentication",
+    "recovery not recent authentication",
+    "anonymous not recent authentication",
+    "PASSWORD not recent authentication",
+    " not recent authentication",
+    "malformed AMR null",
+    "malformed AMR {}",
+    "malformed AMR \"password\"",
+    "malformed AMR 42",
+    "malformed AMR []",
+    "malformed AMR [{}]",
+    "malformed AMR [null]",
+    "invalid timestamp nope",
+    "invalid timestamp -1",
+    "invalid timestamp 1.5",
+    "invalid timestamp 9999999999999",
+    "invalid timestamp null",
+    "stale 301 seconds",
+    "future 31 seconds",
+    "mixed refresh and valid authentication",
+    "refresh cannot renew stale login"
+  ],
+  "hostedApplicationCalls": 0
+}

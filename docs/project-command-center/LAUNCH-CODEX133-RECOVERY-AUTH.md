@@ -1,0 +1,9 @@
+# CODEX-133 — Recovery recent-authentication boundary
+
+Read-only hosted catalog review covered eight recovery/diagnostics functions and their browser EXECUTE privileges. All use a fixed pg_catalog search path. Browser roles cannot execute receipt completion or private pruning/target/recent-owner helpers directly; authenticated entry points enforce the owner boundary. Reservation binds actor, session, target and revision, serializes reservation limits, and suppresses dispatch on receipt replay. This is source inspection, not a hosted recovery action or a complete authorization certification.
+
+25 REAL LOCAL SQL checks execute the captured require_recent_recovery_owner definition against fictional session/user records and owner/Auth claim stand-ins. Password, OAuth, TOTP and WebAuthn recent methods pass; refresh-only, stale login plus fresh refresh, unsupported methods, malformed AMR/timestamps and out-of-window future timestamps fail. Mixed valid authentication remains accepted. No new defect confirmed in this scope. Signed JWT validation, real provider behavior and complete recovery dispatch remain outside this fixture.
+
+Private source/harness/results: C:\Users\FET\AppData\Local\PokemonStreamLink\security\codex133. Loopback PostgreSQL55533 stopped and fictional fixture removed. No production application RPC, email, credential read, SQL change or player mutation. Sora NO;Twinkle NO;PlayTester role unchanged.
+
+At02:45UTC October23 the next expected daily backup (~07:44UTC) was not yet due. No backup/restore result inferred. Existing nine-delta schema replay and eighteen packet files remain the recovery evidence; full physical/Auth/storage recovery and real device/assistive/provider acceptance remain open. Twitch testing remains held. Main/APP unchanged; prior106frontend-suite result retained without an unchanged rerun.

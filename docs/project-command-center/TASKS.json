@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-133",
+      "scope": "Recovery recent-authentication boundary",
+      "evidence": "LAUNCH-CODEX133-RECOVERY-AUTH.md; evidence/codex133-recovery-auth.json",
+      "testResults": "25REAL LOCAL exact-helper AMR cases;8function catalog source/ACL review;no hosted recovery action",
+      "dependencies": [
+        "CODEX-132"
+      ],
+      "status": "done",
+      "nextAction": "Real acceptance remains required;Twitch held;next daily backup observation when due",
+      "approvalRequirement": "No new production authority"
+    },
+    {
       "id": "CODEX-132",
       "scope": "Bridge shared-token and command boundary review",
       "evidence": "LAUNCH-CODEX132-BRIDGE-BOUNDARIES.md; evidence/codex132-bridge-boundaries.json",

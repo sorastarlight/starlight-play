@@ -1,0 +1,49 @@
+{
+  "classification": "LOCAL VM actual source and private candidate; fictional SDK/fetch; no browser/provider/account calls",
+  "cases": [
+    {
+      "case": "Actual current function waits indefinitely on unresolved extra probe",
+      "passed": true
+    },
+    {
+      "case": "pending link",
+      "passed": true
+    },
+    {
+      "case": "pending login",
+      "passed": true
+    },
+    {
+      "case": "cors link",
+      "passed": true
+    },
+    {
+      "case": "cors login",
+      "passed": true
+    },
+    {
+      "case": "normal link",
+      "passed": true
+    },
+    {
+      "case": "normal login",
+      "passed": true
+    },
+    {
+      "case": "sdk-error link",
+      "passed": true
+    },
+    {
+      "case": "sdk-error login",
+      "passed": true
+    },
+    {
+      "case": "no-url link",
+      "passed": true
+    },
+    {
+      "case": "no-url login",
+      "passed": true
+    }
+  ]
+}

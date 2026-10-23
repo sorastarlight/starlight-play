@@ -17,3 +17,5 @@ Real OAuth consent/refresh requires the user/reviewer to handle sign-in/consent.
 Prepare concrete packets once access exists. Current full real-provider requirement is retained; neither inability to access an identity nor another mock run counts as acceptance. This document grants no protected-account, provider, upload, gameplay, spending or final-release authority.
 
 CODEX-106 update:owner explicitly reports no tester available currently. Treat ordinary subscriber acceptance as blocked on access;do not repeatedly ask the same availability question. No launch deferral or protected identity permission follows.
+
+CODEX-164:owner reports ordinary subscriber linked/Pass active in Chrome (HUMAN-REPORTED acceptance). Firefox causality unresolved: manual-linking setting change/browser switch confounded;6aggregate disabled-linking failures and1link success,not actor/browser-attributed.11local OAuth probe-stall/candidate cases pass;private candidate held,no runtime/Auth/account/provider action. See LAUNCH-CODEX164-FIREFOX-INVESTIGATION.md.

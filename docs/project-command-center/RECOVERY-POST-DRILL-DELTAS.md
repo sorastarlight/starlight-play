@@ -93,3 +93,7 @@ Owner explicitly approved one-function replacement and source-only verification.
 
 
 CODEX-161 recovery observation:scheduled dashboard lists PHYSICAL23Oct07:44:31UTC/03:44:31EDT,after latest recorded migration20261023025714/CODEX-135. Storage metadata0buckets. No Restore/export/password/settings/player action;not physical/full Auth/storage certification. Older logical archive still needs10guarded deltas. See LAUNCH-CODEX161-POST-CORRECTION-BACKUP.md.
+
+## CODEX-163/164 Auth configuration dependency
+
+Owner explicitly approved enabling Supabase Auth Allow manual linking on October23;persisted dashboard verification complete. Recovery/rebuild acceptance must verify this setting is enabled for the existing Connect Twitch API. Signup remains enabled,email confirmation remains enabled,and anonymous sign-in remains disabled. Treat hosted Auth configuration as an explicit recovery dependency;do not assume a database archive or physical snapshot restores control-plane settings. This record is not permission to restore or change Auth settings elsewhere. No credential values are retained. See LAUNCH-CODEX163-MANUAL-LINKING.md.

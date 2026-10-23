@@ -1,0 +1,77 @@
+{
+  "classification": "LOCAL VM actual workflow functions from private full-file candidate; fake SDK/RPC/location; no provider calls",
+  "cases": [
+    {
+      "link": true,
+      "intent": "link",
+      "targetPresent": false,
+      "sdkError": true,
+      "intentError": true,
+      "passed": true
+    },
+    {
+      "link": true,
+      "intent": "link",
+      "targetPresent": false,
+      "sdkError": true,
+      "intentError": false,
+      "passed": true
+    },
+    {
+      "link": true,
+      "intent": "link",
+      "targetPresent": false,
+      "sdkError": false,
+      "intentError": true,
+      "passed": true
+    },
+    {
+      "link": true,
+      "intent": "link",
+      "targetPresent": false,
+      "sdkError": false,
+      "intentError": false,
+      "passed": true
+    },
+    {
+      "link": false,
+      "intent": "link",
+      "targetPresent": false,
+      "sdkError": true,
+      "intentError": true,
+      "passed": true
+    },
+    {
+      "link": false,
+      "intent": "link",
+      "targetPresent": false,
+      "sdkError": true,
+      "intentError": false,
+      "passed": true
+    },
+    {
+      "link": false,
+      "intent": "link",
+      "targetPresent": false,
+      "sdkError": false,
+      "intentError": true,
+      "passed": true
+    },
+    {
+      "link": false,
+      "intent": "link",
+      "targetPresent": false,
+      "sdkError": false,
+      "intentError": false,
+      "passed": true
+    },
+    {
+      "link": true,
+      "intent": "reauthorize",
+      "targetPresent": true,
+      "sdkError": false,
+      "intentError": false,
+      "passed": true
+    }
+  ]
+}

@@ -4,15 +4,27 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-152",
+      "id": "CODEX-153",
       "status": "in_progress",
+      "scope": "Populated Helpdesk component clipping and human labels",
+      "dependencies": [
+        "CODEX-152"
+      ],
+      "evidence": "LAUNCH-CODEX153-HELPDESK-LAYOUT.md; evidence/codex153-states.json",
+      "testResults": "32REAL DOM isolated cases;confirmed component clipping corrected;108suites/build;Support11",
+      "nextAction": "Publish exact2runtime files and verify source;prepare next Admin Hub workflow review",
+      "approvalRequirement": "CODEX-78 routine frontend;no ticket/recovery/backend authority"
+    },
+    {
+      "id": "CODEX-152",
+      "status": "done",
       "scope": "Populated Pass/avatar/Bits/research presentation",
       "dependencies": [
         "CODEX-151"
       ],
       "evidence": "LAUNCH-CODEX152-POPULATED-CATALOG.md; evidence/codex152-pass-states.json; evidence/codex152-research-states.json",
-      "testResults": "36REAL DOM isolated cases;9LOCAL actual Mart scenarios;108suites/build;no overflow/undersized mobile controls",
-      "nextAction": "Publish exact2runtime files;verify source;continue staff Helpdesk states",
+      "testResults": "36REAL DOM isolated cases;9LOCAL actual Mart scenarios;108suites/build;no overflow/undersized mobile controls;maina05560bc/Pages39955618965success;100monitored+2versioned sources match",
+      "nextAction": "Continue remaining staff-state and component-bound coverage",
       "approvalRequirement": "CODEX-78 routine frontend;no gameplay/provider authority"
     },
     {

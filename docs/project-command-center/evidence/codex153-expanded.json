@@ -1,0 +1,490 @@
+[
+  {
+    "page": "helpdesk-review.html",
+    "state": "populated",
+    "path": "/helpdesk-review.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "headings": [
+      "Helpdesk populated-state review",
+      "Helpdesk inbox",
+      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "Triage"
+    ],
+    "controls": [
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 222,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      }
+    ],
+    "screen": "staff-expanded-audit-and-account",
+    "cards": [
+      {
+        "client": 308,
+        "right": 382.4000015258789,
+        "scroll": 308,
+        "width": 310
+      },
+      {
+        "client": 788,
+        "right": 1192.3999938964844,
+        "scroll": 788,
+        "width": 790
+      }
+    ]
+  },
+  {
+    "page": "helpdesk-review.html",
+    "state": "populated",
+    "path": "/helpdesk-review.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "Helpdesk populated-state review",
+      "Helpdesk inbox",
+      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "Triage"
+    ],
+    "controls": [
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 222,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      }
+    ],
+    "screen": "staff-expanded-audit-and-account",
+    "cards": [
+      {
+        "client": 308,
+        "right": 330,
+        "scroll": 308,
+        "width": 310
+      },
+      {
+        "client": 381,
+        "right": 732.8000183105469,
+        "scroll": 381,
+        "width": 382.8000183105469
+      }
+    ]
+  },
+  {
+    "page": "helpdesk-review.html",
+    "state": "populated",
+    "path": "/helpdesk-review.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "Helpdesk populated-state review",
+      "Helpdesk inbox",
+      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "Triage"
+    ],
+    "controls": [
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 198,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 71,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 71,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 71,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      }
+    ],
+    "screen": "staff-expanded-audit-and-account",
+    "cards": [
+      {
+        "client": 346,
+        "right": 361.2000122070313,
+        "scroll": 346,
+        "width": 347.20001220703125
+      },
+      {
+        "client": 346,
+        "right": 361.2000122070313,
+        "scroll": 346,
+        "width": 347.20001220703125
+      }
+    ]
+  },
+  {
+    "page": "helpdesk-review.html",
+    "state": "populated",
+    "path": "/helpdesk-review.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "Helpdesk populated-state review",
+      "Helpdesk inbox",
+      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "Triage"
+    ],
+    "controls": [
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 247,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 96,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 71,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 121,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 46,
+        "font": "Nunito, system-ui, sans-serif"
+      }
+    ],
+    "screen": "staff-expanded-audit-and-account",
+    "cards": [
+      {
+        "client": 275,
+        "right": 290.8000183105469,
+        "scroll": 275,
+        "width": 276.8000183105469
+      },
+      {
+        "client": 275,
+        "right": 290.8000183105469,
+        "scroll": 275,
+        "width": 276.8000183105469
+      }
+    ]
+  }
+]

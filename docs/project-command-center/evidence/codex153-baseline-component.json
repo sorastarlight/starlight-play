@@ -1,0 +1,10 @@
+{
+  "classification": "REAL DOM observed before CSS correction; fictional long-reference case",
+  "viewport": 375,
+  "detailWidth": 1413.2000732421875,
+  "detailClientWidth": 1412,
+  "paragraphWidth": 1379.5999755859375,
+  "paragraphScrollWidth": 2992,
+  "pageScrollWidth": 375,
+  "note": "Page-level width alone concealed the overflowing component"
+}

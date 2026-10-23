@@ -15,3 +15,5 @@ The Pass subscription-check timestamp was repeated in status and metadata; it no
 The actual Mart renderer test first reproduced the false “Claimed” label. Nine local scenarios verify ready/claimed/cooldown/unspecified states, unchanged disabled flags, a single timestamp and inactive Pass gift denial. Final 108/108 non-writing STATIC/LOCAL suites and build 31 HTML/464 references pass. Local screenshots and fixture: LOCALAPPDATA/PokemonStreamLink/security/codex152.
 
 Publish only `js/store.js` and `css/play.css` under CODEX-78, then verify exact source. Sora NO; Twinkle NO; PlayTester unchanged. No SQL, Auth/provider settings, economy mutation, spending or APP stamp. Real device/provider acceptance and broader Admin Hub migrations remain separate.
+
+Published maina05560bc;Pages39955618965success;100monitored+2changed versioned sources match. Evidence: evidence/codex152-publication.json.

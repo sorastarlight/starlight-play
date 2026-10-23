@@ -7,3 +7,5 @@ Empty copy now distinguishes a search with no matches, no duplicate Pokémon, an
 Validation: 12 LOCAL actual-render-function cases, including baseline numeric-search failure before the fix; 107/107 non-writing regression suites; build31HTML/464references. Isolated REAL BROWSER actual controller with fictional reads confirms #025 returns Pikachu only and a failed search displays the corrected message. Network and mutations blocked; no listing, offer, trade, Auth, SQL, provider, reward or APP action. Private fixture and screenshots: LOCALAPPDATA/PokemonStreamLink/security/codex146.
 
 Exact two-runtime-file publication under CODEX-78 follows separately. Sora NO; Twinkle NO; PlayTester unchanged. Broader site-wide inspection and required real-device/provider acceptance remain open.
+
+Published main98876e6c;Pages39900131418success;100monitored and2changed versioned source comparisons match exact published commit. See evidence/codex146-publication.json.

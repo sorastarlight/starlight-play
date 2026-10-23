@@ -4,15 +4,27 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-146",
+      "id": "CODEX-147",
       "status": "in_progress",
+      "scope": "Populated Rankings/Lab visual review and mobile control targets",
+      "dependencies": [
+        "CODEX-146"
+      ],
+      "evidence": "LAUNCH-CODEX147-RANKINGS-LAB.md; evidence/codex147-layouts.json; evidence/codex147-lab-panes.json",
+      "testResults": "24page-state widths+12Lab station widths;no overflow;44px mobile controls;107suites/build",
+      "nextAction": "Publish exact css/play.css and verify source",
+      "approvalRequirement": "CODEX-78 routine frontend exception;no gameplay/backend authority"
+    },
+    {
+      "id": "CODEX-146",
+      "status": "done",
       "scope": "GTS picker Pokédex search and accurate empty states",
       "dependencies": [
         "CODEX-145"
       ],
       "evidence": "LAUNCH-CODEX146-GTS-PICKER.md; evidence/codex146-regressions.json",
-      "testResults": "12LOCAL actual-source cases;107suites;isolated REAL BROWSER search/message verified",
-      "nextAction": "Publish exact js/trade.js and trade.html;verify source",
+      "testResults": "12LOCAL actual-source cases;107suites;isolated REAL BROWSER search/message verified;main98876e6c/Pages39900131418success;100monitored+2versioned sources match",
+      "nextAction": "Continue site-wide populated review",
       "approvalRequirement": "CODEX-78 routine frontend exception;no backend/gameplay authority"
     },
     {

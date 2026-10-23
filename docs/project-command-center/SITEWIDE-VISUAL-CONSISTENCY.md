@@ -31,3 +31,5 @@ CODEX-143:feature895e7b3c;exact11runtime files to main200499f4;Pages39897398820s
 CODEX-144live:mainc9d29ff9/Pages39898025421success;100sources and2changed versioned sources match.32populated Trainer pane/width states pass. CODEX-145adds24actual-controller PC/Inventory populated/empty/error width cases,PC search/dialog inspection and routine mobile-target/copy candidate;106suites after updating one old copy expectation. New Admin Hub still a partial replacement;full legacy workflow migration not claimed.
 
 CODEX-145 live:main058ee3fe/Pages39899357051success;100monitored+4versioned sources match. CODEX-146 actual GTS picker numeric search/accurate empty-state candidate passes12local cases and107suites;isolated actual-controller browser verified. Publication tracked separately.
+
+CODEX-146 VERIFIED:main98876e6c/Pages39900131418success;100monitored+2versioned sources match. CODEX-147 reviewed24Rankings/Lab page-state widths+12Lab station widths;mobile board tabs/search/sort/View ready targets aligned to44px;107suites/build pass. Exact CSS-only publication follows;no hosted mutation/backend/provider/APP change.

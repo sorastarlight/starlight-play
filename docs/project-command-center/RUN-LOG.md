@@ -2321,3 +2321,5 @@ Explicit owner approval;fresh source/attributes/2packet hashes matched. Installe
 144exact2runtime files live mainc9d29ff9/Pages39898025421success;100sources/2changed versioned sources match.145candidate24loaded PC/Inventory states and PC search/direct confirmation inspection;106suites after correcting one old prompt expectation,PC12/Lab7/build pass. No hosted gameplay/RPC/SQL/Auth/provider/APP action.
 
 CODEX-145 VERIFIED:main058ee3fe/Pages39899357051success;100monitored+4versioned sources match. CODEX-146:actual GTS picker numeric search and distinct empty states corrected;12LOCAL cases/107suites/build pass;isolated browser verified. Exact2runtime publication follows;no hosted mutation/SQL/provider/APP change.
+
+CODEX-146 VERIFIED:main98876e6c/Pages39900131418success;100monitored+2versioned sources match. CODEX-147 reviewed24Rankings/Lab page-state widths+12Lab station widths;mobile board tabs/search/sort/View ready targets aligned to44px;107suites/build pass. Exact CSS-only publication follows;no hosted mutation/backend/provider/APP change.

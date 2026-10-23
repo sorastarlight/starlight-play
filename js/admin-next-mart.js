@@ -95,12 +95,20 @@
     const controller = createController(transport, render);
     function render() {
       const s = controller.state;
+      const restoreFocus = root.contains(root.ownerDocument.activeElement) && s.phase !== "closed";
       if (s.phase === "closed") { query = ""; floor = ""; }
       root.querySelector("dialog")?.close();
-      root.innerHTML = `<p role="status" class="mart-status">${esc(s.message)}</p><button type="button" data-mart-load ${["loading", "saving", "closed"].includes(s.phase) ? "disabled" : ""}>Reload catalog</button><div data-mart-body></div>`;
-      if (!s.catalog) return;
-      root.querySelector("[data-mart-body]").innerHTML = `<div class="mart-layout"><aside class="mart-card"><label>Search products<input type="search" data-mart-search placeholder="Name, SKU or description" value="${esc(query)}"></label><label>Floor<select data-mart-floor><option value="">All floors</option>${s.catalog.categories.map(c => `<option value="${esc(c.id)}" ${floor === c.id ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select></label><div data-mart-list></div></aside><section class="mart-card" data-mart-editor></section></div>`;
-      list(); editor();
+      root.innerHTML = `<p role="status" tabindex="-1" class="mart-status">${esc(s.message)}</p><button type="button" data-mart-load ${["loading", "saving", "closed"].includes(s.phase) ? "disabled" : ""}>Reload catalog</button><div data-mart-body></div>`;
+      if (s.catalog) {
+        root.querySelector("[data-mart-body]").innerHTML = `<div class="mart-layout"><aside class="mart-card"><label>Search products<input type="search" data-mart-search placeholder="Name, SKU or description" value="${esc(query)}"></label><label>Floor<select data-mart-floor><option value="">All floors</option>${s.catalog.categories.map(c => `<option value="${esc(c.id)}" ${floor === c.id ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select></label><div data-mart-list></div></aside><section class="mart-card" data-mart-editor></section></div>`;
+        list(); editor();
+      }
+      if (restoreFocus) {
+        const target = s.phase === "ready" && s.row && !s.uncertain
+          ? root.querySelector("[data-mart-editor] h3") : root.querySelector(".mart-status");
+        target?.setAttribute("tabindex", "-1");
+        target?.focus({ preventScroll: true });
+      }
     }
     function list() {
       const s = controller.state, host = root.querySelector("[data-mart-list]"); if (!host) return;

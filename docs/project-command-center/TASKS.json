@@ -4,6 +4,19 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-170",
+      "status": "done",
+      "scope": "Empty-schema recovery extended through Pokémon gift quantity",
+      "dependencies": [
+        "CODEX-168",
+        "CODEX-169"
+      ],
+      "evidence": "evidence/codex170-schema-replay.json;RECOVERY-POST-DRILL-DELTAS.md",
+      "testResults": "11forward/reverse;585functions/143relations/56policies exact;142empty tables;localruntime stopped",
+      "nextAction": "New physical backup observation when available;physical/Auth/storage coverage remains open",
+      "approvalRequirement": "Local schema-only existing archive;no production restore/export/data import"
+    },
+    {
       "id": "CODEX-169",
       "status": "done",
       "scope": "Owner-requested confirmation presentation cleanup",

@@ -5,7 +5,7 @@ This replaces the original inventory as the current-state summary;older design p
 |Area|Implemented now|Remaining overhaul work|
 |---|---|---|
 |Trainers|Directory/full-width record,inventory/progression/connections,latest returned Pokémon and stored stats,Pass and Gifts tabs|Full PC/box inspector,Bits and broader journals are not implied by the returned snapshot|
-|Starlight Pass and Gifts|Audited staff overrides/re-grants,claim/delivery history,visual/searchable gift selection and reason confirmation|Routine consistency review continues;new reward capabilities require their own scope|
+|Starlight Pass and Gifts|Audited staff overrides/re-grants,claim/delivery history,visual/searchable gifts,atomic Pokémon quantities1–100,and simplified reason confirmation|Routine consistency review continues;new reward capabilities require their own scope|
 |Support & Recovery|Connected owner Helpdesk,player Support,ticket history,masked account diagnostics/recovery confirmation|Attachments/notifications remain deferred;guided identity recovery remains separate|
 |Operations|Observation workspace and handoff|Live encounter/director controls remain on current Dashboard|
 |Mart & Content|CODEX-155 existing single-reward PokéCoin editor published; current editors/Content Studio retained|Authenticated editor/save acceptance unproven; new products, floors, Bits/avatar products, uploads/deletion remain in current tools|
@@ -31,3 +31,5 @@ CODEX-165 PREPARED:catalog-only mapping of4configuration saves+4helpers;identifi
 CODEX-166 VERIFIED:Settings tab accessibility exact2runtime main84f8ff6e/Pages39990990365success;115suites;100+2source matches;no account action. CODEX-167 LOCAL COMPLETE:approved six-field reward editor;116suites,12REAL DOM layouts/dialog/cancel states+9load/save states;build31/470. Exact4runtime publication and all live settings calls held. See LAUNCH-CODEX166-SETTINGS-KEYBOARD.md and LAUNCH-CODEX167-LOCAL-REWARD-EDITOR.md.
 
 CODEX-167 publication VERIFIED after explicit owner approval:exact4runtime mainfbe1f17a / Pages39992391579success;100monitored sources and4changed versioned URLs match published Git. Main build31/470 and116local/static suites pass. No hosted application navigation,configuration read/save,SQL,provider,reward or protected-account action. APP20261008-rc133 unchanged;approval spent. Authenticated editor acceptance and any live save remain separate.
+
+CODEX-168/169 published:Pokémon quantities1–100 use an audited atomic batch;confirmation omits account disclosure/dex number and separates name/quantity/level.117suites;source verification mainbdd2e07f/Pages39997890946success. No live batch acceptance or grants performed.

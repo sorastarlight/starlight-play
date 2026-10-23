@@ -66,16 +66,16 @@
       <header class="mart-sign">
         <img src="images/items/poke-ball.png" alt="">
         <div>
-          <h2>Open Trades Available Now</h2>
-          <p id="trade-count" class="muted">Scanning the GTS·</p>
+          <h2>Open trades</h2>
+          <p id="trade-count" class="muted">Loading trades…</p>
         </div>
       </header>
       <div class="dex-filters gts-filters">
-        <label>Offered
-          <input id="trade-q" type="search" placeholder="Pikachu, trainer·" autocomplete="off">
+        <label>Search trades
+          <input id="trade-q" class="dex-search" type="search" placeholder="Pokémon or trainer name" autocomplete="off">
         </label>
         <label>Looking for
-          <input id="trade-want" type="text" list="gts-species" placeholder="Any species" autocomplete="off">
+          <input id="trade-want" class="dex-search" type="text" list="gts-species" placeholder="Any species" autocomplete="off">
         </label>
         <label>Show
           <select id="trade-filter">
@@ -94,7 +94,7 @@
       <header class="mart-sign">
         <img src="images/items/great-ball.png" alt="">
         <div>
-          <h2>Your Open Trades</h2>
+          <h2>Your open trades</h2>
           <p class="muted">Listings you put up. Take one down any time, or accept an offer.</p>
         </div>
       </header>
@@ -111,7 +111,7 @@
     <p id="list-step-note" class="muted">Choose a Pokémon from your PC.</p>
     <div id="list-step-pc">
       <label class="lgpe-search">Search
-        <input id="list-pc-search" type="search" placeholder="Name, shiny·" autocomplete="off">
+        <input id="list-pc-search" class="dex-search" type="search" placeholder="Name, nickname, gender or shiny" autocomplete="off">
       </label>
       <label class="gts-check" for="list-pc-dupes">
         <input id="list-pc-dupes" type="checkbox"> Show duplicates
@@ -146,7 +146,7 @@
         </label>
         <label class="gts-check" for="list-accept">
           <input id="list-accept" type="checkbox" checked>
-          <span>I·ll take other offers</span>
+          <span>I'll take other offers</span>
         </label>
       </div>
       <label class="field" for="list-note"><span class="gts-comment-label">Comment <em>(optional)</em></span>
@@ -168,7 +168,7 @@
     </header>
     <div class="gts-want-toolbar">
       <label class="lgpe-search">Search
-        <input id="want-search" type="search" placeholder="Name or number" autocomplete="off">
+        <input id="want-search" class="dex-search" type="search" placeholder="Pokémon name or Pokédex number" autocomplete="off">
       </label>
       <button id="want-any" class="secondary" type="button">Any Pokémon</button>
     </div>

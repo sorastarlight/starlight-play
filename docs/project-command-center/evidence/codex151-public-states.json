@@ -1,0 +1,1082 @@
+[
+  {
+    "page": "trainer.html",
+    "state": "populated",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "headings": [
+      "Trainer ID",
+      "TRAINER ID",
+      "Showcase",
+      "Team",
+      "Trainer Journal"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 30,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 135,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 124,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 161,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 35,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "populated",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "Trainer ID",
+      "TRAINER ID",
+      "Showcase",
+      "Team",
+      "Trainer Journal"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 30,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 135,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 124,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 161,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 35,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "populated",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "Trainer ID",
+      "TRAINER ID",
+      "Showcase",
+      "Team",
+      "Trainer Journal"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 132,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 132,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 137,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "populated",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "Trainer ID",
+      "TRAINER ID",
+      "Showcase",
+      "Team",
+      "Trainer Journal"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 132,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 132,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 132,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "empty",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "headings": [
+      "Trainer ID",
+      "TRAINER ID",
+      "Showcase",
+      "Team",
+      "Trainer Journal"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 30,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "empty",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "Trainer ID",
+      "TRAINER ID",
+      "Showcase",
+      "Team",
+      "Trainer Journal"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 30,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "empty",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "Trainer ID",
+      "TRAINER ID",
+      "Showcase",
+      "Team",
+      "Trainer Journal"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "empty",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "Trainer ID",
+      "TRAINER ID",
+      "Showcase",
+      "Team",
+      "Trainer Journal"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "error",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "headings": [
+      "Trainer ID"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "error",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 768,
+    "scrollWidth": 753,
+    "headings": [
+      "Trainer ID"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "error",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 390,
+    "scrollWidth": 375,
+    "headings": [
+      "Trainer ID"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "state": "error",
+    "path": "/trainer.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 320,
+    "scrollWidth": 305,
+    "headings": [
+      "Trainer ID"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "populated",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "headings": [
+      "Achievements",
+      "Next Goals",
+      "Achievement Progress"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "populated",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "Achievements",
+      "Next Goals",
+      "Achievement Progress"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "populated",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "Achievements",
+      "Next Goals",
+      "Achievement Progress"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "populated",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "populated",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "Achievements",
+      "Next Goals",
+      "Achievement Progress"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "empty",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "headings": [
+      "Achievements",
+      "Achievement Progress"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "empty",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 753,
+    "scrollWidth": 753,
+    "headings": [
+      "Achievements",
+      "Achievement Progress"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "empty",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 375,
+    "scrollWidth": 375,
+    "headings": [
+      "Achievements",
+      "Achievement Progress"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "empty",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "empty",
+    "width": 305,
+    "scrollWidth": 305,
+    "headings": [
+      "Achievements",
+      "Achievement Progress"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "error",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "headings": [
+      "Achievements"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "error",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 768,
+    "scrollWidth": 753,
+    "headings": [
+      "Achievements"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "error",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 390,
+    "scrollWidth": 375,
+    "headings": [
+      "Achievements"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "state": "error",
+    "path": "/achievements.html",
+    "ready": "complete",
+    "renderState": "error",
+    "width": 320,
+    "scrollWidth": 305,
+    "headings": [
+      "Achievements"
+    ],
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ]
+  }
+]

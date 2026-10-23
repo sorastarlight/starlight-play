@@ -67,9 +67,10 @@ test("Nav stays accessible on narrow viewports via existing panel", () => {
   assert(!/font-size:\s*1[0-2]px/.test(css.match(/\.topnav-link \{[\s\S]*?padding/)?.[0] || ""), "nav text must stay 14px");
 });
 
-test("Trainer ID heading and description are exact display copy", () => {
-  assert(html.includes("<h1 id=\"page-title\">My Trainer ID</h1>"));
-  assert(html.includes("Your public Trainer ID for all to see!"));
+test("Trainer ID starts with neutral public-facing copy before ownership loads", () => {
+  assert(html.includes("<h1 id=\"page-title\">Trainer ID</h1>"));
+  assert(html.includes('id="page-description"'));
+  assert(html.includes("Public trainer profile, team and adventure journal."));
   assert(!html.includes("Trainer ID Public View"));
   assert(!html.includes("View this Trainer's card, Team, and featured honors."));
   assert(html.includes("Customize Trainer ID"));

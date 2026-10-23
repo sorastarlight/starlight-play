@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-151",
+      "status": "in_progress",
+      "scope": "Populated Trainer/Achievements and nested staff records",
+      "dependencies": [
+        "CODEX-150"
+      ],
+      "evidence": "LAUNCH-CODEX151-DEEPER-PROFILES.md; evidence/codex151-public-states.json; evidence/codex151-nested-records.json",
+      "testResults": "40REAL DOM isolated cases;owner heading check;107suites/build;record14;no overflow or undersized mobile controls",
+      "nextAction": "Publish exact4runtime files and verify source;continue deeper staff/catalog states",
+      "approvalRequirement": "CODEX-78 routine frontend;no SQL/authority/gameplay permission"
+    },
+    {
       "id": "CODEX-150",
       "status": "done",
       "scope": "Final site-wide control typography/target sweep",

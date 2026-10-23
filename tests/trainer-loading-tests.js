@@ -16,6 +16,9 @@ const payload = name => ({ mine: false, trainer: { name, team: [{ id: 'same-id',
 (async () => {
   let f = fixture(true); await flush(); assert.equal(f.window.bootstrapError, undefined); assert.equal(f.nodes.gate.textContent, 'Session unavailable'); assert.equal(f.calls.length, 0);
   f = fixture(); await flush(); f.calls[0].resolve(payload('First team')); await flush(); f.inspect('same-id'); assert.equal(f.inspections.at(-1).name, 'First team');
+  assert.equal(f.nodes['page-title'].textContent, 'Trainer ID');
+  assert.equal(f.nodes['tid-team-h'].textContent, 'Team');
+  assert.equal(f.nodes['page-description'].textContent, "This trainer's public profile, team and adventure journal.");
   f.reload(); await flush(); f.calls[1].resolve(payload('Updated team')); await flush(); f.inspect('same-id'); assert.equal(f.inspections.at(-1).name, 'Updated team');
   f.reload(); await flush(); f.calls[2].resolve({ mine: false, trainer: { name: 'Empty', team: [] } }); await flush(); const count = f.inspections.length; f.inspect('same-id'); assert.equal(f.inspections.length, count);
   console.log('4 LOCAL actual-source Trainer error/current-team cases pass;fictional public reads only');

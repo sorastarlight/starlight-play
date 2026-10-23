@@ -34,6 +34,19 @@ test("Pokemon details show only returned specimen data", () => {
   assert(html.includes("Bulbasaur")); assert(ui.profileHtml(view("pokemon")).includes("not the full PC")); assert(html.includes("Individual stats are unavailable"));
   assert(!html.includes("playCall"));
 });
+test("Pokemon details use friendly known ball and gender names without inventing missing data", () => {
+  const detail = (ball, gender) => ui.profileHtml({ ...view("pokemon", { mon: "mon1" }), mons: [{ ...account.mons[0], ball, gender }] });
+  for (const [ball, name] of [["poke", "Poké Ball"], ["pokeball", "Poké Ball"], ["great", "Great Ball"], ["ultraball", "Ultra Ball"]]) {
+    const html = detail(ball, "F");
+    assert(html.includes(`<dd>${name}</dd>`));
+    assert(html.includes("<dd>Female</dd>"));
+  }
+  assert(detail("master", "M").includes("<dd>Male</dd>"));
+  assert(detail(null, "genderless").includes("<dd>Genderless</dd>"));
+  assert(detail(null, null).includes("<dd>Unavailable</dd>"));
+  assert(detail('<img onerror="bad">', "Unspecified").includes("&lt;img"));
+  assert(!detail('<img onerror="bad">', "Unspecified").includes('<img onerror="bad">'));
+});
 test("Presentation layer introduces no network or authority calls", () => {
   const source = fs.readFileSync(path.join(__dirname, "../js/admin-next-record.js"), "utf8");
   assert(!/playCall|fetch\(|\.rpc\(|supabase|localStorage/.test(source));

@@ -13,6 +13,16 @@
   const PANES = [...base.PANES, "pass", "gifts", "tickets"];
   const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections", pass: "Starlight Pass", gifts: "Gifts", tickets: "Tickets" };
   const stamp = (input) => !input || !Number.isFinite(new Date(input).getTime()) ? "Unavailable" : new Date(input).toISOString().replace("T", " ").replace(/\.\d+Z$/, " UTC");
+  function ballName(input) {
+    if (input == null || input === "") return input;
+    const raw = String(input);
+    const aliases = { poke: "pokeball", great: "greatball", ultra: "ultraball", master: "masterball", premier: "premierball" };
+    const key = aliases[raw.toLowerCase()] || raw.toLowerCase();
+    const label = globalThis.playItemLabel?.(key);
+    const fallback = { pokeball: "Poké Ball", greatball: "Great Ball", ultraball: "Ultra Ball", masterball: "Master Ball", premierball: "Premier Ball" };
+    return label && label !== key ? label : fallback[key] || raw;
+  }
+  const genderName = input => ({ m: "Male", male: "Male", "♂": "Male", f: "Female", female: "Female", "♀": "Female", genderless: "Genderless" }[String(input).toLowerCase()] || input);
   const safeImage = (src) => /^(https?:\/\/|images\/)/i.test(String(src || "")) ? esc(src) : "";
   function avatar(user) {
     const src = safeImage(user.avatar);
@@ -86,7 +96,7 @@
   function pokemon(view) {
     const mons = view.mons || [];
     const mon = mons.find((row, index) => String(row.id || `snapshot-row-${index}`) === view.recordState?.mon);
-    if (mon) return `${back("Pokémon collection", "mons")}<section class="record-surface"><div class="record-mon-identity">${monArt(mon)}<div><h4 tabindex="-1" data-record-heading>${esc(mon.nickname || mon.name)} ${shinyChip(mon)}</h4>${mon.nickname && mon.nickname !== mon.name ? note(mon.name) : ""}</div></div>${rows([["Pokédex", mon.dex], ["Level", mon.level], ["Gender", mon.gender], ["Poké Ball", mon.ball], ["Caught", stamp(mon.caughtAt)], ["Specimen id", mon.id]])}${statsPanel(mon)}</section>`;
+    if (mon) return `${back("Pokémon collection", "mons")}<section class="record-surface"><div class="record-mon-identity">${monArt(mon)}<div><h4 tabindex="-1" data-record-heading>${esc(mon.nickname || mon.name)} ${shinyChip(mon)}</h4>${mon.nickname && mon.nickname !== mon.name ? note(mon.name) : ""}</div></div>${rows([["Pokédex", mon.dex], ["Level", mon.level], ["Gender", genderName(mon.gender)], ["Poké Ball", ballName(mon.ball)], ["Caught", stamp(mon.caughtAt)], ["Specimen id", mon.id]])}${statsPanel(mon)}</section>`;
     return `${note("Newest 40 live Pokémon only. This is not the full PC.")}<div class="record-list">${mons.length ? mons.map((row, index) => `<button type="button" class="record-hit" data-record-action="mon" data-record-id="${esc(row.id || `snapshot-row-${index}`)}">${monArt(row)}<span><strong>${esc(row.nickname || row.name || "Pokémon")}</strong> ${shinyChip(row)}<span class="admin-next-trainer-handle">Lv. ${esc(value(row.level))}${row.nickname && row.nickname !== row.name ? " · " + esc(row.name) : ""}</span></span><span aria-hidden="true">›</span></button>`).join("") : note("No live Pokémon returned.")}</div>`;
   }
 

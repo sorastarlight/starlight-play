@@ -1,0 +1,11 @@
+# CODEX-130 — Helpdesk live-session and owner boundaries
+
+Read-only production catalog capture obtained the current support dispatcher,actor/summary helpers and actual server staff-role helper. No support endpoint or user/session/ticket rows were read in production. The role helper has a default UUID argument;catalog discovery captured that existing overload rather than assuming a zero-argument identity.
+
+Existing helpdesk rehearsal already covers private notes,foreign tickets,revision races,pagination and quotas. This review adds29REAL LOCAL SQL checks focused on live-session validation and real role-helper composition. It executes exact captured support_actor/support_call/support_summary/play_staff_role code,repository Helpdesk table/constraint/permission DDL,and fictional Auth/session/role/config/identity tables. Platform UID/JWT inputs are local stand-ins,not real JWT signature/provider validation.
+
+Expired,revoked,missing,malformed,nonexistent or foreign sessions and missing/deleted/banned actors are denied by both actor helper and authenticated public endpoint without ticket writes. Live/future-expiring sessions and expired bans behave as expected. Owner-only staff mode rejects absent/player/staff/moderator/admin assignments;explicit owner and existing confirmed broadcaster/Auth identity paths remain. Payload actor substitution or role-shaped metadata does not replace authoritative actor/role resolution. Unconfirmed broadcaster and non-Twitch identities do not confer owner mode. Existing QA-player gate and direct private-helper/message-table denials are preserved.
+
+No new defect confirmed in this scope. This is not complete Helpdesk,RLS,Auth lifecycle,real-provider or signed-JWT certification. No new SQL/Auth/account/provider/ticket/role/player mutation,grant,email,spending,scheduling,APPstamp or launch. Sora NO;Twinkle NO;PlayTester role unchanged. Fictional loopback cluster stopped and fixture removed. Private exact sources/harness:LOCALAPPDATA/PokemonStreamLink/security/codex130/boundaries.cjs. Evidence:evidence/codex130-helpdesk-boundaries.json.
+
+Runtime/main150c69e6/Pages39881130370 and106-suite prior frontend evidence unchanged;no unchanged regression rerun. Twitch held;required physical-device/assistive/provider evidence remains open.

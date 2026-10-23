@@ -4,6 +4,9 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-132 | done | Bridge token/command boundaries | CODEX-131 | Catalog/local only |17groups;30invalid-token denials;no real calls |
+| CODEX-131 | done | Schema-only recovery chain/inverse | CODEX-130 | Empty local fixture only |9forward/9reverse;20guards;585/143/56baseline match |
+| CODEX-130 | done | Helpdesk live-session/owner boundaries | CODEX-129 | Catalog/local only |29exact-source cases;no new defect confirmed |
 | CODEX-129 | done | Pass delivery-result/clock correction | CODEX-128 | Explicit owner approval spent |Installed20261023020246;exact source/attrs;18recovery files |
 | CODEX-128 | done | Pass claim serialization/exposure review | CODEX-127 | Explicit owner approval spent |Installed20261023013015;exact source/attrs;16recovery files |
 | CODEX-127 | done | Daily-supply claim serialization | CODEX-126 | Explicit owner approval spent |Installed20261023012959;exact source/attrs;no claim invoked |

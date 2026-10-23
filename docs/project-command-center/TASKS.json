@@ -4,6 +4,42 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-132",
+      "scope": "Bridge shared-token and command boundary review",
+      "evidence": "LAUNCH-CODEX132-BRIDGE-BOUNDARIES.md; evidence/codex132-bridge-boundaries.json",
+      "testResults": "17REAL LOCAL boundary groups;30invalid-token endpoint requests denied;command concurrency/retired import controls;no real bridge call",
+      "dependencies": [
+        "CODEX-131"
+      ],
+      "status": "done",
+      "nextAction": "Required real-device/assistive/provider acceptance remains open;Twitch held;next post-change physical backup observation when due",
+      "approvalRequirement": "Catalog/local fictional or empty-schema tests only;no new production authority"
+    },
+    {
+      "id": "CODEX-131",
+      "scope": "Schema-only ordered9-delta recovery and inverse rollback rehearsal",
+      "evidence": "LAUNCH-CODEX131-SCHEMA-REPLAY.md; evidence/codex131-schema-replay.json",
+      "testResults": "9forward/9reverse packets;20final guards;585function/143relation permissions/56policies inverse match;142tables empty;original schema archive unchanged;runtime stopped",
+      "dependencies": [
+        "CODEX-130"
+      ],
+      "status": "done",
+      "nextAction": "Required real-device/assistive/provider acceptance remains open;Twitch held;next post-change physical backup observation when due",
+      "approvalRequirement": "Catalog/local fictional or empty-schema tests only;no new production authority"
+    },
+    {
+      "id": "CODEX-130",
+      "scope": "Helpdesk live-session and actual server role-helper boundaries",
+      "evidence": "LAUNCH-CODEX130-HELPDESK-BOUNDARIES.md; evidence/codex130-helpdesk-boundaries.json",
+      "testResults": "29REAL LOCAL exact-source session/owner boundary cases;no hosted call",
+      "dependencies": [
+        "CODEX-129"
+      ],
+      "status": "done",
+      "nextAction": "Required real-device/assistive/provider acceptance remains open;Twitch held;next post-change physical backup observation when due",
+      "approvalRequirement": "Catalog/local fictional or empty-schema tests only;no new production authority"
+    },
+    {
       "id": "CODEX-129",
       "status": "done",
       "scope": "Pass duplicate-delivery result/clock correction prepared locally",

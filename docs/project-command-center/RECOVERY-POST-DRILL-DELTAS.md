@@ -78,3 +78,7 @@ Both explicitly approved and installed;exact source/attributes verified and seve
 |20261023020246 codex129_pass_duplicate_delivery_clock|supabase/unapplied/pass-delivery-result/INSTALL.sql|f0a6b92afb314b954538dbdea303be29930cd668cf5e71c008016753835b465a|
 
 Owner-approved one-function replacement;exact candidate/attributes verified,6controls unchanged,no claims/grants/player repair. This builds on CODEX-128:replay in recorded order,and review rollback in reverse dependency order. Historical CODEX-128 candidate fingerprints are superseded by CODEX-129 on the current database. Old snapshots require the9reviewed deltas or a verified newer snapshot;no new export/restore is authorized.
+
+## CODEX-131 empty-schema compatibility proof
+
+All9reviewed installs replay in order on a separate empty PG17 schema fixture from the retained schema archive;20latest function guards match and browser configuration writes remain denied. Reverse9rollbacks restore585function metadata records/143relation-permission records/56policies exactly.142tables remain empty. No player/Auth records or data archive imported,no production connection,original archive unchanged. Local runtime stopped/fixture removed. This supplements CODEX-71/126 data verification;it is not physical/full Auth/storage restore certification or permission to replay/rollback in production. See LAUNCH-CODEX131-SCHEMA-REPLAY.md.

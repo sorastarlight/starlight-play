@@ -1,4 +1,4 @@
-# Launch readiness handoff — consolidated through CODEX-129
+# Launch readiness handoff — consolidated through CODEX-132
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.
 
@@ -109,3 +109,5 @@ CODEX-127/128 CURRENT COMPLETION:owner explicitly approved both exact claim corr
 CODEX-129 HELD:follow-up delivery-result/clock defect confirmed separately;one-function private correction/rollback pass24local source/actual-packet cases,including preserved installed serialization. New explicit SQL decision requested;CODEX-127/128 approval spent. No production claim/install. Recovery stays8migrations/16files;main150c69e6 unchanged. See LAUNCH-CODEX129-PASS-DELIVERY-REVIEW.md.
 
 CODEX-129 CURRENT COMPLETION:owner-approved migration20261023020246 installed;exact candidate definition/checked attributes and6unchanged control definitions/attributes verified without claims/grants.24local packet cases;20filesystem checks/build31/464;9post-drill migrations/18Git-recreated recovery files match. Earlier held/decision wording is historical;approval spent. No pending SQL decision for CODEX-127/128/129. Real device/assistive/provider evidence remains required;Twitch held;main150c69e6/Pages39881130370/APPunchanged.
+
+CODEX-130/131/132:29new exact-source Helpdesk live-session/actual-role cases pass;17bridge boundary groups include30invalid-token denials,no real bridge/ticket actions. Separate empty PG17 schema fixture replays all9reviewed deltas forward and reverse;20final function guards match,reverse585function/143relation-permission/56policy metadata matches baseline,142tables stay empty. No new data export/import or production connection;original archive unchanged,runtimes stopped. No new confirmed defect. Main150c69e6/Pages39881130370/APP and prior106-suite frontend evidence unchanged. Physical backup not due yet;real acceptance remains required/Twitch held. See LAUNCH-CODEX130-HELPDESK-BOUNDARIES.md,LAUNCH-CODEX131-SCHEMA-REPLAY.md,LAUNCH-CODEX132-BRIDGE-BOUNDARIES.md.

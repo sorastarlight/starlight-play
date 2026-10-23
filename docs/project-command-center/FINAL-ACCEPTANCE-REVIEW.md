@@ -25,3 +25,5 @@ Either path still ends with an exact final configuration/recovery review and a s
 CODEX-126 retained local recovery reverified111projections/schema with unchanged8archive/source files and0unexpected ACLentries over2721paths. CODEX-127/128 two owner-approved claim corrections installed/source verified without invoking claims;8post-drill migrations/16reviewed recovery files retained. Current main150c69e6,Pages39881130370success,APPunchanged. Real acceptance remains required.
 
 CODEX-129 owner-approved Pass delivery-result correction installed20261023020246 and exact source/attributes verified without claims;6controls unchanged. Recovery now9post-drill migrations/18reviewed files. No pending SQL decision for CODEX-127/128/129;remaining real acceptance and final configuration/release gates stay open.
+
+CODEX-130/131/132 add29Helpdesk session/owner cases,17bridge groups including30token denials,and an empty-schema9-delta forward/inverse recovery proof. No new confirmed defect or production change. Physical snapshot/full Auth/storage and actual device/provider evidence remain distinct requirements;Twitch stays held.

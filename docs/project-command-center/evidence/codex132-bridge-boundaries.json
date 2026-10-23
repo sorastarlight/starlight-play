@@ -1,0 +1,26 @@
+{
+  "classification": "REAL LOCAL exact captured5bridge endpoints and shared token/SHA256 helpers;fictional tables/secret;instrumented catalog/grant/settlement boundaries;not real bridge/provider/round/economy integration certification",
+  "cases": 17,
+  "invalidEndpointRequests": 30,
+  "results": [
+    "all5bridge endpoints reject token class null before command/heartbeat/grant writes",
+    "all5bridge endpoints reject token class blank before command/heartbeat/grant writes",
+    "all5bridge endpoints reject token class blank before command/heartbeat/grant writes",
+    "all5bridge endpoints reject token class mismatch before command/heartbeat/grant writes",
+    "all5bridge endpoints reject token class case/whitespace mismatch before command/heartbeat/grant writes",
+    "all5bridge endpoints reject token class case/whitespace mismatch before command/heartbeat/grant writes",
+    "unconfigured bridge missing row fails closed",
+    "unconfigured bridge null hash fails closed",
+    "unconfigured bridge malformed hash fails closed",
+    "valid bridge pulls at most8pending commands and never reclaims running rows",
+    "overlapping valid pulls collectively claim14distinct commands",
+    "held command row skipped then available after lock release",
+    "authorized finish updates only selected command and caps result length",
+    "authorized failed completion retains bounded bridge error",
+    "valid token alone reaches existing fixture grant path;no real reward helper",
+    "retired catch import remains inert even with valid fixture token",
+    "valid publish reaches instrumented settlement boundary;statement error rolls back heartbeat"
+  ],
+  "productionApplicationCalls": 0,
+  "productionChanges": 0
+}

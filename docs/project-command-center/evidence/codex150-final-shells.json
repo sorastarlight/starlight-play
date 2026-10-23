@@ -1,0 +1,4458 @@
+[
+  {
+    "page": "index.html",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "documentPath": "/review/index.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "use-lure",
+        "height": 49,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Play",
+      "Waiting for the next wild Pokémon…"
+    ],
+    "searches": []
+  },
+  {
+    "page": "index.html",
+    "width": 753,
+    "scrollWidth": 753,
+    "documentPath": "/review/index.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "use-lure",
+        "height": 49,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Play",
+      "Waiting for the next wild Pokémon…"
+    ],
+    "searches": []
+  },
+  {
+    "page": "index.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/index.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "use-lure",
+        "height": 49,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Play",
+      "Waiting for the next wild Pokémon…"
+    ],
+    "searches": []
+  },
+  {
+    "page": "index.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/index.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "use-lure",
+        "height": 49,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Play",
+      "Waiting for the next wild Pokémon…"
+    ],
+    "searches": []
+  },
+  {
+    "page": "storage.html",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "documentPath": "/review/storage.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pc-auto-arrange",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pc-delete-box",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "box-search",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My PC"
+    ],
+    "searches": [
+      {
+        "id": "box-search",
+        "label": "Search Pokémon\n ⌕",
+        "placeholder": "Name, Pokédex number, type, gender or shiny"
+      }
+    ]
+  },
+  {
+    "page": "storage.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/storage.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pc-auto-arrange",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pc-delete-box",
+        "height": 36,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "box-search",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My PC"
+    ],
+    "searches": [
+      {
+        "id": "box-search",
+        "label": "Search Pokémon\n ⌕",
+        "placeholder": "Name, Pokédex number, type, gender or shiny"
+      }
+    ]
+  },
+  {
+    "page": "storage.html",
+    "width": 390,
+    "scrollWidth": 375,
+    "documentPath": "/review/storage.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pc-auto-arrange",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pc-delete-box",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "box-search",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My PC"
+    ],
+    "searches": [
+      {
+        "id": "box-search",
+        "label": "Search Pokémon\n ⌕",
+        "placeholder": "Name, Pokédex number, type, gender or shiny"
+      }
+    ]
+  },
+  {
+    "page": "storage.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/storage.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pc-auto-arrange",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pc-delete-box",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "box-search",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My PC"
+    ],
+    "searches": [
+      {
+        "id": "box-search",
+        "label": "Search Pokémon\n ⌕",
+        "placeholder": "Name, Pokédex number, type, gender or shiny"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/pokedex.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "searches": [
+      {
+        "id": "dex-search",
+        "label": "Search Kanto Pokédex",
+        "placeholder": "Bulbasaur, 025, Mew…"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/pokedex.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "searches": [
+      {
+        "id": "dex-search",
+        "label": "Search Kanto Pokédex",
+        "placeholder": "Bulbasaur, 025, Mew…"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "width": 390,
+    "scrollWidth": 375,
+    "documentPath": "/review/pokedex.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "searches": [
+      {
+        "id": "dex-search",
+        "label": "Search Kanto Pokédex",
+        "placeholder": "Bulbasaur, 025, Mew…"
+      }
+    ]
+  },
+  {
+    "page": "pokedex.html",
+    "width": 320,
+    "scrollWidth": 305,
+    "documentPath": "/review/pokedex.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "dex-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "filter-status",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Pokédex",
+      "Research Database"
+    ],
+    "searches": [
+      {
+        "id": "dex-search",
+        "label": "Search Kanto Pokédex",
+        "placeholder": "Bulbasaur, 025, Mew…"
+      }
+    ]
+  },
+  {
+    "page": "inventory.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/inventory.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bag-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bag-sort",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "use-lure",
+        "height": 49,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Inventory",
+      "Bag pockets",
+      "Recent item history"
+    ],
+    "searches": [
+      {
+        "id": "bag-search",
+        "label": "Search",
+        "placeholder": "Item name"
+      }
+    ]
+  },
+  {
+    "page": "inventory.html",
+    "width": 753,
+    "scrollWidth": 753,
+    "documentPath": "/review/inventory.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bag-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bag-sort",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "use-lure",
+        "height": 49,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Inventory",
+      "Bag pockets",
+      "Recent item history"
+    ],
+    "searches": [
+      {
+        "id": "bag-search",
+        "label": "Search",
+        "placeholder": "Item name"
+      }
+    ]
+  },
+  {
+    "page": "inventory.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/inventory.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bag-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bag-sort",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "use-lure",
+        "height": 49,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Inventory",
+      "Bag pockets",
+      "Recent item history"
+    ],
+    "searches": [
+      {
+        "id": "bag-search",
+        "label": "Search",
+        "placeholder": "Item name"
+      }
+    ]
+  },
+  {
+    "page": "inventory.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/inventory.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bag-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bag-sort",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "use-lure",
+        "height": 49,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Inventory",
+      "Bag pockets",
+      "Recent item history"
+    ],
+    "searches": [
+      {
+        "id": "bag-search",
+        "label": "Search",
+        "placeholder": "Item name"
+      }
+    ]
+  },
+  {
+    "page": "trainer.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/trainer.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Trainer ID"
+    ],
+    "searches": []
+  },
+  {
+    "page": "trainer.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/trainer.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Trainer ID"
+    ],
+    "searches": []
+  },
+  {
+    "page": "trainer.html",
+    "width": 390,
+    "scrollWidth": 375,
+    "documentPath": "/review/trainer.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Trainer ID"
+    ],
+    "searches": []
+  },
+  {
+    "page": "trainer.html",
+    "width": 320,
+    "scrollWidth": 305,
+    "documentPath": "/review/trainer.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Trainer ID"
+    ],
+    "searches": []
+  },
+  {
+    "page": "achievements.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/achievements.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Achievements",
+      "Next Goals",
+      "Achievement Progress"
+    ],
+    "searches": [
+      {
+        "id": "ach-search",
+        "label": "Search achievements",
+        "placeholder": "Search achievements…"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/achievements.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Achievements",
+      "Next Goals",
+      "Achievement Progress"
+    ],
+    "searches": [
+      {
+        "id": "ach-search",
+        "label": "Search achievements",
+        "placeholder": "Search achievements…"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "width": 390,
+    "scrollWidth": 375,
+    "documentPath": "/review/achievements.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Achievements",
+      "Next Goals",
+      "Achievement Progress"
+    ],
+    "searches": [
+      {
+        "id": "ach-search",
+        "label": "Search achievements",
+        "placeholder": "Search achievements…"
+      }
+    ]
+  },
+  {
+    "page": "achievements.html",
+    "width": 320,
+    "scrollWidth": 305,
+    "documentPath": "/review/achievements.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-cats",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "ach-sort",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Achievements",
+      "Next Goals",
+      "Achievement Progress"
+    ],
+    "searches": [
+      {
+        "id": "ach-search",
+        "label": "Search achievements",
+        "placeholder": "Search achievements…"
+      }
+    ]
+  },
+  {
+    "page": "evolve.html",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "documentPath": "/review/evolve.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-send",
+        "height": 68,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-evolve",
+        "height": 68,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-research",
+        "height": 68,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-sort",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-go",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Professor Oak's Lab",
+      "Send Pokémon to Professor Oak",
+      "Your Collection"
+    ],
+    "searches": [
+      {
+        "id": "evo-send-search",
+        "label": "Search Pokémon",
+        "placeholder": "Pokémon name or Pokédex number"
+      }
+    ]
+  },
+  {
+    "page": "evolve.html",
+    "width": 753,
+    "scrollWidth": 753,
+    "documentPath": "/review/evolve.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-send",
+        "height": 72,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-evolve",
+        "height": 72,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-research",
+        "height": 72,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-search",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-sort",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-go",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Professor Oak's Lab",
+      "Send Pokémon to Professor Oak",
+      "Your Collection"
+    ],
+    "searches": [
+      {
+        "id": "evo-send-search",
+        "label": "Search Pokémon",
+        "placeholder": "Pokémon name or Pokédex number"
+      }
+    ]
+  },
+  {
+    "page": "evolve.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/evolve.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-send",
+        "height": 57,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-evolve",
+        "height": 57,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-research",
+        "height": 57,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-sort",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-go",
+        "height": 62,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Professor Oak's Lab",
+      "Send Pokémon to Professor Oak",
+      "Your Collection"
+    ],
+    "searches": [
+      {
+        "id": "evo-send-search",
+        "label": "Search Pokémon",
+        "placeholder": "Pokémon name or Pokédex number"
+      }
+    ]
+  },
+  {
+    "page": "evolve.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/evolve.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-send",
+        "height": 57,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-evolve",
+        "height": 57,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "tab-research",
+        "height": 72,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-search",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-sort",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "evo-send-go",
+        "height": 84,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Professor Oak's Lab",
+      "Send Pokémon to Professor Oak",
+      "Your Collection"
+    ],
+    "searches": [
+      {
+        "id": "evo-send-search",
+        "label": "Search Pokémon",
+        "placeholder": "Pokémon name or Pokédex number"
+      }
+    ]
+  },
+  {
+    "page": "rankings.html",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "documentPath": "/review/rankings.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "rank-refresh",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "rank-search",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Rankings",
+      "Trainer Level",
+      "Discover Trainers"
+    ],
+    "searches": [
+      {
+        "id": "rank-search",
+        "label": "Search by Trainer name",
+        "placeholder": "Trainer name"
+      }
+    ]
+  },
+  {
+    "page": "rankings.html",
+    "width": 753,
+    "scrollWidth": 753,
+    "documentPath": "/review/rankings.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 38,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "rank-refresh",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "rank-search",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Rankings",
+      "Trainer Level",
+      "Discover Trainers"
+    ],
+    "searches": [
+      {
+        "id": "rank-search",
+        "label": "Search by Trainer name",
+        "placeholder": "Trainer name"
+      }
+    ]
+  },
+  {
+    "page": "rankings.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/rankings.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "rank-refresh",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "rank-search",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Rankings",
+      "Trainer Level",
+      "Discover Trainers"
+    ],
+    "searches": [
+      {
+        "id": "rank-search",
+        "label": "Search by Trainer name",
+        "placeholder": "Trainer name"
+      }
+    ]
+  },
+  {
+    "page": "rankings.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/rankings.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "rank-refresh",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "rank-search",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Rankings",
+      "Trainer Level",
+      "Discover Trainers"
+    ],
+    "searches": [
+      {
+        "id": "rank-search",
+        "label": "Search by Trainer name",
+        "placeholder": "Trainer name"
+      }
+    ]
+  },
+  {
+    "page": "trade.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/trade.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "list-open",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-q",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-want",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-filter",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Global Trade System",
+      "Open trades"
+    ],
+    "searches": [
+      {
+        "id": "trade-q",
+        "label": "Search trades",
+        "placeholder": "Pokémon or trainer name"
+      }
+    ]
+  },
+  {
+    "page": "trade.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/trade.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "list-open",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-q",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-want",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-filter",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Global Trade System",
+      "Open trades"
+    ],
+    "searches": [
+      {
+        "id": "trade-q",
+        "label": "Search trades",
+        "placeholder": "Pokémon or trainer name"
+      }
+    ]
+  },
+  {
+    "page": "trade.html",
+    "width": 390,
+    "scrollWidth": 375,
+    "documentPath": "/review/trade.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "list-open",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-q",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-want",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-filter",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Global Trade System",
+      "Open trades"
+    ],
+    "searches": [
+      {
+        "id": "trade-q",
+        "label": "Search trades",
+        "placeholder": "Pokémon or trainer name"
+      }
+    ]
+  },
+  {
+    "page": "trade.html",
+    "width": 320,
+    "scrollWidth": 305,
+    "documentPath": "/review/trade.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "list-open",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-q",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-want",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "trade-filter",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Global Trade System",
+      "Open trades"
+    ],
+    "searches": [
+      {
+        "id": "trade-q",
+        "label": "Search trades",
+        "placeholder": "Pokémon or trainer name"
+      }
+    ]
+  },
+  {
+    "page": "events.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/events.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cal-prev",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cal-next",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Upcoming Events",
+      "Calendar",
+      "Listed events"
+    ],
+    "searches": []
+  },
+  {
+    "page": "events.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/events.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cal-prev",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cal-next",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Upcoming Events",
+      "Calendar",
+      "Listed events"
+    ],
+    "searches": []
+  },
+  {
+    "page": "events.html",
+    "width": 390,
+    "scrollWidth": 375,
+    "documentPath": "/review/events.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cal-prev",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cal-next",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Upcoming Events",
+      "Calendar",
+      "Listed events"
+    ],
+    "searches": []
+  },
+  {
+    "page": "events.html",
+    "width": 320,
+    "scrollWidth": 305,
+    "documentPath": "/review/events.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cal-prev",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cal-next",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Upcoming Events",
+      "Calendar",
+      "Listed events"
+    ],
+    "searches": []
+  },
+  {
+    "page": "help.html",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "documentPath": "/review/help.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "How to Play",
+      "More details"
+    ],
+    "searches": []
+  },
+  {
+    "page": "help.html",
+    "width": 753,
+    "scrollWidth": 753,
+    "documentPath": "/review/help.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "How to Play",
+      "More details"
+    ],
+    "searches": []
+  },
+  {
+    "page": "help.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/help.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "How to Play",
+      "More details"
+    ],
+    "searches": []
+  },
+  {
+    "page": "help.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/help.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "How to Play",
+      "More details"
+    ],
+    "searches": []
+  },
+  {
+    "page": "store.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/store.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Mart"
+    ],
+    "searches": []
+  },
+  {
+    "page": "store.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/store.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Mart"
+    ],
+    "searches": []
+  },
+  {
+    "page": "store.html",
+    "width": 390,
+    "scrollWidth": 375,
+    "documentPath": "/review/store.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Mart"
+    ],
+    "searches": []
+  },
+  {
+    "page": "store.html",
+    "width": 320,
+    "scrollWidth": 305,
+    "documentPath": "/review/store.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Mart"
+    ],
+    "searches": []
+  },
+  {
+    "page": "settings.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/settings.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Account"
+    ],
+    "searches": []
+  },
+  {
+    "page": "settings.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/settings.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 41,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Account"
+    ],
+    "searches": []
+  },
+  {
+    "page": "settings.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/settings.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Account"
+    ],
+    "searches": []
+  },
+  {
+    "page": "settings.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/settings.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "My Account"
+    ],
+    "searches": []
+  },
+  {
+    "page": "signin.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/signin.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-id",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-password",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-twitch",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Welcome back, Trainer!"
+    ],
+    "searches": []
+  },
+  {
+    "page": "signin.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/signin.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-id",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-password",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-twitch",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Welcome back, Trainer!"
+    ],
+    "searches": []
+  },
+  {
+    "page": "signin.html",
+    "width": 390,
+    "scrollWidth": 375,
+    "documentPath": "/review/signin.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-id",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-password",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-twitch",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Welcome back, Trainer!"
+    ],
+    "searches": []
+  },
+  {
+    "page": "signin.html",
+    "width": 320,
+    "scrollWidth": 305,
+    "documentPath": "/review/signin.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-id",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-password",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "signin-twitch",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Welcome back, Trainer!"
+    ],
+    "searches": []
+  },
+  {
+    "page": "register.html",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "documentPath": "/review/register.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-username",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-email",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-password",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-confirm",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Welcome, Trainer!"
+    ],
+    "searches": []
+  },
+  {
+    "page": "register.html",
+    "width": 753,
+    "scrollWidth": 753,
+    "documentPath": "/review/register.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-username",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-email",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-password",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-confirm",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Welcome, Trainer!"
+    ],
+    "searches": []
+  },
+  {
+    "page": "register.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/register.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-username",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-email",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-password",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-confirm",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Welcome, Trainer!"
+    ],
+    "searches": []
+  },
+  {
+    "page": "register.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/register.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-username",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-email",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-password",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "reg-confirm",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Welcome, Trainer!"
+    ],
+    "searches": []
+  },
+  {
+    "page": "reset-password.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/reset-password.html",
+    "ready": "complete",
+    "controls": [],
+    "headings": [
+      "Choose a new password"
+    ],
+    "searches": []
+  },
+  {
+    "page": "reset-password.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/reset-password.html",
+    "ready": "complete",
+    "controls": [],
+    "headings": [
+      "Choose a new password"
+    ],
+    "searches": []
+  },
+  {
+    "page": "reset-password.html",
+    "width": 390,
+    "scrollWidth": 375,
+    "documentPath": "/review/reset-password.html",
+    "ready": "complete",
+    "controls": [],
+    "headings": [
+      "Choose a new password"
+    ],
+    "searches": []
+  },
+  {
+    "page": "reset-password.html",
+    "width": 320,
+    "scrollWidth": 305,
+    "documentPath": "/review/reset-password.html",
+    "ready": "complete",
+    "controls": [],
+    "headings": [
+      "Choose a new password"
+    ],
+    "searches": []
+  },
+  {
+    "page": "support.html",
+    "width": 1280,
+    "scrollWidth": 1265,
+    "documentPath": "/review/support.html",
+    "ready": "complete",
+    "controls": [],
+    "headings": [
+      "A little help for your adventure"
+    ],
+    "searches": []
+  },
+  {
+    "page": "support.html",
+    "width": 768,
+    "scrollWidth": 753,
+    "documentPath": "/review/support.html",
+    "ready": "complete",
+    "controls": [],
+    "headings": [
+      "A little help for your adventure"
+    ],
+    "searches": []
+  },
+  {
+    "page": "support.html",
+    "width": 390,
+    "scrollWidth": 375,
+    "documentPath": "/review/support.html",
+    "ready": "complete",
+    "controls": [],
+    "headings": [
+      "A little help for your adventure"
+    ],
+    "searches": []
+  },
+  {
+    "page": "support.html",
+    "width": 320,
+    "scrollWidth": 305,
+    "documentPath": "/review/support.html",
+    "ready": "complete",
+    "controls": [],
+    "headings": [
+      "A little help for your adventure"
+    ],
+    "searches": []
+  },
+  {
+    "page": "admin-next.html",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "documentPath": "/review/admin-next.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Admin Hub (preview)",
+      "Live Operations overview"
+    ],
+    "searches": []
+  },
+  {
+    "page": "admin-next.html",
+    "width": 753,
+    "scrollWidth": 753,
+    "documentPath": "/review/admin-next.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "hub-nav-toggle",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Admin Hub (preview)",
+      "Live Operations overview"
+    ],
+    "searches": []
+  },
+  {
+    "page": "admin-next.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/admin-next.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "hub-nav-toggle",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Admin Hub (preview)",
+      "Live Operations overview"
+    ],
+    "searches": []
+  },
+  {
+    "page": "admin-next.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/admin-next.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "hub-nav-toggle",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Admin Hub (preview)",
+      "Live Operations overview"
+    ],
+    "searches": []
+  },
+  {
+    "page": "admin-next-trainers-fixture.html",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "documentPath": "/review/admin-next-trainers-fixture.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "next-trainer-q",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 80,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 80,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 80,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Trainer Management fixture",
+      "Trainer Management"
+    ],
+    "searches": [
+      {
+        "id": "next-trainer-q",
+        "label": "Search trainers",
+        "placeholder": "Name, login, UUID, or Twitch id"
+      }
+    ]
+  },
+  {
+    "page": "admin-next-trainers-fixture.html",
+    "width": 753,
+    "scrollWidth": 753,
+    "documentPath": "/review/admin-next-trainers-fixture.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "next-trainer-q",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 42,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 114,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 114,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 133,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Trainer Management fixture",
+      "Trainer Management"
+    ],
+    "searches": [
+      {
+        "id": "next-trainer-q",
+        "label": "Search trainers",
+        "placeholder": "Name, login, UUID, or Twitch id"
+      }
+    ]
+  },
+  {
+    "page": "admin-next-trainers-fixture.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/admin-next-trainers-fixture.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "next-trainer-q",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 191,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 191,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 211,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Trainer Management fixture",
+      "Trainer Management"
+    ],
+    "searches": [
+      {
+        "id": "next-trainer-q",
+        "label": "Search trainers",
+        "placeholder": "Name, login, UUID, or Twitch id"
+      }
+    ]
+  },
+  {
+    "page": "admin-next-trainers-fixture.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/admin-next-trainers-fixture.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "next-trainer-q",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 191,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 191,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 211,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Trainer Management fixture",
+      "Trainer Management"
+    ],
+    "searches": [
+      {
+        "id": "next-trainer-q",
+        "label": "Search trainers",
+        "placeholder": "Name, login, UUID, or Twitch id"
+      }
+    ]
+  },
+  {
+    "page": "admin-store.html",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "documentPath": "/review/admin-store.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-add",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-up",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-down",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-name",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-kind",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-icon-pick",
+        "height": 55,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-icon-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-save",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-hide",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-delete",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-add",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-up",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-down",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sku",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-name",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-kind",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-status",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-cost",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-bits",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sprite-pick",
+        "height": 55,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sprite-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-pick",
+        "height": 109,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-upload",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-add-content",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-ball-key",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-pack",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-games",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "look-filter",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "look-upload",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-save",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-draft",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-duplicate",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-delete",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Content Studio",
+      "Floors",
+      "Items"
+    ],
+    "searches": [
+      {
+        "id": "look-filter",
+        "placeholder": "Search looks"
+      }
+    ]
+  },
+  {
+    "page": "admin-store.html",
+    "width": 753,
+    "scrollWidth": 753,
+    "documentPath": "/review/admin-store.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-add",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-up",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-down",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-name",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-kind",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-icon-pick",
+        "height": 55,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-icon-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-save",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-hide",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-delete",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-add",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-up",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-down",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sku",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-name",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-kind",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-status",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-cost",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-bits",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sprite-pick",
+        "height": 55,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sprite-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-pick",
+        "height": 109,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-upload",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-add-content",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-ball-key",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-pack",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-games",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "look-filter",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "look-upload",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-save",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-draft",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-duplicate",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-delete",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Content Studio",
+      "Floors",
+      "Items"
+    ],
+    "searches": [
+      {
+        "id": "look-filter",
+        "placeholder": "Search looks"
+      }
+    ]
+  },
+  {
+    "page": "admin-store.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/admin-store.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-add",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-up",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-down",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-name",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-kind",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-icon-pick",
+        "height": 55,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-icon-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-save",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-hide",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-delete",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-add",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-up",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-down",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sku",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-name",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-kind",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-status",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-cost",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-bits",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sprite-pick",
+        "height": 55,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sprite-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-pick",
+        "height": 109,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-upload",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-add-content",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-ball-key",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-pack",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-games",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "look-filter",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "look-upload",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-save",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-draft",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-duplicate",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-delete",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Content Studio",
+      "Floors",
+      "Items"
+    ],
+    "searches": [
+      {
+        "id": "look-filter",
+        "placeholder": "Search looks"
+      }
+    ]
+  },
+  {
+    "page": "admin-store.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/admin-store.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-add",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-up",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-down",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-name",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-kind",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-icon-pick",
+        "height": 55,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-icon-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-save",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-hide",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "cat-delete",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-add",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-up",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-down",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sku",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-name",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-kind",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-status",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-cost",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-bits",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sprite-pick",
+        "height": 55,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-sprite-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-pick",
+        "height": 109,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-default",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-thumb-upload",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-add-content",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-ball-key",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-pack",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-games",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "look-filter",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "look-upload",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-save",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-draft",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-duplicate",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "item-delete",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Content Studio",
+      "Floors",
+      "Items"
+    ],
+    "searches": [
+      {
+        "id": "look-filter",
+        "placeholder": "Search looks"
+      }
+    ]
+  },
+  {
+    "page": "admin-tools.html",
+    "width": 1265,
+    "scrollWidth": 1265,
+    "documentPath": "/review/admin-tools.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "channel",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-client",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-secret",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-broadcaster",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "save-channel",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "github-token",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "save-github",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pass-login",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "grant-pass",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "revoke-pass",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bits-connect",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bits-event-filter",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pack-login",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pack-sku",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "grant-pack",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "open-users",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bridge-token",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "issue-token",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Staff tools",
+      "Stream channel",
+      "Store image hosting",
+      "Starlight Pass",
+      "Bits auto-credit",
+      "Credit a Bits pack",
+      "Trainer accounts",
+      "Stream link"
+    ],
+    "searches": []
+  },
+  {
+    "page": "admin-tools.html",
+    "width": 753,
+    "scrollWidth": 753,
+    "documentPath": "/review/admin-tools.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "channel",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-client",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-secret",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-broadcaster",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "save-channel",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "github-token",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "save-github",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pass-login",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "grant-pass",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "revoke-pass",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bits-connect",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bits-event-filter",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pack-login",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pack-sku",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "grant-pack",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "open-users",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bridge-token",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "issue-token",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Staff tools",
+      "Stream channel",
+      "Store image hosting",
+      "Starlight Pass",
+      "Bits auto-credit",
+      "Credit a Bits pack",
+      "Trainer accounts",
+      "Stream link"
+    ],
+    "searches": []
+  },
+  {
+    "page": "admin-tools.html",
+    "width": 375,
+    "scrollWidth": 375,
+    "documentPath": "/review/admin-tools.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "channel",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-client",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-secret",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-broadcaster",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "save-channel",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "github-token",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "save-github",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pass-login",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "grant-pass",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "revoke-pass",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bits-connect",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bits-event-filter",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pack-login",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pack-sku",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "grant-pack",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "open-users",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bridge-token",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "issue-token",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Staff tools",
+      "Stream channel",
+      "Store image hosting",
+      "Starlight Pass",
+      "Bits auto-credit",
+      "Credit a Bits pack",
+      "Trainer accounts",
+      "Stream link"
+    ],
+    "searches": []
+  },
+  {
+    "page": "admin-tools.html",
+    "width": 305,
+    "scrollWidth": 305,
+    "documentPath": "/review/admin-tools.html",
+    "ready": "complete",
+    "controls": [
+      {
+        "id": "nav-toggle",
+        "height": 44,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "account-button",
+        "height": 53,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "channel",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-client",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-secret",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "twitch-broadcaster",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "save-channel",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "github-token",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "save-github",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pass-login",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "grant-pass",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "revoke-pass",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bits-connect",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bits-event-filter",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pack-login",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "pack-sku",
+        "height": 46,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "grant-pack",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "open-users",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "bridge-token",
+        "height": 45,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      },
+      {
+        "id": "issue-token",
+        "height": 47,
+        "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+      }
+    ],
+    "headings": [
+      "Staff tools",
+      "Stream channel",
+      "Store image hosting",
+      "Starlight Pass",
+      "Bits auto-credit",
+      "Credit a Bits pack",
+      "Trainer accounts",
+      "Stream link"
+    ],
+    "searches": []
+  }
+]

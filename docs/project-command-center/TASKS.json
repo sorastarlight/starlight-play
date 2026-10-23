@@ -4,15 +4,27 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-149",
+      "id": "CODEX-150",
       "status": "in_progress",
+      "scope": "Final site-wide control typography/target sweep",
+      "dependencies": [
+        "CODEX-149"
+      ],
+      "evidence": "LAUNCH-CODEX150-VISUAL-PASS-HANDOFF.md; evidence/codex150-final-shells.json",
+      "testResults": "84final shell cases;0overflow/undersized mobile controls/unexpected control fonts;107suites/build",
+      "nextAction": "Publish exact CSS-only finish and source verify",
+      "approvalRequirement": "CODEX-78 routine frontend exception;no backend/gameplay/APP authority"
+    },
+    {
+      "id": "CODEX-149",
+      "status": "done",
       "scope": "Mart/Pokedex visual states, mobile targets and #dex search consistency",
       "dependencies": [
         "CODEX-148"
       ],
       "evidence": "LAUNCH-CODEX149-CATALOG-CONSISTENCY.md; evidence/codex149-layouts.json; evidence/codex149-mart-modes.json",
-      "testResults": "24page states+12Mart modes;5browser search queries;107suites/build;release-boundary assertions pass",
-      "nextAction": "Publish exact3runtime files and verify source",
+      "testResults": "24page states+12Mart modes;5browser search queries;107suites/build;release-boundary assertions pass;mainbc6c1bd3/Pages39901952232success;100monitored+3versioned sources match",
+      "nextAction": "Deeper populated catalog variants remain outside this fixture",
       "approvalRequirement": "CODEX-78 routine frontend exception;no purchases/claims/gameplay/authority"
     },
     {

@@ -19463,6 +19463,7 @@ html[data-perf="low"] .tid-team-showcase.is-fanfare-soft .tid-party-figure {
   .pc-tab-add { width: 44px; min-width: 44px; }
   .bag-tools input, .bag-tools select,
   .oak-lab-tools .evo-search, .oak-lab-tools .evo-sort, .evo-view-ready, .rank-board-tab,
+  .ach-hub-tools .evo-search, .ach-hub-tools .evo-sort, .scc-nav-btn, .scc-subnav-btn,
   #mart-floors button, #mart-floors input[type="number"], #dex-search, #filter-status,
   .gts-filters input, .gts-filters select,
   .gts-wizard .dex-search, .gts-want-toolbar .dex-search { min-height: 44px; }

@@ -1,0 +1,18 @@
+{
+  "classification": "Production catalog/source-only verification;no live roster RPC",
+  "migration": "20261023190339",
+  "name": "codex174_readonly_trainer_pokemon_roster",
+  "fingerprint": "87826acc977c4de0191dc981d992b53a",
+  "owner": "postgres",
+  "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+  "securityDefiner": true,
+  "volatility": "s",
+  "config": [
+    "search_path=pg_catalog"
+  ],
+  "unchanged": {
+    "guard": "0d3c14b0c96fbc20f27ca4a85cab5d25",
+    "formatter": "7cf008fa413556f2af919acc0a1916ae",
+    "account": "b873ae8652672154805420d069d0065b"
+  }
+}

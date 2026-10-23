@@ -21,3 +21,5 @@ INSTALL.sql e35d96e3c0e3926445175fe24b45cbbd2600b8b6fa51b15eb2c74d30e34b02df
 ROLLBACK.sql 9b149ead6bb01b442e3d9a686e870b6be029ae54f5ff2a170abaa3e63361e091
 
 Private local SQL/DOM harness and screenshot:C:/Users/FET/AppData/Local/PokemonStreamLink/security/codex174/. Durable safe evidence:evidence/codex174-{regressions,sql,real-dom,schema-replay}.json.
+
+CODEX-174 publication VERIFIED after exact owner approval: migration20261023190339 installed one staff-only read endpoint;source87826acc977c4de0191dc981d992b53a/owner/ACL/STABLE/SECURITY DEFINER/search_path verified;threecontrols unchanged. Exact5runtime files main2ea586f1/Pages40008418332success;100monitored+5versioned source matches.118suites/29localSQL/build31/471;12installed deltas replay/reverse locally restore metadata. No live roster/application RPC,player edits,grants,Auth/provider change or APPstamp. Hosted authenticated behavior/performance remains unverified;approval spent.

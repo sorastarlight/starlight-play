@@ -101,3 +101,11 @@ Owner explicitly approved enabling Supabase Auth Allow manual linking on October
 CODEX-168 approved database delta: migration20261023173738 replaces only admin_trainer_reward_action/admin_trainer_rewards for atomic Pokémon quantities1–100. Exact candidate fingerprints7e58b6d5f7cb647e5f414d53ccb27d87/5be46a3ecf0f489b4864fb714a433319;ACL/security/search_path and private generation/permission helpers unchanged. No gifts invoked. Private guarded INSTALL/ROLLBACK at C:/Users/FET/AppData/Local/PokemonStreamLink/security/codex168/;SHA256 recorded in LAUNCH-CODEX168-POKEMON-GIFT-QUANTITY.md. Eleventh post-drill delta;observed07:44:31UTC backup predates this17:37:38UTC change. No newer backup claimed,restore or replay performed.
 
 CODEX-170 recovery extension PASS:11ordered guarded installs and reverse rollbacks on separate empty PG17 fixture;21existing latest guards plus2gift full-definition fingerprints match. Reverse restores585function/143relation-permission/56policy records exactly;142tables empty throughout. No Auth/player import,new export,production connection or original archive change;runtime stopped/fixture cleaned. Physical/full Auth/storage recovery remains unverified;no new backup coverage claimed.
+
+## CODEX-174 installed read-only roster
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261023190339 codex174_readonly_trainer_pokemon_roster|supabase/unapplied/admin-trainer-roster/INSTALL.sql|e35d96e3c0e3926445175fe24b45cbbd2600b8b6fa51b15eb2c74d30e34b02df|
+
+Twelfth installed post-drill delta,after private CODEX-168 packet20261023173738. Repository manifest verifies22tracked packets;the separate private gift pair remains outsideGit and must be inserted chronologically before this endpoint. Latest local recovery rehearsal applies/reverses all12 in chronological order,restoring585function/143relation/56policy metadata records,142tables empty;runtime stopped,no production recovery connection or original archive mutation. Existing07:44:31UTC physical backup predates168/174;no newer backup observed. Not physical/full Auth/storage certification or production restore permission.

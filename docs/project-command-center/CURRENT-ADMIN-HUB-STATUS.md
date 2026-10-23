@@ -4,7 +4,7 @@ This replaces the original inventory as the current-state summary;older design p
 
 |Area|Implemented now|Remaining overhaul work|
 |---|---|---|
-|Trainers|Directory/full-width record,inventory/progression/connections,latest returned Pokémon and stored stats,Pass and Gifts tabs|Full PC/box inspector,Bits and broader journals are not implied by the returned snapshot|
+|Trainers|Directory/full-width record,inventory/progression/connections,CODEX-174 paginated current Pokémon roster and stored stats,Pass and Gifts tabs|Box-layout editing,Bits and broader journals remain outside this read-only roster|
 |Starlight Pass and Gifts|Audited staff overrides/re-grants,claim/delivery history,visual/searchable gifts,atomic Pokémon quantities1–100,and simplified reason confirmation|Routine consistency review continues;new reward capabilities require their own scope|
 |Support & Recovery|Connected owner Helpdesk,player Support,ticket history,masked account diagnostics/recovery confirmation|Attachments/notifications remain deferred;guided identity recovery remains separate|
 |Operations|Observation workspace and handoff|Live encounter/director controls remain on current Dashboard|
@@ -39,3 +39,5 @@ CODEX-172 VERIFIED:Mart product search now matches independent words,accent-free
 CODEX-173 proposes a read-only paginated Trainer roster to replace the current40-row inspection window;design/local implementation decision held. See ADMIN-HUB-TRAINER-ROSTER-REVIEW.md. No application/SQL implementation or production trainer read occurred.
 
 CODEX-174 LOCAL COMPLETE:owner-approved read-only roster local implementation. New bounded staff endpoint prepared,not installed;40-row keyset pages/search across holdings,existing stat inspector reused.118suites/29REAL LOCAL SQL/4REAL DOM widths;empty-schema11installed+1proposed forward/reverse restores585functions/143relations/56policies. No production roster/application calls,SQL installation/publication or player writes. Exact5runtime files andnew endpoint held for separate decision;see LAUNCH-CODEX174-LOCAL-TRAINER-ROSTER.md.
+
+CODEX-174 publication VERIFIED after exact owner approval: migration20261023190339 installed one staff-only read endpoint;source87826acc977c4de0191dc981d992b53a/owner/ACL/STABLE/SECURITY DEFINER/search_path verified;threecontrols unchanged. Exact5runtime files main2ea586f1/Pages40008418332success;100monitored+5versioned source matches.118suites/29localSQL/build31/471;12installed deltas replay/reverse locally restore metadata. No live roster/application RPC,player edits,grants,Auth/provider change or APPstamp. Hosted authenticated behavior/performance remains unverified;approval spent.

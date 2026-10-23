@@ -5,15 +5,15 @@
   "tasks": [
     {
       "id": "CODEX-174",
-      "status": "blocked",
-      "scope": "Full read-only Trainer roster locally complete;production decision held",
+      "status": "done",
+      "scope": "Read-only full Trainer roster installed/published/source verified",
       "dependencies": [
         "CODEX-173"
       ],
-      "evidence": "LAUNCH-CODEX174-LOCAL-TRAINER-ROSTER.md;evidence/codex174-regressions.json;evidence/codex174-sql.json;evidence/codex174-real-dom.json;evidence/codex174-schema-replay.json",
+      "evidence": "LAUNCH-CODEX174-LOCAL-TRAINER-ROSTER.md;evidence/codex174-regressions.json;evidence/codex174-sql.json;evidence/codex174-real-dom.json;evidence/codex174-schema-replay.json;evidence/codex174-installed.json;evidence/codex174-publication.json;evidence/codex174-installed-schema-replay.json",
       "testResults": "118suites;29localSQL;125-row pagination;4REAL DOM widths;12proposed forward/reverse schema steps;build31/471",
-      "nextAction": "Exact new endpoint install and5runtime-file publication/source-only decision",
-      "approvalRequirement": "Production SQL/new privileged read workflow explicitly gated;no live roster calls/grants"
+      "nextAction": "Complete;hosted roster acceptance/performance not performed",
+      "approvalRequirement": "Exact install/publication approval spent;no live roster/grants/player edits"
     },
     {
       "id": "CODEX-173",

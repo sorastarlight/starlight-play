@@ -131,6 +131,19 @@
           "sha256": "322fb9a669ac074bdedcae8921bec17f26fee30938561e1c815ac697ae665819"
         }
       ]
+    },
+    {
+      "version": "20261023190339",
+      "files": [
+        {
+          "file": "supabase/unapplied/admin-trainer-roster/INSTALL.sql",
+          "sha256": "e35d96e3c0e3926445175fe24b45cbbd2600b8b6fa51b15eb2c74d30e34b02df"
+        },
+        {
+          "file": "supabase/unapplied/admin-trainer-roster/ROLLBACK.sql",
+          "sha256": "9b149ead6bb01b442e3d9a686e870b6be029ae54f5ff2a170abaa3e63361e091"
+        }
+      ]
     }
   ]
 }

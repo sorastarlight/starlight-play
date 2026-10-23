@@ -4,15 +4,27 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-151",
+      "id": "CODEX-152",
       "status": "in_progress",
+      "scope": "Populated Pass/avatar/Bits/research presentation",
+      "dependencies": [
+        "CODEX-151"
+      ],
+      "evidence": "LAUNCH-CODEX152-POPULATED-CATALOG.md; evidence/codex152-pass-states.json; evidence/codex152-research-states.json",
+      "testResults": "36REAL DOM isolated cases;9LOCAL actual Mart scenarios;108suites/build;no overflow/undersized mobile controls",
+      "nextAction": "Publish exact2runtime files;verify source;continue staff Helpdesk states",
+      "approvalRequirement": "CODEX-78 routine frontend;no gameplay/provider authority"
+    },
+    {
+      "id": "CODEX-151",
+      "status": "done",
       "scope": "Populated Trainer/Achievements and nested staff records",
       "dependencies": [
         "CODEX-150"
       ],
       "evidence": "LAUNCH-CODEX151-DEEPER-PROFILES.md; evidence/codex151-public-states.json; evidence/codex151-nested-records.json",
-      "testResults": "40REAL DOM isolated cases;owner heading check;107suites/build;record14;no overflow or undersized mobile controls",
-      "nextAction": "Publish exact4runtime files and verify source;continue deeper staff/catalog states",
+      "testResults": "40REAL DOM isolated cases;owner heading check;107suites/build;record14;no overflow or undersized mobile controls;mainee54b763/Pages39954449578success;100monitored+4versioned sources match after one transient503",
+      "nextAction": "Continue deeper staff/catalog states",
       "approvalRequirement": "CODEX-78 routine frontend;no SQL/authority/gameplay permission"
     },
     {

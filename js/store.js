@@ -303,11 +303,11 @@
       if (wallet?.dailyReady) gifts.push("daily gift ready");
       if (wallet?.weeklyReady) gifts.push("weekly crate ready");
       return {
-        note: `${gifts.length ? `${source}. ${gifts.join(" · ")}.` : `${source}. Gifts on cooldown.`}${pass.checkedAt ? ` Last checked ${new Date(pass.checkedAt).toLocaleString()}.` : ""}`,
+        note: gifts.length ? `${source}. ${gifts.join(" · ")}.` : `${source}. Gifts on cooldown.`,
         active: true
       };
     }
-    return { note: `No Pass on this account yet.${pass.checkedAt ? ` Last checked ${new Date(pass.checkedAt).toLocaleString()}.` : ""}`, active: false };
+    return { note: "Starlight Pass is inactive.", active: false };
   }
 
   function withLureBlurb(item) {
@@ -555,6 +555,7 @@
     const day = Math.max(1, Math.min(7, Number(wallet?.dailyStreakDay || 1)));
     const supplyReady = wallet?.dailySupplyReady !== false && !wallet?.dailyClaimed;
     const supplyClaimed = wallet?.dailyClaimed || wallet?.dailySupplyReady === false;
+    const supplyCooldown = !supplyReady && !wallet?.dailyClaimed;
     const trackHtml = typeof window.playDailyStreakHtml === "function"
       ? window.playDailyStreakHtml(wallet)
       : `<div class="pass-day-track" aria-label="Seven-day reward track">${Array.from({ length: 7 }, (_, i) => {
@@ -582,14 +583,15 @@
             <article class="pass-reward-card pass-supply-card${supplyReady ? " is-ready" : ""}${supplyClaimed ? " is-claimed" : ""}">
               <header class="pass-reward-head">
                 <p class="eyebrow">Daily Trainer Supply</p>
-                <span class="pass-reward-chip">${supplyReady ? "Ready" : "Claimed"}</span>
+                <span class="pass-reward-chip">${supplyReady ? "Ready" : supplyCooldown ? "Cooldown" : "Claimed"}</span>
               </header>
               <p class="pass-reward-body">${wallet?.dailyClaimed
-                ? "Claimed for today. Come back after midnight Eastern."
+                ? "Today's supply has been claimed. Check back after the daily reset and claim cooldown."
+                : supplyCooldown ? "Your next supply is not ready yet. Please check back later."
                 : `Poké Ball ×${Number(wallet?.dailyPreview?.pokeball ?? 3)} · ${window.playItemLabel(wallet?.dailyPreview?.berry || "berry")} ×${Number(wallet?.dailyPreview?.berryQty ?? wallet?.dailyPreview?.berryCount ?? 1)} · ${Number(wallet?.dailyPreview?.coins ?? 40)} PokéCoins${dailyBonusLine(wallet)}`}</p>
               ${trackHtml}
-              <p class="pass-time-note">Daily Trainer Supply refreshes at 12:00 AM Eastern Time.</p>
-              <button id="claim-supply" class="pass-claim-btn" type="button"${supplyReady ? "" : " disabled"}>${supplyReady ? "Claim Supply" : "Claimed"}</button>
+              <p class="pass-time-note">Daily supplies reset at midnight Eastern. A cooldown also applies between claims.</p>
+              <button id="claim-supply" class="pass-claim-btn" type="button"${supplyReady ? "" : " disabled"}>${supplyReady ? "Claim Supply" : supplyCooldown ? "On cooldown" : "Claimed"}</button>
             </article>
             <article class="pass-reward-card pass-gift-card${info.active && wallet?.dailyReady ? " is-ready" : ""}${info.active && !wallet?.dailyReady ? " is-claimed" : ""}${!info.active ? " is-locked" : ""}">
               <header class="pass-reward-head">

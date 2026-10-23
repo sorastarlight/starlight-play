@@ -6,14 +6,14 @@
     {
       "id": "CODEX-164",
       "status": "done",
-      "scope": "Firefox read-only investigation and real subscriber evidence reconciliation",
+      "scope": "Firefox investigation,subscriber evidence and approved OAuth probe correction",
       "dependencies": [
         "CODEX-163"
       ],
-      "evidence": "LAUNCH-CODEX164-FIREFOX-INVESTIGATION.md; evidence/codex164-provider-observation.json; evidence/codex164-oauth-local.json",
-      "testResults": "Human-reported Chrome linked/Pass active;11LOCAL VM cases;aggregate Auth log review;no Firefox/production flow run",
-      "nextAction": "Retain private candidate for full integration/Auth decision; real Firefox post-setting retry pending",
-      "approvalRequirement": "No runtime/production Auth/provider/account mutation authorized"
+      "evidence": "LAUNCH-CODEX164-FIREFOX-INVESTIGATION.md; evidence/codex164-provider-observation.json; evidence/codex164-oauth-local.json; evidence/codex164-regressions.json; evidence/codex164-publication.json",
+      "testResults": "20private LOCAL cases;114/114regression suites;build31/468;Pages39988525257success;100+1hosted source matches;no provider test",
+      "nextAction": "Real Firefox post-setting/correction acceptance remains unverified;retain working Chrome connection",
+      "approvalRequirement": "Exact one-file Auth publication/source-verification approval spent;no further Auth/provider/account test authority"
     },
     {
       "id": "CODEX-163",

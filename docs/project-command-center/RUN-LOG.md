@@ -2251,3 +2251,7 @@ CODEX-122 COMPLETE:only js/store.js published under CODEX-78 at main4d6ed6dc;Pag
 ## CODEX-125 — Settings load and Pass failure feedback (2026-10-22 EDT)
 
 7 LOCAL actual-source cases and isolated REAL BROWSER mocked failure/retry;106suites/build31/464/12recovery hashes. Runtime-only main150c69e6;Pages39881130370success;100sources/versioned Settings source match. No real Auth/provider/gameplay call;APP unchanged;Sora NO;Twinkle NO;PlayTester role unchanged. Real acceptance remains required;Twitch held. Own review tabs closed and servers stopped. Next daily backup not yet due.
+
+## CODEX-126 — Selected security and retained recovery verification
+
+45REAL LOCAL SQL cases;17catalog source/attribute guards/6migration entries/15DataAPI contract checks. Retained recovery111projections/schema match;2721ACL paths0unexpected;8retained archive/source files unchanged;local server stopped.12packet hashes/build31/464pass. No new export/restore/production application/credential use. APP unchanged;Sora NO;Twinkle NO;PlayTester role unchanged. Twitch held;real acceptance open.

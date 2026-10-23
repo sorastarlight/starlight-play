@@ -15,7 +15,7 @@ This rule guides in-session batch work. It does **not** create unattended schedu
 - No SQL migrations, grants, RLS, staff-role changes, or trainer/economy/encounter/director mutations without a new owner authorization.
 - Never impersonate or mutate Sora or Twinkle. PlayTester stays nonstaff unless a separately approved, cleaned-up test.
 - Do not edit `admin.html` or `js/admin-live.js`. Next-hub work stays in `admin-next.html` and its modules.
-- Do not call `admin_overview` or other known write-risk admin RPCs. `play_notices` also writes (marks notices seen) and is excluded from read-only readiness probes. Inspect catalogs; do not execute write-risk RPCs to discover them.
+- Do not call `admin_overview` or other known write-risk admin RPCs. `play_notices` writes (marks notices seen), and `play_account_state` writes (deletes stale unconfirmed Twitch connections); both are excluded from read-only readiness probes. Inspect catalogs; do not execute write-risk RPCs to discover them.
 - R1/R2 and the four recorded R18 endpoints were closed by owner-authorized CODEX-34; see current RISKS.md and LAUNCH-SECURITY-HARDENING.md. Wider security review remains open. R21 stays CLOSED unless new evidence. Final release smoke stays paused pending its bounded decision.
 
 ## Approval gates (stop and report)

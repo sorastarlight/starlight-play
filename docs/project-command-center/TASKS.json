@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-126",
+      "status": "done",
+      "scope": "Selected claim/account SQL boundaries and retained recovery/catalog verification",
+      "dependencies": [
+        "CODEX-125"
+      ],
+      "evidence": "LAUNCH-CODEX126-SECURITY-RECOVERY.md; evidence/codex126-local-boundaries.json; evidence/codex126-recovery-review.json",
+      "testResults": "45REAL LOCAL SQL cases;17hosted source/attribute guards;6migration entries;15DataAPI contract checks;111retained recovery projections/metadata;2721ACL paths;8retained hashes unchanged;12packet hashes;build31/464",
+      "nextAction": "Continue independent day-boundary/nested review;real acceptance required,Twitch held;no new SQL authority",
+      "approvalRequirement": "Catalog reads and documented existing local recovery verification only;no new export/restore or runtime changes"
+    },
+    {
       "id": "CODEX-125",
       "status": "done",
       "scope": "Routine Settings loading boundary and Pass button failure/single-flight feedback",

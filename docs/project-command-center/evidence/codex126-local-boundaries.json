@@ -1,0 +1,63 @@
+{
+  "claims": {
+    "classification": "REAL LOCAL exact captured claim endpoints;fictional tables with catalog-confirmed unique constraints;instrumented delivery/progress/config/snapshot helpers;not full RLS/triggers/economy-helper/hosted certification",
+    "checks": 27,
+    "results": [
+      "choice rejects unoffered/empty input bait",
+      "choice rejects unoffered/empty input masterball",
+      "choice rejects unoffered/empty input null",
+      "choice rejects unoffered/empty input ",
+      "choice cannot spend another trainer reward",
+      "choice enforces drop restriction masterball",
+      "choice enforces drop restriction unknown",
+      "ordinary normalized choice delivers once/deletes exhausted row/preserves foreign choice",
+      "play_claim_choice denies missing identity before writes",
+      "play_claim_choice delivery exception rolls back all endpoint writes",
+      "play_claim_daily_supply denies missing identity before writes",
+      "play_claim_daily_supply delivery exception rolls back all endpoint writes",
+      "play_claim_oak_research denies missing identity before writes",
+      "play_claim_oak_research delivery exception rolls back all endpoint writes",
+      "daily first claim grants once and same-date replay denied",
+      "daily prior seven-day streak wraps to one",
+      "daily cross-date twelve-hour cooldown denies without writes",
+      "research rejects unavailable milestone null",
+      "research rejects unavailable milestone ",
+      "research rejects unavailable milestone missing",
+      "research rejects unavailable milestone hidden",
+      "research incomplete progress cannot claim",
+      "research line-all rejects unknown/zero total",
+      "research complete claim records once and replay cannot grant coins/items twice",
+      "play_claim_choice two overlapping requests collectively create one claim/delivery bundle",
+      "play_claim_daily_supply two overlapping requests collectively create one claim/delivery bundle",
+      "play_claim_oak_research two overlapping requests collectively create one claim/delivery bundle"
+    ],
+    "productionApplicationCalls": 0,
+    "productionChanges": 0
+  },
+  "account": {
+    "classification": "REAL LOCAL exact account-state/profile endpoints;fictional minimal Auth/connection/profile tables and scoped helper stand-ins;not real provider/Auth integration/full triggers/RLS",
+    "checks": 18,
+    "results": [
+      "account response contains only current trainer identities and no token columns;role helper scoped to current trainer",
+      "account cleanup removes only stale own unconfirmed connection;confirmed/fresh/foreign rows preserved",
+      "recent utility identity requires explicit true login permission false",
+      "recent utility identity requires explicit true login permission null",
+      "recent confirmed login-enabled identity remains allowed",
+      "existing own reauthorization intent preserves link flow exception",
+      "play_account_state missing identity denied before cleanup/profile writes",
+      "play_update_profile missing identity denied before cleanup/profile writes",
+      "profile invalid display name refused \"\"",
+      "profile invalid display name refused null",
+      "profile invalid display name refused \"a\"",
+      "profile invalid display name refused \"AAAAAAAAAAAAAAAAAAAAAAAAA\"",
+      "profile invalid display name refused \"<script>\"",
+      "profile invalid display name refused \"Name\\nBreak\"",
+      "profile invalid display name refused \"💫 Name\"",
+      "favorite selection cannot borrow foreign-only species",
+      "valid profile edit normalizes name/falls back to owned variant and preserves role/foreign profile",
+      "clearing favorite resets cosmetic variant"
+    ],
+    "productionApplicationCalls": 0,
+    "productionChanges": 0
+  }
+}

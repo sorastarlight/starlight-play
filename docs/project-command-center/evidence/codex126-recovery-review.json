@@ -1,0 +1,151 @@
+{
+  "classification": "Read-only production catalog and retained local recovery verification; fictional local SQL endpoints; no production application calls",
+  "checkedAt": "2026-10-23T01:13:35.477Z",
+  "recoveryCatalog": {
+    "functionGuards": [
+      {
+        "matches": true,
+        "migration": "20261022014528",
+        "signature": "private.can_manage_secrets()"
+      },
+      {
+        "matches": true,
+        "migration": "20261022014528",
+        "signature": "private.is_play_admin()"
+      },
+      {
+        "matches": true,
+        "migration": "20261022014528",
+        "signature": "private.keep_bits_off()"
+      },
+      {
+        "matches": true,
+        "migration": "20261022014528",
+        "signature": "private.play_staff_role(uuid)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022014528",
+        "signature": "private.touch_updated_at()"
+      },
+      {
+        "matches": true,
+        "migration": "20261022084110",
+        "signature": "private.ensure_inventory(uuid)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022084110",
+        "signature": "public.play_buy_sku(text)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022084110",
+        "signature": "private.flush_bits_pending(uuid)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022084110",
+        "signature": "private.owns_avatar_pack(uuid,text)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022084110",
+        "signature": "private.adjust_coins(uuid,integer,text,text,jsonb)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022084110",
+        "signature": "public.play_buy_cart(jsonb,uuid)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022084110",
+        "signature": "private.as_uuid_or_null(text)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022084115",
+        "signature": "public.play_request_username_reminder(text)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022162826",
+        "signature": "public.play_trade_cancel(uuid)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022162826",
+        "signature": "public.play_trade_decline(uuid)"
+      },
+      {
+        "matches": true,
+        "migration": "20261022171505",
+        "signature": "public.play_notices()"
+      },
+      {
+        "matches": true,
+        "migration": "20261022185226",
+        "signature": "public.play_release(uuid,text)"
+      }
+    ],
+    "migrationHistory": [
+      {
+        "present": true,
+        "version": "20261022014528"
+      },
+      {
+        "present": true,
+        "version": "20261022084110"
+      },
+      {
+        "present": true,
+        "version": "20261022084115"
+      },
+      {
+        "present": true,
+        "version": "20261022162826"
+      },
+      {
+        "present": true,
+        "version": "20261022171505"
+      },
+      {
+        "present": true,
+        "version": "20261022185226"
+      }
+    ],
+    "browserConfigWriteDenied": true,
+    "browserSchemaCreateDenied": true
+  },
+  "dataApiContract": {
+    "checked": 15,
+    "missing": [],
+    "public_schema_usage": {
+      "anon": true,
+      "service_role": true,
+      "authenticated": true
+    },
+    "required_tables_without_rls": [],
+    "familiarity_view_security_invoker": true
+  },
+  "retainedRecovery": {
+    "projections": 111,
+    "functions": 585,
+    "relations": 143,
+    "policies": 56,
+    "indexes": 322,
+    "triggers": 30,
+    "constraints": 444,
+    "omittedTablesEmpty": 31,
+    "friendshipBoundaryCases": 49,
+    "aclPathsChecked": 2721,
+    "unexpectedAllowEntries": 0,
+    "archiveSourceFilesUnchanged": 8,
+    "localRuntimeStopped": true,
+    "newExport": false,
+    "newRestore": false,
+    "productionCredentialUsed": false,
+    "physicalRestoreCertified": false
+  }
+}

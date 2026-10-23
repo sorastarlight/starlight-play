@@ -1,4 +1,4 @@
-/* Proposal A record workspace. Existing read contracts only. */
+/* Trainer record presenters and stored-stat rendering; data comes from gated adapters. */
 (function (root, factory) {
   if (typeof module === "object" && module.exports) module.exports = factory(require("./admin-next-trainers.js"));
   else root.PLAY_ADMIN_NEXT_TRAINERS = factory(root.PLAY_ADMIN_NEXT_TRAINERS);
@@ -93,6 +93,7 @@
     const hp = numeric(data.hpCurrent) !== null || numeric(data.hpMax) !== null ? value(numeric(data.hpCurrent)) + " / " + value(numeric(data.hpMax)) : null;
     return '<section class="record-stats" aria-label="Stats and Battle Data"><h4>Stats &amp; Battle Data</h4>' + rows([["Moves", moves], ["Ability", friendly(data.ability)], ["Nature", data.nature], ["HP current / maximum", hp]]) + table + '<button type="button" disabled>Edit stats</button></section>';
   }
+  function pokemonFacts(mon) { return rows([["Pokédex", mon.dex], ["Gender", genderName(mon.gender)], ["Poké Ball", ballName(mon.ball)], ["Caught", stamp(mon.caughtAt)], ["Specimen id", mon.id]]); }
   function pokemon(view) {
     const mons = view.mons || [];
     const mon = mons.find((row, index) => String(row.id || `snapshot-row-${index}`) === view.recordState?.mon);
@@ -112,7 +113,7 @@
     const header = `<header class="record-header"><span class="record-identity">${avatar(user)}<span><p class="eyebrow">Trainer record</p><h3>${esc(user.displayName || user.login || "Trainer")}</h3>${user.login ? `<p class="admin-next-trainer-handle">@${esc(user.login)}</p>` : ""}<span class="record-account-meta"><span class="admin-next-chip">${esc(user.role || "player")}</span> <span data-record-pass class="admin-next-chip${user.pass ? " is-pass" : ""}">${user.pass ? "Starlight Pass" : "No Pass"}</span><span class="record-date">Last seen ${esc(stamp(user.lastSeenAt))}</span></span></span></span></header>
       <div class="admin-next-trainer-subnav record-tabs" role="tablist" aria-label="Trainer dossier">${PANES.map((pane) => `<button type="button" role="tab" data-trainer-pane="${pane}" aria-selected="${view.pane === pane}" tabindex="${view.pane === pane ? 0 : -1}">${labels[pane]}</button>`).join("")}</div>`;
     let body;
-    if (view.pane === "pokemon") body = pokemon(view);
+    if (view.pane === "pokemon") body = `<section data-trainer-roster>${pokemon(view)}</section>`;
     else if (view.pane === "inventory") body = manager(view, "inventory") + note("Bits, the complete item catalog and item removal are not available in this view. Use Gifts to give rewards.");
     else if (view.pane === "pass" || view.pane === "gifts") body = `<section class="record-surface" data-trainer-rewards><h4>${labels[view.pane]}</h4>${note("Loading staff reward tools…")}</section>`;
     else if (view.pane === "tickets") body = `<section class="record-surface"><h4>Tickets</h4><div data-support-trainer></div></section>`;
@@ -185,5 +186,5 @@
       if (action) { event.preventDefault(); paint(action); }
     });
   }
-  return { ...base, PANES, directoryHtml, profileHtml, presentProfile, renderRecord, inventoryGroups, unlockGroups };
+  return { ...base, PANES, directoryHtml, profileHtml, presentProfile, renderRecord, inventoryGroups, unlockGroups, statsPanel, monArt, pokemonFacts };
 }));

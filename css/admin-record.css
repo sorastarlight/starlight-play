@@ -92,6 +92,7 @@
 .reward-dialog input,.reward-dialog select,.reward-dialog textarea { width:100%; box-sizing:border-box; padding:12px; border:1px solid #ced8ef; border-radius:12px; font:inherit; background:#fff; color:inherit; }
 .reward-picker-filters { display:grid; grid-template-columns:1fr 1.5fr; gap:14px; }
 .reward-species-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(125px,1fr)); gap:10px; max-height:48dvh; overflow:auto; padding:5px; }
+.reward-species-grid > p:only-child { grid-column:1 / -1; margin:8px 0; padding:16px; border-radius:12px; background:#f6f8ff; }
 .reward-species-grid button { display:flex; flex-direction:column; align-items:center; gap:5px; background:linear-gradient(145deg,#fff7fc,#f1f7ff); }
 .reward-species-grid small,.reward-species-choice small { display:block; font-weight:400; }
 .reward-species-choice { display:flex; align-items:center; gap:14px; text-align:left; }

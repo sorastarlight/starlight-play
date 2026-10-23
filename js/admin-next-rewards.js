@@ -10,7 +10,7 @@
   const itemName=(row)=>({coins:"PokéCoins",bag_bonus:"Inventory Space"}[row.id]||globalThis.playItemLabel?.(row.id)||fallbackItemName(row));
   const kindName=(kind)=>({background:"Trainer ID background",team_background:"Pokémon team background",avatar:"Trainer avatar"}[kind]||"Appearance unlock");
   const speciesName=(dex)=>globalThis.PLAY_SPECIES?.[Number(dex)-1]||`Pokémon #${dex}`;
-  const normalize=(value)=>String(value).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/♀/g," female ").replace(/♂/g," male ").replace(/[^a-z0-9]+/g," ").trim();
+  const normalize=(value)=>String(value).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/♀/g," female ").replace(/♂/g," male ").replace(/[^\p{L}\p{N}]+/gu," ").trim();
   // Explicit release list: adding reference species alone must never enable grants.
   const generations=()=>globalThis.PLAY_ADMIN_GIFT_GENERATIONS||[{id:"kanto",name:"Generation I · Kanto",min:1,max:151}];
   function searchSpecies(query,generation){

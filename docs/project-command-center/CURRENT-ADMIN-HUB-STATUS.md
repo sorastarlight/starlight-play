@@ -10,7 +10,7 @@ This replaces the original inventory as the current-state summary;older design p
 |Operations|Observation workspace and handoff|Live encounter/director controls remain on current Dashboard|
 |Mart & Content|CODEX-155 existing single-reward PokéCoin editor published; current editors/Content Studio retained|Authenticated editor/save acceptance unproven; new products, floors, Bits/avatar products, uploads/deletion remain in current tools|
 |Game Configuration|Handoff to current encounter/balance tools|Configuration editors not migrated|
-|Analytics & Health|Build/game health with retry and partial/unavailable states; CODEX-160 reporting design prepared locally|Full reports not migrated; new local-implementation decision needed for reviewed scope|
+|Analytics & Health|Published build/game health; CODEX-162 five-view reporting workspace locally complete and tested|Exact four-file publication and hosted report acceptance remain held|
 |System & Access|Owner-tool handoff|Credential/integration/role/identity operations not consolidated into new workspace|
 
 Accepted Trainer direction was implemented through CODEX-3/23/24 and subsequent approved Pass/Gift/Helpdesk/recovery work. Earlier statements that the entire next hub is read-only,Support is links only,or no stat fields exist are obsolete. Visual/routine frontend authority does not authorize migrating privileged workflows or broadening access. See SITEWIDE-VISUAL-CONSISTENCY.md for the active presentation inspection. Real mobile/assistive/provider acceptance and final launch remain separate.
@@ -21,3 +21,5 @@ CODEX-151–154 deeper review:stored Pokémon detail labels,public-versus-owner 
 
 
 CODEX-156–159 routine maintenance published/source verified:Mart keyboard focus;vertical section tabs/named panels;distinct permission-lookup error copy;health retry,partial/unavailable and stale-response handling. CODEX-160 source audit/design preserves actual report populations and avoids legacy unknown-as-zero labels. Full report connection remains held.
+
+CODEX-162 LOCAL COMPLETE:owner-approved five-view read-only Analytics workspace;113/113 suites,20 REAL DOM layouts+6empty/error/denied/escaped cases and keyboard/range checks;build31/468. Four runtime files prepared for separate publication decision. No production report call,SQL,save,provider/gameplay,protected-account action,spending or APP stamp. See LAUNCH-CODEX162-LOCAL-ANALYTICS.md.

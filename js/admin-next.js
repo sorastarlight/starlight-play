@@ -55,6 +55,12 @@
   let staffOpen = false;
   let hubGeneration = 0;
   let martIdentity = "";
+  let analyticsIdentity = "";
+  const analyticsApi = window.PLAY_ADMIN_NEXT_ANALYTICS;
+  const analytics = analyticsApi?.mount(document.getElementById("next-analytics-reports"), analyticsApi.adapter({
+    session: () => supabase.auth.getSession(), identity: () => analyticsIdentity,
+    allowed: () => staffOpen, call: (name, args) => window.playCall(name, args)
+  }), document.getElementById("next-analytics-health"), () => loadHealth());
   const mart = window.PLAY_ADMIN_NEXT_MART?.mount(document.getElementById("next-mart"), async (name, args) => {
     if (!["admin_store_get", "admin_store_save_item"].includes(name)) throw new Error("Unsupported Mart operation.");
     const identity = martIdentity;
@@ -395,7 +401,10 @@
     if (push) history.pushState({ section: next }, "", href);
     else history.replaceState({ section: next }, "", href);
     if (next === "support" && staffOpen) window.PLAY_SUPPORT?.mount(document.getElementById("owner-support"),{staff:true,playerId:new URL(location.href).searchParams.get("trainer")||""});
-    if (next === "analytics") loadHealth();
+    if (next === "analytics") {
+      if (analytics && staffOpen) analytics.open();
+      else if (!analytics) loadHealth();
+    }
     if (next === "operations") startOpsPoll();
     else stopOpsPoll();
     if (next === "trainers" && staffOpen && !trainerDirLoaded) loadTrainerDirectory();
@@ -403,6 +412,8 @@
   }
 
   function resetHealth() {
+    analyticsIdentity = "";
+    analytics?.reset();
     healthGeneration++;
     healthLoaded = false;
     healthInFlight = false;
@@ -519,6 +530,7 @@
     if (els.staff) els.staff.hidden = false;
     staffOpen = true;
     martIdentity = session.user.id;
+    analyticsIdentity = session.user.id;
     const section = new URL(window.location.href).searchParams.get("section");
     showTab(section, false);
   }

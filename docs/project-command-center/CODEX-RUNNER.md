@@ -104,3 +104,5 @@ October23 CODEX-155 owner decision: "Approve design and local implementation" fo
 
 
 October23 CODEX-155 publication decision: owner explicitly approved only admin-next.html, js/admin-next.js, js/admin-next-mart.js and css/admin-mart.css, followed by read-only hosted acceptance. Published main4dad4117; Pages39964649209 succeeded;100monitored+4versioned sources match. Hosted viewer-denial and automatic notice-path caveat recorded in CODEX-155 report. This authorizes no hosted catalog save, SQL, new permission or standing publication expansion.
+
+CODEX-162 current scope, October23: owner explicitly approves the reviewed five-view read-only Analytics design and local implementation/tests. Keep existing health reads; dedicated adapter only for the four reviewed reports after the existing staff gate. No SQL, production report calls, saves, provider tests or publication.

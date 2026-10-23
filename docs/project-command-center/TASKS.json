@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-162",
+      "status": "done",
+      "scope": "Owner-approved local read-only Analytics workspace implementation",
+      "dependencies": [
+        "CODEX-160"
+      ],
+      "evidence": "LAUNCH-CODEX162-LOCAL-ANALYTICS.md; evidence/codex162-real-dom.json; evidence/codex162-regressions.json",
+      "testResults": "113/113 STATIC/LOCAL suites;20 REAL DOM layouts+6states and keyboard checks;build31/468;no hosted application calls",
+      "nextAction": "Separate owner decision for exact four-file publication/source-only verification",
+      "approvalRequirement": "Owner approved design/local implementation only; SQL, hosted reports, publication and saves held"
+    },
+    {
       "id": "CODEX-161",
       "status": "done",
       "scope": "Read-only observation of post-correction physical backup",
@@ -24,7 +36,7 @@
       ],
       "evidence": "ADMIN-HUB-ANALYTICS-MIGRATION-REVIEW.md; design-reset/hub-analytics-review.html; evidence/codex160-analytics-catalog.json; evidence/codex160-analytics-prototype.json",
       "testResults": "29installed definitions inspected through catalog-only SELECT;private helper closure resolved;legacy missing-data reproduction;20prototype layouts+4states;no application report invocation",
-      "nextAction": "Owner design/local-implementation decision for consolidated read-only reporting slice",
+      "nextAction": "Owner approved local implementation; continued in CODEX-162",
       "approvalRequirement": "New multi-report workflow outside CODEX-78;no SQL/publication/report endpoint authority from proposal"
     },
     {

@@ -3,7 +3,7 @@ const source = fs.readFileSync("js/admin-next.js", "utf8"), start = source.index
 const actual = source.slice(start, end);
 const deferred = () => { let resolve; return { promise: new Promise(done => { resolve = done; }), resolve }; };
 function fixture(read) {
-  const calls = [], context = { healthGeneration: 0, healthLoaded: false, healthInFlight: false, staffOpen: true, els: { health: { innerHTML: "old" }, healthStatus: { textContent: "old" }, healthRefresh: { disabled: false } }, window: {}, metric: (label, value) => `${label}:${value};`, readCall(name) { calls.push(name); return read(name, calls.length); } };
+  const calls = [], context = { analytics: null, analyticsIdentity: "", healthGeneration: 0, healthLoaded: false, healthInFlight: false, staffOpen: true, els: { health: { innerHTML: "old" }, healthStatus: { textContent: "old" }, healthRefresh: { disabled: false } }, window: {}, metric: (label, value) => `${label}:${value};`, readCall(name) { calls.push(name); return read(name, calls.length); } };
   context.els.healthRefresh.attrs = {};
   context.els.healthRefresh.setAttribute = function(key, value) { this.attrs[key] = value; };
   vm.createContext(context); vm.runInContext(actual, context); return { context, calls };

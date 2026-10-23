@@ -1,0 +1,260 @@
+{
+  "classification": "REAL DOM; isolated actual Hub and module; fictional data; CSP network blocked",
+  "widths": [
+    {
+      "requestedWidth": "1280",
+      "view": "health",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Health",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nBuild and game health\n\nRead-only health snapshot. Live RPG session stat",
+      "width": 1280
+    },
+    {
+      "requestedWidth": "1280",
+      "view": "captures",
+      "clipped": [],
+      "minControl": 44,
+      "overflow": false,
+      "selected": "Captures",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nCaptures\n\nCapture counts and rates use this window. Retained QA activit",
+      "width": 1280
+    },
+    {
+      "requestedWidth": "1280",
+      "view": "progression",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Progression",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nProgression\n\nCurrent all-account snapshot, including staff and QA profi",
+      "width": 1265
+    },
+    {
+      "requestedWidth": "1280",
+      "view": "evolution",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Evolution & Trading",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nEvolution & Trading\n\nEvolution totals use retained history; Candy and o",
+      "width": 1280
+    },
+    {
+      "requestedWidth": "1280",
+      "view": "economy",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Economy",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nEconomy\n\nBalances are current. Today uses the game’s configured time zo",
+      "width": 1280
+    },
+    {
+      "requestedWidth": "768",
+      "view": "health",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Health",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nBuild and game health\n\nRead-only health snapshot. Live RPG session stat",
+      "width": 768
+    },
+    {
+      "requestedWidth": "768",
+      "view": "captures",
+      "clipped": [],
+      "minControl": 44,
+      "overflow": false,
+      "selected": "Captures",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nCaptures\n\nCapture counts and rates use this window. Retained QA activit",
+      "width": 753
+    },
+    {
+      "requestedWidth": "768",
+      "view": "progression",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Progression",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nProgression\n\nCurrent all-account snapshot, including staff and QA profi",
+      "width": 753
+    },
+    {
+      "requestedWidth": "768",
+      "view": "evolution",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Evolution & Trading",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nEvolution & Trading\n\nEvolution totals use retained history; Candy and o",
+      "width": 768
+    },
+    {
+      "requestedWidth": "768",
+      "view": "economy",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Economy",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nEconomy\n\nBalances are current. Today uses the game’s configured time zo",
+      "width": 753
+    },
+    {
+      "requestedWidth": "390",
+      "view": "health",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Health",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nBuild and game health\n\nRead-only health snapshot. Live RPG session stat",
+      "width": 390
+    },
+    {
+      "requestedWidth": "390",
+      "view": "captures",
+      "clipped": [],
+      "minControl": 44,
+      "overflow": false,
+      "selected": "Captures",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nCaptures\n\nCapture counts and rates use this window. Retained QA activit",
+      "width": 375
+    },
+    {
+      "requestedWidth": "390",
+      "view": "progression",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Progression",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nProgression\n\nCurrent all-account snapshot, including staff and QA profi",
+      "width": 375
+    },
+    {
+      "requestedWidth": "390",
+      "view": "evolution",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Evolution & Trading",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nEvolution & Trading\n\nEvolution totals use retained history; Candy and o",
+      "width": 375
+    },
+    {
+      "requestedWidth": "390",
+      "view": "economy",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Economy",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nEconomy\n\nBalances are current. Today uses the game’s configured time zo",
+      "width": 375
+    },
+    {
+      "requestedWidth": "320",
+      "view": "health",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Health",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nBuild and game health\n\nRead-only health snapshot. Live RPG session stat",
+      "width": 305
+    },
+    {
+      "requestedWidth": "320",
+      "view": "captures",
+      "clipped": [],
+      "minControl": 44,
+      "overflow": false,
+      "selected": "Captures",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nCaptures\n\nCapture counts and rates use this window. Retained QA activit",
+      "width": 305
+    },
+    {
+      "requestedWidth": "320",
+      "view": "progression",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Progression",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nProgression\n\nCurrent all-account snapshot, including staff and QA profi",
+      "width": 305
+    },
+    {
+      "requestedWidth": "320",
+      "view": "evolution",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Evolution & Trading",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nEvolution & Trading\n\nEvolution totals use retained history; Candy and o",
+      "width": 305
+    },
+    {
+      "requestedWidth": "320",
+      "view": "economy",
+      "clipped": [],
+      "minControl": 46.79999923706055,
+      "overflow": false,
+      "selected": "Economy",
+      "text": "ANALYTICS & HEALTH · READ ONLY\n\nGame reports\n\nRead reports with their source, coverage and time range clearly identified.\n\nHealth\nCaptures\nProgression\nEvolution & Trading\nEconomy\nEconomy\n\nBalances are current. Today uses the game’s configured time zo",
+      "width": 305
+    }
+  ],
+  "states": [
+    {
+      "mode": "empty",
+      "focus": "report-tab-captures",
+      "images": 0,
+      "text": "Captures\n\nCapture counts and rates use this window. Retained QA activity is included by the existing report. Collection totals are not part of this window.\n\nCapture range (days)\nApply range\nRefresh report\n\nRetrieved 2026-10-23T15:46:59.153Z (browser clock). Requested range: 30 days. Server window starts 2026-10-01T00:00:00.000Z.\n\nThrows\n\n0\nSelected capture window\n\nSuccessful catches\n\n0\nSelected capture window\n\nCapture success\n\n—\nUnavailable when no throws are recorded\nBy Pokémon\nPokémon\tThrows\tCatches\tSuccess\nNo recorded activity in this window.\nBy Poké Ball\nPoké Ball\tThrows\tCatches\tSuccess\nNo recorded activity in this window.\nBy berry\nberry\tThrows\tCatches\tSuccess\nNo recorded activity in this window.\nBy catch-rate tier\ncatch-rate tier\tThrows\tCatches\tSuccess\nNo recorded activity in this window."
+    },
+    {
+      "mode": "unavailable",
+      "focus": "report-tab-captures",
+      "images": 0,
+      "text": "Captures\n\nCapture counts and rates use this window. Retained QA activity is included by the existing report. Collection totals are not part of this window.\n\nCapture range (days)\nApply range\nRefresh report\n\nReport unavailable. Refresh to try again; no values have been substituted with zero."
+    },
+    {
+      "mode": "partial",
+      "focus": "report-tab-captures",
+      "images": 0,
+      "text": "Captures\n\nCapture counts and rates use this window. Retained QA activity is included by the existing report. Collection totals are not part of this window.\n\nCapture range (days)\nApply range\nRefresh report\n\nPartial report. Some values are unavailable. Retrieved 2026-10-23T15:46:59.579Z (browser clock). Requested range: 30 days. Server window starts Unavailable.\n\nThrows\n\nUnavailable\nSelected capture window\n\nSuccessful catches\n\nUnavailable\nSelected capture window\n\nCapture success\n\n—\nUnavailable when no throws are recorded\nBy Pokémon\nPokémon\tThrows\tCatches\tSuccess\nUnavailable\nBy Poké Ball\nPoké Ball\tThrows\tCatches\tSuccess\nUnavailable\nBy berry\nberry\tThrows\tCatches\tSuccess\nUnavailable\nBy catch-rate tier\ncatch-rate tier\tThrows\tCatches\tSuccess\nUnavailable"
+    },
+    {
+      "mode": "hostile",
+      "focus": "report-tab-captures",
+      "images": 0,
+      "text": "Captures\n\nCapture counts and rates use this window. Retained QA activity is included by the existing report. Collection totals are not part of this window.\n\nCapture range (days)\nApply range\nRefresh report\n\nRetrieved 2026-10-23T15:46:59.780Z (browser clock). Requested range: 30 days. Server window starts 2026-10-01T00:00:00.000Z.\n\nThrows\n\n42\nSelected capture window\n\nSuccessful catches\n\n28\nSelected capture window\n\nCapture success\n\n66.7%\nUnavailable when no throws are recorded\nBy Pokémon\nPokémon\tThrows\tCatches\tSuccess\n<img src=x onerror=alert(1)>\t1\t0\t0.0%\nBy Poké Ball\nPoké Ball\tThrows\tCatches\tSuccess\nPoké Ball\t42\t28\t66.7%\nBy berry\nberry\tThrows\tCatches\tSuccess\nNo recorded activity in this window.\nBy catch-rate tier\ncatch-rate tier\tThrows\tCatches\tSuccess\nNo recorded activity in this window."
+    },
+    {
+      "gate": "This workspace is for staff. Your trainer account does not have access.",
+      "calls": "Simulated calls:",
+      "staffHidden": true
+    },
+    {
+      "gate": "Staff access could not be verified. Reload this page to try again.",
+      "calls": "Simulated calls:",
+      "staffHidden": true
+    }
+  ],
+  "keyboard": {
+    "invalid": {
+      "focus": "INPUT",
+      "status": "Retrieved 2026-10-23T15:45:50.435Z (browser clock). Requested range: 7 days. Server window starts 2026-10-01T00:00:00.000Z.",
+      "valid": false
+    },
+    "arrowFocusOnly": {
+      "focus": "report-tab-captures",
+      "selected": "report-tab-health"
+    },
+    "end": {
+      "focus": "report-tab-economy",
+      "selected": "report-tab-captures"
+    },
+    "home": {
+      "focus": "report-tab-health",
+      "selected": "report-tab-captures"
+    }
+  }
+}

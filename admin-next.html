@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="css/play.css?v=20261008-rc133">
 <link rel="stylesheet" href="css/admin-record.css?v=20261008-rc133">
 <link rel="stylesheet" href="css/admin-mart.css?v=20261008-rc133">
+<link rel="stylesheet" href="css/admin-analytics.css?v=20261008-rc133">
 <link rel="stylesheet" href="css/support.css?v=20261008-rc133">
 <body data-page="admin-next">
 <nav class="topnav">
@@ -151,10 +152,15 @@
         </section>
         <section id="next-panel-analytics" role="tabpanel" aria-labelledby="next-tab-analytics" tabindex="0" class="hub-card admin-next-panel" data-next-panel="analytics" hidden>
           <p class="eyebrow">Analytics &amp; Health · read only</p>
-          <h2>Build and game health</h2>
+          <h2>Game reports</h2>
+          <p>Read reports with their source, coverage and time range clearly identified.</p>
+          <div id="next-analytics-reports"></div>
+          <section id="next-analytics-health">
+          <h3>Build and game health</h3>
           <p id="next-health-status" class="muted" role="status">Loading…</p>
           <button type="button" id="next-health-refresh">Refresh health</button>
           <div id="next-health" class="admin-next-metrics"></div>
+          </section>
           <p><a class="admin-next-legacy" href="./admin.html?section=analytics">Open current Analytics</a></p>
         </section>
         <section id="next-panel-system" role="tabpanel" aria-labelledby="next-tab-system" tabindex="0" class="hub-card admin-next-panel" data-next-panel="system" hidden>
@@ -192,5 +198,6 @@
 <script src="js/admin-next-rewards.js?v=20261008-rc133"></script>
 <script src="js/support.js?v=20261008-rc133"></script>
 <script src="js/admin-next-mart.js?v=20261008-rc133"></script>
+<script src="js/admin-next-analytics.js?v=20261008-rc133"></script>
 <script src="js/admin-next.js?v=20261008-rc133"></script>
 </body>

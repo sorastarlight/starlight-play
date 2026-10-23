@@ -61,3 +61,5 @@ assert.equal(searchApi.searchProducts(searchRows,'missing').length,0);
 assert.equal(searchApi.searchProducts(searchRows,'  ').length,2);
 assert.equal(searchRows[0].name,'Poké Ball Bundle');
 console.log('Mart multiword/accent/SKU/detail search and floor isolation pass.');
+
+const international=[{sku:"jp",name:"東京セット",categoryId:"kit"},{sku:"plain",name:"Berry",categoryId:"kit"}];assert.deepEqual(searchApi.searchProducts(international,"東京").map(r=>r.sku),["jp"]);assert.equal(searchApi.searchProducts(international,"不存在").length,0);console.log("Non-Latin Mart searches no longer collapse to an empty filter.");

@@ -87,7 +87,7 @@
     }
     return { state, reset, load, select, dirty, save, open() { active = true; return load(); } };
   }
-  const searchText = value => String(value ?? "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const searchText = value => String(value ?? "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
   function searchProducts(items, query = "", floor = "") {
     const words = searchText(query).split(/\s+/).filter(Boolean);
     return items.filter(row => (!floor || row.categoryId === floor) && words.every(word => searchText([row.name,row.sku,row.blurb,row.detail ?? row.extra?.detail].join(" ")).includes(word)));

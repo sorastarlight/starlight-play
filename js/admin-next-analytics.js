@@ -113,7 +113,8 @@
     health.setAttribute("role", "tabpanel"); health.setAttribute("aria-labelledby", "report-tab-health"); health.tabIndex = 0;
     const ui = controller(read, state => {
       health.hidden = state.view !== "health"; panel.hidden = state.view === "health";
-      root.querySelectorAll("[data-report]").forEach(button => { const selected = button.dataset.report === state.view; button.setAttribute("aria-selected", String(selected)); button.tabIndex = selected ? 0 : -1; });
+      const focusedTab = root.contains(root.ownerDocument.activeElement) && root.ownerDocument.activeElement.matches?.("[data-report]") ? root.ownerDocument.activeElement.dataset.report : null;
+      root.querySelectorAll("[data-report]").forEach(button => { const selected = button.dataset.report === state.view; button.setAttribute("aria-selected", String(selected)); button.tabIndex = (focusedTab ? button.dataset.report === focusedTab : selected) ? 0 : -1; });
       panel.setAttribute("aria-labelledby", `report-tab-${state.view}`);
       root.querySelector("#report-heading").textContent = titles[state.view]; root.querySelector(".analytics-context").textContent = contexts[state.view] || "";
       form.querySelector("label").hidden = state.view !== "captures"; form.querySelector("[type=submit]").hidden = state.view !== "captures";
@@ -127,7 +128,7 @@
       const buttons = [...root.querySelectorAll("[data-report]")], index = buttons.indexOf(event.target);
       if (index < 0) return;
       const next = event.key === "Home" ? 0 : event.key === "End" ? buttons.length - 1 : event.key === "ArrowRight" ? (index + 1) % buttons.length : event.key === "ArrowLeft" ? (index + buttons.length - 1) % buttons.length : -1;
-      if (next >= 0) { event.preventDefault(); buttons[next].focus(); }
+      if (next >= 0) { event.preventDefault(); buttons.forEach((button, i) => { button.tabIndex = i === next ? 0 : -1; }); buttons[next].focus(); }
     });
     form.addEventListener("submit", event => { event.preventDefault(); if (form.reportValidity()) ui.range(Number(input.value)); });
     refresh.addEventListener("click", () => ui.refresh());

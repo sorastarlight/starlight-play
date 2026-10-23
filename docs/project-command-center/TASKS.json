@@ -4,6 +4,30 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-142",
+      "scope": "Cosmetic equip ownership",
+      "evidence": "LAUNCH-CODEX142-EQUIP-OWNERSHIP.md; evidence/codex142-equip-ownership.json",
+      "testResults": "16REAL LOCAL selected ownership/entitlement/equip cases",
+      "dependencies": [
+        "CODEX-141"
+      ],
+      "status": "done",
+      "nextAction": "Real acceptance required;Twitch held;next physical backup when due",
+      "approvalRequirement": "Catalog/local fictional tests only;no new production authority"
+    },
+    {
+      "id": "CODEX-141",
+      "scope": "Encounter preferences/reward acknowledgement",
+      "evidence": "LAUNCH-CODEX141-PREFERENCES-ACK.md; evidence/codex141-preferences-ack.json",
+      "testResults": "18REAL LOCAL actor isolation/input normalization cases",
+      "dependencies": [
+        "CODEX-140"
+      ],
+      "status": "done",
+      "nextAction": "Real acceptance required;Twitch held;next physical backup when due",
+      "approvalRequirement": "Catalog/local fictional tests only;no new production authority"
+    },
+    {
       "id": "CODEX-140",
       "scope": "Mart sales replay/concurrency/rollback boundaries",
       "evidence": "LAUNCH-CODEX140-MART-SALES.md; evidence/codex140-mart-sales.json",

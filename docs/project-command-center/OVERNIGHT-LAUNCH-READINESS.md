@@ -143,3 +143,11 @@ Explicit owner approval;fresh source/attributes/2packet hashes matched. Installe
 ## CODEX-140 — Mart sale conservation/replay
 
 21REAL LOCAL captured endpoint/4helper cases pass;2overlapping pairs explicitly wait on inventory locks. No oversell,duplicate net debit or partial payout confirmed in scope. Catalog indexes/nullability inspected;fixture stopped/removed,no hosted sale/player/coin/SQL/APP action. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX140-MART-SALES.md.
+
+## CODEX-141 — Encounter preferences/reward acknowledgement
+
+18REAL LOCAL actor isolation/input normalization cases;no new defect confirmed. Fictional runtime stopped/fixture removed;no hosted application/grant/provider/email/SQL/player/APP action. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX141-PREFERENCES-ACK.md.
+
+## CODEX-142 — Cosmetic equip ownership
+
+16REAL LOCAL selected ownership/entitlement/equip cases;no new defect confirmed. Fictional runtime stopped/fixture removed;no hosted application/grant/provider/email/SQL/player/APP action. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX142-EQUIP-OWNERSHIP.md.

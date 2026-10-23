@@ -1,0 +1,24 @@
+{
+  "classification": "REAL LOCAL exact equip/assert-owned/asset/owns/entitlement functions;fictional tables/Auth;role/evaluation/requirements/unlock/serializer stand-ins;not full progression/provider/RLS certification",
+  "count": 16,
+  "checks": [
+    "unowned/foreign/null/unknown equip bg-test preserves rows",
+    "unowned/foreign/null/unknown equip title-test preserves rows",
+    "unowned/foreign/null/unknown equip badge-test preserves rows",
+    "unowned/foreign/null/unknown equip null preserves rows",
+    "unowned/foreign/null/unknown equip unknown preserves rows",
+    "owned background equips only current profile",
+    "disabled owned background denied",
+    "owned title equips",
+    "disabled title denied",
+    "owned badge prepends within3 and replay does not duplicate",
+    "disabled badge denied",
+    "moderator does not receive cosmetic entitlement bypass",
+    "staff does not receive cosmetic entitlement bypass",
+    "admin existing cosmetic entitlement retained without unlock row",
+    "owner existing cosmetic entitlement retained without unlock row",
+    "missing actor denied before evaluation"
+  ],
+  "productionChanges": 0,
+  "hostedApplicationCalls": 0
+}

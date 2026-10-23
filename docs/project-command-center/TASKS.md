@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-142 | done | Cosmetic equip ownership | CODEX-141 | Catalog/local only |16REAL LOCAL selected ownership/entitlement/equip cases;no production change |
+| CODEX-141 | done | Encounter preferences/reward acknowledgement | CODEX-140 | Catalog/local only |18REAL LOCAL actor isolation/input normalization cases;no production change |
 | CODEX-140 | done | Mart sale atomicity/replay | CODEX-139 | Catalog/local only |21cases;concurrent conservation/payout rollback;no hosted sale |
 | CODEX-139 | done | Staff health diagnostic gates | CODEX-138 | Catalog/local only |32cases;7endpoints deny before diagnostic reads |
 | CODEX-138 | done | Destructive box-delete boundaries | CODEX-137 | Catalog/local only |21cases;late-failure rollback;no new defect confirmed |

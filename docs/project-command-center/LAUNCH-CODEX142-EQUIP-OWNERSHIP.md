@@ -1,0 +1,7 @@
+# CODEX-142 — Cosmetic equip ownership
+
+16 REAL LOCAL SQL cases execute captured play_equip_cosmetic,assert_cosmetic_owned,cosmetic_asset,owns_cosmetic and cosmetic_admin_entitled definitions. Fictional tables/Auth and scoped role,evaluation,requirement,unlock and trainer-response stand-ins limit this proof;it does not certify full progression evaluation,automatic unlocks,provider identity or RLS.
+
+Unowned/foreign/null/unknown IDs refuse without profile/reward-row changes. Owned background/title/badge equips remain current-trainer scoped;disabled entries refuse;badge replay preserves uniqueness and the3featured-badge limit. Moderator/staff do not gain the existing cosmetic entitlement bypass;admin/owner retain it without new unlock rows. Missing actor denies before evaluation. No frame feature or new product behavior was added.
+
+No new defect confirmed or production change. Private source/harness/results:LOCALAPPDATA/PokemonStreamLink/security/codex142. Loopback55542 stopped and fixture removed. No hosted equip/evaluation/grant,provider,email,credential,SQL,player or APP action. Sora NO;Twinkle NO;PlayTester role unchanged.20recovery files remain the installed10-delta inventory;CODEX-135empty-schema forward/inverse evidence retained. Real device/assistive/provider acceptance and full physical/Auth/storage recovery remain open;Twitch held. Prior106frontend suites retained without unchanged rerun.

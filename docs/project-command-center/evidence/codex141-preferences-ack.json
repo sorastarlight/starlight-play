@@ -1,0 +1,26 @@
+{
+  "classification": "REAL LOCAL exact acknowledgement/settings/normalizer;fictional Auth/reward/profile tables and ball allowlist stand-in;not full cosmetic eligibility,gameplay automation,RLS/provider certification",
+  "count": 18,
+  "checks": [
+    "selected acknowledgements affect own rows only across3reward tables",
+    "ack replay preserves original seen timestamp",
+    "empty/unknown acknowledgement never creates or changes reward rows []",
+    "empty/unknown acknowledgement never creates or changes reward rows [\"unknown\"]",
+    "empty/unknown acknowledgement never creates or changes reward rows [\"unknown\",\"unknown\"]",
+    "null acknowledgement marks all own existing rewards without grants",
+    "empty/unknown preference defaults null",
+    "empty/unknown preference defaults {}",
+    "empty/unknown preference defaults {\"favoriteBalls\":[]}",
+    "empty/unknown preference defaults {\"favoriteBalls\":[\"unknown\"]}",
+    "dedup/allowlist and actor isolation ignore privilege/economy/target-shaped fields",
+    "favorite-ball list bounded6 and valid prep retained",
+    "malformed settings refuse before profile write {\"favoriteBalls\":{}}",
+    "malformed settings refuse before profile write {\"favoriteBalls\":\"pokeball\"}",
+    "malformed settings refuse before profile write {\"autoPrep\":\"invalid\"}",
+    "malformed settings refuse before profile write {\"autoThrow\":\"invalid\"}",
+    "missing identity refuses endpoint",
+    "missing identity refuses endpoint"
+  ],
+  "productionChanges": 0,
+  "hostedApplicationCalls": 0
+}

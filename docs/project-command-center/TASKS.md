@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-160 | done | Analytics audit/design prepared | CODEX-159 | New workflow decision held | Review local reporting proposal |
+| CODEX-156–159 | done | Hub focus/tabs/gates/health retry | CODEX-155 | CODEX-78 | Live50d4a53e;112suites;100+3sources match |
 | CODEX-145 | done | Populated PC/Inventory/mobile control polish | CODEX-144 | CODEX-78 | Published main058ee3fe; historical details below |
 | CODEX-144 | done | Trainer typography/capability copy/status | CODEX-143 | CODEX-78 |Mainc9d29ff9/Pages39898025421success;32states/106suites;2sources match |
 | CODEX-143 | done | Site-wide shells/copy/search styling | CODEX-142 | CODEX-78 |Main200499f4/Pages39897398820success;84layouts;11changed sources |
@@ -409,3 +411,6 @@ CODEX-155 PUBLISHED by explicit owner approval:exact4runtime files main4dad4117/
 
 
 CODEX-156–159:Mart selection/result focus;vertical Hub tabs/manual activation and named panels;distinct access verification failure/denial copy;retryable unavailable/partial health snapshots using only existing2reads.112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline. Exact3runtime publication next. No hosted app navigation/staff action/SQL/provider/gameplay/spending/APP change. Report:LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md.
+
+
+CODEX-156–159 VERIFIED:exact3runtime main50d4a53e/Pages39976074698success;100monitored+3versioned source matches;112suites/build31/466;30scoped REAL DOM states/widths plus focus baseline. No hosted application endpoint/notice/provider/player action. CODEX-160:29installed function definitions/helper closure reviewed through catalog SELECT only;legacy unknown-as-zero reproduced locally;fictional5report design has20layouts+4missing/empty/partial cases. Concrete scope:ADMIN-HUB-ANALYTICS-MIGRATION-REVIEW.md. New Analytics local implementation needs design decision;no production report call/SQLchange/newworkflow publication authorized. Twitch remains held;real acceptance/final launch gates unchanged.

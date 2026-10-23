@@ -1,0 +1,245 @@
+{
+  "classification": "READ-ONLY hosted PostgreSQL catalog introspection; no application report/RPC invocation or user-row query",
+  "functions": [
+    {
+      "signature": "admin_bits_health()",
+      "fingerprint": "683557531eb985370a473a2945fbe404",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "volatility": "v",
+      "security_definer": true,
+      "config": [
+        "search_path=public"
+      ]
+    },
+    {
+      "signature": "admin_capture_report(integer)",
+      "fingerprint": "68eaae23e02f5268eccf293b7679bbbb",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "volatility": "v",
+      "security_definer": true,
+      "config": [
+        "search_path=public"
+      ]
+    },
+    {
+      "signature": "admin_collection_overview()",
+      "fingerprint": "cf2616ae7a1cd17fe28e68777520b8ee",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "volatility": "v",
+      "security_definer": true,
+      "config": [
+        "search_path=public"
+      ]
+    },
+    {
+      "signature": "admin_content_health()",
+      "fingerprint": "35d85143e232c9a17fffef8d720a7116",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "volatility": "v",
+      "security_definer": true,
+      "config": [
+        "search_path=public"
+      ]
+    },
+    {
+      "signature": "admin_economy_health()",
+      "fingerprint": "b4fd3b4d3ab7f2913e5069c93935c56c",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "volatility": "v",
+      "security_definer": true,
+      "config": [
+        "search_path=public"
+      ]
+    },
+    {
+      "signature": "admin_economy_overview()",
+      "fingerprint": "1d4bd7ad3088c00084006638458ecb80",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "volatility": "v",
+      "security_definer": true,
+      "config": [
+        "search_path=public"
+      ]
+    },
+    {
+      "signature": "admin_progression_overview()",
+      "fingerprint": "6fbee41354ea42755f508ce7936a9fdb",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "volatility": "v",
+      "security_definer": true,
+      "config": [
+        "search_path=public"
+      ]
+    },
+    {
+      "signature": "admin_special_event_health()",
+      "fingerprint": "fa86589ffe23e5e91e9c32255048e178",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "volatility": "v",
+      "security_definer": true,
+      "config": [
+        "search_path=public"
+      ]
+    },
+    {
+      "signature": "private.bits_amount_collisions()",
+      "fingerprint": "60afe70bf543278194e870f4620ce5aa",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.bits_live_products()",
+      "fingerprint": "6bbe45c90f7bc216d9233d093b6d4878",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.capture_config()",
+      "fingerprint": "0f01090cb1ecf3e9dfb2d1ac8001faf6",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.economy_config()",
+      "fingerprint": "8141e79016d553fae08e08c306f80111",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.evo_enabled_generations()",
+      "fingerprint": "fb4e7d718d895736933033873d485295",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.is_play_admin()",
+      "fingerprint": "e1449c28be1cd6f6c5208638d5a1df6f",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "volatility": "s",
+      "security_definer": true,
+      "config": [
+        "search_path=public"
+      ]
+    },
+    {
+      "signature": "private.item_label(text)",
+      "fingerprint": "ce23cdb7f28492adb14ff5d79bd3519c",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.kanto_availability_json()",
+      "fingerprint": "444eb38f147ddb574b776c9088c2b921",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.progression_config()",
+      "fingerprint": "f319a2f1b07fb31b1d67098ad78946a6",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.special_event_admin_json(private.special_events)",
+      "fingerprint": "57a13ef2af85fa07a380b18d7127d32d",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.store_item_is_live(private.store_items)",
+      "fingerprint": "378db50133889dbc35909cf599d02a45",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.trainer_level(integer)",
+      "fingerprint": "6d8f732021ffaf6703af52c190412f79",
+      "acl": null,
+      "volatility": "s",
+      "security_definer": false,
+      "config": null
+    },
+    {
+      "signature": "private.game_settings()",
+      "fingerprint": "3963b75b9790583ba5aab40e2d120eae",
+      "volatility": "s"
+    },
+    {
+      "signature": "private.normal_spawn_max_dex()",
+      "fingerprint": "9831c7d8d94900a6d6de6c6a6946c5ff",
+      "volatility": "i"
+    },
+    {
+      "signature": "private.play_staff_role(uuid)",
+      "fingerprint": "bbb6dc90f6d4a7790774ece8179dfd49",
+      "volatility": "s"
+    },
+    {
+      "signature": "private.spawn_band(integer)",
+      "fingerprint": "a284bf7c1b35709676247a3f1304a00a",
+      "volatility": "s"
+    },
+    {
+      "signature": "private.special_event_round_meta(private.special_events)",
+      "fingerprint": "965de6b13430d33f477c15f0566ef613",
+      "volatility": "s"
+    },
+    {
+      "signature": "private.xp_to_reach_level(integer)",
+      "fingerprint": "9af52e426ffac07a32740f9dcd5352f0",
+      "volatility": "s"
+    },
+    {
+      "signature": "private.form_display_name(integer,integer)",
+      "fingerprint": "342787967638b96fb9096e07fa0fadec",
+      "volatility": "s"
+    },
+    {
+      "signature": "private.xp_for_level(integer)",
+      "fingerprint": "b4701efe4c2051ebb07c7490024ffbda",
+      "volatility": "s"
+    },
+    {
+      "signature": "private.canonical_form_id(integer,integer)",
+      "fingerprint": "ac1f716815eeaefeed5fcee5f765124e",
+      "volatility": "s"
+    }
+  ],
+  "privateCallClosureUnresolved": [],
+  "tradeSchema": [
+    {
+      "column_name": "completed_at",
+      "data_type": "timestamp with time zone",
+      "default_expression": null
+    },
+    {
+      "column_name": "status",
+      "data_type": "text",
+      "default_expression": "'PENDING'::text"
+    }
+  ],
+  "notes": [
+    "Source review found SELECT/expressions in the scoped bodies and helper closure; volatility labels alone were not used as proof.",
+    "This is not endpoint permission, row privacy, performance, physical device, provider or live-report acceptance. Raw definitions retained privately outside Git."
+  ]
+}

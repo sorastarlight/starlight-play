@@ -1,0 +1,56 @@
+{
+  "classification": "LOCAL source reproduction of existing protected legacy renderer, no server calls; health loader stubbed",
+  "missingSourceValues": {
+    "progression": null,
+    "collection": null,
+    "economy": null
+  },
+  "rendered": [
+    {
+      "label": "Active Trainers",
+      "value": "0"
+    },
+    {
+      "label": "Average Trainer Level",
+      "value": "—"
+    },
+    {
+      "label": "Median Trainer Level",
+      "value": "—"
+    },
+    {
+      "label": "Average unique species",
+      "value": "—"
+    },
+    {
+      "label": "Total captures (report)",
+      "value": "—"
+    },
+    {
+      "label": "Capture success rate",
+      "value": "—"
+    },
+    {
+      "label": "Total evolutions",
+      "value": "0"
+    },
+    {
+      "label": "Open GTS listings",
+      "value": "0"
+    },
+    {
+      "label": "Total trades",
+      "value": "0"
+    },
+    {
+      "label": "PokéCoins in circulation",
+      "value": "0"
+    },
+    {
+      "label": "Coins created / spent",
+      "value": "0 / 0"
+    }
+  ],
+  "nestedHealthLoadRequestsIntercepted": 1,
+  "interpretation": "Unavailable loaders produce zero in multiple cards; preserve unavailable states in the next workspace."
+}

@@ -1,0 +1,751 @@
+{
+  "classification": "REAL DOM fictional design review only; no Auth/report connection",
+  "layouts": [
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 1005,
+          "width": 1005
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 1265,
+      "title": "Build and game health",
+      "view": "health",
+      "width": 1280
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 703,
+          "width": 703
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 753,
+      "title": "Build and game health",
+      "view": "health",
+      "width": 768
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 354,
+          "width": 354
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 375,
+      "title": "Build and game health",
+      "view": "health",
+      "width": 375
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 283,
+          "width": 283
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 305,
+      "title": "Build and game health",
+      "view": "health",
+      "width": 305
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 1005,
+          "width": 1005
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-table",
+          "scroll": 965,
+          "width": 965
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 1265,
+      "title": "Capture activity",
+      "view": "captures",
+      "width": 1280
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 703,
+          "width": 703
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-table",
+          "scroll": 663,
+          "width": 663
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 753,
+      "title": "Capture activity",
+      "view": "captures",
+      "width": 768
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 354,
+          "width": 354
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-table",
+          "scroll": 322,
+          "width": 322
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 375,
+      "title": "Capture activity",
+      "view": "captures",
+      "width": 375
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 283,
+          "width": 283
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-table",
+          "scroll": 251,
+          "width": 251
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 305,
+      "title": "Capture activity",
+      "view": "captures",
+      "width": 305
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 1005,
+          "width": 1005
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 1265,
+      "title": "Trainer progression",
+      "view": "progression",
+      "width": 1280
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 703,
+          "width": 703
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 753,
+      "title": "Trainer progression",
+      "view": "progression",
+      "width": 768
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 354,
+          "width": 354
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 375,
+      "title": "Trainer progression",
+      "view": "progression",
+      "width": 375
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 283,
+          "width": 283
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 305,
+      "title": "Trainer progression",
+      "view": "progression",
+      "width": 305
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 1005,
+          "width": 1005
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 1265,
+      "title": "Evolution and trading",
+      "view": "evolution",
+      "width": 1280
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 703,
+          "width": 703
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 753,
+      "title": "Evolution and trading",
+      "view": "evolution",
+      "width": 768
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 354,
+          "width": 354
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 375,
+      "title": "Evolution and trading",
+      "view": "evolution",
+      "width": 375
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 283,
+          "width": 283
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 305,
+      "title": "Evolution and trading",
+      "view": "evolution",
+      "width": 305
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 1005,
+          "width": 1005
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 312,
+          "width": 312
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 1265,
+      "title": "PokéCoin economy",
+      "view": "economy",
+      "width": 1280
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 703,
+          "width": 703
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 211,
+          "width": 211
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 753,
+      "title": "PokéCoin economy",
+      "view": "economy",
+      "width": 768
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 354,
+          "width": 354
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 320,
+          "width": 320
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 375,
+      "title": "PokéCoin economy",
+      "view": "economy",
+      "width": 375
+    },
+    {
+      "components": [
+        {
+          "class": "ar-main",
+          "scroll": 283,
+          "width": 283
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        },
+        {
+          "class": "ar-metric",
+          "scroll": 250,
+          "width": 250
+        }
+      ],
+      "minTarget": 44,
+      "scroll": 305,
+      "title": "PokéCoin economy",
+      "view": "economy",
+      "width": 305
+    }
+  ],
+  "states": [
+    {
+      "state": "unavailable",
+      "status": "Report unavailable. Existing values are not substituted with zero.",
+      "values": [
+        "Unavailable",
+        "Unavailable",
+        "Unavailable",
+        "Unavailable",
+        "Unavailable",
+        "Unavailable"
+      ]
+    },
+    {
+      "state": "partial",
+      "status": "Partial demo report. Unavailable values remain identified.",
+      "values": [
+        "6,000",
+        "1,000",
+        "250",
+        "9,000",
+        "3,000",
+        "Unavailable"
+      ]
+    },
+    {
+      "state": "empty",
+      "status": "No recorded activity in this fictional example.",
+      "values": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "—"
+      ]
+    },
+    {
+      "state": "Empty capture report",
+      "values": [
+        "0",
+        "0",
+        "—"
+      ]
+    }
+  ]
+}

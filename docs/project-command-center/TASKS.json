@@ -4,51 +4,63 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-160",
+      "status": "done",
+      "scope": "Read-only Analytics dependency audit and fictional reporting design preparation",
+      "dependencies": [
+        "CODEX-159"
+      ],
+      "evidence": "ADMIN-HUB-ANALYTICS-MIGRATION-REVIEW.md; design-reset/hub-analytics-review.html; evidence/codex160-analytics-catalog.json; evidence/codex160-analytics-prototype.json",
+      "testResults": "29installed definitions inspected through catalog-only SELECT;private helper closure resolved;legacy missing-data reproduction;20prototype layouts+4states;no application report invocation",
+      "nextAction": "Owner design/local-implementation decision for consolidated read-only reporting slice",
+      "approvalRequirement": "New multi-report workflow outside CODEX-78;no SQL/publication/report endpoint authority from proposal"
+    },
+    {
       "id": "CODEX-159",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Read-only health retry and truthful partial/unavailable states",
       "dependencies": [
         "CODEX-158"
       ],
       "evidence": "LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md; evidence/codex156-159-regressions.json",
-      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline",
-      "nextAction": "Exact3runtime publication and hosted source comparison;continue Analytics dependency review",
+      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline;main50d4a53e Pages39976074698success;100+3source matches",
+      "nextAction": "Published routine maintenance;continue scoped overhaul with CODEX-160 review",
       "approvalRequirement": "CODEX-78 routine frontend;no new privileged workflow/server/API authority"
     },
     {
       "id": "CODEX-158",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Staff access failure and denial copy",
       "dependencies": [
         "CODEX-157"
       ],
       "evidence": "LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md; evidence/codex156-159-regressions.json",
-      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline",
-      "nextAction": "Exact3runtime publication and hosted source comparison;continue Analytics dependency review",
+      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline;main50d4a53e Pages39976074698success;100+3source matches",
+      "nextAction": "Published routine maintenance;continue scoped overhaul with CODEX-160 review",
       "approvalRequirement": "CODEX-78 routine frontend;no new privileged workflow/server/API authority"
     },
     {
       "id": "CODEX-157",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Admin Hub vertical tabs and panel associations",
       "dependencies": [
         "CODEX-156"
       ],
       "evidence": "LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md; evidence/codex156-159-regressions.json",
-      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline",
-      "nextAction": "Exact3runtime publication and hosted source comparison;continue Analytics dependency review",
+      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline;main50d4a53e Pages39976074698success;100+3source matches",
+      "nextAction": "Published routine maintenance;continue scoped overhaul with CODEX-160 review",
       "approvalRequirement": "CODEX-78 routine frontend;no new privileged workflow/server/API authority"
     },
     {
       "id": "CODEX-156",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Mart keyboard focus continuity and pending-state focus",
       "dependencies": [
         "CODEX-155"
       ],
       "evidence": "LAUNCH-CODEX156-159-HUB-KEYBOARD-HEALTH.md; evidence/codex156-159-regressions.json",
-      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline",
-      "nextAction": "Exact3runtime publication and hosted source comparison;continue Analytics dependency review",
+      "testResults": "112suites/build31/466;30scoped REAL DOM state/width observations plus focus baseline;main50d4a53e Pages39976074698success;100+3source matches",
+      "nextAction": "Published routine maintenance;continue scoped overhaul with CODEX-160 review",
       "approvalRequirement": "CODEX-78 routine frontend;no new privileged workflow/server/API authority"
     },
     {
@@ -72,7 +84,7 @@
       ],
       "evidence": "LAUNCH-CODEX154-COMPONENTS-AND-NEXT-HUB.md; ADMIN-HUB-MART-NEXT-SLICE.md; evidence/codex154-component-sweep.json",
       "testResults": "24component+4focused directory+8prototype widths;108suites/build/recovery20;main927b2f48 Pages39958731032success;100+1sources match",
-      "nextAction": "Owner approved CODEX-155 local implementation;publication and hosted saves held",
+      "nextAction": "CODEX-155 editor published;broader catalog tools remain in current editor",
       "approvalRequirement": "CODEX-78 CSS published;new editor local design/implementation approved October23"
     },
     {

@@ -127,3 +127,7 @@ Explicit owner approval;fresh source/attributes/2packet hashes matched. Installe
 ## CODEX-136 — PC ownership/layout boundaries
 
 18REAL LOCAL exact-source cases;3actual concurrent peer lock waits demonstrate flag ownership recheck and arrangement fresh layout. No new defect confirmed;fictional fixture stopped/removed,no hosted application/player/provider/SQL/APP action. Recovery10deltas/20files remains;real acceptance required/Twitch held. See LAUNCH-CODEX136-PC-BOUNDARIES.md.
+
+## CODEX-137 — Signup metadata boundary
+
+12REAL LOCAL captured trigger/helper cases pass;enabled hosted Auth trigger/default catalog inspected. No privilege grant from role/Pass/coin/alternate-ID/provider-shaped metadata in selected initialization path. No new defect confirmed;fictional fixture stopped/removed,no hosted signup/email/SQL/player/APP action. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX137-SIGNUP-METADATA.md.

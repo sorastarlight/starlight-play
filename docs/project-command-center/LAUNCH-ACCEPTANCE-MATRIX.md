@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-136 real acceptance required
+# Current launch acceptance matrix — CODEX-137 real acceptance required
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 106/106 suites in CODEX-125. Routine staff error/Bits feedback escaping is published;current expanded checker verified100hosted source files in CODEX-125; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -101,3 +101,5 @@ CODEX-134:29existing recovery checks plus3new REAL LOCAL reservation concurrency
 CODEX-135:owner-approved team correction installed20261023025714;17local cases and exact hosted source/attributes verified,no hosted team/trade/release call or player repair. Recovery10forward/10reverse,21guards,585/143/56inverse baseline matches;142tables empty. See LAUNCH-CODEX135-TEAM-SERIALIZATION.md.
 
 CODEX-136:18REAL LOCAL captured PC flag/arrange/live-slot cases pass,including3observed concurrent row-lock waits. No new defect confirmed or production mutation;full storage/trigger/RLS and real acceptance remain open. Recovery stays10deltas/20files. See LAUNCH-CODEX136-PC-BOUNDARIES.md.
+
+CODEX-137:12REAL LOCAL signup/username/normalization trigger cases pass;metadata-shaped privilege/identity/economy inputs ignored in selected path. Enabled Auth trigger/defaults inspected;no real signup/email/provider action,new defect or production change. See LAUNCH-CODEX137-SIGNUP-METADATA.md.

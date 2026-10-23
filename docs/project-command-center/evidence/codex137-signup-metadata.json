@@ -1,0 +1,20 @@
+{
+  "classification": "REAL LOCAL exact signup/username/normalization functions with fictional Auth/tables/reserved name;catalog-confirmed Pass/coins defaults;not real signup/provider/JWT/rendering certification",
+  "count": 12,
+  "checks": [
+    "ordinary username/name normalized",
+    "preferred username fallback",
+    "invalid/missing/reserved username falls back without privilege grant null",
+    "invalid/missing/reserved username falls back without privilege grant {}",
+    "invalid/missing/reserved username falls back without privilege grant []",
+    "invalid/missing/reserved username falls back without privilege grant {\"username\":\"x\"}",
+    "invalid/missing/reserved username falls back without privilege grant {\"username\":\"1bad\"}",
+    "invalid/missing/reserved username falls back without privilege grant {\"username\":\"reserved_fixture\"}",
+    "invalid/missing/reserved username falls back without privilege grant {\"username\":\"xxxxxxxxxxxxxxxxxxxxx\"}",
+    "role/Pass/economy/target/provider-shaped metadata ignored",
+    "display name stored as text only;escaping remains renderer responsibility",
+    "existing profile/inventory conflicts never overwrite stored values"
+  ],
+  "productionChanges": 0,
+  "hostedApplicationCalls": 0
+}

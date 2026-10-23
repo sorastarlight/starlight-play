@@ -1,0 +1,9 @@
+# CODEX-137 — Signup metadata boundary
+
+A current public/private function-body navigation scan for raw_user_meta_data/user_metadata returned only private.handle_new_user. Exact signup,username validation and normalization definitions were captured through catalogs. The enabled Auth AFTER INSERT trigger points to that signup helper. These word patterns are navigation aids,not complete nested-authorization analysis.
+
+12 REAL LOCAL SQL checks execute those three captured definitions through a fictional Auth INSERT trigger. Normal names/usernames normalize;preferred username fallback works;missing,invalid,overlong and reserved usernames fall back without privilege grants. Role/admin/Pass/economy/alternate-ID/provider-shaped metadata is ignored by this path. Initialization uses the new Auth row ID,not an ID supplied in metadata. Existing profile/inventory conflicts preserve stored values. Catalog-confirmed Pass=false and coins=0 defaults were reproduced in minimal tables.
+
+Display names remain text,including markup-shaped text;safe output still depends on renderer escaping. This fixture does not certify browser rendering,all Auth constraints,real signup/email/provider/JWT behavior or every metadata consumer outside SQL. No new defect confirmed in scope. Initial fixture contained an unnecessary caught parameterized multi-statement setup;it was removed before the final passing run.
+
+Private source/harness/results:LOCALAPPDATA/PokemonStreamLink/security/codex137. Fictional loopback55537 stopped and fixture removed. No hosted signup,application RPC,email,Auth settings,credential,player,economy,SQL or APP change. Sora NO;Twinkle NO;PlayTester role unchanged. Recovery remains10deltas/20packet files;real acceptance and full physical/Auth/storage recovery remain open. Twitch testing stays held.

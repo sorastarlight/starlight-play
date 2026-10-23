@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-137",
+      "scope": "Signup user-metadata boundary",
+      "evidence": "LAUNCH-CODEX137-SIGNUP-METADATA.md; evidence/codex137-signup-metadata.json",
+      "testResults": "12REAL LOCAL captured signup/username/normalization trigger checks;enabled hosted trigger/defaults inspected",
+      "dependencies": [
+        "CODEX-136"
+      ],
+      "status": "done",
+      "nextAction": "Real acceptance required;Twitch held;next physical backup when due",
+      "approvalRequirement": "Catalog/local fictional checks only;no new production authority"
+    },
+    {
       "id": "CODEX-136",
       "scope": "PC flag ownership and box layout boundaries",
       "evidence": "LAUNCH-CODEX136-PC-BOUNDARIES.md; evidence/codex136-pc-boundaries.json",

@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-175",
+      "status": "done",
+      "scope": "Analytics keyboard focus and international Mart search",
+      "evidence": "LAUNCH-CODEX175-HUB-KEYBOARD-SEARCH.md;evidence/codex175-regressions.json;evidence/codex175-publication.json",
+      "testResults": "118 suites;local rendered keyboard/delayed-response/search acceptance;build31/471;100+2hosted source matches",
+      "nextAction": "Continue independent launch/Admin Hub review;actual staff/provider/device acceptance remains scoped",
+      "approvalRequirement": "CODEX-78 routine frontend standing authority"
+    },
+    {
       "id": "CODEX-174",
       "status": "done",
       "scope": "Read-only full Trainer roster installed/published/source verified",

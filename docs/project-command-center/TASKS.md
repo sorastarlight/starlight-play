@@ -429,3 +429,6 @@ CODEX-156–159 VERIFIED:exact3runtime main50d4a53e/Pages39976074698success;100m
 
 
 CODEX-161 recovery observation:scheduled dashboard lists PHYSICAL23Oct07:44:31UTC/03:44:31EDT,after latest recorded migration20261023025714/CODEX-135. Storage metadata0buckets. No Restore/export/password/settings/player action;not physical/full Auth/storage certification. Older logical archive still needs10guarded deltas. See LAUNCH-CODEX161-POST-CORRECTION-BACKUP.md.
+
+
+CODEX-175 VERIFIED: routine Analytics roving focus and Unicode Mart search;118/118 suites/build31HTML/471refs;actual local keyboard exit/re-entry and delayed response focus plus Japanese match/no-match. Exact2runtime main d7082278 / Pages40021246367 success;100monitored+2versioned source matches. No production application/report/save/SQL/Auth/provider/grant/APP action. See LAUNCH-CODEX175-HUB-KEYBOARD-SEARCH.md.

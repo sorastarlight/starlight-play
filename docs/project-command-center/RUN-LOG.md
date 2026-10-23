@@ -2247,3 +2247,7 @@ CODEX-122 COMPLETE:only js/store.js published under CODEX-78 at main4d6ed6dc;Pag
 ## CODEX-124 — Oak lookup recovery and publication acceptance
 
 5 LOCAL actual-source cases and isolated REAL BROWSER recovery;105suites/build31/464/12recovery hashes. Only js/evolve.js published main5e15eb0c;Pages39880564592success. Prior Pokédex Pages39880218451success. Both versioned scripts match;100/100expanded sources after one transient503 retry. No hosted Auth/provider/gameplay call;APP unchanged;Sora NO;Twinkle NO;PlayTester role unchanged. Real acceptance stays open;Twitch held.
+
+## CODEX-125 — Settings load and Pass failure feedback (2026-10-22 EDT)
+
+7 LOCAL actual-source cases and isolated REAL BROWSER mocked failure/retry;106suites/build31/464/12recovery hashes. Runtime-only main150c69e6;Pages39881130370success;100sources/versioned Settings source match. No real Auth/provider/gameplay call;APP unchanged;Sora NO;Twinkle NO;PlayTester role unchanged. Real acceptance remains required;Twitch held. Own review tabs closed and servers stopped. Next daily backup not yet due.

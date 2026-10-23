@@ -9,3 +9,5 @@ Seven LOCAL actual-source cases cover failed session/profile lookup, load recove
 Isolated REAL BROWSER component runs actual selected Pass listener source with mocked session/function/load helpers, play.css and connect-src none. Native button disabled while pending, re-enabled with retry copy after simulated transport failure, then completed a successful simulated retry. No full Settings/account/provider/device acceptance is implied. Screenshot:C:/Users/FET/.codex/visualizations/2026/10/19/01a15207-ca1f-7800-95d6-9fb36dc377d5/settings-recovery-codex125.png. Agent tab closed and loopback server stopped.
 
 Publication pending runtime-only js/settings.js diff. No SQL, security/Auth/provider authority, player/account mutation, grants, real email/gameplay, spending, scheduling, APP stamp or final launch. Sora NO;Twinkle NO;PlayTester role unchanged. Required real acceptance remains open;Twitch testing held.
+
+Published only js/settings.js to main150c69e6 under CODEX-78;Pages39881130370success.100/100expanded hosted sources and actual js/settings.js?v=20261008-rc133 match. Evidence:evidence/codex125-publication.json. Main/feature histories remain separate.

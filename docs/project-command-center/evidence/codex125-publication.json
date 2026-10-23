@@ -1,0 +1,13 @@
+{
+  "main": "150c69e6",
+  "pagesRun": 39881130370,
+  "pagesConclusion": "success",
+  "classification": "READ-ONLY static source equality;not authenticated/device acceptance",
+  "results": [
+    {
+      "file": "js/settings.js",
+      "status": 200,
+      "matches": true
+    }
+  ]
+}

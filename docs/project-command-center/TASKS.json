@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-125",
+      "status": "done",
+      "scope": "Routine Settings loading boundary and Pass button failure/single-flight feedback",
+      "dependencies": [
+        "CODEX-124"
+      ],
+      "evidence": "LAUNCH-CODEX125-SETTINGS-LOADING.md; evidence/codex125-regressions.json; evidence/codex125-publication.json",
+      "testResults": "7actual-source cases;baseline session rejection;isolated real browser mock failure/retry;106suites;build31/464;12recovery hashes;Pages39881130370success;100sources and versioned Settings source match",
+      "nextAction": "Required real-device/assistive/provider acceptance remains open;Twitch held;next daily backup not due until around Oct23 07:44UTC",
+      "approvalRequirement": "Existing CODEX-78 routine frontend maintenance;no new authority"
+    },
+    {
       "id": "CODEX-124",
       "status": "done",
       "scope": "Routine Oak Lab navigation failure boundary",

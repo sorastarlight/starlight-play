@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-125 | done | Settings load/Pass failure feedback | CODEX-124 | CODEX-78 routine frontend | Main150c69e6;Pages39881130370success;100sources/versioned Settings match |
 | CODEX-124 | done | Oak lookup failure boundary | CODEX-123 | CODEX-78 routine frontend |Main5e15eb0c;Pages39880564592success;100sources/versioned scripts match |
 | CODEX-123 | done | Pokédex lookup failure boundary | CODEX-122 | CODEX-78 routine frontend | Main5130c349;Pages39880218451success;versioned source match |
 | CODEX-122 | done | Mart Pass request feedback | CODEX-121 | CODEX-78 routine frontend |Main4d6ed6dc;Pages39838654675success;100sources/versioned Mart match |

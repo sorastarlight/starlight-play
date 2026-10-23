@@ -94,3 +94,7 @@ CODEX-50 continuation: actual owner Trainer Gifts delivered exactly15 Caterpie C
 October22overnight exception:owner explicitly requested sustained overnight continuation. One bounded local same-thread heartbeat every30minutes for8hours is authorized until08:25EDT;see OVERNIGHT-LAUNCH-READINESS.md. This grants no Supabase/job/provider scheduling,SQL,gameplay,protected-account,spending,APP-stamp or final-launch authority. Important held proposals do not stop independent work.
 
 CODEX-118 CURRENT COMPLETION:owner approved only the one-function correction/read-only verification. Migration20261022171505 codex118_atomic_notice_claim installed;full definition/candidate body and unchanged ACL/config/owner/behavior attributes independently verified. No notice endpoint invoked,reward/gameplay/provider/email/APPaction or player repair. Guarded INSTALL/ROLLBACK retained in supabase/unapplied/atomic-notice-claim;15local packet checks remain valid. Earlier held statements are historical;approval spent.
+
+## CODEX-135 — Approved team correction installed
+
+Explicit owner approval;fresh source/attributes/2packet hashes matched. Installed20261023025714;exact candidate/attributes and removal-helper control verified without application calls/player repair.17local cases;10forward/10reverse empty-schema recovery packets,21guards,585/143/56baseline matches;142tables empty/runtime stopped/archive unchanged.20recovery files retained;approval spent. Real acceptance required/Twitch held;APPunchanged. See LAUNCH-CODEX135-TEAM-SERIALIZATION.md.

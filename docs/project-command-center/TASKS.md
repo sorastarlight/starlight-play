@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-135 | done | Team active-ownership serialization | CODEX-134 | Explicit owner approval spent |Installed20261023025714;17cases;10delta recovery proof |
 | CODEX-134 | done | Recovery reservation concurrency | CODEX-133 | Catalog/local only |3new concurrent/lifecycle groups;29existing checks;no mail |
 | CODEX-133 | done | Recovery recent-authentication boundary | CODEX-132 | Catalog/local only |25AMR SQL cases;no email/hosted action |
 | CODEX-132 | done | Bridge token/command boundaries | CODEX-131 | Catalog/local only |17groups;30invalid-token denials;no real calls |

@@ -82,3 +82,11 @@ Owner-approved one-function replacement;exact candidate/attributes verified,6con
 ## CODEX-131 empty-schema compatibility proof
 
 All9reviewed installs replay in order on a separate empty PG17 schema fixture from the retained schema archive;20latest function guards match and browser configuration writes remain denied. Reverse9rollbacks restore585function metadata records/143relation-permission records/56policies exactly.142tables remain empty. No player/Auth records or data archive imported,no production connection,original archive unchanged. Local runtime stopped/fixture removed. This supplements CODEX-71/126 data verification;it is not physical/full Auth/storage restore certification or permission to replay/rollback in production. See LAUNCH-CODEX131-SCHEMA-REPLAY.md.
+
+## CODEX-135 approved team active-ownership delta
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261023025714 codex135_team_active_ownership_serialization|supabase/unapplied/team-active-ownership/INSTALL.sql|d0df06fc6fab4439ccea0e4d74e800efcf1f29f053b51b957d2cf90edd6a624f|
+
+Owner explicitly approved one-function replacement and source-only verification. Exact candidate and unchanged attributes verified without a team/trade/release call. This is the tenth post-drill delta;older snapshots need ordered replay or verified newer coverage. No player-pointer repair,restore or new gameplay authority.

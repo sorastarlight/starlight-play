@@ -119,3 +119,7 @@ CODEX-130/131/132:29new exact-source Helpdesk live-session/actual-role cases pas
 ## CODEX-134 — Recovery reservation concurrency
 
 29existing sequential checks plus3new REAL LOCAL overlap/uncertain-retention groups pass;peer advisory-lock waits explicitly observed.8captured definitions;hosted constraint catalog confirms relevant receipt/settings constraints.18recovery files verify;fictional fixture stopped/removed. No hosted application call/email/credential/player/SQL/APP change. Real acceptance remains required;Twitch held. See LAUNCH-CODEX134-RECOVERY-RESERVATIONS.md.
+
+## CODEX-135 — Approved team correction installed
+
+Explicit owner approval;fresh source/attributes/2packet hashes matched. Installed20261023025714;exact candidate/attributes and removal-helper control verified without application calls/player repair.17local cases;10forward/10reverse empty-schema recovery packets,21guards,585/143/56baseline matches;142tables empty/runtime stopped/archive unchanged.20recovery files retained;approval spent. Real acceptance required/Twitch held;APPunchanged. See LAUNCH-CODEX135-TEAM-SERIALIZATION.md.

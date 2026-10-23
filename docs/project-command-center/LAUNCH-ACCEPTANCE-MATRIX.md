@@ -1,4 +1,4 @@
-# Current launch acceptance matrix — CODEX-134 real acceptance required
+# Current launch acceptance matrix — CODEX-135 real acceptance required
 
 This is the consolidated review target,not a launch declaration. Current October22,2026 EDT. Latest completed regression run: 106/106 suites in CODEX-125. Routine staff error/Bits feedback escaping is published;current expanded checker verified100hosted source files in CODEX-125; isolated hosted rendering shows 26 samples and zero injected nodes. Overnight continuation and held decisions are tracked in OVERNIGHT-LAUNCH-READINESS.md. No Auth authority change. APP20261008-rc133. Existing daily-backup loss window and free email capacity are accepted decisions. Routine frontend publication authority remains active;all consequential gates remain.
 
@@ -11,7 +11,7 @@ This is the consolidated review target,not a launch declaration. Current October
 | Device layout | Core page responsive checks plus isolated celebrations/nav/signup/Helpdesk dialogs at 320/390/768/1280 CSSpx | Physical iOS/Android,touch/virtual keyboard,browser zoom and screenreader not certified |
 | Motion and keyboard | Actual hosted guide/nav;celebration preview static computed animations and focus;isolated narrow nav/account opener restoration; named confirmation/Ribbon dialogs with native Escape/opener checks; twelve additional named-dialog fragments locally/hosted and 48 CSS-width cases | OS preference switching and full-site motion/keyboard matrix incomplete |
 | Twitch restriction | Installed disabled;current provider behavior preserved | New one-link restriction stays disabled pending real-provider identity/rollout decision;not a silent launch activation |
-| Recovery | Actual CODEX-71/126 retained logical restore111projections/schema;CODEX-131empty-schema9-delta forward/inverse proof;daily RPO accepted;Edge7/5 dependencies recorded | CODEX-94 snapshot follows CODEX-73 but predates CODEX-96/116/118/121/127/128/129; guarded replay deltas retained and checked automatically;physical restore/full Auth/storage recovery not certified |
+| Recovery | Actual CODEX-71/126 retained logical restore111projections/schema;CODEX-135empty-schema10-delta forward/inverse proof;daily RPO accepted;Edge7/5 dependencies recorded | CODEX-94 snapshot follows CODEX-73 but predates CODEX-96/116/118/121/127/128/129; guarded replay deltas retained and checked automatically;physical restore/full Auth/storage recovery not certified |
 | Email | Domain/send/reset/signup evidence recorded;100/day3000/month free capacity accepted | Observe quotas during operation;no paid upgrade or new email test authority |
 | Publication/release | Existing Pages published routine frontend;source checks and guarded backend installs recorded | Final configuration review,go/no-go and APP stamp explicitly require owner decision;no new release smoke inferred |
 
@@ -97,3 +97,5 @@ CODEX-130/131/132:29new exact-source Helpdesk live-session/actual-role cases pas
 CODEX-133:25REAL LOCAL captured recent-owner authentication cases pass;8recovery/diagnostics function source/ACL review. No hosted recovery action/email/new defect confirmed. Signed JWT/provider/full recovery certification remains open. See LAUNCH-CODEX133-RECOVERY-AUTH.md.
 
 CODEX-134:29existing recovery checks plus3new REAL LOCAL reservation concurrency/lifecycle groups pass with8captured definitions;actual advisory-lock waits observed. Hosted constraint catalog matches relevant receipt/settings boundaries. No mail/production change or new defect confirmed. See LAUNCH-CODEX134-RECOVERY-RESERVATIONS.md.
+
+CODEX-135:owner-approved team correction installed20261023025714;17local cases and exact hosted source/attributes verified,no hosted team/trade/release call or player repair. Recovery10forward/10reverse,21guards,585/143/56inverse baseline matches;142tables empty. See LAUNCH-CODEX135-TEAM-SERIALIZATION.md.

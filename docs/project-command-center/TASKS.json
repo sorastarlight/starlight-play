@@ -4,6 +4,18 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-135",
+      "scope": "Approved team active-ownership serialization and extended schema recovery",
+      "evidence": "LAUNCH-CODEX135-TEAM-SERIALIZATION.md; evidence/codex135-team-verification.json",
+      "testResults": "17local cases;exact hosted source/attributes;10forward/10reverse schema packets;21guards;585/143/56inverse baseline",
+      "dependencies": [
+        "CODEX-134"
+      ],
+      "status": "done",
+      "nextAction": "Real acceptance required;Twitch held;new snapshot observation when due",
+      "approvalRequirement": "Explicit owner approval spent;no new SQL/gameplay authority"
+    },
+    {
       "id": "CODEX-134",
       "scope": "Recovery reservation concurrency and unresolved-send retention",
       "evidence": "LAUNCH-CODEX134-RECOVERY-RESERVATIONS.md; evidence/codex134-recovery-reservations.json",

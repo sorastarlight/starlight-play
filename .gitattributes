@@ -21,3 +21,5 @@ supabase/unapplied/pass-claim-serialization/INSTALL.sql text eol=lf
 supabase/unapplied/pass-claim-serialization/ROLLBACK.sql text eol=lf
 supabase/unapplied/pass-delivery-result/INSTALL.sql text eol=lf
 supabase/unapplied/pass-delivery-result/ROLLBACK.sql text eol=lf
+supabase/unapplied/team-active-ownership/INSTALL.sql text eol=lf
+supabase/unapplied/team-active-ownership/ROLLBACK.sql text eol=lf

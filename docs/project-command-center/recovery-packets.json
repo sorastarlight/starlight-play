@@ -118,6 +118,19 @@
           "sha256": "bf0be2bdaecb7f172fc79a5bbed98468530594e78e2dc7cde82e7e0257502859"
         }
       ]
+    },
+    {
+      "version": "20261023025714",
+      "files": [
+        {
+          "file": "supabase/unapplied/team-active-ownership/INSTALL.sql",
+          "sha256": "d0df06fc6fab4439ccea0e4d74e800efcf1f29f053b51b957d2cf90edd6a624f"
+        },
+        {
+          "file": "supabase/unapplied/team-active-ownership/ROLLBACK.sql",
+          "sha256": "322fb9a669ac074bdedcae8921bec17f26fee30938561e1c815ac697ae665819"
+        }
+      ]
     }
   ]
 }

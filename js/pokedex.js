@@ -1249,17 +1249,17 @@
     familiarity.reset(null);
     paintFamiliarityCopy();
     collectionCache = null;
-    const session = await loadNav(generation);
-    if (generation !== loadGeneration) return;
-    familiarity.reset(session?.user?.id || null);
-    if (!session) {
-      els.app.hidden = true;
-      closeDetail({ clearRoute: true, fromAuth: true });
-      window.playRestoreGate(els.gate, "Sign in to open your Pokédex.");
-      return;
-    }
-    window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
     try {
+      const session = await loadNav(generation);
+      if (generation !== loadGeneration) return;
+      familiarity.reset(session?.user?.id || null);
+      if (!session) {
+        els.app.hidden = true;
+        closeDetail({ clearRoute: true, fromAuth: true });
+        window.playRestoreGate(els.gate, "Sign in to open your Pokédex.");
+        return;
+      }
+      window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
       clearUnreleasedRoute();
       const result = await window.playCall("play_pokedex", { p_login: null });
       if (generation !== loadGeneration) return;

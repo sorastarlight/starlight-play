@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-144 | doing | Trainer typography/capability copy/status | CODEX-143 | CODEX-78 |32populated states/106suites;exact2file publication next |
+| CODEX-143 | done | Site-wide shells/copy/search styling | CODEX-142 | CODEX-78 |Main200499f4/Pages39897398820success;84layouts;11changed sources |
 | CODEX-142 | done | Cosmetic equip ownership | CODEX-141 | Catalog/local only |16REAL LOCAL selected ownership/entitlement/equip cases;no production change |
 | CODEX-141 | done | Encounter preferences/reward acknowledgement | CODEX-140 | Catalog/local only |18REAL LOCAL actor isolation/input normalization cases;no production change |
 | CODEX-140 | done | Mart sale atomicity/replay | CODEX-139 | Catalog/local only |21cases;concurrent conservation/payout rollback;no hosted sale |

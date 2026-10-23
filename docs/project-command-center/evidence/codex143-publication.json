@@ -1,0 +1,62 @@
+{
+  "main": "200499f4",
+  "pagesRun": 39897398820,
+  "classification": "Read-only hosted full-source comparison;no RPC/browser session",
+  "results": [
+    {
+      "file": "admin-next.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "admin-store.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "css/play.css",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "events.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "register.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "reset-password.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "settings.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "store.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "trade.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "trainer.html",
+      "status": 200,
+      "matches": true
+    }
+  ]
+}

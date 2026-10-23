@@ -1,5 +1,7 @@
 # Admin Hub inventory
 
+Historical initial inventory. Later approved work supersedes several read-only and unavailable-field statements below. Use [Current Admin Hub status](./CURRENT-ADMIN-HUB-STATUS.md) for the implemented state and [site-wide visual review](./SITEWIDE-VISUAL-CONSISTENCY.md) for active polish.
+
 Traced from source on `admin-hub-overhaul`. Unknowns are marked. No write-risk RPCs were invoked for this inventory.
 
 ## Navigation

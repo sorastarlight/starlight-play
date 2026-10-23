@@ -2311,3 +2311,7 @@ Explicit owner approval;fresh source/attributes/2packet hashes matched. Installe
 ## CODEX-142 — Cosmetic equip ownership
 
 16REAL LOCAL selected ownership/entitlement/equip cases;no new defect confirmed. Fictional runtime stopped/fixture removed;no hosted application/grant/provider/email/SQL/player/APP action. Recovery10deltas/20files;real acceptance required/Twitch held. See LAUNCH-CODEX142-EQUIP-OWNERSHIP.md.
+
+## CODEX-143/144 — Visual consistency workstream
+
+143live main200499f4/Pages39897398820success;106suites/build31/464;100sources and11changed versioned sources match.84completed-load isolated page shells;144candidate32populated Trainer states and typography/capability-copy fixes pass. Current overhaul status reconciled;scope/limits/remaining review in SITEWIDE-VISUAL-CONSISTENCY.md. No gameplay/SQL/Auth/provider/APP change.

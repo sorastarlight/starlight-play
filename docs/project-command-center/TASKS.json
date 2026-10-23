@@ -4,6 +4,30 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-143",
+      "scope": "Site-wide shell/copy/search-control review and routine publication",
+      "evidence": "LAUNCH-CODEX143-144-VISUAL-CONSISTENCY.md; evidence/codex143-publication.json",
+      "testResults": "84completed-load shell layouts;106suites;100hosted sources/11changed versioned sources match;Pages success",
+      "dependencies": [
+        "CODEX-142"
+      ],
+      "status": "done",
+      "nextAction": "Continue populated/expanded presentation review",
+      "approvalRequirement": "CODEX-78 routine frontend exception;no new backend authority"
+    },
+    {
+      "id": "CODEX-144",
+      "scope": "Trainer control typography/current capabilities and overhaul-status reconciliation",
+      "evidence": "LAUNCH-CODEX143-144-VISUAL-CONSISTENCY.md; evidence/codex143-144-rendered.json",
+      "testResults": "32populated Trainer pane-width states;106suites;record13/rewards16",
+      "dependencies": [
+        "CODEX-143"
+      ],
+      "status": "in_progress",
+      "nextAction": "Publish exact2runtime files then verify hosted sources",
+      "approvalRequirement": "CODEX-78 routine frontend exception;no new backend authority"
+    },
+    {
       "id": "CODEX-142",
       "scope": "Cosmetic equip ownership",
       "evidence": "LAUNCH-CODEX142-EQUIP-OWNERSHIP.md; evidence/codex142-equip-ownership.json",

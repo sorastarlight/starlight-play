@@ -1,0 +1,11 @@
+# CODEX-143/144 — Site-wide presentation review
+
+Owner requested autonomous site-wide rendered inspection and routine fixes,including Admin Hub. This is presentation maintenance within CODEX-78,not a completed whole-site visual certificate or authority to migrate privileged workflows.
+
+CODEX-143 is live:11HTML/CSS files corrected GTS native-small search fields,stacked narrow filters,corrupted punctuation/Poké Radar spelling/username range,reset-page game title and internal Gate/CRUD/database language in new-hub handoffs. Feature895e7b3c;main200499f4;Pages39897398820success.106non-writing suites/build31HTML/464references pass;100monitored files and11explicit changed versioned full sources match. No JS behavior,backend or APP change.
+
+REAL BROWSER isolated actual-markup review covers21pages at1280/768/390/320CSSpx:84completed-load shell measurements with no document-wide overflow or measured visible non-checkbox/radio control below32px. A separate populated sanitized Trainer fixture covers all8tabs at4widths:32states without document-wide overflow,undersized measured controls or non-site control fonts after CODEX-144candidate. Actual shared navigation/HTML/CSS;fictional account;other public controllers removed. This does not validate every populated/error/authenticated/provider/device state. Initial exploratory measurements were superseded by load-complete measurements.
+
+Additional visual observations:mobile primary/account menus,Escape dismissal,GTS listing dialog,new-hub Operations/Mart and Trainer directory/Overview/Inventory/Gifts. Private screenshots/harnesses remain LOCALAPPDATA/PokemonStreamLink/security/codex143. No production RPC,Auth,provider,email,gameplay or staff mutation. Sora NO;Twinkle NO;PlayTester role unchanged.
+
+CODEX-144 candidate corrects Trainer search/gift control typography and the obsolete Inventory claim that grants are unavailable. Current overhaul summary added at CURRENT-ADMIN-HUB-STATUS.md;initial IA/inventory marked historical without deleting provenance. Candidate106suites,record13/reward16checks and build pass. Exact two-file publication/source verification follows separately. Remaining inspection is tracked in SITEWIDE-VISUAL-CONSISTENCY.md,including populated public states/search semantics/remaining legacy handoffs. Physical real acceptance remains open;Twitch held.

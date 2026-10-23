@@ -1,14 +1,14 @@
 {
   "classification": "READ-ONLY public static HTTP and newline-normalized source equality;not authenticated or rendered gameplay QA",
-  "checkedAt": "2026-10-23T00:58:29.090Z",
+  "checkedAt": "2026-10-23T03:55:30.137Z",
   "appBuild": "20261008-rc133",
   "results": [
     {
       "file": "index.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "bc121f8779aea7787bf74a8d4a8fd084f517e033538a4de1f53dbe1c72b00c35",
-      "publishedSha256": "bc121f8779aea7787bf74a8d4a8fd084f517e033538a4de1f53dbe1c72b00c35",
+      "localSha256": "39e7ca040a3c09adbf836913537c5626c310f79e16f3a9f08aa85d4a0e4337d8",
+      "publishedSha256": "39e7ca040a3c09adbf836913537c5626c310f79e16f3a9f08aa85d4a0e4337d8",
       "matches": true
     },
     {
@@ -23,16 +23,16 @@
       "file": "register.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "6dd04be333f575a53423fa486a43824d72593cba98b7cf77cb8943f6deb1815f",
-      "publishedSha256": "6dd04be333f575a53423fa486a43824d72593cba98b7cf77cb8943f6deb1815f",
+      "localSha256": "df12b36e17cf813e12d9027f7105db279875c8134c1e253d751a4a8bfd1dfb69",
+      "publishedSha256": "df12b36e17cf813e12d9027f7105db279875c8134c1e253d751a4a8bfd1dfb69",
       "matches": true
     },
     {
       "file": "reset-password.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "8b39f4e9fff658e07630475dedd89e4cb1b8103a56f2dd1d3430cd8fb2f23402",
-      "publishedSha256": "8b39f4e9fff658e07630475dedd89e4cb1b8103a56f2dd1d3430cd8fb2f23402",
+      "localSha256": "ef04f957047c5639994325e103f3679ad56c026e1abc06ccb7b81860431e9699",
+      "publishedSha256": "ef04f957047c5639994325e103f3679ad56c026e1abc06ccb7b81860431e9699",
       "matches": true
     },
     {
@@ -79,16 +79,16 @@
       "file": "settings.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "ec299e6f7a4c9bdfcd6face194f485bf4daac9b1a13f0ec508fa84a1b32c2ae8",
-      "publishedSha256": "ec299e6f7a4c9bdfcd6face194f485bf4daac9b1a13f0ec508fa84a1b32c2ae8",
+      "localSha256": "2e1cf90d0b20a3f8e4f4282f2c0d74ceab23bc1de1942372435e4c9189dc9c8c",
+      "publishedSha256": "2e1cf90d0b20a3f8e4f4282f2c0d74ceab23bc1de1942372435e4c9189dc9c8c",
       "matches": true
     },
     {
       "file": "trainer.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "5303ef7e23f7d8e6503be8a00e729faa2fcf9df50e0721455aeed4bd17e4b55e",
-      "publishedSha256": "5303ef7e23f7d8e6503be8a00e729faa2fcf9df50e0721455aeed4bd17e4b55e",
+      "localSha256": "a2ea5c347a71e2d32984da1db09bfa548e5c9184c60fd4ed7533458734aad908",
+      "publishedSha256": "a2ea5c347a71e2d32984da1db09bfa548e5c9184c60fd4ed7533458734aad908",
       "matches": true
     },
     {
@@ -111,24 +111,24 @@
       "file": "store.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "4ea63ab84d549ece293bdfb4a18484d23046ba161b0866e153182bd1adc15827",
-      "publishedSha256": "4ea63ab84d549ece293bdfb4a18484d23046ba161b0866e153182bd1adc15827",
+      "localSha256": "1978852ab3aa9f7ff91fd317592466f3cb52f58d69affc24d5d11f613e975fc0",
+      "publishedSha256": "1978852ab3aa9f7ff91fd317592466f3cb52f58d69affc24d5d11f613e975fc0",
       "matches": true
     },
     {
       "file": "trade.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "3bd32aa3f3d2ff5e3af3af014aafd9bacf8235729d8df7cd565f061a61f22bb5",
-      "publishedSha256": "3bd32aa3f3d2ff5e3af3af014aafd9bacf8235729d8df7cd565f061a61f22bb5",
+      "localSha256": "ad647b93e545a8841ad8ca17fb766fe4d31da262a7c9270da604e49bda8de8d1",
+      "publishedSha256": "ad647b93e545a8841ad8ca17fb766fe4d31da262a7c9270da604e49bda8de8d1",
       "matches": true
     },
     {
       "file": "events.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "d1a843714aa159603f3f1316fa4527ef4c894dbae066bce45cc4aa8ababc31e8",
-      "publishedSha256": "d1a843714aa159603f3f1316fa4527ef4c894dbae066bce45cc4aa8ababc31e8",
+      "localSha256": "5de33c8227c33b3f12bf52ab860eb88f6f707a8336f3d28a50e7938c35bb4bcb",
+      "publishedSha256": "5de33c8227c33b3f12bf52ab860eb88f6f707a8336f3d28a50e7938c35bb4bcb",
       "matches": true
     },
     {
@@ -143,16 +143,16 @@
       "file": "admin-next.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "66851ac42f5768614ac824378b6b8409629bd96dab83f4349c05d018f1f639c0",
-      "publishedSha256": "66851ac42f5768614ac824378b6b8409629bd96dab83f4349c05d018f1f639c0",
+      "localSha256": "c0f94dec8fb1ee86da5c5f5fcd99df790b1516043edf01387a6eb6ea98f96506",
+      "publishedSha256": "c0f94dec8fb1ee86da5c5f5fcd99df790b1516043edf01387a6eb6ea98f96506",
       "matches": true
     },
     {
       "file": "css/play.css",
       "status": 200,
       "contentType": "text/css; charset=utf-8",
-      "localSha256": "72b2f785464e9fb489b89ef48d85396ee05c4ba08f410655a13be26d2e42b0c1",
-      "publishedSha256": "72b2f785464e9fb489b89ef48d85396ee05c4ba08f410655a13be26d2e42b0c1",
+      "localSha256": "67e1de1f06c2f9dfd183aef7b2556df5c8d60d73be2462802f6964866b69ea49",
+      "publishedSha256": "67e1de1f06c2f9dfd183aef7b2556df5c8d60d73be2462802f6964866b69ea49",
       "matches": true
     },
     {
@@ -431,8 +431,8 @@
       "file": "admin-store.html",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "localSha256": "ef5f0b909b709797e954406d9794f9fb557c017b7832dae089eba045a76a4439",
-      "publishedSha256": "ef5f0b909b709797e954406d9794f9fb557c017b7832dae089eba045a76a4439",
+      "localSha256": "d954c26600ad96329115cbb3b827dde9b858f83376a1a0e7243b723440490810",
+      "publishedSha256": "d954c26600ad96329115cbb3b827dde9b858f83376a1a0e7243b723440490810",
       "matches": true
     },
     {

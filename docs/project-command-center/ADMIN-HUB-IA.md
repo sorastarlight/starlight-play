@@ -1,5 +1,7 @@
 # Next-hub information architecture
 
+Historical initial IA. Later approved Trainer,Pass,Gifts,Helpdesk and recovery work supersedes several read-only/link-only statements below. See [current implementation status](./CURRENT-ADMIN-HUB-STATUS.md) and [active visual review](./SITEWIDE-VISUAL-CONSISTENCY.md).
+
 Proposal implemented in preview only. No new write RPCs.
 
 ## One trainer dossier

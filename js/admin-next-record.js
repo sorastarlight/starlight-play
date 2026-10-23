@@ -103,7 +103,7 @@
       <div class="admin-next-trainer-subnav record-tabs" role="tablist" aria-label="Trainer dossier">${PANES.map((pane) => `<button type="button" role="tab" data-trainer-pane="${pane}" aria-selected="${view.pane === pane}" tabindex="${view.pane === pane ? 0 : -1}">${labels[pane]}</button>`).join("")}</div>`;
     let body;
     if (view.pane === "pokemon") body = pokemon(view);
-    else if (view.pane === "inventory") body = manager(view, "inventory") + note("Bits, the complete item catalog and grant/remove controls are unavailable here.");
+    else if (view.pane === "inventory") body = manager(view, "inventory") + note("Bits, the complete item catalog and item removal are not available in this view. Use Gifts to give rewards.");
     else if (view.pane === "pass" || view.pane === "gifts") body = `<section class="record-surface" data-trainer-rewards><h4>${labels[view.pane]}</h4>${note("Loading staff reward tools…")}</section>`;
     else if (view.pane === "tickets") body = `<section class="record-surface"><h4>Tickets</h4><div data-support-trainer></div></section>`;
     else {

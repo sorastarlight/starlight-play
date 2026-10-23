@@ -1,0 +1,3777 @@
+{
+  "classification": "REAL BROWSER isolated actual HTML/CSS/nav;fictional account/public controllers removed;actual sanitized Trainer fixture;not full device/provider/authenticated acceptance",
+  "shells": [
+    {
+      "page": "index.html",
+      "path": "/review/index.html",
+      "width": 1265,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "storage.html",
+      "path": "/review/storage.html",
+      "width": 1265,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": [
+        {
+          "id": "box-search",
+          "label": "Search Pokémon\n ⌕",
+          "placeholder": "Search by name, type, shiny, gender, Dex number, and more..."
+        }
+      ]
+    },
+    {
+      "page": "pokedex.html",
+      "path": "/review/pokedex.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": [
+        {
+          "id": "dex-search",
+          "label": "Search Kanto Pokédex",
+          "placeholder": "Bulbasaur, 025, Mew…"
+        }
+      ]
+    },
+    {
+      "page": "inventory.html",
+      "path": "/review/inventory.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": [
+        {
+          "id": "bag-search",
+          "label": "Search",
+          "placeholder": "Item name"
+        }
+      ]
+    },
+    {
+      "page": "trainer.html",
+      "path": "/review/trainer.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "achievements.html",
+      "path": "/review/achievements.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": [
+        {
+          "id": "ach-search",
+          "label": "Search achievements",
+          "placeholder": "Search achievements…"
+        }
+      ]
+    },
+    {
+      "page": "evolve.html",
+      "path": "/review/evolve.html",
+      "width": 1265,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": [
+        {
+          "id": "evo-send-search",
+          "label": "Search Pokémon",
+          "placeholder": "Search by Pokémon name or Pokédex number..."
+        }
+      ]
+    },
+    {
+      "page": "rankings.html",
+      "path": "/review/rankings.html",
+      "width": 1265,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": [
+        {
+          "id": "rank-search",
+          "label": "Search by Trainer name",
+          "placeholder": "Trainer name"
+        }
+      ]
+    },
+    {
+      "page": "trade.html",
+      "path": "/review/trade.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": [
+        {
+          "id": "trade-q",
+          "label": "Search trades",
+          "placeholder": "Pokémon or trainer name"
+        }
+      ]
+    },
+    {
+      "page": "events.html",
+      "path": "/review/events.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "help.html",
+      "path": "/review/help.html",
+      "width": 1265,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "store.html",
+      "path": "/review/store.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "settings.html",
+      "path": "/review/settings.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "signin.html",
+      "path": "/review/signin.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "register.html",
+      "path": "/review/register.html",
+      "width": 1265,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "reset-password.html",
+      "path": "/review/reset-password.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "support.html",
+      "path": "/review/support.html",
+      "width": 1280,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "admin-next.html",
+      "path": "/review/admin-next.html",
+      "width": 1265,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "path": "/review/admin-next-trainers-fixture.html",
+      "width": 1265,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": [
+        {
+          "id": "next-trainer-q",
+          "label": "Search trainers",
+          "placeholder": "Name, login, UUID, or Twitch id"
+        }
+      ]
+    },
+    {
+      "page": "admin-store.html",
+      "path": "/review/admin-store.html",
+      "width": 1265,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": [
+        {
+          "id": "look-filter",
+          "placeholder": "Search looks"
+        }
+      ]
+    },
+    {
+      "page": "admin-tools.html",
+      "path": "/review/admin-tools.html",
+      "width": 1265,
+      "ready": "complete",
+      "scrollWidth": 1265,
+      "searches": []
+    },
+    {
+      "page": "index.html",
+      "path": "/review/index.html",
+      "width": 753,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "storage.html",
+      "path": "/review/storage.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": [
+        {
+          "id": "box-search",
+          "label": "Search Pokémon\n ⌕",
+          "placeholder": "Search by name, type, shiny, gender, Dex number, and more..."
+        }
+      ]
+    },
+    {
+      "page": "pokedex.html",
+      "path": "/review/pokedex.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": [
+        {
+          "id": "dex-search",
+          "label": "Search Kanto Pokédex",
+          "placeholder": "Bulbasaur, 025, Mew…"
+        }
+      ]
+    },
+    {
+      "page": "inventory.html",
+      "path": "/review/inventory.html",
+      "width": 753,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": [
+        {
+          "id": "bag-search",
+          "label": "Search",
+          "placeholder": "Item name"
+        }
+      ]
+    },
+    {
+      "page": "trainer.html",
+      "path": "/review/trainer.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "achievements.html",
+      "path": "/review/achievements.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": [
+        {
+          "id": "ach-search",
+          "label": "Search achievements",
+          "placeholder": "Search achievements…"
+        }
+      ]
+    },
+    {
+      "page": "evolve.html",
+      "path": "/review/evolve.html",
+      "width": 753,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": [
+        {
+          "id": "evo-send-search",
+          "label": "Search Pokémon",
+          "placeholder": "Search by Pokémon name or Pokédex number..."
+        }
+      ]
+    },
+    {
+      "page": "rankings.html",
+      "path": "/review/rankings.html",
+      "width": 753,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": [
+        {
+          "id": "rank-search",
+          "label": "Search by Trainer name",
+          "placeholder": "Trainer name"
+        }
+      ]
+    },
+    {
+      "page": "trade.html",
+      "path": "/review/trade.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": [
+        {
+          "id": "trade-q",
+          "label": "Search trades",
+          "placeholder": "Pokémon or trainer name"
+        }
+      ]
+    },
+    {
+      "page": "events.html",
+      "path": "/review/events.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "help.html",
+      "path": "/review/help.html",
+      "width": 753,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "store.html",
+      "path": "/review/store.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "settings.html",
+      "path": "/review/settings.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "signin.html",
+      "path": "/review/signin.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "register.html",
+      "path": "/review/register.html",
+      "width": 753,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "reset-password.html",
+      "path": "/review/reset-password.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "support.html",
+      "path": "/review/support.html",
+      "width": 768,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "admin-next.html",
+      "path": "/review/admin-next.html",
+      "width": 753,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "path": "/review/admin-next-trainers-fixture.html",
+      "width": 753,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": [
+        {
+          "id": "next-trainer-q",
+          "label": "Search trainers",
+          "placeholder": "Name, login, UUID, or Twitch id"
+        }
+      ]
+    },
+    {
+      "page": "admin-store.html",
+      "path": "/review/admin-store.html",
+      "width": 753,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": [
+        {
+          "id": "look-filter",
+          "placeholder": "Search looks"
+        }
+      ]
+    },
+    {
+      "page": "admin-tools.html",
+      "path": "/review/admin-tools.html",
+      "width": 753,
+      "ready": "complete",
+      "scrollWidth": 753,
+      "searches": []
+    },
+    {
+      "page": "index.html",
+      "path": "/review/index.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "storage.html",
+      "path": "/review/storage.html",
+      "width": 390,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": [
+        {
+          "id": "box-search",
+          "label": "Search Pokémon\n ⌕",
+          "placeholder": "Search by name, type, shiny, gender, Dex number, and more..."
+        }
+      ]
+    },
+    {
+      "page": "pokedex.html",
+      "path": "/review/pokedex.html",
+      "width": 390,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": [
+        {
+          "id": "dex-search",
+          "label": "Search Kanto Pokédex",
+          "placeholder": "Bulbasaur, 025, Mew…"
+        }
+      ]
+    },
+    {
+      "page": "inventory.html",
+      "path": "/review/inventory.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": [
+        {
+          "id": "bag-search",
+          "label": "Search",
+          "placeholder": "Item name"
+        }
+      ]
+    },
+    {
+      "page": "trainer.html",
+      "path": "/review/trainer.html",
+      "width": 390,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "achievements.html",
+      "path": "/review/achievements.html",
+      "width": 390,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": [
+        {
+          "id": "ach-search",
+          "label": "Search achievements",
+          "placeholder": "Search achievements…"
+        }
+      ]
+    },
+    {
+      "page": "evolve.html",
+      "path": "/review/evolve.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": [
+        {
+          "id": "evo-send-search",
+          "label": "Search Pokémon",
+          "placeholder": "Search by Pokémon name or Pokédex number..."
+        }
+      ]
+    },
+    {
+      "page": "rankings.html",
+      "path": "/review/rankings.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": [
+        {
+          "id": "rank-search",
+          "label": "Search by Trainer name",
+          "placeholder": "Trainer name"
+        }
+      ]
+    },
+    {
+      "page": "trade.html",
+      "path": "/review/trade.html",
+      "width": 390,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": [
+        {
+          "id": "trade-q",
+          "label": "Search trades",
+          "placeholder": "Pokémon or trainer name"
+        }
+      ]
+    },
+    {
+      "page": "events.html",
+      "path": "/review/events.html",
+      "width": 390,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "help.html",
+      "path": "/review/help.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "store.html",
+      "path": "/review/store.html",
+      "width": 390,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "settings.html",
+      "path": "/review/settings.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "signin.html",
+      "path": "/review/signin.html",
+      "width": 390,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "register.html",
+      "path": "/review/register.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "reset-password.html",
+      "path": "/review/reset-password.html",
+      "width": 390,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "support.html",
+      "path": "/review/support.html",
+      "width": 390,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "admin-next.html",
+      "path": "/review/admin-next.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "path": "/review/admin-next-trainers-fixture.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": [
+        {
+          "id": "next-trainer-q",
+          "label": "Search trainers",
+          "placeholder": "Name, login, UUID, or Twitch id"
+        }
+      ]
+    },
+    {
+      "page": "admin-store.html",
+      "path": "/review/admin-store.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": [
+        {
+          "id": "look-filter",
+          "placeholder": "Search looks"
+        }
+      ]
+    },
+    {
+      "page": "admin-tools.html",
+      "path": "/review/admin-tools.html",
+      "width": 375,
+      "ready": "complete",
+      "scrollWidth": 375,
+      "searches": []
+    },
+    {
+      "page": "index.html",
+      "path": "/review/index.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "storage.html",
+      "path": "/review/storage.html",
+      "width": 320,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": [
+        {
+          "id": "box-search",
+          "label": "Search Pokémon\n ⌕",
+          "placeholder": "Search by name, type, shiny, gender, Dex number, and more..."
+        }
+      ]
+    },
+    {
+      "page": "pokedex.html",
+      "path": "/review/pokedex.html",
+      "width": 320,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": [
+        {
+          "id": "dex-search",
+          "label": "Search Kanto Pokédex",
+          "placeholder": "Bulbasaur, 025, Mew…"
+        }
+      ]
+    },
+    {
+      "page": "inventory.html",
+      "path": "/review/inventory.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": [
+        {
+          "id": "bag-search",
+          "label": "Search",
+          "placeholder": "Item name"
+        }
+      ]
+    },
+    {
+      "page": "trainer.html",
+      "path": "/review/trainer.html",
+      "width": 320,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "achievements.html",
+      "path": "/review/achievements.html",
+      "width": 320,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": [
+        {
+          "id": "ach-search",
+          "label": "Search achievements",
+          "placeholder": "Search achievements…"
+        }
+      ]
+    },
+    {
+      "page": "evolve.html",
+      "path": "/review/evolve.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": [
+        {
+          "id": "evo-send-search",
+          "label": "Search Pokémon",
+          "placeholder": "Search by Pokémon name or Pokédex number..."
+        }
+      ]
+    },
+    {
+      "page": "rankings.html",
+      "path": "/review/rankings.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": [
+        {
+          "id": "rank-search",
+          "label": "Search by Trainer name",
+          "placeholder": "Trainer name"
+        }
+      ]
+    },
+    {
+      "page": "trade.html",
+      "path": "/review/trade.html",
+      "width": 320,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": [
+        {
+          "id": "trade-q",
+          "label": "Search trades",
+          "placeholder": "Pokémon or trainer name"
+        }
+      ]
+    },
+    {
+      "page": "events.html",
+      "path": "/review/events.html",
+      "width": 320,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "help.html",
+      "path": "/review/help.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "store.html",
+      "path": "/review/store.html",
+      "width": 320,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "settings.html",
+      "path": "/review/settings.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "signin.html",
+      "path": "/review/signin.html",
+      "width": 320,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "register.html",
+      "path": "/review/register.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "reset-password.html",
+      "path": "/review/reset-password.html",
+      "width": 320,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "support.html",
+      "path": "/review/support.html",
+      "width": 320,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "admin-next.html",
+      "path": "/review/admin-next.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "path": "/review/admin-next-trainers-fixture.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": [
+        {
+          "id": "next-trainer-q",
+          "label": "Search trainers",
+          "placeholder": "Name, login, UUID, or Twitch id"
+        }
+      ]
+    },
+    {
+      "page": "admin-store.html",
+      "path": "/review/admin-store.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": [
+        {
+          "id": "look-filter",
+          "placeholder": "Search looks"
+        }
+      ]
+    },
+    {
+      "page": "admin-tools.html",
+      "path": "/review/admin-tools.html",
+      "width": 305,
+      "ready": "complete",
+      "scrollWidth": 305,
+      "searches": []
+    }
+  ],
+  "trainerStates": [
+    {
+      "pane": "Overview",
+      "width": 1265,
+      "scrollWidth": 1265,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Pokémon",
+      "width": 1265,
+      "scrollWidth": 1265,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Inventory",
+      "width": 1265,
+      "scrollWidth": 1265,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Progression",
+      "width": 1265,
+      "scrollWidth": 1265,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Connections",
+      "width": 1265,
+      "scrollWidth": 1265,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Starlight Pass",
+      "width": 1265,
+      "scrollWidth": 1265,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Gifts",
+      "width": 1265,
+      "scrollWidth": 1265,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Tickets",
+      "width": 1265,
+      "scrollWidth": 1265,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Overview",
+      "width": 753,
+      "scrollWidth": 753,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Pokémon",
+      "width": 753,
+      "scrollWidth": 753,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Inventory",
+      "width": 753,
+      "scrollWidth": 753,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Progression",
+      "width": 753,
+      "scrollWidth": 753,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Connections",
+      "width": 753,
+      "scrollWidth": 753,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Starlight Pass",
+      "width": 753,
+      "scrollWidth": 753,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Gifts",
+      "width": 753,
+      "scrollWidth": 753,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Tickets",
+      "width": 753,
+      "scrollWidth": 753,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Overview",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Pokémon",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Inventory",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 96,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Progression",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 96,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Connections",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Starlight Pass",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Gifts",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Tickets",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Overview",
+      "width": 305,
+      "scrollWidth": 305,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Pokémon",
+      "width": 305,
+      "scrollWidth": 305,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 94,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Inventory",
+      "width": 305,
+      "scrollWidth": 305,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 118,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 96,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Progression",
+      "width": 305,
+      "scrollWidth": 305,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 96,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 118,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 75,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Connections",
+      "width": 305,
+      "scrollWidth": 305,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 68,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Starlight Pass",
+      "width": 305,
+      "scrollWidth": 305,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 66,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 66,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Gifts",
+      "width": 305,
+      "scrollWidth": 305,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 45,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    },
+    {
+      "pane": "Tickets",
+      "width": 305,
+      "scrollWidth": 305,
+      "controls": [
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 62,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 44,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        },
+        {
+          "id": "",
+          "height": 47,
+          "font": "Nunito, \"Nunito Fallback\", \"Segoe UI\", system-ui, sans-serif"
+        }
+      ]
+    }
+  ],
+  "main": "200499f4",
+  "pagesRun": 39897398820
+}

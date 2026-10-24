@@ -1,0 +1,25 @@
+{
+  "classification": "Actual rendered isolated Admin Hub; fictional staff/catalog/config; connect-src none; no hosted calls",
+  "config": {
+    "editedParticipation": 31,
+    "afterSectionAndBrowserBack": 31,
+    "cancelReloadPreservesDraft": true,
+    "cancelFocus": "Reload reward settings",
+    "explicitDiscardRestores": 25
+  },
+  "mart": {
+    "editedName": "Berry Bundle local draft",
+    "afterSectionAndBrowserBack": "Berry Bundle local draft",
+    "cancelProductSwitchPreservesDraft": true,
+    "cancelFocus": "Poké Ball Bundle selection control",
+    "explicitDiscardOpens": "Poké Ball Bundle",
+    "selectionFocus": "Poké Ball Bundle heading"
+  },
+  "transportLog": [
+    "admin_economy_overview {}",
+    "admin_store_get {}"
+  ],
+  "saveCommands": 0,
+  "limitations": "No actual authentication, hosted save, full-page unload, device/screen-reader or provider acceptance",
+  "historicalMatrixTextPreserved": true
+}

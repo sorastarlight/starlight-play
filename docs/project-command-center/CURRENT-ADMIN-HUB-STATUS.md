@@ -1,6 +1,6 @@
 # Current Admin Hub status
 
-Current update: CODEX-196 publication complete after explicit owner approval: exact five runtime files published at main 08d4f7a6036572207913c744dbec7ba7941665af; Pages 40095860997 succeeded. Catalog-only recheck matched both public command/snapshot definitions and attributes plus three reviewed helper definitions. All 100 monitored and five changed versioned hosted sources match that commit. Previously completed 119 local regression suites, build 31 HTML/473 references and responsive/fictional workflow checks remain the validation basis. No authenticated navigation, notices, hosted snapshot/report, session command, SQL change or gameplay test ran. APP 20261008-rc133 unchanged. Publication approval spent; live Start/End acceptance requires separate bounded authority. The expired eight-hour heartbeat was paused without extending its deadline; this publication completed under the subsequent direct human approval.
+Current completion: CODEX-198 owner-approved one-file channel-save correction published at main ceefc26a; Pages40110768347success;100monitored plus1versioned source match. All120local suites/build31HTML473refs pass. CODEX-199 current readiness index and isolated Config/Mart draft/navigation checks complete. No SQL,real credential/provider call,hosted application action or APP change. No pending correction decision from this batch. Expired heartbeat remains paused; direct human continuation does not renew it.
 
 Updated October 24, 2026 through CODEX-198 review. The new workspace is admin-next.html, labelled Admin Hub (preview). It remains a partial replacement for admin.html; no complete-overhaul or launch declaration is made.
 
@@ -28,7 +28,7 @@ See [the consolidated owner review](OWNER-RETURN-REVIEW-OCT24.md) for exact scop
 
 ## Release evidence and limits
 
-Current runtime main is 73ff83c6; Pages 40096315148 succeeded. CODEX-197 matches all 100 monitored sources and the changed versioned session module. All 119 local suites and build 31 HTML/473 references passed. APP remains 20261008-rc133. Separate main/feature histories are preserved.
+Current runtime main is ceefc26a; Pages 40110768347 succeeded. CODEX-198 matches all 100 monitored sources and the changed versioned legacy tools module. All 120 local suites and build 31 HTML/473 references passed. APP remains 20261008-rc133. Separate main/feature histories are preserved.
 
 The 24 October 07:44:07 UTC physical backup is available after the latest recorded database correction. The 13-delta empty-schema recovery rehearsal passed separately. Neither certifies physical restore, full Auth-service or Storage recovery.
 
@@ -49,6 +49,8 @@ Individual reports and RUN-LOG.md retain historical approvals and evidence. Earl
 
 CODEX-196 local candidate ead67dae:119suites/build31/473,8responsivecases andfictionalworkflowchecks pass. Its five-file publication subsequently completed at 08d4f7a6/Pages40095860997. No live command or hosted navigation ran. See [local implementation review](LAUNCH-CODEX196-LOCAL-OPERATIONS.md).
 
-## Current held correction
+## Latest correction
 
-CODEX-198 source review reproduced partial-save feedback in the old channel form with fictional transport. A private one-file sequencing candidate passes five targeted cases and 119 candidate-substituted local suites. Credential-flow publication requires a separate owner decision; no real credential was read/submitted. See ADMIN-HUB-SYSTEM-MIGRATION-INVENTORY.md.
+CODEX-198 completed under explicit owner approval: only js/admin-tools.js published at main ceefc26ad8893fddb090cd529e623631584f5361; Pages 40110768347 succeeded; 100 monitored and one changed versioned source match. Both feature/main baselines and candidate matched reviewed hashes before copying. Five targeted fictional cases and all 120 actual-source local suites pass; build31HTML/473references. No authenticated navigation, real credential read/save, provider call, SQL or gameplay test. APP20261008-rc133 unchanged; approval spent.
+
+CODEX-199 extends local Config/Mart draft navigation and discard checks without new runtime changes; the current acceptance matrix separates remaining real evidence from deferred overhaul scope.

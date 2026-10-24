@@ -1,6 +1,6 @@
 # Owner return review — October 24
 
-Current through CODEX-197 publication and CODEX-198 local review. The fixed eight-hour automation expired and is paused. Subsequent direct human instructions authorize continued in-session work, without extending that schedule.
+Current through CODEX-198 publication and CODEX-199 local acceptance. The fixed eight-hour automation expired and is paused. Subsequent direct human instructions authorize continued in-session work, without extending that schedule.
 
 ## Completed
 
@@ -20,8 +20,10 @@ Hosted Operations Start/End, Mart/reward saves, multi-page roster and gift-batch
 
 Mart creation/uploads/deletion, Bits/avatar products, broader capture/timing/XP configuration and System credentials/provider/role operations remain in current tools. They need concrete reviewed slices before implementation. Existing owner-only and staff permissions must be preserved; no credential values should be loaded just to make a dashboard look populated.
 
-CODEX-198 private one-file channel-save sequencing correction is awaiting publication approval. Five targeted fictional cases and 119 candidate-substituted local suites pass; no real credential was used. Review: LOCALAPPDATA/PokemonStreamLink/security/codex198/README.md. No server/SQL change or live save test is proposed.
+CODEX-198 was subsequently explicitly approved, published and source-verified. No decision remains pending for that correction; no live credential save was run.
 
 There is no unapproved SQL correction awaiting installation from this work batch. Operations design and publication decisions are complete; do not prompt for them again. Historical status and approvals remain in individual reports, RUN-LOG and Git history.
 
 CODEX-197 routine accessibility maintenance published at main 73ff83c671da1d0162415ee06d4dc7165dbd6eb2; Pages 40096315148 succeeded; 100 monitored and one changed versioned source match. Passive observation updates retain keyboard focus. All 119 local suites and build 31 HTML/473 references pass. No SQL, Auth/provider, hosted application call, command, grant or APP change.
+
+CODEX-198 completed under explicit owner approval: only js/admin-tools.js published at main ceefc26ad8893fddb090cd529e623631584f5361; Pages 40110768347 succeeded; 100 monitored and one changed versioned source match. Both feature/main baselines and candidate matched reviewed hashes before copying. Five targeted fictional cases and all 120 actual-source local suites pass; build31HTML/473references. No authenticated navigation, real credential read/save, provider call, SQL or gameplay test. APP20261008-rc133 unchanged; approval spent.

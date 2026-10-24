@@ -4,13 +4,22 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-199",
+      "status": "done",
+      "scope": "Current acceptance index and isolated Config/Mart draft navigation",
+      "evidence": "LAUNCH-CODEX199-READINESS-AND-DRAFTS.md;evidence/codex199-draft-navigation.json",
+      "testResults": "Prior matrix text preserved;10linksresolve;drafts survive section/history;discard/cancel/focus pass;0savecommands",
+      "nextAction": "Real acceptance and remaining reviewed migration boundaries retained",
+      "approvalRequirement": "Documentation/local fictional acceptance only"
+    },
+    {
       "id": "CODEX-198",
-      "status": "prepared",
-      "scope": "System source inventory and private channel-save sequencing candidate",
-      "evidence": "ADMIN-HUB-SYSTEM-MIGRATION-INVENTORY.md;evidence/codex198-system-source-review.json",
-      "testResults": "Fictional baseline reproduction;5candidatecases;119candidate-substitutedlocal suites;no live credential/provider calls",
-      "nextAction": "Await important credential-flow publication decision; do not copy candidate into runtime before approval",
-      "approvalRequirement": "Explicit CODEX-RUNNER credential-flow publication gate"
+      "status": "done",
+      "scope": "Approved one-file channel-save correction published/source verified",
+      "evidence": "ADMIN-HUB-SYSTEM-MIGRATION-INVENTORY.md;evidence/codex198-system-source-review.json;evidence/codex198-publication.json;evidence/codex198-regressions.json",
+      "testResults": "120actual-source local suites;5targetedcases;build31/473;Pages40110768347success;100+1sourcematches",
+      "nextAction": "No further credential test authorized; approval spent",
+      "approvalRequirement": "Explicit one-file publication/source verification completed"
     },
     {
       "id": "CODEX-197",

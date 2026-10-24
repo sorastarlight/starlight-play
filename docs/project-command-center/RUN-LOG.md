@@ -2491,3 +2491,7 @@ Evidence: evidence/codex196-publication.json and evidence/codex196-contract-rech
 
 
 CODEX-197 routine accessibility maintenance published at main 73ff83c671da1d0162415ee06d4dc7165dbd6eb2; Pages 40096315148 succeeded; 100 monitored and one changed versioned source match. Passive observation updates retain keyboard focus. All 119 local suites and build 31 HTML/473 references pass. No SQL, Auth/provider, hosted application call, command, grant or APP change.
+
+
+CODEX-198 completed under explicit owner approval: only js/admin-tools.js published at main ceefc26ad8893fddb090cd529e623631584f5361; Pages 40110768347 succeeded; 100 monitored and one changed versioned source match. Both feature/main baselines and candidate matched reviewed hashes before copying. Five targeted fictional cases and all 120 actual-source local suites pass; build31HTML/473references. No authenticated navigation, real credential read/save, provider call, SQL or gameplay test. APP20261008-rc133 unchanged; approval spent.
+CODEX-199 current matrix/history normalization and isolated draft navigation checks complete; no further runtime change.

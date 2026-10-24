@@ -1,3 +1,13 @@
+# Current autonomous window — October 24, 2026
+
+Renewed by direct human request at 16:51:52 UTC. Existing heartbeat reactivated for four hours, every 30 minutes, with hard stop **20:51:52 UTC / 16:51:52 America/New_York**. No duplicate automation or delegation. Pause at expiry; do not extend without new human instruction.
+
+Current baseline: feature cbfe9bf8; main 4b54fb99; Pages 40113221997 succeeded. CODEX-201 publication approval is spent; live catalog actions remain excluded. Queue CODEX-202: cross-editor receipt, pending-save, account-reset and rendered error-state acceptance; routine frontend feedback corrections only. Continue independent source/visual/recovery preparation when consequential work is held. No new SQL, Auth, provider, credentials, authenticated navigation/notices, hosted application calls, gameplay/grants, protected-account mutations, spending, APP stamp or final launch authority.
+
+Historical windows below are superseded.
+
+---
+
 # Active autonomous window — October24,2026
 
 Current completion: CODEX-198 owner-approved one-file channel-save correction published at main ceefc26a; Pages40110768347success;100monitored plus1versioned source match. All120local suites/build31HTML473refs pass. CODEX-199 current readiness index and isolated Config/Mart draft/navigation checks complete. No SQL,real credential/provider call,hosted application action or APP change. No pending correction decision from this batch. Expired heartbeat remains paused; direct human continuation does not renew it.

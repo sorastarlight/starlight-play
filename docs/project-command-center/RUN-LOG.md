@@ -2510,3 +2510,7 @@ CODEX-201 explicit owner four-file publication approval received. All6catalog so
 
 
 CODEX-201 publication completed under explicit owner approval:only admin-next.html,js/admin-next.js,js/admin-next-floors.js,css/admin-floors.css published at main4b54fb99d3a8fea8e84538373aa60ed5c945c51f;Pages40113221997success. All6server definition/permission contracts and4runtime baseline/candidate hashes matched before publication;100monitored plus4changed versioned hosted sources match exact published commit. Local121suites/build31HTML475refs,8responsivecases and guarded frontend rollback remain the validation basis. No authenticated navigation,notices,live catalog read/save,SQLchange,Auth/provider/gameplay/grant/spending or APP action. APP20261008-rc133 unchanged;this narrow publication approval is spent.
+
+## CODEX-202 — Mart failure feedback and renewed autonomous window
+
+Four-hour existing heartbeat renewed 16:51:52–20:51:52 UTC October24. One-expression explicit-failure receipt correction;121 LOCAL HARNESS suites and31HTML/475reference build pass. REAL LOCAL DOM failure/pending/reset/late response checks pass. No hosted application calls, SQL, grants, protected-account mutation, provider action or APP change. Sora NO;Twinkle NO;PlayTester role unchanged. Scoped routine publication next.

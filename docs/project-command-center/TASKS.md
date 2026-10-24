@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-202 | in_progress | Mart failed-receipt feedback | CODEX-201 | CODEX-78 | 121 suites/build; publish exact one-file correction |
 | CODEX-174 | done | Full read-only roster installed/published/source verified | CODEX-173 | Exact approval spent | Main2ea586f1/Pages40008418332;100+5source matches;118suites |
 | CODEX-173 | done | Read-only full roster design prepared | CODEX-168 | Owner-approved local scope spent | Implemented in CODEX-174 |
 | CODEX-172 | done | Mart flexible search consistency | CODEX-169 | CODEX-78 | Live6446b326;117suites;100+1source matches |

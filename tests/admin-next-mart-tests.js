@@ -34,6 +34,16 @@ const defer = () => { let resolve, reject; const promise = new Promise((a, b) =>
   const saving = defer(); const switcher = api.createController(name => name === "admin_store_get" ? Promise.resolve(catalog()) : saving.promise); await switcher.open(); switcher.select(row.sku); switcher.state.draft.cost = "90"; const save = switcher.save(); switcher.reset(); saving.resolve({ sku: row.sku }); await save; assert.equal(switcher.state.catalog, null); assert.equal(switcher.state.phase, "closed");
   const invalid = api.createController(async () => ({ categories, items: [row, row] })); await invalid.open(); assert.equal(invalid.state.phase, "error"); assert.equal(invalid.state.catalog, null);
   const pendingSave = defer(); let writes = 0; const single = api.createController(name => name === "admin_store_get" ? Promise.resolve(catalog()) : (++writes, pendingSave.promise)); await single.open(); single.select(row.sku); single.state.draft.cost = "85"; const firstSave = single.save(); await single.save(); assert.equal(writes, 1); pendingSave.resolve({ sku: row.sku }); await firstSave;
+  // A matching SKU cannot override an explicit failed response. Preserve the
+  // historical minimal receipt and do not retry an uncertain write.
+  for (const result of [{ok:false,sku:row.sku},{error:'rejected',sku:row.sku},null,{sku:'other'}]) {
+    let attempts=0;
+    const rejected=api.createController(async name=>name==='admin_store_get'?catalog():(attempts++,result));
+    await rejected.open();rejected.select(row.sku);rejected.state.draft.cost='90';
+    await rejected.save();assert.match(rejected.state.message,/could not be confirmed/);
+    assert(rejected.state.uncertain);assert.equal(rejected.state.draft.cost,'90');
+    await rejected.save();assert.equal(attempts,1);
+  }
   const denied = api.createController(async () => { throw Object.assign(Error("denied"), { code: "42501" }); }); await denied.open(); assert.equal(denied.state.catalog, null);
   const hub = fs.readFileSync("js/admin-next.js", "utf8");
   const readList = hub.match(/const READ_RPCS = Object.freeze\(\[([\s\S]*?)\]\)/)[1]; assert(!readList.includes("admin_store"));

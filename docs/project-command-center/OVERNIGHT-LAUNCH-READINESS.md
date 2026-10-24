@@ -215,3 +215,6 @@ CODEX-181 VERIFIED:healthy/OK Application uses active styling;missing/non-boolea
 
 
 CODEX-182 PREPARED:Operations contract mapping identifies Start enables Auto/Normal and may schedule encounters;command response ticks/syncs state. Keep observation-only endpoint separate. First-slice Start/End proposal excludes force/ad/manual/test controls;no implementation,application call or publication. See ADMIN-HUB-OPERATIONS-MIGRATION-REVIEW.md.
+
+
+CODEX-183 private candidate:changed-account staff presentation reset;9extracted-loader VM cases/syntax pass. No server bypass claim,production/Auth action or runtime edit. Broader regression/rendering and separate publication decision remain. Private packet security/codex183;continue independent work.

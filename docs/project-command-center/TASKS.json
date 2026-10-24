@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-183",
+      "status": "held",
+      "scope": "Changed-account staff panel reset review",
+      "evidence": "Private security/codex183/README.md and results.json",
+      "testResults": "9actual extracted-loader VM cases;candidate syntax;no rendered/provider acceptance",
+      "nextAction": "Complete private rendered/regression checks;consolidate publication decision",
+      "approvalRequirement": "Account-transition access gating publication outside routine maintenance"
+    },
+    {
       "id": "CODEX-182",
       "status": "prepared",
       "scope": "Operations session-control contract and side-effect review",

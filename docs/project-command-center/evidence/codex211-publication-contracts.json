@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-10-24T23:35:11.433Z",
+  "results": [
+    {
+      "name": "private.is_play_admin",
+      "matches": true
+    },
+    {
+      "name": "private.play_staff_role",
+      "matches": true
+    },
+    {
+      "name": "public.admin_store_reorder",
+      "matches": true
+    },
+    {
+      "name": "private.capture_config",
+      "matches": true
+    },
+    {
+      "name": "public.admin_capture_save_balance",
+      "matches": true
+    },
+    {
+      "name": "public.admin_capture_overview",
+      "matches": true
+    },
+    {
+      "name": "private.game_settings",
+      "matches": true
+    },
+    {
+      "name": "public.admin_store_get",
+      "matches": true
+    },
+    {
+      "name": "private.require_staff_edit",
+      "matches": true
+    },
+    {
+      "name": "private.capture_base_chance",
+      "matches": true
+    },
+    {
+      "name": "private.require_hub",
+      "matches": true
+    }
+  ],
+  "classification": "Catalog-only current source/ACL comparison;11definitions;no application call"
+}

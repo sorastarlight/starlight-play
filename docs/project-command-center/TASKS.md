@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-211 | done | Mart ordering and Capture Limits local implementation | CODEX-203/209 | Exact publication decision next | 122suites;12responsive states;11DOMcases;rollback;no live calls |
+| CODEX-211 | done | Mart ordering and Capture Limits published/source verified | CODEX-203/209 | Exact publication approval spent | Main9436b804;Pages40143356806;11contracts;100+4sources;no live calls |
 | CODEX-210 | done | Consolidated current status and owner handoff | CODEX-209 | Documentation only | 29links resolve;historical snapshots preserved;no runtime change |
 | CODEX-209 | done | Capture bounds disconnected proposal | CODEX-208 | Design approved/local complete | CODEX211;exact publication decision next |
 | CODEX-208 | done | Helpdesk read/reset checks and read-error copy | CODEX-207 | CODEX-78 | Live6d740c21;Pages40125318465;100+1sources;121suites |

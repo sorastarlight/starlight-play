@@ -29,3 +29,9 @@ Build passes31HTML/477references. APP20261008-rc133 unchanged. Temporary servers
 Only four runtime files:admin-next.html,js/admin-next.js,js/admin-next-limits-order.js,css/admin-limits-order.css. Candidate/baseline hashes and tested exact rollback/drift refusal are in evidence/codex211-runtime-scope.json. Recheck the reviewed source/ACL contracts and exact main baseline before publication;stop on drift. Publish only those files through existing Pages, then verify source only. No SQL,authenticated navigation,notice,live catalog/configuration call,save,simulation,grant,gameplay,provider action or APP stamp is included.
 
 The owner local-work approval is fulfilled. New privileged-workflow publication needs its separate decision under streamlink-project.mdc/CODEX-RUNNER.md. Sora NO;Twinkle NO;PlayTester role unchanged.
+
+## Subsequent approved publication
+
+CODEX-211 publication completed under explicit owner approval:only admin-next.html,js/admin-next.js,js/admin-next-limits-order.js,css/admin-limits-order.css published at main9436b8041bc9f57e2c2c895b36eab2f4bca54f34;Pages40143356806succeeded. All11current server source/ACL contracts and4candidate/baseline hashes matched before publication.100monitored plus4changed versioned hosted sources match exact main.122local suites,12responsive states,11DOMcases,build31HTML477refs and guarded rollback remain the validation basis. No authenticated navigation,notices,live catalog/configuration read/save,SQL,Auth/provider,gameplay/grant,protected-account action or APP stamp. APP20261008-rc133 unchanged;publication approval spent. Hosted reads/saves remain separate.
+
+Evidence:evidence/codex211-publication-contracts.json;evidence/codex211-publication.json. Earlier publication-held language is historical.

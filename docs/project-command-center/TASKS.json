@@ -7,10 +7,12 @@
       "id": "CODEX-211",
       "status": "done",
       "scope": "Owner-approved local floor ordering and two-field capture limits",
-      "evidence": "LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md;evidence/codex211-contracts.json;evidence/codex211-regressions.json;evidence/codex211-browser-checks.json;evidence/codex211-runtime-scope.json",
+      "evidence": "LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md;evidence/codex211-contracts.json;evidence/codex211-regressions.json;evidence/codex211-browser-checks.json;evidence/codex211-runtime-scope.json;evidence/codex211-publication-contracts.json;evidence/codex211-publication.json",
       "testResults": "122local suites;12responsive states;11local interaction cases;build31/477;exact rollback and drift refusal",
-      "nextAction": "Separate exact four-file publication/source-only decision;no live calls or SQL",
-      "approvalRequirement": "Local implementation approved and complete;publication and hosted saves held"
+      "nextAction": "Publication complete;do not repeat approval or unchanged checks. Bounded hosted reads/saves and remaining real acceptance need separate scope/access.",
+      "approvalRequirement": "Design/local and exact four-file publication approvals spent;no live save/SQL authority",
+      "publicationCommit": "9436b8041bc9f57e2c2c895b36eab2f4bca54f34",
+      "pagesRun": 40143356806
     },
     {
       "id": "CODEX-210",

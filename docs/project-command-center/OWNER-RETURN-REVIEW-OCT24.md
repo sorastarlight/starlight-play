@@ -1,5 +1,8 @@
 # Owner return review — October 24
 
+**Current publication:**CODEX-211 publication completed under explicit owner approval:only admin-next.html,js/admin-next.js,js/admin-next-limits-order.js,css/admin-limits-order.css published at main9436b8041bc9f57e2c2c895b36eab2f4bca54f34;Pages40143356806succeeded. All11current server source/ACL contracts and4candidate/baseline hashes matched before publication.100monitored plus4changed versioned hosted sources match exact main.122local suites,12responsive states,11DOMcases,build31HTML477refs and guarded rollback remain the validation basis. No authenticated navigation,notices,live catalog/configuration read/save,SQL,Auth/provider,gameplay/grant,protected-account action or APP stamp. APP20261008-rc133 unchanged;publication approval spent. Hosted reads/saves remain separate.
+
+
 **Latest CODEX-211:**owner approved Mart ordering and Capture Limits designs/local implementation. Both are locally complete:122suites,12responsive states,11DOMcases,build31/477 and guarded rollback. See [local review](LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md). Earlier203/209design-held statements are superseded;exact four-file publication/source-only decision is next. Production remains6d740c21;no application calls/saves,SQL,Auth/provider or APP change. Existing automation remains paused;this human instruction did not extend its expired window.
 
 

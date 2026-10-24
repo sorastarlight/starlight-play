@@ -2514,3 +2514,9 @@ CODEX-201 publication completed under explicit owner approval:only admin-next.ht
 ## CODEX-202 — Mart failure feedback and renewed autonomous window
 
 Four-hour existing heartbeat renewed 16:51:52–20:51:52 UTC October24. One-expression explicit-failure receipt correction;121 LOCAL HARNESS suites and31HTML/475reference build pass. REAL LOCAL DOM failure/pending/reset/late response checks pass. No hosted application calls, SQL, grants, protected-account mutation, provider action or APP change. Sora NO;Twinkle NO;PlayTester role unchanged. Scoped routine publication next.
+
+CODEX-202 routine Mart error-feedback correction published at main 189c280134c70a5330f402497f892606daf15020; Pages 40114012274 succeeded. All 100 monitored plus one versioned source match.121 LOCAL HARNESS suites/build31HTML475refs pass; disconnected failed-receipt/pending-save/account-reset checks pass. No hosted save/application call, SQL, Auth/provider, protected-account action or APP change.
+
+## CODEX-203 — Floor ordering proposal
+
+Source-only legacy integration inventory plus disconnected review prototype. REAL LOCAL DOM verifies fixed system slot, hidden floor retained, boundary controls, focus after move, Escape restoration, discard and unavailable disables. Visual320/375/1024layouts inspected; no machine overflow metric claimed (cross-frame read unavailable). No production calls, SDK/Auth, runtime integration or publication. Design decision consolidated for owner return; continue independent queue.

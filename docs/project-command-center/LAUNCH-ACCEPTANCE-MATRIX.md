@@ -1,5 +1,9 @@
 # Launch acceptance matrix
 
+Current update: CODEX-202 routine Mart error-feedback correction published at main 189c280134c70a5330f402497f892606daf15020; Pages 40114012274 succeeded. All 100 monitored plus one versioned source match.121 LOCAL HARNESS suites/build31HTML475refs pass; disconnected failed-receipt/pending-save/account-reset checks pass. No hosted save/application call, SQL, Auth/provider, protected-account action or APP change.
+
+CODEX-203 floor-order proposal prepared for owner return; implementation/publication held. Four-hour follow-up renewed 16:51:52–20:51:52 UTC October24; existing heartbeat active, no duplicate. Do not extend after hard stop. Historical expired-window statements below do not override this renewed window.
+
 Current October 24, 2026. This is an evidence index, not a launch declaration. The owner requires real device/assistive and provider acceptance before launch. Existing public hosting does not establish final launch readiness. APP remains 20261008-rc133.
 
 ## Current evidence
@@ -30,7 +34,7 @@ Current October 24, 2026. This is an evidence index, not a launch declaration. T
 
 ## Decision boundaries
 
-The expired eight-hour heartbeat is paused. Current direct human instructions permit continued in-session independent work; they do not renew its schedule. Routine tested frontend maintenance may publish within CODEX-78. Major features, new privileged workflows, production SQL/permissions, Auth/provider/DNS/credential changes, gameplay or grant tests, protected-account mutations, spending and final launch retain their explicit gates.
+The existing heartbeat was explicitly renewed for the bounded four-hour window ending 20:51:52 UTC October24. Pause on expiry. Routine tested frontend maintenance may publish within CODEX-78. Major features, new privileged workflows, production SQL/permissions, Auth/provider/DNS/credential changes, gameplay or grant tests, protected-account mutations, spending and final launch retain their explicit gates.
 
 A remaining Admin migration is not automatically a launch blocker. Conversely, an implemented feature or successful source comparison does not certify live behavior. Read current records first; earlier held statements in historical reports may have been superseded by later explicit approvals.
 

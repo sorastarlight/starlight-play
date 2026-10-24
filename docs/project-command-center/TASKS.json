@@ -4,13 +4,23 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-203",
+      "status": "done",
+      "scope": "Disconnected Mart floor-order design proposal",
+      "evidence": "ADMIN-HUB-MART-ORDER-REVIEW.md;design-reset/hub-mart-order-review.html",
+      "testResults": "REAL LOCAL DOM fixed system slot/hidden retention/boundary buttons/focus/Escape/discard/unavailable;visual320/375/1024",
+      "nextAction": "Owner-return design/local integration decision; continue independent review meanwhile",
+      "approvalRequirement": "Proposal only; no implementation, publication or hosted call authority"
+    },
+    {
       "id": "CODEX-202",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Mart explicit failure receipt feedback and cross-editor boundary acceptance",
-      "evidence": "LAUNCH-CODEX202-MART-RECEIPT.md;evidence/codex202-regressions.json",
+      "evidence": "LAUNCH-CODEX202-MART-RECEIPT.md;evidence/codex202-regressions.json;evidence/codex202-publication.json",
       "testResults": "121 local suites;build31/475;actual disconnected failure/pending/reset checks",
-      "nextAction": "Scoped routine one-file publication/source verification, then independent review",
-      "approvalRequirement": "CODEX-78 routine error-state maintenance; no live save authority"
+      "nextAction": "Independent cross-editor review; no further unchanged source checks",
+      "approvalRequirement": "CODEX-78 routine error-state maintenance; no live save authority",
+      "publicationCommit": "189c280134c70a5330f402497f892606daf15020"
     },
     {
       "id": "CODEX-201",

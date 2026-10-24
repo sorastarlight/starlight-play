@@ -1,5 +1,9 @@
 # Current Admin Hub status
 
+Current update: CODEX-202 routine Mart error-feedback correction published at main 189c280134c70a5330f402497f892606daf15020; Pages 40114012274 succeeded. All 100 monitored plus one versioned source match.121 LOCAL HARNESS suites/build31HTML475refs pass; disconnected failed-receipt/pending-save/account-reset checks pass. No hosted save/application call, SQL, Auth/provider, protected-account action or APP change.
+
+CODEX-203 floor-order proposal prepared for owner return; implementation/publication held. Four-hour follow-up renewed 16:51:52–20:51:52 UTC October24; existing heartbeat active, no duplicate. Do not extend after hard stop. Historical expired-window statements below do not override this renewed window.
+
 CODEX-201 publication completed under explicit owner approval:only admin-next.html,js/admin-next.js,js/admin-next-floors.js,css/admin-floors.css published at main4b54fb99d3a8fea8e84538373aa60ed5c945c51f;Pages40113221997success. All6server definition/permission contracts and4runtime baseline/candidate hashes matched before publication;100monitored plus4changed versioned hosted sources match exact published commit. Local121suites/build31HTML475refs,8responsivecases and guarded frontend rollback remain the validation basis. No authenticated navigation,notices,live catalog read/save,SQLchange,Auth/provider/gameplay/grant/spending or APP action. APP20261008-rc133 unchanged;this narrow publication approval is spent.
 
 Updated October 24, 2026 through CODEX-201 publication. The new workspace is admin-next.html, labelled Admin Hub (preview). It remains a partial replacement for admin.html; no complete-overhaul or launch declaration is made.

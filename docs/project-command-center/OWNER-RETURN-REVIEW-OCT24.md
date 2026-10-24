@@ -1,5 +1,9 @@
 # Owner return review — October 24
 
+Current update: CODEX-202 routine Mart error-feedback correction published at main 189c280134c70a5330f402497f892606daf15020; Pages 40114012274 succeeded. All 100 monitored plus one versioned source match.121 LOCAL HARNESS suites/build31HTML475refs pass; disconnected failed-receipt/pending-save/account-reset checks pass. No hosted save/application call, SQL, Auth/provider, protected-account action or APP change.
+
+CODEX-203 floor-order proposal prepared for owner return; implementation/publication held. Four-hour follow-up renewed 16:51:52–20:51:52 UTC October24; existing heartbeat active, no duplicate. Do not extend after hard stop. Historical expired-window statements below do not override this renewed window.
+
 Current through CODEX-201 publication. The fixed eight-hour automation expired and is paused. Subsequent direct human instructions authorize continued in-session work, without extending that schedule.
 
 ## Completed

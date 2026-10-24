@@ -9,3 +9,8 @@ REAL LOCAL DOM: disconnected fictional fixture exercised explicit failure, pendi
 Routine loading/error-state maintenance falls within approved CODEX-78. Runtime scope only js/admin-next-mart.js; tests and records stay on feature history. Publication/source verification next. Local fixture server stopped and temporary tab closed.
 
 Next independent work: cross-editor receipt/session transition boundary review; remaining Hub migration inventory and disconnected visual checks. Consequential implementation/publication decisions remain held for owner return.
+
+## Publication completed
+
+CODEX-202 routine Mart error-feedback correction published at main 189c280134c70a5330f402497f892606daf15020; Pages 40114012274 succeeded. All 100 monitored plus one versioned source match.121 LOCAL HARNESS suites/build31HTML475refs pass; disconnected failed-receipt/pending-save/account-reset checks pass. No hosted save/application call, SQL, Auth/provider, protected-account action or APP change.
+Evidence: evidence/codex202-publication.json.

@@ -1,8 +1,20 @@
 # Current autonomous window — October 24, 2026
 
-Renewed by direct human request at 16:51:52 UTC. Existing heartbeat reactivated for four hours, every 30 minutes, with hard stop **20:51:52 UTC / 16:51:52 America/New_York**. No duplicate automation or delegation. Pause at expiry; do not extend without new human instruction.
+Renewed by direct human request at 16:51:52 UTC. Existing heartbeat runs every 30 minutes with a hard stop at **20:51:52 UTC / 16:51:52 America/New_York**. Pause on expiry; do not extend without a new human instruction. No delegation or extra background systems.
 
-Current baseline before this window: feature cbfe9bf8; main 4b54fb99. Newest publication status follows. CODEX-201 publication approval is spent; live catalog actions remain excluded. CODEX-202 completed: main189c2801/Pages40114012274 success;100+1 sources match;121suites/build pass. CODEX-203 disconnected floor-order design ready for owner return, no runtime integration. CODEX-204 local Gift/Pass pending feedback plus roster empty/wrong-target/reset checks complete;121suites/build pass. Routine one-file publication verified at main20401579;Pages40116137764success;100+1sources match. CODEX-205 completed at main96663993/Pages40118306522success;100+1sources match;121suites/build pass;accurate gift/read-error copy. Next independent queue: isolate rapid automated cancel/type transition event ordering (private codex205/TIMING-FOLLOWUP.md);ordinary human timing not established,no security defect asserted. Then continue keyboard/layout/source review. No more unchanged backup polling. Do not repeat unchanged suites or backups to simulate progress. Continue independent source/visual/recovery preparation when consequential work is held. No new SQL, Auth, provider, credentials, authenticated navigation/notices, hosted application calls, gameplay/grants, protected-account mutations, spending, APP stamp or final launch authority.
+Current runtime: main **e3401b70**, Pages **40120689437 succeeded**. All 100 monitored and one changed versioned source match. APP stays **20261008-rc133**. Separate main/feature histories are preserved.
+
+| Completed slice | Evidence |
+| --- | --- |
+| CODEX-202: explicit failed Mart receipt feedback | Main189c2801;121 suites;local pending/reset checks;source verified |
+| CODEX-203: floor-order proposal | Disconnected prototype only;owner-return design decision remains held |
+| CODEX-204: reward pending feedback and roster boundaries | Main20401579;121 suites;11 local boundary checks;source verified |
+| CODEX-205: gift headings,grammar and read-error copy | Main96663993;121 suites;five local states;source verified |
+| CODEX-206: review close control/focus maintenance | Maine3401b70;121 suites;controlled baseline/candidate event order;source verified |
+
+Next independent queue is **CODEX-207**: actual local Analytics pending/tab/error/reset and keyboard acceptance. Start from tools/serve-admin-analytics-fixture.cjs. Check late report responses,account reset,range errors,focus and long metric/table layouts using fictional transports. Do not repeat unchanged suites or backup polls to simulate progress. CODEX-205's timing observation is now addressed by CODEX-206;no server or normal physical-user timing claim is made.
+
+CODEX-201 floor publication approval is spent. No live catalog action is authorized. Routine frontend maintenance remains limited to CODEX-78. No new SQL,permissions,Auth/security,credentials,provider/DNS,authenticated navigation/notices,hosted application call,gameplay/grant,real email,protected-account mutation,spending,APP stamp or final-launch authority. Continue independent work while consequential proposals are held;consolidate decisions for owner return.
 
 Historical windows below are superseded.
 

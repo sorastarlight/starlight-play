@@ -2536,3 +2536,5 @@ CODEX-205 completed: main9666399307853ace1874a258aa843f90a2fd64c9;Pages401183065
 ## CODEX-206 — Review close transition
 
 Controlled synthetic REAL LOCAL DOM baseline mismatch corrected by underlying control lock/original-state restore andcancel focus. Physical-user timing/server defect notasserted.121LOCAL HARNESS suites/build31/475 pass;captured fictionalrequest preserved;Passoriginaldisabledstate preserved. No hosted application/notice/grant/Pass/SQL/Auth/provider/protected-account action. SoraNO;TwinkleNO;PlayTester roleunchanged. OnefileCODEX78publication next.
+
+CODEX-206 published at main e3401b709d5ec8b9481e9e8ca962e42f51daf26b. Pages 40120689437 succeeded; all 100 monitored and one changed versioned source match. All 121 local suites and build validation pass. Controlled local event-order, draft, focus and original-disabled-state checks passed. No hosted application call, notice, real grant/Pass action, SQL, Auth/provider change or APP stamp ran.

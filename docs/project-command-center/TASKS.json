@@ -4,13 +4,23 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-207",
+      "status": "todo",
+      "scope": "Disconnected Analytics pending/tab/error/reset and keyboard acceptance",
+      "evidence": "Not started;existing tools/serve-admin-analytics-fixture.cjs available",
+      "testResults": "Not run",
+      "nextAction": "Use actual module with fictional transport;check late report responses,reset,range errors,focus and long metric/table layouts",
+      "approvalRequirement": "Local checks only;no hosted reports,authenticated navigation or new authority"
+    },
+    {
       "id": "CODEX-206",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Gift review close transition control/focus maintenance",
-      "evidence": "LAUNCH-CODEX206-REVIEW-TRANSITION.md;evidence/codex206-event-order.json;evidence/codex206-regressions.json",
+      "evidence": "LAUNCH-CODEX206-REVIEW-TRANSITION.md;evidence/codex206-event-order.json;evidence/codex206-regressions.json;evidence/codex206-publication.json",
       "testResults": "121suites;build31/475;controlled baseline/candidate DOM;draft/focus/request/disabled state preserved",
-      "nextAction": "Scoped one-file routine publication/source verification;then independent source/accessibility review",
-      "approvalRequirement": "CODEX78control/focusmaintenance;no hosted actions"
+      "nextAction": "No repeated source checks;continue disconnected Analytics transitions",
+      "approvalRequirement": "CODEX78control/focusmaintenance;no hosted actions",
+      "publicationCommit": "e3401b709d5ec8b9481e9e8ca962e42f51daf26b"
     },
     {
       "id": "CODEX-205",

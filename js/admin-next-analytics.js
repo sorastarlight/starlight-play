@@ -15,7 +15,8 @@
   const esc = value => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   const number = value => typeof value === "number" && Number.isFinite(value) && value >= 0 ? value : null;
   const format = value => value === null ? "Unavailable" : value.toLocaleString("en-US", { maximumFractionDigits: 2 });
-  const rate = value => number(value) !== null && value <= 1 ? `${(value * 100).toFixed(1)}%` : "—";
+  const rateNumber = value => number(value) !== null && value <= 1 ? value : null;
+  const rate = value => value == null ? "—" : rateNumber(value) !== null ? `${(value * 100).toFixed(1)}%` : "Unavailable";
   function validDays(value) { return Number.isInteger(value) && value >= 1 && value <= 365; }
   function accessError() { return Object.assign(Error("Staff session changed."), { code: "REPORT_ACCESS_CHANGED" }); }
   // The adapter accepts no generic RPC name or unreviewed arguments. Server authorization remains authoritative.
@@ -41,7 +42,7 @@
     if (view === "captures") {
       add("Throws", raw.overall?.throws, "Selected capture window");
       add("Successful catches", raw.overall?.caught, "Selected capture window");
-      cards.push({ label: "Capture success", text: rate(raw.overall?.rate), value: number(raw.overall?.rate), scope: "Unavailable when no throws are recorded" });
+      cards.push({ label: "Capture success", text: rate(raw.overall?.rate), value: rateNumber(raw.overall?.rate), scope: "Unavailable when no throws are recorded" });
       for (const [key, title, label] of [["bySpecies", "By Pokémon", "name"], ["byBall", "By Poké Ball", "name"], ["byBerry", "By Berry", "name"], ["byCatchRateTier", "By catch-rate tier", "tier"]]) {
         tables.push({ title, headings: [title.replace(/^By /, "").replace(/^./, char => char.toUpperCase()), "Throws", "Catches", "Success"], rows: Array.isArray(raw[key]) ? raw[key].map(row => [typeof row?.[label] === "string" ? row[label] : "Unavailable", format(number(row?.throws)), format(number(row?.caught)), rate(row?.rate)]) : null });
       }
@@ -70,7 +71,7 @@
       distribution("Current PokéCoin balances", raw.distribution, ["0-499", "500-999", "1000-2499", "2500-4999", "5000-9999", "10000+"]);
     } else throw Error("Unsupported report.");
     const since = view === "captures" && typeof raw.since === "string" && Number.isFinite(Date.parse(raw.since)) ? new Date(raw.since).toISOString() : null;
-    const partial = cards.some(card => card.value === null && !(view === "captures" && card.label === "Capture success" && raw.overall?.throws === 0)) || tables.some(table => table.rows === null || table.rows.some(row => row.includes("Unavailable"))) || (view === "captures" && !since);
+    const partial = cards.some(card => card.value === null && !(view === "captures" && card.label === "Capture success" && raw.overall?.throws === 0 && raw.overall?.rate == null)) || tables.some(table => table.rows === null || table.rows.some(row => row.includes("Unavailable"))) || (view === "captures" && !since);
     // Deliberately return no raw report, configuration, account identity or recent trainer names.
     return { cards, tables, since, partial };
   }

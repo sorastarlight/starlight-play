@@ -1,0 +1,151 @@
+{
+  "classification": "STATIC local evidence link integrity;not hosted acceptance",
+  "links": [
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "../../admin-next.html",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "ADMIN-HUB-MART-ORDER-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "REAL-ACCEPTANCE-CHECKLIST.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "OWNER-RETURN-REVIEW-OCT24.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "OVERNIGHT-LAUNCH-READINESS.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "LAUNCH-CODEX188-POST-REPORT-BACKUP.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "CURRENT-ADMIN-HUB-STATUS-HISTORY-THROUGH209.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "ADMIN-HUB-MART-ORDER-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "CURRENT-ADMIN-HUB-STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "REAL-ACCEPTANCE-CHECKLIST.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "OVERNIGHT-LAUNCH-READINESS.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "OWNER-RETURN-REVIEW-OCT24-HISTORY-THROUGH209.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "CURRENT-ADMIN-HUB-STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "OWNER-RETURN-REVIEW-OCT24.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "REAL-ACCEPTANCE-CHECKLIST.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "RECOVERY-DRILL-CODEX71.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "RECOVERY-POST-DRILL-DELTAS.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "LAUNCH-CODEX188-POST-REPORT-BACKUP.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "LAUNCH-CODEX196-LOCAL-OPERATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "ADMIN-HUB-SYSTEM-MIGRATION-INVENTORY.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "LAUNCH-ACCEPTANCE-HISTORY-THROUGH197.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "LAUNCH-CODEX201-LOCAL-MART-FLOORS.md",
+      "exists": true
+    },
+    {
+      "file": "ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md",
+      "target": "design-reset/hub-capture-limits-review.html",
+      "exists": true
+    }
+  ],
+  "failed": 0
+}

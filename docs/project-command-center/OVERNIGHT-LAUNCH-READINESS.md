@@ -1,6 +1,6 @@
 # Current autonomous window — October 24, 2026
 
-Renewed by direct human request at 16:51:52 UTC. Existing heartbeat runs every 30 minutes with a hard stop at **20:51:52 UTC / 16:51:52 America/New_York**. Pause on expiry; do not extend without a new human instruction. No delegation or extra background systems.
+Renewed by direct human request at 16:51:52 UTC. Final scheduled cycle completed before the hard stop of **20:51:52 UTC / 16:51:52 America/New_York**. Existing heartbeat is now **PAUSED**, with its original UNTIL preserved and no extension. Available independent queue is complete; remaining real acceptance and two prepared design decisions require owner/reviewer input. No delegation or extra background systems.
 
 Current runtime: main **6d740c21**, Pages **40125318465 succeeded**. All 100 monitored and one changed versioned source match. APP stays **20261008-rc133**. Separate main/feature histories are preserved.
 
@@ -15,6 +15,8 @@ Current runtime: main **6d740c21**, Pages **40125318465 succeeded**. All 100 mon
 **CODEX-207 completed**: seven mounted Analytics transition/keyboard/error cases and eight measured layouts pass; targeted tests pass; no runtime change. **CODEX-208 completed**: ten local Helpdesk read/reset cases,121suites/build and source verification pass; accurate read-error copy published. **CODEX-209 completed**: two-field Capture bounds disconnected proposal, retained-source review, eight interaction cases and eight responsive edit/review states. No runtime change. Owner-return design/local integration decision held; current source/helper closure must be checked before integration. See ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md. Do not repeat unchanged suites or backup polls to simulate progress. CODEX-205's timing observation is now addressed by CODEX-206;no server or normal physical-user timing claim is made.
 
 CODEX-201 floor publication approval is spent. No live catalog action is authorized. Routine frontend maintenance remains limited to CODEX-78. No new SQL,permissions,Auth/security,credentials,provider/DNS,authenticated navigation/notices,hosted application call,gameplay/grant,real email,protected-account mutation,spending,APP stamp or final-launch authority. Continue independent work while consequential proposals are held;consolidate decisions for owner return.
+
+**CODEX-210 completed**: current Hub/owner-return indexes consolidated, older snapshots preserved,29local evidence links verified. No runtime change or repeated unchanged backup/regression polling. The physical/device/provider and bounded hosted acceptance limits remain open.
 
 Historical windows below are superseded.
 

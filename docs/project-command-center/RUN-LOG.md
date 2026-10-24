@@ -2552,3 +2552,7 @@ CODEX-208 published at main 6d740c21427687e3bf727895b0667ce78ce4602a. Pages 4012
 ## CODEX-209 — Capture bounds proposal
 
 Selected offline CODEX165 save/staff-helper definitions reviewed without live calls. Two-field disconnected proposal prepared; eight local interactions and eight responsive editor/review states checked, 44px controls and no measured horizontal overflow. Missing read/helper closure explicitly held for future source review. No runtime publication, SQL, configuration call/save, simulation, Auth/provider, notice, gameplay or protected-account action. Sora NO; Twinkle NO; PlayTester role unchanged. Owner-return design/local integration decision held.
+
+## CODEX-210 — Final autonomous-window evidence consolidation
+
+Current Hub status and owner-return review rewritten into one consistent present-state index;older snapshots retained separately.29local evidence links resolve. No runtime change,new test-freshness claim,hosted application call,SQL,Auth/provider,notice,grant,gameplay,protected-account action or APP stamp. Sora NO;Twinkle NO;PlayTester role unchanged. Final scheduled cycle completed before20:51:52UTC;existing heartbeat PAUSED with original UNTIL unchanged. Remaining real acceptance and203/209design decisions require owner/reviewer input;no approval prompt sent while owner away.

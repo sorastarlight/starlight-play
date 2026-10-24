@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-210",
+      "status": "done",
+      "scope": "Consolidated current Hub and owner-return evidence indexes",
+      "evidence": "CURRENT-ADMIN-HUB-STATUS.md;OWNER-RETURN-REVIEW-OCT24.md;evidence/codex210-index-links.json",
+      "testResults": "STATIC:29local evidence links resolve;historical snapshots preserved;no runtime change",
+      "nextAction": "Remaining real acceptance/access and two prepared design decisions need owner/reviewer input;no repeated unchanged tests",
+      "approvalRequirement": "Documentation only;no new production authority"
+    },
+    {
       "id": "CODEX-209",
       "status": "done",
       "scope": "Disconnected two-field capture bounds design and retained-source review",

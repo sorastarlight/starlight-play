@@ -1,72 +1,36 @@
 # Current Admin Hub status
 
-CODEX-208 published at main 6d740c21427687e3bf727895b0667ce78ce4602a. Pages 40125318465 succeeded; all 100 monitored and one changed versioned source match. All 121 local suites and build validation pass. Ten local browser read/reset cases passed with zero fictional writes. No hosted support call, ticket action, Auth/provider change, SQL or APP stamp occurred.
+Updated October 24, 2026 through CODEX-209. The preview is [admin-next.html](../../admin-next.html). It remains a partial replacement for the current Hub; no final launch or complete-overhaul declaration is made.
 
-CODEX-206 published at main e3401b709d5ec8b9481e9e8ca962e42f51daf26b. Pages 40120689437 succeeded; all 100 monitored and one changed versioned source match. All 121 local suites and build validation pass. Controlled local event-order, draft, focus and original-disabled-state checks passed. No hosted application call, notice, real grant/Pass action, SQL, Auth/provider change or APP stamp ran.
+Production: main **6d740c21**, Pages **40125318465 succeeded**. Recorded hosted source verification matches all 100 monitored files plus the changed versioned file. APP **20261008-rc133** remains unchanged. Latest runtime regression evidence is 121 local suites and build 31 HTML / 475 references. No unchanged test or backup polling was repeated for this index.
 
-CODEX-205 completed: main9666399307853ace1874a258aa843f90a2fd64c9;Pages40118306522success;100monitored plus1versioned source match. Gift headings distinguish PokéCoins,Inventory Space and both background destinations;singular coin grammar and unavailable copy corrected.121local suites/build31HTML475refs;5actual local states;0fictional writes. No hosted application call,notice,grant,SQL,Auth/provider,protected-account mutation or APP change.
+## Published workflows
 
-CODEX-204 completed: main204015799b51b97541db6a50c1b1341dbe949879;Pages40116137764success;100monitored plus1versioned source match.121local suites/build31HTML475refs pass. Gift/Pass loading/error presentation improved;11actual local boundary checks recorded. No hosted application call,notice,real gift/Pass action,SQL,Auth/provider,protected-account mutation or APP change.
-
-Current update: CODEX-202 routine Mart error-feedback correction published at main 189c280134c70a5330f402497f892606daf15020; Pages 40114012274 succeeded. All 100 monitored plus one versioned source match.121 LOCAL HARNESS suites/build31HTML475refs pass; disconnected failed-receipt/pending-save/account-reset checks pass. No hosted save/application call, SQL, Auth/provider, protected-account action or APP change.
-
-CODEX-203 floor-order proposal prepared for owner return; implementation/publication held. Four-hour follow-up renewed 16:51:52–20:51:52 UTC October24; existing heartbeat active, no duplicate. Do not extend after hard stop. Historical expired-window statements below do not override this renewed window.
-
-CODEX-201 publication completed under explicit owner approval:only admin-next.html,js/admin-next.js,js/admin-next-floors.js,css/admin-floors.css published at main4b54fb99d3a8fea8e84538373aa60ed5c945c51f;Pages40113221997success. All6server definition/permission contracts and4runtime baseline/candidate hashes matched before publication;100monitored plus4changed versioned hosted sources match exact published commit. Local121suites/build31HTML475refs,8responsivecases and guarded frontend rollback remain the validation basis. No authenticated navigation,notices,live catalog read/save,SQLchange,Auth/provider/gameplay/grant/spending or APP action. APP20261008-rc133 unchanged;this narrow publication approval is spent.
-
-Updated October 24, 2026 through CODEX-201 publication. The new workspace is admin-next.html, labelled Admin Hub (preview). It remains a partial replacement for admin.html; no complete-overhaul or launch declaration is made.
-
-## Available workflows and evidence
-
-| Area | Available in the new Hub | Remaining scope |
+| Area | Available | Acceptance limits |
 | --- | --- | --- |
-| Trainers | Directory, full-width record, inventory/progression/connections, paginated current Pokémon roster and stored-stat inspector | Approved hosted inspection covered EmailQA's single-page roster and one Pokémon detail. Hosted multi-page acceptance and box editing remain unverified/out of scope. |
-| Pass and Gifts | Audited overrides/re-grants, delivery history, searchable visual gifts, Pokémon quantities 1–100, staff-reason confirmation | Existing scoped QA is recorded. No new hosted quantity-batch grant ran. New reward capabilities need their own scope. |
-| Support & Recovery | Owner Helpdesk, player Support, ticket history, masked diagnostics and recovery-email confirmation | Prior bounded QA is recorded; eight additional populated long-content layouts passed locally. Attachments, notifications and guided identity recovery remain deferred. |
-| Operations | Observation cards, reviewed Start/End controls and current Dashboard handoff | Owner-approved CODEX-196 controls are published and source-verified; hosted commands remain untested. Start can enable Auto and schedule encounters. |
-| Mart & Content | Existing eligible single-reward PokéCoin product editor plus existing non-system PokéCoin floor name/description/visibility editor | Owner catalog/search/selection/preview loaded in the approved inspection. Live product/floor saves remain untested. New products/floors, floor ordering, Bits/avatar products and uploads/deletion stay in current tools. |
-| Game Configuration | Six existing PokéCoin reward amounts with review/confirmation | Owner field loading and local save/receipt/error cases passed. No hosted save ran. Capture/timing/XP and other settings remain in current tools. |
-| Analytics & Health | Health, Captures, Progression, Evolution & Trading, Economy | All five loaded in the approved inspection after CODEX-178. CODEX-191 malformed-rate presentation is published/source-verified. Broader performance/device acceptance remains bounded. |
-| System & Access | Current owner-tool handoff | Credentials, integrations, roles and identity operations have not migrated. |
+| Trainers | Directory, record, inventory/progression/connections, paginated current Pokémon roster and stored-stat inspector | Approved hosted inspection covered EmailQA's single-record roster and detail; multi-page hosted acceptance remains open. Box editing is outside the migrated slice. |
+| Pass and Gifts | Audited overrides/re-grants/history, searchable visual gifts, quantity 1–100, staff reason in confirmation | Existing bounded QA is recorded; hosted quantity-batch acceptance remains open. No new gift or Pass action ran in this window. |
+| Support & Recovery | Owner Helpdesk, player Support, ticket history, masked diagnostics and recovery-email confirmation | Prior bounded hosted QA exists; local populated/read/reset/error checks were extended. Attachments, notifications and guided identity recovery remain deferred. |
+| Operations | Observation cards and reviewed Start/End controls | Published/source-verified; hosted commands untested. Start can enable Auto and schedule encounters, requiring a bounded gameplay decision. |
+| Mart & Content | Existing eligible single-reward PokéCoin products and existing non-system PokéCoin floor name/description/visibility | Approved hosted catalog/search/selection/preview inspection exists; product/floor saves untested. Creation/uploads/deletion, Bits/avatar products and ordering remain outside the migrated slice. |
+| Game Configuration | Six existing PokéCoin reward amounts with review | Approved field loading and fictional save/error tests exist; hosted saves untested. Capture/timing/XP settings remain in current tools. |
+| Analytics & Health | Health, Captures, Progression, Evolution & Trading, Economy | All five loaded in approved CODEX-178 inspection after report fixes; subsequent local transitions/layout checks do not establish broader hosted/device coverage. |
+| System & Access | Current-tool handoff | Credentials, integrations, roles and identity authority have not migrated. |
 
-All seven current-tool handoffs resolve through the actual local route resolvers to recognized sections and existing panels. This does not certify hosted access or saves; the legacy controller was not opened for the route check.
+All seven current-tool handoffs resolved in the recorded local route review. The legacy controller was not opened for that check; it does not certify access or saves.
 
-## Prepared important decisions
+## This autonomous window
 
-- CODEX-183 is now approved, published and source-verified. Only js/admin-next.js changed; current 118 suites/build pass. Hosted account-switch behavior remains untested; no server permission changed.
-- CODEX-196 publication is complete; any hosted Start/End test needs a separate bounded gameplay decision.
+Routine published maintenance: CODEX-202 Mart failed-receipt feedback; 204 pending reward controls; 205 gift destination/grammar/error copy; 206 review cancellation control/focus; 208 Support read-error copy. Each exact publication has its own tests and hosted source proof. CODEX-207 extended local Analytics transition/keyboard/error/layout evidence without a runtime change.
 
-See [the consolidated owner review](OWNER-RETURN-REVIEW-OCT24.md) for exact scope and private packet locations. These proposals do not automatically become launch blockers or execution authority.
+Two disconnected proposals are ready: [Mart floor ordering](ADMIN-HUB-MART-ORDER-REVIEW.md) (203) and [Capture chance bounds](ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md) (209). Neither is approved for integration or publication. Capture integration requires fresh source/helper/permission closure first. There is no unapproved SQL correction waiting for installation from this window.
 
-## Release evidence and limits
+## Launch evidence still needed
 
-Current runtime main is 4b54fb99; Pages 40113221997 succeeded. CODEX-201 matches all 100 monitored sources and four changed versioned files. All 121 local suites and build 31 HTML/475 references passed. APP remains 20261008-rc133. Separate main/feature histories are preserved.
+The owner requires real acceptance. Android S25 Ultra Help/Register and Chrome ordinary-subscriber link/active Pass are human-reported passes within their recorded scope. Real iOS Safari, desktop zoom/screen reader, Firefox post-correction retry and broader provider branches remain open. The new one-link policy stays disabled.
 
-The 24 October 07:44:07 UTC physical backup is available after the latest recorded database correction. The 13-delta empty-schema recovery rehearsal passed separately. Neither certifies physical restore, full Auth-service or Storage recovery.
+Hosted Operations commands, Mart/floor/reward saves, multi-page roster and gift-batch acceptance remain untested. Their exact mutation decisions are separate from implementation/publication approvals. Completing every remaining Hub migration is not automatically a launch blocker; final release scope and go/no-go remain owner decisions.
 
-Human-reported S25 Ultra Help/Register checks and Chrome subscriber link/Pass success are recorded. Real iOS Safari, desktop zoom/screen reader, Firefox post-correction retry and broader provider branches remain unverified. The new one-link policy stays disabled. Final launch and APP stamp still require the owner.
+Recovery evidence: isolated logical drill plus 13 empty-schema delta replay/reversals, and the available Oct24 07:44:07 UTC physical backup after latest recorded SQL178. No physical restore or full Auth/Storage certification is claimed. Daily-backup loss window is accepted.
 
-## Evidence navigation
-
-- [Hosted Hub inspection](LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md)
-- [Local recovery extension](LAUNCH-CODEX180-RECOVERY-EXTENSION.md)
-- [Populated Support layouts](LAUNCH-CODEX185-SUPPORT-LONG-CONTENT.md)
-- [Post-change backup availability](LAUNCH-CODEX188-POST-REPORT-BACKUP.md)
-- [Admin route review](LAUNCH-CODEX189-ADMIN-HANDOFFS.md)
-- [Report presentation publication](LAUNCH-CODEX191-CAPTURE-RATE-PRESENTATION.md)
-- [Earlier status snapshots, preserved unchanged](ADMIN-HUB-STATUS-HISTORY-THROUGH189.md)
-
-Individual reports and RUN-LOG.md retain historical approvals and evidence. Earlier statements that the entire new Hub is read-only, Support contains only links, or stored stats are absent are superseded by this summary.
-
-
-CODEX-196 local candidate ead67dae:119suites/build31/473,8responsivecases andfictionalworkflowchecks pass. Its five-file publication subsequently completed at 08d4f7a6/Pages40095860997. No live command or hosted navigation ran. See [local implementation review](LAUNCH-CODEX196-LOCAL-OPERATIONS.md).
-
-## Latest correction
-
-CODEX-198 completed under explicit owner approval: only js/admin-tools.js published at main ceefc26ad8893fddb090cd529e623631584f5361; Pages 40110768347 succeeded; 100 monitored and one changed versioned source match. Both feature/main baselines and candidate matched reviewed hashes before copying. Five targeted fictional cases and all 120 actual-source local suites pass; build31HTML/473references. No authenticated navigation, real credential read/save, provider call, SQL or gameplay test. APP20261008-rc133 unchanged; approval spent.
-
-CODEX-199 extends local Config/Mart draft navigation and discard checks without new runtime changes; the current acceptance matrix separates remaining real evidence from deferred overhaul scope.
-
-## Published floor presentation
-
-CODEX-201 is published and source-verified after separate owner approval.121suites/build31/475,8responsivecases and guarded rollback pass. No live catalog read/save ran;those acceptance actions remain held. Production is 4b54fb99. Review:LAUNCH-CODEX201-LOCAL-MART-FLOORS.md.
+See [acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md), [real acceptance checklist](REAL-ACCEPTANCE-CHECKLIST.md), [owner-return review](OWNER-RETURN-REVIEW-OCT24.md), [current handoff](OVERNIGHT-LAUNCH-READINESS.md), [hosted Hub review](LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md) and [backup observation](LAUNCH-CODEX188-POST-REPORT-BACKUP.md). Earlier snapshots are preserved in [status history](CURRENT-ADMIN-HUB-STATUS-HISTORY-THROUGH209.md); their older current-state claims are superseded here.

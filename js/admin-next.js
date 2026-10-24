@@ -513,7 +513,13 @@
     if (martIdentity !== (session?.user?.id || "")) {
       martIdentity = "";
       mart?.reset();
+      staffOpen = false;
+      stopOpsPoll();
       resetHealth();
+      resetTrainers();
+      if (els.staff) els.staff.hidden = true;
+      if (els.gate) { els.gate.hidden = false; els.gate.textContent = "Checking staff access…"; }
+      renderOperationsFallback();
     }
     if (!session) {
       setSignedOut();

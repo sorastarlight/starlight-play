@@ -105,7 +105,7 @@
       root.querySelector("dialog")?.close();
       root.innerHTML = `<p role="status" tabindex="-1" class="mart-status">${esc(s.message)}</p><button type="button" data-mart-load ${["loading", "saving", "closed"].includes(s.phase) ? "disabled" : ""}>Reload catalog</button><div data-mart-body></div>`;
       if (s.catalog) {
-        root.querySelector("[data-mart-body]").innerHTML = `<div class="mart-layout"><aside class="mart-card"><label>Search products<input type="search" data-mart-search placeholder="Name, SKU or description" value="${esc(query)}"></label><label>Floor<select data-mart-floor><option value="">All floors</option>${s.catalog.categories.map(c => `<option value="${esc(c.id)}" ${floor === c.id ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select></label><div data-mart-list></div></aside><section class="mart-card" data-mart-editor></section></div>`;
+        root.querySelector("[data-mart-body]").innerHTML = `<div class="mart-layout"><aside class="admin-mart-card"><label>Search products<input type="search" data-mart-search placeholder="Name, SKU or description" value="${esc(query)}"></label><label>Floor<select data-mart-floor><option value="">All floors</option>${s.catalog.categories.map(c => `<option value="${esc(c.id)}" ${floor === c.id ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select></label><div data-mart-list></div></aside><section class="admin-mart-card" data-mart-editor></section></div>`;
         list(); editor();
       }
       if (restoreFocus) {

@@ -1,0 +1,7 @@
+# CODEX-179: isolate Admin Mart card layout
+
+The shared public shop .mart-card selector supplied a fixed product-image grid,400px minimum height and100%height to Admin Mart's filter/editor cards. This caused large blank gaps around headings and filter controls. Renamed only the Admin module's class and matching Admin stylesheet selectors to .admin-mart-card. Public shop CSS/HTML/behavior,editor payloads,permissions and save flow are unchanged.
+
+Actual local full-shell reproduction:both cards computed display:grid,min-height400px and fixed72px first row;editor heading sat100.8px below card top. After isolation both are block/auto/no grid rows;heading gap53px includes intended padding/eyebrow. Four requested iframe widths1280/768/390/320 produce no document overflow or under44px scoped non-checkbox controls;actual client widths account for vertical scrollbars. Long unbroken description/name at320contained with no preview overflow. Keyboard product selection still focuses the editor heading. Fictional catalog,network blocked,no real saves. Private screenshot:security/codex179/isolated-layout.png.
+
+118/118 regression suites and build31HTML/471refs pass. Scope only js/admin-next-mart.js and css/admin-mart.css under CODEX-78 routine presentation maintenance. Publication pending. This does not resume CODEX-178's stopped owner inspection or certify actual devices/screen readers. APP remains20261008-rc133;two report SQL replacements held.

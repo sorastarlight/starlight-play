@@ -1,3 +1,15 @@
+# Active autonomous window — October24,2026
+
+Owner renewed eight hours of autonomous launch/Admin Hub/visual work. Existing heartbeat pok-monrpg-overnight-launch-readiness reactivated,without a duplicate. Hard stop08:42America/New_York/12:42UTC October24;do not extend without new human instruction. Consolidate big decisions for return,continue independent work when held. Routine frontend CODEX-78 authority only;CODEX-178 production SQL and stopped hosted inspection remain HELD. Preserve the retained hosted Hub tab;no refresh/reload or additional owner notice call. No delegation/extra background systems,new SQL/Auth/provider/credential/gameplay/grant/spending/APP stamp/final launch authority.
+
+Current feature3a035503,main bae76909/Pages40021856876success. CODEX-178 hosted Mart/catalog search/selection and six reward field loading passed;Health partial and stopped. Two exact-source SQL report fixes and guarded combined rollback pass19Health/15Capture/22combined local cases,held. See LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md. All118 regression suites last passed CODEX-176. Next daily physical recovery point expected after approximately07:44UTC;observe completion only when due.
+
+Working queue:CODEX-179 isolate Admin Mart card styling from public shop grid,render desktop/mobile and publish exact routine diff if verified;continue concrete populated/error/keyboard inspections and risk-based source review;record new consequential packets privately and consolidate questions. Do not repeat unchanged suites/limitations to simulate progress.
+
+Historical handoff follows;older dates/main/tasks are superseded by current matrix/TASKS and this section.
+
+---
+
 # Launch readiness handoff — consolidated through CODEX-132
 
 Current October22,2026. The eight-hour overnight authorization ended at08:25 America/New_York /12:25UTC. Automation pok-monrpg-overnight-launch-readiness is now PAUSED;prompt/schedule preserved,no extension. Subsequent work follows direct human requests in this chat. No delegation or extra background systems.

@@ -1,0 +1,83 @@
+{
+  "classification": "Real rendered isolated local shell;fictional catalog;connect-src none;not actual device or hosted owner acceptance",
+  "before": [
+    {
+      "display": "grid",
+      "headingGap": null,
+      "height": 1175.112548828125,
+      "minHeight": "400px",
+      "rows": "72px 537.912px 507.6px"
+    },
+    {
+      "display": "grid",
+      "headingGap": 100.79998779296876,
+      "height": 1175.112548828125,
+      "minHeight": "400px",
+      "rows": "72px 41.9125px 56.8px 938.8px"
+    }
+  ],
+  "after": [
+    {
+      "display": "block",
+      "headingGap": null,
+      "height": 715.6000366210938,
+      "minHeight": "auto",
+      "rows": "none"
+    },
+    {
+      "display": "block",
+      "headingGap": 53,
+      "height": 1095.3125,
+      "minHeight": "auto",
+      "rows": "none"
+    }
+  ],
+  "widths": [
+    {
+      "requestedIframeWidth": 1280,
+      "cardDisplays": [
+        "block",
+        "block"
+      ],
+      "overflow": false,
+      "smallControls": [],
+      "width": 1280
+    },
+    {
+      "requestedIframeWidth": 768,
+      "cardDisplays": [
+        "block",
+        "block"
+      ],
+      "overflow": false,
+      "smallControls": [],
+      "width": 753
+    },
+    {
+      "requestedIframeWidth": 390,
+      "cardDisplays": [
+        "block",
+        "block"
+      ],
+      "overflow": false,
+      "smallControls": [],
+      "width": 375
+    },
+    {
+      "requestedIframeWidth": 320,
+      "cardDisplays": [
+        "block",
+        "block"
+      ],
+      "overflow": false,
+      "smallControls": [],
+      "width": 305
+    }
+  ],
+  "longText320": {
+    "documentWidth": 305,
+    "headingHeight": 116,
+    "overflow": false,
+    "previewOverflow": false
+  }
+}

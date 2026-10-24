@@ -1,0 +1,17 @@
+{
+  "classification": "CODEX-78 routine accessibility maintenance; one runtime file",
+  "baselineMain": "08d4f7a6036572207913c744dbec7ba7941665af",
+  "file": "js/admin-next-session.js",
+  "baselineSha256": "5555c39b2464f971d9c7e9ba1bdbf307cac1f5595fd06ab576493f554b50fee1",
+  "candidateSha256": "e1f2bee4cbab5166e284c26eeac5da8511caf156368e1f2afe9b78a94e36776a",
+  "localDOM": {
+    "before": "Passive observation removed the focused button; browser focus became body",
+    "after": [
+      "Start review focus survives passive observation",
+      "Reload focus survives passive observation",
+      "Outside focus is not stolen",
+      "Full-shell dialog autofocus and Escape restore work"
+    ],
+    "transport": "fictional only; no command sent"
+  }
+}

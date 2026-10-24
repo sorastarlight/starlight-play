@@ -9,3 +9,8 @@ LOCAL HARNESS:18 reward cases including destination headings and singular/plural
 One rapid automated Cancel-then-select sequence changed the selector before its async review close completed,leaving the prior fields visible. Independent cases after a settled close rendered correctly. This timing edge is queued for isolated reproduction;ordinary human timing and production impact are not established. No security or server validation defect is asserted.
 
 Routine CODEX-78 copy/error-state maintenance;runtime scope only js/admin-next-rewards.js. Publication/source verification next. Sora NO;Twinkle NO;PlayTester role unchanged.
+
+## Publication verified
+
+CODEX-205 completed: main9666399307853ace1874a258aa843f90a2fd64c9;Pages40118306522success;100monitored plus1versioned source match. Gift headings distinguish PokéCoins,Inventory Space and both background destinations;singular coin grammar and unavailable copy corrected.121local suites/build31HTML475refs;5actual local states;0fictional writes. No hosted application call,notice,grant,SQL,Auth/provider,protected-account mutation or APP change.
+Evidence:evidence/codex205-publication.json. One runtime file only;13insertions/3deletions. No hosted grant behavior is certified by source comparison.

@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-205 | in_progress | Accurate gift confirmation/unavailable copy | CODEX-204 | CODEX-78 | 121suites;5localstates;onefile publication next |
+| CODEX-205 | done | Accurate gift confirmation/unavailable copy | CODEX-204 | CODEX-78 | Live96663993;Pages40118306522;100+1sources;121suites |
 | CODEX-204 | done | Gift/Pass pending presentation and roster boundaries | CODEX-202 | CODEX-78 | Live20401579;Pages40116137764;100+1source matches;121suites |
 | CODEX-203 | done | Floor-order design proposal | CODEX-201 | Review on owner return | Local prototype only; integration held |
 | CODEX-202 | done | Mart failed-receipt feedback | CODEX-201 | CODEX-78 | Live189c2801;Pages40114012274;100+1source matches;121suites |

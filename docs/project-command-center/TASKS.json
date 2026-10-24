@@ -5,12 +5,13 @@
   "tasks": [
     {
       "id": "CODEX-205",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Gift destination headings,singular coin and accurate read-error copy",
-      "evidence": "LAUNCH-CODEX205-GIFT-COPY.md;evidence/codex205-regressions.json",
+      "evidence": "LAUNCH-CODEX205-GIFT-COPY.md;evidence/codex205-regressions.json;evidence/codex205-publication.json",
       "testResults": "121suites;18rewardcases;build31/475;5actual local states;0fictional writes",
-      "nextAction": "Scoped one-file routine publication/source verification;then isolate cancel/type timing edge",
-      "approvalRequirement": "CODEX-78 copy/error feedback;no hosted actions"
+      "nextAction": "Isolate rapid cancel/type timing with event-order fixture;continue independent review",
+      "approvalRequirement": "CODEX-78 copy/error feedback;no hosted actions",
+      "publicationCommit": "9666399307853ace1874a258aa843f90a2fd64c9"
     },
     {
       "id": "CODEX-204",

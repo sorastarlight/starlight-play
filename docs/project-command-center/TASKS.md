@@ -4,7 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-207 | todo | Analytics pending/tab/error/reset and keyboard checks | CODEX-206 | Local only | Actual module/fictional transport; no hosted report |
+| CODEX-208 | todo | Helpdesk pending/error/reset review | CODEX-207 | Local only | Source/fictional reads; no ticket writes |
+| CODEX-207 | done | Analytics pending/tab/error/reset and keyboard checks | CODEX-206 | Local only | 7local transition cases;8layouts;targeted tests;no runtime change |
 | CODEX-206 | done | Review transition control/focus maintenance | CODEX-205 | CODEX-78 | Livee3401b70;Pages40120689437;100+1sources;121suites |
 | CODEX-205 | done | Accurate gift confirmation/unavailable copy | CODEX-204 | CODEX-78 | Live96663993;Pages40118306522;100+1sources;121suites |
 | CODEX-204 | done | Gift/Pass pending presentation and roster boundaries | CODEX-202 | CODEX-78 | Live20401579;Pages40116137764;100+1source matches;121suites |

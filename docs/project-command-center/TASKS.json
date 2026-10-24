@@ -4,12 +4,21 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-207",
+      "id": "CODEX-208",
       "status": "todo",
-      "scope": "Disconnected Analytics pending/tab/error/reset and keyboard acceptance",
-      "evidence": "Not started;existing tools/serve-admin-analytics-fixture.cjs available",
+      "scope": "Helpdesk mounted pending/error/reset review",
+      "evidence": "Not started",
       "testResults": "Not run",
-      "nextAction": "Use actual module with fictional transport;check late report responses,reset,range errors,focus and long metric/table layouts",
+      "nextAction": "Inspect existing support module and local fixtures;test late read/reset isolation and keyboard retry without ticket writes",
+      "approvalRequirement": "Local source/fictional transport only;no hosted tickets,replies,notes,notices or Auth navigation"
+    },
+    {
+      "id": "CODEX-207",
+      "status": "done",
+      "scope": "Disconnected Analytics pending/tab/error/reset and keyboard acceptance",
+      "evidence": "LAUNCH-CODEX207-ANALYTICS-TRANSITIONS.md;evidence/codex207-analytics-acceptance.json",
+      "testResults": "7actual local transition/keyboard/error cases;8measured layouts;targeted Analytics tests pass;no runtime change",
+      "nextAction": "No repeated unchanged report tests;continue Helpdesk pending/reset review",
       "approvalRequirement": "Local checks only;no hosted reports,authenticated navigation or new authority"
     },
     {

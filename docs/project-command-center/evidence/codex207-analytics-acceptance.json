@@ -1,0 +1,91 @@
+{
+  "classification": "REAL LOCAL DOM;actual module;fictional transport;connect-src none",
+  "testedModule": "js/admin-next-analytics.js",
+  "main": "e3401b709d5ec8b9481e9e8ca962e42f51daf26b",
+  "normalizedSha256": "0f7f6bbb723bd7fa493db6aa8cd1d2d624a65c6b6948c49a3eda7a74b570c80d",
+  "matchesPublishedGitSource": true,
+  "checks": [
+    {
+      "case": "Capture pending then Economy ready then Capture completion",
+      "result": "Economy heading,selection,panel label and8cards preserved"
+    },
+    {
+      "case": "Economy failure after existing report",
+      "result": "old figures removed;generic unavailable message;private error absent"
+    },
+    {
+      "case": "Partial Economy report",
+      "result": "missing metrics and distribution values unavailable,not zero"
+    },
+    {
+      "case": "Keyboard Home",
+      "result": "focus Health;selection Economy;one tab stop;no report activation"
+    },
+    {
+      "case": "Keyboard Enter",
+      "result": "Health selected;no fictional report read added"
+    },
+    {
+      "case": "Invalid Capture range0",
+      "result": "native validation;request count unchanged at5"
+    },
+    {
+      "case": "Reset during Capture pending",
+      "result": "late completion leaves0cards;report hidden;Health selected"
+    }
+  ],
+  "layouts": [
+    {
+      "report": "captures",
+      "frameWidth": 320,
+      "clientWidth": 305,
+      "scrollWidth": 305
+    },
+    {
+      "report": "captures",
+      "frameWidth": 390,
+      "clientWidth": 375,
+      "scrollWidth": 375
+    },
+    {
+      "report": "captures",
+      "frameWidth": 768,
+      "clientWidth": 768,
+      "scrollWidth": 753
+    },
+    {
+      "report": "captures",
+      "frameWidth": 1024,
+      "clientWidth": 1024,
+      "scrollWidth": 1009
+    },
+    {
+      "report": "economy",
+      "frameWidth": 320,
+      "clientWidth": 305,
+      "scrollWidth": 305
+    },
+    {
+      "report": "economy",
+      "frameWidth": 390,
+      "clientWidth": 375,
+      "scrollWidth": 375
+    },
+    {
+      "report": "economy",
+      "frameWidth": 768,
+      "clientWidth": 768,
+      "scrollWidth": 753
+    },
+    {
+      "report": "economy",
+      "frameWidth": 1024,
+      "clientWidth": 1024,
+      "scrollWidth": 1009
+    }
+  ],
+  "layoutLimits": "No measured horizontal overflow in8frame cases. Extremely long synthetic table labels wrap into tall rows;large synthetic numbers can wrap. This does not certify physical-device or screen-reader acceptance.",
+  "targetedTests": "node tests/admin-next-analytics-tests.js passed",
+  "runtimeChanges": false,
+  "productionCalls": false
+}

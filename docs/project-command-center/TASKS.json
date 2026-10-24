@@ -4,12 +4,21 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-188",
+      "status": "done",
+      "scope": "Completed post-CODEX178 physical backup availability",
+      "evidence": "LAUNCH-CODEX188-POST-REPORT-BACKUP.md;evidence/codex188-backup-complete.json",
+      "testResults": "Dashboard24Oct07:44:07UTC physical Restoreavailable;catalog latest178;observation08:12:28UTC",
+      "nextAction": "No further unchanged backup polling;continue independent review",
+      "approvalRequirement": "Observation only;restore/export remains excluded"
+    },
+    {
       "id": "CODEX-187",
-      "status": "waiting",
+      "status": "done",
       "scope": "Post-report-correction physical backup observation",
       "evidence": "LAUNCH-CODEX187-BACKUP-IN-PROGRESS.md;evidence/codex187-backup-observation.json",
       "testResults": "Dashboard lists24Oct07:44:07UTC inprogress;notcomplete;latestmigration178;24packet hashmatches",
-      "nextAction": "Recheck once in later scheduled cycle after due;no restore or repeated polling",
+      "nextAction": "Superseded by completed availability observationCODEX188",
       "approvalRequirement": "Observation only;restore/export remains excluded"
     },
     {

@@ -18,3 +18,6 @@ CODEX-94 CURRENT,October22: the scheduled dashboard now lists PHYSICAL backup22O
 
 
 CODEX-161 recovery observation:scheduled dashboard lists PHYSICAL23Oct07:44:31UTC/03:44:31EDT,after latest recorded migration20261023025714/CODEX-135. Storage metadata0buckets. No Restore/export/password/settings/player action;not physical/full Auth/storage certification. Older logical archive still needs10guarded deltas. See LAUNCH-CODEX161-POST-CORRECTION-BACKUP.md.
+
+
+CODEX-188 current backup observation:at24Oct08:12:28UTC,dashboardlistsPHYSICAL24Oct07:44:07UTC(03:44:07EDT)withRestoreavailable,noinprogresslabel. Itpostdateslatestcatalogmigration20261024044601/CODEX178. Post-changeavailabilityobservationcomplete;noRestore/export/settings/applicationaction. Physicalrestore/fullAuth/Storagecertificationremainseparate. See LAUNCH-CODEX188-POST-REPORT-BACKUP.md.

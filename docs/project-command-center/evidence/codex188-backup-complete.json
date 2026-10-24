@@ -1,0 +1,22 @@
+{
+  "classification": "REAL DOM scheduled-backup listing plus catalog-only latest migration;no restore/export/application endpoint",
+  "observedAtUtc": "2026-10-24T08:12:28Z",
+  "latestVisibleCompletedPhysicalBackupUtc": "2026-10-24T07:44:07Z",
+  "latestVisibleCompletedPhysicalBackupLocal": "2026-10-24 03:44:07 EDT",
+  "completionSignal": "Restore control visible;BACKUP IN PROGRESS label absent for newest row",
+  "latestRecordedMigration": {
+    "version": "20261024044601",
+    "name": "codex178_report_query_corrections"
+  },
+  "postdatesLatestRecordedMigration": true,
+  "restorePerformed": false,
+  "exportPerformed": false,
+  "passwordOrSettingsChanged": false,
+  "limitations": [
+    "Listed availability is not physical restore/integrity/RTO certification",
+    "Full Auth-service and Storage recovery not certified",
+    "No claim about untracked external changes or exact included player writes",
+    "PITR/plan/Storage metadata not rechecked",
+    "Vendor dashboard banner is not a project outage diagnosis"
+  ]
+}

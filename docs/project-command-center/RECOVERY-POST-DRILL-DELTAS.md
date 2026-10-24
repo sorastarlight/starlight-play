@@ -118,3 +118,6 @@ Thirteenth installed post-drill delta:20261024044601 codex178_report_query_corre
 |Migration|Guarded install|SHA256|
 |---|---|---|
 |20261024044601 codex178_report_query_corrections|supabase/unapplied/admin-report-query-corrections/INSTALL.sql|145330761fbec67e1203e9407830bda1728ab7a0d2934fa6f2b7bfa7abc20a20|
+
+
+CODEX-188 current backup observation:at24Oct08:12:28UTC,dashboardlistsPHYSICAL24Oct07:44:07UTC(03:44:07EDT)withRestoreavailable,noinprogresslabel. Itpostdateslatestcatalogmigration20261024044601/CODEX178. Post-changeavailabilityobservationcomplete;noRestore/export/settings/applicationaction. Physicalrestore/fullAuth/Storagecertificationremainseparate. See LAUNCH-CODEX188-POST-REPORT-BACKUP.md.

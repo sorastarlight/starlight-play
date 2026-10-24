@@ -2438,3 +2438,7 @@ HTMLParser resolves600relative src/href paths across29rootdocuments;none missing
 
 ## CODEX-187 — backup listing, not complete
 Read-only dashboard lists24Oct07:44:07UTC PHYSICAL inprogress at07:42:55UTC observation. Timestampahead ofclock recorded explicitly;no completedpoint/starttime claim. Latestcompletedvisible23Oct07:44:31UTC. Cataloglatest178/174/168;24trackedpacket hashesmatch. No Restore/export/settings/Auth/player/application action;agenttabclosed. Rechecklatercyclewhen due insteadofpolling.
+
+
+## CODEX-188 — post-change physical recovery point available
+At08:12:28UTCdashboardshows24Oct07:44:07UTC PHYSICAL withRestorecontrol/noinprogresslabel. Latestcatalog178 unchanged;pointpostdatesmigration. Completedavailabilityobservationonly,notrestore/integrity/RTO/fullAuth/Storageproof. NoRestore/export/settings/player/appaction;agenttabclosed.187superseded;no furtherunchangedpolling.

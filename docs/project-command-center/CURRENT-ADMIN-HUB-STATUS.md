@@ -1,8 +1,8 @@
 # Current Admin Hub status
 
-Current completion: CODEX-198 owner-approved one-file channel-save correction published at main ceefc26a; Pages40110768347success;100monitored plus1versioned source match. All120local suites/build31HTML473refs pass. CODEX-199 current readiness index and isolated Config/Mart draft/navigation checks complete. No SQL,real credential/provider call,hosted application action or APP change. No pending correction decision from this batch. Expired heartbeat remains paused; direct human continuation does not renew it.
+CODEX-201 publication completed under explicit owner approval:only admin-next.html,js/admin-next.js,js/admin-next-floors.js,css/admin-floors.css published at main4b54fb99d3a8fea8e84538373aa60ed5c945c51f;Pages40113221997success. All6server definition/permission contracts and4runtime baseline/candidate hashes matched before publication;100monitored plus4changed versioned hosted sources match exact published commit. Local121suites/build31HTML475refs,8responsivecases and guarded frontend rollback remain the validation basis. No authenticated navigation,notices,live catalog read/save,SQLchange,Auth/provider/gameplay/grant/spending or APP action. APP20261008-rc133 unchanged;this narrow publication approval is spent.
 
-Updated October 24, 2026 through CODEX-201 local implementation; published runtime remains CODEX-198. The new workspace is admin-next.html, labelled Admin Hub (preview). It remains a partial replacement for admin.html; no complete-overhaul or launch declaration is made.
+Updated October 24, 2026 through CODEX-201 publication. The new workspace is admin-next.html, labelled Admin Hub (preview). It remains a partial replacement for admin.html; no complete-overhaul or launch declaration is made.
 
 ## Available workflows and evidence
 
@@ -12,7 +12,7 @@ Updated October 24, 2026 through CODEX-201 local implementation; published runti
 | Pass and Gifts | Audited overrides/re-grants, delivery history, searchable visual gifts, Pokémon quantities 1–100, staff-reason confirmation | Existing scoped QA is recorded. No new hosted quantity-batch grant ran. New reward capabilities need their own scope. |
 | Support & Recovery | Owner Helpdesk, player Support, ticket history, masked diagnostics and recovery-email confirmation | Prior bounded QA is recorded; eight additional populated long-content layouts passed locally. Attachments, notifications and guided identity recovery remain deferred. |
 | Operations | Observation cards, reviewed Start/End controls and current Dashboard handoff | Owner-approved CODEX-196 controls are published and source-verified; hosted commands remain untested. Start can enable Auto and schedule encounters. |
-| Mart & Content | Existing eligible single-reward PokéCoin product editor, search/filter, selection and preview | Owner catalog/search/selection/preview loaded in the approved inspection. Live saves remain untested. New products, floors, Bits/avatar products, uploads/deletion stay in current tools. |
+| Mart & Content | Existing eligible single-reward PokéCoin product editor plus existing non-system PokéCoin floor name/description/visibility editor | Owner catalog/search/selection/preview loaded in the approved inspection. Live product/floor saves remain untested. New products/floors, floor ordering, Bits/avatar products and uploads/deletion stay in current tools. |
 | Game Configuration | Six existing PokéCoin reward amounts with review/confirmation | Owner field loading and local save/receipt/error cases passed. No hosted save ran. Capture/timing/XP and other settings remain in current tools. |
 | Analytics & Health | Health, Captures, Progression, Evolution & Trading, Economy | All five loaded in the approved inspection after CODEX-178. CODEX-191 malformed-rate presentation is published/source-verified. Broader performance/device acceptance remains bounded. |
 | System & Access | Current owner-tool handoff | Credentials, integrations, roles and identity operations have not migrated. |
@@ -28,7 +28,7 @@ See [the consolidated owner review](OWNER-RETURN-REVIEW-OCT24.md) for exact scop
 
 ## Release evidence and limits
 
-Current runtime main is ceefc26a; Pages 40110768347 succeeded. CODEX-198 matches all 100 monitored sources and the changed versioned legacy tools module. All 120 local suites and build 31 HTML/473 references passed. APP remains 20261008-rc133. Separate main/feature histories are preserved.
+Current runtime main is 4b54fb99; Pages 40113221997 succeeded. CODEX-201 matches all 100 monitored sources and four changed versioned files. All 121 local suites and build 31 HTML/475 references passed. APP remains 20261008-rc133. Separate main/feature histories are preserved.
 
 The 24 October 07:44:07 UTC physical backup is available after the latest recorded database correction. The 13-delta empty-schema recovery rehearsal passed separately. Neither certifies physical restore, full Auth-service or Storage recovery.
 
@@ -55,6 +55,6 @@ CODEX-198 completed under explicit owner approval: only js/admin-tools.js publis
 
 CODEX-199 extends local Config/Mart draft navigation and discard checks without new runtime changes; the current acceptance matrix separates remaining real evidence from deferred overhaul scope.
 
-## Local next slice
+## Published floor presentation
 
-CODEX-201 implements the owner-approved existing non-system PokéCoin floor presentation design locally.121suites/build31/475,8responsivecases and guarded rollback pass. Four-file publication and all live catalog reads/saves remain held. Production stays ceefc26a. Review:LAUNCH-CODEX201-LOCAL-MART-FLOORS.md.
+CODEX-201 is published and source-verified after separate owner approval.121suites/build31/475,8responsivecases and guarded rollback pass. No live catalog read/save ran;those acceptance actions remain held. Production is 4b54fb99. Review:LAUNCH-CODEX201-LOCAL-MART-FLOORS.md.

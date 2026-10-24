@@ -5,12 +5,12 @@
   "tasks": [
     {
       "id": "CODEX-201",
-      "status": "in_progress",
-      "scope": "Approved existing Mart floor presentation editor locally complete",
-      "evidence": "LAUNCH-CODEX201-LOCAL-MART-FLOORS.md;evidence/codex201-regressions.json;evidence/codex201-floor-contracts.json;evidence/codex201-floor-layouts.json;evidence/codex201-browser-checks.json;evidence/codex201-runtime-scope.json;evidence/codex201-rollback-check.json",
-      "testResults": "121suites;build31/475;8responsivecases;fictional save/receipt/search/access;guardedfrontendrollback",
-      "nextAction": "Wait Pages40113221997 and verify public sources only; all live catalog calls remain held",
-      "approvalRequirement": "Exact4file publication approved; no hosted application action",
+      "status": "done",
+      "scope": "Existing Mart floor editor published and deployed source verified",
+      "evidence": "LAUNCH-CODEX201-LOCAL-MART-FLOORS.md;evidence/codex201-regressions.json;evidence/codex201-floor-contracts.json;evidence/codex201-floor-layouts.json;evidence/codex201-browser-checks.json;evidence/codex201-runtime-scope.json;evidence/codex201-rollback-check.json;evidence/codex201-contract-recheck.json;evidence/codex201-publication.json",
+      "testResults": "121suites;build31/475;8responsivecases;fictional save/receipt/search/access;guardedfrontendrollback;Pages40113221997success;100+4sourcematches;6contractsunchanged",
+      "nextAction": "No further unchanged source checks needed; real catalog read/save acceptance remains separately bounded",
+      "approvalRequirement": "Exact4file publication/source-only approval spent; no live catalog action",
       "commit": "afb2d0c85a9eac796ea101422b50d7a5e389f581",
       "publicationCommit": "4b54fb99d3a8fea8e84538373aa60ed5c945c51f"
     },

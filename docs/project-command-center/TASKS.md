@@ -453,3 +453,9 @@ CODEX-180 PASS:all13installed deltas forward/reverse on empty loopbackPG17;585fu
 
 
 CODEX-181 VERIFIED:healthy/OK Application uses active styling;missing/non-boolean stream status stays UNKNOWN;Berry/tier headings aligned.118suites/build31/471;actual local health classes/headings. Exact2runtime main84a56029/Pages40064027714success;100monitored+2versioned sources match. No hosted report/notice/SQL/provider or save/grant action.
+
+
+## CODEX-196 approved publication completion
+
+CODEX-196 publication complete after explicit owner approval: exact five runtime files published at main 08d4f7a6036572207913c744dbec7ba7941665af; Pages 40095860997 succeeded. Catalog-only recheck matched both public command/snapshot definitions and attributes plus three reviewed helper definitions. All 100 monitored and five changed versioned hosted sources match that commit. Previously completed 119 local regression suites, build 31 HTML/473 references and responsive/fictional workflow checks remain the validation basis. No authenticated navigation, notices, hosted snapshot/report, session command, SQL change or gameplay test ran. APP 20261008-rc133 unchanged. Publication approval spent; live Start/End acceptance requires separate bounded authority. The expired eight-hour heartbeat was paused without extending its deadline; this publication completed under the subsequent direct human approval.
+Evidence: evidence/codex196-publication.json and evidence/codex196-contract-recheck.json.

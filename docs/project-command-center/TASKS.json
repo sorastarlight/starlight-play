@@ -5,12 +5,12 @@
   "tasks": [
     {
       "id": "CODEX-196",
-      "status": "prepared",
-      "scope": "Owner-approved Operations Start/End local implementation complete",
-      "evidence": "LAUNCH-CODEX196-LOCAL-OPERATIONS.md;evidence/codex196-regressions.json;evidence/codex196-ui-states.json;evidence/codex196-layouts.json;evidence/codex196-runtime-scope.json",
-      "testResults": "119suites/build31/473;8responsivecases;actualfictionalconfirm/lock/lostreceipt/states;nohostedcalls",
-      "nextAction": "Separateexact5runtimepublication/source-onlydecision;liveactionsheld",
-      "approvalRequirement": "Design/localimplementationapproved;publication/SQL/livecommandsnotauthorized"
+      "status": "done",
+      "scope": "Approved Operations controls published and deployed source verified",
+      "evidence": "LAUNCH-CODEX196-LOCAL-OPERATIONS.md;evidence/codex196-regressions.json;evidence/codex196-ui-states.json;evidence/codex196-layouts.json;evidence/codex196-runtime-scope.json;evidence/codex196-publication.json;evidence/codex196-contract-recheck.json",
+      "testResults": "119suites/build31/473;8responsivecases;actualfictionalconfirm/lock/lostreceipt/states;nohostedcalls;Pages40095860997success;100+5hostedsourcematches",
+      "nextAction": "Hosted commands remain untested; separate bounded gameplay decision required",
+      "approvalRequirement": "Five-file publication/source verification approval spent"
     },
     {
       "id": "CODEX-195",

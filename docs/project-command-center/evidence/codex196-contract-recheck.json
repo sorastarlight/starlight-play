@@ -1,0 +1,41 @@
+{
+  "classification": "Catalog-only source/attribute recheck; no application function invoked",
+  "checkedAt": "2026-10-24T12:55:25.370Z",
+  "functions": [
+    {
+      "signature": "admin_director_command(text,jsonb)",
+      "prosecdef": true,
+      "provolatile": "v",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "definition_md5": "aa6b22596d78d93830304059805856a0"
+    },
+    {
+      "signature": "admin_live_snapshot()",
+      "prosecdef": true,
+      "provolatile": "s",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "definition_md5": "569ed582aba602c6645ffadecdc24a0d"
+    },
+    {
+      "signature": "private.director_active_round()",
+      "prosecdef": false,
+      "provolatile": "v",
+      "acl": null,
+      "definition_md5": "90fd3f9356c58575d2fb6b30dbc8ebb2"
+    },
+    {
+      "signature": "private.director_dashboard()",
+      "prosecdef": false,
+      "provolatile": "v",
+      "acl": null,
+      "definition_md5": "b3e545626282e410f8c4f4d298bdb71a"
+    },
+    {
+      "signature": "private.director_refresh_ad_end()",
+      "prosecdef": false,
+      "provolatile": "v",
+      "acl": null,
+      "definition_md5": "576301486ae0443d5f6a4bed0a3416e4"
+    }
+  ]
+}

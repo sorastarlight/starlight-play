@@ -1,5 +1,7 @@
 # Current Admin Hub status
 
+Current update: CODEX-196 publication complete after explicit owner approval: exact five runtime files published at main 08d4f7a6036572207913c744dbec7ba7941665af; Pages 40095860997 succeeded. Catalog-only recheck matched both public command/snapshot definitions and attributes plus three reviewed helper definitions. All 100 monitored and five changed versioned hosted sources match that commit. Previously completed 119 local regression suites, build 31 HTML/473 references and responsive/fictional workflow checks remain the validation basis. No authenticated navigation, notices, hosted snapshot/report, session command, SQL change or gameplay test ran. APP 20261008-rc133 unchanged. Publication approval spent; live Start/End acceptance requires separate bounded authority. The expired eight-hour heartbeat was paused without extending its deadline; this publication completed under the subsequent direct human approval.
+
 Updated October 24, 2026 through CODEX-192. The new workspace is admin-next.html, labelled Admin Hub (preview). It remains a partial replacement for admin.html; no complete-overhaul or launch declaration is made.
 
 ## Available workflows and evidence
@@ -9,7 +11,7 @@ Updated October 24, 2026 through CODEX-192. The new workspace is admin-next.html
 | Trainers | Directory, full-width record, inventory/progression/connections, paginated current Pokémon roster and stored-stat inspector | Approved hosted inspection covered EmailQA's single-page roster and one Pokémon detail. Hosted multi-page acceptance and box editing remain unverified/out of scope. |
 | Pass and Gifts | Audited overrides/re-grants, delivery history, searchable visual gifts, Pokémon quantities 1–100, staff-reason confirmation | Existing scoped QA is recorded. No new hosted quantity-batch grant ran. New reward capabilities need their own scope. |
 | Support & Recovery | Owner Helpdesk, player Support, ticket history, masked diagnostics and recovery-email confirmation | Prior bounded QA is recorded; eight additional populated long-content layouts passed locally. Attachments, notifications and guided identity recovery remain deferred. |
-| Operations | Observation cards and current Dashboard handoff | Published Director controls remain in the current Hub. Owner-approved CODEX-196 Start/End local implementation is complete; its five-file publication is held. Start can enable Auto and schedule encounters. |
+| Operations | Observation cards and current Dashboard handoff | Published Director controls remain in the current Hub. Owner-approved CODEX-196 Start/End controls are published and source-verified; hosted commands remain untested. Start can enable Auto and schedule encounters. |
 | Mart & Content | Existing eligible single-reward PokéCoin product editor, search/filter, selection and preview | Owner catalog/search/selection/preview loaded in the approved inspection. Live saves remain untested. New products, floors, Bits/avatar products, uploads/deletion stay in current tools. |
 | Game Configuration | Six existing PokéCoin reward amounts with review/confirmation | Owner field loading and local save/receipt/error cases passed. No hosted save ran. Capture/timing/XP and other settings remain in current tools. |
 | Analytics & Health | Health, Captures, Progression, Evolution & Trading, Economy | All five loaded in the approved inspection after CODEX-178. CODEX-191 malformed-rate presentation is published/source-verified. Broader performance/device acceptance remains bounded. |
@@ -20,7 +22,7 @@ All seven current-tool handoffs resolve through the actual local route resolvers
 ## Prepared important decisions
 
 - CODEX-183 is now approved, published and source-verified. Only js/admin-next.js changed; current 118 suites/build pass. Hosted account-switch behavior remains untested; no server permission changed.
-- CODEX-196: approve exact five-file publication and source-only verification of the completed local Operations Start/End slice. Local design/implementation approval is spent; live commands remain separate.
+- CODEX-196 publication is complete; any hosted Start/End test needs a separate bounded gameplay decision.
 
 See [the consolidated owner review](OWNER-RETURN-REVIEW-OCT24.md) for exact scope and private packet locations. These proposals do not automatically become launch blockers or execution authority.
 

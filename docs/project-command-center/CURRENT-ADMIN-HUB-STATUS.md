@@ -9,7 +9,7 @@ Updated October 24, 2026 through CODEX-192. The new workspace is admin-next.html
 | Trainers | Directory, full-width record, inventory/progression/connections, paginated current Pokémon roster and stored-stat inspector | Approved hosted inspection covered EmailQA's single-page roster and one Pokémon detail. Hosted multi-page acceptance and box editing remain unverified/out of scope. |
 | Pass and Gifts | Audited overrides/re-grants, delivery history, searchable visual gifts, Pokémon quantities 1–100, staff-reason confirmation | Existing scoped QA is recorded. No new hosted quantity-batch grant ran. New reward capabilities need their own scope. |
 | Support & Recovery | Owner Helpdesk, player Support, ticket history, masked diagnostics and recovery-email confirmation | Prior bounded QA is recorded; eight additional populated long-content layouts passed locally. Attachments, notifications and guided identity recovery remain deferred. |
-| Operations | Observation cards and current Dashboard handoff | Live Director controls remain in the current Hub. CODEX-182 Start/End proposal is held for local implementation approval; Start can enable Auto and schedule encounters. |
+| Operations | Observation cards and current Dashboard handoff | Published Director controls remain in the current Hub. Owner-approved CODEX-196 Start/End local implementation is complete; its five-file publication is held. Start can enable Auto and schedule encounters. |
 | Mart & Content | Existing eligible single-reward PokéCoin product editor, search/filter, selection and preview | Owner catalog/search/selection/preview loaded in the approved inspection. Live saves remain untested. New products, floors, Bits/avatar products, uploads/deletion stay in current tools. |
 | Game Configuration | Six existing PokéCoin reward amounts with review/confirmation | Owner field loading and local save/receipt/error cases passed. No hosted save ran. Capture/timing/XP and other settings remain in current tools. |
 | Analytics & Health | Health, Captures, Progression, Evolution & Trading, Economy | All five loaded in the approved inspection after CODEX-178. CODEX-191 malformed-rate presentation is published/source-verified. Broader performance/device acceptance remains bounded. |
@@ -20,7 +20,7 @@ All seven current-tool handoffs resolve through the actual local route resolvers
 ## Prepared important decisions
 
 - CODEX-183 is now approved, published and source-verified. Only js/admin-next.js changed; current 118 suites/build pass. Hosted account-switch behavior remains untested; no server permission changed.
-- CODEX-182: approve local implementation of the proposed Operations Start/End slice. Publication and live commands remain separate.
+- CODEX-196: approve exact five-file publication and source-only verification of the completed local Operations Start/End slice. Local design/implementation approval is spent; live commands remain separate.
 
 See [the consolidated owner review](OWNER-RETURN-REVIEW-OCT24.md) for exact scope and private packet locations. These proposals do not automatically become launch blockers or execution authority.
 
@@ -43,3 +43,6 @@ Human-reported S25 Ultra Help/Register checks and Chrome subscriber link/Pass su
 - [Earlier status snapshots, preserved unchanged](ADMIN-HUB-STATUS-HISTORY-THROUGH189.md)
 
 Individual reports and RUN-LOG.md retain historical approvals and evidence. Earlier statements that the entire new Hub is read-only, Support contains only links, or stored stats are absent are superseded by this summary.
+
+
+CODEX-196 local candidate ead67dae:119suites/build31/473,8responsivecases andfictionalworkflowchecks pass. Production remains d62fe3c4/Pages40092865776. No live command or hosted navigation ran. See [local implementation review](LAUNCH-CODEX196-LOCAL-OPERATIONS.md).

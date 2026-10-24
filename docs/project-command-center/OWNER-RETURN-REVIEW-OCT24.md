@@ -36,3 +36,6 @@ CODEX-195 adds a disconnected Operations visual review at design-reset/hub-opera
 
 
 CURRENT DECISION UPDATE:owner subsequentlyapprovedCODEX183onefilepublication/sourceverification. main d62fe3c4/Pages40092865776success;current118suites/build31/471;100+1sourcesmatch. Decision1iscompleteandapprovalspent. No hostedaccount/provider/navigationtest. Decision2Operationslocalimplementationremainsheld. Earlierheld183statementsabovearehistorical.
+
+
+CURRENT OPERATIONS UPDATE:owner approved design/local implementation. CODEX-196 is locally complete at ead67dae with119suites/build31/473,8responsivecases andfictionalworkflowchecks. The remaining decision is exactfivefilepublication/sourceverificationonly;not design/local implementation. Livecommands/gameplay/SQL remain excluded. Publication decision requested separately after concrete implementation.

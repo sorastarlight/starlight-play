@@ -8,8 +8,8 @@
       "status": "held",
       "scope": "Changed-account staff panel reset review",
       "evidence": "Private security/codex183/README.md and results.json",
-      "testResults": "9actual extracted-loader VM cases;candidate syntax;no rendered/provider acceptance",
-      "nextAction": "Complete private rendered/regression checks;consolidate publication decision",
+      "testResults": "9extracted-loader cases;118/118candidate-overlay suites;build31/471;actual local pending/denied/allowed rendering",
+      "nextAction": "Local packet complete;consolidated publication decision held;continue independent review",
       "approvalRequirement": "Account-transition access gating publication outside routine maintenance"
     },
     {

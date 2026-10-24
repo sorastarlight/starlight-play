@@ -230,3 +230,5 @@ CODEX-186 complete:600relative static src/href targets exist across29reviewed ro
 CODEX-187 observation07:42:55UTC:dashboard lists24Oct07:44:07UTC PHYSICAL as BACKUP IN PROGRESS,notcomplete. Listedtimestampahead ofclock;no start/completion inference. Latestcompleted23Oct07:44:31UTC;cataloglatest178;24tracked packet hashespass. Latercyclecheckdue,noRestore/export/appaction;tabclosed.
 
 CODEX-188 complete:dashboardnewest24Oct07:44:07UTC PHYSICAL now Restoreavailable/notinprogress;cataloglatest178 unchanged. Availability observation satisfied;notphysical/fullAuth/storage restore certification. NoRestore/export/settings/appaction;tabclosed.
+
+CODEX-189 complete:7Hublegacyhandoff routes resolve throughactual extractedsection/viewfunctions toexistingpanels;2explicitviewsretained. Nolegacyboot/admin_overview/navigation/write. Existingprivilegedmigrationholdsunchanged.

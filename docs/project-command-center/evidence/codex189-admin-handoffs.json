@@ -1,0 +1,61 @@
+{
+  "kind": "Actual extracted legacy route resolvers plus static panel existence;no legacy script boot/navigation/application call",
+  "rows": [
+    {
+      "label": "Open live Dashboard",
+      "href": "./admin.html?section=dashboard",
+      "section": "dashboard",
+      "view": "",
+      "explicitView": false,
+      "panelExists": true
+    },
+    {
+      "label": "Open legacy account tools",
+      "href": "./admin.html?section=trainers",
+      "section": "trainers",
+      "view": "",
+      "explicitView": false,
+      "panelExists": true
+    },
+    {
+      "label": "Open legacy Oak QA",
+      "href": "./admin.html?section=content&view=oakqa",
+      "section": "content",
+      "view": "oakqa",
+      "explicitView": true,
+      "panelExists": true
+    },
+    {
+      "label": "Open current Mart editor",
+      "href": "./admin.html?section=economy&view=catalog",
+      "section": "economy",
+      "view": "catalog",
+      "explicitView": true,
+      "panelExists": true
+    },
+    {
+      "label": "Open Encounters",
+      "href": "./admin.html?section=encounters",
+      "section": "encounters",
+      "view": "overview",
+      "explicitView": false,
+      "panelExists": true
+    },
+    {
+      "label": "Open current Analytics",
+      "href": "./admin.html?section=analytics",
+      "section": "analytics",
+      "view": "overview",
+      "explicitView": false,
+      "panelExists": true
+    },
+    {
+      "label": "Open System & Integrations",
+      "href": "./admin.html?section=system",
+      "section": "system",
+      "view": "twitch",
+      "explicitView": false,
+      "panelExists": true
+    }
+  ]
+}

@@ -2442,3 +2442,7 @@ Read-only dashboard lists24Oct07:44:07UTC PHYSICAL inprogress at07:42:55UTC obse
 
 ## CODEX-188 — post-change physical recovery point available
 At08:12:28UTCdashboardshows24Oct07:44:07UTC PHYSICAL withRestorecontrol/noinprogresslabel. Latestcatalog178 unchanged;pointpostdatesmigration. Completedavailabilityobservationonly,notrestore/integrity/RTO/fullAuth/Storageproof. NoRestore/export/settings/player/appaction;agenttabclosed.187superseded;no furtherunchangedpolling.
+
+
+## CODEX-189 — Admin handoff route contracts
+7currentnewHublegacylinks checkedagainstactual extractedrouteconstants/resolvers and staticpanels;allmatch,includingcatalog/Oakexplicitviews. Nolegacyboot/browser/application action orprotectededit. Recordedremainingmigrationboundaries;no runtimechange/regressionrerun.

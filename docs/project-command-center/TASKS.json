@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-189",
+      "status": "done",
+      "scope": "New-to-current Admin route contract review",
+      "evidence": "LAUNCH-CODEX189-ADMIN-HANDOFFS.md;evidence/codex189-admin-handoffs.json",
+      "testResults": "7actual extracted resolver cases;all recognized sections/panels and2explicit views match",
+      "nextAction": "Continue independent review;Operations/newprivileged migrations remain proposal-held",
+      "approvalRequirement": "No legacy startup/navigation/application action"
+    },
+    {
       "id": "CODEX-188",
       "status": "done",
       "scope": "Completed post-CODEX178 physical backup availability",

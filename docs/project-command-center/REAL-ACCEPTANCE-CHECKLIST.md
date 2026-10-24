@@ -34,3 +34,7 @@ CODEX-103 provider planning:see PROVIDER-REAL-ACCEPTANCE-PREREQUISITES.md. A tru
 ## Recorded Android result
 
 CODEX-171 — HUMAN-REPORTED Android acceptance, October23,2026:owner confirms requested Help portrait/landscape, touch navigation open/close and Register field/virtual-keyboard checks look good on Samsung Galaxy S25 Ultra. No clipping, obstruction or difficult touch action reported. Browser/OS versions were not supplied;Chrome was requested but browser/version not independently verified. Scope is these pages/actions only,not whole-site/device/provider certification. iOS Safari,real desktop zoom/screenreader and broader provider coverage remain open. No application operation or runtime change performed by agent.
+
+
+## Signed-in navigation side effect — current clarification
+Help/Register include shared game.js/nav.js. Although page controllers use session/profile reads rather than play_sync,the first signed-in navigation paint can call play_notices and mark notices seen. Do not describe agent-driven signed-in page loads as side-effect-free or reuse CODEX-178's spent one-page exception. Human reviewers navigating their own account may see ordinary notices;additional protected-account agent navigation requires a bounded scope. This source clarification does not invalidate CODEX-171's reported S25 Ultra visual result or add new device evidence.

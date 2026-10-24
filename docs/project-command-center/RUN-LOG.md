@@ -2409,3 +2409,6 @@ CODEX-179 VERIFIED:Admin Mart classes isolated from public .mart-card grid.118su
 
 
 CODEX-180 PASS:all13installed deltas forward/reverse on empty loopbackPG17;585functions/143relations/56policies restored,142tables empty.24tracked packets+private gift pair retained;no new export/production restore. Runtime stopped and original archive unchanged.
+
+
+CODEX-181 VERIFIED:healthy/OK Application uses active styling;missing/non-boolean stream status stays UNKNOWN;Berry/tier headings aligned.118suites/build31/471;actual local health classes/headings. Exact2runtime main84a56029/Pages40064027714success;100monitored+2versioned sources match. No hosted report/notice/SQL/provider or save/grant action.

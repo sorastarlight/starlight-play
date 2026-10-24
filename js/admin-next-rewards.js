@@ -58,16 +58,26 @@
     if(["pokemon","pokemon_batch"].includes(intent.p_action))return '<strong>'+esc(speciesName(p.dex))+'</strong><span class="reward-review-meta"><span>Quantity '+esc(p.qty||1)+'</span><span>Level '+esc(p.level)+'</span>'+(p.shiny?'<span>Shiny ✦</span>':'')+'</span>';
     return '<strong>'+esc(intentSummary(intent,data))+'</strong>';
   }
+  function reviewTitle(intent,data){
+    if(intent.p_action==='item'&&intent.p_payload?.key==='coins')return 'Give PokéCoins';
+    if(intent.p_action==='item'&&intent.p_payload?.key==='bag_bonus')return 'Give Inventory Space';
+    if(intent.p_action==='cosmetic'){
+      const kind=(data?.catalog?.cosmetics||[]).find(row=>row.id===intent.p_payload?.id)?.kind;
+      return {background:'Give a Trainer ID background',team_background:'Give a Pokémon team background',avatar:'Give a trainer avatar'}[kind]||'Give an appearance unlock';
+    }
+    return actionNames[intent.p_action]||'Review staff action';
+  }
   function reviewIntent(intent,data,user,previewOnly=false){
     const opener=document.activeElement;
     const art=reviewArt(intent);
-    const dialog=modal(`<form class="reward-review-form"><header><div><p class="eyebrow">${intent.p_action.startsWith('pass_')?'Starlight Pass':'Special delivery'}</p><h3>${esc(actionNames[intent.p_action]||"Review staff action")}</h3></div><button type="button" data-modal-cancel>Cancel</button></header><div class="reward-review-hero">${art}${reviewSummary(intent,data)}<span class="reward-review-recipient">For ${esc(user.displayName||user.login||"Trainer")}</span></div><label>Staff reason<textarea name="reason" rows="2" required minlength="3" maxlength="500" placeholder="Why are you making this change?"></textarea></label><p class="record-note">This action and reason will be saved in staff history.</p><button class="reward-deliver" type="submit" ${previewOnly?'disabled':''}>${previewOnly?'Preview only — no gifts sent':intent.p_action.startsWith('pass_')?'Confirm Pass action':'Send gift ✦'}</button></form>`,"Review staff action",opener);
+    const dialog=modal(`<form class="reward-review-form"><header><div><p class="eyebrow">${intent.p_action.startsWith('pass_')?'Starlight Pass':'Special delivery'}</p><h3>${esc(reviewTitle(intent,data))}</h3></div><button type="button" data-modal-cancel>Cancel</button></header><div class="reward-review-hero">${art}${reviewSummary(intent,data)}<span class="reward-review-recipient">For ${esc(user.displayName||user.login||"Trainer")}</span></div><label>Staff reason<textarea name="reason" rows="2" required minlength="3" maxlength="500" placeholder="Why are you making this change?"></textarea></label><p class="record-note">This action and reason will be saved in staff history.</p><button class="reward-deliver" type="submit" ${previewOnly?'disabled':''}>${previewOnly?'Preview only — no gifts sent':intent.p_action.startsWith('pass_')?'Confirm Pass action':'Send gift ✦'}</button></form>`,"Review staff action",opener);
     return new Promise(resolve=>{dialog.addEventListener('close',()=>resolve(null),{once:true});dialog.querySelector('form').addEventListener('submit',event=>{event.preventDefault();if(previewOnly)return;const reason=dialog.querySelector('textarea').value.trim();if(reason.length<3){dialog.querySelector('textarea').setCustomValidity('Enter at least 3 characters.');dialog.querySelector('textarea').reportValidity();return;}resolve(reason);dialog.close();});dialog.querySelector('textarea').addEventListener('input',event=>event.target.setCustomValidity(''));});
   }
   const actionNames={pass_on:"Turn Pass on",pass_off:"Turn Pass off",pass_sync:"Clear staff override",pass_daily:"Give daily rewards again",pass_weekly:"Give weekly rewards again",item:"Give items",pokemon:"Give a Pokémon",pokemon_batch:"Give Pokémon",candy:"Give Evolution Candy",title:"Give a title",cosmetic:"Give a cosmetic",badge:"Give a ribbon"};
   const bundleText=(items)=>Object.entries(items||{}).map(([id,qty])=>`${qty} ${itemName({id,name:id})}`).join(", ")||"None recorded";
   function intentSummary(intent,data){
     const p=intent.p_payload;
+    if(intent.p_action==="item"&&p.key==="coins"&&Number(p.qty)===1)return "1 PokéCoin";
     if(intent.p_action==="item")return `${p.qty} ${itemName((data.catalog?.items||[]).find(row=>row.id===p.key)||{id:p.key})}`;
     if(["pokemon","pokemon_batch"].includes(intent.p_action))return `${intent.p_action==="pokemon_batch"?p.qty+" × ":""}${speciesName(p.dex)} · #${p.dex}, level ${p.level}${p.shiny?", Shiny":""}`;
     if(intent.p_action==="candy")return `${p.qty} ${candyName(p.dex)}`;
@@ -158,7 +168,7 @@
       }finally{ctx.busy=false;}
     }
     try{draw(await transport.read(user.id));}catch(error){
-      if(current())slot.innerHTML=`<h4>${pane==="pass"?"Starlight Pass":"Gifts"}</h4><p class="record-note">${error?.code==="42501"?"These tools require owner or admin permission.":"Reward history and audited controls are awaiting server setup. No account changes are available here yet."}</p>`;
+      if(current())slot.innerHTML=`<h4>${pane==="pass"?"Starlight Pass":"Gifts"}</h4><p class="record-note">${error?.code==="42501"?"These tools require owner or admin permission.":"Reward history is unavailable. No account changes are available here. Reload the trainer record to try again."}</p>`;
       return;
     }
     slot.addEventListener('input',event=>{
@@ -190,5 +200,5 @@
       await send(intent);
     });
   }
-  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName,giftChoices,pokemonMax,pokemonQuantity,reviewSummary};
+  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName,giftChoices,pokemonMax,pokemonQuantity,reviewSummary,reviewTitle};
 }));

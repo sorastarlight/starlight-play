@@ -32,3 +32,6 @@ Tracked evidence:codex201-regressions.json,codex201-browser-checks.json,codex201
 Runtime scope is four files:admin-next.html,js/admin-next.js,js/admin-next-floors.js,css/admin-floors.css. Normalized baseline/candidate hashes are in evidence/codex201-runtime-scope.json. A private frontend file fixture tested refusal on drift before writes, then restoration of the two existing files from baseline main and removal of the two new fixture files; evidence/codex201-rollback-check.json pins the tested manifest. This does not undo any real catalog edits.
 
 Publication requires a separate owner decision because design/local approval excluded it. Proposed acceptance is deployed-source verification only, with the six inspected source/attribute contracts rechecked first and a stop on drift. No authenticated navigation, notices, hosted catalog read/save, SQL change or provider operation is proposed. Any later real floor save needs its own exact bounded scope.
+
+
+CODEX-201 candidate afb2d0c85a9eac796ea101422b50d7a5e389f581 pushed to admin-hub-overhaul;exact4runtimepublication/source-only decision requested after local completion.121suites,8responsivecases,build31/475 and manifest-pinned guarded frontend rollback pass. Fixtures/tabs closed. Production remains ceefc26a;no new live catalog call,SQLchange,notice,Auth/provider/gameplay or APP action.

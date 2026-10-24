@@ -472,3 +472,6 @@ CODEX-200 next Mart slice prepared: existing non-system PokéCoin floor name/des
 
 
 CODEX-201 locally complete under owner design/local approval:existing non-system coins-floor name/description/visibility editor;catalog-only6function/helper source inspection;minimal pinned payload preserves unrelated columns.121suites/build31/475;8responsivecases andfictional save/uncertainty/search/access/rollback checks. Exact4runtimepublication held;no livecatalog/read/save,SQLchange,notices,Auth/provider/gameplayorAPPaction. See LAUNCH-CODEX201-LOCAL-MART-FLOORS.md.
+
+
+CODEX-201 candidate afb2d0c85a9eac796ea101422b50d7a5e389f581 pushed to admin-hub-overhaul;exact4runtimepublication/source-only decision requested after local completion.121suites,8responsivecases,build31/475 and manifest-pinned guarded frontend rollback pass. Fixtures/tabs closed. Production remains ceefc26a;no new live catalog call,SQLchange,notice,Auth/provider/gameplay or APP action.

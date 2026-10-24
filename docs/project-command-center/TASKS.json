@@ -9,8 +9,9 @@
       "scope": "Approved existing Mart floor presentation editor locally complete",
       "evidence": "LAUNCH-CODEX201-LOCAL-MART-FLOORS.md;evidence/codex201-regressions.json;evidence/codex201-floor-contracts.json;evidence/codex201-floor-layouts.json;evidence/codex201-browser-checks.json;evidence/codex201-runtime-scope.json;evidence/codex201-rollback-check.json",
       "testResults": "121suites;build31/475;8responsivecases;fictional save/receipt/search/access;guardedfrontendrollback",
-      "nextAction": "Separate exact4runtimepublication/source-only decision; no live catalog calls",
-      "approvalRequirement": "Local implementation approved; production publication and live reads/saves held"
+      "nextAction": "Await exact4runtimepublication/source-only decision; recheck inspected source contracts first; all live catalog calls held",
+      "approvalRequirement": "Local implementation approved; production publication and live reads/saves held",
+      "commit": "afb2d0c85a9eac796ea101422b50d7a5e389f581"
     },
     {
       "id": "CODEX-200",

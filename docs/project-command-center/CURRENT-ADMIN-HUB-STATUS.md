@@ -2,7 +2,7 @@
 
 Current completion: CODEX-198 owner-approved one-file channel-save correction published at main ceefc26a; Pages40110768347success;100monitored plus1versioned source match. All120local suites/build31HTML473refs pass. CODEX-199 current readiness index and isolated Config/Mart draft/navigation checks complete. No SQL,real credential/provider call,hosted application action or APP change. No pending correction decision from this batch. Expired heartbeat remains paused; direct human continuation does not renew it.
 
-Updated October 24, 2026 through CODEX-198 review. The new workspace is admin-next.html, labelled Admin Hub (preview). It remains a partial replacement for admin.html; no complete-overhaul or launch declaration is made.
+Updated October 24, 2026 through CODEX-201 local implementation; published runtime remains CODEX-198. The new workspace is admin-next.html, labelled Admin Hub (preview). It remains a partial replacement for admin.html; no complete-overhaul or launch declaration is made.
 
 ## Available workflows and evidence
 

@@ -33,3 +33,5 @@ Current October 24, 2026. This is an evidence index, not a launch declaration. T
 The expired eight-hour heartbeat is paused. Current direct human instructions permit continued in-session independent work; they do not renew its schedule. Routine tested frontend maintenance may publish within CODEX-78. Major features, new privileged workflows, production SQL/permissions, Auth/provider/DNS/credential changes, gameplay or grant tests, protected-account mutations, spending and final launch retain their explicit gates.
 
 A remaining Admin migration is not automatically a launch blocker. Conversely, an implemented feature or successful source comparison does not certify live behavior. Read current records first; earlier held statements in historical reports may have been superseded by later explicit approvals.
+
+CODEX-201 local update:owner-approved floor presentation editor complete at afb2d0c8;121suites/build31/475,8responsivecases and guarded frontend rollback pass. Exact4filepublication decision pending;published runtime and live acceptance limits unchanged. See [local floor review](LAUNCH-CODEX201-LOCAL-MART-FLOORS.md).

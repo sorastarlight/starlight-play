@@ -464,8 +464,9 @@
       if (game) {
         const app = game.application || {};
         const twitch = game.twitch || {};
-        bits.push(metric("Application", app.status || game.status || game.appStatus || "UNKNOWN", "unknown"));
-        const liveKnown = Object.prototype.hasOwnProperty.call(twitch, "live");
+        const appStatus = app.status || game.status || game.appStatus || "UNKNOWN";
+        bits.push(metric("Application", appStatus, ["HEALTHY", "OK"].includes(String(appStatus).toUpperCase()) ? "active" : "unknown"));
+        const liveKnown = typeof twitch.live === "boolean";
         const twitchLabel = liveKnown ? (twitch.live ? "LIVE" : "OFFLINE") : "UNKNOWN";
         bits.push(metric("Twitch stream", twitchLabel, liveKnown ? (twitch.live ? "active" : "inactive") : "unknown"));
       }

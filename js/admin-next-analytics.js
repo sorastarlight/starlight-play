@@ -42,8 +42,8 @@
       add("Throws", raw.overall?.throws, "Selected capture window");
       add("Successful catches", raw.overall?.caught, "Selected capture window");
       cards.push({ label: "Capture success", text: rate(raw.overall?.rate), value: number(raw.overall?.rate), scope: "Unavailable when no throws are recorded" });
-      for (const [key, title, label] of [["bySpecies", "By Pokémon", "name"], ["byBall", "By Poké Ball", "name"], ["byBerry", "By berry", "name"], ["byCatchRateTier", "By catch-rate tier", "tier"]]) {
-        tables.push({ title, headings: [title.replace(/^By /, ""), "Throws", "Catches", "Success"], rows: Array.isArray(raw[key]) ? raw[key].map(row => [typeof row?.[label] === "string" ? row[label] : "Unavailable", format(number(row?.throws)), format(number(row?.caught)), rate(row?.rate)]) : null });
+      for (const [key, title, label] of [["bySpecies", "By Pokémon", "name"], ["byBall", "By Poké Ball", "name"], ["byBerry", "By Berry", "name"], ["byCatchRateTier", "By catch-rate tier", "tier"]]) {
+        tables.push({ title, headings: [title.replace(/^By /, "").replace(/^./, char => char.toUpperCase()), "Throws", "Catches", "Success"], rows: Array.isArray(raw[key]) ? raw[key].map(row => [typeof row?.[label] === "string" ? row[label] : "Unavailable", format(number(row?.throws)), format(number(row?.caught)), rate(row?.rate)]) : null });
       }
     } else if (view === "progression") {
       add("Registered trainers", raw.trainers, "All profiles, not recently active players");

@@ -1,0 +1,27 @@
+{
+  "classification": "Real rendered local full shell;fictional responses;connect-src none",
+  "tones": [
+    {
+      "background": "none",
+      "label": "Client build",
+      "state": null
+    },
+    {
+      "background": "none",
+      "label": "Database migration",
+      "state": null
+    },
+    {
+      "background": "linear-gradient(rgb(231, 255, 244), rgb(216, 244, 255))",
+      "label": "Application",
+      "state": "active"
+    },
+    {
+      "background": "linear-gradient(rgb(244, 247, 251), rgb(232, 238, 246))",
+      "label": "Twitch stream",
+      "state": "inactive"
+    }
+  ],
+  "caption": "By Berry",
+  "tableHeading": "Catch-rate tier"
+}

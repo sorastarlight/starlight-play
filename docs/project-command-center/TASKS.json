@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-205",
+      "status": "in_progress",
+      "scope": "Gift destination headings,singular coin and accurate read-error copy",
+      "evidence": "LAUNCH-CODEX205-GIFT-COPY.md;evidence/codex205-regressions.json",
+      "testResults": "121suites;18rewardcases;build31/475;5actual local states;0fictional writes",
+      "nextAction": "Scoped one-file routine publication/source verification;then isolate cancel/type timing edge",
+      "approvalRequirement": "CODEX-78 copy/error feedback;no hosted actions"
+    },
+    {
       "id": "CODEX-204",
       "status": "done",
       "scope": "Reward loading/uncertain control feedback and actual roster session boundaries",

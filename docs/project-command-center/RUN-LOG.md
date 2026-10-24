@@ -2526,3 +2526,7 @@ Source-only legacy integration inventory plus disconnected review prototype. REA
 11 REAL LOCAL DOM boundary checks;121LOCAL HARNESS suites/build31/475 pass. Confirmed pending reward controls presentation gap corrected in one frontend file;request and authority logic unchanged. Runtime publication next under CODEX-78. No live application/notice/grant/Pass/provider/SQL/protected-account action. Sora NO;Twinkle NO;PlayTester role unchanged.
 
 CODEX-204 completed: main204015799b51b97541db6a50c1b1341dbe949879;Pages40116137764success;100monitored plus1versioned source match.121local suites/build31HTML475refs pass. Gift/Pass loading/error presentation improved;11actual local boundary checks recorded. No hosted application call,notice,real gift/Pass action,SQL,Auth/provider,protected-account mutation or APP change.
+
+## CODEX-205 — Gift confirmation and unavailable copy
+
+121LOCAL HARNESS suites,18rewardcases/build31/475 pass;5REAL LOCAL DOM states,0fictional writes. Correct category headings/coin grammar/read-error wording. Request and authority logic unchanged;one-file publication next underCODEX78. Rapid automated cancel/type transition queued for isolated reproduction,no security defect asserted. No hosted action,SQL/provider/notice/protected-account mutation. Sora NO;Twinkle NO;PlayTester role unchanged.

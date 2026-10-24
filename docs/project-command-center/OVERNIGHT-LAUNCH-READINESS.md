@@ -242,3 +242,5 @@ CODEX-192complete:currentAdminstatusrewrittenasconcise capability/evidence/remai
 CODEX-193complete:7localfragmentreferences classified1staticID/5Settingsroutes/1Martdynamicfloor. Actualextractedmaps/resolver withfictionalfloor pass;nohostedcatalog/startup/navigation/runtimechange. No missingtargetfixneeded.
 
 CODEX-194complete:actualmountedroster/presenterswith81fictionalrecords;7states cover40/40/1pages,back,searchreset,empty,clear;Escape restoreslastrecordfocus;missingstatsunavailable/Editdisabled. No Auth/hostedtrainerread/SQL/runtimechange. Fixturetab/serverclosed.
+
+CODEX-195 prepared:disconnectedOperationsdesignreviewHTML with5fictional scenarios/2dialogfocuschecks. No Auth/transport/persistence or livecontrols;featureonly.182implementationdecisionstillheld. Fixtureclosed/stopped.

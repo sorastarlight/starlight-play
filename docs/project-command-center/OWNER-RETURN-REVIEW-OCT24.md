@@ -31,3 +31,6 @@ CODEX-190 confirms current admin-next.js matches CODEX-183's tested baseline and
 
 
 CODEX-191 subsequent routine maintenance:malformedcapture ratesnowUnavailable/partial.118suites/build/localDOM;main dab283d3/Pages40083117253success;100+1source matches. OnlyAnalyticsmodulepublished;CODEX183Hubcontrollerbaseline remains unchanged. No new decision needed for this maintenance.
+
+
+CODEX-195 adds a disconnected Operations visual review at design-reset/hub-operations-review.html for decision2. Five fictional scenarios/two dialog focus checks pass;no application controls,Auth or backend are connected. It remains feature-only and does not authorize implementation/publication/live commands.

@@ -2466,3 +2466,7 @@ Sevenstaticfragment-linkreferences reviewed:oneHTMLID,fiveSettingsLEGACY_HASHrou
 
 ## CODEX-194 — mounted roster paging and detail keyboard
 Actualunchangedroster/record/basepresenterswithfictional81records/networkblocked.7browserstates:40/40/1pages,nextboundary/back,cursorresetonsearch,empty,clear;statusfocusonupdates. MissingbattledataexplicitUnavailable/Editdisabled;Escapecloses/restoresopener. No Auth/API/productionread/write/runtimechange. This doesnotclosehostedpaginationgap. Fixtureclosed/stopped.
+
+
+## CODEX-195 — disconnected Operations visual review
+PreparedfictionalStart/Endconfirmationprototype toconcretize182design withoutimplementingprivilegedworkflow. Five scenarios andtwofocuscasespass inlocalbrowser;CSPconnect/formblocked,no Auth/transport/persistence/livehandoff. StartdisclosesAuto/Normal/scheduling;Endqueuedclearing/laterexplicitstart. No runtimepublication/backend/playeraction;featureonly. Fixtureclosed/stopped.

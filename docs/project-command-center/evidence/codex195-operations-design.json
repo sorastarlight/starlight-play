@@ -1,0 +1,37 @@
+{
+  "kind": "Disconnected design prototype only;no application implementation or Auth/API",
+  "states": [
+    {
+      "endDisabled": true,
+      "message": "Starting enables automatic encounters and may schedule the first encounter. Review the effects before proceeding.",
+      "scenario": "ready",
+      "startDisabled": false
+    },
+    {
+      "endDisabled": false,
+      "message": "Ending stops the RPG session while Twitch can remain live. A later explicit start is required.",
+      "scenario": "running",
+      "startDisabled": true
+    },
+    {
+      "endDisabled": true,
+      "message": "Finish or cancel the active encounter in the current tools before ending this session.",
+      "scenario": "encounter",
+      "startDisabled": true
+    },
+    {
+      "endDisabled": true,
+      "message": "Normal Start is unavailable while Twitch is offline. Force start is outside this proposed slice.",
+      "scenario": "offline",
+      "startDisabled": true
+    },
+    {
+      "endDisabled": true,
+      "message": "Obtain a fresh observation before reviewing a session action. Unknown state is not treated as inactive.",
+      "scenario": "stale",
+      "startDisabled": true
+    }
+  ],
+  "startEscapeFocus": "start",
+  "endCloseFocus": "end"
+}

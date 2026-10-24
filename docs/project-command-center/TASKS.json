@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-195",
+      "status": "prepared",
+      "scope": "Disconnected Operations first-slice visual review",
+      "evidence": "design-reset/hub-operations-review.html;evidence/codex195-operations-design.json;ADMIN-HUB-OPERATIONS-MIGRATION-REVIEW.md",
+      "testResults": "5fictionalscenarios/2dialogfocus cases;no Auth/transport/persistence;not applicationimplementation",
+      "nextAction": "Owner design/localimplementation decision remainsheld;do not publish/enablecontrols",
+      "approvalRequirement": "Prototype preparation only;182implementation/publication/livecommands separate"
+    },
+    {
       "id": "CODEX-194",
       "status": "done",
       "scope": "Actual mounted local roster pagination/search/detail keyboard acceptance",

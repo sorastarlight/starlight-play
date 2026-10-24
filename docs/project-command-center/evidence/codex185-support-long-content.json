@@ -1,0 +1,85 @@
+{
+  "kind": "Actual Support module/CSS;fictional cases;iframe CSS widths;only list/get mock transport;no physical-device claim",
+  "results": [
+    {
+      "requested": "1280",
+      "width": 1265,
+      "scrollWidth": 1265,
+      "role": "player",
+      "headingFocused": false,
+      "overflow": [],
+      "smallTargets": [],
+      "calls": "Simulated reads: list get"
+    },
+    {
+      "requested": "768",
+      "width": 753,
+      "scrollWidth": 753,
+      "role": "player",
+      "headingFocused": false,
+      "overflow": [],
+      "smallTargets": [],
+      "calls": "Simulated reads: list get"
+    },
+    {
+      "requested": "390",
+      "width": 375,
+      "scrollWidth": 375,
+      "role": "player",
+      "headingFocused": false,
+      "overflow": [],
+      "smallTargets": [],
+      "calls": "Simulated reads: list get"
+    },
+    {
+      "requested": "320",
+      "width": 305,
+      "scrollWidth": 305,
+      "role": "player",
+      "headingFocused": false,
+      "overflow": [],
+      "smallTargets": [],
+      "calls": "Simulated reads: list get"
+    },
+    {
+      "requested": "1280",
+      "width": 1265,
+      "scrollWidth": 1265,
+      "role": "staff",
+      "headingFocused": false,
+      "overflow": [],
+      "smallTargets": [],
+      "calls": "Simulated reads: list get"
+    },
+    {
+      "requested": "768",
+      "width": 753,
+      "scrollWidth": 753,
+      "role": "staff",
+      "headingFocused": false,
+      "overflow": [],
+      "smallTargets": [],
+      "calls": "Simulated reads: list get"
+    },
+    {
+      "requested": "390",
+      "width": 375,
+      "scrollWidth": 375,
+      "role": "staff",
+      "headingFocused": false,
+      "overflow": [],
+      "smallTargets": [],
+      "calls": "Simulated reads: list get"
+    },
+    {
+      "requested": "320",
+      "width": 305,
+      "scrollWidth": 305,
+      "role": "staff",
+      "headingFocused": false,
+      "overflow": [],
+      "smallTargets": [],
+      "calls": "Simulated reads: list get"
+    }
+  ]
+}

@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-185",
+      "status": "done",
+      "scope": "Populated player Support and staff Helpdesk long-content layout",
+      "evidence": "LAUNCH-CODEX185-SUPPORT-LONG-CONTENT.md;evidence/codex185-support-long-content.json",
+      "testResults": "8actual local DOM cases;4requested widths;longsubject/reference/message;nooverflow orvisiblecontrolheightunder44px",
+      "nextAction": "Continue independent readiness;physical backup check after07:44UTC",
+      "approvalRequirement": "No production action or runtime change"
+    },
+    {
       "id": "CODEX-184",
       "status": "done",
       "scope": "Static page structure and control-label review",

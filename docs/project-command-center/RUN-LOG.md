@@ -2426,3 +2426,7 @@ CODEX-183 local acceptance follow-up:118/118suites under readFileSync candidate-
 
 ## CODEX-184 — HTML source structure review
 HTMLParser inspected29documents excluding protectedlegacyAdmin/tmpaudit pages.24normalpage H1s,all language/title/static IDs/ARIA references/nonhiddencontrol-label checks pass. Fourredirectaliases/oneoverlay classified separately;hiddenbackingfield falsepositives dismissed. No runtime/browser/Auth/provider/SQL action;no new backup claim. Evidence retained;no unnecessary regression rerun.
+
+
+## CODEX-185 — populated Support/Helpdesk local layouts
+Actual unchanged support.js/play.css/support.css rendered against fictional case/identity transport with connect-src none. Player/staff×1280/768/390/320requested widths;actual1265/753/375/305.120characterunbrokensubject,100reference,5000message wrap;no page/card overflow;visiblebutton/input/select height>=44px. Onlymocklist/get,nowrites. Evidence retained;fixtureclosed/stopped;no runtimechange/regressionrerun. Measurement fixture initially used ambiguous named-element globals;corrected explicit DOMlookup before final8results.

@@ -1,0 +1,7 @@
+# CODEX-185 — Populated Support and Helpdesk layout
+
+October24,2026. Unchanged support.js, play.css and support.css rendered locally against fictional identities/cases. Network connections and form submission were blocked; the mock transport accepted list/get only and rejected other actions. No production ticket, Auth session, protected account or application endpoint was accessed. No runtime change was needed.
+
+Eight measured cases cover player and staff views at requested iframe widths1280/768/390/320 CSSpx; available document widths were1265/753/375/305 after scrollbars. Each loaded a120-character unbroken subject,100-character reference and5000-character unbroken message. Document scrollWidth equaled clientWidth; measured cards/messages/headings had no horizontal overflow; visible buttons/inputs/selects measured at least44px high. Evidence: evidence/codex185-support-long-content.json. A narrow staff screenshot is retained privately under security/codex185.
+
+The player and staff conversation renderings included their existing reply/status controls; none were submitted. Only fictional list/get reads occurred. Measurement-button focus moved outside the iframe, so the headingFocused field is not a focus-restoration test or failure. This verifies CSS containment for these populated states, not screen-reader behavior, physical-device acceptance, hosted staff permission or ticket mutations. No full regression rerun was needed for unchanged runtime source. Temporary tab/server were closed.

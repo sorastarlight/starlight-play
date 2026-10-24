@@ -4,13 +4,23 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-209",
+      "status": "todo",
+      "scope": "Capture Balance next-slice contract/design preparation",
+      "evidence": "ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md;source inventory only",
+      "testResults": "No implementation or prototype test yet",
+      "nextAction": "Inspect selected offline CODEX-165 source and existing client tier labels;prepare concrete disconnected review without live calls",
+      "approvalRequirement": "Proposal only;new privileged implementation,SQL,publication and hosted saves remain held"
+    },
+    {
       "id": "CODEX-208",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Helpdesk local read/reset acceptance and accurate read-error copy",
-      "evidence": "LAUNCH-CODEX208-SUPPORT-READS.md;evidence/codex208-browser-checks.json;evidence/codex208-regressions.json",
+      "evidence": "LAUNCH-CODEX208-SUPPORT-READS.md;evidence/codex208-browser-checks.json;evidence/codex208-regressions.json;evidence/codex208-publication.json",
       "testResults": "10local browser cases;0fictional writes;11mocked Helpdesk cases;121suites;build31/475",
-      "nextAction": "Scoped routine one-file publication/source verification;then next-slice preparation",
-      "approvalRequirement": "CODEX78copymaintenance;no hosted actions"
+      "nextAction": "No repeated unchanged support checks;continue Capture Balance proposal preparation",
+      "approvalRequirement": "CODEX78copymaintenance;no hosted actions",
+      "publicationCommit": "6d740c21427687e3bf727895b0667ce78ce4602a"
     },
     {
       "id": "CODEX-207",

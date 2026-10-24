@@ -2,7 +2,7 @@
 
 Renewed by direct human request at 16:51:52 UTC. Existing heartbeat runs every 30 minutes with a hard stop at **20:51:52 UTC / 16:51:52 America/New_York**. Pause on expiry; do not extend without a new human instruction. No delegation or extra background systems.
 
-Current runtime: main **e3401b70**, Pages **40120689437 succeeded**. All 100 monitored and one changed versioned source match. APP stays **20261008-rc133**. Separate main/feature histories are preserved.
+Current runtime: main **6d740c21**, Pages **40125318465 succeeded**. All 100 monitored and one changed versioned source match. APP stays **20261008-rc133**. Separate main/feature histories are preserved.
 
 | Completed slice | Evidence |
 | --- | --- |
@@ -12,7 +12,7 @@ Current runtime: main **e3401b70**, Pages **40120689437 succeeded**. All 100 mon
 | CODEX-205: gift headings,grammar and read-error copy | Main96663993;121 suites;five local states;source verified |
 | CODEX-206: review close control/focus maintenance | Maine3401b70;121 suites;controlled baseline/candidate event order;source verified |
 
-**CODEX-207 completed**: seven mounted Analytics transition/keyboard/error cases and eight measured layouts pass; targeted tests pass; no runtime change. Next independent queue is **CODEX-208**: inspect the existing Helpdesk module/fixtures,then test pending/error/reset isolation and keyboard retry with fictional reads only. No ticket submission,reply,note or hosted support call. Do not repeat unchanged suites or backup polls to simulate progress. CODEX-205's timing observation is now addressed by CODEX-206;no server or normal physical-user timing claim is made.
+**CODEX-207 completed**: seven mounted Analytics transition/keyboard/error cases and eight measured layouts pass; targeted tests pass; no runtime change. **CODEX-208 completed**: ten local Helpdesk read/reset cases,121suites/build and source verification pass; accurate read-error copy published. Next independent queue is **CODEX-209**: prepare Capture Balance contract/design review from selected offline CODEX-165 sources and current client tier labels. Read source only; no configuration endpoint,save,simulation,SQL or new privileged implementation. See ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md. Do not repeat unchanged suites or backup polls to simulate progress. CODEX-205's timing observation is now addressed by CODEX-206;no server or normal physical-user timing claim is made.
 
 CODEX-201 floor publication approval is spent. No live catalog action is authorized. Routine frontend maintenance remains limited to CODEX-78. No new SQL,permissions,Auth/security,credentials,provider/DNS,authenticated navigation/notices,hosted application call,gameplay/grant,real email,protected-account mutation,spending,APP stamp or final-launch authority. Continue independent work while consequential proposals are held;consolidate decisions for owner return.
 

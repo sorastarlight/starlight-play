@@ -232,3 +232,5 @@ CODEX-187 observation07:42:55UTC:dashboard lists24Oct07:44:07UTC PHYSICAL as BAC
 CODEX-188 complete:dashboardnewest24Oct07:44:07UTC PHYSICAL now Restoreavailable/notinprogress;cataloglatest178 unchanged. Availability observation satisfied;notphysical/fullAuth/storage restore certification. NoRestore/export/settings/appaction;tabclosed.
 
 CODEX-189 complete:7Hublegacyhandoff routes resolve throughactual extractedsection/viewfunctions toexistingpanels;2explicitviewsretained. Nolegacyboot/admin_overview/navigation/write. Existingprivilegedmigrationholdsunchanged.
+
+CODEX-190 complete:OWNER-RETURN-REVIEW-OCT24.md consolidates183publication/182localdesign decisions and actualacceptancegaps.183candidate/baseline/rollback hashesstillmatch;stored118suite/9case evidencechecked;23HubDOMrefs exist. No runtime/production action or redundant suite rerun.

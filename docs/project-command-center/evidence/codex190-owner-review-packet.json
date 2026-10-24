@@ -1,0 +1,12 @@
+{
+  "classification": "Read-only local artifact/DOM-reference cross-check;no regression rerun or production action",
+  "baselineMatchesCurrent": true,
+  "rollbackMatchesCurrent": true,
+  "candidateMatchesTestedHash": true,
+  "storedPassingSuites": 118,
+  "storedLocalCases": 9,
+  "literalIdReferences": 23,
+  "missingReferences": [],
+  "baselineSha256": "6c746e4c400efbdeab6278417db8d1893b467c1cf020ef9410b195d2b33af017",
+  "candidateSha256": "1b7db848d8ed9a46a0fe077c625607e678647748bb72c4967c0ae974c166603f"
+}

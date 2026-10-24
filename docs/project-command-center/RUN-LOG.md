@@ -2446,3 +2446,7 @@ At08:12:28UTCdashboardshows24Oct07:44:07UTC PHYSICAL withRestorecontrol/noinprog
 
 ## CODEX-189 — Admin handoff route contracts
 7currentnewHublegacylinks checkedagainstactual extractedrouteconstants/resolvers and staticpanels;allmatch,includingcatalog/Oakexplicitviews. Nolegacyboot/browser/application action orprotectededit. Recordedremainingmigrationboundaries;no runtimechange/regressionrerun.
+
+
+## CODEX-190 — owner-review consolidation and drift check
+PreparedoneconsolidatedOct24reviewwith183publicationand182design decisions plushonestdevice/provider/save/recoverylimitations. CurrentHubsource matchesprivate183baseline/rollback;candidatehashmatches;stored118suite/9case resultschecked.23literalDOMrefs resolve. No executionauthority,productioncall,runtimechange orredundantregressionrerun.

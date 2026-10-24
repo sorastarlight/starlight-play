@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-190",
+      "status": "done",
+      "scope": "Consolidated owner review and private packet drift check",
+      "evidence": "OWNER-RETURN-REVIEW-OCT24.md;evidence/codex190-owner-review-packet.json",
+      "testResults": "Private183baseline/rollback/candidate hashes match;stored118suite/9case evidence checked;23literal HubDOM references exist",
+      "nextAction": "Continue independent local work;important publication/design decisions consolidated forreturn",
+      "approvalRequirement": "No execution authority added"
+    },
+    {
       "id": "CODEX-189",
       "status": "done",
       "scope": "New-to-current Admin route contract review",

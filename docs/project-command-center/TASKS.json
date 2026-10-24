@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-206",
+      "status": "in_progress",
+      "scope": "Gift review close transition control/focus maintenance",
+      "evidence": "LAUNCH-CODEX206-REVIEW-TRANSITION.md;evidence/codex206-event-order.json;evidence/codex206-regressions.json",
+      "testResults": "121suites;build31/475;controlled baseline/candidate DOM;draft/focus/request/disabled state preserved",
+      "nextAction": "Scoped one-file routine publication/source verification;then independent source/accessibility review",
+      "approvalRequirement": "CODEX78control/focusmaintenance;no hosted actions"
+    },
+    {
       "id": "CODEX-205",
       "status": "done",
       "scope": "Gift destination headings,singular coin and accurate read-error copy",

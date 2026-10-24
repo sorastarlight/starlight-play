@@ -192,11 +192,21 @@
       let intent;
       try{intent=makeIntent(form,event.submitter,user.id,crypto.randomUUID());}catch(error){status(error.message);return;}
       ctx.busy=true;
+      const reviewOpener=document.activeElement;
+      const controls=Array.from(slot.querySelectorAll('button,input,select,textarea'),control=>({control,disabled:control.disabled}));
+      controls.forEach(({control})=>control.disabled=true);
+      let reason;
       try{
-        const reason=await reviewIntent(intent,ctx.data,user,transport.previewOnly);
+        reason=await reviewIntent(intent,ctx.data,user,transport.previewOnly);
         if(!reason||!current())return;
         intent.p_reason=reason;
-      }finally{ctx.busy=false;}
+      }finally{
+        ctx.busy=false;
+        if(current()){
+          controls.forEach(({control,disabled})=>control.disabled=disabled);
+          if(!reason&&reviewOpener?.isConnected)reviewOpener.focus({preventScroll:true});
+        }
+      }
       await send(intent);
     });
   }

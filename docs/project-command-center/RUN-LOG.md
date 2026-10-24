@@ -2532,3 +2532,7 @@ CODEX-204 completed: main204015799b51b97541db6a50c1b1341dbe949879;Pages401161377
 121LOCAL HARNESS suites,18rewardcases/build31/475 pass;5REAL LOCAL DOM states,0fictional writes. Correct category headings/coin grammar/read-error wording. Request and authority logic unchanged;one-file publication next underCODEX78. Rapid automated cancel/type transition queued for isolated reproduction,no security defect asserted. No hosted action,SQL/provider/notice/protected-account mutation. Sora NO;Twinkle NO;PlayTester role unchanged.
 
 CODEX-205 completed: main9666399307853ace1874a258aa843f90a2fd64c9;Pages40118306522success;100monitored plus1versioned source match. Gift headings distinguish PokéCoins,Inventory Space and both background destinations;singular coin grammar and unavailable copy corrected.121local suites/build31HTML475refs;5actual local states;0fictional writes. No hosted application call,notice,grant,SQL,Auth/provider,protected-account mutation or APP change.
+
+## CODEX-206 — Review close transition
+
+Controlled synthetic REAL LOCAL DOM baseline mismatch corrected by underlying control lock/original-state restore andcancel focus. Physical-user timing/server defect notasserted.121LOCAL HARNESS suites/build31/475 pass;captured fictionalrequest preserved;Passoriginaldisabledstate preserved. No hosted application/notice/grant/Pass/SQL/Auth/provider/protected-account action. SoraNO;TwinkleNO;PlayTester roleunchanged. OnefileCODEX78publication next.

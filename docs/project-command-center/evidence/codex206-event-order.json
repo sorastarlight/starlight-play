@@ -1,0 +1,31 @@
+{
+  "classification": "Controlled synthetic event-order sequence in REAL LOCAL DOM;not physical-human timing or hosted acceptance",
+  "baselineCommit": "9666399307853ace1874a258aa843f90a2fd64c9",
+  "baseline": {
+    "immediateTypeChangeBlocked": false,
+    "selector": "team_background",
+    "fields": "Trainer ID background",
+    "fictionalWrites": 0
+  },
+  "candidate": {
+    "immediateTypeChangeBlocked": true,
+    "selector": "background",
+    "fields": "Trainer ID background",
+    "enabledUnderlyingDuringReview": 0,
+    "restoredAfterClose": true,
+    "focus": "Review gift",
+    "ordinaryTeamSelectionAfterClose": "Pokémon team background",
+    "escapeQuantityPreserved": 50,
+    "confirmedFictionalWrites": 1,
+    "confirmedPayload": {
+      "key": "coins",
+      "qty": 50
+    },
+    "passCancel": {
+      "clearStaffOverrideRemainedDisabled": true,
+      "focus": "Turn Pass on",
+      "fictionalWrites": 0
+    }
+  },
+  "limits": "No server defect asserted;no production application,Auth,notice,grant,Pass or protected-account action."
+}

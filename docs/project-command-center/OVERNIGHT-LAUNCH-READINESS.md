@@ -224,3 +224,5 @@ CODEX-183 local follow-up complete:118/118candidate-source-overlay suites/build3
 CODEX-184 complete:29root HTML source structures reviewed (24pages,4aliases,1overlay),static labels/IDs/ARIA/language/title/H1 checks pass after hidden/alias exceptions. No runtime change or accessibility certification;see report/evidence.
 
 CODEX-185 complete:8actual isolated Support/Helpdesk populated long-content width cases;nooverflow/visiblecontrolheightunder44px. Only fictional list/get transport,no runtime or production ticket action. Fixture closed/stopped.
+
+CODEX-186 complete:600relative static src/href targets exist across29reviewed root documents. Corrected stale recovery replay-pending wording;13delta CODEX180 rehearsal complete,physical backup stillunobserved/notdue. Matrix aligned through186. No runtime or production action.

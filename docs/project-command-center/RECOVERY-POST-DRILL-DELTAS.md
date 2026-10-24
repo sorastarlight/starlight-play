@@ -113,7 +113,7 @@ Twelfth installed post-drill delta,after private CODEX-168 packet20261023173738.
 
 ## CODEX-178 installed report correction
 
-Thirteenth installed post-drill delta:20261024044601 codex178_report_query_corrections. Exact guarded pair supabase/unapplied/admin-report-query-corrections/INSTALL.sql and ROLLBACK.sql;SHA256145330761fbec67e1203e9407830bda1728ab7a0d2934fa6f2b7bfa7abc20a20 / ef59de0c89024bd39228bef0cd99adacd83afcf706a080ee11ef14f77a157eaa. Only two report functions;no data/permission changes. The next completed physical backup must be observed after this change;none claimed yet.24tracked packet files plus the privateCODEX168pair;chronological recovery13delta replay pendingCODEX180.
+Thirteenth installed post-drill delta:20261024044601 codex178_report_query_corrections. Exact guarded pair supabase/unapplied/admin-report-query-corrections/INSTALL.sql and ROLLBACK.sql;SHA256145330761fbec67e1203e9407830bda1728ab7a0d2934fa6f2b7bfa7abc20a20 / ef59de0c89024bd39228bef0cd99adacd83afcf706a080ee11ef14f77a157eaa. Only two report functions;no data/permission changes. The next completed physical backup must be observed after this change;none claimed yet.24tracked packet files plus the privateCODEX168pair;CODEX-180 completed chronological13delta forward/reverse rehearsal with metadata restored and tables empty;see LAUNCH-CODEX180-RECOVERY-EXTENSION.md.
 
 |Migration|Guarded install|SHA256|
 |---|---|---|

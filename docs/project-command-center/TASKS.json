@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-186",
+      "status": "done",
+      "scope": "Local path existence and recovery handoff reconciliation",
+      "evidence": "LAUNCH-CODEX186-PATHS-AND-HANDOFF.md;evidence/codex186-static-paths.json",
+      "testResults": "600relative src/href targets exist across29documents;replay-pending wording reconciled toCODEX180",
+      "nextAction": "Observe physical backup after07:44UTC;continue independent review",
+      "approvalRequirement": "No runtime/production action"
+    },
+    {
       "id": "CODEX-185",
       "status": "done",
       "scope": "Populated player Support and staff Helpdesk long-content layout",

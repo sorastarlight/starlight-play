@@ -2430,3 +2430,7 @@ HTMLParser inspected29documents excluding protectedlegacyAdmin/tmpaudit pages.24
 
 ## CODEX-185 — populated Support/Helpdesk local layouts
 Actual unchanged support.js/play.css/support.css rendered against fictional case/identity transport with connect-src none. Player/staff×1280/768/390/320requested widths;actual1265/753/375/305.120characterunbrokensubject,100reference,5000message wrap;no page/card overflow;visiblebutton/input/select height>=44px. Onlymocklist/get,nowrites. Evidence retained;fixtureclosed/stopped;no runtimechange/regressionrerun. Measurement fixture initially used ambiguous named-element globals;corrected explicit DOMlookup before final8results.
+
+
+## CODEX-186 — static local paths and handoff reconciliation
+HTMLParser resolves600relative src/href paths across29rootdocuments;none missing. No HTTP/navigation/fragment/dynamic route claim. Corrected staleCODEX178delta paragraph to completedCODEX18013delta rehearsal;physical recovery point remains pending until due. Matrix updated through186. No runtime change or production action.

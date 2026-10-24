@@ -1,0 +1,4207 @@
+{
+  "kind": "Static local path existence only;no HTTP/Auth/navigation;fragments and dynamic resources not verified",
+  "references": 600,
+  "missing": [],
+  "rows": [
+    {
+      "page": "account.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html#connections",
+      "exists": true
+    },
+    {
+      "page": "account.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html#connections",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html#trainer-id/titles",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/gym-badge-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "achievements.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievements.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-live.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html?section=dashboard",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/admin-record.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin-next.html?section=trainers",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin-next-trainers-workspace-v2.html",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-recovery-email.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-diagnostics.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-record.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-rewards.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-workspace-v2.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-workspace-v2.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin-next-trainers-fixture.html",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-workspace-v2.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next-trainers-workspace-v2.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-trainers-v2.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/admin-record.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/admin-mart.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/admin-analytics.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/admin-config.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/support.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html?section=dashboard",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin-next.html?section=support",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html?section=trainers",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html?section=content&view=oakqa",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html?section=economy&view=catalog",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html?section=encounters",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html?section=analytics",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html?section=system",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-ops.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-record.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-recovery-email.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-diagnostics.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-rewards.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/support.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-mart.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-analytics.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next-roster.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-next.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-next.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin-tools.html",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./store.html",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/poke-ball.png",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/poke-ball.png",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/pack-thumb.png",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/hud.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ux.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-portrait.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/content-picker.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-store.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-studio.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin-store.html",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/hud.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "admin-tools.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/admin-tools.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "bag.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./inventory.html",
+      "exists": true
+    },
+    {
+      "page": "bits-connect.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "bits-connect.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "bits-connect.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "bits-connect.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin-tools.html",
+      "exists": true
+    },
+    {
+      "page": "bits-connect.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "bits-connect.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "bits-connect.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "bits-connect.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "bits-connect.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "bits-connect.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/bits-connect.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/special-events.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "events.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/events.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/trainers/portraits/oak-portrait.png",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/poke-ball.png",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/evolution-candy/25.png",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/pokeapi/nugget.png",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/evolution-candy/25.png",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/evolution-candy/25.png",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/poke-ball.png",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/evolution-candy/25.png",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/evolution-candy/25.png",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./store.html#evolution",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ux.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolve-view.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/oak-transfer.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "evolve.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolve.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./register.html",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/onboarding.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "help.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/help.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./register.html",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./help.html",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/poke-radar.png",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./store.html",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ux.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/location-visuals-data.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/location-visuals.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/hud.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/special-events.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/onboarding.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "index.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/inventory-bag.png",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/poke-radar.png",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./store.html",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ux.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/hud.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "inventory.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/inventory.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "overlay.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/overlay.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "password-recovery-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/recovery-flow.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "password-recovery-fixture.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "password-recovery-fixture.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/password-recovery.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "password-recovery-fixture.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./signin.html",
+      "exists": true
+    },
+    {
+      "page": "password-recovery-fixture.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./signin.html?reset=1",
+      "exists": true
+    },
+    {
+      "page": "password-recovery-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "password-recovery-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "password-recovery-fixture.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/reset-password.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/pokedex/Kanto_PokeDex01.png",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/pokedex-reference.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/pokedex-presentation.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/pokedex-presentation-resolve.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/team.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/special-events.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species-familiarity.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "pokedex.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/pokedex.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/rankings-reflow.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ux.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "rankings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/rankings.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./help.html#trainer-guide",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./signin.html",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "register.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/register.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "reset-password.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "reset-password.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/recovery-flow.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "reset-password.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "reset-password.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/password-recovery.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "reset-password.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./signin.html",
+      "exists": true
+    },
+    {
+      "page": "reset-password.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./signin.html?reset=1",
+      "exists": true
+    },
+    {
+      "page": "reset-password.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "reset-password.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "reset-password.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/reset-password.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./support.html",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/gym-badge-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ux.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/team.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "settings.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/settings.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/recovery-flow.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./signin.html?reset=1",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./signin.html?username=1",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./register.html",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./signin.html?reset=1",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "signin.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/signin.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/pc-terminal-icon.png",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/types.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/pokedex-presentation.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/pokedex-presentation-resolve.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/pc-presentation.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/oak-transfer.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species-familiarity.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "storage.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/storage.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/pokecoin.png",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/inventory-bag.png",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ux.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/hud.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "store.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/store.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "support.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "support.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/support.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "support.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "support.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "support.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "support.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "support.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "support.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/support.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "tester.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "./signin.html",
+      "exists": true
+    },
+    {
+      "page": "tester.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./signin.html",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/poke-ball.png",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/great-ball.png",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/items/poke-ball.png",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trade.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trade.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "link",
+      "attribute": "href",
+      "reference": "css/play.css?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "img",
+      "attribute": "src",
+      "reference": "images/sora-starlight-logo.png",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./trainer.html",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./admin.html",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "a",
+      "attribute": "href",
+      "reference": "./settings.html#trainer-id",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/config.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-perf.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/build-client.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/auth.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/species.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/variants.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/forms.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/evolution-candy-png.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/game.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/ribbon-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/achievement-ribbon-map.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/gym-badge-catalog.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-ribbons.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-present.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/play-encounter-state.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trainers.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/team.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/nav.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/special-events.js?v=20261008-rc133",
+      "exists": true
+    },
+    {
+      "page": "trainer.html",
+      "tag": "script",
+      "attribute": "src",
+      "reference": "js/trainer.js?v=20261008-rc133",
+      "exists": true
+    }
+  ]
+}

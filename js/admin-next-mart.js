@@ -75,7 +75,7 @@
         // Never retry writes. Even a lost receipt may follow a committed save.
         const receipt = await transport("admin_store_save_item", args);
         if (!active || token !== epoch) return;
-        if (!receipt || receipt.error || receipt.sku !== args.p_row.sku) throw Error("Unconfirmed receipt.");
+        if (!receipt || receipt.ok === false || receipt.error || receipt.sku !== args.p_row.sku) throw Error("Unconfirmed receipt.");
         state.phase = "ready"; state.uncertain = true; state.message = "Save acknowledged. Reload the catalog to verify the stored product before editing again."; emit();
       } catch (error) {
         if (!active || token !== epoch) return;

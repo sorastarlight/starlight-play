@@ -226,3 +226,5 @@ CODEX-184 complete:29root HTML source structures reviewed (24pages,4aliases,1ove
 CODEX-185 complete:8actual isolated Support/Helpdesk populated long-content width cases;nooverflow/visiblecontrolheightunder44px. Only fictional list/get transport,no runtime or production ticket action. Fixture closed/stopped.
 
 CODEX-186 complete:600relative static src/href targets exist across29reviewed root documents. Corrected stale recovery replay-pending wording;13delta CODEX180 rehearsal complete,physical backup stillunobserved/notdue. Matrix aligned through186. No runtime or production action.
+
+CODEX-187 observation07:42:55UTC:dashboard lists24Oct07:44:07UTC PHYSICAL as BACKUP IN PROGRESS,notcomplete. Listedtimestampahead ofclock;no start/completion inference. Latestcompleted23Oct07:44:31UTC;cataloglatest178;24tracked packet hashespass. Latercyclecheckdue,noRestore/export/appaction;tabclosed.

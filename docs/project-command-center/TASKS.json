@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-187",
+      "status": "waiting",
+      "scope": "Post-report-correction physical backup observation",
+      "evidence": "LAUNCH-CODEX187-BACKUP-IN-PROGRESS.md;evidence/codex187-backup-observation.json",
+      "testResults": "Dashboard lists24Oct07:44:07UTC inprogress;notcomplete;latestmigration178;24packet hashmatches",
+      "nextAction": "Recheck once in later scheduled cycle after due;no restore or repeated polling",
+      "approvalRequirement": "Observation only;restore/export remains excluded"
+    },
+    {
       "id": "CODEX-186",
       "status": "done",
       "scope": "Local path existence and recovery handoff reconciliation",

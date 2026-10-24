@@ -2434,3 +2434,7 @@ Actual unchanged support.js/play.css/support.css rendered against fictional case
 
 ## CODEX-186 — static local paths and handoff reconciliation
 HTMLParser resolves600relative src/href paths across29rootdocuments;none missing. No HTTP/navigation/fragment/dynamic route claim. Corrected staleCODEX178delta paragraph to completedCODEX18013delta rehearsal;physical recovery point remains pending until due. Matrix updated through186. No runtime change or production action.
+
+
+## CODEX-187 — backup listing, not complete
+Read-only dashboard lists24Oct07:44:07UTC PHYSICAL inprogress at07:42:55UTC observation. Timestampahead ofclock recorded explicitly;no completedpoint/starttime claim. Latestcompletedvisible23Oct07:44:31UTC. Cataloglatest178/174/168;24trackedpacket hashesmatch. No Restore/export/settings/Auth/player/application action;agenttabclosed. Rechecklatercyclewhen due insteadofpolling.

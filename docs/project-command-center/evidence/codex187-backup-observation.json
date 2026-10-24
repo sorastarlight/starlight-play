@@ -1,0 +1,23 @@
+{
+  "classification": "REAL DOM dashboard listing and catalog-only migration metadata;no restore/export/application endpoint",
+  "observedAtUtc": "2026-10-24T07:42:55Z",
+  "listedBackupTimestampUtc": "2026-10-24T07:44:07Z",
+  "listedStatus": "BACKUP IN PROGRESS...",
+  "completed": false,
+  "latestVisibleCompletedPhysicalBackupUtc": "2026-10-23T07:44:31Z",
+  "latestRecordedMigration": {
+    "version": "20261024044601",
+    "name": "codex178_report_query_corrections"
+  },
+  "trackedRecoveryFilesVerified": 24,
+  "packetHashErrors": 0,
+  "restorePerformed": false,
+  "exportPerformed": false,
+  "settingsChanged": false,
+  "limitations": [
+    "Listed timestamp is later than observation clock;do not infer start/completion time",
+    "No new completed recovery point established",
+    "No physical restore/integrity/full Auth/storage certification",
+    "Dashboard incident banner does not establish project outage"
+  ]
+}

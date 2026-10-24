@@ -2470,3 +2470,7 @@ Actualunchangedroster/record/basepresenterswithfictional81records/networkblocked
 
 ## CODEX-195 — disconnected Operations visual review
 PreparedfictionalStart/Endconfirmationprototype toconcretize182design withoutimplementingprivilegedworkflow. Five scenarios andtwofocuscasespass inlocalbrowser;CSPconnect/formblocked,no Auth/transport/persistence/livehandoff. StartdisclosesAuto/Normal/scheduling;Endqueuedclearing/laterexplicitstart. No runtimepublication/backend/playeraction;featureonly. Fixtureclosed/stopped.
+
+
+## CODEX-183 — approved one-file publication complete
+Ownerexplicitlyapprovedpublication/sourceverificationonly. Freshbaseline/candidate/rollbackhashesmatch;6linesinonly js/admin-next.js. Current118/118suites/build31/471. Featureecf3cf88/main d62fe3c4/Pages40092865776success;100+1source matches. Separatehistoriespreserved;no hostedAuth/navigation/notice/report/provider/SQL/grant/gameplay. Approvalspent.

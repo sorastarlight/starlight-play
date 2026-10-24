@@ -34,3 +34,6 @@ CODEX-191 subsequent routine maintenance:malformedcapture ratesnowUnavailable/pa
 
 
 CODEX-195 adds a disconnected Operations visual review at design-reset/hub-operations-review.html for decision2. Five fictional scenarios/two dialog focus checks pass;no application controls,Auth or backend are connected. It remains feature-only and does not authorize implementation/publication/live commands.
+
+
+CURRENT DECISION UPDATE:owner subsequentlyapprovedCODEX183onefilepublication/sourceverification. main d62fe3c4/Pages40092865776success;current118suites/build31/471;100+1sourcesmatch. Decision1iscompleteandapprovalspent. No hostedaccount/provider/navigationtest. Decision2Operationslocalimplementationremainsheld. Earlierheld183statementsabovearehistorical.

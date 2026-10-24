@@ -19,14 +19,14 @@ All seven current-tool handoffs resolve through the actual local route resolvers
 
 ## Prepared important decisions
 
-- CODEX-183: publish the private account-transition presentation correction only. Nine extracted-loader cases, 118 suites, build and local pending/denied/allowed rendering passed. Publication remains held; no server permission change is proposed.
+- CODEX-183 is now approved, published and source-verified. Only js/admin-next.js changed; current 118 suites/build pass. Hosted account-switch behavior remains untested; no server permission changed.
 - CODEX-182: approve local implementation of the proposed Operations Start/End slice. Publication and live commands remain separate.
 
 See [the consolidated owner review](OWNER-RETURN-REVIEW-OCT24.md) for exact scope and private packet locations. These proposals do not automatically become launch blockers or execution authority.
 
 ## Release evidence and limits
 
-Current runtime main is dab283d3; Pages 40083117253 succeeded. CODEX-191 matched 100 monitored sources and the changed versioned Analytics module. All 118 suites and build 31 HTML/471 references passed. APP remains 20261008-rc133. Separate main/feature histories are preserved; CODEX-183 is excluded.
+Current runtime main is d62fe3c4; Pages 40092865776 succeeded. CODEX-183 matched 100 monitored sources and the changed versioned Hub controller. All 118 suites and build 31 HTML/471 references passed. APP remains 20261008-rc133. Separate main/feature histories are preserved; only the explicitly approved controller was published.
 
 The 24 October 07:44:07 UTC physical backup is available after the latest recorded database correction. The 13-delta empty-schema recovery rehearsal passed separately. Neither certifies physical restore, full Auth-service or Storage recovery.
 

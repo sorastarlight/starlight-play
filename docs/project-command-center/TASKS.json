@@ -113,12 +113,12 @@
     },
     {
       "id": "CODEX-183",
-      "status": "held",
+      "status": "done",
       "scope": "Changed-account staff panel reset review",
-      "evidence": "Private security/codex183/README.md and results.json",
-      "testResults": "9extracted-loader cases;118/118candidate-overlay suites;build31/471;actual local pending/denied/allowed rendering",
-      "nextAction": "Local packet complete;consolidated publication decision held;continue independent review",
-      "approvalRequirement": "Account-transition access gating publication outside routine maintenance"
+      "evidence": "Private security/codex183/README.md and results.json;LAUNCH-CODEX183-PUBLICATION.md;evidence/codex183-current-regressions.json;evidence/codex183-publication.json",
+      "testResults": "9earlierlocalcases/renderedstates;current118/118suites/build31/471;main d62fe3c4;Pages40092865776success;100+1source matches",
+      "nextAction": "Complete;hostedaccountswitch behavior nottested",
+      "approvalRequirement": "Exactpublication/sourceverificationapprovalspent"
     },
     {
       "id": "CODEX-182",

@@ -4,13 +4,13 @@ This replaces the original inventory as the current-state summary;older design p
 
 |Area|Implemented now|Remaining overhaul work|
 |---|---|---|
-|Trainers|Directory/full-width record,inventory/progression/connections,CODEX-174 paginated current Pokémon roster and stored stats,Pass and Gifts tabs|Box-layout editing,Bits and broader journals remain outside this read-only roster|
+|Trainers|Directory/full-width record,inventory/progression/connections,CODEX-174 paginated current Pokémon roster and stored stats,Pass and Gifts tabs|EmailQA1record/detail hosted inspection passed;multi-page remains local-only. Box-layout editing,Bits and broader journals remain outside this read-only roster|
 |Starlight Pass and Gifts|Audited staff overrides/re-grants,claim/delivery history,visual/searchable gifts,atomic Pokémon quantities1–100,and simplified reason confirmation|Routine consistency review continues;new reward capabilities require their own scope|
 |Support & Recovery|Connected owner Helpdesk,player Support,ticket history,masked account diagnostics/recovery confirmation|Attachments/notifications remain deferred;guided identity recovery remains separate|
 |Operations|Observation workspace and handoff|Live encounter/director controls remain on current Dashboard|
-|Mart & Content|CODEX-155 existing single-reward PokéCoin editor published; current editors/Content Studio retained|Authenticated editor/save acceptance unproven; new products, floors, Bits/avatar products, uploads/deletion remain in current tools|
-|Game Configuration|CODEX-167 six-field PokéCoin editor published/source verified;local review/save-state tests pass|Authenticated editor/live save acceptance unproven;capture/timing/XP/other configuration remain in current tools|
-|Analytics & Health|CODEX-162 five-view reporting workspace published/source verified;113suites and responsive/keyboard/empty/error checks pass locally|Authenticated report results/performance and owner acceptance remain unverified|
+|Mart & Content|CODEX-155 existing single-reward PokéCoin editor published; current editors/Content Studio retained|Owner catalog/search/selection/preview passedCODEX-178;live save untested;new products, floors, Bits/avatar products, uploads/deletion remain in current tools|
+|Game Configuration|CODEX-167 six-field PokéCoin editor published/source verified;local review/save-state tests pass|Owner six-field loading passedCODEX-178;live save untested;capture/timing/XP/other configuration remain in current tools|
+|Analytics & Health|CODEX-162 five-view reporting workspace published/source verified;113suites and responsive/keyboard/empty/error checks pass locally|All5views loaded once in approved owner sessionCODEX-178;broader performance/semantics/device acceptance remains bounded|
 |System & Access|Owner-tool handoff|Credential/integration/role/identity operations not consolidated into new workspace|
 
 Accepted Trainer direction was implemented through CODEX-3/23/24 and subsequent approved Pass/Gift/Helpdesk/recovery work. Earlier statements that the entire next hub is read-only,Support is links only,or no stat fields exist are obsolete. Visual/routine frontend authority does not authorize migrating privileged workflows or broadening access. See SITEWIDE-VISUAL-CONSISTENCY.md for the active presentation inspection. Real mobile/assistive/provider acceptance and final launch remain separate.
@@ -50,3 +50,12 @@ CODEX-176 VERIFIED: Unicode gift/Pokémon queries retain text and the picker no-
 
 
 CODEX-178 PARTIAL HOSTED ACCEPTANCE:owner-approved single Hub load;Mart76products/search/selection and six-field rewards loaded without edits. Stopped at partial Health;remaining reports/EmailQA roster untested. Exact-source Health42702/Captures42803 reproduced locally;combined two-function correction/rollback held with19health/15capture/22combined cases. Owner notice acknowledgement permitted,not inspected. See LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md.
+
+
+CODEX-178 COMPLETE:owner-approved migration20261024044601 replaces exact Health/Captures functions;candidate hashes/attributes match and3controls unchanged. One Health refresh succeeded;all5report views loaded once;EmailQA single-page roster/Caterpie stored details inspected. No product/config edits,save,grant,gameplay or additional notice acknowledgement. Hosted pagination remains local-only;approval spent.
+
+
+CODEX-179 VERIFIED:Admin Mart classes isolated from public .mart-card grid.118suites/build31/471;4widths/long text/focus rendered locally;exact2runtime main23ae1878/Pages40063590255success;100monitored+2versioned source matches. No hosted reload/save/app action.
+
+
+CODEX-180 PASS:all13installed deltas forward/reverse on empty loopbackPG17;585functions/143relations/56policies restored,142tables empty.24tracked packets+private gift pair retained;no new export/production restore. Runtime stopped and original archive unchanged.

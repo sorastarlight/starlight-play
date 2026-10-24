@@ -144,6 +144,19 @@
           "sha256": "9b149ead6bb01b442e3d9a686e870b6be029ae54f5ff2a170abaa3e63361e091"
         }
       ]
+    },
+    {
+      "version": "20261024044601",
+      "files": [
+        {
+          "file": "supabase/unapplied/admin-report-query-corrections/INSTALL.sql",
+          "sha256": "145330761fbec67e1203e9407830bda1728ab7a0d2934fa6f2b7bfa7abc20a20"
+        },
+        {
+          "file": "supabase/unapplied/admin-report-query-corrections/ROLLBACK.sql",
+          "sha256": "ef59de0c89024bd39228bef0cd99adacd83afcf706a080ee11ef14f77a157eaa"
+        }
+      ]
     }
   ]
 }

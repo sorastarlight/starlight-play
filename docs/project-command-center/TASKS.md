@@ -441,3 +441,12 @@ CODEX-177:19REAL LOCAL role/RLS boundary cases passed using five exact installed
 
 
 CODEX-178 PARTIAL HOSTED ACCEPTANCE:owner-approved single Hub load;Mart76products/search/selection and six-field rewards loaded without edits. Stopped at partial Health;remaining reports/EmailQA roster untested. Exact-source Health42702/Captures42803 reproduced locally;combined two-function correction/rollback held with19health/15capture/22combined cases. Owner notice acknowledgement permitted,not inspected. See LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md.
+
+
+CODEX-178 COMPLETE:owner-approved migration20261024044601 replaces exact Health/Captures functions;candidate hashes/attributes match and3controls unchanged. One Health refresh succeeded;all5report views loaded once;EmailQA single-page roster/Caterpie stored details inspected. No product/config edits,save,grant,gameplay or additional notice acknowledgement. Hosted pagination remains local-only;approval spent.
+
+
+CODEX-179 VERIFIED:Admin Mart classes isolated from public .mart-card grid.118suites/build31/471;4widths/long text/focus rendered locally;exact2runtime main23ae1878/Pages40063590255success;100monitored+2versioned source matches. No hosted reload/save/app action.
+
+
+CODEX-180 PASS:all13installed deltas forward/reverse on empty loopbackPG17;585functions/143relations/56policies restored,142tables empty.24tracked packets+private gift pair retained;no new export/production restore. Runtime stopped and original archive unchanged.

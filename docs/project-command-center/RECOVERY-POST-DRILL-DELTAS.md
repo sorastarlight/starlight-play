@@ -109,3 +109,12 @@ CODEX-170 recovery extension PASS:11ordered guarded installs and reverse rollbac
 |20261023190339 codex174_readonly_trainer_pokemon_roster|supabase/unapplied/admin-trainer-roster/INSTALL.sql|e35d96e3c0e3926445175fe24b45cbbd2600b8b6fa51b15eb2c74d30e34b02df|
 
 Twelfth installed post-drill delta,after private CODEX-168 packet20261023173738. Repository manifest verifies22tracked packets;the separate private gift pair remains outsideGit and must be inserted chronologically before this endpoint. Latest local recovery rehearsal applies/reverses all12 in chronological order,restoring585function/143relation/56policy metadata records,142tables empty;runtime stopped,no production recovery connection or original archive mutation. Existing07:44:31UTC physical backup predates168/174;no newer backup observed. Not physical/full Auth/storage certification or production restore permission.
+
+
+## CODEX-178 installed report correction
+
+Thirteenth installed post-drill delta:20261024044601 codex178_report_query_corrections. Exact guarded pair supabase/unapplied/admin-report-query-corrections/INSTALL.sql and ROLLBACK.sql;SHA256145330761fbec67e1203e9407830bda1728ab7a0d2934fa6f2b7bfa7abc20a20 / ef59de0c89024bd39228bef0cd99adacd83afcf706a080ee11ef14f77a157eaa. Only two report functions;no data/permission changes. The next completed physical backup must be observed after this change;none claimed yet.24tracked packet files plus the privateCODEX168pair;chronological recovery13delta replay pendingCODEX180.
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261024044601 codex178_report_query_corrections|supabase/unapplied/admin-report-query-corrections/INSTALL.sql|145330761fbec67e1203e9407830bda1728ab7a0d2934fa6f2b7bfa7abc20a20|

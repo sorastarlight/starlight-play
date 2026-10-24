@@ -24,3 +24,5 @@ supabase/unapplied/pass-delivery-result/ROLLBACK.sql text eol=lf
 supabase/unapplied/team-active-ownership/INSTALL.sql text eol=lf
 supabase/unapplied/team-active-ownership/ROLLBACK.sql text eol=lf
 supabase/unapplied/admin-trainer-roster/*.sql text eol=lf
+
+supabase/unapplied/admin-report-query-corrections/*.sql text eol=lf

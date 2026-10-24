@@ -4,13 +4,31 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-180",
+      "status": "done",
+      "scope": "Thirteen installed recovery deltas forward/reverse compatibility",
+      "evidence": "LAUNCH-CODEX180-RECOVERY-EXTENSION.md;evidence/codex180-schema-replay.json",
+      "testResults": "13forward/13reverse;585function/143relation/56policy metadata restored;142empty tables;24packet bytes verified",
+      "nextAction": "Observe next completed physical backup when due;no restore",
+      "approvalRequirement": "No production operation"
+    },
+    {
+      "id": "CODEX-179",
+      "status": "done",
+      "scope": "Admin Mart card style isolation",
+      "evidence": "LAUNCH-CODEX179-MART-STYLE-ISOLATION.md;evidence/codex179-real-dom.json;evidence/codex179-regressions.json;evidence/codex179-publication.json",
+      "testResults": "118suites;4widths/long text/heading focus;build31/471;100+2source matches",
+      "nextAction": "Continue independent visual review",
+      "approvalRequirement": "CODEX-78 routine frontend authority"
+    },
+    {
       "id": "CODEX-178",
-      "status": "awaiting-owner-decision",
-      "scope": "Partial hosted Hub inspection;two report corrections prepared",
-      "evidence": "LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md;evidence/codex178-local-reports.json",
-      "testResults": "Hosted Mart/config load pass;Health partial;19health/15capture/22combined local cases;no install",
-      "nextAction": "Owner decision on exact combined SQL and one Health refresh;remaining approved hosted steps retained",
-      "approvalRequirement": "Production SQL and stopped-test resumption require exact owner decision"
+      "status": "done",
+      "scope": "Two report functions corrected and bounded hosted Hub acceptance complete",
+      "evidence": "LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md;evidence/codex178-local-reports.json;evidence/codex178-installed.json",
+      "testResults": "19Health/15Capture/22combined local cases;exact installed sources+3controls;all5hosted report views and EmailQA1record inspected",
+      "nextAction": "Complete;further hosted saves/reports/mutations need bounded scope",
+      "approvalRequirement": "Exact two-function install and inspection approval spent"
     },
     {
       "id": "CODEX-177",

@@ -1,0 +1,38 @@
+{
+  "classification": "Actual owner-session UI;explicit notice acknowledgement exception;bounded partial then separately approved resumed inspection",
+  "ownerVerifiedBeforeSingleLoad": true,
+  "automaticNoticeCallPermitted": true,
+  "noticeRowEffectsInspected": false,
+  "healthRefreshes": 1,
+  "pageReloads": 0,
+  "mart": {
+    "catalogLoaded": true,
+    "searchAndSelection": true,
+    "productPreview": true,
+    "edit": false,
+    "save": false
+  },
+  "rewardConfiguration": {
+    "fieldsLoaded": 6,
+    "edit": false,
+    "save": false
+  },
+  "reports": {
+    "health": "loaded after correction",
+    "captures": "loaded default30days",
+    "progression": "loaded",
+    "evolution": "loaded",
+    "economy": "loaded"
+  },
+  "roster": {
+    "target": "EmailQA only",
+    "rows": 1,
+    "page": 1,
+    "detail": "existing level5Caterpie stored facts/stat values",
+    "multiPageHosted": false,
+    "edit": false
+  },
+  "grant": false,
+  "gameplay": false,
+  "hostedTabClosed": true
+}

@@ -1,8 +1,8 @@
 # Active autonomous window — October24,2026
 
-Owner renewed eight hours of autonomous launch/Admin Hub/visual work. Existing heartbeat pok-monrpg-overnight-launch-readiness reactivated,without a duplicate. Hard stop08:42America/New_York/12:42UTC October24;do not extend without new human instruction. Consolidate big decisions for return,continue independent work when held. Routine frontend CODEX-78 authority only;CODEX-178 production SQL and stopped hosted inspection remain HELD. Preserve the retained hosted Hub tab;no refresh/reload or additional owner notice call. No delegation/extra background systems,new SQL/Auth/provider/credential/gameplay/grant/spending/APP stamp/final launch authority.
+Owner renewed eight hours of autonomous launch/Admin Hub/visual work. Existing heartbeat pok-monrpg-overnight-launch-readiness reactivated,without a duplicate. Hard stop08:42America/New_York/12:42UTC October24;do not extend without new human instruction. Consolidate big decisions for return,continue independent work when held. Routine frontend CODEX-78 authority only. CODEX-178 was subsequently approved,installed and inspected;approval spent and completed hosted tab closed. No repeated owner notice,report/save/grant or new SQL authority. No delegation/extra background systems,new SQL/Auth/provider/credential/gameplay/grant/spending/APP stamp/final launch authority.
 
-Current feature3a035503,main bae76909/Pages40021856876success. CODEX-178 hosted Mart/catalog search/selection and six reward field loading passed;Health partial and stopped. Two exact-source SQL report fixes and guarded combined rollback pass19Health/15Capture/22combined local cases,held. See LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md. All118 regression suites last passed CODEX-176. Next daily physical recovery point expected after approximately07:44UTC;observe completion only when due.
+Current runtime main23ae1878/Pages40063590255success. CODEX-178 hosted Mart/catalog search/selection,six reward fields,all5reports and EmailQA1record roster/details passed after approved migration20261024044601. Two exact-source report fixes verified;guarded rollback retained. See LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md. All118 regression suites last passed CODEX-179. Next daily physical recovery point expected after approximately07:44UTC;observe completion only when due.
 
 Working queue:CODEX-179 isolate Admin Mart card styling from public shop grid,render desktop/mobile and publish exact routine diff if verified;continue concrete populated/error/keyboard inspections and risk-based source review;record new consequential packets privately and consolidate questions. Do not repeat unchanged suites/limitations to simulate progress.
 
@@ -200,3 +200,12 @@ CODEX-165 PREPARED:catalog-only mapping of4configuration saves+4helpers;identifi
 CODEX-166 VERIFIED:Settings tab accessibility exact2runtime main84f8ff6e/Pages39990990365success;115suites;100+2source matches;no account action. CODEX-167 LOCAL COMPLETE:approved six-field reward editor;116suites,12REAL DOM layouts/dialog/cancel states+9load/save states;build31/470. Exact4runtime publication and all live settings calls held. See LAUNCH-CODEX166-SETTINGS-KEYBOARD.md and LAUNCH-CODEX167-LOCAL-REWARD-EDITOR.md.
 
 CODEX-167 publication VERIFIED after explicit owner approval:exact4runtime mainfbe1f17a / Pages39992391579success;100monitored sources and4changed versioned URLs match published Git. Main build31/470 and116local/static suites pass. No hosted application navigation,configuration read/save,SQL,provider,reward or protected-account action. APP20261008-rc133 unchanged;approval spent. Authenticated editor acceptance and any live save remain separate.
+
+
+CODEX-178 COMPLETE:owner-approved migration20261024044601 replaces exact Health/Captures functions;candidate hashes/attributes match and3controls unchanged. One Health refresh succeeded;all5report views loaded once;EmailQA single-page roster/Caterpie stored details inspected. No product/config edits,save,grant,gameplay or additional notice acknowledgement. Hosted pagination remains local-only;approval spent.
+
+
+CODEX-179 VERIFIED:Admin Mart classes isolated from public .mart-card grid.118suites/build31/471;4widths/long text/focus rendered locally;exact2runtime main23ae1878/Pages40063590255success;100monitored+2versioned source matches. No hosted reload/save/app action.
+
+
+CODEX-180 PASS:all13installed deltas forward/reverse on empty loopbackPG17;585functions/143relations/56policies restored,142tables empty.24tracked packets+private gift pair retained;no new export/production restore. Runtime stopped and original archive unchanged.

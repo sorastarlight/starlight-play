@@ -1,0 +1,67 @@
+{
+  "classification": "Catalog-only verification;exact two-function owner approval",
+  "migration": "20261024044601",
+  "name": "codex178_report_query_corrections",
+  "definitions": [
+    {
+      "signature": "admin_build_health()",
+      "full_md5": "3ef9dd2cfbfe7e23e7045e387fc37cc5",
+      "source_md5": "f2d0c8bee4a7e838e436fc4a2d13c6bf",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "owner": "postgres",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "prosecdef": true,
+      "provolatile": "v"
+    },
+    {
+      "signature": "admin_capture_report(integer)",
+      "full_md5": "2ed3d2e0f4140e2768fb90aeb65a4433",
+      "source_md5": "f0fb84a67a2b085784801613855862c9",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "owner": "postgres",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "prosecdef": true,
+      "provolatile": "v"
+    },
+    {
+      "signature": "admin_game_health()",
+      "full_md5": "70cf9feca48ad6befe20dcd6f4bd7f93",
+      "source_md5": "09f97877f458b7a42a97af8045f30157",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "owner": "postgres",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "prosecdef": true,
+      "provolatile": "v"
+    },
+    {
+      "signature": "private.is_play_admin()",
+      "full_md5": "e1449c28be1cd6f6c5208638d5a1df6f",
+      "source_md5": "5dec088fc6372699343e924773106f9c",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "owner": "postgres",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "prosecdef": true,
+      "provolatile": "s"
+    },
+    {
+      "signature": "private.ranking_eligible_uid(uuid)",
+      "full_md5": "a76faf9991a9610c0ca34788fde20ad0",
+      "source_md5": "d6db4eca46d2c04d7649b1fa3794e9d1",
+      "acl": null,
+      "owner": "postgres",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "prosecdef": false,
+      "provolatile": "s"
+    }
+  ]
+}

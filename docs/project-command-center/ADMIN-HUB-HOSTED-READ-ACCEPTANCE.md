@@ -13,3 +13,7 @@ Stop on unknown account,access denial,unexpected application command,save/grant 
 
 ## Owner approval and partial execution — CODEX-178
 Owner explicitly approved this inspection and owner notice acknowledgement. After reboot owner was visibly verified;single Mart page load,selection/search and reward settings loading completed. Health was partial;test stopped before further reports/roster. Remaining steps are unspent;the proposed SQL corrections and one Health refresh need the separate decision recorded in LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md. No repeat approval for the original scope is needed.
+
+
+## Completed after separate CODEX-178 decision
+Both report fixes installed/source verified;one Health refresh and remaining approved reports/EmailQA roster/detail completed. No further refresh,notice acknowledgement,save or grant authority remains. See CODEX-178 completion and installed evidence.

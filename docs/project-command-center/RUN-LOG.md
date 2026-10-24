@@ -2462,3 +2462,7 @@ Separatedcurrentcapability/evidence/remainingworkfromsupersededchronology;preser
 
 ## CODEX-193 — local fragment route contracts
 Sevenstaticfragment-linkreferences reviewed:oneHTMLID,fiveSettingsLEGACY_HASHroutes,oneMart evolutionfloor route. Actualextracteddefinitionstestedwithfictionalfloor;noneunresolved. No runtimefix,fullboot,hostedcatalog/Auth/provider/application action orredundanttests. Complements600pathcheckwithoutclaimingdynamic/hostedcoverage.
+
+
+## CODEX-194 — mounted roster paging and detail keyboard
+Actualunchangedroster/record/basepresenterswithfictional81records/networkblocked.7browserstates:40/40/1pages,nextboundary/back,cursorresetonsearch,empty,clear;statusfocusonupdates. MissingbattledataexplicitUnavailable/Editdisabled;Escapecloses/restoresopener. No Auth/API/productionread/write/runtimechange. This doesnotclosehostedpaginationgap. Fixtureclosed/stopped.

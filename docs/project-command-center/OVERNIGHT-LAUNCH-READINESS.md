@@ -240,3 +240,5 @@ CODEX-191complete:routinemalformedcapture-ratepresentationnowUnavailable/partial
 CODEX-192complete:currentAdminstatusrewrittenasconcise capability/evidence/remaining-scope summary;priorchronologyretainedunchangedinADMIN-HUB-STATUS-HISTORY-THROUGH189.md. Archivecomparison/linkexistencepass. No runtime/action/test rerun;183/182decisionsremainheld.
 
 CODEX-193complete:7localfragmentreferences classified1staticID/5Settingsroutes/1Martdynamicfloor. Actualextractedmaps/resolver withfictionalfloor pass;nohostedcatalog/startup/navigation/runtimechange. No missingtargetfixneeded.
+
+CODEX-194complete:actualmountedroster/presenterswith81fictionalrecords;7states cover40/40/1pages,back,searchreset,empty,clear;Escape restoreslastrecordfocus;missingstatsunavailable/Editdisabled. No Auth/hostedtrainerread/SQL/runtimechange. Fixturetab/serverclosed.

@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-194",
+      "status": "done",
+      "scope": "Actual mounted local roster pagination/search/detail keyboard acceptance",
+      "evidence": "LAUNCH-CODEX194-LOCAL-ROSTER-PAGING.md;evidence/codex194-roster-paging.json",
+      "testResults": "7renderedstates;81fictionalrecords in40/40/1pages;back/search/empty/reset;Escapefocus;missingstats unavailable",
+      "nextAction": "Hostedmulti-pageacceptance remainsunverified;continueindependentwork",
+      "approvalRequirement": "No Auth/realtrainerread/applicationaction/runtimechange"
+    },
+    {
       "id": "CODEX-193",
       "status": "done",
       "scope": "Local fragment and dynamic-route review",

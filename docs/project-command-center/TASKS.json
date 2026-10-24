@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-204",
+      "status": "in_progress",
+      "scope": "Reward loading/uncertain control feedback and actual roster session boundaries",
+      "evidence": "LAUNCH-CODEX204-REWARD-PENDING.md;evidence/codex204-browser-checks.json;evidence/codex204-regressions.json",
+      "testResults": "121suites;build31/475;11actual local boundary checks",
+      "nextAction": "Scoped routine one-file publication/source verification;then independent review",
+      "approvalRequirement": "CODEX-78 loading/error presentation;no hosted action authority"
+    },
+    {
       "id": "CODEX-203",
       "status": "done",
       "scope": "Disconnected Mart floor-order design proposal",

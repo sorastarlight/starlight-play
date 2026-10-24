@@ -139,7 +139,8 @@
     }
     async function send(intent){
       if(!current()||ctx.busy)return;
-      ctx.busy=true;slot.querySelectorAll('button').forEach(button=>button.disabled=true);
+      ctx.busy=true;slot.querySelectorAll('button,input,select,textarea').forEach(control=>control.disabled=true);
+      status("Sending staff action… Wait for its delivery result before continuing.");
       try{
         const result=await transport.write(intent);
         if(!current())return;
@@ -151,6 +152,7 @@
       }catch(error){
         if(!current())return;
         ctx.pending=intent;
+        slot.querySelectorAll('button,input,select,textarea').forEach(control=>control.disabled=true);
         status("The result is uncertain. Retry this same request to retrieve its receipt without granting twice. Do not start a new grant for this result.");
         const retry=slot.querySelector('[data-reward-retry]');retry.hidden=false;retry.disabled=false;
       }finally{ctx.busy=false;}

@@ -2520,3 +2520,7 @@ CODEX-202 routine Mart error-feedback correction published at main 189c280134c70
 ## CODEX-203 — Floor ordering proposal
 
 Source-only legacy integration inventory plus disconnected review prototype. REAL LOCAL DOM verifies fixed system slot, hidden floor retained, boundary controls, focus after move, Escape restoration, discard and unavailable disables. Visual320/375/1024layouts inspected; no machine overflow metric claimed (cross-frame read unavailable). No production calls, SDK/Auth, runtime integration or publication. Design decision consolidated for owner return; continue independent queue.
+
+## CODEX-204 — Pending reward controls and roster boundaries
+
+11 REAL LOCAL DOM boundary checks;121LOCAL HARNESS suites/build31/475 pass. Confirmed pending reward controls presentation gap corrected in one frontend file;request and authority logic unchanged. Runtime publication next under CODEX-78. No live application/notice/grant/Pass/provider/SQL/protected-account action. Sora NO;Twinkle NO;PlayTester role unchanged.

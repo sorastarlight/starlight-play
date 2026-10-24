@@ -1,0 +1,50 @@
+{
+  "classification": "REAL LOCAL DOM;fictional transports;connect-src none",
+  "checks": [
+    {
+      "case": "Roster empty response",
+      "result": "no matching message;both paging buttons disabled"
+    },
+    {
+      "case": "Roster wrong target",
+      "result": "unavailable;no returned records shown"
+    },
+    {
+      "case": "Roster pending account reset",
+      "result": "all records cleared;late response did not revive rows"
+    },
+    {
+      "case": "Pokemon search",
+      "result": "25 returns only Pikachu;picker focus restored"
+    },
+    {
+      "case": "Batch confirmation",
+      "result": "name,quantity50,level5,recipient;no dex number or trainer account disclosure"
+    },
+    {
+      "case": "Required reason and Escape",
+      "result": "invalid reason prevents write;Escape restores Review focus;zero fictional writes"
+    },
+    {
+      "case": "Gift pending after correction",
+      "result": "visible sending message;zero enabled reward controls;one fictional write"
+    },
+    {
+      "case": "Gift complete",
+      "result": "success draw restores editable form"
+    },
+    {
+      "case": "Gift lost receipt",
+      "result": "only same-request retry enabled;no automatic retry"
+    },
+    {
+      "case": "Pass pending after correction",
+      "result": "visible sending message;zero enabled reward controls;one fictional write"
+    },
+    {
+      "case": "Gift and Pass reset while pending",
+      "result": "clear remains after late completion"
+    }
+  ],
+  "limits": "No production application or Auth calls,real gifts/Pass actions,notices or hosted account transition. Fixture receipt names are artificial;no server delivery certification."
+}
